@@ -64,17 +64,17 @@
           <nav aria-label="Page navigation">
               <ul class="pagination">
                   <li>
-                      <a id="Prev" aria-label="Previous">
+                      <a id="Prev" href="/page/" aria-label="Previous">
                           <span aria-hidden="true">&laquo;</span>
                       </a>
                   </li>
-                  <li><a id="One"></a></li>
-                  <li><a id="Two"></a></li>
-                  <li><a id="Three"></a></li>
-                  <li><a id="Four"></a></li>
-                  <li><a id="Five"></a></li>
+                  <li><a id="One" href="/page/"></a></li>
+                  <li><a id="Two" href="/page/"></a></li>
+                  <li><a id="Three" href="/page/"></a></li>
+                  <li><a id="Four" href="/page/"></a></li>
+                  <li><a id="Five" href="/page/"></a></li>
                   <li>
-                      <a id="Next" aria-label="Next">
+                      <a id="Next" href="/page/" aria-label="Next">
                           <span aria-hidden="true">&raquo;</span>
                       </a>
                   </li>
@@ -89,33 +89,46 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf-8">
         var pathArray = window.location.pathname.split( '/' );
+        var query = window.location.search;
         var page = parseInt(pathArray[2]);
+        console.log(query);
+        var pageString;
+
         var next = page+1;
         var prev = page-1
         if (prev < 1) {
             prev = 1;
+        }
+        if (isNaN(page)) {
+            next =  2;
+            prev =  1;
+            pageString = "/page/";
+
+        }
+        if (query != "") {
+            pageString = "/search/";
         }
         var one = next+1;
         var two = next+2;
         var three = next+3;
         var four = next+4;
         var five = next+5;
-        document.getElementById("One").href= one;
+        document.getElementById("One").href= pageString + one + query;
         document.getElementById("One").innerHTML = one.toString();
-        document.getElementById("Two").href= two;
+        document.getElementById("Two").href= pageString +two + query;
         document.getElementById("Two").innerHTML = two.toString();
 
-        document.getElementById("Three").href= three;
+        document.getElementById("Three").href= pageString +three + query;
         document.getElementById("Three").innerHTML = three.toString();
 
-        document.getElementById("Four").href= four;
+        document.getElementById("Four").href= pageString +four + query;
         document.getElementById("Four").innerHTML = four.toString();
 
-        document.getElementById("Five").href= five;
+        document.getElementById("Five").href= pageString +five + query;
         document.getElementById("Five").innerHTML = five.toString();
 
-        document.getElementById("Next").href = next; 
-        document.getElementById("Prev").href = prev;
+        document.getElementById("Next").href = pageString +next + query; 
+        document.getElementById("Prev").href = pageString +prev + query;
     </script>
   </body>
 </html>
