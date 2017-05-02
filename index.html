@@ -95,6 +95,7 @@
         var query = window.location.search;
         var page = parseInt(pathArray[2]);
         var pageString;
+        pageString = "/page/";
 
         var next = page+1;
         var prev = page-1
@@ -102,15 +103,12 @@
             prev = 1;
         }
        
-        if (!isNaN(page)) {
+        if (isNaN(page)) {
             next =  2;
             prev =  1;
-            pageString = "/page/";
 
         }
         if (query != "") {
-            next =  2;
-            prev =  1;
             pageString = "/search/";
         }
 
