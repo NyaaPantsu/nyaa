@@ -9,6 +9,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"strconv"
 	"time"
@@ -54,7 +55,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var id, name, hash, magnet string
 		rows.Scan(&id, &name, &hash)
-		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + html.EscapeString(name) + "&tr=udp://tracker.openbittorrent.com"
+		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
 		res := Records{
 			Id:     id,
 			Name:   name,
@@ -84,7 +85,7 @@ func singleapiHandler(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var id, name, hash, magnet string
 		rows.Scan(&id, &name, &hash)
-		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + html.EscapeString(name) + "&tr=udp://tracker.openbittorrent.com"
+		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
 		res := Records{
 			Id:     id,
 			Name:   name,
@@ -116,7 +117,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var id, name, hash, magnet string
 		rows.Scan(&id, &name, &hash)
-		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + html.EscapeString(name) + "&tr=udp://tracker.openbittorrent.com"
+		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
 		res := Records{
 			Id:     id,
 			Name:   name,
@@ -143,7 +144,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var id, name, hash, magnet string
 		rows.Scan(&id, &name, &hash)
-		magnet = "?xt=urn:btih:" + hash + "&dn=" + html.EscapeString(name) + "&tr=udp://tracker.openbittorrent.com"
+		magnet = "?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
 		res := Records{
 			Id:     id,
 			Name:   name,
