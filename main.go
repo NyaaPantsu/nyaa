@@ -172,7 +172,7 @@ func main() {
 	router.HandleFunc("/", rootHandler)
 	router.HandleFunc("/page/{page}", rootHandler)
 	router.HandleFunc("/search", searchHandler)
-	//	router.HandleFunc("/search/{page}", searchHandler)
+	router.HandleFunc("/search/{page}", searchHandler)
 	router.HandleFunc("/api/{page}", apiHandler).Methods("GET")
 	router.HandleFunc("/api/torrent/{id}", singleapiHandler).Methods("GET")
 	// Set up server,
