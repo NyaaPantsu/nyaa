@@ -44,7 +44,6 @@ func getDBHandle() *sql.DB {
 func checkErr(err error) {
 	if err != nil {
 		debugLogger.Println("   " + err.Error())
-		os.Exit(1)
 	}
 }
 
