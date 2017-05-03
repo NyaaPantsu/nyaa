@@ -10,7 +10,6 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -19,6 +18,7 @@ import (
 var dbHandle *sql.DB
 var templates = template.Must(template.ParseFiles("index.html"))
 var debugLogger *log.Logger
+var trackers = "&tr=udp://zer0day.to:1337/announce&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://explodie.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=udp://tracker.coppersurfer.tk:6969"
 
 type Record struct {
 	Category         string    `json: "category"`
@@ -28,11 +28,11 @@ type Record struct {
 }
 
 type Records struct {
-	Id     string `json: "id"`
-	Name   string `json: "name"`
-	Status int    `json: "status"`
-	Hash   string `json: "hash"`
-	Magnet string `json: "magnet"`
+	Id     string       `json: "id"`
+	Name   string       `json: "name"`
+	Status int          `json: "status"`
+	Hash   string       `json: "hash"`
+	Magnet template.URL `json: "magnet"`
 }
 
 func getDBHandle() *sql.DB {
@@ -44,7 +44,6 @@ func getDBHandle() *sql.DB {
 func checkErr(err error) {
 	if err != nil {
 		debugLogger.Println("   " + err.Error())
-		os.Exit(1)
 	}
 }
 
@@ -58,14 +57,14 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var id, name, hash, magnet string
 		var status int
-		rows.Scan(&id, &name, &hash)
-		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
+		rows.Scan(&id, &name, &status, &hash)
+		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + trackers
 		res := Records{
 			Id:     id,
 			Name:   name,
-			Status: status,
+      Status: status,
 			Hash:   hash,
-			Magnet: magnet}
+			Magnet: safe(magnet)}
 
 		b.Records = append(b.Records, res)
 
@@ -90,14 +89,14 @@ func singleapiHandler(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var id, name, hash, magnet string
 		var status int
-		rows.Scan(&id, &name, &hash)
-		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
+		rows.Scan(&id, &name, &status, &hash)
+		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + trackers
 		res := Records{
 			Id:     id,
 			Name:   name,
-			Status: status,
+      Status: status,
 			Hash:   hash,
-			Magnet: magnet}
+			Magnet: safe(magnet)}
 
 		b.Records = append(b.Records, res)
 
@@ -129,15 +128,15 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		"%"+html.EscapeString(param1)+"%", html.EscapeString(param2)+"%", html.EscapeString(param3)+"%", 50*pagenum-1)
 	for rows.Next() {
 		var id, name, hash, magnet string
-		var status int
-		rows.Scan(&id, &name, &hash)
-		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
+    var status int
+		rows.Scan(&id, &name, &status, &hash)
+		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + trackers
 		res := Records{
 			Id:     id,
 			Name:   name,
-			Status: status,
+      Status: status,
 			Hash:   hash,
-			Magnet: magnet}
+			Magnet: safe(magnet)}
 
 		b.Records = append(b.Records, res)
 
@@ -149,6 +148,9 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
+func safe(s string) template.URL {
+	return template.URL(s)
+}
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -158,15 +160,15 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents ORDER BY torrent_id DESC LIMIT 50 offset ?", 50*pagenum-1)
 	for rows.Next() {
 		var id, name, hash, magnet string
-		var status int
-		rows.Scan(&id, &name, &hash)
-		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
+    var status int
+		rows.Scan(&id, &name, &status, &hash)
+		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + trackers
 		res := Records{
 			Id:     id,
 			Name:   name,
-			Status: status,
+      Status: status,
 			Hash:   hash,
-			Magnet: magnet}
+			Magnet: safe(magnet)}
 
 		b.Records = append(b.Records, res)
 
