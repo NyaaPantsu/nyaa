@@ -12,6 +12,7 @@ import (
 	"net/url"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -21,6 +22,7 @@ var debugLogger *log.Logger
 var trackers = "&tr=udp://zer0day.to:1337/announce&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://explodie.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=udp://tracker.coppersurfer.tk:6969"
 
 type Record struct {
+	Category         string    `json: "category"`
 	Records          []Records `json: "records"`
 	QueryRecordCount int       `json: "queryRecordCount"`
 	TotalRecordCount int       `json: "totalRecordCount"`
@@ -113,8 +115,14 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	page := vars["page"]
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 	param1 := r.URL.Query().Get("q")
-	b := Record{Records: []Records{}}
-	rows, err := dbHandle.Query("select torrent_id, torrent_name, torrent_hash from torrents where torrent_name LIKE ? ORDER BY torrent_id DESC LIMIT 50 offset ?", "%"+html.EscapeString(param1)+"%", 50*pagenum-1)
+	cat := r.URL.Query().Get("c")
+	param2 := strings.Split(cat, "_")[0]
+	param3 := strings.Split(cat, "_")[1]
+	b := Record{Category: cat, Records: []Records{}}
+	rows, err := dbHandle.Query("select torrent_id, torrent_name, torrent_hash from torrents "+
+		"where torrent_name LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ? "+
+		"ORDER BY torrent_id DESC LIMIT 50 offset ?",
+		"%"+html.EscapeString(param1)+"%", html.EscapeString(param2)+"%", html.EscapeString(param3)+"%", 50*pagenum-1)
 	for rows.Next() {
 		var id, name, hash, magnet string
 		rows.Scan(&id, &name, &hash)
@@ -143,7 +151,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
-	b := Record{Records: []Records{}}
+	b := Record{Category: "_", Records: []Records{}}
 	rows, err := dbHandle.Query("select torrent_id, torrent_name, torrent_hash from torrents ORDER BY torrent_id DESC LIMIT 50 offset ?", 50*pagenum-1)
 	for rows.Next() {
 		var id, name, hash, magnet string
