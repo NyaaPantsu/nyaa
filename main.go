@@ -62,7 +62,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		res := Records{
 			Id:     id,
 			Name:   name,
-      Status: status,
+			Status: status,
 			Hash:   hash,
 			Magnet: safe(magnet)}
 
@@ -94,7 +94,7 @@ func singleapiHandler(w http.ResponseWriter, r *http.Request) {
 		res := Records{
 			Id:     id,
 			Name:   name,
-      Status: status,
+			Status: status,
 			Hash:   hash,
 			Magnet: safe(magnet)}
 
@@ -125,16 +125,16 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents "+
 		"where torrent_name LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ? "+
 		"ORDER BY torrent_id DESC LIMIT 50 offset ?",
-		"%"+html.EscapeString(param1)+"%", html.EscapeString(param2)+"%", html.EscapeString(param3)+"%", 50*pagenum-1)
+		"%"+html.EscapeString(param1)+"%", html.EscapeString(param2)+"%", html.EscapeString(param3)+"%", 50*(pagenum-1))
 	for rows.Next() {
 		var id, name, hash, magnet string
-    var status int
+		var status int
 		rows.Scan(&id, &name, &status, &hash)
 		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + trackers
 		res := Records{
 			Id:     id,
 			Name:   name,
-      Status: status,
+			Status: status,
 			Hash:   hash,
 			Magnet: safe(magnet)}
 
@@ -160,13 +160,13 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents ORDER BY torrent_id DESC LIMIT 50 offset ?", 50*pagenum-1)
 	for rows.Next() {
 		var id, name, hash, magnet string
-    var status int
+		var status int
 		rows.Scan(&id, &name, &status, &hash)
 		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + trackers
 		res := Records{
 			Id:     id,
 			Name:   name,
-      Status: status,
+			Status: status,
 			Hash:   hash,
 			Magnet: safe(magnet)}
 
