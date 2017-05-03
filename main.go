@@ -144,7 +144,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var id, name, hash, magnet string
 		rows.Scan(&id, &name, &hash)
-		magnet = "?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
+		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
 		res := Records{
 			Id:     id,
 			Name:   name,
