@@ -18,6 +18,17 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
+  <style>
+    .remake {
+      background-color: #f0b0b0;
+    }
+    .trusted {
+      background-color: #98d9a8;
+    }
+    .aplus {
+      background-color: #60b0f0;
+    }
+  </style>
   <body>
       <nav class="navbar navbar-default">
           <div class="container">
@@ -71,8 +82,10 @@
                   <th>Links</th>
               </tr>
               {{ range .Records}}
-              <tr>
-                  <td>{{.Name}}</td>
+              <tr {{if eq .Status 2}}class="remake"{{end}}
+                  {{if eq .Status 3}}class="trusted"{{end}}
+                  {{if eq .Status 4}}class="aplus"{{end}}>
+                <td>{{.Name}}</td>
                   <td>{{.Hash}}</td>
                   <td><a href="{{.Magnet}}"><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span></a>
                       <a href="http://torcache.net/torrent/{{.Hash}}.torrent"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span></a>
