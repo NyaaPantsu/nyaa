@@ -82,7 +82,7 @@ func singleapiHandler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 	id := vars["id"]
-	b := Record{Category: "_", Records: []Records{}}
+	b := Record{Records: []Records{}}
 	rows, err := dbHandle.Query("select torrent_id, torrent_name, torrent_hash from torrents where torrent_id = ? ORDER BY torrent_id DESC", html.EscapeString(id))
 	for rows.Next() {
 		var id, name, hash, magnet string
