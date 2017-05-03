@@ -53,7 +53,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	page := vars["page"]
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 	b := Record{Records: []Records{}}
-	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents ORDER BY torrent_id DESC LIMIT 50 offset ?", 50*pagenum-1)
+	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents ORDER BY torrent_id DESC LIMIT 50 offset ?", 50*(pagenum-1))
 	for rows.Next() {
 		var id, name, hash, magnet string
 		var status int
@@ -157,7 +157,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	page := vars["page"]
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 	b := Record{Category: "_", Records: []Records{}}
-	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents ORDER BY torrent_id DESC LIMIT 50 offset ?", 50*pagenum-1)
+	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents ORDER BY torrent_id DESC LIMIT 50 offset ?", 50*(pagenum-1))
 	for rows.Next() {
 		var id, name, hash, magnet string
 		var status int
