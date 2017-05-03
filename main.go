@@ -58,7 +58,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var id, name, hash, magnet string
 		var status int
-		rows.Scan(&id, &name, &status, &hash)
+		rows.Scan(&id, &name, &hash)
 		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
 		res := Records{
 			Id:     id,
@@ -90,7 +90,7 @@ func singleapiHandler(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var id, name, hash, magnet string
 		var status int
-		rows.Scan(&id, &name, &status, &hash)
+		rows.Scan(&id, &name, &hash)
 		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
 		res := Records{
 			Id:     id,
@@ -130,7 +130,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var id, name, hash, magnet string
 		var status int
-		rows.Scan(&id, &name, &status, &hash)
+		rows.Scan(&id, &name, &hash)
 		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
 		res := Records{
 			Id:     id,
@@ -159,7 +159,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var id, name, hash, magnet string
 		var status int
-		rows.Scan(&id, &name, &status, &hash)
+		rows.Scan(&id, &name, &hash)
 		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
 		res := Records{
 			Id:     id,
