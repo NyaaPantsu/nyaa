@@ -118,15 +118,20 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	page := vars["page"]
 
 	// db params url
-	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"));
-	if (errConv != nil) { 
+	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"))
+	if errConv != nil {
 		maxPerPage = 50 // default Value maxPerPage
-		}
+	}
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 	param1 := r.URL.Query().Get("q")
 	cat := r.URL.Query().Get("c")
-	param2 := strings.Split(cat, "_")[0]
-	param3 := strings.Split(cat, "_")[1]
+
+	var param2, param3 string
+	params := strings.Split(cat, "_")
+	if len(params) != 0 {
+		param2 = params[0]
+		param3 = params[1]
+	}
 
 	nbTorrents := 0
 
@@ -168,11 +173,11 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
 
-		// db params url
-	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"));
-	if (errConv != nil) { 
+	// db params url
+	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"))
+	if errConv != nil {
 		maxPerPage = 50 // default Value maxPerPage
-		}
+	}
 
 	nbTorrents := 0
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
@@ -211,8 +216,8 @@ func main() {
 
 	cssHandler := http.FileServer(http.Dir("./css/"))
 	jsHandler := http.FileServer(http.Dir("./js/"))
-  	http.Handle("/css/", http.StripPrefix("/css/", cssHandler))
-  	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
+	http.Handle("/css/", http.StripPrefix("/css/", cssHandler))
+	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
 
 	// Routes,
 	router.HandleFunc("/", rootHandler)
