@@ -30,6 +30,7 @@ type Record struct {
 type Records struct {
 	Id     string `json: "id"`
 	Name   string `json: "name"`
+	Status int    `json: "status"`
 	Hash   string `json: "hash"`
 	Magnet string `json: "magnet"`
 }
@@ -53,14 +54,16 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	page := vars["page"]
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 	b := Record{Records: []Records{}}
-	rows, err := dbHandle.Query("select torrent_id, torrent_name, torrent_hash from torrents ORDER BY torrent_id DESC LIMIT 50 offset ?", 50*pagenum-1)
+	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents ORDER BY torrent_id DESC LIMIT 50 offset ?", 50*pagenum-1)
 	for rows.Next() {
 		var id, name, hash, magnet string
-		rows.Scan(&id, &name, &hash)
+		var status int
+		rows.Scan(&id, &name, &status, &hash)
 		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
 		res := Records{
 			Id:     id,
 			Name:   name,
+			Status: status,
 			Hash:   hash,
 			Magnet: magnet}
 
@@ -83,14 +86,16 @@ func singleapiHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	b := Record{Records: []Records{}}
-	rows, err := dbHandle.Query("select torrent_id, torrent_name, torrent_hash from torrents where torrent_id = ? ORDER BY torrent_id DESC", html.EscapeString(id))
+	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents where torrent_id = ? ORDER BY torrent_id DESC", html.EscapeString(id))
 	for rows.Next() {
 		var id, name, hash, magnet string
-		rows.Scan(&id, &name, &hash)
+		var status int
+		rows.Scan(&id, &name, &status, &hash)
 		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
 		res := Records{
 			Id:     id,
 			Name:   name,
+			Status: status,
 			Hash:   hash,
 			Magnet: magnet}
 
@@ -118,17 +123,19 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	param2 := strings.Split(cat, "_")[0]
 	param3 := strings.Split(cat, "_")[1]
 	b := Record{Category: cat, Records: []Records{}}
-	rows, err := dbHandle.Query("select torrent_id, torrent_name, torrent_hash from torrents "+
+	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents "+
 		"where torrent_name LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ? "+
 		"ORDER BY torrent_id DESC LIMIT 50 offset ?",
 		"%"+html.EscapeString(param1)+"%", html.EscapeString(param2)+"%", html.EscapeString(param3)+"%", 50*pagenum-1)
 	for rows.Next() {
 		var id, name, hash, magnet string
-		rows.Scan(&id, &name, &hash)
+		var status int
+		rows.Scan(&id, &name, &status, &hash)
 		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
 		res := Records{
 			Id:     id,
 			Name:   name,
+			Status: status,
 			Hash:   hash,
 			Magnet: magnet}
 
@@ -148,14 +155,16 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	page := vars["page"]
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 	b := Record{Category: "_", Records: []Records{}}
-	rows, err := dbHandle.Query("select torrent_id, torrent_name, torrent_hash from torrents ORDER BY torrent_id DESC LIMIT 50 offset ?", 50*pagenum-1)
+	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents ORDER BY torrent_id DESC LIMIT 50 offset ?", 50*pagenum-1)
 	for rows.Next() {
 		var id, name, hash, magnet string
-		rows.Scan(&id, &name, &hash)
+		var status int
+		rows.Scan(&id, &name, &status, &hash)
 		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + "&tr=udp://tracker.openbittorrent.com"
 		res := Records{
 			Id:     id,
 			Name:   name,
+			Status: status,
 			Hash:   hash,
 			Magnet: magnet}
 
