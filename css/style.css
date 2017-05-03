@@ -1,0 +1,13 @@
+.navbar {
+	background: linear-gradient(to bottom, #76eda0 0%,#1ad87f 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+.remake {
+  background-color: #f0b0b0;
+}
+.trusted {
+  background-color: #98d9a8;
+}
+.aplus {
+  background-color: #60b0f0;
+}
