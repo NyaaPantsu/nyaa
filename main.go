@@ -16,7 +16,7 @@ import (
 )
 
 var dbHandle *sql.DB
-var templates = template.Must(template.ParseFiles("index.html"))
+var templates = template.Must(template.ParseFiles("index.html", "FAQ.html"))
 var debugLogger *log.Logger
 var trackers = "&tr=udp://zer0day.to:1337/announce&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://explodie.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=udp://tracker.coppersurfer.tk:6969"
 
@@ -173,6 +173,13 @@ func safe(s string) template.URL {
 	return template.URL(s)
 }
 
+func faqHandler(w http.ResponseWriter, r *http.Request) {
+	err = templates.ExecuteTemplate(w, "FAQ.html", &b)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
@@ -231,6 +238,7 @@ func main() {
 	router.HandleFunc("/search/{page}", searchHandler)
 	router.HandleFunc("/api/{page}", apiHandler).Methods("GET")
 	router.HandleFunc("/api/torrent/{id}", singleapiHandler).Methods("GET")
+	router.HandleFunc("/faq", faqHandler)
 
 	http.Handle("/", router)
 
