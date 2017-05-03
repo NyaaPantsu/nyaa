@@ -116,17 +116,27 @@ func singleapiHandler(w http.ResponseWriter, r *http.Request) {
 func searchHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
+
+	// db params url
+	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"));
+	if (errConv != nil) { 
+		maxPerPage = 50 // default Value maxPerPage
+		}
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 	param1 := r.URL.Query().Get("q")
 	cat := r.URL.Query().Get("c")
 	param2 := strings.Split(cat, "_")[0]
 	param3 := strings.Split(cat, "_")[1]
+
+	nbTorrents := 0
+
 	b := Record{Category: cat, Records: []Records{}}
 	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents "+
 		"where torrent_name LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ? "+
-		"ORDER BY torrent_id DESC LIMIT 50 offset ?",
-		"%"+html.EscapeString(param1)+"%", html.EscapeString(param2)+"%", html.EscapeString(param3)+"%", 50*(pagenum-1))
+		"ORDER BY torrent_id DESC LIMIT ? offset ?",
+		"%"+html.EscapeString(param1)+"%", html.EscapeString(param2)+"%", html.EscapeString(param3)+"%", maxPerPage, maxPerPage*(pagenum-1))
 	for rows.Next() {
+		nbTorrents++
 		var id, name, hash, magnet string
 		var status int
 		rows.Scan(&id, &name, &status, &hash)
@@ -141,6 +151,8 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		b.Records = append(b.Records, res)
 
 	}
+	b.QueryRecordCount = maxPerPage
+	b.TotalRecordCount = nbTorrents
 	rows.Close()
 
 	err = templates.ExecuteTemplate(w, "index.html", &b)
@@ -155,10 +167,19 @@ func safe(s string) template.URL {
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
+
+		// db params url
+	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"));
+	if (errConv != nil) { 
+		maxPerPage = 50 // default Value maxPerPage
+		}
+
+	nbTorrents := 0
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 	b := Record{Category: "_", Records: []Records{}}
-	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents ORDER BY torrent_id DESC LIMIT 50 offset ?", 50*(pagenum-1))
+	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents ORDER BY torrent_id DESC LIMIT ? offset ?", maxPerPage, maxPerPage*(pagenum-1))
 	for rows.Next() {
+		nbTorrents++
 		var id, name, hash, magnet string
 		var status int
 		rows.Scan(&id, &name, &status, &hash)
@@ -173,8 +194,8 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		b.Records = append(b.Records, res)
 
 	}
-	b.QueryRecordCount = 50
-	b.TotalRecordCount = 1473098
+	b.QueryRecordCount = maxPerPage
+	b.TotalRecordCount = nbTorrents
 	rows.Close()
 	err = templates.ExecuteTemplate(w, "index.html", &b)
 	if err != nil {
@@ -188,6 +209,11 @@ func main() {
 	dbHandle = getDBHandle()
 	router := mux.NewRouter()
 
+	cssHandler := http.FileServer(http.Dir("./css/"))
+	jsHandler := http.FileServer(http.Dir("./js/"))
+  	http.Handle("/css/", http.StripPrefix("/css/", cssHandler))
+  	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
+
 	// Routes,
 	router.HandleFunc("/", rootHandler)
 	router.HandleFunc("/page/{page}", rootHandler)
@@ -195,9 +221,11 @@ func main() {
 	router.HandleFunc("/search/{page}", searchHandler)
 	router.HandleFunc("/api/{page}", apiHandler).Methods("GET")
 	router.HandleFunc("/api/torrent/{id}", singleapiHandler).Methods("GET")
+
+	http.Handle("/", router)
+
 	// Set up server,
 	srv := &http.Server{
-		Handler:      router,
 		Addr:         "localhost:9999",
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
