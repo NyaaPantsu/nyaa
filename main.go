@@ -130,7 +130,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 
 	var param2, param3 string
 	params := strings.Split(cat, "_")
-	if len(params) != 2 {
+	if len(params) == 2 {
 		param2 = params[0]
 		param3 = params[1]
 	}
