@@ -87,7 +87,7 @@
                   {{if eq .Status 4}}class="aplus"{{end}}>
                 <td>{{.Name}}</td>
                   <td>{{.Hash}}</td>
-                  <td><a href="{{.Magnet}}"><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span></a>
+                  <td><a href="{{.Magnet}}" target="_blank" title="Magnet link" ><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span></a>
                       <a href="http://torcache.net/torrent/{{.Hash}}.torrent"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span></a>
                   </td>
 
@@ -144,11 +144,11 @@
             pageString = "/search/";
         }
 
-        var one = next+1;
-        var two = next+2;
-        var three = next+3;
-        var four = next+4;
-        var five = next+5;
+        var one = next;
+        var two = next+1;
+        var three = next+2;
+        var four = next+3;
+        var five = next+4;
         document.getElementById("One").href= pageString + one + query;
         document.getElementById("One").innerHTML = one.toString();
         document.getElementById("Two").href= pageString +two + query;
