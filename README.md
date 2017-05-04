@@ -15,6 +15,7 @@ that anyone will be able to deploy locally or remotely.
 * Merge 5th of april dump with animetosho dump
 * API improvement
 * Site theme
+* improve search by making it less strict and support non-english characters.
 * Torrent view and description page
 * accounts?
 * Adding new torrents
