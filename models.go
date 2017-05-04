@@ -6,6 +6,7 @@ import (
 	"html"
 	"html/template"
 	"strconv"
+	"strings"
 )
 
 type Categories struct {
