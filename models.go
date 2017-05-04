@@ -18,27 +18,37 @@ type Feed struct {
 }
 
 type Categories struct {
-	Category_id   int
-	Category_name string
-	Torrents      []Torrents       `gorm:"ForeignKey:category_id;AssociationForeignKey:category_id"`
-	Sub_Categories  []Sub_Categories `gorm:"ForeignKey:category_id;AssociationForeignKey:parent_id"`
+	Category_id	int
+	Category_name	string
+	Torrents	[]Torrents `gorm:"ForeignKey:category_id;AssociationForeignKey:category_id"`
+	Sub_Categories	[]Sub_Categories `gorm:"ForeignKey:category_id;AssociationForeignKey:parent_id"`
 }
 
 type Sub_Categories struct {
-	Sub_category_id   int          `gorm:"column:sub_category_id"`
-	Sub_category_name string       `gorm:"column:Sub_category_name"`
-	Parent_id         int          `gorm:"column:parent_id"`
-	Torrents          []Torrents `gorm:"ForeignKey:sub_category_id;AssociationForeignKey:sub_category_id"`
+	Sub_category_id	  int
+	Sub_category_name string
+	Parent_id	  int
+	Torrents	  []Torrents `gorm:"ForeignKey:sub_category_id;AssociationForeignKey:sub_category_id"`
+}
+
+type Statuses struct {
+	Status_id	int
+	Status_name	string
+	Torrents	[]Torrents   `gorm:"ForeignKey:status_id;AssociationForeignKey:status_id"`
 }
 
 type Torrents struct {
-	gorm.Model
 	Id              int            `gorm:"column:torrent_id"`
 	Name            string         `gorm:"column:torrent_name"`
 	Category_id     int            `gorm:"column:category_id"`
 	Sub_category_id int            `gorm:"column:sub_category_id"`
-	Status          int            `gorm:"column:status_id"`
+	Status_id	int	       `gorm:"column:status_id"`
 	Hash            string         `gorm:"column:torrent_hash"`
+	Date		int	       `gorm:"column:date"`
+	Downloads	int	       `gorm:"column:downloads"`
+	Filesize	string	       `gorm:"column:filesize"`
+	Description	[]byte	       `gorm:"column:description"`
+	Statuses        Statuses       `gorm:"ForeignKey:status_id;AssociationForeignKey:status_id"`
 	Categories      Categories     `gorm:"ForeignKey:category_id;AssociationForeignKey:category_id"`
 	Sub_Categories  Sub_Categories `gorm:"ForeignKey:sub_category_id;AssociationForeignKey:sub_category_id"`
 }
@@ -126,7 +136,7 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 		dbQuery = db.Model(&torrents).Where(parameters.conditions, parameters.params...)
 	} else {
 		dbQuery = db.Model(&torrents)
-	} 
+	}
 	
 	if (orderBy == "") { orderBy = "torrent_id DESC" } // Default OrderBy
 	if limit != 0 || offset != 0 { // if limits provided
@@ -182,7 +192,7 @@ func (t *Torrents) toJson() TorrentsJson {
 	res := TorrentsJson{
 		Id:     strconv.Itoa(t.Id),
 		Name:   html.UnescapeString(t.Name),
-		Status: t.Status,
+		Status: t.Status_id,
 		Hash:   t.Hash,
 		Magnet: safe(magnet)}
 	return res
