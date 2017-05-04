@@ -25,6 +25,7 @@ func getDBHandle() *gorm.DB {
 
 	// Migrate the schema of Torrents
 	dbInit.AutoMigrate(&Torrents{}, &Categories{}, &Sub_Categories{}, &Statuses{})
+	
 	checkErr(err)
 	return dbInit
 }

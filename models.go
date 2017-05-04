@@ -135,7 +135,7 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 		dbQuery = db.Model(&torrents).Where(parameters.conditions, parameters.params...)
 	} else {
 		dbQuery = db.Model(&torrents)
-	} 
+	}
 	
 	if (orderBy == "") { orderBy = "torrent_id DESC" } // Default OrderBy
 	if limit != 0 || offset != 0 { // if limits provided
