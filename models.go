@@ -128,7 +128,7 @@ func getAllCategories(populatedWithTorrents bool) []Categories {
 }
 
 func (t *Torrents) toJson() TorrentsJson {
-	magnet := "magnet:?xt=urn:btih:" + strings.Replace(t.hash, "\n", "", -1) + "&dn=" + t.Name + trackers
+	magnet := "magnet:?xt=urn:btih:" + strings.TrimSpace(t.Hash) + "&dn=" + t.Name + trackers
 	res := TorrentsJson{
 		Id:     strconv.Itoa(t.Id),
 		Name:   html.UnescapeString(t.Name),
