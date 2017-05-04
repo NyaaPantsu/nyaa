@@ -60,7 +60,7 @@
                             <option value="5_10" {{if eq .Category "5_10"}}selected{{end}}>Live Action - Idol/Promotional Video</option>
                             <option value="5_11" {{if eq .Category "5_11"}}selected{{end}}>Live Action - Raw</option>
                           </select>
-                          <input name="q" class="form-control" placeholder="Search" type="text">
+                          <input name="q" class="form-control col-md-1" placeholder="Search" type="text">
                           <select name="max" class="form-control" value>
                             <option value="">Nb Item per Page</option>
                             <option value="5" {{if eq .QueryRecordCount 5}}selected{{end}}>5</option>
@@ -89,6 +89,7 @@
       <div class="container">
           <table class="table">
               <tr>
+                  <th>{{.Id}}</th>
                   <th>Name</th>
                   <th>Hash</th>
                   <th>Links</th>
@@ -97,10 +98,11 @@
               <tr {{if eq .Status 2}}class="remake"{{end}}
                   {{if eq .Status 3}}class="trusted"{{end}}
                   {{if eq .Status 4}}class="aplus"{{end}}>
-                <td>{{.Name}}</td>
+                  <td>{{.Id}}</td>
+                  <td>{{.Name}}</td>
                   <td>{{.Hash}}</td>
+
                   <td><a href="{{.Magnet}}" target="_blank" title="Magnet link" ><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span></a>
-                      <a href="http://torcache.net/torrent/{{.Hash}}.torrent"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span></a>
                   </td>
 
 
