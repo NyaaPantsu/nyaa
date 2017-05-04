@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"github.com/gorilla/feeds"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
@@ -23,8 +24,8 @@ func getDBHandle() *gorm.DB {
 	dbInit, err := gorm.Open("sqlite3", "./nyaa.db")
 
 	// Migrate the schema of Torrents
-	dbInit.AutoMigrate(&Torrents{})
-	dbInit.AutoMigrate(&Sub_Categories{})
+	// dbInit.AutoMigrate(&Torrents{})
+	// dbInit.AutoMigrate(&Sub_Categories{})
 
 	checkErr(err)
 	return dbInit
@@ -63,6 +64,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
 func singleapiHandler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
@@ -139,6 +141,53 @@ func faqHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func rssHandler(w http.ResponseWriter, r *http.Request) {
+	//vars := mux.Vars(r)
+	//category := vars["c"]
+
+	// db params url
+	//maxPerPage := 50 // default Value maxPerPage
+
+	torrents := getFeeds()
+	created := time.Now().String()
+	if ( len(torrents) > 0 ) {
+		created = torrents[0].Timestamp
+	}
+	created_as_time, err := time.Parse("2006-01-02 15:04:05", created)
+	if err == nil {
+		;
+	}
+	feed := &feeds.Feed{
+		Title:		"Nyaa Pantsu",
+		Link:		&feeds.Link{Href: "https://nyaa.pantsu.cat/"},
+		Created:	created_as_time,
+	}
+	feed.Items = []*feeds.Item{}
+	feed.Items = make( []*feeds.Item, len(torrents))
+
+	for i, _ := range torrents {
+		timestamp_as_time, err := time.Parse("2006-01-02 15:04:05", torrents[i].Timestamp)
+		if err == nil {
+			feed.Items[i] =	&feeds.Item{
+				// need a torrent view first
+				//Id:		URL + torrents[i].Hash,
+				Title:	torrents[i].Name,
+				Link: 	&feeds.Link{Href: string(torrents[i].Magnet)},
+				Description: "",
+				Created: timestamp_as_time,
+				Updated: timestamp_as_time,
+			}
+		}
+	}
+
+	rss, err := feed.ToRss()
+	if err == nil {
+		w.Write( []byte( rss ) )
+	} else {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
@@ -188,6 +237,7 @@ func main() {
 	router.HandleFunc("/api/{page}", apiHandler).Methods("GET")
 	router.HandleFunc("/api/torrent/{id}", singleapiHandler).Methods("GET")
 	router.HandleFunc("/faq", faqHandler)
+	router.HandleFunc("/feed.xml", rssHandler)
 
 	http.Handle("/", router)
 
