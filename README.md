@@ -1,4 +1,4 @@
-# Nyaa replacement
+# Nyaa replacement [![Build Status](https://travis-ci.org/ewhal/nyaa.svg?branch=master)](https://travis-ci.org/ewhal/nyaa)
 
 ## Motivation
 The aim of this project is to write a fully featured nyaa replacement in golang
