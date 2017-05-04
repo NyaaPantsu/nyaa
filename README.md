@@ -14,6 +14,7 @@ that anyone will be able to deploy locally or remotely.
 * torrent sorting
 * Merge 5th of april dump with animetosho dump
 * API improvement
+* Site theme
 * Torrent view and description page
 * accounts?
 * Adding new torrents
