@@ -98,6 +98,8 @@
                   <th>Id</th>
                   <th>Name</th>
                   <th>Hash</th>
+                  <th>Date</th>
+                  <th>Size</th>
                   <th>Links</th>
               </tr>
               {{ range .ListTorrents}}
@@ -107,6 +109,8 @@
                   <td>{{.Id}}</td>
                   <td>{{.Name}}</td>
                   <td>{{.Hash}}</td>
+                  <td>{{.Date}}</td>
+                  <td>{{.Filesize}}</td>
 
 
                   <td><a href="{{.Magnet}}" title="Magnet link" ><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span></a>
