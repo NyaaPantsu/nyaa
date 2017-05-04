@@ -9,11 +9,15 @@ that anyone will be able to deploy locally or remotely.
 
 
 ## TODO
-* Tidy up JS and code
 * RSS feeds
+* status searching
+* torrent sorting
+* Merge 5th of april dump with animetosho dump
+* API improvement
+* Torrent view and description page
+* accounts?
 * Adding new torrents
-* Category searching
-* Torrent status display
+* scraping
 * Daily DB dumps
 * p2p sync of dbs?
 
