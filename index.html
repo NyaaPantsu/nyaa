@@ -60,6 +60,12 @@
                             <option value="5_10" {{if eq .Category "5_10"}}selected{{end}}>Live Action - Idol/Promotional Video</option>
                             <option value="5_11" {{if eq .Category "5_11"}}selected{{end}}>Live Action - Raw</option>
                           </select>
+                          <select name="s" class="form-control">
+                            <option value="">Search all</option>
+                            <option value="2" {{if eq .Status "2"}}selected{{end}}>Remakes</option>
+                            <option value="3" {{if eq .Status "3"}}selected{{end}}>Trusted</option>
+                            <option value="4" {{if eq .Status "4"}}selected{{end}}>A+</option>
+                          </select>
                           <input name="q" class="form-control" placeholder="Search" type="text">
                           <select name="max" class="form-control" value>
                             <option value="">No Items per Page</option>
