@@ -96,6 +96,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 	searchQuery := r.URL.Query().Get("q")
 	cat := r.URL.Query().Get("c")
+	stat := r.URL.Query().Get("s")
 	catsSplit := strings.Split(cat, "_")
 	// need this to prevent out of index panics
 	var searchCatId, searchSubCatId string
@@ -109,7 +110,8 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 
 	b := []TorrentsJson{}
 
-	torrents := getTorrents(createWhereParams("torrent_name LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ?", "%"+searchQuery+"%", searchCatId+"%", searchSubCatId+"%"), maxPerPage, maxPerPage*(pagenum-1))
+	torrents := getTorrents(createWhereParams("torrent_name LIKE ? AND status_id LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ?",
+		"%"+searchQuery+"%", stat+"%", searchCatId+"%", searchSubCatId+"%"), maxPerPage, maxPerPage*(pagenum-1))
 
 	for i, _ := range torrents {
 		nbTorrents++
@@ -119,7 +121,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	htv := HomeTemplateVariables{b, getAllCategories(false), searchQuery, cat, maxPerPage, nbTorrents}
+	htv := HomeTemplateVariables{b, getAllCategories(false), searchQuery, stat, cat, maxPerPage, nbTorrents}
 
 	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -159,7 +161,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	htv := HomeTemplateVariables{b, getAllCategories(false), "", "_", maxPerPage, nbTorrents}
+	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", maxPerPage, nbTorrents}
 
 	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
