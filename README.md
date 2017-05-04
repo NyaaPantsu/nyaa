@@ -7,7 +7,7 @@ that anyone will be able to deploy locally or remotely.
 # Requirements
 * Golang
 
-#Installation
+# Installation
 * Install golang
 * go get github.com/ewhal/nyaa
 * go build
@@ -15,6 +15,7 @@ that anyone will be able to deploy locally or remotely.
 * place db in folder as "nyaa.d"
 * ./nyaa
 * go to localhost:9999
+
 ## TODO
 * RSS feeds(work in progress)
 * torrent sorting (work in progress)
