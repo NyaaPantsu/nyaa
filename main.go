@@ -96,8 +96,13 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 	searchQuery := r.URL.Query().Get("q")
 	cat := r.URL.Query().Get("c")
-	searchCatId := html.EscapeString(strings.Split(cat, "_")[0])
-	searchSubCatId := html.EscapeString(strings.Split(cat, "_")[1])
+	catsSplit := strings.Split(cat, "-")
+	// need this to prevent out of index panics
+	var searchCatId, searchSubCatId string
+	if len(catsSplit) == 2 {
+		searchCatId = html.EscapeString(catsSplit[0])
+		searchSubCatId = html.EscapeString(catsSplit[1])
+	}
 
 	nbTorrents := 0
 
