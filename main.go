@@ -23,8 +23,8 @@ func getDBHandle() *gorm.DB {
 	dbInit, err := gorm.Open("sqlite3", "./nyaa.db")
 
 	// Migrate the schema of Torrents
-	dbInit.AutoMigrate(&Torrents{})
-	dbInit.AutoMigrate(&Sub_Categories{})
+	// dbInit.AutoMigrate(&Torrents{})
+	// dbInit.AutoMigrate(&Sub_Categories{})
 
 	checkErr(err)
 	return dbInit
@@ -63,6 +63,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
 func singleapiHandler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
