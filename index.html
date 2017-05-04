@@ -66,7 +66,7 @@
                             <option value="3" {{if eq .Status "3"}}selected{{end}}>Trusted</option>
                             <option value="4" {{if eq .Status "4"}}selected{{end}}>A+</option>
                           </select>
-                          <input name="q" class="form-control" placeholder="Search" type="text">
+                          <input name="q" class="form-control" placeholder="Search" type="text" value={{.Query}}>
                           <select name="max" class="form-control" value>
                             <option value="">No Items per Page</option>
                             <option value="5" {{if eq .QueryRecordCount 5}}selected{{end}}>5</option>
