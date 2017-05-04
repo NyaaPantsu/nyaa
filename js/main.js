@@ -21,7 +21,7 @@
 
         var maxId = 5;
         for (var i = 0; i < maxId; i++) {
-            var el = document.getElementById('page-' + i), n = next + i;
+            var el = document.getElementById('page-' + i), n = prev + i;
             el.href = pageString + n + query;
             el.innerHTML = n;
         }
