@@ -1,44 +1,34 @@
 package main
 
 import (
-	"database/sql"
 	"encoding/json"
 	"github.com/gorilla/mux"
-	_ "github.com/mattn/go-sqlite3"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"html"
 	"html/template"
 	"log"
 	"net/http"
-	"net/url"
 	"strconv"
 	"strings"
 	"time"
 )
 
-var dbHandle *sql.DB
+var db *gorm.DB
 var templates = template.Must(template.ParseFiles("index.html"))
 var debugLogger *log.Logger
 var trackers = "&tr=udp://zer0day.to:1337/announce&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://explodie.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=udp://tracker.coppersurfer.tk:6969"
 
-type Record struct {
-	Category         string    `json: "category"`
-	Records          []Records `json: "records"`
-	QueryRecordCount int       `json: "queryRecordCount"`
-	TotalRecordCount int       `json: "totalRecordCount"`
-}
 
-type Records struct {
-	Id     string       `json: "id"`
-	Name   string       `json: "name"`
-	Status int          `json: "status"`
-	Hash   string       `json: "hash"`
-	Magnet template.URL `json: "magnet"`
-}
+func getDBHandle() *gorm.DB {
+	dbInit, err := gorm.Open("sqlite3", "./nyaa.db")
 
-func getDBHandle() *sql.DB {
-	db, err := sql.Open("sqlite3", "./nyaa.db")
+	// Migrate the schema of Torrents
+  	// dbInit.AutoMigrate(&Torrents{})
+  	// dbInit.AutoMigrate(&SubCategories{})
+
 	checkErr(err)
-	return db
+	return dbInit
 }
 
 func checkErr(err error) {
@@ -52,28 +42,21 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
-	b := Record{Records: []Records{}}
-	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents ORDER BY torrent_id DESC LIMIT 50 offset ?", 50*(pagenum-1))
-	for rows.Next() {
-		var id, name, hash, magnet string
-		var status int
-		rows.Scan(&id, &name, &status, &hash)
-		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + trackers
-		res := Records{
-			Id:     id,
-			Name:   name,
-			Status: status,
-			Hash:   hash,
-			Magnet: safe(magnet)}
+	b := CategoryJson{Torrents: []TorrentsJson{}}
+	maxPerPage := 50
+	nbTorrents := 0
 
-		b.Records = append(b.Records, res)
+	torrents := getAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
+	for i, _ := range torrents {
+		nbTorrents++
+		res := torrents[i].toJson()
 
+		b.Torrents = append(b.Torrents, res)
 	}
-	b.QueryRecordCount = 50
-	b.TotalRecordCount = 1473098
-	rows.Close()
+	b.QueryRecordCount = maxPerPage
+	b.TotalRecordCount = nbTorrents
 	w.Header().Set("Content-Type", "application/json")
-	err = json.NewEncoder(w).Encode(b)
+	err := json.NewEncoder(w).Encode(b)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -84,26 +67,14 @@ func singleapiHandler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 	id := vars["id"]
-	b := Record{Records: []Records{}}
-	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents where torrent_id = ? ORDER BY torrent_id DESC", html.EscapeString(id))
-	for rows.Next() {
-		var id, name, hash, magnet string
-		var status int
-		rows.Scan(&id, &name, &status, &hash)
-		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + trackers
-		res := Records{
-			Id:     id,
-			Name:   name,
-			Status: status,
-			Hash:   hash,
-			Magnet: safe(magnet)}
+	b := CategoryJson{Torrents: []TorrentsJson{}}
 
-		b.Records = append(b.Records, res)
+	torrent, err := getTorrentById(id)
+	res := torrent.toJson()
+	b.Torrents = append(b.Torrents, res)
 
-	}
 	b.QueryRecordCount = 1
-	b.TotalRecordCount = 1473098
-	rows.Close()
+	b.TotalRecordCount = 1
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(b)
 
@@ -123,39 +94,28 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		maxPerPage = 50 // default Value maxPerPage
 		}
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
-	param1 := r.URL.Query().Get("q")
+	searchQuery := r.URL.Query().Get("q")
 	cat := r.URL.Query().Get("c")
-	param2 := strings.Split(cat, "_")[0]
-	param3 := strings.Split(cat, "_")[1]
+	searchCatId := html.EscapeString(strings.Split(cat, "_")[0])
+	searchSubCatId := html.EscapeString(strings.Split(cat, "_")[1])
 
 	nbTorrents := 0
 
-	b := Record{Category: cat, Records: []Records{}}
-	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents "+
-		"where torrent_name LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ? "+
-		"ORDER BY torrent_id DESC LIMIT ? offset ?",
-		"%"+html.EscapeString(param1)+"%", html.EscapeString(param2)+"%", html.EscapeString(param3)+"%", maxPerPage, maxPerPage*(pagenum-1))
-	for rows.Next() {
-		nbTorrents++
-		var id, name, hash, magnet string
-		var status int
-		rows.Scan(&id, &name, &status, &hash)
-		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + trackers
-		res := Records{
-			Id:     id,
-			Name:   name,
-			Status: status,
-			Hash:   hash,
-			Magnet: safe(magnet)}
+	b := []TorrentsJson{}
 
-		b.Records = append(b.Records, res)
+	torrents := getTorrents(createWhereParams("torrent_name LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ?", "%"+searchQuery+"%", searchCatId+"%", searchSubCatId+"%"), maxPerPage, maxPerPage*(pagenum-1))
+	
+	for i, _ := range torrents {
+		nbTorrents++
+		res := torrents[i].toJson()
+
+		b = append(b, res)
 
 	}
-	b.QueryRecordCount = maxPerPage
-	b.TotalRecordCount = nbTorrents
-	rows.Close()
 
-	err = templates.ExecuteTemplate(w, "index.html", &b)
+	htv := HomeTemplateVariables{b, getAllCategories(false), searchQuery, cat, maxPerPage, nbTorrents}
+
+	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -176,28 +136,19 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 	nbTorrents := 0
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
-	b := Record{Category: "_", Records: []Records{}}
-	rows, err := dbHandle.Query("select torrent_id, torrent_name, status_id, torrent_hash from torrents ORDER BY torrent_id DESC LIMIT ? offset ?", maxPerPage, maxPerPage*(pagenum-1))
-	for rows.Next() {
+	b := []TorrentsJson{}
+	torrents := getAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
+	for i, _ := range torrents {
 		nbTorrents++
-		var id, name, hash, magnet string
-		var status int
-		rows.Scan(&id, &name, &status, &hash)
-		magnet = "magnet:?xt=urn:btih:" + hash + "&dn=" + url.QueryEscape(name) + trackers
-		res := Records{
-			Id:     id,
-			Name:   name,
-			Status: status,
-			Hash:   hash,
-			Magnet: safe(magnet)}
+		res := torrents[i].toJson()
 
-		b.Records = append(b.Records, res)
+		b = append(b, res)
 
 	}
-	b.QueryRecordCount = maxPerPage
-	b.TotalRecordCount = nbTorrents
-	rows.Close()
-	err = templates.ExecuteTemplate(w, "index.html", &b)
+
+	htv := HomeTemplateVariables{b, getAllCategories(false), "", "_", maxPerPage, nbTorrents}
+
+	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -206,7 +157,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
-	dbHandle = getDBHandle()
+	db = getDBHandle()
 	router := mux.NewRouter()
 
 	cssHandler := http.FileServer(http.Dir("./css/"))
