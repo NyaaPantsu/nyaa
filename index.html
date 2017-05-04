@@ -39,7 +39,7 @@
                       <li><a href="https://nyaa.pantsu.cat/faq">Faq</a></li>
 
                   </ul>
-                  <form class="navbar-form navbar-left" role="search" action="/search" method="get">
+                  <form class="navbar-form navbar-right" role="search" action="/search" method="get">
                       <div class="form-group">
                           <select name="c" class="form-control" value>
                             <option value="_">All categories</option>
@@ -62,7 +62,7 @@
                           </select>
                           <input name="q" class="form-control" placeholder="Search" type="text">
                           <select name="max" class="form-control" value>
-                            <option value="">Nb Item per Page</option>
+                            <option value="">No Items per Page</option>
                             <option value="5" {{if eq .QueryRecordCount 5}}selected{{end}}>5</option>
                             <option value="10" {{if eq .QueryRecordCount 10}}selected{{end}}>10</option>
                             <option value="15" {{if eq .QueryRecordCount 15}}selected{{end}}>15</option>
