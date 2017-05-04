@@ -174,7 +174,7 @@ func safe(s string) template.URL {
 }
 
 func faqHandler(w http.ResponseWriter, r *http.Request) {
-	err = templates.ExecuteTemplate(w, "FAQ.html", &b)
+	err := templates.ExecuteTemplate(w, "FAQ.html", "")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -224,7 +224,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	dbHandle = getDBHandle()
-	router := mux.NewRouter()
+	router := mux.NewRouter().StrictSlash(true)
 
 	cssHandler := http.FileServer(http.Dir("./css/"))
 	jsHandler := http.FileServer(http.Dir("./js/"))
