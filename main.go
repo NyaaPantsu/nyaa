@@ -23,8 +23,8 @@ func getDBHandle() *gorm.DB {
 	dbInit, err := gorm.Open("sqlite3", "./nyaa.db")
 
 	// Migrate the schema of Torrents
-	// dbInit.AutoMigrate(&Torrents{})
-	// dbInit.AutoMigrate(&SubCategories{})
+	//dbInit.AutoMigrate(&Torrents{})
+	//dbInit.AutoMigrate(&Sub_Categories{})
 
 	checkErr(err)
 	return dbInit
