@@ -23,8 +23,8 @@ func getDBHandle() *gorm.DB {
 	dbInit, err := gorm.Open("sqlite3", "./nyaa.db")
 
 	// Migrate the schema of Torrents
-	//dbInit.AutoMigrate(&Torrents{})
-	//dbInit.AutoMigrate(&Sub_Categories{})
+	dbInit.AutoMigrate(&Torrents{})
+	dbInit.AutoMigrate(&Sub_Categories{})
 
 	checkErr(err)
 	return dbInit
@@ -96,10 +96,11 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 	searchQuery := r.URL.Query().Get("q")
 	cat := r.URL.Query().Get("c")
-	catsSplit := strings.Split(cat, "-")
+	catsSplit := strings.Split(cat, "_")
 	// need this to prevent out of index panics
 	var searchCatId, searchSubCatId string
 	if len(catsSplit) == 2 {
+
 		searchCatId = html.EscapeString(catsSplit[0])
 		searchSubCatId = html.EscapeString(catsSplit[1])
 	}
