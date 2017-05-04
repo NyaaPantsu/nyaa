@@ -94,7 +94,7 @@
                   <th>Hash</th>
                   <th>Links</th>
               </tr>
-              {{ range .Records}}
+              {{ range .ListTorrents}}
               <tr {{if eq .Status 2}}class="remake"{{end}}
                   {{if eq .Status 3}}class="trusted"{{end}}
                   {{if eq .Status 4}}class="aplus"{{end}}>
