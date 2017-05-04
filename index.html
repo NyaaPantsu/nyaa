@@ -41,7 +41,7 @@
                   </ul>
                   <form class="navbar-form navbar-right" role="search" action="/search" method="get">
                       <div class="form-group">
-                          <select name="c" class="form-control" value>
+                          <select name="c" class="form-control input-sm" value>
                             <option value="_">All categories</option>
                             <option value="1_" {{if eq .Category "1_"}}selected{{end}}>Software</option>
                             <option value="1_1" {{if eq .Category "1_1"}}selected{{end}}>Software - Applications</option>
@@ -60,14 +60,14 @@
                             <option value="5_10" {{if eq .Category "5_10"}}selected{{end}}>Live Action - Idol/Promotional Video</option>
                             <option value="5_11" {{if eq .Category "5_11"}}selected{{end}}>Live Action - Raw</option>
                           </select>
-                          <select name="s" class="form-control">
+                          <select name="s" class="form-control input-sm">
                             <option value="">Search all</option>
                             <option value="2" {{if eq .Status "2"}}selected{{end}}>Remakes</option>
                             <option value="3" {{if eq .Status "3"}}selected{{end}}>Trusted</option>
                             <option value="4" {{if eq .Status "4"}}selected{{end}}>A+</option>
                           </select>
-                          <input name="q" class="form-control" placeholder="Search" type="text" value={{.Query}}>
-                          <select name="max" class="form-control" value>
+                          <input name="q" class="form-control input-sm" placeholder="Search" type="text" value={{.Query}}>
+                          <select name="max" class="form-control input-sm" value>
                             <option value="">No Items per Page</option>
                             <option value="5" {{if eq .QueryRecordCount 5}}selected{{end}}>5</option>
                             <option value="10" {{if eq .QueryRecordCount 10}}selected{{end}}>10</option>
@@ -108,7 +108,9 @@
                   <td>{{.Name}}</td>
                   <td>{{.Hash}}</td>
 
+
                   <td><a href="{{.Magnet}}" title="Magnet link" ><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span></a>
+                      <a href="https://itorrents.org/torrent/{{.Hash}}.torrent" title="Torrent file"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span></a>
                   </td>
 
 
