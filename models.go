@@ -25,10 +25,10 @@ type Sub_Categories struct {
 
 type Torrents struct {
 	gorm.Model
-	Id              int    `gorm:"column:torrent_id"`
-	Name            string `gorm:"column:torrent_name"`
-	Category_id     int    `gorm:"column:category_id"`
-	Sub_category_id int
+	Id              int            `gorm:"column:torrent_id"`
+	Name            string         `gorm:"column:torrent_name"`
+	Category_id     int            `gorm:"column:category_id"`
+	Sub_category_id int            `gorm:"column:sub_category_id"`
 	Status          int            `gorm:"column:status_id"`
 	Hash            string         `gorm:"column:torrent_hash"`
 	Categories      Categories     `gorm:"ForeignKey:category_id;AssociationForeignKey:category_id"`
@@ -67,6 +67,7 @@ type HomeTemplateVariables struct {
 	ListTorrents     []TorrentsJson
 	ListCategories   []Categories
 	Query            string
+	Status           string
 	Category         string
 	QueryRecordCount int
 	TotalRecordCount int
