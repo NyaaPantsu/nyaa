@@ -82,7 +82,7 @@ type HomeTemplateVariables struct {
 func getTorrentById(id string) (Torrents, error) {
 	var torrent Torrents
 
-	if db.Order("torrent_id DESC").First(&torrent, "id = ?", html.EscapeString(id)).RecordNotFound() {
+	if db.Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
 		return torrent, errors.New("Article is not found.")
 	}
 
