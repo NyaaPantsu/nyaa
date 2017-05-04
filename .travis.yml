@@ -2,6 +2,7 @@ language: go
 go:
 - 1.x
 install:
+- go get github.com/gorilla/feeds
 - go get github.com/gorilla/mux
 - go get github.com/mattn/go-sqlite3
 - go get github.com/jinzhu/gorm
