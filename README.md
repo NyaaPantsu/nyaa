@@ -36,6 +36,7 @@ The provided unit file uses options directly; if you prefer a config file, do th
 ## TODO
 * uploading
 * API improvement
+* add rss link and generate link based on your current search
 * improve view page
 * make sukebei db schema compatible with current code
 * Site theme
