@@ -48,10 +48,18 @@ a {
 	text-decoration : none;
 }
 
-.torrentName {
-    font-weight: bold;
-    overflow: hidden;
-    padding-bottom: 3px;
-    padding-top: 3px;
-    word-wrap: break-word;
+.torrent-info .name {
+	font-weight: bold;
+	overflow: hidden;
+	padding-bottom: 3px;
+	padding-top: 3px;
+	word-wrap: break-word;
+}
+
+.torrent-info .hash {
+	font-family: monospace;
+}
+
+.torrent-info .filesize {
+	white-space: nowrap;
 }
