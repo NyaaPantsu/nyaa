@@ -191,7 +191,11 @@ func searchByQuery(r *http.Request, pagenum int) (SearchParam, []Torrents, int) 
 		parameters.params = append(parameters.params, searchSubCatId)
 	}
 	if search_param.Status != "" {
-		conditions = append(conditions, "status_id = ?")
+		if search_param.Status == "2" {
+			conditions = append(conditions, "status_id != ?")
+		} else {
+			conditions = append(conditions, "status_id = ?")
+		}
 		parameters.params = append(parameters.params, search_param.Status)
 	}
 	searchQuerySplit := strings.Split(search_param.Query, " ")
