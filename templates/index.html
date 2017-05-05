@@ -54,6 +54,7 @@
       <div style="padding-top: 10rem"></div>
 
       <div class="container" id="container">
+      {{if not .Search.HideAdvancedSearch}}
       <div class="blockBody" style="text-align:center">
         <font size="4.5">Advanced Search</font><br />
         <form class="navbar-form" role="search" action="/search" method="get">
@@ -66,6 +67,8 @@
         <div style="clear:both"></div>
       </div>
       <div style="margin:0.5em"></div>
+      {{end}}
+
         {{block "content" .}}Nothing Here.{{end}}
       </div>
 

@@ -43,7 +43,7 @@
     <option value="desc" {{if eq .Search.Order "desc"}}selected{{end}}>Descending</option>
     <option value="asc" {{if eq .Search.Order "asc"}}selected{{end}}>Ascending</option>
   </select>
-  <select name="max" class="form-control input-sm" value>
+  <select name="max" class="form-control input-sm">
     <option value="5" {{if eq .Navigation.MaxItemPerPage 5}}selected{{end}}>5</option>
     <option value="10" {{if eq .Navigation.MaxItemPerPage 10}}selected{{end}}>10</option>
     <option value="15" {{if eq .Navigation.MaxItemPerPage 15}}selected{{end}}>15</option>
