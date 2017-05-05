@@ -298,7 +298,7 @@ func RunServer(conf *config.Config) {
 	router.HandleFunc("/api/{page}", apiHandler).Methods("GET")
 	router.HandleFunc("/api/view/{id}", apiViewHandler).Methods("GET")
 	router.HandleFunc("/faq", faqHandler).Name("faq")
-	router.HandleFunc("/feed.xml", rssHandler)
+	router.HandleFunc("/feed", rssHandler).Name("feed")
 	router.HandleFunc("/view/{id}", viewHandler).Name("view_torrent")
 
 	http.Handle("/", router)
