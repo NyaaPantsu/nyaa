@@ -7,16 +7,23 @@ that anyone will be able to deploy locally or remotely.
 # Requirements
 * Golang
 
+# Installation
+* Install golang
+* go get github.com/ewhal/nyaa
+* go build
+* Download db
+* place db in folder as "nyaa.d"
+* ./nyaa
+* go to localhost:9999
 
 ## TODO
-* RSS feeds
-* status searching
-* torrent sorting
+* RSS feeds(work in progress)
+* torrent sorting (work in progress)
 * Merge 5th of april dump with animetosho dump
 * API improvement
 * Site theme
-* improve search by making it less strict and support non-english characters.
-* Torrent view and description page
+* improve search by making it less strict
+* Torrent view and description page(work in progress)
 * accounts?
 * Adding new torrents
 * scraping

@@ -9,6 +9,14 @@ import (
 	"strings"
 )
 
+type Feed struct {
+	Id        int
+	Name      string
+	Hash      string
+	Magnet    string
+	Timestamp string
+}
+
 type Categories struct {
 	Id   int `gorm:"column:category_id"`
 	Name string `gorm:"column:category_name"`
@@ -23,14 +31,24 @@ type Sub_Categories struct {
 	Torrents          []Torrents `gorm:"ForeignKey:sub_category_id;AssociationForeignKey:sub_category_id"`
 }
 
+type Statuses struct {
+	Status_id   int
+	Status_name string
+	Torrents    []Torrents `gorm:"ForeignKey:status_id;AssociationForeignKey:status_id"`
+}
+
 type Torrents struct {
-	gorm.Model
 	Id              int            `gorm:"column:torrent_id"`
 	Name            string         `gorm:"column:torrent_name"`
 	Category_id     int            `gorm:"column:category_id"`
 	Sub_category_id int            `gorm:"column:sub_category_id"`
-	Status          int            `gorm:"column:status_id"`
+	Status       int            `gorm:"column:status_id"`
 	Hash            string         `gorm:"column:torrent_hash"`
+	Date            int            `gorm:"column:date"`
+	Downloads       int            `gorm:"column:downloads"`
+	Filesize        string         `gorm:"column:filesize"`
+	Description     []byte         `gorm:"column:description"`
+	Statuses        Statuses       `gorm:"ForeignKey:status_id;AssociationForeignKey:status_id"`
 	Categories      Categories     `gorm:"ForeignKey:category_id;AssociationForeignKey:category_id"`
 	Sub_Categories  Sub_Categories `gorm:"ForeignKey:sub_category_id;AssociationForeignKey:sub_category_id"`
 }
@@ -59,6 +77,9 @@ type TorrentsJson struct {
 	Name   string       `json: "name"`
 	Status int          `json: "status"`
 	Hash   string       `json: "hash"`
+	Date        int          `json: "date"`
+	Filesize    string       `json: "filesize"`
+	Description string       `json: "description"`
 	Sub_Category SubCategoryJson `json: "sub_category"`
 	Category CategoryJson `json: "category"`
 	Magnet template.URL `json: "magnet"`
@@ -75,6 +96,27 @@ type WhereParams struct {
  * Get the torrents with where clause
  *
  */
+
+// don't need raw SQL once we get MySQL
+func getFeeds() []Feed {
+	var result []Feed
+	rows, err := db.DB().
+		Query(
+			"SELECT `torrent_id` AS `id`, `torrent_name` AS `name`, `torrent_hash` AS `hash`, `timestamp` FROM `torrents` " +
+				"ORDER BY `timestamp` desc LIMIT 50")
+	if err == nil {
+		for rows.Next() {
+			item := Feed{}
+			rows.Scan(&item.Id, &item.Name, &item.Hash, &item.Timestamp)
+			magnet := "magnet:?xt=urn:btih:" + strings.TrimSpace(item.Hash) + "&dn=" + item.Name + trackers
+			item.Magnet = magnet
+			// memory hog
+			result = append(result, item)
+		}
+		rows.Close()
+	}
+	return result
+}
 
 func getTorrentById(id string) (Torrents, error) {
 	var torrent Torrents
@@ -96,18 +138,21 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	} else {
 		db.Model(&torrents).Count(&count)
 		dbQuery = db.Model(&torrents)
-	} 
-	
-	if (orderBy == "") { orderBy = "torrent_id DESC" } // Default OrderBy
+	}
+
+	if orderBy == "" {
+		orderBy = "torrent_id DESC"
+	} // Default OrderBy
 	if limit != 0 || offset != 0 { // if limits provided
 		dbQuery = dbQuery.Limit(limit).Offset(offset)
 	}
 		dbQuery.Order(orderBy).Preload("Categories").Preload("Sub_Categories").Find(&torrents)
 	return torrents, count
+
 }
 
-/* Functions to simplify the get parameters of the main function 
- * 
+/* Functions to simplify the get parameters of the main function
+ *
  * Get Torrents with where parameters and limits, order by default
  */
 func getTorrents(parameters WhereParams, limit int, offset int) ([]Torrents, int) {
@@ -124,6 +169,7 @@ func getTorrentsDB(parameters WhereParams) ([]Torrents, int) {
  */
 
 func getAllTorrentsOrderBy(orderBy string, limit int, offset int) ([]Torrents, int) {
+
 	return getTorrentsOrderBy(nil, orderBy, limit, offset)
 }
 
@@ -166,9 +212,13 @@ func (t *Torrents) toJson() TorrentsJson {
 		Name:   html.UnescapeString(t.Name),
 		Status: t.Status,
 		Hash:   t.Hash,
+		Date:        t.Date,
+		Filesize:    t.Filesize,
+		Description: unZlib(t.Description),
 		Sub_Category: t.Sub_Categories.toJson(),
 		Category: t.Categories.toJson(),
 		Magnet: safe(magnet)}
+
 	return res
 }
 

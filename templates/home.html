@@ -6,6 +6,8 @@
               <th>Id</th>
               <th>Name</th>
               <th>Hash</th>
+                  <th>Date</th>
+                  <th>Size</th>
               <th>Links</th>
           </tr>
           {{ range .ListTorrents}}
@@ -13,10 +15,13 @@
               {{if eq .Status 3}}class="trusted"{{end}}
               {{if eq .Status 4}}class="aplus"{{end}}>
               <td><a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category.Id .Sub_Category.Id) }}"><img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .Sub_Category.Id) }}"></td>
-              <td class="torrentName"><a href="{{$.URL.Parse (printf "/torrent/%s/%s" .Id .Name) }}">{{.Name}}</a></td>
+              <td class="torrentName"><a href="{{genRoute "view_torrent" "id" .Id }}">{{.Name}}</a></td>
               <td>{{.Hash}}</td>
+              <td>{{.Date}}</td>
+              <td>{{.Filesize}}</td>
 
               <td><a href="{{.Magnet}}" target="_blank" title="Magnet link"><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span></a>
+              <a href="https://itorrents.org/torrent/{{.Hash}}.torrent" title="Torrent file"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span></a>
               </td>
 
 
