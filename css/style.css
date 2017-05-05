@@ -16,7 +16,7 @@ nav#mainmenu {
     position: fixed;
     color: white;
     width: 100%;
-    z-index: 3;
+    z-index: 4;
 }
 
 nav#mainmenu a {
@@ -70,6 +70,11 @@ a {
 
 .torrent-info .filesize {
 	white-space: nowrap;
+}
+
+.table > tbody > tr > td {
+    /* fix bootstrap uglyness */
+    vertical-align: middle;
 }
 
 div.container div.blockBody:nth-of-type(2) table{table-layout:fixed;}
