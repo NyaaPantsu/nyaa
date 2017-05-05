@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"compress/zlib"
 	"encoding/json"
 	"github.com/gorilla/feeds"
 	"github.com/gorilla/mux"
@@ -8,6 +10,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"html"
 	"html/template"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"strconv"
@@ -34,6 +37,16 @@ func checkErr(err error) {
 	if err != nil {
 		debugLogger.Println("   " + err.Error())
 	}
+}
+
+func unZlib(description []byte) string {
+	b := bytes.NewReader(description)
+	z, err := zlib.NewReader(b)
+	checkErr(err)
+	defer z.Close()
+	p, err := ioutil.ReadAll(z)
+	checkErr(err)
+	return string(p)
 }
 
 func apiHandler(w http.ResponseWriter, r *http.Request) {
