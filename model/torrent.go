@@ -28,7 +28,7 @@ type Categories struct {
 
 type Sub_Categories struct {
 	Id        int        `gorm:"column:sub_category_id"`
-	Name      string     `gorm:"column:Sub_category_name"`
+	Name      string     `gorm:"column:sub_category_name"`
 	Parent_id int        `gorm:"column:parent_id"`
 	Torrents  []Torrents `gorm:"ForeignKey:sub_category_id;AssociationForeignKey:sub_category_id"`
 }
