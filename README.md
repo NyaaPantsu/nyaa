@@ -34,13 +34,15 @@ The provided unit file uses options directly; if you prefer a config file, do th
 * Replace in the unit file the options by `-conf /etc/nyaa.conf`
 
 ## TODO
-* RSS feeds(work in progress)
-* torrent sorting (work in progress)
+* uploading/adding new magnet links
 * API improvement
+* add rss link and generate link based on your current search
+* improve view page
+* make renchon the favicon and official mascot
+* make sukebei db schema compatible with current code
 * Site theme
-* Torrent view and description page(work in progress)
+* comments in torrent view page
 * accounts?
-* Adding new torrents
 * scraping
 * Daily DB dumps
 * p2p sync of dbs?
