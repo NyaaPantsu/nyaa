@@ -35,10 +35,6 @@ body {
     padding: 0;
 }
 
-/*.blockBody {
-    padding: 1rem;
-}*/
-
 .torrentNav {
 	text-align: center;
 }
@@ -76,7 +72,7 @@ a {
 	word-wrap: break-word;
 }
 
-.torrent-info .hash {
+.torrent-hash {
 	font-family: monospace;
 }
 
@@ -90,6 +86,14 @@ a {
     vertical-align: middle;
 }
 
+.table > tbody > tr > th, .table > tbody > tr > td {
+	padding: 4px;
+}
+
+tr.torrent-info td.date {
+	white-space: nowrap;
+}
+
 .custom-table-hover > tbody > tr:hover {
 	opacity: 0.82;
 }
@@ -99,7 +103,6 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:first-of-ty
 div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(3){width:15%;}
 div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(4){width:19%;}
 div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-type{width:6%;}
-tr.torrent-info td.hash,tr.torrent-info td.date{word-wrap:break-word;}
 
 /* Mobile-friendly main table */
 @media only screen and (max-width: 700px) {
