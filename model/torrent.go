@@ -1,14 +1,23 @@
-package main
+package model
 
 import (
-	"errors"
-	"github.com/jinzhu/gorm"
+	"github.com/ewhal/nyaa/util"
+	"github.com/ewhal/nyaa/config"
+
 	"html"
 	"html/template"
 	"strconv"
 	"strings"
 	"time"
 )
+
+type Feed struct {
+	Id        int
+	Name      string
+	Hash      string
+	Magnet    string
+	Timestamp string
+}
 
 type Categories struct {
 	Id             int              `gorm:"column:category_id"`
@@ -78,107 +87,11 @@ type TorrentsJson struct {
 	Magnet       template.URL    `json: "magnet"`
 }
 
-type WhereParams struct {
-	conditions string // Ex : name LIKE ? AND category_id LIKE ?
-	params     []interface{}
-}
-
-/* Function to interact with Models
- *
- * Get the torrents with where clause
- *
- */
-
-func getTorrentById(id string) (Torrents, error) {
-	var torrent Torrents
-
-	if db.Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
-		return torrent, errors.New("Article is not found.")
-	}
-
-	return torrent, nil
-}
-
-func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int) ([]Torrents, int) {
-	var torrents []Torrents
-	var dbQuery *gorm.DB
-	var count int
-	conditions := "torrent_hash is not null" //filter out broken entries
-	var params []interface{}
-	if parameters != nil { // if there is where parameters
-		conditions += " AND " + parameters.conditions
-		params = parameters.params
-	}
-	db.Model(&torrents).Where(conditions, params...).Count(&count)
-	dbQuery = db.Model(&torrents).Where(conditions, params...)
-
-	if orderBy == "" {
-		orderBy = "torrent_id DESC"
-	} // Default OrderBy
-	if limit != 0 || offset != 0 { // if limits provided
-		dbQuery = dbQuery.Limit(limit).Offset(offset)
-	}
-	dbQuery.Order(orderBy).Preload("Categories").Preload("Sub_Categories").Find(&torrents)
-	return torrents, count
-
-}
-
-/* Functions to simplify the get parameters of the main function
- *
- * Get Torrents with where parameters and limits, order by default
- */
-func getTorrents(parameters WhereParams, limit int, offset int) ([]Torrents, int) {
-	return getTorrentsOrderBy(&parameters, "", limit, offset)
-}
-
-/* Get Torrents with where parameters but no limit and order by default (get all the torrents corresponding in the db)
- */
-func getTorrentsDB(parameters WhereParams) ([]Torrents, int) {
-	return getTorrentsOrderBy(&parameters, "", 0, 0)
-}
-
-/* Function to get all torrents
- */
-
-func getAllTorrentsOrderBy(orderBy string, limit int, offset int) ([]Torrents, int) {
-
-	return getTorrentsOrderBy(nil, orderBy, limit, offset)
-}
-
-func getAllTorrents(limit int, offset int) ([]Torrents, int) {
-	return getTorrentsOrderBy(nil, "", limit, offset)
-}
-
-func getAllTorrentsDB() ([]Torrents, int) {
-	return getTorrentsOrderBy(nil, "", 0, 0)
-}
-
-/* Function to get all categories with/without torrents (bool)
- */
-func getAllCategories(populatedWithTorrents bool) []Categories {
-	var categories []Categories
-	if populatedWithTorrents {
-		db.Preload("Torrents").Preload("Sub_Categories").Find(&categories)
-	} else {
-		db.Preload("Sub_Categories").Find(&categories)
-	}
-	return categories
-}
-
-func createWhereParams(conditions string, params ...string) WhereParams {
-	whereParams := WhereParams{}
-	whereParams.conditions = conditions
-	for i, _ := range params {
-		whereParams.params = append(whereParams.params, params[i])
-	}
-
-	return whereParams
-}
 
 /* Model Conversion to Json */
 
-func (t *Torrents) toJson() TorrentsJson {
-	magnet := "magnet:?xt=urn:btih:" + strings.TrimSpace(t.Hash) + "&dn=" + t.Name + trackers
+func (t *Torrents) ToJson() TorrentsJson {
+	magnet := "magnet:?xt=urn:btih:" + strings.TrimSpace(t.Hash) + "&dn=" + t.Name + config.Trackers
 	res := TorrentsJson{
 		Id:           strconv.Itoa(t.Id),
 		Name:         html.UnescapeString(t.Name),
@@ -186,21 +99,21 @@ func (t *Torrents) toJson() TorrentsJson {
 		Hash:         t.Hash,
 		Date:         time.Unix(t.Date, 0).Format(time.RFC3339),
 		Filesize:     t.Filesize,
-		Description:  template.HTML(unZlib(t.Description)),
-		Sub_Category: t.Sub_Categories.toJson(),
-		Category:     t.Categories.toJson(),
-		Magnet:       safe(magnet)}
+		Description:  template.HTML(util.UnZlib(t.Description)),
+		Sub_Category: t.Sub_Categories.ToJson(),
+		Category:     t.Categories.ToJson(),
+		Magnet:       util.Safe(magnet)}
 
 	return res
 }
 
-func (c *Sub_Categories) toJson() SubCategoryJson {
+func (c *Sub_Categories) ToJson() SubCategoryJson {
 	return SubCategoryJson{
 		Id:   strconv.Itoa(c.Id),
 		Name: html.UnescapeString(c.Name)}
 }
 
-func (c *Categories) toJson() CategoryJson {
+func (c *Categories) ToJson() CategoryJson {
 	return CategoryJson{
 		Id:   strconv.Itoa(c.Id),
 		Name: html.UnescapeString(c.Name)}
