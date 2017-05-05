@@ -28,3 +28,11 @@
 
         document.getElementById('page-next').href = pageString + next + query;
         document.getElementById('page-prev').href = pageString + prev + query;
+
+// Used by spoiler tags
+function toggleLayer(elem) {
+	if (elem.classList.contains("hide"))
+		elem.classList.remove("hide");
+	else
+		elem.classList.add("hide");
+}
