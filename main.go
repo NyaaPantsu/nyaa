@@ -98,6 +98,9 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	searchQuery := r.URL.Query().Get("q")
 	cat := r.URL.Query().Get("c")
 	stat := r.URL.Query().Get("s")
+	sort := r.URL.Query().Get("sort")
+	order := r.URL.Query().Get("order")
+
 	catsSplit := strings.Split(cat, "_")
 	// need this to prevent out of index panics
 	var searchCatId, searchSubCatId string
@@ -106,13 +109,21 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		searchCatId = html.EscapeString(catsSplit[0])
 		searchSubCatId = html.EscapeString(catsSplit[1])
 	}
+	if sort == "" {
+		sort = "torrent_id"
+	}
+	if order == "" {
+		order = "desc"
+	}
+	order_by := sort + " " + order
 
 	nbTorrents := 0
 
 	b := []TorrentsJson{}
 
-	torrents := getTorrents(createWhereParams("torrent_name LIKE ? AND status_id LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ?",
-		"%"+searchQuery+"%", stat+"%", searchCatId+"%", searchSubCatId+"%"), maxPerPage, maxPerPage*(pagenum-1))
+	parameters := createWhereParams("torrent_name LIKE ? AND status_id LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ?",
+		"%"+searchQuery+"%", stat+"%", searchCatId+"%", searchSubCatId+"%")
+	torrents := getTorrentsOrderBy(&parameters, order_by, maxPerPage, maxPerPage*(pagenum-1))
 
 	for i, _ := range torrents {
 		nbTorrents++
@@ -122,7 +133,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	htv := HomeTemplateVariables{b, getAllCategories(false), searchQuery, stat, cat, maxPerPage, nbTorrents}
+	htv := HomeTemplateVariables{b, getAllCategories(false), searchQuery, stat, cat, sort, order, maxPerPage, nbTorrents}
 
 	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -226,7 +237,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", maxPerPage, nbTorrents}
+	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", "torrent_id", "desc", maxPerPage, nbTorrents}
 
 	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
