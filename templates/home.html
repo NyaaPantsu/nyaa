@@ -21,7 +21,8 @@
               {{if eq .Status 2}}remake{{end}}
               {{if eq .Status 3}}trusted{{end}}
               {{if eq .Status 4}}aplus{{end}}">
-              <td>
+              <!-- forced width because the <td> gets bigger randomly otherwise -->
+              <td style="width:80px">
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category.Id .Sub_Category.Id) }}">
                       <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .Sub_Category.Id) }}">
                   </a>
