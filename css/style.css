@@ -1,45 +1,53 @@
+/* Torrent status colors */
 .remake {
-  background-color: #f0b0b0;
+  background-color: rgb(240, 176, 128);
 }
 .trusted {
-  background-color: #98d9a8;
+  background-color: #a3e9a4;
 }
 .aplus {
-  background-color: #60b0f0;
+  background-color: #81d3fa;
 }
 
 
-/* Copy of NyaaTorrent theme */
+/* modified copy of NyaaTorrent theme */
 nav#mainmenu {
-	background: #1b1b1b;
+    background: #263238;
     position: fixed;
     color: white;
     width: 100%;
     z-index: 3;
 }
+
 nav#mainmenu a {
 	color: white;
 }
+
 div#container {
-	padding-top: 10rem;
+    padding-top: 1.25em;
+    background: white;
 }
 
 body {
-	background-color: #FBFBFB;
+    background-color: #ececec;
     color: #111111;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-.blockBody {
-    border-radius: 5px;
-    border: 1px solid black;
+/*.blockBody {
     padding: 1rem;
-}
+}*/
 
 .torrentNav {
 	text-align: center;
+}
+
+.pagination > .active > a {
+    background: #ececec;
+    border-color: #ececec;
+    color: #337ab7; /* restore usual text color */
 }
 
 /* Links, Text */

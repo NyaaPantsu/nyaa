@@ -50,10 +50,13 @@
           </div>
       </nav>
 
+      <!-- top padding -->
+      <div style="padding-top: 10rem"></div>
+
       <div class="container" id="container">
-      <div class="blockBody" style="display:flex">
-        <h3>Advanced Search</h3>
-        <form class="navbar-form navbar-right" role="search" action="/search" method="get">
+      <div class="blockBody" style="text-align:center">
+        <font size="4.5">Advanced Search</font><br />
+        <form class="navbar-form" role="search" action="/search" method="get">
           <div class="form-group">
             {{block "search_common" .}}{{end}}
             {{block "search_advanced" .}}{{end}}
@@ -65,6 +68,9 @@
       <div style="margin:0.5em"></div>
         {{block "content" .}}Nothing Here.{{end}}
       </div>
+
+      <!-- bottom padding -->
+      <div style="padding-top: 5rem"></div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
