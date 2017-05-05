@@ -11,11 +11,11 @@
 
 /* Copy of NyaaTorrent theme */
 nav#mainmenu {
-	background: url(/img/topbar.png) repeat-x black;
+	background: #1b1b1b;
     position: fixed;
-    color:white;
+    color: white;
     width: 100%;
-    z-index:2;
+    z-index: 2;
 }
 nav#mainmenu a {
 	color: white;
@@ -34,7 +34,7 @@ body {
 
 .blockBody {
     border-radius: 5px;
-    border: 2px solid black;
+    border: 1px solid black;
     padding: 1rem;
 }
 
