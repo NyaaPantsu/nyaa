@@ -36,7 +36,6 @@ The provided unit file uses options directly; if you prefer a config file, do th
 ## TODO
 * adding new magnet links
 * API improvement
-* add rss link and generate link based on your current search
 * make renchon the favicon and official mascot
 * make sukebei db schema compatible with current code
 * comments in torrent view page
