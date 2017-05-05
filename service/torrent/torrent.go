@@ -9,8 +9,8 @@ import (
 )
 
 type WhereParams struct {
-	conditions string // Ex : name LIKE ? AND category_id LIKE ?
-	params     []interface{}
+	Conditions string // Ex : name LIKE ? AND category_id LIKE ?
+	Params     []interface{}
 }
 
 /* Function to interact with Models
@@ -57,8 +57,8 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	conditions := "torrent_hash is not null" //filter out broken entries
 	var params []interface{}
 	if parameters != nil { // if there is where parameters
-		conditions += " AND " + parameters.conditions
-		params = parameters.params
+		conditions += " AND " + parameters.Conditions
+		params = parameters.Params
 	}
 	db.ORM.Model(&torrents).Where(conditions, params...).Count(&count)
 	dbQuery = db.ORM.Model(&torrents).Where(conditions, params...)
@@ -118,9 +118,9 @@ func GetAllCategories(populatedWithTorrents bool) []model.Categories {
 
 func CreateWhereParams(conditions string, params ...string) WhereParams {
 	whereParams := WhereParams{}
-	whereParams.conditions = conditions
+	whereParams.Conditions = conditions
 	for i, _ := range params {
-		whereParams.params = append(whereParams.params, params[i])
+		whereParams.Params = append(whereParams.Params, params[i])
 	}
 
 	return whereParams

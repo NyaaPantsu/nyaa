@@ -1,28 +1,31 @@
 {{define "title"}}FAQ{{end}}
 {{define "content"}}
     <div class="blockBody">
-        <h1>NOTICE: KEEP SEEDING YOU RETARD</h1>
+        <!-- marquees are the true purpose of HTML -->
+        <marquee><h2>NOTICE: KEEP SEEDING YOU RETARD</h2></marquee>
 
         <h1>Official Nyaapocalypse FAQ</h1>
+        <br />
 
         <h2>Links for the replacement/mirror</h2>
-        <a href="https://nyaa.pantsu.cat">Nyaa - nyaa.pantsu.cat</a>
+        <a href="https://nyaa.pantsu.cat">Nyaa - nyaa.pantsu.cat</a><br />
         <a href="https://sukebei.pantsu.cat">Sukebei - sukebei.pantsu.cat</a>
 
         <h2>What happened?</h2>
         <ul>
-            <li>- nyaa.se and associated domains (such nyaatorrents.info) went offline on May 01, 2017.</li>
-            <li>- They were deactivated, so it's not a DDoS attack like usual.</li>
-            <li>- Future prospects for nyaa are not looking good.</li>
-            <li>- There is a recovery effort taking place.</li>
+            <li>nyaa.se and associated domains (such as nyaatorrents.info) went offline on May 01, 2017.</li>
+            <li>They were deactivated, so it's not a DDoS attack like usual.</li>
+            <li>Future prospects for nyaa are not looking good.</li>
+            <li>There is a recovery effort taking place.</li>
         </ul>
 
-        <h2>Is everything Lost?</h2>
+        <h2>Is everything lost?</h2>
         <p>In short, No.</p>
 
         <h2>Are some things lost?</h2>
-        <p>We have a database of the torrents on nyaa up to April 5. That means that everything past April 5 is gone.
-            Sukebei, however is in worse shape. We only have sukebei databases up to 2016.</p>
+        <p>We have a database of the torrents on nyaa up to <s>April 5</s> May 1. That means almost nothing is lost.</p>
+        <p>Sukebei, however might be in worse shape. Currently we only have sukebei databases up to 2016,
+           but a newer database might be available for use.</p>
 
         <h2>How are we recovering?</h2>
         <p>The aforementioned databases are being hosted at nyaa.pantsu.cat and sukebei.pantsu.cat.
@@ -38,11 +41,16 @@
         <p>Just use the <b>magnet link</b>. The magnet link will used by your BitTorrent client to look up the file on the
             DHT network and it should download just fine.</p>
         <p>If your magnet link starts with "magnet:magnet:", delete the first "magnet:". It should look like:
-            magnet:?xt=urn:btih:[hash]&dn=[name]&tr=[tracker]</p>
+            magnet:?xt=urn:btih:[hash]&dn=[name]&tr=[tracker]&tr=[...]</p>
 
-        <h1>How can I help?</h1>
-        <p>If you have website development expertise, you can join the #nyaapantsu IRC channel on irc.rizon.net. If you have any current databases, <b>UPLOAD THEM</b>.</p>
+        <h2>How can I help?</h2>
+        <p>If you have website development expertise, you can join the #nyaapantsu IRC channel on irc.rizon.net.
+           If you have any current databases, especially for sukebei, <b>UPLOAD THEM</b>.</p>
 
-        <h1>nyaa.pantsu.cat and sukebei.pantsu.cat do not host any files.</h1>
+        <h2>Your design sucks / I found a bug</h2>
+        <p><a href="https://github.com/ewhal/nyaa/issues">https://github.com/ewhal/nyaa/issues</a>.</p>
+
+        <br />
+        <h2>nyaa.pantsu.cat and sukebei.pantsu.cat do not host any files.</h2>
         </div>
 {{end}}
