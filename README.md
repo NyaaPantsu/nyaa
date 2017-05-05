@@ -34,11 +34,12 @@ The provided unit file uses options directly; if you prefer a config file, do th
 * Replace in the unit file the options by `-conf /etc/nyaa.conf`
 
 ## TODO
-* RSS feeds(work in progress)
-* torrent sorting (work in progress)
+* uploading
 * API improvement
+* improve view page
+* make sukebei db schema compatible with current code
 * Site theme
-* Torrent view and description page(work in progress)
+* comments in torrent view page
 * accounts?
 * Adding new torrents
 * scraping
