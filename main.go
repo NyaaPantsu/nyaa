@@ -16,7 +16,7 @@ import (
 )
 
 var db *gorm.DB
-var templates = template.Must(template.ParseFiles("index.html", "FAQ.html"))
+var templates = template.Must(template.ParseFiles("index.html", "FAQ.html", "view.html"))
 var debugLogger *log.Logger
 var trackers = "&tr=udp://zer0day.to:1337/announce&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://explodie.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=udp://tracker.coppersurfer.tk:6969"
 
@@ -25,7 +25,7 @@ func getDBHandle() *gorm.DB {
 
 	// Migrate the schema of Torrents
 	dbInit.AutoMigrate(&Torrents{}, &Categories{}, &Sub_Categories{}, &Statuses{})
-	
+
 	checkErr(err)
 	return dbInit
 }
@@ -64,7 +64,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func singleapiHandler(w http.ResponseWriter, r *http.Request) {
+func apiViewHandler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 	id := vars["id"]
@@ -149,40 +149,57 @@ func rssHandler(w http.ResponseWriter, r *http.Request) {
 
 	torrents := getFeeds()
 	created := time.Now().String()
-	if ( len(torrents) > 0 ) {
+	if len(torrents) > 0 {
 		created = torrents[0].Timestamp
 	}
 	created_as_time, err := time.Parse("2006-01-02 15:04:05", created)
 	if err == nil {
-		;
+
 	}
 	feed := &feeds.Feed{
-		Title:		"Nyaa Pantsu",
-		Link:		&feeds.Link{Href: "https://nyaa.pantsu.cat/"},
-		Created:	created_as_time,
+		Title:   "Nyaa Pantsu",
+		Link:    &feeds.Link{Href: "https://nyaa.pantsu.cat/"},
+		Created: created_as_time,
 	}
 	feed.Items = []*feeds.Item{}
-	feed.Items = make( []*feeds.Item, len(torrents))
+	feed.Items = make([]*feeds.Item, len(torrents))
 
 	for i, _ := range torrents {
 		timestamp_as_time, err := time.Parse("2006-01-02 15:04:05", torrents[i].Timestamp)
 		if err == nil {
-			feed.Items[i] =	&feeds.Item{
+			feed.Items[i] = &feeds.Item{
 				// need a torrent view first
 				//Id:		URL + torrents[i].Hash,
-				Title:	torrents[i].Name,
-				Link: 	&feeds.Link{Href: string(torrents[i].Magnet)},
+				Title:       torrents[i].Name,
+				Link:        &feeds.Link{Href: string(torrents[i].Magnet)},
 				Description: "",
-				Created: timestamp_as_time,
-				Updated: timestamp_as_time,
+				Created:     timestamp_as_time,
+				Updated:     timestamp_as_time,
 			}
 		}
 	}
 
 	rss, err := feed.ToRss()
 	if err == nil {
-		w.Write( []byte( rss ) )
+		w.Write([]byte(rss))
 	} else {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+func viewHandler(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	id := vars["id"]
+	b := []TorrentsJson{}
+
+	torrent, err := getTorrentById(id)
+	res := torrent.toJson()
+	b = append(b, res)
+
+	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", 1, 1}
+
+	err = templates.ExecuteTemplate(w, "view.html", htv)
+	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
@@ -234,9 +251,10 @@ func main() {
 	router.HandleFunc("/search", searchHandler)
 	router.HandleFunc("/search/{page}", searchHandler)
 	router.HandleFunc("/api/{page}", apiHandler).Methods("GET")
-	router.HandleFunc("/api/torrent/{id}", singleapiHandler).Methods("GET")
+	router.HandleFunc("/api/view/{id}", apiViewHandler).Methods("GET")
 	router.HandleFunc("/faq", faqHandler)
 	router.HandleFunc("/feed.xml", rssHandler)
+	router.HandleFunc("/view/{id}", viewHandler)
 
 	http.Handle("/", router)
 
