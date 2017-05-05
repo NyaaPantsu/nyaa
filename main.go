@@ -1,9 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"compress/zlib"
 	"encoding/json"
+	"fmt"
+	"flag"
 	"github.com/gorilla/feeds"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
@@ -13,6 +16,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -32,8 +36,8 @@ var router *mux.Router
 var debugLogger *log.Logger
 var trackers = "&tr=udp://tracker.coppersurfer.tk:6969&tr=udp://zer0day.to:1337/announce&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://explodie.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=http://tracker.baka-sub.cf/announce"
 
-func getDBHandle() *gorm.DB {
-	dbInit, err := gorm.Open("sqlite3", "./nyaa.db")
+func getDBHandle(db_type string, db_params string) *gorm.DB {
+	dbInit, err := gorm.Open(db_type, db_params)
 
 	// Migrate the schema of Torrents
 	dbInit.AutoMigrate(&Torrents{}, &Categories{}, &Sub_Categories{}, &Statuses{})
@@ -304,9 +308,8 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func main() {
-
-	db = getDBHandle()
+func RunServer(conf *Config) {
+	db = getDBHandle(conf.DBType, conf.DBParams)
 	router = mux.NewRouter()
 
 	cssHandler := http.FileServer(http.Dir("./css/"))
@@ -331,11 +334,28 @@ func main() {
 
 	// Set up server,
 	srv := &http.Server{
-		Addr:         "localhost:9999",
+		Addr:         fmt.Sprintf("%s:%d", conf.Host, conf.Port),
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
 
 	err := srv.ListenAndServe()
 	checkErr(err)
+}
+
+func main() {
+
+	conf := NewConfig()
+	conf_bind := conf.BindFlags()
+	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
+	flag.Parse()
+	if *defaults {
+		stdout := bufio.NewWriter(os.Stdout)
+		conf.Pretty(stdout)
+		stdout.Flush()
+		os.Exit(0)
+	} else {
+		conf_bind()
+		RunServer(conf)
+	}
 }
