@@ -96,10 +96,10 @@ func (config *Config) Write(output io.Writer) error {
 
 func (config *Config) Pretty(output io.Writer) error {
 	data, err := json.MarshalIndent(config, "", "\t")
-	data = append(data, []byte("\n")...)
 	if err != nil {
 		return err
 	}
+	data = append(data, []byte("\n")...)
 	_, err = output.Write(data)
 	return err
 }
