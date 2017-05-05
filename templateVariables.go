@@ -53,6 +53,7 @@ type SearchForm struct {
 	Category   string
 	Sort       string
 	Order      string
+	HideAdvancedSearch bool
 }
 
 // Some Default Values to ease things out

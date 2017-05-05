@@ -108,6 +108,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		search_param.Category,
 		search_param.Sort,
 		search_param.Order,
+		false,
 	}
 	htv := HomeTemplateVariables{b, torrentService.GetAllCategories(false), searchForm, navigationTorrents, r.URL, mux.CurrentRoute(r)}
 
@@ -176,7 +177,10 @@ func searchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents,
 func faqHandler(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.New("FAQ").Funcs(funcMap).ParseFiles("templates/index.html", "templates/FAQ.html"))
  	templates.ParseGlob("templates/_*.html") // common
-	err := templates.ExecuteTemplate(w, "index.html", FaqTemplateVariables{Navigation{}, NewSearchForm(), r.URL, mux.CurrentRoute(r)})
+
+	searchForm := NewSearchForm()
+	searchForm.HideAdvancedSearch = true
+	err := templates.ExecuteTemplate(w, "index.html", FaqTemplateVariables{Navigation{}, searchForm, r.URL, mux.CurrentRoute(r)})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
