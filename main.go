@@ -15,7 +15,6 @@ import (
 	"time"
 )
 
-
 func RunServer(conf *config.Config) {
 
 	http.Handle("/", router.Router)
