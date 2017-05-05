@@ -1,45 +1,53 @@
+/* Torrent status colors */
 .remake {
-  background-color: #f0b0b0;
+  background-color: rgb(240, 176, 128);
 }
 .trusted {
-  background-color: #98d9a8;
+  background-color: #a3e9a4;
 }
 .aplus {
-  background-color: #60b0f0;
+  background-color: #81d3fa;
 }
 
 
-/* Copy of NyaaTorrent theme */
+/* modified copy of NyaaTorrent theme */
 nav#mainmenu {
-	background: url(/img/topbar.png) repeat-x black;
+    background: #263238;
     position: fixed;
-    color:white;
+    color: white;
     width: 100%;
-    z-index:2;
+    z-index: 3;
 }
+
 nav#mainmenu a {
 	color: white;
 }
+
 div#container {
-	padding-top: 10rem;
+    padding-top: 1.25em;
+    background: white;
 }
 
 body {
-	background-color: #FBFBFB;
+    background-color: #ececec;
     color: #111111;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-.blockBody {
-    border-radius: 5px;
-    border: 2px solid black;
+/*.blockBody {
     padding: 1rem;
-}
+}*/
 
 .torrentNav {
 	text-align: center;
+}
+
+.pagination > .active > a {
+    background: #ececec;
+    border-color: #ececec;
+    color: #337ab7; /* restore usual text color */
 }
 
 /* Links, Text */
@@ -48,10 +56,25 @@ a {
 	text-decoration : none;
 }
 
-.torrentName {
-    font-weight: bold;
-    overflow: hidden;
-    padding-bottom: 3px;
-    padding-top: 3px;
-    word-wrap: break-word;
+.torrent-info .name {
+	font-weight: bold;
+	overflow: hidden;
+	padding-bottom: 3px;
+	padding-top: 3px;
+	word-wrap: break-word;
 }
+
+.torrent-info .hash {
+	font-family: monospace;
+}
+
+.torrent-info .filesize {
+	white-space: nowrap;
+}
+
+div.container div.blockBody:nth-of-type(2) table{table-layout:fixed;}
+div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:first-of-type, div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(5){width:10%;}
+div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(3){width:15%;}
+div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(4){width:19%;}
+div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-type{width:6%;}
+tr.torrent-info td.hash,tr.torrent-info td.date{word-wrap:break-word;}
