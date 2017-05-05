@@ -1,57 +1,23 @@
 package main
 
 import (
-	"bytes"
-	"compress/zlib"
 	"encoding/json"
 	"github.com/gorilla/feeds"
 	"github.com/gorilla/mux"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
+
+	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/service/torrent"
+	"github.com/ewhal/nyaa/util/log"
+
 	"html"
 	"html/template"
-	"io/ioutil"
-	"log"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
 )
 
-var db *gorm.DB
 var router *mux.Router
-var debugLogger *log.Logger
-var trackers = "&tr=udp://zer0day.to:1337/announce&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://explodie.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=udp://tracker.coppersurfer.tk:6969&tr=http://tracker.baka-sub.cf/announce"
-
-func getDBHandle() *gorm.DB {
-	dbInit, err := gorm.Open("sqlite3", "./nyaa.db")
-
-	// Migrate the schema of Torrents
-	dbInit.AutoMigrate(&Torrents{}, &Categories{}, &Sub_Categories{}, &Statuses{})
-
-	checkErr(err)
-	return dbInit
-}
-
-func checkErr(err error) {
-	if err != nil {
-		debugLogger.Println("   " + err.Error())
-	}
-}
-
-func unZlib(description []byte) string {
-	if len(description) > 0 {
-		b := bytes.NewReader(description)
-		//log.Println(b)
-		z, err := zlib.NewReader(b)
-		checkErr(err)
-		defer z.Close()
-		p, err := ioutil.ReadAll(z)
-		checkErr(err)
-		return string(p)
-	}
-	return ""
-}
 
 func apiHandler(w http.ResponseWriter, r *http.Request) {
 
@@ -59,13 +25,13 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	page := vars["page"]
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 
-	b := CategoryJson{Torrents: []TorrentsJson{}}
+	b := model.CategoryJson{Torrents: []model.TorrentsJson{}}
 	maxPerPage := 50
 	nbTorrents := 0
 
-	torrents, nbTorrents := getAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
+	torrents, nbTorrents := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
 	for i, _ := range torrents {
-		res := torrents[i].toJson()
+		res := torrents[i].ToJson()
 		b.Torrents = append(b.Torrents, res)
 	}
 
@@ -84,10 +50,10 @@ func apiViewHandler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 	id := vars["id"]
-	b := CategoryJson{Torrents: []TorrentsJson{}}
+	b := model.CategoryJson{Torrents: []model.TorrentsJson{}}
 
-	torrent, err := getTorrentById(id)
-	res := torrent.toJson()
+	torrent, err := torrentService.GetTorrentById(id)
+	res := torrent.ToJson()
 	b.Torrents = append(b.Torrents, res)
 
 	b.QueryRecordCount = 1
@@ -103,7 +69,6 @@ func apiViewHandler(w http.ResponseWriter, r *http.Request) {
 
 func searchHandler(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.New("home").Funcs(funcMap).ParseFiles("templates/index.html", "templates/home.html"))
-	templates.ParseGlob("templates/_*.html") // common
 	vars := mux.Vars(r)
 	page := vars["page"]
 
@@ -126,6 +91,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	// need this to prevent out of index panics
 	var searchCatId, searchSubCatId string
 	if len(catsSplit) == 2 {
+
 		searchCatId = html.EscapeString(catsSplit[0])
 		searchSubCatId = html.EscapeString(catsSplit[1])
 	}
@@ -139,53 +105,29 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 
 	nbTorrents := 0
 
-	b := []TorrentsJson{}
+	b := []model.TorrentsJson{}
 
-	parameters := WhereParams{}
-	conditions := []string{}
-	if searchCatId != "" {
-		conditions = append(conditions, "category_id = ?")
-		parameters.params = append(parameters.params, searchCatId)
-	}
-	if searchSubCatId != "" {
-		conditions = append(conditions, "sub_category_id = ?")
-		parameters.params = append(parameters.params, searchSubCatId)
-	}
-	if stat != "" {
-		conditions = append(conditions, "status_id = ?")
-		parameters.params = append(parameters.params, stat)
-	}
-	searchQuerySplit := strings.Split(searchQuery, " ")
-	for i, _ := range searchQuerySplit {
-		conditions = append(conditions, "torrent_name LIKE ?")
-		parameters.params = append(parameters.params, "%"+searchQuerySplit[i]+"%")
-	}
-
-	parameters.conditions = strings.Join(conditions[:], " AND ")
-	log.Printf("SQL query is :: %s\n", parameters.conditions)
-	torrents, nbTorrents := getTorrentsOrderBy(&parameters, order_by, maxPerPage, maxPerPage*(pagenum-1))
+	parameters := torrentService.CreateWhereParams("torrent_name LIKE ? AND status_id LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ?",
+		"%"+searchQuery+"%", stat+"%", searchCatId+"%", searchSubCatId+"%")
+	torrents, nbTorrents := torrentService.GetTorrentsOrderBy(&parameters, order_by, maxPerPage, maxPerPage*(pagenum-1))
 
 	for i, _ := range torrents {
-		res := torrents[i].toJson()
+		res := torrents[i].ToJson()
 		b = append(b, res)
 	}
 
 	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
 	searchForm := SearchForm{searchQuery, stat, cat, sort, order}
-	htv := HomeTemplateVariables{b, getAllCategories(false), searchForm, navigationTorrents, r.URL, mux.CurrentRoute(r)}
+	htv := HomeTemplateVariables{b, torrentService.GetAllCategories(false), searchForm, navigationTorrents, r.URL, mux.CurrentRoute(r)}
 
 	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
-func safe(s string) template.URL {
-	return template.URL(s)
-}
 
 func faqHandler(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.New("FAQ").Funcs(funcMap).ParseFiles("templates/index.html", "templates/FAQ.html"))
-	templates.ParseGlob("templates/_*.html") // common
 	err := templates.ExecuteTemplate(w, "index.html", FaqTemplateVariables{Navigation{}, NewSearchForm(), r.URL, mux.CurrentRoute(r)})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -199,7 +141,7 @@ func rssHandler(w http.ResponseWriter, r *http.Request) {
 	// db params url
 	//maxPerPage := 50 // default Value maxPerPage
 
-	torrents := getFeeds()
+	torrents := torrentService.GetFeeds()
 	created := time.Now().String()
 	if len(torrents) > 0 {
 		created = torrents[0].Timestamp
@@ -240,12 +182,11 @@ func rssHandler(w http.ResponseWriter, r *http.Request) {
 }
 func viewHandler(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.ParseFiles("templates/index.html", "templates/view.html"))
-	templates.ParseGlob("templates/_*.html") // common
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	torrent, err := getTorrentById(id)
-	b := torrent.toJson()
+	torrent, err := torrentService.GetTorrentById(id)
+	b := torrent.ToJson()
 
 	htv := ViewTemplateVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
 
@@ -257,7 +198,6 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.New("home").Funcs(funcMap).ParseFiles("templates/index.html", "templates/home.html"))
-	templates.ParseGlob("templates/_*.html") // common
 	vars := mux.Vars(r)
 	page := vars["page"]
 
@@ -273,16 +213,16 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		pagenum = 1
 	}
 
-	b := []TorrentsJson{}
-	torrents, nbTorrents := getAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
+	b := []model.TorrentsJson{}
+	torrents, nbTorrents := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
 
 	for i, _ := range torrents {
-		res := torrents[i].toJson()
+		res := torrents[i].ToJson()
 		b = append(b, res)
 	}
 
 	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
-	htv := HomeTemplateVariables{b, getAllCategories(false), NewSearchForm(), navigationTorrents, r.URL, mux.CurrentRoute(r)}
+	htv := HomeTemplateVariables{b, torrentService.GetAllCategories(false), NewSearchForm(), navigationTorrents, r.URL, mux.CurrentRoute(r)}
 
 	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -293,7 +233,6 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
-	db = getDBHandle()
 	router = mux.NewRouter()
 
 	cssHandler := http.FileServer(http.Dir("./css/"))
@@ -324,5 +263,5 @@ func main() {
 	}
 
 	err := srv.ListenAndServe()
-	checkErr(err)
+	log.CheckError(err)
 }
