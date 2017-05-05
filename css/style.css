@@ -7,3 +7,51 @@
 .aplus {
   background-color: #60b0f0;
 }
+
+
+/* Copy of NyaaTorrent theme */
+nav#mainmenu {
+	background: url(/img/topbar.png) repeat-x black;
+    position: fixed;
+    color:white;
+    width: 100%;
+    z-index:2;
+}
+nav#mainmenu a {
+	color: white;
+}
+div#container {
+	padding-top: 7rem;
+}
+
+body {
+	background-color: #FBFBFB;
+    color: #111111;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.blockBody {
+    border-radius: 5px;
+    border: 2px solid black;
+    padding: 1rem;
+}
+
+.torrentNav {
+	text-align: center;
+}
+
+/* Links, Text */
+a {
+	color: #106655;
+	text-decoration : none;
+}
+
+.torrentName {
+    font-weight: bold;
+    overflow: hidden;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    word-wrap: break-word;
+}

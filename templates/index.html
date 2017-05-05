@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Nyaa Pantsu</title>
+    <title>Nyaa Pantsu - {{block "title" .}}Error 404{{end}}</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -19,10 +19,10 @@
     <![endif]-->
 
     <!-- Website CSS -->
-    <link rel="stylesheet" href="https://nyaa.pantsu.cat/css/style.css">
+    <link rel="stylesheet" href="{{.URL.Parse "/css/style.css"}}">
   </head>
   <body>
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-default" id ="mainmenu">
           <div class="container">
               <div class="navbar-header">
                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -31,16 +31,18 @@
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                   </button>
-                  <a class="navbar-brand" href="https://nyaa.pantsu.cat">Nyaa Pantsu</a>
+                  <a class="navbar-brand" href="{{.URL.Parse "/"}}">Nyaa Pantsu</a>
               </div>
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
-                      <li><a href="https://sukebei.pantsu.cat">Fap</a></li>
-                      <li><a href="https://nyaa.pantsu.cat/faq">Faq</a></li>
+                      <li><a href="https://sukebei.pantsu.cat">Sukebei Pantsu</a></li>
+                      <li><a href="{{.URL.Parse "/faq"}}">Faq</a></li>
+                      <li><a href="irc://irc.rizon.net/nyaapantsu">IRC</a></li>
 
                   </ul>
                   <form class="navbar-form navbar-right" role="search" action="/search" method="get">
                       <div class="form-group">
+
                           <select name="c" class="form-control input-sm" value>
                             <option value="_">All categories</option>
                             <option value="1_" {{if eq .Category "1_"}}selected{{end}}>Software</option>
@@ -66,90 +68,38 @@
                             <option value="3" {{if eq .Status "3"}}selected{{end}}>Trusted</option>
                             <option value="4" {{if eq .Status "4"}}selected{{end}}>A+</option>
                           </select>
-                          <input name="q" class="form-control input-sm" placeholder="Search" type="text" value={{.Query}}>
-                          <select name="sort" class="form-control input-sm">
-                            <option value="torrent_id" {{if eq .Sort "torrent_id"}}selected{{end}}>Id</option>
-                            <option value="torrent_name" {{if eq .Sort "torrent_name"}}selected{{end}}>Name</option>
-                            <option value="date" {{if eq .Sort "date"}}selected{{end}}>Date</option>
-                            <option value="downloads" {{if eq .Sort "downloads"}}selected{{end}}>Downloads</option>
-                          </select>
-                          <select name="order" class="form-control input-sm">
-                            <option value="desc" {{if eq .Order "desc"}}selected{{end}}>Descend</option>
-                            <option value="asc" {{if eq .Order "asc"}}selected{{end}}>Ascend</option>
-                          </select>
+======
                           <select name="max" class="form-control input-sm" value>
-                            <option value="5" {{if eq .QueryRecordCount 5}}selected{{end}}>5</option>
-                            <option value="10" {{if eq .QueryRecordCount 10}}selected{{end}}>10</option>
-                            <option value="15" {{if eq .QueryRecordCount 15}}selected{{end}}>15</option>
-                            <option value="20" {{if eq .QueryRecordCount 20}}selected{{end}}>20</option>
-                            <option value="25" {{if eq .QueryRecordCount 25}}selected{{end}}>25</option>
-                            <option value="30" {{if eq .QueryRecordCount 30}}selected{{end}}>30</option>
-                            <option value="35" {{if eq .QueryRecordCount 35}}selected{{end}}>35</option>
-                            <option value="40" {{if eq .QueryRecordCount 40}}selected{{end}}>40</option>
-                            <option value="45" {{if eq .QueryRecordCount 45}}selected{{end}}>45</option>
-                            <option value="50" {{if eq .QueryRecordCount 50}}selected{{end}}>50</option>
-                            <option value="70" {{if eq .QueryRecordCount 70}}selected{{end}}>70</option>
-                            <option value="100" {{if eq .QueryRecordCount 100}}selected{{end}}>100</option>
-                            <option value="150" {{if eq .QueryRecordCount 150}}selected{{end}}>150</option>
-                            <option value="200" {{if eq .QueryRecordCount 200}}selected{{end}}>200</option>
-                            <option value="300" {{if eq .QueryRecordCount 300}}selected{{end}}>300</option>
+                            <option value="">No Items per Page</option>
+                            <option value="5" {{if eq .Navigation.MaxItemPerPage 5}}selected{{end}}>5</option>
+                            <option value="10" {{if eq .Navigation.MaxItemPerPage 10}}selected{{end}}>10</option>
+                            <option value="15" {{if eq .Navigation.MaxItemPerPage 15}}selected{{end}}>15</option>
+                            <option value="20" {{if eq .Navigation.MaxItemPerPage 20}}selected{{end}}>20</option>
+                            <option value="25" {{if eq .Navigation.MaxItemPerPage 25}}selected{{end}}>25</option>
+                            <option value="30" {{if eq .Navigation.MaxItemPerPage 30}}selected{{end}}>30</option>
+                            <option value="35" {{if eq .Navigation.MaxItemPerPage 35}}selected{{end}}>35</option>
+                            <option value="40" {{if eq .Navigation.MaxItemPerPage 40}}selected{{end}}>40</option>
+                            <option value="45" {{if eq .Navigation.MaxItemPerPage 45}}selected{{end}}>45</option>
+                            <option value="50" {{if eq .Navigation.MaxItemPerPage 50}}selected{{end}}>50</option>
+                            <option value="70" {{if eq .Navigation.MaxItemPerPage 70}}selected{{end}}>70</option>
+                            <option value="100" {{if eq .Navigation.MaxItemPerPage 100}}selected{{end}}>100</option>
+                            <option value="150" {{if eq .Navigation.MaxItemPerPage 150}}selected{{end}}>150</option>
+                            <option value="200" {{if eq .Navigation.MaxItemPerPage 200}}selected{{end}}>200</option>
+                            <option value="300" {{if eq .Navigation.MaxItemPerPage 300}}selected{{end}}>300</option>
                           </select>
+                          <div class="input-group">
+                            <input name="q" class="form-control input-sm" placeholder="Search" type="text" value="{{.Query}}">
+                            <span class="input-group-btn">
+                              <button type="submit" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search</button>
+                            </span>
+                          </div>
                       </div>
-                      <button type="submit" class="btn btn-default">Search</button>
                   </form>
               </div>
           </div>
       </nav>
-      
-      <div class="container">
-          <table class="table">
-              <tr>
-                  <th>Id</th>
-                  <th>Name</th>
-                  <th>Hash</th>
-                  <th>Date</th>
-                  <th>Size</th>
-                  <th>Links</th>
-              </tr>
-              {{ range .ListTorrents}}
-              <tr {{if eq .Status 2}}class="remake"{{end}}
-                  {{if eq .Status 3}}class="trusted"{{end}}
-                  {{if eq .Status 4}}class="aplus"{{end}}>
-                  <td>{{.Id}}</td>
-                  <td><a href="/view/{{.Id}}">{{.Name}}</a></td>
-                  <td>{{.Hash}}</td>
-                  <td>{{.Date}}</td>
-                  <td>{{.Filesize}}</td>
-
-
-                  <td><a href="{{.Magnet}}" title="Magnet link" ><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span></a>
-                      <a href="https://itorrents.org/torrent/{{.Hash}}.torrent" title="Torrent file"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span></a>
-                  </td>
-
-
-              </tr>
-              {{end}}
-
-          </table>
-          <nav aria-label="Page navigation">
-              <ul class="pagination">
-                  <li>
-                      <a id="page-prev" href="/page/" aria-label="Previous">
-                          <span aria-hidden="true">&laquo;</span>
-                      </a>
-                  </li>
-                  <li><a id="page-0" href="/page/"></a></li>
-                  <li><a id="page-1" href="/page/"></a></li>
-                  <li><a id="page-2" href="/page/"></a></li>
-                  <li><a id="page-3" href="/page/"></a></li>
-                  <li><a id="page-4" href="/page/"></a></li>
-                  <li>
-                      <a id="page-next" href="/page/" aria-label="Next">
-                          <span aria-hidden="true">&raquo;</span>
-                      </a>
-                  </li>
-              </ul>
-          </nav>
+      <div class="container" id="container">
+        {{block "content" .}}Nothing Here.{{end}}
       </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -159,6 +109,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <!-- Main Javascript File -->
-    <script type="text/javascript" charset="utf-8" src="//nyaa.pantsu.cat/js/main.js"></script>
+    <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}"></script>
 </body>
 </html>
