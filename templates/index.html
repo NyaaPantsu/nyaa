@@ -35,10 +35,9 @@
               </div>
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
-                      <li><a href="https://sukebei.pantsu.cat">Sukebei Pantsu</a></li>
+                      <li><a href="https://sukebei.pantsu.cat">Fap</a></li>
                       <li><a href="{{.URL.Parse "/faq"}}">Faq</a></li>
                       <li><a href="irc://irc.rizon.net/nyaapantsu">IRC</a></li>
-
                   </ul>
                   <form class="navbar-form navbar-right" role="search" action="/search" method="get">
                       <div class="form-group">
@@ -68,9 +67,60 @@
                             <option value="3" {{if eq .Status "3"}}selected{{end}}>Trusted</option>
                             <option value="4" {{if eq .Status "4"}}selected{{end}}>A+</option>
                           </select>
-======
+                          <div class="input-group">
+                            <input name="q" class="form-control input-sm" placeholder="Search" type="text" value="{{.Query}}">
+                            <span class="input-group-btn">
+                              <button type="submit" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search</button>
+                            </span>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </nav>
+
+      <div class="container" id="container">
+      <div class="blockBody">
+        <h3>Advanced Search</h3>
+         <form class="navbar-form navbar-right" role="search" action="/search" method="get">
+                      <div class="form-group">
+
+                          <select name="c" class="form-control input-sm" value>
+                            <option value="_">All categories</option>
+                            <option value="1_" {{if eq .Category "1_"}}selected{{end}}>Software</option>
+                            <option value="1_1" {{if eq .Category "1_1"}}selected{{end}}>Software - Applications</option>
+                            <option value="1_2" {{if eq .Category "1_2"}}selected{{end}}>Software - Games</option>
+                            <option value="2_" {{if eq .Category "2_"}}selected{{end}}>Audio</option>
+                            <option value="2_3" {{if eq .Category "2_3"}}selected{{end}}>Audio - Lossless</option>
+                            <option value="2_4" {{if eq .Category "2_4"}}selected{{end}}>Audio - Lossy</option>
+                            <option value="3_" {{if eq .Category "3_"}}selected{{end}}>Anime</option>
+                            <option value="3_5" {{if eq .Category "3_5"}}selected{{end}}>Anime - English-translated</option>
+                            <option value="3_6" {{if eq .Category "3_6"}}selected{{end}}>Anime - Raw</option>
+                            <option value="4_" {{if eq .Category "4_"}}selected{{end}}>Literature</option>
+                            <option value="4_7" {{if eq .Category "4_7"}}selected{{end}}>Literature - English-translated</option>
+                            <option value="4_8" {{if eq .Category "4_8"}}selected{{end}}>Literature - Raw</option>
+                            <option value="5_" {{if eq .Category "5_"}}selected{{end}}>Live Action</option>
+                            <option value="5_9" {{if eq .Category "5_9"}}selected{{end}}>Live Action - English-translated</option>
+                            <option value="5_10" {{if eq .Category "5_10"}}selected{{end}}>Live Action - Idol/Promotional Video</option>
+                            <option value="5_11" {{if eq .Category "5_11"}}selected{{end}}>Live Action - Raw</option>
+                          </select>
+                          <select name="s" class="form-control input-sm">
+                            <option value="">Search all</option>
+                            <option value="2" {{if eq .Status "2"}}selected{{end}}>Remakes</option>
+                            <option value="3" {{if eq .Status "3"}}selected{{end}}>Trusted</option>
+                            <option value="4" {{if eq .Status "4"}}selected{{end}}>A+</option>
+                          </select>
+                          <select name="sort" class="form-control input-sm">
+                            <option value="torrent_id" {{if eq .Sort "torrent_id"}}selected{{end}}>Id</option>
+                            <option value="torrent_name" {{if eq .Sort "torrent_name"}}selected{{end}}>Name</option>
+                            <option value="date" {{if eq .Sort "date"}}selected{{end}}>Date</option>
+                            <option value="downloads" {{if eq .Sort "downloads"}}selected{{end}}>Downloads</option>
+                          </select>
+                          <select name="order" class="form-control input-sm">
+                            <option value="desc" {{if eq .Order "desc"}}selected{{end}}>Descend</option>
+                            <option value="asc" {{if eq .Order "asc"}}selected{{end}}>Ascend</option>
+                          </select>
                           <select name="max" class="form-control input-sm" value>
-                            <option value="">No Items per Page</option>
                             <option value="5" {{if eq .Navigation.MaxItemPerPage 5}}selected{{end}}>5</option>
                             <option value="10" {{if eq .Navigation.MaxItemPerPage 10}}selected{{end}}>10</option>
                             <option value="15" {{if eq .Navigation.MaxItemPerPage 15}}selected{{end}}>15</option>
@@ -95,10 +145,8 @@
                           </div>
                       </div>
                   </form>
-              </div>
-          </div>
-      </nav>
-      <div class="container" id="container">
+                  <div style="clear:both"></div>
+      </div>
         {{block "content" .}}Nothing Here.{{end}}
       </div>
 

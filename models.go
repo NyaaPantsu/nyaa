@@ -42,7 +42,7 @@ type Torrents struct {
 	Name            string         `gorm:"column:torrent_name"`
 	Category_id     int            `gorm:"column:category_id"`
 	Sub_category_id int            `gorm:"column:sub_category_id"`
-	Status_id       int            `gorm:"column:status_id"`
+	Status          int            `gorm:"column:status_id"`
 	Hash            string         `gorm:"column:torrent_hash"`
 	Date            int            `gorm:"column:date"`
 	Downloads       int            `gorm:"column:downloads"`
@@ -131,13 +131,14 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	var torrents []Torrents
 	var dbQuery *gorm.DB
 	var count int
+	conditions := "torrent_hash is not null" //filter out broken entries
+	var params []interface{}
 	if parameters != nil { // if there is where parameters
-		db.Model(&torrents).Where(parameters.conditions, parameters.params...).Count(&count)
-		dbQuery = db.Model(&torrents).Where(parameters.conditions, parameters.params...)
-	} else {
-		db.Model(&torrents).Count(&count)
-		dbQuery = db.Model(&torrents)
+		conditions += " AND " + parameters.conditions
+		params = parameters.params
 	}
+	db.Model(&torrents).Where(conditions, params...).Count(&count)
+	dbQuery = db.Model(&torrents).Where(conditions, params...)
 
 	if orderBy == "" {
 		orderBy = "torrent_id DESC"
@@ -147,6 +148,7 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	}
 	dbQuery.Order(orderBy).Preload("Categories").Preload("Sub_Categories").Find(&torrents)
 	return torrents, count
+
 }
 
 /* Functions to simplify the get parameters of the main function
@@ -167,6 +169,7 @@ func getTorrentsDB(parameters WhereParams) ([]Torrents, int) {
  */
 
 func getAllTorrentsOrderBy(orderBy string, limit int, offset int) ([]Torrents, int) {
+
 	return getTorrentsOrderBy(nil, orderBy, limit, offset)
 }
 
@@ -215,6 +218,7 @@ func (t *Torrents) toJson() TorrentsJson {
 		Sub_Category: t.Sub_Categories.toJson(),
 		Category:     t.Categories.toJson(),
 		Magnet:       safe(magnet)}
+
 	return res
 }
 
