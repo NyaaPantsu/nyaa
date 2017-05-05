@@ -8,21 +8,36 @@ that anyone will be able to deploy locally or remotely.
 * Golang
 
 # Installation
-* Install golang
-* go get github.com/ewhal/nyaa
-* go build
-* Download db
-* place db in folder as "nyaa.d"
-* ./nyaa
-* go to localhost:9999
+* Install [Golang](https://golang.org/doc/install)
+* `go get github.com/ewhal/nyaa`
+* `go build`
+* Download DB and place it in your root folder named as "nyaa.db"
+* `./nyaa`
+* You can now access your local site over on [localhost:9999](http://localhost:9999)
+
+## Usage
+
+Type `./nyaa -h` for the list of options.
+
+## Systemd
+
+* Edit the unit file `os/nyaa.service` to your liking
+* Copy the package's content so that your unit file can find them.
+* Copy the unit file in `/usr/lib/systemd/system`
+* `systemctl daemon-reload`
+* `systemctl start nyaa`
+
+The provided unit file uses options directly; if you prefer a config file, do the following:
+
+* `./nyaa -print-defaults > /etc/nyaa.conf`
+* Edit `nyaa.conf` to your liking
+* Replace in the unit file the options by `-conf /etc/nyaa.conf`
 
 ## TODO
 * RSS feeds(work in progress)
 * torrent sorting (work in progress)
-* Merge 5th of april dump with animetosho dump
 * API improvement
 * Site theme
-* improve search by making it less strict
 * Torrent view and description page(work in progress)
 * accounts?
 * Adding new torrents

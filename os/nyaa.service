@@ -1,0 +1,12 @@
+[Unit]
+Description=Torrent indexer for weebs
+After=network.target
+
+[Service]
+WorkingDirectory=/srv/nyaa/
+ExecStart=/usr/local/bin/nyaa -dbtype sqlite3 -dbparams ./nyaa.db
+StandardOutput=syslog
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
