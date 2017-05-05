@@ -40,7 +40,7 @@ func checkErr(err error) {
 }
 
 func unZlib(description []byte) string {
-	if (len(description) > 0) {
+	if len(description) > 0 {
 		b := bytes.NewReader(description)
 		log.Println(b)
 		z, err := zlib.NewReader(b)
@@ -49,7 +49,7 @@ func unZlib(description []byte) string {
 		p, err := ioutil.ReadAll(z)
 		checkErr(err)
 		return string(p)
-	} 
+	}
 	return ""
 }
 
@@ -112,7 +112,9 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		maxPerPage = 50 // default Value maxPerPage
 	}
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
-	if (pagenum == 0) { pagenum = 1 }
+	if pagenum == 0 {
+		pagenum = 1
+	}
 	searchQuery := r.URL.Query().Get("q")
 	cat := r.URL.Query().Get("c")
 	stat := r.URL.Query().Get("s")
@@ -150,7 +152,6 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 
 	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
 	htv := HomeTemplateVariables{b, getAllCategories(false), searchQuery, stat, cat, sort, order, navigationTorrents, r.URL, mux.CurrentRoute(r)}
-
 
 	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -246,7 +247,9 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 	nbTorrents := 0
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
-	if (pagenum == 0) { pagenum = 1 }
+	if pagenum == 0 {
+		pagenum = 1
+	}
 
 	b := []TorrentsJson{}
 	torrents, nbTorrents := getAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
@@ -288,7 +291,6 @@ func main() {
 	router.HandleFunc("/faq", faqHandler).Name("faq")
 	router.HandleFunc("/feed.xml", rssHandler)
 	router.HandleFunc("/view/{id}", viewHandler).Name("view_torrent")
-
 
 	http.Handle("/", router)
 
