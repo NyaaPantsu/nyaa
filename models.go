@@ -18,17 +18,17 @@ type Feed struct {
 }
 
 type Categories struct {
-	Id   int `gorm:"column:category_id"`
-	Name string `gorm:"column:category_name"`
-	Torrents      []Torrents       `gorm:"ForeignKey:category_id;AssociationForeignKey:category_id"`
-	Sub_Categories  []Sub_Categories `gorm:"ForeignKey:parent_id;AssociationForeignKey:category_id"`
+	Id             int              `gorm:"column:category_id"`
+	Name           string           `gorm:"column:category_name"`
+	Torrents       []Torrents       `gorm:"ForeignKey:category_id;AssociationForeignKey:category_id"`
+	Sub_Categories []Sub_Categories `gorm:"ForeignKey:parent_id;AssociationForeignKey:category_id"`
 }
 
 type Sub_Categories struct {
-	Id   int          `gorm:"column:sub_category_id"`
-	Name string       `gorm:"column:Sub_category_name"`
-	Parent_id         int          `gorm:"column:parent_id"`
-	Torrents          []Torrents `gorm:"ForeignKey:sub_category_id;AssociationForeignKey:sub_category_id"`
+	Id        int        `gorm:"column:sub_category_id"`
+	Name      string     `gorm:"column:Sub_category_name"`
+	Parent_id int        `gorm:"column:parent_id"`
+	Torrents  []Torrents `gorm:"ForeignKey:sub_category_id;AssociationForeignKey:sub_category_id"`
 }
 
 type Statuses struct {
@@ -42,7 +42,7 @@ type Torrents struct {
 	Name            string         `gorm:"column:torrent_name"`
 	Category_id     int            `gorm:"column:category_id"`
 	Sub_category_id int            `gorm:"column:sub_category_id"`
-	Status       int            `gorm:"column:status_id"`
+	Status          int            `gorm:"column:status_id"`
 	Hash            string         `gorm:"column:torrent_hash"`
 	Date            int            `gorm:"column:date"`
 	Downloads       int            `gorm:"column:downloads"`
@@ -60,36 +60,35 @@ JSON Models Oject
 */
 
 type CategoryJson struct {
-	Id 				 string  		`json: "id"`
-	Name         string         `json: "category"`
+	Id               string         `json: "id"`
+	Name             string         `json: "category"`
 	Torrents         []TorrentsJson `json: "torrents"`
 	QueryRecordCount int            `json: "queryRecordCount"`
 	TotalRecordCount int            `json: "totalRecordCount"`
 }
 
 type SubCategoryJson struct {
-	Id 				string  		`json: "id"`
-	Name     string         	`json: "category"`
+	Id   string `json: "id"`
+	Name string `json: "category"`
 }
 
 type TorrentsJson struct {
-	Id     string       `json: "id"` // Is there a need to put the ID?
-	Name   string       `json: "name"`
-	Status int          `json: "status"`
-	Hash   string       `json: "hash"`
-	Date        int          `json: "date"`
-	Filesize    string       `json: "filesize"`
-	Description string       `json: "description"`
+	Id           string          `json: "id"` // Is there a need to put the ID?
+	Name         string          `json: "name"`
+	Status       int             `json: "status"`
+	Hash         string          `json: "hash"`
+	Date         int             `json: "date"`
+	Filesize     string          `json: "filesize"`
+	Description  string          `json: "description"`
 	Sub_Category SubCategoryJson `json: "sub_category"`
-	Category CategoryJson `json: "category"`
-	Magnet template.URL `json: "magnet"`
+	Category     CategoryJson    `json: "category"`
+	Magnet       template.URL    `json: "magnet"`
 }
 
 type WhereParams struct {
 	conditions string // Ex : name LIKE ? AND category_id LIKE ?
 	params     []interface{}
 }
-
 
 /* Function to interact with Models
  *
@@ -132,7 +131,7 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	var torrents []Torrents
 	var dbQuery *gorm.DB
 	var count int
-	if (parameters != nil) {  // if there is where parameters
+	if parameters != nil { // if there is where parameters
 		db.Model(&torrents).Where(parameters.conditions, parameters.params...).Count(&count)
 		dbQuery = db.Model(&torrents).Where(parameters.conditions, parameters.params...)
 	} else {
@@ -146,7 +145,7 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	if limit != 0 || offset != 0 { // if limits provided
 		dbQuery = dbQuery.Limit(limit).Offset(offset)
 	}
-		dbQuery.Order(orderBy).Preload("Categories").Preload("Sub_Categories").Find(&torrents)
+	dbQuery.Order(orderBy).Preload("Categories").Preload("Sub_Categories").Find(&torrents)
 	return torrents, count
 
 }
@@ -208,30 +207,30 @@ func createWhereParams(conditions string, params ...string) WhereParams {
 func (t *Torrents) toJson() TorrentsJson {
 	magnet := "magnet:?xt=urn:btih:" + strings.TrimSpace(t.Hash) + "&dn=" + t.Name + trackers
 	res := TorrentsJson{
-		Id:     strconv.Itoa(t.Id),
-		Name:   html.UnescapeString(t.Name),
-		Status: t.Status,
-		Hash:   t.Hash,
-		Date:        t.Date,
-		Filesize:    t.Filesize,
-		Description: unZlib(t.Description),
+		Id:           strconv.Itoa(t.Id),
+		Name:         html.UnescapeString(t.Name),
+		Status:       t.Status,
+		Hash:         t.Hash,
+		Date:         t.Date,
+		Filesize:     t.Filesize,
+		Description:  unZlib(t.Description),
 		Sub_Category: t.Sub_Categories.toJson(),
-		Category: t.Categories.toJson(),
-		Magnet: safe(magnet)}
+		Category:     t.Categories.toJson(),
+		Magnet:       safe(magnet)}
 
 	return res
 }
 
 func (c *Sub_Categories) toJson() SubCategoryJson {
 	return SubCategoryJson{
-		Id:     strconv.Itoa(c.Id),
-		Name:   html.UnescapeString(c.Name)}
+		Id:   strconv.Itoa(c.Id),
+		Name: html.UnescapeString(c.Name)}
 }
 
 func (c *Categories) toJson() CategoryJson {
 	return CategoryJson{
-		Id:     strconv.Itoa(c.Id),
-		Name:   html.UnescapeString(c.Name)}
+		Id:   strconv.Itoa(c.Id),
+		Name: html.UnescapeString(c.Name)}
 }
 
 /* Complete the functions when necessary... */
