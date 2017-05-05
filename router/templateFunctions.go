@@ -17,6 +17,13 @@ var FuncMap = template.FuncMap{
 		}
 		return "error"
 	},
+	"genRouteWithQuery": func(name string, currentUrl *url.URL, params ...string) template.HTML {
+		url, err := Router.Get(name).URL(params...)
+		if err == nil {
+			return template.HTML(url.String()+ "?" + currentUrl.RawQuery)
+		}
+		return "error"
+	},
 	"genNav": func(nav Navigation, currentUrl *url.URL, pagesSelectable int) template.HTML {
 		maxPages := math.Ceil(float64(nav.TotalItem) / float64(nav.MaxItemPerPage))
 

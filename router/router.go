@@ -26,6 +26,6 @@ func init()  {
 	Router.HandleFunc("/api/{page}", ApiHandler).Methods("GET")
 	Router.HandleFunc("/api/view/{id}", ApiViewHandler).Methods("GET")
 	Router.HandleFunc("/faq", FaqHandler).Name("faq")
-	Router.HandleFunc("/feed.xml", RssHandler)
+	Router.HandleFunc("/feed.xml", RssHandler).Name("feed")
 	Router.HandleFunc("/view/{id}", ViewHandler).Name("view_torrent")
 }
