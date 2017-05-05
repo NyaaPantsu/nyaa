@@ -207,7 +207,7 @@ func (t *Torrents) toJson() TorrentsJson {
 	res := TorrentsJson{
 		Id:           strconv.Itoa(t.Id),
 		Name:         html.UnescapeString(t.Name),
-		Status:       t.Status,
+		Status:       t.Status_id,
 		Hash:         t.Hash,
 		Date:         t.Date,
 		Filesize:     t.Filesize,
