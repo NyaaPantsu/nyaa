@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"compress/zlib"
 	"encoding/json"
-	"fmt"
 	"github.com/gorilla/feeds"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
@@ -42,8 +41,7 @@ func checkErr(err error) {
 
 func unZlib(description []byte) string {
 	b := bytes.NewReader(description)
-	fmt.Println(b)
-	if b.Len() > 0 {
+	if b.Len() > 0 { //basically tells you to fuck off is discription is empty
 		z, err := zlib.NewReader(b)
 		checkErr(err)
 		defer z.Close()
