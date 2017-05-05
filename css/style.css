@@ -15,7 +15,7 @@ nav#mainmenu {
     position: fixed;
     color: white;
     width: 100%;
-    z-index: 2;
+    z-index: 3;
 }
 nav#mainmenu a {
 	color: white;
