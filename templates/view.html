@@ -1,7 +1,8 @@
+{{define "title"}}{{.Torrent.Name}}{{end}}
 {{define "content"}}
   <div class="blockBody">
+  {{with .Torrent}}
           <table class="table">
-              {{ range .ListTorrents}}
               <tr {{if eq .Status 2}}class="remake"{{end}}
                   {{if eq .Status 3}}class="trusted"{{end}}
                   {{if eq .Status 4}}class="aplus"{{end}}>
@@ -24,7 +25,6 @@
                   <td>FileSize</td>
                   <td>{{.Filesize}}</td>
               </tr>
-              tr
               <tr>
                   <td>Links</td>
                   <td><a href="{{.Magnet}}" title="Magnet link" ><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span></a>
@@ -35,8 +35,7 @@
                   <td>Description</td>
                   <td>{{.Description}}</td>
               </tr>
-              {{end}}
-
           </table>
+          {{end}}
       </div>
 {{end}}
