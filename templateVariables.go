@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/ewhal/nyaa/model"
 	"net/url"
 )
 
@@ -19,7 +20,7 @@ type FaqTemplateVariables struct {
 }
 
 type ViewTemplateVariables struct {
-	Torrent 		TorrentsJson
+	Torrent 		model.TorrentsJson
 	Search 			SearchForm
 	Navigation     Navigation
 	URL            *url.URL   // For parsing Url in templates
@@ -27,8 +28,8 @@ type ViewTemplateVariables struct {
 }
 
 type HomeTemplateVariables struct {
-	ListTorrents   []TorrentsJson
-	ListCategories []Categories
+	ListTorrents   []model.TorrentsJson
+	ListCategories []model.Categories
 	Search 			SearchForm
 	Navigation     Navigation
 	URL            *url.URL   // For parsing Url in templates
