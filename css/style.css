@@ -15,7 +15,7 @@ nav#mainmenu {
     position: fixed;
     color: white;
     width: 100%;
-    z-index: 2;
+    z-index: 3;
 }
 nav#mainmenu a {
 	color: white;
@@ -63,3 +63,10 @@ a {
 .torrent-info .filesize {
 	white-space: nowrap;
 }
+
+div.container div.blockBody:nth-of-type(2) table{table-layout:fixed;}
+div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:first-of-type, div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(5){width:10%;}
+div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(3){width:15%;}
+div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(4){width:19%;}
+div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-type{width:6%;}
+tr.torrent-info td.hash,tr.torrent-info td.date{word-wrap:break-word;}

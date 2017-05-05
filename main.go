@@ -18,7 +18,14 @@ import (
 )
 
 var router *mux.Router
-
+type SearchParam struct {
+	Category   string
+	Order      string
+	Query      string
+	Max        int
+	Status     string
+	Sort       string
+}
 func apiHandler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
@@ -73,21 +80,51 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	page := vars["page"]
 
 	// db params url
-	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"))
-	if errConv != nil {
-		maxPerPage = 50 // default Value maxPerPage
-	}
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 	if pagenum == 0 {
 		pagenum = 1
 	}
-	searchQuery := r.URL.Query().Get("q")
-	cat := r.URL.Query().Get("c")
-	stat := r.URL.Query().Get("s")
-	sort := r.URL.Query().Get("sort")
-	order := r.URL.Query().Get("order")
+	
+	b := []model.TorrentsJson{}
+	
+	search_param, torrents, nbTorrents := searchByQuery( r, pagenum )
 
-	catsSplit := strings.Split(cat, "_")
+	for i, _ := range torrents {
+		res := torrents[i].ToJson()
+		b = append(b, res)
+	}
+
+	navigationTorrents := Navigation{nbTorrents, search_param.Max, pagenum, "search_page"}
+	searchForm := SearchForm{
+		search_param.Query,
+		search_param.Status,
+		search_param.Category,
+		search_param.Sort,
+		search_param.Order,
+	}
+	htv := HomeTemplateVariables{b, torrentService.GetAllCategories(false), searchForm, navigationTorrents, r.URL, mux.CurrentRoute(r)}
+
+	err := templates.ExecuteTemplate(w, "index.html", htv)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func searchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents, int) {
+	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"))
+	if errConv != nil {
+		maxPerPage = 50 // default Value maxPerPage
+	}
+	
+	search_param := SearchParam{}
+	search_param.Max = maxPerPage
+	search_param.Query = r.URL.Query().Get("q")
+	search_param.Category = r.URL.Query().Get("c")
+	search_param.Status = r.URL.Query().Get("s")
+	search_param.Sort = r.URL.Query().Get("sort")
+	search_param.Order = r.URL.Query().Get("order")
+
+	catsSplit := strings.Split(search_param.Category, "_")
 	// need this to prevent out of index panics
 	var searchCatId, searchSubCatId string
 	if len(catsSplit) == 2 {
@@ -95,35 +132,38 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		searchCatId = html.EscapeString(catsSplit[0])
 		searchSubCatId = html.EscapeString(catsSplit[1])
 	}
-	if sort == "" {
-		sort = "torrent_id"
+	if search_param.Sort == "" {
+		search_param.Sort = "torrent_id"
 	}
-	if order == "" {
-		order = "desc"
+	if search_param.Order == "" {
+		search_param.Order = "desc"
 	}
-	order_by := sort + " " + order
+	order_by := search_param.Sort + " " + search_param.Order
 
-	nbTorrents := 0
-
-	b := []model.TorrentsJson{}
-
-	parameters := torrentService.CreateWhereParams("torrent_name LIKE ? AND status_id LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ?",
-		"%"+searchQuery+"%", stat+"%", searchCatId+"%", searchSubCatId+"%")
-	torrents, nbTorrents := torrentService.GetTorrentsOrderBy(&parameters, order_by, maxPerPage, maxPerPage*(pagenum-1))
-
-	for i, _ := range torrents {
-		res := torrents[i].ToJson()
-		b = append(b, res)
+	parameters := torrentService.WhereParams{}
+	conditions := []string{}
+	if searchCatId != "" {
+		conditions = append(conditions, "category_id = ?")
+		parameters.Params = append(parameters.Params, searchCatId)
+	}
+	if searchSubCatId != "" {
+		conditions = append(conditions, "sub_category_id = ?")
+		parameters.Params = append(parameters.Params, searchSubCatId)
+	}
+	if search_param.Status != "" {
+		conditions = append(conditions, "status_id = ?")
+		parameters.Params = append(parameters.Params, search_param.Status)
+	}
+	searchQuerySplit := strings.Split(search_param.Query, " ")
+	for i, _ := range searchQuerySplit {
+		conditions = append(conditions, "torrent_name LIKE ?")
+		parameters.Params = append(parameters.Params, "%"+searchQuerySplit[i]+"%")
 	}
 
-	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
-	searchForm := SearchForm{searchQuery, stat, cat, sort, order}
-	htv := HomeTemplateVariables{b, torrentService.GetAllCategories(false), searchForm, navigationTorrents, r.URL, mux.CurrentRoute(r)}
-
-	err := templates.ExecuteTemplate(w, "index.html", htv)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	parameters.Conditions = strings.Join(conditions[:], " AND ")
+	log.Infof("SQL query is :: %s\n", parameters.Conditions)
+	torrents, n := torrentService.GetTorrentsOrderBy(&parameters, order_by, maxPerPage, maxPerPage*(pagenum-1))
+	return search_param, torrents, n
 }
 
 func faqHandler(w http.ResponseWriter, r *http.Request) {
@@ -135,20 +175,12 @@ func faqHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func rssHandler(w http.ResponseWriter, r *http.Request) {
-	//vars := mux.Vars(r)
-	//category := vars["c"]
 
-	// db params url
-	//maxPerPage := 50 // default Value maxPerPage
+	_, torrents, _ := searchByQuery( r, 1 )
+	created_as_time := time.Now()
 
-	torrents := torrentService.GetFeeds()
-	created := time.Now().String()
 	if len(torrents) > 0 {
-		created = torrents[0].Timestamp
-	}
-	created_as_time, err := time.Parse("2006-01-02 15:04:05", created)
-	if err == nil {
-
+		created_as_time = time.Unix(torrents[0].Date, 0)
 	}
 	feed := &feeds.Feed{
 		Title:   "Nyaa Pantsu",
@@ -159,17 +191,16 @@ func rssHandler(w http.ResponseWriter, r *http.Request) {
 	feed.Items = make([]*feeds.Item, len(torrents))
 
 	for i, _ := range torrents {
-		timestamp_as_time, err := time.Parse("2006-01-02 15:04:05", torrents[i].Timestamp)
-		if err == nil {
-			feed.Items[i] = &feeds.Item{
-				// need a torrent view first
-				//Id:		URL + torrents[i].Hash,
-				Title:       torrents[i].Name,
-				Link:        &feeds.Link{Href: string(torrents[i].Magnet)},
-				Description: "",
-				Created:     timestamp_as_time,
-				Updated:     timestamp_as_time,
-			}
+		timestamp_as_time := time.Unix(torrents[0].Date, 0)
+		torrent_json := torrents[i].ToJson()
+		feed.Items[i] = &feeds.Item{
+			// need a torrent view first
+			//Id:		URL + torrents[i].Hash,
+			Title:       torrents[i].Name,
+			Link:        &feeds.Link{Href: string(torrent_json.Magnet)},
+			Description: "",
+			Created:     timestamp_as_time,
+			Updated:     timestamp_as_time,
 		}
 	}
 
@@ -180,6 +211,7 @@ func rssHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
+
 func viewHandler(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.ParseFiles("templates/index.html", "templates/view.html"))
 	vars := mux.Vars(r)
