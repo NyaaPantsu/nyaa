@@ -1,4 +1,4 @@
-package main
+package router
 
 import (
 	"html/template"
@@ -8,22 +8,28 @@ import (
 	"strconv"
 )
 
-var funcMap = template.FuncMap{
+var FuncMap = template.FuncMap{
 	"min": math.Min,
 	"genRoute": func(name string, params ...string) string {
-		url, err := router.Get(name).URL(params...)
+		url, err := Router.Get(name).URL(params...)
 		if err == nil {
 			return url.String()
 		}
 		return "error"
 	},
+	"genRouteWithQuery": func(name string, currentUrl *url.URL, params ...string) template.HTML {
+		url, err := Router.Get(name).URL(params...)
+		if err == nil {
+			return template.HTML(url.String()+ "?" + currentUrl.RawQuery)
+		}
+		return "error"
+	},
 	"genNav": func(nav Navigation, currentUrl *url.URL, pagesSelectable int) template.HTML {
 		maxPages := math.Ceil(float64(nav.TotalItem) / float64(nav.MaxItemPerPage))
-		route := router.Get(nav.Route)
 
 		var ret = ""
 		if nav.CurrentPage-1 > 0 {
-			url, _ := route.URL("page", "1")
+			url, _ := Router.Get(nav.Route).URL("page", "1")
 			ret = ret + "<li><a id=\"page-prev\" href=\"" + url.String() + "?" + currentUrl.RawQuery + "\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"
 		}
 		startValue := 1
@@ -37,7 +43,7 @@ var funcMap = template.FuncMap{
 		log.Println(nav.TotalItem)
 		for i := startValue; i <= endValue; i++ {
 			pageNum := strconv.Itoa(i)
-			url, _ := route.URL("page", pageNum)
+			url, _ := Router.Get(nav.Route).URL("page", pageNum)
 			ret = ret + "<li"
 			if i == nav.CurrentPage {
 				ret = ret + " class=\"active\""
@@ -46,7 +52,7 @@ var funcMap = template.FuncMap{
 			ret = ret + "><a href=\"" + url.String() + "?" + currentUrl.RawQuery + "\">" + strconv.Itoa(i) + "</a></li>"
 		}
 		if nav.CurrentPage < int(maxPages) {
-			url, _ := route.URL("page", strconv.Itoa(nav.CurrentPage+1))
+			url, _ := Router.Get(nav.Route).URL("page", strconv.Itoa(nav.CurrentPage+1))
 			ret = ret + "<li><a id=\"page-next\" href=\"" + url.String() + "?" + currentUrl.RawQuery + "\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li>"
 		}
 		return template.HTML(ret)
