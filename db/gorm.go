@@ -13,7 +13,8 @@ var ORM, Errs = GormInit()
 
 // GormInit init gorm ORM.
 func GormInit() (*gorm.DB, error) {
-	db, err := gorm.Open("sqlite3", config.DbName)
+	conf := config.NewConfig()
+	db, err := gorm.Open(conf.DBType, conf.DBParams)
 	// db, err := gorm.Open("mysql", config.MysqlDSL())
 	//db, err := gorm.Open("sqlite3", "/tmp/gorm.db")
 
