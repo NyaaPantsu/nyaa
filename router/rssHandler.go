@@ -5,7 +5,7 @@ import(
 	"net/http"
 	"github.com/gorilla/feeds"
 	"github.com/ewhal/nyaa/util/search"
-
+	"strconv"
 )
 
 func RssHandler(w http.ResponseWriter, r *http.Request) {
@@ -29,7 +29,7 @@ func RssHandler(w http.ResponseWriter, r *http.Request) {
 		torrent_json := torrents[i].ToJson()
 		feed.Items[i] = &feeds.Item{
 			// need a torrent view first
-			//Id:		URL + torrents[i].Hash,
+			Id:          "https://nyaa.pantsu.cat/view/" + strconv.Itoa(torrents[i].Id),
 			Title:       torrents[i].Name,
 			Link:        &feeds.Link{Href: string(torrent_json.Magnet)},
 			Description: "",

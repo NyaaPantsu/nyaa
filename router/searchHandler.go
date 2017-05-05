@@ -39,6 +39,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		search_param.Category,
 		search_param.Sort,
 		search_param.Order,
+				false,
 	}
 	htv := HomeTemplateVariables{b, torrentService.GetAllCategories(false), searchForm, navigationTorrents, r.URL, mux.CurrentRoute(r)}
 

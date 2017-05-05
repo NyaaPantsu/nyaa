@@ -9,7 +9,6 @@
   background-color: #81d3fa;
 }
 
-
 /* modified copy of NyaaTorrent theme */
 nav#mainmenu {
     background: #263238;
@@ -56,6 +55,19 @@ a {
 	text-decoration : none;
 }
 
+.download-btn {
+    font-size: 20px;
+}
+
+.table-borderless > tbody > tr > td,
+.table-borderless > tbody > tr > th,
+.table-borderless > tfoot > tr > td,
+.table-borderless > tfoot > tr > th,
+.table-borderless > thead > tr > td,
+.table-borderless > thead > tr > th {
+    border: none;
+}
+
 .torrent-info .name {
 	font-weight: bold;
 	overflow: hidden;
@@ -72,9 +84,14 @@ a {
 	white-space: nowrap;
 }
 
+/* Styling/fixes for the table: */
 .table > tbody > tr > td {
     /* fix bootstrap uglyness */
     vertical-align: middle;
+}
+
+.custom-table-hover > tbody > tr:hover {
+	opacity: 0.82;
 }
 
 div.container div.blockBody:nth-of-type(2) table{table-layout:fixed;}
