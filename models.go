@@ -67,11 +67,13 @@ type CategoryJson struct {
 }
 
 type TorrentsJson struct {
-	Id     string       `json: "id"` // Is there a need to put the ID?
-	Name   string       `json: "name"`
-	Status int          `json: "status"`
-	Hash   string       `json: "hash"`
-	Magnet template.URL `json: "magnet"`
+	Id       string       `json: "id"` // Is there a need to put the ID?
+	Name     string       `json: "name"`
+	Status   int          `json: "status"`
+	Hash     string       `json: "hash"`
+	Date     int          `json: "date"`
+	Filesize string       `json: "filesize"`
+	Magnet   template.URL `json: "magnet"`
 }
 
 type WhereParams struct {
@@ -194,11 +196,13 @@ func getAllCategories(populatedWithTorrents bool) []Categories {
 func (t *Torrents) toJson() TorrentsJson {
 	magnet := "magnet:?xt=urn:btih:" + strings.TrimSpace(t.Hash) + "&dn=" + t.Name + trackers
 	res := TorrentsJson{
-		Id:     strconv.Itoa(t.Id),
-		Name:   html.UnescapeString(t.Name),
-		Status: t.Status_id,
-		Hash:   t.Hash,
-		Magnet: safe(magnet)}
+		Id:       strconv.Itoa(t.Id),
+		Name:     html.UnescapeString(t.Name),
+		Status:   t.Status_id,
+		Hash:     t.Hash,
+		Date:     t.Date,
+		Filesize: t.Filesize,
+		Magnet:   safe(magnet)}
 	return res
 }
 
