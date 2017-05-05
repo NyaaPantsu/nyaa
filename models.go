@@ -89,6 +89,8 @@ type HomeTemplateVariables struct {
 	Query            string
 	Status           string
 	Category         string
+	Sort             string
+	Order            string
 	QueryRecordCount int
 	TotalRecordCount int
 }
