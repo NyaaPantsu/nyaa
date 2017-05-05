@@ -6,13 +6,14 @@
               {{ genNav .Navigation .URL 10 }}
           </ul>
       </nav>
-      <table class="table">
+
+      <div class="table-responsive">
+          <table class="table table-striped table-hover">
           <tr>
-              <th>Id</th>
+              <th>Category</th>
               <th>Name</th>
-              <th>Hash</th>
-                  <th>Date</th>
-                  <th>Size</th>
+              <th>Date</th>
+              <th>Size</th>
               <th>Links</th>
           </tr>
           {{ range .ListTorrents}}
@@ -30,7 +31,6 @@
                       {{.Name}}
                   </a>
               </td>
-              <td class="hash">{{.Hash}}</td>
               <td class="date">{{.Date}}</td>
               <td class="filesize">{{.Filesize}}</td>
               <td>
@@ -45,4 +45,5 @@
           {{end}}
       </table>
     </div>
+</div>
 {{end}}
