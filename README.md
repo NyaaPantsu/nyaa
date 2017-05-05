@@ -15,6 +15,24 @@ that anyone will be able to deploy locally or remotely.
 * `./nyaa`
 * You can now access your local site over on [localhost:9999](http://localhost:9999)
 
+## Usage
+
+Type `./nyaa -h` for the list of options.
+
+## Systemd
+
+* Edit the unit file `os/nyaa.service` to your liking
+* Copy the package's content so that your unit file can find them.
+* Copy the unit file in `/usr/lib/systemd/system`
+* `systemctl daemon-reload`
+* `systemctl start nyaa`
+
+The provided unit file uses options directly; if you prefer a config file, do the following:
+
+* `./nyaa -print-defaults > /etc/nyaa.conf`
+* Edit `nyaa.conf` to your liking
+* Replace in the unit file the options by `-conf /etc/nyaa.conf`
+
 ## TODO
 * RSS feeds(work in progress)
 * torrent sorting (work in progress)
