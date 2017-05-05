@@ -103,6 +103,7 @@ func apiViewHandler(w http.ResponseWriter, r *http.Request) {
 
 func searchHandler(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.New("home").Funcs(funcMap).ParseFiles("templates/index.html", "templates/home.html"))
+	templates.ParseGlob("templates/_*.html") // common
 	vars := mux.Vars(r)
 	page := vars["page"]
 
@@ -184,6 +185,7 @@ func safe(s string) template.URL {
 
 func faqHandler(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.New("FAQ").Funcs(funcMap).ParseFiles("templates/index.html", "templates/FAQ.html"))
+	templates.ParseGlob("templates/_*.html") // common
 	err := templates.ExecuteTemplate(w, "index.html", FaqTemplateVariables{Navigation{}, NewSearchForm(), r.URL, mux.CurrentRoute(r)})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -238,6 +240,7 @@ func rssHandler(w http.ResponseWriter, r *http.Request) {
 }
 func viewHandler(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.ParseFiles("templates/index.html", "templates/view.html"))
+	templates.ParseGlob("templates/_*.html") // common
 	vars := mux.Vars(r)
 	id := vars["id"]
 
@@ -254,6 +257,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.New("home").Funcs(funcMap).ParseFiles("templates/index.html", "templates/home.html"))
+	templates.ParseGlob("templates/_*.html") // common
 	vars := mux.Vars(r)
 	page := vars["page"]
 
