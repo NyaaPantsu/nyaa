@@ -1,4 +1,4 @@
-package main
+package config
 
 import (
 	"bufio"
@@ -50,7 +50,7 @@ func (config *Config) BindFlags() processFlags {
 	db_params := flag.String("dbparams", Defaults.DBParams, "parameters to open the database (see Gorm's doc)")
 
 	return func() error {
-		err := config.handleConfFileFlag(*conf_file)
+		err := config.HandleConfFileFlag(*conf_file)
 		if err != nil {
 			return err
 		}
@@ -58,12 +58,12 @@ func (config *Config) BindFlags() processFlags {
 		config.Host = *host
 		config.Port = *port
 		config.DBParams = *db_params
-		err = config.setDBType(*db_type)
+		err = config.SetDBType(*db_type)
 		return err
 	}
 }
 
-func (config *Config) handleConfFileFlag(path string) error {
+func (config *Config) HandleConfFileFlag(path string) error {
 	if path != "" {
 		file, err := os.Open(path)
 		if err != nil {
@@ -78,7 +78,7 @@ func (config *Config) handleConfFileFlag(path string) error {
 	return nil
 }
 
-func (config *Config) setDBType(db_type string) error {
+func (config *Config) SetDBType(db_type string) error {
 	if !allowedDatabaseTypes[db_type] {
 		return errors.New(fmt.Sprintf("Unknown database backend '%s'.", db_type))
 	}
