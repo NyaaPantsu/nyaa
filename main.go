@@ -42,7 +42,7 @@ func checkErr(err error) {
 func unZlib(description []byte) string {
 	if len(description) > 0 {
 		b := bytes.NewReader(description)
-		log.Println(b)
+		//log.Println(b)
 		z, err := zlib.NewReader(b)
 		checkErr(err)
 		defer z.Close()
@@ -125,7 +125,6 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	// need this to prevent out of index panics
 	var searchCatId, searchSubCatId string
 	if len(catsSplit) == 2 {
-
 		searchCatId = html.EscapeString(catsSplit[0])
 		searchSubCatId = html.EscapeString(catsSplit[1])
 	}
@@ -141,8 +140,28 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 
 	b := []TorrentsJson{}
 
-	parameters := createWhereParams("torrent_name LIKE ? AND status_id LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ?",
-		"%"+searchQuery+"%", stat+"%", searchCatId+"%", searchSubCatId+"%")
+	parameters := WhereParams{}
+	conditions := []string{}
+	if searchCatId != "" {
+		conditions = append(conditions, "category_id = ?")
+		parameters.params = append(parameters.params, searchCatId)
+	}
+	if searchSubCatId != "" {
+		conditions = append(conditions, "sub_category_id = ?")
+		parameters.params = append(parameters.params, searchSubCatId)
+	}
+	if stat != "" {
+		conditions = append(conditions, "status_id = ?")
+		parameters.params = append(parameters.params, stat)
+	}
+	searchQuerySplit := strings.Split(searchQuery, " ")
+	for i, _ := range searchQuerySplit {
+		conditions = append(conditions, "torrent_name LIKE ?")
+		parameters.params = append(parameters.params, "%"+searchQuerySplit[i]+"%")
+	}
+
+	parameters.conditions = strings.Join(conditions[:], " AND ")
+	log.Printf("SQL query is :: %s\n", parameters.conditions)
 	torrents, nbTorrents := getTorrentsOrderBy(&parameters, order_by, maxPerPage, maxPerPage*(pagenum-1))
 
 	for i, _ := range torrents {
