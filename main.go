@@ -220,7 +220,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", "id", "desc", maxPerPage, nbTorrents}
+	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", "torrent_id", "desc", maxPerPage, nbTorrents}
 
 	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
