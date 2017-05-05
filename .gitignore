@@ -2,4 +2,6 @@
 *.db
 main
 nyaa
+nyaa.exe
 nyaa-master.exe
+*.zip
