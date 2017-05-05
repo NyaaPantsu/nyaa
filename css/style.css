@@ -35,10 +35,6 @@ body {
     padding: 0;
 }
 
-/*.blockBody {
-    padding: 1rem;
-}*/
-
 .torrentNav {
 	text-align: center;
 }
@@ -89,6 +85,11 @@ a {
     /* fix bootstrap uglyness */
     vertical-align: middle;
 }
+
+.table > tbody > tr > th, .table > tbody > tr > td {
+	padding: 4px;
+}
+
 
 .custom-table-hover > tbody > tr:hover {
 	opacity: 0.82;
