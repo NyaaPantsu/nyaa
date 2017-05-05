@@ -79,7 +79,7 @@ type TorrentsJson struct {
 	Hash         string          `json: "hash"`
 	Date         int             `json: "date"`
 	Filesize     string          `json: "filesize"`
-	Description  string          `json: "description"`
+	Description  template.HTML   `json: "description"`
 	Sub_Category SubCategoryJson `json: "sub_category"`
 	Category     CategoryJson    `json: "category"`
 	Magnet       template.URL    `json: "magnet"`
@@ -214,7 +214,7 @@ func (t *Torrents) toJson() TorrentsJson {
 		Hash:         t.Hash,
 		Date:         t.Date,
 		Filesize:     t.Filesize,
-		Description:  unZlib(t.Description),
+		Description:  template.HTML(unZlib(t.Description)),
 		Sub_Category: t.Sub_Categories.toJson(),
 		Category:     t.Categories.toJson(),
 		Magnet:       safe(magnet)}
