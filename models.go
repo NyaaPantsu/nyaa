@@ -10,14 +10,6 @@ import (
 	"time"
 )
 
-type Feed struct {
-	Id        int
-	Name      string
-	Hash      string
-	Magnet    string
-	Timestamp string
-}
-
 type Categories struct {
 	Id             int              `gorm:"column:category_id"`
 	Name           string           `gorm:"column:category_name"`
@@ -96,27 +88,6 @@ type WhereParams struct {
  * Get the torrents with where clause
  *
  */
-
-// don't need raw SQL once we get MySQL
-func getFeeds() []Feed {
-	var result []Feed
-	rows, err := db.DB().
-		Query(
-			"SELECT `torrent_id` AS `id`, `torrent_name` AS `name`, `torrent_hash` AS `hash`, `timestamp` FROM `torrents` " +
-				"ORDER BY `timestamp` desc LIMIT 50")
-	if err == nil {
-		for rows.Next() {
-			item := Feed{}
-			rows.Scan(&item.Id, &item.Name, &item.Hash, &item.Timestamp)
-			magnet := "magnet:?xt=urn:btih:" + strings.TrimSpace(item.Hash) + "&dn=" + item.Name + trackers
-			item.Magnet = magnet
-			// memory hog
-			result = append(result, item)
-		}
-		rows.Close()
-	}
-	return result
-}
 
 func getTorrentById(id string) (Torrents, error) {
 	var torrent Torrents
