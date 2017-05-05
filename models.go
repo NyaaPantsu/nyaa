@@ -131,13 +131,14 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	var torrents []Torrents
 	var dbQuery *gorm.DB
 	var count int
+	conditions := "torrent_hash is not null" //filter out broken entries
+	var params []interface{}
 	if parameters != nil { // if there is where parameters
-		db.Model(&torrents).Where(parameters.conditions, parameters.params...).Count(&count)
-		dbQuery = db.Model(&torrents).Where(parameters.conditions, parameters.params...)
-	} else {
-		db.Model(&torrents).Count(&count)
-		dbQuery = db.Model(&torrents)
+		conditions += " AND " + parameters.conditions
+		params = parameters.params
 	}
+	db.Model(&torrents).Where(conditions, params...).Count(&count)
+	dbQuery = db.Model(&torrents).Where(conditions, params...)
 
 	if orderBy == "" {
 		orderBy = "torrent_id DESC"
