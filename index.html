@@ -67,8 +67,17 @@
                             <option value="4" {{if eq .Status "4"}}selected{{end}}>A+</option>
                           </select>
                           <input name="q" class="form-control input-sm" placeholder="Search" type="text" value={{.Query}}>
+                          <select name="sort" class="form-control input-sm">
+                            <option value="torrent_id" {{if eq .Sort "torrent_id"}}selected{{end}}>Id</option>
+                            <option value="torrent_name" {{if eq .Sort "torrent_name"}}selected{{end}}>Name</option>
+                            <option value="date" {{if eq .Sort "date"}}selected{{end}}>Date</option>
+                            <option value="downloads" {{if eq .Sort "downloads"}}selected{{end}}>Downloads</option>
+                          </select>
+                          <select name="order" class="form-control input-sm">
+                            <option value="desc" {{if eq .Order "desc"}}selected{{end}}>Descend</option>
+                            <option value="asc" {{if eq .Order "asc"}}selected{{end}}>Ascend</option>
+                          </select>
                           <select name="max" class="form-control input-sm" value>
-                            <option value="">No Items per Page</option>
                             <option value="5" {{if eq .QueryRecordCount 5}}selected{{end}}>5</option>
                             <option value="10" {{if eq .QueryRecordCount 10}}selected{{end}}>10</option>
                             <option value="15" {{if eq .QueryRecordCount 15}}selected{{end}}>15</option>
@@ -91,7 +100,7 @@
               </div>
           </div>
       </nav>
-
+      
       <div class="container">
           <table class="table">
               <tr>

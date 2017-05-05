@@ -24,8 +24,7 @@ func getDBHandle() *gorm.DB {
 	dbInit, err := gorm.Open("sqlite3", "./nyaa.db")
 
 	// Migrate the schema of Torrents
-	// dbInit.AutoMigrate(&Torrents{})
-	// dbInit.AutoMigrate(&Sub_Categories{})
+	dbInit.AutoMigrate(&Torrents{}, &Categories{}, &Sub_Categories{}, &Statuses{})
 
 	checkErr(err)
 	return dbInit
@@ -99,6 +98,9 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	searchQuery := r.URL.Query().Get("q")
 	cat := r.URL.Query().Get("c")
 	stat := r.URL.Query().Get("s")
+	sort := r.URL.Query().Get("sort")
+	order := r.URL.Query().Get("order")
+
 	catsSplit := strings.Split(cat, "_")
 	// need this to prevent out of index panics
 	var searchCatId, searchSubCatId string
@@ -107,13 +109,21 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		searchCatId = html.EscapeString(catsSplit[0])
 		searchSubCatId = html.EscapeString(catsSplit[1])
 	}
+	if sort == "" {
+		sort = "torrent_id"
+	}
+	if order == "" {
+		order = "desc"
+	}
+	order_by := sort + " " + order
 
 	nbTorrents := 0
 
 	b := []TorrentsJson{}
 
-	torrents := getTorrents(createWhereParams("torrent_name LIKE ? AND status_id LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ?",
-		"%"+searchQuery+"%", stat+"%", searchCatId+"%", searchSubCatId+"%"), maxPerPage, maxPerPage*(pagenum-1))
+	parameters := createWhereParams("torrent_name LIKE ? AND status_id LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ?",
+		"%"+searchQuery+"%", stat+"%", searchCatId+"%", searchSubCatId+"%")
+	torrents := getTorrentsOrderBy(&parameters, order_by, maxPerPage, maxPerPage*(pagenum-1))
 
 	for i, _ := range torrents {
 		nbTorrents++
@@ -123,7 +133,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	htv := HomeTemplateVariables{b, getAllCategories(false), searchQuery, stat, cat, maxPerPage, nbTorrents}
+	htv := HomeTemplateVariables{b, getAllCategories(false), searchQuery, stat, cat, sort, order, maxPerPage, nbTorrents}
 
 	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -150,39 +160,39 @@ func rssHandler(w http.ResponseWriter, r *http.Request) {
 
 	torrents := getFeeds()
 	created := time.Now().String()
-	if ( len(torrents) > 0 ) {
+	if len(torrents) > 0 {
 		created = torrents[0].Timestamp
 	}
 	created_as_time, err := time.Parse("2006-01-02 15:04:05", created)
 	if err == nil {
-		;
+
 	}
 	feed := &feeds.Feed{
-		Title:		"Nyaa Pantsu",
-		Link:		&feeds.Link{Href: "https://nyaa.pantsu.cat/"},
-		Created:	created_as_time,
+		Title:   "Nyaa Pantsu",
+		Link:    &feeds.Link{Href: "https://nyaa.pantsu.cat/"},
+		Created: created_as_time,
 	}
 	feed.Items = []*feeds.Item{}
-	feed.Items = make( []*feeds.Item, len(torrents))
+	feed.Items = make([]*feeds.Item, len(torrents))
 
 	for i, _ := range torrents {
 		timestamp_as_time, err := time.Parse("2006-01-02 15:04:05", torrents[i].Timestamp)
 		if err == nil {
-			feed.Items[i] =	&feeds.Item{
+			feed.Items[i] = &feeds.Item{
 				// need a torrent view first
 				//Id:		URL + torrents[i].Hash,
-				Title:	torrents[i].Name,
-				Link: 	&feeds.Link{Href: string(torrents[i].Magnet)},
+				Title:       torrents[i].Name,
+				Link:        &feeds.Link{Href: string(torrents[i].Magnet)},
 				Description: "",
-				Created: timestamp_as_time,
-				Updated: timestamp_as_time,
+				Created:     timestamp_as_time,
+				Updated:     timestamp_as_time,
 			}
 		}
 	}
 
 	rss, err := feed.ToRss()
 	if err == nil {
-		w.Write( []byte( rss ) )
+		w.Write([]byte(rss))
 	} else {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -210,7 +220,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", maxPerPage, nbTorrents}
+	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", "id", "desc", maxPerPage, nbTorrents}
 
 	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
