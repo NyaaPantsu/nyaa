@@ -1,14 +1,13 @@
 package main
 
 import (
-"bufio"
-	"fmt"
+	"bufio"
 	"flag"
+	"fmt"
 
-	"github.com/ewhal/nyaa/util/log"
-	"github.com/ewhal/nyaa/router"
 	"github.com/ewhal/nyaa/config"
-
+	"github.com/ewhal/nyaa/router"
+	"github.com/ewhal/nyaa/util/log"
 
 	"net/http"
 	"os"
@@ -16,7 +15,6 @@ import (
 )
 
 func RunServer(conf *config.Config) {
-
 	http.Handle("/", router.Router)
 
 	// Set up server,
