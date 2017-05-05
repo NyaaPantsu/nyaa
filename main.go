@@ -206,8 +206,7 @@ func rssHandler(w http.ResponseWriter, r *http.Request) {
 		timestamp_as_time := time.Unix(torrents[0].Date, 0)
 		torrent_json := torrents[i].ToJson()
 		feed.Items[i] = &feeds.Item{
-			// need a torrent view first
-			//Id:		URL + torrents[i].Hash,
+			Id:          "https://nyaa.pantsu.cat/view/" + strconv.Itoa(torrents[i].Id),
 			Title:       torrents[i].Name,
 			Link:        &feeds.Link{Href: string(torrent_json.Magnet)},
 			Description: "",
