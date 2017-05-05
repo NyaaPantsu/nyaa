@@ -40,13 +40,17 @@ func checkErr(err error) {
 }
 
 func unZlib(description []byte) string {
-	b := bytes.NewReader(description)
-	z, err := zlib.NewReader(b)
-	checkErr(err)
-	defer z.Close()
-	p, err := ioutil.ReadAll(z)
-	checkErr(err)
-	return string(p)
+	if len(description) > 0 {
+		b := bytes.NewReader(description)
+		log.Println(b)
+		z, err := zlib.NewReader(b)
+		checkErr(err)
+		defer z.Close()
+		p, err := ioutil.ReadAll(z)
+		checkErr(err)
+		return string(p)
+	}
+	return ""
 }
 
 func apiHandler(w http.ResponseWriter, r *http.Request) {
@@ -137,8 +141,9 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 
 	b := []TorrentsJson{}
 
-	torrents, nbTorrents := getTorrents(createWhereParams("torrent_name LIKE ? AND status_id LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ?",
-		"%"+searchQuery+"%", stat+"%", searchCatId+"%", searchSubCatId+"%"), maxPerPage, maxPerPage*(pagenum-1))
+	parameters := createWhereParams("torrent_name LIKE ? AND status_id LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ?",
+		"%"+searchQuery+"%", stat+"%", searchCatId+"%", searchSubCatId+"%")
+	torrents, nbTorrents := getTorrentsOrderBy(&parameters, order_by, maxPerPage, maxPerPage*(pagenum-1))
 
 	for i, _ := range torrents {
 		res := torrents[i].toJson()
@@ -146,7 +151,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
-	htv := HomeTemplateVariables{b, getAllCategories(false), searchQuery, stat, cat, navigationTorrents, r.URL, mux.CurrentRoute(r)}
+	htv := HomeTemplateVariables{b, getAllCategories(false), searchQuery, stat, cat, sort, order, navigationTorrents, r.URL, mux.CurrentRoute(r)}
 
 	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -159,7 +164,7 @@ func safe(s string) template.URL {
 
 func faqHandler(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.New("FAQ").Funcs(funcMap).ParseFiles("templates/index.html", "templates/FAQ.html"))
-	err := templates.ExecuteTemplate(w, "index.html", FaqTemplateVariables{r.URL, mux.CurrentRoute(r), "", "", "", Navigation{}})
+	err := templates.ExecuteTemplate(w, "index.html", FaqTemplateVariables{r.URL, mux.CurrentRoute(r), "", "", "_", "torrent_id", "desc", Navigation{}})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -212,7 +217,7 @@ func rssHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 func viewHandler(w http.ResponseWriter, r *http.Request) {
-
+	var templates = template.Must(template.ParseFiles("templates/index.html", "templates/view.html"))
 	vars := mux.Vars(r)
 	id := vars["id"]
 	b := []TorrentsJson{}
@@ -221,9 +226,9 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 	res := torrent.toJson()
 	b = append(b, res)
 
-	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", "", "", 1, 1}
+	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", "", "", Navigation{}, r.URL, mux.CurrentRoute(r)}
 
-	err = templates.ExecuteTemplate(w, "view.html", htv)
+	err = templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -255,7 +260,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
-	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", navigationTorrents, r.URL, mux.CurrentRoute(r)}
+	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", "torrent_id", "desc", navigationTorrents, r.URL, mux.CurrentRoute(r)}
 
 	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -281,9 +286,11 @@ func main() {
 	router.HandleFunc("/page/{page:[0-9]+}", rootHandler).Name("home_page")
 	router.HandleFunc("/search", searchHandler).Name("search")
 	router.HandleFunc("/search/{page}", searchHandler).Name("search_page")
-	router.HandleFunc("/api/{page:[0-9]+}", apiHandler).Methods("GET")
-	router.HandleFunc("/api/torrent/{id:[0-9]+}", singleapiHandler).Methods("GET")
+	router.HandleFunc("/api/{page}", apiHandler).Methods("GET")
+	router.HandleFunc("/api/view/{id}", apiViewHandler).Methods("GET")
 	router.HandleFunc("/faq", faqHandler).Name("faq")
+	router.HandleFunc("/feed.xml", rssHandler)
+	router.HandleFunc("/view/{id}", viewHandler).Name("view_torrent")
 
 	http.Handle("/", router)
 
