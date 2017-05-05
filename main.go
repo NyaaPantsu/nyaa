@@ -170,7 +170,8 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
-	htv := HomeTemplateVariables{b, getAllCategories(false), searchQuery, stat, cat, sort, order, navigationTorrents, r.URL, mux.CurrentRoute(r)}
+	searchForm := SearchForm{searchQuery, stat, cat, sort, order}
+	htv := HomeTemplateVariables{b, getAllCategories(false), searchForm, navigationTorrents, r.URL, mux.CurrentRoute(r)}
 
 	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -183,7 +184,7 @@ func safe(s string) template.URL {
 
 func faqHandler(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.New("FAQ").Funcs(funcMap).ParseFiles("templates/index.html", "templates/FAQ.html"))
-	err := templates.ExecuteTemplate(w, "index.html", FaqTemplateVariables{r.URL, mux.CurrentRoute(r), "", "", "_", "torrent_id", "desc", Navigation{}})
+	err := templates.ExecuteTemplate(w, "index.html", FaqTemplateVariables{Navigation{}, NewSearchForm(), r.URL, mux.CurrentRoute(r)})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -239,13 +240,11 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.ParseFiles("templates/index.html", "templates/view.html"))
 	vars := mux.Vars(r)
 	id := vars["id"]
-	b := []TorrentsJson{}
 
 	torrent, err := getTorrentById(id)
-	res := torrent.toJson()
-	b = append(b, res)
+	b := torrent.toJson()
 
-	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", "", "", Navigation{}, r.URL, mux.CurrentRoute(r)}
+	htv := ViewTemplateVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
 
 	err = templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -279,7 +278,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
-	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", "torrent_id", "desc", navigationTorrents, r.URL, mux.CurrentRoute(r)}
+	htv := HomeTemplateVariables{b, getAllCategories(false), NewSearchForm(), navigationTorrents, r.URL, mux.CurrentRoute(r)}
 
 	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
