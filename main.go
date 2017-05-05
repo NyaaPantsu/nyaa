@@ -41,12 +41,16 @@ func checkErr(err error) {
 
 func unZlib(description []byte) string {
 	b := bytes.NewReader(description)
-	z, err := zlib.NewReader(b)
-	checkErr(err)
-	defer z.Close()
-	p, err := ioutil.ReadAll(z)
-	checkErr(err)
-	return string(p)
+	if b.Len() > 0 { //basically tells you to fuck off is discription is empty
+		z, err := zlib.NewReader(b)
+		checkErr(err)
+		defer z.Close()
+		p, err := ioutil.ReadAll(z)
+		checkErr(err)
+		return string(p)
+	} else {
+		return ""
+	}
 }
 
 func apiHandler(w http.ResponseWriter, r *http.Request) {
@@ -114,8 +118,6 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	searchQuery := r.URL.Query().Get("q")
 	cat := r.URL.Query().Get("c")
 	stat := r.URL.Query().Get("s")
-	sort := r.URL.Query().Get("sort")
-	order := r.URL.Query().Get("order")
 
 	catsSplit := strings.Split(cat, "_")
 	// need this to prevent out of index panics
@@ -125,13 +127,6 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		searchCatId = html.EscapeString(catsSplit[0])
 		searchSubCatId = html.EscapeString(catsSplit[1])
 	}
-	if sort == "" {
-		sort = "torrent_id"
-	}
-	if order == "" {
-		order = "desc"
-	}
-	order_by := sort + " " + order
 
 	nbTorrents := 0
 
@@ -212,6 +207,7 @@ func rssHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 func viewHandler(w http.ResponseWriter, r *http.Request) {
+	var templates = template.Must(template.New("view").Funcs(funcMap).ParseFiles("templates/index.html", "templates/view.html"))
 
 	vars := mux.Vars(r)
 	id := vars["id"]
@@ -221,9 +217,10 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 	res := torrent.toJson()
 	b = append(b, res)
 
-	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", "", "", 1, 1}
+	navigationTorrents := Navigation{0, 50, 0, "search_page"}
+	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", navigationTorrents, r.URL, mux.CurrentRoute(r)}
 
-	err = templates.ExecuteTemplate(w, "view.html", htv)
+	err = templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -281,8 +278,9 @@ func main() {
 	router.HandleFunc("/page/{page:[0-9]+}", rootHandler).Name("home_page")
 	router.HandleFunc("/search", searchHandler).Name("search")
 	router.HandleFunc("/search/{page}", searchHandler).Name("search_page")
+	router.HandleFunc("/torrent/{id}/{name}", viewHandler).Name("view")
 	router.HandleFunc("/api/{page:[0-9]+}", apiHandler).Methods("GET")
-	router.HandleFunc("/api/torrent/{id:[0-9]+}", singleapiHandler).Methods("GET")
+	router.HandleFunc("/api/torrent/{id:[0-9]+}", apiViewHandler).Methods("GET")
 	router.HandleFunc("/faq", faqHandler).Name("faq")
 
 	http.Handle("/", router)
