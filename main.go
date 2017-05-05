@@ -207,7 +207,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 	res := torrent.toJson()
 	b = append(b, res)
 
-	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", 1, 1}
+	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", "", "", 1, 1}
 
 	err = templates.ExecuteTemplate(w, "view.html", htv)
 	if err != nil {
