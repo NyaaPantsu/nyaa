@@ -8,13 +8,12 @@ that anyone will be able to deploy locally or remotely.
 * Golang
 
 # Installation
-* Install golang
-* go get github.com/ewhal/nyaa
-* go build
-* Download db
-* place db in folder as "nyaa.d"
-* ./nyaa
-* go to localhost:9999
+* Install [Golang](https://golang.org/doc/install)
+* `go get github.com/ewhal/nyaa`
+* `go build`
+* Download DB and place it in your root folder named as "nyaa.db"
+* `./nyaa`
+* You can now access your local site over on [localhost:9999](http://localhost:9999)
 
 ## TODO
 * RSS feeds(work in progress)
