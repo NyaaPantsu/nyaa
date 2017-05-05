@@ -15,6 +15,8 @@ type FaqTemplateVariables struct {
 	Query            string
 	Status           string
 	Category         string
+	Sort             string
+	Order            string
 	Navigation 		 Navigation
 }
 
@@ -24,6 +26,8 @@ type HomeTemplateVariables struct {
 	Query            string
 	Status           string
 	Category         string
+	Sort             string
+	Order            string
 	Navigation 		 Navigation
 	URL			 	 *url.URL // For parsing Url in templates
 	Route			 *mux.Route // For getting current route in templates
