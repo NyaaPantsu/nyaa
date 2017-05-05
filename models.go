@@ -7,6 +7,7 @@ import (
 	"html/template"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type Feed struct {
@@ -44,7 +45,7 @@ type Torrents struct {
 	Sub_category_id int            `gorm:"column:sub_category_id"`
 	Status          int            `gorm:"column:status_id"`
 	Hash            string         `gorm:"column:torrent_hash"`
-	Date            int            `gorm:"column:date"`
+	Date            int64          `gorm:"column:date"`
 	Downloads       int            `gorm:"column:downloads"`
 	Filesize        string         `gorm:"column:filesize"`
 	Description     []byte         `gorm:"column:description"`
@@ -77,7 +78,7 @@ type TorrentsJson struct {
 	Name         string          `json: "name"`
 	Status       int             `json: "status"`
 	Hash         string          `json: "hash"`
-	Date         int             `json: "date"`
+	Date         string          `json: "date"`
 	Filesize     string          `json: "filesize"`
 	Description  template.HTML   `json: "description"`
 	Sub_Category SubCategoryJson `json: "sub_category"`
@@ -212,7 +213,7 @@ func (t *Torrents) toJson() TorrentsJson {
 		Name:         html.UnescapeString(t.Name),
 		Status:       t.Status,
 		Hash:         t.Hash,
-		Date:         t.Date,
+		Date:         time.Unix(t.Date, 0).Format(time.RFC3339),
 		Filesize:     t.Filesize,
 		Description:  template.HTML(unZlib(t.Description)),
 		Sub_Category: t.Sub_Categories.toJson(),
