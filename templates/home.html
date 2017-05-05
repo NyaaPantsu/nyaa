@@ -1,0 +1,33 @@
+{{define "title"}}Home{{end}}
+{{define "content"}}
+	<div class="blockBody">
+      <table class="table">
+          <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Hash</th>
+              <th>Links</th>
+          </tr>
+          {{ range .ListTorrents}}
+          <tr {{if eq .Status 2}}class="remake"{{end}}
+              {{if eq .Status 3}}class="trusted"{{end}}
+              {{if eq .Status 4}}class="aplus"{{end}}>
+              <td><a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category.Id .Sub_Category.Id) }}"><img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .Sub_Category.Id) }}"></td>
+              <td class="torrentName"><a href="{{$.URL.Parse (printf "/torrent/%s/%s" .Id .Name) }}">{{.Name}}</a></td>
+              <td>{{.Hash}}</td>
+
+              <td><a href="{{.Magnet}}" target="_blank" title="Magnet link"><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span></a>
+              </td>
+
+
+          </tr>
+          {{end}}
+
+      </table>
+      <nav class="torrentNav" aria-label="Page navigation">
+          <ul class="pagination">
+              {{ genNav .Navigation .URL 10 }}
+          </ul>
+      </nav>
+    </div>
+{{end}}
