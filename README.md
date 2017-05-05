@@ -18,10 +18,8 @@ that anyone will be able to deploy locally or remotely.
 ## TODO
 * RSS feeds(work in progress)
 * torrent sorting (work in progress)
-* Merge 5th of april dump with animetosho dump
 * API improvement
 * Site theme
-* improve search by making it less strict
 * Torrent view and description page(work in progress)
 * accounts?
 * Adding new torrents
