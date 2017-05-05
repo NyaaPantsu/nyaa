@@ -15,7 +15,8 @@ import (
 )
 
 var db *gorm.DB
-var templates = template.Must(template.ParseFiles("index.html", "FAQ.html"))
+var router *mux.Router
+
 var debugLogger *log.Logger
 var trackers = "&tr=udp://zer0day.to:1337/announce&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://explodie.org:6969&tr=udp://tracker.opentrackr.org:1337&tr=udp://tracker.coppersurfer.tk:6969"
 
@@ -46,13 +47,12 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	maxPerPage := 50
 	nbTorrents := 0
 
-	torrents := getAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
+	torrents, nbTorrents := getAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
 	for i, _ := range torrents {
-		nbTorrents++
 		res := torrents[i].toJson()
-
 		b.Torrents = append(b.Torrents, res)
 	}
+
 	b.QueryRecordCount = maxPerPage
 	b.TotalRecordCount = nbTorrents
 	w.Header().Set("Content-Type", "application/json")
@@ -86,6 +86,7 @@ func singleapiHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func searchHandler(w http.ResponseWriter, r *http.Request) {
+	var templates = template.Must(template.New("home").Funcs(funcMap).ParseFiles("templates/index.html", "templates/home.html"))
 	vars := mux.Vars(r)
 	page := vars["page"]
 
@@ -95,6 +96,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		maxPerPage = 50 // default Value maxPerPage
 	}
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
+	if (pagenum == 0) { pagenum = 1 }
 	searchQuery := r.URL.Query().Get("q")
 	cat := r.URL.Query().Get("c")
 	stat := r.URL.Query().Get("s")
@@ -111,18 +113,16 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 
 	b := []TorrentsJson{}
 
-	torrents := getTorrents(createWhereParams("torrent_name LIKE ? AND status_id LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ?",
+	torrents, nbTorrents := getTorrents(createWhereParams("torrent_name LIKE ? AND status_id LIKE ? AND category_id LIKE ? AND sub_category_id LIKE ?",
 		"%"+searchQuery+"%", stat+"%", searchCatId+"%", searchSubCatId+"%"), maxPerPage, maxPerPage*(pagenum-1))
 
 	for i, _ := range torrents {
-		nbTorrents++
 		res := torrents[i].toJson()
-
 		b = append(b, res)
-
 	}
 
-	htv := HomeTemplateVariables{b, getAllCategories(false), searchQuery, stat, cat, maxPerPage, nbTorrents}
+	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
+	htv := HomeTemplateVariables{b, getAllCategories(false), searchQuery, stat, cat, navigationTorrents, r.URL, mux.CurrentRoute(r)}
 
 	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -134,13 +134,15 @@ func safe(s string) template.URL {
 }
 
 func faqHandler(w http.ResponseWriter, r *http.Request) {
-	err := templates.ExecuteTemplate(w, "FAQ.html", "")
+	var templates = template.Must(template.New("FAQ").Funcs(funcMap).ParseFiles("templates/index.html", "templates/FAQ.html"))
+	err := templates.ExecuteTemplate(w, "index.html", FaqTemplateVariables{r.URL, mux.CurrentRoute(r), "", "", "", Navigation{}})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
+	var templates = template.Must(template.New("home").Funcs(funcMap).ParseFiles("templates/index.html", "templates/home.html"))
 	vars := mux.Vars(r)
 	page := vars["page"]
 
@@ -152,17 +154,18 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 	nbTorrents := 0
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
+	if (pagenum == 0) { pagenum = 1 }
+
 	b := []TorrentsJson{}
-	torrents := getAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
+	torrents, nbTorrents := getAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
+
 	for i, _ := range torrents {
-		nbTorrents++
 		res := torrents[i].toJson()
-
 		b = append(b, res)
-
 	}
 
-	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", maxPerPage, nbTorrents}
+	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
+	htv := HomeTemplateVariables{b, getAllCategories(false), "", "", "_", navigationTorrents, r.URL, mux.CurrentRoute(r)}
 
 	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -174,21 +177,23 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	db = getDBHandle()
-	router := mux.NewRouter()
+	router = mux.NewRouter()
 
 	cssHandler := http.FileServer(http.Dir("./css/"))
 	jsHandler := http.FileServer(http.Dir("./js/"))
+	imgHandler := http.FileServer(http.Dir("./img/"))
 	http.Handle("/css/", http.StripPrefix("/css/", cssHandler))
 	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
+	http.Handle("/img/", http.StripPrefix("/img/", imgHandler))
 
 	// Routes,
-	router.HandleFunc("/", rootHandler)
-	router.HandleFunc("/page/{page}", rootHandler)
-	router.HandleFunc("/search", searchHandler)
-	router.HandleFunc("/search/{page}", searchHandler)
-	router.HandleFunc("/api/{page}", apiHandler).Methods("GET")
-	router.HandleFunc("/api/torrent/{id}", singleapiHandler).Methods("GET")
-	router.HandleFunc("/faq", faqHandler)
+	router.HandleFunc("/", rootHandler).Name("home")
+	router.HandleFunc("/page/{page:[0-9]+}", rootHandler).Name("home_page")
+	router.HandleFunc("/search", searchHandler).Name("search")
+	router.HandleFunc("/search/{page}", searchHandler).Name("search_page")
+	router.HandleFunc("/api/{page:[0-9]+}", apiHandler).Methods("GET")
+	router.HandleFunc("/api/torrent/{id:[0-9]+}", singleapiHandler).Methods("GET")
+	router.HandleFunc("/faq", faqHandler).Name("faq")
 
 	http.Handle("/", router)
 
