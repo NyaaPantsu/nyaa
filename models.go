@@ -10,31 +10,31 @@ import (
 )
 
 type Feed struct {
-	Id              int
-	Name            string
-	Hash            string
-	Magnet          string
-	Timestamp       string
+	Id        int
+	Name      string
+	Hash      string
+	Magnet    string
+	Timestamp string
 }
 
 type Categories struct {
-	Category_id	int
-	Category_name	string
-	Torrents	[]Torrents `gorm:"ForeignKey:category_id;AssociationForeignKey:category_id"`
-	Sub_Categories	[]Sub_Categories `gorm:"ForeignKey:category_id;AssociationForeignKey:parent_id"`
+	Category_id    int
+	Category_name  string
+	Torrents       []Torrents       `gorm:"ForeignKey:category_id;AssociationForeignKey:category_id"`
+	Sub_Categories []Sub_Categories `gorm:"ForeignKey:category_id;AssociationForeignKey:parent_id"`
 }
 
 type Sub_Categories struct {
-	Sub_category_id	  int
+	Sub_category_id   int
 	Sub_category_name string
-	Parent_id	  int
-	Torrents	  []Torrents `gorm:"ForeignKey:sub_category_id;AssociationForeignKey:sub_category_id"`
+	Parent_id         int
+	Torrents          []Torrents `gorm:"ForeignKey:sub_category_id;AssociationForeignKey:sub_category_id"`
 }
 
 type Statuses struct {
-	Status_id	int
-	Status_name	string
-	Torrents	[]Torrents   `gorm:"ForeignKey:status_id;AssociationForeignKey:status_id"`
+	Status_id   int
+	Status_name string
+	Torrents    []Torrents `gorm:"ForeignKey:status_id;AssociationForeignKey:status_id"`
 }
 
 type Torrents struct {
@@ -42,12 +42,12 @@ type Torrents struct {
 	Name            string         `gorm:"column:torrent_name"`
 	Category_id     int            `gorm:"column:category_id"`
 	Sub_category_id int            `gorm:"column:sub_category_id"`
-	Status_id	int	       `gorm:"column:status_id"`
+	Status_id       int            `gorm:"column:status_id"`
 	Hash            string         `gorm:"column:torrent_hash"`
-	Date		int	       `gorm:"column:date"`
-	Downloads	int	       `gorm:"column:downloads"`
-	Filesize	string	       `gorm:"column:filesize"`
-	Description	[]byte	       `gorm:"column:description"`
+	Date            int            `gorm:"column:date"`
+	Downloads       int            `gorm:"column:downloads"`
+	Filesize        string         `gorm:"column:filesize"`
+	Description     []byte         `gorm:"column:description"`
 	Statuses        Statuses       `gorm:"ForeignKey:status_id;AssociationForeignKey:status_id"`
 	Categories      Categories     `gorm:"ForeignKey:category_id;AssociationForeignKey:category_id"`
 	Sub_Categories  Sub_Categories `gorm:"ForeignKey:sub_category_id;AssociationForeignKey:sub_category_id"`
@@ -67,11 +67,13 @@ type CategoryJson struct {
 }
 
 type TorrentsJson struct {
-	Id     string       `json: "id"` // Is there a need to put the ID?
-	Name   string       `json: "name"`
-	Status int          `json: "status"`
-	Hash   string       `json: "hash"`
-	Magnet template.URL `json: "magnet"`
+	Id       string       `json: "id"` // Is there a need to put the ID?
+	Name     string       `json: "name"`
+	Status   int          `json: "status"`
+	Hash     string       `json: "hash"`
+	Date     int          `json: "date"`
+	Filesize string       `json: "filesize"`
+	Magnet   template.URL `json: "magnet"`
 }
 
 type WhereParams struct {
@@ -87,6 +89,8 @@ type HomeTemplateVariables struct {
 	Query            string
 	Status           string
 	Category         string
+	Sort             string
+	Order            string
 	QueryRecordCount int
 	TotalRecordCount int
 }
@@ -103,15 +107,15 @@ func getFeeds() []Feed {
 	rows, err := db.DB().
 		Query(
 			"SELECT `torrent_id` AS `id`, `torrent_name` AS `name`, `torrent_hash` AS `hash`, `timestamp` FROM `torrents` " +
-			"ORDER BY `timestamp` desc LIMIT 50")
-	if ( err == nil ) {
+				"ORDER BY `timestamp` desc LIMIT 50")
+	if err == nil {
 		for rows.Next() {
 			item := Feed{}
-			rows.Scan( &item.Id, &item.Name, &item.Hash, &item.Timestamp ) 
+			rows.Scan(&item.Id, &item.Name, &item.Hash, &item.Timestamp)
 			magnet := "magnet:?xt=urn:btih:" + strings.TrimSpace(item.Hash) + "&dn=" + item.Name + trackers
 			item.Magnet = magnet
 			// memory hog
-			result = append( result, item )
+			result = append(result, item)
 		}
 		rows.Close()
 	}
@@ -131,23 +135,25 @@ func getTorrentById(id string) (Torrents, error) {
 func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int) []Torrents {
 	var torrents []Torrents
 	var dbQuery *gorm.DB
-	
-	if (parameters != nil) {  // if there is where parameters
+
+	if parameters != nil { // if there is where parameters
 		dbQuery = db.Model(&torrents).Where(parameters.conditions, parameters.params...)
 	} else {
 		dbQuery = db.Model(&torrents)
 	}
-	
-	if (orderBy == "") { orderBy = "torrent_id DESC" } // Default OrderBy
+
+	if orderBy == "" {
+		orderBy = "torrent_id DESC"
+	} // Default OrderBy
 	if limit != 0 || offset != 0 { // if limits provided
 		dbQuery = dbQuery.Limit(limit).Offset(offset)
 	}
-		dbQuery.Order(orderBy).Preload("Categories").Preload("Sub_Categories").Find(&torrents)
+	dbQuery.Order(orderBy).Preload("Categories").Preload("Sub_Categories").Find(&torrents)
 	return torrents
 }
 
-/* Functions to simplify the get parameters of the main function 
- * 
+/* Functions to simplify the get parameters of the main function
+ *
  * Get Torrents with where parameters and limits, order by default
  */
 func getTorrents(parameters WhereParams, limit int, offset int) []Torrents {
@@ -163,7 +169,7 @@ func getTorrentsDB(parameters WhereParams) []Torrents {
 /* Function to get all torrents
  */
 
-func getAllTorrentsOrderBy(orderBy string, limit int, offset int) [] Torrents {
+func getAllTorrentsOrderBy(orderBy string, limit int, offset int) []Torrents {
 	return getTorrentsOrderBy(nil, orderBy, limit, offset)
 }
 
@@ -190,11 +196,13 @@ func getAllCategories(populatedWithTorrents bool) []Categories {
 func (t *Torrents) toJson() TorrentsJson {
 	magnet := "magnet:?xt=urn:btih:" + strings.TrimSpace(t.Hash) + "&dn=" + t.Name + trackers
 	res := TorrentsJson{
-		Id:     strconv.Itoa(t.Id),
-		Name:   html.UnescapeString(t.Name),
-		Status: t.Status_id,
-		Hash:   t.Hash,
-		Magnet: safe(magnet)}
+		Id:       strconv.Itoa(t.Id),
+		Name:     html.UnescapeString(t.Name),
+		Status:   t.Status_id,
+		Hash:     t.Hash,
+		Date:     t.Date,
+		Filesize: t.Filesize,
+		Magnet:   safe(magnet)}
 	return res
 }
 
