@@ -1,17 +1,22 @@
 package main
 
 import (
+"bufio"
 	"encoding/json"
+	"fmt"
+	"flag"
 	"github.com/gorilla/feeds"
 	"github.com/gorilla/mux"
 
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/util/log"
+	"github.com/ewhal/nyaa/config"
 
 	"html"
 	"html/template"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -26,6 +31,7 @@ type SearchParam struct {
 	Status     string
 	Sort       string
 }
+
 func apiHandler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
@@ -263,8 +269,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func main() {
-
+func RunServer(conf *config.Config) {
 	router = mux.NewRouter()
 
 	cssHandler := http.FileServer(http.Dir("./css/"))
@@ -289,11 +294,28 @@ func main() {
 
 	// Set up server,
 	srv := &http.Server{
-		Addr:         "localhost:9999",
+		Addr:         fmt.Sprintf("%s:%d", conf.Host, conf.Port),
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
 
 	err := srv.ListenAndServe()
 	log.CheckError(err)
+}
+
+func main() {
+
+	conf := config.NewConfig()
+	conf_bind := conf.BindFlags()
+	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
+	flag.Parse()
+	if *defaults {
+		stdout := bufio.NewWriter(os.Stdout)
+		conf.Pretty(stdout)
+		stdout.Flush()
+		os.Exit(0)
+	} else {
+		conf_bind()
+		RunServer(conf)
+	}
 }
