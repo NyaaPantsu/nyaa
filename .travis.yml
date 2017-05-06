@@ -13,6 +13,7 @@ install:
 - go get golang.org/x/crypto/bcrypt
 - go get github.com/nicksnyder/go-i18n/i18n
 - go get github.com/valyala/quicktemplate
+- go generate ./...
 - go build
 deploy:
   provider: releases
