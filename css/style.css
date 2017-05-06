@@ -24,7 +24,7 @@ nav#mainmenu a {
 
 div#container {
     padding-top: 1.25em;
-    background: white;
+    background: white url(/img/renchon.png) no-repeat;
 }
 
 body {
