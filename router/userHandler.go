@@ -1,18 +1,30 @@
 package router
 
 import(
-	// "github.com/gorilla/mux"
+	"html/template"
 	"net/http"
-	// "html"
-	// "strconv"
-	// "github.com/ewhal/nyaa/model"
-	// "github.com/ewhal/nyaa/service/user"
+
+	"github.com/ewhal/nyaa/templates"
+	"github.com/ewhal/nyaa/service/user/form"
+	"github.com/ewhal/nyaa/util/modelHelper"
+	"github.com/gorilla/mux"
 )
+
+var viewRegisterTemplate = template.Must(template.New("view").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/user/register.html"))
+//var viewTemplate = template.Must(template.New("view").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/view.html"))
+//var viewTemplate = template.Must(template.New("view").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/view.html"))
 
 // Getting View User Registration
 
 func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 
+	b := form.RegistrationForm{}
+	modelHelper.BindValueForm(b, r)
+	htv := UserRegisterTemplateVariables{b, templates.NewSearchForm(), templates.Navigation{}, r.URL, mux.CurrentRoute(r)}
+	err := viewTemplate.ExecuteTemplate(w, "index.html", htv)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 // Getting View User Login

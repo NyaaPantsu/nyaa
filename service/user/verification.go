@@ -67,7 +67,7 @@ func SendVerification(r *http.Request) (int, error) {
 // EmailVerification verifies an email of user.
 func EmailVerification(w http.ResponseWriter, r *http.Request) (int, error) {
 	var user model.User
-	var verifyEmailForm VerifyEmailForm
+	var verifyEmailForm formStruct.VerifyEmailForm
 	modelHelper.BindValueForm(&verifyEmailForm, r)
 	log.Debugf("verifyEmailForm.ActivationToken : %s", verifyEmailForm.ActivationToken)
 	if db.ORM.Where(&model.User{ActivationToken: verifyEmailForm.ActivationToken}).First(&user).RecordNotFound() {
