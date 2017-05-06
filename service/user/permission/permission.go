@@ -2,12 +2,10 @@ package userPermission
 
 import (
 	"errors"
-	"net/http"
 
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/user"
 	"github.com/ewhal/nyaa/util/log"
-	"github.com/gin-gonic/gin"
 )
 
 // HasAdmin checks that user has an admin permission.
@@ -29,8 +27,8 @@ func CurrentOrAdmin(user *model.User, userId uint) bool {
 }
 
 // CurrentUserIdentical check that userId is same as current user's Id.
-func CurrentUserIdentical(userId uint) (bool, error) {
-	currentUser, err := userService.CurrentUser(c)
+func CurrentUserIdentical(r *http.Request, userId uint) (bool, error) {
+	currentUser, err := userService.CurrentUser(r)
 	if err != nil {
 		return false, errors.New("Auth failed.")
 	}
