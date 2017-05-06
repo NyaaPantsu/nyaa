@@ -16,7 +16,7 @@ type Config struct {
 	DBType string `json: "db_type"`
 	// This will be directly passed to Gorm, and its internal
 	// structure depends on the dialect for each db type
-	DBParams string `json: "db_type"`
+	DBParams string `json: "db_params"`
 }
 
 var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50"}
@@ -50,15 +50,15 @@ func (config *Config) BindFlags() processFlags {
 	db_params := flag.String("dbparams", Defaults.DBParams, "parameters to open the database (see Gorm's doc)")
 
 	return func() error {
-		err := config.HandleConfFileFlag(*conf_file)
-		if err != nil {
-			return err
-		}
 		// You can override fields in the config file with flags.
 		config.Host = *host
 		config.Port = *port
 		config.DBParams = *db_params
-		err = config.SetDBType(*db_type)
+		err := config.SetDBType(*db_type)
+		if err != nil {
+			return err
+		}
+		err = config.HandleConfFileFlag(*conf_file)
 		return err
 	}
 }
