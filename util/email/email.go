@@ -1,10 +1,7 @@
 package email
 
 import (
-	"errors"
 	"path/filepath"
-	"sync/atomic"
-	"time"
 
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/util/log"
@@ -18,7 +15,7 @@ var (
 )
 
 func InitGomail() *gomail.Mailer {
-	mailer := gomail.NewMailer(config.EmailHost, config.EmailUsername, config.EmailPassword, config.EmailPort)
+	mailer := gomail.NewDialer(config.EmailHost, config.EmailUsername, config.EmailPassword, config.EmailPort)
 	return mailer
 }
 
