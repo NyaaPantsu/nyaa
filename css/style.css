@@ -24,7 +24,15 @@ nav#mainmenu a {
 
 div#container {
     padding-top: 1.25em;
-    background: white url(/img/renchon.png) no-repeat;
+    background: white;
+}
+
+div#container.cont-home {
+     background: white url(/img/renchon.png) no-repeat;
+}
+div#container.cont-view {
+     background: white url(/img/renchon.png) no-repeat;
+     background-size: 61px;
 }
 
 body {
@@ -80,7 +88,12 @@ a {
 	white-space: nowrap;
 }
 
-/* Styling/fixes for the table: */
+.comment-row td:first-of-type {
+	vertical-align: top;
+	text-align: right;
+}
+
+/* Table style & fixes */
 .table > tbody > tr > td {
     /* fix bootstrap uglyness */
     vertical-align: middle;
@@ -96,6 +109,10 @@ tr.torrent-info td.date {
 
 .custom-table-hover > tbody > tr:hover {
 	opacity: 0.82;
+}
+
+.comment-row {
+	border-top: 1px solid #ddd;
 }
 
 div.container div.blockBody:nth-of-type(2) table{table-layout:fixed;}

@@ -1,3 +1,5 @@
+![nyanpasu~](https://a.safe.moe/dNEEh.png)
+
 # Nyaa replacement [![Build Status](https://travis-ci.org/ewhal/nyaa.svg?branch=master)](https://travis-ci.org/ewhal/nyaa)
 
 ## Motivation
@@ -42,7 +44,9 @@ The provided unit file uses options directly; if you prefer a config file, do th
 * custom 404 page
 ## Other features
 * Add support for postgres dbs
+* Torrent data scraping from definable tracker
 * Report Feature and Moderation System
+  * blocking upload of torrent hashes
 * API improvement
 * Scraping
 * Accounts and Registration System

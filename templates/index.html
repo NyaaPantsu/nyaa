@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Nyaa Pantsu - {{block "title" .}}Error 404{{end}}</title>
-    <link rel="icon" type="image/png" href="/img/favicon.png" />
+    <link rel="icon" type="image/png" href="/img/favicon.png?v=2" />
 
     <!-- RSS Feed with Context -->
     <link href="{{ genRouteWithQuery "feed" .URL }}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
@@ -41,6 +41,7 @@
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
                       <li><a href="https://sukebei.pantsu.cat">Fap</a></li>
+                      <li><a href="{{.URL.Parse "/upload"}}">Upload</a/></li>
                       <li><a href="{{.URL.Parse "/faq"}}">FAQ</a></li>                      
                       <li><a href="irc://irc.rizon.net/nyaapantsu">IRC</a></li>
                       <li><a href="{{ genRouteWithQuery "feed" .URL }}">RSS</a></li>
@@ -58,7 +59,7 @@
       <!-- top padding -->
       <div style="padding-top: 10rem"></div>
 
-      <div class="container" id="container">
+      <div class="container {{block "contclass" .}}generic{{end}}" id="container">
       {{if not .Search.HideAdvancedSearch}}
       <div class="blockBody" style="text-align:center">
         <font size="4.5">Advanced Search</font><br />

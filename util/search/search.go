@@ -1,22 +1,22 @@
 package search
 
-import(
+import (
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/util/log"
-	"net/http"
 	"html"
+	"net/http"
 	"strconv"
 	"strings"
 )
 
 type SearchParam struct {
-	Category   string
-	Order      string
-	Query      string
-	Max        int
-	Status     string
-	Sort       string
+	Category string
+	Order    string
+	Query    string
+	Max      int
+	Status   string
+	Sort     string
 }
 
 func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents, int) {
@@ -24,7 +24,10 @@ func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents,
 	if errConv != nil {
 		maxPerPage = 50 // default Value maxPerPage
 	}
-	
+
+	if maxPerPage > 300 {
+		maxPerPage = 300
+	}
 	search_param := SearchParam{}
 	search_param.Max = maxPerPage
 	search_param.Query = r.URL.Query().Get("q")
