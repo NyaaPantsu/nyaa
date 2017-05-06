@@ -7,3 +7,4 @@ nyaa-master.exe
 *.zip
 *.swp
 .vscode
+templates/*.html.go
