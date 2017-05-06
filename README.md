@@ -41,7 +41,6 @@ The provided unit file uses options directly; if you prefer a config file, do th
 * Uploading of new Magnet links
 * Report Feature and Moderation System
 * Accounts and Registration System
-* Make renchon the favicon and official mascot
 * Make sukebei db schema compatible with current code
 * Site theme
 * p2p sync of dbs?
