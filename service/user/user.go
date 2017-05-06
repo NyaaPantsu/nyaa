@@ -99,9 +99,6 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 		currentUserId = currentUser.Id
 		isAuthor = currentUser.Id == user.Id
 	}
-	var currentPage int
-
-	currentPage = 1
 
 	var likings []model.User
 	var likingCount int
