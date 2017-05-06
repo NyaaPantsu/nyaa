@@ -71,7 +71,6 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	}
 	dbQuery.Order(orderBy).Find(&torrents)
 	return torrents, count
-
 }
 
 /* Functions to simplify the get parameters of the main function
