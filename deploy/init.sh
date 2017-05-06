@@ -1,9 +1,13 @@
 #!/bin/bash
 
-set -ex
+set -eux
 
 # TODO Doesn't scale, find another way to wait until db is ready
-sleep 40
+if [[ "${PANTSU_DBTYPE}" = "postgres" ]]; then
+  echo 'Waiting for the database to be ready...'
+  sleep 40
+fi
+
 go get github.com/ewhal/nyaa
 go generate ./...
 go build
