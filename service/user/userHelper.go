@@ -1,7 +1,7 @@
 package userService
 
 import (
-	"github.com/ewhalnyaa/db"
+	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	//   "github.com/gin-gonic/gin"
 	"errors"
