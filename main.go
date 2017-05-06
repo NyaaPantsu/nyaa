@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"flag"
 	"fmt"
 
 	"github.com/ewhal/nyaa/config"
@@ -29,17 +28,13 @@ func RunServer(conf *config.Config) {
 }
 
 func main() {
-	conf := config.NewConfig()
-	conf_bind := conf.BindFlags()
-	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
-	flag.Parse()
-	if *defaults {
+	conf := config.GetInstance()
+	if *config.PrintDefaults {
 		stdout := bufio.NewWriter(os.Stdout)
 		conf.Pretty(stdout)
 		stdout.Flush()
 		os.Exit(0)
 	} else {
-		conf_bind()
 		RunServer(conf)
 	}
 }
