@@ -103,3 +103,26 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:first-of-ty
 div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(3){width:15%;}
 div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(4){width:19%;}
 div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-type{width:6%;}
+
+/* Mobile-friendly main table */
+@media only screen and (max-width: 700px) {
+	table, thead, tbody, tr {
+		display: block;
+	}
+
+	th {
+		display: none;
+	}
+
+	td {
+		display: inline-block;
+	}
+
+	td:nth-of-type(1), td:nth-of-type(2) {
+		display: block;
+	}
+
+	.table > tbody > tr > td {
+		border: none;
+	}
+}
