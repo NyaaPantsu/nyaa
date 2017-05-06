@@ -13,6 +13,7 @@ import (
 	"github.com/ewhal/nyaa/util/email"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/timeHelper"
+	formStruct "github.com/ewhal/nyaa/service/user/form"
 
 	"github.com/nicksnyder/go-i18n/i18n"
 )
