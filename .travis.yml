@@ -6,6 +6,7 @@ install:
 - go get github.com/gorilla/mux
 - go get github.com/mattn/go-sqlite3
 - go get github.com/jinzhu/gorm
+- go get github.com/lib/pq
 - go get github.com/Sirupsen/logrus
 - go get gopkg.in/natefinch/lumberjack.v2
 - go get gopkg.in/gomail.v2
