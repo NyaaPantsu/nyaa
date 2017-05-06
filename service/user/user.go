@@ -316,7 +316,6 @@ func RetrieveUsersForAdmin() []model.User {
 
 // ActivateUser toggle activation of a user.
 func ActivateUser(r *http.Request, id string) (model.User, int, error) {
-	id := c.Params.ByName("id")
 	var user model.User
 	var form ActivateForm
 	modelHelper.BindValueForm(&form, r)
