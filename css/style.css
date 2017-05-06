@@ -30,6 +30,10 @@ div#container {
 div.cont-home {
      background: white url(/img/renchon.png) no-repeat
 }
+div.cont-view {
+     background: white url(/img/renchon.png) no-repeat;
+     background-size: 61px;
+}
 
 body {
     background-color: #ececec;
