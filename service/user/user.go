@@ -80,7 +80,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) (int, error) {
 		return http.StatusInternalServerError, err
 	}
 	SendVerificationToUser(user)
-	status, err = RegisterHandler(w)
+	status, err = RegisterHandler(w, r)
 	return status, err
 }
 
@@ -113,7 +113,6 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 		log.Fatal(err.Error())
 	}
 	user.Likings = likings
-	var likingList model.LikingList
 
 	var liked []model.User
 	var likedCount int
@@ -183,7 +182,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, id string) (*model.User,
 		}
 	default:
 		var form UserForm
-		modelHelper.BindValueForm(&form, binding.Form)
+		modelHelper.BindValueForm(&form, r)
 		log.Debugf("form %+v\n", form)
 		modelHelper.AssignValue(&user, &form)
 	}
