@@ -3,47 +3,29 @@ package userService
 import (
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
-	//   "github.com/gin-gonic/gin"
 	"errors"
 	"net/http"
 
 	"github.com/ewhal/nyaa/util/log"
-	//   "github.com/dorajistyle/goyangi/util/crypto"
 )
 
 // FindUserByUserName creates a user.
-func FindUserByUserName(appID int64, userName string) (model.User, int, error) {
+func FindUserByUserName(userName string) (model.User, int, error) {
 	var user model.User
 	var err error
-	// token := c.Request.Header.Get("X-Auth-Token")
-	if db.ORM.Where("app_id=? and name=?", appID, userName).First(&user).RecordNotFound() {
+	if db.ORM.Where("name=?", appID, userName).First(&user).RecordNotFound() {
 		return user, http.StatusUnauthorized, err
 	}
 	return user, http.StatusOK, nil
 }
 
 // FindOrCreateUser creates a user.
-func FindOrCreateUser(appID int64, userName string) (model.User, int, error) {
+func FindOrCreateUser(username string) (model.User, int, error) {
 	var user model.User
 	var err error
-
-	// if len(token) > 0 {
-	// 	log.Debug("header token exist.")
-	// } else {
-	// 	token, err = Token(c)
-	// 	log.Debug("header token not exist.")
-	// 	if err != nil {
-	// 		return user, http.StatusUnauthorized, err
-	// 	}
-	// }
-	log.Debugf("userName : %s\n", userName)
-	// log.Debugf("Error : %s\n", err.Error())
-	if db.ORM.Where("app_id=? and name=?", appID, userName).First(&user).RecordNotFound() {
+	if db.ORM.Where("username=?", username).First(&user).RecordNotFound() {
 		var user model.User
-		// return user, http.StatusBadRequest, err
-		user.Name = userName
-		// user.Token = token
-		user.AppID = appID
+		user.Username = username
 		log.Debugf("user %+v\n", user)
 		if db.ORM.Create(&user).Error != nil {
 			return user, http.StatusBadRequest, errors.New("User is not created.")

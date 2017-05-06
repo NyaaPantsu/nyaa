@@ -35,7 +35,7 @@ var cookieHandler = securecookie.New(
 // 	return userName, nil
 // }
 
-func Token(w http.ResponseWriter, r *http.Request) (string, error) {
+func Token(r *http.Request) (string, error) {
 	var token string
 	cookie, err := r.Cookie("session")
 	if err != nil {
