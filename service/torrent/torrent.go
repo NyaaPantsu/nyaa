@@ -43,7 +43,7 @@ func GetFeeds() []model.Feed {
 func GetTorrentById(id string) (model.Torrents, error) {
 	var torrent model.Torrents
 
-	if db.ORM.Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
+	if db.ORM.Where("torrent_id = ?", id).Preload("Sub_Categories").Find(&torrent).RecordNotFound() {
 		return torrent, errors.New("Article is not found.")
 	}
 
