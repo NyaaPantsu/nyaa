@@ -39,7 +39,7 @@ func BindValueForm(form interface{}, r *http.Request) {
 				formElem.Field(i).SetString(r.PostFormValue(tag.Get("form")))
 			case "int" :
 				nbr, _ := strconv.Atoi(r.PostFormValue(tag.Get("form")))
-				formElem.Field(i).SetInt(nbr)
+				formElem.Field(i).SetInt(int64(nbr))
 			case "float" :
 				nbr, _ := strconv.Atoi(r.PostFormValue(tag.Get("form")))
 				formElem.Field(i).SetFloat(float64(nbr))
