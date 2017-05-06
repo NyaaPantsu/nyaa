@@ -37,7 +37,6 @@ func main() {
 	if err != nil {
 		log.CheckError(err)
 	}
-	fmt.Println(conf)
 	if *defaults {
 		stdout := bufio.NewWriter(os.Stdout)
 		conf.Pretty(stdout)
