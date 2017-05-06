@@ -11,12 +11,12 @@ var Router *mux.Router
 func init() {
 	Router = mux.NewRouter()
 
-	cssHandler := http.FileServer(http.Dir("./css/"))
-	jsHandler := http.FileServer(http.Dir("./js/"))
-	imgHandler := http.FileServer(http.Dir("./img/"))
-	http.Handle("/css/", http.StripPrefix("/css/", cssHandler))
-	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
-	http.Handle("/img/", http.StripPrefix("/img/", imgHandler))
+	cssHandler := http.FileServer(http.Dir("./static/css/"))
+	jsHandler := http.FileServer(http.Dir("./static/js/"))
+	imgHandler := http.FileServer(http.Dir("./static/img/"))
+	http.Handle("/css/", http.StripPrefix("/static/css/", cssHandler))
+	http.Handle("/js/", http.StripPrefix("/static/js/", jsHandler))
+	http.Handle("/img/", http.StripPrefix("/static/img/", imgHandler))
 
 	// Routes,
 	Router.HandleFunc("/", HomeHandler).Name("home")
@@ -29,4 +29,5 @@ func init() {
 	Router.HandleFunc("/feed", RssHandler).Name("feed")
 	Router.HandleFunc("/view/{id}", ViewHandler).Name("view_torrent")
 	Router.HandleFunc("/upload", UploadHandler).Name("upload")
+	Router.HandleFunc("/user/register", UserRegisterFormHandler).Name("user_register")
 }

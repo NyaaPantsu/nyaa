@@ -6,6 +6,7 @@ import (
 
 	"github.com/gorilla/securecookie"
 	"golang.org/x/crypto/bcrypt"
+	formStruct "github.com/ewhal/nyaa/service/user/form"
 
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
@@ -88,7 +89,7 @@ func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, er
 	if email != "" && pass != "" {
 		log.Debugf("User email : %s , password : %s", email, pass)
 		var user model.User
-		isValidEmail := EmailValidation(email)
+		isValidEmail := formStruct.EmailValidation(email)
 		if isValidEmail {
 			log.Debug("User entered valid email.")
 			if db.ORM.Where("email = ?", email).First(&user).RecordNotFound() {
@@ -116,7 +117,7 @@ func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, er
 }
 
 // RegisterHanderFromForm sets cookie from a RegistrationForm.
-func RegisterHanderFromForm(w http.ResponseWriter, registrationForm RegistrationForm) (int, error) {
+func RegisterHanderFromForm(w http.ResponseWriter, registrationForm formStruct.RegistrationForm) (int, error) {
 	email := registrationForm.Email
 	pass := registrationForm.Password
 	log.Debugf("RegisterHandler UserEmail : %s", email)
@@ -126,7 +127,7 @@ func RegisterHanderFromForm(w http.ResponseWriter, registrationForm Registration
 
 // RegisterHandler sets a cookie when user registered.
 func RegisterHandler(w http.ResponseWriter, r *http.Request) (int, error) {
-	var registrationForm RegistrationForm
+	var registrationForm formStruct.RegistrationForm
 	modelHelper.BindValueForm(&registrationForm, r)
 	return RegisterHanderFromForm(w, registrationForm)
 }
