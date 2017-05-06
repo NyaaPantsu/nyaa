@@ -1,0 +1,149 @@
+/* Torrent status colors */
+.remake {
+  background-color: #a05013;
+}
+.trusted {
+  background-color: #238025;
+}
+.aplus {
+  background-color: #0777ab;
+}
+
+/* modified copy of NyaaTorrent theme */
+#mainmenu {
+    background: #263238;
+    position: fixed;
+    color: #f2f2f2;
+    width: 100%;
+    z-index: 4;
+    border: 0px solid #263238;
+}
+
+#mainmenu a {
+	color: #eff5f5;
+}
+
+#container {
+    padding-top: 1.25em;
+}
+
+#container.cont-home {
+     background: #29363d url(/img/megumin.png) no-repeat;
+}
+#container.cont-view {
+     background: #29363d url(/img/megumin.png) no-repeat;
+     background-size: 75px, 100px;
+}
+
+body {
+    background-color: #264040;
+    color: #eff5f5;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.torrentNav {
+	text-align: center;
+}
+
+.pagination {
+    background-color: #264040;
+}
+
+.pagination > .active > a {
+    background-color: #ececec;
+    border-color: #ececec;
+    color: #337ab7; /* restore usual text color */
+}
+
+/* Links, Text */
+a {
+	color: #1cb093;
+	text-decoration : none;
+}
+
+.download-btn {
+    font-size: 20px;
+}
+
+.table-borderless > tbody > tr > td,
+.table-borderless > tbody > tr > th,
+.table-borderless > tfoot > tr > td,
+.table-borderless > tfoot > tr > th,
+.table-borderless > thead > tr > td,
+.table-borderless > thead > tr > th {
+    border: none;
+}
+
+.torrent-info .name {
+	font-weight: bold;
+	overflow: hidden;
+	padding-bottom: 3px;
+	padding-top: 3px;
+	word-wrap: break-word;
+}
+
+.torrent-hash {
+	font-family: monospace;
+}
+
+.torrent-info .filesize {
+	white-space: nowrap;
+}
+
+.comment-row td:first-of-type {
+	vertical-align: top;
+	text-align: right;
+}
+
+/* Table style & fixes */
+.table > tbody > tr > td {
+    /* fix bootstrap uglyness */
+    vertical-align: middle;
+}
+
+.table > tbody > tr > th, .table > tbody > tr > td {
+	padding: 4px;
+}
+
+tr.torrent-info td.date {
+	white-space: nowrap;
+}
+
+.custom-table-hover > tbody > tr:hover {
+	opacity: 0.82;
+}
+
+.comment-row {
+	border-top: 1px solid #ddd;
+}
+
+div.container div.blockBody:nth-of-type(2) table{table-layout:fixed;}
+div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:first-of-type, div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(5){width:10%;}
+div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(3){width:15%;}
+div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(4){width:19%;}
+div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-type{width:6%;}
+
+/* Mobile-friendly main table */
+@media only screen and (max-width: 700px) {
+	table, thead, tbody, tr {
+		display: block;
+	}
+
+	th {
+		display: none;
+	}
+
+	td {
+		display: inline-block;
+	}
+
+	td:nth-of-type(1), td:nth-of-type(2) {
+		display: block;
+	}
+
+	.table > tbody > tr > td {
+		border: none;
+	}
+}
