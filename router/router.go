@@ -14,9 +14,9 @@ func init() {
 	cssHandler := http.FileServer(http.Dir("./public/css/"))
 	jsHandler := http.FileServer(http.Dir("./public/js/"))
 	imgHandler := http.FileServer(http.Dir("./public/img/"))
-	http.Handle("/css/", http.StripPrefix("/public/css/", cssHandler))
-	http.Handle("/js/", http.StripPrefix("/public/js/", jsHandler))
-	http.Handle("/img/", http.StripPrefix("/public/img/", imgHandler))
+	http.Handle("/css/", http.StripPrefix("/css/", cssHandler))
+	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
+	http.Handle("/img/", http.StripPrefix("/img/", imgHandler))
 
 	// Routes,
 	Router.HandleFunc("/", HomeHandler).Name("home")
