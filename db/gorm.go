@@ -13,7 +13,9 @@ var ORM, Errs = GormInit()
 
 // GormInit init gorm ORM.
 func GormInit() (*gorm.DB, error) {
-	conf := config.NewConfig()
+
+	conf := config.GetInstance()
+
 	db, err := gorm.Open(conf.DBType, conf.DBParams)
 	// db, err := gorm.Open("mysql", config.MysqlDSL())
 	//db, err := gorm.Open("sqlite3", "/tmp/gorm.db")
@@ -37,6 +39,7 @@ func GormInit() (*gorm.DB, error) {
 
 	}
 	log.CheckError(err)
+	log.Infof("lol", conf.DBParams)
 
 	// relation := gorm.Relationship{}
 	// relation.Kind = "many2many"
