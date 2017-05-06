@@ -44,6 +44,7 @@ The provided unit file uses options directly; if you prefer a config file, do th
 ## Other features
 * Add support for postgres dbs
 * Report Feature and Moderation System
+  * blocking upload of torrent hashes
 * API improvement
 * Scraping
 * Accounts and Registration System
