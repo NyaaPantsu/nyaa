@@ -43,7 +43,7 @@ func GetFeeds() []model.Feed {
 func GetTorrentById(id string) (model.Torrents, error) {
 	var torrent model.Torrents
 
-	if db.ORM.Where("torrent_id = ?", id).Preload("Sub_Categories").Find(&torrent).RecordNotFound() {
+	if db.ORM.Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
 		return torrent, errors.New("Article is not found.")
 	}
 
@@ -69,7 +69,7 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	if limit != 0 || offset != 0 { // if limits provided
 		dbQuery = dbQuery.Limit(limit).Offset(offset)
 	}
-	dbQuery.Order(orderBy).Preload("Categories").Preload("Sub_Categories").Find(&torrents)
+	dbQuery.Order(orderBy).Find(&torrents)
 	return torrents, count
 
 }
@@ -102,18 +102,6 @@ func GetAllTorrents(limit int, offset int) ([]model.Torrents, int) {
 
 func GetAllTorrentsDB() ([]model.Torrents, int) {
 	return GetTorrentsOrderBy(nil, "", 0, 0)
-}
-
-/* Function to get all categories with/without torrents (bool)
- */
-func GetAllCategories(populatedWithTorrents bool) []model.Categories {
-	var categories []model.Categories
-	if populatedWithTorrents {
-		db.ORM.Preload("Torrents").Preload("Sub_Categories").Find(&categories)
-	} else {
-		db.ORM.Preload("Sub_Categories").Find(&categories)
-	}
-	return categories
 }
 
 func CreateWhereParams(conditions string, params ...string) WhereParams {

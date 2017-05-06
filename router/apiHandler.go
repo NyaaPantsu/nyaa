@@ -16,7 +16,7 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 	page := vars["page"]
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 
-	b := model.CategoryJson{Torrents: []model.TorrentsJson{}}
+	b := model.ApiResultJson{Torrents: []model.TorrentsJson{}}
 	maxPerPage := 50
 	nbTorrents := 0
 
@@ -41,7 +41,7 @@ func ApiViewHandler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 	id := vars["id"]
-	b := model.CategoryJson{Torrents: []model.TorrentsJson{}}
+	b := model.ApiResultJson{Torrents: []model.TorrentsJson{}}
 
 	torrent, err := torrentService.GetTorrentById(id)
 	res := torrent.ToJson()

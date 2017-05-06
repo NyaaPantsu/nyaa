@@ -39,7 +39,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	navigationTorrents := templates.Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
-	htv := HomeTemplateVariables{b, torrentService.GetAllCategories(false), templates.NewSearchForm(), navigationTorrents, r.URL, mux.CurrentRoute(r)}
+	htv := HomeTemplateVariables{b, templates.NewSearchForm(), navigationTorrents, r.URL, mux.CurrentRoute(r)}
 
 	err := homeTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
