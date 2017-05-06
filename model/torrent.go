@@ -49,7 +49,7 @@ type Torrents struct {
 	Hash            string         `gorm:"column:torrent_hash"`
 	Date            int64          `gorm:"column:date"`
 	Downloads       int            `gorm:"column:downloads"`
-	Filesize        string         `gorm:"column:filesize"`
+	Filesize        int64          `gorm:"column:filesize"`
 	Description     []byte         `gorm:"column:description"`
 	Comments        []byte         `gorm:"column:comments"`
 	Statuses        Statuses       `gorm:"ForeignKey:status_id;AssociationForeignKey:status_id"`
@@ -112,7 +112,7 @@ func (t *Torrents) ToJson() TorrentsJson {
 		Status:       t.Status,
 		Hash:         t.Hash,
 		Date:         time.Unix(t.Date, 0).Format(time.RFC3339),
-		Filesize:     t.Filesize,
+		Filesize:     util.FormatFilesize(t.Filesize),
 		Description:  template.HTML(util.UnZlib(t.Description)),
 		Comments:     b,
 		Sub_Category: t.Sub_Categories.ToJson(),
