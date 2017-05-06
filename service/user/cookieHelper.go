@@ -37,8 +37,7 @@ var cookieHandler = securecookie.New(
 
 func Token(w http.ResponseWriter, r *http.Request) (string, error) {
 	var token string
-	request := c.Request
-	cookie, err := request.Cookie("session")
+	cookie, err := r.Cookie("session")
 	if err != nil {
 		return token, err
 	}
@@ -141,7 +140,7 @@ func CurrentUser(r *http.Request) (model.User, error) {
 	if len(token) > 0 {
 		log.Debug("header token exist.")
 	} else {
-		token, err = Token(c)
+		token, err = Token(r)
 		log.Debug("header token not exist.")
 		if err != nil {
 			return user, err
