@@ -14,8 +14,8 @@ var (
 	mailer                 = InitGomail()
 )
 
-func InitGomail() *gomail.Mailer {
-	mailer := gomail.NewDialer(config.EmailHost, config.EmailUsername, config.EmailPassword, config.EmailPort)
+func InitGomail() *gomail.Dialer {
+	mailer := gomail.NewDialer(config.EmailHost, config.EmailPort, config.EmailUsername, config.EmailPassword)
 	return mailer
 }
 
@@ -51,11 +51,7 @@ func SendTestEmail() error {
 	if err != nil {
 		panic(err)
 	}
-	f, err := gomail.OpenFile(path)
-	if err != nil {
-		panic(err)
-	}
-	msg.Attach(f)
+	msg.Attach(path)
 	// SendEmail(msg)
 		err := mailer.DialAndSend(msg); 
 	return err
