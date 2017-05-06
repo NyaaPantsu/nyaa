@@ -5,4 +5,5 @@ const (
 	// DEVELOPMENT | TEST | PRODUCTION
 	Environment = "DEVELOPMENT"
 	// Environment            = "PRODUCTION"
+	WebAddress = "nyaa.pantsu.cat"
 )
