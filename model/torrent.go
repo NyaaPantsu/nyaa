@@ -1,9 +1,10 @@
 package model
 
 import (
-	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/config"
+	"github.com/ewhal/nyaa/util"
 
+	"encoding/json"
 	"html"
 	"html/template"
 	"strconv"
@@ -50,6 +51,7 @@ type Torrents struct {
 	Downloads       int            `gorm:"column:downloads"`
 	Filesize        string         `gorm:"column:filesize"`
 	Description     []byte         `gorm:"column:description"`
+	Comments        []byte         `gorm:"column:comments"`
 	Statuses        Statuses       `gorm:"ForeignKey:status_id;AssociationForeignKey:status_id"`
 	Categories      Categories     `gorm:"ForeignKey:category_id;AssociationForeignKey:category_id"`
 	Sub_Categories  Sub_Categories `gorm:"ForeignKey:sub_category_id;AssociationForeignKey:sub_category_id"`
@@ -74,6 +76,16 @@ type SubCategoryJson struct {
 	Name string `json: "category"`
 }
 
+type CommentsJson struct {
+	C  template.HTML `json:"c"`
+	Us string        `json:"us"`
+	Un string        `json:"un"`
+	UI int           `json:"ui"`
+	T  int           `json:"t"`
+	Av string        `json:"av"`
+	ID string        `json:"id"`
+}
+
 type TorrentsJson struct {
 	Id           string          `json: "id"` // Is there a need to put the ID?
 	Name         string          `json: "name"`
@@ -82,16 +94,18 @@ type TorrentsJson struct {
 	Date         string          `json: "date"`
 	Filesize     string          `json: "filesize"`
 	Description  template.HTML   `json: "description"`
+	Comments     []CommentsJson  `json: "comments"`
 	Sub_Category SubCategoryJson `json: "sub_category"`
 	Category     CategoryJson    `json: "category"`
 	Magnet       template.URL    `json: "magnet"`
 }
 
-
 /* Model Conversion to Json */
 
 func (t *Torrents) ToJson() TorrentsJson {
 	magnet := "magnet:?xt=urn:btih:" + strings.TrimSpace(t.Hash) + "&dn=" + t.Name + config.Trackers
+	b := []CommentsJson{}
+	_ = json.Unmarshal([]byte(util.UnZlib(t.Comments)), &b)
 	res := TorrentsJson{
 		Id:           strconv.Itoa(t.Id),
 		Name:         html.UnescapeString(t.Name),
@@ -100,6 +114,7 @@ func (t *Torrents) ToJson() TorrentsJson {
 		Date:         time.Unix(t.Date, 0).Format(time.RFC3339),
 		Filesize:     t.Filesize,
 		Description:  template.HTML(util.UnZlib(t.Description)),
+		Comments:     b,
 		Sub_Category: t.Sub_Categories.ToJson(),
 		Category:     t.Categories.ToJson(),
 		Magnet:       util.Safe(magnet)}

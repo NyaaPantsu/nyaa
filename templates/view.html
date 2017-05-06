@@ -33,6 +33,16 @@
                   <td>Description</td>
                   <td>{{.Description}}</td>
               </tr>
+              <tr>
+                  <td>Comments</td>
+                  <tr>
+                      {{ range .Comments }}
+                      <td>{{.Un}}</td>
+                      <td>{{.C}}</td>
+                      {{end}}
+                  </tr>
+              </tr>
+
           </table>
           {{end}}
       </div>
