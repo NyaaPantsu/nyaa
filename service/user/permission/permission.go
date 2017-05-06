@@ -2,7 +2,7 @@ package userPermission
 
 import (
 	"errors"
-
+	"net/http"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/user"
 	"github.com/ewhal/nyaa/util/log"
