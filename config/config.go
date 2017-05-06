@@ -19,7 +19,7 @@ type Config struct {
 	DBParams string `json: "db_type"`
 }
 
-var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db"}
+var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50"}
 
 var allowedDatabaseTypes = map[string]bool{
 	"sqlite3":  true,
