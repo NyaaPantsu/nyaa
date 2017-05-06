@@ -28,4 +28,5 @@ func init() {
 	Router.HandleFunc("/faq", FaqHandler).Name("faq")
 	Router.HandleFunc("/feed", RssHandler).Name("feed")
 	Router.HandleFunc("/view/{id}", ViewHandler).Name("view_torrent")
+	Router.HandleFunc("/upload", UploadHandler).Name("upload")
 }

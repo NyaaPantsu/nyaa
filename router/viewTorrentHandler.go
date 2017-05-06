@@ -1,15 +1,15 @@
 package router
 
-import(
-	"net/http"
-	"html/template"
-	"github.com/gorilla/mux"
+import (
 	"github.com/ewhal/nyaa/service/torrent"
+	"github.com/gorilla/mux"
+	"html/template"
+	"net/http"
 )
 
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.New("view").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/view.html"))
- 	templates.ParseGlob("templates/_*.html") // common
+	templates.ParseGlob("templates/_*.html") // common
 	vars := mux.Vars(r)
 	id := vars["id"]
 

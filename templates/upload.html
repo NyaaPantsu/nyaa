@@ -1,0 +1,69 @@
+{{define "title"}}Upload magnet{{end}}
+{{define "content"}}
+  <div class="blockBody">
+  {{with .Upload}}
+  <hr>
+    <form role="upload" method="POST">
+      <table class="table table-borderless">
+          <tr> 
+            <td>
+              <div class="col-xs-6">
+                <input type="text" name="name" class="form-control"placeholder="File Name" value="{{.Name}}" required>
+              </div>
+            </td>
+          </tr>
+          <tr>
+              <td>
+                  <div class="col-xs-8">
+                    <input type="text" name="magnet" class="form-control"
+                    style="width:60rem" placeholder="Magnet Link" value="{{.Magnet}}" required>
+                  </div>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                <div class="col-xs-4">
+                  <select name="c" class="form-control input-sm">
+                    <option value="3_" {{if eq .Category "3_"}}selected{{end}}>Anime</option>
+                    <option value="3_12" {{if eq .Category "3_12"}}selected{{end}}>Anime - Anime Music Video</option>
+                    <option value="3_5" {{if eq .Category "3_5"}}selected{{end}}>Anime - English-translated</option>
+                    <option value="3_13" {{if eq .Category "3_13"}}selected{{end}}>Anime - Non-English-translated</option>
+                    <option value="3_6" {{if eq .Category "3_6"}}selected{{end}}>Anime - Raw</option>
+                    <option value="2_" {{if eq .Category "2_"}}selected{{end}}>Audio</option>
+                    <option value="2_3" {{if eq .Category "2_3"}}selected{{end}}>Audio - Lossless</option>
+                    <option value="2_4" {{if eq .Category "2_4"}}selected{{end}}>Audio - Lossy</option>
+                    <option value="4_" {{if eq .Category "4_"}}selected{{end}}>Literature</option>
+                    <option value="4_7" {{if eq .Category "4_7"}}selected{{end}}>Literature - English-translated</option>
+                    <option value="4_8" {{if eq .Category "4_8"}}selected{{end}}>Literature - Raw</option>
+                    <option value="4_14" {{if eq .Category "4_14"}}selected{{end}}>Literature - Non-English-translated</option>
+                    <option value="5_" {{if eq .Category "5_"}}selected{{end}}>Live Action</option>
+                    <option value="5_9" {{if eq .Category "5_9"}}selected{{end}}>Live Action - English-translated</option>
+                    <option value="5_10" {{if eq .Category "5_10"}}selected{{end}}>Live Action - Idol/Promotional Video</option>
+                    <option value="5_18" {{if eq .Category "5_18"}}selected{{end}}>Live Action - Non-English-translated</option>
+                    <option value="5_11" {{if eq .Category "5_11"}}selected{{end}}>Live Action - Raw</option>
+                    <option value="6_" {{if eq .Category "6_"}}selected{{end}}>Pictures</option>
+                    <option value="6_15" {{if eq .Category "6_15"}}selected{{end}}>Pictures - Graphics</option>
+                    <option value="6_16" {{if eq .Category "6_16"}}selected{{end}}>Pictures - Photos</option>
+                    <option value="1_" {{if eq .Category "1_"}}selected{{end}}>Software</option>
+                    <option value="1_1" {{if eq .Category "1_1"}}selected{{end}}>Software - Applications</option>
+                    <option value="1_2" {{if eq .Category "1_2"}}selected{{end}}>Software - Games</option>
+                  </select>
+                </div>
+              </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="col-xs-7">
+                <textarea name="desc" class="form-control" rows="10">{{.Description}}</textarea>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button type="submit" class="btn">Upload!</button>
+            </td>
+          </tr>
+      </table>
+      {{end}}
+  </div>
+{{end}}
