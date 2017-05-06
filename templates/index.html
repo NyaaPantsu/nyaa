@@ -58,7 +58,7 @@
       <!-- top padding -->
       <div style="padding-top: 10rem"></div>
 
-      <div class="container" id="container">
+      <div class="container {{block "contclass" .}}generic{{end}}" id="container">
       {{if not .Search.HideAdvancedSearch}}
       <div class="blockBody" style="text-align:center">
         <font size="4.5">Advanced Search</font><br />
