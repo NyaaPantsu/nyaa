@@ -1,0 +1,72 @@
+{{define "search_common"}}
+  <select name="c" class="form-control input-sm" value>
+    <option value="_">All categories</option>
+    <option value="3_" {{if eq .Search.Category "3_"}}selected{{end}}>Anime</option>
+    <option value="3_12" {{if eq .Search.Category "3_12"}}selected{{end}}>Anime - Anime Music Video</option>
+    <option value="3_5" {{if eq .Search.Category "3_5"}}selected{{end}}>Anime - English-translated</option>
+    <option value="3_13" {{if eq .Search.Category "3_13"}}selected{{end}}>Anime - Non-English-translated</option>
+    <option value="3_6" {{if eq .Search.Category "3_6"}}selected{{end}}>Anime - Raw</option>
+    <option value="2_" {{if eq .Search.Category "2_"}}selected{{end}}>Audio</option>
+    <option value="2_3" {{if eq .Search.Category "2_3"}}selected{{end}}>Audio - Lossless</option>
+    <option value="2_4" {{if eq .Search.Category "2_4"}}selected{{end}}>Audio - Lossy</option>
+    <option value="4_" {{if eq .Search.Category "4_"}}selected{{end}}>Literature</option>
+    <option value="4_7" {{if eq .Search.Category "4_7"}}selected{{end}}>Literature - English-translated</option>
+    <option value="4_8" {{if eq .Search.Category "4_8"}}selected{{end}}>Literature - Raw</option>
+    <option value="4_14" {{if eq .Search.Category "4_14"}}selected{{end}}>Literature - Non-English-translated</option>
+    <option value="5_" {{if eq .Search.Category "5_"}}selected{{end}}>Live Action</option>
+    <option value="5_9" {{if eq .Search.Category "5_9"}}selected{{end}}>Live Action - English-translated</option>
+    <option value="5_10" {{if eq .Search.Category "5_10"}}selected{{end}}>Live Action - Idol/Promotional Video</option>
+    <option value="5_18" {{if eq .Search.Category "5_18"}}selected{{end}}>Live Action - Non-English-translated</option>
+    <option value="5_11" {{if eq .Search.Category "5_11"}}selected{{end}}>Live Action - Raw</option>
+    <option value="6_" {{if eq .Search.Category "6_"}}selected{{end}}>Pictures</option>
+    <option value="6_15" {{if eq .Search.Category "6_15"}}selected{{end}}>Pictures - Graphics</option>
+    <option value="6_16" {{if eq .Search.Category "6_16"}}selected{{end}}>Pictures - Photos</option>
+    <option value="1_" {{if eq .Search.Category "1_"}}selected{{end}}>Software</option>
+    <option value="1_1" {{if eq .Search.Category "1_1"}}selected{{end}}>Software - Applications</option>
+    <option value="1_2" {{if eq .Search.Category "1_2"}}selected{{end}}>Software - Games</option>
+  </select>
+  <select name="s" class="form-control input-sm">
+    <option value="">Show all</option>
+    <option value="2" {{if eq .Search.Status "2"}}selected{{end}}>Filter Remakes</option>
+    <option value="3" {{if eq .Search.Status "3"}}selected{{end}}>Trusted</option>
+    <option value="4" {{if eq .Search.Status "4"}}selected{{end}}>A+</option>
+  </select>
+{{end}}
+{{define "search_advanced"}}
+  <select name="sort" class="form-control input-sm">
+    <option value="torrent_id" {{if eq .Search.Sort "torrent_id"}}selected{{end}}>ID</option>
+    <option value="torrent_name" {{if eq .Search.Sort "torrent_name"}}selected{{end}}>Name</option>
+    <option value="date" {{if eq .Search.Sort "date"}}selected{{end}}>Date</option>
+    <option value="downloads" {{if eq .Search.Sort "downloads"}}selected{{end}}>Downloads</option>
+  </select>
+  <select name="order" class="form-control input-sm">
+    <option value="desc" {{if eq .Search.Order "desc"}}selected{{end}}>Descending</option>
+    <option value="asc" {{if eq .Search.Order "asc"}}selected{{end}}>Ascending</option>
+  </select>
+  <select name="max" class="form-control input-sm">
+    <option value="5" {{if eq .Navigation.MaxItemPerPage 5}}selected{{end}}>5</option>
+    <option value="10" {{if eq .Navigation.MaxItemPerPage 10}}selected{{end}}>10</option>
+    <option value="15" {{if eq .Navigation.MaxItemPerPage 15}}selected{{end}}>15</option>
+    <option value="20" {{if eq .Navigation.MaxItemPerPage 20}}selected{{end}}>20</option>
+    <option value="25" {{if eq .Navigation.MaxItemPerPage 25}}selected{{end}}>25</option>
+    <option value="30" {{if eq .Navigation.MaxItemPerPage 30}}selected{{end}}>30</option>
+    <option value="35" {{if eq .Navigation.MaxItemPerPage 35}}selected{{end}}>35</option>
+    <option value="40" {{if eq .Navigation.MaxItemPerPage 40}}selected{{end}}>40</option>
+    <option value="45" {{if eq .Navigation.MaxItemPerPage 45}}selected{{end}}>45</option>
+    <option value="50" {{if eq .Navigation.MaxItemPerPage 50}}selected{{end}}>50</option>
+    <option value="70" {{if eq .Navigation.MaxItemPerPage 70}}selected{{end}}>70</option>
+    <option value="100" {{if eq .Navigation.MaxItemPerPage 100}}selected{{end}}>100</option>
+    <option value="150" {{if eq .Navigation.MaxItemPerPage 150}}selected{{end}}>150</option>
+    <option value="200" {{if eq .Navigation.MaxItemPerPage 200}}selected{{end}}>200</option>
+    <option value="300" {{if eq .Navigation.MaxItemPerPage 300}}selected{{end}}>300</option>
+  </select>
+{{end}}
+
+{{define "search_button"}}
+  <div class="input-group">
+    <input name="q" class="form-control input-sm" placeholder="Search" type="text" value="{{.Search.Query}}">
+    <span class="input-group-btn">
+      <button type="submit" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search</button>
+    </span>
+  </div>
+{{end}}

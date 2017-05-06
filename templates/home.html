@@ -1,38 +1,50 @@
 {{define "title"}}Home{{end}}
 {{define "content"}}
 	<div class="blockBody">
-      <table class="table">
-          <tr>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Hash</th>
-                  <th>Date</th>
-                  <th>Size</th>
-              <th>Links</th>
-          </tr>
-          {{ range .ListTorrents}}
-          <tr {{if eq .Status 2}}class="remake"{{end}}
-              {{if eq .Status 3}}class="trusted"{{end}}
-              {{if eq .Status 4}}class="aplus"{{end}}>
-              <td><a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category.Id .Sub_Category.Id) }}"><img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .Sub_Category.Id) }}"></td>
-              <td class="torrentName"><a href="{{genRoute "view_torrent" "id" .Id }}">{{.Name}}</a></td>
-              <td>{{.Hash}}</td>
-              <td>{{.Date}}</td>
-              <td>{{.Filesize}}</td>
-
-              <td><a href="{{.Magnet}}" target="_blank" title="Magnet link"><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span></a>
-              <a href="https://itorrents.org/torrent/{{.Hash}}.torrent" title="Torrent file"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span></a>
-              </td>
-
-
-          </tr>
-          {{end}}
-
-      </table>
       <nav class="torrentNav" aria-label="Page navigation">
           <ul class="pagination">
               {{ genNav .Navigation .URL 10 }}
           </ul>
       </nav>
+
+      <div class="table-responsive">
+          <table class="table custom-table-hover">
+          <tr>
+              <th>Category</th>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Size</th>
+              <th>Links</th>
+          </tr>
+          {{ range .ListTorrents}}
+          <tr class="torrent-info
+              {{if eq .Status 2}}remake{{end}}
+              {{if eq .Status 3}}trusted{{end}}
+              {{if eq .Status 4}}aplus{{end}}">
+              <!-- forced width because the <td> gets bigger randomly otherwise -->
+              <td style="width:80px">
+                  <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category.Id .Sub_Category.Id) }}">
+                      <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .Sub_Category.Id) }}">
+                  </a>
+              </td>
+              <td class="name">
+                  <a href="{{genRoute "view_torrent" "id" .Id }}">
+                      {{.Name}}
+                  </a>
+              </td>
+              <td class="date date-short">{{.Date}}</td>
+              <td class="filesize">{{.Filesize}}</td>
+              <td>
+                  <a href="{{.Magnet}}" title="Magnet link">
+                      <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>
+                  </a>
+<!--                  <a href="https://itorrents.org/torrent/{{.Hash}}.torrent" title="Torrent file">
+                      <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 
+                  </a> -->
+              </td>
+          </tr>
+          {{end}}
+      </table>
     </div>
+</div>
 {{end}}

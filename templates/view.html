@@ -1,42 +1,49 @@
+{{define "title"}}{{.Torrent.Name}}{{end}}
 {{define "content"}}
   <div class="blockBody">
-          <table class="table">
-              {{ range .ListTorrents}}
+  {{with .Torrent}}
+  <hr>
+          <table class="table table-borderless">
               <tr {{if eq .Status 2}}class="remake"{{end}}
                   {{if eq .Status 3}}class="trusted"{{end}}
                   {{if eq .Status 4}}class="aplus"{{end}}>
-                  <td>Id</td>
-                  <td>{{.Id}}</td>
-              </tr>
-              <tr>
                   <td>Name</td>
                   <td>{{.Name}}</td>
               </tr>
               <tr>
                   <td>Hash</td>
-                  <td>{{.Hash}}</td>
+                  <td class="torrent-hash">{{.Hash}}</td>
               </tr>
               <tr>
                   <td>Date</td>
-                  <td>{{.Date}}</td>
+                  <td class="date-full">{{.Date}}</td>
               </tr>
               <tr>
-                  <td>FileSize</td>
+                  <td>Size</td>
                   <td>{{.Filesize}}</td>
               </tr>
-              tr
               <tr>
                   <td>Links</td>
-                  <td><a href="{{.Magnet}}" title="Magnet link" ><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span></a>
-                      <a href="https://itorrents.org/torrent/{{.Hash}}.torrent" title="Torrent file"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span></a>
+                  <td><a aria-label="Magnet Button" href="{{.Magnet}}" type="button" class="btn btn-success download-btn"><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> Download!</button>
+<!--                      <a
+    href="https://itorrents.org/torrent/{{.Hash}}.torrent" title="Torrent file"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span></a>-->
                   </td>
               </tr>
               <tr>
                   <td>Description</td>
                   <td>{{.Description}}</td>
               </tr>
-              {{end}}
+              <tr>
+                  <td>Comments</td>
+                  {{ range .Comments }}
+                  <tr>
+                      <td>{{.Un}}</td>
+                      <td>{{.C}}</td>
+                  </tr>
+                  {{end}}
+              </tr>
 
           </table>
+          {{end}}
       </div>
 {{end}}
