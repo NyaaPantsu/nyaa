@@ -1,3 +1,4 @@
 #!/bin/bash
+# Restore the database from a postgres dump
 
-psql -v ON_ERROR_STOP=1 --username "${POSTGRES_USER}" < "${PANTSU_POSTGRES_DBFILE}"
+pg_restore --username "${POSTGRES_USER}" -d ${POSTGRES_DB} "/${PANTSU_POSTGRES_DBFILE}"
