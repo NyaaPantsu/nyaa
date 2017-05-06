@@ -10,6 +10,7 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
+	formStruct "github.com/ewhal/nyaa/service/user/form"
 	"github.com/ewhal/nyaa/util/crypto"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/modelHelper"
@@ -43,7 +44,7 @@ func SuggestUsername(username string) string {
 }
 
 // CreateUserFromForm creates a user from a registration form.
-func CreateUserFromForm(registrationForm RegistrationForm) (model.User, error) {
+func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.User, error) {
 	var user model.User
 	log.Debugf("registrationForm %+v\n", registrationForm)
 	modelHelper.AssignValue(&user, &registrationForm)
@@ -64,7 +65,7 @@ func CreateUserFromForm(registrationForm RegistrationForm) (model.User, error) {
 // CreateUser creates a user.
 func CreateUser(w http.ResponseWriter, r *http.Request) (int, error) {
 	var user model.User
-	var registrationForm RegistrationForm
+	var registrationForm formStruct.RegistrationForm
 	var status int
 	var err error
 	
@@ -161,7 +162,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, id string) (*model.User,
 	}
 	switch r.FormValue("type") {
 	case "password":
-		var passwordForm PasswordForm
+		var passwordForm formStruct.PasswordForm
 		modelHelper.BindValueForm(&passwordForm, r)
 		log.Debugf("form %+v\n", passwordForm)
 		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(passwordForm.CurrentPassword))
@@ -178,7 +179,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, id string) (*model.User,
 			}
 		}
 	default:
-		var form UserForm
+		var form formStruct.UserForm
 		modelHelper.BindValueForm(&form, r)
 		log.Debugf("form %+v\n", form)
 		modelHelper.AssignValue(&user, &form)
@@ -207,7 +208,7 @@ func DeleteUser(w http.ResponseWriter, id string) (int, error) {
 
 // AddRoleToUser adds a role to a user.
 func AddRoleToUser(r *http.Request) (int, error) {
-	var form UserRoleForm
+	var form formStruct.UserRoleForm
 	var user model.User
 	var role model.Role
 	var roles []model.Role
@@ -313,7 +314,7 @@ func RetrieveUsersForAdmin() []model.User {
 // ActivateUser toggle activation of a user.
 func ActivateUser(r *http.Request, id string) (model.User, int, error) {
 	var user model.User
-	var form ActivateForm
+	var form formStruct.ActivateForm
 	modelHelper.BindValueForm(&form, r)
 	if db.ORM.First(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("User is not found.")
@@ -327,7 +328,7 @@ func ActivateUser(r *http.Request, id string) (model.User, int, error) {
 
 // CreateUserAuthentication creates user authentication.
 func CreateUserAuthentication(w http.ResponseWriter, r *http.Request) (int, error) {
-	var form LoginForm
+	var form formStruct.LoginForm
 	modelHelper.BindValueForm(&form, r)
 	email := form.Email
 	pass := form.Password
