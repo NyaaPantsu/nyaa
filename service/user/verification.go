@@ -87,6 +87,6 @@ func EmailVerification(w http.ResponseWriter, r *http.Request) (int, error) {
 	if err != nil {
 		return status, err
 	}
-	status, err = SetCookie(<, user.Token)
+	status, err = SetCookie(w, user.Token)
 	return status, err
 }
