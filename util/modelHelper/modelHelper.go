@@ -3,7 +3,7 @@ package modelHelper
 import (
 	"reflect"
 
-	"github.com/dorajistyle/goyangi/util/log"
+	"github.com/ewhal/nyaa/util/log"
 )
 
 func IsZeroOfUnderlyingType(x interface{}) bool {
@@ -23,5 +23,15 @@ func AssignValue(model interface{}, form interface{}) {
 		} else {
 			log.Warnf("modelField : %s - %s", typeOfTForm.Field(i).Name, modelField)
 		}
+	}
+}
+
+// AssignValue assign form values to model.
+func BindValueForm(form interface{}, r *http.Request) {
+	r.ParseForm()
+	formElem := reflect.ValueOf(form).Elem()
+	typeOfTForm := formElem.Type()
+	for i := 0; i < formElem.NumField(); i++ {
+			formField := formElem.Field(i).Set(r.PostFormValue(typeOfTForm.Field(i).Name))
 	}
 }
