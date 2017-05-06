@@ -4,6 +4,7 @@ import (
 	"reflect"
 	"net/http"
 	"github.com/ewhal/nyaa/util/log"
+	"strconv"
 )
 
 func IsZeroOfUnderlyingType(x interface{}) bool {
@@ -30,8 +31,17 @@ func AssignValue(model interface{}, form interface{}) {
 func BindValueForm(form interface{}, r *http.Request) {
 	r.ParseForm()
 	formElem := reflect.ValueOf(form).Elem()
-	typeOfTForm := formElem.Type()
 	for i := 0; i < formElem.NumField(); i++ {
-		formElem.Field(i).Set(r.PostFormValue(typeOfTForm.Field(i).Name))
+		typeField := formElem.Type().Field(i)
+		tag := typeField.Tag
+		switch typeField.Type.Name() :
+			case "string" :
+				formElem.Field(i).SetString(r.PostFormValue(tag.Get("form")))
+			case "int" :
+				nbr, _ := strconv.Atoi(r.PostFormValue(tag.Get("form")))
+				formElem.Field(i).SetInt(nbr)
+			case "float" :
+				nbr, _ := strconv.Atoi(r.PostFormValue(tag.Get("form")))
+				formElem.Field(i).SetFloat(float64(nbr))
 	}
 }
