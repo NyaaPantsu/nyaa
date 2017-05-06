@@ -11,8 +11,7 @@ import (
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util/log"
-	"github.com/ewhal/nyaa/util/validation"
-	"github.com//modelHelper"
+	"github.com/ewhal/nyaa/util/modelHelper"
 )
 
 var cookieHandler = securecookie.New(
@@ -90,7 +89,7 @@ func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, er
 	if email != "" && pass != "" {
 		log.Debugf("User email : %s , password : %s", email, pass)
 		var user model.User
-		isValidEmail := validation.EmailValidation(email)
+		isValidEmail := EmailValidation(email)
 		if isValidEmail {
 			log.Debug("User entered valid email.")
 			if db.ORM.Where("email = ?", email).First(&user).RecordNotFound() {

@@ -1,14 +1,13 @@
 package userService
 
 import (
-	"github.com/ewha/nyaa/db"
-	"github.com/ewha/nyaa/model"
+	"github.com/ewhalnyaa/db"
+	"github.com/ewhal/nyaa/model"
 	//   "github.com/gin-gonic/gin"
 	"errors"
 	"net/http"
 
-	"github.com/ewha/nyaa/util/log"
-	"github.com/ewha/nyaa/util/retrieveHelper"
+	"github.com/ewhal/nyaa/util/log"
 	//   "github.com/dorajistyle/goyangi/util/crypto"
 )
 

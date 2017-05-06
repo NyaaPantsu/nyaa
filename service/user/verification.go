@@ -8,7 +8,7 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/util/modelHandler"
+	"github.com/ewhal/nyaa/util/modelHelper"
 	"github.com/ewhal/nyaa/util/crypto"
 	"github.com/ewhal/nyaa/util/email"
 	"github.com/ewhal/nyaa/util/log"
@@ -68,7 +68,7 @@ func SendVerification(r *http.Request) (int, error) {
 func EmailVerification(w http.ResponseWriter, r *http.Request) (int, error) {
 	var user model.User
 	var verifyEmailForm VerifyEmailForm
-	modelHandler.BindValueForm(&verifyEmailForm, r)
+	modelHelper.BindValueForm(&verifyEmailForm, r)
 	log.Debugf("verifyEmailForm.ActivationToken : %s", verifyEmailForm.ActivationToken)
 	if db.ORM.Where(&model.User{ActivationToken: verifyEmailForm.ActivationToken}).First(&user).RecordNotFound() {
 		return http.StatusNotFound, errors.New("User is not found.")

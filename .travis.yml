@@ -9,6 +9,9 @@ install:
 - go get github.com/Sirupsen/logrus
 - go get gopkg.in/natefinch/lumberjack.v2
 - go get gopkg.in/gomail.v2
+- go get github.com/gorilla/securecookie
+- go get golang.org/x/crypto/bcrypt
+- go get github.com/nicksnyder/go-i18n/i18n
 - go build
 deploy:
   provider: releases
