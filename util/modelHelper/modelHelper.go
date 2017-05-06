@@ -34,14 +34,15 @@ func BindValueForm(form interface{}, r *http.Request) {
 	for i := 0; i < formElem.NumField(); i++ {
 		typeField := formElem.Type().Field(i)
 		tag := typeField.Tag
-		switch typeField.Type.Name() :
+		switch typeField.Type.Name() {
 			case "string" :
 				formElem.Field(i).SetString(r.PostFormValue(tag.Get("form")))
 			case "int" :
 				nbr, _ := strconv.Atoi(r.PostFormValue(tag.Get("form")))
-				formElem.Field(i).SetInt(nbr)
+				formElem.Field(i).SetInt(int64(nbr))
 			case "float" :
 				nbr, _ := strconv.Atoi(r.PostFormValue(tag.Get("form")))
 				formElem.Field(i).SetFloat(float64(nbr))
+		}
 	}
 }
