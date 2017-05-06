@@ -5,6 +5,7 @@ import (
 
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/templates"
+	userForms "github.com/ewhal/nyaa/service/user/form"
 	"github.com/gorilla/mux"
 )
 
@@ -23,6 +24,14 @@ type FaqTemplateVariables struct {
 
 type ViewTemplateVariables struct {
 	Torrent    model.TorrentsJson
+	Search     templates.SearchForm
+	Navigation templates.Navigation
+	URL        *url.URL   // For parsing Url in templates
+	Route      *mux.Route // For getting current route in templates
+}
+
+type UserRegisterTemplateVariables struct {
+	RegistrationForm    userForms.RegistrationForm
 	Search     templates.SearchForm
 	Navigation templates.Navigation
 	URL        *url.URL   // For parsing Url in templates
