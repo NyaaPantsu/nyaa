@@ -221,88 +221,89 @@ func StreamSearchAdvanced(qw422016 *qt422016.Writer, nav Navigation, search Sear
 		{"torrent_name", "Name"},
 		{"date", "Date"},
 		{"downloads", "Downloads"},
+		{"filesize", "Size"},
 	})
-	//line search.html:66
+	//line search.html:67
 	qw422016.N().S(`
   </select>
   <select name="order" class="form-control input-sm">
     `)
-	//line search.html:69
+	//line search.html:70
 	streamsearchOptions(qw422016, search.Order, []searchField{
 		{"desc", "Descending"},
 		{"asc", "Ascending"},
 	})
-	//line search.html:72
+	//line search.html:73
 	qw422016.N().S(`
   </select>
   <select name="max" class="form-control input-sm">
     `)
-	//line search.html:75
+	//line search.html:76
 	sel := strconv.Itoa(nav.MaxItemPerPage)
 
-	//line search.html:75
+	//line search.html:76
 	qw422016.N().S(`
     `)
-	//line search.html:76
+	//line search.html:77
 	for _, m := range [...]int{5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 70, 100, 150, 200, 300} {
-		//line search.html:76
+		//line search.html:77
 		qw422016.N().S(`
       `)
-		//line search.html:77
+		//line search.html:78
 		id := strconv.Itoa(m)
 
-		//line search.html:77
+		//line search.html:78
 		qw422016.N().S(`
       `)
-		//line search.html:78
+		//line search.html:79
 		streamsearchOption(qw422016, sel, searchField{id, id})
-		//line search.html:78
+		//line search.html:79
 		qw422016.N().S(`
     `)
-		//line search.html:79
+		//line search.html:80
 	}
-	//line search.html:79
+	//line search.html:80
 	qw422016.N().S(`
   </select>
 `)
-//line search.html:81
+//line search.html:82
 }
 
-//line search.html:81
+//line search.html:82
 func WriteSearchAdvanced(qq422016 qtio422016.Writer, nav Navigation, search SearchForm) {
-	//line search.html:81
+	//line search.html:82
 	qw422016 := qt422016.AcquireWriter(qq422016)
-	//line search.html:81
+	//line search.html:82
 	StreamSearchAdvanced(qw422016, nav, search)
-	//line search.html:81
+	//line search.html:82
 	qt422016.ReleaseWriter(qw422016)
-//line search.html:81
+//line search.html:82
 }
 
-//line search.html:81
+//line search.html:82
 func SearchAdvanced(nav Navigation, search SearchForm) string {
-	//line search.html:81
+	//line search.html:82
 	qb422016 := qt422016.AcquireByteBuffer()
-	//line search.html:81
+	//line search.html:82
 	WriteSearchAdvanced(qb422016, nav, search)
-	//line search.html:81
+	//line search.html:82
 	qs422016 := string(qb422016.B)
-	//line search.html:81
+	//line search.html:82
 	qt422016.ReleaseByteBuffer(qb422016)
-	//line search.html:81
+	//line search.html:82
 	return qs422016
-//line search.html:81
+//line search.html:82
 }
 
-//line search.html:83
+//line search.html:84
 func StreamSearchButton(qw422016 *qt422016.Writer, search SearchForm) {
-	//line search.html:83
+	//line search.html:84
 	qw422016.N().S(`
   <div class="input-group">
     <input name="q" class="form-control input-sm" placeholder="Search" type="text" value="`)
-	//line search.html:85
+	//line search.html:86
 	qw422016.E().S(search.Query)
-	//line search.html:85
+	//line search.html:86
 	qw422016.N().S(`">
     <span class="input-group-btn">
       <button type="submit" class="btn btn-sm btn-success">
@@ -312,31 +313,31 @@ func StreamSearchButton(qw422016 *qt422016.Writer, search SearchForm) {
     </span>
   </div>
 `)
-//line search.html:93
+//line search.html:94
 }
 
-//line search.html:93
+//line search.html:94
 func WriteSearchButton(qq422016 qtio422016.Writer, search SearchForm) {
-	//line search.html:93
+	//line search.html:94
 	qw422016 := qt422016.AcquireWriter(qq422016)
-	//line search.html:93
+	//line search.html:94
 	StreamSearchButton(qw422016, search)
-	//line search.html:93
+	//line search.html:94
 	qt422016.ReleaseWriter(qw422016)
-//line search.html:93
+//line search.html:94
 }
 
-//line search.html:93
+//line search.html:94
 func SearchButton(search SearchForm) string {
-	//line search.html:93
+	//line search.html:94
 	qb422016 := qt422016.AcquireByteBuffer()
-	//line search.html:93
+	//line search.html:94
 	WriteSearchButton(qb422016, search)
-	//line search.html:93
+	//line search.html:94
 	qs422016 := string(qb422016.B)
-	//line search.html:93
+	//line search.html:94
 	qt422016.ReleaseByteBuffer(qb422016)
-	//line search.html:93
+	//line search.html:94
 	return qs422016
-//line search.html:93
+//line search.html:94
 }

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "link",
+    "translation": "link"
+  },
+  {
+    "id": "verify_email_title",
+    "translation": "Verify your email address for Goyangi."
+  },
+  {
+    "id": "verify_email_content",
+    "translation": "Please click below link to verify your email."
+  },
+  {
+    "id": "reset_password_title",
+    "translation": "Reset your password for goyangi."
+  },
+  {
+    "id": "reset_password_content",
+    "translation": "Please click below link to reset your password."
+  }
+]
