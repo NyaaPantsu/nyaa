@@ -2,18 +2,17 @@ package db
 
 import (
 	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/util/log"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	// _ "github.com/go-sql-driver/mysql"
 )
 
-var ORM, Errs = GormInit()
+var ORM *gorm.DB
 
 // GormInit init gorm ORM.
-func GormInit() (*gorm.DB, error) {
-	conf := config.NewConfig()
+func GormInit(conf *config.Config) (*gorm.DB, error) {
 	db, err := gorm.Open(conf.DBType, conf.DBParams)
 	// db, err := gorm.Open("mysql", config.MysqlDSL())
 	//db, err := gorm.Open("sqlite3", "/tmp/gorm.db")

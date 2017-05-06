@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/ewhal/nyaa/config"
+	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/router"
 	"github.com/ewhal/nyaa/util/log"
 
@@ -30,20 +31,20 @@ func RunServer(conf *config.Config) {
 
 func main() {
 	conf := config.NewConfig()
-	conf_bind := conf.BindFlags()
+	process_flags := conf.BindFlags()
 	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
 	flag.Parse()
-	err := conf_bind()
-	if err != nil {
-		log.CheckError(err)
-	}
 	if *defaults {
 		stdout := bufio.NewWriter(os.Stdout)
 		conf.Pretty(stdout)
 		stdout.Flush()
 		os.Exit(0)
 	} else {
-		conf_bind()
+		err := process_flags()
+		if err != nil {
+			log.CheckError(err)
+		}
+		db.ORM, _ = db.GormInit(conf)
 		RunServer(conf)
 	}
 }
