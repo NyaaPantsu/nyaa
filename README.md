@@ -34,15 +34,16 @@ The provided unit file uses options directly; if you prefer a config file, do th
 * Replace in the unit file the options by `-conf /etc/nyaa.conf`
 
 ## TODO
-* adding new magnet links
 * API improvement
-* make renchon the favicon and official mascot
-* make sukebei db schema compatible with current code
-* comments in torrent view page
-* Site theme
-* accounts?
-* scraping
+* Comments in torrent view page
+* Scraping
 * Daily DB dumps
+* Uploading of new Magnet links
+* Report Feature and Moderation System
+* Accounts and Registration System
+* Make renchon the favicon and official mascot
+* Make sukebei db schema compatible with current code
+* Site theme
 * p2p sync of dbs?
 
 # LICENSE
