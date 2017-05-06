@@ -1,12 +1,12 @@
 package router
 
 import(
-	"github.com/gorilla/mux"
+	// "github.com/gorilla/mux"
 	"net/http"
-	"html"
-	"strconv"
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/service/user"
+	// "html"
+	// "strconv"
+	// "github.com/ewhal/nyaa/model"
+	// "github.com/ewhal/nyaa/service/user"
 )
 
 // Getting View User Registration
