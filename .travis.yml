@@ -8,6 +8,7 @@ install:
 - go get github.com/jinzhu/gorm
 - go get github.com/Sirupsen/logrus
 - go get gopkg.in/natefinch/lumberjack.v2
+- go get gopkg.in/gomail.v2
 - go build
 deploy:
   provider: releases
