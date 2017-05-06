@@ -29,7 +29,6 @@ func RunServer(conf *config.Config) {
 }
 
 func main() {
-
 	conf := config.NewConfig()
 	conf_bind := conf.BindFlags()
 	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
