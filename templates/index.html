@@ -41,10 +41,9 @@
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
                       <li><a href="https://sukebei.pantsu.cat">Fap</a></li>
-                      <li><a href="{{.URL.Parse "/feed"}}?c={{.Search.Category}}&q={{.Search.Query}}&s={{.Search.Status}}">RSS</a></li>
                       <li><a href="{{.URL.Parse "/faq"}}">FAQ</a></li>                      
                       <li><a href="irc://irc.rizon.net/nyaapantsu">IRC</a></li>
-                      <li><a href="{{ genRouteWithQuery "feed" .URL }}">Feed RSS</a></li>
+                      <li><a href="{{ genRouteWithQuery "feed" .URL }}">RSS</a></li>
                   </ul>
                   <form class="navbar-form navbar-right" role="search" action="/search" method="get">
                       <div class="form-group">
