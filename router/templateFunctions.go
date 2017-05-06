@@ -6,8 +6,6 @@ import (
 	"math"
 	"net/url"
 	"strconv"
-
-	"github.com/ewhal/nyaa/templates"
 )
 
 var FuncMap = template.FuncMap{
@@ -22,11 +20,11 @@ var FuncMap = template.FuncMap{
 	"genRouteWithQuery": func(name string, currentUrl *url.URL, params ...string) template.HTML {
 		url, err := Router.Get(name).URL(params...)
 		if err == nil {
-			return template.HTML(url.String() + "?" + currentUrl.RawQuery)
+			return template.HTML(url.String()+ "?" + currentUrl.RawQuery)
 		}
 		return "error"
 	},
-	"genNav": func(nav templates.Navigation, currentUrl *url.URL, pagesSelectable int) template.HTML {
+	"genNav": func(nav Navigation, currentUrl *url.URL, pagesSelectable int) template.HTML {
 		maxPages := math.Ceil(float64(nav.TotalItem) / float64(nav.MaxItemPerPage))
 
 		var ret = ""
@@ -58,14 +56,5 @@ var FuncMap = template.FuncMap{
 			ret = ret + "<li><a id=\"page-next\" href=\"" + url.String() + "?" + currentUrl.RawQuery + "\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li>"
 		}
 		return template.HTML(ret)
-	},
-	"SearchCommon": func(s templates.SearchForm) template.HTML {
-		return template.HTML(templates.SearchCommon(s))
-	},
-	"SearchButton": func(s templates.SearchForm) template.HTML {
-		return template.HTML(templates.SearchButton(s))
-	},
-	"SearchAdvanced": func(nav templates.Navigation, s templates.SearchForm) template.HTML {
-		return template.HTML(templates.SearchAdvanced(nav, s))
 	},
 }
