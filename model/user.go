@@ -36,14 +36,16 @@ type User struct {
 	LastLoginIp        string     `json:"lastLoginIp",sql:"size:100"`
 	CurrentLoginIp     string     `json:"currentLoginIp",sql:"size:100"`
 
+	Status Status `gorm:"many2one:users_status;"`
+
 	// Liking
-	LikingCount int `json:"likingCount"`
-	LikedCount  int `json:"likedCount"`
-	Likings     []User     `gorm:"foreignkey:userId;associationforeignkey:follower_id;many2many:users_followers;"`
-	Liked      []User     `gorm:"foreignkey:follower_id;associationforeignkey:userId;many2many:users_followers;"`
+	LikingCount int    `json:"likingCount"`
+	LikedCount  int    `json:"likedCount"`
+	Likings     []User `gorm:"foreignkey:userId;associationforeignkey:follower_id;many2many:users_followers;"`
+	Liked       []User `gorm:"foreignkey:follower_id;associationforeignkey:userId;many2many:users_followers;"`
 
 	Connections []Connection
-	Roles       []Role     `gorm:"many2many:users_roles;"`    // Many To Many, users_roles
+	Roles       []Role `gorm:"many2many:users_roles;"` // Many To Many, users_roles
 	Torrents    []Torrents
 }
 
@@ -77,7 +79,7 @@ type PublicUser struct {
 
 	Connections omit `json:"connections,omitempty"`
 	Roles       omit `json:"roles,omitempty"`
-	Torrents    omit `json:"articles,omitempty"`
+	Torrents    omit `json:"articles,omitempty"` //should user torrents not be displayed?
 }
 
 // Connection is a connection model for oauth.
