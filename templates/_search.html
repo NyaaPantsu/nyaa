@@ -38,6 +38,7 @@
     <option value="torrent_name" {{if eq .Search.Sort "torrent_name"}}selected{{end}}>Name</option>
     <option value="date" {{if eq .Search.Sort "date"}}selected{{end}}>Date</option>
     <option value="downloads" {{if eq .Search.Sort "downloads"}}selected{{end}}>Downloads</option>
+    <option value="filesize" {{if eq .Search.Sort "filesize"}}selected{{end}}>Size</option>
   </select>
   <select name="order" class="form-control input-sm">
     <option value="desc" {{if eq .Search.Order "desc"}}selected{{end}}>Descending</option>
