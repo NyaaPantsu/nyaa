@@ -35,12 +35,12 @@
               </tr>
               <tr>
                   <td>Comments</td>
+                  {{ range .Comments }}
                   <tr>
-                      {{ range .Comments }}
                       <td>{{.Un}}</td>
                       <td>{{.C}}</td>
-                      {{end}}
                   </tr>
+                  {{end}}
               </tr>
 
           </table>
