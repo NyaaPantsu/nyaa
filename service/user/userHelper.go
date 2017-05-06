@@ -22,7 +22,6 @@ func FindUserByUserName(userName string) (model.User, int, error) {
 // FindOrCreateUser creates a user.
 func FindOrCreateUser(username string) (model.User, int, error) {
 	var user model.User
-	var err error
 	if db.ORM.Where("username=?", username).First(&user).RecordNotFound() {
 		var user model.User
 		user.Username = username
