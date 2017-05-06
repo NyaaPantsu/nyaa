@@ -13,7 +13,7 @@ import (
 func FindUserByUserName(userName string) (model.User, int, error) {
 	var user model.User
 	var err error
-	if db.ORM.Where("name=?", appID, userName).First(&user).RecordNotFound() {
+	if db.ORM.Where("name=?", userName).First(&user).RecordNotFound() {
 		return user, http.StatusUnauthorized, err
 	}
 	return user, http.StatusOK, nil
