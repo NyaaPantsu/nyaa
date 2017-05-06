@@ -1,3 +1,5 @@
+![nyanpasu~](https://a.safe.moe/dNEEh.png)
+
 # Nyaa replacement [![Build Status](https://travis-ci.org/ewhal/nyaa.svg?branch=master)](https://travis-ci.org/ewhal/nyaa)
 
 ## Motivation
