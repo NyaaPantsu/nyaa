@@ -21,6 +21,8 @@ that anyone will be able to deploy locally or remotely.
 
 Type `./nyaa -h` for the list of options.
 
+After modifying the files in `./templates`, run `go generate ./... && go build`.
+
 ## Systemd
 
 * Edit the unit file `os/nyaa.service` to your liking

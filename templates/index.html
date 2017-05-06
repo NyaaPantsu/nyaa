@@ -41,7 +41,7 @@
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
                       <li><a href="{{.URL.Parse "/upload"}}">Upload</a/></li>
-                      <li><a href="{{.URL.Parse "/faq"}}">FAQ</a></li>                      
+                      <li><a href="{{.URL.Parse "/faq"}}">FAQ</a></li>
                       <li><a href="irc://irc.rizon.net/nyaapantsu">IRC</a></li>
                       <li><a href="{{ genRouteWithQuery "feed" .URL }}">RSS</a></li>
                       <li><a href="https://sukebei.pantsu.cat">Fap</a></li>
@@ -65,9 +65,9 @@
         <font size="4.5">Advanced Search</font><br />
         <form class="navbar-form" role="search" action="/search" method="get">
           <div class="form-group">
-            {{block "search_common" .}}{{end}}
-            {{block "search_advanced" .}}{{end}}
-            {{block "search_button" .}}{{end}}
+            {{ SearchCommon .Search }}
+            {{ SearchAdvanced .Navigation .Search }}
+            {{ SearchButton .Search }}
           </div>
         </form>
         <div style="clear:both"></div>
