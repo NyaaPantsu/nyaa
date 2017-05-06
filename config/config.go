@@ -8,8 +8,7 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"sync"
-	)
+)
 
 type Config struct {
 	Host   string `json: "host"`
@@ -17,11 +16,11 @@ type Config struct {
 	DBType string `json: "db_type"`
 	// This will be directly passed to Gorm, and its internal
 	// structure depends on the dialect for each db type
-	DBParams string `json: "db_type"`
+	DBParams string `json: "db_params"`
 }
 
 var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50"}
-var PrintDefaults *bool
+
 var allowedDatabaseTypes = map[string]bool{
 	"sqlite3":  true,
 	"postgres": true,
@@ -29,45 +28,39 @@ var allowedDatabaseTypes = map[string]bool{
 	"mssql":    true,
 }
 
-var instance *Config
-var once sync.Once
-
-func GetInstance() *Config {
-    once.Do(func() {
-        instance = &Config{}
-		instance.Host = Defaults.Host
-		instance.Port = Defaults.Port
-		instance.DBType = Defaults.DBType
-		instance.DBParams = Defaults.DBParams
-		instance.BindFlags()
-
-    })
-    return instance
+func NewConfig() *Config {
+	var config Config
+	config.Host = Defaults.Host
+	config.Port = Defaults.Port
+	config.DBType = Defaults.DBType
+	config.DBParams = Defaults.DBParams
+	return &config
 }
 
 type processFlags func() error
 
-func (config *Config) BindFlags() error {
+func (config *Config) BindFlags() processFlags {
 	// This function returns a function which is to be used after
-	// flag.Parse to check and copy the flags' values to the config instance.
+	// flag.Parse to check and copy the flags' values to the Config instance.
 
 	conf_file := flag.String("conf", "", "path to the configuration file")
 	db_type := flag.String("dbtype", Defaults.DBType, "database backend")
 	host := flag.String("host", Defaults.Host, "binding address of the server")
 	port := flag.Int("port", Defaults.Port, "port of the server")
 	db_params := flag.String("dbparams", Defaults.DBParams, "parameters to open the database (see Gorm's doc)")
-	PrintDefaults = flag.Bool("print-defaults", false, "print the default configuration file on stdout")
-	flag.Parse()
-	err := config.HandleConfFileFlag(*conf_file)
-	if err != nil {
+
+	return func() error {
+		// You can override fields in the config file with flags.
+		config.Host = *host
+		config.Port = *port
+		config.DBParams = *db_params
+		err := config.SetDBType(*db_type)
+		if err != nil {
+			return err
+		}
+		err = config.HandleConfFileFlag(*conf_file)
 		return err
 	}
-	// You can override fields in the config file with flags.
-	config.Host = *host
-	config.Port = *port
-	config.DBParams = *db_params
-	err = config.SetDBType(*db_type)
-	return err
 }
 
 func (config *Config) HandleConfFileFlag(path string) error {
