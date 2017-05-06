@@ -24,7 +24,15 @@ nav#mainmenu a {
 
 div#container {
     padding-top: 1.25em;
-    background: white url(/img/renchon.png) no-repeat;
+    background: white;
+}
+
+div#container.cont-home {
+     background: white url(/img/renchon.png) no-repeat;
+}
+div#container.cont-view {
+     background: white url(/img/renchon.png) no-repeat;
+     background-size: 61px;
 }
 
 body {
