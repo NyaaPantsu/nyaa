@@ -50,8 +50,8 @@
                   </ul>
                   <form class="navbar-form navbar-right" role="search" action="/search" method="get">
                       <div class="form-group">
-                        {{block "search_common" .}}{{end}}
-                        {{block "search_button" .}}{{end}}
+                        {{ SearchCommon .Search }}
+                        {{ SearchAdvanced .Navigation .Search }}
                       </div>
                   </form>
               </div>
