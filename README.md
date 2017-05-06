@@ -37,6 +37,26 @@ The provided unit file uses options directly; if you prefer a config file, do th
 * Edit `nyaa.conf` to your liking
 * Replace in the unit file the options by `-conf /etc/nyaa.conf`
 
+
+## Docker
+
+We support docker for easy development and deployment. Simply install docker and
+docker-compose by following the instructions [here](https://docs.docker.com/engine/installation/linux/ubuntu/#install-using-the-repository).
+
+Once you've successfully installed docker, make sure you have the database file
+in the project's directory as nyaa.db. Then, follow these steps to build and run
+the application.
+
+```sh
+$ cd deploy/
+# You may choose another backend by pointing to the
+# appropriate docker-compose file.
+$ docker-compose -f docker-compose.sqlite.yml build
+$ docker-compose -f docker-compose.sqlite.yml up 
+```
+
+Access the website by going to [localhost:9999](localhost:9999).
+
 ## TODO
 
 ### Features until stable release
