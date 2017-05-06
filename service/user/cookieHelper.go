@@ -6,6 +6,7 @@ import (
 
 	"github.com/gorilla/securecookie"
 	"golang.org/x/crypto/bcrypt"
+	formStruct "github.com/ewhal/nyaa/service/user/form"
 
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
