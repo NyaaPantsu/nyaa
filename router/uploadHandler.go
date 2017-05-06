@@ -9,26 +9,22 @@ import (
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.New("upload").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/upload.html"))
 	templates.ParseGlob("templates/_*.html") // common
-
+	var err error
 	var uploadForm UploadForm
 	if r.Method == "POST" {
-		err := r.ParseForm()
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+		defer r.Body.Close()
+		err = uploadForm.ExtractInfo(r)
+		if err == nil {
+			//validate name + hash
+			//add to db and redirect depending on result
 		}
-		uploadForm = UploadForm{
-			r.Form.Get("name"),
-			r.Form.Get("magnet"),
-			r.Form.Get("c"),
-			r.Form.Get("desc"),
-		}
-		//validate name + hash
-		//add to db and redirect depending on result
+	} else if r.Method == "GET" {
+		htv := UploadTemplateVariables{uploadForm, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+		err = templates.ExecuteTemplate(w, "index.html", htv)
+	} else {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		return
 	}
-
-	htv := UploadTemplateVariables{uploadForm, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
-
-	err := templates.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

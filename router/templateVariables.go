@@ -63,16 +63,8 @@ type SearchForm struct {
 	HideAdvancedSearch bool
 }
 
-type UploadForm struct {
-	Name        string
-	Magnet      string
-	Category    string
-	Description string
-}
-
 // Some Default Values to ease things out
-func NewSearchForm(params ...string) SearchForm {
-	searchForm := SearchForm{}
+func NewSearchForm(params ...string) (searchForm SearchForm) {
 	if len(params) > 1 {
 		searchForm.Category = params[0]
 	} else {
@@ -84,23 +76,16 @@ func NewSearchForm(params ...string) SearchForm {
 		searchForm.Sort = "torrent_id"
 	}
 	if len(params) > 3 {
-		searchForm.Order = params[2]
+		order := params[2]
+		if order == "DESC" {
+			searchForm.Order = order
+		} else if order == "ASC" {
+			searchForm.Order = order
+		} else {
+			// TODO: handle invalid value (?)
+		}
 	} else {
 		searchForm.Order = "DESC"
 	}
-	return searchForm
-}
-func NewUploadForm(params ...string) UploadForm {
-	uploadForm := UploadForm{}
-	if len(params) > 1 {
-		uploadForm.Category = params[0]
-	} else {
-		uploadForm.Category = "3_12"
-	}
-	if len(params) > 2 {
-		uploadForm.Description = params[1]
-	} else {
-		uploadForm.Description = "Description"
-	}
-	return uploadForm
+	return
 }
