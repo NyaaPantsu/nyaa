@@ -42,9 +42,9 @@ The provided unit file uses options directly; if you prefer a config file, do th
 * Make sukebei db schema compatible with current code
 * Fix up comments display
 * custom 404 page
-* Query caching
 ## Other features
 * Add support for postgres dbs
+* Torrent data scraping from definable tracker
 * Report Feature and Moderation System
   * blocking upload of torrent hashes
 * API improvement
