@@ -55,7 +55,7 @@ $ docker-compose -f docker-compose.sqlite.yml build
 $ docker-compose -f docker-compose.sqlite.yml up 
 ```
 
-Access the website by going to [localhost:9999](localhost:9999).
+Access the website by going to [localhost:9999](http://localhost:9999).
 
 ## TODO
 
