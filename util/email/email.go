@@ -53,6 +53,6 @@ func SendTestEmail() error {
 	}
 	msg.Attach(path)
 	// SendEmail(msg)
-		err := mailer.DialAndSend(msg); 
+	err := mailer.DialAndSend(msg)
 	return err
 }
