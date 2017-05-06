@@ -1,15 +1,14 @@
 package router
 
 import (
-	"html"
-	"html/template"
-	"net/http"
-	"strconv"
-
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/templates"
 	"github.com/gorilla/mux"
+	"html"
+	"html/template"
+	"net/http"
+	"strconv"
 )
 
 var homeTemplate = template.Must(template.New("home").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/home.html"))
