@@ -34,14 +34,18 @@ The provided unit file uses options directly; if you prefer a config file, do th
 * Replace in the unit file the options by `-conf /etc/nyaa.conf`
 
 ## TODO
-* API improvement
-* Comments in torrent view page
-* Scraping
-* Daily DB dumps
+
+### Features until stable release
 * Uploading of new Magnet links
-* Report Feature and Moderation System
-* Accounts and Registration System
 * Make sukebei db schema compatible with current code
+* Fix up comments display
+* custom 404 page
+## Other features
+* Report Feature and Moderation System
+* API improvement
+* Scraping
+* Accounts and Registration System
+* Daily DB dumps
 * Site theme
 * p2p sync of dbs?
 
