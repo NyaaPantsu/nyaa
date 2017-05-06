@@ -2,7 +2,7 @@
 {{define "content"}}
     <div class="blockBody">
         <!-- marquees are the true purpose of HTML -->
-        <marquee><h2>NOTICE: KEEP SEEDING YOU RETARD</h2></marquee>
+        <marquee><h2>NOTICE: KEEP SEEDING AND ENABLE DHT YOU RETARD</h2></marquee>
 
         <h1>Official Nyaapocalypse FAQ</h1>
         <br />
@@ -15,7 +15,7 @@
         <ul>
             <li>nyaa.se and associated domains (such as nyaatorrents.info) went offline on May 01, 2017.</li>
             <li>They were deactivated, so it's not a DDoS attack like usual.</li>
-            <li>Future prospects for nyaa are not looking good.</li>
+            <li>Future prospects for nyaa are not looking good. (It's dead)</li>
             <li>There is a recovery effort taking place.</li>
         </ul>
 
@@ -30,8 +30,8 @@
         <h2>How are we recovering?</h2>
         <p>The aforementioned databases are being hosted at nyaa.pantsu.cat and sukebei.pantsu.cat.
             There is a search function, and (almost) full nyaa functionality should be coming soon.
-            Unfortunately, due to the lack of a tracker and no plans to make one,
-            seeder/leecher statistics will not be restored.</p>
+            Seeder/leecher statistics are possible via scraping and might be restored somewhen in the future,
+            since other feature take priority right now.</p>
 
         <h2>Are the torrents still working?</h2>
         <p>Even if the trackers are down, seeders are still connected to the decentralized DHT network.
@@ -40,8 +40,8 @@
         <h2>How do I download the torrents?</h2>
         <p>Just use the <b>magnet link</b>. The magnet link will used by your BitTorrent client to look up the file on the
             DHT network and it should download just fine.</p>
-        <p>If your magnet link starts with "magnet:magnet:", delete the first "magnet:". It should look like:
-            magnet:?xt=urn:btih:[hash]&dn=[name]&tr=[tracker]&tr=[...]</p>
+        <p>The magnet link should look like this: <span style="font-family:monospace">
+            magnet:?xt=urn:btih:[hash]&amp;dn=[name]&amp;tr=[tracker]&amp;tr=[...]</span></p>
 
         <h2>How can I help?</h2>
         <p>If you have website development expertise, you can join the #nyaapantsu IRC channel on irc.rizon.net.
@@ -49,6 +49,9 @@
 
         <h2>Your design sucks / I found a bug</h2>
         <p><a href="https://github.com/ewhal/nyaa/issues">https://github.com/ewhal/nyaa/issues</a>.</p>
+
+        <h2>Why is your shit written in Go?</h2>
+        <p>It's the authors favorite programming language.</p>
 
         <br />
         <h2>nyaa.pantsu.cat and sukebei.pantsu.cat do not host any files.</h2>
