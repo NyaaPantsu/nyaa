@@ -48,6 +48,7 @@ in the project's directory as nyaa.db. Then, follow these steps to build and run
 the application.
 
 ```sh
+# Make sure the project is in here $GOPATH/src/github.com/ewhal/nyaa
 $ cd deploy/
 # You may choose another backend by pointing to the
 # appropriate docker-compose file.
@@ -56,6 +57,9 @@ $ docker-compose -f docker-compose.sqlite.yml up
 ```
 
 Access the website by going to [localhost:9999](http://localhost:9999).
+
+> For postgres, place the dump in the toplevel directory and name it to
+> nyaa_psql.backup.
 
 ## TODO
 
