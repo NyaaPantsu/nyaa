@@ -106,7 +106,7 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 	var likings []model.User
 	var likingCount int
 	db.ORM.Table("users_followers").Where("users_followers.user_id=?", user.Id).Count(&likingCount)
-	if err = db.ORM.Limit(config.LikingPerPage).Order(config.LikingOrder).Offset(offset).Select(config.UserPublicFields).
+	if err = db.ORM.Order("created_at desc").Select(config.UserPublicFields).
 		Joins("JOIN users_followers on users_followers.user_id=?", user.Id).
 		Where("users.id = users_followers.follower_id").
 		Group("users.id").Find(&likings).Error; err != nil {
@@ -118,7 +118,7 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 	var liked []model.User
 	var likedCount int
 	db.ORM.Table("users_followers").Where("users_followers.follower_id=?", user.Id).Count(&likedCount)
-	if err = db.ORM.Limit(config.LikedPerPage).Order(config.LikedOrder).Offset(offset).Select(config.UserPublicFields).
+	if err = db.ORM.Order("created_at desc").Select(config.UserPublicFields).
 		Joins("JOIN users_followers on users_followers.follower_id=?", user.Id).
 		Where("users.id = users_followers.user_id").
 		Group("users.id").Find(&liked).Error; err != nil {
@@ -316,7 +316,6 @@ func RetrieveUsersForAdmin() []model.User {
 
 // ActivateUser toggle activation of a user.
 func ActivateUser(r *http.Request, id string) (model.User, int, error) {
-	id := c.Params.ByName("id")
 	var user model.User
 	var form ActivateForm
 	modelHelper.BindValueForm(&form, r)

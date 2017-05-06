@@ -43,6 +43,7 @@ type User struct {
 	Liked      []User     `gorm:"foreignkey:follower_id;associationforeignkey:userId;many2many:users_followers;"`
 
 	Connections []Connection
+	Languages   []Language `gorm:"many2many:user_languages;"` // Many To Many, user_languages is the join table
 	Roles       []Role     `gorm:"many2many:users_roles;"`    // Many To Many, users_roles
 	Torrents    []Torrents
 }
@@ -76,6 +77,7 @@ type PublicUser struct {
 	CurrentLoginIp     omit `json:"currentLoginIp,omitempty",sql:"size:100"`
 
 	Connections omit `json:"connections,omitempty"`
+	Languages   omit `json:"languages,omitempty"`
 	Roles       omit `json:"roles,omitempty"`
 	Torrents    omit `json:"articles,omitempty"`
 }
