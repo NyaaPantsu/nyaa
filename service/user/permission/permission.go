@@ -7,7 +7,6 @@ import (
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/user"
 	"github.com/ewhal/nyaa/util/log"
-	"github.com/gin-gonic/gin"
 )
 
 // HasAdmin checks that user has an admin permission.
