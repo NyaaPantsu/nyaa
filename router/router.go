@@ -11,12 +11,12 @@ var Router *mux.Router
 func init() {
 	Router = mux.NewRouter()
 
-	cssHandler := http.FileServer(http.Dir("./static/css/"))
-	jsHandler := http.FileServer(http.Dir("./static/js/"))
-	imgHandler := http.FileServer(http.Dir("./static/img/"))
-	http.Handle("/css/", http.StripPrefix("/static/css/", cssHandler))
-	http.Handle("/js/", http.StripPrefix("/static/js/", jsHandler))
-	http.Handle("/img/", http.StripPrefix("/static/img/", imgHandler))
+	cssHandler := http.FileServer(http.Dir("./public/css/"))
+	jsHandler := http.FileServer(http.Dir("./public/js/"))
+	imgHandler := http.FileServer(http.Dir("./public/img/"))
+	http.Handle("/css/", http.StripPrefix("/css/", cssHandler))
+	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
+	http.Handle("/img/", http.StripPrefix("/img/", imgHandler))
 
 	// Routes,
 	Router.HandleFunc("/", HomeHandler).Name("home")
