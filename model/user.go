@@ -13,10 +13,7 @@ type User struct {
 
 	Email           string    `json:"email",sql:"size:255;unique"`
 	Password        string    `json:"password",sql:"size:255"`
-	// Name            string    `json:"name",sql:"size:255"`
 	Username        string    `json:"username",sql:"size:255;unique"`
-	// Birthday        time.Time `json:"birthday"`
-	// Gender          int8      `json:"gender"`
 	Description     string    `json:"description",sql:"size:100"`
 	Token           string    `json:"token"`
 	TokenExpiration time.Time `json:"tokenExperiation"`
@@ -47,7 +44,7 @@ type User struct {
 
 	Connections []Connection
 	Roles       []Role     `gorm:"many2many:users_roles;"`    // Many To Many, users_roles
-	// Articles    []Article
+	Torrents    []Torrents
 }
 
 // UsersFollowers is a relation table to relate users each other.
@@ -61,9 +58,6 @@ type PublicUser struct {
 	*User
 	Email           omit `json:"email,omitempty",sql:"size:255;unique"`
 	Password        omit `json:"password,omitempty",sql:"size:255"`
-	Name            omit `json:"name,omitempty",sql:"size:255"`
-	Birthday        omit `json:"birthday,omitempty"`
-	Gender          omit `json:"gender,omitempty"`
 	Token           omit `json:"token,omitempty"`
 	TokenExpiration omit `json:"tokenExperiation,omitempty"`
 
@@ -82,9 +76,8 @@ type PublicUser struct {
 	CurrentLoginIp     omit `json:"currentLoginIp,omitempty",sql:"size:100"`
 
 	Connections omit `json:"connections,omitempty"`
-	Languages   omit `json:"languages,omitempty"`
 	Roles       omit `json:"roles,omitempty"`
-	Articles    omit `json:"articles,omitempty"`
+	Torrents    omit `json:"articles,omitempty"`
 }
 
 // Connection is a connection model for oauth.
