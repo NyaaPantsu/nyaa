@@ -3,7 +3,6 @@ package router
 import (
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/torrent"
-	"github.com/ewhal/nyaa/templates"
 	"github.com/gorilla/mux"
 	"html"
 	"html/template"
@@ -12,6 +11,10 @@ import (
 )
 
 var homeTemplate = template.Must(template.New("home").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/home.html"))
+
+func init() {
+	template.Must(homeTemplate.ParseGlob("templates/_*.html")) // common
+}
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -37,8 +40,8 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		b = append(b, res)
 	}
 
-	navigationTorrents := templates.Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
-	htv := HomeTemplateVariables{b, templates.NewSearchForm(), navigationTorrents, r.URL, mux.CurrentRoute(r)}
+	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
+	htv := HomeTemplateVariables{b, NewSearchForm(), navigationTorrents, r.URL, mux.CurrentRoute(r)}
 
 	err := homeTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {

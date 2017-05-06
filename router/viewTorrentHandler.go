@@ -5,11 +5,14 @@ import (
 	"net/http"
 
 	"github.com/ewhal/nyaa/service/torrent"
-	"github.com/ewhal/nyaa/templates"
 	"github.com/gorilla/mux"
 )
 
 var viewTemplate = template.Must(template.New("view").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/view.html"))
+
+func init() {
+	template.Must(viewTemplate.ParseGlob("templates/_*.html")) // common
+}
 
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -18,7 +21,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	torrent, err := torrentService.GetTorrentById(id)
 	b := torrent.ToJson()
 
-	htv := ViewTemplateVariables{b, templates.NewSearchForm(), templates.Navigation{}, r.URL, mux.CurrentRoute(r)}
+	htv := ViewTemplateVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
 
 	err = viewTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {

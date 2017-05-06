@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Nyaa Pantsu - {{block "title" .}}Error 404{{end}}</title>
-    <link rel="icon" type="image/png" href="/img/favicon.png?v=2" />
+    <link rel="icon" type="image/png" href="/img/favicon.png?v=3" />
 
     <!-- RSS Feed with Context -->
     <link href="{{ genRouteWithQuery "feed" .URL }}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
@@ -50,8 +50,8 @@
                   </ul>
                   <form class="navbar-form navbar-right" role="search" action="/search" method="get">
                       <div class="form-group">
-                        {{ SearchCommon .Search }}
-                        {{ SearchAdvanced .Navigation .Search }}
+                        {{block "search_common" .}}{{end}}
+                        {{block "search_button" .}}{{end}}
                       </div>
                   </form>
               </div>
@@ -67,9 +67,9 @@
         <font size="4.5">Advanced Search</font><br />
         <form class="navbar-form" role="search" action="/search" method="get">
           <div class="form-group">
-            {{ SearchCommon .Search }}
-            {{ SearchAdvanced .Navigation .Search }}
-            {{ SearchButton .Search }}
+            {{block "search_common" .}}{{end}}
+            {{block "search_advanced" .}}{{end}}
+            {{block "search_button" .}}{{end}}
           </div>
         </form>
         <div style="clear:both"></div>
