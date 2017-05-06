@@ -2,6 +2,7 @@ package crypto
 
 import (
 	"crypto/md5"
+	"crypto/rand"
 	"fmt"
 	"strings"
 )
