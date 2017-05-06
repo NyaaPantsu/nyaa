@@ -11,7 +11,9 @@
                   <td>Name</td>
                   <td>
                       {{.Name}}
-                      <img style="float:right" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .Sub_Category.Id) }}">
+                      <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category.Id .Sub_Category.Id) }}">
+                        <img style="float:right" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .Sub_Category.Id) }}">
+                      </a>  
                   </td>
               </tr>
               <tr>
