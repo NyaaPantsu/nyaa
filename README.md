@@ -41,6 +41,7 @@ The provided unit file uses options directly; if you prefer a config file, do th
 * Fix up comments display
 * custom 404 page
 ## Other features
+* Add support for postgres dbs
 * Report Feature and Moderation System
 * API improvement
 * Scraping
