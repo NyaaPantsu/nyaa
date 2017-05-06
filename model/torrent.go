@@ -83,7 +83,7 @@ func (t *Torrents) ToJson() TorrentsJson {
 		Hash:         t.Hash,
 		Date:         time.Unix(t.Date, 0).Format(time.RFC3339),
 		Filesize:     util.FormatFilesize(t.Filesize),
-		Description:  template.HTML(util.UnZlib(t.Description)),
+		Description:  template.HTML(t.Description),
 		Comments:     b,
 		Sub_Category: strconv.Itoa(t.Sub_Category),
 		Category:     strconv.Itoa(t.Category),
