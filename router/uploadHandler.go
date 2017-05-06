@@ -1,14 +1,19 @@
 package router
 
 import (
-	"github.com/gorilla/mux"
 	"html/template"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
+var uploadTemplate = template.Must(template.New("upload").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/upload.html"))
+
+func init() {
+	template.Must(uploadTemplate.ParseGlob("templates/_*.html")) // common
+}
+
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
-	var templates = template.Must(template.New("upload").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/upload.html"))
-	templates.ParseGlob("templates/_*.html") // common
 	var err error
 	var uploadForm UploadForm
 	if r.Method == "POST" {
@@ -20,7 +25,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	} else if r.Method == "GET" {
 		htv := UploadTemplateVariables{uploadForm, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
-		err = templates.ExecuteTemplate(w, "index.html", htv)
+		err = uploadTemplate.ExecuteTemplate(w, "index.html", htv)
 	} else {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
