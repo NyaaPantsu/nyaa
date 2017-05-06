@@ -88,7 +88,12 @@ a {
 	white-space: nowrap;
 }
 
-/* Styling/fixes for the table: */
+.comment-row td:first-of-type {
+	vertical-align: top;
+	text-align: right;
+}
+
+/* Table style & fixes */
 .table > tbody > tr > td {
     /* fix bootstrap uglyness */
     vertical-align: middle;
@@ -104,6 +109,10 @@ tr.torrent-info td.date {
 
 .custom-table-hover > tbody > tr:hover {
 	opacity: 0.82;
+}
+
+.comment-row {
+	border-top: 1px solid #ddd;
 }
 
 div.container div.blockBody:nth-of-type(2) table{table-layout:fixed;}

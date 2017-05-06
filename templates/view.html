@@ -34,16 +34,17 @@
                   <td>Description</td>
                   <td>{{.Description}}</td>
               </tr>
+              <tr style="height:2em"> <td></td><td></td> </tr>
               <tr>
                   <td>Comments</td>
-                  {{ range .Comments }}
-                  <tr>
-                      <td>{{.Un}}</td>
-                      <td>{{.C}}</td>
-                  </tr>
-                  {{end}}
+                  <td></td>
               </tr>
-
+              {{ range .Comments }}
+              <tr class="comment-row">
+                  <td>{{.Un}}</td>
+                  <td>{{.C}}</td>
+              </tr>
+              {{end}}
           </table>
           {{end}}
       </div>
