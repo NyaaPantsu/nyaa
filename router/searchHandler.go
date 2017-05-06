@@ -8,15 +8,12 @@ import (
 
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/torrent"
+	"github.com/ewhal/nyaa/templates"
 	"github.com/ewhal/nyaa/util/search"
 	"github.com/gorilla/mux"
 )
 
 var searchTemplate = template.Must(template.New("home").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/home.html"))
-
-func init() {
-	template.Must(searchTemplate.ParseGlob("templates/_*.html")) // common
-}
 
 func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -37,8 +34,8 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		b = append(b, res)
 	}
 
-	navigationTorrents := Navigation{nbTorrents, search_param.Max, pagenum, "search_page"}
-	searchForm := SearchForm{
+	navigationTorrents := templates.Navigation{nbTorrents, search_param.Max, pagenum, "search_page"}
+	searchForm := templates.SearchForm{
 		search_param.Query,
 		search_param.Status,
 		search_param.Category,
