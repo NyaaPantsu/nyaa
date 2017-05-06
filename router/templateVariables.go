@@ -40,7 +40,6 @@ type UserRegisterTemplateVariables struct {
 
 type HomeTemplateVariables struct {
 	ListTorrents   []model.TorrentsJson
-	ListCategories []model.Categories
 	Search         templates.SearchForm
 	Navigation     templates.Navigation
 	URL            *url.URL   // For parsing Url in templates

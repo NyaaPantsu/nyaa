@@ -7,7 +7,6 @@ import (
 	"strconv"
 
 	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/templates"
 	"github.com/ewhal/nyaa/util/search"
 	"github.com/gorilla/mux"
@@ -43,7 +42,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		search_param.Order,
 		false,
 	}
-	htv := HomeTemplateVariables{b, torrentService.GetAllCategories(false), searchForm, navigationTorrents, r.URL, mux.CurrentRoute(r)}
+	htv := HomeTemplateVariables{b, searchForm, navigationTorrents, r.URL, mux.CurrentRoute(r)}
 
 	err := searchTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
