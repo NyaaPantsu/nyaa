@@ -2,7 +2,7 @@ package modelHelper
 
 import (
 	"reflect"
-
+	"net/http"
 	"github.com/ewhal/nyaa/util/log"
 )
 
@@ -32,6 +32,6 @@ func BindValueForm(form interface{}, r *http.Request) {
 	formElem := reflect.ValueOf(form).Elem()
 	typeOfTForm := formElem.Type()
 	for i := 0; i < formElem.NumField(); i++ {
-			formField := formElem.Field(i).Set(r.PostFormValue(typeOfTForm.Field(i).Name))
+		formElem.Field(i).Set(r.PostFormValue(typeOfTForm.Field(i).Name))
 	}
 }
