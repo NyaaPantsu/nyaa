@@ -124,7 +124,7 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 		_, errorUser := userService.CreateUserAuthentication(w, r)
 		if (errorUser != nil) {
 			err["errors"] = append(err["errors"], errorUser.Error())
-			languages.SetTranslation("en-us", viewLoginTemplate)
+			languages.SetTranslationFromRequest(viewLoginTemplate, r, "en-us")
 			htv := UserLoginFormVariables{b, err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
 			errorTmpl := viewLoginTemplate.ExecuteTemplate(w, "index.html", htv)
 			if errorTmpl != nil {
