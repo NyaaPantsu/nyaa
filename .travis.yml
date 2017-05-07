@@ -2,7 +2,7 @@ language: go
 go:
 - 1.x
 install:
-- apt-get install -y cross-gcc-dev cross-binutils 
+- sudo apt-get install -y cross-gcc-dev cross-binutils 
 - go get github.com/gorilla/feeds
 - go get github.com/gorilla/mux
 - go get github.com/mattn/go-sqlite3
