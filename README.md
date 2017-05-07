@@ -60,6 +60,7 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 > nyaa_psql.backup.
 
 ## TODO
+* Make search case insensitive
 * DB caching of popular queries to reduce server load?
 * Torrent data scraping from definable tracker chihaya intergration/support?
   * seeds/leeachers
