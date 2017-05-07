@@ -37,7 +37,9 @@
 						{{T "terms_conditions_confirm" }}
 					</div>
 				</div>
-				
+
+				{{block "captcha" .}}{{end}}
+
 				<hr class="colorgraph">
 				<div class="row">
 					<div class="col-xs-12 col-md-6"><input type="submit" value="{{T "register" }}" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>

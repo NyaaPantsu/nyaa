@@ -3,14 +3,16 @@ package router
 import (
 	"encoding/hex"
 	"errors"
-	"github.com/ewhal/nyaa/util"
-	"github.com/ewhal/nyaa/util/metainfo"
-	"github.com/microcosm-cc/bluemonday"
-	"github.com/zeebo/bencode"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
+
+	"github.com/ewhal/nyaa/service/captcha"
+	"github.com/ewhal/nyaa/util"
+	"github.com/ewhal/nyaa/util/metainfo"
+	"github.com/microcosm-cc/bluemonday"
+	"github.com/zeebo/bencode"
 )
 
 // UploadForm serializing HTTP form for torrent upload
@@ -22,6 +24,7 @@ type UploadForm struct {
 	CategoryId    int
 	SubCategoryId int
 	Description   string
+	captcha.Captcha
 }
 
 // TODO: these should be in another package (?)
@@ -64,6 +67,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	f.Category = r.FormValue(UploadFormCategory)
 	f.Description = r.FormValue(UploadFormDescription)
 	f.Magnet = r.FormValue(UploadFormMagnet)
+	f.Captcha = captcha.Extract(r)
 
 	// trim whitespaces
 	f.Name = util.TrimWhitespaces(f.Name)
@@ -76,6 +80,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 
 	if len(f.Description) == 0 {
 		return ErrInvalidTorrentDescription
+
 	}
 
 	catsSplit := strings.Split(f.Category, "_")
