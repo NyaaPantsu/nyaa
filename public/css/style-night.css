@@ -2,7 +2,7 @@
 .nightswitch {
 	position: fixed;
 	top: 12px;
-	right: 12px;
+	right: 48px;
 }
 .nightswitch > a > img {
     width: 24px;
@@ -43,7 +43,7 @@
 }
 #container.cont-view {
      background: #29363d url(/img/megumin.png) no-repeat;
-     background-size: 75px;
+     background-size: 75px, 100px;
 }
 
 body {
@@ -178,7 +178,6 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 	max-height: 80vh;
 }
 
-/* the curved edges triggered my autism */
 .navbar {
     border-radius: 0px;
 }
