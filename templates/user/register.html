@@ -8,21 +8,36 @@
 			<form role="form" method="POST">
 				<h2>{{T "signup_box_title" }}</h2>
 				<hr class="colorgraph">
+				{{ range (index $.FormErrors "errors")}}
+   					<div class="alert alert-danger">{{ . }}</div>
+   				{{end}}
 				<div class="form-group">
 					<input type="text" name="username" id="display_name" class="form-control input-lg" placeholder="{{T "username" }}" tabindex="1" value="{{ .Username }}">
+   							{{ range (index $.FormErrors "username")}}
+   							<p class="bg-danger">{{ . }}</p>
+   							{{end}}
 				</div>
 				<div class="form-group">
 					<input type="email" name="email" id="email" class="form-control input-lg" placeholder="{{T "email_address" }}" tabindex="2" value="{{ .Email }}">
+   							{{ range (index $.FormErrors "email")}}
+   							<p class="bg-danger">{{ . }}</p>
+   							{{end}}
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
 							<input type="password" name="password" id="password" class="form-control input-lg" placeholder="{{T "password" }}" tabindex="3" value="{{ .Password }}">
-						</div>
+   							{{ range (index $.FormErrors "password")}}
+   							<p class="bg-danger">{{ . }}</p>
+   							{{end}}
+   						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
 							<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="{{T "confirm_password" }}" tabindex="4">
+   							{{ range (index $.FormErrors "password_confirmation")}}
+   							<p class="bg-danger">{{ . }}</p>
+   							{{end}}
 						</div>
 					</div>
 				</div>
@@ -31,6 +46,9 @@
 						<span class="button-checkbox">
 							<button type="button" class="btn hidden" data-color="info" tabindex="5">{{T "i_agree" }}</button>
 	                        <input type="checkbox" name="t_and_c" id="t_and_c" value="1">
+   							{{ range (index $.FormErrors "t_and_c")}}
+   							<p class="bg-danger">{{ . }}</p>
+   							{{end}}
 						</span>
 					</div>
 					<div class="col-xs-8 col-sm-9 col-md-9">

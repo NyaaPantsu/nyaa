@@ -7,6 +7,7 @@ import (
 	"github.com/ewhal/nyaa/service/user"
 	"github.com/ewhal/nyaa/service/user/form"
 	"github.com/ewhal/nyaa/util/languages"
+	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/modelHelper"
 	"github.com/gorilla/mux"
 )
@@ -20,7 +21,7 @@ func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 	modelHelper.BindValueForm(&b, r)
 	b.CaptchaID = captcha.GetID()
 	languages.SetTranslation("en-us", viewRegisterTemplate)
-	htv := UserRegisterTemplateVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+	htv := UserRegisterTemplateVariables{b, form.NewErrors(), NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
 	err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -52,29 +53,43 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 // Post Registration controller, we do some check on the form here, the rest on user service
 func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 	// Check same Password
+	b := form.RegistrationForm{}
+	err := form.NewErrors()
 	if !captcha.Authenticate(captcha.Extract(r)) {
-		// TODO: Prettier passing of mistyoed captcha errors
-		http.Error(w, captcha.ErrInvalidCaptcha.Error(), 403)
-		return
+		err["errors"] = append(err["errors"], "Wrong captcha!")
 	}
-	if (r.PostFormValue("password") == r.PostFormValue("password_confirm")) && (r.PostFormValue("password") != "") {
-		if (form.EmailValidation(r.PostFormValue("email"))) && (form.ValidateUsername(r.PostFormValue("username"))) {
-			_, err := userService.CreateUser(w, r)
-			if err == nil {
-				b := form.RegistrationForm{}
-				htv := UserRegisterTemplateVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
-				err = viewRegisterSuccessTemplate.ExecuteTemplate(w, "index.html", htv)
-				if err != nil {
-					http.Error(w, err.Error(), http.StatusInternalServerError)
-				}
-			} else {
-				UserRegisterFormHandler(w, r)
-			}
-		} else {
-			UserRegisterFormHandler(w, r)
+	if (len(err) == 0) {
+		_, err = form.EmailValidation(r.PostFormValue("email"), err)
+		_, err = form.ValidateUsername(r.PostFormValue("username"), err)
+		log.Info("test lets see 3")
+		if (len(err) == 0) {
+			modelHelper.BindValueForm(&b, r)
+			err = modelHelper.ValidateForm(&b, err)
+				log.Info("test lets see 1")
+			if (len(err) == 0) {
+				_, errorUser := userService.CreateUser(w, r)
+				err["errors"] = append(err["errors"], errorUser.Error())
+				log.Info("test lets see 2")
+				if (len(err) == 0) {
+					b := form.RegistrationForm{}
+					htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+					errorTmpl := viewRegisterSuccessTemplate.ExecuteTemplate(w, "index.html", htv)
+					if errorTmpl != nil {
+						http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
+					}
+				} 
+			} 
+		} 
+	}
+	if (len(err) > 0) {
+		log.Info("test lets see 4")
+		b.CaptchaID = captcha.GetID()
+		languages.SetTranslation("en-us", viewRegisterTemplate)
+		htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+		errorTmpl := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
+		if errorTmpl != nil {
+			http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
 		}
-	} else {
-		UserRegisterFormHandler(w, r)
 	}
 }
 
