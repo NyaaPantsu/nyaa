@@ -24,6 +24,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	var uploadForm UploadForm
 	if r.Method == "POST" {
 		defer r.Body.Close()
+		// validation is done in ExtractInfo()
 		err = uploadForm.ExtractInfo(r)
 		if err == nil {
 			if !captcha.Authenticate(uploadForm.Captcha) {
@@ -32,7 +33,6 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			//validate name + hash
 			//add to db and redirect depending on result
 			torrent := model.Torrents{
 				Name:         uploadForm.Name,
@@ -43,7 +43,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 				Date:         time.Now().Unix(),
 				Description:  uploadForm.Description,
 				Comments:     []byte{}}
-			fmt.Printf("%+v\n", torrent)
+			//fmt.Printf("%+v\n", torrent)
 			db.ORM.Create(&torrent)
 			fmt.Printf("%+v\n", torrent)
 			url, err := Router.Get("view_torrent").URL("id", strconv.Itoa(torrent.Id))
@@ -51,7 +51,6 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 				http.Redirect(w, r, url.String(), 302)
 			}
 		}
-		fmt.Printf("%+v\n", uploadForm)
 	} else if r.Method == "GET" {
 		uploadForm.CaptchaID = captcha.GetID(r.RemoteAddr)
 		htv := UploadTemplateVariables{uploadForm, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}

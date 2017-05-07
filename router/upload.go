@@ -45,6 +45,10 @@ const UploadFormCategory = "c"
 // form value for description
 const UploadFormDescription = "desc"
 
+
+// error indicating that you can't send both a magnet link and torrent
+var ErrTorrentPlusMagnet = errors.New("upload either a torrent file or magnet link, not both")
+
 // error indicating a torrent is private
 var ErrPrivateTorrent = errors.New("torrent is private")
 
@@ -79,14 +83,6 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	f.Description = p.Sanitize(util.TrimWhitespaces(f.Description))
 	f.Magnet = util.TrimWhitespaces(f.Magnet)
 
-	if len(f.Name) == 0 {
-		return ErrInvalidTorrentName
-	}
-
-	//if len(f.Description) == 0 {
-	//	return ErrInvalidTorrentDescription
-	//}
-
 	catsSplit := strings.Split(f.Category, "_")
 	// need this to prevent out of index panics
 	if len(catsSplit) == 2 {
@@ -105,13 +101,10 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		return ErrInvalidTorrentCategory
 	}
 
-	if len(f.Magnet) == 0 {
-		// try parsing torrent file if provided if no magnet is specified
-		tfile, _, err := r.FormFile(UploadFormTorrent)
-		if err != nil {
-			return err
-		}
 
+	// first: parse torrent file (if any) to fill missing information
+	tfile, _, err := r.FormFile(UploadFormTorrent)
+	if err == nil {
 		var torrent metainfo.TorrentFile
 		// decode torrent
 		err = bencode.NewDecoder(tfile).Decode(&torrent)
@@ -119,23 +112,29 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 			return metainfo.ErrInvalidTorrentFile
 		}
 
-		// check if torrent is private
+		// check a few things
 		if torrent.IsPrivate() {
 			return ErrPrivateTorrent
 		}
-
-		// check trackers
 		trackers := torrent.GetAllAnnounceURLS()
 		if !CheckTrackers(trackers) {
 			return ErrTrackerProblem
 		}
 
-		// generate magnet
+		// Name
+		if len(f.Name) == 0 {
+			f.Name = torrent.TorrentName()
+		}
+
+		// Magnet link: if a file is provided it should be empty
+		if len(f.Magnet) != 0 {
+			return ErrTorrentPlusMagnet
+		}
 		binInfohash := torrent.Infohash()
-		f.Infohash = hex.EncodeToString(binInfohash[:])
+		f.Infohash = strings.ToUpper(hex.EncodeToString(binInfohash[:]))
 		f.Magnet = util.InfoHashToMagnet(f.Infohash, f.Name)
-		f.Infohash = strings.ToUpper(f.Infohash)
 	} else {
+		// No torrent file provided
 		magnetUrl, parseErr := url.Parse(f.Magnet)
 		if parseErr != nil {
 			return metainfo.ErrInvalidTorrentFile
@@ -143,14 +142,23 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		exactTopic := magnetUrl.Query().Get("xt")
 		if !strings.HasPrefix(exactTopic, "urn:btih:") {
 			return metainfo.ErrInvalidTorrentFile
-		} else {
-			f.Infohash = strings.ToUpper(strings.TrimPrefix(exactTopic, "urn:btih:"))
-			matched, err := regexp.MatchString("^[0-9A-F]{40}$", f.Infohash)
-			if err != nil || !matched {
-				return metainfo.ErrInvalidTorrentFile
-			}
+		}
+		f.Infohash = strings.ToUpper(strings.TrimPrefix(exactTopic, "urn:btih:"))
+		matched, err := regexp.MatchString("^[0-9A-F]{40}$", f.Infohash)
+		if err != nil || !matched {
+			return metainfo.ErrInvalidTorrentFile
 		}
 	}
+
+
+	// then actually check that we have everything we need
+	if len(f.Name) == 0 {
+		return ErrInvalidTorrentName
+	}
+
+	//if len(f.Description) == 0 {
+	//	return ErrInvalidTorrentDescription
+	//}
 
 	return nil
 }
