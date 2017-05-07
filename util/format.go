@@ -7,16 +7,16 @@ import (
 func FormatFilesize(bytes int64) string {
     var unit string
     var value float64
-    if bytes > 1024*1024*1024*1024 {
+    if bytes >= 1024*1024*1024*1024 {
         unit = "TiB"
         value = float64(bytes) / (1024*1024*1024*1024)
-    } else if bytes > 1024*1024*1024 {
+    } else if bytes >= 1024*1024*1024 {
         unit = "GiB"
         value = float64(bytes) / (1024*1024*1024)
-    } else if bytes > 1024*1024 {
+    } else if bytes >= 1024*1024 {
         unit = "MiB"
         value = float64(bytes) / (1024*1024)
-    } else if bytes > 1024 {
+    } else if bytes >= 1024 {
         unit = "KiB"
         value = float64(bytes) / (1024)
     } else {
