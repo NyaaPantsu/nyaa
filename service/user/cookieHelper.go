@@ -89,7 +89,7 @@ func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, er
 	if email != "" && pass != "" {
 		log.Debugf("User email : %s , password : %s", email, pass)
 		var user model.User
-		isValidEmail := formStruct.EmailValidation(email)
+		isValidEmail, _ := formStruct.EmailValidation(email, formStruct.NewErrors())
 		if isValidEmail {
 			log.Debug("User entered valid email.")
 			if db.ORM.Where("email = ?", email).First(&user).RecordNotFound() {

@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"github.com/ewhal/nyaa/util/log"
 	"strconv"
+	"fmt"
 )
 
 func IsZeroOfUnderlyingType(x interface{}) bool {
@@ -18,7 +19,7 @@ func AssignValue(model interface{}, form interface{}) {
 	typeOfTForm := formElem.Type()
 	for i := 0; i < formElem.NumField(); i++ {
 		tag := typeOfTForm.Field(i).Tag
-		if tag.Get("omit") != "false" {
+		if tag.Get("omit") != "true" {
 			modelField := modelIndirect.FieldByName(typeOfTForm.Field(i).Name)
 			if modelField.IsValid() {
 				formField := formElem.Field(i)
@@ -46,6 +47,78 @@ func BindValueForm(form interface{}, r *http.Request) {
 			case "float" :
 				nbr, _ := strconv.Atoi(r.PostFormValue(tag.Get("form")))
 				formElem.Field(i).SetFloat(float64(nbr))
+			case "bool" :
+				nbr, _ := strconv.ParseBool(r.PostFormValue(tag.Get("form")))
+				formElem.Field(i).SetBool(nbr)
 		}
 	}
+}
+
+
+
+func ValidateForm(form interface{}, errorForm map[string][]string) (map[string][]string) {
+	formElem := reflect.ValueOf(form).Elem()
+	for i := 0; i < formElem.NumField(); i++ {
+		typeField := formElem.Type().Field(i)
+		tag := typeField.Tag
+		inputName := typeField.Name
+		if (tag.Get("hum_name") != "") { // For more human input name than gibberish
+			inputName = tag.Get("hum_name")
+		}
+		if tag.Get("len_min") != "" { // Check minimum length
+			lenMin, _ := strconv.Atoi(tag.Get("len_min"))
+			if formElem.Field(i).Len() < lenMin {
+				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Minimal length of %s required for the input: %s", strconv.Itoa(lenMin), inputName))
+			}
+		}
+		if tag.Get("len_max") != "" { // Check minimum length
+			lenMax, _ := strconv.Atoi(tag.Get("len_max"))
+			if formElem.Field(i).Len() > lenMax {
+				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Maximal length of %s required for the input: %s", strconv.Itoa(lenMax), inputName))
+			}
+		}
+		if tag.Get("equalInput") != "" {
+			otherInput := formElem.FieldByName(tag.Get("equalInput"))
+			if formElem.Field(i).Interface() != otherInput.Interface() {
+				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Must be same %s", inputName))
+			}
+		}
+		switch typeField.Type.Name() {
+			case "string" :
+				if tag.Get("equal") != "" && formElem.Field(i).String() != tag.Get("equal") {
+					errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Wrong value for the input: %s", inputName))
+				}
+				if tag.Get("needed") != "" && formElem.Field(i).String() == "" {
+					errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Field needed: %s", inputName))
+				}
+			case "int" :
+				if tag.Get("equal") != "" { // Check minimum length
+					equal, _ := strconv.Atoi(tag.Get("equal"))
+					if formElem.Field(i).Int() > int64(equal) {
+						errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Wrong value for the input: %s", inputName))
+					}
+					if tag.Get("needed") != "" && formElem.Field(i).Int() == 0 {
+						errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Field needed: %s", inputName))
+					}
+				}
+			case "float" :
+				if tag.Get("equal") != "" { // Check minimum length
+					equal, _ := strconv.Atoi(tag.Get("equal"))
+					if formElem.Field(i).Float() != float64(equal) {
+						errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Wrong value for the input: %s", inputName))
+					}
+					if tag.Get("needed") != "" && formElem.Field(i).Float() == 0 {
+						errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Field needed: %s", inputName))
+					}
+				}
+			case "bool" :
+				if tag.Get("equal") != "" { // Check minimum length
+					equal, _ := strconv.ParseBool(tag.Get("equal"))
+					if formElem.Field(i).Bool() != equal {
+						errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Wrong value for the input: %s", inputName))
+					}
+				}
+		}
+	}
+	return errorForm
 }

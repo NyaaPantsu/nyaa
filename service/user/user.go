@@ -15,6 +15,7 @@ import (
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/modelHelper"
 	"github.com/ewhal/nyaa/util/timeHelper"
+	"fmt"
 )
 
 var userFields []string = []string{"name", "email", "createdAt", "updatedAt"}
@@ -42,7 +43,14 @@ func SuggestUsername(username string) string {
 	}
 	return usernameCandidate
 }
-
+func CheckEmail(email string) bool {
+	var count int
+	db.ORM.Model(model.User{}).Where(&model.User{Email: email}).Count(&count)
+	if count == 0 {
+		return false
+	}
+	return true
+}
 // CreateUserFromForm creates a user from a registration form.
 func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.User, error) {
 	var user model.User
@@ -70,7 +78,13 @@ func CreateUser(w http.ResponseWriter, r *http.Request) (int, error) {
 	var err error
 	
 	modelHelper.BindValueForm(&registrationForm, r)
-
+	usernameCandidate := SuggestUsername(registrationForm.Username)
+	if (usernameCandidate != registrationForm.Username) {
+		return http.StatusInternalServerError, fmt.Errorf("Username already taken, you can choose: %s", usernameCandidate)
+	}
+	if CheckEmail(registrationForm.Email) {
+		return http.StatusInternalServerError, errors.New("Email Address already in our database!")
+	}
 	password, err := bcrypt.GenerateFromPassword([]byte(registrationForm.Password), 10)
 	if err != nil {
 		return http.StatusInternalServerError, err

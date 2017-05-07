@@ -1,9 +1,13 @@
-/* Night mode image */
-#sunmoon {
-    position: fixed;
-    top: 10px;
-    height: 30px;
+/* Night mode switcher */
+.nightswitch {
+	position: fixed;
+	top: 12px;
+	right: 48px;
 }
+.nightswitch > a > img {
+    width: 24px;
+}
+
 /* Torrent status colors */
 .remake {
   background-color: rgb(240, 176, 128);
@@ -172,4 +176,9 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 .center-image {
 	max-width: 100%;
 	max-height: 80vh;
+}
+
+/* the curved edges triggered my autism */
+.navbar {
+    border-radius: 0px;
 }

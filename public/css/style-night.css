@@ -1,10 +1,13 @@
-/* Night mode image */
-#sunmoon {
-    position: fixed;
-    top: 10px;
-    height: 30px;
-
+/* Night mode switcher */
+.nightswitch {
+	position: fixed;
+	top: 12px;
+	right: 48px;
 }
+.nightswitch > a > img {
+    width: 24px;
+}
+
 /* Torrent status colors */
 .remake {
   background-color: #795c46;
@@ -55,12 +58,8 @@ body {
 	text-align: center;
 }
 
-.pagination {
-    background-color: #264040;
-}
-
 .pagination > .active > a {
-    background-color: #ececec;
+    background: #ececec;
     border-color: #ececec;
     color: #337ab7; /* restore usual text color */
 }
@@ -115,6 +114,12 @@ a {
 	padding: 4px;
 }
 
+.captcha-container {
+	display: grid;
+	grid-template-rows: auto;
+	grid-template-columns: 240px;
+}
+
 tr.torrent-info td.date {
 	white-space: nowrap;
 }
@@ -154,11 +159,25 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 	.table > tbody > tr > td {
 		border: none;
 	}
-	#container.cont-home {
-    	    background: #29363d url(/img/megumin.png) no-repeat;
-	}
-	#container.cont-view {
-    	    background: #29363d url(/img/megumin.png) no-repeat;
-    	    background-size: 75px, 100px;
-	}
+}
+
+/* Credit to bootsnipp.com for the css for the color graph */
+.colorgraph {
+  height: 5px;
+  border-top: 0;
+  background: #c4e17f;
+  border-radius: 5px;
+  background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+}
+
+.center-image {
+	max-width: 100%;
+	max-height: 80vh;
+}
+
+.navbar {
+    border-radius: 0px;
 }

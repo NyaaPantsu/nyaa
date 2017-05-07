@@ -38,6 +38,15 @@ type ViewTemplateVariables struct {
 
 type UserRegisterTemplateVariables struct {
 	RegistrationForm userForms.RegistrationForm
+	FormErrors 		 map[string][]string
+	Search           SearchForm
+	Navigation       Navigation
+	URL              *url.URL   // For parsing Url in templates
+	Route            *mux.Route // For getting current route in templates
+}
+
+type UserVerifyTemplateVariables struct {
+	FormErrors 		 map[string][]string
 	Search           SearchForm
 	Navigation       Navigation
 	URL              *url.URL   // For parsing Url in templates
