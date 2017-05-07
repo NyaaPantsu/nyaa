@@ -31,16 +31,6 @@ func Init(backend string) {
 }
 
 func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents, int) {
-	return searchByQuery(r, pagenum, true)
-
-}
-
-func SearchByQueryNoCount(r *http.Request, pagenum int) (param SearchParam, torrents []model.Torrents) {
-	param, torrents, _ = searchByQuery(r, pagenum, false)
-	return
-}
-
-func searchByQuery(r *http.Request, pagenum int, count bool) (search_param SearchParam, torrents []model.Torrents, n int) {
 	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"))
 	if errConv != nil {
 		maxPerPage = 50 // default Value maxPerPage
@@ -49,6 +39,7 @@ func searchByQuery(r *http.Request, pagenum int, count bool) (search_param Searc
 	if maxPerPage > 300 {
 		maxPerPage = 300
 	}
+	search_param := SearchParam{}
 	search_param.Max = maxPerPage
 	search_param.Query = r.URL.Query().Get("q")
 	search_param.Category = r.URL.Query().Get("c")
@@ -91,17 +82,13 @@ func searchByQuery(r *http.Request, pagenum int, count bool) (search_param Searc
 		parameters.Params = append(parameters.Params, search_param.Status)
 	}
 	searchQuerySplit := strings.Split(search_param.Query, " ")
-	for i := range searchQuerySplit {
-		conditions = append(conditions, "torrent_name LIKE ?")
+	for i, _ := range searchQuerySplit {
+		conditions = append(conditions, "torrent_name " + search_op + " ?")
 		parameters.Params = append(parameters.Params, "%"+searchQuerySplit[i]+"%")
 	}
 
 	parameters.Conditions = strings.Join(conditions[:], " AND ")
 	log.Infof("SQL query is :: %s\n", parameters.Conditions)
-	if count {
-		torrents, n = torrentService.GetTorrentsOrderBy(&parameters, order_by, maxPerPage, maxPerPage*(pagenum-1))
-	} else {
-		torrents = torrentService.GetTorrentsOrderByNoCount(&parameters, order_by, maxPerPage, maxPerPage*(pagenum-1))
-	}
-	return
+	torrents, n := torrentService.GetTorrentsOrderBy(&parameters, order_by, maxPerPage, maxPerPage*(pagenum-1))
+	return search_param, torrents, n
 }
