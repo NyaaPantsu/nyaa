@@ -21,7 +21,7 @@ func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 		b := form.RegistrationForm{}
 		modelHelper.BindValueForm(&b, r)
 		b.CaptchaID = captcha.GetID()
-		languages.SetTranslation("en-us", viewRegisterTemplate)
+		languages.SetTranslationFromRequest(viewRegisterTemplate, r, "en-us")
 		htv := UserRegisterTemplateVariables{b, form.NewErrors(), NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
 		err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
 		if err != nil {
@@ -36,7 +36,7 @@ func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
 	b := form.LoginForm{}
 	modelHelper.BindValueForm(&b, r)
-	languages.SetTranslation("en-us", viewLoginTemplate)
+	languages.SetTranslationFromRequest(viewLoginTemplate, r, "en-us")
 	htv := UserLoginFormVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
 	err := viewLoginTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -75,7 +75,7 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 				}
 				if (len(err) == 0) {
 					b := form.RegistrationForm{}
-					languages.SetTranslation("en-us", viewRegisterSuccessTemplate)
+					languages.SetTranslationFromRequest(viewRegisterSuccessTemplate, r, "en-us")
 					htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
 					errorTmpl := viewRegisterSuccessTemplate.ExecuteTemplate(w, "index.html", htv)
 					if errorTmpl != nil {
@@ -87,7 +87,7 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	if (len(err) > 0) {
 		b.CaptchaID = captcha.GetID()
-		languages.SetTranslation("en-us", viewRegisterTemplate)
+		languages.SetTranslationFromRequest(viewRegisterTemplate, r, "en-us")
 		htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
 		errorTmpl := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
 		if errorTmpl != nil {
@@ -104,7 +104,7 @@ func UserVerifyEmailHandler(w http.ResponseWriter, r *http.Request) {
 	if (errEmail != nil) {
 		err["errors"] = append(err["errors"], errEmail.Error())
 	}
-	languages.SetTranslation("en-us", viewVerifySuccessTemplate)
+	languages.SetTranslationFromRequest(viewVerifySuccessTemplate, r, "en-us")
 	htv := UserVerifyTemplateVariables{err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
 	errorTmpl := viewVerifySuccessTemplate.ExecuteTemplate(w, "index.html", htv)
 	if errorTmpl != nil {
