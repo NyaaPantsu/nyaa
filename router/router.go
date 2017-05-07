@@ -33,7 +33,8 @@ func init() {
 	Router.HandleFunc("/user/register", UserRegisterFormHandler).Name("user_register").Methods("GET")
 	Router.HandleFunc("/user/login", UserLoginFormHandler).Name("user_login").Methods("GET")
 	Router.HandleFunc("/verify/email/{token}", UserVerifyEmailHandler).Name("user_verify").Methods("GET")
-	Router.HandleFunc("/user/register", UserRegisterPostHandler).Name("user_register").Methods("POST")
+	Router.HandleFunc("/user/register", UserRegisterPostHandler).Name("user_register_post").Methods("POST")
+	Router.HandleFunc("/user/login", UserLoginPostHandler).Name("user_login_post").Methods("POST")
 	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
 
 	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
