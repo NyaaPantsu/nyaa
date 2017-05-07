@@ -1,10 +1,12 @@
 package torrentService
+
 import (
+	"errors"
+	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/config"
+	"github.com/ewhal/nyaa/util"
 	"github.com/jinzhu/gorm"
-	"errors"
 	"strings"
 )
 
@@ -30,7 +32,7 @@ func GetFeeds() []model.Feed {
 		for rows.Next() {
 			item := model.Feed{}
 			rows.Scan(&item.Id, &item.Name, &item.Hash, &item.Timestamp)
-			magnet := "magnet:?xt=urn:btih:" + strings.TrimSpace(item.Hash) + "&dn=" + item.Name + config.Trackers
+			magnet := util.InfoHashToMagnet(strings.TrimSpace(item.Hash), item.Name, config.Trackers...)
 			item.Magnet = magnet
 			// memory hog
 			result = append(result, item)
@@ -71,7 +73,6 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	}
 	dbQuery.Order(orderBy).Find(&torrents)
 	return torrents, count
-
 }
 
 /* Functions to simplify the get parameters of the main function

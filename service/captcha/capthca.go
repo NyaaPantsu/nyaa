@@ -1,6 +1,7 @@
 package captcha
 
 import (
+	"errors"
 	"net/http"
 	"sync"
 	"time"
@@ -15,6 +16,8 @@ var (
 	captchas = captchaMap{
 		m: make(map[string]store, 64),
 	}
+
+	ErrInvalidCaptcha = errors.New("invalid captcha")
 )
 
 func init() {
@@ -84,6 +87,14 @@ func (n *captchaMap) cleanUp() {
 // GetID returns a new or previous captcha id by IP
 func GetID(ip string) string {
 	return captchas.get(ip)
+}
+
+// Extract a Captcha struct from an HTML form
+func Extract(r *http.Request) Captcha {
+	return Captcha{
+		CaptchaID: r.FormValue("captchaID"),
+		Solution:  r.FormValue("solution"),
+	}
 }
 
 // ServeFiles serves captcha images and audio

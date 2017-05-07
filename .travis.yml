@@ -2,10 +2,12 @@ language: go
 go:
 - 1.x
 install:
+- sudo apt-get install -y cross-gcc-dev cross-binutils 
 - go get github.com/gorilla/feeds
 - go get github.com/gorilla/mux
 - go get github.com/mattn/go-sqlite3
 - go get github.com/jinzhu/gorm
+- go get github.com/lib/pq
 - go get github.com/Sirupsen/logrus
 - go get gopkg.in/natefinch/lumberjack.v2
 - go get gopkg.in/gomail.v2
@@ -14,12 +16,10 @@ install:
 - go get github.com/nicksnyder/go-i18n/i18n
 - go get github.com/dchest/captcha
 - go build
-deploy:
-  provider: releases
-  api_key:
-    secure: Nz2M3ZbQumKGVga/nnZnz1VXikRkGoLXk5FoH4uOl6GF6rlUNmtvJYs34LWF0/CMswBXNhjCggEaMMtZC+j66ZjoAdHBXRfrOb6jisNJRF6FNk7Kob6W3itCEOTvEL/8a+k2fI95cLqOXDLR2tIX03nchb8rDmVALs7P4gQgy2Y7UAo/aa/0G+OhsSJrlQWt0MT9OKGoIXpeKZjOG3wO/YwqfDwRTItuA9DLFoMQ0gwQfgT58t1ullbpM+jISni7rwfK+jUnZHjUH/VHLguVFmL4A1DxWriJXNOrZR+i/eUJ94mWvfI08WR8Qh3UCr58FrKoWvPsu7HnCq0bn6RvQtCKqx5zgv+R+kxKIP+79SVjKZUi1ghswAuwx9+AT6vHgPLXjJLpZj9Ap/KhfnQR6VT3jBT+kEpmv3J+57JcJCyD4ZslT+LGW2ul0uWoGCVVMBdHqMzuC8OSxpKCw6bFNWnLq+JAU08zlJkAAllBKev+LZWiF8GBICKfynRgViy+MKNaMfzIUNlL9UDskaiWP+BL9RXGLJ2FVdeKkzqdAYdYlgdJChQ56KTtRukR7FlOqDXhszIPxJhU9wn9lNXmGvq1FJyo1LRY3HX+5o9lWw+enaswNxFxdLBMXPhF5jehMkImiR4/YS4WdlmHcEfsli9sBOjBQh1iIpCfme77PPU=
-  file: nyaa
-  skip_cleanup: true
-  overwrite: true
-  on:
-    tags: true
+
+script:
+- go get github.com/mitchellh/gox
+- go get github.com/tcnksm/ghr
+- go get github.com/axw/gocov/gocov
+- gox -output "dist/{{.OS}}_{{.Arch}}_{{.Dir}}"
+- ghr --username ewhal --token $GITHUB_TOKEN --replace --prerelease --debug pre-release dist/

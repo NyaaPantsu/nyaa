@@ -18,5 +18,81 @@
   {
     "id": "reset_password_content",
     "translation": "Please click below link to reset your password."
+  },
+  {
+    "id":"register_title",
+    "translation": "Creating a new account"
+  },
+  {
+    "id":"signup_box_title",
+    "translation": "Please Sign Up <small>It's free and always will be.</small>"
+  },
+  {
+    "id":"username",
+    "translation": "Username"
+  },
+  {
+    "id":"email_address",
+    "translation": "Email Address"
+  },
+  {
+    "id":"password",
+    "translation": "Password"
+  },
+  {
+    "id":"confirm_password",
+    "translation": "Confirm Password"
+  },
+  {
+    "id":"i_agree",
+    "translation": "I agree"
+  },
+  {
+    "id":"terms_conditions_confirm",
+    "translation": "By clicking <strong class=\"label label-primary\">Register</strong>, you agree to the <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Terms and Conditions</a> set out by this site, including our Cookie Use."
+  },
+  {
+    "id":"signin",
+    "translation": "Sign In"
+  },
+  {
+    "id":"register",
+    "translation": "Register"
+  },
+  {
+    "id":"terms_conditions",
+    "translation": "Terms and Conditions"
+  },
+  {
+    "id":"terms_conditions_full",
+    "translation": "Some Shit."
+  },
+  {
+    "id":"remember_me",
+    "translation": "Remember me"
+  },
+  {
+    "id":"forgot_password",
+    "translation": "Forgot Password?"
+  },
+  {
+    "id":"sign_in_box_title",
+    "translation": "Please Sign In"
+  },
+  {
+    "id":"sign_in_title",
+    "translation": "Sign In"
+  },
+  {
+    "id":"register_success_title",
+    "translation": "Sign Up Successful"
+  },
+  {
+    "id":"sign_up_success",
+    "translation": "Almost Signed Up!"
+  },
+  {
+    "id":"signup_verification_email",
+    "translation": "Now, you are one step left before being part of our community! Check your emails (inbox or spam folder) and click the link provided for activating your account!"
   }
 ]
