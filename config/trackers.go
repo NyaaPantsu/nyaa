@@ -1,5 +1,6 @@
 package config
 
+// remember to update the FAQ when updating these
 var Trackers = []string{
 	"udp://tracker.coppersurfer.tk:6969",
 	"udp://zer0day.to:1337/announce",
