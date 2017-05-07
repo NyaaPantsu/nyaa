@@ -44,9 +44,6 @@ type RegistrationForm struct {
 	Username  string `form:"registrationUsername" binding:"required"`
 	Email     string `form:"registrationEmail" binding:"required"`
 	Password  string `form:"registrationPassword" binding:"required"`
-	Username  string `form:"username" binding:"required"`
-	Email     string `form:"email" binding:"required"`
-	Password  string `form:"password" binding:"required"`
 	CaptchaID string `form:"captchaID" binding:"required"`
 }
 
