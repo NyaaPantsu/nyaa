@@ -3,11 +3,11 @@
   <div class="blockBody">
   {{with .Upload}}
   <hr>
-  <form role="upload" method="POST">
+  <form enctype="multipart/form-data" role="upload" method="POST">
 
       <div class="form-group">
           <label for="torrent">Torrent file upload</label>
-          <input type="file" id="torrent">
+          <input type="file" name="torrent" id="torrent" accept=".torrent">
           <p class="help-block">Upload a torrent file to pre-fill information</p>
       </div>
       <div class="form-group">
@@ -17,7 +17,7 @@
       <div class="form-group">
           <label for="Magnet">Magnet Link</label>
           <input type="text" name="magnet" class="form-control"
-          style="width:60rem" placeholder="Magnet Link" value="{{.Magnet}}" required>         
+          style="width:60rem" placeholder="Magnet Link" value="{{.Magnet}}">         
       </div>
       <div class="form-group">
           <label for="c">Category</label>
