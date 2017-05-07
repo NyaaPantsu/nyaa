@@ -89,9 +89,10 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		}
 
 		// generate magnet
-		binInfoHash := torrent.Infohash()
-		f.Infohash = hex.EncodeToString(binInfoHash[:])
+		binInfohash := torrent.Infohash()
+		f.Infohash = hex.EncodeToString(binInfohash[:])
 		f.Magnet = util.InfoHashToMagnet(f.Infohash, f.Name)
+		f.Infohash = strings.ToUpper(f.Infohash)
 	} else {
 		magnetUrl, parseErr := url.Parse(f.Magnet)
 		if parseErr != nil {
