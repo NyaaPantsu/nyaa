@@ -60,22 +60,22 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 > nyaa_psql.backup.
 
 ## TODO
-
-### Features until stable release
-* Uploading of new Magnet links
-* Make sukebei db schema compatible with current code
-* Fix up comments display
+* Uploading of new torrents
+* DB caching of popular queries to reduce server load?
 * custom 404 page
-## Other features
-* Add support for postgres dbs
-* Torrent data scraping from definable tracker
-* Report Feature and Moderation System
+* Torrent data scraping from definable tracker chihaya intergration/support?
+  * seeds/leeachers
+  * file lists?
+* Accounts and Registration System
+  * Report Feature and Moderation System
   * blocking upload of torrent hashes
 * API improvement
-* Scraping
-* Accounts and Registration System
+* Scraping of fan subbing RSS feeds
+
 * Daily DB dumps
 * Site theme
+  * Theme switcher
+  * Dark theme
 * p2p sync of dbs?
 
 # LICENSE
