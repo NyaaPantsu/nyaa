@@ -19,7 +19,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	b := torrent.ToJson()
 
-	htv := ViewTemplateVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+	htv := ViewTemplateVariables{b, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 
 	err = viewTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
