@@ -2,9 +2,11 @@ package router
 
 import (
 	"net/url"
+	"net/http"
 
 	"github.com/ewhal/nyaa/model"
 	userForms "github.com/ewhal/nyaa/service/user/form"
+	"github.com/ewhal/nyaa/service/user"
 	"github.com/gorilla/mux"
 )
 
@@ -17,6 +19,7 @@ import (
 type FaqTemplateVariables struct {
 	Navigation Navigation
 	Search     SearchForm
+	User       model.User
 	URL        *url.URL   // For parsing Url in templates
 	Route      *mux.Route // For getting current route in templates
 }
@@ -24,6 +27,7 @@ type FaqTemplateVariables struct {
 type NotFoundTemplateVariables struct {
 	Navigation Navigation
 	Search     SearchForm
+	User       model.User
 	URL        *url.URL   // For parsing Url in templates
 	Route      *mux.Route // For getting current route in templates
 }
@@ -32,6 +36,7 @@ type ViewTemplateVariables struct {
 	Torrent    model.TorrentsJson
 	Search     SearchForm
 	Navigation Navigation
+	User       model.User
 	URL        *url.URL   // For parsing Url in templates
 	Route      *mux.Route // For getting current route in templates
 }
@@ -41,6 +46,7 @@ type UserRegisterTemplateVariables struct {
 	FormErrors 		 map[string][]string
 	Search           SearchForm
 	Navigation       Navigation
+	User      		 model.User
 	URL              *url.URL   // For parsing Url in templates
 	Route            *mux.Route // For getting current route in templates
 }
@@ -49,6 +55,7 @@ type UserVerifyTemplateVariables struct {
 	FormErrors 		 map[string][]string
 	Search           SearchForm
 	Navigation       Navigation
+	User       		 model.User
 	URL              *url.URL   // For parsing Url in templates
 	Route            *mux.Route // For getting current route in templates
 }
@@ -58,6 +65,7 @@ type UserLoginFormVariables struct {
 	FormErrors 		 map[string][]string
 	Search           SearchForm
 	Navigation       Navigation
+	User      		 model.User
 	URL              *url.URL   // For parsing Url in templates
 	Route            *mux.Route // For getting current route in templates
 }
@@ -66,6 +74,7 @@ type HomeTemplateVariables struct {
 	ListTorrents []model.TorrentsJson
 	Search       SearchForm
 	Navigation   Navigation
+	User      	 model.User
 	URL          *url.URL   // For parsing Url in templates
 	Route        *mux.Route // For getting current route in templates
 }
@@ -74,6 +83,7 @@ type UploadTemplateVariables struct {
 	Upload     UploadForm
 	Search     SearchForm
 	Navigation Navigation
+	User       model.User
 	URL        *url.URL
 	Route      *mux.Route
 }
@@ -122,4 +132,9 @@ func NewSearchForm(params ...string) (searchForm SearchForm) {
 		searchForm.Order = "DESC"
 	}
 	return
+}
+
+func GetUser(r *http.Request) model.User {
+	user, _ , _ := userService.RetrieveCurrentUser(r)
+	return user
 }

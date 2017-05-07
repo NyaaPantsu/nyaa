@@ -1,0 +1,20 @@
+{{define "badge_user"}}
+{{with .User}}
+	<ul class="nav navbar-nav navbar-right">
+		<li class="dropdown">
+			{{if gt .Id 0}}
+		    <a href="{{ genRoute "user_profile" "id" (print .Id) }}" class="dropdown-toggle" data-toggle="dropdown">
+		    <img src="https://www.gravatar.com/avatar/{{ .Md5 }}?s=50" class="profile-image img-circle"> {{ .Username }} <b class="caret"></b></a>
+		    <ul class="dropdown-menu">
+		        <li><a href="{{ genRoute "user_profile" "id" (print .Id) }}"><i class="fa fa-cog"></i> Profile</a></li>
+		        <li class="divider"></li>
+		        <li><a href="#soon"><i class="fa fa-sign-out"></i> Sign-out</a></li>
+		    </ul>
+		    {{ else }}
+	        <li><a href="{{ genRoute "user_login" }}"><i class="fa fa-sign-out"></i> Sign in</a></li>
+	        <li><a href="{{ genRoute "user_register" }}"><i class="fa fa-cog"></i> Sign Up</a></li>
+	{{end}}
+		</li>
+	</ul>
+{{end}}
+{{end}}
