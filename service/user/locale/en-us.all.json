@@ -32,6 +32,10 @@
     "translation": "Username"
   },
   {
+    "id":"email_address_or_username",
+    "translation": "Email Address or Username"
+  },
+  {
     "id":"email_address",
     "translation": "Email Address"
   },

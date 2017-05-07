@@ -36,8 +36,10 @@ func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
 	b := form.LoginForm{}
 	modelHelper.BindValueForm(&b, r)
+
 	languages.SetTranslationFromRequest(viewLoginTemplate, r, "en-us")
-	htv := UserLoginFormVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+	htv := UserLoginFormVariables{b, form.NewErrors(), NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+
 	err := viewLoginTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -114,6 +116,26 @@ func UserVerifyEmailHandler(w http.ResponseWriter, r *http.Request) {
 
 // Post Login controller
 func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
+	b := form.LoginForm{}
+	modelHelper.BindValueForm(&b, r)
+	err := form.NewErrors()
+	err = modelHelper.ValidateForm(&b, err)
+	if (len(err) == 0) {
+		_, errorUser := userService.CreateUserAuthentication(w, r)
+		if (errorUser != nil) {
+			err["errors"] = append(err["errors"], errorUser.Error())
+			languages.SetTranslationFromRequest(viewLoginTemplate, r, "en-us")
+			htv := UserLoginFormVariables{b, err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+			errorTmpl := viewLoginTemplate.ExecuteTemplate(w, "index.html", htv)
+			if errorTmpl != nil {
+				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
+			}
+		} else {
+			url, _ := Router.Get("home").URL()
+			http.Redirect(w, r, url.String(), http.StatusSeeOther)
+		}
+
+	}
 
 }
 
