@@ -13,6 +13,7 @@ install:
 - go get github.com/gorilla/securecookie
 - go get golang.org/x/crypto/bcrypt
 - go get github.com/nicksnyder/go-i18n/i18n
+- go get github.com/dchest/captcha
 - go get github.com/microcosm-cc/bluemonday
 - go get github.com/tcnksm/ghr
 - go get github.com/axw/gocov/gocov

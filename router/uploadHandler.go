@@ -2,13 +2,15 @@ package router
 
 import (
 	"fmt"
-	"github.com/ewhal/nyaa/db"
-	"github.com/ewhal/nyaa/model"
-	"github.com/gorilla/mux"
 	"html/template"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/ewhal/nyaa/db"
+	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/service/captcha"
+	"github.com/gorilla/mux"
 )
 
 var uploadTemplate = template.Must(template.New("upload").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/upload.html"))
@@ -24,6 +26,12 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		defer r.Body.Close()
 		err = uploadForm.ExtractInfo(r)
 		if err == nil {
+			if !captcha.Authenticate(uploadForm.Captcha) {
+				// TODO: Prettier passing of mistyoed captcha errors
+				http.Error(w, captcha.ErrInvalidCaptcha.Error(), 403)
+				return
+			}
+
 			//validate name + hash
 			//add to db and redirect depending on result
 			torrent := model.Torrents{
@@ -45,6 +53,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		fmt.Printf("%+v\n", uploadForm)
 	} else if r.Method == "GET" {
+		uploadForm.CaptchaID = captcha.GetID(r.RemoteAddr)
 		htv := UploadTemplateVariables{uploadForm, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
 		err = uploadTemplate.ExecuteTemplate(w, "index.html", htv)
 	} else {

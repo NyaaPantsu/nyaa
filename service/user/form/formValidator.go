@@ -2,6 +2,7 @@ package form
 
 import (
 	"regexp"
+
 	"github.com/ewhal/nyaa/util/log"
 )
 
@@ -18,30 +19,35 @@ func EmailValidation(email string) bool {
 	return false
 }
 func ValidateUsername(username string) bool {
- 	exp, err := regexp.Compile(USERNAME_REGEX)
+	exp, err := regexp.Compile(USERNAME_REGEX)
 
-    if (username == "") {
-        return false;
- 
-    }
-    if ((len(username) < 3) || (len(username) > 15)) {
-		return false;
- 
-    }
-    if regexpCompiled := log.CheckError(err); regexpCompiled {
+	if username == "" {
+		return false
+
+	}
+	if (len(username) < 3) || (len(username) > 15) {
+		return false
+
+	}
+	if regexpCompiled := log.CheckError(err); regexpCompiled {
 		if exp.MatchString(username) {
 			return false
 		}
 	} else {
 		return false
 	}
-    return true
+	return true
 }
+
 // RegistrationForm is used when creating a user.
 type RegistrationForm struct {
-	Username string `form:"username" binding:"required"`
-	Email    string `form:"email" binding:"required"`
-	Password string `form:"password" binding:"required"`
+	Username  string `form:"registrationUsername" binding:"required"`
+	Email     string `form:"registrationEmail" binding:"required"`
+	Password  string `form:"registrationPassword" binding:"required"`
+	Username  string `form:"username" binding:"required"`
+	Email     string `form:"email" binding:"required"`
+	Password  string `form:"password" binding:"required"`
+	CaptchaID string `form:"captchaID" binding:"required"`
 }
 
 // RegistrationForm is used when creating a user authentication.

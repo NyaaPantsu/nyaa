@@ -1,9 +1,10 @@
 package router
 
 import (
-	"github.com/gorilla/mux"
-
 	"net/http"
+
+	"github.com/ewhal/nyaa/service/captcha"
+	"github.com/gorilla/mux"
 )
 
 var Router *mux.Router
@@ -32,6 +33,7 @@ func init() {
 	Router.HandleFunc("/user/register", UserRegisterFormHandler).Name("user_register").Methods("GET")
 	Router.HandleFunc("/user/login", UserLoginFormHandler).Name("user_login").Methods("GET")
 	Router.HandleFunc("/user/register", UserRegisterPostHandler).Name("user_register").Methods("POST")
+	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
 
 	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
 }
