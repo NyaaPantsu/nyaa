@@ -25,7 +25,7 @@ func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 	modelHelper.BindValueForm(&b, r)
 	languages.SetTranslation("en-us", viewRegisterTemplate)
 	htv := UserRegisterTemplateVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
-	err := viewTemplate.ExecuteTemplate(w, "index.html", htv)
+	err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
