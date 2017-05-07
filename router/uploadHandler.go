@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/captcha"
@@ -14,6 +15,10 @@ import (
 )
 
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
+	if config.UploadsDisabled == 1 {
+		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
+		return
+	}
 	var err error
 	var uploadForm UploadForm
 	if r.Method == "POST" {
