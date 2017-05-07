@@ -15,6 +15,8 @@ func init() {
 }
 
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotFound)
+
 	searchForm := NewSearchForm()
 	searchForm.HideAdvancedSearch = true
 	err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, searchForm, r.URL, mux.CurrentRoute(r)})
