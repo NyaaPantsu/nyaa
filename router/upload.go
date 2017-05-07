@@ -10,9 +10,9 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
-	"regexp"
 
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/service/captcha"
@@ -24,10 +24,10 @@ import (
 
 // UploadForm serializing HTTP form for torrent upload
 type UploadForm struct {
-	Name          string
-	Magnet        string
-	Category      string
-	Description   string
+	Name        string
+	Magnet      string
+	Category    string
+	Description string
 	captcha.Captcha
 
 	Infohash      string
@@ -53,7 +53,6 @@ const UploadFormCategory = "c"
 
 // form value for description
 const UploadFormDescription = "desc"
-
 
 // error indicating that you can't send both a magnet link and torrent
 var ErrTorrentPlusMagnet = errors.New("upload either a torrent file or magnet link, not both")
@@ -86,11 +85,10 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	f.Magnet = r.FormValue(UploadFormMagnet)
 	f.Captcha = captcha.Extract(r)
 
-    if !captcha.Authenticate(f.Captcha) {
-        // TODO: Prettier passing of mistyoed captcha errors
-        return errors.New(captcha.ErrInvalidCaptcha.Error())
-    }
-
+	if !captcha.Authenticate(f.Captcha) {
+		// TODO: Prettier passing of mistyoed captcha errors
+		return errors.New(captcha.ErrInvalidCaptcha.Error())
+	}
 
 	// trim whitespaces
 	f.Name = util.TrimWhitespaces(f.Name)
@@ -114,7 +112,6 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	} else {
 		return ErrInvalidTorrentCategory
 	}
-
 
 	// first: parse torrent file (if any) to fill missing information
 	tfile, _, err := r.FormFile(UploadFormTorrent)
@@ -148,7 +145,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		}
 		binInfohash := torrent.Infohash()
 		f.Infohash = strings.ToUpper(hex.EncodeToString(binInfohash[:]))
-		f.Magnet = util.InfoHashToMagnet(f.Infohash, f.Name)
+		f.Magnet = util.InfoHashToMagnet(f.Infohash, f.Name, trackers...)
 
 		// extract filesize
 		f.Filesize = int64(torrent.TotalSize())
@@ -172,7 +169,6 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		f.Filepath = ""
 	}
 
-
 	// then actually check that we have everything we need
 	if len(f.Name) == 0 {
 		return ErrInvalidTorrentName
@@ -182,10 +178,9 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	//	return ErrInvalidTorrentDescription
 	//}
 
-
 	// after data has been checked & extracted, write it to disk
 	if len(config.TorrentFileStorage) > 0 {
-		err := WriteTorrentToDisk(tfile, f.Infohash + ".torrent", &f.Filepath)
+		err := WriteTorrentToDisk(tfile, f.Infohash+".torrent", &f.Filepath)
 		if err != nil {
 			return err
 		}
