@@ -2,7 +2,7 @@
 .nightswitch {
 	position: fixed;
 	top: 12px;
-	right: 48px;
+	right: 12px;
 }
 .nightswitch > a > img {
     width: 24px;
