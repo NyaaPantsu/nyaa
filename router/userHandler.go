@@ -7,7 +7,6 @@ import (
 	"github.com/ewhal/nyaa/service/user"
 	"github.com/ewhal/nyaa/service/user/form"
 	"github.com/ewhal/nyaa/util/languages"
-	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/modelHelper"
 	"github.com/gorilla/mux"
 )
@@ -17,14 +16,19 @@ import (
 
 // Getting View User Registration
 func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
-	b := form.RegistrationForm{}
-	modelHelper.BindValueForm(&b, r)
-	b.CaptchaID = captcha.GetID()
-	languages.SetTranslation("en-us", viewRegisterTemplate)
-	htv := UserRegisterTemplateVariables{b, form.NewErrors(), NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
-	err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	_, errorUser := userService.CurrentUser(r)
+	if (errorUser != nil) {
+		b := form.RegistrationForm{}
+		modelHelper.BindValueForm(&b, r)
+		b.CaptchaID = captcha.GetID()
+		languages.SetTranslation("en-us", viewRegisterTemplate)
+		htv := UserRegisterTemplateVariables{b, form.NewErrors(), NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+		err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	} else {
+		HomeHandler(w, r)
 	}
 }
 
@@ -61,17 +65,14 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 	if (len(err) == 0) {
 		_, err = form.EmailValidation(r.PostFormValue("email"), err)
 		_, err = form.ValidateUsername(r.PostFormValue("username"), err)
-		log.Info("test lets see 3")
 		if (len(err) == 0) {
 			modelHelper.BindValueForm(&b, r)
 			err = modelHelper.ValidateForm(&b, err)
-				log.Info("test lets see 1")
 			if (len(err) == 0) {
 				_, errorUser := userService.CreateUser(w, r)
 				if (errorUser != nil) {
 					err["errors"] = append(err["errors"], errorUser.Error())
 				}
-				log.Info("test lets see 2")
 				if (len(err) == 0) {
 					b := form.RegistrationForm{}
 					languages.SetTranslation("en-us", viewRegisterSuccessTemplate)
@@ -85,7 +86,6 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 		} 
 	}
 	if (len(err) > 0) {
-		log.Info("test lets see 4")
 		b.CaptchaID = captcha.GetID()
 		languages.SetTranslation("en-us", viewRegisterTemplate)
 		htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
@@ -93,6 +93,22 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 		if errorTmpl != nil {
 			http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
 		}
+	}
+}
+
+func UserVerifyEmailHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	token := vars["token"]
+	err := form.NewErrors()
+	_, errEmail := userService.EmailVerification(token, w)
+	if (errEmail != nil) {
+		err["errors"] = append(err["errors"], errEmail.Error())
+	}
+	languages.SetTranslation("en-us", viewVerifySuccessTemplate)
+	htv := UserVerifyTemplateVariables{err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+	errorTmpl := viewVerifySuccessTemplate.ExecuteTemplate(w, "index.html", htv)
+	if errorTmpl != nil {
+		http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
 	}
 }
 
