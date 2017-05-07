@@ -27,6 +27,15 @@
 
     <!-- Website CSS -->
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/style.css"}}">
+    <script type="text/javascript">
+        // Inlined here to allow early style switch
+        if (localStorage.getItem("night") == "true") {
+            document.getElementById("style").href = "/css/style-night.css";
+            document.body.addEventListener("load", function() {
+                document.getElementById("nighticon").src = "/img/sun.png";
+            }, false);
+        }
+    </script>
   </head>
   <body>
       <nav class="navbar navbar-default" id="mainmenu">
