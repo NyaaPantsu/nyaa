@@ -1,7 +1,6 @@
 package languages
 
 import (
-	"fmt"
 	"github.com/nicksnyder/go-i18n/i18n"
 	"html/template"
 	"net/http"
