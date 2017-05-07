@@ -344,8 +344,8 @@ func ActivateUser(r *http.Request, id string) (model.User, int, error) {
 func CreateUserAuthentication(w http.ResponseWriter, r *http.Request) (int, error) {
 	var form formStruct.LoginForm
 	modelHelper.BindValueForm(&form, r)
-	email := form.Email
+	username := form.Username
 	pass := form.Password
-	status, err := SetCookieHandler(w, email, pass)
+	status, err := SetCookieHandler(w, username, pass)
 	return status, err
 }
