@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Nyaa Pantsu - {{block "title" .}}Error 404{{end}}</title>
-    <link rel="icon" type="image/png" href="/img/favicon.png?v=2" />
+    <link rel="icon" type="image/png" href="/img/favicon.png?v=3" />
 
     <!-- RSS Feed with Context -->
     <link href="{{ genRouteWithQuery "feed" .URL }}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
 
+    <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
+    <!-- This should come before website CSS because it can f3ck up the website completely.. Use !important as a workaround -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Bootstrap -->
@@ -40,11 +42,11 @@
               </div>
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
-                      <li><a href="https://sukebei.pantsu.cat">Fap</a></li>
                       <li><a href="{{.URL.Parse "/upload"}}">Upload</a/></li>
-                      <li><a href="{{.URL.Parse "/faq"}}">FAQ</a></li>                      
+                      <li><a href="{{.URL.Parse "/faq"}}">FAQ</a></li>
                       <li><a href="irc://irc.rizon.net/nyaapantsu">IRC</a></li>
                       <li><a href="{{ genRouteWithQuery "feed" .URL }}">RSS</a></li>
+                      <li><a href="https://sukebei.pantsu.cat">Fap</a></li>
                   </ul>
                   <form class="navbar-form navbar-right" role="search" action="/search" method="get">
                       <div class="form-group">
@@ -89,5 +91,6 @@
 
     <!-- Main Javascript File -->
     <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}"></script>
+        {{block "js_footer" .}}{{end}}
 </body>
 </html>

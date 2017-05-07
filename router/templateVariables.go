@@ -1,9 +1,11 @@
 package router
 
 import (
-	"github.com/ewhal/nyaa/model"
-	"github.com/gorilla/mux"
 	"net/url"
+
+	"github.com/ewhal/nyaa/model"
+	userForms "github.com/ewhal/nyaa/service/user/form"
+	"github.com/gorilla/mux"
 )
 
 /* Each Page should have an object to pass to their own template
@@ -19,6 +21,13 @@ type FaqTemplateVariables struct {
 	Route      *mux.Route // For getting current route in templates
 }
 
+type NotFoundTemplateVariables struct {
+	Navigation Navigation
+	Search     SearchForm
+	URL        *url.URL   // For parsing Url in templates
+	Route      *mux.Route // For getting current route in templates
+}
+
 type ViewTemplateVariables struct {
 	Torrent    model.TorrentsJson
 	Search     SearchForm
@@ -27,13 +36,28 @@ type ViewTemplateVariables struct {
 	Route      *mux.Route // For getting current route in templates
 }
 
+type UserRegisterTemplateVariables struct {
+	RegistrationForm userForms.RegistrationForm
+	Search           SearchForm
+	Navigation       Navigation
+	URL              *url.URL   // For parsing Url in templates
+	Route            *mux.Route // For getting current route in templates
+}
+
+type UserLoginFormVariables struct {
+	LoginForm userForms.LoginForm
+	Search           SearchForm
+	Navigation       Navigation
+	URL              *url.URL   // For parsing Url in templates
+	Route            *mux.Route // For getting current route in templates
+}
+
 type HomeTemplateVariables struct {
-	ListTorrents   []model.TorrentsJson
-	ListCategories []model.Categories
-	Search         SearchForm
-	Navigation     Navigation
-	URL            *url.URL   // For parsing Url in templates
-	Route          *mux.Route // For getting current route in templates
+	ListTorrents []model.TorrentsJson
+	Search       SearchForm
+	Navigation   Navigation
+	URL          *url.URL   // For parsing Url in templates
+	Route        *mux.Route // For getting current route in templates
 }
 
 type UploadTemplateVariables struct {
@@ -63,16 +87,8 @@ type SearchForm struct {
 	HideAdvancedSearch bool
 }
 
-type UploadForm struct {
-	Name        string
-	Magnet      string
-	Category    string
-	Description string
-}
-
 // Some Default Values to ease things out
-func NewSearchForm(params ...string) SearchForm {
-	searchForm := SearchForm{}
+func NewSearchForm(params ...string) (searchForm SearchForm) {
 	if len(params) > 1 {
 		searchForm.Category = params[0]
 	} else {
@@ -84,23 +100,16 @@ func NewSearchForm(params ...string) SearchForm {
 		searchForm.Sort = "torrent_id"
 	}
 	if len(params) > 3 {
-		searchForm.Order = params[2]
+		order := params[2]
+		if order == "DESC" {
+			searchForm.Order = order
+		} else if order == "ASC" {
+			searchForm.Order = order
+		} else {
+			// TODO: handle invalid value (?)
+		}
 	} else {
 		searchForm.Order = "DESC"
 	}
-	return searchForm
-}
-func NewUploadForm(params ...string) UploadForm {
-	uploadForm := UploadForm{}
-	if len(params) > 1 {
-		uploadForm.Category = params[0]
-	} else {
-		uploadForm.Category = "3_12"
-	}
-	if len(params) > 2 {
-		uploadForm.Description = params[1]
-	} else {
-		uploadForm.Description = "Description"
-	}
-	return uploadForm
+	return
 }

@@ -1,9 +1,10 @@
 package router
 
 import (
-	"github.com/gorilla/mux"
-
 	"net/http"
+
+	"github.com/ewhal/nyaa/service/captcha"
+	"github.com/gorilla/mux"
 )
 
 var Router *mux.Router
@@ -11,9 +12,9 @@ var Router *mux.Router
 func init() {
 	Router = mux.NewRouter()
 
-	cssHandler := http.FileServer(http.Dir("./css/"))
-	jsHandler := http.FileServer(http.Dir("./js/"))
-	imgHandler := http.FileServer(http.Dir("./img/"))
+	cssHandler := http.FileServer(http.Dir("./public/css/"))
+	jsHandler := http.FileServer(http.Dir("./public/js/"))
+	imgHandler := http.FileServer(http.Dir("./public/img/"))
 	http.Handle("/css/", http.StripPrefix("/css/", cssHandler))
 	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
 	http.Handle("/img/", http.StripPrefix("/img/", imgHandler))
@@ -29,4 +30,10 @@ func init() {
 	Router.HandleFunc("/feed", RssHandler).Name("feed")
 	Router.HandleFunc("/view/{id}", ViewHandler).Name("view_torrent")
 	Router.HandleFunc("/upload", UploadHandler).Name("upload")
+	Router.HandleFunc("/user/register", UserRegisterFormHandler).Name("user_register").Methods("GET")
+	Router.HandleFunc("/user/login", UserLoginFormHandler).Name("user_login").Methods("GET")
+	Router.HandleFunc("/user/register", UserRegisterPostHandler).Name("user_register").Methods("POST")
+	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
+
+	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
 }

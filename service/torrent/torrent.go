@@ -1,10 +1,12 @@
 package torrentService
+
 import (
+	"errors"
+	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/config"
+	"github.com/ewhal/nyaa/util"
 	"github.com/jinzhu/gorm"
-	"errors"
 	"strings"
 )
 
@@ -30,7 +32,7 @@ func GetFeeds() []model.Feed {
 		for rows.Next() {
 			item := model.Feed{}
 			rows.Scan(&item.Id, &item.Name, &item.Hash, &item.Timestamp)
-			magnet := "magnet:?xt=urn:btih:" + strings.TrimSpace(item.Hash) + "&dn=" + item.Name + config.Trackers
+			magnet := util.InfoHashToMagnet(strings.TrimSpace(item.Hash), item.Name, config.Trackers...)
 			item.Magnet = magnet
 			// memory hog
 			result = append(result, item)
@@ -69,9 +71,8 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	if limit != 0 || offset != 0 { // if limits provided
 		dbQuery = dbQuery.Limit(limit).Offset(offset)
 	}
-	dbQuery.Order(orderBy).Preload("Categories").Preload("Sub_Categories").Find(&torrents)
+	dbQuery.Order(orderBy).Find(&torrents)
 	return torrents, count
-
 }
 
 /* Functions to simplify the get parameters of the main function
@@ -102,18 +103,6 @@ func GetAllTorrents(limit int, offset int) ([]model.Torrents, int) {
 
 func GetAllTorrentsDB() ([]model.Torrents, int) {
 	return GetTorrentsOrderBy(nil, "", 0, 0)
-}
-
-/* Function to get all categories with/without torrents (bool)
- */
-func GetAllCategories(populatedWithTorrents bool) []model.Categories {
-	var categories []model.Categories
-	if populatedWithTorrents {
-		db.ORM.Preload("Torrents").Preload("Sub_Categories").Find(&categories)
-	} else {
-		db.ORM.Preload("Sub_Categories").Find(&categories)
-	}
-	return categories
 }
 
 func CreateWhereParams(conditions string, params ...string) WhereParams {

@@ -9,7 +9,10 @@
                   {{if eq .Status 3}}class="trusted"{{end}}
                   {{if eq .Status 4}}class="aplus"{{end}}>
                   <td>Name</td>
-                  <td>{{.Name}}</td>
+                  <td>
+                      {{.Name}}
+                      <img style="float:right" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .Sub_Category) }}">
+                  </td>
               </tr>
               <tr>
                   <td>Hash</td>
@@ -34,16 +37,17 @@
                   <td>Description</td>
                   <td>{{.Description}}</td>
               </tr>
+              <tr style="height:2em"> <td></td><td></td> </tr>
               <tr>
                   <td>Comments</td>
-                  {{ range .Comments }}
-                  <tr>
-                      <td>{{.Un}}</td>
-                      <td>{{.C}}</td>
-                  </tr>
-                  {{end}}
+                  <td></td>
               </tr>
-
+              {{ range .Comments }}
+              <tr class="comment-row">
+                  <td>{{.Un}}</td>
+                  <td>{{.C}}</td>
+              </tr>
+              {{end}}
           </table>
           {{end}}
       </div>

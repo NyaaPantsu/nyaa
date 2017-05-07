@@ -1,8 +1,14 @@
 *.sqlite
 *.db
+*.sql
 main
 nyaa
 nyaa.exe
 nyaa-master.exe
 *.zip
 *.swp
+.vscode
+templates/*.html.go
+*.bat
+*.backup
+tags
