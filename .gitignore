@@ -13,3 +13,4 @@ templates/*.html.go
 *.bat
 *.backup
 tags
+*.retry

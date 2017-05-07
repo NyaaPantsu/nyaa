@@ -11,7 +11,7 @@
   become: true
 
 - name: Install Docker CE
-  yum: 
+  yum:
     name: docker-ce
     state: present
   become: true
@@ -24,7 +24,7 @@
     mode: 0755
   become: true
 
-- name: Enable docker at boot
+- name: Start docker and enable at boot
   systemd:
     enabled: yes
     name: docker
