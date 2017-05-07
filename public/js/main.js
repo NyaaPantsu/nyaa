@@ -1,10 +1,4 @@
 // Night mode
-var night = localStorage.getItem("night");
-if (night == "true") {
-    $("#style")[0].href = "/css/style-night.css";
-    $("#nighticon")[0].src = "/img/sun.png";
-}
-
 function toggleNightMode() {
     var night = localStorage.getItem("night");
     if(night == "true") {
