@@ -18,7 +18,7 @@ import (
 func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 	b := form.RegistrationForm{}
 	modelHelper.BindValueForm(&b, r)
-	b.CaptchaID = captcha.GetID(r.RemoteAddr)
+	b.CaptchaID = captcha.GetID()
 	languages.SetTranslation("en-us", viewRegisterTemplate)
 	htv := UserRegisterTemplateVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
 	err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
@@ -53,12 +53,14 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 	// Check same Password
 	if !captcha.Authenticate(captcha.Extract(r)) {
-				// TODO: Prettier passing of mistyoed captcha errors
-				http.Error(w, captcha.ErrInvalidCaptcha.Error(), 403)
-				return
+		// TODO: Prettier passing of mistyoed captcha errors
+		http.Error(w, captcha.ErrInvalidCaptcha.Error(), 403)
+		return
 	}
 	if (r.PostFormValue("password") == r.PostFormValue("password_confirm")) && (r.PostFormValue("password") != "") {
-		if (form.EmailValidation(r.PostFormValue("email"))) && (form.ValidateUsername(r.PostFormValue("username"))) {
+		if (form.EmailValidation(r.PostFormValue("email"))) &&
+			(form.ValidateUsername(r.PostFormValue("username"))) &&
+			(form.IsAgreed(r.PostFormValue("t_and_c"))) {
 			_, err := userService.CreateUser(w, r)
 			if err == nil {
 				b := form.RegistrationForm{}
