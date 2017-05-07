@@ -34,14 +34,13 @@
 					</div>
 					<div class="col-xs-8 col-sm-9 col-md-9">
 						{{T "terms_conditions_confirm" }}
-						 By clicking <strong class="label label-primary">Register</strong>, you agree to the <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terms and Conditions</a> set out by this site, including our Cookie Use.
 					</div>
 				</div>
 				
 				<hr class="colorgraph">
 				<div class="row">
 					<div class="col-xs-12 col-md-6"><input type="submit" value="{{T "register" }}" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
-					<div class="col-xs-12 col-md-6">or <a href="#" class="">{{T "signin" }}</a></div>
+					<div class="col-xs-12 col-md-6">or <a href="{{ genRoute "user_login" }}" class="">{{T "signin" }}</a></div>
 				</div>
 			</form>
 		</div>
