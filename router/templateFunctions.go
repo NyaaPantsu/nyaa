@@ -6,7 +6,8 @@ import (
 	"math"
 	"net/url"
 	"strconv"
-)
+	"github.com/nicksnyder/go-i18n/i18n"
+	)
 
 var FuncMap = template.FuncMap{
 	"min": math.Min,
@@ -57,4 +58,5 @@ var FuncMap = template.FuncMap{
 		}
 		return template.HTML(ret)
 	},
+	"T": i18n.IdentityTfunc,
 }
