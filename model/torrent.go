@@ -75,7 +75,7 @@ type TorrentsJson struct {
 func (t *Torrents) ToJson() TorrentsJson {
 	magnet := "magnet:?xt=urn:btih:" + strings.TrimSpace(t.Hash) + "&dn=" + t.Name + config.Trackers
 	b := []CommentsJson{}
-	_ = json.Unmarshal([]byte(util.UnZlib(t.Comments)), &b)
+	_ = json.Unmarshal([]byte(t.Comments), &b)
 	res := TorrentsJson{
 		Id:           strconv.Itoa(t.Id),
 		Name:         html.UnescapeString(t.Name),
@@ -83,7 +83,7 @@ func (t *Torrents) ToJson() TorrentsJson {
 		Hash:         t.Hash,
 		Date:         time.Unix(t.Date, 0).Format(time.RFC3339),
 		Filesize:     util.FormatFilesize(t.Filesize),
-		Description:  template.HTML(util.UnZlib(t.Description)),
+		Description:  template.HTML(t.Description),
 		Comments:     b,
 		Sub_Category: strconv.Itoa(t.Sub_Category),
 		Category:     strconv.Itoa(t.Category),
