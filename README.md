@@ -1,4 +1,4 @@
-![nyanpasu~](https://a.safe.moe/dNEEh.png)
+![nyanpasu~](https://my.mixtape.moe/aglaxe.png)
 
 # Nyaa replacement [![Build Status](https://travis-ci.org/ewhal/nyaa.svg?branch=master)](https://travis-ci.org/ewhal/nyaa)
 
