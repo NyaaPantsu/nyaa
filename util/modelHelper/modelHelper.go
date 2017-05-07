@@ -17,12 +17,15 @@ func AssignValue(model interface{}, form interface{}) {
 	formElem := reflect.ValueOf(form).Elem()
 	typeOfTForm := formElem.Type()
 	for i := 0; i < formElem.NumField(); i++ {
-		modelField := modelIndirect.FieldByName(typeOfTForm.Field(i).Name)
-		if modelField.IsValid() {
-			formField := formElem.Field(i)
-			modelField.Set(formField)
-		} else {
-			log.Warnf("modelField : %s - %s", typeOfTForm.Field(i).Name, modelField)
+		tag := typeOfTForm.Field(i).Tag
+		if tag.Get("omit") != "false" {
+			modelField := modelIndirect.FieldByName(typeOfTForm.Field(i).Name)
+			if modelField.IsValid() {
+				formField := formElem.Field(i)
+				modelField.Set(formField)
+			} else {
+				log.Warnf("modelField : %s - %s", typeOfTForm.Field(i).Name, modelField)
+			}
 		}
 	}
 }

@@ -1,9 +1,9 @@
 package router
 
 import (
-	"html/template"
 	"net/http"
 
+	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/service/user"
 	"github.com/ewhal/nyaa/service/user/form"
 	"github.com/ewhal/nyaa/util/languages"
@@ -11,23 +11,14 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var viewRegisterTemplate = template.Must(template.New("userRegister").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/user/register.html"))
-var viewLoginTemplate = template.Must(template.New("userLogin").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/user/login.html"))
-var viewRegisterSuccessTemplate = template.Must(template.New("userRegisterSuccess").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/user/signup_success.html"))
-
 //var viewTemplate = template.Must(template.New("view").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/view.html"))
 //var viewTemplate = template.Must(template.New("view").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/view.html"))
-
-func init() {
-	template.Must(viewRegisterTemplate.ParseGlob("templates/_*.html"))
-	template.Must(viewLoginTemplate.ParseGlob("templates/_*.html"))
-	template.Must(viewRegisterSuccessTemplate.ParseGlob("templates/_*.html"))
-}
 
 // Getting View User Registration
 func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 	b := form.RegistrationForm{}
 	modelHelper.BindValueForm(&b, r)
+	b.CaptchaID = captcha.GetID(r.RemoteAddr)
 	languages.SetTranslation("en-us", viewRegisterTemplate)
 	htv := UserRegisterTemplateVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
 	err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
@@ -58,9 +49,14 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// Post Registration controller
+// Post Registration controller, we do some check on the form here, the rest on user service
 func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 	// Check same Password
+	if !captcha.Authenticate(captcha.Extract(r)) {
+				// TODO: Prettier passing of mistyoed captcha errors
+				http.Error(w, captcha.ErrInvalidCaptcha.Error(), 403)
+				return
+	}
 	if (r.PostFormValue("password") == r.PostFormValue("password_confirm")) && (r.PostFormValue("password") != "") {
 		if (form.EmailValidation(r.PostFormValue("email"))) && (form.ValidateUsername(r.PostFormValue("username"))) {
 			_, err := userService.CreateUser(w, r)
