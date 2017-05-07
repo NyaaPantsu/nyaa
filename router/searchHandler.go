@@ -23,7 +23,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 
 	search_param, torrents, nbTorrents := search.SearchByQuery(r, pagenum)
 
-	for i := range torrents {
+	for i, _ := range torrents {
 		res := torrents[i].ToJson()
 		b = append(b, res)
 	}
