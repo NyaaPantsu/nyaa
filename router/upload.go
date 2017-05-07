@@ -9,6 +9,7 @@ import (
 	"strings"
 	"regexp"
 
+	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/metainfo"
@@ -56,7 +57,7 @@ var ErrPrivateTorrent = errors.New("torrent is private")
 
 // error indicating a problem with its trackers
 // FIXME: hardcoded link
-var ErrTrackerProblem = errors.New("torrent does not have any (working) trackers: https://nyaa.pantsu.cat/faq#trackers")
+var ErrTrackerProblem = errors.New("torrent does not have any (working) trackers: https://" + config.WebAddress + "/faq#trackers")
 
 // error indicating a torrent's name is invalid
 var ErrInvalidTorrentName = errors.New("torrent name is invalid")
