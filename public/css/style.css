@@ -42,6 +42,9 @@ body {
     margin: 0;
     padding: 0;
 }
+.blockBody {
+	padding-bottom: 2rem;
+}
 
 .torrentNav {
 	text-align: center;
