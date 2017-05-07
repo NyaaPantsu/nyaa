@@ -120,9 +120,5 @@ func ValidateForm(form interface{}, errorForm map[string][]string) (map[string][
 				}
 		}
 	}
-
-	if (len(errorForm) == 0) { // If no error, return nil
-		return nil
-	}
 	return errorForm
 }
