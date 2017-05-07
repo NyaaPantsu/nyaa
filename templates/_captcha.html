@@ -3,6 +3,6 @@
 		<label for="solution">Captcha</label>
 		<input type="text" name="captchaID" value="{{.CaptchaID}}" hidden>
 		<img src="/captcha/{{.CaptchaID}}.png">
-		<input type="number" name="solution" class="form-control" placeholder="Captcha" required>
+		<input type="text" name="solution" class="form-control" placeholder="Captcha" required>
 	</div>
 {{end}}
