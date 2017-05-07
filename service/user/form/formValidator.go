@@ -38,6 +38,12 @@ func NewErrors() map[string][]string {
 	err := make(map[string][]string)
 	return err
 }
+func IsAgreed(t_and_c string) bool {
+	if t_and_c == "1" {
+		return true
+	}
+	return false
+}
 
 // RegistrationForm is used when creating a user.
 type RegistrationForm struct {

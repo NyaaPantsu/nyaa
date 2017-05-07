@@ -3,12 +3,18 @@ package router
 import (
 	"encoding/hex"
 	"errors"
+	"fmt"
+	"io"
+	"io/ioutil"
+	"mime/multipart"
 	"net/http"
 	"net/url"
+	"os"
 	"strconv"
 	"strings"
 	"regexp"
 
+	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/metainfo"
@@ -20,14 +26,15 @@ import (
 type UploadForm struct {
 	Name          string
 	Magnet        string
-	Infohash      string
 	Category      string
 	Description   string
 	captcha.Captcha
 
+	Infohash      string
 	CategoryId    int
 	SubCategoryId int
 	Filesize      int64
+	Filepath      string
 }
 
 // TODO: these should be in another package (?)
@@ -55,8 +62,7 @@ var ErrTorrentPlusMagnet = errors.New("upload either a torrent file or magnet li
 var ErrPrivateTorrent = errors.New("torrent is private")
 
 // error indicating a problem with its trackers
-// FIXME: hardcoded link
-var ErrTrackerProblem = errors.New("torrent does not have any (working) trackers: https://nyaa.pantsu.cat/faq#trackers")
+var ErrTrackerProblem = errors.New("torrent does not have any (working) trackers: https://" + config.WebAddress + "/faq#trackers")
 
 // error indicating a torrent's name is invalid
 var ErrInvalidTorrentName = errors.New("torrent name is invalid")
@@ -108,7 +114,9 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	tfile, _, err := r.FormFile(UploadFormTorrent)
 	if err == nil {
 		var torrent metainfo.TorrentFile
+
 		// decode torrent
+		tfile.Seek(0, io.SeekStart)
 		err = bencode.NewDecoder(tfile).Decode(&torrent)
 		if err != nil {
 			return metainfo.ErrInvalidTorrentFile
@@ -155,6 +163,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		}
 
 		f.Filesize = 0
+		f.Filepath = ""
 	}
 
 
@@ -167,7 +176,28 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	//	return ErrInvalidTorrentDescription
 	//}
 
+
+	// after data has been checked & extracted, write it to disk
+	if len(config.TorrentFileStorage) > 0 {
+		err := WriteTorrentToDisk(tfile, f.Infohash + ".torrent", &f.Filepath)
+		if err != nil {
+			return err
+		}
+	} else {
+		f.Filepath = ""
+	}
+
 	return nil
+}
+
+func WriteTorrentToDisk(file multipart.File, name string, fullpath *string) error {
+	file.Seek(0, io.SeekStart)
+	b, err := ioutil.ReadAll(file)
+	if err != nil {
+		return err
+	}
+	*fullpath = fmt.Sprintf("%s%c%s", config.TorrentFileStorage, os.PathSeparator, name)
+	return ioutil.WriteFile(*fullpath, b, 0644)
 }
 
 var dead_trackers = []string{ // substring matches!

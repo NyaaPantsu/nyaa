@@ -1,3 +1,10 @@
+/* Night mode image */
+#sunmoon {
+    position: fixed;
+    top: 10px;
+    height: 30px;
+
+}
 /* Torrent status colors */
 .remake {
   background-color: #795c46;
@@ -25,6 +32,7 @@
 
 #container {
     padding-top: 1.25em;
+    background-color: #29363d;
 }
 
 #container.cont-home {
@@ -64,7 +72,7 @@ a {
 }
 
 .download-btn {
-    font-size: 20px;
+    font-size: 24px;
 }
 
 .table-borderless > tbody > tr > td,
