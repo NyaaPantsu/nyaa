@@ -14,13 +14,13 @@ install:
 - go get golang.org/x/crypto/bcrypt
 - go get github.com/nicksnyder/go-i18n/i18n
 - go get github.com/microcosm-cc/bluemonday
-- go build
-
-script:
 - go get github.com/tcnksm/ghr
 - go get github.com/axw/gocov/gocov
-- go getgithub.com/karalabe/xgo
+- go get github.com/karalabe/xgo
 - mkdir dist
+
+script:
+- go build
 - cd dist
 - xgo github.com/ewhal/nyaa
 - ghr --username ewhal --token $GITHUB_TOKEN --replace --prerelease --debug pre-release dist/
