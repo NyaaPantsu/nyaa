@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"regexp"
 
 	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/util"
@@ -21,10 +22,12 @@ type UploadForm struct {
 	Magnet        string
 	Infohash      string
 	Category      string
-	CategoryId    int
-	SubCategoryId int
 	Description   string
 	captcha.Captcha
+
+	CategoryId    int
+	SubCategoryId int
+	Filesize      int64
 }
 
 // TODO: these should be in another package (?)
@@ -44,8 +47,16 @@ const UploadFormCategory = "c"
 // form value for description
 const UploadFormDescription = "desc"
 
+
+// error indicating that you can't send both a magnet link and torrent
+var ErrTorrentPlusMagnet = errors.New("upload either a torrent file or magnet link, not both")
+
 // error indicating a torrent is private
 var ErrPrivateTorrent = errors.New("torrent is private")
+
+// error indicating a problem with its trackers
+// FIXME: hardcoded link
+var ErrTrackerProblem = errors.New("torrent does not have any (working) trackers: https://nyaa.pantsu.cat/faq#trackers")
 
 // error indicating a torrent's name is invalid
 var ErrInvalidTorrentName = errors.New("torrent name is invalid")
@@ -74,15 +85,6 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	f.Description = p.Sanitize(util.TrimWhitespaces(f.Description))
 	f.Magnet = util.TrimWhitespaces(f.Magnet)
 
-	if len(f.Name) == 0 {
-		return ErrInvalidTorrentName
-	}
-
-	if len(f.Description) == 0 {
-		return ErrInvalidTorrentDescription
-
-	}
-
 	catsSplit := strings.Split(f.Category, "_")
 	// need this to prevent out of index panics
 	if len(catsSplit) == 2 {
@@ -101,13 +103,10 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		return ErrInvalidTorrentCategory
 	}
 
-	if len(f.Magnet) == 0 {
-		// try parsing torrent file if provided if no magnet is specified
-		tfile, _, err := r.FormFile(UploadFormTorrent)
-		if err != nil {
-			return err
-		}
 
+	// first: parse torrent file (if any) to fill missing information
+	tfile, _, err := r.FormFile(UploadFormTorrent)
+	if err == nil {
 		var torrent metainfo.TorrentFile
 		// decode torrent
 		err = bencode.NewDecoder(tfile).Decode(&torrent)
@@ -115,17 +114,32 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 			return metainfo.ErrInvalidTorrentFile
 		}
 
-		// check if torrent is private
+		// check a few things
 		if torrent.IsPrivate() {
 			return ErrPrivateTorrent
 		}
+		trackers := torrent.GetAllAnnounceURLS()
+		if !CheckTrackers(trackers) {
+			return ErrTrackerProblem
+		}
 
-		// generate magnet
+		// Name
+		if len(f.Name) == 0 {
+			f.Name = torrent.TorrentName()
+		}
+
+		// Magnet link: if a file is provided it should be empty
+		if len(f.Magnet) != 0 {
+			return ErrTorrentPlusMagnet
+		}
 		binInfohash := torrent.Infohash()
-		f.Infohash = hex.EncodeToString(binInfohash[:])
+		f.Infohash = strings.ToUpper(hex.EncodeToString(binInfohash[:]))
 		f.Magnet = util.InfoHashToMagnet(f.Infohash, f.Name)
-		f.Infohash = strings.ToUpper(f.Infohash)
+
+		// extract filesize
+		f.Filesize = int64(torrent.TotalSize())
 	} else {
+		// No torrent file provided
 		magnetUrl, parseErr := url.Parse(f.Magnet)
 		if parseErr != nil {
 			return metainfo.ErrInvalidTorrentFile
@@ -133,12 +147,55 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		exactTopic := magnetUrl.Query().Get("xt")
 		if !strings.HasPrefix(exactTopic, "urn:btih:") {
 			return metainfo.ErrInvalidTorrentFile
-		} else {
-			f.Infohash = strings.ToUpper(strings.TrimPrefix(exactTopic, "urn:btih:"))
 		}
+		f.Infohash = strings.ToUpper(strings.TrimPrefix(exactTopic, "urn:btih:"))
+		matched, err := regexp.MatchString("^[0-9A-F]{40}$", f.Infohash)
+		if err != nil || !matched {
+			return metainfo.ErrInvalidTorrentFile
+		}
+
+		f.Filesize = 0
 	}
 
+
+	// then actually check that we have everything we need
+	if len(f.Name) == 0 {
+		return ErrInvalidTorrentName
+	}
+
+	//if len(f.Description) == 0 {
+	//	return ErrInvalidTorrentDescription
+	//}
+
 	return nil
+}
+
+var dead_trackers = []string{ // substring matches!
+	"://open.nyaatorrents.info:6544",
+	"://tracker.openbittorrent.com:80",
+	"://tracker.publicbt.com:80",
+	"://stats.anisource.net:2710",
+	"://exodus.desync.com",
+	"://open.demonii.com:1337",
+	"://tracker.istole.it:80",
+	"://tracker.ccc.de:80",
+	"://bt2.careland.com.cn:6969",
+	"://announce.torrentsmd.com:8080"}
+
+func CheckTrackers(trackers []string) bool {
+	var numGood int
+	for _, t := range trackers {
+		var good bool = true
+		for _, check := range dead_trackers {
+			if strings.Contains(t, check) {
+				good = false
+			}
+		}
+		if good {
+			numGood += 1
+		}
+	}
+	return numGood > 0
 }
 
 // NewUploadForm creates a new upload form given parameters as list

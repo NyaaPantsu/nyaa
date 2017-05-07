@@ -41,52 +41,52 @@ func ValidateUsername(username string) bool {
 
 // RegistrationForm is used when creating a user.
 type RegistrationForm struct {
-	Username  string `form:"registrationUsername" binding:"required"`
-	Email     string `form:"registrationEmail" binding:"required"`
-	Password  string `form:"registrationPassword" binding:"required"`
-	CaptchaID string `form:"captchaID" binding:"required"`
+	Username  string `form:"registrationUsername"`
+	Email     string `form:"registrationEmail"`
+	Password  string `form:"registrationPassword"`
+	CaptchaID string `form:"captchaID" inmodel:"false"`
 }
 
 // RegistrationForm is used when creating a user authentication.
 type LoginForm struct {
-	Email    string `form:"email" binding:"required"`
-	Password string `form:"password" binding:"required"`
+	Email    string `form:"email"`
+	Password string `form:"password"`
 }
 
 // UserForm is used when updating a user.
 type UserForm struct {
-	Email string `form:"email" binding:"required"`
+	Email string `form:"email"`
 }
 
 // PasswordForm is used when updating a user password.
 type PasswordForm struct {
-	CurrentPassword string `form:"currentPassword" binding:"required"`
-	Password        string `form:"newPassword" binding:"required"`
+	CurrentPassword string `form:"currentPassword"`
+	Password        string `form:"newPassword"`
 }
 
 // SendPasswordResetForm is used when sending a password reset token.
 type SendPasswordResetForm struct {
-	Email string `form:"email" binding:"required"`
+	Email string `form:"email"`
 }
 
 // PasswordResetForm is used when reseting a password.
 type PasswordResetForm struct {
-	PasswordResetToken string `form:"token" binding:"required"`
-	Password           string `form:"newPassword" binding:"required"`
+	PasswordResetToken string `form:"token"`
+	Password           string `form:"newPassword"`
 }
 
 // VerifyEmailForm is used when verifying an email.
 type VerifyEmailForm struct {
-	ActivationToken string `form:"token" binding:"required"`
+	ActivationToken string `form:"token"`
 }
 
 // ActivateForm is used when activating user.
 type ActivateForm struct {
-	Activation bool `form:"activation" binding:"required"`
+	Activation bool `form:"activation"`
 }
 
 // UserRoleForm is used when adding or removing a role from a user.
 type UserRoleForm struct {
-	UserId int `form:"userId" binding:"required"`
-	RoleId int `form:"roleId" binding:"required"`
+	UserId int `form:"userId"`
+	RoleId int `form:"roleId"`
 }
