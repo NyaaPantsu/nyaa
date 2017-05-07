@@ -9,6 +9,7 @@ services:
       - postgres-prod.env
     environment:
       - PANTSU_INTERNAL_PORT=${PANTSU_INTERNAL_PORT}
+    network_mode: "host"
     ports:
       # 0.0.0.0 makes it accessible to the network
       # You may want to remove it to make pantsu available only

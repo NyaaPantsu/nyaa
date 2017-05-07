@@ -1,5 +1,9 @@
-- name: Dotfiles
+- name: Set up webserver
   hosts: webservers
-
   roles:
       - docker
+
+- name: Set up databases
+  hosts: dbs
+  roles:
+      - postgresql

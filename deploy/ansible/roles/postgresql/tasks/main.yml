@@ -1,0 +1,63 @@
+- name: Install postgresql
+  yum:
+    name: postgresql-server
+    state: present
+  become: true
+
+- name: Initialize postgresql
+  command: postgresql-setup initdb
+  # Will error when database has already been initialized so just ignore it
+  ignore_errors: yes
+  become: true
+
+- name: Install adapter for python
+  yum:
+    name: python-psycopg2
+    state: present
+  become: true
+
+- name: Start postgresql and enable at boot
+  systemd:
+    enabled: yes
+    name: postgresql
+    state: started
+  become: true
+
+- name: Create nyaapantsu database
+  postgresql_db:
+    name: "{{ nyaapantsu_dbname }}"
+  become: true
+  become_user: postgres
+
+# TODO Probably better idea to not set SUPERUSER
+- name: Create nyaapantsu user
+  postgresql_user:
+    db: "{{ nyaapantsu_dbname }}"
+    name: "{{ nyaapantsu_user }}"
+    password: "{{ nyaapantsu_password }}"
+    role_attr_flags: SUPERUSER,LOGIN
+  become: true
+  become_user: postgres
+
+- name: Grant privileges to user
+  postgresql_privs:
+    db: "{{ nyaapantsu_dbname }}"
+    priv: ALL
+    roles: "{{ nyaapantsu_user }}"
+    state: present
+    type: database
+  become: true
+  become_user: postgres
+
+- name: Add custom pg_hba.conf
+  template:
+    src: pg_hba.conf.j2
+    dest: /var/lib/pgsql/data/pg_hba.conf
+  become: true
+  become_user: postgres
+
+- name: Reload postgres
+  systemd:
+    name: postgresql
+    state: reloaded
+  become: true
