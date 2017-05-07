@@ -68,10 +68,13 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 				log.Info("test lets see 1")
 			if (len(err) == 0) {
 				_, errorUser := userService.CreateUser(w, r)
-				err["errors"] = append(err["errors"], errorUser.Error())
+				if (errorUser != nil) {
+					err["errors"] = append(err["errors"], errorUser.Error())
+				}
 				log.Info("test lets see 2")
 				if (len(err) == 0) {
 					b := form.RegistrationForm{}
+					languages.SetTranslation("en-us", viewRegisterSuccessTemplate)
 					htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
 					errorTmpl := viewRegisterSuccessTemplate.ExecuteTemplate(w, "index.html", htv)
 					if errorTmpl != nil {
