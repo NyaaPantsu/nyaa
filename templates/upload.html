@@ -6,16 +6,16 @@
   <form enctype="multipart/form-data" role="upload" method="POST">
 
       <div class="form-group">
-          <label for="torrent">Torrent file upload</label>
+          <label for="name">Name</label>
+          <input type="text" name="name" class="form-control" placeholder="File Name" value="{{.Name}}" required>
+      </div>
+      <div class="form-group">
+          <label for="torrent">Torrent file</label>
           <input type="file" name="torrent" id="torrent" accept=".torrent">
-          <p class="help-block">Upload a torrent file to pre-fill information</p>
+          <p class="help-block">Uploading a torrent file allows pre-filling some fields, this is recommended.</p>
       </div>
       <div class="form-group">
-          <label for="name">FileName</label>
-          <input type="text" name="name" class="form-control"placeholder="File Name" value="{{.Name}}" required>
-      </div>
-      <div class="form-group">
-          <label for="Magnet">Magnet Link</label>
+          <label for="magnet">Magnet Link</label>
           <input type="text" name="magnet" class="form-control"
           style="width:60rem" placeholder="Magnet Link" value="{{.Magnet}}">
       </div>
@@ -45,6 +45,7 @@
 
       <div class="form-group">
           <label for="desc">Torrent Description</label>
+          <p class="help-block">A limited set of HTML is allowed in the description, make sure to use <span style="font-family:monospace">&lt;br/&gt;</span>.</p>
           <textarea name="desc" class="form-control" rows="10">{{.Description}}</textarea>
       </div>
 
@@ -56,4 +57,7 @@
   </form>
   {{end}}
   </div>
-  {{end}}
+{{end}}
+{{define "js_footer"}}
+  <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/uploadPage.js"}}"></script>
+{{end}}
