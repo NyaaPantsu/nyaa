@@ -110,7 +110,7 @@ func (tf *TorrentFile) TorrentName() string {
 
 // return true if this torrent is private otherwise return false
 func (tf *TorrentFile) IsPrivate() bool {
-	return tf.Info.Private == nil || *tf.Info.Private == 0
+	return tf.Info.Private != nil && *tf.Info.Private == 1
 }
 
 // calculate infohash
