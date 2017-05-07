@@ -2,7 +2,7 @@
 .nightswitch {
 	position: fixed;
 	top: 12px;
-	right: 12px;
+	right: 48px;
 }
 .nightswitch > a > img {
     width: 24px;
@@ -43,7 +43,7 @@
 }
 #container.cont-view {
      background: white url(/img/renchon.png) no-repeat;
-     background-size: 61px;
+     background-size: 75px, 100px;
 }
 
 body {
