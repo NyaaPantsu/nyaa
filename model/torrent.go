@@ -73,7 +73,7 @@ type TorrentsJson struct {
 /* Model Conversion to Json */
 
 func (t *Torrents) ToJson() TorrentsJson {
-	magnet := "magnet:?xt=urn:btih:" + strings.TrimSpace(t.Hash) + "&dn=" + t.Name + config.Trackers
+	magnet := util.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, config.Trackers...)
 	b := []CommentsJson{}
 	_ = json.Unmarshal([]byte(t.Comments), &b)
 	res := TorrentsJson{
