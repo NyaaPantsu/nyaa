@@ -33,5 +33,5 @@ func init() {
 	Router.HandleFunc("/user/login", UserLoginFormHandler).Name("user_login").Methods("GET")
 	Router.HandleFunc("/user/register", UserRegisterPostHandler).Name("user_register").Methods("POST")
 
-    Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
+	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
 }
