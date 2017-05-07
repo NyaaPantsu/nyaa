@@ -5,9 +5,11 @@ import (
     "html/template"
     )
 
-    func SetTranslation(language string, template *template.Template) {
+    func SetTranslation(language string, tmpl *template.Template) {
     T, _ := i18n.Tfunc(language)
-    template.Funcs(map[string]interface{}{
-        "T": T,
+    tmpl.Funcs(map[string]interface{}{
+        "T": func (str string)  template.HTML {
+        	return template.HTML(T(str))
+        	},
     })
     }
