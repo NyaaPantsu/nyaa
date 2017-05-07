@@ -1,0 +1,7 @@
+{{define "captcha"}}
+	<div class="form-group captcha-container">
+		<input type="text" name="capthcaID" value="{{.CaptchaID}}" hidden>
+		<img src="/captcha/{{.CaptchaID}}.png">
+		<input type="number" name="solution" class="form-control" placeholder="Captcha" required>
+	</div>
+{{end}}
