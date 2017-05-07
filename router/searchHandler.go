@@ -1,20 +1,13 @@
 package router
 
 import (
-	"html"
-	"html/template"
-	"net/http"
-	"strconv"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util/search"
 	"github.com/gorilla/mux"
+	"html"
+	"net/http"
+	"strconv"
 )
-
-var searchTemplate = template.Must(template.New("home").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/home.html"))
-
-func init() {
-	template.Must(searchTemplate.ParseGlob("templates/_*.html")) // common
-}
 
 func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
