@@ -3,6 +3,7 @@ package router
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -23,6 +24,9 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 			if !captcha.Authenticate(uploadForm.Captcha) {
 				// TODO: Prettier passing of mistyoed captcha errors
 				http.Error(w, captcha.ErrInvalidCaptcha.Error(), 403)
+				if len(uploadForm.Filepath) > 0 {
+					os.Remove(uploadForm.Filepath)
+				}
 				return
 			}
 
@@ -37,7 +41,6 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 				Filesize:     uploadForm.Filesize, // FIXME: should set to NULL instead of 0
 				Description:  uploadForm.Description,
 				Comments:     []byte{}}
-			//fmt.Printf("%+v\n", torrent)
 			db.ORM.Create(&torrent)
 			fmt.Printf("%+v\n", torrent)
 			url, err := Router.Get("view_torrent").URL("id", strconv.Itoa(torrent.Id))
