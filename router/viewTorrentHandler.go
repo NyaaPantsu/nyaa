@@ -19,6 +19,10 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	id := vars["id"]
 
 	torrent, err := torrentService.GetTorrentById(id)
+    if err != nil {
+        NotFoundHandler(w, r)
+        return
+    }
 	b := torrent.ToJson()
 
 	htv := ViewTemplateVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
