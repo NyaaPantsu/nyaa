@@ -92,6 +92,10 @@
     "translation": "Almost Signed Up!"
   },
   {
+    "id":"verify_success",
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Your account is now activated!"
+  },
+  {
     "id":"signup_verification_email",
     "translation": "Now, you are one step left before being part of our community! Check your emails (inbox or spam folder) and click the link provided for activating your account!"
   }
