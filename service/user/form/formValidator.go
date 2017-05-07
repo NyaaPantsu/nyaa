@@ -9,42 +9,44 @@ import (
 const EMAIL_REGEX = `(\w[-._\w]*\w@\w[-._\w]*\w\.\w{2,3})`
 const USERNAME_REGEX = `(\W)`
 
-func EmailValidation(email string) bool {
-	exp, err := regexp.Compile(EMAIL_REGEX)
-	if regexpCompiled := log.CheckError(err); regexpCompiled {
+func EmailValidation(email string, err map[string][]string) (bool, map[string][]string) {
+	exp, errorRegex := regexp.Compile(EMAIL_REGEX)
+	if regexpCompiled := log.CheckError(errorRegex); regexpCompiled {
 		if exp.MatchString(email) {
-			return true
-		}
-	}
-	return false
-}
-func ValidateUsername(username string) bool {
-	exp, err := regexp.Compile(USERNAME_REGEX)
-
-	if username == "" {
-		return false
-
-	}
-	if (len(username) < 3) || (len(username) > 15) {
-		return false
-
-	}
-	if regexpCompiled := log.CheckError(err); regexpCompiled {
-		if exp.MatchString(username) {
-			return false
+			err["email"] = append(err["email"], "Email Address is not valid")
+			return true, err
 		}
 	} else {
-		return false
+		return false, err
 	}
-	return true
+	return false, err
+}
+func ValidateUsername(username string, err map[string][]string) (bool, map[string][]string)  {
+	exp, errorRegex := regexp.Compile(USERNAME_REGEX)
+	if regexpCompiled := log.CheckError(errorRegex); regexpCompiled {
+		if exp.MatchString(username) {
+			err["username"] = append(err["username"], "Username contains illegal characters")
+			return false, err
+		}
+	} else {
+		return false, err
+	}
+	return true, err
+}
+
+func NewErrors() map[string][]string {
+	err := make(map[string][]string)
+	return err
 }
 
 // RegistrationForm is used when creating a user.
 type RegistrationForm struct {
-	Username  string `form:"registrationUsername"`
-	Email     string `form:"registrationEmail"`
-	Password  string `form:"registrationPassword"`
-	CaptchaID string `form:"captchaID" inmodel:"false"`
+	Username  string `form:"username" needed:"true" min_len:"3" max_len:"20"`
+	Email     string `form:"email" needed:"true"`
+	Password  string `form:"password" needed:"true" min_len:"6" max_len:"25"`
+	Confirm_Password string `form:"password_confirmation" omit:"true" needed:"true"`
+	CaptchaID string `form:"captchaID" omit:"true" needed:"true"`
+	T_and_C   bool   `form:"t_and_c" omit:"true" needed:"true" equal:"true" hum_name:"Terms and Conditions"`
 }
 
 // RegistrationForm is used when creating a user authentication.
