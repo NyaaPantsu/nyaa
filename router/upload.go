@@ -1,17 +1,22 @@
 package router
 
 import (
+	"encoding/hex"
 	"errors"
+	"fmt"
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/metainfo"
 	"github.com/zeebo/bencode"
 	"net/http"
+	"net/url"
+	"strings"
 )
 
 // UploadForm serializing HTTP form for torrent upload
 type UploadForm struct {
 	Name        string
 	Magnet      string
+	Infohash    string
 	Category    string
 	Description string
 }
@@ -85,8 +90,23 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		}
 
 		// generate magnet
-		f.Magnet = util.InfoHashToMagnet(torrent.Infohash(), f.Name)
+		binInfoHash := torrent.Infohash()
+		f.Infohash = hex.EncodeToString(binInfoHash[:])
+		f.Magnet = util.InfoHashToMagnet(f.Infohash, f.Name)
+	} else {
+		magnetUrl, parseErr := url.Parse(f.Magnet)
+		if parseErr != nil {
+			return metainfo.ErrInvalidTorrentFile
+		}
+		fmt.Println(magnetUrl)
+		exactTopic := magnetUrl.Query().Get("xt")
+		if !strings.HasPrefix(exactTopic, "urn:btih:") {
+			return metainfo.ErrInvalidTorrentFile
+		} else {
+			f.Infohash = strings.ToUpper(strings.TrimPrefix(exactTopic, "urn:btih:"))
+		}
 	}
+
 	return nil
 }
 
