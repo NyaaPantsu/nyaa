@@ -19,6 +19,17 @@ type SearchParam struct {
 	Sort     string
 }
 
+
+// super hacky fix:
+var search_op string
+func Init(backend string) {
+	if backend == "postgres" {
+		search_op = "ILIKE"
+	} else {
+		search_op = "LIKE"
+	}
+}
+
 func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents, int) {
 	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"))
 	if errConv != nil {
@@ -72,7 +83,7 @@ func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents,
 	}
 	searchQuerySplit := strings.Split(search_param.Query, " ")
 	for i, _ := range searchQuerySplit {
-		conditions = append(conditions, "torrent_name LIKE ?")
+		conditions = append(conditions, "torrent_name " + search_op + " ?")
 		parameters.Params = append(parameters.Params, "%"+searchQuerySplit[i]+"%")
 	}
 
