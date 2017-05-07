@@ -2,7 +2,6 @@ package router
 
 import (
 	"fmt"
-	"html/template"
 	"net/http"
 	"strconv"
 	"time"
@@ -12,12 +11,6 @@ import (
 	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/gorilla/mux"
 )
-
-var uploadTemplate = template.Must(template.New("upload").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/upload.html"))
-
-func init() {
-	template.Must(uploadTemplate.ParseGlob("templates/_*.html")) // common
-}
 
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
