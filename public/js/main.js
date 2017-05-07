@@ -20,8 +20,6 @@ function toggleNightMode() {
 	document.getElementById("nightbutton").innerHTML = "<img id='sunmoon' src='/img/moon.png' alt='Night!'>";
 	localStorage.setItem("night", "false");
     }
-console.log(styleshieeet);
-console.log(stylesheet);
 }
 
 // Used by spoiler tags
