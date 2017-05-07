@@ -11,11 +11,13 @@ import (
 )
 
 var viewRegisterTemplate = template.Must(template.New("userRegister").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/user/register.html"))
+var viewLoginTemplate = template.Must(template.New("userLogin").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/user/login.html"))
 //var viewTemplate = template.Must(template.New("view").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/view.html"))
 //var viewTemplate = template.Must(template.New("view").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/view.html"))
 
 func init() {
 	template.Must(viewRegisterTemplate.ParseGlob("templates/_*.html"))
+	template.Must(viewLoginTemplate.ParseGlob("templates/_*.html"))
 }
 
 // Getting View User Registration
@@ -33,7 +35,14 @@ func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 
 // Getting View User Login
 func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
-
+	b := form.LoginForm{}
+	modelHelper.BindValueForm(&b, r)
+	languages.SetTranslation("en-us", viewLoginTemplate)
+	htv := UserLoginFormVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+	err := viewLoginTemplate.ExecuteTemplate(w, "index.html", htv)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 // Getting User Profile

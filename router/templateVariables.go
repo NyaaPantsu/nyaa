@@ -37,6 +37,14 @@ type UserRegisterTemplateVariables struct {
 	Route            *mux.Route // For getting current route in templates
 }
 
+type UserLoginFormVariables struct {
+	LoginForm userForms.LoginForm
+	Search           SearchForm
+	Navigation       Navigation
+	URL              *url.URL   // For parsing Url in templates
+	Route            *mux.Route // For getting current route in templates
+}
+
 type HomeTemplateVariables struct {
 	ListTorrents []model.TorrentsJson
 	Search       SearchForm
