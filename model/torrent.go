@@ -21,7 +21,7 @@ type Feed struct {
 }
 
 type Torrents struct {
-	Id              int            `gorm:"column:torrent_id"`
+	Id              int            `gorm:"column:torrent_id;primary_key"`
 	Name            string         `gorm:"column:torrent_name"`
 	Category        int            `gorm:"column:category_id"`
 	Sub_Category    int            `gorm:"column:sub_category_id"`
