@@ -1,25 +1,20 @@
 // Night mode
-// also sorry that this code is soo bad, literally nothing else worked.. ima remake it in a near future
 var night = localStorage.getItem("night");
-if (night=="true") {
-    document.getElementById("style").href = "/css/style-night.css";
-    document.getElementById("nightbutton").innerHTML = "<img id='sunmoon' src='/img/sun.png' alt='Day!'>";
+if (night == "true") {
+    $("#style")[0].href = "/css/style-night.css";
+    $("#nighticon")[0].src = "/img/sun.png";
 }
 
 function toggleNightMode() {
-    var styleshieeet = document.getElementById("style").href;
-    var styleshieet = new RegExp("style.css");
-    var stylesheet = styleshieet.test(styleshieeet);
-    if (stylesheet==true) {
-	document.getElementById("style").href = "/css/style-night.css";
-	document.getElementById("nightbutton").innerHTML = "<img id='sunmoon' src='/img/sun.png' alt='Day!'>";
-	localStorage.setItem("night", "true");
+    var night = localStorage.getItem("night");
+    if(night == "true") {
+        $("#style")[0].href = "/css/style.css";
+        $("#nighticon")[0].src = "/img/moon.png";
+    } else {
+        $("#style")[0].href = "/css/style-night.css";
+        $("#nighticon")[0].src = "/img/sun.png";
     }
-    else {
-	document.getElementById("style").href = "/css/style.css";
-	document.getElementById("nightbutton").innerHTML = "<img id='sunmoon' src='/img/moon.png' alt='Night!'>";
-	localStorage.setItem("night", "false");
-    }
+    localStorage.setItem("night", (night == "true") ? "false" : "true");
 }
 
 // Used by spoiler tags
@@ -30,6 +25,7 @@ function toggleLayer(elem) {
 		elem.classList.add("hide");
 }
 
+// Date formatting
 function formatDate(date) { // thanks stackoverflow
     var monthNames = [
         "January", "February", "March",

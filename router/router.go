@@ -32,6 +32,7 @@ func init() {
 	Router.HandleFunc("/upload", UploadHandler).Name("upload")
 	Router.HandleFunc("/user/register", UserRegisterFormHandler).Name("user_register").Methods("GET")
 	Router.HandleFunc("/user/login", UserLoginFormHandler).Name("user_login").Methods("GET")
+	Router.HandleFunc("/verify/email/{token}", UserVerifyEmailHandler).Name("user_verify").Methods("GET")
 	Router.HandleFunc("/user/register", UserRegisterPostHandler).Name("user_register").Methods("POST")
 	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
 

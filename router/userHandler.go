@@ -16,14 +16,19 @@ import (
 
 // Getting View User Registration
 func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
-	b := form.RegistrationForm{}
-	modelHelper.BindValueForm(&b, r)
-	b.CaptchaID = captcha.GetID()
-	languages.SetTranslation("en-us", viewRegisterTemplate)
-	htv := UserRegisterTemplateVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
-	err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	_, errorUser := userService.CurrentUser(r)
+	if (errorUser != nil) {
+		b := form.RegistrationForm{}
+		modelHelper.BindValueForm(&b, r)
+		b.CaptchaID = captcha.GetID()
+		languages.SetTranslation("en-us", viewRegisterTemplate)
+		htv := UserRegisterTemplateVariables{b, form.NewErrors(), NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+		err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	} else {
+		HomeHandler(w, r)
 	}
 }
 
@@ -52,31 +57,58 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 // Post Registration controller, we do some check on the form here, the rest on user service
 func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 	// Check same Password
+	b := form.RegistrationForm{}
+	err := form.NewErrors()
 	if !captcha.Authenticate(captcha.Extract(r)) {
-		// TODO: Prettier passing of mistyoed captcha errors
-		http.Error(w, captcha.ErrInvalidCaptcha.Error(), 403)
-		return
+		err["errors"] = append(err["errors"], "Wrong captcha!")
 	}
-	if (r.PostFormValue("password") == r.PostFormValue("password_confirm")) && (r.PostFormValue("password") != "") {
-		if (form.EmailValidation(r.PostFormValue("email"))) &&
-			(form.ValidateUsername(r.PostFormValue("username"))) &&
-			(form.IsAgreed(r.PostFormValue("t_and_c"))) {
-			_, err := userService.CreateUser(w, r)
-			if err == nil {
-				b := form.RegistrationForm{}
-				htv := UserRegisterTemplateVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
-				err = viewRegisterSuccessTemplate.ExecuteTemplate(w, "index.html", htv)
-				if err != nil {
-					http.Error(w, err.Error(), http.StatusInternalServerError)
+	if (len(err) == 0) {
+		_, err = form.EmailValidation(r.PostFormValue("email"), err)
+		_, err = form.ValidateUsername(r.PostFormValue("username"), err)
+		if (len(err) == 0) {
+			modelHelper.BindValueForm(&b, r)
+			err = modelHelper.ValidateForm(&b, err)
+			if (len(err) == 0) {
+				_, errorUser := userService.CreateUser(w, r)
+				if (errorUser != nil) {
+					err["errors"] = append(err["errors"], errorUser.Error())
 				}
-			} else {
-				UserRegisterFormHandler(w, r)
-			}
-		} else {
-			UserRegisterFormHandler(w, r)
+				if (len(err) == 0) {
+					b := form.RegistrationForm{}
+					languages.SetTranslation("en-us", viewRegisterSuccessTemplate)
+					htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+					errorTmpl := viewRegisterSuccessTemplate.ExecuteTemplate(w, "index.html", htv)
+					if errorTmpl != nil {
+						http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
+					}
+				} 
+			} 
+		} 
+	}
+	if (len(err) > 0) {
+		b.CaptchaID = captcha.GetID()
+		languages.SetTranslation("en-us", viewRegisterTemplate)
+		htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+		errorTmpl := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
+		if errorTmpl != nil {
+			http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
 		}
-	} else {
-		UserRegisterFormHandler(w, r)
+	}
+}
+
+func UserVerifyEmailHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	token := vars["token"]
+	err := form.NewErrors()
+	_, errEmail := userService.EmailVerification(token, w)
+	if (errEmail != nil) {
+		err["errors"] = append(err["errors"], errEmail.Error())
+	}
+	languages.SetTranslation("en-us", viewVerifySuccessTemplate)
+	htv := UserVerifyTemplateVariables{err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+	errorTmpl := viewVerifySuccessTemplate.ExecuteTemplate(w, "index.html", htv)
+	if errorTmpl != nil {
+		http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
 	}
 }
 

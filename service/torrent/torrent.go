@@ -65,6 +65,7 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	var torrents []model.Torrents
 	var dbQuery *gorm.DB
 	var count int
+  
 	conditions := "torrent_hash IS NOT NULL AND filesize > 0" //filter out broken entries
 	var params []interface{}
 	if parameters != nil { // if there is where parameters
@@ -76,9 +77,9 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	}
 	dbQuery = db.ORM.Model(&torrents).Where(conditions, params...)
 
-	if orderBy == "" {
+	if orderBy == "" { // default OrderBy
 		orderBy = "torrent_id DESC"
-	} // Default OrderBy
+	}
 	if limit != 0 || offset != 0 { // if limits provided
 		dbQuery = dbQuery.Limit(limit).Offset(offset)
 	}

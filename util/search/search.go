@@ -19,6 +19,17 @@ type SearchParam struct {
 	Sort     string
 }
 
+
+// super hacky fix:
+var search_op string
+func Init(backend string) {
+	if backend == "postgres" {
+		search_op = "ILIKE"
+	} else {
+		search_op = "LIKE"
+	}
+}
+
 func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents, int) {
 	return searchByQuery(r, pagenum, true)
 
