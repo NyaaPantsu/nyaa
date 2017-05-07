@@ -68,19 +68,19 @@ func ValidateForm(form interface{}, errorForm map[string][]string) (map[string][
 		if tag.Get("len_min") != "" { // Check minimum length
 			lenMin, _ := strconv.Atoi(tag.Get("len_min"))
 			if formElem.Field(i).Len() < lenMin {
-				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Minimal length of %s required for the input: %s", lenMin, inputName))
+				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Minimal length of %s required for the input: %s", strconv.Itoa(lenMin), inputName))
 			}
 		}
 		if tag.Get("len_max") != "" { // Check minimum length
 			lenMax, _ := strconv.Atoi(tag.Get("len_max"))
 			if formElem.Field(i).Len() > lenMax {
-				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Maximal length of %s required for the input: %s", lenMax, inputName))
+				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Maximal length of %s required for the input: %s", strconv.Itoa(lenMax), inputName))
 			}
 		}
 		if tag.Get("equalInput") != "" {
-			otherInput := formElem.FieldByName(tag.Get("equalForm"))
+			otherInput := formElem.FieldByName(tag.Get("equalInput"))
 			if formElem.Field(i).Interface() != otherInput.Interface() {
-				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Wrong value for the input: %s", inputName))
+				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Must be same %s", inputName))
 			}
 		}
 		switch typeField.Type.Name() {
