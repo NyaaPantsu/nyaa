@@ -17,10 +17,7 @@ install:
 
 script:
 - go get github.com/mitchellh/gox
-- gox -build-toolchain
 - go get github.com/tcnksm/ghr
 - go get github.com/axw/gocov/gocov
-
-after_success:
 - gox -output "dist/{{.OS}}_{{.Arch}}_{{.Dir}}"
-- ghr --username tcnksm-sample --token $GITHUB_TOKEN --replace --prerelease --debug pre-release dist/
+- ghr --username ewhal --token $GITHUB_TOKEN --replace --prerelease --debug pre-release dist/
