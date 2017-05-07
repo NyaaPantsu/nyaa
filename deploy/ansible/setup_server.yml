@@ -1,0 +1,5 @@
+- name: Dotfiles
+  hosts: webservers
+
+  roles:
+      - docker
