@@ -38,6 +38,7 @@ type ViewTemplateVariables struct {
 
 type UserRegisterTemplateVariables struct {
 	RegistrationForm userForms.RegistrationForm
+	FormErrors 		 map[string][]string
 	Search           SearchForm
 	Navigation       Navigation
 	URL              *url.URL   // For parsing Url in templates
