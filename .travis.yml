@@ -2,25 +2,14 @@ language: go
 go:
 - 1.x
 install:
-- go get github.com/gorilla/feeds
-- go get github.com/gorilla/mux
-- go get github.com/mattn/go-sqlite3
-- go get github.com/jinzhu/gorm
-- go get github.com/lib/pq
-- go get github.com/Sirupsen/logrus
-- go get gopkg.in/natefinch/lumberjack.v2
-- go get gopkg.in/gomail.v2
-- go get github.com/gorilla/securecookie
-- go get golang.org/x/crypto/bcrypt
-- go get github.com/nicksnyder/go-i18n/i18n
-- go get github.com/dchest/captcha
-- go get github.com/microcosm-cc/bluemonday
 - go get github.com/tcnksm/ghr
 - go get github.com/axw/gocov/gocov
 - go get github.com/karalabe/xgo
 - mkdir dist
 
 script:
+# Downloads deps automatically. No need to add manually.
+- go list -f '{{.Deps}}' | tr "[" " " | tr "]" " " | xargs go list -e -f '{{if not .Standard}}{{.ImportPath}}{{end}}' | grep -v 'github.com/ewhal/nyaa' | xargs go get -v
 - go build
 - cd dist
 - xgo github.com/ewhal/nyaa
