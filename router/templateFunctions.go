@@ -7,9 +7,7 @@ import (
 	"net/url"
 	"strconv"
 	"github.com/nicksnyder/go-i18n/i18n"
-	
-	"github.com/ewhal/nyaa/templates"
-)
+	)
 
 var FuncMap = template.FuncMap{
 	"min": math.Min,
