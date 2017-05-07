@@ -1,6 +1,8 @@
 language: go
 go:
 - 1.x
+before_install:
+- sudo apt-get install gcc-mingw-w64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 binutils-mingw-w64-i686 binutils-mingw-w64-x86-64
 install:
 - go get github.com/gorilla/feeds
 - go get github.com/gorilla/mux
@@ -13,15 +15,10 @@ install:
 - go get github.com/gorilla/securecookie
 - go get golang.org/x/crypto/bcrypt
 - go get github.com/nicksnyder/go-i18n/i18n
-- go get github.com/dchest/captcha
 - go get github.com/microcosm-cc/bluemonday
 - go get github.com/tcnksm/ghr
-- go get github.com/axw/gocov/gocov
-- go get github.com/karalabe/xgo
-- mkdir dist
 
 script:
 - go build
-- cd dist
-- xgo github.com/ewhal/nyaa
+- ./package.sh
 - ghr --username ewhal --token $GITHUB_TOKEN --replace --prerelease --debug pre-release dist/
