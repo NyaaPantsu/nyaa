@@ -55,6 +55,7 @@ type UserVerifyTemplateVariables struct {
 
 type UserLoginFormVariables struct {
 	LoginForm userForms.LoginForm
+	FormErrors 		 map[string][]string
 	Search           SearchForm
 	Navigation       Navigation
 	URL              *url.URL   // For parsing Url in templates
