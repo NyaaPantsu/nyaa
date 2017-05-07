@@ -1,16 +1,14 @@
 language: go
 go:
 - 1.x
+before_install:
+- sudo apt-get install gcc-mingw-w64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 binutils-mingw-w64-i686 binutils-mingw-w64-x86-64
 install:
 - go get github.com/tcnksm/ghr
-- go get github.com/axw/gocov/gocov
-- go get github.com/karalabe/xgo
-- mkdir dist
 
 script:
 # Downloads deps automatically. No need to add manually.
 - go list -f '{{.Deps}}' | tr "[" " " | tr "]" " " | xargs go list -e -f '{{if not .Standard}}{{.ImportPath}}{{end}}' | grep -v 'github.com/ewhal/nyaa' | xargs go get -v
 - go build
-- cd dist
-- xgo github.com/ewhal/nyaa
+- ./package.sh
 - ghr --username ewhal --token $GITHUB_TOKEN --replace --prerelease --debug pre-release dist/
