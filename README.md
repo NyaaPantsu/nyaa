@@ -61,6 +61,7 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 
 ## TODO
 * DB caching of popular queries to reduce server load?
+* filesize searching
 * Torrent data scraping from definable tracker chihaya intergration/support?
   * seeds/leeachers
   * file lists?
