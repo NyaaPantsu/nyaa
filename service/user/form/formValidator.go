@@ -45,9 +45,9 @@ func IsAgreed(t_and_c string) bool {
 
 // RegistrationForm is used when creating a user.
 type RegistrationForm struct {
-	Username  string `form:"username" needed:"true" min_len:"3" max_len:"20"`
+	Username  string `form:"username" needed:"true" len_min:"3" len_max:"20"`
 	Email     string `form:"email" needed:"true"`
-	Password  string `form:"password" needed:"true" min_len:"6" max_len:"25"`
+	Password  string `form:"password" needed:"true" len_min:"6" len_max:"25" equalInput:"Confirm_Password"`
 	Confirm_Password string `form:"password_confirmation" omit:"true" needed:"true"`
 	CaptchaID string `form:"captchaID" omit:"true" needed:"true"`
 	T_and_C   bool   `form:"t_and_c" omit:"true" needed:"true" equal:"true" hum_name:"Terms and Conditions"`
