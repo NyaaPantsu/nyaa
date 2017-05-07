@@ -86,6 +86,12 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	f.Magnet = r.FormValue(UploadFormMagnet)
 	f.Captcha = captcha.Extract(r)
 
+    if !captcha.Authenticate(f.Captcha) {
+        // TODO: Prettier passing of mistyoed captcha errors
+        return errors.New(captcha.ErrInvalidCaptcha.Error())
+    }
+
+
 	// trim whitespaces
 	f.Name = util.TrimWhitespaces(f.Name)
 	f.Description = p.Sanitize(util.TrimWhitespaces(f.Description))

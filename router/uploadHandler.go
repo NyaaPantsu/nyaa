@@ -3,7 +3,6 @@ package router
 import (
 	"fmt"
 	"net/http"
-	"os"
 	"strconv"
 	"time"
 
@@ -21,14 +20,6 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		// validation is done in ExtractInfo()
 		err = uploadForm.ExtractInfo(r)
 		if err == nil {
-			if !captcha.Authenticate(uploadForm.Captcha) {
-				// TODO: Prettier passing of mistyoed captcha errors
-				http.Error(w, captcha.ErrInvalidCaptcha.Error(), 403)
-				if len(uploadForm.Filepath) > 0 {
-					os.Remove(uploadForm.Filepath)
-				}
-				return
-			}
 
 			//add to db and redirect depending on result
 			torrent := model.Torrents{
