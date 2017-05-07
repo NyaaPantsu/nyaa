@@ -30,7 +30,7 @@ type Torrents struct {
 	Date            int64          `gorm:"column:date"`
 	Downloads       int            `gorm:"column:downloads"`
 	Filesize        int64          `gorm:"column:filesize"`
-	Description     []byte         `gorm:"column:description"`
+	Description     string         `gorm:"column:description"`
 	Comments        []byte         `gorm:"column:comments"`
 }
 
