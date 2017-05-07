@@ -39,7 +39,7 @@
 }
 #container.cont-view {
      background: white url(/img/renchon.png) no-repeat;
-     background-size: 61px;
+     background-size: 75px, 100px;
 }
 
 body {
@@ -48,9 +48,6 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-}
-.blockBody {
-	padding-bottom: 2rem;
 }
 
 .torrentNav {
