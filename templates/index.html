@@ -26,7 +26,7 @@
     <![endif]-->
 
     <!-- Website CSS -->
-    <link rel="stylesheet" href="{{.URL.Parse "/css/style.css"}}">
+    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/style.css"}}">
   </head>
   <body>
       <nav class="navbar navbar-default" id="mainmenu">
@@ -47,6 +47,8 @@
                       <li><a href="irc://irc.rizon.net/nyaapantsu">IRC</a></li>
                       <li><a href="{{ genRouteWithQuery "feed" .URL }}">RSS</a></li>
                       <li><a href="https://sukebei.pantsu.cat">Fap</a></li>
+		      <li><a href="javascript:void(0);" id="nightbutton" onclick='toggleNightMode();'><img id="sunmoon" src="/img/moon.png" alt="Night!"></a></li>
+
                   </ul>
                   <form class="navbar-form navbar-right" role="search" action="/search" method="get">
                       <div class="form-group">
@@ -54,7 +56,7 @@
                         {{block "search_button" .}}{{end}}
                       </div>
                   </form>
-              </div>
+                </div>
           </div>
       </nav>
 

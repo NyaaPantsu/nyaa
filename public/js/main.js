@@ -1,3 +1,29 @@
+// Night mode
+// also sorry that this code is soo bad, literally nothing else worked.. ima remake it in a near future
+var night = localStorage.getItem("night");
+if (night=="true") {
+    document.getElementById("style").href = "/css/style-night.css";
+    document.getElementById("nightbutton").innerHTML = "<img id='sunmoon' src='/img/sun.png' alt='Day!'>";
+}
+
+function toggleNightMode() {
+    var styleshieeet = document.getElementById("style").href;
+    var styleshieet = new RegExp("style.css");
+    var stylesheet = styleshieet.test(styleshieeet);
+    if (stylesheet==true) {
+	document.getElementById("style").href = "/css/style-night.css";
+	document.getElementById("nightbutton").innerHTML = "<img id='sunmoon' src='/img/sun.png' alt='Day!'>";
+	localStorage.setItem("night", "true");
+    }
+    else {
+	document.getElementById("style").href = "/css/style.css";
+	document.getElementById("nightbutton").innerHTML = "<img id='sunmoon' src='/img/moon.png' alt='Night!'>";
+	localStorage.setItem("night", "false");
+    }
+console.log(styleshieeet);
+console.log(stylesheet);
+}
+
 // Used by spoiler tags
 function toggleLayer(elem) {
 	if (elem.classList.contains("hide"))
