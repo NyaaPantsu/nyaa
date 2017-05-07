@@ -21,6 +21,13 @@ type FaqTemplateVariables struct {
 	Route      *mux.Route // For getting current route in templates
 }
 
+type NotFoundTemplateVariables struct {
+	Navigation Navigation
+	Search     SearchForm
+	URL        *url.URL   // For parsing Url in templates
+	Route      *mux.Route // For getting current route in templates
+}
+
 type ViewTemplateVariables struct {
 	Torrent    model.TorrentsJson
 	Search     SearchForm
