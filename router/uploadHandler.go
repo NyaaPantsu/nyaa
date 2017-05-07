@@ -41,6 +41,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 				Status:       1,
 				Hash:         uploadForm.Infohash,
 				Date:         time.Now().Unix(),
+				Filesize:     uploadForm.Filesize, // FIXME: should set to NULL instead of 0
 				Description:  uploadForm.Description,
 				Comments:     []byte{}}
 			//fmt.Printf("%+v\n", torrent)
