@@ -2,6 +2,7 @@ package form
 
 import (
 	"regexp"
+
 	"github.com/ewhal/nyaa/util/log"
 )
 
@@ -19,9 +20,10 @@ func EmailValidation(email string) bool {
 
 // RegistrationForm is used when creating a user.
 type RegistrationForm struct {
-	Username string `form:"registrationUsername" binding:"required"`
-	Email    string `form:"registrationEmail" binding:"required"`
-	Password string `form:"registrationPassword" binding:"required"`
+	Username  string `form:"registrationUsername" binding:"required"`
+	Email     string `form:"registrationEmail" binding:"required"`
+	Password  string `form:"registrationPassword" binding:"required"`
+	CaptchaID string `form:"captchaID" binding:"required"`
 }
 
 // RegistrationForm is used when creating a user authentication.

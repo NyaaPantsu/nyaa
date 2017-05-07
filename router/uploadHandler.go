@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"net/http"
 
+	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/gorilla/mux"
 )
 
@@ -15,18 +16,27 @@ func init() {
 
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
-	var uploadForm UploadForm
-	if r.Method == "POST" {
+	switch r.Method {
+	case "POST":
+		var form UploadForm
 		defer r.Body.Close()
-		err = uploadForm.ExtractInfo(r)
+		err = form.ExtractInfo(r)
 		if err == nil {
-			//validate name + hash
-			//add to db and redirect depending on result
+			// validate name + hash
+			// authenticate captcha
+			// add to db and redirect depending on result
 		}
-	} else if r.Method == "GET" {
-		htv := UploadTemplateVariables{uploadForm, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+	case "GET":
+		htv := UploadTemplateVariables{
+			Upload: UploadForm{
+				CaptchaID: captcha.GetID(r.RemoteAddr),
+			},
+			Search: NewSearchForm(),
+			URL:    r.URL,
+			Route:  mux.CurrentRoute(r),
+		}
 		err = uploadTemplate.ExecuteTemplate(w, "index.html", htv)
-	} else {
+	default:
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}

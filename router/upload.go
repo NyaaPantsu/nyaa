@@ -2,18 +2,16 @@ package router
 
 import (
 	"errors"
+	"net/http"
+
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/metainfo"
 	"github.com/zeebo/bencode"
-	"net/http"
 )
 
 // UploadForm serializing HTTP form for torrent upload
 type UploadForm struct {
-	Name        string
-	Magnet      string
-	Category    string
-	Description string
+	Name, Magnet, Category, Description, CaptchaID string
 }
 
 // TODO: these should be in another package (?)

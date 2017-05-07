@@ -17,7 +17,7 @@
       <div class="form-group">
           <label for="Magnet">Magnet Link</label>
           <input type="text" name="magnet" class="form-control"
-          style="width:60rem" placeholder="Magnet Link" value="{{.Magnet}}" required>         
+          style="width:60rem" placeholder="Magnet Link" value="{{.Magnet}}" required>
       </div>
       <div class="form-group">
           <label for="c">Category</label>
@@ -53,6 +53,9 @@
           <label for="desc">Torrent Description</label>
           <textarea name="desc" class="form-control" rows="10">{{.Description}}</textarea>
       </div>
+
+      {{block "captcha" .}}{{end}}
+
       <button type="submit" class="btn btn-success">Upload</button>
       <br />
       <br />

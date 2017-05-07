@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"net/http"
 
+	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/service/user/form"
 	"github.com/ewhal/nyaa/util/modelHelper"
 	"github.com/gorilla/mux"
@@ -21,10 +22,16 @@ func init() {
 // Getting View User Registration
 
 func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
-
-	b := form.RegistrationForm{}
+	b := form.RegistrationForm{
+		CaptchaID: captcha.GetID(r.RemoteAddr),
+	}
 	modelHelper.BindValueForm(b, r)
-	htv := UserRegisterTemplateVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+	htv := UserRegisterTemplateVariables{
+		RegistrationForm: b,
+		Search:           NewSearchForm(),
+		URL:              r.URL,
+		Route:            mux.CurrentRoute(r),
+	}
 	err := viewTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
