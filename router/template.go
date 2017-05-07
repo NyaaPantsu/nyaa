@@ -7,7 +7,7 @@ import (
 
 var TemplateDir = "templates"
 
-var homeTemplate, searchTemplate, faqTemplate, uploadTemplate, viewTemplate *template.Template
+var homeTemplate, searchTemplate, faqTemplate, uploadTemplate, viewTemplate, viewRegisterTemplate, viewLoginTemplate, viewRegisterSuccessTemplate *template.Template
 
 type templateLoader struct {
 	templ **template.Template
@@ -42,6 +42,21 @@ func ReloadTemplates() {
 			templ: &viewTemplate,
 			name:  "view",
 			file:  "view.html",
+		},
+		templateLoader{
+			templ: &viewRegisterTemplate,
+			name:  "user_register",
+			file:  "user/register.html",
+		},
+		templateLoader{
+			templ: &viewRegisterSuccessTemplate,
+			name:  "user_register_success",
+			file:  "user/signup_success.html",
+		},
+		templateLoader{
+			templ: &viewLoginTemplate,
+			name:  "user_login",
+			file:  "user/login.html",
 		},
 	}
 	for _, templ := range templs {
