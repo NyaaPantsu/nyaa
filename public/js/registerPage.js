@@ -27,6 +27,8 @@ $(function () {
 
         // Actions
         function updateDisplay() {
+            $checkbox.addClass("hidden")
+            $button.removeClass("hidden")
             var isChecked = $checkbox.is(':checked');
 
             // Set the button's state
