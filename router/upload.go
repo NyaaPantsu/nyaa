@@ -1,17 +1,30 @@
 package router
 
 import (
+	"encoding/hex"
 	"errors"
 	"net/http"
+	"net/url"
+	"strconv"
+	"strings"
 
+	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/metainfo"
+	"github.com/microcosm-cc/bluemonday"
 	"github.com/zeebo/bencode"
 )
 
 // UploadForm serializing HTTP form for torrent upload
 type UploadForm struct {
-	Name, Magnet, Category, Description, CaptchaID string
+	Name          string
+	Magnet        string
+	Infohash      string
+	Category      string
+	CategoryId    int
+	SubCategoryId int
+	Description   string
+	captcha.Captcha
 }
 
 // TODO: these should be in another package (?)
@@ -40,6 +53,11 @@ var ErrInvalidTorrentName = errors.New("torrent name is invalid")
 // error indicating a torrent's description is invalid
 var ErrInvalidTorrentDescription = errors.New("torrent description is invalid")
 
+// error indicating a torrent's category is invalid
+var ErrInvalidTorrentCategory = errors.New("torrent category is invalid")
+
+var p = bluemonday.UGCPolicy()
+
 /**
 UploadForm.ExtractInfo takes an http request and computes all fields for this form
 */
@@ -49,10 +67,11 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	f.Category = r.FormValue(UploadFormCategory)
 	f.Description = r.FormValue(UploadFormDescription)
 	f.Magnet = r.FormValue(UploadFormMagnet)
+	f.Captcha = captcha.Extract(r)
 
 	// trim whitespaces
 	f.Name = util.TrimWhitespaces(f.Name)
-	f.Description = util.TrimWhitespaces(f.Description)
+	f.Description = p.Sanitize(util.TrimWhitespaces(f.Description))
 	f.Magnet = util.TrimWhitespaces(f.Magnet)
 
 	if len(f.Name) == 0 {
@@ -61,6 +80,25 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 
 	if len(f.Description) == 0 {
 		return ErrInvalidTorrentDescription
+
+	}
+
+	catsSplit := strings.Split(f.Category, "_")
+	// need this to prevent out of index panics
+	if len(catsSplit) == 2 {
+		CatId, err := strconv.Atoi(catsSplit[0])
+		if err != nil {
+			return ErrInvalidTorrentCategory
+		}
+		SubCatId, err := strconv.Atoi(catsSplit[1])
+		if err != nil {
+			return ErrInvalidTorrentCategory
+		}
+
+		f.CategoryId = CatId
+		f.SubCategoryId = SubCatId
+	} else {
+		return ErrInvalidTorrentCategory
 	}
 
 	if len(f.Magnet) == 0 {
@@ -83,8 +121,23 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		}
 
 		// generate magnet
-		f.Magnet = util.InfoHashToMagnet(torrent.Infohash(), f.Name)
+		binInfohash := torrent.Infohash()
+		f.Infohash = hex.EncodeToString(binInfohash[:])
+		f.Magnet = util.InfoHashToMagnet(f.Infohash, f.Name)
+		f.Infohash = strings.ToUpper(f.Infohash)
+	} else {
+		magnetUrl, parseErr := url.Parse(f.Magnet)
+		if parseErr != nil {
+			return metainfo.ErrInvalidTorrentFile
+		}
+		exactTopic := magnetUrl.Query().Get("xt")
+		if !strings.HasPrefix(exactTopic, "urn:btih:") {
+			return metainfo.ErrInvalidTorrentFile
+		} else {
+			f.Infohash = strings.ToUpper(strings.TrimPrefix(exactTopic, "urn:btih:"))
+		}
 	}
+
 	return nil
 }
 

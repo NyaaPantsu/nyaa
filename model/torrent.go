@@ -21,7 +21,7 @@ type Feed struct {
 }
 
 type Torrents struct {
-	Id              int            `gorm:"column:torrent_id"`
+	Id              int            `gorm:"column:torrent_id;primary_key"`
 	Name            string         `gorm:"column:torrent_name"`
 	Category        int            `gorm:"column:category_id"`
 	Sub_Category    int            `gorm:"column:sub_category_id"`
@@ -30,7 +30,7 @@ type Torrents struct {
 	Date            int64          `gorm:"column:date"`
 	Downloads       int            `gorm:"column:downloads"`
 	Filesize        int64          `gorm:"column:filesize"`
-	Description     []byte         `gorm:"column:description"`
+	Description     string         `gorm:"column:description"`
 	Comments        []byte         `gorm:"column:comments"`
 }
 
@@ -73,9 +73,9 @@ type TorrentsJson struct {
 /* Model Conversion to Json */
 
 func (t *Torrents) ToJson() TorrentsJson {
-	magnet := "magnet:?xt=urn:btih:" + strings.TrimSpace(t.Hash) + "&dn=" + t.Name + config.Trackers
+	magnet := util.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, config.Trackers...)
 	b := []CommentsJson{}
-	_ = json.Unmarshal([]byte(util.UnZlib(t.Comments)), &b)
+	_ = json.Unmarshal([]byte(t.Comments), &b)
 	res := TorrentsJson{
 		Id:           strconv.Itoa(t.Id),
 		Name:         html.UnescapeString(t.Name),
@@ -83,7 +83,7 @@ func (t *Torrents) ToJson() TorrentsJson {
 		Hash:         t.Hash,
 		Date:         time.Unix(t.Date, 0).Format(time.RFC3339),
 		Filesize:     util.FormatFilesize(t.Filesize),
-		Description:  template.HTML(util.UnZlib(t.Description)),
+		Description:  template.HTML(t.Description),
 		Comments:     b,
 		Sub_Category: strconv.Itoa(t.Sub_Category),
 		Category:     strconv.Itoa(t.Category),

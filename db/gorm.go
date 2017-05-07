@@ -6,6 +6,7 @@ import (
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	// _ "github.com/go-sql-driver/mysql"
 )
 
