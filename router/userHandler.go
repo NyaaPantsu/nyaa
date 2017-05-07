@@ -1,10 +1,9 @@
 package router
 
-import(
+import (
 	"html/template"
 	"net/http"
 
-	"github.com/ewhal/nyaa/templates"
 	"github.com/ewhal/nyaa/service/user/form"
 	"github.com/ewhal/nyaa/util/modelHelper"
 	"github.com/ewhal/nyaa/util/languages"
@@ -15,14 +14,18 @@ var viewRegisterTemplate = template.Must(template.New("userRegister").Funcs(Func
 //var viewTemplate = template.Must(template.New("view").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/view.html"))
 //var viewTemplate = template.Must(template.New("view").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/view.html"))
 
+func init() {
+	template.Must(viewRegisterTemplate.ParseGlob("templates/_*.html"))
+}
+
 // Getting View User Registration
 
 func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 	b := form.RegistrationForm{}
 	modelHelper.BindValueForm(&b, r)
 	languages.SetTranslation("en-us", viewRegisterTemplate)
-	htv := UserRegisterTemplateVariables{b, templates.NewSearchForm(), templates.Navigation{}, r.URL, mux.CurrentRoute(r)}
-	err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
+	htv := UserRegisterTemplateVariables{b, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+	err := viewTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -38,7 +41,7 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// Getting View User Profile Update 
+// Getting View User Profile Update
 func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 
 }
@@ -57,4 +60,3 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 func UserProfilePostHandler(w http.ResponseWriter, r *http.Request) {
 
 }
-
