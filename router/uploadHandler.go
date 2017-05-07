@@ -46,7 +46,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	} else if r.Method == "GET" {
-		uploadForm.CaptchaID = captcha.GetID(r.RemoteAddr)
+		uploadForm.CaptchaID = captcha.GetID()
 		htv := UploadTemplateVariables{uploadForm, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
 		err = uploadTemplate.ExecuteTemplate(w, "index.html", htv)
 	} else {
