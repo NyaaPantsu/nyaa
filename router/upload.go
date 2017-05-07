@@ -22,10 +22,12 @@ type UploadForm struct {
 	Magnet        string
 	Infohash      string
 	Category      string
-	CategoryId    int
-	SubCategoryId int
 	Description   string
 	captcha.Captcha
+
+	CategoryId    int
+	SubCategoryId int
+	Filesize      int64
 }
 
 // TODO: these should be in another package (?)
@@ -133,6 +135,9 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		binInfohash := torrent.Infohash()
 		f.Infohash = strings.ToUpper(hex.EncodeToString(binInfohash[:]))
 		f.Magnet = util.InfoHashToMagnet(f.Infohash, f.Name)
+
+		// extract filesize
+		f.Filesize = int64(torrent.TotalSize())
 	} else {
 		// No torrent file provided
 		magnetUrl, parseErr := url.Parse(f.Magnet)
@@ -148,6 +153,8 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		if err != nil || !matched {
 			return metainfo.ErrInvalidTorrentFile
 		}
+
+		f.Filesize = 0
 	}
 
 
