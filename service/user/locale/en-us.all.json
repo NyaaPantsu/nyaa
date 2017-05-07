@@ -18,5 +18,9 @@
   {
     "id": "reset_password_content",
     "translation": "Please click below link to reset your password."
+  },
+  {
+    "id":"register_title",
+    "translation": "Creating a new account"
   }
 ]
