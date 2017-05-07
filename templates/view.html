@@ -28,9 +28,14 @@
               </tr>
               <tr>
                   <td>Links</td>
-                  <td><a aria-label="Magnet Button" href="{{.Magnet}}" type="button" class="btn btn-success download-btn"><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> Download!</button>
-<!--                      <a
-    href="https://itorrents.org/torrent/{{.Hash}}.torrent" title="Torrent file"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span></a>-->
+                  <td>
+                      <a aria-label="Magnet Button" href="{{.Magnet}}" type="button" class="btn btn-success download-btn">
+                          <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> Download!</button>
+                      </a>
+                      <a style="padding-left: 0.5em"></a>
+                      <a aria-label="Torrent file" href="http://anicache.com/torrent/{{.Hash}}.torrent" type="button" class="btn btn-success">
+                          <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Torrent file
+                      </a>
                   </td>
               </tr>
               <tr>

@@ -56,6 +56,9 @@ func main() {
 		db.ORM, _ = db.GormInit(conf)
 		initI18N()
 		go signals.Handle()
+		if len(config.TorrentFileStorage) > 0 {
+			os.MkdirAll(config.TorrentFileStorage, 0755)
+		}
 		RunServer(conf)
 	}
 }

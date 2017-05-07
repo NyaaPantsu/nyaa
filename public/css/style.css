@@ -1,3 +1,9 @@
+/* Night mode image */
+#sunmoon {
+    position: fixed;
+    top: 10px;
+    height: 30px;
+}
 /* Torrent status colors */
 .remake {
   background-color: rgb(240, 176, 128);
@@ -10,29 +16,30 @@
 }
 
 /* modified copy of NyaaTorrent theme */
-nav#mainmenu {
+#mainmenu {
     background: #263238;
     position: fixed;
     color: white;
     width: 100%;
     z-index: 4;
+    border: 0px solid white;
 }
 
-nav#mainmenu a {
+#mainmenu a {
 	color: white;
 }
 
-div#container {
+#container {
     padding-top: 1.25em;
     background: white;
 }
 
-div#container.cont-home {
+#container.cont-home {
      background: white url(/img/renchon.png) no-repeat;
 }
-div#container.cont-view {
+#container.cont-view {
      background: white url(/img/renchon.png) no-repeat;
-     background-size: 61px;
+     background-size: 75px, 100px;
 }
 
 body {
@@ -41,9 +48,6 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-}
-.blockBody {
-	padding-bottom: 2rem;
 }
 
 .torrentNav {
@@ -63,7 +67,7 @@ a {
 }
 
 .download-btn {
-    font-size: 20px;
+    font-size: 24px;
 }
 
 .table-borderless > tbody > tr > td,
@@ -163,4 +167,9 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
   background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
   background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
   background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+}
+
+.center-image {
+	max-width: 100%;
+	max-height: 80vh;
 }

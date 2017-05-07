@@ -4,6 +4,7 @@ import(
 	"time"
 	"net/http"
 	"github.com/gorilla/feeds"
+	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/util/search"
 	"strconv"
 )
@@ -18,7 +19,7 @@ func RssHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	feed := &feeds.Feed{
 		Title:   "Nyaa Pantsu",
-		Link:    &feeds.Link{Href: "https://nyaa.pantsu.cat/"},
+		Link:    &feeds.Link{Href: "https://" + config.WebAddress + "/"},
 		Created: created_as_time,
 	}
 	feed.Items = []*feeds.Item{}
