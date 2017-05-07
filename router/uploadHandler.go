@@ -33,7 +33,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 				Status:       1,
 				Hash:         uploadForm.Infohash,
 				Date:         time.Now().Unix(),
-				Description:  []byte{},
+				Description:  uploadForm.Description,
 				Comments:     []byte{}}
 			fmt.Printf("%+v\n", torrent)
 			db.ORM.Create(&torrent)

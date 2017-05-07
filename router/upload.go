@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/metainfo"
+	"github.com/microcosm-cc/bluemonday"
 	"github.com/zeebo/bencode"
 	"net/http"
 	"net/url"
@@ -52,6 +53,8 @@ var ErrInvalidTorrentDescription = errors.New("torrent description is invalid")
 // error indicating a torrent's category is invalid
 var ErrInvalidTorrentCategory = errors.New("torrent category is invalid")
 
+var p = bluemonday.UGCPolicy()
+
 /**
 UploadForm.ExtractInfo takes an http request and computes all fields for this form
 */
@@ -64,7 +67,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 
 	// trim whitespaces
 	f.Name = util.TrimWhitespaces(f.Name)
-	f.Description = util.TrimWhitespaces(f.Description)
+	f.Description = p.Sanitize(util.TrimWhitespaces(f.Description))
 	f.Magnet = util.TrimWhitespaces(f.Magnet)
 
 	if len(f.Name) == 0 {
