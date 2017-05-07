@@ -10,6 +10,7 @@ import (
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/router"
 	"github.com/ewhal/nyaa/util/log"
+	"github.com/ewhal/nyaa/util/signals"
 
 	"net/http"
 	"os"
@@ -54,6 +55,7 @@ func main() {
 		}
 		db.ORM, _ = db.GormInit(conf)
 		initI18N()
+		go signals.Handle()
 		RunServer(conf)
 	}
 }
