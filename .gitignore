@@ -8,3 +8,4 @@ nyaa-master.exe
 *.swp
 .vscode
 templates/*.html.go
+*.bat

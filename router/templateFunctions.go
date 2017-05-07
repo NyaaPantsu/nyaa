@@ -6,7 +6,8 @@ import (
 	"math"
 	"net/url"
 	"strconv"
-
+	"github.com/nicksnyder/go-i18n/i18n"
+	
 	"github.com/ewhal/nyaa/templates"
 )
 
@@ -68,4 +69,5 @@ var FuncMap = template.FuncMap{
 	"SearchAdvanced": func(nav templates.Navigation, s templates.SearchForm) template.HTML {
 		return template.HTML(templates.SearchAdvanced(nav, s))
 	},
+	"T": i18n.IdentityTfunc,
 }
