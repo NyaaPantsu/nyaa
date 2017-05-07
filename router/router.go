@@ -29,6 +29,7 @@ func init() {
 	Router.HandleFunc("/feed", RssHandler).Name("feed")
 	Router.HandleFunc("/view/{id}", ViewHandler).Name("view_torrent")
 	Router.HandleFunc("/upload", UploadHandler).Name("upload")
-	Router.HandleFunc("/user/register", UserRegisterFormHandler).Name("user_register")
-	Router.HandleFunc("/user/login", UserLoginFormHandler).Name("user_login")
+	Router.HandleFunc("/user/register", UserRegisterFormHandler).Name("user_register").Methods("GET")
+	Router.HandleFunc("/user/login", UserLoginFormHandler).Name("user_login").Methods("GET")
+	Router.HandleFunc("/user/register", UserRegisterPostHandler).Name("user_register").Methods("POST")
 }

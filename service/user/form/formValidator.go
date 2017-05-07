@@ -6,6 +6,7 @@ import (
 )
 
 const EMAIL_REGEX = `(\w[-._\w]*\w@\w[-._\w]*\w\.\w{2,3})`
+const USERNAME_REGEX = `(\W)`
 
 func EmailValidation(email string) bool {
 	exp, err := regexp.Compile(EMAIL_REGEX)
@@ -16,18 +17,37 @@ func EmailValidation(email string) bool {
 	}
 	return false
 }
+func ValidateUsername(username string) bool {
+ 	exp, err := regexp.Compile(USERNAME_REGEX)
 
+    if (username == "") {
+        return false;
+ 
+    }
+    if ((len(username) < 3) || (len(username) > 15)) {
+		return false;
+ 
+    }
+    if regexpCompiled := log.CheckError(err); regexpCompiled {
+		if exp.MatchString(username) {
+			return false
+		}
+	} else {
+		return false
+	}
+    return true
+}
 // RegistrationForm is used when creating a user.
 type RegistrationForm struct {
-	Username string `form:"registrationUsername" binding:"required"`
-	Email    string `form:"registrationEmail" binding:"required"`
-	Password string `form:"registrationPassword" binding:"required"`
+	Username string `form:"username" binding:"required"`
+	Email    string `form:"email" binding:"required"`
+	Password string `form:"password" binding:"required"`
 }
 
 // RegistrationForm is used when creating a user authentication.
 type LoginForm struct {
-	Email    string `form:"loginEmail" binding:"required"`
-	Password string `form:"loginPassword" binding:"required"`
+	Email    string `form:"email" binding:"required"`
+	Password string `form:"password" binding:"required"`
 }
 
 // UserForm is used when updating a user.

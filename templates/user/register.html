@@ -4,19 +4,20 @@
 <div class="blockBody">
 	<div class="row">
 	    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-			<form role="form">
+	    {{ with .RegistrationForm }}
+			<form role="form" method="POST">
 				<h2>{{T "signup_box_title" }}</h2>
 				<hr class="colorgraph">
 				<div class="form-group">
-					<input type="text" name="username" id="display_name" class="form-control input-lg" placeholder="{{T "username" }}" tabindex="1">
+					<input type="text" name="username" id="display_name" class="form-control input-lg" placeholder="{{T "username" }}" tabindex="1" value="{{ .Username }}">
 				</div>
 				<div class="form-group">
-					<input type="email" name="email" id="email" class="form-control input-lg" placeholder="{{T "email_address" }}" tabindex="2">
+					<input type="email" name="email" id="email" class="form-control input-lg" placeholder="{{T "email_address" }}" tabindex="2" value="{{ .Email }}">
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
-							<input type="password" name="password" id="password" class="form-control input-lg" placeholder="{{T "password" }}" tabindex="3">
+							<input type="password" name="password" id="password" class="form-control input-lg" placeholder="{{T "password" }}" tabindex="3" value="{{ .Password }}">
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6">
@@ -43,6 +44,7 @@
 					<div class="col-xs-12 col-md-6">or <a href="{{ genRoute "user_login" }}" class="">{{T "signin" }}</a></div>
 				</div>
 			</form>
+			{{end}}
 		</div>
 	</div>
 	<!-- Modal -->

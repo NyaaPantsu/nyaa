@@ -82,5 +82,17 @@
   {
     "id":"sign_in_title",
     "translation": "Sign In"
+  },
+  {
+    "id":"register_success_title",
+    "translation": "Sign Up Successful"
+  },
+  {
+    "id":"sign_up_success",
+    "translation": "Almost Signed Up!"
+  },
+  {
+    "id":"signup_verification_email",
+    "translation": "Now, you are one step left before being part of our community! Check your emails (inbox or spam folder) and click the link provided for activating your account!"
   }
 ]
