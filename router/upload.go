@@ -3,7 +3,6 @@ package router
 import (
 	"encoding/hex"
 	"errors"
-	"fmt"
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/metainfo"
 	"github.com/zeebo/bencode"
@@ -98,7 +97,6 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		if parseErr != nil {
 			return metainfo.ErrInvalidTorrentFile
 		}
-		fmt.Println(magnetUrl)
 		exactTopic := magnetUrl.Query().Get("xt")
 		if !strings.HasPrefix(exactTopic, "urn:btih:") {
 			return metainfo.ErrInvalidTorrentFile
