@@ -1,5 +1,6 @@
 *.sqlite
 *.db
+*.sql
 main
 nyaa
 nyaa.exe
@@ -9,3 +10,5 @@ nyaa-master.exe
 .vscode
 templates/*.html.go
 *.bat
+*.backup
+tags
