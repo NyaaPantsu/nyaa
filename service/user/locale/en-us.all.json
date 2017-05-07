@@ -66,5 +66,21 @@
   {
     "id":"terms_conditions_full",
     "translation": "Some Shit."
+  },
+  {
+    "id":"remember_me",
+    "translation": "Remember me"
+  },
+  {
+    "id":"forgot_password",
+    "translation": "Forgot Password?"
+  },
+  {
+    "id":"sign_in_box_title",
+    "translation": "Please Sign In"
+  },
+  {
+    "id":"sign_in_title",
+    "translation": "Sign In"
   }
 ]
