@@ -21,7 +21,7 @@ type Feed struct {
 }
 
 type Torrents struct {
-	Id              int            `gorm:"column:torrent_id"`
+	Id              int            `gorm:"column:torrent_id;primary_key"`
 	Name            string         `gorm:"column:torrent_name"`
 	Category        int            `gorm:"column:category_id"`
 	Sub_Category    int            `gorm:"column:sub_category_id"`
@@ -30,7 +30,7 @@ type Torrents struct {
 	Date            int64          `gorm:"column:date"`
 	Downloads       int            `gorm:"column:downloads"`
 	Filesize        int64          `gorm:"column:filesize"`
-	Description     []byte         `gorm:"column:description"`
+	Description     string         `gorm:"column:description"`
 	Comments        []byte         `gorm:"column:comments"`
 }
 
