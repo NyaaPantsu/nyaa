@@ -5,7 +5,6 @@ import (
 	"html/template"
 	"net/http"
 	"strconv"
-
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util/search"
 	"github.com/gorilla/mux"
