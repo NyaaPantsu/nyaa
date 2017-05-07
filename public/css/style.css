@@ -1,9 +1,13 @@
-/* Night mode image */
-#sunmoon {
-    position: fixed;
-    top: 10px;
-    height: 30px;
+/* Night mode switcher */
+.nightswitch {
+	position: fixed;
+	top: 12px;
+	right: 48px;
 }
+.nightswitch > a > img {
+    width: 24px;
+}
+
 /* Torrent status colors */
 .remake {
   background-color: rgb(240, 176, 128);
