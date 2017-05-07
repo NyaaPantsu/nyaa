@@ -53,6 +53,15 @@ func GetTorrentById(id string) (model.Torrents, error) {
 }
 
 func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int) ([]model.Torrents, int) {
+	return getTorrentsOrderBy(parameters, orderBy, limit, offset, true)
+}
+
+func GetTorrentsOrderByNoCount(parameters *WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrents) {
+	torrents, _ = getTorrentsOrderBy(parameters, orderBy, limit, offset, false)
+	return
+}
+
+func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int, countAll bool) ([]model.Torrents, int) {
 	var torrents []model.Torrents
 	var dbQuery *gorm.DB
 	var count int
@@ -62,7 +71,9 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 		conditions += " AND " + parameters.Conditions
 		params = parameters.Params
 	}
-	db.ORM.Model(&torrents).Where(conditions, params...).Count(&count)
+	if countAll {
+		db.ORM.Model(&torrents).Where(conditions, params...).Count(&count)
+	}
 	dbQuery = db.ORM.Model(&torrents).Where(conditions, params...)
 
 	if orderBy == "" {
@@ -80,7 +91,7 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
  * Get Torrents with where parameters and limits, order by default
  */
 func GetTorrents(parameters WhereParams, limit int, offset int) ([]model.Torrents, int) {
-	return GetTorrentsOrderBy(&parameters, "", limit, offset)
+	return getTorrentsOrderBy(&parameters, "", limit, offset, true)
 }
 
 /* Get Torrents with where parameters but no limit and order by default (get all the torrents corresponding in the db)
@@ -99,6 +110,11 @@ func GetAllTorrentsOrderBy(orderBy string, limit int, offset int) ([]model.Torre
 
 func GetAllTorrents(limit int, offset int) ([]model.Torrents, int) {
 	return GetTorrentsOrderBy(nil, "", limit, offset)
+}
+
+func GetAllTorrentsNoCouting(limit int, offset int) (torrents []model.Torrents) {
+	torrents, _ = getTorrentsOrderBy(nil, "", limit, offset, false)
+	return
 }
 
 func GetAllTorrentsDB() ([]model.Torrents, int) {
