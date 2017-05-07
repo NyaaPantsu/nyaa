@@ -19,11 +19,13 @@ func RunServer(conf *config.Config) {
 	http.Handle("/", router.Router)
 
 	// Set up server,
+	addr := fmt.Sprintf("%s:%d", conf.Host, conf.Port)
 	srv := &http.Server{
-		Addr:         fmt.Sprintf("%s:%d", conf.Host, conf.Port),
+		Addr:         addr,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
+	log.Infof("listening on %s", addr)
 
 	err := srv.ListenAndServe()
 	log.CheckError(err)
