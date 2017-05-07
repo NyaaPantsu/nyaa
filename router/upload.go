@@ -8,16 +8,19 @@ import (
 	"github.com/zeebo/bencode"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
 // UploadForm serializing HTTP form for torrent upload
 type UploadForm struct {
-	Name        string
-	Magnet      string
-	Infohash    string
-	Category    string
-	Description string
+	Name          string
+	Magnet        string
+	Infohash      string
+	Category      string
+	CategoryId    int
+	SubCategoryId int
+	Description   string
 }
 
 // TODO: these should be in another package (?)
@@ -46,6 +49,9 @@ var ErrInvalidTorrentName = errors.New("torrent name is invalid")
 // error indicating a torrent's description is invalid
 var ErrInvalidTorrentDescription = errors.New("torrent description is invalid")
 
+// error indicating a torrent's category is invalid
+var ErrInvalidTorrentCategory = errors.New("torrent category is invalid")
+
 /**
 UploadForm.ExtractInfo takes an http request and computes all fields for this form
 */
@@ -67,6 +73,24 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 
 	if len(f.Description) == 0 {
 		return ErrInvalidTorrentDescription
+	}
+
+	catsSplit := strings.Split(f.Category, "_")
+	// need this to prevent out of index panics
+	if len(catsSplit) == 2 {
+		CatId, err := strconv.Atoi(catsSplit[0])
+		if err != nil {
+			return ErrInvalidTorrentCategory
+		}
+		SubCatId, err := strconv.Atoi(catsSplit[1])
+		if err != nil {
+			return ErrInvalidTorrentCategory
+		}
+
+		f.CategoryId = CatId
+		f.SubCategoryId = SubCatId
+	} else {
+		return ErrInvalidTorrentCategory
 	}
 
 	if len(f.Magnet) == 0 {
