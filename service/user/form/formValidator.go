@@ -13,12 +13,10 @@ func EmailValidation(email string, err map[string][]string) (bool, map[string][]
 	exp, errorRegex := regexp.Compile(EMAIL_REGEX)
 	if regexpCompiled := log.CheckError(errorRegex); regexpCompiled {
 		if exp.MatchString(email) {
-			err["email"] = append(err["email"], "Email Address is not valid")
 			return true, err
 		}
-	} else {
-		return false, err
-	}
+	} 
+	err["email"] = append(err["email"], "Email Address is not valid")
 	return false, err
 }
 func ValidateUsername(username string, err map[string][]string) (bool, map[string][]string)  {
