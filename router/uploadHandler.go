@@ -10,6 +10,7 @@ import (
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/captcha"
+	"github.com/ewhal/nyaa/service/user"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/gorilla/mux"
 )
@@ -26,7 +27,10 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		// validation is done in ExtractInfo()
 		err = uploadForm.ExtractInfo(r)
 		if err == nil {
-
+			user, _, err := userService.RetrieveCurrentUser(r)
+			if err != nil {
+				fmt.Printf("error %+v\n", err)
+			}
 			//add to db and redirect depending on result
 			torrent := model.Torrents{
 				Name:         uploadForm.Name,
@@ -36,7 +40,8 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 				Hash:         uploadForm.Infohash,
 				Date:         time.Now(),
 				Filesize:     uploadForm.Filesize, // FIXME: should set to NULL instead of 0
-				Description:  uploadForm.Description}
+				Description:  uploadForm.Description,
+				UploaderId:   user.Id}
 			db.ORM.Create(&torrent)
 			fmt.Printf("%+v\n", torrent)
 			url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.Id), 10))
