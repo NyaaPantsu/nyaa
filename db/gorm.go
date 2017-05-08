@@ -31,7 +31,7 @@ func GormInit(conf *config.Config) (*gorm.DB, error) {
 	if config.Environment == "DEVELOPMENT" {
 		db.LogMode(true)
 		// db.DropTable(&model.User{}, "UserFollower")
-		db.AutoMigrate(&model.Torrents{}, &model.User{}, &model.Role{}, &model.Connection{}, &model.Language{})
+		db.AutoMigrate(&model.Torrents{}, &model.User{}, &model.Role{}, &model.Language{})
 		// db.AutoMigrate(&model.Article{}, &model.Location{}, &model.Comment{}, &model.File{})
 		// db.Model(&model.User{}).AddIndex("idx_user_token", "token")
 

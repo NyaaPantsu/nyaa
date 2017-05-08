@@ -20,17 +20,23 @@
 }
 
 /* modified copy of NyaaTorrent theme */
-#mainmenu {
+#mainmenu, #mainmenu .dropdown-menu{
     background: #263238;
-    position: fixed;
     color: white;
+}
+#mainmenu {
+	position: fixed;
     width: 100%;
     z-index: 4;
     border: 0px solid white;
 }
-
 #mainmenu a {
+	background: none;
 	color: white;
+}
+
+#mainmenu .divider {
+	background: black;
 }
 
 #container {
@@ -181,4 +187,8 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 /* the curved edges triggered my autism */
 .navbar {
     border-radius: 0px;
+}
+.navbar-nav>li>a.profile-image {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }

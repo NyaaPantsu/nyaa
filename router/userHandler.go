@@ -22,7 +22,7 @@ func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 		modelHelper.BindValueForm(&b, r)
 		b.CaptchaID = captcha.GetID()
 		languages.SetTranslationFromRequest(viewRegisterTemplate, r, "en-us")
-		htv := UserRegisterTemplateVariables{b, form.NewErrors(), NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+		htv := UserRegisterTemplateVariables{b, form.NewErrors(), NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 		err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -38,7 +38,7 @@ func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
 	modelHelper.BindValueForm(&b, r)
 
 	languages.SetTranslationFromRequest(viewLoginTemplate, r, "en-us")
-	htv := UserLoginFormVariables{b, form.NewErrors(), NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+	htv := UserLoginFormVariables{b, form.NewErrors(), NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 
 	err := viewLoginTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -78,7 +78,7 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 				if (len(err) == 0) {
 					b := form.RegistrationForm{}
 					languages.SetTranslationFromRequest(viewRegisterSuccessTemplate, r, "en-us")
-					htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+					htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 					errorTmpl := viewRegisterSuccessTemplate.ExecuteTemplate(w, "index.html", htv)
 					if errorTmpl != nil {
 						http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -90,7 +90,7 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 	if (len(err) > 0) {
 		b.CaptchaID = captcha.GetID()
 		languages.SetTranslationFromRequest(viewRegisterTemplate, r, "en-us")
-		htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+		htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 		errorTmpl := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
 		if errorTmpl != nil {
 			http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -107,7 +107,7 @@ func UserVerifyEmailHandler(w http.ResponseWriter, r *http.Request) {
 		err["errors"] = append(err["errors"], errEmail.Error())
 	}
 	languages.SetTranslationFromRequest(viewVerifySuccessTemplate, r, "en-us")
-	htv := UserVerifyTemplateVariables{err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+	htv := UserVerifyTemplateVariables{err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 	errorTmpl := viewVerifySuccessTemplate.ExecuteTemplate(w, "index.html", htv)
 	if errorTmpl != nil {
 		http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -125,7 +125,7 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 		if (errorUser != nil) {
 			err["errors"] = append(err["errors"], errorUser.Error())
 			languages.SetTranslationFromRequest(viewLoginTemplate, r, "en-us")
-			htv := UserLoginFormVariables{b, err, NewSearchForm(), Navigation{}, r.URL, mux.CurrentRoute(r)}
+			htv := UserLoginFormVariables{b, err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 			errorTmpl := viewLoginTemplate.ExecuteTemplate(w, "index.html", htv)
 			if errorTmpl != nil {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
