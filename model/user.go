@@ -36,8 +36,6 @@ type User struct {
 	LastLoginIp        string     `json:"lastLoginIp",sql:"size:100"`
 	CurrentLoginIp     string     `json:"currentLoginIp",sql:"size:100"`
 
-	Status Status `gorm:"many2one:users_status;"`
-
 	// Liking
 	LikingCount int    `json:"likingCount"`
 	LikedCount  int    `json:"likedCount"`
@@ -46,7 +44,7 @@ type User struct {
 
 	//Connections []Connection
   
-	Languages   []Language `gorm:"many2many:user_languages;"` // Many To Many, user_languages is the join table
+	Languages   string 
 	Roles       []Role     `gorm:"many2many:users_roles;"`    // Many To Many, users_roles
 	Torrents    []Torrents
 }
@@ -84,15 +82,3 @@ type PublicUser struct {
 	Roles       omit `json:"roles,omitempty"`
 	Torrents    omit `json:"articles,omitempty"` //should user torrents not be displayed?
 }
-
-/*// Connection is a connection model for oauth.
-type Connection struct {
-	Id             uint   `json:"id"`
-	UserId         uint   `json:"userId"`
-	ProviderId     uint   `gorm:"column:provider_id", json:"providerId"`
-	ProviderUserId string `gorm:"column:provider_user_id", json:"providerUserId"`
-	AccessToken    string `json:"accessToken"`
-	ProfileUrl     string `gorm:"column:profile_url", json:"profileUrl"`
-	ImageUrl       string `gorm:"column:image_url", json:"imageUrl"`
-}
-*/
