@@ -55,10 +55,10 @@ func GetTorrentById(id string) (model.Torrents, error) {
 func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int) ([]model.Torrents, int) {
 	var torrents []model.Torrents
 	var count int
-	conditions := ""
+	conditions := "1" // FIXME
 	if strings.HasPrefix(orderBy, "filesize") {
 		// torrents w/ NULL filesize fuck up the sorting on postgres
-		conditions = "filesize IS NOT NULL"
+		conditions += " AND filesize IS NOT NULL"
 	}
 
 	var params []interface{}
