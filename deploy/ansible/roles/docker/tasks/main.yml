@@ -16,7 +16,6 @@
     state: present
   become: true
 
-# TODO Make version a variable
 - name: Install docker-compose
   get_url:
     url: "https://github.com/docker/compose/releases/download/{{ release_version }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
