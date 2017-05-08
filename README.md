@@ -61,6 +61,8 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 
 ## TODO
 * postgres + gin indexes for fulltext search
+  * Remove LIKE AND OFFSET queries
+  * optimize queries in general
 * Torrent data scraping from definable tracker (We have a tracker that the owner is ok for us to scrape from)
   * seeds/leeachers
   * file lists
