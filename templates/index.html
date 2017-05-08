@@ -46,12 +46,15 @@
                       <li><a href="{{.URL.Parse "/faq"}}">FAQ</a></li>
                       <li><a href="{{ genRouteWithQuery "feed" .URL }}">RSS</a></li>
                       <li><a href="https://sukebei.pantsu.cat">Fap</a></li>
-                      {{block "badge_user" .}}{{end}}
+                      <li><a href="irc://irc.rizon.net/nyaapantsu">IRC</a></li>
 
                   </ul>
+                  {{block "badge_user" .}}{{end}}
                   <form class="navbar-form navbar-right" role="search" action="/search" method="get">
                       <div class="form-group">
                         {{block "search_common" .}}{{end}}
+                      </div>
+                      <div class="form-group">
                         {{block "search_button" .}}{{end}}
                       </div>
                   </form>
