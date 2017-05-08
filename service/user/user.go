@@ -111,7 +111,7 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 	var isAuthor bool
 	// var publicUser *model.PublicUser
 	// publicUser.User = &user
-	if db.ORM.Select(config.UserPublicFields).First(&user, id).RecordNotFound() {
+	if db.ORM.First(&user, id).RecordNotFound() {
 		return nil, isAuthor, currentUserId, http.StatusNotFound, errors.New("User is not found.")
 	}
 	currentUser, err := CurrentUser(r)
@@ -127,7 +127,7 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 func RetrieveUsers() []*model.PublicUser {
 	var users []*model.User
 	var userArr []*model.PublicUser
-	db.ORM.Select(config.UserPublicFields).Find(&users)
+	db.ORM.Find(&users)
 	for _, user := range users {
 		userArr = append(userArr, &model.PublicUser{User: user})
 	}
@@ -213,7 +213,7 @@ func RetrieveCurrentUser(r *http.Request) (model.User, int, error) {
 // RetrieveUserByEmail retrieves a user by an email
 func RetrieveUserByEmail(email string) (*model.PublicUser, string, int, error) {
 	var user model.User
-	if db.ORM.Unscoped().Select(config.UserPublicFields).Where("email like ?", "%"+email+"%").First(&user).RecordNotFound() {
+	if db.ORM.Unscoped().Where("email = ?", email).First(&user).RecordNotFound() {
 		return &model.PublicUser{User: &user}, email, http.StatusNotFound, errors.New("User is not found.")
 	}
 	return &model.PublicUser{User: &user}, email, http.StatusOK, nil
@@ -223,7 +223,7 @@ func RetrieveUserByEmail(email string) (*model.PublicUser, string, int, error) {
 func RetrieveUsersByEmail(email string) []*model.PublicUser {
 	var users []*model.User
 	var userArr []*model.PublicUser
-	db.ORM.Select(config.UserPublicFields).Where("email like ?", "%"+email+"%").Find(&users)
+	db.ORM.Where("email = ?", email).Find(&users)
 	for _, user := range users {
 		userArr = append(userArr, &model.PublicUser{User: user})
 	}
@@ -233,7 +233,7 @@ func RetrieveUsersByEmail(email string) []*model.PublicUser {
 // RetrieveUserByUsername retrieves a user by username.
 func RetrieveUserByUsername(username string) (*model.PublicUser, string, int, error) {
 	var user model.User
-	if db.ORM.Unscoped().Select(config.UserPublicFields).Where("username like ?", "%"+username+"%").First(&user).RecordNotFound() {
+	if db.ORM.Where("username = ?", username).First(&user).RecordNotFound() {
 		return &model.PublicUser{User: &user}, username, http.StatusNotFound, errors.New("User is not found.")
 	}
 	return &model.PublicUser{User: &user}, username, http.StatusOK, nil
