@@ -65,7 +65,9 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 		err["errors"] = append(err["errors"], "Wrong captcha!")
 	}
 	if (len(err) == 0) {
-		_, err = form.EmailValidation(r.PostFormValue("email"), err)
+		if len(r.PostFormValue("email")) > 0 {
+			_, err = form.EmailValidation(r.PostFormValue("email"), err)
+		}
 		_, err = form.ValidateUsername(r.PostFormValue("username"), err)
 		if (len(err) == 0) {
 			modelHelper.BindValueForm(&b, r)
