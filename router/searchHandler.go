@@ -37,7 +37,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		search_param.Order,
 		false,
 	}
-	htv := HomeTemplateVariables{b, searchForm, navigationTorrents, r.URL, mux.CurrentRoute(r)}
+	htv := HomeTemplateVariables{b, searchForm, navigationTorrents, GetUser(r), r.URL, mux.CurrentRoute(r)}
 
 	err := searchTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
