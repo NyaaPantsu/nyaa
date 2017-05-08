@@ -3,14 +3,15 @@ package languages
 import (
 	"github.com/nicksnyder/go-i18n/i18n"
 	"html/template"
+	"fmt"
 	"net/http"
 )
 
 func SetTranslation(tmpl *template.Template, language string, languages ...string) {
 	T, _ := i18n.Tfunc(language, languages...)
 	tmpl.Funcs(map[string]interface{}{
-		"T": func(str string) template.HTML {
-			return template.HTML(T(str))
+		"T": func(str string, args ...interface{}) template.HTML {
+			return template.HTML(fmt.Sprintf(T(str), args...))
 		},
 	})
 }
