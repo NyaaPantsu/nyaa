@@ -35,8 +35,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 				Hash:         uploadForm.Infohash,
 				Date:         time.Now().Unix(),
 				Filesize:     uploadForm.Filesize, // FIXME: should set to NULL instead of 0
-				Description:  uploadForm.Description,
-				Comments:     []byte{}}
+				Description:  uploadForm.Description}
 			db.ORM.Create(&torrent)
 			fmt.Printf("%+v\n", torrent)
 			url, err := Router.Get("view_torrent").URL("id", strconv.Itoa(torrent.Id))
