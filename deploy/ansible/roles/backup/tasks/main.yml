@@ -25,3 +25,18 @@
     dest: "{{ backup_cron_job }}"
   become: true
   when: pass_file.stat.exists == true
+
+- name: Add epel repository
+  yum_repository:
+    name: epel
+    description: EPEL YUM repo
+    baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+    gpgcheck: 1
+    gpgkey: https://getfedora.org/static/352C64E5.txt
+  become: true
+
+- name: Install mktorrent
+  yum:
+    name: mktorrent
+    state: present
+  become: true
