@@ -1,0 +1,27 @@
+# TODO Allow autogenerating of GPG keys
+- name: Make sure there is a passphrase file
+  stat:
+    path: "{{ nyaapantsu_gpg_passphrase_file }}"
+  register: pass_file
+
+- name: Copy backup script
+  copy:
+    src: backup.sh
+    dest: "{{ backup_script }}"
+    mode: 0755
+  become: true
+  when: pass_file.stat.exists == true
+
+- name: Create (if not exists) cronjob
+  file:
+    path: "{{ backup_cron_job }}"
+    state: touch
+  become: true
+  when: pass_file.stat.exists == true
+
+- name: Setup backup cron
+  template:
+    src: backup_cron.j2
+    dest: "{{ backup_cron_job }}"
+  become: true
+  when: pass_file.stat.exists == true

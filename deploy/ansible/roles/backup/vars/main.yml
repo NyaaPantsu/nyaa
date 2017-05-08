@@ -1,0 +1,3 @@
+backup_script: /usr/bin/nyaapantsu_backup.sh
+backup_cron_hours: 0
+backup_cron_job: /etc/cron.d/nyaapantsu_backup
