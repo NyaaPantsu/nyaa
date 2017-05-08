@@ -63,10 +63,12 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 * postgres + gin indexes for fulltext search
 * Torrent data scraping from definable tracker (We have a tracker that the owner is ok for us to scrape from)
   * seeds/leeachers
-  * file lists?
+  * file lists
+  * Downloads
 * Accounts and Registration System(WIP)
   * Report Feature and Moderation System
   * blocking upload of torrent hashes
+* fix sukebei categories
 * Site theme
   * original nyaa theme
 * API improvement
