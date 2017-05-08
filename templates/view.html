@@ -47,9 +47,12 @@
                   <td>Comments</td>
                   <td></td>
               </tr>
-              {{ range .Comments }}
-              <tr class="comment-row">
-                  <td>{{.Username}}</td>
+              {{ range $index, $element := .Comments }}
+              <tr class="comment-row" id="comment_{{$index}}">
+                  <td>
+                    <a href="#comment_{{$index}}">{{$index}}</a>
+                    {{.Username}}
+                  </td>
                   <td>{{.Content}}</td>
               </tr>
               {{end}}
