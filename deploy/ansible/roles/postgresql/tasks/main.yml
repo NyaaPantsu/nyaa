@@ -1,8 +1,11 @@
 - name: Install postgresql
   yum:
-    name: postgresql-server
+    name: "{{ item }}"
     state: present
   become: true
+  with_items:
+    - postgresql-server
+    - postgresql-pgpool-II
 
 - name: Initialize postgresql
   command: postgresql-setup initdb
@@ -16,12 +19,21 @@
     state: present
   become: true
 
-- name: Start postgresql and enable at boot
+- name: Configure pgpool
+  template:
+    src: pgpool.conf.j2
+    dest: /etc/pgpool-II/pgpool.conf
+  become: true
+
+- name: Start postgresql, pgpool and enable at boot
   systemd:
     enabled: yes
-    name: postgresql
+    name: "{{ item }}"
     state: started
   become: true
+  with_items:
+    - postgresql
+    - pgpool
 
 - name: Create nyaapantsu database
   postgresql_db:
