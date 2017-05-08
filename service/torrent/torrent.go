@@ -44,10 +44,17 @@ func GetFeeds() []model.Feed {
 
 func GetTorrentById(id string) (model.Torrents, error) {
 	var torrent model.Torrents
+	id_int, err := strconv.Atoi(id)
+	if err != nil {
+		return torrent, err
+	}
 
-	if db.ORM.Where("torrent_id = ?", id).
-		Preload("Comments").Preload("OldComments").
-		Find(&torrent).RecordNotFound() {
+	tmp := db.ORM.Where("torrent_id = ?", id).Preload("Comments")
+	if id_int <= config.LastOldTorrentId {
+		// only preload old comments if they could actually exist
+		tmp = tmp.Preload("OldComments")
+	}
+	if tmp.Find(&torrent).RecordNotFound() {
 		return torrent, errors.New("Article is not found.")
 	}
 	// .Preload("Comments.User") doesn't work

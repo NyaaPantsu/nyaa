@@ -10,6 +10,11 @@ import (
 	"os"
 )
 
+const (
+	// Highest torrent ID that was copied from nyaa
+	LastOldTorrentId = 923000
+)
+
 type Config struct {
 	Host   string `json: "host"`
 	Port   int    `json: "port"`
