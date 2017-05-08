@@ -4,7 +4,6 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/util"
 
-//	"encoding/json"
 	"html"
 	"html/template"
 	"strconv"
@@ -40,11 +39,7 @@ type Torrents struct {
 	Comments     []Comment    `gorm:"ForeignKey:torrent_id"`
 }
 
-/* We need JSON Object instead because of Magnet URL that is not in the database but generated dynamically
---------------------------------------------------------------------------------------------------------------
-JSON Models Oject
---------------------------------------------------------------------------------------------------------------
-*/
+/* We need JSON Object instead because of Magnet URL that is not in the database but generated dynamically */
 
 type ApiResultJson struct {
 	Torrents         []TorrentsJson `json:"torrents"`
@@ -81,7 +76,7 @@ func (t *Torrents) ToJson() TorrentsJson {
 		commentsJson = append(commentsJson, CommentsJson{Username: c.Username, Content: template.HTML(c.Content), Date: c.Date})
 	}
 	for _, c := range t.Comments {
-		commentsJson = append(commentsJson, CommentsJson{Username: (*c.User).Username, Content: template.HTML(c.Content), Date: c.CreatedAt})
+		commentsJson = append(commentsJson, CommentsJson{Username: c.User.Username, Content: template.HTML(c.Content), Date: c.CreatedAt})
 	}
 	res := TorrentsJson{
 		Id:           strconv.FormatUint(uint64(t.Id), 10),

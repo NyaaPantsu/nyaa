@@ -45,8 +45,15 @@ func GetFeeds() []model.Feed {
 func GetTorrentById(id string) (model.Torrents, error) {
 	var torrent model.Torrents
 
-	if db.ORM.Where("torrent_id = ?", id).Preload("Comments").Preload("OldComments").Find(&torrent).RecordNotFound() {
+	if db.ORM.Where("torrent_id = ?", id).
+		Preload("Comments").Preload("OldComments").
+		Find(&torrent).RecordNotFound() {
 		return torrent, errors.New("Article is not found.")
+	}
+	// .Preload("Comments.User") doesn't work
+	for i := range torrent.Comments {
+		torrent.Comments[i].User = new(model.User)
+		db.ORM.Where("user_id = ?", torrent.Comments[i].UserId).Find(torrent.Comments[i].User)
 	}
 
 	return torrent, nil
