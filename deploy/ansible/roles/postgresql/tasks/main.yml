@@ -56,6 +56,12 @@
   become: true
   become_user: postgres
 
+- name: Add .pgpass
+  template:
+    src: pgpass.j2
+    dest: ~/.pgpass
+    mode: 0600
+
 - name: Reload postgres
   systemd:
     name: postgresql
