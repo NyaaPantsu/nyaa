@@ -150,6 +150,6 @@ func CurrentUser(r *http.Request) (model.User, error) {
 	if db.ORM.Select(config.UserPublicFields+", email").Where("token = ?", token).First(&user).RecordNotFound() {
 		return user, errors.New("User is not found.")
 	}
-	db.ORM.Model(&user).Association("Roles").Find(&user.Roles)
+	db.ORM.Model(&user)
 	return user, nil
 }

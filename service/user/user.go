@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
+	"time"
 
 	"golang.org/x/crypto/bcrypt"
 
@@ -56,7 +57,6 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 	var user model.User
 	log.Debugf("registrationForm %+v\n", registrationForm)
 	modelHelper.AssignValue(&user, &registrationForm)
-	user.Md5 = crypto.GenerateMD5Hash(user.Email)  // Gravatar
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
 		return user, errors.New("Token not generated.")
@@ -101,7 +101,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) (int, error) {
 
 // RetrieveUser retrieves a user.
 func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, int, error) {
-	var user model.User
+	/*var user model.User
 	var currentUserId uint
 	var isAuthor bool
 	// var publicUser *model.PublicUser
@@ -139,7 +139,8 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 
 	log.Debugf("user liking %v\n", user.Likings)
 	log.Debugf("user liked %v\n", user.Liked)
-	return &model.PublicUser{User: &user}, isAuthor, currentUserId, http.StatusOK, nil
+	return &model.PublicUser{User: &user}, isAuthor, currentUserId, http.StatusOK, nil*/
+	return nil, false, 0, 0, errors.New("NotImpl")
 }
 
 // RetrieveUsers retrieves users.
@@ -155,7 +156,6 @@ func RetrieveUsers() []*model.PublicUser {
 
 // UpdateUserCore updates a user. (Applying the modifed data of user).
 func UpdateUserCore(user *model.User) (int, error) {
-	user.Md5 = crypto.GenerateMD5Hash(user.Email)
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
 		return http.StatusInternalServerError, errors.New("Token not generated.")
@@ -165,6 +165,7 @@ func UpdateUserCore(user *model.User) (int, error) {
 	if db.ORM.Save(user).Error != nil {
 		return http.StatusInternalServerError, errors.New("User is not updated.")
 	}
+	user.UpdatedAt = time.Now()
 	return http.StatusOK, nil
 }
 
@@ -220,49 +221,6 @@ func DeleteUser(w http.ResponseWriter, id string) (int, error) {
 	return status, err
 }
 
-// AddRoleToUser adds a role to a user.
-func AddRoleToUser(r *http.Request) (int, error) {
-	var form formStruct.UserRoleForm
-	var user model.User
-	var role model.Role
-	var roles []model.Role
-	modelHelper.BindValueForm(&form, r)
-
-	if db.ORM.First(&user, form.UserId).RecordNotFound() {
-		return http.StatusNotFound, errors.New("User is not found.")
-	}
-	if db.ORM.First(&role, form.RoleId).RecordNotFound() {
-		return http.StatusNotFound, errors.New("Role is not found.")
-	}
-	log.Debugf("user email : %s", user.Email)
-	log.Debugf("Role name : %s", role.Name)
-	db.ORM.Model(&user).Association("Roles").Append(role)
-	db.ORM.Model(&user).Association("Roles").Find(&roles)
-	if db.ORM.Save(&user).Error != nil {
-		return http.StatusInternalServerError, errors.New("Role not appended to user.")
-	}
-	return http.StatusOK, nil
-}
-
-// RemoveRoleFromUser removes a role from a user.
-func RemoveRoleFromUser(w http.ResponseWriter, r *http.Request, userId string, roleId string) (int, error) {
-	var user model.User
-	var role model.Role
-	if db.ORM.First(&user, userId).RecordNotFound() {
-		return http.StatusNotFound, errors.New("User is not found.")
-	}
-	if db.ORM.First(&role, roleId).RecordNotFound() {
-		return http.StatusNotFound, errors.New("Role is not found.")
-	}
-
-	log.Debugf("user : %v\n", user)
-	log.Debugf("role : %v\n", role)
-	if db.ORM.Model(&user).Association("Roles").Delete(role).Error != nil {
-		return http.StatusInternalServerError, errors.New("Role is not deleted from user.")
-	}
-	return http.StatusOK, nil
-}
-
 // RetrieveCurrentUser retrieves a current user.
 func RetrieveCurrentUser(r *http.Request) (model.User, int, error) {
 	user, err := CurrentUser(r)
@@ -307,8 +265,7 @@ func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	if db.ORM.First(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("User is not found.")
 	}
-	db.ORM.Model(&user).Association("Languages").Find(&user.Languages)
-	db.ORM.Model(&user).Association("Roles").Find(&user.Roles)
+	db.ORM.Model(&user)
 	return user, http.StatusOK, nil
 }
 
@@ -318,8 +275,7 @@ func RetrieveUsersForAdmin() []model.User {
 	var userArr []model.User
 	db.ORM.Find(&users)
 	for _, user := range users {
-		db.ORM.Model(&user).Association("Languages").Find(&user.Languages)
-		db.ORM.Model(&user).Association("Roles").Find(&user.Roles)
+		db.ORM.Model(&user)
 		userArr = append(userArr, user)
 	}
 	return userArr
@@ -328,7 +284,7 @@ func RetrieveUsersForAdmin() []model.User {
 // ActivateUser toggle activation of a user.
 func ActivateUser(r *http.Request, id string) (model.User, int, error) {
 	var user model.User
-	var form formStruct.ActivateForm
+	/*var form formStruct.ActivateForm
 	modelHelper.BindValueForm(&form, r)
 	if db.ORM.First(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("User is not found.")
@@ -337,7 +293,8 @@ func ActivateUser(r *http.Request, id string) (model.User, int, error) {
 	if db.ORM.Save(&user).Error != nil {
 		return user, http.StatusInternalServerError, errors.New("User not activated.")
 	}
-	return user, http.StatusOK, nil
+	return user, http.StatusOK, nil*/
+	return user, 0, errors.New("NotImpl")
 }
 
 // CreateUserAuthentication creates user authentication.
