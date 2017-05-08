@@ -46,12 +46,33 @@ func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents,
 		searchCatId = html.EscapeString(catsSplit[0])
 		searchSubCatId = html.EscapeString(catsSplit[1])
 	}
-	if search_param.Sort == "" {
+
+	switch search_param.Sort {
+	case "torrent_name":
+		search_param.Sort = "torrent_name"
+		break
+	case "date":
+		search_param.Sort = "date"
+		break
+	case "downloads":
+		search_param.Sort = "downloads"
+		break
+	case "filesize":
+		search_param.Sort = "filesize"
+	case "torrent_id":
+	default:
 		search_param.Sort = "torrent_id"
 	}
-	if search_param.Order == "" {
+
+	switch search_param.Order {
+	case "asc":
+		search_param.Order = "asc"
+		break
+	case "desc":
+	default:
 		search_param.Order = "desc"
 	}
+
 	order_by := search_param.Sort + " " + search_param.Order
 
 	parameters := torrentService.WhereParams{}
@@ -83,8 +104,9 @@ func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents,
 			// punctuation characters.
 			continue
 		}
-		conditions = append(conditions, "torrent_name LIKE % ? %")
-		parameters.Params = append(parameters.Params, searchQuerySplit[i])
+		// TODO: make this faster ?
+		conditions = append(conditions, "torrent_name ILIKE ?")
+		parameters.Params = append(parameters.Params, "%"+searchQuerySplit[i]+"%")
 	}
 
 	parameters.Conditions = strings.Join(conditions[:], " AND ")
