@@ -60,7 +60,7 @@
       {{end}}
           <form method="post">
               <div class="form-group">
-                  <label for="comment">Submit a Comment</label>
+                  <label for="comment">Submit a Comment as {{ if gt .User.Id 0}} {{.User.Username}} {{else}} Anonymous {{end}}</label>
                   <textarea name="comment" class="form-control" rows="5"></textarea>
               </div>
               {{with .Captcha}}
