@@ -8,7 +8,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	formStruct "github.com/ewhal/nyaa/service/user/form"
 
-	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util/log"
@@ -147,7 +146,7 @@ func CurrentUser(r *http.Request) (model.User, error) {
 			return user, err
 		}
 	}
-	if db.ORM.Select(config.UserPublicFields+", email").Where("token = ?", token).First(&user).RecordNotFound() {
+	if db.ORM.Where("api_token = ?", token).First(&user).RecordNotFound() {
 		return user, errors.New("User is not found.")
 	}
 	db.ORM.Model(&user)
