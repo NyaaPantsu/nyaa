@@ -314,5 +314,97 @@
   {
     "id": "nyaa_pantsu_dont_host_files",
     "translation": "nyaa.pantsu.cat and sukebei.pantsu.cat do not host any files."
+  },
+  {
+    "id": "upload_magnet",
+    "translation": "Upload magnet"
+  },
+  {
+    "id": "torrent_file",
+    "translation": "Torrent file"
+  },
+  {
+    "id": "uploading_torrent_prefills_fields",
+    "translation": "Uploading a torrent file allows pre-filling some fields, this is recommended."
+  },
+  {
+    "id": "magnet_link",
+    "translation": "Magnet Link"
+  },
+  {
+    "id": "anime_amv",
+    "translation": "Anime - Anime Music Video"
+  },
+  {
+    "id": "anime_english_translated",
+    "translation": "Anime - English-translated"
+  },
+  {
+    "id": "anime_non_english_translated",
+    "translated": "Anime - Non-English-translated"
+  },
+  {
+    "id": "anime_raw",
+    "translated": "Anime - Raw"
+  },
+  {
+    "id": "audio_lossless",
+    "translated": "Audio - Lossless"
+  },
+  {
+    "id": "audio_lossy",
+    "translated": "Audio - Lossy"
+  },
+  {
+    "id": "literature_english_translated",
+    "translated": "Literature - English-translated"
+  },
+  {
+    "id": "literature_raw",
+    "translated": "Literature - Raw"
+  },
+  {
+    "id": "literature_non_english_translated",
+    "translated": "Literature - Non-English-translated"
+  },
+  {
+    "id": "live_action_english_translated",
+    "translated": "Live Action - English-translated"
+  },
+  {
+    "id": "live_action_idol_pv",
+    "translated": "Live Action - Idol/Promotional Video"
+  },
+  {
+    "id": "live_action_non_english_translated",
+    "translated": "Live Action - Non-English-translated"
+  },
+  {
+    "id": "live_action_raw",
+    "translated": "Live Action - Raw"
+  },
+  {
+    "id": "pictures_graphics",
+    "translated": "Pictures - Graphics"
+  },
+  {
+    "id": "pictures_photos",
+    "translated": "Pictures - Photos"
+  },
+  {
+    "id": "software_applications",
+    "translated": "Software - Applications"
+  },
+  {
+    "id": "software_games",
+    "translated": "Software - Games"
+  },
+  {
+    "id": "torrent_description",
+    "translated": "Torrent Description"
+  },
+  {
+    "id": "limited_html_set_is_allowed_use",
+    "translated": "A limited set of HTML is allowed in the description, make sure to use"
   }
 ]
