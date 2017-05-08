@@ -102,5 +102,25 @@
   {
     "id":"signup_verification_email",
     "translation": "Now, you are one step left before being part of our community! Check your emails (inbox or spam folder) and click the link provided for activating your account!"
+  },
+  {
+    "id":"settings",
+    "translation": "Account Settings"
+  },
+  {
+    "id":"torrents",
+    "translation": "Torrents"
+  },
+  {
+    "id":"follow",
+    "translation": "Follow"
+  },
+  {
+    "id":"profile_page",
+    "translation": "%s Profile Page"
+  },
+  {
+    "id":"see_more_torrents_from",
+    "translation": "See more torrents from %s "
   }
 ]

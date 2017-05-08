@@ -5,6 +5,7 @@ import (
 
 	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/service/user"
+	"github.com/ewhal/nyaa/service/user/permission"
 	"github.com/ewhal/nyaa/service/user/form"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/modelHelper"
@@ -48,7 +49,25 @@ func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
 
 // Getting User Profile
 func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
+	currentUser := GetUser(r)
+	view := r.URL.Query().Get("view")
+	if (errorUser == nil) {
+		if ((view == "edit")&&(userPermission.CurrentOrAdmin(currentUser, userProfile.Id))) {
+		} else {
+			languages.SetTranslationFromRequest(viewProfileTemplate, r, "en-us")
+			htv := UserProfileVariables{&userProfile, form.NewErrors(), NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
 
+			err := viewProfileTemplate.ExecuteTemplate(w, "index.html", htv)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
+		}
+	} else {
+		NotFoundHandler(w, r)
+	}
 }
 
 // Getting View User Profile Update
