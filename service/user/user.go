@@ -101,13 +101,13 @@ func CreateUser(w http.ResponseWriter, r *http.Request) (int, error) {
 
 // RetrieveUser retrieves a user.
 func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, int, error) {
-	/*var user model.User
+	var user model.User
 	var currentUserId uint
 	var isAuthor bool
 	// var publicUser *model.PublicUser
 	// publicUser.User = &user
 	if db.ORM.Select(config.UserPublicFields).First(&user, id).RecordNotFound() {
-		return &model.PublicUser{User: &user}, isAuthor, currentUserId, http.StatusNotFound, errors.New("User is not found.")
+		return nil, isAuthor, currentUserId, http.StatusNotFound, errors.New("User is not found.")
 	}
 	currentUser, err := CurrentUser(r)
 	if err == nil {
@@ -115,32 +115,7 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 		isAuthor = currentUser.Id == user.Id
 	}
 
-	var likings []model.User
-	var likingCount int
-	db.ORM.Table("users_followers").Where("users_followers.user_id=?", user.Id).Count(&likingCount)
-	if err = db.ORM.Order("created_at desc").Select(config.UserPublicFields).
-		Joins("JOIN users_followers on users_followers.user_id=?", user.Id).
-		Where("users.id = users_followers.follower_id").
-		Group("users.id").Find(&likings).Error; err != nil {
-		log.Fatal(err.Error())
-	}
-	user.Likings = likings
-
-	var liked []model.User
-	var likedCount int
-	db.ORM.Table("users_followers").Where("users_followers.follower_id=?", user.Id).Count(&likedCount)
-	if err = db.ORM.Order("created_at desc").Select(config.UserPublicFields).
-		Joins("JOIN users_followers on users_followers.follower_id=?", user.Id).
-		Where("users.id = users_followers.user_id").
-		Group("users.id").Find(&liked).Error; err != nil {
-		log.Fatal(err.Error())
-	}
-	user.Liked = liked
-
-	log.Debugf("user liking %v\n", user.Likings)
-	log.Debugf("user liked %v\n", user.Liked)
-	return &model.PublicUser{User: &user}, isAuthor, currentUserId, http.StatusOK, nil*/
-	return nil, false, 0, 0, errors.New("NotImpl")
+	return &model.PublicUser{User: &user}, isAuthor, currentUserId, http.StatusOK, nil
 }
 
 // RetrieveUsers retrieves users.
@@ -279,22 +254,6 @@ func RetrieveUsersForAdmin() []model.User {
 		userArr = append(userArr, user)
 	}
 	return userArr
-}
-
-// ActivateUser toggle activation of a user.
-func ActivateUser(r *http.Request, id string) (model.User, int, error) {
-	var user model.User
-	/*var form formStruct.ActivateForm
-	modelHelper.BindValueForm(&form, r)
-	if db.ORM.First(&user, id).RecordNotFound() {
-		return user, http.StatusNotFound, errors.New("User is not found.")
-	}
-	user.Activation = form.Activation
-	if db.ORM.Save(&user).Error != nil {
-		return user, http.StatusInternalServerError, errors.New("User not activated.")
-	}
-	return user, http.StatusOK, nil*/
-	return user, 0, errors.New("NotImpl")
 }
 
 // CreateUserAuthentication creates user authentication.

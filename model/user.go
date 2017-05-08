@@ -22,7 +22,7 @@ type User struct {
 }
 
 type PublicUser struct {
-	User *User
+	User      *User
 }
 
 type UserFollows struct {
