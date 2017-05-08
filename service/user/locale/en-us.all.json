@@ -349,146 +349,146 @@
   },
   {
     "id": "anime_non_english_translated",
-    "translated": "Anime - Non-English-translated"
+    "translation": "Anime - Non-English-translated"
   },
   {
     "id": "anime_raw",
-    "translated": "Anime - Raw"
+    "translation": "Anime - Raw"
   },
   {
     "id": "audio",
-    "translated": "Audio"
+    "translation": "Audio"
   },
   {
     "id": "audio_lossless",
-    "translated": "Audio - Lossless"
+    "translation": "Audio - Lossless"
   },
   {
     "id": "audio_lossy",
-    "translated": "Audio - Lossy"
+    "translation": "Audio - Lossy"
   },
   {
     "id": "literature",
-    "translated": "Literature"
+    "translation": "Literature"
   },
   {
     "id": "literature_english_translated",
-    "translated": "Literature - English-translated"
+    "translation": "Literature - English-translated"
   },
   {
     "id": "literature_raw",
-    "translated": "Literature - Raw"
+    "translation": "Literature - Raw"
   },
   {
     "id": "literature_non_english_translated",
-    "translated": "Literature - Non-English-translated"
+    "translation": "Literature - Non-English-translated"
   },
   {
     "id": "live_action",
-    "translated": "Live Action"
+    "translation": "Live Action"
   },
   {
     "id": "live_action_english_translated",
-    "translated": "Live Action - English-translated"
+    "translation": "Live Action - English-translated"
   },
   {
     "id": "live_action_idol_pv",
-    "translated": "Live Action - Idol/Promotional Video"
+    "translation": "Live Action - Idol/Promotional Video"
   },
   {
     "id": "live_action_non_english_translated",
-    "translated": "Live Action - Non-English-translated"
+    "translation": "Live Action - Non-English-translated"
   },
   {
     "id": "live_action_raw",
-    "translated": "Live Action - Raw"
+    "translation": "Live Action - Raw"
   },
   {
     "id": "pictures",
-    "translated": "Pictures"
+    "translation": "Pictures"
   },
   {
     "id": "pictures_graphics",
-    "translated": "Pictures - Graphics"
+    "translation": "Pictures - Graphics"
   },
   {
     "id": "pictures_photos",
-    "translated": "Pictures - Photos"
+    "translation": "Pictures - Photos"
   },
   {
     "id": "software",
-    "translated": "Software"
+    "translation": "Software"
   },
   {
     "id": "software_applications",
-    "translated": "Software - Applications"
+    "translation": "Software - Applications"
   },
   {
     "id": "software_games",
-    "translated": "Software - Games"
+    "translation": "Software - Games"
   },
   {
     "id": "torrent_description",
-    "translated": "Torrent Description"
+    "translation": "Torrent Description"
   },
   {
     "id": "limited_html_set_is_allowed_use",
-    "translated": "A limited set of HTML is allowed in the description, make sure to use"
+    "translation": "A limited set of HTML is allowed in the description, make sure to use"
   },
   {
     "id": "show_all",
-    "translated": "Show all"
+    "translation": "Show all"
   },
   {
     "id": "filter_remakes",
-    "translated": "Filter Remakes"
+    "translation": "Filter Remakes"
   },
   {
     "id": "trusted",
-    "translated": "Trusted"
+    "translation": "Trusted"
   },
   {
     "id": "id",
-    "translated": "ID"
+    "translation": "ID"
   },
   {
     "id": "downloads",
-    "translated": "Downloads"
+    "translation": "Downloads"
   },
   {
     "id": "descending",
-    "translated": "Descending"
+    "translation": "Descending"
   },
   {
     "id": "ascending",
-    "translated": "Ascending"
+    "translation": "Ascending"
   },
   {
     "id": "search",
-    "translated": "Search"
+    "translation": "Search"
   },
   {
     "id": "hash",
-    "translated": "Hash"
+    "translation": "Hash"
   },
   {
     "id": "description",
-    "translated": "Description"
+    "translation": "Description"
   },
   {
     "id": "comments",
-    "translated": "Comments"
+    "translation": "Comments"
   },
   {
     "id": "submit_a_comment_as_username",
-    "translated": "Submit a comment as %s"
+    "translation": "Submit a comment as %s"
   },
   {
     "id": "submit_a_comment_as_anonymous",
-    "translated": "Submit a comment as Anonymous"
+    "translation": "Submit a comment as Anonymous"
   },
   {
     "id": "submit",
-    "translated": "Submit"
+    "translation": "Submit"
   }
 ]
