@@ -3,11 +3,11 @@ package main
 import (
 	"bufio"
 	"flag"
-	"fmt"
 	"github.com/nicksnyder/go-i18n/i18n"
 
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
+	"github.com/ewhal/nyaa/network"
 	"github.com/ewhal/nyaa/router"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/search" // super hacky fix
@@ -27,16 +27,17 @@ func RunServer(conf *config.Config) {
 	http.Handle("/", router.Router)
 
 	// Set up server,
-	addr := fmt.Sprintf("%s:%d", conf.Host, conf.Port)
 	srv := &http.Server{
-		Addr:         addr,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
-	log.Infof("listening on %s", addr)
-
-	err := srv.ListenAndServe()
+	l, err := network.CreateHTTPListener(conf)
 	log.CheckError(err)
+	if err == nil {
+		log.Infof("listening on %s", l.Addr())
+		err := srv.Serve(l)
+		log.CheckError(err)
+	}
 }
 
 func main() {
