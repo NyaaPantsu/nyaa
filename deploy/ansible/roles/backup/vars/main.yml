@@ -2,3 +2,5 @@ backup_script: /usr/bin/nyaapantsu_backup.sh
 backup_cron_hours: 0
 backup_cron_job: /etc/cron.d/nyaapantsu_backup
 torrent_tracker: udp://tracker.doko.moe:6969
+torrent_downloaded_directory: ~/downloaded/
+torrent_watch_directory: ~/watch/
