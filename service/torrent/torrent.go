@@ -45,7 +45,7 @@ func GetFeeds() []model.Feed {
 func GetTorrentById(id string) (model.Torrents, error) {
 	var torrent model.Torrents
 
-	if db.ORM.Where("torrent_id = ?", id).Preload("Comments").Find(&torrent).RecordNotFound() {
+	if db.ORM.Where("torrent_id = ?", id).Preload("Comments").Preload("OldComments").Find(&torrent).RecordNotFound() {
 		return torrent, errors.New("Article is not found.")
 	}
 
@@ -55,11 +55,10 @@ func GetTorrentById(id string) (model.Torrents, error) {
 func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int) ([]model.Torrents, int) {
 	var torrents []model.Torrents
 	var count int
-	conditions := "torrent_hash IS NOT NULL" // filter out broken entries
+	conditions := ""
 	if strings.HasPrefix(orderBy, "filesize") {
 		// torrents w/ NULL filesize fuck up the sorting on postgres
-		// TODO: fix this properly
-		conditions += " AND filesize IS NOT NULL"
+		conditions = "filesize IS NOT NULL"
 	}
 
 	var params []interface{}
