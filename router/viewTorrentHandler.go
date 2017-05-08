@@ -38,10 +38,17 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	if !captcha.Authenticate(userCaptcha) {
 		http.Error(w, "bad captcha", 403)
 	}
+	currentUser := GetUser()
 	content := p.Sanitize(r.FormValue("comment"))
 
 	idNum, err := strconv.Atoi(id)
-	comment := model.Comment{Username: "れんちょん", Content: content, TorrentId: idNum}
+	username := "れんちょん"
+	userId := 0
+	if (currentUser.Id > 0) {
+		username = currentUser.Username
+		userId = currentUser.Id
+	}
+	comment := model.Comment{Username: username, UserId: userId, Content: content, TorrentId: idNum}
 	db.ORM.Create(&comment)
 
 	url, err := Router.Get("view_torrent").URL("id", id)
