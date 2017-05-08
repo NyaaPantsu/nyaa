@@ -6,4 +6,5 @@
 - name: Set up databases
   hosts: dbs
   roles:
+      - backup
       - postgresql
