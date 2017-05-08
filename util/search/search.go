@@ -19,7 +19,6 @@ type SearchParam struct {
 	Max      int
 	Status   string
 	Sort     string
-	UserId   string
 }
 
 func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents, int) {
@@ -38,7 +37,6 @@ func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents,
 	search_param.Status = r.URL.Query().Get("s")
 	search_param.Sort = r.URL.Query().Get("sort")
 	search_param.Order = r.URL.Query().Get("order")
-	search_param.UserId = r.URL.Query().Get("userId")
 
 	catsSplit := strings.Split(search_param.Category, "_")
 	// need this to prevent out of index panics
@@ -94,11 +92,6 @@ func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents,
 			conditions = append(conditions, "status_id = ?")
 		}
 		parameters.Params = append(parameters.Params, search_param.Status)
-	}
-	if search_param.UserId != "" {
-	
-			conditions = append(conditions, "owner_id = ?")
-		parameters.Params = append(parameters.Params, search_param.UserId)
 	}
 	searchQuerySplit := strings.Fields(search_param.Query)
 	for i, word := range searchQuerySplit {
