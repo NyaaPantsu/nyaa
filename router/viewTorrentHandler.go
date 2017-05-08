@@ -9,6 +9,7 @@ import (
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/service/torrent"
+	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/gorilla/mux"
 )
@@ -25,6 +26,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	b := torrent.ToJson()
 	htv := ViewTemplateVariables{b, captcha.Captcha{CaptchaID: captcha.GetID()}, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 
+	languages.SetTranslationFromRequest(viewTemplate, r, "en-us")
 	err = viewTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		log.Errorf("ViewHandler(): %s", err)
