@@ -47,7 +47,7 @@
 }
 
 body {
-    background-color: #264040;
+    background-color:#282A2E;
     color: #eff5f5;
     font-family: Arial, sans-serif;
     margin: 0;
@@ -66,8 +66,13 @@ body {
 
 /* Links, Text */
 a {
-	color: #13cba6;
+	color: #81a2be;
 	text-decoration : none;
+}
+.btn-success {
+    color: #fff;
+    background-color: #b294bb;
+    border-color: #b294bb;
 }
 
 .download-btn {
