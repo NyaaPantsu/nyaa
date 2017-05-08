@@ -30,7 +30,7 @@
                   <td>Links</td>
                   <td>
                       <a aria-label="Magnet Button" href="{{.Magnet}}" type="button" class="btn btn-success download-btn">
-                          <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> Download!</button>
+                          <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> Download!
                       </a>
                       <a style="padding-left: 0.5em"></a>
                       <a aria-label="Torrent file" href="http://anicache.com/torrent/{{.Hash}}.torrent" type="button" class="btn btn-success">
@@ -54,6 +54,16 @@
               </tr>
               {{end}}
           </table>
-          {{end}}
+      {{end}}
+          <form method="post">
+              <div class="form-group">
+                  <label for="comment">Submit a Comment</label>
+                  <textarea name="comment" class="form-control" rows="5"></textarea>
+              </div>
+              {{with .Captcha}}
+              {{block "captcha" .}}{{end}}
+              {{end}}
+              <input type="submit" value="Submit">
+          </form>
       </div>
 {{end}}

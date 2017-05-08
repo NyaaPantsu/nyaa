@@ -7,6 +7,7 @@ import (
 	"github.com/ewhal/nyaa/model"
 	userForms "github.com/ewhal/nyaa/service/user/form"
 	"github.com/ewhal/nyaa/service/user"
+	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/gorilla/mux"
 )
 
@@ -34,6 +35,7 @@ type NotFoundTemplateVariables struct {
 
 type ViewTemplateVariables struct {
 	Torrent    model.TorrentsJson
+	Captcha    captcha.Captcha
 	Search     SearchForm
 	Navigation Navigation
 	User       model.User
