@@ -10,6 +10,7 @@ import (
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/captcha"
+	"github.com/ewhal/nyaa/util/languages"
 	"github.com/gorilla/mux"
 )
 
@@ -46,6 +47,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	} else if r.Method == "GET" {
 		uploadForm.CaptchaID = captcha.GetID()
 		htv := UploadTemplateVariables{uploadForm, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
+		languages.SetTranslationFromRequest(uploadTemplate, r, "en-us")
 		err = uploadTemplate.ExecuteTemplate(w, "index.html", htv)
 	} else {
 		w.WriteHeader(http.StatusMethodNotAllowed)
