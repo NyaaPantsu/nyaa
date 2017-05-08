@@ -33,6 +33,7 @@ func init() {
 	gzipUserVerifyEmailHandler := handlers.CompressHandler(http.HandlerFunc(UserVerifyEmailHandler))
 	gzipUserRegisterPostHandler := handlers.CompressHandler(http.HandlerFunc(UserRegisterPostHandler))
 	gzipUserLoginPostHandler := handlers.CompressHandler(http.HandlerFunc(UserLoginPostHandler))
+	gzipUserProfileHandler := handlers.CompressHandler(http.HandlerFunc(UserProfileHandler))
 
 	Router = mux.NewRouter()
 
@@ -57,6 +58,7 @@ func init() {
 	Router.Handle("/verify/email/{token}", gzipUserVerifyEmailHandler).Name("user_verify").Methods("GET")
 	Router.Handle("/user/register", gzipUserRegisterPostHandler).Name("user_register").Methods("POST")
 	Router.Handle("/user/login", gzipUserLoginPostHandler).Name("user_login").Methods("POST")
+	Router.Handle("/user/{id}/{username}", gzipUserProfileHandler).Name("user_profile").Methods("GET")
 	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
 
 	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
