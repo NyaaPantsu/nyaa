@@ -122,5 +122,57 @@
   {
     "id":"see_more_torrents_from",
     "translation": "See more torrents from %s "
+  },
+  {
+	"id":"category",
+	"translation": "Category"
+  },
+  {
+    "id": "name",
+    "translation": "Name"
+  },
+  {
+    "id": "date",
+    "translation": "Date"
+  },
+  {
+    "id": "size",
+    "translation": "Size"
+  },
+  {
+    "id": "links",
+    "translation": "Links"
+  },
+  {
+    "id": "home",
+    "translation": "Home"
+  },
+  {
+    "id": "error_404",
+    "translation": "Error 404"
+  },
+  {
+    "id": "toggle_navigation",
+    "translation": "Toggle navigation"
+  },
+  {
+    "id": "upload",
+    "translation": "Upload"
+  },
+  {
+    "id": "faq",
+    "translation": "FAQ"
+  },
+  {
+    "id": "fap",
+    "translation": "Fap"
+  },
+  {
+    "id": "advanced_search",
+    "translation": "Advanced Search"
+  },
+  {
+    "id": "nothing_here",
+    "translation": "Nothing Here."
   }
 ]

@@ -1,4 +1,4 @@
-{{define "title"}}Home{{end}}
+{{define "title"}}{{T "home"}}{{end}}
 {{define "contclass"}}cont-home{{end}}
 {{define "content"}}
 	<div class="blockBody">
@@ -11,11 +11,11 @@
       <div class="table-responsive">
           <table class="table custom-table-hover">
           <tr>
-              <th>Category</th>
-              <th>Name</th>
-              <th>Date</th>
-              <th>Size</th>
-              <th>Links</th>
+			  <th>{{T "category"}}</th>
+			  <th>{{T "name"}}</th>
+			  <th>{{T "date"}}</th>
+			  <th>{{T "size"}}</th>
+			  <th>{{T "links"}}</th>
           </tr>
           {{ range .ListTorrents}}
           <tr class="torrent-info
