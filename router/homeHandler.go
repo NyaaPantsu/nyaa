@@ -3,6 +3,7 @@ package router
 import (
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/torrent"
+	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/gorilla/mux"
 	"html"
@@ -35,6 +36,8 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
+
+	languages.SetTranslationFromRequest(homeTemplate, r, "en-us")
 	htv := HomeTemplateVariables{b, NewSearchForm(), navigationTorrents, GetUser(r), r.URL, mux.CurrentRoute(r)}
 
 	err := homeTemplate.ExecuteTemplate(w, "index.html", htv)

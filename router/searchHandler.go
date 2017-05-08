@@ -3,6 +3,7 @@ package router
 import (
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util/search"
+	"github.com/ewhal/nyaa/util/languages"
 	"github.com/gorilla/mux"
 	"html"
 	"net/http"
@@ -39,6 +40,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	htv := HomeTemplateVariables{b, searchForm, navigationTorrents, GetUser(r), r.URL, mux.CurrentRoute(r)}
 
+	languages.SetTranslationFromRequest(searchTemplate, r, "en-us")
 	err := searchTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
