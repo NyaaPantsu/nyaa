@@ -6,8 +6,8 @@ import (
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util"
-	"github.com/jinzhu/gorm"
 	"strings"
+	"strconv"
 )
 
 type WhereParams struct {
@@ -54,7 +54,6 @@ func GetTorrentById(id string) (model.Torrents, error) {
 
 func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int) ([]model.Torrents, int) {
 	var torrents []model.Torrents
-	var dbQuery *gorm.DB
 	var count int
 	conditions := "torrent_hash IS NOT NULL" // filter out broken entries
 	if strings.HasPrefix(orderBy, "filesize") {
@@ -69,15 +68,22 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 		params = parameters.Params
 	}
 	db.ORM.Model(&torrents).Where(conditions, params...).Count(&count)
-	dbQuery = db.ORM.Model(&torrents).Where(conditions, params...)
+	dbQuery := "SELECT * FROM torrents"
+	if conditions != "" {
+		dbQuery = dbQuery + " WHERE " + conditions
+	}
+	if strings.Contains(conditions, "torrent_name") {
+		dbQuery = "WITH t AS (SELECT * FROM torrents WHERE " + conditions + ") SELECT * FROM t"
+	}
 
 	if orderBy == "" { // default OrderBy
 		orderBy = "torrent_id DESC"
 	}
+	dbQuery = dbQuery + " ORDER BY " + orderBy
 	if limit != 0 || offset != 0 { // if limits provided
-		dbQuery = dbQuery.Limit(limit).Offset(offset)
+		dbQuery = dbQuery + " LIMIT " + strconv.Itoa(limit) + " OFFSET " + strconv.Itoa(offset)
 	}
-	dbQuery.Order(orderBy).Find(&torrents)
+	db.ORM.Raw(dbQuery, params...).Find(&torrents)
 	return torrents, count
 }
 
