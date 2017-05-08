@@ -192,6 +192,7 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 :target {
     background-color: #e5eecc;
 }
+
 #mainmenu button .search_text {
 	display: none;
 }
@@ -205,10 +206,6 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
     top: -5px;
     float: left;
     left: -5px;
-}
-
-#mainmenu .navbar-header, #mainmenu .navbar-nav, #mainmenu .navbar-form {
-	padding-top: 10px;
 }
 
 #mainmenu .badgemenu {
