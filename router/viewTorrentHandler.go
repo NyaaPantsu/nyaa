@@ -10,10 +10,7 @@ import (
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/gorilla/mux"
-    "github.com/microcosm-cc/bluemonday"
 )
-
-var p = bluemonday.UGCPolicy()
 
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
