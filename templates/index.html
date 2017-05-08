@@ -44,9 +44,9 @@
                   <ul class="nav navbar-nav">
                       <li><a href="{{.URL.Parse "/upload"}}">Upload</a/></li>
                       <li><a href="{{.URL.Parse "/faq"}}">FAQ</a></li>
-                      <li><a href="irc://irc.rizon.net/nyaapantsu">IRC</a></li>
                       <li><a href="{{ genRouteWithQuery "feed" .URL }}">RSS</a></li>
                       <li><a href="https://sukebei.pantsu.cat">Fap</a></li>
+                      {{block "badge_user" .}}{{end}}
 
                   </ul>
                   <form class="navbar-form navbar-right" role="search" action="/search" method="get">
@@ -55,7 +55,6 @@
                         {{block "search_button" .}}{{end}}
                       </div>
                   </form>
-                  {{block "badge_user" .}}{{end}}
                   <div class="nightswitch">
                       <a href="javascript:toggleNightMode();" ><img id="nighticon" src="/img/moon.png"></a>
                   </div>
