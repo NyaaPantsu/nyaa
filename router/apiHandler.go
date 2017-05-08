@@ -100,7 +100,7 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 		Sub_Category: sub_category,
 		Status:       1,
 		Hash:         b.Hash,
-		Date:         time.Now().Unix(),
+		Date:         time.Now(),
 		Filesize:     0,
 		Description:  string(b.Description)}
 	db.ORM.Create(&torrent)

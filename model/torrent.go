@@ -4,7 +4,7 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/util"
 
-	"encoding/json"
+//	"encoding/json"
 	"html"
 	"html/template"
 	"strconv"
@@ -21,18 +21,23 @@ type Feed struct {
 }
 
 type Torrents struct {
-	Id           int       `gorm:"column:torrent_id;primary_key"`
-	Name         string    `gorm:"column:torrent_name"`
-	Category     int       `gorm:"column:category_id"`
-	Sub_Category int       `gorm:"column:sub_category_id"`
-	Status       int       `gorm:"column:status_id"`
-	Hash         string    `gorm:"column:torrent_hash"`
-	Date         int64     `gorm:"column:date"`
-	Downloads    int       `gorm:"column:downloads"`
-	Filesize     int64     `gorm:"column:filesize"`
-	Description  string    `gorm:"column:description"`
-	OldComments  []byte    `gorm:"column:comments"`
-	Comments     []Comment `gorm:"ForeignKey:TorrentId"`
+	Id           uint         `gorm:"column:torrent_id;primary_key"`
+	Name         string       `gorm:"column:torrent_name"`
+	Hash         string       `gorm:"column:torrent_hash"`
+	Category     int          `gorm:"column:category"`
+	Sub_Category int          `gorm:"column:sub_category"`
+	Status       int          `gorm:"column:status"`
+	Date         time.Time    `gorm:"column:date"`
+	UploaderId   uint         `gorm:"column:uploader"`
+	Downloads    int          `gorm:"column:downloads"`
+	Stardom      int          `gorm:"column:stardom"`
+	Filesize     int64        `gorm:"column:filesize"`
+	Description  string       `gorm:"column:description"`
+	WebsiteLink  string       `gorm:"column:website_link"`
+
+	Uploader     *User        `gorm:"ForeignKey:UploaderId"`
+	OldComments  []OldComment `gorm:"ForeignKey:Id"`
+	Comments     []Comment    `gorm:"ForeignKey:Id"`
 }
 
 /* We need JSON Object instead because of Magnet URL that is not in the database but generated dynamically
@@ -80,9 +85,9 @@ type TorrentsJson struct {
 
 func (t *Torrents) ToJson() TorrentsJson {
 	magnet := util.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, config.Trackers...)
-	offset := 0
+	//offset := 0
 	var commentsJson []CommentsJson
-	if len(t.OldComments) != 0 {
+	/*if len(t.OldComments) != 0 {
 		b := []OldCommentsJson{}
 		err := json.Unmarshal([]byte(t.OldComments), &b)
 		if err == nil {
@@ -100,13 +105,13 @@ func (t *Torrents) ToJson() TorrentsJson {
 	}
 	for i, comment := range t.Comments {
 		commentsJson[i+offset] = CommentsJson{Content: template.HTML(comment.Content), Username: comment.Username}
-	}
+	}*/
 	res := TorrentsJson{
-		Id:           strconv.Itoa(t.Id),
+		Id:           strconv.FormatUint(uint64(t.Id), 10),
 		Name:         html.UnescapeString(t.Name),
 		Status:       t.Status,
 		Hash:         t.Hash,
-		Date:         time.Unix(t.Date, 0).Format(time.RFC3339),
+		Date:         t.Date.Format(time.RFC3339),
 		Filesize:     util.FormatFilesize2(t.Filesize),
 		Description:  template.HTML(t.Description),
 		Comments:     commentsJson,

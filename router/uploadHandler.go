@@ -33,12 +33,12 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 				Sub_Category: uploadForm.SubCategoryId,
 				Status:       1,
 				Hash:         uploadForm.Infohash,
-				Date:         time.Now().Unix(),
+				Date:         time.Now(),
 				Filesize:     uploadForm.Filesize, // FIXME: should set to NULL instead of 0
 				Description:  uploadForm.Description}
 			db.ORM.Create(&torrent)
 			fmt.Printf("%+v\n", torrent)
-			url, err := Router.Get("view_torrent").URL("id", strconv.Itoa(torrent.Id))
+			url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.Id), 10))
 			if err == nil {
 				http.Redirect(w, r, url.String(), 302)
 			}
