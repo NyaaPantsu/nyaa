@@ -7,7 +7,7 @@
               {{ genNav .Navigation .URL 10 }}
           </ul>
       </nav>
-{{ if gt (len .ListTorrents) 0 }}
+
       <div class="table-responsive">
           <table class="table custom-table-hover">
           <tr>
@@ -52,8 +52,5 @@
           </ul>
       </nav>
     </div>
-    {{else}}
-    <h2 style="text-align: center;">No Results found</h2>
-    {{end}}
 </div>
 {{end}}
