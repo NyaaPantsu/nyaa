@@ -121,11 +121,11 @@
   },
   {
     "id":"see_more_torrents_from",
-    "translation": "See more torrents from %s "
+      "translation": "See more torrents from %s "
   },
   {
-	"id":"category",
-	"translation": "Category"
+    "id":"category",
+    "translation": "Category"
   },
   {
     "id": "name",
