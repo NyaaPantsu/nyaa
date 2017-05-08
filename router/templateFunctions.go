@@ -7,7 +7,6 @@ import (
 	"net/url"
 	"strconv"
 	"github.com/nicksnyder/go-i18n/i18n"
-	"github.com/ewhal/nyaa/service/user/permission"
 	)
 
 var FuncMap = template.FuncMap{
@@ -60,9 +59,4 @@ var FuncMap = template.FuncMap{
 		return template.HTML(ret)
 	},
 	"T": i18n.IdentityTfunc,
-	"getAvatar": func (hash string, size int) string {
-		return "https://www.gravatar.com/avatar/"+hash+"?s="+strconv.Itoa(size)
-	},
-	"CurrentOrAdmin": userPermission.CurrentOrAdmin,
-	"CurrentUserIdentical": userPermission.CurrentUserIdentical,
 }

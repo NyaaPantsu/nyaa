@@ -11,10 +11,10 @@ type omit bool
 type User struct {
 	Id uint `json:"id"`
 
-	Email           string    `json:"email" sql:"size:255;unique"`
-	Password        string    `json:"password" sql:"size:255"`
-	Username        string    `json:"username" sql:"size:255;unique"`
-	Description     string    `json:"description" sql:"size:100"`
+	Email           string    `json:"email",sql:"size:255;unique"`
+	Password        string    `json:"password",sql:"size:255"`
+	Username        string    `json:"username",sql:"size:255;unique"`
+	Description     string    `json:"description",sql:"size:100"`
 	Token           string    `json:"token"`
 	TokenExpiration time.Time `json:"tokenExperiation"`
 
@@ -33,8 +33,8 @@ type User struct {
 	DeletedAt          *time.Time `json:"deletedAt"`
 	LastLoginAt        time.Time  `json:"lastLoginAt"`
 	CurrentLoginAt     time.Time  `json:"currentLoginAt"`
-	LastLoginIp        string     `json:"lastLoginIp" sql:"size:100"`
-	CurrentLoginIp     string     `json:"currentLoginIp" sql:"size:100"`
+	LastLoginIp        string     `json:"lastLoginIp",sql:"size:100"`
+	CurrentLoginIp     string     `json:"currentLoginIp",sql:"size:100"`
 
 	// Liking
 	LikingCount int    `json:"likingCount"`
@@ -46,7 +46,7 @@ type User struct {
   
 	Languages   string 
 	Roles       []Role     `gorm:"many2many:users_roles;"`    // Many To Many, users_roles
-	Torrents    []Torrents `gorm:"ForeignKey:owner_id"`
+	Torrents    []Torrents
 }
 
 // UsersFollowers is a relation table to relate users each other.
@@ -58,8 +58,8 @@ type UsersFollowers struct {
 // PublicUser is a public user model that contains only a few information for everyone.
 type PublicUser struct {
 	*User
-	Email           omit `json:"email,omitempty" sql:"size:255;unique"`
-	Password        omit `json:"password,omitempty" sql:"size:255"`
+	Email           omit `json:"email,omitempty",sql:"size:255;unique"`
+	Password        omit `json:"password,omitempty",sql:"size:255"`
 	Token           omit `json:"token,omitempty"`
 	TokenExpiration omit `json:"tokenExperiation,omitempty"`
 
@@ -74,8 +74,8 @@ type PublicUser struct {
 	DeletedAt          omit `json:"deletedAt,omitempty"`
 	LastLoginAt        omit `json:"lastLoginAt,omitempty"`
 	CurrentLoginAt     omit `json:"currentLoginAt,omitempty"`
-	LastLoginIp        omit `json:"lastLoginIp,omitempty" sql:"size:100"`
-	CurrentLoginIp     omit `json:"currentLoginIp,omitempty" sql:"size:100"`
+	LastLoginIp        omit `json:"lastLoginIp,omitempty",sql:"size:100"`
+	CurrentLoginIp     omit `json:"currentLoginIp,omitempty",sql:"size:100"`
 
 	//Connections omit `json:"connections,omitempty"`
 	Languages   omit `json:"languages,omitempty"`

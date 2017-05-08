@@ -31,7 +31,6 @@ type Torrents struct {
 	Downloads    int       `gorm:"column:downloads"`
 	Filesize     int64     `gorm:"column:filesize"`
 	Description  string    `gorm:"column:description"`
-	OwnerId       int       `gorm:"column:owner_id"`
 	OldComments  []byte    `gorm:"column:comments"`
 	Comments     []Comment `gorm:"ForeignKey:TorrentId"`
 }

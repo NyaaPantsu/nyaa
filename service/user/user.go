@@ -307,7 +307,7 @@ func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	if db.ORM.First(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("User is not found.")
 	}
-	db.ORM.Model(&user).Related("Torrents").Find(&model.Torrents{})
+	db.ORM.Model(&user).Association("Languages").Find(&user.Languages)
 	db.ORM.Model(&user).Association("Roles").Find(&user.Roles)
 	return user, http.StatusOK, nil
 }
@@ -318,7 +318,7 @@ func RetrieveUsersForAdmin() []model.User {
 	var userArr []model.User
 	db.ORM.Find(&users)
 	for _, user := range users {
-		db.ORM.Model(&user).Related("Torrents").Find(&model.Torrents{})
+		db.ORM.Model(&user).Association("Languages").Find(&user.Languages)
 		db.ORM.Model(&user).Association("Roles").Find(&user.Roles)
 		userArr = append(userArr, user)
 	}
