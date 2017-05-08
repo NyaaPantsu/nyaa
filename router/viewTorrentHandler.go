@@ -10,7 +10,10 @@ import (
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/gorilla/mux"
+    "github.com/microcosm-cc/bluemonday"
 )
+
+var p = bluemonday.UGCPolicy()
 
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -38,7 +41,7 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	if !captcha.Authenticate(userCaptcha) {
 		http.Error(w, "bad captcha", 403)
 	}
-	content := r.FormValue("comment")
+	content := p.Sanitize(r.FormValue("comment"))
 
 	idNum, err := strconv.Atoi(id)
 	comment := model.Comment{Username: "れんちょん", Content: content, TorrentId: idNum}
