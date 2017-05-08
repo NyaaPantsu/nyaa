@@ -1,10 +1,5 @@
-/* Night mode switcher */
-.nightswitch {
-	position: fixed;
-	top: 12px;
-	right: 12px;
-}
-.nightswitch > a > img {
+/* Night mode switcher  */
+.nightswitch > img {
     width: 24px;
 }
 
