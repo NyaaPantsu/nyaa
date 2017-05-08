@@ -188,27 +188,25 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
     border-radius: 0px;
 }
 
-
 :target {
     background-color: #585b4f;
 }
 
-#mainmenu .badgemenu .profile-image {
-	line-height: 35px;
+#mainmenu button .search_text {
+	display: none;
 }
-
-#mainmenu .navbar-header, #mainmenu .navbar-nav, #mainmenu .navbar-form {
-	padding-top: 10px;
+#mainmenu .navbar-form select.form-control
+{
+	width: 12rem;
+}
+.special-img 
+{
+    position: relative;
+    top: -5px;
+    float: left;
+    left: -5px;
 }
 
 #mainmenu .badgemenu {
 	padding-top: 0;
-}
-
-#mainmenu button .search_text {
-    display: none;
-}
-
-#mainmenu .navbar-form select.form-control {
-    width: 12rem;
 }

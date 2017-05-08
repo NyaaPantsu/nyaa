@@ -3,8 +3,7 @@
 	<ul class="nav navbar-nav navbar-right badgemenu">
 		<li class="dropdown">
 			{{if gt .Id 0}}
-		    <a href="{{ genRoute "user_profile" "id" (print .Id) "username" .Username }}" class="dropdown-toggle profile-image" data-toggle="dropdown">
-		    <img src="{{ getAvatar .Md5 50 }}" class="img-circle special-img"> {{ .Username }} <b class="caret"></b></a>
+		    <a href="{{ genRoute "user_profile" "id" (print .Id) "username" .Username }}" class="dropdown-toggle" data-toggle="dropdown">{{ .Username }} <b class="caret"></b></a>
 		    <ul class="dropdown-menu">
 		        <li><a href="{{ genRoute "user_profile" "id" (print .Id) "username" .Username }}"><i class="fa fa-cog"></i> Profile</a></li>
 		        <li class="divider"></li>

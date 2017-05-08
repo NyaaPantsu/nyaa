@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
+	"time"
 
 	"golang.org/x/crypto/bcrypt"
 
@@ -43,20 +44,24 @@ func SuggestUsername(username string) string {
 	}
 	return usernameCandidate
 }
+
 func CheckEmail(email string) bool {
+	if len(email) == 0 {
+		return true
+	}
 	var count int
-	db.ORM.Model(model.User{}).Where(&model.User{Email: email}).Count(&count)
+	db.ORM.Model(model.User{}).Where("email = ?", email).Count(&count)
 	if count == 0 {
-		return false
+		return false // duplicate
 	}
 	return true
 }
+
 // CreateUserFromForm creates a user from a registration form.
 func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.User, error) {
 	var user model.User
 	log.Debugf("registrationForm %+v\n", registrationForm)
 	modelHelper.AssignValue(&user, &registrationForm)
-	user.Md5 = crypto.GenerateMD5Hash(user.Email)  // Gravatar
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
 		return user, errors.New("Token not generated.")
@@ -106,8 +111,8 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 	var isAuthor bool
 	// var publicUser *model.PublicUser
 	// publicUser.User = &user
-	if db.ORM.Select(config.UserPublicFields).First(&user, id).RecordNotFound() {
-		return &model.PublicUser{User: &user}, isAuthor, currentUserId, http.StatusNotFound, errors.New("User is not found.")
+	if db.ORM.First(&user, id).RecordNotFound() {
+		return nil, isAuthor, currentUserId, http.StatusNotFound, errors.New("User is not found.")
 	}
 	currentUser, err := CurrentUser(r)
 	if err == nil {
@@ -115,30 +120,6 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 		isAuthor = currentUser.Id == user.Id
 	}
 
-	var likings []model.User
-	var likingCount int
-	db.ORM.Table("users_followers").Where("users_followers.user_id=?", user.Id).Count(&likingCount)
-	if err = db.ORM.Order("created_at desc").Select(config.UserPublicFields).
-		Joins("JOIN users_followers on users_followers.user_id=?", user.Id).
-		Where("users.id = users_followers.follower_id").
-		Group("users.id").Find(&likings).Error; err != nil {
-		log.Fatal(err.Error())
-	}
-	user.Likings = likings
-
-	var liked []model.User
-	var likedCount int
-	db.ORM.Table("users_followers").Where("users_followers.follower_id=?", user.Id).Count(&likedCount)
-	if err = db.ORM.Order("created_at desc").Select(config.UserPublicFields).
-		Joins("JOIN users_followers on users_followers.follower_id=?", user.Id).
-		Where("users.id = users_followers.user_id").
-		Group("users.id").Find(&liked).Error; err != nil {
-		log.Fatal(err.Error())
-	}
-	user.Liked = liked
-
-	log.Debugf("user liking %v\n", user.Likings)
-	log.Debugf("user liked %v\n", user.Liked)
 	return &model.PublicUser{User: &user}, isAuthor, currentUserId, http.StatusOK, nil
 }
 
@@ -146,7 +127,7 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 func RetrieveUsers() []*model.PublicUser {
 	var users []*model.User
 	var userArr []*model.PublicUser
-	db.ORM.Select(config.UserPublicFields).Find(&users)
+	db.ORM.Find(&users)
 	for _, user := range users {
 		userArr = append(userArr, &model.PublicUser{User: user})
 	}
@@ -155,7 +136,6 @@ func RetrieveUsers() []*model.PublicUser {
 
 // UpdateUserCore updates a user. (Applying the modifed data of user).
 func UpdateUserCore(user *model.User) (int, error) {
-	user.Md5 = crypto.GenerateMD5Hash(user.Email)
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
 		return http.StatusInternalServerError, errors.New("Token not generated.")
@@ -165,6 +145,7 @@ func UpdateUserCore(user *model.User) (int, error) {
 	if db.ORM.Save(user).Error != nil {
 		return http.StatusInternalServerError, errors.New("User is not updated.")
 	}
+	user.UpdatedAt = time.Now()
 	return http.StatusOK, nil
 }
 
@@ -220,49 +201,6 @@ func DeleteUser(w http.ResponseWriter, id string) (int, error) {
 	return status, err
 }
 
-// AddRoleToUser adds a role to a user.
-func AddRoleToUser(r *http.Request) (int, error) {
-	var form formStruct.UserRoleForm
-	var user model.User
-	var role model.Role
-	var roles []model.Role
-	modelHelper.BindValueForm(&form, r)
-
-	if db.ORM.First(&user, form.UserId).RecordNotFound() {
-		return http.StatusNotFound, errors.New("User is not found.")
-	}
-	if db.ORM.First(&role, form.RoleId).RecordNotFound() {
-		return http.StatusNotFound, errors.New("Role is not found.")
-	}
-	log.Debugf("user email : %s", user.Email)
-	log.Debugf("Role name : %s", role.Name)
-	db.ORM.Model(&user).Association("Roles").Append(role)
-	db.ORM.Model(&user).Association("Roles").Find(&roles)
-	if db.ORM.Save(&user).Error != nil {
-		return http.StatusInternalServerError, errors.New("Role not appended to user.")
-	}
-	return http.StatusOK, nil
-}
-
-// RemoveRoleFromUser removes a role from a user.
-func RemoveRoleFromUser(w http.ResponseWriter, r *http.Request, userId string, roleId string) (int, error) {
-	var user model.User
-	var role model.Role
-	if db.ORM.First(&user, userId).RecordNotFound() {
-		return http.StatusNotFound, errors.New("User is not found.")
-	}
-	if db.ORM.First(&role, roleId).RecordNotFound() {
-		return http.StatusNotFound, errors.New("Role is not found.")
-	}
-
-	log.Debugf("user : %v\n", user)
-	log.Debugf("role : %v\n", role)
-	if db.ORM.Model(&user).Association("Roles").Delete(role).Error != nil {
-		return http.StatusInternalServerError, errors.New("Role is not deleted from user.")
-	}
-	return http.StatusOK, nil
-}
-
 // RetrieveCurrentUser retrieves a current user.
 func RetrieveCurrentUser(r *http.Request) (model.User, int, error) {
 	user, err := CurrentUser(r)
@@ -275,7 +213,7 @@ func RetrieveCurrentUser(r *http.Request) (model.User, int, error) {
 // RetrieveUserByEmail retrieves a user by an email
 func RetrieveUserByEmail(email string) (*model.PublicUser, string, int, error) {
 	var user model.User
-	if db.ORM.Unscoped().Select(config.UserPublicFields).Where("email like ?", "%"+email+"%").First(&user).RecordNotFound() {
+	if db.ORM.Unscoped().Where("email = ?", email).First(&user).RecordNotFound() {
 		return &model.PublicUser{User: &user}, email, http.StatusNotFound, errors.New("User is not found.")
 	}
 	return &model.PublicUser{User: &user}, email, http.StatusOK, nil
@@ -285,7 +223,7 @@ func RetrieveUserByEmail(email string) (*model.PublicUser, string, int, error) {
 func RetrieveUsersByEmail(email string) []*model.PublicUser {
 	var users []*model.User
 	var userArr []*model.PublicUser
-	db.ORM.Select(config.UserPublicFields).Where("email like ?", "%"+email+"%").Find(&users)
+	db.ORM.Where("email = ?", email).Find(&users)
 	for _, user := range users {
 		userArr = append(userArr, &model.PublicUser{User: user})
 	}
@@ -295,7 +233,7 @@ func RetrieveUsersByEmail(email string) []*model.PublicUser {
 // RetrieveUserByUsername retrieves a user by username.
 func RetrieveUserByUsername(username string) (*model.PublicUser, string, int, error) {
 	var user model.User
-	if db.ORM.Unscoped().Select(config.UserPublicFields).Where("username like ?", "%"+username+"%").First(&user).RecordNotFound() {
+	if db.ORM.Where("username = ?", username).First(&user).RecordNotFound() {
 		return &model.PublicUser{User: &user}, username, http.StatusNotFound, errors.New("User is not found.")
 	}
 	return &model.PublicUser{User: &user}, username, http.StatusOK, nil
@@ -307,8 +245,7 @@ func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	if db.ORM.First(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("User is not found.")
 	}
-	db.ORM.Model(&user).Related("Torrents").Find(&model.Torrents{})
-	db.ORM.Model(&user).Association("Roles").Find(&user.Roles)
+	db.ORM.Model(&user)
 	return user, http.StatusOK, nil
 }
 
@@ -318,26 +255,10 @@ func RetrieveUsersForAdmin() []model.User {
 	var userArr []model.User
 	db.ORM.Find(&users)
 	for _, user := range users {
-		db.ORM.Model(&user).Related("Torrents").Find(&model.Torrents{})
-		db.ORM.Model(&user).Association("Roles").Find(&user.Roles)
+		db.ORM.Model(&user)
 		userArr = append(userArr, user)
 	}
 	return userArr
-}
-
-// ActivateUser toggle activation of a user.
-func ActivateUser(r *http.Request, id string) (model.User, int, error) {
-	var user model.User
-	var form formStruct.ActivateForm
-	modelHelper.BindValueForm(&form, r)
-	if db.ORM.First(&user, id).RecordNotFound() {
-		return user, http.StatusNotFound, errors.New("User is not found.")
-	}
-	user.Activation = form.Activation
-	if db.ORM.Save(&user).Error != nil {
-		return user, http.StatusInternalServerError, errors.New("User not activated.")
-	}
-	return user, http.StatusOK, nil
 }
 
 // CreateUserAuthentication creates user authentication.
