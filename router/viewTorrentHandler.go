@@ -3,6 +3,7 @@ package router
 import (
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
@@ -43,14 +44,13 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	content := p.Sanitize(r.FormValue("comment"))
 
-	idNum, err := strconv.Atoi(id)
-	username := "れんちょん"
-	userId := 0
+	idNum_, err := strconv.Atoi(id)
+	var idNum uint = uint(idNum_)
+	var userId uint = 0
 	if (currentUser.Id > 0) {
-		username = currentUser.Username
-		userId = int(currentUser.Id)
+		userId = currentUser.Id
 	}
-	comment := model.Comment{Username: username, UserId: userId, Content: content, TorrentId: idNum}
+	comment := model.Comment{TorrentId: idNum, UserId: userId, Content: content, CreatedAt: time.Now()}
 	db.ORM.Create(&comment)
 
 	url, err := Router.Get("view_torrent").URL("id", id)

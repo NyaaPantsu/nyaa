@@ -46,14 +46,14 @@ func IsAgreed(t_and_c string) bool {
 // RegistrationForm is used when creating a user.
 type RegistrationForm struct {
 	Username  string `form:"username" needed:"true" len_min:"3" len_max:"20"`
-	Email     string `form:"email" needed:"true"`
+	Email     string `form:"email"`
 	Password  string `form:"password" needed:"true" len_min:"6" len_max:"25" equalInput:"Confirm_Password"`
 	Confirm_Password string `form:"password_confirmation" omit:"true" needed:"true"`
 	CaptchaID string `form:"captchaID" omit:"true" needed:"true"`
 	T_and_C   bool   `form:"t_and_c" omit:"true" needed:"true" equal:"true" hum_name:"Terms and Conditions"`
 }
 
-// RegistrationForm is used when creating a user authentication.
+// LoginForm is used when a user logs in.
 type LoginForm struct {
 	Username    string `form:"username" needed="true"`
 	Password string `form:"password" needed="true"`
@@ -79,20 +79,4 @@ type SendPasswordResetForm struct {
 type PasswordResetForm struct {
 	PasswordResetToken string `form:"token"`
 	Password           string `form:"newPassword"`
-}
-
-// VerifyEmailForm is used when verifying an email.
-type VerifyEmailForm struct {
-	ActivationToken string `form:"token"`
-}
-
-// ActivateForm is used when activating user.
-type ActivateForm struct {
-	Activation bool `form:"activation"`
-}
-
-// UserRoleForm is used when adding or removing a role from a user.
-type UserRoleForm struct {
-	UserId int `form:"userId"`
-	RoleId int `form:"roleId"`
 }
