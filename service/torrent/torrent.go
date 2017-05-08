@@ -45,8 +45,15 @@ func GetFeeds() []model.Feed {
 func GetTorrentById(id string) (model.Torrents, error) {
 	var torrent model.Torrents
 
-	if db.ORM.Where("torrent_id = ?", id).Preload("Comments").Find(&torrent).RecordNotFound() {
+	if db.ORM.Where("torrent_id = ?", id).
+		Preload("Comments").Preload("OldComments").
+		Find(&torrent).RecordNotFound() {
 		return torrent, errors.New("Article is not found.")
+	}
+	// .Preload("Comments.User") doesn't work
+	for i := range torrent.Comments {
+		torrent.Comments[i].User = new(model.User)
+		db.ORM.Where("user_id = ?", torrent.Comments[i].UserId).Find(torrent.Comments[i].User)
 	}
 
 	return torrent, nil
@@ -55,21 +62,22 @@ func GetTorrentById(id string) (model.Torrents, error) {
 func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int) ([]model.Torrents, int) {
 	var torrents []model.Torrents
 	var count int
-	conditions := "torrent_hash IS NOT NULL" // filter out broken entries
+	var conditionArray []string
 	if strings.HasPrefix(orderBy, "filesize") {
 		// torrents w/ NULL filesize fuck up the sorting on postgres
-		// TODO: fix this properly
-		conditions += " AND filesize IS NOT NULL"
+		conditionArray = append(conditionArray, "filesize IS NOT NULL")
 	}
-
 	var params []interface{}
 	if parameters != nil { // if there is where parameters
 		if len(parameters.Conditions) > 0 {
-			conditions += " AND " + parameters.Conditions
+			conditionArray = append(conditionArray, parameters.Conditions)
 		}
 		params = parameters.Params
 	}
+	conditions := strings.Join(conditionArray, " AND ")
 	db.ORM.Model(&torrents).Where(conditions, params...).Count(&count)
+
+	// build custom db query for performance reasons
 	dbQuery := "SELECT * FROM torrents"
 	if conditions != "" {
 		dbQuery = dbQuery + " WHERE " + conditions
