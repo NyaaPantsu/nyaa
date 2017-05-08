@@ -8,26 +8,26 @@
               <tr {{if eq .Status 2}}class="remake"{{end}}
                   {{if eq .Status 3}}class="trusted"{{end}}
                   {{if eq .Status 4}}class="aplus"{{end}}>
-                  <td>Name</td>
+                  <td>{{T "name"}}</td>
                   <td>
                       {{.Name}}
                       <img style="float:right" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .Sub_Category) }}">
                   </td>
               </tr>
               <tr>
-                  <td>Hash</td>
+                  <td>{{T "hash"}}</td>
                   <td class="torrent-hash">{{.Hash}}</td>
               </tr>
               <tr>
-                  <td>Date</td>
+                  <td>{{T "date"}}</td>
                   <td class="date-full">{{.Date}}</td>
               </tr>
               <tr>
-                  <td>Size</td>
+                  <td>{{T "size"}}</td>
                   <td>{{.Filesize}}</td>
               </tr>
               <tr>
-                  <td>Links</td>
+                  <td>{{T "links"}}</td>
                   <td>
                       <a aria-label="Magnet Button" href="{{.Magnet}}" type="button" class="btn btn-success download-btn">
                           <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> Download!
@@ -39,12 +39,12 @@
                   </td>
               </tr>
               <tr>
-                  <td>Description</td>
+                  <td>{{T "description"}}</td>
                   <td>{{.Description}}</td>
               </tr>
               <tr style="height:2em"> <td></td><td></td> </tr>
               <tr>
-                  <td>Comments</td>
+                  <td>{{T "comments"}}</td>
                   <td></td>
               </tr>
               {{ range $index, $element := .Comments }}
@@ -60,13 +60,14 @@
       {{end}}
           <form method="post">
               <div class="form-group">
-                  <label for="comment">Submit a Comment as {{ if gt .User.Id 0}} {{.User.Username}} {{else}} Anonymous {{end}}</label>
+                  {{/* There should be a better way to use translation on this... */}}
+                  <label for="comment">{{ if gt .User.Id 0}} {{T "submit_a_comment_as_username" .User.Username}} {{else}} {{T "submit_a_comment_as_anonymous"}} {{end}}</label>
                   <textarea name="comment" class="form-control" rows="5"></textarea>
               </div>
               {{with .Captcha}}
               {{block "captcha" .}}{{end}}
               {{end}}
-              <input type="submit" value="Submit">
+              <input type="submit" value="{{T "submit"}}">
           </form>
       </div>
 {{end}}

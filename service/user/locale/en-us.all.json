@@ -332,6 +332,14 @@
     "translation": "Magnet Link"
   },
   {
+    "id": "all_categories",
+    "translation": "All categories"
+  },
+  {
+    "id": "anime",
+    "translation": "Anime"
+  },
+  {
     "id": "anime_amv",
     "translation": "Anime - Anime Music Video"
   },
@@ -348,12 +356,20 @@
     "translated": "Anime - Raw"
   },
   {
+    "id": "audio",
+    "translated": "Audio"
+  },
+  {
     "id": "audio_lossless",
     "translated": "Audio - Lossless"
   },
   {
     "id": "audio_lossy",
     "translated": "Audio - Lossy"
+  },
+  {
+    "id": "literature",
+    "translated": "Literature"
   },
   {
     "id": "literature_english_translated",
@@ -366,6 +382,10 @@
   {
     "id": "literature_non_english_translated",
     "translated": "Literature - Non-English-translated"
+  },
+  {
+    "id": "live_action",
+    "translated": "Live Action"
   },
   {
     "id": "live_action_english_translated",
@@ -384,12 +404,20 @@
     "translated": "Live Action - Raw"
   },
   {
+    "id": "pictures",
+    "translated": "Pictures"
+  },
+  {
     "id": "pictures_graphics",
     "translated": "Pictures - Graphics"
   },
   {
     "id": "pictures_photos",
     "translated": "Pictures - Photos"
+  },
+  {
+    "id": "software",
+    "translated": "Software"
   },
   {
     "id": "software_applications",
@@ -406,5 +434,61 @@
   {
     "id": "limited_html_set_is_allowed_use",
     "translated": "A limited set of HTML is allowed in the description, make sure to use"
+  },
+  {
+    "id": "show_all",
+    "translated": "Show all"
+  },
+  {
+    "id": "filter_remakes",
+    "translated": "Filter Remakes"
+  },
+  {
+    "id": "trusted",
+    "translated": "Trusted"
+  },
+  {
+    "id": "id",
+    "translated": "ID"
+  },
+  {
+    "id": "downloads",
+    "translated": "Downloads"
+  },
+  {
+    "id": "descending",
+    "translated": "Descending"
+  },
+  {
+    "id": "ascending",
+    "translated": "Ascending"
+  },
+  {
+    "id": "search",
+    "translated": "Search"
+  },
+  {
+    "id": "hash",
+    "translated": "Hash"
+  },
+  {
+    "id": "description",
+    "translated": "Description"
+  },
+  {
+    "id": "comments",
+    "translated": "Comments"
+  },
+  {
+    "id": "submit_a_comment_as_username",
+    "translated": "Submit a comment as %s"
+  },
+  {
+    "id": "submit_a_comment_as_anonymous",
+    "translated": "Submit a comment as Anonymous"
+  },
+  {
+    "id": "submit",
+    "translated": "Submit"
   }
 ]
