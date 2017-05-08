@@ -188,11 +188,33 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 .navbar {
     border-radius: 0px;
 }
-.navbar-nav>li>a.profile-image {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
 
 :target {
     background-color: #e5eecc;
+}
+#mainmenu button .search_text {
+	display: none;
+}
+#mainmenu .navbar-form select.form-control
+{
+	width: 12rem;
+}
+.special-img 
+{
+    position: relative;
+    top: -5px;
+    float: left;
+    left: -5px;
+}
+
+#mainmenu .badgemenu .profile-image {
+	line-height: 35px;
+}
+
+#mainmenu .navbar-header, #mainmenu .navbar-nav, #mainmenu .navbar-form {
+	padding-top: 10px;
+}
+
+#mainmenu .badgemenu {
+	padding-top: 0;
 }
