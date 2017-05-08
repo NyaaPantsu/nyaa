@@ -6,8 +6,8 @@ import (
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util"
-	"strings"
 	"strconv"
+	"strings"
 )
 
 type WhereParams struct {
@@ -64,7 +64,9 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 
 	var params []interface{}
 	if parameters != nil { // if there is where parameters
-		conditions += " AND " + parameters.Conditions
+		if len(parameters.Conditions) > 0 {
+			conditions += " AND " + parameters.Conditions
+		}
 		params = parameters.Params
 	}
 	db.ORM.Model(&torrents).Where(conditions, params...).Count(&count)
