@@ -35,9 +35,9 @@ type Torrents struct {
 	Description  string       `gorm:"column:description"`
 	WebsiteLink  string       `gorm:"column:website_link"`
 
-	Uploader     *User        `gorm:"ForeignKey:UploaderId"`
-	OldComments  []OldComment `gorm:"ForeignKey:Id"`
-	Comments     []Comment    `gorm:"ForeignKey:Id"`
+	Uploader     *User        `gorm:"ForeignKey:uploader"`
+	OldComments  []OldComment `gorm:"ForeignKey:torrent_id"`
+	Comments     []Comment    `gorm:"ForeignKey:torrent_id"`
 }
 
 /* We need JSON Object instead because of Magnet URL that is not in the database but generated dynamically
@@ -52,19 +52,10 @@ type ApiResultJson struct {
 	TotalRecordCount int            `json:"totalRecordCount"`
 }
 
-type OldCommentsJson struct {
-	C  template.HTML `json:"c"`
-	Us string        `json:"us"`
-	Un string        `json:"un"`
-	UI int           `json:"ui"`
-	T  int           `json:"t"`
-	Av string        `json:"av"`
-	ID string        `json:"id"`
-}
-
 type CommentsJson struct {
-	Content  template.HTML `json:"content"`
 	Username string        `json:"username"`
+	Content  template.HTML `json:"content"`
+	Date     time.Time     `json:"date"`
 }
 
 type TorrentsJson struct {
@@ -85,27 +76,13 @@ type TorrentsJson struct {
 
 func (t *Torrents) ToJson() TorrentsJson {
 	magnet := util.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, config.Trackers...)
-	//offset := 0
 	var commentsJson []CommentsJson
-	/*if len(t.OldComments) != 0 {
-		b := []OldCommentsJson{}
-		err := json.Unmarshal([]byte(t.OldComments), &b)
-		if err == nil {
-			commentsJson = make([]CommentsJson, len(t.Comments)+len(b))
-			offset = len(b)
-			for i, commentJson := range b {
-				commentsJson[i] = CommentsJson{Content: commentJson.C,
-					Username: commentJson.Un}
-			}
-		} else {
-			commentsJson = make([]CommentsJson, len(t.Comments))
-		}
-	} else {
-		commentsJson = make([]CommentsJson, len(t.Comments))
+	for _, c := range t.OldComments {
+		commentsJson = append(commentsJson, CommentsJson{Username: c.Username, Content: template.HTML(c.Content), Date: c.Date})
 	}
-	for i, comment := range t.Comments {
-		commentsJson[i+offset] = CommentsJson{Content: template.HTML(comment.Content), Username: comment.Username}
-	}*/
+	for _, c := range t.Comments {
+		commentsJson = append(commentsJson, CommentsJson{Username: (*c.User).Username, Content: template.HTML(c.Content), Date: c.CreatedAt})
+	}
 	res := TorrentsJson{
 		Id:           strconv.FormatUint(uint64(t.Id), 10),
 		Name:         html.UnescapeString(t.Name),
