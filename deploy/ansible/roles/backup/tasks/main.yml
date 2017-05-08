@@ -48,12 +48,12 @@
     dest: /etc/systemd/system/rtorrent.service
   become: true
 
-- name: Enable and start rtorrent service
-  systemd:
-    enabled: yes
-    name: rtorrent
-    state: started
-  become: true
+  #- name: Enable and start rtorrent service
+  #  systemd:
+  #    enabled: yes
+  #    name: rtorrent
+  #    state: started
+  #  become: true
 
 - name: Setup backup cron
   template:
