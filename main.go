@@ -10,7 +10,6 @@ import (
 	"github.com/ewhal/nyaa/network"
 	"github.com/ewhal/nyaa/router"
 	"github.com/ewhal/nyaa/util/log"
-	"github.com/ewhal/nyaa/util/search" // super hacky fix
 	"github.com/ewhal/nyaa/util/signals"
 
 	"net/http"
@@ -61,7 +60,6 @@ func main() {
 		if len(config.TorrentFileStorage) > 0 {
 			os.MkdirAll(config.TorrentFileStorage, 0755)
 		}
-		search.Init(conf.DBType) // super hacky fix
 		RunServer(conf)
 	}
 }

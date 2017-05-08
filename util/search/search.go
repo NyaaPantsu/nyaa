@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"unicode"
+	"unicode/utf8"
 )
 
 type SearchParam struct {
@@ -17,17 +19,6 @@ type SearchParam struct {
 	Max      int
 	Status   string
 	Sort     string
-}
-
-
-// super hacky fix:
-var search_op string
-func Init(backend string) {
-	if backend == "postgres" {
-		search_op = "ILIKE"
-	} else {
-		search_op = "LIKE"
-	}
 }
 
 func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents, int) {
@@ -81,10 +72,19 @@ func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents,
 		}
 		parameters.Params = append(parameters.Params, search_param.Status)
 	}
-	searchQuerySplit := strings.Split(search_param.Query, " ")
-	for i, _ := range searchQuerySplit {
-		conditions = append(conditions, "torrent_name " + search_op + " ?")
-		parameters.Params = append(parameters.Params, "%"+searchQuerySplit[i]+"%")
+	searchQuerySplit := strings.Fields(search_param.Query)
+	for i, word := range searchQuerySplit {
+		firstRune, _ := utf8.DecodeRuneInString(word)
+		if len(word) == 1 && unicode.IsPunct(firstRune) {
+			// some queries have a single punctuation character
+			// which causes a full scan instead of using the index
+			// and yields no meaningful results.
+			// due to len() == 1 we're just looking at 1-byte/ascii
+			// punctuation characters.
+			continue
+		}
+		conditions = append(conditions, "torrent_name %> ?")
+		parameters.Params = append(parameters.Params, searchQuerySplit[i])
 	}
 
 	parameters.Conditions = strings.Join(conditions[:], " AND ")
