@@ -83,7 +83,7 @@ func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents,
 			// punctuation characters.
 			continue
 		}
-		conditions = append(conditions, "torrent_name %> ?")
+		conditions = append(conditions, "torrent_name LIKE % ? %")
 		parameters.Params = append(parameters.Params, searchQuerySplit[i])
 	}
 
