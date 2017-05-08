@@ -8,6 +8,8 @@ NYAAPANTSU_PASSWORD="$2"
 NYAAPANTSU_DB="$3"
 NYAAPANTSU_PASSPHRASE_FILE="$4"
 NYAAPANTSU_TRACKER="$5"
+NYAAPANTSU_DOWNLOADED_DIR="$6"
+NYAAPANTSU_WATCH_DIR="$7"
 
 dump_file="${NYAAPANTSU_DB}_$(date +'%Y_%m_%d_%H_%M').backup"
 
@@ -23,3 +25,6 @@ gpg2 --batch --yes --passphrase-fd 0 \
      --detach-sig "${compressed_dump_file}" < "${NYAAPANTSU_PASSPHRASE_FILE}"
 
 mktorrent -a "${NYAAPANTSU_TRACKER}" "${compressed_dump_file}" "${signature_file}"
+
+mv "${compressed_dump_file}" "${signature_file}" "${NYAAPANTSU_DOWNLOADED_DIR}"
+mv "${compressed_dump_file}.torrent" "${NYAAPANTSU_WATCH_DIR}/"
