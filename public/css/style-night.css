@@ -187,3 +187,9 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 .navbar {
     border-radius: 0px;
 }
+
+
+:target {
+    background-color: #585b4f;
+}
+
