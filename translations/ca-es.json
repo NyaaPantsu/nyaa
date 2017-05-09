@@ -1,0 +1,554 @@
+[
+  {
+    "id": "link",
+    "translation": "enllaç"
+  },
+  {
+    "id": "verify_email_title",
+    "translation": "Verifiqueu la vostra adreça electrònica de Goyangi."
+  },
+  {
+    "id": "verify_email_content",
+    "translation": "Feu clic a l'enllaç de sota per verificar el vostre correu electrònic."
+  },
+  {
+    "id": "reset_password_title",
+    "translation": "Restabliu la contrasenya de Goyangi."
+  },
+  {
+    "id": "reset_password_content",
+    "translation": "Feu clic a l'enllaç de sota per restablir la contrasenya."
+  },
+  {
+    "id":"register_title",
+    "translation": "Crea un compte nou"
+  },
+  {
+    "id":"signup_box_title",
+    "translation": "Registreu-vos <small>És de franc i sempre ho serà.</small>"
+  },
+  {
+    "id":"username",
+    "translation": "Nom d'usuari"
+  },
+  {
+    "id":"email_address_or_username",
+    "translation": "Adreça de correu electrònic o nom d'usuari"
+  },
+  {
+    "id":"email_address",
+    "translation": "Adreça de correu electrònic"
+  },
+  {
+    "id":"password",
+    "translation": "Contrasenya"
+  },
+  {
+    "id":"confirm_password",
+    "translation": "Confirmeu la contrasenya"
+  },
+  {
+    "id":"i_agree",
+    "translation": "Hi estic d'acord"
+  },
+  {
+    "id":"terms_conditions_confirm",
+    "translation": "Si feu clic a <strong class=\"label label-primary\">Registra-m'hi</strong>, accepteu els <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">termes i condicions</a> definits en aquest lloc, incloent-hi el nostre ús de les galetes."
+  },
+  {
+    "id":"signin",
+    "translation": "Inicia la sessió"
+  },
+  {
+    "id":"register",
+    "translation": "Registra-m'hi"
+  },
+  {
+    "id":"terms_conditions",
+    "translation": "Termes i condicions"
+  },
+  {
+    "id":"terms_conditions_full",
+    "translation": "Una mica de merda."
+  },
+  {
+    "id":"remember_me",
+    "translation": "Recorda'm"
+  },
+  {
+    "id":"forgot_password",
+    "translation": "Heu oblidat la contrasenya?"
+  },
+  {
+    "id":"sign_in_box_title",
+    "translation": "Inicieu la sessió"
+  },
+  {
+    "id":"sign_in_title",
+    "translation": "Inicia la sessió"
+  },
+  {
+    "id":"register_success_title",
+    "translation": "Registre completat"
+  },
+  {
+    "id":"sign_up_success",
+    "translation": "Gràcies per registrar-vos!"
+  },
+  {
+    "id":"verify_success",
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>El vostre compte ha estat activat!"
+  },
+  {
+    "id":"signup_verification_email",
+    "translation": "Finalment, comproveu la vostra safata d'entrada de correu (i la carpeta de correu brossa!) cercant-hi el correu electrònic de verificació."
+  },
+  {
+    "id":"signup_verification_noemail",
+    "translation": "El registre s'ha completat, ja podeu fer servir el vostre compte."
+  },
+  {
+    "id":"settings",
+    "translation": "Configuració del compte"
+  },
+  {
+    "id":"torrents",
+    "translation": "Torrents"
+  },
+  {
+    "id":"follow",
+    "translation": "Segueix"
+  },
+  {
+    "id":"profile_page",
+    "translation": "Pàgina de perfil de %s"
+  },
+  {
+    "id":"see_more_torrents_from",
+    "translation": "Mostra més torrents de %s"
+  },
+  {
+    "id":"category",
+    "translation": "Categoria"
+  },
+  {
+    "id": "name",
+    "translation": "Nom"
+  },
+  {
+    "id": "date",
+    "translation": "Data"
+  },
+  {
+    "id": "size",
+    "translation": "Mida"
+  },
+  {
+    "id": "links",
+    "translation": "Enllaços"
+  },
+  {
+    "id": "home",
+    "translation": "Inici"
+  },
+  {
+    "id": "error_404",
+    "translation": "Error 404"
+  },
+  {
+    "id": "toggle_navigation",
+    "translation": "Activa/desactiva la navegació"
+  },
+  {
+    "id": "upload",
+    "translation": "Carrega"
+  },
+  {
+    "id": "faq",
+    "translation": "PMF"
+  },
+  {
+    "id": "fap",
+    "translation": "Fap"
+  },
+  {
+    "id": "advanced_search",
+    "translation": "Cerca avançada"
+  },
+  {
+    "id": "nothing_here",
+    "translation": "Aquí no hi ha res."
+  },
+  {
+    "id": "404_not_found",
+    "translation": "404 No s'ha trobat"
+  },
+  {
+    "id": "no_torrents_uploaded",
+    "translation": "Encara no hi ha cap torrent carregat!"
+  },
+  {
+    "id": "profile",
+    "translation": "Perfil"
+  },
+  {
+    "id": "sign_out",
+    "translation": "Tanca la sessió"
+  },
+  {
+    "id": "member",
+    "translation": "Membre"
+  },
+  {
+    "id": "sign_in",
+    "translation": "Inicia la sessió"
+  },
+  {
+    "id": "sign_up",
+    "translation": "Registra-t'hi"
+  },
+  {
+    "id": "no_results_found",
+    "translation": "No s'han trobat resultats"
+  },
+  {
+    "id": "notice_keep_seeding",
+    "translation": "AVÍS: SEGUEIX FENT DE SEMBRADOR I ACTIVA EL DHT, IMBÈCIL"
+  },
+  {
+    "id": "official_nyaapocalipse_faq",
+    "translation": "PMF oficials del Nyaapocalypse"
+  },
+  {
+    "id": "links_replacement_mirror",
+    "translation": "Enllaços per al reemplaçament/rèplica"
+  },
+  {
+    "id": "what_happened",
+    "translation": "Què ha passat?"
+  },
+  {
+    "id": "nyaa_se_went_offline",
+    "translation": "nyaa.se i els dominis associats (com ara nyaatorrents.info) van desaparèixer l'1 de maig del 2017."
+  },
+  {
+    "id": "its_not_a_ddos",
+    "translation": "Els van desactivar, no és un atac de denegació de servei com era habitual."
+  },
+  {
+    "id": "future_not_looking_good",
+    "translation": "Les perspectives de futur de nyaa no fan bona pinta. (Ha mort)"
+  },
+  {
+    "id": "recovery_effort",
+    "translation": "S'estan fent esforços per recuperar-lo."
+  },
+  {
+    "id": "is_everything_lost",
+    "translation": "S'ha perdut tot?"
+  },
+  {
+    "id": "in_short_no",
+    "translation": "Breument, no."
+  },
+  {
+    "id": "are_some_things_lost",
+    "translation": "S'ha perdut alguna cosa?"
+  },
+  {
+    "id": "answer_is_nyaa_db_lost",
+    "translation": "Tenim una base de dades dels torrents de nyaa fins al <s>5 d'abril</s> 1 de maig. Això vol dir que no s'ha perdut gairebé res."
+  },
+  {
+    "id": "answer_is_sukebei_db_lost",
+    "translation": "No obstant això, sukebei està una mica pitjor. Actualment només tenim bases de dades de sukebei del 2016, però pot ser que hi hagi disponible una base de dades més recent."
+  },
+  {
+    "id": "how_are_we_recovering",
+    "translation": "Com ens estem recuperant?"
+  },
+  {
+    "id": "answer_how_are_we_recovering",
+    "translation": "Les bases de dades esmentades estan sent allotjades a nyaa.pantsu.cat i sukebei.pantsu.cat. Hi ha una funció de cerca, i aviat hi hauria d'haver funcionalitat (gairebé) plena de nyaa. Les estadístiques de sembradors/sangoneres són possibles a través del raspament i pot ser que es restaurin en el futur, ja que ara mateix hi ha altres funcionalitats més prioritàries."
+  },
+  {
+    "id": "are_the_trackers_working",
+    "translation": "Els torrents encara funcionen?"
+  },
+  {
+    "id": "answer_are_the_trackers_working",
+    "translation": "Encara que els rastrejadors hagin caigut, els sembradors encara estan connectats a la xarxa descentralitzada DHT. Mentre el fitxer estigui llistat a la xarxa DHT, les coses seguiran funcionant normalment."
+  },
+  {
+    "id": "how_do_i_download_the_torrents",
+    "translation": "Com descarrego els torrents?"
+  },
+  {
+    "id": "answer_how_do_i_download_the_torrents",
+    "translation": "Utilitza'n l'<b>enllaç magnètic</b>. El teu client de BitTorrent utilitzarà l'enllaç magnètic per cercar el fitxer a la xarxa DHT i l'hauria de descarregar de manera normal."
+  },
+  {
+    "id": "magnet_link_should_look_like",
+    "translation": "L'enllaç magnètic té aquest aspecte:"
+  },
+  {
+    "id": "which_trackers_do_you_recommend",
+    "translation": "Quins rastrejadors recomaneu fer servir?"
+  },
+  {
+    "id": "answer_which_trackers_do_you_recommend",
+    "translation": "Si el torrent que carregueu resulta denegat a causa dels rastrejadors, n'haureu d'afegir algun d'aquests:"
+  },
+  {
+    "id": "how_can_i_help",
+    "translation": "Com hi puc ajudar?"
+  },
+  {
+    "id": "answer_how_can_i_help",
+    "translation": "Si teniu experiència en el desenvolupament de llocs web, podeu unir-vos al canal d'IRC #nyaapantsu a irc.rizon.net. Si teniu cap base de dades actual, especialment de sukebei, <b>PUGEU-LA</b>."
+  },
+  {
+    "id": "your_design_sucks_found_a_bug",
+    "translation": "El disseny fot pena / He trobat una errada"
+  },
+  {
+    "id": "why_written_in_go",
+    "translation": "Per què heu escrit aquesta merda en Go?"
+  },
+  {
+    "id": "authors_favorite_language",
+    "translation": "És el llenguatge de programació preferit de l'autor."
+  },
+  {
+    "id": "nyaa_pantsu_dont_host_files",
+    "translation": "nyaa.pantsu.cat i sukebei.pantsu.cat no allotgen cap fitxer."
+  },
+  {
+    "id": "upload_magnet",
+    "translation": "Carrega un enllaç magnètic"
+  },
+  {
+    "id": "torrent_file",
+    "translation": "Fitxer torrent"
+  },
+  {
+    "id": "uploading_file_prefills_fields",
+    "translation": "Si carregueu un fitxer torrent s'ompliran automàticament alguns camps, és recomanable."
+  },
+  {
+    "id": "magnet_link",
+    "translation": "Enllaç magnètic"
+  },
+  {
+    "id": "all_categories",
+    "translation": "Totes les categories"
+  },
+  {
+    "id": "anime",
+    "translation": "Anime"
+  },
+  {
+    "id": "anime_amv",
+    "translation": "Anime - Vídeos de música amb anime (AMV)"
+  },
+  {
+    "id": "anime_english_translated",
+    "translation": "Anime - Traduït a l'anglès"
+  },
+  {
+    "id": "anime_non_english_translated",
+    "translation": "Anime - Traduït a altres idiomes"
+  },
+  {
+    "id": "anime_raw",
+    "translation": "Anime - En brut"
+  },
+  {
+    "id": "audio",
+    "translation": "Àudio"
+  },
+  {
+    "id": "audio_lossless",
+    "translation": "Àudio - Sense pèrdua"
+  },
+  {
+    "id": "audio_lossy",
+    "translation": "Àudio - Amb pèrdua"
+  },
+  {
+    "id": "literature",
+    "translation": "Literatura"
+  },
+  {
+    "id": "literature_english_translated",
+    "translation": "Literatura - Traduïda a l'anglès"
+  },
+  {
+    "id": "literature_raw",
+    "translation": "Literatura - En brut"
+  },
+  {
+    "id": "literature_non_english_translated",
+    "translation": "Literatura - Traduïda a altres idiomes"
+  },
+  {
+    "id": "live_action",
+    "translation": "Acció real"
+  },
+  {
+    "id": "live_action_english_translated",
+    "translation": "Acció real - Traduïda a l'anglès"
+  },
+  {
+    "id": "live_action_idol_pv",
+    "translation": "Acció real - Ídols/Vídeos promocionals"
+  },
+  {
+    "id": "live_action_non_english_translated",
+    "translation": "Acció real - Traduïda a altres idiomes"
+  },
+  {
+    "id": "live_action_raw",
+    "translation": "Acció real - En brut"
+  },
+  {
+    "id": "pictures",
+    "translation": "Imatges"
+  },
+  {
+    "id": "pictures_graphics",
+    "translation": "Imatges - Gràfics"
+  },
+  {
+    "id": "pictures_photos",
+    "translation": "Imatges - Fotos"
+  },
+  {
+    "id": "software",
+    "translation": "Programari"
+  },
+  {
+    "id": "software_applications",
+    "translation": "Programari - Aplicacions"
+  },
+  {
+    "id": "software_games",
+    "translation": "Programari - Jocs"
+  },
+  {
+    "id": "torrent_description",
+    "translation": "Descripció del torrent"
+  },
+  {
+    "id": "description_markdown_notice",
+    "translation": "Podeu utilitzar Markdown a les descripcions."
+  },
+  {
+    "id": "show_all",
+    "translation": "Mostra-ho tot"
+  },
+  {
+    "id": "filter_remakes",
+    "translation": "Filtra les reedicions"
+  },
+  {
+    "id": "trusted",
+    "translation": "De confiança"
+  },
+  {
+    "id": "id",
+    "translation": "ID"
+  },
+  {
+    "id": "downloads",
+    "translation": "Descàrregues"
+  },
+  {
+    "id": "descending",
+    "translation": "Descendent"
+  },
+  {
+    "id": "ascending",
+    "translation": "Ascendent"
+  },
+  {
+    "id": "search",
+    "translation": "Cerca"
+  },
+  {
+    "id": "hash",
+    "translation": "Resum"
+  },
+  {
+    "id": "description",
+    "translation": "Descripció"
+  },
+  {
+    "id": "comments",
+    "translation": "Comentaris"
+  },
+  {
+    "id": "submit_a_comment_as_username",
+    "translation": "Envia un comentari com a %s"
+  },
+  {
+    "id": "submit_a_comment_as_anonymous",
+    "translation": "Envia un comentari com a Anònim"
+  },
+  {
+    "id": "submit",
+    "translation": "Envia"
+  },
+  {
+    "id": "personal_info",
+    "translation": "Informació personal"
+  },
+  {
+    "id": "language",
+    "translation": "Idioma"
+  },
+  {
+    "id": "current_password",
+    "translation": "Contrasenya actual"
+  },
+  {
+    "id": "role",
+    "translation": "Rol"
+  },
+  {
+    "id": "banned",
+    "translation": "Bandejat"
+  },
+  {
+    "id": "default",
+    "translation": "Per defecte"
+  },
+  {
+    "id": "trusted_member",
+    "translation": "Membre de confiança"
+  },
+  {
+    "id": "moderator",
+    "translation": "Moderador"
+  },
+  {
+    "id": "save_changes",
+    "translation": "Desa els canvis"
+  },
+  {
+    "id": "profile_updated",
+    "translation": "S'ha actualitzat el vostre perfil!"
+  },
+  {
+    "id": "delete_account",
+    "translation": "Suprimeix el compte"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "Esteu segur que voleu suprimir aquest compte?"
+  },
+  {
+    "id": "delete_success",
+    "translation": "S'ha suprimit el compte!"
+  }
+]
