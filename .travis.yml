@@ -8,8 +8,10 @@ script:
 # Downloads deps automatically. No need to add manually.
 - go list -f '{{.Deps}}' | tr "[" " " | tr "]" " " | xargs go list -e -f '{{if not .Standard}}{{.ImportPath}}{{end}}' | grep -v 'github.com/ewhal/nyaa' | xargs go get -v
 - go get 
+- go get -u github.com/golang/lint/golint
 - go build
 - go vet 
+- golint ./...
 - go test -v ./...
 before_deploy:
 - ./package.sh
