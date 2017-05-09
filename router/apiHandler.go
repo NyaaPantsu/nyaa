@@ -101,7 +101,7 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 		user := model.User{}
 		db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
 		if user.Id == 0 {
-			http.Error(w, "incorrect api key", http.StatusForbidden)
+			http.Error(w, apiService.ErrApiKey.Error(), http.StatusForbidden)
 			return
 		}
 
@@ -149,7 +149,7 @@ func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		user := model.User{}
 		db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
 		if user.Id == 0 {
-			http.Error(w, "incorrect api key", http.StatusForbidden)
+			http.Error(w, apiService.ErrApiKey.Error(), http.StatusForbidden)
 			return
 		}
 
@@ -166,13 +166,14 @@ func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		torrent := model.Torrents{}
 		db.ORM.Where("torrent_id = ?", id).First(&torrent)
 		if torrent.Id == 0 {
-			http.Error(w, "incorrect id", http.StatusBadRequest)
+			http.Error(w, apiService.ErrTorrentId.Error(), http.StatusBadRequest)
 			return
 		}
-		if torrent.UploaderId != 0 && torrent.UploaderId != user.Id { //&& user is not mod
-			http.Error(w, "not enough rights to edit torrent", http.StatusForbidden)
+		if torrent.UploaderId != 0 && torrent.UploaderId != user.Id { //&& user.Status != mod
+			http.Error(w, apiService.ErrRights.Error(), http.StatusForbidden)
 			return
 		}
+
 		err, code := update.Update.ValidateUpdate()
 		if err != nil {
 			http.Error(w, err.Error(), code)
