@@ -10,7 +10,7 @@
   background-color: #487589;
 }
 
-/* modified copy of NyaaTorrent theme */
+
 #mainmenu {
     background: #263238;
     color: #f2f2f2;
@@ -48,16 +48,11 @@ body {
 /* Links, Text */
 a {
 	color: #81a2be;
-	text-decoration : none;
 }
 .btn-success {
     color: #fff;
     background-color: #b294bb;
     border-color: #b294bb;
-}
-
-.comment-row {
-	border-top: 1px solid #ddd;
 }
 
 :target {
