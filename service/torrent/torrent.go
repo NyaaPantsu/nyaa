@@ -67,9 +67,7 @@ func GetTorrentById(id string) (model.Torrents, error) {
 	return torrent, nil
 }
 
-func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int) ([]model.Torrents, int) {
-	var torrents []model.Torrents
-	var count int
+func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrents, count int, err error) {
 	var conditionArray []string
 	if strings.HasPrefix(orderBy, "filesize") {
 		// torrents w/ NULL filesize fuck up the sorting on postgres
@@ -83,7 +81,12 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 		params = parameters.Params
 	}
 	conditions := strings.Join(conditionArray, " AND ")
-	db.ORM.Model(&torrents).Where(conditions, params...).Count(&count)
+	err = db.ORM.Model(&torrents).Where(conditions, params...).Count(&count).Error
+	if err != nil {
+		return
+	}
+
+	// TODO: Vulnerable to injections. Use query builder.
 
 	// build custom db query for performance reasons
 	dbQuery := "SELECT * FROM torrents"
@@ -101,37 +104,36 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	if limit != 0 || offset != 0 { // if limits provided
 		dbQuery = dbQuery + " LIMIT " + strconv.Itoa(limit) + " OFFSET " + strconv.Itoa(offset)
 	}
-	db.ORM.Raw(dbQuery, params...).Find(&torrents)
-	return torrents, count
+	err = db.ORM.Raw(dbQuery, params...).Find(&torrents).Error
+	return
 }
 
 /* Functions to simplify the get parameters of the main function
  *
  * Get Torrents with where parameters and limits, order by default
  */
-func GetTorrents(parameters WhereParams, limit int, offset int) ([]model.Torrents, int) {
+func GetTorrents(parameters WhereParams, limit int, offset int) ([]model.Torrents, int, error) {
 	return GetTorrentsOrderBy(&parameters, "", limit, offset)
 }
 
 /* Get Torrents with where parameters but no limit and order by default (get all the torrents corresponding in the db)
  */
-func GetTorrentsDB(parameters WhereParams) ([]model.Torrents, int) {
+func GetTorrentsDB(parameters WhereParams) ([]model.Torrents, int, error) {
 	return GetTorrentsOrderBy(&parameters, "", 0, 0)
 }
 
 /* Function to get all torrents
  */
 
-func GetAllTorrentsOrderBy(orderBy string, limit int, offset int) ([]model.Torrents, int) {
-
+func GetAllTorrentsOrderBy(orderBy string, limit int, offset int) ([]model.Torrents, int, error) {
 	return GetTorrentsOrderBy(nil, orderBy, limit, offset)
 }
 
-func GetAllTorrents(limit int, offset int) ([]model.Torrents, int) {
+func GetAllTorrents(limit int, offset int) ([]model.Torrents, int, error) {
 	return GetTorrentsOrderBy(nil, "", limit, offset)
 }
 
-func GetAllTorrentsDB() ([]model.Torrents, int) {
+func GetAllTorrentsDB() ([]model.Torrents, int, error) {
 	return GetTorrentsOrderBy(nil, "", 0, 0)
 }
 
