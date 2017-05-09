@@ -1,4 +1,4 @@
-{{define "title"}}{{ T "profile_page" .UserProfile.Username }}{{end}}
+{{define "title"}}{{ T "profile_edit_page" .UserProfile.Username }}{{end}}
 {{define "contclass"}}cont-view{{end}}
 {{define "content"}}
 <div class="row profile">
@@ -33,14 +33,14 @@
 				<!-- SIDEBAR MENU -->
 				<div class="profile-usermenu">
 					<ul class="nav">
-						<li class="active">
+						<li>
 							<a href="#">
 							<i class="glyphicon glyphicon-home"></i>
 							{{T "torrents"}} </a>
 						</li>
 						{{if gt $.User.Id 0 }}
 						{{if CurrentOrAdmin $.User .Id }}
-						<li>
+						<li class="active">
 							<a href="?edit">
 							<i class="glyphicon glyphicon-user"></i>
 							{{T "settings"}} </a>
@@ -55,7 +55,7 @@
 {{end}}
 		<div class="col-md-9">
             <div class="profile-content">
-			   {{ block "profile_content" . }}{{end}}
+			   {{ block "profile_edit_content" . }}{{end}}
             </div>
 		</div>
 	</div>
