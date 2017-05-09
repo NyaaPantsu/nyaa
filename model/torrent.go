@@ -64,6 +64,9 @@ type TorrentsJson struct {
 	Comments     []CommentsJson `json:"comments"`
 	Sub_Category string         `json:"sub_category"`
 	Category     string         `json:"category"`
+	Downloads    int            `json:"downloads"`
+	UploaderId   uint           `json:"uploader_id"`
+	WebsiteLink  template.URL   `json:"website_link"`
 	Magnet       template.URL   `json:"magnet"`
 }
 
@@ -89,6 +92,9 @@ func (t *Torrents) ToJson() TorrentsJson {
 		Comments:     commentsJson,
 		Sub_Category: strconv.Itoa(t.Sub_Category),
 		Category:     strconv.Itoa(t.Category),
+		Downloads:    t.Downloads,
+		UploaderId:   t.UploaderId,
+		WebsiteLink:  util.Safe(t.WebsiteLink),
 		Magnet:       util.Safe(magnet)}
 
 	return res
