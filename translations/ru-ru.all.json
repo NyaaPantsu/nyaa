@@ -1,0 +1,498 @@
+[
+  {
+    "id": "link",
+    "translation": "ссылка"
+  },
+  {
+    "id": "verify_email_title",
+    "translation": "Подтвердите свой Email адрес для Goyangi."
+  },
+  {
+    "id": "verify_email_content",
+    "translation": "Нажмите на ссылку ниже, чтобы подтвердить свой Email адрес."
+  },
+  {
+    "id": "reset_password_title",
+    "translation": "Восстановить пароль для Goyangi."
+  },
+  {
+    "id": "reset_password_content",
+    "translation": "Нажмите ссылку ниже, чтобы восстановить пароль."
+  },
+  {
+    "id":"register_title",
+    "translation": "Создание новой учетной записи"
+  },
+  {
+    "id":"signup_box_title",
+    "translation": "Пожалуйста, зарегистрируйтесь <small>Это бесплатно и всегда будет.</small>"
+  },
+  {
+    "id":"username",
+    "translation": "Имя пользователя"
+  },
+  {
+    "id":"email_address_or_username",
+    "translation": "Email адрес или Имя пользователя"
+  },
+  {
+    "id":"email_address",
+    "translation": "Email адрес"
+  },
+  {
+    "id":"password",
+    "translation": "Пароль"
+  },
+  {
+    "id":"confirm_password",
+    "translation": "Подтвердите Пароль"
+  },
+  {
+    "id":"i_agree",
+    "translation": "Я согласен"
+  },
+  {
+    "id":"terms_conditions_confirm",
+    "translation": "Нажимая <strong class=\"label label-primary\">Регистрация</strong>, вы соглашаетесь с <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Правилами и условиями</a>, указанными на этом сайте, включая использование файлов Cookie."
+  },
+  {
+    "id":"signin",
+    "translation": "Вход"
+  },
+  {
+    "id":"register",
+    "translation": "Регистрация"
+  },
+  {
+    "id":"terms_conditions",
+    "translation": "Правила и условия"
+  },
+  {
+    "id":"terms_conditions_full",
+    "translation": "Некоторое дерьмо."
+  },
+  {
+    "id":"remember_me",
+    "translation": "Запомнить меня"
+  },
+  {
+    "id":"forgot_password",
+    "translation": "Забыли пароль?"
+  },
+  {
+    "id":"sign_in_box_title",
+    "translation": "Пожалуйста войдите"
+  },
+  {
+    "id":"sign_in_title",
+    "translation": "Вход"
+  },
+  {
+    "id":"register_success_title",
+    "translation": "Успешная регистрация"
+  },
+  {
+    "id":"sign_up_success",
+    "translation": "Благодарим за регистрацию!"
+  },
+  {
+    "id":"verify_success",
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Теперь ваша учетная запись активирована!"
+  },
+  {
+    "id":"signup_verification_email",
+    "translation": "Теперь, в качестве последнего шага регистрации, проверьте свой почтовый ящик (или папку спам) и нажмите ссылку для активации вашей учетной записи!"
+  },
+  {
+    "id":"settings",
+    "translation": "Настройки учетной записи"
+  },
+  {
+    "id":"torrents",
+    "translation": "Торренты"
+  },
+  {
+    "id":"follow",
+    "translation": "Следить"
+  },
+  {
+    "id":"profile_page",
+    "translation": "Страница профиля %s"
+  },
+  {
+    "id":"see_more_torrents_from",
+    "translation": "Смотреть другие торренты %s "
+  },
+  {
+    "id":"category",
+    "translation": "Категория"
+  },
+  {
+    "id": "name",
+    "translation": "Название"
+  },
+  {
+    "id": "date",
+    "translation": "Дата"
+  },
+  {
+    "id": "size",
+    "translation": "Размер"
+  },
+  {
+    "id": "links",
+    "translation": "Ссылки"
+  },
+  {
+    "id": "home",
+    "translation": "Главная"
+  },
+  {
+    "id": "error_404",
+    "translation": "Ошибка 404"
+  },
+  {
+    "id": "toggle_navigation",
+    "translation": "Включить навигацию"
+  },
+  {
+    "id": "upload",
+    "translation": "Загрузить"
+  },
+  {
+    "id": "faq",
+    "translation": "FAQ"
+  },
+  {
+    "id": "fap",
+    "translation": "Фап"
+  },
+  {
+    "id": "advanced_search",
+    "translation": "Расширенный поиск"
+  },
+  {
+    "id": "nothing_here",
+    "translation": "Здесь ничего нет."
+  },
+  {
+    "id": "404_not_found",
+    "translation": "404 Не найдено"
+  },
+  {
+    "id": "no_torrents_uploaded",
+    "translation": "Нет загруженных торрентов!"
+  },
+  {
+    "id": "profile",
+    "translation": "Профиль"
+  },
+  {
+    "id": "sign_out",
+    "translation": "Выход"
+  },
+  {
+    "id": "member",
+    "translation": "Пользователь"
+  },
+  {
+    "id": "sign_in",
+    "translation": "Войти"
+  },
+  {
+    "id": "sign_up",
+    "translation": "Зарегистрироваться"
+  },
+  {
+    "id": "no_results_found",
+    "translation": "Результаты не найдены"
+  },
+  {
+    "id": "notice_keep_seeding",
+    "translation": "УВЕДОМЛЕНИЕ: УДЕРЖИВАЙ РАЗДАЧУ И ВКЛЮЧАЙ DHT ТЫ ТОРМОЗ"
+  },
+  {
+    "id": "official_nyaapocalipse_faq",
+    "translation": "Официальное Няпокалипсис FAQ"
+  },
+  {
+    "id": "links_replacement_mirror",
+    "translation": "Ссылки на замены/зеркала"
+  },
+  {
+    "id": "what_happened",
+    "translation": "Что произошло?"
+  },
+  {
+    "id": "nyaa_se_went_offline",
+    "translation": "nyaa.se и связанные с ними домены (например, nyaatorrents.info), отключились 1 мая 2017 года."
+  },
+  {
+    "id": "its_not_a_ddos",
+    "translation": "Они были деактивированы, так что это не DDoS-атака, как обычно."
+  },
+  {
+    "id": "future_not_looking_good",
+    "translation": "Будущие перспективы для nyaa выглядят не очень хорошо. (Он мертв)"
+  },
+  {
+    "id": "recovery_effort",
+    "translation": "Идет процесс восстановления."
+  },
+  {
+    "id": "is_everything_lost",
+    "translation": "Все потеряно?"
+  },
+  {
+    "id": "in_short_no",
+    "translation": "Короче говоря, нет."
+  },
+  {
+    "id": "are_some_things_lost",
+    "translation": "Некоторые вещи потеряны?"
+  },
+  {
+    "id": "answer_is_nyaa_db_lost",
+    "translation": "У нас есть база данных торрентов на nyaa до <s>5 апреля</s> 1 мая. Это означает, что почти ничего не потеряно."
+  },
+  {
+    "id": "answer_is_sukebei_db_lost",
+    "translation": "Однако, Sukebei не в лучшей форме. В настоящее время у нас есть только сукебские базы данных до 2016 года, но более новая база данных может быть доступна для использования."
+  },
+  {
+    "id": "how_are_we_recovering",
+    "translation": "Как мы выздоравливаем?"
+  },
+  {
+    "id": "answer_how_are_we_recovering",
+    "translation": "Вышеупомянутые базы данных размещаются на сайтах nyaa.pantsu.cat и sukebei.pantsu.cat. Существует функция поиска, и (почти) полная функциональность nyaa должна появиться в ближайшее время. Статистика Раздающих/Скачавших возможна с помощью скраппинга и может быть восстановлена в будущем, так как сейчас у нас в большем приоритете другие функции."
+  },
+  {
+    "id": "are_the_trackers_working",
+    "translation": "Торренты все еще работают?"
+  },
+  {
+    "id": "answer_are_the_trackers_working",
+    "translation": "Даже если трекеры не работают, раздающие все еще подключены к децентрализованной сети DHT. Пока файл находится в сети DHT, все должено работать как обычно."
+  },
+  {
+    "id": "how_do_i_download_the_torrents",
+    "translation": "Как скачать торренты?"
+  },
+  {
+    "id": "answer_how_do_i_download_the_torrents",
+    "translation": "Просто используйте <b>магнитную ссылку</b>. Магнит ссылка будет использоваться вашим клиентом BitTorrent для поиска файла в сети DHT, и они должены загружаться просто отлично."
+  },
+  {
+    "id": "magnet_link_should_look_like",
+    "translation": "Магнит ссылка должна выглядеть так:"
+  },
+  {
+    "id": "which_trackers_do_you_recommend",
+    "translation": "Какие трекеры вы рекомендуете использовать?"
+  },
+  {
+    "id": "answer_which_trackers_do_you_recommend",
+    "translation": "Если ваша торрент-загрузка запрещена из-за трекеров, вам нужно добавить некоторые из них:"
+  },
+  {
+    "id": "how_can_i_help",
+    "translation": "Чем могу помочь?"
+  },
+  {
+    "id": "answer_how_can_i_help",
+    "translation": "Если у вас есть опыт разработки веб-сайтов, вы можете присоединиться к IRC-каналу #nyaapantsu на irc.rizon.net. Если у вас есть свежие базы данных, особенно для sukebei, <b>ЗАГРУЗИТЕ ИХ</b>."
+  },
+  {
+    "id": "your_design_sucks_found_a_bug",
+    "translation": "Ваш дизайн отстой / Я нашел ошибку"
+  },
+  {
+    "id": "why_written_in_go",
+    "translation": "Почему ваше дерьмо написано на Go?"
+  },
+  {
+    "id": "authors_favorite_language",
+    "translation": "Это любимый язык программирования автора."
+  },
+  {
+    "id": "nyaa_pantsu_dont_host_files",
+    "translation": "nyaa.pantsu.cat и sukebei.pantsu.cat не содержат файлы."
+  },
+  {
+    "id": "upload_magnet",
+    "translation": "Загрузить магнит"
+  },
+  {
+    "id": "torrent_file",
+    "translation": "Торрент-файл"
+  },
+  {
+    "id": "uploading_torrent_prefills_fields",
+    "translation": "Загрузка торрент-файла позволяет предварительно заполнить некоторые поля, это рекомендуется."
+  },
+  {
+    "id": "magnet_link",
+    "translation": "Магнит ссылка"
+  },
+  {
+    "id": "all_categories",
+    "translation": "Все категории"
+  },
+  {
+    "id": "anime",
+    "translation": "Аниме"
+  },
+  {
+    "id": "anime_amv",
+    "translation": "Аниме - Аниме Музыка Видео"
+  },
+  {
+    "id": "anime_english_translated",
+    "translation": "Аниме - Английский-перевод"
+  },
+  {
+    "id": "anime_non_english_translated",
+    "translation": "Аниме - Не-английский-перевод"
+  },
+  {
+    "id": "anime_raw",
+    "translation": "Аниме - Raw"
+  },
+  {
+    "id": "audio",
+    "translation": "Аудио"
+  },
+  {
+    "id": "audio_lossless",
+    "translation": "Аудио - Lossless"
+  },
+  {
+    "id": "audio_lossy",
+    "translation": "Аудио - Lossy"
+  },
+  {
+    "id": "literature",
+    "translation": "Литература"
+  },
+  {
+    "id": "literature_english_translated",
+    "translation": "Литература - Английский-перевод"
+  },
+  {
+    "id": "literature_raw",
+    "translation": "Литература - Raw"
+  },
+  {
+    "id": "literature_non_english_translated",
+    "translation": "Литература - Не-английский-перевод"
+  },
+  {
+    "id": "live_action",
+    "translation": "Игровое кино"
+  },
+  {
+    "id": "live_action_english_translated",
+    "translation": "Игровое кино - Английский-перевод"
+  },
+  {
+    "id": "live_action_idol_pv",
+    "translation": "Игровое кино - Идол / Рекламное видео"
+  },
+  {
+    "id": "live_action_non_english_translated",
+    "translation": "Игровое кино - Не-английский-перевод"
+  },
+  {
+    "id": "live_action_raw",
+    "translation": "Игровое кино - Raw"
+  },
+  {
+    "id": "pictures",
+    "translation": "Картинки"
+  },
+  {
+    "id": "pictures_graphics",
+    "translation": "Картинки - Графика"
+  },
+  {
+    "id": "pictures_photos",
+    "translation": "Картинки - Фото"
+  },
+  {
+    "id": "software",
+    "translation": "Софт"
+  },
+  {
+    "id": "software_applications",
+    "translation": "Софт - Приложения"
+  },
+  {
+    "id": "software_games",
+    "translation": "Софт - Игры"
+  },
+  {
+    "id": "torrent_description",
+    "translation": "Описание торрента"
+  },
+  {
+    "id": "limited_html_set_is_allowed_use",
+    "translation": "В описании допускается ограниченный набор HTML, поэтому обязательно используйте"
+  },
+  {
+    "id": "show_all",
+    "translation": "Показать все"
+  },
+  {
+    "id": "filter_remakes",
+    "translation": "Фильтрация римейков"
+  },
+  {
+    "id": "trusted",
+    "translation": "Доверенные"
+  },
+  {
+    "id": "id",
+    "translation": "ID"
+  },
+  {
+    "id": "downloads",
+    "translation": "Загрузки"
+  },
+  {
+    "id": "descending",
+    "translation": "Нисходящий"
+  },
+  {
+    "id": "ascending",
+    "translation": "Восходящий"
+  },
+  {
+    "id": "search",
+    "translation": "Поиск"
+  },
+  {
+    "id": "hash",
+    "translation": "Хеш"
+  },
+  {
+    "id": "description",
+    "translation": "Описание"
+  },
+  {
+    "id": "comments",
+    "translation": "Комментарии"
+  },
+  {
+    "id": "submit_a_comment_as_username",
+    "translation": "Отправить комментарий как %s"
+  },
+  {
+    "id": "submit_a_comment_as_anonymous",
+    "translation": "Отправить комментарий как Анонимный"
+  },
+  {
+    "id": "submit",
+    "translation": "Отправить"
+  }
+]

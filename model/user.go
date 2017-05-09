@@ -22,7 +22,7 @@ type User struct {
 	MD5             string    `json:"md5"`
 	TokenExpiration time.Time `gorm:"column:api_token_expiry"`
 	Language        string    `gorm:"column:language"`
-	Torrents        []Torrent `gorm:"ForeignKey:owner_id"`
+	Torrents        []Torrent `gorm:"ForeignKey:UploaderId"`
 }
 
 type PublicUser struct {

@@ -2,21 +2,21 @@ package userService
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
 
-	"golang.org/x/crypto/bcrypt"
-
-	"fmt"
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	formStruct "github.com/ewhal/nyaa/service/user/form"
+	"github.com/ewhal/nyaa/service/user/permission"
 	"github.com/ewhal/nyaa/util/crypto"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/modelHelper"
 	"github.com/ewhal/nyaa/util/timeHelper"
+	"golang.org/x/crypto/bcrypt"
 )
 
 // SuggestUsername suggest user's name if user's name already occupied.
@@ -149,44 +149,45 @@ func UpdateUserCore(user *model.User) (int, error) {
 }
 
 // UpdateUser updates a user.
-func UpdateUser(w http.ResponseWriter, r *http.Request, id string) (*model.User, int, error) {
+func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, currentUser *model.User, id string) (model.User, int, error) {
 	var user model.User
 	if db.ORM.First(&user, id).RecordNotFound() {
-		return &user, http.StatusNotFound, errors.New("user not found")
+		return user, http.StatusNotFound, errors.New("user not found")
 	}
-	switch r.FormValue("type") {
-	case "password":
-		var passwordForm formStruct.PasswordForm
-		modelHelper.BindValueForm(&passwordForm, r)
-		log.Debugf("form %+v\n", passwordForm)
-		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(passwordForm.CurrentPassword))
-		if err != nil {
+
+	if form.Password != "" {
+		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(form.CurrentPassword))
+		if err != nil && !userPermission.HasAdmin(currentUser) {
 			log.Error("Password Incorrect.")
-			return &user, http.StatusInternalServerError, errors.New("password incorrect")
+			return user, http.StatusInternalServerError, errors.New("password incorrect")
 		}
-		newPassword, err := bcrypt.GenerateFromPassword([]byte(passwordForm.Password), 10)
+		newPassword, err := bcrypt.GenerateFromPassword([]byte(form.Password), 10)
 		if err != nil {
-			return &user, http.StatusInternalServerError, errors.New("password not generated")
+			return user, http.StatusInternalServerError, errors.New("password not generated")
 		}
-		passwordForm.Password = string(newPassword)
-		modelHelper.AssignValue(&user, &passwordForm)
-	default:
-		var form formStruct.UserForm
-		modelHelper.BindValueForm(&form, r)
-		log.Debugf("form %+v\n", form)
-		modelHelper.AssignValue(&user, &form)
+		form.Password = string(newPassword)
+	} else { // Then no change of password
+		form.Password = user.Password
 	}
+	if !userPermission.HasAdmin(currentUser) { // We don't want users to be able to modify some fields
+		form.Status = user.Status
+		form.Username = user.Username
+	}
+	log.Debugf("form %+v\n", form)
+	modelHelper.AssignValue(&user, form)
 
 	status, err := UpdateUserCore(&user)
 	if err != nil {
-		return &user, status, err
+		return user, status, err
 	}
-	status, err = SetCookie(w, user.Token)
-	return &user, status, err
+	if userPermission.CurrentUserIdentical(currentUser, user.ID) {
+		status, err = SetCookie(w, user.Token)
+	}
+	return user, status, err
 }
 
 // DeleteUser deletes a user.
-func DeleteUser(w http.ResponseWriter, id string) (int, error) {
+func DeleteUser(w http.ResponseWriter, currentUser *model.User, id string) (int, error) {
 	var user model.User
 	if db.ORM.First(&user, id).RecordNotFound() {
 		return http.StatusNotFound, errors.New("user not found")
@@ -194,8 +195,10 @@ func DeleteUser(w http.ResponseWriter, id string) (int, error) {
 	if db.ORM.Delete(&user).Error != nil {
 		return http.StatusInternalServerError, errors.New("user not deleted")
 	}
-	status, err := ClearCookie(w)
-	return status, err
+	if userPermission.CurrentUserIdentical(currentUser, user.ID) {
+		return ClearCookie(w)
+	}
+	return http.StatusOK, nil
 }
 
 // RetrieveCurrentUser retrieves a current user.
@@ -239,10 +242,9 @@ func RetrieveUserByUsername(username string) (*model.PublicUser, string, int, er
 // RetrieveUserForAdmin retrieves a user for an administrator.
 func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	var user model.User
-	if db.ORM.First(&user, id).RecordNotFound() {
+	if db.ORM.Preload("Torrents").First(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("user not found")
 	}
-	db.ORM.Model(&user).Related("Torrents").Find(&model.Torrent{})
 	return user, http.StatusOK, nil
 }
 

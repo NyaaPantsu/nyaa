@@ -4,10 +4,11 @@ package metainfo
 
 import (
 	"crypto/sha1"
-	"github.com/zeebo/bencode"
 	"io"
 	"os"
 	"path/filepath"
+
+	"github.com/zeebo/bencode"
 )
 
 type FilePath []string
@@ -91,6 +92,7 @@ func (tf *TorrentFile) TotalSize() uint64 {
 }
 
 func (tf *TorrentFile) GetAllAnnounceURLS() (l []string) {
+	l = make([]string, 0, 64)
 	if len(tf.Announce) > 0 {
 		l = append(l, tf.Announce)
 	}

@@ -8,13 +8,13 @@
 		    <ul class="dropdown-menu">
 		        <li><a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}"><i class="fa fa-cog"></i> Profile</a></li>
 		        <li class="divider"></li>
-		        <li><a href="{{ genRoute "user_logout" }}"><i class="fa fa-sign-out"></i> Sign-out</a></li>
+		        <li><a href="{{ genRoute "user_logout" }}"><i class="fa fa-sign-out"></i> {{ T "sign_out"}}</a></li>
 		    </ul>
 		    {{ else }}
-            <a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Member<span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ T "member" }}<span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="{{ genRoute "user_login" }}"><i class="fa fa-sign-out"></i> Sign in</a></li>
-                <li><a href="{{ genRoute "user_register" }}"><i class="fa fa-cog"></i> Sign Up</a></li>
+                <li><a href="{{ genRoute "user_login" }}"><i class="fa fa-sign-out"></i> {{ T "sign_in"}}</a></li>
+                <li><a href="{{ genRoute "user_register" }}"><i class="fa fa-cog"></i> {{ T "sign_up"}}</a></li>
             </ul>
 	{{end}}
 		</li>

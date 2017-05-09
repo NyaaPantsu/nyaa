@@ -1,17 +1,22 @@
 package router
 
-import (
-	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/util/search"
-	"github.com/gorilla/feeds"
-	"net/http"
-	"strconv"
+import(
 	"time"
+	"net/http"
+	"github.com/gorilla/feeds"
+	"github.com/ewhal/nyaa/config"
+	"github.com/ewhal/nyaa/util"
+	"github.com/ewhal/nyaa/util/search"
+	"strconv"
 )
 
 func RSSHandler(w http.ResponseWriter, r *http.Request) {
 
-	_, torrents, _ := search.SearchByQuery(r, 1)
+	_, torrents, err := search.SearchByQueryNoCount(r, 1)
+	if err != nil {
+		util.SendError(w, err, 400)
+		return
+	}
 	createdAsTime := time.Now()
 
 	if len(torrents) > 0 {

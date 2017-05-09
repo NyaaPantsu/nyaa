@@ -1,10 +1,10 @@
 package search
 
 import (
+	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/util/log"
-	"html"
 	"net/http"
 	"strconv"
 	"strings"
@@ -12,88 +12,155 @@ import (
 	"unicode/utf8"
 )
 
-type SearchParam struct {
-	Category string
-	Order    string
-	Query    string
-	Max      int
-	Status   string
-	Sort     string
+type Status uint8
+
+const (
+	ShowAll Status = iota
+	FilterRemakes
+	Trusted
+	APlus
+)
+
+type SortMode uint8
+
+const (
+	ID SortMode = iota
+	Name
+	Date
+	Downloads
+	Size
+)
+
+type Category struct {
+	Main, Sub uint8
 }
 
-func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrent, int) {
-	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"))
-	if errConv != nil {
-		maxPerPage = 50 // default Value maxPerPage
+func (c Category) String() (s string) {
+	if c.Main != 0 {
+		s += strconv.Itoa(int(c.Main))
+	}
+	s += "_"
+	if c.Sub != 0 {
+		s += strconv.Itoa(int(c.Sub))
+	}
+	return
+}
+
+type SearchParam struct {
+	Order    bool // True means acsending
+	Status   Status
+	Sort     SortMode
+	Category Category
+	Max      uint
+	Query    string
+}
+
+func SearchByQuery(r *http.Request, pagenum int) (search SearchParam, tor []model.Torrent, count int, err error) {
+	search, tor, count, err = searchByQuery(r, pagenum, true)
+	return
+}
+
+func SearchByQueryNoCount(r *http.Request, pagenum int) (search SearchParam, tor []model.Torrent, err error) {
+	search, tor, _, err = searchByQuery(r, pagenum, false)
+	return
+}
+
+func searchByQuery(r *http.Request, pagenum int, countAll bool) (search SearchParam, tor []model.Torrent, count int, err error) {
+	max, err := strconv.ParseUint(r.URL.Query().Get("max"), 10, 32)
+	if err != nil {
+		err = nil
+		max = 50 // default Value maxPerPage
+	} else if max > 300 {
+		max = 300
+	}
+	search.Max = uint(max)
+
+	search.Query = r.URL.Query().Get("q")
+
+	switch s := r.URL.Query().Get("s"); s {
+	case "1":
+		search.Status = FilterRemakes
+	case "2":
+		search.Status = Trusted
+	case "3":
+		search.Status = APlus
 	}
 
-	if maxPerPage > 300 {
-		maxPerPage = 300
-	}
-	search_param := SearchParam{}
-	search_param.Max = maxPerPage
-	search_param.Query = r.URL.Query().Get("q")
-	search_param.Category = r.URL.Query().Get("c")
-	search_param.Status = r.URL.Query().Get("s")
-	search_param.Sort = r.URL.Query().Get("sort")
-	search_param.Order = r.URL.Query().Get("order")
-
-	catsSplit := strings.Split(search_param.Category, "_")
-	// need this to prevent out of index panics
-	var searchCatId, searchSubCatId string
-	if len(catsSplit) == 2 {
-
-		searchCatId = html.EscapeString(catsSplit[0])
-		searchSubCatId = html.EscapeString(catsSplit[1])
-	}
-
-	switch search_param.Sort {
-	case "torrent_name":
-		search_param.Sort = "torrent_name"
-		break
-	case "date":
-		search_param.Sort = "date"
-		break
-	case "downloads":
-		search_param.Sort = "downloads"
-		break
-	case "filesize":
-		search_param.Sort = "filesize"
-	case "torrent_id":
-	default:
-		search_param.Sort = "torrent_id"
-	}
-
-	switch search_param.Order {
-	case "asc":
-		search_param.Order = "asc"
-		break
-	case "desc":
-	default:
-		search_param.Order = "desc"
-	}
-
-	order_by := search_param.Sort + " " + search_param.Order
-
-	parameters := torrentService.WhereParams{}
-	conditions := []string{}
-	if searchCatId != "" {
-		conditions = append(conditions, "category_id = ?")
-		parameters.Params = append(parameters.Params, searchCatId)
-	}
-	if searchSubCatId != "" {
-		conditions = append(conditions, "sub_category_id = ?")
-		parameters.Params = append(parameters.Params, searchSubCatId)
-	}
-	if search_param.Status != "" {
-		if search_param.Status == "2" {
-			conditions = append(conditions, "status_id != ?")
-		} else {
-			conditions = append(conditions, "status_id = ?")
+	catString := r.URL.Query().Get("c")
+	if s := catString; len(s) > 1 && s != "_" {
+		var tmp uint64
+		tmp, err = strconv.ParseUint(string(s[0]), 10, 8)
+		if err != nil {
+			return
 		}
-		parameters.Params = append(parameters.Params, search_param.Status)
+		search.Category.Main = uint8(tmp)
+
+		if len(s) == 3 {
+			tmp, err = strconv.ParseUint(string(s[2]), 10, 8)
+			if err != nil {
+				return
+			}
+			search.Category.Sub = uint8(tmp)
+		}
 	}
-	searchQuerySplit := strings.Fields(search_param.Query)
+
+	order_by := ""
+
+	switch s := r.URL.Query().Get("sort"); s {
+	case "1":
+		search.Sort = Name
+		order_by += "torrent_name"
+	case "2":
+		search.Sort = Date
+		order_by += "date"
+	case "3":
+		search.Sort = Downloads
+		order_by += "downloads"
+	case "4":
+		search.Sort = Size
+		order_by += "filesize"
+	default:
+		order_by += "torrent_id"
+	}
+
+	order_by += " "
+
+	switch s := r.URL.Query().Get("order"); s {
+	case "true":
+		search.Order = true
+		order_by += "asc"
+	default:
+		order_by += "desc"
+	}
+
+	userId := r.URL.Query().Get("userId")
+
+	parameters := torrentService.WhereParams{
+		Params: make([]interface{}, 0, 64),
+	}
+	conditions := make([]string, 0, 64)
+	if search.Category.Main != 0 {
+		conditions = append(conditions, "category = ?")
+		parameters.Params = append(parameters.Params, string(catString[0]))
+	}
+	if search.Category.Sub != 0 {
+		conditions = append(conditions, "sub_category = ?")
+		parameters.Params = append(parameters.Params, string(catString[2]))
+	}
+	if userId != "" {
+		conditions = append(conditions, "uploader = ?")
+		parameters.Params = append(parameters.Params, userId)
+	}
+	if search.Status != 0 {
+		if search.Status == 3 {
+			conditions = append(conditions, "status != ?")
+		} else {
+			conditions = append(conditions, "status = ?")
+		}
+		parameters.Params = append(parameters.Params, strconv.Itoa(int(search.Status)+1))
+	}
+
+	searchQuerySplit := strings.Fields(search.Query)
 	for i, word := range searchQuerySplit {
 		firstRune, _ := utf8.DecodeRuneInString(word)
 		if len(word) == 1 && unicode.IsPunct(firstRune) {
@@ -104,13 +171,28 @@ func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrent, 
 			// punctuation characters.
 			continue
 		}
+
+		// TEMP: Workaround to at least make SQLite search testable for
+		// development.
+		// TODO: Actual case-insensitive search for SQLite
+		var operator string
+		if db.ORM.Dialect().GetName() == "sqlite3" {
+			operator = "LIKE ?"
+		} else {
+			operator = "ILIKE ?"
+		}
+
 		// TODO: make this faster ?
-		conditions = append(conditions, "torrent_name ILIKE ?")
+		conditions = append(conditions, "torrent_name "+operator)
 		parameters.Params = append(parameters.Params, "%"+searchQuerySplit[i]+"%")
 	}
 
 	parameters.Conditions = strings.Join(conditions[:], " AND ")
 	log.Infof("SQL query is :: %s\n", parameters.Conditions)
-	torrents, n := torrentService.GetTorrentsOrderBy(&parameters, order_by, maxPerPage, maxPerPage*(pagenum-1))
-	return search_param, torrents, n
+	if countAll {
+		tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, order_by, int(search.Max), int(search.Max)*(pagenum-1))
+	} else {
+		tor, err = torrentService.GetTorrentsOrderByNoCount(&parameters, order_by, int(search.Max), int(search.Max)*(pagenum-1))
+	}
+	return
 }

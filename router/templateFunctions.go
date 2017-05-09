@@ -1,14 +1,14 @@
 package router
 
 import (
-	"github.com/ewhal/nyaa/service/user/permission"
-	"github.com/nicksnyder/go-i18n/i18n"
 	"html/template"
 	"log"
 	"math"
 	"net/url"
 	"strconv"
-)
+	"github.com/nicksnyder/go-i18n/i18n"
+	"github.com/ewhal/nyaa/service/user/permission"
+	)
 
 var FuncMap = template.FuncMap{
 	"min": math.Min,
@@ -63,7 +63,8 @@ var FuncMap = template.FuncMap{
 	"getAvatar": func(hash string, size int) string {
 		return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
 	},
-	"CurrentOrAdmin":       userPermission.CurrentOrAdmin,
-	"CurrentUserIDentical": userPermission.CurrentUserIDentical,
-	"GetRole":              userPermission.GetRole,
+	"CurrentOrAdmin": userPermission.CurrentOrAdmin,
+	"CurrentUserIdentical": userPermission.CurrentUserIdentical,
+	"HasAdmin": userPermission.HasAdmin,
+	"GetRole": userPermission.GetRole,
 }

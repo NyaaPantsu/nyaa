@@ -65,18 +65,21 @@ type TorrentJSON struct {
 	Comments    []CommentJSON `json:"comments"`
 	SubCategory string        `json:"sub_category"`
 	Category    string        `json:"category"`
+	Downloads   int           `json:"downloads"`
+	UploaderID  uint          `json:"uploader_id"`
+	WebsiteLink template.URL  `json:"website_link"`
 	Magnet      template.URL  `json:"magnet"`
 }
 
 // ToJSON converts a model.Torrent to its equivalent JSON structure
 func (t *Torrent) ToJSON() TorrentJSON {
 	magnet := util.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, config.Trackers...)
-	var commentJSON []CommentJSON
+	commentsJSON := make([]CommentJSON, 0, len(t.OldComments)+len(t.Comments))
 	for _, c := range t.OldComments {
-		commentJSON = append(commentJSON, CommentJSON{Username: c.Username, Content: template.HTML(c.Content), Date: c.Date})
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, Content: template.HTML(c.Content), Date: c.Date})
 	}
 	for _, c := range t.Comments {
-		commentJSON = append(commentJSON, CommentJSON{Username: c.User.Username, Content: template.HTML(c.Content), Date: c.CreatedAt})
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt})
 	}
 	res := TorrentJSON{
 		ID:          strconv.FormatUint(uint64(t.ID), 10),
@@ -85,11 +88,23 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Hash:        t.Hash,
 		Date:        t.Date.Format(time.RFC3339),
 		Filesize:    util.FormatFilesize2(t.Filesize),
-		Description: template.HTML(t.Description),
-		Comments:    commentJSON,
+		Description: util.MarkdownToHTML(t.Description),
+		Comments:    commentsJSON,
 		SubCategory: strconv.Itoa(t.SubCategory),
 		Category:    strconv.Itoa(t.Category),
+		Downloads:   t.Downloads,
+		UploaderID:  t.UploaderID,
+		WebsiteLink: util.Safe(t.WebsiteLink),
 		Magnet:      util.Safe(magnet)}
 
 	return res
+}
+
+// Map Torrents to TorrentsToJSON without reallocations
+func TorrentsToJSON(t []Torrent) []TorrentJSON {
+	json := make([]TorrentJSON, len(t))
+	for i := range t {
+		json[i] = t[i].ToJSON()
+	}
+	return json
 }

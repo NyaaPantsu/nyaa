@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"flag"
+
 	"github.com/nicksnyder/go-i18n/i18n"
 
 	"github.com/ewhal/nyaa/config"
@@ -19,7 +20,7 @@ import (
 
 func initI18N() {
 	/* Initialize the languages translation */
-	i18n.MustLoadTranslationFile("service/user/locale/en-us.all.json")
+	i18n.MustLoadTranslationFile("translations/en-us.all.json")
 }
 
 func RunServer(conf *config.Config) {

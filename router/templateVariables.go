@@ -1,13 +1,14 @@
 package router
 
 import (
-	"net/http"
 	"net/url"
+	"net/http"
 
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/service/user"
 	userForms "github.com/ewhal/nyaa/service/user/form"
+	"github.com/ewhal/nyaa/util/search"
 	"github.com/gorilla/mux"
 )
 
@@ -53,6 +54,18 @@ type UserRegisterTemplateVariables struct {
 	Route            *mux.Route // For getting current route in templates
 }
 
+type UserProfileEditVariables struct {
+	UserProfile 	 *model.User
+	UserForm 		 userForms.UserForm
+	FormErrors       map[string][]string
+	FormInfos        map[string][]string
+	Search           SearchForm
+	Navigation       Navigation
+	User             *model.User
+	URL              *url.URL   // For parsing Url in templates
+	Route            *mux.Route // For getting current route in templates
+}
+
 type UserVerifyTemplateVariables struct {
 	FormErrors map[string][]string
 	Search     SearchForm
@@ -74,7 +87,6 @@ type UserLoginFormVariables struct {
 
 type UserProfileVariables struct {
 	UserProfile *model.User
-	FormErrors  map[string][]string
 	Search      SearchForm
 	Navigation  Navigation
 	User        *model.User
@@ -111,39 +123,16 @@ type Navigation struct {
 }
 
 type SearchForm struct {
-	Query              string
-	Status             string
+	search.SearchParam
 	Category           string
-	Sort               string
-	Order              string
 	HideAdvancedSearch bool
 }
 
 // Some Default Values to ease things out
-func NewSearchForm(params ...string) (searchForm SearchForm) {
-	if len(params) > 1 {
-		searchForm.Category = params[0]
-	} else {
-		searchForm.Category = "_"
+func NewSearchForm() SearchForm {
+	return SearchForm{
+		Category: "_",
 	}
-	if len(params) > 2 {
-		searchForm.Sort = params[1]
-	} else {
-		searchForm.Sort = "torrent_id"
-	}
-	if len(params) > 3 {
-		order := params[2]
-		if order == "DESC" {
-			searchForm.Order = order
-		} else if order == "ASC" {
-			searchForm.Order = order
-		} else {
-			// TODO: handle invalid value (?)
-		}
-	} else {
-		searchForm.Order = "DESC"
-	}
-	return
 }
 
 func GetUser(r *http.Request) *model.User {

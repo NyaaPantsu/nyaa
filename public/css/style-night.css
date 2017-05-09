@@ -1,8 +1,4 @@
-/* Night mode switcher  */
-.nightswitch > img {
-    width: 24px;
-}
-
+/*Don't make changes to layout here, only colours*/
 /* Torrent status colors */
 .remake {
   background-color: #795c46;
@@ -14,13 +10,10 @@
   background-color: #487589;
 }
 
-/* modified copy of NyaaTorrent theme */
+
 #mainmenu {
     background: #263238;
-    position: fixed;
     color: #f2f2f2;
-    width: 100%;
-    z-index: 4;
     border: 0px solid #263238;
 }
 
@@ -29,7 +22,6 @@
 }
 
 #container {
-    padding-top: 1.25em;
     background-color: #29363d;
 }
 
@@ -44,14 +36,8 @@
 body {
     background-color:#282A2E;
     color: #eff5f5;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
 }
 
-.torrentNav {
-	text-align: center;
-}
 
 .pagination > .active > a {
     background: #ececec;
@@ -62,7 +48,6 @@ body {
 /* Links, Text */
 a {
 	color: #81a2be;
-	text-decoration : none;
 }
 .btn-success {
     color: #fff;
@@ -70,138 +55,24 @@ a {
     border-color: #b294bb;
 }
 
-.download-btn {
-    font-size: 24px;
-}
-
-.table-borderless > tbody > tr > td,
-.table-borderless > tbody > tr > th,
-.table-borderless > tfoot > tr > td,
-.table-borderless > tfoot > tr > th,
-.table-borderless > thead > tr > td,
-.table-borderless > thead > tr > th {
-    border: none;
-}
-
-.torrent-info .name {
-	font-weight: bold;
-	overflow: hidden;
-	padding-bottom: 3px;
-	padding-top: 3px;
-	word-wrap: break-word;
-}
-
-.torrent-hash {
-	font-family: monospace;
-}
-
-.torrent-info .filesize {
-	white-space: nowrap;
-}
-
-.comment-row td:first-of-type {
-	vertical-align: top;
-	text-align: right;
-}
-
-/* Table style & fixes */
-.table > tbody > tr > td {
-    /* fix bootstrap uglyness */
-    vertical-align: middle;
-}
-
-.table > tbody > tr > th, .table > tbody > tr > td {
-	padding: 4px;
-}
-
-.captcha-container {
-	display: grid;
-	grid-template-rows: auto;
-	grid-template-columns: 240px;
-}
-
-tr.torrent-info td.date {
-	white-space: nowrap;
-}
-
-.custom-table-hover > tbody > tr:hover {
-	opacity: 0.82;
-}
-
-.comment-row {
-	border-top: 1px solid #ddd;
-}
-
-div.container div.blockBody:nth-of-type(2) table{table-layout:fixed;}
-div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:first-of-type, div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(5){width:10%;}
-div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(3){width:15%;}
-div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(4){width:19%;}
-div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-type{width:6%;}
-
-/* Mobile-friendly main table */
-@media only screen and (max-width: 700px) {
-	table, thead, tbody, tr {
-		display: block;
-	}
-
-	th {
-		display: none;
-	}
-
-	td {
-		display: inline-block;
-	}
-
-	td:nth-of-type(1), td:nth-of-type(2) {
-		display: block;
-	}
-
-	.table > tbody > tr > td {
-		border: none;
-	}
-}
-
-/* Credit to bootsnipp.com for the css for the color graph */
-.colorgraph {
-  height: 5px;
-  border-top: 0;
-  background: #c4e17f;
-  border-radius: 5px;
-  background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-  background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-  background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-  background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-}
-
-.center-image {
-	max-width: 100%;
-	max-height: 80vh;
-}
-
-/* the curved edges triggered my autism */
-.navbar {
-    border-radius: 0px;
-}
-
 :target {
     background-color: #585b4f;
 }
 
-#mainmenu button .search_text {
-	display: none;
+/* style the dropdown member menu */
+.nav > .dropdown.open, .profile-image[aria-expanded="true"], .nav ul.dropdown-menu {
+	background: #282A2E;
 }
-#mainmenu .navbar-form select.form-control
-{
-	width: 12rem;
-}
-.special-img 
-{
-    position: relative;
-    top: -5px;
-    float: left;
-    left: -5px;
+.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+	background: #263238;
 }
 
-#mainmenu .badgemenu {
-	padding-top: 0;
+/* Profile Content */
+.profile-content {
+  background: #29363d;
+}
+
+/* Night mode switcher  */
+#mainmenu a.nightswitch {
+    background-image: url(/img/moon.png);
 }

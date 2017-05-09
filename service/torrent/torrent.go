@@ -23,7 +23,7 @@ type WhereParams struct {
 
 // don't need raw SQL once we get MySQL
 func GetFeeds() []model.Feed {
-	var result []model.Feed
+	result := make([]model.Feed, 0, 50)
 	rows, err := db.ORM.DB().
 		Query(
 			"SELECT `torrent_id` AS `id`, `torrent_name` AS `name`, `torrent_hash` AS `hash`, `timestamp` FROM `torrents` " +
@@ -66,9 +66,17 @@ func GetTorrentById(id string) (model.Torrent, error) {
 	return torrent, nil
 }
 
-func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int) ([]model.Torrent, int) {
-	var torrents []model.Torrent
-	var count int
+func GetTorrentsOrderByNoCount(parameters *WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, err error) {
+	torrents, _, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, false)
+	return
+}
+
+func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, count int, err error) {
+	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true)
+	return
+}
+
+func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int, countAll bool) (torrents []model.Torrent, count int, err error) {
 	var conditionArray []string
 	if strings.HasPrefix(orderBy, "filesize") {
 		// torrents w/ NULL filesize fuck up the sorting on Postgres
@@ -82,7 +90,13 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 		params = parameters.Params
 	}
 	conditions := strings.Join(conditionArray, " AND ")
-	db.ORM.Model(&torrents).Where(conditions, params...).Count(&count)
+	if countAll {
+		err = db.ORM.Model(&torrents).Where(conditions, params...).Count(&count).Error
+		if err != nil {
+			return
+		}
+	}
+	// TODO: Vulnerable to injections. Use query builder.
 
 	// build custom db query for performance reasons
 	dbQuery := "SELECT * FROM torrents"
@@ -100,42 +114,39 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	if limit != 0 || offset != 0 { // if limits provided
 		dbQuery = dbQuery + " LIMIT " + strconv.Itoa(limit) + " OFFSET " + strconv.Itoa(offset)
 	}
-	db.ORM.Raw(dbQuery, params...).Find(&torrents)
-	return torrents, count
+	err = db.ORM.Raw(dbQuery, params...).Find(&torrents).Error
+	return
 }
 
 // GetTorrents obtain a list of torrents matching 'parameters' from the
 // database. The list will be of length 'limit' and in default order.
 // GetTorrents returns the first records found. Later records may be retrieved
 // by providing a positive 'offset'
-func GetTorrents(parameters WhereParams, limit int, offset int) ([]model.Torrent, int) {
+func GetTorrents(parameters WhereParams, limit int, offset int) ([]model.Torrent, int, error) {
 	return GetTorrentsOrderBy(&parameters, "", limit, offset)
 }
 
 // Get Torrents with where parameters but no limit and order by default (get all the torrents corresponding in the db)
-func GetTorrentsDB(parameters WhereParams) ([]model.Torrent, int) {
+func GetTorrentsDB(parameters WhereParams) ([]model.Torrent, int, error) {
 	return GetTorrentsOrderBy(&parameters, "", 0, 0)
 }
 
-func GetAllTorrentsOrderBy(orderBy string, limit int, offset int) ([]model.Torrent, int) {
-
+func GetAllTorrentsOrderBy(orderBy string, limit int, offset int) ([]model.Torrent, int, error) {
 	return GetTorrentsOrderBy(nil, orderBy, limit, offset)
 }
 
-func GetAllTorrents(limit int, offset int) ([]model.Torrent, int) {
+func GetAllTorrents(limit int, offset int) ([]model.Torrent, int, error) {
 	return GetTorrentsOrderBy(nil, "", limit, offset)
 }
 
-func GetAllTorrentsDB() ([]model.Torrent, int) {
+func GetAllTorrentsDB() ([]model.Torrent, int, error) {
 	return GetTorrentsOrderBy(nil, "", 0, 0)
 }
 
 func CreateWhereParams(conditions string, params ...string) WhereParams {
-	whereParams := WhereParams{}
-	whereParams.Conditions = conditions
-	for i := range params {
-		whereParams.Params = append(whereParams.Params, params[i])
+	whereParams := WhereParams{
+		Conditions: conditions,
+		Params:     make([]interface{}, len(params)),
 	}
-
 	return whereParams
 }

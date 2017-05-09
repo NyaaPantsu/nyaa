@@ -33,7 +33,7 @@ func SendEmailFromAdmin(to string, subject string, body string, bodyHTML string)
 	if config.SendEmail {
 		log.Debug("SendEmail performed.")
 
-		err := mailer.DialAndSend(msg); 
+		err := mailer.DialAndSend(msg)
 		return err
 	}
 	return nil
@@ -52,7 +52,6 @@ func SendTestEmail() error {
 		panic(err)
 	}
 	msg.Attach(path)
-	// SendEmail(msg)
 
 	err = mailer.DialAndSend(msg)
 	return err

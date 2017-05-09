@@ -1,0 +1,9 @@
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+# For debugging purposes
+local   {{ nyaapantsu_dbname }} {{ nyaapantsu_user }} md5
+local   all             all                                     peer
+# IPv4 local connections:
+host    {{ nyaapantsu_dbname }} {{ nyaapantsu_user }} 127.0.0.1/32 md5
+# IPv6 local connections:
+# INFO: For some reason, we need IPv6 for pgpool-ii
+host    {{ nyaapantsu_dbname }} {{ nyaapantsu_user }} ::1/128 md5
