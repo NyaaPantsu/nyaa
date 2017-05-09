@@ -3,6 +3,8 @@ package model
 import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/util"
+	"github.com/microcosm-cc/bluemonday"
+	"github.com/russross/blackfriday"
 
 	"html"
 	"html/template"
@@ -79,8 +81,13 @@ func (t *Torrents) ToJson() TorrentsJson {
 		commentsJson = append(commentsJson, CommentsJson{Username: c.Username, Content: template.HTML(c.Content), Date: c.Date})
 	}
 	for _, c := range t.Comments {
-		commentsJson = append(commentsJson, CommentsJson{Username: c.User.Username, Content: template.HTML(c.Content), Date: c.CreatedAt})
+		unsafe := blackfriday.MarkdownCommon([]byte(c.Content))
+		html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
+
+		commentsJson = append(commentsJson, CommentsJson{Username: c.User.Username, Content: template.HTML(html), Date: c.CreatedAt})
 	}
+	unsafe := blackfriday.MarkdownCommon([]byte(t.Description))
+	description := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
 	res := TorrentsJson{
 		Id:           strconv.FormatUint(uint64(t.Id), 10),
 		Name:         html.UnescapeString(t.Name),
@@ -88,7 +95,7 @@ func (t *Torrents) ToJson() TorrentsJson {
 		Hash:         t.Hash,
 		Date:         t.Date.Format(time.RFC3339),
 		Filesize:     util.FormatFilesize2(t.Filesize),
-		Description:  template.HTML(t.Description),
+		Description:  template.HTML(description),
 		Comments:     commentsJson,
 		Sub_Category: strconv.Itoa(t.Sub_Category),
 		Category:     strconv.Itoa(t.Category),
