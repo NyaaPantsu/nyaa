@@ -1,7 +1,6 @@
 package apiService
 
 import (
-	"errors"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -29,10 +28,10 @@ type TorrentsRequest struct {
 //accept torrent files?
 type TorrentRequest struct {
 	Name        string `json:"name"`
-	Hash        string `json:"hash"`
-	Magnet      string `json:"magnet"`
 	Category    int    `json:"category"`
 	SubCategory int    `json:"sub_category"`
+	Magnet      string `json:"magnet"`
+	Hash        string `json:"hash"`
 	Description string `json:"description"`
 }
 
@@ -60,37 +59,42 @@ func (r *TorrentsRequest) ToParams() torrentService.WhereParams {
 	return res
 }
 
-var ErrShortName = errors.New("file name should be at least 100 characters long")
-var ErrCategory = errors.New("this category doesn't exist")
-var ErrSubCategory = errors.New("this sub category doesn't exist")
-var ErrMagnet = errors.New("incorrect magnet")
-var ErrHash = errors.New("incorrect hash")
-
-//rewrite validators!!!
-
-func (r *TorrentRequest) ValidateUpload() (error, int) {
-	if len(r.Name) < 100 {
+func validateName(r *TorrentRequest) (error, int) {
+	if len(r.Name) < 100 { //isn't this too much?
 		return ErrShortName, http.StatusNotAcceptable
 	}
+	return nil, http.StatusOK
+}
+
+func validateCategory(r *TorrentRequest) (error, int) {
 	if r.Category == 0 {
 		return ErrCategory, http.StatusNotAcceptable
 	}
+	return nil, http.StatusOK
+}
+
+func validateSubCategory(r *TorrentRequest) (error, int) {
 	if r.SubCategory == 0 {
 		return ErrSubCategory, http.StatusNotAcceptable
 	}
+	return nil, http.StatusOK
+}
 
-	if r.Hash == "" {
-		magnetUrl, err := url.Parse(string(r.Magnet)) //?
-		if err != nil {
-			return err, http.StatusInternalServerError
-		}
-		exactTopic := magnetUrl.Query().Get("xt")
-		if !strings.HasPrefix(exactTopic, "urn:btih:") {
-			return ErrMagnet, http.StatusNotAcceptable
-		}
-		r.Hash = strings.ToUpper(strings.TrimPrefix(exactTopic, "urn:btih:"))
+func validateMagnet(r *TorrentRequest) (error, int) {
+	magnetUrl, err := url.Parse(string(r.Magnet)) //?
+	if err != nil {
+		return err, http.StatusInternalServerError
 	}
+	exactTopic := magnetUrl.Query().Get("xt")
+	if !strings.HasPrefix(exactTopic, "urn:btih:") {
+		return ErrMagnet, http.StatusNotAcceptable
+	}
+	r.Hash = strings.ToUpper(strings.TrimPrefix(exactTopic, "urn:btih:"))
+	return nil, http.StatusOK
+}
 
+func validateHash(r *TorrentRequest) (error, int) {
+	r.Hash = strings.ToUpper(r.Hash)
 	matched, err := regexp.MatchString("^[0-9A-F]{40}$", r.Hash)
 	if err != nil {
 		return err, http.StatusInternalServerError
@@ -98,44 +102,56 @@ func (r *TorrentRequest) ValidateUpload() (error, int) {
 	if !matched {
 		return ErrHash, http.StatusNotAcceptable
 	}
-
 	return nil, http.StatusOK
 }
 
-func (r *TorrentRequest) ValidateUpdate() (error, int) {
-	if len(r.Name) < 100 && len(r.Name) != 0 {
-		return ErrShortName, http.StatusNotAcceptable
-	}
-	/*if r.Category == 0 {
-		return ErrCategory, http.StatusNotAcceptable
-	}
-	if r.SubCategory == 0 {
-		return ErrSubCategory, http.StatusNotAcceptable
-	}*/
+//rewrite validators!!!
 
-	if r.Magnet != "" || r.Hash != "" {
-		if r.Hash == "" {
-			magnetUrl, err := url.Parse(string(r.Magnet)) //?
-			if err != nil {
-				return err, http.StatusInternalServerError
-			}
-			exactTopic := magnetUrl.Query().Get("xt")
-			if !strings.HasPrefix(exactTopic, "urn:btih:") {
-				return ErrMagnet, http.StatusNotAcceptable
-			}
-			r.Hash = strings.ToUpper(strings.TrimPrefix(exactTopic, "urn:btih:"))
+func (r *TorrentRequest) ValidateUpload() (err error, code int) {
+	validators := []func(r *TorrentRequest) (error, int){
+		validateName,
+		validateCategory,
+		validateSubCategory,
+		validateMagnet,
+		validateHash,
+	}
+
+	for i, validator := range validators {
+		if r.Hash != "" && i == 3 {
+			continue
 		}
-
-		matched, err := regexp.MatchString("^[0-9A-F]{40}$", r.Hash)
+		err, code = validator(r)
 		if err != nil {
-			return err, http.StatusInternalServerError
+			break
 		}
-		if !matched {
-			return ErrHash, http.StatusNotAcceptable
+	}
+	return err, code
+}
+
+func (r *TorrentRequest) ValidateUpdate() (err error, code int) {
+	validators := []func(r *TorrentRequest) (error, int){
+		validateName,
+		validateCategory,
+		validateSubCategory,
+		validateMagnet,
+		validateHash,
+	}
+
+	//don't update not requested values
+	//rewrite with reflect?
+	for i, validator := range validators {
+		if (r.Name == "" && i == 0) || (r.Category == 0 && i == 1) ||
+			(r.SubCategory == 0 && i == 2) ||
+			(r.Hash != "" || r.Magnet == "" && i == 3) || (r.Hash == "" && i == 4) {
+			continue
+		}
+		err, code = validator(r)
+		if err != nil {
+			break
 		}
 	}
 
-	return nil, http.StatusOK
+	return err, code
 }
 
 //rewrite with reflect ?
