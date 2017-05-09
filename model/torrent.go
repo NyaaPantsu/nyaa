@@ -23,7 +23,7 @@ type Torrents struct {
 	Id           uint      `gorm:"column:torrent_id;primary_key"`
 	Name         string    `gorm:"column:torrent_name"`
 	Hash         string    `gorm:"column:torrent_hash"`
-	Category     int       `gorm:"column:category_od"`
+	Category     int       `gorm:"column:category_id"`
 	Sub_Category int       `gorm:"column:sub_category_id"`
 	Status       int       `gorm:"column:status_id"`
 	Date         time.Time `gorm:"column:date"`
