@@ -1,0 +1,63 @@
+# TODO Allow autogenerating of GPG keys
+- name: Make sure there is a passphrase file
+  stat:
+    path: "{{ nyaapantsu_gpg_passphrase_file }}"
+  register: pass_file
+
+- name: Copy backup script
+  copy:
+    src: backup.sh
+    dest: "{{ backup_script }}"
+    mode: 0755
+  become: true
+  when: pass_file.stat.exists == true
+
+- name: Create (if not exists) cronjob
+  file:
+    path: "{{ backup_cron_job }}"
+    state: touch
+  become: true
+  when: pass_file.stat.exists == true
+
+- name: Add epel repository
+  yum_repository:
+    name: epel
+    description: EPEL YUM repo
+    baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+    gpgcheck: 1
+    gpgkey: https://getfedora.org/static/352C64E5.txt
+  become: true
+
+- name: Install mktorrent and rtorrent
+  yum:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - mktorrent
+    - rtorrent
+
+- name: Configure rtorrent
+  template:
+    src: rtorrent.rc.j2
+    dest: ~/.rtorrent.rc
+
+- name: Copy systemd rtorrent service
+  template:
+    src: rtorrent.service.j2
+    dest: /etc/systemd/system/rtorrent.service
+  become: true
+
+  #- name: Enable and start rtorrent service
+  #  systemd:
+  #    enabled: yes
+  #    name: rtorrent
+  #    state: started
+  #  become: true
+
+- name: Setup backup cron
+  template:
+    src: backup_cron.j2
+    dest: "{{ backup_cron_job }}"
+  become: true
+  when: pass_file.stat.exists == true

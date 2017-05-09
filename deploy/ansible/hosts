@@ -1,0 +1,5 @@
+[webservers]
+127.0.0.1:2200 ansible_connection=ssh ansible_ssh_user=vagrant
+
+[dbs]
+127.0.0.1:2200 ansible_connection=ssh ansible_ssh_user=vagrant
