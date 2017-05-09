@@ -118,6 +118,9 @@ func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, er
 // RegisterHanderFromForm sets cookie from a RegistrationForm.
 func RegisterHanderFromForm(w http.ResponseWriter, registrationForm formStruct.RegistrationForm) (int, error) {
 	email := registrationForm.Email
+	if email == "" {
+		email = registrationForm.Username
+	}
 	pass := registrationForm.Password
 	log.Debugf("RegisterHandler UserEmail : %s", email)
 	log.Debugf("RegisterHandler UserPassword : %s", pass)
