@@ -104,6 +104,10 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 		Date:         time.Now(),
 		Filesize:     0,
 		Description:  string(b.Description)}
-	db.ORM.Create(&torrent)
+	err = db.ORM.Create(&torrent).Error
+	if err != nil {
+		util.SendError(w, err, 500)
+		return
+	}
 	fmt.Printf("%+v\n", torrent)
 }
