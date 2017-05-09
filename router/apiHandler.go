@@ -12,6 +12,7 @@ import (
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/torrent"
+	"github.com/ewhal/nyaa/util"
 	"github.com/gorilla/mux"
 )
 
@@ -30,7 +31,11 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 		pagenum = 1
 	}
 
-	torrents, nbTorrents := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
+	torrents, nbTorrents, err := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
+	if err != nil {
+		util.SendError(w, err, 400)
+		return
+	}
 
 	b := model.ApiResultJson{
 		Torrents: model.TorrentsToJSON(torrents),
@@ -38,8 +43,7 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 	b.QueryRecordCount = maxPerPage
 	b.TotalRecordCount = nbTorrents
 	w.Header().Set("Content-Type", "application/json")
-	err := json.NewEncoder(w).Encode(b)
-
+	err = json.NewEncoder(w).Encode(b)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
