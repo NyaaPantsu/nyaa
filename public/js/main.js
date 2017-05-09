@@ -1,18 +1,15 @@
 // Night mode
 var night = localStorage.getItem("night");
 if (night == "true") {
-    $("#style")[0].href = "/css/style-night.css";
-    $("#nighticon")[0].src = "/img/sun.png";
+    $("head").append('<link id="style-dark" rel="stylesheet" type="text/css" href="/css/style-night.css">');
 }
 
 function toggleNightMode() {
     var night = localStorage.getItem("night");
     if(night == "true") {
-        $("#style")[0].href = "/css/style.css";
-        $("#nighticon")[0].src = "/img/moon.png";
+        $("#style-dark")[0].remove()
     } else {
-        $("#style")[0].href = "/css/style-night.css";
-        $("#nighticon")[0].src = "/img/sun.png";
+        $("head").append('<link id="style-dark" rel="stylesheet" type="text/css" href="/css/style-night.css">');
     }
     localStorage.setItem("night", (night == "true") ? "false" : "true");
 }

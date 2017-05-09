@@ -79,7 +79,8 @@ func (t *Torrents) ToJson() TorrentsJson {
 		commentsJson = append(commentsJson, CommentsJson{Username: c.Username, Content: template.HTML(c.Content), Date: c.Date})
 	}
 	for _, c := range t.Comments {
-		commentsJson = append(commentsJson, CommentsJson{Username: c.User.Username, Content: template.HTML(c.Content), Date: c.CreatedAt})
+
+		commentsJson = append(commentsJson, CommentsJson{Username: c.User.Username, Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt})
 	}
 	res := TorrentsJson{
 		Id:           strconv.FormatUint(uint64(t.Id), 10),
@@ -88,7 +89,7 @@ func (t *Torrents) ToJson() TorrentsJson {
 		Hash:         t.Hash,
 		Date:         t.Date.Format(time.RFC3339),
 		Filesize:     util.FormatFilesize2(t.Filesize),
-		Description:  template.HTML(t.Description),
+		Description:  util.MarkdownToHTML(t.Description),
 		Comments:     commentsJson,
 		Sub_Category: strconv.Itoa(t.Sub_Category),
 		Category:     strconv.Itoa(t.Category),

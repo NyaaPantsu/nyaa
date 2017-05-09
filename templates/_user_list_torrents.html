@@ -11,6 +11,7 @@
             <th>{{T "links"}}</th>
           </tr>
           {{ range .Torrents }}
+          {{ with .ToJson }}
           <tr class="torrent-info
               {{if eq .Status 2}}remake{{end}}
               {{if eq .Status 3}}trusted{{end}}
@@ -37,6 +38,7 @@
                   </a>
               </td>
           </tr>
+          {{end}}
           {{end}}
       </table>
       <nav class="torrentNav" aria-label="Page navigation">
