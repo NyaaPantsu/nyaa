@@ -62,16 +62,11 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 	var user model.User
 	log.Debugf("registrationForm %+v\n", registrationForm)
 	modelHelper.AssignValue(&user, &registrationForm)
-<<<<<<< HEAD
-	user.Md5 = crypto.GenerateMD5Hash(user.Email) // Gravatar
-=======
-
 	if user.Email == "" {
 		user.Md5 = ""
 	} else {
 		user.Md5 = crypto.GenerateMD5Hash(user.Email)
 	}
->>>>>>> 7ea85cf3140d8f9c32c3637b7e9f73a0e744aee8
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
 		return user, errors.New("Token not generated.")
@@ -175,7 +170,7 @@ func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, currentUser *m
 		return user, http.StatusNotFound, errors.New("User is not found.")
 	}
 
-	if (form.Password != "") {
+	if form.Password != "" {
 		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(form.CurrentPassword))
 		if err != nil && !userPermission.HasAdmin(currentUser) {
 			log.Error("Password Incorrect.")
@@ -195,14 +190,14 @@ func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, currentUser *m
 		form.Status = user.Status
 		form.Username = user.Username
 	}
-		log.Debugf("form %+v\n", form)
-		modelHelper.AssignValue(&user, form)
-	
+	log.Debugf("form %+v\n", form)
+	modelHelper.AssignValue(&user, form)
+
 	status, err := UpdateUserCore(&user)
 	if err != nil {
 		return user, status, err
 	}
-	if (userPermission.CurrentUserIdentical(currentUser, user.Id)) {
+	if userPermission.CurrentUserIdentical(currentUser, user.Id) {
 		status, err = SetCookie(w, user.Token)
 	}
 	return user, status, err
@@ -217,8 +212,8 @@ func DeleteUser(w http.ResponseWriter, currentUser *model.User, id string) (int,
 	if db.ORM.Delete(&user).Error != nil {
 		return http.StatusInternalServerError, errors.New("User is not deleted.")
 	}
-	if (userPermission.CurrentUserIdentical(currentUser, user.Id)) {
-	return ClearCookie(w)
+	if userPermission.CurrentUserIdentical(currentUser, user.Id) {
+		return ClearCookie(w)
 	}
 	return http.StatusOK, nil
 }

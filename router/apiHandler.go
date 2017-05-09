@@ -133,6 +133,10 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		db.ORM.Create(&torrent)
+		if err != nil {
+			util.SendError(w, err, 500)
+			return
+		}
 		fmt.Printf("%+v\n", torrent)
 	}
 }
@@ -143,7 +147,6 @@ func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-<<<<<<< HEAD
 	contentType := r.Header.Get("Content-Type")
 	if contentType == "application/json" {
 		token := r.Header.Get("Authorization")
@@ -180,27 +183,13 @@ func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), code)
 			return
 		}
-		fmt.Printf("%+v\n", torrent)
 		update.UpdateTorrent(&torrent)
 
 		db.ORM.Save(&torrent)
+		if err != nil {
+			util.SendError(w, err, 500)
+			return
+		}
 		fmt.Printf("%+v\n", torrent)
 	}
-=======
-	torrent := model.Torrents{
-		Name:         b.Name,
-		Category:     category,
-		Sub_Category: sub_category,
-		Status:       1,
-		Hash:         b.Hash,
-		Date:         time.Now(),
-		Filesize:     0,
-		Description:  string(b.Description)}
-	err = db.ORM.Create(&torrent).Error
-	if err != nil {
-		util.SendError(w, err, 500)
-		return
-	}
-	fmt.Printf("%+v\n", torrent)
->>>>>>> 7ea85cf3140d8f9c32c3637b7e9f73a0e744aee8
 }
