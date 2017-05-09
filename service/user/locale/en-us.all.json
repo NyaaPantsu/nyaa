@@ -93,7 +93,7 @@
   },
   {
     "id":"sign_up_success",
-    "translation": "Almost Signed Up!"
+    "translation": "Thank you for registering!"
   },
   {
     "id":"verify_success",
@@ -101,7 +101,7 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "Now, you are one step left before being part of our community! Check your emails (inbox or spam folder) and click the link provided for activating your account!"
+    "translation": "Now, as the final step of registration please check your mail inbox (or spam) and click the link provided for activating your account!"
   },
   {
     "id":"settings",
