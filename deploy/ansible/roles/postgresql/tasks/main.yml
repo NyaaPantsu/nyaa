@@ -25,6 +25,12 @@
     dest: /etc/pgpool-II/pgpool.conf
   become: true
 
+- name: Create oiddir for pgpool
+  file:
+    path: "{{ memqcache_oiddir }}"
+    state: directory
+  become: true 
+
 - name: Start postgresql, pgpool and enable at boot
   systemd:
     enabled: yes
