@@ -19,8 +19,6 @@ import (
 	"github.com/ewhal/nyaa/util/timeHelper"
 )
 
-var userFields []string = []string{"name", "email", "createdAt", "updatedAt"}
-
 // SuggestUsername suggest user's name if user's name already occupied.
 func SuggestUsername(username string) string {
 	var count int
@@ -29,17 +27,16 @@ func SuggestUsername(username string) string {
 	log.Debugf("count Before : %d", count)
 	if count == 0 {
 		return username
-	} else {
-		var postfix int
-		for {
-			usernameCandidate = username + strconv.Itoa(postfix)
-			log.Debugf("usernameCandidate: %s\n", usernameCandidate)
-			db.ORM.Model(model.User{}).Where(&model.User{Username: usernameCandidate}).Count(&count)
-			log.Debugf("count after : %d\n", count)
-			postfix = postfix + 1
-			if count == 0 {
-				break
-			}
+	}
+	var postfix int
+	for {
+		usernameCandidate = username + strconv.Itoa(postfix)
+		log.Debugf("usernameCandidate: %s\n", usernameCandidate)
+		db.ORM.Model(model.User{}).Where(&model.User{Username: usernameCandidate}).Count(&count)
+		log.Debugf("count after : %d\n", count)
+		postfix = postfix + 1
+		if count == 0 {
+			break
 		}
 	}
 	return usernameCandidate
@@ -65,13 +62,13 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 	user.MD5 = crypto.GenerateMD5Hash(user.Email) // Gravatar
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
-		return user, errors.New("Token not generated.")
+		return user, errors.New("token not generated")
 	}
 	user.Token = token
 	user.TokenExpiration = timeHelper.FewDaysLater(config.AuthTokenExpirationDay)
 	log.Debugf("user %+v\n", user)
 	if db.ORM.Create(&user).Error != nil {
-		return user, errors.New("User is not created.")
+		return user, errors.New("user not created")
 	}
 	return user, nil
 }
@@ -89,7 +86,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) (int, error) {
 		return http.StatusInternalServerError, fmt.Errorf("Username already taken, you can choose: %s", usernameCandidate)
 	}
 	if CheckEmail(registrationForm.Email) {
-		return http.StatusInternalServerError, errors.New("Email Address already in our database!")
+		return http.StatusInternalServerError, errors.New("email address already in database")
 	}
 	password, err := bcrypt.GenerateFromPassword([]byte(registrationForm.Password), 10)
 	if err != nil {
@@ -113,7 +110,7 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 	// var publicUser *model.PublicUser
 	// publicUser.User = &user
 	if db.ORM.First(&user, id).RecordNotFound() {
-		return nil, isAuthor, currentUserID, http.StatusNotFound, errors.New("User is not found.")
+		return nil, isAuthor, currentUserID, http.StatusNotFound, errors.New("user not found")
 	}
 	currentUser, err := CurrentUser(r)
 	if err == nil {
@@ -140,12 +137,12 @@ func UpdateUserCore(user *model.User) (int, error) {
 	user.MD5 = crypto.GenerateMD5Hash(user.Email)
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
-		return http.StatusInternalServerError, errors.New("Token not generated.")
+		return http.StatusInternalServerError, errors.New("token not generated")
 	}
 	user.Token = token
 	user.TokenExpiration = timeHelper.FewDaysLater(config.AuthTokenExpirationDay)
 	if db.ORM.Save(user).Error != nil {
-		return http.StatusInternalServerError, errors.New("User is not updated.")
+		return http.StatusInternalServerError, errors.New("user not updated")
 	}
 	user.UpdatedAt = time.Now()
 	return http.StatusOK, nil
@@ -155,7 +152,7 @@ func UpdateUserCore(user *model.User) (int, error) {
 func UpdateUser(w http.ResponseWriter, r *http.Request, id string) (*model.User, int, error) {
 	var user model.User
 	if db.ORM.First(&user, id).RecordNotFound() {
-		return &user, http.StatusNotFound, errors.New("User is not found.")
+		return &user, http.StatusNotFound, errors.New("user not found")
 	}
 	switch r.FormValue("type") {
 	case "password":
@@ -165,16 +162,14 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, id string) (*model.User,
 		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(passwordForm.CurrentPassword))
 		if err != nil {
 			log.Error("Password Incorrect.")
-			return &user, http.StatusInternalServerError, errors.New("User is not updated. Password Incorrect.")
-		} else {
-			newPassword, err := bcrypt.GenerateFromPassword([]byte(passwordForm.Password), 10)
-			if err != nil {
-				return &user, http.StatusInternalServerError, errors.New("User is not updated. Password not Generated.")
-			} else {
-				passwordForm.Password = string(newPassword)
-				modelHelper.AssignValue(&user, &passwordForm)
-			}
+			return &user, http.StatusInternalServerError, errors.New("password incorrect")
 		}
+		newPassword, err := bcrypt.GenerateFromPassword([]byte(passwordForm.Password), 10)
+		if err != nil {
+			return &user, http.StatusInternalServerError, errors.New("password not generated")
+		}
+		passwordForm.Password = string(newPassword)
+		modelHelper.AssignValue(&user, &passwordForm)
 	default:
 		var form formStruct.UserForm
 		modelHelper.BindValueForm(&form, r)
@@ -194,10 +189,10 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, id string) (*model.User,
 func DeleteUser(w http.ResponseWriter, id string) (int, error) {
 	var user model.User
 	if db.ORM.First(&user, id).RecordNotFound() {
-		return http.StatusNotFound, errors.New("User is not found.")
+		return http.StatusNotFound, errors.New("user not found")
 	}
 	if db.ORM.Delete(&user).Error != nil {
-		return http.StatusInternalServerError, errors.New("User is not deleted.")
+		return http.StatusInternalServerError, errors.New("user not deleted")
 	}
 	status, err := ClearCookie(w)
 	return status, err
@@ -216,7 +211,7 @@ func RetrieveCurrentUser(r *http.Request) (model.User, int, error) {
 func RetrieveUserByEmail(email string) (*model.PublicUser, string, int, error) {
 	var user model.User
 	if db.ORM.Unscoped().Where("email = ?", email).First(&user).RecordNotFound() {
-		return &model.PublicUser{User: &user}, email, http.StatusNotFound, errors.New("User is not found.")
+		return &model.PublicUser{User: &user}, email, http.StatusNotFound, errors.New("user not found")
 	}
 	return &model.PublicUser{User: &user}, email, http.StatusOK, nil
 }
@@ -236,7 +231,7 @@ func RetrieveUsersByEmail(email string) []*model.PublicUser {
 func RetrieveUserByUsername(username string) (*model.PublicUser, string, int, error) {
 	var user model.User
 	if db.ORM.Where("username = ?", username).First(&user).RecordNotFound() {
-		return &model.PublicUser{User: &user}, username, http.StatusNotFound, errors.New("User is not found.")
+		return &model.PublicUser{User: &user}, username, http.StatusNotFound, errors.New("user not found")
 	}
 	return &model.PublicUser{User: &user}, username, http.StatusOK, nil
 }
@@ -245,7 +240,7 @@ func RetrieveUserByUsername(username string) (*model.PublicUser, string, int, er
 func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	var user model.User
 	if db.ORM.First(&user, id).RecordNotFound() {
-		return user, http.StatusNotFound, errors.New("User is not found.")
+		return user, http.StatusNotFound, errors.New("user not found")
 	}
 	db.ORM.Model(&user).Related("Torrents").Find(&model.Torrent{})
 	return user, http.StatusOK, nil

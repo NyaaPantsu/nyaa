@@ -4,9 +4,9 @@ import (
 	"errors"
 	"net/http"
 
+	formStruct "github.com/ewhal/nyaa/service/user/form"
 	"github.com/gorilla/securecookie"
 	"golang.org/x/crypto/bcrypt"
-	formStruct "github.com/ewhal/nyaa/service/user/form"
 
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
@@ -18,6 +18,7 @@ var cookieHandler = securecookie.New(
 	securecookie.GenerateRandomKey(64),
 	securecookie.GenerateRandomKey(32))
 
+// TODO: Figure out what this is about before I delete it
 // // UserName get username from a cookie.
 // func UserName(c *gin.Context) (string, error) {
 // 	var userName string
@@ -48,7 +49,7 @@ func Token(r *http.Request) (string, error) {
 	}
 	token = cookieValue["token"]
 	if len(token) == 0 {
-		return token, errors.New("Token is empty.")
+		return token, errors.New("token is empty")
 	}
 	return token, nil
 }
@@ -92,17 +93,17 @@ func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, er
 		if isValidEmail {
 			log.Debug("User entered valid email.")
 			if db.ORM.Where("email = ?", email).First(&user).RecordNotFound() {
-				return http.StatusNotFound, errors.New("User is not found.")
+				return http.StatusNotFound, errors.New("user not found")
 			}
 		} else {
 			log.Debug("User entered username.")
 			if db.ORM.Where("username = ?", email).First(&user).RecordNotFound() {
-				return http.StatusNotFound, errors.New("User is not found.")
+				return http.StatusNotFound, errors.New("user not found")
 			}
 		}
 		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(pass))
 		if err != nil {
-			return http.StatusUnauthorized, errors.New("Password incorrect.")
+			return http.StatusUnauthorized, errors.New("password incorrect")
 		}
 		status, err := SetCookie(w, user.Token)
 		if err != nil {
@@ -110,9 +111,8 @@ func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, er
 		}
 		w.Header().Set("X-Auth-Token", user.Token)
 		return http.StatusOK, nil
-	} else {
-		return http.StatusNotFound, errors.New("User is not found.")
 	}
+	return http.StatusNotFound, errors.New("user not found")
 }
 
 // RegisterHanderFromForm sets cookie from a RegistrationForm.
@@ -138,16 +138,16 @@ func CurrentUser(r *http.Request) (model.User, error) {
 	var err error
 	token = r.Header.Get("X-Auth-Token")
 	if len(token) > 0 {
-		log.Debug("header token exist.")
+		log.Debug("header token exists")
 	} else {
 		token, err = Token(r)
-		log.Debug("header token not exist.")
+		log.Debug("header token does not exist")
 		if err != nil {
 			return user, err
 		}
 	}
 	if db.ORM.Where("api_token = ?", token).First(&user).RecordNotFound() {
-		return user, errors.New("User is not found.")
+		return user, errors.New("user not found")
 	}
 	db.ORM.Model(&user)
 	return user, nil

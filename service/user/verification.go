@@ -3,7 +3,7 @@ package userService
 import (
 	"errors"
 	"net/http"
-//	"time"
+	//	"time"
 
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
@@ -54,10 +54,10 @@ func SendVerification(r *http.Request) (int, error) {
 	var user model.User
 	currentUser, err := CurrentUser(r)
 	if err != nil {
-		return http.StatusUnauthorized, errors.New("Unauthorized.")
+		return http.StatusUnauthorized, errors.New("unauthorized")
 	}
 	if db.ORM.First(&user, currentUser.ID).RecordNotFound() {
-		return http.StatusNotFound, errors.New("User is not found.")
+		return http.StatusNotFound, errors.New("user not found")
 	}
 	status, err := SendVerificationToUser(user)
 	return status, err

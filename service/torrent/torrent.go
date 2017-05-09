@@ -44,20 +44,20 @@ func GetFeeds() []model.Feed {
 
 func GetTorrentById(id string) (model.Torrent, error) {
 	var torrent model.Torrent
-	id_int, err := strconv.Atoi(id)
+	intID, err := strconv.Atoi(id)
 	if err != nil {
 		return torrent, err
 	}
 
 	tmp := db.ORM.Where("torrent_id = ?", id).Preload("Comments")
-	if id_int <= config.LastOldTorrentID {
+	if intID <= config.LastOldTorrentID {
 		// only preload old comments if they could actually exist
 		tmp = tmp.Preload("OldComments")
 	}
 	if tmp.Find(&torrent).RecordNotFound() {
-		return torrent, errors.New("Article is not found.")
+		return torrent, errors.New("article not found")
 	}
-	// .Preload("Comments.User") doesn't work
+	// TODO: .Preload("Comments.User") doesn't work
 	for i := range torrent.Comments {
 		torrent.Comments[i].User = new(model.User)
 		db.ORM.Where("user_id = ?", torrent.Comments[i].UserID).Find(torrent.Comments[i].User)
@@ -71,7 +71,7 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	var count int
 	var conditionArray []string
 	if strings.HasPrefix(orderBy, "filesize") {
-		// torrents w/ NULL filesize fuck up the sorting on postgres
+		// torrents w/ NULL filesize fuck up the sorting on Postgres
 		conditionArray = append(conditionArray, "filesize IS NOT NULL")
 	}
 	var params []interface{}
@@ -104,22 +104,18 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	return torrents, count
 }
 
-/* Functions to simplify the get parameters of the main function
- *
- * Get Torrents with where parameters and limits, order by default
- */
+// GetTorrents obtain a list of torrents matching 'parameters' from the
+// database. The list will be of length 'limit' and in default order.
+// GetTorrents returns the first records found. Later records may be retrieved
+// by providing a positive 'offset'
 func GetTorrents(parameters WhereParams, limit int, offset int) ([]model.Torrent, int) {
 	return GetTorrentsOrderBy(&parameters, "", limit, offset)
 }
 
-/* Get Torrents with where parameters but no limit and order by default (get all the torrents corresponding in the db)
- */
+// Get Torrents with where parameters but no limit and order by default (get all the torrents corresponding in the db)
 func GetTorrentsDB(parameters WhereParams) ([]model.Torrent, int) {
 	return GetTorrentsOrderBy(&parameters, "", 0, 0)
 }
-
-/* Function to get all torrents
- */
 
 func GetAllTorrentsOrderBy(orderBy string, limit int, offset int) ([]model.Torrent, int) {
 
@@ -137,7 +133,7 @@ func GetAllTorrentsDB() ([]model.Torrent, int) {
 func CreateWhereParams(conditions string, params ...string) WhereParams {
 	whereParams := WhereParams{}
 	whereParams.Conditions = conditions
-	for i, _ := range params {
+	for i := range params {
 		whereParams.Params = append(whereParams.Params, params[i])
 	}
 

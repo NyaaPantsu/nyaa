@@ -13,6 +13,7 @@ func GenerateMD5Hash(email string) string {
 	hash.Write([]byte(email))
 	return fmt.Sprintf("%x", hash.Sum(nil))
 }
+
 func GenerateRandomToken16() (string, error) {
 	return GenerateRandomToken(16)
 }
