@@ -1,0 +1,31 @@
+# TODO Get from https://download.docker.com/linux/centos/docker-ce.repo instead
+# of hardcoding information here
+- name: Add Docker CE repository
+  yum_repository:
+    name: docker-ce-edge
+    enabled: yes
+    description: Docker CE Edge - $basearch
+    baseurl: https://download.docker.com/linux/centos/7/$basearch/edge
+    gpgcheck: 1
+    gpgkey: https://download.docker.com/linux/centos/gpg
+  become: true
+
+- name: Install Docker CE
+  yum:
+    name: docker-ce
+    state: present
+  become: true
+
+- name: Install docker-compose
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/{{ release_version }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
+    dest: /usr/bin/docker-compose
+    mode: 0755
+  become: true
+
+- name: Start docker and enable at boot
+  systemd:
+    enabled: yes
+    name: docker
+    state: started
+  become: true
