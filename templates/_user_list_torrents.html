@@ -1,5 +1,6 @@
 {{define "profile_content"}}
 {{with .UserProfile}}
+{{ if gt (len .ListTorrents) 0 }}
       <div class="table-responsive">
           <table class="table custom-table-hover">
           <tr>
@@ -44,5 +45,8 @@
           </ul>
       </nav>
     </div>
+    {{else}}
+     <h2 style="text-align: center;">{{ T "no_torrents_uploaded" }}</h2>
+{{end}}
 {{end}}
 {{end}}
