@@ -1,13 +1,13 @@
 package router
 
 import (
-	"net/url"
 	"net/http"
+	"net/url"
 
 	"github.com/ewhal/nyaa/model"
-	userForms "github.com/ewhal/nyaa/service/user/form"
-	"github.com/ewhal/nyaa/service/user"
 	"github.com/ewhal/nyaa/service/captcha"
+	"github.com/ewhal/nyaa/service/user"
+	userForms "github.com/ewhal/nyaa/service/user/form"
 	"github.com/gorilla/mux"
 )
 
@@ -34,7 +34,7 @@ type NotFoundTemplateVariables struct {
 }
 
 type ViewTemplateVariables struct {
-	Torrent    model.TorrentsJson
+	Torrent    model.TorrentJSON
 	Captcha    captcha.Captcha
 	Search     SearchForm
 	Navigation Navigation
@@ -45,48 +45,48 @@ type ViewTemplateVariables struct {
 
 type UserRegisterTemplateVariables struct {
 	RegistrationForm userForms.RegistrationForm
-	FormErrors 		 map[string][]string
+	FormErrors       map[string][]string
 	Search           SearchForm
 	Navigation       Navigation
-	User      		 *model.User
+	User             *model.User
 	URL              *url.URL   // For parsing Url in templates
 	Route            *mux.Route // For getting current route in templates
 }
 
 type UserVerifyTemplateVariables struct {
-	FormErrors 		 map[string][]string
-	Search           SearchForm
-	Navigation       Navigation
-	User       		 *model.User
-	URL              *url.URL   // For parsing Url in templates
-	Route            *mux.Route // For getting current route in templates
+	FormErrors map[string][]string
+	Search     SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL        *url.URL   // For parsing Url in templates
+	Route      *mux.Route // For getting current route in templates
 }
 
 type UserLoginFormVariables struct {
-	LoginForm userForms.LoginForm
-	FormErrors 		 map[string][]string
-	Search           SearchForm
-	Navigation       Navigation
-	User      		 *model.User
-	URL              *url.URL   // For parsing Url in templates
-	Route            *mux.Route // For getting current route in templates
+	LoginForm  userForms.LoginForm
+	FormErrors map[string][]string
+	Search     SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL        *url.URL   // For parsing Url in templates
+	Route      *mux.Route // For getting current route in templates
 }
 
 type UserProfileVariables struct {
-	UserProfile  	 *model.User
-	FormErrors 		 map[string][]string
-	Search           SearchForm
-	Navigation       Navigation
-	User      		 *model.User
-	URL              *url.URL   // For parsing Url in templates
-	Route            *mux.Route // For getting current route in templates
+	UserProfile *model.User
+	FormErrors  map[string][]string
+	Search      SearchForm
+	Navigation  Navigation
+	User        *model.User
+	URL         *url.URL   // For parsing Url in templates
+	Route       *mux.Route // For getting current route in templates
 }
 
 type HomeTemplateVariables struct {
-	ListTorrents []model.TorrentsJson
+	ListTorrents []model.TorrentJSON
 	Search       SearchForm
 	Navigation   Navigation
-	User      	 *model.User
+	User         *model.User
 	URL          *url.URL   // For parsing Url in templates
 	Route        *mux.Route // For getting current route in templates
 }
@@ -147,6 +147,6 @@ func NewSearchForm(params ...string) (searchForm SearchForm) {
 }
 
 func GetUser(r *http.Request) *model.User {
-	user, _ , _ := userService.RetrieveCurrentUser(r)
+	user, _, _ := userService.RetrieveCurrentUser(r)
 	return &user
 }

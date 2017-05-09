@@ -27,11 +27,11 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		pagenum = 1
 	}
 
-	b := []model.TorrentsJson{}
+	b := []model.TorrentJSON{}
 	torrents, nbTorrents := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
 
 	for i, _ := range torrents {
-		res := torrents[i].ToJson()
+		res := torrents[i].ToJSON()
 		b = append(b, res)
 	}
 

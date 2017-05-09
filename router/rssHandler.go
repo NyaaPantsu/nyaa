@@ -1,17 +1,17 @@
 package router
 
-import(
-	"time"
-	"net/http"
-	"github.com/gorilla/feeds"
+import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/util/search"
+	"github.com/gorilla/feeds"
+	"net/http"
 	"strconv"
+	"time"
 )
 
 func RssHandler(w http.ResponseWriter, r *http.Request) {
 
-	_, torrents, _ := search.SearchByQuery( r, 1 )
+	_, torrents, _ := search.SearchByQuery(r, 1)
 	created_as_time := time.Now()
 
 	if len(torrents) > 0 {
@@ -26,10 +26,10 @@ func RssHandler(w http.ResponseWriter, r *http.Request) {
 	feed.Items = make([]*feeds.Item, len(torrents))
 
 	for i, _ := range torrents {
-		torrent_json := torrents[i].ToJson()
+		torrent_json := torrents[i].ToJSON()
 		feed.Items[i] = &feeds.Item{
 			// need a torrent view first
-			Id:          "https://" + config.WebAddress + "/view/" + strconv.FormatUint(uint64(torrents[i].Id), 10),
+			Id:          "https://" + config.WebAddress + "/view/" + strconv.FormatUint(uint64(torrents[i].ID), 10),
 			Title:       torrents[i].Name,
 			Link:        &feeds.Link{Href: string(torrent_json.Magnet)},
 			Description: "",

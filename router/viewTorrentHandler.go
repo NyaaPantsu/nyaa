@@ -23,7 +23,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		NotFoundHandler(w, r)
 		return
 	}
-	b := torrent.ToJson()
+	b := torrent.ToJSON()
 	htv := ViewTemplateVariables{b, captcha.Captcha{CaptchaID: captcha.GetID()}, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 
 	languages.SetTranslationFromRequest(viewTemplate, r, "en-us")
@@ -47,10 +47,10 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	idNum_, err := strconv.Atoi(id)
 	var idNum uint = uint(idNum_)
 	var userId uint = 0
-	if (currentUser.Id > 0) {
-		userId = currentUser.Id
+	if currentUser.ID > 0 {
+		userId = currentUser.ID
 	}
-	comment := model.Comment{TorrentId: idNum, UserId: userId, Content: content, CreatedAt: time.Now()}
+	comment := model.Comment{TorrentID: idNum, UserID: userId, Content: content, CreatedAt: time.Now()}
 	db.ORM.Create(&comment)
 
 	url, err := Router.Get("view_torrent").URL("id", id)

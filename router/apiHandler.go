@@ -24,17 +24,16 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 		maxPerPage = 50 // default Value maxPerPage
 	}
 
-	nbTorrents := 0
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 	if pagenum == 0 {
 		pagenum = 1
 	}
 
-	b := model.ApiResultJson{Torrents: []model.TorrentsJson{}}
+	b := model.ApiResultJSON{Torrents: []model.TorrentJSON{}}
 	torrents, nbTorrents := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
 
 	for i, _ := range torrents {
-		res := torrents[i].ToJson()
+		res := torrents[i].ToJSON()
 		b.Torrents = append(b.Torrents, res)
 	}
 
@@ -50,13 +49,12 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ApiViewHandler(w http.ResponseWriter, r *http.Request) {
-
 	vars := mux.Vars(r)
 	id := vars["id"]
-	b := model.ApiResultJson{Torrents: []model.TorrentsJson{}}
+	b := model.ApiResultJSON{Torrents: []model.TorrentJSON{}}
 
 	torrent, err := torrentService.GetTorrentById(id)
-	res := torrent.ToJson()
+	res := torrent.ToJSON()
 	b.Torrents = append(b.Torrents, res)
 
 	b.QueryRecordCount = 1
@@ -71,38 +69,49 @@ func ApiViewHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
-	if config.UploadsDisabled == 1 {
+	if config.UploadsDisabled {
 		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
 		return
 	}
 
 	defer r.Body.Close()
 
-	//verify token
+	// TODO: verify token
 	//token := r.Header.Get("Authorization")
 
 	decoder := json.NewDecoder(r.Body)
-	b := model.TorrentsJson{}
-	err := decoder.Decode(&b)
+	torrentJSON := model.TorrentJSON{}
+	err := decoder.Decode(&torrentJSON)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	category, sub_category, err := ValidateJson(&b)
+	category, sub_category, err := ValidateJSON(&torrentJSON)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError) //406?
 		return
 	}
 
-	torrent := model.Torrents{
-		Name:         b.Name,
-		Category:     category,
-		Sub_Category: sub_category,
-		Status:       1,
-		Hash:         b.Hash,
-		Date:         time.Now(),
-		Filesize:     0,
-		Description:  string(b.Description)}
+	// TODO: Interface changed. Structure is incomplete.
+	// TODO: Model package should provide conversion utility
+	torrent := model.Torrent{
+		ID:          0,
+		Name:        torrentJSON.Name,
+		Hash:        torrentJSON.Hash,
+		Category:    category,
+		SubCategory: sub_category,
+		Status:      1,
+		Date:        time.Now(),
+		UploaderID:  0,
+		Downloads:   0,
+		Stardom:     0,
+		Filesize:    0,
+		Description: string(torrentJSON.Description),
+		WebsiteLink: "N/A",
+		Uploader:    nil,
+		OldComments: nil,
+		Comments:    nil}
+
 	db.ORM.Create(&torrent)
 	fmt.Printf("%+v\n", torrent)
 }

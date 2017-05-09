@@ -192,7 +192,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	return nil
 }
 
-func ValidateJson(j *model.TorrentsJson) (int, int, error) {
+func ValidateJSON(j *model.TorrentJSON) (int, int, error) {
 	//Name length ?
 	var category, sub_category int
 
@@ -200,7 +200,7 @@ func ValidateJson(j *model.TorrentsJson) (int, int, error) {
 	if err != nil {
 		return category, sub_category, err
 	}
-	sub_category, err = strconv.Atoi(j.Sub_Category)
+	sub_category, err = strconv.Atoi(j.SubCategory)
 	if err != nil {
 		return category, sub_category, err
 	}

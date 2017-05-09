@@ -11,7 +11,7 @@
                   <td>{{T "name"}}</td>
                   <td>
                       {{.Name}}
-                      <img style="float:right" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .Sub_Category) }}">
+                      <img style="float:right" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}">
                   </td>
               </tr>
               <tr>
@@ -61,7 +61,7 @@
           <form method="post">
               <div class="form-group">
                   {{/* There should be a better way to use translation on this... */}}
-                  <label for="comment">{{ if gt .User.Id 0}} {{T "submit_a_comment_as_username" .User.Username}} {{else}} {{T "submit_a_comment_as_anonymous"}} {{end}}</label>
+                  <label for="comment">{{ if gt .User.ID 0}} {{T "submit_a_comment_as_username" .User.Username}} {{else}} {{T "submit_a_comment_as_anonymous"}} {{end}}</label>
                   <textarea name="comment" class="form-control" rows="5"></textarea>
               </div>
               {{with .Captcha}}

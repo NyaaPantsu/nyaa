@@ -8,10 +8,10 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
-//	"github.com/ewhal/nyaa/util/crypto"
+	//	"github.com/ewhal/nyaa/util/crypto"
 	"github.com/ewhal/nyaa/util/email"
-//	"github.com/ewhal/nyaa/util/log"
-//	"github.com/ewhal/nyaa/util/timeHelper"
+	//	"github.com/ewhal/nyaa/util/log"
+	//	"github.com/ewhal/nyaa/util/timeHelper"
 
 	"github.com/nicksnyder/go-i18n/i18n"
 )
@@ -56,7 +56,7 @@ func SendVerification(r *http.Request) (int, error) {
 	if err != nil {
 		return http.StatusUnauthorized, errors.New("Unauthorized.")
 	}
-	if db.ORM.First(&user, currentUser.Id).RecordNotFound() {
+	if db.ORM.First(&user, currentUser.ID).RecordNotFound() {
 		return http.StatusNotFound, errors.New("User is not found.")
 	}
 	status, err := SendVerificationToUser(user)
@@ -64,7 +64,7 @@ func SendVerification(r *http.Request) (int, error) {
 }
 
 // EmailVerification verifies an email of user.
-func EmailVerification(token string,w http.ResponseWriter) (int, error) {
+func EmailVerification(token string, w http.ResponseWriter) (int, error) {
 	/*var user model.User
 	log.Debugf("verifyEmailForm.ActivationToken : %s", token)
 	if db.ORM.Where(&model.User{ActivationToken: token}).First(&user).RecordNotFound() {

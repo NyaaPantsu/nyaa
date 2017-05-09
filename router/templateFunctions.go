@@ -1,14 +1,14 @@
 package router
 
 import (
+	"github.com/ewhal/nyaa/service/user/permission"
+	"github.com/nicksnyder/go-i18n/i18n"
 	"html/template"
 	"log"
 	"math"
 	"net/url"
 	"strconv"
-	"github.com/nicksnyder/go-i18n/i18n"
-	"github.com/ewhal/nyaa/service/user/permission"
-	)
+)
 
 var FuncMap = template.FuncMap{
 	"min": math.Min,
@@ -22,7 +22,7 @@ var FuncMap = template.FuncMap{
 	"genRouteWithQuery": func(name string, currentUrl *url.URL, params ...string) template.HTML {
 		url, err := Router.Get(name).URL(params...)
 		if err == nil {
-			return template.HTML(url.String()+ "?" + currentUrl.RawQuery)
+			return template.HTML(url.String() + "?" + currentUrl.RawQuery)
 		}
 		return "error"
 	},
@@ -60,10 +60,10 @@ var FuncMap = template.FuncMap{
 		return template.HTML(ret)
 	},
 	"T": i18n.IdentityTfunc,
-	"getAvatar": func (hash string, size int) string {
-		return "https://www.gravatar.com/avatar/"+hash+"?s="+strconv.Itoa(size)
+	"getAvatar": func(hash string, size int) string {
+		return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
 	},
-	"CurrentOrAdmin": userPermission.CurrentOrAdmin,
-	"CurrentUserIdentical": userPermission.CurrentUserIdentical,
-	"GetRole": userPermission.GetRole,
+	"CurrentOrAdmin":       userPermission.CurrentOrAdmin,
+	"CurrentUserIDentical": userPermission.CurrentUserIDentical,
+	"GetRole":              userPermission.GetRole,
 }

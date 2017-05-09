@@ -2,6 +2,9 @@ package config
 
 import "time"
 
+// TODO: Perform email configuration at runtime
+//       Future hosts shouldn't have to rebuild the binary to update a setting
+
 const (
 	SendEmail     = true
 	EmailFrom     = "donotrespond@nyaa.pantsu.cat"
@@ -10,6 +13,5 @@ const (
 	EmailUsername = ""
 	EmailPassword = ""
 	EmailPort     = 465
-	// EmailTimeout  = 80 * time.Millisecond
-	EmailTimeout = 10 * time.Second
+	EmailTimeout  = 10 * time.Second
 )

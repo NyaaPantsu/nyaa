@@ -8,6 +8,7 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
+	"fmt"
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
@@ -16,7 +17,6 @@ import (
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/modelHelper"
 	"github.com/ewhal/nyaa/util/timeHelper"
-	"fmt"
 )
 
 var userFields []string = []string{"name", "email", "createdAt", "updatedAt"}
@@ -62,7 +62,7 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 	var user model.User
 	log.Debugf("registrationForm %+v\n", registrationForm)
 	modelHelper.AssignValue(&user, &registrationForm)
-	user.Md5 = crypto.GenerateMD5Hash(user.Email)  // Gravatar
+	user.MD5 = crypto.GenerateMD5Hash(user.Email) // Gravatar
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
 		return user, errors.New("Token not generated.")
@@ -82,10 +82,10 @@ func CreateUser(w http.ResponseWriter, r *http.Request) (int, error) {
 	var registrationForm formStruct.RegistrationForm
 	var status int
 	var err error
-	
+
 	modelHelper.BindValueForm(&registrationForm, r)
 	usernameCandidate := SuggestUsername(registrationForm.Username)
-	if (usernameCandidate != registrationForm.Username) {
+	if usernameCandidate != registrationForm.Username {
 		return http.StatusInternalServerError, fmt.Errorf("Username already taken, you can choose: %s", usernameCandidate)
 	}
 	if CheckEmail(registrationForm.Email) {
@@ -108,20 +108,20 @@ func CreateUser(w http.ResponseWriter, r *http.Request) (int, error) {
 // RetrieveUser retrieves a user.
 func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, int, error) {
 	var user model.User
-	var currentUserId uint
+	var currentUserID uint
 	var isAuthor bool
 	// var publicUser *model.PublicUser
 	// publicUser.User = &user
 	if db.ORM.First(&user, id).RecordNotFound() {
-		return nil, isAuthor, currentUserId, http.StatusNotFound, errors.New("User is not found.")
+		return nil, isAuthor, currentUserID, http.StatusNotFound, errors.New("User is not found.")
 	}
 	currentUser, err := CurrentUser(r)
 	if err == nil {
-		currentUserId = currentUser.Id
-		isAuthor = currentUser.Id == user.Id
+		currentUserID = currentUser.ID
+		isAuthor = currentUser.ID == user.ID
 	}
 
-	return &model.PublicUser{User: &user}, isAuthor, currentUserId, http.StatusOK, nil
+	return &model.PublicUser{User: &user}, isAuthor, currentUserID, http.StatusOK, nil
 }
 
 // RetrieveUsers retrieves users.
@@ -137,7 +137,7 @@ func RetrieveUsers() []*model.PublicUser {
 
 // UpdateUserCore updates a user. (Applying the modifed data of user).
 func UpdateUserCore(user *model.User) (int, error) {
-	user.Md5 = crypto.GenerateMD5Hash(user.Email)
+	user.MD5 = crypto.GenerateMD5Hash(user.Email)
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
 		return http.StatusInternalServerError, errors.New("Token not generated.")
@@ -247,7 +247,7 @@ func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	if db.ORM.First(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("User is not found.")
 	}
-	db.ORM.Model(&user).Related("Torrents").Find(&model.Torrents{})	
+	db.ORM.Model(&user).Related("Torrents").Find(&model.Torrent{})
 	return user, http.StatusOK, nil
 }
 
@@ -258,7 +258,7 @@ func RetrieveUsersForAdmin() []model.User {
 	db.ORM.Find(&users)
 	for _, user := range users {
 		db.ORM.Model(&user)
-		db.ORM.Model(&user).Related("Torrents").Find(&model.Torrents{})
+		db.ORM.Model(&user).Related("Torrents").Find(&model.Torrent{})
 		userArr = append(userArr, user)
 	}
 	return userArr

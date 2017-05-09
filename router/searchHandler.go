@@ -2,8 +2,8 @@ package router
 
 import (
 	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/util/search"
 	"github.com/ewhal/nyaa/util/languages"
+	"github.com/ewhal/nyaa/util/search"
 	"github.com/gorilla/mux"
 	"html"
 	"net/http"
@@ -20,12 +20,12 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		pagenum = 1
 	}
 
-	b := []model.TorrentsJson{}
+	b := []model.TorrentJSON{}
 
 	search_param, torrents, nbTorrents := search.SearchByQuery(r, pagenum)
 
 	for i, _ := range torrents {
-		res := torrents[i].ToJson()
+		res := torrents[i].ToJSON()
 		b = append(b, res)
 	}
 

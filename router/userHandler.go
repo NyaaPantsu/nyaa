@@ -18,7 +18,7 @@ import (
 // Getting View User Registration
 func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 	_, errorUser := userService.CurrentUser(r)
-	if (errorUser != nil) {
+	if errorUser != nil {
 		b := form.RegistrationForm{}
 		modelHelper.BindValueForm(&b, r)
 		b.CaptchaID = captcha.GetID()
@@ -54,8 +54,8 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
 	currentUser := GetUser(r)
 	view := r.URL.Query().Get("view")
-	if (errorUser == nil) {
-		if ((view == "edit")&&(userPermission.CurrentOrAdmin(currentUser, userProfile.Id))) {
+	if errorUser == nil {
+		if (view == "edit") && (userPermission.CurrentOrAdmin(currentUser, userProfile.ID)) {
 		} else {
 			languages.SetTranslationFromRequest(viewProfileTemplate, r, "en-us")
 			htv := UserProfileVariables{&userProfile, form.NewErrors(), NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
@@ -83,20 +83,20 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 	if !captcha.Authenticate(captcha.Extract(r)) {
 		err["errors"] = append(err["errors"], "Wrong captcha!")
 	}
-	if (len(err) == 0) {
+	if len(err) == 0 {
 		if len(r.PostFormValue("email")) > 0 {
 			_, err = form.EmailValidation(r.PostFormValue("email"), err)
 		}
 		_, err = form.ValidateUsername(r.PostFormValue("username"), err)
-		if (len(err) == 0) {
+		if len(err) == 0 {
 			modelHelper.BindValueForm(&b, r)
 			err = modelHelper.ValidateForm(&b, err)
-			if (len(err) == 0) {
+			if len(err) == 0 {
 				_, errorUser := userService.CreateUser(w, r)
-				if (errorUser != nil) {
+				if errorUser != nil {
 					err["errors"] = append(err["errors"], errorUser.Error())
 				}
-				if (len(err) == 0) {
+				if len(err) == 0 {
 					b := form.RegistrationForm{}
 					languages.SetTranslationFromRequest(viewRegisterSuccessTemplate, r, "en-us")
 					htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
@@ -104,11 +104,11 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 					if errorTmpl != nil {
 						http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
 					}
-				} 
-			} 
-		} 
+				}
+			}
+		}
 	}
-	if (len(err) > 0) {
+	if len(err) > 0 {
 		b.CaptchaID = captcha.GetID()
 		languages.SetTranslationFromRequest(viewRegisterTemplate, r, "en-us")
 		htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
@@ -124,7 +124,7 @@ func UserVerifyEmailHandler(w http.ResponseWriter, r *http.Request) {
 	token := vars["token"]
 	err := form.NewErrors()
 	_, errEmail := userService.EmailVerification(token, w)
-	if (errEmail != nil) {
+	if errEmail != nil {
 		err["errors"] = append(err["errors"], errEmail.Error())
 	}
 	languages.SetTranslationFromRequest(viewVerifySuccessTemplate, r, "en-us")
@@ -141,9 +141,9 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 	modelHelper.BindValueForm(&b, r)
 	err := form.NewErrors()
 	err = modelHelper.ValidateForm(&b, err)
-	if (len(err) == 0) {
+	if len(err) == 0 {
 		_, errorUser := userService.CreateUserAuthentication(w, r)
-		if (errorUser != nil) {
+		if errorUser != nil {
 			err["errors"] = append(err["errors"], errorUser.Error())
 			languages.SetTranslationFromRequest(viewLoginTemplate, r, "en-us")
 			htv := UserLoginFormVariables{b, err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}

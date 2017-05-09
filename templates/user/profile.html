@@ -7,7 +7,7 @@
 			<div class="profile-sidebar">
 				<!-- SIDEBAR USERPIC -->
 				<div class="profile-userpic">
-					<img src="{{ getAvatar .Md5 130 }}" class="img-responsive" alt="{{.Username}}">
+					<img src="{{ getAvatar .MD5 130 }}" class="img-responsive" alt="{{.Username}}">
 				</div>
 				<!-- END SIDEBAR USERPIC -->
 				<!-- SIDEBAR USER TITLE -->
@@ -22,8 +22,8 @@
 				<!-- END SIDEBAR USER TITLE -->
 				<!-- SIDEBAR BUTTONS -->
 				<div class="profile-userbuttons">
-						{{if gt $.User.Id 0 }}
-						{{if not (CurrentUserIdentical $.User .Id) }}
+						{{if gt $.User.ID 0 }}
+						{{if not (CurrentUserIDentical $.User .ID) }}
 					<button type="button" class="btn btn-success btn-sm">{{ T "follow"}}</button>
 						{{end}}
 						{{end}}
@@ -38,8 +38,8 @@
 							<i class="glyphicon glyphicon-home"></i>
 							{{T "torrents"}} </a>
 						</li>
-						{{if gt $.User.Id 0 }}
-						{{if CurrentOrAdmin $.User .Id }}
+						{{if gt $.User.ID 0 }}
+						{{if CurrentOrAdmin $.User .ID }}
 						<li>
 							<a href="#">
 							<i class="glyphicon glyphicon-user"></i>

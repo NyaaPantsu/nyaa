@@ -40,7 +40,7 @@ func RunServer(conf *config.Config) {
 }
 
 func main() {
-	conf := config.NewConfig()
+	conf := config.New()
 	process_flags := conf.BindFlags()
 	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
 	flag.Parse()

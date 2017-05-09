@@ -21,7 +21,7 @@ type SearchParam struct {
 	Sort     string
 }
 
-func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents, int) {
+func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrent, int) {
 	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"))
 	if errConv != nil {
 		maxPerPage = 50 // default Value maxPerPage

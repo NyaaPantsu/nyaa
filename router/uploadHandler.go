@@ -16,7 +16,7 @@ import (
 )
 
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
-	if config.UploadsDisabled == 1 {
+	if config.UploadsDisabled {
 		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
 		return
 	}
@@ -32,19 +32,19 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 				fmt.Printf("error %+v\n", err)
 			}
 			//add to db and redirect depending on result
-			torrent := model.Torrents{
-				Name:         uploadForm.Name,
-				Category:     uploadForm.CategoryId,
-				Sub_Category: uploadForm.SubCategoryId,
-				Status:       1,
-				Hash:         uploadForm.Infohash,
-				Date:         time.Now(),
-				Filesize:     uploadForm.Filesize, // FIXME: should set to NULL instead of 0
-				Description:  uploadForm.Description,
-				UploaderId:   user.Id}
+			torrent := model.Torrent{
+				Name:        uploadForm.Name,
+				Category:    uploadForm.CategoryId,
+				SubCategory: uploadForm.SubCategoryId,
+				Status:      1,
+				Hash:        uploadForm.Infohash,
+				Date:        time.Now(),
+				Filesize:    uploadForm.Filesize, // FIXME: should set to NULL instead of 0
+				Description: uploadForm.Description,
+				UploaderID:  user.ID}
 			db.ORM.Create(&torrent)
 			fmt.Printf("%+v\n", torrent)
-			url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.Id), 10))
+			url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
 			if err == nil {
 				http.Redirect(w, r, url.String(), 302)
 			}

@@ -24,12 +24,12 @@
               {{if eq .Status 4}}aplus{{end}}">
               <!-- forced width because the <td> gets bigger randomly otherwise -->
               <td style="width:80px">
-                  <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .Sub_Category) }}">
-                      <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .Sub_Category) }}">
+                  <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
+                      <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}">
                   </a>
               </td>
               <td class="name">
-                  <a href="{{genRoute "view_torrent" "id" .Id }}">
+                  <a href="{{genRoute "view_torrent" "id" .ID }}">
                       {{.Name}}
                   </a>
               </td>
