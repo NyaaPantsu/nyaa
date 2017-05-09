@@ -55,7 +55,10 @@ func main() {
 		if err != nil {
 			log.CheckError(err)
 		}
-		db.ORM, _ = db.GormInit(conf)
+		db.ORM, err = db.GormInit(conf)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
 		initI18N()
 		go signals.Handle()
 		if len(config.TorrentFileStorage) > 0 {
