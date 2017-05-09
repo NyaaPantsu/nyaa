@@ -12,7 +12,7 @@ script:
 - go build
 - go vet 
 - golint ./...
-- tidy `find $HOME/gopath/src/github.com/ewhal/nyaa -name '*.html' -print`
+- tidy -e `find $HOME/gopath/src/github.com/ewhal/nyaa -name '*.html' -print`
 - go test -v ./...
 before_deploy:
 - ./package.sh
