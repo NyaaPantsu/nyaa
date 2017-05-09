@@ -22,32 +22,38 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
 	whereParams := torrentService.WhereParams{}
-
-	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"))
-	if errConv != nil {
-		maxPerPage = 50 // default Value maxPerPage
-	}
-
-	pagenum, _ := strconv.Atoi(html.EscapeString(page))
-	if pagenum == 0 {
-		pagenum = 1
-	}
+	req := apiService.TorrentsRequest{}
 
 	contentType := r.Header.Get("Content-Type")
 	if contentType == "application/json" {
 		d := json.NewDecoder(r.Body)
-		req := apiService.TorrentsRequest{}
 		if err := d.Decode(&req); err != nil {
 			util.SendError(w, err, 502)
 		}
 
+		if req.MaxPerPage == 0 {
+			req.MaxPerPage = 50
+		}
+		if req.Page == 0 {
+			req.Page = 1
+		}
+
 		whereParams = req.ToParams()
-		maxPerPage = req.MaxPerPage
-		pagenum = req.Page
+	} else {
+		var errConv error
+		req.MaxPerPage, errConv = strconv.Atoi(r.URL.Query().Get("max"))
+		if errConv != nil || req.MaxPerPage == 0 {
+			req.MaxPerPage = 50 // default Value maxPerPage
+		}
+
+		req.Page, _ = strconv.Atoi(html.EscapeString(page))
+		if req.Page == 0 {
+			req.Page = 1
+		}
 	}
 
 	nbTorrents := 0
-	torrents, nbTorrents, err := torrentService.GetTorrents(whereParams, maxPerPage, maxPerPage*(pagenum-1))
+	torrents, nbTorrents, err := torrentService.GetTorrents(whereParams, req.MaxPerPage, req.MaxPerPage*(req.Page-1))
 	if err != nil {
 		util.SendError(w, err, 400)
 		return
@@ -56,7 +62,7 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 	b := model.ApiResultJson{
 		Torrents: model.TorrentsToJSON(torrents),
 	}
-	b.QueryRecordCount = maxPerPage
+	b.QueryRecordCount = req.MaxPerPage
 	b.TotalRecordCount = nbTorrents
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(b)
