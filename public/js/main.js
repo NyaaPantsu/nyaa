@@ -2,17 +2,14 @@
 var night = localStorage.getItem("night");
 if (night == "true") {
     $("head").append('<link id="style-dark" rel="stylesheet" type="text/css" href="/css/style-night.css">');
-    $("#nighticon")[0].src = "/img/sun.png";
 }
 
 function toggleNightMode() {
     var night = localStorage.getItem("night");
     if(night == "true") {
         $("#style-dark")[0].remove()
-        $("#nighticon")[0].src = "/img/moon.png";
     } else {
         $("head").append('<link id="style-dark" rel="stylesheet" type="text/css" href="/css/style-night.css">');
-        $("#nighticon")[0].src = "/img/sun.png";
     }
     localStorage.setItem("night", (night == "true") ? "false" : "true");
 }
