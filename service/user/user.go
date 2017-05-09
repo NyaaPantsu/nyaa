@@ -243,10 +243,9 @@ func RetrieveUserByUsername(username string) (*model.PublicUser, string, int, er
 // RetrieveUserForAdmin retrieves a user for an administrator.
 func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	var user model.User
-	if db.ORM.First(&user, id).RecordNotFound() {
+	if db.ORM.Preload("Torrents").First(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("User is not found.")
 	}
-	db.ORM.Model(&user).Related("Torrents").Find(&model.Torrents{})	
 	return user, http.StatusOK, nil
 }
 
