@@ -70,7 +70,7 @@
       <div class="container {{block "contclass" .}}generic{{end}}" id="container">
       {{if not .Search.HideAdvancedSearch}}
       <div class="blockBody" style="text-align:center">
-        <a href="#advanced-search" class="btn btn-link" data-toggle="collapse">{{T "advanced_search"}}</a><br />
+        <a href="#advanced-search" data-toggle="collapse">{{T "advanced_search"}}</a><br />
         <form id="advanced-search" class="navbar-form collapse" role="search" action="/search" method="get">
           <div class="form-group">
             {{block "search_common" .}}{{end}}
