@@ -328,7 +328,7 @@
     "translation": "Torrent file"
   },
   {
-    "id": "uploading_torrent_prefills_fields",
+    "id": "uploading_file_prefills_fields",
     "translation": "Uploading a torrent file allows pre-filling some fields, this is recommended."
   },
   {
@@ -436,8 +436,8 @@
     "translation": "Torrent Description"
   },
   {
-    "id": "limited_html_set_is_allowed_use",
-    "translation": "A limited set of HTML is allowed in the description, make sure to use"
+    "id": "description_markdown_notice",
+    "translation": "Markdown can be used in descriptions."
   },
   {
     "id": "show_all",
