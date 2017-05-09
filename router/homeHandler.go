@@ -17,18 +17,27 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	page := vars["page"]
 
 	// db params url
-	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"))
-	if errConv != nil {
-		maxPerPage = 50 // default Value maxPerPage
+	var err error
+	maxPerPage := 50
+	maxString := r.URL.Query().Get("max")
+	if maxString != "" {
+		maxPerPage, err = strconv.Atoi(maxString)
+		if !log.CheckError(err) {
+			maxPerPage = 50 // default Value maxPerPage
+		}
 	}
 
-	pagenum, _ := strconv.Atoi(html.EscapeString(page))
-	if pagenum == 0 {
-		pagenum = 1
+	pagenum := 1
+	if page != "" {
+		pagenum, err = strconv.Atoi(html.EscapeString(page))
+		if !log.CheckError(err) {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	}
 
 	torrents, nbTorrents, err := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
-	if err != nil {
+	if !log.CheckError(err) {
 		util.SendError(w, err, 400)
 		return
 	}

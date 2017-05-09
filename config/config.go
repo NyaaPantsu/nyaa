@@ -47,22 +47,22 @@ func New() *Config {
 // BindFlags returns a function which is to be used after
 // flag.Parse to check and copy the flags' values to the Config instance.
 func (config *Config) BindFlags() func() error {
-	conf_file := flag.String("conf", "", "path to the configuration file")
-	db_type := flag.String("dbtype", Defaults.DBType, "database backend")
+	confFile := flag.String("conf", "", "path to the configuration file")
+	dbType := flag.String("dbtype", Defaults.DBType, "database backend")
 	host := flag.String("host", Defaults.Host, "binding address of the server")
 	port := flag.Int("port", Defaults.Port, "port of the server")
-	db_params := flag.String("dbparams", Defaults.DBParams, "parameters to open the database (see Gorm's doc)")
+	dbParams := flag.String("dbparams", Defaults.DBParams, "parameters to open the database (see Gorm's doc)")
 
 	return func() error {
 		// You can override fields in the config file with flags.
 		config.Host = *host
 		config.Port = *port
-		config.DBParams = *db_params
-		err := config.SetDBType(*db_type)
+		config.DBParams = *dbParams
+		err := config.SetDBType(*dbType)
 		if err != nil {
 			return err
 		}
-		err = config.HandleConfFileFlag(*conf_file)
+		err = config.HandleConfFileFlag(*confFile)
 		return err
 	}
 }
@@ -71,12 +71,12 @@ func (config *Config) HandleConfFileFlag(path string) error {
 	if path != "" {
 		file, err := os.Open(path)
 		if err != nil {
-			return fmt.Errorf("Can't read file '%s'.", path)
+			return fmt.Errorf("can't read file '%s'", path)
 		}
 
 		err = config.Read(bufio.NewReader(file))
 		if err != nil {
-			return fmt.Errorf("Failed to parse file '%s' (%s).", path, err)
+			return fmt.Errorf("failed to parse file '%s' (%s)", path, err)
 		}
 	}
 	return nil
@@ -84,7 +84,7 @@ func (config *Config) HandleConfFileFlag(path string) error {
 
 func (config *Config) SetDBType(db_type string) error {
 	if !allowedDatabaseTypes[db_type] {
-		return fmt.Errorf("Unknown database backend '%s'.", db_type)
+		return fmt.Errorf("unknown database backend '%s'", db_type)
 	}
 	config.DBType = db_type
 	return nil

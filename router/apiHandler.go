@@ -13,6 +13,7 @@ import (
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/util"
+	"github.com/ewhal/nyaa/util/log"
 	"github.com/gorilla/mux"
 )
 
@@ -20,14 +21,23 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
 
-	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"))
-	if errConv != nil {
-		maxPerPage = 50 // default Value maxPerPage
+	var err error
+	maxPerPage := 50
+	maxString := r.URL.Query().Get("max")
+	if maxString != "" {
+		maxPerPage, err = strconv.Atoi(maxString)
+		if !log.CheckError(err) {
+			maxPerPage = 50 // default Value maxPerPage
+		}
 	}
 
-	pagenum, _ := strconv.Atoi(html.EscapeString(page))
-	if pagenum == 0 {
-		pagenum = 1
+	pagenum := 1
+	if page != "" {
+		pagenum, err = strconv.Atoi(html.EscapeString(page))
+		if !log.CheckError(err) {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	}
 
 	torrents, nbTorrents, err := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))

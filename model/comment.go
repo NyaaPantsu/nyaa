@@ -28,5 +28,6 @@ type OldComment struct {
 func (c OldComment) TableName() string {
 	// cba to rename this in the db
 	// TODO: Update database schema to fix this hack
+	//       I find this odd considering how often the schema changes already
 	return "comments_old"
 }

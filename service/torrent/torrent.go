@@ -22,24 +22,28 @@ type WhereParams struct {
  */
 
 // don't need raw SQL once we get MySQL
-func GetFeeds() []model.Feed {
+func GetFeeds() ([]model.Feed, error) {
 	result := make([]model.Feed, 0, 50)
 	rows, err := db.ORM.DB().
 		Query(
 			"SELECT `torrent_id` AS `id`, `torrent_name` AS `name`, `torrent_hash` AS `hash`, `timestamp` FROM `torrents` " +
 				"ORDER BY `timestamp` desc LIMIT 50")
-	if err == nil {
-		for rows.Next() {
-			item := model.Feed{}
-			rows.Scan(&item.ID, &item.Name, &item.Hash, &item.Timestamp)
-			magnet := util.InfoHashToMagnet(strings.TrimSpace(item.Hash), item.Name, config.Trackers...)
-			item.Magnet = magnet
-			// memory hog
-			result = append(result, item)
-		}
-		rows.Close()
+	defer rows.Close()
+	if err != nil {
+		return nil, err
 	}
-	return result
+	for rows.Next() {
+		item := model.Feed{}
+		err := rows.Scan(&item.ID, &item.Name, &item.Hash, &item.Timestamp)
+		if err != nil {
+			return nil, err
+		}
+		magnet := util.InfoHashToMagnet(strings.TrimSpace(item.Hash), item.Name, config.Trackers...)
+		item.Magnet = magnet
+		// TODO: memory hog
+		result = append(result, item)
+	}
+	return result, nil
 }
 
 func GetTorrentById(id string) (model.Torrent, error) {

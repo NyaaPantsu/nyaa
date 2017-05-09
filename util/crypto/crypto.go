@@ -7,11 +7,14 @@ import (
 	"strings"
 )
 
-func GenerateMD5Hash(email string) string {
-	email = strings.ToLower(strings.TrimSpace(email))
+func GenerateMD5Hash(str string) (string, error) {
+	str = strings.ToLower(strings.TrimSpace(str))
 	hash := md5.New()
-	hash.Write([]byte(email))
-	return fmt.Sprintf("%x", hash.Sum(nil))
+	_, err := hash.Write([]byte(str))
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("%x", hash.Sum(nil)), nil
 }
 
 func GenerateRandomToken16() (string, error) {

@@ -18,8 +18,11 @@ import (
 
 // SendEmailVerfication sends an email verification token via email.
 func SendEmailVerfication(to string, token string, locale string) error {
-	T, _ := i18n.Tfunc(locale)
-	err := email.SendEmailFromAdmin(to,
+	T, err := i18n.Tfunc(locale)
+	if err != nil {
+		return err
+	}
+	err = email.SendEmailFromAdmin(to,
 		T("verify_email_title"),
 		T("link")+" : "+config.WebAddress+"/verify/email/"+token,
 		T("verify_email_content")+"<br/><a href=\""+config.WebAddress+"/verify/email/"+token+"\" target=\"_blank\">"+config.WebAddress+"/verify/email/"+token+"</a>")

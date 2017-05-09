@@ -13,9 +13,17 @@ var ORM *gorm.DB
 
 // GormInit init gorm ORM.
 func GormInit(conf *config.Config) (*gorm.DB, error) {
-	db, err := gorm.Open(conf.DBType, conf.DBParams)
+	db, openErr := gorm.Open(conf.DBType, conf.DBParams)
+	if openErr != nil {
+		log.CheckError(openErr)
+		return nil, openErr
+	}
 
-	db.DB().Ping()
+	connectionErr := db.DB().Ping()
+	if connectionErr != nil {
+		log.CheckError(connectionErr)
+		return nil, connectionErr
+	}
 	db.DB().SetMaxIdleConns(10)
 	db.DB().SetMaxOpenConns(100)
 
@@ -24,7 +32,6 @@ func GormInit(conf *config.Config) (*gorm.DB, error) {
 		db.LogMode(true)
 		db.AutoMigrate(&model.Torrent{}, &model.UsersFollowers{}, &model.User{}, &model.Comment{}, &model.OldComment{})
 	}
-	log.CheckError(err)
 
-	return db, err
+	return db, nil
 }

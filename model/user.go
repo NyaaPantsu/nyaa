@@ -19,7 +19,7 @@ type User struct {
 	Likings     []User `gorm:"foreignkey:userId;associationforeignkey:follower_id;many2many:users_followers;"`
 	Liked       []User `gorm:"foreignkey:follower_id;associationforeignkey:userId;many2many:users_followers;"`
 
-	MD5             string    `json:"md5"`
+	MD5             string    `json:"md5"` // Hash of email address, used for Gravatar
 	TokenExpiration time.Time `gorm:"column:api_token_expiry"`
 	Language        string    `gorm:"column:language"`
 	Torrents        []Torrent `gorm:"ForeignKey:UploaderId"`

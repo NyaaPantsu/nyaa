@@ -76,8 +76,7 @@ var ErrInvalidTorrentCategory = errors.New("torrent category is invalid")
 var p = bluemonday.UGCPolicy()
 
 // ExtractInfo takes an HTTP request and computes all form fields
-func (f *UploadForm) ExtractInfo(r *http.Request) error {
-
+func (f *UploadForm) ExtractInfo(r *http.Request) error { // TODO: Break down, too complex
 	f.Name = r.FormValue(UploadFormName)
 	f.Category = r.FormValue(UploadFormCategory)
 	f.Description = r.FormValue(UploadFormDescription)
@@ -118,7 +117,10 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		var torrent metainfo.TorrentFile
 
 		// decode torrent
-		tfile.Seek(0, io.SeekStart)
+		_, seekErr := tfile.Seek(0, io.SeekStart)
+		if seekErr != nil {
+			return seekErr
+		}
 		err = bencode.NewDecoder(tfile).Decode(&torrent)
 		if err != nil {
 			return metainfo.ErrInvalidTorrentFile
@@ -142,7 +144,10 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		if len(f.Magnet) != 0 {
 			return ErrTorrentPlusMagnet
 		}
-		binInfohash := torrent.Infohash()
+		binInfohash, err := torrent.Infohash()
+		if err != nil {
+			return err
+		}
 		f.Infohash = strings.ToUpper(hex.EncodeToString(binInfohash[:]))
 		f.Magnet = util.InfoHashToMagnet(f.Infohash, f.Name, trackers...)
 
@@ -173,10 +178,6 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		return ErrInvalidTorrentName
 	}
 
-	//if len(f.Description) == 0 {
-	//	return ErrInvalidTorrentDescription
-	//}
-
 	// after data has been checked & extracted, write it to disk
 	if len(config.TorrentFileStorage) > 0 {
 		err := WriteTorrentToDisk(tfile, f.Infohash+".torrent", &f.Filepath)
@@ -191,7 +192,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 }
 
 func ValidateJSON(j *model.TorrentJSON) (int, int, error) {
-	//Name length ?
+	// TODO: Name length ?
 	var category, subCategory int
 
 	category, err := strconv.Atoi(j.Category)
@@ -220,7 +221,10 @@ func ValidateJSON(j *model.TorrentJSON) (int, int, error) {
 }
 
 func WriteTorrentToDisk(file multipart.File, name string, fullpath *string) error {
-	file.Seek(0, io.SeekStart)
+	_, seekErr := file.Seek(0, io.SeekStart)
+	if seekErr != nil {
+		return seekErr
+	}
 	b, err := ioutil.ReadAll(file)
 	if err != nil {
 		return err
@@ -229,19 +233,20 @@ func WriteTorrentToDisk(file multipart.File, name string, fullpath *string) erro
 	return ioutil.WriteFile(*fullpath, b, 0644)
 }
 
-var deadTrackers = []string{ // substring matches!
-	"://open.nyaatorrents.info:6544",
-	"://tracker.openbittorrent.com:80",
-	"://tracker.publicbt.com:80",
-	"://stats.anisource.net:2710",
-	"://exodus.desync.com",
-	"://open.demonii.com:1337",
-	"://tracker.istole.it:80",
-	"://tracker.ccc.de:80",
-	"://bt2.careland.com.cn:6969",
-	"://announce.torrentsmd.com:8080"}
-
 func CheckTrackers(trackers []string) bool {
+	// TODO: move to runtime configuration
+	var deadTrackers = []string{ // substring matches!
+		"://open.nyaatorrents.info:6544",
+		"://tracker.openbittorrent.com:80",
+		"://tracker.publicbt.com:80",
+		"://stats.anisource.net:2710",
+		"://exodus.desync.com",
+		"://open.demonii.com:1337",
+		"://tracker.istole.it:80",
+		"://tracker.ccc.de:80",
+		"://bt2.careland.com.cn:6969",
+		"://announce.torrentsmd.com:8080"}
+
 	var numGood int
 	for _, t := range trackers {
 		good := true

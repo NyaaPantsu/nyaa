@@ -76,7 +76,8 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	magnet := util.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, config.Trackers...)
 	commentsJSON := make([]CommentJSON, 0, len(t.OldComments)+len(t.Comments))
 	for _, c := range t.OldComments {
-		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, Content: template.HTML(c.Content), Date: c.Date})
+		escapedContent := template.HTML(html.EscapeString(c.Content))
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, Content: escapedContent, Date: c.Date})
 	}
 	for _, c := range t.Comments {
 		commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt})

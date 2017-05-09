@@ -1,17 +1,16 @@
 package router
 
-import(
-	"time"
-	"net/http"
-	"github.com/gorilla/feeds"
+import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/search"
+	"github.com/gorilla/feeds"
+	"net/http"
 	"strconv"
+	"time"
 )
 
 func RSSHandler(w http.ResponseWriter, r *http.Request) {
-
 	_, torrents, err := search.SearchByQueryNoCount(r, 1)
 	if err != nil {
 		util.SendError(w, err, 400)
@@ -43,10 +42,13 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	rss, err := feed.ToRss()
-	if err == nil {
-		w.Write([]byte(rss))
-	} else {
+	rss, rssErr := feed.ToRss()
+	if rssErr != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	_, writeErr := w.Write([]byte(rss))
+	if writeErr != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }

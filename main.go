@@ -42,24 +42,36 @@ func RunServer(conf *config.Config) {
 
 func main() {
 	conf := config.New()
-	process_flags := conf.BindFlags()
+	processFlags := conf.BindFlags()
 	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
 	flag.Parse()
 	if *defaults {
 		stdout := bufio.NewWriter(os.Stdout)
-		conf.Pretty(stdout)
-		stdout.Flush()
+		err := conf.Pretty(stdout)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+		err = stdout.Flush()
+		if err != nil {
+			log.Fatal(err.Error())
+		}
 		os.Exit(0)
 	} else {
-		err := process_flags()
+		err := processFlags()
 		if err != nil {
 			log.CheckError(err)
 		}
-		db.ORM, _ = db.GormInit(conf)
+		db.ORM, err = db.GormInit(conf)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
 		initI18N()
 		go signals.Handle()
 		if len(config.TorrentFileStorage) > 0 {
-			os.MkdirAll(config.TorrentFileStorage, 0755)
+			err := os.MkdirAll(config.TorrentFileStorage, 0700)
+			if err != nil {
+				log.Fatal(err.Error())
+			}
 		}
 		RunServer(conf)
 	}

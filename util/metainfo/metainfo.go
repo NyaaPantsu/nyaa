@@ -116,10 +116,13 @@ func (tf *TorrentFile) IsPrivate() bool {
 }
 
 // calculate infohash
-func (tf *TorrentFile) Infohash() (ih [20]byte) {
+func (tf *TorrentFile) Infohash() (ih [20]byte, err error) {
 	s := sha1.New()
 	enc := bencode.NewEncoder(s)
-	enc.Encode(&tf.Info)
+	err = enc.Encode(&tf.Info)
+	if err != nil {
+		return
+	}
 	d := s.Sum(nil)
 	copy(ih[:], d[:])
 	return
