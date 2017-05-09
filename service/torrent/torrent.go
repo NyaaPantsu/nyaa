@@ -67,7 +67,17 @@ func GetTorrentById(id string) (model.Torrents, error) {
 	return torrent, nil
 }
 
+func GetTorrentsOrderByNoCount(parameters *WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrents, err error) {
+	torrents, _, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, false)
+	return
+}
+
 func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrents, count int, err error) {
+	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true)
+	return
+}
+
+func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int, countAll bool) (torrents []model.Torrents, count int, err error) {
 	var conditionArray []string
 	if strings.HasPrefix(orderBy, "filesize") {
 		// torrents w/ NULL filesize fuck up the sorting on postgres
@@ -81,11 +91,12 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 		params = parameters.Params
 	}
 	conditions := strings.Join(conditionArray, " AND ")
-	err = db.ORM.Model(&torrents).Where(conditions, params...).Count(&count).Error
-	if err != nil {
-		return
+	if countAll {
+		err = db.ORM.Model(&torrents).Where(conditions, params...).Count(&count).Error
+		if err != nil {
+			return
+		}
 	}
-
 	// TODO: Vulnerable to injections. Use query builder.
 
 	// build custom db query for performance reasons
