@@ -162,7 +162,7 @@ func SearchByQuery(r *http.Request, pagenum int) (search SearchParam, tor []mode
 			continue
 		}
 		// TODO: make this faster ?
-		conditions = append(conditions, "torrent_name ILIKE ?")
+		conditions = append(conditions, "UPPER(torrent_name) LIKE ?")
 		parameters.Params = append(parameters.Params, "%"+searchQuerySplit[i]+"%")
 	}
 
