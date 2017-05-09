@@ -52,9 +52,9 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
+	if (errorUser == nil) {
 	currentUser := GetUser(r)
 	view := r.URL.Query().Get("view")
-	if (errorUser == nil) {
 		if ((view == "edit")&&(userPermission.CurrentOrAdmin(currentUser, userProfile.Id))) {
 		} else {
 			languages.SetTranslationFromRequest(viewProfileTemplate, r, "en-us")
@@ -66,7 +66,14 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	} else {
-		NotFoundHandler(w, r)
+		searchForm := NewSearchForm()
+		searchForm.HideAdvancedSearch = true
+
+		languages.SetTranslationFromRequest(notFoundTemplate, r, "en-us")
+		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, searchForm, GetUser(r), r.URL, mux.CurrentRoute(r)})
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 	}
 }
 
