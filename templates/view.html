@@ -26,10 +26,12 @@
                   <td>{{T "size"}}</td>
                   <td>{{.Filesize}}</td>
               </tr>
+              {{if ne .WebsiteLink ""}}
               <tr>
                   <td>{{T "Link"}}</td>
                   <td><a href="{{.WebsiteLink}}">{{.WebsiteLink}}</td>
               </tr>
+              {{end}}
               <tr>
                   <td>{{T "links"}}</td>
                   <td>
