@@ -205,3 +205,11 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 #mainmenu .badgemenu {
 	padding-top: 0;
 }
+
+/* fix the dropdown member menu */
+.nav > .dropdown.open, .profile-image[aria-expanded="true"], .nav ul.dropdown-menu {
+	background: #282A2E !important;
+}
+.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+	background: #263238;
+}
