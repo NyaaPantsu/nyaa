@@ -61,17 +61,25 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 	var user model.User
 	log.Debugf("registrationForm %+v\n", registrationForm)
 	modelHelper.AssignValue(&user, &registrationForm)
-	user.Md5 = crypto.GenerateMD5Hash(user.Email)  // Gravatar
+
+	if user.Email == "" {
+		user.Md5 = ""
+	} else {
+		user.Md5 = crypto.GenerateMD5Hash(user.Email)
+	}
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
 		return user, errors.New("Token not generated.")
 	}
+
 	user.Token = token
 	user.TokenExpiration = timeHelper.FewDaysLater(config.AuthTokenExpirationDay)
 	log.Debugf("user %+v\n", user)
 	if db.ORM.Create(&user).Error != nil {
 		return user, errors.New("User is not created.")
 	}
+
+	user.CreatedAt = time.Now()
 	return user, nil
 }
 
@@ -136,7 +144,12 @@ func RetrieveUsers() []*model.PublicUser {
 
 // UpdateUserCore updates a user. (Applying the modifed data of user).
 func UpdateUserCore(user *model.User) (int, error) {
-	user.Md5 = crypto.GenerateMD5Hash(user.Email)
+	if user.Email == "" {
+		user.Md5 = ""
+	} else {
+		user.Md5 = crypto.GenerateMD5Hash(user.Email)
+	}
+
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
 		return http.StatusInternalServerError, errors.New("Token not generated.")
@@ -146,6 +159,7 @@ func UpdateUserCore(user *model.User) (int, error) {
 	if db.ORM.Save(user).Error != nil {
 		return http.StatusInternalServerError, errors.New("User is not updated.")
 	}
+
 	user.UpdatedAt = time.Now()
 	return http.StatusOK, nil
 }
