@@ -46,14 +46,14 @@ func SuggestUsername(username string) string {
 
 func CheckEmail(email string) bool {
 	if len(email) == 0 {
-		return true
+		return false
 	}
 	var count int
 	db.ORM.Model(model.User{}).Where("email = ?", email).Count(&count)
-	if count == 0 {
-		return false // duplicate
+	if count != 0 {
+		return true // error: duplicate
 	}
-	return true
+	return false
 }
 
 // CreateUserFromForm creates a user from a registration form.
