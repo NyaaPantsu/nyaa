@@ -23,7 +23,7 @@
 				<!-- SIDEBAR BUTTONS -->
 				<div class="profile-userbuttons">
 						{{if gt $.User.ID 0 }}
-						{{if not (CurrentUserIDentical $.User .ID) }}
+						{{if not (CurrentUserIdentical $.User .ID) }}
 					<button type="button" class="btn btn-success btn-sm">{{ T "follow"}}</button>
 						{{end}}
 						{{end}}
