@@ -15,7 +15,6 @@ import (
 	"strings"
 
 	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/metainfo"
@@ -190,35 +189,6 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	}
 
 	return nil
-}
-
-func ValidateJson(j *model.TorrentsJson) (int, int, error) {
-	//Name length ?
-	var category, sub_category int
-
-	category, err := strconv.Atoi(j.Category)
-	if err != nil {
-		return category, sub_category, err
-	}
-	sub_category, err = strconv.Atoi(j.Sub_Category)
-	if err != nil {
-		return category, sub_category, err
-	}
-
-	magnetUrl, parseErr := url.Parse(string(j.Magnet)) //?
-	if parseErr != nil {
-		return category, sub_category, metainfo.ErrInvalidTorrentFile
-	}
-	exactTopic := magnetUrl.Query().Get("xt")
-	if !strings.HasPrefix(exactTopic, "urn:btih:") {
-		return category, sub_category, metainfo.ErrInvalidTorrentFile
-	}
-	j.Hash = strings.ToUpper(strings.TrimPrefix(exactTopic, "urn:btih:"))
-	matched, err := regexp.MatchString("^[0-9A-F]{40}$", j.Hash)
-	if err != nil || !matched {
-		return category, sub_category, metainfo.ErrInvalidTorrentFile
-	}
-	return category, sub_category, nil
 }
 
 func WriteTorrentToDisk(file multipart.File, name string, fullpath *string) error {
