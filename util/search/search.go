@@ -57,6 +57,16 @@ type SearchParam struct {
 }
 
 func SearchByQuery(r *http.Request, pagenum int) (search SearchParam, tor []model.Torrents, count int, err error) {
+	search, tor, count, err = searchByQuery(r, pagenum, true)
+	return
+}
+
+func SearchByQueryNoCount(r *http.Request, pagenum int) (search SearchParam, tor []model.Torrents, err error) {
+	search, tor, _, err = searchByQuery(r, pagenum, false)
+	return
+}
+
+func searchByQuery(r *http.Request, pagenum int, countAll bool) (search SearchParam, tor []model.Torrents, count int, err error) {
 	max, err := strconv.ParseUint(r.URL.Query().Get("max"), 10, 32)
 	if err != nil {
 		err = nil
@@ -180,6 +190,10 @@ func SearchByQuery(r *http.Request, pagenum int) (search SearchParam, tor []mode
 
 	parameters.Conditions = strings.Join(conditions[:], " AND ")
 	log.Infof("SQL query is :: %s\n", parameters.Conditions)
-	tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, order_by, int(search.Max), int(search.Max)*(pagenum-1))
+	if countAll {
+		tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, order_by, int(search.Max), int(search.Max)*(pagenum-1))
+	} else {
+		tor, err = torrentService.GetTorrentsOrderByNoCount(&parameters, order_by, int(search.Max), int(search.Max)*(pagenum-1))
+	}
 	return
 }

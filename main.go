@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"flag"
+
 	"github.com/nicksnyder/go-i18n/i18n"
 
 	"github.com/ewhal/nyaa/config"
