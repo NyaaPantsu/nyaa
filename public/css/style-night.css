@@ -25,13 +25,14 @@
     background-color: #29363d;
 }
 
-#container.cont-home {
+ /* #container.cont-home {
      background: #29363d url(/img/megumin.png) no-repeat;
 }
 #container.cont-view {
      background: #29363d url(/img/megumin.png) no-repeat;
      background-size: 75px;
 }
+*/
 
 body {
     background-color:#282A2E;
