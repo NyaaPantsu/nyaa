@@ -2,12 +2,13 @@ package torrentService
 
 import (
 	"errors"
+	"strconv"
+	"strings"
+
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util"
-	"strconv"
-	"strings"
 )
 
 type WhereParams struct {
@@ -23,7 +24,7 @@ type WhereParams struct {
 
 // don't need raw SQL once we get MySQL
 func GetFeeds() []model.Feed {
-	var result []model.Feed
+	result := make([]model.Feed, 0, 50)
 	rows, err := db.ORM.DB().
 		Query(
 			"SELECT `torrent_id` AS `id`, `torrent_name` AS `name`, `torrent_hash` AS `hash`, `timestamp` FROM `torrents` " +
@@ -135,11 +136,12 @@ func GetAllTorrentsDB() ([]model.Torrents, int) {
 }
 
 func CreateWhereParams(conditions string, params ...string) WhereParams {
-	whereParams := WhereParams{}
-	whereParams.Conditions = conditions
-	for i, _ := range params {
-		whereParams.Params = append(whereParams.Params, params[i])
+	whereParams := WhereParams{
+		Conditions: conditions,
+		Params:     make([]interface{}, len(params)),
 	}
-
+	for i := range params {
+		whereParams.Params[i] = params[i]
+	}
 	return whereParams
 }
