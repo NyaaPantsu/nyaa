@@ -4,14 +4,13 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/gorilla/securecookie"
-	"golang.org/x/crypto/bcrypt"
-	formStruct "github.com/ewhal/nyaa/service/user/form"
-
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
+	formStruct "github.com/ewhal/nyaa/service/user/form"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/modelHelper"
+	"github.com/gorilla/securecookie"
+	"golang.org/x/crypto/bcrypt"
 )
 
 var cookieHandler = securecookie.New(
@@ -152,6 +151,6 @@ func CurrentUser(r *http.Request) (model.User, error) {
 	if db.ORM.Where("api_token = ?", token).First(&user).RecordNotFound() {
 		return user, errors.New("User is not found.")
 	}
-	db.ORM.Model(&user)
-	return user, nil
+	err = db.ORM.Model(&user).Error
+	return user, err
 }
