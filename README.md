@@ -60,9 +60,7 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 > nyaa_psql.backup.
 
 ## TODO
-* postgres + gin indexes for fulltext search
-  * Remove LIKE AND OFFSET queries
-  * optimize queries in general
+## High priority
 * Torrent data scraping from definable tracker (We have a tracker that the owner is ok for us to scrape from)
   * seeds/leeachers
   * file lists
@@ -70,11 +68,15 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 * Accounts and Registration System(WIP)
   * Report Feature and Moderation System
   * blocking upload of torrent hashes
-* fix sukebei categories
-* Site theme
-  * original nyaa theme
-* API improvement
-* Scraping of fan subbing RSS feeds
+
+## Lower priority
+ * Get code up to standard of go lint recommendations
+ * Write tests
+ * fix sukebei categories
+ * Site theme
+   * original nyaa theme
+ * API improvement
+ * Scraping of fan subbing RSS feeds
 
 * Daily DB dumps
 

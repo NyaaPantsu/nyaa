@@ -6,6 +6,7 @@ import (
 	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/service/user"
 	"github.com/ewhal/nyaa/service/user/form"
+	"github.com/ewhal/nyaa/service/user/permission"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/modelHelper"
 	"github.com/gorilla/mux"
@@ -48,7 +49,32 @@ func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
 
 // Getting User Profile
 func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
+	if (errorUser == nil) {
+	currentUser := GetUser(r)
+	view := r.URL.Query().Get("view")
+		if ((view == "edit")&&(userPermission.CurrentOrAdmin(currentUser, userProfile.Id))) {
+		} else {
+			languages.SetTranslationFromRequest(viewProfileTemplate, r, "en-us")
+			htv := UserProfileVariables{&userProfile, form.NewErrors(), NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
 
+			err := viewProfileTemplate.ExecuteTemplate(w, "index.html", htv)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
+		}
+	} else {
+		searchForm := NewSearchForm()
+		searchForm.HideAdvancedSearch = true
+
+		languages.SetTranslationFromRequest(notFoundTemplate, r, "en-us")
+		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, searchForm, GetUser(r), r.URL, mux.CurrentRoute(r)})
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	}
 }
 
 // Getting View User Profile Update
@@ -139,6 +165,13 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 
 	}
 
+}
+
+// Logout
+func UserLogoutHandler(w http.ResponseWriter, r *http.Request) {
+	_, _ = userService.ClearCookie(w)
+	url, _ := Router.Get("home").URL()
+	http.Redirect(w, r, url.String(), http.StatusSeeOther)
 }
 
 // Post Profule Update controller
