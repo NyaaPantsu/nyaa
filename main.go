@@ -15,12 +15,19 @@ import (
 
 	"net/http"
 	"os"
+	"path/filepath"
 	"time"
 )
 
 func initI18N() {
 	/* Initialize the languages translation */
 	i18n.MustLoadTranslationFile("translations/en-us.all.json")
+	paths, err := filepath.Glob("translations/*.json")
+	if err == nil {
+		for _, path := range paths {
+			i18n.LoadTranslationFile(path)
+		}
+	}
 }
 
 func RunServer(conf *config.Config) {
