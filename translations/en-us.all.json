@@ -180,6 +180,10 @@
     "translation": "404 Not Found"
   },
   {
+    "id": "no_torrents_uploaded",
+    "translation": "No torrents uploaded yet!"
+  },
+  {
     "id": "profile",
     "translation": "Profile"
   },
