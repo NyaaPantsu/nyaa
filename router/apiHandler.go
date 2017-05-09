@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html"
 	"net/http"
+	"sort"
 	"strconv"
 	"time"
 
@@ -19,19 +20,65 @@ import (
 func ApiHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
+	whereParams := torrentService.WhereParams{}
 
 	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"))
 	if errConv != nil {
 		maxPerPage = 50 // default Value maxPerPage
 	}
 
-	nbTorrents := 0
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 	if pagenum == 0 {
 		pagenum = 1
 	}
 
-	torrents, nbTorrents, err := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
+	contentType := r.Header.Get("Content-Type")
+	if contentType == "application/json" {
+		d := json.NewDecoder(r.Body)
+		d.UseNumber()
+
+		var f interface{}
+		if err := d.Decode(&f); err != nil {
+			util.SendError(w, err, 502)
+		}
+
+		m := f.(map[string]interface{})
+		var keys []string
+		for k := range m {
+			keys = append(keys, k)
+		}
+		sort.Strings(keys)
+
+		conditions := ""
+		for i, k := range keys {
+			if k == "page" {
+				pagenum64, _ := m[k].(json.Number).Int64()
+				pagenum = int(pagenum64)
+			} else if k == "limit" {
+				maxPerPage64, _ := m[k].(json.Number).Int64()
+				maxPerPage = int(maxPerPage64)
+			} else {
+				if i != 0 {
+					conditions += "AND "
+				}
+				conditions += k
+				switch m[k].(type) {
+				case json.Number:
+					conditions += " = ? "
+				case string:
+					conditions += " ILIKE ? "
+				}
+			}
+		}
+		whereParams.Conditions = conditions
+		whereParams.Params = make([]interface{}, len(keys))
+		for i, k := range keys {
+			whereParams.Params[i] = m[k]
+		}
+	}
+
+	nbTorrents := 0
+	torrents, nbTorrents, err := torrentService.GetTorrents(whereParams, maxPerPage, maxPerPage*(pagenum-1))
 	if err != nil {
 		util.SendError(w, err, 400)
 		return
