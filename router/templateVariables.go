@@ -54,6 +54,18 @@ type UserRegisterTemplateVariables struct {
 	Route            *mux.Route // For getting current route in templates
 }
 
+type UserProfileEditVariables struct {
+	UserProfile 	 *model.User
+	UserForm 		 userForms.UserForm
+	FormErrors       map[string][]string
+	FormInfos        map[string][]string
+	Search           SearchForm
+	Navigation       Navigation
+	User             *model.User
+	URL              *url.URL   // For parsing Url in templates
+	Route            *mux.Route // For getting current route in templates
+}
+
 type UserVerifyTemplateVariables struct {
 	FormErrors map[string][]string
 	Search     SearchForm
@@ -75,7 +87,6 @@ type UserLoginFormVariables struct {
 
 type UserProfileVariables struct {
 	UserProfile *model.User
-	FormErrors  map[string][]string
 	Search      SearchForm
 	Navigation  Navigation
 	User        *model.User
