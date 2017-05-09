@@ -11,6 +11,7 @@ import (
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	formStruct "github.com/ewhal/nyaa/service/user/form"
+	"github.com/ewhal/nyaa/service/user/permission"
 	"github.com/ewhal/nyaa/util/crypto"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/modelHelper"
@@ -151,46 +152,47 @@ func UpdateUserCore(user *model.User) (int, error) {
 }
 
 // UpdateUser updates a user.
-func UpdateUser(w http.ResponseWriter, r *http.Request, id string) (*model.User, int, error) {
+func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, currentUser *model.User, id string) (model.User, int, error) {
 	var user model.User
 	if db.ORM.First(&user, id).RecordNotFound() {
-		return &user, http.StatusNotFound, errors.New("User is not found.")
-	}
-	switch r.FormValue("type") {
-	case "password":
-		var passwordForm formStruct.PasswordForm
-		modelHelper.BindValueForm(&passwordForm, r)
-		log.Debugf("form %+v\n", passwordForm)
-		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(passwordForm.CurrentPassword))
-		if err != nil {
-			log.Error("Password Incorrect.")
-			return &user, http.StatusInternalServerError, errors.New("User is not updated. Password Incorrect.")
-		} else {
-			newPassword, err := bcrypt.GenerateFromPassword([]byte(passwordForm.Password), 10)
-			if err != nil {
-				return &user, http.StatusInternalServerError, errors.New("User is not updated. Password not Generated.")
-			} else {
-				passwordForm.Password = string(newPassword)
-				modelHelper.AssignValue(&user, &passwordForm)
-			}
-		}
-	default:
-		var form formStruct.UserForm
-		modelHelper.BindValueForm(&form, r)
-		log.Debugf("form %+v\n", form)
-		modelHelper.AssignValue(&user, &form)
+		return user, http.StatusNotFound, errors.New("User is not found.")
 	}
 
+	if (form.Password != "") {
+		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(form.CurrentPassword))
+		if err != nil && !userPermission.HasAdmin(currentUser) {
+			log.Error("Password Incorrect.")
+			return user, http.StatusInternalServerError, errors.New("User is not updated. Password Incorrect.")
+		} else {
+			newPassword, err := bcrypt.GenerateFromPassword([]byte(form.Password), 10)
+			if err != nil {
+				return user, http.StatusInternalServerError, errors.New("User is not updated. Password not Generated.")
+			} else {
+				form.Password = string(newPassword)
+			}
+		}
+	} else { // Then no change of password
+		form.Password = user.Password
+	}
+	if !userPermission.HasAdmin(currentUser) { // We don't want users to be able to modify some fields
+		form.Status = user.Status
+		form.Username = user.Username
+	}
+		log.Debugf("form %+v\n", form)
+		modelHelper.AssignValue(&user, form)
+	
 	status, err := UpdateUserCore(&user)
 	if err != nil {
-		return &user, status, err
+		return user, status, err
 	}
-	status, err = SetCookie(w, user.Token)
-	return &user, status, err
+	if (userPermission.CurrentUserIdentical(currentUser, user.Id)) {
+		status, err = SetCookie(w, user.Token)
+	}
+	return user, status, err
 }
 
 // DeleteUser deletes a user.
-func DeleteUser(w http.ResponseWriter, id string) (int, error) {
+func DeleteUser(w http.ResponseWriter, currentUser *model.User, id string) (int, error) {
 	var user model.User
 	if db.ORM.First(&user, id).RecordNotFound() {
 		return http.StatusNotFound, errors.New("User is not found.")
@@ -198,8 +200,10 @@ func DeleteUser(w http.ResponseWriter, id string) (int, error) {
 	if db.ORM.Delete(&user).Error != nil {
 		return http.StatusInternalServerError, errors.New("User is not deleted.")
 	}
-	status, err := ClearCookie(w)
-	return status, err
+	if (userPermission.CurrentUserIdentical(currentUser, user.Id)) {
+	return ClearCookie(w)
+	}
+	return http.StatusOK, nil
 }
 
 // RetrieveCurrentUser retrieves a current user.

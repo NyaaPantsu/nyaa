@@ -65,5 +65,6 @@ var FuncMap = template.FuncMap{
 	},
 	"CurrentOrAdmin": userPermission.CurrentOrAdmin,
 	"CurrentUserIdentical": userPermission.CurrentUserIdentical,
+	"HasAdmin": userPermission.HasAdmin,
 	"GetRole": userPermission.GetRole,
 }
