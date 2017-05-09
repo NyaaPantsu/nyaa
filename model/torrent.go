@@ -20,23 +20,23 @@ type Feed struct {
 }
 
 type Torrents struct {
-	Id           uint         `gorm:"column:torrent_id;primary_key"`
-	Name         string       `gorm:"column:torrent_name"`
-	Hash         string       `gorm:"column:torrent_hash"`
-	Category     int          `gorm:"column:category"`
-	Sub_Category int          `gorm:"column:sub_category"`
-	Status       int          `gorm:"column:status"`
-	Date         time.Time    `gorm:"column:date"`
-	UploaderId   uint         `gorm:"column:uploader"`
-	Downloads    int          `gorm:"column:downloads"`
-	Stardom      int          `gorm:"column:stardom"`
-	Filesize     int64        `gorm:"column:filesize"`
-	Description  string       `gorm:"column:description"`
-	WebsiteLink  string       `gorm:"column:website_link"`
+	Id           uint      `gorm:"column:torrent_id;primary_key"`
+	Name         string    `gorm:"column:torrent_name"`
+	Hash         string    `gorm:"column:torrent_hash"`
+	Category     int       `gorm:"column:category_od"`
+	Sub_Category int       `gorm:"column:sub_category_id"`
+	Status       int       `gorm:"column:status_id"`
+	Date         time.Time `gorm:"column:date"`
+	UploaderId   uint      `gorm:"column:uploader"`
+	Downloads    int       `gorm:"column:downloads"`
+	Stardom      int       `gorm:"column:stardom"`
+	Filesize     int64     `gorm:"column:filesize"`
+	Description  string    `gorm:"column:description"`
+	WebsiteLink  string    `gorm:"column:website_link"`
 
-	Uploader     *User        `gorm:"ForeignKey:uploader"`
-	OldComments  []OldComment `gorm:"ForeignKey:torrent_id"`
-	Comments     []Comment    `gorm:"ForeignKey:torrent_id"`
+	Uploader    *User        `gorm:"ForeignKey:uploader"`
+	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
+	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
 }
 
 /* We need JSON Object instead because of Magnet URL that is not in the database but generated dynamically */
