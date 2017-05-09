@@ -39,9 +39,11 @@
                   <a href="{{.Magnet}}" title="Magnet link">
                       <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>
                   </a>
-                  <a href="http://anicache.com/torrent/{{.Hash}}.torrent" title="Torrent file">
+                  {{if ne .TorrentLink ""}}
+                  <a href="{{.TorrentLink}}" title="Torrent file">
                       <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 
                   </a>
+                  {{end}}
               </td>
           </tr>
           {{end}}
