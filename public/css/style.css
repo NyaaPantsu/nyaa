@@ -1,7 +1,4 @@
-/* Night mode switcher  */
-.nightswitch > img {
-    width: 24px;
-}
+
 
 /* Torrent status colors */
 .remake {
@@ -318,4 +315,12 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
   padding: 20px;
   background: #fff;
   min-height: 460px;
+}
+/* Night mode switcher  */
+#mainmenu a.nightswitch {
+    background: transparent url(/img/sun.png) no-repeat;
+    background-size: 24px;
+    margin-top: 10px;
+    margin-left: 3px;
+    width: 24px;
 }
