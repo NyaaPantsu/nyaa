@@ -26,6 +26,9 @@
                   <td>{{T "size"}}</td>
                   <td>{{.Filesize}}</td>
               </tr>
+              <tr>
+                  <td>Uploader</td>
+                  <td><a href="{{$.URL.Parse (printf "/user/%d/-" .UploaderId) }}">{{.UploaderName}}</a></td>
               {{if ne .WebsiteLink ""}}
               <tr>
                   <td>{{T "Link"}}</td>
