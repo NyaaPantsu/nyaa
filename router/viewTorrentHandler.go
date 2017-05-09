@@ -44,13 +44,12 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	content := p.Sanitize(r.FormValue("comment"))
 
-	idNum_, err := strconv.Atoi(id)
-	var idNum uint = uint(idNum_)
-	var userId uint = 0
-	if currentUser.ID > 0 {
-		userId = currentUser.ID
+	idNum, err := strconv.Atoi(id)
+	if currentUser.ID <= 0 {
+		http.Error(w, "Invalid user ID", http.StatusInternalServerError)
 	}
-	comment := model.Comment{TorrentID: idNum, UserID: userId, Content: content, CreatedAt: time.Now()}
+	userID := currentUser.ID
+	comment := model.Comment{TorrentID: uint(idNum), UserID: userID, Content: content, CreatedAt: time.Now()}
 	db.ORM.Create(&comment)
 
 	url, err := Router.Get("view_torrent").URL("id", id)

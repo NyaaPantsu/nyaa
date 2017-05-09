@@ -86,9 +86,9 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	category, sub_category, err := ValidateJSON(&torrentJSON)
+	category, subCategory, err := ValidateJSON(&torrentJSON)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError) //406?
+		http.Error(w, err.Error(), http.StatusNotAcceptable)
 		return
 	}
 
@@ -99,7 +99,7 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 		Name:        torrentJSON.Name,
 		Hash:        torrentJSON.Hash,
 		Category:    category,
-		SubCategory: sub_category,
+		SubCategory: subCategory,
 		Status:      1,
 		Date:        time.Now(),
 		UploaderID:  0,

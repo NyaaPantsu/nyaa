@@ -12,9 +12,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-//var viewTemplate = template.Must(template.New("view").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/view.html"))
-//var viewTemplate = template.Must(template.New("view").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/view.html"))
-
 // Getting View User Registration
 func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 	_, errorUser := userService.CurrentUser(r)
@@ -155,9 +152,7 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 			url, _ := Router.Get("home").URL()
 			http.Redirect(w, r, url.String(), http.StatusSeeOther)
 		}
-
 	}
-
 }
 
 // Logout
@@ -167,7 +162,7 @@ func UserLogoutHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, url.String(), http.StatusSeeOther)
 }
 
-// Post Profule Update controller
+// Post Profile Update controller
 func UserProfilePostHandler(w http.ResponseWriter, r *http.Request) {
 
 }

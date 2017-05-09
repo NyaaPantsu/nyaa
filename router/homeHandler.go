@@ -21,7 +21,6 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		maxPerPage = 50 // default Value maxPerPage
 	}
 
-	nbTorrents := 0
 	pagenum, _ := strconv.Atoi(html.EscapeString(page))
 	if pagenum == 0 {
 		pagenum = 1
@@ -30,7 +29,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	b := []model.TorrentJSON{}
 	torrents, nbTorrents := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
 
-	for i, _ := range torrents {
+	for i := range torrents {
 		res := torrents[i].ToJSON()
 		b = append(b, res)
 	}
@@ -44,5 +43,4 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Errorf("HomeHandler(): %s", err)
 	}
-
 }

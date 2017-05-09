@@ -22,20 +22,20 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 
 	b := []model.TorrentJSON{}
 
-	search_param, torrents, nbTorrents := search.SearchByQuery(r, pagenum)
+	searchParam, torrents, nbTorrents := search.SearchByQuery(r, pagenum)
 
-	for i, _ := range torrents {
+	for i := range torrents {
 		res := torrents[i].ToJSON()
 		b = append(b, res)
 	}
 
-	navigationTorrents := Navigation{nbTorrents, search_param.Max, pagenum, "search_page"}
+	navigationTorrents := Navigation{nbTorrents, searchParam.Max, pagenum, "search_page"}
 	searchForm := SearchForm{
-		search_param.Query,
-		search_param.Status,
-		search_param.Category,
-		search_param.Sort,
-		search_param.Order,
+		searchParam.Query,
+		searchParam.Status,
+		searchParam.Category,
+		searchParam.Sort,
+		searchParam.Order,
 		false,
 	}
 	htv := HomeTemplateVariables{b, searchForm, navigationTorrents, GetUser(r), r.URL, mux.CurrentRoute(r)}

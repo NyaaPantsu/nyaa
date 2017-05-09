@@ -34,8 +34,8 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 			//add to db and redirect depending on result
 			torrent := model.Torrent{
 				Name:        uploadForm.Name,
-				Category:    uploadForm.CategoryId,
-				SubCategory: uploadForm.SubCategoryId,
+				Category:    uploadForm.CategoryID,
+				SubCategory: uploadForm.SubCategoryID,
 				Status:      1,
 				Hash:        uploadForm.Infohash,
 				Date:        time.Now(),
