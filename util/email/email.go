@@ -15,8 +15,8 @@ var (
 )
 
 func InitGomail() *gomail.Dialer {
-	mailer := gomail.NewDialer(config.EmailHost, config.EmailPort, config.EmailUsername, config.EmailPassword)
-	return mailer
+	newMailer := gomail.NewDialer(config.EmailHost, config.EmailPort, config.EmailUsername, config.EmailPassword)
+	return newMailer
 }
 
 func SendEmailFromAdmin(to string, subject string, body string, bodyHTML string) error {

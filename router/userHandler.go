@@ -12,9 +12,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-//var viewTemplate = template.Must(template.New("view").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/view.html"))
-//var viewTemplate = template.Must(template.New("view").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/view.html"))
-
 // Getting View User Registration
 func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 	_, errorUser := userService.CurrentUser(r)

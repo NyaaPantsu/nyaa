@@ -16,7 +16,7 @@ func CurrentOrAdmin(user *model.User, userID uint) bool {
 	return (HasAdmin(user) || user.ID == userID)
 }
 
-// CurrentUserIDentical check that userId is same as current user's Id.
+// CurrentUserIDentical check that userID is same as current user's Id.
 // TODO: Inline this
 func CurrentUserIdentical(user *model.User, userID uint) bool {
 	return user.ID != userID

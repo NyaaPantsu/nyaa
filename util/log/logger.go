@@ -35,12 +35,9 @@ func InitLogToFile() {
 
 	out := LumberJackLogger(config.ErrorLogFilePath+config.ErrorLogFileExtension, config.ErrorLogMaxSize, config.ErrorLogMaxBackups, config.ErrorLogMaxAge)
 
-
 	logrus.SetOutput(out)
 	logrus.SetLevel(logrus.WarnLevel)
 }
-
-
 
 // Init logrus
 func Init(environment string) {
@@ -119,10 +116,8 @@ func Panicf(msg string, args ...interface{}) {
 func DebugResponse(response *http.Response) string {
 	bodyBuffer := make([]byte, 5000)
 	var str string
-	count, err := response.Body.Read(bodyBuffer)
-	for ; count > 0; count, err = response.Body.Read(bodyBuffer) {
-		if err != nil {
-		}
+	count, _ := response.Body.Read(bodyBuffer)
+	for ; count > 0; count, _ = response.Body.Read(bodyBuffer) {
 		str += string(bodyBuffer[:count])
 	}
 	Debugf("response data : %v", str)

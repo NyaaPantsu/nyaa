@@ -107,7 +107,7 @@ func (tf *TorrentFile) GetAllAnnounceURLS() (l []string) {
 }
 
 func (tf *TorrentFile) TorrentName() string {
-	return string(tf.Info.Path)
+	return tf.Info.Path
 }
 
 // return true if this torrent is private otherwise return false
