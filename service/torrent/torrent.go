@@ -23,48 +23,64 @@ type WhereParams struct {
  */
 
 // don't need raw SQL once we get MySQL
-func GetFeeds() []model.Feed {
-	result := make([]model.Feed, 0, 50)
+func GetFeeds() (result []model.Feed, err error) {
+	result = make([]model.Feed, 0, 50)
 	rows, err := db.ORM.DB().
 		Query(
 			"SELECT `torrent_id` AS `id`, `torrent_name` AS `name`, `torrent_hash` AS `hash`, `timestamp` FROM `torrents` " +
 				"ORDER BY `timestamp` desc LIMIT 50")
-	if err == nil {
-		for rows.Next() {
-			item := model.Feed{}
-			rows.Scan(&item.Id, &item.Name, &item.Hash, &item.Timestamp)
-			magnet := util.InfoHashToMagnet(strings.TrimSpace(item.Hash), item.Name, config.Trackers...)
-			item.Magnet = magnet
-			// memory hog
-			result = append(result, item)
-		}
-		rows.Close()
+	if err != nil {
+		return nil, err
 	}
-	return result
+	defer rows.Close()
+
+	for rows.Next() {
+		item := model.Feed{}
+		err = rows.Scan(&item.Id, &item.Name, &item.Hash, &item.Timestamp)
+		if err != nil {
+			return
+		}
+		magnet := util.InfoHashToMagnet(strings.TrimSpace(item.Hash), item.Name, config.Trackers...)
+		item.Magnet = magnet
+		// memory hog
+		result = append(result, item)
+	}
+	err = rows.Err()
+	return
 }
 
-func GetTorrentById(id string) (model.Torrents, error) {
-	var torrent model.Torrents
+func GetTorrentById(id string) (torrent model.Torrents, err error) {
 	id_int, err := strconv.Atoi(id)
 	if err != nil {
-		return torrent, err
+		return
 	}
 
 	tmp := db.ORM.Where("torrent_id = ?", id).Preload("Comments")
+	err = tmp.Error
+	if err != nil {
+		return
+	}
 	if id_int <= config.LastOldTorrentId {
 		// only preload old comments if they could actually exist
 		tmp = tmp.Preload("OldComments")
 	}
 	if tmp.Find(&torrent).RecordNotFound() {
-		return torrent, errors.New("Article is not found.")
+		err = errors.New("Article is not found.")
+		return
 	}
-	// .Preload("Comments.User") doesn't work
+	// GORM relly likes not doing its job correctly
+	// (or maybe I'm just retarded)
+	torrent.Uploader = new(model.User)
+	db.ORM.Where("user_id = ?", torrent.UploaderId).Find(torrent.Uploader)
 	for i := range torrent.Comments {
 		torrent.Comments[i].User = new(model.User)
-		db.ORM.Where("user_id = ?", torrent.Comments[i].UserId).Find(torrent.Comments[i].User)
+		err = db.ORM.Where("user_id = ?", torrent.Comments[i].UserId).Find(torrent.Comments[i].User).Error
+		if err != nil {
+			return
+		}
 	}
 
-	return torrent, nil
+	return
 }
 
 func GetTorrentsOrderByNoCount(parameters *WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrents, err error) {
@@ -77,7 +93,9 @@ func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	return
 }
 
-func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int, countAll bool) (torrents []model.Torrents, count int, err error) {
+func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int, countAll bool) (
+	torrents []model.Torrents, count int, err error,
+) {
 	var conditionArray []string
 	if strings.HasPrefix(orderBy, "filesize") {
 		// torrents w/ NULL filesize fuck up the sorting on postgres
