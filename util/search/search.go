@@ -79,11 +79,11 @@ func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents,
 	parameters := torrentService.WhereParams{}
 	conditions := []string{}
 	if searchCatId != "" {
-		conditions = append(conditions, "category_id = ?")
+		conditions = append(conditions, "category = ?")
 		parameters.Params = append(parameters.Params, searchCatId)
 	}
 	if searchSubCatId != "" {
-		conditions = append(conditions, "sub_category_id = ?")
+		conditions = append(conditions, "sub_category = ?")
 		parameters.Params = append(parameters.Params, searchSubCatId)
 	}
 	if userId != "" {
@@ -92,9 +92,9 @@ func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents,
 	}
 	if search_param.Status != "" {
 		if search_param.Status == "2" {
-			conditions = append(conditions, "status_id != ?")
+			conditions = append(conditions, "status != ?")
 		} else {
-			conditions = append(conditions, "status_id = ?")
+			conditions = append(conditions, "status = ?")
 		}
 		parameters.Params = append(parameters.Params, search_param.Status)
 	}
