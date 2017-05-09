@@ -4,7 +4,6 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/util"
 
-	"html"
 	"html/template"
 	"strconv"
 	"strings"
@@ -34,7 +33,7 @@ type Torrents struct {
 	Description  string    `gorm:"column:description"`
 	WebsiteLink  string    `gorm:"column:website_link"`
 
-	Uploader    *User        `gorm:"ForeignKey:uploader"`
+	Uploader    *User        `gorm:"ForeignKey:UploaderId"`
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
 }
@@ -66,6 +65,7 @@ type TorrentsJson struct {
 	Category     string         `json:"category"`
 	Downloads    int            `json:"downloads"`
 	UploaderId   uint           `json:"uploader_id"`
+	UploaderName template.HTML  `json:"uploader_name"`
 	WebsiteLink  template.URL   `json:"website_link"`
 	Magnet       template.URL   `json:"magnet"`
 }
@@ -79,12 +79,15 @@ func (t *Torrents) ToJson() TorrentsJson {
 		commentsJson = append(commentsJson, CommentsJson{Username: c.Username, Content: template.HTML(c.Content), Date: c.Date})
 	}
 	for _, c := range t.Comments {
-
 		commentsJson = append(commentsJson, CommentsJson{Username: c.User.Username, Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt})
+	}
+	uploader := ""
+	if t.Uploader != nil {
+		uploader = t.Uploader.Username
 	}
 	res := TorrentsJson{
 		Id:           strconv.FormatUint(uint64(t.Id), 10),
-		Name:         html.UnescapeString(t.Name),
+		Name:         t.Name,
 		Status:       t.Status,
 		Hash:         t.Hash,
 		Date:         t.Date.Format(time.RFC3339),
@@ -95,6 +98,7 @@ func (t *Torrents) ToJson() TorrentsJson {
 		Category:     strconv.Itoa(t.Category),
 		Downloads:    t.Downloads,
 		UploaderId:   t.UploaderId,
+		UploaderName: util.SafeText(uploader),
 		WebsiteLink:  util.Safe(t.WebsiteLink),
 		Magnet:       util.Safe(magnet)}
 

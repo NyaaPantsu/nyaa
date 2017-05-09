@@ -58,7 +58,10 @@ func GetTorrentById(id string) (model.Torrents, error) {
 	if tmp.Find(&torrent).RecordNotFound() {
 		return torrent, errors.New("Article is not found.")
 	}
-	// .Preload("Comments.User") doesn't work
+	// GORM relly likes not doing its job correctly
+	// (or maybe I'm just retarded)
+	torrent.Uploader = new(model.User)
+	db.ORM.Where("user_id = ?", torrent.UploaderId).Find(torrent.Uploader)
 	for i := range torrent.Comments {
 		torrent.Comments[i].User = new(model.User)
 		db.ORM.Where("user_id = ?", torrent.Comments[i].UserId).Find(torrent.Comments[i].User)
