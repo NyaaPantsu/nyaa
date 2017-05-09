@@ -17,17 +17,25 @@ type User struct {
 	UpdatedAt       time.Time `gorm:"column:updated_at"`
 	/*Api*/Token    string    `gorm:"column:api_token"`
 	//ApiTokenExpiry
+
+	// Liking
+	LikingCount int    `json:"likingCount"`
+	LikedCount  int    `json:"likedCount"`
+	Likings     []User `gorm:"foreignkey:userId;associationforeignkey:follower_id;many2many:users_followers;"`
+	Liked       []User `gorm:"foreignkey:follower_id;associationforeignkey:userId;many2many:users_followers;"`
+
+	Md5 string `json:"md5"`
 	TokenExpiration time.Time `gorm:"column:api_token_expiry"`
 	Language        string    `gorm:"column:language"`
+	Torrents    []Torrents `gorm:"ForeignKey:owner_id"`
 }
 
 type PublicUser struct {
 	User      *User
 }
 
-type UserFollows struct {
-	User      User `gorm:"ForeignKey:user_id"`
-	Following User `gorm:"ForeignKey:following"`
+// UsersFollowers is a relation table to relate users each other.
+type UsersFollowers struct {
+	UserID     uint `gorm:"column:userId"`
+	FollowerID uint `gorm:"column:follower_id"`
 }
-
-
