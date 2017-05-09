@@ -22,7 +22,7 @@ type User struct {
 	Likings         []User    `gorm:"foreignkey:userId;associationforeignkey:follower_id;many2many:users_followers;"`
 	Liked           []User    `gorm:"foreignkey:follower_id;associationforeignkey:userId;many2many:users_followers;"`
 
-	Md5             string     `json:"md5" gorm:"-"`
+	Md5             string     `json:"md5"`
 	Torrents        []Torrents `gorm:"ForeignKey:UploaderId"`
 }
 
