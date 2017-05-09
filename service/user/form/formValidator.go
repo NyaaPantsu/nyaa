@@ -36,6 +36,10 @@ func NewErrors() map[string][]string {
 	err := make(map[string][]string)
 	return err
 }
+func NewInfos() map[string][]string {
+	infos := make(map[string][]string)
+	return infos
+}
 func IsAgreed(t_and_c string) bool {
 	if t_and_c == "1" {
 		return true
@@ -46,7 +50,7 @@ func IsAgreed(t_and_c string) bool {
 // RegistrationForm is used when creating a user.
 type RegistrationForm struct {
 	Username  string `form:"username" needed:"true" len_min:"3" len_max:"20"`
-	Email     string `form:"email"`
+	Email     string `form:"email" needed:"true"`
 	Password  string `form:"password" needed:"true" len_min:"6" len_max:"25" equalInput:"Confirm_Password"`
 	Confirm_Password string `form:"password_confirmation" omit:"true" needed:"true"`
 	CaptchaID string `form:"captchaID" omit:"true" needed:"true"`
@@ -61,7 +65,13 @@ type LoginForm struct {
 
 // UserForm is used when updating a user.
 type UserForm struct {
-	Email string `form:"email"`
+	Username  string `form:"username" needed:"true" len_min:"3" len_max:"20"`
+	Email     string `form:"email" needed:"true"`
+	Language  string `form:"language" default:"en-us"`
+	CurrentPassword  string `form:"password" len_min:"6" len_max:"25" omit:"true"`
+	Password  string `form:"password" len_min:"6" len_max:"25" equalInput:"Confirm_Password"`
+	Confirm_Password string `form:"password_confirmation" omit:"true"`
+	Status 	  int `form:"language" default:"0"`
 }
 
 // PasswordForm is used when updating a user password.
