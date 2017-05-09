@@ -4,6 +4,7 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/util"
 
+	"fmt"
 	"html/template"
 	"strconv"
 	"strings"
@@ -68,6 +69,7 @@ type TorrentsJson struct {
 	UploaderName template.HTML  `json:"uploader_name"`
 	WebsiteLink  template.URL   `json:"website_link"`
 	Magnet       template.URL   `json:"magnet"`
+	TorrentLink  template.URL   `json:"torrent"`
 }
 
 /* Model Conversion to Json */
@@ -85,6 +87,12 @@ func (t *Torrents) ToJson() TorrentsJson {
 	if t.Uploader != nil {
 		uploader = t.Uploader.Username
 	}
+	torrentlink := ""
+	if t.Id <= config.LastOldTorrentId && len(config.TorrentCacheLink) > 0 {
+		torrentlink = fmt.Sprintf(config.TorrentCacheLink, t.Hash)
+	} else if t.Id > config.LastOldTorrentId && len(config.TorrentStorageLink) > 0 {
+		torrentlink = fmt.Sprintf(config.TorrentStorageLink, t.Hash)
+	}
 	res := TorrentsJson{
 		Id:           strconv.FormatUint(uint64(t.Id), 10),
 		Name:         t.Name,
@@ -100,7 +108,8 @@ func (t *Torrents) ToJson() TorrentsJson {
 		UploaderId:   t.UploaderId,
 		UploaderName: util.SafeText(uploader),
 		WebsiteLink:  util.Safe(t.WebsiteLink),
-		Magnet:       util.Safe(magnet)}
+		Magnet:       util.Safe(magnet),
+		TorrentLink:  util.Safe(torrentlink)}
 
 	return res
 }
