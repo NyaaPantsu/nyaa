@@ -1,19 +1,11 @@
 package router
 
 import (
-	"html/template"
 	"net/http"
 
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/gorilla/mux"
 )
-
-var notFoundTemplate = template.Must(template.New("NotFound").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/404.html"))
-
-func init() {
-	// common
-	template.Must(notFoundTemplate.ParseGlob("templates/_*.html"))
-}
 
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
