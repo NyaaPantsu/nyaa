@@ -7,8 +7,10 @@ nyaa.exe
 nyaa-master.exe
 *.zip
 *.swp
+.idea
 .vscode
 templates/*.html.go
 *.bat
 *.backup
 tags
+*.retry

@@ -1,10 +1,14 @@
 package router
 
 import (
+	"net/http"
 	"net/url"
 
 	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/service/captcha"
+	"github.com/ewhal/nyaa/service/user"
 	userForms "github.com/ewhal/nyaa/service/user/form"
+	"github.com/ewhal/nyaa/util/search"
 	"github.com/gorilla/mux"
 )
 
@@ -17,6 +21,7 @@ import (
 type FaqTemplateVariables struct {
 	Navigation Navigation
 	Search     SearchForm
+	User       *model.User
 	URL        *url.URL   // For parsing Url in templates
 	Route      *mux.Route // For getting current route in templates
 }
@@ -24,39 +29,76 @@ type FaqTemplateVariables struct {
 type NotFoundTemplateVariables struct {
 	Navigation Navigation
 	Search     SearchForm
+	User       *model.User
 	URL        *url.URL   // For parsing Url in templates
 	Route      *mux.Route // For getting current route in templates
 }
 
 type ViewTemplateVariables struct {
 	Torrent    model.TorrentsJson
+	Captcha    captcha.Captcha
 	Search     SearchForm
 	Navigation Navigation
+	User       *model.User
 	URL        *url.URL   // For parsing Url in templates
 	Route      *mux.Route // For getting current route in templates
 }
 
 type UserRegisterTemplateVariables struct {
 	RegistrationForm userForms.RegistrationForm
-	FormErrors 		 map[string][]string
+	FormErrors       map[string][]string
 	Search           SearchForm
 	Navigation       Navigation
+	User             *model.User
 	URL              *url.URL   // For parsing Url in templates
 	Route            *mux.Route // For getting current route in templates
 }
 
-type UserLoginFormVariables struct {
-	LoginForm userForms.LoginForm
+type UserProfileEditVariables struct {
+	UserProfile 	 *model.User
+	UserForm 		 userForms.UserForm
+	FormErrors       map[string][]string
+	FormInfos        map[string][]string
 	Search           SearchForm
 	Navigation       Navigation
+	User             *model.User
 	URL              *url.URL   // For parsing Url in templates
 	Route            *mux.Route // For getting current route in templates
+}
+
+type UserVerifyTemplateVariables struct {
+	FormErrors map[string][]string
+	Search     SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL        *url.URL   // For parsing Url in templates
+	Route      *mux.Route // For getting current route in templates
+}
+
+type UserLoginFormVariables struct {
+	LoginForm  userForms.LoginForm
+	FormErrors map[string][]string
+	Search     SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL        *url.URL   // For parsing Url in templates
+	Route      *mux.Route // For getting current route in templates
+}
+
+type UserProfileVariables struct {
+	UserProfile *model.User
+	Search      SearchForm
+	Navigation  Navigation
+	User        *model.User
+	URL         *url.URL   // For parsing Url in templates
+	Route       *mux.Route // For getting current route in templates
 }
 
 type HomeTemplateVariables struct {
 	ListTorrents []model.TorrentsJson
 	Search       SearchForm
 	Navigation   Navigation
+	User         *model.User
 	URL          *url.URL   // For parsing Url in templates
 	Route        *mux.Route // For getting current route in templates
 }
@@ -65,6 +107,7 @@ type UploadTemplateVariables struct {
 	Upload     UploadForm
 	Search     SearchForm
 	Navigation Navigation
+	User       *model.User
 	URL        *url.URL
 	Route      *mux.Route
 }
@@ -80,37 +123,19 @@ type Navigation struct {
 }
 
 type SearchForm struct {
-	Query              string
-	Status             string
+	search.SearchParam
 	Category           string
-	Sort               string
-	Order              string
 	HideAdvancedSearch bool
 }
 
 // Some Default Values to ease things out
-func NewSearchForm(params ...string) (searchForm SearchForm) {
-	if len(params) > 1 {
-		searchForm.Category = params[0]
-	} else {
-		searchForm.Category = "_"
+func NewSearchForm() SearchForm {
+	return SearchForm{
+		Category: "_",
 	}
-	if len(params) > 2 {
-		searchForm.Sort = params[1]
-	} else {
-		searchForm.Sort = "torrent_id"
-	}
-	if len(params) > 3 {
-		order := params[2]
-		if order == "DESC" {
-			searchForm.Order = order
-		} else if order == "ASC" {
-			searchForm.Order = order
-		} else {
-			// TODO: handle invalid value (?)
-		}
-	} else {
-		searchForm.Order = "DESC"
-	}
-	return
+}
+
+func GetUser(r *http.Request) *model.User {
+	user, _, _ := userService.RetrieveCurrentUser(r)
+	return &user
 }

@@ -4,7 +4,6 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/util"
 
-	"encoding/json"
 	"html"
 	"html/template"
 	"strconv"
@@ -21,75 +20,94 @@ type Feed struct {
 }
 
 type Torrents struct {
-	Id              int            `gorm:"column:torrent_id;primary_key"`
-	Name            string         `gorm:"column:torrent_name"`
-	Category        int            `gorm:"column:category_id"`
-	Sub_Category    int            `gorm:"column:sub_category_id"`
-	Status          int            `gorm:"column:status_id"`
-	Hash            string         `gorm:"column:torrent_hash"`
-	Date            int64          `gorm:"column:date"`
-	Downloads       int            `gorm:"column:downloads"`
-	Filesize        int64          `gorm:"column:filesize"`
-	Description     string         `gorm:"column:description"`
-	Comments        []byte         `gorm:"column:comments"`
+	Id           uint      `gorm:"column:torrent_id;primary_key"`
+	Name         string    `gorm:"column:torrent_name"`
+	Hash         string    `gorm:"column:torrent_hash"`
+	Category     int       `gorm:"column:category"`
+	Sub_Category int       `gorm:"column:sub_category"`
+	Status       int       `gorm:"column:status"`
+	Date         time.Time `gorm:"column:date"`
+	UploaderId   uint      `gorm:"column:uploader"`
+	Downloads    int       `gorm:"column:downloads"`
+	Stardom      int       `gorm:"column:stardom"`
+	Filesize     int64     `gorm:"column:filesize"`
+	Description  string    `gorm:"column:description"`
+	WebsiteLink  string    `gorm:"column:website_link"`
+
+	Uploader    *User        `gorm:"ForeignKey:uploader"`
+	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
+	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
 }
 
-/* We need JSON Object instead because of Magnet URL that is not in the database but generated dynamically
---------------------------------------------------------------------------------------------------------------
-JSON Models Oject
---------------------------------------------------------------------------------------------------------------
-*/
+/* We need JSON Object instead because of Magnet URL that is not in the database but generated dynamically */
 
 type ApiResultJson struct {
-    Torrents         []TorrentsJson `json:"torrents"`
-    QueryRecordCount int            `json:"queryRecordCount"`
-    TotalRecordCount int            `json:"totalRecordCount"`
+	Torrents         []TorrentsJson `json:"torrents"`
+	QueryRecordCount int            `json:"queryRecordCount"`
+	TotalRecordCount int            `json:"totalRecordCount"`
 }
 
 type CommentsJson struct {
-	C  template.HTML `json:"c"`
-	Us string        `json:"us"`
-	Un string        `json:"un"`
-	UI int           `json:"ui"`
-	T  int           `json:"t"`
-	Av string        `json:"av"`
-	ID string        `json:"id"`
+	Username string        `json:"username"`
+	Content  template.HTML `json:"content"`
+	Date     time.Time     `json:"date"`
 }
 
 type TorrentsJson struct {
-	Id           string          `json:"id"`
-	Name         string          `json:"name"`
-	Status       int             `json:"status"`
-	Hash         string          `json:"hash"`
-	Date         string          `json:"date"`
-	Filesize     string          `json:"filesize"`
-	Description  template.HTML   `json:"description"`
-	Comments     []CommentsJson  `json:"comments"`
-	Sub_Category string          `json:"sub_category"`
-	Category     string          `json:"category"`
-	Magnet       template.URL    `json:"magnet"`
+	Id           string         `json:"id"`
+	Name         string         `json:"name"`
+	Status       int            `json:"status"`
+	Hash         string         `json:"hash"`
+	Date         string         `json:"date"`
+	Filesize     string         `json:"filesize"`
+	Description  template.HTML  `json:"description"`
+	Comments     []CommentsJson `json:"comments"`
+	Sub_Category string         `json:"sub_category"`
+	Category     string         `json:"category"`
+	Downloads    int            `json:"downloads"`
+	UploaderId   uint           `json:"uploader_id"`
+	WebsiteLink  template.URL   `json:"website_link"`
+	Magnet       template.URL   `json:"magnet"`
 }
 
 /* Model Conversion to Json */
 
 func (t *Torrents) ToJson() TorrentsJson {
 	magnet := util.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, config.Trackers...)
-	b := []CommentsJson{}
-	_ = json.Unmarshal([]byte(t.Comments), &b)
+	commentsJson := make([]CommentsJson, 0, len(t.OldComments)+len(t.Comments))
+	for _, c := range t.OldComments {
+		commentsJson = append(commentsJson, CommentsJson{Username: c.Username, Content: template.HTML(c.Content), Date: c.Date})
+	}
+	for _, c := range t.Comments {
+
+		commentsJson = append(commentsJson, CommentsJson{Username: c.User.Username, Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt})
+	}
 	res := TorrentsJson{
-		Id:           strconv.Itoa(t.Id),
+		Id:           strconv.FormatUint(uint64(t.Id), 10),
 		Name:         html.UnescapeString(t.Name),
 		Status:       t.Status,
 		Hash:         t.Hash,
-		Date:         time.Unix(t.Date, 0).Format(time.RFC3339),
+		Date:         t.Date.Format(time.RFC3339),
 		Filesize:     util.FormatFilesize2(t.Filesize),
-		Description:  template.HTML(t.Description),
-		Comments:     b,
+		Description:  util.MarkdownToHTML(t.Description),
+		Comments:     commentsJson,
 		Sub_Category: strconv.Itoa(t.Sub_Category),
 		Category:     strconv.Itoa(t.Category),
+		Downloads:    t.Downloads,
+		UploaderId:   t.UploaderId,
+		WebsiteLink:  util.Safe(t.WebsiteLink),
 		Magnet:       util.Safe(magnet)}
 
 	return res
 }
 
 /* Complete the functions when necessary... */
+
+// Map Torrents to TorrentsToJSON without reallocations
+func TorrentsToJSON(t []Torrents) []TorrentsJson {
+	json := make([]TorrentsJson, len(t))
+	for i := range t {
+		json[i] = t[i].ToJson()
+	}
+	return json
+}

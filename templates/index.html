@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Nyaa Pantsu - {{block "title" .}}Error 404{{end}}</title>
+	<title>Nyaa Pantsu - {{block "title" .}}{{ T "error_404" }}{{end}}</title>
     <link rel="icon" type="image/png" href="/img/favicon.png?v=3" />
 
     <!-- RSS Feed with Context -->
@@ -33,29 +33,33 @@
           <div class="container">
               <div class="navbar-header">
                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                      <span class="sr-only">Toggle navigation</span>
+                      <span class="sr-only">{{ T "toggle_navigation" }}</span>
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                   </button>
                   <a class="navbar-brand" href="{{.URL.Parse "/"}}">Nyaa Pantsu</a>
+                  <a class="navbar-brand hidden-md pull-right nightswitch" href="javascript:toggleNightMode();" ></a>
               </div>
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
-                      <li><a href="{{.URL.Parse "/upload"}}">Upload</a/></li>
-                      <li><a href="{{.URL.Parse "/faq"}}">FAQ</a></li>
-                      <li><a href="irc://irc.rizon.net/nyaapantsu">IRC</a></li>
+                      <li><a href="{{.URL.Parse "/upload"}}">{{T "upload"}}</a/></li>
+                      <li><a href="{{.URL.Parse "/faq"}}">{{T "faq"}}</a></li>
                       <li><a href="{{ genRouteWithQuery "feed" .URL }}">RSS</a></li>
-                      <li><a href="https://sukebei.pantsu.cat">Fap</a></li>
-		      <li><a href="javascript:void(0);" id="nightbutton" onclick='toggleNightMode();'><img id="sunmoon" src="/img/moon.png" alt="Night!"></a></li>
+                      <li><a href="https://sukebei.pantsu.cat">{{T "fap"}}</a></li>
+                      <li><a href="irc://irc.rizon.net/nyaapantsu">IRC</a></li>
 
                   </ul>
+                  {{block "badge_user" .}}{{end}}
                   <form class="navbar-form navbar-right" role="search" action="/search" method="get">
                       <div class="form-group">
                         {{block "search_common" .}}{{end}}
+                      </div>
+                      <div class="form-group">
                         {{block "search_button" .}}{{end}}
                       </div>
                   </form>
+                  
                 </div>
           </div>
       </nav>
@@ -66,7 +70,7 @@
       <div class="container {{block "contclass" .}}generic{{end}}" id="container">
       {{if not .Search.HideAdvancedSearch}}
       <div class="blockBody" style="text-align:center">
-        <font size="4.5">Advanced Search</font><br />
+        <font size="4.5">{{T "advanced_search"}}</font><br />
         <form class="navbar-form" role="search" action="/search" method="get">
           <div class="form-group">
             {{block "search_common" .}}{{end}}
@@ -79,11 +83,14 @@
       <div style="margin:0.5em"></div>
       {{end}}
 
-        {{block "content" .}}Nothing Here.{{end}}
+        {{block "content" .}}{{T "nothing_here"}}{{end}}
       </div>
 
       <!-- bottom padding -->
       <div style="padding-top: 5rem"></div>
+      <footer>
+      Powered by NyaaPantsu
+      </footer>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

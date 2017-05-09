@@ -8,11 +8,20 @@
 				<fieldset>
 					<h2>{{T "sign_in_box_title"}}</h2>
 					<hr class="colorgraph">
+					{{ range (index $.FormErrors "errors")}}
+	   					<div class="alert alert-danger">{{ . }}</div>
+	   				{{end}}
 					<div class="form-group">
-	                    <input type="email" name="email" id="email" class="form-control input-lg" placeholder="{{ T "email_address"}}">
+	                    <input type="text" name="username" id="username" class="form-control input-lg" placeholder="{{ T "email_address_or_username"}}">
+       	            	{{ range (index $.FormErrors "username")}}
+						<p class="bg-danger">{{ . }}</p>
+						{{end}}
 					</div>
 					<div class="form-group">
 	                    <input type="password" name="password" id="password" class="form-control input-lg" placeholder="{{ T "password"}}">
+               			{{ range (index $.FormErrors "password")}}
+						<p class="bg-danger">{{ . }}</p>
+						{{end}}
 					</div>
 					<span class="button-checkbox">
 						<button type="button" class="btn hidden" data-color="info">{{ T "remember_me"}}</button>
@@ -32,6 +41,8 @@
 			</form>
 		</div>
 	</div>
+    <br />
+    <br />
 </div>
 {{end}}
 {{define "js_footer"}}<script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/registerPage.js"}}"></script>{{end}}
