@@ -37,6 +37,7 @@ func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents,
 	search_param.Status = r.URL.Query().Get("s")
 	search_param.Sort = r.URL.Query().Get("sort")
 	search_param.Order = r.URL.Query().Get("order")
+	userId := r.URL.Query().Get("userId")
 
 	catsSplit := strings.Split(search_param.Category, "_")
 	// need this to prevent out of index panics
@@ -84,6 +85,10 @@ func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents,
 	if searchSubCatId != "" {
 		conditions = append(conditions, "sub_category = ?")
 		parameters.Params = append(parameters.Params, searchSubCatId)
+	}
+	if userId != "" {
+		conditions = append(conditions, "uploader = ?")
+		parameters.Params = append(parameters.Params, userId)
 	}
 	if search_param.Status != "" {
 		if search_param.Status == "2" {
