@@ -7,6 +7,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
+	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/util/log"
@@ -161,8 +162,19 @@ func SearchByQuery(r *http.Request, pagenum int) (search SearchParam, tor []mode
 			// punctuation characters.
 			continue
 		}
+
+		// TEMP: Workaround to at least make SQLite search testable for
+		// development.
+		// TODO: Actual case-insensitive search for SQLite
+		var operator string
+		if db.ORM.Dialect().GetName() == "sqlite3" {
+			operator = "LIKE ?"
+		} else {
+			operator = "ILIKE ?"
+		}
+
 		// TODO: make this faster ?
-		conditions = append(conditions, "torrent_name ILIKE ?")
+		conditions = append(conditions, "torrent_name "+operator)
 		parameters.Params = append(parameters.Params, "%"+searchQuerySplit[i]+"%")
 	}
 
