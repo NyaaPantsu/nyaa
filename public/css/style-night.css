@@ -60,11 +60,12 @@ a {
 }
 
 /* style the dropdown member menu */
-.nav > .dropdown.open, .profile-image[aria-expanded="true"], .nav ul.dropdown-menu {
-	background: #282A2E;
+/*.nav > .dropdown.open, .profile-image[aria-expanded="true"], .nav ul.dropdown-menu {*/
+#mainmenu, #mainmenu .dropdown-menu {
+	background-color: #282A2E;
 }
-.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
-	background: #263238;
+#mainmenu li:focus, #mainmenu li:hover, #mainmenu li.open {
+	background-color: #263238;
 }
 /* Night mode switcher  */
 #mainmenu a.nightswitch {
