@@ -66,6 +66,12 @@ a {
 .dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
 	background: #263238;
 }
+
+/* Profile Content */
+.profile-content {
+  background: #29363d;
+}
+
 /* Night mode switcher  */
 #mainmenu a.nightswitch {
     background-image: url(/img/moon.png);
