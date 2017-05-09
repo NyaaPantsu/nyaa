@@ -583,10 +583,8 @@ memory_cache_enabled = on
 memqcache_method = 'shmem'
 memqcache_memcached_host = 'localhost'
 memqcache_memcached_port = 11211
-memqcache_total_size = 67108864
-# Mandatory if memqcache_method = 'shmem'.
-# Defaults to 64MB.
-# (change requires restart)
+# In bytes
+memqcache_total_size = {{ memqcache_total_size_byte }}
 memqcache_max_num_cache = 1000000
 # Total number of cache entries. Mandatory
 # if memqcache_method = 'shmem'.
@@ -597,9 +595,10 @@ memqcache_max_num_cache = 1000000
 memqcache_expire = 0
 memqcache_auto_cache_invalidation = on
 # Max size of each query
-memqcache_maxcache = 409600
-memqcache_cache_block_size = 1048576
-memqcache_oiddir = '/var/log/pgpool/oiddir'
+memqcache_maxcache = {{ memqcache_maxcache_byte }}
+# TODO Assert cache_block_size > maxcache
+memqcache_cache_block_size = {{ memqcache_cache_block_size_byte }}
+memqcache_oiddir = '{{ memqcache_oiddir }}'
 white_memqcache_table_list = ''
 black_memqcache_table_list = ''
 # vim: ft=cfg
