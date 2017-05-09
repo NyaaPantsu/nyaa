@@ -30,14 +30,11 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 		pagenum = 1
 	}
 
-	b := model.ApiResultJson{Torrents: []model.TorrentsJson{}}
 	torrents, nbTorrents := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
 
-	for i, _ := range torrents {
-		res := torrents[i].ToJson()
-		b.Torrents = append(b.Torrents, res)
+	b := model.ApiResultJson{
+		Torrents: model.TorrentsToJSON(torrents),
 	}
-
 	b.QueryRecordCount = maxPerPage
 	b.TotalRecordCount = nbTorrents
 	w.Header().Set("Content-Type", "application/json")

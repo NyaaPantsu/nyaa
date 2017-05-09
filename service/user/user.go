@@ -2,11 +2,10 @@ package userService
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
-
-	"golang.org/x/crypto/bcrypt"
 
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
@@ -16,7 +15,7 @@ import (
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/modelHelper"
 	"github.com/ewhal/nyaa/util/timeHelper"
-	"fmt"
+	"golang.org/x/crypto/bcrypt"
 )
 
 var userFields []string = []string{"name", "email", "createdAt", "updatedAt"}
@@ -82,10 +81,10 @@ func CreateUser(w http.ResponseWriter, r *http.Request) (int, error) {
 	var registrationForm formStruct.RegistrationForm
 	var status int
 	var err error
-	
+
 	modelHelper.BindValueForm(&registrationForm, r)
 	usernameCandidate := SuggestUsername(registrationForm.Username)
-	if (usernameCandidate != registrationForm.Username) {
+	if usernameCandidate != registrationForm.Username {
 		return http.StatusInternalServerError, fmt.Errorf("Username already taken, you can choose: %s", usernameCandidate)
 	}
 	if CheckEmail(registrationForm.Email) {

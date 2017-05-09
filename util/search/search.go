@@ -1,15 +1,16 @@
 package search
 
 import (
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/service/torrent"
-	"github.com/ewhal/nyaa/util/log"
 	"html"
 	"net/http"
 	"strconv"
 	"strings"
 	"unicode"
 	"unicode/utf8"
+
+	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/service/torrent"
+	"github.com/ewhal/nyaa/util/log"
 )
 
 type SearchParam struct {
@@ -76,8 +77,10 @@ func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents,
 
 	order_by := search_param.Sort + " " + search_param.Order
 
-	parameters := torrentService.WhereParams{}
-	conditions := []string{}
+	parameters := torrentService.WhereParams{
+		Params: make([]interface{}, 0, 64),
+	}
+	conditions := make([]string, 0, 64)
 	if searchCatId != "" {
 		conditions = append(conditions, "category = ?")
 		parameters.Params = append(parameters.Params, searchCatId)
