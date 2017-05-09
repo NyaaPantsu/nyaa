@@ -1,0 +1,62 @@
+{{define "title"}}{{ T "profile_page" .UserProfile.Username }}{{end}}
+{{define "contclass"}}cont-view{{end}}
+{{define "content"}}
+<div class="row profile">
+{{with .UserProfile}}
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+					<img src="{{ getAvatar .Md5 130 }}" class="img-responsive" alt="{{.Username}}">
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						{{.Username}}
+					</div>
+					<div class="profile-usertitle-job">
+						{{GetRole . }}
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR BUTTONS -->
+				<div class="profile-userbuttons">
+						{{if gt $.User.Id 0 }}
+						{{if not (CurrentUserIdentical $.User .Id) }}
+					<button type="button" class="btn btn-success btn-sm">{{ T "follow"}}</button>
+						{{end}}
+						{{end}}
+					<!-- <button type="button" class="btn btn-danger btn-sm">Message</button> -->
+				</div>
+				<!-- END SIDEBAR BUTTONS -->
+				<!-- SIDEBAR MENU -->
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li class="active">
+							<a href="#">
+							<i class="glyphicon glyphicon-home"></i>
+							{{T "torrents"}} </a>
+						</li>
+						{{if gt $.User.Id 0 }}
+						{{if CurrentOrAdmin $.User .Id }}
+						<li>
+							<a href="?edit">
+							<i class="glyphicon glyphicon-user"></i>
+							{{T "settings"}} </a>
+						</li>
+						{{end}}
+						{{end}}
+					</ul>
+				</div>
+				<!-- END MENU -->
+			</div>
+		</div>
+{{end}}
+		<div class="col-md-9">
+            <div class="profile-content">
+			   {{ block "profile_content" . }}{{end}}
+            </div>
+		</div>
+	</div>
+{{end}}

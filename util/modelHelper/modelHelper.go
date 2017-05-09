@@ -65,22 +65,22 @@ func ValidateForm(form interface{}, errorForm map[string][]string) (map[string][
 		if (tag.Get("hum_name") != "") { // For more human input name than gibberish
 			inputName = tag.Get("hum_name")
 		}
-		if tag.Get("len_min") != "" { // Check minimum length
+		if tag.Get("len_min") != "" && (tag.Get("needed") != ""||formElem.Field(i).Len()>0) { // Check minimum length
 			lenMin, _ := strconv.Atoi(tag.Get("len_min"))
 			if formElem.Field(i).Len() < lenMin {
-				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Minimal length of %s required for the input: %s", lenMin, inputName))
+				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Minimal length of %s required for the input: %s", strconv.Itoa(lenMin), inputName))
 			}
 		}
-		if tag.Get("len_max") != "" { // Check minimum length
+		if tag.Get("len_max") != "" && (tag.Get("needed") != ""||formElem.Field(i).Len()>0) { // Check maximum length
 			lenMax, _ := strconv.Atoi(tag.Get("len_max"))
 			if formElem.Field(i).Len() > lenMax {
-				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Maximal length of %s required for the input: %s", lenMax, inputName))
+				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Maximal length of %s required for the input: %s", strconv.Itoa(lenMax), inputName))
 			}
 		}
-		if tag.Get("equalInput") != "" {
-			otherInput := formElem.FieldByName(tag.Get("equalForm"))
+		if tag.Get("equalInput") != "" && (tag.Get("needed") != ""||formElem.Field(i).Len()>0) {
+			otherInput := formElem.FieldByName(tag.Get("equalInput"))
 			if formElem.Field(i).Interface() != otherInput.Interface() {
-				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Wrong value for the input: %s", inputName))
+				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Must be same %s", inputName))
 			}
 		}
 		switch typeField.Type.Name() {
@@ -91,26 +91,37 @@ func ValidateForm(form interface{}, errorForm map[string][]string) (map[string][
 				if tag.Get("needed") != "" && formElem.Field(i).String() == "" {
 					errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Field needed: %s", inputName))
 				}
+				if tag.Get("default") != "" {
+					formElem.Field(i).SetString(tag.Get("default"))
+				}
 			case "int" :
 				if tag.Get("equal") != "" { // Check minimum length
 					equal, _ := strconv.Atoi(tag.Get("equal"))
 					if formElem.Field(i).Int() > int64(equal) {
 						errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Wrong value for the input: %s", inputName))
 					}
-					if tag.Get("needed") != "" && formElem.Field(i).Int() == 0 {
-						errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Field needed: %s", inputName))
-					}
+				}
+				if tag.Get("needed") != "" && formElem.Field(i).Int() == 0 {
+					errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Field needed: %s", inputName))
+				}
+				if tag.Get("default") != "" {
+					defaultValue, _ := strconv.Atoi(tag.Get("default"))
+					formElem.Field(i).SetInt(int64(defaultValue))
 				}
 			case "float" :
-				if tag.Get("equal") != "" { // Check minimum length
-					equal, _ := strconv.Atoi(tag.Get("equal"))
-					if formElem.Field(i).Float() != float64(equal) {
-						errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Wrong value for the input: %s", inputName))
+					if tag.Get("equal") != "" { // Check minimum length
+						equal, _ := strconv.Atoi(tag.Get("equal"))
+						if formElem.Field(i).Float() != float64(equal) {
+							errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Wrong value for the input: %s", inputName))
+						}
 					}
 					if tag.Get("needed") != "" && formElem.Field(i).Float() == 0 {
 						errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Field needed: %s", inputName))
 					}
-				}
+					if tag.Get("default") != "" {
+						defaultValue, _ := strconv.Atoi(tag.Get("default"))
+						formElem.Field(i).SetFloat(float64(defaultValue))
+					}
 			case "bool" :
 				if tag.Get("equal") != "" { // Check minimum length
 					equal, _ := strconv.ParseBool(tag.Get("equal"))
@@ -118,11 +129,11 @@ func ValidateForm(form interface{}, errorForm map[string][]string) (map[string][
 						errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Wrong value for the input: %s", inputName))
 					}
 				}
+				if tag.Get("default") != "" {
+					defaultValue, _ := strconv.ParseBool(tag.Get("default"))
+					formElem.Field(i).SetBool(defaultValue)
+				}
 		}
-	}
-
-	if (len(errorForm) == 0) { // If no error, return nil
-		return nil
 	}
 	return errorForm
 }

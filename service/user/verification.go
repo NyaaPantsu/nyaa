@@ -3,17 +3,15 @@ package userService
 import (
 	"errors"
 	"net/http"
-	"time"
+//	"time"
 
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/util/modelHelper"
-	"github.com/ewhal/nyaa/util/crypto"
+//	"github.com/ewhal/nyaa/util/crypto"
 	"github.com/ewhal/nyaa/util/email"
-	"github.com/ewhal/nyaa/util/log"
-	"github.com/ewhal/nyaa/util/timeHelper"
-	formStruct "github.com/ewhal/nyaa/service/user/form"
+//	"github.com/ewhal/nyaa/util/log"
+//	"github.com/ewhal/nyaa/util/timeHelper"
 
 	"github.com/nicksnyder/go-i18n/i18n"
 )
@@ -30,7 +28,7 @@ func SendEmailVerfication(to string, token string, locale string) error {
 
 // SendVerificationToUser sends an email verification token to user.
 func SendVerificationToUser(user model.User) (int, error) {
-	var status int
+	/*var status int
 	var err error
 	user.ActivateUntil = timeHelper.TwentyFourHoursLater()
 	user.ActivationToken, err = crypto.GenerateRandomToken32()
@@ -47,12 +45,12 @@ func SendVerificationToUser(user model.User) (int, error) {
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
-	return http.StatusOK, err
+	return http.StatusOK, err*/
+	return 0, errors.New("NotImpl")
 }
 
 // SendVerification sends an email verification token.
 func SendVerification(r *http.Request) (int, error) {
-
 	var user model.User
 	currentUser, err := CurrentUser(r)
 	if err != nil {
@@ -66,12 +64,10 @@ func SendVerification(r *http.Request) (int, error) {
 }
 
 // EmailVerification verifies an email of user.
-func EmailVerification(w http.ResponseWriter, r *http.Request) (int, error) {
-	var user model.User
-	var verifyEmailForm formStruct.VerifyEmailForm
-	modelHelper.BindValueForm(&verifyEmailForm, r)
-	log.Debugf("verifyEmailForm.ActivationToken : %s", verifyEmailForm.ActivationToken)
-	if db.ORM.Where(&model.User{ActivationToken: verifyEmailForm.ActivationToken}).First(&user).RecordNotFound() {
+func EmailVerification(token string,w http.ResponseWriter) (int, error) {
+	/*var user model.User
+	log.Debugf("verifyEmailForm.ActivationToken : %s", token)
+	if db.ORM.Where(&model.User{ActivationToken: token}).First(&user).RecordNotFound() {
 		return http.StatusNotFound, errors.New("User is not found.")
 	}
 	isExpired := timeHelper.IsExpired(user.ActivateUntil)
@@ -89,5 +85,6 @@ func EmailVerification(w http.ResponseWriter, r *http.Request) (int, error) {
 		return status, err
 	}
 	status, err = SetCookie(w, user.Token)
-	return status, err
+	return status, err*/
+	return 0, errors.New("NotImpl")
 }

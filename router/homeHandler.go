@@ -1,13 +1,16 @@
 package router
 
 import (
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/service/torrent"
-	"github.com/ewhal/nyaa/util/log"
-	"github.com/gorilla/mux"
 	"html"
 	"net/http"
 	"strconv"
+
+	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/service/torrent"
+	"github.com/ewhal/nyaa/util"
+	"github.com/ewhal/nyaa/util/languages"
+	"github.com/ewhal/nyaa/util/log"
+	"github.com/gorilla/mux"
 )
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
@@ -26,20 +29,21 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		pagenum = 1
 	}
 
-	b := []model.TorrentsJson{}
-	torrents, nbTorrents := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
-
-	for i, _ := range torrents {
-		res := torrents[i].ToJson()
-		b = append(b, res)
+	torrents, nbTorrents, err := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
+	if err != nil {
+		util.SendError(w, err, 400)
+		return
 	}
 
-	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
-	htv := HomeTemplateVariables{b, NewSearchForm(), navigationTorrents, r.URL, mux.CurrentRoute(r)}
+	b := model.TorrentsToJSON(torrents)
 
-	err := homeTemplate.ExecuteTemplate(w, "index.html", htv)
+	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
+
+	languages.SetTranslationFromRequest(homeTemplate, r, "en-us")
+	htv := HomeTemplateVariables{b, NewSearchForm(), navigationTorrents, GetUser(r), r.URL, mux.CurrentRoute(r)}
+
+	err = homeTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		log.Errorf("HomeHandler(): %s", err)
 	}
-
 }

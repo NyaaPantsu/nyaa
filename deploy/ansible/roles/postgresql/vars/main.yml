@@ -1,0 +1,8 @@
+memqcache_oiddir: '/var/log/pgpool/oiddir'
+# TODO Check the machine has enough RAM
+# 10 GB
+memqcache_total_size_byte: 1073741824
+# 100 mb
+memqcache_maxcache_byte: 13107200
+# Has to be bigger or equal to maxcache_byte
+memqcache_cache_block_size_byte: 13107200

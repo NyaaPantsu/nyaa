@@ -1,0 +1,87 @@
+- name: Install postgresql
+  yum:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - postgresql-server
+    - postgresql-pgpool-II
+
+- name: Initialize postgresql
+  command: postgresql-setup initdb
+  # Will error when database has already been initialized so just ignore it
+  ignore_errors: yes
+  become: true
+
+- name: Install adapter for python
+  yum:
+    name: python-psycopg2
+    state: present
+  become: true
+
+- name: Configure pgpool
+  template:
+    src: pgpool.conf.j2
+    dest: /etc/pgpool-II/pgpool.conf
+  become: true
+
+- name: Create oiddir for pgpool
+  file:
+    path: "{{ memqcache_oiddir }}"
+    state: directory
+  become: true 
+
+- name: Start postgresql, pgpool and enable at boot
+  systemd:
+    enabled: yes
+    name: "{{ item }}"
+    state: started
+  become: true
+  with_items:
+    - postgresql
+    - pgpool
+
+- name: Create nyaapantsu database
+  postgresql_db:
+    name: "{{ nyaapantsu_dbname }}"
+  become: true
+  become_user: postgres
+
+# TODO Probably better idea to not set SUPERUSER
+- name: Create nyaapantsu user
+  postgresql_user:
+    db: "{{ nyaapantsu_dbname }}"
+    name: "{{ nyaapantsu_user }}"
+    password: "{{ nyaapantsu_password }}"
+    role_attr_flags: SUPERUSER,LOGIN
+  become: true
+  become_user: postgres
+
+- name: Grant privileges to user
+  postgresql_privs:
+    db: "{{ nyaapantsu_dbname }}"
+    priv: ALL
+    roles: "{{ nyaapantsu_user }}"
+    state: present
+    type: database
+  become: true
+  become_user: postgres
+
+- name: Add custom pg_hba.conf
+  template:
+    src: pg_hba.conf.j2
+    dest: /var/lib/pgsql/data/pg_hba.conf
+  become: true
+  become_user: postgres
+
+- name: Add .pgpass
+  template:
+    src: pgpass.j2
+    dest: ~/.pgpass
+    mode: 0600
+
+- name: Reload postgres
+  systemd:
+    name: postgresql
+    state: reloaded
+  become: true

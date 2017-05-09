@@ -1,12 +1,15 @@
 package router
 
 import (
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/util/search"
-	"github.com/gorilla/mux"
 	"html"
 	"net/http"
 	"strconv"
+
+	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/util"
+	"github.com/ewhal/nyaa/util/languages"
+	"github.com/ewhal/nyaa/util/search"
+	"github.com/gorilla/mux"
 )
 
 func SearchHandler(w http.ResponseWriter, r *http.Request) {
@@ -19,27 +22,25 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		pagenum = 1
 	}
 
-	b := []model.TorrentsJson{}
-
-	search_param, torrents, nbTorrents := search.SearchByQuery(r, pagenum)
-
-	for i, _ := range torrents {
-		res := torrents[i].ToJson()
-		b = append(b, res)
+	search_param, torrents, nbTorrents, err := search.SearchByQuery(r, pagenum)
+	if err != nil {
+		util.SendError(w, err, 400)
+		return
 	}
 
-	navigationTorrents := Navigation{nbTorrents, search_param.Max, pagenum, "search_page"}
+	b := model.TorrentsToJSON(torrents)
+
+	navigationTorrents := Navigation{nbTorrents, int(search_param.Max), pagenum, "search_page"}
+	// Convert back to strings for now.
 	searchForm := SearchForm{
-		search_param.Query,
-		search_param.Status,
-		search_param.Category,
-		search_param.Sort,
-		search_param.Order,
-		false,
+		SearchParam:        search_param,
+		Category:           search_param.Category.String(),
+		HideAdvancedSearch: false,
 	}
-	htv := HomeTemplateVariables{b, searchForm, navigationTorrents, r.URL, mux.CurrentRoute(r)}
+	htv := HomeTemplateVariables{b, searchForm, navigationTorrents, GetUser(r), r.URL, mux.CurrentRoute(r)}
 
-	err := searchTemplate.ExecuteTemplate(w, "index.html", htv)
+	languages.SetTranslationFromRequest(searchTemplate, r, "en-us")
+	err = searchTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
