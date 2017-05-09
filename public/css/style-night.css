@@ -60,13 +60,12 @@ a {
 }
 
 /* style the dropdown member menu */
-/*.nav > .dropdown.open, .profile-image[aria-expanded="true"], .nav ul.dropdown-menu {*/
 #mainmenu, #mainmenu .dropdown-menu {
 	background-color: #282A2E;
 }
-#mainmenu li:focus, #mainmenu li:hover, #mainmenu li.open {
+/*#mainmenu li:focus, #mainmenu li:hover, #mainmenu li.open {
 	background-color: #263238;
-}
+}*/
 /* Night mode switcher  */
 #mainmenu a.nightswitch {
     background-image: url(/img/moon.png);
