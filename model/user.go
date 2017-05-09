@@ -19,8 +19,8 @@ type User struct {
 	// TODO: move this to PublicUser
 	LikingCount     int       `json:"likingCount" gorm:"-"`
 	LikedCount      int       `json:"likedCount" gorm:"-"`
-	Likings         []User    `gorm:"foreignkey:userId;associationforeignkey:follower_id;many2many:users_followers;"`
-	Liked           []User    `gorm:"foreignkey:follower_id;associationforeignkey:userId;many2many:users_followers;"`
+	Likings         []User    `gorm:"foreignkey:userId;associationforeignkey:follower_id;many2many:user_follows"`
+	Liked           []User    `gorm:"foreignkey:follower_id;associationforeignkey:userId;many2many:user_follows"`
 
 	Md5             string     `json:"md5"`
 	Torrents        []Torrents `gorm:"ForeignKey:UploaderId"`
@@ -30,12 +30,8 @@ type PublicUser struct {
 	User      *User
 }
 
-// UsersFollowers is a relation table to relate users each other.
-type UsersFollowers struct {
+// different users following eachother
+type UserFollows struct {
 	UserID     uint `gorm:"column:user_id"`
 	FollowerID uint `gorm:"column:following"`
-}
-
-func (c UsersFollowers) TableName() string {
-	return "user_follows"
 }
