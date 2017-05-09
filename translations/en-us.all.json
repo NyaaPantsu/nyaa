@@ -101,7 +101,11 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "Now, as the final step of registration please check your mail inbox (or spam) and click the link provided for activating your account!"
+    "translation": "Finally, please check your mail inbox (and spam folder!) for the verification email."
+  },
+  {
+    "id":"signup_verification_noemail",
+    "translation": "Registration was successful, you may now use your account."
   },
   {
     "id":"settings",
