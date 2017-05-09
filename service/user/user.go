@@ -62,6 +62,7 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 	var user model.User
 	log.Debugf("registrationForm %+v\n", registrationForm)
 	modelHelper.AssignValue(&user, &registrationForm)
+	user.Md5 = crypto.GenerateMD5Hash(user.Email)  // Gravatar
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
 		return user, errors.New("Token not generated.")
@@ -136,6 +137,7 @@ func RetrieveUsers() []*model.PublicUser {
 
 // UpdateUserCore updates a user. (Applying the modifed data of user).
 func UpdateUserCore(user *model.User) (int, error) {
+	user.Md5 = crypto.GenerateMD5Hash(user.Email)
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
 		return http.StatusInternalServerError, errors.New("Token not generated.")
@@ -245,7 +247,7 @@ func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	if db.ORM.First(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("User is not found.")
 	}
-	db.ORM.Model(&user)
+	db.ORM.Model(&user).Related("Torrents").Find(&model.Torrents{})	
 	return user, http.StatusOK, nil
 }
 
@@ -256,6 +258,7 @@ func RetrieveUsersForAdmin() []model.User {
 	db.ORM.Find(&users)
 	for _, user := range users {
 		db.ORM.Model(&user)
+		db.ORM.Model(&user).Related("Torrents").Find(&model.Torrents{})
 		userArr = append(userArr, user)
 	}
 	return userArr
