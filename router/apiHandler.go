@@ -5,13 +5,14 @@ import (
 	"fmt"
 	"html"
 	"net/http"
-	"sort"
+	//"sort"
 	"strconv"
 	"time"
 
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/service/api"
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/util"
 	"github.com/gorilla/mux"
@@ -35,46 +36,14 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 	contentType := r.Header.Get("Content-Type")
 	if contentType == "application/json" {
 		d := json.NewDecoder(r.Body)
-		d.UseNumber()
-
-		var f interface{}
-		if err := d.Decode(&f); err != nil {
+		req := apiService.TorrentsRequest{}
+		if err := d.Decode(&req); err != nil {
 			util.SendError(w, err, 502)
 		}
 
-		m := f.(map[string]interface{})
-		var keys []string
-		for k := range m {
-			keys = append(keys, k)
-		}
-		sort.Strings(keys)
-
-		conditions := ""
-		for i, k := range keys {
-			if k == "page" {
-				pagenum64, _ := m[k].(json.Number).Int64()
-				pagenum = int(pagenum64)
-			} else if k == "limit" {
-				maxPerPage64, _ := m[k].(json.Number).Int64()
-				maxPerPage = int(maxPerPage64)
-			} else {
-				if i != 0 {
-					conditions += "AND "
-				}
-				conditions += k
-				switch m[k].(type) {
-				case json.Number:
-					conditions += " = ? "
-				case string:
-					conditions += " ILIKE ? "
-				}
-			}
-		}
-		whereParams.Conditions = conditions
-		whereParams.Params = make([]interface{}, len(keys))
-		for i, k := range keys {
-			whereParams.Params[i] = m[k]
-		}
+		whereParams = req.ToParams()
+		maxPerPage = req.MaxPerPage
+		pagenum = req.Page
 	}
 
 	nbTorrents := 0
