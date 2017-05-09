@@ -13,7 +13,7 @@ import (
 
 func RssHandler(w http.ResponseWriter, r *http.Request) {
 
-	_, torrents, _, err := search.SearchByQuery(r, 1)
+	_, torrents, err := search.SearchByQueryNoCount(r, 1)
 	if err != nil {
 		util.SendError(w, err, 400)
 		return
