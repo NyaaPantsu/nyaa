@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"time"
 
-	//"github.com/ewhal/nyaa/config"
-	//"github.com/ewhal/nyaa/db"
+	"github.com/ewhal/nyaa/config"
+	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/api"
 	"github.com/ewhal/nyaa/service/torrent"
@@ -97,8 +97,14 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 	contentType := r.Header.Get("Content-Type")
 
 	if contentType == "application/json" {
-		//verify token
-		//token := r.Header.Get("Authorization")
+
+		token := r.Header.Get("Authorization")
+		user := model.User{}
+		db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
+		if user.Id == 0 {
+			http.Error(w, "incorrect api key", http.StatusForbidden)
+			return
+		}
 
 		defer r.Body.Close()
 
@@ -110,7 +116,7 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		err, code := upload.Validate()
 		if err != nil {
-			http.Error(w, err.Error(), code) //406?
+			http.Error(w, err.Error(), code)
 			return
 		}
 
@@ -123,9 +129,8 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 			Date:         time.Now(),
 			Filesize:     0, //?
 			Description:  upload.Description,
-
-			//UploadeId:
-			//Uploader:
+			UploaderId:   user.Id,
+			Uploader:     &user,
 		}
 
 		db.ORM.Create(&torrent)
@@ -133,4 +138,6 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ApiUpdateHandler(w http.ResponseWriter, r *http.Requet)
+func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
+
+}
