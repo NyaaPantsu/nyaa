@@ -1,14 +1,15 @@
 package router
 
 import (
+	"html"
+	"net/http"
+	"strconv"
+
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/gorilla/mux"
-	"html"
-	"net/http"
-	"strconv"
 )
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
@@ -27,13 +28,9 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		pagenum = 1
 	}
 
-	b := []model.TorrentsJson{}
 	torrents, nbTorrents := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
 
-	for i, _ := range torrents {
-		res := torrents[i].ToJson()
-		b = append(b, res)
-	}
+	b := model.TorrentsToJSON(torrents)
 
 	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
 
