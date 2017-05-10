@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
+<table>
     {{ range .Torrents}}
-      {{ .ID }} {{ .Description }} {{ .User }}
+<tr><td><a href="{{ genRoute "mod_tedit" }}?id={{.Torrent.ID}}">{{ .Torrent.Name }}</a></td><td>{{.User}}</td><td>{{.Description}}</td><td><a href="{{ genRoute "mod_tdelete" }}?id={{ .Torrent.ID }}">Delete</a></td></tr>
     {{end}}
+</table>
 </html>
