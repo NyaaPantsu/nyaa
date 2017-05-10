@@ -45,7 +45,7 @@
   },
   {
     "id":"confirm_password",
-    "translation": "Bestätige dein Passwort"
+    "translation": "Passwort-Bestätigung"
   },
   {
     "id":"i_agree",
@@ -566,5 +566,9 @@
   {
     "id": "moderation",
     "translation": "Moderation"
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Als Remake markieren"
   }
 ]
