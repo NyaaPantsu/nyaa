@@ -9,8 +9,6 @@ import (
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util"
-	"strconv"
-	"strings"
 )
 
 type WhereParams struct {
