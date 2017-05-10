@@ -2,14 +2,17 @@ language: go
 go:
 - 1.x
 before_install:
-- sudo apt-get install gcc-mingw-w64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 binutils-mingw-w64-i686 binutils-mingw-w64-x86-64
+- sudo apt-get install gcc-mingw-w64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 binutils-mingw-w64-i686 binutils-mingw-w64-x86-64 tidy
 
 script:
 # Downloads deps automatically. No need to add manually.
 - go list -f '{{.Deps}}' | tr "[" " " | tr "]" " " | xargs go list -e -f '{{if not .Standard}}{{.ImportPath}}{{end}}' | grep -v 'github.com/ewhal/nyaa' | xargs go get -v
 - go get 
+- go get -u github.com/golang/lint/golint
 - go build
 - go vet 
+- golint ./...
+- tidy -e `find $HOME/gopath/src/github.com/ewhal/nyaa -name '*.html' -print`
 - go test -v ./...
 before_deploy:
 - ./package.sh
