@@ -582,5 +582,21 @@
   {
     "id": "email_changed",
     "translation": "Email changed successfully! You will have, however, to confirm it by clicking to the link sent to: %s"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "Torrent status"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "Hidden"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "Normal"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "Remake"
   }
 ]
