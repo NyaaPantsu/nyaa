@@ -3,6 +3,7 @@
 package router
 
 import (
+	"fmt"
 	"html"
 	"html/template"
 	"net/http"
@@ -10,6 +11,7 @@ import (
 	"strconv"
 
 	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/service"
 	"github.com/ewhal/nyaa/service/comment"
 	"github.com/ewhal/nyaa/service/report"
 	"github.com/ewhal/nyaa/service/torrent"
@@ -50,6 +52,7 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 		users, _ := userService.RetrieveUsersForAdmin(offset, 0)
 		comments, _ := commentService.GetAllComments(offset, 0, "", "")
 		torrentReports, _, _ := reportService.GetAllTorrentReports(offset, 0)
+		fmt.Println(torrentReports)
 
 		languages.SetTranslationFromRequest(panelIndex, r, "en-us")
 		htv := PanelIndexVbs{torrents, torrentReports, users, comments, NewSearchForm(), currentUser, r.URL}
@@ -246,6 +249,13 @@ func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	if userPermission.HasAdmin(currentUser) {
 		_ = form.NewErrors()
 		_, _ = torrentService.DeleteTorrent(id)
+
+		//delete reports of torrent
+		whereParams := serviceBase.CreateWhereParams("torrent_id = ?", id)
+		reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
+		for _, report := range reports {
+			reportService.DeleteTorrentReport(report.ID)
+		}
 		url, _ := Router.Get("mod_tlist").URL()
 		http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
 	} else {
