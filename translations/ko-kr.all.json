@@ -41,11 +41,11 @@
   },
   {
     "id":"password",
-    "translation": "암호"
+    "translation": "비밀번호"
   },
   {
     "id":"confirm_password",
-    "translation": "암호 확인"
+    "translation": "비밀번호 재확인"
   },
   {
     "id":"i_agree",
