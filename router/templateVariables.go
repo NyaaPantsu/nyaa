@@ -59,6 +59,7 @@ type UserProfileEditVariables struct {
 	UserForm    userForms.UserForm
 	FormErrors  map[string][]string
 	FormInfos   map[string][]string
+	Languages   map[string]string
 	Search      SearchForm
 	Navigation  Navigation
 	User        *model.User

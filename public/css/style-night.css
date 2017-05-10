@@ -123,3 +123,10 @@ a:hover {
 #mainmenu a.nightswitch {
     background-image: url(/img/moon.png);
 }
+
+/* Force images on description to fit width */
+#description img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
