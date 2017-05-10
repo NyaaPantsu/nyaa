@@ -570,5 +570,9 @@
   {
     "id": "mark_as_remake",
     "translation": "Als Remake markieren"
+  },
+  {
+    "id": "email_changed",
+    "translation": "E-Mail erfolgreich geändert! Bitte bestätige die Änderung mit dem Bestätigungs-Link (an %s gesendet)"
   }
 ]
