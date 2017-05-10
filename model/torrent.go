@@ -108,6 +108,7 @@ type TorrentJSON struct {
 	TorrentLink  template.URL  `json:"torrent"`
 	Seeders      uint32        `json:"seeders"`
 	Leechers     uint32        `json:"leechers"`
+	Completed    uint32        `json:"completed"`
 	LastScrape   time.Time     `json:"last_scrape"`
 }
 
@@ -151,6 +152,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		TorrentLink:  util.Safe(torrentlink),
 		Leechers:     t.Leechers,
 		Seeders:      t.Seeders,
+		Completed:    t.Completed,
 		LastScrape:   t.LastScrape,
 	}
 
