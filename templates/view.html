@@ -26,9 +26,10 @@
                         <a style="margin: 5px;" aria-label="Torrent file" href="{{.TorrentLink}}" type="button" class="btn btn-lg btn-success download-btn">
                             <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Torrent file
                         </a>
-                        <a style="margin: 5px;" aria-label="Report button" href="{{.TorrentLink}}" type="button" data-toggle="modal" data-target="#reportModal" class="btn btn-danger btn-lg download-btn">
+                        {{end}}
+                        <a style="margin: 5px;" aria-label="Report button" type="button" data-toggle="modal" data-target="#reportModal" class="btn btn-danger btn-lg">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Report!
-                        </a> {{end}}
+                        </a>
                       
                       {{ if HasAdmin $.User}}
                       <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>{{ T "delete" }}</a>
