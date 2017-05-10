@@ -14,6 +14,7 @@ import (
 	"github.com/ewhal/nyaa/service/api"
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/util"
+	"github.com/ewhal/nyaa/util/log"
 	"github.com/gorilla/mux"
 )
 
@@ -39,19 +40,25 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 
 		whereParams = req.ToParams()
 	} else {
-		var errConv error
-		req.MaxPerPage, errConv = strconv.Atoi(r.URL.Query().Get("max"))
-		if errConv != nil || req.MaxPerPage == 0 {
-			req.MaxPerPage = 50 // default Value maxPerPage
+		var err error
+		maxString := r.URL.Query().Get("max")
+		if maxString != "" {
+			req.MaxPerPage, err = strconv.Atoi(maxString)
+			if !log.CheckError(err) {
+				req.MaxPerPage = 50 // default Value maxPerPage
+			}
 		}
 
-		req.Page, _ = strconv.Atoi(html.EscapeString(page))
-		if req.Page == 0 {
-			req.Page = 1
+		req.Page = 1
+		if page != "" {
+			req.Page, err = strconv.Atoi(html.EscapeString(page))
+			if !log.CheckError(err) {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
 		}
 	}
 
-	nbTorrents := 0
 	torrents, nbTorrents, err := torrentService.GetTorrents(whereParams, req.MaxPerPage, req.MaxPerPage*(req.Page-1))
 	if err != nil {
 		util.SendError(w, err, 400)
