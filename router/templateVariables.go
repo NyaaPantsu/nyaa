@@ -113,27 +113,51 @@ type UploadTemplateVariables struct {
 	Route      *mux.Route
 }
 
+/* MODERATION Variables */
+
 type PanelIndexVbs struct {
 	Torrents []model.Torrent
+	TorrentReports []model.TorrentReport
 	Users    []model.User
 	Comments []model.Comment
+	Search       SearchForm
+	User       *model.User
+	URL          *url.URL   // For parsing Url in templates
 }
 
 type PanelTorrentListVbs struct {
-	Torrents []model.Torrent
+	Torrents  []model.Torrent
+	Search       SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL          *url.URL   // For parsing Url in templates
 }
 type PanelUserListVbs struct {
-	Users []model.User
+	Users  []model.User
+	Search       SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL          *url.URL   // For parsing Url in templates
 }
 type PanelCommentListVbs struct {
-	Comments []model.Comment
+	Comments  []model.Comment
+	Search       SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL          *url.URL   // For parsing Url in templates
 }
 type PanelTorrentEdVbs struct {
 	Torrent model.Torrent
+	Search       SearchForm
+	User       *model.User
 }
 
 type ViewTorrentReportsVariables struct {
 	Torrents []model.TorrentReportJson
+	Search       SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL          *url.URL   // For parsing Url in templates
 }
 
 /*
