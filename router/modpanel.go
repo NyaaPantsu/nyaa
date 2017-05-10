@@ -1,5 +1,3 @@
-// hurry mod panel to get it faaaaaaaaaaaast
-
 package router
 
 import (
@@ -9,9 +7,7 @@ import (
 	"net/http"
 	"path/filepath"
 	"strconv"
-	"time"
 
-	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service"
@@ -186,6 +182,7 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
 func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	if userPermission.HasAdmin(currentUser) {
@@ -197,7 +194,6 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 		uploadForm := NewUploadForm()
 		uploadForm.Name = torrentJson.Name
 		uploadForm.Category = torrentJson.Category + "_" + torrentJson.SubCategory
-		uploadForm.Magnet = string(torrentJson.Magnet)
 		uploadForm.Status = torrentJson.Status
 		uploadForm.Description = string(torrentJson.Description)
 		htv := PanelTorrentEdVbs{uploadForm, NewSearchForm(), currentUser, form.NewErrors(), form.NewInfos(), r.URL}
@@ -209,11 +205,11 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
 func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
-	if userPermission.HasAdmin(currentUser) {
-	if config.UploadsDisabled {
-		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
+	if !userPermission.HasAdmin(currentUser) {
+		http.Error(w, "admins only", http.StatusForbidden)
 		return
 	}
 	var uploadForm UploadForm
@@ -222,32 +218,25 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 	infos := form.NewInfos()
 	torrent, _ := torrentService.GetTorrentById(id)
 	if (torrent.ID > 0) {
-		// validation is done in ExtractInfo()
-		errUp := uploadForm.ExtractInfo(r)
+		errUp := uploadForm.ExtractEditInfo(r)
 		if errUp != nil {
-			err["errors"] = append(err["errors"], "Failed to upload!")
+			err["errors"] = append(err["errors"], "Failed to update torrent!")
 		}
-		if (len(err) > 0) {
-		//add to db and redirect depending on result
-		torrent.Name=       uploadForm.Name
-		torrent.Category=    uploadForm.CategoryID
-		torrent.SubCategory=uploadForm.SubCategoryID
-		torrent.Status=    uploadForm.Status
-		torrent.Hash=        uploadForm.Infohash
-		torrent.Date=        time.Now()
-		torrent.Filesize=    uploadForm.Filesize
-		torrent.Description= uploadForm.Description
-		db.ORM.Save(&torrent)
-		infos["infos"] = append(infos["infos"], "Torrent details updated!")
+		if (len(err) == 0) {
+			// update some (but not all!) values
+			torrent.Name        = uploadForm.Name
+			torrent.Category    = uploadForm.CategoryID
+			torrent.SubCategory = uploadForm.SubCategoryID
+			torrent.Status      = uploadForm.Status
+			torrent.Description = uploadForm.Description
+			torrent.Uploader    = nil // GORM will create a new user otherwise (wtf?!)
+			db.ORM.Save(&torrent)
+			infos["infos"] = append(infos["infos"], "Torrent details updated.")
+		}
 	}
-}
-		languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
-		htv := PanelTorrentEdVbs{uploadForm, NewSearchForm(), currentUser, err, infos, r.URL}
-		_ = panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
-	} else {
-		http.Error(w, "admins only", http.StatusForbidden)
-	}
-
+	languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
+	htv := PanelTorrentEdVbs{uploadForm, NewSearchForm(), currentUser, err, infos, r.URL}
+	_ = panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 }
 
 func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {

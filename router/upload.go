@@ -193,6 +193,36 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	return nil
 }
 
+func (f *UploadForm) ExtractEditInfo(r *http.Request) error {
+	f.Name = r.FormValue(UploadFormName)
+	f.Category = r.FormValue(UploadFormCategory)
+	f.Description = r.FormValue(UploadFormDescription)
+	f.Status, _ = strconv.Atoi(r.FormValue(UploadFormStatus))
+
+	// trim whitespace
+	f.Name = util.TrimWhitespaces(f.Name)
+	f.Description = p.Sanitize(util.TrimWhitespaces(f.Description))
+
+	catsSplit := strings.Split(f.Category, "_")
+	// need this to prevent out of index panics
+	if len(catsSplit) == 2 {
+		CatID, err := strconv.Atoi(catsSplit[0])
+		if err != nil {
+			return ErrInvalidTorrentCategory
+		}
+		SubCatID, err := strconv.Atoi(catsSplit[1])
+		if err != nil {
+			return ErrInvalidTorrentCategory
+		}
+
+		f.CategoryID = CatID
+		f.SubCategoryID = SubCatID
+	} else {
+		return ErrInvalidTorrentCategory
+	}
+	return nil
+}
+
 func WriteTorrentToDisk(file multipart.File, name string, fullpath *string) error {
 	_, seekErr := file.Seek(0, io.SeekStart)
 	if seekErr != nil {
