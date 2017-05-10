@@ -98,7 +98,7 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	torrents []model.Torrent, count int, err error,
 ) {
 	var conditionArray []string
-	conditionArray = append(conditionArray, "deleted_at  IS NULL")
+	conditionArray = append(conditionArray, "deleted_at IS NULL")
 	if strings.HasPrefix(orderBy, "filesize") {
 		// torrents w/ NULL filesize fuck up the sorting on Postgres
 		conditionArray = append(conditionArray, "filesize IS NOT NULL")
@@ -112,12 +112,13 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	}
 	conditions := strings.Join(conditionArray, " AND ")
 	if countAll {
+		// FIXME: `deleted_at IS NULL` is duplicate in here because GORM handles this for us
 		err = db.ORM.Model(&torrents).Where(conditions, params...).Count(&count).Error
 		if err != nil {
 			return
 		}
 	}
-	// TODO: Vulnerable to injections. Use query builder.
+	// TODO: Vulnerable to injections. Use query builder. (is it?)
 
 	// build custom db query for performance reasons
 	dbQuery := "SELECT * FROM torrents"
