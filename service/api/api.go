@@ -36,7 +36,7 @@ type TorrentRequest struct {
 }
 
 type UpdateRequest struct {
-	Id     int            `json:"id"`
+	ID     int            `json:"id"`
 	Update TorrentRequest `json:"update"`
 }
 
@@ -155,7 +155,7 @@ func (r *TorrentRequest) ValidateUpdate() (err error, code int) {
 }
 
 //rewrite with reflect ?
-func (r *UpdateRequest) UpdateTorrent(t *model.Torrents) {
+func (r *UpdateRequest) UpdateTorrent(t *model.Torrent) {
 	if r.Update.Name != "" {
 		t.Name = r.Update.Name
 	}
@@ -166,7 +166,7 @@ func (r *UpdateRequest) UpdateTorrent(t *model.Torrents) {
 		t.Category = r.Update.Category
 	}
 	if r.Update.SubCategory != 0 {
-		t.Sub_Category = r.Update.SubCategory
+		t.SubCategory = r.Update.SubCategory
 	}
 	if r.Update.Description != "" {
 		t.Description = r.Update.Description
