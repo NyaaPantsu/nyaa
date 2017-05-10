@@ -62,6 +62,7 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 	if user.Email == "" {
 		user.MD5 = ""
 	} else {
+		// Despite the email not being verified yet we calculate this for convenience reasons
 		var err error
 		user.MD5, err = crypto.GenerateMD5Hash(user.Email)
 		if err != nil {
@@ -72,6 +73,7 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 	if err != nil {
 		return user, errors.New("token not generated")
 	}
+	user.Email = "" // unset email because it will be verified later
 
 	user.Token = token
 	user.TokenExpiration = timeHelper.FewDaysLater(config.AuthTokenExpirationDay)
@@ -108,7 +110,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) (int, error) {
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
-	SendVerificationToUser(user)
+	SendVerificationToUser(user, registrationForm.Email)
 	status, err = RegisterHandler(w, r)
 	return status, err
 }
