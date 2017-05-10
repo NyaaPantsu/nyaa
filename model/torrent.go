@@ -138,7 +138,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		UploaderName: util.SafeText(uploader),
 		OldUploader:  util.SafeText(t.OldUploader),
 		WebsiteLink:  util.Safe(t.WebsiteLink),
-		Magnet:       util.Safe(magnet),
+		Magnet:       template.URL(magnet),
 		TorrentLink:  util.Safe(torrentlink)}
 
 	return res

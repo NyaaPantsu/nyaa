@@ -3,6 +3,7 @@
 package router
 
 import (
+	"fmt"
 	"html"
 	"html/template"
 	"net/http"
@@ -10,6 +11,7 @@ import (
 	"strconv"
 
 	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/service"
 	"github.com/ewhal/nyaa/service/comment"
 	"github.com/ewhal/nyaa/service/report"
 	"github.com/ewhal/nyaa/service/torrent"
@@ -240,13 +242,37 @@ func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "admins only", http.StatusForbidden)
 	}
 }
+
 func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	id := r.URL.Query().Get("id")
 	if userPermission.HasAdmin(currentUser) {
 		_ = form.NewErrors()
 		_, _ = torrentService.DeleteTorrent(id)
+
+		//delete reports of torrent
+		whereParams := serviceBase.CreateWhereParams("torrent_id = ?", id)
+		reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
+		for _, report := range reports {
+			reportService.DeleteTorrentReport(report.ID)
+		}
 		url, _ := Router.Get("mod_tlist").URL()
+		http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
+	} else {
+		http.Error(w, "admins only", http.StatusForbidden)
+	}
+}
+
+func TorrentReportDeleteModPanel(w http.ResponseWriter, r *http.Request) {
+	currentUser := GetUser(r)
+	if userPermission.HasAdmin(currentUser) {
+		id := r.URL.Query().Get("id")
+		fmt.Println(id)
+		idNum, _ := strconv.ParseUint(id, 10, 64)
+		_ = form.NewErrors()
+		_, _ = reportService.DeleteTorrentReport(uint(idNum))
+
+		url, _ := Router.Get("mod_trlist").URL()
 		http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
