@@ -87,6 +87,7 @@ type UserLoginFormVariables struct {
 
 type UserProfileVariables struct {
 	UserProfile *model.User
+	FormInfos        map[string][]string
 	Search      SearchForm
 	Navigation  Navigation
 	User        *model.User
