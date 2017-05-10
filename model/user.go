@@ -19,8 +19,8 @@ type User struct {
 	// TODO: move this to PublicUser
 	LikingCount     int       `json:"likingCount" gorm:"-"`
 	LikedCount      int       `json:"likedCount" gorm:"-"`
-	Likings         []User    `gorm:"foreignkey:userId;associationforeignkey:follower_id;many2many:user_follows"`
-	Liked           []User    `gorm:"foreignkey:follower_id;associationforeignkey:userId;many2many:user_follows"`
+	Likings         []User    // Don't work `gorm:"foreignkey:user_id;associationforeignkey:follower_id;many2many:user_follows"`
+	Liked           []User    // Don't work `gorm:"foreignkey:follower_id;associationforeignkey:user_id;many2many:user_follows"`
 
 	Md5             string     `json:"md5"` // Used for gravatar
 	Torrents        []Torrents `gorm:"ForeignKey:UploaderId"`
