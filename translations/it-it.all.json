@@ -17,11 +17,11 @@
   },
   {
     "id": "reset_password_content",
-    "translation": "Please click below link to reset your password."
+    "translation": "Clicca qui per resettare la tua password."
   },
   {
     "id":"register_title",
-    "translation": "Creating a new account"
+    "translation": "Creazione di un nuovo account"
   },
   {
     "id":"signup_box_title",
@@ -57,7 +57,7 @@
   },
   {
     "id":"signin",
-    "translation": "Sign In"
+    "translation": "Logga"
   },
   {
     "id":"register",
@@ -65,15 +65,15 @@
   },
   {
     "id":"terms_conditions",
-    "translation": "Terms and Conditions"
+    "translation": "Termini e condizioni"
   },
   {
     "id":"terms_conditions_full",
-    "translation": "Some Shit."
+    "translation": "Stronzate varie."
   },
   {
     "id":"remember_me",
-    "translation": "Remember me"
+    "translation": "Ricordami"
   },
   {
     "id":"forgot_password",
@@ -81,15 +81,15 @@
   },
   {
     "id":"sign_in_box_title",
-    "translation": "Please Sign In"
+    "translation": "Per Favore Entra"
   },
   {
     "id":"sign_in_title",
-    "translation": "Sign In"
+    "translation": "Entra"
   },
   {
     "id":"register_success_title",
-    "translation": "Sign Up Successful"
+    "translation": "Registrato con Successo!"
   },
   {
     "id":"sign_up_success",
@@ -101,7 +101,7 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "Finally, please check your mail inbox (and spam folder!) for the verification email."
+    "translation": "Finally, per favore controlla la tua casella email (e la cartella spam!) per l'email di verifica."
   },
   {
     "id":"signup_verification_noemail",
@@ -185,11 +185,11 @@
   },
   {
     "id": "advanced_search",
-    "translation": "Advanced Search"
+    "translation": "Ricerca Avanzata"
   },
   {
     "id": "nothing_here",
-    "translation": "Nothing Here."
+    "translation": "Non c'è nulla qui."
   },
   {
     "id": "404_not_found",
@@ -197,7 +197,7 @@
   },
   {
     "id": "no_torrents_uploaded",
-    "translation": "No torrents uploaded yet!"
+    "translation": "Nessun torrent caricato per ora!"
   },
   {
     "id": "profile",
@@ -205,7 +205,7 @@
   },
   {
     "id": "sign_out",
-    "translation": "Sign-out"
+    "translation": "Esci"
   },
   {
     "id": "member",
@@ -213,11 +213,11 @@
   },
   {
     "id": "sign_in",
-    "translation": "Sign In"
+    "translation": "Entra"
   },
   {
     "id": "sign_up",
-    "translation": "Sign Up"
+    "translation": "Registrati"
   },
   {
     "id": "no_results_found",
@@ -225,15 +225,15 @@
   },
   {
     "id": "notice_keep_seeding",
-    "translation": "NOTICE: KEEP SEEDING AND ENABLE DHT YOU RETARD"
+    "translation": "ATTENZIONE: CONTINUA A SEEDARE I TORRENT E ABILITA IL DHT RITARDATO"
   },
   {
     "id": "official_nyaapocalipse_faq",
-    "translation": "Official Nyaapocalypse FAQ"
+    "translation": "FAQ Ufficiale della Nyaapocalypse"
   },
   {
     "id": "links_replacement_mirror",
-    "translation": "Links for the replacement/mirror"
+    "translation": "Collegamenti di sostituzione/mirror"
   },
   {
     "id": "what_happened",
@@ -245,31 +245,31 @@
   },
   {
     "id": "its_not_a_ddos",
-    "translation": "They were deactivated, so it's not a DDoS attack like usual."
+    "translation": "Sono stati terminati, quindi non è un attacco DDoS come al solito."
   },
   {
     "id": "future_not_looking_good",
-    "translation": "Future prospects for nyaa are not looking good. (It's dead)"
+    "translation": "Le prospettive future per nyaa non sembrano buone. (È morto)"
   },
   {
     "id": "recovery_effort",
-    "translation": "There is a recovery effort taking place."
+    "translation": "Sta avvenendo uno sforzo di recupero."
   },
   {
     "id": "is_everything_lost",
-    "translation": "Is everything lost?"
+    "translation": "È andato perso tutto?"
   },
   {
     "id": "in_short_no",
-    "translation": "In short, No."
+    "translation": "In parole povere, No."
   },
   {
     "id": "are_some_things_lost",
-    "translation": "Are some things lost?"
+    "translation": "È andato perso qualcosa?"
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "We have a database of the torrents on nyaa up to <s>April 5</s> May 1. That means almost nothing is lost."
+    "translation": "Abbiamo un database dei torrent di nyaa fino al <s>April 5</s> May 1. Questo vuol dire che quasi niente è andato perduto."
   },
   {
     "id": "answer_is_sukebei_db_lost",
@@ -277,7 +277,7 @@
   },
   {
     "id": "how_are_we_recovering",
-    "translation": "How are we recovering?"
+    "translation": "Come va il recupero?"
   },
   {
     "id": "answer_how_are_we_recovering",
@@ -289,11 +289,11 @@
   },
   {
     "id": "answer_are_the_trackers_working",
-    "translation": "Even if the trackers are down, seeders are still connected to the decentralized DHT network. As long as the file is listed on the DHT network, business should carry on as usual."
+    "translation": "Anche se i trackers sono offline, seeders are still connected to the decentralized DHT network. As long as the file is listed on the DHT network, business should carry on as usual."
   },
   {
     "id": "how_do_i_download_the_torrents",
-    "translation": "How do I download the torrents?"
+    "translation": "Come posso scaricare i torrent?"
   },
   {
     "id": "answer_how_do_i_download_the_torrents",
@@ -301,11 +301,11 @@
   },
   {
     "id": "magnet_link_should_look_like",
-    "translation": "The magnet link should look like this:"
+    "translation": "Il magnet link dovrebbe sembrare così:"
   },
   {
     "id": "which_trackers_do_you_recommend",
-    "translation": "Which trackers do you recommend using?"
+    "translation": "Quali trackers consigli di utilizzare?"
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
@@ -317,7 +317,7 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "If you have website development expertise, you can join the #nyaapantsu IRC channel on irc.rizon.net. If you have any current databases, especially for sukebei, <b>UPLOAD THEM</b>."
+    "translation": "Se hai esperienza nel web design, vieni sul canale IRC #nyaapantsu su irc.rizon.net. Se hai dei database aggiornati, specialmente per sukebei, <b>CARICALI!</b>."
   },
   {
     "id": "your_design_sucks_found_a_bug",
@@ -325,15 +325,15 @@
   },
   {
     "id": "why_written_in_go",
-    "translation": "Why is your shit written in Go?"
+    "translation": "Perchè questo schifo è scritto in Go?"
   },
   {
     "id": "authors_favorite_language",
-    "translation": "It's the author's favorite programming language."
+    "translation": "È il linguaggio di programmazione preferito dell'autore."
   },
   {
     "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat and sukebei.pantsu.cat do not host any files."
+    "translation": "nyaa.pantsu.cat e sukebei.pantsu.cat non contengono/hostano nessun file al loro interno."
   },
   {
     "id": "upload_magnet",
@@ -345,7 +345,7 @@
   },
   {
     "id": "uploading_file_prefills_fields",
-    "translation": "Uploading a torrent file allows pre-filling some fields, this is recommended."
+    "translation": "Caricare un file torrent permette di auto-riempire alcuni campi, è raccomandato farlo."
   },
   {
     "id": "magnet_link",
@@ -365,11 +365,11 @@
   },
   {
     "id": "anime_english_translated",
-    "translation": "Anime - English-translated"
+    "translation": "Anime - Tradotti in Inglese
   },
   {
     "id": "anime_non_english_translated",
-    "translation": "Anime - Non-English-translated"
+    "translation": "Anime - Tradotti in altre lingue"
   },
   {
     "id": "anime_raw",
@@ -393,7 +393,7 @@
   },
   {
     "id": "literature_english_translated",
-    "translation": "Letteratura - Tradotta in Inglese"
+    "translation": "Letteratura - Tradotti in Inglese"
   },
   {
     "id": "literature_raw",
@@ -401,7 +401,7 @@
   },
   {
     "id": "literature_non_english_translated",
-    "translation": "Letteratura - Tradotta in altre lingue"
+    "translation": "Letteratura - Tradotti in altre lingue"
   },
   {
     "id": "live_action",
@@ -409,15 +409,15 @@
   },
   {
     "id": "live_action_english_translated",
-    "translation": "Live Action - English-translated"
+    "translation": "Live Action - Tradotti in Inglese"
   },
   {
     "id": "live_action_idol_pv",
-    "translation": "Live Action - Idol/Promotional Video"
+    "translation": "Live Action - Idol/Video Promozionali"
   },
   {
     "id": "live_action_non_english_translated",
-    "translation": "Live Action - Non-English-translated"
+    "translation": "Live Action - Tradotti in altre lingue"
   },
   {
     "id": "live_action_raw",
@@ -425,15 +425,15 @@
   },
   {
     "id": "pictures",
-    "translation": "Pictures"
+    "translation": "Immagini"
   },
   {
     "id": "pictures_graphics",
-    "translation": "Pictures - Graphics"
+    "translation": "Immagini - Grafico"
   },
   {
     "id": "pictures_photos",
-    "translation": "Pictures - Photos"
+    "translation": "Immagini - Fotografia"
   },
   {
     "id": "software",
@@ -449,11 +449,11 @@
   },
   {
     "id": "torrent_description",
-    "translation": "Torrent Description"
+    "translation": "Descrizione Torrent"
   },
   {
     "id": "description_markdown_notice",
-    "translation": "Markdown can be used in descriptions."
+    "translation": "Markdown può essere usato nelle descrizioni."
   },
   {
     "id": "show_all",
@@ -465,7 +465,7 @@
   },
   {
     "id": "trusted",
-    "translation": "Trusted"
+    "translation": "Fidato"
   },
   {
     "id": "id",
@@ -477,11 +477,11 @@
   },
   {
     "id": "descending",
-    "translation": "Descending"
+    "translation": "Discendente"
   },
   {
     "id": "ascending",
-    "translation": "Ascending"
+    "translation": "Ascendente"
   },
   {
     "id": "search",
@@ -493,23 +493,23 @@
   },
   {
     "id": "description",
-    "translation": "Description"
+    "translation": "Descrizione"
   },
   {
     "id": "comments",
-    "translation": "Comments"
+    "translation": "Commenti"
   },
   {
     "id": "submit_a_comment_as_username",
-    "translation": "Submit a comment as %s"
+    "translation": "Invia un commento come %s"
   },
   {
     "id": "submit_a_comment_as_anonymous",
-    "translation": "Submit a comment as Anonymous"
+    "translation": "Invia un commento come Anonimo"
   },
   {
     "id": "submit",
-    "translation": "Submit"
+    "translation": "Invia"
   },
   {
     "id": "personal_info",
