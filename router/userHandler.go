@@ -140,6 +140,7 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 			if len(r.PostFormValue("username")) > 0 {
 				_, err = form.ValidateUsername(r.PostFormValue("username"), err)
 			}
+
 			if len(err) == 0 {
 				modelHelper.BindValueForm(&b, r)
 				if (!userPermission.HasAdmin(currentUser)) {
@@ -147,15 +148,16 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 				}
 				err = modelHelper.ValidateForm(&b, err)
 				if len(err) == 0 {
+					if (b.Email != currentUser.Email) {
+						userService.SendVerificationToUser(*currentUser, b.Email)
+						infos["infos"] = append(infos["infos"], fmt.Sprintf(T("email_changed"), b.Email))
+						b.Email = currentUser.Email // reset, it will be set when user clicks verification
+					}
 					userProfile, _, errorUser = userService.UpdateUser(w, &b, currentUser, id)
 					if errorUser != nil {
 						err["errors"] = append(err["errors"], errorUser.Error())
-					}
-					if len(err) == 0 {
+					} else {
 						infos["infos"] = append(infos["infos"], T("profile_updated"))
-						if (b.Email != currentUser.Email) {
-							infos["infos"] = append(infos["infos"], fmt.Sprintf(T("email_changed"), b.Email))
-						}
 					}
 				}
 			}
