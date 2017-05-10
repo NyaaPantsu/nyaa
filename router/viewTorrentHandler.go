@@ -3,6 +3,7 @@ package router
 import (
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/ewhal/nyaa/db"
@@ -13,6 +14,8 @@ import (
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/gorilla/mux"
+
+	"fmt"
 )
 
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
@@ -24,7 +27,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		NotFoundHandler(w, r)
 		return
 	}
-	b := torrent.ToJson()
+	b := torrent.ToJSON()
 	htv := ViewTemplateVariables{b, captcha.Captcha{CaptchaID: captcha.GetID()}, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 
 	languages.SetTranslationFromRequest(viewTemplate, r, "en-us")
@@ -38,6 +41,10 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
+	if strings.TrimSpace(r.FormValue("comment")) == "" {
+		http.Error(w, "comment empty", 406)
+	}
+
 	userCaptcha := captcha.Extract(r)
 	if !captcha.Authenticate(userCaptcha) {
 		http.Error(w, "bad captcha", 403)
@@ -45,14 +52,52 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	content := p.Sanitize(r.FormValue("comment"))
 
-	idNum_, err := strconv.Atoi(id)
-	var idNum uint = uint(idNum_)
-	var userId uint = 0
-	if currentUser.Id > 0 {
-		userId = currentUser.Id
-	}
-	comment := model.Comment{TorrentId: idNum, UserId: userId, Content: content, CreatedAt: time.Now()}
+	idNum, err := strconv.Atoi(id)
+
+	userID := currentUser.ID
+	comment := model.Comment{TorrentID: uint(idNum), UserID: userID, Content: content, CreatedAt: time.Now()}
+
 	err = db.ORM.Create(&comment).Error
+	if err != nil {
+		util.SendError(w, err, 500)
+		return
+	}
+
+	url, err := Router.Get("view_torrent").URL("id", id)
+	if err == nil {
+		http.Redirect(w, r, url.String(), 302)
+	} else {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	userCaptcha := captcha.Extract(r)
+	if !captcha.Authenticate(userCaptcha) {
+		http.Error(w, "bad captcha", 403)
+	}
+	currentUser := GetUser(r)
+
+	idNum, err := strconv.Atoi(id)
+	userID := currentUser.ID
+
+	//torrent, _ := torrentService.GetTorrentById(id)
+
+	fmt.Println(userID)
+	fmt.Println(currentUser)
+
+	report := model.TorrentReport{
+		Description: r.FormValue("report_type"),
+		TorrentID:   uint(idNum),
+		UserID:      userID,
+		//Torrent:     torrent,
+		//User:        *currentUser,
+	}
+
+	err = db.ORM.Create(&report).Error
 	if err != nil {
 		util.SendError(w, err, 500)
 		return

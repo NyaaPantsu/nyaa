@@ -2,89 +2,70 @@ package userService
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
-//	"time"
+	"strconv"
+	"time"
 
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
-//	"github.com/ewhal/nyaa/util/crypto"
-	"github.com/ewhal/nyaa/util/email"
-//	"github.com/ewhal/nyaa/util/log"
-//	"github.com/ewhal/nyaa/util/timeHelper"
-
+	//"github.com/ewhal/nyaa/util/email"
+	"github.com/ewhal/nyaa/util/timeHelper"
+	"github.com/gorilla/securecookie"
 	"github.com/nicksnyder/go-i18n/i18n"
 )
 
+var verificationHandler = securecookie.New(config.EmailTokenHashKey, nil)
+
 // SendEmailVerfication sends an email verification token via email.
-func SendEmailVerfication(to string, token string, locale string) error {
-	T, _ := i18n.Tfunc(locale)
-	err := email.SendEmailFromAdmin(to,
-		T("verify_email_title"),
-		T("link")+" : "+config.WebAddress+"/verify/email/"+token,
-		T("verify_email_content")+"<br/><a href=\""+config.WebAddress+"/verify/email/"+token+"\" target=\"_blank\">"+config.WebAddress+"/verify/email/"+token+"</a>")
-	return err
+func SendEmailVerification(to string, token string, locale string) error {
+	T, err := i18n.Tfunc(locale)
+	if err != nil {
+		return err
+	}
+	content := T("link") + " : https://" + config.WebAddress + "/verify/email/" + token
+	content_html := T("verify_email_content") + "<br/>" + "<a href=\"https://" + config.WebAddress + "/verify/email/" + token + "\" target=\"_blank\">" + config.WebAddress + "/verify/email/" + token + "</a>"
+	//return email.SendEmailFromAdmin(to, T("verify_email_title"), content, content_html)
+	fmt.Printf("sending email to %s\n----\n%s\n%s\n----\n", to, content, content_html)
+	return nil
 }
 
 // SendVerificationToUser sends an email verification token to user.
-func SendVerificationToUser(user model.User) (int, error) {
-	/*var status int
-	var err error
-	user.ActivateUntil = timeHelper.TwentyFourHoursLater()
-	user.ActivationToken, err = crypto.GenerateRandomToken32()
+func SendVerificationToUser(user model.User, newEmail string) (int, error) {
+	validUntil := timeHelper.TwentyFourHoursLater() // TODO: longer duration?
+	value := map[string]string{
+		"t": strconv.FormatInt(validUntil.Unix(), 10),
+		"u": strconv.FormatUint(uint64(user.ID), 10),
+		"e": newEmail,
+	}
+	encoded, err := verificationHandler.Encode("", value)
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
-	user.Activation = false
-	log.Debugf("generated token : %s", user.ActivationToken)
-	status, err = UpdateUserCore(&user)
-	if err != nil {
-		return status, err
-	}
-	err = SendEmailVerfication(user.Email, user.ActivationToken, "en-us")
+	err = SendEmailVerification(newEmail, encoded, "en-us")
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
-	return http.StatusOK, err*/
-	return 0, errors.New("NotImpl")
+	return http.StatusOK, nil
 }
 
-// SendVerification sends an email verification token.
-func SendVerification(r *http.Request) (int, error) {
+// EmailVerification verifies the token used for email verification
+func EmailVerification(token string, w http.ResponseWriter) (int, error) {
+	value := make(map[string]string)
+	err := verificationHandler.Decode("", token, &value)
+	if err != nil {
+		fmt.Printf("%+v\n", err)
+		return http.StatusForbidden, errors.New("Token is not valid.")
+	}
+	time_int, _ := strconv.ParseInt(value["t"], 10, 0)
+	if timeHelper.IsExpired(time.Unix(time_int, 0)) {
+		return http.StatusForbidden, errors.New("Token has expired.")
+	}
 	var user model.User
-	currentUser, err := CurrentUser(r)
-	if err != nil {
-		return http.StatusUnauthorized, errors.New("Unauthorized.")
-	}
-	if db.ORM.First(&user, currentUser.Id).RecordNotFound() {
+	if db.ORM.Where("user_id = ?", value["u"]).First(&user).RecordNotFound() {
 		return http.StatusNotFound, errors.New("User is not found.")
 	}
-	status, err := SendVerificationToUser(user)
-	return status, err
-}
-
-// EmailVerification verifies an email of user.
-func EmailVerification(token string,w http.ResponseWriter) (int, error) {
-	/*var user model.User
-	log.Debugf("verifyEmailForm.ActivationToken : %s", token)
-	if db.ORM.Where(&model.User{ActivationToken: token}).First(&user).RecordNotFound() {
-		return http.StatusNotFound, errors.New("User is not found.")
-	}
-	isExpired := timeHelper.IsExpired(user.ActivateUntil)
-	log.Debugf("passwordResetUntil : %s", user.ActivateUntil.UTC())
-	log.Debugf("expired : %t", isExpired)
-	if isExpired {
-		return http.StatusForbidden, errors.New("token not valid.")
-	}
-	user.ActivationToken = ""
-	user.ActivateUntil = time.Now()
-	user.ActivatedAt = time.Now()
-	user.Activation = true
-	status, err := UpdateUserCore(&user)
-	if err != nil {
-		return status, err
-	}
-	status, err = SetCookie(w, user.Token)
-	return status, err*/
-	return 0, errors.New("NotImpl")
+	user.Email = value["e"]
+	return UpdateUserCore(&user)
 }

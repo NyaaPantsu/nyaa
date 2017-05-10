@@ -5,7 +5,7 @@
   },
   {
     "id": "verify_email_title",
-    "translation": "Verify your email address for Goyangi."
+    "translation": "Verify your email address for Nyaapantsu."
   },
   {
     "id": "verify_email_content",
@@ -118,6 +118,18 @@
   {
     "id":"follow",
     "translation": "Follow"
+  },
+  {
+    "id":"unfollow",
+    "translation": "Unfollow"
+  },
+  {
+    "id":"user_followed_msg",
+    "translation": "You have followed %s!"
+  },
+  {
+    "id":"user_unfollowed_msg",
+    "translation": "You have unfollowed %s!"
   },
   {
     "id":"profile_page",
@@ -550,5 +562,21 @@
   {
     "id": "delete_success",
     "translation": "The account has been successfully deleted!"
+  },
+  {
+    "id": "moderation",
+    "translation": "Moderation"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "Who the fuck is れんちょん?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "れんちょん is the username assigned to uploads and comments made anonymously. It is also used for torrent imported from the original nyaa, though the original uploader may be displayed alongside."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Mark as remake"
   }
 ]

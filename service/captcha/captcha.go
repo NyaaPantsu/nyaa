@@ -19,12 +19,12 @@ func init() {
 	captcha.SetCustomStore(captcha.NewMemoryStore(1<<10, lifetime))
 }
 
-// Captcha is to be embedded into any form struct requiring a captcha
+// Captcha is to be embedded into any form struct requiring a Captcha
 type Captcha struct {
 	CaptchaID, Solution string
 }
 
-// GetID returns a new captcha id
+// GetID returns a new Captcha ID
 func GetID() string {
 	return captcha.New()
 }
@@ -37,12 +37,12 @@ func Extract(r *http.Request) Captcha {
 	}
 }
 
-// ServeFiles serves captcha images and audio
+// ServeFiles serves Captcha images and audio
 func ServeFiles(w http.ResponseWriter, r *http.Request) {
 	server.ServeHTTP(w, r)
 }
 
-// Authenticate check's if a captcha solution is valid
+// Authenticate check's if a Captcha solution is valid
 func Authenticate(req Captcha) bool {
 	return captcha.VerifyString(req.CaptchaID, req.Solution)
 }

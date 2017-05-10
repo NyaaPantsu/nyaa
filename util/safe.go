@@ -6,7 +6,7 @@ import (
 )
 
 func Safe(s string) template.URL {
-	return template.URL(s)
+	return template.URL(html.EscapeString(s))
 }
 
 func SafeText(s string) template.HTML {

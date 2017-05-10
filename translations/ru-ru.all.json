@@ -5,7 +5,7 @@
   },
   {
     "id": "verify_email_title",
-    "translation": "Подтвердите свой Email адрес для Goyangi."
+    "translation": "Подтвердите свой Email адрес для Nyaapantsu."
   },
   {
     "id": "verify_email_content",
@@ -13,7 +13,7 @@
   },
   {
     "id": "reset_password_title",
-    "translation": "Восстановить пароль для Goyangi."
+    "translation": "Восстановить пароль для Nyaapantsu."
   },
   {
     "id": "reset_password_content",
@@ -328,7 +328,7 @@
     "translation": "Торрент-файл"
   },
   {
-    "id": "uploading_torrent_prefills_fields",
+    "id": "uploading_file_prefills_fields",
     "translation": "Загрузка торрент-файла позволяет предварительно заполнить некоторые поля, это рекомендуется."
   },
   {
