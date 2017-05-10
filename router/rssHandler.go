@@ -19,7 +19,7 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	createdAsTime := time.Now()
 
 	if len(torrents) > 0 {
-		createdAsTime = torrents[0].Date
+		createdAsTime = time.Unix(torrents[0].Date, 0)
 	}
 	feed := &feeds.Feed{
 		Title:   "Nyaa Pantsu",
@@ -37,8 +37,8 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 			Title:       torrents[i].Name,
 			Link:        &feeds.Link{Href: string(torrentJSON.Magnet)},
 			Description: "",
-			Created:     torrents[0].Date,
-			Updated:     torrents[0].Date,
+			Created:     time.Unix(torrents[0].Date, 0),
+			Updated:     time.Unix(torrents[0].Date, 0),
 		}
 	}
 

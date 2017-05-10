@@ -40,7 +40,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 			SubCategory: uploadForm.SubCategoryID,
 			Status:      1,
 			Hash:        uploadForm.Infohash,
-			Date:        time.Now(),
+			Date:        time.Now().Unix(),
 			Filesize:    uploadForm.Filesize,
 			Description: uploadForm.Description,
 			UploaderID:  user.ID}
