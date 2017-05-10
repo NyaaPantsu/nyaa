@@ -10,6 +10,7 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
+	//	"github.com/ewhal/nyaa/util/crypto"
 	"github.com/ewhal/nyaa/util/email"
 	"github.com/ewhal/nyaa/util/timeHelper"
 	"github.com/gorilla/securecookie"
@@ -20,9 +21,12 @@ var verificationHandler = securecookie.New(config.EmailTokenHashKey, nil)
 
 // SendEmailVerfication sends an email verification token via email.
 func SendEmailVerification(to string, token string, locale string) error {
-	T, _ := i18n.Tfunc(locale)
-	content := T("link")+" : https://"+config.WebAddress+"/verify/email/"+token
-	content_html := T("verify_email_content")+"<br/>"+"<a href=\"https://"+config.WebAddress+"/verify/email/"+token+"\" target=\"_blank\">"+config.WebAddress+"/verify/email/"+token+"</a>"
+	T, err := i18n.Tfunc(locale)
+	if err != nil {
+		return err
+	}
+	content := T("link") + " : https://" + config.WebAddress + "/verify/email/" + token
+	content_html := T("verify_email_content") + "<br/>" + "<a href=\"https://" + config.WebAddress + "/verify/email/" + token + "\" target=\"_blank\">" + config.WebAddress + "/verify/email/" + token + "</a>"
 	return email.SendEmailFromAdmin(to, T("verify_email_title"), content, content_html)
 	return nil
 }
@@ -31,8 +35,8 @@ func SendEmailVerification(to string, token string, locale string) error {
 func SendVerificationToUser(user model.User) (int, error) {
 	validUntil := timeHelper.TwentyFourHoursLater() // TODO: longer duration?
 	value := map[string]string{
-		"t": strconv.FormatInt(validUntil.Unix(), 10), 
-		"u": strconv.FormatUint(uint64(user.Id), 10),
+		"t": strconv.FormatInt(validUntil.Unix(), 10),
+		"u": strconv.FormatUint(uint64(user.ID), 10),
 		"e": user.Email,
 	}
 	encoded, err := verificationHandler.Encode("", value)
@@ -51,10 +55,10 @@ func SendVerification(r *http.Request) (int, error) {
 	var user model.User
 	currentUser, err := CurrentUser(r)
 	if err != nil {
-		return http.StatusUnauthorized, errors.New("Unauthorized.")
+		return http.StatusUnauthorized, errors.New("unauthorized")
 	}
-	if db.ORM.First(&user, currentUser.Id).RecordNotFound() {
-		return http.StatusNotFound, errors.New("User is not found.")
+	if db.ORM.First(&user, currentUser.ID).RecordNotFound() {
+		return http.StatusNotFound, errors.New("user not found")
 	}
 	status, err := SendVerificationToUser(user)
 	return status, err

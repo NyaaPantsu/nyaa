@@ -2,13 +2,12 @@ package torrentService
 
 import (
 	"errors"
-	"strconv"
-	"strings"
-
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util"
+	"strconv"
+	"strings"
 )
 
 type WhereParams struct {
@@ -36,20 +35,20 @@ func GetFeeds() (result []model.Feed, err error) {
 
 	for rows.Next() {
 		item := model.Feed{}
-		err = rows.Scan(&item.Id, &item.Name, &item.Hash, &item.Timestamp)
+		err = rows.Scan(&item.ID, &item.Name, &item.Hash, &item.Timestamp)
 		if err != nil {
 			return
 		}
 		magnet := util.InfoHashToMagnet(strings.TrimSpace(item.Hash), item.Name, config.Trackers...)
 		item.Magnet = magnet
-		// memory hog
+		// TODO: memory hog
 		result = append(result, item)
 	}
 	err = rows.Err()
 	return
 }
 
-func GetTorrentById(id string) (torrent model.Torrents, err error) {
+func GetTorrentById(id string) (torrent model.Torrent, err error) {
 	id_int, err := strconv.Atoi(id)
 	if err != nil {
 		return
@@ -60,7 +59,7 @@ func GetTorrentById(id string) (torrent model.Torrents, err error) {
 	if err != nil {
 		return
 	}
-	if id_int <= config.LastOldTorrentId {
+	if id_int <= config.LastOldTorrentID {
 		// only preload old comments if they could actually exist
 		tmp = tmp.Preload("OldComments")
 	}
@@ -71,10 +70,10 @@ func GetTorrentById(id string) (torrent model.Torrents, err error) {
 	// GORM relly likes not doing its job correctly
 	// (or maybe I'm just retarded)
 	torrent.Uploader = new(model.User)
-	db.ORM.Where("user_id = ?", torrent.UploaderId).Find(torrent.Uploader)
+	db.ORM.Where("user_id = ?", torrent.UploaderID).Find(torrent.Uploader)
 	for i := range torrent.Comments {
 		torrent.Comments[i].User = new(model.User)
-		err = db.ORM.Where("user_id = ?", torrent.Comments[i].UserId).Find(torrent.Comments[i].User).Error
+		err = db.ORM.Where("user_id = ?", torrent.Comments[i].UserID).Find(torrent.Comments[i].User).Error
 		if err != nil {
 			return
 		}
@@ -83,22 +82,22 @@ func GetTorrentById(id string) (torrent model.Torrents, err error) {
 	return
 }
 
-func GetTorrentsOrderByNoCount(parameters *WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrents, err error) {
+func GetTorrentsOrderByNoCount(parameters *WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, err error) {
 	torrents, _, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, false)
 	return
 }
 
-func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrents, count int, err error) {
+func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, count int, err error) {
 	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true)
 	return
 }
 
 func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int, countAll bool) (
-	torrents []model.Torrents, count int, err error,
+	torrents []model.Torrent, count int, err error,
 ) {
 	var conditionArray []string
 	if strings.HasPrefix(orderBy, "filesize") {
-		// torrents w/ NULL filesize fuck up the sorting on postgres
+		// torrents w/ NULL filesize fuck up the sorting on Postgres
 		conditionArray = append(conditionArray, "filesize IS NOT NULL")
 	}
 	var params []interface{}
@@ -137,32 +136,28 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	return
 }
 
-/* Functions to simplify the get parameters of the main function
- *
- * Get Torrents with where parameters and limits, order by default
- */
-func GetTorrents(parameters WhereParams, limit int, offset int) ([]model.Torrents, int, error) {
+// GetTorrents obtain a list of torrents matching 'parameters' from the
+// database. The list will be of length 'limit' and in default order.
+// GetTorrents returns the first records found. Later records may be retrieved
+// by providing a positive 'offset'
+func GetTorrents(parameters WhereParams, limit int, offset int) ([]model.Torrent, int, error) {
 	return GetTorrentsOrderBy(&parameters, "", limit, offset)
 }
 
-/* Get Torrents with where parameters but no limit and order by default (get all the torrents corresponding in the db)
- */
-func GetTorrentsDB(parameters WhereParams) ([]model.Torrents, int, error) {
+// Get Torrents with where parameters but no limit and order by default (get all the torrents corresponding in the db)
+func GetTorrentsDB(parameters WhereParams) ([]model.Torrent, int, error) {
 	return GetTorrentsOrderBy(&parameters, "", 0, 0)
 }
 
-/* Function to get all torrents
- */
-
-func GetAllTorrentsOrderBy(orderBy string, limit int, offset int) ([]model.Torrents, int, error) {
+func GetAllTorrentsOrderBy(orderBy string, limit int, offset int) ([]model.Torrent, int, error) {
 	return GetTorrentsOrderBy(nil, orderBy, limit, offset)
 }
 
-func GetAllTorrents(limit int, offset int) ([]model.Torrents, int, error) {
+func GetAllTorrents(limit int, offset int) ([]model.Torrent, int, error) {
 	return GetTorrentsOrderBy(nil, "", limit, offset)
 }
 
-func GetAllTorrentsDB() ([]model.Torrents, int, error) {
+func GetAllTorrentsDB() ([]model.Torrent, int, error) {
 	return GetTorrentsOrderBy(nil, "", 0, 0)
 }
 

@@ -1,9 +1,9 @@
 package userService
 
 import (
+	"errors"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
-	"errors"
 	"net/http"
 
 	"github.com/ewhal/nyaa/util/log"
@@ -23,14 +23,14 @@ func FindUserByUserName(userName string) (model.User, int, error) {
 func FindOrCreateUser(username string) (model.User, int, error) {
 	var user model.User
 	if db.ORM.Where("username=?", username).First(&user).RecordNotFound() {
-		var user model.User
-		user.Username = username
-		log.Debugf("user %+v\n", user)
-		if db.ORM.Create(&user).Error != nil {
-			return user, http.StatusBadRequest, errors.New("User is not created.")
+		var newUser model.User
+		newUser.Username = username
+		log.Debugf("user %+v\n", newUser)
+		if db.ORM.Create(&newUser).Error != nil {
+			return newUser, http.StatusBadRequest, errors.New("user not created")
 		}
-		log.Debugf("retrived User %v\n", user)
-		return user, http.StatusOK, nil
+		log.Debugf("retrieved User %v\n", newUser)
+		return newUser, http.StatusOK, nil
 	}
 	return user, http.StatusBadRequest, nil
 }

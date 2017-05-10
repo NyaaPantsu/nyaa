@@ -8,7 +8,5 @@ const (
 
 	// TODO: deprecate this and move all files to the same server
 	TorrentCacheLink = "http://anicache.com/torrent/%s.torrent"
-	
-	//disable uploads by default
-	UploadsDisabled = 1
+	UploadsDisabled  = true
 )
