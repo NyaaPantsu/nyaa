@@ -64,13 +64,13 @@ type LoginForm struct {
 
 // UserForm is used when updating a user.
 type UserForm struct {
-	Username        string `form:"username" needed:"true" len_min:"3" len_max:"20"`
-	Email           string `form:"email" needed:"true"`
-	Language        string `form:"language" default:"en-us"`
-	CurrentPassword string `form:"password" len_min:"6" len_max:"25" omit:"true"`
-	Password        string `form:"password" len_min:"6" len_max:"25" equalInput:"ConfirmPassword"`
-	ConfirmPassword string `form:"password_confirmation" omit:"true"`
-	Status          int    `form:"language" default:"0"`
+	Username  string `form:"username" needed:"true" len_min:"3" len_max:"20"`
+ 	Email     string `form:"email" needed:"true"`
+ 	Language  string `form:"language" default:"en-us"`
+ 	CurrentPassword  string `form:"current_password" len_min:"6" len_max:"25" omit:"true"`
+	Password  string `form:"password" len_min:"6" len_max:"25" equalInput:"Confirm_Password"`
+ 	Confirm_Password string `form:"password_confirmation" omit:"true"`
+	Status 	  int `form:"status" default:"0"`
 }
 
 // PasswordForm is used when updating a user password.

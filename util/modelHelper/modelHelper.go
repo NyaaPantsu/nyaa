@@ -92,7 +92,7 @@ func ValidateForm(form interface{}, errorForm map[string][]string) map[string][]
 			if tag.Get("needed") != "" && formElem.Field(i).String() == "" {
 				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Field needed: %s", inputName))
 			}
-			if tag.Get("default") != "" {
+			if formElem.Field(i).String() == "" && tag.Get("default") != "" {
 				formElem.Field(i).SetString(tag.Get("default"))
 			}
 		case "int":
@@ -105,7 +105,7 @@ func ValidateForm(form interface{}, errorForm map[string][]string) map[string][]
 			if tag.Get("needed") != "" && formElem.Field(i).Int() == 0 {
 				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Field needed: %s", inputName))
 			}
-			if tag.Get("default") != "" {
+			if formElem.Field(i).Interface == nil && tag.Get("default") != "" {
 				defaultValue, _ := strconv.Atoi(tag.Get("default"))
 				formElem.Field(i).SetInt(int64(defaultValue))
 			}
@@ -119,7 +119,7 @@ func ValidateForm(form interface{}, errorForm map[string][]string) map[string][]
 			if tag.Get("needed") != "" && formElem.Field(i).Float() == 0 {
 				errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Field needed: %s", inputName))
 			}
-			if tag.Get("default") != "" {
+			if formElem.Field(i).Interface == nil && tag.Get("default") != "" {
 				defaultValue, _ := strconv.Atoi(tag.Get("default"))
 				formElem.Field(i).SetFloat(float64(defaultValue))
 			}
@@ -129,10 +129,6 @@ func ValidateForm(form interface{}, errorForm map[string][]string) map[string][]
 				if formElem.Field(i).Bool() != equal {
 					errorForm[tag.Get("form")] = append(errorForm[tag.Get("form")], fmt.Sprintf("Wrong value for the input: %s", inputName))
 				}
-			}
-			if tag.Get("default") != "" {
-				defaultValue, _ := strconv.ParseBool(tag.Get("default"))
-				formElem.Field(i).SetBool(defaultValue)
 			}
 		}
 	}
