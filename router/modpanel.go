@@ -52,10 +52,6 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 		comments, _ := commentService.GetAllComments(offset, 0, "", "")
 		torrentReports, _, _ := reportService.GetAllTorrentReports(offset, 0)
 
-		for i, report := range torrentReports { //shit fix pls fix model
-			torrentReports[i].Torrent, _ = torrentService.GetTorrentById(fmt.Sprint(report.TorrentID))
-		}
-
 		fmt.Println(torrentReports)
 		languages.SetTranslationFromRequest(panelIndex, r, "en-us")
 		htv := PanelIndexVbs{torrents, torrentReports, users, comments, NewSearchForm(), currentUser, r.URL}
@@ -117,9 +113,6 @@ func TorrentReportListPanel(w http.ResponseWriter, r *http.Request) {
 		offset := 100
 
 		torrentReports, nbReports, _ := reportService.GetAllTorrentReports(offset, (pagenum-1)*offset)
-		for i, report := range torrentReports { //shit fix pls fix the model
-			torrentReports[i].Torrent, _ = torrentService.GetTorrentById(fmt.Sprint(report.TorrentID))
-		}
 
 		reportJSON := model.TorrentReportsToJSON(torrentReports)
 		languages.SetTranslationFromRequest(panelUserList, r, "en-us")
