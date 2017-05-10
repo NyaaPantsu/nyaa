@@ -104,7 +104,8 @@ td {
 
 .comment-row td:first-of-type {
 	vertical-align: top;
-	text-align: right;
+	text-align: left;
+	color:#bbb;
 }
 
 /* Table style & fixes */
