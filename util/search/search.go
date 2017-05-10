@@ -110,7 +110,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 			parameters.Params = append(parameters.Params, string(catString[2]))
 		}
 		if search.Status != 0 {
-			if search.Status == 3 {
+			if search.Status == common.FilterRemakes {
 				conditions = append(conditions, "status != ?")
 			} else {
 				conditions = append(conditions, "status = ?")
