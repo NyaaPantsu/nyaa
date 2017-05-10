@@ -34,6 +34,7 @@ type Torrent struct {
 	Filesize    int64     `gorm:"column:filesize"`
 	Description string    `gorm:"column:description"`
 	WebsiteLink string    `gorm:"column:website_link"`
+	DeletedAt *time.Time
 
 	Uploader    *User        `gorm:"ForeignKey:UploaderId"`
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
