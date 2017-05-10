@@ -174,7 +174,7 @@ func CreateWhereParams(conditions string, params ...string) WhereParams {
 }
 
 func DeleteTorrent(id string) (int, error) {
-	var torrent model.Torrents
+	var torrent model.Torrent
 	if db.ORM.First(&torrent, id).RecordNotFound() {
 		return http.StatusNotFound, errors.New("Torrent is not found.")
 	}
@@ -184,7 +184,7 @@ func DeleteTorrent(id string) (int, error) {
 	return http.StatusOK, nil
 }
 
-func UpdateTorrent(torrent model.Torrents) (int, error) {
+func UpdateTorrent(torrent model.Torrent) (int, error) {
 	if db.ORM.Save(torrent).Error != nil {
 		return http.StatusInternalServerError, errors.New("Torrent is not updated.")
 	}
