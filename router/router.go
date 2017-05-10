@@ -39,6 +39,18 @@ func init() {
 	gzipUserFollowHandler := handlers.CompressHandler(http.HandlerFunc(UserFollowHandler))
 	gzipUserProfileFormHandler := handlers.CompressHandler(http.HandlerFunc(UserProfileFormHandler))
 
+
+	gzipIndexModPanel := handlers.CompressHandler(http.HandlerFunc(IndexModPanel))
+	gzipTorrentsListPanel := handlers.CompressHandler(http.HandlerFunc(TorrentsListPanel))
+	gzipUsersListPanel := handlers.CompressHandler(http.HandlerFunc(UsersListPanel))
+	gzipCommentsListPanel := handlers.CompressHandler(http.HandlerFunc(CommentsListPanel))
+	gzipTorrentEditModPanel := handlers.CompressHandler(http.HandlerFunc(TorrentEditModPanel))
+	gzipTorrentPostEditModPanel := handlers.CompressHandler(http.HandlerFunc(TorrentPostEditModPanel))
+	gzipCommentDeleteModPanel := handlers.CompressHandler(http.HandlerFunc(CommentDeleteModPanel))
+	gzipTorrentDeleteModPanel := handlers.CompressHandler(http.HandlerFunc(TorrentDeleteModPanel))
+
+
+
 	Router = mux.NewRouter()
 
 	// Routes
@@ -68,6 +80,17 @@ func init() {
 	Router.Handle("/user/{id}/{username}", gzipUserProfileHandler).Name("user_profile").Methods("GET")
 	Router.Handle("/user/{id}/{username}/follow", gzipUserFollowHandler).Name("user_follow").Methods("GET")
 	Router.Handle("/user/{id}/{username}", gzipUserProfileFormHandler).Name("user_profile").Methods("POST")
+
+	Router.Handle("/mod/", gzipIndexModPanel).Name("mod_index")
+	Router.Handle("/mod/torrents", gzipTorrentsListPanel).Name("mod_tlist")
+	Router.Handle("/mod/users", gzipUsersListPanel).Name("mod_ulist")
+	Router.Handle("/mod/comments", gzipCommentsListPanel).Name("mod_clist")
+	Router.Handle("/mod/torrent/", gzipTorrentEditModPanel).Name("mod_tedit")
+	Router.Handle("/mod/torrent/", gzipTorrentPostEditModPanel).Name("mod_ptedit")
+	Router.Handle("/mod/torrent/delete", gzipCommentDeleteModPanel).Name("mod_tdelete")
+	Router.Handle("/mod/comment/delete", gzipTorrentDeleteModPanel).Name("mod_cdelete")
+
+
 	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
 
 	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
