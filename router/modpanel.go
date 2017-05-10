@@ -62,10 +62,11 @@ func UsersListPanel(w http.ResponseWriter, r *http.Request) {
 		page, _ := strconv.Atoi(r.URL.Query().Get("p"))
 		offset := 100
 
-		users := userService.RetrieveUsersForAdmin(page*offset, offset)
+		users := userService.RetrieveUsersForAdmin(offset, page*offset)
 		languages.SetTranslationFromRequest(panelUserList, r, "en-us")
 		htv := PanelUserListVbs{users}
-		_ = panelUserList.ExecuteTemplate(w, "admin_index.html", htv)
+		err := panelUserList.ExecuteTemplate(w, "admin_index.html", htv)
+		fmt.Println(err)
 	}
 }
 func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
@@ -74,10 +75,11 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 		page, _ := strconv.Atoi(r.URL.Query().Get("p"))
 		offset := 100
 
-		comments := commentService.GetAllComments(page*offset, offset)
+		comments := commentService.GetAllComments(offset, page * offset)
 		languages.SetTranslationFromRequest(panelCommentList, r, "en-us")
 		htv := PanelCommentListVbs{comments}
-		_ = panelCommentList.ExecuteTemplate(w, "admin_index.html", htv)
+		err := panelCommentList.ExecuteTemplate(w, "admin_index.html", htv)
+		fmt.Println(err)
 	}
 
 }
@@ -88,7 +90,8 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 		torrent, _ := torrentService.GetTorrentById(id)
 		languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
 		htv := PanelTorrentEdVbs{torrent}
-		_ = panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
+		err := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
+		fmt.Println(err)
 	}
 
 }
