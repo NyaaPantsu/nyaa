@@ -19,7 +19,7 @@ func CreateTorrentReport(torrentReport model.TorrentReport) error {
 	return nil
 }
 
-func DeleteTorrentReport(id int) (error, int) {
+func DeleteTorrentReport(id uint) (error, int) {
 	var torrentReport model.TorrentReport
 	if db.ORM.First(&torrentReport, id).RecordNotFound() {
 		return errors.New("Trying to delete a torrent report that does not exists."), http.StatusNotFound
