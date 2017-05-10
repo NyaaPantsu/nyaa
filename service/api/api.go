@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/service/torrent"
+	"github.com/ewhal/nyaa/service"
 )
 
 type torrentsQuery struct {
@@ -40,8 +40,8 @@ type UpdateRequest struct {
 	Update TorrentRequest `json:"update"`
 }
 
-func (r *TorrentsRequest) ToParams() torrentService.WhereParams {
-	res := torrentService.WhereParams{}
+func (r *TorrentsRequest) ToParams() serviceBase.WhereParams {
+	res := serviceBase.WhereParams{}
 	conditions := ""
 	v := reflect.ValueOf(r.Query)
 

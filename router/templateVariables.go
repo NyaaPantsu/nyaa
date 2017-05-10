@@ -116,48 +116,48 @@ type UploadTemplateVariables struct {
 /* MODERATION Variables */
 
 type PanelIndexVbs struct {
-	Torrents []model.Torrent
+	Torrents       []model.Torrent
 	TorrentReports []model.TorrentReport
-	Users    []model.User
-	Comments []model.Comment
-	Search       SearchForm
-	User       *model.User
-	URL          *url.URL   // For parsing Url in templates
+	Users          []model.User
+	Comments       []model.Comment
+	Search         SearchForm
+	User           *model.User
+	URL            *url.URL // For parsing Url in templates
 }
 
 type PanelTorrentListVbs struct {
-	Torrents  []model.Torrent
-	Search       SearchForm
+	Torrents   []model.Torrent
+	Search     SearchForm
 	Navigation Navigation
 	User       *model.User
-	URL          *url.URL   // For parsing Url in templates
+	URL        *url.URL // For parsing Url in templates
 }
 type PanelUserListVbs struct {
-	Users  []model.User
-	Search       SearchForm
+	Users      []model.User
+	Search     SearchForm
 	Navigation Navigation
 	User       *model.User
-	URL          *url.URL   // For parsing Url in templates
+	URL        *url.URL // For parsing Url in templates
 }
 type PanelCommentListVbs struct {
-	Comments  []model.Comment
-	Search       SearchForm
+	Comments   []model.Comment
+	Search     SearchForm
 	Navigation Navigation
 	User       *model.User
-	URL          *url.URL   // For parsing Url in templates
+	URL        *url.URL // For parsing Url in templates
 }
 type PanelTorrentEdVbs struct {
 	Torrent model.Torrent
-	Search       SearchForm
-	User       *model.User
+	Search  SearchForm
+	User    *model.User
 }
 
-type ViewTorrentReportsVariables struct {
-	Torrents []model.TorrentReportJson
-	Search       SearchForm
+type PanelTorrentReportListVbs struct {
+	Torrents   []model.TorrentReportJson
+	Search     SearchForm
 	Navigation Navigation
 	User       *model.User
-	URL          *url.URL   // For parsing Url in templates
+	URL        *url.URL // For parsing Url in templates
 }
 
 /*
