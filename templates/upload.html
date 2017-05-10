@@ -40,7 +40,10 @@
               <option value="1_1" {{if eq .Category "1_1"}}selected{{end}}>{{T "software_applications"}}</option>
               <option value="1_2" {{if eq .Category "1_2"}}selected{{end}}>{{T "software_games"}}</option>
           </select>
-
+      </div>
+      <div class="form-group">
+      	  <input type="checkbox" name="remake">
+          <label for="remake">{{T "mark_as_remake"}}</label>
       </div>
 
       <div class="form-group">
