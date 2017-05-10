@@ -17,6 +17,7 @@ import (
 	"github.com/ewhal/nyaa/service/user/permission"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/modelHelper"
+	"github.com/gorilla/mux"
 )
 
 var panelIndex, panelTorrentList, panelUserList, panelCommentList, panelTorrentEd *template.Template
@@ -34,11 +35,11 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 	if userPermission.HasAdmin(currentUser) {
 		offset := 10
 
-		torrents, _, _ := torrentService.GetAllTorrents(0, offset)
-		users, _ := userService.RetrieveUsersForAdmin(0, offset)
-		comments, _ := commentService.GetAllComments(0, offset, "", "")
+		torrents, _, _ := torrentService.GetAllTorrents(offset, 0)
+		users, _ := userService.RetrieveUsersForAdmin(offset, 0)
+		comments, _ := commentService.GetAllComments(offset, 0, "", "")
 		languages.SetTranslationFromRequest(panelIndex, r, "en-us")
-		htv := PanelIndexVbs{torrents, users, comments}
+		htv := PanelIndexVbs{torrents, users, comments, r.URL}
 		_ = panelIndex.ExecuteTemplate(w, "admin_index.html", htv)
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
@@ -47,12 +48,13 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	if userPermission.HasAdmin(currentUser) {
-		page, _ := strconv.Atoi(r.URL.Query().Get("p"))
+		vars := mux.Vars(r)
+		page, _ := strconv.Atoi(vars["page"])
 		offset := 100
 
 		torrents, nbTorrents, _ := torrentService.GetAllTorrents(offset, page * offset)
 		languages.SetTranslationFromRequest(panelTorrentList, r, "en-us")
-		htv := PanelTorrentListVbs{torrents, Navigation{nbTorrents, offset, page, "mod_tlist_page"}}
+		htv := PanelTorrentListVbs{torrents, Navigation{nbTorrents, offset, page, "mod_tlist_page"}, r.URL}
 		err := panelTorrentList.ExecuteTemplate(w, "admin_index.html", htv)
 		fmt.Println(err)
 	} else {
@@ -63,12 +65,13 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 func UsersListPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	if userPermission.HasAdmin(currentUser) {
-		page, _ := strconv.Atoi(r.URL.Query().Get("p"))
+		vars := mux.Vars(r)
+		page, _ := strconv.Atoi(vars["page"])
 		offset := 100
 
 		users, nbUsers := userService.RetrieveUsersForAdmin(offset, page*offset)
 		languages.SetTranslationFromRequest(panelUserList, r, "en-us")
-		htv := PanelUserListVbs{users, Navigation{nbUsers, offset, page, "mod_ulist_page"}}
+		htv := PanelUserListVbs{users, Navigation{nbUsers, offset, page, "mod_ulist_page"}, r.URL}
 		err := panelUserList.ExecuteTemplate(w, "admin_index.html", htv)
 		fmt.Println(err)
 	} else {
@@ -78,7 +81,8 @@ func UsersListPanel(w http.ResponseWriter, r *http.Request) {
 func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	if userPermission.HasAdmin(currentUser) {
-		page, _ := strconv.Atoi(r.URL.Query().Get("p"))
+		vars := mux.Vars(r)
+		page, _ := strconv.Atoi(vars["page"])
 		offset := 100
 		userid := r.URL.Query().Get("userid")
 		var conditions string
@@ -89,7 +93,7 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 		}
 		comments, nbComments := commentService.GetAllComments(offset, page * offset, conditions, values...)
 		languages.SetTranslationFromRequest(panelCommentList, r, "en-us")
-		htv := PanelCommentListVbs{comments, Navigation{nbComments, offset, page, "mod_clist_page"}}
+		htv := PanelCommentListVbs{comments, Navigation{nbComments, offset, page, "mod_clist_page"}, r.URL}
 		err := panelCommentList.ExecuteTemplate(w, "admin_index.html", htv)
 		fmt.Println(err)
 	} else {

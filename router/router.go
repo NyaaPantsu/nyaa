@@ -87,7 +87,7 @@ func init() {
 	Router.Handle("/mod/torrents", gzipTorrentsListPanel).Name("mod_tlist")
 	Router.Handle("/mod/torrents/{page}", gzipTorrentsListPanel).Name("mod_tlist_page")
 	Router.Handle("/mod/users", gzipUsersListPanel).Name("mod_ulist")
-	Router.Handle("/mod/users/{page}", gzipUsersListPanel).Name("mod_ulist")
+	Router.Handle("/mod/users/{page}", gzipUsersListPanel).Name("mod_ulist_page")
 	Router.Handle("/mod/comments", gzipCommentsListPanel).Name("mod_clist")
 	Router.Handle("/mod/comments/{page}", gzipCommentsListPanel).Name("mod_clist_page")
 	Router.Handle("/mod/comment", gzipCommentsListPanel).Name("mod_cedit") // TODO
