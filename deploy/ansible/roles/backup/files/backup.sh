@@ -24,7 +24,9 @@ gpg2 --batch --yes --passphrase-fd 0 \
      --output "${signature_file}" \
      --detach-sig "${compressed_dump_file}" < "${NYAAPANTSU_PASSPHRASE_FILE}"
 
-mktorrent -a "${NYAAPANTSU_TRACKER}" "${compressed_dump_file}" "${signature_file}"
+mktorrent -a "${NYAAPANTSU_TRACKER}" \
+          -c "Official nyaapantsu database release ($(date +'%Y-%m-%d'))" \
+          "${compressed_dump_file}" "${signature_file}"
 
 mv "${compressed_dump_file}" "${signature_file}" "${NYAAPANTSU_DOWNLOADED_DIR}"
 mv "${compressed_dump_file}.torrent" "${NYAAPANTSU_WATCH_DIR}/"

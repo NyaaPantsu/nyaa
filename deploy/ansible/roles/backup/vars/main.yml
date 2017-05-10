@@ -4,3 +4,4 @@ backup_cron_job: /etc/cron.d/nyaapantsu_backup
 torrent_tracker: udp://tracker.doko.moe:6969
 torrent_downloaded_directory: ~/downloaded/
 torrent_watch_directory: ~/watch/
+torrent_port_range: 49164-49164
