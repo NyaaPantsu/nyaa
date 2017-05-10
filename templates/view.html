@@ -1,38 +1,35 @@
-{{define "title"}}{{.Torrent.Name}}{{end}}
-{{define "contclass"}}cont-view{{end}}
-{{define "content"}}
-  <div class="blockBody">
-  {{with .Torrent}}
-  <hr>
-          <table class="table table-borderless">
-              <tr {{if eq .Status 2}}class="remake"{{end}}
-                  {{if eq .Status 3}}class="trusted"{{end}}
-                  {{if eq .Status 4}}class="aplus"{{end}}>
-                  <td>{{T "name"}}</td>
-                  <td>
-                      {{.Name}}
-                      <img style="float:right" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .Sub_Category) }}">
-                  </td>
-              </tr>
-              <tr>
-                  <td>{{T "hash"}}</td>
-                  <td class="torrent-hash">{{.Hash}}</td>
-              </tr>
-              <tr>
-                  <td>{{T "date"}}</td>
-                  <td class="date-full">{{.Date}}</td>
-              </tr>
-              <tr>
-                  <td>{{T "size"}}</td>
-                  <td>{{.Filesize}}</td>
-              </tr>
-              <tr>
-                  <td>Uploader</td>
-                  <td><a href="{{$.URL.Parse (printf "/user/%d/-" .UploaderId) }}">{{.UploaderName}}</a></td>
-              {{if ne .WebsiteLink ""}}
-              <tr>
-                  <td>{{T "Link"}}</td>
-                  <td><a href="{{.WebsiteLink}}">{{.WebsiteLink}}</td>
+{{define "title"}}{{.Torrent.Name}}{{end}} {{define "contclass"}}cont-view{{end}} {{define "content"}}
+<div class="blockBody">
+    {{with .Torrent}}
+    <hr>
+    <table class="table table-borderless">
+        <tr {{if eq .Status 2}}class="remake" {{end}} {{if eq .Status 3}}class="trusted" {{end}} {{if eq .Status 4}}class="aplus"
+            {{end}}>
+            <td>{{T "name"}}</td>
+            <td>
+                {{.Name}}
+                <img style="float:right" src="{{$.URL.Parse (printf " /img/torrents/%s.png " .Sub_Category) }}">
+            </td>
+        </tr>
+        <tr>
+            <td>{{T "hash"}}</td>
+            <td class="torrent-hash">{{.Hash}}</td>
+        </tr>
+        <tr>
+            <td>{{T "date"}}</td>
+            <td class="date-full">{{.Date}}</td>
+        </tr>
+        <tr>
+            <td>{{T "size"}}</td>
+            <td>{{.Filesize}}</td>
+        </tr>
+        <tr>
+            <td>Uploader</td>
+            <td><a href="{{$.URL.Parse (printf " /user/%d/- " .UploaderId) }}">{{.UploaderName}}</a></td>
+            {{if ne .WebsiteLink ""}}
+            <tr>
+                <td>{{T "Link"}}</td>
+                <td><a href="{{.WebsiteLink}}">{{.WebsiteLink}}</td>
               </tr>
               {{end}}
               <tr>
@@ -41,44 +38,71 @@
                       <a aria-label="Magnet Button" href="{{.Magnet}}" type="button" class="btn btn-success download-btn">
                           <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> Download!
                       </a>
-                      <a style="padding-left: 0.5em"></a>
-                      {{if ne .TorrentLink ""}}
-                      <a aria-label="Torrent file" href="{{.TorrentLink}}" type="button" class="btn btn-success download-btn">
+                    <a style="padding-left: 0.5em"></a> {{if ne .TorrentLink ""}}
+                    <a aria-label="Torrent file" href="{{.TorrentLink}}" type="button" class="btn btn-success download-btn">
                           <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Torrent file
                       </a>
-                      {{end}}
-                  </td>
-              </tr>
-              <tr>
-                  <td>{{T "description"}}</td>
-                  <td>{{.Description}}</td>
-              </tr>
-              <tr style="height:2em"> <td></td><td></td> </tr>
-              <tr>
-                  <td>{{T "comments"}}</td>
-                  <td></td>
-              </tr>
-              {{ range $index, $element := .Comments }}
-              <tr class="comment-row" id="comment_{{$index}}">
-                  <td>
-                    <a href="#comment_{{$index}}">{{$index}}</a>
-                    {{.Username}}
-                  </td>
-                  <td>{{.Content}}</td>
-              </tr>
-              {{end}}
-          </table>
-      {{end}}
-          <form method="post">
-              <div class="form-group">
-                  {{/* There should be a better way to use translation on this... */}}
-                  <label for="comment">{{ if gt .User.Id 0}} {{T "submit_a_comment_as_username" .User.Username}} {{else}} {{T "submit_a_comment_as_anonymous"}} {{end}}</label>
-                  <textarea name="comment" class="form-control" rows="5"></textarea>
-              </div>
-              {{with .Captcha}}
-              {{block "captcha" .}}{{end}}
-              {{end}}
-              <input type="submit" value="{{T "submit"}}">
-          </form>
-      </div>
+                    <a aria-label="Report button" href="{{.TorrentLink}}" type="button" data-toggle="modal" data-target="#reportModal" class="btn btn-danger download-btn">
+                          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Report!
+                      </a> {{end}}
+                </td>
+            </tr>
+            <tr>
+                <td>{{T "description"}}</td>
+                <td>{{.Description}}</td>
+            </tr>
+            <tr style="height:2em">
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>{{T "comments"}}</td>
+                <td></td>
+            </tr>
+            {{ range $index, $element := .Comments }}
+            <tr class="comment-row" id="comment_{{$index}}">
+                <td>
+                    <a href="#comment_{{$index}}">{{$index}}</a> {{.Username}}
+                </td>
+                <td>{{.Content}}</td>
+            </tr>
+            {{end}}
+    </table>
+    {{end}}
+    <form method="post">
+        <div class="form-group">
+            {{/* There should be a better way to use translation on this... */}}
+            <label for="comment">{{ if gt .User.Id 0}} {{T "submit_a_comment_as_username" .User.Username}} {{else}} {{T "submit_a_comment_as_anonymous"}} {{end}}</label>
+            <textarea name="comment" class="form-control" rows="5"></textarea>
+        </div>
+        {{with .Captcha}} {{block "captcha" .}}{{end}} {{end}}
+        <input type="submit" value="{{T " submit "}}">
+    </form>
+</div>
+{{with .Torrent}}
+<div id="reportModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Report Torrent #{{.Id}}</h4>
+            </div>
+            {{end}}
+            <div class="modal-body">
+                <b>Report type:</b>
+                <form action="">
+                    <input type="radio" name="report" value="illegal"> Illegal content <br/>
+                    <input type="radio" name="report" value="spam"> Spam / garbage
+                </form> <br />
+                {{with .Captcha}} {{block "captcha" .}}{{end}} {{end}}
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-default">Report!</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 {{end}}
