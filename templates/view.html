@@ -53,9 +53,6 @@
                     <a aria-label="Report button" href="{{.TorrentLink}}" type="button" data-toggle="modal" data-target="#reportModal" class="btn btn-danger download-btn">
                           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Report!
                       </a>
-                      {{ if HasAdmin $.User}}
-                      <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>{{ T "delete" }}</a>
-                      {{end}}
                 </td>
             </tr>
             <tr>
