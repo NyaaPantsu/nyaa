@@ -25,3 +25,17 @@ func CreateHTTPListener(conf *config.Config) (l net.Listener, err error) {
 	}
 	return
 }
+
+// CreateScraperSocket creates a UDP Scraper socket
+func CreateScraperSocket(conf *config.Config) (pc net.PacketConn, err error) {
+	if conf.I2P == nil {
+		var laddr *net.UDPAddr
+		laddr, err = net.ResolveUDPAddr("udp", conf.Scrape.Addr)
+		if err == nil {
+			pc, err = net.ListenUDP("udp", laddr)
+		}
+	} else {
+		log.Fatal("i2p udp scraper not supported")
+	}
+	return
+}
