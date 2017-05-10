@@ -46,9 +46,7 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	content := p.Sanitize(r.FormValue("comment"))
 
 	idNum, err := strconv.Atoi(id)
-	if currentUser.ID <= 0 {
-		http.Error(w, "Invalid user ID", http.StatusInternalServerError)
-	}
+
 	userID := currentUser.ID
 	comment := model.Comment{TorrentID: uint(idNum), UserID: userID, Content: content, CreatedAt: time.Now()}
 	
