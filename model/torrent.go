@@ -37,6 +37,7 @@ type Torrent struct {
 	DeletedAt   *time.Time
 
 	Uploader    *User        `gorm:"ForeignKey:UploaderId"`
+	OldUploader string       `gorm:"-"` // ???????
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
 }
@@ -109,6 +110,7 @@ type TorrentJSON struct {
 	Downloads    int           `json:"downloads"`
 	UploaderID   uint          `json:"uploader_id"`
 	UploaderName template.HTML `json:"uploader_name"`
+	OldUploader  template.HTML `json:"uploader_old"`
 	WebsiteLink  template.URL  `json:"website_link"`
 	Magnet       template.URL  `json:"magnet"`
 	TorrentLink  template.URL  `json:"torrent"`
@@ -163,6 +165,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Downloads:    t.Downloads,
 		UploaderID:   t.UploaderID,
 		UploaderName: util.SafeText(uploader),
+		OldUploader:  util.SafeText(t.OldUploader),
 		WebsiteLink:  util.Safe(t.WebsiteLink),
 		Magnet:       util.Safe(magnet),
 		TorrentLink:  util.Safe(torrentlink)}

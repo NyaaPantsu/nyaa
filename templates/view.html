@@ -28,7 +28,12 @@
               </tr>
               <tr>
                   <td>Uploader</td>
-                  <td><a href="{{$.URL.Parse (printf "/user/%d/-" .UploaderID) }}">{{.UploaderName}}</a></td>
+                  <td>
+                      <a href="{{$.URL.Parse (printf "/user/%d/-" .UploaderID) }}">{{.UploaderName}}</a>
+                      {{if ne .OldUploader ""}}
+                      ({{.OldUploader}})
+                      {{end}}
+                  </td>
               {{if ne .WebsiteLink ""}}
               <tr>
                   <td>{{T "Link"}}</td>

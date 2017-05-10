@@ -73,6 +73,13 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 	// (or maybe I'm just retarded)
 	torrent.Uploader = new(model.User)
 	db.ORM.Where("user_id = ?", torrent.UploaderID).Find(torrent.Uploader)
+	torrent.OldUploader = ""
+	if torrent.ID <= config.LastOldTorrentID {
+		var tmp model.UserUploadsOld
+		if !db.ORM.Where("torrent_id = ?", torrent.ID).Find(&tmp).RecordNotFound() {
+			torrent.OldUploader = tmp.Username
+		}
+	}
 	for i := range torrent.Comments {
 		torrent.Comments[i].User = new(model.User)
 		err = db.ORM.Where("user_id = ?", torrent.Comments[i].UserID).Find(torrent.Comments[i].User).Error
