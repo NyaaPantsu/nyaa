@@ -1,6 +1,14 @@
 {{define "title"}}Torrents List{{end}}
+{{define "contclass"}}cont-view{{end}}
 {{define "content"}}
+<div class="blockBody">
 <table class="table">
+<tr>
+    <th class="col-xs-10">Torrent Name</th>
+    <th class="col-xs-1">Uploader</th>
+    <th class="col-xs-1">Action</th>
+</tr>
+
 {{ range .Torrents}}
 
 <tr><td><a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">{{ .Name }}</a></td><td><a href="{{ genRoute "mod_tlist" }}?userid={{.UploaderID}}">{{ .UploaderID }}</a></td>
@@ -12,4 +20,5 @@
               {{ genNav .Navigation .URL 5 }}
           </ul>
       </nav>
+</div>
 {{end}}
