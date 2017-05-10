@@ -40,6 +40,17 @@ type Torrent struct {
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
 }
 
+// TODO Add field to specify kind of reports
+// TODO Add CreatedAt field
+// INFO User can be null (anonymous reports)
+// FIXME  can't preload field Torrents for model.TorrentReport
+type TorrentReport struct {
+	ID          uint     `gorm:"column:torrent_report_id;primary_key"`
+	Description string   `gorm:"description"`
+	Torrent     Torrent  `gorm:"ForeignKey:Id"`
+	User        User     `gorm:"ForeignKey:Id"`
+}
+
 /* We need a JSON object instead of a Gorm structure because magnet URLs are
    not in the database and have to be generated dynamically */
 
@@ -72,6 +83,20 @@ type TorrentJSON struct {
 	WebsiteLink  template.URL  `json:"website_link"`
 	Magnet       template.URL  `json:"magnet"`
 	TorrentLink  template.URL  `json:"torrent"`
+}
+
+type TorrentReportJson struct {
+	ID          uint     `json:"id"`
+	Description string   `json:"description"`
+	Torrent     Torrent  `json:"torrent"`
+	User        User     `json:"user"`
+}
+
+/* Model Conversion to Json */
+
+func (report *TorrentReport) ToJson() TorrentReportJson {
+	json := TorrentReportJson{report.ID, report.Description, report.Torrent, report.User}
+	return json
 }
 
 // ToJSON converts a model.Torrent to its equivalent JSON structure
@@ -123,6 +148,14 @@ func TorrentsToJSON(t []Torrent) []TorrentJSON { // TODO: Convert to singular ve
 	json := make([]TorrentJSON, len(t))
 	for i := range t {
 		json[i] = t[i].ToJSON()
+	}
+	return json
+}
+
+func TorrentReportsToJSON(reports []TorrentReport) []TorrentReportJson {
+	json := make([]TorrentReportJson, len(reports))
+	for i := range reports {
+		json[i] = reports[i].ToJson()
 	}
 	return json
 }

@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<html>
+    {{ range .TorrentReport }}
+      {{ .ID }} {{ .Description }} {{ .User }}
+    {{end}}
+</html>
