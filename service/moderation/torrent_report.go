@@ -22,17 +22,19 @@ func DeleteTorrentReport(id int) (int, error) {
 		return http.StatusNotFound, errors.New("Trying to delete a torrent report that does not exists.")
 	}
 	if db.ORM.Delete(&torrentReport).Error != nil {
-		return http.StatusInternalServerError, errors.New("User is not deleted.")
+		return http.StatusInternalServerError, errors.New("TorrentReport is not deleted.")
 	}
 	return http.StatusOK, nil
 }
 
 // TODO Add WhereParams to filter the torrent reports (ie: searching description)
 // TODO Use limit, offset
-func GetTorrentReports() ([]model.TorrentReport, error) {
+func GetTorrentReports(limit int, offset int, conditions string, values ...interface{}) ([]model.TorrentReport, int, error) {
 	var torrentReports []model.TorrentReport
+	var nbReports int
+	db.ORM.Model(&torrentReports).Where(conditions, values...).Count(&nbReports)
 	if db.ORM.Preload("User").Preload("Torrent").Find(&torrentReports).Error != nil {
-		return nil, errors.New("Problem finding all torrent reports.")
+		return torrentReports, nbReports, errors.New("Problem finding all torrent reports.")
 	}
-	return torrentReports, nil
+	return torrentReports, nbReports, nil
 }

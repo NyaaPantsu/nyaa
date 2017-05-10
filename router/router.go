@@ -106,6 +106,7 @@ func init() {
 	//Router.Handle("/moderation/report/delete", gzipTorrentReportDeleteHandler).Name("torrent_report_delete").Methods("POST")
 	//Router.Handle("/moderation/torrent/delete", gzipTorrentDeleteHandler).Name("torrent_delete").Methods("POST")
 	Router.Handle("/mod/reports", gzipGetTorrentReportHandler).Name("torrent_report").Methods("GET")
+	Router.Handle("/mod/reports/{page}", gzipGetTorrentReportHandler).Name("mod_trlist").Methods("GET")
 
 	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
 }

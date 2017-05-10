@@ -7,7 +7,7 @@ import (
 
 var TemplateDir = "templates"
 
-var torrentReportTemplate, homeTemplate, searchTemplate, faqTemplate, uploadTemplate, viewTemplate, viewRegisterTemplate, viewLoginTemplate, viewRegisterSuccessTemplate, viewVerifySuccessTemplate, viewProfileTemplate, viewProfileEditTemplate, viewUserDeleteTemplate, notFoundTemplate *template.Template
+var homeTemplate, searchTemplate, faqTemplate, uploadTemplate, viewTemplate, viewRegisterTemplate, viewLoginTemplate, viewRegisterSuccessTemplate, viewVerifySuccessTemplate, viewProfileTemplate, viewProfileEditTemplate, viewUserDeleteTemplate, notFoundTemplate *template.Template
 
 type templateLoader struct {
 	templ **template.Template
@@ -18,11 +18,6 @@ type templateLoader struct {
 // ReloadTemplates reloads templates on runtime
 func ReloadTemplates() {
 	templs := []templateLoader{
-		templateLoader{
-			templ: &torrentReportTemplate,
-			name:  "torrent_report",
-			file:  "torrent_report.html",
-		},
 		templateLoader{
 			templ: &homeTemplate,
 			name:  "home",

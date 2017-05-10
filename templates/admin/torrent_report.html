@@ -1,0 +1,9 @@
+{{define "title"}}Torrents Report{{end}}
+{{define "content"}}
+<table>
+<table>
+    {{ range .Torrents}}
+<tr><td><a href="{{ genRoute "mod_tedit" }}?id={{.Torrent.ID}}">{{ .Torrent.Name }}</a></td><td>{{.User.Username}}</td><td>{{.Description}}</td><td><a href="{{ genRoute "mod_tdelete" }}?id={{ .Torrent.ID }}">Delete</a></td></tr>
+    {{end}}
+</table>
+{{end}}

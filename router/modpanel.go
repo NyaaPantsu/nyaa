@@ -10,8 +10,10 @@ import (
 	"fmt"
 
 	"github.com/ewhal/nyaa/service/comment"
+	"github.com/ewhal/nyaa/service/moderation"
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/service/torrent/form"
+	"github.com/ewhal/nyaa/util/search"
 	"github.com/ewhal/nyaa/service/user"
 	form "github.com/ewhal/nyaa/service/user/form"
 	"github.com/ewhal/nyaa/service/user/permission"
@@ -20,14 +22,21 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var panelIndex, panelTorrentList, panelUserList, panelCommentList, panelTorrentEd *template.Template
+var panelIndex, panelTorrentList, panelUserList, panelCommentList, panelTorrentEd, torrentReportTemplate *template.Template
 
 func init() {
 	panelTorrentList = template.Must(template.New("torrentlist").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/torrentlist.html")))
+	panelTorrentList = template.Must(panelTorrentList.ParseGlob(filepath.Join("templates", "_*.html")))
 	panelUserList = template.Must(template.New("userlist").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/userlist.html")))
+		panelUserList = template.Must(panelUserList.ParseGlob(filepath.Join("templates", "_*.html")))
 	panelCommentList = template.Must(template.New("commentlist").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/commentlist.html")))
+		panelCommentList = template.Must(panelCommentList.ParseGlob(filepath.Join("templates", "_*.html")))
 	panelIndex = template.Must(template.New("indexPanel").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/panelindex.html")))
-	panelTorrentEd = template.Must(template.New("indexPanel").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/paneltorrentedit.html")))
+		panelIndex = template.Must(panelIndex.ParseGlob(filepath.Join("templates", "_*.html")))
+	panelTorrentEd = template.Must(template.New("torrent_ed").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/paneltorrentedit.html")))
+	panelTorrentEd = 	template.Must(panelTorrentEd.ParseGlob(filepath.Join("templates", "_*.html")))
+	torrentReportTemplate = template.Must(template.New("torrent_report").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/torrent_report.html")))
+	torrentReportTemplate = template.Must(torrentReportTemplate.ParseGlob(filepath.Join("templates", "_*.html")))
 }
 
 func IndexModPanel(w http.ResponseWriter, r *http.Request) {
@@ -38,8 +47,9 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 		torrents, _, _ := torrentService.GetAllTorrents(offset, 0)
 		users, _ := userService.RetrieveUsersForAdmin(offset, 0)
 		comments, _ := commentService.GetAllComments(offset, 0, "", "")
+		torrentReports, _, _ := moderationService.GetTorrentReports(offset,0, "", "")
 		languages.SetTranslationFromRequest(panelIndex, r, "en-us")
-		htv := PanelIndexVbs{torrents, users, comments, r.URL}
+		htv := PanelIndexVbs{torrents, torrentReports,  users, comments, NewSearchForm(), currentUser, r.URL}
 		_ = panelIndex.ExecuteTemplate(w, "admin_index.html", htv)
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
@@ -52,10 +62,16 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 		page, _ := strconv.Atoi(vars["page"])
 		offset := 100
 
-		torrents, nbTorrents, _ := torrentService.GetAllTorrents(offset, page * offset)
+		searchParam, torrents, _, err := search.SearchByQuery(r, page)
+		searchForm := SearchForm{
+			SearchParam:        searchParam,
+			Category:           searchParam.Category.String(),
+			HideAdvancedSearch: false,
+		}
+
 		languages.SetTranslationFromRequest(panelTorrentList, r, "en-us")
-		htv := PanelTorrentListVbs{torrents, Navigation{nbTorrents, offset, page, "mod_tlist_page"}, r.URL}
-		err := panelTorrentList.ExecuteTemplate(w, "admin_index.html", htv)
+		htv := PanelTorrentListVbs{torrents, searchForm, Navigation{int(searchParam.Max), offset, page, "mod_tlist_page"}, currentUser, r.URL}
+		err = panelTorrentList.ExecuteTemplate(w, "admin_index.html", htv)
 		fmt.Println(err)
 	} else {
 
@@ -71,7 +87,7 @@ func UsersListPanel(w http.ResponseWriter, r *http.Request) {
 
 		users, nbUsers := userService.RetrieveUsersForAdmin(offset, page*offset)
 		languages.SetTranslationFromRequest(panelUserList, r, "en-us")
-		htv := PanelUserListVbs{users, Navigation{nbUsers, offset, page, "mod_ulist_page"}, r.URL}
+		htv := PanelUserListVbs{users, NewSearchForm(), Navigation{nbUsers, offset, page, "mod_ulist_page"}, currentUser, r.URL}
 		err := panelUserList.ExecuteTemplate(w, "admin_index.html", htv)
 		fmt.Println(err)
 	} else {
@@ -93,7 +109,7 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 		}
 		comments, nbComments := commentService.GetAllComments(offset, page * offset, conditions, values...)
 		languages.SetTranslationFromRequest(panelCommentList, r, "en-us")
-		htv := PanelCommentListVbs{comments, Navigation{nbComments, offset, page, "mod_clist_page"}, r.URL}
+		htv := PanelCommentListVbs{comments, NewSearchForm(), Navigation{nbComments, offset, page, "mod_clist_page"}, currentUser, r.URL}
 		err := panelCommentList.ExecuteTemplate(w, "admin_index.html", htv)
 		fmt.Println(err)
 	} else {
@@ -107,7 +123,7 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 		id := r.URL.Query().Get("id")
 		torrent, _ := torrentService.GetTorrentById(id)
 		languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
-		htv := PanelTorrentEdVbs{torrent}
+		htv := PanelTorrentEdVbs{torrent, NewSearchForm(), currentUser}
 		err := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 		fmt.Println(err)
 	} else {
@@ -138,7 +154,7 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
-		htv := PanelTorrentEdVbs{torrent}
+		htv := PanelTorrentEdVbs{torrent, NewSearchForm(), currentUser}
 		_ = panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
