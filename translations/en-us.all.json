@@ -574,5 +574,9 @@
   {
     "id": "renchon_anon_explanation",
     "translation": "れんちょん is the username assigned to uploads and comments made anonymously. It is also used for torrent imported from the original nyaa, though the original uploader may be displayed alongside."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Mark as remake"
   }
 ]

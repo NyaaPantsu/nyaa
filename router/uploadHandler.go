@@ -34,7 +34,9 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 			fmt.Printf("error %+v\n", err)
 		}
 		status := 1 // normal
-		if user.Status == 1 {
+		if uploadForm.Remake { // overrides trusted
+			status = 2
+		} else if user.Status == 1 {
 			status = 3 // mark as trusted if user is trusted
 		}
 		//add to db and redirect depending on result
