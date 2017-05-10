@@ -97,7 +97,7 @@
             </div>
           </div>
         </form>
-        {{ if CurrentOrAdmin $.User .Id }}
+        {{ if CurrentOrAdmin $.User .ID }}
         <hr>
         <a href="?delete" onclick="if (!confirm('{{ T "delete_account_confirm" }}')) return false;" class="btn btn-danger btn-lg"><i class="glyphicon glyphicon-trash"></i> {{ T "delete_account"}}</a>
         {{end}}
