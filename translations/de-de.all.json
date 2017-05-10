@@ -5,19 +5,19 @@
   },
   {
     "id": "verify_email_title",
-    "translation": "Bestätige deine E-Mail Adresse für Nyaapantsu."
+    "translation": "NyaaPantsu E-Mail Bestätigung."
   },
   {
     "id": "verify_email_content",
-    "translation": "Klicke unten auf den Link um deine E-Mail Adresse zu verifizieren."
+    "translation": "Klicke auf den Link um deine E-Mail zu verifizieren."
   },
   {
     "id": "reset_password_title",
-    "translation": "Setze dein nyaapantsu Passwort zurück."
+    "translation": "Setze dein NyaaPantsu Passwort zurück."
   },
   {
     "id": "reset_password_content",
-    "translation": "Klicke unten auf den Link um dein Passwort zurückzusetzen."
+    "translation": "Klicke auf den Link um dein Passwort zurückzusetzen."
   },
   {
     "id":"register_title",
@@ -25,19 +25,19 @@
   },
   {
     "id":"signup_box_title",
-    "translation": "Registriere dich <small>Es ist kostenlos und wird immer so bleiben.</small>"
+    "translation": "Registrierung <small>Es ist kostenlos und wird immer so bleiben.</small>"
   },
   {
     "id":"username",
-    "translation": "Nutzername"
+    "translation": "Benutzername"
   },
   {
     "id":"email_address_or_username",
-    "translation": "E-Mail-Adresse oder Nutzername"
+    "translation": "E-Mail oder Benutzername"
   },
   {
     "id":"email_address",
-    "translation": "E-Mail Adresse"
+    "translation": "E-Mail"
   },
   {
     "id":"password",
@@ -53,7 +53,7 @@
   },
   {
     "id":"terms_conditions_confirm",
-    "translation": "Mit Klick auf <strong class=\"label label-primary\">Registrieren</strong> stimmst du den <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Nutzungsbedingungen</a> sowie der Nutzung von Cookies zu."
+    "translation": "Mit klick auf <strong class=\"label label-primary\">Registrieren</strong> stimmst du den <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Nutzungsbedingungen</a> sowie der Nutzung von Cookies zu."
   },
   {
     "id":"signin",
@@ -73,15 +73,15 @@
   },
   {
     "id":"remember_me",
-    "translation": "Login speichern"
+    "translation": "Eingeloggt bleiben"
   },
   {
     "id":"forgot_password",
-    "translation": "Passwort vergessen?"
+    "translation": "Passwort vergessen"
   },
   {
     "id":"sign_in_box_title",
-    "translation": "Bitte logge dich ein"
+    "translation": "Bitte einloggen"
   },
   {
     "id":"sign_in_title",
@@ -101,7 +101,7 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "Geschafft, überprüfe deinen Posteingang (und Spam Ordner!) auf eine Bestätigungsmail."
+    "translation": "Geschafft! Überprüfe deinen Posteingang, auch den Spam Ordner(!) auf eine Bestätigungsmail."
   },
   {
     "id":"signup_verification_noemail",
@@ -189,7 +189,7 @@
   },
   {
     "id": "nothing_here",
-    "translation": "Nichts zu finden."
+    "translation": "Hier ist nichts"
   },
   {
     "id": "404_not_found",
@@ -229,7 +229,7 @@
   },
   {
     "id": "official_nyaapocalipse_faq",
-    "translation": "Offizielles Nyaapocalypse FAQ"
+    "translation": "Offizielle Nyaapocalypse FAQ"
   },
   {
     "id": "links_replacement_mirror",
@@ -245,7 +245,7 @@
   },
   {
     "id": "its_not_a_ddos",
-    "translation": "Die Seite wurde deaktiviert, es war kein DDoS Angriff."
+    "translation": "Die Seite wurde vom Admin selbst deaktiviert, es war kein DDoS Angriff."
   },
   {
     "id": "future_not_looking_good",
@@ -549,7 +549,7 @@
   },
   {
     "id": "profile_updated",
-    "translation": "Dein Profil wurde entsprechend geändert!"
+    "translation": "Dein Profil wurde geändert!"
   },
   {
     "id": "delete_account",
