@@ -306,3 +306,14 @@ func RemoveFollow(user *model.User, follower *model.User) {
 		db.ORM.Delete(&userFollows)
 	}
 }
+
+func DeleteComment(id string) {
+	var comment model.Comment
+	if db.ORM.First(&comment, id).RecordNotFound() {
+		return http.StatusNotFound, errors.New("Comment is not found.")
+	}
+	if db.ORM.Delete(&comment).Error != nil {
+		return http.StatusInternalServerError, errors.New("Comment is not deleted.")
+	}
+	return http.StatusOK, nil
+}
