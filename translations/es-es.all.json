@@ -217,7 +217,7 @@
   },
   {
     "id": "links_replacement_mirror",
-    "translation": "Links al reemplazo/mirror"
+    "translation": "Links al reemplazo/espejo"
   },
   {
     "id": "what_happened",
@@ -229,7 +229,7 @@
   },
   {
     "id": "its_not_a_ddos",
-    "translation": "Fueron desacrivados, asi que no fue un ataque DDos como lo es usualmente."
+    "translation": "Fueron desactivados, asi que no fue un ataque DDos como lo es usualmente."
   },
   {
     "id": "future_not_looking_good",
@@ -273,7 +273,7 @@
   },
   {
     "id": "answer_are_the_trackers_working",
-    "translation": "Aún si los trackers están caídos, los seeders aún están conectadosa la red DHT. Mientras el archivo esté listada en la red DHT, se compatirá como usualmente pasa."
+    "translation": "Aún si los trackers están caídos, los seeders aún están conectadosa la red DHT. Mientras el archivo esté listado en la red DHT, se compatirá como usualmente pasa."
   },
   {
     "id": "how_do_i_download_the_torrents",
