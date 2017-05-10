@@ -47,14 +47,14 @@ func SuggestUsername(username string) string {
 
 func CheckEmail(email string) bool {
 	if len(email) == 0 {
-		return true
+		return false
 	}
 	var count int
 	db.ORM.Model(model.User{}).Where("email = ?", email).Count(&count)
-	if count == 0 {
-		return false // duplicate
+	if count != 0 {
+		return true // error: duplicate
 	}
-	return true
+	return false
 }
 
 // CreateUserFromForm creates a user from a registration form.
@@ -62,17 +62,24 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 	var user model.User
 	log.Debugf("registrationForm %+v\n", registrationForm)
 	modelHelper.AssignValue(&user, &registrationForm)
-	user.Md5 = crypto.GenerateMD5Hash(user.Email)  // Gravatar
+	if user.Email == "" {
+		user.Md5 = ""
+	} else {
+		user.Md5 = crypto.GenerateMD5Hash(user.Email)
+	}
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
 		return user, errors.New("Token not generated.")
 	}
+
 	user.Token = token
 	user.TokenExpiration = timeHelper.FewDaysLater(config.AuthTokenExpirationDay)
 	log.Debugf("user %+v\n", user)
 	if db.ORM.Create(&user).Error != nil {
 		return user, errors.New("User is not created.")
 	}
+
+	user.CreatedAt = time.Now()
 	return user, nil
 }
 
@@ -128,7 +135,6 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 func RetrieveUsers() []*model.PublicUser {
 	var users []*model.User
 	var userArr []*model.PublicUser
-	db.ORM.Find(&users)
 	for _, user := range users {
 		userArr = append(userArr, &model.PublicUser{User: user})
 	}
@@ -137,7 +143,12 @@ func RetrieveUsers() []*model.PublicUser {
 
 // UpdateUserCore updates a user. (Applying the modifed data of user).
 func UpdateUserCore(user *model.User) (int, error) {
-	user.Md5 = crypto.GenerateMD5Hash(user.Email)
+	if user.Email == "" {
+		user.Md5 = ""
+	} else {
+		user.Md5 = crypto.GenerateMD5Hash(user.Email)
+	}
+
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
 		return http.StatusInternalServerError, errors.New("Token not generated.")
@@ -147,6 +158,7 @@ func UpdateUserCore(user *model.User) (int, error) {
 	if db.ORM.Save(user).Error != nil {
 		return http.StatusInternalServerError, errors.New("User is not updated.")
 	}
+
 	user.UpdatedAt = time.Now()
 	return http.StatusOK, nil
 }
@@ -158,7 +170,7 @@ func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, currentUser *m
 		return user, http.StatusNotFound, errors.New("User is not found.")
 	}
 
-	if (form.Password != "") {
+	if form.Password != "" {
 		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(form.CurrentPassword))
 		if err != nil && !userPermission.HasAdmin(currentUser) {
 			log.Error("Password Incorrect.")
@@ -178,14 +190,14 @@ func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, currentUser *m
 		form.Status = user.Status
 		form.Username = user.Username
 	}
-		log.Debugf("form %+v\n", form)
-		modelHelper.AssignValue(&user, form)
-	
+	log.Debugf("form %+v\n", form)
+	modelHelper.AssignValue(&user, form)
+
 	status, err := UpdateUserCore(&user)
 	if err != nil {
 		return user, status, err
 	}
-	if (userPermission.CurrentUserIdentical(currentUser, user.Id)) {
+	if userPermission.CurrentUserIdentical(currentUser, user.Id) {
 		status, err = SetCookie(w, user.Token)
 	}
 	return user, status, err
@@ -200,8 +212,8 @@ func DeleteUser(w http.ResponseWriter, currentUser *model.User, id string) (int,
 	if db.ORM.Delete(&user).Error != nil {
 		return http.StatusInternalServerError, errors.New("User is not deleted.")
 	}
-	if (userPermission.CurrentUserIdentical(currentUser, user.Id)) {
-	return ClearCookie(w)
+	if userPermission.CurrentUserIdentical(currentUser, user.Id) {
+		return ClearCookie(w)
 	}
 	return http.StatusOK, nil
 }
@@ -250,6 +262,11 @@ func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	if db.ORM.Preload("Torrents").First(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("User is not found.")
 	}
+	var liked,likings []model.User 
+	db.ORM.Joins("JOIN user_follows on user_follows.user_id=?", user.Id).Where("users.user_id = user_follows.following").Group("users.user_id").Find(&likings)
+	db.ORM.Joins("JOIN user_follows on user_follows.following=?", user.Id).Where("users.user_id = user_follows.user_id").Group("users.user_id").Find(&liked)
+	user.Likings = likings
+	user.Liked = liked
 	return user, http.StatusOK, nil
 }
 
@@ -260,7 +277,7 @@ func RetrieveUsersForAdmin() []model.User {
 	db.ORM.Find(&users)
 	for _, user := range users {
 		db.ORM.Model(&user)
-		db.ORM.Model(&user).Related("Torrents").Find(&model.Torrents{})
+		db.ORM.Model(&user).Related("Torrents").Related("Likings").Related("Liked").Find(&model.Torrents{})
 		userArr = append(userArr, user)
 	}
 	return userArr
@@ -274,4 +291,18 @@ func CreateUserAuthentication(w http.ResponseWriter, r *http.Request) (int, erro
 	pass := form.Password
 	status, err := SetCookieHandler(w, username, pass)
 	return status, err
+}
+
+func SetFollow(user *model.User, follower *model.User) {
+	if (follower.Id > 0 && user.Id > 0) {
+		var userFollows = model.UserFollows{UserID: user.Id, FollowerID: follower.Id}
+		db.ORM.Create(&userFollows)
+	}
+}
+
+func RemoveFollow(user *model.User, follower *model.User) {
+	if (follower.Id > 0 && user.Id > 0) {
+		var userFollows = model.UserFollows{UserID: user.Id, FollowerID: follower.Id}
+		db.ORM.Delete(&userFollows)
+	}
 }

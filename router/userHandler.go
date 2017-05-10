@@ -1,8 +1,12 @@
 package router
 
 import (
+	"fmt"
 	"net/http"
+	"strconv"
 
+
+	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/service/user"
 	"github.com/ewhal/nyaa/service/user/form"
@@ -55,6 +59,10 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 	if (errorUser == nil) {
 	currentUser := GetUser(r)
 	view := r.URL.Query()["edit"]
+	follow := r.URL.Query()["followed"]
+	unfollow := r.URL.Query()["unfollowed"]
+	infosForm := form.NewInfos()
+
 	deleteVar := r.URL.Query()["delete"]
 		if ((view != nil)&&(userPermission.CurrentOrAdmin(currentUser, userProfile.Id))) {
 			b := form.UserForm{}
@@ -79,8 +87,14 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
 			}
 		} else  {
-			languages.SetTranslationFromRequest(viewProfileTemplate, r, "en-us")
-			htv := UserProfileVariables{&userProfile, NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+			T := languages.SetTranslationFromRequest(viewProfileTemplate, r, "en-us")
+			if (follow != nil) {
+				infosForm["infos"] = append(infosForm["infos"], fmt.Sprintf(T("user_followed_msg"), userProfile.Username))
+			}
+			if (unfollow != nil) {
+				infosForm["infos"] = append(infosForm["infos"], fmt.Sprintf(T("user_unfollowed_msg"), userProfile.Username))
+			} 
+			htv := UserProfileVariables{&userProfile, infosForm, NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
 
 			err := viewProfileTemplate.ExecuteTemplate(w, "index.html", htv)
 			if err != nil {
@@ -180,7 +194,10 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 				}
 				if (len(err) == 0) {
 					languages.SetTranslationFromRequest(viewRegisterSuccessTemplate, r, "en-us")
-					htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
+					u := model.User{
+						Email: r.PostFormValue("email"), // indicate whether user had email set
+					}
+					htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, &u, r.URL, mux.CurrentRoute(r)}
 					errorTmpl := viewRegisterSuccessTemplate.ExecuteTemplate(w, "index.html", htv)
 					if errorTmpl != nil {
 						http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -246,4 +263,24 @@ func UserLogoutHandler(w http.ResponseWriter, r *http.Request) {
 	_, _ = userService.ClearCookie(w)
 	url, _ := Router.Get("home").URL()
 	http.Redirect(w, r, url.String(), http.StatusSeeOther)
+}
+
+
+func UserFollowHandler(w http.ResponseWriter, r *http.Request) {
+	var followAction string
+	vars := mux.Vars(r)
+	id := vars["id"]
+	currentUser := GetUser(r)
+	user, _, errorUser := userService.RetrieveUserForAdmin(id)
+	if (errorUser == nil) {
+		if (!userPermission.IsFollower(&user, currentUser)) {
+			followAction = "followed"
+			userService.SetFollow(&user, currentUser)
+		} else {
+			followAction = "unfollowed"
+			userService.RemoveFollow(&user, currentUser)
+		}
+	}
+	url, _ := Router.Get("user_profile").URL("id", strconv.Itoa(int(user.Id)), "username", user.Username)
+	http.Redirect(w, r, url.String()+"?"+followAction, http.StatusSeeOther)
 }

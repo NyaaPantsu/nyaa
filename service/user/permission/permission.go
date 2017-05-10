@@ -3,6 +3,7 @@ package userPermission
 import (
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util/log"
+	"github.com/ewhal/nyaa/db"
 )
 
 // HasAdmin checks that user has an admin permission.
@@ -37,4 +38,13 @@ func GetRole(user *model.User) string {
 		return "Moderator"
 	}
 	return "Member"
+}
+
+func IsFollower(user *model.User, currentUser *model.User) bool {
+	var likingUserCount int
+	db.ORM.Model(&model.UserFollows{}).Where("user_id = ? and following = ?", user.Id, currentUser.Id).Count(&likingUserCount)
+	if likingUserCount != 0 {
+		return true
+	}
+	return false
 }

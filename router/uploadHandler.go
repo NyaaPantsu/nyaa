@@ -11,6 +11,7 @@ import (
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/service/user"
+	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/gorilla/mux"
 )
@@ -42,7 +43,11 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 				Filesize:     uploadForm.Filesize, // FIXME: should set to NULL instead of 0
 				Description:  uploadForm.Description,
 				UploaderId:   user.Id}
-			db.ORM.Create(&torrent)
+			err = db.ORM.Create(&torrent).Error
+			if err != nil {
+				util.SendError(w, err, 500)
+				return
+			}
 			fmt.Printf("%+v\n", torrent)
 			url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.Id), 10))
 			if err == nil {

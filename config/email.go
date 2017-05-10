@@ -13,3 +13,5 @@ const (
 	// EmailTimeout  = 80 * time.Millisecond
 	EmailTimeout = 10 * time.Second
 )
+
+var EmailTokenHashKey = []byte("CHANGE_THIS_BEFORE_DEPLOYING_YOU_RETARD")

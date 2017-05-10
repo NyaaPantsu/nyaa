@@ -5,7 +5,7 @@
   },
   {
     "id": "verify_email_title",
-    "translation": "Verify your email address for Goyangi."
+    "translation": "Verify your email address for Nyaapantsu."
   },
   {
     "id": "verify_email_content",
@@ -101,7 +101,11 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "Now, as the final step of registration please check your mail inbox (or spam) and click the link provided for activating your account!"
+    "translation": "Finally, please check your mail inbox (and spam folder!) for the verification email."
+  },
+  {
+    "id":"signup_verification_noemail",
+    "translation": "Registration was successful, you may now use your account."
   },
   {
     "id":"settings",
@@ -114,6 +118,18 @@
   {
     "id":"follow",
     "translation": "Follow"
+  },
+  {
+    "id":"unfollow",
+    "translation": "Unfollow"
+  },
+  {
+    "id":"user_followed_msg",
+    "translation": "You have followed %s!"
+  },
+  {
+    "id":"user_unfollowed_msg",
+    "translation": "You have unfollowed %s!"
   },
   {
     "id":"profile_page",
@@ -197,7 +213,7 @@
   },
   {
     "id": "sign_in",
-    "translation": "Sign in"
+    "translation": "Sign In"
   },
   {
     "id": "sign_up",
@@ -328,7 +344,7 @@
     "translation": "Torrent file"
   },
   {
-    "id": "uploading_torrent_prefills_fields",
+    "id": "uploading_file_prefills_fields",
     "translation": "Uploading a torrent file allows pre-filling some fields, this is recommended."
   },
   {
@@ -436,8 +452,8 @@
     "translation": "Torrent Description"
   },
   {
-    "id": "limited_html_set_is_allowed_use",
-    "translation": "A limited set of HTML is allowed in the description, make sure to use"
+    "id": "description_markdown_notice",
+    "translation": "Markdown can be used in descriptions."
   },
   {
     "id": "show_all",
