@@ -1,7 +1,7 @@
 {{define "title"}}Moderation Overview{{end}}
 {{define "content"}}
 <h3 id="torrents">Last Torrents</h3>
-<table>
+<table class="table">
 {{ range .Torrents}}
 
 <tr><td><a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">{{ .Name }}</a></td><td><a href="{{ genRoute "mod_tlist" }}?userid={{.UploaderID}}">{{ .UploaderID }}</a></td>
@@ -10,11 +10,11 @@
 </table>
       <nav class="torrentNav" aria-label="Page navigation">
           <ul class="pagination">
-          	<a href="{{ genRoute "mod_tlist" }}">More</a>
+          	<li><a href="{{ genRoute "mod_tlist" }}">More</a></li>
           </ul>
       </nav>
 <h3 id="torrents">Last Torrents Report</h3>
-<table>
+<table class="table">
 {{ range .TorrentReports}}
 
 <tr><td><a href="{{ genRoute "mod_tedit" }}?id={{.Torrent.ID}}">{{ .Torrent.Name }}</a></td><td>{{.User.Username}}</td><td>{{.Description}}</td>
@@ -23,11 +23,11 @@
 </table>
       <nav class="torrentNav" aria-label="Page navigation">
           <ul class="pagination">
-          	<a href="{{ genRoute "mod_trlist" }}">More</a>
+          	<li><a href="{{ genRoute "mod_trlist" }}">More</a></li>
           </ul>
       </nav>
 <h3 id="users">Last Users</h3>
-<table>
+<table class="table">
 {{ range .Users}}
 
 <tr>
@@ -38,11 +38,11 @@
 </table>
       <nav class="torrentNav" aria-label="Page navigation">
           <ul class="pagination">
-<a href="{{ genRoute "mod_ulist" }}">More </a>
+<li><a href="{{ genRoute "mod_ulist" }}">More </a></li>
           </ul>
       </nav>
 <h3 id="comments">Last Comments</h3>
-<table>
+<table class="table">
 {{ range .Comments}}
 
 <tr><td><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{ .Content }}</a></td><td><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{ .User.Username }}</a></td>
@@ -51,7 +51,7 @@
 </table>
       <nav class="torrentNav" aria-label="Page navigation">
           <ul class="pagination">
-<a href="{{ genRoute "mod_ulist" }}">More</a>
+<li><a href="{{ genRoute "mod_clist" }}">More</a></li>
           </ul>
       </nav>
 {{end}}
