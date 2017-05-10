@@ -22,7 +22,7 @@ type User struct {
 	Likings     []User // Don't work `gorm:"foreignkey:user_id;associationforeignkey:follower_id;many2many:user_follows"`
 	Liked       []User // Don't work `gorm:"foreignkey:follower_id;associationforeignkey:user_id;many2many:user_follows"`
 
-	MD5      string    `json:"md5"` // Hash of email address, used for Gravatar
+	MD5      string    `json:"md5" gorm:"column:md5"` // Hash of email address, used for Gravatar
 	Torrents []Torrent `gorm:"ForeignKey:UploaderID"`
 }
 
@@ -49,4 +49,14 @@ type PublicUser struct {
 type UserFollows struct {
 	UserID     uint `gorm:"column:user_id"`
 	FollowerID uint `gorm:"column:following"`
+}
+
+type UserUploadsOld struct {
+	Username  string `gorm:"column:username"`
+	TorrentId uint   `gorm:"column:torrent_id"`
+}
+
+func (c UserUploadsOld) TableName() string {
+	// TODO: rename this in db
+	return "user_uploads_old"
 }

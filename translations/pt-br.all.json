@@ -5,7 +5,7 @@
   },
   {
     "id": "verify_email_title",
-    "translation": "Verifique seu e-mail."
+    "translation": "Verifique seu e-mail para o Nyaapantsu."
   },
   {
     "id": "verify_email_content",
@@ -49,7 +49,7 @@
   },
   {
     "id":"i_agree",
-    "translation": "Eu concordo."
+    "translation": "Eu concordo"
   },
   {
     "id":"terms_conditions_confirm",
@@ -73,7 +73,7 @@
   },
   {
     "id":"remember_me",
-    "translation": "Lembrar de mim."
+    "translation": "Lembrar de mim"
   },
   {
     "id":"forgot_password",
@@ -116,12 +116,24 @@
     "translation": "Seguir"
   },
   {
+    "id": "unfollow",
+    "translation": "Deixar de seguir"
+  },
+  {
+    "id": "user_followed_msg",
+    "translation": "Você seguiu %s!"
+  },
+  {
+    "id": "user_unfollowed_msg",
+    "translation": "Você deixou de seguir %s!"
+  },
+  {
     "id":"profile_page",
-    "translation": "Perfil"
+    "translation": "Perfil de %s"
   },
   {
     "id":"see_more_torrents_from",
-    "translation": "Ver mais torrents de"
+    "translation": "Ver mais torrents de %s "
   },
   {
     "id":"category",
@@ -177,7 +189,7 @@
   },
   {
     "id": "404_not_found",
-    "translation": "404 não encontrado"
+    "translation": "404 Não Encontrado"
   },
   {
     "id": "no_torrents_uploaded",
@@ -205,7 +217,7 @@
   },
   {
     "id": "no_results_found",
-    "translation": "Nenhum resultado encontrado."
+    "translation": "Nenhum resultado encontrado"
   },
   {
     "id": "notice_keep_seeding",
@@ -253,7 +265,7 @@
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "Possuímos uma database dos torrents do antigo nyaa até o dia primeiro de Maio. Isto quer dizer que quase nada foi perdido."
+    "translation": "Possuímos uma database dos torrents do antigo nyaa até o dia <s>5 de Abril</s> 1 de Maio. Isto quer dizer que quase nada foi perdido."
   },
   {
     "id": "answer_is_sukebei_db_lost",
@@ -281,7 +293,7 @@
   },
   {
     "id": "answer_how_do_i_download_the_torrents",
-    "translation": "Basta usar os links ímã (magnets). Eles serão utilizados pelo seu client de BitTorrent para encontrar os arquivos na rede DHT e realizar o download."
+    "translation": "Basta usar os <b>links ímã (magnets)</b>. Eles serão utilizados pelo seu client de BitTorrent para encontrar os arquivos na rede DHT e realizar o download."
   },
   {
     "id": "magnet_link_should_look_like",
@@ -301,7 +313,7 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "Se possuir experiência em desenvolvimento de sites e habilidades de inglês, você pode se juntar ao canal de IRC #nyaapantsu em irc.rizon.net. Se você possuir databases atualizadas, especialmente para o Sukebei, UPLOADE-AS."
+    "translation": "Se possuir experiência em desenvolvimento de sites e habilidades de inglês, você pode se juntar ao canal de IRC #nyaapantsu em irc.rizon.net. Se você possuir databases atualizadas, especialmente para o Sukebei, <b>UPLOADE-AS</b>."
   },
   {
     "id": "your_design_sucks_found_a_bug",
@@ -328,7 +340,7 @@
     "translation": "Arquivo Torrent"
   },
   {
-    "id": "uploading_torrent_prefills_fields",
+    "id": "uploading_file_prefills_fields",
     "translation": "Uploadar um arquivo torrent preencherá alguns campos automaticamente, e é recomendado."
   },
   {
@@ -436,8 +448,8 @@
     "translation": "Descrição do Torrent"
   },
   {
-    "id": "limited_html_set_is_allowed_use",
-    "translation": "HTML limitado é permitido na descrição."
+    "id": "description_markdown_notice",
+    "translation": "Markdown é permitido na descrição."
   },
   {
     "id": "show_all",
@@ -485,7 +497,7 @@
   },
   {
     "id": "submit_a_comment_as_username",
-    "translation": "Comentar com nome de Usuário"
+    "translation": "Comentar como %s"
   },
   {
     "id": "submit_a_comment_as_anonymous",

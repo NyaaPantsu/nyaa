@@ -30,7 +30,9 @@ func GormInit(conf *config.Config) (*gorm.DB, error) {
 	// TODO: Enable Gorm initialization for non-development builds
 	if config.Environment == "DEVELOPMENT" {
 		db.LogMode(true)
-		db.AutoMigrate(&model.Torrent{}, &model.UserFollows{}, &model.User{}, &model.Comment{}, &model.OldComment{}, &model.TorrentReport{})
+		db.AutoMigrate(&model.User{}, &model.UserFollows{}, &model.UserUploadsOld{})
+		db.AutoMigrate(&model.Torrent{}, &model.TorrentReport{})
+		db.AutoMigrate(&model.Comment{}, &model.OldComment{})
 	}
 
 	return db, nil
