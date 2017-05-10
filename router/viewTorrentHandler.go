@@ -14,8 +14,6 @@ import (
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/gorilla/mux"
-
-	"fmt"
 )
 
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
