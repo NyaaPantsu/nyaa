@@ -67,12 +67,17 @@
                 <h4>{{T "comments"}}</h4>
                 {{ range $index, $element := .Comments }}
                 <div class="row comment-row" id="comment_{{$index}}">
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         {{if eq .UserID -1}}
-                        <a href="#comment_{{$index}}">{{$index}}</a> {{.Username}}
+                            <a href="#comment_{{$index}}">{{$index}}</a>
+                            {{.Username}}
                         {{else}}
-                        <a href="#comment_{{$index}}">{{$index}}</a> <a href="{{$.URL.Parse (printf "/user/%d/-" .UserID) }}">{{.Username}}</a>
+                            <a href="#comment_{{$index}}">{{$index}}</a>
+                            <a href="{{$.URL.Parse (printf "/user/%d/-" .UserID ) }}">{{.Username}}</a>
                         {{end}}
+                    </div>
+                    <div class="col-md-2">
+                        {{.CreatedAt.Year}}/{{.CreatedAt.Month}}/{{.CreatedAt.Day}}
                     </div>
                     <div class="col-md-8">
                         {{.Content}}
