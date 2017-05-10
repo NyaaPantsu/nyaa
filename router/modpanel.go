@@ -52,7 +52,6 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 		users, _ := userService.RetrieveUsersForAdmin(offset, 0)
 		comments, _ := commentService.GetAllComments(offset, 0, "", "")
 		torrentReports, _, _ := reportService.GetAllTorrentReports(offset, 0)
-		fmt.Println(torrentReports)
 
 		languages.SetTranslationFromRequest(panelIndex, r, "en-us")
 		htv := PanelIndexVbs{torrents, torrentReports, users, comments, NewSearchForm(), currentUser, r.URL}
@@ -243,6 +242,7 @@ func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "admins only", http.StatusForbidden)
 	}
 }
+
 func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	id := r.URL.Query().Get("id")
@@ -257,6 +257,22 @@ func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 			reportService.DeleteTorrentReport(report.ID)
 		}
 		url, _ := Router.Get("mod_tlist").URL()
+		http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
+	} else {
+		http.Error(w, "admins only", http.StatusForbidden)
+	}
+}
+
+func TorrentReportDeleteModPanel(w http.ResponseWriter, r *http.Request) {
+	currentUser := GetUser(r)
+	if userPermission.HasAdmin(currentUser) {
+		id := r.URL.Query().Get("id")
+		fmt.Println(id)
+		idNum, _ := strconv.ParseUint(id, 10, 64)
+		_ = form.NewErrors()
+		_, _ = reportService.DeleteTorrentReport(uint(idNum))
+
+		url, _ := Router.Get("mod_trlist").URL()
 		http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
