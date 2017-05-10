@@ -4,7 +4,7 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util/log"
-	"github.com/jinzhu/gorm"
+	"github.com/azhao12345/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
