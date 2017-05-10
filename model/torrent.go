@@ -39,6 +39,11 @@ type Torrent struct {
 	OldUploader string       `gorm:"-"` // ???????
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
+
+	Seeders    uint32    `gorm:"column:seeders"`
+	Leechers   uint32    `gorm:"column:leechers"`
+	Completed  uint32    `gorm:"column:completed"`
+	LastScrape time.Time `gorm:"column:last_scrape"`
 }
 
 // Returns the total size of memory recursively allocated for this struct
@@ -101,6 +106,9 @@ type TorrentJSON struct {
 	WebsiteLink  template.URL  `json:"website_link"`
 	Magnet       template.URL  `json:"magnet"`
 	TorrentLink  template.URL  `json:"torrent"`
+	Seeders      uint32        `json:"seeders"`
+	Leechers     uint32        `json:"leechers"`
+	LastScrape   time.Time     `json:"last_scrape"`
 }
 
 // ToJSON converts a model.Torrent to its equivalent JSON structure
@@ -140,7 +148,11 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		OldUploader:  util.SafeText(t.OldUploader),
 		WebsiteLink:  util.Safe(t.WebsiteLink),
 		Magnet:       template.URL(magnet),
-		TorrentLink:  util.Safe(torrentlink)}
+		TorrentLink:  util.Safe(torrentlink),
+		Leechers:     t.Leechers,
+		Seeders:      t.Seeders,
+		LastScrape:   t.LastScrape,
+	}
 
 	return res
 }
