@@ -218,12 +218,16 @@ func DeleteUser(w http.ResponseWriter, currentUser *model.User, id string) (int,
 	if db.ORM.First(&user, id).RecordNotFound() {
 		return http.StatusNotFound, errors.New("user not found")
 	}
+	if (user.ID == 0) {
+		return http.StatusInternalServerError, errors.New("You can't delete that!")
+	}
 	if db.ORM.Delete(&user).Error != nil {
 		return http.StatusInternalServerError, errors.New("user not deleted")
 	}
 	if userPermission.CurrentUserIdentical(currentUser, user.ID) {
 		return ClearCookie(w)
 	}
+
 	return http.StatusOK, nil
 }
 
