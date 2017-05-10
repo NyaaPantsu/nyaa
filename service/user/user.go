@@ -271,16 +271,10 @@ func RetrieveUserForAdmin(id string) (model.User, int, error) {
 }
 
 // RetrieveUsersForAdmin retrieves users for an administrator.
-func RetrieveUsersForAdmin() []model.User {
+func RetrieveUsersForAdmin(limit int, offset int) []model.User {
 	var users []model.User
-	var userArr []model.User
-	db.ORM.Find(&users)
-	for _, user := range users {
-		db.ORM.Model(&user)
-		db.ORM.Model(&user).Related("Torrents").Related("Likings").Related("Liked").Find(&model.Torrents{})
-		userArr = append(userArr, user)
-	}
-	return userArr
+	db.ORM.Preload("Torrents").Find(&users).Limit(limit).Offset(offset)
+	return users
 }
 
 // CreateUserAuthentication creates user authentication.
@@ -307,7 +301,7 @@ func RemoveFollow(user *model.User, follower *model.User) {
 	}
 }
 
-func DeleteComment(id string) {
+func DeleteComment(id string) (int, error) {
 	var comment model.Comment
 	if db.ORM.First(&comment, id).RecordNotFound() {
 		return http.StatusNotFound, errors.New("Comment is not found.")

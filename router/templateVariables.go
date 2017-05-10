@@ -113,6 +113,25 @@ type UploadTemplateVariables struct {
 	Route      *mux.Route
 }
 
+type PanelIndexVbs struct {
+	Torrents  []model.Torrents
+	Users  []model.User
+	Comments  []model.Comment
+}
+
+type PanelTorrentListVbs struct {
+	Torrents  []model.Torrents
+}
+type PanelUserListVbs struct {
+	Users  []model.User
+}
+type PanelCommentListVbs struct {
+	Comments  []model.Comment
+}
+type PanelTorrentEdVbs struct {
+	Torrent  model.Torrents
+}
+
 /*
  * Variables used by the upper ones
  */

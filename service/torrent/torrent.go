@@ -4,6 +4,7 @@ import (
 	"errors"
 	"strconv"
 	"strings"
+	"net/http"
 
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
@@ -177,7 +178,7 @@ func CreateWhereParams(conditions string, params ...string) WhereParams {
 	return whereParams
 }
 
-func DeleteTorrent(id string) {
+func DeleteTorrent(id string) (int, error) {
 	var torrent model.Torrents
 	if db.ORM.First(&torrent, id).RecordNotFound() {
 		return http.StatusNotFound, errors.New("Torrent is not found.")
@@ -185,5 +186,13 @@ func DeleteTorrent(id string) {
 	if db.ORM.Delete(&torrent).Error != nil {
 		return http.StatusInternalServerError, errors.New("Torrent is not deleted.")
 	}
+	return http.StatusOK, nil
+}
+
+func UpdateTorrent(torrent model.Torrents) (int, error) {
+	if db.ORM.Save(torrent).Error != nil {
+		return http.StatusInternalServerError, errors.New("Torrent is not updated.")
+	}
+
 	return http.StatusOK, nil
 }
