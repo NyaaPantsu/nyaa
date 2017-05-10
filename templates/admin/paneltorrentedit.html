@@ -48,11 +48,11 @@
       <div class="form-group">
           <label for="Status">{{T "torrent_status"}}</label>
           <select name="status" class="form-control input-sm">
-              <option value="0" {{if eq .Status 0}}selected{{end}}>{{T "mark_as_hidden"}}</option>
-              <option value="1" {{if eq .Status 1}}selected{{end}}>{{T "mark_as_normal"}}</option>
-              <option value="2" {{if eq .Status 2}}selected{{end}}>{{T "mark_as_remake"}}</option>
-              <option value="3" {{if eq .Status 3}}selected{{end}}>{{T "mark_as_trusted"}}</option>
-              <option value="4" {{if eq .Status 4}}selected{{end}}>{{T "mark_as_aplus"}}</option>
+              <option value="0" {{if eq .Status 0}}selected{{end}}>{{T "torrent_status_hidden"}}</option>
+              <option value="1" {{if eq .Status 1}}selected{{end}}>{{T "torrent_status_normal"}}</option>
+              <option value="2" {{if eq .Status 2}}selected{{end}}>{{T "torrent_status_remake"}}</option>
+              <option value="3" {{if eq .Status 3}}selected{{end}}>{{T "trusted"}}</option>
+              <option value="4" {{if eq .Status 4}}selected{{end}}>A+</option>
       	 </select>
       </div>
 
