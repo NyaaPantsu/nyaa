@@ -26,6 +26,21 @@ type User struct {
 	Torrents []Torrent `gorm:"ForeignKey:UploaderID"`
 }
 
+// Returns the total size of memory recursively allocated for this struct
+func (u User) Size() (s int) {
+	s += 4 + // ints
+		6*2 + // string pointers
+		4*3 + //time.Time
+		3*2 + // arrays
+		// string arrays
+		len(u.Username) + len(u.Password) + len(u.Email) + len(u.Token) + len(u.MD5) + len(u.Language)
+	s *= 8
+
+	// Ignoring foreign key users. Fuck them.
+
+	return
+}
+
 type PublicUser struct {
 	User *User
 }

@@ -34,11 +34,36 @@ type Torrent struct {
 	Filesize    int64     `gorm:"column:filesize"`
 	Description string    `gorm:"column:description"`
 	WebsiteLink string    `gorm:"column:website_link"`
-	DeletedAt *time.Time
+	DeletedAt   *time.Time
 
 	Uploader    *User        `gorm:"ForeignKey:UploaderId"`
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
+}
+
+// Returns the total size of memory recursively allocated for this struct
+func (t Torrent) Size() (s int) {
+	s += 8 + // ints
+		2*3 + // time.Time
+		2 + // pointers
+		4*2 + // string pointers
+		// string array sizes
+		len(t.Name) + len(t.Hash) + len(t.Description) + len(t.WebsiteLink) +
+		2*2 // array pointers
+	s *= 8 // Assume 64 bit OS
+
+	if t.Uploader != nil {
+		s += t.Uploader.Size()
+	}
+	for _, c := range t.OldComments {
+		s += c.Size()
+	}
+	for _, c := range t.Comments {
+		s += c.Size()
+	}
+
+	return
+
 }
 
 // TODO Add field to specify kind of reports
@@ -46,12 +71,12 @@ type Torrent struct {
 // INFO User can be null (anonymous reports)
 // FIXME  can't preload field Torrents for model.TorrentReport
 type TorrentReport struct {
-	ID          uint     `gorm:"column:torrent_report_id;primary_key"`
-	Description string   `gorm:"column:type"`
-	TorrentID  uint
-	UserID    uint
-	Torrent     Torrent  `gorm:"AssociationForeignKey:TorrentID;ForeignKey:ID"`
-	User        User     `gorm:"AssociationForeignKey:UserID;ForeignKey:ID"`
+	ID          uint   `gorm:"column:torrent_report_id;primary_key"`
+	Description string `gorm:"column:type"`
+	TorrentID   uint
+	UserID      uint
+	Torrent     Torrent `gorm:"AssociationForeignKey:TorrentID;ForeignKey:ID"`
+	User        User    `gorm:"AssociationForeignKey:UserID;ForeignKey:ID"`
 }
 
 /* We need a JSON object instead of a Gorm structure because magnet URLs are
@@ -89,9 +114,9 @@ type TorrentJSON struct {
 }
 
 type TorrentReportJson struct {
-	ID          uint     `json:"id"`
-	Description string   `json:"description"`
-	Torrent     TorrentJSON  `json:"torrent"`
+	ID          uint        `json:"id"`
+	Description string      `json:"description"`
+	Torrent     TorrentJSON `json:"torrent"`
 	User        string
 }
 
