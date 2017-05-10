@@ -85,12 +85,11 @@ func init() {
 	Router.Handle("/mod/torrents", gzipTorrentsListPanel).Name("mod_tlist")
 	Router.Handle("/mod/users", gzipUsersListPanel).Name("mod_ulist")
 	Router.Handle("/mod/comments", gzipCommentsListPanel).Name("mod_clist")
-	Router.Handle("/mod/comments", gzipCommentsListPanel).Name("mod_cedit")
-	Router.Handle("/mod/comments", gzipCommentsListPanel).Name("mod_cdelete")
+	Router.Handle("/mod/comments", gzipCommentsListPanel).Name("mod_cedit") // TODO
 	Router.Handle("/mod/torrent/", gzipTorrentEditModPanel).Name("mod_tedit")
 	Router.Handle("/mod/torrent/", gzipTorrentPostEditModPanel).Name("mod_ptedit")
-	Router.Handle("/mod/torrent/delete", gzipCommentDeleteModPanel).Name("mod_tdelete")
-	Router.Handle("/mod/comment/delete", gzipTorrentDeleteModPanel).Name("mod_cdelete")
+	Router.Handle("/mod/torrent/delete", gzipTorrentDeleteModPanel).Name("mod_tdelete")
+	Router.Handle("/mod/comment/delete", gzipCommentDeleteModPanel).Name("mod_cdelete")
 
 
 	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
