@@ -54,25 +54,12 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser == nil {
 		currentUser := GetUser(r)
-		view := r.URL.Query()["edit"]
 		follow := r.URL.Query()["followed"]
 		unfollow := r.URL.Query()["unfollowed"]
 		infosForm := form.NewInfos()
 		deleteVar := r.URL.Query()["delete"]
 
-		if (view != nil) && (userPermission.CurrentOrAdmin(currentUser, userProfile.ID)) {
-			b := form.UserForm{}
-			modelHelper.BindValueForm(&b, r)
-			languages.SetTranslationFromRequest(viewProfileEditTemplate, r, "en-us")
-			searchForm := NewSearchForm()
-			searchForm.HideAdvancedSearch = true
-			htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
-
-			err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-			}
-		} else if (deleteVar != nil) && (userPermission.CurrentOrAdmin(currentUser, userProfile.ID)) {
+		if (deleteVar != nil) && (userPermission.CurrentOrAdmin(currentUser, userProfile.ID)) {
 			err := form.NewErrors()
 			_, errUser := userService.DeleteUser(w, currentUser, id)
 			if errUser != nil {
@@ -115,6 +102,25 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//Getting User Profile Details View
+func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	b := form.UserForm{}
+	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
+	if errorUser == nil {
+		currentUser := GetUser(r)
+		modelHelper.BindValueForm(&b, r)
+		languages.SetTranslationFromRequest(viewProfileEditTemplate, r, "en-us")
+		searchForm := NewSearchForm()
+		searchForm.HideAdvancedSearch = true
+		htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+		err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	}
+}
 // Getting View User Profile Update
 func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
