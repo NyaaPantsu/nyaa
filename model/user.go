@@ -22,7 +22,7 @@ type User struct {
 	Likings     []User // Don't work `gorm:"foreignkey:user_id;associationforeignkey:follower_id;many2many:user_follows"`
 	Liked       []User // Don't work `gorm:"foreignkey:follower_id;associationforeignkey:user_id;many2many:user_follows"`
 
-	MD5      string    `json:"md5"` // Hash of email address, used for Gravatar
+	MD5      string    `json:"md5" gorm:"column:md5"` // Hash of email address, used for Gravatar
 	Torrents []Torrent `gorm:"ForeignKey:UploaderID"`
 }
 
