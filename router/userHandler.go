@@ -64,7 +64,9 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 			b := form.UserForm{}
 			modelHelper.BindValueForm(&b, r)
 			languages.SetTranslationFromRequest(viewProfileEditTemplate, r, "en-us")
-			htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+			searchForm := NewSearchForm()
+			searchForm.HideAdvancedSearch = true
+			htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
 
 			err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
 			if err != nil {
@@ -77,7 +79,9 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 				err["errors"] = append(err["errors"], errUser.Error())
 			}
 			languages.SetTranslationFromRequest(viewUserDeleteTemplate, r, "en-us")
-			htv := UserVerifyTemplateVariables{err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
+			searchForm := NewSearchForm()
+			searchForm.HideAdvancedSearch = true
+			htv := UserVerifyTemplateVariables{err, searchForm, Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 			errorTmpl := viewUserDeleteTemplate.ExecuteTemplate(w, "index.html", htv)
 			if errorTmpl != nil {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -90,7 +94,9 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 			if unfollow != nil {
 				infosForm["infos"] = append(infosForm["infos"], fmt.Sprintf(T("user_unfollowed_msg"), userProfile.Username))
 			}
-			htv := UserProfileVariables{&userProfile, infosForm, NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+			searchForm := NewSearchForm()
+			searchForm.HideAdvancedSearch = true
+			htv := UserProfileVariables{&userProfile, infosForm, searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
 
 			err := viewProfileTemplate.ExecuteTemplate(w, "index.html", htv)
 			if err != nil {
