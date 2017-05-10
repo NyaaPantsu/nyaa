@@ -26,13 +26,13 @@
 				<!-- SIDEBAR BUTTONS -->
 				<div class="profile-userbuttons">
 						{{if gt $.User.ID 0 }}
-						{{if not (CurrentUserIdentical $.User .ID) }}
-						{{if not (IsFollower . $.User)}}
-							<a href="{{ genRoute "user_follow" "id" ( print .ID ) "username" .Username }}" class="btn btn-success btn-sm">{{ T "follow"}}</a>
-						{{else}}
-							<a href="{{ genRoute "user_follow" "id" ( print .ID ) "username" .Username }}" class="btn btn-danger btn-sm">{{ T "unfollow"}}</a>
-						{{end}}
-						{{end}}
+							{{if not (CurrentUserIdentical $.User .ID) }}
+								{{if not (IsFollower . $.User)}}
+									<a href="{{ genRoute "user_follow" "id" ( print .ID ) "username" .Username }}" class="btn btn-success btn-sm">{{ T "follow"}}</a>
+								{{else}}
+									<a href="{{ genRoute "user_follow" "id" ( print .ID ) "username" .Username }}" class="btn btn-danger btn-sm">{{ T "unfollow"}}</a>
+								{{end}}
+							{{end}}
 						{{end}}
 					<!-- <button type="button" class="btn btn-danger btn-sm">Message</button> -->
 				</div>
@@ -46,13 +46,13 @@
 							{{T "torrents"}} </a>
 						</li>
 						{{if gt $.User.ID 0 }}
-						{{if CurrentOrAdmin $.User .ID }}
-						<li>
-							<a href="?edit">
-							<i class="glyphicon glyphicon-user"></i>
-							{{T "settings"}} </a>
-						</li>
-						{{end}}
+							{{if CurrentOrAdmin $.User .ID }}
+								<li>
+									<a href="?edit">
+									<i class="glyphicon glyphicon-user"></i>
+									{{T "settings"}} </a>
+								</li>
+							{{end}}
 						{{end}}
 					</ul>
 				</div>
