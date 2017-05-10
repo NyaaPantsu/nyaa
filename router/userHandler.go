@@ -115,7 +115,8 @@ func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
 		languages.SetTranslationFromRequest(viewProfileEditTemplate, r, "en-us")
 		searchForm := NewSearchForm()
 		searchForm.HideAdvancedSearch = true
-		htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+		availableLanguages := languages.GetAvailableLanguages()
+		htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), availableLanguages, searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
 		err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -158,7 +159,8 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 					}
 				}
 			}
-			htv := UserProfileEditVariables{&userProfile, b, err, infos, NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+			availableLanguages := languages.GetAvailableLanguages()
+			htv := UserProfileEditVariables{&userProfile, b, err, infos, availableLanguages, NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
 			errorTmpl := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
 			if errorTmpl != nil {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
