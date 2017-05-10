@@ -121,12 +121,15 @@ type PanelIndexVbs struct {
 
 type PanelTorrentListVbs struct {
 	Torrents  []model.Torrent
+	Navigation Navigation
 }
 type PanelUserListVbs struct {
 	Users  []model.User
+	Navigation Navigation
 }
 type PanelCommentListVbs struct {
 	Comments  []model.Comment
+	Navigation Navigation
 }
 type PanelTorrentEdVbs struct {
 	Torrent  model.Torrent
