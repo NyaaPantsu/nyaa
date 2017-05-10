@@ -117,7 +117,19 @@
   },
   {
     "id":"follow",
-    "translation": "Suivre"
+    "translation": "S'abonner"
+  },
+  {
+    "id":"unfollow",
+    "translation": "Se désabonner"
+  },
+  {
+    "id":"user_followed_msg",
+    "translation": "Vous vous êtes abonné à %s!"
+  },
+  {
+    "id":"user_unfollowed_msg",
+    "translation": "Vous vous êtes désabonné de %s!"
   },
   {
     "id":"profile_page",
@@ -213,15 +225,15 @@
   },
   {
     "id": "notice_keep_seeding",
-    "translation": "IMPORTANT : Continuez le partage et activez le DHT."
+    "translation": "IMPORTANT : Continuez le partage et activez DHT sur votre client BitTorrent."
   },
   {
     "id": "official_nyaapocalipse_faq",
-    "translation": "FAQ Officielle du Nyaapocalypse"
+    "translation": "FAQ Officielle de la Nyaapocalypse"
   },
   {
     "id": "links_replacement_mirror",
-    "translation": "Liens pour le remplacement/miroir"
+    "translation": "Liens miroir"
   },
   {
     "id": "what_happened",
@@ -233,15 +245,15 @@
   },
   {
     "id": "its_not_a_ddos",
-    "translation": "Ils ont été désactivés, ce n'est pas une attaque DDoS comme d'habitude."
+    "translation": "Ils ont été désactivés et soumis à suppression, ce n'est pas une attaque DDoS comme d'habitude."
   },
   {
     "id": "future_not_looking_good",
-    "translation": "Les persectives d'avenir pour Nyaa ne sont pas bonnes. (C'est mort)"
+    "translation": "Nyaa est vraisemblablement mort pour de bon."
   },
   {
     "id": "recovery_effort",
-    "translation": "Un travail de récupération se déroule actuellement."
+    "translation": "Un travail de récupération est en cours."
   },
   {
     "id": "is_everything_lost",
@@ -253,23 +265,23 @@
   },
   {
     "id": "are_some_things_lost",
-    "translation": "Certaines choses sont-elles perdues ?"
+    "translation": "Qu'est-ce qui a pu être récupéré ?"
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "Nous avons une base de données des torrents datant du <s>5 Avril</s> 1er Mai. Ce qui signifie que presque rien n'est perdu."
+    "translation": "Nous avons une base de données des torrents de Nyaa datant du <s>5 Avril</s> 1er Mai. Ce qui signifie que presque rien n'a été perdu."
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Sukebei, cependant, semble en plus mauvais état. Actuellement nous avons seulement des bases de données datant de 2016, mais une base de donnée plus récente pourrait être disponible à l'usage."	
+    "translation": "Sukebei, cependant, semble en plus mauvais état. La base de donnée actuelle remonte à 2016, mais une version plus récente pourrait être disponible à l'usage."	
   },
   {
     "id": "how_are_we_recovering",
-    "translation": "Comment récupérons-nous ?"
+    "translation": "Où en est le développement ?"
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "Les bases de données mentionnées sont hébergées sur nyaa.pantsu.cat et sukebei.pantsu.cat. Une fonction de recherche est disponible et (presque) toutes les fonctionnalités de Nyaa devraient arriver. Les statistiques Seeders/Leechers peuvent être obtenues par 'scraping' et pourraient être restaurées à l'avenir, toutefois d'autres fonctionnalités prennent la priorité en ce moment."
+    "translation": "Les bases de données mentionnées sont hébergées sur nyaa.pantsu.cat et sukebei.pantsu.cat. Une fonction de recherche est disponible et (presque) toutes les fonctionnalités de Nyaa devraient arriver. Les statistiques seeders/leechers peuvent être obtenues par 'scraping' et pourraient être restaurées à l'avenir, toutefois d'autres fonctionnalités prennent la priorité en ce moment."
   },
   {
     "id": "are_the_trackers_working",
@@ -317,7 +329,7 @@
   },
   {
     "id": "authors_favorite_language",
-    "translation": "C'est le langage de programmation favori de l'auteur."
+    "translation": "C'est le langage de programmation favori du développeur."
   },
   {
     "id": "nyaa_pantsu_dont_host_files",
@@ -333,7 +345,7 @@
   },
   {
     "id": "uploading_file_prefills_fields",
-    "translation": "Uploader un fichier torrent permet de pré-remplir certains champs, ce qui est recommandé."
+    "translation": "Il est recommandé d'uploader un fichier torrent afin de pré-remplir certains champs."
   },
   {
     "id": "magnet_link",
@@ -504,12 +516,16 @@
     "translation": "Informations personnelles"
   },
   {
+    "id": "email",
+    "translation": "Adresse email"
+  },
+  {
     "id": "language",
     "translation": "Langue"
   },
   {
     "id": "current_password",
-    "translation": "Mot de passe actuel"
+    "translation": "Mot de passe actuel "
   },
   {
     "id": "role",
