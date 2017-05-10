@@ -1,6 +1,6 @@
 package router
 
-import (
+/*import (
 	"net/http"
 	"strconv"
 
@@ -8,7 +8,8 @@ import (
 	"github.com/ewhal/nyaa/service/moderation"
 	"github.com/ewhal/nyaa/service/user/permission"
 	"github.com/gorilla/mux"
-)
+)*/
+
 /*
 func SanitizeTorrentReport(torrentReport *model.TorrentReport) {
 	// TODO unescape html ?
@@ -62,8 +63,7 @@ func DeleteTorrentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }*/
 
-
-func GetTorrentReportHandler(w http.ResponseWriter, r *http.Request) {
+/*func GetTorrentReportHandler(w http.ResponseWriter, r *http.Request) {
     currentUser := GetUser(r)
     if userPermission.HasAdmin(currentUser) {
 		vars := mux.Vars(r)
@@ -90,4 +90,4 @@ func GetTorrentReportHandler(w http.ResponseWriter, r *http.Request) {
     } else {
             http.Error(w, "admins only", http.StatusForbidden)
     }
-}
+}*/

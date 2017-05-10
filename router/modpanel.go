@@ -10,8 +10,9 @@ import (
 	"path/filepath"
 	"strconv"
 
+	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/comment"
-	"github.com/ewhal/nyaa/service/moderation"
+	"github.com/ewhal/nyaa/service/report"
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/service/torrent/form"
 	"github.com/ewhal/nyaa/service/user"
@@ -24,7 +25,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var panelIndex, panelTorrentList, panelUserList, panelCommentList, panelTorrentEd, torrentReportTemplate *template.Template
+var panelIndex, panelTorrentList, panelUserList, panelCommentList, panelTorrentEd, panelTorrentReportList *template.Template
 
 func init() {
 	panelTorrentList = template.Must(template.New("torrentlist").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/torrentlist.html")))
@@ -37,8 +38,8 @@ func init() {
 	panelIndex = template.Must(panelIndex.ParseGlob(filepath.Join("templates", "_*.html")))
 	panelTorrentEd = template.Must(template.New("torrent_ed").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/paneltorrentedit.html")))
 	panelTorrentEd = template.Must(panelTorrentEd.ParseGlob(filepath.Join("templates", "_*.html")))
-	torrentReportTemplate = template.Must(template.New("torrent_report").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/torrent_report.html")))
-	torrentReportTemplate = template.Must(torrentReportTemplate.ParseGlob(filepath.Join("templates", "_*.html")))
+	panelTorrentReportList = template.Must(template.New("torrent_report").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/torrent_report.html")))
+	panelTorrentReportList = template.Must(panelTorrentReportList.ParseGlob(filepath.Join("templates", "_*.html")))
 }
 
 func IndexModPanel(w http.ResponseWriter, r *http.Request) {
@@ -49,7 +50,13 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 		torrents, _, _ := torrentService.GetAllTorrents(offset, 0)
 		users, _ := userService.RetrieveUsersForAdmin(offset, 0)
 		comments, _ := commentService.GetAllComments(offset, 0, "", "")
-		torrentReports, _, _ := moderationService.GetTorrentReports(offset, 0, "", "")
+		torrentReports, _, _ := reportService.GetAllTorrentReports(offset, 0)
+
+		for i, report := range torrentReports { //shit fix pls fix model
+			torrentReports[i].Torrent, _ = torrentService.GetTorrentById(fmt.Sprint(report.TorrentID))
+		}
+
+		fmt.Println(torrentReports)
 		languages.SetTranslationFromRequest(panelIndex, r, "en-us")
 		htv := PanelIndexVbs{torrents, torrentReports, users, comments, NewSearchForm(), currentUser, r.URL}
 		_ = panelIndex.ExecuteTemplate(w, "admin_index.html", htv)
@@ -57,6 +64,7 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "admins only", http.StatusForbidden)
 	}
 }
+
 func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	if userPermission.HasAdmin(currentUser) {
@@ -90,6 +98,39 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "admins only", http.StatusForbidden)
 	}
 }
+
+func TorrentReportListPanel(w http.ResponseWriter, r *http.Request) {
+	currentUser := GetUser(r)
+	if userPermission.HasAdmin(currentUser) {
+		vars := mux.Vars(r)
+		page := vars["page"]
+
+		var err error
+		pagenum := 1
+		if page != "" {
+			pagenum, err = strconv.Atoi(html.EscapeString(page))
+			if !log.CheckError(err) {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+		}
+		offset := 100
+
+		torrentReports, nbReports, _ := reportService.GetAllTorrentReports(offset, (pagenum-1)*offset)
+		for i, report := range torrentReports { //shit fix pls fix the model
+			torrentReports[i].Torrent, _ = torrentService.GetTorrentById(fmt.Sprint(report.TorrentID))
+		}
+
+		reportJSON := model.TorrentReportsToJSON(torrentReports)
+		languages.SetTranslationFromRequest(panelUserList, r, "en-us")
+		htv := PanelTorrentReportListVbs{reportJSON, NewSearchForm(), Navigation{nbReports, offset, pagenum, "mod_trlist_page"}, currentUser, r.URL}
+		err = panelTorrentReportList.ExecuteTemplate(w, "admin_index.html", htv)
+		fmt.Println(err)
+	} else {
+		http.Error(w, "admins only", http.StatusForbidden)
+	}
+}
+
 func UsersListPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	if userPermission.HasAdmin(currentUser) {
@@ -116,6 +157,7 @@ func UsersListPanel(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "admins only", http.StatusForbidden)
 	}
 }
+
 func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	if userPermission.HasAdmin(currentUser) {

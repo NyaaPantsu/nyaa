@@ -42,6 +42,7 @@ func init() {
 
 	gzipIndexModPanel := handlers.CompressHandler(http.HandlerFunc(IndexModPanel))
 	gzipTorrentsListPanel := handlers.CompressHandler(http.HandlerFunc(TorrentsListPanel))
+	gzipTorrentReportListPanel := handlers.CompressHandler(http.HandlerFunc(TorrentReportListPanel))
 	gzipUsersListPanel := handlers.CompressHandler(http.HandlerFunc(UsersListPanel))
 	gzipCommentsListPanel := handlers.CompressHandler(http.HandlerFunc(CommentsListPanel))
 	gzipTorrentEditModPanel := handlers.CompressHandler(http.HandlerFunc(TorrentEditModPanel))
@@ -49,7 +50,6 @@ func init() {
 	gzipCommentDeleteModPanel := handlers.CompressHandler(http.HandlerFunc(CommentDeleteModPanel))
 	gzipTorrentDeleteModPanel := handlers.CompressHandler(http.HandlerFunc(TorrentDeleteModPanel))
 
-	gzipGetTorrentReportHandler := handlers.CompressHandler(http.HandlerFunc(GetTorrentReportHandler))
 	//gzipTorrentReportCreateHandler := handlers.CompressHandler(http.HandlerFunc(CreateTorrentReportHandler))
 	//gzipTorrentReportDeleteHandler := handlers.CompressHandler(http.HandlerFunc(DeleteTorrentReportHandler))
 	//gzipTorrentDeleteHandler := handlers.CompressHandler(http.HandlerFunc(DeleteTorrentHandler))
@@ -107,8 +107,8 @@ func init() {
 	// TODO Allow only moderators to access /moderation/*
 	//Router.Handle("/moderation/report/delete", gzipTorrentReportDeleteHandler).Name("torrent_report_delete").Methods("POST")
 	//Router.Handle("/moderation/torrent/delete", gzipTorrentDeleteHandler).Name("torrent_delete").Methods("POST")
-	Router.Handle("/mod/reports", gzipGetTorrentReportHandler).Name("mod_trlist").Methods("GET")
-	Router.Handle("/mod/reports/{page}", gzipGetTorrentReportHandler).Name("mod_trlist").Methods("GET")
+	Router.Handle("/mod/reports", gzipTorrentReportListPanel).Name("mod_trlist").Methods("GET")
+	Router.Handle("/mod/reports/{page}", gzipTorrentReportListPanel).Name("mod_trlist_page").Methods("GET")
 
 	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
 }
