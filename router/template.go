@@ -86,7 +86,7 @@ func ReloadTemplates() {
 	}
 	for _, templ := range templs {
 		t := template.Must(template.New(templ.name).Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "index.html"), filepath.Join(TemplateDir, templ.file)))
-		t = template.Must(t.ParseGlob(filepath.Join("templates", "_*.html")))
+		t = template.Must(t.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
 
 		*templ.templ = t
 	}
