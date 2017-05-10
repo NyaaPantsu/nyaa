@@ -5,12 +5,12 @@ import (
 	"sync"
 	"time"
 
+	"github.com/ewhal/nyaa/common"
 	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/util/search"
 )
 
 var (
-	cache     = make(map[search.SearchParam]*list.Element, 10)
+	cache     = make(map[common.SearchParam]*list.Element, 10)
 	ll        = list.New()
 	totalUsed int
 	mu        sync.Mutex
@@ -31,18 +31,17 @@ type Key struct {
 
 // Single cache entry
 type store struct {
-	// Controls general access to the contents of the struct, except for size
-	sync.Mutex
+	sync.Mutex  // Controls general access to the contents of the struct
 	lastFetched time.Time
-	key         search.SearchParam
-	data        []model.Torrents
+	key         common.SearchParam
+	data        []model.Torrent
 	size        int
 }
 
 // Check the cache for and existing record. If miss, run fn to retrieve fresh
 // values.
-func CheckCache(key search.SearchParam, fn func() ([]model.Torrents, error)) (
-	[]model.Torrents, error,
+func Get(key common.SearchParam, fn func() ([]model.Torrent, error)) (
+	[]model.Torrent, error,
 ) {
 	s := getStore(key)
 
@@ -59,12 +58,12 @@ func CheckCache(key search.SearchParam, fn func() ([]model.Torrents, error)) (
 	if err != nil {
 		return nil, err
 	}
-	s.lastFetched = time.Now()
+	s.update(data)
 	return data, nil
 }
 
 // Retrieve a store from the cache or create a new one
-func getStore(k search.SearchParam) (s *store) {
+func getStore(k common.SearchParam) (s *store) {
 	mu.Lock()
 	defer mu.Unlock()
 
@@ -85,7 +84,7 @@ func Clear() {
 	defer mu.Unlock()
 
 	ll = list.New()
-	cache = make(map[search.SearchParam]*list.Element, 10)
+	cache = make(map[common.SearchParam]*list.Element, 10)
 }
 
 // Update the total used memory counter and evict, if over limit
@@ -109,7 +108,7 @@ func (s *store) isFresh() bool {
 
 // Stores the new values of s. Calculates and stores the new size. Passes the
 // delta to the central cache to fire eviction checks.
-func (s *store) update(data []model.Torrents) {
+func (s *store) update(data []model.Torrent) {
 	newSize := 0
 	for _, d := range data {
 		newSize += d.Size()
@@ -117,6 +116,7 @@ func (s *store) update(data []model.Torrents) {
 	s.data = data
 	delta := newSize - s.size
 	s.size = newSize
+	s.lastFetched = time.Now()
 
 	// Technically it is possible to update the size even when the store is
 	// already evicted, but that should never happen, unless you have a very
