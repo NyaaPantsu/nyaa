@@ -33,12 +33,16 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Printf("error %+v\n", err)
 		}
+		status := 1 // normal
+		if user.Status == 1 {
+			status = 3 // mark as trusted if user is trusted
+		}
 		//add to db and redirect depending on result
 		torrent := model.Torrent{
 			Name:        uploadForm.Name,
 			Category:    uploadForm.CategoryID,
 			SubCategory: uploadForm.SubCategoryID,
-			Status:      1,
+			Status:      status,
 			Hash:        uploadForm.Infohash,
 			Date:        time.Now(),
 			Filesize:    uploadForm.Filesize,
