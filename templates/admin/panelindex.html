@@ -3,5 +3,27 @@ nigga this just be some links
 <a href="/mod/torrents">torrent list</a>
 <a href="/mod/users">user list </a>
 <a href="/mod/comments">comments list</a>
+<table>
+{{ range .Torrents}}
 
+<tr><td><a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">{{ .Name }}</a></td><td><a href="{{ genRoute "mod_tlist" }}?userid={{.UploaderID}}">{{ .Uploader.Username }}</a></td>
+<td><a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>Delete</a></td></tr>
+{{end}}
+</table>
+<table>
+{{ range .Users}}
+
+<tr>
+<td><a href="{{ genRoute "user_profile" "id" ( print .ID ) "username" .Username }}?edit">{{ .Username }}</a></td>
+<td><a href="{{ genRoute "user_profile" "id" ( print .ID ) "username" .Username }}?delete" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>Delete</a></td>
+</tr>
+{{end}}
+</table>
+<table>
+{{ range .Comments}}
+
+<tr><td><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{ .Content }}</a></td><td><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{ .User.Username }}</a></td>
+<td><a href="{{ genRoute "mod_cdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>Delete</a></td></tr>
+{{end}}
+</table>
 {{end}}

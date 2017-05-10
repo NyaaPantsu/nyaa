@@ -35,8 +35,8 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 		offset := 10
 
 		torrents, _, _ := torrentService.GetAllTorrents(0, offset)
-		users := userService.RetrieveUsersForAdmin(0, offset)
-		comments := commentService.GetAllComments(0, offset)
+		users, _ := userService.RetrieveUsersForAdmin(0, offset)
+		comments, _ := commentService.GetAllComments(0, offset, "", "")
 		languages.SetTranslationFromRequest(panelIndex, r, "en-us")
 		htv := PanelIndexVbs{torrents, users, comments}
 		_ = panelIndex.ExecuteTemplate(w, "admin_index.html", htv)
@@ -50,9 +50,9 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 		page, _ := strconv.Atoi(r.URL.Query().Get("p"))
 		offset := 100
 
-		torrents, _, _ := torrentService.GetAllTorrents(offset, page * offset)
+		torrents, nbTorrents, _ := torrentService.GetAllTorrents(offset, page * offset)
 		languages.SetTranslationFromRequest(panelTorrentList, r, "en-us")
-		htv := PanelTorrentListVbs{torrents}
+		htv := PanelTorrentListVbs{torrents, Navigation{nbTorrents, offset, page, "mod_tlist_page"}}
 		err := panelTorrentList.ExecuteTemplate(w, "admin_index.html", htv)
 		fmt.Println(err)
 	} else {
@@ -66,9 +66,9 @@ func UsersListPanel(w http.ResponseWriter, r *http.Request) {
 		page, _ := strconv.Atoi(r.URL.Query().Get("p"))
 		offset := 100
 
-		users := userService.RetrieveUsersForAdmin(offset, page*offset)
+		users, nbUsers := userService.RetrieveUsersForAdmin(offset, page*offset)
 		languages.SetTranslationFromRequest(panelUserList, r, "en-us")
-		htv := PanelUserListVbs{users}
+		htv := PanelUserListVbs{users, Navigation{nbUsers, offset, page, "mod_ulist_page"}}
 		err := panelUserList.ExecuteTemplate(w, "admin_index.html", htv)
 		fmt.Println(err)
 	} else {
@@ -80,10 +80,16 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 	if userPermission.HasAdmin(currentUser) {
 		page, _ := strconv.Atoi(r.URL.Query().Get("p"))
 		offset := 100
-
-		comments := commentService.GetAllComments(offset, page * offset)
+		userid := r.URL.Query().Get("userid")
+		var conditions string
+		var values []interface{}
+		if (userid != "") {
+			conditions = "user_id = ?"
+			values = append(values, userid)
+		}
+		comments, nbComments := commentService.GetAllComments(offset, page * offset, conditions, values...)
 		languages.SetTranslationFromRequest(panelCommentList, r, "en-us")
-		htv := PanelCommentListVbs{comments}
+		htv := PanelCommentListVbs{comments, Navigation{nbComments, offset, page, "mod_clist_page"}}
 		err := panelCommentList.ExecuteTemplate(w, "admin_index.html", htv)
 		fmt.Println(err)
 	} else {
