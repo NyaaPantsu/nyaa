@@ -153,11 +153,11 @@ type PanelTorrentEdVbs struct {
 }
 
 type PanelTorrentReportListVbs struct {
-	Torrents   []model.TorrentReportJson
-	Search     SearchForm
-	Navigation Navigation
-	User       *model.User
-	URL        *url.URL // For parsing Url in templates
+	TorrentReports []model.TorrentReportJson
+	Search         SearchForm
+	Navigation     Navigation
+	User           *model.User
+	URL            *url.URL // For parsing Url in templates
 }
 
 /*

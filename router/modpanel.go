@@ -3,7 +3,6 @@
 package router
 
 import (
-	"fmt"
 	"html"
 	"html/template"
 	"net/http"
@@ -52,7 +51,6 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 		comments, _ := commentService.GetAllComments(offset, 0, "", "")
 		torrentReports, _, _ := reportService.GetAllTorrentReports(offset, 0)
 
-		fmt.Println(torrentReports)
 		languages.SetTranslationFromRequest(panelIndex, r, "en-us")
 		htv := PanelIndexVbs{torrents, torrentReports, users, comments, NewSearchForm(), currentUser, r.URL}
 		_ = panelIndex.ExecuteTemplate(w, "admin_index.html", htv)
@@ -88,7 +86,7 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 		languages.SetTranslationFromRequest(panelTorrentList, r, "en-us")
 		htv := PanelTorrentListVbs{torrents, searchForm, Navigation{int(searchParam.Max), offset, pagenum, "mod_tlist_page"}, currentUser, r.URL}
 		err = panelTorrentList.ExecuteTemplate(w, "admin_index.html", htv)
-		fmt.Println(err)
+		log.CheckError(err)
 	} else {
 
 		http.Error(w, "admins only", http.StatusForbidden)
@@ -115,10 +113,10 @@ func TorrentReportListPanel(w http.ResponseWriter, r *http.Request) {
 		torrentReports, nbReports, _ := reportService.GetAllTorrentReports(offset, (pagenum-1)*offset)
 
 		reportJSON := model.TorrentReportsToJSON(torrentReports)
-		languages.SetTranslationFromRequest(panelUserList, r, "en-us")
+		languages.SetTranslationFromRequest(panelTorrentReportList, r, "en-us")
 		htv := PanelTorrentReportListVbs{reportJSON, NewSearchForm(), Navigation{nbReports, offset, pagenum, "mod_trlist_page"}, currentUser, r.URL}
 		err = panelTorrentReportList.ExecuteTemplate(w, "admin_index.html", htv)
-		fmt.Println(err)
+		log.CheckError(err)
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
 	}
@@ -145,7 +143,7 @@ func UsersListPanel(w http.ResponseWriter, r *http.Request) {
 		languages.SetTranslationFromRequest(panelUserList, r, "en-us")
 		htv := PanelUserListVbs{users, NewSearchForm(), Navigation{nbUsers, offset, pagenum, "mod_ulist_page"}, currentUser, r.URL}
 		err = panelUserList.ExecuteTemplate(w, "admin_index.html", htv)
-		fmt.Println(err)
+		log.CheckError(err)
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
 	}
@@ -179,7 +177,7 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 		languages.SetTranslationFromRequest(panelCommentList, r, "en-us")
 		htv := PanelCommentListVbs{comments, NewSearchForm(), Navigation{nbComments, offset, pagenum, "mod_clist_page"}, currentUser, r.URL}
 		err = panelCommentList.ExecuteTemplate(w, "admin_index.html", htv)
-		fmt.Println(err)
+		log.CheckError(err)
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
 	}
@@ -193,7 +191,7 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 		languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
 		htv := PanelTorrentEdVbs{torrent, NewSearchForm(), currentUser}
 		err := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
-		fmt.Println(err)
+		log.CheckError(err)
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
 	}
