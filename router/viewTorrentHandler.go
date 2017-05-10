@@ -3,6 +3,7 @@ package router
 import (
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/ewhal/nyaa/db"
@@ -39,6 +40,10 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
+
+	if strings.TrimSpace(r.FormValue("comment")) == "" {
+		http.Error(w, "comment empty", 406)
+	}
 
 	userCaptcha := captcha.Extract(r)
 	if !captcha.Authenticate(userCaptcha) {

@@ -28,6 +28,7 @@ type UploadForm struct {
 	Name        string
 	Magnet      string
 	Category    string
+	Remake      bool
 	Description string
 	captcha.Captcha
 
@@ -40,19 +41,12 @@ type UploadForm struct {
 
 // TODO: these should be in another package (?)
 
-// form value for torrent name
+// form names
 const UploadFormName = "name"
-
-// form value for torrent file
 const UploadFormTorrent = "torrent"
-
-// form value for magnet uri (?)
 const UploadFormMagnet = "magnet"
-
-// form value for category
 const UploadFormCategory = "c"
-
-// form value for description
+const UploadFormRemake = "remake"
 const UploadFormDescription = "desc"
 
 // error indicating that you can't send both a magnet link and torrent
@@ -84,6 +78,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	f.Category = r.FormValue(UploadFormCategory)
 	f.Description = r.FormValue(UploadFormDescription)
 	f.Magnet = r.FormValue(UploadFormMagnet)
+	f.Remake = r.FormValue(UploadFormRemake) == "on"
 	f.Captcha = captcha.Extract(r)
 
 	if !captcha.Authenticate(f.Captcha) {
