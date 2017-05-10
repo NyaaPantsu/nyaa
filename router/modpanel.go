@@ -40,8 +40,9 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 		languages.SetTranslationFromRequest(panelIndex, r, "en-us")
 		htv := PanelIndexVbs{torrents, users, comments}
 		_ = panelIndex.ExecuteTemplate(w, "admin_index.html", htv)
+	} else {
+		http.Error(w, "admins only", http.StatusForbidden)
 	}
-
 }
 func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
@@ -54,6 +55,9 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 		htv := PanelTorrentListVbs{torrents}
 		err := panelTorrentList.ExecuteTemplate(w, "admin_index.html", htv)
 		fmt.Println(err)
+	} else {
+
+		http.Error(w, "admins only", http.StatusForbidden)
 	}
 }
 func UsersListPanel(w http.ResponseWriter, r *http.Request) {
@@ -67,6 +71,8 @@ func UsersListPanel(w http.ResponseWriter, r *http.Request) {
 		htv := PanelUserListVbs{users}
 		err := panelUserList.ExecuteTemplate(w, "admin_index.html", htv)
 		fmt.Println(err)
+	} else {
+		http.Error(w, "admins only", http.StatusForbidden)
 	}
 }
 func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
@@ -80,6 +86,8 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 		htv := PanelCommentListVbs{comments}
 		err := panelCommentList.ExecuteTemplate(w, "admin_index.html", htv)
 		fmt.Println(err)
+	} else {
+		http.Error(w, "admins only", http.StatusForbidden)
 	}
 
 }
@@ -92,6 +100,8 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 		htv := PanelTorrentEdVbs{torrent}
 		err := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 		fmt.Println(err)
+	} else {
+		http.Error(w, "admins only", http.StatusForbidden)
 	}
 
 }
@@ -120,6 +130,8 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 		languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
 		htv := PanelTorrentEdVbs{torrent}
 		_ = panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
+	} else {
+		http.Error(w, "admins only", http.StatusForbidden)
 	}
 }
 
@@ -132,6 +144,8 @@ func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 		_, _ = userService.DeleteComment(id)
 		url, _ := Router.Get("mod_comment_list").URL()
 		http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
+	} else {
+		http.Error(w, "admins only", http.StatusForbidden)
 	}
 }
 func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
@@ -142,5 +156,7 @@ func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 		_, _ = torrentService.DeleteTorrent(id)
 		url, _ := Router.Get("mod_torrent_list").URL()
 		http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
+	} else {
+		http.Error(w, "admins only", http.StatusForbidden)
 	}
 }
