@@ -566,5 +566,13 @@
   {
     "id": "moderation",
     "translation": "Moderation"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "Who the fuck is れんちょん?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "れんちょん is the username assigned to uploads and comments made anonymously. It is also used for torrent imported from the original nyaa, though the original uploader may be displayed alongside."
   }
 ]
