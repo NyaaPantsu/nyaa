@@ -132,7 +132,7 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 			SubCategory: upload.SubCategory,
 			Status:      1,
 			Hash:        upload.Hash,
-			Date:        time.Now().Unix(),
+			Date:        time.Now(),
 			Filesize:    0, //?
 			Description: upload.Description,
 			UploaderID:  user.ID,

@@ -31,23 +31,39 @@ type Transaction struct {
 
 // Done marks this transaction as done and removes it from parent
 func (t *Transaction) Done() {
+	t.bucket.access.Lock()
 	delete(t.bucket.transactions, t.TransactionID)
+	t.bucket.access.Unlock()
 }
 
 func (t *Transaction) handleScrapeReply(data []byte) {
 	data = data[8:]
-	now := time.Now().Unix()
+	now := time.Now()
 	for idx := range t.swarms {
-		t.swarms[idx].Seeders = binary.BigEndian.Uint32(data[:idx*12])
-		t.swarms[idx].Completed = binary.BigEndian.Uint32(data[:(idx*12)+4])
-		t.swarms[idx].Leechers = binary.BigEndian.Uint32(data[:(idx*12)+8])
+		t.swarms[idx].Seeders = binary.BigEndian.Uint32(data)
+		data = data[4:]
+		t.swarms[idx].Completed = binary.BigEndian.Uint32(data)
+		data = data[4:]
+		t.swarms[idx].Leechers = binary.BigEndian.Uint32(data)
+		data = data[4:]
 		t.swarms[idx].LastScrape = now
+		idx++
 	}
 }
 
 // Sync syncs models with database
 func (t *Transaction) Sync() (err error) {
-	err = db.ORM.Update(t.swarms).Error
+	for idx := range t.swarms {
+		err = db.ORM.Model(&t.swarms[idx]).Updates(map[string]interface{}{
+			"seeders":     t.swarms[idx].Seeders,
+			"leechers":    t.swarms[idx].Leechers,
+			"completed":   t.swarms[idx].Completed,
+			"last_scrape": t.swarms[idx].LastScrape,
+		}).Error
+		if err != nil {
+			break
+		}
+	}
 	return
 }
 
@@ -71,6 +87,7 @@ func (t *Transaction) SendEvent(to net.Addr) (ev *SendEvent) {
 				copy(ev.Data[16+(idx*20):], ih)
 			}
 		}
+		t.state = stateTransact
 	} else if t.state == stateSendID {
 		ev.Data = make([]byte, 16)
 		binary.BigEndian.PutUint64(ev.Data, InitialConnectionID)
@@ -100,7 +117,7 @@ func (t *Transaction) GotData(data []byte) (done bool) {
 			break
 		case actionScrape:
 			if len(data) == (12*len(t.swarms))+8 && t.state == stateTransact {
-				t.handleScrapeReply(data[8:])
+				t.handleScrapeReply(data)
 			}
 			done = true
 			break

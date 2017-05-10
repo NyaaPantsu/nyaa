@@ -20,19 +20,19 @@ type Feed struct {
 }
 
 type Torrent struct {
-	ID          uint   `gorm:"column:torrent_id;primary_key"`
-	Name        string `gorm:"column:torrent_name"`
-	Hash        string `gorm:"column:torrent_hash"`
-	Category    int    `gorm:"column:category"`
-	SubCategory int    `gorm:"column:sub_category"`
-	Status      int    `gorm:"column:status"`
-	Date        int64  `gorm:"column:date"`
-	UploaderID  uint   `gorm:"column:uploader"`
-	Downloads   int    `gorm:"column:downloads"`
-	Stardom     int    `gorm:"column:stardom"`
-	Filesize    int64  `gorm:"column:filesize"`
-	Description string `gorm:"column:description"`
-	WebsiteLink string `gorm:"column:website_link"`
+	ID          uint      `gorm:"column:torrent_id;primary_key"`
+	Name        string    `gorm:"column:torrent_name"`
+	Hash        string    `gorm:"column:torrent_hash"`
+	Category    int       `gorm:"column:category"`
+	SubCategory int       `gorm:"column:sub_category"`
+	Status      int       `gorm:"column:status"`
+	Date        time.Time `gorm:"column:date"`
+	UploaderID  uint      `gorm:"column:uploader"`
+	Downloads   int       `gorm:"column:downloads"`
+	Stardom     int       `gorm:"column:stardom"`
+	Filesize    int64     `gorm:"column:filesize"`
+	Description string    `gorm:"column:description"`
+	WebsiteLink string    `gorm:"column:website_link"`
 	DeletedAt   *time.Time
 
 	Uploader    *User        `gorm:"ForeignKey:uploader"`
@@ -40,10 +40,10 @@ type Torrent struct {
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
 
-	Seeders    uint32 `gorm:"column:seeders"`
-	Leechers   uint32 `gorm:"column:leechers"`
-	Completed  uint32 `gorm:"column:completed"`
-	LastScrape int64  `gorm:"column:last_scrape"`
+	Seeders    uint32    `gorm:"column:seeders"`
+	Leechers   uint32    `gorm:"column:leechers"`
+	Completed  uint32    `gorm:"column:completed"`
+	LastScrape time.Time `gorm:"column:last_scrape"`
 }
 
 // Returns the total size of memory recursively allocated for this struct
@@ -162,7 +162,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Name:         t.Name,
 		Status:       t.Status,
 		Hash:         t.Hash,
-		Date:         time.Unix(t.Date, 0).Format(time.RFC3339),
+		Date:         t.Date.Format(time.RFC3339),
 		Filesize:     util.FormatFilesize2(t.Filesize),
 		Description:  util.MarkdownToHTML(t.Description),
 		Comments:     commentsJSON,
@@ -177,7 +177,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		TorrentLink:  util.Safe(torrentlink),
 		Leechers:     t.Leechers,
 		Seeders:      t.Seeders,
-		LastScrape:   time.Unix(t.LastScrape, 0),
+		LastScrape:   t.LastScrape,
 	}
 
 	return res
