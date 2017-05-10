@@ -176,3 +176,14 @@ func CreateWhereParams(conditions string, params ...string) WhereParams {
 	}
 	return whereParams
 }
+
+func DeleteTorrent(id string) {
+	var torrent model.Torrents
+	if db.ORM.First(&torrent, id).RecordNotFound() {
+		return http.StatusNotFound, errors.New("Torrent is not found.")
+	}
+	if db.ORM.Delete(&torrent).Error != nil {
+		return http.StatusInternalServerError, errors.New("Torrent is not deleted.")
+	}
+	return http.StatusOK, nil
+}
