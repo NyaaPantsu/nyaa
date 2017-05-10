@@ -562,5 +562,9 @@
   {
     "id": "delete_success",
     "translation": "Dein Profil wurde erfolgreich gelöscht!"
+  },
+  {
+    "id": "moderation",
+    "translation": "Moderation"
   }
 ]
