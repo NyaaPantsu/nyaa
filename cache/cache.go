@@ -9,14 +9,13 @@ import (
 	"github.com/ewhal/nyaa/model"
 )
 
+const expiryTime = time.Minute
+
 var (
 	cache     = make(map[common.SearchParam]*list.Element, 10)
 	ll        = list.New()
 	totalUsed int
 	mu        sync.Mutex
-
-	// Mutable for quicker testing
-	expiryTime = time.Second * 60
 
 	// Size sets the maximum size of the cache before evicting unread data in MB
 	Size float64 = 1 << 10
@@ -94,7 +93,7 @@ func updateUsedSize(delta int) {
 
 	totalUsed += delta
 
-	for totalUsed > int(Size)*(1<<20) {
+	for totalUsed > int(Size)<<20 {
 		s := ll.Remove(ll.Back()).(*store)
 		delete(cache, s.key)
 		totalUsed -= s.size
