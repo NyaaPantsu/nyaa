@@ -61,16 +61,28 @@ volumes.
 
 ## Ansible
 
-**WIP**
-
-Disable backup role by commenting it.
-
-Make sure the website connects to pgpool's port. Otherwise, no caching will be
-done. Ansible assume you have a user on the remote that has sudo (no password).
+> IMPORTANT: Make sure the website connects to pgpool's port. Otherwise, no
+> caching will be done. Ansible assume you have a user on the remote that has
+> sudo (no password).
 
 You'll have to change a few variables in [hosts](host)
+
+### Setup server
+
+This script is installs docker (might be dropped?). It also install postgresql
+with pgpool-ii and configure it. There is also a backup script installed that
+creates dump of the db and seeds it.
+
+> NOTE: The backup script needs to have access to a GPG key to sign the dumps.
+> It also needs a file with the passphrase, see
+> [group_vars/all](group_vars/all).
 
 ```
 $ cd ansible/
 $ ansible-playbook -i hosts setup_server.yml
 ```
+
+## TODOs
+- Delete .torrents after X days
+- Add public keys to db (?)
+- Show public keys and link to .torrents on the website 
