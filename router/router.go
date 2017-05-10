@@ -83,7 +83,7 @@ func init() {
 	Router.Handle("/user/{id}/{username}/follow", gzipUserFollowHandler).Name("user_follow").Methods("GET")
 	Router.Handle("/user/{id}/{username}", wrapHandler(gzipUserProfileFormHandler)).Name("user_profile").Methods("POST")
 
-	Router.Handle("/mod/", gzipIndexModPanel).Name("mod_index")
+	Router.Handle("/mod", gzipIndexModPanel).Name("mod_index")
 	Router.Handle("/mod/torrents", gzipTorrentsListPanel).Name("mod_tlist")
 	Router.Handle("/mod/users", gzipUsersListPanel).Name("mod_ulist")
 	Router.Handle("/mod/comments", gzipCommentsListPanel).Name("mod_clist")
@@ -102,7 +102,7 @@ func init() {
 	// TODO Allow only moderators to access /moderation/*
 	//Router.Handle("/moderation/report/delete", gzipTorrentReportDeleteHandler).Name("torrent_report_delete").Methods("POST")
 	//Router.Handle("/moderation/torrent/delete", gzipTorrentDeleteHandler).Name("torrent_delete").Methods("POST")
-	Router.Handle("/moderation/report", gzipGetTorrentReportHandler ).Name("torrent_report").Methods("GET")
+	Router.Handle("/mod/reports", gzipGetTorrentReportHandler).Name("torrent_report").Methods("GET")
 
 	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
 }
