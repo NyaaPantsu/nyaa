@@ -130,3 +130,17 @@ a:hover {
   max-width: 100%;
   height: auto;
 }
+
+/* fix dark-on-dark */
+.captcha-container img {
+    background: #fff;
+    border-radius: .4em .4em 0 0;
+    border-bottom: .5em solid #fff;
+    margin-bottom: -.5em;
+}
+.modal-content {
+    background: #29363d;
+}
+.modal-content .close {
+    color: #fff;
+}
