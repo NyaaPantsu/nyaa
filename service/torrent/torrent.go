@@ -51,7 +51,8 @@ func GetFeeds() (result []model.Feed, err error) {
 }
 
 func GetTorrentById(id string) (torrent model.Torrent, err error) {
-	id_int, err := strconv.Atoi(id)
+	// Postgres DB integer size is 32-bit
+	id_int, err := strconv.ParseInt(id, 10, 32)
 	if err != nil {
 		return
 	}
