@@ -1,12 +1,15 @@
 package router
 
-import (
+/*import (
 	"net/http"
+	"strconv"
 
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/moderation"
 	"github.com/ewhal/nyaa/service/user/permission"
-)
+	"github.com/gorilla/mux"
+)*/
+
 /*
 func SanitizeTorrentReport(torrentReport *model.TorrentReport) {
 	// TODO unescape html ?
@@ -47,24 +50,7 @@ func DeleteTorrentReportHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 */
-func GetTorrentReportHandler(w http.ResponseWriter, r *http.Request) {
-        currentUser := GetUser(r)
-        	if userPermission.HasAdmin(currentUser) {
 
-		torrentReports, err := moderationService.GetTorrentReports()
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		err = torrentReportTemplate.ExecuteTemplate(w, "torrent_report.html", ViewTorrentReportsVariables{model.TorrentReportsToJSON(torrentReports)})
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-        } else {
-                http.Error(w, "admins only", http.StatusForbidden)
-        }
-}
 /*
 
 func DeleteTorrentHandler(w http.ResponseWriter, r *http.Request) {
@@ -75,4 +61,33 @@ func DeleteTorrentHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}*/
+
+/*func GetTorrentReportHandler(w http.ResponseWriter, r *http.Request) {
+    currentUser := GetUser(r)
+    if userPermission.HasAdmin(currentUser) {
+		vars := mux.Vars(r)
+		page, _ := strconv.Atoi(vars["page"])
+		offset := 100
+		userid := r.URL.Query().Get("userid")
+		var conditions string
+		var values []interface{}
+		if (userid != "") {
+			conditions = "user_id = ?"
+			values = append(values, userid)
+		}
+
+	torrentReports, nbReports, err := moderationService.GetTorrentReports(offset, page * offset, conditions, values...)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	err = torrentReportTemplate.ExecuteTemplate(w, "admin_index.html", ViewTorrentReportsVariables{model.TorrentReportsToJSON(torrentReports), NewSearchForm(), Navigation{nbReports, offset, page, "mod_trlist_page"}, currentUser, r.URL})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+    } else {
+            http.Error(w, "admins only", http.StatusForbidden)
+    }
 }*/

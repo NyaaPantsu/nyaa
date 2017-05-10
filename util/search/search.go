@@ -11,6 +11,7 @@ import (
 	"github.com/ewhal/nyaa/common"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/service"
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/util/log"
 )
@@ -96,7 +97,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	}
 
 	tor, count, err = cache.Get(search, func() (tor []model.Torrent, count int, err error) {
-		parameters := torrentService.WhereParams{
+		parameters := serviceBase.WhereParams{
 			Params: make([]interface{}, 0, 64),
 		}
 		conditions := make([]string, 0, 64)
