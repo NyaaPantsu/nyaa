@@ -35,7 +35,7 @@ type NotFoundTemplateVariables struct {
 }
 
 type ViewTemplateVariables struct {
-	Torrent    model.TorrentsJson
+	Torrent    model.TorrentJSON
 	Captcha    captcha.Captcha
 	Search     SearchForm
 	Navigation Navigation
@@ -55,15 +55,15 @@ type UserRegisterTemplateVariables struct {
 }
 
 type UserProfileEditVariables struct {
-	UserProfile 	 *model.User
-	UserForm 		 userForms.UserForm
-	FormErrors       map[string][]string
-	FormInfos        map[string][]string
-	Search           SearchForm
-	Navigation       Navigation
-	User             *model.User
-	URL              *url.URL   // For parsing Url in templates
-	Route            *mux.Route // For getting current route in templates
+	UserProfile *model.User
+	UserForm    userForms.UserForm
+	FormErrors  map[string][]string
+	FormInfos   map[string][]string
+	Search      SearchForm
+	Navigation  Navigation
+	User        *model.User
+	URL         *url.URL   // For parsing Url in templates
+	Route       *mux.Route // For getting current route in templates
 }
 
 type UserVerifyTemplateVariables struct {
@@ -96,7 +96,7 @@ type UserProfileVariables struct {
 }
 
 type HomeTemplateVariables struct {
-	ListTorrents []model.TorrentsJson
+	ListTorrents []model.TorrentJSON
 	Search       SearchForm
 	Navigation   Navigation
 	User         *model.User

@@ -24,7 +24,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		NotFoundHandler(w, r)
 		return
 	}
-	b := torrent.ToJson()
+	b := torrent.ToJSON()
 	htv := ViewTemplateVariables{b, captcha.Captcha{CaptchaID: captcha.GetID()}, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 
 	languages.SetTranslationFromRequest(viewTemplate, r, "en-us")
@@ -45,14 +45,14 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	content := p.Sanitize(r.FormValue("comment"))
 
-	idNum_, err := strconv.Atoi(id)
-	var idNum uint = uint(idNum_)
-	var userId uint = 0
-	if currentUser.Id > 0 {
-		userId = currentUser.Id
+	idNum, err := strconv.Atoi(id)
+	if currentUser.ID <= 0 {
+		http.Error(w, "Invalid user ID", http.StatusInternalServerError)
 	}
-	comment := model.Comment{TorrentId: idNum, UserId: userId, Content: content, CreatedAt: time.Now()}
-	err = db.ORM.Create(&comment).Error
+	userID := currentUser.ID
+	comment := model.Comment{TorrentID: uint(idNum), UserID: userID, Content: content, CreatedAt: time.Now()}
+	
+err = db.ORM.Create(&comment).Error
 	if err != nil {
 		util.SendError(w, err, 500)
 		return
