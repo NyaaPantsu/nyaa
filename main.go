@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"flag"
+
 	"github.com/nicksnyder/go-i18n/i18n"
 
 	"github.com/ewhal/nyaa/config"
@@ -14,12 +15,19 @@ import (
 
 	"net/http"
 	"os"
+	"path/filepath"
 	"time"
 )
 
 func initI18N() {
 	/* Initialize the languages translation */
 	i18n.MustLoadTranslationFile("translations/en-us.all.json")
+	paths, err := filepath.Glob("translations/*.json")
+	if err == nil {
+		for _, path := range paths {
+			i18n.LoadTranslationFile(path)
+		}
+	}
 }
 
 func RunServer(conf *config.Config) {
@@ -54,7 +62,10 @@ func main() {
 		if err != nil {
 			log.CheckError(err)
 		}
-		db.ORM, _ = db.GormInit(conf)
+		db.ORM, err = db.GormInit(conf)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
 		initI18N()
 		go signals.Handle()
 		if len(config.TorrentFileStorage) > 0 {

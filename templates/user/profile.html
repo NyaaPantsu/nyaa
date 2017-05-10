@@ -1,6 +1,9 @@
 {{define "title"}}{{ T "profile_page" .UserProfile.Username }}{{end}}
 {{define "contclass"}}cont-view{{end}}
 {{define "content"}}
+{{ range (index $.FormInfos "infos")}}
+	<div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
+{{end}}
 <div class="row profile">
 {{with .UserProfile}}
 		<div class="col-md-3">
@@ -24,7 +27,11 @@
 				<div class="profile-userbuttons">
 						{{if gt $.User.Id 0 }}
 						{{if not (CurrentUserIdentical $.User .Id) }}
-					<button type="button" class="btn btn-success btn-sm">{{ T "follow"}}</button>
+						{{if not (IsFollower . $.User)}}
+							<a href="{{ genRoute "user_follow" "id" ( print .Id ) "username" .Username }}" class="btn btn-success btn-sm">{{ T "follow"}}</a>
+						{{else}}
+							<a href="{{ genRoute "user_follow" "id" ( print .Id ) "username" .Username }}" class="btn btn-danger btn-sm">{{ T "unfollow"}}</a>
+						{{end}}
 						{{end}}
 						{{end}}
 					<!-- <button type="button" class="btn btn-danger btn-sm">Message</button> -->

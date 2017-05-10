@@ -1,4 +1,4 @@
-{{define "title"}}{{ T "register_success_title" }}{{end}}
+{{define "title"}}{{ T "register_success_title" }}{{end}}
 {{define "contclass"}}cont-view{{end}}
 {{define "content"}}
 <div class="blockBody">
@@ -7,7 +7,11 @@
 
 					<h2>{{T "sign_up_success"}}</h2>
 					<hr class="colorgraph">
+					{{if ne .User.Email ""}}
 					<p>{{ T "signup_verification_email" }}</p>
+					{{else}}
+					<p>{{ T "signup_verification_noemail" }}</p>
+					{{end}}
 		</div>
 	</div>
 </div>
