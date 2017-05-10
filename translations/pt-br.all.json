@@ -5,39 +5,39 @@
   },
   {
     "id": "verify_email_title",
-    "translation": "Verifique seu endereço de email do Nyaapantsu."
+    "translation": "Verifique o seu endereço de e-mail do Nyaapantsu."
   },
   {
     "id": "verify_email_content",
-    "translation": "Clique no link abaixo para verificar seu email."
+    "translation": "Clique no link abaixo para verificar o seu endereço de e-mail."
   },
   {
     "id": "reset_password_title",
-    "translation": "Redefina sua senha do goyangi."
+    "translation": "Redefina a sua senha do goyangi."
   },
   {
     "id": "reset_password_content",
-    "translation": "Clique no link abaixo para redefinir sua senha."
+    "translation": "Clique no link abaixo para redefinir a sua senha."
   },
   {
     "id":"register_title",
-    "translation": "Criar uma conta"
+    "translation": "Criar conta"
   },
   {
     "id":"signup_box_title",
-    "translation": "Registre-se <small>É de graça e sempre será.</small>"
+    "translation": "Por favor, cadastre-se <small>(é de graça e sempre será)</small>"
   },
   {
     "id":"username",
-    "translation": "Usuário"
+    "translation": "Nome de suário"
   },
   {
     "id":"email_address_or_username",
-    "translation": "Endereço de Email ou Usuário"
+    "translation": "Endereço de e-mail ou nome de usuário"
   },
   {
     "id":"email_address",
-    "translation": "Endereço de Email"
+    "translation": "Endereço de e-mail"
   },
   {
     "id":"password",
@@ -45,23 +45,23 @@
   },
   {
     "id":"confirm_password",
-    "translation": "Confirmar Senha"
+    "translation": "Confirmar senha"
   },
   {
     "id":"i_agree",
-    "translation": "Eu concordo"
+    "translation": "Eu aceito"
   },
   {
     "id":"terms_conditions_confirm",
-    "translation": "Ao clicar em <strong class=\"label label-primary\">Registrar</strong>, você concorda com os <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Termos e Condições</a> estabelecidos por este site, incluindo nosso uso de Cookies."
+    "translation": "Ao clicar em <strong class=\"label label-primary\">Criar</strong>, você concorda com os <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Termos e Condições</a> estabelecidos pelo site, incluindo o nosso uso de cookies."
   },
   {
     "id":"signin",
-    "translation": "Iniciar Sessão"
+    "translation": "Iniciar sessão"
   },
   {
     "id":"register",
-    "translation": "Registrar"
+    "translation": "Criar"
   },
   {
     "id":"terms_conditions",
@@ -69,47 +69,47 @@
   },
   {
     "id":"terms_conditions_full",
-    "translation": "Algumas Merdas."
+    "translation": "Algumas coisas."
   },
   {
     "id":"remember_me",
-    "translation": "Lembre-se de mim"
+    "translation": "Lembre-me"
   },
   {
     "id":"forgot_password",
-    "translation": "Esqueceu sua Senha?"
+    "translation": "Esqueceu a senha?"
   },
   {
     "id":"sign_in_box_title",
-    "translation": "Por Favor, Inicie a Sessão"
+    "translation": "Por favor, inicie a sessão"
   },
   {
     "id":"sign_in_title",
-    "translation": "Iniciar Sessão"
+    "translation": "Iniciar sessão"
   },
   {
     "id":"register_success_title",
-    "translation": "Registro Completo"
+    "translation": "Cadastro bem-sucedido"
   },
   {
     "id":"sign_up_success",
-    "translation": "Obrigado por se registrar!"
+    "translation": "Obrigado por se cadastrar!"
   },
   {
     "id":"verify_success",
-    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Sua conta foi ativada!"
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>A sua conta foi ativada!"
   },
   {
     "id":"signup_verification_email",
-    "translation": "Finalmente, cheque sua caixa de entrada (e caixa de spam!) para o email de verificação."
+    "translation": "Por fim, verifique a sua caixa de entrada (e pasta de spam!) pelo e-mail de verificação."
   },
   {
     "id":"signup_verification_noemail",
-    "translation": "Registrado com sucesso, você pode agora usar sua conta."
+    "translation": "Cadastro bem-sucedido, você pode agora usar a sua conta."
   },
   {
     "id":"settings",
-    "translation": "Configurações de Conta"
+    "translation": "Configurações da conta"
   },
   {
     "id":"torrents",
@@ -121,7 +121,7 @@
   },
   {
     "id":"unfollow",
-    "translation": "Deixar de Seguir"
+    "translation": "Deixar de seguir"
   },
   {
     "id":"user_followed_msg",
@@ -161,7 +161,7 @@
   },
   {
     "id": "home",
-    "translation": "Página Inicial"
+    "translation": "Página inicial"
   },
   {
     "id": "error_404",
@@ -169,15 +169,15 @@
   },
   {
     "id": "toggle_navigation",
-    "translation": "Alternar Navegação"
+    "translation": "Alternar navegação"
   },
   {
     "id": "upload",
-    "translation": "Envio"
+    "translation": "Enviar"
   },
   {
     "id": "faq",
-    "translation": "FAQ"
+    "translation": "Perguntas frequentes"
   },
   {
     "id": "fap",
@@ -185,19 +185,19 @@
   },
   {
     "id": "advanced_search",
-    "translation": "Pesquisa Avançada"
+    "translation": "Pesquisa avançada"
   },
   {
     "id": "nothing_here",
-    "translation": "Nada Aqui."
+    "translation": "Nada aqui."
   },
   {
     "id": "404_not_found",
-    "translation": "404 Não Encontrado"
+    "translation": "404 Não encontrado"
   },
   {
     "id": "no_torrents_uploaded",
-    "translation": "Nenhum torrent enviado, ainda!"
+    "translation": "Nenhum torrent enviado ainda!"
   },
   {
     "id": "profile",
@@ -213,11 +213,11 @@
   },
   {
     "id": "sign_in",
-    "translation": "Iniciar Sessão"
+    "translation": "Iniciar sessão"
   },
   {
     "id": "sign_up",
-    "translation": "Registrar"
+    "translation": "Cadastrar-se"
   },
   {
     "id": "no_results_found",
@@ -225,27 +225,27 @@
   },
   {
     "id": "notice_keep_seeding",
-    "translation": "AVISO: CONTINUE SEMEANDO E HABILITE O DHT, SEU RETARDADO"
+    "translation": "AVISO: CONTINUE SEMEANDO E HABILITE O DHT"
   },
   {
     "id": "official_nyaapocalipse_faq",
-    "translation": "FAQ oficial Nyaapocalypse"
+    "translation": "Perguntas frequentes sobre o Nyaapocalipse"
   },
   {
     "id": "links_replacement_mirror",
-    "translation": "Links para reposição/mirror"
+    "translation": "Links para a reposição/mirror"
   },
   {
     "id": "what_happened",
-    "translation": "O que houve?"
+    "translation": "O que aconteceu?"
   },
   {
     "id": "nyaa_se_went_offline",
-    "translation": "nyaa.se e domínios associados (como o nyaatorrents.info) saíram do ar no dia Primeiro de Maio de 2017"
+    "translation": "nyaa.se e domínios associados (como nyaatorrents.info) saíram do ar em 1º de maio de 2017."
   },
   {
     "id": "its_not_a_ddos",
-    "translation": "Eles foram desativados, então não é um ataque DDoS como normalmente."
+    "translation": "Eles foram desativados, então não é um ataque DDoS (ataque de negação de serviço) como normalmente."
   },
   {
     "id": "future_not_looking_good",
@@ -269,11 +269,11 @@
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "Nós temos um banco de dados contendo os torrents do nyaa até <s>5 de Abril</s> 1º de Maio. Isso significa que quase nada foi perdido."
+    "translation": "Nós temos um banco de dados contendo os torrents do nyaa até <s>5 de abril</s> 1º de maio. Isso significa que quase nada foi perdido."
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Sukebei, no entanto, está em uma situação pior. Atualmente nós só temos os dados do sukebei até 2016, mas um novo banco de dados pode estar dsisponível para uso."
+    "translation": "Sukebei, no entando, pode estar na pior. Atualmente nós só temos os bancos de dados do sukebei até 2016, mas um banco de dados mais recente pode estar disponível para uso."
   },
   {
     "id": "how_are_we_recovering",
@@ -281,7 +281,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "Os bancos de dados estão hospedados em nyaa.pantsu.cat e sukebei.pantsu.cat. Há uma função de busca, e (quase) todas as funcionalidades do nyaa devem estar de volta em breve. Estatísticas de seeders/leechers estão disponíveis via raspagem de dados e podem ser restauradas no futuro, já que outras funções são prioridade no momento."
+    "translation": "Os então mencionados bancos de dados estão hospedados em nyaa.pantsu.cat e sukebei.pantsu.cat. Há uma função de busca, e (quase) todas as funcionalidades do nyaa devem estar de volta em breve. Estatísticas de seeders/leechers são possíveis extraindo os dados e podem ser restauradas no futuro, já que outras funções são prioridade no momento."
   },
   {
     "id": "are_the_trackers_working",
@@ -293,11 +293,11 @@
   },
   {
     "id": "how_do_i_download_the_torrents",
-    "translation": "Como eu baixo os torrents?"
+    "translation": "Como posso baixar os torrents?"
   },
   {
     "id": "answer_how_do_i_download_the_torrents",
-    "translation": "Utilize os <b>links magnéticos</b>. Os links magnéticos serão usados pelo seu cliente BitTorrent, para procurar o arquivo na rede DHT, e deverá baixar sem problemas."
+    "translation": "Use os <b>links magnéticos</b>. Os links magnéticos serão usados pelo seu cliente BitTorrent para procurar o arquivo na rede DHT, e deverá baixá-lo sem problemas."
   },
   {
     "id": "magnet_link_should_look_like",
@@ -305,7 +305,7 @@
   },
   {
     "id": "which_trackers_do_you_recommend",
-    "translation": "Quais trackers você recomenda?"
+    "translation": "Quais trackers vocês recomendam usar?"
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
@@ -313,19 +313,19 @@
   },
   {
     "id": "how_can_i_help",
-    "translation": "Como eu posso ajudar?"
+    "translation": "Como posso ajudar?"
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "Se você tem experiência em desenvolvimento para a web, você pode entrar no canal de IRC #nyaapantsu em irc.rizon.net. Se você tem qualquer tipo de dados, especialmente para sukebei, <b>ENVIE-OS</b>."
+    "translation": "Se você tem experiência em desenvolvimento para a web, você pode entrar no canal de IRC #nyaapantsu em irc.rizon.net. Se você tiver algum banco de dados atual, especialmente para o sukebei, <b>ENVIE-O</b>."
   },
   {
     "id": "your_design_sucks_found_a_bug",
-    "translation": "Seu design é uma merda / Encontrei um bug"
+    "translation": "Seu design é horrível / Encontrei um bug"
   },
   {
     "id": "why_written_in_go",
-    "translation": "Por que suas coisas estão escritas em Go?"
+    "translation": "Por que as suas coisas estão escritas em Go?"
   },
   {
     "id": "authors_favorite_language",
@@ -337,19 +337,19 @@
   },
   {
     "id": "upload_magnet",
-    "translation": "Envie um link magnético"
+    "translation": "Enviar link magnético"
   },
   {
     "id": "torrent_file",
-    "translation": "Arquivo Torrent"
+    "translation": "Arquivo de torrent"
   },
   {
     "id": "uploading_file_prefills_fields",
-    "translation": "Enviar um arquivo torrent permite o pré-preenchimento de alguns campos, isso é recomendado."
+    "translation": "Enviar um arquivo de torrent permite o pré-preenchimento de alguns campos, isso é recomendado."
   },
   {
     "id": "magnet_link",
-    "translation": "Link Magnético"
+    "translation": "Link magnético"
   },
   {
     "id": "all_categories",
@@ -361,19 +361,19 @@
   },
   {
     "id": "anime_amv",
-    "translation": "Anime - Anime Music Video"
+    "translation": "Anime - AMV (Anime Music Video)"
   },
   {
     "id": "anime_english_translated",
-    "translation": "Anime - Traduções em Inglês"
+    "translation": "Anime - Traduções em inglês"
   },
   {
     "id": "anime_non_english_translated",
-    "translation": "Anime - Traduções em Outros Idiomas"
+    "translation": "Anime - Traduções em outros idiomas"
   },
   {
     "id": "anime_raw",
-    "translation": "Anime - Raw"
+    "translation": "Anime - Sem tradução"
   },
   {
     "id": "audio",
@@ -381,11 +381,11 @@
   },
   {
     "id": "audio_lossless",
-    "translation": "Áudio - Sem Perdas"
+    "translation": "Áudio - Sem perdas"
   },
   {
     "id": "audio_lossy",
-    "translation": "Audio - Com Perdas"
+    "translation": "Audio - Com perdas"
   },
   {
     "id": "literature",
@@ -393,15 +393,15 @@
   },
   {
     "id": "literature_english_translated",
-    "translation": "Literatura - Traduções em Inglês"
+    "translation": "Literatura - Traduções em inglês"
   },
   {
     "id": "literature_raw",
-    "translation": "Literatura - Raw"
+    "translation": "Literatura - Sem tradução"
   },
   {
     "id": "literature_non_english_translated",
-    "translation": "Literatura - Traduções em Outros Idiomas"
+    "translation": "Literatura - Traduções em outros idiomas"
   },
   {
     "id": "live_action",
@@ -409,19 +409,19 @@
   },
   {
     "id": "live_action_english_translated",
-    "translation": "Live Action - Traduções em Inglês"
+    "translation": "Live Action - Traduções em inglês"
   },
   {
     "id": "live_action_idol_pv",
-    "translation": "Live Action - Idol/Vídeo Promocional"
+    "translation": "Live Action - Idol/Vídeo promocional"
   },
   {
     "id": "live_action_non_english_translated",
-    "translation": "Live Action - Traduções em Outros Idiomas"
+    "translation": "Live Action - Traduções em outros idiomas"
   },
   {
     "id": "live_action_raw",
-    "translation": "Live Action - Raw"
+    "translation": "Live Action - Sem tradução"
   },
   {
     "id": "pictures",
@@ -429,7 +429,7 @@
   },
   {
     "id": "pictures_graphics",
-    "translation": "Imagens - Artes Gráficas"
+    "translation": "Imagens - Artes fráficas"
   },
   {
     "id": "pictures_photos",
@@ -449,19 +449,19 @@
   },
   {
     "id": "torrent_description",
-    "translation": "Descrição do Torrent"
+    "translation": "Descrição do torrent"
   },
   {
     "id": "description_markdown_notice",
-    "translation": "Marcações podem ser usadas nas descrições."
+    "translation": "Markdown pode ser usado em descrições."
   },
   {
     "id": "show_all",
-    "translation": "Mostrar Todos"
+    "translation": "Exibir todos"
   },
   {
     "id": "filter_remakes",
-    "translation": "Filtrar Remakes"
+    "translation": "Filtrar refeitos"
   },
   {
     "id": "trusted",
@@ -485,7 +485,7 @@
   },
   {
     "id": "search",
-    "translation": "Pesquisa"
+    "translation": "Busca"
   },
   {
     "id": "hash",
@@ -501,11 +501,11 @@
   },
   {
     "id": "submit_a_comment_as_username",
-    "translation": "Envie um comentário como %s"
+    "translation": "Comentar como %s"
   },
   {
     "id": "submit_a_comment_as_anonymous",
-    "translation": "Envie um comentário como Anônimo"
+    "translation": "Comentar como Anônimo"
   },
   {
     "id": "submit",
@@ -513,7 +513,7 @@
   },
   {
     "id": "personal_info",
-    "translation": "Informações Pessoais"
+    "translation": "Informações pessoais"
   },
   {
     "id": "language",
@@ -537,7 +537,7 @@
   },
   {
     "id": "trusted_member",
-    "translation": "Membro Confiável"
+    "translation": "Membro confiável"
   },
   {
     "id": "moderator",
@@ -545,7 +545,7 @@
   },
   {
     "id": "save_changes",
-    "translation": "Salvar Alterações"
+    "translation": "Salvar alterações"
   },
   {
     "id": "profile_updated",
@@ -553,14 +553,14 @@
   },
   {
     "id": "delete_account",
-    "translation": "Deletar Conta"
+    "translation": "Excluir conta"
   },
   {
     "id": "delete_account_confirm",
-    "translation": "Tem certeza que deseja deletar essa conta?"
+    "translation": "Tem certeza de que deseja excluir esta conta?"
   },
   {
     "id": "delete_success",
-    "translation": "A conta foi deletada com sucesso!"
+    "translation": "A conta foi excluída com sucesso!"
   }
 ]
