@@ -61,7 +61,14 @@ volumes.
 
 ## Ansible
 
-WIP
+**WIP**
+
+Disable backup role by commenting it.
+
+Make sure the website connects to pgpool's port. Otherwise, no caching will be
+done. Ansible assume you have a user on the remote that has sudo (no password).
+
+You'll have to change a few variables in [hosts](host)
 
 ```
 $ cd ansible/
