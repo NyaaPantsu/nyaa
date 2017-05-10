@@ -45,7 +45,7 @@
   },
   {
     "id":"confirm_password",
-    "translation": "Bestätige dein Passwort"
+    "translation": "Passwort-Bestätigung"
   },
   {
     "id":"i_agree",
@@ -317,7 +317,7 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "Wenn du Erfahrungen mit Webseitenprogrammierung hast, kannst du dem IRC-Kanal #nyaapantsu auf irc.rizon.net(Englisch) beitreten. Wenn du irgendwelche Datenbanken hast, insbesondere für Sukebei, <b>LAD SIE HOCH</b>."
+    "translation": "Wenn du Erfahrungen mit Webseitenprogrammierung hast, kannst du dem IRC-Kanal #nyaapantsu auf irc.rizon.net (Englisch) beitreten. Wenn du irgendwelche Datenbanken hast, insbesondere für Sukebei, <b>LAD SIE HOCH</b>."
   },
   {
     "id": "your_design_sucks_found_a_bug",
@@ -325,7 +325,7 @@
   },
   {
     "id": "why_written_in_go",
-    "translation": "Warum in Gottesnamen ist eurer Code in Go geschrieben?"
+    "translation": "Warum in Gottes Namen ist eurer Code in Go geschrieben?"
   },
   {
     "id": "authors_favorite_language",
@@ -562,5 +562,13 @@
   {
     "id": "delete_success",
     "translation": "Dein Profil wurde erfolgreich gelöscht!"
+  },
+  {
+    "id": "moderation",
+    "translation": "Moderation"
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Als Remake markieren"
   }
 ]
