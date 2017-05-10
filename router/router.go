@@ -39,7 +39,6 @@ func init() {
 	gzipUserFollowHandler := handlers.CompressHandler(http.HandlerFunc(UserFollowHandler))
 	gzipUserProfileFormHandler := handlers.CompressHandler(http.HandlerFunc(UserProfileFormHandler))
 
-
 	gzipIndexModPanel := handlers.CompressHandler(http.HandlerFunc(IndexModPanel))
 	gzipTorrentsListPanel := handlers.CompressHandler(http.HandlerFunc(TorrentsListPanel))
 	gzipUsersListPanel := handlers.CompressHandler(http.HandlerFunc(UsersListPanel))
@@ -49,7 +48,10 @@ func init() {
 	gzipCommentDeleteModPanel := handlers.CompressHandler(http.HandlerFunc(CommentDeleteModPanel))
 	gzipTorrentDeleteModPanel := handlers.CompressHandler(http.HandlerFunc(TorrentDeleteModPanel))
 
-
+	gzipGetTorrentReportHandler := handlers.CompressHandler(http.HandlerFunc(GetTorrentReportHandler))
+	//gzipTorrentReportCreateHandler := handlers.CompressHandler(http.HandlerFunc(CreateTorrentReportHandler))
+	//gzipTorrentReportDeleteHandler := handlers.CompressHandler(http.HandlerFunc(DeleteTorrentReportHandler))
+	//gzipTorrentDeleteHandler := handlers.CompressHandler(http.HandlerFunc(DeleteTorrentHandler))
 
 	Router = mux.NewRouter()
 
@@ -91,8 +93,16 @@ func init() {
 	Router.Handle("/mod/torrent/delete", gzipTorrentDeleteModPanel).Name("mod_tdelete")
 	Router.Handle("/mod/comment/delete", gzipCommentDeleteModPanel).Name("mod_cdelete")
 
+	//reporting a torrent
+	Router.HandleFunc("/report/{id}", ReportTorrentHandler).Methods("POST").Name("post_comment")
 
 	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
+
+	//Router.Handle("/report/create", gzipTorrentReportCreateHandler).Name("torrent_report_create").Methods("POST")
+	// TODO Allow only moderators to access /moderation/*
+	//Router.Handle("/moderation/report/delete", gzipTorrentReportDeleteHandler).Name("torrent_report_delete").Methods("POST")
+	//Router.Handle("/moderation/torrent/delete", gzipTorrentDeleteHandler).Name("torrent_delete").Methods("POST")
+	Router.Handle("/moderation/report", gzipGetTorrentReportHandler ).Name("torrent_report").Methods("GET")
 
 	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
 }

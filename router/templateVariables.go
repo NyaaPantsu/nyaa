@@ -132,6 +132,10 @@ type PanelTorrentEdVbs struct {
 	Torrent model.Torrent
 }
 
+type ViewTorrentReportsVariables struct {
+	Torrents []model.TorrentReportJson
+}
+
 /*
  * Variables used by the upper ones
  */
