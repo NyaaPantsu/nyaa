@@ -22,12 +22,12 @@
 				<!-- END SIDEBAR USER TITLE -->
 				<!-- SIDEBAR BUTTONS -->
 				<div class="profile-userbuttons">
-						{{if gt $.User.Id 0 }}
-						{{if not (CurrentUserIdentical $.User .Id) }}
+						{{if gt $.User.ID 0 }}
+						{{if not (CurrentUserIdentical $.User .ID) }}
 						{{if not (IsFollower . $.User)}}
-							<a href="{{ genRoute "user_follow" "id" .Id }}" class="btn btn-success btn-sm">{{ T "follow"}}</a>
+							<a href="{{ genRoute "user_follow" "id" .ID }}" class="btn btn-success btn-sm">{{ T "follow"}}</a>
 						{{else}}
-							<a href="{{ genRoute "user_follow" "id" .Id }}" class="btn btn-danger btn-sm">{{ T "unfollow"}}</a>
+							<a href="{{ genRoute "user_follow" "id" .ID }}" class="btn btn-danger btn-sm">{{ T "unfollow"}}</a>
 						{{end}}
 						{{end}}
 						{{end}}
@@ -42,8 +42,8 @@
 							<i class="glyphicon glyphicon-home"></i>
 							{{T "torrents"}} </a>
 						</li>
-						{{if gt $.User.Id 0 }}
-						{{if CurrentOrAdmin $.User .Id }}
+						{{if gt $.User.ID 0 }}
+						{{if CurrentOrAdmin $.User .ID }}
 						<li class="active">
 							<a href="?edit">
 							<i class="glyphicon glyphicon-user"></i>

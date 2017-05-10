@@ -31,8 +31,8 @@ type UploadForm struct {
 	captcha.Captcha
 
 	Infohash      string
-	CategoryId    int
-	SubCategoryId int
+	CategoryID    int
+	SubCategoryID int
 	Filesize      int64
 	Filepath      string
 }
@@ -86,11 +86,11 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	f.Captcha = captcha.Extract(r)
 
 	if !captcha.Authenticate(f.Captcha) {
-		// TODO: Prettier passing of mistyoed captcha errors
+		// TODO: Prettier passing of mistyped Captcha errors
 		return errors.New(captcha.ErrInvalidCaptcha.Error())
 	}
 
-	// trim whitespaces
+	// trim whitespace
 	f.Name = util.TrimWhitespaces(f.Name)
 	f.Description = p.Sanitize(util.TrimWhitespaces(f.Description))
 	f.Magnet = util.TrimWhitespaces(f.Magnet)
@@ -98,17 +98,17 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	catsSplit := strings.Split(f.Category, "_")
 	// need this to prevent out of index panics
 	if len(catsSplit) == 2 {
-		CatId, err := strconv.Atoi(catsSplit[0])
+		CatID, err := strconv.Atoi(catsSplit[0])
 		if err != nil {
 			return ErrInvalidTorrentCategory
 		}
-		SubCatId, err := strconv.Atoi(catsSplit[1])
+		SubCatID, err := strconv.Atoi(catsSplit[1])
 		if err != nil {
 			return ErrInvalidTorrentCategory
 		}
 
-		f.CategoryId = CatId
-		f.SubCategoryId = SubCatId
+		f.CategoryID = CatID
+		f.SubCategoryID = SubCatID
 	} else {
 		return ErrInvalidTorrentCategory
 	}
@@ -119,7 +119,10 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		var torrent metainfo.TorrentFile
 
 		// decode torrent
-		tfile.Seek(0, io.SeekStart)
+		_, seekErr := tfile.Seek(0, io.SeekStart)
+		if seekErr != nil {
+			return seekErr
+		}
 		err = bencode.NewDecoder(tfile).Decode(&torrent)
 		if err != nil {
 			return metainfo.ErrInvalidTorrentFile
@@ -143,7 +146,10 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		if len(f.Magnet) != 0 {
 			return ErrTorrentPlusMagnet
 		}
-		binInfohash := torrent.Infohash()
+		binInfohash, err := torrent.Infohash()
+		if err != nil {
+			return err
+		}
 		f.Infohash = strings.ToUpper(hex.EncodeToString(binInfohash[:]))
 		f.Magnet = util.InfoHashToMagnet(f.Infohash, f.Name, trackers...)
 
@@ -151,11 +157,11 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		f.Filesize = int64(torrent.TotalSize())
 	} else {
 		// No torrent file provided
-		magnetUrl, parseErr := url.Parse(f.Magnet)
+		magnetURL, parseErr := url.Parse(f.Magnet)
 		if parseErr != nil {
 			return metainfo.ErrInvalidTorrentFile
 		}
-		exactTopic := magnetUrl.Query().Get("xt")
+		exactTopic := magnetURL.Query().Get("xt")
 		if !strings.HasPrefix(exactTopic, "urn:btih:") {
 			return metainfo.ErrInvalidTorrentFile
 		}
@@ -174,10 +180,6 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		return ErrInvalidTorrentName
 	}
 
-	//if len(f.Description) == 0 {
-	//	return ErrInvalidTorrentDescription
-	//}
-
 	// after data has been checked & extracted, write it to disk
 	if len(config.TorrentFileStorage) > 0 {
 		err := WriteTorrentToDisk(tfile, f.Infohash+".torrent", &f.Filepath)
@@ -192,7 +194,10 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 }
 
 func WriteTorrentToDisk(file multipart.File, name string, fullpath *string) error {
-	file.Seek(0, io.SeekStart)
+	_, seekErr := file.Seek(0, io.SeekStart)
+	if seekErr != nil {
+		return seekErr
+	}
 	b, err := ioutil.ReadAll(file)
 	if err != nil {
 		return err
@@ -201,29 +206,30 @@ func WriteTorrentToDisk(file multipart.File, name string, fullpath *string) erro
 	return ioutil.WriteFile(*fullpath, b, 0644)
 }
 
-var dead_trackers = []string{ // substring matches!
-	"://open.nyaatorrents.info:6544",
-	"://tracker.openbittorrent.com:80",
-	"://tracker.publicbt.com:80",
-	"://stats.anisource.net:2710",
-	"://exodus.desync.com",
-	"://open.demonii.com:1337",
-	"://tracker.istole.it:80",
-	"://tracker.ccc.de:80",
-	"://bt2.careland.com.cn:6969",
-	"://announce.torrentsmd.com:8080"}
-
 func CheckTrackers(trackers []string) bool {
+	// TODO: move to runtime configuration
+	var deadTrackers = []string{ // substring matches!
+		"://open.nyaatorrents.info:6544",
+		"://tracker.openbittorrent.com:80",
+		"://tracker.publicbt.com:80",
+		"://stats.anisource.net:2710",
+		"://exodus.desync.com",
+		"://open.demonii.com:1337",
+		"://tracker.istole.it:80",
+		"://tracker.ccc.de:80",
+		"://bt2.careland.com.cn:6969",
+		"://announce.torrentsmd.com:8080"}
+
 	var numGood int
 	for _, t := range trackers {
-		var good bool = true
-		for _, check := range dead_trackers {
+		good := true
+		for _, check := range deadTrackers {
 			if strings.Contains(t, check) {
 				good = false
 			}
 		}
 		if good {
-			numGood += 1
+			numGood++
 		}
 	}
 	return numGood > 0

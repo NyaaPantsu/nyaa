@@ -1,9 +1,9 @@
 package userPermission
 
 import (
+	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util/log"
-	"github.com/ewhal/nyaa/db"
 )
 
 // HasAdmin checks that user has an admin permission.
@@ -12,29 +12,26 @@ func HasAdmin(user *model.User) bool {
 }
 
 // CurrentOrAdmin check that user has admin permission or user is the current user.
-func CurrentOrAdmin(user *model.User, userId uint) bool {
-	log.Debugf("user.Id == userId %d %d %s", user.Id, userId, user.Id == userId)
-	return (HasAdmin(user) || user.Id == userId)
+func CurrentOrAdmin(user *model.User, userID uint) bool {
+	log.Debugf("user.ID == userID %d %d %s", user.ID, userID, user.ID == userID)
+	return (HasAdmin(user) || user.ID == userID)
 }
 
-// CurrentUserIdentical check that userId is same as current user's Id.
-func CurrentUserIdentical(user *model.User, userId uint) (bool) {
-	if user.Id != userId {
-		return false
-	}
-
-	return true
+// CurrentUserIdentical check that userID is same as current user's ID.
+// TODO: Inline this
+func CurrentUserIdentical(user *model.User, userID uint) bool {
+	return user.ID != userID
 }
 
 func GetRole(user *model.User) string {
 	switch user.Status {
-	case -1 :
+	case -1:
 		return "Banned"
-	case 0 :
+	case 0:
 		return "Member"
-	case 1 :
+	case 1:
 		return "Trusted Member"
-	case 2 :
+	case 2:
 		return "Moderator"
 	}
 	return "Member"
@@ -42,7 +39,7 @@ func GetRole(user *model.User) string {
 
 func IsFollower(user *model.User, currentUser *model.User) bool {
 	var likingUserCount int
-	db.ORM.Model(&model.UserFollows{}).Where("user_id = ? and following = ?", user.Id, currentUser.Id).Count(&likingUserCount)
+	db.ORM.Model(&model.UserFollows{}).Where("user_id = ? and following = ?", user.ID, currentUser.ID).Count(&likingUserCount)
 	if likingUserCount != 0 {
 		return true
 	}

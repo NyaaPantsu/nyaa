@@ -117,7 +117,7 @@
   },
   {
     "id":"profile_page",
-    "translation": "%s Perfil"
+    "translation": "Perfil de %s"
   },
   {
     "id":"see_more_torrents_from",
@@ -225,7 +225,7 @@
   },
   {
     "id": "nyaa_se_went_offline",
-    "translation": "nyaa.se y los dominios asociados (como nyaatorrents.info) quedó fuera de linea el 1ro de Mayo del 2017."
+    "translation": "nyaa.se y los dominios asociados (como nyaatorrents.info) quedaron fuera de linea el 1ro de Mayo del 2017."
   },
   {
     "id": "its_not_a_ddos",
@@ -233,7 +233,7 @@
   },
   {
     "id": "future_not_looking_good",
-    "translation": "Futuros prospectos para nyaa no se ven bien. (Está muerto)"
+    "translation": "Las perspectivas de futuro para nyaa no se ven bien. (Está muerto)"
   },
   {
     "id": "recovery_effort",
@@ -249,7 +249,7 @@
   },
   {
     "id": "are_some_things_lost",
-    "translation": "¿Hay cosas perdidad?"
+    "translation": "¿Hay cosas perdidas?"
   },
   {
     "id": "answer_is_nyaa_db_lost",

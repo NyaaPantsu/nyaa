@@ -30,8 +30,6 @@ func InTimeSpanNow(start, end time.Time) bool {
 
 func FewDurationLater(duration time.Duration) time.Time {
 	// When Save time should considering UTC
-	// baseTime := time.Now()
-	// log.Debugf("basetime : %s", baseTime)
 	fewDurationLater := time.Now().Add(duration)
 	log.Debugf("time : %s", fewDurationLater)
 	return fewDurationLater
@@ -42,11 +40,7 @@ func FewDurationLaterMillisecond(duration time.Duration) int64 {
 }
 
 func IsExpired(expirationTime time.Time) bool {
-	// baseTime := time.Now()
-	// log.Debugf("basetime : %s", baseTime)
 	log.Debugf("expirationTime : %s", expirationTime)
-	// elapsed := time.Since(expirationTime)
-	// log.Debugf("elapsed : %s", elapsed)
 	after := time.Now().After(expirationTime)
 	log.Debugf("after : %t", after)
 	return after
