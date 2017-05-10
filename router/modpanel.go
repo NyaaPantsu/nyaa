@@ -9,19 +9,20 @@ import (
 	"net/http"
 	"path/filepath"
 	"strconv"
+	"time"
 
+	"github.com/ewhal/nyaa/config"
+	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service"
 	"github.com/ewhal/nyaa/service/comment"
 	"github.com/ewhal/nyaa/service/report"
 	"github.com/ewhal/nyaa/service/torrent"
-	"github.com/ewhal/nyaa/service/torrent/form"
 	"github.com/ewhal/nyaa/service/user"
 	form "github.com/ewhal/nyaa/service/user/form"
 	"github.com/ewhal/nyaa/service/user/permission"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/log"
-	"github.com/ewhal/nyaa/util/modelHelper"
 	"github.com/ewhal/nyaa/util/search"
 	"github.com/gorilla/mux"
 )
@@ -191,9 +192,18 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 		id := r.URL.Query().Get("id")
 		torrent, _ := torrentService.GetTorrentById(id)
 		languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
-		htv := PanelTorrentEdVbs{torrent, NewSearchForm(), currentUser}
+
+		torrentJson := torrent.ToJSON()
+		uploadForm := NewUploadForm()
+		uploadForm.Name = torrentJson.Name
+		uploadForm.Category = torrentJson.Category + "_" + torrentJson.SubCategory
+		uploadForm.Magnet = string(torrentJson.Magnet)
+		uploadForm.Status = torrentJson.Status
+		uploadForm.Description = string(torrentJson.Description)
+		htv := PanelTorrentEdVbs{uploadForm, NewSearchForm(), currentUser, form.NewErrors(), form.NewInfos(), r.URL}
 		err := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 		log.CheckError(err)
+
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
 	}
@@ -202,31 +212,42 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	if userPermission.HasAdmin(currentUser) {
-		b := torrentform.PanelPost{}
-		err := form.NewErrors()
-		infos := form.NewInfos()
-		modelHelper.BindValueForm(&b, r)
-		err = modelHelper.ValidateForm(&b, err)
-		id := r.URL.Query().Get("id")
-		torrent, _ := torrentService.GetTorrentById(id)
-		if torrent.ID > 0 {
-			modelHelper.AssignValue(&torrent, &b)
-			if len(err) == 0 {
-				_, errorT := torrentService.UpdateTorrent(torrent)
-				if errorT != nil {
-					err["errors"] = append(err["errors"], errorT.Error())
-				}
-				if len(err) == 0 {
-					infos["infos"] = append(infos["infos"], "torrent_updated")
-				}
-			}
+	if config.UploadsDisabled {
+		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
+		return
+	}
+	var uploadForm UploadForm
+	id := r.URL.Query().Get("id")
+	err := form.NewErrors()
+	infos := form.NewInfos()
+	torrent, _ := torrentService.GetTorrentById(id)
+	if (torrent.ID > 0) {
+		// validation is done in ExtractInfo()
+		errUp := uploadForm.ExtractInfo(r)
+		if errUp != nil {
+			err["errors"] = append(err["errors"], "Failed to upload!")
 		}
+		if (len(err) > 0) {
+		//add to db and redirect depending on result
+		torrent.Name=       uploadForm.Name
+		torrent.Category=    uploadForm.CategoryID
+		torrent.SubCategory=uploadForm.SubCategoryID
+		torrent.Status=    uploadForm.Status
+		torrent.Hash=        uploadForm.Infohash
+		torrent.Date=        time.Now()
+		torrent.Filesize=    uploadForm.Filesize
+		torrent.Description= uploadForm.Description
+		db.ORM.Save(&torrent)
+		infos["infos"] = append(infos["infos"], "Torrent details updated!")
+	}
+}
 		languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
-		htv := PanelTorrentEdVbs{torrent, NewSearchForm(), currentUser}
+		htv := PanelTorrentEdVbs{uploadForm, NewSearchForm(), currentUser, err, infos, r.URL}
 		_ = panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
 	}
+
 }
 
 func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
