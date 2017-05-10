@@ -3,6 +3,7 @@ package router
 import (
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/ewhal/nyaa/db"
@@ -38,6 +39,10 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
+	if strings.TrimSpace(r.FormValue("comment")) == "" {
+		http.Error(w, "comment empty", 406)
+	}
+
 	userCaptcha := captcha.Extract(r)
 	if !captcha.Authenticate(userCaptcha) {
 		http.Error(w, "bad captcha", 403)
@@ -49,8 +54,8 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 
 	userID := currentUser.ID
 	comment := model.Comment{TorrentID: uint(idNum), UserID: userID, Content: content, CreatedAt: time.Now()}
-	
-err = db.ORM.Create(&comment).Error
+
+	err = db.ORM.Create(&comment).Error
 	if err != nil {
 		util.SendError(w, err, 500)
 		return
@@ -75,9 +80,17 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 
 	idNum, err := strconv.Atoi(id)
-
 	userID := currentUser.ID
-	report := model.TorrentReport{Description: r.FormValue("report_type"), TorrentID: uint(idNum), UserID: userID}
+
+	torrent, _ := torrentService.GetTorrentById(id)
+
+	report := model.TorrentReport{
+		Description: r.FormValue("report_type"),
+		TorrentID:   uint(idNum),
+		UserID:      userID,
+		Torrent:     &torrent,
+		User:        currentUser,
+	}
 
 	err = db.ORM.Create(&report).Error
 	if err != nil {

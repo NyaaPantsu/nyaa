@@ -269,11 +269,11 @@
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "Nós temos um banco de dados contendo os torrents do nyaa de <s>5 de Abril</s> a 1 de Maio. Isso significa que quase nada foi perdido."
+    "translation": "Nós temos um banco de dados contendo os torrents do nyaa até <s>5 de Abril</s> 1º de Maio. Isso significa que quase nada foi perdido."
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Sukebei, no entando, pode estar na pior. Atualmente nós só temos os dados do sukebei até 2016, mas um novo banco de dados pode estar dsisponível para uso."
+    "translation": "Sukebei, no entanto, está em uma situação pior. Atualmente nós só temos os dados do sukebei até 2016, mas um novo banco de dados pode estar dsisponível para uso."
   },
   {
     "id": "how_are_we_recovering",
@@ -281,7 +281,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "Os então mencionados bancos de dados estão hospedados em nyaa.pantsu.cat e sukebei.pantsu.cat. Há uma função de busca, e (quase) todas as funcionalidades do nyaa devem estar de volta em breve. Estatísticas de seeders/leechers estão disponíveis via raspagem de dados e podem ser restauradas no futuro, já que outras funções são prioridade no momento."
+    "translation": "Os bancos de dados estão hospedados em nyaa.pantsu.cat e sukebei.pantsu.cat. Há uma função de busca, e (quase) todas as funcionalidades do nyaa devem estar de volta em breve. Estatísticas de seeders/leechers estão disponíveis via raspagem de dados e podem ser restauradas no futuro, já que outras funções são prioridade no momento."
   },
   {
     "id": "are_the_trackers_working",
@@ -305,7 +305,7 @@
   },
   {
     "id": "which_trackers_do_you_recommend",
-    "translation": "Que trackers você recomenda?"
+    "translation": "Quais trackers você recomenda?"
   },
   {
     "id": "answer_which_trackers_do_you_recommend",

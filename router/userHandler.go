@@ -114,7 +114,8 @@ func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
 		languages.SetTranslationFromRequest(viewProfileEditTemplate, r, "en-us")
 		searchForm := NewSearchForm()
 		searchForm.HideAdvancedSearch = true
-		htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+		availableLanguages := languages.GetAvailableLanguages()
+		htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), availableLanguages, searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
 		err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -139,20 +140,29 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 			if len(r.PostFormValue("username")) > 0 {
 				_, err = form.ValidateUsername(r.PostFormValue("username"), err)
 			}
+
 			if len(err) == 0 {
 				modelHelper.BindValueForm(&b, r)
+				if (!userPermission.HasAdmin(currentUser)) {
+					b.Username = currentUser.Username
+				}
 				err = modelHelper.ValidateForm(&b, err)
 				if len(err) == 0 {
+					if (b.Email != currentUser.Email) {
+						userService.SendVerificationToUser(*currentUser, b.Email)
+						infos["infos"] = append(infos["infos"], fmt.Sprintf(T("email_changed"), b.Email))
+						b.Email = currentUser.Email // reset, it will be set when user clicks verification
+					}
 					userProfile, _, errorUser = userService.UpdateUser(w, &b, currentUser, id)
 					if errorUser != nil {
 						err["errors"] = append(err["errors"], errorUser.Error())
-					}
-					if len(err) == 0 {
+					} else {
 						infos["infos"] = append(infos["infos"], T("profile_updated"))
 					}
 				}
 			}
-			htv := UserProfileEditVariables{&userProfile, b, err, infos, NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+			availableLanguages := languages.GetAvailableLanguages()
+			htv := UserProfileEditVariables{&userProfile, b, err, infos, availableLanguages, NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
 			errorTmpl := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
 			if errorTmpl != nil {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)

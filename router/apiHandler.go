@@ -11,6 +11,7 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/service"
 	"github.com/ewhal/nyaa/service/api"
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/util"
@@ -21,7 +22,7 @@ import (
 func ApiHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
-	whereParams := torrentService.WhereParams{}
+	whereParams := serviceBase.WhereParams{}
 	req := apiService.TorrentsRequest{}
 
 	contentType := r.Header.Get("Content-Type")

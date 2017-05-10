@@ -2,20 +2,16 @@ package torrentService
 
 import (
 	"errors"
+	"net/http"
 	"strconv"
 	"strings"
-	"net/http"
 
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/service"
 	"github.com/ewhal/nyaa/util"
 )
-
-type WhereParams struct {
-	Conditions string // Ex : name LIKE ? AND category_id LIKE ?
-	Params     []interface{}
-}
 
 /* Function to interact with Models
  *
@@ -92,17 +88,17 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 	return
 }
 
-func GetTorrentsOrderByNoCount(parameters *WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, err error) {
+func GetTorrentsOrderByNoCount(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, err error) {
 	torrents, _, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, false)
 	return
 }
 
-func GetTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, count int, err error) {
+func GetTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, count int, err error) {
 	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true)
 	return
 }
 
-func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offset int, countAll bool) (
+func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int, countAll bool) (
 	torrents []model.Torrent, count int, err error,
 ) {
 	var conditionArray []string
@@ -152,12 +148,12 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 // database. The list will be of length 'limit' and in default order.
 // GetTorrents returns the first records found. Later records may be retrieved
 // by providing a positive 'offset'
-func GetTorrents(parameters WhereParams, limit int, offset int) ([]model.Torrent, int, error) {
+func GetTorrents(parameters serviceBase.WhereParams, limit int, offset int) ([]model.Torrent, int, error) {
 	return GetTorrentsOrderBy(&parameters, "", limit, offset)
 }
 
 // Get Torrents with where parameters but no limit and order by default (get all the torrents corresponding in the db)
-func GetTorrentsDB(parameters WhereParams) ([]model.Torrent, int, error) {
+func GetTorrentsDB(parameters serviceBase.WhereParams) ([]model.Torrent, int, error) {
 	return GetTorrentsOrderBy(&parameters, "", 0, 0)
 }
 
@@ -171,17 +167,6 @@ func GetAllTorrents(limit int, offset int) ([]model.Torrent, int, error) {
 
 func GetAllTorrentsDB() ([]model.Torrent, int, error) {
 	return GetTorrentsOrderBy(nil, "", 0, 0)
-}
-
-func CreateWhereParams(conditions string, params ...string) WhereParams {
-	whereParams := WhereParams{
-		Conditions: conditions,
-		Params:     make([]interface{}, len(params)),
-	}
-	for i := range params {
-		whereParams.Params[i] = params[i]
-	}
-	return whereParams
 }
 
 func DeleteTorrent(id string) (int, error) {
