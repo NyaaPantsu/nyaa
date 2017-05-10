@@ -25,5 +25,9 @@ var DefaultScraperConfig = ScraperConfig{
 			URL:  "udp://tracker.doko.moe:6969/",
 			Name: "doko.moe",
 		},
+		ScrapeConfig{
+			URL:  "udp://tracker.coppersurfer.tk:6969/",
+			Name: "coppersurfer.tk",
+		},
 	},
 }
