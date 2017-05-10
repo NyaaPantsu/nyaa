@@ -25,7 +25,7 @@
   },
   {
     "id":"signup_box_title",
-    "translation": "Registrier dich <small>Es ist kostenlos und wird immer so bleiben.</small>"
+    "translation": "Registriere dich <small>Es ist kostenlos und wird immer so bleiben.</small>"
   },
   {
     "id":"username",
@@ -81,7 +81,7 @@
   },
   {
     "id":"sign_in_box_title",
-    "translation": "Bitte logge dich zuerst ein"
+    "translation": "Bitte logge dich ein"
   },
   {
     "id":"sign_in_title",
