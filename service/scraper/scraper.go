@@ -153,7 +153,7 @@ func (sc *Scraper) Scrape() {
 
 	swarms := make([]model.Torrent, 0, 128)
 	now := time.Now().Add(0 - sc.interval).Unix()
-	err := db.ORM.Where("last_scrape < ?", now).Find(&swarms).Error
+	err := db.ORM.Where("last_scrape < ?", now).Or("last_scrape IS NULL").Find(&swarms).Error
 	if err == nil {
 		for swarms != nil {
 			var scrape []model.Torrent
