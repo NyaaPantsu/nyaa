@@ -35,13 +35,13 @@ type store struct {
 	lastFetched time.Time
 	key         common.SearchParam
 	data        []model.Torrent
-	size        int
+	count, size int
 }
 
 // Check the cache for and existing record. If miss, run fn to retrieve fresh
 // values.
-func Get(key common.SearchParam, fn func() ([]model.Torrent, error)) (
-	[]model.Torrent, error,
+func Get(key common.SearchParam, fn func() ([]model.Torrent, int, error)) (
+	data []model.Torrent, count int, err error,
 ) {
 	s := getStore(key)
 
@@ -51,15 +51,15 @@ func Get(key common.SearchParam, fn func() ([]model.Torrent, error)) (
 	defer s.Unlock()
 
 	if s.isFresh() {
-		return s.data, nil
+		return s.data, s.count, nil
 	}
 
-	data, err := fn()
+	data, count, err = fn()
 	if err != nil {
-		return nil, err
+		return
 	}
-	s.update(data)
-	return data, nil
+	s.update(data, count)
+	return
 }
 
 // Retrieve a store from the cache or create a new one
@@ -103,17 +103,21 @@ func updateUsedSize(delta int) {
 
 // Return, if the data can still be considered fresh, without querying the DB
 func (s *store) isFresh() bool {
-	return s.lastFetched.Add(expiryTime).Before(time.Now())
+	if s.lastFetched.IsZero() { // New store
+		return false
+	}
+	return s.lastFetched.Add(expiryTime).After(time.Now())
 }
 
 // Stores the new values of s. Calculates and stores the new size. Passes the
 // delta to the central cache to fire eviction checks.
-func (s *store) update(data []model.Torrent) {
+func (s *store) update(data []model.Torrent, count int) {
 	newSize := 0
 	for _, d := range data {
 		newSize += d.Size()
 	}
 	s.data = data
+	s.count = count
 	delta := newSize - s.size
 	s.size = newSize
 	s.lastFetched = time.Now()
