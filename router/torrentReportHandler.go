@@ -5,6 +5,7 @@ import (
 
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/moderation"
+	"github.com/ewhal/nyaa/service/user/permission"
 )
 /*
 func SanitizeTorrentReport(torrentReport *model.TorrentReport) {
@@ -47,16 +48,22 @@ func DeleteTorrentReportHandler(w http.ResponseWriter, r *http.Request) {
 }
 */
 func GetTorrentReportHandler(w http.ResponseWriter, r *http.Request) {
-	torrentReports, err := moderationService.GetTorrentReports()
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	err = torrentReportTemplate.ExecuteTemplate(w, "torrent_report.html", ViewTorrentReportsVariables{model.TorrentReportsToJSON(torrentReports)})
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+        currentUser := GetUser(r)
+        	if userPermission.HasAdmin(currentUser) {
+
+		torrentReports, err := moderationService.GetTorrentReports()
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		err = torrentReportTemplate.ExecuteTemplate(w, "torrent_report.html", ViewTorrentReportsVariables{model.TorrentReportsToJSON(torrentReports)})
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+        } else {
+                http.Error(w, "admins only", http.StatusForbidden)
+        }
 }
 /*
 
