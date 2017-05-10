@@ -347,3 +347,12 @@ footer {
   max-width: 100%;
   height: auto;
 }
+
+/* Psuedo green-text fuckery. */
+#comments blockquote {
+	color: #789922;
+}
+#comments blockquote:before {
+	content: ">";
+}
+
