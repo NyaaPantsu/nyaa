@@ -70,4 +70,7 @@ var FuncMap = template.FuncMap{
 	"HasAdmin":             userPermission.HasAdmin,
 	"GetRole":              userPermission.GetRole,
 	"IsFollower":           userPermission.IsFollower,
+	"NoEncode": func(str string) template.HTML {
+		return template.HTML(str)
+	},
 }
