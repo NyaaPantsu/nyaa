@@ -42,6 +42,7 @@ type Torrent struct {
 }
 
 // Returns the total size of memory recursively allocated for this struct
+// FIXME: doesn't go have sizeof or something nicer for this?
 func (t Torrent) Size() (s int) {
 	s += 8 + // ints
 		2*3 + // time.Time
