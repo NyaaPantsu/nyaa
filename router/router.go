@@ -37,6 +37,7 @@ func init() {
 	gzipUserLogoutHandler := handlers.CompressHandler(http.HandlerFunc(UserLogoutHandler))
 	gzipUserProfileHandler := handlers.CompressHandler(http.HandlerFunc(UserProfileHandler))
 	gzipUserFollowHandler := handlers.CompressHandler(http.HandlerFunc(UserFollowHandler))
+	gzipUserDetailsHandler := handlers.CompressHandler(http.HandlerFunc(UserDetailsHandler))
 	gzipUserProfileFormHandler := handlers.CompressHandler(http.HandlerFunc(UserProfileFormHandler))
 
 	gzipIndexModPanel := handlers.CompressHandler(http.HandlerFunc(IndexModPanel))
@@ -81,7 +82,8 @@ func init() {
 	Router.Handle("/user/logout", gzipUserLogoutHandler).Name("user_logout")
 	Router.Handle("/user/{id}/{username}", wrapHandler(gzipUserProfileHandler)).Name("user_profile").Methods("GET")
 	Router.Handle("/user/{id}/{username}/follow", gzipUserFollowHandler).Name("user_follow").Methods("GET")
-	Router.Handle("/user/{id}/{username}", wrapHandler(gzipUserProfileFormHandler)).Name("user_profile").Methods("POST")
+	Router.Handle("/user/{id}/{username}/edit", wrapHandler(gzipUserDetailsHandler)).Name("user_profile_details").Methods("GET")
+	Router.Handle("/user/{id}/{username}/edit", wrapHandler(gzipUserProfileFormHandler)).Name("user_profile_edit").Methods("POST")
 
 	Router.Handle("/mod", gzipIndexModPanel).Name("mod_index")
 	Router.Handle("/mod/torrents", gzipTorrentsListPanel).Name("mod_tlist")

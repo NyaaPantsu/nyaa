@@ -1,4 +1,5 @@
 *.sqlite
+*.db-journal
 *.db
 *.sql
 main
