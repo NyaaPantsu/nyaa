@@ -47,9 +47,11 @@ type Torrent struct {
 // FIXME  can't preload field Torrents for model.TorrentReport
 type TorrentReport struct {
 	ID          uint     `gorm:"column:torrent_report_id;primary_key"`
-	Description string   `gorm:"description"`
-	Torrent     Torrent  `gorm:"ForeignKey:Id"`
-	User        User     `gorm:"ForeignKey:Id"`
+	Description string   `gorm:"column:type"`
+	TorrentID  uint
+	UserID    uint
+	Torrent     Torrent  `gorm:"ForeignKey:TorrentID;AssociationForeignKey:ID"`
+	User        User     `gorm:"ForeignKey:UserID;AssociationForeignKey:ID"`
 }
 
 /* We need a JSON object instead of a Gorm structure because magnet URLs are
@@ -89,14 +91,14 @@ type TorrentJSON struct {
 type TorrentReportJson struct {
 	ID          uint     `json:"id"`
 	Description string   `json:"description"`
-	Torrent     Torrent  `json:"torrent"`
-	User        User     `json:"user"`
+	Torrent     TorrentJSON  `json:"torrent"`
+	User        string
 }
 
 /* Model Conversion to Json */
 
 func (report *TorrentReport) ToJson() TorrentReportJson {
-	json := TorrentReportJson{report.ID, report.Description, report.Torrent, report.User}
+	json := TorrentReportJson{report.ID, report.Description, report.Torrent.ToJSON(), report.User.Username}
 	return json
 }
 

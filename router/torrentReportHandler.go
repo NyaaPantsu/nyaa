@@ -5,10 +5,8 @@ import (
 
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/moderation"
-	"github.com/ewhal/nyaa/service/torrent"
-	"github.com/ewhal/nyaa/util/modelHelper"
 )
-
+/*
 func SanitizeTorrentReport(torrentReport *model.TorrentReport) {
 	// TODO unescape html ?
 	return
@@ -47,19 +45,20 @@ func DeleteTorrentReportHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
-
+*/
 func GetTorrentReportHandler(w http.ResponseWriter, r *http.Request) {
 	torrentReports, err := moderationService.GetTorrentReports()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	err = torrentReportTemplate.ExecuteTemplate(w, "torrent_report.html", model.TorrentReportsToJSON(torrentReports))
+	err = torrentReportTemplate.ExecuteTemplate(w, "torrent_report.html", ViewTorrentReportsVariables{model.TorrentReportsToJSON(torrentReports)})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 }
+/*
 
 func DeleteTorrentHandler(w http.ResponseWriter, r *http.Request) {
 	// TODO Figure out how to get torrent report id from form
@@ -69,4 +68,4 @@ func DeleteTorrentHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-}
+}*/
