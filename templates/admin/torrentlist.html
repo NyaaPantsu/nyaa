@@ -1,5 +1,7 @@
 {{define "title"}}Torrents List{{end}}
+{{define "contclass"}}cont-view{{end}}
 {{define "content"}}
+<div class="blockBody">
 <table class="table">
 {{ range .Torrents}}
 
@@ -12,4 +14,5 @@
               {{ genNav .Navigation .URL 5 }}
           </ul>
       </nav>
+</div>
 {{end}}
