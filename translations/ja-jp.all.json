@@ -1,0 +1,554 @@
+[
+  {
+    "id": "link",
+    "translation": "リンク"
+  },
+  {
+    "id": "verify_email_title",
+    "translation": "Nyaapantsuのメールアドレスを確認してください。"
+  },
+  {
+    "id": "verify_email_content",
+    "translation": "あなたのメールアドレスを確認するため、下のリンクにクリックしてください。"
+  },
+  {
+    "id": "reset_password_title",
+    "translation": "Nyaapantsuのパスワードを再設定する"
+  },
+  {
+    "id": "reset_password_content",
+    "translation": "パスワードを再設定するため、下のリンクにクリックしてください。"
+  },
+  {
+    "id":"register_title",
+    "translation": "新しいアカウントを作成している"
+  },
+  {
+    "id":"signup_box_title",
+    "translation": "サインアップしてください。<small>いつまでも無料だ</small>"
+  },
+  {
+    "id":"username",
+    "translation": "ユーザー名"
+  },
+  {
+    "id":"email_address_or_username",
+    "translation": "メールアドレスまたはユーザー名"
+  },
+  {
+    "id":"email_address",
+    "translation": "メールアドレス"
+  },
+  {
+    "id":"password",
+    "translation": "パスワード"
+  },
+  {
+    "id":"confirm_password",
+    "translation": "パスワードを確認する"
+  },
+  {
+    "id":"i_agree",
+    "translation": "同意します"
+  },
+  {
+    "id":"terms_conditions_confirm",
+    "translation": "<strong class=\"label label-primary\">登録する</strong> をクリックすることにより、Cookieの使用を含む、本サイトで規定されている <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\"> 利用規約</a>に同意するものとします。"
+  },
+  {
+    "id":"signin",
+    "translation": "サインイン"
+  },
+  {
+    "id":"register",
+    "translation": "登録する"
+  },
+  {
+    "id":"terms_conditions",
+    "translation": "利用規約"
+  },
+  {
+    "id":"terms_conditions_full",
+    "translation": "いくらかのゴミ"
+  },
+  {
+    "id":"remember_me",
+    "translation": "俺を覚え"
+  },
+  {
+    "id":"forgot_password",
+    "translation": "パスワードを忘れた？"
+  },
+  {
+    "id":"sign_in_box_title",
+    "translation": "サインインしてください"
+  },
+  {
+    "id":"sign_in_title",
+    "translation": "サインイン"
+  },
+  {
+    "id":"register_success_title",
+    "translation": "サインアップは成功"
+  },
+  {
+    "id":"sign_up_success",
+    "translation": "登録ありがとうございました！"
+  },
+  {
+    "id":"verify_success",
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>アカウントは有効になっています！"
+  },
+  {
+    "id":"signup_verification_email",
+    "translation": "最後に、メールインボックスと迷惑メールに確認メールをチェックしてください。"
+  },
+  {
+    "id":"signup_verification_noemail",
+    "translation": "登録は成功でした。今、あなたのアカウントを使うことができます。"
+  },
+  {
+    "id":"settings",
+    "translation": "アカウントの設定"
+  },
+  {
+    "id":"torrents",
+    "translation": "トレント"
+  },
+  {
+    "id":"follow",
+    "translation": "フォローする"
+  },
+  {
+    "id":"profile_page",
+    "translation": "%s プロフィールページ"
+  },
+  {
+    "id":"see_more_torrents_from",
+    "translation": "%s からもっとトレントを見る"
+  },
+  {
+    "id":"category",
+    "translation": "カテゴリー"
+  },
+  {
+    "id": "name",
+    "translation": "名前"
+  },
+  {
+    "id": "date",
+    "translation": "日付"
+  },
+  {
+    "id": "size",
+    "translation": "サイズ"
+  },
+  {
+    "id": "links",
+    "translation": "リンク"
+  },
+  {
+    "id": "home",
+    "translation": "ホームページ"
+  },
+  {
+    "id": "error_404",
+    "translation": "エラー４０４"
+  },
+  {
+    "id": "toggle_navigation",
+    "translation": "ナビをトグルする"
+  },
+  {
+    "id": "upload",
+    "translation": "アップロード"
+  },
+  {
+    "id": "faq",
+    "translation": "よくある質問"
+  },
+  {
+    "id": "fap",
+    "translation": "オナニー"
+  },
+  {
+    "id": "advanced_search",
+    "translation": "高度なサーチ"
+  },
+  {
+    "id": "nothing_here",
+    "translation": "ここには何もない。"
+  },
+  {
+    "id": "404_not_found",
+    "translation": "４０４見つかりません"
+  },
+  {
+    "id": "no_torrents_uploaded",
+    "translation": "トレントはまだアップロードされていません！"
+  },
+  {
+    "id": "profile",
+    "translation": "プロフィール"
+  },
+  {
+    "id": "sign_out",
+    "translation": "サインアウト"
+  },
+  {
+    "id": "member",
+    "translation": "メンバー"
+  },
+  {
+    "id": "sign_in",
+    "translation": "サインイン"
+  },
+  {
+    "id": "sign_up",
+    "translation": "サインアップ"
+  },
+  {
+    "id": "no_results_found",
+    "translation": "結果が見つかれません"
+  },
+  {
+    "id": "notice_keep_seeding",
+    "translation": "掲示：シードするを続けるやDHTを可能にする、馬鹿野郎"
+  },
+  {
+    "id": "official_nyaapocalipse_faq",
+    "translation": "公式のニャーポカリプスのよくある質問"
+  },
+  {
+    "id": "links_replacement_mirror",
+    "translation": "置換／ミラーへのリンク"
+  },
+  {
+    "id": "what_happened",
+    "translation": "置換／ミラーへのリンク"
+  },
+  {
+    "id": "nyaa_se_went_offline",
+    "translation": "nyaa.seと関連ドメイン（nyaatorrents.infoなど）は2017年5月1日にオフラインになりました。"
+  },
+  {
+    "id": "its_not_a_ddos",
+    "translation": "それは非アクティブ化されたので、それは通常のようにDDoS攻撃ではありません。"
+  },
+  {
+    "id": "future_not_looking_good",
+    "translation": "ニャーの将来の見通しは良くないそうです。（それは死んでいる）"
+  },
+  {
+    "id": "recovery_effort",
+    "translation": "回復努力がしている。"
+  },
+  {
+    "id": "is_everything_lost",
+    "translation": "すべてが失われていますか？"
+  },
+  {
+    "id": "in_short_no",
+    "translation": "要するに、いいえ。"
+  },
+  {
+    "id": "are_some_things_lost",
+    "translation": "何かが失われていますか？"
+  },
+  {
+    "id": "answer_is_nyaa_db_lost",
+    "translation": "我々は<s>４月５日</s>５月１日までニャーの急流のデータベースがあります。ほとんど何も失われないことを意味します。"
+  },
+  {
+    "id": "answer_is_sukebei_db_lost",
+    "translation": "しかし、スケベイの調子が悪いかもしれません。今、我々は２０１６年までのスケベイデータベースしかありませんが、より新しいデータベースが利用可能かもしれません。"
+  },
+  {
+    "id": "how_are_we_recovering",
+    "translation": "起死回生するために我々は何していますか？"
+  },
+  {
+    "id": "answer_how_are_we_recovering",
+    "translation": "データベースはnyaa.pantsu.catとsukebei.pantsu.catでホストされています。検索機能があります。（ほとんど）完全なニャー機能性はカミングスーンはずです、乞うご期待。シード/リーチャー統計は掻き取りによって可能であり、将来いつか復元される可能性があります。他の機能は現在優先されています。"
+  },
+  {
+    "id": "are_the_trackers_working",
+    "translation": "トレントはまだ機能していますか？"
+  },
+  {
+    "id": "answer_are_the_trackers_working",
+    "translation": "トラッカーがダウンしていても、シーダーはまだ分散型DHTネットワークに接続されています。ファイルがDHTネットワーク上にリストされている限り、すべてが正常はずです。"
+  },
+  {
+    "id": "how_do_i_download_the_torrents",
+    "translation": "どのように俺はトレントをダウンロードするのですか？"
+  },
+  {
+    "id": "answer_how_do_i_download_the_torrents",
+    "translation": "<b>マグネットリンク</b> を使って。トレントクライアントがDHTネットワーク上のファイルを見つけるためにマグネットリンクを使います。正しくダウンロードするはずです。"
+  },
+  {
+    "id": "magnet_link_should_look_like",
+    "translation": "マグネットリンクはこのように見えるはずです："
+  },
+  {
+    "id": "which_trackers_do_you_recommend",
+    "translation": "どのトラッカーがすすめですか？"
+  },
+  {
+    "id": "answer_which_trackers_do_you_recommend",
+    "translation": "トレントアップロードがトラッカーのために拒否されたなら、これらのいくつかを追加する必要があります："
+  },
+  {
+    "id": "how_can_i_help",
+    "translation": "手伝いしましょうか？"
+  },
+  {
+    "id": "answer_how_can_i_help",
+    "translation": "Webプログラミングの専門知識があれば、irc.rizon.netの#nyaapantsu IRCチャンネルに参加できます。現在のデータベースがあれば、特にsukebeiのデータベース、<b>それらをアップロードしろ。</b>"
+  },
+  {
+    "id": "your_design_sucks_found_a_bug",
+    "translation": "貴様のでサインはくそ／バグを見つけた"
+  },
+  {
+    "id": "why_written_in_go",
+    "translation": "なぜすべてが Goで書かれているの？"
+  },
+  {
+    "id": "authors_favorite_language",
+    "translation": "作者の一番好きなプログラミング言語です。"
+  },
+  {
+    "id": "nyaa_pantsu_dont_host_files",
+    "translation": " nyaa.pantsu.catとsukebei.pantsu.catはファイルをホストしません。"
+  },
+  {
+    "id": "upload_magnet",
+    "translation": "マグネットをアップロードする"
+  },
+  {
+    "id": "torrent_file",
+    "translation": "トレントファイル"
+  },
+  {
+    "id": "uploading_file_prefills_fields",
+    "translation": "トレントをアップロードするといくつかのフィールドを事前に入力できます。そうすることをすすめします。"
+  },
+  {
+    "id": "magnet_link",
+    "translation": "マグネットリンク"
+  },
+  {
+    "id": "all_categories",
+    "translation": "すべてのカテゴリ"
+  },
+  {
+    "id": "anime",
+    "translation": "アニメ"
+  },
+  {
+    "id": "anime_amv",
+    "translation": "アニメ　‐　アニメミュジックビデオ（AMV)"
+  },
+  {
+    "id": "anime_english_translated",
+    "translation": "アニメ　‐　英語に訳した"
+  },
+  {
+    "id": "anime_non_english_translated",
+    "translation": "アニメ　‐　非英語に訳した"
+  },
+  {
+    "id": "anime_raw",
+    "translation": "アニメ　‐　生（raw）"
+  },
+  {
+    "id": "audio",
+    "translation": "オーディオ"
+  },
+  {
+    "id": "audio_lossless",
+    "translation": "オーディオ　‐　可逆圧縮"
+  },
+  {
+    "id": "audio_lossy",
+    "translation": "オーディオ　‐　損失圧縮"
+  },
+  {
+    "id": "literature",
+    "translation": "文献"
+  },
+  {
+    "id": "literature_english_translated",
+    "translation": "文献　‐　 英語に訳した"
+  },
+  {
+    "id": "literature_raw",
+    "translation": "文献　‐　生（raw）"
+  },
+  {
+    "id": "literature_non_english_translated",
+    "translation": "文献　‐　非英語に訳した"
+  },
+  {
+    "id": "live_action",
+    "translation": "実写"
+  },
+  {
+    "id": "live_action_english_translated",
+    "translation": "実写　‐　英語に訳した"
+  },
+  {
+    "id": "live_action_idol_pv",
+    "translation": "実写　‐　アイドル／PV"
+  },
+  {
+    "id": "live_action_non_english_translated",
+    "translation": "実写　‐　非英語に訳した"
+  },
+  {
+    "id": "live_action_raw",
+    "translation": "実写　‐　生（raw）"
+  },
+  {
+    "id": "pictures",
+    "translation": "ピクチャー"
+  },
+  {
+    "id": "pictures_graphics",
+    "translation": "ピクチャー　‐　グラフィックス"
+  },
+  {
+    "id": "pictures_photos",
+    "translation": "ピクチャー　‐　写真"
+  },
+  {
+    "id": "software",
+    "translation": "ソフトウェア"
+  },
+  {
+    "id": "software_applications",
+    "translation": "ソフトウェア　‐　アプリケーション"
+  },
+  {
+    "id": "software_games",
+    "translation": "ソフトウェア　‐　ゲーム"
+  },
+  {
+    "id": "torrent_description",
+    "translation": "トレントの説明"
+  },
+  {
+    "id": "description_markdown_notice",
+    "translation": "説明に、マークダウンを使えます。"
+  },
+  {
+    "id": "show_all",
+    "translation": "すべて見せる"
+  },
+  {
+    "id": "filter_remakes",
+    "translation": "リメークを濾す"
+  },
+  {
+    "id": "trusted",
+    "translation": "信頼できる"
+  },
+  {
+    "id": "id",
+    "translation": "ID"
+  },
+  {
+    "id": "downloads",
+    "translation": "ダウンロード"
+  },
+  {
+    "id": "descending",
+    "translation": "降順"
+  },
+  {
+    "id": "ascending",
+    "translation": "上昇"
+  },
+  {
+    "id": "search",
+    "translation": "サーチ"
+  },
+  {
+    "id": "hash",
+    "translation": "ハッシュ"
+  },
+  {
+    "id": "description",
+    "translation": "記述"
+  },
+  {
+    "id": "comments",
+    "translation": "コメント"
+  },
+  {
+    "id": "submit_a_comment_as_username",
+    "translation": "%s としてカキコする"
+  },
+  {
+    "id": "submit_a_comment_as_anonymous",
+    "translation": "匿名ユーザーとしてカキコする"
+  },
+  {
+    "id": "submit",
+    "translation": "カキコする"
+  },
+  {
+    "id": "personal_info",
+    "translation": "個人情報"
+  },
+  {
+    "id": "language",
+    "translation": "言語"
+  },
+  {
+    "id": "current_password",
+    "translation": "現在のパスワード"
+  },
+  {
+    "id": "role",
+    "translation": "役割"
+  },
+  {
+    "id": "banned",
+    "translation": "アク禁"
+  },
+  {
+    "id": "default",
+    "translation": "デフォルト"
+  },
+  {
+    "id": "trusted_member",
+    "translation": "信頼できるメンバー"
+  },
+  {
+    "id": "moderator",
+    "translation": "モデレータ"
+  },
+  {
+    "id": "save_changes",
+    "translation": "変更をセーブ"
+  },
+  {
+    "id": "profile_updated",
+    "translation": "あなたのプロフィールは正しく更新されました！"
+  },
+  {
+    "id": "delete_account",
+    "translation": "アカウントを削除する"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "このアカウントを削除してもよろしいですか？"
+  },
+  {
+    "id": "delete_success",
+    "translation": "このアカウントが削除されました。"
+  }
+]

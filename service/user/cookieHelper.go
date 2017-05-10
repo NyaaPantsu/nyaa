@@ -85,7 +85,6 @@ func ClearCookie(w http.ResponseWriter) (int, error) {
 // SetCookieHandler sets a cookie with email and password.
 func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, error) {
 	if email != "" && pass != "" {
-		log.Debugf("User email : %s , password : %s", email, pass)
 		var user model.User
 		isValidEmail, _ := formStruct.EmailValidation(email, formStruct.NewErrors())
 		if isValidEmail {
@@ -115,14 +114,9 @@ func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, er
 
 // RegisterHanderFromForm sets cookie from a RegistrationForm.
 func RegisterHanderFromForm(w http.ResponseWriter, registrationForm formStruct.RegistrationForm) (int, error) {
-	email := registrationForm.Email
-	if email == "" {
-		email = registrationForm.Username
-	}
+	username := registrationForm.Username // email isn't set at this point
 	pass := registrationForm.Password
-	log.Debugf("RegisterHandler UserEmail : %s", email)
-	log.Debugf("RegisterHandler UserPassword : %s", pass)
-	return SetCookieHandler(w, email, pass)
+	return SetCookieHandler(w, username, pass)
 }
 
 // RegisterHandler sets a cookie when user registered.

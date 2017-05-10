@@ -59,6 +59,7 @@ type UserProfileEditVariables struct {
 	UserForm    userForms.UserForm
 	FormErrors  map[string][]string
 	FormInfos   map[string][]string
+	Languages   map[string]string
 	Search      SearchForm
 	Navigation  Navigation
 	User        *model.User
@@ -116,48 +117,51 @@ type UploadTemplateVariables struct {
 /* MODERATION Variables */
 
 type PanelIndexVbs struct {
-	Torrents []model.Torrent
+	Torrents       []model.Torrent
 	TorrentReports []model.TorrentReport
-	Users    []model.User
-	Comments []model.Comment
-	Search       SearchForm
-	User       *model.User
-	URL          *url.URL   // For parsing Url in templates
+	Users          []model.User
+	Comments       []model.Comment
+	Search         SearchForm
+	User           *model.User
+	URL            *url.URL // For parsing Url in templates
 }
 
 type PanelTorrentListVbs struct {
-	Torrents  []model.Torrent
-	Search       SearchForm
+	Torrents   []model.Torrent
+	Search     SearchForm
 	Navigation Navigation
 	User       *model.User
-	URL          *url.URL   // For parsing Url in templates
+	URL        *url.URL // For parsing Url in templates
 }
 type PanelUserListVbs struct {
-	Users  []model.User
-	Search       SearchForm
+	Users      []model.User
+	Search     SearchForm
 	Navigation Navigation
 	User       *model.User
-	URL          *url.URL   // For parsing Url in templates
+	URL        *url.URL // For parsing Url in templates
 }
 type PanelCommentListVbs struct {
-	Comments  []model.Comment
-	Search       SearchForm
+	Comments   []model.Comment
+	Search     SearchForm
 	Navigation Navigation
 	User       *model.User
-	URL          *url.URL   // For parsing Url in templates
+	URL        *url.URL // For parsing Url in templates
 }
 type PanelTorrentEdVbs struct {
-	Torrent model.Torrent
-	Search       SearchForm
-	User       *model.User
+	Upload     UploadForm
+	Search  SearchForm
+	User    *model.User
+	FormInfos   map[string][]string
+	FormErrors  map[string][]string
+	URL        *url.URL // For parsing Url in templates
 }
 
-type ViewTorrentReportsVariables struct {
-	Torrents []model.TorrentReportJson
-	Search       SearchForm
-	Navigation Navigation
-	User       *model.User
-	URL          *url.URL   // For parsing Url in templates
+type PanelTorrentReportListVbs struct {
+	TorrentReports []model.TorrentReportJson
+	Search         SearchForm
+	Navigation     Navigation
+	User           *model.User
+	URL            *url.URL // For parsing Url in templates
 }
 
 /*

@@ -25,6 +25,9 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- Search Box for Google -->
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+
     <!-- Website CSS -->
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/style.css"}}">
   </head>
@@ -43,7 +46,7 @@
               </div>
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
-                      <li><a href="{{.URL.Parse "/upload"}}">{{T "upload"}}</a/></li>
+                      <li><a href="{{.URL.Parse "/upload"}}">{{T "upload"}}</a></li>
                       <li><a href="{{.URL.Parse "/faq"}}">{{T "faq"}}</a></li>
                       <li><a href="{{ genRouteWithQuery "feed" .URL }}">RSS</a></li>
                       <li><a href="https://sukebei.pantsu.cat">{{T "fap"}}</a></li>

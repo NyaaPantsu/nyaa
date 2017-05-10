@@ -5,7 +5,7 @@
 
 <tr>
 <td><a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}?edit">{{ .Username }}</a></td>
-<td><a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}?delete" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>{{ T "delete" }}</a></td>
+<td>{{if gt .ID 0}}<a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}?delete" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>{{ T "delete" }}</a>{{end}}</td>
 </tr>
 {{end}}
 </table>
