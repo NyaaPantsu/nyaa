@@ -1,6 +1,11 @@
 {{define "title"}}Users List{{end}}
 {{define "content"}}
 <table class="table">
+<tr>
+    <th class="col-xs-11">Username</th>
+    <th class="col-xs-1">Action</th>
+</tr>
+
 {{ range .Users}}
 
 <tr>
