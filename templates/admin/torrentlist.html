@@ -2,7 +2,7 @@
 <table>
 {{ range .Torrents}}
 
-<tr><td><a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">{{ .Name }}</a></td><td><a href="{{ genRoute "mod_tlist" }}?userid={{.UploaderID}}">{{ .Uploader.Username }}</a></td>
+<tr><td><a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">{{ .Name }}</a></td><td><a href="{{ genRoute "mod_tlist" }}?userid={{.UploaderID}}">{{ .UploaderID }}</a></td>
 <td><a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>Delete</a></td></tr>
 {{end}}
 </table>

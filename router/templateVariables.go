@@ -117,20 +117,23 @@ type PanelIndexVbs struct {
 	Torrents []model.Torrent
 	Users    []model.User
 	Comments []model.Comment
+	URL          *url.URL   // For parsing Url in templates
 }
 
 type PanelTorrentListVbs struct {
 	Torrents  []model.Torrent
 	Navigation Navigation
+	URL          *url.URL   // For parsing Url in templates
 }
 type PanelUserListVbs struct {
 	Users  []model.User
 	Navigation Navigation
+	URL          *url.URL   // For parsing Url in templates
 }
 type PanelCommentListVbs struct {
 	Comments  []model.Comment
 	Navigation Navigation
-
+	URL          *url.URL   // For parsing Url in templates
 }
 type PanelTorrentEdVbs struct {
 	Torrent model.Torrent

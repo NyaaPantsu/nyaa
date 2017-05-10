@@ -27,9 +27,10 @@ var FuncMap = template.FuncMap{
 		return "error"
 	},
 	"genNav": func(nav Navigation, currentUrl *url.URL, pagesSelectable int) template.HTML {
+		var ret = ""
+		if (nav.TotalItem > 0) {
 		maxPages := math.Ceil(float64(nav.TotalItem) / float64(nav.MaxItemPerPage))
 
-		var ret = ""
 		if nav.CurrentPage-1 > 0 {
 			url, _ := Router.Get(nav.Route).URL("page", "1")
 			ret = ret + "<li><a id=\"page-prev\" href=\"" + url.String() + "?" + currentUrl.RawQuery + "\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"
@@ -56,6 +57,7 @@ var FuncMap = template.FuncMap{
 		if nav.CurrentPage < int(maxPages) {
 			url, _ := Router.Get(nav.Route).URL("page", strconv.Itoa(nav.CurrentPage+1))
 			ret = ret + "<li><a id=\"page-next\" href=\"" + url.String() + "?" + currentUrl.RawQuery + "\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li>"
+		}
 		}
 		return template.HTML(ret)
 	},
