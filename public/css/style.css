@@ -339,3 +339,10 @@ footer {
   color: #616161;
   text-shadow: -1px -1px #999999;
 }
+
+/* Force images on description to fit width */
+#description img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
