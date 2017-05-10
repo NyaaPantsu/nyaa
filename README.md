@@ -45,6 +45,10 @@ Once you've successfully installed docker, make sure you have the database file
 in the project's directory as nyaa.db. Then, follow these steps to build and run
 the application.
 
+Windows Users If you get `"standard_init_linux.go:178: exec user process caused "no such file or directory"`
+download [dos2unix](https://sourceforge.net/projects/dos2unix/files/latest/download) and run "dos2unix.exe"
+on the /deploy/init.sh to convert CR+LF to LF.
+
 ```sh
 # Make sure the project is in here $GOPATH/src/github.com/ewhal/nyaa
 $ cd deploy/
