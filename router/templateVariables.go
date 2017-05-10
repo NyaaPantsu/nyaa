@@ -114,13 +114,13 @@ type UploadTemplateVariables struct {
 }
 
 type PanelIndexVbs struct {
-	Torrents  []model.Torrents
+	Torrents  []model.Torrent
 	Users  []model.User
 	Comments  []model.Comment
 }
 
 type PanelTorrentListVbs struct {
-	Torrents  []model.Torrents
+	Torrents  []model.Torrent
 }
 type PanelUserListVbs struct {
 	Users  []model.User
@@ -129,7 +129,7 @@ type PanelCommentListVbs struct {
 	Comments  []model.Comment
 }
 type PanelTorrentEdVbs struct {
-	Torrent  model.Torrents
+	Torrent  model.Torrent
 }
 
 /*
