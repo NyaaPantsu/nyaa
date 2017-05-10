@@ -10,6 +10,7 @@ import (
 	"github.com/ewhal/nyaa/service/user"
 	"github.com/ewhal/nyaa/service/user/form"
 	"github.com/ewhal/nyaa/service/user/permission"
+	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/modelHelper"
 	"github.com/gorilla/mux"
@@ -141,9 +142,14 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 			}
 			if len(err) == 0 {
 				modelHelper.BindValueForm(&b, r)
+				if (!userPermission.HasAdmin(currentUser)) {
+					b.Username = currentUser.Username
+				}
 				err = modelHelper.ValidateForm(&b, err)
+				log.Info("lol")
 				if len(err) == 0 {
 					userProfile, _, errorUser = userService.UpdateUser(w, &b, currentUser, id)
+									log.Infof("xD2")
 					if errorUser != nil {
 						err["errors"] = append(err["errors"], errorUser.Error())
 					}
