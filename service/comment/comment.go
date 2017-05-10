@@ -6,8 +6,10 @@ import (
 
 )
 
-func GetAllComments(limit int, offset int) []model.Comment{
+func GetAllComments(limit int, offset int, conditions string, values ...interface{}) ([]model.Comment, int){
 	var comments []model.Comment
-	db.ORM.Limit(limit).Offset(offset).Preload("User").Find(&comments)
-	return comments
+	var nbComments int
+	db.ORM.Model(&comments).Where(conditions, values...).Count(&nbComments)
+	db.ORM.Preload("User").Limit(limit).Offset(offset).Where(conditions, values...).Find(&comments)
+	return comments, nbComments
 }
