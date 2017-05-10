@@ -50,3 +50,13 @@ type UserFollows struct {
 	UserID     uint `gorm:"column:user_id"`
 	FollowerID uint `gorm:"column:following"`
 }
+
+type UserUploadsOld struct {
+	Username  string `gorm:"column:username"`
+	TorrentId uint   `gorm:"column:torrent_id"`
+}
+
+func (c UserUploadsOld) TableName() string {
+	// TODO: rename this in db
+	return "user_uploads_old"
+}
