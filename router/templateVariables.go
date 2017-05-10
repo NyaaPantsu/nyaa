@@ -35,7 +35,7 @@ type NotFoundTemplateVariables struct {
 }
 
 type ViewTemplateVariables struct {
-	Torrent    model.TorrentsJson
+	Torrent    model.TorrentJSON
 	Captcha    captcha.Captcha
 	Search     SearchForm
 	Navigation Navigation
@@ -52,6 +52,18 @@ type UserRegisterTemplateVariables struct {
 	User             *model.User
 	URL              *url.URL   // For parsing Url in templates
 	Route            *mux.Route // For getting current route in templates
+}
+
+type UserProfileEditVariables struct {
+	UserProfile *model.User
+	UserForm    userForms.UserForm
+	FormErrors  map[string][]string
+	FormInfos   map[string][]string
+	Search      SearchForm
+	Navigation  Navigation
+	User        *model.User
+	URL         *url.URL   // For parsing Url in templates
+	Route       *mux.Route // For getting current route in templates
 }
 
 type UserVerifyTemplateVariables struct {
@@ -75,7 +87,7 @@ type UserLoginFormVariables struct {
 
 type UserProfileVariables struct {
 	UserProfile *model.User
-	FormErrors  map[string][]string
+	FormInfos        map[string][]string
 	Search      SearchForm
 	Navigation  Navigation
 	User        *model.User
@@ -84,7 +96,7 @@ type UserProfileVariables struct {
 }
 
 type HomeTemplateVariables struct {
-	ListTorrents []model.TorrentsJson
+	ListTorrents []model.TorrentJSON
 	Search       SearchForm
 	Navigation   Navigation
 	User         *model.User
@@ -99,6 +111,25 @@ type UploadTemplateVariables struct {
 	User       *model.User
 	URL        *url.URL
 	Route      *mux.Route
+}
+
+type PanelIndexVbs struct {
+	Torrents  []model.Torrent
+	Users  []model.User
+	Comments  []model.Comment
+}
+
+type PanelTorrentListVbs struct {
+	Torrents  []model.Torrent
+}
+type PanelUserListVbs struct {
+	Users  []model.User
+}
+type PanelCommentListVbs struct {
+	Comments  []model.Comment
+}
+type PanelTorrentEdVbs struct {
+	Torrent  model.Torrent
 }
 
 /*

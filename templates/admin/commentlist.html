@@ -1,0 +1,8 @@
+{{define "content"}}
+<table>
+{{ range .Comments}}
+
+<tr><td><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{ .Content }}</a></td><td><a href="{{ genRoute "mod_cdelete" }}?id={{ .ID }}">Delete</a></td></tr>
+{{end}}
+</table>
+{{end}}

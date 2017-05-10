@@ -7,7 +7,7 @@ import (
 	"html/template"
 )
 
-// TODO restrict certain types of markdown
+// TODO: restrict certain types of markdown
 func MarkdownToHTML(markdown string) template.HTML {
 	unsafe := blackfriday.MarkdownCommon([]byte(markdown))
 	html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)

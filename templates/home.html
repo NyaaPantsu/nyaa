@@ -2,20 +2,21 @@
 {{define "contclass"}}cont-home{{end}}
 {{define "content"}}
 	<div class="blockBody">
-      <nav class="torrentNav" aria-label="Page navigation">
-          <ul class="pagination">
-              {{ genNav .Navigation .URL 10 }}
-          </ul>
+      <ul class="list-inline" aria-label="Page navigation">
+          <li><img src="/img/renchon.png" /></li>
+          <li style="padding-top: 7%;" class="pull-right"><ul class="pagination">
+              {{ genNav .Navigation .URL 5 }}
+          </ul></li>
       </nav>
 
       <div class="table-responsive">
           <table class="table custom-table-hover">
           <tr>
-              <th>{{T "category"}}</th>
-              <th>{{T "name"}}</th>
-              <th>{{T "date"}}</th>
-              <th>{{T "size"}}</th>
-              <th>{{T "links"}}</th>
+              <th class="col-xs-1 hidden-xs">{{T "category"}}</th>
+              <th class="col-xs-8">{{T "name"}}</th>
+              <th class="col-xs-1 hidden-xs">{{T "date"}}</th>
+              <th class="col-xs-1 hidden-xs">{{T "size"}}</th>
+              <th class="col-xs-1 hidden-xs">{{T "links"}}</th>
           </tr>
           {{ range .ListTorrents}}
           <tr class="torrent-info
@@ -23,34 +24,36 @@
               {{if eq .Status 3}}trusted{{end}}
               {{if eq .Status 4}}aplus{{end}}">
               <!-- forced width because the <td> gets bigger randomly otherwise -->
-              <td style="width:80px">
-                  <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .Sub_Category) }}">
-                      <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .Sub_Category) }}">
+              <td class="hidden-xs" style="width:80px">
+                  <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
+                      <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}">
                   </a>
               </td>
               <td class="name">
-                  <a href="{{genRoute "view_torrent" "id" .Id }}">
+                  <a href="{{genRoute "view_torrent" "id" .ID }}">
                       {{.Name}}
                   </a>
               </td>
-              <td class="date date-short">{{.Date}}</td>
-              <td class="filesize">{{.Filesize}}</td>
-              <td>
+              <td class="hidden-xs" class="date date-short">{{.Date}}</td>
+              <td class="hidden-xs" class="filesize">{{.Filesize}}</td>
+              <td class="hidden-xs">
                   <a href="{{.Magnet}}" title="Magnet link">
                       <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>
                   </a>
-                  <a href="http://anicache.com/torrent/{{.Hash}}.torrent" title="Torrent file">
+                  {{if ne .TorrentLink ""}}
+                  <a href="{{.TorrentLink}}" title="Torrent file">
                       <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 
                   </a>
+                  {{end}}
               </td>
           </tr>
           {{end}}
       </table>
+      </div>
       <nav class="torrentNav" aria-label="Page navigation">
           <ul class="pagination">
-              {{ genNav .Navigation .URL 10 }}
+              {{ genNav .Navigation .URL 5 }}
           </ul>
       </nav>
-    </div>
 </div>
 {{end}}
