@@ -27,8 +27,8 @@ type Scraper struct {
 func New(conf *config.ScraperConfig) (sc *Scraper, err error) {
 	sc = &Scraper{
 		done:      make(chan int),
-		sendQueue: make(chan *SendEvent, 128),
-		recvQueue: make(chan *RecvEvent, 1028),
+		sendQueue: make(chan *SendEvent, 1024),
+		recvQueue: make(chan *RecvEvent, 1024),
 		errQueue:  make(chan error),
 		trackers:  make(map[string]*Bucket),
 		ticker:    time.NewTicker(time.Second),
