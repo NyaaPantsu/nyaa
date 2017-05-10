@@ -5,7 +5,7 @@
   },
   {
     "id": "verify_email_title",
-    "translation": "ยืนยันอีเมลสำหรับ NyaaPantsu."
+    "translation": "ยืนยันอีเมลสำหรับ NyaaPantsu"
   },
   {
     "id": "verify_email_content",
@@ -249,7 +249,7 @@
   },
   {
     "id": "future_not_looking_good",
-    "translation": "อนาคตข้างหน้าสำหรับ Nyaa ดูไม่ดีเท่าไหร่ (ตายสนิท)"
+    "translation": "และอนาคตข้างหน้าสำหรับ Nyaa ดูจะไม่ดีเท่าไหร่ (ตายสนิท)"
   },
   {
     "id": "recovery_effort",
@@ -273,7 +273,7 @@
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "สำหรับ Sukebei นั่นโชคร้ายหน่อย ที่ในตอนนี้เรามีฐานข้อมูลของ Sukebei ถึงแค่ช่วงปี 2016 แต่อาจจะมีฐานข้อมูลที่ใหม่กว่าให้ใช้ก็ได้"
+    "translation": "สำหรับ Sukebei นั่นโชคร้ายหน่อย ที่ในตอนนี้เรามีฐานข้อมูลของ Sukebei ถึงแค่ช่วงปี 2016 แต่อาจจะมีฐานข้อมูลที่ใหม่กว่านี้ให้ใช้ก็ได้"
   },
   {
     "id": "how_are_we_recovering",
@@ -281,7 +281,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "ฐานข้อมูลดังกล่าวถูกใช้งานกับ nyaa.pantsu.cat และ sukebei.pantsu.cat ซึ่งมีระบบค้นหา และระบบของ Nyaa (เกือบ) ครบถ้วนควรจะมาในเร็วๆ นี้ สถิติผู้ปล่อย/ผู้โหลดอาจจะกู้กลับมาผ่านการ scraping ในอาคนอันใกล้ตั้งแต่ฟีเจอร์อื่นถูกให้ความสำคัญมากกว่าในตอนนี้"
+    "translation": "ฐานข้อมูลดังกล่าวถูกใช้งานกับ nyaa.pantsu.cat และ sukebei.pantsu.cat ซึ่งมีระบบค้นหา และระบบของ Nyaa (เกือบ) ครบถ้วนควรจะมาในเร็วๆ นี้ สถิติผู้ปล่อย/ผู้โหลดที่อาจจะกู้กลับมาผ่านการ scraping ในอนาคตอันใกล้ตั้งแต่ฟีเจอร์อื่นๆ ถูกให้ความสำคัญมากกว่าในตอนนี้"
   },
   {
     "id": "are_the_trackers_working",
@@ -289,7 +289,7 @@
   },
   {
     "id": "answer_are_the_trackers_working",
-    "translation": "ถ้าตัวทอร์เรนท์ใช้ไม่ได้ ผู้ปล่อย Seed จะยังเชื่อมต่อกันผ่านเครือข่าย DHT ที่ไร้ศูนย์กลาง ตราบที่ไฟล์ยังอยู่ในเครือข่าย DHT ก็ยังโหลดได้"
+    "translation": "ถ้าแทรคเกอร์ล่ม ผู้ปล่อย Seed จะยังเชื่อมต่อกันผ่านเครือข่าย DHT ที่ไร้ศูนย์กลาง ตราบที่ไฟล์ยังอยู่ในเครือข่าย DHT ก็ยังโหลดได้"
   },
   {
     "id": "how_do_i_download_the_torrents",
@@ -301,7 +301,7 @@
   },
   {
     "id": "magnet_link_should_look_like",
-    "translation": "ตัว magnet link ควรจะเป็นลักษณะนี้:"
+    "translation": "ตัว Magnet link ควรจะเป็นลักษณะนี้:"
   },
   {
     "id": "which_trackers_do_you_recommend",
