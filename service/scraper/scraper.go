@@ -11,7 +11,7 @@ import (
 )
 
 // MTU yes this is the ipv6 mtu
-const MTU = 1488
+const MTU = 1500
 
 // bittorrent scraper
 type Scraper struct {
@@ -31,7 +31,7 @@ func New(conf *config.ScraperConfig) (sc *Scraper, err error) {
 		recvQueue: make(chan *RecvEvent, 1028),
 		errQueue:  make(chan error),
 		trackers:  make(map[string]*Bucket),
-		ticker:    time.NewTicker(time.Minute),
+		ticker:    time.NewTicker(time.Second),
 		interval:  time.Second * time.Duration(conf.IntervalSeconds),
 	}
 	for idx := range conf.Trackers {
@@ -127,6 +127,7 @@ func (sc *Scraper) RunWorker(pc net.PacketConn) (err error) {
 								log.Warnf("failed to sync swarm: %s", err)
 							}
 							t.Done()
+							log.Debugf("transaction %d done", tid)
 						} else {
 							sc.sendQueue <- t.SendEvent(ev.From)
 						}
@@ -142,7 +143,6 @@ func (sc *Scraper) RunWorker(pc net.PacketConn) (err error) {
 }
 
 func (sc *Scraper) Run() {
-	sc.Scrape()
 	for {
 		<-sc.ticker.C
 		sc.Scrape()
@@ -150,29 +150,25 @@ func (sc *Scraper) Run() {
 }
 
 func (sc *Scraper) Scrape() {
+	now := time.Now().Add(0 - sc.interval)
 
-	swarms := make([]model.Torrent, 0, 128)
-	now := time.Now().Add(0 - sc.interval).Unix()
-	err := db.ORM.Where("last_scrape < ?", now).Or("last_scrape IS NULL").Find(&swarms).Error
+	rows, err := db.ORM.Raw("SELECT torrent_id, torrent_hash FROM torrents WHERE last_scrape IS NULL OR last_scrape < ? ORDER BY torrent_id DESC LIMIT 700", now).Rows()
 	if err == nil {
-		for swarms != nil {
-			var scrape []model.Torrent
-			if len(swarms) > 74 {
-				scrape = swarms[:74]
-				swarms = swarms[74:]
-			} else {
-				scrape = swarms
-				swarms = nil
-			}
-			log.Infof("scraping %d", len(scrape))
-			if len(scrape) > 0 {
+		counter := 0
+		var scrape [70]model.Torrent
+		for rows.Next() {
+			idx := counter % 70
+			rows.Scan(&scrape[idx].ID, &scrape[idx].Hash)
+			counter++
+			if idx == 0 {
 				for _, b := range sc.trackers {
-					t := b.NewTransaction(scrape)
-					log.Debugf("new transaction %d", t.TransactionID)
+					t := b.NewTransaction(scrape[:])
 					sc.sendQueue <- t.SendEvent(b.Addr)
 				}
 			}
 		}
+		rows.Close()
+
 	} else {
 		log.Warnf("failed to select torrents for scrape: %s", err)
 	}

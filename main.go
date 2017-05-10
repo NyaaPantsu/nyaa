@@ -128,7 +128,6 @@ func main() {
 			}
 		}
 		if *mode == "scraper" {
-			log.Init("DEVELOPMENT")
 			RunScraper(conf)
 		} else if *mode == "webapp" {
 			RunServer(conf)
