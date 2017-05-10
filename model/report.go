@@ -11,7 +11,7 @@ type TorrentReport struct {
 	UserID      uint   `gorm:"column:user_id"`
 
 	Torrent Torrent `gorm:"AssociationForeignKey:TorrentID;ForeignKey:torrent_id"`
-	User    User    `gorm:"AssociationForeignKey:UserID;ForeignKey:ID"`
+	User    User    `gorm:"AssociationForeignKey:UserID;ForeignKey:user_id"`
 }
 
 type TorrentReportJson struct {
