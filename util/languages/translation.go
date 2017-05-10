@@ -3,6 +3,7 @@ package languages
 import (
 	"fmt"
 	"github.com/nicksnyder/go-i18n/i18n"
+	"github.com/ewhal/nyaa/service/user"
 	"html/template"
 	"net/http"
 )
@@ -33,6 +34,22 @@ func TfuncWithFallback(language string, languages ...string) (i18n.TranslateFunc
 	}, nil
 }
 
+func GetAvailableLanguages() (languages map[string]string) {
+	languages = make(map[string]string)
+	var T i18n.TranslateFunc
+	for _, languageTag := range i18n.LanguageTags() {
+		T, _ = i18n.Tfunc(languageTag)
+		/* Translation files should have an ID with the translated language name.
+		   If they don't, just use the languageTag */
+		if languageName := T("language_name"); languageName != "language_name" {
+			languages[languageTag] = languageName;
+		} else {
+			languages[languageTag] = languageTag
+		}
+	}
+	return
+}
+
 func SetTranslation(tmpl *template.Template, language string, languages ...string) i18n.TranslateFunc {
 	T, _ := TfuncWithFallback(language, languages...)
 	tmpl.Funcs(map[string]interface{}{
@@ -44,12 +61,19 @@ func SetTranslation(tmpl *template.Template, language string, languages ...strin
 }
 
 func SetTranslationFromRequest(tmpl *template.Template, r *http.Request, defaultLanguage string) i18n.TranslateFunc {
+	userLanguage := ""
+	user, _, err := userService.RetrieveCurrentUser(r)
+	if err == nil {
+		userLanguage = user.Language;
+	}
+
 	cookie, err := r.Cookie("lang")
 	cookieLanguage := ""
 	if err == nil {
 		cookieLanguage = cookie.Value
 	}
+
 	// go-i18n supports the format of the Accept-Language header, thankfully.
 	headerLanguage := r.Header.Get("Accept-Language")
-	return SetTranslation(tmpl, cookieLanguage, headerLanguage, defaultLanguage)
+	return SetTranslation(tmpl, userLanguage, cookieLanguage, headerLanguage, defaultLanguage)
 }
