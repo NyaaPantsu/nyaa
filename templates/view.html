@@ -75,7 +75,7 @@
     <form method="post">
         <div class="form-group">
             {{/* There should be a better way to use translation on this... */}}
-            <label for="comment">{{ if gt .User.Id 0}} {{T "submit_a_comment_as_username" .User.Username}} {{else}} {{T "submit_a_comment_as_anonymous"}} {{end}}</label>
+            <label for="comment">{{ if gt .User.ID 0}} {{T "submit_a_comment_as_username" .User.Username}} {{else}} {{T "submit_a_comment_as_anonymous"}} {{end}}</label>
             <textarea name="comment" class="form-control" rows="5"></textarea>
         </div>
         {{with .Captcha}} {{block "captcha" .}}{{end}} {{end}}
@@ -90,7 +90,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Report Torrent #{{.Id}}</h4>
+                <h4 class="modal-title">Report Torrent #{{.ID}}</h4>
             </div>
             {{end}}
             <div class="modal-body">

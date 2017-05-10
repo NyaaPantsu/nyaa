@@ -264,6 +264,11 @@ func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	if db.ORM.Preload("Torrents").First(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("user not found")
 	}
+	var liked, likings []model.User
+	db.ORM.Joins("JOIN user_follows on user_follows.user_id=?", user.ID).Where("users.user_id = user_follows.following").Group("users.user_id").Find(&likings)
+	db.ORM.Joins("JOIN user_follows on user_follows.following=?", user.ID).Where("users.user_id = user_follows.user_id").Group("users.user_id").Find(&liked)
+	user.Likings = likings
+	user.Liked = liked
 	return user, http.StatusOK, nil
 }
 
@@ -274,7 +279,7 @@ func RetrieveUsersForAdmin() []model.User {
 	db.ORM.Find(&users)
 	for _, user := range users {
 		db.ORM.Model(&user)
-		db.ORM.Model(&user).Related("Torrents").Find(&model.Torrent{})
+		db.ORM.Model(&user).Related("Torrents").Related("Likings").Related("Liked").Find(&model.Torrent{})
 		userArr = append(userArr, user)
 	}
 	return userArr
@@ -288,4 +293,18 @@ func CreateUserAuthentication(w http.ResponseWriter, r *http.Request) (int, erro
 	pass := form.Password
 	status, err := SetCookieHandler(w, username, pass)
 	return status, err
+}
+
+func SetFollow(user *model.User, follower *model.User) {
+	if follower.ID > 0 && user.ID > 0 {
+		var userFollows = model.UserFollows{UserID: user.ID, FollowerID: follower.ID}
+		db.ORM.Create(&userFollows)
+	}
+}
+
+func RemoveFollow(user *model.User, follower *model.User) {
+	if follower.ID > 0 && user.ID > 0 {
+		var userFollows = model.UserFollows{UserID: user.ID, FollowerID: follower.ID}
+		db.ORM.Delete(&userFollows)
+	}
 }

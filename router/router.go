@@ -36,6 +36,7 @@ func init() {
 	gzipUserLoginPostHandler := handlers.CompressHandler(http.HandlerFunc(UserLoginPostHandler))
 	gzipUserLogoutHandler := handlers.CompressHandler(http.HandlerFunc(UserLogoutHandler))
 	gzipUserProfileHandler := handlers.CompressHandler(http.HandlerFunc(UserProfileHandler))
+	gzipUserFollowHandler := handlers.CompressHandler(http.HandlerFunc(UserFollowHandler))
 	gzipUserProfileFormHandler := handlers.CompressHandler(http.HandlerFunc(UserProfileFormHandler))
 
 	Router = mux.NewRouter()
@@ -65,6 +66,7 @@ func init() {
 	Router.Handle("/user/login", gzipUserLoginPostHandler).Name("user_login").Methods("POST")
 	Router.Handle("/user/logout", gzipUserLogoutHandler).Name("user_logout")
 	Router.Handle("/user/{id}/{username}", gzipUserProfileHandler).Name("user_profile").Methods("GET")
+	Router.Handle("/user/{id}/{username}/follow", gzipUserFollowHandler).Name("user_follow").Methods("GET")
 	Router.Handle("/user/{id}/{username}", gzipUserProfileFormHandler).Name("user_profile").Methods("POST")
 	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
 

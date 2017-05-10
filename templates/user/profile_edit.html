@@ -24,7 +24,11 @@
 				<div class="profile-userbuttons">
 						{{if gt $.User.ID 0 }}
 						{{if not (CurrentUserIdentical $.User .ID) }}
-					<button type="button" class="btn btn-success btn-sm">{{ T "follow"}}</button>
+						{{if not (IsFollower . $.User)}}
+							<a href="{{ genRoute "user_follow" "id" .ID }}" class="btn btn-success btn-sm">{{ T "follow"}}</a>
+						{{else}}
+							<a href="{{ genRoute "user_follow" "id" .ID }}" class="btn btn-danger btn-sm">{{ T "unfollow"}}</a>
+						{{end}}
 						{{end}}
 						{{end}}
 					<!-- <button type="button" class="btn btn-danger btn-sm">Message</button> -->

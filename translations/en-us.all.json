@@ -120,6 +120,18 @@
     "translation": "Follow"
   },
   {
+    "id":"unfollow",
+    "translation": "Unfollow"
+  },
+  {
+    "id":"user_followed_msg",
+    "translation": "You have followed %s!"
+  },
+  {
+    "id":"user_unfollowed_msg",
+    "translation": "You have unfollowed %s!"
+  },
+  {
     "id":"profile_page",
     "translation": "%s Profile Page"
   },

@@ -1,6 +1,7 @@
 package userPermission
 
 import (
+	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util/log"
 )
@@ -34,4 +35,13 @@ func GetRole(user *model.User) string {
 		return "Moderator"
 	}
 	return "Member"
+}
+
+func IsFollower(user *model.User, currentUser *model.User) bool {
+	var likingUserCount int
+	db.ORM.Model(&model.UserFollows{}).Where("user_id = ? and following = ?", user.ID, currentUser.ID).Count(&likingUserCount)
+	if likingUserCount != 0 {
+		return true
+	}
+	return false
 }
