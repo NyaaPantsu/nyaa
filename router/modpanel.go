@@ -200,7 +200,7 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 		uploadForm.Magnet = string(torrentJson.Magnet)
 		uploadForm.Status = torrentJson.Status
 		uploadForm.Description = string(torrentJson.Description)
-		htv := PanelTorrentEdVbs{uploadForm, NewSearchForm(), currentUser, form.NewErrors(), form.NewInfos()}
+		htv := PanelTorrentEdVbs{uploadForm, NewSearchForm(), currentUser, form.NewErrors(), form.NewInfos(), r.URL}
 		err := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 		log.CheckError(err)
 
@@ -242,7 +242,7 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 	}
 }
 		languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
-		htv := PanelTorrentEdVbs{uploadForm, NewSearchForm(), currentUser, err, infos}
+		htv := PanelTorrentEdVbs{uploadForm, NewSearchForm(), currentUser, err, infos, r.URL}
 		_ = panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
