@@ -39,7 +39,6 @@ func init() {
 	gzipUserFollowHandler := handlers.CompressHandler(http.HandlerFunc(UserFollowHandler))
 	gzipUserProfileFormHandler := handlers.CompressHandler(http.HandlerFunc(UserProfileFormHandler))
 
-
 	gzipIndexModPanel := handlers.CompressHandler(http.HandlerFunc(IndexModPanel))
 	gzipTorrentsListPanel := handlers.CompressHandler(http.HandlerFunc(TorrentsListPanel))
 	gzipUsersListPanel := handlers.CompressHandler(http.HandlerFunc(UsersListPanel))
@@ -49,26 +48,29 @@ func init() {
 	gzipCommentDeleteModPanel := handlers.CompressHandler(http.HandlerFunc(CommentDeleteModPanel))
 	gzipTorrentDeleteModPanel := handlers.CompressHandler(http.HandlerFunc(TorrentDeleteModPanel))
 
-
+	gzipGetTorrentReportHandler := handlers.CompressHandler(http.HandlerFunc(GetTorrentReportHandler))
+	//gzipTorrentReportCreateHandler := handlers.CompressHandler(http.HandlerFunc(CreateTorrentReportHandler))
+	//gzipTorrentReportDeleteHandler := handlers.CompressHandler(http.HandlerFunc(DeleteTorrentReportHandler))
+	//gzipTorrentDeleteHandler := handlers.CompressHandler(http.HandlerFunc(DeleteTorrentHandler))
 
 	Router = mux.NewRouter()
 
 	// Routes
-	http.Handle("/css/", http.StripPrefix("/css/", gzipCSSHandler))
-	http.Handle("/js/", http.StripPrefix("/js/", gzipJSHandler))
-	http.Handle("/img/", http.StripPrefix("/img/", imgHandler))
+	http.Handle("/css/", http.StripPrefix("/css/", wrapHandler(gzipCSSHandler)))
+	http.Handle("/js/", http.StripPrefix("/js/", wrapHandler(gzipJSHandler)))
+	http.Handle("/img/", http.StripPrefix("/img/", wrapHandler(imgHandler)))
 	Router.Handle("/", gzipHomeHandler).Name("home")
-	Router.Handle("/page/{page:[0-9]+}", gzipHomeHandler).Name("home_page")
+	Router.Handle("/page/{page:[0-9]+}", wrapHandler(gzipHomeHandler)).Name("home_page")
 	Router.Handle("/search", gzipSearchHandler).Name("search")
 	Router.Handle("/search/{page}", gzipSearchHandler).Name("search_page")
 	Router.Handle("/api", gzipAPIHandler).Methods("GET")
-	Router.Handle("/api/{page:[0-9]*}", gzipAPIHandler).Methods("GET")
-	Router.Handle("/api/view/{id}", gzipAPIViewHandler).Methods("GET")
+	Router.Handle("/api/{page:[0-9]*}", wrapHandler(gzipAPIHandler)).Methods("GET")
+	Router.Handle("/api/view/{id}", wrapHandler(gzipAPIViewHandler)).Methods("GET")
 	Router.Handle("/api/upload", gzipAPIUploadHandler).Methods("POST")
 	Router.Handle("/api/update", gzipAPIUpdateHandler).Methods("PUT")
 	Router.Handle("/faq", gzipFaqHandler).Name("faq")
 	Router.Handle("/feed", gzipRSSHandler).Name("feed")
-	Router.Handle("/view/{id}", gzipViewHandler).Methods("GET").Name("view_torrent")
+	Router.Handle("/view/{id}", wrapHandler(gzipViewHandler)).Methods("GET").Name("view_torrent")
 	Router.HandleFunc("/view/{id}", PostCommentHandler).Methods("POST").Name("post_comment")
 	Router.Handle("/upload", gzipUploadHandler).Name("upload")
 	Router.Handle("/user/register", gzipUserRegisterFormHandler).Name("user_register").Methods("GET")
@@ -77,11 +79,11 @@ func init() {
 	Router.Handle("/user/register", gzipUserRegisterPostHandler).Name("user_register").Methods("POST")
 	Router.Handle("/user/login", gzipUserLoginPostHandler).Name("user_login").Methods("POST")
 	Router.Handle("/user/logout", gzipUserLogoutHandler).Name("user_logout")
-	Router.Handle("/user/{id}/{username}", gzipUserProfileHandler).Name("user_profile").Methods("GET")
+	Router.Handle("/user/{id}/{username}", wrapHandler(gzipUserProfileHandler)).Name("user_profile").Methods("GET")
 	Router.Handle("/user/{id}/{username}/follow", gzipUserFollowHandler).Name("user_follow").Methods("GET")
-	Router.Handle("/user/{id}/{username}", gzipUserProfileFormHandler).Name("user_profile").Methods("POST")
+	Router.Handle("/user/{id}/{username}", wrapHandler(gzipUserProfileFormHandler)).Name("user_profile").Methods("POST")
 
-	Router.Handle("/mod/", gzipIndexModPanel).Name("mod_index")
+	Router.Handle("/mod", gzipIndexModPanel).Name("mod_index")
 	Router.Handle("/mod/torrents", gzipTorrentsListPanel).Name("mod_tlist")
 	Router.Handle("/mod/torrents/{page}", gzipTorrentsListPanel).Name("mod_tlist_page")
 	Router.Handle("/mod/users", gzipUsersListPanel).Name("mod_ulist")
@@ -94,8 +96,16 @@ func init() {
 	Router.Handle("/mod/torrent/delete", gzipTorrentDeleteModPanel).Name("mod_tdelete")
 	Router.Handle("/mod/comment/delete", gzipCommentDeleteModPanel).Name("mod_cdelete")
 
+	//reporting a torrent
+	Router.HandleFunc("/report/{id}", ReportTorrentHandler).Methods("POST").Name("post_comment")
 
 	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
+
+	//Router.Handle("/report/create", gzipTorrentReportCreateHandler).Name("torrent_report_create").Methods("POST")
+	// TODO Allow only moderators to access /moderation/*
+	//Router.Handle("/moderation/report/delete", gzipTorrentReportDeleteHandler).Name("torrent_report_delete").Methods("POST")
+	//Router.Handle("/moderation/torrent/delete", gzipTorrentDeleteHandler).Name("torrent_delete").Methods("POST")
+	Router.Handle("/mod/reports", gzipGetTorrentReportHandler).Name("torrent_report").Methods("GET")
 
 	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
 }
