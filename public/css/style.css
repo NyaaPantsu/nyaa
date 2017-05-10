@@ -36,6 +36,8 @@
     background: white;
 }
 
+
+/*
 #container.cont-home {
      background: white url(/img/renchon.png) no-repeat;
 }
@@ -43,6 +45,7 @@
      background: white url(/img/renchon.png) no-repeat;
      background-size: 61px;
 }
+*/
 
 body {
     background-color: #ececec;
@@ -79,6 +82,10 @@ a {
 .table-borderless > thead > tr > td,
 .table-borderless > thead > tr > th {
     border: none;
+}
+
+td {
+  text-overflow: ellipsis;
 }
 
 .torrent-info .name {
@@ -323,4 +330,12 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
     margin-top: 10px;
     margin-left: 3px;
     width: 24px;
+}
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 2rem;
+  font-family: cursive;
+  color: #CCC;
+  text-shadow: 0px -1px #999999;
 }

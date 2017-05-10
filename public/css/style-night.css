@@ -1,15 +1,46 @@
 /*Don't make changes to layout here, only colours*/
 /* Torrent status colors */
 .remake {
-  background-color: #795c46;
+  background-color: #473e50; /*270,13%,28%*/
 }
 .trusted {
-  background-color: #3d743e;
+  background-color: #395045; /*150,17%,27%*/
 }
 .aplus {
-  background-color: #487589;
+  background-color: #3c5b71; /*205,30%,34%*/
+}
+.remake a {
+  color: #cfc2dc; /*270,26%,81%*/
+}
+.trusted a {
+  color: #bde0db; /*170,36%,81%*/
+}
+.remake a:hover {
+  color: #cf9fff;
+}
+.trusted a:hover {
+  color: #6ae3d1;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+  border-color: hsla(200,60%,70%,0.15);
 }
 
+.pagination > li > a,
+.pagination > li > span {
+    color: #fff;
+    background-color: #b294bb;
+    border-color: #b294bb;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+    background-color: #a2c9dd;
+    border-color: #a2c9dd;
+}
 
 #mainmenu {
     background: #263238;
@@ -25,13 +56,14 @@
     background-color: #29363d;
 }
 
-#container.cont-home {
+ /* #container.cont-home {
      background: #29363d url(/img/megumin.png) no-repeat;
 }
 #container.cont-view {
      background: #29363d url(/img/megumin.png) no-repeat;
      background-size: 75px;
 }
+*/
 
 body {
     background-color:#282A2E;
@@ -47,7 +79,11 @@ body {
 
 /* Links, Text */
 a {
-	color: #81a2be;
+	color: #a2c9dd;
+}
+a:hover {
+	color: #55c5ff;
+	text-shadow: 1px 1px 0 #000;
 }
 .btn-success {
     color: #fff;
@@ -66,6 +102,12 @@ a {
 .dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
 	background: #263238;
 }
+
+/* Profile Content */
+.profile-content {
+  background: #29363d;
+}
+
 /* Night mode switcher  */
 #mainmenu a.nightswitch {
     background-image: url(/img/moon.png);

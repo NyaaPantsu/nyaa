@@ -24,8 +24,9 @@ func init() {
 	gzipAPIHandler := handlers.CompressHandler(http.HandlerFunc(ApiHandler))
 	gzipAPIViewHandler := handlers.CompressHandler(http.HandlerFunc(ApiViewHandler))
 	gzipAPIUploadHandler := handlers.CompressHandler(http.HandlerFunc(ApiUploadHandler))
+	gzipAPIUpdateHandler := handlers.CompressHandler(http.HandlerFunc(ApiUpdateHandler))
 	gzipFaqHandler := handlers.CompressHandler(http.HandlerFunc(FaqHandler))
-	gzipRssHandler := handlers.CompressHandler(http.HandlerFunc(RssHandler))
+	gzipRSSHandler := handlers.CompressHandler(http.HandlerFunc(RSSHandler))
 	gzipViewHandler := handlers.CompressHandler(http.HandlerFunc(ViewHandler))
 	gzipUploadHandler := handlers.CompressHandler(http.HandlerFunc(UploadHandler))
 	gzipUserRegisterFormHandler := handlers.CompressHandler(http.HandlerFunc(UserRegisterFormHandler))
@@ -35,6 +36,20 @@ func init() {
 	gzipUserLoginPostHandler := handlers.CompressHandler(http.HandlerFunc(UserLoginPostHandler))
 	gzipUserLogoutHandler := handlers.CompressHandler(http.HandlerFunc(UserLogoutHandler))
 	gzipUserProfileHandler := handlers.CompressHandler(http.HandlerFunc(UserProfileHandler))
+	gzipUserFollowHandler := handlers.CompressHandler(http.HandlerFunc(UserFollowHandler))
+	gzipUserProfileFormHandler := handlers.CompressHandler(http.HandlerFunc(UserProfileFormHandler))
+
+
+	gzipIndexModPanel := handlers.CompressHandler(http.HandlerFunc(IndexModPanel))
+	gzipTorrentsListPanel := handlers.CompressHandler(http.HandlerFunc(TorrentsListPanel))
+	gzipUsersListPanel := handlers.CompressHandler(http.HandlerFunc(UsersListPanel))
+	gzipCommentsListPanel := handlers.CompressHandler(http.HandlerFunc(CommentsListPanel))
+	gzipTorrentEditModPanel := handlers.CompressHandler(http.HandlerFunc(TorrentEditModPanel))
+	gzipTorrentPostEditModPanel := handlers.CompressHandler(http.HandlerFunc(TorrentPostEditModPanel))
+	gzipCommentDeleteModPanel := handlers.CompressHandler(http.HandlerFunc(CommentDeleteModPanel))
+	gzipTorrentDeleteModPanel := handlers.CompressHandler(http.HandlerFunc(TorrentDeleteModPanel))
+
+
 
 	Router = mux.NewRouter()
 
@@ -46,11 +61,13 @@ func init() {
 	Router.Handle("/page/{page:[0-9]+}", gzipHomeHandler).Name("home_page")
 	Router.Handle("/search", gzipSearchHandler).Name("search")
 	Router.Handle("/search/{page}", gzipSearchHandler).Name("search_page")
-	Router.Handle("/api/{page}", gzipAPIHandler).Methods("GET")
-	Router.Handle("/api/upload", gzipAPIUploadHandler).Methods("POST")
+	Router.Handle("/api", gzipAPIHandler).Methods("GET")
+	Router.Handle("/api/{page:[0-9]*}", gzipAPIHandler).Methods("GET")
 	Router.Handle("/api/view/{id}", gzipAPIViewHandler).Methods("GET")
+	Router.Handle("/api/upload", gzipAPIUploadHandler).Methods("POST")
+	Router.Handle("/api/update", gzipAPIUpdateHandler).Methods("PUT")
 	Router.Handle("/faq", gzipFaqHandler).Name("faq")
-	Router.Handle("/feed", gzipRssHandler).Name("feed")
+	Router.Handle("/feed", gzipRSSHandler).Name("feed")
 	Router.Handle("/view/{id}", gzipViewHandler).Methods("GET").Name("view_torrent")
 	Router.HandleFunc("/view/{id}", PostCommentHandler).Methods("POST").Name("post_comment")
 	Router.Handle("/upload", gzipUploadHandler).Name("upload")
@@ -61,6 +78,20 @@ func init() {
 	Router.Handle("/user/login", gzipUserLoginPostHandler).Name("user_login").Methods("POST")
 	Router.Handle("/user/logout", gzipUserLogoutHandler).Name("user_logout")
 	Router.Handle("/user/{id}/{username}", gzipUserProfileHandler).Name("user_profile").Methods("GET")
+	Router.Handle("/user/{id}/{username}/follow", gzipUserFollowHandler).Name("user_follow").Methods("GET")
+	Router.Handle("/user/{id}/{username}", gzipUserProfileFormHandler).Name("user_profile").Methods("POST")
+
+	Router.Handle("/mod/", gzipIndexModPanel).Name("mod_index")
+	Router.Handle("/mod/torrents", gzipTorrentsListPanel).Name("mod_tlist")
+	Router.Handle("/mod/users", gzipUsersListPanel).Name("mod_ulist")
+	Router.Handle("/mod/comments", gzipCommentsListPanel).Name("mod_clist")
+	Router.Handle("/mod/comments", gzipCommentsListPanel).Name("mod_cedit") // TODO
+	Router.Handle("/mod/torrent/", gzipTorrentEditModPanel).Name("mod_tedit")
+	Router.Handle("/mod/torrent/", gzipTorrentPostEditModPanel).Name("mod_ptedit")
+	Router.Handle("/mod/torrent/delete", gzipTorrentDeleteModPanel).Name("mod_tdelete")
+	Router.Handle("/mod/comment/delete", gzipCommentDeleteModPanel).Name("mod_cdelete")
+
+
 	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
 
 	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)

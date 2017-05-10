@@ -11,36 +11,64 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/service/api"
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/util"
+	"github.com/ewhal/nyaa/util/log"
 	"github.com/gorilla/mux"
 )
 
 func ApiHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
+	whereParams := torrentService.WhereParams{}
+	req := apiService.TorrentsRequest{}
 
-	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"))
-	if errConv != nil {
-		maxPerPage = 50 // default Value maxPerPage
+	contentType := r.Header.Get("Content-Type")
+	if contentType == "application/json" {
+		d := json.NewDecoder(r.Body)
+		if err := d.Decode(&req); err != nil {
+			util.SendError(w, err, 502)
+		}
+
+		if req.MaxPerPage == 0 {
+			req.MaxPerPage = 50
+		}
+		if req.Page == 0 {
+			req.Page = 1
+		}
+
+		whereParams = req.ToParams()
+	} else {
+		var err error
+		maxString := r.URL.Query().Get("max")
+		if maxString != "" {
+			req.MaxPerPage, err = strconv.Atoi(maxString)
+			if !log.CheckError(err) {
+				req.MaxPerPage = 50 // default Value maxPerPage
+			}
+		}
+
+		req.Page = 1
+		if page != "" {
+			req.Page, err = strconv.Atoi(html.EscapeString(page))
+			if !log.CheckError(err) {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+		}
 	}
 
-	nbTorrents := 0
-	pagenum, _ := strconv.Atoi(html.EscapeString(page))
-	if pagenum == 0 {
-		pagenum = 1
-	}
-
-	torrents, nbTorrents, err := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
+	torrents, nbTorrents, err := torrentService.GetTorrents(whereParams, req.MaxPerPage, req.MaxPerPage*(req.Page-1))
 	if err != nil {
 		util.SendError(w, err, 400)
 		return
 	}
 
-	b := model.ApiResultJson{
+	b := model.ApiResultJSON{
 		Torrents: model.TorrentsToJSON(torrents),
 	}
-	b.QueryRecordCount = maxPerPage
+	b.QueryRecordCount = req.MaxPerPage
 	b.TotalRecordCount = nbTorrents
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(b)
@@ -51,17 +79,11 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ApiViewHandler(w http.ResponseWriter, r *http.Request) {
-
 	vars := mux.Vars(r)
 	id := vars["id"]
-	b := model.ApiResultJson{Torrents: []model.TorrentsJson{}}
 
 	torrent, err := torrentService.GetTorrentById(id)
-	res := torrent.ToJson()
-	b.Torrents = append(b.Torrents, res)
-
-	b.QueryRecordCount = 1
-	b.TotalRecordCount = 1
+	b := torrent.ToJSON()
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(b)
 
@@ -72,38 +94,109 @@ func ApiViewHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
-	if config.UploadsDisabled == 1 {
+	if config.UploadsDisabled {
 		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
 		return
 	}
 
-	defer r.Body.Close()
+	contentType := r.Header.Get("Content-Type")
+	if contentType == "application/json" {
+		token := r.Header.Get("Authorization")
+		user := model.User{}
+		db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
+		if user.ID == 0 {
+			http.Error(w, apiService.ErrApiKey.Error(), http.StatusForbidden)
+			return
+		}
 
-	//verify token
-	//token := r.Header.Get("Authorization")
+		defer r.Body.Close()
 
-	decoder := json.NewDecoder(r.Body)
-	b := model.TorrentsJson{}
-	err := decoder.Decode(&b)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		//verify token
+		//token := r.Header.Get("Authorization")
+
+		upload := apiService.TorrentRequest{}
+		d := json.NewDecoder(r.Body)
+		if err := d.Decode(&upload); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		err, code := upload.ValidateUpload()
+		if err != nil {
+			http.Error(w, err.Error(), code)
+			return
+		}
+
+		torrent := model.Torrent{
+			Name:        upload.Name,
+			Category:    upload.Category,
+			SubCategory: upload.SubCategory,
+			Status:      1,
+			Hash:        upload.Hash,
+			Date:        time.Now(),
+			Filesize:    0, //?
+			Description: upload.Description,
+			UploaderID:  user.ID,
+			Uploader:    &user,
+		}
+
+		db.ORM.Create(&torrent)
+		if err != nil {
+			util.SendError(w, err, 500)
+			return
+		}
+		fmt.Printf("%+v\n", torrent)
+	}
+}
+
+func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
+	if config.UploadsDisabled {
+		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
 		return
 	}
-	category, sub_category, err := ValidateJson(&b)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError) //406?
-		return
-	}
 
-	torrent := model.Torrents{
-		Name:         b.Name,
-		Category:     category,
-		Sub_Category: sub_category,
-		Status:       1,
-		Hash:         b.Hash,
-		Date:         time.Now(),
-		Filesize:     0,
-		Description:  string(b.Description)}
-	db.ORM.Create(&torrent)
-	fmt.Printf("%+v\n", torrent)
+	contentType := r.Header.Get("Content-Type")
+	if contentType == "application/json" {
+		token := r.Header.Get("Authorization")
+		user := model.User{}
+		db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
+		if user.ID == 0 {
+			http.Error(w, apiService.ErrApiKey.Error(), http.StatusForbidden)
+			return
+		}
+
+		defer r.Body.Close()
+
+		update := apiService.UpdateRequest{}
+		d := json.NewDecoder(r.Body)
+		if err := d.Decode(&update); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		id := update.ID
+		torrent := model.Torrent{}
+		db.ORM.Where("torrent_id = ?", id).First(&torrent)
+		if torrent.ID == 0 {
+			http.Error(w, apiService.ErrTorrentId.Error(), http.StatusBadRequest)
+			return
+		}
+		if torrent.UploaderID != 0 && torrent.UploaderID != user.ID { //&& user.Status != mod
+			http.Error(w, apiService.ErrRights.Error(), http.StatusForbidden)
+			return
+		}
+
+		err, code := update.Update.ValidateUpdate()
+		if err != nil {
+			http.Error(w, err.Error(), code)
+			return
+		}
+		update.UpdateTorrent(&torrent)
+
+		db.ORM.Save(&torrent)
+		if err != nil {
+			util.SendError(w, err, 500)
+			return
+		}
+		fmt.Printf("%+v\n", torrent)
+	}
 }

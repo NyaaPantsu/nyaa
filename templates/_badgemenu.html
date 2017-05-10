@@ -2,11 +2,11 @@
 {{with .User}}
 	<ul class="nav navbar-nav navbar-right badgemenu">
 		<li class="dropdown">
-			{{if gt .Id 0}}
-		    <a href="{{ genRoute "user_profile" "id" (print .Id) "username" .Username }}" class="dropdown-toggle profile-image" data-toggle="dropdown">
-		    <img src="https://www.gravatar.com/avatar/{{ .Md5 }}?s=50" class="img-circle special-img"> {{ .Username }} <b class="caret"></b></a>
+			{{if gt .ID 0}}
+		    <a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}" class="dropdown-toggle profile-image" data-toggle="dropdown">
+		    <img src="https://www.gravatar.com/avatar/{{ .MD5 }}?s=50" class="img-circle special-img"> {{ .Username }} <b class="caret"></b></a>
 		    <ul class="dropdown-menu">
-		        <li><a href="{{ genRoute "user_profile" "id" (print .Id) "username" .Username }}"><i class="fa fa-cog"></i> Profile</a></li>
+		        <li><a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}"><i class="fa fa-cog"></i> Profile</a></li>
 		        <li class="divider"></li>
 		        <li><a href="{{ genRoute "user_logout" }}"><i class="fa fa-sign-out"></i> {{ T "sign_out"}}</a></li>
 		    </ul>

@@ -1,16 +1,15 @@
 package search
 
 import (
+	"github.com/ewhal/nyaa/db"
+	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/service/torrent"
+	"github.com/ewhal/nyaa/util/log"
 	"net/http"
 	"strconv"
 	"strings"
 	"unicode"
 	"unicode/utf8"
-
-	"github.com/ewhal/nyaa/db"
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/service/torrent"
-	"github.com/ewhal/nyaa/util/log"
 )
 
 type Status uint8
@@ -56,10 +55,19 @@ type SearchParam struct {
 	Query    string
 }
 
-func SearchByQuery(r *http.Request, pagenum int) (search SearchParam, tor []model.Torrents, count int, err error) {
+func SearchByQuery(r *http.Request, pagenum int) (search SearchParam, tor []model.Torrent, count int, err error) {
+	search, tor, count, err = searchByQuery(r, pagenum, true)
+	return
+}
+
+func SearchByQueryNoCount(r *http.Request, pagenum int) (search SearchParam, tor []model.Torrent, err error) {
+	search, tor, _, err = searchByQuery(r, pagenum, false)
+	return
+}
+
+func searchByQuery(r *http.Request, pagenum int, countAll bool) (search SearchParam, tor []model.Torrent, count int, err error) {
 	max, err := strconv.ParseUint(r.URL.Query().Get("max"), 10, 32)
 	if err != nil {
-		err = nil
 		max = 50 // default Value maxPerPage
 	} else if max > 300 {
 		max = 300
@@ -95,36 +103,36 @@ func SearchByQuery(r *http.Request, pagenum int) (search SearchParam, tor []mode
 		}
 	}
 
-	order_by := ""
+	orderBy := ""
 
 	switch s := r.URL.Query().Get("sort"); s {
 	case "1":
 		search.Sort = Name
-		order_by += "torrent_name"
+		orderBy += "torrent_name"
 	case "2":
 		search.Sort = Date
-		order_by += "date"
+		orderBy += "date"
 	case "3":
 		search.Sort = Downloads
-		order_by += "downloads"
+		orderBy += "downloads"
 	case "4":
 		search.Sort = Size
-		order_by += "filesize"
+		orderBy += "filesize"
 	default:
-		order_by += "torrent_id"
+		orderBy += "torrent_id"
 	}
 
-	order_by += " "
+	orderBy += " "
 
 	switch s := r.URL.Query().Get("order"); s {
 	case "true":
 		search.Order = true
-		order_by += "asc"
+		orderBy += "asc"
 	default:
-		order_by += "desc"
+		orderBy += "desc"
 	}
 
-	userId := r.URL.Query().Get("userId")
+	userID := r.URL.Query().Get("userID")
 
 	parameters := torrentService.WhereParams{
 		Params: make([]interface{}, 0, 64),
@@ -138,9 +146,9 @@ func SearchByQuery(r *http.Request, pagenum int) (search SearchParam, tor []mode
 		conditions = append(conditions, "sub_category = ?")
 		parameters.Params = append(parameters.Params, string(catString[2]))
 	}
-	if userId != "" {
+	if userID != "" {
 		conditions = append(conditions, "uploader = ?")
-		parameters.Params = append(parameters.Params, userId)
+		parameters.Params = append(parameters.Params, userID)
 	}
 	if search.Status != 0 {
 		if search.Status == 3 {
@@ -180,6 +188,10 @@ func SearchByQuery(r *http.Request, pagenum int) (search SearchParam, tor []mode
 
 	parameters.Conditions = strings.Join(conditions[:], " AND ")
 	log.Infof("SQL query is :: %s\n", parameters.Conditions)
-	tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, order_by, int(search.Max), int(search.Max)*(pagenum-1))
+	if countAll {
+		tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, orderBy, int(search.Max), int(search.Max)*(pagenum-1))
+	} else {
+		tor, err = torrentService.GetTorrentsOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max)*(pagenum-1))
+	}
 	return
 }

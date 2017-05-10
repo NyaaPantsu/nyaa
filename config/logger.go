@@ -1,6 +1,5 @@
 package config
 
-// Constants for logger.
 const (
 	AccessLogFilePath      = "log/access"
 	AccessLogFileExtension = ".txt"
