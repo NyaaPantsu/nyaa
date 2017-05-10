@@ -2,10 +2,11 @@
 {{define "contclass"}}cont-home{{end}}
 {{define "content"}}
 	<div class="blockBody">
-      <nav class="torrentNav" aria-label="Page navigation">
-          <ul class="pagination">
+      <ul class="list-inline" aria-label="Page navigation">
+          <li><img src="/img/renchon.png" /></li>
+          <li style="padding-top: 7%;" class="pull-right"><ul class="pagination">
               {{ genNav .Navigation .URL 5 }}
-          </ul>
+          </ul></li>
       </nav>
 
       <div class="table-responsive">

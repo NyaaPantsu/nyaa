@@ -5,7 +5,7 @@
   },
   {
     "id": "verify_email_title",
-    "translation": "Verify your email address for Goyangi."
+    "translation": "Verify your email address for Nyaapantsu."
   },
   {
     "id": "verify_email_content",
@@ -118,6 +118,18 @@
   {
     "id":"follow",
     "translation": "Follow"
+  },
+  {
+    "id":"unfollow",
+    "translation": "Unfollow"
+  },
+  {
+    "id":"user_followed_msg",
+    "translation": "You have followed %s!"
+  },
+  {
+    "id":"user_unfollowed_msg",
+    "translation": "You have unfollowed %s!"
   },
   {
     "id":"profile_page",

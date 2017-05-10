@@ -35,10 +35,10 @@ var FuncMap = template.FuncMap{
 			ret = ret + "<li><a id=\"page-prev\" href=\"" + url.String() + "?" + currentUrl.RawQuery + "\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"
 		}
 		startValue := 1
-		if nav.CurrentPage > pagesSelectable {
+		if nav.CurrentPage > pagesSelectable/2 {
 			startValue = (int(math.Min((float64(nav.CurrentPage)+math.Floor(float64(pagesSelectable)/2)), maxPages)) - pagesSelectable + 1)
 		}
-		endValue := (startValue + pagesSelectable - 1)
+		endValue := (startValue + pagesSelectable -1)
 		if endValue > int(maxPages) {
 			endValue = int(maxPages)
 		}
@@ -67,4 +67,5 @@ var FuncMap = template.FuncMap{
 	"CurrentUserIdentical": userPermission.CurrentUserIdentical,
 	"HasAdmin": userPermission.HasAdmin,
 	"GetRole": userPermission.GetRole,
+	"IsFollower": userPermission.IsFollower,
 }
