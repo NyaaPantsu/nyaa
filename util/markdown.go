@@ -33,7 +33,7 @@ func MarkdownToHTML(markdown string) template.HTML {
 	if len(markdown) >= 3 && markdown[:3] == "&gt;" {
 		markdown = ">" + markdown[3:]
 	}
-	markdown = strings.Replace(markdown,"\n&gt;","\n>")
+	markdown = strings.Replace(markdown,"\n&gt;","\n>", -1)
 	unsafe := md.MarkdownOptions([]byte(markdown), HtmlMdRenderer, md.Options{Extensions: mdOptions})
 	html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
 	return template.HTML(html)
