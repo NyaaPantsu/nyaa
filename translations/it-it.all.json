@@ -562,5 +562,21 @@
   {
     "id": "delete_success",
     "translation": "L'account è stato cancellato con successo!"
-  }
+  },
+  {
+    "id": "moderation",
+    "translation": "Moderazione"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "Chi cazzo è れんちょん?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "れんちょん è il nome utente assegnato per uploads e commenti anonimi. È anche utilizzato per i torrent importati dal nyaa originale, anche se l'uploader originale può essere mostrato di fianco."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Segnala come remake"
+}
 ]
