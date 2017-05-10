@@ -1,0 +1,8 @@
+{{define "content"}}
+<table>
+{{ range .Users}}
+
+<tr><td><a href="{{ genRoute "mod_tedit" }}?id={{.Id}}">{{ .Username }}</a></td><td><a href="{{ genRoute "mod_tdelete" }}?id{{ .Id }}">Delete</a></td></tr>
+{{end}}
+</table>
+{{end}}
