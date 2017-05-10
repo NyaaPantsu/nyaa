@@ -18,7 +18,7 @@ func (b *Bucket) NewTransaction(swarms []model.Torrent) (t *Transaction) {
 	id := rand.Uint32()
 	// get good id
 	_, ok := b.transactions[id]
-	for ok {
+	for !ok {
 		id = rand.Uint32()
 		_, ok = b.transactions[id]
 	}
