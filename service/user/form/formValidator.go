@@ -49,7 +49,7 @@ func IsAgreed(termsAndConditions string) bool { // TODO: Inline function
 // RegistrationForm is used when creating a user.
 type RegistrationForm struct {
 	Username           string `form:"username" needed:"true" len_min:"3" len_max:"20"`
-	Email              string `form:"email" needed:"true"`
+	Email              string `form:"email"`
 	Password           string `form:"password" needed:"true" len_min:"6" len_max:"25" equalInput:"ConfirmPassword"`
 	ConfirmPassword    string `form:"password_confirmation" omit:"true" needed:"true"`
 	CaptchaID          string `form:"captchaID" omit:"true" needed:"true"`

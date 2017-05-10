@@ -35,7 +35,7 @@ type Torrent struct {
 	WebsiteLink string `gorm:"column:website_link"`
 	DeletedAt   *time.Time
 
-	Uploader    *User        `gorm:"ForeignKey:UploaderId"`
+	Uploader    *User        `gorm:"ForeignKey:uploader"`
 	OldUploader string       `gorm:"-"` // ???????
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`

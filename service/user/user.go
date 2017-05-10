@@ -273,10 +273,12 @@ func RetrieveUserForAdmin(id string) (model.User, int, error) {
 }
 
 // RetrieveUsersForAdmin retrieves users for an administrator.
-func RetrieveUsersForAdmin(limit int, offset int) []model.User {
+func RetrieveUsersForAdmin(limit int, offset int) ([]model.User, int) {
 	var users []model.User
-	db.ORM.Preload("Torrents").Find(&users).Limit(limit).Offset(offset)
-	return users
+	var nbUsers int
+	db.ORM.Model(&users).Count(&nbUsers)
+	db.ORM.Preload("Torrents").Limit(limit).Offset(offset).Find(&users)
+	return users, nbUsers
 }
 
 // CreateUserAuthentication creates user authentication.
