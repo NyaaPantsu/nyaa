@@ -1,6 +1,6 @@
 {{define "title"}}Torrents List{{end}}
 {{define "content"}}
-<table>
+<table class="table">
 {{ range .Torrents}}
 
 <tr><td><a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">{{ .Name }}</a></td><td><a href="{{ genRoute "mod_tlist" }}?userid={{.UploaderID}}">{{ .UploaderID }}</a></td>
