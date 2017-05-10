@@ -14,8 +14,6 @@ import (
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/gorilla/mux"
-
-	"fmt"
 )
 
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
@@ -84,17 +82,14 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 	idNum, err := strconv.Atoi(id)
 	userID := currentUser.ID
 
-	//torrent, _ := torrentService.GetTorrentById(id)
-
-	fmt.Println(userID)
-	fmt.Println(currentUser)
+	torrent, _ := torrentService.GetTorrentById(id)
 
 	report := model.TorrentReport{
 		Description: r.FormValue("report_type"),
 		TorrentID:   uint(idNum),
 		UserID:      userID,
-		//Torrent:     torrent,
-		//User:        *currentUser,
+		Torrent:     &torrent,
+		User:        currentUser,
 	}
 
 	err = db.ORM.Create(&report).Error

@@ -578,5 +578,9 @@
   {
     "id": "mark_as_remake",
     "translation": "Mark as remake"
+  },
+  {
+    "id": "email_changed",
+    "translation": "Email changed successfully! You will have, however, to confirm it by clicking to the link sent to: %s"
   }
 ]

@@ -65,7 +65,7 @@ type LoginForm struct {
 // UserForm is used when updating a user.
 type UserForm struct {
 	Username  string `form:"username" needed:"true" len_min:"3" len_max:"20"`
- 	Email     string `form:"email" needed:"true"`
+ 	Email     string `form:"email"`
  	Language  string `form:"language" default:"en-us"`
  	CurrentPassword  string `form:"current_password" len_min:"6" len_max:"25" omit:"true"`
 	Password  string `form:"password" len_min:"6" len_max:"25" equalInput:"Confirm_Password"`
