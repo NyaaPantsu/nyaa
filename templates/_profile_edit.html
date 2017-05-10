@@ -10,7 +10,7 @@
         
         <form class="form-horizontal" role="form" method="POST">
           <div class="form-group">
-            <label class="col-lg-3 control-label">{{ T "email" }}:</label>
+            <label class="col-lg-3 control-label">{{ T "email_address" }}:</label>
             <div class="col-lg-8">
               <input class="form-control" type="text" name="email" id="email" value="{{.Email}}">
 	 			{{ range (index $.FormErrors "email")}}

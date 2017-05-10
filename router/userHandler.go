@@ -169,7 +169,6 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 
 // Post Registration controller, we do some check on the form here, the rest on user service
 func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
-	// Check same Password
 	b := form.RegistrationForm{}
 	err := form.NewErrors()
 	if !captcha.Authenticate(captcha.Extract(r)) {
