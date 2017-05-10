@@ -93,6 +93,8 @@ func init() {
 	Router.Handle("/mod/torrent/delete", gzipTorrentDeleteModPanel).Name("mod_tdelete")
 	Router.Handle("/mod/comment/delete", gzipCommentDeleteModPanel).Name("mod_cdelete")
 
+	//reporting a torrent
+	Router.HandleFunc("/report/{id}", ReportTorrentHandler).Methods("POST").Name("post_comment")
 
 	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
 
