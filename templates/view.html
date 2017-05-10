@@ -32,7 +32,7 @@
                         </a>
                       
                       {{ if HasAdmin $.User}}
-                      <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>{{ T "delete" }}</a>
+                      <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i></a>
                       {{end}}
                
 
@@ -92,7 +92,7 @@
                     <textarea name="comment" class="form-control" rows="5"></textarea>
                 </div>
                 {{with .Captcha}} {{block "captcha" .}}{{end}} {{end}}
-                <input type="submit" value="{{T " submit "}}">
+                <button type="submit" class="btn btn-success">{{T " submit "}}</button>
             </form>
         </div>
     </div>
