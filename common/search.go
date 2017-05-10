@@ -41,6 +41,7 @@ type SearchParam struct {
 	Status   Status
 	Sort     SortMode
 	Category Category
+	Page     int
 	Max      uint
 	Query    string
 }

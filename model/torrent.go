@@ -52,7 +52,9 @@ func (t Torrent) Size() (s int) {
 		2*2 // array pointers
 	s *= 8 // Assume 64 bit OS
 
-	s += t.Uploader.Size()
+	if t.Uploader != nil {
+		s += t.Uploader.Size()
+	}
 	for _, c := range t.OldComments {
 		s += c.Size()
 	}

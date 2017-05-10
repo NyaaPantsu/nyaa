@@ -36,6 +36,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	}
 	search.Max = uint(max)
 
+	search.Page = pagenum
 	search.Query = r.URL.Query().Get("q")
 
 	switch s := r.URL.Query().Get("s"); s {
@@ -94,7 +95,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 		orderBy += "desc"
 	}
 
-	tor, err = cache.Get(search, func() (tor []model.Torrent, err error) {
+	tor, count, err = cache.Get(search, func() (tor []model.Torrent, count int, err error) {
 		parameters := torrentService.WhereParams{
 			Params: make([]interface{}, 0, 64),
 		}
@@ -144,9 +145,9 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 		parameters.Conditions = strings.Join(conditions[:], " AND ")
 		log.Infof("SQL query is :: %s\n", parameters.Conditions)
 		if countAll {
-			tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, orderBy, int(search.Max), int(search.Max)*(pagenum-1))
+			tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
 		} else {
-			tor, err = torrentService.GetTorrentsOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max)*(pagenum-1))
+			tor, err = torrentService.GetTorrentsOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
 		}
 
 		return
