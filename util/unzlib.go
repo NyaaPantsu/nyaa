@@ -8,15 +8,19 @@ import (
 	"io/ioutil"
 )
 
-func UnZlib(description []byte) string {
+func UnZlib(description []byte) (string, error) {
 	if len(description) > 0 {
 		b := bytes.NewReader(description)
 		z, err := zlib.NewReader(b)
-		log.CheckError(err)
+		if !log.CheckError(err) {
+			return "", err
+		}
 		defer z.Close()
 		p, err := ioutil.ReadAll(z)
-		log.CheckError(err)
-		return string(p)
+		if !log.CheckError(err) {
+			return "", err
+		}
+		return string(p), nil
 	}
-	return ""
+	return "", nil
 }

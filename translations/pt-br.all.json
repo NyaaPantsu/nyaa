@@ -1,0 +1,566 @@
+[
+  {
+    "id": "link",
+    "translation": "link"
+  },
+  {
+    "id": "verify_email_title",
+    "translation": "Verifique seu endereço de email do Nyaapantsu."
+  },
+  {
+    "id": "verify_email_content",
+    "translation": "Clique no link abaixo para verificar seu email."
+  },
+  {
+    "id": "reset_password_title",
+    "translation": "Redefina sua senha do goyangi."
+  },
+  {
+    "id": "reset_password_content",
+    "translation": "Clique no link abaixo para redefinir sua senha."
+  },
+  {
+    "id":"register_title",
+    "translation": "Criar uma conta"
+  },
+  {
+    "id":"signup_box_title",
+    "translation": "Registre-se <small>É de graça e sempre será.</small>"
+  },
+  {
+    "id":"username",
+    "translation": "Usuário"
+  },
+  {
+    "id":"email_address_or_username",
+    "translation": "Endereço de Email ou Usuário"
+  },
+  {
+    "id":"email_address",
+    "translation": "Endereço de Email"
+  },
+  {
+    "id":"password",
+    "translation": "Senha"
+  },
+  {
+    "id":"confirm_password",
+    "translation": "Confirmar Senha"
+  },
+  {
+    "id":"i_agree",
+    "translation": "Eu concordo"
+  },
+  {
+    "id":"terms_conditions_confirm",
+    "translation": "Ao clicar em <strong class=\"label label-primary\">Registrar</strong>, você concorda com os <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Termos e Condições</a> estabelecidos por este site, incluindo nosso uso de Cookies."
+  },
+  {
+    "id":"signin",
+    "translation": "Iniciar Sessão"
+  },
+  {
+    "id":"register",
+    "translation": "Registrar"
+  },
+  {
+    "id":"terms_conditions",
+    "translation": "Termos e Condições"
+  },
+  {
+    "id":"terms_conditions_full",
+    "translation": "Algumas Merdas."
+  },
+  {
+    "id":"remember_me",
+    "translation": "Lembre-se de mim"
+  },
+  {
+    "id":"forgot_password",
+    "translation": "Esqueceu sua Senha?"
+  },
+  {
+    "id":"sign_in_box_title",
+    "translation": "Por Favor, Inicie a Sessão"
+  },
+  {
+    "id":"sign_in_title",
+    "translation": "Iniciar Sessão"
+  },
+  {
+    "id":"register_success_title",
+    "translation": "Registro Completo"
+  },
+  {
+    "id":"sign_up_success",
+    "translation": "Obrigado por se registrar!"
+  },
+  {
+    "id":"verify_success",
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Sua conta foi ativada!"
+  },
+  {
+    "id":"signup_verification_email",
+    "translation": "Finalmente, cheque sua caixa de entrada (e caixa de spam!) para o email de verificação."
+  },
+  {
+    "id":"signup_verification_noemail",
+    "translation": "Registrado com sucesso, você pode agora usar sua conta."
+  },
+  {
+    "id":"settings",
+    "translation": "Configurações de Conta"
+  },
+  {
+    "id":"torrents",
+    "translation": "Torrents"
+  },
+  {
+    "id":"follow",
+    "translation": "Seguir"
+  },
+  {
+    "id":"unfollow",
+    "translation": "Deixar de Seguir"
+  },
+  {
+    "id":"user_followed_msg",
+    "translation": "Você seguiu %s!"
+  },
+  {
+    "id":"user_unfollowed_msg",
+    "translation": "Você deixou de seguir %s!"
+  },
+  {
+    "id":"profile_page",
+    "translation": "Perfil de %s"
+  },
+  {
+    "id":"see_more_torrents_from",
+    "translation": "Ver mais torrents de %s "
+  },
+  {
+    "id":"category",
+    "translation": "Categoria"
+  },
+  {
+    "id": "name",
+    "translation": "Nome"
+  },
+  {
+    "id": "date",
+    "translation": "Data"
+  },
+  {
+    "id": "size",
+    "translation": "Tamanho"
+  },
+  {
+    "id": "links",
+    "translation": "Links"
+  },
+  {
+    "id": "home",
+    "translation": "Página Inicial"
+  },
+  {
+    "id": "error_404",
+    "translation": "Erro 404"
+  },
+  {
+    "id": "toggle_navigation",
+    "translation": "Alternar Navegação"
+  },
+  {
+    "id": "upload",
+    "translation": "Envio"
+  },
+  {
+    "id": "faq",
+    "translation": "FAQ"
+  },
+  {
+    "id": "fap",
+    "translation": "Fap"
+  },
+  {
+    "id": "advanced_search",
+    "translation": "Pesquisa Avançada"
+  },
+  {
+    "id": "nothing_here",
+    "translation": "Nada Aqui."
+  },
+  {
+    "id": "404_not_found",
+    "translation": "404 Não Encontrado"
+  },
+  {
+    "id": "no_torrents_uploaded",
+    "translation": "Nenhum torrent enviado, ainda!"
+  },
+  {
+    "id": "profile",
+    "translation": "Perfil"
+  },
+  {
+    "id": "sign_out",
+    "translation": "Sair"
+  },
+  {
+    "id": "member",
+    "translation": "Membro"
+  },
+  {
+    "id": "sign_in",
+    "translation": "Iniciar Sessão"
+  },
+  {
+    "id": "sign_up",
+    "translation": "Registrar"
+  },
+  {
+    "id": "no_results_found",
+    "translation": "Nenhum resultado encontrado"
+  },
+  {
+    "id": "notice_keep_seeding",
+    "translation": "AVISO: CONTINUE SEMEANDO E HABILITE O DHT, SEU RETARDADO"
+  },
+  {
+    "id": "official_nyaapocalipse_faq",
+    "translation": "FAQ oficial Nyaapocalypse"
+  },
+  {
+    "id": "links_replacement_mirror",
+    "translation": "Links para reposição/mirror"
+  },
+  {
+    "id": "what_happened",
+    "translation": "O que houve?"
+  },
+  {
+    "id": "nyaa_se_went_offline",
+    "translation": "nyaa.se e domínios associados (como o nyaatorrents.info) saíram do ar no dia Primeiro de Maio de 2017"
+  },
+  {
+    "id": "its_not_a_ddos",
+    "translation": "Eles foram desativados, então não é um ataque DDoS como normalmente."
+  },
+  {
+    "id": "future_not_looking_good",
+    "translation": "Perspectivas futuras para o nyaa não parecem boas. (Está morto)"
+  },
+  {
+    "id": "recovery_effort",
+    "translation": "Há uma tentativa de recuperação acontecendo."
+  },
+  {
+    "id": "is_everything_lost",
+    "translation": "Tudo foi perdido?"
+  },
+  {
+    "id": "in_short_no",
+    "translation": "Em suma, não."
+  },
+  {
+    "id": "are_some_things_lost",
+    "translation": "Algumas coisas foram perdidas?"
+  },
+  {
+    "id": "answer_is_nyaa_db_lost",
+    "translation": "Nós temos um banco de dados contendo os torrents do nyaa de <s>5 de Abril</s> a 1 de Maio. Isso significa que quase nada foi perdido."
+  },
+  {
+    "id": "answer_is_sukebei_db_lost",
+    "translation": "Sukebei, no entando, pode estar na pior. Atualmente nós só temos os dados do sukebei até 2016, mas um novo banco de dados pode estar dsisponível para uso."
+  },
+  {
+    "id": "how_are_we_recovering",
+    "translation": "Como estamos nos recuperando?"
+  },
+  {
+    "id": "answer_how_are_we_recovering",
+    "translation": "Os então mencionados bancos de dados estão hospedados em nyaa.pantsu.cat e sukebei.pantsu.cat. Há uma função de busca, e (quase) todas as funcionalidades do nyaa devem estar de volta em breve. Estatísticas de seeders/leechers estão disponíveis via raspagem de dados e podem ser restauradas no futuro, já que outras funções são prioridade no momento."
+  },
+  {
+    "id": "are_the_trackers_working",
+    "translation": "Os torrents ainda funcionam?"
+  },
+  {
+    "id": "answer_are_the_trackers_working",
+    "translation": "Mesmo com os trackers offline, seeders ainda estão conectados à rede descentralizada DHT. Enquanto o arquivo estiver listado na rede DHT, as coisas devem funcionar normalmente."
+  },
+  {
+    "id": "how_do_i_download_the_torrents",
+    "translation": "Como eu baixo os torrents?"
+  },
+  {
+    "id": "answer_how_do_i_download_the_torrents",
+    "translation": "Utilize os <b>links magnéticos</b>. Os links magnéticos serão usados pelo seu cliente BitTorrent, para procurar o arquivo na rede DHT, e deverá baixar sem problemas."
+  },
+  {
+    "id": "magnet_link_should_look_like",
+    "translation": "O link magnético se parece com isso:"
+  },
+  {
+    "id": "which_trackers_do_you_recommend",
+    "translation": "Que trackers você recomenda?"
+  },
+  {
+    "id": "answer_which_trackers_do_you_recommend",
+    "translation": "Se o seu torrent for negado por conta de trackers, você vai precisar adicionar alguns desses:"
+  },
+  {
+    "id": "how_can_i_help",
+    "translation": "Como eu posso ajudar?"
+  },
+  {
+    "id": "answer_how_can_i_help",
+    "translation": "Se você tem experiência em desenvolvimento para a web, você pode entrar no canal de IRC #nyaapantsu em irc.rizon.net. Se você tem qualquer tipo de dados, especialmente para sukebei, <b>ENVIE-OS</b>."
+  },
+  {
+    "id": "your_design_sucks_found_a_bug",
+    "translation": "Seu design é uma merda / Encontrei um bug"
+  },
+  {
+    "id": "why_written_in_go",
+    "translation": "Por que suas coisas estão escritas em Go?"
+  },
+  {
+    "id": "authors_favorite_language",
+    "translation": "É a linguagem de programação favorita do autor."
+  },
+  {
+    "id": "nyaa_pantsu_dont_host_files",
+    "translation": "nyaa.pantsu.cat e sukebei.pantsu.cat não hospedam nenhum arquivo."
+  },
+  {
+    "id": "upload_magnet",
+    "translation": "Envie um link magnético"
+  },
+  {
+    "id": "torrent_file",
+    "translation": "Arquivo Torrent"
+  },
+  {
+    "id": "uploading_file_prefills_fields",
+    "translation": "Enviar um arquivo torrent permite o pré-preenchimento de alguns campos, isso é recomendado."
+  },
+  {
+    "id": "magnet_link",
+    "translation": "Link Magnético"
+  },
+  {
+    "id": "all_categories",
+    "translation": "Todas as categorias"
+  },
+  {
+    "id": "anime",
+    "translation": "Anime"
+  },
+  {
+    "id": "anime_amv",
+    "translation": "Anime - Anime Music Video"
+  },
+  {
+    "id": "anime_english_translated",
+    "translation": "Anime - Traduções em Inglês"
+  },
+  {
+    "id": "anime_non_english_translated",
+    "translation": "Anime - Traduções em Outros Idiomas"
+  },
+  {
+    "id": "anime_raw",
+    "translation": "Anime - Raw"
+  },
+  {
+    "id": "audio",
+    "translation": "Áudio"
+  },
+  {
+    "id": "audio_lossless",
+    "translation": "Áudio - Sem Perdas"
+  },
+  {
+    "id": "audio_lossy",
+    "translation": "Audio - Com Perdas"
+  },
+  {
+    "id": "literature",
+    "translation": "Literatura"
+  },
+  {
+    "id": "literature_english_translated",
+    "translation": "Literatura - Traduções em Inglês"
+  },
+  {
+    "id": "literature_raw",
+    "translation": "Literatura - Raw"
+  },
+  {
+    "id": "literature_non_english_translated",
+    "translation": "Literatura - Traduções em Outros Idiomas"
+  },
+  {
+    "id": "live_action",
+    "translation": "Live Action"
+  },
+  {
+    "id": "live_action_english_translated",
+    "translation": "Live Action - Traduções em Inglês"
+  },
+  {
+    "id": "live_action_idol_pv",
+    "translation": "Live Action - Idol/Vídeo Promocional"
+  },
+  {
+    "id": "live_action_non_english_translated",
+    "translation": "Live Action - Traduções em Outros Idiomas"
+  },
+  {
+    "id": "live_action_raw",
+    "translation": "Live Action - Raw"
+  },
+  {
+    "id": "pictures",
+    "translation": "Imagens"
+  },
+  {
+    "id": "pictures_graphics",
+    "translation": "Imagens - Artes Gráficas"
+  },
+  {
+    "id": "pictures_photos",
+    "translation": "Imagens - Fotos"
+  },
+  {
+    "id": "software",
+    "translation": "Software"
+  },
+  {
+    "id": "software_applications",
+    "translation": "Software - Aplicativos"
+  },
+  {
+    "id": "software_games",
+    "translation": "Software - Jogos"
+  },
+  {
+    "id": "torrent_description",
+    "translation": "Descrição do Torrent"
+  },
+  {
+    "id": "description_markdown_notice",
+    "translation": "Marcações podem ser usadas nas descrições."
+  },
+  {
+    "id": "show_all",
+    "translation": "Mostrar Todos"
+  },
+  {
+    "id": "filter_remakes",
+    "translation": "Filtrar Remakes"
+  },
+  {
+    "id": "trusted",
+    "translation": "Confiável"
+  },
+  {
+    "id": "id",
+    "translation": "ID"
+  },
+  {
+    "id": "downloads",
+    "translation": "Downloads"
+  },
+  {
+    "id": "descending",
+    "translation": "Decrescente"
+  },
+  {
+    "id": "ascending",
+    "translation": "Crescente"
+  },
+  {
+    "id": "search",
+    "translation": "Pesquisa"
+  },
+  {
+    "id": "hash",
+    "translation": "Hash"
+  },
+  {
+    "id": "description",
+    "translation": "Descrição"
+  },
+  {
+    "id": "comments",
+    "translation": "Comentários"
+  },
+  {
+    "id": "submit_a_comment_as_username",
+    "translation": "Envie um comentário como %s"
+  },
+  {
+    "id": "submit_a_comment_as_anonymous",
+    "translation": "Envie um comentário como Anônimo"
+  },
+  {
+    "id": "submit",
+    "translation": "Enviar"
+  },
+  {
+    "id": "personal_info",
+    "translation": "Informações Pessoais"
+  },
+  {
+    "id": "language",
+    "translation": "Idioma"
+  },
+  {
+    "id": "current_password",
+    "translation": "Senha atual"
+  },
+  {
+    "id": "role",
+    "translation": "Cargo"
+  },
+  {
+    "id": "banned",
+    "translation": "Banido"
+  },
+  {
+    "id": "default",
+    "translation": "Padrão"
+  },
+  {
+    "id": "trusted_member",
+    "translation": "Membro Confiável"
+  },
+  {
+    "id": "moderator",
+    "translation": "Moderador"
+  },
+  {
+    "id": "save_changes",
+    "translation": "Salvar Alterações"
+  },
+  {
+    "id": "profile_updated",
+    "translation": "Seu perfil foi atualizado corretamente!"
+  },
+  {
+    "id": "delete_account",
+    "translation": "Deletar Conta"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "Tem certeza que deseja deletar essa conta?"
+  },
+  {
+    "id": "delete_success",
+    "translation": "A conta foi deletada com sucesso!"
+  }
+]

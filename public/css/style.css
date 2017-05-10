@@ -1,5 +1,3 @@
-
-
 /* Torrent status colors */
 .remake {
   background-color: rgb(240, 176, 128);
@@ -36,6 +34,8 @@
     background: white;
 }
 
+
+/*
 #container.cont-home {
      background: white url(/img/renchon.png) no-repeat;
 }
@@ -43,6 +43,7 @@
      background: white url(/img/renchon.png) no-repeat;
      background-size: 61px;
 }
+*/
 
 body {
     background-color: #ececec;
@@ -81,6 +82,10 @@ a {
     border: none;
 }
 
+td {
+  text-overflow: ellipsis;
+}
+
 .torrent-info .name {
 	font-weight: bold;
 	overflow: hidden;
@@ -99,7 +104,8 @@ a {
 
 .comment-row td:first-of-type {
 	vertical-align: top;
-	text-align: right;
+	text-align: left;
+	color:#bbb;
 }
 
 /* Table style & fixes */
@@ -316,7 +322,8 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
   background: #fff;
   min-height: 460px;
 }
-/* Night mode switcher  */
+
+/* Night mode switcher */
 #mainmenu a.nightswitch {
     background: transparent url(/img/sun.png) no-repeat;
     background-size: 24px;
@@ -324,11 +331,19 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
     margin-left: 3px;
     width: 24px;
 }
+
 footer {
   text-align: center;
-  padding: 2rem;
+  padding-bottom: 2rem;
   font-size: 2rem;
   font-family: cursive;
-  color: #CCC;
-  text-shadow: 0px -1px #999999;
+  color: #616161;
+  text-shadow: -1px -1px #999999;
+}
+
+/* Force images on description to fit width */
+#description img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
