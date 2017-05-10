@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"path/filepath"
 	"strconv"
+	"fmt"
 
 	"github.com/ewhal/nyaa/service/comment"
 	"github.com/ewhal/nyaa/service/torrent"
@@ -48,10 +49,11 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 		page, _ := strconv.Atoi(r.URL.Query().Get("p"))
 		offset := 100
 
-		torrents, _, _ := torrentService.GetAllTorrents(page*offset, offset)
+		torrents, _, _ := torrentService.GetAllTorrents(offset, page * offset)
 		languages.SetTranslationFromRequest(panelTorrentList, r, "en-us")
 		htv := PanelTorrentListVbs{torrents}
-		_ = panelTorrentList.ExecuteTemplate(w, "admin_index.html", htv)
+		err := panelTorrentList.ExecuteTemplate(w, "admin_index.html", htv)
+		fmt.Println(err)
 	}
 }
 func UsersListPanel(w http.ResponseWriter, r *http.Request) {

@@ -8,6 +8,6 @@ import (
 
 func GetAllComments(limit int, offset int) []model.Comment{
 	var comments []model.Comment
-	db.ORM.Limit(limit).Offset(offset).Preload("Uploader").Find(&comments)
+	db.ORM.Limit(limit).Offset(offset).Preload("User").Find(&comments)
 	return comments
 }
