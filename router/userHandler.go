@@ -54,30 +54,21 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser == nil {
 		currentUser := GetUser(r)
-		view := r.URL.Query()["edit"]
 		follow := r.URL.Query()["followed"]
 		unfollow := r.URL.Query()["unfollowed"]
 		infosForm := form.NewInfos()
 		deleteVar := r.URL.Query()["delete"]
 
-		if (view != nil) && (userPermission.CurrentOrAdmin(currentUser, userProfile.ID)) {
-			b := form.UserForm{}
-			modelHelper.BindValueForm(&b, r)
-			languages.SetTranslationFromRequest(viewProfileEditTemplate, r, "en-us")
-			htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
-
-			err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-			}
-		} else if (deleteVar != nil) && (userPermission.CurrentOrAdmin(currentUser, userProfile.ID)) {
+		if (deleteVar != nil) && (userPermission.CurrentOrAdmin(currentUser, userProfile.ID)) {
 			err := form.NewErrors()
 			_, errUser := userService.DeleteUser(w, currentUser, id)
 			if errUser != nil {
 				err["errors"] = append(err["errors"], errUser.Error())
 			}
 			languages.SetTranslationFromRequest(viewUserDeleteTemplate, r, "en-us")
-			htv := UserVerifyTemplateVariables{err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
+			searchForm := NewSearchForm()
+			searchForm.HideAdvancedSearch = true
+			htv := UserVerifyTemplateVariables{err, searchForm, Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 			errorTmpl := viewUserDeleteTemplate.ExecuteTemplate(w, "index.html", htv)
 			if errorTmpl != nil {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -90,7 +81,9 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 			if unfollow != nil {
 				infosForm["infos"] = append(infosForm["infos"], fmt.Sprintf(T("user_unfollowed_msg"), userProfile.Username))
 			}
-			htv := UserProfileVariables{&userProfile, infosForm, NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+			searchForm := NewSearchForm()
+			searchForm.HideAdvancedSearch = true
+			htv := UserProfileVariables{&userProfile, infosForm, searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
 
 			err := viewProfileTemplate.ExecuteTemplate(w, "index.html", htv)
 			if err != nil {
@@ -109,6 +102,25 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//Getting User Profile Details View
+func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	b := form.UserForm{}
+	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
+	if errorUser == nil {
+		currentUser := GetUser(r)
+		modelHelper.BindValueForm(&b, r)
+		languages.SetTranslationFromRequest(viewProfileEditTemplate, r, "en-us")
+		searchForm := NewSearchForm()
+		searchForm.HideAdvancedSearch = true
+		htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+		err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	}
+}
 // Getting View User Profile Update
 func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
