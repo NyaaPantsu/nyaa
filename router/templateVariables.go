@@ -153,6 +153,7 @@ type PanelTorrentEdVbs struct {
 	User    *model.User
 	FormInfos   map[string][]string
 	FormErrors  map[string][]string
+	URL        *url.URL // For parsing Url in templates
 }
 
 type PanelTorrentReportListVbs struct {
