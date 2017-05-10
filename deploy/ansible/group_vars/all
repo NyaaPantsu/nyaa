@@ -2,4 +2,5 @@ nyaapantsu_dbname: nyaapantsu
 nyaapantsu_user: nyaapantsu
 nyaapantsu_password: nyaapantsu
 nyaapantsu_gpg_passphrase_file: ~/passphrase
+nyaapantsu_pgpool_port: 9998
 # vim: ft=yaml
