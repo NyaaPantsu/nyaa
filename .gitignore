@@ -14,3 +14,7 @@ templates/*.html.go
 *.backup
 tags
 *.retry
+
+# emacs temp files
+*\#*
+*~

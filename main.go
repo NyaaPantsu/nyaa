@@ -40,9 +40,17 @@ func RunServer(conf *config.Config) {
 	l, err := network.CreateHTTPListener(conf)
 	log.CheckError(err)
 	if err == nil {
+		// add http server to be closed gracefully
+		signals.RegisterCloser(&network.GracefulHttpCloser{
+			Server:   srv,
+			Listener: l,
+		})
 		log.Infof("listening on %s", l.Addr())
 		err := srv.Serve(l)
-		log.CheckError(err)
+		if err != nil && err != network.ErrListenerStopped {
+			log.CheckError(err)
+		}
+
 	}
 }
 
