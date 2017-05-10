@@ -5,7 +5,7 @@
   },
   {
     "id": "verify_email_title",
-    "translation": "Verify your email address for Nyaapantsu."
+    "translation": "Verifica il tuo indirizzo email per Nyaapantsu."
   },
   {
     "id": "verify_email_content",
@@ -33,11 +33,11 @@
   },
   {
     "id":"email_address_or_username",
-    "translation": "Email Address or Username"
+    "translation": "Indirizzo Email o Username"
   },
   {
     "id":"email_address",
-    "translation": "Email Address"
+    "translation": "Indirizzo Email"
   },
   {
     "id":"password",
@@ -45,11 +45,11 @@
   },
   {
     "id":"confirm_password",
-    "translation": "Confirm Password"
+    "translation": "Conferma Password"
   },
   {
     "id":"i_agree",
-    "translation": "I agree"
+    "translation": "Accetto"
   },
   {
     "id":"terms_conditions_confirm",
@@ -61,7 +61,7 @@
   },
   {
     "id":"register",
-    "translation": "Register"
+    "translation": "Registrati"
   },
   {
     "id":"terms_conditions",
@@ -77,7 +77,7 @@
   },
   {
     "id":"forgot_password",
-    "translation": "Forgot Password?"
+    "translation": "Dimenticato la password?"
   },
   {
     "id":"sign_in_box_title",
@@ -93,7 +93,7 @@
   },
   {
     "id":"sign_up_success",
-    "translation": "Thank you for registering!"
+    "translation": "Grazie per esserti registrato"
   },
   {
     "id":"verify_success",
@@ -109,7 +109,7 @@
   },
   {
     "id":"settings",
-    "translation": "Account Settings"
+    "translation": "Settaggi Account"
   },
   {
     "id":"torrents",
@@ -117,7 +117,7 @@
   },
   {
     "id":"follow",
-    "translation": "Follow"
+    "translation": "Segui"
   },
   {
     "id":"unfollow",
@@ -133,7 +133,7 @@
   },
   {
     "id":"profile_page",
-    "translation": "%s Profile Page"
+    "translation": "%s Pagina Profilo"
   },
   {
     "id":"see_more_torrents_from",
@@ -141,19 +141,19 @@
   },
   {
     "id":"category",
-    "translation": "Category"
+    "translation": "Categoria"
   },
   {
     "id": "name",
-    "translation": "Name"
+    "translation": "Nome"
   },
   {
     "id": "date",
-    "translation": "Date"
+    "translation": "Data"
   },
   {
     "id": "size",
-    "translation": "Size"
+    "translation": "Dimensione"
   },
   {
     "id": "links",
@@ -165,7 +165,7 @@
   },
   {
     "id": "error_404",
-    "translation": "Error 404"
+    "translation": "Errore 404"
   },
   {
     "id": "toggle_navigation",
@@ -173,7 +173,7 @@
   },
   {
     "id": "upload",
-    "translation": "Upload"
+    "translation": "Carica"
   },
   {
     "id": "faq",
@@ -193,7 +193,7 @@
   },
   {
     "id": "404_not_found",
-    "translation": "404 Not Found"
+    "translation": "404 Non Trovato"
   },
   {
     "id": "no_torrents_uploaded",
@@ -201,7 +201,7 @@
   },
   {
     "id": "profile",
-    "translation": "Profile"
+    "translation": "Profilo"
   },
   {
     "id": "sign_out",
@@ -209,7 +209,7 @@
   },
   {
     "id": "member",
-    "translation": "Member"
+    "translation": "Membro"
   },
   {
     "id": "sign_in",
@@ -221,7 +221,7 @@
   },
   {
     "id": "no_results_found",
-    "translation": "No Results found"
+    "translation": "Nessun risultato trovato"
   },
   {
     "id": "notice_keep_seeding",
@@ -237,11 +237,11 @@
   },
   {
     "id": "what_happened",
-    "translation": "What happened?"
+    "translation": "Cosa è successo?"
   },
   {
     "id": "nyaa_se_went_offline",
-    "translation": "nyaa.se and associated domains (such as nyaatorrents.info) went offline on May 01, 2017."
+    "translation": "nyaa.se e i domini associati (come nyaatorrents.info) sono andati offline il 1° Maggio, 2017."
   },
   {
     "id": "its_not_a_ddos",
@@ -285,7 +285,7 @@
   },
   {
     "id": "are_the_trackers_working",
-    "translation": "Are the torrents still working?"
+    "translation": "I torrent funzionano ancora?"
   },
   {
     "id": "answer_are_the_trackers_working",
@@ -313,7 +313,7 @@
   },
   {
     "id": "how_can_i_help",
-    "translation": "How can I help?"
+    "translation": "Come posso aiutare?"
   },
   {
     "id": "answer_how_can_i_help",
@@ -321,7 +321,7 @@
   },
   {
     "id": "your_design_sucks_found_a_bug",
-    "translation": "Your design sucks / I found a bug"
+    "translation": "Il tuo design fa cagare / Ho trovato un bug"
   },
   {
     "id": "why_written_in_go",
@@ -337,11 +337,11 @@
   },
   {
     "id": "upload_magnet",
-    "translation": "Upload magnet"
+    "translation": "Carica magnet"
   },
   {
     "id": "torrent_file",
-    "translation": "Torrent file"
+    "translation": "File Torrent"
   },
   {
     "id": "uploading_file_prefills_fields",
@@ -353,7 +353,7 @@
   },
   {
     "id": "all_categories",
-    "translation": "All categories"
+    "translation": "Tutte le categorie"
   },
   {
     "id": "anime",
@@ -389,19 +389,19 @@
   },
   {
     "id": "literature",
-    "translation": "Literature"
+    "translation": "Letteratura"
   },
   {
     "id": "literature_english_translated",
-    "translation": "Literature - English-translated"
+    "translation": "Letteratura - Tradotta in Inglese"
   },
   {
     "id": "literature_raw",
-    "translation": "Literature - Raw"
+    "translation": "Letteratura - Raw"
   },
   {
     "id": "literature_non_english_translated",
-    "translation": "Literature - Non-English-translated"
+    "translation": "Letteratura - Tradotta in altre lingue"
   },
   {
     "id": "live_action",
@@ -441,11 +441,11 @@
   },
   {
     "id": "software_applications",
-    "translation": "Software - Applications"
+    "translation": "Software - Applicazioni"
   },
   {
     "id": "software_games",
-    "translation": "Software - Games"
+    "translation": "Software - Giochi"
   },
   {
     "id": "torrent_description",
@@ -457,7 +457,7 @@
   },
   {
     "id": "show_all",
-    "translation": "Show all"
+    "translation": "Mostra Tutto"
   },
   {
     "id": "filter_remakes",
@@ -485,7 +485,7 @@
   },
   {
     "id": "search",
-    "translation": "Search"
+    "translation": "Ricerca"
   },
   {
     "id": "hash",
@@ -513,23 +513,23 @@
   },
   {
     "id": "personal_info",
-    "translation": "Personal Info"
+    "translation": "Informazioni Personali"
   },
   {
     "id": "language",
-    "translation": "Language"
+    "translation": "Linguaggio"
   },
   {
     "id": "current_password",
-    "translation": "Current password"
+    "translation": "Password Attuale"
   },
   {
     "id": "role",
-    "translation": "Role"
+    "translation": "Ruolo"
   },
   {
     "id": "banned",
-    "translation": "Banned"
+    "translation": "Bannato"
   },
   {
     "id": "default",
@@ -537,30 +537,30 @@
   },
   {
     "id": "trusted_member",
-    "translation": "Trusted member"
+    "translation": "Membro Fidato"
   },
   {
     "id": "moderator",
-    "translation": "Moderator"
+    "translation": "Moderatore"
   },
   {
     "id": "save_changes",
-    "translation": "Save Changes"
+    "translation": "Salva Cambiamenti"
   },
   {
     "id": "profile_updated",
-    "translation": "Your profile has been correctly updated!"
+    "translation": "Il tuo profilo è stato aggiornato correttamente!"
   },
   {
     "id": "delete_account",
-    "translation": "Delete Account"
+    "translation": "Cancella Account"
   },
   {
     "id": "delete_account_confirm",
-    "translation": "Are you sure you want to delete this account?"
+    "translation": "Sei sicuro di voler cancellare questo account?"
   },
   {
     "id": "delete_success",
-    "translation": "The account has been successfully deleted!"
+    "translation": "L'account è stato cancellato con successo!"
   }
 ]
