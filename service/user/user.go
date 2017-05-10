@@ -44,14 +44,14 @@ func SuggestUsername(username string) string {
 
 func CheckEmail(email string) bool {
 	if len(email) == 0 {
-		return true
+		return false
 	}
 	var count int
 	db.ORM.Model(model.User{}).Where("email = ?", email).Count(&count)
-	if count == 0 {
-		return false // duplicate
+	if count != 0 {
+		return true // error: duplicate
 	}
-	return true
+	return false
 }
 
 // CreateUserFromForm creates a user from a registration form.
@@ -59,11 +59,20 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 	var user model.User
 	log.Debugf("registrationForm %+v\n", registrationForm)
 	modelHelper.AssignValue(&user, &registrationForm)
-
+	if user.Email == "" {
+		user.MD5 = ""
+	} else {
+		var err error
+		user.MD5, err = crypto.GenerateMD5Hash(user.Email)
+		if err != nil {
+			return user, err
+		}
+	}
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
 		return user, errors.New("token not generated")
 	}
+
 	user.Token = token
 	user.TokenExpiration = timeHelper.FewDaysLater(config.AuthTokenExpirationDay)
 	log.Debugf("user %+v\n", user)
@@ -71,11 +80,7 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 		return user, errors.New("user not created")
 	}
 
-	user.MD5, err = crypto.GenerateMD5Hash(user.Email)
-	if err != nil {
-		return user, err
-	}
-
+	user.CreatedAt = time.Now()
 	return user, nil
 }
 
@@ -130,7 +135,6 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 func RetrieveUsers() []*model.PublicUser {
 	var users []*model.User
 	var userArr []*model.PublicUser
-	db.ORM.Find(&users)
 	for _, user := range users {
 		userArr = append(userArr, &model.PublicUser{User: user})
 	}
@@ -139,11 +143,16 @@ func RetrieveUsers() []*model.PublicUser {
 
 // UpdateUserCore updates a user. (Applying the modifed data of user).
 func UpdateUserCore(user *model.User) (int, error) {
-	var err error
-	user.MD5, err = crypto.GenerateMD5Hash(user.Email)
-	if err != nil {
-		return http.StatusInternalServerError, err
+	if user.Email == "" {
+		user.MD5 = ""
+	} else {
+		var err error
+		user.MD5, err = crypto.GenerateMD5Hash(user.Email)
+		if err != nil {
+			return http.StatusInternalServerError, err
+		}
 	}
+
 	token, err := crypto.GenerateRandomToken32()
 	if err != nil {
 		return http.StatusInternalServerError, err
@@ -153,6 +162,7 @@ func UpdateUserCore(user *model.User) (int, error) {
 	if db.ORM.Save(user).Error != nil {
 		return http.StatusInternalServerError, err
 	}
+
 	user.UpdatedAt = time.Now()
 	return http.StatusOK, nil
 }

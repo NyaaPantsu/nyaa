@@ -3,6 +3,7 @@ package router
 import (
 	"net/http"
 
+	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/service/user"
 	"github.com/ewhal/nyaa/service/user/form"
@@ -177,7 +178,10 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 				}
 				if len(err) == 0 {
 					languages.SetTranslationFromRequest(viewRegisterSuccessTemplate, r, "en-us")
-					htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
+					u := model.User{
+						Email: r.PostFormValue("email"), // indicate whether user had email set
+					}
+					htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, &u, r.URL, mux.CurrentRoute(r)}
 					errorTmpl := viewRegisterSuccessTemplate.ExecuteTemplate(w, "index.html", htv)
 					if errorTmpl != nil {
 						http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)

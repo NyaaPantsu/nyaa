@@ -22,8 +22,8 @@
 				<!-- END SIDEBAR USER TITLE -->
 				<!-- SIDEBAR BUTTONS -->
 				<div class="profile-userbuttons">
-						{{if gt $.User.Id 0 }}
-						{{if not (CurrentUserIdentical $.User .Id) }}
+						{{if gt $.User.ID 0 }}
+						{{if not (CurrentUserIdentical $.User .ID) }}
 					<button type="button" class="btn btn-success btn-sm">{{ T "follow"}}</button>
 						{{end}}
 						{{end}}
@@ -38,8 +38,8 @@
 							<i class="glyphicon glyphicon-home"></i>
 							{{T "torrents"}} </a>
 						</li>
-						{{if gt $.User.Id 0 }}
-						{{if CurrentOrAdmin $.User .Id }}
+						{{if gt $.User.ID 0 }}
+						{{if CurrentOrAdmin $.User .ID }}
 						<li class="active">
 							<a href="?edit">
 							<i class="glyphicon glyphicon-user"></i>

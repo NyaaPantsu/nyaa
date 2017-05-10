@@ -7,8 +7,34 @@ import (
 	"net/http"
 )
 
+// When go-i18n finds a language with >0 translations, it uses it as the Tfunc
+// However, if said language has a missing translation, it won't fallback to the "main" language
+func TfuncWithFallback(language string, languages ...string) (i18n.TranslateFunc, error) {
+	// Use the last language on the args as the fallback one.
+	fallbackLanguage := language
+	if languages != nil {
+		fallbackLanguage = languages[len(languages)-1]
+	}
+
+	T, err1 := i18n.Tfunc(language, languages...)
+	fallbackT, err2 := i18n.Tfunc(fallbackLanguage)
+
+	if err1 != nil && err2 != nil {
+		// fallbackT is still a valid function even with the error, it returns translationID.
+		return fallbackT, err2;
+	}
+
+	return func(translationID string, args ...interface{}) string {
+		if translated := T(translationID, args...); translated != translationID {
+			return translated
+		}
+
+		return fallbackT(translationID, args...)
+	}, nil
+}
+
 func SetTranslation(tmpl *template.Template, language string, languages ...string) i18n.TranslateFunc {
-	T, _ := i18n.Tfunc(language, languages...)
+	T, _ := TfuncWithFallback(language, languages...)
 	tmpl.Funcs(map[string]interface{}{
 		"T": func(str string, args ...interface{}) template.HTML {
 			return template.HTML(fmt.Sprintf(T(str), args...))

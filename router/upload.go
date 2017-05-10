@@ -15,7 +15,6 @@ import (
 	"strings"
 
 	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/metainfo"
@@ -75,8 +74,11 @@ var ErrInvalidTorrentCategory = errors.New("torrent category is invalid")
 
 var p = bluemonday.UGCPolicy()
 
-// ExtractInfo takes an HTTP request and computes all form fields
-func (f *UploadForm) ExtractInfo(r *http.Request) error { // TODO: Break down, too complex
+/**
+UploadForm.ExtractInfo takes an http request and computes all fields for this form
+*/
+func (f *UploadForm) ExtractInfo(r *http.Request) error {
+
 	f.Name = r.FormValue(UploadFormName)
 	f.Category = r.FormValue(UploadFormCategory)
 	f.Description = r.FormValue(UploadFormDescription)
@@ -189,35 +191,6 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error { // TODO: Break down, t
 	}
 
 	return nil
-}
-
-func ValidateJSON(j *model.TorrentJSON) (int, int, error) {
-	// TODO: Name length ?
-	var category, subCategory int
-
-	category, err := strconv.Atoi(j.Category)
-	if err != nil {
-		return category, subCategory, err
-	}
-	subCategory, err = strconv.Atoi(j.SubCategory)
-	if err != nil {
-		return category, subCategory, err
-	}
-
-	magnetURL, parseErr := url.Parse(string(j.Magnet)) //?
-	if parseErr != nil {
-		return category, subCategory, metainfo.ErrInvalidTorrentFile
-	}
-	exactTopic := magnetURL.Query().Get("xt")
-	if !strings.HasPrefix(exactTopic, "urn:btih:") {
-		return category, subCategory, metainfo.ErrInvalidTorrentFile
-	}
-	j.Hash = strings.ToUpper(strings.TrimPrefix(exactTopic, "urn:btih:"))
-	matched, err := regexp.MatchString("^[0-9A-F]{40}$", j.Hash)
-	if err != nil || !matched {
-		return category, subCategory, metainfo.ErrInvalidTorrentFile
-	}
-	return category, subCategory, nil
 }
 
 func WriteTorrentToDisk(file multipart.File, name string, fullpath *string) error {
