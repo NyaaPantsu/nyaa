@@ -3,7 +3,6 @@ package config
 import (
 	"bufio"
 	"encoding/json"
-	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -11,19 +10,20 @@ import (
 )
 
 const (
-	// Highest torrent ID that was copied from nyaa
-	LastOldTorrentId = 923000
+	// LastOldTorrentID is the highest torrent ID
+	// that was copied from the original Nyaa
+	LastOldTorrentID = 923000
 )
 
 type Config struct {
-	Host   string `json: "host"`
-	Port   int    `json: "port"`
-	DBType string `json: "db_type"`
-	// This will be directly passed to Gorm, and its internal
+	Host   string `json:"host"`
+	Port   int    `json:"port"`
+	DBType string `json:"db_type"`
+	// DBParams will be directly passed to Gorm, and its internal
 	// structure depends on the dialect for each db type
-	DBParams string `json: "db_params"`
+	DBParams string `json:"db_params"`
 	// optional i2p configuration
-	I2P *I2PConfig `json: "i2p"`
+	I2P *I2PConfig `json:"i2p"`
 }
 
 var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50", nil}
@@ -35,7 +35,7 @@ var allowedDatabaseTypes = map[string]bool{
 	"mssql":    true,
 }
 
-func NewConfig() *Config {
+func New() *Config {
 	var config Config
 	config.Host = Defaults.Host
 	config.Port = Defaults.Port
@@ -44,28 +44,25 @@ func NewConfig() *Config {
 	return &config
 }
 
-type processFlags func() error
-
-func (config *Config) BindFlags() processFlags {
-	// This function returns a function which is to be used after
-	// flag.Parse to check and copy the flags' values to the Config instance.
-
-	conf_file := flag.String("conf", "", "path to the configuration file")
-	db_type := flag.String("dbtype", Defaults.DBType, "database backend")
+// BindFlags returns a function which is to be used after
+// flag.Parse to check and copy the flags' values to the Config instance.
+func (config *Config) BindFlags() func() error {
+	confFile := flag.String("conf", "", "path to the configuration file")
+	dbType := flag.String("dbtype", Defaults.DBType, "database backend")
 	host := flag.String("host", Defaults.Host, "binding address of the server")
 	port := flag.Int("port", Defaults.Port, "port of the server")
-	db_params := flag.String("dbparams", Defaults.DBParams, "parameters to open the database (see Gorm's doc)")
+	dbParams := flag.String("dbparams", Defaults.DBParams, "parameters to open the database (see Gorm's doc)")
 
 	return func() error {
 		// You can override fields in the config file with flags.
 		config.Host = *host
 		config.Port = *port
-		config.DBParams = *db_params
-		err := config.SetDBType(*db_type)
+		config.DBParams = *dbParams
+		err := config.SetDBType(*dbType)
 		if err != nil {
 			return err
 		}
-		err = config.HandleConfFileFlag(*conf_file)
+		err = config.HandleConfFileFlag(*confFile)
 		return err
 	}
 }
@@ -74,12 +71,12 @@ func (config *Config) HandleConfFileFlag(path string) error {
 	if path != "" {
 		file, err := os.Open(path)
 		if err != nil {
-			return errors.New(fmt.Sprintf("Can't read file '%s'.", path))
+			return fmt.Errorf("can't read file '%s'", path)
 		}
 
 		err = config.Read(bufio.NewReader(file))
 		if err != nil {
-			return errors.New(fmt.Sprintf("Failed to parse file '%s' (%s).", path, err))
+			return fmt.Errorf("failed to parse file '%s' (%s)", path, err)
 		}
 	}
 	return nil
@@ -87,7 +84,7 @@ func (config *Config) HandleConfFileFlag(path string) error {
 
 func (config *Config) SetDBType(db_type string) error {
 	if !allowedDatabaseTypes[db_type] {
-		return errors.New(fmt.Sprintf("Unknown database backend '%s'.", db_type))
+		return fmt.Errorf("unknown database backend '%s'", db_type)
 	}
 	config.DBType = db_type
 	return nil

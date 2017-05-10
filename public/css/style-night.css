@@ -64,6 +64,17 @@
      background-size: 75px;
 }
 */
+img#mascot {
+	display:block;
+	background-image: url(/img/megumin.png);
+	box-sizing: border-box;
+	height: 167px;
+	width: 125px;
+	padding-left: 125px;
+}
+/*The above is thanks to https://css-tricks.com/replace-the-image-in-an-img-with-css/
+Used to avoid the layout bugs caused by pure css background mascots, while still avoiding
+JS to switch the images.*/
 
 body {
     background-color:#282A2E;

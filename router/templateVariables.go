@@ -4,11 +4,11 @@ import (
 	"net/http"
 	"net/url"
 
+	"github.com/ewhal/nyaa/common"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/service/user"
 	userForms "github.com/ewhal/nyaa/service/user/form"
-	"github.com/ewhal/nyaa/util/search"
 	"github.com/gorilla/mux"
 )
 
@@ -35,7 +35,7 @@ type NotFoundTemplateVariables struct {
 }
 
 type ViewTemplateVariables struct {
-	Torrent    model.TorrentsJson
+	Torrent    model.TorrentJSON
 	Captcha    captcha.Captcha
 	Search     SearchForm
 	Navigation Navigation
@@ -55,15 +55,15 @@ type UserRegisterTemplateVariables struct {
 }
 
 type UserProfileEditVariables struct {
-	UserProfile 	 *model.User
-	UserForm 		 userForms.UserForm
-	FormErrors       map[string][]string
-	FormInfos        map[string][]string
-	Search           SearchForm
-	Navigation       Navigation
-	User             *model.User
-	URL              *url.URL   // For parsing Url in templates
-	Route            *mux.Route // For getting current route in templates
+	UserProfile *model.User
+	UserForm    userForms.UserForm
+	FormErrors  map[string][]string
+	FormInfos   map[string][]string
+	Search      SearchForm
+	Navigation  Navigation
+	User        *model.User
+	URL         *url.URL   // For parsing Url in templates
+	Route       *mux.Route // For getting current route in templates
 }
 
 type UserVerifyTemplateVariables struct {
@@ -87,6 +87,7 @@ type UserLoginFormVariables struct {
 
 type UserProfileVariables struct {
 	UserProfile *model.User
+	FormInfos   map[string][]string
 	Search      SearchForm
 	Navigation  Navigation
 	User        *model.User
@@ -95,7 +96,7 @@ type UserProfileVariables struct {
 }
 
 type HomeTemplateVariables struct {
-	ListTorrents []model.TorrentsJson
+	ListTorrents []model.TorrentJSON
 	Search       SearchForm
 	Navigation   Navigation
 	User         *model.User
@@ -112,6 +113,29 @@ type UploadTemplateVariables struct {
 	Route      *mux.Route
 }
 
+type PanelIndexVbs struct {
+	Torrents []model.Torrent
+	Users    []model.User
+	Comments []model.Comment
+}
+
+type PanelTorrentListVbs struct {
+	Torrents []model.Torrent
+}
+type PanelUserListVbs struct {
+	Users []model.User
+}
+type PanelCommentListVbs struct {
+	Comments []model.Comment
+}
+type PanelTorrentEdVbs struct {
+	Torrent model.Torrent
+}
+
+type ViewTorrentReportsVariables struct {
+	Torrents []model.TorrentReportJson
+}
+
 /*
  * Variables used by the upper ones
  */
@@ -123,7 +147,7 @@ type Navigation struct {
 }
 
 type SearchForm struct {
-	search.SearchParam
+	common.SearchParam
 	Category           string
 	HideAdvancedSearch bool
 }
