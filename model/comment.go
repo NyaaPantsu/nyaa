@@ -17,6 +17,11 @@ type Comment struct {
 	User    *User    `gorm:"ForeignKey:user_id"`
 }
 
+// Returns the total size of memory recursively allocated for this struct
+func (c Comment) Size() int {
+	return (3 + 3*3 + 2 + 2 + len(c.Content)) * 8
+}
+
 type OldComment struct {
 	TorrentID uint      `gorm:"column:torrent_id"`
 	Username  string    `gorm:"column:username"`
@@ -24,6 +29,11 @@ type OldComment struct {
 	Date      time.Time `gorm:"column:date"`
 
 	Torrent *Torrent `gorm:"ForeignKey:torrent_id"`
+}
+
+// Returns the total size of memory recursively allocated for this struct
+func (c OldComment) Size() int {
+	return (1 + 2*2 + len(c.Username) + len(c.Content) + 3 + 1) * 8
 }
 
 func (c OldComment) TableName() string {
