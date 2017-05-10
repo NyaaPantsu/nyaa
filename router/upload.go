@@ -30,6 +30,7 @@ type UploadForm struct {
 	Category    string
 	Remake      bool
 	Description string
+	Status int
 	captcha.Captcha
 
 	Infohash      string
@@ -48,6 +49,7 @@ const UploadFormMagnet = "magnet"
 const UploadFormCategory = "c"
 const UploadFormRemake = "remake"
 const UploadFormDescription = "desc"
+const UploadFormStatus = "status"
 
 // error indicating that you can't send both a magnet link and torrent
 var ErrTorrentPlusMagnet = errors.New("upload either a torrent file or magnet link, not both")
@@ -77,6 +79,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	f.Name = r.FormValue(UploadFormName)
 	f.Category = r.FormValue(UploadFormCategory)
 	f.Description = r.FormValue(UploadFormDescription)
+	f.Status, _ = strconv.Atoi(r.FormValue(UploadFormStatus))
 	f.Magnet = r.FormValue(UploadFormMagnet)
 	f.Remake = r.FormValue(UploadFormRemake) == "on"
 	f.Captcha = captcha.Extract(r)
