@@ -13,7 +13,7 @@
   },
   {
     "id": "reset_password_title",
-    "translation": "Reset your password for goyangi."
+    "translation": "Resetta la tua password per Nyaapantsu."
   },
   {
     "id": "reset_password_content",
@@ -25,11 +25,11 @@
   },
   {
     "id":"signup_box_title",
-    "translation": "Please Sign Up <small>It's free and always will be.</small>"
+    "translation": "Iscriviti <small>È gratuito e lo sara per sempre.</small>"
   },
   {
     "id":"username",
-    "translation": "Username"
+    "translation": "Nome Utente"
   },
   {
     "id":"email_address_or_username",
@@ -53,11 +53,11 @@
   },
   {
     "id":"terms_conditions_confirm",
-    "translation": "By clicking <strong class=\"label label-primary\">Register</strong>, you agree to the <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Terms and Conditions</a> set out by this site, including our Cookie Use."
+    "translation": "Cliccando <strong class=\"label label-primary\">Register</strong>, accetti i <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Termini e le condizioni</a> stabilite da questo sito, incluso il nostro Utilizzo dei Cookie."
   },
   {
     "id":"signin",
-    "translation": "Logga"
+    "translation": "Entra"
   },
   {
     "id":"register",
@@ -97,15 +97,15 @@
   },
   {
     "id":"verify_success",
-    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Your account is now activated!"
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Il tuo account è ora attivo!"
   },
   {
     "id":"signup_verification_email",
-    "translation": "Finally, per favore controlla la tua casella email (e la cartella spam!) per l'email di verifica."
+    "translation": "Per concludere, controlla la tua casella email (e la cartella spam!) per l'email di verifica."
   },
   {
     "id":"signup_verification_noemail",
-    "translation": "Registration was successful, you may now use your account."
+    "translation": "La registrazione è avvenuta con successo, adesso puoi usare il tuo account."
   },
   {
     "id":"settings",
@@ -121,23 +121,23 @@
   },
   {
     "id":"unfollow",
-    "translation": "Unfollow"
+    "translation": "Smetti di seguire"
   },
   {
     "id":"user_followed_msg",
-    "translation": "You have followed %s!"
+    "translation": "Hai seguito %s!"
   },
   {
     "id":"user_unfollowed_msg",
-    "translation": "You have unfollowed %s!"
+    "translation": "Hai smesso di seguire %s!"
   },
   {
     "id":"profile_page",
-    "translation": "%s Pagina Profilo"
+    "translation": "Pagina Profilo di %s"
   },
   {
     "id":"see_more_torrents_from",
-    "translation": "See more torrents from %s "
+    "translation": "Guarda altri torrent di %s "
   },
   {
     "id":"category",
@@ -157,7 +157,7 @@
   },
   {
     "id": "links",
-    "translation": "Links"
+    "translation": "Collegamenti"
   },
   {
     "id": "home",
@@ -257,7 +257,7 @@
   },
   {
     "id": "is_everything_lost",
-    "translation": "È andato perso tutto?"
+    "translation": "È andato tutto perso?"
   },
   {
     "id": "in_short_no",
@@ -269,11 +269,11 @@
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "Abbiamo un database dei torrent di nyaa fino al <s>April 5</s> May 1. Questo vuol dire che quasi niente è andato perduto."
+    "translation": "Abbiamo un database dei torrent di nyaa fino al <s>5 Aprile/s> 1° Maggio. Questo vuol dire che quasi niente è andato perduto."
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Sukebei, however might be in worse shape. Currently we only have sukebei databases up to 2016, but a newer database might be available for use."
+    "translation": "Sukebei può essere effettivamente in condizioni peggiori. Attualmente abbiamo i database di sukebei solo fino al 2016, ma un nuovo database potrebbe diventare disponible."
   },
   {
     "id": "how_are_we_recovering",
@@ -281,7 +281,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "The aforementioned databases are being hosted at nyaa.pantsu.cat and sukebei.pantsu.cat. There is a search function, and (almost) full nyaa functionality should be coming soon. Seeder/leecher statistics are possible via scraping and might be restored sometime in the future, since other feature take priority right now."
+    "translation": "I database citati sono attualmente hostati su nyaa.pantsu.cat e sukebei.pantsu.cat. C'è una funzione di ricerca, e (almost) full nyaa functionality dovrebbe arrivare presto. Le statistiche dei Seeder/leecher sono possibili attraverso scraping e potrebbero essere ripristinate in futuro, visto che altre funzionalità hanno la precedenza adesso."
   },
   {
     "id": "are_the_trackers_working",
@@ -289,7 +289,7 @@
   },
   {
     "id": "answer_are_the_trackers_working",
-    "translation": "Anche se i trackers sono offline, seeders are still connected to the decentralized DHT network. As long as the file is listed on the DHT network, business should carry on as usual."
+    "translation": "Anche se i trackers sono offline, i seeders sono ancora connessi alla rete decentralizzata DHT . Finchè il file è presente sulla rete DHT, tutto funzionerà come al solito."
   },
   {
     "id": "how_do_i_download_the_torrents",
@@ -297,7 +297,7 @@
   },
   {
     "id": "answer_how_do_i_download_the_torrents",
-    "translation": "Just use the <b>magnet link</b>. The magnet link will be used by your BitTorrent client to look up the file on the DHT network and it should download just fine."
+    "translation": "Semplicemente, usa il <b>magnet link</b>. Il magnet link sarà utilizzato dal tuo client Bittorrent per trovare il file sulla rete DHT e dovrebbe scaricarlo normalmente."
   },
   {
     "id": "magnet_link_should_look_like",
@@ -309,7 +309,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "If your torrent upload is denied because of trackers you'll need to add some of these:"
+    "translation": "Se il caricamente del tuo torrent è negato a causa dei trackers, dovrai aggiungere alcuni di questi:"
   },
   {
     "id": "how_can_i_help",
@@ -429,7 +429,7 @@
   },
   {
     "id": "pictures_graphics",
-    "translation": "Immagini - Grafico"
+    "translation": "Immagini - Grafica"
   },
   {
     "id": "pictures_photos",
