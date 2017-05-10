@@ -26,6 +26,15 @@ type User struct {
 	Torrents []Torrent `gorm:"ForeignKey:UploaderID"`
 }
 
+type UserJSON struct {
+	ID          uint   `json:"user_id"`
+	Username    string `json:"username"`
+	Status      int    `json:"status"`
+	CreatedAt   string `json:"created_at"`
+	LikingCount int    `json:"liking_count"`
+	LikedCount  int    `json:"liked_count"`
+}
+
 // Returns the total size of memory recursively allocated for this struct
 func (u User) Size() (s int) {
 	s += 4 + // ints
@@ -59,4 +68,16 @@ type UserUploadsOld struct {
 func (c UserUploadsOld) TableName() string {
 	// TODO: rename this in db
 	return "user_uploads_old"
+}
+
+func (u *User) ToJSON() UserJSON {
+	json := UserJSON{
+		ID:          u.ID,
+		Username:    u.Username,
+		Status:      u.Status,
+		CreatedAt:   u.CreatedAt.Format(time.RFC3339),
+		LikingCount: u.LikingCount,
+		LikedCount:  u.LikedCount,
+	}
+	return json
 }
