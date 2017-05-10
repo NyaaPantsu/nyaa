@@ -11,7 +11,7 @@
             <th>{{T "links"}}</th>
           </tr>
           {{ range .Torrents }}
-          {{ with .ToJson }}
+          {{ with .ToJSON }}
           <tr class="torrent-info
               {{if eq .Status 2}}remake{{end}}
               {{if eq .Status 3}}trusted{{end}}

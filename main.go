@@ -3,20 +3,19 @@ package main
 import (
 	"bufio"
 	"flag"
+	"net/http"
+	"os"
+	"path/filepath"
+	"time"
 
-	"github.com/nicksnyder/go-i18n/i18n"
-
+	"github.com/ewhal/nyaa/cache"
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/network"
 	"github.com/ewhal/nyaa/router"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/signals"
-
-	"net/http"
-	"os"
-	"path/filepath"
-	"time"
+	"github.com/nicksnyder/go-i18n/i18n"
 )
 
 func initI18N() {
@@ -41,9 +40,17 @@ func RunServer(conf *config.Config) {
 	l, err := network.CreateHTTPListener(conf)
 	log.CheckError(err)
 	if err == nil {
+		// add http server to be closed gracefully
+		signals.RegisterCloser(&network.GracefulHttpCloser{
+			Server:   srv,
+			Listener: l,
+		})
 		log.Infof("listening on %s", l.Addr())
 		err := srv.Serve(l)
-		log.CheckError(err)
+		if err != nil && err != network.ErrListenerStopped {
+			log.CheckError(err)
+		}
+
 	}
 }
 
@@ -51,6 +58,7 @@ func main() {
 	conf := config.New()
 	processFlags := conf.BindFlags()
 	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
+	flag.Float64Var(&cache.Size, "c", cache.Size, "size of the search cache in MB")
 	flag.Parse()
 	if *defaults {
 		stdout := bufio.NewWriter(os.Stdout)

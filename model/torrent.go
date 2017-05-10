@@ -5,7 +5,6 @@ import (
 	"github.com/ewhal/nyaa/util"
 
 	"fmt"
-	"html"
 	"html/template"
 	"strconv"
 	"strings"
@@ -34,11 +33,51 @@ type Torrent struct {
 	Filesize    int64     `gorm:"column:filesize"`
 	Description string    `gorm:"column:description"`
 	WebsiteLink string    `gorm:"column:website_link"`
-	DeletedAt *time.Time
+	DeletedAt   *time.Time
 
 	Uploader    *User        `gorm:"ForeignKey:UploaderId"`
+	OldUploader string       `gorm:"-"` // ???????
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
+}
+
+// Returns the total size of memory recursively allocated for this struct
+// FIXME: doesn't go have sizeof or something nicer for this?
+func (t Torrent) Size() (s int) {
+	s += 8 + // ints
+		2*3 + // time.Time
+		2 + // pointers
+		4*2 + // string pointers
+		// string array sizes
+		len(t.Name) + len(t.Hash) + len(t.Description) + len(t.WebsiteLink) +
+		2*2 // array pointers
+	s *= 8 // Assume 64 bit OS
+
+	if t.Uploader != nil {
+		s += t.Uploader.Size()
+	}
+	for _, c := range t.OldComments {
+		s += c.Size()
+	}
+	for _, c := range t.Comments {
+		s += c.Size()
+	}
+
+	return
+
+}
+
+// TODO Add field to specify kind of reports
+// TODO Add CreatedAt field
+// INFO User can be null (anonymous reports)
+// FIXME  can't preload field Torrents for model.TorrentReport
+type TorrentReport struct {
+	ID          uint   `gorm:"column:torrent_report_id;primary_key"`
+	Description string `gorm:"column:type"`
+	TorrentID   uint
+	UserID      uint
+	Torrent     Torrent `gorm:"AssociationForeignKey:TorrentID;ForeignKey:ID"`
+	User        User    `gorm:"AssociationForeignKey:UserID;ForeignKey:ID"`
 }
 
 /* We need a JSON object instead of a Gorm structure because magnet URLs are
@@ -70,9 +109,24 @@ type TorrentJSON struct {
 	Downloads    int           `json:"downloads"`
 	UploaderID   uint          `json:"uploader_id"`
 	UploaderName template.HTML `json:"uploader_name"`
+	OldUploader  template.HTML `json:"uploader_old"`
 	WebsiteLink  template.URL  `json:"website_link"`
 	Magnet       template.URL  `json:"magnet"`
 	TorrentLink  template.URL  `json:"torrent"`
+}
+
+type TorrentReportJson struct {
+	ID          uint        `json:"id"`
+	Description string      `json:"description"`
+	Torrent     TorrentJSON `json:"torrent"`
+	User        string
+}
+
+/* Model Conversion to Json */
+
+func (report *TorrentReport) ToJson() TorrentReportJson {
+	json := TorrentReportJson{report.ID, report.Description, report.Torrent.ToJSON(), report.User.Username}
+	return json
 }
 
 // ToJSON converts a model.Torrent to its equivalent JSON structure
@@ -80,8 +134,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	magnet := util.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, config.Trackers...)
 	commentsJSON := make([]CommentJSON, 0, len(t.OldComments)+len(t.Comments))
 	for _, c := range t.OldComments {
-		escapedContent := template.HTML(html.EscapeString(c.Content))
-		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, Content: escapedContent, Date: c.Date})
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, Content: template.HTML(c.Content), Date: c.Date})
 	}
 	for _, c := range t.Comments {
 		commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt})
@@ -110,6 +163,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Downloads:    t.Downloads,
 		UploaderID:   t.UploaderID,
 		UploaderName: util.SafeText(uploader),
+		OldUploader:  util.SafeText(t.OldUploader),
 		WebsiteLink:  util.Safe(t.WebsiteLink),
 		Magnet:       util.Safe(magnet),
 		TorrentLink:  util.Safe(torrentlink)}
@@ -124,6 +178,14 @@ func TorrentsToJSON(t []Torrent) []TorrentJSON { // TODO: Convert to singular ve
 	json := make([]TorrentJSON, len(t))
 	for i := range t {
 		json[i] = t[i].ToJSON()
+	}
+	return json
+}
+
+func TorrentReportsToJSON(reports []TorrentReport) []TorrentReportJson {
+	json := make([]TorrentReportJson, len(reports))
+	for i := range reports {
+		json[i] = reports[i].ToJson()
 	}
 	return json
 }

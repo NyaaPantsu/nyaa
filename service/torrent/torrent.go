@@ -5,6 +5,7 @@ import (
 	"strconv"
 	"strings"
 	"net/http"
+
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
@@ -72,6 +73,13 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 	// (or maybe I'm just retarded)
 	torrent.Uploader = new(model.User)
 	db.ORM.Where("user_id = ?", torrent.UploaderID).Find(torrent.Uploader)
+	torrent.OldUploader = ""
+	if torrent.ID <= config.LastOldTorrentID {
+		var tmp model.UserUploadsOld
+		if !db.ORM.Where("torrent_id = ?", torrent.ID).Find(&tmp).RecordNotFound() {
+			torrent.OldUploader = tmp.Username
+		}
+	}
 	for i := range torrent.Comments {
 		torrent.Comments[i].User = new(model.User)
 		err = db.ORM.Where("user_id = ?", torrent.Comments[i].UserID).Find(torrent.Comments[i].User).Error
@@ -97,7 +105,7 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	torrents []model.Torrent, count int, err error,
 ) {
 	var conditionArray []string
-	conditionArray = append(conditionArray, "deleted_at  IS NULL")
+	conditionArray = append(conditionArray, "deleted_at IS NULL")
 	if strings.HasPrefix(orderBy, "filesize") {
 		// torrents w/ NULL filesize fuck up the sorting on Postgres
 		conditionArray = append(conditionArray, "filesize IS NOT NULL")
@@ -111,12 +119,13 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	}
 	conditions := strings.Join(conditionArray, " AND ")
 	if countAll {
+		// FIXME: `deleted_at IS NULL` is duplicate in here because GORM handles this for us
 		err = db.ORM.Model(&torrents).Where(conditions, params...).Count(&count).Error
 		if err != nil {
 			return
 		}
 	}
-	// TODO: Vulnerable to injections. Use query builder.
+	// TODO: Vulnerable to injections. Use query builder. (is it?)
 
 	// build custom db query for performance reasons
 	dbQuery := "SELECT * FROM torrents"
