@@ -229,6 +229,7 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 			torrent.SubCategory = uploadForm.SubCategoryID
 			torrent.Status      = uploadForm.Status
 			torrent.Description = uploadForm.Description
+			torrent.Uploader    = nil // GORM will create a new user otherwise (wtf?!)
 			db.ORM.Save(&torrent)
 			infos["infos"] = append(infos["infos"], "Torrent details updated.")
 		}
