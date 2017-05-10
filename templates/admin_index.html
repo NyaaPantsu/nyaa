@@ -45,6 +45,7 @@
                       <li><a href="{{ genRoute "mod_tlist"}}">{{T "torrents"}}</a></li>
                       <li><a href="{{ genRoute "mod_ulist"}}">{{T "users"}}</a></li>
                       <li><a href="{{ genRoute "mod_clist"}}">{{T "comments"}}</a></li>
+                      <li><a href="{{ genRoute "mod_trlist"}}">{{T "torrent_reports"}}</a></li>
                   </ul>
                   {{block "badge_user" .}}{{end}}
                   <form class="navbar-form navbar-right" role="search" action="/mod/torrents" method="get">
@@ -63,7 +64,7 @@
   <div class="container" id="container">
   	{{block "content" .}}{{end}}
   </div>
-	      <footer>
+	      <footer style="text-align: center; padding-bottom: 2rem;font-size: 2rem;font-family: cursive; color: #616161;text-shadow: -1px -1px #999999;">
       Powered by NyaaPantsu
       </footer>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
