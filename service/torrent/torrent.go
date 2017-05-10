@@ -97,6 +97,7 @@ func getTorrentsOrderBy(parameters *WhereParams, orderBy string, limit int, offs
 	torrents []model.Torrent, count int, err error,
 ) {
 	var conditionArray []string
+	conditionArray = append(conditionArray, "deleted_at  IS NULL")
 	if strings.HasPrefix(orderBy, "filesize") {
 		// torrents w/ NULL filesize fuck up the sorting on Postgres
 		conditionArray = append(conditionArray, "filesize IS NOT NULL")

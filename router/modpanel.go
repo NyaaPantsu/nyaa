@@ -142,7 +142,7 @@ func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	if userPermission.HasAdmin(currentUser) {
 		_ = form.NewErrors()
 		_, _ = userService.DeleteComment(id)
-		url, _ := Router.Get("mod_comment_list").URL()
+		url, _ := Router.Get("mod_clist").URL()
 		http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
@@ -154,7 +154,7 @@ func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	if userPermission.HasAdmin(currentUser) {
 		_ = form.NewErrors()
 		_, _ = torrentService.DeleteTorrent(id)
-		url, _ := Router.Get("mod_torrent_list").URL()
+		url, _ := Router.Get("mod_tlist").URL()
 		http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
