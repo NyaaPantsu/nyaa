@@ -151,8 +151,8 @@ type PanelTorrentEdVbs struct {
 	Upload     UploadForm
 	Search  SearchForm
 	User    *model.User
-	FormInfos   map[string][]string
 	FormErrors  map[string][]string
+	FormInfos   map[string][]string
 	URL        *url.URL // For parsing Url in templates
 }
 
