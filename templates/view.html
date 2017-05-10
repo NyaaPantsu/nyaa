@@ -68,7 +68,11 @@
                 {{ range $index, $element := .Comments }}
                 <div class="row comment-row" id="comment_{{$index}}">
                     <div class="col-md-4">
+                        {{if eq .UserID -1}}
                         <a href="#comment_{{$index}}">{{$index}}</a> {{.Username}}
+                        {{else}}
+                        <a href="#comment_{{$index}}">{{$index}}</a> <a href="{{$.URL.Parse (printf "/user/%d/-" .UserID) }}">{{.Username}}</a>
+                        {{end}}
                     </div>
                     <div class="col-md-8">
                         {{.Content}}
