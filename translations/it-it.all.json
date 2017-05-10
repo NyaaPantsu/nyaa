@@ -33,7 +33,7 @@
   },
   {
     "id":"email_address_or_username",
-    "translation": "Indirizzo Email o Username"
+    "translation": "Indirizzo Email o Nome Utente"
   },
   {
     "id":"email_address",
@@ -169,7 +169,7 @@
   },
   {
     "id": "toggle_navigation",
-    "translation": "Toggle navigation"
+    "translation": "Alterna la navigazione"
   },
   {
     "id": "upload",
@@ -461,7 +461,7 @@
   },
   {
     "id": "filter_remakes",
-    "translation": "Filter Remakes"
+    "translation": "Filtra Remakes"
   },
   {
     "id": "trusted",
