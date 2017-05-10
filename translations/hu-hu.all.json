@@ -1,0 +1,554 @@
+[
+  {
+    "id": "link",
+    "translation": "link"
+  },
+  {
+    "id": "verify_email_title",
+    "translation": "Erősítsd meg az e-mail címedet a hozzáféréshez."
+  },
+  {
+    "id": "verify_email_content",
+    "translation": "Kattints az alábbi linkre, hogy megerősítsd az e-mail címed."
+  },
+  {
+    "id": "reset_password_title",
+    "translation": "Állítsd vissza a jelszavad a hozzáféréshez."
+  },
+  {
+    "id": "reset_password_content",
+    "translation": "Kattints az alábbi linkre jelszavad visszaállításához."
+  },
+  {
+    "id":"register_title",
+    "translation": "Új felhasználói fiók létrehozása"
+  },
+  {
+    "id":"signup_box_title",
+    "translation": "Kérlek Regisztrálj <small>Ingyenes, és mindig is az lesz.</small>"
+  },
+  {
+    "id":"username",
+    "translation": "Felhasználónév"
+  },
+  {
+    "id":"email_address_or_username",
+    "translation": "E-mail Cím vagy Felhasználónév"
+  },
+  {
+    "id":"email_address",
+    "translation": "E-mail Cím"
+  },
+  {
+    "id":"password",
+    "translation": "Jelszó"
+  },
+  {
+    "id":"confirm_password",
+    "translation": "Jelszó mégegyszer"
+  },
+  {
+    "id":"i_agree",
+    "translation": "Beleegyezek"
+  },
+  {
+    "id":"terms_conditions_confirm",
+    "translation": "A <strong class=\"label label-primary\">Regisztráció</strong>-ra kattintva beleegyezel az oldal <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Felhasználási Feltételei</a>-be, és a Cookie-k használatába."
+  },
+  {
+    "id":"signin",
+    "translation": "Bejelentkezés"
+  },
+  {
+    "id":"register",
+    "translation": "Regisztráció"
+  },
+  {
+    "id":"terms_conditions",
+    "translation": "Felhasználási Feltételek"
+  },
+  {
+    "id":"terms_conditions_full",
+    "translation": "Valami Szar."
+  },
+  {
+    "id":"remember_me",
+    "translation": "Emlékezz Rám"
+  },
+  {
+    "id":"forgot_password",
+    "translation": "Elfelejtett Jelszó?"
+  },
+  {
+    "id":"sign_in_box_title",
+    "translation": "Kérlek Jelentkezz Be"
+  },
+  {
+    "id":"sign_in_title",
+    "translation": "Bejelentkezés"
+  },
+  {
+    "id":"register_success_title",
+    "translation": "Sikeres Regisztráció"
+  },
+  {
+    "id":"sign_up_success",
+    "translation": "Köszönjük, hogy regisztráltál!"
+  },
+  {
+    "id":"verify_success",
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>A felhasználói fiókod aktiválásra került."
+  },
+  {
+    "id":"signup_verification_email",
+    "translation": "Végezetül kérlek nézd meg a bejövő e-mailjeidet (a Spam mappát is!) az Ellenörző E-mail miatt."
+  },
+  {
+    "id":"signup_verification_noemail",
+    "translation": "Sikeres Regisztráció, mostmár használhatod a felhasználói fiókodat."
+  },
+  {
+    "id":"settings",
+    "translation": "Fiók Beállításai"
+  },
+  {
+    "id":"torrents",
+    "translation": "Torrentek"
+  },
+  {
+    "id":"follow",
+    "translation": "Követés"
+  },
+  {
+    "id":"profile_page",
+    "translation": "%s Profilja"
+  },
+  {
+    "id":"see_more_torrents_from",
+    "translation": "További torrentek megtekintése %s-től "
+  },
+  {
+    "id":"category",
+    "translation": "Kategória"
+  },
+  {
+    "id": "name",
+    "translation": "Név"
+  },
+  {
+    "id": "date",
+    "translation": "Dátum"
+  },
+  {
+    "id": "size",
+    "translation": "Méret"
+  },
+  {
+    "id": "links",
+    "translation": "Linkek"
+  },
+  {
+    "id": "home",
+    "translation": "Főoldal"
+  },
+  {
+    "id": "error_404",
+    "translation": "Hiba: 404"
+  },
+  {
+    "id": "toggle_navigation",
+    "translation": "Navigáció átváltása"
+  },
+  {
+    "id": "upload",
+    "translation": "Feltöltés"
+  },
+  {
+    "id": "faq",
+    "translation": "GYIK"
+  },
+  {
+    "id": "fap",
+    "translation": "Fap"
+  },
+  {
+    "id": "advanced_search",
+    "translation": "Részletes Keresés"
+  },
+  {
+    "id": "nothing_here",
+    "translation": "Itt nincs semmi."
+  },
+  {
+    "id": "404_not_found",
+    "translation": "404 Not Found"
+  },
+  {
+    "id": "no_torrents_uploaded",
+    "translation": "Még egy torrent sem lett feltöltve!"
+  },
+  {
+    "id": "profile",
+    "translation": "Profil"
+  },
+  {
+    "id": "sign_out",
+    "translation": "Kijelentkezés"
+  },
+  {
+    "id": "member",
+    "translation": "Tag"
+  },
+  {
+    "id": "sign_in",
+    "translation": "Bejelentkezés"
+  },
+  {
+    "id": "sign_up",
+    "translation": "Regisztráció"
+  },
+  {
+    "id": "no_results_found",
+    "translation": "Nincs találat"
+  },
+  {
+    "id": "notice_keep_seeding",
+    "translation": "FIGYELMEZTETÉS: SEED-ELJ ÉS KAPCSOLD BE A DHT-T TE BALFASZ!"
+  },
+  {
+    "id": "official_nyaapocalipse_faq",
+    "translation": "Hivatalos Nyaapokalipszis GYIK"
+  },
+  {
+    "id": "links_replacement_mirror",
+    "translation": "Linkek a pótláshoz"
+  },
+  {
+    "id": "what_happened",
+    "translation": "Mi történt?"
+  },
+  {
+    "id": "nyaa_se_went_offline",
+    "translation": "nyaa.se és a vele kapcsolatos domain-ek (pl. nyaatorrents.info) elérhetetlenné vált 2017. Május 1-én."
+  },
+  {
+    "id": "its_not_a_ddos",
+    "translation": "Deaktiválva lettek, szóval ez nem a szokásos DDoS."
+  },
+  {
+    "id": "future_not_looking_good",
+    "translation": "A jövő nem tűnik túl fényesnek a nyaa számára. (Halott)"
+  },
+  {
+    "id": "recovery_effort",
+    "translation": "Van egy helyreállítási erőfeszítés."
+  },
+  {
+    "id": "is_everything_lost",
+    "translation": "Minden elveszett?"
+  },
+  {
+    "id": "in_short_no",
+    "translation": "Röviden, Nem"
+  },
+  {
+    "id": "are_some_things_lost",
+    "translation": "Van, ami elveszett?"
+  },
+  {
+    "id": "answer_is_nyaa_db_lost",
+    "translation": "A nyaa-n lévő torrentekből van egy <s>Április 5-i</s> Május 1-i adatbázisunk. Ez azt jelenti, hogy szinte semmi sem veszett el."
+  },
+  {
+    "id": "answer_is_sukebei_db_lost",
+    "translation": "A Sukebei azonben lehet, hogy roszabb állapotban van. Jelenleg csak egy 2016-os sukebei adatbázisunk van, de lehet, hogy létezik újabb verzió"
+  },
+  {
+    "id": "how_are_we_recovering",
+    "translation": "Hogyan állunk helyre?"
+  },
+  {
+    "id": "answer_how_are_we_recovering",
+    "translation": "Az előbb említett adatbázisok a nyaa.pantsu.cat és sukebei.pantsu.cat domainen vannak hosztolva. Van kereső funkció, és (majdnem) teljes nyaa funkcionalitás is hamarosan érkezik. Seedelő/leech statisztikák lehetségesek scraping használatával, és lehet, hogy a közeljövőben elérhetőek lesznek, de más funkciók most a legfontosabbak."
+  },
+  {
+    "id": "are_the_trackers_working",
+    "translation": "A torrentek még mindig működnek?"
+  },
+  {
+    "id": "answer_are_the_trackers_working",
+    "translation": "Még ha a trackerek nem is működnek, a seederek még mindig csatlakozva vannak a decentralizált DHT hálózaton. Amíg a fájl listázva van a DHT hálózaton, mindennek a szokásos módon kellene működnie."
+  },
+  {
+    "id": "how_do_i_download_the_torrents",
+    "translation": "Hogyan töltöm le a torrenteket?"
+  },
+  {
+    "id": "answer_how_do_i_download_the_torrents",
+    "translation": "Használd a <b>magnet link</b>-et. A magnet linket a BitTorrent kliensed arra fogja használni, hogy megkeresse a fájlt a DHT hálózaton, aminek így simán le kell töltődnie."
+  },
+  {
+    "id": "magnet_link_should_look_like",
+    "translation": "A magnet link így néz ki:"
+  },
+  {
+    "id": "which_trackers_do_you_recommend",
+    "translation": "Milyen trackereket javasoltok?"
+  },
+  {
+    "id": "answer_which_trackers_do_you_recommend",
+    "translation": "Ha nem tudsz torrentet feltölteni a trackerek miatt, használd az alábbiakat::"
+  },
+  {
+    "id": "how_can_i_help",
+    "translation": "Hogyan tudok segíteni?"
+  },
+  {
+    "id": "answer_how_can_i_help",
+    "translation": "Ha van weblapkészítési szakértelmed, csatlakozz a #nyaapantsu IRC channel-hez az irc.rizon.net-en. Ha van releváns adatbázisod, főleg a Sukebei-hez, <b>TÖLTSD FEL ŐKET</b>."
+  },
+  {
+    "id": "your_design_sucks_found_a_bug",
+    "translation": "Szar a design / Találtam egy bugot"
+  },
+  {
+    "id": "why_written_in_go",
+    "translation": "Miért Go-ban van írva?"
+  },
+  {
+    "id": "authors_favorite_language",
+    "translation": "Ez a dev kedvenc programozási nyelve."
+  },
+  {
+    "id": "nyaa_pantsu_dont_host_files",
+    "translation": "nyaa.pantsu.cat és sukebei.pantsu.cat nem hosztol fájlokat."
+  },
+  {
+    "id": "upload_magnet",
+    "translation": "Magnet Feltöltése"
+  },
+  {
+    "id": "torrent_file",
+    "translation": "Torrent fájl"
+  },
+  {
+    "id": "uploading_file_prefills_fields",
+    "translation": "A torrent fájl feltöltése lehetővé teszi néhány mező automatikus kitöltését. Ez ajánlott."
+  },
+  {
+    "id": "magnet_link",
+    "translation": "Magnet Link"
+  },
+  {
+    "id": "all_categories",
+    "translation": "Minden kategória"
+  },
+  {
+    "id": "anime",
+    "translation": "Anime"
+  },
+  {
+    "id": "anime_amv",
+    "translation": "Anime - Anime Music Video"
+  },
+  {
+    "id": "anime_english_translated",
+    "translation": "Anime - Angolra lefordított"
+  },
+  {
+    "id": "anime_non_english_translated",
+    "translation": "Anime - Nem Angolra lefordított"
+  },
+  {
+    "id": "anime_raw",
+    "translation": "Anime - Raw"
+  },
+  {
+    "id": "audio",
+    "translation": "Hang"
+  },
+  {
+    "id": "audio_lossless",
+    "translation": "Hang - Lossless"
+  },
+  {
+    "id": "audio_lossy",
+    "translation": "Hang - Lossy"
+  },
+  {
+    "id": "literature",
+    "translation": "Irodalom"
+  },
+  {
+    "id": "literature_english_translated",
+    "translation": "Irodalom - Angolra lefordított"
+  },
+  {
+    "id": "literature_raw",
+    "translation": "Irodalom - Raw"
+  },
+  {
+    "id": "literature_non_english_translated",
+    "translation": "Irodalom - Nem Angolra lefordított"
+  },
+  {
+    "id": "live_action",
+    "translation": "Élőszereplős"
+  },
+  {
+    "id": "live_action_english_translated",
+    "translation": "Élőszereplős - Angolra lefordított"
+  },
+  {
+    "id": "live_action_idol_pv",
+    "translation": "Élőszereplős - Idol/Promóciós Videó"
+  },
+  {
+    "id": "live_action_non_english_translated",
+    "translation": "Élőszereplős - Nem Angolra lefordított"
+  },
+  {
+    "id": "live_action_raw",
+    "translation": "Élőszereplős - Raw"
+  },
+  {
+    "id": "pictures",
+    "translation": "Képek"
+  },
+  {
+    "id": "pictures_graphics",
+    "translation": "Képek - Grafika"
+  },
+  {
+    "id": "pictures_photos",
+    "translation": "Képek - Fotók"
+  },
+  {
+    "id": "software",
+    "translation": "Szoftver"
+  },
+  {
+    "id": "software_applications",
+    "translation": "Szoftver - Alkalmazások"
+  },
+  {
+    "id": "software_games",
+    "translation": "Szoftver - Játékok"
+  },
+  {
+    "id": "torrent_description",
+    "translation": "Torrent Leírás"
+  },
+  {
+    "id": "description_markdown_notice",
+    "translation": "A leírásban Markdown használható."
+  },
+  {
+    "id": "show_all",
+    "translation": "Összes mutatása"
+  },
+  {
+    "id": "filter_remakes",
+    "translation": "Remake-ek filterelése"
+  },
+  {
+    "id": "trusted",
+    "translation": "Megbízható"
+  },
+  {
+    "id": "id",
+    "translation": "ID"
+  },
+  {
+    "id": "downloads",
+    "translation": "Letöltések"
+  },
+  {
+    "id": "descending",
+    "translation": "Csökkenő"
+  },
+  {
+    "id": "ascending",
+    "translation": "Növekvő"
+  },
+  {
+    "id": "search",
+    "translation": "Keresés"
+  },
+  {
+    "id": "hash",
+    "translation": "Hash"
+  },
+  {
+    "id": "description",
+    "translation": "Leírás"
+  },
+  {
+    "id": "comments",
+    "translation": "Kommentek"
+  },
+  {
+    "id": "submit_a_comment_as_username",
+    "translation": "Komment írása %s-ként"
+  },
+  {
+    "id": "submit_a_comment_as_anonymous",
+    "translation": "Anonymous komment írása"
+  },
+  {
+    "id": "submit",
+    "translation": "Küldés"
+  },
+  {
+    "id": "personal_info",
+    "translation": "Személyes adatok"
+  },
+  {
+    "id": "language",
+    "translation": "Nyelv"
+  },
+  {
+    "id": "current_password",
+    "translation": "Jelenlegi jelszó"
+  },
+  {
+    "id": "role",
+    "translation": "Szerep"
+  },
+  {
+    "id": "banned",
+    "translation": "Bannolt"
+  },
+  {
+    "id": "default",
+    "translation": "Alapértelmezett"
+  },
+  {
+    "id": "trusted_member",
+    "translation": "Megbízható Tag"
+  },
+  {
+    "id": "moderator",
+    "translation": "Moderátor"
+  },
+  {
+    "id": "save_changes",
+    "translation": "Változtatások mentése"
+  },
+  {
+    "id": "profile_updated",
+    "translation": "A felhasználói fiókod sikeresen frissítve lett!"
+  },
+  {
+    "id": "delete_account",
+    "translation": "Fiók törlése"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "Biztosan ki akarod törölni ezt a fiókot?"
+  },
+  {
+    "id": "delete_success",
+    "translation": "A fiók törlésre került."
+  }
+]
