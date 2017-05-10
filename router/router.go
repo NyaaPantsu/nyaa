@@ -49,9 +49,9 @@ func init() {
 	gzipTorrentDeleteModPanel := handlers.CompressHandler(http.HandlerFunc(TorrentDeleteModPanel))
 
 	gzipGetTorrentReportHandler := handlers.CompressHandler(http.HandlerFunc(GetTorrentReportHandler))
-	gzipTorrentReportCreateHandler := handlers.CompressHandler(http.HandlerFunc(CreateTorrentReportHandler))
-	gzipTorrentReportDeleteHandler := handlers.CompressHandler(http.HandlerFunc(DeleteTorrentReportHandler))
-	gzipTorrentDeleteHandler := handlers.CompressHandler(http.HandlerFunc(DeleteTorrentHandler))
+	//gzipTorrentReportCreateHandler := handlers.CompressHandler(http.HandlerFunc(CreateTorrentReportHandler))
+	//gzipTorrentReportDeleteHandler := handlers.CompressHandler(http.HandlerFunc(DeleteTorrentReportHandler))
+	//gzipTorrentDeleteHandler := handlers.CompressHandler(http.HandlerFunc(DeleteTorrentHandler))
 
 	Router = mux.NewRouter()
 
@@ -96,10 +96,10 @@ func init() {
 
 	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
 
-	Router.Handle("/report/create", gzipTorrentReportCreateHandler).Name("torrent_report_create").Methods("POST")
+	//Router.Handle("/report/create", gzipTorrentReportCreateHandler).Name("torrent_report_create").Methods("POST")
 	// TODO Allow only moderators to access /moderation/*
-	Router.Handle("/moderation/report/delete", gzipTorrentReportDeleteHandler).Name("torrent_report_delete").Methods("POST")
-	Router.Handle("/moderation/torrent/delete", gzipTorrentDeleteHandler).Name("torrent_delete").Methods("POST")
+	//Router.Handle("/moderation/report/delete", gzipTorrentReportDeleteHandler).Name("torrent_report_delete").Methods("POST")
+	//Router.Handle("/moderation/torrent/delete", gzipTorrentDeleteHandler).Name("torrent_delete").Methods("POST")
 	Router.Handle("/moderation/report", gzipGetTorrentReportHandler ).Name("torrent_report").Methods("GET")
 
 	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)

@@ -31,7 +31,7 @@ func DeleteTorrentReport(id int) (int, error) {
 // TODO Use limit, offset
 func GetTorrentReports() ([]model.TorrentReport, error) {
 	var torrentReports []model.TorrentReport
-	if db.ORM.Preload("User").Preload("Torrents").Find(&torrentReports).Error != nil {
+	if db.ORM.Preload("User").Preload("Torrent").Find(&torrentReports).Error != nil {
 		return nil, errors.New("Problem finding all torrent reports.")
 	}
 	return torrentReports, nil
