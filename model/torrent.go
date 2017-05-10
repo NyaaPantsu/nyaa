@@ -50,8 +50,8 @@ type TorrentReport struct {
 	Description string   `gorm:"column:type"`
 	TorrentID  uint
 	UserID    uint
-	Torrent     Torrent  `gorm:"ForeignKey:TorrentID;AssociationForeignKey:ID"`
-	User        User     `gorm:"ForeignKey:UserID;AssociationForeignKey:ID"`
+	Torrent     Torrent  `gorm:"AssociationForeignKey:TorrentID;ForeignKey:ID"`
+	User        User     `gorm:"AssociationForeignKey:UserID;ForeignKey:ID"`
 }
 
 /* We need a JSON object instead of a Gorm structure because magnet URLs are
