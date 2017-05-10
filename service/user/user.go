@@ -173,7 +173,7 @@ func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, currentUser *m
 	if db.ORM.First(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("user not found")
 	}
-
+	log.Infof("updateUser")
 	if form.Password != "" {
 		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(form.CurrentPassword))
 		if err != nil && !userPermission.HasAdmin(currentUser) {
@@ -273,10 +273,12 @@ func RetrieveUserForAdmin(id string) (model.User, int, error) {
 }
 
 // RetrieveUsersForAdmin retrieves users for an administrator.
-func RetrieveUsersForAdmin(limit int, offset int) []model.User {
+func RetrieveUsersForAdmin(limit int, offset int) ([]model.User, int) {
 	var users []model.User
-	db.ORM.Preload("Torrents").Find(&users).Limit(limit).Offset(offset)
-	return users
+	var nbUsers int
+	db.ORM.Model(&users).Count(&nbUsers)
+	db.ORM.Preload("Torrents").Limit(limit).Offset(offset).Find(&users)
+	return users, nbUsers
 }
 
 // CreateUserAuthentication creates user authentication.

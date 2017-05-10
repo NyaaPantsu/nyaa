@@ -20,5 +20,8 @@ func CreateHTTPListener(conf *config.Config) (l net.Listener, err error) {
 			l = s
 		}
 	}
+	if l != nil {
+		l = WrapListener(l)
+	}
 	return
 }

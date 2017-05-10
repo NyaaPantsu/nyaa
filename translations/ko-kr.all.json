@@ -29,11 +29,11 @@
   },
   {
     "id":"username",
-    "translation": "별명"
+    "translation": "아이디"
   },
   {
     "id":"email_address_or_username",
-    "translation": "이메일 주소 혹은 별명"
+    "translation": "이메일 주소 또는 아이디"
   },
   {
     "id":"email_address",
@@ -61,7 +61,7 @@
   },
   {
     "id":"register",
-    "translation": "가입"
+    "translation": "회원가입"
   },
   {
     "id":"terms_conditions",
@@ -73,15 +73,15 @@
   },
   {
     "id":"remember_me",
-    "translation": "로그인 유지"
+    "translation": "로그인 상태 유지"
   },
   {
     "id":"forgot_password",
-    "translation": "암호를 잊어버리셨나요?"
+    "translation": "비밀번호 찾기"
   },
   {
     "id":"sign_in_box_title",
-    "translation": "로그인하세요"
+    "translation": "로그인 하세요"
   },
   {
     "id":"sign_in_title",
@@ -328,7 +328,7 @@
     "translation": "토렌트 파일"
   },
   {
-    "id": "uploading_torrent_prefills_fields",
+    "id": "uploading_file_prefills_fields",
     "translation": "토렌트 파일을 업로드하면 몇몇 필드가 자동으로 채워집니다. 추천드립니다."
   },
   {
