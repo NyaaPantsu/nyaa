@@ -573,6 +573,6 @@
   },
   {
     "id": "email_changed",
-    "translation": "E-Mail erfolgreich geändert! Bitte bestätige die Änderung mit dem Bestätigung-Link (an %s gesendet)"
+    "translation": "E-Mail erfolgreich geändert! Bitte bestätige die Änderung mit dem Bestätigungs-Link (an %s gesendet)"
   }
 ]
