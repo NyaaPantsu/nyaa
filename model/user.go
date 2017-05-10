@@ -5,7 +5,7 @@ import (
 )
 
 type User struct {
-	Id              uint      `gorm:"column:user_id;primary_key"`
+	ID              uint      `gorm:"column:user_id;primary_key"`
 	Username        string    `gorm:"column:username"`
 	Password        string    `gorm:"column:password"`
 	Email           string    `gorm:"column:email"`
@@ -17,17 +17,17 @@ type User struct {
 	Language        string    `gorm:"column:language"`
 
 	// TODO: move this to PublicUser
-	LikingCount     int       `json:"likingCount" gorm:"-"`
-	LikedCount      int       `json:"likedCount" gorm:"-"`
-	Likings         []User    // Don't work `gorm:"foreignkey:user_id;associationforeignkey:follower_id;many2many:user_follows"`
-	Liked           []User    // Don't work `gorm:"foreignkey:follower_id;associationforeignkey:user_id;many2many:user_follows"`
+	LikingCount int    `json:"likingCount" gorm:"-"`
+	LikedCount  int    `json:"likedCount" gorm:"-"`
+	Likings     []User // Don't work `gorm:"foreignkey:user_id;associationforeignkey:follower_id;many2many:user_follows"`
+	Liked       []User // Don't work `gorm:"foreignkey:follower_id;associationforeignkey:user_id;many2many:user_follows"`
 
-	Md5             string     `json:"md5"` // Used for gravatar
-	Torrents        []Torrents `gorm:"ForeignKey:UploaderId"`
+	MD5      string    `json:"md5"` // Hash of email address, used for Gravatar
+	Torrents []Torrent `gorm:"ForeignKey:UploaderID"`
 }
 
 type PublicUser struct {
-	User      *User
+	User *User
 }
 
 // different users following eachother
