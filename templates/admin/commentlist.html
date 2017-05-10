@@ -1,6 +1,6 @@
 {{define "title"}}Comments List{{end}}
 {{define "content"}}
-<table>
+<table class="table">
 {{ range .Comments}}
 
 <tr><td><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{ .Content }}</a></td><td><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{ .User.Username }}</a></td>
