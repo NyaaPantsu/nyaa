@@ -30,7 +30,7 @@ var HtmlMdRenderer md.Renderer
 
 // TODO: restrict certain types of markdown
 func MarkdownToHTML(markdown string) template.HTML {
-	if len(markdown) >= 3) && markdown[:3] == "&gt;" {
+	if len(markdown) >= 3 && markdown[:3] == "&gt;" {
 		markdown = ">" + markdown[3:]
 	}
 	markdown = strings.Replace(markdown,"\n&gt;","\n>")
