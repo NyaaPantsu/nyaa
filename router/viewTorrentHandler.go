@@ -82,14 +82,11 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 	idNum, err := strconv.Atoi(id)
 	userID := currentUser.ID
 
-	torrent, _ := torrentService.GetTorrentById(id)
-
 	report := model.TorrentReport{
 		Description: r.FormValue("report_type"),
 		TorrentID:   uint(idNum),
 		UserID:      userID,
-		Torrent:     &torrent,
-		User:        currentUser,
+		CreatedAt:   time.Now(),
 	}
 
 	err = db.ORM.Create(&report).Error
