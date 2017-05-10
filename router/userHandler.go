@@ -10,7 +10,6 @@ import (
 	"github.com/ewhal/nyaa/service/user"
 	"github.com/ewhal/nyaa/service/user/form"
 	"github.com/ewhal/nyaa/service/user/permission"
-	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/modelHelper"
 	"github.com/gorilla/mux"
@@ -147,15 +146,16 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 					b.Username = currentUser.Username
 				}
 				err = modelHelper.ValidateForm(&b, err)
-				log.Info("lol")
 				if len(err) == 0 {
 					userProfile, _, errorUser = userService.UpdateUser(w, &b, currentUser, id)
-									log.Infof("xD2")
 					if errorUser != nil {
 						err["errors"] = append(err["errors"], errorUser.Error())
 					}
 					if len(err) == 0 {
 						infos["infos"] = append(infos["infos"], T("profile_updated"))
+						if (b.Email != currentUser.Email) {
+							infos["infos"] = append(infos["infos"], fmt.Sprintf(T("email_changed"), b.Email))
+						}
 					}
 				}
 			}

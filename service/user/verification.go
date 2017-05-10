@@ -10,7 +10,7 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
-	//"github.com/ewhal/nyaa/util/email"
+	"github.com/ewhal/nyaa/util/email"
 	"github.com/ewhal/nyaa/util/timeHelper"
 	"github.com/gorilla/securecookie"
 	"github.com/nicksnyder/go-i18n/i18n"
@@ -26,9 +26,7 @@ func SendEmailVerification(to string, token string, locale string) error {
 	}
 	content := T("link") + " : https://" + config.WebAddress + "/verify/email/" + token
 	content_html := T("verify_email_content") + "<br/>" + "<a href=\"https://" + config.WebAddress + "/verify/email/" + token + "\" target=\"_blank\">" + config.WebAddress + "/verify/email/" + token + "</a>"
-	//return email.SendEmailFromAdmin(to, T("verify_email_title"), content, content_html)
-	fmt.Printf("sending email to %s\n----\n%s\n%s\n----\n", to, content, content_html)
-	return nil
+	return email.SendEmailFromAdmin(to, T("verify_email_title"), content, content_html)
 }
 
 // SendVerificationToUser sends an email verification token to user.
