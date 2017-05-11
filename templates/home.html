@@ -14,6 +14,7 @@
           <tr>
               <th class="col-xs-1 hidden-xs">{{T "category"}}</th>
               <th class="col-xs-8">{{T "name"}}</th>
+              <th class="col-xs-1 hidden-xs">{{T "S"}} / {{T "L"}} / {{T "D"}}</th>
               <th class="col-xs-1 hidden-xs">{{T "date"}}</th>
               <th class="col-xs-1 hidden-xs">{{T "size"}}</th>
               <th class="col-xs-1 hidden-xs">{{T "links"}}</th>
@@ -34,6 +35,7 @@
                       {{.Name}}
                   </a>
               </td>
+              <td class="hidden-xs"><b class="text-success">{{.Seeders}}</b> / <b class="text-danger">{{.Leechers}}</b> / {{.Completed}}</td>
               <td class="hidden-xs date date-short">{{.Date}}</td>
               <td class="hidden-xs filesize">{{.Filesize}}</td>
               <td class="hidden-xs">
