@@ -578,5 +578,29 @@
   {
     "id": "mark_as_remake",
     "translation": "Segnala come remake"
-}
+},
+  {
+    "id": "email_changed",
+    "translation": "Email cambiata con successo! Dovrai, tuttavia, per confermare cliccare il link mandato a: %s"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "Torrent status"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "Nascosto"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "Normale"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "Remake"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "Modifica il profilo di %s"
+ }
 ]

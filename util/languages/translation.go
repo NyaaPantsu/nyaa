@@ -56,6 +56,9 @@ func SetTranslation(tmpl *template.Template, language string, languages ...strin
 		"T": func(str string, args ...interface{}) template.HTML {
 			return template.HTML(fmt.Sprintf(T(str), args...))
 		},
+		"Ts": func(str string, args ...interface{}) string {
+			return fmt.Sprintf(T(str), args...)
+		},
 	})
 	return T
 }
