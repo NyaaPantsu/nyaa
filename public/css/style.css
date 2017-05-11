@@ -384,7 +384,7 @@ footer {
 	width: auto; /* Undo bootstrap's fixed width */
 }
 
-.bg-danger {
+.text-error {
   background: white;
   color: #cf9fff;
 }

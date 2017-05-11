@@ -14,7 +14,7 @@
             <div class="col-lg-8">
               <input class="form-control" type="text" name="email" id="email" value="{{.Email}}">
 	 			{{ range (index $.FormErrors "email")}}
-					<p class="bg-danger">{{ . }}</p>
+					<p class="text-error">{{ . }}</p>
 				{{end}}
             </div>
           </div>
@@ -30,7 +30,7 @@
                 </select>
               </div>
 	 			{{ range (index $.FormErrors "language")}}
-					<p class="bg-danger">{{ . }}</p>
+					<p class="text-error">{{ . }}</p>
 				{{end}}
             </div>
           </div>
@@ -40,7 +40,7 @@
             <div class="col-md-8">
               <input class="form-control" name="current_password" id="current_password" type="password">
 	 			{{ range (index $.FormErrors "current_password")}}
-					<p class="bg-danger">{{ . }}</p>
+					<p class="text-error">{{ . }}</p>
 				{{end}}
             </div>
           </div>
@@ -50,7 +50,7 @@
             <div class="col-md-8">
               <input class="form-control" name="password" id="password" type="password">
 	 			{{ range (index $.FormErrors "password")}}
-					<p class="bg-danger">{{ . }}</p>
+					<p class="text-error">{{ . }}</p>
 				{{end}}
             </div>
           </div>
@@ -59,7 +59,7 @@
             <div class="col-md-8">
               <input class="form-control" name="password_confirmation" id="password_confirmation" type="password">
 	 			{{ range (index $.FormErrors "password_confirmation")}}
-					<p class="bg-danger">{{ . }}</p>
+					<p class="text-error">{{ . }}</p>
 				{{end}}
             </div>
           </div>
@@ -70,7 +70,7 @@
             <div class="col-md-8">
               <input class="form-control" name="username" id="username" type="text" value="{{.Username}}">
 	 			{{ range (index $.FormErrors "username")}}
-					<p class="bg-danger">{{ . }}</p>
+					<p class="text-error">{{ . }}</p>
 				{{end}}
             </div>
           </div>
@@ -86,7 +86,7 @@
                 </select>
               </div>
 	 			{{ range (index $.FormErrors "status")}}
-					<p class="bg-danger">{{ . }}</p>
+					<p class="text-error">{{ . }}</p>
 				{{end}}
             </div>
           </div>
