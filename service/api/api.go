@@ -12,7 +12,10 @@ import (
 
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service"
+<<<<<<< HEAD
 	"github.com/ewhal/nyaa/service/upload"
+=======
+>>>>>>> 5a32c00f503906080d518ceea69897f251933ac1
 	"github.com/ewhal/nyaa/util/metainfo"
 	"github.com/zeebo/bencode"
 )
@@ -148,10 +151,18 @@ func (r *TorrentRequest) ValidateMultipartUpload(req *http.Request) (int64, erro
 		if torrent.IsPrivate() {
 			return 0, errors.New("private torrents not allowed"), http.StatusBadRequest
 		}
+<<<<<<< HEAD
 		trackers := torrent.GetAllAnnounceURLS()
 		if !uploadService.CheckTrackers(trackers) {
 			return 0, errors.New("tracker(s) not allowed"), http.StatusBadRequest
 		}
+=======
+		//import cycle
+		/*trackers := torrent.GetAllAnnounceURLS()
+		if !router.CheckTrackers(trackers) {
+			return 0, errors.New("tracker(s) not allowed"), http.StatusBadRequest
+		}*/
+>>>>>>> 5a32c00f503906080d518ceea69897f251933ac1
 
 		if r.Name == "" {
 			r.Name = torrent.TorrentName()
