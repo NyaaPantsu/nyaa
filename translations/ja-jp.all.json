@@ -5,15 +5,15 @@
   },
   {
     "id": "verify_email_title",
-    "translation": "Nyaapantsu からのメールアドレスを確認してください。"
+    "translation": "【Nyaapantsu】メールアドレスの認証"
   },
   {
     "id": "verify_email_content",
-    "translation": "あなたのメールアドレスを確認するには、以下のリンクをクリックします。"
+    "translation": "あなたのメールアドレスを認証するには、以下のリンクをクリックします。"
   },
   {
     "id": "reset_password_title",
-    "translation": "パスワードのリセット"
+    "translation": "【Nyaapantsu】パスワードのリセット"
   },
   {
     "id": "reset_password_content",
@@ -101,7 +101,7 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "認証のメールを送信しました。メールボックスを確認してください。迷惑メールフォルダーの確認もお忘れずに。"
+    "translation": "認証メールを送信しました。メールボックスを確認してください。迷惑メールフォルダーの確認もお忘れずに。"
   },
   {
     "id":"signup_verification_noemail",
@@ -441,7 +441,7 @@
   },
   {
     "id": "description_markdown_notice",
-    "translation": "説明にはマークダウンが使えます。"
+    "translation": "説明文には MarkDown 記法が使えます。"
   },
   {
     "id": "show_all",
@@ -449,7 +449,7 @@
   },
   {
     "id": "filter_remakes",
-    "translation": "リメイク フィルター"
+    "translation": "リメイクされたフィルター"
   },
   {
     "id": "trusted",
