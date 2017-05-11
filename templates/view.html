@@ -93,7 +93,7 @@
                             <a href="{{$.URL.Parse (printf "/user/%d/-" .UserID ) }}">{{.Username}}</a>
                         {{end}}
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-1 date-short comment-date">
                         {{printf "%d-%02d-%02d %02d:%02d" .Date.Year .Date.Month .Date.Day .Date.Hour .Date.Minute }}
                         {{/* output: "2017-05-01 15:30"
                             Went with "Year-Month-Day" because it's the most unambiguous.
