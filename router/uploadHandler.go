@@ -41,7 +41,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 			var sameTorrents int
 			db.ORM.Model(&model.Torrent{}).Where("torrent_hash = ?", uploadForm.Infohash).Count(&sameTorrents)
-			if (sameTorrents > 0) {
+			if (sameTorrents == 0) {
 			//add to db and redirect depending on result
 			torrent := model.Torrent{
 				Name:        uploadForm.Name,
