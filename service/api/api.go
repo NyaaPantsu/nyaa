@@ -146,11 +146,11 @@ func (r *TorrentRequest) ValidateMultipartUpload(req *http.Request) (int64, erro
 		}
 		// check a few things
 		if torrent.IsPrivate() {
-			return 0, errors.New("private torrents not allowed"), http.StatusBadRequest
+			return 0, errors.New("private torrents not allowed"), http.StatusNotAcceptable
 		}
 		trackers := torrent.GetAllAnnounceURLS()
 		if !uploadService.CheckTrackers(trackers) {
-			return 0, errors.New("tracker(s) not allowed"), http.StatusBadRequest
+			return 0, errors.New("tracker(s) not allowed"), http.StatusNotAcceptable
 		}
 		if r.Name == "" {
 			r.Name = torrent.TorrentName()
