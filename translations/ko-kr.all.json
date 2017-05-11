@@ -49,7 +49,7 @@
   },
   {
     "id":"i_agree",
-    "translation": "동의합니다"
+    "translation": "동의"
   },
   {
     "id":"terms_conditions_confirm",
@@ -65,11 +65,11 @@
   },
   {
     "id":"terms_conditions",
-    "translation": "약관"
+    "translation": "이용약관"
   },
   {
     "id":"terms_conditions_full",
-    "translation": "블라블라"
+    "translation": "ㅅㅂ"
   },
   {
     "id":"remember_me",
@@ -114,6 +114,10 @@
   {
     "id":"follow",
     "translation": "팔로우"
+  },
+  {
+    "id":"unfollow",
+    "translation": "언팔로우"
   },
   {
     "id":"profile_page",
@@ -165,7 +169,7 @@
   },
   {
     "id": "fap",
-    "translation": "딸"
+    "translation": "자위"
   },
   {
     "id": "advanced_search",
@@ -201,11 +205,11 @@
   },
   {
     "id": "sign_up",
-    "translation": "가입"
+    "translation": "회원가입"
   },
   {
     "id": "no_results_found",
-    "translation": "결과 없음"
+    "translation": "검색결과가 없습니다"
   },
   {
     "id": "notice_keep_seeding",
@@ -221,7 +225,7 @@
   },
   {
     "id": "what_happened",
-    "translation": "무슨 일이 있었던거야?"
+    "translation": "무슨 일입니까?"
   },
   {
     "id": "nyaa_se_went_offline",
@@ -341,23 +345,23 @@
   },
   {
     "id": "anime",
-    "translation": "Anime"
+    "translation": "애니"
   },
   {
     "id": "anime_amv",
-    "translation": "Anime - 애니메이션 뮤직 비디오"
+    "translation": "애니 - 애니메이션 뮤직 비디오"
   },
   {
     "id": "anime_english_translated",
-    "translation": "Anime - 영문 번역"
+    "translation": "애니 - 영문 번역"
   },
   {
     "id": "anime_non_english_translated",
-    "translation": "Anime - 비-영문 번역"
+    "translation": "애니 - 비-영문 번역"
   },
   {
     "id": "anime_raw",
-    "translation": "Anime - Raw"
+    "translation": "애니 - Raw"
   },
   {
     "id": "audio",
@@ -409,27 +413,27 @@
   },
   {
     "id": "pictures",
-    "translation": "Pictures"
+    "translation": "사진"
   },
   {
     "id": "pictures_graphics",
-    "translation": "Pictures - 그래픽"
+    "translation": "사진 - 그래픽"
   },
   {
     "id": "pictures_photos",
-    "translation": "Pictures - 사진"
+    "translation": "사진 - 사진"
   },
   {
     "id": "software",
-    "translation": "Software"
+    "translation": "소프트웨어"
   },
   {
     "id": "software_applications",
-    "translation": "Software - 응용프로그램"
+    "translation": "소프트웨어 - 응용프로그램"
   },
   {
     "id": "software_games",
-    "translation": "Software - 게임"
+    "translation": "소프트웨어 - 게임"
   },
   {
     "id": "torrent_description",
@@ -453,7 +457,7 @@
   },
   {
     "id": "id",
-    "translation": "ID"
+    "translation": "아이디"
   },
   {
     "id": "downloads",
