@@ -95,9 +95,9 @@
                     </div>
                     <div class="col-md-2">
                         {{printf "%d-%02d-%02d %02d:%02d" .Date.Year .Date.Month .Date.Day .Date.Hour .Date.Minute }}
-                        {{ /* output: "2017-05-01 15:30"
+                        {{/* output: "2017-05-01 15:30"
                             Went with "Year-Month-Day" because it's the most unambiguous.
-                            If you want it to be determined by where you're from, be my guest. */ }}
+                            If you want it to be determined by where you're from, be my guest. */}}
                     </div>
                     <div class="col-md-8">
                         {{.Content}}
