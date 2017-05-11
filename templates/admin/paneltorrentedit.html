@@ -12,6 +12,7 @@
       <label for="name">{{T "name"}}</label>
           <input type="text" name="name" class="form-control" placeholder="File Name" value="{{.Name}}" required>
       </div>
+      <!--
       <div class="form-group">
           <label for="torrent">{{T "torrent_file"}}</label>
           <input type="file" name="torrent" id="torrent" accept=".torrent">
@@ -21,7 +22,7 @@
           <label for="magnet">{{T "magnet_link"}}</label>
           <input type="text" name="magnet" class="form-control"
           style="width:60rem" placeholder="{{T "magnet_link"}}" value="{{.Magnet}}">
-      </div>
+      </div>-->
       <div class="form-group">
           <label for="c">{{T "category"}}</label>
           <select name="c" class="form-control input-sm">
@@ -47,11 +48,11 @@
       <div class="form-group">
           <label for="Status">{{T "torrent_status"}}</label>
           <select name="status" class="form-control input-sm">
-              <option value="0" {{if eq .Status 0}}selected{{end}}>{{T "mark_as_hidden"}}</option>
-              <option value="1" {{if eq .Status 1}}selected{{end}}>{{T "mark_as_normal"}}</option>
-              <option value="2" {{if eq .Status 2}}selected{{end}}>{{T "mark_as_remake"}}</option>
-              <option value="3" {{if eq .Status 3}}selected{{end}}>{{T "mark_as_trusted"}}</option>
-              <option value="4" {{if eq .Status 4}}selected{{end}}>{{T "mark_as_aplus"}}</option>
+              <option value="0" {{if eq .Status 0}}selected{{end}}>{{T "torrent_status_hidden"}}</option>
+              <option value="1" {{if eq .Status 1}}selected{{end}}>{{T "torrent_status_normal"}}</option>
+              <option value="2" {{if eq .Status 2}}selected{{end}}>{{T "torrent_status_remake"}}</option>
+              <option value="3" {{if eq .Status 3}}selected{{end}}>{{T "trusted"}}</option>
+              <option value="4" {{if eq .Status 4}}selected{{end}}>A+</option>
       	 </select>
       </div>
 
