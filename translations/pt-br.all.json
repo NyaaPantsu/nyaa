@@ -53,7 +53,7 @@
   },
   {
     "id":"terms_conditions_confirm",
-    "translation": "Ao clicar em <strong class=\"label label-primary\">Criar</strong>, você concorda com os <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Termos e Condições</a> estabelecidos pelo site, incluindo o nosso uso de cookies."
+    "translation": "Ao clicar em <strong class=\"label label-primary\">Registrar</strong>, você concorda com os <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Termos e Condições</a> estabelecidos pelo site, incluindo o nosso uso de cookies."
   },
   {
     "id":"signin",
@@ -61,7 +61,7 @@
   },
   {
     "id":"register",
-    "translation": "Criar"
+    "translation": "Registrar"
   },
   {
     "id":"terms_conditions",
@@ -73,11 +73,11 @@
   },
   {
     "id":"remember_me",
-    "translation": "Lembre-me"
+    "translation": "Lembre-se de mim"
   },
   {
     "id":"forgot_password",
-    "translation": "Esqueceu a senha?"
+    "translation": "Esqueceu sua senha?"
   },
   {
     "id":"sign_in_box_title",
@@ -177,7 +177,7 @@
   },
   {
     "id": "faq",
-    "translation": "Perguntas frequentes"
+    "translation": "Perguntas Frequentes"
   },
   {
     "id": "fap",
@@ -261,7 +261,7 @@
   },
   {
     "id": "in_short_no",
-    "translation": "Em suma, não."
+    "translation": "Resumindo, não."
   },
   {
     "id": "are_some_things_lost",
@@ -273,7 +273,7 @@
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Sukebei, no entanto, pode estar na pior. Atualmente nós só temos os bancos de dados do sukebei até 2016, mas um banco de dados mais recente pode estar disponível para uso."
+    "translation": "Sukebei, no entanto, está em uma situação pior. Atualmente nós só temos os dados do sukebei até 2016, mas um novo banco de dados pode estar disponível para uso."
   },
   {
     "id": "how_are_we_recovering",
@@ -281,7 +281,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "Os bancos de dados já mencionados estão hospedados em nyaa.pantsu.cat e sukebei.pantsu.cat. Há uma função de busca, e (quase) todas as funcionalidades do nyaa devem estar de volta em breve. Estatísticas de seeders/leechers são possíveis extraindo os dados e podem ser restauradas no futuro, já que outras funções são prioridade no momento."
+    "translation": "Os bancos de dados estão hospedados em nyaa.pantsu.cat e sukebei.pantsu.cat. Há uma função de busca, e (quase) todas as funcionalidades do nyaa devem estar de volta em breve. Estatísticas de seeders/leechers estão disponíveis via raspagem de dados e podem ser restauradas no futuro, já que outras funções são prioridade no momento."
   },
   {
     "id": "are_the_trackers_working",
@@ -562,6 +562,22 @@
   {
     "id": "delete_success",
     "translation": "A conta foi excluída com sucesso!"
+  },
+  {
+    "id": "moderation",
+    "translation": "Moderação"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "Quem é れんちょん?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "れんちょん é o nome atribuído a uploads e comentários feitos anonimamente. Também é usado para torrents importados do nyaa original, embora o uploaer original seja mostrado ao lado."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Marcar como remake"
   },
   {
     "id": "profile_edit_page",
