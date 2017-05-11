@@ -750,5 +750,9 @@
   {
     "id": "last_scraped",
     "translation": "Last scraped: "
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "No database dumps are available at this moment."
   }
 ]
