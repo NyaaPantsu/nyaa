@@ -157,6 +157,11 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 				modelHelper.BindValueForm(&b, r)
 				if !userPermission.HasAdmin(currentUser) {
 					b.Username = currentUser.Username
+					b.Status = currentUser.Status
+				} else {
+					if b.Status == 2 {
+						err["errors"] = append(err["errors"], "Elevating status to moderator is prohibited")
+					}
 				}
 				err = modelHelper.ValidateForm(&b, err)
 				if len(err) == 0 {
