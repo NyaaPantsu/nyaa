@@ -16,49 +16,66 @@ import (
 )
 
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
-	if config.UploadsDisabled == 1 {
+	if config.UploadsDisabled {
 		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
 		return
 	}
-	var err error
 	var uploadForm UploadForm
 	if r.Method == "POST" {
 		defer r.Body.Close()
 		// validation is done in ExtractInfo()
-		err = uploadForm.ExtractInfo(r)
-		if err == nil {
-			user, _, err := userService.RetrieveCurrentUser(r)
-			if err != nil {
-				fmt.Printf("error %+v\n", err)
-			}
+		err := uploadForm.ExtractInfo(r)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		user, _, err := userService.RetrieveCurrentUser(r)
+		if err != nil {
+			fmt.Printf("error %+v\n", err)
+		}
+		status := 1 // normal
+		if uploadForm.Remake { // overrides trusted
+			status = 2
+		} else if user.Status == 1 {
+			status = 3 // mark as trusted if user is trusted
+		}
+			var sameTorrents int
+			db.ORM.Model(&model.Torrent{}).Where("torrent_hash = ?", uploadForm.Infohash).Count(&sameTorrents)
+			if (sameTorrents == 0) {
 			//add to db and redirect depending on result
-			torrent := model.Torrents{
-				Name:         uploadForm.Name,
-				Category:     uploadForm.CategoryId,
-				Sub_Category: uploadForm.SubCategoryId,
-				Status:       1,
-				Hash:         uploadForm.Infohash,
-				Date:         time.Now(),
-				Filesize:     uploadForm.Filesize, // FIXME: should set to NULL instead of 0
-				Description:  uploadForm.Description,
-				UploaderId:   user.Id}
+			torrent := model.Torrent{
+				Name:        uploadForm.Name,
+				Category:    uploadForm.CategoryID,
+				SubCategory: uploadForm.SubCategoryID,
+				Status:      status,
+				Hash:        uploadForm.Infohash,
+				Date:        time.Now(),
+				Filesize:    uploadForm.Filesize,
+				Description: uploadForm.Description,
+				UploaderID:  user.ID}
 			db.ORM.Create(&torrent)
 			fmt.Printf("%+v\n", torrent)
-			url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.Id), 10))
-			if err == nil {
-				http.Redirect(w, r, url.String(), 302)
+			url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
 			}
+			http.Redirect(w, r, url.String(), 302)
+		} else {
+			http.Error(w, fmt.Errorf("Torrent already in database!").Error(), http.StatusInternalServerError)
+			return
 		}
 	} else if r.Method == "GET" {
 		uploadForm.CaptchaID = captcha.GetID()
 		htv := UploadTemplateVariables{uploadForm, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 		languages.SetTranslationFromRequest(uploadTemplate, r, "en-us")
-		err = uploadTemplate.ExecuteTemplate(w, "index.html", htv)
+		err := uploadTemplate.ExecuteTemplate(w, "index.html", htv)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	} else {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
-	}
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }

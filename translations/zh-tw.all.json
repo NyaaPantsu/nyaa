@@ -1,0 +1,566 @@
+[
+  {
+    "id": "link",
+    "translation": "連結"
+  },
+  {
+    "id": "verify_email_title",
+    "translation": "喵 請驗證您的電子郵件"
+  },
+  {
+    "id": "verify_email_content",
+    "translation": "請按下面連結驗證您的電子郵件"
+  },
+  {
+    "id": "reset_password_title",
+    "translation": "喵 重置密碼"
+  },
+  {
+    "id": "reset_password_content",
+    "translation": "請按下面連結重置密碼"
+  },
+  {
+    "id":"register_title",
+    "translation": "創建新帳號"
+  },
+  {
+    "id":"signup_box_title",
+    "translation": "請註冊 <small>永遠免費</small>"
+  },
+  {
+    "id":"username",
+    "translation": "使用者名稱"
+  },
+  {
+    "id":"email_address_or_username",
+    "translation": "電子郵件或使用者名稱"
+  },
+  {
+    "id":"email_address",
+    "translation": "電子郵件"
+  },
+  {
+    "id":"password",
+    "translation": "密碼"
+  },
+  {
+    "id":"confirm_password",
+    "translation": "密碼確認"
+  },
+  {
+    "id":"i_agree",
+    "translation": "我同意"
+  },
+  {
+    "id":"terms_conditions_confirm",
+    "translation": "按下 <strong class=\"label label-primary\">註冊</strong> 表示您同意此網站之 <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">條款和條件</a> 以及瀏覽器 Cookie 之使用"
+  },
+  {
+    "id":"signin",
+    "translation": "登入"
+  },
+  {
+    "id":"register",
+    "translation": "註冊"
+  },
+  {
+    "id":"terms_conditions",
+    "translation": "條款和條件"
+  },
+  {
+    "id":"terms_conditions_full",
+    "translation": "一些扯淡"
+  },
+  {
+    "id":"remember_me",
+    "translation": "請記住我"
+  },
+  {
+    "id":"forgot_password",
+    "translation": "忘記密碼嗎？"
+  },
+  {
+    "id":"sign_in_box_title",
+    "translation": "請登入"
+  },
+  {
+    "id":"sign_in_title",
+    "translation": "登入"
+  },
+  {
+    "id":"register_success_title",
+    "translation": "註冊成功"
+  },
+  {
+    "id":"sign_up_success",
+    "translation": "感謝您的註冊！"
+  },
+  {
+    "id":"verify_success",
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>您的帳號已啟用！"
+  },
+  {
+    "id":"signup_verification_email",
+    "translation": "最後請檢查您的電子信箱 （與垃圾郵件）直到找到帳號確認郵件"
+  },
+  {
+    "id":"signup_verification_noemail",
+    "translation": "註冊成功，帳號已可供使用"
+  },
+  {
+    "id":"settings",
+    "translation": "帳號設定"
+  },
+  {
+    "id":"torrents",
+    "translation": "種子種子"
+  },
+  {
+    "id":"follow",
+    "translation": "跟隨"
+  },
+  {
+    "id":"unfollow",
+    "translation": "取消跟隨"
+  },
+  {
+    "id":"user_followed_msg",
+    "translation": "您已經跟隨 %s！"
+  },
+  {
+    "id":"user_unfollowed_msg",
+    "translation": "您已經取消跟隨 %s！"
+  },
+  {
+    "id":"profile_page",
+    "translation": "%s 使用者資料"
+  },
+  {
+    "id":"see_more_torrents_from",
+    "translation": "更多種子來自 %s "
+  },
+  {
+    "id":"category",
+    "translation": "分類"
+  },
+  {
+    "id": "name",
+    "translation": "名稱"
+  },
+  {
+    "id": "date",
+    "translation": "日期"
+  },
+  {
+    "id": "size",
+    "translation": "檔案大小"
+  },
+  {
+    "id": "links",
+    "translation": "連結"
+  },
+  {
+    "id": "home",
+    "translation": "主頁"
+  },
+  {
+    "id": "error_404",
+    "translation": "糟糕！ 是 404"
+  },
+  {
+    "id": "toggle_navigation",
+    "translation": "切換導引列"
+  },
+  {
+    "id": "upload",
+    "translation": "上傳"
+  },
+  {
+    "id": "faq",
+    "translation": "有問有答"
+  },
+  {
+    "id": "fap",
+    "translation": "不尻嗎"
+  },
+  {
+    "id": "advanced_search",
+    "translation": "進階搜尋"
+  },
+  {
+    "id": "nothing_here",
+    "translation": "什麼都沒有"
+  },
+  {
+    "id": "404_not_found",
+    "translation": "404 找不到啦"
+  },
+  {
+    "id": "no_torrents_uploaded",
+    "translation": "目前沒有種子被上傳喔！"
+  },
+  {
+    "id": "profile",
+    "translation": "使用者資料"
+  },
+  {
+    "id": "sign_out",
+    "translation": "登出"
+  },
+  {
+    "id": "member",
+    "translation": "會員"
+  },
+  {
+    "id": "sign_in",
+    "translation": "登入"
+  },
+  {
+    "id": "sign_up",
+    "translation": "註冊"
+  },
+  {
+    "id": "no_results_found",
+    "translation": "沒有結果喔"
+  },
+  {
+    "id": "notice_keep_seeding",
+    "translation": "請注意：別混帳惹！持續做種並開啟您的 DHT"
+  },
+  {
+    "id": "official_nyaapocalipse_faq",
+    "translation": "NYAA末日之官方問答"
+  },
+  {
+    "id": "links_replacement_mirror",
+    "translation": "替代連結／鏡像"
+  },
+  {
+    "id": "what_happened",
+    "translation": "發生什麼啦？"
+  },
+  {
+    "id": "nyaa_se_went_offline",
+    "translation": "nyaa.se 以及相關網域（比如 nyaatorrents.info）不幸於 2017年5月1日 離開我們"
+  },
+  {
+    "id": "its_not_a_ddos",
+    "translation": "網域是被停用，不像以往是受到 DDoS 攻擊"
+  },
+  {
+    "id": "future_not_looking_good",
+    "translation": "nyaa 的未來並不明朗（她真的離開了）"
+  },
+  {
+    "id": "recovery_effort",
+    "translation": "資料的急救正在進行中"
+  },
+  {
+    "id": "is_everything_lost",
+    "translation": "難道所有的東西都消失了嗎？"
+  },
+  {
+    "id": "in_short_no",
+    "translation": "長話短說，並沒有"
+  },
+  {
+    "id": "are_some_things_lost",
+    "translation": "那有一部分的東西消失了嗎？"
+  },
+  {
+    "id": "answer_is_nyaa_db_lost",
+    "translation": "我們有 nyaa 種子資料庫直到 <s>4月5日</s> 5月1日，這表示幾乎沒失去任何東西"
+  },
+  {
+    "id": "answer_is_sukebei_db_lost",
+    "translation": "然而 sukebei 的命運比較坎坷。目前資料庫只有備份到 2016年，但也許有個新的日期版本可供使用"
+  },
+  {
+    "id": "how_are_we_recovering",
+    "translation": "我們如何恢復她？"
+  },
+  {
+    "id": "answer_how_are_we_recovering",
+    "translation": "前述的資料庫目前放在 nyaa.pantsu.cat 和 sukebei.pantsu.cat 的伺服器。 我們有搜尋功能，而（幾乎）所有 nyaa 舊有功能將在未來不久後實現。 種子／連線數的統計資訊則可能透過抓取其他 tracker 來恢復，也許在未來某天吧！先做出其他較優先的功能再說。"
+  },
+  {
+    "id": "are_the_trackers_working",
+    "translation": "這些種子都還活著嗎？"
+  },
+  {
+    "id": "answer_are_the_trackers_working",
+    "translation": "就算 tracker 都掛了，做種的前輩們都還是透過分散式的 DHT 網路聯繫著。 只要那些檔案都還列在 DHT 網路上，那就沒有太大影響。"
+  },
+  {
+    "id": "how_do_i_download_the_torrents",
+    "translation": "所以說種子該怎麼抓啊？"
+  },
+  {
+    "id": "answer_how_do_i_download_the_torrents",
+    "translation": "用<b>磁力連結</b>就對啦！ 磁力連結能讓你的 BT 客戶端在 DHT 網路尋找檔案並且下載。"
+  },
+  {
+    "id": "magnet_link_should_look_like",
+    "translation": "磁力連結長這樣："
+  },
+  {
+    "id": "which_trackers_do_you_recommend",
+    "translation": "有推薦的 tracker 嗎？"
+  },
+  {
+    "id": "answer_which_trackers_do_you_recommend",
+    "translation": "如果您上傳種子遭到拒絕，原因是 tracker 不符要求，那有可能需要加上這其中幾個 tracker："
+  },
+  {
+    "id": "how_can_i_help",
+    "translation": "那個，我能幫上什麼忙嗎？"
+  },
+  {
+    "id": "answer_how_can_i_help",
+    "translation": "如果您專精於網站開發，請加入 #nyaapantsu 的 IRC，位於 irc.rizon.net 。如果您有最新的資料庫，特別是 sukebei 的資料庫，<b>請上傳它們</b>"
+  },
+  {
+    "id": "your_design_sucks_found_a_bug",
+    "translation": "你們的網站設計爛死了 / 我找到 bug 啦啦啦啦"
+  },
+  {
+    "id": "why_written_in_go",
+    "translation": "爲啥要用 GO 寫啊？沒其他更好的程式語言？"
+  },
+  {
+    "id": "authors_favorite_language",
+    "translation": "這是作者的愛啊啊啊啊"
+  },
+  {
+    "id": "nyaa_pantsu_dont_host_files",
+    "translation": "nyaa.pantsu.cat 以及 sukebei.pantsu.cat 沒有存放任何檔案喔∼"
+  },
+  {
+    "id": "upload_magnet",
+    "translation": "上傳磁力連結"
+  },
+  {
+    "id": "torrent_file",
+    "translation": "種子檔案"
+  },
+  {
+    "id": "uploading_file_prefills_fields",
+    "translation": "上傳種子時允許預填（pre-filling）一些欄位，這是推薦選項。"
+  },
+  {
+    "id": "magnet_link",
+    "translation": "磁力連結位址"
+  },
+  {
+    "id": "all_categories",
+    "translation": "所有分類"
+  },
+  {
+    "id": "anime",
+    "translation": "動畫"
+  },
+  {
+    "id": "anime_amv",
+    "translation": "動畫 - 動畫MV"
+  },
+  {
+    "id": "anime_english_translated",
+    "translation": "動畫 - 已翻譯爲英文"
+  },
+  {
+    "id": "anime_non_english_translated",
+    "translation": "動畫 - 未翻譯爲英文"
+  },
+  {
+    "id": "anime_raw",
+    "translation": "動畫 - Raw"
+  },
+  {
+    "id": "audio",
+    "translation": "音樂"
+  },
+  {
+    "id": "audio_lossless",
+    "translation": "音樂 - 無損"
+  },
+  {
+    "id": "audio_lossy",
+    "translation": "音樂 - 有損"
+  },
+  {
+    "id": "literature",
+    "translation": "文學"
+  },
+  {
+    "id": "literature_english_translated",
+    "translation": "文學 - 已翻譯爲英文"
+  },
+  {
+    "id": "literature_raw",
+    "translation": "文學 - Raw"
+  },
+  {
+    "id": "literature_non_english_translated",
+    "translation": "文學 - 未翻譯爲英文"
+  },
+  {
+    "id": "live_action",
+    "translation": "真人電影"
+  },
+  {
+    "id": "live_action_english_translated",
+    "translation": "真人電影 - 已翻譯爲英文"
+  },
+  {
+    "id": "live_action_idol_pv",
+    "translation": "真人電影 - 偶像/PV"
+  },
+  {
+    "id": "live_action_non_english_translated",
+    "translation": "真人電影 - 未翻譯爲英文"
+  },
+  {
+    "id": "live_action_raw",
+    "translation": "真人電影 - Raw"
+  },
+  {
+    "id": "pictures",
+    "translation": "圖片"
+  },
+  {
+    "id": "pictures_graphics",
+    "translation": "圖片 - 圖像"
+  },
+  {
+    "id": "pictures_photos",
+    "translation": "圖片 - 照片"
+  },
+  {
+    "id": "software",
+    "translation": "軟體"
+  },
+  {
+    "id": "software_applications",
+    "translation": "軟體 - 應用軟體"
+  },
+  {
+    "id": "software_games",
+    "translation": "軟體 - 遊戲"
+  },
+  {
+    "id": "torrent_description",
+    "translation": "種子描述"
+  },
+  {
+    "id": "description_markdown_notice",
+    "translation": "描述可使用 Markdown"
+  },
+  {
+    "id": "show_all",
+    "translation": "列出全部"
+  },
+  {
+    "id": "filter_remakes",
+    "translation": "過濾掉 Remakes"
+  },
+  {
+    "id": "trusted",
+    "translation": "受信任"
+  },
+  {
+    "id": "id",
+    "translation": "ID"
+  },
+  {
+    "id": "downloads",
+    "translation": "下載數"
+  },
+  {
+    "id": "descending",
+    "translation": "降序"
+  },
+  {
+    "id": "ascending",
+    "translation": "升序"
+  },
+  {
+    "id": "search",
+    "translation": "搜尋"
+  },
+  {
+    "id": "hash",
+    "translation": "Hash"
+  },
+  {
+    "id": "description",
+    "translation": "描述"
+  },
+  {
+    "id": "comments",
+    "translation": "評論"
+  },
+  {
+    "id": "submit_a_comment_as_username",
+    "translation": "以使用者 %s 留言"
+  },
+  {
+    "id": "submit_a_comment_as_anonymous",
+    "translation": "以匿名留言"
+  },
+  {
+    "id": "submit",
+    "translation": "送出"
+  },
+  {
+    "id": "personal_info",
+    "translation": "個人資訊"
+  },
+  {
+    "id": "language",
+    "translation": "語言"
+  },
+  {
+    "id": "current_password",
+    "translation": "目前密碼"
+  },
+  {
+    "id": "role",
+    "translation": "角色"
+  },
+  {
+    "id": "banned",
+    "translation": "帳號已被停用"
+  },
+  {
+    "id": "default",
+    "translation": "預設值"
+  },
+  {
+    "id": "trusted_member",
+    "translation": "受信任會員"
+  },
+  {
+    "id": "moderator",
+    "translation": "管理員"
+  },
+  {
+    "id": "save_changes",
+    "translation": "儲存變更"
+  },
+  {
+    "id": "profile_updated",
+    "translation": "您的個人資料已更新！"
+  },
+  {
+    "id": "delete_account",
+    "translation": "刪除帳號"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "確定要刪除這個帳號嗎？"
+  },
+  {
+    "id": "delete_success",
+    "translation": "您的帳號已經成功刪除！"
+  }
+]

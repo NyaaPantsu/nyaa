@@ -35,12 +35,9 @@ func InitLogToFile() {
 
 	out := LumberJackLogger(config.ErrorLogFilePath+config.ErrorLogFileExtension, config.ErrorLogMaxSize, config.ErrorLogMaxBackups, config.ErrorLogMaxAge)
 
-
 	logrus.SetOutput(out)
 	logrus.SetLevel(logrus.WarnLevel)
 }
-
-
 
 // Init logrus
 func Init(environment string) {
@@ -120,8 +117,14 @@ func DebugResponse(response *http.Response) string {
 	bodyBuffer := make([]byte, 5000)
 	var str string
 	count, err := response.Body.Read(bodyBuffer)
+	if err != nil {
+		Debug(err.Error())
+		return ""
+	}
 	for ; count > 0; count, err = response.Body.Read(bodyBuffer) {
 		if err != nil {
+			Debug(err.Error())
+			continue
 		}
 		str += string(bodyBuffer[:count])
 	}

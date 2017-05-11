@@ -1,0 +1,108 @@
+{{define "profile_edit_content"}}
+	{{with .UserProfile}}
+		{{ range (index $.FormInfos "infos")}}
+			<div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
+		{{end}}
+		{{ range (index $.FormErrors "errors")}}
+			<div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
+		{{end}}
+        <h3>{{ T "personal_info"}}</h3>
+        
+        <form class="form-horizontal" role="form" method="POST">
+          <div class="form-group">
+            <label class="col-lg-3 control-label">{{ T "email_address" }}:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" name="email" id="email" value="{{.Email}}">
+	 			{{ range (index $.FormErrors "email")}}
+					<p class="bg-danger">{{ . }}</p>
+				{{end}}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">{{ T "language"}}:</label>
+            <div class="col-lg-8">
+              <div class="ui-select">
+                <select id="language" name="language" class="form-control">
+					{{ $userLanguage := .Language }}
+					{{ range $tag, $translatedName := $.Languages }}
+	                	<option value="{{ $tag }}" {{ if or (eq $userLanguage $tag) (and (eq $userLanguage "") (eq $tag "en-us")) }}selected{{end}}>{{ $translatedName }} {{if eq $tag "en-us"}}({{ T "default" }}){{end}}</option>
+					{{ end }}
+                </select>
+              </div>
+	 			{{ range (index $.FormErrors "language")}}
+					<p class="bg-danger">{{ . }}</p>
+				{{end}}
+            </div>
+          </div>
+          {{ if not (HasAdmin .)}}
+          <div class="form-group">
+            <label class="col-md-3 control-label">{{ T "current_password"}}:</label>
+            <div class="col-md-8">
+              <input class="form-control" name="current_password" id="current_password" type="password">
+	 			{{ range (index $.FormErrors "current_password")}}
+					<p class="bg-danger">{{ . }}</p>
+				{{end}}
+            </div>
+          </div>
+          {{end}}
+          <div class="form-group">
+            <label class="col-md-3 control-label">{{ T "password"}}:</label>
+            <div class="col-md-8">
+              <input class="form-control" name="password" id="password" type="password">
+	 			{{ range (index $.FormErrors "password")}}
+					<p class="bg-danger">{{ . }}</p>
+				{{end}}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">{{ T "confirm_password"}}:</label>
+            <div class="col-md-8">
+              <input class="form-control" name="password_confirmation" id="password_confirmation" type="password">
+	 			{{ range (index $.FormErrors "password_confirmation")}}
+					<p class="bg-danger">{{ . }}</p>
+				{{end}}
+            </div>
+          </div>
+          {{ if HasAdmin .}}
+          <h3>{{ T "moderation"}}</h3>
+          <div class="form-group">
+            <label class="col-md-3 control-label">{{ T "username"}}:</label>
+            <div class="col-md-8">
+              <input class="form-control" name="username" id="username" type="text" value="{{.Username}}">
+	 			{{ range (index $.FormErrors "username")}}
+					<p class="bg-danger">{{ . }}</p>
+				{{end}}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">{{ T "role" }}:</label>
+            <div class="col-lg-8">
+              <div class="ui-select">
+                <select id="status" name="status" class="form-control">
+                	<option value="-1" {{ if eq .Status -1 }}selected{{end}}>{{ T "banned"}}</option>
+                	<option value="0" {{ if eq .Status 0 }}selected{{end}}>{{ T "member"}} ({{ T "default" }})</option>
+                	<option value="1" {{ if eq .Status 1 }}selected{{end}}>{{ T "trusted_member"}} </option>
+                	<option value="2" {{ if eq .Status 2 }}selected{{end}}>{{ T "moderator"}} </option>
+                </select>
+              </div>
+	 			{{ range (index $.FormErrors "status")}}
+					<p class="bg-danger">{{ . }}</p>
+				{{end}}
+            </div>
+          </div>
+		  {{end}}
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <input type="submit" class="btn btn-primary" name="save" value="{{ T "save_changes"}}">
+              <span></span>
+              <input type="reset" class="btn btn-default" value="Cancel">
+            </div>
+          </div>
+        </form>
+        {{ if CurrentOrAdmin $.User .ID }}
+        <hr>
+        <a href="?delete" onclick="if (!confirm('{{ T "delete_account_confirm" }}')) return false;" class="btn btn-danger btn-lg"><i class="glyphicon glyphicon-trash"></i> {{ T "delete_account"}}</a>
+        {{end}}
+	{{end}}
+{{end}}
