@@ -85,7 +85,7 @@ type CommentJSON struct {
 	Username string        `json:"username"`
 	UserID   int           `json:"user_id"`
 	Content  template.HTML `json:"content"`
-	Date     string        `json:"date"`
+	Date     time.Time     `json:"date"`
 }
 
 type TorrentJSON struct {
@@ -117,10 +117,10 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	magnet := util.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, config.Trackers...)
 	commentsJSON := make([]CommentJSON, 0, len(t.OldComments)+len(t.Comments))
 	for _, c := range t.OldComments {
-		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, UserID: -1, Content: template.HTML(c.Content), Date: c.Date.Format(time.RFC3339)})
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, UserID: -1, Content: template.HTML(c.Content), Date: c.Date.UTC()})
 	}
 	for _, c := range t.Comments {
-		commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt.Format(time.RFC3339)})
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC()})
 	}
 	uploader := ""
 	if t.Uploader != nil {
