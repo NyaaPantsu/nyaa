@@ -39,6 +39,8 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 
 	search.Page = pagenum
 	search.Query = r.URL.Query().Get("q")
+	userID, _ := strconv.Atoi(r.URL.Query().Get("userID"))
+	search.UserID =  uint(userID)
 
 	switch s := r.URL.Query().Get("s"); s {
 	case "1":
@@ -110,6 +112,10 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 		if search.Category.Main != 0 {
 			conditions = append(conditions, "category = ?")
 			parameters.Params = append(parameters.Params, string(catString[0]))
+		}
+		if search.UserID != 0 {
+			conditions = append(conditions, "uploader = ?")
+			parameters.Params = append(parameters.Params, search.UserID)
 		}
 		if search.Category.Sub != 0 {
 			conditions = append(conditions, "sub_category = ?")

@@ -57,6 +57,14 @@
 <div style="padding-top: 10rem"></div>
 
   <div class="container" id="container">
+  <form class="navbar-form navbar-right" role="search" action="{{ genRoute "mod_tlist" }}" method="get">
+                      <div class="form-group">
+                        {{block "search_common" .}}{{end}}
+                      </div>
+                      <div class="form-group">
+                        {{block "search_button" .}}{{end}}
+                      </div>
+                  </form>
   	{{block "content" .}}{{end}}
   </div>
 	      <footer style="text-align: center; padding-bottom: 2rem;font-size: 2rem;font-family: cursive; color: #616161;text-shadow: -1px -1px #999999;">
