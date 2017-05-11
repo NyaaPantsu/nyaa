@@ -149,7 +149,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	}
 	if search.Status != 0 {
 		if search.Status == common.FilterRemakes {
-			conditions = append(conditions, "status > ?")
+			conditions = append(conditions, "status <> ?")
 		} else {
 			conditions = append(conditions, "status >= ?")
 		}
