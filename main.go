@@ -9,7 +9,6 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/ewhal/nyaa/cache"
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/network"
@@ -98,7 +97,6 @@ func main() {
 	processFlags := conf.BindFlags()
 	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
 	mode := flag.String("mode", "webapp", "which mode to run daemon in, either webapp or scraper")
-	flag.Float64Var(&cache.Size, "c", cache.Size, "size of the search cache in MB")
 	flag.Parse()
 	if *defaults {
 		stdout := bufio.NewWriter(os.Stdout)

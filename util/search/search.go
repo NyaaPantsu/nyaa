@@ -7,7 +7,6 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/ewhal/nyaa/cache"
 	"github.com/ewhal/nyaa/common"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
@@ -118,69 +117,65 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 		orderBy += "desc"
 	}
 
-	tor, count, err = cache.Get(search, func() (tor []model.Torrent, count int, err error) {
-		parameters := serviceBase.WhereParams{
-			Params: make([]interface{}, 0, 64),
-		}
-		conditions := make([]string, 0, 64)
-		if search.Category.Main != 0 {
-			conditions = append(conditions, "category = ?")
-			parameters.Params = append(parameters.Params, string(catString[0]))
-		}
-		if search.UserID != 0 {
-			conditions = append(conditions, "uploader = ?")
-			parameters.Params = append(parameters.Params, search.UserID)
-		}
-		if search.Category.Sub != 0 {
-			conditions = append(conditions, "sub_category = ?")
-			parameters.Params = append(parameters.Params, string(catString[2]))
-		}
-		if search.Status != 0 {
-			if search.Status == common.FilterRemakes {
-				conditions = append(conditions, "status > ?")
-			} else {
-				conditions = append(conditions, "status >= ?")
-			}
-			parameters.Params = append(parameters.Params, strconv.Itoa(int(search.Status)+1))
-		}
-		if len(search.NotNull) > 0 {
-			conditions = append(conditions, search.NotNull)
-		}
-		searchQuerySplit := strings.Fields(search.Query)
-		for i, word := range searchQuerySplit {
-			firstRune, _ := utf8.DecodeRuneInString(word)
-			if len(word) == 1 && unicode.IsPunct(firstRune) {
-				// some queries have a single punctuation character
-				// which causes a full scan instead of using the index
-				// and yields no meaningful results.
-				// due to len() == 1 we're just looking at 1-byte/ascii
-				// punctuation characters.
-				continue
-			}
-
-			// SQLite has case-insensitive LIKE, but no ILIKE
-			var operator string
-			if db.ORM.Dialect().GetName() == "sqlite3" {
-				operator = "LIKE ?"
-			} else {
-				operator = "ILIKE ?"
-			}
-
-			// TODO: make this faster ?
-			conditions = append(conditions, "torrent_name "+operator)
-			parameters.Params = append(parameters.Params, "%"+searchQuerySplit[i]+"%")
-		}
-
-		parameters.Conditions = strings.Join(conditions[:], " AND ")
-		log.Infof("SQL query is :: %s\n", parameters.Conditions)
-		if countAll {
-			tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
+	parameters := serviceBase.WhereParams{
+		Params: make([]interface{}, 0, 64),
+	}
+	conditions := make([]string, 0, 64)
+	if search.Category.Main != 0 {
+		conditions = append(conditions, "category = ?")
+		parameters.Params = append(parameters.Params, string(catString[0]))
+	}
+	if search.UserID != 0 {
+		conditions = append(conditions, "uploader = ?")
+		parameters.Params = append(parameters.Params, search.UserID)
+	}
+	if search.Category.Sub != 0 {
+		conditions = append(conditions, "sub_category = ?")
+		parameters.Params = append(parameters.Params, string(catString[2]))
+	}
+	if search.Status != 0 {
+		if search.Status == common.FilterRemakes {
+			conditions = append(conditions, "status > ?")
 		} else {
-			tor, err = torrentService.GetTorrentsOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
+			conditions = append(conditions, "status >= ?")
+		}
+		parameters.Params = append(parameters.Params, strconv.Itoa(int(search.Status)+1))
+	}
+	if len(search.NotNull) > 0 {
+		conditions = append(conditions, search.NotNull)
+	}
+	searchQuerySplit := strings.Fields(search.Query)
+	for i, word := range searchQuerySplit {
+		firstRune, _ := utf8.DecodeRuneInString(word)
+		if len(word) == 1 && unicode.IsPunct(firstRune) {
+			// some queries have a single punctuation character
+			// which causes a full scan instead of using the index
+			// and yields no meaningful results.
+			// due to len() == 1 we're just looking at 1-byte/ascii
+			// punctuation characters.
+			continue
 		}
 
-		return
-	})
+		// SQLite has case-insensitive LIKE, but no ILIKE
+		var operator string
+		if db.ORM.Dialect().GetName() == "sqlite3" {
+			operator = "LIKE ?"
+		} else {
+			operator = "ILIKE ?"
+		}
+
+		// TODO: make this faster ?
+		conditions = append(conditions, "torrent_name "+operator)
+		parameters.Params = append(parameters.Params, "%"+searchQuerySplit[i]+"%")
+	}
+
+	parameters.Conditions = strings.Join(conditions[:], " AND ")
+	log.Infof("SQL query is :: %s\n", parameters.Conditions)
+	if countAll {
+		tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
+	} else {
+		tor, err = torrentService.GetTorrentsOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
+	}
 
 	return
 }

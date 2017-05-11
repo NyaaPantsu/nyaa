@@ -14,7 +14,6 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ewhal/nyaa/cache"
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/util"
@@ -30,7 +29,7 @@ type UploadForm struct {
 	Category    string
 	Remake      bool
 	Description string
-	Status int
+	Status      int
 	captcha.Captcha
 
 	Infohash      string
@@ -93,7 +92,6 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	f.Name = util.TrimWhitespaces(f.Name)
 	f.Description = p.Sanitize(util.TrimWhitespaces(f.Description))
 	f.Magnet = util.TrimWhitespaces(f.Magnet)
-	cache.Clear()
 
 	catsSplit := strings.Split(f.Category, "_")
 	// need this to prevent out of index panics
