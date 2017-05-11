@@ -7,7 +7,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	formStruct "github.com/ewhal/nyaa/service/user/form"
@@ -15,7 +14,6 @@ import (
 	"github.com/ewhal/nyaa/util/crypto"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/modelHelper"
-	"github.com/ewhal/nyaa/util/timeHelper"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -69,15 +67,8 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 			return user, err
 		}
 	}
-	token, err := crypto.GenerateRandomToken32()
-	if err != nil {
-		return user, errors.New("token not generated")
-	}
 	user.Email = "" // unset email because it will be verified later
 
-	user.Token = token
-	user.TokenExpiration = timeHelper.FewDaysLater(config.AuthTokenExpirationDay)
-	log.Debugf("user %+v\n", user)
 	if db.ORM.Create(&user).Error != nil {
 		return user, errors.New("user not created")
 	}
@@ -157,17 +148,13 @@ func UpdateUserCore(user *model.User) (int, error) {
 		}
 	}
 
-	token, err := crypto.GenerateRandomToken32()
+	user.UpdatedAt = time.Now()
+	err := db.ORM.Save(user).Error
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
-	user.Token = token
-	user.TokenExpiration = timeHelper.FewDaysLater(config.AuthTokenExpirationDay)
-	if db.ORM.Save(user).Error != nil {
-		return http.StatusInternalServerError, err
-	}
 
-	user.UpdatedAt = time.Now()
+	
 	return http.StatusOK, nil
 }
 
@@ -197,18 +184,13 @@ func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, currentUser *m
 		form.Username = user.Username
 	}
 	if (form.Email != user.Email) {
+		// send verification to new email and keep old
 		SendVerificationToUser(user, form.Email)
 		form.Email = user.Email
 	}
 	log.Debugf("form %+v\n", form)
 	modelHelper.AssignValue(&user, form)
 	status, err := UpdateUserCore(&user)
-	if err != nil {
-		return user, status, err
-	}
-	if userPermission.CurrentUserIdentical(currentUser, user.ID) {
-		status, err = SetCookie(w, user.Token)
-	}
 	return user, status, err
 }
 
