@@ -106,22 +106,25 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
-	b := form.UserForm{}
+	currentUser := GetUser(r)
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser == nil && userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
-		currentUser := GetUser(r)
-		modelHelper.BindValueForm(&b, r)
-		languages.SetTranslationFromRequest(viewProfileEditTemplate, r, "en-us")
-		searchForm := NewSearchForm()
-		searchForm.HideAdvancedSearch = true
-		availableLanguages := languages.GetAvailableLanguages()
-		htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), availableLanguages, searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
-		err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+		if userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
+			b := form.UserForm{}
+			modelHelper.BindValueForm(&b, r)
+			languages.SetTranslationFromRequest(viewProfileEditTemplate, r, "en-us")
+			searchForm := NewSearchForm()
+			searchForm.HideAdvancedSearch = true
+			availableLanguages := languages.GetAvailableLanguages()
+			htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), availableLanguages, searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+			err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
 		}
 	}
 }
+
 // Getting View User Profile Update
 func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -143,12 +146,12 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 
 			if len(err) == 0 {
 				modelHelper.BindValueForm(&b, r)
-				if (!userPermission.HasAdmin(currentUser)) {
+				if !userPermission.HasAdmin(currentUser) {
 					b.Username = currentUser.Username
 				}
 				err = modelHelper.ValidateForm(&b, err)
 				if len(err) == 0 {
-					if (b.Email != currentUser.Email) {
+					if b.Email != currentUser.Email {
 						userService.SendVerificationToUser(*currentUser, b.Email)
 						infos["infos"] = append(infos["infos"], fmt.Sprintf(T("email_changed"), b.Email))
 						b.Email = currentUser.Email // reset, it will be set when user clicks verification
