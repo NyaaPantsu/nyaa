@@ -85,7 +85,7 @@ type CommentJSON struct {
 	Username string        `json:"username"`
 	UserID   int           `json:"user_id"`
 	Content  template.HTML `json:"content"`
-	Date     time.Time     `json:"date"`
+	Date     string        `json:"date"`
 }
 
 type TorrentJSON struct {
@@ -117,10 +117,10 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	magnet := util.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, config.Trackers...)
 	commentsJSON := make([]CommentJSON, 0, len(t.OldComments)+len(t.Comments))
 	for _, c := range t.OldComments {
-		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, UserID: -1, Content: template.HTML(c.Content), Date: c.Date})
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, UserID: -1, Content: template.HTML(c.Content), Date: c.Date.Format(time.RFC3339)})
 	}
 	for _, c := range t.Comments {
-		commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt})
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt.Format(time.RFC3339)})
 	}
 	uploader := ""
 	if t.Uploader != nil {
@@ -130,7 +130,8 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	if t.ID <= config.LastOldTorrentID && len(config.TorrentCacheLink) > 0 {
 		torrentlink = fmt.Sprintf(config.TorrentCacheLink, t.Hash)
 	} else if t.ID > config.LastOldTorrentID && len(config.TorrentStorageLink) > 0 {
-		torrentlink = fmt.Sprintf(config.TorrentStorageLink, t.Hash) // TODO: Fix as part of configuration changes
+		// TODO: Fix as part of configuration changes (fix what?)
+		torrentlink = fmt.Sprintf(config.TorrentStorageLink, t.Hash)
 	}
 	res := TorrentJSON{
 		ID:           strconv.FormatUint(uint64(t.ID), 10),
