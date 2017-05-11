@@ -39,25 +39,32 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		} else if user.Status == 1 {
 			status = 3 // mark as trusted if user is trusted
 		}
-		//add to db and redirect depending on result
-		torrent := model.Torrent{
-			Name:        uploadForm.Name,
-			Category:    uploadForm.CategoryID,
-			SubCategory: uploadForm.SubCategoryID,
-			Status:      status,
-			Hash:        uploadForm.Infohash,
-			Date:        time.Now(),
-			Filesize:    uploadForm.Filesize,
-			Description: uploadForm.Description,
-			UploaderID:  user.ID}
-		db.ORM.Create(&torrent)
-		fmt.Printf("%+v\n", torrent)
-		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			var sameTorrents int
+			db.ORM.Model(&model.Torrent{}).Where("torrent_hash = ?", uploadForm.Infohash).Count(&sameTorrents)
+			if (sameTorrents > 0) {
+			//add to db and redirect depending on result
+			torrent := model.Torrent{
+				Name:        uploadForm.Name,
+				Category:    uploadForm.CategoryID,
+				SubCategory: uploadForm.SubCategoryID,
+				Status:      status,
+				Hash:        uploadForm.Infohash,
+				Date:        time.Now(),
+				Filesize:    uploadForm.Filesize,
+				Description: uploadForm.Description,
+				UploaderID:  user.ID}
+			db.ORM.Create(&torrent)
+			fmt.Printf("%+v\n", torrent)
+			url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			http.Redirect(w, r, url.String(), 302)
+		} else {
+			http.Error(w, fmt.Errorf("Torrent already in database!").Error(), http.StatusInternalServerError)
 			return
 		}
-		http.Redirect(w, r, url.String(), 302)
 	} else if r.Method == "GET" {
 		uploadForm.CaptchaID = captcha.GetID()
 		htv := UploadTemplateVariables{uploadForm, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
