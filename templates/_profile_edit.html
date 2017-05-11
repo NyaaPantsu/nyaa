@@ -34,7 +34,7 @@
 				{{end}}
             </div>
           </div>
-          {{ if not (HasAdmin .)}}
+          {{ if not (HasAdmin $.User)}}
           <div class="form-group">
             <label class="col-md-3 control-label">{{ T "current_password"}}:</label>
             <div class="col-md-8">
@@ -63,7 +63,7 @@
 				{{end}}
             </div>
           </div>
-          {{ if HasAdmin .}}
+          {{ if HasAdmin $.User}}
           <h3>{{ T "moderation"}}</h3>
           <div class="form-group">
             <label class="col-md-3 control-label">{{ T "username"}}:</label>
@@ -82,7 +82,7 @@
                 	<option value="-1" {{ if eq .Status -1 }}selected{{end}}>{{ T "banned"}}</option>
                 	<option value="0" {{ if eq .Status 0 }}selected{{end}}>{{ T "member"}} ({{ T "default" }})</option>
                 	<option value="1" {{ if eq .Status 1 }}selected{{end}}>{{ T "trusted_member"}} </option>
-                	<option value="2" {{ if eq .Status 2 }}selected{{end}}>{{ T "moderator"}} </option>
+                	<!-- <option value="2" {{ if eq .Status 2 }}selected{{end}}>{{ T "moderator"}} </option> -->
                 </select>
               </div>
 	 			{{ range (index $.FormErrors "status")}}
