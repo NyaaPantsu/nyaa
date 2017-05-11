@@ -1,6 +1,7 @@
 package router
 
 import (
+	"encoding/base32"
 	"encoding/hex"
 	"errors"
 	"fmt"
@@ -158,23 +159,37 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		f.Filesize = int64(torrent.TotalSize())
 	} else {
 		// No torrent file provided
-		magnetURL, parseErr := url.Parse(f.Magnet)
-		if parseErr != nil {
-			return metainfo.ErrInvalidTorrentFile
-		}
-		exactTopic := magnetURL.Query().Get("xt")
-		if !strings.HasPrefix(exactTopic, "urn:btih:") {
-			return metainfo.ErrInvalidTorrentFile
-		}
-		exactTopic = strings.SplitAfter(exactTopic, ":")[2]
-		f.Infohash = strings.ToUpper(strings.Split(exactTopic, "&")[0])
-		base16, err := regexp.MatchString("^[0-9A-F]{40}$", f.Infohash)
+		magnetUrl, err := url.Parse(string(f.Magnet)) //?
 		if err != nil {
 			return err
 		}
-		base32, err := regexp.MatchString("^[2-7A-Z]{32}$", f.Infohash)
-		if !base16 && !base32 {
+		xt := magnetUrl.Query().Get("xt")
+		if !strings.HasPrefix(xt, "urn:btih:") {
+			return errors.New("incorrect magnet")
+		}
+		xt = strings.SplitAfter(xt, ":")[2]
+		f.Infohash = strings.ToUpper(strings.Split(xt, "&")[0])
+		isBase32, err := regexp.MatchString("^[2-7A-Z]{32}$", f.Infohash)
+		if err != nil {
 			return err
+		}
+		if !isBase32 {
+			isBase16, err := regexp.MatchString("^[0-9A-F]{40}$", f.Infohash)
+			if err != nil {
+				return err
+			}
+			if !isBase16 {
+				return errors.New("incorrect hash")
+			}
+		} else {
+			//convert to base16
+			data, err := base32.StdEncoding.DecodeString(f.Infohash)
+			if err != nil {
+				return err
+			}
+			hash16 := make([]byte, hex.EncodedLen(len(data)))
+			hex.Encode(hash16, data)
+			f.Infohash = string(hash16)
 		}
 
 		f.Filesize = 0
