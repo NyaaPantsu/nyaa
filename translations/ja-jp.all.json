@@ -9,11 +9,11 @@
   },
   {
     "id": "verify_email_content",
-    "translation": "あなたのメールアドレスを確認するため、下のリンクにクリックしてください。"
+    "translation": "あなたのメールアドレスを確認するため、下のリンクをクリックしてください。"
   },
   {
     "id": "reset_password_title",
-    "translation": "Nyaapantsuのパスワードを再設定する"
+    "translation": "Nyaapantsuのパスワードをリセットする"
   },
   {
     "id": "reset_password_content",
@@ -25,7 +25,7 @@
   },
   {
     "id":"signup_box_title",
-    "translation": "サインアップしてください。<small>いつまでも無料だ</small>"
+    "translation": "登録してください。<small>It's free and always will be.</small>"
   },
   {
     "id":"username",
@@ -57,7 +57,7 @@
   },
   {
     "id":"signin",
-    "translation": "サインイン"
+    "translation": "ログイン"
   },
   {
     "id":"register",
@@ -73,7 +73,7 @@
   },
   {
     "id":"remember_me",
-    "translation": "俺を覚え"
+    "translation": "ログイン情報を記憶"
   },
   {
     "id":"forgot_password",
@@ -81,19 +81,19 @@
   },
   {
     "id":"sign_in_box_title",
-    "translation": "サインインしてください"
+    "translation": "ログインしてください"
   },
   {
     "id":"sign_in_title",
-    "translation": "サインイン"
+    "translation": "ログイン"
   },
   {
     "id":"register_success_title",
-    "translation": "サインアップは成功"
+    "translation": "ログイン成功"
   },
   {
     "id":"sign_up_success",
-    "translation": "登録ありがとうございました！"
+    "translation": "ご登録いただきありがとうございます！"
   },
   {
     "id":"verify_success",
@@ -101,11 +101,11 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "最後に、メールインボックスと迷惑メールに確認メールをチェックしてください。"
+    "translation": "確認のメールを送信したのでメールボックスをチェックしてください。迷惑メールフォルダの確認もお忘れずに。"
   },
   {
     "id":"signup_verification_noemail",
-    "translation": "登録は成功でした。今、あなたのアカウントを使うことができます。"
+    "translation": "登録成功！今からこのアカウントを使うことができます"
   },
   {
     "id":"settings",
@@ -153,7 +153,7 @@
   },
   {
     "id": "error_404",
-    "translation": "エラー４０４"
+    "translation": "エラー　404"
   },
   {
     "id": "toggle_navigation",
@@ -173,15 +173,15 @@
   },
   {
     "id": "advanced_search",
-    "translation": "高度なサーチ"
+    "translation": "高度な検索"
   },
   {
     "id": "nothing_here",
-    "translation": "ここには何もない。"
+    "translation": "ここには何も無いにゃあ"
   },
   {
     "id": "404_not_found",
-    "translation": "４０４見つかりません"
+    "translation": "見つかりませんでした"
   },
   {
     "id": "no_torrents_uploaded",
@@ -201,31 +201,31 @@
   },
   {
     "id": "sign_in",
-    "translation": "サインイン"
+    "translation": "ログイン"
   },
   {
     "id": "sign_up",
-    "translation": "サインアップ"
+    "translation": "登録"
   },
   {
     "id": "no_results_found",
-    "translation": "結果が見つかれません"
+    "translation": "結果が見つかりませんでした"
   },
   {
     "id": "notice_keep_seeding",
-    "translation": "掲示：シードするを続けるやDHTを可能にする、馬鹿野郎"
+    "translation": "お知らせ：TorrentクライアントのDHT機能を有効化し、なるべくシードをしてください"
   },
   {
     "id": "official_nyaapocalipse_faq",
-    "translation": "公式のニャーポカリプスのよくある質問"
+    "translation": "nyaa.seの閉鎖についてよくある質問"
   },
   {
     "id": "links_replacement_mirror",
-    "translation": "置換／ミラーへのリンク"
+    "translation": "nyaa.seのミラーへのリンク"
   },
   {
     "id": "what_happened",
-    "translation": "置換／ミラーへのリンク"
+    "translation": "何が起きたのか"
   },
   {
     "id": "nyaa_se_went_offline",
@@ -233,23 +233,23 @@
   },
   {
     "id": "its_not_a_ddos",
-    "translation": "それは非アクティブ化されたので、それは通常のようにDDoS攻撃ではありません。"
+    "translation": "オフラインの原因は毎度おなじみのDDoSではなく、管理者自身がサイトをオフラインにしたようです"
   },
   {
     "id": "future_not_looking_good",
-    "translation": "ニャーの将来の見通しは良くないそうです。（それは死んでいる）"
+    "translation": "nyaa.seのこれからはあまりよくないようです(もう死にましたが)"
   },
   {
     "id": "recovery_effort",
-    "translation": "回復努力がしている。"
+    "translation": "今はなきNyaaを取り戻すべく頑張っています"
   },
   {
     "id": "is_everything_lost",
-    "translation": "すべてが失われていますか？"
+    "translation": "nyaa.seのすべては失われましたか？"
   },
   {
     "id": "in_short_no",
-    "translation": "要するに、いいえ。"
+    "translation": "いいえ。"
   },
   {
     "id": "are_some_things_lost",
@@ -257,19 +257,19 @@
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "我々は<s>４月５日</s>５月１日までニャーの急流のデータベースがあります。ほとんど何も失われないことを意味します。"
+    "translation": "私たちは<s>４月５日</s>５月１日までのnyaa.seのデータベースを持っています。つまり、ほとんど失われていません"
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "しかし、スケベイの調子が悪いかもしれません。今、我々は２０１６年までのスケベイデータベースしかありませんが、より新しいデータベースが利用可能かもしれません。"
+    "translation": "ですがsukebeiは若干データが失われました。私たちの下には2016年までのsukebeiのデータベースしかありませんが、今後新しいデータベースが使える可能性はあります"
   },
   {
     "id": "how_are_we_recovering",
-    "translation": "起死回生するために我々は何していますか？"
+    "translation": "起死回生するために私たちは何していますか？"
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "データベースはnyaa.pantsu.catとsukebei.pantsu.catでホストされています。検索機能があります。（ほとんど）完全なニャー機能性はカミングスーンはずです、乞うご期待。シード/リーチャー統計は掻き取りによって可能であり、将来いつか復元される可能性があります。他の機能は現在優先されています。"
+    "translation": "前述の２つのデータベースをnyaa.pantsu.catとsukebei.pantsu.catでホストしています。それぞれに検索機能があります。nyaa.seにあった機能は全部ではありませんが、もうすぐ実装されます。お楽しみに。また、シード/リーチャーの統計情報はスクレイピングによって収集可能ですが、今は他に優先すべきことがあるため後回しにされます。"
   },
   {
     "id": "are_the_trackers_working",
@@ -277,7 +277,7 @@
   },
   {
     "id": "answer_are_the_trackers_working",
-    "translation": "トラッカーがダウンしていても、シーダーはまだ分散型DHTネットワークに接続されています。ファイルがDHTネットワーク上にリストされている限り、すべてが正常はずです。"
+    "translation": "トラッカーがダウンしていても、ファイルをシードしている人はまだDHTネットワークに接続されています。ファイルがDHTネットワーク上にリストされている限り、すべてが正常なはずです。"
   },
   {
     "id": "how_do_i_download_the_torrents",
@@ -285,7 +285,7 @@
   },
   {
     "id": "answer_how_do_i_download_the_torrents",
-    "translation": "<b>マグネットリンク</b> を使って。トレントクライアントがDHTネットワーク上のファイルを見つけるためにマグネットリンクを使います。正しくダウンロードするはずです。"
+    "translation": "<b>マグネットリンク</b> を使ってください。マグネットリンクはTorrentクライアントがDHTネットワーク上のファイルを探すのに使用されます。"
   },
   {
     "id": "magnet_link_should_look_like",
@@ -293,15 +293,15 @@
   },
   {
     "id": "which_trackers_do_you_recommend",
-    "translation": "どのトラッカーがすすめですか？"
+    "translation": "どのトラッカーがおすすめですか？"
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "トレントアップロードがトラッカーのために拒否されたなら、これらのいくつかを追加する必要があります："
+    "translation": "トレントのアップロードがトラッカーに拒否されたなら、これらのいくつかを追加する必要があります："
   },
   {
     "id": "how_can_i_help",
-    "translation": "手伝いしましょうか？"
+    "translation": "お手伝いするためにはどうすれば？"
   },
   {
     "id": "answer_how_can_i_help",
@@ -309,7 +309,7 @@
   },
   {
     "id": "your_design_sucks_found_a_bug",
-    "translation": "貴様のでサインはくそ／バグを見つけた"
+    "translation": "貴様のデザインはクソ／バグを見つけた"
   },
   {
     "id": "why_written_in_go",
@@ -317,11 +317,11 @@
   },
   {
     "id": "authors_favorite_language",
-    "translation": "作者の一番好きなプログラミング言語です。"
+    "translation": "作者の一番好きなプログラミング言語だからです。"
   },
   {
     "id": "nyaa_pantsu_dont_host_files",
-    "translation": " nyaa.pantsu.catとsukebei.pantsu.catはファイルをホストしません。"
+    "translation": " nyaa.pantsu.catとsukebei.pantsu.catはすべてのファイルをホストしていません。"
   },
   {
     "id": "upload_magnet",
@@ -349,19 +349,19 @@
   },
   {
     "id": "anime_amv",
-    "translation": "アニメ　‐　アニメミュジックビデオ（AMV)"
+    "translation": "アニメ　‐　アニメミュージックビデオ（AMV)"
   },
   {
     "id": "anime_english_translated",
-    "translation": "アニメ　‐　英語に訳した"
+    "translation": "アニメ　‐　英語訳"
   },
   {
     "id": "anime_non_english_translated",
-    "translation": "アニメ　‐　非英語に訳した"
+    "translation": "アニメ　‐　非英語訳"
   },
   {
     "id": "anime_raw",
-    "translation": "アニメ　‐　生（raw）"
+    "translation": "アニメ　‐　raw"
   },
   {
     "id": "audio",
@@ -369,27 +369,27 @@
   },
   {
     "id": "audio_lossless",
-    "translation": "オーディオ　‐　可逆圧縮"
+    "translation": "オーディオ　‐　可逆圧縮(flacなど)"
   },
   {
     "id": "audio_lossy",
-    "translation": "オーディオ　‐　損失圧縮"
+    "translation": "オーディオ　‐　不可逆圧縮(mp3など)"
   },
   {
     "id": "literature",
-    "translation": "文献"
+    "translation": "本"
   },
   {
     "id": "literature_english_translated",
-    "translation": "文献　‐　 英語に訳した"
+    "translation": "本　‐　 英語訳"
   },
   {
     "id": "literature_raw",
-    "translation": "文献　‐　生（raw）"
+    "translation": "本　‐　raw"
   },
   {
     "id": "literature_non_english_translated",
-    "translation": "文献　‐　非英語に訳した"
+    "translation": "本　‐　非英語訳"
   },
   {
     "id": "live_action",
@@ -397,7 +397,7 @@
   },
   {
     "id": "live_action_english_translated",
-    "translation": "実写　‐　英語に訳した"
+    "translation": "実写　‐　英語訳"
   },
   {
     "id": "live_action_idol_pv",
@@ -405,11 +405,11 @@
   },
   {
     "id": "live_action_non_english_translated",
-    "translation": "実写　‐　非英語に訳した"
+    "translation": "実写　‐　非英語訳"
   },
   {
     "id": "live_action_raw",
-    "translation": "実写　‐　生（raw）"
+    "translation": "実写　‐　raw"
   },
   {
     "id": "pictures",
@@ -441,19 +441,19 @@
   },
   {
     "id": "description_markdown_notice",
-    "translation": "説明に、マークダウンを使えます。"
+    "translation": "説明にマークダウンを使えます。"
   },
   {
     "id": "show_all",
-    "translation": "すべて見せる"
+    "translation": "すべて表示"
   },
   {
     "id": "filter_remakes",
-    "translation": "リメークを濾す"
+    "translation": "リメイクをフィルター"
   },
   {
     "id": "trusted",
-    "translation": "信頼できる"
+    "translation": "信頼できるもの"
   },
   {
     "id": "id",
@@ -469,11 +469,11 @@
   },
   {
     "id": "ascending",
-    "translation": "上昇"
+    "translation": "昇順"
   },
   {
     "id": "search",
-    "translation": "サーチ"
+    "translation": "検索"
   },
   {
     "id": "hash",
@@ -481,7 +481,7 @@
   },
   {
     "id": "description",
-    "translation": "記述"
+    "translation": "説明"
   },
   {
     "id": "comments",
@@ -533,7 +533,7 @@
   },
   {
     "id": "save_changes",
-    "translation": "変更をセーブ"
+    "translation": "変更を保存"
   },
   {
     "id": "profile_updated",
