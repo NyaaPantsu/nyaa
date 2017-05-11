@@ -81,8 +81,10 @@
                 <select id="status" name="status" class="form-control">
                 	<option value="-1" {{ if eq .Status -1 }}selected{{end}}>{{ T "banned"}}</option>
                 	<option value="0" {{ if eq .Status 0 }}selected{{end}}>{{ T "member"}} ({{ T "default" }})</option>
-                	<option value="1" {{ if eq .Status 1 }}selected{{end}}>{{ T "trusted_member"}} </option>
-                	<!-- <option value="2" {{ if eq .Status 2 }}selected{{end}}>{{ T "moderator"}} </option> -->
+                	<option value="1" {{ if eq .Status 1 }}selected{{end}}>{{ T "trusted_member"}}</option>
+                	{{ if eq .Status 2 }} <!-- just so that it shows correctly -->
+                        <option value="2" selected>{{ T "moderator"}}</option>
+                	{{end}}
                 </select>
               </div>
 	 			{{ range (index $.FormErrors "status")}}
