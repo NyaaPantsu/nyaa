@@ -566,7 +566,7 @@
   {
     "id": "delete_success",
     "translation": "Le compte a été supprimé avec succès !"
-  }
+  },
   {
     "id": "moderation",
     "translation": "Modération"
@@ -582,7 +582,7 @@
   {
     "id": "mark_as_remake",
     "translation": "Marquer comme remake"
-  }
+  },
   {
     "id": "email_changed",
     "translation": "L'adresse email a été modifiée avec succès ! Confirmez le changement en cliquant sur le lien envoyé à : %s"
