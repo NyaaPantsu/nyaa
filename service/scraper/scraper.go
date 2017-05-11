@@ -196,6 +196,13 @@ func (sc *Scraper) Scrape(packets uint) {
 				}
 			}
 		}
+		idx := counter % ScrapesPerPacket
+		if idx > 0 {
+			for _, b := range sc.trackers {
+				t := b.NewTransaction(scrape[:idx])
+				sc.sendQueue <- t.SendEvent(b.Addr)
+			}
+		}
 		log.Infof("scrape %d", counter)
 		rows.Close()
 
