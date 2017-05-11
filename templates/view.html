@@ -54,8 +54,22 @@
                 <p><a href="{{.WebsiteLink}}">{{.WebsiteLink}}</a></p>
                 <hr>
                 {{end}}
-                <h4>{{T "seeders"}} | {{T "leechers"}} | {{T "completed"}}</h4>
-                <p>{{.Seeders}} | {{.Leechers}} | {{.Completed}}</p>
+                <div class="row">
+                <div class="col-md-4">{{T "seeders"}}</div>
+                <div class="col-md-4">{{T "leechers"}}</div>
+                <div class="col-md-4">{{T "completed"}}</div>
+                </div>
+                <div class="row">
+                <div class="col-md-4">{{.Seeders}}</div>
+                <div class="col-md-4">{{.Leechers}}</div>
+                <div class="col-md-4"><span class="completed" style="">{{.Completed}}</span></div>
+                <div class="col-md-8">
+                <div class="proSeedBar">
+                  <div class="seeds" style="width: {{ calcWidthSeed .Seeders .Leechers }}%;"></div>
+                  <div class="leechs" style="width: {{ calcWidthLeech .Seeders .Leechers }}%;"></div>
+                </div>
+                </div>
+                </div>
                 <hr>
             </div>
         </div>
