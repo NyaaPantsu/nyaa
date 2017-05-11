@@ -378,3 +378,8 @@ footer {
   top: -0.5rem;
   float: right;
 }
+
+.comment-date {
+	font-size: smaller;
+	width: auto; /* Undo bootstrap's fixed width */
+}

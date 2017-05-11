@@ -93,8 +93,11 @@
                             <a href="{{$.URL.Parse (printf "/user/%d/-" .UserID ) }}">{{.Username}}</a>
                         {{end}}
                     </div>
-                    <div class="col-md-2">
-                        {{.Date.Year}}/{{.Date.Month}}/{{.Date.Day}}
+                    <div class="col-md-1 date-short comment-date">
+                        {{ .Date.Format ( Ts "date_format" ) }}
+                        {{/* output: "2017-05-01 15:30"
+                            Went with "Year-Month-Day" because it's the most unambiguous.
+                            If you want it to be determined by where you're from, be my guest. */}}
                     </div>
                     <div class="col-md-8">
                         {{.Content}}

@@ -11,6 +11,9 @@ import (
 	"github.com/ewhal/nyaa/util/log"
 )
 
+// TransactionTimeout 30 second timeout for transactions
+const TransactionTimeout = time.Second * 30
+
 const stateSendID = 0
 const stateRecvID = 1
 const stateTransact = 2
@@ -27,13 +30,12 @@ type Transaction struct {
 	bucket        *Bucket
 	state         uint8
 	swarms        []model.Torrent
+	lastData      time.Time
 }
 
 // Done marks this transaction as done and removes it from parent
 func (t *Transaction) Done() {
-	t.bucket.access.Lock()
-	delete(t.bucket.transactions, t.TransactionID)
-	t.bucket.access.Unlock()
+	t.bucket.Forget(t.TransactionID)
 }
 
 func (t *Transaction) handleScrapeReply(data []byte) {
@@ -95,6 +97,7 @@ func (t *Transaction) SendEvent(to net.Addr) (ev *SendEvent) {
 		binary.BigEndian.PutUint32(ev.Data[12:], t.TransactionID)
 		t.state = stateRecvID
 	}
+	t.lastData = time.Now()
 	return
 }
 
@@ -104,7 +107,7 @@ func (t *Transaction) handleError(msg string) {
 
 // handle data for transaction
 func (t *Transaction) GotData(data []byte) (done bool) {
-
+	t.lastData = time.Now()
 	if len(data) > 4 {
 		cmd := binary.BigEndian.Uint32(data)
 		switch cmd {
@@ -131,4 +134,9 @@ func (t *Transaction) GotData(data []byte) (done bool) {
 		}
 	}
 	return
+}
+
+func (t *Transaction) IsTimedOut() bool {
+	return t.lastData.Add(TransactionTimeout).Before(time.Now())
+
 }

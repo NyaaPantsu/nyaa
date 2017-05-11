@@ -36,12 +36,13 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 			Id:          "https://" + config.WebAddress + "/view/" + strconv.FormatUint(uint64(torrents[i].ID), 10),
 			Title:       torrents[i].Name,
 			Link:        &feeds.Link{Href: string(torrentJSON.Magnet)},
-			Description: "",
+			Description: string(torrentJSON.Description),
 			Created:     torrents[0].Date,
 			Updated:     torrents[0].Date,
 		}
 	}
-
+	//allow cross domain AJAX requests
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	rss, rssErr := feed.ToRss()
 	if rssErr != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
