@@ -39,6 +39,9 @@
     <option value="2" {{if eq .Search.Sort 2}}selected{{end}}>{{T "date"}}</option>
     <option value="3" {{if eq .Search.Sort 3}}selected{{end}}>{{T "downloads"}}</option>
     <option value="4" {{if eq .Search.Sort 4}}selected{{end}}>{{T "size"}}</option>
+    <option value="5" {{if eq .Search.Sort 4}}selected{{end}}>{{T "seeders"}}</option>
+    <option value="6" {{if eq .Search.Sort 4}}selected{{end}}>{{T "leechers"}}</option>
+    <option value="7" {{if eq .Search.Sort 4}}selected{{end}}>{{T "completed"}}</option>
   </select>
   <select name="order" class="form-control input-sm">
     <option value="false" {{if eq .Search.Order false}}selected{{end}}>{{T "descending"}}</option>
