@@ -1,6 +1,7 @@
 package apiService
 
 import (
+	"encoding/base32"
 	"encoding/hex"
 	"errors"
 	"fmt"
@@ -92,26 +93,39 @@ func validateMagnet(r *TorrentRequest) (error, int) {
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
-	exactTopic := magnetUrl.Query().Get("xt")
-	fmt.Println(exactTopic)
-	if !strings.HasPrefix(exactTopic, "urn:btih:") {
+	xt := magnetUrl.Query().Get("xt")
+	if !strings.HasPrefix(xt, "urn:btih:") {
 		return ErrMagnet, http.StatusNotAcceptable
 	}
-	exactTopic = strings.SplitAfter(exactTopic, ":")[2]
-	r.Hash = strings.ToUpper(strings.Split(exactTopic, "&")[0])
+	xt = strings.SplitAfter(xt, ":")[2]
+	r.Hash = strings.ToUpper(strings.Split(xt, "&")[0])
 	fmt.Println(r.Hash)
 	return nil, http.StatusOK
 }
 
 func validateHash(r *TorrentRequest) (error, int) {
 	r.Hash = strings.ToUpper(r.Hash)
-	base16, err := regexp.MatchString("^[0-9A-F]{40}$", r.Hash)
+	isBase32, err := regexp.MatchString("^[2-7A-Z]{32}$", r.Hash)
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
-	base32, err := regexp.MatchString("^[2-7A-Z]{32}$", r.Hash)
-	if !base16 && !base32 {
-		return ErrHash, http.StatusNotAcceptable
+	if !isBase32 {
+		isBase16, err := regexp.MatchString("^[0-9A-F]{40}$", r.Hash)
+		if err != nil {
+			return err, http.StatusInternalServerError
+		}
+		if !isBase16 {
+			return ErrHash, http.StatusNotAcceptable
+		}
+	} else {
+		//convert to base16
+		data, err := base32.StdEncoding.DecodeString(r.Hash)
+		if err != nil {
+			return err, http.StatusInternalServerError
+		}
+		hash16 := make([]byte, hex.EncodedLen(len(data)))
+		hex.Encode(hash16, data)
+		r.Hash = string(hash16)
 	}
 	return nil, http.StatusOK
 }
