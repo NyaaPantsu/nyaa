@@ -95,7 +95,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	f.Name = util.TrimWhitespaces(f.Name)
 	f.Description = p.Sanitize(util.TrimWhitespaces(f.Description))
 	f.Magnet = util.TrimWhitespaces(f.Magnet)
-	cache.Clear()
+	cache.Impl.ClearAll()
 
 	catsSplit := strings.Split(f.Category, "_")
 	// need this to prevent out of index panics

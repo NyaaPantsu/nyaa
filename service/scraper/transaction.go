@@ -11,6 +11,9 @@ import (
 	"github.com/ewhal/nyaa/util/log"
 )
 
+// TransactionTimeout 30 second timeout for transactions
+const TransactionTimeout = time.Second * 30
+
 const stateSendID = 0
 const stateRecvID = 1
 const stateTransact = 2
@@ -27,13 +30,12 @@ type Transaction struct {
 	bucket        *Bucket
 	state         uint8
 	swarms        []model.Torrent
+	lastData      time.Time
 }
 
 // Done marks this transaction as done and removes it from parent
 func (t *Transaction) Done() {
-	t.bucket.access.Lock()
-	delete(t.bucket.transactions, t.TransactionID)
-	t.bucket.access.Unlock()
+	t.bucket.Forget(t.TransactionID)
 }
 
 func (t *Transaction) handleScrapeReply(data []byte) {
@@ -51,18 +53,22 @@ func (t *Transaction) handleScrapeReply(data []byte) {
 	}
 }
 
+const pgQuery = "UPDATE torrents SET seeders = $1 , leechers = $2 , completed = $3 , last_scrape = $4 WHERE torrent_id = $5"
+const sqliteQuery = "UPDATE torrents SET seeders = ? , leechers = ? , completed = ? , last_scrape = ? WHERE torrent_id = ?"
+
 // Sync syncs models with database
 func (t *Transaction) Sync() (err error) {
-	for idx := range t.swarms {
-		err = db.ORM.Model(&t.swarms[idx]).Updates(map[string]interface{}{
-			"seeders":     t.swarms[idx].Seeders,
-			"leechers":    t.swarms[idx].Leechers,
-			"completed":   t.swarms[idx].Completed,
-			"last_scrape": t.swarms[idx].LastScrape,
-		}).Error
-		if err != nil {
-			break
+	q := pgQuery
+	if db.IsSqlite {
+		q = sqliteQuery
+	}
+	tx, e := db.ORM.DB().Begin()
+	err = e
+	if err == nil {
+		for idx := range t.swarms {
+			_, err = tx.Exec(q, t.swarms[idx].Seeders, t.swarms[idx].Leechers, t.swarms[idx].Completed, t.swarms[idx].LastScrape, t.swarms[idx].ID)
 		}
+		tx.Commit()
 	}
 	return
 }
@@ -95,6 +101,7 @@ func (t *Transaction) SendEvent(to net.Addr) (ev *SendEvent) {
 		binary.BigEndian.PutUint32(ev.Data[12:], t.TransactionID)
 		t.state = stateRecvID
 	}
+	t.lastData = time.Now()
 	return
 }
 
@@ -104,7 +111,7 @@ func (t *Transaction) handleError(msg string) {
 
 // handle data for transaction
 func (t *Transaction) GotData(data []byte) (done bool) {
-
+	t.lastData = time.Now()
 	if len(data) > 4 {
 		cmd := binary.BigEndian.Uint32(data)
 		switch cmd {
@@ -131,4 +138,9 @@ func (t *Transaction) GotData(data []byte) (done bool) {
 		}
 	}
 	return
+}
+
+func (t *Transaction) IsTimedOut() bool {
+	return t.lastData.Add(TransactionTimeout).Before(time.Now())
+
 }

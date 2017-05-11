@@ -26,7 +26,18 @@
 
     <!-- Website CSS -->
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/style.css"}}">
-
+    <script type="text/javascript">
+      // Night mode
+      var night = localStorage.getItem("night");
+      var darkStyleLink = document.createElement('link');
+      darkStyleLink.id = "style-dark";
+      darkStyleLink.rel = "stylesheet";
+      darkStyleLink.type = "text/css";
+      darkStyleLink.href = "/css/style-night.css"
+      if (night == "true") {
+          document.getElementsByTagName("head")[0].append(darkStyleLink);
+      }
+    </script>
   </head>
   <body>
       <nav class="navbar navbar-default" id="mainmenu">
@@ -76,7 +87,6 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}"></script>
-
 
         {{block "js_footer" .}}{{end}}
 </body>

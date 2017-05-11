@@ -590,5 +590,17 @@
   {
     "id": "torrent_status_remake",
     "translation": "Remake"
+  },
+  {
+    "id": "seeders",
+    "translation": "Seeder"
+  },
+  {
+    "id": "leechers",
+    "translation": "Leecher"
+  },
+  {
+    "id": "completed",
+    "translation": "Komplett"
   }
 ]
