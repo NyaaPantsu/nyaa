@@ -3,9 +3,7 @@ package router
 import (
 	"fmt"
 	"html"
-	"html/template"
 	"net/http"
-	"path/filepath"
 	"strconv"
 
 	"github.com/ewhal/nyaa/db"
@@ -22,23 +20,6 @@ import (
 	"github.com/ewhal/nyaa/util/search"
 	"github.com/gorilla/mux"
 )
-
-var panelIndex, panelTorrentList, panelUserList, panelCommentList, panelTorrentEd, panelTorrentReportList *template.Template
-
-func init() {
-	panelTorrentList = template.Must(template.New("torrentlist").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/torrentlist.html")))
-	panelTorrentList = template.Must(panelTorrentList.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
-	panelUserList = template.Must(template.New("userlist").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/userlist.html")))
-	panelUserList = template.Must(panelUserList.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
-	panelCommentList = template.Must(template.New("commentlist").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/commentlist.html")))
-	panelCommentList = template.Must(panelCommentList.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
-	panelIndex = template.Must(template.New("indexPanel").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/panelindex.html")))
-	panelIndex = template.Must(panelIndex.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
-	panelTorrentEd = template.Must(template.New("torrent_ed").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/paneltorrentedit.html")))
-	panelTorrentEd = template.Must(panelTorrentEd.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
-	panelTorrentReportList = template.Must(template.New("torrent_report").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/torrent_report.html")))
-	panelTorrentReportList = template.Must(panelTorrentReportList.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
-}
 
 func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
@@ -217,19 +198,19 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 	err := form.NewErrors()
 	infos := form.NewInfos()
 	torrent, _ := torrentService.GetTorrentById(id)
-	if (torrent.ID > 0) {
+	if torrent.ID > 0 {
 		errUp := uploadForm.ExtractEditInfo(r)
 		if errUp != nil {
 			err["errors"] = append(err["errors"], "Failed to update torrent!")
 		}
-		if (len(err) == 0) {
+		if len(err) == 0 {
 			// update some (but not all!) values
-			torrent.Name        = uploadForm.Name
-			torrent.Category    = uploadForm.CategoryID
+			torrent.Name = uploadForm.Name
+			torrent.Category = uploadForm.CategoryID
 			torrent.SubCategory = uploadForm.SubCategoryID
-			torrent.Status      = uploadForm.Status
+			torrent.Status = uploadForm.Status
 			torrent.Description = uploadForm.Description
-			torrent.Uploader    = nil // GORM will create a new user otherwise (wtf?!)
+			torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
 			db.ORM.Save(&torrent)
 			infos["infos"] = append(infos["infos"], "Torrent details updated.")
 		}

@@ -9,12 +9,25 @@ import (
 
 	"github.com/ewhal/nyaa/cache"
 	"github.com/ewhal/nyaa/common"
+	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service"
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/util/log"
 )
+
+var searchOperator string
+
+func Configure(conf *config.SearchConfig) (err error) {
+	// SQLite has case-insensitive LIKE, but no ILIKE
+	if db.ORM.Dialect().GetName() == "sqlite3" {
+		searchOperator = "LIKE ?"
+	} else {
+		searchOperator = "ILIKE ?"
+	}
+	return
+}
 
 func SearchByQuery(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
 	search, tor, count, err = searchByQuery(r, pagenum, true)
@@ -40,7 +53,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	search.Page = pagenum
 	search.Query = r.URL.Query().Get("q")
 	userID, _ := strconv.Atoi(r.URL.Query().Get("userID"))
-	search.UserID =  uint(userID)
+	search.UserID = uint(userID)
 
 	switch s := r.URL.Query().Get("s"); s {
 	case "1":
@@ -75,22 +88,36 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	case "1":
 		search.Sort = common.Name
 		orderBy += "torrent_name"
+		break
 	case "2":
 		search.Sort = common.Date
 		orderBy += "date"
+		break
 	case "3":
 		search.Sort = common.Downloads
 		orderBy += "downloads"
+		break
 	case "4":
 		search.Sort = common.Size
 		orderBy += "filesize"
+		break
 	case "5":
+		search.Sort = common.Seeders
 		orderBy += "seeders"
+		search.NotNull += "seeders IS NOT NULL "
+		break
 	case "6":
+		search.Sort = common.Leechers
 		orderBy += "leechers"
+		search.NotNull += "leechers IS NOT NULL "
+		break
 	case "7":
+		search.Sort = common.Completed
 		orderBy += "completed"
+		search.NotNull += "completed IS NOT NULL "
+		break
 	default:
+		search.Sort = common.ID
 		orderBy += "torrent_id"
 	}
 
@@ -103,68 +130,68 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	default:
 		orderBy += "desc"
 	}
+	parameters := serviceBase.WhereParams{
+		Params: make([]interface{}, 0, 64),
+	}
+	conditions := make([]string, 0, 64)
 
-	tor, count, err = cache.Get(search, func() (tor []model.Torrent, count int, err error) {
-		parameters := serviceBase.WhereParams{
-			Params: make([]interface{}, 0, 64),
+	if search.Category.Main != 0 {
+		conditions = append(conditions, "category = ?")
+		parameters.Params = append(parameters.Params, string(catString[0]))
+	}
+	if search.UserID != 0 {
+		conditions = append(conditions, "uploader = ?")
+		parameters.Params = append(parameters.Params, search.UserID)
+	}
+	if search.Category.Sub != 0 {
+		conditions = append(conditions, "sub_category = ?")
+		parameters.Params = append(parameters.Params, string(catString[2]))
+	}
+	if search.Status != 0 {
+		if search.Status == common.FilterRemakes {
+			conditions = append(conditions, "status <> ?")
+		} else {
+			conditions = append(conditions, "status >= ?")
 		}
-		conditions := make([]string, 0, 64)
-		if search.Category.Main != 0 {
-			conditions = append(conditions, "category = ?")
-			parameters.Params = append(parameters.Params, string(catString[0]))
-		}
-		if search.UserID != 0 {
-			conditions = append(conditions, "uploader = ?")
-			parameters.Params = append(parameters.Params, search.UserID)
-		}
-		if search.Category.Sub != 0 {
-			conditions = append(conditions, "sub_category = ?")
-			parameters.Params = append(parameters.Params, string(catString[2]))
-		}
-		if search.Status != 0 {
-			if search.Status == common.FilterRemakes {
-				conditions = append(conditions, "status <> ?")
-			} else {
-				conditions = append(conditions, "status >= ?")
-			}
-			parameters.Params = append(parameters.Params, strconv.Itoa(int(search.Status)+1))
-		}
+		parameters.Params = append(parameters.Params, strconv.Itoa(int(search.Status)+1))
+	}
+	if len(search.NotNull) > 0 {
+		conditions = append(conditions, search.NotNull)
+	}
 
-		searchQuerySplit := strings.Fields(search.Query)
-		for i, word := range searchQuerySplit {
-			firstRune, _ := utf8.DecodeRuneInString(word)
-			if len(word) == 1 && unicode.IsPunct(firstRune) {
-				// some queries have a single punctuation character
-				// which causes a full scan instead of using the index
-				// and yields no meaningful results.
-				// due to len() == 1 we're just looking at 1-byte/ascii
-				// punctuation characters.
-				continue
-			}
+	if len(search.NotNull) > 0 {
+		conditions = append(conditions, search.NotNull)
+	}
 
-			// SQLite has case-insensitive LIKE, but no ILIKE
-			var operator string
-			if db.ORM.Dialect().GetName() == "sqlite3" {
-				operator = "LIKE ?"
-			} else {
-				operator = "ILIKE ?"
-			}
-
-			// TODO: make this faster ?
-			conditions = append(conditions, "torrent_name "+operator)
-			parameters.Params = append(parameters.Params, "%"+searchQuerySplit[i]+"%")
+	searchQuerySplit := strings.Fields(search.Query)
+	for i, word := range searchQuerySplit {
+		firstRune, _ := utf8.DecodeRuneInString(word)
+		if len(word) == 1 && unicode.IsPunct(firstRune) {
+			// some queries have a single punctuation character
+			// which causes a full scan instead of using the index
+			// and yields no meaningful results.
+			// due to len() == 1 we're just looking at 1-byte/ascii
+			// punctuation characters.
+			continue
 		}
 
-		parameters.Conditions = strings.Join(conditions[:], " AND ")
-		log.Infof("SQL query is :: %s\n", parameters.Conditions)
+		// TODO: make this faster ?
+		conditions = append(conditions, "torrent_name "+searchOperator)
+		parameters.Params = append(parameters.Params, "%"+searchQuerySplit[i]+"%")
+	}
+
+	parameters.Conditions = strings.Join(conditions[:], " AND ")
+
+	log.Infof("SQL query is :: %s\n", parameters.Conditions)
+
+	tor, count, err = cache.Impl.Get(search, func() (tor []model.Torrent, count int, err error) {
+
 		if countAll {
 			tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
 		} else {
 			tor, err = torrentService.GetTorrentsOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
 		}
-
 		return
 	})
-
 	return
 }

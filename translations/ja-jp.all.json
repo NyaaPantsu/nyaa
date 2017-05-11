@@ -45,15 +45,15 @@
   },
   {
     "id":"confirm_password",
-    "translation": "パスワードを確認する"
+    "translation": "パスワードの再入力"
   },
   {
     "id":"i_agree",
-    "translation": "同意します"
+    "translation": "同意する"
   },
   {
     "id":"terms_conditions_confirm",
-    "translation": "<strong class=\"label label-primary\">登録する</strong> をクリックすることにより、Cookie の使用を含む、本サイトで規定されている <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\"> 利用規約</a> に同意するものとします。"
+    "translation": "<strong class=\"label label-primary\">登録</strong> をクリックすることにより、Cookie の使用を含む、本サイトの <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">利用規約</a> に同意したものとみなします。"
   },
   {
     "id":"signin",
@@ -213,7 +213,7 @@
   },
   {
     "id": "notice_keep_seeding",
-    "translation": "お願い：DHT 機能を有効にし、なるべくシードを継続してください"
+    "translation": "お願い: DHT 機能を有効にし、なるべくシードを継続してください"
   },
   {
     "id": "official_nyaapocalipse_faq",
@@ -289,7 +289,7 @@
   },
   {
     "id": "magnet_link_should_look_like",
-    "translation": "magnet リンクは次のようになっているはずです："
+    "translation": "magnet リンクは次のようになっているはずです:"
   },
   {
     "id": "which_trackers_do_you_recommend",
@@ -297,7 +297,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "トラッカーに Torrent のアップロードを拒否された場合は、この中のいくつかを追加する必要があります："
+    "translation": "トラッカーに Torrent のアップロードを拒否された場合は、この中のいくつかを追加する必要があります:"
   },
   {
     "id": "how_can_i_help",
@@ -321,7 +321,7 @@
   },
   {
     "id": "nyaa_pantsu_dont_host_files",
-    "translation": " nyaa.pantsu.cat と sukebei.pantsu.cat はいかなるファイルもホストしていません。"
+    "translation": "nyaa.pantsu.cat と sukebei.pantsu.cat はいかなるファイルもホストしていません。"
   },
   {
     "id": "upload_magnet",
@@ -449,7 +449,7 @@
   },
   {
     "id": "filter_remakes",
-    "translation": "リメイクされたフィルター"
+    "translation": "再構成されたフィルター"
   },
   {
     "id": "trusted",
@@ -550,5 +550,49 @@
   {
     "id": "delete_success",
     "translation": "アカウントが削除されました。"
+  },
+  {
+    "id": "moderation",
+    "translation": "緩和"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "「れんちょん」って誰やねん"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "「れんちょん」は匿名でアップロードもしくはコメントを書き込んだ際に割り当てられるユーザー名なのん。オリジナルのアップロード者と一緒に表示されることがあるけど、オリジナルの nyaa からインポートされた Torrent にも使用されるのん。"
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "再構成としてマーク"
+  },
+  {
+    "id": "email_changed",
+    "translation": "メールアドレスが変更されました。なお、送信されたリンクをクリックして認証を済ませる必要があります: %s"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "Torrent の状態"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "非表示"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "通常"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "再構成"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "%s のプロフィールを編集"
+  },
+  {
+    "id":"date_format",
+    "translation": "2006/01/02 15:04"
   }
 ]
