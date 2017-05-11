@@ -30,18 +30,7 @@
 
     <!-- Website CSS -->
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/style.css"}}">
-    <script type="text/javascript">
-      // Night mode
-      var night = localStorage.getItem("night");
-      var darkStyleLink = document.createElement('link');
-      darkStyleLink.id = "style-dark";
-      darkStyleLink.rel = "stylesheet";
-      darkStyleLink.type = "text/css";
-      darkStyleLink.href = "/css/style-night.css"
-      if (night == "true") {
-          document.getElementsByTagName("head")[0].append(darkStyleLink);
-      }
-    </script>
+    {{block "night_theme_init" .}}{{end}}
   </head>
   <body>
       <nav class="navbar navbar-default" id="mainmenu">
