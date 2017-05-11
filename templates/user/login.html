@@ -1,4 +1,4 @@
-{{define "title"}}{{ T "sign_in_title" }}{{end}}
+{{define "title"}}{{ T "sign_in_title" }}{{end}}
 {{define "contclass"}}cont-view{{end}}
 {{define "content"}}
 <div class="blockBody">
@@ -12,20 +12,20 @@
 	   					<div class="alert alert-danger">{{ . }}</div>
 	   				{{end}}
 					<div class="form-group">
-	                    <input type="text" name="username" id="username" class="form-control input-lg" placeholder="{{ T "email_address_or_username"}}">
+	                    <input type="text" name="username" id="username" class="form-control input-lg" autofocus="" placeholder="{{ T "email_address_or_username"}}">
        	            	{{ range (index $.FormErrors "username")}}
-						<p class="bg-danger">{{ . }}</p>
+						<p class="text-error">{{ . }}</p>
 						{{end}}
 					</div>
 					<div class="form-group">
 	                    <input type="password" name="password" id="password" class="form-control input-lg" placeholder="{{ T "password"}}">
                			{{ range (index $.FormErrors "password")}}
-						<p class="bg-danger">{{ . }}</p>
+						<p class="text-error">{{ . }}</p>
 						{{end}}
 					</div>
 					<span class="button-checkbox">
-						<button type="button" class="btn hidden" data-color="info">{{ T "remember_me"}}</button>
-	                    <input type="checkbox" name="remember_me" id="remember_me" checked="checked">
+						<!-- <button type="button" class="btn hidden" data-color="info">{{ T "remember_me"}}</button>
+	                    <input type="checkbox" name="remember_me" id="remember_me" checked="checked"> -->
 						<a href="" class="btn btn-link pull-right">{{ T "forgot_password"}}</a>
 					</span>
 					<hr class="colorgraph">

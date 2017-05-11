@@ -28,13 +28,40 @@ func (b *Bucket) NewTransaction(swarms []model.Torrent) (t *Transaction) {
 	t = &Transaction{
 		TransactionID: id,
 		bucket:        b,
-		swarms:        swarms,
+		swarms:        make([]model.Torrent, len(swarms)),
 		state:         stateSendID,
 	}
+	copy(t.swarms[:], swarms[:])
 	b.transactions[id] = t
 	b.access.Unlock()
 	return
 
+}
+
+func (b *Bucket) ForEachTransaction(v func(uint32, *Transaction)) {
+
+	clone := make(map[uint32]*Transaction)
+
+	b.access.Lock()
+
+	for k := range b.transactions {
+		clone[k] = b.transactions[k]
+	}
+
+	b.access.Unlock()
+
+	for k := range clone {
+		v(k, clone[k])
+	}
+}
+
+func (b *Bucket) Forget(tid uint32) {
+	b.access.Lock()
+	_, ok := b.transactions[tid]
+	if ok {
+		delete(b.transactions, tid)
+	}
+	b.access.Unlock()
 }
 
 func (b *Bucket) VisitTransaction(tid uint32, v func(*Transaction)) {

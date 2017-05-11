@@ -39,16 +39,18 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	if strings.TrimSpace(r.FormValue("comment")) == "" {
-		http.Error(w, "comment empty", 406)
-	}
-
 	userCaptcha := captcha.Extract(r)
 	if !captcha.Authenticate(userCaptcha) {
 		http.Error(w, "bad captcha", 403)
+		return
 	}
 	currentUser := GetUser(r)
 	content := p.Sanitize(r.FormValue("comment"))
+
+	if strings.TrimSpace(content) == "" {
+		http.Error(w, "comment empty", 406)
+		return
+	}
 
 	idNum, err := strconv.Atoi(id)
 
@@ -76,6 +78,7 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 	userCaptcha := captcha.Extract(r)
 	if !captcha.Authenticate(userCaptcha) {
 		http.Error(w, "bad captcha", 403)
+		return
 	}
 	currentUser := GetUser(r)
 

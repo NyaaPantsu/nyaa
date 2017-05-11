@@ -383,3 +383,8 @@ footer {
 	font-size: smaller;
 	width: auto; /* Undo bootstrap's fixed width */
 }
+
+.text-error {
+  background: white;
+  color: #cf9fff;
+}
