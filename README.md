@@ -64,17 +64,18 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 > nyaa_psql.backup.
 
 ## TODO
- * improve scraping
- * fix up cache bug
- * import sukebei torrents into db/work on sukebei
+ * sukebei
+   * get sukebei_torrents table working
+   * add config option for sukebei or maybe make things all in one
+   * sukebei categories and category images
+   
  * Get code up to standard of go lint recommendations
  * Write tests
- * fix sukebei categories
- * Daily DB dumps
- * Site theme
+
+  * Site theme
    * original nyaa theme
  * API improvement
- * Scraping of fan subbing RSS feeds
+ * Scraping of fan subbing RSS feeds(WIP)
 
 # LICENSE
 This project is licensed under the MIT License - see the LICENSE.md file for details

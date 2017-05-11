@@ -16,6 +16,7 @@ import (
 	"github.com/ewhal/nyaa/router"
 	"github.com/ewhal/nyaa/service/scraper"
 	"github.com/ewhal/nyaa/util/log"
+	"github.com/ewhal/nyaa/util/search"
 	"github.com/ewhal/nyaa/util/signals"
 	"github.com/nicksnyder/go-i18n/i18n"
 )
@@ -84,6 +85,7 @@ func RunScraper(conf *config.Config) {
 	signals.RegisterCloser(scraper)
 	// run udp scraper worker
 	for workers > 0 {
+		log.Infof("starting up worker %d", workers)
 		go scraper.RunWorker(pc)
 		workers--
 	}
@@ -97,7 +99,8 @@ func main() {
 	processFlags := conf.BindFlags()
 	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
 	mode := flag.String("mode", "webapp", "which mode to run daemon in, either webapp or scraper")
-	flag.Float64Var(&cache.Size, "c", cache.Size, "size of the search cache in MB")
+	flag.Float64Var(&conf.Cache.Size, "c", config.DefaultCacheSize, "size of the search cache in MB")
+
 	flag.Parse()
 	if *defaults {
 		stdout := bufio.NewWriter(os.Stdout)
@@ -120,6 +123,14 @@ func main() {
 			log.Fatal(err.Error())
 		}
 		initI18N()
+		err = cache.Configure(&conf.Cache)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+		err = search.Configure(&conf.Search)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
 		go signals.Handle()
 		if len(config.TorrentFileStorage) > 0 {
 			err := os.MkdirAll(config.TorrentFileStorage, 0700)

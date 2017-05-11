@@ -13,15 +13,20 @@ import (
 // MTU yes this is the ipv6 mtu
 const MTU = 1500
 
+// max number of scrapes per packet
+const ScrapesPerPacket = 74
+
 // bittorrent scraper
 type Scraper struct {
-	done      chan int
-	sendQueue chan *SendEvent
-	recvQueue chan *RecvEvent
-	errQueue  chan error
-	trackers  map[string]*Bucket
-	ticker    *time.Ticker
-	interval  time.Duration
+	done             chan int
+	sendQueue        chan *SendEvent
+	recvQueue        chan *RecvEvent
+	errQueue         chan error
+	trackers         map[string]*Bucket
+	ticker           *time.Ticker
+	cleanup          *time.Ticker
+	interval         time.Duration
+	PacketsPerSecond uint
 }
 
 func New(conf *config.ScraperConfig) (sc *Scraper, err error) {
@@ -33,7 +38,13 @@ func New(conf *config.ScraperConfig) (sc *Scraper, err error) {
 		trackers:  make(map[string]*Bucket),
 		ticker:    time.NewTicker(time.Second),
 		interval:  time.Second * time.Duration(conf.IntervalSeconds),
+		cleanup:   time.NewTicker(time.Second),
 	}
+
+	if sc.PacketsPerSecond == 0 {
+		sc.PacketsPerSecond = 10
+	}
+
 	for idx := range conf.Trackers {
 		err = sc.AddTracker(&conf.Trackers[idx])
 		if err != nil {
@@ -144,20 +155,38 @@ func (sc *Scraper) RunWorker(pc net.PacketConn) (err error) {
 
 func (sc *Scraper) Run() {
 	for {
-		<-sc.ticker.C
-		sc.Scrape()
+		select {
+		case <-sc.ticker.C:
+			sc.Scrape(sc.PacketsPerSecond)
+			break
+		case <-sc.cleanup.C:
+			sc.removeStale()
+			break
+		}
 	}
 }
 
-func (sc *Scraper) Scrape() {
-	now := time.Now().Add(0 - sc.interval)
+func (sc *Scraper) removeStale() {
 
-	rows, err := db.ORM.Raw("SELECT torrent_id, torrent_hash FROM torrents WHERE last_scrape IS NULL OR last_scrape < ? ORDER BY torrent_id DESC LIMIT 700", now).Rows()
+	for k := range sc.trackers {
+		sc.trackers[k].ForEachTransaction(func(tid uint32, t *Transaction) {
+			if t == nil || t.IsTimedOut() {
+				sc.trackers[k].Forget(tid)
+			}
+		})
+	}
+}
+
+func (sc *Scraper) Scrape(packets uint) {
+	now := time.Now().Add(0 - sc.interval)
+	// only scrape torretns uploaded within 90 days
+	oldest := now.Add(0 - (time.Hour * 24 * 90))
+	rows, err := db.ORM.Raw("SELECT torrent_id, torrent_hash FROM torrents WHERE last_scrape IS NULL OR last_scrape < ? AND date > ? ORDER BY torrent_id DESC LIMIT ?", now, oldest, packets*ScrapesPerPacket).Rows()
 	if err == nil {
 		counter := 0
-		var scrape [70]model.Torrent
+		var scrape [ScrapesPerPacket]model.Torrent
 		for rows.Next() {
-			idx := counter % 70
+			idx := counter % ScrapesPerPacket
 			rows.Scan(&scrape[idx].ID, &scrape[idx].Hash)
 			counter++
 			if idx == 0 {
