@@ -30,21 +30,21 @@
                         <a style="margin: 5px;" aria-label="Report button" type="button" data-toggle="modal" data-target="#reportModal" class="btn btn-danger btn-lg">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Report!
                         </a>
-                      
+
                       {{ if HasAdmin $.User}}
-                      <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>{{ T "delete" }}</a>
+                      <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i></a>
                       {{end}}
-               
+
 
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <h4>{{T "hash"}}</h4>
-                <p>{{.Hash}}</p>
+                <p class="torrent-hash">{{.Hash}}</p>
                 <hr>
                 <h4>{{T "date"}}</h4>
-                <p>{{.Date}}</p>
+                <p class="date-full">{{.Date}}</p>
                 <hr>
                 <h4>{{T "size"}}</h4>
                 <p>{{.Filesize}}</p>
@@ -54,6 +54,23 @@
                 <p><a href="{{.WebsiteLink}}">{{.WebsiteLink}}</a></p>
                 <hr>
                 {{end}}
+                <div class="row">
+                <div class="col-md-4">{{T "seeders"}}</div>
+                <div class="col-md-4">{{T "leechers"}}</div>
+                <div class="col-md-4">{{T "completed"}}</div>
+                </div>
+                <div class="row">
+                <div class="col-md-4">{{.Seeders}}</div>
+                <div class="col-md-4">{{.Leechers}}</div>
+                <div class="col-md-4"><span class="completed" style="">{{.Completed}}</span></div>
+                <div class="col-md-8">
+                <div class="proSeedBar">
+                  <div class="seeds" style="width: {{ calcWidthSeed .Seeders .Leechers }}%;"></div>
+                  <div class="leechs" style="width: {{ calcWidthLeech .Seeders .Leechers }}%;"></div>
+                </div>
+                </div>
+                </div>
+                <hr>
             </div>
         </div>
         <div class="row" id="description">
@@ -67,8 +84,17 @@
                 <h4>{{T "comments"}}</h4>
                 {{ range $index, $element := .Comments }}
                 <div class="row comment-row" id="comment_{{$index}}">
-                    <div class="col-md-4">
-                        <a href="#comment_{{$index}}">{{$index}}</a> {{.Username}}
+                    <div class="col-md-2">
+                        {{if eq .UserID -1}}
+                            <a href="#comment_{{$index}}">{{$index}}</a>
+                            {{.Username}}
+                        {{else}}
+                            <a href="#comment_{{$index}}">{{$index}}</a>
+                            <a href="{{$.URL.Parse (printf "/user/%d/-" .UserID ) }}">{{.Username}}</a>
+                        {{end}}
+                    </div>
+                    <div class="col-md-2">
+                        {{.Date.Year}}/{{.Date.Month}}/{{.Date.Day}}
                     </div>
                     <div class="col-md-8">
                         {{.Content}}
@@ -88,7 +114,7 @@
                     <textarea name="comment" class="form-control" rows="5"></textarea>
                 </div>
                 {{with .Captcha}} {{block "captcha" .}}{{end}} {{end}}
-                <input type="submit" value="{{T " submit "}}">
+                <button type="submit" class="btn btn-success">{{T " submit "}}</button>
             </form>
         </div>
     </div>

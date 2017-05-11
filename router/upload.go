@@ -30,6 +30,7 @@ type UploadForm struct {
 	Category    string
 	Remake      bool
 	Description string
+	Status int
 	captcha.Captcha
 
 	Infohash      string
@@ -48,6 +49,7 @@ const UploadFormMagnet = "magnet"
 const UploadFormCategory = "c"
 const UploadFormRemake = "remake"
 const UploadFormDescription = "desc"
+const UploadFormStatus = "status"
 
 // error indicating that you can't send both a magnet link and torrent
 var ErrTorrentPlusMagnet = errors.New("upload either a torrent file or magnet link, not both")
@@ -77,6 +79,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	f.Name = r.FormValue(UploadFormName)
 	f.Category = r.FormValue(UploadFormCategory)
 	f.Description = r.FormValue(UploadFormDescription)
+	f.Status, _ = strconv.Atoi(r.FormValue(UploadFormStatus))
 	f.Magnet = r.FormValue(UploadFormMagnet)
 	f.Remake = r.FormValue(UploadFormRemake) == "on"
 	f.Captcha = captcha.Extract(r)
@@ -187,6 +190,36 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		f.Filepath = ""
 	}
 
+	return nil
+}
+
+func (f *UploadForm) ExtractEditInfo(r *http.Request) error {
+	f.Name = r.FormValue(UploadFormName)
+	f.Category = r.FormValue(UploadFormCategory)
+	f.Description = r.FormValue(UploadFormDescription)
+	f.Status, _ = strconv.Atoi(r.FormValue(UploadFormStatus))
+
+	// trim whitespace
+	f.Name = util.TrimWhitespaces(f.Name)
+	f.Description = p.Sanitize(util.TrimWhitespaces(f.Description))
+
+	catsSplit := strings.Split(f.Category, "_")
+	// need this to prevent out of index panics
+	if len(catsSplit) == 2 {
+		CatID, err := strconv.Atoi(catsSplit[0])
+		if err != nil {
+			return ErrInvalidTorrentCategory
+		}
+		SubCatID, err := strconv.Atoi(catsSplit[1])
+		if err != nil {
+			return ErrInvalidTorrentCategory
+		}
+
+		f.CategoryID = CatID
+		f.SubCategoryID = SubCatID
+	} else {
+		return ErrInvalidTorrentCategory
+	}
 	return nil
 }
 

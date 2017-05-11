@@ -5,7 +5,7 @@
   },
   {
     "id": "verify_email_title",
-    "translation": "Vérifiez votre adresse email pour Nyaapantsu."
+    "translation": "Vérifiez votre adresse email pour NyaaPantsu."
   },
   {
     "id": "verify_email_content",
@@ -13,7 +13,7 @@
   },
   {
     "id": "reset_password_title",
-    "translation": "Réinitialisez votre mot de passe pour Nyaapantsu."
+    "translation": "Réinitialisez votre mot de passe pour NyaaPantsu."
   },
   {
     "id": "reset_password_content",
@@ -25,7 +25,7 @@
   },
   {
     "id":"signup_box_title",
-    "translation": "Inscrivez-vous <small>C'est gratuit et ça le restera pour toujours.</small>"
+    "translation": "Inscrivez-vous <small>C'est gratuit et ça le restera.</small>"
   },
   {
     "id":"username",
@@ -53,7 +53,7 @@
   },
   {
     "id":"terms_conditions_confirm",
-    "translation": "En cliquant sur <strong class=\"label label-primary\">S'enregistrer</strong>, vous acceptez les <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Termes et Conditions</a> établis par le site, y compris l'usage des cookies."
+    "translation": "En cliquant sur <strong class=\"label label-primary\">S'enregistrer</strong>, vous acceptez les <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Termes et Conditions</a> et l'usage des cookies établis par le site."
   },
   {
     "id":"signin",
@@ -501,11 +501,11 @@
   },
   {
     "id": "submit_a_comment_as_username",
-    "translation": "Envoyer un commentaire comme %s"
+    "translation": "Envoyer un commentaire sous %s"
   },
   {
     "id": "submit_a_comment_as_anonymous",
-    "translation": "Envoyer un commentaire comme Anonymous"
+    "translation": "Envoyer un commentaire sous れんちょん"
   },
   {
     "id": "submit",
@@ -525,7 +525,7 @@
   },
   {
     "id": "current_password",
-    "translation": "Mot de passe actuel "
+    "translation": "Mot de passe actuel"
   },
   {
     "id": "role",
@@ -566,5 +566,45 @@
   {
     "id": "delete_success",
     "translation": "Le compte a été supprimé avec succès !"
+  },
+  {
+    "id": "moderation",
+    "translation": "Modération"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "Qui est れんちょん ?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "れんちょん (Renchon) est le nom d'utilisateur par défaut assigné aux téléversements et commentaires anonymes ainsi que la mascotte du site. Il est utilisé pour les torrents importés du Nyaa original, bien que l'auteur d'origine puisse également être affiché."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Marquer comme remake"
+  },
+  {
+    "id": "email_changed",
+    "translation": "L'adresse email a été modifiée avec succès ! Confirmez le changement en cliquant sur le lien envoyé à : %s"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "Statut du torrent"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "Invisible"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "Normal"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "Remake"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "Éditer le profil de %s"
   }
 ]

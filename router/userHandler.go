@@ -10,7 +10,6 @@ import (
 	"github.com/ewhal/nyaa/service/user"
 	"github.com/ewhal/nyaa/service/user/form"
 	"github.com/ewhal/nyaa/service/user/permission"
-	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/modelHelper"
 	"github.com/gorilla/mux"
@@ -107,22 +106,34 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
-	b := form.UserForm{}
+	currentUser := GetUser(r)
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
-	if errorUser == nil {
-		currentUser := GetUser(r)
-		modelHelper.BindValueForm(&b, r)
-		languages.SetTranslationFromRequest(viewProfileEditTemplate, r, "en-us")
-		searchForm := NewSearchForm()
+	if errorUser == nil && userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
+		if userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
+			b := form.UserForm{}
+			modelHelper.BindValueForm(&b, r)
+			languages.SetTranslationFromRequest(viewProfileEditTemplate, r, "en-us")
+			searchForm := NewSearchForm()
+			searchForm.HideAdvancedSearch = true
+			availableLanguages := languages.GetAvailableLanguages()
+			htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), availableLanguages, searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+			err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
+		}
+	} else {
+			searchForm := NewSearchForm()
 		searchForm.HideAdvancedSearch = true
-		availableLanguages := languages.GetAvailableLanguages()
-		htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), availableLanguages, searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
-		err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
+
+		languages.SetTranslationFromRequest(notFoundTemplate, r, "en-us")
+		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, searchForm, GetUser(r), r.URL, mux.CurrentRoute(r)})
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
-	}
+ }
 }
+
 // Getting View User Profile Update
 func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -141,20 +152,23 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 			if len(r.PostFormValue("username")) > 0 {
 				_, err = form.ValidateUsername(r.PostFormValue("username"), err)
 			}
+
 			if len(err) == 0 {
 				modelHelper.BindValueForm(&b, r)
-				if (!userPermission.HasAdmin(currentUser)) {
+				if !userPermission.HasAdmin(currentUser) {
 					b.Username = currentUser.Username
 				}
 				err = modelHelper.ValidateForm(&b, err)
-				log.Info("lol")
 				if len(err) == 0 {
+					if b.Email != currentUser.Email {
+						userService.SendVerificationToUser(*currentUser, b.Email)
+						infos["infos"] = append(infos["infos"], fmt.Sprintf(T("email_changed"), b.Email))
+						b.Email = currentUser.Email // reset, it will be set when user clicks verification
+					}
 					userProfile, _, errorUser = userService.UpdateUser(w, &b, currentUser, id)
-									log.Infof("xD2")
 					if errorUser != nil {
 						err["errors"] = append(err["errors"], errorUser.Error())
-					}
-					if len(err) == 0 {
+					} else {
 						infos["infos"] = append(infos["infos"], T("profile_updated"))
 					}
 				}

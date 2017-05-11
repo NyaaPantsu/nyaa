@@ -1,5 +1,3 @@
-// hurry mod panel to get it faaaaaaaaaaaast
-
 package router
 
 import (
@@ -10,18 +8,17 @@ import (
 	"path/filepath"
 	"strconv"
 
+	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service"
 	"github.com/ewhal/nyaa/service/comment"
 	"github.com/ewhal/nyaa/service/report"
 	"github.com/ewhal/nyaa/service/torrent"
-	"github.com/ewhal/nyaa/service/torrent/form"
 	"github.com/ewhal/nyaa/service/user"
 	form "github.com/ewhal/nyaa/service/user/form"
 	"github.com/ewhal/nyaa/service/user/permission"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/log"
-	"github.com/ewhal/nyaa/util/modelHelper"
 	"github.com/ewhal/nyaa/util/search"
 	"github.com/gorilla/mux"
 )
@@ -30,17 +27,17 @@ var panelIndex, panelTorrentList, panelUserList, panelCommentList, panelTorrentE
 
 func init() {
 	panelTorrentList = template.Must(template.New("torrentlist").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/torrentlist.html")))
-	panelTorrentList = template.Must(panelTorrentList.ParseGlob(filepath.Join("templates", "_*.html")))
+	panelTorrentList = template.Must(panelTorrentList.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
 	panelUserList = template.Must(template.New("userlist").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/userlist.html")))
-	panelUserList = template.Must(panelUserList.ParseGlob(filepath.Join("templates", "_*.html")))
+	panelUserList = template.Must(panelUserList.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
 	panelCommentList = template.Must(template.New("commentlist").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/commentlist.html")))
-	panelCommentList = template.Must(panelCommentList.ParseGlob(filepath.Join("templates", "_*.html")))
+	panelCommentList = template.Must(panelCommentList.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
 	panelIndex = template.Must(template.New("indexPanel").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/panelindex.html")))
-	panelIndex = template.Must(panelIndex.ParseGlob(filepath.Join("templates", "_*.html")))
+	panelIndex = template.Must(panelIndex.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
 	panelTorrentEd = template.Must(template.New("torrent_ed").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/paneltorrentedit.html")))
-	panelTorrentEd = template.Must(panelTorrentEd.ParseGlob(filepath.Join("templates", "_*.html")))
+	panelTorrentEd = template.Must(panelTorrentEd.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
 	panelTorrentReportList = template.Must(template.New("torrent_report").Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "admin_index.html"), filepath.Join(TemplateDir, "admin/torrent_report.html")))
-	panelTorrentReportList = template.Must(panelTorrentReportList.ParseGlob(filepath.Join("templates", "_*.html")))
+	panelTorrentReportList = template.Must(panelTorrentReportList.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
 }
 
 func IndexModPanel(w http.ResponseWriter, r *http.Request) {
@@ -185,48 +182,61 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
 func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	if userPermission.HasAdmin(currentUser) {
 		id := r.URL.Query().Get("id")
 		torrent, _ := torrentService.GetTorrentById(id)
 		languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
-		htv := PanelTorrentEdVbs{torrent, NewSearchForm(), currentUser}
+
+		torrentJson := torrent.ToJSON()
+		uploadForm := NewUploadForm()
+		uploadForm.Name = torrentJson.Name
+		uploadForm.Category = torrentJson.Category + "_" + torrentJson.SubCategory
+		uploadForm.Status = torrentJson.Status
+		uploadForm.Description = string(torrentJson.Description)
+		htv := PanelTorrentEdVbs{uploadForm, NewSearchForm(), currentUser, form.NewErrors(), form.NewInfos(), r.URL}
 		err := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 		log.CheckError(err)
+
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
 	}
 
 }
+
 func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
-	if userPermission.HasAdmin(currentUser) {
-		b := torrentform.PanelPost{}
-		err := form.NewErrors()
-		infos := form.NewInfos()
-		modelHelper.BindValueForm(&b, r)
-		err = modelHelper.ValidateForm(&b, err)
-		id := r.URL.Query().Get("id")
-		torrent, _ := torrentService.GetTorrentById(id)
-		if torrent.ID > 0 {
-			modelHelper.AssignValue(&torrent, &b)
-			if len(err) == 0 {
-				_, errorT := torrentService.UpdateTorrent(torrent)
-				if errorT != nil {
-					err["errors"] = append(err["errors"], errorT.Error())
-				}
-				if len(err) == 0 {
-					infos["infos"] = append(infos["infos"], "torrent_updated")
-				}
-			}
-		}
-		languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
-		htv := PanelTorrentEdVbs{torrent, NewSearchForm(), currentUser}
-		_ = panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
-	} else {
+	if !userPermission.HasAdmin(currentUser) {
 		http.Error(w, "admins only", http.StatusForbidden)
+		return
 	}
+	var uploadForm UploadForm
+	id := r.URL.Query().Get("id")
+	err := form.NewErrors()
+	infos := form.NewInfos()
+	torrent, _ := torrentService.GetTorrentById(id)
+	if (torrent.ID > 0) {
+		errUp := uploadForm.ExtractEditInfo(r)
+		if errUp != nil {
+			err["errors"] = append(err["errors"], "Failed to update torrent!")
+		}
+		if (len(err) == 0) {
+			// update some (but not all!) values
+			torrent.Name        = uploadForm.Name
+			torrent.Category    = uploadForm.CategoryID
+			torrent.SubCategory = uploadForm.SubCategoryID
+			torrent.Status      = uploadForm.Status
+			torrent.Description = uploadForm.Description
+			torrent.Uploader    = nil // GORM will create a new user otherwise (wtf?!)
+			db.ORM.Save(&torrent)
+			infos["infos"] = append(infos["infos"], "Torrent details updated.")
+		}
+	}
+	languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
+	htv := PanelTorrentEdVbs{uploadForm, NewSearchForm(), currentUser, err, infos, r.URL}
+	_ = panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 }
 
 func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {

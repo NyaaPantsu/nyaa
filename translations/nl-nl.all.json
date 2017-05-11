@@ -13,7 +13,7 @@
   },
   {
     "id": "reset_password_title",
-    "translation": "Stel je wachtwoord opnieuw in voor goyangi."
+    "translation": "Stel je wachtwoord opnieuw in voor Nyaapantsu."
   },
   {
     "id": "reset_password_content",
@@ -157,7 +157,7 @@
   },
   {
     "id": "toggle_navigation",
-    "translation": "Toggle navigation"
+    "translation": "Nagiveren inschakelen"
   },
   {
     "id": "upload",
@@ -241,7 +241,7 @@
   },
   {
     "id": "recovery_effort",
-    "translation": Men is bezig de boel te herstellen."
+    "translation": "Men is bezig de boel te herstellen."
   },
   {
     "id": "is_everything_lost",

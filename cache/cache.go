@@ -94,7 +94,11 @@ func updateUsedSize(delta int) {
 	totalUsed += delta
 
 	for totalUsed > int(Size)<<20 {
-		s := ll.Remove(ll.Back()).(*store)
+		e := ll.Back()
+		if e == nil {
+			break
+		}
+		s := ll.Remove(e).(*store)
 		delete(cache, s.key)
 		totalUsed -= s.size
 	}

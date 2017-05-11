@@ -73,4 +73,10 @@ var FuncMap = template.FuncMap{
 	"NoEncode": func(str string) template.HTML {
 		return template.HTML(str)
 	},
+	"calcWidthSeed": func(seed uint32, leech uint32) float64 {
+		return float64(float64(seed)/(float64(seed)+float64(leech)))*100
+	},
+	"calcWidthLeech": func(seed uint32, leech uint32) float64 {
+		return float64(float64(leech)/(float64(seed)+float64(leech)))*100
+	},
 }
