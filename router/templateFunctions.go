@@ -62,6 +62,7 @@ var FuncMap = template.FuncMap{
 		return template.HTML(ret)
 	},
 	"T": i18n.IdentityTfunc,
+	"Ts": i18n.IdentityTfunc,
 	"getAvatar": func(hash string, size int) string {
 		return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
 	},
