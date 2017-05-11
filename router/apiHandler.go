@@ -6,6 +6,7 @@ import (
 	"html"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/ewhal/nyaa/config"
@@ -100,22 +101,22 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	token := r.Header.Get("Authorization")
+	user := model.User{}
+	db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
+	if user.ID == 0 {
+		http.Error(w, apiService.ErrApiKey.Error(), http.StatusForbidden)
+		return
+	}
+
+	upload := apiService.TorrentRequest{}
+	var filesize int64
+
 	contentType := r.Header.Get("Content-Type")
 	if contentType == "application/json" {
-		token := r.Header.Get("Authorization")
-		user := model.User{}
-		db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
-		if user.ID == 0 {
-			http.Error(w, apiService.ErrApiKey.Error(), http.StatusForbidden)
-			return
-		}
 
 		defer r.Body.Close()
 
-		//verify token
-		//token := r.Header.Get("Authorization")
-
-		upload := apiService.TorrentRequest{}
 		d := json.NewDecoder(r.Body)
 		if err := d.Decode(&upload); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -126,27 +127,41 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), code)
 			return
 		}
+	} else if strings.HasPrefix(contentType, "multipart/form-data") {
 
-		torrent := model.Torrent{
-			Name:        upload.Name,
-			Category:    upload.Category,
-			SubCategory: upload.SubCategory,
-			Status:      1,
-			Hash:        upload.Hash,
-			Date:        time.Now(),
-			Filesize:    0, //?
-			Description: upload.Description,
-			UploaderID:  user.ID,
-			Uploader:    &user,
-		}
+		upload.Name = r.FormValue("name")
+		upload.Category, _ = strconv.Atoi(r.FormValue("category"))
+		upload.SubCategory, _ = strconv.Atoi(r.FormValue("sub_category"))
+		upload.Description = r.FormValue("description")
 
-		db.ORM.Create(&torrent)
+		var err error
+		var code int
+
+		filesize, err, code = upload.ValidateMultipartUpload(r)
 		if err != nil {
-			util.SendError(w, err, 500)
+			http.Error(w, err.Error(), code)
 			return
 		}
-		fmt.Printf("%+v\n", torrent)
 	}
+
+	torrent := model.Torrent{
+		Name:        upload.Name,
+		Category:    upload.Category,
+		SubCategory: upload.SubCategory,
+		Status:      1,
+		Hash:        upload.Hash,
+		Date:        time.Now(),
+		Filesize:    filesize,
+		Description: upload.Description,
+		UploaderID:  user.ID,
+		Uploader:    &user,
+	}
+	db.ORM.Create(&torrent)
+	/*if err != nil {
+		util.SendError(w, err, 500)
+		return
+	}*/
+	fmt.Printf("%+v\n", torrent)
 }
 
 func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
