@@ -602,5 +602,21 @@
   {
     "id": "profile_edit_page",
     "translation": "แก้ไขโปรไฟล์ของ %s"
+  },
+  {
+    "id":"date_format",
+    "translation": "2006/01/02 15:04"
+  },
+  {
+    "id": "seeders",
+    "translation": "ผู้ปล่อย"
+  },
+  {
+    "id": "leechers",
+    "translation": "ผู้โหลด"
+  },
+  {
+    "id": "completed",
+    "translation": "โหลดเสร็จแล้ว"
   }
 ]
