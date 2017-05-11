@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 )
 
-const TemplateDir = "templates"
+var TemplateDir = "templates"
 
 var homeTemplate, searchTemplate, faqTemplate, uploadTemplate, viewTemplate, viewRegisterTemplate, viewLoginTemplate, viewRegisterSuccessTemplate, viewVerifySuccessTemplate, viewProfileTemplate, viewProfileEditTemplate, viewUserDeleteTemplate, notFoundTemplate *template.Template
 
