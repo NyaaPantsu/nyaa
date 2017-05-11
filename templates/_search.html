@@ -31,6 +31,7 @@
     <option value="2" {{if eq .Search.Status 2}}selected{{end}}>{{T "trusted"}}</option>
     <option value="3" {{if eq .Search.Status 3}}selected{{end}}>A+</option>
   </select>
+  <input type="hidden" name="userID" value="{{ .Search.UserID }}">
 {{end}}
 {{define "search_advanced"}}
   <select name="sort" class="form-control input-sm">
