@@ -84,6 +84,7 @@ func RunScraper(conf *config.Config) {
 	signals.RegisterCloser(scraper)
 	// run udp scraper worker
 	for workers > 0 {
+		log.Infof("starting up worker %d", workers)
 		go scraper.RunWorker(pc)
 		workers--
 	}
