@@ -118,7 +118,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 		orderBy += "desc"
 	}
 
-	tor, count, err = cache.Get(search, func() (tor []model.Torrent, count int, err error) {
+	tor, count, err = cache.Impl.Get(search, func() (tor []model.Torrent, count int, err error) {
 		parameters := serviceBase.WhereParams{
 			Params: make([]interface{}, 0, 64),
 		}

@@ -11,6 +11,7 @@ import (
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service"
 	"github.com/ewhal/nyaa/util"
+	"github.com/ewhal/nyaa/util/log"
 )
 
 /* Function to interact with Models
@@ -140,6 +141,7 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 	if limit != 0 || offset != 0 { // if limits provided
 		dbQuery = dbQuery + " LIMIT " + strconv.Itoa(limit) + " OFFSET " + strconv.Itoa(offset)
 	}
+	log.Infof("SQL: %s", dbQuery)
 	err = db.ORM.Raw(dbQuery, params...).Find(&torrents).Error
 	return
 }

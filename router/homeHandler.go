@@ -43,7 +43,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		Max:  uint(maxPerPage),
 		Page: pagenum,
 	}
-	torrents, nbTorrents, err := cache.Get(search, func() ([]model.Torrent, int, error) {
+	torrents, nbTorrents, err := cache.Impl.Get(search, func() ([]model.Torrent, int, error) {
 		torrents, nbTorrents, err := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
 		if !log.CheckError(err) {
 			util.SendError(w, err, 400)
