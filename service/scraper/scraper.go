@@ -36,9 +36,9 @@ func New(conf *config.ScraperConfig) (sc *Scraper, err error) {
 		recvQueue: make(chan *RecvEvent, 1024),
 		errQueue:  make(chan error),
 		trackers:  make(map[string]*Bucket),
-		ticker:    time.NewTicker(time.Second),
+		ticker:    time.NewTicker(time.Second * 10),
 		interval:  time.Second * time.Duration(conf.IntervalSeconds),
-		cleanup:   time.NewTicker(time.Second),
+		cleanup:   time.NewTicker(time.Minute),
 	}
 
 	if sc.PacketsPerSecond == 0 {
@@ -181,7 +181,7 @@ func (sc *Scraper) Scrape(packets uint) {
 	now := time.Now().Add(0 - sc.interval)
 	// only scrape torretns uploaded within 90 days
 	oldest := now.Add(0 - (time.Hour * 24 * 90))
-	rows, err := db.ORM.Raw("SELECT torrent_id, torrent_hash FROM torrents WHERE last_scrape IS NULL OR last_scrape < ? AND date > ? ORDER BY torrent_id DESC LIMIT ?", now, oldest, packets*ScrapesPerPacket).Rows()
+	rows, err := db.ORM.Raw("SELECT torrent_id, torrent_hash FROM torrents WHERE ( last_scrape IS NULL OR  last_scrape < ? ) AND date > ? ORDER BY torrent_id DESC LIMIT ?", now, oldest, packets*ScrapesPerPacket).Rows()
 	if err == nil {
 		counter := 0
 		var scrape [ScrapesPerPacket]model.Torrent
@@ -189,13 +189,21 @@ func (sc *Scraper) Scrape(packets uint) {
 			idx := counter % ScrapesPerPacket
 			rows.Scan(&scrape[idx].ID, &scrape[idx].Hash)
 			counter++
-			if idx == 0 {
+			if counter%ScrapesPerPacket == 0 {
 				for _, b := range sc.trackers {
 					t := b.NewTransaction(scrape[:])
 					sc.sendQueue <- t.SendEvent(b.Addr)
 				}
 			}
 		}
+		idx := counter % ScrapesPerPacket
+		if idx > 0 {
+			for _, b := range sc.trackers {
+				t := b.NewTransaction(scrape[:idx])
+				sc.sendQueue <- t.SendEvent(b.Addr)
+			}
+		}
+		log.Infof("scrape %d", counter)
 		rows.Close()
 
 	} else {
