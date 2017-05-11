@@ -562,5 +562,9 @@
   {
     "id": "delete_success",
     "translation": "A conta foi excluída com sucesso!"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "Editar o perfil de %s"
   }
 ]

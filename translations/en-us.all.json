@@ -598,5 +598,9 @@
   {
     "id": "torrent_status_remake",
     "translation": "Remake"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "Edit %s's profile"
   }
 ]
