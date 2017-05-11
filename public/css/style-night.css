@@ -144,3 +144,8 @@ a:hover {
 .modal-content .close {
     color: #fff;
 }
+
+.bg-danger {
+  background: #29363d;
+  color: #cf9fff;
+}
