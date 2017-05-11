@@ -99,16 +99,18 @@ func validateMagnet(r *TorrentRequest) (error, int) {
 	}
 	exactTopic = strings.SplitAfter(exactTopic, ":")[2]
 	r.Hash = strings.ToUpper(strings.Split(exactTopic, "&")[0])
+	fmt.Println(r.Hash)
 	return nil, http.StatusOK
 }
 
 func validateHash(r *TorrentRequest) (error, int) {
 	r.Hash = strings.ToUpper(r.Hash)
-	matched, err := regexp.MatchString("^[0-9A-Z]+$", r.Hash) //fucking garbage
+	base16, err := regexp.MatchString("^[0-9A-F]{40}$", r.Hash)
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
-	if !matched {
+	base32, err := regexp.MatchString("^[2-7A-Z]{32}$", r.Hash)
+	if !base16 && !base32 {
 		return ErrHash, http.StatusNotAcceptable
 	}
 	return nil, http.StatusOK
