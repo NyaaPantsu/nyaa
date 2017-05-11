@@ -108,7 +108,7 @@ func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
 	id := vars["id"]
 	b := form.UserForm{}
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
-	if errorUser == nil {
+	if errorUser == nil && userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
 		currentUser := GetUser(r)
 		modelHelper.BindValueForm(&b, r)
 		languages.SetTranslationFromRequest(viewProfileEditTemplate, r, "en-us")
