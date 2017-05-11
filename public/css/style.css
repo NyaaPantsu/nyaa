@@ -182,6 +182,45 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 	max-height: 80vh;
 }
 
+/* marquee */
+.marquee { overflow: hidden; }
+
+.marquee * {
+    display: inline-block;
+    padding-left: 100%;
+    white-space: nowrap;
+    -webkit-animation: marquee linear 27s infinite;
+    -moz-animation: marquee linear 27s infinite;
+    -ms-animation: marquee linear 27s infinite;
+    -o-animation: marquee linear 27s infinite;
+    animation: marquee linear 27s infinite;
+}
+
+@-webkit-keyframes marquee {
+    from { transform: translate(0);     }
+      to { transform: translate(-100%); }
+}
+
+@-moz-keyframes marquee {
+    from { transform: translate(0);     }
+    to   { transform: translate(-100%); }
+}
+
+@-ms-keyframes marquee {
+    from { transform: translate(0);     }
+    to   { transform: translate(-100%); }
+}
+
+@-o-keyframes marquee {
+    from { transform: translate(0);     }
+    to   { transform: translate(-100%); }
+}
+
+@keyframes marquee {
+    from { transform: translate(0);     }
+    to   { transform: translate(-100%); }
+}
+
 /* the curved edges triggered my autism */
 .navbar {
     border-radius: 0px;
