@@ -11,6 +11,8 @@ import (
 
 var ORM *gorm.DB
 
+var IsSqlite bool
+
 // GormInit init gorm ORM.
 func GormInit(conf *config.Config) (*gorm.DB, error) {
 	db, openErr := gorm.Open(conf.DBType, conf.DBParams)
@@ -18,6 +20,8 @@ func GormInit(conf *config.Config) (*gorm.DB, error) {
 		log.CheckError(openErr)
 		return nil, openErr
 	}
+
+	IsSqlite = conf.DBType == "sqlite"
 
 	connectionErr := db.DB().Ping()
 	if connectionErr != nil {
