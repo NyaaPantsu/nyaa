@@ -3,6 +3,7 @@ package apiService
 import (
 	"encoding/hex"
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -92,16 +93,18 @@ func validateMagnet(r *TorrentRequest) (error, int) {
 		return err, http.StatusInternalServerError
 	}
 	exactTopic := magnetUrl.Query().Get("xt")
+	fmt.Println(exactTopic)
 	if !strings.HasPrefix(exactTopic, "urn:btih:") {
 		return ErrMagnet, http.StatusNotAcceptable
 	}
-	r.Hash = strings.ToUpper(strings.TrimPrefix(exactTopic, "urn:btih:"))
+	exactTopic = strings.SplitAfter(exactTopic, ":")[2]
+	r.Hash = strings.ToUpper(strings.Split(exactTopic, "&")[0])
 	return nil, http.StatusOK
 }
 
 func validateHash(r *TorrentRequest) (error, int) {
 	r.Hash = strings.ToUpper(r.Hash)
-	matched, err := regexp.MatchString("^[0-9A-F]{40}$", r.Hash)
+	matched, err := regexp.MatchString("^[0-9A-Z]+$", r.Hash) //fucking garbage
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
@@ -146,11 +149,11 @@ func (r *TorrentRequest) ValidateMultipartUpload(req *http.Request) (int64, erro
 		}
 		// check a few things
 		if torrent.IsPrivate() {
-			return 0, errors.New("private torrents not allowed"), http.StatusBadRequest
+			return 0, errors.New("private torrents not allowed"), http.StatusNotAcceptable
 		}
 		trackers := torrent.GetAllAnnounceURLS()
 		if !uploadService.CheckTrackers(trackers) {
-			return 0, errors.New("tracker(s) not allowed"), http.StatusBadRequest
+			return 0, errors.New("tracker(s) not allowed"), http.StatusNotAcceptable
 		}
 		if r.Name == "" {
 			r.Name = torrent.TorrentName()

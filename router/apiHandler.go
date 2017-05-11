@@ -97,7 +97,7 @@ func ApiViewHandler(w http.ResponseWriter, r *http.Request) {
 
 func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 	if config.UploadsDisabled {
-		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
+		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
 		return
 	}
 
@@ -105,7 +105,7 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 	user := model.User{}
 	db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
 	if user.ID == 0 {
-		http.Error(w, apiService.ErrApiKey.Error(), http.StatusForbidden)
+		http.Error(w, apiService.ErrApiKey.Error(), http.StatusUnauthorized)
 		return
 	}
 

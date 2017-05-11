@@ -166,8 +166,9 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		if !strings.HasPrefix(exactTopic, "urn:btih:") {
 			return metainfo.ErrInvalidTorrentFile
 		}
-		f.Infohash = strings.ToUpper(strings.TrimPrefix(exactTopic, "urn:btih:"))
-		matched, err := regexp.MatchString("^[0-9A-F]{40}$", f.Infohash)
+		exactTopic = strings.SplitAfter(exactTopic, ":")[2]
+		f.InfoHash = strings.ToUpper(strings.Split(exactTopic, "&")[0])
+		matched, err := regexp.MatchString("^[0-9A-Z]+$", f.Infohash) //ffuuuuuuck
 		if err != nil || !matched {
 			return metainfo.ErrInvalidTorrentFile
 		}
