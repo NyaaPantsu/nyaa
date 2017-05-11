@@ -16,24 +16,6 @@ var cookieHandler = securecookie.New(
 	securecookie.GenerateRandomKey(64),
 	securecookie.GenerateRandomKey(32))
 
-// TODO: Figure out what this is about before I delete it
-// // UserName get username from a cookie.
-// func UserName(c *gin.Context) (string, error) {
-// 	var userName string
-// 	request := c.Request
-// 	cookie, err := request.Cookie("session")
-// 	if err != nil {
-// 		return userName, err
-// 	}
-// 	cookieValue := make(map[string]string)
-// 	err = cookieHandler.Decode("session", cookie.Value, &cookieValue)
-// 	if err != nil {
-// 		return userName, err
-// 	}
-// 	userName = cookieValue["name"]
-// 	return userName, nil
-// }
-
 func Token(r *http.Request) (string, error) {
 	var token string
 	cookie, err := r.Cookie("session")
@@ -90,17 +72,20 @@ func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, er
 		if isValidEmail {
 			log.Debug("User entered valid email.")
 			if db.ORM.Where("email = ?", email).First(&user).RecordNotFound() {
-				return http.StatusNotFound, errors.New("user not found")
+				return http.StatusNotFound, errors.New("User not found")
 			}
 		} else {
 			log.Debug("User entered username.")
 			if db.ORM.Where("username = ?", email).First(&user).RecordNotFound() {
-				return http.StatusNotFound, errors.New("user not found")
+				return http.StatusNotFound, errors.New("User not found")
 			}
 		}
 		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(pass))
 		if err != nil {
-			return http.StatusUnauthorized, errors.New("password incorrect")
+			return http.StatusUnauthorized, errors.New("Password incorrect")
+		}
+		if user.Status == -1 {
+			return http.StatusUnauthorized, errors.New("Account banned")
 		}
 		status, err := SetCookie(w, user.Token)
 		if err != nil {
