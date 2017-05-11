@@ -97,7 +97,7 @@ func ApiViewHandler(w http.ResponseWriter, r *http.Request) {
 
 func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 	if config.UploadsDisabled {
-		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
+		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
 		return
 	}
 
