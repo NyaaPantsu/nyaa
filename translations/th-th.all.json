@@ -581,7 +581,7 @@
   },
   {
     "id": "email_changed",
-    "translation": "เปลี่ยนอีเมลเรียบร้อย! แต่คุณยังต้องยันยันด้วยลิงค์ที่ส่งไปยัง: %s"
+    "translation": "เปลี่ยนอีเมลเรียบร้อย! แต่คุณยังต้องยืนยันด้วยลิงค์ที่ส่งไปยัง: %s"
   },
   {
     "id": "torrent_status",
@@ -598,5 +598,9 @@
   {
     "id": "torrent_status_remake",
     "translation": "งานทำซ้ำ"
-}
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "แก้ไขโปรไฟล์ของ %s"
+  }
 ]
