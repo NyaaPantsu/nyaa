@@ -19,6 +19,9 @@ const (
 	Date
 	Downloads
 	Size
+	Seeders
+	Leechers
+	Completed
 )
 
 type Category struct {
@@ -44,5 +47,6 @@ type SearchParam struct {
 	Page     int
 	UserID   uint
 	Max      uint
+	NotNull  string
 	Query    string
 }
