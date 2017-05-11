@@ -82,6 +82,12 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	case "4":
 		search.Sort = common.Size
 		orderBy += "filesize"
+	case "5":
+		orderBy += "seeders"
+	case "6":
+		orderBy += "leechers"
+	case "7":
+		orderBy += "completed"
 	default:
 		orderBy += "torrent_id"
 	}

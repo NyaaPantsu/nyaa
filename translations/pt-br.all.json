@@ -13,7 +13,7 @@
   },
   {
     "id": "reset_password_title",
-    "translation": "Redefina a sua senha do goyangi."
+    "translation": "Redefina a sua senha do Nyaapantsu."
   },
   {
     "id": "reset_password_content",
@@ -580,7 +580,7 @@
     "translation": "Marcar como remake"
   },
   {
-    "id": "email_changed",
-    "translation": "Email alterado com sucesso! Você terá, no entanto, que confirmá-lo clicando no link enviado para: %s"
+    "id": "profile_edit_page",
+    "translation": "Editar o perfil de %s"
   }
 ]
