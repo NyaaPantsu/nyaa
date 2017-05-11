@@ -40,7 +40,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	search.Page = pagenum
 	search.Query = r.URL.Query().Get("q")
 	userID, _ := strconv.Atoi(r.URL.Query().Get("userID"))
-	search.UserID =  uint(userID)
+	search.UserID = uint(userID)
 
 	switch s := r.URL.Query().Get("s"); s {
 	case "1":
@@ -75,22 +75,36 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	case "1":
 		search.Sort = common.Name
 		orderBy += "torrent_name"
+		break
 	case "2":
 		search.Sort = common.Date
 		orderBy += "date"
+		break
 	case "3":
 		search.Sort = common.Downloads
 		orderBy += "downloads"
+		break
 	case "4":
 		search.Sort = common.Size
 		orderBy += "filesize"
+		break
 	case "5":
+		search.Sort = common.Seeders
 		orderBy += "seeders"
+		search.NotNull += "seeders IS NOT NULL "
+		break
 	case "6":
+		search.Sort = common.Leechers
 		orderBy += "leechers"
+		search.NotNull += "leechers IS NOT NULL "
+		break
 	case "7":
+		search.Sort = common.Completed
 		orderBy += "completed"
+		search.NotNull += "completed IS NOT NULL "
+		break
 	default:
+		search.Sort = common.ID
 		orderBy += "torrent_id"
 	}
 
@@ -129,7 +143,9 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 			}
 			parameters.Params = append(parameters.Params, strconv.Itoa(int(search.Status)+1))
 		}
-
+		if len(search.NotNull) > 0 {
+			conditions = append(conditions, search.NotNull)
+		}
 		searchQuerySplit := strings.Fields(search.Query)
 		for i, word := range searchQuerySplit {
 			firstRune, _ := utf8.DecodeRuneInString(word)
