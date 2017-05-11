@@ -7,13 +7,27 @@ import (
 	"unicode"
 	"unicode/utf8"
 
+	"github.com/ewhal/nyaa/cache"
 	"github.com/ewhal/nyaa/common"
+	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service"
 	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/util/log"
 )
+
+var searchOperator string
+
+func Configure(conf *config.SearchConfig) (err error) {
+	// SQLite has case-insensitive LIKE, but no ILIKE
+	if db.ORM.Dialect().GetName() == "sqlite3" {
+		searchOperator = "LIKE ?"
+	} else {
+		searchOperator = "ILIKE ?"
+	}
+	return
+}
 
 func SearchByQuery(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
 	search, tor, count, err = searchByQuery(r, pagenum, true)
@@ -116,11 +130,11 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	default:
 		orderBy += "desc"
 	}
-
 	parameters := serviceBase.WhereParams{
 		Params: make([]interface{}, 0, 64),
 	}
 	conditions := make([]string, 0, 64)
+
 	if search.Category.Main != 0 {
 		conditions = append(conditions, "category = ?")
 		parameters.Params = append(parameters.Params, string(catString[0]))
@@ -144,6 +158,11 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	if len(search.NotNull) > 0 {
 		conditions = append(conditions, search.NotNull)
 	}
+
+	if len(search.NotNull) > 0 {
+		conditions = append(conditions, search.NotNull)
+	}
+
 	searchQuerySplit := strings.Fields(search.Query)
 	for i, word := range searchQuerySplit {
 		firstRune, _ := utf8.DecodeRuneInString(word)
@@ -156,26 +175,23 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 			continue
 		}
 
-		// SQLite has case-insensitive LIKE, but no ILIKE
-		var operator string
-		if db.ORM.Dialect().GetName() == "sqlite3" {
-			operator = "LIKE ?"
-		} else {
-			operator = "ILIKE ?"
-		}
-
 		// TODO: make this faster ?
-		conditions = append(conditions, "torrent_name "+operator)
+		conditions = append(conditions, "torrent_name "+searchOperator)
 		parameters.Params = append(parameters.Params, "%"+searchQuerySplit[i]+"%")
 	}
 
 	parameters.Conditions = strings.Join(conditions[:], " AND ")
-	log.Infof("SQL query is :: %s\n", parameters.Conditions)
-	if countAll {
-		tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
-	} else {
-		tor, err = torrentService.GetTorrentsOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
-	}
 
+	log.Infof("SQL query is :: %s\n", parameters.Conditions)
+
+	tor, count, err = cache.Impl.Get(search, func() (tor []model.Torrent, count int, err error) {
+
+		if countAll {
+			tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
+		} else {
+			tor, err = torrentService.GetTorrentsOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
+		}
+		return
+	})
 	return
 }
