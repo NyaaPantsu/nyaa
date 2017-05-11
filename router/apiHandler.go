@@ -133,10 +133,17 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 		upload.Category, _ = strconv.Atoi(r.FormValue("category"))
 		upload.SubCategory, _ = strconv.Atoi(r.FormValue("sub_category"))
 		upload.Description = r.FormValue("description")
+<<<<<<< HEAD
 
 		var err error
 		var code int
 
+=======
+
+		var err error
+		var code int
+
+>>>>>>> 5a32c00f503906080d518ceea69897f251933ac1
 		filesize, err, code = upload.ValidateMultipartUpload(r)
 		if err != nil {
 			http.Error(w, err.Error(), code)
@@ -156,8 +163,13 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 		UploaderID:  user.ID,
 		Uploader:    &user,
 	}
+<<<<<<< HEAD
 	db.ORM.Create(&torrent)
 	/*if err != nil {
+=======
+	/*db.ORM.Create(&torrent)
+	if err != nil {
+>>>>>>> 5a32c00f503906080d518ceea69897f251933ac1
 		util.SendError(w, err, 500)
 		return
 	}*/
