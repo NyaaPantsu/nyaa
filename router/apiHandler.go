@@ -133,47 +133,43 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 		upload.Category, _ = strconv.Atoi(r.FormValue("category"))
 		upload.SubCategory, _ = strconv.Atoi(r.FormValue("sub_category"))
 		upload.Description = r.FormValue("description")
-<<<<<<< HEAD
 
 		var err error
 		var code int
 
-=======
-
-		var err error
-		var code int
-
->>>>>>> 5a32c00f503906080d518ceea69897f251933ac1
 		filesize, err, code = upload.ValidateMultipartUpload(r)
 		if err != nil {
 			http.Error(w, err.Error(), code)
 			return
 		}
 	}
+	var sameTorrents int
+	db.ORM.Model(&model.Torrent{}).Where("torrent_hash = ?", upload.Hash).Count(&sameTorrents)
 
-	torrent := model.Torrent{
-		Name:        upload.Name,
-		Category:    upload.Category,
-		SubCategory: upload.SubCategory,
-		Status:      1,
-		Hash:        upload.Hash,
-		Date:        time.Now(),
-		Filesize:    filesize,
-		Description: upload.Description,
-		UploaderID:  user.ID,
-		Uploader:    &user,
-	}
-<<<<<<< HEAD
-	db.ORM.Create(&torrent)
-	/*if err != nil {
-=======
-	/*db.ORM.Create(&torrent)
-	if err != nil {
->>>>>>> 5a32c00f503906080d518ceea69897f251933ac1
-		util.SendError(w, err, 500)
+	if sameTorrents == 0 {
+
+		torrent := model.Torrent{
+			Name:        upload.Name,
+			Category:    upload.Category,
+			SubCategory: upload.SubCategory,
+			Status:      1,
+			Hash:        upload.Hash,
+			Date:        time.Now(),
+			Filesize:    filesize,
+			Description: upload.Description,
+			UploaderID:  user.ID,
+			Uploader:    &user,
+		}
+		db.ORM.Create(&torrent)
+		/*if err != nil {
+			util.SendError(w, err, 500)
+			return
+		}*/
+		fmt.Printf("%+v\n", torrent)
+	} else {
+		http.Error(w, "torrent already exists", http.StatusBadRequest)
 		return
-	}*/
-	fmt.Printf("%+v\n", torrent)
+	}
 }
 
 func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
