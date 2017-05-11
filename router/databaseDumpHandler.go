@@ -1,13 +1,12 @@
 package router
 
 import (
-    "io/ioutil"
 	"os"
+	"path/filepath"
 	"net/http"
 	"fmt"
 	"time"
 
-	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/log"
@@ -15,19 +14,21 @@ import (
 	"github.com/gorilla/mux"
 )
 
+const (
+	DatabaseDumpPath = "./public/dumps"
+	GPGPublicKeyPath = "./public/gpg/gpg.key"
+)
+
 func DatabaseDumpHandler(w http.ResponseWriter, r *http.Request) {
 	// db params url
 	var err error
 	// TODO Use config from cli
-    files, _ := ioutil.ReadDir(config.DefaultDatabaseDumpPath)
-	if len(files) <= 0 {
-		return
-	}
+	files, err := filepath.Glob(filepath.Join(DatabaseDumpPath, "*.torrent"))
 	var dumpsJson []model.DatabaseDumpJSON
 	// TODO Filter *.torrent files
     for _, f := range files {
 		// TODO Use config from cli
-		file, err := os.Open(config.DefaultDatabaseDumpPath + f.Name())
+		file, err := os.Open(f)
 		if err != nil {
 			continue
 		}
@@ -42,7 +43,7 @@ func DatabaseDumpHandler(w http.ResponseWriter, r *http.Request) {
 			Date:        time.Now(),
 			Filesize:    int64(tf.TotalSize()),
 			Name:        tf.TorrentName(),
-			TorrentLink: "/dbdumps/" + f.Name()}
+			TorrentLink: "/dbdumps/" + file.Name()}
 		dumpsJson = append(dumpsJson, dump.ToJSON())
     }
 

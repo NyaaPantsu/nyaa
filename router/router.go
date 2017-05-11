@@ -17,10 +17,10 @@ func init() {
 	imgHandler := http.FileServer(http.Dir("./public/img/"))
 	// TODO Use config from cli
 	// TODO Make sure the directory exists
-	dumpsHandler  := http.FileServer(http.Dir(config.DefaultDatabaseDumpPath))
+	dumpsHandler  := http.FileServer(http.Dir(DatabaseDumpPath))
 	// TODO Use config from cli
 	// TODO Make sure the directory exists
-	gpgKeyHandler := http.FileServer(http.Dir(config.DefaultGPGPublicKeyPath))
+	gpgKeyHandler := http.FileServer(http.Dir(GPGPublicKeyPath))
 	gzipHomeHandler := http.HandlerFunc(HomeHandler)
 	gzipAPIHandler := http.HandlerFunc(ApiHandler)
 	gzipAPIViewHandler := http.HandlerFunc(ApiViewHandler)
