@@ -156,19 +156,19 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 			if len(err) == 0 {
 				modelHelper.BindValueForm(&b, r)
 				if !userPermission.HasAdmin(currentUser) {
-					b.Username = currentUser.Username
-					b.Status = currentUser.Status
+					b.Username = userProfile.Username
+					b.Status = userProfile.Status
 				} else {
-					if b.Status == 2 {
+					if userProfile.Status != b.Status && b.Status == 2 {
 						err["errors"] = append(err["errors"], "Elevating status to moderator is prohibited")
 					}
 				}
 				err = modelHelper.ValidateForm(&b, err)
 				if len(err) == 0 {
-					if b.Email != currentUser.Email {
+					if b.Email != userProfile.Email {
 						userService.SendVerificationToUser(*currentUser, b.Email)
 						infos["infos"] = append(infos["infos"], fmt.Sprintf(T("email_changed"), b.Email))
-						b.Email = currentUser.Email // reset, it will be set when user clicks verification
+						b.Email = userProfile.Email // reset, it will be set when user clicks verification
 					}
 					userProfile, _, errorUser = userService.UpdateUser(w, &b, currentUser, id)
 					if errorUser != nil {
