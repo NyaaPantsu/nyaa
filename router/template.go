@@ -7,7 +7,7 @@ import (
 
 var TemplateDir = "templates"
 
-var homeTemplate, searchTemplate, faqTemplate, uploadTemplate, viewTemplate, viewRegisterTemplate, viewLoginTemplate, viewRegisterSuccessTemplate, viewVerifySuccessTemplate, viewProfileTemplate, viewProfileEditTemplate, viewUserDeleteTemplate, notFoundTemplate, changeLanguageTemplate *template.Template
+var homeTemplate, searchTemplate, faqTemplate, uploadTemplate, viewTemplate, viewRegisterTemplate, viewLoginTemplate, viewRegisterSuccessTemplate, viewVerifySuccessTemplate, viewProfileTemplate, viewProfileEditTemplate, viewUserDeleteTemplate, notFoundTemplate, changeLanguageTemplate, databaseDumpTemplate *template.Template
 
 var panelIndex, panelTorrentList, panelUserList, panelCommentList, panelTorrentEd, panelTorrentReportList, panelTorrentReassign *template.Template
 
@@ -21,6 +21,11 @@ type templateLoader struct {
 // ReloadTemplates reloads templates on runtime
 func ReloadTemplates() {
 	pubTempls := []templateLoader{
+		templateLoader{
+			templ: &databaseDumpTemplate,
+			name:  "dump",
+			file:  "dumps.html",
+		},
 		templateLoader{
 			templ: &homeTemplate,
 			name:  "home",

@@ -104,6 +104,16 @@ type HomeTemplateVariables struct {
 	Route        *mux.Route // For getting current route in templates
 }
 
+type DatabaseDumpTemplateVariables struct {
+	ListDumps  []model.DatabaseDumpJSON
+	GPGLink    string
+	Search     SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL        *url.URL   // For parsing Url in templates
+	Route      *mux.Route // For getting current route in templates
+}
+
 type UploadTemplateVariables struct {
 	Upload     UploadForm
 	Search     SearchForm

@@ -15,6 +15,12 @@ func init() {
 	cssHandler := http.FileServer(http.Dir("./public/css/"))
 	jsHandler := http.FileServer(http.Dir("./public/js/"))
 	imgHandler := http.FileServer(http.Dir("./public/img/"))
+	// TODO Use config from cli
+	// TODO Make sure the directory exists
+	dumpsHandler  := http.FileServer(http.Dir(config.DefaultDatabaseDumpPath))
+	// TODO Use config from cli
+	// TODO Make sure the directory exists
+	gpgKeyHandler := http.FileServer(http.Dir(config.DefaultGPGPublicKeyPath))
 	gzipHomeHandler := http.HandlerFunc(HomeHandler)
 	gzipAPIHandler := http.HandlerFunc(ApiHandler)
 	gzipAPIViewHandler := http.HandlerFunc(ApiViewHandler)
@@ -22,6 +28,9 @@ func init() {
 	gzipUserProfileHandler := http.HandlerFunc(UserProfileHandler)
 	gzipUserDetailsHandler := http.HandlerFunc(UserDetailsHandler)
 	gzipUserProfileFormHandler := http.HandlerFunc(UserProfileFormHandler)
+	gzipDumpsHandler := handlers.CompressHandler(dumpsHandler)
+	gzipGpgKeyHandler := handlers.CompressHandler(gpgKeyHandler)
+
 	/*
 		// Enable GZIP compression for all handlers except imgHandler and captcha
 		gzipCSSHandler := cssHandler)
@@ -50,10 +59,10 @@ func init() {
 		gzipCommentDeleteModPanel := http.HandlerFunc(CommentDeleteModPanel)
 		gzipTorrentDeleteModPanel := http.HandlerFunc(TorrentDeleteModPanel)
 		gzipTorrentReportDeleteModPanel := http.HandlerFunc(TorrentReportDeleteModPanel)*/
-
 	//gzipTorrentReportCreateHandler := http.HandlerFunc(CreateTorrentReportHandler)
 	//gzipTorrentReportDeleteHandler := http.HandlerFunc(DeleteTorrentReportHandler)
 	//gzipTorrentDeleteHandler := http.HandlerFunc(DeleteTorrentHandler)
+	gzipDatabaseDumpHandler := handlers.CompressHandler(http.HandlerFunc(DatabaseDumpHandler))
 
 	Router = mux.NewRouter()
 
@@ -61,7 +70,9 @@ func init() {
 	http.Handle("/css/", http.StripPrefix("/css/", cssHandler))
 	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
 	http.Handle("/img/", http.StripPrefix("/img/", imgHandler))
-	Router.Handle("/", wrapHandler(gzipHomeHandler)).Name("home")
+	http.Handle("/dbdumps/", http.StripPrefix("/dbdumps/", wrapHandler(gzipDumpsHandler)))
+	http.Handle("/gpg/", http.StripPrefix("/gpg/", wrapHandler(gzipGpgKeyHandler)))
+	Router.Handle("/", gzipHomeHandler).Name("home")
 	Router.Handle("/page/{page:[0-9]+}", wrapHandler(gzipHomeHandler)).Name("home_page")
 	Router.HandleFunc("/search", SearchHandler).Name("search")
 	Router.HandleFunc("/search/{page}", SearchHandler).Name("search_page")
@@ -109,6 +120,8 @@ func init() {
 	Router.HandleFunc("/report/{id}", ReportTorrentHandler).Methods("POST").Name("post_comment")
 
 	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
+
+	Router.Handle("/dumps", gzipDatabaseDumpHandler).Name("dump").Methods("GET")
 
 	Router.HandleFunc("/language", SeeLanguagesHandler).Methods("GET").Name("see_languages")
 	Router.HandleFunc("/language", ChangeLanguageHandler).Methods("POST").Name("change_language")
