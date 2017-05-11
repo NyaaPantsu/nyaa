@@ -64,15 +64,9 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 > nyaa_psql.backup.
 
 ## TODO
-## High priority
-* Torrent data scraping from definable tracker (We have a tracker that the owner is ok for us to scrape from)
-  * seeds/leeachers
-  * file lists
-  * Downloads
-* Accounts and Registration System(WIP)
-  * blocking upload of torrent hashes
-
-## Lower priority
+ * improve scraping
+ * fix up cache bug
+ * import sukebei torrents into db/work on sukebei
  * Get code up to standard of go lint recommendations
  * Write tests
  * fix sukebei categories
