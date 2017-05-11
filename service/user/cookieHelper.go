@@ -16,24 +16,6 @@ var cookieHandler = securecookie.New(
 	securecookie.GenerateRandomKey(64),
 	securecookie.GenerateRandomKey(32))
 
-// TODO: Figure out what this is about before I delete it
-// // UserName get username from a cookie.
-// func UserName(c *gin.Context) (string, error) {
-// 	var userName string
-// 	request := c.Request
-// 	cookie, err := request.Cookie("session")
-// 	if err != nil {
-// 		return userName, err
-// 	}
-// 	cookieValue := make(map[string]string)
-// 	err = cookieHandler.Decode("session", cookie.Value, &cookieValue)
-// 	if err != nil {
-// 		return userName, err
-// 	}
-// 	userName = cookieValue["name"]
-// 	return userName, nil
-// }
-
 func Token(r *http.Request) (string, error) {
 	var token string
 	cookie, err := r.Cookie("session")
@@ -85,23 +67,25 @@ func ClearCookie(w http.ResponseWriter) (int, error) {
 // SetCookieHandler sets a cookie with email and password.
 func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, error) {
 	if email != "" && pass != "" {
-		log.Debugf("User email : %s , password : %s", email, pass)
 		var user model.User
 		isValidEmail, _ := formStruct.EmailValidation(email, formStruct.NewErrors())
 		if isValidEmail {
 			log.Debug("User entered valid email.")
 			if db.ORM.Where("email = ?", email).First(&user).RecordNotFound() {
-				return http.StatusNotFound, errors.New("user not found")
+				return http.StatusNotFound, errors.New("User not found")
 			}
 		} else {
 			log.Debug("User entered username.")
 			if db.ORM.Where("username = ?", email).First(&user).RecordNotFound() {
-				return http.StatusNotFound, errors.New("user not found")
+				return http.StatusNotFound, errors.New("User not found")
 			}
 		}
 		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(pass))
 		if err != nil {
-			return http.StatusUnauthorized, errors.New("password incorrect")
+			return http.StatusUnauthorized, errors.New("Password incorrect")
+		}
+		if user.Status == -1 {
+			return http.StatusUnauthorized, errors.New("Account banned")
 		}
 		status, err := SetCookie(w, user.Token)
 		if err != nil {
@@ -115,11 +99,9 @@ func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, er
 
 // RegisterHanderFromForm sets cookie from a RegistrationForm.
 func RegisterHanderFromForm(w http.ResponseWriter, registrationForm formStruct.RegistrationForm) (int, error) {
-	email := registrationForm.Email
+	username := registrationForm.Username // email isn't set at this point
 	pass := registrationForm.Password
-	log.Debugf("RegisterHandler UserEmail : %s", email)
-	log.Debugf("RegisterHandler UserPassword : %s", pass)
-	return SetCookieHandler(w, email, pass)
+	return SetCookieHandler(w, username, pass)
 }
 
 // RegisterHandler sets a cookie when user registered.

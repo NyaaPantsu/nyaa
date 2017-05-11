@@ -5,7 +5,6 @@ import (
 	"github.com/ewhal/nyaa/util"
 
 	"fmt"
-	"html"
 	"html/template"
 	"strconv"
 	"strings"
@@ -34,10 +33,43 @@ type Torrent struct {
 	Filesize    int64     `gorm:"column:filesize"`
 	Description string    `gorm:"column:description"`
 	WebsiteLink string    `gorm:"column:website_link"`
+	DeletedAt   *time.Time
 
-	Uploader    *User        `gorm:"ForeignKey:UploaderId"`
+	Uploader    *User        `gorm:"ForeignKey:uploader"`
+	OldUploader string       `gorm:"-"` // ???????
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
+
+	Seeders    uint32    `gorm:"column:seeders"`
+	Leechers   uint32    `gorm:"column:leechers"`
+	Completed  uint32    `gorm:"column:completed"`
+	LastScrape time.Time `gorm:"column:last_scrape"`
+}
+
+// Returns the total size of memory recursively allocated for this struct
+// FIXME: doesn't go have sizeof or something nicer for this?
+func (t Torrent) Size() (s int) {
+	s += 8 + // ints
+		2*3 + // time.Time
+		2 + // pointers
+		4*2 + // string pointers
+		// string array sizes
+		len(t.Name) + len(t.Hash) + len(t.Description) + len(t.WebsiteLink) +
+		2*2 // array pointers
+	s *= 8 // Assume 64 bit OS
+
+	if t.Uploader != nil {
+		s += t.Uploader.Size()
+	}
+	for _, c := range t.OldComments {
+		s += c.Size()
+	}
+	for _, c := range t.Comments {
+		s += c.Size()
+	}
+
+	return
+
 }
 
 /* We need a JSON object instead of a Gorm structure because magnet URLs are
@@ -51,6 +83,7 @@ type ApiResultJSON struct {
 
 type CommentJSON struct {
 	Username string        `json:"username"`
+	UserID   int           `json:"user_id"`
 	Content  template.HTML `json:"content"`
 	Date     time.Time     `json:"date"`
 }
@@ -69,9 +102,14 @@ type TorrentJSON struct {
 	Downloads    int           `json:"downloads"`
 	UploaderID   uint          `json:"uploader_id"`
 	UploaderName template.HTML `json:"uploader_name"`
+	OldUploader  template.HTML `json:"uploader_old"`
 	WebsiteLink  template.URL  `json:"website_link"`
 	Magnet       template.URL  `json:"magnet"`
 	TorrentLink  template.URL  `json:"torrent"`
+	Seeders      uint32        `json:"seeders"`
+	Leechers     uint32        `json:"leechers"`
+	Completed    uint32        `json:"completed"`
+	LastScrape   time.Time     `json:"last_scrape"`
 }
 
 // ToJSON converts a model.Torrent to its equivalent JSON structure
@@ -79,11 +117,10 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	magnet := util.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, config.Trackers...)
 	commentsJSON := make([]CommentJSON, 0, len(t.OldComments)+len(t.Comments))
 	for _, c := range t.OldComments {
-		escapedContent := template.HTML(html.EscapeString(c.Content))
-		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, Content: escapedContent, Date: c.Date})
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, UserID: -1, Content: template.HTML(c.Content), Date: c.Date.UTC()})
 	}
 	for _, c := range t.Comments {
-		commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt})
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC()})
 	}
 	uploader := ""
 	if t.Uploader != nil {
@@ -93,7 +130,8 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	if t.ID <= config.LastOldTorrentID && len(config.TorrentCacheLink) > 0 {
 		torrentlink = fmt.Sprintf(config.TorrentCacheLink, t.Hash)
 	} else if t.ID > config.LastOldTorrentID && len(config.TorrentStorageLink) > 0 {
-		torrentlink = fmt.Sprintf(config.TorrentStorageLink, t.Hash) // TODO: Fix as part of configuration changes
+		// TODO: Fix as part of configuration changes (fix what?)
+		torrentlink = fmt.Sprintf(config.TorrentStorageLink, t.Hash)
 	}
 	res := TorrentJSON{
 		ID:           strconv.FormatUint(uint64(t.ID), 10),
@@ -109,9 +147,15 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Downloads:    t.Downloads,
 		UploaderID:   t.UploaderID,
 		UploaderName: util.SafeText(uploader),
+		OldUploader:  util.SafeText(t.OldUploader),
 		WebsiteLink:  util.Safe(t.WebsiteLink),
-		Magnet:       util.Safe(magnet),
-		TorrentLink:  util.Safe(torrentlink)}
+		Magnet:       template.URL(magnet),
+		TorrentLink:  util.Safe(torrentlink),
+		Leechers:     t.Leechers,
+		Seeders:      t.Seeders,
+		Completed:    t.Completed,
+		LastScrape:   t.LastScrape,
+	}
 
 	return res
 }

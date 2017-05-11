@@ -21,7 +21,7 @@
   },
   {
     "id":"register_title",
-    "translation": "Создание новой учетной записи"
+    "translation": "Создание нового аккаунта"
   },
   {
     "id":"signup_box_title",
@@ -45,7 +45,7 @@
   },
   {
     "id":"confirm_password",
-    "translation": "Подтвердите Пароль"
+    "translation": "Подтвердите пароль"
   },
   {
     "id":"i_agree",
@@ -57,7 +57,7 @@
   },
   {
     "id":"signin",
-    "translation": "Вход"
+    "translation": "Войти"
   },
   {
     "id":"register",
@@ -97,15 +97,19 @@
   },
   {
     "id":"verify_success",
-    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Теперь ваша учетная запись активирована!"
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Теперь ваш аккаунт активирован!"
   },
   {
     "id":"signup_verification_email",
-    "translation": "Теперь, в качестве последнего шага регистрации, проверьте свой почтовый ящик (или папку спам) и нажмите ссылку для активации вашей учетной записи!"
+    "translation": "Теперь, в качестве последнего шага регистрации, проверьте свой почтовый ящик (или папку спам) и нажмите ссылку для активации вашего аккаунта!"
+  },
+  {
+    "id":"signup_verification_noemail",
+    "translation": "Регистрация прошла успешно, теперь вы можете использовать свой аккаунт."
   },
   {
     "id":"settings",
-    "translation": "Настройки учетной записи"
+    "translation": "Настройки аккаунта"
   },
   {
     "id":"torrents",
@@ -114,6 +118,18 @@
   {
     "id":"follow",
     "translation": "Следить"
+  },
+  {
+    "id":"unfollow",
+    "translation": "Отписаться"
+  },
+  {
+    "id":"user_followed_msg",
+    "translation": "Вы отслеживаете %s!"
+  },
+  {
+    "id":"user_unfollowed_msg",
+    "translation": "Вы отписаны от %s!"
   },
   {
     "id":"profile_page",
@@ -328,7 +344,7 @@
     "translation": "Торрент-файл"
   },
   {
-    "id": "uploading_torrent_prefills_fields",
+    "id": "uploading_file_prefills_fields",
     "translation": "Загрузка торрент-файла позволяет предварительно заполнить некоторые поля, это рекомендуется."
   },
   {
@@ -445,7 +461,7 @@
   },
   {
     "id": "filter_remakes",
-    "translation": "Фильтрация римейков"
+    "translation": "Фильтрация повторов"
   },
   {
     "id": "trusted",
@@ -494,5 +510,97 @@
   {
     "id": "submit",
     "translation": "Отправить"
+  },
+  {
+    "id": "personal_info",
+    "translation": "Личная информация"
+  },
+  {
+    "id": "language",
+    "translation": "Язык"
+  },
+  {
+    "id": "current_password",
+    "translation": "Текущий пароль"
+  },
+  {
+    "id": "role",
+    "translation": "Роль"
+  },
+  {
+    "id": "banned",
+    "translation": "Banned"
+  },
+  {
+    "id": "default",
+    "translation": "По умолчанию"
+  },
+  {
+    "id": "trusted_member",
+    "translation": "Надежный пользователь"
+  },
+  {
+    "id": "moderator",
+    "translation": "Модератор"
+  },
+  {
+    "id": "save_changes",
+    "translation": "Сохранить изменения"
+  },
+  {
+    "id": "profile_updated",
+    "translation": "Ваш профиль был успешно обновлен!"
+  },
+  {
+    "id": "delete_account",
+    "translation": "Удалить аккаунт"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "Вы уверены, что хотите удалить этот аккаунт?"
+  },
+  {
+    "id": "delete_success",
+    "translation": "Аккаунт успешно удален!"
+  },
+  {
+    "id": "moderation",
+    "translation": "На модерации"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "Кто, черт побери, такой れんちょん?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "れんちょん Это имя пользователя, назначенное для загрузок и комментариев, сделанных анонимно. Он также используется для торрентов, импортированных из оригинального nyaa, хотя оригинальный загрузчик может отображаться рядом."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Отметить как повтор"
+  },
+  {
+    "id": "email_changed",
+    "translation": "Email адрес успешно изменен! Однако вам нужно будет подтвердить это, нажав на ссылку, присланную на Email адрес: %s"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "Статус торрента"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "Скрытый"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "Обычный"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "Повтор"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "Изменение профиля %s's"
   }
 ]

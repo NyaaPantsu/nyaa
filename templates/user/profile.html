@@ -1,4 +1,4 @@
-{{define "title"}}{{ T "profile_page" .UserProfile.Username }}{{end}}
+{{define "title"}}{{ T "profile_page" .UserProfile.Username }}{{end}}
 {{define "contclass"}}cont-view{{end}}
 {{define "content"}}
 {{ range (index $.FormInfos "infos")}}
@@ -26,13 +26,13 @@
 				<!-- SIDEBAR BUTTONS -->
 				<div class="profile-userbuttons">
 						{{if gt $.User.ID 0 }}
-						{{if not (CurrentUserIdentical $.User .ID) }}
-						{{if not (IsFollower . $.User)}}
-							<a href="{{ genRoute "user_follow" "id" ( print .ID ) "username" .Username }}" class="btn btn-success btn-sm">{{ T "follow"}}</a>
-						{{else}}
-							<a href="{{ genRoute "user_follow" "id" ( print .ID ) "username" .Username }}" class="btn btn-danger btn-sm">{{ T "unfollow"}}</a>
-						{{end}}
-						{{end}}
+							{{if not (CurrentUserIdentical $.User .ID) }}
+								{{if not (IsFollower . $.User)}}
+									<a href="{{ genRoute "user_follow" "id" ( print .ID ) "username" .Username }}" class="btn btn-success btn-sm">{{ T "follow"}}</a>
+								{{else}}
+									<a href="{{ genRoute "user_follow" "id" ( print .ID ) "username" .Username }}" class="btn btn-danger btn-sm">{{ T "unfollow"}}</a>
+								{{end}}
+							{{end}}
 						{{end}}
 					<!-- <button type="button" class="btn btn-danger btn-sm">Message</button> -->
 				</div>
@@ -41,16 +41,13 @@
 				<div class="profile-usermenu">
 					<ul class="nav">
 						<li class="active">
-							<a href="#">
-							<i class="glyphicon glyphicon-home"></i>
-							{{T "torrents"}} </a>
+							<a href="{{ genRoute "user_profile" "id" ( print .ID ) "username" .Username }}"><i class="glyphicon glyphicon-home"></i>{{T "torrents"}}</a>
 						</li>
 						{{if gt $.User.ID 0 }}
 						{{if CurrentOrAdmin $.User .ID }}
 						<li>
-							<a href="?edit">
-							<i class="glyphicon glyphicon-user"></i>
-							{{T "settings"}} </a>
+							<a href="{{ genRoute "user_profile_details" "id" ( print .ID ) "username" .Username }}"><i class="glyphicon glyphicon-user"></i>{{T "settings"}}</a>
+
 						</li>
 						{{end}}
 						{{end}}

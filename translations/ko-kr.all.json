@@ -29,11 +29,11 @@
   },
   {
     "id":"username",
-    "translation": "별명"
+    "translation": "아이디"
   },
   {
     "id":"email_address_or_username",
-    "translation": "이메일 주소 혹은 별명"
+    "translation": "이메일 주소 또는 아이디"
   },
   {
     "id":"email_address",
@@ -41,15 +41,15 @@
   },
   {
     "id":"password",
-    "translation": "암호"
+    "translation": "비밀번호"
   },
   {
     "id":"confirm_password",
-    "translation": "암호 확인"
+    "translation": "비밀번호 재확인"
   },
   {
     "id":"i_agree",
-    "translation": "동의합니다"
+    "translation": "동의"
   },
   {
     "id":"terms_conditions_confirm",
@@ -61,27 +61,27 @@
   },
   {
     "id":"register",
-    "translation": "가입"
+    "translation": "회원가입"
   },
   {
     "id":"terms_conditions",
-    "translation": "약관"
+    "translation": "이용약관"
   },
   {
     "id":"terms_conditions_full",
-    "translation": "블라블라"
+    "translation": "ㅅㅂ"
   },
   {
     "id":"remember_me",
-    "translation": "로그인 유지"
+    "translation": "로그인 상태 유지"
   },
   {
     "id":"forgot_password",
-    "translation": "암호를 잊어버리셨나요?"
+    "translation": "비밀번호 찾기"
   },
   {
     "id":"sign_in_box_title",
-    "translation": "로그인하세요"
+    "translation": "로그인 하세요"
   },
   {
     "id":"sign_in_title",
@@ -114,6 +114,10 @@
   {
     "id":"follow",
     "translation": "팔로우"
+  },
+  {
+    "id":"unfollow",
+    "translation": "언팔로우"
   },
   {
     "id":"profile_page",
@@ -165,7 +169,7 @@
   },
   {
     "id": "fap",
-    "translation": "딸"
+    "translation": "자위"
   },
   {
     "id": "advanced_search",
@@ -201,11 +205,11 @@
   },
   {
     "id": "sign_up",
-    "translation": "가입"
+    "translation": "회원가입"
   },
   {
     "id": "no_results_found",
-    "translation": "결과 없음"
+    "translation": "검색결과가 없습니다"
   },
   {
     "id": "notice_keep_seeding",
@@ -221,7 +225,7 @@
   },
   {
     "id": "what_happened",
-    "translation": "무슨 일이 있었던거야?"
+    "translation": "무슨 일입니까?"
   },
   {
     "id": "nyaa_se_went_offline",
@@ -328,7 +332,7 @@
     "translation": "토렌트 파일"
   },
   {
-    "id": "uploading_torrent_prefills_fields",
+    "id": "uploading_file_prefills_fields",
     "translation": "토렌트 파일을 업로드하면 몇몇 필드가 자동으로 채워집니다. 추천드립니다."
   },
   {
@@ -341,23 +345,23 @@
   },
   {
     "id": "anime",
-    "translation": "Anime"
+    "translation": "애니"
   },
   {
     "id": "anime_amv",
-    "translation": "Anime - 애니메이션 뮤직 비디오"
+    "translation": "애니 - 애니메이션 뮤직 비디오"
   },
   {
     "id": "anime_english_translated",
-    "translation": "Anime - 영문 번역"
+    "translation": "애니 - 영문 번역"
   },
   {
     "id": "anime_non_english_translated",
-    "translation": "Anime - 비-영문 번역"
+    "translation": "애니 - 비-영문 번역"
   },
   {
     "id": "anime_raw",
-    "translation": "Anime - Raw"
+    "translation": "애니 - Raw"
   },
   {
     "id": "audio",
@@ -409,27 +413,27 @@
   },
   {
     "id": "pictures",
-    "translation": "Pictures"
+    "translation": "사진"
   },
   {
     "id": "pictures_graphics",
-    "translation": "Pictures - 그래픽"
+    "translation": "사진 - 그래픽"
   },
   {
     "id": "pictures_photos",
-    "translation": "Pictures - 사진"
+    "translation": "사진 - 사진"
   },
   {
     "id": "software",
-    "translation": "Software"
+    "translation": "소프트웨어"
   },
   {
     "id": "software_applications",
-    "translation": "Software - 응용프로그램"
+    "translation": "소프트웨어 - 응용프로그램"
   },
   {
     "id": "software_games",
-    "translation": "Software - 게임"
+    "translation": "소프트웨어 - 게임"
   },
   {
     "id": "torrent_description",
@@ -453,7 +457,7 @@
   },
   {
     "id": "id",
-    "translation": "ID"
+    "translation": "아이디"
   },
   {
     "id": "downloads",

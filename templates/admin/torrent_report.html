@@ -1,0 +1,22 @@
+{{define "title"}}Torrents Report{{end}}
+{{define "content"}}
+<table class="table">
+<tr>
+    <th class="col-xs-8">Torrent Name</th>
+    <th class="col-xs-1">User</th>
+    <th class="col-xs-1">Reason</th>
+    <th class="col-xs-1">Action</th>
+    <th class="col-xs-1">Action</th>
+</tr>
+
+  {{ range .TorrentReports}}
+    <tr>
+      <td><a href="{{ genRoute "mod_tedit"}}?id={{.Torrent.ID}}">{{.Torrent.Name}}</a></td>
+      <td>{{.User.Username}}</td>
+      <td>{{.Description}}</td>
+      <td><a href="{{ genRoute "mod_tdelete" }}?id={{ .Torrent.ID }}">Delete</a></td>
+      <td><a href="{{ genRoute "mod_trdelete" }}?id={{ .ID }}">Delete Report</a></td>
+    </tr>
+  {{end}}
+</table>
+{{end}}

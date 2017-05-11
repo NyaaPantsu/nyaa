@@ -20,7 +20,7 @@ func CurrentOrAdmin(user *model.User, userID uint) bool {
 // CurrentUserIdentical check that userID is same as current user's ID.
 // TODO: Inline this
 func CurrentUserIdentical(user *model.User, userID uint) bool {
-	return user.ID != userID
+	return user.ID == userID
 }
 
 func GetRole(user *model.User) string {

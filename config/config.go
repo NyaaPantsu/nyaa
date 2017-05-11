@@ -22,11 +22,17 @@ type Config struct {
 	// DBParams will be directly passed to Gorm, and its internal
 	// structure depends on the dialect for each db type
 	DBParams string `json:"db_params"`
+	// tracker scraper config (required)
+	Scrape ScraperConfig `json:"scraper"`
+	// cache config
+	Cache CacheConfig `json:"cache"`
+	// search config
+	Search SearchConfig `json:"search"`
 	// optional i2p configuration
 	I2P *I2PConfig `json:"i2p"`
 }
 
-var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50", nil}
+var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50", DefaultScraperConfig, DefaultCacheConfig, DefaultSearchConfig, nil}
 
 var allowedDatabaseTypes = map[string]bool{
 	"sqlite3":  true,
@@ -41,6 +47,8 @@ func New() *Config {
 	config.Port = Defaults.Port
 	config.DBType = Defaults.DBType
 	config.DBParams = Defaults.DBParams
+	config.Scrape = Defaults.Scrape
+	config.Cache = Defaults.Cache
 	return &config
 }
 

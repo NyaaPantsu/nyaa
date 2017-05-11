@@ -64,27 +64,18 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 > nyaa_psql.backup.
 
 ## TODO
-## High priority
-* Torrent data scraping from definable tracker (We have a tracker that the owner is ok for us to scrape from)
-  * seeds/leeachers
-  * file lists
-  * Downloads
-* Accounts and Registration System(WIP)
-  * Report Feature and Moderation System
-  * blocking upload of torrent hashes
-
-## Lower priority
+ * sukebei
+   * get sukebei_torrents table working
+   * add config option for sukebei or maybe make things all in one
+   * sukebei categories and category images
+   
  * Get code up to standard of go lint recommendations
  * Write tests
- * fix sukebei categories
- * Site theme
+
+  * Site theme
    * original nyaa theme
  * API improvement
- * Scraping of fan subbing RSS feeds
-
-* Daily DB dumps
-
-* p2p sync of dbs?
+ * Scraping of fan subbing RSS feeds(WIP)
 
 # LICENSE
 This project is licensed under the MIT License - see the LICENSE.md file for details
