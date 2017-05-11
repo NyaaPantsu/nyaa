@@ -42,6 +42,7 @@ type SearchParam struct {
 	Sort     SortMode
 	Category Category
 	Page     int
+	UserID   uint
 	Max      uint
 	Query    string
 }

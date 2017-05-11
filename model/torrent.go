@@ -39,6 +39,11 @@ type Torrent struct {
 	OldUploader string       `gorm:"-"` // ???????
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
+
+	Seeders    uint32    `gorm:"column:seeders"`
+	Leechers   uint32    `gorm:"column:leechers"`
+	Completed  uint32    `gorm:"column:completed"`
+	LastScrape time.Time `gorm:"column:last_scrape"`
 }
 
 // Returns the total size of memory recursively allocated for this struct
@@ -78,6 +83,7 @@ type ApiResultJSON struct {
 
 type CommentJSON struct {
 	Username string        `json:"username"`
+	UserID   int           `json:"user_id"`
 	Content  template.HTML `json:"content"`
 	Date     time.Time     `json:"date"`
 }
@@ -100,6 +106,10 @@ type TorrentJSON struct {
 	WebsiteLink  template.URL  `json:"website_link"`
 	Magnet       template.URL  `json:"magnet"`
 	TorrentLink  template.URL  `json:"torrent"`
+	Seeders      uint32        `json:"seeders"`
+	Leechers     uint32        `json:"leechers"`
+	Completed    uint32        `json:"completed"`
+	LastScrape   time.Time     `json:"last_scrape"`
 }
 
 // ToJSON converts a model.Torrent to its equivalent JSON structure
@@ -107,10 +117,10 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	magnet := util.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, config.Trackers...)
 	commentsJSON := make([]CommentJSON, 0, len(t.OldComments)+len(t.Comments))
 	for _, c := range t.OldComments {
-		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, Content: template.HTML(c.Content), Date: c.Date})
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, UserID: -1, Content: template.HTML(c.Content), Date: c.Date})
 	}
 	for _, c := range t.Comments {
-		commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt})
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt})
 	}
 	uploader := ""
 	if t.Uploader != nil {
@@ -139,7 +149,12 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		OldUploader:  util.SafeText(t.OldUploader),
 		WebsiteLink:  util.Safe(t.WebsiteLink),
 		Magnet:       template.URL(magnet),
-		TorrentLink:  util.Safe(torrentlink)}
+		TorrentLink:  util.Safe(torrentlink),
+		Leechers:     t.Leechers,
+		Seeders:      t.Seeders,
+		Completed:    t.Completed,
+		LastScrape:   t.LastScrape,
+	}
 
 	return res
 }

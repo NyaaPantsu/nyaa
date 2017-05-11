@@ -1,0 +1,586 @@
+[
+  {
+    "id": "link",
+    "translation": "länk"
+  },
+  {
+    "id": "verify_email_title",
+    "translation": "Bekräfta din mailadress för Nyaapantsu."
+  },
+  {
+    "id": "verify_email_content",
+    "translation": "Var vänlig klicka länken nedan för att bekräfta din mailadress."
+  },
+  {
+    "id": "reset_password_title",
+    "translation": "Återställ ditt lösenord."
+  },
+  {
+    "id": "reset_password_content",
+    "translation": "Var vänlig klicka länken nedan för att återställa ditt lösenord."
+  },
+  {
+    "id":"register_title",
+    "translation": "Skapa ett nytt konto"
+  },
+  {
+    "id":"signup_box_title",
+    "translation": "Registrera dig <small>Det är gratis och kommer alltid att vara det.</small>"
+  },
+  {
+    "id":"username",
+    "translation": "Användarnamn"
+  },
+  {
+    "id":"email_address_or_username",
+    "translation": "Mailadress eller användarnamn"
+  },
+  {
+    "id":"email_address",
+    "translation": "Mailadress"
+  },
+  {
+    "id":"password",
+    "translation": "Lösenord"
+  },
+  {
+    "id":"confirm_password",
+    "translation": "Bekräfta lösenord"
+  },
+  {
+    "id":"i_agree",
+    "translation": "Jag accepterar"
+  },
+  {
+    "id":"terms_conditions_confirm",
+    "translation": "Genom att klicka på <strong class=\"label label-primary\">Registrera</strong> accepterar du denna webbsidas <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">användarvillkor</a>, samt vår användning av kakor (cookies)."
+  },
+  {
+    "id":"signin",
+    "translation": "Logga in"
+  },
+  {
+    "id":"register",
+    "translation": "Registrera"
+  },
+  {
+    "id":"terms_conditions",
+    "translation": "Användarvillkor"
+  },
+  {
+    "id":"terms_conditions_full",
+    "translation": "Nån skit."
+  },
+  {
+    "id":"remember_me",
+    "translation": "Kom ihåg mig"
+  },
+  {
+    "id":"forgot_password",
+    "translation": "Glömt lösenordet?"
+  },
+  {
+    "id":"sign_in_box_title",
+    "translation": "Logga in"
+  },
+  {
+    "id":"sign_in_title",
+    "translation": "Logga in"
+  },
+  {
+    "id":"register_success_title",
+    "translation": "Registrering lyckades"
+  },
+  {
+    "id":"sign_up_success",
+    "translation": "Tack för att du registrerat dig!"
+  },
+  {
+    "id":"verify_success",
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Ditt konto är nu aktiverat!"
+  },
+  {
+    "id":"signup_verification_email",
+    "translation": "För att slutföra, var vänlig se verifikationsmailet i din inkorg (eller din skräppost)."
+  },
+  {
+    "id":"signup_verification_noemail",
+    "translation": "Registreringen var lyckad. Du kan nu använda ditt konto."
+  },
+  {
+    "id":"settings",
+    "translation": "Kontoinställningar"
+  },
+  {
+    "id":"torrents",
+    "translation": "Torrents"
+  },
+  {
+    "id":"follow",
+    "translation": "Följ"
+  },
+  {
+    "id":"unfollow",
+    "translation": "Sluta följ"
+  },
+  {
+    "id":"user_followed_msg",
+    "translation": "Du följer nu %s!"
+  },
+  {
+    "id":"user_unfollowed_msg",
+    "translation": "Du har slutat följa %s!"
+  },
+  {
+    "id":"profile_page",
+    "translation": "%s profil"
+  },
+  {
+    "id":"see_more_torrents_from",
+    "translation": "Se flera torrents från %s "
+  },
+  {
+    "id":"category",
+    "translation": "Kategori"
+  },
+  {
+    "id": "name",
+    "translation": "Namn"
+  },
+  {
+    "id": "date",
+    "translation": "Datum"
+  },
+  {
+    "id": "size",
+    "translation": "Storlek"
+  },
+  {
+    "id": "links",
+    "translation": "Länkar"
+  },
+  {
+    "id": "home",
+    "translation": "Hem"
+  },
+  {
+    "id": "error_404",
+    "translation": "Error 404"
+  },
+  {
+    "id": "toggle_navigation",
+    "translation": "Öppna/stäng navigering"
+  },
+  {
+    "id": "upload",
+    "translation": "Ladda upp"
+  },
+  {
+    "id": "faq",
+    "translation": "FAQ"
+  },
+  {
+    "id": "fap",
+    "translation": "Onanera"
+  },
+  {
+    "id": "advanced_search",
+    "translation": "Avancerad sökning"
+  },
+  {
+    "id": "nothing_here",
+    "translation": "Finns inget här."
+  },
+  {
+    "id": "404_not_found",
+    "translation": "404 Not Found"
+  },
+  {
+    "id": "no_torrents_uploaded",
+    "translation": "Inga torrents har laddats upp ännu!"
+  },
+  {
+    "id": "profile",
+    "translation": "Profil"
+  },
+  {
+    "id": "sign_out",
+    "translation": "Logga ut"
+  },
+  {
+    "id": "member",
+    "translation": "Medlem"
+  },
+  {
+    "id": "sign_in",
+    "translation": "Logga in"
+  },
+  {
+    "id": "sign_up",
+    "translation": "Registrera"
+  },
+  {
+    "id": "no_results_found",
+    "translation": "Inga resultat kunde hittas"
+  },
+  {
+    "id": "notice_keep_seeding",
+    "translation": "OBS: FORTSÄTT SEEDA OCH SLÅ PÅ DHT DITT MONGO"
+  },
+  {
+    "id": "official_nyaapocalipse_faq",
+    "translation": "Officiell Nyaapocalypse FAQ"
+  },
+  {
+    "id": "links_replacement_mirror",
+    "translation": "Länkar till ersättaren"
+  },
+  {
+    "id": "what_happened",
+    "translation": "Vad har hänt?"
+  },
+  {
+    "id": "nyaa_se_went_offline",
+    "translation": "nyaa.se och dess associerade domäner (som nyaatorrents.info) gick ner 1:a maj 2017."
+  },
+  {
+    "id": "its_not_a_ddos",
+    "translation": "De vart avaktiverade, så det handlar inte om en vanlig DDoS-attack."
+  },
+  {
+    "id": "future_not_looking_good",
+    "translation": "Framtiden för nyaa ser inte ljus ut (den är död)."
+  },
+  {
+    "id": "recovery_effort",
+    "translation": "Det pågår för närvarande ett arbete för att återställa webbsidan."
+  },
+  {
+    "id": "is_everything_lost",
+    "translation": "Är allt förlorat?"
+  },
+  {
+    "id": "in_short_no",
+    "translation": "Kort sagt, nej."
+  },
+  {
+    "id": "are_some_things_lost",
+    "translation": "Är något förlorat?"
+  },
+  {
+    "id": "answer_is_nyaa_db_lost",
+    "translation": "Vi har en databas med torrents på nyaa fram till <s>5:e april</s> 1:a maj. Detta innebär att nästan inget har gått förlorat."
+  },
+  {
+    "id": "answer_is_sukebei_db_lost",
+    "translation": "Däremot står det illa till med Sukebei. Vi har för närvarande endast databaser fram till slutet på 2016, men det kan möjligtvis finnas nyare databaser."
+  },
+  {
+    "id": "how_are_we_recovering",
+    "translation": "Hur återhämtar vi oss?"
+  },
+  {
+    "id": "answer_how_are_we_recovering",
+    "translation": "Databaserna hostas för tillfället på nyaa.pantsu.cat och sukebei.pantsu.cat. Det går att söka och (nästan) fullständig nyaa-funktionalitet är på gång. Seeder/leecher-statistik är möjlig via scraping och kan återställas i sinom tid; annan funktionalitet tar prioritet för tillfället."
+  },
+  {
+    "id": "are_the_trackers_working",
+    "translation": "Fungerar torrents fortfarande?"
+  },
+  {
+    "id": "answer_are_the_trackers_working",
+    "translation": "Även om trackern är nere kan seeders fortfarande koppla upp sig till det decentraliserade DHT-nätverket. Så länge filen finns i nätverket så flyter allt på som vanligt."
+  },
+  {
+    "id": "how_do_i_download_the_torrents",
+    "translation": "Hur laddar jag ner torrents?"
+  },
+  {
+    "id": "answer_how_do_i_download_the_torrents",
+    "translation": "Använd <b>magnetlänken</b>. Din Bittorrent-klient använder länken för att slå upp och ladda ner torrentfilen från DHT-nätverket."
+  },
+  {
+    "id": "magnet_link_should_look_like",
+    "translation": "Magnetlänken bör se ut så här:"
+  },
+  {
+    "id": "which_trackers_do_you_recommend",
+    "translation": "Vilka trackers rekommenderar ni?"
+  },
+  {
+    "id": "answer_which_trackers_do_you_recommend",
+    "translation": "Om din torrent avslås på grund av trackers kan du lägga till några av dessa:"
+  },
+  {
+    "id": "how_can_i_help",
+    "translation": "Hur kan jag hjälpa till?"
+  },
+  {
+    "id": "answer_how_can_i_help",
+    "translation": "Om du har erfarenhet med att utveckla webbsidor kan du gå med i vår IRC-kanal #nyaapantsu på irc.rizon.net. Har du aktuella databasdumpar till hands (gärna för sukebei), <b>LADDA UPP DEM</b>."
+  },
+  {
+    "id": "your_design_sucks_found_a_bug",
+    "translation": "Er design suger / Jag hittade en bugg"
+  },
+  {
+    "id": "why_written_in_go",
+    "translation": "Varför har ni skrivit skiten i Go?"
+  },
+  {
+    "id": "authors_favorite_language",
+    "translation": "Det är skaparens favoritspråk."
+  },
+  {
+    "id": "nyaa_pantsu_dont_host_files",
+    "translation": "nyaa.pantsu.cat och sukebei.pantsu.cat tillhandahåller inga filer på sina servrar."
+  },
+  {
+    "id": "upload_magnet",
+    "translation": "Ladda upp magnet"
+  },
+  {
+    "id": "torrent_file",
+    "translation": "Torrentfil"
+  },
+  {
+    "id": "uploading_file_prefills_fields",
+    "translation": "När du laddar upp en torrentfil fylls vissa fält i automatiskt. Detta är rekommenderat."
+  },
+  {
+    "id": "magnet_link",
+    "translation": "Magnetlänk"
+  },
+  {
+    "id": "all_categories",
+    "translation": "Alla kategorier"
+  },
+  {
+    "id": "anime",
+    "translation": "Anime"
+  },
+  {
+    "id": "anime_amv",
+    "translation": "Anime - Anime-musikvideo"
+  },
+  {
+    "id": "anime_english_translated",
+    "translation": "Anime - Engelsk översättning"
+  },
+  {
+    "id": "anime_non_english_translated",
+    "translation": "Anime - Icke-engelsk översättning"
+  },
+  {
+    "id": "anime_raw",
+    "translation": "Anime - Rå"
+  },
+  {
+    "id": "audio",
+    "translation": "Audio"
+  },
+  {
+    "id": "audio_lossless",
+    "translation": "Audio - Lossless"
+  },
+  {
+    "id": "audio_lossy",
+    "translation": "Audio - Lossy"
+  },
+  {
+    "id": "literature",
+    "translation": "Litteratur"
+  },
+  {
+    "id": "literature_english_translated",
+    "translation": "Litteratur - Engelsk översättning"
+  },
+  {
+    "id": "literature_raw",
+    "translation": "Litteratur - Rå"
+  },
+  {
+    "id": "literature_non_english_translated",
+    "translation": "Litteratur - Icke-engelsk översättning"
+  },
+  {
+    "id": "live_action",
+    "translation": "Live-action"
+  },
+  {
+    "id": "live_action_english_translated",
+    "translation": "Live action - Engelsk översättning"
+  },
+  {
+    "id": "live_action_idol_pv",
+    "translation": "Live action - Idol/Promotional Video"
+  },
+  {
+    "id": "live_action_non_english_translated",
+    "translation": "Live action - Icke-engelsk översättning"
+  },
+  {
+    "id": "live_action_raw",
+    "translation": "Live action - Rå"
+  },
+  {
+    "id": "pictures",
+    "translation": "Bilder"
+  },
+  {
+    "id": "pictures_graphics",
+    "translation": "Bilder - Grafik"
+  },
+  {
+    "id": "pictures_photos",
+    "translation": "Bilder - Foton"
+  },
+  {
+    "id": "software",
+    "translation": "Mjukvara"
+  },
+  {
+    "id": "software_applications",
+    "translation": "Mjukvara - Applikationer"
+  },
+  {
+    "id": "software_games",
+    "translation": "Mjukvara - Spel"
+  },
+  {
+    "id": "torrent_description",
+    "translation": "Torrentbeskrivning"
+  },
+  {
+    "id": "description_markdown_notice",
+    "translation": "Markdown kan användas i beskrivningar."
+  },
+  {
+    "id": "show_all",
+    "translation": "Visa allt"
+  },
+  {
+    "id": "filter_remakes",
+    "translation": "Filtrera bort återuppladdningar"
+  },
+  {
+    "id": "trusted",
+    "translation": "Endast pålitliga medlemmar"
+  },
+  {
+    "id": "id",
+    "translation": "ID"
+  },
+  {
+    "id": "downloads",
+    "translation": "Nedladdningar"
+  },
+  {
+    "id": "descending",
+    "translation": "Fallande"
+  },
+  {
+    "id": "ascending",
+    "translation": "Stigande"
+  },
+  {
+    "id": "search",
+    "translation": "Sök"
+  },
+  {
+    "id": "hash",
+    "translation": "Hash"
+  },
+  {
+    "id": "description",
+    "translation": "Beskrivning"
+  },
+  {
+    "id": "comments",
+    "translation": "Kommentarer"
+  },
+  {
+    "id": "submit_a_comment_as_username",
+    "translation": "Kommentera som %s"
+  },
+  {
+    "id": "submit_a_comment_as_anonymous",
+    "translation": "Kommentera anonymt"
+  },
+  {
+    "id": "submit",
+    "translation": "Skicka"
+  },
+  {
+    "id": "personal_info",
+    "translation": "Personlig info"
+  },
+  {
+    "id": "language",
+    "translation": "Språk"
+  },
+  {
+    "id": "current_password",
+    "translation": "Nuvarande lösenord"
+  },
+  {
+    "id": "role",
+    "translation": "Roll"
+  },
+  {
+    "id": "banned",
+    "translation": "Bannad"
+  },
+  {
+    "id": "default",
+    "translation": "Standard"
+  },
+  {
+    "id": "trusted_member",
+    "translation": "Pålitlig medlem"
+  },
+  {
+    "id": "moderator",
+    "translation": "Moderator"
+  },
+  {
+    "id": "save_changes",
+    "translation": "Spara ändringar"
+  },
+  {
+    "id": "profile_updated",
+    "translation": "Din profil har uppdaterats!"
+  },
+  {
+    "id": "delete_account",
+    "translation": "Radera konto"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "Är du säker på att du vill radera ditt konto?"
+  },
+  {
+    "id": "delete_success",
+    "translation": "Kontot har raderats!"
+  },
+  {
+    "id": "moderation",
+    "translation": "Moderering"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "Vem fan är れんちょん?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "れんちょん är användarnamnet som ges till anonyma kommentarer och uppladdningar. Det används även för importerade torrents från gamla nyaa, men den ursprungliga uppladdaren kan även visas vid sidan av."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Markera som återuppladdning"
+  },
+  {
+    "id": "email_changed",
+    "translation": "Din mailadress har bytts! Du måste bekräfta adressen genom att klicka på länken som skickats till %s."
+  }
+]

@@ -1,5 +1,9 @@
 package model
 
+import (
+	"time"
+)
+
 // TODO Add field to specify kind of reports
 // TODO Add CreatedAt field
 // INFO User can be null (anonymous reports)
@@ -9,6 +13,8 @@ type TorrentReport struct {
 	Description string `gorm:"column:type"`
 	TorrentID   uint   `gorm:"column:torrent_id"`
 	UserID      uint   `gorm:"column:user_id"`
+
+	CreatedAt time.Time `gorm:"column:created_at"`
 
 	Torrent *Torrent `gorm:"AssociationForeignKey:TorrentID;ForeignKey:torrent_id"`
 	User    *User    `gorm:"AssociationForeignKey:UserID;ForeignKey:user_id"`

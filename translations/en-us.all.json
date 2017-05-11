@@ -13,7 +13,7 @@
   },
   {
     "id": "reset_password_title",
-    "translation": "Reset your password for goyangi."
+    "translation": "Reset your password for Nyaapantsu."
   },
   {
     "id": "reset_password_content",
@@ -578,5 +578,29 @@
   {
     "id": "mark_as_remake",
     "translation": "Mark as remake"
+  },
+  {
+    "id": "email_changed",
+    "translation": "Email changed successfully! You will have, however, to confirm it by clicking to the link sent to: %s"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "Torrent status"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "Hidden"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "Normal"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "Remake"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "Edit %s's profile"
   }
 ]

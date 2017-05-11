@@ -148,9 +148,12 @@ type PanelCommentListVbs struct {
 	URL        *url.URL // For parsing Url in templates
 }
 type PanelTorrentEdVbs struct {
-	Torrent model.Torrent
+	Upload     UploadForm
 	Search  SearchForm
 	User    *model.User
+	FormErrors  map[string][]string
+	FormInfos   map[string][]string
+	URL        *url.URL // For parsing Url in templates
 }
 
 type PanelTorrentReportListVbs struct {

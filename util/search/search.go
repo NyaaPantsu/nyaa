@@ -39,6 +39,8 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 
 	search.Page = pagenum
 	search.Query = r.URL.Query().Get("q")
+	userID, _ := strconv.Atoi(r.URL.Query().Get("userID"))
+	search.UserID =  uint(userID)
 
 	switch s := r.URL.Query().Get("s"); s {
 	case "1":
@@ -82,6 +84,12 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	case "4":
 		search.Sort = common.Size
 		orderBy += "filesize"
+	case "5":
+		orderBy += "seeders"
+	case "6":
+		orderBy += "leechers"
+	case "7":
+		orderBy += "completed"
 	default:
 		orderBy += "torrent_id"
 	}
@@ -105,15 +113,19 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 			conditions = append(conditions, "category = ?")
 			parameters.Params = append(parameters.Params, string(catString[0]))
 		}
+		if search.UserID != 0 {
+			conditions = append(conditions, "uploader = ?")
+			parameters.Params = append(parameters.Params, search.UserID)
+		}
 		if search.Category.Sub != 0 {
 			conditions = append(conditions, "sub_category = ?")
 			parameters.Params = append(parameters.Params, string(catString[2]))
 		}
 		if search.Status != 0 {
-			if search.Status == 3 {
-				conditions = append(conditions, "status != ?")
+			if search.Status == common.FilterRemakes {
+				conditions = append(conditions, "status > ?")
 			} else {
-				conditions = append(conditions, "status = ?")
+				conditions = append(conditions, "status >= ?")
 			}
 			parameters.Params = append(parameters.Params, strconv.Itoa(int(search.Status)+1))
 		}

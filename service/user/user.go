@@ -98,7 +98,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) (int, error) {
 	if usernameCandidate != registrationForm.Username {
 		return http.StatusInternalServerError, fmt.Errorf("Username already taken, you can choose: %s", usernameCandidate)
 	}
-	if CheckEmail(registrationForm.Email) {
+	if registrationForm.Email != "" && CheckEmail(registrationForm.Email) {
 		return http.StatusInternalServerError, errors.New("email address already in database")
 	}
 	password, err := bcrypt.GenerateFromPassword([]byte(registrationForm.Password), 10)
@@ -110,7 +110,9 @@ func CreateUser(w http.ResponseWriter, r *http.Request) (int, error) {
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
-	SendVerificationToUser(user, registrationForm.Email)
+	if (registrationForm.Email != "") {
+		SendVerificationToUser(user, registrationForm.Email)
+	}
 	status, err = RegisterHandler(w, r)
 	return status, err
 }
@@ -194,9 +196,12 @@ func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, currentUser *m
 		form.Status = user.Status
 		form.Username = user.Username
 	}
+	if (form.Email != user.Email) {
+		SendVerificationToUser(user, form.Email)
+		form.Email = user.Email
+	}
 	log.Debugf("form %+v\n", form)
 	modelHelper.AssignValue(&user, form)
-
 	status, err := UpdateUserCore(&user)
 	if err != nil {
 		return user, status, err
@@ -213,12 +218,16 @@ func DeleteUser(w http.ResponseWriter, currentUser *model.User, id string) (int,
 	if db.ORM.First(&user, id).RecordNotFound() {
 		return http.StatusNotFound, errors.New("user not found")
 	}
+	if (user.ID == 0) {
+		return http.StatusInternalServerError, errors.New("You can't delete that!")
+	}
 	if db.ORM.Delete(&user).Error != nil {
 		return http.StatusInternalServerError, errors.New("user not deleted")
 	}
 	if userPermission.CurrentUserIdentical(currentUser, user.ID) {
 		return ClearCookie(w)
 	}
+
 	return http.StatusOK, nil
 }
 
