@@ -586,5 +586,25 @@
   {
     "id": "email_changed",
     "translation": "L'adresse email a été modifiée avec succès ! Confirmez le changement en cliquant sur le lien envoyé à : %s"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "Statut du torrent"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "Invisible"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "Normal"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "Remake"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "Éditer le profil de %s"
   }
 ]
