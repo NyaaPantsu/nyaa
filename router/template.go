@@ -7,7 +7,7 @@ import (
 
 var TemplateDir = "templates"
 
-var homeTemplate, searchTemplate, faqTemplate, uploadTemplate, viewTemplate, viewRegisterTemplate, viewLoginTemplate, viewRegisterSuccessTemplate, viewVerifySuccessTemplate, viewProfileTemplate, notFoundTemplate *template.Template
+var homeTemplate, searchTemplate, faqTemplate, uploadTemplate, viewTemplate, viewRegisterTemplate, viewLoginTemplate, viewRegisterSuccessTemplate, viewVerifySuccessTemplate, viewProfileTemplate, viewProfileEditTemplate, viewUserDeleteTemplate, notFoundTemplate *template.Template
 
 type templateLoader struct {
 	templ **template.Template
@@ -69,6 +69,16 @@ func ReloadTemplates() {
 			file:  "user/profile.html",
 		},
 		templateLoader{
+			templ: &viewProfileEditTemplate,
+			name:  "user_profile",
+			file:  "user/profile_edit.html",
+		},
+		templateLoader{
+			templ: &viewUserDeleteTemplate,
+			name:  "user_delete",
+			file:  "user/delete_success.html",
+		},
+		templateLoader{
 			templ: &notFoundTemplate,
 			name:  "404",
 			file:  "404.html",
@@ -76,7 +86,7 @@ func ReloadTemplates() {
 	}
 	for _, templ := range templs {
 		t := template.Must(template.New(templ.name).Funcs(FuncMap).ParseFiles(filepath.Join(TemplateDir, "index.html"), filepath.Join(TemplateDir, templ.file)))
-		t = template.Must(t.ParseGlob(filepath.Join("templates", "_*.html")))
+		t = template.Must(t.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
 
 		*templ.templ = t
 	}

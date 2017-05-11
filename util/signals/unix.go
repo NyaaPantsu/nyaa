@@ -21,7 +21,7 @@ func handleReload() {
 // returns when done
 func Handle() {
 	chnl := make(chan os.Signal)
-	signal.Notify(chnl, syscall.SIGHUP)
+	signal.Notify(chnl, syscall.SIGHUP, os.Interrupt)
 	for {
 		sig, ok := <-chnl
 		if !ok {
@@ -31,8 +31,17 @@ func Handle() {
 		case syscall.SIGHUP:
 			handleReload()
 			break
+		case os.Interrupt:
+			interrupted()
+			return
 		default:
 			break
 		}
 	}
+}
+
+// unix implementation of interrupt
+// called in interrupted()
+func handleInterrupt() {
+	// XXX: put unix specific cleanup here as needed
 }

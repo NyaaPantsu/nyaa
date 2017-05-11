@@ -1,0 +1,554 @@
+[
+  {
+    "id": "link",
+    "translation": "link"
+  },
+  {
+    "id": "verify_email_title",
+    "translation": "Bevestig je e-mailadres voor Nyaapantsu."
+  },
+  {
+    "id": "verify_email_content",
+    "translation": "Klik op de onderstaande link om je e-mail te bevestigen."
+  },
+  {
+    "id": "reset_password_title",
+    "translation": "Stel je wachtwoord opnieuw in voor Nyaapantsu."
+  },
+  {
+    "id": "reset_password_content",
+    "translation": "Klik op de onderstaande link om je wachtwoord opnieuw in te stellen."
+  },
+  {
+    "id":"register_title",
+    "translation": "Een nieuw account aanmaken"
+  },
+  {
+    "id":"signup_box_title",
+    "translation": "Registreren <small>Het is gratis en dat blijft het ook.</small>"
+  },
+  {
+    "id":"username",
+    "translation": "Gebruikersnaam"
+  },
+  {
+    "id":"email_address_or_username",
+    "translation": "E-mailadres of Gebruikersnaam"
+  },
+  {
+    "id":"email_address",
+    "translation": "E-mailadres"
+  },
+  {
+    "id":"password",
+    "translation": "Wachtwoord"
+  },
+  {
+    "id":"confirm_password",
+    "translation": "Bevestig wachtwoord"
+  },
+  {
+    "id":"i_agree",
+    "translation": "Ik ga akkoord"
+  },
+  {
+    "id":"terms_conditions_confirm",
+    "translation": "Door te klikken op <strong class=\"label label-primary\">Registreren</strong>, ga je akkoord met de <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Algemene voorwaarden</a> die deze site hanteert, waaronder ons Cookiebeleid."
+  },
+  {
+    "id":"signin",
+    "translation": "Aanmelden"
+  },
+  {
+    "id":"register",
+    "translation": "Registreren"
+  },
+  {
+    "id":"terms_conditions",
+    "translation": "Algemene voorwaarden"
+  },
+  {
+    "id":"terms_conditions_full",
+    "translation": "Wat onzin."
+  },
+  {
+    "id":"remember_me",
+    "translation": "Onthou mij"
+  },
+  {
+    "id":"forgot_password",
+    "translation": "Wachtwoord vergeten?"
+  },
+  {
+    "id":"sign_in_box_title",
+    "translation": "Meld je aan"
+  },
+  {
+    "id":"sign_in_title",
+    "translation": "Aanmelden"
+  },
+  {
+    "id":"register_success_title",
+    "translation": "Registratie gelukt"
+  },
+  {
+    "id":"sign_up_success",
+    "translation": "Bedankt voor het registreren!"
+  },
+  {
+    "id":"verify_success",
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Je account is nu geactiveerd!"
+  },
+  {
+    "id":"signup_verification_email",
+    "translation": "Controleer tot slot je inbox (en je map met ongewenste e-mail!) voor het bevestigingsbericht."
+  },
+  {
+    "id":"signup_verification_noemail",
+    "translation": "Registratie is gelukt, je kunt nu je account gebruiken."
+  },
+  {
+    "id":"settings",
+    "translation": "Accountinstellingen"
+  },
+  {
+    "id":"torrents",
+    "translation": "Torrents"
+  },
+  {
+    "id":"follow",
+    "translation": "Volgen"
+  },
+  {
+    "id":"profile_page",
+    "translation": "%s Profielpagina"
+  },
+  {
+    "id":"see_more_torrents_from",
+    "translation": "Meer torrents van %s "
+  },
+  {
+    "id":"category",
+    "translation": "Categorie"
+  },
+  {
+    "id": "name",
+    "translation": "Naam"
+  },
+  {
+    "id": "date",
+    "translation": "Datum"
+  },
+  {
+    "id": "size",
+    "translation": "Grootte"
+  },
+  {
+    "id": "links",
+    "translation": "Links"
+  },
+  {
+    "id": "home",
+    "translation": "Home"
+  },
+  {
+    "id": "error_404",
+    "translation": "Error 404"
+  },
+  {
+    "id": "toggle_navigation",
+    "translation": "Nagiveren inschakelen"
+  },
+  {
+    "id": "upload",
+    "translation": "Uploaden"
+  },
+  {
+    "id": "faq",
+    "translation": "FAQ"
+  },
+  {
+    "id": "fap",
+    "translation": "Fap"
+  },
+  {
+    "id": "advanced_search",
+    "translation": "Geavanceerd Zoeken"
+  },
+  {
+    "id": "nothing_here",
+    "translation": "Er is hier niks."
+  },
+  {
+    "id": "404_not_found",
+    "translation": "404 Not Found"
+  },
+  {
+    "id": "no_torrents_uploaded",
+    "translation": "Nog geen torrents geüpload!"
+  },
+  {
+    "id": "profile",
+    "translation": "Profiel"
+  },
+  {
+    "id": "sign_out",
+    "translation": "Afmelden"
+  },
+  {
+    "id": "member",
+    "translation": "Lid"
+  },
+  {
+    "id": "sign_in",
+    "translation": "Aanmelden"
+  },
+  {
+    "id": "sign_up",
+    "translation": "Registreren"
+  },
+  {
+    "id": "no_results_found",
+    "translation": "Geen zoekresultaten gevonden."
+  },
+  {
+    "id": "notice_keep_seeding",
+    "translation": "MEDEDELING: BLIJF SEEDEN EN ZET DHT AAN SUKKEL"
+  },
+  {
+    "id": "official_nyaapocalipse_faq",
+    "translation": "Officiële FAQ van de Nyaapocalyps"
+  },
+  {
+    "id": "links_replacement_mirror",
+    "translation": "Links voor de vervanging/mirror"
+  },
+  {
+    "id": "what_happened",
+    "translation": "Wat is er gebeurd?"
+  },
+  {
+    "id": "nyaa_se_went_offline",
+    "translation": "nyaa.se and bijbehorende domeinen (zoals nyaatorrents.info) zijn op 1 mei 2017 uit de lucht gehaald."
+  },
+  {
+    "id": "its_not_a_ddos",
+    "translation": "Ze zijn niet langer actief, dus het gaat hier niet zoals gewoonlijk om een DDoS-aanval."
+  },
+  {
+    "id": "future_not_looking_good",
+    "translation": "De vooruitzichten voor nyaa zijn niet goed. (Het is voorgoed weg.)"
+  },
+  {
+    "id": "recovery_effort",
+    "translation": "Men is bezig de boel te herstellen."
+  },
+  {
+    "id": "is_everything_lost",
+    "translation": "Is alles verloren gegaan?"
+  },
+  {
+    "id": "in_short_no",
+    "translation": "Kort antwoord: nee."
+  },
+  {
+    "id": "are_some_things_lost",
+    "translation": "Zijn er sommige dingen verloren gegaan?"
+  },
+  {
+    "id": "answer_is_nyaa_db_lost",
+    "translation": "We hebben een database van de torrents op nyaa van tot en met <s>5 april</s> 1 mei. Dat betekent dat er bijna niks verloren is gegaan."
+  },
+  {
+    "id": "answer_is_sukebei_db_lost",
+    "translation": "Voor Sukebei is de situatie minder gunstig. We hebben op dit moment databases van tot en met 2016, hoewel de mogelijkheid bestaat dat er een recentere database te vinden is."
+  },
+  {
+    "id": "how_are_we_recovering",
+    "translation": "Hoe verloopt het herstel?"
+  },
+  {
+    "id": "answer_how_are_we_recovering",
+    "translation": "De voornoemde databases worden gehost op nyaa.pantsu.cat en sukebei.pantsu.cat. Er is een zoekfunctie en (bijna) alle functionele eigenschappen van nyaa worden binnenkort uitgerold. Seeder/leecher-gegevens zijn te achterhalen door middel van scraping en worden wellicht in de toekomst hersteld, aangezien de prioriteiten op dit moment ergens anders liggen."
+  },
+  {
+    "id": "are_the_trackers_working",
+    "translation": "Doen de torrents het nog?"
+  },
+  {
+    "id": "answer_are_the_trackers_working",
+    "translation": "Zelfs als de trackers niet langer werken zijn seeders nog steeds verbonden met het gedecentraliseerde DHT-netwerk. Zolang het bestand beschikbaar is in het DHT-netwerk, zouden er zich geen problemen voor moeten doen."
+  },
+  {
+    "id": "how_do_i_download_the_torrents",
+    "translation": "Hoe download ik de torrents?"
+  },
+  {
+    "id": "answer_how_do_i_download_the_torrents",
+    "translation": "Gebruik gewoon de <b>magnetlink</b>. Je BitTorrent-programma zal de magnetlink gebruiken om het bestand in het DHT-netwerk op te sporen waarna je het bestand gewoon zou moeten kunnen downloaden."
+  },
+  {
+    "id": "magnet_link_should_look_like",
+    "translation": "De magnetlink ziet er als volgt uit:"
+  },
+  {
+    "id": "which_trackers_do_you_recommend",
+    "translation": "Welke trackers raden jullie aan te gebruiken?"
+  },
+  {
+    "id": "answer_which_trackers_do_you_recommend",
+    "translation": "Voeg deze trackers toe indien je torrentupload wordt geweigerd vanwege de trackers:"
+  },
+  {
+    "id": "how_can_i_help",
+    "translation": "Hoe kan ik helpen?"
+  },
+  {
+    "id": "answer_how_can_i_help",
+    "translation": "Als je ervaring hebt met het ontwikkelen van websites, kan je je aansluiten bij het IRC-kanaal #nyaapantsu op irc.rizon.net. Mocht je in het bezit zijn van recente databases, vooral van sukebei, <b>UPLOAD ZE</b>."
+  },
+  {
+    "id": "your_design_sucks_found_a_bug",
+    "translation": "Het ontwerp is slecht / Ik heb een fout gevonden"
+  },
+  {
+    "id": "why_written_in_go",
+    "translation": "Waarom is dit in Go geschreven?"
+  },
+  {
+    "id": "authors_favorite_language",
+    "translation": "Het is de favoriete programmeertaal van de bedenker."
+  },
+  {
+    "id": "nyaa_pantsu_dont_host_files",
+    "translation": "nyaa.pantsu.cat en sukebei.pantsu.cat hosten geen bestanden."
+  },
+  {
+    "id": "upload_magnet",
+    "translation": "Magnet uploaden"
+  },
+  {
+    "id": "torrent_file",
+    "translation": "Torrentbestand"
+  },
+  {
+    "id": "uploading_file_prefills_fields",
+    "translation": "Bij het uploaden van een torrentbestand worden enkele velden automatisch ingevuld. Dit is aangeraden."
+  },
+  {
+    "id": "magnet_link",
+    "translation": "Magnetlink"
+  },
+  {
+    "id": "all_categories",
+    "translation": "Alle categorieën"
+  },
+  {
+    "id": "anime",
+    "translation": "Anime"
+  },
+  {
+    "id": "anime_amv",
+    "translation": "Anime - Anime Music Video"
+  },
+  {
+    "id": "anime_english_translated",
+    "translation": "Anime - Engels vertaald"
+  },
+  {
+    "id": "anime_non_english_translated",
+    "translation": "Anime - Niet-Engels vertaald"
+  },
+  {
+    "id": "anime_raw",
+    "translation": "Anime - Raw"
+  },
+  {
+    "id": "audio",
+    "translation": "Audio"
+  },
+  {
+    "id": "audio_lossless",
+    "translation": "Audio - Lossless"
+  },
+  {
+    "id": "audio_lossy",
+    "translation": "Audio - Lossy"
+  },
+  {
+    "id": "literature",
+    "translation": "Literatuur"
+  },
+  {
+    "id": "literature_english_translated",
+    "translation": "Literatuur - Engels vertaald"
+  },
+  {
+    "id": "literature_raw",
+    "translation": "Literatuur - Raw"
+  },
+  {
+    "id": "literature_non_english_translated",
+    "translation": "Literatuur - Niet-Engels vertaald"
+  },
+  {
+    "id": "live_action",
+    "translation": "Live-action"
+  },
+  {
+    "id": "live_action_english_translated",
+    "translation": "Live-action - Engels vertaald"
+  },
+  {
+    "id": "live_action_idol_pv",
+    "translation": "Live-action - Idol/Trailer"
+  },
+  {
+    "id": "live_action_non_english_translated",
+    "translation": "Live-action - Niet-Engels vertaald"
+  },
+  {
+    "id": "live_action_raw",
+    "translation": "Live-action - Raw"
+  },
+  {
+    "id": "pictures",
+    "translation": "Afbeeldingen"
+  },
+  {
+    "id": "pictures_graphics",
+    "translation": "Afbeeldingen - Grafisch"
+  },
+  {
+    "id": "pictures_photos",
+    "translation": "Afbeeldingen - Foto's"
+  },
+  {
+    "id": "software",
+    "translation": "Software"
+  },
+  {
+    "id": "software_applications",
+    "translation": "Software - Toepassingen"
+  },
+  {
+    "id": "software_games",
+    "translation": "Software - Games"
+  },
+  {
+    "id": "torrent_description",
+    "translation": "Torrentbeschrijving"
+  },
+  {
+    "id": "description_markdown_notice",
+    "translation": "Gebruik van Markdown is mogelijk in beschrijvingen."
+  },
+  {
+    "id": "show_all",
+    "translation": "Toon alles"
+  },
+  {
+    "id": "filter_remakes",
+    "translation": "Exclusief Remakes"
+  },
+  {
+    "id": "trusted",
+    "translation": "Vertrouwd"
+  },
+  {
+    "id": "id",
+    "translation": "ID"
+  },
+  {
+    "id": "downloads",
+    "translation": "Downloads"
+  },
+  {
+    "id": "descending",
+    "translation": "Aflopend"
+  },
+  {
+    "id": "ascending",
+    "translation": "Oplopend"
+  },
+  {
+    "id": "search",
+    "translation": "Zoeken"
+  },
+  {
+    "id": "hash",
+    "translation": "Hash"
+  },
+  {
+    "id": "description",
+    "translation": "Beschrijving"
+  },
+  {
+    "id": "comments",
+    "translation": "Reacties"
+  },
+  {
+    "id": "submit_a_comment_as_username",
+    "translation": "Plaats reactie als %s"
+  },
+  {
+    "id": "submit_a_comment_as_anonymous",
+    "translation": "Plaats reactie als Anonymous"
+  },
+  {
+    "id": "submit",
+    "translation": "Verstuur"
+  },
+  {
+    "id": "personal_info",
+    "translation": "Persoonlijke informatie"
+  },
+  {
+    "id": "language",
+    "translation": "Taal"
+  },
+  {
+    "id": "current_password",
+    "translation": "Huidige wachtwoord"
+  },
+  {
+    "id": "role",
+    "translation": "Rol"
+  },
+  {
+    "id": "banned",
+    "translation": "Verbannen"
+  },
+  {
+    "id": "default",
+    "translation": "Standaard"
+  },
+  {
+    "id": "trusted_member",
+    "translation": "Vertrouwd lid"
+  },
+  {
+    "id": "moderator",
+    "translation": "Moderator"
+  },
+  {
+    "id": "save_changes",
+    "translation": "Sla wijzigingen op"
+  },
+  {
+    "id": "profile_updated",
+    "translation": "Je profiel is met succes bijgewerkt!"
+  },
+  {
+    "id": "delete_account",
+    "translation": "Verwijder Account"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "Weet je zeker dat je dit account wilt verwijderen?"
+  },
+  {
+    "id": "delete_success",
+    "translation": "Het account is met succes verwijderd!"
+  }
+]

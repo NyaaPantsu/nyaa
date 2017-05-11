@@ -45,6 +45,10 @@ Once you've successfully installed docker, make sure you have the database file
 in the project's directory as nyaa.db. Then, follow these steps to build and run
 the application.
 
+Windows Users If you get `"standard_init_linux.go:178: exec user process caused "no such file or directory"`
+download [dos2unix](https://sourceforge.net/projects/dos2unix/files/latest/download) and run "dos2unix.exe"
+on the /deploy/init.sh to convert CR+LF to LF.
+
 ```sh
 # Make sure the project is in here $GOPATH/src/github.com/ewhal/nyaa
 $ cd deploy/
@@ -66,21 +70,17 @@ Access the website by going to [localhost:9999](http://localhost:9999).
   * file lists
   * Downloads
 * Accounts and Registration System(WIP)
-  * Report Feature and Moderation System
   * blocking upload of torrent hashes
 
 ## Lower priority
  * Get code up to standard of go lint recommendations
  * Write tests
  * fix sukebei categories
+ * Daily DB dumps
  * Site theme
    * original nyaa theme
  * API improvement
  * Scraping of fan subbing RSS feeds
-
-* Daily DB dumps
-
-* p2p sync of dbs?
 
 # LICENSE
 This project is licensed under the MIT License - see the LICENSE.md file for details

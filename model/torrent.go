@@ -4,7 +4,7 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/util"
 
-	"html"
+	"fmt"
 	"html/template"
 	"strconv"
 	"strings"
@@ -12,91 +12,149 @@ import (
 )
 
 type Feed struct {
-	Id        int
+	ID        int
 	Name      string
 	Hash      string
 	Magnet    string
 	Timestamp string
 }
 
-type Torrents struct {
-	Id           uint      `gorm:"column:torrent_id;primary_key"`
-	Name         string    `gorm:"column:torrent_name"`
-	Hash         string    `gorm:"column:torrent_hash"`
-	Category     int       `gorm:"column:category"`
-	Sub_Category int       `gorm:"column:sub_category"`
-	Status       int       `gorm:"column:status"`
-	Date         time.Time `gorm:"column:date"`
-	UploaderId   uint      `gorm:"column:uploader"`
-	Downloads    int       `gorm:"column:downloads"`
-	Stardom      int       `gorm:"column:stardom"`
-	Filesize     int64     `gorm:"column:filesize"`
-	Description  string    `gorm:"column:description"`
-	WebsiteLink  string    `gorm:"column:website_link"`
+type Torrent struct {
+	ID          uint      `gorm:"column:torrent_id;primary_key"`
+	Name        string    `gorm:"column:torrent_name"`
+	Hash        string    `gorm:"column:torrent_hash"`
+	Category    int       `gorm:"column:category"`
+	SubCategory int       `gorm:"column:sub_category"`
+	Status      int       `gorm:"column:status"`
+	Date        time.Time `gorm:"column:date"`
+	UploaderID  uint      `gorm:"column:uploader"`
+	Downloads   int       `gorm:"column:downloads"`
+	Stardom     int       `gorm:"column:stardom"`
+	Filesize    int64     `gorm:"column:filesize"`
+	Description string    `gorm:"column:description"`
+	WebsiteLink string    `gorm:"column:website_link"`
+	DeletedAt   *time.Time
 
 	Uploader    *User        `gorm:"ForeignKey:uploader"`
+	OldUploader string       `gorm:"-"` // ???????
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
+
+	Seeders    uint32    `gorm:"column:seeders"`
+	Leechers   uint32    `gorm:"column:leechers"`
+	Completed  uint32    `gorm:"column:completed"`
+	LastScrape time.Time `gorm:"column:last_scrape"`
 }
 
-/* We need JSON Object instead because of Magnet URL that is not in the database but generated dynamically */
+// Returns the total size of memory recursively allocated for this struct
+// FIXME: doesn't go have sizeof or something nicer for this?
+func (t Torrent) Size() (s int) {
+	s += 8 + // ints
+		2*3 + // time.Time
+		2 + // pointers
+		4*2 + // string pointers
+		// string array sizes
+		len(t.Name) + len(t.Hash) + len(t.Description) + len(t.WebsiteLink) +
+		2*2 // array pointers
+	s *= 8 // Assume 64 bit OS
 
-type ApiResultJson struct {
-	Torrents         []TorrentsJson `json:"torrents"`
-	QueryRecordCount int            `json:"queryRecordCount"`
-	TotalRecordCount int            `json:"totalRecordCount"`
+	if t.Uploader != nil {
+		s += t.Uploader.Size()
+	}
+	for _, c := range t.OldComments {
+		s += c.Size()
+	}
+	for _, c := range t.Comments {
+		s += c.Size()
+	}
+
+	return
+
 }
 
-type CommentsJson struct {
+/* We need a JSON object instead of a Gorm structure because magnet URLs are
+   not in the database and have to be generated dynamically */
+
+type ApiResultJSON struct {
+	Torrents         []TorrentJSON `json:"torrents"`
+	QueryRecordCount int           `json:"queryRecordCount"`
+	TotalRecordCount int           `json:"totalRecordCount"`
+}
+
+type CommentJSON struct {
 	Username string        `json:"username"`
+	UserID   int           `json:"user_id"`
 	Content  template.HTML `json:"content"`
 	Date     time.Time     `json:"date"`
 }
 
-type TorrentsJson struct {
-	Id           string         `json:"id"`
-	Name         string         `json:"name"`
-	Status       int            `json:"status"`
-	Hash         string         `json:"hash"`
-	Date         string         `json:"date"`
-	Filesize     string         `json:"filesize"`
-	Description  template.HTML  `json:"description"`
-	Comments     []CommentsJson `json:"comments"`
-	Sub_Category string         `json:"sub_category"`
-	Category     string         `json:"category"`
-	Downloads    int            `json:"downloads"`
-	UploaderId   uint           `json:"uploader_id"`
-	WebsiteLink  template.URL   `json:"website_link"`
-	Magnet       template.URL   `json:"magnet"`
+type TorrentJSON struct {
+	ID           string        `json:"id"`
+	Name         string        `json:"name"`
+	Status       int           `json:"status"`
+	Hash         string        `json:"hash"`
+	Date         string        `json:"date"`
+	Filesize     string        `json:"filesize"`
+	Description  template.HTML `json:"description"`
+	Comments     []CommentJSON `json:"comments"`
+	SubCategory  string        `json:"sub_category"`
+	Category     string        `json:"category"`
+	Downloads    int           `json:"downloads"`
+	UploaderID   uint          `json:"uploader_id"`
+	UploaderName template.HTML `json:"uploader_name"`
+	OldUploader  template.HTML `json:"uploader_old"`
+	WebsiteLink  template.URL  `json:"website_link"`
+	Magnet       template.URL  `json:"magnet"`
+	TorrentLink  template.URL  `json:"torrent"`
+	Seeders      uint32        `json:"seeders"`
+	Leechers     uint32        `json:"leechers"`
+	Completed    uint32        `json:"completed"`
+	LastScrape   time.Time     `json:"last_scrape"`
 }
 
-/* Model Conversion to Json */
-
-func (t *Torrents) ToJson() TorrentsJson {
+// ToJSON converts a model.Torrent to its equivalent JSON structure
+func (t *Torrent) ToJSON() TorrentJSON {
 	magnet := util.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, config.Trackers...)
-	commentsJson := make([]CommentsJson, 0, len(t.OldComments)+len(t.Comments))
+	commentsJSON := make([]CommentJSON, 0, len(t.OldComments)+len(t.Comments))
 	for _, c := range t.OldComments {
-		commentsJson = append(commentsJson, CommentsJson{Username: c.Username, Content: template.HTML(c.Content), Date: c.Date})
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, UserID: -1, Content: template.HTML(c.Content), Date: c.Date})
 	}
 	for _, c := range t.Comments {
-
-		commentsJson = append(commentsJson, CommentsJson{Username: c.User.Username, Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt})
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt})
 	}
-	res := TorrentsJson{
-		Id:           strconv.FormatUint(uint64(t.Id), 10),
-		Name:         html.UnescapeString(t.Name),
+	uploader := ""
+	if t.Uploader != nil {
+		uploader = t.Uploader.Username
+	}
+	torrentlink := ""
+	if t.ID <= config.LastOldTorrentID && len(config.TorrentCacheLink) > 0 {
+		torrentlink = fmt.Sprintf(config.TorrentCacheLink, t.Hash)
+	} else if t.ID > config.LastOldTorrentID && len(config.TorrentStorageLink) > 0 {
+		torrentlink = fmt.Sprintf(config.TorrentStorageLink, t.Hash) // TODO: Fix as part of configuration changes
+	}
+	res := TorrentJSON{
+		ID:           strconv.FormatUint(uint64(t.ID), 10),
+		Name:         t.Name,
 		Status:       t.Status,
 		Hash:         t.Hash,
 		Date:         t.Date.Format(time.RFC3339),
 		Filesize:     util.FormatFilesize2(t.Filesize),
 		Description:  util.MarkdownToHTML(t.Description),
-		Comments:     commentsJson,
-		Sub_Category: strconv.Itoa(t.Sub_Category),
+		Comments:     commentsJSON,
+		SubCategory:  strconv.Itoa(t.SubCategory),
 		Category:     strconv.Itoa(t.Category),
 		Downloads:    t.Downloads,
-		UploaderId:   t.UploaderId,
+		UploaderID:   t.UploaderID,
+		UploaderName: util.SafeText(uploader),
+		OldUploader:  util.SafeText(t.OldUploader),
 		WebsiteLink:  util.Safe(t.WebsiteLink),
-		Magnet:       util.Safe(magnet)}
+		Magnet:       template.URL(magnet),
+		TorrentLink:  util.Safe(torrentlink),
+		Leechers:     t.Leechers,
+		Seeders:      t.Seeders,
+		Completed:    t.Completed,
+		LastScrape:   t.LastScrape,
+	}
 
 	return res
 }
@@ -104,10 +162,10 @@ func (t *Torrents) ToJson() TorrentsJson {
 /* Complete the functions when necessary... */
 
 // Map Torrents to TorrentsToJSON without reallocations
-func TorrentsToJSON(t []Torrents) []TorrentsJson {
-	json := make([]TorrentsJson, len(t))
+func TorrentsToJSON(t []Torrent) []TorrentJSON { // TODO: Convert to singular version
+	json := make([]TorrentJSON, len(t))
 	for i := range t {
-		json[i] = t[i].ToJson()
+		json[i] = t[i].ToJSON()
 	}
 	return json
 }
