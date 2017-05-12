@@ -72,19 +72,20 @@
       <div style="padding-top: 10rem"></div>
 
       <div class="container {{block "contclass" .}}generic{{end}}" id="container">
-	<img id="mascot" class="pull-left" src="/img/renchon.png" />
       {{if not .Search.HideAdvancedSearch}}
-	<a href="#advanced-search" data-toggle="collapse" style="display:block">{{T "advanced_search"}}</a>
-        <form id="advanced-search" class="navbar-form pull-right collapse" role="search" action="/search" method="get">
+      <div class="blockBody" style="text-align:center">
+        <a href="#advanced-search" data-toggle="collapse">{{T "advanced_search"}}</a><br />
+        <form id="advanced-search" class="navbar-form collapse" role="search" action="/search" method="get">
           <div class="form-group">
             {{block "search_common" .}}{{end}}
             {{block "search_advanced" .}}{{end}}
             {{block "search_button" .}}{{end}}
           </div>
         </form>
-      {{end}}
-	{{ block "nav_top" .}}{{end}}
         <div style="clear:both"></div>
+      </div>
+      <div style="margin:0.5em"></div>
+      {{end}}
 
         {{block "content" .}}{{T "nothing_here"}}{{end}}
       </div>
