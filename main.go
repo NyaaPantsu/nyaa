@@ -118,7 +118,7 @@ func main() {
 		if err != nil {
 			log.CheckError(err)
 		}
-		db.ORM, err = db.GormInit(conf)
+		db.ORM, err = db.GormInit(conf, db.DefaultLogger)
 		if err != nil {
 			log.Fatal(err.Error())
 		}
