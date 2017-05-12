@@ -614,5 +614,9 @@
   {
     "id": "completed",
     "translation": "Completed"
+  },
+  {
+    "id": "change_language",
+    "translation": "Change Language"
   }
 ]

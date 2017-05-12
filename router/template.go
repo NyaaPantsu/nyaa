@@ -7,7 +7,7 @@ import (
 
 var TemplateDir = "templates"
 
-var homeTemplate, searchTemplate, faqTemplate, uploadTemplate, viewTemplate, viewRegisterTemplate, viewLoginTemplate, viewRegisterSuccessTemplate, viewVerifySuccessTemplate, viewProfileTemplate, viewProfileEditTemplate, viewUserDeleteTemplate, notFoundTemplate *template.Template
+var homeTemplate, searchTemplate, faqTemplate, uploadTemplate, viewTemplate, viewRegisterTemplate, viewLoginTemplate, viewRegisterSuccessTemplate, viewVerifySuccessTemplate, viewProfileTemplate, viewProfileEditTemplate, viewUserDeleteTemplate, notFoundTemplate, changeLanguageTemplate *template.Template
 
 var panelIndex, panelTorrentList, panelUserList, panelCommentList, panelTorrentEd, panelTorrentReportList *template.Template
 
@@ -85,6 +85,11 @@ func ReloadTemplates() {
 			templ: &notFoundTemplate,
 			name:  "404",
 			file:  "404.html",
+		},
+		templateLoader{
+			templ: &changeLanguageTemplate,
+			name: "change_language",
+			file: "change_language.html",
 		},
 	}
 	for idx := range pubTempls {
