@@ -320,10 +320,6 @@
     "translation": "作者の一番好きなプログラミング言語だからです。"
   },
   {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat と sukebei.pantsu.cat はいかなるファイルもホストしていません。"
-  },
-  {
     "id": "upload_magnet",
     "translation": "magnet リンクのアップロード"
   },
