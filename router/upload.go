@@ -17,7 +17,6 @@ import (
 
 	"github.com/ewhal/nyaa/cache"
 	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/service/upload"
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/metainfo"
@@ -33,7 +32,7 @@ type UploadForm struct {
 	Remake      bool
 	Description string
 	Status      int
-	captcha.Captcha
+	CaptchaID   string
 
 	Infohash      string
 	CategoryID    int
@@ -84,12 +83,6 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	f.Status, _ = strconv.Atoi(r.FormValue(UploadFormStatus))
 	f.Magnet = r.FormValue(UploadFormMagnet)
 	f.Remake = r.FormValue(UploadFormRemake) == "on"
-	f.Captcha = captcha.Extract(r)
-
-	if !captcha.Authenticate(f.Captcha) {
-		// TODO: Prettier passing of mistyped Captcha errors
-		return errors.New(captcha.ErrInvalidCaptcha.Error())
-	}
 
 	// trim whitespace
 	f.Name = util.TrimWhitespaces(f.Name)
@@ -189,7 +182,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 			}
 			hash16 := make([]byte, hex.EncodedLen(len(data)))
 			hex.Encode(hash16, data)
-			f.Infohash = string(hash16)
+			f.Infohash = strings.ToUpper(string(hash16))
 		}
 
 		f.Filesize = 0
