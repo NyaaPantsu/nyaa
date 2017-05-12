@@ -1,6 +1,7 @@
 package router
 
 import (
+	"encoding/base32"
 	"encoding/hex"
 	"errors"
 	"fmt"
@@ -17,6 +18,7 @@ import (
 	"github.com/ewhal/nyaa/cache"
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/service/captcha"
+	"github.com/ewhal/nyaa/service/upload"
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/metainfo"
 	"github.com/microcosm-cc/bluemonday"
@@ -133,7 +135,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 			return ErrPrivateTorrent
 		}
 		trackers := torrent.GetAllAnnounceURLS()
-		if !CheckTrackers(trackers) {
+		if !uploadService.CheckTrackers(trackers) {
 			return ErrTrackerProblem
 		}
 
@@ -157,18 +159,37 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		f.Filesize = int64(torrent.TotalSize())
 	} else {
 		// No torrent file provided
-		magnetURL, parseErr := url.Parse(f.Magnet)
-		if parseErr != nil {
-			return metainfo.ErrInvalidTorrentFile
+		magnetUrl, err := url.Parse(string(f.Magnet)) //?
+		if err != nil {
+			return err
 		}
-		exactTopic := magnetURL.Query().Get("xt")
-		if !strings.HasPrefix(exactTopic, "urn:btih:") {
-			return metainfo.ErrInvalidTorrentFile
+		xt := magnetUrl.Query().Get("xt")
+		if !strings.HasPrefix(xt, "urn:btih:") {
+			return errors.New("incorrect magnet")
 		}
-		f.Infohash = strings.ToUpper(strings.TrimPrefix(exactTopic, "urn:btih:"))
-		matched, err := regexp.MatchString("^[0-9A-F]{40}$", f.Infohash)
-		if err != nil || !matched {
-			return metainfo.ErrInvalidTorrentFile
+		xt = strings.SplitAfter(xt, ":")[2]
+		f.Infohash = strings.ToUpper(strings.Split(xt, "&")[0])
+		isBase32, err := regexp.MatchString("^[2-7A-Z]{32}$", f.Infohash)
+		if err != nil {
+			return err
+		}
+		if !isBase32 {
+			isBase16, err := regexp.MatchString("^[0-9A-F]{40}$", f.Infohash)
+			if err != nil {
+				return err
+			}
+			if !isBase16 {
+				return errors.New("incorrect hash")
+			}
+		} else {
+			//convert to base16
+			data, err := base32.StdEncoding.DecodeString(f.Infohash)
+			if err != nil {
+				return err
+			}
+			hash16 := make([]byte, hex.EncodedLen(len(data)))
+			hex.Encode(hash16, data)
+			f.Infohash = string(hash16)
 		}
 
 		f.Filesize = 0
@@ -234,35 +255,6 @@ func WriteTorrentToDisk(file multipart.File, name string, fullpath *string) erro
 	}
 	*fullpath = fmt.Sprintf("%s%c%s", config.TorrentFileStorage, os.PathSeparator, name)
 	return ioutil.WriteFile(*fullpath, b, 0644)
-}
-
-func CheckTrackers(trackers []string) bool {
-	// TODO: move to runtime configuration
-	var deadTrackers = []string{ // substring matches!
-		"://open.nyaatorrents.info:6544",
-		"://tracker.openbittorrent.com:80",
-		"://tracker.publicbt.com:80",
-		"://stats.anisource.net:2710",
-		"://exodus.desync.com",
-		"://open.demonii.com:1337",
-		"://tracker.istole.it:80",
-		"://tracker.ccc.de:80",
-		"://bt2.careland.com.cn:6969",
-		"://announce.torrentsmd.com:8080"}
-
-	var numGood int
-	for _, t := range trackers {
-		good := true
-		for _, check := range deadTrackers {
-			if strings.Contains(t, check) {
-				good = false
-			}
-		}
-		if good {
-			numGood++
-		}
-	}
-	return numGood > 0
 }
 
 // NewUploadForm creates a new upload form given parameters as list

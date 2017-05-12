@@ -53,18 +53,22 @@ func (t *Transaction) handleScrapeReply(data []byte) {
 	}
 }
 
+const pgQuery = "UPDATE torrents SET seeders = $1 , leechers = $2 , completed = $3 , last_scrape = $4 WHERE torrent_id = $5"
+const sqliteQuery = "UPDATE torrents SET seeders = ? , leechers = ? , completed = ? , last_scrape = ? WHERE torrent_id = ?"
+
 // Sync syncs models with database
 func (t *Transaction) Sync() (err error) {
-	for idx := range t.swarms {
-		err = db.ORM.Model(&t.swarms[idx]).Updates(map[string]interface{}{
-			"seeders":     t.swarms[idx].Seeders,
-			"leechers":    t.swarms[idx].Leechers,
-			"completed":   t.swarms[idx].Completed,
-			"last_scrape": t.swarms[idx].LastScrape,
-		}).Error
-		if err != nil {
-			break
+	q := pgQuery
+	if db.IsSqlite {
+		q = sqliteQuery
+	}
+	tx, e := db.ORM.DB().Begin()
+	err = e
+	if err == nil {
+		for idx := range t.swarms {
+			_, err = tx.Exec(q, t.swarms[idx].Seeders, t.swarms[idx].Leechers, t.swarms[idx].Completed, t.swarms[idx].LastScrape, t.swarms[idx].ID)
 		}
+		tx.Commit()
 	}
 	return
 }

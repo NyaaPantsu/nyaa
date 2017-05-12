@@ -31,7 +31,7 @@ func (b *Bucket) NewTransaction(swarms []model.Torrent) (t *Transaction) {
 		swarms:        make([]model.Torrent, len(swarms)),
 		state:         stateSendID,
 	}
-	copy(t.swarms, swarms)
+	copy(t.swarms[:], swarms[:])
 	b.transactions[id] = t
 	b.access.Unlock()
 	return

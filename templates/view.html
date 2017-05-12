@@ -5,37 +5,43 @@
     {{with .Torrent}}
     <hr>
     <div class="content" style="margin-bottom: 2em;">
-        <div class="row">
-            <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-12">
                         <h3 style="word-break:break-all" {{if eq .Status 2}}class="remake" {{end}} {{if eq .Status 3}}class="trusted" {{end}} {{if eq .Status 4}}class="aplus"{{end}}>{{.Name}}</h3>
-                        <div class="uploaded_by">
+                    </div>
+                </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row" id="description">
+                <div class="col-md-12">
+                    <div style="float: left;">
+                      <div class="uploaded_by">
                             <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}">
                             <h4>Uploaded by <a href="{{$.URL.Parse (printf "/user/%d/-" .UploaderID) }}">{{.UploaderName}}</a></h4>
                         </div>
                     </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-12">
-                        <a style="margin: 5px;" aria-label="Magnet Button" href="{{.Magnet}}" type="button" class="btn btn-lg btn-success download-btn">
+                    <div style="float:right;">
+                        <a style="margin: 5px;" aria-label="Magnet Button" href="{{.Magnet}}" type="button" class="btn btn-lg btn-success">
                             <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> Download!
                         </a>
                         {{if ne .TorrentLink ""}}
-                        <a style="margin: 5px;" aria-label="Torrent file" href="{{.TorrentLink}}" type="button" class="btn btn-lg btn-success download-btn">
+                        <a style="margin: 5px;" aria-label="Torrent file" href="{{.TorrentLink}}" type="button" class="btn btn-lg btn-success">
                             <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Torrent file
                         </a>
                         {{end}}
-                        <a style="margin: 5px;" aria-label="Report button" type="button" data-toggle="modal" data-target="#reportModal" class="btn btn-danger btn-lg">
+                        <a style="margin: 5px;" aria-label="Report button" data-toggle="modal" data-target="#reportModal" class="btn btn-danger btn-sm">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Report!
                         </a>
 
                       {{ if HasAdmin $.User}}
                       <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i></a>
                       {{end}}
-
-
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                    <div class="col-md-12">
+                        <h4>{{T "description"}}</h4>
+                        <div style="word-break:break-all;">{{.Description}}</div>
                     </div>
                 </div>
             </div>
@@ -71,12 +77,6 @@
                 </div>
                 </div>
                 <hr>
-            </div>
-        </div>
-        <div class="row" id="description">
-            <div class="col-md-12">
-                <h4>{{T "description"}}</h4>
-                <div style="word-break:break-all;">{{.Description}}</div>
             </div>
         </div>
         <div class="row" id="comments">

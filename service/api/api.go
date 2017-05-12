@@ -1,6 +1,11 @@
 package apiService
 
 import (
+	"encoding/base32"
+	"encoding/hex"
+	"errors"
+	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -9,6 +14,9 @@ import (
 
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service"
+	"github.com/ewhal/nyaa/service/upload"
+	"github.com/ewhal/nyaa/util/metainfo"
+	"github.com/zeebo/bencode"
 )
 
 type torrentsQuery struct {
@@ -60,9 +68,9 @@ func (r *TorrentsRequest) ToParams() serviceBase.WhereParams {
 }
 
 func validateName(r *TorrentRequest) (error, int) {
-	if len(r.Name) < 100 { //isn't this too much?
+	/*if len(r.Name) < 100 { //isn't this too much?
 		return ErrShortName, http.StatusNotAcceptable
-	}
+	}*/
 	return nil, http.StatusOK
 }
 
@@ -85,27 +93,42 @@ func validateMagnet(r *TorrentRequest) (error, int) {
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
-	exactTopic := magnetUrl.Query().Get("xt")
-	if !strings.HasPrefix(exactTopic, "urn:btih:") {
+	xt := magnetUrl.Query().Get("xt")
+	if !strings.HasPrefix(xt, "urn:btih:") {
 		return ErrMagnet, http.StatusNotAcceptable
 	}
-	r.Hash = strings.ToUpper(strings.TrimPrefix(exactTopic, "urn:btih:"))
+	xt = strings.SplitAfter(xt, ":")[2]
+	r.Hash = strings.ToUpper(strings.Split(xt, "&")[0])
+	fmt.Println(r.Hash)
 	return nil, http.StatusOK
 }
 
 func validateHash(r *TorrentRequest) (error, int) {
 	r.Hash = strings.ToUpper(r.Hash)
-	matched, err := regexp.MatchString("^[0-9A-F]{40}$", r.Hash)
+	isBase32, err := regexp.MatchString("^[2-7A-Z]{32}$", r.Hash)
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
-	if !matched {
-		return ErrHash, http.StatusNotAcceptable
+	if !isBase32 {
+		isBase16, err := regexp.MatchString("^[0-9A-F]{40}$", r.Hash)
+		if err != nil {
+			return err, http.StatusInternalServerError
+		}
+		if !isBase16 {
+			return ErrHash, http.StatusNotAcceptable
+		}
+	} else {
+		//convert to base16
+		data, err := base32.StdEncoding.DecodeString(r.Hash)
+		if err != nil {
+			return err, http.StatusInternalServerError
+		}
+		hash16 := make([]byte, hex.EncodedLen(len(data)))
+		hex.Encode(hash16, data)
+		r.Hash = string(hash16)
 	}
 	return nil, http.StatusOK
 }
-
-//rewrite validators!!!
 
 func (r *TorrentRequest) ValidateUpload() (err error, code int) {
 	validators := []func(r *TorrentRequest) (error, int){
@@ -126,6 +149,44 @@ func (r *TorrentRequest) ValidateUpload() (err error, code int) {
 		}
 	}
 	return err, code
+}
+
+func (r *TorrentRequest) ValidateMultipartUpload(req *http.Request) (int64, error, int) {
+	tfile, _, err := req.FormFile("torrent")
+	if err == nil {
+		var torrent metainfo.TorrentFile
+
+		// decode torrent
+		if _, err = tfile.Seek(0, io.SeekStart); err != nil {
+			return 0, err, http.StatusInternalServerError
+		}
+		if err = bencode.NewDecoder(tfile).Decode(&torrent); err != nil {
+			return 0, err, http.StatusInternalServerError
+		}
+		// check a few things
+		if torrent.IsPrivate() {
+			return 0, errors.New("private torrents not allowed"), http.StatusNotAcceptable
+		}
+		trackers := torrent.GetAllAnnounceURLS()
+		if !uploadService.CheckTrackers(trackers) {
+			return 0, errors.New("tracker(s) not allowed"), http.StatusNotAcceptable
+		}
+		if r.Name == "" {
+			r.Name = torrent.TorrentName()
+		}
+
+		binInfohash, err := torrent.Infohash()
+		if err != nil {
+			return 0, err, http.StatusInternalServerError
+		}
+		r.Hash = strings.ToUpper(hex.EncodeToString(binInfohash[:]))
+
+		// extract filesize
+		filesize := int64(torrent.TotalSize())
+		err, code := r.ValidateUpload()
+		return filesize, err, code
+	}
+	return 0, err, http.StatusInternalServerError
 }
 
 func (r *TorrentRequest) ValidateUpdate() (err error, code int) {

@@ -186,6 +186,10 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 .navbar {
     border-radius: 0px;
 }
+/* the logo needs some space */
+.navbar-logo {
+    margin-right: 10px;
+}
 
 :target {
     background-color: #e5eecc;
@@ -382,4 +386,9 @@ footer {
 .comment-date {
 	font-size: smaller;
 	width: auto; /* Undo bootstrap's fixed width */
+}
+
+.text-error {
+  background: white;
+  color: #cf9fff;
 }

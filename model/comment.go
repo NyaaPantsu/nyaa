@@ -13,8 +13,8 @@ type Comment struct {
 	UpdatedAt time.Time `gorm:"column:updated_at"`
 	DeletedAt *time.Time
 
-	Torrent *Torrent `gorm:"ForeignKey:torrent_id"`
-	User    *User    `gorm:"ForeignKey:user_id"`
+	Torrent *Torrent `gorm:"AssociationForeignKey:TorrentID;ForeignKey:torrent_id"`
+	User    *User    `gorm:"AssociationForeignKey:UserID;ForeignKey:user_id"`
 }
 
 // Returns the total size of memory recursively allocated for this struct
