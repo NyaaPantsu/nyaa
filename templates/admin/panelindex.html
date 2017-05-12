@@ -70,7 +70,7 @@
 
 {{ range .Comments}}
 
-<tr><td><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{ .Content }}</a></td><td><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{ .User.Username }}</a></td>
+<tr><td><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{ .Content }}</a></td><td><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{.UserID}}</a></td>
 <td><a href="{{ genRoute "mod_cdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>{{ T "delete" }}</a></td></tr>
 {{end}}
 </table>

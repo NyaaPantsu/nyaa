@@ -43,11 +43,11 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	rss, rssErr := feed.ToRss()
 	if rssErr != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, rssErr.Error(), http.StatusInternalServerError)
 	}
 
 	_, writeErr := w.Write([]byte(rss))
 	if writeErr != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, writeErr.Error(), http.StatusInternalServerError)
 	}
 }
