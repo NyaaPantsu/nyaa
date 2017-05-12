@@ -19,10 +19,10 @@ var FuncMap = template.FuncMap{
 		}
 		return "error"
 	},
-	"genRouteWithQuery": func(name string, currentUrl *url.URL, params ...string) template.HTML {
+	"genRouteWithQuery": func(name string, currentUrl *url.URL, params ...string) template.URL {
 		url, err := Router.Get(name).URL(params...)
 		if err == nil {
-			return template.HTML(template.HTMLEscapeString(url.String() + "?" + currentUrl.RawQuery)) // TODO: Review application of character escaping
+			return template.URL(url.String() + "?" + currentUrl.RawQuery)
 		}
 		return "error"
 	},
@@ -69,6 +69,7 @@ var FuncMap = template.FuncMap{
 	"CurrentOrAdmin":       userPermission.CurrentOrAdmin,
 	"CurrentUserIdentical": userPermission.CurrentUserIdentical,
 	"HasAdmin":             userPermission.HasAdmin,
+	"NeedsCaptcha":         userPermission.NeedsCaptcha,
 	"GetRole":              userPermission.GetRole,
 	"IsFollower":           userPermission.IsFollower,
 	"NoEncode": func(str string) template.HTML {
