@@ -13,7 +13,7 @@
       <td><a href="{{ genRoute "view_torrent" "id" .Torrent.ID }}">{{ .Torrent.Name }}</a> (<a href="{{ genRoute "mod_tedit" }}?id={{.Torrent.ID}}">Edit</a>)</td>
       <td>{{.User.Username}}</td>
       <td>{{.Description}}</td>
-      <td><a href="{{ genRoute "mod_tdelete" }}?id={{ .Torrent.ID }}">Delete</a><br />
+      <td><a href="{{ genRoute "mod_tdelete" }}?id={{ .Torrent.ID }}" onclick="if (!confirm('Are you sure?')) return false;">Delete</a><br />
       <a href="{{ genRoute "mod_trdelete" }}?id={{ .ID }}">Delete Report</a></td>
     </tr>
   {{end}}
