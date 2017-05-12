@@ -10,6 +10,7 @@ import (
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/service/torrent"
+	"github.com/ewhal/nyaa/service/user/permission"
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/log"
@@ -26,7 +27,12 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	b := torrent.ToJSON()
-	htv := ViewTemplateVariables{b, captcha.Captcha{CaptchaID: captcha.GetID()}, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
+	captchaID := ""
+	user := GetUser(r)
+	if userPermission.NeedsCaptcha(user) {
+		captchaID = captcha.GetID()
+	}
+	htv := ViewTemplateVariables{b, captchaID, NewSearchForm(), Navigation{}, user, r.URL, mux.CurrentRoute(r)}
 
 	languages.SetTranslationFromRequest(viewTemplate, r, "en-us")
 	err = viewTemplate.ExecuteTemplate(w, "index.html", htv)
@@ -39,12 +45,14 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	userCaptcha := captcha.Extract(r)
-	if !captcha.Authenticate(userCaptcha) {
-		http.Error(w, "bad captcha", 403)
-		return
-	}
 	currentUser := GetUser(r)
+	if userPermission.NeedsCaptcha(currentUser) {
+		userCaptcha := captcha.Extract(r)
+		if !captcha.Authenticate(userCaptcha) {
+			http.Error(w, "bad captcha", 403)
+			return
+		}
+	}
 	content := p.Sanitize(r.FormValue("comment"))
 
 	if strings.TrimSpace(content) == "" {
@@ -75,12 +83,14 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	userCaptcha := captcha.Extract(r)
-	if !captcha.Authenticate(userCaptcha) {
-		http.Error(w, "bad captcha", 403)
-		return
-	}
 	currentUser := GetUser(r)
+	if userPermission.NeedsCaptcha(currentUser) {
+		userCaptcha := captcha.Extract(r)
+		if !captcha.Authenticate(userCaptcha) {
+			http.Error(w, "bad captcha", 403)
+			return
+		}
+	}
 
 	idNum, err := strconv.Atoi(id)
 	userID := currentUser.ID
