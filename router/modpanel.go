@@ -33,7 +33,8 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 
 		languages.SetTranslationFromRequest(panelIndex, r, "en-us")
 		htv := PanelIndexVbs{torrents, model.TorrentReportsToJSON(torrentReports), users, comments, NewSearchForm(), currentUser, r.URL}
-		_ = panelIndex.ExecuteTemplate(w, "admin_index.html", htv)
+		err := panelIndex.ExecuteTemplate(w, "admin_index.html", htv)
+		log.CheckError(err)
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
 	}
@@ -217,7 +218,8 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 	}
 	languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
 	htv := PanelTorrentEdVbs{uploadForm, NewSearchForm(), currentUser, err, infos, r.URL}
-	_ = panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
+	err_ := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
+	log.CheckError(err_)
 }
 
 func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
