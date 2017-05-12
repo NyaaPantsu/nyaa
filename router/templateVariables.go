@@ -117,7 +117,7 @@ type UploadTemplateVariables struct {
 
 type PanelIndexVbs struct {
 	Torrents       []model.Torrent
-	TorrentReports []model.TorrentReport
+	TorrentReports []model.TorrentReportJson
 	Users          []model.User
 	Comments       []model.Comment
 	Search         SearchForm

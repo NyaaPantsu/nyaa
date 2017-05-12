@@ -134,8 +134,10 @@
             <div class="modal-body">
                 <b>Report type:</b>
                 <form method="post" action="/report/{{.ID}}">
-                    <input type="radio" name="report_type" value="illegal"> Illegal content <br/>
-                    <input type="radio" name="report_type" value="spam"> Spam / garbage
+                    <input type="radio" name="report_type" value="illegal"> Illegal content<br />
+                    <input type="radio" name="report_type" value="spam"> Spam / Garbage<br />
+                    <input type="radio" name="report_type" value="wrongcat"> Wrong category<br />
+                    <input type="radio" name="report_type" value="dup"> Duplicate / Deprecated<br />
                     {{end}}
                     {{block "captcha" .}}{{end}}
                     <button type="submit" class="btn btn-default">Report!</button>
