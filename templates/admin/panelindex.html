@@ -21,7 +21,6 @@
 
 <h3 id="torrents">Last Torrents Report</h3>
 <table class="table">
-{{ range .TorrentReports}}
 <tr>
     <th class="col-xs-9">Torrent Name</th>
     <th class="col-xs-1">User</th>
@@ -29,6 +28,7 @@
     <th class="col-xs-1">Action</th>
 </tr>
 
+{{ range .TorrentReports}}
 <tr><td><a href="{{ genRoute "mod_tedit" }}?id={{.Torrent.ID}}">{{ .Torrent.Name }}</a></td><td>{{.User.Username}}</td><td>{{.Description}}</td>
 <td><a href="{{ genRoute "mod_trdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>{{ T "delete" }}</a></td></tr>
 {{end}}
