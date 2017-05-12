@@ -10,6 +10,5 @@ var Trackers = []string{
 	"udp://explodie.org:6969",
 	"udp://tracker.opentrackr.org:1337",
 	"udp://tracker.internetwarriors.net:1337/announce",
-	"udp://eddie4.nl:6969/announce",
 	"http://mgtracker.org:6969/announce",
 	"http://tracker.baka-sub.cf/announce"}
