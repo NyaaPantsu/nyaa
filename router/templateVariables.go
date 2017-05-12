@@ -6,7 +6,6 @@ import (
 
 	"github.com/ewhal/nyaa/common"
 	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/service/user"
 	userForms "github.com/ewhal/nyaa/service/user/form"
 	"github.com/gorilla/mux"
@@ -36,7 +35,7 @@ type NotFoundTemplateVariables struct {
 
 type ViewTemplateVariables struct {
 	Torrent    model.TorrentJSON
-	Captcha    captcha.Captcha
+	CaptchaID  string
 	Search     SearchForm
 	Navigation Navigation
 	User       *model.User
@@ -118,7 +117,7 @@ type UploadTemplateVariables struct {
 
 type PanelIndexVbs struct {
 	Torrents       []model.Torrent
-	TorrentReports []model.TorrentReport
+	TorrentReports []model.TorrentReportJson
 	Users          []model.User
 	Comments       []model.Comment
 	Search         SearchForm
