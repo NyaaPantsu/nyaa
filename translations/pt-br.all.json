@@ -105,11 +105,11 @@
   },
   {
     "id":"signup_verification_noemail",
-    "translation": "Cadastro bem-sucedido, você pode agora usar a sua conta."
+    "translation": "Cadastro bem-sucedido, você já pode usar a sua conta."
   },
   {
     "id":"settings",
-    "translation": "Configurações da conta"
+    "translation": "Configurações de conta"
   },
   {
     "id":"torrents",
