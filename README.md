@@ -10,6 +10,7 @@ that anyone will be able to deploy locally or remotely.
 * Golang
 
 # Installation
+Ubuntu 17.04 fails to build, use a different OS or docker
 * Install [Golang](https://golang.org/doc/install)
 * `go get github.com/ewhal/nyaa`
 * `go build`
