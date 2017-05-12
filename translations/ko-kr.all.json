@@ -344,6 +344,10 @@
     "translation": "모든 카테고리"
   },
   {
+    "id:": "select_a_torrent_category",
+    "translation": "Select a Torrent Category"
+  },
+  {
     "id": "anime",
     "translation": "애니"
   },
