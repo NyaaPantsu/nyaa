@@ -129,7 +129,7 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 	if conditions != "" {
 		dbQuery = dbQuery + " WHERE " + conditions
 	}
-	if strings.Contains(conditions, "torrent_name") {
+	if strings.Contains(conditions, "torrent_name") && offset > 0 {
 		dbQuery = "WITH t AS (SELECT * FROM torrents WHERE " + conditions + ") SELECT * FROM t"
 	}
 
