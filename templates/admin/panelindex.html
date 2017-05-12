@@ -7,9 +7,12 @@
     <th class="col-xs-1">Uploader</th>
     <th class="col-xs-1">Action</th>
 </tr>
-{{ range .Torrents}}
-<tr><td><a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">{{ .Name }}</a></td><td><a href="{{ genRoute "mod_tlist" }}?userID={{.UploaderID}}">{{ .UploaderID }}</a></td>
-<td><a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>{{ T "delete" }}</a></td></tr>
+{{range .Torrents}}
+<tr>
+    <td><a href="{{ genViewTorrentRoute .ID }}">{{ .Name }}</a> (<a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">Edit</a>)</td>
+    <td><a href="{{ genRoute "mod_tlist" }}?userID={{.UploaderID}}">{{ .UploaderID }}</a></td>
+    <td><a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>{{ T "delete" }}</a></td>
+</tr>
 {{end}}
 </table>
       <nav class="torrentNav" aria-label="Page navigation">
@@ -28,9 +31,13 @@
     <th class="col-xs-1">Action</th>
 </tr>
 
-{{ range .TorrentReports}}
-<tr><td><a href="{{ genRoute "mod_tedit" }}?id={{.Torrent.ID}}">{{ .Torrent.Name }}</a></td><td>{{.User.Username}}</td><td>{{.Description}}</td>
-<td><a href="{{ genRoute "mod_trdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>{{ T "delete" }}</a></td></tr>
+{{range .TorrentReports}}
+<tr>
+    <td><a href="{{ genRoute "view_torrent" "id" .Torrent.ID }}">{{ .Torrent.Name }}</a> (<a href="{{ genRoute "mod_tedit" }}?id={{.Torrent.ID}}">Edit</a>)</td>
+    <td>{{.User.Username}}</td>
+    <td>{{.Description}}</td>
+    <td><a href="{{ genRoute "mod_trdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>{{ T "delete" }}</a></td>
+</tr>
 {{end}}
 </table>
       <nav class="torrentNav" aria-label="Page navigation">
