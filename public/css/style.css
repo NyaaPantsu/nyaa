@@ -458,6 +458,7 @@ footer {
   padding-bottom: 8px;
   margin-bottom: 10px !important;
   border-bottom: 1px solid #eee;
+  height: 2.5em;
 }
 
 .commentList ul.comments ul{
@@ -477,4 +478,14 @@ footer {
 .comment {
   margin: 1em;
   padding: 1em;
+  width: 75%;
+  margin-left: 12%;
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+
+  .comment {
+    width: 100%;
+    margin-left: 0;
+  }
 }
