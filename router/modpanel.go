@@ -32,7 +32,7 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 		torrentReports, _, _ := reportService.GetAllTorrentReports(offset, 0)
 
 		languages.SetTranslationFromRequest(panelIndex, r, "en-us")
-		htv := PanelIndexVbs{torrents, torrentReports, users, comments, NewSearchForm(), currentUser, r.URL}
+		htv := PanelIndexVbs{torrents, model.TorrentReportsToJSON(torrentReports), users, comments, NewSearchForm(), currentUser, r.URL}
 		_ = panelIndex.ExecuteTemplate(w, "admin_index.html", htv)
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)

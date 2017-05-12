@@ -105,11 +105,11 @@
   },
   {
     "id":"signup_verification_noemail",
-    "translation": "Cadastro bem-sucedido, você pode agora usar a sua conta."
+    "translation": "Cadastro bem-sucedido, você já pode usar a sua conta."
   },
   {
     "id":"settings",
-    "translation": "Configurações da conta"
+    "translation": "Configurações de conta"
   },
   {
     "id":"torrents",
@@ -330,10 +330,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "É a linguagem de programação favorita do autor."
-  },
-  {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat e sukebei.pantsu.cat não hospedam nenhum arquivo."
   },
   {
     "id": "upload_magnet",

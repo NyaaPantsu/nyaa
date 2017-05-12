@@ -111,7 +111,9 @@ func (n *NativeCache) updateUsedSize(delta int) {
 		}
 		s := n.ll.Remove(e).(*store)
 		delete(n.cache, s.key)
+		s.Lock()
 		n.totalUsed -= s.size
+		s.Unlock()
 	}
 }
 
@@ -136,8 +138,6 @@ func (s *store) update(data []model.Torrent, count int) {
 	s.size = newSize
 	s.lastFetched = time.Now()
 
-	// Technically it is possible to update the size even when the store is
-	// already evicted, but that should never happen, unless you have a very
-	// small cache, very large stored datasets and a lot of traffic.
-	s.n.updateUsedSize(delta)
+	// In a separate goroutine, to ensure there is never any lock intersection
+	go s.n.updateUsedSize(delta)
 }
