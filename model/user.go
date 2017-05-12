@@ -12,9 +12,8 @@ type User struct {
 	Status          int       `gorm:"column:status"`
 	CreatedAt       time.Time `gorm:"column:created_at"`
 	UpdatedAt       time.Time `gorm:"column:updated_at"`
-	// Currently unused (auth is stateless now)
-	/*Token           string    `gorm:"column:api_token"`
-	TokenExpiration time.Time `gorm:"column:api_token_expiry"`*/
+	Token           string    `gorm:"column:api_token"`
+	TokenExpiration time.Time `gorm:"column:api_token_expiry"`
 	Language        string    `gorm:"column:language"`
 
 	// TODO: move this to PublicUser
@@ -43,7 +42,7 @@ func (u User) Size() (s int) {
 		4*3 + //time.Time
 		3*2 + // arrays
 		// string arrays
-		len(u.Username) + len(u.Password) + len(u.Email) + len(u.MD5) + len(u.Language)
+		len(u.Username) + len(u.Password) + len(u.Email) + len(u.Token) + len(u.MD5) + len(u.Language)
 	s *= 8
 
 	// Ignoring foreign key users. Fuck them.
