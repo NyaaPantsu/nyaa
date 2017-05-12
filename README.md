@@ -11,7 +11,7 @@ that anyone will be able to deploy locally or remotely.
 
 # Installation
 Ubuntu 17.04 fails to build, use a different OS or docker
-* Install [Golang](https://golang.org/doc/install)
+* Install [Golang](https://golang.org/doc/install) (version >=1.8)
 * `go get github.com/ewhal/nyaa`
 * `go build`
 * Download DB and place it in your root folder named as "nyaa.db"
