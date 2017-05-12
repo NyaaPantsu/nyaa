@@ -129,9 +129,10 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 	if conditions != "" {
 		dbQuery = dbQuery + " WHERE " + conditions
 	}
+	/* This makes all queries take roughly the same amount of time (lots)...
 	if strings.Contains(conditions, "torrent_name") && offset > 0 {
 		dbQuery = "WITH t AS (SELECT * FROM torrents WHERE " + conditions + ") SELECT * FROM t"
-	}
+	}*/
 
 	if orderBy == "" { // default OrderBy
 		orderBy = "torrent_id DESC"
