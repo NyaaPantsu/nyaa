@@ -69,6 +69,7 @@ var FuncMap = template.FuncMap{
 	"CurrentOrAdmin":       userPermission.CurrentOrAdmin,
 	"CurrentUserIdentical": userPermission.CurrentUserIdentical,
 	"HasAdmin":             userPermission.HasAdmin,
+	"NeedsCaptcha":         userPermission.NeedsCaptcha,
 	"GetRole":              userPermission.GetRole,
 	"IsFollower":           userPermission.IsFollower,
 	"NoEncode": func(str string) template.HTML {
