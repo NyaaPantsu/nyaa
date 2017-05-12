@@ -356,6 +356,10 @@
     "translation": "Tutte le categorie"
   },
   {
+    "id:": "select_a_torrent_category",
+    "translation": "Select a Torrent Category"
+  },
+  {
     "id": "anime",
     "translation": "Anime"
   },
