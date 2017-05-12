@@ -21,13 +21,15 @@ var searchOperator string
 var useTSQuery bool
 
 func Configure(conf *config.SearchConfig) (err error) {
+	useTSQuery = false
 	// Postgres needs ILIKE for case-insensitivity
 	if db.ORM.Dialect().GetName() == "postgres" {
 		searchOperator = "ILIKE ?"
-		useTSQuery = true
+		//useTSQuery = true
+		// !!DISABLED!! because this makes search a lot stricter
+		// (only matches at word borders)
 	} else {
 		searchOperator = "LIKE ?"
-		useTSQuery = false
 	}
 	return
 }
