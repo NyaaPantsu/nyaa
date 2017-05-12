@@ -578,5 +578,9 @@
   {
     "id": "profile_edit_page",
     "translation": "Editar o perfil de %s"
+  },
+  {
+    "id": "change_language",
+    "translation": "Mudar Idioma"
   }
 ]
