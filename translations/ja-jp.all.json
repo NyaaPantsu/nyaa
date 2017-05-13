@@ -281,7 +281,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "上述のデータベースは nyaa.pantsu.cat と sukebei.pantsu.cat にホストされています。検索機能はすでにあり、近いうちに nyaa.se にあったほぼすべての機能が利用可能になるでしょう。また、Seeder / Leecher 統計はスクレイピングによって収集可能ですが、今は他に優先すべきことがあるため後回しにされます。"
+    "translation": "上述のデータベースは nyaa.pantsu.cat と sukebei.pantsu.cat にホストされています。検索機能はすでにあり、近いうちに nyaa.se にあったほぼすべての機能が利用可能になるでしょう。"
   },
   {
     "id": "are_the_trackers_working",
@@ -626,5 +626,9 @@
   {
     "id": "language_name",
     "translation": "日本語"
+  },
+  {
+    "id": "delete",
+    "translation": "削除"
   }
 ]
