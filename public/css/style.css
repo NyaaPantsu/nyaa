@@ -90,8 +90,9 @@ body {
 
 /* Links, Text */
 a {
-  color: #106655;
-  text-decoration : none;
+	color: #106655;
+	text-decoration : none;
+  outline: none;
 }
 
 .download-btn {
@@ -373,7 +374,7 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 #mainmenu a.nightswitch {
     background: transparent url(/img/sun.png) no-repeat;
     background-size: 24px;
-    margin-top: 10px;
+    margin-top: 22px;
     margin-left: 3px;
     width: 24px;
 }
