@@ -5,7 +5,7 @@
 		<label for="solution">Captcha</label>
 		<input type="text" name="captchaID" value="{{.CaptchaID}}" hidden>
 		<img src="/captcha/{{.CaptchaID}}.png">
-		<input type="text" name="solution" class="form-control" placeholder="Captcha" autocomplete="off" required>
+		<input type="text" name="solution" id="solution" class="form-control" placeholder="Captcha" autocomplete="off" required>
 	</div>
 	{{end}}
 {{end}}
