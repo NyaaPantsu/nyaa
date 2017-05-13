@@ -225,7 +225,7 @@
   },
   {
     "id": "notice_keep_seeding",
-    "translation": "ATTENZIONE: CONTINUA A SEEDARE I TORRENT E ABILITA IL DHT RITARDATO"
+    "translation": "ATTENZIONE: CONTINUA A SEEDARE I TORRENT E ABILITA IL DHT IDIOTA"
   },
   {
     "id": "official_nyaapocalipse_faq",
@@ -273,7 +273,7 @@
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Sukebei può essere effettivamente in condizioni peggiori. Attualmente abbiamo i database di sukebei solo fino al 2016, ma un nuovo database potrebbe diventare disponible."
+    "translation": "Anche Sukebei è salvo, quasi niente è andato perso."
   },
   {
     "id": "how_are_we_recovering",
@@ -317,7 +317,7 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "Se hai esperienza nel web design, vieni sul canale IRC #nyaapantsu su irc.rizon.net. Se hai dei database aggiornati, specialmente per sukebei, <b>CARICALI!</b>."
+    "translation": "Se hai esperienza nel web design, vieni sul canale IRC #nyaapantsu su irc.rizon.net. Se hai dei database aggiornati, specialmente per sukebei,per favore caricali."
   },
   {
     "id": "your_design_sucks_found_a_bug",
@@ -350,6 +350,10 @@
   {
     "id": "all_categories",
     "translation": "Tutte le categorie"
+  },
+  {
+    "id": "select_a_torrent_category",
+    "translation": "Seleziona una Categoria Torrent"
   },
   {
     "id": "anime",
@@ -513,7 +517,7 @@
   },
   {
     "id": "language",
-    "translation": "Linguaggio"
+    "translation": "Lingua"
   },
   {
     "id": "current_password",
@@ -614,6 +618,10 @@
   {
     "id": "completed",
     "translation": "Completato"
+  },
+    {
+    "id": "change_language",
+    "translation": "Cambia Lingua"
   },
   {
     "id": "language_name",
