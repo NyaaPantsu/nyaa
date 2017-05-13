@@ -4,25 +4,26 @@ import (
 	"fmt"
 	"github.com/ewhal/nyaa/service/user"
 	"github.com/nicksnyder/go-i18n/i18n"
+	"github.com/nicksnyder/go-i18n/i18n/language"
 	"html/template"
 	"net/http"
 )
 
 // When go-i18n finds a language with >0 translations, it uses it as the Tfunc
 // However, if said language has a missing translation, it won't fallback to the "main" language
-func TfuncWithFallback(language string, languages ...string) (i18n.TranslateFunc, error) {
+func TfuncAndLanguageWithFallback(language string, languages ...string) (i18n.TranslateFunc, *language.Language, error) {
 	// Use the last language on the args as the fallback one.
 	fallbackLanguage := language
 	if languages != nil {
 		fallbackLanguage = languages[len(languages)-1]
 	}
 
-	T, err1 := i18n.Tfunc(language, languages...)
-	fallbackT, err2 := i18n.Tfunc(fallbackLanguage)
+	T, Tlang, err1 := i18n.TfuncAndLanguage(language, languages...)
+	fallbackT, fallbackTlang, err2 := i18n.TfuncAndLanguage(fallbackLanguage)
 
 	if err1 != nil && err2 != nil {
 		// fallbackT is still a valid function even with the error, it returns translationID.
-		return fallbackT, err2
+		return fallbackT, fallbackTlang, err2
 	}
 
 	return func(translationID string, args ...interface{}) string {
@@ -31,7 +32,7 @@ func TfuncWithFallback(language string, languages ...string) (i18n.TranslateFunc
 		}
 
 		return fallbackT(translationID, args...)
-	}, nil
+	}, Tlang, nil
 }
 
 func GetAvailableLanguages() (languages map[string]string) {
@@ -50,8 +51,7 @@ func GetAvailableLanguages() (languages map[string]string) {
 	return
 }
 
-func SetTranslation(tmpl *template.Template, language string, languages ...string) i18n.TranslateFunc {
-	T, _ := TfuncWithFallback(language, languages...)
+func setTranslation(tmpl *template.Template, T i18n.TranslateFunc) {
 	tmpl.Funcs(map[string]interface{}{
 		"T": func(str string, args ...interface{}) template.HTML {
 			return template.HTML(fmt.Sprintf(T(str), args...))
@@ -60,10 +60,9 @@ func SetTranslation(tmpl *template.Template, language string, languages ...strin
 			return fmt.Sprintf(T(str), args...)
 		},
 	})
-	return T
 }
 
-func SetTranslationFromRequest(tmpl *template.Template, r *http.Request, defaultLanguage string) i18n.TranslateFunc {
+func GetTfuncAndLanguageFromRequest(r *http.Request, defaultLanguage string) (T i18n.TranslateFunc, Tlang *language.Language) {
 	userLanguage := ""
 	user, _, err := userService.RetrieveCurrentUser(r)
 	if err == nil {
@@ -78,6 +77,14 @@ func SetTranslationFromRequest(tmpl *template.Template, r *http.Request, default
 
 	// go-i18n supports the format of the Accept-Language header, thankfully.
 	headerLanguage := r.Header.Get("Accept-Language")
+	T, Tlang, _ = TfuncAndLanguageWithFallback(userLanguage, cookieLanguage, headerLanguage, defaultLanguage)
+	return
+}
+
+
+func SetTranslationFromRequest(tmpl *template.Template, r *http.Request, defaultLanguage string) i18n.TranslateFunc {
 	r.Header.Add("Vary", "Accept-Encoding")
-	return SetTranslation(tmpl, userLanguage, cookieLanguage, headerLanguage, defaultLanguage)
+	T, _ := GetTfuncAndLanguageFromRequest(r, defaultLanguage)
+	setTranslation(tmpl, T)
+	return T
 }

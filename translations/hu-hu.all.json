@@ -546,5 +546,9 @@
   {
     "id": "delete_success",
     "translation": "A fiók törlésre került."
+  },
+  {
+    "id": "language_name",
+    "translation": "Magyar"
   }
 ]

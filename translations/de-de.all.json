@@ -598,5 +598,9 @@
   {
     "id": "completed",
     "translation": "Komplett"
+  },
+  {
+    "id": "language_name",
+    "translation": "Deutsch"
   }
 ]
