@@ -4,11 +4,10 @@ import (
 	"net/http"
 	"net/url"
 
+	"github.com/ewhal/nyaa/common"
 	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/service/captcha"
 	"github.com/ewhal/nyaa/service/user"
 	userForms "github.com/ewhal/nyaa/service/user/form"
-	"github.com/ewhal/nyaa/util/search"
 	"github.com/gorilla/mux"
 )
 
@@ -36,7 +35,7 @@ type NotFoundTemplateVariables struct {
 
 type ViewTemplateVariables struct {
 	Torrent    model.TorrentJSON
-	Captcha    captcha.Captcha
+	CaptchaID  string
 	Search     SearchForm
 	Navigation Navigation
 	User       *model.User
@@ -59,6 +58,7 @@ type UserProfileEditVariables struct {
 	UserForm    userForms.UserForm
 	FormErrors  map[string][]string
 	FormInfos   map[string][]string
+	Languages   map[string]string
 	Search      SearchForm
 	Navigation  Navigation
 	User        *model.User
@@ -87,7 +87,7 @@ type UserLoginFormVariables struct {
 
 type UserProfileVariables struct {
 	UserProfile *model.User
-	FormInfos        map[string][]string
+	FormInfos   map[string][]string
 	Search      SearchForm
 	Navigation  Navigation
 	User        *model.User
@@ -113,23 +113,65 @@ type UploadTemplateVariables struct {
 	Route      *mux.Route
 }
 
+type ChangeLanguageVariables struct {
+	Search     SearchForm
+	Navigation Navigation
+	Language   string
+	Languages  map[string]string
+	User       *model.User
+	URL        *url.URL
+	Route      *mux.Route
+}
+
+
+/* MODERATION Variables */
+
 type PanelIndexVbs struct {
-	Torrents  []model.Torrent
-	Users  []model.User
-	Comments  []model.Comment
+	Torrents       []model.Torrent
+	TorrentReports []model.TorrentReportJson
+	Users          []model.User
+	Comments       []model.Comment
+	Search         SearchForm
+	User           *model.User
+	URL            *url.URL // For parsing Url in templates
 }
 
 type PanelTorrentListVbs struct {
-	Torrents  []model.Torrent
+	Torrents   []model.Torrent
+	Search     SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL        *url.URL // For parsing Url in templates
 }
 type PanelUserListVbs struct {
-	Users  []model.User
+	Users      []model.User
+	Search     SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL        *url.URL // For parsing Url in templates
 }
 type PanelCommentListVbs struct {
-	Comments  []model.Comment
+	Comments   []model.Comment
+	Search     SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL        *url.URL // For parsing Url in templates
 }
 type PanelTorrentEdVbs struct {
-	Torrent  model.Torrent
+	Upload     UploadForm
+	Search  SearchForm
+	User    *model.User
+	FormErrors  map[string][]string
+	FormInfos   map[string][]string
+	URL        *url.URL // For parsing Url in templates
+}
+
+type PanelTorrentReportListVbs struct {
+	TorrentReports []model.TorrentReportJson
+	Search         SearchForm
+	Navigation     Navigation
+	User           *model.User
+	URL            *url.URL // For parsing Url in templates
 }
 
 /*
@@ -143,7 +185,7 @@ type Navigation struct {
 }
 
 type SearchForm struct {
-	search.SearchParam
+	common.SearchParam
 	Category           string
 	HideAdvancedSearch bool
 }

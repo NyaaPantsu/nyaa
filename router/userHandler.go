@@ -54,30 +54,21 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser == nil {
 		currentUser := GetUser(r)
-		view := r.URL.Query()["edit"]
 		follow := r.URL.Query()["followed"]
 		unfollow := r.URL.Query()["unfollowed"]
 		infosForm := form.NewInfos()
 		deleteVar := r.URL.Query()["delete"]
 
-		if (view != nil) && (userPermission.CurrentOrAdmin(currentUser, userProfile.ID)) {
-			b := form.UserForm{}
-			modelHelper.BindValueForm(&b, r)
-			languages.SetTranslationFromRequest(viewProfileEditTemplate, r, "en-us")
-			htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
-
-			err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-			}
-		} else if (deleteVar != nil) && (userPermission.CurrentOrAdmin(currentUser, userProfile.ID)) {
+		if (deleteVar != nil) && (userPermission.CurrentOrAdmin(currentUser, userProfile.ID)) {
 			err := form.NewErrors()
 			_, errUser := userService.DeleteUser(w, currentUser, id)
 			if errUser != nil {
 				err["errors"] = append(err["errors"], errUser.Error())
 			}
 			languages.SetTranslationFromRequest(viewUserDeleteTemplate, r, "en-us")
-			htv := UserVerifyTemplateVariables{err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
+			searchForm := NewSearchForm()
+			searchForm.HideAdvancedSearch = true
+			htv := UserVerifyTemplateVariables{err, searchForm, Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 			errorTmpl := viewUserDeleteTemplate.ExecuteTemplate(w, "index.html", htv)
 			if errorTmpl != nil {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -90,7 +81,9 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 			if unfollow != nil {
 				infosForm["infos"] = append(infosForm["infos"], fmt.Sprintf(T("user_unfollowed_msg"), userProfile.Username))
 			}
-			htv := UserProfileVariables{&userProfile, infosForm, NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+			searchForm := NewSearchForm()
+			searchForm.HideAdvancedSearch = true
+			htv := UserProfileVariables{&userProfile, infosForm, searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
 
 			err := viewProfileTemplate.ExecuteTemplate(w, "index.html", htv)
 			if err != nil {
@@ -107,6 +100,38 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	}
+}
+
+//Getting User Profile Details View
+func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	currentUser := GetUser(r)
+	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
+	if errorUser == nil && userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
+		if userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
+			b := form.UserForm{}
+			modelHelper.BindValueForm(&b, r)
+			languages.SetTranslationFromRequest(viewProfileEditTemplate, r, "en-us")
+			searchForm := NewSearchForm()
+			searchForm.HideAdvancedSearch = true
+			availableLanguages := languages.GetAvailableLanguages()
+			htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), availableLanguages, searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+			err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
+		}
+	} else {
+			searchForm := NewSearchForm()
+		searchForm.HideAdvancedSearch = true
+
+		languages.SetTranslationFromRequest(notFoundTemplate, r, "en-us")
+		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, searchForm, GetUser(r), r.URL, mux.CurrentRoute(r)})
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+ }
 }
 
 // Getting View User Profile Update
@@ -127,20 +152,34 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 			if len(r.PostFormValue("username")) > 0 {
 				_, err = form.ValidateUsername(r.PostFormValue("username"), err)
 			}
+
 			if len(err) == 0 {
 				modelHelper.BindValueForm(&b, r)
+				if !userPermission.HasAdmin(currentUser) {
+					b.Username = userProfile.Username
+					b.Status = userProfile.Status
+				} else {
+					if userProfile.Status != b.Status && b.Status == 2 {
+						err["errors"] = append(err["errors"], "Elevating status to moderator is prohibited")
+					}
+				}
 				err = modelHelper.ValidateForm(&b, err)
 				if len(err) == 0 {
+					if b.Email != userProfile.Email {
+						userService.SendVerificationToUser(*currentUser, b.Email)
+						infos["infos"] = append(infos["infos"], fmt.Sprintf(T("email_changed"), b.Email))
+						b.Email = userProfile.Email // reset, it will be set when user clicks verification
+					}
 					userProfile, _, errorUser = userService.UpdateUser(w, &b, currentUser, id)
 					if errorUser != nil {
 						err["errors"] = append(err["errors"], errorUser.Error())
-					}
-					if len(err) == 0 {
+					} else {
 						infos["infos"] = append(infos["infos"], T("profile_updated"))
 					}
 				}
 			}
-			htv := UserProfileEditVariables{&userProfile, b, err, infos, NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+			availableLanguages := languages.GetAvailableLanguages()
+			htv := UserProfileEditVariables{&userProfile, b, err, infos, availableLanguages, NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
 			errorTmpl := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
 			if errorTmpl != nil {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -169,7 +208,6 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 
 // Post Registration controller, we do some check on the form here, the rest on user service
 func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
-	// Check same Password
 	b := form.RegistrationForm{}
 	err := form.NewErrors()
 	if !captcha.Authenticate(captcha.Extract(r)) {

@@ -22,11 +22,18 @@ type Config struct {
 	// DBParams will be directly passed to Gorm, and its internal
 	// structure depends on the dialect for each db type
 	DBParams string `json:"db_params"`
+	DBLogMode string `json:"db_logmode"`
+	// tracker scraper config (required)
+	Scrape ScraperConfig `json:"scraper"`
+	// cache config
+	Cache CacheConfig `json:"cache"`
+	// search config
+	Search SearchConfig `json:"search"`
 	// optional i2p configuration
 	I2P *I2PConfig `json:"i2p"`
 }
 
-var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50", nil}
+var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50", "default", DefaultScraperConfig, DefaultCacheConfig, DefaultSearchConfig, nil}
 
 var allowedDatabaseTypes = map[string]bool{
 	"sqlite3":  true,
@@ -35,12 +42,21 @@ var allowedDatabaseTypes = map[string]bool{
 	"mssql":    true,
 }
 
+var allowedDBLogModes = map[string]bool{
+	"default":  true, // errors only
+	"detailed": true,
+	"silent":   true,
+}
+
 func New() *Config {
 	var config Config
 	config.Host = Defaults.Host
 	config.Port = Defaults.Port
 	config.DBType = Defaults.DBType
 	config.DBParams = Defaults.DBParams
+	config.DBLogMode = Defaults.DBLogMode
+	config.Scrape = Defaults.Scrape
+	config.Cache = Defaults.Cache
 	return &config
 }
 
@@ -52,6 +68,7 @@ func (config *Config) BindFlags() func() error {
 	host := flag.String("host", Defaults.Host, "binding address of the server")
 	port := flag.Int("port", Defaults.Port, "port of the server")
 	dbParams := flag.String("dbparams", Defaults.DBParams, "parameters to open the database (see Gorm's doc)")
+	dbLogMode := flag.String("dblogmode", Defaults.DBLogMode, "database log verbosity (errors only by default)")
 
 	return func() error {
 		// You can override fields in the config file with flags.
@@ -59,6 +76,10 @@ func (config *Config) BindFlags() func() error {
 		config.Port = *port
 		config.DBParams = *dbParams
 		err := config.SetDBType(*dbType)
+		if err != nil {
+			return err
+		}
+		err = config.SetDBLogMode(*dbLogMode)
 		if err != nil {
 			return err
 		}
@@ -87,6 +108,14 @@ func (config *Config) SetDBType(db_type string) error {
 		return fmt.Errorf("unknown database backend '%s'", db_type)
 	}
 	config.DBType = db_type
+	return nil
+}
+
+func (config *Config) SetDBLogMode(db_logmode string) error {
+	if !allowedDBLogModes[db_logmode] {
+		return fmt.Errorf("unknown database log mode '%s'", db_logmode)
+	}
+	config.DBLogMode = db_logmode
 	return nil
 }
 

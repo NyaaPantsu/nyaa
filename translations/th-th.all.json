@@ -332,10 +332,6 @@
     "translation": "เพราะเป็นภาษาถนัดของผู้พัฒนา"
   },
   {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat และ sukebei.pantsu.cat จะไม่เก็บไฟล์ใดๆ ไว้ในระบบทั้งสิ้น"
-  },
-  {
     "id": "upload_magnet",
     "translation": "อัพโหลด Magnet"
   },
@@ -618,5 +614,9 @@
   {
     "id": "completed",
     "translation": "โหลดเสร็จแล้ว"
+  },
+  {
+    "id": "language_name",
+    "translation": "ไทย"
   }
 ]
