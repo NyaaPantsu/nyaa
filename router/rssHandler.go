@@ -6,7 +6,6 @@ import (
 	"github.com/ewhal/nyaa/util/search"
 	"github.com/gorilla/feeds"
 	"net/http"
-	"strconv"
 	"time"
 )
 
@@ -26,29 +25,28 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 		Link:    &feeds.Link{Href: "https://" + config.WebAddress + "/"},
 		Created: createdAsTime,
 	}
-	feed.Items = []*feeds.Item{}
 	feed.Items = make([]*feeds.Item, len(torrents))
 
-	for i := range torrents {
-		torrentJSON := torrents[i].ToJSON()
+	for i, torrent := range torrents {
+		torrentJSON := torrent.ToJSON()
 		feed.Items[i] = &feeds.Item{
-			// need a torrent view first
-			Id:          "https://" + config.WebAddress + "/view/" + strconv.FormatUint(uint64(torrents[i].ID), 10),
-			Title:       torrents[i].Name,
+			Id:          "https://" + config.WebAddress + "/view/" + torrentJSON.ID,
+			Title:       torrent.Name,
 			Link:        &feeds.Link{Href: string(torrentJSON.Magnet)},
-			Description: "",
-			Created:     torrents[0].Date,
-			Updated:     torrents[0].Date,
+			Description: string(torrentJSON.Description),
+			Created:     torrent.Date,
+			Updated:     torrent.Date,
 		}
 	}
-
+	// allow cross domain AJAX requests
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	rss, rssErr := feed.ToRss()
 	if rssErr != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, rssErr.Error(), http.StatusInternalServerError)
 	}
 
 	_, writeErr := w.Write([]byte(rss))
 	if writeErr != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, writeErr.Error(), http.StatusInternalServerError)
 	}
 }

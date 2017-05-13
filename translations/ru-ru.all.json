@@ -21,7 +21,7 @@
   },
   {
     "id":"register_title",
-    "translation": "Создание новой учетной записи"
+    "translation": "Создание нового аккаунта"
   },
   {
     "id":"signup_box_title",
@@ -45,7 +45,7 @@
   },
   {
     "id":"confirm_password",
-    "translation": "Подтвердите Пароль"
+    "translation": "Подтвердите пароль"
   },
   {
     "id":"i_agree",
@@ -57,7 +57,7 @@
   },
   {
     "id":"signin",
-    "translation": "Вход"
+    "translation": "Войти"
   },
   {
     "id":"register",
@@ -97,15 +97,19 @@
   },
   {
     "id":"verify_success",
-    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Теперь ваша учетная запись активирована!"
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Теперь ваш аккаунт активирован!"
   },
   {
     "id":"signup_verification_email",
-    "translation": "Теперь, в качестве последнего шага регистрации, проверьте свой почтовый ящик (или папку спам) и нажмите ссылку для активации вашей учетной записи!"
+    "translation": "Теперь, в качестве последнего шага регистрации, проверьте свой почтовый ящик (или папку спам) и нажмите ссылку для активации вашего аккаунта!"
+  },
+  {
+    "id":"signup_verification_noemail",
+    "translation": "Регистрация прошла успешно, теперь вы можете использовать свой аккаунт."
   },
   {
     "id":"settings",
-    "translation": "Настройки учетной записи"
+    "translation": "Настройки аккаунта"
   },
   {
     "id":"torrents",
@@ -114,6 +118,18 @@
   {
     "id":"follow",
     "translation": "Следить"
+  },
+  {
+    "id":"unfollow",
+    "translation": "Отписаться"
+  },
+  {
+    "id":"user_followed_msg",
+    "translation": "Вы отслеживаете %s!"
+  },
+  {
+    "id":"user_unfollowed_msg",
+    "translation": "Вы отписаны от %s!"
   },
   {
     "id":"profile_page",
@@ -193,15 +209,15 @@
   },
   {
     "id": "member",
-    "translation": "Пользователь"
+    "translation": "Членство"
   },
   {
     "id": "sign_in",
-    "translation": "Войти"
+    "translation": "Вход"
   },
   {
     "id": "sign_up",
-    "translation": "Зарегистрироваться"
+    "translation": "Регистрация"
   },
   {
     "id": "no_results_found",
@@ -253,7 +269,7 @@
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "У нас есть база данных торрентов на nyaa до <s>5 апреля</s> 1 мая. Это означает, что почти ничего не потеряно."
+    "translation": "У нас есть база данных торрентов nyaa по <s>5 апреля</s> 1 мая. Это означает, что почти ничего не потеряно."
   },
   {
     "id": "answer_is_sukebei_db_lost",
@@ -273,7 +289,7 @@
   },
   {
     "id": "answer_are_the_trackers_working",
-    "translation": "Даже если трекеры не работают, раздающие все еще подключены к децентрализованной сети DHT. Пока файл находится в сети DHT, все должено работать как обычно."
+    "translation": "Даже если трекеры не работают, сиды все еще подключены к децентрализованной сети DHT. Пока файл находится в сети DHT, все должено работать как обычно."
   },
   {
     "id": "how_do_i_download_the_torrents",
@@ -316,10 +332,6 @@
     "translation": "Это любимый язык программирования автора."
   },
   {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat и sukebei.pantsu.cat не содержат файлы."
-  },
-  {
     "id": "upload_magnet",
     "translation": "Загрузить магнит"
   },
@@ -328,7 +340,7 @@
     "translation": "Торрент-файл"
   },
   {
-    "id": "uploading_torrent_prefills_fields",
+    "id": "uploading_file_prefills_fields",
     "translation": "Загрузка торрент-файла позволяет предварительно заполнить некоторые поля, это рекомендуется."
   },
   {
@@ -436,8 +448,8 @@
     "translation": "Описание торрента"
   },
   {
-    "id": "limited_html_set_is_allowed_use",
-    "translation": "В описании допускается ограниченный набор HTML, поэтому обязательно используйте"
+    "id": "description_markdown_notice",
+    "translation": "В описании может быть использован Markdown синтаксис."
   },
   {
     "id": "show_all",
@@ -445,11 +457,11 @@
   },
   {
     "id": "filter_remakes",
-    "translation": "Фильтрация римейков"
+    "translation": "Ремейки"
   },
   {
     "id": "trusted",
-    "translation": "Доверенные"
+    "translation": "Надёжные"
   },
   {
     "id": "id",
@@ -494,5 +506,117 @@
   {
     "id": "submit",
     "translation": "Отправить"
+  },
+  {
+    "id": "personal_info",
+    "translation": "Личная информация"
+  },
+  {
+    "id": "language",
+    "translation": "Язык"
+  },
+  {
+    "id": "current_password",
+    "translation": "Текущий пароль"
+  },
+  {
+    "id": "role",
+    "translation": "Роль"
+  },
+  {
+    "id": "banned",
+    "translation": "Banned"
+  },
+  {
+    "id": "default",
+    "translation": "По умолчанию"
+  },
+  {
+    "id": "trusted_member",
+    "translation": "Надёжный пользователь"
+  },
+  {
+    "id": "moderator",
+    "translation": "Модератор"
+  },
+  {
+    "id": "save_changes",
+    "translation": "Сохранить изменения"
+  },
+  {
+    "id": "profile_updated",
+    "translation": "Ваш профиль был успешно обновлен!"
+  },
+  {
+    "id": "delete_account",
+    "translation": "Удалить аккаунт"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "Вы уверены, что хотите удалить этот аккаунт?"
+  },
+  {
+    "id": "delete_success",
+    "translation": "Аккаунт успешно удален!"
+  },
+  {
+    "id": "moderation",
+    "translation": "На модерации"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "Кто, черт побери, такой れんちょん?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "れんちょん Это имя пользователя, назначенное для загрузок и комментариев, сделанных анонимно. Он также используется для торрентов, импортированных из оригинального nyaa, хотя оригинальный загрузчик может отображаться рядом."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Отметить как ремейк"
+  },
+  {
+    "id": "email_changed",
+    "translation": "Email адрес успешно изменен! Однако вам нужно будет подтвердить это, нажав на ссылку, присланную на Email адрес: %s"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "Статус торрента"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "Скрытый"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "Обычный"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "Ремейк"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "Изменение профиля %s's"
+  },
+  {
+    "id":"date_format",
+    "translation": "2006-01-02 15:04"
+  },
+  {
+    "id": "seeders",
+    "translation": "Сиды"
+  },
+  {
+    "id": "leechers",
+    "translation": "Личи"
+  },
+  {
+    "id": "completed",
+    "translation": "Скачавшие"
+  },
+  {
+    "id": "language_name",
+    "translation": "Русский"
   }
 ]

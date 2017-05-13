@@ -5,121 +5,105 @@ import (
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	formStruct "github.com/ewhal/nyaa/service/user/form"
-	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/modelHelper"
+	"github.com/ewhal/nyaa/util/timeHelper"
 	"github.com/gorilla/securecookie"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
+	"strconv"
+	"time"
 )
 
+const CookieName = "session"
+
+// If you want to keep login cookies between restarts you need to make these permanent
 var cookieHandler = securecookie.New(
 	securecookie.GenerateRandomKey(64),
 	securecookie.GenerateRandomKey(32))
 
-// TODO: Figure out what this is about before I delete it
-// // UserName get username from a cookie.
-// func UserName(c *gin.Context) (string, error) {
-// 	var userName string
-// 	request := c.Request
-// 	cookie, err := request.Cookie("session")
-// 	if err != nil {
-// 		return userName, err
-// 	}
-// 	cookieValue := make(map[string]string)
-// 	err = cookieHandler.Decode("session", cookie.Value, &cookieValue)
-// 	if err != nil {
-// 		return userName, err
-// 	}
-// 	userName = cookieValue["name"]
-// 	return userName, nil
-// }
-
-func Token(r *http.Request) (string, error) {
-	var token string
-	cookie, err := r.Cookie("session")
+// Encoding & Decoding of the cookie value
+func DecodeCookie(cookie_value string) (uint, error) {
+	value := make(map[string]string)
+	err := cookieHandler.Decode(CookieName, cookie_value, &value)
 	if err != nil {
-		return token, err
+		return 0, err
 	}
-	cookieValue := make(map[string]string)
-	err = cookieHandler.Decode("session", cookie.Value, &cookieValue)
-	if err != nil {
-		return token, err
+	time_int, _ := strconv.ParseInt(value["t"], 10, 0)
+	if timeHelper.IsExpired(time.Unix(time_int, 0)) {
+		return 0, errors.New("Cookie is expired")
 	}
-	token = cookieValue["token"]
-	if len(token) == 0 {
-		return token, errors.New("token is empty")
-	}
-	return token, nil
+	ret, err := strconv.ParseUint(value["u"], 10, 0)
+	return uint(ret), err
 }
 
-// SetCookie sets a cookie.
-func SetCookie(w http.ResponseWriter, token string) (int, error) {
+func EncodeCookie(user_id uint) (string, error) {
+	validUntil := timeHelper.FewDaysLater(7) // 1 week
 	value := map[string]string{
-		"token": token,
+		"u": strconv.FormatUint(uint64(user_id), 10),
+		"t": strconv.FormatInt(validUntil.Unix(), 10),
 	}
-	encoded, err := cookieHandler.Encode("session", value)
-	if err != nil {
-		return http.StatusInternalServerError, err
-	}
-	cookie := &http.Cookie{
-		Name:  "session",
-		Value: encoded,
-		Path:  "/",
-	}
-	http.SetCookie(w, cookie)
-	return http.StatusOK, nil
+	return cookieHandler.Encode(CookieName, value)
 }
 
-// ClearCookie clears a cookie.
 func ClearCookie(w http.ResponseWriter) (int, error) {
 	cookie := &http.Cookie{
-		Name:   "session",
+		Name:   CookieName,
 		Value:  "",
 		Path:   "/",
+		HttpOnly: true,
 		MaxAge: -1,
 	}
 	http.SetCookie(w, cookie)
 	return http.StatusOK, nil
 }
 
-// SetCookieHandler sets a cookie with email and password.
+// SetCookieHandler sets the authentication cookie
 func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, error) {
-	if email != "" && pass != "" {
-		log.Debugf("User email : %s , password : %s", email, pass)
-		var user model.User
-		isValidEmail, _ := formStruct.EmailValidation(email, formStruct.NewErrors())
-		if isValidEmail {
-			log.Debug("User entered valid email.")
-			if db.ORM.Where("email = ?", email).First(&user).RecordNotFound() {
-				return http.StatusNotFound, errors.New("user not found")
-			}
-		} else {
-			log.Debug("User entered username.")
-			if db.ORM.Where("username = ?", email).First(&user).RecordNotFound() {
-				return http.StatusNotFound, errors.New("user not found")
-			}
-		}
-		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(pass))
-		if err != nil {
-			return http.StatusUnauthorized, errors.New("password incorrect")
-		}
-		status, err := SetCookie(w, user.Token)
-		if err != nil {
-			return status, err
-		}
-		w.Header().Set("X-Auth-Token", user.Token)
-		return http.StatusOK, nil
+	if email == "" || pass == "" {
+		return http.StatusNotFound, errors.New("No username/password entered")
 	}
-	return http.StatusNotFound, errors.New("user not found")
+
+	var user model.User
+	// search by email or username
+	isValidEmail, _ := formStruct.EmailValidation(email, formStruct.NewErrors())
+	if isValidEmail {
+		if db.ORM.Where("email = ?", email).First(&user).RecordNotFound() {
+			return http.StatusNotFound, errors.New("User not found")
+		}
+	} else {
+		if db.ORM.Where("username = ?", email).First(&user).RecordNotFound() {
+			return http.StatusNotFound, errors.New("User not found")
+		}
+	}
+	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(pass))
+	if err != nil {
+		return http.StatusUnauthorized, errors.New("Password incorrect")
+	}
+	if user.Status == -1 {
+		return http.StatusUnauthorized, errors.New("Account banned")
+	}
+
+	encoded, err := EncodeCookie(user.ID)
+	if err != nil {
+		return http.StatusInternalServerError, err
+	}
+	cookie := &http.Cookie{
+		Name:  CookieName,
+		Value: encoded,
+		Path:  "/",
+		HttpOnly: true,
+	}
+	http.SetCookie(w, cookie)
+	// also set response header for convenience
+	w.Header().Set("X-Auth-Token", encoded)
+	return http.StatusOK, nil
 }
 
 // RegisterHanderFromForm sets cookie from a RegistrationForm.
 func RegisterHanderFromForm(w http.ResponseWriter, registrationForm formStruct.RegistrationForm) (int, error) {
-	email := registrationForm.Email
+	username := registrationForm.Username // email isn't set at this point
 	pass := registrationForm.Password
-	log.Debugf("RegisterHandler UserEmail : %s", email)
-	log.Debugf("RegisterHandler UserPassword : %s", pass)
-	return SetCookieHandler(w, email, pass)
+	return SetCookieHandler(w, username, pass)
 }
 
 // RegisterHandler sets a cookie when user registered.
@@ -129,24 +113,31 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) (int, error) {
 	return RegisterHanderFromForm(w, registrationForm)
 }
 
-// CurrentUser get a current user.
+// CurrentUser determines the current user from the request
 func CurrentUser(r *http.Request) (model.User, error) {
 	var user model.User
-	var token string
-	var err error
-	token = r.Header.Get("X-Auth-Token")
-	if len(token) > 0 {
-		log.Debug("header token exists")
-	} else {
-		token, err = Token(r)
-		log.Debug("header token does not exist")
+	var encoded string
+
+	encoded = r.Header.Get("X-Auth-Token")
+	if len(encoded) == 0 {
+		// check cookie instead
+		cookie, err := r.Cookie(CookieName)
 		if err != nil {
 			return user, err
 		}
+		encoded = cookie.Value
 	}
-	if db.ORM.Where("api_token = ?", token).First(&user).RecordNotFound() {
-		return user, errors.New("user not found")
+	user_id, err := DecodeCookie(encoded)
+	if err != nil {
+		return user, err
 	}
-	err = db.ORM.Model(&user).Error
-	return user, err
+	if db.ORM.Where("user_id = ?", user_id).First(&user).RecordNotFound() {
+		return user, errors.New("User not found")
+	}
+
+	if user.Status == -1 {
+		// recheck as user might've been banned in the meantime
+		return user, errors.New("Account banned")
+	}
+	return user, nil
 }

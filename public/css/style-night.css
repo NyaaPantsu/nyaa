@@ -64,6 +64,17 @@
      background-size: 75px;
 }
 */
+img#mascot {
+	display:block;
+	background-image: url(/img/megumin.png);
+	box-sizing: border-box;
+	height: 167px;
+	width: 125px;
+	padding-left: 125px;
+}
+/*The above is thanks to https://css-tricks.com/replace-the-image-in-an-img-with-css/
+Used to avoid the layout bugs caused by pure css background mascots, while still avoiding
+JS to switch the images.*/
 
 body {
     background-color:#282A2E;
@@ -111,4 +122,30 @@ a:hover {
 /* Night mode switcher  */
 #mainmenu a.nightswitch {
     background-image: url(/img/moon.png);
+}
+
+/* Force images on description to fit width */
+#description img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* fix dark-on-dark */
+.captcha-container img {
+    background: #fff;
+    border-radius: .4em .4em 0 0;
+    border-bottom: .5em solid #fff;
+    margin-bottom: -.5em;
+}
+.modal-content {
+    background: #29363d;
+}
+.modal-content .close {
+    color: #fff;
+}
+
+.text-error {
+  background: #29363d;
+  color: #cf9fff;
 }

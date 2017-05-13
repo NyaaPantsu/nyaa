@@ -21,7 +21,8 @@
       </div>
       <div class="form-group">
           <label for="c">{{T "category"}}</label>
-          <select name="c" class="form-control input-sm">
+          <select name="c" class="form-control input-sm" required>
+              <option value="">{{T "select_a_torrent_category"}}</option>
               <option value="3_12" {{if eq .Category "3_12"}}selected{{end}}>{{T "anime_amv"}}</option>
               <option value="3_5" {{if eq .Category "3_5"}}selected{{end}}>{{T "anime_english_translated"}}</option>
               <option value="3_13" {{if eq .Category "3_13"}}selected{{end}}>{{T "anime_non_english_translated"}}</option>
@@ -40,7 +41,10 @@
               <option value="1_1" {{if eq .Category "1_1"}}selected{{end}}>{{T "software_applications"}}</option>
               <option value="1_2" {{if eq .Category "1_2"}}selected{{end}}>{{T "software_games"}}</option>
           </select>
-
+      </div>
+      <div class="form-group">
+      	  <input type="checkbox" name="remake">
+          <label for="remake">{{T "mark_as_remake"}}</label>
       </div>
 
       <div class="form-group">

@@ -10,7 +10,6 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
-	//	"github.com/ewhal/nyaa/util/crypto"
 	"github.com/ewhal/nyaa/util/email"
 	"github.com/ewhal/nyaa/util/timeHelper"
 	"github.com/gorilla/securecookie"
@@ -28,40 +27,25 @@ func SendEmailVerification(to string, token string, locale string) error {
 	content := T("link") + " : https://" + config.WebAddress + "/verify/email/" + token
 	content_html := T("verify_email_content") + "<br/>" + "<a href=\"https://" + config.WebAddress + "/verify/email/" + token + "\" target=\"_blank\">" + config.WebAddress + "/verify/email/" + token + "</a>"
 	return email.SendEmailFromAdmin(to, T("verify_email_title"), content, content_html)
-	return nil
 }
 
 // SendVerificationToUser sends an email verification token to user.
-func SendVerificationToUser(user model.User) (int, error) {
+func SendVerificationToUser(user model.User, newEmail string) (int, error) {
 	validUntil := timeHelper.TwentyFourHoursLater() // TODO: longer duration?
 	value := map[string]string{
 		"t": strconv.FormatInt(validUntil.Unix(), 10),
 		"u": strconv.FormatUint(uint64(user.ID), 10),
-		"e": user.Email,
+		"e": newEmail,
 	}
 	encoded, err := verificationHandler.Encode("", value)
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
-	err = SendEmailVerification(user.Email, encoded, "en-us")
+	err = SendEmailVerification(newEmail, encoded, "en-us")
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
 	return http.StatusOK, nil
-}
-
-// SendVerification sends an email verification token.
-func SendVerification(r *http.Request) (int, error) {
-	var user model.User
-	currentUser, err := CurrentUser(r)
-	if err != nil {
-		return http.StatusUnauthorized, errors.New("unauthorized")
-	}
-	if db.ORM.First(&user, currentUser.ID).RecordNotFound() {
-		return http.StatusNotFound, errors.New("user not found")
-	}
-	status, err := SendVerificationToUser(user)
-	return status, err
 }
 
 // EmailVerification verifies the token used for email verification

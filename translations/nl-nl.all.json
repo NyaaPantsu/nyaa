@@ -13,7 +13,7 @@
   },
   {
     "id": "reset_password_title",
-    "translation": "Stel je wachtwoord opnieuw in voor goyangi."
+    "translation": "Stel je wachtwoord opnieuw in voor Nyaapantsu."
   },
   {
     "id": "reset_password_content",
@@ -157,7 +157,7 @@
   },
   {
     "id": "toggle_navigation",
-    "translation": "Toggle navigation"
+    "translation": "Nagiveren inschakelen"
   },
   {
     "id": "upload",
@@ -241,7 +241,7 @@
   },
   {
     "id": "recovery_effort",
-    "translation": Men is bezig de boel te herstellen."
+    "translation": "Men is bezig de boel te herstellen."
   },
   {
     "id": "is_everything_lost",
@@ -318,10 +318,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "Het is de favoriete programmeertaal van de bedenker."
-  },
-  {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat en sukebei.pantsu.cat hosten geen bestanden."
   },
   {
     "id": "upload_magnet",
@@ -550,5 +546,9 @@
   {
     "id": "delete_success",
     "translation": "Het account is met succes verwijderd!"
+  },
+  {
+    "id": "language_name",
+    "translation": "Nederlands"
   }
 ]

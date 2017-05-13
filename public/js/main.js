@@ -1,15 +1,10 @@
-// Night mode
 var night = localStorage.getItem("night");
-if (night == "true") {
-    $("head").append('<link id="style-dark" rel="stylesheet" type="text/css" href="/css/style-night.css">');
-}
-
 function toggleNightMode() {
     var night = localStorage.getItem("night");
     if(night == "true") {
-        $("#style-dark")[0].remove()
+        document.getElementById("style-dark").remove()
     } else {
-        $("head").append('<link id="style-dark" rel="stylesheet" type="text/css" href="/css/style-night.css">');
+        document.getElementsByTagName("head")[0].append(darkStyleLink);
     }
     localStorage.setItem("night", (night == "true") ? "false" : "true");
 }
@@ -52,3 +47,36 @@ for(var i in list) {
 	var date = new Date(e.innerText);
 	e.innerText = date.toDateString() + " " + date.toLocaleTimeString();
 }
+
+function loadLanguages() {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			var selector = document.getElementById("bottom_language_selector");
+			selector.hidden = false
+			/* Response format is
+			 * { "current": "(user current language)",
+			 *   "languages": {
+			 *   	"(language_code)": "(language_name"),
+			 *   }} */
+			var response = JSON.parse(xhr.responseText);
+			for (var language in response.languages) {
+				if (!response.languages.hasOwnProperty(language)) continue;
+
+				var opt = document.createElement("option")
+				opt.value = language
+				opt.innerHTML = response.languages[language]
+				if (language == response.current) {
+					opt.selected = true
+				}
+
+				selector.appendChild(opt)
+			}
+		}
+	}
+	xhr.open("GET", "/language?format=json", true)
+	xhr.send()
+}
+
+loadLanguages();
+

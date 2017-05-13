@@ -19,17 +19,28 @@ var FuncMap = template.FuncMap{
 		}
 		return "error"
 	},
-	"genRouteWithQuery": func(name string, currentUrl *url.URL, params ...string) template.HTML {
+	"genRouteWithQuery": func(name string, currentUrl *url.URL, params ...string) template.URL {
 		url, err := Router.Get(name).URL(params...)
 		if err == nil {
-			return template.HTML(template.HTMLEscapeString(url.String() + "?" + currentUrl.RawQuery)) // TODO: Review application of character escaping
+			return template.URL(url.String() + "?" + currentUrl.RawQuery)
+		}
+		return "error"
+	},
+	"genViewTorrentRoute": func(torrent_id uint) string {
+		// Helper for when you have an uint while genRoute("view_torrent", ...) takes a string
+		// FIXME better solution?
+		s := strconv.FormatUint(uint64(torrent_id), 10)
+		url, err := Router.Get("view_torrent").URL("id", s)
+		if err == nil {
+			return url.String()
 		}
 		return "error"
 	},
 	"genNav": func(nav Navigation, currentUrl *url.URL, pagesSelectable int) template.HTML {
+		var ret = ""
+		if (nav.TotalItem > 0) {
 		maxPages := math.Ceil(float64(nav.TotalItem) / float64(nav.MaxItemPerPage))
 
-		var ret = ""
 		if nav.CurrentPage-1 > 0 {
 			url, _ := Router.Get(nav.Route).URL("page", "1")
 			ret = ret + "<li><a id=\"page-prev\" href=\"" + url.String() + "?" + currentUrl.RawQuery + "\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"
@@ -57,15 +68,27 @@ var FuncMap = template.FuncMap{
 			url, _ := Router.Get(nav.Route).URL("page", strconv.Itoa(nav.CurrentPage+1))
 			ret = ret + "<li><a id=\"page-next\" href=\"" + url.String() + "?" + currentUrl.RawQuery + "\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li>"
 		}
+		}
 		return template.HTML(ret)
 	},
 	"T": i18n.IdentityTfunc,
+	"Ts": i18n.IdentityTfunc,
 	"getAvatar": func(hash string, size int) string {
 		return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
 	},
 	"CurrentOrAdmin":       userPermission.CurrentOrAdmin,
 	"CurrentUserIdentical": userPermission.CurrentUserIdentical,
 	"HasAdmin":             userPermission.HasAdmin,
+	"NeedsCaptcha":         userPermission.NeedsCaptcha,
 	"GetRole":              userPermission.GetRole,
 	"IsFollower":           userPermission.IsFollower,
+	"NoEncode": func(str string) template.HTML {
+		return template.HTML(str)
+	},
+	"calcWidthSeed": func(seed uint32, leech uint32) float64 {
+		return float64(float64(seed)/(float64(seed)+float64(leech)))*100
+	},
+	"calcWidthLeech": func(seed uint32, leech uint32) float64 {
+		return float64(float64(leech)/(float64(seed)+float64(leech)))*100
+	},
 }

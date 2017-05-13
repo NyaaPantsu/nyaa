@@ -320,10 +320,6 @@
     "translation": "Ez a dev kedvenc programozási nyelve."
   },
   {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat és sukebei.pantsu.cat nem hosztol fájlokat."
-  },
-  {
     "id": "upload_magnet",
     "translation": "Magnet Feltöltése"
   },
@@ -550,5 +546,9 @@
   {
     "id": "delete_success",
     "translation": "A fiók törlésre került."
+  },
+  {
+    "id": "language_name",
+    "translation": "Magyar"
   }
 ]

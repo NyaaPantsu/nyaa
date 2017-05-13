@@ -6,6 +6,7 @@ import (
 	"github.com/ewhal/nyaa/util/log"
 )
 
+
 // HasAdmin checks that user has an admin permission.
 func HasAdmin(user *model.User) bool {
 	return user.Status == 2
@@ -18,9 +19,14 @@ func CurrentOrAdmin(user *model.User, userID uint) bool {
 }
 
 // CurrentUserIdentical check that userID is same as current user's ID.
-// TODO: Inline this
+// TODO: Inline this (won't go do this for us?)
 func CurrentUserIdentical(user *model.User, userID uint) bool {
-	return user.ID != userID
+	return user.ID == userID
+}
+
+func NeedsCaptcha(user *model.User) bool {
+	// Trusted members & Moderators don't
+	return !(user.Status == 1 || user.Status == 2)
 }
 
 func GetRole(user *model.User) string {

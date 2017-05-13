@@ -13,7 +13,7 @@
   },
   {
     "id": "reset_password_title",
-    "translation": "Reestablece tu contraseña para goyangi."
+    "translation": "Reestablece tu contraseña para Nyaapantsu."
   },
   {
     "id": "reset_password_content",
@@ -101,7 +101,7 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "Ahora, como paso final para registrate, por favor revisa la bandeja de entrada de tu correo electrónico (o spam) y da click en el link provisto para activar tu cuenta!"
+    "translation": "Ahora, como paso final para registrarte, por favor revisa la bandeja de entrada de tu correo electrónico (o spam) y da click en el link provisto para activar tu cuenta!"
   },
   {
     "id":"settings",
@@ -281,7 +281,7 @@
   },
   {
     "id": "answer_how_do_i_download_the_torrents",
-    "translation": " Sólo usa el <b>link magnético</b>. El link magnético será utilizado por tu cliente de BitTorrent para buscar el archivo en la red DHT y descargarlo."
+    "translation": " Sólo usa el <b>link magnet</b>. El link magnet será utilizado por tu cliente de BitTorrent para buscar el archivo en la red DHT y descargarlo."
   },
   {
     "id": "magnet_link_should_look_like",
@@ -316,10 +316,6 @@
     "translation": "Es el lenguaje de programación favorito del autor."
   },
   {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat y sukebei.pantsu.cat no hospedan archivos."
-  },
-  {
     "id": "upload_magnet",
     "translation": "Subir Magnet"
   },
@@ -328,12 +324,12 @@
     "translation": "Archivo Torrent"
   },
   {
-    "id": "uploading_torrent_prefills_fields",
+    "id": "uploading_file_prefills_fields",
     "translation": "Subir un archivo torrent permite pre-llenar algunos campos, esto es recomendado."
   },
   {
     "id": "magnet_link",
-    "translation": "Link Magnético"
+    "translation": "Link magnet"
   },
   {
     "id": "all_categories",
@@ -546,5 +542,9 @@
   {
     "id": "delete_success",
     "translation": "Se ha eliminado exitosamente la cuenta!"
+  },
+  {
+    "id": "language_name",
+    "translation": "Español"
   }
 ]

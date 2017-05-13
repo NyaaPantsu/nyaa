@@ -13,7 +13,7 @@
   },
   {
     "id": "reset_password_title",
-    "translation": "Reset your password for goyangi."
+    "translation": "Reset your password for Nyaapantsu."
   },
   {
     "id": "reset_password_content",
@@ -225,7 +225,7 @@
   },
   {
     "id": "notice_keep_seeding",
-    "translation": "NOTICE: KEEP SEEDING AND ENABLE DHT YOU RETARD"
+    "translation": "NOTICE: KEEP SEEDING AND ENABLE DHT YOU GIT"
   },
   {
     "id": "official_nyaapocalipse_faq",
@@ -273,7 +273,7 @@
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Sukebei, however might be in worse shape. Currently we only have sukebei databases up to 2016, but a newer database might be available for use."
+    "translation": "Sukebei is safe too, and almost nothing is lost either."
   },
   {
     "id": "how_are_we_recovering",
@@ -317,7 +317,7 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "If you have website development expertise, you can join the #nyaapantsu IRC channel on irc.rizon.net. If you have any current databases, especially for sukebei, <b>UPLOAD THEM</b>."
+    "translation": "If you have website development expertise, you can join the #nyaapantsu IRC channel on irc.rizon.net. If you have any current databases, especially for sukebei, please upload them."
   },
   {
     "id": "your_design_sucks_found_a_bug",
@@ -330,10 +330,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "It's the author's favorite programming language."
-  },
-  {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat and sukebei.pantsu.cat do not host any files."
   },
   {
     "id": "upload_magnet",
@@ -354,6 +350,10 @@
   {
     "id": "all_categories",
     "translation": "All categories"
+  },
+  {
+    "id": "select_a_torrent_category",
+    "translation": "Select a Torrent Category"
   },
   {
     "id": "anime",
@@ -562,5 +562,69 @@
   {
     "id": "delete_success",
     "translation": "The account has been successfully deleted!"
+  },
+  {
+    "id": "moderation",
+    "translation": "Moderation"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "Who the fuck is れんちょん?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "れんちょん is the username assigned to uploads and comments made anonymously. It is also used for torrent imported from the original nyaa, though the original uploader may be displayed alongside."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Mark as remake"
+  },
+  {
+    "id": "email_changed",
+    "translation": "Email changed successfully! You will have, however, to confirm it by clicking to the link sent to: %s"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "Torrent status"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "Hidden"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "Normal"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "Remake"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "Edit %s's profile"
+  },
+  {
+    "id":"date_format",
+    "translation": "2006-01-02 15:04"
+  },
+  {
+    "id": "seeders",
+    "translation": "Seeders"
+  },
+  {
+    "id": "leechers",
+    "translation": "Leechers"
+  },
+  {
+    "id": "completed",
+    "translation": "Completed"
+  },
+  {
+    "id": "change_language",
+    "translation": "Change Language"
+  },
+  {
+    "id": "language_name",
+    "translation": "English"
   }
 ]
