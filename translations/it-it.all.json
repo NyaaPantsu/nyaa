@@ -614,5 +614,9 @@
   {
     "id": "completed",
     "translation": "Completato"
-}
+  },
+  {
+    "id": "language_name",
+    "translation": "Italiano"
+  }
 ]

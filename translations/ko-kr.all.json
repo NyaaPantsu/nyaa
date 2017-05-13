@@ -494,5 +494,9 @@
   {
     "id": "submit",
     "translation": "확인"
+  },
+  {
+    "id": "language_name",
+    "translation": "한국어"
   }
 ]

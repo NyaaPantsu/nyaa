@@ -18,15 +18,29 @@ import (
 )
 
 var searchOperator string
+var useTSQuery bool
 
 func Configure(conf *config.SearchConfig) (err error) {
-	// SQLite has case-insensitive LIKE, but no ILIKE
-	if db.ORM.Dialect().GetName() == "sqlite3" {
-		searchOperator = "LIKE ?"
-	} else {
+	useTSQuery = false
+	// Postgres needs ILIKE for case-insensitivity
+	if db.ORM.Dialect().GetName() == "postgres" {
 		searchOperator = "ILIKE ?"
+		//useTSQuery = true
+		// !!DISABLED!! because this makes search a lot stricter
+		// (only matches at word borders)
+	} else {
+		searchOperator = "LIKE ?"
 	}
 	return
+}
+
+func stringIsAscii(input string) bool {
+	for _, char := range input {
+		if char > 127 {
+			return false
+		}
+	}
+	return true
 }
 
 func SearchByQuery(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
@@ -164,7 +178,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	}
 
 	searchQuerySplit := strings.Fields(search.Query)
-	for i, word := range searchQuerySplit {
+	for _, word := range searchQuerySplit {
 		firstRune, _ := utf8.DecodeRuneInString(word)
 		if len(word) == 1 && unicode.IsPunct(firstRune) {
 			// some queries have a single punctuation character
@@ -175,9 +189,14 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 			continue
 		}
 
-		// TODO: make this faster ?
-		conditions = append(conditions, "torrent_name "+searchOperator)
-		parameters.Params = append(parameters.Params, "%"+searchQuerySplit[i]+"%")
+		if useTSQuery && stringIsAscii(word) {
+			conditions = append(conditions, "torrent_name @@ plainto_tsquery(?)")
+			parameters.Params = append(parameters.Params, word)
+		} else {
+			// TODO: possible to make this faster?
+			conditions = append(conditions, "torrent_name "+searchOperator)
+			parameters.Params = append(parameters.Params, "%"+word+"%")
+		}
 	}
 
 	parameters.Conditions = strings.Join(conditions[:], " AND ")
