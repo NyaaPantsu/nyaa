@@ -317,11 +317,11 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "หากมีประสบการณ์ในการเขียนเว็บ คุณสามารถเข้ามาคุยในช่อง IRC  #nyaapantsu บน irc.rizon.net หากคุณมีฐานข้อมูลใดๆ โดยเฉพาะของ Sukebei <b>กรุณาอัพโหลด</b>"
+    "translation": "หากมีประสบการณ์ในการเขียนเว็บ คุณสามารถเข้ามาคุยในช่อง IRC  #nyaapantsu บน irc.rizon.net หากคุณมีฐานข้อมูลใดๆ โดยเฉพาะของ Sukebei กรุณาอัพโหลด"
   },
   {
     "id": "your_design_sucks_found_a_bug",
-    "translation": "ดีไซน์กากว่ะ / เจอบัค"
+    "translation": "ดีไซน์กากว่ะคุณ / เจอบัค"
   },
   {
     "id": "why_written_in_go",
@@ -618,5 +618,13 @@
   {
     "id": "completed",
     "translation": "โหลดเสร็จแล้ว"
+  },
+  {
+    "id": "change_language",
+    "translation": "เปลี่ยนภาษา"
+  },
+  {
+    "id": "language_name",
+    "translation": "ไทย"
   }
 ]
