@@ -125,19 +125,19 @@
   },
   {
     "id":"user_followed_msg",
-    "translation": "%s をフォローしました。"
+    "translation": "%s さんをフォローしました。"
   },
   {
     "id":"user_unfollowed_msg",
-    "translation": "%s のフォローを解除しました。"
+    "translation": "%s さんのフォローを解除しました。"
   },
   {
     "id":"profile_page",
-    "translation": "%s プロフィールページ"
+    "translation": "%s さんのプロフィールページ"
   },
   {
     "id":"see_more_torrents_from",
-    "translation": "%s の Torrent をもっと表示"
+    "translation": "%s さんの Torrent をもっと表示"
   },
   {
     "id":"category",
