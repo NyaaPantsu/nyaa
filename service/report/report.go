@@ -48,7 +48,6 @@ func getTorrentReportsOrderBy(parameters *serviceBase.WhereParams, orderBy strin
 			return
 		}
 	}
-	// TODO: Vulnerable to injections. Use query builder. (is it?)
 
 	// build custom db query for performance reasons
 	dbQuery := "SELECT * FROM torrent_reports"
@@ -63,7 +62,7 @@ func getTorrentReportsOrderBy(parameters *serviceBase.WhereParams, orderBy strin
 	if limit != 0 || offset != 0 { // if limits provided
 		dbQuery = dbQuery + " LIMIT " + strconv.Itoa(limit) + " OFFSET " + strconv.Itoa(offset)
 	}
-	err = db.ORM.Preload("Torrent").Preload("User").Raw(dbQuery, params...).Find(&torrentReports).Error //fixed !!!!
+	err = db.ORM.Preload("Torrent").Preload("User").Raw(dbQuery, params...).Find(&torrentReports).Error
 	return
 }
 

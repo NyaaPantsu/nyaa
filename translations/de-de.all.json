@@ -332,10 +332,6 @@
     "translation": "Weil es die Lieblingsprogrammiersprache des Entwicklers ist."
   },
   {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat und sukebei.pantsu.cat stellen keine Dateien bereit."
-  },
-  {
     "id": "upload_magnet",
     "translation": "Magnet hochladen"
   },
@@ -602,5 +598,9 @@
   {
     "id": "completed",
     "translation": "Komplett"
+  },
+  {
+    "id": "language_name",
+    "translation": "Deutsch"
   }
 ]

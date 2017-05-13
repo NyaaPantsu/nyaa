@@ -35,6 +35,7 @@
 
                       {{ if HasAdmin $.User}}
                       <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i></a>
+                      <a href="{{ genRoute "mod_tedit" }}?id={{ .ID }}" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                       {{end}}
                     </div>
                     <div style="clear: both;"></div>
@@ -116,7 +117,7 @@
                     <label for="comment">{{ if gt .User.ID 0}} {{T "submit_a_comment_as_username" .User.Username}} {{else}} {{T "submit_a_comment_as_anonymous"}} {{end}}</label>
                     <textarea name="comment" class="form-control" rows="5"></textarea>
                 </div>
-                {{with .Captcha}} {{block "captcha" .}}{{end}} {{end}}
+                {{block "captcha" .}}{{end}}
                 <button type="submit" class="btn btn-success">{{T " submit "}}</button>
             </form>
         </div>
@@ -134,10 +135,12 @@
             <div class="modal-body">
                 <b>Report type:</b>
                 <form method="post" action="/report/{{.ID}}">
-                    <input type="radio" name="report_type" value="illegal"> Illegal content <br/>
-                    <input type="radio" name="report_type" value="spam"> Spam / garbage
+                    <input type="radio" name="report_type" value="illegal"> Illegal content<br />
+                    <input type="radio" name="report_type" value="spam"> Spam / Garbage<br />
+                    <input type="radio" name="report_type" value="wrongcat"> Wrong category<br />
+                    <input type="radio" name="report_type" value="dup"> Duplicate / Deprecated<br />
                     {{end}}
-                    {{with .Captcha}} {{block "captcha" .}}{{end}} {{end}}
+                    {{block "captcha" .}}{{end}}
                     <button type="submit" class="btn btn-default">Report!</button>
                 </form> <br />
             </div>

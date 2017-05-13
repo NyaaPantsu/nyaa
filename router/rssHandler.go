@@ -6,7 +6,6 @@ import (
 	"github.com/ewhal/nyaa/util/search"
 	"github.com/gorilla/feeds"
 	"net/http"
-	"strconv"
 	"time"
 )
 
@@ -31,7 +30,7 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	for i, torrent := range torrents {
 		torrentJSON := torrent.ToJSON()
 		feed.Items[i] = &feeds.Item{
-			Id:          "https://" + config.WebAddress + "/view/" + strconv.FormatUint(uint64(torrents[i].ID), 10),
+			Id:          "https://" + config.WebAddress + "/view/" + torrentJSON.ID,
 			Title:       torrent.Name,
 			Link:        &feeds.Link{Href: string(torrentJSON.Magnet)},
 			Description: string(torrentJSON.Description),
@@ -43,11 +42,11 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	rss, rssErr := feed.ToRss()
 	if rssErr != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, rssErr.Error(), http.StatusInternalServerError)
 	}
 
 	_, writeErr := w.Write([]byte(rss))
 	if writeErr != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, writeErr.Error(), http.StatusInternalServerError)
 	}
 }

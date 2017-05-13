@@ -125,7 +125,7 @@ func validateHash(r *TorrentRequest) (error, int) {
 		}
 		hash16 := make([]byte, hex.EncodedLen(len(data)))
 		hex.Encode(hash16, data)
-		r.Hash = string(hash16)
+		r.Hash = strings.ToUpper(string(hash16))
 	}
 	return nil, http.StatusOK
 }

@@ -209,15 +209,15 @@
   },
   {
     "id": "member",
-    "translation": "Пользователь"
+    "translation": "Членство"
   },
   {
     "id": "sign_in",
-    "translation": "Войти"
+    "translation": "Вход"
   },
   {
     "id": "sign_up",
-    "translation": "Зарегистрироваться"
+    "translation": "Регистрация"
   },
   {
     "id": "no_results_found",
@@ -269,7 +269,7 @@
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "У нас есть база данных торрентов на nyaa до <s>5 апреля</s> 1 мая. Это означает, что почти ничего не потеряно."
+    "translation": "У нас есть база данных торрентов nyaa по <s>5 апреля</s> 1 мая. Это означает, что почти ничего не потеряно."
   },
   {
     "id": "answer_is_sukebei_db_lost",
@@ -289,7 +289,7 @@
   },
   {
     "id": "answer_are_the_trackers_working",
-    "translation": "Даже если трекеры не работают, раздающие все еще подключены к децентрализованной сети DHT. Пока файл находится в сети DHT, все должено работать как обычно."
+    "translation": "Даже если трекеры не работают, сиды все еще подключены к децентрализованной сети DHT. Пока файл находится в сети DHT, все должено работать как обычно."
   },
   {
     "id": "how_do_i_download_the_torrents",
@@ -330,10 +330,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "Это любимый язык программирования автора."
-  },
-  {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat и sukebei.pantsu.cat не содержат файлы."
   },
   {
     "id": "upload_magnet",
@@ -452,8 +448,8 @@
     "translation": "Описание торрента"
   },
   {
-    "id": "limited_html_set_is_allowed_use",
-    "translation": "В описании допускается ограниченный набор HTML, поэтому обязательно используйте"
+    "id": "description_markdown_notice",
+    "translation": "В описании может быть использован Markdown синтаксис."
   },
   {
     "id": "show_all",
@@ -461,11 +457,11 @@
   },
   {
     "id": "filter_remakes",
-    "translation": "Фильтрация повторов"
+    "translation": "Ремейки"
   },
   {
     "id": "trusted",
-    "translation": "Доверенные"
+    "translation": "Надёжные"
   },
   {
     "id": "id",
@@ -537,7 +533,7 @@
   },
   {
     "id": "trusted_member",
-    "translation": "Надежный пользователь"
+    "translation": "Надёжный пользователь"
   },
   {
     "id": "moderator",
@@ -577,7 +573,7 @@
   },
   {
     "id": "mark_as_remake",
-    "translation": "Отметить как повтор"
+    "translation": "Отметить как ремейк"
   },
   {
     "id": "email_changed",
@@ -597,10 +593,30 @@
   },
   {
     "id": "torrent_status_remake",
-    "translation": "Повтор"
+    "translation": "Ремейк"
   },
   {
     "id": "profile_edit_page",
     "translation": "Изменение профиля %s's"
+  },
+  {
+    "id":"date_format",
+    "translation": "2006-01-02 15:04"
+  },
+  {
+    "id": "seeders",
+    "translation": "Сиды"
+  },
+  {
+    "id": "leechers",
+    "translation": "Личи"
+  },
+  {
+    "id": "completed",
+    "translation": "Скачавшие"
+  },
+  {
+    "id": "language_name",
+    "translation": "Русский"
   }
 ]

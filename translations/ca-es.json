@@ -320,10 +320,6 @@
     "translation": "És el llenguatge de programació preferit de l'autor."
   },
   {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat i sukebei.pantsu.cat no allotgen cap fitxer."
-  },
-  {
     "id": "upload_magnet",
     "translation": "Carrega un enllaç magnètic"
   },
@@ -550,5 +546,9 @@
   {
     "id": "delete_success",
     "translation": "S'ha suprimit el compte!"
+  },
+  {
+    "id": "language_name",
+    "translation": "Català"
   }
 ]
