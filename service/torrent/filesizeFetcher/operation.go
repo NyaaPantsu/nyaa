@@ -33,6 +33,8 @@ func NewFetchOperation(fetcher *FilesizeFetcher, dbEntry model.Torrent) (op *Fet
 
 // Should be started from a goroutine somewhere
 func (op *FetchOperation) Start(out chan Result) {
+	defer op.fetcher.wg.Done()
+
 	magnet := util.InfoHashToMagnet(strings.TrimSpace(op.torrent.Hash), op.torrent.Name, config.Trackers...)
 	downloadingTorrent, err := op.fetcher.torrentClient.AddMagnet(magnet)
 	if err != nil {
@@ -45,14 +47,14 @@ func (op *FetchOperation) Start(out chan Result) {
 	case <-downloadingTorrent.GotInfo():
 		downloadingTorrent.Drop()
 		out <- Result{op, nil, downloadingTorrent.Info()}
-		return
+		break
 	case <-timeoutTicker.C:
 		downloadingTorrent.Drop()
 		out <- Result{op, errors.New("Timeout"), nil}
-		return
+		break
 	case <-op.done:
 		downloadingTorrent.Drop()
-		return
+		break
 	}
 }
 

@@ -22,6 +22,7 @@ type FilesizeFetcher struct {
 	queueMutex       sync.Mutex
 	failedOperations map[uint]struct{}
 	wakeUp           *time.Ticker
+	wg               sync.WaitGroup
 }
 
 func New(fetcherConfig *config.FilesizeFetcherConfig) (fetcher *FilesizeFetcher, err error) {
@@ -133,6 +134,7 @@ func (fetcher *FilesizeFetcher) fillQueue() {
 		operation := NewFetchOperation(fetcher, T)
 
 		if fetcher.addToQueue(operation) {
+			fetcher.wg.Add(1)
 			go operation.Start(fetcher.results)
 		} else {
 			break
@@ -140,8 +142,11 @@ func (fetcher *FilesizeFetcher) fillQueue() {
 	}
 }
 
-func (fetcher *FilesizeFetcher) Run() {
+func (fetcher *FilesizeFetcher) run() {
 	var result Result
+
+	defer fetcher.wg.Done()
+
 	done := 0
 	fetcher.fillQueue()
 	for done == 0 {
@@ -159,6 +164,12 @@ func (fetcher *FilesizeFetcher) Run() {
 	}
 }
 
+func (fetcher *FilesizeFetcher) RunAsync() {
+	fetcher.wg.Add(1)
+
+	go fetcher.run()
+}
+
 func (fetcher *FilesizeFetcher) Close() error {
 	fetcher.queueMutex.Lock()
 	defer fetcher.queueMutex.Unlock()
@@ -169,6 +180,11 @@ func (fetcher *FilesizeFetcher) Close() error {
 	}
 
 	fetcher.done <- 1
+	fetcher.wg.Wait()
 	return nil
+}
+
+func (fetcher *FilesizeFetcher) Wait() {
+	fetcher.wg.Wait()
 }
 
