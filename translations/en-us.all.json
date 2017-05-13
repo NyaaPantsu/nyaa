@@ -626,5 +626,9 @@
   {
     "id": "language_name",
     "translation": "English"
+  },
+  {
+    "id": "delete",
+    "translation": "Delete"
   }
 ]
