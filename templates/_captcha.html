@@ -1,8 +1,11 @@
 {{define "captcha"}}
+	{{/* unset if user doesn't need captcha */}}
+	{{if ne .CaptchaID ""}}
 	<div class="form-group captcha-container">
 		<label for="solution">Captcha</label>
 		<input type="text" name="captchaID" value="{{.CaptchaID}}" hidden>
 		<img src="/captcha/{{.CaptchaID}}.png">
 		<input type="text" name="solution" class="form-control" placeholder="Captcha" autocomplete="off" required>
 	</div>
+	{{end}}
 {{end}}
