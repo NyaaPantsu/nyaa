@@ -29,11 +29,11 @@ func New(fetcherConfig *config.FilesizeFetcherConfig) (fetcher *FilesizeFetcher,
 	client, err := torrent.NewClient(nil)
 	fetcher = &FilesizeFetcher{
 		torrentClient:    client,
-		results:          make(chan Result),
+		results:          make(chan Result, fetcherConfig.QueueSize),
 		queueSize:        fetcherConfig.QueueSize,
 		timeout:          fetcherConfig.Timeout,
 		maxDays:          fetcherConfig.MaxDays,
-		done:             make(chan int),
+		done:             make(chan int, 1),
 		failedOperations: make(map[uint]struct{}),
 		wakeUp:           time.NewTicker(time.Second * time.Duration(fetcherConfig.WakeUpInterval)),
 	}
