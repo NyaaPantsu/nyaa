@@ -281,7 +281,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "The aforementioned databases are being hosted at nyaa.pantsu.cat and sukebei.pantsu.cat. There is a search function, and (almost) full nyaa functionality should be coming soon. Seeder/leecher statistics are possible via scraping and might be restored sometime in the future, since other feature take priority right now."
+    "translation": "The aforementioned databases are being hosted at nyaa.pantsu.cat and sukebei.pantsu.cat. There is a search function, and (almost) full nyaa functionality should be coming soon."
   },
   {
     "id": "are_the_trackers_working",
@@ -573,7 +573,7 @@
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん is the username assigned to uploads and comments made anonymously. It is also used for torrent imported from the original nyaa, though the original uploader may be displayed alongside."
+    "translation": "れんちょん is the username assigned to uploads and comments made anonymously. It is also used for torrents imported from the original nyaa, though sometimes the original uploader can be displayed alongside."
   },
   {
     "id": "mark_as_remake",
