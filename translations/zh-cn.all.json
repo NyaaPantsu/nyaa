@@ -113,7 +113,7 @@
   },
   {
     "id":"torrents",
-    "translation": "种子"
+    "translation": "种子列表"
   },
   {
     "id":"follow",
@@ -181,7 +181,7 @@
   },
   {
     "id": "fap",
-    "translation": "神秘花园"
+    "translation": "秘密花园"
   },
   {
     "id": "advanced_search",
@@ -237,7 +237,7 @@
   },
   {
     "id": "what_happened",
-    "translation": "什么鬼？"
+    "translation": "Nyaa站怎么了？"
   },
   {
     "id": "nyaa_se_went_offline",
@@ -245,15 +245,15 @@
   },
   {
     "id": "its_not_a_ddos",
-    "translation": "站点完全被停用，并不是以往的 DDoS 攻击"
+    "translation": "这次并不是因为以往的 DDoS 攻击，而是站点完全被停用了"
   },
   {
     "id": "future_not_looking_good",
-    "translation": "nyaa 的未来非常的严峻 她真的走了"
+    "translation": "Nyaa 的未来非常的严峻，她永远的走了"
   },
   {
     "id": "recovery_effort",
-    "translation": "而资料的抢救也正在进行中"
+    "translation": "我们正在进行对资料的抢救"
   },
   {
     "id": "is_everything_lost",
@@ -285,7 +285,7 @@
   },
   {
     "id": "are_the_trackers_working",
-    "translation": "这些种子都还活着吗？"
+    "translation": "那..这些种子都还活着吗？"
   },
   {
     "id": "answer_are_the_trackers_working",
@@ -293,7 +293,7 @@
   },
   {
     "id": "how_do_i_download_the_torrents",
-    "translation": "所以要怎么抓种？"
+    "translation": "所以说要怎么抓种？"
   },
   {
     "id": "answer_how_do_i_download_the_torrents",
@@ -321,19 +321,15 @@
   },
   {
     "id": "your_design_sucks_found_a_bug",
-    "translation": "瞧你们设计的破网站 / 我找到 bug 了！"
+    "translation": "你们设计的什么破网站 / 我找到 bug 了！"
   },
   {
     "id": "why_written_in_go",
-    "translation": "为啥要用 GO 语言？没有别的选择了吗？"
+    "translation": "为什么非要用辣鸡 GO 语言？"
   },
   {
     "id": "authors_favorite_language",
     "translation": "这是作者的信仰！"
-  },
-  {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat 以及 sukebei.pantsu.cat 沒有保存任何资料喵~"
   },
   {
     "id": "upload_magnet",
@@ -356,24 +352,28 @@
     "translation": "所有分类"
   },
   {
+    "id:": "select_a_torrent_category",
+    "translation": "请选择种子分类"
+  },
+  {
     "id": "anime",
-    "translation": "动画"
+    "translation": "动漫"
   },
   {
     "id": "anime_amv",
-    "translation": "动画 - 动画MV"
+    "translation": "动漫 - 动画MV"
   },
   {
     "id": "anime_english_translated",
-    "translation": "动画 - 已翻译为英文"
+    "translation": "动漫 - 已翻译为英文"
   },
   {
     "id": "anime_non_english_translated",
-    "translation": "动画 - 未翻译为英文"
+    "translation": "动漫 - 未翻译为英文"
   },
   {
     "id": "anime_raw",
-    "translation": "动画 - 生肉"
+    "translation": "动漫 - 生肉"
   },
   {
     "id": "audio",
@@ -461,11 +461,11 @@
   },
   {
     "id": "filter_remakes",
-    "translation": "过滤 Remakes"
+    "translation": "过滤再发行版"
   },
   {
     "id": "trusted",
-    "translation": "信任的"
+    "translation": "受信任的资源"
   },
   {
     "id": "id",
@@ -562,5 +562,68 @@
   {
     "id": "delete_success",
     "translation": "您的账号已被删除！"
+  },
+  {
+    "id": "moderation",
+    "translation": "节制"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "れんちょん是谁?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "れんちょん是匿名评论与上传者的默认用户名，同时也显示为Nyaa站原始资源的上传者."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "标为再发行版（重制版）"
+  },
+  {
+    "id": "email_changed",
+  },
+  {
+    "id": "torrent_status",
+    "translation": "种子状态"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "隐藏"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "普通"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "再发行"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "编辑 %s 的个人资料"
+  },
+  {
+    "id":"date_format",
+    "translation": "2006-01-02 15:04"
+  },
+  {
+    "id": "seeders",
+    "translation": "上传数"
+  },
+  {
+    "id": "leechers",
+    "translation": "下载数"
+  },
+  {
+    "id": "completed",
+    "translation": "完成数"
+  },
+  {
+    "id": "change_language",
+    "translation": "切换语言"
+  },
+  {
+    "id": "language_name",
+    "translation": "简体中文"
   }
 ]
