@@ -269,7 +269,7 @@
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "<s>4月5日</s> 5月1日までの nyaa.se のデータベースはあります。要するに、ほとんど失われていません。"
+    "translation": "<s>4月5日</s> 5月1日までのデータベースはあります。要するに、ほとんど失われていません。"
   },
   {
     "id": "answer_is_sukebei_db_lost",
@@ -565,7 +565,7 @@
   },
   {
     "id": "moderation",
-    "translation": "緩和"
+    "translation": "管轄"
   },
   {
     "id": "who_is_renchon",
