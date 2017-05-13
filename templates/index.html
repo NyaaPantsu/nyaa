@@ -95,7 +95,13 @@
       <footer>
       Powered by NyaaPantsu
       </footer>
-	  <center><a href="{{ .URL.Parse "/language" }}">{{ T "change_language" }}</a></center>
+
+	  <form method="POST" action="{{ .URL.Parse "/language" }}" id="bottom_language_selector_form">
+		  <select id="bottom_language_selector" name="language" onchange="javascript:document.getElementById('bottom_language_selector_form').submit()" hidden class="form-control"></select>
+	  </form>
+	  <noscript>
+		  <center><a href="{{ .URL.Parse "/language" }}">{{ T "change_language" }}</a></center>
+	  </noscript>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
