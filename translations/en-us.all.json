@@ -618,5 +618,9 @@
   {
     "id": "change_language",
     "translation": "Change Language"
+  },
+  {
+    "id": "language_name",
+    "translation": "English"
   }
 ]

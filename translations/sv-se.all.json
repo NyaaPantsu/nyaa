@@ -578,5 +578,9 @@
   {
     "id": "email_changed",
     "translation": "Din mailadress har bytts! Du måste bekräfta adressen genom att klicka på länken som skickats till %s."
+  },
+  {
+    "id": "language_name",
+    "translation": "Svenska"
   }
 ]

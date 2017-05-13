@@ -582,5 +582,9 @@
   {
     "id": "change_language",
     "translation": "Mudar Idioma"
+  },
+  {
+    "id": "language_name",
+    "translation": "Português (Brasil)"
   }
 ]
