@@ -578,5 +578,9 @@
   {
     "id": "email_changed",
     "translation": "Epost-addressen har blitt endret! Neste steg er å bekrefte den (sjekk innboksen)."
+  },
+  {
+    "id": "language_name",
+    "translation": "Norsk bokmål"
   }
 ]

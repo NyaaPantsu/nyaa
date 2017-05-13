@@ -7,8 +7,6 @@ import (
 	"github.com/ewhal/nyaa/common"
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/model"
-
-	"errors"
 )
 
 // Cache defines interface for caching search results
@@ -16,8 +14,6 @@ type Cache interface {
 	Get(key common.SearchParam, r func() ([]model.Torrent, int, error)) ([]model.Torrent, int, error)
 	ClearAll()
 }
-
-var ErrInvalidCacheDialect = errors.New("invalid cache dialect")
 
 // Impl cache implementation instance
 var Impl Cache

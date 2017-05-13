@@ -113,11 +113,22 @@ type UploadTemplateVariables struct {
 	Route      *mux.Route
 }
 
+type ChangeLanguageVariables struct {
+	Search     SearchForm
+	Navigation Navigation
+	Language   string
+	Languages  map[string]string
+	User       *model.User
+	URL        *url.URL
+	Route      *mux.Route
+}
+
+
 /* MODERATION Variables */
 
 type PanelIndexVbs struct {
 	Torrents       []model.Torrent
-	TorrentReports []model.TorrentReport
+	TorrentReports []model.TorrentReportJson
 	Users          []model.User
 	Comments       []model.Comment
 	Search         SearchForm
