@@ -5,6 +5,7 @@ import (
 	"html"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
@@ -20,6 +21,83 @@ import (
 	"github.com/ewhal/nyaa/util/search"
 	"github.com/gorilla/mux"
 )
+
+type ReassignForm struct {
+	AssignTo uint
+	By       string
+	Data     string
+
+	Torrents []uint
+}
+
+func (f *ReassignForm) ExtractInfo(r *http.Request) error {
+	f.By = r.FormValue("by")
+	if f.By != "olduser" && f.By != "torrentid" {
+		return fmt.Errorf("what?")
+	}
+
+	f.Data = strings.Trim(r.FormValue("data"), " \r\n")
+	if f.By == "olduser" {
+		if f.Data == "" {
+			return fmt.Errorf("No username given")
+		} else if strings.Contains(f.Data, "\n") {
+			return fmt.Errorf("More than one username given")
+		}
+	} else if f.By == "torrentid" {
+		if f.Data == "" {
+			return fmt.Errorf("No IDs given")
+		}
+		splitData := strings.Split(f.Data, "\n")
+		for i, tmp := range splitData {
+			tmp = strings.Trim(tmp, " \r")
+			torrent_id, err := strconv.ParseUint(tmp, 10, 0)
+			if err != nil {
+				return fmt.Errorf("Couldn't parse number on line %d", i+1)
+			}
+			f.Torrents = append(f.Torrents, uint(torrent_id))
+		}
+	}
+
+	tmp := r.FormValue("to")
+	parsed, err := strconv.ParseUint(tmp, 10, 0)
+	if err != nil {
+		return err
+	}
+	f.AssignTo = uint(parsed)
+	_, _, _, _, err = userService.RetrieveUser(r, tmp)
+	if err != nil {
+		return fmt.Errorf("User to assign to doesn't exist")
+	}
+
+	return nil
+}
+
+func (f *ReassignForm) ExecuteAction() (int, error) {
+
+	var toBeChanged []uint
+	var err error
+	if f.By == "olduser" {
+		toBeChanged, err = userService.RetrieveOldUploadsByUsername(f.Data)
+		if err != nil {
+			return 0, err
+		}
+	} else if f.By == "torrentid" {
+		toBeChanged = f.Torrents
+	}
+
+	num := 0
+	for _, torrent_id := range toBeChanged {
+		torrent, err2 := torrentService.GetRawTorrentById(torrent_id)
+		if err2 == nil {
+			torrent.UploaderID = f.AssignTo
+			db.ORM.Save(&torrent)
+			num += 1
+		}
+	}
+	// TODO: clean shit from user_uploads_old if needed
+	return num, nil
+}
+
 
 func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
@@ -270,4 +348,44 @@ func TorrentReportDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	} else {
 		http.Error(w, "admins only", http.StatusForbidden)
 	}
+}
+
+func TorrentReassignModPanel(w http.ResponseWriter, r *http.Request) {
+	currentUser := GetUser(r)
+	if !userPermission.HasAdmin(currentUser) {
+		http.Error(w, "admins only", http.StatusForbidden)
+		return
+	}
+	languages.SetTranslationFromRequest(panelTorrentReassign, r, "en-us")
+
+	htv := PanelTorrentReassignVbs{ReassignForm{}, NewSearchForm(), currentUser, form.NewErrors(), form.NewInfos(), r.URL}
+	err := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)
+	log.CheckError(err)
+}
+
+func TorrentPostReassignModPanel(w http.ResponseWriter, r *http.Request) {
+	currentUser := GetUser(r)
+	if !userPermission.HasAdmin(currentUser) {
+		http.Error(w, "admins only", http.StatusForbidden)
+		return
+	}
+	var rForm ReassignForm
+	err := form.NewErrors()
+	infos := form.NewInfos()
+
+	err2 := rForm.ExtractInfo(r)
+	if err2 != nil {
+		err["errors"] = append(err["errors"], err2.Error())
+	} else {
+		count, err2 := rForm.ExecuteAction()
+		if err2 != nil {
+			err["errors"] = append(err["errors"], "Something went wrong")
+		} else {
+			infos["infos"] = append(infos["infos"], fmt.Sprintf("%d torrents updated.", count))
+		}
+	}
+
+	htv := PanelTorrentReassignVbs{rForm, NewSearchForm(), currentUser, err, infos, r.URL}
+	err_ := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)
+	log.CheckError(err_)
 }

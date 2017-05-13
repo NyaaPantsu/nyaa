@@ -9,7 +9,7 @@ var TemplateDir = "templates"
 
 var homeTemplate, searchTemplate, faqTemplate, uploadTemplate, viewTemplate, viewRegisterTemplate, viewLoginTemplate, viewRegisterSuccessTemplate, viewVerifySuccessTemplate, viewProfileTemplate, viewProfileEditTemplate, viewUserDeleteTemplate, notFoundTemplate, changeLanguageTemplate *template.Template
 
-var panelIndex, panelTorrentList, panelUserList, panelCommentList, panelTorrentEd, panelTorrentReportList *template.Template
+var panelIndex, panelTorrentList, panelUserList, panelCommentList, panelTorrentEd, panelTorrentReportList, panelTorrentReassign *template.Template
 
 type templateLoader struct {
 	templ     **template.Template
@@ -126,6 +126,11 @@ func ReloadTemplates() {
 			templ: &panelTorrentReportList,
 			name:  "torrent_report",
 			file:  filepath.Join("admin", "torrent_report.html"),
+		},
+		templateLoader{
+			templ: &panelTorrentReassign,
+			name:  "torrent_reassign",
+			file:  filepath.Join("admin", "reassign.html"),
 		},
 	}
 
