@@ -352,6 +352,10 @@
     "translation": "Toutes les catégories"
   },
   {
+    "id": "select_a_torrent_category",
+    "translation": "Choisir une catégorie de torrents"
+  },
+  {
     "id": "anime",
     "translation": "Anime"
   },
@@ -512,10 +516,6 @@
     "translation": "Informations personnelles"
   },
   {
-    "id": "email",
-    "translation": "Adresse email"
-  },
-  {
     "id": "language",
     "translation": "Langue"
   },
@@ -617,7 +617,11 @@
   },
   {
     "id": "completed",
-    "translation": "Terminé"
+    "translation": "Complété"
+  },
+  {
+    "id": "change_language",
+    "translation": "Changer la langue"
   },
   {
     "id": "language_name",
