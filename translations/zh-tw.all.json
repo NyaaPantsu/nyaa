@@ -577,7 +577,7 @@
   },
   {
     "id": "email_changed",
-    "translation": "郵箱更變成功，壹份確認郵件已發送到 %s ，請點擊裏面的確認連結來完成修改！"
+    "translation": "郵箱更變成功，一封確認郵件已發送到 %s ，請點擊裏面的確認連結來完成修改！"
   },
   {
     "id": "torrent_status",
