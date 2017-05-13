@@ -618,13 +618,5 @@
   {
     "id": "completed",
     "translation": "โหลดเสร็จแล้ว"
-  },
-  {
-    "id": "change_language",
-    "translation": "เปลี่ยนภาษา"
-  },
-  {
-    "id": "language_name",
-    "translation": "ภาษาไทย"
   }
 ]
