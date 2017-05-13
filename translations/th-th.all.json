@@ -614,5 +614,9 @@
   {
     "id": "completed",
     "translation": "โหลดเสร็จแล้ว"
+  },
+  {
+    "id": "language_name",
+    "translation": "ไทย"
   }
 ]

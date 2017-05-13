@@ -345,6 +345,12 @@ footer {
   text-shadow: -1px -1px #999999;
 }
 
+select#bottom_language_selector {
+  width: 20%;
+  margin: auto;
+  margin-bottom: 2rem;
+}
+
 /* Force images on description to fit width */
 #description img {
   display: block;

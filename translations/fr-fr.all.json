@@ -617,6 +617,10 @@
   },
   {
     "id": "completed",
-    "translation": "Complété"
+    "translation": "Terminé"
+  },
+  {
+    "id": "language_name",
+    "translation": "Français"
   }
 ]

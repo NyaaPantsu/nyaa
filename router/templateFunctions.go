@@ -26,6 +26,16 @@ var FuncMap = template.FuncMap{
 		}
 		return "error"
 	},
+	"genViewTorrentRoute": func(torrent_id uint) string {
+		// Helper for when you have an uint while genRoute("view_torrent", ...) takes a string
+		// FIXME better solution?
+		s := strconv.FormatUint(uint64(torrent_id), 10)
+		url, err := Router.Get("view_torrent").URL("id", s)
+		if err == nil {
+			return url.String()
+		}
+		return "error"
+	},
 	"genNav": func(nav Navigation, currentUrl *url.URL, pagesSelectable int) template.HTML {
 		var ret = ""
 		if (nav.TotalItem > 0) {

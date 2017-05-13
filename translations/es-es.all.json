@@ -542,5 +542,9 @@
   {
     "id": "delete_success",
     "translation": "Se ha eliminado exitosamente la cuenta!"
+  },
+  {
+    "id": "language_name",
+    "translation": "Español"
   }
 ]
