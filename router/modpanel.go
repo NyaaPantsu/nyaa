@@ -64,11 +64,16 @@ func (f *ReassignForm) ExtractInfo(r *http.Request) error {
 		return err
 	}
 	f.AssignTo = uint(parsed)
+	_, _, _, _, err = userService.RetrieveUser(r, tmp)
+	if err != nil {
+		return fmt.Errorf("User to assign to doesn't exist")
+	}
 
 	return nil
 }
 
 func (f *ReassignForm) ExecuteAction() (int, error) {
+
 	var toBeChanged []uint
 	var err error
 	if f.By == "olduser" {
