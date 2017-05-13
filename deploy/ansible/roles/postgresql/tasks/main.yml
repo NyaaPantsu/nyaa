@@ -5,6 +5,7 @@
   become: true
   with_items:
     - postgresql-server
+    - postgresql-contrib # Needed for extensions (ie: btree_gin)
     - postgresql-pgpool-II
 
 - name: Initialize postgresql
