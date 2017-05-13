@@ -88,6 +88,15 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 	return
 }
 
+// won't fetch user or comments
+func GetRawTorrentById(id uint) (torrent model.Torrent, err error) {
+	err = nil
+	if db.ORM.Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
+		err = errors.New("Article is not found.")
+	}
+	return
+}
+
 func GetTorrentsOrderByNoCount(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, err error) {
 	torrents, _, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, false)
 	return
