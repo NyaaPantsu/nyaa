@@ -2,9 +2,9 @@ var night = localStorage.getItem("night");
 function toggleNightMode() {
     var night = localStorage.getItem("night");
     if(night == "true") {
-        document.getElementById("style-dark").remove()
+        document.getElementsByTagName("head")[0].removeChild(darkStyleLink);
     } else {
-        document.getElementsByTagName("head")[0].append(darkStyleLink);
+        document.getElementsByTagName("head")[0].appendChild(darkStyleLink);
     }
     localStorage.setItem("night", (night == "true") ? "false" : "true");
 }
@@ -79,4 +79,3 @@ function loadLanguages() {
 }
 
 loadLanguages();
-
