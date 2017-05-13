@@ -68,12 +68,15 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 		}
 	}
 	user.Email = "" // unset email because it will be verified later
+	user.CreatedAt = time.Now()
+	// currently unused but needs to be set:
+	user.ApiToken = ""
+	user.ApiTokenExpiry = time.Unix(0, 0)
 
 	if db.ORM.Create(&user).Error != nil {
 		return user, errors.New("user not created")
 	}
 
-	user.CreatedAt = time.Now()
 	return user, nil
 }
 
@@ -154,7 +157,6 @@ func UpdateUserCore(user *model.User) (int, error) {
 		return http.StatusInternalServerError, err
 	}
 
-	
 	return http.StatusOK, nil
 }
 

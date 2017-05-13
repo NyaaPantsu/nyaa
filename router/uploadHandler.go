@@ -10,7 +10,7 @@ import (
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service/captcha"
-	"github.com/ewhal/nyaa/service/user"
+	"github.com/ewhal/nyaa/service/user/permission"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/gorilla/mux"
 )
@@ -23,15 +23,20 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	var uploadForm UploadForm
 	if r.Method == "POST" {
 		defer r.Body.Close()
+		user := GetUser(r)
+		if userPermission.NeedsCaptcha(user) {
+			userCaptcha := captcha.Extract(r)
+			if !captcha.Authenticate(userCaptcha) {
+				http.Error(w, captcha.ErrInvalidCaptcha.Error(), http.StatusInternalServerError)
+				return
+			}
+		}
+
 		// validation is done in ExtractInfo()
 		err := uploadForm.ExtractInfo(r)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
-		}
-		user, _, err := userService.RetrieveCurrentUser(r)
-		if err != nil {
-			fmt.Printf("error %+v\n", err)
 		}
 		status := 1 // normal
 		if uploadForm.Remake { // overrides trusted
@@ -39,10 +44,11 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		} else if user.Status == 1 {
 			status = 3 // mark as trusted if user is trusted
 		}
-			var sameTorrents int
-			db.ORM.Model(&model.Torrent{}).Where("torrent_hash = ?", uploadForm.Infohash).Count(&sameTorrents)
-			if (sameTorrents == 0) {
-			//add to db and redirect depending on result
+
+		var sameTorrents int
+		db.ORM.Model(&model.Torrent{}).Where("torrent_hash = ?", uploadForm.Infohash).Count(&sameTorrents)
+		if (sameTorrents == 0) {
+			// add to db and redirect
 			torrent := model.Torrent{
 				Name:        uploadForm.Name,
 				Category:    uploadForm.CategoryID,
@@ -54,7 +60,6 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 				Description: uploadForm.Description,
 				UploaderID:  user.ID}
 			db.ORM.Create(&torrent)
-			fmt.Printf("%+v\n", torrent)
 			url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -66,7 +71,14 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	} else if r.Method == "GET" {
-		uploadForm.CaptchaID = captcha.GetID()
+		user := GetUser(r)
+		if userPermission.NeedsCaptcha(user) {
+			uploadForm.CaptchaID = captcha.GetID()
+		} else {
+			uploadForm.CaptchaID = ""
+		}
+
+
 		htv := UploadTemplateVariables{uploadForm, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 		languages.SetTranslationFromRequest(uploadTemplate, r, "en-us")
 		err := uploadTemplate.ExecuteTemplate(w, "index.html", htv)
