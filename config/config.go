@@ -31,9 +31,11 @@ type Config struct {
 	Search SearchConfig `json:"search"`
 	// optional i2p configuration
 	I2P *I2PConfig `json:"i2p"`
+	// filesize fetcher config
+	FilesizeFetcher FilesizeFetcherConfig `json:"filesize_fetcher"`
 }
 
-var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50", "default", DefaultScraperConfig, DefaultCacheConfig, DefaultSearchConfig, nil}
+var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50", "default", DefaultScraperConfig, DefaultCacheConfig, DefaultSearchConfig, nil, DefaultFilesizeFetcherConfig}
 
 var allowedDatabaseTypes = map[string]bool{
 	"sqlite3":  true,
@@ -57,6 +59,7 @@ func New() *Config {
 	config.DBLogMode = Defaults.DBLogMode
 	config.Scrape = Defaults.Scrape
 	config.Cache = Defaults.Cache
+	config.FilesizeFetcher = Defaults.FilesizeFetcher
 	return &config
 }
 
