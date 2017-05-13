@@ -7,7 +7,7 @@
 
       <div class="form-group">
       <label for="name">{{T "name"}}</label>
-          <input type="text" name="name" class="form-control" placeholder="File Name" value="{{.Name}}" required>
+          <input type="text" name="name" id="name" class="form-control" placeholder="File Name" value="{{.Name}}" autofocus required>
       </div>
       <div class="form-group">
           <label for="torrent">{{T "torrent_file"}}</label>
@@ -16,12 +16,12 @@
       </div>
       <div class="form-group">
           <label for="magnet">{{T "magnet_link"}}</label>
-          <input type="text" name="magnet" class="form-control"
+          <input  type="text" name="magnet" id="magnet" class="form-control"
           style="width:60rem" placeholder="{{T "magnet_link"}}" value="{{.Magnet}}">
       </div>
       <div class="form-group">
           <label for="c">{{T "category"}}</label>
-          <select name="c" class="form-control input-sm" required>
+          <select name="c" id="c" class="form-control input-sm" required>
               <option value="">{{T "select_a_torrent_category"}}</option>
               <option value="3_12" {{if eq .Category "3_12"}}selected{{end}}>{{T "anime_amv"}}</option>
               <option value="3_5" {{if eq .Category "3_5"}}selected{{end}}>{{T "anime_english_translated"}}</option>
@@ -43,14 +43,14 @@
           </select>
       </div>
       <div class="form-group">
-      	  <input type="checkbox" name="remake">
+      	  <input type="checkbox" name="remake" id="remake" >
           <label for="remake">{{T "mark_as_remake"}}</label>
       </div>
 
       <div class="form-group">
           <label for="desc">{{T "torrent_description"}}</label>
           <p class="help-block">{{T "description_markdown_notice"}}</p>
-          <textarea name="desc" class="form-control" rows="10">{{.Description}}</textarea>
+          <textarea name="desc" id="desc" class="form-control" rows="10">{{.Description}}</textarea>
       </div>
 
       {{block "captcha" .}}{{end}}
