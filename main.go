@@ -38,8 +38,8 @@ func RunServer(conf *config.Config) {
 
 	// Set up server,
 	srv := &http.Server{
-		WriteTimeout: 24 * time.Second,
-		ReadTimeout:  8 * time.Second,
+		WriteTimeout: 5 * time.Second,
+		ReadTimeout:  5 * time.Second,
 	}
 	l, err := network.CreateHTTPListener(conf)
 	log.CheckError(err)
