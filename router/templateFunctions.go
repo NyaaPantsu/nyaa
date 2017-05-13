@@ -19,10 +19,20 @@ var FuncMap = template.FuncMap{
 		}
 		return "error"
 	},
-	"genRouteWithQuery": func(name string, currentUrl *url.URL, params ...string) template.HTML {
+	"genRouteWithQuery": func(name string, currentUrl *url.URL, params ...string) template.URL {
 		url, err := Router.Get(name).URL(params...)
 		if err == nil {
-			return template.HTML(template.HTMLEscapeString(url.String() + "?" + currentUrl.RawQuery)) // TODO: Review application of character escaping
+			return template.URL(url.String() + "?" + currentUrl.RawQuery)
+		}
+		return "error"
+	},
+	"genViewTorrentRoute": func(torrent_id uint) string {
+		// Helper for when you have an uint while genRoute("view_torrent", ...) takes a string
+		// FIXME better solution?
+		s := strconv.FormatUint(uint64(torrent_id), 10)
+		url, err := Router.Get("view_torrent").URL("id", s)
+		if err == nil {
+			return url.String()
 		}
 		return "error"
 	},
@@ -69,6 +79,7 @@ var FuncMap = template.FuncMap{
 	"CurrentOrAdmin":       userPermission.CurrentOrAdmin,
 	"CurrentUserIdentical": userPermission.CurrentUserIdentical,
 	"HasAdmin":             userPermission.HasAdmin,
+	"NeedsCaptcha":         userPermission.NeedsCaptcha,
 	"GetRole":              userPermission.GetRole,
 	"IsFollower":           userPermission.IsFollower,
 	"NoEncode": func(str string) template.HTML {

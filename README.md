@@ -10,7 +10,8 @@ that anyone will be able to deploy locally or remotely.
 * Golang
 
 # Installation
-* Install [Golang](https://golang.org/doc/install)
+Ubuntu 17.04 fails to build, use a different OS or docker
+* Install [Golang](https://golang.org/doc/install) (version >=1.8)
 * `go get github.com/ewhal/nyaa`
 * `go build`
 * Download DB and place it in your root folder named as "nyaa.db"
@@ -64,11 +65,13 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 > nyaa_psql.backup.
 
 ## TODO
+ * Remove gorm
+ * Use elastic search or sphinix search
  * sukebei
    * get sukebei_torrents table working
    * add config option for sukebei or maybe make things all in one
    * sukebei categories and category images
-   
+ 
  * Get code up to standard of go lint recommendations
  * Write tests
 

@@ -332,10 +332,6 @@
     "translation": "Favorittspråket til karen som dro sulamitten i gang."
   },
   {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat og sukebei.pantsu.cat har ingen av disse filene på sine servere, og deler ingen filer fra serverene ellers."
-  },
-  {
     "id": "upload_magnet",
     "translation": "Last opp magnet"
   },
@@ -582,5 +578,9 @@
   {
     "id": "email_changed",
     "translation": "Epost-addressen har blitt endret! Neste steg er å bekrefte den (sjekk innboksen)."
+  },
+  {
+    "id": "language_name",
+    "translation": "Norsk bokmål"
   }
 ]

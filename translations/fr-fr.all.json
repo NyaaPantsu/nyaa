@@ -332,10 +332,6 @@
     "translation": "C'est le langage de programmation favori du développeur."
   },
   {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat and sukebei.pantsu.cat n'hébergent aucun fichier."
-  },
-  {
     "id": "upload_magnet",
     "translation": "Uploader un magnet"
   },
@@ -345,7 +341,7 @@
   },
   {
     "id": "uploading_file_prefills_fields",
-    "translation": "Il est recommandé d'uploader un fichier torrent afin de pré-remplir certains champs."
+    "translation": "Il est recommandé d'uploader un fichier torrent afin de préremplir certains champs."
   },
   {
     "id": "magnet_link",
@@ -622,5 +618,9 @@
   {
     "id": "completed",
     "translation": "Terminé"
+  },
+  {
+    "id": "language_name",
+    "translation": "Français"
   }
 ]

@@ -316,10 +316,6 @@
     "translation": "Es el lenguaje de programación favorito del autor."
   },
   {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat y sukebei.pantsu.cat no hospedan archivos."
-  },
-  {
     "id": "upload_magnet",
     "translation": "Subir Magnet"
   },
@@ -546,5 +542,9 @@
   {
     "id": "delete_success",
     "translation": "Se ha eliminado exitosamente la cuenta!"
+  },
+  {
+    "id": "language_name",
+    "translation": "Español"
   }
 ]

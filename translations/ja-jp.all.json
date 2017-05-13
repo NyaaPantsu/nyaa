@@ -25,7 +25,7 @@
   },
   {
     "id":"signup_box_title",
-    "translation": "登録しましょう。<small>ずっと無料です</small>"
+    "translation": "登録 <small>ずっと無料です</small>"
   },
   {
     "id":"username",
@@ -81,7 +81,7 @@
   },
   {
     "id":"sign_in_box_title",
-    "translation": "ログインします"
+    "translation": "ログイン"
   },
   {
     "id":"sign_in_title",
@@ -125,7 +125,7 @@
   },
   {
     "id":"see_more_torrents_from",
-    "translation": "%s の Torrent をもっと見る"
+    "translation": "%s の Torrent をもっと表示"
   },
   {
     "id":"category",
@@ -181,7 +181,7 @@
   },
   {
     "id": "404_not_found",
-    "translation": "404 見つかりません"
+    "translation": "404 ページが見つかりません"
   },
   {
     "id": "no_torrents_uploaded",
@@ -197,7 +197,7 @@
   },
   {
     "id": "member",
-    "translation": "メンバー"
+    "translation": "会員"
   },
   {
     "id": "sign_in",
@@ -217,11 +217,11 @@
   },
   {
     "id": "official_nyaapocalipse_faq",
-    "translation": "nyaa.se の閉鎖についてよくある質問"
+    "translation": "公式 nyaa <ruby>黙示録<rp>(</rp><rt>アポカリプス</rt><rp>)</rp></ruby> のよくある質問"
   },
   {
     "id": "links_replacement_mirror",
-    "translation": "nyaa.se のミラーリンク"
+    "translation": "代替 / ミラーリンク"
   },
   {
     "id": "what_happened",
@@ -233,7 +233,7 @@
   },
   {
     "id": "its_not_a_ddos",
-    "translation": "以前のような DDoS 攻撃ではなく、ドメインが利用停止になった。"
+    "translation": "いつものような DDoS 攻撃ではなく、利用停止になった。"
   },
   {
     "id": "future_not_looking_good",
@@ -269,7 +269,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "上述のデータベースは nyaa.pantsu.cat と sukebei.pantsu.cat にホストされています。検索機能はすでにあり、nyaa.se にあったほぼすべての機能が近いうちに利用可能になるでしょう。また、Seeder / Leecher 統計はスクレイピングによって収集可能ですが、今は他に優先すべきことがあるため後回しにされます。"
+    "translation": "上述のデータベースは nyaa.pantsu.cat と sukebei.pantsu.cat にホストされています。検索機能はすでにあり、近いうちに nyaa.se にあったほぼすべての機能が利用可能になるでしょう。また、Seeder / Leecher 統計はスクレイピングによって収集可能ですが、今は他に優先すべきことがあるため後回しにされます。"
   },
   {
     "id": "are_the_trackers_working",
@@ -277,15 +277,15 @@
   },
   {
     "id": "answer_are_the_trackers_working",
-    "translation": "トラッカーがダウンしたとしても、シーダーはまだ DHT ネットワークに接続しているはずです。ファイルが DHT ネットワーク上にリスティングされてさえいれば、いつも通り利用できます。"
+    "translation": "トラッカーがダウンしたとしても、Seeder はまだ DHT ネットワークに接続しているはずです。ファイルが DHT ネットワーク上にリスティングされてさえいれば、いつも通り利用できます。"
   },
   {
     "id": "how_do_i_download_the_torrents",
-    "translation": "どうやって Torrent ファイルをダウンロードすればいいの？"
+    "translation": "どうやって Torrent をダウンロードすればいいの？"
   },
   {
     "id": "answer_how_do_i_download_the_torrents",
-    "translation": "<b>magnet リンク</b> をご利用ください。magnet リンクは BitTorrent クライアントが DHT ネットワーク上のファイルを見つけるのに利用されます。もちろんいつも通りダウンロードすることができます。"
+    "translation": "<b>magnet リンク</b> をご利用ください。magnet リンクは BitTorrent クライアントが DHT ネットワーク上のファイルを検出するのに利用されます。もちろんいつも通りダウンロードすることができます。"
   },
   {
     "id": "magnet_link_should_look_like",
@@ -320,10 +320,6 @@
     "translation": "作者の一番好きなプログラミング言語だからです。"
   },
   {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat と sukebei.pantsu.cat はいかなるファイルもホストしていません。"
-  },
-  {
     "id": "upload_magnet",
     "translation": "magnet リンクのアップロード"
   },
@@ -333,7 +329,7 @@
   },
   {
     "id": "uploading_file_prefills_fields",
-    "translation": "Torrent ファイルをアップロードしている間にいくつかの項目を入力できます。そうすることをおすすめします。"
+    "translation": "Torrent ファイルをアップロードする前にいくつかの項目を入力できます。そうすることをお勧めします。"
   },
   {
     "id": "magnet_link",
@@ -525,7 +521,7 @@
   },
   {
     "id": "trusted_member",
-    "translation": "信頼されたメンバー"
+    "translation": "信頼された会員"
   },
   {
     "id": "moderator",
@@ -594,5 +590,20 @@
   {
     "id":"date_format",
     "translation": "2006/01/02 15:04"
+  },
+  {
+    "id": "language_name",
+    "translation": "日本語"
+  },
+    "id": "seeders",
+    "translation": "Seeder 数"
+  },
+  {
+    "id": "leechers",
+    "translation": "Leecher 数"
+  },
+  {
+    "id": "completed",
+    "translation": "完了数"
   }
 ]

@@ -320,10 +320,6 @@
     "translation": "제일 좋아하는 언어입니다. >__- 찡긋"
   },
   {
-    "id": "nyaa_pantsu_dont_host_files",
-    "translation": "nyaa.pantsu.cat 와 sukebei.pantsu.cat 는 그 어떤 파일도 호스팅하고 있지 않습니다"
-  },
-  {
     "id": "upload_magnet",
     "translation": "마그넷 업로드"
   },
@@ -498,5 +494,9 @@
   {
     "id": "submit",
     "translation": "확인"
+  },
+  {
+    "id": "language_name",
+    "translation": "한국어"
   }
 ]
