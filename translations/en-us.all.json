@@ -249,7 +249,7 @@
   },
   {
     "id": "future_not_looking_good",
-    "translation": "Future prospects for nyaa are not looking good. (It's dead)"
+    "translation": "Future prospects for nyaa are not looking good. (It's dead, Jim)"
   },
   {
     "id": "recovery_effort",
@@ -309,7 +309,11 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "We now have our own Tracker!:"
+    "translation": "We now have our own Tracker!, add it to the top of the list before uploading:"
+  },
+  {
+    "id": "other_trackers",
+    "translation": "But you should also add these, just in case something goes wrong"
   },
   {
     "id": "how_can_i_help",
