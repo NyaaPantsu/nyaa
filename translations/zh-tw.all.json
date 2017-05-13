@@ -558,5 +558,69 @@
   {
     "id": "delete_success",
     "translation": "您的帳號已經成功刪除！"
+  },
+  {
+    "id": "moderation",
+    "translation": "節制"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "誰是れんちょん?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "れんちょん是匿名評論與上傳者的默認用戶名，同時也顯示為Nyaa站原始資源的上傳者."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "設為Remake"
+  },
+  {
+    "id": "email_changed",
+    "translation": "郵箱更變成功，壹份確認郵件已發送到 %s ，請點擊裏面的確認連結來完成修改！"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "種子狀態"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "隱藏"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "普通"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "再發行"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "編輯 %s 的個人檔案"
+  },
+  {
+    "id":"date_format",
+    "translation": "2006-01-02 15:04"
+  },
+  {
+    "id": "seeders",
+    "translation": "上傳數"
+  },
+  {
+    "id": "leechers",
+    "translation": "下載數"
+  },
+  {
+    "id": "completed",
+    "translation": "完成數"
+  },
+  {
+    "id": "change_language",
+    "translation": "更變語言"
+  },
+  {
+    "id": "language_name",
+    "translation": "繁體中文"
   }
 ]
