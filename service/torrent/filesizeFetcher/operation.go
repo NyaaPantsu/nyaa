@@ -26,7 +26,7 @@ func NewFetchOperation(fetcher *FilesizeFetcher, dbEntry model.Torrent) (op *Fet
 	op = &FetchOperation{
 		fetcher:  fetcher,
 		torrent:  dbEntry,
-		done:     make(chan int),
+		done:     make(chan int, 1),
 	}
 	return
 }
