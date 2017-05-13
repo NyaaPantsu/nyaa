@@ -12,13 +12,13 @@
    					<div class="alert alert-danger">{{ . }}</div>
    				{{end}}
 				<div class="form-group">
-					<input type="text" name="username" id="display_name" class="form-control input-lg" placeholder="{{T "username" }}" tabindex="1" value="{{ .Username }}">
+					<input type="text" name="username" id="display_name" class="form-control input-lg" placeholder="{{T "username" }}" value="{{ .Username }}" autofocus>
    							{{ range (index $.FormErrors "username")}}
    							<p class="text-error">{{ . }}</p>
    							{{end}}
 				</div>
 				<div class="form-group">
-					<input type="email" name="email" id="email" class="form-control input-lg" placeholder="{{T "email_address" }}" tabindex="2" value="{{ .Email }}">
+					<input type="email" name="email" id="email" class="form-control input-lg" placeholder="{{T "email_address" }}" value="{{ .Email }}">
    							{{ range (index $.FormErrors "email")}}
    							<p class="text-error">{{ . }}</p>
    							{{end}}
@@ -26,7 +26,7 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
-							<input type="password" name="password" id="password" class="form-control input-lg" placeholder="{{T "password" }}" tabindex="3" value="{{ .Password }}">
+							<input type="password" name="password" id="password" class="form-control input-lg" placeholder="{{T "password" }}" value="{{ .Password }}">
    							{{ range (index $.FormErrors "password")}}
    							<p class="text-error">{{ . }}</p>
    							{{end}}
@@ -34,7 +34,7 @@
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
-							<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="{{T "confirm_password" }}" tabindex="4">
+							<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="{{T "confirm_password" }}">
    							{{ range (index $.FormErrors "password_confirmation")}}
    							<p class="text-error">{{ . }}</p>
    							{{end}}
@@ -44,7 +44,7 @@
 				<div class="row">
 					<div class="col-xs-4 col-sm-3 col-md-3">
 						<span class="button-checkbox">
-							<button type="button" class="btn hidden" data-color="info" tabindex="5">{{T "i_agree" }}</button>
+							<button type="button" class="btn hidden" data-color="info">{{T "i_agree" }}</button>
 	                        <input type="checkbox" name="t_and_c" id="t_and_c" value="1">
    							{{ range (index $.FormErrors "t_and_c")}}
    							<p class="text-error">{{ . }}</p>
@@ -60,7 +60,7 @@
 
 				<hr class="colorgraph">
 				<div class="row">
-					<div class="col-xs-12 col-md-6"><input type="submit" value="{{T "register" }}" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
+					<div class="col-xs-12 col-md-6"><input type="submit" value="{{T "register" }}" class="btn btn-primary btn-block btn-lg"></div>
 					<div class="col-xs-12 col-md-6">or <a href="{{ genRoute "user_login" }}" class="">{{T "signin" }}</a></div>
 				</div>
 			</form>

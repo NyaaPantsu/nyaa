@@ -12,7 +12,7 @@
 	   					<div class="alert alert-danger">{{ . }}</div>
 	   				{{end}}
 					<div class="form-group">
-	                    <input type="text" name="username" id="username" class="form-control input-lg" autofocus="" placeholder="{{ T "email_address_or_username"}}">
+	                    <input type="text" name="username" id="username" class="form-control input-lg" autofocus placeholder="{{ T "email_address_or_username"}}">
        	            	{{ range (index $.FormErrors "username")}}
 						<p class="text-error">{{ . }}</p>
 						{{end}}
