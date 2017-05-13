@@ -6,7 +6,6 @@ import (
 
 	"net/http"
 	"os"
-	"path/filepath"
 	"time"
 
 	"github.com/ewhal/nyaa/cache"
@@ -15,22 +14,11 @@ import (
 	"github.com/ewhal/nyaa/network"
 	"github.com/ewhal/nyaa/router"
 	"github.com/ewhal/nyaa/service/scraper"
+	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/search"
 	"github.com/ewhal/nyaa/util/signals"
-	"github.com/nicksnyder/go-i18n/i18n"
 )
-
-func initI18N() {
-	/* Initialize the languages translation */
-	i18n.MustLoadTranslationFile("translations/en-us.all.json")
-	paths, err := filepath.Glob("translations/*.json")
-	if err == nil {
-		for _, path := range paths {
-			i18n.LoadTranslationFile(path)
-		}
-	}
-}
 
 // RunServer runs webapp mainloop
 func RunServer(conf *config.Config) {
@@ -122,7 +110,10 @@ func main() {
 		if err != nil {
 			log.Fatal(err.Error())
 		}
-		initI18N()
+		err = languages.InitI18n(conf.I18n)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
 		err = cache.Configure(&conf.Cache)
 		if err != nil {
 			log.Fatal(err.Error())
