@@ -614,5 +614,9 @@
   {
     "id": "completed",
     "translation": "Скачавшие"
+  },
+  {
+    "id": "language_name",
+    "translation": "Русский"
   }
 ]

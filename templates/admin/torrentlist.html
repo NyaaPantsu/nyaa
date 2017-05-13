@@ -10,9 +10,11 @@
 </tr>
 
 {{ range .Torrents}}
-
-<tr><td><a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">{{ .Name }}</a></td><td><a href="{{ genRoute "mod_tlist" }}?userID={{.UploaderID}}">{{ .UploaderID }}</a></td>
-<td><a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>{{ T "delete" }}</a></td></tr>
+<tr>
+    <td><a href="{{ genViewTorrentRoute .ID }}">{{ .Name }}</a> (<a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">Edit</a>)</td>
+    <td><a href="{{ genRoute "mod_tlist" }}?userID={{.UploaderID}}">{{ .UploaderID }}</a></td>
+    <td><a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i>{{ T "delete" }}</a></td>
+</tr>
 {{end}}
 </table>
       <nav class="torrentNav" aria-label="Page navigation">
