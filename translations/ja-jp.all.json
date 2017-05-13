@@ -97,7 +97,7 @@
   },
   {
     "id":"verify_success",
-    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>アカウントは有効になっています。"
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>お使いのアカウントは有効になりました。"
   },
   {
     "id":"signup_verification_email",
@@ -105,7 +105,7 @@
   },
   {
     "id":"signup_verification_noemail",
-    "translation": "認証が完了しました。今からこのアカウントを使うことができます。"
+    "translation": "認証が完了しました。今からこのアカウントを使えるようになります。"
   },
   {
     "id":"settings",
@@ -118,6 +118,18 @@
   {
     "id":"follow",
     "translation": "フォロー"
+  },
+  {
+    "id":"unfollow",
+    "translation": "フォロー解除"
+  },
+  {
+    "id":"user_followed_msg",
+    "translation": "%s をフォローしました。"
+  },
+  {
+    "id":"user_unfollowed_msg",
+    "translation": "%s のフォローを解除しました。"
   },
   {
     "id":"profile_page",
@@ -340,6 +352,10 @@
     "translation": "すべてのカテゴリー"
   },
   {
+    "id": "select_a_torrent_category",
+    "translation": "Torrent カテゴリーを選択"
+  },
+  {
     "id": "anime",
     "translation": "アニメ"
   },
@@ -373,19 +389,19 @@
   },
   {
     "id": "literature",
-    "translation": "本"
+    "translation": "書籍"
   },
   {
     "id": "literature_english_translated",
-    "translation": "本 ‐ 英訳済み"
+    "translation": "書籍 ‐ 英訳済み"
   },
   {
     "id": "literature_raw",
-    "translation": "本 ‐ RAW"
+    "translation": "書籍 ‐ RAW"
   },
   {
     "id": "literature_non_english_translated",
-    "translation": "本 ‐ 非英訳"
+    "translation": "書籍 ‐ 非英訳"
   },
   {
     "id": "live_action",
@@ -433,11 +449,11 @@
   },
   {
     "id": "torrent_description",
-    "translation": "Torrent の説明"
+    "translation": "Torrent 説明文"
   },
   {
     "id": "description_markdown_notice",
-    "translation": "説明文には MarkDown 記法が使えます。"
+    "translation": "説明文には MarkDown 記法を使うことができます。"
   },
   {
     "id": "show_all",
@@ -449,7 +465,7 @@
   },
   {
     "id": "trusted",
-    "translation": "信頼されたもの"
+    "translation": "信頼されたフィルター"
   },
   {
     "id": "id",
@@ -457,7 +473,7 @@
   },
   {
     "id": "downloads",
-    "translation": "ダウンロード"
+    "translation": "ダウンロード数"
   },
   {
     "id": "descending",
@@ -592,10 +608,6 @@
     "translation": "2006/01/02 15:04"
   },
   {
-    "id": "language_name",
-    "translation": "日本語"
-  },
-  {
     "id": "seeders",
     "translation": "Seeder 数"
   },
@@ -606,5 +618,13 @@
   {
     "id": "completed",
     "translation": "完了数"
+  },
+  {
+    "id": "change_language",
+    "translation": "言語の変更"
+  },
+  {
+    "id": "language_name",
+    "translation": "日本語"
   }
 ]
