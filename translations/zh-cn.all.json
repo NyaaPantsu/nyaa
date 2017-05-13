@@ -581,6 +581,7 @@
   },
   {
     "id": "email_changed",
+    "translation": "邮箱更变成功喵~一份确认邮件已发送到 %s ，请点击里面的确认链接来完成修改！"
   },
   {
     "id": "torrent_status",
