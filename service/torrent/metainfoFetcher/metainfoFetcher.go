@@ -164,11 +164,21 @@ func (fetcher *MetainfoFetcher) fillQueue() {
 	}
 
 	oldest := time.Now().Add(0 - (time.Hour * time.Duration(24 * fetcher.maxDays)))
+	excludedIDS := make([]uint, 0, len(fetcher.failedOperations))
+	for id, _ := range fetcher.failedOperations {
+		excludedIDS = append(excludedIDS, id)
+	}
+
 	// Nice query lol
 	// Select the torrents with no filesize, or without any rows with torrent_id in the files table, that are younger than fetcher.MaxDays
-	params := serviceBase.CreateWhereParams("((filesize IS NULL OR filesize = 0) OR (torrents.torrent_id NOT IN (SELECT files.torrent_id FROM files WHERE files.torrent_id = torrents.torrent_id))) AND date > ?", oldest)
-	// Get up to queueSize + len(failed) torrents, so we get at least some fresh new ones.
-	dbTorrents, count, err := torrentService.GetTorrents(params, fetcher.queueSize + len(fetcher.failedOperations), 0)
+	var params serviceBase.WhereParams
+	
+	if len(excludedIDS) > 0 {
+		params = serviceBase.CreateWhereParams("((filesize IS NULL OR filesize = 0) OR (torrents.torrent_id NOT IN (SELECT files.torrent_id FROM files WHERE files.torrent_id = torrents.torrent_id))) AND date > ? AND torrent_id NOT IN (?)", oldest, excludedIDS)
+	} else {
+		params = serviceBase.CreateWhereParams("((filesize IS NULL OR filesize = 0) OR (torrents.torrent_id NOT IN (SELECT files.torrent_id FROM files WHERE files.torrent_id = torrents.torrent_id))) AND date > ?", oldest)
+	}
+	dbTorrents, count, err := torrentService.GetTorrents(params, fetcher.queueSize, 0)
 
 	if err != nil {
 		log.Infof("Failed to get torrents for metainfo updating")
