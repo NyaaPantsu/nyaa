@@ -66,9 +66,7 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 				err["errors"] = append(err["errors"], errUser.Error())
 			}
 			languages.SetTranslationFromRequest(viewUserDeleteTemplate, r, "en-us")
-			searchForm := NewSearchForm()
-			searchForm.HideAdvancedSearch = true
-			htv := UserVerifyTemplateVariables{err, searchForm, Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
+			htv := UserVerifyTemplateVariables{err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 			errorTmpl := viewUserDeleteTemplate.ExecuteTemplate(w, "index.html", htv)
 			if errorTmpl != nil {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -81,9 +79,7 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 			if unfollow != nil {
 				infosForm["infos"] = append(infosForm["infos"], fmt.Sprintf(T("user_unfollowed_msg"), userProfile.Username))
 			}
-			searchForm := NewSearchForm()
-			searchForm.HideAdvancedSearch = true
-			htv := UserProfileVariables{&userProfile, infosForm, searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+			htv := UserProfileVariables{&userProfile, infosForm, NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
 
 			err := viewProfileTemplate.ExecuteTemplate(w, "index.html", htv)
 			if err != nil {
@@ -91,11 +87,8 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	} else {
-		searchForm := NewSearchForm()
-		searchForm.HideAdvancedSearch = true
-
 		languages.SetTranslationFromRequest(notFoundTemplate, r, "en-us")
-		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, searchForm, GetUser(r), r.URL, mux.CurrentRoute(r)})
+		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, NewSearchForm(), GetUser(r), r.URL, mux.CurrentRoute(r)})
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
@@ -113,21 +106,16 @@ func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
 			b := form.UserForm{}
 			modelHelper.BindValueForm(&b, r)
 			languages.SetTranslationFromRequest(viewProfileEditTemplate, r, "en-us")
-			searchForm := NewSearchForm()
-			searchForm.HideAdvancedSearch = true
 			availableLanguages := languages.GetAvailableLanguages()
-			htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), availableLanguages, searchForm, Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+			htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), availableLanguages, NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
 			err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 			}
 		}
 	} else {
-			searchForm := NewSearchForm()
-		searchForm.HideAdvancedSearch = true
-
 		languages.SetTranslationFromRequest(notFoundTemplate, r, "en-us")
-		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, searchForm, GetUser(r), r.URL, mux.CurrentRoute(r)})
+		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, NewSearchForm(), GetUser(r), r.URL, mux.CurrentRoute(r)})
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
@@ -185,21 +173,15 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
 			}
 		} else {
-			searchForm := NewSearchForm()
-			searchForm.HideAdvancedSearch = true
-
 			languages.SetTranslationFromRequest(notFoundTemplate, r, "en-us")
-			err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, searchForm, GetUser(r), r.URL, mux.CurrentRoute(r)})
+			err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, NewSearchForm(), GetUser(r), r.URL, mux.CurrentRoute(r)})
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 			}
 		}
 	} else {
-		searchForm := NewSearchForm()
-		searchForm.HideAdvancedSearch = true
-
 		languages.SetTranslationFromRequest(notFoundTemplate, r, "en-us")
-		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, searchForm, GetUser(r), r.URL, mux.CurrentRoute(r)})
+		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, NewSearchForm(), GetUser(r), r.URL, mux.CurrentRoute(r)})
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
