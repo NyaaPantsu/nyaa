@@ -196,9 +196,9 @@ func (fetcher *MetainfoFetcher) fillQueue() {
 	} else {
 		params = serviceBase.CreateWhereParams("((filesize IS NULL OR filesize = 0) OR (torrents.torrent_id NOT IN (SELECT files.torrent_id FROM files WHERE files.torrent_id = torrents.torrent_id))) AND date > ?", oldest)
 	}
-	dbTorrents, count, err := torrentService.GetTorrents(params, fetcher.queueSize, 0)
+	dbTorrents, err := torrentService.GetTorrentsOrderByNoCount(&params, "", fetcher.queueSize, 0)
 
-	if count == 0 {
+	if len(dbTorrents) == 0 {
 		log.Infof("No torrents for filesize update")
 		return
 	}
