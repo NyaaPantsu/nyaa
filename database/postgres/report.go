@@ -9,7 +9,7 @@ import (
 )
 
 func (db *Database) InsertTorrentReport(report *model.TorrentReport) (err error) {
-	_, err = db.getPrepared(queryInsertTorrentReport).Exec(report.Type, report.TorrentID, report.UserID, report.CreatedAt)
+	_, err = db.getPrepared(queryInsertTorrentReport).Exec(report.Description, report.TorrentID, report.UserID, report.CreatedAt)
 	return
 }
 

@@ -3,7 +3,7 @@ package database
 import (
 	"github.com/ewhal/nyaa/common"
 	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/db/postgres"
+	"github.com/ewhal/nyaa/database/postgres"
 	//"github.com/ewhal/nyaa/db/sqlite"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util/log"
@@ -67,11 +67,12 @@ type Database interface {
 	// delete user A following B
 	DeleteUserFollowing(a, b uint32) (bool, error)
 
-	// delete torrents by given parameters
-	DeleteTorrentsWhere(param *common.TorrentParam) (uint32, error)
-
 	// insert/update torrent
 	UpsertTorrent(t *model.Torrent) error
+
+	// delete torrents by given parameters
+	// DeleteTorrentsWhere(param *common.TorrentParam) (uint32, error)
+
 
 	// DO NOT USE ME kthnx
 	Query(query string, params ...interface{}) (*sql.Rows, error)
