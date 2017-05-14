@@ -56,7 +56,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
 
-	languages.SetTranslationFromRequest(homeTemplate, r, "en-us")
+	languages.SetTranslationFromRequest(homeTemplate, r)
 	htv := HomeTemplateVariables{b, NewSearchForm(), navigationTorrents, GetUser(r), r.URL, mux.CurrentRoute(r)}
 
 	err = homeTemplate.ExecuteTemplate(w, "index.html", htv)

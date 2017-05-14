@@ -106,7 +106,6 @@ func NewPanelSearchForm() SearchForm {
 	return form
 }
 
-
 func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	if userPermission.HasAdmin(currentUser) {
@@ -117,7 +116,7 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 		comments, _ := commentService.GetAllComments(offset, 0, "", "")
 		torrentReports, _, _ := reportService.GetAllTorrentReports(offset, 0)
 
-		languages.SetTranslationFromRequest(panelIndex, r, "en-us")
+		languages.SetTranslationFromRequest(panelIndex, r)
 		htv := PanelIndexVbs{torrents, model.TorrentReportsToJSON(torrentReports), users, comments, NewPanelSearchForm(), currentUser, r.URL}
 		err := panelIndex.ExecuteTemplate(w, "admin_index.html", htv)
 		log.CheckError(err)
@@ -150,7 +149,7 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 			ShowItemsPerPage: true,
 		}
 
-		languages.SetTranslationFromRequest(panelTorrentList, r, "en-us")
+		languages.SetTranslationFromRequest(panelTorrentList, r)
 		htv := PanelTorrentListVbs{torrents, searchForm, Navigation{int(searchParam.Max), offset, pagenum, "mod_tlist_page"}, currentUser, r.URL}
 		err = panelTorrentList.ExecuteTemplate(w, "admin_index.html", htv)
 		log.CheckError(err)
@@ -180,7 +179,7 @@ func TorrentReportListPanel(w http.ResponseWriter, r *http.Request) {
 		torrentReports, nbReports, _ := reportService.GetAllTorrentReports(offset, (pagenum-1)*offset)
 
 		reportJSON := model.TorrentReportsToJSON(torrentReports)
-		languages.SetTranslationFromRequest(panelTorrentReportList, r, "en-us")
+		languages.SetTranslationFromRequest(panelTorrentReportList, r)
 		htv := PanelTorrentReportListVbs{reportJSON, NewSearchForm(), Navigation{nbReports, offset, pagenum, "mod_trlist_page"}, currentUser, r.URL}
 		err = panelTorrentReportList.ExecuteTemplate(w, "admin_index.html", htv)
 		log.CheckError(err)
@@ -207,7 +206,7 @@ func UsersListPanel(w http.ResponseWriter, r *http.Request) {
 		offset := 100
 
 		users, nbUsers := userService.RetrieveUsersForAdmin(offset, (pagenum-1)*offset)
-		languages.SetTranslationFromRequest(panelUserList, r, "en-us")
+		languages.SetTranslationFromRequest(panelUserList, r)
 		htv := PanelUserListVbs{users, NewSearchForm(), Navigation{nbUsers, offset, pagenum, "mod_ulist_page"}, currentUser, r.URL}
 		err = panelUserList.ExecuteTemplate(w, "admin_index.html", htv)
 		log.CheckError(err)
@@ -241,7 +240,7 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 		}
 
 		comments, nbComments := commentService.GetAllComments(offset, (pagenum-1)*offset, conditions, values...)
-		languages.SetTranslationFromRequest(panelCommentList, r, "en-us")
+		languages.SetTranslationFromRequest(panelCommentList, r)
 		htv := PanelCommentListVbs{comments, NewSearchForm(), Navigation{nbComments, offset, pagenum, "mod_clist_page"}, currentUser, r.URL}
 		err = panelCommentList.ExecuteTemplate(w, "admin_index.html", htv)
 		log.CheckError(err)
@@ -256,7 +255,7 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 	if userPermission.HasAdmin(currentUser) {
 		id := r.URL.Query().Get("id")
 		torrent, _ := torrentService.GetTorrentById(id)
-		languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
+		languages.SetTranslationFromRequest(panelTorrentEd, r)
 
 		torrentJson := torrent.ToJSON()
 		uploadForm := NewUploadForm()
@@ -302,7 +301,7 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 			infos["infos"] = append(infos["infos"], "Torrent details updated.")
 		}
 	}
-	languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
+	languages.SetTranslationFromRequest(panelTorrentEd, r)
 	htv := PanelTorrentEdVbs{uploadForm, NewPanelSearchForm(), currentUser, err, infos, r.URL}
 	err_ := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err_)
@@ -364,7 +363,7 @@ func TorrentReassignModPanel(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "admins only", http.StatusForbidden)
 		return
 	}
-	languages.SetTranslationFromRequest(panelTorrentReassign, r, "en-us")
+	languages.SetTranslationFromRequest(panelTorrentReassign, r)
 
 	htv := PanelTorrentReassignVbs{ReassignForm{}, NewPanelSearchForm(), currentUser, form.NewErrors(), form.NewInfos(), r.URL}
 	err := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)

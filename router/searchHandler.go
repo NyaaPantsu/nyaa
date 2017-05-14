@@ -44,7 +44,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	htv := HomeTemplateVariables{b, searchForm, navigationTorrents, GetUser(r), r.URL, mux.CurrentRoute(r)}
 
-	languages.SetTranslationFromRequest(searchTemplate, r, "en-us")
+	languages.SetTranslationFromRequest(searchTemplate, r)
 	err = searchTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
