@@ -273,7 +273,7 @@
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "然而 sukebei 就没那么幸运了。种子库只备份到 2016年，但也许能找到更新的版本"
+    "translation": "而 sukebei 也一样，几乎没有什么损失"
   },
   {
     "id": "how_are_we_recovering",
@@ -281,7 +281,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "前面所说的资料都存放在 nyaa.pantsu.cat 和 sukebei.pantsu.cat 的服务器上。 我们也会尽力恢复旧 nyaa 站的全部功能。 而在未来的某一天，种子和链接数的统计资料也可能通过抓取其他 tracker 來恢复！不过先要把眼前的工作完成再说。"
+    "translation": "前面所说的资料都存放在 nyaa.pantsu.cat 和 sukebei.pantsu.cat 的服务器上。 我们也会尽快恢复旧 nyaa 站的全部功能。"
   },
   {
     "id": "are_the_trackers_working",
@@ -309,7 +309,11 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "如果您上传种子被拒绝，原因是 tracker 不符合要求，那有可能需要加上这几个 tracker："
+    "translation": "现在我们有自己的 tracker 啦！在上传之前把他们放在 tracker 列表的顶部吧！"
+  },
+  {
+     "id": "other_trackers",
+     "translation": "当然，你也可以使用以下的 tracker ，不过某些情况下可能会出现错误。"
   },
   {
     "id": "how_can_i_help",
@@ -626,5 +630,9 @@
   {
     "id": "language_name",
     "translation": "简体中文"
+  },
+  {
+    "id": "delete",
+    "translation": "删除"
   }
 ]
