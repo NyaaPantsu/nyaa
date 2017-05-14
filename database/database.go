@@ -8,7 +8,6 @@ import (
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util/log"
 
-	"database/sql"
 	"errors"
 )
 
@@ -70,12 +69,7 @@ type Database interface {
 	// insert/update torrent
 	UpsertTorrent(t *model.Torrent) error
 
-	// delete torrents by given parameters
-	// DeleteTorrentsWhere(param *common.TorrentParam) (uint32, error)
-
-
-	// DO NOT USE ME kthnx
-	Query(query string, params ...interface{}) (*sql.Rows, error)
+	// XXX: add more as needed
 }
 
 var ErrInvalidDatabaseDialect = errors.New("invalid database dialect")
