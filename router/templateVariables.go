@@ -157,6 +157,7 @@ type PanelCommentListVbs struct {
 	User       *model.User
 	URL        *url.URL // For parsing Url in templates
 }
+
 type PanelTorrentEdVbs struct {
 	Upload     UploadForm
 	Search  SearchForm
@@ -174,6 +175,15 @@ type PanelTorrentReportListVbs struct {
 	URL            *url.URL // For parsing Url in templates
 }
 
+type PanelTorrentReassignVbs struct {
+    Reassign    ReassignForm
+	Search      SearchForm // unused?
+	User        *model.User // unused?
+	FormErrors  map[string][]string
+	FormInfos   map[string][]string
+	URL         *url.URL // For parsing Url in templates
+}
+
 /*
  * Variables used by the upper ones
  */
@@ -186,14 +196,15 @@ type Navigation struct {
 
 type SearchForm struct {
 	common.SearchParam
-	Category           string
-	HideAdvancedSearch bool
+	Category         string
+	ShowItemsPerPage bool
 }
 
 // Some Default Values to ease things out
 func NewSearchForm() SearchForm {
 	return SearchForm{
 		Category: "_",
+		ShowItemsPerPage: true,
 	}
 }
 

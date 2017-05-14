@@ -1,7 +1,7 @@
 {{define "title"}}{{T "home"}}{{end}}
 {{define "contclass"}}cont-home{{end}}
 {{define "content"}}
-	<div class="blockBody">
+  <div class="blockBody">
       <ul class="list-inline" aria-label="Page navigation">
           <li><img id="mascot" src="/img/renchon.png" /></li>
           <li style="padding-top: 7%;" class="pull-right"><ul class="pagination">
@@ -13,10 +13,16 @@
           <table class="table custom-table-hover">
           <tr>
               <th class="col-xs-1 hidden-xs">{{T "category"}}</th>
-              <th class="col-xs-8">{{T "name"}}</th>
-              <th class="col-xs-1 hidden-xs">{{T "S"}} / {{T "L"}} / {{T "D"}}</th>
-              <th class="col-xs-1 hidden-xs">{{T "date"}}</th>
-              <th class="col-xs-1 hidden-xs">{{T "size"}}</th>
+              <th class="col-xs-8">
+                <a href="{{ genSearchWithOrdering .URL "1" }}">{{T "name"}}</a>
+              </th>
+              <th class="col-xs-1 hidden-xs">
+                <a href="{{ genSearchWithOrdering .URL "5" }}">{{T "S"}}</a> / 
+                <a href="{{ genSearchWithOrdering .URL "6" }}">{{T "L"}}</a> / 
+                <a href="{{ genSearchWithOrdering .URL "7" }}">{{T "D"}}</a>
+              </th>
+              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{T "date"}}</th></a>
+              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "4" }}">{{T "size"}}</a></th>
               <th class="col-xs-1 hidden-xs">{{T "links"}}</th>
           </tr>
           {{ range .ListTorrents}}
