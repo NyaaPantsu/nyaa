@@ -25,7 +25,7 @@
   },
   {
     "id":"signup_box_title",
-    "translation": "登録 <small>ずっと無料です</small>"
+    "translation": "登録 <small>永久無料です</small>"
   },
   {
     "id":"username",
@@ -53,7 +53,7 @@
   },
   {
     "id":"terms_conditions_confirm",
-    "translation": "<strong class=\"label label-primary\">登録</strong> をクリックすることにより、Cookie の使用を含む、本サイトの <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">利用規約</a> に同意したものとみなします。"
+    "translation": "<strong class=\"label label-primary\">登録</strong> をクリックすることにより、クッキーの使用を含む、本サイトの <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">利用規約</a> に同意したものとみなします。"
   },
   {
     "id":"signin",
@@ -101,7 +101,7 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "認証メールを送信しました。メールボックスを確認してください。迷惑メールフォルダーの確認もお忘れずに。"
+    "translation": "認証メールを送信しました。メールボックスを確認してください。迷惑メールフォルダーの確認もお忘れなく。"
   },
   {
     "id":"signup_verification_noemail",
@@ -109,7 +109,7 @@
   },
   {
     "id":"settings",
-    "translation": "アカウントの設定"
+    "translation": "アカウント設定"
   },
   {
     "id":"torrents",
@@ -189,7 +189,7 @@
   },
   {
     "id": "nothing_here",
-    "translation": "何もありません"
+    "translation": "ここには何もありません。"
   },
   {
     "id": "404_not_found",
@@ -225,7 +225,7 @@
   },
   {
     "id": "notice_keep_seeding",
-    "translation": "お願い: DHT 機能を有効にし、なるべくシードを継続してください"
+    "translation": "お知らせ: DHT 機能を有効にし、なるべくシードを継続してください"
   },
   {
     "id": "official_nyaapocalipse_faq",
@@ -245,7 +245,7 @@
   },
   {
     "id": "its_not_a_ddos",
-    "translation": "いつものような DDoS 攻撃ではなく、利用停止になった。"
+    "translation": "いつものような DDoS 攻撃ではなく、サイト自体が利用停止になった。"
   },
   {
     "id": "future_not_looking_good",
@@ -261,7 +261,7 @@
   },
   {
     "id": "in_short_no",
-    "translation": "いいえ。"
+    "translation": "一言で言えば、NO です。"
   },
   {
     "id": "are_some_things_lost",
@@ -273,7 +273,7 @@
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "ただし sukebei は別です。sukebei に至っては 2016年までのデータベースしか手元にありません。ただ、今後新しいデータベースが使える可能性はあります。"
+    "translation": "sukebei の方も問題なく、ほとんど失われていません。"
   },
   {
     "id": "how_are_we_recovering",
@@ -282,6 +282,14 @@
   {
     "id": "answer_how_are_we_recovering",
     "translation": "上述のデータベースは nyaa.pantsu.cat と sukebei.pantsu.cat にホストされています。検索機能はすでにあり、近いうちに nyaa.se にあったほぼすべての機能が利用可能になるでしょう。"
+  },
+  {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "以前のアップロードを新しいアカウントにリンクさせるにはどうすればいいの？"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "<a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> に参加し、モデレーターに以前のユーザー名と新しいユーザー名を添えて Torrent を移行するようお申し付けください。"
   },
   {
     "id": "are_the_trackers_working",
@@ -309,7 +317,11 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "トラッカーに Torrent のアップロードを拒否された場合は、この中のいくつかを追加する必要があります:"
+    "translation": "独自のトラッカーを用意していますので、アップロードする前にリストの一番上に追加してください:"
+  },
+  {
+    "id": "other_trackers",
+    "translation": "ただし、うまくいかない場合に備え、これらも追加しておく必要があります"
   },
   {
     "id": "how_can_i_help",
@@ -317,7 +329,7 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "ウェブ開発の経験があるのであれば、irc.rizon.net の #nyaapantsu IRC チャンネルに参加することができますよ。現在のデータベースがあるのなら、特に sukebei の方ですが、<b>ぜひともアップロードしていただきたいです。</b>"
+    "translation": "ウェブ開発の専門知識がおありでしたら、irc.rizon.net の #nyaapantsu IRC チャンネルに参加できますよ。また、現在のデータベースをお持ちの場合、特に sukebei の場合は、<b>ぜひともアップロードしていただきたいです。</b>"
   },
   {
     "id": "your_design_sucks_found_a_bug",
@@ -381,11 +393,11 @@
   },
   {
     "id": "audio_lossless",
-    "translation": "オーディオ ‐ 可逆圧縮方式 (flacなど)"
+    "translation": "オーディオ ‐ 可逆圧縮方式 (FLAC など)"
   },
   {
     "id": "audio_lossy",
-    "translation": "オーディオ ‐ 非可逆圧縮方式 (mp3など)"
+    "translation": "オーディオ ‐ 非可逆圧縮方式 (MP3 など)"
   },
   {
     "id": "literature",
@@ -542,6 +554,10 @@
   {
     "id": "moderator",
     "translation": "モデレーター"
+  },
+  {
+    "id":" api_token",
+    "translation": "API トークン"
   },
   {
     "id": "save_changes",
