@@ -25,7 +25,7 @@
   },
   {
     "id":"signup_box_title",
-    "translation": "登録 <small>永遠無料です</small>"
+    "translation": "登録 <small>永久無料です</small>"
   },
   {
     "id":"username",
@@ -109,7 +109,7 @@
   },
   {
     "id":"settings",
-    "translation": "アカウントの設定"
+    "translation": "アカウント設定"
   },
   {
     "id":"torrents",
@@ -189,7 +189,7 @@
   },
   {
     "id": "nothing_here",
-    "translation": "何もありません"
+    "translation": "ここには何もありません。"
   },
   {
     "id": "404_not_found",
@@ -225,7 +225,7 @@
   },
   {
     "id": "notice_keep_seeding",
-    "translation": "注目: DHT 機能を有効にし、なるべくシードを継続してください"
+    "translation": "お知らせ: DHT 機能を有効にし、なるべくシードを継続してください"
   },
   {
     "id": "official_nyaapocalipse_faq",
@@ -245,7 +245,7 @@
   },
   {
     "id": "its_not_a_ddos",
-    "translation": "いつものような DDoS 攻撃ではなく、利用停止になった。"
+    "translation": "いつものような DDoS 攻撃ではなく、サイト自体が利用停止になった。"
   },
   {
     "id": "future_not_looking_good",
@@ -261,7 +261,7 @@
   },
   {
     "id": "in_short_no",
-    "translation": "いいえ。"
+    "translation": "一言で言えば、NO です。"
   },
   {
     "id": "are_some_things_lost",
@@ -273,7 +273,7 @@
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "ただし sukebei は別です。sukebei に至っては 2016年までのデータベースしか手元にありません。ただ、今後新しいデータベースが使える可能性はあります。"
+    "translation": "sukebei の方も問題なく、ほとんど失われません。"
   },
   {
     "id": "how_are_we_recovering",
@@ -317,7 +317,7 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "ウェブ開発の経験の件では、irc.rizon.net の #nyaapantsu IRC チャンネルに参加してください。現在のデータベースの件では、（特に sukebei）、<b>ぜひともアップロードしていただきたいです。</b>"
+    "translation": "ウェブ開発の専門知識がおありでしたら、irc.rizon.net の #nyaapantsu IRC チャンネルに参加できますよ。また、現在のデータベースをお持ちの場合、特に sukebei の場合は、<b>ぜひともアップロードしていただきたいです。</b>"
   },
   {
     "id": "your_design_sucks_found_a_bug",
@@ -542,6 +542,10 @@
   {
     "id": "moderator",
     "translation": "モデレーター"
+  },
+  {
+    "id":" api_token",
+    "translation": "API トークン"
   },
   {
     "id": "save_changes",
