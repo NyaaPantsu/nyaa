@@ -637,7 +637,7 @@
   },
   {
     "id": "delete",
-    "translation": "Cancella"
+    "translation": "Rimuovi"
   },
   {
     "id": "uploaded_by",
@@ -667,7 +667,7 @@
     "id": "illegal_content",
     "translation": "Materiale Illegale"
   },
-  {/re
+  {
     "id": "spam_garbage",
     "translation": "Spam / Spazzatura"
   },
