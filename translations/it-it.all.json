@@ -101,15 +101,15 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "Per concludere, controlla la tua casella email (e la cartella spam!) per l'email di verifica."
+    "translation": "Per concludere controlla la tua casella email (e la cartella spam!) per l'email di verifica."
   },
   {
     "id":"signup_verification_noemail",
-    "translation": "La registrazione è avvenuta con successo, adesso puoi usare il tuo account."
+    "translation": "La registrazione è avvenuta con successo. Ora puoi usare il tuo account."
   },
   {
     "id":"settings",
-    "translation": "Settaggi Account"
+    "translation": "Impostazioni Account"
   },
   {
     "id":"torrents",
@@ -173,7 +173,7 @@
   },
   {
     "id": "upload",
-    "translation": "Carica"
+    "translation": "Upload"
   },
   {
     "id": "faq",
@@ -209,7 +209,7 @@
   },
   {
     "id": "member",
-    "translation": "Membro"
+    "translation": "Utente"
   },
   {
     "id": "sign_in",
@@ -233,7 +233,7 @@
   },
   {
     "id": "links_replacement_mirror",
-    "translation": "Collegamenti di sostituzione/mirror"
+    "translation": "Mirror"
   },
   {
     "id": "what_happened",
@@ -273,7 +273,7 @@
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Sukebei può essere effettivamente in condizioni peggiori. Attualmente abbiamo i database di sukebei solo fino al 2016, ma un nuovo database potrebbe diventare disponible."
+    "translation": "Anche sukebei è al sicuro, e quasi nulla è andato perso."
   },
   {
     "id": "how_are_we_recovering",
@@ -281,7 +281,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "I database citati sono attualmente hostati su nyaa.pantsu.cat e sukebei.pantsu.cat. C'è una funzione di ricerca, e (almost) full nyaa functionality dovrebbe arrivare presto. Le statistiche dei Seeder/leecher sono possibili attraverso scraping e potrebbero essere ripristinate in futuro, visto che altre funzionalità hanno la precedenza adesso."
+    "translation": "I database citati sono attualmente hostati su nyaa.pantsu.cat e sukebei.pantsu.cat. C'è una funzione di ricerca, e (quasi) tutte le altre dovrebbero arrivare presto. Le statistiche dei Seeder/leecher sono possibili attraverso scraping e potrebbero essere ripristinate in futuro, visto che altre funzionalità hanno la precedenza adesso."
   },
   {
     "id": "are_the_trackers_working",
@@ -309,7 +309,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Se il caricamente del tuo torrent è negato a causa dei trackers, dovrai aggiungere alcuni di questi:"
+    "translation": "Se il caricamento del tuo torrent è negato a causa dei trackers, dovrai aggiungere alcuni di questi:"
   },
   {
     "id": "how_can_i_help",
@@ -341,7 +341,7 @@
   },
   {
     "id": "uploading_file_prefills_fields",
-    "translation": "Caricare un file torrent permette di auto-riempire alcuni campi, è raccomandato farlo."
+    "translation": "Caricare un file torrent permette di auto-riempire alcuni campi. È raccomandato farlo."
   },
   {
     "id": "magnet_link",
@@ -389,7 +389,7 @@
   },
   {
     "id": "literature_english_translated",
-    "translation": "Letteratura - Tradotti in Inglese"
+    "translation": "Letteratura - Tradotta in Inglese"
   },
   {
     "id": "literature_raw",
@@ -397,7 +397,7 @@
   },
   {
     "id": "literature_non_english_translated",
-    "translation": "Letteratura - Tradotti in altre lingue"
+    "translation": "Letteratura - Tradotta in altre lingue"
   },
   {
     "id": "live_action",
@@ -409,7 +409,7 @@
   },
   {
     "id": "live_action_idol_pv",
-    "translation": "Live Action - Idol/Video Promozionali"
+    "translation": "Live Action - Idol/Videoclip"
   },
   {
     "id": "live_action_non_english_translated",
@@ -481,7 +481,7 @@
   },
   {
     "id": "search",
-    "translation": "Ricerca"
+    "translation": "Cerca"
   },
   {
     "id": "hash",
@@ -513,7 +513,7 @@
   },
   {
     "id": "language",
-    "translation": "Linguaggio"
+    "translation": "Lingua"
   },
   {
     "id": "current_password",
