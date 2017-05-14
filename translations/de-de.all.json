@@ -305,11 +305,15 @@
   },
   {
     "id": "which_trackers_do_you_recommend",
-    "translation": "Welche Tracker sind empfohlen?"
+    "translation": "Welche Tracker empfehlt ihr?"
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Wenn deine Torrents wegen Trackern Probleme machen, solltest du einige dieser hinzufügen:"
+    "translation": "Wir haben jetzt unseren eigenen Tracker! Füge ihn vorm Hochladen deinen Torrents hinzu:"
+  },
+  {
+    "id": "other_trackers",
+    "translation": "Allerdings solltest du diese auch hinzufügen, nur für den Fall, dass etwas schief läuft"
   },
   {
     "id": "how_can_i_help",

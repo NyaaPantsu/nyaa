@@ -2,9 +2,9 @@ var night = localStorage.getItem("night");
 function toggleNightMode() {
     var night = localStorage.getItem("night");
     if(night == "true") {
-        document.getElementById("style-dark").remove()
+        document.getElementsByTagName("head")[0].removeChild(darkStyleLink);
     } else {
-        document.getElementsByTagName("head")[0].append(darkStyleLink);
+        document.getElementsByTagName("head")[0].appendChild(darkStyleLink);
     }
     localStorage.setItem("night", (night == "true") ? "false" : "true");
 }
@@ -48,6 +48,12 @@ for(var i in list) {
 	e.innerText = date.toDateString() + " " + date.toLocaleTimeString();
 }
 
+/*Fixed-Navbar offset fix*/
+window.onload = function() {
+  var shiftWindow = function() { scrollBy(0, -70) };
+if (location.hash) shiftWindow();
+window.addEventListener("hashchange", shiftWindow);
+};
 function loadLanguages() {
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
@@ -79,4 +85,3 @@ function loadLanguages() {
 }
 
 loadLanguages();
-

@@ -6,7 +6,6 @@ import (
 
 	"net/http"
 	"os"
-	"path/filepath"
 	"time"
 
 	"github.com/ewhal/nyaa/cache"
@@ -15,22 +14,12 @@ import (
 	"github.com/ewhal/nyaa/network"
 	"github.com/ewhal/nyaa/router"
 	"github.com/ewhal/nyaa/service/scraper"
+	"github.com/ewhal/nyaa/service/torrent/filesizeFetcher"
+	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/search"
 	"github.com/ewhal/nyaa/util/signals"
-	"github.com/nicksnyder/go-i18n/i18n"
 )
-
-func initI18N() {
-	/* Initialize the languages translation */
-	i18n.MustLoadTranslationFile("translations/en-us.all.json")
-	paths, err := filepath.Glob("translations/*.json")
-	if err == nil {
-		for _, path := range paths {
-			i18n.LoadTranslationFile(path)
-		}
-	}
-}
 
 // RunServer runs webapp mainloop
 func RunServer(conf *config.Config) {
@@ -38,8 +27,8 @@ func RunServer(conf *config.Config) {
 
 	// Set up server,
 	srv := &http.Server{
-		WriteTimeout: 24 * time.Second,
-		ReadTimeout:  8 * time.Second,
+		WriteTimeout: 5 * time.Second,
+		ReadTimeout:  5 * time.Second,
 	}
 	l, err := network.CreateHTTPListener(conf)
 	log.CheckError(err)
@@ -94,11 +83,24 @@ func RunScraper(conf *config.Config) {
 	scraper.Wait()
 }
 
+// RunFilesizeFetcher runs the database filesize fetcher main loop
+func RunFilesizeFetcher(conf *config.Config) {
+	fetcher, err := filesizeFetcher.New(&conf.FilesizeFetcher)
+	if err != nil {
+		log.Fatalf("failed to start fetcher, %s", err)
+		return
+	}
+
+	signals.RegisterCloser(fetcher)
+	fetcher.RunAsync()
+	fetcher.Wait()
+}
+
 func main() {
 	conf := config.New()
 	processFlags := conf.BindFlags()
 	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
-	mode := flag.String("mode", "webapp", "which mode to run daemon in, either webapp or scraper")
+	mode := flag.String("mode", "webapp", "which mode to run daemon in, either webapp, scraper or filesize_fetcher")
 	flag.Float64Var(&conf.Cache.Size, "c", config.DefaultCacheSize, "size of the search cache in MB")
 
 	flag.Parse()
@@ -122,7 +124,10 @@ func main() {
 		if err != nil {
 			log.Fatal(err.Error())
 		}
-		initI18N()
+		err = languages.InitI18n(conf.I18n)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
 		err = cache.Configure(&conf.Cache)
 		if err != nil {
 			log.Fatal(err.Error())
@@ -142,6 +147,8 @@ func main() {
 			RunScraper(conf)
 		} else if *mode == "webapp" {
 			RunServer(conf)
+		} else if *mode == "metadata_fetcher" {
+			RunFilesizeFetcher(conf)
 		} else {
 			log.Fatalf("invalid runtime mode: %s", *mode)
 		}

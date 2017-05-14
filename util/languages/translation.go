@@ -2,12 +2,39 @@ package languages
 
 import (
 	"fmt"
+	"html/template"
+	"net/http"
+	"path"
+	"path/filepath"
+
+	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/service/user"
 	"github.com/nicksnyder/go-i18n/i18n"
 	"github.com/nicksnyder/go-i18n/i18n/language"
-	"html/template"
-	"net/http"
 )
+
+// Initialize the languages translation
+func InitI18n(conf config.I18nConfig) error {
+	defaultFilepath := path.Join(conf.TranslationsDirectory, conf.DefaultLanguage+".all.json")
+	err := i18n.LoadTranslationFile(defaultFilepath)
+	if err != nil {
+		panic(fmt.Sprintf("failed to load default translation file '%s': %v", defaultFilepath, err))
+	}
+
+	paths, err := filepath.Glob(path.Join(conf.TranslationsDirectory, "*.json"))
+	if err != nil {
+		return fmt.Errorf("failed to get translation files: %v", err)
+	}
+
+	for _, path := range paths {
+		err := i18n.LoadTranslationFile(path)
+		if err != nil {
+			return fmt.Errorf("failed to load translation file '%s': %v", path, err)
+		}
+	}
+
+	return nil
+}
 
 // When go-i18n finds a language with >0 translations, it uses it as the Tfunc
 // However, if said language has a missing translation, it won't fallback to the "main" language
@@ -80,7 +107,6 @@ func GetTfuncAndLanguageFromRequest(r *http.Request, defaultLanguage string) (T 
 	T, Tlang, _ = TfuncAndLanguageWithFallback(userLanguage, cookieLanguage, headerLanguage, defaultLanguage)
 	return
 }
-
 
 func SetTranslationFromRequest(tmpl *template.Template, r *http.Request, defaultLanguage string) i18n.TranslateFunc {
 	r.Header.Add("Vary", "Accept-Encoding")

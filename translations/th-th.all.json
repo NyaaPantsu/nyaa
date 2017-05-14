@@ -284,6 +284,14 @@
     "translation": "ฐานข้อมูลดังกล่าวถูกใช้งานกับ nyaa.pantsu.cat และ sukebei.pantsu.cat ซึ่งมีระบบค้นหา และระบบของ Nyaa (เกือบ) ครบถ้วนควรจะมาในเร็วๆ นี้"
   },
   {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "จะลิงค์ไฟล์ที่เคยอัพโหลดกลับเข้าแอคเคาท์ของตัวเองยังไง?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "เข้าไปถาม Moderator ที่ <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> เพื่อโอนทอร์เรนท์เก่าของคุณและแจ้งชื่อผู้ใช้ทั้งของเดิมและของใหม่"
+  },
+  {
     "id": "are_the_trackers_working",
     "translation": "ตัวทอร์เรนท์จะยังใช้ได้รึเปล่า?"
   },
@@ -309,7 +317,11 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "ถ้าทอร์เรนท์ของคุณอัพโหลดไม่ได้เพราะแทรคเกอร์คุณควรใส่ตามนี้:"
+    "translation": "เรามีแทรคเกอร์เป็นของตัวเองแล้ว! กรุณาใส่ไว้บนสุดของลิสต์ก่อนอัพโหลด:"
+  },
+  {
+    "id": "other_trackers",
+    "translation": "แต่คุณควรใส่ตามนี้ลงไปด้วยเผื่อมันมีอันเป็นไป"
   },
   {
     "id": "how_can_i_help",
@@ -542,6 +554,10 @@
   {
     "id": "moderator",
     "translation": "Moderator"
+  },
+  {
+    "id":" api_token",
+    "translation": "API Token"
   },
   {
     "id": "save_changes",

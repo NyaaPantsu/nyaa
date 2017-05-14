@@ -101,7 +101,7 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "Finally, please check your mail inbox (and spam folder!) for the verification email."
+    "translation": "Email verification is disabled at the moment, so you may use your account immediately. In the future, please check your mail inbox (and spam folder!) for the verification email."
   },
   {
     "id":"signup_verification_noemail",
@@ -249,7 +249,7 @@
   },
   {
     "id": "future_not_looking_good",
-    "translation": "Future prospects for nyaa are not looking good. (It's dead)"
+    "translation": "Future prospects for nyaa are not looking good. (It's dead, Jim)"
   },
   {
     "id": "recovery_effort",
@@ -284,6 +284,14 @@
     "translation": "The aforementioned databases are being hosted at nyaa.pantsu.cat and sukebei.pantsu.cat. There is a search function, and (almost) full nyaa functionality should be coming soon."
   },
   {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "How do I link my old uploads back to my new account?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "Join <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> and ask a moderator to migrate your old torrents while mentioning your old and new usernames."
+  },
+  {
     "id": "are_the_trackers_working",
     "translation": "Are the torrents still working?"
   },
@@ -309,7 +317,11 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "If your torrent upload is denied because of trackers you'll need to add some of these:"
+    "translation": "We now have our own Tracker!, add it to the top of the list before uploading:"
+  },
+  {
+    "id": "other_trackers",
+    "translation": "But you should also add these, just in case something goes wrong"
   },
   {
     "id": "how_can_i_help",
@@ -341,7 +353,7 @@
   },
   {
     "id": "uploading_file_prefills_fields",
-    "translation": "Uploading a torrent file allows pre-filling some fields, this is recommended."
+    "translation": "Uploading a torrent file allows pre-filling some fields. This is recommended."
   },
   {
     "id": "magnet_link",
@@ -544,6 +556,10 @@
     "translation": "Moderator"
   },
   {
+    "id":" api_token",
+    "translation": "API Token"
+  },
+  {
     "id": "save_changes",
     "translation": "Save Changes"
   },
@@ -630,5 +646,45 @@
   {
     "id": "delete",
     "translation": "Delete"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "Uploaded by"
+  },
+  {
+    "id": "download_btn",
+    "translation": "Download!"
+  },
+  {
+    "id": "report",
+    "translation": "Report!"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "Are you sure?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "Report Torrent #"
+  },
+  {
+    "id": "report_type",
+    "translation": "Report type"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "Illegal content"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "Spam / Garbage"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "Wrong category"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "Duplicate / Deprecated"
   }
 ]
