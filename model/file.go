@@ -2,8 +2,8 @@ package model
 
 type File struct {
 	ID        uint   `gorm:"column:file_id;primary_key"`
-	TorrentID uint   `gorm:"column:torrent_id"`
-	Path      string `gorm:"column:path"`
+	TorrentID uint   `gorm:"column:torrent_id;unique_index:idx_tid_path"`
+	Path      string `gorm:"column:path;unique_index:idx_tid_path"`
 	Filesize  int64  `gorm:"column:filesize"`
 }
 

@@ -9,6 +9,7 @@ import (
 	"github.com/ewhal/nyaa/util/log"
 	serviceBase "github.com/ewhal/nyaa/service"
 	torrentService "github.com/ewhal/nyaa/service/torrent"
+	"golang.org/x/time/rate"
 	"sync"
 	"time"
 )
@@ -28,7 +29,18 @@ type MetainfoFetcher struct {
 }
 
 func New(fetcherConfig *config.MetainfoFetcherConfig) (fetcher *MetainfoFetcher, err error) {
-	client, err := torrent.NewClient(nil)
+	clientConfig := torrent.Config{}
+	// Well, it seems this is the right way to convert speed -> rate.Limiter
+	// https://github.com/anacrolix/torrent/blob/master/cmd/torrent/main.go
+	if fetcherConfig.UploadRateLimiter != -1 {
+		clientConfig.UploadRateLimiter = rate.NewLimiter(rate.Limit(fetcherConfig.UploadRateLimiter * 1024), 256<<10)
+	}
+	if fetcherConfig.DownloadRateLimiter != -1 {
+		clientConfig.DownloadRateLimiter = rate.NewLimiter(rate.Limit(fetcherConfig.DownloadRateLimiter * 1024), 1<<20)
+	}
+
+	client, err := torrent.NewClient(&clientConfig)
+
 	fetcher = &MetainfoFetcher{
 		torrentClient:    client,
 		results:          make(chan Result, fetcherConfig.QueueSize),
@@ -86,26 +98,19 @@ func updateFileList(dbEntry model.Torrent, info *metainfo.Info) error {
 	log.Infof("TID %d has %d files.", dbEntry.ID, len(torrentFiles))
 	for _, file := range torrentFiles {
 		path := file.DisplayPath(info)
-		fileExists := false
-		for _, existingFile := range dbEntry.FileList {
-			if existingFile.Path == path {
-				fileExists = true
-				break
-			}
+
+		// Can't read FileList from the GetTorrents output, rely on the unique_index
+		// to ensure no files are duplicated.
+		log.Infof("Adding file %s to filelist of TID %d", path, dbEntry.ID)
+		dbFile := model.File{
+			TorrentID: dbEntry.ID,
+			Path: path,
+			Filesize: file.Length,
 		}
 
-		if !fileExists {
-			log.Infof("Adding file %s to filelist of TID %d", path, dbEntry.ID)
-			dbFile := model.File{
-				TorrentID: dbEntry.ID,
-				Path: path,
-				Filesize: file.Length,
-			}
-
-			err := db.ORM.Create(&dbFile).Error
-			if err != nil {
-				return err
-			}
+		err := db.ORM.Create(&dbFile).Error
+		if err != nil {
+			return err
 		}
 	}
 
@@ -223,6 +228,7 @@ func (fetcher *MetainfoFetcher) Close() error {
 	}
 
 	fetcher.done <- 1
+	log.Infof("Send done signal to everyone, waiting...")
 	fetcher.wg.Wait()
 	return nil
 }
