@@ -196,14 +196,15 @@ type Navigation struct {
 
 type SearchForm struct {
 	common.SearchParam
-	Category           string
-	HideAdvancedSearch bool
+	Category         string
+	ShowItemsPerPage bool
 }
 
 // Some Default Values to ease things out
 func NewSearchForm() SearchForm {
 	return SearchForm{
 		Category: "_",
+		ShowItemsPerPage: true,
 	}
 }
 
