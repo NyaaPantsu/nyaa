@@ -14,7 +14,7 @@ import (
 	"github.com/ewhal/nyaa/network"
 	"github.com/ewhal/nyaa/router"
 	"github.com/ewhal/nyaa/service/scraper"
-	"github.com/ewhal/nyaa/service/torrent/filesizeFetcher"
+	"github.com/ewhal/nyaa/service/torrent/metainfoFetcher"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/search"
@@ -83,9 +83,9 @@ func RunScraper(conf *config.Config) {
 	scraper.Wait()
 }
 
-// RunFilesizeFetcher runs the database filesize fetcher main loop
-func RunFilesizeFetcher(conf *config.Config) {
-	fetcher, err := filesizeFetcher.New(&conf.FilesizeFetcher)
+// RunMetainfoFetcher runs the database filesize fetcher main loop
+func RunMetainfoFetcher(conf *config.Config) {
+	fetcher, err := metainfoFetcher.New(&conf.MetainfoFetcher)
 	if err != nil {
 		log.Fatalf("failed to start fetcher, %s", err)
 		return
@@ -147,8 +147,8 @@ func main() {
 			RunScraper(conf)
 		} else if *mode == "webapp" {
 			RunServer(conf)
-		} else if *mode == "filesize_fetcher" {
-			RunFilesizeFetcher(conf)
+		} else if *mode == "metainfo_fetcher" {
+			RunMetainfoFetcher(conf)
 		} else {
 			log.Fatalf("invalid runtime mode: %s", *mode)
 		}

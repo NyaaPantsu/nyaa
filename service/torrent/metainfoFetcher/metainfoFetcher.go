@@ -1,4 +1,4 @@
-package filesizeFetcher;
+package metainfoFetcher;
 
 import (
 	"github.com/anacrolix/torrent"
@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-type FilesizeFetcher struct {
+type MetainfoFetcher struct {
 	torrentClient    *torrent.Client
 	results          chan Result
 	queueSize        int
@@ -27,9 +27,9 @@ type FilesizeFetcher struct {
 	wg               sync.WaitGroup
 }
 
-func New(fetcherConfig *config.FilesizeFetcherConfig) (fetcher *FilesizeFetcher, err error) {
+func New(fetcherConfig *config.MetainfoFetcherConfig) (fetcher *MetainfoFetcher, err error) {
 	client, err := torrent.NewClient(nil)
-	fetcher = &FilesizeFetcher{
+	fetcher = &MetainfoFetcher{
 		torrentClient:    client,
 		results:          make(chan Result, fetcherConfig.QueueSize),
 		queueSize:        fetcherConfig.QueueSize,
@@ -43,7 +43,7 @@ func New(fetcherConfig *config.FilesizeFetcherConfig) (fetcher *FilesizeFetcher,
 	return
 }
 
-func (fetcher *FilesizeFetcher) isFetchingOrFailed(t model.Torrent) bool {
+func (fetcher *MetainfoFetcher) isFetchingOrFailed(t model.Torrent) bool {
 	for _, op := range fetcher.queue {
 		if op.torrent.ID == t.ID {
 			return true
@@ -54,7 +54,7 @@ func (fetcher *FilesizeFetcher) isFetchingOrFailed(t model.Torrent) bool {
 	return ok
 }
 
-func (fetcher *FilesizeFetcher) addToQueue(op *FetchOperation) bool {
+func (fetcher *MetainfoFetcher) addToQueue(op *FetchOperation) bool {
 	fetcher.queueMutex.Lock()
 	defer fetcher.queueMutex.Unlock()
 
@@ -67,7 +67,7 @@ func (fetcher *FilesizeFetcher) addToQueue(op *FetchOperation) bool {
 }
 
 
-func (fetcher *FilesizeFetcher) removeFromQueue(op *FetchOperation) bool {
+func (fetcher *MetainfoFetcher) removeFromQueue(op *FetchOperation) bool {
 	fetcher.queueMutex.Lock()
 	defer fetcher.queueMutex.Unlock()
 
@@ -111,7 +111,7 @@ func updateFileList(dbEntry model.Torrent, info *metainfo.Info) error {
 	return nil
 }
 
-func (fetcher *FilesizeFetcher) gotResult(r Result) {
+func (fetcher *MetainfoFetcher) gotResult(r Result) {
 	updatedSuccessfully := false
 	if r.err != nil {
 		log.Infof("Failed to get torrent filesize (TID: %d), err %v", r.operation.torrent.ID, r.err)
@@ -141,7 +141,7 @@ func (fetcher *FilesizeFetcher) gotResult(r Result) {
 	fetcher.removeFromQueue(r.operation)
 }
 
-func (fetcher *FilesizeFetcher) fillQueue() {
+func (fetcher *MetainfoFetcher) fillQueue() {
 	toFill := fetcher.queueSize - len(fetcher.queue)
 
 	if toFill <= 0 {
@@ -180,7 +180,7 @@ func (fetcher *FilesizeFetcher) fillQueue() {
 	}
 }
 
-func (fetcher *FilesizeFetcher) run() {
+func (fetcher *MetainfoFetcher) run() {
 	var result Result
 
 	defer fetcher.wg.Done()
@@ -202,13 +202,13 @@ func (fetcher *FilesizeFetcher) run() {
 	}
 }
 
-func (fetcher *FilesizeFetcher) RunAsync() {
+func (fetcher *MetainfoFetcher) RunAsync() {
 	fetcher.wg.Add(1)
 
 	go fetcher.run()
 }
 
-func (fetcher *FilesizeFetcher) Close() error {
+func (fetcher *MetainfoFetcher) Close() error {
 	fetcher.queueMutex.Lock()
 	defer fetcher.queueMutex.Unlock()
 
@@ -222,7 +222,7 @@ func (fetcher *FilesizeFetcher) Close() error {
 	return nil
 }
 
-func (fetcher *FilesizeFetcher) Wait() {
+func (fetcher *MetainfoFetcher) Wait() {
 	fetcher.wg.Wait()
 }
 
