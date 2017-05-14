@@ -101,7 +101,7 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "認証メールを送信しました。メールボックスを確認してください。迷惑メールフォルダーの確認もお忘れずに。"
+    "translation": "認証メールを送信しました。メールボックスを確認してください。迷惑メールフォルダーの確認もお忘れなく。"
   },
   {
     "id":"signup_verification_noemail",
@@ -381,11 +381,11 @@
   },
   {
     "id": "audio_lossless",
-    "translation": "オーディオ ‐ 可逆圧縮方式 (flacなど)"
+    "translation": "オーディオ ‐ 可逆圧縮方式 (FLAC など)"
   },
   {
     "id": "audio_lossy",
-    "translation": "オーディオ ‐ 非可逆圧縮方式 (mp3など)"
+    "translation": "オーディオ ‐ 非可逆圧縮方式 (MP3 など)"
   },
   {
     "id": "literature",
