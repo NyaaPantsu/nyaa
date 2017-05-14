@@ -101,7 +101,7 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "Per concludere controlla la tua casella email (e la cartella spam!) per l'email di verifica."
+    "translation": "La verifica via email non è abilitata al momento, quindi puoi già usare il tuo account. In futuro, per concludere dovrai controllare la tua casella email (e la cartella spam!) per l'email di verifica."
   },
   {
     "id":"signup_verification_noemail",
@@ -269,11 +269,11 @@
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "Abbiamo un database dei torrent di nyaa fino al <s>5 Aprile</s> 1° Maggio. Questo vuol dire che quasi niente è andato perduto."
+    "translation": "Abbiamo un database dei torrent di nyaa fino al <s>5 Aprile</s> 1° Maggio. Questo vuol dire che quasi niente è andato perso."
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Anche sukebei è al sicuro, e quasi nulla è andato perso."
+    "translation": "Anche sukebei è al sicuro, e anche qui quasi nulla è andato perso."
   },
   {
     "id": "how_are_we_recovering",
@@ -329,7 +329,7 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "Se hai esperienza nel web design, vieni sul canale IRC #nyaapantsu su irc.rizon.net. Se hai dei database aggiornati, specialmente per sukebei,per favore caricali."
+    "translation": "Se hai esperienza nel web design, vieni sul canale IRC #nyaapantsu su irc.rizon.net. Se hai dei database aggiornati, specialmente per sukebei, per favore caricali."
   },
   {
     "id": "your_design_sucks_found_a_bug",
@@ -365,7 +365,7 @@
   },
   {
     "id": "select_a_torrent_category",
-    "translation": "Seleziona una Categoria Torrent"
+    "translation": "Seleziona una Categoria"
   },
   {
     "id": "anime",
@@ -585,7 +585,7 @@
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん è il nome utente assegnato per uploads e commenti anonimi. È anche utilizzato per i torrent importati dal nyaa originale, anche se l'uploader originale può essere mostrato di fianco."
+    "translation": "れんちょん (Ren-chon) è il nome utente assegnato per uploads e commenti anonimi. È anche utilizzato anche per i torrent importati dal nyaa originale, anche se a volte l'uploader originale è mostrato di fianco."
   },
   {
     "id": "mark_as_remake",
@@ -593,7 +593,7 @@
 },
   {
     "id": "email_changed",
-    "translation": "Email cambiata con successo! Dovrai, tuttavia, per confermare cliccare il link mandato a: %s"
+    "translation": "Email cambiata con successo! Tuttavia per confermare dovrai cliccare il link inviato a: %s"
   },
   {
     "id": "torrent_status",
