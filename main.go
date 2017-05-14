@@ -147,7 +147,7 @@ func main() {
 			RunScraper(conf)
 		} else if *mode == "webapp" {
 			RunServer(conf)
-		} else if *mode == "filesize_fetcher" {
+		} else if *mode == "metadata_fetcher" {
 			RunFilesizeFetcher(conf)
 		} else {
 			log.Fatalf("invalid runtime mode: %s", *mode)
