@@ -202,6 +202,10 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 {
   width: 12rem;
 }
+#mainmenu .navbar-form select.form-control#max
+{
+  width: 8rem;
+}
 .special-img 
 {
     position: relative;
@@ -220,6 +224,7 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 
 #mainmenu .badgemenu {
   padding-top: 0;
+  margin-right: -50px; /* don't ask */
 }
 
 /* PROFILE PAGE */
@@ -343,6 +348,12 @@ footer {
   font-family: cursive;
   color: #616161;
   text-shadow: -1px -1px #999999;
+}
+
+select#bottom_language_selector {
+  width: 20%;
+  margin: auto;
+  margin-bottom: 2rem;
 }
 
 /* Force images on description to fit width */

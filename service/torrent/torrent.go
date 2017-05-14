@@ -71,7 +71,7 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 	torrent.Uploader = new(model.User)
 	db.ORM.Where("user_id = ?", torrent.UploaderID).Find(torrent.Uploader)
 	torrent.OldUploader = ""
-	if torrent.ID <= config.LastOldTorrentID {
+	if torrent.ID <= config.LastOldTorrentID && torrent.UploaderID == 0 {
 		var tmp model.UserUploadsOld
 		if !db.ORM.Where("torrent_id = ?", torrent.ID).Find(&tmp).RecordNotFound() {
 			torrent.OldUploader = tmp.Username
@@ -85,6 +85,15 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 		}
 	}
 
+	return
+}
+
+// won't fetch user or comments
+func GetRawTorrentById(id uint) (torrent model.Torrent, err error) {
+	err = nil
+	if db.ORM.Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
+		err = errors.New("Article is not found.")
+	}
 	return
 }
 
@@ -129,9 +138,10 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 	if conditions != "" {
 		dbQuery = dbQuery + " WHERE " + conditions
 	}
-	if strings.Contains(conditions, "torrent_name") {
+	/* This makes all queries take roughly the same amount of time (lots)...
+	if strings.Contains(conditions, "torrent_name") && offset > 0 {
 		dbQuery = "WITH t AS (SELECT * FROM torrents WHERE " + conditions + ") SELECT * FROM t"
-	}
+	}*/
 
 	if orderBy == "" { // default OrderBy
 		orderBy = "torrent_id DESC"

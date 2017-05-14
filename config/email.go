@@ -16,4 +16,4 @@ const (
 	EmailTimeout  = 10 * time.Second
 )
 
-var EmailTokenHashKey = []byte("CHANGE_THIS_BEFORE_DEPLOYING_YOU_RETARD")
+var EmailTokenHashKey = []byte("CHANGE_THIS_BEFORE_DEPLOYING_YOU_GIT")

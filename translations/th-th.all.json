@@ -229,11 +229,11 @@
   },
   {
     "id": "official_nyaapocalipse_faq",
-    "translation": "ถาม-ตอบ Nyaapocalypse อย่างเป็นทางการ"
+    "translation": "ถาม-ตอบสถานการณ์ล่าสุดของ Nyaa อย่างเป็นทางการ"
   },
   {
     "id": "links_replacement_mirror",
-    "translation": "ลิงค์สำหรับเว็บที่ใช้แทน/Mirror"
+    "translation": "ลิงค์สำหรับเว็บที่ใช้ทดแทน/Mirror"
   },
   {
     "id": "what_happened",
@@ -249,7 +249,7 @@
   },
   {
     "id": "future_not_looking_good",
-    "translation": "และอนาคตข้างหน้าสำหรับ Nyaa ดูจะไม่ค่อยดีเท่าไหร่ (ตายสนิท)"
+    "translation": "และอนาคตสำหรับ Nyaa เองก็ไม่ค่อยดีเท่าไหร่ (ตายสนิท)"
   },
   {
     "id": "recovery_effort",
@@ -269,11 +269,11 @@
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "เรามีข้อมูลฐานข้อมูลทอร์เรนท์ที่อยู่บน Nyaa ถึง <s>5 เมษายน</s> 1 พฤษภาคม นั่นหมายความว่าไม่มีอะไรหาย"
+    "translation": "เรามีข้อมูลฐานข้อมูลทอร์เรนท์ที่อยู่บน Nyaa ถึง <s>5 เมษายน</s> 1 พฤษภาคม นั่นหมายความว่าแทบจะไม่มีอะไรหาย"
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "สำหรับ Sukebei นั่นโชคร้ายหน่อย ที่ในตอนนี้เรามีฐานข้อมูลของ Sukebei ถึงแค่ช่วงปี 2016 แต่อาจจะมีฐานข้อมูลที่ใหม่กว่านี้ให้ใช้ก็ได้"
+    "translation": "ที่ Sukebei เองก็แทบจะไม่มีอะไรหายเหมือนกัน"
   },
   {
     "id": "how_are_we_recovering",
@@ -281,7 +281,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "ฐานข้อมูลดังกล่าวถูกใช้งานกับ nyaa.pantsu.cat และ sukebei.pantsu.cat ซึ่งมีระบบค้นหา และระบบของ Nyaa (เกือบ) ครบถ้วนควรจะมาในเร็วๆ นี้ สถิติผู้ปล่อย/ผู้โหลดที่อาจจะกู้กลับมาผ่านการ Scraping ในอนาคตอันใกล้ตั้งแต่ฟีเจอร์อื่นๆ ถูกให้ความสำคัญมากกว่าในตอนนี้"
+    "translation": "ฐานข้อมูลดังกล่าวถูกใช้งานกับ nyaa.pantsu.cat และ sukebei.pantsu.cat ซึ่งมีระบบค้นหา และระบบของ Nyaa (เกือบ) ครบถ้วนควรจะมาในเร็วๆ นี้"
   },
   {
     "id": "are_the_trackers_working",
@@ -309,7 +309,11 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "ถ้าทอร์เรนท์ของคุณอัพโหลดไม่ได้เพราะแทรคเกอร์คุณควรใส่ตามนี้:"
+    "translation": "เรามีแทรคเกอร์เป็นของตัวเองแล้ว! กรุณาใส่ไว้บนสุดของลิสต์ก่อนอัพโหลด:"
+  },
+  {
+    "id": "other_trackers",
+    "translation": "แต่คุณควรใส่ตามนี้ลงไปด้วยเผื่อมันมีอันเป็นไป"
   },
   {
     "id": "how_can_i_help",
@@ -317,11 +321,11 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "หากมีประสบการณ์ในการเขียนเว็บ คุณสามารถเข้ามาคุยในช่อง IRC  #nyaapantsu บน irc.rizon.net หากคุณมีฐานข้อมูลใดๆ โดยเฉพาะของ Sukebei <b>กรุณาอัพโหลด</b>"
+    "translation": "หากมีประสบการณ์ในการเขียนเว็บ คุณสามารถเข้ามาคุยในช่อง IRC  #nyaapantsu บน irc.rizon.net หากคุณมีฐานข้อมูลใดๆ โดยเฉพาะของ Sukebei กรุณาอัพโหลด"
   },
   {
     "id": "your_design_sucks_found_a_bug",
-    "translation": "ดีไซน์กากว่ะ / เจอบัค"
+    "translation": "ดีไซน์กากว่ะคุณ / เจอบัค"
   },
   {
     "id": "why_written_in_go",
@@ -329,7 +333,7 @@
   },
   {
     "id": "authors_favorite_language",
-    "translation": "เพราะเป็นภาษาถนัดของผู้พัฒนา"
+    "translation": "เพราะเป็นภาษาที่ผู้พัฒนาชอบ"
   },
   {
     "id": "upload_magnet",
@@ -350,6 +354,10 @@
   {
     "id": "all_categories",
     "translation": "ทุกหมวดหมู่"
+  },
+    {
+    "id": "select_a_torrent_category",
+    "translation": "เลือกหมวดหมู่ทอร์เรนท์"
   },
   {
     "id": "anime",
@@ -457,7 +465,7 @@
   },
   {
     "id": "filter_remakes",
-    "translation": "Filter Remakes"
+    "translation": "กรองงานทำซ้ำออกไป"
   },
   {
     "id": "trusted",
@@ -473,11 +481,11 @@
   },
   {
     "id": "descending",
-    "translation": "Descending"
+    "translation": "เรียงจากบนลงล่าง"
   },
   {
     "id": "ascending",
-    "translation": "Ascending"
+    "translation": "เรียงจากล่างขึ้นบน"
   },
   {
     "id": "search",
@@ -569,7 +577,7 @@
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん คือชื่อผู้ใช้ที่ตั้งไว้สำหรับอัพโหลดและคอมเมนท์แบบไม่ระบุตัวตน ซึ่งถูกใช้กับทอร์เรนท์ที่กู้มาจาก Nyaa ดั้งเดิม และชื่อผู้อัพโหลดดั้งเดิมควรจะแสดงผลคู่กัน"
+    "translation": "れんちょん คือชื่อผู้ใช้ที่ตั้งไว้สำหรับอัพโหลดและคอมเมนท์แบบไม่ระบุตัวตน ซึ่งถูกใช้กับทอร์เรนท์ที่กู้มาจาก Nyaa ดั้งเดิม และในบางครั้งชื่อผู้อัพโหลดดั้งเดิมจะแสดงผลคู่กัน"
   },
   {
     "id": "mark_as_remake",
@@ -614,5 +622,17 @@
   {
     "id": "completed",
     "translation": "โหลดเสร็จแล้ว"
+  },
+  {
+    "id": "change_language",
+    "translation": "เปลี่ยนภาษา"
+  },
+  {
+    "id": "language_name",
+    "translation": "ภาษาไทย"
+  },
+  {
+    "id": "delete",
+    "translation": "ลบ"
   }
 ]
