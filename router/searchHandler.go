@@ -38,9 +38,9 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	navigationTorrents := Navigation{nbTorrents, int(searchParam.Max), pagenum, "search_page"}
 	// Convert back to strings for now.
 	searchForm := SearchForm{
-		SearchParam:        searchParam,
-		Category:           searchParam.Category.String(),
-		HideAdvancedSearch: false,
+		SearchParam:      searchParam,
+		Category:         searchParam.Category.String(),
+		ShowItemsPerPage: true,
 	}
 	htv := HomeTemplateVariables{b, searchForm, navigationTorrents, GetUser(r), r.URL, mux.CurrentRoute(r)}
 
