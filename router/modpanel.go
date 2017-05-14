@@ -139,9 +139,9 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 
 		searchParam, torrents, _, err := search.SearchByQuery(r, pagenum)
 		searchForm := SearchForm{
-			SearchParam:        searchParam,
-			Category:           searchParam.Category.String(),
-			HideAdvancedSearch: false,
+			SearchParam:      searchParam,
+			Category:         searchParam.Category.String(),
+			ShowItemsPerPage: true,
 		}
 
 		languages.SetTranslationFromRequest(panelTorrentList, r, "en-us")
