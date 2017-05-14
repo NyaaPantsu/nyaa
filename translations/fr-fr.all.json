@@ -686,5 +686,17 @@
   {
     "id": "duplicate_deprecated",
     "translation": "Doublon / Obsolète"
+  },
+  {
+    "id": "captcha",
+    "translation": "Captcha"
+  },
+  {
+    "id": "file_name",
+    "translation": "Nom du fichier"
+  },
+  {
+    "id": "cancel",
+    "translation": "Annuler"
   }
 ]
