@@ -284,6 +284,14 @@
     "translation": "The aforementioned databases are being hosted at nyaa.pantsu.cat and sukebei.pantsu.cat. There is a search function, and (almost) full nyaa functionality should be coming soon."
   },
   {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "How do I link my old uploads back to my new account?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "Join <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> and ask a moderator to migrate your old torrents while mentioning your old and new usernames."
+  },
+  {
     "id": "are_the_trackers_working",
     "translation": "Are the torrents still working?"
   },

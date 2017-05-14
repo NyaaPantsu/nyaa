@@ -98,6 +98,14 @@ func (f *ReassignForm) ExecuteAction() (int, error) {
 	return num, nil
 }
 
+// Helper that creates a search form without items/page field
+// these need to be used when the templateVariables don't include `Navigation`
+func NewPanelSearchForm() SearchForm {
+	form := NewSearchForm()
+	form.ShowItemsPerPage = false
+	return form
+}
+
 
 func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
@@ -110,9 +118,7 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 		torrentReports, _, _ := reportService.GetAllTorrentReports(offset, 0)
 
 		languages.SetTranslationFromRequest(panelIndex, r, "en-us")
-		search := NewSearchForm()
-		search.ShowItemsPerPage = false
-		htv := PanelIndexVbs{torrents, model.TorrentReportsToJSON(torrentReports), users, comments, search, currentUser, r.URL}
+		htv := PanelIndexVbs{torrents, model.TorrentReportsToJSON(torrentReports), users, comments, NewPanelSearchForm(), currentUser, r.URL}
 		err := panelIndex.ExecuteTemplate(w, "admin_index.html", htv)
 		log.CheckError(err)
 	} else {
@@ -258,7 +264,7 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 		uploadForm.Category = torrentJson.Category + "_" + torrentJson.SubCategory
 		uploadForm.Status = torrentJson.Status
 		uploadForm.Description = string(torrentJson.Description)
-		htv := PanelTorrentEdVbs{uploadForm, NewSearchForm(), currentUser, form.NewErrors(), form.NewInfos(), r.URL}
+		htv := PanelTorrentEdVbs{uploadForm, NewPanelSearchForm(), currentUser, form.NewErrors(), form.NewInfos(), r.URL}
 		err := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 		log.CheckError(err)
 
@@ -297,7 +303,7 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	languages.SetTranslationFromRequest(panelTorrentEd, r, "en-us")
-	htv := PanelTorrentEdVbs{uploadForm, NewSearchForm(), currentUser, err, infos, r.URL}
+	htv := PanelTorrentEdVbs{uploadForm, NewPanelSearchForm(), currentUser, err, infos, r.URL}
 	err_ := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err_)
 }
@@ -360,7 +366,7 @@ func TorrentReassignModPanel(w http.ResponseWriter, r *http.Request) {
 	}
 	languages.SetTranslationFromRequest(panelTorrentReassign, r, "en-us")
 
-	htv := PanelTorrentReassignVbs{ReassignForm{}, NewSearchForm(), currentUser, form.NewErrors(), form.NewInfos(), r.URL}
+	htv := PanelTorrentReassignVbs{ReassignForm{}, NewPanelSearchForm(), currentUser, form.NewErrors(), form.NewInfos(), r.URL}
 	err := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
@@ -387,7 +393,7 @@ func TorrentPostReassignModPanel(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	htv := PanelTorrentReassignVbs{rForm, NewSearchForm(), currentUser, err, infos, r.URL}
+	htv := PanelTorrentReassignVbs{rForm, NewPanelSearchForm(), currentUser, err, infos, r.URL}
 	err_ := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err_)
 }
