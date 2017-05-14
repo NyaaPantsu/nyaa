@@ -273,7 +273,7 @@
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "而 sukebei 也幾乎沒有什麽損失"
+    "translation": "然而 sukebei 的命運比較坎坷。目前資料庫只有備份到 2016年，但也許有個新的日期版本可供使用"
   },
   {
     "id": "how_are_we_recovering",
@@ -281,7 +281,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "前述的資料庫目前放在 nyaa.pantsu.cat 和 sukebei.pantsu.cat 的伺服器。 我們有搜尋功能，而（幾乎）所有 nyaa 舊有功能將在未來不久後實現。"
+    "translation": "前述的資料庫目前放在 nyaa.pantsu.cat 和 sukebei.pantsu.cat 的伺服器。 我們有搜尋功能，而（幾乎）所有 nyaa 舊有功能將在未來不久後實現。 種子／連線數的統計資訊則可能透過抓取其他 tracker 來恢復，也許在未來某天吧！先做出其他較優先的功能再說。"
   },
   {
     "id": "are_the_trackers_working",
@@ -309,11 +309,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "現在我們有自己的 tracker 啦！在上傳之前把它們放在 tracker 列表的頂部吧！"
-  },
-  {
-     "id": "other_trackers",
-     "translation": "當然，也可以使用以下的 tracker ，不過某些情況可能會出現錯誤。"
+    "translation": "如果您上傳種子遭到拒絕，原因是 tracker 不符要求，那有可能需要加上這其中幾個 tracker："
   },
   {
     "id": "how_can_i_help",
@@ -626,9 +622,5 @@
   {
     "id": "language_name",
     "translation": "繁體中文"
-  },
-  {
-    "id": "delete",
-    "translation": "削除"
   }
 ]
