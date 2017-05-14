@@ -7,6 +7,7 @@
 		    <img src="https://www.gravatar.com/avatar/{{ .MD5 }}?s=50" class="img-circle special-img"> {{ .Username }} <b class="caret"></b></a>
 		    <ul class="dropdown-menu">
 		        <li><a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}"><i class="fa fa-cog"></i> {{T "profile"}}</a></li>
+		        <li><a href="{{ genRoute "user_profile_edit" "id" (print .ID) "username" .Username }}"><i class="fa fa-cog"></i> {{T "settings"}}</a></li>
 		        {{if HasAdmin . }}<li><a href="{{ genRoute "mod_index" }}"><i class="fa fa-cog"></i> {{T "moderation"}}</a></li>{{end}}
 		        <li class="divider"></li>
 		        <li><a href="{{ genRoute "user_logout" }}"><i class="fa fa-sign-out"></i> {{ T "sign_out"}}</a></li>
