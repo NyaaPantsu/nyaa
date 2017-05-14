@@ -5,11 +5,11 @@
   },
   {
     "id": "verify_email_title",
-    "translation": "NyaaPantsu E-Mail Bestätigung."
+    "translation": "Bestätigung der E-Mail-Adresse für NyaaPantsu."
   },
   {
     "id": "verify_email_content",
-    "translation": "Klicke auf den Link um deine E-Mail zu verifizieren."
+    "translation": "Klicke auf den Link, um deine E-Mail-Adresse zu verifizieren."
   },
   {
     "id": "reset_password_title",
@@ -17,7 +17,7 @@
   },
   {
     "id": "reset_password_content",
-    "translation": "Klicke auf den Link um dein Passwort zurückzusetzen."
+    "translation": "Klicke auf den Link, um dein Passwort zurückzusetzen."
   },
   {
     "id":"register_title",
@@ -53,7 +53,7 @@
   },
   {
     "id":"terms_conditions_confirm",
-    "translation": "Mit klick auf <strong class=\"label label-primary\">Registrieren</strong> stimmst du den <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Nutzungsbedingungen</a> sowie der Nutzung von Cookies zu."
+    "translation": "Durch Klicken auf <strong class=\"label label-primary\">Registrieren</strong> stimmst du den <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Nutzungsbedingungen</a> sowie der Nutzung von Cookies zu."
   },
   {
     "id":"signin",
@@ -101,11 +101,11 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "Geschafft! Überprüfe deinen Posteingang, auch den Spam Ordner(!) auf eine Bestätigungsmail."
+    "translation": "Derzeit ist die Verfizierung der E-Mail-Adresse deaktiviert, also kannst du deinen Account direkt nutzen. In Zukunft, überprüfe bitte deinen Posteingang (auch deinen Spam-Ordner!) auf eine Bestätigungsmail."
   },
   {
     "id":"signup_verification_noemail",
-    "translation": "Die Registrierung war erfolgreich, du kannst deinen Account jetzt benutzen."
+    "translation": "Die Registrierung war erfolgreich. Du kannst deinen Account jetzt benutzen."
   },
   {
     "id":"settings",
@@ -193,11 +193,11 @@
   },
   {
     "id": "404_not_found",
-    "translation": "404 nichts gefunden"
+    "translation": "404 Nicht Gefunden"
   },
   {
     "id": "no_torrents_uploaded",
-    "translation": "Es sind noch keine Torrents hochgeladen worden!"
+    "translation": "Es wurden noch keine Torrents hochgeladen!"
   },
   {
     "id": "profile",
@@ -253,7 +253,7 @@
   },
   {
     "id": "recovery_effort",
-    "translation": "Zur Zeit wird versucht die Seite zu ersetzen."
+    "translation": "Zur Zeit wird versucht, die Seite zu ersetzen."
   },
   {
     "id": "is_everything_lost",
@@ -289,7 +289,7 @@
   },
   {
     "id": "answer_are_the_trackers_working",
-    "translation": "Auch went die Tracker offline sind, sind die Seeder immernoch mit dem dezentralisierten DHT Netzwerk verbunden. Solange das DHT Netzwerk die Torrentdaten hat, sollte es wie gewohnt weitergehen."
+    "translation": "Auch wenn die Tracker offline sind, sind die Seeder weiterhin mit dem dezentralisierten DHT-Netzwerk verbunden. Solange die Metadaten des Torrents im DHT-Netzwerk verfügbar sind, sollte der Download weiterhin funktionieren."
   },
   {
     "id": "how_do_i_download_the_torrents",
@@ -297,11 +297,11 @@
   },
   {
     "id": "answer_how_do_i_download_the_torrents",
-    "translation": "Benutze einfach <b>Magnet Links</b>. Deine BitTorrent Software liest den Magnet Link und durchsucht das DHT Netzwerk nach den Metadaten und der Download sollte ohne weiteres funktionieren."
+    "translation": "Benutze einfach <b>Magnet-Links</b>. Dein BitTorrent-Client liest den Magnet-Link ein und durchsucht das DHT-Netzwerk nach den zugehörigen Metadaten. Der Download sollte ohne weiteres funktionieren."
   },
   {
     "id": "magnet_link_should_look_like",
-    "translation": "Ein Magnet Link sollte so aussehen:"
+    "translation": "Ein Magnet-Link sollte so aussehen:"
   },
   {
     "id": "which_trackers_do_you_recommend",
@@ -309,11 +309,11 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Wir haben jetzt unseren eigenen Tracker! Füge ihn vorm Hochladen deinen Torrents hinzu:"
+    "translation": "Wir haben jetzt unseren eigenen Tracker! Füge ihn vor dem Hochladen deines Torrents hinzu:"
   },
   {
     "id": "other_trackers",
-    "translation": "Allerdings solltest du diese auch hinzufügen, nur für den Fall, dass etwas schief läuft"
+    "translation": "Allerdings solltest du diese auch hinzufügen. Nur für den Fall, dass etwas schief läuft:"
   },
   {
     "id": "how_can_i_help",
@@ -321,7 +321,7 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "Wenn du Erfahrungen mit Webseitenprogrammierung hast, kannst du dem IRC-Kanal #nyaapantsu auf irc.rizon.net (Englisch) beitreten. Wenn du irgendwelche Datenbanken hast, insbesondere für Sukebei, lad sie hoch."
+    "translation": "Wenn du Erfahrungen mit Webseitenprogrammierung hast, kannst du dem IRC-Kanal #nyaapantsu auf irc.rizon.net (Englisch) beitreten. Falls du irgendwelche Datenbanken hast, insbesondere für Sukebei, dann stelle uns diese bitte zur Verfügung."
   },
   {
     "id": "your_design_sucks_found_a_bug",
@@ -341,15 +341,15 @@
   },
   {
     "id": "torrent_file",
-    "translation": "Torrent Datei"
+    "translation": "Torrent-Datei"
   },
   {
     "id": "uploading_file_prefills_fields",
-    "translation": "Beim hochladen einer Torrentdatei werden einige Felder automatisch ausgefüllt (wird bevorzugt)."
+    "translation": "Beim Hochladen einer Torrentdatei werden einige Felder automatisch ausgefüllt (empfohlen)."
   },
   {
     "id": "magnet_link",
-    "translation": "Magnet Link"
+    "translation": "Magnet-Link"
   },
   {
     "id": "all_categories",
@@ -509,7 +509,7 @@
   },
   {
     "id": "submit_a_comment_as_anonymous",
-    "translation": "anonymen Kommentar verfassen"
+    "translation": "Anonymen Kommentar verfassen"
   },
   {
     "id": "submit",
@@ -561,7 +561,7 @@
   },
   {
     "id": "delete_account_confirm",
-    "translation": "Bist du sicher das du dein Profil löschen möchtest?"
+    "translation": "Bist du sicher, dass du dein Profil löschen möchtest?"
   },
   {
     "id": "delete_success",
@@ -571,13 +571,21 @@
     "id": "moderation",
     "translation": "Moderation"
   },
+   {
+    "id": "who_is_renchon",
+    "translation": "Wer zum Teufel ist れんちょん?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "Der Benutzername れんちょん (Ren-chon) wird Uploads und Kommentaren zugewiesen, die anonym hochgeladen beziehungsweise verfasst wurden. Außerdem ist er bei Torrents zu finden, die von nyaa importiert wurden, wobei gegebenenfalls auch der Benutzername des originalen Uploaders daneben angezeigt wird."
+  },
   {
     "id": "mark_as_remake",
     "translation": "Als Remake markieren"
   },
   {
     "id": "email_changed",
-    "translation": "E-Mail erfolgreich geändert! Bitte bestätige die Änderung mit dem Bestätigungs-Link (an %s gesendet)"
+    "translation": "E-Mail-Adresse erfolgreich geändert! Bitte bestätige die Änderung mit dem Bestätigungs-Link, der an %s gesendet wurde."
   },
   {
     "id": "torrent_status",
@@ -609,7 +617,7 @@
   },
   {
     "id": "completed",
-    "translation": "Komplett"
+    "translation": "Abgeschlossen"
   },
   {
     "id": "change_language",
@@ -629,7 +637,7 @@
   },
   {
     "id": "download_btn",
-    "translation": "Downloaden!"
+    "translation": "Download!"
   },
   {
     "id": "report_btn",
@@ -645,7 +653,7 @@
   },
   {
     "id": "report_type",
-    "translation": "Meldungsgrund"
+    "translation": "Grund"
   },
   {
     "id": "illegal_content",
@@ -662,5 +670,17 @@
   {
     "id": "duplicate_deprecated",
     "translation": "Duplikat / Veraltet"
+  },
+  {
+    "id": "captcha",
+    "translation": "Captcha"
+  },
+  {
+    "id": "file_name",
+    "translation": "Dateiname"
+  },
+  {
+    "id": "cancel",
+    "translation": "Abbrechen"
   }
 ]
