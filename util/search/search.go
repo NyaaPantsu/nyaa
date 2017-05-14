@@ -87,7 +87,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 		}
 		search.Category.Main = uint8(tmp)
 
-		if len(s) > 2 {
+		if len(s) > 2 && len(s) < 5 {
 			tmp, err = strconv.ParseUint(s[2:], 10, 8)
 			if err != nil {
 				return
