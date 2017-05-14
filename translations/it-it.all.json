@@ -634,5 +634,61 @@
   {
     "id": "language_name",
     "translation": "Italiano"
+  },
+  {
+    "id": "delete",
+    "translation": "Cancella"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "Caricato da"
+  },
+  {
+    "id": "download_btn",
+    "translation": "Download!"
+  },
+  {
+    "id": "report_btn",
+    "translation": "Segnala"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "Sei sicuro?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "Segnala Torrent #%s"
+  },
+  {
+    "id": "report_type",
+    "translation": "Tipo di segnalazione"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "Materiale Illegale"
+  },
+  {/re
+    "id": "spam_garbage",
+    "translation": "Spam / Spazzatura"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "Categoria Errata"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "Duplicato / Deprecato"
+  },
+  {
+    "id": "captcha",
+    "translation": "Captcha"
+  },
+  {
+    "id": "file_name",
+    "translation": "Filename"
+  },
+  {
+    "id": "cancel",
+    "translation": "Annulla"
   }
 ]
