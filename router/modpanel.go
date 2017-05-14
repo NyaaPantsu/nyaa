@@ -110,7 +110,9 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 		torrentReports, _, _ := reportService.GetAllTorrentReports(offset, 0)
 
 		languages.SetTranslationFromRequest(panelIndex, r, "en-us")
-		htv := PanelIndexVbs{torrents, model.TorrentReportsToJSON(torrentReports), users, comments, NewSearchForm(), currentUser, r.URL}
+		search := NewSearchForm()
+		search.ShowItemsPerPage = false
+		htv := PanelIndexVbs{torrents, model.TorrentReportsToJSON(torrentReports), users, comments, search, currentUser, r.URL}
 		err := panelIndex.ExecuteTemplate(w, "admin_index.html", htv)
 		log.CheckError(err)
 	} else {
