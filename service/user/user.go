@@ -17,6 +17,17 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+func NewCurrentUserRetriever() *CurrentUserRetriever {
+	return &CurrentUserRetriever{}
+}
+
+type CurrentUserRetriever struct{}
+
+func (*CurrentUserRetriever) RetrieveCurrentUser(r *http.Request) (model.User, error) {
+	user, _, err := RetrieveCurrentUser(r)
+	return user, err
+}
+
 // SuggestUsername suggest user's name if user's name already occupied.
 func SuggestUsername(username string) string {
 	var count int
@@ -104,7 +115,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) (int, error) {
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
-	if (registrationForm.Email != "") {
+	if registrationForm.Email != "" {
 		SendVerificationToUser(user, registrationForm.Email)
 	}
 	status, err = RegisterHandler(w, r)
@@ -185,7 +196,7 @@ func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, currentUser *m
 		form.Status = user.Status
 		form.Username = user.Username
 	}
-	if (form.Email != user.Email) {
+	if form.Email != user.Email {
 		// send verification to new email and keep old
 		SendVerificationToUser(user, form.Email)
 		form.Email = user.Email
@@ -202,7 +213,7 @@ func DeleteUser(w http.ResponseWriter, currentUser *model.User, id string) (int,
 	if db.ORM.First(&user, id).RecordNotFound() {
 		return http.StatusNotFound, errors.New("user not found")
 	}
-	if (user.ID == 0) {
+	if user.ID == 0 {
 		return http.StatusInternalServerError, errors.New("You can't delete that!")
 	}
 	if db.ORM.Delete(&user).Error != nil {

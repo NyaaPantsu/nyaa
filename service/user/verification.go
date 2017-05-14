@@ -11,16 +11,16 @@ import (
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util/email"
+	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/timeHelper"
 	"github.com/gorilla/securecookie"
-	"github.com/nicksnyder/go-i18n/i18n"
 )
 
 var verificationHandler = securecookie.New(config.EmailTokenHashKey, nil)
 
 // SendEmailVerfication sends an email verification token via email.
-func SendEmailVerification(to string, token string, locale string) error {
-	T, err := i18n.Tfunc(locale)
+func SendEmailVerification(to string, token string) error {
+	T, err := languages.GetDefaultTfunc()
 	if err != nil {
 		return err
 	}
@@ -41,7 +41,7 @@ func SendVerificationToUser(user model.User, newEmail string) (int, error) {
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
-	err = SendEmailVerification(newEmail, encoded, "en-us")
+	err = SendEmailVerification(newEmail, encoded)
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
