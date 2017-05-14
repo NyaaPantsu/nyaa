@@ -87,8 +87,8 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 		}
 		search.Category.Main = uint8(tmp)
 
-		if len(s) == 3 {
-			tmp, err = strconv.ParseUint(string(s[2]), 10, 8)
+		if len(s) > 2 && len(s) < 5 {
+			tmp, err = strconv.ParseUint(s[2:], 10, 8)
 			if err != nil {
 				return
 			}
@@ -151,7 +151,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 
 	if search.Category.Main != 0 {
 		conditions = append(conditions, "category = ?")
-		parameters.Params = append(parameters.Params, string(catString[0]))
+		parameters.Params = append(parameters.Params, search.Category.Main)
 	}
 	if search.UserID != 0 {
 		conditions = append(conditions, "uploader = ?")
@@ -159,7 +159,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	}
 	if search.Category.Sub != 0 {
 		conditions = append(conditions, "sub_category = ?")
-		parameters.Params = append(parameters.Params, string(catString[2]))
+		parameters.Params = append(parameters.Params, search.Category.Sub)
 	}
 	if search.Status != 0 {
 		if search.Status == common.FilterRemakes {

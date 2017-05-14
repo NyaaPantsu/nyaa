@@ -5,7 +5,7 @@ type WhereParams struct {
 	Params     []interface{}
 }
 
-func CreateWhereParams(conditions string, params ...string) WhereParams {
+func CreateWhereParams(conditions string, params ...interface{}) WhereParams {
 	whereParams := WhereParams{
 		Conditions: conditions,
 		Params:     make([]interface{}, len(params)),
