@@ -17,130 +17,130 @@
   },
   {
     "id": "reset_password_content",
-    "translation": "Нажмите ссылку ниже, чтобы восстановить пароль."
+    "translation": "Нажмите на ссылку ниже, чтобы восстановить пароль."
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "Создание нового аккаунта"
   },
   {
-    "id":"signup_box_title",
+    "id": "signup_box_title",
     "translation": "Пожалуйста, зарегистрируйтесь <small>Это бесплатно и всегда будет.</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "Имя пользователя"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "Email адрес или Имя пользователя"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "Email адрес"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "Пароль"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "Подтвердите пароль"
   },
   {
-    "id":"i_agree",
+    "id": "i_agree",
     "translation": "Я согласен"
   },
   {
-    "id":"terms_conditions_confirm",
+    "id": "terms_conditions_confirm",
     "translation": "Нажимая <strong class=\"label label-primary\">Регистрация</strong>, вы соглашаетесь с <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Правилами и условиями</a>, указанными на этом сайте, включая использование файлов Cookie."
   },
   {
-    "id":"signin",
+    "id": "signin",
     "translation": "Войти"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "Регистрация"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "Правила и условия"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "Некоторое дерьмо."
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "Запомнить меня"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "Забыли пароль?"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "Пожалуйста войдите"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "Вход"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "Успешная регистрация"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "Благодарим за регистрацию!"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Теперь ваш аккаунт активирован!"
   },
   {
-    "id":"signup_verification_email",
-    "translation": "Теперь, в качестве последнего шага регистрации, проверьте свой почтовый ящик (или папку спам) и нажмите ссылку для активации вашего аккаунта!"
+    "id": "signup_verification_email",
+    "translation": "Подтверждение Email адреса в данный момент не работает, так что вы можете использовать свой аккаунт уже сейчас. В будущем, пожалуйста, проверьте свои входящие (или папку спам) на письмо с подтверждение Email адреса."
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "Регистрация прошла успешно, теперь вы можете использовать свой аккаунт."
   },
   {
-    "id":"settings",
+    "id": "settings",
     "translation": "Настройки аккаунта"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "Торренты"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "Следить"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "Отписаться"
   },
   {
-    "id":"user_followed_msg",
+    "id": "user_followed_msg",
     "translation": "Вы отслеживаете %s!"
   },
   {
-    "id":"user_unfollowed_msg",
+    "id": "user_unfollowed_msg",
     "translation": "Вы отписаны от %s!"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "Страница профиля %s"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "Смотреть другие торренты %s "
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "Категория"
   },
   {
@@ -273,7 +273,7 @@
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Однако, Sukebei не в лучшей форме. В настоящее время у нас есть только сукебские базы данных до 2016 года, но более новая база данных может быть доступна для использования."
+    "translation": "Sukebei тоже в безопасности и почти ничего не потеряно."
   },
   {
     "id": "how_are_we_recovering",
@@ -281,7 +281,15 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "Вышеупомянутые базы данных размещаются на сайтах nyaa.pantsu.cat и sukebei.pantsu.cat. Существует функция поиска, и (почти) полная функциональность nyaa должна появиться в ближайшее время. Статистика Раздающих/Скачавших возможна с помощью скраппинга и может быть восстановлена в будущем, так как сейчас у нас в большем приоритете другие функции."
+    "translation": "Вышеупомянутые базы данных размещаются на сайтах nyaa.pantsu.cat и sukebei.pantsu.cat. Существует функция поиска, и (почти) полная функциональность nyaa должна появиться в ближайшее время."
+  },
+  {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "Как мне привязать свои старые загрузки к моему новому аккаунту?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "Зайдите на <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> и попросите модератора мигрировать ваши старые торренты, упомянув свои старое и новое имена пользователя."
   },
   {
     "id": "are_the_trackers_working",
@@ -312,8 +320,12 @@
     "translation": "Если ваша торрент-загрузка запрещена из-за трекеров, вам нужно добавить некоторые из них:"
   },
   {
+    "id": "other_trackers",
+    "translation": "Но тебе стоит еще добавить эти, просто на случай, если что-то пойдет не так"
+  },
+  {
     "id": "how_can_i_help",
-    "translation": "Чем могу помочь?"
+    "translation": "Как я могу помочь?"
   },
   {
     "id": "answer_how_can_i_help",
@@ -350,6 +362,10 @@
   {
     "id": "all_categories",
     "translation": "Все категории"
+  },
+  {
+    "id": "select_a_torrent_category",
+    "translation": "Выберите категорию"
   },
   {
     "id": "anime",
@@ -540,6 +556,10 @@
     "translation": "Модератор"
   },
   {
+    "id": "api_token",
+    "translation": "API Токен"
+  },
+  {
     "id": "save_changes",
     "translation": "Сохранить изменения"
   },
@@ -600,7 +620,7 @@
     "translation": "Изменение профиля %s's"
   },
   {
-    "id":"date_format",
+    "id": "date_format",
     "translation": "2006-01-02 15:04"
   },
   {
@@ -616,7 +636,67 @@
     "translation": "Скачавшие"
   },
   {
+    "id": "change_language",
+    "translation": "Выбор языка"
+  },
+  {
     "id": "language_name",
     "translation": "Русский"
+  },
+  {
+    "id": "delete",
+    "translation": "Удалить"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "Загрузил"
+  },
+  {
+    "id": "download_btn",
+    "translation": "Загрузить!"
+  },
+  {
+    "id": "report_btn",
+    "translation": "Пожаловаться"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "Вы уверены?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "Пожаловаться на торрент #%s"
+  },
+  {
+    "id": "report_type",
+    "translation": "Тип жалобы"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "Запрещенный контент"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "Спам / Мусор"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "Неправильная категория"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "Повтор / Устаревшее"
+  },
+  {
+    "id": "captcha",
+    "translation": "Капча"
+  },
+  {
+    "id": "file_name",
+    "translation": "Имя файла"
+  },
+  {
+    "id": "cancel",
+    "translation": "Отменить"
   }
 ]
