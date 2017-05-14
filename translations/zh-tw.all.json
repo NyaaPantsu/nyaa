@@ -13,15 +13,15 @@
   },
   {
     "id": "reset_password_title",
-    "translation": "喵 重置密碼"
+    "translation": "喵 重設密碼"
   },
   {
     "id": "reset_password_content",
-    "translation": "請按下面連結重置密碼"
+    "translation": "請按下面連結重設密碼"
   },
   {
     "id":"register_title",
-    "translation": "創建新帳號"
+    "translation": "建立新帳號"
   },
   {
     "id":"signup_box_title",
@@ -161,7 +161,7 @@
   },
   {
     "id": "home",
-    "translation": "主頁"
+    "translation": "首頁"
   },
   {
     "id": "error_404",
@@ -169,7 +169,7 @@
   },
   {
     "id": "toggle_navigation",
-    "translation": "切換導引列"
+    "translation": "切換導覽列"
   },
   {
     "id": "upload",
@@ -177,11 +177,11 @@
   },
   {
     "id": "faq",
-    "translation": "有問有答"
+    "translation": "常見問題"
   },
   {
     "id": "fap",
-    "translation": "不尻嗎"
+    "translation": "尻尻"
   },
   {
     "id": "advanced_search",
@@ -221,7 +221,7 @@
   },
   {
     "id": "no_results_found",
-    "translation": "沒有結果喔"
+    "translation": "找不到結果"
   },
   {
     "id": "notice_keep_seeding",
@@ -249,7 +249,7 @@
   },
   {
     "id": "future_not_looking_good",
-    "translation": "nyaa 的未來並不明朗（她真的離開了）"
+    "translation": "nyaa 的未來並不樂觀（她真的離開了）"
   },
   {
     "id": "recovery_effort",
@@ -265,15 +265,15 @@
   },
   {
     "id": "are_some_things_lost",
-    "translation": "那有一部分的東西消失了嗎？"
+    "translation": "那有東西消失了嗎？"
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "我們有 nyaa 種子資料庫直到 <s>4月5日</s> 5月1日，這表示幾乎沒失去任何東西"
+    "translation": "我們有直到 <s>4月5日</s> 5月1日的 nyaa 種子資料庫，這表示幾乎沒失去任何東西"
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "然而 sukebei 的命運比較坎坷。目前資料庫只有備份到 2016年，但也許有個新的日期版本可供使用"
+    "translation": "sukebei 還活著，也幾乎沒有雷到。然而 sukebei 的命運比較坎坷。目前資料庫只有備份到 2016年，但也許有個新的日期版本可供使用"
   },
   {
     "id": "how_are_we_recovering",
@@ -309,7 +309,11 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "如果您上傳種子遭到拒絕，原因是 tracker 不符要求，那有可能需要加上這其中幾個 tracker："
+    "translation": "我們現在有自己的 Tracker 啦！如果您上傳種子遭到拒絕，原因是 tracker 不符要求，那有可能需要加上這其中幾個 tracker："
+  },
+  {
+    "id": "other_trackers",
+    "translation": "不過你最好再加上這些，免得雷到。"
   },
   {
     "id": "how_can_i_help",
@@ -325,11 +329,11 @@
   },
   {
     "id": "why_written_in_go",
-    "translation": "爲啥要用 GO 寫啊？沒其他更好的程式語言？"
+    "translation": "你的狗屎爛蛋為什麼用Go寫？"
   },
   {
     "id": "authors_favorite_language",
-    "translation": "這是作者的愛啊啊啊啊"
+    "translation": "作者尬意"
   },
   {
     "id": "upload_magnet",
@@ -449,7 +453,7 @@
   },
   {
     "id": "description_markdown_notice",
-    "translation": "描述可使用 Markdown"
+    "translation": "描述可使用 Markdown 語法"
   },
   {
     "id": "show_all",
@@ -569,7 +573,7 @@
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん是匿名評論與上傳者的默認用戶名，同時也顯示為Nyaa站原始資源的上傳者."
+    "translation": "れんちょん是匿名評論與上傳者的默認用戶名，同時也顯示為Nyaa站原始資源的上傳者。"
   },
   {
     "id": "mark_as_remake",
@@ -577,7 +581,7 @@
   },
   {
     "id": "email_changed",
-    "translation": "郵箱更變成功，一封確認郵件已發送到 %s ，請點擊裏面的確認連結來完成修改！"
+    "translation": "電子郵件變更成功，已發送確認郵件到 %s ，請按下裡面的確認連結來完成修改！"
   },
   {
     "id": "torrent_status",
@@ -617,7 +621,7 @@
   },
   {
     "id": "change_language",
-    "translation": "更變語言"
+    "translation": "變更語言"
   },
   {
     "id": "language_name",
