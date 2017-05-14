@@ -269,11 +269,11 @@
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "Abbiamo un database dei torrent di nyaa fino al <s>5 Aprile</s> 1° Maggio. Questo vuol dire che quasi niente è andato perduto."
+    "translation": "Abbiamo un database dei torrent di nyaa fino al <s>5 Aprile</s> 1° Maggio. Questo vuol dire che quasi niente è andato perso."
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Anche sukebei è al sicuro, e quasi nulla è andato perso."
+    "translation": "Anche sukebei è al sicuro, e anche qui quasi nulla è andato perso."
   },
   {
     "id": "how_are_we_recovering",
@@ -329,7 +329,7 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "Se hai esperienza nel web design, vieni sul canale IRC #nyaapantsu su irc.rizon.net. Se hai dei database aggiornati, specialmente per sukebei,per favore caricali."
+    "translation": "Se hai esperienza nel web design, vieni sul canale IRC #nyaapantsu su irc.rizon.net. Se hai dei database aggiornati, specialmente per sukebei, per favore caricali."
   },
   {
     "id": "your_design_sucks_found_a_bug",
@@ -365,7 +365,7 @@
   },
   {
     "id": "select_a_torrent_category",
-    "translation": "Seleziona una Categoria Torrent"
+    "translation": "Seleziona una Categoria"
   },
   {
     "id": "anime",
@@ -593,7 +593,7 @@
 },
   {
     "id": "email_changed",
-    "translation": "Email cambiata con successo! Dovrai, tuttavia, per confermare cliccare il link mandato a: %s"
+    "translation": "Email cambiata con successo! Tuttavia per confermare dovrai cliccare il link inviato a: %s"
   },
   {
     "id": "torrent_status",
