@@ -47,13 +47,13 @@ var FuncMap = template.FuncMap{
 				order = false //Default to descending when sorting by something new
 			}
 		}
-		currentUrl.Path = "/search"
 		values.Set("sort", sortBy)
 		values.Set("order", strconv.FormatBool(order))
 
-		currentUrl.RawQuery = values.Encode()
+		url, _ := Router.Get("search").URL()
+		url.RawQuery = values.Encode()
 
-		return template.URL(currentUrl.String())
+		return template.URL(url.String())
 	},
 	"genNav": func(nav Navigation, currentUrl *url.URL, pagesSelectable int) template.HTML {
 		var ret = ""
