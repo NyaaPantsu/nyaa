@@ -124,22 +124,29 @@ func (fetcher *MetainfoFetcher) gotResult(r Result) {
 	} else if r.info.TotalLength() == 0 {
 		log.Infof("Got length 0 for torrent TID: %d. Possible bug?", r.operation.torrent.ID)
 	} else {
-		log.Infof("Got length %d for torrent TID: %d. Updating.", r.info.TotalLength(), r.operation.torrent.ID)
-		r.operation.torrent.Filesize = r.info.TotalLength()
-		_, err := torrentService.UpdateTorrent(r.operation.torrent)
-		if err != nil {
-			log.Infof("Failed to update torrent TID: %d with new filesize", r.operation.torrent.ID)
-		} else {
-			updatedSuccessfully = true
-		}
+		lengthOK := true
 
-		// Create the file list, if it's missing.
-		if len(r.operation.torrent.FileList) == 0 {
-			err = updateFileList(r.operation.torrent, r.info)
+		if r.operation.torrent.Filesize != r.info.TotalLength() {
+			log.Infof("Got length %d for torrent TID: %d. Updating.", r.info.TotalLength(), r.operation.torrent.ID)
+			r.operation.torrent.Filesize = r.info.TotalLength()
+			_, err := torrentService.UpdateTorrent(r.operation.torrent)
 			if err != nil {
-				log.Infof("Failed to update file list of TID %d", r.operation.torrent.ID)
+				log.Infof("Failed to update torrent TID: %d with new filesize", r.operation.torrent.ID)
+				lengthOK = false
 			}
 		}
+
+		filelistOK := true
+		// Create the file list, if it's missing.
+		if len(r.operation.torrent.FileList) == 0 {
+			err := updateFileList(r.operation.torrent, r.info)
+			if err != nil {
+				log.Infof("Failed to update file list of TID %d", r.operation.torrent.ID)
+				filelistOK = false
+			}
+		}
+
+		updatedSuccessfully = lengthOK && filelistOK
 	}
 
 	if !updatedSuccessfully {
