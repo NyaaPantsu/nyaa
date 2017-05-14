@@ -44,6 +44,7 @@ type Torrent struct {
 	Leechers   uint32    `gorm:"column:leechers"`
 	Completed  uint32    `gorm:"column:completed"`
 	LastScrape time.Time `gorm:"column:last_scrape"`
+	FileList   []File    `gorm:"ForeignKey:torrent_id"`
 }
 
 // Returns the total size of memory recursively allocated for this struct
@@ -88,6 +89,11 @@ type CommentJSON struct {
 	Date     time.Time     `json:"date"`
 }
 
+type FileJSON struct {
+	Path  string `json:"path"`
+	Length int64 `json:"length"`
+}
+
 type TorrentJSON struct {
 	ID           string        `json:"id"`
 	Name         string        `json:"name"`
@@ -110,6 +116,7 @@ type TorrentJSON struct {
 	Leechers     uint32        `json:"leechers"`
 	Completed    uint32        `json:"completed"`
 	LastScrape   time.Time     `json:"last_scrape"`
+	FileList     []File        `json:"file_list"`
 }
 
 // ToJSON converts a model.Torrent to its equivalent JSON structure
@@ -155,6 +162,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Seeders:      t.Seeders,
 		Completed:    t.Completed,
 		LastScrape:   t.LastScrape,
+		FileList:     t.FileList,
 	}
 
 	return res

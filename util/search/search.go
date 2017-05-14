@@ -18,15 +18,29 @@ import (
 )
 
 var searchOperator string
+var useTSQuery bool
 
 func Configure(conf *config.SearchConfig) (err error) {
-	// SQLite has case-insensitive LIKE, but no ILIKE
-	if db.ORM.Dialect().GetName() == "sqlite3" {
-		searchOperator = "LIKE ?"
-	} else {
+	useTSQuery = false
+	// Postgres needs ILIKE for case-insensitivity
+	if db.ORM.Dialect().GetName() == "postgres" {
 		searchOperator = "ILIKE ?"
+		//useTSQuery = true
+		// !!DISABLED!! because this makes search a lot stricter
+		// (only matches at word borders)
+	} else {
+		searchOperator = "LIKE ?"
 	}
 	return
+}
+
+func stringIsAscii(input string) bool {
+	for _, char := range input {
+		if char > 127 {
+			return false
+		}
+	}
+	return true
 }
 
 func SearchByQuery(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
@@ -73,8 +87,8 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 		}
 		search.Category.Main = uint8(tmp)
 
-		if len(s) == 3 {
-			tmp, err = strconv.ParseUint(string(s[2]), 10, 8)
+		if len(s) > 2 && len(s) < 5 {
+			tmp, err = strconv.ParseUint(s[2:], 10, 8)
 			if err != nil {
 				return
 			}
@@ -137,7 +151,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 
 	if search.Category.Main != 0 {
 		conditions = append(conditions, "category = ?")
-		parameters.Params = append(parameters.Params, string(catString[0]))
+		parameters.Params = append(parameters.Params, search.Category.Main)
 	}
 	if search.UserID != 0 {
 		conditions = append(conditions, "uploader = ?")
@@ -145,7 +159,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	}
 	if search.Category.Sub != 0 {
 		conditions = append(conditions, "sub_category = ?")
-		parameters.Params = append(parameters.Params, string(catString[2]))
+		parameters.Params = append(parameters.Params, search.Category.Sub)
 	}
 	if search.Status != 0 {
 		if search.Status == common.FilterRemakes {
@@ -164,7 +178,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	}
 
 	searchQuerySplit := strings.Fields(search.Query)
-	for i, word := range searchQuerySplit {
+	for _, word := range searchQuerySplit {
 		firstRune, _ := utf8.DecodeRuneInString(word)
 		if len(word) == 1 && unicode.IsPunct(firstRune) {
 			// some queries have a single punctuation character
@@ -175,9 +189,14 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 			continue
 		}
 
-		// TODO: make this faster ?
-		conditions = append(conditions, "torrent_name "+searchOperator)
-		parameters.Params = append(parameters.Params, "%"+searchQuerySplit[i]+"%")
+		if useTSQuery && stringIsAscii(word) {
+			conditions = append(conditions, "torrent_name @@ plainto_tsquery(?)")
+			parameters.Params = append(parameters.Params, word)
+		} else {
+			// TODO: possible to make this faster?
+			conditions = append(conditions, "torrent_name "+searchOperator)
+			parameters.Params = append(parameters.Params, "%"+word+"%")
+		}
 	}
 
 	parameters.Conditions = strings.Join(conditions[:], " AND ")

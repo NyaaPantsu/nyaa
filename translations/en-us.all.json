@@ -225,7 +225,7 @@
   },
   {
     "id": "notice_keep_seeding",
-    "translation": "NOTICE: KEEP SEEDING AND ENABLE DHT YOU RETARD"
+    "translation": "NOTICE: KEEP SEEDING AND ENABLE DHT YOU GIT"
   },
   {
     "id": "official_nyaapocalipse_faq",
@@ -249,7 +249,7 @@
   },
   {
     "id": "future_not_looking_good",
-    "translation": "Future prospects for nyaa are not looking good. (It's dead)"
+    "translation": "Future prospects for nyaa are not looking good. (It's dead, Jim)"
   },
   {
     "id": "recovery_effort",
@@ -273,7 +273,7 @@
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Sukebei, however might be in worse shape. Currently we only have sukebei databases up to 2016, but a newer database might be available for use."
+    "translation": "Sukebei is safe too, and almost nothing is lost either."
   },
   {
     "id": "how_are_we_recovering",
@@ -281,7 +281,15 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "The aforementioned databases are being hosted at nyaa.pantsu.cat and sukebei.pantsu.cat. There is a search function, and (almost) full nyaa functionality should be coming soon. Seeder/leecher statistics are possible via scraping and might be restored sometime in the future, since other feature take priority right now."
+    "translation": "The aforementioned databases are being hosted at nyaa.pantsu.cat and sukebei.pantsu.cat. There is a search function, and (almost) full nyaa functionality should be coming soon."
+  },
+  {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "How do I link my old uploads back to my new account?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "Join <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> and ask a moderator to migrate your old torrents while mentioning your old and new usernames."
   },
   {
     "id": "are_the_trackers_working",
@@ -309,7 +317,11 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "If your torrent upload is denied because of trackers you'll need to add some of these:"
+    "translation": "We now have our own Tracker!, add it to the top of the list before uploading:"
+  },
+  {
+    "id": "other_trackers",
+    "translation": "But you should also add these, just in case something goes wrong"
   },
   {
     "id": "how_can_i_help",
@@ -317,7 +329,7 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "If you have website development expertise, you can join the #nyaapantsu IRC channel on irc.rizon.net. If you have any current databases, especially for sukebei, <b>UPLOAD THEM</b>."
+    "translation": "If you have website development expertise, you can join the #nyaapantsu IRC channel on irc.rizon.net. If you have any current databases, especially for sukebei, please upload them."
   },
   {
     "id": "your_design_sucks_found_a_bug",
@@ -341,7 +353,7 @@
   },
   {
     "id": "uploading_file_prefills_fields",
-    "translation": "Uploading a torrent file allows pre-filling some fields, this is recommended."
+    "translation": "Uploading a torrent file allows pre-filling some fields. This is recommended."
   },
   {
     "id": "magnet_link",
@@ -350,6 +362,10 @@
   {
     "id": "all_categories",
     "translation": "All categories"
+  },
+  {
+    "id": "select_a_torrent_category",
+    "translation": "Select a Torrent Category"
   },
   {
     "id": "anime",
@@ -540,6 +556,10 @@
     "translation": "Moderator"
   },
   {
+    "id":" api_token",
+    "translation": "API Token"
+  },
+  {
     "id": "save_changes",
     "translation": "Save Changes"
   },
@@ -569,7 +589,7 @@
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん is the username assigned to uploads and comments made anonymously. It is also used for torrent imported from the original nyaa, though the original uploader may be displayed alongside."
+    "translation": "れんちょん (Ren-chon) is the username assigned to uploads and comments made anonymously. It is also used for torrents imported from the original nyaa, though sometimes the original uploader can be displayed alongside."
   },
   {
     "id": "mark_as_remake",
@@ -614,5 +634,17 @@
   {
     "id": "completed",
     "translation": "Completed"
+  },
+  {
+    "id": "change_language",
+    "translation": "Change Language"
+  },
+  {
+    "id": "language_name",
+    "translation": "English"
+  },
+  {
+    "id": "delete",
+    "translation": "Delete"
   }
 ]

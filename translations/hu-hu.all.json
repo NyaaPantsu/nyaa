@@ -229,7 +229,7 @@
   },
   {
     "id": "nyaa_se_went_offline",
-    "translation": "nyaa.se és a vele kapcsolatos domain-ek (pl. nyaatorrents.info) elérhetetlenné vált 2017. Május 1-én."
+    "translation": "nyaa.se és a vele kapcsolatos domain-ek (pl. nyaatorrents.info) elérhetetlenné váltak 2017. május 1-én."
   },
   {
     "id": "its_not_a_ddos",
@@ -546,5 +546,69 @@
   {
     "id": "delete_success",
     "translation": "A fiók törlésre került."
+  },
+  {
+    "id": "moderation",
+    "translation": "Moderáció"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "Ki a fasz az a れんちょん?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "れんちょん nevet az kapja, aki névtelenül ír kommentet vagy tölt fel valamit. Ezt a nevet kapják az eredeti nyaa-ról átimportált torrentek is, viszont az eredeti feltöltő neve megjelenhet mellette."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Remake-ként jelölés"
+  },
+  {
+    "id": "email_changed",
+    "translation": "Az email megváltoztatása sikeres volt, viszont még meg kell erősítened a(z) %s címre küldött linkkel."
+  },
+  {
+    "id": "torrent_status",
+    "translation": "Torrent állapota"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "Eltüntetett"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "Normál"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "Remake"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "%s profiljának szerkesztése."
+  },
+  {
+    "id":"date_format",
+    "translation": "2006-01-02 15:04"
+  },
+  {
+    "id": "seeders",
+    "translation": "Seederek"
+  },
+  {
+    "id": "leechers",
+    "translation": "Leecherek"
+  },
+  {
+    "id": "completed",
+    "translation": "Befejezett"
+  },
+  {
+    "id": "change_language",
+    "translation": "Nyelv megváltoztatása"
+  },
+  {
+    "id": "language_name",
+    "translation": "Magyar"
   }
 ]

@@ -6,12 +6,18 @@
 The aim of this project is to write a fully featured nyaa replacement in golang
 that anyone will be able to deploy locally or remotely.
 
+## [Roadmap](https://trello.com/b/gMJBwoRq/nyaa-pantsu-cat-roadmap)
+The Roadmap will give you an overview of the features and tasks that the project are currently discussing, working on and have completed.
+If you are looking for a feature that is not listed just make a GitHub Issue and it will get added to the trello board.
+
+You can view the public trello board [here](https://trello.com/b/gMJBwoRq/nyaa-pantsu-cat-roadmap) or click on the "Roadmap".
+
 # Requirements
 * Golang
 
 # Installation
 Ubuntu 17.04 fails to build, use a different OS or docker
-* Install [Golang](https://golang.org/doc/install)
+* Install [Golang](https://golang.org/doc/install) (version >=1.8)
 * `go get github.com/ewhal/nyaa`
 * `go build`
 * Download DB and place it in your root folder named as "nyaa.db"

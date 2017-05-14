@@ -101,16 +101,16 @@ func init() {
 	Router.HandleFunc("/mod/torrent/delete", TorrentDeleteModPanel).Name("mod_tdelete")
 	Router.HandleFunc("/mod/report/delete", TorrentReportDeleteModPanel).Name("mod_trdelete")
 	Router.HandleFunc("/mod/comment/delete", CommentDeleteModPanel).Name("mod_cdelete")
+	Router.HandleFunc("/mod/reassign", TorrentReassignModPanel).Name("mod_treassign").Methods("GET")
+	Router.HandleFunc("/mod/reassign", TorrentPostReassignModPanel).Name("mod_treassign").Methods("POST")
 
 	//reporting a torrent
 	Router.HandleFunc("/report/{id}", ReportTorrentHandler).Methods("POST").Name("post_comment")
 
 	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
 
-	//Router.HandleFunc("/report/create", gzipTorrentReportCreateHandler).Name("torrent_report_create").Methods("POST")
-	// TODO Allow only moderators to access /moderation/*
-	//Router.HandleFunc("/moderation/report/delete", gzipTorrentReportDeleteHandler).Name("torrent_report_delete").Methods("POST")
-	//Router.HandleFunc("/moderation/torrent/delete", gzipTorrentDeleteHandler).Name("torrent_delete").Methods("POST")
+	Router.HandleFunc("/language", SeeLanguagesHandler).Methods("GET").Name("see_languages")
+	Router.HandleFunc("/language", ChangeLanguageHandler).Methods("POST").Name("change_language")
 
 	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
 }
