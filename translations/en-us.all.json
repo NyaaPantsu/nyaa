@@ -657,7 +657,7 @@
   },
   {
     "id": "report_btn",
-    "translation": "Report!"
+    "translation": "Report"
   },
   {
     "id": "are_you_sure",
@@ -665,7 +665,7 @@
   },
   {
     "id": "report_torrent_number",
-    "translation": "Report Torrent #"
+    "translation": "Report Torrent #%s"
   },
   {
     "id": "report_type",
