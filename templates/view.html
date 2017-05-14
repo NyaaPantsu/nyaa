@@ -143,7 +143,7 @@
                     <textarea name="comment" class="form-control" rows="5"></textarea>
                 </div>
                 {{block "captcha" .}}{{end}}
-                <button type="submit" class="btn btn-success">{{T " submit "}}</button>
+                <button type="submit" class="btn btn-success">{{T "submit" }}</button>
             </form>
         </div>
     </div>
@@ -155,7 +155,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{ T "report_torrent_number" (print .Torrent.ID) }}</h4>
+                <h4 class="modal-title">{{ T "report_torrent_number" }}{{ .Torrent.ID }}</h4>
             </div>
             <div class="modal-body">
                 <b>{{ T "report_type" }}:</b>
