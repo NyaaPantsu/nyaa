@@ -634,5 +634,45 @@
   {
     "id": "delete",
     "translation": "删除"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "上传者"
+  },
+  {
+    "id": "download_btn",
+    "translation": "下载!"
+  },
+  {
+    "id": "report",
+    "translation": "举报!"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "真的要删除吗?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "举报种子 #"
+  },
+  {
+    "id": "report_type",
+    "translation": "举报理由"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "内容错误"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "病毒 / 垃圾数据"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "分类错误"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "资源重复 / 低质量"
   }
 ]
