@@ -25,7 +25,7 @@
   },
   {
     "id":"signup_box_title",
-    "translation": "登録 <small>ずっと無料です</small>"
+    "translation": "登録 <small>永遠無料です</small>"
   },
   {
     "id":"username",
@@ -53,7 +53,7 @@
   },
   {
     "id":"terms_conditions_confirm",
-    "translation": "<strong class=\"label label-primary\">登録</strong> をクリックすることにより、Cookie の使用を含む、本サイトの <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">利用規約</a> に同意したものとみなします。"
+    "translation": "<strong class=\"label label-primary\">登録</strong> をクリックすることにより、クッキーの使用を含む、本サイトの <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">利用規約</a> に同意したものとみなします。"
   },
   {
     "id":"signin",
@@ -225,7 +225,7 @@
   },
   {
     "id": "notice_keep_seeding",
-    "translation": "お願い: DHT 機能を有効にし、なるべくシードを継続してください"
+    "translation": "注目: DHT 機能を有効にし、なるべくシードを継続してください"
   },
   {
     "id": "official_nyaapocalipse_faq",
@@ -317,7 +317,7 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "ウェブ開発の経験があるのであれば、irc.rizon.net の #nyaapantsu IRC チャンネルに参加することができますよ。現在のデータベースがあるのなら、特に sukebei の方ですが、<b>ぜひともアップロードしていただきたいです。</b>"
+    "translation": "ウェブ開発の経験の件では、irc.rizon.net の #nyaapantsu IRC チャンネルに参加してください。現在のデータベースの件では、（特に sukebei）、<b>ぜひともアップロードしていただきたいです。</b>"
   },
   {
     "id": "your_design_sucks_found_a_bug",
