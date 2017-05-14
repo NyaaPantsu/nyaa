@@ -646,5 +646,45 @@
   {
     "id": "delete",
     "translation": "Delete"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "Uploaded by"
+  },
+  {
+    "id": "download_btn",
+    "translation": "Download!"
+  },
+  {
+    "id": "report",
+    "translation": "Report!"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "Are you sure?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "Report Torrent #"
+  },
+  {
+    "id": "report_type",
+    "translation": "Report type"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "Illegal content"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "Spam / Garbage"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "Wrong category"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "Duplicate / Deprecated"
   }
 ]
