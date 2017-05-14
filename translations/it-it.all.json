@@ -284,6 +284,14 @@
     "translation": "I database citati sono attualmente hostati su nyaa.pantsu.cat e sukebei.pantsu.cat. C'è una funzione di ricerca, e (quasi) tutte le altre dovrebbero arrivare presto. Le statistiche dei Seeder/leecher sono possibili attraverso scraping e potrebbero essere ripristinate in futuro, visto che altre funzionalità hanno la precedenza adesso."
   },
   {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "Come trasferisco i miei vecchi upload sul mio nuovo account?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "Collegati a <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> e chiedi ad un moderatore di migrare i tuoi vecchi torrent, menzionando il tuo vecchio e nuovo nome utente."
+  },
+  {
     "id": "are_the_trackers_working",
     "translation": "I torrent funzionano ancora?"
   },
