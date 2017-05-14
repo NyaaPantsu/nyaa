@@ -26,7 +26,7 @@ func (db *Database) getPrepared(name string) *sql.Stmt {
 }
 
 func (db *Database) Query(q string, param ...interface{}) (*sql.Rows, error) {
-	return db.conn.Query(q, param)
+	return db.conn.Query(q, param...)
 }
 
 func (db *Database) Init() (err error) {
@@ -57,7 +57,7 @@ func (db *Database) Init() (err error) {
 // execute prepared statement with arguments, visit result and autoclose rows after done visiting
 func (db *Database) queryWithPrepared(name string, visit func(*sql.Rows) error, params ...interface{}) (err error) {
 	var rows *sql.Rows
-	rows, err = db.getPrepared(name).Query(params)
+	rows, err = db.getPrepared(name).Query(params...)
 	if err == sql.ErrNoRows {
 		err = nil
 	} else if err == nil {
@@ -69,14 +69,14 @@ func (db *Database) queryWithPrepared(name string, visit func(*sql.Rows) error, 
 
 // execute prepared statement with arguments, visit single row
 func (db *Database) queryRowWithPrepared(name string, visit func(*sql.Row) error, params ...interface{}) (err error) {
-	err = visit(db.getPrepared(name).QueryRow(params))
+	err = visit(db.getPrepared(name).QueryRow(params...))
 	return
 }
 
 // execute a query by name and return how many rows were affected
 func (db *Database) execQuery(name string, p ...interface{}) (affected uint32, err error) {
 	var result sql.Result
-	result, err = db.getPrepared(name).Exec(p)
+	result, err = db.getPrepared(name).Exec(p...)
 	if err == nil {
 		var d int64
 		d, err = result.RowsAffected()
