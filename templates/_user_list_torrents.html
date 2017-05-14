@@ -10,8 +10,9 @@
             <th>{{T "size"}}</th>
             <th>{{T "links"}}</th>
           </tr>
-          {{ range .Torrents }}
-          {{ with .ToJSON }}
+          {{ range $i, $t := .Torrents }}
+          {{ if lt $i 16 }}
+          {{ with $t.ToJSON }}
           <tr class="torrent-info
               {{if eq .Status 2}}remake{{end}}
               {{if eq .Status 3}}trusted{{end}}
@@ -40,6 +41,7 @@
                   {{end}}
               </td>
           </tr>
+          {{end}}
           {{end}}
           {{end}}
       </table>

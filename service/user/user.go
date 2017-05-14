@@ -253,6 +253,19 @@ func RetrieveUserByUsername(username string) (*model.PublicUser, string, int, er
 	return &model.PublicUser{User: &user}, username, http.StatusOK, nil
 }
 
+func RetrieveOldUploadsByUsername(username string) ([]uint, error) {
+	var ret []uint
+	var tmp []*model.UserUploadsOld
+	err := db.ORM.Where("username = ?", username).Find(&tmp).Error
+	if err != nil {
+		return ret, err
+	}
+	for _, tmp2 := range tmp {
+		ret = append(ret, tmp2.TorrentId)
+	}
+	return ret, nil
+}
+
 // RetrieveUserForAdmin retrieves a user for an administrator.
 func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	var user model.User

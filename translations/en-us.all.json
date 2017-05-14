@@ -249,7 +249,7 @@
   },
   {
     "id": "future_not_looking_good",
-    "translation": "Future prospects for nyaa are not looking good. (It's dead)"
+    "translation": "Future prospects for nyaa are not looking good. (It's dead, Jim)"
   },
   {
     "id": "recovery_effort",
@@ -281,7 +281,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "The aforementioned databases are being hosted at nyaa.pantsu.cat and sukebei.pantsu.cat. There is a search function, and (almost) full nyaa functionality should be coming soon. Seeder/leecher statistics are possible via scraping and might be restored sometime in the future, since other feature take priority right now."
+    "translation": "The aforementioned databases are being hosted at nyaa.pantsu.cat and sukebei.pantsu.cat. There is a search function, and (almost) full nyaa functionality should be coming soon."
   },
   {
     "id": "are_the_trackers_working",
@@ -309,7 +309,11 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "If your torrent upload is denied because of trackers you'll need to add some of these:"
+    "translation": "We now have our own Tracker!, add it to the top of the list before uploading:"
+  },
+  {
+    "id": "other_trackers",
+    "translation": "But you should also add these, just in case something goes wrong"
   },
   {
     "id": "how_can_i_help",
@@ -341,7 +345,7 @@
   },
   {
     "id": "uploading_file_prefills_fields",
-    "translation": "Uploading a torrent file allows pre-filling some fields, this is recommended."
+    "translation": "Uploading a torrent file allows pre-filling some fields. This is recommended."
   },
   {
     "id": "magnet_link",
@@ -544,6 +548,10 @@
     "translation": "Moderator"
   },
   {
+    "id":" api_token",
+    "translation": "API Token"
+  },
+  {
     "id": "save_changes",
     "translation": "Save Changes"
   },
@@ -573,7 +581,7 @@
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん is the username assigned to uploads and comments made anonymously. It is also used for torrent imported from the original nyaa, though the original uploader may be displayed alongside."
+    "translation": "れんちょん (Ren-chon) is the username assigned to uploads and comments made anonymously. It is also used for torrents imported from the original nyaa, though sometimes the original uploader can be displayed alongside."
   },
   {
     "id": "mark_as_remake",
@@ -626,5 +634,9 @@
   {
     "id": "language_name",
     "translation": "English"
+  },
+  {
+    "id": "delete",
+    "translation": "Delete"
   }
 ]
