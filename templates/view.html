@@ -5,11 +5,11 @@
     {{with .Torrent}}
     <hr>
     <div class="content" style="margin-bottom: 2em;">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3 style="word-break:break-all" {{if eq .Status 2}}class="remake" {{end}} {{if eq .Status 3}}class="trusted" {{end}} {{if eq .Status 4}}class="aplus"{{end}}>{{.Name}}</h3>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="break" {{if eq .Status 2}}class="remake" {{end}} {{if eq .Status 3}}class="trusted" {{end}} {{if eq .Status 4}}class="aplus"{{end}}>{{.Name}}</h3>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-8">
                 <div class="row" id="description">
@@ -18,8 +18,9 @@
                       <div class="uploaded_by">
                             <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}">
                             <h4>{{ T "uploaded_by" }} <a href="{{$.URL.Parse (printf "/user/%d/-" .UploaderID) }}">{{.UploaderName}}</a></h4>
+
                         </div>
-                    </div>
+
                     <div style="float:right;">
                         <a style="margin: 5px;" aria-label="Magnet Button" href="{{.Magnet}}" type="button" class="btn btn-lg btn-success">
                             <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> {{ T "download_btn" }}
@@ -42,13 +43,13 @@
                 </div>
                     <div class="col-md-12">
                         <h4>{{T "description"}}</h4>
-                        <div style="word-break:break-all;">{{.Description}}</div>
+                        <div class="break">{{.Description}}</div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <h4>{{T "hash"}}</h4>
-                <p class="torrent-hash">{{.Hash}}</p>
+                <p class="torrent-hash break">{{.Hash}}</p>
                 <hr>
                 <h4>{{T "date"}}</h4>
                 <p class="date-full">{{.Date}}</p>
@@ -62,49 +63,72 @@
                 <hr>
                 {{end}}
                 <div class="row">
-                <div class="col-md-4">{{T "seeders"}}</div>
-                <div class="col-md-4">{{T "leechers"}}</div>
-                <div class="col-md-4">{{T "completed"}}</div>
+                    <div class="col-md-4">{{T "seeders"}}</div>
+                    <div class="col-md-4">{{T "leechers"}}</div>
+                    <div class="col-md-4">{{T "completed"}}</div>
                 </div>
                 <div class="row">
-                <div class="col-md-4">{{.Seeders}}</div>
-                <div class="col-md-4">{{.Leechers}}</div>
-                <div class="col-md-4"><span class="completed" style="">{{.Completed}}</span></div>
-                <div class="col-md-8">
-                <div class="proSeedBar">
-                  <div class="seeds" style="width: {{ calcWidthSeed .Seeders .Leechers }}%;"></div>
-                  <div class="leechs" style="width: {{ calcWidthLeech .Seeders .Leechers }}%;"></div>
-                </div>
-                </div>
+                    <div class="col-md-4">{{.Seeders}}</div>
+                    <div class="col-md-4">{{.Leechers}}</div>
+                    <div class="col-md-4"><span class="completed" style="">{{.Completed}}</span></div>
+                    <div class="col-md-8">
+                        <div class="proSeedBar">
+                            <div class="seeds" style="width: {{ calcWidthSeed .Seeders .Leechers }}%;"></div>
+                            <div class="leechs" style="width: {{ calcWidthLeech .Seeders .Leechers }}%;"></div>
+                        </div>
+                    </div>
                 </div>
                 <hr>
             </div>
         </div>
         <div class="row" id="comments">
             <div class="col-md-12">
-                <h4>{{T "comments"}}</h4>
-                {{ range $index, $element := .Comments }}
-                <div class="row comment-row" id="comment_{{$index}}">
-                    <div class="col-md-2">
-                        {{if eq .UserID -1}}
-                            <a href="#comment_{{$index}}">{{$index}}</a>
-                            {{.Username}}
-                        {{else}}
-                            <a href="#comment_{{$index}}">{{$index}}</a>
-                            <a href="{{$.URL.Parse (printf "/user/%d/-" .UserID ) }}">{{.Username}}</a>
+                <div class="commentList">
+                    <h4>{{T "comments"}}</h4>
+                    <hr/>
+                    <ul class="comments">
+                        {{ range $index, $element := .Comments }}
+                        <li class="clearfix comment jumptarget" id="comment_{{$index}}">
+                            {{/* The following line is wrong. Should be using the MD5 User hash but i don't knwo how to access it. */}}
+                            {{/* Changing Gravatar for something else, so it can stay like this. */}}
+                            <img src="https://www.gravatar.com/avatar/{{ .UserID }}?s=50" class="avatar" alt="">
+                            <div class="commentBody">
+                                <div class="commentData">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-sm-9">
+                                                    {{if eq .UserID -1}}
+                                                    <a href="#comment_{{$index}}">#{{$index}}</a> by {{.Username}}
+                                                    {{else}}
+                                                    <a href="#comment_{{$index}}">#{{$index}}</a>
+                                                    by <span class="break"><a href="{{$.URL.Parse (printf "/user/%d/-" .UserID ) }}">{{.Username}}</a></span>
+                                                    {{end}}
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <i class="pull-right date-short comment-date">
+                                                    <small>
+                                                    {{ .Date.Format ( Ts "date_format" ) }}
+                                                    {{/* output: "2017-05-01 15:30"
+                                                    Went with "Year-Month-Day" because it's the most unambiguous.
+                                                    If you want it to be determined by where you're from, be my guest. */}}
+                                                    </small>
+                                                    </i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        {{.Content}}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                         {{end}}
-                    </div>
-                    <div class="col-md-1 date-short comment-date">
-                        {{ .Date.Format ( Ts "date_format" ) }}
-                        {{/* output: "2017-05-01 15:30"
-                            Went with "Year-Month-Day" because it's the most unambiguous.
-                            If you want it to be determined by where you're from, be my guest. */}}
-                    </div>
-                    <div class="col-md-8">
-                        {{.Content}}
-                    </div>
+                    </ul>
                 </div>
-                {{end}}
             </div>
         </div>
     </div>
