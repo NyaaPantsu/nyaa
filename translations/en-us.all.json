@@ -345,7 +345,7 @@
   },
   {
     "id": "uploading_file_prefills_fields",
-    "translation": "Uploading a torrent file allows pre-filling some fields, this is recommended."
+    "translation": "Uploading a torrent file allows pre-filling some fields. This is recommended."
   },
   {
     "id": "magnet_link",
