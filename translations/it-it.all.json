@@ -101,7 +101,7 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "Per concludere controlla la tua casella email (e la cartella spam!) per l'email di verifica."
+    "translation": "La verifica via email non è abilitata al momento, quindi puoi già usare il tuo account. In futuro, per concludere dovrai controllare la tua casella email (e la cartella spam!) per l'email di verifica."
   },
   {
     "id":"signup_verification_noemail",
