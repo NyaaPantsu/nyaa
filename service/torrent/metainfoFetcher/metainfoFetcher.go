@@ -20,10 +20,11 @@ type MetainfoFetcher struct {
 	queueSize        int
 	timeout          int
 	maxDays          int
+	failCooldown     int
 	done             chan int
 	queue            []*FetchOperation
 	queueMutex       sync.Mutex
-	failedOperations map[uint]struct{}
+	failedOperations map[uint]time.Time
 	wakeUp           *time.Ticker
 	wg               sync.WaitGroup
 }
@@ -47,8 +48,9 @@ func New(fetcherConfig *config.MetainfoFetcherConfig) (fetcher *MetainfoFetcher,
 		queueSize:        fetcherConfig.QueueSize,
 		timeout:          fetcherConfig.Timeout,
 		maxDays:          fetcherConfig.MaxDays,
+		failCooldown:     fetcherConfig.FailCooldown,
 		done:             make(chan int, 1),
-		failedOperations: make(map[uint]struct{}),
+		failedOperations: make(map[uint]time.Time),
 		wakeUp:           time.NewTicker(time.Second * time.Duration(fetcherConfig.WakeUpInterval)),
 	}
 
@@ -150,10 +152,26 @@ func (fetcher *MetainfoFetcher) gotResult(r Result) {
 	}
 
 	if !updatedSuccessfully {
-		fetcher.failedOperations[r.operation.torrent.ID] = struct{}{}
+		fetcher.failedOperations[r.operation.torrent.ID] = time.Now()
 	}
 
 	fetcher.removeFromQueue(r.operation)
+}
+
+func (fetcher *MetainfoFetcher) removeOldFailures() {
+	// Cooldown is disabled
+	if fetcher.failCooldown < 0 {
+		return
+	}
+
+	now := time.Now()
+	for id, failTime := range fetcher.failedOperations {
+		if failTime.Add(time.Duration(fetcher.failCooldown) * time.Second).Before(now) {
+			log.Infof("Torrent TID %d gone through cooldown, removing from failures")
+			// Deleting keys inside a loop seems to be safe.
+			delete(fetcher.failedOperations, id)
+		}
+	}
 }
 
 func (fetcher *MetainfoFetcher) fillQueue() {
@@ -180,15 +198,16 @@ func (fetcher *MetainfoFetcher) fillQueue() {
 	}
 	dbTorrents, count, err := torrentService.GetTorrents(params, fetcher.queueSize, 0)
 
+	if count == 0 {
+		log.Infof("No torrents for filesize update")
+		return
+	}
+
 	if err != nil {
 		log.Infof("Failed to get torrents for metainfo updating")
 		return
 	}
-	
-	if count == 0 {
-		log.Infof("No torrents for metainfo update")
-		return
-	}
+
 
 	for _, T := range dbTorrents {
 		if fetcher.isFetchingOrFailed(T) {
@@ -215,15 +234,15 @@ func (fetcher *MetainfoFetcher) run() {
 	done := 0
 	fetcher.fillQueue()
 	for done == 0 {
+		fetcher.removeOldFailures()
+		fetcher.fillQueue()
 		select {
 		case done = <-fetcher.done:
 			break
 		case result = <-fetcher.results:
 			fetcher.gotResult(result)
-			fetcher.fillQueue()
 			break
 		case <-fetcher.wakeUp.C:
-			fetcher.fillQueue()
 			break
 		}
 	}
@@ -245,6 +264,7 @@ func (fetcher *MetainfoFetcher) Close() error {
 	}
 
 	fetcher.done <- 1
+	fetcher.torrentClient.Close()
 	log.Infof("Send done signal to everyone, waiting...")
 	fetcher.wg.Wait()
 	return nil
