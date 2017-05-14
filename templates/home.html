@@ -14,15 +14,15 @@
           <tr>
               <th class="col-xs-1 hidden-xs">{{T "category"}}</th>
               <th class="col-xs-8">
-                <a href="{{ genSearchWithOrdering .URL "1" }}">{{T "name"}}</a>
+                <a href="{{ genSearchWithOrdering .URL "1" }}" class="{{ genSortClass .URL "1"}}">{{T "name"}}</a>
               </th>
               <th class="col-xs-1 hidden-xs">
-                <a href="{{ genSearchWithOrdering .URL "5" }}">{{T "S"}}</a> / 
-                <a href="{{ genSearchWithOrdering .URL "6" }}">{{T "L"}}</a> / 
-                <a href="{{ genSearchWithOrdering .URL "7" }}">{{T "D"}}</a>
+                <a href="{{ genSearchWithOrdering .URL "5" }}" class="{{ genSortClass .URL "5"}}">{{T "S"}}</a> / 
+                <a href="{{ genSearchWithOrdering .URL "6" }}" class="{{ genSortClass .URL "6"}}">{{T "L"}}</a> / 
+                <a href="{{ genSearchWithOrdering .URL "7" }}" class="{{ genSortClass .URL "7"}}">{{T "D"}}</a>
               </th>
-              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{T "date"}}</th></a>
-              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "4" }}">{{T "size"}}</a></th>
+              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "2" }}" class="{{ genSortClass .URL "2"}}">{{T "date"}}</th></a>
+              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "4" }}" class="{{ genSortClass .URL "4"}}">{{T "size"}}</a></th>
               <th class="col-xs-1 hidden-xs">{{T "links"}}</th>
           </tr>
           {{ range .ListTorrents}}

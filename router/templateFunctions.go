@@ -55,6 +55,22 @@ var FuncMap = template.FuncMap{
 
 		return template.URL(url.String())
 	},
+	"genSortClass": func(currentUrl url.URL, sortBy string) string {
+		values := currentUrl.Query()
+		class := "sortnone"
+
+		if _, ok := values["order"]; ok {
+			if values["sort"][0] == sortBy {
+				if values["order"][0] == "true" {
+					class="sortasc"
+				} else {
+					class="sortdesc"
+				}
+			}
+		}
+
+		return class
+	},
 	"genNav": func(nav Navigation, currentUrl *url.URL, pagesSelectable int) template.HTML {
 		var ret = ""
 		if nav.TotalItem > 0 {

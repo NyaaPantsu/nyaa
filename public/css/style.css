@@ -142,6 +142,16 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type
 div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(4){width:19%;}
 div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-type{width:6%;}
 
+a.sortnone::after {
+  content: "↕";
+}
+a.sortasc::after {
+  content: "↑";
+}
+a.sortdesc::after {
+  content: "↓";
+}
+
 /* Mobile-friendly main table */
 @media only screen and (max-width: 700px) {
   table, thead, tbody, tr {
