@@ -36,6 +36,24 @@ var FuncMap = template.FuncMap{
 		}
 		return "error"
 	},
+	"genSearchWithOrdering": func(currentUrl url.URL, sortBy string) template.URL {
+		values := currentUrl.Query()
+		order := false
+		if _, ok := values["order"]; ok {
+			order, _ = strconv.ParseBool(values["order"][0])
+			if values["sort"][0]==sortBy {
+				order=!order //Flip order by repeat-clicking
+			} else {
+				order=false //Default to descending when sorting by something new
+			}
+		}
+		values.Set("sort", sortBy)
+		values.Set("order", strconv.FormatBool(order))
+
+		currentUrl.RawQuery=values.Encode()
+		
+		return template.URL(currentUrl.String())
+	},
 	"genNav": func(nav Navigation, currentUrl *url.URL, pagesSelectable int) template.HTML {
 		var ret = ""
 		if (nav.TotalItem > 0) {

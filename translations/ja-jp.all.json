@@ -9,7 +9,7 @@
   },
   {
     "id": "verify_email_content",
-    "translation": "あなたのメールアドレスを認証するには、以下のリンクをクリックします。"
+    "translation": "お使いのメールアドレスを認証するには、以下のリンクをクリックします。"
   },
   {
     "id": "reset_password_title",
@@ -97,7 +97,7 @@
   },
   {
     "id":"verify_success",
-    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>アカウントは有効になっています。"
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>お使いのアカウントは有効になりました。"
   },
   {
     "id":"signup_verification_email",
@@ -105,7 +105,7 @@
   },
   {
     "id":"signup_verification_noemail",
-    "translation": "認証が完了しました。今からこのアカウントを使うことができます。"
+    "translation": "認証が完了しました。今からこのアカウントを使えるようになります。"
   },
   {
     "id":"settings",
@@ -120,12 +120,24 @@
     "translation": "フォロー"
   },
   {
+    "id":"unfollow",
+    "translation": "フォロー解除"
+  },
+  {
+    "id":"user_followed_msg",
+    "translation": "%s さんをフォローしました。"
+  },
+  {
+    "id":"user_unfollowed_msg",
+    "translation": "%s さんのフォローを解除しました。"
+  },
+  {
     "id":"profile_page",
-    "translation": "%s プロフィールページ"
+    "translation": "%s さんのプロフィールページ"
   },
   {
     "id":"see_more_torrents_from",
-    "translation": "%s の Torrent をもっと表示"
+    "translation": "%s さんの Torrent をもっと表示"
   },
   {
     "id":"category",
@@ -217,7 +229,7 @@
   },
   {
     "id": "official_nyaapocalipse_faq",
-    "translation": "公式 nyaa <ruby>黙示録<rp>(</rp><rt>アポカリプス</rt><rp>)</rp></ruby> のよくある質問"
+    "translation": "公式 nyaa の最期についてよくある質問"
   },
   {
     "id": "links_replacement_mirror",
@@ -229,7 +241,7 @@
   },
   {
     "id": "nyaa_se_went_offline",
-    "translation": "nyaa.se とその関連ドメイン (nyaatorrents.infoなど) は 2017年5月1日 にオフラインになった。"
+    "translation": "nyaa.se 並びにその関連ドメイン (nyaatorrents.info など) は 2017年5月1日 にオフラインになった。"
   },
   {
     "id": "its_not_a_ddos",
@@ -245,7 +257,7 @@
   },
   {
     "id": "is_everything_lost",
-    "translation": "nyaa.se のすべてが失われてしまったの？"
+    "translation": "すべてが失われてしまったの？"
   },
   {
     "id": "in_short_no",
@@ -257,7 +269,7 @@
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "<s>4月5日</s> 5月1日までの nyaa.se のデータベースはあります。要するに、ほとんど失われていません。"
+    "translation": "<s>4月5日</s> 5月1日までのデータベースはあります。要するに、ほとんど失われていません。"
   },
   {
     "id": "answer_is_sukebei_db_lost",
@@ -265,11 +277,11 @@
   },
   {
     "id": "how_are_we_recovering",
-    "translation": "どのように復旧させるの？"
+    "translation": "どのように復旧してるの？"
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "上述のデータベースは nyaa.pantsu.cat と sukebei.pantsu.cat にホストされています。検索機能はすでにあり、近いうちに nyaa.se にあったほぼすべての機能が利用可能になるでしょう。また、Seeder / Leecher 統計はスクレイピングによって収集可能ですが、今は他に優先すべきことがあるため後回しにされます。"
+    "translation": "上述のデータベースは nyaa.pantsu.cat と sukebei.pantsu.cat にホストされています。検索機能はすでにあり、近いうちに nyaa.se にあったほぼすべての機能が利用可能になるでしょう。"
   },
   {
     "id": "are_the_trackers_working",
@@ -340,6 +352,10 @@
     "translation": "すべてのカテゴリー"
   },
   {
+    "id": "select_a_torrent_category",
+    "translation": "Torrent カテゴリーを選択"
+  },
+  {
     "id": "anime",
     "translation": "アニメ"
   },
@@ -353,7 +369,7 @@
   },
   {
     "id": "anime_non_english_translated",
-    "translation": "アニメ ‐ 非英訳"
+    "translation": "アニメ ‐ 未英訳"
   },
   {
     "id": "anime_raw",
@@ -373,19 +389,19 @@
   },
   {
     "id": "literature",
-    "translation": "本"
+    "translation": "書籍"
   },
   {
     "id": "literature_english_translated",
-    "translation": "本 ‐ 英訳済み"
+    "translation": "書籍 ‐ 英訳済み"
   },
   {
     "id": "literature_raw",
-    "translation": "本 ‐ RAW"
+    "translation": "書籍 ‐ RAW"
   },
   {
     "id": "literature_non_english_translated",
-    "translation": "本 ‐ 非英訳"
+    "translation": "書籍 ‐ 未英訳"
   },
   {
     "id": "live_action",
@@ -401,7 +417,7 @@
   },
   {
     "id": "live_action_non_english_translated",
-    "translation": "実写 ‐ 非英訳"
+    "translation": "実写 ‐ 未英訳"
   },
   {
     "id": "live_action_raw",
@@ -437,7 +453,7 @@
   },
   {
     "id": "description_markdown_notice",
-    "translation": "説明文には MarkDown 記法が使えます。"
+    "translation": "説明文には MarkDown 記法を使うことができます。"
   },
   {
     "id": "show_all",
@@ -445,7 +461,7 @@
   },
   {
     "id": "filter_remakes",
-    "translation": "再構成されたフィルター"
+    "translation": "再構成フィルター"
   },
   {
     "id": "trusted",
@@ -457,7 +473,7 @@
   },
   {
     "id": "downloads",
-    "translation": "ダウンロード"
+    "translation": "ダウンロード数"
   },
   {
     "id": "descending",
@@ -549,7 +565,7 @@
   },
   {
     "id": "moderation",
-    "translation": "緩和"
+    "translation": "節制"
   },
   {
     "id": "who_is_renchon",
@@ -592,10 +608,6 @@
     "translation": "2006/01/02 15:04"
   },
   {
-    "id": "language_name",
-    "translation": "日本語"
-  },
-  {
     "id": "seeders",
     "translation": "Seeder 数"
   },
@@ -606,5 +618,17 @@
   {
     "id": "completed",
     "translation": "完了数"
+  },
+  {
+    "id": "change_language",
+    "translation": "言語の変更"
+  },
+  {
+    "id": "language_name",
+    "translation": "日本語"
+  },
+  {
+    "id": "delete",
+    "translation": "削除"
   }
 ]

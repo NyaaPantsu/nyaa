@@ -16,7 +16,11 @@ func CheckTrackers(trackers []string) bool {
 		"://tracker.istole.it:80",
 		"://tracker.ccc.de:80",
 		"://bt2.careland.com.cn:6969",
-		"://announce.torrentsmd.com:8080"}
+		"://announce.torrentsmd.com:8080",
+		"://open.demonii.com:1337",
+		"://tracker.btcake.com",
+		"://tracker.prq.to",
+		"://bt.rghost.net"}
 
 	var numGood int
 	for _, t := range trackers {
