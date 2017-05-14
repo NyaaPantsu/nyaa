@@ -82,8 +82,9 @@ func (fetcher *MetainfoFetcher) removeFromQueue(op *FetchOperation) bool {
 }
 
 func updateFileList(dbEntry model.Torrent, info *metainfo.Info) error {
-	log.Infof("TID %d has %d files.", dbEntry.ID, len(info.Files))
-	for _, file := range info.Files {
+	torrentFiles := info.UpvertedFiles()
+	log.Infof("TID %d has %d files.", dbEntry.ID, len(torrentFiles))
+	for _, file := range torrentFiles {
 		path := file.DisplayPath(info)
 		fileExists := false
 		for _, existingFile := range dbEntry.FileList {
@@ -114,7 +115,7 @@ func updateFileList(dbEntry model.Torrent, info *metainfo.Info) error {
 func (fetcher *MetainfoFetcher) gotResult(r Result) {
 	updatedSuccessfully := false
 	if r.err != nil {
-		log.Infof("Failed to get torrent filesize (TID: %d), err %v", r.operation.torrent.ID, r.err)
+		log.Infof("Failed to get torrent metainfo (TID: %d), err %v", r.operation.torrent.ID, r.err)
 	} else if r.info.TotalLength() == 0 {
 		log.Infof("Got length 0 for torrent TID: %d. Possible bug?", r.operation.torrent.ID)
 	} else {
@@ -127,10 +128,12 @@ func (fetcher *MetainfoFetcher) gotResult(r Result) {
 			updatedSuccessfully = true
 		}
 
-		// Also update the File list with FileInfo, I guess.
-		err = updateFileList(r.operation.torrent, r.info)
-		if err != nil {
-			log.Infof("Failed to update file list of TID %d", r.operation.torrent.ID)
+		// Create the file list, if it's missing.
+		if len(r.operation.torrent.FileList) == 0 {
+			err = updateFileList(r.operation.torrent, r.info)
+			if err != nil {
+				log.Infof("Failed to update file list of TID %d", r.operation.torrent.ID)
+			}
 		}
 	}
 
@@ -149,17 +152,19 @@ func (fetcher *MetainfoFetcher) fillQueue() {
 	}
 
 	oldest := time.Now().Add(0 - (time.Hour * time.Duration(24 * fetcher.maxDays)))
-	params := serviceBase.CreateWhereParams("(filesize IS NULL OR filesize = 0) AND date > ?", oldest)
+	// Nice query lol
+	// Select the torrents with no filesize, or without any rows with torrent_id in the files table, that are younger than fetcher.MaxDays
+	params := serviceBase.CreateWhereParams("((filesize IS NULL OR filesize = 0) OR (torrents.torrent_id NOT IN (SELECT files.torrent_id FROM files WHERE files.torrent_id = torrents.torrent_id))) AND date > ?", oldest)
 	// Get up to queueSize + len(failed) torrents, so we get at least some fresh new ones.
 	dbTorrents, count, err := torrentService.GetTorrents(params, fetcher.queueSize + len(fetcher.failedOperations), 0)
 
 	if err != nil {
-		log.Infof("Failed to get torrents for filesize updating")
+		log.Infof("Failed to get torrents for metainfo updating")
 		return
 	}
 	
 	if count == 0 {
-		log.Infof("No torrents for filesize update")
+		log.Infof("No torrents for metainfo update")
 		return
 	}
 
