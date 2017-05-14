@@ -284,6 +284,14 @@
     "translation": "Les bases de données mentionnées sont hébergées sur nyaa.pantsu.cat et sukebei.pantsu.cat. Une fonction de recherche est disponible et (presque) toutes les fonctionnalités de Nyaa devraient arriver. Les statistiques seeders/leechers peuvent être obtenues par 'scraping' et pourraient être restaurées à l'avenir, toutefois d'autres fonctionnalités prennent la priorité en ce moment."
   },
   {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "Comment puis-je lier mes anciens uploads à mon nouveau compte ?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "Rejoignez le canal IRC <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> et demandez à un modérateur de migrer vos anciens torrents and indiquant votre ancien et nouveau noms d'utilisateur."
+  },
+  {
     "id": "are_the_trackers_working",
     "translation": "Les torrents fonctionnent-ils toujours ?"
   },
@@ -309,7 +317,11 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Si le chargement d'un torrent est refusé à cause des trackers, vous aurez besoin d'ajouter certains d'entre eux :"
+    "translation": "Nous avons maintenant notre propre tracker, ajoutez-le en haut de la liste avant d'uploader :"
+  },
+  {
+    "id": "other_trackers",
+    "translation": "Mais vous devriez également ajouter ceux-ci, dans le cas où cela ne fonctionnerait pas :"
   },
   {
     "id": "how_can_i_help",
@@ -544,6 +556,10 @@
     "translation": "Modérateur"
   },
   {
+    "id":" api_token",
+    "translation": "Authentifieur d'API"
+  },
+  {
     "id": "save_changes",
     "translation": "Sauvegarder les changements"
   },
@@ -573,7 +589,7 @@
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Renchon) est le nom d'utilisateur par défaut assigné aux téléversements et commentaires anonymes ainsi que la mascotte du site. Il est utilisé pour les torrents importés du Nyaa original, bien que l'auteur d'origine puisse également être affiché."
+    "translation": "れんちょん (Renchon) est le nom d'utilisateur par défaut assigné aux uploads et commentaires anonymes ainsi que la mascotte du site. Il est utilisé pour les torrents importés du Nyaa original, bien que l'auteur d'origine puisse parfois être affiché."
   },
   {
     "id": "mark_as_remake",
@@ -626,5 +642,9 @@
   {
     "id": "language_name",
     "translation": "Français"
+  },
+  {
+    "id": "delete",
+    "translation": "Supprimer"
   }
 ]
