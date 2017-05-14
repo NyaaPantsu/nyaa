@@ -80,7 +80,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 
 
 		htv := UploadTemplateVariables{uploadForm, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
-		languages.SetTranslationFromRequest(uploadTemplate, r, "en-us")
+		languages.SetTranslationFromRequest(uploadTemplate, r)
 		err := uploadTemplate.ExecuteTemplate(w, "index.html", htv)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
