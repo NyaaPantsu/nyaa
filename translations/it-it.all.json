@@ -317,7 +317,11 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Se il caricamento del tuo torrent è negato a causa dei trackers, dovrai aggiungere alcuni di questi:"
+    "translation": "Ora abbiamo un tracker tutto nostro!, mettilo come primo nella lista prima di caricare un file:"
+  },
+  {
+    "id": "other_trackers",
+    "translation": "Ma dovresti aggiungere anche questi, nel caso qualcosa vada storto:"
   },
   {
     "id": "how_can_i_help",
