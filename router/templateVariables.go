@@ -157,6 +157,7 @@ type PanelCommentListVbs struct {
 	User       *model.User
 	URL        *url.URL // For parsing Url in templates
 }
+
 type PanelTorrentEdVbs struct {
 	Upload     UploadForm
 	Search  SearchForm
@@ -172,6 +173,15 @@ type PanelTorrentReportListVbs struct {
 	Navigation     Navigation
 	User           *model.User
 	URL            *url.URL // For parsing Url in templates
+}
+
+type PanelTorrentReassignVbs struct {
+    Reassign    ReassignForm
+	Search      SearchForm // unused?
+	User        *model.User // unused?
+	FormErrors  map[string][]string
+	FormInfos   map[string][]string
+	URL         *url.URL // For parsing Url in templates
 }
 
 /*
