@@ -674,5 +674,17 @@
   {
     "id": "duplicate_deprecated",
     "translation": "资源重复 / 低质量"
+  },
+  {
+    "id": "captcha",
+    "translation": "验证码"
+  },
+  {
+    "id": "file_name",
+    "translation": "文件名"
+  },
+  {
+    "id": "cancel",
+    "translation": "取消"
   }
 ]

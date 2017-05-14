@@ -686,5 +686,17 @@
   {
     "id": "duplicate_deprecated",
     "translation": "Duplicate / Deprecated"
+  },
+  {
+    "id": "captcha",
+    "translation": "Captcha"
+  },
+  {
+    "id": "file_name",
+    "translation": "File Name"
+  },
+  {
+    "id": "cancel",
+    "translation": "Cancel"
   }
 ]
