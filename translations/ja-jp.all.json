@@ -289,7 +289,7 @@
   },
   {
     "id": "answer_how_do_i_link_my_old_account",
-    "translation": "<a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> に参加し、モデレーターに以前のユーザー名と新しいユーザー名を添えて、以前の Torrent を移行するようお申し付けください。"
+    "translation": "<a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> に参加し、モデレーターに以前のユーザー名と新しいユーザー名を添えて Torrent を移行するようお申し付けください。"
   },
   {
     "id": "are_the_trackers_working",
