@@ -356,6 +356,10 @@
     "translation": "所有分類"
   },
   {
+    "id": "select_a_torrent_category",
+    "translation": "選擇種子分類"
+  },
+  {
     "id": "anime",
     "translation": "動畫"
   },
@@ -544,6 +548,10 @@
     "translation": "管理員"
   },
   {
+    "id":" api_token",
+    "translation": "API Token"
+  },
+  {
     "id": "save_changes",
     "translation": "儲存變更"
   },
@@ -569,7 +577,7 @@
   },
   {
     "id": "who_is_renchon",
-    "translation": "誰是れんちょん?"
+    "translation": "誰是れんちょん？"
   },
   {
     "id": "renchon_anon_explanation",
@@ -626,5 +634,9 @@
   {
     "id": "language_name",
     "translation": "繁體中文"
+  },
+  {
+    "id": "delete",
+    "translation": "刪除"
   }
 ]
