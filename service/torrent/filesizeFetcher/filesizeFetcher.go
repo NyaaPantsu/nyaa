@@ -2,7 +2,9 @@ package filesizeFetcher;
 
 import (
 	"github.com/anacrolix/torrent"
+	"github.com/anacrolix/torrent/metainfo"
 	"github.com/ewhal/nyaa/config"
+	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util/log"
 	serviceBase "github.com/ewhal/nyaa/service"
@@ -79,20 +81,56 @@ func (fetcher *FilesizeFetcher) removeFromQueue(op *FetchOperation) bool {
 	return false
 }
 
+func updateFileList(dbEntry model.Torrent, info *metainfo.Info) error {
+	log.Infof("TID %d has %d files.", dbEntry.ID, len(info.Files))
+	for _, file := range info.Files {
+		path := file.DisplayPath(info)
+		fileExists := false
+		for _, existingFile := range dbEntry.FileList {
+			if existingFile.Path == path {
+				fileExists = true
+				break
+			}
+		}
+
+		if !fileExists {
+			log.Infof("Adding file %s to filelist of TID %d", path, dbEntry.ID)
+			dbFile := model.File{
+				TorrentID: dbEntry.ID,
+				Path: path,
+				Filesize: file.Length,
+			}
+
+			err := db.ORM.Create(&dbFile).Error
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
+}
+
 func (fetcher *FilesizeFetcher) gotResult(r Result) {
 	updatedSuccessfully := false
 	if r.err != nil {
 		log.Infof("Failed to get torrent filesize (TID: %d), err %v", r.operation.torrent.ID, r.err)
-	} else if r.info.Length == 0 {
+	} else if r.info.TotalLength() == 0 {
 		log.Infof("Got length 0 for torrent TID: %d. Possible bug?", r.operation.torrent.ID)
 	} else {
-		log.Infof("Got length %d for torrent TID: %d. Updating.", r.info.Length, r.operation.torrent.ID)
-		r.operation.torrent.Filesize = r.info.Length
+		log.Infof("Got length %d for torrent TID: %d. Updating.", r.info.TotalLength(), r.operation.torrent.ID)
+		r.operation.torrent.Filesize = r.info.TotalLength()
 		_, err := torrentService.UpdateTorrent(r.operation.torrent)
 		if err != nil {
 			log.Infof("Failed to update torrent TID: %d with new filesize", r.operation.torrent.ID)
 		} else {
 			updatedSuccessfully = true
+		}
+
+		// Also update the File list with FileInfo, I guess.
+		err = updateFileList(r.operation.torrent, r.info)
+		if err != nil {
+			log.Infof("Failed to update file list of TID %d", r.operation.torrent.ID)
 		}
 	}
 
