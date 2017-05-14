@@ -34,7 +34,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	htv := ViewTemplateVariables{b, captchaID, NewSearchForm(), Navigation{}, user, r.URL, mux.CurrentRoute(r)}
 
-	languages.SetTranslationFromRequest(viewTemplate, r, "en-us")
+	languages.SetTranslationFromRequest(viewTemplate, r)
 	err = viewTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		log.Errorf("ViewHandler(): %s", err)
