@@ -7,7 +7,7 @@
     <div class="content" style="margin-bottom: 2em;">
         <div class="row">
             <div class="col-md-12">
-                <h3 class="break" {{if eq .Status 2}}class="remake" {{end}} {{if eq .Status 3}}class="trusted" {{end}} {{if eq .Status 4}}class="aplus"{{end}}>{{.Name}}</h3>
+                <h3 class="break {{if eq .Status 2}}remake{{end}} {{if eq .Status 3}}trusted{{end}} {{if eq .Status 4}}aplus{{end}}">{{.Name}}</h3>
             </div>
         </div>
         <div class="row">
