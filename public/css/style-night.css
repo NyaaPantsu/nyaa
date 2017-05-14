@@ -103,7 +103,7 @@ a:hover {
 }
 
 :target {
-    background-color: #585b4f;
+    background-color: #b294bb;
 }
 
 /* style the dropdown member menu */
@@ -148,4 +148,15 @@ a:hover {
 .text-error {
   background: #29363d;
   color: #cf9fff;
+}
+
+/*Comments*/
+
+.commentList .commentData {
+  color: #fff;
+}
+
+.commentList .commentBody {
+  background: #29363d;
+  color: #fff;
 }
