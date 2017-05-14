@@ -2,6 +2,7 @@
   hosts: webservers
   roles:
       - docker
+      - golang
 
 - name: Set up databases
   hosts: dbs
