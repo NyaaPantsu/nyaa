@@ -53,7 +53,7 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 		return
 	}
 
-	tmp := db.ORM.Where("torrent_id = ?", id).Preload("Comments")
+	tmp := db.ORM.Where("torrent_id = ?", id).Preload("Comments").Preload("FileList")
 	err = tmp.Error
 	if err != nil {
 		return
