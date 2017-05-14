@@ -463,6 +463,10 @@ select#bottom_language_selector {
   position: relative;
 }
 
+.commentList .commentBody > .row > div {
+      word-break: break-word;
+}
+
 .commentList .commentData {
   font-size: 13px;
   color: #aaaaaa;
