@@ -622,5 +622,45 @@
   {
     "id": "delete",
     "translation": "Löschen"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "Hochgeladen von"
+  },
+  {
+    "id": "download_btn",
+    "translation": "Downloaden!"
+  },
+  {
+    "id": "report_btn",
+    "translation": "Melden"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "Bist du sicher?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "Torrent #%s melden"
+  },
+  {
+    "id": "report_type",
+    "translation": "Meldungsgrund"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "Illegaler Inhalt"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "Spam / Müll"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "Falsche Kategorie"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "Duplikat / Veraltet"
   }
 ]
