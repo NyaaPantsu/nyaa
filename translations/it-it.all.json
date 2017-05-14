@@ -284,6 +284,14 @@
     "translation": "I database citati sono attualmente hostati su nyaa.pantsu.cat e sukebei.pantsu.cat. C'è una funzione di ricerca, e (quasi) tutte le altre dovrebbero arrivare presto. Le statistiche dei Seeder/leecher sono possibili attraverso scraping e potrebbero essere ripristinate in futuro, visto che altre funzionalità hanno la precedenza adesso."
   },
   {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "Come trasferisco i miei vecchi upload sul mio nuovo account?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "Collegati a <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> e chiedi ad un moderatore di migrare i tuoi vecchi torrent, menzionando il tuo vecchio e nuovo nome utente."
+  },
+  {
     "id": "are_the_trackers_working",
     "translation": "I torrent funzionano ancora?"
   },
@@ -309,7 +317,11 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Se il caricamento del tuo torrent è negato a causa dei trackers, dovrai aggiungere alcuni di questi:"
+    "translation": "Ora abbiamo un tracker tutto nostro!, mettilo come primo nella lista prima di caricare un file:"
+  },
+  {
+    "id": "other_trackers",
+    "translation": "Ma dovresti aggiungere anche questi, nel caso qualcosa vada storto:"
   },
   {
     "id": "how_can_i_help",
@@ -626,5 +638,61 @@
   {
     "id": "language_name",
     "translation": "Italiano"
+  },
+  {
+    "id": "delete",
+    "translation": "Rimuovi"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "Caricato da"
+  },
+  {
+    "id": "download_btn",
+    "translation": "Download!"
+  },
+  {
+    "id": "report_btn",
+    "translation": "Segnala"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "Sei sicuro?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "Segnala Torrent #%s"
+  },
+  {
+    "id": "report_type",
+    "translation": "Tipo di segnalazione"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "Materiale Illegale"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "Spam / Spazzatura"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "Categoria Errata"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "Duplicato / Deprecato"
+  },
+  {
+    "id": "captcha",
+    "translation": "Captcha"
+  },
+  {
+    "id": "file_name",
+    "translation": "Filename"
+  },
+  {
+    "id": "cancel",
+    "translation": "Annulla"
   }
 ]
