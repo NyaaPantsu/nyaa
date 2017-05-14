@@ -13,32 +13,34 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="row" id="description">
-                    <div class="col-md-12">
-                        <div style="float: left;">
-                            <div class="uploaded_by">
-                                <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}">
-                                <h4>Uploaded by <a href="{{$.URL.Parse (printf "/user/%d/-" .UploaderID) }}">{{.UploaderName}}</a></h4>
-                            </div>
+                <div class="col-md-12">
+                    <div style="float: left;">
+                      <div class="uploaded_by">
+                            <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}">
+                            <h4>{{ T "uploaded_by" }} <a href="{{$.URL.Parse (printf "/user/%d/-" .UploaderID) }}">{{.UploaderName}}</a></h4>
+
                         </div>
-                        <div style="float:right;">
-                            <a style="margin: 5px;" aria-label="Magnet Button" href="{{.Magnet}}" type="button" class="btn btn-lg btn-success">
-                                <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> Download!
-                            </a>
-                            {{if ne .TorrentLink ""}}
-                            <a style="margin: 5px;" aria-label="Torrent file" href="{{.TorrentLink}}" type="button" class="btn btn-lg btn-success">
-                                <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Torrent file
-                            </a>
-                            {{end}}
-                            <a style="margin: 5px;" aria-label="Report button" data-toggle="modal" data-target="#reportModal" class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Report!
-                            </a>
-                            {{ if HasAdmin $.User}}
-                            <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i></a>
-                            <a href="{{ genRoute "mod_tedit" }}?id={{ .ID }}" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-pencil"></i></a>
-                            {{end}}
-                        </div>
-                        <div style="clear: both;"></div>
+
+                    <div style="float:right;">
+                        <a style="margin: 5px;" aria-label="Magnet Button" href="{{.Magnet}}" type="button" class="btn btn-lg btn-success">
+                            <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> {{ T "download_btn" }}
+                        </a>
+                        {{if ne .TorrentLink ""}}
+                        <a style="margin: 5px;" aria-label="Torrent file" href="{{.TorrentLink}}" type="button" class="btn btn-lg btn-success">
+                            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> {{ T "torrent_file" }}
+                        </a>
+                        {{end}}
+                        <a style="margin: 5px;" aria-label="Report button" data-toggle="modal" data-target="#reportModal" class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ T "report" }}
+                        </a>
+
+                      {{ if HasAdmin $.User}}
+                      <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('{{ T "are_you_sure" }}')) return false;"><i class="glyphicon glyphicon-trash"></i></a>
+                      <a href="{{ genRoute "mod_tedit" }}?id={{ .ID }}" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                      {{end}}
                     </div>
+                    <div style="clear: both;"></div>
+                </div>
                     <div class="col-md-12">
                         <h4>{{T "description"}}</h4>
                         <div class="break">{{.Description}}</div>
@@ -152,17 +154,17 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Report Torrent #{{.Torrent.ID}}</h4>
+                <h4 class="modal-title">{{ T "report_torrent_number" (print .Torrent.ID) }}</h4>
             </div>
             <div class="modal-body">
-                <b>Report type:</b>
+                <b>{{ T "report_type" }}:</b>
                 <form method="post" action="/report/{{.Torrent.ID}}">
-                    <input type="radio" name="report_type" value="illegal" required> Illegal content<br />
-                    <input type="radio" name="report_type" value="spam" required> Spam / Garbage<br />
-                    <input type="radio" name="report_type" value="wrongcat" required> Wrong category<br />
-                    <input type="radio" name="report_type" value="dup" required> Duplicate / Deprecated<br />
+                    <input type="radio" name="report_type" value="illegal" required> {{ T "illegal_content" }}<br />
+                    <input type="radio" name="report_type" value="spam" required> {{ T "spam_garbage" }}<br />
+                    <input type="radio" name="report_type" value="wrongcat" required> {{ T "wrong_category" }}<br />
+                    <input type="radio" name="report_type" value="dup" required> {{ T "duplicate_deprecated" }}<br />
                     {{block "captcha" .}}{{end}}
-                    <button type="submit" class="btn btn-default">Report!</button>
+                    <button type="submit" class="btn btn-default">{{ T "report_btn" }}</button>
                 </form> <br />
             </div>
             <div class="modal-footer">
