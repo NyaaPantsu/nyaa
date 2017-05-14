@@ -32,12 +32,12 @@ type Config struct {
 	// optional i2p configuration
 	I2P *I2PConfig `json:"i2p"`
 	// filesize fetcher config
-	FilesizeFetcher FilesizeFetcherConfig `json:"filesize_fetcher"`
+	MetainfoFetcher MetainfoFetcherConfig `json:"metainfo_fetcher"`
   // internationalization config
 	I18n I18nConfig `json:"i18n"`
 }
 
-var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50", "default", DefaultScraperConfig, DefaultCacheConfig, DefaultSearchConfig, nil, DefaultFilesizeFetcherConfig, DefaultI18nConfig}
+var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50", "default", DefaultScraperConfig, DefaultCacheConfig, DefaultSearchConfig, nil, DefaultMetainfoFetcherConfig, DefaultI18nConfig}
 
 
 var allowedDatabaseTypes = map[string]bool{
@@ -62,7 +62,7 @@ func New() *Config {
 	config.DBLogMode = Defaults.DBLogMode
 	config.Scrape = Defaults.Scrape
 	config.Cache = Defaults.Cache
-	config.FilesizeFetcher = Defaults.FilesizeFetcher
+	config.MetainfoFetcher = Defaults.MetainfoFetcher
 	config.I18n = Defaults.I18n
 	return &config
 }

@@ -1,13 +1,13 @@
 package config
 
-type FilesizeFetcherConfig struct {
+type MetainfoFetcherConfig struct {
 	QueueSize      int `json:"queue_size"`
 	Timeout        int `json:"timeout"`
 	MaxDays        int `json:"max_days"`
 	WakeUpInterval int `json:"wake_up_interval"`
 }
 
-var DefaultFilesizeFetcherConfig = FilesizeFetcherConfig{
+var DefaultMetainfoFetcherConfig = MetainfoFetcherConfig{
 	QueueSize: 10,
 	Timeout: 120, // 2 min
 	MaxDays: 90,

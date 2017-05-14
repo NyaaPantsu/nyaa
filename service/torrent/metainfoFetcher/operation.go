@@ -1,4 +1,4 @@
-package filesizeFetcher;
+package metainfoFetcher;
 
 import (
 	"github.com/anacrolix/torrent/metainfo"
@@ -11,7 +11,7 @@ import (
 )
 
 type FetchOperation struct {
-	fetcher  *FilesizeFetcher
+	fetcher  *MetainfoFetcher
 	torrent  model.Torrent
 	done     chan int
 }
@@ -22,7 +22,7 @@ type Result struct {
 	info      *metainfo.Info
 }
 
-func NewFetchOperation(fetcher *FilesizeFetcher, dbEntry model.Torrent) (op *FetchOperation) {
+func NewFetchOperation(fetcher *MetainfoFetcher, dbEntry model.Torrent) (op *FetchOperation) {
 	op = &FetchOperation{
 		fetcher:  fetcher,
 		torrent:  dbEntry,
