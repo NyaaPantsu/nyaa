@@ -41,20 +41,20 @@ func (op *FetchOperation) Start(out chan Result) {
 		out <- Result{op, err, nil}
 		return
 	}
+	defer downloadingTorrent.Drop()
 
-	timeoutTicker := time.NewTicker(time.Second * time.Duration(op.fetcher.timeout))
+	timeoutTimer := time.NewTicker(time.Second * time.Duration(op.fetcher.timeout))
+	defer timeoutTimer.Stop()
 	select {
 	case <-downloadingTorrent.GotInfo():
-		downloadingTorrent.Drop()
 		out <- Result{op, nil, downloadingTorrent.Info()}
 		break
-	case <-timeoutTicker.C:
-		downloadingTorrent.Drop()
+	case <-timeoutTimer.C:
 		out <- Result{op, errors.New("Timeout"), nil}
 		break
 	case <-op.done:
-		downloadingTorrent.Drop()
 		break
 	}
 }
+
 
