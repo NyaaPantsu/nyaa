@@ -48,6 +48,12 @@ for(var i in list) {
 	e.innerText = date.toDateString() + " " + date.toLocaleTimeString();
 }
 
+/*Fixed-Navbar offset fix*/
+window.onload = function() {
+  var shiftWindow = function() { scrollBy(0, -70) };
+if (location.hash) shiftWindow();
+window.addEventListener("hashchange", shiftWindow);
+};
 function loadLanguages() {
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {

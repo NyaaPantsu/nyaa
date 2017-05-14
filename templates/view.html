@@ -5,11 +5,11 @@
     {{with .Torrent}}
     <hr>
     <div class="content" style="margin-bottom: 2em;">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3 style="word-break:break-all" {{if eq .Status 2}}class="remake" {{end}} {{if eq .Status 3}}class="trusted" {{end}} {{if eq .Status 4}}class="aplus"{{end}}>{{.Name}}</h3>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="break" {{if eq .Status 2}}class="remake" {{end}} {{if eq .Status 3}}class="trusted" {{end}} {{if eq .Status 4}}class="aplus"{{end}}>{{.Name}}</h3>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-8">
                 <div class="row" id="description">
@@ -17,24 +17,25 @@
                     <div style="float: left;">
                       <div class="uploaded_by">
                             <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}">
-                            <h4>Uploaded by <a href="{{$.URL.Parse (printf "/user/%d/-" .UploaderID) }}">{{.UploaderName}}</a></h4>
+                            <h4>{{ T "uploaded_by" }} <a href="{{$.URL.Parse (printf "/user/%d/-" .UploaderID) }}">{{.UploaderName}}</a></h4>
+
                         </div>
-                    </div>
+
                     <div style="float:right;">
                         <a style="margin: 5px;" aria-label="Magnet Button" href="{{.Magnet}}" type="button" class="btn btn-lg btn-success">
-                            <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> Download!
+                            <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> {{ T "download_btn" }}
                         </a>
                         {{if ne .TorrentLink ""}}
                         <a style="margin: 5px;" aria-label="Torrent file" href="{{.TorrentLink}}" type="button" class="btn btn-lg btn-success">
-                            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Torrent file
+                            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> {{ T "torrent_file" }}
                         </a>
                         {{end}}
                         <a style="margin: 5px;" aria-label="Report button" data-toggle="modal" data-target="#reportModal" class="btn btn-danger btn-sm">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Report!
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ T "report" }}
                         </a>
 
                       {{ if HasAdmin $.User}}
-                      <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i></a>
+                      <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('{{ T "are_you_sure" }}')) return false;"><i class="glyphicon glyphicon-trash"></i></a>
                       <a href="{{ genRoute "mod_tedit" }}?id={{ .ID }}" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                       {{end}}
                     </div>
@@ -42,13 +43,13 @@
                 </div>
                     <div class="col-md-12">
                         <h4>{{T "description"}}</h4>
-                        <div style="word-break:break-all;">{{.Description}}</div>
+                        <div class="break">{{.Description}}</div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <h4>{{T "hash"}}</h4>
-                <p class="torrent-hash">{{.Hash}}</p>
+                <p class="torrent-hash break">{{.Hash}}</p>
                 <hr>
                 <h4>{{T "date"}}</h4>
                 <p class="date-full">{{.Date}}</p>
@@ -62,20 +63,20 @@
                 <hr>
                 {{end}}
                 <div class="row">
-                <div class="col-md-4">{{T "seeders"}}</div>
-                <div class="col-md-4">{{T "leechers"}}</div>
-                <div class="col-md-4">{{T "completed"}}</div>
+                    <div class="col-md-4">{{T "seeders"}}</div>
+                    <div class="col-md-4">{{T "leechers"}}</div>
+                    <div class="col-md-4">{{T "completed"}}</div>
                 </div>
                 <div class="row">
-                <div class="col-md-4">{{.Seeders}}</div>
-                <div class="col-md-4">{{.Leechers}}</div>
-                <div class="col-md-4"><span class="completed" style="">{{.Completed}}</span></div>
-                <div class="col-md-8">
-                <div class="proSeedBar">
-                  <div class="seeds" style="width: {{ calcWidthSeed .Seeders .Leechers }}%;"></div>
-                  <div class="leechs" style="width: {{ calcWidthLeech .Seeders .Leechers }}%;"></div>
-                </div>
-                </div>
+                    <div class="col-md-4">{{.Seeders}}</div>
+                    <div class="col-md-4">{{.Leechers}}</div>
+                    <div class="col-md-4"><span class="completed" style="">{{.Completed}}</span></div>
+                    <div class="col-md-8">
+                        <div class="proSeedBar">
+                            <div class="seeds" style="width: {{ calcWidthSeed .Seeders .Leechers }}%;"></div>
+                            <div class="leechs" style="width: {{ calcWidthLeech .Seeders .Leechers }}%;"></div>
+                        </div>
+                    </div>
                 </div>
                 <hr>
             </div>
@@ -103,29 +104,52 @@
         {{ end }}
         <div class="row" id="comments">
             <div class="col-md-12">
-                <h4>{{T "comments"}}</h4>
-                {{ range $index, $element := .Comments }}
-                <div class="row comment-row" id="comment_{{$index}}">
-                    <div class="col-md-2">
-                        {{if eq .UserID -1}}
-                            <a href="#comment_{{$index}}">{{$index}}</a>
-                            {{.Username}}
-                        {{else}}
-                            <a href="#comment_{{$index}}">{{$index}}</a>
-                            <a href="{{$.URL.Parse (printf "/user/%d/-" .UserID ) }}">{{.Username}}</a>
+                <div class="commentList">
+                    <h4>{{T "comments"}}</h4>
+                    <hr/>
+                    <ul class="comments">
+                        {{ range $index, $element := .Comments }}
+                        <li class="clearfix comment jumptarget" id="comment_{{$index}}">
+                            {{/* The following line is wrong. Should be using the MD5 User hash but i don't knwo how to access it. */}}
+                            {{/* Changing Gravatar for something else, so it can stay like this. */}}
+                            <img src="https://www.gravatar.com/avatar/{{ .UserID }}?s=50" class="avatar" alt="">
+                            <div class="commentBody">
+                                <div class="commentData">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-sm-9">
+                                                    {{if eq .UserID -1}}
+                                                    <a href="#comment_{{$index}}">#{{$index}}</a> by {{.Username}}
+                                                    {{else}}
+                                                    <a href="#comment_{{$index}}">#{{$index}}</a>
+                                                    by <span class="break"><a href="{{$.URL.Parse (printf "/user/%d/-" .UserID ) }}">{{.Username}}</a></span>
+                                                    {{end}}
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <i class="pull-right date-short comment-date">
+                                                    <small>
+                                                    {{ .Date.Format ( Ts "date_format" ) }}
+                                                    {{/* output: "2017-05-01 15:30"
+                                                    Went with "Year-Month-Day" because it's the most unambiguous.
+                                                    If you want it to be determined by where you're from, be my guest. */}}
+                                                    </small>
+                                                    </i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        {{.Content}}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                         {{end}}
-                    </div>
-                    <div class="col-md-1 date-short comment-date">
-                        {{ .Date.Format ( Ts "date_format" ) }}
-                        {{/* output: "2017-05-01 15:30"
-                            Went with "Year-Month-Day" because it's the most unambiguous.
-                            If you want it to be determined by where you're from, be my guest. */}}
-                    </div>
-                    <div class="col-md-8">
-                        {{.Content}}
-                    </div>
+                    </ul>
                 </div>
-                {{end}}
             </div>
         </div>
     </div>
@@ -151,17 +175,17 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Report Torrent #{{.Torrent.ID}}</h4>
+                <h4 class="modal-title">{{ T "report_torrent_number" (print .Torrent.ID) }}</h4>
             </div>
             <div class="modal-body">
-                <b>Report type:</b>
+                <b>{{ T "report_type" }}:</b>
                 <form method="post" action="/report/{{.Torrent.ID}}">
-                    <input type="radio" name="report_type" value="illegal" required> Illegal content<br />
-                    <input type="radio" name="report_type" value="spam" required> Spam / Garbage<br />
-                    <input type="radio" name="report_type" value="wrongcat" required> Wrong category<br />
-                    <input type="radio" name="report_type" value="dup" required> Duplicate / Deprecated<br />
+                    <input type="radio" name="report_type" value="illegal" required> {{ T "illegal_content" }}<br />
+                    <input type="radio" name="report_type" value="spam" required> {{ T "spam_garbage" }}<br />
+                    <input type="radio" name="report_type" value="wrongcat" required> {{ T "wrong_category" }}<br />
+                    <input type="radio" name="report_type" value="dup" required> {{ T "duplicate_deprecated" }}<br />
                     {{block "captcha" .}}{{end}}
-                    <button type="submit" class="btn btn-default">Report!</button>
+                    <button type="submit" class="btn btn-default">{{ T "report_btn" }}</button>
                 </form> <br />
             </div>
             <div class="modal-footer">
