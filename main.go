@@ -14,6 +14,7 @@ import (
 	"github.com/ewhal/nyaa/network"
 	"github.com/ewhal/nyaa/router"
 	"github.com/ewhal/nyaa/service/scraper"
+	"github.com/ewhal/nyaa/service/torrent/filesizeFetcher"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/search"
@@ -82,11 +83,24 @@ func RunScraper(conf *config.Config) {
 	scraper.Wait()
 }
 
+// RunFilesizeFetcher runs the database filesize fetcher main loop
+func RunFilesizeFetcher(conf *config.Config) {
+	fetcher, err := filesizeFetcher.New(&conf.FilesizeFetcher)
+	if err != nil {
+		log.Fatalf("failed to start fetcher, %s", err)
+		return
+	}
+
+	signals.RegisterCloser(fetcher)
+	fetcher.RunAsync()
+	fetcher.Wait()
+}
+
 func main() {
 	conf := config.New()
 	processFlags := conf.BindFlags()
 	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
-	mode := flag.String("mode", "webapp", "which mode to run daemon in, either webapp or scraper")
+	mode := flag.String("mode", "webapp", "which mode to run daemon in, either webapp, scraper or filesize_fetcher")
 	flag.Float64Var(&conf.Cache.Size, "c", config.DefaultCacheSize, "size of the search cache in MB")
 
 	flag.Parse()
@@ -133,6 +147,8 @@ func main() {
 			RunScraper(conf)
 		} else if *mode == "webapp" {
 			RunServer(conf)
+		} else if *mode == "filesize_fetcher" {
+			RunFilesizeFetcher(conf)
 		} else {
 			log.Fatalf("invalid runtime mode: %s", *mode)
 		}

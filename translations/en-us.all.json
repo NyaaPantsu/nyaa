@@ -548,6 +548,10 @@
     "translation": "Moderator"
   },
   {
+    "id":" api_token",
+    "translation": "API Token"
+  }
+  {
     "id": "save_changes",
     "translation": "Save Changes"
   },
