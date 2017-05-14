@@ -82,7 +82,7 @@ func (fetcher *FilesizeFetcher) removeFromQueue(op *FetchOperation) bool {
 func (fetcher *FilesizeFetcher) gotResult(r Result) {
 	updatedSuccessfully := false
 	if r.err != nil {
-		log.Infof("Failed to get torrent filesize (TID: %d), err ", r.operation.torrent.ID)
+		log.Infof("Failed to get torrent filesize (TID: %d), err %v", r.operation.torrent.ID, r.err)
 	} else if r.info.Length == 0 {
 		log.Infof("Got length 0 for torrent TID: %d. Possible bug?", r.operation.torrent.ID)
 	} else {
