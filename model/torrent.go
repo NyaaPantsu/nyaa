@@ -90,8 +90,8 @@ type CommentJSON struct {
 }
 
 type FileJSON struct {
-	Path  string `json:"path"`
-	Length int64 `json:"length"`
+	Path     string `json:"path"`
+	Filesize string `json:"filesize"`
 }
 
 type TorrentJSON struct {
@@ -116,7 +116,7 @@ type TorrentJSON struct {
 	Leechers     uint32        `json:"leechers"`
 	Completed    uint32        `json:"completed"`
 	LastScrape   time.Time     `json:"last_scrape"`
-	FileList     []File        `json:"file_list"`
+	FileList     []FileJSON    `json:"file_list"`
 }
 
 // ToJSON converts a model.Torrent to its equivalent JSON structure
@@ -128,6 +128,10 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	}
 	for _, c := range t.Comments {
 		commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC()})
+	}
+	fileListJSON := make([]FileJSON, 0, len(t.FileList))
+	for _, f := range t.FileList {
+		fileListJSON = append(fileListJSON, FileJSON{Path: f.Path, Filesize: util.FormatFilesize2(f.Filesize)})
 	}
 	uploader := ""
 	if t.Uploader != nil {
@@ -162,7 +166,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Seeders:      t.Seeders,
 		Completed:    t.Completed,
 		LastScrape:   t.LastScrape,
-		FileList:     t.FileList,
+		FileList:     fileListJSON,
 	}
 
 	return res

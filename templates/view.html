@@ -80,6 +80,27 @@
                 <hr>
             </div>
         </div>
+        {{ if gt (len .FileList) 0 }}
+        <div class="row" id="files">
+            <div class="col-md-12">
+                <h4>{{T "files"}}</h4>
+                <div class="table-responsive">
+                    <table class="table custom-table-hover">
+                    <tr>
+                        <th class="col-xs-8">{{T "filename"}}</th>
+                        <th class="col-xs-1">{{T "size"}}</th>
+                    </tr>
+                    {{ range .FileList }}
+                    <tr>
+                    <td>{{.Path}}</td>
+                        <td>{{.Filesize}}</td>
+                    </tr>
+                    {{ end }}
+                    </table>
+                </div>
+            </div>
+        </div>
+        {{ end }}
         <div class="row" id="comments">
             <div class="col-md-12">
                 <h4>{{T "comments"}}</h4>

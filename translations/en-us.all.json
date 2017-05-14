@@ -646,5 +646,13 @@
   {
     "id": "delete",
     "translation": "Delete"
+  },
+  {
+    "id": "files",
+    "translation": "Files"
+  },
+  {
+    "id": "filename",
+    "translation": "Filename"
   }
 ]
