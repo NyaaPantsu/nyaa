@@ -82,12 +82,12 @@ func (db *Database) GetUserByID(id uint32) (user model.User, has bool, err error
 }
 
 func (db *Database) InsertUser(u *model.User) (err error) {
-	_, err = db.getPrepared(queryInsertUser).Exec(u.Username, u.Password, u.Email, u.Status, u.CreatedAt, u.UpdatedAt, u.LastLoginAt, u.LastLoginIP, u.Token, u.TokenExpiration, u.Language, u.MD5)
+	_, err = db.getPrepared(queryInsertUser).Exec(u.Username, u.Password, u.Email, u.Status, u.CreatedAt, u.UpdatedAt, u.ApiToken, u.ApiTokenExpiry, u.Language, u.MD5)
 	return
 }
 
 func (db *Database) UpdateUser(u *model.User) (err error) {
-	_, err = db.getPrepared(queryUpdateUser).Exec(u.ID, u.Username, u.Password, u.Email, u.Status, u.UpdatedAt, u.LastLoginAt, u.LastLoginIP, u.Token, u.TokenExpiration, u.Language, u.MD5)
+	_, err = db.getPrepared(queryUpdateUser).Exec(u.ID, u.Username, u.Password, u.Email, u.Status, u.UpdatedAt, u.ApiToken, u.ApiTokenExpiry, u.Language, u.MD5)
 	return
 }
 

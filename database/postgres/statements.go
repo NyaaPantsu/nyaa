@@ -41,13 +41,13 @@ func scanCommentColumnsFull(rows *sql.Rows, c *model.Comment) {
 const torrentReportSelectColumnsFull = `torrent_report_id, type, torrent_id, user_id, created_at`
 
 func scanTorrentReportColumnsFull(rows *sql.Rows, r *model.TorrentReport) {
-	rows.Scan(&r.ID, &r.Type, &r.TorrentID, &r.UserID, &r.CreatedAt)
+	rows.Scan(&r.ID, &r.Description, &r.TorrentID, &r.UserID, &r.CreatedAt)
 }
 
-const userSelectColumnsFull = `user_id, username, password, email, status, created_at, updated_at, last_login_at, last_login_ip, api_token, api_token_expires, language, md5`
+const userSelectColumnsFull = `user_id, username, password, email, status, created_at, updated_at, api_token, api_token_expiry, language, md5`
 
 func scanUserColumnsFull(rows *sql.Rows, u *model.User) {
-	rows.Scan(&u.ID, &u.Username, &u.Password, &u.Email, &u.Status, &u.CreatedAt, &u.UpdatedAt, &u.LastLoginAt, &u.LastLoginIP, &u.Token, &u.TokenExpiration, &u.Language, &u.MD5)
+	rows.Scan(&u.ID, &u.Username, &u.Password, &u.Email, &u.Status, &u.CreatedAt, &u.UpdatedAt, &u.ApiToken, &u.ApiTokenExpiry, &u.Language, &u.MD5)
 
 }
 
