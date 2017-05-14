@@ -284,6 +284,14 @@
     "translation": "Os bancos de dados estão hospedados em nyaa.pantsu.cat e sukebei.pantsu.cat. Há uma função de busca, e (quase) todas as funcionalidades do nyaa devem estar de volta em breve. Estatísticas de seeders/leechers estão disponíveis via raspagem de dados e podem ser restauradas no futuro, já que outras funções são prioridade no momento."
   },
   {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "O que devo fazer para transferir meus antigos envios de volta a minha nova conta?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "Entre em <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> e informe a moderação seu antigo e novo nome de usuário."
+  },
+  { 
     "id": "are_the_trackers_working",
     "translation": "Os torrents ainda funcionam?"
   },
