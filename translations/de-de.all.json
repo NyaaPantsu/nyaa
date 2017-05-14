@@ -273,7 +273,7 @@
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Um Sukebei steht es hingegen schlechter. Zurzeit haben wir nur eine Sukebei-Datenbank bis 2016, aber eine neuere Datenbank steht möglicherweise zu Verfügung."
+    "translation": "Das Gleiche gilt für Sukebei, es fehlt auch fast nichts."
   },
   {
     "id": "how_are_we_recovering",
@@ -281,7 +281,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "Die obengenannten Datenbanken werden im Moment auf nyaa.pantsu.cat und sukebei.pantsu.cat bereitgestellt. Es gibt eine Suchfunktion und (fast) vollständige Funktionalität von nyaa sollte bald wiederhergestellt sein. Seeder/Leecher Statistiken sind via Scraping möglich und werden in Zukunft vielleicht wiederhergestellt werden, da andere Funktionen Vorrang haben."
+    "translation": "Die obengenannten Datenbanken werden im Moment auf nyaa.pantsu.cat und sukebei.pantsu.cat bereitgestellt. Es gibt eine Suchfunktion und (fast) vollständige Funktionalität von nyaa sollte bald wiederhergestellt sein."
   },
   {
     "id": "are_the_trackers_working",
@@ -305,11 +305,15 @@
   },
   {
     "id": "which_trackers_do_you_recommend",
-    "translation": "Welche Tracker sind empfohlen?"
+    "translation": "Welche Tracker empfehlt ihr?"
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Wenn deine Torrents wegen Trackern Probleme machen, solltest du einige dieser hinzufügen:"
+    "translation": "Wir haben jetzt unseren eigenen Tracker! Füge ihn vorm Hochladen deinen Torrents hinzu:"
+  },
+  {
+    "id": "other_trackers",
+    "translation": "Allerdings solltest du diese auch hinzufügen, nur für den Fall, dass etwas schief läuft"
   },
   {
     "id": "how_can_i_help",
@@ -317,7 +321,7 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "Wenn du Erfahrungen mit Webseitenprogrammierung hast, kannst du dem IRC-Kanal #nyaapantsu auf irc.rizon.net (Englisch) beitreten. Wenn du irgendwelche Datenbanken hast, insbesondere für Sukebei, <b>LAD SIE HOCH</b>."
+    "translation": "Wenn du Erfahrungen mit Webseitenprogrammierung hast, kannst du dem IRC-Kanal #nyaapantsu auf irc.rizon.net (Englisch) beitreten. Wenn du irgendwelche Datenbanken hast, insbesondere für Sukebei, lad sie hoch."
   },
   {
     "id": "your_design_sucks_found_a_bug",
@@ -350,6 +354,10 @@
   {
     "id": "all_categories",
     "translation": "Alle Kategorien"
+  },
+  {
+    "id": "select_a_torrent_category",
+    "translation": "Wähle eine Kategorie aus"
   },
   {
     "id": "anime",
@@ -588,6 +596,10 @@
     "translation": "Remake"
   },
   {
+    "id": "profile_edit_page",
+    "translation": "Profil von %s bearbeiten"
+  },
+  {
     "id": "seeders",
     "translation": "Seeder"
   },
@@ -600,7 +612,15 @@
     "translation": "Komplett"
   },
   {
+    "id": "change_language",
+    "translation": "Sprache ändern"
+  },
+  {
     "id": "language_name",
     "translation": "Deutsch"
+  },
+  {
+    "id": "delete",
+    "translation": "Löschen"
   }
 ]
