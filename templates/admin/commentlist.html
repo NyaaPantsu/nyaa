@@ -3,6 +3,7 @@
 <table class="table">
 <tr>
     <th class="col-xs-10">Content</th>
+    <th class="col-xs-1">Torrent</th>
     <th class="col-xs-1">User</th>
     <th class="col-xs-1">Action</th>
 </tr>
@@ -10,8 +11,10 @@
 {{ range .Comments}}
 
 <tr>
-    <td><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{ .Content }}</a></td>
-    <td><a>{{ .UserID }}</a></td>
+    <!-- TODO: add href="{{ genRoute "mod_cedit" }}?id={{.ID}}" for comment editing -->
+    <td><a>{{ .Content }}</a></td>
+    <td><a href="{{ genViewTorrentRoute .TorrentID }}">{{ .TorrentID }}</a></td>
+    <td>{{ .UserID }}</td>
     <td><a href="{{ genRoute "mod_cdelete" }}?id={{.ID}}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i> {{ T "delete" }}</a></td></tr>
 {{end}}
 </table>
