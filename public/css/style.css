@@ -448,19 +448,14 @@ select#bottom_language_selector {
 }
 
 .commentList .commentBody {
-  border: 1px solid #eee;
-    margin-bottom: 20px;
-    margin-left: 85px;
-  margin-right: 0px;
-    padding: 10px 20px;
-    position: relative;
-    -webkit-border-radius: 4px;
-       -moz-border-radius: 4px;
-         -o-border-radius: 4px;
-        border-radius: 4px;
-  background: #fff;
-  color: #6b6e80;
-  position: relative;
+	border: 1px solid #c1c1c1;
+	margin-left: 85px;
+	margin-right: 0px;
+	padding: 8px 16px;
+	position: relative;
+	border-radius: 4px;
+	background: #fff;
+	color: #6b6e80;
 }
 
 .commentList .commentBody > .row > div {
@@ -469,11 +464,9 @@ select#bottom_language_selector {
 
 .commentList .commentData {
   font-size: 13px;
-  color: #aaaaaa;
-  padding-bottom: 8px;
   margin-bottom: 10px !important;
   border-bottom: 1px solid #eee;
-  height: 2.5em;
+  height: 2.2em;
 }
 
 .commentList ul.comments ul{
@@ -491,7 +484,6 @@ select#bottom_language_selector {
 }
 
 .comment {
-  margin: 1em;
   padding: 1em;
   width: 75%;
   margin-left: 12%;
