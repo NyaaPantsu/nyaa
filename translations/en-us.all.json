@@ -317,11 +317,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "We now have our own Tracker!, add it to the top of the list before uploading:"
-  },
-  {
-    "id": "other_trackers",
-    "translation": "But you should also add these, just in case something goes wrong"
+    "translation": "We now have our own Tracker called doko.moe, add it to the top of the list before uploading. You should add all of these trackers to keep the torrent resilient."
   },
   {
     "id": "how_can_i_help",
