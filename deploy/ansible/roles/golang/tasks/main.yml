@@ -15,3 +15,12 @@
     path: ~/.bashrc
     regexp: 'export PATH='
     line:   'export PATH=$PATH:/usr/local/go/bin'
+
+- name: Install git for go get command
+  yum:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - git
+    - gcc
