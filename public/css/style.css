@@ -545,3 +545,14 @@ select#bottom_language_selector {
     margin-left: 0;
   }
 }
+
+.theme-switcher-colors {
+  color: #263238;
+  background-color: #f2f2f2;
+}
+
+.mascot {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+}
