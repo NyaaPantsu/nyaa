@@ -160,3 +160,10 @@ a:hover {
   background: #29363d;
   color: #fff;
 }
+/* fix the dropdown member menu */
+.nav > .dropdown.open, .profile-image[aria-expanded="true"], .nav ul.dropdown-menu {
+	background: #282A2E !important;
+}
+.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+	background: #263238;
+}
