@@ -15,6 +15,7 @@ import (
 	"github.com/ewhal/nyaa/router"
 	"github.com/ewhal/nyaa/service/scraper"
 	"github.com/ewhal/nyaa/service/torrent/metainfoFetcher"
+	"github.com/ewhal/nyaa/service/user"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/search"
@@ -124,7 +125,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err.Error())
 		}
-		err = languages.InitI18n(conf.I18n)
+		err = languages.InitI18n(conf.I18n, userService.NewCurrentUserRetriever())
 		if err != nil {
 			log.Fatal(err.Error())
 		}

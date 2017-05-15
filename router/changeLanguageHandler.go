@@ -15,7 +15,7 @@ type LanguagesJSONResponse struct {
 }
 
 func SeeLanguagesHandler(w http.ResponseWriter, r *http.Request) {
-	_, Tlang := languages.GetTfuncAndLanguageFromRequest(r, "en-us")
+	_, Tlang := languages.GetTfuncAndLanguageFromRequest(r)
 	availableLanguages := languages.GetAvailableLanguages()
 
 	format := r.URL.Query().Get("format")
@@ -28,7 +28,7 @@ func SeeLanguagesHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		clv := ChangeLanguageVariables{NewSearchForm(), Navigation{}, Tlang.Tag, availableLanguages, GetUser(r), r.URL, mux.CurrentRoute(r)}
-		languages.SetTranslationFromRequest(changeLanguageTemplate, r, "en-us")
+		languages.SetTranslationFromRequest(changeLanguageTemplate, r)
 		err := changeLanguageTemplate.ExecuteTemplate(w, "index.html", clv)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)

@@ -1,13 +1,15 @@
 package router
 
 import (
-	"github.com/ewhal/nyaa/service/user/permission"
-	"github.com/nicksnyder/go-i18n/i18n"
 	"html/template"
 	"log"
 	"math"
 	"net/url"
 	"strconv"
+
+	"github.com/ewhal/nyaa/service/user/permission"
+	"github.com/ewhal/nyaa/util/languages"
+	"github.com/nicksnyder/go-i18n/i18n"
 )
 
 var FuncMap = template.FuncMap{
@@ -55,6 +57,25 @@ var FuncMap = template.FuncMap{
 
 		return template.URL(url.String())
 	},
+	"genSortArrows": func(currentUrl url.URL, sortBy string) template.HTML {
+		values := currentUrl.Query()
+		leftclass := "sortarrowdim"
+		rightclass := "sortarrowdim"
+
+		if _, ok := values["order"]; ok {
+			if values["sort"][0] == sortBy {
+				if values["order"][0] == "true" {
+					rightclass = ""
+				} else {
+					leftclass = ""
+				}
+			}
+		}
+
+		arrows := "<span class=\"sortarrowleft "+leftclass+"\">▼</span><span class=\""+rightclass+"\">▲</span>"
+
+		return template.HTML(arrows)
+	},
 	"genNav": func(nav Navigation, currentUrl *url.URL, pagesSelectable int) template.HTML {
 		var ret = ""
 		if nav.TotalItem > 0 {
@@ -92,6 +113,7 @@ var FuncMap = template.FuncMap{
 	},
 	"T":  i18n.IdentityTfunc,
 	"Ts": i18n.IdentityTfunc,
+	"getDefaultLanguage": languages.GetDefaultLanguage,
 	"getAvatar": func(hash string, size int) string {
 		return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
 	},

@@ -106,6 +106,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	case "2":
 		search.Sort = common.Date
 		orderBy += "date"
+		search.NotNull = "date IS NOT NULL"
 		break
 	case "3":
 		search.Sort = common.Downloads
@@ -114,21 +115,23 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	case "4":
 		search.Sort = common.Size
 		orderBy += "filesize"
+		// avoid sorting completely breaking on postgres
+		search.NotNull = "filesize IS NOT NULL"
 		break
 	case "5":
 		search.Sort = common.Seeders
 		orderBy += "seeders"
-		search.NotNull += "seeders IS NOT NULL "
+		search.NotNull = "seeders IS NOT NULL"
 		break
 	case "6":
 		search.Sort = common.Leechers
 		orderBy += "leechers"
-		search.NotNull += "leechers IS NOT NULL "
+		search.NotNull = "leechers IS NOT NULL"
 		break
 	case "7":
 		search.Sort = common.Completed
 		orderBy += "completed"
-		search.NotNull += "completed IS NOT NULL "
+		search.NotNull = "completed IS NOT NULL"
 		break
 	default:
 		search.Sort = common.ID
@@ -169,10 +172,6 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 		}
 		parameters.Params = append(parameters.Params, strconv.Itoa(int(search.Status)+1))
 	}
-	if len(search.NotNull) > 0 {
-		conditions = append(conditions, search.NotNull)
-	}
-
 	if len(search.NotNull) > 0 {
 		conditions = append(conditions, search.NotNull)
 	}

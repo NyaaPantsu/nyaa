@@ -33,12 +33,11 @@ type Config struct {
 	I2P *I2PConfig `json:"i2p"`
 	// filesize fetcher config
 	MetainfoFetcher MetainfoFetcherConfig `json:"metainfo_fetcher"`
-  // internationalization config
+	// internationalization config
 	I18n I18nConfig `json:"i18n"`
 }
 
 var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50", "default", DefaultScraperConfig, DefaultCacheConfig, DefaultSearchConfig, nil, DefaultMetainfoFetcherConfig, DefaultI18nConfig}
-
 
 var allowedDatabaseTypes = map[string]bool{
 	"sqlite3":  true,

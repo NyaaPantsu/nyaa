@@ -29,7 +29,7 @@
                 <select id="language" name="language" class="form-control">
 					{{ $userLanguage := .Language }}
 					{{ range $tag, $translatedName := $.Languages }}
-	                	<option value="{{ $tag }}" {{ if or (eq $userLanguage $tag) (and (eq $userLanguage "") (eq $tag "en-us")) }}selected{{end}}>{{ $translatedName }} {{if eq $tag "en-us"}}({{ T "default" }}){{end}}</option>
+						<option value="{{ $tag }}" {{ if or (eq $userLanguage $tag) (and (eq $userLanguage "") (eq $tag getDefaultLanguage)) }}selected{{end}}>{{ $translatedName }} {{if eq $tag getDefaultLanguage}}({{ T "default" }}){{end}}</option>
 					{{ end }}
                 </select>
               </div>
@@ -102,7 +102,7 @@
             <div class="col-md-8">
               <input type="submit" class="btn btn-primary" name="save" value="{{ T "save_changes"}}">
               <span></span>
-              <input type="reset" class="btn btn-default" value="Cancel">
+              <input type="reset" class="btn btn-default" value="{{ T "cancel"}}">
             </div>
           </div>
         </form>
