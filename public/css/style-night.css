@@ -66,7 +66,7 @@
 */
 img#mascot {
 	display:block;
-	background-image: url(/img/megumin.png);
+	background-image: url("/img/megumin.png");
 	box-sizing: border-box;
 	height: 167px;
 	width: 125px;
