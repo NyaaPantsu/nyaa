@@ -58,7 +58,11 @@ func GormInit(conf *config.Config, logger Logger) (*gorm.DB, error) {
 	if db.Error != nil {
 		return db, db.Error
 	}
-	db.AutoMigrate(&model.Torrent{}, &model.TorrentReport{}, &model.File{})
+	db.AutoMigrate(&model.Torrent{}, &model.TorrentReport{})
+	if db.Error != nil {
+		return db, db.Error
+	}
+	db.AutoMigrate(&model.File{})
 	if db.Error != nil {
 		return db, db.Error
 	}

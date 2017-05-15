@@ -101,7 +101,7 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "กรุณาเช็คอีเมล (และในโฟลเดอร์เมลขยะ!) สำหรับเมลยืนยันตัวตน"
+    "translation": "ขณะนี้การยืนยันอีเมลถูกปิดใช้งาน ฉะนั้นคุณสามารถใช้งานแอคเคาท์ได้ทันที แต่ในอนาคตกรุณาเช็คอีเมล (และในโฟลเดอร์เมลขยะ!) สำหรับเมลยืนยันตัวตน"
   },
   {
     "id":"signup_verification_noemail",
@@ -233,7 +233,7 @@
   },
   {
     "id": "links_replacement_mirror",
-    "translation": "ลิงค์สำหรับเว็บที่ใช้ทดแทน/Mirror"
+    "translation": "ลิงค์สำหรับเว็บที่ใช้ทดแทน / Mirror"
   },
   {
     "id": "what_happened",
@@ -245,7 +245,7 @@
   },
   {
     "id": "its_not_a_ddos",
-    "translation": "และเขาปิดระบบเอง ฉะนั้นจึงไม่ใช่การโจมตีแบบ DDoS แบบทุกที"
+    "translation": "นี่ไม่ใช่การโจมตีแบบ DDoS แบบทุกที เพราะเขาปิดระบบเอง"
   },
   {
     "id": "future_not_looking_good",
@@ -646,5 +646,57 @@
   {
     "id": "delete",
     "translation": "ลบ"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "อัพโหลด"
+  },
+  {
+    "id": "download_btn",
+    "translation": "ดาวน์โหลด!"
+  },
+  {
+    "id": "report_btn",
+    "translation": "รายงาน"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "แน่ใจแล้วเหรอ?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "รายงานทอร์เรนท์ #%s"
+  },
+  {
+    "id": "report_type",
+    "translation": "รูปแบบการรายงาน"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "คอนเทนท์ผิดกฎหมาย"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "สแปม / ขยะ"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "ผิดหมวดหมู่"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "ซ้ำ / ถูกลอยแพ"
+  },
+  {
+    "id": "captcha",
+    "translation": "Captcha"
+  },
+  {
+    "id": "file_name",
+    "translation": "ชื่อไฟล์"
+  },
+  {
+    "id": "cancel",
+    "translation": "ยกเลิก"
   }
 ]

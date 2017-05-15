@@ -60,6 +60,18 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 				Description: uploadForm.Description,
 				UploaderID:  user.ID}
 			db.ORM.Create(&torrent)
+
+			// add filelist to files db, if we have one
+			if len(uploadForm.FileList) > 0 {
+				for _, uploadedFile := range uploadForm.FileList {
+					file := model.File{
+						TorrentID: torrent.ID,
+						Path: uploadedFile.Path,
+						Filesize: uploadedFile.Filesize}
+					db.ORM.Create(&file)
+				}
+			}
+
 			url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -80,7 +92,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 
 
 		htv := UploadTemplateVariables{uploadForm, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
-		languages.SetTranslationFromRequest(uploadTemplate, r, "en-us")
+		languages.SetTranslationFromRequest(uploadTemplate, r)
 		err := uploadTemplate.ExecuteTemplate(w, "index.html", htv)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
