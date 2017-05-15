@@ -197,7 +197,7 @@
   },
   {
     "id": "no_torrents_uploaded",
-    "translation": "没有被上传的种子喵！"
+    "translation": "这个人很懒，什么资源都没上传过喵！"
   },
   {
     "id": "profile",
@@ -329,7 +329,7 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "如果您是个技术宅，请加入位于 irc.rizon.net 上的 IRC 频道 #nyaapantsu 。如果您有最新的资源，特别是 sukebei 的，请上传它们。"
+    "translation": "如果您是个技术宅，请加入位于 irc.rizon.net 上的 IRC 频道 #nyaapantsu 。如果您有最新的资源，特别是 sukebei 的，<p>请上传它们</p>！"
   },
   {
     "id": "your_design_sucks_found_a_bug",
@@ -465,7 +465,7 @@
   },
   {
     "id": "description_markdown_notice",
-    "translation": "描述可使用 Markdown"
+    "translation": "描述中可以使用 Markdown 标记语言"
   },
   {
     "id": "show_all",
@@ -501,7 +501,7 @@
   },
   {
     "id": "hash",
-    "translation": "哈希"
+    "translation": "文件Hash"
   },
   {
     "id": "description",
@@ -513,7 +513,7 @@
   },
   {
     "id": "submit_a_comment_as_username",
-    "translation": "作为 %s 发表评论"
+    "translation": "欢迎 %s 发表评论"
   },
   {
     "id": "submit_a_comment_as_anonymous",
@@ -561,7 +561,7 @@
   },
   {
     "id": "profile_updated",
-    "translation": "您的个人资料已保存喵！"
+    "translation": "您的个人资料保存成功喵！"
   },
   {
     "id": "delete_account",
@@ -569,7 +569,7 @@
   },
   {
     "id": "delete_account_confirm",
-    "translation": "您真的要删除您的账号喵？这无法挽回！"
+    "translation": "您真的要删除您的账号喵？这是无法挽回的！"
   },
   {
     "id": "delete_success",
@@ -589,7 +589,7 @@
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん(Ren-chon)是匿名评论与上传者的默认用户名，同时也显示为Nyaa站原始资源的上传者."
+    "translation": "れんちょん(小莲)是匿名评论与上传者的默认用户名，同时也显示为Nyaa站原始资源的上传者."
   },
   {
     "id": "mark_as_remake",
