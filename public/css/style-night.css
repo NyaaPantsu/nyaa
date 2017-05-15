@@ -165,3 +165,13 @@ a:hover {
   background: #29363d;
   color: #fff;
 }
+
+/* INFO breaking the no layout change rule because
+ * the mascot changes position (right/left) depending
+ * on the theme. */
+.mascot {
+  position: fixed;
+  bottom: 0px;
+  left: initial;
+  right: 0px;
+}
