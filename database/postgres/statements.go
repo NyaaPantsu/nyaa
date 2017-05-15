@@ -3,6 +3,7 @@ package postgres
 import (
 	"database/sql"
 	"fmt"
+	"time"
 
 	"github.com/ewhal/nyaa/model"
 )
@@ -28,8 +29,39 @@ const queryDeleteUserFollowing = "DeleteUserFollowing"
 
 const torrentSelectColumnsFull = `torrent_id, torrent_name, torrent_hash, category, sub_category, status, date, uploader, downloads, stardom, description, website_link, deleted_at, seeders, leechers, completed, last_scrape`
 
-func scanTorrentColumnsFull(rows *sql.Rows, t *model.Torrent) {
-	rows.Scan(&t.ID, &t.Name, &t.Hash, &t.Category, &t.SubCategory, &t.Status, &t.Date, &t.UploaderID, &t.Downloads, &t.Stardom, &t.Description, &t.WebsiteLink, &t.DeletedAt, &t.Seeders, &t.Leechers, &t.Completed, &t.LastScrape)
+func scanTorrentColumnsFull(rows *sql.Rows, t *model.Torrent) (err error) {
+	var downloads, leechers, seeders, completed, description, websitelink, lastscrape, date, deleted_at interface{}
+	err = rows.Scan(&t.ID, &t.Name, &t.Hash, &t.Category, &t.SubCategory, &t.Status, &date, &t.UploaderID, &downloads, &t.Stardom, &description, &websitelink, &deleted_at, &seeders, &leechers, &completed, &lastscrape)
+	if downloads != nil {
+		t.Downloads = int(downloads.(int64))
+	}
+	if seeders != nil {
+		t.Seeders = uint32(seeders.(int64))
+	}
+	if leechers != nil {
+		t.Leechers = uint32(leechers.(int64))
+	}
+	if completed != nil {
+		t.Completed = uint32(completed.(int64))
+	}
+	if description != nil {
+		t.Description = description.(string)
+	}
+	if websitelink != nil {
+		t.WebsiteLink = websitelink.(string)
+	}
+	if date != nil {
+		t.Date = date.(time.Time)
+	}
+	if lastscrape != nil {
+		t.LastScrape = lastscrape.(time.Time)
+	}
+	if deleted_at != nil {
+		d := deleted_at.(time.Time)
+		t.DeletedAt = &d
+	}
+
+	return
 }
 
 const commentSelectColumnsFull = `comment_id, torrent_id, user_id, content, created_at, updated_at, deleted_at`

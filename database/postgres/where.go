@@ -173,7 +173,7 @@ func (db *Database) GetTorrentsWhere(param *common.TorrentParam) (torrents []mod
 	}
 
 	q := searchParamToTorrentQuery(param)
-	err = q.Query(db.conn, func(rows *sql.Rows) error {
+	err = q.Query(db.conn, func(rows *sql.Rows) (e error) {
 		if param.Max == 0 {
 			torrents = make([]model.Torrent, 0, 128)
 		} else {
@@ -182,10 +182,13 @@ func (db *Database) GetTorrentsWhere(param *common.TorrentParam) (torrents []mod
 
 		for rows.Next() {
 			var t model.Torrent
-			scanTorrentColumnsFull(rows, &t)
+			e = scanTorrentColumnsFull(rows, &t)
+			if e != nil {
+				break
+			}
 			torrents = append(torrents, t)
 		}
-		return nil
+		return
 	})
 	return
 }
