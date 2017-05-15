@@ -16,7 +16,15 @@
                 <div class="col-md-12">
                     <div style="float: left;">
                       <div class="uploaded_by">
-                            <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}">
+
+                          {{ if Sukebei }}
+
+                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}">
+
+                          {{ else }}
+                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}">
+                          {{ end}}
+
                             <h4>{{ T "uploaded_by" }} <a href="{{$.URL.Parse (printf "/user/%d/-" .UploaderID) }}">{{.UploaderName}}</a></h4>
 
                         </div>
