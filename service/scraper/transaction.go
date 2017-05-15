@@ -6,6 +6,7 @@ import (
 	"net"
 	"time"
 
+	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/util/log"
@@ -53,8 +54,8 @@ func (t *Transaction) handleScrapeReply(data []byte) {
 	}
 }
 
-const pgQuery = "UPDATE torrents SET seeders = $1 , leechers = $2 , completed = $3 , last_scrape = $4 WHERE torrent_id = $5"
-const sqliteQuery = "UPDATE torrents SET seeders = ? , leechers = ? , completed = ? , last_scrape = ? WHERE torrent_id = ?"
+const pgQuery = "UPDATE " + config.TableName + " SET seeders = $1 , leechers = $2 , completed = $3 , last_scrape = $4 WHERE torrent_id = $5"
+const sqliteQuery = "UPDATE " + config.TableName + " SET seeders = ? , leechers = ? , completed = ? , last_scrape = ? WHERE torrent_id = ?"
 
 // Sync syncs models with database
 func (t *Transaction) Sync() (err error) {
