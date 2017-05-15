@@ -1,6 +1,17 @@
 {{define "search_common"}}
   <select name="c" class="form-control input-sm" value>
     <option value="_">{{T "all_categories"}}</option>
+    {{ if Sukebei }}
+    <option value="1_" {{if eq .Search.Category "1_"}}selected{{end}}>{{T "art"}}</option>
+    <option value="1_1" {{if eq .Search.Category "1_1"}}selected{{end}}>{{T "art_anime"}}</option>
+    <option value="1_2" {{if eq .Search.Category "1_2"}}selected{{end}}>{{T "art_doujinshi"}}</option>
+    <option value="1_3" {{if eq .Search.Category "1_3"}}selected{{end}}>{{T "art_games"}}</option>
+    <option value="1_4" {{if eq .Search.Category "1_4"}}selected{{end}}>{{T "art_manga"}}</option>
+    <option value="1_5" {{if eq .Search.Category "1_5"}}selected{{end}}>{{T  "art_pictures"}}</option>
+    <option value="2_" {{if eq .Search.Category "2_"}}selected{{end}}>{{T "real_life"}}</option>
+    <option value="2_1" {{if eq .Search.Category "2_1"}}selected{{end}}>{{T "real_life_photobooks_and_Pictures"}}</option>
+    <option value="2_2" {{if eq .Search.Category "2_2"}}selected{{end}}>{{T "real_life_videos"}}</option>
+    {{ else }}
     <option value="3_" {{if eq .Search.Category "3_"}}selected{{end}}>{{T "anime"}}</option>
     <option value="3_12" {{if eq .Search.Category "3_12"}}selected{{end}}>{{T "anime_amv"}}</option>
     <option value="3_5" {{if eq .Search.Category "3_5"}}selected{{end}}>{{T "anime_english_translated"}}</option>
@@ -24,6 +35,7 @@
     <option value="1_" {{if eq .Search.Category "1_"}}selected{{end}}>{{T "software"}}</option>
     <option value="1_1" {{if eq .Search.Category "1_1"}}selected{{end}}>{{T "software_applications"}}</option>
     <option value="1_2" {{if eq .Search.Category "1_2"}}selected{{end}}>{{T "software_games"}}</option>
+    {{ end }}
   </select>
   <select name="s" class="form-control input-sm">
     <option value="0">{{T "show_all"}}</option>

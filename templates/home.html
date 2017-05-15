@@ -31,7 +31,13 @@
               <!-- forced width because the <td> gets bigger randomly otherwise -->
               <td class="hidden-xs" style="width:80px">
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
+                      {{ if Sukebei }}
+
+                      <img src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}">
+
+                      {{ else }}
                       <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}">
+                      {{ end}}
                   </a>
               </td>
               <td class="name">

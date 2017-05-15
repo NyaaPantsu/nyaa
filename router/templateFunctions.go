@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"strconv"
 
+	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/service/user/permission"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/nicksnyder/go-i18n/i18n"
@@ -72,7 +73,7 @@ var FuncMap = template.FuncMap{
 			}
 		}
 
-		arrows := "<span class=\"sortarrowleft "+leftclass+"\">▼</span><span class=\""+rightclass+"\">▲</span>"
+		arrows := "<span class=\"sortarrowleft " + leftclass + "\">▼</span><span class=\"" + rightclass + "\">▲</span>"
 
 		return template.HTML(arrows)
 	},
@@ -111,8 +112,15 @@ var FuncMap = template.FuncMap{
 		}
 		return template.HTML(ret)
 	},
-	"T":  i18n.IdentityTfunc,
-	"Ts": i18n.IdentityTfunc,
+	"Sukebei": func() bool {
+		if config.TableName == "sukebei_torrents" {
+			return true
+		} else {
+			return false
+		}
+	},
+	"T":                  i18n.IdentityTfunc,
+	"Ts":                 i18n.IdentityTfunc,
 	"getDefaultLanguage": languages.GetDefaultLanguage,
 	"getAvatar": func(hash string, size int) string {
 		return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
