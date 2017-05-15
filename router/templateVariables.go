@@ -12,9 +12,9 @@ import (
 )
 
 /* Each Page should have an object to pass to their own template
- * Therefore, we put them in a separate file for better maintenance
- *
- * MAIN Template Variables
+* Therefore, we put them in a separate file for better maintenance
+*
+* MAIN Template Variables
  */
 
 type FaqTemplateVariables struct {
@@ -123,7 +123,6 @@ type ChangeLanguageVariables struct {
 	Route      *mux.Route
 }
 
-
 /* MODERATION Variables */
 
 type PanelIndexVbs struct {
@@ -160,10 +159,10 @@ type PanelCommentListVbs struct {
 
 type PanelTorrentEdVbs struct {
 	Upload     UploadForm
-	Search  SearchForm
-	User    *model.User
-	FormErrors  map[string][]string
-	FormInfos   map[string][]string
+	Search     SearchForm
+	User       *model.User
+	FormErrors map[string][]string
+	FormInfos  map[string][]string
 	URL        *url.URL // For parsing Url in templates
 }
 
@@ -176,20 +175,20 @@ type PanelTorrentReportListVbs struct {
 }
 
 type PanelTorrentReassignVbs struct {
-    Reassign    ReassignForm
-	Search      SearchForm // unused?
-	User        *model.User // unused?
-	FormErrors  map[string][]string
-	FormInfos   map[string][]string
-	URL         *url.URL // For parsing Url in templates
+	Reassign   ReassignForm
+	Search     SearchForm  // unused?
+	User       *model.User // unused?
+	FormErrors map[string][]string
+	FormInfos  map[string][]string
+	URL        *url.URL // For parsing Url in templates
 }
 
 /*
- * Variables used by the upper ones
+* Variables used by the upper ones
  */
 type Navigation struct {
 	TotalItem      int
-	MaxItemPerPage int
+	MaxItemPerPage int     // FIXME: shouldn't this be in SearchForm?
 	CurrentPage    int
 	Route          string
 }
@@ -201,9 +200,15 @@ type SearchForm struct {
 }
 
 // Some Default Values to ease things out
+func NewNavigation() Navigation {
+	return Navigation{
+		MaxItemPerPage: 50,
+	}
+}
+
 func NewSearchForm() SearchForm {
 	return SearchForm{
-		Category: "_",
+		Category:         "_",
 		ShowItemsPerPage: true,
 	}
 }
