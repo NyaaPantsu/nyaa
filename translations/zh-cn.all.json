@@ -229,7 +229,7 @@
   },
   {
     "id": "official_nyaapocalipse_faq",
-    "translation": "NYAA末日的官方FAQ"
+    "translation": "关于Nyaa站临终的常见问题"
   },
   {
     "id": "links_replacement_mirror",
@@ -282,6 +282,14 @@
   {
     "id": "answer_how_are_we_recovering",
     "translation": "前面所说的资料都存放在 nyaa.pantsu.cat 和 sukebei.pantsu.cat 的服务器上。 我们也会尽快恢复旧 nyaa 站的全部功能。"
+  },
+  {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "怎样把我以前上传的资源连接到我的新账号上?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "加入 <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> 找管理员并把你曾上传的资源，以及你的旧用户名和新用户名告诉他。"
   },
   {
     "id": "are_the_trackers_working",
@@ -349,7 +357,7 @@
   },
   {
     "id": "magnet_link",
-    "translation": "磁力链接地址"
+    "translation": "磁力链接"
   },
   {
     "id": "all_categories",
@@ -505,7 +513,7 @@
   },
   {
     "id": "submit_a_comment_as_username",
-    "translation": "以用户名 %s 评论"
+    "translation": "作为 %s 发表评论"
   },
   {
     "id": "submit_a_comment_as_anonymous",
@@ -572,12 +580,16 @@
     "translation": "节制"
   },
   {
+    "id": "api_token",
+    "translation": "API Token"
+  },
+  {
     "id": "who_is_renchon",
     "translation": "れんちょん是谁?"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん是匿名评论与上传者的默认用户名，同时也显示为Nyaa站原始资源的上传者."
+    "translation": "れんちょん(Ren-chon)是匿名评论与上传者的默认用户名，同时也显示为Nyaa站原始资源的上传者."
   },
   {
     "id": "mark_as_remake",
@@ -636,15 +648,23 @@
     "translation": "删除"
   },
   {
+    "id": "files",
+    "translation": "文件"
+  },
+  {
+    "id": "filename",
+    "translation": "文件名"
+  },
+  {
     "id": "uploaded_by",
     "translation": "上传者"
   },
   {
     "id": "download_btn",
-    "translation": "下载!"
+    "translation": "下载！"
   },
   {
-    "id": "report",
+    "id": "report_btn",
     "translation": "举报!"
   },
   {
