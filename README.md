@@ -71,16 +71,18 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 > nyaa_psql.backup.
 
 ## TODO
- * Remove gorm
+### Top Priorities
+ * Use new db abstraction layer and remove all ORM code
  * Use elastic search or sphinix search
+ * Make filelists hidable
+ * Implement mockup design from /g/anon
  * sukebei
    * get sukebei_torrents table working
    * add config option for sukebei or maybe make things all in one
    * sukebei categories and category images
- 
+### Lower Priorities
  * Get code up to standard of go lint recommendations
  * Write tests
-
   * Site theme
    * original nyaa theme
  * API improvement
