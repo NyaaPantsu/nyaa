@@ -1,6 +1,7 @@
 package languages
 
 import (
+	"errors"
 	"fmt"
 	"html/template"
 	"net/http"
@@ -8,13 +9,26 @@ import (
 	"path/filepath"
 
 	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/service/user"
+	"github.com/ewhal/nyaa/model"
 	"github.com/nicksnyder/go-i18n/i18n"
 	"github.com/nicksnyder/go-i18n/i18n/language"
 )
 
+// this interface is required to prevent a cyclic import between the languages and userService package.
+type UserRetriever interface {
+	RetrieveCurrentUser(r *http.Request) (model.User, error)
+}
+
+var (
+	defaultLanguage string        = config.DefaultI18nConfig.DefaultLanguage
+	userRetriever   UserRetriever = nil
+)
+
 // Initialize the languages translation
-func InitI18n(conf config.I18nConfig) error {
+func InitI18n(conf config.I18nConfig, retriever UserRetriever) error {
+	defaultLanguage = conf.DefaultLanguage
+	userRetriever = retriever
+
 	defaultFilepath := path.Join(conf.TranslationsDirectory, conf.DefaultLanguage+".all.json")
 	err := i18n.LoadTranslationFile(defaultFilepath)
 	if err != nil {
@@ -26,14 +40,18 @@ func InitI18n(conf config.I18nConfig) error {
 		return fmt.Errorf("failed to get translation files: %v", err)
 	}
 
-	for _, path := range paths {
-		err := i18n.LoadTranslationFile(path)
+	for _, file := range paths {
+		err := i18n.LoadTranslationFile(file)
 		if err != nil {
-			return fmt.Errorf("failed to load translation file '%s': %v", path, err)
+			return fmt.Errorf("failed to load translation file '%s': %v", file, err)
 		}
 	}
 
 	return nil
+}
+
+func GetDefaultLanguage() string {
+	return defaultLanguage
 }
 
 // When go-i18n finds a language with >0 translations, it uses it as the Tfunc
@@ -89,9 +107,15 @@ func setTranslation(tmpl *template.Template, T i18n.TranslateFunc) {
 	})
 }
 
-func GetTfuncAndLanguageFromRequest(r *http.Request, defaultLanguage string) (T i18n.TranslateFunc, Tlang *language.Language) {
+func GetDefaultTfunc() (i18n.TranslateFunc, error) {
+	return i18n.Tfunc(defaultLanguage)
+}
+
+func GetTfuncAndLanguageFromRequest(r *http.Request) (T i18n.TranslateFunc, Tlang *language.Language) {
+	defaultLanguage := GetDefaultLanguage()
+
 	userLanguage := ""
-	user, _, err := userService.RetrieveCurrentUser(r)
+	user, err := getCurrentUser(r)
 	if err == nil {
 		userLanguage = user.Language
 	}
@@ -108,9 +132,17 @@ func GetTfuncAndLanguageFromRequest(r *http.Request, defaultLanguage string) (T 
 	return
 }
 
-func SetTranslationFromRequest(tmpl *template.Template, r *http.Request, defaultLanguage string) i18n.TranslateFunc {
+func SetTranslationFromRequest(tmpl *template.Template, r *http.Request) i18n.TranslateFunc {
 	r.Header.Add("Vary", "Accept-Encoding")
-	T, _ := GetTfuncAndLanguageFromRequest(r, defaultLanguage)
+	T, _ := GetTfuncAndLanguageFromRequest(r)
 	setTranslation(tmpl, T)
 	return T
+}
+
+func getCurrentUser(r *http.Request) (model.User, error) {
+	if userRetriever == nil {
+		return model.User{}, errors.New("failed to get current user: no user retriever set")
+	}
+
+	return userRetriever.RetrieveCurrentUser(r)
 }

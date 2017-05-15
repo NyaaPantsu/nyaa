@@ -136,6 +136,18 @@ tr.torrent-info td.date {
   border-top: 1px solid #ddd;
 }
 
+th a:hover {
+  text-decoration: none;
+}
+
+.sortarrowleft {
+  letter-spacing: -0.6rem;
+}
+
+.sortarrowdim {
+  opacity: 0.25;
+}
+
 div.container div.blockBody:nth-of-type(2) table{table-layout:fixed;}
 div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:first-of-type, div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(5){width:10%;}
 div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(3){width:15%;}
@@ -448,28 +460,25 @@ select#bottom_language_selector {
 }
 
 .commentList .commentBody {
-  border: 1px solid #eee;
-    margin-bottom: 20px;
-    margin-left: 85px;
-  margin-right: 0px;
-    padding: 10px 20px;
-    position: relative;
-    -webkit-border-radius: 4px;
-       -moz-border-radius: 4px;
-         -o-border-radius: 4px;
-        border-radius: 4px;
-  background: #fff;
-  color: #6b6e80;
-  position: relative;
+	border: 1px solid #c1c1c1;
+	margin-left: 85px;
+	margin-right: 0px;
+	padding: 8px 16px;
+	position: relative;
+	border-radius: 4px;
+	background: #fff;
+	color: #6b6e80;
+}
+
+.commentList .commentBody > .row > div {
+      word-break: break-word;
 }
 
 .commentList .commentData {
   font-size: 13px;
-  color: #aaaaaa;
-  padding-bottom: 8px;
   margin-bottom: 10px !important;
   border-bottom: 1px solid #eee;
-  height: 2.5em;
+  height: 2.2em;
 }
 
 .commentList ul.comments ul{
@@ -487,7 +496,6 @@ select#bottom_language_selector {
 }
 
 .comment {
-  margin: 1em;
   padding: 1em;
   width: 75%;
   margin-left: 12%;

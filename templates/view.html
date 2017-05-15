@@ -7,7 +7,7 @@
     <div class="content" style="margin-bottom: 2em;">
         <div class="row">
             <div class="col-md-12">
-                <h3 class="break" {{if eq .Status 2}}class="remake" {{end}} {{if eq .Status 3}}class="trusted" {{end}} {{if eq .Status 4}}class="aplus"{{end}}>{{.Name}}</h3>
+                <h3 class="break {{if eq .Status 2}}remake{{end}} {{if eq .Status 3}}trusted{{end}} {{if eq .Status 4}}aplus{{end}}">{{.Name}}</h3>
             </div>
         </div>
         <div class="row">
@@ -20,6 +20,7 @@
                             <h4>{{ T "uploaded_by" }} <a href="{{$.URL.Parse (printf "/user/%d/-" .UploaderID) }}">{{.UploaderName}}</a></h4>
 
                         </div>
+                      </div>
 
                     <div style="float:right;">
                         <a style="margin: 5px;" aria-label="Magnet Button" href="{{.Magnet}}" type="button" class="btn btn-lg btn-success">
@@ -31,7 +32,7 @@
                         </a>
                         {{end}}
                         <a style="margin: 5px;" aria-label="Report button" data-toggle="modal" data-target="#reportModal" class="btn btn-danger btn-sm">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ T "report" }}
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ T "report_btn" }}
                         </a>
 
                       {{ if HasAdmin $.User}}
@@ -81,6 +82,27 @@
                 <hr>
             </div>
         </div>
+        {{ if gt (len .FileList) 0 }}
+        <div class="row" id="files">
+            <div class="col-md-12">
+                <h4>{{T "files"}}</h4>
+                <div class="table-responsive">
+                    <table class="table custom-table-hover">
+                    <tr>
+                        <th class="col-xs-8">{{T "filename"}}</th>
+                        <th class="col-xs-1">{{T "size"}}</th>
+                    </tr>
+                    {{ range .FileList }}
+                    <tr>
+                    <td>{{.Path}}</td>
+                        <td>{{.Filesize}}</td>
+                    </tr>
+                    {{ end }}
+                    </table>
+                </div>
+            </div>
+        </div>
+        {{ end }}
         <div class="row" id="comments">
             <div class="col-md-12">
                 <div class="commentList">
@@ -142,7 +164,7 @@
                     <textarea name="comment" class="form-control" rows="5"></textarea>
                 </div>
                 {{block "captcha" .}}{{end}}
-                <button type="submit" class="btn btn-success">{{T " submit "}}</button>
+                <button type="submit" class="btn btn-success">{{T "submit" }}</button>
             </form>
         </div>
     </div>

@@ -101,7 +101,7 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "Per concludere controlla la tua casella email (e la cartella spam!) per l'email di verifica."
+    "translation": "La verifica via email non è abilitata al momento, quindi puoi già usare il tuo account. In futuro, per concludere dovrai controllare la tua casella email (e la cartella spam!) per l'email di verifica."
   },
   {
     "id":"signup_verification_noemail",
@@ -269,11 +269,11 @@
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "Abbiamo un database dei torrent di nyaa fino al <s>5 Aprile</s> 1° Maggio. Questo vuol dire che quasi niente è andato perduto."
+    "translation": "Abbiamo un database dei torrent di nyaa fino al <s>5 Aprile</s> 1° Maggio. Questo vuol dire che quasi niente è andato perso."
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Anche sukebei è al sicuro, e quasi nulla è andato perso."
+    "translation": "Anche sukebei è al sicuro, e anche qui quasi nulla è andato perso."
   },
   {
     "id": "how_are_we_recovering",
@@ -282,6 +282,14 @@
   {
     "id": "answer_how_are_we_recovering",
     "translation": "I database citati sono attualmente hostati su nyaa.pantsu.cat e sukebei.pantsu.cat. C'è una funzione di ricerca, e (quasi) tutte le altre dovrebbero arrivare presto. Le statistiche dei Seeder/leecher sono possibili attraverso scraping e potrebbero essere ripristinate in futuro, visto che altre funzionalità hanno la precedenza adesso."
+  },
+  {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "Come trasferisco i miei vecchi upload sul mio nuovo account?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "Collegati a <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> e chiedi ad un moderatore di migrare i tuoi vecchi torrent, menzionando il tuo vecchio e nuovo nome utente."
   },
   {
     "id": "are_the_trackers_working",
@@ -309,7 +317,11 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Se il caricamento del tuo torrent è negato a causa dei trackers, dovrai aggiungere alcuni di questi:"
+    "translation": "Ora abbiamo un tracker tutto nostro!, mettilo come primo nella lista prima di caricare un file:"
+  },
+  {
+    "id": "other_trackers",
+    "translation": "Ma dovresti aggiungere anche questi, nel caso qualcosa vada storto:"
   },
   {
     "id": "how_can_i_help",
@@ -317,7 +329,7 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "Se hai esperienza nel web design, vieni sul canale IRC #nyaapantsu su irc.rizon.net. Se hai dei database aggiornati, specialmente per sukebei,per favore caricali."
+    "translation": "Se hai esperienza nel web design, vieni sul canale IRC #nyaapantsu su irc.rizon.net. Se hai dei database aggiornati, specialmente per sukebei, per favore caricali."
   },
   {
     "id": "your_design_sucks_found_a_bug",
@@ -353,7 +365,7 @@
   },
   {
     "id": "select_a_torrent_category",
-    "translation": "Seleziona una Categoria Torrent"
+    "translation": "Seleziona una Categoria"
   },
   {
     "id": "anime",
@@ -573,7 +585,7 @@
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん è il nome utente assegnato per uploads e commenti anonimi. È anche utilizzato per i torrent importati dal nyaa originale, anche se l'uploader originale può essere mostrato di fianco."
+    "translation": "れんちょん (Ren-chon) è il nome utente assegnato per uploads e commenti anonimi. È anche utilizzato anche per i torrent importati dal nyaa originale, anche se a volte l'uploader originale è mostrato di fianco."
   },
   {
     "id": "mark_as_remake",
@@ -581,7 +593,7 @@
 },
   {
     "id": "email_changed",
-    "translation": "Email cambiata con successo! Dovrai, tuttavia, per confermare cliccare il link mandato a: %s"
+    "translation": "Email cambiata con successo! Tuttavia per confermare dovrai cliccare il link inviato a: %s"
   },
   {
     "id": "torrent_status",
@@ -626,5 +638,61 @@
   {
     "id": "language_name",
     "translation": "Italiano"
+  },
+  {
+    "id": "delete",
+    "translation": "Rimuovi"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "Caricato da"
+  },
+  {
+    "id": "download_btn",
+    "translation": "Download!"
+  },
+  {
+    "id": "report_btn",
+    "translation": "Segnala"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "Sei sicuro?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "Segnala Torrent #%s"
+  },
+  {
+    "id": "report_type",
+    "translation": "Tipo di segnalazione"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "Materiale Illegale"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "Spam / Spazzatura"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "Categoria Errata"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "Duplicato / Deprecato"
+  },
+  {
+    "id": "captcha",
+    "translation": "Captcha"
+  },
+  {
+    "id": "file_name",
+    "translation": "Filename"
+  },
+  {
+    "id": "cancel",
+    "translation": "Annulla"
   }
 ]

@@ -273,7 +273,7 @@
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Sukebei, no entanto, está em uma situação pior. Atualmente nós só temos os dados do sukebei até 2016, mas um novo banco de dados pode estar disponível para uso."
+    "translation": "Sukebei está em perfeito estado e quase nada foi perdido."
   },
   {
     "id": "how_are_we_recovering",
@@ -291,7 +291,7 @@
     "id": "answer_how_do_i_link_my_old_account",
     "translation": "Entre em <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> e informe a moderação seu antigo e novo nome de usuário."
   },
-  { 
+  {
     "id": "are_the_trackers_working",
     "translation": "Os torrents ainda funcionam?"
   },
@@ -317,11 +317,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Agora nós possuímos nosso próprio Tracker, adicione-o ao topo da lista antes de enviar um torrent:"
-  },
-  {
-    "id": "other_trackers",
-    "translation": "Mas você também deve adicionar estes, para caso algo dê errado."
+    "translation": "Agora nós temos um tracker chamado doko.moe, adicione-o ao topo da lista antes de enviar um torrent. Você também deve adicionar todos estes outros trackers para garantir redundância."
   },
   {
     "id": "how_can_i_help",
@@ -552,6 +548,10 @@
     "translation": "Moderador"
   },
   {
+    "id": "api_token",
+    "translation": "API Token"
+  },
+  {
     "id": "save_changes",
     "translation": "Salvar alterações"
   },
@@ -588,8 +588,44 @@
     "translation": "Marcar como remake"
   },
   {
+    "id": "email_changed",
+    "translation": "E-mail alterado com sucesso! Porém, você deve confirmá-lo clicando no link enviado para: %s"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "Status do torrent"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "Oculto"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "Normal"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "Remake"
+  },
+  {
     "id": "profile_edit_page",
     "translation": "Editar o perfil de %s"
+  },
+  {
+    "id":"date_format",
+    "translation": "2006-01-02 15:04"
+  },
+  {
+    "id": "seeders",
+    "translation": "Seeders"
+  },
+  {
+    "id": "leechers",
+    "translation": "Leechers"
+  },
+  {
+    "id": "completed",
+    "translation": "Completos"
   },
   {
     "id": "change_language",
@@ -598,5 +634,61 @@
   {
     "id": "language_name",
     "translation": "Português (Brasil)"
+  },
+  {
+    "id": "delete",
+    "translation": "Excluir"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "Enviado por"
+  },
+  {
+    "id": "download_btn",
+    "translation": "Download!"
+  },
+  {
+    "id": "report_btn",
+    "translation": "Denunciar"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "Você tem certeza?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "Denunciar torrent #%s"
+  },
+  {
+    "id": "report_type",
+    "translation": "Motivo da denúncia"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "Conteúdo não permitido"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "Spam / Lixo"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "Categoria incorreta"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "Duplicado / Obsoleto"
+  },
+  {
+    "id": "captcha",
+    "translation": "Captcha"
+  },
+  {
+    "id": "file_name",
+    "translation": "Nome do arquivo"
+  },
+  {
+    "id": "cancel",
+    "translation": "Cancelar"
   }
 ]

@@ -53,7 +53,7 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 		return
 	}
 
-	tmp := db.ORM.Where("torrent_id = ?", id).Preload("Comments")
+	tmp := db.ORM.Where("torrent_id = ?", id).Preload("Comments").Preload("FileList")
 	err = tmp.Error
 	if err != nil {
 		return
@@ -112,10 +112,6 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 ) {
 	var conditionArray []string
 	conditionArray = append(conditionArray, "deleted_at IS NULL")
-	if strings.HasPrefix(orderBy, "filesize") {
-		// torrents w/ NULL filesize fuck up the sorting on Postgres
-		conditionArray = append(conditionArray, "filesize IS NOT NULL")
-	}
 	var params []interface{}
 	if parameters != nil { // if there is where parameters
 		if len(parameters.Conditions) > 0 {
