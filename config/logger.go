@@ -12,3 +12,11 @@ const (
 	ErrorLogMaxBackups     = 7
 	ErrorLogMaxAge         = 30 //days
 )
+
+type LogConfig struct {
+	Environment string `json:"env"`
+}
+
+var DefaultLogConfig = LogConfig{
+	Environment: "PRODUCTION",
+}

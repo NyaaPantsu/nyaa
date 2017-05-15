@@ -9,6 +9,7 @@ import (
 
 func New(param string) (db *Database, err error) {
 	db = new(Database)
+	db.prepared = make(map[string]*sql.Stmt)
 	db.conn, err = sql.Open("postgres", param)
 	if err != nil {
 		db = nil
@@ -19,6 +20,10 @@ func New(param string) (db *Database, err error) {
 type Database struct {
 	conn     *sql.DB
 	prepared map[string]*sql.Stmt
+}
+
+func (db *Database) Close() error {
+	return db.conn.Close()
 }
 
 func (db *Database) getPrepared(name string) *sql.Stmt {
@@ -44,6 +49,7 @@ func (db *Database) Init() (err error) {
 	// generate prepared statements
 	for k := range statements {
 		var stmt *sql.Stmt
+		log.Debugf("init prepared statement %s: %s", k, statements[k])
 		stmt, err = db.conn.Prepare(statements[k])
 		if err != nil {
 			log.Errorf("failed to build prepared statement %s: %s", k, err.Error())

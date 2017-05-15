@@ -7,10 +7,12 @@ import (
 
 	"github.com/ewhal/nyaa/common"
 	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/util/log"
 )
 
 // build sql query from SearchParam for torrent search
 func searchParamToTorrentQuery(param *common.TorrentParam) (q sqlQuery) {
+	log.Debugf("build query: %v", param)
 	counter := 1
 	q.query = fmt.Sprintf("SELECT %s FROM %s ", torrentSelectColumnsFull, tableTorrents)
 	if param.Category.IsSet() {
@@ -18,69 +20,98 @@ func searchParamToTorrentQuery(param *common.TorrentParam) (q sqlQuery) {
 		q.params = append(q.params, param.Category.Main, param.Category.Sub)
 		counter += 2
 	}
+	s := "WHERE"
 	if counter > 1 {
-		q.query += "AND "
-	} else {
-		q.query += "WHERE "
+		s = "AND "
 	}
-
-	q.query += fmt.Sprintf("status >= $%d ", counter)
-	q.params = append(q.params, param.Status)
-	counter++
+	if param.Status > 0 {
+		q.query += fmt.Sprintf("%s status >= $%d ", s, counter)
+		q.params = append(q.params, param.Status)
+		counter++
+		s = "AND"
+	}
 	if param.UserID > 0 {
-		q.query += fmt.Sprintf("AND uploader = $%d ", counter)
+		q.query += fmt.Sprintf("%s uploader = $%d ", s, counter)
 		q.params = append(q.params, param.UserID)
 		counter++
+		s = "AND"
 	}
 
-	notnulls := strings.Split(param.NotNull, ",")
-	for idx := range notnulls {
-		k := strings.ToLower(strings.TrimSpace(notnulls[idx]))
+	for idx := range param.NotNull {
+		k := strings.ToLower(strings.TrimSpace(param.NotNull[idx]))
 		switch k {
 		case "date":
+			q.query += fmt.Sprintf("%s %s IS NOT NULL ", s, k)
+			s = "AND"
 		case "downloads":
+			q.query += fmt.Sprintf("%s %s IS NOT NULL ", s, k)
+			s = "AND"
 		case "filesize":
+			q.query += fmt.Sprintf("%s %s IS NOT NULL ", s, k)
+			s = "AND"
 		case "website_link":
+			q.query += fmt.Sprintf("%s %s IS NOT NULL ", s, k)
+			s = "AND"
 		case "deleted_at":
+			q.query += fmt.Sprintf("%s %s IS NOT NULL ", s, k)
+			s = "AND"
 		case "seeders":
+			q.query += fmt.Sprintf("%s %s IS NOT NULL ", s, k)
+			s = "AND"
 		case "leechers":
+			q.query += fmt.Sprintf("%s %s IS NOT NULL ", s, k)
+			s = "AND"
 		case "completed":
+			q.query += fmt.Sprintf("%s %s IS NOT NULL ", s, k)
+			s = "AND"
 		case "last_scrape":
-			q.query += fmt.Sprintf("AND %s IS NOT NULL ", k)
-			break
-		default:
-			break
+			q.query += fmt.Sprintf("%s %s IS NOT NULL ", s, k)
+			s = "AND"
 		}
 	}
 
-	nulls := strings.Split(param.Null, ",")
-	for idx := range nulls {
-		k := strings.ToLower(strings.TrimSpace(nulls[idx]))
+	for idx := range param.Null {
+		k := strings.ToLower(strings.TrimSpace(param.Null[idx]))
 		switch k {
 		case "date":
+			q.query += fmt.Sprintf("%s %s IS NULL ", s, k)
+			s = "AND"
 		case "downloads":
+			q.query += fmt.Sprintf("%s %s IS NULL ", s, k)
+			s = "AND"
 		case "filesize":
+			q.query += fmt.Sprintf("%s %s IS NULL ", s, k)
+			s = "AND"
 		case "website_link":
+			q.query += fmt.Sprintf("%s %s IS NULL ", s, k)
+			s = "AND"
 		case "deleted_at":
+			q.query += fmt.Sprintf("%s %s IS NULL ", s, k)
+			s = "AND"
 		case "seeders":
+			q.query += fmt.Sprintf("%s %s IS NULL ", s, k)
+			s = "AND"
 		case "leechers":
+			q.query += fmt.Sprintf("%s %s IS NULL ", s, k)
+			s = "AND"
 		case "completed":
+			q.query += fmt.Sprintf("%s %s IS NULL ", s, k)
+			s = "AND"
 		case "last_scrape":
-			q.query += fmt.Sprintf("AND %s IS NULL ", k)
-			break
-		default:
-			break
+			q.query += fmt.Sprintf("%s %s IS NULL ", s, k)
+			s = "AND"
 		}
 	}
-
-	nameLikes := strings.Split(param.NameLike, ",")
-	for idx := range nameLikes {
-		q.query += fmt.Sprintf("AND torrent_name ILIKE $%d", counter)
-		q.params = append(q.params, strings.TrimSpace(nameLikes[idx]))
-		counter++
+	for idx := range param.NameLike {
+		name := param.NameLike[idx]
+		if len(name) > 0 {
+			q.query += fmt.Sprintf("%s torrent_name ILIKE $%d ", s, counter)
+			q.params = append(q.params, "%"+name+"%")
+			counter++
+			s = "AND"
+		}
 	}
-
-	var sort string
+	sort := "torrent_id"
 	switch param.Sort {
 	case common.Name:
 		sort = "torrent_name"
@@ -103,9 +134,6 @@ func searchParamToTorrentQuery(param *common.TorrentParam) (q sqlQuery) {
 	case common.Completed:
 		sort = "completed"
 		break
-	case common.ID:
-	default:
-		sort = "torrent_id"
 	}
 
 	q.query += fmt.Sprintf("ORDER BY %s ", sort)
@@ -156,12 +184,6 @@ func (db *Database) GetTorrentsWhere(param *common.TorrentParam) (torrents []mod
 			var t model.Torrent
 			scanTorrentColumnsFull(rows, &t)
 			torrents = append(torrents, t)
-			// grow as needed
-			if len(torrents) >= cap(torrents) {
-				newtorrents := make([]model.Torrent, cap(torrents), cap(torrents)*3/2) // XXX: adjust as needed
-				copy(newtorrents, torrents)
-				torrents = newtorrents
-			}
 		}
 		return nil
 	})

@@ -133,8 +133,8 @@ var tables = []createTable{
 	createTable{
 		name: tableOldUserUploads,
 		columns: tableColumns{
-			"username TEXT IS NOT NULL",
-			fmt.Sprintf("torrent_id INTEGER IS NOT NULL REFERENCES %s (torrent_id)", tableTorrents),
+			"username TEXT NOT NULL",
+			fmt.Sprintf("torrent_id INTEGER NOT NULL REFERENCES %s (torrent_id)", tableTorrents),
 			"PRIMARY KEY (torrent_id)",
 		},
 	},

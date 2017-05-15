@@ -6,7 +6,9 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/ewhal/nyaa/common"
 	"github.com/ewhal/nyaa/config"
+	"github.com/ewhal/nyaa/database"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service"
@@ -90,9 +92,12 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 
 // won't fetch user or comments
 func GetRawTorrentById(id uint) (torrent model.Torrent, err error) {
-	err = nil
-	if db.ORM.Table(config.TableName).Table(config.TableName).Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
-		err = errors.New("Article is not found.")
+	var torrents []model.Torrent
+	torrents, err = database.Impl.GetTorrentsWhere(&common.TorrentParam{
+		TorrentID: uint32(id),
+	})
+	if err == nil && len(torrents) > 0 {
+		torrent = torrents[0]
 	}
 	return
 }

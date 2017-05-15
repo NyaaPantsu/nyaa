@@ -10,6 +10,7 @@ import (
 
 	"github.com/ewhal/nyaa/cache"
 	"github.com/ewhal/nyaa/config"
+	"github.com/ewhal/nyaa/database"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/network"
 	"github.com/ewhal/nyaa/router"
@@ -121,10 +122,23 @@ func main() {
 		if err != nil {
 			log.CheckError(err)
 		}
+
+		err = log.Configure(conf)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+
 		db.ORM, err = db.GormInit(conf, db.DefaultLogger)
 		if err != nil {
 			log.Fatal(err.Error())
 		}
+
+		err = database.Configure(conf)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+		signals.RegisterCloser(database.Impl)
+
 		err = languages.InitI18n(conf.I18n, userService.NewCurrentUserRetriever())
 		if err != nil {
 			log.Fatal(err.Error())
@@ -144,6 +158,12 @@ func main() {
 				log.Fatal(err.Error())
 			}
 		}
+
+		err = database.Migrate()
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+
 		if *mode == "scraper" {
 			RunScraper(conf)
 		} else if *mode == "webapp" {

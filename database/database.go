@@ -17,6 +17,9 @@ type Database interface {
 	// Initialize internal state
 	Init() error
 
+	// implements io.Closer
+	Close() error
+
 	// return true if we need to call MigrateNext again
 	NeedsMigrate() (bool, error)
 	// migrate to next database revision

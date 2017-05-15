@@ -38,9 +38,11 @@ type Config struct {
 	MetainfoFetcher MetainfoFetcherConfig `json:"metainfo_fetcher"`
 	// internationalization config
 	I18n I18nConfig `json:"i18n"`
+	// logging config
+	Log LogConfig `json:"logger"`
 }
 
-var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50", "default", DefaultScraperConfig, DefaultCacheConfig, DefaultSearchConfig, nil, DefaultMetainfoFetcherConfig, DefaultI18nConfig}
+var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50", "default", DefaultScraperConfig, DefaultCacheConfig, DefaultSearchConfig, nil, DefaultMetainfoFetcherConfig, DefaultI18nConfig, DefaultLogConfig}
 
 var allowedDatabaseTypes = map[string]bool{
 	"sqlite3":  true,
@@ -66,6 +68,7 @@ func New() *Config {
 	config.Cache = Defaults.Cache
 	config.MetainfoFetcher = Defaults.MetainfoFetcher
 	config.I18n = Defaults.I18n
+	config.Log = Defaults.Log
 	return &config
 }
 

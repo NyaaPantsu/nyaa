@@ -10,10 +10,9 @@ import (
 	"github.com/ewhal/nyaa/cache"
 	"github.com/ewhal/nyaa/common"
 	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/db"
+	"github.com/ewhal/nyaa/database"
 	"github.com/ewhal/nyaa/model"
 	"github.com/ewhal/nyaa/service"
-	"github.com/ewhal/nyaa/service/torrent"
 	"github.com/ewhal/nyaa/util/log"
 )
 
@@ -21,16 +20,6 @@ var searchOperator string
 var useTSQuery bool
 
 func Configure(conf *config.SearchConfig) (err error) {
-	useTSQuery = false
-	// Postgres needs ILIKE for case-insensitivity
-	if db.ORM.Dialect().GetName() == "postgres" {
-		searchOperator = "ILIKE ?"
-		//useTSQuery = true
-		// !!DISABLED!! because this makes search a lot stricter
-		// (only matches at word borders)
-	} else {
-		searchOperator = "LIKE ?"
-	}
 	return
 }
 
@@ -56,6 +45,7 @@ func SearchByQueryNoCount(r *http.Request, pagenum int) (search common.SearchPar
 func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	search common.SearchParam, tor []model.Torrent, count int, err error,
 ) {
+	var param common.TorrentParam
 	max, err := strconv.ParseUint(r.URL.Query().Get("max"), 10, 32)
 	if err != nil {
 		max = 50 // default Value maxPerPage
@@ -63,11 +53,14 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 		max = 300
 	}
 	search.Max = uint(max)
+	param.Max = uint32(max)
 
 	search.Page = pagenum
+	param.Offset = param.Max * uint32(pagenum-1)
 	search.Query = r.URL.Query().Get("q")
 	userID, _ := strconv.Atoi(r.URL.Query().Get("userID"))
 	search.UserID = uint(userID)
+	param.UserID = uint32(userID)
 
 	switch s := r.URL.Query().Get("s"); s {
 	case "1":
@@ -77,6 +70,8 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	case "3":
 		search.Status = common.APlus
 	}
+
+	param.Status = search.Status
 
 	catString := r.URL.Query().Get("c")
 	if s := catString; len(s) > 1 && s != "_" {
@@ -96,6 +91,8 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 		}
 	}
 
+	param.Category = search.Category
+
 	orderBy := ""
 
 	switch s := r.URL.Query().Get("sort"); s {
@@ -107,6 +104,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 		search.Sort = common.Date
 		orderBy += "date"
 		search.NotNull = "date IS NOT NULL"
+		param.NotNull = append(param.NotNull, "date")
 		break
 	case "3":
 		search.Sort = common.Downloads
@@ -117,26 +115,32 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 		orderBy += "filesize"
 		// avoid sorting completely breaking on postgres
 		search.NotNull = "filesize IS NOT NULL"
+		param.NotNull = append(param.NotNull, "filesize")
 		break
 	case "5":
 		search.Sort = common.Seeders
 		orderBy += "seeders"
 		search.NotNull = "seeders IS NOT NULL"
+		param.NotNull = append(param.NotNull, "seeders")
 		break
 	case "6":
 		search.Sort = common.Leechers
 		orderBy += "leechers"
 		search.NotNull = "leechers IS NOT NULL"
+		param.NotNull = append(param.NotNull, "leechers")
 		break
 	case "7":
 		search.Sort = common.Completed
 		orderBy += "completed"
 		search.NotNull = "completed IS NOT NULL"
+		param.NotNull = append(param.NotNull, "completed")
 		break
 	default:
 		search.Sort = common.ID
 		orderBy += "torrent_id"
 	}
+
+	param.Sort = search.Sort
 
 	orderBy += " "
 
@@ -147,6 +151,9 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	default:
 		orderBy += "desc"
 	}
+
+	param.Order = search.Order
+
 	parameters := serviceBase.WhereParams{
 		Params: make([]interface{}, 0, 64),
 	}
@@ -195,20 +202,18 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 			// TODO: possible to make this faster?
 			conditions = append(conditions, "torrent_name "+searchOperator)
 			parameters.Params = append(parameters.Params, "%"+word+"%")
+			param.NameLike = append(param.NameLike, word)
 		}
 	}
 
 	parameters.Conditions = strings.Join(conditions[:], " AND ")
 
-	log.Infof("SQL query is :: %s\n", parameters.Conditions)
-
 	tor, count, err = cache.Impl.Get(search, func() (tor []model.Torrent, count int, err error) {
-
-		if countAll {
-			tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
-		} else {
-			tor, err = torrentService.GetTorrentsOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
-		}
+		tor, err = database.Impl.GetTorrentsWhere(&param)
+		count = len(tor)
+		count += int(param.Offset)
+		count += int(param.Max) * 20
+		log.Debugf("%d", count)
 		return
 	})
 	return

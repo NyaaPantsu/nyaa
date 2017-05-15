@@ -9,9 +9,10 @@ import (
 func (db *Database) GetAllTorrents(offset, limit uint32) (torrents []model.Torrent, err error) {
 	err = db.queryWithPrepared(queryGetAllTorrents, func(rows *sql.Rows) error {
 		torrents = make([]model.Torrent, 0, limit)
-		var idx uint64
 		for rows.Next() {
-			rows.Scan(torrents[idx])
+			var torrent model.Torrent
+			scanTorrentColumnsFull(rows, &torrent)
+			torrents = append(torrents, torrent)
 		}
 		return nil
 	}, offset, limit)

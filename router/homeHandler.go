@@ -7,9 +7,8 @@ import (
 
 	"github.com/ewhal/nyaa/cache"
 	"github.com/ewhal/nyaa/common"
+	"github.com/ewhal/nyaa/database"
 	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/service/torrent"
-	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/languages"
 	"github.com/ewhal/nyaa/util/log"
 	"github.com/gorilla/mux"
@@ -45,11 +44,14 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	torrents, nbTorrents, err := cache.Impl.Get(search, func() ([]model.Torrent, int, error) {
-		torrents, nbTorrents, err := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
-		if !log.CheckError(err) {
-			util.SendError(w, err, 400)
-		}
-		return torrents, nbTorrents, err
+		torrents, err := database.Impl.GetTorrentsWhere(&common.TorrentParam{
+			Offset: uint32(maxPerPage) * (uint32(pagenum) - 1),
+			Max:    uint32(maxPerPage),
+			Order:  false,
+			Sort:   common.ID,
+			Null:   []string{"deleted_at"},
+		})
+		return torrents, len(torrents) * 10, err
 	})
 
 	b := model.TorrentsToJSON(torrents)

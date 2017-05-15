@@ -12,9 +12,9 @@ type TorrentParam struct {
 	Offset    uint32
 	UserID    uint32
 	TorrentID uint32
-	NotNull   string // csv
-	Null      string // csv
-	NameLike  string // csv
+	NotNull   []string
+	Null      []string
+	NameLike  []string
 }
 
 func (p *TorrentParam) Clone() TorrentParam {
@@ -32,4 +32,3 @@ func (p *TorrentParam) Clone() TorrentParam {
 		NameLike:  p.NameLike,
 	}
 }
-

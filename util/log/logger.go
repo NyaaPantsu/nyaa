@@ -52,6 +52,11 @@ func Init(environment string) {
 	logrus.Debugf("Environment : %s", environment)
 }
 
+func Configure(conf *config.Config) (err error) {
+	Init(conf.Log.Environment)
+	return
+}
+
 // Debug logs a message with debug log level.
 func Debug(msg string) {
 	logrus.Debug(msg)
