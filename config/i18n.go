@@ -7,5 +7,5 @@ type I18nConfig struct {
 
 var DefaultI18nConfig = I18nConfig{
 	TranslationsDirectory: "translations",
-	DefaultLanguage:       "en-us", // TODO: Remove refs to "en-us" from the code and templates
+	DefaultLanguage:       "en-us",
 }

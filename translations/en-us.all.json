@@ -556,7 +556,7 @@
     "translation": "Moderator"
   },
   {
-    "id":" api_token",
+    "id": "api_token",
     "translation": "API Token"
   },
   {
@@ -664,8 +664,8 @@
     "translation": "Download!"
   },
   {
-    "id": "report",
-    "translation": "Report!"
+    "id": "report_btn",
+    "translation": "Report"
   },
   {
     "id": "are_you_sure",
@@ -673,7 +673,7 @@
   },
   {
     "id": "report_torrent_number",
-    "translation": "Report Torrent #"
+    "translation": "Report Torrent #%s"
   },
   {
     "id": "report_type",
@@ -694,5 +694,17 @@
   {
     "id": "duplicate_deprecated",
     "translation": "Duplicate / Deprecated"
+  },
+  {
+    "id": "captcha",
+    "translation": "Captcha"
+  },
+  {
+    "id": "file_name",
+    "translation": "File Name"
+  },
+  {
+    "id": "cancel",
+    "translation": "Cancel"
   }
 ]

@@ -11,13 +11,13 @@
 
     {{with .Reassign}}
     <div class="form-group">
-        <label for="name">Reassign to:</label>
+        <label for="to">Reassign to:</label>
         <input type="text" name="to" class="form-control" placeholder="User ID" {{if ne .AssignTo 0}}value="{{.AssignTo}}"{{end}} required>
     </div>
     <div class="form-group">
 	    <label for="by">Reassign based on:</label><br />
-        <input type="radio" name="by" value="olduser" {{if eq .By "olduser"}}selected{{end}} required> Old Username<br />
-        <input type="radio" name="by" value="torrentid" {{if eq .By "torrentid"}}selected{{end}} required> Torrent ID
+        <input type="radio" name="by" value="olduser" {{if eq .By "olduser"}}checked{{end}} required> Old Username<br />
+        <input type="radio" name="by" value="torrentid" {{if eq .By "torrentid"}}checked{{end}} required> Torrent ID
     </div>
 
     <div class="form-group">
