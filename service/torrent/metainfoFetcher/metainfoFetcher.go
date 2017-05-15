@@ -120,23 +120,32 @@ func (fetcher *MetainfoFetcher) removeFromFailed(tID uint) {
 
 	delete(fetcher.failedOperations, tID)
 }
-
 func updateFileList(dbEntry model.Torrent, info *metainfo.Info) error {
 	torrentFiles := info.UpvertedFiles()
 	log.Infof("TID %d has %d files.", dbEntry.ID, len(torrentFiles))
+
 	for _, file := range torrentFiles {
-		path := file.DisplayPath(info)
+		var path []string
+		if file.Path != nil {
+			path = file.Path
+		} else {
+			// If it's nil, use the torrent name (info.Name) as the path (single-file torrent)
+			path = append(path, info.Name)
+		}
 
 		// Can't read FileList from the GetTorrents output, rely on the unique_index
 		// to ensure no files are duplicated.
-		log.Infof("Adding file %s to filelist of TID %d", path, dbEntry.ID)
+		log.Infof("Adding file %s to filelist of TID %d", file.DisplayPath(info), dbEntry.ID)
 		dbFile := model.File{
 			TorrentID: dbEntry.ID,
-			Path: path,
 			Filesize: file.Length,
 		}
+		err := dbFile.SetPath(path)
+		if err != nil {
+			return err
+		}
 
-		err := db.ORM.Create(&dbFile).Error
+		err = db.ORM.Create(&dbFile).Error
 		if err != nil {
 			return err
 		}
