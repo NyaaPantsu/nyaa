@@ -136,6 +136,18 @@ tr.torrent-info td.date {
   border-top: 1px solid #ddd;
 }
 
+th a:hover {
+  text-decoration: none;
+}
+
+.sortarrowleft {
+  letter-spacing: -0.6rem;
+}
+
+.sortarrowdim {
+  opacity: 0.25;
+}
+
 div.container div.blockBody:nth-of-type(2) table{table-layout:fixed;}
 div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:first-of-type, div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(5){width:10%;}
 div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:nth-of-type(3){width:15%;}

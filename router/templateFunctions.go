@@ -57,6 +57,25 @@ var FuncMap = template.FuncMap{
 
 		return template.URL(url.String())
 	},
+	"genSortArrows": func(currentUrl url.URL, sortBy string) template.HTML {
+		values := currentUrl.Query()
+		leftclass := "sortarrowdim"
+		rightclass := "sortarrowdim"
+
+		if _, ok := values["order"]; ok {
+			if values["sort"][0] == sortBy {
+				if values["order"][0] == "true" {
+					rightclass = ""
+				} else {
+					leftclass = ""
+				}
+			}
+		}
+
+		arrows := "<span class=\"sortarrowleft "+leftclass+"\">▼</span><span class=\""+rightclass+"\">▲</span>"
+
+		return template.HTML(arrows)
+	},
 	"genNav": func(nav Navigation, currentUrl *url.URL, pagesSelectable int) template.HTML {
 		var ret = ""
 		if nav.TotalItem > 0 {
