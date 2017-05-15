@@ -27,7 +27,7 @@ import (
 // Use this, because we seem to avoid using models, and we would need
 // the torrent ID to create the File in the DB
 type UploadedFile struct {
-	Path     string
+	Path     []string
 	Filesize int64
 }
 
@@ -161,10 +161,10 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		
 		// extract filelist
 		fileInfos := torrent.Info.GetFiles()
-		for _, info := range fileInfos {
+		for _, fileInfo := range fileInfos {
 			f.FileList = append(f.FileList, UploadedFile{
-				Path: info.Path.FilePath(),
-				Filesize: int64(info.Length),
+				Path: fileInfo.Path,
+				Filesize: int64(fileInfo.Length),
 			})
 		}
 	} else {
