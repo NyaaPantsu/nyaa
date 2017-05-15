@@ -7,8 +7,23 @@
     darkStyleLink.rel = "stylesheet";
     darkStyleLink.type = "text/css";
     darkStyleLink.href = "/css/style-night.css"
-    if (night == "true") {
-        document.getElementsByTagName("head")[0].appendChild(darkStyleLink);
+
+    function applyTheme(night) {
+        var switcher = document.getElementById("theme-switcher-button");
+        var head = document.getElementsByTagName("head")[0];
+        if(night === "true") {
+            if (head) {
+              head.appendChild(darkStyleLink);
+            }
+            if (switcher) switcher.value = "light";
+        } else {
+            if (head && document.getElementById("style-dark")) {
+                head.removeChild(darkStyleLink);
+            }
+            if (switcher) switcher.value = "dark";
+        }
     }
+    var night = localStorage.getItem("night");
+    applyTheme(night);
   </script>
 {{end}}

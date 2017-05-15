@@ -1,12 +1,10 @@
 var night = localStorage.getItem("night");
+applyTheme(night);
+
 function toggleNightMode() {
-    var night = localStorage.getItem("night");
-    if(night == "true") {
-        document.getElementsByTagName("head")[0].removeChild(darkStyleLink);
-    } else {
-        document.getElementsByTagName("head")[0].appendChild(darkStyleLink);
-    }
-    localStorage.setItem("night", (night == "true") ? "false" : "true");
+  var night = (localStorage.getItem("night") === "true") ? "false" : "true";
+  applyTheme(night);
+  localStorage.setItem("night", night);
 }
 
 // Used by spoiler tags
@@ -37,8 +35,8 @@ for(var i in list) {
 /*Fixed-Navbar offset fix*/
 window.onload = function() {
   var shiftWindow = function() { scrollBy(0, -70) };
-if (location.hash) shiftWindow();
-window.addEventListener("hashchange", shiftWindow);
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
 };
 function loadLanguages() {
 	var xhr = new XMLHttpRequest();

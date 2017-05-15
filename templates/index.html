@@ -60,7 +60,7 @@
 
                   </ul>
                   {{block "badge_user" .}}{{end}}
-                  
+
                   <form class="navbar-form navbar-right" role="search" action="/search" method="get">
                       <div class="form-group">
                         {{block "search_common" .}}{{end}}
@@ -68,6 +68,9 @@
                       <div class="form-group">
                         {{block "search_button" .}}{{end}}
                       </div>
+                        <input id="theme-switcher-button"
+                               type="button" onclick="javascript:toggleNightMode();"
+                               class="btn btn-sm theme-switcher-colors">
                   </form>
                 </div>
           </div>
