@@ -1,11 +1,12 @@
 - name: Set up webserver
   hosts: webservers
   roles:
-      - docker
-      - golang
+    - firewalld
+    - docker
+    - golang
 
 - name: Set up databases
   hosts: dbs
   roles:
-      - backup
-      - postgresql
+    - backup
+    - postgresql
