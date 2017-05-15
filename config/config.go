@@ -13,6 +13,7 @@ const (
 	// LastOldTorrentID is the highest torrent ID
 	// that was copied from the original Nyaa
 	LastOldTorrentID = 923000
+	TableName        = "sukebei_torrents"
 )
 
 type Config struct {

@@ -24,8 +24,8 @@ func GetFeeds() (result []model.Feed, err error) {
 	result = make([]model.Feed, 0, 50)
 	rows, err := db.ORM.DB().
 		Query(
-			"SELECT `torrent_id` AS `id`, `torrent_name` AS `name`, `torrent_hash` AS `hash`, `timestamp` FROM `torrents` " +
-				"ORDER BY `timestamp` desc LIMIT 50")
+			"SELECT `torrent_id` AS `id`, `torrent_name` AS `name`, `torrent_hash` AS `hash`, `timestamp` FROM `" + config.TableName +
+				"` ORDER BY `timestamp` desc LIMIT 50")
 	if err != nil {
 		return nil, err
 	}
@@ -53,7 +53,7 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 		return
 	}
 
-	tmp := db.ORM.Where("torrent_id = ?", id).Preload("Comments").Preload("FileList")
+	tmp := db.ORM.Table(config.TableName).Where("torrent_id = ?", id).Preload("Comments").Preload("FileList")
 	err = tmp.Error
 	if err != nil {
 		return
@@ -91,7 +91,7 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 // won't fetch user or comments
 func GetRawTorrentById(id uint) (torrent model.Torrent, err error) {
 	err = nil
-	if db.ORM.Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
+	if db.ORM.Table(config.TableName).Table(config.TableName).Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
 		err = errors.New("Article is not found.")
 	}
 	return
@@ -122,7 +122,7 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 	conditions := strings.Join(conditionArray, " AND ")
 	if countAll {
 		// FIXME: `deleted_at IS NULL` is duplicate in here because GORM handles this for us
-		err = db.ORM.Model(&torrents).Where(conditions, params...).Count(&count).Error
+		err = db.ORM.Model(&torrents).Table(config.TableName).Where(conditions, params...).Count(&count).Error
 		if err != nil {
 			return
 		}
@@ -130,7 +130,7 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 	// TODO: Vulnerable to injections. Use query builder. (is it?)
 
 	// build custom db query for performance reasons
-	dbQuery := "SELECT * FROM torrents"
+	dbQuery := "SELECT * FROM " + config.TableName
 	if conditions != "" {
 		dbQuery = dbQuery + " WHERE " + conditions
 	}
@@ -177,17 +177,17 @@ func GetAllTorrentsDB() ([]model.Torrent, int, error) {
 
 func DeleteTorrent(id string) (int, error) {
 	var torrent model.Torrent
-	if db.ORM.First(&torrent, id).RecordNotFound() {
+	if db.ORM.Table(config.TableName).First(&torrent, id).RecordNotFound() {
 		return http.StatusNotFound, errors.New("Torrent is not found.")
 	}
-	if db.ORM.Delete(&torrent).Error != nil {
+	if db.ORM.Table(config.TableName).Delete(&torrent).Error != nil {
 		return http.StatusInternalServerError, errors.New("Torrent is not deleted.")
 	}
 	return http.StatusOK, nil
 }
 
 func UpdateTorrent(torrent model.Torrent) (int, error) {
-	if db.ORM.Save(torrent).Error != nil {
+	if db.ORM.Table(config.TableName).Save(torrent).Error != nil {
 		return http.StatusInternalServerError, errors.New("Torrent is not updated.")
 	}
 
