@@ -24,6 +24,13 @@ import (
 	"github.com/zeebo/bencode"
 )
 
+// Use this, because we seem to avoid using models, and we would need
+// the torrent ID to create the File in the DB
+type UploadedFile struct {
+	Path     string
+	Filesize int64
+}
+
 // UploadForm serializing HTTP form for torrent upload
 type UploadForm struct {
 	Name        string
@@ -39,6 +46,7 @@ type UploadForm struct {
 	SubCategoryID int
 	Filesize      int64
 	Filepath      string
+	FileList      []UploadedFile
 }
 
 // TODO: these should be in another package (?)
@@ -150,6 +158,15 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 
 		// extract filesize
 		f.Filesize = int64(torrent.TotalSize())
+		
+		// extract filelist
+		fileInfos := torrent.Info.GetFiles()
+		for _, info := range fileInfos {
+			f.FileList = append(f.FileList, UploadedFile{
+				Path: info.Path.FilePath(),
+				Filesize: int64(info.Length),
+			})
+		}
 	} else {
 		// No torrent file provided
 		magnetUrl, err := url.Parse(string(f.Magnet)) //?

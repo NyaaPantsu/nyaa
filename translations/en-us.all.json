@@ -648,6 +648,14 @@
     "translation": "Delete"
   },
   {
+    "id": "files",
+    "translation": "Files"
+  },
+  {
+    "id": "filename",
+    "translation": "Filename"
+  },
+  {
     "id": "uploaded_by",
     "translation": "Uploaded by"
   },

@@ -1,4 +1,4 @@
-package filesizeFetcher;
+package metainfoFetcher;
 
 import (
 	"github.com/anacrolix/torrent/metainfo"
@@ -11,7 +11,7 @@ import (
 )
 
 type FetchOperation struct {
-	fetcher  *FilesizeFetcher
+	fetcher  *MetainfoFetcher
 	torrent  model.Torrent
 	done     chan int
 }
@@ -22,7 +22,7 @@ type Result struct {
 	info      *metainfo.Info
 }
 
-func NewFetchOperation(fetcher *FilesizeFetcher, dbEntry model.Torrent) (op *FetchOperation) {
+func NewFetchOperation(fetcher *MetainfoFetcher, dbEntry model.Torrent) (op *FetchOperation) {
 	op = &FetchOperation{
 		fetcher:  fetcher,
 		torrent:  dbEntry,
@@ -41,20 +41,20 @@ func (op *FetchOperation) Start(out chan Result) {
 		out <- Result{op, err, nil}
 		return
 	}
+	defer downloadingTorrent.Drop()
 
-	timeoutTicker := time.NewTicker(time.Second * time.Duration(op.fetcher.timeout))
+	timeoutTimer := time.NewTicker(time.Second * time.Duration(op.fetcher.timeout))
+	defer timeoutTimer.Stop()
 	select {
 	case <-downloadingTorrent.GotInfo():
-		downloadingTorrent.Drop()
 		out <- Result{op, nil, downloadingTorrent.Info()}
 		break
-	case <-timeoutTicker.C:
-		downloadingTorrent.Drop()
+	case <-timeoutTimer.C:
 		out <- Result{op, errors.New("Timeout"), nil}
 		break
 	case <-op.done:
-		downloadingTorrent.Drop()
 		break
 	}
 }
+
 

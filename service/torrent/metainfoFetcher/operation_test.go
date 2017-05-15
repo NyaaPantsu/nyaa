@@ -1,4 +1,4 @@
-package filesizeFetcher;
+package metainfoFetcher;
 
 import (
 	"testing"
@@ -13,7 +13,7 @@ func TestInvalidHash(t *testing.T) {
 		t.Skipf("Failed to create client, with err %v. Skipping.", err)
 	}
 
-	fetcher := &FilesizeFetcher{
+	fetcher := &MetainfoFetcher{
 		timeout: 5,
 		torrentClient: client,
 		results: make(chan Result, 1),
