@@ -38,7 +38,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		status := 1 // normal
+		status := 1            // normal
 		if uploadForm.Remake { // overrides trusted
 			status = 2
 		} else if user.Status == 1 {
@@ -46,8 +46,8 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		var sameTorrents int
-		db.ORM.Model(&model.Torrent{}).Where("torrent_hash = ?", uploadForm.Infohash).Count(&sameTorrents)
-		if (sameTorrents == 0) {
+		db.ORM.Model(&model.Torrent{}).Table(config.TableName).Where("torrent_hash = ?", uploadForm.Infohash).Count(&sameTorrents)
+		if sameTorrents == 0 {
 			// add to db and redirect
 			torrent := model.Torrent{
 				Name:        uploadForm.Name,
@@ -59,15 +59,15 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 				Filesize:    uploadForm.Filesize,
 				Description: uploadForm.Description,
 				UploaderID:  user.ID}
-			db.ORM.Create(&torrent)
+			db.ORM.Table(config.TableName).Create(&torrent)
 
 			// add filelist to files db, if we have one
 			if len(uploadForm.FileList) > 0 {
 				for _, uploadedFile := range uploadForm.FileList {
 					file := model.File{
 						TorrentID: torrent.ID,
-						Path: uploadedFile.Path,
-						Filesize: uploadedFile.Filesize}
+						Path:      uploadedFile.Path,
+						Filesize:  uploadedFile.Filesize}
 					db.ORM.Create(&file)
 				}
 			}
@@ -89,7 +89,6 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		} else {
 			uploadForm.CaptchaID = ""
 		}
-
 
 		htv := UploadTemplateVariables{uploadForm, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
 		languages.SetTranslationFromRequest(uploadTemplate, r)
