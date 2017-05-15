@@ -23,7 +23,7 @@ func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 		modelHelper.BindValueForm(&b, r)
 		b.CaptchaID = captcha.GetID()
 		languages.SetTranslationFromRequest(viewRegisterTemplate, r)
-		htv := UserRegisterTemplateVariables{b, form.NewErrors(), NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
+		htv := UserRegisterTemplateVariables{b, form.NewErrors(), NewSearchForm(), NewNavigation(), GetUser(r), r.URL, mux.CurrentRoute(r)}
 		err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -39,7 +39,7 @@ func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
 	modelHelper.BindValueForm(&b, r)
 
 	languages.SetTranslationFromRequest(viewLoginTemplate, r)
-	htv := UserLoginFormVariables{b, form.NewErrors(), NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
+	htv := UserLoginFormVariables{b, form.NewErrors(), NewSearchForm(), NewNavigation(), GetUser(r), r.URL, mux.CurrentRoute(r)}
 
 	err := viewLoginTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -66,7 +66,7 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 				err["errors"] = append(err["errors"], errUser.Error())
 			}
 			languages.SetTranslationFromRequest(viewUserDeleteTemplate, r)
-			htv := UserVerifyTemplateVariables{err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
+			htv := UserVerifyTemplateVariables{err, NewSearchForm(), NewNavigation(), GetUser(r), r.URL, mux.CurrentRoute(r)}
 			errorTmpl := viewUserDeleteTemplate.ExecuteTemplate(w, "index.html", htv)
 			if errorTmpl != nil {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -79,7 +79,7 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 			if unfollow != nil {
 				infosForm["infos"] = append(infosForm["infos"], fmt.Sprintf(T("user_unfollowed_msg"), userProfile.Username))
 			}
-			htv := UserProfileVariables{&userProfile, infosForm, NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+			htv := UserProfileVariables{&userProfile, infosForm, NewSearchForm(), NewNavigation(), currentUser, r.URL, mux.CurrentRoute(r)}
 
 			err := viewProfileTemplate.ExecuteTemplate(w, "index.html", htv)
 			if err != nil {
@@ -88,7 +88,7 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		languages.SetTranslationFromRequest(notFoundTemplate, r)
-		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, NewSearchForm(), GetUser(r), r.URL, mux.CurrentRoute(r)})
+		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{NewNavigation(), NewSearchForm(), GetUser(r), r.URL, mux.CurrentRoute(r)})
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
@@ -107,7 +107,7 @@ func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
 			modelHelper.BindValueForm(&b, r)
 			languages.SetTranslationFromRequest(viewProfileEditTemplate, r)
 			availableLanguages := languages.GetAvailableLanguages()
-			htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), availableLanguages, NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+			htv := UserProfileEditVariables{&userProfile, b, form.NewErrors(), form.NewInfos(), availableLanguages, NewSearchForm(), NewNavigation(), currentUser, r.URL, mux.CurrentRoute(r)}
 			err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -115,7 +115,7 @@ func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		languages.SetTranslationFromRequest(notFoundTemplate, r)
-		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, NewSearchForm(), GetUser(r), r.URL, mux.CurrentRoute(r)})
+		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{NewNavigation(), NewSearchForm(), GetUser(r), r.URL, mux.CurrentRoute(r)})
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
@@ -167,21 +167,21 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 			availableLanguages := languages.GetAvailableLanguages()
-			htv := UserProfileEditVariables{&userProfile, b, err, infos, availableLanguages, NewSearchForm(), Navigation{}, currentUser, r.URL, mux.CurrentRoute(r)}
+			htv := UserProfileEditVariables{&userProfile, b, err, infos, availableLanguages, NewSearchForm(), NewNavigation(), currentUser, r.URL, mux.CurrentRoute(r)}
 			errorTmpl := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
 			if errorTmpl != nil {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
 			}
 		} else {
 			languages.SetTranslationFromRequest(notFoundTemplate, r)
-			err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, NewSearchForm(), GetUser(r), r.URL, mux.CurrentRoute(r)})
+			err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{NewNavigation(), NewSearchForm(), GetUser(r), r.URL, mux.CurrentRoute(r)})
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 			}
 		}
 	} else {
 		languages.SetTranslationFromRequest(notFoundTemplate, r)
-		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{Navigation{}, NewSearchForm(), GetUser(r), r.URL, mux.CurrentRoute(r)})
+		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{NewNavigation(), NewSearchForm(), GetUser(r), r.URL, mux.CurrentRoute(r)})
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
@@ -213,7 +213,7 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 					u := model.User{
 						Email: r.PostFormValue("email"), // indicate whether user had email set
 					}
-					htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, &u, r.URL, mux.CurrentRoute(r)}
+					htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), NewNavigation(), &u, r.URL, mux.CurrentRoute(r)}
 					errorTmpl := viewRegisterSuccessTemplate.ExecuteTemplate(w, "index.html", htv)
 					if errorTmpl != nil {
 						http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -225,7 +225,7 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 	if len(err) > 0 {
 		b.CaptchaID = captcha.GetID()
 		languages.SetTranslationFromRequest(viewRegisterTemplate, r)
-		htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
+		htv := UserRegisterTemplateVariables{b, err, NewSearchForm(), NewNavigation(), GetUser(r), r.URL, mux.CurrentRoute(r)}
 		errorTmpl := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
 		if errorTmpl != nil {
 			http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -242,7 +242,7 @@ func UserVerifyEmailHandler(w http.ResponseWriter, r *http.Request) {
 		err["errors"] = append(err["errors"], errEmail.Error())
 	}
 	languages.SetTranslationFromRequest(viewVerifySuccessTemplate, r)
-	htv := UserVerifyTemplateVariables{err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
+	htv := UserVerifyTemplateVariables{err, NewSearchForm(), NewNavigation(), GetUser(r), r.URL, mux.CurrentRoute(r)}
 	errorTmpl := viewVerifySuccessTemplate.ExecuteTemplate(w, "index.html", htv)
 	if errorTmpl != nil {
 		http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -260,7 +260,7 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 		if errorUser != nil {
 			err["errors"] = append(err["errors"], errorUser.Error())
 			languages.SetTranslationFromRequest(viewLoginTemplate, r)
-			htv := UserLoginFormVariables{b, err, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
+			htv := UserLoginFormVariables{b, err, NewSearchForm(), NewNavigation(), GetUser(r), r.URL, mux.CurrentRoute(r)}
 			errorTmpl := viewLoginTemplate.ExecuteTemplate(w, "index.html", htv)
 			if errorTmpl != nil {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
