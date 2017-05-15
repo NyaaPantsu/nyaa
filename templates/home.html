@@ -2,12 +2,12 @@
 {{define "contclass"}}cont-home{{end}}
 {{define "content"}}
   <div class="blockBody">
-      <ul class="list-inline" aria-label="Page navigation">
-          <li><img id="mascot" src="/img/renchon.png" /></li>
-          <li style="padding-top: 7%;" class="pull-right"><ul class="pagination">
-              {{ genNav .Navigation .URL 5 }}
-          </ul></li>
-      </nav>
+      <div style="text-align:center">
+        <img id="mascot" class="mascot" src="/img/renchon.png">
+        <ul class="pagination">
+          {{ genNav .Navigation .URL 10 }}
+        </ul>
+      </div>
 
       <div class="table-responsive">
           <table class="table custom-table-hover">
