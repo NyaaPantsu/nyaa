@@ -247,10 +247,9 @@ func (fetcher *MetainfoFetcher) fillQueue() {
 			continue
 		}
 
-		log.Infof("Added TID %d for filesize fetching", T.ID)
 		operation := NewFetchOperation(fetcher, T)
-
 		if fetcher.addToQueue(operation) {
+			log.Infof("Added TID %d for filesize fetching", T.ID)
 			fetcher.wg.Add(1)
 			go operation.Start(fetcher.results)
 		} else {
