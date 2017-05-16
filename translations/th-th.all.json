@@ -181,7 +181,11 @@
   },
   {
     "id": "fap",
-    "translation": "Fap"
+    "translation": "กาม"
+  },
+  {
+    "id": "fun",
+    "translation": "ไม่กาม"
   },
   {
     "id": "advanced_search",
@@ -413,23 +417,23 @@
   },
   {
     "id": "live_action",
-    "translation": "Live Action"
+    "translation": "คนแสดง"
   },
   {
     "id": "live_action_english_translated",
-    "translation": "Live Action - ถูกแปลเป็นภาษาอังกฤษ"
+    "translation": "คนแสดง - ถูกแปลเป็นภาษาอังกฤษ"
   },
   {
     "id": "live_action_idol_pv",
-    "translation": "Live Action - ไอดอล/Promotional Video"
+    "translation": "คนแสดง - ไอดอล/Promotional Video"
   },
   {
     "id": "live_action_non_english_translated",
-    "translation": "Live Action - ถูกแปลเป็นภาษาอื่น"
+    "translation": "คนแสดง - ถูกแปลเป็นภาษาอื่น"
   },
   {
     "id": "live_action_raw",
-    "translation": "Live Action - Raw"
+    "translation": "คนแสดง - Raw"
   },
   {
     "id": "pictures",
@@ -456,8 +460,40 @@
     "translation": "ซอฟท์แวร์ - เกม"
   },
   {
+    "id": "art",
+    "translation": "งานศิลป์"
+  },
+  {
+    "id": "art_anime",
+    "translation": "งานศิลป์ - อนิเมะ"
+  },
+  {
+    "id": "art_doujinshi",
+    "translation": "งานศิลป์ - โดจินชิ"
+  },
+  {
+    "id": "art_games",
+    "translation": "งานศิลป์ - เกม"
+  },
+  {
+    "id": "art_manga",
+    "translation": "งานศิลป์ - มังงะ"
+  },
+  {
+    "id": "real_life",
+    "translation": "คนจริง"
+  },
+  {
+    "id": "real_life_photobooks_and_pictures",
+    "translation": "คนจริง - โฟโต้บุ๊คและภาพถ่าย"
+  },
+  {
+    "id": "real_life_videos",
+    "translation": "คนจริง - วีดีโอ"
+  },
+  {
     "id": "torrent_description",
-    "translation": "รายละเอียดของไฟล์ทอร์เรนท์"
+    "translation": "รายละเอียดของทอร์เรนท์"
   },
   {
     "id": "description_markdown_notice",
@@ -585,7 +621,7 @@
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん คือชื่อผู้ใช้ที่ตั้งไว้สำหรับอัพโหลดและคอมเมนท์แบบไม่ระบุตัวตน ซึ่งถูกใช้กับทอร์เรนท์ที่กู้มาจาก Nyaa ดั้งเดิม และในบางครั้งชื่อผู้อัพโหลดดั้งเดิมจะแสดงผลคู่กัน"
+    "translation": "れんちょん (Ren-chon) คือชื่อผู้ใช้ที่ตั้งไว้สำหรับอัพโหลดและคอมเมนท์แบบไม่ระบุตัวตน ซึ่งถูกใช้กับทอร์เรนท์ที่กู้มาจาก Nyaa ดั้งเดิม และในบางครั้งชื่อผู้อัพโหลดดั้งเดิมจะแสดงผลคู่กัน"
   },
   {
     "id": "mark_as_remake",
@@ -644,8 +680,16 @@
     "translation": "ลบ"
   },
   {
+    "id": "files",
+    "translation": "ไฟล์"
+  },
+  {
+    "id": "filename",
+    "translation": "ชื่อไฟล์"
+  },
+  {
     "id": "uploaded_by",
-    "translation": "อัพโหลด"
+    "translation": "อัพโหลดโดย"
   },
   {
     "id": "download_btn",

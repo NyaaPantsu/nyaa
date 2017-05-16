@@ -1,4 +1,4 @@
-package metainfoFetcher;
+package metainfoFetcher
 
 import (
 	"github.com/anacrolix/torrent"
@@ -6,9 +6,9 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/db"
 	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/util/log"
 	serviceBase "github.com/ewhal/nyaa/service"
 	torrentService "github.com/ewhal/nyaa/service/torrent"
+	"github.com/ewhal/nyaa/util/log"
 	"golang.org/x/time/rate"
 	"math"
 	"sync"
@@ -38,10 +38,10 @@ func New(fetcherConfig *config.MetainfoFetcherConfig) (fetcher *MetainfoFetcher,
 	// Well, it seems this is the right way to convert speed -> rate.Limiter
 	// https://github.com/anacrolix/torrent/blob/master/cmd/torrent/main.go
 	if fetcherConfig.UploadRateLimiter != -1 {
-		clientConfig.UploadRateLimiter = rate.NewLimiter(rate.Limit(fetcherConfig.UploadRateLimiter * 1024), 256<<10)
+		clientConfig.UploadRateLimiter = rate.NewLimiter(rate.Limit(fetcherConfig.UploadRateLimiter*1024), 256<<10)
 	}
 	if fetcherConfig.DownloadRateLimiter != -1 {
-		clientConfig.DownloadRateLimiter = rate.NewLimiter(rate.Limit(fetcherConfig.DownloadRateLimiter * 1024), 1<<20)
+		clientConfig.DownloadRateLimiter = rate.NewLimiter(rate.Limit(fetcherConfig.DownloadRateLimiter*1024), 1<<20)
 	}
 
 	client, err := torrent.NewClient(&clientConfig)
@@ -78,14 +78,13 @@ func (fetcher *MetainfoFetcher) addToQueue(op *FetchOperation) bool {
 	fetcher.queueMutex.Lock()
 	defer fetcher.queueMutex.Unlock()
 
-	if len(fetcher.queue) + 1 > fetcher.queueSize {
+	if len(fetcher.queue)+1 > fetcher.queueSize {
 		return false
 	}
 
 	fetcher.queue = append(fetcher.queue, op)
 	return true
 }
-
 
 func (fetcher *MetainfoFetcher) removeFromQueue(op *FetchOperation) bool {
 	fetcher.queueMutex.Lock()
@@ -120,23 +119,32 @@ func (fetcher *MetainfoFetcher) removeFromFailed(tID uint) {
 
 	delete(fetcher.failedOperations, tID)
 }
-
 func updateFileList(dbEntry model.Torrent, info *metainfo.Info) error {
 	torrentFiles := info.UpvertedFiles()
 	log.Infof("TID %d has %d files.", dbEntry.ID, len(torrentFiles))
+
 	for _, file := range torrentFiles {
-		path := file.DisplayPath(info)
+		var path []string
+		if file.Path != nil {
+			path = file.Path
+		} else {
+			// If it's nil, use the torrent name (info.Name) as the path (single-file torrent)
+			path = append(path, info.Name)
+		}
 
 		// Can't read FileList from the GetTorrents output, rely on the unique_index
 		// to ensure no files are duplicated.
-		log.Infof("Adding file %s to filelist of TID %d", path, dbEntry.ID)
+		log.Infof("Adding file %s to filelist of TID %d", file.DisplayPath(info), dbEntry.ID)
 		dbFile := model.File{
 			TorrentID: dbEntry.ID,
-			Path: path,
-			Filesize: file.Length,
+			Filesize:  file.Length,
+		}
+		err := dbFile.SetPath(path)
+		if err != nil {
+			return err
 		}
 
-		err := db.ORM.Create(&dbFile).Error
+		err = db.ORM.Create(&dbFile).Error
 		if err != nil {
 			return err
 		}
@@ -193,8 +201,8 @@ func (fetcher *MetainfoFetcher) removeOldFailures() {
 	maxCd := time.Duration(fetcher.maxFailCooldown) * time.Second
 	now := time.Now()
 	for id, failTime := range fetcher.failedOperations {
-		cdMult := int(math.Pow(2, float64(fetcher.numFails[id] - 1)))
-		cd := time.Duration(cdMult * fetcher.baseFailCooldown) * time.Second
+		cdMult := int(math.Pow(2, float64(fetcher.numFails[id]-1)))
+		cd := time.Duration(cdMult*fetcher.baseFailCooldown) * time.Second
 		if cd > maxCd {
 			cd = maxCd
 		}
@@ -214,7 +222,7 @@ func (fetcher *MetainfoFetcher) fillQueue() {
 		return
 	}
 
-	oldest := time.Now().Add(0 - (time.Hour * time.Duration(24 * fetcher.maxDays)))
+	oldest := time.Now().Add(0 - (time.Hour * time.Duration(24*fetcher.maxDays)))
 	excludedIDS := make([]uint, 0, len(fetcher.failedOperations))
 	for id, _ := range fetcher.failedOperations {
 		excludedIDS = append(excludedIDS, id)
@@ -223,11 +231,11 @@ func (fetcher *MetainfoFetcher) fillQueue() {
 	// Nice query lol
 	// Select the torrents with no filesize, or without any rows with torrent_id in the files table, that are younger than fetcher.MaxDays
 	var params serviceBase.WhereParams
-	
+
 	if len(excludedIDS) > 0 {
-		params = serviceBase.CreateWhereParams("((filesize IS NULL OR filesize = 0) OR (torrents.torrent_id NOT IN (SELECT files.torrent_id FROM files WHERE files.torrent_id = torrents.torrent_id))) AND date > ? AND torrent_id NOT IN (?)", oldest, excludedIDS)
+		params = serviceBase.CreateWhereParams("((filesize IS NULL OR filesize = 0) OR ("+config.TableName+".torrent_id NOT IN (SELECT files.torrent_id FROM files WHERE files.torrent_id = "+config.TableName+".torrent_id))) AND date > ? AND torrent_id NOT IN (?)", oldest, excludedIDS)
 	} else {
-		params = serviceBase.CreateWhereParams("((filesize IS NULL OR filesize = 0) OR (torrents.torrent_id NOT IN (SELECT files.torrent_id FROM files WHERE files.torrent_id = torrents.torrent_id))) AND date > ?", oldest)
+		params = serviceBase.CreateWhereParams("((filesize IS NULL OR filesize = 0) OR ("+config.TableName+".torrent_id NOT IN (SELECT files.torrent_id FROM files WHERE files.torrent_id = "+config.TableName+".torrent_id))) AND date > ?", oldest)
 	}
 	dbTorrents, err := torrentService.GetTorrentsOrderByNoCount(&params, "", fetcher.queueSize, 0)
 
@@ -240,7 +248,6 @@ func (fetcher *MetainfoFetcher) fillQueue() {
 		log.Infof("Failed to get torrents for metainfo updating")
 		return
 	}
-
 
 	for _, T := range dbTorrents {
 		if fetcher.isFetchingOrFailed(T) {
@@ -305,4 +312,3 @@ func (fetcher *MetainfoFetcher) Close() error {
 func (fetcher *MetainfoFetcher) Wait() {
 	fetcher.wg.Wait()
 }
-

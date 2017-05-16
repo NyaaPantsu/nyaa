@@ -426,6 +426,17 @@ select#bottom_language_selector {
   hyphens: auto;
 }
 
+.filelist-control {
+	cursor: pointer;
+}
+
+.filelist-control::before {
+	content: "\25B6   ";
+}
+
+.filelist-control[aria-expanded="true"]::before {
+    content: "\25BC   ";
+}
 
 /*Comments*/
 
