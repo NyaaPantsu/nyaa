@@ -640,6 +640,10 @@
     "translation": "Italiano"
   },
   {
+    "id": "language_code",
+    "translation": "it-it"
+  },
+  {
     "id": "delete",
     "translation": "Rimuovi"
   },

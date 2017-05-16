@@ -676,6 +676,10 @@
     "translation": "English"
   },
   {
+    "id": "language_code",
+    "translation": "en-us"
+  },
+  {
     "id": "delete",
     "translation": "Delete"
   },

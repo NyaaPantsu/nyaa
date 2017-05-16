@@ -626,5 +626,9 @@
   {
     "id": "language_name",
     "translation": "Español"
+  },
+  {
+    "id": "language_code",
+    "translation": "es-es"
   }
 ]

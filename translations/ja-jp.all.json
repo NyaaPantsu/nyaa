@@ -672,6 +672,10 @@
     "translation": "日本語"
   },
   {
+    "id": "language_code",
+    "translation": "ja-jp"
+  },
+  {
     "id": "delete",
     "translation": "削除"
   },

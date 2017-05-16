@@ -628,6 +628,10 @@
     "translation": "Deutsch"
   },
   {
+    "id": "language_code",
+    "translation": "de-de"
+  },
+  {
     "id": "delete",
     "translation": "Löschen"
   },

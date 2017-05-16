@@ -582,5 +582,9 @@
   {
     "id": "language_name",
     "translation": "Svenska"
+  },
+  {
+    "id": "language_code",
+    "translation": "sv-sv"
   }
 ]
