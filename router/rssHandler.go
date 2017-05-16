@@ -40,7 +40,7 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	// allow cross domain AJAX requests
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	rss, rssErr := feed.ToRss()
+	rss, rssErr := feed.ToAtom()
 	if rssErr != nil {
 		http.Error(w, rssErr.Error(), http.StatusInternalServerError)
 	}
