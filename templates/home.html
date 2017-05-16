@@ -44,6 +44,7 @@
                   <a href="{{genRoute "view_torrent" "id" .ID }}">
                       {{.Name}}
                   </a>
+                  <span class="badge pull-right hidden-xs">{{ len .Comments }}</span>
               </td>
               <td class="hidden-xs"><b class="text-success">{{.Seeders}}</b></td>
               <td class="hidden-xs"><b class="text-danger">{{.Leechers}}</b></td>
