@@ -1,21 +1,27 @@
-{{define "title"}}Home{{end}}
+{{define "title"}}{{T "home"}}{{end}}
 {{define "contclass"}}cont-home{{end}}
 {{define "content"}}
-	<div class="blockBody">
-      <nav class="torrentNav" aria-label="Page navigation">
-          <ul class="pagination">
-              {{ genNav .Navigation .URL 10 }}
-          </ul>
+  <div class="blockBody">
+      <ul class="list-inline" aria-label="Page navigation">
+          <li><img id="mascot" src="/img/renchon.png" /></li>
+          <li style="padding-top: 7%;" class="pull-right"><ul class="pagination">
+              {{ genNav .Navigation .URL 5 }}
+          </ul></li>
       </nav>
 
       <div class="table-responsive">
           <table class="table custom-table-hover">
           <tr>
-              <th>Category</th>
-              <th>Name</th>
-              <th>Date</th>
-              <th>Size</th>
-              <th>Links</th>
+              <th class="col-xs-1 hidden-xs">{{T "category"}}</th>
+              <th class="col-xs-12">
+                <a href="{{ genSearchWithOrdering .URL "1" }}">{{T "name"}}{{ genSortArrows .URL "1" }}</a>
+              </th>
+              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "5" }}">{{T "S"}}{{ genSortArrows .URL "5" }}</a></th>
+              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "6" }}">{{T "L"}}{{ genSortArrows .URL "6" }}</a></th>
+              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "7" }}">{{T "D"}}{{ genSortArrows .URL "7" }}</a></th>
+              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{T "date"}}{{ genSortArrows .URL "2" }}</th></a>
+              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "4" }}">{{T "size"}}{{ genSortArrows .URL "4" }}</a></th>
+              <th class="col-xs-1 hidden-xs">{{T "links"}}</th>
           </tr>
           {{ range .ListTorrents}}
           <tr class="torrent-info
@@ -23,29 +29,45 @@
               {{if eq .Status 3}}trusted{{end}}
               {{if eq .Status 4}}aplus{{end}}">
               <!-- forced width because the <td> gets bigger randomly otherwise -->
-              <td style="width:80px">
-                  <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category.Id .Sub_Category.Id) }}">
-                      <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .Sub_Category.Id) }}">
+              <td class="hidden-xs" style="width:80px">
+                  <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
+                      {{ if Sukebei }}
+
+                      <img src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}">
+
+                      {{ else }}
+                      <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}">
+                      {{ end}}
                   </a>
               </td>
               <td class="name">
-                  <a href="{{genRoute "view_torrent" "id" .Id }}">
+                  <a href="{{genRoute "view_torrent" "id" .ID }}">
                       {{.Name}}
                   </a>
               </td>
-              <td class="date date-short">{{.Date}}</td>
-              <td class="filesize">{{.Filesize}}</td>
-              <td>
+              <td class="hidden-xs"><b class="text-success">{{.Seeders}}</b></td>
+              <td class="hidden-xs"><b class="text-danger">{{.Leechers}}</b></td>
+              <td class="hidden-xs">{{.Completed}}</td>
+              <td class="hidden-xs date date-short">{{.Date}}</td>
+              <td class="hidden-xs filesize">{{.Filesize}}</td>
+              <td class="hidden-xs">
                   <a href="{{.Magnet}}" title="Magnet link">
                       <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>
                   </a>
-<!--                  <a href="https://itorrents.org/torrent/{{.Hash}}.torrent" title="Torrent file">
+                  {{if ne .TorrentLink ""}}
+                  <a href="{{.TorrentLink}}" title="Torrent file">
                       <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 
-                  </a> -->
+                  </a>
+                  {{end}}
               </td>
           </tr>
           {{end}}
       </table>
-    </div>
+      </div>
+      <nav class="torrentNav" aria-label="Page navigation">
+          <ul class="pagination">
+              {{ genNav .Navigation .URL 5 }}
+          </ul>
+      </nav>
 </div>
 {{end}}

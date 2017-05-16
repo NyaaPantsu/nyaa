@@ -1,46 +1,84 @@
 package router
 
 import (
+	"encoding/base32"
+	"encoding/hex"
 	"errors"
+	"fmt"
+	"io"
+	"io/ioutil"
+	"mime/multipart"
+	"net/http"
+	"net/url"
+	"os"
+	"regexp"
+	"strconv"
+	"strings"
+
+	"github.com/ewhal/nyaa/cache"
+	"github.com/ewhal/nyaa/config"
+	"github.com/ewhal/nyaa/service/upload"
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/metainfo"
+	"github.com/microcosm-cc/bluemonday"
 	"github.com/zeebo/bencode"
-	"net/http"
 )
+
+// Use this, because we seem to avoid using models, and we would need
+// the torrent ID to create the File in the DB
+type UploadedFile struct {
+	Path     string
+	Filesize int64
+}
 
 // UploadForm serializing HTTP form for torrent upload
 type UploadForm struct {
 	Name        string
 	Magnet      string
 	Category    string
+	Remake      bool
 	Description string
+	Status      int
+	CaptchaID   string
+
+	Infohash      string
+	CategoryID    int
+	SubCategoryID int
+	Filesize      int64
+	Filepath      string
+	FileList      []UploadedFile
 }
 
 // TODO: these should be in another package (?)
 
-// form value for torrent name
+// form names
 const UploadFormName = "name"
-
-// form value for torrent file
 const UploadFormTorrent = "torrent"
-
-// form value for magnet uri (?)
 const UploadFormMagnet = "magnet"
-
-// form value for category
 const UploadFormCategory = "c"
-
-// form value for description
+const UploadFormRemake = "remake"
 const UploadFormDescription = "desc"
+const UploadFormStatus = "status"
+
+// error indicating that you can't send both a magnet link and torrent
+var ErrTorrentPlusMagnet = errors.New("upload either a torrent file or magnet link, not both")
 
 // error indicating a torrent is private
 var ErrPrivateTorrent = errors.New("torrent is private")
+
+// error indicating a problem with its trackers
+var ErrTrackerProblem = errors.New("torrent does not have any (working) trackers: https://" + config.WebAddress + "/faq#trackers")
 
 // error indicating a torrent's name is invalid
 var ErrInvalidTorrentName = errors.New("torrent name is invalid")
 
 // error indicating a torrent's description is invalid
 var ErrInvalidTorrentDescription = errors.New("torrent description is invalid")
+
+// error indicating a torrent's category is invalid
+var ErrInvalidTorrentCategory = errors.New("torrent category is invalid")
+
+var p = bluemonday.UGCPolicy()
 
 /**
 UploadForm.ExtractInfo takes an http request and computes all fields for this form
@@ -50,44 +88,183 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	f.Name = r.FormValue(UploadFormName)
 	f.Category = r.FormValue(UploadFormCategory)
 	f.Description = r.FormValue(UploadFormDescription)
+	f.Status, _ = strconv.Atoi(r.FormValue(UploadFormStatus))
 	f.Magnet = r.FormValue(UploadFormMagnet)
+	f.Remake = r.FormValue(UploadFormRemake) == "on"
 
-	// trim whitespaces
+	// trim whitespace
 	f.Name = util.TrimWhitespaces(f.Name)
-	f.Description = util.TrimWhitespaces(f.Description)
+	f.Description = p.Sanitize(util.TrimWhitespaces(f.Description))
 	f.Magnet = util.TrimWhitespaces(f.Magnet)
+	cache.Impl.ClearAll()
 
-	if len(f.Name) == 0 {
-		return ErrInvalidTorrentName
-	}
-
-	if len(f.Description) == 0 {
-		return ErrInvalidTorrentDescription
-	}
-
-	if len(f.Magnet) == 0 {
-		// try parsing torrent file if provided if no magnet is specified
-		tfile, _, err := r.FormFile(UploadFormTorrent)
+	catsSplit := strings.Split(f.Category, "_")
+	// need this to prevent out of index panics
+	if len(catsSplit) == 2 {
+		CatID, err := strconv.Atoi(catsSplit[0])
 		if err != nil {
-			return err
+			return ErrInvalidTorrentCategory
+		}
+		SubCatID, err := strconv.Atoi(catsSplit[1])
+		if err != nil {
+			return ErrInvalidTorrentCategory
 		}
 
+		f.CategoryID = CatID
+		f.SubCategoryID = SubCatID
+	} else {
+		return ErrInvalidTorrentCategory
+	}
+
+	// first: parse torrent file (if any) to fill missing information
+	tfile, _, err := r.FormFile(UploadFormTorrent)
+	if err == nil {
 		var torrent metainfo.TorrentFile
+
 		// decode torrent
+		_, seekErr := tfile.Seek(0, io.SeekStart)
+		if seekErr != nil {
+			return seekErr
+		}
 		err = bencode.NewDecoder(tfile).Decode(&torrent)
 		if err != nil {
 			return metainfo.ErrInvalidTorrentFile
 		}
 
-		// check if torrent is private
+		// check a few things
 		if torrent.IsPrivate() {
 			return ErrPrivateTorrent
 		}
+		trackers := torrent.GetAllAnnounceURLS()
+		if !uploadService.CheckTrackers(trackers) {
+			return ErrTrackerProblem
+		}
 
-		// generate magnet
-		f.Magnet = util.InfoHashToMagnet(torrent.Infohash(), f.Name)
+		// Name
+		if len(f.Name) == 0 {
+			f.Name = torrent.TorrentName()
+		}
+
+		// Magnet link: if a file is provided it should be empty
+		if len(f.Magnet) != 0 {
+			return ErrTorrentPlusMagnet
+		}
+		binInfohash, err := torrent.Infohash()
+		if err != nil {
+			return err
+		}
+		f.Infohash = strings.ToUpper(hex.EncodeToString(binInfohash[:]))
+		f.Magnet = util.InfoHashToMagnet(f.Infohash, f.Name, trackers...)
+
+		// extract filesize
+		f.Filesize = int64(torrent.TotalSize())
+		
+		// extract filelist
+		fileInfos := torrent.Info.GetFiles()
+		for _, info := range fileInfos {
+			f.FileList = append(f.FileList, UploadedFile{
+				Path: info.Path.FilePath(),
+				Filesize: int64(info.Length),
+			})
+		}
+	} else {
+		// No torrent file provided
+		magnetUrl, err := url.Parse(string(f.Magnet)) //?
+		if err != nil {
+			return err
+		}
+		xt := magnetUrl.Query().Get("xt")
+		if !strings.HasPrefix(xt, "urn:btih:") {
+			return errors.New("incorrect magnet")
+		}
+		xt = strings.SplitAfter(xt, ":")[2]
+		f.Infohash = strings.ToUpper(strings.Split(xt, "&")[0])
+		isBase32, err := regexp.MatchString("^[2-7A-Z]{32}$", f.Infohash)
+		if err != nil {
+			return err
+		}
+		if !isBase32 {
+			isBase16, err := regexp.MatchString("^[0-9A-F]{40}$", f.Infohash)
+			if err != nil {
+				return err
+			}
+			if !isBase16 {
+				return errors.New("incorrect hash")
+			}
+		} else {
+			//convert to base16
+			data, err := base32.StdEncoding.DecodeString(f.Infohash)
+			if err != nil {
+				return err
+			}
+			hash16 := make([]byte, hex.EncodedLen(len(data)))
+			hex.Encode(hash16, data)
+			f.Infohash = strings.ToUpper(string(hash16))
+		}
+
+		f.Filesize = 0
+		f.Filepath = ""
+	}
+
+	// then actually check that we have everything we need
+	if len(f.Name) == 0 {
+		return ErrInvalidTorrentName
+	}
+
+	// after data has been checked & extracted, write it to disk
+	if len(config.TorrentFileStorage) > 0 {
+		err := WriteTorrentToDisk(tfile, f.Infohash+".torrent", &f.Filepath)
+		if err != nil {
+			return err
+		}
+	} else {
+		f.Filepath = ""
+	}
+
+	return nil
+}
+
+func (f *UploadForm) ExtractEditInfo(r *http.Request) error {
+	f.Name = r.FormValue(UploadFormName)
+	f.Category = r.FormValue(UploadFormCategory)
+	f.Description = r.FormValue(UploadFormDescription)
+	f.Status, _ = strconv.Atoi(r.FormValue(UploadFormStatus))
+
+	// trim whitespace
+	f.Name = util.TrimWhitespaces(f.Name)
+	f.Description = p.Sanitize(util.TrimWhitespaces(f.Description))
+
+	catsSplit := strings.Split(f.Category, "_")
+	// need this to prevent out of index panics
+	if len(catsSplit) == 2 {
+		CatID, err := strconv.Atoi(catsSplit[0])
+		if err != nil {
+			return ErrInvalidTorrentCategory
+		}
+		SubCatID, err := strconv.Atoi(catsSplit[1])
+		if err != nil {
+			return ErrInvalidTorrentCategory
+		}
+
+		f.CategoryID = CatID
+		f.SubCategoryID = SubCatID
+	} else {
+		return ErrInvalidTorrentCategory
 	}
 	return nil
+}
+
+func WriteTorrentToDisk(file multipart.File, name string, fullpath *string) error {
+	_, seekErr := file.Seek(0, io.SeekStart)
+	if seekErr != nil {
+		return seekErr
+	}
+	b, err := ioutil.ReadAll(file)
+	if err != nil {
+		return err
+	}
+	*fullpath = fmt.Sprintf("%s%c%s", config.TorrentFileStorage, os.PathSeparator, name)
+	return ioutil.WriteFile(*fullpath, b, 0644)
 }
 
 // NewUploadForm creates a new upload form given parameters as list

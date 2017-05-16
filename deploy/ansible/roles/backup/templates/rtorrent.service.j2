@@ -1,0 +1,16 @@
+[Unit]
+Description=rTorrent
+After=network.target
+
+[Service]
+Type=forking
+KillMode=none
+User=rtorrent
+ExecStartPre=/usr/bin/bash -c "if test -e /home/{{ ansible_ssh_user }}/.rtorrent_session/rtorrent.lock && test -z `pidof rtorrent`; then rm -f  /home/{{ ansible_ssh_user }}/.rtorrent_session/rtorrent.lock; fi"
+ExecStart=/usr/bin/screen -dmfa -S rtorrent /usr/bin/rtorrent
+ExecStop=/usr/bin/bash -c "test `pidof rtorrent` && killall -w -s 2 /usr/bin/rtorrent"
+WorkingDirectory=/home/{{ ansible_ssh_user }}
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

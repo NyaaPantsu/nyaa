@@ -1,83 +1,215 @@
 package search
 
 import (
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/service/torrent"
-	"github.com/ewhal/nyaa/util/log"
-	"html"
 	"net/http"
 	"strconv"
 	"strings"
+	"unicode"
+	"unicode/utf8"
+
+	"github.com/ewhal/nyaa/cache"
+	"github.com/ewhal/nyaa/common"
+	"github.com/ewhal/nyaa/config"
+	"github.com/ewhal/nyaa/db"
+	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/service"
+	"github.com/ewhal/nyaa/service/torrent"
+	"github.com/ewhal/nyaa/util/log"
 )
 
-type SearchParam struct {
-	Category string
-	Order    string
-	Query    string
-	Max      int
-	Status   string
-	Sort     string
+var searchOperator string
+var useTSQuery bool
+
+func Configure(conf *config.SearchConfig) (err error) {
+	useTSQuery = false
+	// Postgres needs ILIKE for case-insensitivity
+	if db.ORM.Dialect().GetName() == "postgres" {
+		searchOperator = "ILIKE ?"
+		//useTSQuery = true
+		// !!DISABLED!! because this makes search a lot stricter
+		// (only matches at word borders)
+	} else {
+		searchOperator = "LIKE ?"
+	}
+	return
 }
 
-func SearchByQuery(r *http.Request, pagenum int) (SearchParam, []model.Torrents, int) {
-	maxPerPage, errConv := strconv.Atoi(r.URL.Query().Get("max"))
-	if errConv != nil {
-		maxPerPage = 50 // default Value maxPerPage
-	}
-
-	if maxPerPage > 300 {
-		maxPerPage = 300
-	}
-	search_param := SearchParam{}
-	search_param.Max = maxPerPage
-	search_param.Query = r.URL.Query().Get("q")
-	search_param.Category = r.URL.Query().Get("c")
-	search_param.Status = r.URL.Query().Get("s")
-	search_param.Sort = r.URL.Query().Get("sort")
-	search_param.Order = r.URL.Query().Get("order")
-
-	catsSplit := strings.Split(search_param.Category, "_")
-	// need this to prevent out of index panics
-	var searchCatId, searchSubCatId string
-	if len(catsSplit) == 2 {
-
-		searchCatId = html.EscapeString(catsSplit[0])
-		searchSubCatId = html.EscapeString(catsSplit[1])
-	}
-	if search_param.Sort == "" {
-		search_param.Sort = "torrent_id"
-	}
-	if search_param.Order == "" {
-		search_param.Order = "desc"
-	}
-	order_by := search_param.Sort + " " + search_param.Order
-
-	parameters := torrentService.WhereParams{}
-	conditions := []string{}
-	if searchCatId != "" {
-		conditions = append(conditions, "category_id = ?")
-		parameters.Params = append(parameters.Params, searchCatId)
-	}
-	if searchSubCatId != "" {
-		conditions = append(conditions, "sub_category_id = ?")
-		parameters.Params = append(parameters.Params, searchSubCatId)
-	}
-	if search_param.Status != "" {
-		if search_param.Status == "2" {
-			conditions = append(conditions, "status_id != ?")
-		} else {
-			conditions = append(conditions, "status_id = ?")
+func stringIsAscii(input string) bool {
+	for _, char := range input {
+		if char > 127 {
+			return false
 		}
-		parameters.Params = append(parameters.Params, search_param.Status)
 	}
-	searchQuerySplit := strings.Split(search_param.Query, " ")
-	for i, _ := range searchQuerySplit {
-		conditions = append(conditions, "torrent_name LIKE ?")
-		parameters.Params = append(parameters.Params, "%"+searchQuerySplit[i]+"%")
+	return true
+}
+
+func SearchByQuery(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
+	search, tor, count, err = searchByQuery(r, pagenum, true)
+	return
+}
+
+func SearchByQueryNoCount(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, err error) {
+	search, tor, _, err = searchByQuery(r, pagenum, false)
+	return
+}
+
+func searchByQuery(r *http.Request, pagenum int, countAll bool) (
+	search common.SearchParam, tor []model.Torrent, count int, err error,
+) {
+	max, err := strconv.ParseUint(r.URL.Query().Get("max"), 10, 32)
+	if err != nil {
+		max = 50 // default Value maxPerPage
+	} else if max > 300 {
+		max = 300
+	}
+	search.Max = uint(max)
+
+	search.Page = pagenum
+	search.Query = r.URL.Query().Get("q")
+	userID, _ := strconv.Atoi(r.URL.Query().Get("userID"))
+	search.UserID = uint(userID)
+
+	switch s := r.URL.Query().Get("s"); s {
+	case "1":
+		search.Status = common.FilterRemakes
+	case "2":
+		search.Status = common.Trusted
+	case "3":
+		search.Status = common.APlus
+	}
+
+	catString := r.URL.Query().Get("c")
+	if s := catString; len(s) > 1 && s != "_" {
+		var tmp uint64
+		tmp, err = strconv.ParseUint(string(s[0]), 10, 8)
+		if err != nil {
+			return
+		}
+		search.Category.Main = uint8(tmp)
+
+		if len(s) > 2 && len(s) < 5 {
+			tmp, err = strconv.ParseUint(s[2:], 10, 8)
+			if err != nil {
+				return
+			}
+			search.Category.Sub = uint8(tmp)
+		}
+	}
+
+	orderBy := ""
+
+	switch s := r.URL.Query().Get("sort"); s {
+	case "1":
+		search.Sort = common.Name
+		orderBy += "torrent_name"
+		break
+	case "2":
+		search.Sort = common.Date
+		orderBy += "date"
+		search.NotNull = "date IS NOT NULL"
+		break
+	case "3":
+		search.Sort = common.Downloads
+		orderBy += "downloads"
+		break
+	case "4":
+		search.Sort = common.Size
+		orderBy += "filesize"
+		// avoid sorting completely breaking on postgres
+		search.NotNull = "filesize IS NOT NULL"
+		break
+	case "5":
+		search.Sort = common.Seeders
+		orderBy += "seeders"
+		search.NotNull = "seeders IS NOT NULL"
+		break
+	case "6":
+		search.Sort = common.Leechers
+		orderBy += "leechers"
+		search.NotNull = "leechers IS NOT NULL"
+		break
+	case "7":
+		search.Sort = common.Completed
+		orderBy += "completed"
+		search.NotNull = "completed IS NOT NULL"
+		break
+	default:
+		search.Sort = common.ID
+		orderBy += "torrent_id"
+	}
+
+	orderBy += " "
+
+	switch s := r.URL.Query().Get("order"); s {
+	case "true":
+		search.Order = true
+		orderBy += "asc"
+	default:
+		orderBy += "desc"
+	}
+	parameters := serviceBase.WhereParams{
+		Params: make([]interface{}, 0, 64),
+	}
+	conditions := make([]string, 0, 64)
+
+	if search.Category.Main != 0 {
+		conditions = append(conditions, "category = ?")
+		parameters.Params = append(parameters.Params, search.Category.Main)
+	}
+	if search.UserID != 0 {
+		conditions = append(conditions, "uploader = ?")
+		parameters.Params = append(parameters.Params, search.UserID)
+	}
+	if search.Category.Sub != 0 {
+		conditions = append(conditions, "sub_category = ?")
+		parameters.Params = append(parameters.Params, search.Category.Sub)
+	}
+	if search.Status != 0 {
+		if search.Status == common.FilterRemakes {
+			conditions = append(conditions, "status <> ?")
+		} else {
+			conditions = append(conditions, "status >= ?")
+		}
+		parameters.Params = append(parameters.Params, strconv.Itoa(int(search.Status)+1))
+	}
+	if len(search.NotNull) > 0 {
+		conditions = append(conditions, search.NotNull)
+	}
+
+	searchQuerySplit := strings.Fields(search.Query)
+	for _, word := range searchQuerySplit {
+		firstRune, _ := utf8.DecodeRuneInString(word)
+		if len(word) == 1 && unicode.IsPunct(firstRune) {
+			// some queries have a single punctuation character
+			// which causes a full scan instead of using the index
+			// and yields no meaningful results.
+			// due to len() == 1 we're just looking at 1-byte/ascii
+			// punctuation characters.
+			continue
+		}
+
+		if useTSQuery && stringIsAscii(word) {
+			conditions = append(conditions, "torrent_name @@ plainto_tsquery(?)")
+			parameters.Params = append(parameters.Params, word)
+		} else {
+			// TODO: possible to make this faster?
+			conditions = append(conditions, "torrent_name "+searchOperator)
+			parameters.Params = append(parameters.Params, "%"+word+"%")
+		}
 	}
 
 	parameters.Conditions = strings.Join(conditions[:], " AND ")
+
 	log.Infof("SQL query is :: %s\n", parameters.Conditions)
-	torrents, n := torrentService.GetTorrentsOrderBy(&parameters, order_by, maxPerPage, maxPerPage*(pagenum-1))
-	return search_param, torrents, n
+
+	tor, count, err = cache.Impl.Get(search, func() (tor []model.Torrent, count int, err error) {
+
+		if countAll {
+			tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
+		} else {
+			tor, err = torrentService.GetTorrentsOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
+		}
+		return
+	})
+	return
 }

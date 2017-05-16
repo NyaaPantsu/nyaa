@@ -1,0 +1,698 @@
+[
+  {
+    "id": "link",
+    "translation": "ลิงค์"
+  },
+  {
+    "id": "verify_email_title",
+    "translation": "ยืนยันอีเมลสำหรับ NyaaPantsu"
+  },
+  {
+    "id": "verify_email_content",
+    "translation": "กรุณากดลิงค์ข้างล่างเพื่อยืนยันอีเมล"
+  },
+  {
+    "id": "reset_password_title",
+    "translation": "รีเซ็ทรหัสผ่านสำหรับ NyaaPantsu"
+  },
+  {
+    "id": "reset_password_content",
+    "translation": "กรุณากดลิงค์ข้างล่างเพื่อรีเซ็ทรหัสผ่าน"
+  },
+  {
+    "id":"register_title",
+    "translation": "สร้างแอคเคาท์ใหม่"
+  },
+  {
+    "id":"signup_box_title",
+    "translation": "กรุณาลงทะเบียน <small>มันฟรีตลอดชาติ</small>"
+  },
+  {
+    "id":"username",
+    "translation": "ชื่อผู้ใช้"
+  },
+  {
+    "id":"email_address_or_username",
+    "translation": "อีเมลหรือชื่อผู้ใช้"
+  },
+  {
+    "id":"email_address",
+    "translation": "อีเมล"
+  },
+  {
+    "id":"password",
+    "translation": "รหัสผ่าน"
+  },
+  {
+    "id":"confirm_password",
+    "translation": "ยืนยันรหัสผ่าน"
+  },
+  {
+    "id":"i_agree",
+    "translation": "ฉันยอมรับ"
+  },
+  {
+    "id":"terms_conditions_confirm",
+    "translation": "หากคุณกด <strong class=\"label label-primary\">ลงทะเบียน</strong> คุณต้องยอมรับ<a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">เงื่อนไขและข้อตกลง</a>ของเว็บนี้ รวมถึงการใช้งาน Cookie ของทางเรา"
+  },
+  {
+    "id":"signin",
+    "translation": "เข้าสู่ระบบ"
+  },
+  {
+    "id":"register",
+    "translation": "ลงทะเบียน"
+  },
+  {
+    "id":"terms_conditions",
+    "translation": "เงื่อนไขและข้อตกลง"
+  },
+  {
+    "id":"terms_conditions_full",
+    "translation": "Nope.avi"
+  },
+  {
+    "id":"remember_me",
+    "translation": "จดจำฉันไว้"
+  },
+  {
+    "id":"forgot_password",
+    "translation": "ลืมรหัสผ่าน?"
+  },
+  {
+    "id":"sign_in_box_title",
+    "translation": "กรุณาเข้าสู่ระบบ"
+  },
+  {
+    "id":"sign_in_title",
+    "translation": "เข้าสู่ระบบ"
+  },
+  {
+    "id":"register_success_title",
+    "translation": "ลงทะเบียนเรียบร้อย"
+  },
+  {
+    "id":"sign_up_success",
+    "translation": "ขอบคุณที่ลงทะเบียน!"
+  },
+  {
+    "id":"verify_success",
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>แอคเคาท์ของคุณถูกเปิดใช้งานแล้ว!"
+  },
+  {
+    "id":"signup_verification_email",
+    "translation": "ขณะนี้การยืนยันอีเมลถูกปิดใช้งาน ฉะนั้นคุณสามารถใช้งานแอคเคาท์ได้ทันที แต่ในอนาคตกรุณาเช็คอีเมล (และในโฟลเดอร์เมลขยะ!) สำหรับเมลยืนยันตัวตน"
+  },
+  {
+    "id":"signup_verification_noemail",
+    "translation": "การลงทะเบียนเสร็จเรียบร้อย คุณสามารถใช้งานแอคเคาท์ของคุณได้ในตอนนี้"
+  },
+  {
+    "id":"settings",
+    "translation": "ตั้งค่าแอคเคาท์"
+  },
+  {
+    "id":"torrents",
+    "translation": "ทอร์เรนท์"
+  },
+  {
+    "id":"follow",
+    "translation": "ติดตาม"
+  },
+  {
+    "id":"unfollow",
+    "translation": "ไม่ติดตาม"
+  },
+  {
+    "id":"user_followed_msg",
+    "translation": "คุณติดตาม %s แล้ว!"
+  },
+  {
+    "id":"user_unfollowed_msg",
+    "translation": "คุณไม่ได้ติดตาม %s แล้ว!"
+  },
+  {
+    "id":"profile_page",
+    "translation": "หน้าโปรไฟล์ของ %s"
+  },
+  {
+    "id":"see_more_torrents_from",
+    "translation": "ดูทอร์เรนท์อื่นๆ ของ %s "
+  },
+  {
+    "id":"category",
+    "translation": "หมวดหมู่"
+  },
+  {
+    "id": "name",
+    "translation": "ชื่อ"
+  },
+  {
+    "id": "date",
+    "translation": "วันที่"
+  },
+  {
+    "id": "size",
+    "translation": "ขนาด"
+  },
+  {
+    "id": "links",
+    "translation": "ลิงค์"
+  },
+  {
+    "id": "home",
+    "translation": "หน้าหลัก"
+  },
+  {
+    "id": "error_404",
+    "translation": "ข้อผิดพลาด 404"
+  },
+  {
+    "id": "toggle_navigation",
+    "translation": "Toggle navigation"
+  },
+  {
+    "id": "upload",
+    "translation": "อัพโหลด"
+  },
+  {
+    "id": "faq",
+    "translation": "ถาม-ตอบ"
+  },
+  {
+    "id": "fap",
+    "translation": "Fap"
+  },
+  {
+    "id": "advanced_search",
+    "translation": "การค้นหาระดับสูง"
+  },
+  {
+    "id": "nothing_here",
+    "translation": "ไม่มีอะไรในนี้"
+  },
+  {
+    "id": "404_not_found",
+    "translation": "404 Not Found"
+  },
+  {
+    "id": "no_torrents_uploaded",
+    "translation": "คุณยังไม่ได้อัพโหลดทอร์เรนท์!"
+  },
+  {
+    "id": "profile",
+    "translation": "โปรไฟล์"
+  },
+  {
+    "id": "sign_out",
+    "translation": "ออกจากระบบ"
+  },
+  {
+    "id": "member",
+    "translation": "สมาชิก"
+  },
+  {
+    "id": "sign_in",
+    "translation": "เข้าสู่ระบบ"
+  },
+  {
+    "id": "sign_up",
+    "translation": "ลงทะเบียน"
+  },
+  {
+    "id": "no_results_found",
+    "translation": "ไม่พบสิ่งที่ค้นหา"
+  },
+  {
+    "id": "notice_keep_seeding",
+    "translation": "ประกาศ: กรุณาปล่อย Seed ทิ้งไว้และเปิด DHT ด้วย"
+  },
+  {
+    "id": "official_nyaapocalipse_faq",
+    "translation": "ถาม-ตอบสถานการณ์ล่าสุดของ Nyaa อย่างเป็นทางการ"
+  },
+  {
+    "id": "links_replacement_mirror",
+    "translation": "ลิงค์สำหรับเว็บที่ใช้ทดแทน / Mirror"
+  },
+  {
+    "id": "what_happened",
+    "translation": "เกิดอะไรขึ้น?"
+  },
+  {
+    "id": "nyaa_se_went_offline",
+    "translation": "nyaa.se และโดเมนที่เกี่ยวข้อง (อย่าง nyaatorrents.info) ออฟไลน์ไปตั้งแต่ 1 พฤษภาคม 2017"
+  },
+  {
+    "id": "its_not_a_ddos",
+    "translation": "นี่ไม่ใช่การโจมตีแบบ DDoS แบบทุกที เพราะเขาปิดระบบเอง"
+  },
+  {
+    "id": "future_not_looking_good",
+    "translation": "และอนาคตสำหรับ Nyaa เองก็ไม่ค่อยดีเท่าไหร่ (ตายสนิท)"
+  },
+  {
+    "id": "recovery_effort",
+    "translation": "นั่นจึงเป็นความพยายามที่จะกู้กลับมา"
+  },
+  {
+    "id": "is_everything_lost",
+    "translation": "ทุกอย่างหายหมดเลย?"
+  },
+  {
+    "id": "in_short_no",
+    "translation": "เอาสั้นๆ เลย ไม่มี"
+  },
+  {
+    "id": "are_some_things_lost",
+    "translation": "มีอะไรหายบ้าง?"
+  },
+  {
+    "id": "answer_is_nyaa_db_lost",
+    "translation": "เรามีข้อมูลฐานข้อมูลทอร์เรนท์ที่อยู่บน Nyaa ถึง <s>5 เมษายน</s> 1 พฤษภาคม นั่นหมายความว่าแทบจะไม่มีอะไรหาย"
+  },
+  {
+    "id": "answer_is_sukebei_db_lost",
+    "translation": "ที่ Sukebei เองก็แทบจะไม่มีอะไรหายเหมือนกัน"
+  },
+  {
+    "id": "how_are_we_recovering",
+    "translation": "กู้กลับมายังไง?"
+  },
+  {
+    "id": "answer_how_are_we_recovering",
+    "translation": "ฐานข้อมูลดังกล่าวถูกใช้งานกับ nyaa.pantsu.cat และ sukebei.pantsu.cat ซึ่งมีระบบค้นหา และระบบของ Nyaa (เกือบ) ครบถ้วนควรจะมาในเร็วๆ นี้"
+  },
+  {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "จะลิงค์ไฟล์ที่เคยอัพโหลดกลับเข้าแอคเคาท์ของตัวเองยังไง?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "เข้าไปถาม Moderator ที่ <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> เพื่อโอนทอร์เรนท์เก่าของคุณและแจ้งชื่อผู้ใช้ทั้งของเดิมและของใหม่"
+  },
+  {
+    "id": "are_the_trackers_working",
+    "translation": "ตัวทอร์เรนท์จะยังใช้ได้รึเปล่า?"
+  },
+  {
+    "id": "answer_are_the_trackers_working",
+    "translation": "ถ้าแทรคเกอร์ล่ม ผู้ปล่อย Seed จะยังเชื่อมต่อกันผ่านเครือข่าย DHT ที่ไร้ศูนย์กลาง ตราบที่ไฟล์ยังอยู่ในเครือข่าย DHT ก็ยังโหลดได้"
+  },
+  {
+    "id": "how_do_i_download_the_torrents",
+    "translation": "โหลดทอร์เรนท์ยังไง?"
+  },
+  {
+    "id": "answer_how_do_i_download_the_torrents",
+    "translation": "ใช้ <b>Magnet link</b> ตัว Magnet link จะใช้กับไคลเอนท์บิททอร์เรนท์ในเครื่องเพื่อตรวจสอบไฟล์ที่อยู่ในเครือข่าย DHT และควรจะดาวน์โหลดได้ตามปกติ"
+  },
+  {
+    "id": "magnet_link_should_look_like",
+    "translation": "ตัว Magnet link ควรจะเป็นลักษณะนี้:"
+  },
+  {
+    "id": "which_trackers_do_you_recommend",
+    "translation": "แทรคเกอร์ไหนที่คุณแนะนำให้ใช้?"
+  },
+  {
+    "id": "answer_which_trackers_do_you_recommend",
+    "translation": "เรามีแทรคเกอร์เป็นของตัวเองในชื่อ doko.moe กรุณาใส่ไว้บนสุดของลิสต์ก่อนอัพโหลด และควรใส่แทรคเกอร์เหล่านี้ไปด้วยเพื่อให้ทอร์เรนท์คงความยืดหยุ่น"
+  },
+  {
+    "id": "how_can_i_help",
+    "translation": "จะให้ช่วยยังไง?"
+  },
+  {
+    "id": "answer_how_can_i_help",
+    "translation": "หากมีประสบการณ์ในการเขียนเว็บ คุณสามารถเข้ามาคุยในช่อง IRC  #nyaapantsu บน irc.rizon.net หากคุณมีฐานข้อมูลใดๆ โดยเฉพาะของ Sukebei กรุณาอัพโหลด"
+  },
+  {
+    "id": "your_design_sucks_found_a_bug",
+    "translation": "ดีไซน์กากว่ะคุณ / เจอบัค"
+  },
+  {
+    "id": "why_written_in_go",
+    "translation": "ทำไมเขียนเป็นภาษา Go?"
+  },
+  {
+    "id": "authors_favorite_language",
+    "translation": "เพราะเป็นภาษาที่ผู้พัฒนาชอบ"
+  },
+  {
+    "id": "upload_magnet",
+    "translation": "อัพโหลด Magnet"
+  },
+  {
+    "id": "torrent_file",
+    "translation": "ไฟล์ทอร์เรนท์"
+  },
+  {
+    "id": "uploading_file_prefills_fields",
+    "translation": "แนะนำให้อัพโหลดไฟล์ทอร์เรนท์ที่ใส่ข้อมูลมาให้แล้วในบางช่อง"
+  },
+  {
+    "id": "magnet_link",
+    "translation": "Magnet Link"
+  },
+  {
+    "id": "all_categories",
+    "translation": "ทุกหมวดหมู่"
+  },
+    {
+    "id": "select_a_torrent_category",
+    "translation": "เลือกหมวดหมู่ทอร์เรนท์"
+  },
+  {
+    "id": "anime",
+    "translation": "อนิเมะ"
+  },
+  {
+    "id": "anime_amv",
+    "translation": "อนิเมะ - Anime Music Video"
+  },
+  {
+    "id": "anime_english_translated",
+    "translation": "อนิเมะ - ถูกแปลเป็นภาษาอังกฤษ"
+  },
+  {
+    "id": "anime_non_english_translated",
+    "translation": "อนิเมะ - ถูกแปลเป็นภาษาอื่น"
+  },
+  {
+    "id": "anime_raw",
+    "translation": "อนิเมะ - Raw"
+  },
+  {
+    "id": "audio",
+    "translation": "เสียง"
+  },
+  {
+    "id": "audio_lossless",
+    "translation": "เสียง - Lossless"
+  },
+  {
+    "id": "audio_lossy",
+    "translation": "เสียง - Lossy"
+  },
+  {
+    "id": "literature",
+    "translation": "งานเขียน"
+  },
+  {
+    "id": "literature_english_translated",
+    "translation": "งานเขียน - ถูกแปลเป็นภาษาอังกฤษ"
+  },
+  {
+    "id": "literature_raw",
+    "translation": "งานเขียน - Raw"
+  },
+  {
+    "id": "literature_non_english_translated",
+    "translation": "งานเขียน - ถูกแปลเป็นภาษาอื่น"
+  },
+  {
+    "id": "live_action",
+    "translation": "Live Action"
+  },
+  {
+    "id": "live_action_english_translated",
+    "translation": "Live Action - ถูกแปลเป็นภาษาอังกฤษ"
+  },
+  {
+    "id": "live_action_idol_pv",
+    "translation": "Live Action - ไอดอล/Promotional Video"
+  },
+  {
+    "id": "live_action_non_english_translated",
+    "translation": "Live Action - ถูกแปลเป็นภาษาอื่น"
+  },
+  {
+    "id": "live_action_raw",
+    "translation": "Live Action - Raw"
+  },
+  {
+    "id": "pictures",
+    "translation": "ภาพ"
+  },
+  {
+    "id": "pictures_graphics",
+    "translation": "ภาพ - ภาพวาด"
+  },
+  {
+    "id": "pictures_photos",
+    "translation": "ภาพ - ภาพถ่าย"
+  },
+  {
+    "id": "software",
+    "translation": "ซอฟท์แวร์"
+  },
+  {
+    "id": "software_applications",
+    "translation": "ซอฟท์แวร์ - แอพลิเคชั่น"
+  },
+  {
+    "id": "software_games",
+    "translation": "ซอฟท์แวร์ - เกม"
+  },
+  {
+    "id": "torrent_description",
+    "translation": "รายละเอียดของไฟล์ทอร์เรนท์"
+  },
+  {
+    "id": "description_markdown_notice",
+    "translation": "สามารถใช้ Markdown ได้ในส่วนของรายละเอียด"
+  },
+  {
+    "id": "show_all",
+    "translation": "แสดงทั้งหมด"
+  },
+  {
+    "id": "filter_remakes",
+    "translation": "กรองงานทำซ้ำออกไป"
+  },
+  {
+    "id": "trusted",
+    "translation": "Trusted"
+  },
+  {
+    "id": "id",
+    "translation": "ID"
+  },
+  {
+    "id": "downloads",
+    "translation": "ดาวน์โหลด"
+  },
+  {
+    "id": "descending",
+    "translation": "เรียงจากบนลงล่าง"
+  },
+  {
+    "id": "ascending",
+    "translation": "เรียงจากล่างขึ้นบน"
+  },
+  {
+    "id": "search",
+    "translation": "ค้นหา"
+  },
+  {
+    "id": "hash",
+    "translation": "Hash"
+  },
+  {
+    "id": "description",
+    "translation": "รายละเอียด"
+  },
+  {
+    "id": "comments",
+    "translation": "คอมเมนท์"
+  },
+  {
+    "id": "submit_a_comment_as_username",
+    "translation": "ส่งคอมเมนท์ในชื่อ %s"
+  },
+  {
+    "id": "submit_a_comment_as_anonymous",
+    "translation": "ส่งคอมเมนท์แบบไม่ระบุตัวตน"
+  },
+  {
+    "id": "submit",
+    "translation": "ส่ง"
+  },
+  {
+    "id": "personal_info",
+    "translation": "ข้อมูลส่วนตัว"
+  },
+  {
+    "id": "language",
+    "translation": "ภาษา"
+  },
+  {
+    "id": "current_password",
+    "translation": "รหัสผ่านปัจจุบัน"
+  },
+  {
+    "id": "role",
+    "translation": "ยศ"
+  },
+  {
+    "id": "banned",
+    "translation": "ถูกแบน"
+  },
+  {
+    "id": "default",
+    "translation": "ค่าตั้งต้น"
+  },
+  {
+    "id": "trusted_member",
+    "translation": "Trusted member"
+  },
+  {
+    "id": "moderator",
+    "translation": "Moderator"
+  },
+  {
+    "id":" api_token",
+    "translation": "API Token"
+  },
+  {
+    "id": "save_changes",
+    "translation": "บันทึกการเปลี่ยนแปลง"
+  },
+  {
+    "id": "profile_updated",
+    "translation": "โปรไฟล์ของคุณถูกอัพเดตแล้ว!"
+  },
+  {
+    "id": "delete_account",
+    "translation": "ลบแอคเคาท์"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "คุณแน่ใจแล้วหรือที่จะลบแอคเคาท์นี้?"
+  },
+  {
+    "id": "delete_success",
+    "translation": "ลบแอคเคาท์เรียบร้อยแล้ว!"
+  },
+  {
+    "id": "moderation",
+    "translation": "Moderation"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "ใครคือ れんちょん?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "れんちょん คือชื่อผู้ใช้ที่ตั้งไว้สำหรับอัพโหลดและคอมเมนท์แบบไม่ระบุตัวตน ซึ่งถูกใช้กับทอร์เรนท์ที่กู้มาจาก Nyaa ดั้งเดิม และในบางครั้งชื่อผู้อัพโหลดดั้งเดิมจะแสดงผลคู่กัน"
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "ระบุว่าเป็นงานทำซ้ำ"
+  },
+  {
+    "id": "email_changed",
+    "translation": "เปลี่ยนอีเมลเรียบร้อย! แต่คุณยังต้องยืนยันด้วยลิงค์ที่ส่งไปยัง: %s"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "สถานะทอร์เรนท์"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "ถูกซ่อน"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "ปกติ"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "งานทำซ้ำ"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "แก้ไขโปรไฟล์ของ %s"
+  },
+  {
+    "id":"date_format",
+    "translation": "2006/01/02 15:04"
+  },
+  {
+    "id": "seeders",
+    "translation": "ผู้ปล่อย"
+  },
+  {
+    "id": "leechers",
+    "translation": "ผู้โหลด"
+  },
+  {
+    "id": "completed",
+    "translation": "โหลดเสร็จแล้ว"
+  },
+  {
+    "id": "change_language",
+    "translation": "เปลี่ยนภาษา"
+  },
+  {
+    "id": "language_name",
+    "translation": "ภาษาไทย"
+  },
+  {
+    "id": "delete",
+    "translation": "ลบ"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "อัพโหลด"
+  },
+  {
+    "id": "download_btn",
+    "translation": "ดาวน์โหลด!"
+  },
+  {
+    "id": "report_btn",
+    "translation": "รายงาน"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "แน่ใจแล้วเหรอ?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "รายงานทอร์เรนท์ #%s"
+  },
+  {
+    "id": "report_type",
+    "translation": "รูปแบบการรายงาน"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "คอนเทนท์ผิดกฎหมาย"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "สแปม / ขยะ"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "ผิดหมวดหมู่"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "ซ้ำ / ถูกลอยแพ"
+  },
+  {
+    "id": "captcha",
+    "translation": "Captcha"
+  },
+  {
+    "id": "file_name",
+    "translation": "ชื่อไฟล์"
+  },
+  {
+    "id": "cancel",
+    "translation": "ยกเลิก"
+  }
+]

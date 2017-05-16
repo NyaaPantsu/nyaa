@@ -1,0 +1,32 @@
+{{define "title"}}Torrent Reassign{{end}}
+{{define "content"}}
+<form enctype="multipart/form-data" method="POST">
+    {{ range (index $.FormInfos "infos")}}
+        <div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
+    {{end}}
+    {{ range (index $.FormErrors "errors")}}
+        <div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
+    {{end}}
+    <p>Reassigning torrents to a new user is not easily reverted and should be done with care.</p>
+
+    {{with .Reassign}}
+    <div class="form-group">
+        <label for="to">Reassign to:</label>
+        <input type="text" name="to" class="form-control" placeholder="User ID" {{if ne .AssignTo 0}}value="{{.AssignTo}}"{{end}} required>
+    </div>
+    <div class="form-group">
+	    <label for="by">Reassign based on:</label><br />
+        <input type="radio" name="by" value="olduser" {{if eq .By "olduser"}}checked{{end}} required> Old Username<br />
+        <input type="radio" name="by" value="torrentid" {{if eq .By "torrentid"}}checked{{end}} required> Torrent ID
+    </div>
+
+    <div class="form-group">
+        <p>One ID per line <b>or</b> a single username</p>
+        <textarea rows="20" cols="40" name="data">{{.Data}}</textarea>
+    </div>
+    {{end}}
+
+    <p>Might take a long time, do <b>NOT</b> abort the request.</p>
+    <button type="submit" class="btn btn-success">{{T "save_changes"}}</button>
+</form>
+{{end}}

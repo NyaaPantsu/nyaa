@@ -7,6 +7,7 @@ version=$(git describe --tags)
 declare -a OSes
 OSes[0]='linux;x86_64-linux-gnu-gcc'
 OSes[1]='windows;x86_64-w64-mingw32-gcc'
+mkdir -p dist
 
 for i in "${OSes[@]}"; do
 	arr=(${i//;/ })
@@ -16,5 +17,5 @@ for i in "${OSes[@]}"; do
 	echo -e "\nBuilding $os..."
 	echo GOOS=$os GOARCH=amd64 CC=$cc CGO_ENABLED=1 go build -v
 	GOOS=$os GOARCH=amd64 CC=$cc CGO_ENABLED=1 go build -v
-	zip -9 -q nyaa-${version}_${os}_amd64.zip os css js *.md *.html nyaa nyaa.exe
+	zip -9 -r dist/nyaa-${version}_${os}_amd64.zip os public templates service/user/locale *.md nyaa nyaa.exe
 done

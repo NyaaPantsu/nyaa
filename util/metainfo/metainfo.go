@@ -4,10 +4,11 @@ package metainfo
 
 import (
 	"crypto/sha1"
-	"github.com/zeebo/bencode"
 	"io"
 	"os"
 	"path/filepath"
+
+	"github.com/zeebo/bencode"
 )
 
 type FilePath []string
@@ -91,6 +92,7 @@ func (tf *TorrentFile) TotalSize() uint64 {
 }
 
 func (tf *TorrentFile) GetAllAnnounceURLS() (l []string) {
+	l = make([]string, 0, 64)
 	if len(tf.Announce) > 0 {
 		l = append(l, tf.Announce)
 	}
@@ -105,19 +107,22 @@ func (tf *TorrentFile) GetAllAnnounceURLS() (l []string) {
 }
 
 func (tf *TorrentFile) TorrentName() string {
-	return string(tf.Info.Path)
+	return tf.Info.Path
 }
 
 // return true if this torrent is private otherwise return false
 func (tf *TorrentFile) IsPrivate() bool {
-	return tf.Info.Private == nil || *tf.Info.Private == 0
+	return tf.Info.Private != nil && *tf.Info.Private == 1
 }
 
 // calculate infohash
-func (tf *TorrentFile) Infohash() (ih [20]byte) {
+func (tf *TorrentFile) Infohash() (ih [20]byte, err error) {
 	s := sha1.New()
 	enc := bencode.NewEncoder(s)
-	enc.Encode(&tf.Info)
+	err = enc.Encode(&tf.Info)
+	if err != nil {
+		return
+	}
 	d := s.Sum(nil)
 	copy(ih[:], d[:])
 	return

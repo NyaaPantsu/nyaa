@@ -5,13 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Nyaa Pantsu - {{block "title" .}}Error 404{{end}}</title>
-    <link rel="icon" type="image/png" href="/img/favicon.png?v=2" />
+	  <title>Nyaa Pantsu - {{block "title" .}}{{ T "error_404" }}{{end}}</title>
+    <link rel="icon" type="image/png" href="/img/favicon.png?v=3" />
 
     <!-- RSS Feed with Context -->
     <link href="{{ genRouteWithQuery "feed" .URL }}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
 
+    <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
+    <!-- This should come before website CSS because it can f3ck up the website completely.. Use !important as a workaround -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Bootstrap -->
@@ -23,36 +25,50 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- Search Box for Google -->
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+
     <!-- Website CSS -->
-    <link rel="stylesheet" href="{{.URL.Parse "/css/style.css"}}">
+    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/style.css"}}">
+    {{block "night_theme_init" .}}{{end}}
   </head>
   <body>
       <nav class="navbar navbar-default" id="mainmenu">
           <div class="container">
               <div class="navbar-header">
                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                      <span class="sr-only">Toggle navigation</span>
+                      <span class="sr-only">{{ T "toggle_navigation" }}</span>
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                   </button>
-                  <a class="navbar-brand" href="{{.URL.Parse "/"}}">Nyaa Pantsu</a>
+                  <a href="{{.URL.Parse "/"}}"><img src="/img/logo.png" class ="navbar-logo" alt="Nyaa Pantsu"></a>
+                  <a class="navbar-brand hidden-md pull-right nightswitch" href="javascript:toggleNightMode();" ></a>
               </div>
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
-                      <li><a href="https://sukebei.pantsu.cat">Fap</a></li>
-                      <li><a href="{{.URL.Parse "/upload"}}">Upload</a/></li>
-                      <li><a href="{{.URL.Parse "/faq"}}">FAQ</a></li>                      
-                      <li><a href="irc://irc.rizon.net/nyaapantsu">IRC</a></li>
+                      <li><a href="{{.URL.Parse "/upload"}}">{{T "upload"}}</a></li>
+                      <li><a href="{{.URL.Parse "/faq"}}">{{T "faq"}}</a></li>
                       <li><a href="{{ genRouteWithQuery "feed" .URL }}">RSS</a></li>
+                      {{ if Sukebei }}
+                      <li><a href="https:/nyaa.pantsu.cat">{{T "fun"}}</a></li>
+                      {{ else }}
+                      <li><a href="https://sukebei.pantsu.cat">{{T "fap"}}</a></li>
+                      {{ end }}
+                      <li><a href="irc://irc.rizon.net/nyaapantsu">IRC</a></li>
+
                   </ul>
+                  {{block "badge_user" .}}{{end}}
                   <form class="navbar-form navbar-right" role="search" action="/search" method="get">
                       <div class="form-group">
                         {{block "search_common" .}}{{end}}
+                      </div>
+                      <div class="form-group">
                         {{block "search_button" .}}{{end}}
                       </div>
                   </form>
-              </div>
+                  
+                </div>
           </div>
       </nav>
 
@@ -60,26 +76,24 @@
       <div style="padding-top: 10rem"></div>
 
       <div class="container {{block "contclass" .}}generic{{end}}" id="container">
-      {{if not .Search.HideAdvancedSearch}}
-      <div class="blockBody" style="text-align:center">
-        <font size="4.5">Advanced Search</font><br />
-        <form class="navbar-form" role="search" action="/search" method="get">
-          <div class="form-group">
-            {{block "search_common" .}}{{end}}
-            {{block "search_advanced" .}}{{end}}
-            {{block "search_button" .}}{{end}}
-          </div>
-        </form>
-        <div style="clear:both"></div>
-      </div>
-      <div style="margin:0.5em"></div>
-      {{end}}
-
-        {{block "content" .}}Nothing Here.{{end}}
+        {{block "content" .}}{{T "nothing_here"}}{{end}}
       </div>
 
       <!-- bottom padding -->
       <div style="padding-top: 5rem"></div>
+      <footer>
+      Powered by NyaaPantsu
+      </footer>
+
+
+      {{if eq .User.ID 0}}
+	  <form method="POST" action="{{ .URL.Parse "/language" }}" id="bottom_language_selector_form">
+		  <select id="bottom_language_selector" name="language" onchange="javascript:document.getElementById('bottom_language_selector_form').submit()" hidden class="form-control"></select>
+	  </form>
+	  <noscript>
+		  <center><a href="{{ .URL.Parse "/language" }}">{{ T "change_language" }}</a></center>
+	  </noscript>
+	  {{end}}
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -89,5 +103,6 @@
 
     <!-- Main Javascript File -->
     <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}"></script>
+        {{block "js_footer" .}}{{end}}
 </body>
 </html>

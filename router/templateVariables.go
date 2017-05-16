@@ -1,51 +1,190 @@
 package router
 
 import (
-	"github.com/ewhal/nyaa/model"
-	"github.com/gorilla/mux"
+	"net/http"
 	"net/url"
+
+	"github.com/ewhal/nyaa/common"
+	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/service/user"
+	userForms "github.com/ewhal/nyaa/service/user/form"
+	"github.com/gorilla/mux"
 )
 
 /* Each Page should have an object to pass to their own template
- * Therefore, we put them in a separate file for better maintenance
- *
- * MAIN Template Variables
+* Therefore, we put them in a separate file for better maintenance
+*
+* MAIN Template Variables
  */
 
 type FaqTemplateVariables struct {
 	Navigation Navigation
 	Search     SearchForm
+	User       *model.User
+	URL        *url.URL   // For parsing Url in templates
+	Route      *mux.Route // For getting current route in templates
+}
+
+type NotFoundTemplateVariables struct {
+	Navigation Navigation
+	Search     SearchForm
+	User       *model.User
 	URL        *url.URL   // For parsing Url in templates
 	Route      *mux.Route // For getting current route in templates
 }
 
 type ViewTemplateVariables struct {
-	Torrent    model.TorrentsJson
+	Torrent    model.TorrentJSON
+	CaptchaID  string
 	Search     SearchForm
 	Navigation Navigation
+	User       *model.User
 	URL        *url.URL   // For parsing Url in templates
 	Route      *mux.Route // For getting current route in templates
 }
 
+type UserRegisterTemplateVariables struct {
+	RegistrationForm userForms.RegistrationForm
+	FormErrors       map[string][]string
+	Search           SearchForm
+	Navigation       Navigation
+	User             *model.User
+	URL              *url.URL   // For parsing Url in templates
+	Route            *mux.Route // For getting current route in templates
+}
+
+type UserProfileEditVariables struct {
+	UserProfile *model.User
+	UserForm    userForms.UserForm
+	FormErrors  map[string][]string
+	FormInfos   map[string][]string
+	Languages   map[string]string
+	Search      SearchForm
+	Navigation  Navigation
+	User        *model.User
+	URL         *url.URL   // For parsing Url in templates
+	Route       *mux.Route // For getting current route in templates
+}
+
+type UserVerifyTemplateVariables struct {
+	FormErrors map[string][]string
+	Search     SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL        *url.URL   // For parsing Url in templates
+	Route      *mux.Route // For getting current route in templates
+}
+
+type UserLoginFormVariables struct {
+	LoginForm  userForms.LoginForm
+	FormErrors map[string][]string
+	Search     SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL        *url.URL   // For parsing Url in templates
+	Route      *mux.Route // For getting current route in templates
+}
+
+type UserProfileVariables struct {
+	UserProfile *model.User
+	FormInfos   map[string][]string
+	Search      SearchForm
+	Navigation  Navigation
+	User        *model.User
+	URL         *url.URL   // For parsing Url in templates
+	Route       *mux.Route // For getting current route in templates
+}
+
 type HomeTemplateVariables struct {
-	ListTorrents   []model.TorrentsJson
-	ListCategories []model.Categories
-	Search         SearchForm
-	Navigation     Navigation
-	URL            *url.URL   // For parsing Url in templates
-	Route          *mux.Route // For getting current route in templates
+	ListTorrents []model.TorrentJSON
+	Search       SearchForm
+	Navigation   Navigation
+	User         *model.User
+	URL          *url.URL   // For parsing Url in templates
+	Route        *mux.Route // For getting current route in templates
 }
 
 type UploadTemplateVariables struct {
 	Upload     UploadForm
 	Search     SearchForm
 	Navigation Navigation
+	User       *model.User
 	URL        *url.URL
 	Route      *mux.Route
 }
 
+type ChangeLanguageVariables struct {
+	Search     SearchForm
+	Navigation Navigation
+	Language   string
+	Languages  map[string]string
+	User       *model.User
+	URL        *url.URL
+	Route      *mux.Route
+}
+
+/* MODERATION Variables */
+
+type PanelIndexVbs struct {
+	Torrents       []model.Torrent
+	TorrentReports []model.TorrentReportJson
+	Users          []model.User
+	Comments       []model.Comment
+	Search         SearchForm
+	User           *model.User
+	URL            *url.URL // For parsing Url in templates
+}
+
+type PanelTorrentListVbs struct {
+	Torrents   []model.Torrent
+	Search     SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL        *url.URL // For parsing Url in templates
+}
+type PanelUserListVbs struct {
+	Users      []model.User
+	Search     SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL        *url.URL // For parsing Url in templates
+}
+type PanelCommentListVbs struct {
+	Comments   []model.Comment
+	Search     SearchForm
+	Navigation Navigation
+	User       *model.User
+	URL        *url.URL // For parsing Url in templates
+}
+
+type PanelTorrentEdVbs struct {
+	Upload     UploadForm
+	Search     SearchForm
+	User       *model.User
+	FormErrors map[string][]string
+	FormInfos  map[string][]string
+	URL        *url.URL // For parsing Url in templates
+}
+
+type PanelTorrentReportListVbs struct {
+	TorrentReports []model.TorrentReportJson
+	Search         SearchForm
+	Navigation     Navigation
+	User           *model.User
+	URL            *url.URL // For parsing Url in templates
+}
+
+type PanelTorrentReassignVbs struct {
+	Reassign   ReassignForm
+	Search     SearchForm  // unused?
+	User       *model.User // unused?
+	FormErrors map[string][]string
+	FormInfos  map[string][]string
+	URL        *url.URL // For parsing Url in templates
+}
+
 /*
- * Variables used by the upper ones
+* Variables used by the upper ones
  */
 type Navigation struct {
 	TotalItem      int
@@ -55,37 +194,20 @@ type Navigation struct {
 }
 
 type SearchForm struct {
-	Query              string
-	Status             string
-	Category           string
-	Sort               string
-	Order              string
-	HideAdvancedSearch bool
+	common.SearchParam
+	Category         string
+	ShowItemsPerPage bool
 }
 
 // Some Default Values to ease things out
-func NewSearchForm(params ...string) (searchForm SearchForm) {
-	if len(params) > 1 {
-		searchForm.Category = params[0]
-	} else {
-		searchForm.Category = "_"
+func NewSearchForm() SearchForm {
+	return SearchForm{
+		Category:         "_",
+		ShowItemsPerPage: true,
 	}
-	if len(params) > 2 {
-		searchForm.Sort = params[1]
-	} else {
-		searchForm.Sort = "torrent_id"
-	}
-	if len(params) > 3 {
-		order := params[2]
-		if order == "DESC" {
-			searchForm.Order = order
-		} else if order == "ASC" {
-			searchForm.Order = order
-		} else {
-			// TODO: handle invalid value (?)
-		}
-	} else {
-		searchForm.Order = "DESC"
-	}
-	return
+}
+
+func GetUser(r *http.Request) *model.User {
+	user, _, _ := userService.RetrieveCurrentUser(r)
+	return &user
 }

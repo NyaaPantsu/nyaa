@@ -1,0 +1,20 @@
+version: '3'
+services:
+  pantsu:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    command: ./deploy/init.sh
+    env_file:
+      - postgres-prod.env
+    environment:
+      - PANTSU_INTERNAL_PORT=${PANTSU_INTERNAL_PORT}
+    network_mode: "host"
+    ports:
+      # 0.0.0.0 makes it accessible to the network
+      # You may want to remove it to make pantsu available only
+      # to localhost
+      - 0.0.0.0:${PANTSU_EXTERNAL_PORT}:${PANTSU_INTERNAL_PORT}
+    volumes:
+      - "${GOPATH}:/go/"
+      - "./..:/nyaa"

@@ -1,0 +1,26 @@
+{{define "title"}}Torrents List{{end}}
+{{define "contclass"}}cont-view{{end}}
+{{define "content"}}
+<div class="blockBody">
+<table class="table">
+<tr>
+    <th class="col-xs-10">Torrent Name</th>
+    <th class="col-xs-1">Uploader</th>
+    <th class="col-xs-1">Action</th>
+</tr>
+
+{{ range .Torrents}}
+<tr>
+    <td><a href="{{ genViewTorrentRoute .ID }}">{{ .Name }}</a> (<a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">Edit</a>)</td>
+    <td><a href="{{ genRoute "mod_tlist" }}?userID={{.UploaderID}}">{{ .UploaderID }}</a></td>
+    <td><a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i> {{ T "delete" }}</a></td>
+</tr>
+{{end}}
+</table>
+      <nav class="torrentNav" aria-label="Page navigation">
+          <ul class="pagination">
+              {{ genNav .Navigation .URL 5 }}
+          </ul>
+      </nav>
+</div>
+{{end}}

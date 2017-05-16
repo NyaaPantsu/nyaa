@@ -1,47 +1,52 @@
 package router
 
-import(
-	"time"
-	"net/http"
-	"github.com/gorilla/feeds"
+import (
+	"github.com/ewhal/nyaa/config"
+	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/search"
-	"strconv"
+	"github.com/gorilla/feeds"
+	"net/http"
+	"time"
 )
 
-func RssHandler(w http.ResponseWriter, r *http.Request) {
-
-	_, torrents, _ := search.SearchByQuery( r, 1 )
-	created_as_time := time.Now()
+func RSSHandler(w http.ResponseWriter, r *http.Request) {
+	_, torrents, err := search.SearchByQueryNoCount(r, 1)
+	if err != nil {
+		util.SendError(w, err, 400)
+		return
+	}
+	createdAsTime := time.Now()
 
 	if len(torrents) > 0 {
-		created_as_time = time.Unix(torrents[0].Date, 0)
+		createdAsTime = torrents[0].Date
 	}
 	feed := &feeds.Feed{
 		Title:   "Nyaa Pantsu",
-		Link:    &feeds.Link{Href: "https://nyaa.pantsu.cat/"},
-		Created: created_as_time,
+		Link:    &feeds.Link{Href: "https://" + config.WebAddress + "/"},
+		Created: createdAsTime,
 	}
-	feed.Items = []*feeds.Item{}
 	feed.Items = make([]*feeds.Item, len(torrents))
 
-	for i, _ := range torrents {
-		timestamp_as_time := time.Unix(torrents[0].Date, 0)
-		torrent_json := torrents[i].ToJson()
+	for i, torrent := range torrents {
+		torrentJSON := torrent.ToJSON()
 		feed.Items[i] = &feeds.Item{
-			// need a torrent view first
-			Id:          "https://nyaa.pantsu.cat/view/" + strconv.Itoa(torrents[i].Id),
-			Title:       torrents[i].Name,
-			Link:        &feeds.Link{Href: string(torrent_json.Magnet)},
-			Description: "",
-			Created:     timestamp_as_time,
-			Updated:     timestamp_as_time,
+			Id:          "https://" + config.WebAddress + "/view/" + torrentJSON.ID,
+			Title:       torrent.Name,
+			Link:        &feeds.Link{Href: string(torrentJSON.Magnet)},
+			Description: string(torrentJSON.Description),
+			Created:     torrent.Date,
+			Updated:     torrent.Date,
 		}
 	}
+	// allow cross domain AJAX requests
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	rss, rssErr := feed.ToRss()
+	if rssErr != nil {
+		http.Error(w, rssErr.Error(), http.StatusInternalServerError)
+	}
 
-	rss, err := feed.ToRss()
-	if err == nil {
-		w.Write([]byte(rss))
-	} else {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	_, writeErr := w.Write([]byte(rss))
+	if writeErr != nil {
+		http.Error(w, writeErr.Error(), http.StatusInternalServerError)
 	}
 }

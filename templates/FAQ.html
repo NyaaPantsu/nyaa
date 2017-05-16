@@ -1,59 +1,72 @@
-{{define "title"}}FAQ{{end}}
+{{define "title"}}{{T "faq"}}{{end}}
 {{define "content"}}
     <div class="blockBody">
         <!-- marquees are the true purpose of HTML -->
-        <div class="marquee"><h3>NOTICE: KEEP SEEDING AND ENABLE DHT YOU RETARD</h3></div>
+        <div class="marquee"><h3>{{T "notice_keep_seeding"}}</h3></div>
 
-        <h1>Official Nyaapocalypse FAQ</h1>
+        <h1>{{T "official_nyaapocalipse_faq"}}</h1>
         <br />
 
-        <h2>Links for the replacement/mirror</h2>
+        <h2>{{T "links_replacement_mirror"}}</h2>
         <a href="https://nyaa.pantsu.cat">Nyaa - nyaa.pantsu.cat</a><br />
         <a href="https://sukebei.pantsu.cat">Sukebei - sukebei.pantsu.cat</a>
 
-        <h2>What happened?</h2>
+        <h2>{{T "what_happened"}}</h2>
         <ul>
-            <li>nyaa.se and associated domains (such as nyaatorrents.info) went offline on May 01, 2017.</li>
-            <li>They were deactivated, so it's not a DDoS attack like usual.</li>
-            <li>Future prospects for nyaa are not looking good. (It's dead)</li>
-            <li>There is a recovery effort taking place.</li>
+            <li>{{T "nyaa_se_went_offline"}}</li>
+            <li>{{T "its_not_a_ddos"}}</li>
+            <li>{{T "future_not_looking_good"}}</li>
+            <li>{{T "recovery_effort"}}</li>
         </ul>
 
-        <h2>Is everything lost?</h2>
-        <p>In short, No.</p>
+        <h2>{{T "is_everything_lost"}}</h2>
+        <p>{{T "in_short_no"}}</p>
 
-        <h2>Are some things lost?</h2>
-        <p>We have a database of the torrents on nyaa up to <s>April 5</s> May 1. That means almost nothing is lost.</p>
-        <p>Sukebei, however might be in worse shape. Currently we only have sukebei databases up to 2016,
-           but a newer database might be available for use.</p>
+        <h2>{{T "are_some_things_lost"}}</h2>
+        <p>{{T "answer_is_nyaa_db_lost"}}</p>
+        <p>{{T "answer_is_sukebei_db_lost"}}</p>
 
-        <h2>How are we recovering?</h2>
-        <p>The aforementioned databases are being hosted at nyaa.pantsu.cat and sukebei.pantsu.cat.
-            There is a search function, and (almost) full nyaa functionality should be coming soon.
-            Seeder/leecher statistics are possible via scraping and might be restored sometime in the future,
-            since other feature take priority right now.</p>
+        <h2>{{T "how_are_we_recovering"}}</h2>
+        <p>{{T "answer_how_are_we_recovering"}}</p>
 
-        <h2>Are the torrents still working?</h2>
-        <p>Even if the trackers are down, seeders are still connected to the decentralized DHT network.
-            As long as the file is listed on the DHT network, business should carry on as usual.</p>
+        <h2>{{T "are_the_trackers_working"}}</h2>
+        <p>{{T "answer_are_the_trackers_working"}}</p>
 
-        <h2>How do I download the torrents?</h2>
-        <p>Just use the <b>magnet link</b>. The magnet link will be used by your BitTorrent client to look up the file on the
-            DHT network and it should download just fine.</p>
-        <p>The magnet link should look like this: <span style="font-family:monospace">
+        <h2>{{T "how_do_i_download_the_torrents"}}</h2>
+        <p>{{T "answer_how_do_i_download_the_torrents"}}</p>
+        <p>{{T "magnet_link_should_look_like"}} <span style="font-family:monospace">
             magnet:?xt=urn:btih:[hash]&amp;dn=[name]&amp;tr=[tracker]&amp;tr=[...]</span></p>
 
-        <h2>How can I help?</h2>
-        <p>If you have website development expertise, you can join the #nyaapantsu IRC channel on irc.rizon.net.
-           If you have any current databases, especially for sukebei, <b>UPLOAD THEM</b>.</p>
+        <h2>{{T "how_do_i_link_my_old_account"}}</h2>
+        <p>{{T "answer_how_do_i_link_my_old_account"}}</p>
 
-        <h2>Your design sucks / I found a bug</h2>
+        <h2 id="trackers">{{T "which_trackers_do_you_recommend"}}</h2>
+        <p>{{T "answer_which_trackers_do_you_recommend"}}</p>
+        <pre>udp://tracker.doko.moe:6969</pre>
+        <p>{{T "other_trackers"}}</p>
+        <pre>
+udp://zer0day.to:1337/announce
+udp://tracker.leechers-paradise.org:6969
+udp://explodie.org:6969
+udp://tracker.opentrackr.org:1337
+udp://tracker.internetwarriors.net:1337/announce
+http://mgtracker.org:6969/announce
+http://tracker.baka-sub.cf/announce</pre>
+
+        <h2>{{T "how_can_i_help"}}</h2>
+        <p>{{T "answer_how_can_i_help"}}</p>
+
+        <h2>{{T "your_design_sucks_found_a_bug"}}</h2>
         <p><a href="https://github.com/ewhal/nyaa/issues">https://github.com/ewhal/nyaa/issues</a>.</p>
 
-        <h2>Why is your shit written in Go?</h2>
-        <p>It's the author's favorite programming language.</p>
+        <h2>{{T "why_written_in_go"}}</h2>
+        <p>{{T "authors_favorite_language"}}</p>
+
+		<h2>{{T "who_is_renchon"}}</h2>
+		<p>{{T "renchon_anon_explanation" }}</p>
 
         <br />
-        <h2>nyaa.pantsu.cat and sukebei.pantsu.cat do not host any files.</h2>
+
+        <img style="max-width: 100%" src="https://my.mixtape.moe/omrskw.png" alt="funny meme">
         </div>
 {{end}}

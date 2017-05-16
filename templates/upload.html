@@ -3,60 +3,84 @@
   <div class="blockBody">
   {{with .Upload}}
   <hr>
-  <form role="upload" method="POST">
+  <form enctype="multipart/form-data" role="upload" method="POST">
 
       <div class="form-group">
-          <label for="torrent">Torrent file upload</label>
-          <input type="file" id="torrent">
-          <p class="help-block">Upload a torrent file to pre-fill information</p>
+      <label for="name">{{T "name"}}</label>
+          <input type="text" name="name" id="name" class="form-control" placeholder="{{T "file_name"}}" value="{{.Name}}" autofocus required>
       </div>
       <div class="form-group">
-          <label for="name">FileName</label>
-          <input type="text" name="name" class="form-control"placeholder="File Name" value="{{.Name}}" required>
+          <label for="torrent">{{T "torrent_file"}}</label>
+          <input type="file" name="torrent" id="torrent" accept=".torrent">
+          <p class="help-block">{{T "uploading_file_prefills_fields"}}</p>
       </div>
       <div class="form-group">
-          <label for="Magnet">Magnet Link</label>
-          <input type="text" name="magnet" class="form-control"
-          style="width:60rem" placeholder="Magnet Link" value="{{.Magnet}}" required>         
+          <label for="magnet">{{T "magnet_link"}}</label>
+          <input  type="text" name="magnet" id="magnet" class="form-control"
+          style="width:60rem" placeholder="{{T "magnet_link"}}" value="{{.Magnet}}">
       </div>
       <div class="form-group">
-          <label for="c">Category</label>
-          <select name="c" class="form-control input-sm">
-              <option value="3_" {{if eq .Category "3_"}}selected{{end}}>Anime</option>
-              <option value="3_12" {{if eq .Category "3_12"}}selected{{end}}>Anime - Anime Music Video</option>
-              <option value="3_5" {{if eq .Category "3_5"}}selected{{end}}>Anime - English-translated</option>
-              <option value="3_13" {{if eq .Category "3_13"}}selected{{end}}>Anime - Non-English-translated</option>
-              <option value="3_6" {{if eq .Category "3_6"}}selected{{end}}>Anime - Raw</option>
-              <option value="2_" {{if eq .Category "2_"}}selected{{end}}>Audio</option>
-              <option value="2_3" {{if eq .Category "2_3"}}selected{{end}}>Audio - Lossless</option>
-              <option value="2_4" {{if eq .Category "2_4"}}selected{{end}}>Audio - Lossy</option>
-              <option value="4_" {{if eq .Category "4_"}}selected{{end}}>Literature</option>
-              <option value="4_7" {{if eq .Category "4_7"}}selected{{end}}>Literature - English-translated</option>
-              <option value="4_8" {{if eq .Category "4_8"}}selected{{end}}>Literature - Raw</option>
-              <option value="4_14" {{if eq .Category "4_14"}}selected{{end}}>Literature - Non-English-translated</option>
-              <option value="5_" {{if eq .Category "5_"}}selected{{end}}>Live Action</option>
-              <option value="5_9" {{if eq .Category "5_9"}}selected{{end}}>Live Action - English-translated</option>
-              <option value="5_10" {{if eq .Category "5_10"}}selected{{end}}>Live Action - Idol/Promotional Video</option>
-              <option value="5_18" {{if eq .Category "5_18"}}selected{{end}}>Live Action - Non-English-translated</option>
-              <option value="5_11" {{if eq .Category "5_11"}}selected{{end}}>Live Action - Raw</option>
-              <option value="6_" {{if eq .Category "6_"}}selected{{end}}>Pictures</option>
-              <option value="6_15" {{if eq .Category "6_15"}}selected{{end}}>Pictures - Graphics</option>
-              <option value="6_16" {{if eq .Category "6_16"}}selected{{end}}>Pictures - Photos</option>
-              <option value="1_" {{if eq .Category "1_"}}selected{{end}}>Software</option>
-              <option value="1_1" {{if eq .Category "1_1"}}selected{{end}}>Software - Applications</option>
-              <option value="1_2" {{if eq .Category "1_2"}}selected{{end}}>Software - Games</option>
+          <label for="c">{{T "category"}}</label>
+          <select name="c" id="c" class="form-control input-sm" required>
+
+              <option value="">{{T "select_a_torrent_category"}}</option>
+              {{ if Sukebei }}
+              <option value="1_" {{if eq .Category "1_"}}selected{{end}}>{{T "art"}}</option>
+              <option value="1_1" {{if eq .Category "1_1"}}selected{{end}}>{{T "art_anime"}}</option>
+              <option value="1_2" {{if eq .Category "1_2"}}selected{{end}}>{{T "art_doujinshi"}}</option>
+              <option value="1_3" {{if eq .Category "1_3"}}selected{{end}}>{{T "art_games"}}</option>
+              <option value="1_4" {{if eq .Category "1_4"}}selected{{end}}>{{T "art_manga"}}</option>
+              <option value="1_5" {{if eq .Category "1_5"}}selected{{end}}>{{T  "art_pictures"}}</option>
+              <option value="2_" {{if eq .Category "2_"}}selected{{end}}>{{T "real_life"}}</option>
+              <option value="2_1" {{if eq .Category "2_1"}}selected{{end}}>{{T "real_life_photobooks_and_Pictures"}}</option>
+              <option value="2_2" {{if eq .Category "2_2"}}selected{{end}}>{{T "real_life_videos"}}</option>
+              {{ else }}
+              <option value="3_" {{if eq .Category "3_"}}selected{{end}}>{{T "anime"}}</option>
+              <option value="3_12" {{if eq .Category "3_12"}}selected{{end}}>{{T "anime_amv"}}</option>
+              <option value="3_5" {{if eq .Category "3_5"}}selected{{end}}>{{T "anime_english_translated"}}</option>
+              <option value="3_13" {{if eq .Category "3_13"}}selected{{end}}>{{T "anime_non_english_translated"}}</option>
+              <option value="3_6" {{if eq .Category "3_6"}}selected{{end}}>{{T "anime_raw"}}</option>
+              <option value="2_" {{if eq .Category "2_"}}selected{{end}}>{{T "audio"}}</option>
+              <option value="2_3" {{if eq .Category "2_3"}}selected{{end}}>{{T "audio_lossless"}}</option>
+              <option value="2_4" {{if eq .Category "2_4"}}selected{{end}}>{{T "audio_lossy"}}</option>
+              <option value="4_" {{if eq .Category "4_"}}selected{{end}}>{{T "literature"}}</option>
+              <option value="4_7" {{if eq .Category "4_7"}}selected{{end}}>{{T "literature_english_translated"}}</option>
+              <option value="4_8" {{if eq .Category "4_8"}}selected{{end}}>{{T "literature_raw"}}</option>
+              <option value="4_14" {{if eq .Category "4_14"}}selected{{end}}>{{T "literature_non_english_translated"}}</option>
+              <option value="5_" {{if eq .Category "5_"}}selected{{end}}>{{T "live_action"}}</option>
+              <option value="5_9" {{if eq .Category "5_9"}}selected{{end}}>{{T "live_action_english_translated"}}</option>
+              <option value="5_10" {{if eq .Category "5_10"}}selected{{end}}>{{T "live_action_idol_pv"}}</option>
+              <option value="5_18" {{if eq .Category "5_18"}}selected{{end}}>{{T "live_action_non_english_translated"}}</option>
+              <option value="5_11" {{if eq .Category "5_11"}}selected{{end}}>{{T "live_action_raw"}}</option>
+              <option value="6_" {{if eq .Category "6_"}}selected{{end}}>{{T "pictures"}}</option>
+              <option value="6_15" {{if eq .Category "6_15"}}selected{{end}}>{{T "pictures_graphics"}}</option>
+              <option value="6_16" {{if eq .Category "6_16"}}selected{{end}}>{{T "pictures_photos"}}</option>
+              <option value="1_" {{if eq .Category "1_"}}selected{{end}}>{{T "software"}}</option>
+              <option value="1_1" {{if eq .Category "1_1"}}selected{{end}}>{{T "software_applications"}}</option>
+              <option value="1_2" {{if eq .Category "1_2"}}selected{{end}}>{{T "software_games"}}</option>
+              {{ end }}
           </select>
-
+      </div>
+      <div class="form-group">
+      	  <input type="checkbox" name="remake" id="remake" >
+          <label for="remake">{{T "mark_as_remake"}}</label>
       </div>
 
       <div class="form-group">
-          <label for="desc">Torrent Description</label>
-          <textarea name="desc" class="form-control" rows="10">{{.Description}}</textarea>
+          <label for="desc">{{T "torrent_description"}}</label>
+          <p class="help-block">{{T "description_markdown_notice"}}</p>
+          <textarea name="desc" id="desc" class="form-control" rows="10">{{.Description}}</textarea>
       </div>
-      <button type="submit" class="btn btn-success">Upload</button>
+
+      {{block "captcha" .}}{{end}}
+
+      <button type="submit" class="btn btn-success">{{T "upload"}}</button>
       <br />
       <br />
   </form>
   {{end}}
   </div>
-  {{end}}
+{{end}}
+{{define "js_footer"}}
+  <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/uploadPage.js"}}"></script>
+{{end}}

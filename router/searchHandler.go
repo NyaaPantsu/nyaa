@@ -1,49 +1,51 @@
 package router
 
-import(
+import (
+	"github.com/ewhal/nyaa/model"
+	"github.com/ewhal/nyaa/util"
+	"github.com/ewhal/nyaa/util/languages"
+	"github.com/ewhal/nyaa/util/log"
 	"github.com/ewhal/nyaa/util/search"
-	"net/http"
-	"html/template"
 	"github.com/gorilla/mux"
 	"html"
+	"net/http"
 	"strconv"
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/service/torrent"
 )
 
 func SearchHandler(w http.ResponseWriter, r *http.Request) {
-	var templates = template.Must(template.New("home").Funcs(FuncMap).ParseFiles("templates/index.html", "templates/home.html"))
- 	templates.ParseGlob("templates/_*.html") // common
 	vars := mux.Vars(r)
 	page := vars["page"]
 
 	// db params url
-	pagenum, _ := strconv.Atoi(html.EscapeString(page))
-	if pagenum == 0 {
-		pagenum = 1
-	}
-	
-	b := []model.TorrentsJson{}
-	
-	search_param, torrents, nbTorrents := search.SearchByQuery( r, pagenum )
-
-	for i, _ := range torrents {
-		res := torrents[i].ToJson()
-		b = append(b, res)
+	var err error
+	pagenum := 1
+	if page != "" {
+		pagenum, err = strconv.Atoi(html.EscapeString(page))
+		if !log.CheckError(err) {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	}
 
-	navigationTorrents := Navigation{nbTorrents, search_param.Max, pagenum, "search_page"}
+	searchParam, torrents, nbTorrents, err := search.SearchByQuery(r, pagenum)
+	if err != nil {
+		util.SendError(w, err, 400)
+		return
+	}
+
+	b := model.TorrentsToJSON(torrents)
+
+	navigationTorrents := Navigation{nbTorrents, int(searchParam.Max), pagenum, "search_page"}
+	// Convert back to strings for now.
 	searchForm := SearchForm{
-		search_param.Query,
-		search_param.Status,
-		search_param.Category,
-		search_param.Sort,
-		search_param.Order,
-				false,
+		SearchParam:      searchParam,
+		Category:         searchParam.Category.String(),
+		ShowItemsPerPage: true,
 	}
-	htv := HomeTemplateVariables{b, torrentService.GetAllCategories(false), searchForm, navigationTorrents, r.URL, mux.CurrentRoute(r)}
+	htv := HomeTemplateVariables{b, searchForm, navigationTorrents, GetUser(r), r.URL, mux.CurrentRoute(r)}
 
-	err := templates.ExecuteTemplate(w, "index.html", htv)
+	languages.SetTranslationFromRequest(searchTemplate, r)
+	err = searchTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

@@ -132,10 +132,23 @@ tags
 # End of https://www.gitignore.io/api/go,vim,git,kate,linux,emacs,eclipse,database
 
 *.sqlite
+*.db-journal
 *.db
+*.sql
 main
 nyaa
 nyaa.exe
 nyaa-master.exe
 *.zip
 *.swp
+.idea
+.vscode
+templates/*.html.go
+*.bat
+*.backup
+tags
+*.retry
+
+# emacs temp files
+*\#*
+*~

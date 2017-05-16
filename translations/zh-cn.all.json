@@ -1,0 +1,710 @@
+[
+  {
+    "id": "link",
+    "translation": "链接"
+  },
+  {
+    "id": "verify_email_title",
+    "translation": "请验证您的电子邮箱喵~"
+  },
+  {
+    "id": "verify_email_content",
+    "translation": "请点击下面的链接验证您的电子邮箱喵~"
+  },
+  {
+    "id": "reset_password_title",
+    "translation": "密码重置"
+  },
+  {
+    "id": "reset_password_content",
+    "translation": "请点击下面的链接重置密码喵~"
+  },
+  {
+    "id":"register_title",
+    "translation": "注册账号"
+  },
+  {
+    "id":"signup_box_title",
+    "translation": "请注册 <small>我们永久免费</small>"
+  },
+  {
+    "id":"username",
+    "translation": "用户名"
+  },
+  {
+    "id":"email_address_or_username",
+    "translation": "电子邮箱或用户名"
+  },
+  {
+    "id":"email_address",
+    "translation": "电子邮箱"
+  },
+  {
+    "id":"password",
+    "translation": "密码"
+  },
+  {
+    "id":"confirm_password",
+    "translation": "确认密码"
+  },
+  {
+    "id":"i_agree",
+    "translation": "我同意"
+  },
+  {
+    "id":"terms_conditions_confirm",
+    "translation": "按下 <strong class=\"label label-primary\">注册账号</strong> 即表示您同意本网站的 <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">条款与条件</a> 以及浏览器Cookie喵~"
+  },
+  {
+    "id":"signin",
+    "translation": "登录"
+  },
+  {
+    "id":"register",
+    "translation": "注册"
+  },
+  {
+    "id":"terms_conditions",
+    "translation": "条款与条件"
+  },
+  {
+    "id":"terms_conditions_full",
+    "translation": "一些扯淡"
+  },
+  {
+    "id":"remember_me",
+    "translation": "记住我"
+  },
+  {
+    "id":"forgot_password",
+    "translation": "忘记密码？"
+  },
+  {
+    "id":"sign_in_box_title",
+    "translation": "请登录"
+  },
+  {
+    "id":"sign_in_title",
+    "translation": "登录"
+  },
+  {
+    "id":"register_success_title",
+    "translation": "注册完成"
+  },
+  {
+    "id":"sign_up_success",
+    "translation": "恭喜您注册成功喵！"
+  },
+  {
+    "id":"verify_success",
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>您的账号已可以使用了喵！"
+  },
+  {
+    "id":"signup_verification_email",
+    "translation": "请检查您的电子邮箱（或垃圾邮件）找到账号确认邮件喵~"
+  },
+  {
+    "id":"signup_verification_noemail",
+    "translation": "注册成功喵，账号已经可以使用了！"
+  },
+  {
+    "id":"settings",
+    "translation": "账号设置"
+  },
+  {
+    "id":"torrents",
+    "translation": "种子列表"
+  },
+  {
+    "id":"follow",
+    "translation": "关注"
+  },
+  {
+    "id":"unfollow",
+    "translation": "取消关注"
+  },
+  {
+    "id":"user_followed_msg",
+    "translation": "您已经关注了 %s 喵！"
+  },
+  {
+    "id":"user_unfollowed_msg",
+    "translation": "您已经取消了对 %s 的关注喵！"
+  },
+  {
+    "id":"profile_page",
+    "translation": "%s 用户资料"
+  },
+  {
+    "id":"see_more_torrents_from",
+    "translation": "更多种子来自 %s "
+  },
+  {
+    "id":"category",
+    "translation": "分类"
+  },
+  {
+    "id": "name",
+    "translation": "名称"
+  },
+  {
+    "id": "date",
+    "translation": "日期"
+  },
+  {
+    "id": "size",
+    "translation": "文件大小"
+  },
+  {
+    "id": "links",
+    "translation": "链接"
+  },
+  {
+    "id": "home",
+    "translation": "主页"
+  },
+  {
+    "id": "error_404",
+    "translation": "纳尼？ 是 404 喵！"
+  },
+  {
+    "id": "toggle_navigation",
+    "translation": "切换索引"
+  },
+  {
+    "id": "upload",
+    "translation": "上传"
+  },
+  {
+    "id": "faq",
+    "translation": "FAQ"
+  },
+  {
+    "id": "fap",
+    "translation": "秘密花园"
+  },
+  {
+    "id": "advanced_search",
+    "translation": "高级搜索"
+  },
+  {
+    "id": "nothing_here",
+    "translation": "这里什么都没有喵~"
+  },
+  {
+    "id": "404_not_found",
+    "translation": "404 不存在的喵~"
+  },
+  {
+    "id": "no_torrents_uploaded",
+    "translation": "没有被上传的种子喵！"
+  },
+  {
+    "id": "profile",
+    "translation": "用户资料"
+  },
+  {
+    "id": "sign_out",
+    "translation": "注销"
+  },
+  {
+    "id": "member",
+    "translation": "会员"
+  },
+  {
+    "id": "sign_in",
+    "translation": "登录"
+  },
+  {
+    "id": "sign_up",
+    "translation": "注册"
+  },
+  {
+    "id": "no_results_found",
+    "translation": "没有找到内容喵~"
+  },
+  {
+    "id": "notice_keep_seeding",
+    "translation": "别偷懒！开启 DHT 保持做种喵！"
+  },
+  {
+    "id": "official_nyaapocalipse_faq",
+    "translation": "关于Nyaa站临终的常见问题"
+  },
+  {
+    "id": "links_replacement_mirror",
+    "translation": "备用链接／镜像"
+  },
+  {
+    "id": "what_happened",
+    "translation": "Nyaa站怎么了？"
+  },
+  {
+    "id": "nyaa_se_went_offline",
+    "translation": "nyaa.se 以及相关站点（比如 nyaatorrents.info）不幸于 2017年5月1日 离开了我们"
+  },
+  {
+    "id": "its_not_a_ddos",
+    "translation": "这次并不是因为以往的 DDoS 攻击，而是站点完全被停用了"
+  },
+  {
+    "id": "future_not_looking_good",
+    "translation": "Nyaa 的未来非常的严峻，她永远的走了"
+  },
+  {
+    "id": "recovery_effort",
+    "translation": "我们正在进行对资料的抢救"
+  },
+  {
+    "id": "is_everything_lost",
+    "translation": "难道所有的资料都随她而去了吗？"
+  },
+  {
+    "id": "in_short_no",
+    "translation": "不！并没有"
+  },
+  {
+    "id": "are_some_things_lost",
+    "translation": "那她带走了什么吗？"
+  },
+  {
+    "id": "answer_is_nyaa_db_lost",
+    "translation": "我们备份了 nyaa 直到 <s>4月5日</s> 5月1日 的种子库 ，几乎没有任何的损失"
+  },
+  {
+    "id": "answer_is_sukebei_db_lost",
+    "translation": "而 sukebei 也一样，几乎没有什么损失"
+  },
+  {
+    "id": "how_are_we_recovering",
+    "translation": "我们要如何恢复她？"
+  },
+  {
+    "id": "answer_how_are_we_recovering",
+    "translation": "前面所说的资料都存放在 nyaa.pantsu.cat 和 sukebei.pantsu.cat 的服务器上。 我们也会尽快恢复旧 nyaa 站的全部功能。"
+  },
+  {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "怎样把我以前上传的资源连接到我的新账号上?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "加入 <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> 找管理员并把你曾上传的资源，以及你的旧用户名和新用户名告诉他。"
+  },
+  {
+    "id": "are_the_trackers_working",
+    "translation": "那..这些种子都还活着吗？"
+  },
+  {
+    "id": "answer_are_the_trackers_working",
+    "translation": "就算 tracker 都挂了，做种的大佬们都还通过 DHT 网络保持着联系。 只要那些资料都还在 DHT 网络上，就几乎没有影响。"
+  },
+  {
+    "id": "how_do_i_download_the_torrents",
+    "translation": "所以说要怎么抓种？"
+  },
+  {
+    "id": "answer_how_do_i_download_the_torrents",
+    "translation": "用<b>磁力链接（神秘代码）</b>吧！ 磁力链接能让你的 BT 客戶端在 DHT 网络寻找种子並且下载。"
+  },
+  {
+    "id": "magnet_link_should_look_like",
+    "translation": "相信各位绅士早已耳熟能详，这就是神秘代码："
+  },
+  {
+    "id": "which_trackers_do_you_recommend",
+    "translation": "有推荐的 tracker 吗？"
+  },
+  {
+    "id": "answer_which_trackers_do_you_recommend",
+    "translation": "现在我们有自己的 tracker 啦！在上传之前把他们放在 tracker 列表的顶部吧！"
+  },
+  {
+     "id": "other_trackers",
+     "translation": "当然，你也可以使用以下的 tracker ，不过某些情况下可能会出现错误。"
+  },
+  {
+    "id": "how_can_i_help",
+    "translation": "有什么我能帮忙的吗？"
+  },
+  {
+    "id": "answer_how_can_i_help",
+    "translation": "如果您是个技术宅，請加入 #nyaapantsu 的 IRC，位於 irc.rizon.net 。如果您有最新的资料库，特別是 sukebei 的，<b>请上传它們！</b>"
+  },
+  {
+    "id": "your_design_sucks_found_a_bug",
+    "translation": "你们设计的什么破网站 / 我找到 bug 了！"
+  },
+  {
+    "id": "why_written_in_go",
+    "translation": "为什么非要用辣鸡 GO 语言？"
+  },
+  {
+    "id": "authors_favorite_language",
+    "translation": "这是作者的信仰！"
+  },
+  {
+    "id": "upload_magnet",
+    "translation": "上传磁力链接"
+  },
+  {
+    "id": "torrent_file",
+    "translation": "种子文件"
+  },
+  {
+    "id": "uploading_file_prefills_fields",
+    "translation": "上传时允许预填写（pre-filling）一些内容，这是推荐选项。"
+  },
+  {
+    "id": "magnet_link",
+    "translation": "磁力链接"
+  },
+  {
+    "id": "all_categories",
+    "translation": "所有分类"
+  },
+  {
+    "id": "select_a_torrent_category",
+    "translation": "请选择种子分类"
+  },
+  {
+    "id": "anime",
+    "translation": "动漫"
+  },
+  {
+    "id": "anime_amv",
+    "translation": "动漫 - 动画MV"
+  },
+  {
+    "id": "anime_english_translated",
+    "translation": "动漫 - 已翻译为英文"
+  },
+  {
+    "id": "anime_non_english_translated",
+    "translation": "动漫 - 未翻译为英文"
+  },
+  {
+    "id": "anime_raw",
+    "translation": "动漫 - 生肉"
+  },
+  {
+    "id": "audio",
+    "translation": "音乐"
+  },
+  {
+    "id": "audio_lossless",
+    "translation": "音乐 - 无损"
+  },
+  {
+    "id": "audio_lossy",
+    "translation": "音游 - 有损"
+  },
+  {
+    "id": "literature",
+    "translation": "文学"
+  },
+  {
+    "id": "literature_english_translated",
+    "translation": "文学 - 已翻译为英文"
+  },
+  {
+    "id": "literature_raw",
+    "translation": "文学 - 生肉"
+  },
+  {
+    "id": "literature_non_english_translated",
+    "translation": "文学 - 未翻译为英文"
+  },
+  {
+    "id": "live_action",
+    "translation": "真人电影"
+  },
+  {
+    "id": "live_action_english_translated",
+    "translation": "真人电影 - 已翻译为英文"
+  },
+  {
+    "id": "live_action_idol_pv",
+    "translation": "真人电影 - 偶像/PV"
+  },
+  {
+    "id": "live_action_non_english_translated",
+    "translation": "真人电影 - 未翻译为英文"
+  },
+  {
+    "id": "live_action_raw",
+    "translation": "真人电影 - 生肉"
+  },
+  {
+    "id": "pictures",
+    "translation": "图片"
+  },
+  {
+    "id": "pictures_graphics",
+    "translation": "图片 - 图像"
+  },
+  {
+    "id": "pictures_photos",
+    "translation": "图片 - 照片"
+  },
+  {
+    "id": "software",
+    "translation": "软件"
+  },
+  {
+    "id": "software_applications",
+    "translation": "软件 - 应用程序"
+  },
+  {
+    "id": "software_games",
+    "translation": "软件 - 游戏"
+  },
+  {
+    "id": "torrent_description",
+    "translation": "种子描述"
+  },
+  {
+    "id": "description_markdown_notice",
+    "translation": "描述可使用 Markdown"
+  },
+  {
+    "id": "show_all",
+    "translation": "显示所有"
+  },
+  {
+    "id": "filter_remakes",
+    "translation": "过滤再发行版"
+  },
+  {
+    "id": "trusted",
+    "translation": "受信任的资源"
+  },
+  {
+    "id": "id",
+    "translation": "ID"
+  },
+  {
+    "id": "downloads",
+    "translation": "下载量"
+  },
+  {
+    "id": "descending",
+    "translation": "降序"
+  },
+  {
+    "id": "ascending",
+    "translation": "升序"
+  },
+  {
+    "id": "search",
+    "translation": "搜索"
+  },
+  {
+    "id": "hash",
+    "translation": "哈希"
+  },
+  {
+    "id": "description",
+    "translation": "描述"
+  },
+  {
+    "id": "comments",
+    "translation": "评论"
+  },
+  {
+    "id": "submit_a_comment_as_username",
+    "translation": "作为 %s 发表评论"
+  },
+  {
+    "id": "submit_a_comment_as_anonymous",
+    "translation": "匿名评论"
+  },
+  {
+    "id": "submit",
+    "translation": "提交"
+  },
+  {
+    "id": "personal_info",
+    "translation": "个人资料"
+  },
+  {
+    "id": "language",
+    "translation": "语言"
+  },
+  {
+    "id": "current_password",
+    "translation": "当前密码"
+  },
+  {
+    "id": "role",
+    "translation": "角色"
+  },
+  {
+    "id": "banned",
+    "translation": "账号已被封禁"
+  },
+  {
+    "id": "default",
+    "translation": "默认值"
+  },
+  {
+    "id": "trusted_member",
+    "translation": "受信任会员"
+  },
+  {
+    "id": "moderator",
+    "translation": "管理员"
+  },
+  {
+    "id": "save_changes",
+    "translation": "保存更改"
+  },
+  {
+    "id": "profile_updated",
+    "translation": "您的个人资料已保存喵！"
+  },
+  {
+    "id": "delete_account",
+    "translation": "删除账号"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "您真的要删除您的账号喵？这无法挽回！"
+  },
+  {
+    "id": "delete_success",
+    "translation": "您的账号已被删除！"
+  },
+  {
+    "id": "moderation",
+    "translation": "节制"
+  },
+  {
+    "id": "api_token",
+    "translation": "API Token"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "れんちょん是谁?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "れんちょん(Ren-chon)是匿名评论与上传者的默认用户名，同时也显示为Nyaa站原始资源的上传者."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "标为再发行版（重制版）"
+  },
+  {
+    "id": "email_changed",
+    "translation": "邮箱更变成功喵~一份确认邮件已发送到 %s ，请点击里面的确认链接来完成修改！"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "种子状态"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "隐藏"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "普通"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "再发行"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "编辑 %s 的个人资料"
+  },
+  {
+    "id":"date_format",
+    "translation": "2006-01-02 15:04"
+  },
+  {
+    "id": "seeders",
+    "translation": "上传数"
+  },
+  {
+    "id": "leechers",
+    "translation": "下载数"
+  },
+  {
+    "id": "completed",
+    "translation": "完成数"
+  },
+  {
+    "id": "change_language",
+    "translation": "切换语言"
+  },
+  {
+    "id": "language_name",
+    "translation": "简体中文"
+  },
+  {
+    "id": "delete",
+    "translation": "删除"
+  },
+  {
+    "id": "files",
+    "translation": "文件"
+  },
+  {
+    "id": "filename",
+    "translation": "文件名"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "上传者"
+  },
+  {
+    "id": "download_btn",
+    "translation": "下载！"
+  },
+  {
+    "id": "report_btn",
+    "translation": "举报!"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "真的要删除吗?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "举报种子 #"
+  },
+  {
+    "id": "report_type",
+    "translation": "举报理由"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "内容错误"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "病毒 / 垃圾数据"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "分类错误"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "资源重复 / 低质量"
+  },
+  {
+    "id": "captcha",
+    "translation": "验证码"
+  },
+  {
+    "id": "file_name",
+    "translation": "文件名"
+  },
+  {
+    "id": "cancel",
+    "translation": "取消"
+  }
+]
