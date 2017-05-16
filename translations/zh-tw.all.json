@@ -636,6 +636,10 @@
     "translation": "繁體中文"
   },
   {
+    "id": "language_code",
+    "translation": "zh-tw"
+  },
+  {
     "id": "delete",
     "translation": "刪除"
   }

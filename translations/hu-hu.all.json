@@ -610,5 +610,9 @@
   {
     "id": "language_name",
     "translation": "Magyar"
+  },
+  {
+    "id": "language_code",
+    "translation": "hu-hu"
   }
 ]

@@ -680,6 +680,10 @@
     "translation": "Français"
   },
   {
+    "id": "language_code",
+    "translation": "fr-fr"
+  },
+  {
     "id": "delete",
     "translation": "Supprimer"
   },

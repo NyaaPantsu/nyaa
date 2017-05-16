@@ -598,5 +598,9 @@
   {
     "id": "language_name",
     "translation": "Português (Portugal)"
+  },
+  {
+    "id": "language_code",
+    "translation": "pt-pt"
   }
 ]

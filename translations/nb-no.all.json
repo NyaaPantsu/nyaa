@@ -582,5 +582,9 @@
   {
     "id": "language_name",
     "translation": "Norsk bokmål"
+  },
+  {
+    "id": "language_code",
+    "translation": "nb-no"
   }
 ]

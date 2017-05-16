@@ -676,6 +676,10 @@
     "translation": "Română"
   },
   {
+    "id": "language_code",
+    "translation": "ro-ro"
+  },
+  {
     "id": "delete",
     "translation": "Şterge"
   },
