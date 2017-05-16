@@ -101,7 +101,7 @@ func main() {
 	conf := config.New()
 	processFlags := conf.BindFlags()
 	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
-	mode := flag.String("mode", "webapp", "which mode to run daemon in, either webapp, scraper or filesize_fetcher")
+	mode := flag.String("mode", "webapp", "which mode to run daemon in, either webapp, scraper or metainfo_fetcher")
 	flag.Float64Var(&conf.Cache.Size, "c", config.DefaultCacheSize, "size of the search cache in MB")
 
 	flag.Parse()
