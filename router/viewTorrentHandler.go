@@ -32,7 +32,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	if userPermission.NeedsCaptcha(user) {
 		captchaID = captcha.GetID()
 	}
-	htv := ViewTemplateVariables{b, captchaID, NewSearchForm(), Navigation{}, user, r.URL, mux.CurrentRoute(r)}
+	htv := ViewTemplateVariables{b, captchaID, NewSearchForm(), NewNavigation(), user, r.URL, mux.CurrentRoute(r)}
 
 	languages.SetTranslationFromRequest(viewTemplate, r)
 	err = viewTemplate.ExecuteTemplate(w, "index.html", htv)

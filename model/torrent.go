@@ -6,6 +6,7 @@ import (
 
 	"fmt"
 	"html/template"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -73,6 +74,10 @@ func (t Torrent) Size() (s int) {
 
 }
 
+func (t Torrent) TableName() string {
+	return config.TableName
+}
+
 /* We need a JSON object instead of a Gorm structure because magnet URLs are
    not in the database and have to be generated dynamically */
 
@@ -131,7 +136,10 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	}
 	fileListJSON := make([]FileJSON, 0, len(t.FileList))
 	for _, f := range t.FileList {
-		fileListJSON = append(fileListJSON, FileJSON{Path: f.Path, Filesize: util.FormatFilesize2(f.Filesize)})
+		fileListJSON = append(fileListJSON, FileJSON{
+			Path:     filepath.Join(f.Path()...),
+			Filesize: util.FormatFilesize2(f.Filesize),
+		})
 	}
 	uploader := ""
 	if t.Uploader != nil {

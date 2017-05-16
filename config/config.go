@@ -12,10 +12,12 @@ import (
 const (
 	// LastOldTorrentID is the highest torrent ID
 	// that was copied from the original Nyaa
-	LastOldTorrentID = 923000
-	TableName        = "torrents"
+	LastOldTorrentID  = 923000
+	TableName         = "torrents"
+	CommentsTableName = "comments"
 	// for sukebei
-	//TableName        = "sukebei_torrents"
+	//TableName         = "sukebei_torrents"
+	//CommentsTableName = "sukebei_comments"
 )
 
 type Config struct {

@@ -184,6 +184,10 @@
     "translation": "Fap"
   },
   {
+    "id": "fun",
+    "translation": "Fun"
+  },
+  {
     "id": "advanced_search",
     "translation": "Advanced Search"
   },
@@ -454,6 +458,38 @@
   {
     "id": "software_games",
     "translation": "Software - Games"
+  },
+  {
+    "id": "art",
+    "translation": "Art"
+  },
+  {
+    "id": "art_anime",
+    "translation": "Art - Anime"
+  },
+  {
+    "id": "art_doujinshi",
+    "translation": "Art - Doujinshi"
+  },
+  {
+    "id": "art_games",
+    "translation": "Art - Games"
+  },
+  {
+    "id": "art_manga",
+    "translation": "Art - Manga"
+  },
+  {
+    "id": "real_life",
+    "translation": "Real Life"
+  },
+  {
+    "id": "real_life_photobooks_and_pictures",
+    "translation": "Real Life - Photobooks and Pictures"
+  },
+  {
+    "id": "real_life_videos",
+    "translation": "Real Life - Videos"
   },
   {
     "id": "torrent_description",

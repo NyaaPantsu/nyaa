@@ -15,19 +15,18 @@
                 <div class="row" id="description">
                 <div class="col-md-12">
                     <div style="float: left;">
-                      <div class="uploaded_by">
-
                           {{ if Sukebei }}
-
                           <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}">
-
                           {{ else }}
                           <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}">
-                          {{ end}}
-
-                            <h4>{{ T "uploaded_by" }} <a href="{{$.URL.Parse (printf "/user/%d/-" .UploaderID) }}">{{.UploaderName}}</a></h4>
-
-                        </div>
+                          {{ end }}
+                          <br />
+                          <h4 style="display:inline-block">
+                              {{ T "uploaded_by" }} <a href="{{$.URL.Parse (printf "/user/%d/-" .UploaderID) }}">{{.UploaderName}}</a>
+                          </h4>
+                          {{if ne .OldUploader ""}}
+                          <span>({{.OldUploader}})</span>
+                          {{end}}
                       </div>
 
                     <div style="float:right;">
@@ -67,7 +66,7 @@
                 <p>{{.Filesize}}</p>
                 <hr>
                 {{if ne .WebsiteLink ""}}
-                <h4>{{T "Link"}}</h4>
+                <h4>{{T "link"}}</h4>
                 <p><a href="{{.WebsiteLink}}">{{.WebsiteLink}}</a></p>
                 <hr>
                 {{end}}
@@ -91,10 +90,10 @@
             </div>
         </div>
         {{ if gt (len .FileList) 0 }}
-        <div class="row" id="files">
+        <div class="row">
             <div class="col-md-12">
-                <h4>{{T "files"}}</h4>
-                <div class="table-responsive">
+                <h4 data-toggle="collapse" data-target="#files" class="filelist-control" aria-expanded="false">{{T "files"}}</h4>
+                <div class="table-responsive collapse" id="files">
                     <table class="table custom-table-hover">
                     <tr>
                         <th class="col-xs-8">{{T "filename"}}</th>

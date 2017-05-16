@@ -22,7 +22,6 @@
       <div class="form-group">
           <label for="c">{{T "category"}}</label>
           <select name="c" id="c" class="form-control input-sm" required>
-
               <option value="">{{T "select_a_torrent_category"}}</option>
               {{ if Sukebei }}
               <option value="1_" {{if eq .Category "1_"}}selected{{end}}>{{T "art"}}</option>
