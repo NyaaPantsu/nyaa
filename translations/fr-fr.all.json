@@ -746,5 +746,9 @@
   {
     "id": "cancel",
     "translation": "Annuler"
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "Veuillez inclure udp://tracker.doko.moe:6969 dans vos trackers."
   }
 ]
