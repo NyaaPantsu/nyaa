@@ -1,0 +1,742 @@
+[
+  {
+    "id": "link",
+    "translation": "link"
+  },
+  {
+    "id": "verify_email_title",
+    "translation": "Verifică adresa ta de email pentru Nyaapantsu."
+  },
+  {
+    "id": "verify_email_content",
+    "translation": "Vă rog să daţi click pe link-ul de dedesupt pentru a verifica adresa dumneavoastră de email."
+  },
+  {
+    "id": "reset_password_title",
+    "translation": "Resetează parola pentru Nyaapantsu."
+  },
+  {
+    "id": "reset_password_content",
+    "translation": "Vă rog să daţi click pe link-ul de dedesupt pentru a reseta parola dumneavoastră."
+  },
+  {
+    "id":"register_title",
+    "translation": "Crează un cont nou"
+  },
+  {
+    "id":"signup_box_title",
+    "translation": "Vă rog înregistraţi-vă <small>E gratuit şi va fi întotdeauna.</small>"
+  },
+  {
+    "id":"username",
+    "translation": "Nume de utilizator"
+  },
+  {
+    "id":"email_address_or_username",
+    "translation": "Adresă de email sau Nume de utilizator"
+  },
+  {
+    "id":"email_address",
+    "translation": "Adresă de email"
+  },
+  {
+    "id":"password",
+    "translation": "Parola"
+  },
+  {
+    "id":"confirm_password",
+    "translation": "Confirmă parola"
+  },
+  {
+    "id":"i_agree",
+    "translation": "Sunt de acord"
+  },
+  {
+    "id":"terms_conditions_confirm",
+    "translation": "Dacă daţi click <strong class=\"label label-primary\">Register</strong>, sunteţi de acord cu <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Termenii şi Condiţiile</a> acestui site, incluzand folosirea noastra de Cookie-uri."
+  },
+  {
+    "id":"signin",
+    "translation": "Autentificare"
+  },
+  {
+    "id":"register",
+    "translation": "Înregistrare"
+  },
+  {
+    "id":"terms_conditions",
+    "translation": "Termeni şi Condiţii"
+  },
+  {
+    "id":"terms_conditions_full",
+    "translation": "Some Shit."
+  },
+  {
+    "id":"remember_me",
+    "translation": "Ţine-mă minte"
+  },
+  {
+    "id":"forgot_password",
+    "translation": "Ai uitat parola?"
+  },
+  {
+    "id":"sign_in_box_title",
+    "translation": "Vă rog să vă autentificați"
+  },
+  {
+    "id":"sign_in_title",
+    "translation": "Autentificare"
+  },
+  {
+    "id":"register_success_title",
+    "translation": "Înregistrare reuşită"
+  },
+  {
+    "id":"sign_up_success",
+    "translation": "Mulţumim pentru înregistrare!"
+  },
+  {
+    "id":"verify_success",
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Contul tău este acum activat!"
+  },
+  {
+    "id":"signup_verification_email",
+    "translation": "Verificarea prin email nu funcţionează în acest moment, aşa că puteţi folosi contul imediat. În viitor, vă rog să verificaţi inbox-ul(şi folderul de spam!) pentru emailul de verificare."
+  },
+  {
+    "id":"signup_verification_noemail",
+    "translation": "Înregistrarea a fost reusită, acum îţi poţi folosi contul."
+  },
+  {
+    "id":"settings",
+    "translation": "Setări cont"
+  },
+  {
+    "id":"torrents",
+    "translation": "Torrente"
+  },
+  {
+    "id":"follow",
+    "translation": "Urmăreşte"
+  },
+  {
+    "id":"unfollow",
+    "translation": "Nu mai urmări"
+  },
+  {
+    "id":"user_followed_msg",
+    "translation": "Ai urmărit %s!"
+  },
+  {
+    "id":"user_unfollowed_msg",
+    "translation": "Nu mai urmăreşti %s!"
+  },
+  {
+    "id":"profile_page",
+    "translation": "%s Pagina de profil"
+  },
+  {
+    "id":"see_more_torrents_from",
+    "translation": "Vezi mai multe torrente de la %s "
+  },
+  {
+    "id":"category",
+    "translation": "Categorie"
+  },
+  {
+    "id": "name",
+    "translation": "Nume"
+  },
+  {
+    "id": "date",
+    "translation": "Dată"
+  },
+  {
+    "id": "size",
+    "translation": "Mărime"
+  },
+  {
+    "id": "links",
+    "translation": "Linkuri"
+  },
+  {
+    "id": "home",
+    "translation": "Acasă"
+  },
+  {
+    "id": "error_404",
+    "translation": "Eroare 404"
+  },
+  {
+    "id": "toggle_navigation",
+    "translation": "Alternează navigaţia"
+  },
+  {
+    "id": "upload",
+    "translation": "Upload"
+  },
+  {
+    "id": "faq",
+    "translation": "FAQ"
+  },
+  {
+    "id": "fap",
+    "translation": "Labă"
+  },
+  {
+    "id": "fun",
+    "translation": "Distracţie"
+  },
+  {
+    "id": "advanced_search",
+    "translation": "Căutare avansată"
+  },
+  {
+    "id": "nothing_here",
+    "translation": "Nu e nimic aici."
+  },
+  {
+    "id": "404_not_found",
+    "translation": "404 Nu am găsit"
+  },
+  {
+    "id": "no_torrents_uploaded",
+    "translation": "Niciun torrent uploadad incă!"
+  },
+  {
+    "id": "profile",
+    "translation": "Profil"
+  },
+  {
+    "id": "sign_out",
+    "translation": "Ieşit"
+  },
+  {
+    "id": "member",
+    "translation": "Membru"
+  },
+  {
+    "id": "sign_in",
+    "translation": "Autentificare"
+  },
+  {
+    "id": "sign_up",
+    "translation": "Înregistrare"
+  },
+  {
+    "id": "no_results_found",
+    "translation": "Nu am găsit rezultate"
+  },
+  {
+    "id": "notice_keep_seeding",
+    "translation": "ATENŢIE: STAI LA SEED ŞI ACTIVEAZĂ DHT"
+  },
+  {
+    "id": "official_nyaapocalipse_faq",
+    "translation": "FAQ Oficial Nyaapocalypse"
+  },
+  {
+    "id": "links_replacement_mirror",
+    "translation": "Linkuri pentru înlocuitori"
+  },
+  {
+    "id": "what_happened",
+    "translation": "Ce s-a întâmplat?"
+  },
+  {
+    "id": "nyaa_se_went_offline",
+    "translation": "nyaa.se şi domeniile asociate (cum ar fi nyaatorrents.info) sunt offline din 1 Mai 2017."
+  },
+  {
+    "id": "its_not_a_ddos",
+    "translation": "Au fost dezactivate, aşa că nu e un atac DDoS ca de obicei."
+  },
+  {
+    "id": "future_not_looking_good",
+    "translation": "Şansele ca nyaa să revină nu sunt bune. (A murit)"
+  },
+  {
+    "id": "recovery_effort",
+    "translation": "Există un efort pentru a recupera totul."
+  },
+  {
+    "id": "is_everything_lost",
+    "translation": "Este totul pierdut?"
+  },
+  {
+    "id": "in_short_no",
+    "translation": "Pe scurt, nu."
+  },
+  {
+    "id": "are_some_things_lost",
+    "translation": "Sunt nişte lucruri pierdute?"
+  },
+  {
+    "id": "answer_is_nyaa_db_lost",
+    "translation": "Avem o bază de date a torrentelor de pe nyaa până pe 1 May. Asta înseamnă că nimic nu e pierdut."
+  },
+  {
+    "id": "answer_is_sukebei_db_lost",
+    "translation": "Sukebei e salvat de asemenea , şi aproape nimic nu e pierdut."
+  },
+  {
+    "id": "how_are_we_recovering",
+    "translation": "Cum recuperăm?"
+  },
+  {
+    "id": "answer_how_are_we_recovering",
+    "translation": "Bazele de date menţionate mai sus le puteţi găsi la nyaa.pantsu.cat şi sukebei.pantsu.cat. Există o funcţie de căutare, şi (aproape) toată funcţionalitatea lui nyaa ar trebui să vină în curând."
+  },
+  {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "Cum mut uploadurile mele vechi către contul nou?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "Intră pe <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> şi întreabă un moderator să îţi migreze torrentele menţionând vechiul şi noul nume de utilizator."
+  },
+  {
+    "id": "are_the_trackers_working",
+    "translation": "Torrentele încă funcţionează?"
+  },
+  {
+    "id": "answer_are_the_trackers_working",
+    "translation": "Chiar dacă trackerele nu funcționează, seederii sunt încă conectați la rețeaua decentralizată DHT. Atât timp cât fișierul e listat în rețeaua DHT, lucrurile merg ca de obicei."
+  },
+  {
+    "id": "how_do_i_download_the_torrents",
+    "translation": "Cum descarc torrentele?"
+  },
+  {
+    "id": "answer_how_do_i_download_the_torrents",
+    "translation": "Foloseşte <b>Linkul magnet</b>. Linkul magnet va fi folosit de clientul tău de BitTorrent pentru a căuta fișierul în rețeaua DHT și se va descărca fără probleme."
+  },
+  {
+    "id": "magnet_link_should_look_like",
+    "translation": "Linkul magnet ar trebui să arate aşa:"
+  },
+  {
+    "id": "which_trackers_do_you_recommend",
+    "translation": "Ce trackere recomandaţi să folosesc?"
+  },
+  {
+    "id": "answer_which_trackers_do_you_recommend",
+    "translation": "Avem acum trackerul nostru numit doko.moe, adaugă-l la începutul listei înainte de upload. Ar trebui să adaugi toți acești trackeri pentru a păstra torrentul sănătos."
+  },
+  {
+    "id": "how_can_i_help",
+    "translation": "Cum pot ajuta?"
+  },
+  {
+    "id": "answer_how_can_i_help",
+    "translation": "Daca te pricepi la website development, vino pe canalul de IRC #nyaapantsu pe irc.rizon.net. Daca ai date de baze mai curente, în special pentru sukebei, te rog uploadeazale."
+  },
+  {
+    "id": "your_design_sucks_found_a_bug",
+    "translation": "Designul tău e urât / Am găsit un bug"
+  },
+  {
+    "id": "why_written_in_go",
+    "translation": "De ce e totul scris în Go?"
+  },
+  {
+    "id": "authors_favorite_language",
+    "translation": "Este limbajul de programare favorit al autorului."
+  },
+  {
+    "id": "upload_magnet",
+    "translation": "Upload magnet"
+  },
+  {
+    "id": "torrent_file",
+    "translation": "Fişier torrent"
+  },
+  {
+    "id": "uploading_file_prefills_fields",
+    "translation": "Uploadarea unui fişier torrent permite precompletarea unor cămpuri. Este recomandat."
+  },
+  {
+    "id": "magnet_link",
+    "translation": "Link Magnet"
+  },
+  {
+    "id": "all_categories",
+    "translation": "Toate categoriile"
+  },
+  {
+    "id": "select_a_torrent_category",
+    "translation": "Selecteză o categorie de torrente"
+  },
+  {
+    "id": "anime",
+    "translation": "Anime"
+  },
+  {
+    "id": "anime_amv",
+    "translation": "Anime - Anime Music Video"
+  },
+  {
+    "id": "anime_english_translated",
+    "translation": "Anime - Tradus în Engleză"
+  },
+  {
+    "id": "anime_non_english_translated",
+    "translation": "Anime - Tradus în altă limbă"
+  },
+  {
+    "id": "anime_raw",
+    "translation": "Anime - Raw"
+  },
+  {
+    "id": "audio",
+    "translation": "Audio"
+  },
+  {
+    "id": "audio_lossless",
+    "translation": "Audio - Lossless"
+  },
+  {
+    "id": "audio_lossy",
+    "translation": "Audio - Lossy"
+  },
+  {
+    "id": "literature",
+    "translation": "Literatură"
+  },
+  {
+    "id": "literature_english_translated",
+    "translation": "Literatură - Tradus în Engleză"
+  },
+  {
+    "id": "literature_raw",
+    "translation": "Literatură - Raw"
+  },
+  {
+    "id": "literature_non_english_translated",
+    "translation": "Literatură - Tradus în altă limbă"
+  },
+  {
+    "id": "live_action",
+    "translation": "Live Action"
+  },
+  {
+    "id": "live_action_english_translated",
+    "translation": "Live Action - Tradus în Engleză"
+  },
+  {
+    "id": "live_action_idol_pv",
+    "translation": "Live Action - Idol/Video Promoţional"
+  },
+  {
+    "id": "live_action_non_english_translated",
+    "translation": "Live Action - Tradus în altă limbă"
+  },
+  {
+    "id": "live_action_raw",
+    "translation": "Live Action - Raw"
+  },
+  {
+    "id": "pictures",
+    "translation": "Imagini"
+  },
+  {
+    "id": "pictures_graphics",
+    "translation": "Imagini - Grafică"
+  },
+  {
+    "id": "pictures_photos",
+    "translation": "Imagini - Fotografii"
+  },
+  {
+    "id": "software",
+    "translation": "Software"
+  },
+  {
+    "id": "software_applications",
+    "translation": "Software - Aplicaţii"
+  },
+  {
+    "id": "software_games",
+    "translation": "Software - Jocuri"
+  },
+  {
+    "id": "art",
+    "translation": "Artă"
+  },
+  {
+    "id": "art_anime",
+    "translation": "Artă - Anime"
+  },
+  {
+    "id": "art_doujinshi",
+    "translation": "Artă - Doujinshi"
+  },
+  {
+    "id": "art_games",
+    "translation": "Artă - Jocuri"
+  },
+  {
+    "id": "art_manga",
+    "translation": "Artă - Manga"
+  },
+  {
+    "id": "real_life",
+    "translation": "Viaţa Reală"
+  },
+  {
+    "id": "real_life_photobooks_and_pictures",
+    "translation": "Viaţa Reală - Albume şi Imagini"
+  },
+  {
+    "id": "real_life_videos",
+    "translation": "Viaţa Reală - Videoclipuri"
+  },
+  {
+    "id": "torrent_description",
+    "translation": "Descripţie Torrent"
+  },
+  {
+    "id": "description_markdown_notice",
+    "translation": "Markdown poate fi folosit in descripţie."
+  },
+  {
+    "id": "show_all",
+    "translation": "Arată tot"
+  },
+  {
+    "id": "filter_remakes",
+    "translation": "Filtreaza Remakeurile"
+  },
+  {
+    "id": "trusted",
+    "translation": "De încredere"
+  },
+  {
+    "id": "id",
+    "translation": "ID"
+  },
+  {
+    "id": "downloads",
+    "translation": "Downloads"
+  },
+  {
+    "id": "descending",
+    "translation": "Descrescător"
+  },
+  {
+    "id": "ascending",
+    "translation": "Crescător"
+  },
+  {
+    "id": "search",
+    "translation": "Caută"
+  },
+  {
+    "id": "hash",
+    "translation": "Hash"
+  },
+  {
+    "id": "description",
+    "translation": "Descripţie"
+  },
+  {
+    "id": "comments",
+    "translation": "Comentarii"
+  },
+  {
+    "id": "submit_a_comment_as_username",
+    "translation": "Postează un comentariu ca %s"
+  },
+  {
+    "id": "submit_a_comment_as_anonymous",
+    "translation": "Postează un comentariu ca Anonim"
+  },
+  {
+    "id": "submit",
+    "translation": "Postează"
+  },
+  {
+    "id": "personal_info",
+    "translation": "Informaţii Personale"
+  },
+  {
+    "id": "language",
+    "translation": "Limbă"
+  },
+  {
+    "id": "current_password",
+    "translation": "Parola curentă"
+  },
+  {
+    "id": "role",
+    "translation": "Rol"
+  },
+  {
+    "id": "banned",
+    "translation": "Banat"
+  },
+  {
+    "id": "default",
+    "translation": "Implicit"
+  },
+  {
+    "id": "trusted_member",
+    "translation": "Membru de încredere"
+  },
+  {
+    "id": "moderator",
+    "translation": "Moderator"
+  },
+  {
+    "id": "api_token",
+    "translation": "Token API"
+  },
+  {
+    "id": "save_changes",
+    "translation": "Salvează Schimbările"
+  },
+  {
+    "id": "profile_updated",
+    "translation": "Profilul tău a fost actualizat corect!"
+  },
+  {
+    "id": "delete_account",
+    "translation": "Şterge Contul"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "Eşti sigur că vrei să stergi acest cont?"
+  },
+  {
+    "id": "delete_success",
+    "translation": "Contul a fost şters cu succes!"
+  },
+  {
+    "id": "moderation",
+    "translation": "Moderare"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "Cine e れんちょん?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "れんちょん (Ren-chon) este numele de utilizator alocat uploadurilor şi comentariilor anonime. Este folosit şi pentru torrentele importate de pe vechiul nyaa, dar câteodată uploaderul original poate fi afişat langă el."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Marchează ca remake"
+  },
+  {
+    "id": "email_changed",
+    "translation": "Emailul a fost schimbat cu succes! Trebuie însă să confirmi dând click pe linkul trimis către: %s"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "Status torrent"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "Ascuns"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "Normal"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "Remake"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "Modifică profilul lui %s"
+  },
+  {
+    "id":"date_format",
+    "translation": "2006-01-02 15:04"
+  },
+  {
+    "id": "seeders",
+    "translation": "Seeders"
+  },
+  {
+    "id": "leechers",
+    "translation": "Leechers"
+  },
+  {
+    "id": "completed",
+    "translation": "Completat"
+  },
+  {
+    "id": "change_language",
+    "translation": "Schimbă Limba"
+  },
+  {
+    "id": "language_name",
+    "translation": "Română"
+  },
+  {
+    "id": "delete",
+    "translation": "Şterge"
+  },
+  {
+    "id": "files",
+    "translation": "Fişiere"
+  },
+  {
+    "id": "filename",
+    "translation": "Nume fişier"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "Uploadat de"
+  },
+  {
+    "id": "download_btn",
+    "translation": "Download!"
+  },
+  {
+    "id": "report_btn",
+    "translation": "Raportează"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "Eşti sigur?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "Raportează Torrentul #%s"
+  },
+  {
+    "id": "report_type",
+    "translation": "Tip de raport"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "Conţinut ilegal"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "Spam / Gunoi"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "Categorie greşită"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "Duplicat / Depreciat"
+  },
+  {
+    "id": "captcha",
+    "translation": "Captcha"
+  },
+  {
+    "id": "file_name",
+    "translation": "Nume Fişier"
+  },
+  {
+    "id": "cancel",
+    "translation": "Anulează"
+  }
+]
