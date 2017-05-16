@@ -4,13 +4,29 @@ import (
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/search"
+	"github.com/gorilla/mux"
 	"github.com/gorilla/feeds"
+	"html"
 	"net/http"
+	"strconv"
 	"time"
 )
 
 func RSSHandler(w http.ResponseWriter, r *http.Request) {
-	_, torrents, err := search.SearchByQueryNoCount(r, 1)
+	vars := mux.Vars(r)
+	page := vars["page"]
+	
+	var err error
+	pagenum := 1
+	if page != "" {
+		pagenum, err = strconv.Atoi(html.EscapeString(page))
+		if err != nil {
+			util.SendError(w, err, 400)
+			return
+		}
+	}
+
+	_, torrents, err := search.SearchByQueryNoCount(r, pagenum)
 	if err != nil {
 		util.SendError(w, err, 400)
 		return
