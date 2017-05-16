@@ -1,6 +1,7 @@
 package model
 
 import (
+	"github.com/ewhal/nyaa/config"
 	"time"
 )
 
@@ -20,6 +21,10 @@ type Comment struct {
 // Returns the total size of memory recursively allocated for this struct
 func (c Comment) Size() int {
 	return (3 + 3*3 + 2 + 2 + len(c.Content)) * 8
+}
+
+func (c Comment) TableName() string {
+	return config.CommentsTableName
 }
 
 type OldComment struct {
