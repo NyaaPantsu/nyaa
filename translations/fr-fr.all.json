@@ -184,6 +184,10 @@
     "translation": "Fap"
   },
   {
+    "id": "fun",
+    "translation": "Fun"
+  },
+  {
     "id": "advanced_search",
     "translation": "Recherche avancée"
   },
@@ -317,11 +321,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Nous avons maintenant notre propre tracker, ajoutez-le en haut de la liste avant d'uploader :"
-  },
-  {
-    "id": "other_trackers",
-    "translation": "Mais vous devriez également ajouter ceux-ci, dans le cas où cela ne fonctionnerait pas :"
+    "translation": "Nous avons maintenant notre propre tracker appelé doko.moe, placez-le en haut de la liste avant d'uploader. Vous devriez également ajouter plusieurs autres trackers pour assurer la persistance du torrent :"
   },
   {
     "id": "how_can_i_help",
@@ -460,6 +460,38 @@
     "translation": "Logiciels - Jeux"
   },
   {
+    "id": "art",
+    "translation": "Art"
+  },
+  {
+    "id": "art_anime",
+    "translation": "Art - Anime"
+  },
+  {
+    "id": "art_doujinshi",
+    "translation": "Art - Doujinshi"
+  },
+  {
+    "id": "art_games",
+    "translation": "Art - Jeux"
+  },
+  {
+    "id": "art_manga",
+    "translation": "Art - Manga"
+  },
+  {
+    "id": "real_life",
+    "translation": "Vie Réelle"
+  },
+  {
+    "id": "real_life_photobooks_and_pictures",
+    "translation": "Vie Réelle - Livres photo et Images"
+  },
+  {
+    "id": "real_life_videos",
+    "translation": "Vie Réelle - Vidéos"
+  },
+  {
     "id": "torrent_description",
     "translation": "Description du torrent"
   },
@@ -589,7 +621,7 @@
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Renchon) est le nom d'utilisateur par défaut assigné aux uploads et commentaires anonymes ainsi que la mascotte du site. Il est utilisé pour les torrents importés du Nyaa original, bien que l'auteur d'origine puisse parfois être affiché."
+    "translation": "れんちょん (Ren-chon) est le nom d'utilisateur par défaut assigné aux uploads et commentaires anonymes ainsi que la mascotte du site. Il est utilisé pour les torrents importés du Nyaa original, bien que l'auteur d'origine puisse parfois être affiché."
   },
   {
     "id": "mark_as_remake",
@@ -646,6 +678,14 @@
   {
     "id": "delete",
     "translation": "Supprimer"
+  },
+  {
+    "id": "files",
+    "translation": "Fichiers"
+  },
+  {
+    "id": "filename",
+    "translation": "Nom du fichier"
   },
   {
     "id": "uploaded_by",

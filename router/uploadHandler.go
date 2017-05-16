@@ -64,10 +64,12 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 			// add filelist to files db, if we have one
 			if len(uploadForm.FileList) > 0 {
 				for _, uploadedFile := range uploadForm.FileList {
-					file := model.File{
-						TorrentID: torrent.ID,
-						Path:      uploadedFile.Path,
-						Filesize:  uploadedFile.Filesize}
+					file := model.File{TorrentID: torrent.ID, Filesize: uploadedFile.Filesize}
+					err := file.SetPath(uploadedFile.Path)
+					if err != nil {
+						http.Error(w, err.Error(), http.StatusInternalServerError)
+						return
+					}
 					db.ORM.Create(&file)
 				}
 			}
@@ -90,7 +92,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 			uploadForm.CaptchaID = ""
 		}
 
-		htv := UploadTemplateVariables{uploadForm, NewSearchForm(), Navigation{}, GetUser(r), r.URL, mux.CurrentRoute(r)}
+		htv := UploadTemplateVariables{uploadForm, NewSearchForm(), NewNavigation(), GetUser(r), r.URL, mux.CurrentRoute(r)}
 		languages.SetTranslationFromRequest(uploadTemplate, r)
 		err := uploadTemplate.ExecuteTemplate(w, "index.html", htv)
 		if err != nil {

@@ -188,7 +188,7 @@ type PanelTorrentReassignVbs struct {
  */
 type Navigation struct {
 	TotalItem      int
-	MaxItemPerPage int
+	MaxItemPerPage int     // FIXME: shouldn't this be in SearchForm?
 	CurrentPage    int
 	Route          string
 }
@@ -200,6 +200,12 @@ type SearchForm struct {
 }
 
 // Some Default Values to ease things out
+func NewNavigation() Navigation {
+	return Navigation{
+		MaxItemPerPage: 50,
+	}
+}
+
 func NewSearchForm() SearchForm {
 	return SearchForm{
 		Category:         "_",
