@@ -46,11 +46,15 @@
 */
 
 body {
-    background-color: #ececec;
-    color: #111111;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  background-color: #93c7e3;
+  color: #111111;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body.sukebei {
+  background-color: #e4d3f0;
 }
 
 .torrentNav {
@@ -218,7 +222,7 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 {
   width: 8rem;
 }
-.special-img 
+.special-img
 {
     position: relative;
     top: -5px;
@@ -297,7 +301,7 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 .profile-userbuttons .btn:last-child {
   margin-right: 0px;
 }
-    
+
 .profile-usermenu {
   margin-top: 30px;
 }

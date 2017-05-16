@@ -32,7 +32,7 @@
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/style.css"}}">
     {{block "night_theme_init" .}}{{end}}
   </head>
-  <body>
+  <body class="{{ if Sukebei }}sukebei{{ end }}">
       <nav class="navbar navbar-default" id="mainmenu">
           <div class="container">
               <div class="navbar-header">
@@ -67,7 +67,7 @@
                         {{block "search_button" .}}{{end}}
                       </div>
                   </form>
-                  
+
                 </div>
           </div>
       </nav>
