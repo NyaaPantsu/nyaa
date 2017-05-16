@@ -101,7 +101,7 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "現時点では認証メールを送信できませんので、すぐにアカウントを使えます。後日、メールボックスを確認してください。迷惑メールフォルダーの確認もお忘れなく。"
+    "translation": "現在は一時的にメールアドレスの認証が無効になっているので、すぐにアカウントを使うことができます。後日、メールボックスを確認してください。迷惑メールフォルダーの確認もお忘れなく。"
   },
   {
     "id":"signup_verification_noemail",
@@ -317,11 +317,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "独自のトラッカーを用意していますので、アップロードする前にリストの一番上に追加してください:"
-  },
-  {
-    "id": "other_trackers",
-    "translation": "ただし、うまくいかない場合に備え、これらも追加しておく必要があります"
+    "translation": "doko.moe という独自のトラッカーをご用意しました。アップロードする前にリストの一番上に追加してください。また、Torrent の安定性を維持するために、以下のトラッカーをすべて追加する必要があります。"
   },
   {
     "id": "how_can_i_help",
@@ -458,6 +454,38 @@
   {
     "id": "software_games",
     "translation": "ソフトウェア ‐ ゲーム"
+  },
+  {
+    "id": "art",
+    "translation": "アート"
+  },
+  {
+    "id": "art_anime",
+    "translation": "アート - アニメ"
+  },
+  {
+    "id": "art_doujinshi",
+    "translation": "アート - 同人誌"
+  },
+  {
+    "id": "art_games",
+    "translation": "アート - ゲーム"
+  },
+  {
+    "id": "art_manga",
+    "translation": "アート - 漫画"
+  },
+  {
+    "id": "real_life",
+    "translation": "日常"
+  },
+  {
+    "id": "real_life_photobooks_and_pictures",
+    "translation": "日常 - フォトブック、写真"
+  },
+  {
+    "id": "real_life_videos",
+    "translation": "日常 - ビデオ"
   },
   {
     "id": "torrent_description",
@@ -646,5 +674,65 @@
   {
     "id": "delete",
     "translation": "削除"
+  },
+  {
+    "id": "files",
+    "translation": "ファイル"
+  },
+  {
+    "id": "filename",
+    "translation": "ファイル名"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "アップロード者:"
+  },
+  {
+    "id": "download_btn",
+    "translation": "ダウンロード"
+  },
+  {
+    "id": "report_btn",
+    "translation": "通報"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "よろしいですか。"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "Torrent #%s を通報"
+  },
+  {
+    "id": "report_type",
+    "translation": "通報理由"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "違法なコンテンツ"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "スパム / ゴミ"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "誤ったカテゴリー"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "重複 / 非推奨"
+  },
+  {
+    "id": "captcha",
+    "translation": "画像認証"
+  },
+  {
+    "id": "file_name",
+    "translation": "ファイル名"
+  },
+  {
+    "id": "cancel",
+    "translation": "キャンセル"
   }
 ]
