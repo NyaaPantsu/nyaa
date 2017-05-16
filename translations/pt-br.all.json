@@ -636,6 +636,10 @@
     "translation": "Português (Brasil)"
   },
   {
+    "id": "language_code",
+    "translation": "pt-br"
+  },
+  {
     "id": "delete",
     "translation": "Excluir"
   },

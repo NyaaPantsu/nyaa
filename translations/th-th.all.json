@@ -676,6 +676,10 @@
     "translation": "ภาษาไทย"
   },
   {
+    "id": "language_code",
+    "translation": "th-th"
+  },
+  {
     "id": "delete",
     "translation": "ลบ"
   },
