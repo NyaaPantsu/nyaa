@@ -676,6 +676,10 @@
     "translation": "简体中文"
   },
   {
+    "id": "language_code",
+    "translation": "zh-cn"
+  },
+  {
     "id": "delete",
     "translation": "删除"
   },

@@ -644,6 +644,10 @@
     "translation": "Русский"
   },
   {
+    "id": "language_code",
+    "translation": "ru-ru"
+  },
+  {
     "id": "delete",
     "translation": "Удалить"
   },

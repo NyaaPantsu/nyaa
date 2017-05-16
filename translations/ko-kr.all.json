@@ -498,5 +498,9 @@
   {
     "id": "language_name",
     "translation": "한국어"
+  },
+  {
+    "id": "language_code",
+    "translation": "ko-kr"
   }
 ]

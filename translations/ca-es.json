@@ -550,5 +550,9 @@
   {
     "id": "language_name",
     "translation": "Català"
+  },
+  {
+    "id": "language_code",
+    "translation": "ca-es"
   }
 ]
