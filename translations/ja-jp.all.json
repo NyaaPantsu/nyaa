@@ -501,7 +501,7 @@
   },
   {
     "id": "filter_remakes",
-    "translation": "再構成フィルター"
+    "translation": "リメイクを非表示"
   },
   {
     "id": "trusted",
@@ -621,7 +621,7 @@
   },
   {
     "id": "mark_as_remake",
-    "translation": "再構成としてマーク"
+    "translation": "リメイクとしてマーク"
   },
   {
     "id": "email_changed",
@@ -641,7 +641,7 @@
   },
   {
     "id": "torrent_status_remake",
-    "translation": "再構成"
+    "translation": "リメイク"
   },
   {
     "id": "profile_edit_page",
