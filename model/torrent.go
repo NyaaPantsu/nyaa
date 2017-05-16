@@ -132,7 +132,11 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, UserID: -1, Content: template.HTML(c.Content), Date: c.Date.UTC()})
 	}
 	for _, c := range t.Comments {
+		if (c.User != nil) {
 		commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC()})
+		} else {
+		commentsJSON = append(commentsJSON, CommentJSON{})
+		}
 	}
 	fileListJSON := make([]FileJSON, 0, len(t.FileList))
 	for _, f := range t.FileList {
