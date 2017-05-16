@@ -117,7 +117,7 @@
                     <hr/>
                     <ul class="comments">
                         {{ range $index, $element := .Comments }}
-                        <li class="clearfix comment jumptarget" id="comment_{{$index}}">
+                        <li class="clearfix comment jumptarget" id="comment_{{inc $index}}">
                             {{/* The following line is wrong. Should be using the MD5 User hash but i don't knwo how to access it. */}}
                             {{/* Changing Gravatar for something else, so it can stay like this. */}}
                             <img src="https://www.gravatar.com/avatar/{{ .UserID }}?s=50" class="avatar" alt="">
@@ -128,9 +128,9 @@
                                             <div class="row">
                                                 <div class="col-sm-9">
                                                     {{if eq .UserID -1}}
-                                                    <a href="#comment_{{$index}}">#{{$index}}</a> by {{.Username}}
+                                                    <a href="#comment_{{inc $index}}">#{{inc $index}}</a> by {{.Username}}
                                                     {{else}}
-                                                    <a href="#comment_{{$index}}">#{{$index}}</a>
+                                                    <a href="#comment_{{inc $index}}">#{{inc $index}}</a>
                                                     by <span class="break"><a href="{{$.URL.Parse (printf "/user/%d/-" .UserID ) }}">{{.Username}}</a></span>
                                                     {{end}}
                                                 </div>
