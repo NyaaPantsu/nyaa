@@ -184,6 +184,10 @@
     "translation": "秘密花园"
   },
   {
+    "id": "fun",
+    "translation": "爽"
+  },
+  {
     "id": "advanced_search",
     "translation": "高级搜索"
   },
@@ -317,11 +321,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "现在我们有自己的 tracker 啦！在上传之前把他们放在 tracker 列表的顶部吧！"
-  },
-  {
-     "id": "other_trackers",
-     "translation": "当然，你也可以使用以下的 tracker ，不过某些情况下可能会出现错误。"
+    "translation": "现在我们有自己的 tracker 啦！其名曰：doko.moe。在上传之前把他放在 tracker 列表的顶部吧！不过你最好把所有的 tracker 都加进列表，免得他们抽风。"
   },
   {
     "id": "how_can_i_help",
@@ -458,6 +458,38 @@
   {
     "id": "software_games",
     "translation": "软件 - 游戏"
+  },
+  {
+    "id": "art",
+    "translation": "二次元"
+  },
+  {
+    "id": "art_anime",
+    "translation": "二次元 - 动漫"
+  },
+  {
+    "id": "art_doujinshi",
+    "translation": "二次元 - 同人"
+  },
+  {
+    "id": "art_games",
+    "translation": "二次元 - 游戏"
+  },
+  {
+    "id": "art_manga",
+    "translation": "二次元 - 漫画"
+  },
+  {
+    "id": "real_life",
+    "translation": "三次元"
+  },
+  {
+    "id": "real_life_photobooks_and_pictures",
+    "translation": "三次元 - 写真集/图包"
+  },
+  {
+    "id": "real_life_videos",
+    "translation": "三次元 - 视频"
   },
   {
     "id": "torrent_description",
