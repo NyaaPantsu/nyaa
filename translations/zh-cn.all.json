@@ -184,6 +184,10 @@
     "translation": "秘密花园"
   },
   {
+    "id": "fun",
+    "translation": "爽"
+  },
+  {
     "id": "advanced_search",
     "translation": "高级搜索"
   },
@@ -458,6 +462,38 @@
   {
     "id": "software_games",
     "translation": "软件 - 游戏"
+  },
+  {
+    "id": "art",
+    "translation": "二次元"
+  },
+  {
+    "id": "art_anime",
+    "translation": "二次元 - 动漫"
+  },
+  {
+    "id": "art_doujinshi",
+    "translation": "二次元 - 同人"
+  },
+  {
+    "id": "art_games",
+    "translation": "二次元 - 游戏"
+  },
+  {
+    "id": "art_manga",
+    "translation": "二次元 - 漫画"
+  },
+  {
+    "id": "real_life",
+    "translation": "三次元"
+  },
+  {
+    "id": "real_life_photobooks_and_pictures",
+    "translation": "三次元 - 写真集/图包"
+  },
+  {
+    "id": "real_life_videos",
+    "translation": "三次元 - 视频"
   },
   {
     "id": "torrent_description",
