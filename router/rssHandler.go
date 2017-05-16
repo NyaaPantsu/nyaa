@@ -2,15 +2,16 @@ package router
 
 import (
 	"github.com/ewhal/nyaa/config"
+	"github.com/ewhal/nyaa/feeds"
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/search"
-	"github.com/gorilla/feeds"
 	"net/http"
 	"time"
 )
 
 func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	_, torrents, err := search.SearchByQueryNoCount(r, 1)
+
 	if err != nil {
 		util.SendError(w, err, 400)
 		return
@@ -36,6 +37,11 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 			Description: string(torrentJSON.Description),
 			Created:     torrent.Date,
 			Updated:     torrent.Date,
+			Torrent: &feeds.Torrent{
+				Seeders:  torrent.Seeders,
+				Leechers: torrent.Leechers,
+				Hash:     torrent.Hash,
+			},
 		}
 	}
 	// allow cross domain AJAX requests
