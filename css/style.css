@@ -8,7 +8,48 @@
 .aplus {
   background-color: #81d3fa;
 }
-
+/* Marquee */
+.marquee {
+ height: 50px;	
+ overflow: hidden;
+ position: relative;
+}
+.marquee h3 {
+ font-size: 3em;
+ position: absolute;
+ width: 125%;
+ height: 100%;
+ margin: 0;
+ line-height: 50px;
+ text-align: center;
+ -moz-transform:translateX(100%);
+ -webkit-transform:translateX(100%);	
+ transform:translateX(100%);
+ -moz-animation: marquee 15s linear infinite;
+ -webkit-animation: marquee 15s linear infinite;
+ animation: marquee 15s linear infinite;
+}
+@-moz-keyframes marquee {
+ 0%   { -moz-transform: translateX(100%); }
+ 100% { -moz-transform: translateX(-100%); }
+}
+@-webkit-keyframes marquee {
+ 0%   { -webkit-transform: translateX(100%); }
+ 100% { -webkit-transform: translateX(-100%); }
+}
+// Fixes some Firefox bug, apparently
+@keyframes marquee {
+ 0%   {
+ -moz-transform: translateX(100%); 
+ -webkit-transform: translateX(100%);
+ transform: translateX(100%); 		
+ }
+ 100% { 
+ -moz-transform: translateX(-100%);
+ -webkit-transform: translateX(-100%);
+ transform: translateX(-100%); 
+ }
+}
 /* modified copy of NyaaTorrent theme */
 nav#mainmenu {
     background: #263238;
