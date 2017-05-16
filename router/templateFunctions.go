@@ -14,6 +14,9 @@ import (
 )
 
 var FuncMap = template.FuncMap{
+	"inc": func(i int) int {
+		return i + 1
+	},
 	"min": math.Min,
 	"genRoute": func(name string, params ...string) string {
 		url, err := Router.Get(name).URL(params...)
