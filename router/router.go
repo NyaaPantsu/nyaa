@@ -72,6 +72,7 @@ func init() {
 	Router.HandleFunc("/api/update", ApiUpdateHandler).Methods("PUT")
 	Router.HandleFunc("/faq", FaqHandler).Name("faq")
 	Router.HandleFunc("/feed", RSSHandler).Name("feed")
+	Router.HandleFunc("/feed/{page}", RSSHandler).Name("feed_page")
 	Router.Handle("/view/{id}", wrapHandler(gzipViewHandler)).Methods("GET").Name("view_torrent")
 	Router.HandleFunc("/view/{id}", PostCommentHandler).Methods("POST").Name("post_comment")
 	Router.HandleFunc("/upload", UploadHandler).Name("upload")
