@@ -146,7 +146,7 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 	if limit != 0 || offset != 0 { // if limits provided
 		dbQuery = dbQuery + " LIMIT " + strconv.Itoa(limit) + " OFFSET " + strconv.Itoa(offset)
 	}
-	err = db.ORM.Raw(dbQuery, params...).Find(&torrents).Error
+	err = db.ORM.Preload("Comments").Raw(dbQuery, params...).Find(&torrents).Error
 	return
 }
 
