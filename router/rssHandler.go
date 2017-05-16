@@ -7,7 +7,6 @@ import (
 	"github.com/ewhal/nyaa/util/search"
 	"net/http"
 	"time"
-	"fmt"
 )
 
 func RSSHandler(w http.ResponseWriter, r *http.Request) {
