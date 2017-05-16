@@ -1,13 +1,13 @@
 package router
 
 import (
-	"fmt"
 	"github.com/ewhal/nyaa/config"
 	"github.com/ewhal/nyaa/feeds"
 	"github.com/ewhal/nyaa/util"
 	"github.com/ewhal/nyaa/util/search"
 	"net/http"
 	"time"
+	"fmt"
 )
 
 func RSSHandler(w http.ResponseWriter, r *http.Request) {
@@ -30,7 +30,6 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	feed.Items = make([]*feeds.Item, len(torrents))
 
 	for i, torrent := range torrents {
-		fmt.Println(torrent.Hash)
 		torrentJSON := torrent.ToJSON()
 		feed.Items[i] = &feeds.Item{
 			Id:          "https://" + config.WebAddress + "/view/" + torrentJSON.ID,
