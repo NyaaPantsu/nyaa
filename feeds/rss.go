@@ -73,9 +73,11 @@ type RssItem struct {
 	PubDate     string `xml:"pubDate,omitempty"` // created or updated
 	Source      string `xml:"source,omitempty"`
 
-	Seeders  uint32 `xml:"torrent:seeders"`  // modified for Nyaa
-	Leechers uint32 `xml:"torrent:leechers"` // modified for Nyaa
-	Hash     string `xml:"torrent:hash"`     // modified for Nyaa
+	Seeders    uint32 `xml:"torrent:seeders"`    // modified for Nyaa
+	Leechers   uint32 `xml:"torrent:leechers"`   // modified for Nyaa
+	Hash       string `xml:"torrent:hash"`       // modified for Nyaa
+	Completed  uint32 `xml:"torrent:completed"`  // modified for Nyaa
+	LastScrape string `xml:"torrent:lastScrape"` // modified for Nyaa
 }
 
 type RssEnclosure struct {
@@ -98,9 +100,12 @@ func newRssItem(i *Item) *RssItem {
 		Description: i.Description,
 		Guid:        i.Id,
 		PubDate:     anyTimeFormat(time.RFC1123Z, i.Created, i.Updated),
-
-		Seeders:  i.Torrent.Seeders,  // modified for Nyaa
-		Leechers: i.Torrent.Leechers, // modified for Nyaa
+		// modified for Nyaa
+		Seeders:    i.Torrent.Seeders,
+		Leechers:   i.Torrent.Leechers,
+		Hash:       i.Torrent.Hash,
+		Completed:  i.Torrent.Completed,
+		LastScrape: anyTimeFormat(time.RFC1123Z, i.Torrent.LastScrape),
 	}
 
 	intLength, err := strconv.ParseInt(i.Link.Length, 10, 64)

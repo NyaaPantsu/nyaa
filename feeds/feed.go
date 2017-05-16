@@ -16,9 +16,11 @@ type Author struct {
 
 // modified for Nyaa
 type Torrent struct {
-	Seeders  uint32
-	Leechers uint32
-	Hash     string
+	Seeders    uint32
+	Leechers   uint32
+	Hash       string
+	Completed  uint32
+	LastScrape time.Time
 }
 
 type Item struct {
