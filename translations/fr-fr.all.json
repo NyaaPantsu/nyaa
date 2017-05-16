@@ -5,7 +5,7 @@
   },
   {
     "id": "verify_email_title",
-    "translation": "Vérifiez votre adresse email pour NyaaPantsu."
+    "translation": "Vérifiez votre adresse email pour Pantsu."
   },
   {
     "id": "verify_email_content",
@@ -13,7 +13,7 @@
   },
   {
     "id": "reset_password_title",
-    "translation": "Réinitialisez votre mot de passe pour NyaaPantsu."
+    "translation": "Réinitialisez votre mot de passe pour Pantsu."
   },
   {
     "id": "reset_password_content",
@@ -25,7 +25,7 @@
   },
   {
     "id": "signup_box_title",
-    "translation": "Inscrivez-vous <small>C'est gratuit et ça le restera.</small>"
+    "translation": "Inscrivez-vous <small>C'est gratuit et ça le restera !</small>"
   },
   {
     "id": "username",
@@ -101,7 +101,7 @@
   },
   {
     "id": "signup_verification_email",
-    "translation": "Veuillez vérifier votre boîte mail (et spam !) pour le mail de vérification."
+    "translation": "Veuillez vérifier votre boîte mail (et vos spams !) pour le mail de vérification."
   },
   {
     "id": "signup_verification_noemail",
@@ -233,7 +233,7 @@
   },
   {
     "id": "official_nyaapocalipse_faq",
-    "translation": "FAQ Officielle de la Nyaapocalypse"
+    "translation": "FAQ officielle de la Nyaapocalypse"
   },
   {
     "id": "links_replacement_mirror",
@@ -273,11 +273,11 @@
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "Nous avons une base de données des torrents de Nyaa datant du <s>5 Avril</s> 1er Mai. Ce qui signifie que presque rien n'a été perdu."
+    "translation": "La base de données de Nyaa est entièrement à jour et n'affiche que très peu de pertes."
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Sukebei, cependant, semble en plus mauvais état. La base de donnée actuelle remonte à 2016, mais une version plus récente pourrait être disponible à l'usage."	
+    "translation": "Celle de Sukebei est également à jour, cependant près d'un an de JAV a été perdu."
   },
   {
     "id": "how_are_we_recovering",
@@ -285,7 +285,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "Les bases de données mentionnées sont hébergées sur nyaa.pantsu.cat et sukebei.pantsu.cat. Une fonction de recherche est disponible et (presque) toutes les fonctionnalités de Nyaa devraient arriver. Les statistiques seeders/leechers peuvent être obtenues par 'scraping' et pourraient être restaurées à l'avenir, toutefois d'autres fonctionnalités prennent la priorité en ce moment."
+    "translation": "Les bases de données mentionnées sont hébergées sur nyaa.pantsu.cat et sukebei.pantsu.cat. Les fonctions de recherche et de tri sont disponibles, et (presque) toutes les fonctionnalités de Nyaa devraient arriver."
   },
   {
     "id": "how_do_i_link_my_old_account",
@@ -293,7 +293,7 @@
   },
   {
     "id": "answer_how_do_i_link_my_old_account",
-    "translation": "Rejoignez le canal IRC <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> et demandez à un modérateur de migrer vos anciens torrents and indiquant votre ancien et nouveau noms d'utilisateur."
+    "translation": "Rejoignez le canal IRC <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> et demandez à un modérateur de migrer vos anciens torrents en indiquant vos ancien et nouveau noms d'utilisateur."
   },
   {
     "id": "are_the_trackers_working",
@@ -321,7 +321,11 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Nous avons maintenant notre propre tracker appelé doko.moe, placez-le en haut de la liste avant d'uploader. Vous devriez également ajouter plusieurs autres trackers pour assurer la persistance du torrent :"
+    "translation": "Nous avons maintenant notre propre tracker appelé doko.moe, placez-le en haut de la liste avant d'uploader :"
+  },
+  {
+    "id": "other_trackers",
+    "translation": "Mais vous devriez aussi ajouter ceux-ci, dans le cas où cela ne fonctionnerait pas :"
   },
   {
     "id": "how_can_i_help",
@@ -329,7 +333,7 @@
   },
   {
     "id": "answer_how_can_i_help",
-    "translation": "Si vous avez de l'expérience en développement web, vous pouvez rejoindre le cannal IRC #nyaapantsu sur irc.rizon.net. Si vous possédez des bases de données, en particulier de Sukebei, <b>UPLOADEZ-LES</b>."
+    "translation": "Si vous avez de l'expérience en développement web, vous pouvez rejoindre le cannal IRC #nyaapantsu-dev sur irc.rizon.net. Si vous possédez des bases de données, en particulier de Sukebei, <b>UPLOADEZ-LES</b>."
   },
   {
     "id": "your_design_sucks_found_a_bug",
@@ -441,11 +445,11 @@
   },
   {
     "id": "pictures_graphics",
-    "translation": "Images - Design graphique"
+    "translation": "Images - Créations"
   },
   {
     "id": "pictures_photos",
-    "translation": "Images - Photos"
+    "translation": "Images - Photographies"
   },
   {
     "id": "software",
@@ -705,7 +709,7 @@
   },
   {
     "id": "report_torrent_number",
-    "translation": "Signaler le torrent #"
+    "translation": "Signaler le torrent n° "
   },
   {
     "id": "report_type",
