@@ -1,13 +1,13 @@
 {{define "title"}}{{.Torrent.Name}}{{end}}
-{{define "contclass"}}cont-view{{end}}
+{{define "contclass"}}cont-view {{if eq .Torrent.Status 2}}remake{{end}} {{if eq .Torrent.Status 3}}trusted{{end}} {{if eq .Torrent.Status 4}}aplus{{end}}{{end}}
 {{define "content"}}
 <div class="blockBody">
     {{with .Torrent}}
     <hr>
     <div class="content" style="margin-bottom: 2em;">
-        <div class="row">
+        <div class="row {{if eq .Status 2}}remake{{end}} {{if eq .Status 3}}trusted{{end}} {{if eq .Status 4}}aplus{{end}}">
             <div class="col-md-12">
-                <h3 class="break {{if eq .Status 2}}remake{{end}} {{if eq .Status 3}}trusted{{end}} {{if eq .Status 4}}aplus{{end}}">{{.Name}}</h3>
+                <h3 class="break">{{.Name}}</h3>
             </div>
         </div>
         <div class="row">
