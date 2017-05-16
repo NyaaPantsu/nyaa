@@ -14,7 +14,7 @@ box-shadow: 0px 0px 30px 10px rgba(240, 176, 128, 0.6);
 }
 .row.remake {
 margin-bottom: 0.5rem; 
-color: white;
+color: rgb(119, 94, 140);
 padding:2px 0;
 }
 .container.trusted {
@@ -22,7 +22,7 @@ box-shadow: 0px 0px 30px 10px rgba(163, 233, 164, 0.6);
 }
 .row.trusted {
 margin-bottom: 0.5rem; 
-color: white;
+color: rgb(119, 94, 140);
 padding:2px 0;
 }
 .container.aplus {
@@ -30,7 +30,7 @@ box-shadow: 0px 0px 30px 10px rgba(129, 211, 250, 0.6);
 }
 .row.aplus {
 margin-bottom: 0.5rem; 
-color: white;
+color: rgb(119, 94, 140);
 padding:2px 0;
 }
 
