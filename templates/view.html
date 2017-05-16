@@ -90,10 +90,10 @@
             </div>
         </div>
         {{ if gt (len .FileList) 0 }}
-        <div class="row" id="files">
+        <div class="row">
             <div class="col-md-12">
-                <h4>{{T "files"}}</h4>
-                <div class="table-responsive">
+                <h4 data-toggle="collapse" data-target="#files" class="filelist-control" aria-expanded="false">{{T "files"}}</h4>
+                <div class="table-responsive collapse" id="files">
                     <table class="table custom-table-hover">
                     <tr>
                         <th class="col-xs-8">{{T "filename"}}</th>
