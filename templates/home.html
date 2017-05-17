@@ -21,7 +21,7 @@
               <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "7" }}">{{T "D"}}{{ genSortArrows .URL "7" }}</a></th>
               <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{T "date"}}{{ genSortArrows .URL "2" }}</th></a>
               <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "4" }}">{{T "size"}}{{ genSortArrows .URL "4" }}</a></th>
-              <th class="col-xs-1 hidden-xs">{{T "links"}}</th>
+              <th class="col-xs-1 hidden-xs" style="white-space: nowrap;">{{T "links"}}</th>
           </tr>
           {{ range .ListTorrents}}
           <tr class="torrent-info
