@@ -3,6 +3,7 @@ package model
 import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/bradfitz/slice"
 
 	"fmt"
 	"html/template"
@@ -138,6 +139,12 @@ func (t *Torrent) ToJSON() TorrentJSON {
 			commentsJSON = append(commentsJSON, CommentJSON{})
 		}
 	}
+
+	// Sort comments by date
+	slice.Sort(commentsJSON, func(i, j int) bool {
+		return commentsJSON[i].Date.Before(commentsJSON[j].Date)
+	})
+
 	fileListJSON := make([]FileJSON, 0, len(t.FileList))
 	for _, f := range t.FileList {
 		fileListJSON = append(fileListJSON, FileJSON{
@@ -145,6 +152,12 @@ func (t *Torrent) ToJSON() TorrentJSON {
 			Filesize: util.FormatFilesize2(f.Filesize),
 		})
 	}
+
+	// Sort file list by lowercase filename
+	slice.Sort(fileListJSON, func (i, j int) bool {
+		return strings.ToLower(fileListJSON[i].Path) < strings.ToLower(fileListJSON[j].Path)
+	})
+
 	uploader := ""
 	if t.Uploader != nil {
 		uploader = t.Uploader.Username
