@@ -6,7 +6,7 @@ before_install:
 
 script:
 # Downloads deps automatically. No need to add manually.
-- go list -f '{{.Deps}}' | tr "[" " " | tr "]" " " | xargs go list -e -f '{{if not .Standard}}{{.ImportPath}}{{end}}' | grep -v 'github.com/ewhal/nyaa' | xargs go get -v
+- go list -f '{{.Deps}}' | tr "[" " " | tr "]" " " | xargs go list -e -f '{{if not .Standard}}{{.ImportPath}}{{end}}' | grep -v 'github.com/NyaaPantsu/nyaa' | xargs go get -v
 - go get
 - go build
 - go vet

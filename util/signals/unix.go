@@ -3,8 +3,8 @@
 package signals
 
 import (
-	"github.com/ewhal/nyaa/router"
-	"github.com/ewhal/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/router"
+	"github.com/NyaaPantsu/nyaa/util/log"
 	"os"
 	"os/signal"
 	"syscall"

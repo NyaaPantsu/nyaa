@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/ewhal/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/model"
 )
 
 const queryGetAllTorrents = "GetAllTorrents"

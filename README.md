@@ -1,6 +1,6 @@
 ![nyanpasu~](https://my.mixtape.moe/aglaxe.png)
 
-# Nyaa replacement [![Build Status](https://travis-ci.org/ewhal/nyaa.svg?branch=master)](https://travis-ci.org/ewhal/nyaa)
+# Nyaa replacement [![Build Status](https://travis-ci.org/NyaaPantsu/nyaa.svg?branch=master)](https://travis-ci.org/NyaaPantsu/nyaa)
 
 ## Motivation
 The aim of this project is to write a fully featured nyaa replacement in golang
@@ -18,7 +18,7 @@ You can view the public trello board [here](https://trello.com/b/gMJBwoRq/nyaa-p
 # Installation
 Ubuntu 17.04 fails to build, use a different OS or docker
 * Install [Golang](https://golang.org/doc/install) (version >=1.8)
-* `go get github.com/ewhal/nyaa`
+* `go get github.com/NyaaPantsu/nyaa`
 * `go build`
 * Download DB and place it in your root folder named as "nyaa.db"
 * `./nyaa`
@@ -57,7 +57,7 @@ download [dos2unix](https://sourceforge.net/projects/dos2unix/files/latest/downl
 on the /deploy/init.sh to convert CR+LF to LF.
 
 ```sh
-# Make sure the project is in here $GOPATH/src/github.com/ewhal/nyaa
+# Make sure the project is in here $GOPATH/src/github.com/NyaaPantsu/nyaa
 $ cd deploy/
 # You may choose another backend by pointing to the
 # appropriate docker-compose file.

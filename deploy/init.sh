@@ -8,7 +8,7 @@ if [[ "${PANTSU_DBTYPE}" = "postgres" ]]; then
   sleep 40
 fi
 
-go get github.com/ewhal/nyaa
+go get github.com/NyaaPantsu/nyaa
 go build
 ./nyaa -host 0.0.0.0 \
        -port "${PANTSU_INTERNAL_PORT}" \

@@ -1,11 +1,11 @@
 package router
 
 import (
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/util"
-	"github.com/ewhal/nyaa/util/languages"
-	"github.com/ewhal/nyaa/util/log"
-	"github.com/ewhal/nyaa/util/search"
+	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/NyaaPantsu/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/gorilla/mux"
 	"html"
 	"net/http"

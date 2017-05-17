@@ -1,10 +1,10 @@
 package scraperService
 
 import (
-	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/db"
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/db"
+	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/util/log"
 	"net"
 	"net/url"
 	"time"

@@ -4,7 +4,7 @@ import (
 	"path"
 	"testing"
 
-	"github.com/ewhal/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/config"
 )
 
 func TestInitI18n(t *testing.T) {

@@ -2,8 +2,8 @@ package network
 
 import (
 	"fmt"
-	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/majestrate/i2p-tools/lib/i2p"
 	"net"
 )

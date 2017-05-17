@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ewhal/nyaa/db"
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/service"
+	"github.com/NyaaPantsu/nyaa/db"
+	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/service"
 )
 
 // Return torrentReport in case we did modified it (ie: CreatedAt field)

@@ -1,16 +1,16 @@
-package router;
+package router
 
 import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/ewhal/nyaa/util/languages"
-	"github.com/ewhal/nyaa/service/user"
+	"github.com/NyaaPantsu/nyaa/service/user"
+	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/gorilla/mux"
 )
 
 type LanguagesJSONResponse struct {
-	Current   string `json:"current"`
+	Current   string            `json:"current"`
 	Languages map[string]string `json:"languages"`
 }
 
@@ -59,4 +59,3 @@ func ChangeLanguageHandler(w http.ResponseWriter, r *http.Request) {
 	url, _ := Router.Get("home").URL()
 	http.Redirect(w, r, url.String(), http.StatusSeeOther)
 }
-

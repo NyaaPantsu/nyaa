@@ -3,7 +3,7 @@ package form
 import (
 	"regexp"
 
-	"github.com/ewhal/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/util/log"
 )
 
 const EMAIL_REGEX = `(\w[-._\w]*\w@\w[-._\w]*\w\.\w{2,3})`
@@ -64,13 +64,13 @@ type LoginForm struct {
 
 // UserForm is used when updating a user.
 type UserForm struct {
-	Username  string `form:"username" needed:"true" len_min:"3" len_max:"20"`
- 	Email     string `form:"email"`
- 	Language  string `form:"language" default:"en-us"`
- 	CurrentPassword  string `form:"current_password" len_min:"6" len_max:"72" omit:"true"`
-	Password  string `form:"password" len_min:"6" len_max:"72" equalInput:"Confirm_Password"`
- 	Confirm_Password string `form:"password_confirmation" omit:"true"`
-	Status 	  int `form:"status" default:"0"`
+	Username         string `form:"username" needed:"true" len_min:"3" len_max:"20"`
+	Email            string `form:"email"`
+	Language         string `form:"language" default:"en-us"`
+	CurrentPassword  string `form:"current_password" len_min:"6" len_max:"72" omit:"true"`
+	Password         string `form:"password" len_min:"6" len_max:"72" equalInput:"Confirm_Password"`
+	Confirm_Password string `form:"password_confirmation" omit:"true"`
+	Status           int    `form:"status" default:"0"`
 }
 
 // PasswordForm is used when updating a user password.

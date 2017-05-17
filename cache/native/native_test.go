@@ -4,8 +4,8 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/ewhal/nyaa/common"
-	"github.com/ewhal/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/common"
+	"github.com/NyaaPantsu/nyaa/model"
 )
 
 // Basic test for deadlocks and race conditions

@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/ewhal/nyaa/common"
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/service/user"
-	userForms "github.com/ewhal/nyaa/service/user/form"
+	"github.com/NyaaPantsu/nyaa/common"
+	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/service/user"
+	userForms "github.com/NyaaPantsu/nyaa/service/user/form"
 	"github.com/gorilla/mux"
 )
 
@@ -188,7 +188,7 @@ type PanelTorrentReassignVbs struct {
  */
 type Navigation struct {
 	TotalItem      int
-	MaxItemPerPage int     // FIXME: shouldn't this be in SearchForm?
+	MaxItemPerPage int // FIXME: shouldn't this be in SearchForm?
 	CurrentPage    int
 	Route          string
 }

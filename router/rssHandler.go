@@ -1,11 +1,11 @@
 package router
 
 import (
-	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/util"
-	"github.com/ewhal/nyaa/util/search"
-	"github.com/gorilla/mux"
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/gorilla/feeds"
+	"github.com/gorilla/mux"
 	"html"
 	"net/http"
 	"strconv"
@@ -15,7 +15,7 @@ import (
 func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
-	
+
 	var err error
 	pagenum := 1
 	if page != "" {

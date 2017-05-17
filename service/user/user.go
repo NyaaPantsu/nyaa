@@ -7,14 +7,14 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/db"
-	"github.com/ewhal/nyaa/model"
-	formStruct "github.com/ewhal/nyaa/service/user/form"
-	"github.com/ewhal/nyaa/service/user/permission"
-	"github.com/ewhal/nyaa/util/crypto"
-	"github.com/ewhal/nyaa/util/log"
-	"github.com/ewhal/nyaa/util/modelHelper"
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/db"
+	"github.com/NyaaPantsu/nyaa/model"
+	formStruct "github.com/NyaaPantsu/nyaa/service/user/form"
+	"github.com/NyaaPantsu/nyaa/service/user/permission"
+	"github.com/NyaaPantsu/nyaa/util/crypto"
+	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/util/modelHelper"
 	"golang.org/x/crypto/bcrypt"
 )
 

@@ -1,10 +1,10 @@
 package db
 
 import (
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/azhao12345/gorm"
-	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/util/log"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )

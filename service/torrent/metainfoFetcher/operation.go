@@ -1,19 +1,19 @@
-package metainfoFetcher;
+package metainfoFetcher
 
 import (
-	"github.com/anacrolix/torrent/metainfo"
-	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/util"
 	"errors"
-	"time"
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/anacrolix/torrent/metainfo"
 	"strings"
+	"time"
 )
 
 type FetchOperation struct {
-	fetcher  *MetainfoFetcher
-	torrent  model.Torrent
-	done     chan int
+	fetcher *MetainfoFetcher
+	torrent model.Torrent
+	done    chan int
 }
 
 type Result struct {
@@ -24,9 +24,9 @@ type Result struct {
 
 func NewFetchOperation(fetcher *MetainfoFetcher, dbEntry model.Torrent) (op *FetchOperation) {
 	op = &FetchOperation{
-		fetcher:  fetcher,
-		torrent:  dbEntry,
-		done:     make(chan int, 1),
+		fetcher: fetcher,
+		torrent: dbEntry,
+		done:    make(chan int, 1),
 	}
 	return
 }
@@ -56,5 +56,3 @@ func (op *FetchOperation) Start(out chan Result) {
 		break
 	}
 }
-
-

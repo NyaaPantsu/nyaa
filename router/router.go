@@ -3,7 +3,7 @@ package router
 import (
 	"net/http"
 
-	"github.com/ewhal/nyaa/service/captcha"
+	"github.com/NyaaPantsu/nyaa/service/captcha"
 	// "github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
@@ -22,34 +22,34 @@ func init() {
 	gzipUserProfileHandler := http.HandlerFunc(UserProfileHandler)
 	gzipUserDetailsHandler := http.HandlerFunc(UserDetailsHandler)
 	gzipUserProfileFormHandler := http.HandlerFunc(UserProfileFormHandler)
-/*
-	// Enable GZIP compression for all handlers except imgHandler and captcha
-	gzipCSSHandler := cssHandler)
-	gzipJSHandler:= jsHandler)
-	gzipSearchHandler:= http.HandlerFunc(SearchHandler)
-	gzipAPIUploadHandler := http.HandlerFunc(ApiUploadHandler)
-	gzipAPIUpdateHandler := http.HandlerFunc(ApiUpdateHandler)
-	gzipFaqHandler := http.HandlerFunc(FaqHandler)
-	gzipRSSHandler := http.HandlerFunc(RSSHandler)
-	gzipUploadHandler := http.HandlerFunc(UploadHandler)
-	gzipUserRegisterFormHandler := http.HandlerFunc(UserRegisterFormHandler)
-	gzipUserLoginFormHandler := http.HandlerFunc(UserLoginFormHandler)
-	gzipUserVerifyEmailHandler := http.HandlerFunc(UserVerifyEmailHandler)
-	gzipUserRegisterPostHandler := http.HandlerFunc(UserRegisterPostHandler)
-	gzipUserLoginPostHandler := http.HandlerFunc(UserLoginPostHandler)
-	gzipUserLogoutHandler := http.HandlerFunc(UserLogoutHandler)
-	gzipUserFollowHandler := http.HandlerFunc(UserFollowHandler)
+	/*
+		// Enable GZIP compression for all handlers except imgHandler and captcha
+		gzipCSSHandler := cssHandler)
+		gzipJSHandler:= jsHandler)
+		gzipSearchHandler:= http.HandlerFunc(SearchHandler)
+		gzipAPIUploadHandler := http.HandlerFunc(ApiUploadHandler)
+		gzipAPIUpdateHandler := http.HandlerFunc(ApiUpdateHandler)
+		gzipFaqHandler := http.HandlerFunc(FaqHandler)
+		gzipRSSHandler := http.HandlerFunc(RSSHandler)
+		gzipUploadHandler := http.HandlerFunc(UploadHandler)
+		gzipUserRegisterFormHandler := http.HandlerFunc(UserRegisterFormHandler)
+		gzipUserLoginFormHandler := http.HandlerFunc(UserLoginFormHandler)
+		gzipUserVerifyEmailHandler := http.HandlerFunc(UserVerifyEmailHandler)
+		gzipUserRegisterPostHandler := http.HandlerFunc(UserRegisterPostHandler)
+		gzipUserLoginPostHandler := http.HandlerFunc(UserLoginPostHandler)
+		gzipUserLogoutHandler := http.HandlerFunc(UserLogoutHandler)
+		gzipUserFollowHandler := http.HandlerFunc(UserFollowHandler)
 
-	gzipIndexModPanel := http.HandlerFunc(IndexModPanel)
-	gzipTorrentsListPanel := http.HandlerFunc(TorrentsListPanel)
-	gzipTorrentReportListPanel := http.HandlerFunc(TorrentReportListPanel)
-	gzipUsersListPanel := http.HandlerFunc(UsersListPanel)
-	gzipCommentsListPanel := http.HandlerFunc(CommentsListPanel)
-	gzipTorrentEditModPanel := http.HandlerFunc(TorrentEditModPanel)
-	gzipTorrentPostEditModPanel := http.HandlerFunc(TorrentPostEditModPanel)
-	gzipCommentDeleteModPanel := http.HandlerFunc(CommentDeleteModPanel)
-	gzipTorrentDeleteModPanel := http.HandlerFunc(TorrentDeleteModPanel)
-	gzipTorrentReportDeleteModPanel := http.HandlerFunc(TorrentReportDeleteModPanel)*/
+		gzipIndexModPanel := http.HandlerFunc(IndexModPanel)
+		gzipTorrentsListPanel := http.HandlerFunc(TorrentsListPanel)
+		gzipTorrentReportListPanel := http.HandlerFunc(TorrentReportListPanel)
+		gzipUsersListPanel := http.HandlerFunc(UsersListPanel)
+		gzipCommentsListPanel := http.HandlerFunc(CommentsListPanel)
+		gzipTorrentEditModPanel := http.HandlerFunc(TorrentEditModPanel)
+		gzipTorrentPostEditModPanel := http.HandlerFunc(TorrentPostEditModPanel)
+		gzipCommentDeleteModPanel := http.HandlerFunc(CommentDeleteModPanel)
+		gzipTorrentDeleteModPanel := http.HandlerFunc(TorrentDeleteModPanel)
+		gzipTorrentReportDeleteModPanel := http.HandlerFunc(TorrentReportDeleteModPanel)*/
 
 	//gzipTorrentReportCreateHandler := http.HandlerFunc(CreateTorrentReportHandler)
 	//gzipTorrentReportDeleteHandler := http.HandlerFunc(DeleteTorrentReportHandler)

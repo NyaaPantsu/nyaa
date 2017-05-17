@@ -7,9 +7,9 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/service/user/permission"
-	"github.com/ewhal/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/service/user/permission"
+	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/nicksnyder/go-i18n/i18n"
 )
 

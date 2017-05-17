@@ -1,10 +1,10 @@
-package metainfoFetcher;
+package metainfoFetcher
 
 import (
 	"testing"
 
+	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/anacrolix/torrent"
-	"github.com/ewhal/nyaa/model"
 )
 
 func TestInvalidHash(t *testing.T) {
@@ -14,9 +14,9 @@ func TestInvalidHash(t *testing.T) {
 	}
 
 	fetcher := &MetainfoFetcher{
-		timeout: 5,
+		timeout:       5,
 		torrentClient: client,
-		results: make(chan Result, 1),
+		results:       make(chan Result, 1),
 	}
 
 	dbEntry := model.Torrent{
@@ -42,4 +42,3 @@ func TestInvalidHash(t *testing.T) {
 
 	t.Logf("Got error %s, shouldn't be timeout", res.err)
 }
-

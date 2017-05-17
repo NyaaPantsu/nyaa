@@ -2,11 +2,11 @@ package userService
 
 import (
 	"errors"
-	"github.com/ewhal/nyaa/db"
-	"github.com/ewhal/nyaa/model"
-	formStruct "github.com/ewhal/nyaa/service/user/form"
-	"github.com/ewhal/nyaa/util/modelHelper"
-	"github.com/ewhal/nyaa/util/timeHelper"
+	"github.com/NyaaPantsu/nyaa/db"
+	"github.com/NyaaPantsu/nyaa/model"
+	formStruct "github.com/NyaaPantsu/nyaa/service/user/form"
+	"github.com/NyaaPantsu/nyaa/util/modelHelper"
+	"github.com/NyaaPantsu/nyaa/util/timeHelper"
 	"github.com/gorilla/securecookie"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
@@ -47,11 +47,11 @@ func EncodeCookie(user_id uint) (string, error) {
 
 func ClearCookie(w http.ResponseWriter) (int, error) {
 	cookie := &http.Cookie{
-		Name:   CookieName,
-		Value:  "",
-		Path:   "/",
+		Name:     CookieName,
+		Value:    "",
+		Path:     "/",
 		HttpOnly: true,
-		MaxAge: -1,
+		MaxAge:   -1,
 	}
 	http.SetCookie(w, cookie)
 	return http.StatusOK, nil
@@ -88,9 +88,9 @@ func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, er
 		return http.StatusInternalServerError, err
 	}
 	cookie := &http.Cookie{
-		Name:  CookieName,
-		Value: encoded,
-		Path:  "/",
+		Name:     CookieName,
+		Value:    encoded,
+		Path:     "/",
 		HttpOnly: true,
 	}
 	http.SetCookie(w, cookie)

@@ -15,11 +15,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ewhal/nyaa/cache"
-	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/service/upload"
-	"github.com/ewhal/nyaa/util"
-	"github.com/ewhal/nyaa/util/metainfo"
+	"github.com/NyaaPantsu/nyaa/cache"
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/service/upload"
+	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/NyaaPantsu/nyaa/util/metainfo"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/zeebo/bencode"
 )
@@ -158,12 +158,12 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 
 		// extract filesize
 		f.Filesize = int64(torrent.TotalSize())
-		
+
 		// extract filelist
 		fileInfos := torrent.Info.GetFiles()
 		for _, fileInfo := range fileInfos {
 			f.FileList = append(f.FileList, UploadedFile{
-				Path: fileInfo.Path,
+				Path:     fileInfo.Path,
 				Filesize: int64(fileInfo.Length),
 			})
 		}

@@ -1,14 +1,14 @@
 package metainfoFetcher
 
 import (
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/db"
+	"github.com/NyaaPantsu/nyaa/model"
+	serviceBase "github.com/NyaaPantsu/nyaa/service"
+	torrentService "github.com/NyaaPantsu/nyaa/service/torrent"
+	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/anacrolix/torrent"
 	"github.com/anacrolix/torrent/metainfo"
-	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/db"
-	"github.com/ewhal/nyaa/model"
-	serviceBase "github.com/ewhal/nyaa/service"
-	torrentService "github.com/ewhal/nyaa/service/torrent"
-	"github.com/ewhal/nyaa/util/log"
 	"golang.org/x/time/rate"
 	"math"
 	"sync"

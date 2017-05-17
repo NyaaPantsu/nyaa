@@ -5,8 +5,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ewhal/nyaa/common"
-	"github.com/ewhal/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/common"
+	"github.com/NyaaPantsu/nyaa/model"
 )
 
 const expiryTime = time.Minute

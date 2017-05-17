@@ -3,7 +3,7 @@ package postgres
 import (
 	"database/sql"
 
-	"github.com/ewhal/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/util/log"
 	_ "github.com/lib/pq"
 )
 
