@@ -93,7 +93,7 @@
   },
   {
     "id":"sign_up_success",
-    "translation": "ご登録いただきありがとうございます。"
+    "translation": "ご登録ありがとうございます。"
   },
   {
     "id":"verify_success",
@@ -182,6 +182,10 @@
   {
     "id": "fap",
     "translation": "えっち"
+  },
+  {
+    "id": "fun",
+    "translation": "お楽しみ"
   },
   {
     "id": "advanced_search",
@@ -738,5 +742,9 @@
   {
     "id": "cancel",
     "translation": "キャンセル"
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "トラッカーリストに udp://tracker.doko.moe:6969 を追加してください。"
   }
 ]
