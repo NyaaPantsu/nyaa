@@ -13,7 +13,7 @@
 - name: Add go to PATH
   lineinfile:
     path: ~/.bashrc
-    regexp: 'export PATH='
+    regexp: 'export PATH=.*go.*'
     line:   'export PATH=$PATH:/usr/local/go/bin'
 
 - name: Install git for go get command

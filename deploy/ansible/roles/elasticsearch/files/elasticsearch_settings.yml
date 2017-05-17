@@ -1,0 +1,35 @@
+---
+settings:
+  analysis:
+    analyzer:
+      nyaapantsu_analyzer:
+        tokenizer: nyaapantsu_tokenizer
+        filter:
+          - standard
+          - lowercase
+    tokenizer:
+      nyaapantsu_tokenizer:
+        type: edge_ngram
+        min_gram: 2
+        max_gram: 15
+        token_chars:
+          - letter
+          - digit 
+  index:
+    number_of_shards: 1
+    number_of_replicas: 0
+
+mappings:
+  torrents:
+    properties:
+      torrent_id:
+        type: long
+      torrent_name:
+        type: text
+        analyzer: nyaapantsu_analyzer
+      category:
+        type: long
+      sub_category:
+        type: long
+      status:
+        type: lon

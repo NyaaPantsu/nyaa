@@ -22,3 +22,21 @@
   with_items:
     - java-1.8.0-openjdk
     - elasticsearch
+    - python-elasticsearch # INFO Needed for index_nyaapantsu.py script
+
+- name: Copy files to remote
+  copy:
+    src: "{{ item }}"
+    dest: "{{ nyaapantsu_directory }}"
+  with_items:
+    - elasticsearch_settings.yml
+    - index_nyaapantsu.py
+
+- name: Enable and start elasticsearch
+  systemd:
+    enabled: yes
+    name: elasticsearch
+    state: started
+  become: true
+
+# TODO Create / update index
