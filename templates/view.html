@@ -83,7 +83,7 @@
                     <div class="col-md-4">{{.Leechers}}</div>
                     <div class="col-md-4"><span class="completed" style="">{{.Completed}}</span></div>
                     <div class="col-md-4">{{T "last_scraped"}}</div>
-                    <div class="col-md-8">{{.LastScrape.Format (Ts "date_format")}}</div>
+                    <div class="col-md-8 date-short">{{ formatDateRFC .LastScrape }}</div>
                     {{end}}
                     <div class="col-md-8">
                         <div class="proSeedBar">
