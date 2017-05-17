@@ -1,0 +1,42 @@
+- name: Add elasticsearch key
+  rpm_key:
+    state: present
+    key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+  become: true
+
+- name: Add elasticsearch repo
+  yum_repository:
+    name: elasticsearch-5.x
+    baseurl: https://artifacts.elastic.co/packages/5.x/yum
+    gpgcheck: 1
+    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    enabled: 1
+    description: Elastic search repository for 5.x packages
+  become: true
+
+- name: Install java and elasticsearch
+  yum:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - java-1.8.0-openjdk
+    - elasticsearch
+    - python-elasticsearch # INFO Needed for index_nyaapantsu.py script
+
+- name: Copy files to remote
+  copy:
+    src: "{{ item }}"
+    dest: "{{ nyaapantsu_directory }}"
+  with_items:
+    - elasticsearch_settings.yml
+    - index_nyaapantsu.py
+
+- name: Enable and start elasticsearch
+  systemd:
+    enabled: yes
+    name: elasticsearch
+    state: started
+  become: true
+
+# TODO Create / update index

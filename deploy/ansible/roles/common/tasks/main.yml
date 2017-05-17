@@ -1,0 +1,7 @@
+- name: Create nyaapantsu directory
+  file:
+    path: "{{ nyaapantsu_directory }}"
+    state: directory
+    mode: 0755
+    owner: "{{ ansible_ssh_user }}"
+  become: true

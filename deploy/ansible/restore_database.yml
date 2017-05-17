@@ -1,0 +1,14 @@
+- name: Restore database
+  hosts: dbs
+  roles:
+    - common
+    - postgresql
+
+  tasks:
+    - name: Copy backup database
+      copy:
+        src: ../../nyaa_psql.backup
+        dest: "{{ nyaapantsu_directory }}"
+
+    - name: Restore database from backup
+      command: pg_restore -U "{{ nyaapantsu_user }}" -d "{{ nyaapantsu_dbname }}" "{{ nyaapantsu_directory }}/nyaa_psql.backup"
