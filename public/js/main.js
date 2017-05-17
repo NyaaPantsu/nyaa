@@ -17,35 +17,21 @@ function toggleLayer(elem) {
 		elem.classList.add("hide");
 }
 
-// Date formatting
-function formatDate(date) { // thanks stackoverflow
-    var monthNames = [
-        "January", "February", "March",
-        "April", "May", "June", "July",
-        "August", "September", "October",
-        "November", "December"
-    ];
-
-    var day = date.getDate();
-    var monthIndex = date.getMonth();
-    var year = date.getFullYear();
-
-    return day + ' ' + monthNames[monthIndex] + ' ' + year;
-}
+var lang = $("html").attr("lang");
+var shortOpt = { year: "numeric", month: "short", day: "numeric" };
 
 var list = document.getElementsByClassName("date-short");
 for(var i in list) {
 	var e = list[i];
 	e.title = e.innerText;
-	e.innerText = formatDate(new Date(e.innerText));
+	e.innerText = new Date(e.innerText).toLocaleString(lang, shortOpt);
 }
 
 var list = document.getElementsByClassName("date-full");
 for(var i in list) {
 	var e = list[i];
 	e.title = e.innerText;
-	var date = new Date(e.innerText);
-	e.innerText = date.toDateString() + " " + date.toLocaleTimeString();
+	e.innerText = new Date(e.innerText).toLocaleString(lang);
 }
 
 /*Fixed-Navbar offset fix*/
