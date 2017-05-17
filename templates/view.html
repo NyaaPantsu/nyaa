@@ -131,23 +131,19 @@
                                 <div class="commentData">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="col-sm-9">
-                                                    {{if eq .UserID -1}}
-                                                    <a href="#comment_{{inc $index}}">#{{inc $index}}</a> by {{.Username}}
-                                                    {{else}}
-                                                    <a href="#comment_{{inc $index}}">#{{inc $index}}</a>
-                                                    by <span class="break"><a href="{{$.URL.Parse (printf "/user/%d/-" .UserID ) }}">{{.Username}}</a></span>
-                                                    {{end}}
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <i class="pull-right date-short comment-date">
-                                                    <small>
-                                                    {{ formatDateRFC .Date }}
-                                                    {{/* JS will format the date as always */}}
-                                                    </small>
-                                                    </i>
-                                                </div>
+                                            <i class="pull-right date-comments comment-date">
+                                            <small>
+                                            {{ formatDateRFC .Date }}
+                                            {{/* JS will format the date as always */}}
+                                            </small>
+                                            </i>
+                                            <div>
+                                                {{if eq .UserID -1}}
+                                                <a href="#comment_{{inc $index}}">#{{inc $index}}</a> by {{.Username}}
+                                                {{else}}
+                                                <a href="#comment_{{inc $index}}">#{{inc $index}}</a>
+                                                by <span class="break"><a href="{{$.URL.Parse (printf "/user/%d/-" .UserID ) }}">{{.Username}}</a></span>
+                                                {{end}}
                                             </div>
                                         </div>
                                     </div>
