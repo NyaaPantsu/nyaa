@@ -442,10 +442,7 @@ select#bottom_language_selector {
 /* Wordbreak fix*/
 
 .break {
-  word-break:break-all;
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
+  word-break: break-all;
   hyphens: auto;
 }
 
@@ -505,7 +502,7 @@ select#bottom_language_selector {
 }
 
 .commentList .commentBody > .row > div {
-      word-break: break-word;
+      word-wrap: break-word;
 }
 
 .commentList .commentData {
