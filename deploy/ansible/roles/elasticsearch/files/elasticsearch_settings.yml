@@ -32,4 +32,4 @@ mappings:
       sub_category:
         type: long
       status:
-        type: lon
+        type: long
