@@ -2,22 +2,29 @@
 from elasticsearch import Elasticsearch, helpers
 import psycopg2, pprint, sys, time, os
 
-PANTSU_INDEX = 'pantsu'
-CHUNK_SIZE   = 15000
+CHUNK_SIZE = 10000
 
 dbparams = ''
+pantsu_index = ''
+
 try:
     dbparams = os.environ['PANTSU_DBPARAMS']
 except:
     print('[Error]: Environment variable PANTSU_DBPARAMS not defined.')
     sys.exit(1)
 
+try:
+    pantsu_index = os.environ['PANTSU_ELASTICSEARCH_INDEX']
+except:
+    print('[Error]: Environment variable PANTSU_ELASTICSEARCH_INDEX not defined.')
+    sys.exit(1)
+
 es = Elasticsearch()
 pgconn = psycopg2.connect(dbparams)
 
 cur = pgconn.cursor()
-cur.execute("""select torrent_id, torrent_name, category, sub_category, status 
-               from torrents 
+cur.execute("""SELECT torrent_id, torrent_name, category, sub_category, status
+               FROM torrents
                WHERE deleted_at IS NULL""")
 
 fetches = cur.fetchmany(CHUNK_SIZE)
@@ -32,7 +39,7 @@ while fetches:
           'status': status
         }
         action = {
-            '_index': PANTSU_INDEX,
+            '_index': pantsu_index,
             '_type': 'document',
             '_id': torrent_id,
             '_source': doc
