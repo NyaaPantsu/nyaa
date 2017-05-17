@@ -64,23 +64,6 @@
   {{ end }}
   <input type="hidden" name="userID" value="{{ .Search.UserID }}">
 {{end}}
-{{/* this is used in the modpanel */}}
-{{define "search_advanced"}}
-  <select name="sort" class="form-control input-sm">
-    <option value="0" {{if eq .Search.Sort 0}}selected{{end}}>{{T "id"}}</option>
-    <option value="1" {{if eq .Search.Sort 1}}selected{{end}}>{{T "name"}}</option>
-    <option value="2" {{if eq .Search.Sort 2}}selected{{end}}>{{T "date"}}</option>
-    <option value="3" {{if eq .Search.Sort 3}}selected{{end}}>{{T "downloads"}}</option>
-    <option value="4" {{if eq .Search.Sort 4}}selected{{end}}>{{T "size"}}</option>
-    <option value="5" {{if eq .Search.Sort 4}}selected{{end}}>{{T "seeders"}}</option>
-    <option value="6" {{if eq .Search.Sort 4}}selected{{end}}>{{T "leechers"}}</option>
-    <option value="7" {{if eq .Search.Sort 4}}selected{{end}}>{{T "completed"}}</option>
-  </select>
-  <select name="order" class="form-control input-sm">
-    <option value="false" {{if eq .Search.Order false}}selected{{end}}>{{T "descending"}}</option>
-    <option value="true" {{if eq .Search.Order true}}selected{{end}}>{{T "ascending"}}</option>
-  </select>
-{{end}}
 {{define "search_button"}}
   <div class="input-group">
     <input name="q" class="form-control input-sm" placeholder="{{T "search"}}" type="text" value="{{.Search.Query}}">

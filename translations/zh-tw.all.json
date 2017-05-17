@@ -612,10 +612,6 @@
     "translation": "編輯 %s 的個人檔案"
   },
   {
-    "id":"date_format",
-    "translation": "2006-01-02 15:04"
-  },
-  {
     "id": "seeders",
     "translation": "上傳數"
   },

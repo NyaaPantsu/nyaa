@@ -652,10 +652,6 @@
     "translation": "%s のプロフィールを編集"
   },
   {
-    "id":"date_format",
-    "translation": "2006/01/02 15:04"
-  },
-  {
     "id": "seeders",
     "translation": "Seeder 数"
   },

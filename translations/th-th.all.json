@@ -652,10 +652,6 @@
     "translation": "แก้ไขโปรไฟล์ของ %s"
   },
   {
-    "id":"date_format",
-    "translation": "2006/01/02 15:04"
-  },
-  {
     "id": "seeders",
     "translation": "ผู้ปล่อย"
   },

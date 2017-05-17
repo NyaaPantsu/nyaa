@@ -1,6 +1,6 @@
 /* Torrent status colors */
 .remake {
-  background-color: rgba(240, 176, 128, 0.6);
+  background-color: rgb(240, 176, 128);
 }
 .trusted {
   background-color: #a3e9a4;
@@ -59,16 +59,13 @@ padding:2px 0;
     background: white;
 }
 
-
-/*
-#container.cont-home {
-     background: white url(/img/renchon.png) no-repeat;
+li#mascot {
+	background-image: url(/img/renchon.png);
+	width: 125px;
+	height: 169px;
+	margin-bottom: -5px;
 }
-#container.cont-view {
-     background: white url(/img/renchon.png) no-repeat;
-     background-size: 61px;
-}
-*/
+/* This used to avoid usage of Javascript for switching images. */
 
 body {
     background-color: #ececec;
@@ -241,8 +238,9 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 }
 #mainmenu .navbar-form select.form-control#max
 {
-  width: 8rem;
+  width: 6rem;
 }
+
 .special-img 
 {
     position: relative;
@@ -444,10 +442,7 @@ select#bottom_language_selector {
 /* Wordbreak fix*/
 
 .break {
-  word-break:break-all;
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
+  word-break: break-all;
   hyphens: auto;
 }
 
@@ -507,7 +502,7 @@ select#bottom_language_selector {
 }
 
 .commentList .commentBody > .row > div {
-      word-break: break-word;
+      word-wrap: break-word;
 }
 
 .commentList .commentData {
