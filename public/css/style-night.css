@@ -149,3 +149,10 @@ a:hover {
   background: #29363d;
   color: #fff;
 }
+
+textarea.torrent-desc {
+  background: none;
+}
+.md-editor>textarea:focus {
+  background: none;
+}
