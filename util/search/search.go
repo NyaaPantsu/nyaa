@@ -144,9 +144,16 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	case "true":
 		search.Order = true
 		orderBy += "asc"
+		if db.ORM.Dialect().GetName() == "postgres" {
+			orderBy += " NULLS FIRST"
+    	}
 	default:
 		orderBy += "desc"
-	}
+		if db.ORM.Dialect().GetName() == "postgres" {
+			orderBy += " NULLS LAST"
+    	}
+   	}
+
 	parameters := serviceBase.WhereParams{
 		Params: make([]interface{}, 0, 64),
 	}
