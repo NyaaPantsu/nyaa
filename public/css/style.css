@@ -1,6 +1,6 @@
 /* Torrent status colors */
 .remake {
-  background-color: rgba(240, 176, 128, 0.6);
+  background-color: rgb(240, 176, 128);
 }
 .trusted {
   background-color: #a3e9a4;
