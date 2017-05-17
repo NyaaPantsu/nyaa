@@ -185,7 +185,7 @@
   },
   {
     "id": "fun",
-    "translation": "お楽しみ"
+    "translation": "にゃあ"
   },
   {
     "id": "advanced_search",
@@ -461,35 +461,35 @@
   },
   {
     "id": "art",
-    "translation": "アート"
+    "translation": "二次元"
   },
   {
     "id": "art_anime",
-    "translation": "アート - アニメ"
+    "translation": "二次元 - アニメ"
   },
   {
     "id": "art_doujinshi",
-    "translation": "アート - 同人誌"
+    "translation": "二次元 - 同人誌"
   },
   {
     "id": "art_games",
-    "translation": "アート - ゲーム"
+    "translation": "二次元 - ゲーム"
   },
   {
     "id": "art_manga",
-    "translation": "アート - 漫画"
+    "translation": "二次元 - 漫画"
   },
   {
     "id": "real_life",
-    "translation": "日常"
+    "translation": "三次元"
   },
   {
     "id": "real_life_photobooks_and_pictures",
-    "translation": "日常 - フォトブック、写真"
+    "translation": "三次元 - フォトブック、写真"
   },
   {
     "id": "real_life_videos",
-    "translation": "日常 - ビデオ"
+    "translation": "三次元 - ビデオ"
   },
   {
     "id": "torrent_description",
@@ -741,6 +741,6 @@
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "トラッカーリストに udp://tracker.doko.moe:6969 を追加してください。"
+    "translation": "トラッカーに udp://tracker.doko.moe:6969 を含めてください。"
   }
 ]
