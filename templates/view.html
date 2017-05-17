@@ -76,9 +76,15 @@
                     <div class="col-md-4">{{T "completed"}}</div>
                 </div>
                 <div class="row">
+                    {{if .LastScrape.IsZero}}
+                    <div class="col-md-12" align="center">{{T "unknown"}}</div>
+                    {{else}}
                     <div class="col-md-4">{{.Seeders}}</div>
                     <div class="col-md-4">{{.Leechers}}</div>
                     <div class="col-md-4"><span class="completed" style="">{{.Completed}}</span></div>
+                    <div class="col-md-4">{{T "last_scraped"}}</div>
+                    <div class="col-md-8 date-short">{{ formatDateRFC .LastScrape }}</div>
+                    {{end}}
                     <div class="col-md-8">
                         <div class="proSeedBar">
                             <div class="seeds" style="width: {{ calcWidthSeed .Seeders .Leechers }}%;"></div>
