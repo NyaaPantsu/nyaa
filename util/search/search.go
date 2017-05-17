@@ -116,22 +116,22 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 		search.Sort = common.Size
 		orderBy += "filesize"
 		// avoid sorting completely breaking on postgres
-		search.NotNull = "filesize IS NOT NULL"
+		search.NotNull = ""
 		break
 	case "5":
 		search.Sort = common.Seeders
 		orderBy += "seeders"
-		search.NotNull = "seeders IS NOT NULL"
+		search.NotNull = ""
 		break
 	case "6":
 		search.Sort = common.Leechers
 		orderBy += "leechers"
-		search.NotNull = "leechers IS NOT NULL"
+		search.NotNull = ""
 		break
 	case "7":
 		search.Sort = common.Completed
 		orderBy += "completed"
-		search.NotNull = "completed IS NOT NULL"
+		search.NotNull = ""
 		break
 	default:
 		search.Sort = common.ID
