@@ -745,6 +745,6 @@
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "トラッカーリストに udp://tracker.doko.moe:6969 を追加してください。"
+    "translation": "トラッカーに udp://tracker.doko.moe:6969 を含めてください。"
   }
 ]
