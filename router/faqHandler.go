@@ -3,7 +3,7 @@ package router
 import (
 	"net/http"
 
-	"github.com/ewhal/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/gorilla/mux"
 )
 

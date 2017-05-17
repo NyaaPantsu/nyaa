@@ -7,12 +7,12 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/db"
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/util/email"
-	"github.com/ewhal/nyaa/util/languages"
-	"github.com/ewhal/nyaa/util/timeHelper"
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/db"
+	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/util/email"
+	"github.com/NyaaPantsu/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/util/timeHelper"
 	"github.com/gorilla/securecookie"
 )
 

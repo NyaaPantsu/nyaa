@@ -4,9 +4,9 @@ package router
 	"net/http"
 	"strconv"
 
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/service/moderation"
-	"github.com/ewhal/nyaa/service/user/permission"
+	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/service/moderation"
+	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/gorilla/mux"
 )*/
 

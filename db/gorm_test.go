@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/azhao12345/gorm"
-	"github.com/ewhal/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/config"
 )
 
 type errorLogger struct {
@@ -54,7 +54,7 @@ func TestGormInitSqlite(t *testing.T) {
 // - psql -c "CREATE USER nyaapantsu WITH PASSWORD 'nyaapantsu';" -U postgres
 //
 // Then enable the test by setting this variable to "true" via ldflags:
-// go test ./... -v -ldflags="-X github.com/ewhal/nyaa/db.testPostgres=true"
+// go test ./... -v -ldflags="-X github.com/NyaaPantsu/nyaa/db.testPostgres=true"
 var testPostgres = "false"
 
 func TestGormInitPostgres(t *testing.T) {

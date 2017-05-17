@@ -3,7 +3,7 @@ package router
 import (
 	"net/http"
 
-	"github.com/ewhal/nyaa/service/captcha"
+	"github.com/NyaaPantsu/nyaa/service/captcha"
 	// "github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )

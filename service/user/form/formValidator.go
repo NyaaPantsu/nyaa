@@ -3,7 +3,7 @@ package form
 import (
 	"regexp"
 
-	"github.com/ewhal/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/util/log"
 )
 
 const EMAIL_REGEX = `(\w[-._\w]*\w@\w[-._\w]*\w\.\w{2,3})`

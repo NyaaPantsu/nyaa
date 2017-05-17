@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/ewhal/nyaa/common"
-	"github.com/ewhal/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/common"
+	"github.com/NyaaPantsu/nyaa/model"
 )
 
 func (db *Database) InsertTorrentReport(report *model.TorrentReport) (err error) {

@@ -1,9 +1,9 @@
 package router
 
 import (
-	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/util"
-	"github.com/ewhal/nyaa/util/search"
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/gorilla/feeds"
 	"net/http"
 	"time"

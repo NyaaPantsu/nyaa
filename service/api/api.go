@@ -12,10 +12,10 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/service"
-	"github.com/ewhal/nyaa/service/upload"
-	"github.com/ewhal/nyaa/util/metainfo"
+	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/service"
+	"github.com/NyaaPantsu/nyaa/service/upload"
+	"github.com/NyaaPantsu/nyaa/util/metainfo"
 	"github.com/zeebo/bencode"
 )
 

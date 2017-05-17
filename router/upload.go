@@ -15,11 +15,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ewhal/nyaa/cache"
-	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/service/upload"
-	"github.com/ewhal/nyaa/util"
-	"github.com/ewhal/nyaa/util/metainfo"
+	"github.com/NyaaPantsu/nyaa/cache"
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/service/upload"
+	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/NyaaPantsu/nyaa/util/metainfo"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/zeebo/bencode"
 )

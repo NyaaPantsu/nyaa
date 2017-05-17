@@ -1,7 +1,7 @@
 package util
 
 import (
-	"github.com/ewhal/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/util/log"
 
 	"bytes"
 	"compress/zlib"

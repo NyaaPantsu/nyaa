@@ -5,13 +5,13 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/service/captcha"
-	"github.com/ewhal/nyaa/service/user"
-	"github.com/ewhal/nyaa/service/user/form"
-	"github.com/ewhal/nyaa/service/user/permission"
-	"github.com/ewhal/nyaa/util/languages"
-	"github.com/ewhal/nyaa/util/modelHelper"
+	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/service/captcha"
+	"github.com/NyaaPantsu/nyaa/service/user"
+	"github.com/NyaaPantsu/nyaa/service/user/form"
+	"github.com/NyaaPantsu/nyaa/service/user/permission"
+	"github.com/NyaaPantsu/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/util/modelHelper"
 	"github.com/gorilla/mux"
 )
 

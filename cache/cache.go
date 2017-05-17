@@ -1,12 +1,12 @@
 package cache
 
 import (
-	"github.com/ewhal/nyaa/cache/memcache"
-	"github.com/ewhal/nyaa/cache/native"
-	"github.com/ewhal/nyaa/cache/nop"
-	"github.com/ewhal/nyaa/common"
-	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/cache/memcache"
+	"github.com/NyaaPantsu/nyaa/cache/native"
+	"github.com/NyaaPantsu/nyaa/cache/nop"
+	"github.com/NyaaPantsu/nyaa/common"
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/model"
 )
 
 // Cache defines interface for caching search results

@@ -2,11 +2,11 @@ package userService
 
 import (
 	"errors"
-	"github.com/ewhal/nyaa/db"
-	"github.com/ewhal/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/db"
+	"github.com/NyaaPantsu/nyaa/model"
 	"net/http"
 
-	"github.com/ewhal/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/util/log"
 )
 
 // FindUserByUserName creates a user.

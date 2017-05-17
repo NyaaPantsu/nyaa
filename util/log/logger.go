@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/ewhal/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/config"
 	lumberjack "gopkg.in/natefinch/lumberjack.v2"
 )
 

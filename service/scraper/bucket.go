@@ -5,7 +5,7 @@ import (
 	"net"
 	"sync"
 
-	"github.com/ewhal/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/model"
 )
 
 const InitialConnectionID = 0x41727101980

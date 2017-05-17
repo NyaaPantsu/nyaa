@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/ewhal/nyaa/util/languages"
-	"github.com/ewhal/nyaa/service/user"
+	"github.com/NyaaPantsu/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/gorilla/mux"
 )
 

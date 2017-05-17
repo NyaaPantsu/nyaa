@@ -2,11 +2,11 @@ package userService
 
 import (
 	"errors"
-	"github.com/ewhal/nyaa/db"
-	"github.com/ewhal/nyaa/model"
-	formStruct "github.com/ewhal/nyaa/service/user/form"
-	"github.com/ewhal/nyaa/util/modelHelper"
-	"github.com/ewhal/nyaa/util/timeHelper"
+	"github.com/NyaaPantsu/nyaa/db"
+	"github.com/NyaaPantsu/nyaa/model"
+	formStruct "github.com/NyaaPantsu/nyaa/service/user/form"
+	"github.com/NyaaPantsu/nyaa/util/modelHelper"
+	"github.com/NyaaPantsu/nyaa/util/timeHelper"
 	"github.com/gorilla/securecookie"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"

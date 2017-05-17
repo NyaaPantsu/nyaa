@@ -2,7 +2,7 @@ package modelHelper
 
 import (
 	"fmt"
-	"github.com/ewhal/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/util/log"
 	"net/http"
 	"reflect"
 	"strconv"

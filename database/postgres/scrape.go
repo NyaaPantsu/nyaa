@@ -2,7 +2,7 @@ package postgres
 
 import (
 	"database/sql"
-	"github.com/ewhal/nyaa/common"
+	"github.com/NyaaPantsu/nyaa/common"
 )
 
 func (db *Database) RecordScrapes(scrape []common.ScrapeResult) (err error) {

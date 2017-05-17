@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/anacrolix/torrent"
-	"github.com/ewhal/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/model"
 )
 
 func TestInvalidHash(t *testing.T) {

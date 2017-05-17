@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"github.com/ewhal/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/model"
 
 	"database/sql"
 )

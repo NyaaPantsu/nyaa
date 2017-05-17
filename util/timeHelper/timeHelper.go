@@ -3,7 +3,7 @@ package timeHelper
 import (
 	"time"
 
-	"github.com/ewhal/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/util/log"
 )
 
 func FewDaysLater(day int) time.Time {

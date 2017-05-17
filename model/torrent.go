@@ -1,8 +1,8 @@
 package model
 
 import (
-	"github.com/ewhal/nyaa/config"
-	"github.com/ewhal/nyaa/util"
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/util"
 
 	"fmt"
 	"html/template"
