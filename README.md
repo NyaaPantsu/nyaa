@@ -71,19 +71,22 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 > nyaa_psql.backup.
 
 ## TODO
-### Top Priorities
- * Use new db abstraction layer and remove all ORM code
- * Use elastic search or sphinix search
- * Implement mockup design from /g/anon
- * Improve tools for users
-   * allow editing and soft deletion of user uploaded torrents
-### Lower Priorities
- * Get code up to standard of go lint recommendations
- * Write tests
-  * Site theme
-   * original nyaa theme
- * API improvement
- * Scraping of fan subbing RSS feeds(WIP)
+* Improve tools for users
+  * Editing of uploaded torrents
+  * soft deletion of uploaded torrents
+* Scraping of fan subbing RSS feeds similar to metainfo_fetcher and scraper
+  * nyaa.si
+  * anidex.moe
+* Site theme
+  * original nyaa theme
+  * Implement mockup design from /g/anon
+
+* Use elastic search or sphinix search
+* Use new db abstraction layer and remove all ORM code
+* API improvement
+* Get code up to standard of go lint recommendations
+* Write tests
+
 
 # LICENSE
 This project is licensed under the MIT License - see the LICENSE.md file for details
