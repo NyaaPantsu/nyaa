@@ -18,7 +18,7 @@ function toggleLayer(elem) {
 
 // Date formatting
 var lang = $("html").attr("lang");
-var shortOpt = { year: "numeric", month: "short", day: "numeric" };
+var shortOpt = { year: "numeric", month: "short", day: "numeric", hour:"numeric", minute:"numeric"  };
 
 var list = document.getElementsByClassName("date-short");
 for(var i in list) {
