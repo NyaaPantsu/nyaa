@@ -134,6 +134,10 @@ td {
 }
 
 /* Table style & fixes */
+.table > tbody > tr > th {
+    white-space: nowrap;
+}
+
 .table > tbody > tr > td {
     /* fix bootstrap uglyness */
     vertical-align: middle;
