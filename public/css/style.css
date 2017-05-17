@@ -59,16 +59,13 @@ padding:2px 0;
     background: white;
 }
 
-
-/*
-#container.cont-home {
-     background: white url(/img/renchon.png) no-repeat;
+li#mascot {
+	background-image: url(/img/renchon.png);
+	width: 125px;
+	height: 169px;
+	margin-bottom: -5px;
 }
-#container.cont-view {
-     background: white url(/img/renchon.png) no-repeat;
-     background-size: 61px;
-}
-*/
+/* This used to avoid usage of Javascript for switching images. */
 
 body {
     background-color: #ececec;
