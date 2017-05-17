@@ -614,10 +614,6 @@
   {
     "id": "profile_edit_page",
     "translation": "Modifica il profilo di %s"
- },
-  {
-    "id":"date_format",
-    "translation": "2006-01-02 15:04"
   },
   {
     "id": "seeders",

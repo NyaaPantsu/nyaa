@@ -17,6 +17,7 @@ function toggleLayer(elem) {
 		elem.classList.add("hide");
 }
 
+// Date formatting
 var lang = $("html").attr("lang");
 var shortOpt = { year: "numeric", month: "short", day: "numeric" };
 
