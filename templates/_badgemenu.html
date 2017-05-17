@@ -1,6 +1,6 @@
 {{define "badge_user"}}
 {{with .User}}
-	<ul class="nav navbar-nav navbar-right badgemenu">
+	<ul class="nav navbar-nav navbar-right badgemenu" style="display:flex;align-items:center">
 		<li class="dropdown">
 			{{if gt .ID 0}}
 		    <a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}" class="dropdown-toggle profile-image" data-toggle="dropdown">

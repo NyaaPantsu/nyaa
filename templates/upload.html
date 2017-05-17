@@ -4,7 +4,6 @@
   {{with .Upload}}
   <hr>
   <form enctype="multipart/form-data" role="upload" method="POST">
-
       <div class="form-group">
       <label for="name">{{T "name"}}</label>
           <input type="text" name="name" id="name" class="form-control" placeholder="{{T "file_name"}}" value="{{.Name}}" autofocus required>
@@ -69,7 +68,7 @@
       <div class="form-group">
           <label for="desc">{{T "torrent_description"}}</label>
           <p class="help-block">{{T "description_markdown_notice"}}</p>
-          <textarea name="desc" id="desc" class="form-contro torrent-desc" rows="15">{{.Description}}</textarea>
+          <textarea name="desc" id="desc" class="form-control torrent-desc" rows="10">{{.Description}}</textarea>
       </div>
 
       {{block "captcha" .}}{{end}}

@@ -45,7 +45,6 @@
                       <span class="icon-bar"></span>
                   </button>
                   <a href="{{.URL.Parse "/"}}"><img src="/img/logo.png" class ="navbar-logo" alt="Nyaa Pantsu"></a>
-                  <a class="navbar-brand hidden-md pull-right nightswitch" href="javascript:toggleNightMode();" ></a>
               </div>
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
@@ -61,6 +60,7 @@
 
                   </ul>
                   {{block "badge_user" .}}{{end}}
+
                   <form class="navbar-form navbar-right" role="search" action="/search" method="get">
                       <div class="form-group">
                         {{block "search_common" .}}{{end}}
@@ -68,16 +68,18 @@
                       <div class="form-group">
                         {{block "search_button" .}}{{end}}
                       </div>
+                        <input id="theme-switcher-button"
+                               type="button" onclick="javascript:toggleNightMode();"
+                               class="btn btn-sm theme-switcher-colors">
                   </form>
-                  
                 </div>
           </div>
       </nav>
 
       <!-- top padding -->
-      <div style="padding-top: 10rem"></div>
+      <div style="padding-top: 7rem"></div>
 
-      <div class="container {{block "contclass" .}}generic{{end}}" id="container">
+      <div class="container {{block "contclass" .}}generic{{end}}" id="container" style="padding-top:0">
         {{block "content" .}}{{T "nothing_here"}}{{end}}
       </div>
 
