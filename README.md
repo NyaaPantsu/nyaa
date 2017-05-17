@@ -87,3 +87,6 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 
 # LICENSE
 This project is licensed under the MIT License - see the LICENSE.md file for details
+
+# Disclaimer
+I take no legal responsibility for anything this code is used for. This is an purely an educational proof of concept.
