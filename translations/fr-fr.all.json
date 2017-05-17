@@ -746,5 +746,13 @@
   {
     "id": "please_include_our_tracker",
     "translation": "Veuillez inclure udp://tracker.doko.moe:6969 dans vos trackers."
+  },
+  {
+    "id": "unknown",
+    "translation": "Inconnu"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "Dernier scrape effectué : "
   }
 ]
