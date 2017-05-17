@@ -45,15 +45,22 @@ var FuncMap = template.FuncMap{
 	},
 	"genSearchWithOrdering": func(currentUrl url.URL, sortBy string) template.URL {
 		values := currentUrl.Query()
-		order := false
+		order := false  //Default is DESC
+		sort := "2" //Default is Date (Actually ID, but Date is the same thing)
+
 		if _, ok := values["order"]; ok {
 			order, _ = strconv.ParseBool(values["order"][0])
-			if values["sort"][0] == sortBy {
-				order = !order //Flip order by repeat-clicking
-			} else {
-				order = false //Default to descending when sorting by something new
-			}
 		}
+		if _, ok := values["sort"]; ok {
+			sort = values["sort"][0]
+		}
+		
+		if sort == sortBy {
+			order = !order //Flip order by repeat-clicking
+		} else {
+			order = false //Default to descending when sorting by something new
+		}
+
 		values.Set("sort", sortBy)
 		values.Set("order", strconv.FormatBool(order))
 
@@ -67,13 +74,21 @@ var FuncMap = template.FuncMap{
 		leftclass := "sortarrowdim"
 		rightclass := "sortarrowdim"
 
+		order := false
+		sort := "2"
+
 		if _, ok := values["order"]; ok {
-			if values["sort"][0] == sortBy {
-				if values["order"][0] == "true" {
-					rightclass = ""
-				} else {
-					leftclass = ""
-				}
+			order, _ = strconv.ParseBool(values["order"][0])
+		}
+		if _, ok := values["sort"]; ok {
+			sort = values["sort"][0]
+		}
+
+		if sort == sortBy {
+			if order {
+				rightclass = ""
+			} else {
+				leftclass = ""
 			}
 		}
 
