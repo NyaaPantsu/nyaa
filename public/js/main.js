@@ -1,4 +1,3 @@
-var night = localStorage.getItem("night");
 function toggleNightMode() {
     var night = localStorage.getItem("night");
     if(night == "true") {
