@@ -25,7 +25,7 @@ var list = document.getElementsByClassName("date-short");
 for(var i in list) {
 	var e = list[i];
 	e.title = e.innerText;
-	e.innerText = new Date(e.innerText).toLocaleString(lang, shortOpt);
+	e.innerText = new Date(e.innerText).toLocaleString(lang, ymdOpt);
 }
 
 var list = document.getElementsByClassName("date-full");
