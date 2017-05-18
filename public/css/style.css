@@ -59,11 +59,13 @@ padding:2px 0;
     background: white;
 }
 
-li#mascot {
+#mascot {
 	background-image: url(/img/renchon.png);
 	width: 125px;
 	height: 169px;
-	margin-bottom: -5px;
+  position: fixed;
+  bottom: 0px;
+  left: 2%;
 }
 /* This used to avoid usage of Javascript for switching images. */
 

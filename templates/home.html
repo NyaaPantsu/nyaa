@@ -1,12 +1,24 @@
 {{define "title"}}{{T "home"}}{{end}}
 {{define "contclass"}}cont-home{{end}}
 {{define "content"}}
+
+<audio id="nyaapassu" hidden>
+  <source src="http://nyanpass.com/nyanpass.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+<audio id="explosion" hidden>
+  <source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+  <span id="mascot" class="visible-lg-block"></span>
+
   <div class="blockBody">
+      <nav>
       <ul class="list-inline" aria-label="Page navigation">
-          <li id="mascot"></li>
-          <li style="padding-top: 7%;" class="pull-right"><ul class="pagination">
+          <li><ul class="pagination">
               {{ genNav .Navigation .URL 5 }}
-          </ul></li>
+          </li></ul>
       </nav>
 
       <div class="table-responsive">

@@ -45,3 +45,13 @@ window.onload = function() {
 if (location.hash) shiftWindow();
 window.addEventListener("hashchange", shiftWindow);
 };
+
+
+$('#mascot').bind('touchstart mousedown click', function(e){
+	var night = localStorage.getItem("night");
+    if(night == "true") {
+		$('#explosion')[0].play();
+    } else {
+		$('#nyaapassu')[0].play();
+    }
+});
