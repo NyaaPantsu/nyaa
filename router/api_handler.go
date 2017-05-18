@@ -34,7 +34,7 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if req.MaxPerPage == 0 {
-			req.MaxPerPage = 50
+			req.MaxPerPage = config.TorrentsPerPage
 		}
 		if req.Page == 0 {
 			req.Page = 1
@@ -47,8 +47,10 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 		if maxString != "" {
 			req.MaxPerPage, err = strconv.Atoi(maxString)
 			if !log.CheckError(err) {
-				req.MaxPerPage = 50 // default Value maxPerPage
+				req.MaxPerPage = config.TorrentsPerPage
 			}
+		} else {
+			req.MaxPerPage = config.TorrentsPerPage
 		}
 
 		req.Page = 1
