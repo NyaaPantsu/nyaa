@@ -18,13 +18,14 @@ function toggleLayer(elem) {
 
 // Date formatting
 var lang = $("html").attr("lang");
-var shortOpt = { year: "numeric", month: "short", day: "numeric" };
+var ymdOpt = { year: "numeric", month: "short", day: "numeric" };
+var hmOpt  = { hour: "numeric", minute: "numeric" };
 
 var list = document.getElementsByClassName("date-short");
 for(var i in list) {
 	var e = list[i];
 	e.title = e.innerText;
-	e.innerText = new Date(e.innerText).toLocaleString(lang, shortOpt);
+	e.innerText = new Date(e.innerText).toLocaleString(lang, ymdOpt);
 }
 
 var list = document.getElementsByClassName("date-full");
@@ -33,11 +34,10 @@ for(var i in list) {
 	e.title = e.innerText;
 	e.innerText = new Date(e.innerText).toLocaleString(lang);
 }
-
 $(".date-comments").each(function(index, el) {
 	$(this).attr("title", el.innerText);
-	$(this).text(new Date($(this).attr("title")).toLocaleDateString(lang, { year: "numeric", month: "short", day: "numeric"}) + " ");
-	$(this).append($('<span class="hidden-xs"></span>').text(new Date($(this).attr("title")).toLocaleTimeString(lang, { hour:"numeric", minute:"numeric" })))
+	$(this).text(new Date($(this).attr("title")).toLocaleDateString(lang, ymdOpt) + " ");
+	$(this).append($('<span class="hidden-xs"></span>').text(new Date($(this).attr("title")).toLocaleTimeString(lang, hmOpt)))
 });
 /*Fixed-Navbar offset fix*/
 window.onload = function() {
