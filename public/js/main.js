@@ -34,14 +34,11 @@ for(var i in list) {
 	e.title = e.innerText;
 	e.innerText = new Date(e.innerText).toLocaleString(lang);
 }
-
-var list = document.getElementsByClassName("date-comments");
-for(var i in list) {
-	var e = list[i];
-	e.title = e.innerText;
-	e.innerText = new Date(e.title).toLocaleDateString(lang, ymdOpt) + " ";
-	$(e).append($('<span class="hidden-xs"></span>').text(new Date(e.title).toLocaleTimeString(lang, hmOpt)))
-}
+$(".date-comments").each(function(index, el) {
+	$(this).attr("title", el.innerText);
+	$(this).text(new Date($(this).attr("title")).toLocaleDateString(lang, ymdOpt) + " ");
+	$(this).append($('<span class="hidden-xs"></span>').text(new Date($(this).attr("title")).toLocaleTimeString(lang, hmOpt)))
+});
 /*Fixed-Navbar offset fix*/
 window.onload = function() {
   var shiftWindow = function() { scrollBy(0, -70) };
