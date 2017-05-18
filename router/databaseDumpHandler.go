@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ewhal/nyaa/model"
-	"github.com/ewhal/nyaa/util/languages"
-	"github.com/ewhal/nyaa/util/log"
-	"github.com/ewhal/nyaa/util/metainfo"
+	"github.com/NyaanPantsu/nyaa/model"
+	"github.com/NyaanPantsu/nyaa/util/languages"
+	"github.com/NyaanPantsu/nyaa/util/log"
+	"github.com/NyaanPantsu/nyaa/util/metainfo"
 	"github.com/gorilla/mux"
 )
 
