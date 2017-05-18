@@ -25,7 +25,7 @@
   },
   {
     "id":"signup_box_title",
-    "translation": "登録 <small>永久無料です</small>"
+    "translation": "アカウント登録 <small>ずっと無料です</small>"
   },
   {
     "id":"username",
@@ -73,7 +73,7 @@
   },
   {
     "id":"remember_me",
-    "translation": "ログイン情報を記憶"
+    "translation": "ログイン情報を記憶する"
   },
   {
     "id":"forgot_password",
@@ -93,7 +93,7 @@
   },
   {
     "id":"sign_up_success",
-    "translation": "ご登録ありがとうございます。"
+    "translation": "ご登録いただきありがとうございます。"
   },
   {
     "id":"verify_success",
@@ -109,7 +109,7 @@
   },
   {
     "id":"settings",
-    "translation": "アカウント設定"
+    "translation": "アカウントの設定"
   },
   {
     "id":"torrents",
@@ -201,7 +201,7 @@
   },
   {
     "id": "no_torrents_uploaded",
-    "translation": "まだ Torrent がアップロードされていません。"
+    "translation": "まだアップロードされた Torrent はありません。"
   },
   {
     "id": "profile",
@@ -213,7 +213,7 @@
   },
   {
     "id": "member",
-    "translation": "会員"
+    "translation": "アカウント"
   },
   {
     "id": "sign_in",
@@ -480,6 +480,10 @@
     "translation": "二次元 - 漫画"
   },
   {
+    "id": "art_pictures",
+    "translation": "二次元 - 画像"
+  },
+  {
     "id": "real_life",
     "translation": "三次元"
   },
@@ -509,7 +513,7 @@
   },
   {
     "id": "trusted",
-    "translation": "信頼されたもの"
+    "translation": "信頼できる Torrent のみ"
   },
   {
     "id": "id",
@@ -581,7 +585,7 @@
   },
   {
     "id": "trusted_member",
-    "translation": "信頼された会員"
+    "translation": "信頼できるアカウント"
   },
   {
     "id": "moderator",
@@ -717,7 +721,7 @@
   },
   {
     "id": "spam_garbage",
-    "translation": "スパム / ゴミ"
+    "translation": "スパム / ゴミファイル"
   },
   {
     "id": "wrong_category",
@@ -742,5 +746,17 @@
   {
     "id": "please_include_our_tracker",
     "translation": "トラッカーに udp://tracker.doko.moe:6969 を含めてください。"
+  },
+  {
+    "id": "unknown",
+    "translation": "不明"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "最終更新日: "
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "現在利用可能なデータベースダンプはありません。"
   }
 ]
