@@ -25,7 +25,7 @@
   },
   {
     "id":"signup_box_title",
-    "translation": "登録 <small>永久無料です</small>"
+    "translation": "登録 <small>ずっと無料です</small>"
   },
   {
     "id":"username",
@@ -742,5 +742,17 @@
   {
     "id": "please_include_our_tracker",
     "translation": "トラッカーに udp://tracker.doko.moe:6969 を含めてください。"
+  }
+  {
+    "id": "unknown",
+    "translation": "不明"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "最終更新日: "
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "現在利用可能なデータベースダンプはありません。"
   }
 ]
