@@ -25,7 +25,7 @@
   },
   {
     "id":"signup_box_title",
-    "translation": "กรุณาลงทะเบียน <small>มันฟรีตลอดชาติ</small>"
+    "translation": "กรุณาลงทะเบียน <small>ฟรีตลอดชาติ</small>"
   },
   {
     "id":"username",
@@ -738,5 +738,21 @@
   {
     "id": "cancel",
     "translation": "ยกเลิก"
-  }
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "กรุณาใส่ udp://tracker.doko.moe:6969 ไว้ในรายชื่อแทรคเกอร์ของคุณ"
+  },
+  {
+    "id": "unknown",
+    "translation": "Unknown"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "Scrap ครั้งล่าสุด: "
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "ยังไม่มีไฟล์ดัมพ์ฐานข้อมูลในขณะนี้"
+}
 ]
