@@ -96,7 +96,9 @@ func ApiViewHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
+	token := r.Header.Get("Authorization")
 	user := model.User{}
+	db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
 	if config.UploadsDisabled && config.AdminsAreStillAllowedTo && user.Status != 2 && config.TrustedUsersAreStillAllowedTo && user.Status != 1 {
 		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
 		return
@@ -107,9 +109,7 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
 		return
 	}
-
-	token := r.Header.Get("Authorization")
-	db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
+	
 	if user.ID == 0 {
 		http.Error(w, apiService.ErrApiKey.Error(), http.StatusUnauthorized)
 		return
@@ -179,7 +179,9 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
+	token := r.Header.Get("Authorization")
 	user := model.User{}
+	db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
 	if config.UploadsDisabled && config.AdminsAreStillAllowedTo && user.Status != 2 && config.TrustedUsersAreStillAllowedTo && user.Status != 1 {
 		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
 		return
@@ -193,8 +195,6 @@ func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
 
 	contentType := r.Header.Get("Content-Type")
 	if contentType == "application/json" {
-		token := r.Header.Get("Authorization")
-		db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
 		if user.ID == 0 {
 			http.Error(w, apiService.ErrApiKey.Error(), http.StatusForbidden)
 			return
