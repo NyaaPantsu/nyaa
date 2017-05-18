@@ -281,7 +281,7 @@ func RetrieveOldUploadsByUsername(username string) ([]uint, error) {
 // RetrieveUserForAdmin retrieves a user for an administrator.
 func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	var user model.User
-	if db.ORM.Preload("Torrents").First(&user, id).RecordNotFound() {
+	if db.ORM.Preload("Torrents").Last(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("user not found")
 	}
 	var liked, likings []model.User
