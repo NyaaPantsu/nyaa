@@ -21,7 +21,7 @@
               <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "7" }}">{{T "D"}}{{ genSortArrows .URL "7" }}</a></th>
               <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{T "date"}}{{ genSortArrows .URL "2" }}</th></a>
               <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "4" }}">{{T "size"}}{{ genSortArrows .URL "4" }}</a></th>
-              <th class="col-xs-1 hidden-xs" style="white-space: nowrap;">{{T "links"}}</th>
+              <th class="col-xs-1 hidden-xs">{{T "links"}}</th>
           </tr>
           {{ range .ListTorrents}}
           <tr class="torrent-info
@@ -53,9 +53,9 @@
               <td class="hidden-xs"><b class="text-danger">{{.Leechers}}</b></td>
               <td class="hidden-xs">{{.Completed}}</td>
               {{end}}
-              <td class="hidden-xs date date-short">{{.Date}}</td>
-              <td class="hidden-xs filesize">{{.Filesize}}</td>
-              <td class="hidden-xs">
+              <td class="hidden-xs nowrap date-short">{{.Date}}</td>
+              <td class="hidden-xs nowrap">{{.Filesize}}</td>
+              <td class="hidden-xs nowrap">
                   <a href="{{.Magnet}}" title="Magnet link">
                       <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>
                   </a>
