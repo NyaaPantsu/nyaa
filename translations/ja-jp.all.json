@@ -746,7 +746,7 @@
   {
     "id": "please_include_our_tracker",
     "translation": "トラッカーに udp://tracker.doko.moe:6969 を含めてください。"
-  }
+  },
   {
     "id": "unknown",
     "translation": "不明"
