@@ -25,7 +25,7 @@
   },
   {
     "id":"signup_box_title",
-    "translation": "サインアップ <small>ずっと無料です</small>"
+    "translation": "アカウント登録 <small>ずっと無料です</small>"
   },
   {
     "id":"username",
@@ -57,7 +57,7 @@
   },
   {
     "id":"signin",
-    "translation": "サインイン"
+    "translation": "ログイン"
   },
   {
     "id":"register",
@@ -73,7 +73,7 @@
   },
   {
     "id":"remember_me",
-    "translation": "資格情報を記憶する"
+    "translation": "ログイン情報を記憶する"
   },
   {
     "id":"forgot_password",
@@ -81,11 +81,11 @@
   },
   {
     "id":"sign_in_box_title",
-    "translation": "サインイン"
+    "translation": "ログイン"
   },
   {
     "id":"sign_in_title",
-    "translation": "サインイン"
+    "translation": "ログイン"
   },
   {
     "id":"register_success_title",
@@ -201,7 +201,7 @@
   },
   {
     "id": "no_torrents_uploaded",
-    "translation": "まだ Torrent がアップロードされていません。"
+    "translation": "まだアップロードされた Torrent はありません。"
   },
   {
     "id": "profile",
@@ -209,19 +209,19 @@
   },
   {
     "id": "sign_out",
-    "translation": "サインアウト"
+    "translation": "ログアウト"
   },
   {
     "id": "member",
-    "translation": "メンバー"
+    "translation": "アカウント"
   },
   {
     "id": "sign_in",
-    "translation": "サインイン"
+    "translation": "ログイン"
   },
   {
     "id": "sign_up",
-    "translation": "サインアップ"
+    "translation": "登録"
   },
   {
     "id": "no_results_found",
@@ -480,6 +480,10 @@
     "translation": "二次元 - 漫画"
   },
   {
+    "id": "art_games",
+    "translation": "二次元 - 画像"
+  },
+  {
     "id": "real_life",
     "translation": "三次元"
   },
@@ -581,7 +585,7 @@
   },
   {
     "id": "trusted_member",
-    "translation": "信頼できるメンバー"
+    "translation": "信頼できるアカウント"
   },
   {
     "id": "moderator",
