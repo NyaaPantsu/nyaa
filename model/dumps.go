@@ -4,7 +4,7 @@ import (
 	"time"
 	"html/template"
 
-	"github.com/ewhal/nyaa/util"
+	"github.com/NyaaPantsu/nyaa/util"
 )
 
 type DatabaseDump struct {
