@@ -99,15 +99,20 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 	token := r.Header.Get("Authorization")
 	user := model.User{}
 	db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
-	if config.UploadsDisabled && config.AdminsAreStillAllowedTo && user.Status != 2 && config.TrustedUsersAreStillAllowedTo && user.Status != 1 {
-		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
-		return
-	} else if config.UploadsDisabled && !config.AdminsAreStillAllowedTo && user.Status == 2 {
-		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
-		return
-	} else if config.UploadsDisabled && !config.TrustedUsersAreStillAllowedTo && user.Status == 1 {
-		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
-		return
+	
+	if config.UploadsDisabled {
+		
+		if config.AdminsAreStillAllowedTo && user.Status != 2 && config.TrustedUsersAreStillAllowedTo && user.Status != 1 {
+			http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
+			return
+		} else if !config.AdminsAreStillAllowedTo && user.Status == 2 {
+			http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
+			return
+		} else if !config.TrustedUsersAreStillAllowedTo && user.Status == 1 {
+			http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
+			return
+		}
+		
 	}
 	
 	if user.ID == 0 {
@@ -182,15 +187,20 @@ func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	token := r.Header.Get("Authorization")
 	user := model.User{}
 	db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
-	if config.UploadsDisabled && config.AdminsAreStillAllowedTo && user.Status != 2 && config.TrustedUsersAreStillAllowedTo && user.Status != 1 {
-		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
-		return
-	} else if config.UploadsDisabled && !config.AdminsAreStillAllowedTo && user.Status == 2 {
-		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
-		return
-	} else if config.UploadsDisabled && !config.TrustedUsersAreStillAllowedTo && user.Status == 1 {
-		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
-		return
+	
+	if config.UploadsDisabled {
+		
+		if config.AdminsAreStillAllowedTo && user.Status != 2 && config.TrustedUsersAreStillAllowedTo && user.Status != 1 {
+			http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
+			return
+		} else if !config.AdminsAreStillAllowedTo && user.Status == 2 {
+			http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
+			return
+		} else if !config.TrustedUsersAreStillAllowedTo && user.Status == 1 {
+			http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
+			return
+		}
+		
 	}
 
 	contentType := r.Header.Get("Content-Type")
