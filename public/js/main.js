@@ -18,7 +18,8 @@ function toggleLayer(elem) {
 
 // Date formatting
 var lang = $("html").attr("lang");
-var shortOpt = { year: "numeric", month: "short", day: "numeric" };
+var ymdOpt = { year: "numeric", month: "short", day: "numeric" };
+var hmOpt  = { hour: "numeric", minute: "numeric" };
 
 var list = document.getElementsByClassName("date-short");
 for(var i in list) {
@@ -38,8 +39,8 @@ var list = document.getElementsByClassName("date-comments");
 for(var i in list) {
 	var e = list[i];
 	e.title = e.innerText;
-	e.innerText = new Date(e.title).toLocaleDateString(lang, { year: "numeric", month: "short", day: "numeric"}) + " ";
-	$(e).append($('<span class="hidden-xs"></span>').text(new Date(e.title).toLocaleTimeString(lang, { hour:"numeric", minute:"numeric" })))
+	e.innerText = new Date(e.title).toLocaleDateString(lang, ymdOpt) + " ";
+	$(e).append($('<span class="hidden-xs"></span>').text(new Date(e.title).toLocaleTimeString(lang, hmOpt)))
 }
 /*Fixed-Navbar offset fix*/
 window.onload = function() {
