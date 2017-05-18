@@ -16,14 +16,20 @@ import (
 )
 
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
-	if config.UploadsDisabled {
+	user := GetUser(r)
+	if config.UploadsDisabled && config.AdminsAreStillAllowedTo && user.Status != 2 && config.TrustedUsersAreStillAllowedTo && user.Status != 1 {
+		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
+		return
+	} else if config.UploadsDisabled && !config.AdminsAreStillAllowedTo && user.Status == 2 {
+		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
+		return
+	} else if config.UploadsDisabled && !config.TrustedUsersAreStillAllowedTo && user.Status == 1 {
 		http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
 		return
 	}
 	var uploadForm UploadForm
 	if r.Method == "POST" {
 		defer r.Body.Close()
-		user := GetUser(r)
 		if userPermission.NeedsCaptcha(user) {
 			userCaptcha := captcha.Extract(r)
 			if !captcha.Authenticate(userCaptcha) {
