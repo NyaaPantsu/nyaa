@@ -754,5 +754,9 @@
   {
     "id": "last_scraped",
     "translation": "Dernier scrape effectué : "
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "Aucune sauvegarde de base de données n'est disponible en ce moment."
   }
 ]
