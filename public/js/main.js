@@ -38,8 +38,7 @@ $(".date-comments").each(function(index, el) {
 	$(this).attr("title", el.innerText);
 	$(this).text(new Date($(this).attr("title")).toLocaleDateString(lang, { year: "numeric", month: "short", day: "numeric"}) + " ");
 	$(this).append($('<span class="hidden-xs"></span>').text(new Date($(this).attr("title")).toLocaleTimeString(lang, { hour:"numeric", minute:"numeric" })))
-}
-);
+});
 /*Fixed-Navbar offset fix*/
 window.onload = function() {
   var shiftWindow = function() { scrollBy(0, -70) };
