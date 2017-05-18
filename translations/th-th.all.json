@@ -672,12 +672,12 @@
     "translation": "ภาษาไทย"
   },
   {
-    "id": "delete",
-    "translation": "ลบ"
-  },
-  {
     "id": "language_code",
     "translation": "th-th"
+  },
+  {
+    "id": "delete",
+    "translation": "ลบ"
   },
   {
     "id": "files",
