@@ -120,10 +120,6 @@ td {
   font-family: monospace;
 }
 
-.torrent-info .filesize {
-  white-space: nowrap;
-}
-
 .comment-row td:first-of-type {
   vertical-align: top;
   text-align: left;
@@ -131,6 +127,10 @@ td {
 }
 
 /* Table style & fixes */
+.table > tbody > tr > th, .nowrap {
+    white-space: nowrap;
+}
+
 .table > tbody > tr > td {
     /* fix bootstrap uglyness */
     vertical-align: middle;
@@ -144,10 +144,6 @@ td {
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: 240px;
-}
-
-tr.torrent-info td.date {
-  white-space: nowrap;
 }
 
 .custom-table-hover > tbody > tr:hover {
