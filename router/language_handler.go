@@ -27,7 +27,15 @@ func SeeLanguagesHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	} else {
-		clv := ChangeLanguageVariables{NewSearchForm(), NewNavigation(), Tlang.Tag, availableLanguages, GetUser(r), r.URL, mux.CurrentRoute(r)}
+		clv := ChangeLanguageVariables{
+			Search:     NewSearchForm(),
+			Navigation: NewNavigation(),
+			Language:   Tlang.Tag,
+			Languages:  availableLanguages,
+			User:       GetUser(r),
+			URL:        r.URL,
+			Route:      mux.CurrentRoute(r),
+		}
 		languages.SetTranslationFromRequest(changeLanguageTemplate, r)
 		err := changeLanguageTemplate.ExecuteTemplate(w, "index.html", clv)
 		if err != nil {
