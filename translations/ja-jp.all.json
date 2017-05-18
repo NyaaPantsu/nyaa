@@ -25,7 +25,7 @@
   },
   {
     "id":"signup_box_title",
-    "translation": "登録 <small>ずっと無料です</small>"
+    "translation": "サインアップ <small>ずっと無料です</small>"
   },
   {
     "id":"username",
@@ -57,7 +57,7 @@
   },
   {
     "id":"signin",
-    "translation": "ログイン"
+    "translation": "サインイン"
   },
   {
     "id":"register",
@@ -73,7 +73,7 @@
   },
   {
     "id":"remember_me",
-    "translation": "ログイン情報を記憶"
+    "translation": "資格情報を記憶する"
   },
   {
     "id":"forgot_password",
@@ -81,11 +81,11 @@
   },
   {
     "id":"sign_in_box_title",
-    "translation": "ログイン"
+    "translation": "サインイン"
   },
   {
     "id":"sign_in_title",
-    "translation": "ログイン"
+    "translation": "サインイン"
   },
   {
     "id":"register_success_title",
@@ -93,7 +93,7 @@
   },
   {
     "id":"sign_up_success",
-    "translation": "ご登録ありがとうございます。"
+    "translation": "ご登録いただきありがとうございます。"
   },
   {
     "id":"verify_success",
@@ -109,7 +109,7 @@
   },
   {
     "id":"settings",
-    "translation": "アカウント設定"
+    "translation": "アカウントの設定"
   },
   {
     "id":"torrents",
@@ -209,19 +209,19 @@
   },
   {
     "id": "sign_out",
-    "translation": "ログアウト"
+    "translation": "サインアウト"
   },
   {
     "id": "member",
-    "translation": "会員"
+    "translation": "メンバー"
   },
   {
     "id": "sign_in",
-    "translation": "ログイン"
+    "translation": "サインイン"
   },
   {
     "id": "sign_up",
-    "translation": "登録"
+    "translation": "サインアップ"
   },
   {
     "id": "no_results_found",
@@ -509,7 +509,7 @@
   },
   {
     "id": "trusted",
-    "translation": "信頼されたもの"
+    "translation": "信頼できる Torrent のみ"
   },
   {
     "id": "id",
@@ -581,7 +581,7 @@
   },
   {
     "id": "trusted_member",
-    "translation": "信頼された会員"
+    "translation": "信頼できるメンバー"
   },
   {
     "id": "moderator",
@@ -717,7 +717,7 @@
   },
   {
     "id": "spam_garbage",
-    "translation": "スパム / ゴミ"
+    "translation": "スパム / ゴミファイル"
   },
   {
     "id": "wrong_category",
