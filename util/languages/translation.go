@@ -60,12 +60,9 @@ func TfuncAndLanguageWithFallback(language string, languages ...string) (i18n.Tr
 	fallbackLanguage := GetDefaultLanguage()
 
 	tFunc, tLang, err1 := i18n.TfuncAndLanguage(language, languages...)
-	fallbackT, fallbackTlang, err2 := i18n.TfuncAndLanguage(fallbackLanguage)
-
-	if err1 != nil && err2 != nil {
-		// fallbackT is still a valid function even with the error, it returns translationID.
-		return fallbackT, fallbackTlang, err2
-	}
+	// If fallbackLanguage fails, it will give the "id" field so we don't
+	// care about the error
+	fallbackT, fallbackTlang, _ := i18n.TfuncAndLanguage(fallbackLanguage)
 
 	translateFunction := func(translationID string, args ...interface{}) string {
 		if translated := tFunc(translationID, args...); translated != translationID {
@@ -75,7 +72,11 @@ func TfuncAndLanguageWithFallback(language string, languages ...string) (i18n.Tr
 		return fallbackT(translationID, args...)
 	}
 
-	return translateFunction, tLang, nil
+	if err1 != nil {
+		tLang = fallbackTlang
+	}
+
+	return translateFunction, tLang, err1
 }
 
 func GetAvailableLanguages() (languages map[string]string) {
