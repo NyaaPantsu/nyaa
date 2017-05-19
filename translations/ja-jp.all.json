@@ -365,7 +365,7 @@
   },
   {
     "id": "select_a_torrent_category",
-    "translation": "Torrent カテゴリーを選択"
+    "translation": "-- Torrent カテゴリーを選択 --"
   },
   {
     "id": "anime",
@@ -509,11 +509,11 @@
   },
   {
     "id": "filter_remakes",
-    "translation": "リメイクを非表示"
+    "translation": "再加工を非表示"
   },
   {
     "id": "trusted",
-    "translation": "信頼できる Torrent のみ"
+    "translation": "高信頼のみ"
   },
   {
     "id": "id",
@@ -585,7 +585,7 @@
   },
   {
     "id": "trusted_member",
-    "translation": "信頼できるアカウント"
+    "translation": "高信頼アカウント"
   },
   {
     "id": "moderator",
@@ -629,7 +629,7 @@
   },
   {
     "id": "mark_as_remake",
-    "translation": "リメイクとしてマーク"
+    "translation": "再加工としてマークする"
   },
   {
     "id": "email_changed",
@@ -649,7 +649,7 @@
   },
   {
     "id": "torrent_status_remake",
-    "translation": "リメイク"
+    "translation": "再加工"
   },
   {
     "id": "profile_edit_page",
