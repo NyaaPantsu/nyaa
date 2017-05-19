@@ -210,4 +210,3 @@ var FuncMap = template.FuncMap{
         return e
     },
 }
-}
