@@ -24,6 +24,10 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 			util.SendError(w, err, 400)
 			return
 		}
+		if pagenum <= 0 {
+			NotFoundHandler(w, r)
+			return
+		}
 	}
 
 	_, torrents, err := search.SearchByQueryNoCount(r, pagenum)

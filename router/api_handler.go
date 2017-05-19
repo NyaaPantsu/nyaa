@@ -37,7 +37,7 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 		if req.MaxPerPage == 0 {
 			req.MaxPerPage = config.TorrentsPerPage
 		}
-		if req.Page == 0 {
+		if req.Page <= 0 {
 			req.Page = 1
 		}
 
@@ -59,6 +59,10 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 			req.Page, err = strconv.Atoi(html.EscapeString(page))
 			if !log.CheckError(err) {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			if req.Page <= 0 {
+				NotFoundHandler(w, r)
 				return
 			}
 		}
