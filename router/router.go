@@ -63,6 +63,8 @@ func init() {
 	Router.HandleFunc("/user/{id}/{username}/follow", UserFollowHandler).Name("user_follow").Methods("GET")
 	Router.Handle("/user/{id}/{username}/edit", wrapHandler(gzipUserDetailsHandler)).Name("user_profile_details").Methods("GET")
 	Router.Handle("/user/{id}/{username}/edit", wrapHandler(gzipUserProfileFormHandler)).Name("user_profile_edit").Methods("POST")
+	Router.HandleFunc("/user/{id}/{username}/feed", RSSHandler).Name("feed_user")
+	Router.HandleFunc("/user/{id}/{username}/feed/{page}", RSSHandler).Name("feed_user_page")
 
 	Router.HandleFunc("/mod", IndexModPanel).Name("mod_index")
 	Router.HandleFunc("/mod/torrents", TorrentsListPanel).Name("mod_tlist")
