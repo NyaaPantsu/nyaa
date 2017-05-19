@@ -77,10 +77,10 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 * Scraping of fan subbing RSS feeds similar to metainfo_fetcher and scraper
   * nyaa.si
   * anidex.moe
+* Anidb integration
 * Site theme
   * original nyaa theme
   * Implement mockup design from /g/anon
-
 * Use elastic search or sphinix search
 * Use new db abstraction layer and remove all ORM code
 * API improvement
