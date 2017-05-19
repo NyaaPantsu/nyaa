@@ -163,4 +163,50 @@ var FuncMap = template.FuncMap{
 		// because time.* isn't available in templates...
 		return t.Format(time.RFC3339)
 	},
+    "Category_Sukebei": func(category string, sub_category string) string {
+        s := category + "_" + sub_category; e := ""
+        switch s {
+            default:        e = ""
+            case "1_":      e = "art"
+            case "1_1":     e = "art_anime"
+            case "1_2":     e = "art_doujinshi"
+            case "1_3":     e = "art_games"
+            case "1_4":     e = "art_manga"
+            case "1_5":     e = "art_pictures"
+            case "2_":      e = "real_life"
+            case "2_1":     e = "real_life_photobooks_and_pictures"
+            case "2_2":     e = "real_life_videos"
+        }
+        return e
+    },
+    "Category_Nyaa": func(category string, sub_category string) string {
+        s := category + "_" + sub_category; e := ""
+        switch s {
+            default:        e = ""
+            case "3_":      e = "anime"
+            case "3_12":    e = "anime_amv"
+            case "3_5":     e = "anime_english_translated"
+            case "3_13":    e = "anime_non_english_translated"
+            case "3_6":     e = "anime_raw"
+            case "2_":      e = "audio"
+            case "2_3":     e = "audio_lossless"
+            case "2_4":     e = "audio_lossy"
+            case "4_":      e = "literature"
+            case "4_7":     e = "literature_english_translated"
+            case "4_8":     e = "literature_raw"
+            case "4_14":    e = "literature_non_english_translated"
+            case "5_":      e = "live_action"
+            case "5_9":     e = "live_action_english_translated"
+            case "5_10":    e = "live_action_idol_pv"
+            case "5_18":    e = "live_action_non_english_translated"
+            case "5_11":    e = "live_action_raw"
+            case "6_":      e = "pictures"
+            case "6_15":    e = "pictures_graphics"
+            case "6_16":    e = "pictures_photos"
+            case "1_":      e = "software"
+            case "1_1":     e = "software_applications"
+            case "1_2":     e = "software_games"
+        }
+        return e
+    },
 }
