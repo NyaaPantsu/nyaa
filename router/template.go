@@ -5,7 +5,10 @@ import (
 	"path/filepath"
 )
 
-var TemplateDir = "templates"
+const (
+	TemplateDir = "templates"
+	ModeratorDir = "admin"
+)
 
 var homeTemplate,
 	searchTemplate,
@@ -125,37 +128,37 @@ func ReloadTemplates() {
 		templateLoader{
 			templ: &panelTorrentList,
 			name:  "torrentlist",
-			file:  filepath.Join("admin", "torrentlist.html"),
+			file:  filepath.Join(ModeratorDir, "torrentlist.html"),
 		},
 		templateLoader{
 			templ: &panelUserList,
 			name:  "userlist",
-			file:  filepath.Join("admin", "userlist.html"),
+			file:  filepath.Join(ModeratorDir, "userlist.html"),
 		},
 		templateLoader{
 			templ: &panelCommentList,
 			name:  "commentlist",
-			file:  filepath.Join("admin", "commentlist.html"),
+			file:  filepath.Join(ModeratorDir, "commentlist.html"),
 		},
 		templateLoader{
 			templ: &panelIndex,
 			name:  "indexPanel",
-			file:  filepath.Join("admin", "panelindex.html"),
+			file:  filepath.Join(ModeratorDir, "panelindex.html"),
 		},
 		templateLoader{
 			templ: &panelTorrentEd,
 			name:  "torrent_ed",
-			file:  filepath.Join("admin", "paneltorrentedit.html"),
+			file:  filepath.Join(ModeratorDir, "paneltorrentedit.html"),
 		},
 		templateLoader{
 			templ: &panelTorrentReportList,
 			name:  "torrent_report",
-			file:  filepath.Join("admin", "torrent_report.html"),
+			file:  filepath.Join(ModeratorDir, "torrent_report.html"),
 		},
 		templateLoader{
 			templ: &panelTorrentReassign,
 			name:  "torrent_reassign",
-			file:  filepath.Join("admin", "reassign.html"),
+			file:  filepath.Join(ModeratorDir, "reassign.html"),
 		},
 	}
 
@@ -164,7 +167,6 @@ func ReloadTemplates() {
 	}
 
 	templs := make([]templateLoader, 0, len(modTempls)+len(pubTempls))
-
 	templs = append(templs, pubTempls...)
 	templs = append(templs, modTempls...)
 
@@ -173,5 +175,4 @@ func ReloadTemplates() {
 		t = template.Must(t.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
 		*templ.templ = t
 	}
-
 }
