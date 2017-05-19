@@ -18,30 +18,47 @@ import (
 // Getting View User Registration
 func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 	_, errorUser := userService.CurrentUser(r)
-	if errorUser != nil {
-		b := form.RegistrationForm{}
-		modelHelper.BindValueForm(&b, r)
-		b.CaptchaID = captcha.GetID()
-		languages.SetTranslationFromRequest(viewRegisterTemplate, r)
-		htv := UserRegisterTemplateVariables{b, form.NewErrors(), NewSearchForm(), NewNavigation(), GetUser(r), r.URL, mux.CurrentRoute(r)}
-		err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-	} else {
+	// User is already connected, redirect to home
+	if errorUser == nil {
 		HomeHandler(w, r)
+		return
+	}
+	registrationForm := form.RegistrationForm{}
+	modelHelper.BindValueForm(&registrationForm, r)
+	registrationForm.CaptchaID = captcha.GetID()
+	languages.SetTranslationFromRequest(viewRegisterTemplate, r)
+	urtv := UserRegisterTemplateVariables{
+		RegistrationForm: registrationForm,
+		FormErrors:       form.NewErrors(),
+		Search:           NewSearchForm(),
+		Navigation:       NewNavigation(),
+		User:             GetUser(r),
+		URL:              r.URL,
+		Route:            mux.CurrentRoute(r),
+	}
+	err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", urtv)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
 // Getting View User Login
 func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
-	b := form.LoginForm{}
-	modelHelper.BindValueForm(&b, r)
+	loginForm := form.LoginForm{}
+	modelHelper.BindValueForm(&loginForm, r)
 
 	languages.SetTranslationFromRequest(viewLoginTemplate, r)
-	htv := UserLoginFormVariables{b, form.NewErrors(), NewSearchForm(), NewNavigation(), GetUser(r), r.URL, mux.CurrentRoute(r)}
+	ulfv := UserLoginFormVariables{
+		LoginForm:  loginForm,
+		FormErrors: form.NewErrors(),
+		Search:     NewSearchForm(),
+		Navigation: NewNavigation(),
+		User:       GetUser(r),
+		URL:        r.URL,
+		Route:      mux.CurrentRoute(r),
+	}
 
-	err := viewLoginTemplate.ExecuteTemplate(w, "index.html", htv)
+	err := viewLoginTemplate.ExecuteTemplate(w, "index.html", ulfv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -128,63 +145,63 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 	id := vars["id"]
 	currentUser := GetUser(r)
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
-	if errorUser == nil {
-		if userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
-			b := form.UserForm{}
-			err := form.NewErrors()
-			infos := form.NewInfos()
-			T := languages.SetTranslationFromRequest(viewProfileEditTemplate, r)
-			if len(r.PostFormValue("email")) > 0 {
-				_, err = form.EmailValidation(r.PostFormValue("email"), err)
-			}
-			if len(r.PostFormValue("username")) > 0 {
-				_, err = form.ValidateUsername(r.PostFormValue("username"), err)
-			}
+	if errorUser != nil || !userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
+		NotFoundHandler(w, r)
+		return
+	}
 
-			if len(err) == 0 {
-				modelHelper.BindValueForm(&b, r)
-				if !userPermission.HasAdmin(currentUser) {
-					b.Username = userProfile.Username
-					b.Status = userProfile.Status
-				} else {
-					if userProfile.Status != b.Status && b.Status == 2 {
-						err["errors"] = append(err["errors"], "Elevating status to moderator is prohibited")
-					}
-				}
-				err = modelHelper.ValidateForm(&b, err)
-				if len(err) == 0 {
-					if b.Email != userProfile.Email {
-						userService.SendVerificationToUser(*currentUser, b.Email)
-						infos["infos"] = append(infos["infos"], fmt.Sprintf(T("email_changed"), b.Email))
-						b.Email = userProfile.Email // reset, it will be set when user clicks verification
-					}
-					userProfile, _, errorUser = userService.UpdateUser(w, &b, currentUser, id)
-					if errorUser != nil {
-						err["errors"] = append(err["errors"], errorUser.Error())
-					} else {
-						infos["infos"] = append(infos["infos"], T("profile_updated"))
-					}
-				}
-			}
-			availableLanguages := languages.GetAvailableLanguages()
-			htv := UserProfileEditVariables{&userProfile, b, err, infos, availableLanguages, NewSearchForm(), NewNavigation(), currentUser, r.URL, mux.CurrentRoute(r)}
-			errorTmpl := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
-			if errorTmpl != nil {
-				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
-			}
+	userForm := form.UserForm{}
+	err := form.NewErrors()
+	infos := form.NewInfos()
+	T := languages.SetTranslationFromRequest(viewProfileEditTemplate, r)
+	if len(r.PostFormValue("email")) > 0 {
+		_, err = form.EmailValidation(r.PostFormValue("email"), err)
+	}
+	if len(r.PostFormValue("username")) > 0 {
+		_, err = form.ValidateUsername(r.PostFormValue("username"), err)
+	}
+
+	if len(err) == 0 {
+		modelHelper.BindValueForm(&userForm, r)
+		if !userPermission.HasAdmin(currentUser) {
+			userForm.Username = userProfile.Username
+			userForm.Status = userProfile.Status
 		} else {
-			languages.SetTranslationFromRequest(notFoundTemplate, r)
-			err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{NewNavigation(), NewSearchForm(), GetUser(r), r.URL, mux.CurrentRoute(r)})
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
+			if userProfile.Status != userForm.Status && userForm.Status == 2 {
+				err["errors"] = append(err["errors"], "Elevating status to moderator is prohibited")
 			}
 		}
-	} else {
-		languages.SetTranslationFromRequest(notFoundTemplate, r)
-		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{NewNavigation(), NewSearchForm(), GetUser(r), r.URL, mux.CurrentRoute(r)})
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+		err = modelHelper.ValidateForm(&userForm, err)
+		if len(err) == 0 {
+			if userForm.Email != userProfile.Email {
+				userService.SendVerificationToUser(*currentUser, userForm.Email)
+				infos["infos"] = append(infos["infos"], fmt.Sprintf(T("email_changed"), userForm.Email))
+				userForm.Email = userProfile.Email // reset, it will be set when user clicks verification
+			}
+			userProfile, _, errorUser = userService.UpdateUser(w, &userForm, currentUser, id)
+			if errorUser != nil {
+				err["errors"] = append(err["errors"], errorUser.Error())
+			} else {
+				infos["infos"] = append(infos["infos"], T("profile_updated"))
+			}
 		}
+	}
+	availableLanguages := languages.GetAvailableLanguages()
+	upev := UserProfileEditVariables{
+		UserProfile: &userProfile,
+		UserForm:    userForm,
+		FormErrors:  err,
+		FormInfos:   infos,
+		Languages:   availableLanguages,
+		Search:      NewSearchForm(),
+		Navigation:  NewNavigation(),
+		User:        currentUser,
+		URL:         r.URL,
+		Route:       mux.CurrentRoute(r),
+	}
+	errorTmpl := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", upev)
+	if errorTmpl != nil {
+		http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
 	}
 }
 

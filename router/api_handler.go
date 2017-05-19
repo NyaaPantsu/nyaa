@@ -127,7 +127,6 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	contentType := r.Header.Get("Content-Type")
 	if contentType == "application/json" {
-
 		defer r.Body.Close()
 
 		d := json.NewDecoder(r.Body)
@@ -142,7 +141,6 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	} else if strings.HasPrefix(contentType, "multipart/form-data") {
-
 		upload.Name = r.FormValue("name")
 		upload.Category, _ = strconv.Atoi(r.FormValue("category"))
 		upload.SubCategory, _ = strconv.Atoi(r.FormValue("sub_category"))
@@ -167,7 +165,6 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 	db.ORM.Model(&model.Torrent{}).Where("torrent_hash = ?", upload.Hash).Count(&sameTorrents)
 
 	if sameTorrents == 0 {
-
 		torrent := model.Torrent{
 			Name:        upload.Name,
 			Category:    upload.Category,
@@ -192,6 +189,7 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// FIXME Impossible to update a torrent uploaded by user 0
 func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	token := r.Header.Get("Authorization")
 	user := model.User{}
