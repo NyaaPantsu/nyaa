@@ -132,7 +132,8 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 
 		d := json.NewDecoder(r.Body)
 		if err := d.Decode(&upload); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			decodeError := fmt.Errorf("Unable to decode upload data: %s", err).Error()
+			http.Error(w, decodeError, http.StatusInternalServerError)
 			return
 		}
 		err, code := upload.ValidateUpload()
@@ -155,8 +156,14 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), code)
 			return
 		}
+	} else {
+		// TODO What should we do here ? upload is empty so we shouldn't
+		// create a torrent from it
+		err := fmt.Errorf("Please provide either of Content-Type: application/json header or multipart/form-data").Error()
+		http.Error(w, err, http.StatusInternalServerError)
 	}
 	var sameTorrents int
+
 	db.ORM.Model(&model.Torrent{}).Where("torrent_hash = ?", upload.Hash).Count(&sameTorrents)
 
 	if sameTorrents == 0 {
