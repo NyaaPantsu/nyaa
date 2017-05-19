@@ -92,4 +92,4 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
 # Disclaimer
-We take no legal responsibility for anything this code is used for. This is an purely educational proof of concept.
+We take no legal responsibility for anything this code is used for. This is purely an educational proof of concept.
