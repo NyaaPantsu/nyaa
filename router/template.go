@@ -5,10 +5,10 @@ import (
 	"path/filepath"
 )
 
-const (
-	TemplateDir = "templates"
-	ModeratorDir = "admin"
-)
+// FIXME This should be a constant, but then the tests fails
+var TemplateDir = "templates"
+
+const ModeratorDir = "admin"
 
 var homeTemplate,
 	searchTemplate,
