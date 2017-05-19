@@ -13,7 +13,7 @@ const (
 	// LastOldTorrentID is the highest torrent ID
 	// that was copied from the original Nyaa
 	LastOldTorrentID  = 923000
-	TableName         = "torrents"
+	TorrentsTableName = "torrents"
 	CommentsTableName = "comments"
 	// for sukebei
 	//TableName         = "sukebei_torrents"

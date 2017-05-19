@@ -45,8 +45,8 @@ var FuncMap = template.FuncMap{
 	},
 	"genSearchWithOrdering": func(currentUrl url.URL, sortBy string) template.URL {
 		values := currentUrl.Query()
-		order := false  //Default is DESC
-		sort := "2" //Default is Date (Actually ID, but Date is the same thing)
+		order := false //Default is DESC
+		sort := "2"    //Default is Date (Actually ID, but Date is the same thing)
 
 		if _, ok := values["order"]; ok {
 			order, _ = strconv.ParseBool(values["order"][0])
@@ -54,7 +54,7 @@ var FuncMap = template.FuncMap{
 		if _, ok := values["sort"]; ok {
 			sort = values["sort"][0]
 		}
-		
+
 		if sort == sortBy {
 			order = !order //Flip order by repeat-clicking
 		} else {
@@ -132,7 +132,7 @@ var FuncMap = template.FuncMap{
 		return template.HTML(ret)
 	},
 	"Sukebei": func() bool {
-		if config.TableName == "sukebei_torrents" {
+		if config.TorrentsTableName == "sukebei_torrents" {
 			return true
 		} else {
 			return false

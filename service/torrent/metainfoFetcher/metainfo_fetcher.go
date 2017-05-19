@@ -233,9 +233,9 @@ func (fetcher *MetainfoFetcher) fillQueue() {
 	var params serviceBase.WhereParams
 
 	if len(excludedIDS) > 0 {
-		params = serviceBase.CreateWhereParams("((filesize IS NULL OR filesize = 0) OR ("+config.TableName+".torrent_id NOT IN (SELECT files.torrent_id FROM files WHERE files.torrent_id = "+config.TableName+".torrent_id))) AND date > ? AND torrent_id NOT IN (?)", oldest, excludedIDS)
+		params = serviceBase.CreateWhereParams("((filesize IS NULL OR filesize = 0) OR ("+config.TorrentsTableName+".torrent_id NOT IN (SELECT files.torrent_id FROM files WHERE files.torrent_id = "+config.TorrentsTableName+".torrent_id))) AND date > ? AND torrent_id NOT IN (?)", oldest, excludedIDS)
 	} else {
-		params = serviceBase.CreateWhereParams("((filesize IS NULL OR filesize = 0) OR ("+config.TableName+".torrent_id NOT IN (SELECT files.torrent_id FROM files WHERE files.torrent_id = "+config.TableName+".torrent_id))) AND date > ?", oldest)
+		params = serviceBase.CreateWhereParams("((filesize IS NULL OR filesize = 0) OR ("+config.TorrentsTableName+".torrent_id NOT IN (SELECT files.torrent_id FROM files WHERE files.torrent_id = "+config.TorrentsTableName+".torrent_id))) AND date > ?", oldest)
 	}
 	dbTorrents, err := torrentService.GetTorrentsOrderByNoCount(&params, "", fetcher.queueSize, 0)
 
