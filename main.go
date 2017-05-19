@@ -32,8 +32,8 @@ func RunServer(conf *config.Config) {
 
 	// Set up server,
 	srv := &http.Server{
-		WriteTimeout: 5 * time.Second,
-		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 30 * time.Second,
+		ReadTimeout:  10 * time.Second,
 	}
 	l, err := network.CreateHTTPListener(conf)
 	log.CheckError(err)
