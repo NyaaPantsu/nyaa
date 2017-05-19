@@ -91,5 +91,9 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 # LICENSE
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
+# Contributing
+
+Use tabs for css and js files.
+
 # Disclaimer
 We take no legal responsibility for anything this code is used for. This is an purely an educational proof of concept.
