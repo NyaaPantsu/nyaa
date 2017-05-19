@@ -25,9 +25,10 @@ Your browser does not support the audio element.
           <table class="table custom-table-hover">
           <tr>
               <th class="col-xs-1 hidden-xs">{{T "category"}}</th>
-              <th class="col-xs-12">
+              <th class="col-xs-5">
                 <a href="{{ genSearchWithOrdering .URL "1" }}">{{T "name"}}{{ genSortArrows .URL "1" }}</a>
               </th>
+              <!-- <th class="col-xs-1 hidden-xs"><span class="glyphicon glyphicon-comment"></span></th> -->
               <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "5" }}">{{T "S"}}{{ genSortArrows .URL "5" }}</a></th>
               <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "6" }}">{{T "L"}}{{ genSortArrows .URL "6" }}</a></th>
               <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "7" }}">{{T "D"}}{{ genSortArrows .URL "7" }}</a></th>
@@ -56,8 +57,12 @@ Your browser does not support the audio element.
                   <a href="{{genRoute "view_torrent" "id" .ID }}">
                       {{.Name}}
                   </a>
-                  <span class="badge pull-right hidden-xs">{{ len .Comments }}</span>
               </td>
+              <!--
+              <td class="hidden-xs">
+                  {{len .Comments}}
+              </td>
+              -->
               {{if .LastScrape.IsZero}}
               <td class="hidden-xs" colspan="3" align="center">{{T "unknown"}}</td>
               {{else}}
