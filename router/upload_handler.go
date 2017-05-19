@@ -10,24 +10,17 @@ import (
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
+	"github.com/NyaaPantsu/nyaa/service/upload"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/gorilla/mux"
 )
 
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
-	if config.UploadsDisabled {
-		user := GetUser(r)
-		if config.AdminsAreStillAllowedTo && user.Status != 2 && config.TrustedUsersAreStillAllowedTo && user.Status != 1 {
-			http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
-			return
-		} else if !config.AdminsAreStillAllowedTo && user.Status == 2 {
-			http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
-			return
-		} else if !config.TrustedUsersAreStillAllowedTo && user.Status == 1 {
-			http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
-			return
-		}
+	user := GetUser(r)
+	if !uploadService.IsUploadEnabled(*user) {
+		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
+		return
 	}
 
 	if r.Method == "POST" {

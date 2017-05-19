@@ -2,6 +2,9 @@ package uploadService
 
 import (
 	"strings"
+
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/model"
 )
 
 func CheckTrackers(trackers []string) bool {
@@ -35,4 +38,17 @@ func CheckTrackers(trackers []string) bool {
 		}
 	}
 	return numGood > 0
+}
+
+func IsUploadEnabled(u model.User) bool {
+	if config.UploadsDisabled {
+		if config.AdminsAreStillAllowedTo && u.IsModerator() {
+			return true
+		}
+		if config.TrustedUsersAreStillAllowedTo && u.IsTrusted() {
+			return true
+		}
+		return false
+	}
+	return true
 }

@@ -14,6 +14,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service"
 	"github.com/NyaaPantsu/nyaa/service/api"
+	"github.com/NyaaPantsu/nyaa/service/upload"
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/log"
@@ -101,22 +102,12 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 	token := r.Header.Get("Authorization")
 	user := model.User{}
 	db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
-	
-	if config.UploadsDisabled {
-		
-		if config.AdminsAreStillAllowedTo && user.Status != 2 && config.TrustedUsersAreStillAllowedTo && user.Status != 1 {
-			http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
-			return
-		} else if !config.AdminsAreStillAllowedTo && user.Status == 2 {
-			http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
-			return
-		} else if !config.TrustedUsersAreStillAllowedTo && user.Status == 1 {
-			http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
-			return
-		}
-		
+
+	if !uploadService.IsUploadEnabled(user) {
+		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
+		return
 	}
-	
+
 	if user.ID == 0 {
 		http.Error(w, apiService.ErrApiKey.Error(), http.StatusUnauthorized)
 		return
@@ -194,20 +185,10 @@ func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	token := r.Header.Get("Authorization")
 	user := model.User{}
 	db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
-	
-	if config.UploadsDisabled {
-		
-		if config.AdminsAreStillAllowedTo && user.Status != 2 && config.TrustedUsersAreStillAllowedTo && user.Status != 1 {
-			http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
-			return
-		} else if !config.AdminsAreStillAllowedTo && user.Status == 2 {
-			http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
-			return
-		} else if !config.TrustedUsersAreStillAllowedTo && user.Status == 1 {
-			http.Error(w, "Error uploads are disabled", http.StatusInternalServerError)
-			return
-		}
-		
+
+	if !uploadService.IsUploadEnabled(user) {
+		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
+		return
 	}
 
 	contentType := r.Header.Get("Content-Type")
