@@ -37,6 +37,10 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
+		if pagenum <= 0 {
+			NotFoundHandler(w, r)
+			return
+		}
 	}
 
 	search := common.SearchParam{

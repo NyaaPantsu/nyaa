@@ -752,6 +752,10 @@
     "translation": "Last scraped: "
   },
   {
+    "id": "server_status_link",
+    "translation": "Server status can be found here"
+  },
+  {
     "id": "no_database_dumps_available",
     "translation": "No database dumps are available at this moment."
   }

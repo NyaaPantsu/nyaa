@@ -13,6 +13,13 @@ import (
 	"time"
 )
 
+const (
+	TorrentStatusNormal  = 1
+	TorrentStatusRemake  = 2
+	TorrentStatusTrusted = 3
+	TorrentStatusAPlus   = 4
+)
+
 type Feed struct {
 	ID        int
 	Name      string
@@ -76,7 +83,23 @@ func (t Torrent) Size() (s int) {
 }
 
 func (t Torrent) TableName() string {
-	return config.TableName
+	return config.TorrentsTableName
+}
+
+func (t Torrent) IsNormal() bool {
+	return t.Status == TorrentStatusNormal
+}
+
+func (t Torrent) IsRemake() bool {
+	return t.Status == TorrentStatusRemake
+}
+
+func (t Torrent) IsTrusted() bool {
+	return t.Status == TorrentStatusTrusted
+}
+
+func (t Torrent) IsAPlus() bool {
+	return t.Status == TorrentStatusAPlus
 }
 
 /* We need a JSON object instead of a Gorm structure because magnet URLs are
@@ -154,7 +177,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	}
 
 	// Sort file list by lowercase filename
-	slice.Sort(fileListJSON, func (i, j int) bool {
+	slice.Sort(fileListJSON, func(i, j int) bool {
 		return strings.ToLower(fileListJSON[i].Path) < strings.ToLower(fileListJSON[j].Path)
 	})
 

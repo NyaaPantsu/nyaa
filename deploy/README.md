@@ -69,8 +69,13 @@ volumes.
 > caching will be done. Ansible assume you have a user on the remote that has
 > sudo (no password).
 
-You'll have to change a few variables in [hosts](host) and maybe tweak a few in
-[group_vars/all](group_vars/all).
+You'll have to change a few variables in [hosts](host). Replace the host:ip
+address to the host:ip of the target server. You can also change the user
+ansible uses to connect to the server. The user needs to have sudo ALL.
+
+You'll also maybe have to tweak a few variables in
+[group_vars/all](group_vars/all) such as the database password, etc (but should
+probably be left like this).
 
 
 ### Setup server playbook
@@ -149,5 +154,5 @@ You can now tests the playbooks.
 ## TODOs
 - Delete .torrents after X days
 - Add public keys to db (?)
-- Show public keys and link to .torrents on the website 
+- Show public keys and link to .torrents on the website
 - Tuning elasticsearch indexing / analyzer

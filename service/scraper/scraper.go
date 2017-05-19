@@ -181,7 +181,7 @@ func (sc *Scraper) Scrape(packets uint) {
 	now := time.Now().Add(0 - sc.interval)
 	// only scrape torretns uploaded within 90 days
 	oldest := now.Add(0 - (time.Hour * 24 * 90))
-	rows, err := db.ORM.Raw("SELECT torrent_id, torrent_hash FROM "+config.TableName+" WHERE ( last_scrape IS NULL OR  last_scrape < ? ) AND date > ? ORDER BY torrent_id DESC LIMIT ?", now, oldest, packets*ScrapesPerPacket).Rows()
+	rows, err := db.ORM.Raw("SELECT torrent_id, torrent_hash FROM "+config.TorrentsTableName+" WHERE ( last_scrape IS NULL OR  last_scrape < ? ) AND date > ? ORDER BY torrent_id DESC LIMIT ?", now, oldest, packets*ScrapesPerPacket).Rows()
 	if err == nil {
 		counter := 0
 		var scrape [ScrapesPerPacket]model.Torrent

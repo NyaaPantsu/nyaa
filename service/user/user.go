@@ -129,7 +129,7 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 	var currentUserID uint
 	var isAuthor bool
 
-	if db.ORM.Table(config.TableName).First(&user, id).RecordNotFound() {
+	if db.ORM.Table(config.TorrentsTableName).First(&user, id).RecordNotFound() {
 		return nil, isAuthor, currentUserID, http.StatusNotFound, errors.New("user not found")
 	}
 	currentUser, err := CurrentUser(r)
