@@ -46,8 +46,8 @@ func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
 	loginForm := form.LoginForm{}
 	modelHelper.BindValueForm(&loginForm, r)
-
 	languages.SetTranslationFromRequest(viewLoginTemplate, r)
+
 	ulfv := UserLoginFormVariables{
 		LoginForm:  loginForm,
 		FormErrors: form.NewErrors(),
@@ -286,9 +286,15 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 			url, _ := Router.Get("home").URL()
 			http.Redirect(w, r, url.String(), http.StatusSeeOther)
 		}
-
 	}
-
+	if len(err) > 0 {
+		languages.SetTranslationFromRequest(viewRegisterTemplate, r)
+		htv := UserLoginFormVariables{b, err, NewSearchForm(), NewNavigation(), GetUser(r), r.URL, mux.CurrentRoute(r)}
+		errorTmpl := viewLoginTemplate.ExecuteTemplate(w, "index.html", htv)
+		if errorTmpl != nil {
+			http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
+		}
+	}
 }
 
 // Logout
