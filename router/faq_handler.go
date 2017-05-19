@@ -9,7 +9,14 @@ import (
 
 func FaqHandler(w http.ResponseWriter, r *http.Request) {
 	languages.SetTranslationFromRequest(faqTemplate, r)
-	err := faqTemplate.ExecuteTemplate(w, "index.html", FaqTemplateVariables{NewNavigation(), NewSearchForm(), GetUser(r), r.URL, mux.CurrentRoute(r)})
+	ftv := FaqTemplateVariables{
+		Navigation: NewNavigation(),
+		Search:     NewSearchForm(),
+		User:       GetUser(r),
+		URL:        r.URL,
+		Route:      mux.CurrentRoute(r),
+	}
+	err := faqTemplate.ExecuteTemplate(w, "index.html", ftv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

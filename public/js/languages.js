@@ -24,7 +24,8 @@ function loadLanguages() {
 			}
 		}
 	}
-	xhr.open("GET", "/language?format=json", true)
+	xhr.open("GET", "/language", true)
+	xhr.setRequestHeader("Content-Type", "application/json")
 	xhr.send()
 }
 

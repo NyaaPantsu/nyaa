@@ -7,9 +7,29 @@ import (
 
 var TemplateDir = "templates"
 
-var homeTemplate, searchTemplate, faqTemplate, uploadTemplate, viewTemplate, viewRegisterTemplate, viewLoginTemplate, viewRegisterSuccessTemplate, viewVerifySuccessTemplate, viewProfileTemplate, viewProfileEditTemplate, viewUserDeleteTemplate, notFoundTemplate, changeLanguageTemplate, databaseDumpTemplate *template.Template
+var homeTemplate,
+	searchTemplate,
+	faqTemplate,
+	uploadTemplate,
+	viewTemplate,
+	viewRegisterTemplate,
+	viewLoginTemplate,
+	viewRegisterSuccessTemplate,
+	viewVerifySuccessTemplate,
+	viewProfileTemplate,
+	viewProfileEditTemplate,
+	viewUserDeleteTemplate,
+	notFoundTemplate,
+	changeLanguageTemplate,
+	databaseDumpTemplate *template.Template
 
-var panelIndex, panelTorrentList, panelUserList, panelCommentList, panelTorrentEd, panelTorrentReportList, panelTorrentReassign *template.Template
+var panelIndex,
+	panelTorrentList,
+	panelUserList,
+	panelCommentList,
+	panelTorrentEd,
+	panelTorrentReportList,
+	panelTorrentReassign *template.Template
 
 type templateLoader struct {
 	templ     **template.Template
@@ -93,8 +113,8 @@ func ReloadTemplates() {
 		},
 		templateLoader{
 			templ: &changeLanguageTemplate,
-			name: "change_language",
-			file: "change_language.html",
+			name:  "change_language",
+			file:  "change_language.html",
 		},
 	}
 	for idx := range pubTempls {

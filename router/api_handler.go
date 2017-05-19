@@ -34,7 +34,7 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if req.MaxPerPage == 0 {
-			req.MaxPerPage = 50
+			req.MaxPerPage = config.TorrentsPerPage
 		}
 		if req.Page == 0 {
 			req.Page = 1
@@ -47,8 +47,10 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 		if maxString != "" {
 			req.MaxPerPage, err = strconv.Atoi(maxString)
 			if !log.CheckError(err) {
-				req.MaxPerPage = 50 // default Value maxPerPage
+				req.MaxPerPage = config.TorrentsPerPage
 			}
+		} else {
+			req.MaxPerPage = config.TorrentsPerPage
 		}
 
 		req.Page = 1
@@ -125,12 +127,12 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	contentType := r.Header.Get("Content-Type")
 	if contentType == "application/json" {
-
 		defer r.Body.Close()
 
 		d := json.NewDecoder(r.Body)
 		if err := d.Decode(&upload); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			decodeError := fmt.Errorf("Unable to decode upload data: %s", err).Error()
+			http.Error(w, decodeError, http.StatusInternalServerError)
 			return
 		}
 		err, code := upload.ValidateUpload()
@@ -139,7 +141,6 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	} else if strings.HasPrefix(contentType, "multipart/form-data") {
-
 		upload.Name = r.FormValue("name")
 		upload.Category, _ = strconv.Atoi(r.FormValue("category"))
 		upload.SubCategory, _ = strconv.Atoi(r.FormValue("sub_category"))
@@ -153,12 +154,17 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), code)
 			return
 		}
+	} else {
+		// TODO What should we do here ? upload is empty so we shouldn't
+		// create a torrent from it
+		err := fmt.Errorf("Please provide either of Content-Type: application/json header or multipart/form-data").Error()
+		http.Error(w, err, http.StatusInternalServerError)
 	}
 	var sameTorrents int
+
 	db.ORM.Model(&model.Torrent{}).Where("torrent_hash = ?", upload.Hash).Count(&sameTorrents)
 
 	if sameTorrents == 0 {
-
 		torrent := model.Torrent{
 			Name:        upload.Name,
 			Category:    upload.Category,
@@ -183,6 +189,7 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// FIXME Impossible to update a torrent uploaded by user 0
 func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	token := r.Header.Get("Authorization")
 	user := model.User{}

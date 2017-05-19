@@ -29,7 +29,7 @@ func InitI18n(conf config.I18nConfig, retriever UserRetriever) error {
 	defaultLanguage = conf.DefaultLanguage
 	userRetriever = retriever
 
-	defaultFilepath := path.Join(conf.TranslationsDirectory, conf.DefaultLanguage+".all.json")
+	defaultFilepath := path.Join(conf.TranslationsDirectory, defaultLanguage+".all.json")
 	err := i18n.LoadTranslationFile(defaultFilepath)
 	if err != nil {
 		panic(fmt.Sprintf("failed to load default translation file '%s': %v", defaultFilepath, err))
@@ -57,27 +57,26 @@ func GetDefaultLanguage() string {
 // When go-i18n finds a language with >0 translations, it uses it as the Tfunc
 // However, if said language has a missing translation, it won't fallback to the "main" language
 func TfuncAndLanguageWithFallback(language string, languages ...string) (i18n.TranslateFunc, *language.Language, error) {
-	// Use the last language on the args as the fallback one.
-	fallbackLanguage := language
-	if languages != nil {
-		fallbackLanguage = languages[len(languages)-1]
-	}
+	fallbackLanguage := GetDefaultLanguage()
 
-	T, Tlang, err1 := i18n.TfuncAndLanguage(language, languages...)
-	fallbackT, fallbackTlang, err2 := i18n.TfuncAndLanguage(fallbackLanguage)
+	tFunc, tLang, err1 := i18n.TfuncAndLanguage(language, languages...)
+	// If fallbackLanguage fails, it will give the "id" field so we don't
+	// care about the error
+	fallbackT, fallbackTlang, _ := i18n.TfuncAndLanguage(fallbackLanguage)
 
-	if err1 != nil && err2 != nil {
-		// fallbackT is still a valid function even with the error, it returns translationID.
-		return fallbackT, fallbackTlang, err2
-	}
-
-	return func(translationID string, args ...interface{}) string {
-		if translated := T(translationID, args...); translated != translationID {
+	translateFunction := func(translationID string, args ...interface{}) string {
+		if translated := tFunc(translationID, args...); translated != translationID {
 			return translated
 		}
 
 		return fallbackT(translationID, args...)
-	}, Tlang, nil
+	}
+
+	if err1 != nil {
+		tLang = fallbackTlang
+	}
+
+	return translateFunction, tLang, err1
 }
 
 func GetAvailableLanguages() (languages map[string]string) {
@@ -112,8 +111,6 @@ func GetDefaultTfunc() (i18n.TranslateFunc, error) {
 }
 
 func GetTfuncAndLanguageFromRequest(r *http.Request) (T i18n.TranslateFunc, Tlang *language.Language) {
-	defaultLanguage := GetDefaultLanguage()
-
 	userLanguage := ""
 	user, err := getCurrentUser(r)
 	if err == nil {
@@ -126,9 +123,9 @@ func GetTfuncAndLanguageFromRequest(r *http.Request) (T i18n.TranslateFunc, Tlan
 		cookieLanguage = cookie.Value
 	}
 
-	// go-i18n supports the format of the Accept-Language header, thankfully.
+	// go-i18n supports the format of the Accept-Language header
 	headerLanguage := r.Header.Get("Accept-Language")
-	T, Tlang, _ = TfuncAndLanguageWithFallback(userLanguage, cookieLanguage, headerLanguage, defaultLanguage)
+	T, Tlang, _ = TfuncAndLanguageWithFallback(userLanguage, cookieLanguage, headerLanguage)
 	return
 }
 

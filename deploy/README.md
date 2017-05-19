@@ -25,9 +25,9 @@ You may now start the container as such.
 
 ```
 $ export GOPATH=$HOME/.go
-$ mkdir -p $HOME/.go/src/github.com/ewhal
-$ cd $HOME/.go/src/github.com/ewhal
-$ git clone https://github.com/ewhal/nyaa
+$ mkdir -p $HOME/.go/src/github.com/NyaaPantsu
+$ cd $HOME/.go/src/github.com/NyaaPantsu
+$ git clone https://github.com/NyaaPantsu/nyaa
 $ cd nyaa/deploy
 $ docker-compose -f <docker_compose_file> up
 ```

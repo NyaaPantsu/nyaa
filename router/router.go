@@ -30,43 +30,9 @@ func init() {
 	gzipUserProfileFormHandler := http.HandlerFunc(UserProfileFormHandler)
 	gzipDumpsHandler := handlers.CompressHandler(dumpsHandler)
 	gzipGpgKeyHandler := handlers.CompressHandler(gpgKeyHandler)
-
-	/*
-		// Enable GZIP compression for all handlers except imgHandler and captcha
-		gzipCSSHandler := cssHandler)
-		gzipJSHandler:= jsHandler)
-		gzipSearchHandler:= http.HandlerFunc(SearchHandler)
-		gzipAPIUploadHandler := http.HandlerFunc(ApiUploadHandler)
-		gzipAPIUpdateHandler := http.HandlerFunc(ApiUpdateHandler)
-		gzipFaqHandler := http.HandlerFunc(FaqHandler)
-		gzipRSSHandler := http.HandlerFunc(RSSHandler)
-		gzipUploadHandler := http.HandlerFunc(UploadHandler)
-		gzipUserRegisterFormHandler := http.HandlerFunc(UserRegisterFormHandler)
-		gzipUserLoginFormHandler := http.HandlerFunc(UserLoginFormHandler)
-		gzipUserVerifyEmailHandler := http.HandlerFunc(UserVerifyEmailHandler)
-		gzipUserRegisterPostHandler := http.HandlerFunc(UserRegisterPostHandler)
-		gzipUserLoginPostHandler := http.HandlerFunc(UserLoginPostHandler)
-		gzipUserLogoutHandler := http.HandlerFunc(UserLogoutHandler)
-		gzipUserFollowHandler := http.HandlerFunc(UserFollowHandler)
-
-		gzipIndexModPanel := http.HandlerFunc(IndexModPanel)
-		gzipTorrentsListPanel := http.HandlerFunc(TorrentsListPanel)
-		gzipTorrentReportListPanel := http.HandlerFunc(TorrentReportListPanel)
-		gzipUsersListPanel := http.HandlerFunc(UsersListPanel)
-		gzipCommentsListPanel := http.HandlerFunc(CommentsListPanel)
-		gzipTorrentEditModPanel := http.HandlerFunc(TorrentEditModPanel)
-		gzipTorrentPostEditModPanel := http.HandlerFunc(TorrentPostEditModPanel)
-		gzipCommentDeleteModPanel := http.HandlerFunc(CommentDeleteModPanel)
-		gzipTorrentDeleteModPanel := http.HandlerFunc(TorrentDeleteModPanel)
-		gzipTorrentReportDeleteModPanel := http.HandlerFunc(TorrentReportDeleteModPanel)*/
-	//gzipTorrentReportCreateHandler := http.HandlerFunc(CreateTorrentReportHandler)
-	//gzipTorrentReportDeleteHandler := http.HandlerFunc(DeleteTorrentReportHandler)
-	//gzipTorrentDeleteHandler := http.HandlerFunc(DeleteTorrentHandler)
 	gzipDatabaseDumpHandler := handlers.CompressHandler(http.HandlerFunc(DatabaseDumpHandler))
 
 	Router = mux.NewRouter()
-
-	// Routes
 	http.Handle("/css/", http.StripPrefix("/css/", cssHandler))
 	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
 	http.Handle("/img/", http.StripPrefix("/img/", imgHandler))
