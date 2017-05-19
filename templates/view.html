@@ -16,9 +16,9 @@
                 <div class="col-md-12">
                     <div style="float: left;">
                           {{ if Sukebei }}
-                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}">
+                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ T (Category_Sukebei .Category .SubCategory) }}">
                           {{ else }}
-                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}">
+                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ T (Category_Nyaa .Category .SubCategory) }}">
                           {{ end }}
                           <br />
                           <h4 style="display:inline-block">
