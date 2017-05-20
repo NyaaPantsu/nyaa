@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service"
@@ -18,6 +19,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/NyaaPantsu/nyaa/util/log"
+	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/gorilla/mux"
 )
@@ -140,17 +142,18 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 		}
-		offset := 100
 
-		searchParam, torrents, _, err := search.SearchByQuery(r, pagenum)
+		searchParam, torrents, count, err := search.SearchByQueryWithUser(r, pagenum)
 		searchForm := SearchForm{
 			SearchParam:      searchParam,
 			Category:         searchParam.Category.String(),
 			ShowItemsPerPage: true,
 		}
 
+		messages := msg.GetMessages(r)
+
 		languages.SetTranslationFromRequest(panelTorrentList, r)
-		htv := PanelTorrentListVbs{torrents, searchForm, Navigation{int(searchParam.Max), offset, pagenum, "mod_tlist_page"}, currentUser, r.URL}
+		htv := PanelTorrentListVbs{torrents, searchForm, Navigation{ count, int(searchParam.Max), pagenum, "mod_tlist_page"}, currentUser, messages.GetAllErrors(), messages.GetAllInfos(), r.URL}
 		err = panelTorrentList.ExecuteTemplate(w, "admin_index.html", htv)
 		log.CheckError(err)
 	} else {
@@ -395,4 +398,67 @@ func TorrentPostReassignModPanel(w http.ResponseWriter, r *http.Request) {
 	htv := PanelTorrentReassignVbs{rForm, NewPanelSearchForm(), currentUser, err, infos, r.URL}
 	err_ := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err_)
+}
+
+func TorrentsPostListPanel(w http.ResponseWriter, r *http.Request) {
+	currentUser := GetUser(r)
+	if !userPermission.HasAdmin(currentUser) {
+		http.Error(w, "admins only", http.StatusForbidden)
+		return
+	}
+	torrentManyAction(r)
+	TorrentsListPanel(w, r)
+}
+
+
+
+/*
+ * Controller to modify multiple torrents and can be used by the owner of the torrent or admin
+ */
+
+func torrentManyAction(r *http.Request) {
+	currentUser := GetUser(r)
+	r.ParseForm()
+	torrentsSelected := r.Form["torrent_id"] // should be []string
+	action := r.FormValue("action")
+	moveTo, _ := strconv.Atoi(r.FormValue("moveto"))
+	messages := msg.GetMessages(r) // new util for errors and infos
+
+	if action == "" {
+		messages.AddError(r, "errors", "You have to tell what you want to do with your selection!")
+	}
+	if action == "move" && r.FormValue("moveto") == "" { // We need to check the form value, not the int one because hidden is 0
+		messages.AddError(r, "errors", "Thou has't to telleth whither thee wanteth to moveth thy selection!")
+	}
+	if len(torrentsSelected) == 0 {
+		messages.AddError(r, "errors", "You need to select at least 1 element!")
+	}
+	if !messages.HasErrors() {
+		for _, torrent_id := range torrentsSelected {
+			torrent, _ := torrentService.GetTorrentById(torrent_id)
+			if torrent.ID > 0 && userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
+				switch action {
+				case "move":
+					if config.TorrentStatus[moveTo] {
+						torrent.Status = moveTo
+						db.ORM.Save(&torrent)
+						messages.AddInfof(r, "infos", "Torrent %s moved!", torrent.Name)
+					} else { 
+						messages.AddErrorf(r, "errors", "No such status %d exist!", moveTo)
+					}
+				case "delete":
+					_, err := torrentService.DeleteTorrent(torrent_id)
+					if err != nil {
+						messages.ImportFromError(r, "errors", err)
+					} else {
+						messages.AddInfof(r, "infos", "Torrent %s deleted!", torrent.Name)
+					}
+				default:
+					messages.AddErrorf(r, "errors", "No such action %s exist!", action)
+				}
+			} else {
+				messages.AddErrorf(r, "errors", "Torrent with ID %s doesn't exist!", torrent_id)
+			} 
+		}
+	}
 }

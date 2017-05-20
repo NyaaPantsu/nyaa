@@ -11,6 +11,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service"
 	"github.com/NyaaPantsu/nyaa/util"
+//	"github.com/NyaaPantsu/nyaa/util/log"
 )
 
 /* Function to interact with Models
@@ -91,23 +92,28 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 // won't fetch user or comments
 func GetRawTorrentById(id uint) (torrent model.Torrent, err error) {
 	err = nil
-	if db.ORM.Table(config.TableName).Table(config.TableName).Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
+	if db.ORM.Table(config.TableName).Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
 		err = errors.New("Article is not found.")
 	}
 	return
 }
 
 func GetTorrentsOrderByNoCount(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, err error) {
-	torrents, _, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, false)
+	torrents, _, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, false, false)
 	return
 }
 
 func GetTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, count int, err error) {
-	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true)
+	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true, false)
 	return
 }
 
-func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int, countAll bool) (
+func GetTorrentsWithUserOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, count int, err error) {
+	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true, true)
+	return
+}
+
+func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int, countAll bool, withUser bool) (
 	torrents []model.Torrent, count int, err error,
 ) {
 	var conditionArray []string
@@ -146,7 +152,14 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 	if limit != 0 || offset != 0 { // if limits provided
 		dbQuery = dbQuery + " LIMIT " + strconv.Itoa(limit) + " OFFSET " + strconv.Itoa(offset)
 	}
-	err = db.ORM.Preload("Comments").Raw(dbQuery, params...).Find(&torrents).Error
+	dbQ := db.ORM
+	if withUser {
+		dbQ = dbQ.Preload("Uploader")
+	}
+	if countAll {
+		dbQ = dbQ.Preload("Comments")
+	}
+	err = dbQ.Raw(dbQuery, params...).Find(&torrents).Error
 	return
 }
 

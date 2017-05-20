@@ -150,6 +150,8 @@ type PanelTorrentListVbs struct {
 	Search     SearchForm
 	Navigation Navigation
 	User       *model.User
+	Errors map[string][]string
+	Infos  map[string][]string
 	URL        *url.URL // For parsing Url in templates
 }
 type PanelUserListVbs struct {

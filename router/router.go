@@ -99,8 +99,10 @@ func init() {
 	Router.Handle("/user/{id}/{username}/edit", wrapHandler(gzipUserProfileFormHandler)).Name("user_profile_edit").Methods("POST")
 
 	Router.HandleFunc("/mod", IndexModPanel).Name("mod_index")
-	Router.HandleFunc("/mod/torrents", TorrentsListPanel).Name("mod_tlist")
-	Router.HandleFunc("/mod/torrents/{page}", TorrentsListPanel).Name("mod_tlist_page")
+	Router.HandleFunc("/mod/torrents", TorrentsListPanel).Name("mod_tlist").Methods("GET")
+	Router.HandleFunc("/mod/torrents", TorrentsPostListPanel).Methods("POST")
+	Router.HandleFunc("/mod/torrents/{page}", TorrentsListPanel).Name("mod_tlist_page").Methods("GET")
+	Router.HandleFunc("/mod/torrents/{page}", TorrentsPostListPanel).Methods("POST")
 	Router.HandleFunc("/mod/reports", TorrentReportListPanel).Name("mod_trlist")
 	Router.HandleFunc("/mod/reports/{page}", TorrentReportListPanel).Name("mod_trlist_page")
 	Router.HandleFunc("/mod/users", UsersListPanel).Name("mod_ulist")

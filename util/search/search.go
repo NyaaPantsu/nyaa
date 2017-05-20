@@ -44,16 +44,21 @@ func stringIsAscii(input string) bool {
 }
 
 func SearchByQuery(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
-	search, tor, count, err = searchByQuery(r, pagenum, true)
+	search, tor, count, err = searchByQuery(r, pagenum, true, false)
+	return
+}
+
+func SearchByQueryWithUser(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
+	search, tor, count, err = searchByQuery(r, pagenum, true, true)
 	return
 }
 
 func SearchByQueryNoCount(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, err error) {
-	search, tor, _, err = searchByQuery(r, pagenum, false)
+	search, tor, _, err = searchByQuery(r, pagenum, false, false)
 	return
 }
 
-func searchByQuery(r *http.Request, pagenum int, countAll bool) (
+func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool) (
 	search common.SearchParam, tor []model.Torrent, count int, err error,
 ) {
 	max, err := strconv.ParseUint(r.URL.Query().Get("max"), 10, 32)
@@ -211,8 +216,10 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 
 	tor, count, err = cache.Impl.Get(search, func() (tor []model.Torrent, count int, err error) {
 
-		if countAll {
+		if countAll && !withUser {
 			tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
+		} else if withUser {
+			tor, count, err = torrentService.GetTorrentsWithUserOrderBy(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
 		} else {
 			tor, err = torrentService.GetTorrentsOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
 		}
