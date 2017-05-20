@@ -142,8 +142,6 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 			Category:         searchParam.Category.String(),
 			ShowItemsPerPage: true,
 		}
-	}
-	offset := 100
 
 	messages := msg.GetMessages(r)
 	languages.SetTranslationFromRequest(panelTorrentList, r)
