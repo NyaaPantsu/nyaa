@@ -122,11 +122,12 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	} else {
 		return ErrInvalidTorrentCategory
 	}
-
-	// WebsiteLink
-	urlRegexp, _ := regexp.Compile(`^(https?:\/\/|irc:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$`)
-	if !urlRegexp.MatchString(f.WebsiteLink) {
-		return ErrInvalidWebsiteLink
+	if f.WebsiteLink != "" {
+		// WebsiteLink
+		urlRegexp, _ := regexp.Compile(`^(https?:\/\/|irc:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$`)
+		if !urlRegexp.MatchString(f.WebsiteLink) {
+			return ErrInvalidWebsiteLink
+		}
 	}
 
 	// first: parse torrent file (if any) to fill missing information
