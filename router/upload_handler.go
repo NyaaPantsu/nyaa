@@ -72,6 +72,7 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			Date:        time.Now(),
 			Filesize:    uploadForm.Filesize,
 			Description: uploadForm.Description,
+			WebsiteLink: uploadForm.WebsiteLink,
 			UploaderID:  user.ID}
 		db.ORM.Table(config.TorrentsTableName).Create(&torrent)
 
