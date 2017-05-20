@@ -752,6 +752,10 @@
     "translation": "Dernier scrape effectué : "
   },
   {
+    "id": "server_status_link",
+    "translation": "Statut du serveur"
+  },
+  {
     "id": "no_database_dumps_available",
     "translation": "Aucune sauvegarde de base de données n'est disponible en ce moment."
   }
