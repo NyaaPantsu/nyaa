@@ -214,11 +214,11 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 	max-height: 80vh;
 }
 
-/* the curved edges triggered my autism */
+/* Navbar  */
 .navbar {
 	border-radius: 0px;
 }
-/* the logo needs some space */
+
 .navbar-logo {
 	padding-right: 10px;
 }
@@ -230,10 +230,12 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 #mainmenu button .search_text {
 	display: none;
 }
+
 #mainmenu .navbar-form select.form-control
 {
 	width: 12rem;
 }
+
 #mainmenu .navbar-form select.form-control#max
 {
 	width: 6rem;
@@ -252,12 +254,12 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 }
 
 #mainmenu .navbar-header, #mainmenu .navbar-nav, #mainmenu .navbar-form {
-	padding-top: 10px;
+	padding-top: 8px;
 }
 
 #mainmenu .badgemenu {
 	padding-top: 0;
-	margin-right: -50px; /* don't ask */
+	margin-right: -50px; /* Any order columns */
 }
 
 /* PROFILE PAGE */
@@ -372,7 +374,6 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 	height: 24px;
 	width: 24px;
 	margin: 4px;
-	/* Temporary fix until the padding situation on the whole navbar is fixed */
 	margin-top: 10px;
 }
 
