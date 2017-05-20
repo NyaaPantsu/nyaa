@@ -282,6 +282,7 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 			if errorTmpl != nil {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
 			}
+			return
 		} else {
 			url, _ := Router.Get("home").URL()
 			http.Redirect(w, r, url.String(), http.StatusSeeOther)
