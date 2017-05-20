@@ -1,6 +1,7 @@
 package model
 
 import (
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/zeebo/bencode"
 )
 
@@ -10,6 +11,10 @@ type File struct {
 	// this path is bencode'd, call Path() to obtain
 	BencodedPath string `gorm:"column:path;unique_index:idx_tid_path"`
 	Filesize     int64  `gorm:"column:filesize"`
+}
+
+func (f File) TableName() string {
+	return config.FilesTableName
 }
 
 // Returns the total size of memory allocated for this struct

@@ -54,14 +54,17 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 		return
 	}
 
-	tmp := db.ORM.Table(config.TorrentsTableName).Where("torrent_id = ?", id).Preload("Comments").Preload("FileList")
-	err = tmp.Error
-	if err != nil {
-		return
+	tmp := db.ORM.Where("torrent_id = ?", id).Preload("Comments")
+	if id_int > config.LastOldTorrentID {
+		tmp = tmp.Preload("FileList")
 	}
 	if id_int <= config.LastOldTorrentID && !config.IsSukebei() {
 		// only preload old comments if they could actually exist
 		tmp = tmp.Preload("OldComments")
+	}
+	err = tmp.Error
+	if err != nil {
+		return
 	}
 	if tmp.Find(&torrent).RecordNotFound() {
 		err = errors.New("Article is not found.")
@@ -74,7 +77,7 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 	torrent.OldUploader = ""
 	if torrent.ID <= config.LastOldTorrentID && torrent.UploaderID == 0 {
 		var tmp model.UserUploadsOld
-		if !db.ORM.Table(config.UploadsOldTableName).Where("torrent_id = ?", torrent.ID).Find(&tmp).RecordNotFound() {
+		if !db.ORM.Where("torrent_id = ?", torrent.ID).Find(&tmp).RecordNotFound() {
 			torrent.OldUploader = tmp.Username
 		}
 	}
@@ -92,7 +95,7 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 // won't fetch user or comments
 func GetRawTorrentById(id uint) (torrent model.Torrent, err error) {
 	err = nil
-	if db.ORM.Table(config.TorrentsTableName).Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
+	if db.ORM.Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
 		err = errors.New("Article is not found.")
 	}
 	return
@@ -128,7 +131,7 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 	conditions := strings.Join(conditionArray, " AND ")
 	if countAll {
 		// FIXME: `deleted_at IS NULL` is duplicate in here because GORM handles this for us
-		err = db.ORM.Model(&torrents).Table(config.TorrentsTableName).Where(conditions, params...).Count(&count).Error
+		err = db.ORM.Model(&torrents).Where(conditions, params...).Count(&count).Error
 		if err != nil {
 			return
 		}
@@ -189,18 +192,18 @@ func GetAllTorrentsDB() ([]model.Torrent, int, error) {
 
 func DeleteTorrent(id string) (int, error) {
 	var torrent model.Torrent
-	if db.ORM.Table(config.TorrentsTableName).First(&torrent, id).RecordNotFound() {
+	if db.ORM.First(&torrent, id).RecordNotFound() {
 		return http.StatusNotFound, errors.New("Torrent is not found.")
 	}
-	if db.ORM.Table(config.TorrentsTableName).Delete(&torrent).Error != nil {
-		return http.StatusInternalServerError, errors.New("Torrent is not deleted.")
+	if db.ORM.Delete(&torrent).Error != nil {
+		return http.StatusInternalServerError, errors.New("Torrent was not deleted.")
 	}
 	return http.StatusOK, nil
 }
 
 func UpdateTorrent(torrent model.Torrent) (int, error) {
-	if db.ORM.Table(config.TorrentsTableName).Save(torrent).Error != nil {
-		return http.StatusInternalServerError, errors.New("Torrent is not updated.")
+	if db.ORM.Save(torrent).Error != nil {
+		return http.StatusInternalServerError, errors.New("Torrent was not updated.")
 	}
 
 	return http.StatusOK, nil
