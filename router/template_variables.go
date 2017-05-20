@@ -36,6 +36,8 @@ type NotFoundTemplateVariables struct {
 type ViewTemplateVariables struct {
 	Torrent    model.TorrentJSON
 	CaptchaID  string
+	FormErrors  map[string][]string
+	Infos   map[string][]string
 	Search     SearchForm
 	Navigation Navigation
 	User       *model.User
@@ -116,6 +118,7 @@ type DatabaseDumpTemplateVariables struct {
 
 type UploadTemplateVariables struct {
 	Upload     UploadForm
+	FormErrors  map[string][]string
 	Search     SearchForm
 	Navigation Navigation
 	User       *model.User
