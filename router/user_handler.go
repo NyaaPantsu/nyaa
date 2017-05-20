@@ -289,7 +289,7 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if len(err) > 0 {
-		languages.SetTranslationFromRequest(viewRegisterTemplate, r)
+		languages.SetTranslationFromRequest(viewLoginTemplate, r)
 		htv := UserLoginFormVariables{b, err, NewSearchForm(), NewNavigation(), GetUser(r), r.URL, mux.CurrentRoute(r)}
 		errorTmpl := viewLoginTemplate.ExecuteTemplate(w, "index.html", htv)
 		if errorTmpl != nil {
