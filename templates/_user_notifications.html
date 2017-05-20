@@ -1,15 +1,17 @@
 {{define "profile_notifications_content"}}
 	{{with .User}}
 	<div style="padding: 0.5rem; background: grey;">
-	<a href="" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-trash"></i> Clear Notifications</a>
+	<a href="{{ genRoute "user_notifications" }}?clear" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-trash"></i> Clear Notifications</a>
 	<div style="clear: both;"></div>
 	</div>
+	{{ range (index $.Infos "infos")}}
+		<div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
+	{{end}}
 	<table class="table table-hover table-striped">
 		{{ range .Notifications }}
 		<tr><td>
-			<div style="margin: 1rem;">
-				<i class="glyphicon glyphicon-bell pull-left" style="margin: -0.5rem;"></i>
-				<a href="{{ .Url }}"><h3>{{ .Content }}</h3></a>
+			<div style="padding: 0 1rem 1rem;">
+				<a href="{{ .Url }}?notif"><h3><i class="glyphicon glyphicon-bell profile-usertitle-name" ></i>{{ .Content }}</h3></a>
 			</div>
 		</td></tr>
 		{{end}}

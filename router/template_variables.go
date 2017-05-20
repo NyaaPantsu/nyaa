@@ -98,6 +98,7 @@ type UserProfileVariables struct {
 }
 
 type UserProfileNotifVariables struct {
+	Infos   map[string][]string
 	Search      SearchForm
 	Navigation  Navigation
 	User        *model.User

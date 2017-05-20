@@ -7,10 +7,12 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
+	"github.com/NyaaPantsu/nyaa/service/notifier"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/service/user/form"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/languages"
+	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/modelHelper"
 	"github.com/gorilla/mux"
 )
@@ -327,8 +329,14 @@ func UserFollowHandler(w http.ResponseWriter, r *http.Request) {
 func UserNotificationsHandler(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	if currentUser.ID > 0 {
-		languages.SetTranslationFromRequest(viewProfileNotifTemplate, r)
-		htv := UserProfileNotifVariables{NewSearchForm(), NewNavigation(), currentUser, r.URL, mux.CurrentRoute(r)}
+		messages := msg.GetMessages(r)
+		T := languages.SetTranslationFromRequest(viewProfileNotifTemplate, r)
+		if r.URL.Query()["clear"] != nil {
+			notifierService.DeleteAllNotifications(currentUser.ID)
+			messages.AddInfo("infos", T("notifications_cleared"))
+			currentUser.Notifications = []model.Notification{}
+		}
+		htv := UserProfileNotifVariables{messages.GetAllInfos(), NewSearchForm(), NewNavigation(), currentUser, r.URL, mux.CurrentRoute(r)}
 		err := viewProfileNotifTemplate.ExecuteTemplate(w, "index.html", htv)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)

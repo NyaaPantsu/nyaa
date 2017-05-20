@@ -760,6 +760,10 @@
     "translation": "No database dumps are available at this moment."
   },
   {
+    "id": "notifications_cleared",
+    "translation": "Notifications erased!"
+  },
+  {
     "id": "my_notifications",
     "translation": "My Notifications"
   },
