@@ -60,8 +60,8 @@
 	background-image: url(/img/megumin.png);
 }
 
-body {
-	background-color:#282A2E;
+body, footer {
+	background-color: #282A2E;
 	color: #eff5f5;
 }
 
