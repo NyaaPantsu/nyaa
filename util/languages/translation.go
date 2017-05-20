@@ -3,7 +3,6 @@ package languages
 import (
 	"errors"
 	"fmt"
-	"html/template"
 	"net/http"
 	"path"
 	"path/filepath"
@@ -116,6 +115,11 @@ func GetTfuncAndLanguageFromRequest(r *http.Request) (T i18n.TranslateFunc, Tlan
 	headerLanguage := r.Header.Get("Accept-Language")
 	T, Tlang, _ = TfuncAndLanguageWithFallback(userLanguage, cookieLanguage, headerLanguage)
 	return
+}
+
+func GetTfuncFromRequest(r *http.Request) i18n.TranslateFunc {
+	T, _ := GetTfuncAndLanguageFromRequest(r)
+	return T
 }
 
 func getCurrentUser(r *http.Request) (model.User, error) {

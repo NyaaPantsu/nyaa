@@ -211,8 +211,8 @@ type PanelTorrentReportListVbs struct {
 type PanelTorrentReassignVbs struct {
 	Reassign   ReassignForm
 	Search     SearchForm  // unused?
-	User       *model.User // unused?
 	T          i18n.TranslateFunc
+	User       *model.User // unused?
 	FormErrors map[string][]string
 	FormInfos  map[string][]string
 	URL        *url.URL // For parsing Url in templates
