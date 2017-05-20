@@ -326,13 +326,14 @@ func UserNotificationsHandler(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	if currentUser.ID > 0 {
 		messages := msg.GetMessages(r)
-		T := languages.SetTranslationFromRequest(viewProfileNotifTemplate, r)
+		Ts, _ := languages.GetTfuncAndLanguageFromRequest(r)
+		T := languages.GetTfuncFromRequest(r)
 		if r.URL.Query()["clear"] != nil {
 			notifierService.DeleteAllNotifications(currentUser.ID)
-			messages.AddInfo("infos", T("notifications_cleared"))
+			messages.AddInfo("infos", Ts("notifications_cleared"))
 			currentUser.Notifications = []model.Notification{}
 		}
-		htv := UserProfileNotifVariables{messages.GetAllInfos(), NewSearchForm(), NewNavigation(), currentUser, r.URL, mux.CurrentRoute(r)}
+		htv := UserProfileNotifVariables{messages.GetAllInfos(), NewSearchForm(), NewNavigation(), T, currentUser, r.URL, mux.CurrentRoute(r)}
 		err := viewProfileNotifTemplate.ExecuteTemplate(w, "index.html", htv)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
