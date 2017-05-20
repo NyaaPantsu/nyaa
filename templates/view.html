@@ -72,31 +72,23 @@
                 {{end}}
                 <div class="row">
                     <div class="col-md-12 col-xs-6">
-                <div class="row">
-                    <div class="col-md-4">{{T "seeders"}}</div>
-                    <div class="col-md-4">{{T "leechers"}}</div>
-                    <div class="col-md-4">{{T "completed"}}</div>
-                </div>
-                </div>
-                <div class="col-md-12 col-xs-6">
-                <div class="row">
-                    {{if .LastScrape.IsZero}}
-                    <div class="col-md-12" align="center">{{T "unknown"}}</div>
-                    {{else}}
-                    <div class="col-md-4">{{.Seeders}}</div>
-                    <div class="col-md-4">{{.Leechers}}</div>
-                    <div class="col-md-4"><span class="completed" style="">{{.Completed}}</span></div>
-                    {{end}}
-                </div>
-                </div>
-                <div class="col-md-12 col-xs-12">
-                <div class="row">
-                    {{if not .LastScrape.IsZero}}
-                    <div class="col-md-4 col-xs-8">{{T "last_scraped"}}</div>
-                    <div class="col-md-8 col-xs-4 date-short">{{ formatDateRFC .LastScrape }}</div>
-                    {{end}}
-                </div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-4">{{T "seeders"}}</div>
+                        <div class="col-md-4">{{T "leechers"}}</div>
+                        <div class="col-md-4">{{T "completed"}}</div>
+                    </div>
+                    </div>
+                    <div class="col-md-12 col-xs-6">
+                    <div class="row">
+                        {{if .LastScrape.IsZero}}
+                        <div class="col-md-12" align="center">{{T "unknown"}}</div>
+                        {{else}}
+                        <div class="col-md-4">{{.Seeders}}</div>
+                        <div class="col-md-4">{{.Leechers}}</div>
+                       <div class="col-md-4"><span class="completed" style="">{{.Completed}}</span></div>
+                        {{end}}
+                    </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-8">
@@ -104,6 +96,11 @@
                             <div class="seeds" style="width: {{ calcWidthSeed .Seeders .Leechers }}%;"></div>
                             <div class="leechs" style="width: {{ calcWidthLeech .Seeders .Leechers }}%;"></div>
                         </div>
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                        {{if not .LastScrape.IsZero}}
+                        {{T "last_scraped"}}<span class="date-short">{{ formatDateRFC .LastScrape }}</span>
+                        {{end}}
                     </div>
                 </div>
                 <hr>
