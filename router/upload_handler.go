@@ -1,6 +1,7 @@
 package router
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -77,13 +78,15 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			UploaderID:  user.ID}
 		db.ORM.Create(&torrent)
 
+		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
+
 		if (user.ID > 0) { // If we are a member
-		userService.GetLiked(user) // We populate the liked field for users
-		if len(user.Liked) > 0 { // If we are followed by at least someone
-				for _, follower := range user.Liked {
+		userService.GetLikings(user) // We populate the liked field for users
+		if len(user.Likings) > 0 { // If we are followed by at least someone
+				for _, follower := range user.Likings {
 					T, _, _ := languages.TfuncAndLanguageWithFallback(user.Language, user.Language) // We need to send the notification to every user in their language
 
-					notifierService.NotifyUser(&follower, torrent.Identifier(), T("new_torrent_uploaded", torrent.Name, user.Username))
+					notifierService.NotifyUser(&follower, torrent.Identifier(), fmt.Sprintf(T("new_torrent_uploaded"), torrent.Name, user.Username), url.String())
 					
 				}
 			}
@@ -101,7 +104,6 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
-		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return

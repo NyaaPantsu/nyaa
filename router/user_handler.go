@@ -145,7 +145,7 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 	id := vars["id"]
 	currentUser := GetUser(r)
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
-	if errorUser != nil || !userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
+	if errorUser != nil || !userPermission.CurrentOrAdmin(currentUser, userProfile.ID) || userProfile.ID == 0 {
 		NotFoundHandler(w, r)
 		return
 	}
@@ -311,7 +311,7 @@ func UserFollowHandler(w http.ResponseWriter, r *http.Request) {
 	id := vars["id"]
 	currentUser := GetUser(r)
 	user, _, errorUser := userService.RetrieveUserForAdmin(id)
-	if errorUser == nil {
+	if errorUser == nil && user.ID > 0 {
 		if !userPermission.IsFollower(&user, currentUser) {
 			followAction = "followed"
 			userService.SetFollow(&user, currentUser)
@@ -322,4 +322,18 @@ func UserFollowHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	url, _ := Router.Get("user_profile").URL("id", strconv.Itoa(int(user.ID)), "username", user.Username)
 	http.Redirect(w, r, url.String()+"?"+followAction, http.StatusSeeOther)
+}
+
+func UserNotificationsHandler(w http.ResponseWriter, r *http.Request) {
+	currentUser := GetUser(r)
+	if currentUser.ID > 0 {
+		languages.SetTranslationFromRequest(viewProfileNotifTemplate, r)
+		htv := UserProfileNotifVariables{NewSearchForm(), NewNavigation(), currentUser, r.URL, mux.CurrentRoute(r)}
+		err := viewProfileNotifTemplate.ExecuteTemplate(w, "index.html", htv)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	} else {
+		NotFoundHandler(w, r)
+	}
 }

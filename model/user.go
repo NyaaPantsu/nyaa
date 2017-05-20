@@ -32,7 +32,7 @@ type User struct {
 	MD5      string    `json:"md5" gorm:"column:md5"` // Hash of email address, used for Gravatar
 	Torrents []Torrent `gorm:"ForeignKey:UploaderID"`
 
-	UnreadNotifications int // We don't want to loop every notifications when accessing user unread notif
+	UnreadNotifications int `gorm:"-"` // We don't want to loop every notifications when accessing user unread notif
 	Notifications []Notification `gorm:"ForeignKey:UserID"`
 }
 
