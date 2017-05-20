@@ -680,6 +680,10 @@
     "translation": "Delete"
   },
   {
+    "id": "website_link",
+    "translation": "Website Link"
+  },
+  {
     "id": "files",
     "translation": "Files"
   },
