@@ -54,14 +54,17 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 		return
 	}
 
-	tmp := db.ORM.Where("torrent_id = ?", id).Preload("Comments").Preload("FileList")
-	err = tmp.Error
-	if err != nil {
-		return
+	tmp := db.ORM.Where("torrent_id = ?", id).Preload("Comments")
+	if id_int > config.LastOldTorrentID {
+		tmp = tmp.Preload("FileList")
 	}
 	if id_int <= config.LastOldTorrentID && !config.IsSukebei() {
 		// only preload old comments if they could actually exist
 		tmp = tmp.Preload("OldComments")
+	}
+	err = tmp.Error
+	if err != nil {
+		return
 	}
 	if tmp.Find(&torrent).RecordNotFound() {
 		err = errors.New("Article is not found.")
