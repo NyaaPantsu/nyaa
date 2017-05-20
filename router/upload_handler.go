@@ -5,7 +5,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
@@ -56,7 +55,7 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var sameTorrents int
-	db.ORM.Model(&model.Torrent{}).Table(config.TorrentsTableName).Where("torrent_hash = ?", uploadForm.Infohash).Count(&sameTorrents)
+	db.ORM.Model(&model.Torrent{}).Where("torrent_hash = ?", uploadForm.Infohash).Count(&sameTorrents)
 	if sameTorrents > 0 {
 		messages.AddError("errors", "Torrent already in database !")
 	}
@@ -74,7 +73,7 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			Description: uploadForm.Description,
 			WebsiteLink: uploadForm.WebsiteLink,
 			UploaderID:  user.ID}
-		db.ORM.Table(config.TorrentsTableName).Create(&torrent)
+		db.ORM.Create(&torrent)
 
 		// add filelist to files db, if we have one
 		if len(uploadForm.FileList) > 0 {

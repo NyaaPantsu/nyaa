@@ -14,16 +14,18 @@ const (
 	// that was copied from the original Nyaa
 	LastOldTorrentID    = 923000
 	TorrentsTableName   = "torrents"
+	ReportsTableName    = "torrent_reports"
 	CommentsTableName   = "comments"
 	UploadsOldTableName = "user_uploads_old"
+	FilesTableName      = "files"
 
 	// for sukebei:
 	//LastOldTorrentID    = 2303945
 	//TorrentsTableName   = "sukebei_torrents"
+	//ReportsTableName    = "sukebei_torrent_reports"
 	//CommentsTableName   = "sukebei_comments"
 	//UploadsOldTableName = "sukebei_user_uploads_old"
-
-	// FIXME: files table needs to be seperate too
+	//FilesTableName      = "sukebei_files"
 )
 
 func IsSukebei() bool {
