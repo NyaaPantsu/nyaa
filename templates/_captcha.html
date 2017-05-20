@@ -1,4 +1,5 @@
 {{define "captcha"}}
+{{with .Upload}}
 	{{/* unset if user doesn't need captcha */}}
 	{{if ne .CaptchaID ""}}
 	<div class="form-group captcha-container">
@@ -8,4 +9,5 @@
 		<input type="text" name="solution" id="solution" class="form-control" placeholder="{{call $.T "captcha"}}" autocomplete="off" required>
 	</div>
 	{{end}}
+{{end}}
 {{end}}
