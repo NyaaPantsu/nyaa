@@ -740,23 +740,23 @@
     "translation": "Anulează"
   },
   {
- +    "id": "please_include_our_tracker",
- +    "translation": "Te rog include udp://tracker.doko.moe:6969 la trackerele tale."
- +  },
- +  {
- +    "id": "unknown",
- +    "translation": "Necunoscut"
- +  },
- +  {
- +    "id": "last_scraped",
- +    "translation": "Ultimul scrape: "
- +  },
- +  {
- +    "id": "server_status_link",
- +    "translation": "Statusul servărului poate fi găsit aici"
- +  },
- +  {
- +    "id": "no_database_dumps_available",
- +    "translation": "Dumpurile bazei de date nu sunt disponibile în acest moment."
+    "id": "please_include_our_tracker",
+    "translation": "Te rog include udp://tracker.doko.moe:6969 la trackerele tale."
+   },
+   {
+    "id": "unknown",
+    "translation": "Necunoscut"
+   },
+   {
+    "id": "last_scraped",
+    "translation": "Ultimul scrape: "
+   },
+   {
+    "id": "server_status_link",
+    "translation": "Statusul servărului poate fi găsit aici"
+   },
+   {
+    "id": "no_database_dumps_available",
+    "translation": "Dumpurile bazei de date nu sunt disponibile în acest moment."
     }
 ]
