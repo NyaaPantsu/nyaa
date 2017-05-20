@@ -3,7 +3,7 @@
 {{define "content"}}
 
 <audio id="nyaapassu" hidden>
-  <source src="http://nyanpass.com/nyanpass.mp3" type="audio/mpeg">
+  <source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
 Your browser does not support the audio element.
 </audio>
 <audio id="explosion" hidden>
@@ -11,7 +11,7 @@ Your browser does not support the audio element.
 Your browser does not support the audio element.
 </audio>
 
-  <span id="mascot" class="visible-lg-block"></span>
+  <span id="mascot"></span>
 
   <div class="blockBody">
       <nav>
@@ -25,13 +25,15 @@ Your browser does not support the audio element.
           <table class="table custom-table-hover">
           <tr>
               <th class="col-xs-1 hidden-xs">{{T "category"}}</th>
-              <th class="col-xs-5">
+              <th class="col-xs-12">
                 <a href="{{ genSearchWithOrdering .URL "1" }}">{{T "name"}}{{ genSortArrows .URL "1" }}</a>
               </th>
+              <th class="col-xs-1 hidden-xs">
+                <a href="{{ genSearchWithOrdering .URL "5" }}">{{T "S"}}{{ genSortArrows .URL "5" }}</a> / 
+                <a href="{{ genSearchWithOrdering .URL "6" }}">{{T "L"}}{{ genSortArrows .URL "6" }}</a> / 
+                <a href="{{ genSearchWithOrdering .URL "7" }}">{{T "D"}}{{ genSortArrows .URL "7" }}</a>
+              </th>
               <!-- <th class="col-xs-1 hidden-xs"><span class="glyphicon glyphicon-comment"></span></th> -->
-              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "5" }}">{{T "S"}}{{ genSortArrows .URL "5" }}</a></th>
-              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "6" }}">{{T "L"}}{{ genSortArrows .URL "6" }}</a></th>
-              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "7" }}">{{T "D"}}{{ genSortArrows .URL "7" }}</a></th>
               <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{T "date"}}{{ genSortArrows .URL "2" }}</th></a>
               <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "4" }}">{{T "size"}}{{ genSortArrows .URL "4" }}</a></th>
               <th class="col-xs-1 hidden-xs">{{T "links"}}</th>
@@ -62,11 +64,13 @@ Your browser does not support the audio element.
               </td>
               -->
               {{if .LastScrape.IsZero}}
-              <td class="hidden-xs" colspan="3" align="center">{{T "unknown"}}</td>
+              <td class="hidden-xs" align="center">{{T "unknown"}}</td>
               {{else}}
-              <td class="hidden-xs"><b class="text-success">{{.Seeders}}</b></td>
-              <td class="hidden-xs"><b class="text-danger">{{.Leechers}}</b></td>
-              <td class="hidden-xs">{{.Completed}}</td>
+              <td class="hidden-xs">
+                <b class="text-success">{{.Seeders}}</b> / 
+                <b class="text-danger">{{.Leechers}}</b> / 
+                {{.Completed}}
+              </td>
               {{end}}
               <td class="hidden-xs nowrap date-short">{{.Date}}</td>
               <td class="hidden-xs nowrap">{{.Filesize}}</td>

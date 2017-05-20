@@ -14,12 +14,18 @@ import (
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/NyaaPantsu/nyaa/util/log"
+	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/gorilla/mux"
 )
 
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
+	messages := msg.GetMessages(r)
+
+	if (r.URL.Query()["success"] != nil) {
+		messages.AddInfo("infos", "Torrent uploaded successfully!")
+	}
 
 	torrent, err := torrentService.GetTorrentById(id)
 	if err != nil {
@@ -32,7 +38,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	if userPermission.NeedsCaptcha(user) {
 		captchaID = captcha.GetID()
 	}
-	htv := ViewTemplateVariables{b, captchaID, NewSearchForm(), NewNavigation(), user, r.URL, mux.CurrentRoute(r)}
+	htv := ViewTemplateVariables{b, captchaID, messages.GetAllErrors(), messages.GetAllInfos(), NewSearchForm(), NewNavigation(), user, r.URL, mux.CurrentRoute(r)}
 
 	languages.SetTranslationFromRequest(viewTemplate, r)
 	err = viewTemplate.ExecuteTemplate(w, "index.html", htv)

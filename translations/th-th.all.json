@@ -197,7 +197,7 @@
   },
   {
     "id": "404_not_found",
-    "translation": "404 Not Found"
+    "translation": "404 ไม่พบหน้านี้"
   },
   {
     "id": "no_torrents_uploaded",
@@ -752,7 +752,11 @@
     "translation": "Scrap ครั้งล่าสุด: "
   },
   {
+    "id": "server_status_link",
+    "translation": "สามารถดูสถานะของเซิร์ฟเวอร์ได้ที่นี่"
+  }, 
+  {
     "id": "no_database_dumps_available",
     "translation": "ยังไม่มีไฟล์ดัมพ์ฐานข้อมูลในขณะนี้"
-}
+  }
 ]

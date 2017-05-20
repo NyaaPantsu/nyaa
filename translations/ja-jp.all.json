@@ -197,7 +197,7 @@
   },
   {
     "id": "404_not_found",
-    "translation": "404 ページが見つかりません"
+    "translation": "404 - ページが見つかりません"
   },
   {
     "id": "no_torrents_uploaded",
@@ -754,6 +754,10 @@
   {
     "id": "last_scraped",
     "translation": "最終更新日: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "サーバーの状態"
   },
   {
     "id": "no_database_dumps_available",

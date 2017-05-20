@@ -40,6 +40,7 @@ type UploadForm struct {
 	Description string
 	Status      int
 	CaptchaID   string
+	WebsiteLink string
 
 	Infohash      string
 	CategoryID    int
@@ -58,25 +59,29 @@ const UploadFormMagnet = "magnet"
 const UploadFormCategory = "c"
 const UploadFormRemake = "remake"
 const UploadFormDescription = "desc"
+const UploadFormWebsiteLink = "website_link"
 const UploadFormStatus = "status"
 
 // error indicating that you can't send both a magnet link and torrent
-var ErrTorrentPlusMagnet = errors.New("upload either a torrent file or magnet link, not both")
+var ErrTorrentPlusMagnet = errors.New("Upload either a torrent file or magnet link, not both")
 
 // error indicating a torrent is private
-var ErrPrivateTorrent = errors.New("torrent is private")
+var ErrPrivateTorrent = errors.New("Torrent is private")
 
 // error indicating a problem with its trackers
-var ErrTrackerProblem = errors.New("torrent does not have any (working) trackers: https://" + config.WebAddress + "/faq#trackers")
+var ErrTrackerProblem = errors.New("Torrent does not have any (working) trackers: https://" + config.WebAddress + "/faq#trackers")
 
 // error indicating a torrent's name is invalid
-var ErrInvalidTorrentName = errors.New("torrent name is invalid")
+var ErrInvalidTorrentName = errors.New("Torrent name is invalid")
 
 // error indicating a torrent's description is invalid
-var ErrInvalidTorrentDescription = errors.New("torrent description is invalid")
+var ErrInvalidTorrentDescription = errors.New("Torrent description is invalid")
+
+// error indicating a torrent's description is invalid
+var ErrInvalidWebsiteLink = errors.New("Website url or IRC link is invalid")
 
 // error indicating a torrent's category is invalid
-var ErrInvalidTorrentCategory = errors.New("torrent category is invalid")
+var ErrInvalidTorrentCategory = errors.New("Torrent category is invalid")
 
 var p = bluemonday.UGCPolicy()
 
@@ -88,6 +93,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	f.Name = r.FormValue(UploadFormName)
 	f.Category = r.FormValue(UploadFormCategory)
 	f.Description = r.FormValue(UploadFormDescription)
+	f.WebsiteLink = r.FormValue(UploadFormWebsiteLink)
 	f.Status, _ = strconv.Atoi(r.FormValue(UploadFormStatus))
 	f.Magnet = r.FormValue(UploadFormMagnet)
 	f.Remake = r.FormValue(UploadFormRemake) == "on"
@@ -95,6 +101,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	// trim whitespace
 	f.Name = util.TrimWhitespaces(f.Name)
 	f.Description = p.Sanitize(util.TrimWhitespaces(f.Description))
+	f.WebsiteLink = util.TrimWhitespaces(f.WebsiteLink)
 	f.Magnet = util.TrimWhitespaces(f.Magnet)
 	cache.Impl.ClearAll()
 
@@ -114,6 +121,13 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		f.SubCategoryID = SubCatID
 	} else {
 		return ErrInvalidTorrentCategory
+	}
+	if f.WebsiteLink != "" {
+		// WebsiteLink
+		urlRegexp, _ := regexp.Compile(`^(https?:\/\/|ircs?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$`)
+		if !urlRegexp.MatchString(f.WebsiteLink) {
+			return ErrInvalidWebsiteLink
+		}
 	}
 
 	// first: parse torrent file (if any) to fill missing information
@@ -175,7 +189,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		}
 		xt := magnetUrl.Query().Get("xt")
 		if !strings.HasPrefix(xt, "urn:btih:") {
-			return errors.New("incorrect magnet")
+			return errors.New("Incorrect magnet")
 		}
 		xt = strings.SplitAfter(xt, ":")[2]
 		f.Infohash = strings.ToUpper(strings.Split(xt, "&")[0])
@@ -189,7 +203,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 				return err
 			}
 			if !isBase16 {
-				return errors.New("incorrect hash")
+				return errors.New("Incorrect hash")
 			}
 		} else {
 			//convert to base16

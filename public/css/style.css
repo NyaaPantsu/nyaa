@@ -128,6 +128,10 @@ td {
 	color:#bbb;
 }
 
+.md-editor > textarea, .md-preview {
+    background: none !important;
+}
+
 /* Table style & fixes */
 .table > tbody > tr > th, .nowrap {
 	white-space: nowrap;
@@ -436,8 +440,7 @@ select#bottom_language_selector {
 }
 
 .text-error {
-	background: white;
-	color: #cf9fff;
+	color: #fb3333;
 }
 
 /* Wordbreak fix*/
@@ -575,5 +578,10 @@ select#bottom_language_selector {
 	}
 	.collapse.in{
 		display:block !important;
+	}
+}
+@media (max-width: 1500px) {
+	#mascot {
+		display: none;
 	}
 }

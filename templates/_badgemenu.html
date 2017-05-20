@@ -13,7 +13,11 @@
 		        <li><a href="{{ genRoute "user_logout" }}"><i class="fa fa-sign-out"></i> {{ T "sign_out"}}</a></li>
 		    </ul>
 		    {{ else }}
-            <a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ T "member" }}<span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+		    <span class="hidden-md hidden-sm">{{ T "member" }}</span>
+		    <span class="glyphicon glyphicon-user visible-md-inline"></span>
+		    <span class="caret"></span>
+	    </a>
             <ul class="dropdown-menu">
                 <li><a href="{{ genRoute "user_login" }}"><i class="fa fa-sign-out"></i> {{ T "sign_in"}}</a></li>
                 <li><a href="{{ genRoute "user_register" }}"><i class="fa fa-cog"></i> {{ T "sign_up"}}</a></li>
