@@ -509,7 +509,7 @@
   },
   {
     "id": "trusted",
-    "translation": "Treist"
+    "translation": "Treyst"
   },
   {
     "id": "id",
@@ -541,7 +541,7 @@
   },
   {
     "id": "comments",
-    "translation": "Kommennt"
+    "translation": "Komment"
   },
   {
     "id": "submit_a_comment_as_username",
@@ -709,7 +709,7 @@
   },
   {
     "id": "report_type",
-    "translation": "Tylkynningargerð"
+    "translation": "Gerð tilkynningar"
   },
   {
     "id": "illegal_content",
