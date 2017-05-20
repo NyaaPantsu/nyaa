@@ -187,9 +187,12 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	}
 	torrentlink := ""
 	if t.ID <= config.LastOldTorrentID && len(config.TorrentCacheLink) > 0 {
-		torrentlink = fmt.Sprintf(config.TorrentCacheLink, t.Hash)
+		if config.IsSukebei() {
+			torrentlink = "" // torrent cache doesn't have sukebei torrents
+		} else {
+			torrentlink = fmt.Sprintf(config.TorrentCacheLink, t.Hash)
+		}
 	} else if t.ID > config.LastOldTorrentID && len(config.TorrentStorageLink) > 0 {
-		// TODO: Fix as part of configuration changes (fix what?)
 		torrentlink = fmt.Sprintf(config.TorrentStorageLink, t.Hash)
 	}
 	res := TorrentJSON{
@@ -223,7 +226,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 /* Complete the functions when necessary... */
 
 // Map Torrents to TorrentsToJSON without reallocations
-func TorrentsToJSON(t []Torrent) []TorrentJSON { // TODO: Convert to singular version
+func TorrentsToJSON(t []Torrent) []TorrentJSON {
 	json := make([]TorrentJSON, len(t))
 	for i := range t {
 		json[i] = t[i].ToJSON()
