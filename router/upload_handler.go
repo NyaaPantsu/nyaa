@@ -1,7 +1,6 @@
 package router
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -13,6 +12,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/upload"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/languages"
+	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/gorilla/mux"
 )
 
@@ -25,31 +25,28 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "POST" {
 		UploadPostHandler(w, r)
-	} else if r.Method == "GET" {
-		UploadGetHandler(w, r)
-	} else {
-		w.WriteHeader(http.StatusMethodNotAllowed)
-		return
 	}
+
+	UploadGetHandler(w, r)
 }
 
 func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 	var uploadForm UploadForm
 	defer r.Body.Close()
 	user := GetUser(r)
+	messages := msg.GetMessages(r) // new util for errors and infos
+
 	if userPermission.NeedsCaptcha(user) {
 		userCaptcha := captcha.Extract(r)
 		if !captcha.Authenticate(userCaptcha) {
-			http.Error(w, captcha.ErrInvalidCaptcha.Error(), http.StatusInternalServerError)
-			return
+			messages.AddError("errors", captcha.ErrInvalidCaptcha.Error())
 		}
 	}
 
 	// validation is done in ExtractInfo()
 	err := uploadForm.ExtractInfo(r)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		messages.AddError("errors", err.Error())
 	}
 	status := model.TorrentStatusNormal
 	if uploadForm.Remake { // overrides trusted
@@ -60,7 +57,11 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 
 	var sameTorrents int
 	db.ORM.Model(&model.Torrent{}).Table(config.TorrentsTableName).Where("torrent_hash = ?", uploadForm.Infohash).Count(&sameTorrents)
-	if sameTorrents == 0 {
+	if sameTorrents > 0 {
+		messages.AddError("errors", "Torrent already in database !")
+	}
+
+	if !messages.HasErrors() {
 		// add to db and redirect
 		torrent := model.Torrent{
 			Name:        uploadForm.Name,
@@ -80,8 +81,7 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 				file := model.File{TorrentID: torrent.ID, Filesize: uploadedFile.Filesize}
 				err := file.SetPath(uploadedFile.Path)
 				if err != nil {
-					http.Error(w, err.Error(), http.StatusInternalServerError)
-					return
+					messages.AddError("errors", err.Error())
 				}
 				db.ORM.Create(&file)
 			}
@@ -92,16 +92,13 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		http.Redirect(w, r, url.String(), 302)
-	} else {
-		err = fmt.Errorf("Torrent already in database!")
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		http.Redirect(w, r, url.String()+"?success", 302)
 	}
 }
 
 func UploadGetHandler(w http.ResponseWriter, r *http.Request) {
 	languages.SetTranslationFromRequest(uploadTemplate, r)
+	messages := msg.GetMessages(r) // new util for errors and infos
 
 	var uploadForm UploadForm
 	user := GetUser(r)
@@ -113,6 +110,7 @@ func UploadGetHandler(w http.ResponseWriter, r *http.Request) {
 
 	utv := UploadTemplateVariables{
 		Upload:     uploadForm,
+		FormErrors: messages.GetAllErrors(),
 		Search:     NewSearchForm(),
 		Navigation: NewNavigation(),
 		User:       GetUser(r),

@@ -365,13 +365,13 @@ func torrentManyAction(r *http.Request) {
 	messages := msg.GetMessages(r) // new util for errors and infos
 
 	if action == "" {
-		messages.AddError(r, "errors", "You have to tell what you want to do with your selection!")
+		messages.AddError("errors", "You have to tell what you want to do with your selection!")
 	}
 	if action == "move" && r.FormValue("moveto") == "" { // We need to check the form value, not the int one because hidden is 0
-		messages.AddError(r, "errors", "Thou has't to telleth whither thee wanteth to moveth thy selection!")
+		messages.AddError("errors", "Thou has't to telleth whither thee wanteth to moveth thy selection!")
 	}
 	if len(torrentsSelected) == 0 {
-		messages.AddError(r, "errors", "You need to select at least 1 element!")
+		messages.AddError("errors", "You need to select at least 1 element!")
 	}
 	if !messages.HasErrors() {
 		for _, torrent_id := range torrentsSelected {
@@ -382,22 +382,22 @@ func torrentManyAction(r *http.Request) {
 					if config.TorrentStatus[moveTo] {
 						torrent.Status = moveTo
 						db.ORM.Save(&torrent)
-						messages.AddInfof(r, "infos", "Torrent %s moved!", torrent.Name)
+						messages.AddInfof("infos", "Torrent %s moved!", torrent.Name)
 					} else { 
-						messages.AddErrorf(r, "errors", "No such status %d exist!", moveTo)
+						messages.AddErrorf("errors", "No such status %d exist!", moveTo)
 					}
 				case "delete":
 					_, err := torrentService.DeleteTorrent(torrent_id)
 					if err != nil {
-						messages.ImportFromError(r, "errors", err)
+						messages.ImportFromError("errors", err)
 					} else {
-						messages.AddInfof(r, "infos", "Torrent %s deleted!", torrent.Name)
+						messages.AddInfof("infos", "Torrent %s deleted!", torrent.Name)
 					}
 				default:
-					messages.AddErrorf(r, "errors", "No such action %s exist!", action)
+					messages.AddErrorf("errors", "No such action %s exist!", action)
 				}
 			} else {
-				messages.AddErrorf(r, "errors", "Torrent with ID %s doesn't exist!", torrent_id)
+				messages.AddErrorf("errors", "Torrent with ID %s doesn't exist!", torrent_id)
 			} 
 		}
 	}

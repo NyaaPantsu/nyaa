@@ -4,7 +4,9 @@
   {{with .Upload}}
   <hr>
   <form enctype="multipart/form-data" role="upload" method="POST">
-
+    {{ range (index $.FormErrors "errors")}}
+      <div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
+    {{end}}
       <div class="form-group">
       <label for="name">{{T "name"}}</label>
           <input type="text" name="name" id="name" class="form-control" placeholder="{{T "file_name"}}" value="{{.Name}}" autofocus required>
@@ -69,7 +71,11 @@
       <div class="form-group">
           <label for="desc">{{T "torrent_description"}}</label>
           <p class="help-block">{{T "description_markdown_notice"}}</p>
-          <textarea name="desc" id="desc" class="form-contro torrent-desc" rows="15">{{.Description}}</textarea>
+          <textarea name="desc" id="desc" class="form-control torrent-desc" rows="15">{{.Description}}</textarea>
+      </div>
+      <div class="form-group">
+          <label for="website_link">{{T "website_link"}}</label>
+          <input name="website_link" id="website_link" class="form-control" type="text" value="{{.WebsiteLink}}">
       </div>
 
       {{block "captcha" .}}{{end}}
