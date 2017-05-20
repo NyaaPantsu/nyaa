@@ -2,6 +2,8 @@ package router
 
 import (
 	"net/http"
+
+	"github.com/NyaaPantsu/nyaa/service/user/permission"
 )
 
 type wrappedResponseWriter struct {
@@ -46,4 +48,17 @@ func (wh *wrappedHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func wrapHandler(handler http.Handler) http.Handler {
 	return &wrappedHandler{handler}
+}
+
+// Make sure the user is a moderator, otherwise return forbidden
+// TODO Clean this
+func WrapModHandler(handler func (w http.ResponseWriter, r *http.Request)) (func (w http.ResponseWriter, r *http.Request)) {
+	return func (w http.ResponseWriter, r *http.Request) {
+		currentUser := GetUser(r)
+		if userPermission.HasAdmin(currentUser) {
+			handler(w, r)
+		} else {
+			http.Error(w, "admins only", http.StatusForbidden)
+		}
+	}
 }

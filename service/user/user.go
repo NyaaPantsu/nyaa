@@ -129,7 +129,7 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 	var currentUserID uint
 	var isAuthor bool
 
-	if db.ORM.Table(config.TableName).First(&user, id).RecordNotFound() {
+	if db.ORM.Table(config.TorrentsTableName).First(&user, id).RecordNotFound() {
 		return nil, isAuthor, currentUserID, http.StatusNotFound, errors.New("user not found")
 	}
 	currentUser, err := CurrentUser(r)
@@ -268,7 +268,7 @@ func RetrieveUserByUsername(username string) (*model.PublicUser, string, int, er
 func RetrieveOldUploadsByUsername(username string) ([]uint, error) {
 	var ret []uint
 	var tmp []*model.UserUploadsOld
-	err := db.ORM.Where("username = ?", username).Find(&tmp).Error
+	err := db.ORM.Table(config.UploadsOldTableName).Where("username = ?", username).Find(&tmp).Error
 	if err != nil {
 		return ret, err
 	}
@@ -281,7 +281,7 @@ func RetrieveOldUploadsByUsername(username string) ([]uint, error) {
 // RetrieveUserForAdmin retrieves a user for an administrator.
 func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	var user model.User
-	if db.ORM.Preload("Torrents").First(&user, id).RecordNotFound() {
+	if db.ORM.Preload("Torrents").Last(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("user not found")
 	}
 	var liked, likings []model.User

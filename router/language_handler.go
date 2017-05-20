@@ -18,8 +18,8 @@ func SeeLanguagesHandler(w http.ResponseWriter, r *http.Request) {
 	_, Tlang := languages.GetTfuncAndLanguageFromRequest(r)
 	availableLanguages := languages.GetAvailableLanguages()
 
-	format := r.URL.Query().Get("format")
-	if format == "json" {
+	contentType := r.Header.Get("Content-Type")
+	if contentType == "application/json" {
 		w.Header().Set("Content-Type", "application/json")
 		err := json.NewEncoder(w).Encode(LanguagesJSONResponse{Tlang.Tag, availableLanguages})
 		if err != nil {
@@ -27,7 +27,15 @@ func SeeLanguagesHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	} else {
-		clv := ChangeLanguageVariables{NewSearchForm(), NewNavigation(), Tlang.Tag, availableLanguages, GetUser(r), r.URL, mux.CurrentRoute(r)}
+		clv := ChangeLanguageVariables{
+			Search:     NewSearchForm(),
+			Navigation: NewNavigation(),
+			Language:   Tlang.Tag,
+			Languages:  availableLanguages,
+			User:       GetUser(r),
+			URL:        r.URL,
+			Route:      mux.CurrentRoute(r),
+		}
 		languages.SetTranslationFromRequest(changeLanguageTemplate, r)
 		err := changeLanguageTemplate.ExecuteTemplate(w, "index.html", clv)
 		if err != nil {
@@ -52,9 +60,8 @@ func ChangeLanguageHandler(w http.ResponseWriter, r *http.Request) {
 		user.Language = lang
 		// I don't know if I should use this...
 		userService.UpdateUserCore(&user)
-	} else {
-		http.SetCookie(w, &http.Cookie{Name: "lang", Value: lang})
 	}
+	http.SetCookie(w, &http.Cookie{Name: "lang", Value: lang})
 
 	url, _ := Router.Get("home").URL()
 	http.Redirect(w, r, url.String(), http.StatusSeeOther)

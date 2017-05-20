@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	  <title>Nyaa Pantsu - {{block "title" .}}{{ T "error_404" }}{{end}}</title>
+	<title>{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{block "title" .}}{{ T "error_404" }}{{end}}</title>
     <link rel="icon" type="image/png" href="/img/favicon.png?v=3" />
 
     <!-- RSS Feed with Context -->
@@ -45,20 +45,18 @@
                       <span class="icon-bar"></span>
                   </button>
                   <a href="{{.URL.Parse "/"}}"><img src="/img/logo.png" class ="navbar-logo" alt="Nyaa Pantsu"></a>
-                  <a class="navbar-brand hidden-md pull-right nightswitch" href="javascript:toggleNightMode();" ></a>
+                  <a class="navbar-brand pull-right nightswitch" href="javascript:toggleNightMode();" ></a>
               </div>
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
-                      <li><a href="{{.URL.Parse "/upload"}}">{{T "upload"}}</a></li>
-                      <li><a href="{{.URL.Parse "/faq"}}">{{T "faq"}}</a></li>
-                      <li><a href="{{ genRouteWithQuery "feed" .URL }}">RSS</a></li>
+                      <li><a href="{{.URL.Parse "/upload"}}"><div class="hidden-md hidden-sm">{{T "upload"}}</div><span class="glyphicon glyphicon-cloud-upload visible-md"></span></a></li>
+                      <li><a href="{{.URL.Parse "/faq"}}"><div class="hidden-md hidden-sm">{{T "faq"}}</div><span class="glyphicon glyphicon-question-sign visible-md"></span></a></li>
+                      <li><a href="{{ genRouteWithQuery "feed" .URL }}"><div class="hidden-md hidden-sm">RSS</div><span class="glyphicon glyphicon-flash visible-md"></span></a></li>
                       {{ if Sukebei }}
-                      <li><a href="https://nyaa.pantsu.cat">{{T "fun"}}</a></li>
+                      <li><a href="https://nyaa.pantsu.cat"><div class="hidden-md hidden-sm">{{T "fun"}}</div><span class="glyphicon glyphicon-eye-open visible-md"></span></a></li>
                       {{ else }}
-                      <li><a href="https://sukebei.pantsu.cat">{{T "fap"}}</a></li>
+                      <li><a href="https://sukebei.pantsu.cat"><div class="hidden-md hidden-sm">{{T "fap"}}</div><span class="glyphicon glyphicon-eye-close visible-md"></span></a></li>
                       {{ end }}
-                      <li><a href="irc://irc.rizon.net/nyaapantsu">IRC</a></li>
-
                   </ul>
                   {{block "badge_user" .}}{{end}}
                   <form class="navbar-form navbar-right" role="search" action="/search" method="get">

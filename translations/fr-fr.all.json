@@ -321,11 +321,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Nous avons maintenant notre propre tracker appelé doko.moe, placez-le en haut de la liste avant d'uploader :"
-  },
-  {
-    "id": "other_trackers",
-    "translation": "Mais vous devriez aussi ajouter ceux-ci, dans le cas où cela ne fonctionnerait pas :"
+    "translation": "Nous avons maintenant notre propre tracker appelé doko.moe, placez-le en haut de la liste avant d'uploader. Vous devriez également ajouter plusieurs autres trackers pour assurer la pérennité du torrent :"
   },
   {
     "id": "how_can_i_help",
@@ -754,5 +750,13 @@
   {
     "id": "last_scraped",
     "translation": "Dernier scrape effectué : "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "Statut du serveur"
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "Aucune sauvegarde de base de données n'est disponible en ce moment."
   }
 ]

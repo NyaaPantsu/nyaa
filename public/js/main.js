@@ -1,11 +1,11 @@
 function toggleNightMode() {
-    var night = localStorage.getItem("night");
-    if(night == "true") {
-        document.getElementsByTagName("head")[0].removeChild(darkStyleLink);
-    } else {
-        document.getElementsByTagName("head")[0].appendChild(darkStyleLink);
-    }
-    localStorage.setItem("night", (night == "true") ? "false" : "true");
+	var night = localStorage.getItem("night");
+	if(night == "true") {
+		document.getElementsByTagName("head")[0].removeChild(darkStyleLink);
+	} else {
+		document.getElementsByTagName("head")[0].appendChild(darkStyleLink);
+	}
+	localStorage.setItem("night", (night == "true") ? "false" : "true");
 }
 
 // Used by spoiler tags
@@ -41,7 +41,17 @@ $(".date-comments").each(function(index, el) {
 });
 /*Fixed-Navbar offset fix*/
 window.onload = function() {
-  var shiftWindow = function() { scrollBy(0, -70) };
-if (location.hash) shiftWindow();
-window.addEventListener("hashchange", shiftWindow);
+	var shiftWindow = function() { scrollBy(0, -70) };
+	if (location.hash) shiftWindow();
+	window.addEventListener("hashchange", shiftWindow);
 };
+
+
+$('#mascot').bind('touchstart mousedown click', function(e){
+	var night = localStorage.getItem("night");
+	if(night == "true") {
+		$('#explosion')[0].play();
+	} else {
+		$('#nyaapassu')[0].play();
+	}
+});

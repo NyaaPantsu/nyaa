@@ -1,12 +1,24 @@
 {{define "title"}}{{T "home"}}{{end}}
 {{define "contclass"}}cont-home{{end}}
 {{define "content"}}
+
+<audio id="nyaapassu" hidden>
+  <source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+<audio id="explosion" hidden>
+  <source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+  <span id="mascot"></span>
+
   <div class="blockBody">
-      <ul class="list-inline" aria-label="Page navigation">
-          <li id="mascot"></li>
-          <li style="padding-top: 7%;" class="pull-right"><ul class="pagination">
+      <nav>
+      <ul class="list-inline text-center" aria-label="Page navigation">
+          <li><ul class="pagination">
               {{ genNav .Navigation .URL 5 }}
-          </ul></li>
+          </li></ul>
       </nav>
 
       <div class="table-responsive">
@@ -16,12 +28,15 @@
               <th class="col-xs-12">
                 <a href="{{ genSearchWithOrdering .URL "1" }}">{{T "name"}}{{ genSortArrows .URL "1" }}</a>
               </th>
-              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "5" }}">{{T "S"}}{{ genSortArrows .URL "5" }}</a></th>
-              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "6" }}">{{T "L"}}{{ genSortArrows .URL "6" }}</a></th>
-              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "7" }}">{{T "D"}}{{ genSortArrows .URL "7" }}</a></th>
+              <th class="col-xs-1 hidden-xs">
+                <a href="{{ genSearchWithOrdering .URL "5" }}">{{T "S"}}{{ genSortArrows .URL "5" }}</a> / 
+                <a href="{{ genSearchWithOrdering .URL "6" }}">{{T "L"}}{{ genSortArrows .URL "6" }}</a> / 
+                <a href="{{ genSearchWithOrdering .URL "7" }}">{{T "D"}}{{ genSortArrows .URL "7" }}</a>
+              </th>
+              <!-- <th class="col-xs-1 hidden-xs"><span class="glyphicon glyphicon-comment"></span></th> -->
               <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{T "date"}}{{ genSortArrows .URL "2" }}</th></a>
               <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "4" }}">{{T "size"}}{{ genSortArrows .URL "4" }}</a></th>
-              <th class="col-xs-1 hidden-xs" style="white-space: nowrap;">{{T "links"}}</th>
+              <th class="col-xs-1 hidden-xs">{{T "links"}}</th>
           </tr>
           {{ range .ListTorrents}}
           <tr class="torrent-info
@@ -32,11 +47,9 @@
               <td class="hidden-xs" style="width:80px">
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
                       {{ if Sukebei }}
-
-                      <img src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}">
-
+                      <img src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ T (Category_Sukebei .Category .SubCategory) }}">
                       {{ else }}
-                      <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}">
+                      <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ T (Category_Nyaa .Category .SubCategory) }}">
                       {{ end}}
                   </a>
               </td>
@@ -44,18 +57,24 @@
                   <a href="{{genRoute "view_torrent" "id" .ID }}">
                       {{.Name}}
                   </a>
-                  <span class="badge pull-right hidden-xs">{{ len .Comments }}</span>
               </td>
-              {{if .LastScrape.IsZero}}
-              <td class="hidden-xs" colspan="3" align="center">{{T "unknown"}}</td>
-              {{else}}
-              <td class="hidden-xs"><b class="text-success">{{.Seeders}}</b></td>
-              <td class="hidden-xs"><b class="text-danger">{{.Leechers}}</b></td>
-              <td class="hidden-xs">{{.Completed}}</td>
-              {{end}}
-              <td class="hidden-xs date date-short">{{.Date}}</td>
-              <td class="hidden-xs filesize">{{.Filesize}}</td>
+              <!--
               <td class="hidden-xs">
+                  {{len .Comments}}
+              </td>
+              -->
+              {{if .LastScrape.IsZero}}
+              <td class="hidden-xs" align="center">{{T "unknown"}}</td>
+              {{else}}
+              <td class="hidden-xs">
+                <b class="text-success">{{.Seeders}}</b> / 
+                <b class="text-danger">{{.Leechers}}</b> / 
+                {{.Completed}}
+              </td>
+              {{end}}
+              <td class="hidden-xs nowrap date-short">{{.Date}}</td>
+              <td class="hidden-xs nowrap">{{.Filesize}}</td>
+              <td class="hidden-xs nowrap">
                   <a href="{{.Magnet}}" title="Magnet link">
                       <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>
                   </a>

@@ -20,7 +20,11 @@
               <!-- forced width because the <td> gets bigger randomly otherwise -->
               <td style="width:80px">
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
-                      <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}">
+                      {{ if Sukebei }}
+                      <img src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ T (Category_Sukebei .Category .SubCategory) }}">
+                      {{ else }}
+                      <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ T (Category_Nyaa .Category .SubCategory) }}">
+                      {{ end}}
                   </a>
               </td>
               <td class="name">
@@ -28,14 +32,14 @@
                       {{.Name}}
                   </a>
               </td>
-              <td class="date date-short">{{.Date}}</td>
-              <td class="filesize">{{.Filesize}}</td>
+              <td class="nowrap date-short">{{.Date}}</td>
+              <td class="nowrap">{{.Filesize}}</td>
               <td>
-                  <a href="{{.Magnet}}" title="Magnet link">
+                  <a href="{{.Magnet}}" title="{{ T "magnet_link" }}">
                       <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>
                   </a>
                   {{if ne .TorrentLink ""}}
-                  <a href="{{.TorrentLink}}" title="Torrent file">
+                  <a href="{{.TorrentLink}}" title="{{ T "torrent_file" }}">
                       <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 
                   </a>
                   {{end}}

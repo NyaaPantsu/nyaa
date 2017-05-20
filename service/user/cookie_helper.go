@@ -83,7 +83,7 @@ func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, er
 	if err != nil {
 		return http.StatusUnauthorized, errors.New("Password incorrect")
 	}
-	if user.Status == -1 {
+	if user.IsBanned() {
 		return http.StatusUnauthorized, errors.New("Account banned")
 	}
 
@@ -148,7 +148,7 @@ func CurrentUser(r *http.Request) (model.User, error) {
 		}
 	}
 
-	if user.Status == -1 {
+	if user.IsBanned() {
 		// recheck as user might've been banned in the meantime
 		return user, errors.New("Account banned")
 	}

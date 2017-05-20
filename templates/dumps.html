@@ -24,11 +24,11 @@
               <td class="name">
                     {{.Name}}
               </td>
-              <td class="hidden-xs date date-short">{{.Date}}</td>
-              <td class="hidden-xs filesize">{{.Filesize}}</td>
+              <td class="hidden-xs nowrap date-short">{{.Date}}</td>
+              <td class="hidden-xs nowrap">{{.Filesize}}</td>
               <td class="hidden-xs">
                   {{if ne .TorrentLink ""}}
-                  <a href="{{.TorrentLink}}" title="Torrent file">
+                  <a href="{{.TorrentLink}}" title="{{ T "torrent_file" }}">
                       <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 
                   </a>
                   {{end}}

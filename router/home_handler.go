@@ -37,6 +37,10 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
+		if pagenum <= 0 {
+			NotFoundHandler(w, r)
+			return
+		}
 	}
 
 	search := common.SearchParam{
@@ -52,12 +56,24 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return torrents, nbTorrents, err
 	})
 
-	b := model.TorrentsToJSON(torrents)
-
-	navigationTorrents := Navigation{nbTorrents, maxPerPage, pagenum, "search_page"}
+	navigationTorrents := Navigation{
+		TotalItem:      nbTorrents,
+		MaxItemPerPage: maxPerPage,
+		CurrentPage:    pagenum,
+		Route:          "search_page",
+	}
 
 	languages.SetTranslationFromRequest(homeTemplate, r)
-	htv := HomeTemplateVariables{b, NewSearchForm(), navigationTorrents, GetUser(r), r.URL, mux.CurrentRoute(r)}
+
+	torrentsJson := model.TorrentsToJSON(torrents)
+	htv := HomeTemplateVariables{
+		ListTorrents: torrentsJson,
+		Search:       NewSearchForm(),
+		Navigation:   navigationTorrents,
+		User:         GetUser(r),
+		URL:          r.URL,
+		Route:        mux.CurrentRoute(r),
+	}
 
 	err = homeTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {

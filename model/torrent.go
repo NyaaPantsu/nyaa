@@ -13,6 +13,13 @@ import (
 	"time"
 )
 
+const (
+	TorrentStatusNormal  = 1
+	TorrentStatusRemake  = 2
+	TorrentStatusTrusted = 3
+	TorrentStatusAPlus   = 4
+)
+
 type Feed struct {
 	ID        int
 	Name      string
@@ -76,7 +83,23 @@ func (t Torrent) Size() (s int) {
 }
 
 func (t Torrent) TableName() string {
-	return config.TableName
+	return config.TorrentsTableName
+}
+
+func (t Torrent) IsNormal() bool {
+	return t.Status == TorrentStatusNormal
+}
+
+func (t Torrent) IsRemake() bool {
+	return t.Status == TorrentStatusRemake
+}
+
+func (t Torrent) IsTrusted() bool {
+	return t.Status == TorrentStatusTrusted
+}
+
+func (t Torrent) IsAPlus() bool {
+	return t.Status == TorrentStatusAPlus
 }
 
 /* We need a JSON object instead of a Gorm structure because magnet URLs are
@@ -154,7 +177,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	}
 
 	// Sort file list by lowercase filename
-	slice.Sort(fileListJSON, func (i, j int) bool {
+	slice.Sort(fileListJSON, func(i, j int) bool {
 		return strings.ToLower(fileListJSON[i].Path) < strings.ToLower(fileListJSON[j].Path)
 	})
 
@@ -164,9 +187,12 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	}
 	torrentlink := ""
 	if t.ID <= config.LastOldTorrentID && len(config.TorrentCacheLink) > 0 {
-		torrentlink = fmt.Sprintf(config.TorrentCacheLink, t.Hash)
+		if config.IsSukebei() {
+			torrentlink = "" // torrent cache doesn't have sukebei torrents
+		} else {
+			torrentlink = fmt.Sprintf(config.TorrentCacheLink, t.Hash)
+		}
 	} else if t.ID > config.LastOldTorrentID && len(config.TorrentStorageLink) > 0 {
-		// TODO: Fix as part of configuration changes (fix what?)
 		torrentlink = fmt.Sprintf(config.TorrentStorageLink, t.Hash)
 	}
 	res := TorrentJSON{
@@ -200,7 +226,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 /* Complete the functions when necessary... */
 
 // Map Torrents to TorrentsToJSON without reallocations
-func TorrentsToJSON(t []Torrent) []TorrentJSON { // TODO: Convert to singular version
+func TorrentsToJSON(t []Torrent) []TorrentJSON {
 	json := make([]TorrentJSON, len(t))
 	for i := range t {
 		json[i] = t[i].ToJSON()

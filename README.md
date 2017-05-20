@@ -62,7 +62,7 @@ $ cd deploy/
 # You may choose another backend by pointing to the
 # appropriate docker-compose file.
 $ docker-compose -f docker-compose.sqlite.yml build
-$ docker-compose -f docker-compose.sqlite.yml up 
+$ docker-compose -f docker-compose.sqlite.yml up
 ```
 
 Access the website by going to [localhost:9999](http://localhost:9999).
@@ -77,10 +77,10 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 * Scraping of fan subbing RSS feeds similar to metainfo_fetcher and scraper
   * nyaa.si
   * anidex.moe
+* Anidb integration
 * Site theme
   * original nyaa theme
   * Implement mockup design from /g/anon
-
 * Use elastic search or sphinix search
 * Use new db abstraction layer and remove all ORM code
 * API improvement
@@ -91,5 +91,9 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 # LICENSE
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
+# Contributing
+
+Use tabs for css and js files.
+
 # Disclaimer
-We take no legal responsibility for anything this code is used for. This is an purely an educational proof of concept.
+We take no legal responsibility for anything this code is used for. This is purely an educational proof of concept.

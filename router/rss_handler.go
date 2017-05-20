@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/NyaaPantsu/nyaa/config"
+	userService "github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/gorilla/feeds"
@@ -15,6 +16,7 @@ import (
 func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
+	userID := vars["id"]
 
 	var err error
 	pagenum := 1
@@ -24,6 +26,30 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 			util.SendError(w, err, 400)
 			return
 		}
+		if pagenum <= 0 {
+			NotFoundHandler(w, r)
+			return
+		}
+	}
+
+	if userID != "" {
+		userIDnum, err := strconv.Atoi(html.EscapeString(userID))
+		// Should we have a feed for anonymous uploads?
+		if err != nil || userIDnum == 0 {
+			util.SendError(w, err, 400)
+			return
+		}
+
+		_, _, err = userService.RetrieveUserForAdmin(userID)
+		if err != nil {
+			util.SendError(w, err, 404)
+			return
+		}
+
+		// Set the user ID on the request, so that SearchByQuery finds it.
+		query := r.URL.Query()
+		query.Set("userID", userID)
+		r.URL.RawQuery = query.Encode()
 	}
 
 	_, torrents, err := search.SearchByQueryNoCount(r, pagenum)
