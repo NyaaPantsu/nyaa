@@ -10,7 +10,7 @@ func NotifyUser(user *model.User, name string, msg string, url string) {
 	if (user.ID > 0) {
 		notification := model.NewNotification(name, msg, url)
 		notification.UserID = user.ID
-		db.ORM.Save(notification)
+		db.ORM.Create(&notification)
 		// TODO: Email notification
 	}
 }
