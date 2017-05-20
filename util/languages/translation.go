@@ -95,17 +95,6 @@ func GetAvailableLanguages() (languages map[string]string) {
 	return
 }
 
-func setTranslation(tmpl *template.Template, T i18n.TranslateFunc) {
-	tmpl.Funcs(map[string]interface{}{
-		"T": func(str string, args ...interface{}) template.HTML {
-			return template.HTML(fmt.Sprintf(T(str), args...))
-		},
-		"Ts": func(str string, args ...interface{}) string {
-			return fmt.Sprintf(T(str), args...)
-		},
-	})
-}
-
 func GetDefaultTfunc() (i18n.TranslateFunc, error) {
 	return i18n.Tfunc(defaultLanguage)
 }
@@ -127,13 +116,6 @@ func GetTfuncAndLanguageFromRequest(r *http.Request) (T i18n.TranslateFunc, Tlan
 	headerLanguage := r.Header.Get("Accept-Language")
 	T, Tlang, _ = TfuncAndLanguageWithFallback(userLanguage, cookieLanguage, headerLanguage)
 	return
-}
-
-func SetTranslationFromRequest(tmpl *template.Template, r *http.Request) i18n.TranslateFunc {
-	r.Header.Add("Vary", "Accept-Encoding")
-	T, _ := GetTfuncAndLanguageFromRequest(r)
-	setTranslation(tmpl, T)
-	return T
 }
 
 func getCurrentUser(r *http.Request) (model.User, error) {
