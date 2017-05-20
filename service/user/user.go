@@ -280,7 +280,7 @@ func RetrieveOldUploadsByUsername(username string) ([]uint, error) {
 // RetrieveUserForAdmin retrieves a user for an administrator.
 func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	var user model.User
-	if db.ORM.Preload("Torrents").Last(&user, id).RecordNotFound() {
+	if db.ORM.Preload("Notifications").Preload("Torrents").Last(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("user not found")
 	}
 	var liked, likings []model.User
@@ -298,6 +298,19 @@ func RetrieveUsersForAdmin(limit int, offset int) ([]model.User, int) {
 	db.ORM.Model(&users).Count(&nbUsers)
 	db.ORM.Preload("Torrents").Limit(limit).Offset(offset).Find(&users)
 	return users, nbUsers
+}
+
+func GetLiked(user *model.User) *model.User {
+	var liked []model.User
+	db.ORM.Joins("JOIN user_follows on user_follows.following=?", user.ID).Where("users.user_id = user_follows.user_id").Group("users.user_id").Find(&liked)
+	user.Liked = liked
+	return user
+}
+func GetLikings(user *model.User) *model.User {
+	var likings []model.User
+	db.ORM.Joins("JOIN user_follows on user_follows.user_id=?", user.ID).Where("users.user_id = user_follows.following").Group("users.user_id").Find(&likings)
+	user.Likings = likings
+	return user
 }
 
 // CreateUserAuthentication creates user authentication.

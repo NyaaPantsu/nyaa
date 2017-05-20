@@ -8,7 +8,9 @@ import (
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
+	"github.com/NyaaPantsu/nyaa/service/notifier"
 	"github.com/NyaaPantsu/nyaa/service/upload"
+	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
@@ -74,6 +76,18 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			WebsiteLink: uploadForm.WebsiteLink,
 			UploaderID:  user.ID}
 		db.ORM.Create(&torrent)
+
+		if (user.ID > 0) { // If we are a member
+		userService.GetLiked(user) // We populate the liked field for users
+		if len(user.Liked) > 0 { // If we are followed by at least someone
+				for _, follower := range user.Liked {
+					T, _, _ := languages.TfuncAndLanguageWithFallback(user.Language, user.Language) // We need to send the notification to every user in their language
+
+					notifierService.NotifyUser(&follower, torrent.Identifier(), T("new_torrent_uploaded", torrent.Name, user.Username))
+					
+				}
+			}
+		}
 
 		// add filelist to files db, if we have one
 		if len(uploadForm.FileList) > 0 {
