@@ -101,6 +101,7 @@ func UploadGetHandler(w http.ResponseWriter, r *http.Request) {
 	messages := msg.GetMessages(r) // new util for errors and infos
 
 	var uploadForm UploadForm
+	_ = uploadForm.ExtractInfo(r)
 	user := GetUser(r)
 	if userPermission.NeedsCaptcha(user) {
 		uploadForm.CaptchaID = captcha.GetID()
