@@ -574,3 +574,8 @@ select#bottom_language_selector {
 		display:block !important;
 	}
 }
+@media (max-width: 1500px) {
+	#mascot {
+		display: none;
+	}
+}
