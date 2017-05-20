@@ -220,7 +220,7 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 }
 /* the logo needs some space */
 .navbar-logo {
-	margin-right: 30px;
+	padding-right: 10px;
 }
 
 :target {
@@ -369,9 +369,11 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 #mainmenu a.nightswitch {
 	background: transparent url(/img/sun.png) no-repeat;
 	background-size: 24px;
-	margin-top: 10px;
 	height: 24px;
 	width: 24px;
+	margin: 4px;
+	/* Temporary fix until the padding situation on the whole navbar is fixed */
+	margin-top: 10px;
 }
 
 footer {
