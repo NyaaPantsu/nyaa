@@ -244,7 +244,7 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 .special-img 
 {
 	position: relative;
-	top: -5px;
+	top: -7px;
 	float: left;
 	left: -5px;
 }
@@ -374,7 +374,7 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 	height: 24px;
 	width: 24px;
 	margin: 4px;
-	margin-top: 10px;
+	margin-top: 11px;
 }
 
 footer {
