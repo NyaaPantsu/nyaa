@@ -101,7 +101,7 @@
   },
   {
     "id":"signup_verification_email",
-    "translation": "Por fim, verifique a sua caixa de entrada (e pasta de spam!) pelo e-mail de verificação."
+    "translation": "No momento, a verificação por e-mail está desabilitada, então você já pode usar a sua conta. Futuramente, verifique a sua caixa de entrada (e pasta de spam!) pelo e-mail de verificação."
   },
   {
     "id":"signup_verification_noemail",
@@ -183,6 +183,10 @@
     "id": "fap",
     "translation": "Fap"
   },
+  {
+    "id": "fun",    
+    "translation": "Fun"
+  },  
   {
     "id": "advanced_search",
     "translation": "Pesquisa avançada"
@@ -273,7 +277,7 @@
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "Sukebei está em perfeito estado e quase nada foi perdido."
+    "translation": "Sukebei também está em perfeito estado e quase nada foi perdido."
   },
   {
     "id": "how_are_we_recovering",
@@ -281,7 +285,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "Os bancos de dados estão hospedados em nyaa.pantsu.cat e sukebei.pantsu.cat. Há uma função de busca, e (quase) todas as funcionalidades do nyaa devem estar de volta em breve. Estatísticas de seeders/leechers estão disponíveis via raspagem de dados e podem ser restauradas no futuro, já que outras funções são prioridade no momento."
+    "translation": "Os bancos de dados estão hospedados em nyaa.pantsu.cat e sukebei.pantsu.cat. Há uma função de busca, e (quase) todas as funcionalidades do nyaa devem estar de volta em breve."
   },
   {
     "id": "how_do_i_link_my_old_account",
@@ -358,6 +362,10 @@
   {
     "id": "all_categories",
     "translation": "Todas as categorias"
+  },
+  {
+    "id": "select_a_torrent_category",
+    "translation": "Selecione uma categoria para o torrent."
   },
   {
     "id": "anime",
@@ -450,6 +458,38 @@
   {
     "id": "software_games",
     "translation": "Software - Jogos"
+  },  
+  {   
+    "id": "art",    
+    "translation": "Arte"  
+  },  
+  { 
+    "id": "art_anime",
+    "translation": "Arte - Anime"  
+  },  
+  { 
+    "id": "art_doujinshi",
+    "translation": "Arte - Doujinshi"  
+  },  
+  {  
+    "id": "art_games",
+    "translation": "Arte - Jogos"  
+  },  
+  {    
+    "id": "art_manga",    
+    "translation": "Arte - Manga"  
+  },  
+  {    
+    "id": "real_life",    
+    "translation": "Vida real"  
+  },  
+  {    
+    "id": "real_life_photobooks_and_pictures",
+    "translation": "Vida real - albums de fotos e imagens"  
+  },  
+  {    
+    "id": "real_life_videos",    
+    "translation": "Vida real - Vídeos"
   },
   {
     "id": "torrent_description",
@@ -638,6 +678,14 @@
   {
     "id": "delete",
     "translation": "Excluir"
+  },  
+  {    
+    "id": "files",
+    "translation": "Arquivos"  
+  },  
+  {    
+    "id": "filename",
+    "translation": "Nome do arquivo"
   },
   {
     "id": "uploaded_by",
@@ -690,5 +738,41 @@
   {
     "id": "cancel",
     "translation": "Cancelar"
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "Por favor inclua udp://tracker.doko.moe:6969 em sua lista de trackers."
+  },
+  {
+    "id": "unknown",
+    "translation": "Desconhecido"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "Último scrape: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "Você pode consultar o status do server aqui"
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "No momento, não há backups da database disponíveis."
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "Limpar notificações"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "Notificações apagadas!"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "Minhas notificações"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "Novo torrent: \"%s\" por %s"
   }
 ]
