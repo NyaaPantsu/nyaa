@@ -124,7 +124,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 	}
 
 	// WebsiteLink
-	urlRegexp, _ := regexp.Compile(`^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$`)
+	urlRegexp, _ := regexp.Compile(`^(https?:\/\/|irc:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$`)
 	if !urlRegexp.MatchString(f.WebsiteLink) {
 		return ErrInvalidWebsiteLink
 	}
