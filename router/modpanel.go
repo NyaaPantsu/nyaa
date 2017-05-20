@@ -15,6 +15,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/report"
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/user"
+	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	form "github.com/NyaaPantsu/nyaa/service/user/form"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/NyaaPantsu/nyaa/util/log"
@@ -345,7 +346,6 @@ func TorrentPostReassignModPanel(w http.ResponseWriter, r *http.Request) {
 }
 
 func TorrentsPostListPanel(w http.ResponseWriter, r *http.Request) {
-	currentUser := GetUser(r)
 	torrentManyAction(r)
 	TorrentsListPanel(w, r)
 }
