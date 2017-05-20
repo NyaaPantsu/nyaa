@@ -1,4 +1,4 @@
-{{define "title"}}{{ T "profile_page" .UserProfile.Username }}{{end}}
+{{define "title"}}{{ call $.T "profile_page" .UserProfile.Username }}{{end}}
 {{define "contclass"}}cont-view{{end}}
 {{define "content"}}
 {{ range (index $.FormInfos "infos")}}
@@ -28,9 +28,9 @@
 						{{if gt $.User.ID 0 }}
 							{{if not (CurrentUserIdentical $.User .ID) }}
 								{{if not (IsFollower . $.User)}}
-									<a href="{{ genRoute "user_follow" "id" ( print .ID ) "username" .Username }}" class="btn btn-success btn-sm">{{ T "follow"}}</a>
+									<a href="{{ genRoute "user_follow" "id" ( print .ID ) "username" .Username }}" class="btn btn-success btn-sm">{{ call $.T "follow"}}</a>
 								{{else}}
-									<a href="{{ genRoute "user_follow" "id" ( print .ID ) "username" .Username }}" class="btn btn-danger btn-sm">{{ T "unfollow"}}</a>
+									<a href="{{ genRoute "user_follow" "id" ( print .ID ) "username" .Username }}" class="btn btn-danger btn-sm">{{ call $.T "unfollow"}}</a>
 								{{end}}
 							{{end}}
 						{{end}}
@@ -41,17 +41,17 @@
 				<div class="profile-usermenu">
 					<ul class="nav">
 						<li class="active">
-							<a href="{{ genRoute "user_profile" "id" ( print .ID ) "username" .Username }}"><i class="glyphicon glyphicon-home"></i>{{T "torrents"}}</a>
+							<a href="{{ genRoute "user_profile" "id" ( print .ID ) "username" .Username }}"><i class="glyphicon glyphicon-home"></i>{{call $.T "torrents"}}</a>
 						</li>
 						{{if gt $.User.ID 0 }}
 							{{ if CurrentUserIdentical $.User .ID }}
 								<li>
-									<a href="{{ genRoute "user_notifications" "id" (print .ID) "username" .Username }}"><i class="glyphicon glyphicon-bell"></i>{{T "my_notifications"}}</a>
+									<a href="{{ genRoute "user_notifications" "id" (print .ID) "username" .Username }}"><i class="glyphicon glyphicon-bell"></i>{{ call $.T "my_notifications"}}</a>
 								</li>
 							{{end}}	
 						{{if CurrentOrAdmin $.User .ID }}
 						<li>
-							<a href="{{ genRoute "user_profile_details" "id" ( print .ID ) "username" .Username }}"><i class="glyphicon glyphicon-user"></i>{{T "settings"}}</a>
+							<a href="{{ genRoute "user_profile_details" "id" ( print .ID ) "username" .Username }}"><i class="glyphicon glyphicon-user"></i>{{call $.T "settings"}}</a>
 
 						</li>
 						{{end}}

@@ -113,7 +113,6 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func UploadGetHandler(w http.ResponseWriter, r *http.Request) {
-	languages.SetTranslationFromRequest(uploadTemplate, r)
 	messages := msg.GetMessages(r) // new util for errors and infos
 
 	var uploadForm UploadForm
@@ -130,6 +129,7 @@ func UploadGetHandler(w http.ResponseWriter, r *http.Request) {
 		FormErrors: messages.GetAllErrors(),
 		Search:     NewSearchForm(),
 		Navigation: NewNavigation(),
+		T:          languages.GetTfuncFromRequest(r),
 		User:       GetUser(r),
 		URL:        r.URL,
 		Route:      mux.CurrentRoute(r),

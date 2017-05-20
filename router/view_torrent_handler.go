@@ -44,9 +44,9 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	if userPermission.NeedsCaptcha(user) {
 		captchaID = captcha.GetID()
 	}
-	htv := ViewTemplateVariables{b, captchaID, messages.GetAllErrors(), messages.GetAllInfos(), NewSearchForm(), NewNavigation(), user, r.URL, mux.CurrentRoute(r)}
+	T := languages.GetTfuncFromRequest(r)
+	htv := ViewTemplateVariables{b, captchaID, messages.GetAllErrors(), messages.GetAllInfos(), NewSearchForm(), NewNavigation(), T, user, r.URL, mux.CurrentRoute(r)}
 
-	languages.SetTranslationFromRequest(viewTemplate, r)
 	err = viewTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		log.Errorf("ViewHandler(): %s", err)

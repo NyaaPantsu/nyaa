@@ -8,12 +8,12 @@ import (
 )
 
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
-	languages.SetTranslationFromRequest(notFoundTemplate, r)
 	w.WriteHeader(http.StatusNotFound)
 
 	nftv := NotFoundTemplateVariables{
 		Navigation: NewNavigation(),
 		Search:     NewSearchForm(),
+		T:          languages.GetTfuncFromRequest(r),
 		User:       GetUser(r),
 		URL:        r.URL,
 		Route:      mux.CurrentRoute(r),

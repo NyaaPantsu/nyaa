@@ -1,0 +1,762 @@
+[
+  {
+    "id": "link",
+    "translation": "tengill"
+  },
+  {
+    "id": "verify_email_title",
+    "translation": "Staðfestu tölvupóstfang þitt fyrir Nyaapantsu."
+  },
+  {
+    "id": "verify_email_content",
+    "translation": "Vinsamlegast smelltu á tengilginn fyrir neðan til að staðfesta tölvupóstfang þitt."
+  },
+  {
+    "id": "reset_password_title",
+    "translation": "Endurstilla lykilorð þitt fyrir Nyaapantsu."
+  },
+  {
+    "id": "reset_password_content",
+    "translation": "Smelltu á tengilinn fyrir neðan til að endurstilla lykilorðið þitt."
+  },
+  {
+    "id":"register_title",
+    "translation": "Er að búa til nýjan aðgang"
+  },
+  {
+    "id":"signup_box_title",
+    "translation": "Vinsamlegast skráðu þig <small>Það er og mun ætíð vera ókeypis.</small>"
+  },
+  {
+    "id":"username",
+    "translation": "Notendanafn"
+  },
+  {
+    "id":"email_address_or_username",
+    "translation": "Tölvupóstfang eða notendanafn"
+  },
+  {
+    "id":"email_address",
+    "translation": "Tölvupóstfang"
+  },
+  {
+    "id":"password",
+    "translation": "Lykilorð"
+  },
+  {
+    "id":"confirm_password",
+    "translation": "Staðfesta lykilorð"
+  },
+  {
+    "id":"i_agree",
+    "translation": "Ég samþykki"
+  },
+  {
+    "id":"terms_conditions_confirm",
+    "translation": "Með því að smella á <strong class=\"label label-primary\">Nýskrá</strong> samþykkir þú <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Skilmála</a> síðunnar, þar á meðal notkun hennar á smákökum."
+  },
+  {
+    "id":"signin",
+    "translation": "Innskráning"
+  },
+  {
+    "id":"register",
+    "translation": "Nýskráning"
+  },
+  {
+    "id":"terms_conditions",
+    "translation": "Skilmálar"
+  },
+  {
+    "id":"terms_conditions_full",
+    "translation": "Eitthver skítur."
+  },
+  {
+    "id":"remember_me",
+    "translation": "Muna eftir mér"
+  },
+  {
+    "id":"forgot_password",
+    "translation": "Týnt lykilorð?"
+  },
+  {
+    "id":"sign_in_box_title",
+    "translation": "Vinsamlegast skráðu þig inn"
+  },
+  {
+    "id":"sign_in_title",
+    "translation": "Skrá inn"
+  },
+  {
+    "id":"register_success_title",
+    "translation": "Nýskráning gekk upp"
+  },
+  {
+    "id":"sign_up_success",
+    "translation": "Takk fyrir að nýskrá þig."
+  },
+  {
+    "id":"verify_success",
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Aðgangur þinn er nú virkur!"
+  },
+  {
+    "id":"signup_verification_email",
+    "translation": "Staðfesting Tölvupóstfanga er óvirk í augnablikinu og aðgangur þinn er hér með virkur."
+  },
+  {
+    "id":"signup_verification_noemail",
+    "translation": "Nýskráning tókst, þú getur núna notað aðganginn þinn."
+  },
+  {
+    "id":"settings",
+    "translation": "Aðgangsstillingar"
+  },
+  {
+    "id":"torrents",
+    "translation": "Torrent"
+  },
+  {
+    "id":"follow",
+    "translation": "Fylgja"
+  },
+  {
+    "id":"unfollow",
+    "translation": "Hætta að fylgja"
+  },
+  {
+    "id":"user_followed_msg",
+    "translation": "Þú hefur fylgt %s!"
+  },
+  {
+    "id":"user_unfollowed_msg",
+    "translation": "Þú ert hættur að fylgja %s!"
+  },
+  {
+    "id":"profile_page",
+    "translation": "%s Prófílsíða"
+  },
+  {
+    "id":"see_more_torrents_from",
+    "translation": "Sjá fleiri torrent frá %s "
+  },
+  {
+    "id":"category",
+    "translation": "Flokkur"
+  },
+  {
+    "id": "name",
+    "translation": "Nafn"
+  },
+  {
+    "id": "date",
+    "translation": "Dagsetning"
+  },
+  {
+    "id": "size",
+    "translation": "Stærð"
+  },
+  {
+    "id": "links",
+    "translation": "Tenglar"
+  },
+  {
+    "id": "home",
+    "translation": "Heim"
+  },
+  {
+    "id": "error_404",
+    "translation": "Villa 404"
+  },
+  {
+    "id": "toggle_navigation",
+    "translation": "Stilla flakkara af/á"
+  },
+  {
+    "id": "upload",
+    "translation": "Upphala"
+  },
+  {
+    "id": "faq",
+    "translation": "FAQ"
+  },
+  {
+    "id": "fap",
+    "translation": "Rúnk"
+  },
+  {
+    "id": "fun",
+    "translation": "Skemmtun"
+  },
+  {
+    "id": "advanced_search",
+    "translation": "Nákvæmari leit"
+  },
+  {
+    "id": "nothing_here",
+    "translation": "Ekkert hér."
+  },
+  {
+    "id": "404_not_found",
+    "translation": "404 Fannst ekki"
+  },
+  {
+    "id": "no_torrents_uploaded",
+    "translation": "Þú hefur ekki upphalað neinum torrentum ennþá!"
+  },
+  {
+    "id": "profile",
+    "translation": "Prófíll"
+  },
+  {
+    "id": "sign_out",
+    "translation": "Útskráning"
+  },
+  {
+    "id": "member",
+    "translation": "Meðlimur"
+  },
+  {
+    "id": "sign_in",
+    "translation": "Innskráning"
+  },
+  {
+    "id": "sign_up",
+    "translation": "Nýskráning"
+  },
+  {
+    "id": "no_results_found",
+    "translation": "Ekkert fannst"
+  },
+  {
+    "id": "notice_keep_seeding",
+    "translation": "ATH: HALTU ÁFRÁM AÐ UPPHALA OG VIRKJAÐU DHT"
+  },
+  {
+    "id": "official_nyaapocalipse_faq",
+    "translation": "Opinbert nyaagnarroka FAQ"
+  },
+  {
+    "id": "links_replacement_mirror",
+    "translation": "Tenglar fyrir staðgengla/spegla"
+  },
+  {
+    "id": "what_happened",
+    "translation": "Hvað gerðist?"
+  },
+  {
+    "id": "nyaa_se_went_offline",
+    "translation": "nyaa.se og tengdar vefslóðir (ss. nyaatorrents.info) dóu þann fyrsta maí 2017."
+  },
+  {
+    "id": "its_not_a_ddos",
+    "translation": "Það var slökkt á þeim, og það var ekki DDoS eins og vanalega."
+  },
+  {
+    "id": "future_not_looking_good",
+    "translation": "Framtíðarhorfur nyaa eru ekki góðar. (Hún er steindauð)"
+  },
+  {
+    "id": "recovery_effort",
+    "translation": "Það er verið að vinna í þvi að endurheimta það sem glataðist."
+  },
+  {
+    "id": "is_everything_lost",
+    "translation": "Glataðist allt?"
+  },
+  {
+    "id": "in_short_no",
+    "translation": "Nei."
+  },
+  {
+    "id": "are_some_things_lost",
+    "translation": "Glataðist sumt?"
+  },
+  {
+    "id": "answer_is_nyaa_db_lost",
+    "translation": "Við höfum yfir gagnagrunn með torrentunum af nyaa til fyrsta maí. Það þýðir að nánast ekkert glataðist."
+  },
+  {
+    "id": "answer_is_sukebei_db_lost",
+    "translation": "Sukebei er öruggt líka og nánast ekkert glataðist."
+  },
+  {
+    "id": "how_are_we_recovering",
+    "translation": "Hvernig fer endurheimtin fram?"
+  },
+  {
+    "id": "answer_how_are_we_recovering",
+    "translation": "Áðurnefndir gagnagrunnar eru hýstir á nyaa.pantsu.cat og sukebei.pantsu.cat. Þap er leitarmöguleiki og nánast öll virkni nyaa verður reiðubúin á næstunni."
+  },
+  {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "Hvernig tengi ég upphölin af gamla aðgangnum mínu við þann nýja?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "Komdu á  <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> og biddu stjórnanda að hjálpa þér með ferlið, taktu fram nýja og gamla notendanafnið."
+  },
+  {
+    "id": "are_the_trackers_working",
+    "translation": "Virka torrentin ennþá?"
+  },
+  {
+    "id": "answer_are_the_trackers_working",
+    "translation": "Þrátt fyrir að trackerarnir séu óvirkir eru upphalarar enn tengir ómiðstýrða DHT netinu. Eins lengi og skráin er skráð þar á allt að virka venjulega."
+  },
+  {
+    "id": "how_do_i_download_the_torrents",
+    "translation": "Hvernig niðurhala ég torrentunum?"
+  },
+  {
+    "id": "answer_how_do_i_download_the_torrents",
+    "translation": "Notaðu <b>segultengilinn</b>. Hann leitar að skránni á DHT netinu og það á að virka án vandræða."
+  },
+  {
+    "id": "magnet_link_should_look_like",
+    "translation": "Svona lítur umræddur segultengill úr:"
+  },
+  {
+    "id": "which_trackers_do_you_recommend",
+    "translation": "Hvaða trackerum mælir þú með?"
+  },
+  {
+    "id": "answer_which_trackers_do_you_recommend",
+    "translation": "Við erum með okkar eigin tracker sem heitir doko.moe, bættu honum við efst á listann áður en þú upphalar. Þú ættir að bæta við öllum eftirfarandi trackerum til að gera torrentið lífsseigara."
+  },
+  {
+    "id": "how_can_i_help",
+    "translation": "Hvernig get ég hjálpað?"
+  },
+  {
+    "id": "answer_how_can_i_help",
+    "translation": "Ef þú hefur reynslu í vefforritun getur þú verið með á IRC rásinni á irc.rizon.net. Ef þú hefur yfir gagnagrunnsafritum að ráða, sérstaklega af sukebei, vinsamlegast upphalaðu þeim."
+  },
+  {
+    "id": "your_design_sucks_found_a_bug",
+    "translation": "Hönnunin þín er sorp / Ég fann bug"
+  },
+  {
+    "id": "why_written_in_go",
+    "translation": "Af hverju er þetta skrifað í Go?"
+  },
+  {
+    "id": "authors_favorite_language",
+    "translation": "Því það er í uppáhaldi."
+  },
+  {
+    "id": "upload_magnet",
+    "translation": "Upphalssegull"
+  },
+  {
+    "id": "torrent_file",
+    "translation": "Torrent skrá"
+  },
+  {
+    "id": "uploading_file_prefills_fields",
+    "translation": "Að upphala torrent skrá fyllir út nokkra leiðinda reiti sjálfkrafa og við mælum með því."
+  },
+  {
+    "id": "magnet_link",
+    "translation": "Segultengill"
+  },
+  {
+    "id": "all_categories",
+    "translation": "Allir flokkar"
+  },
+  {
+    "id": "select_a_torrent_category",
+    "translation": "Veldu torrent flokk"
+  },
+  {
+    "id": "anime",
+    "translation": "Anime"
+  },
+  {
+    "id": "anime_amv",
+    "translation": "Anime - Anime tónlistarmyndband"
+  },
+  {
+    "id": "anime_english_translated",
+    "translation": "Anime - Enskuþýtt"
+  },
+  {
+    "id": "anime_non_english_translated",
+    "translation": "Anime - Þýtt á önnur tungumál"
+  },
+  {
+    "id": "anime_raw",
+    "translation": "Anime - Óþýtt"
+  },
+  {
+    "id": "audio",
+    "translation": "Hljóð"
+  },
+  {
+    "id": "audio_lossless",
+    "translation": "Hljóð - Hágæða"
+  },
+  {
+    "id": "audio_lossy",
+    "translation": "Audio - Lággæða"
+  },
+  {
+    "id": "literature",
+    "translation": "Bókmenntir"
+  },
+  {
+    "id": "literature_english_translated",
+    "translation": "Bókmenntir - Enskuþýddar"
+  },
+  {
+    "id": "literature_raw",
+    "translation": "Bókmenntir - Óþýddar"
+  },
+  {
+    "id": "literature_non_english_translated",
+    "translation": "Bókmenntir - Þýddar á önnur tungumál"
+  },
+  {
+    "id": "live_action",
+    "translation": "Live Action"
+  },
+  {
+    "id": "live_action_english_translated",
+    "translation": "Live Action - Enskuþýtt"
+  },
+  {
+    "id": "live_action_idol_pv",
+    "translation": "Live Action - Idol/Kynningarmyndbönd"
+  },
+  {
+    "id": "live_action_non_english_translated",
+    "translation": "Live Action - Þýtt á önnnur tungumál"
+  },
+  {
+    "id": "live_action_raw",
+    "translation": "Live Action - Óþýtt"
+  },
+  {
+    "id": "pictures",
+    "translation": "Myndir"
+  },
+  {
+    "id": "pictures_graphics",
+    "translation": "Myndir - Grafík"
+  },
+  {
+    "id": "pictures_photos",
+    "translation": "Myndir - Ljósmyndir"
+  },
+  {
+    "id": "software",
+    "translation": "Hugbúnaður"
+  },
+  {
+    "id": "software_applications",
+    "translation": "Hugbúnaður - Forrit"
+  },
+  {
+    "id": "software_games",
+    "translation": "Hugbúnaður - Leikir"
+  },
+  {
+    "id": "art",
+    "translation": "List"
+  },
+  {
+    "id": "art_anime",
+    "translation": "List - Anime"
+  },
+  {
+    "id": "art_doujinshi",
+    "translation": "List - Doujinshi"
+  },
+  {
+    "id": "art_games",
+    "translation": "List - Leikir"
+  },
+  {
+    "id": "art_manga",
+    "translation": "List - Manga"
+  },
+  {
+    "id": "real_life",
+    "translation": "Raunveruleiki"
+  },
+  {
+    "id": "real_life_photobooks_and_pictures",
+    "translation": "Raunveruleiki - Myndaalbúm og Myndir"
+  },
+  {
+    "id": "real_life_videos",
+    "translation": "Raunveruleiki - Myndbönd"
+  },
+  {
+    "id": "torrent_description",
+    "translation": "Lýsing torrents"
+  },
+  {
+    "id": "description_markdown_notice",
+    "translation": "Þú getur notast við Markdown í lýsingum."
+  },
+  {
+    "id": "show_all",
+    "translation": "Sýna allt"
+  },
+  {
+    "id": "filter_remakes",
+    "translation": "Sía út endurgerðir"
+  },
+  {
+    "id": "trusted",
+    "translation": "Treyst"
+  },
+  {
+    "id": "id",
+    "translation": "Auðkenni"
+  },
+  {
+    "id": "downloads",
+    "translation": "Niðurhöl"
+  },
+  {
+    "id": "descending",
+    "translation": "Minnkandi röðun"
+  },
+  {
+    "id": "ascending",
+    "translation": "Rísandi röðun"
+  },
+  {
+    "id": "search",
+    "translation": "Leit"
+  },
+  {
+    "id": "hash",
+    "translation": "Hash"
+  },
+  {
+    "id": "description",
+    "translation": "Lýsing"
+  },
+  {
+    "id": "comments",
+    "translation": "Komment"
+  },
+  {
+    "id": "submit_a_comment_as_username",
+    "translation": "Senda inn ummæli sem %s"
+  },
+  {
+    "id": "submit_a_comment_as_anonymous",
+    "translation": "Senda inn nafnlaus ummæli"
+  },
+  {
+    "id": "submit",
+    "translation": "Senda"
+  },
+  {
+    "id": "personal_info",
+    "translation": "Persónuupplýsingar"
+  },
+  {
+    "id": "language",
+    "translation": "Tungumál"
+  },
+  {
+    "id": "current_password",
+    "translation": "Núverandi lykilorð"
+  },
+  {
+    "id": "role",
+    "translation": "Hlutverk"
+  },
+  {
+    "id": "banned",
+    "translation": "Bannaður"
+  },
+  {
+    "id": "default",
+    "translation": "Sjálfgefið"
+  },
+  {
+    "id": "trusted_member",
+    "translation": "Heiðursmeðlimur"
+  },
+  {
+    "id": "moderator",
+    "translation": "Stjórnandi"
+  },
+  {
+    "id": "api_token",
+    "translation": "API Tóki"
+  },
+  {
+    "id": "save_changes",
+    "translation": "Vista breytingar"
+  },
+  {
+    "id": "profile_updated",
+    "translation": "Prófíll þinn hefur verið uppfærður!"
+  },
+  {
+    "id": "delete_account",
+    "translation": "Eyða aðgangi"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "Ertu viss um að þú viljir eyða þessum aðgangi?"
+  },
+  {
+    "id": "delete_success",
+    "translation": "Aðgangnum hefur verið eytt!"
+  },
+  {
+    "id": "moderation",
+    "translation": "Stjórnun"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "Hver er れんちょん?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "れんちょん (Ren-chon) er notendanafnið sem er úthlutað nafnlausum athugasemdum. Það er einnig notað fyrir athugasemdir sem eru fluttar inn frá nyaa, þó stundum taktist að birta upprunalegan höfund."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Merkja sem endurgerð"
+  },
+  {
+    "id": "email_changed",
+    "translation": "Breyting á tölvupóstfangi tókst! Þú þarft núna að staðfesta nýja tölvupóstfangið með því að smella á tengilinn sem sendur var á %s"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "Staða torrents"
+  },
+  {
+    "id": "torrent_status_hidden",
+    "translation": "Falið"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "Venjulegt"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "Endurgerð"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "Breyta prófíl %s"
+  },
+  {
+    "id": "seeders",
+    "translation": "Upphalarar"
+  },
+  {
+    "id": "leechers",
+    "translation": "Niðurhalarar"
+  },
+  {
+    "id": "completed",
+    "translation": "Lokið"
+  },
+  {
+    "id": "change_language",
+    "translation": "Breyta tungumáli"
+  },
+  {
+    "id": "language_name",
+    "translation": "íslenska"
+  },
+  {
+    "id": "language_code",
+    "translation": "is-is"
+  },
+  {
+    "id": "delete",
+    "translation": "Eyða"
+  },
+  {
+    "id": "files",
+    "translation": "Skrár"
+  },
+  {
+    "id": "filename",
+    "translation": "Skrárnafn"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "Upphalað af"
+  },
+  {
+    "id": "download_btn",
+    "translation": "Niðurhala!"
+  },
+  {
+    "id": "report_btn",
+    "translation": "Tilkynna"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "Ert þú viss?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "Tilkynna torrent #%s"
+  },
+  {
+    "id": "report_type",
+    "translation": "Gerð tilkynningar"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "Ólöglegt efni"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "Rusl"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "Vitlaust flokkað"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "Afrit / Úrelt"
+  },
+  {
+    "id": "captcha",
+    "translation": "Captcha"
+  },
+  {
+    "id": "file_name",
+    "translation": "Skráarnafn"
+  },
+  {
+    "id": "cancel",
+    "translation": "Hætta við"
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "Vinsamlegast bættu udp://tracker.doko.moe:6969 í trackerana þína."
+  },
+  {
+    "id": "unknown",
+    "translation": "Óþekkt"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "Síðast skrapað: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "Ástand vefþjóns má finna hér"
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "Engin gagnagrunnsafrit standa til boða eins og er."
+  }
+]

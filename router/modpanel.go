@@ -116,8 +116,8 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 	comments, _ := commentService.GetAllComments(offset, 0, "", "")
 	torrentReports, _, _ := reportService.GetAllTorrentReports(offset, 0)
 
-	languages.SetTranslationFromRequest(panelIndex, r)
-	htv := PanelIndexVbs{torrents, model.TorrentReportsToJSON(torrentReports), users, comments, NewPanelSearchForm(), currentUser, r.URL}
+	T := languages.GetTfuncFromRequest(r)
+	htv := PanelIndexVbs{torrents, model.TorrentReportsToJSON(torrentReports), users, comments, NewPanelSearchForm(), T, currentUser, r.URL}
 	err := panelIndex.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
@@ -145,9 +145,9 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 		}
 
 	messages := msg.GetMessages(r)
-	languages.SetTranslationFromRequest(panelTorrentList, r)
+	T := languages.GetTfuncFromRequest(r)
 	navigation := Navigation{ count, int(searchParam.Max), pagenum, "mod_tlist_page"}
-	ptlv := PanelTorrentListVbs{torrents, searchForm, navigation, currentUser, messages.GetAllErrors(), messages.GetAllInfos(), r.URL}
+	ptlv := PanelTorrentListVbs{torrents, searchForm, navigation, T, currentUser, messages.GetAllErrors(), messages.GetAllInfos(), r.URL}
 	err = panelTorrentList.ExecuteTemplate(w, "admin_index.html", ptlv)
 	log.CheckError(err)
 }
@@ -171,9 +171,9 @@ func TorrentReportListPanel(w http.ResponseWriter, r *http.Request) {
 	torrentReports, nbReports, _ := reportService.GetAllTorrentReports(offset, (pagenum-1)*offset)
 
 	reportJSON := model.TorrentReportsToJSON(torrentReports)
-	languages.SetTranslationFromRequest(panelTorrentReportList, r)
+	T := languages.GetTfuncFromRequest(r)
 	navigation := Navigation{nbReports, offset, pagenum, "mod_trlist_page"}
-	ptrlv := PanelTorrentReportListVbs{reportJSON, NewSearchForm(), navigation, currentUser, r.URL}
+	ptrlv := PanelTorrentReportListVbs{reportJSON, NewSearchForm(), navigation, T, currentUser, r.URL}
 	err = panelTorrentReportList.ExecuteTemplate(w, "admin_index.html", ptrlv)
 	log.CheckError(err)
 }
@@ -195,8 +195,8 @@ func UsersListPanel(w http.ResponseWriter, r *http.Request) {
 	offset := 100
 
 	users, nbUsers := userService.RetrieveUsersForAdmin(offset, (pagenum-1)*offset)
-	languages.SetTranslationFromRequest(panelUserList, r)
-	htv := PanelUserListVbs{users, NewSearchForm(), Navigation{nbUsers, offset, pagenum, "mod_ulist_page"}, currentUser, r.URL}
+	T := languages.GetTfuncFromRequest(r)
+	htv := PanelUserListVbs{users, NewSearchForm(), Navigation{nbUsers, offset, pagenum, "mod_ulist_page"}, T, currentUser, r.URL}
 	err = panelUserList.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
@@ -225,8 +225,8 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 	}
 
 	comments, nbComments := commentService.GetAllComments(offset, (pagenum-1)*offset, conditions, values...)
-	languages.SetTranslationFromRequest(panelCommentList, r)
-	htv := PanelCommentListVbs{comments, NewSearchForm(), Navigation{nbComments, offset, pagenum, "mod_clist_page"}, currentUser, r.URL}
+	T := languages.GetTfuncFromRequest(r)
+	htv := PanelCommentListVbs{comments, NewSearchForm(), Navigation{nbComments, offset, pagenum, "mod_clist_page"}, T, currentUser, r.URL}
 	err = panelCommentList.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
@@ -235,7 +235,7 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
 	id := r.URL.Query().Get("id")
 	torrent, _ := torrentService.GetTorrentById(id)
-	languages.SetTranslationFromRequest(panelTorrentEd, r)
+	T := languages.GetTfuncFromRequest(r)
 
 	torrentJson := torrent.ToJSON()
 	uploadForm := NewUploadForm()
@@ -243,7 +243,7 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 	uploadForm.Category = torrentJson.Category + "_" + torrentJson.SubCategory
 	uploadForm.Status = torrentJson.Status
 	uploadForm.Description = string(torrentJson.Description)
-	htv := PanelTorrentEdVbs{uploadForm, NewPanelSearchForm(), currentUser, form.NewErrors(), form.NewInfos(), r.URL}
+	htv := PanelTorrentEdVbs{uploadForm, NewPanelSearchForm(), T, currentUser, form.NewErrors(), form.NewInfos(), r.URL}
 	err := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
@@ -272,8 +272,8 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 			infos["infos"] = append(infos["infos"], "Torrent details updated.")
 		}
 	}
-	languages.SetTranslationFromRequest(panelTorrentEd, r)
-	htv := PanelTorrentEdVbs{uploadForm, NewPanelSearchForm(), currentUser, err, infos, r.URL}
+	T := languages.GetTfuncFromRequest(r)
+	htv := PanelTorrentEdVbs{uploadForm, NewPanelSearchForm(), T, currentUser, err, infos, r.URL}
 	err_ := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err_)
 }
@@ -315,9 +315,9 @@ func TorrentReportDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 
 func TorrentReassignModPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := GetUser(r)
-	languages.SetTranslationFromRequest(panelTorrentReassign, r)
+	T := languages.GetTfuncFromRequest(r)
 
-	htv := PanelTorrentReassignVbs{ReassignForm{}, NewPanelSearchForm(), currentUser, form.NewErrors(), form.NewInfos(), r.URL}
+	htv := PanelTorrentReassignVbs{ReassignForm{}, NewPanelSearchForm(), T, currentUser, form.NewErrors(), form.NewInfos(), r.URL}
 	err := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
@@ -340,7 +340,8 @@ func TorrentPostReassignModPanel(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	htv := PanelTorrentReassignVbs{rForm, NewPanelSearchForm(), currentUser, err, infos, r.URL}
+	T := languages.GetTfuncFromRequest(r)
+	htv := PanelTorrentReassignVbs{rForm, NewPanelSearchForm(), T, currentUser, err, infos, r.URL}
 	err_ := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err_)
 }

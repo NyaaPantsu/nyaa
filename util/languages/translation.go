@@ -19,6 +19,8 @@ type UserRetriever interface {
 	RetrieveCurrentUser(r *http.Request) (model.User, error)
 }
 
+type TemplateTfunc func(string, ...interface{}) template.HTML
+
 var (
 	defaultLanguage string        = config.DefaultI18nConfig.DefaultLanguage
 	userRetriever   UserRetriever = nil
@@ -95,17 +97,6 @@ func GetAvailableLanguages() (languages map[string]string) {
 	return
 }
 
-func setTranslation(tmpl *template.Template, T i18n.TranslateFunc) {
-	tmpl.Funcs(map[string]interface{}{
-		"T": func(str string, args ...interface{}) template.HTML {
-			return template.HTML(fmt.Sprintf(T(str), args...))
-		},
-		"Ts": func(str string, args ...interface{}) string {
-			return fmt.Sprintf(T(str), args...)
-		},
-	})
-}
-
 func GetDefaultTfunc() (i18n.TranslateFunc, error) {
 	return i18n.Tfunc(defaultLanguage)
 }
@@ -129,11 +120,11 @@ func GetTfuncAndLanguageFromRequest(r *http.Request) (T i18n.TranslateFunc, Tlan
 	return
 }
 
-func SetTranslationFromRequest(tmpl *template.Template, r *http.Request) i18n.TranslateFunc {
-	r.Header.Add("Vary", "Accept-Encoding")
+func GetTfuncFromRequest(r *http.Request) TemplateTfunc {
 	T, _ := GetTfuncAndLanguageFromRequest(r)
-	setTranslation(tmpl, T)
-	return T
+	return func(id string, args ...interface{}) template.HTML {
+		return template.HTML(fmt.Sprintf(T(id), args...))
+	}
 }
 
 func getCurrentUser(r *http.Request) (model.User, error) {
