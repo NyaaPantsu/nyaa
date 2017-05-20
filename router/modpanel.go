@@ -72,7 +72,6 @@ func (f *ReassignForm) ExtractInfo(r *http.Request) error {
 }
 
 func (f *ReassignForm) ExecuteAction() (int, error) {
-
 	var toBeChanged []uint
 	var err error
 	if f.By == "olduser" {
@@ -93,7 +92,6 @@ func (f *ReassignForm) ExecuteAction() (int, error) {
 			num += 1
 		}
 	}
-	// TODO: clean shit from user_uploads_old if needed
 	return num, nil
 }
 

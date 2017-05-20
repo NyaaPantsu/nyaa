@@ -58,7 +58,7 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 	if err != nil {
 		return
 	}
-	if id_int <= config.LastOldTorrentID {
+	if id_int <= config.LastOldTorrentID && !config.IsSukebei() {
 		// only preload old comments if they could actually exist
 		tmp = tmp.Preload("OldComments")
 	}
@@ -73,7 +73,7 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 	torrent.OldUploader = ""
 	if torrent.ID <= config.LastOldTorrentID && torrent.UploaderID == 0 {
 		var tmp model.UserUploadsOld
-		if !db.ORM.Where("torrent_id = ?", torrent.ID).Find(&tmp).RecordNotFound() {
+		if !db.ORM.Table(config.UploadsOldTableName).Where("torrent_id = ?", torrent.ID).Find(&tmp).RecordNotFound() {
 			torrent.OldUploader = tmp.Username
 		}
 	}
@@ -91,7 +91,7 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 // won't fetch user or comments
 func GetRawTorrentById(id uint) (torrent model.Torrent, err error) {
 	err = nil
-	if db.ORM.Table(config.TorrentsTableName).Table(config.TorrentsTableName).Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
+	if db.ORM.Table(config.TorrentsTableName).Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
 		err = errors.New("Article is not found.")
 	}
 	return
@@ -127,7 +127,6 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 			return
 		}
 	}
-	// TODO: Vulnerable to injections. Use query builder. (is it?)
 
 	// build custom db query for performance reasons
 	dbQuery := "SELECT * FROM " + config.TorrentsTableName

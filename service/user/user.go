@@ -268,7 +268,7 @@ func RetrieveUserByUsername(username string) (*model.PublicUser, string, int, er
 func RetrieveOldUploadsByUsername(username string) ([]uint, error) {
 	var ret []uint
 	var tmp []*model.UserUploadsOld
-	err := db.ORM.Where("username = ?", username).Find(&tmp).Error
+	err := db.ORM.Table(config.UploadsOldTableName).Where("username = ?", username).Find(&tmp).Error
 	if err != nil {
 		return ret, err
 	}

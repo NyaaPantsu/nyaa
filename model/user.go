@@ -2,6 +2,8 @@ package model
 
 import (
 	"time"
+
+	"github.com/NyaaPantsu/nyaa/config"
 )
 
 const (
@@ -86,8 +88,8 @@ type UserUploadsOld struct {
 }
 
 func (c UserUploadsOld) TableName() string {
-	// TODO: rename this in db
-	return "user_uploads_old"
+	// is this needed here?
+	return config.UploadsOldTableName
 }
 
 func (u *User) ToJSON() UserJSON {

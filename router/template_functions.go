@@ -131,13 +131,7 @@ var FuncMap = template.FuncMap{
 		}
 		return template.HTML(ret)
 	},
-	"Sukebei": func() bool {
-		if config.TorrentsTableName == "sukebei_torrents" {
-			return true
-		} else {
-			return false
-		}
-	},
+	"Sukebei":            config.IsSukebei,
 	"T":                  i18n.IdentityTfunc,
 	"Ts":                 i18n.IdentityTfunc,
 	"getDefaultLanguage": languages.GetDefaultLanguage,
