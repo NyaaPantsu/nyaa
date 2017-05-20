@@ -8,10 +8,10 @@ import (
 )
 
 func FaqHandler(w http.ResponseWriter, r *http.Request) {
-	languages.SetTranslationFromRequest(faqTemplate, r)
 	ftv := FaqTemplateVariables{
 		Navigation: NewNavigation(),
 		Search:     NewSearchForm(),
+		T:          languages.GetTfuncFromRequest(r),
 		User:       GetUser(r),
 		URL:        r.URL,
 		Route:      mux.CurrentRoute(r),

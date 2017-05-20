@@ -1,46 +1,46 @@
 {{define "search_common"}}
   <select name="c" class="form-control input-sm" value>
-    <option value="_">{{T "all_categories"}}</option>
+    <option value="_">{{call $.T "all_categories"}}</option>
     {{ if Sukebei }}
-    <option value="1_" {{if eq .Search.Category "1_"}}selected{{end}}>{{T "art"}}</option>
-    <option value="1_1" {{if eq .Search.Category "1_1"}}selected{{end}}>{{T "art_anime"}}</option>
-    <option value="1_2" {{if eq .Search.Category "1_2"}}selected{{end}}>{{T "art_doujinshi"}}</option>
-    <option value="1_3" {{if eq .Search.Category "1_3"}}selected{{end}}>{{T "art_games"}}</option>
-    <option value="1_4" {{if eq .Search.Category "1_4"}}selected{{end}}>{{T "art_manga"}}</option>
-    <option value="1_5" {{if eq .Search.Category "1_5"}}selected{{end}}>{{T "art_pictures"}}</option>
-    <option value="2_" {{if eq .Search.Category "2_"}}selected{{end}}>{{T "real_life"}}</option>
-    <option value="2_1" {{if eq .Search.Category "2_1"}}selected{{end}}>{{T "real_life_photobooks_and_pictures"}}</option>
-    <option value="2_2" {{if eq .Search.Category "2_2"}}selected{{end}}>{{T "real_life_videos"}}</option>
+    <option value="1_" {{if eq .Search.Category "1_"}}selected{{end}}>{{call $.T "art"}}</option>
+    <option value="1_1" {{if eq .Search.Category "1_1"}}selected{{end}}>{{call $.T "art_anime"}}</option>
+    <option value="1_2" {{if eq .Search.Category "1_2"}}selected{{end}}>{{call $.T "art_doujinshi"}}</option>
+    <option value="1_3" {{if eq .Search.Category "1_3"}}selected{{end}}>{{call $.T "art_games"}}</option>
+    <option value="1_4" {{if eq .Search.Category "1_4"}}selected{{end}}>{{call $.T "art_manga"}}</option>
+    <option value="1_5" {{if eq .Search.Category "1_5"}}selected{{end}}>{{call $.T "art_pictures"}}</option>
+    <option value="2_" {{if eq .Search.Category "2_"}}selected{{end}}>{{call $.T "real_life"}}</option>
+    <option value="2_1" {{if eq .Search.Category "2_1"}}selected{{end}}>{{call $.T "real_life_photobooks_and_pictures"}}</option>
+    <option value="2_2" {{if eq .Search.Category "2_2"}}selected{{end}}>{{call $.T "real_life_videos"}}</option>
     {{ else }}
-    <option value="3_" {{if eq .Search.Category "3_"}}selected{{end}}>{{T "anime"}}</option>
-    <option value="3_12" {{if eq .Search.Category "3_12"}}selected{{end}}>{{T "anime_amv"}}</option>
-    <option value="3_5" {{if eq .Search.Category "3_5"}}selected{{end}}>{{T "anime_english_translated"}}</option>
-    <option value="3_13" {{if eq .Search.Category "3_13"}}selected{{end}}>{{T "anime_non_english_translated"}}</option>
-    <option value="3_6" {{if eq .Search.Category "3_6"}}selected{{end}}>{{T "anime_raw"}}</option>
-    <option value="2_" {{if eq .Search.Category "2_"}}selected{{end}}>{{T "audio"}}</option>
-    <option value="2_3" {{if eq .Search.Category "2_3"}}selected{{end}}>{{T "audio_lossless"}}</option>
-    <option value="2_4" {{if eq .Search.Category "2_4"}}selected{{end}}>{{T "audio_lossy"}}</option>
-    <option value="4_" {{if eq .Search.Category "4_"}}selected{{end}}>{{T "literature"}}</option>
-    <option value="4_7" {{if eq .Search.Category "4_7"}}selected{{end}}>{{T "literature_english_translated"}}</option>
-    <option value="4_8" {{if eq .Search.Category "4_8"}}selected{{end}}>{{T "literature_raw"}}</option>
-    <option value="4_14" {{if eq .Search.Category "4_14"}}selected{{end}}>{{T "literature_non_english_translated"}}</option>
-    <option value="5_" {{if eq .Search.Category "5_"}}selected{{end}}>{{T "live_action"}}</option>
-    <option value="5_9" {{if eq .Search.Category "5_9"}}selected{{end}}>{{T "live_action_english_translated"}}</option>
-    <option value="5_10" {{if eq .Search.Category "5_10"}}selected{{end}}>{{T "live_action_idol_pv"}}</option>
-    <option value="5_18" {{if eq .Search.Category "5_18"}}selected{{end}}>{{T "live_action_non_english_translated"}}</option>
-    <option value="5_11" {{if eq .Search.Category "5_11"}}selected{{end}}>{{T "live_action_raw"}}</option>
-    <option value="6_" {{if eq .Search.Category "6_"}}selected{{end}}>{{T "pictures"}}</option>
-    <option value="6_15" {{if eq .Search.Category "6_15"}}selected{{end}}>{{T "pictures_graphics"}}</option>
-    <option value="6_16" {{if eq .Search.Category "6_16"}}selected{{end}}>{{T "pictures_photos"}}</option>
-    <option value="1_" {{if eq .Search.Category "1_"}}selected{{end}}>{{T "software"}}</option>
-    <option value="1_1" {{if eq .Search.Category "1_1"}}selected{{end}}>{{T "software_applications"}}</option>
-    <option value="1_2" {{if eq .Search.Category "1_2"}}selected{{end}}>{{T "software_games"}}</option>
+    <option value="3_" {{if eq .Search.Category "3_"}}selected{{end}}>{{call $.T "anime"}}</option>
+    <option value="3_12" {{if eq .Search.Category "3_12"}}selected{{end}}>{{call $.T "anime_amv"}}</option>
+    <option value="3_5" {{if eq .Search.Category "3_5"}}selected{{end}}>{{call $.T "anime_english_translated"}}</option>
+    <option value="3_13" {{if eq .Search.Category "3_13"}}selected{{end}}>{{call $.T "anime_non_english_translated"}}</option>
+    <option value="3_6" {{if eq .Search.Category "3_6"}}selected{{end}}>{{call $.T "anime_raw"}}</option>
+    <option value="2_" {{if eq .Search.Category "2_"}}selected{{end}}>{{call $.T "audio"}}</option>
+    <option value="2_3" {{if eq .Search.Category "2_3"}}selected{{end}}>{{call $.T "audio_lossless"}}</option>
+    <option value="2_4" {{if eq .Search.Category "2_4"}}selected{{end}}>{{call $.T "audio_lossy"}}</option>
+    <option value="4_" {{if eq .Search.Category "4_"}}selected{{end}}>{{call $.T "literature"}}</option>
+    <option value="4_7" {{if eq .Search.Category "4_7"}}selected{{end}}>{{call $.T "literature_english_translated"}}</option>
+    <option value="4_8" {{if eq .Search.Category "4_8"}}selected{{end}}>{{call $.T "literature_raw"}}</option>
+    <option value="4_14" {{if eq .Search.Category "4_14"}}selected{{end}}>{{call $.T "literature_non_english_translated"}}</option>
+    <option value="5_" {{if eq .Search.Category "5_"}}selected{{end}}>{{call $.T "live_action"}}</option>
+    <option value="5_9" {{if eq .Search.Category "5_9"}}selected{{end}}>{{call $.T "live_action_english_translated"}}</option>
+    <option value="5_10" {{if eq .Search.Category "5_10"}}selected{{end}}>{{call $.T "live_action_idol_pv"}}</option>
+    <option value="5_18" {{if eq .Search.Category "5_18"}}selected{{end}}>{{call $.T "live_action_non_english_translated"}}</option>
+    <option value="5_11" {{if eq .Search.Category "5_11"}}selected{{end}}>{{call $.T "live_action_raw"}}</option>
+    <option value="6_" {{if eq .Search.Category "6_"}}selected{{end}}>{{call $.T "pictures"}}</option>
+    <option value="6_15" {{if eq .Search.Category "6_15"}}selected{{end}}>{{call $.T "pictures_graphics"}}</option>
+    <option value="6_16" {{if eq .Search.Category "6_16"}}selected{{end}}>{{call $.T "pictures_photos"}}</option>
+    <option value="1_" {{if eq .Search.Category "1_"}}selected{{end}}>{{call $.T "software"}}</option>
+    <option value="1_1" {{if eq .Search.Category "1_1"}}selected{{end}}>{{call $.T "software_applications"}}</option>
+    <option value="1_2" {{if eq .Search.Category "1_2"}}selected{{end}}>{{call $.T "software_games"}}</option>
     {{ end }}
   </select>
   <select name="s" class="form-control input-sm">
-    <option value="0">{{T "show_all"}}</option>
-    <option value="1" {{if eq .Search.Status 1}}selected{{end}}>{{T "filter_remakes"}}</option>
-    <option value="2" {{if eq .Search.Status 2}}selected{{end}}>{{T "trusted"}}</option>
+    <option value="0">{{call $.T "show_all"}}</option>
+    <option value="1" {{if eq .Search.Status 1}}selected{{end}}>{{call $.T "filter_remakes"}}</option>
+    <option value="2" {{if eq .Search.Status 2}}selected{{end}}>{{call $.T "trusted"}}</option>
     <option value="3" {{if eq .Search.Status 3}}selected{{end}}>A+</option>
   </select>
   {{ if .Search.ShowItemsPerPage }}
@@ -66,9 +66,9 @@
 {{end}}
 {{define "search_button"}}
   <div class="input-group">
-    <input name="q" class="form-control input-sm" placeholder="{{T "search"}}" type="text" value="{{.Search.Query}}">
+    <input name="q" class="form-control input-sm" placeholder="{{call $.T "search"}}" type="text" value="{{.Search.Query}}">
     <span class="input-group-btn">
-      <button type="submit" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span class="search_text"> {{T "search"}}</span></button>
+      <button type="submit" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span class="search_text"> {{call $.T "search"}}</span></button>
     </span>
   </div>
 {{end}}

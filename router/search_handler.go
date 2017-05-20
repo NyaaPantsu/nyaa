@@ -46,9 +46,9 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		Category:         searchParam.Category.String(),
 		ShowItemsPerPage: true,
 	}
-	htv := HomeTemplateVariables{b, searchForm, navigationTorrents, GetUser(r), r.URL, mux.CurrentRoute(r)}
+	T := languages.GetTfuncFromRequest(r)
+	htv := HomeTemplateVariables{b, searchForm, navigationTorrents, T, GetUser(r), r.URL, mux.CurrentRoute(r)}
 
-	languages.SetTranslationFromRequest(searchTemplate, r)
 	err = searchTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

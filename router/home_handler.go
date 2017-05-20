@@ -63,13 +63,12 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		Route:          "search_page",
 	}
 
-	languages.SetTranslationFromRequest(homeTemplate, r)
-
 	torrentsJson := model.TorrentsToJSON(torrents)
 	htv := HomeTemplateVariables{
 		ListTorrents: torrentsJson,
 		Search:       NewSearchForm(),
 		Navigation:   navigationTorrents,
+		T:            languages.GetTfuncFromRequest(r),
 		User:         GetUser(r),
 		URL:          r.URL,
 		Route:        mux.CurrentRoute(r),

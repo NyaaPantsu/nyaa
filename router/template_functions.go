@@ -11,7 +11,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/languages"
-	"github.com/nicksnyder/go-i18n/i18n"
 )
 
 var FuncMap = template.FuncMap{
@@ -135,8 +134,6 @@ var FuncMap = template.FuncMap{
 		return template.HTML(ret)
 	},
 	"Sukebei":            config.IsSukebei,
-	"T":                  i18n.IdentityTfunc,
-	"Ts":                 i18n.IdentityTfunc,
 	"getDefaultLanguage": languages.GetDefaultLanguage,
 	"getAvatar": func(hash string, size int) string {
 		return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)

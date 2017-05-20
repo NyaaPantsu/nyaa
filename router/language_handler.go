@@ -30,13 +30,13 @@ func SeeLanguagesHandler(w http.ResponseWriter, r *http.Request) {
 		clv := ChangeLanguageVariables{
 			Search:     NewSearchForm(),
 			Navigation: NewNavigation(),
+			T:          languages.GetTfuncFromRequest(r),
 			Language:   Tlang.Tag,
 			Languages:  availableLanguages,
 			User:       GetUser(r),
 			URL:        r.URL,
 			Route:      mux.CurrentRoute(r),
 		}
-		languages.SetTranslationFromRequest(changeLanguageTemplate, r)
 		err := changeLanguageTemplate.ExecuteTemplate(w, "index.html", clv)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
