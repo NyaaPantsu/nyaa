@@ -7,10 +7,12 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
+	"github.com/NyaaPantsu/nyaa/service/notifier"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/service/user/form"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/languages"
+	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/modelHelper"
 	"github.com/gorilla/mux"
 )
@@ -142,7 +144,7 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 	id := vars["id"]
 	currentUser := GetUser(r)
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
-	if errorUser != nil || !userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
+	if errorUser != nil || !userPermission.CurrentOrAdmin(currentUser, userProfile.ID) || userProfile.ID == 0 {
 		NotFoundHandler(w, r)
 		return
 	}
@@ -307,7 +309,7 @@ func UserFollowHandler(w http.ResponseWriter, r *http.Request) {
 	id := vars["id"]
 	currentUser := GetUser(r)
 	user, _, errorUser := userService.RetrieveUserForAdmin(id)
-	if errorUser == nil {
+	if errorUser == nil && user.ID > 0 {
 		if !userPermission.IsFollower(&user, currentUser) {
 			followAction = "followed"
 			userService.SetFollow(&user, currentUser)
@@ -318,4 +320,25 @@ func UserFollowHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	url, _ := Router.Get("user_profile").URL("id", strconv.Itoa(int(user.ID)), "username", user.Username)
 	http.Redirect(w, r, url.String()+"?"+followAction, http.StatusSeeOther)
+}
+
+func UserNotificationsHandler(w http.ResponseWriter, r *http.Request) {
+	currentUser := GetUser(r)
+	if currentUser.ID > 0 {
+		messages := msg.GetMessages(r)
+		Ts, _ := languages.GetTfuncAndLanguageFromRequest(r)
+		T := languages.GetTfuncFromRequest(r)
+		if r.URL.Query()["clear"] != nil {
+			notifierService.DeleteAllNotifications(currentUser.ID)
+			messages.AddInfo("infos", Ts("notifications_cleared"))
+			currentUser.Notifications = []model.Notification{}
+		}
+		htv := UserProfileNotifVariables{messages.GetAllInfos(), NewSearchForm(), NewNavigation(), T, currentUser, r.URL, mux.CurrentRoute(r)}
+		err := viewProfileNotifTemplate.ExecuteTemplate(w, "index.html", htv)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	} else {
+		NotFoundHandler(w, r)
+	}
 }

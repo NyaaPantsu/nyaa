@@ -18,6 +18,7 @@ const (
 	CommentsTableName   = "comments"
 	UploadsOldTableName = "user_uploads_old"
 	FilesTableName      = "files"
+	NotificationTableName = "notifications"
 
 	// for sukebei:
 	//LastOldTorrentID    = 2303945

@@ -106,6 +106,16 @@ type UserProfileVariables struct {
 	Route       *mux.Route // For getting current route in templates
 }
 
+type UserProfileNotifVariables struct {
+	Infos   map[string][]string
+	Search      SearchForm
+	Navigation  Navigation
+	T           languages.TemplateTfunc
+	User        *model.User
+	URL         *url.URL   // For parsing Url in templates
+	Route       *mux.Route // For getting current route in templates
+}
+
 type HomeTemplateVariables struct {
 	ListTorrents []model.TorrentJSON
 	Search       SearchForm

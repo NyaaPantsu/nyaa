@@ -141,7 +141,7 @@ func CurrentUser(r *http.Request) (model.User, error) {
 	if userFromContext.ID > 0 && user_id == userFromContext.ID {
 		user = userFromContext
 	} else {
-		if db.ORM.Where("user_id = ?", user_id).First(&user).RecordNotFound() {
+		if db.ORM.Preload("Notifications").Where("user_id = ?", user_id).First(&user).RecordNotFound() { // We only load unread notifications
 			return user, errors.New("User not found")
 		} else {
 			setUserToContext(r, user)

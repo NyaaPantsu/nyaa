@@ -9,6 +9,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
+	"github.com/NyaaPantsu/nyaa/service/notifier"
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util"
@@ -22,19 +23,24 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	messages := msg.GetMessages(r)
+	user := GetUser(r)
 
 	if (r.URL.Query()["success"] != nil) {
 		messages.AddInfo("infos", "Torrent uploaded successfully!")
 	}
 
 	torrent, err := torrentService.GetTorrentById(id)
+	
+	if (r.URL.Query()["notif"] != nil) {
+		notifierService.ToggleReadNotification(torrent.Identifier(), user.ID)
+	}
+
 	if err != nil {
 		NotFoundHandler(w, r)
 		return
 	}
 	b := torrent.ToJSON()
 	captchaID := ""
-	user := GetUser(r)
 	if userPermission.NeedsCaptcha(user) {
 		captchaID = captcha.GetID()
 	}
