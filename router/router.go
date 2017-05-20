@@ -70,8 +70,8 @@ func init() {
 	// sure the page is only accessible by moderators
 	// TODO Find a native mux way to add a 'prehook' for route /mod
 	Router.HandleFunc("/mod",                 WrapModHandler(IndexModPanel)).Name("mod_index")
-	Router.HandleFunc("/mod/torrents",        WrapModHandler(TorrentsListPanel)).Name("mod_tlist")
-	Router.HandleFunc("/mod/torrents/{page}", WrapModHandler(TorrentsListPanel)).Name("mod_tlist_page")
+	Router.HandleFunc("/mod/torrents",        WrapModHandler(TorrentsListPanel)).Name("mod_tlist").Methods("GET")
+	Router.HandleFunc("/mod/torrents/{page}", WrapModHandler(TorrentsListPanel)).Name("mod_tlist_page").Methods("GET")
 	Router.HandleFunc("/mod/torrents", WrapModHandler(TorrentsPostListPanel)).Methods("POST")
 	Router.HandleFunc("/mod/torrents/{page}", WrapModHandler(TorrentsPostListPanel)).Methods("POST")
 	Router.HandleFunc("/mod/reports",         WrapModHandler(TorrentReportListPanel)).Name("mod_trlist")
