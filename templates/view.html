@@ -65,7 +65,13 @@
                 <p class="date-full">{{.Date}}</p>
                 <hr>
                 <h4>{{T "size"}}</h4>
-                <p>{{.Filesize}}</p>
+                <p>
+                  {{if ne .Filesize "Unknown"}}
+                  {{.Filesize}}
+                  {{else}}
+                  {{T "unknown"}}
+                  {{end}}
+                </p>
                 <hr>
                 {{if ne .WebsiteLink ""}}
                 <h4>{{T "link"}}</h4>

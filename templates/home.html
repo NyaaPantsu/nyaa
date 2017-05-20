@@ -73,7 +73,13 @@ Your browser does not support the audio element.
               </td>
               {{end}}
               <td class="hidden-xs nowrap date-short">{{.Date}}</td>
-              <td class="hidden-xs nowrap">{{.Filesize}}</td>
+              <td class="hidden-xs nowrap">
+                  {{if ne .Filesize "Unknown"}}
+                  {{.Filesize}}
+                  {{else}}
+                  {{T "unknown"}}
+                  {{end}}
+              </td>
               <td class="hidden-xs nowrap">
                   <a href="{{.Magnet}}" title="Magnet link">
                       <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>

@@ -33,7 +33,13 @@
                   </a>
               </td>
               <td class="nowrap date-short">{{.Date}}</td>
-              <td class="nowrap">{{.Filesize}}</td>
+              <td class="nowrap">
+                  {{if ne .Filesize "Unknown"}}
+                  {{.Filesize}}
+                  {{else}}
+                  {{T "unknown"}}
+                  {{end}}
+              </td>
               <td>
                   <a href="{{.Magnet}}" title="{{ T "magnet_link" }}">
                       <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>
