@@ -90,10 +90,10 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		} else {
 			if follow != nil {
-				infosForm["infos"] = append(infosForm["infos"], fmt.Sprintf(T("user_followed_msg"), userProfile.Username))
+				infosForm["infos"] = append(infosForm["infos"], fmt.Sprintf(string(T("user_followed_msg")), userProfile.Username))
 			}
 			if unfollow != nil {
-				infosForm["infos"] = append(infosForm["infos"], fmt.Sprintf(T("user_unfollowed_msg"), userProfile.Username))
+				infosForm["infos"] = append(infosForm["infos"], fmt.Sprintf(string(T("user_unfollowed_msg")), userProfile.Username))
 			}
 			htv := UserProfileVariables{&userProfile, infosForm, NewSearchForm(), NewNavigation(), T, currentUser, r.URL, mux.CurrentRoute(r)}
 
@@ -172,14 +172,14 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 		if len(err) == 0 {
 			if userForm.Email != userProfile.Email {
 				userService.SendVerificationToUser(*currentUser, userForm.Email)
-				infos["infos"] = append(infos["infos"], fmt.Sprintf(T("email_changed"), userForm.Email))
+				infos["infos"] = append(infos["infos"], fmt.Sprintf(string(T("email_changed")), userForm.Email))
 				userForm.Email = userProfile.Email // reset, it will be set when user clicks verification
 			}
 			userProfile, _, errorUser = userService.UpdateUser(w, &userForm, currentUser, id)
 			if errorUser != nil {
 				err["errors"] = append(err["errors"], errorUser.Error())
 			} else {
-				infos["infos"] = append(infos["infos"], T("profile_updated"))
+				infos["infos"] = append(infos["infos"], string(T("profile_updated")))
 			}
 		}
 	}

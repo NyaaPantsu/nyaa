@@ -19,10 +19,10 @@
           </select>
           <select class="form-control" style="display: none;" name="moveto">
             <option value="">To...</option>
-            <option value="0">{{T "torrent_status_hidden"}}</option>
-            <option value="1">{{T "torrent_status_normal"}}</option>
-            <option value="2">{{T "torrent_status_remake"}}</option>
-            <option value="3">{{T "trusted"}}</option>
+            <option value="0">{{call $.T "torrent_status_hidden"}}</option>
+            <option value="1">{{call $.T "torrent_status_normal"}}</option>
+            <option value="2">{{call $.T "torrent_status_remake"}}</option>
+            <option value="3">{{call $.T "trusted"}}</option>
             <option value="4">A+</option>
           </select>
         </div>
@@ -44,7 +44,7 @@
         <td><input type="checkbox" name="torrent_id" value="{{.ID }}"></td>
         <td><a href="{{ genViewTorrentRoute .ID }}">{{ .Name }}</a> (<a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">Edit</a>)</td>
         <td>{{ if gt .UploaderID 0 }}<a href="{{ genRoute "mod_tlist" }}?userID={{.UploaderID}}">{{ .Uploader.Username }}</a>{{ else }}れんちょん{{end}}</td>
-        <td><a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i> {{ T "delete" }}</a></td>
+        <td><a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i> {{ call $.T "delete" }}</a></td>
     </tr>
     {{end}}
     </table>

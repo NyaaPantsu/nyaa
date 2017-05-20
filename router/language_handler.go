@@ -15,7 +15,7 @@ type LanguagesJSONResponse struct {
 }
 
 func SeeLanguagesHandler(w http.ResponseWriter, r *http.Request) {
-	Tfunc, Tlang := languages.GetTfuncAndLanguageFromRequest(r)
+	_, Tlang := languages.GetTfuncAndLanguageFromRequest(r)
 	availableLanguages := languages.GetAvailableLanguages()
 
 	contentType := r.Header.Get("Content-Type")
@@ -30,7 +30,7 @@ func SeeLanguagesHandler(w http.ResponseWriter, r *http.Request) {
 		clv := ChangeLanguageVariables{
 			Search:     NewSearchForm(),
 			Navigation: NewNavigation(),
-			T:          Tfunc,
+			T:          languages.GetTfuncFromRequest(r),
 			Language:   Tlang.Tag,
 			Languages:  availableLanguages,
 			User:       GetUser(r),

@@ -1,4 +1,4 @@
-{{define "title"}}{{T "home"}}{{end}}
+{{define "title"}}{{call $.T "home"}}{{end}}
 {{define "contclass"}}cont-home{{end}}
 {{define "content"}}
 
@@ -24,19 +24,19 @@ Your browser does not support the audio element.
       <div class="table-responsive">
           <table class="table custom-table-hover">
           <tr>
-              <th class="col-xs-1 hidden-xs">{{T "category"}}</th>
+              <th class="col-xs-1 hidden-xs">{{call $.T "category"}}</th>
               <th class="col-xs-12">
-                <a href="{{ genSearchWithOrdering .URL "1" }}">{{T "name"}}{{ genSortArrows .URL "1" }}</a>
+                <a href="{{ genSearchWithOrdering .URL "1" }}">{{call $.T "name"}}{{ genSortArrows .URL "1" }}</a>
               </th>
               <th class="col-xs-1 hidden-xs">
-                <a href="{{ genSearchWithOrdering .URL "5" }}">{{T "S"}}{{ genSortArrows .URL "5" }}</a> / 
-                <a href="{{ genSearchWithOrdering .URL "6" }}">{{T "L"}}{{ genSortArrows .URL "6" }}</a> / 
-                <a href="{{ genSearchWithOrdering .URL "7" }}">{{T "D"}}{{ genSortArrows .URL "7" }}</a>
+                <a href="{{ genSearchWithOrdering .URL "5" }}">{{call $.T "S"}}{{ genSortArrows .URL "5" }}</a> / 
+                <a href="{{ genSearchWithOrdering .URL "6" }}">{{call $.T "L"}}{{ genSortArrows .URL "6" }}</a> / 
+                <a href="{{ genSearchWithOrdering .URL "7" }}">{{call $.T "D"}}{{ genSortArrows .URL "7" }}</a>
               </th>
               <!-- <th class="col-xs-1 hidden-xs"><span class="glyphicon glyphicon-comment"></span></th> -->
-              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{T "date"}}{{ genSortArrows .URL "2" }}</th></a>
-              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "4" }}">{{T "size"}}{{ genSortArrows .URL "4" }}</a></th>
-              <th class="col-xs-1 hidden-xs">{{T "links"}}</th>
+              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{call $.T "date"}}{{ genSortArrows .URL "2" }}</th></a>
+              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "4" }}">{{call $.T "size"}}{{ genSortArrows .URL "4" }}</a></th>
+              <th class="col-xs-1 hidden-xs">{{call $.T "links"}}</th>
           </tr>
           {{ range .ListTorrents}}
           <tr class="torrent-info
@@ -47,9 +47,9 @@ Your browser does not support the audio element.
               <td class="hidden-xs" style="width:80px">
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
                       {{ if Sukebei }}
-                      <img src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ T (Category_Sukebei .Category .SubCategory) }}">
+                      <img src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (Category_Sukebei .Category .SubCategory) }}">
                       {{ else }}
-                      <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ T (Category_Nyaa .Category .SubCategory) }}">
+                      <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ call $.T (Category_Nyaa .Category .SubCategory) }}">
                       {{ end}}
                   </a>
               </td>
@@ -64,7 +64,7 @@ Your browser does not support the audio element.
               </td>
               -->
               {{if .LastScrape.IsZero}}
-              <td class="hidden-xs" align="center">{{T "unknown"}}</td>
+              <td class="hidden-xs" align="center">{{call $.T "unknown"}}</td>
               {{else}}
               <td class="hidden-xs">
                 <b class="text-success">{{.Seeders}}</b> / 

@@ -3,6 +3,7 @@ package languages
 import (
 	"errors"
 	"fmt"
+	"html/template"
 	"net/http"
 	"path"
 	"path/filepath"
@@ -17,6 +18,8 @@ import (
 type UserRetriever interface {
 	RetrieveCurrentUser(r *http.Request) (model.User, error)
 }
+
+type TemplateTfunc func(string, ...interface{}) template.HTML
 
 var (
 	defaultLanguage string        = config.DefaultI18nConfig.DefaultLanguage
@@ -117,9 +120,11 @@ func GetTfuncAndLanguageFromRequest(r *http.Request) (T i18n.TranslateFunc, Tlan
 	return
 }
 
-func GetTfuncFromRequest(r *http.Request) i18n.TranslateFunc {
+func GetTfuncFromRequest(r *http.Request) TemplateTfunc {
 	T, _ := GetTfuncAndLanguageFromRequest(r)
-	return T
+	return func(id string, args ...interface{}) template.HTML {
+		return template.HTML(fmt.Sprintf(T(id), args...))
+	}
 }
 
 func getCurrentUser(r *http.Request) (model.User, error) {

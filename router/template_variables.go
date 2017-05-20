@@ -8,8 +8,8 @@ import (
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	userForms "github.com/NyaaPantsu/nyaa/service/user/form"
+	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/gorilla/mux"
-	"github.com/nicksnyder/go-i18n/i18n"
 )
 
 /* Each Page should have an object to pass to their own template
@@ -21,7 +21,7 @@ import (
 type FaqTemplateVariables struct {
 	Navigation Navigation
 	Search     SearchForm
-	T          i18n.TranslateFunc
+	T          languages.TemplateTfunc
 	User       *model.User
 	URL        *url.URL   // For parsing Url in templates
 	Route      *mux.Route // For getting current route in templates
@@ -30,7 +30,7 @@ type FaqTemplateVariables struct {
 type NotFoundTemplateVariables struct {
 	Navigation Navigation
 	Search     SearchForm
-	T          i18n.TranslateFunc
+	T          languages.TemplateTfunc
 	User       *model.User
 	URL        *url.URL   // For parsing Url in templates
 	Route      *mux.Route // For getting current route in templates
@@ -43,7 +43,7 @@ type ViewTemplateVariables struct {
 	Infos   map[string][]string
 	Search     SearchForm
 	Navigation Navigation
-	T          i18n.TranslateFunc
+	T          languages.TemplateTfunc
 	User       *model.User
 	URL        *url.URL   // For parsing Url in templates
 	Route      *mux.Route // For getting current route in templates
@@ -54,7 +54,7 @@ type UserRegisterTemplateVariables struct {
 	FormErrors       map[string][]string
 	Search           SearchForm
 	Navigation       Navigation
-	T                i18n.TranslateFunc
+	T                languages.TemplateTfunc
 	User             *model.User
 	URL              *url.URL   // For parsing Url in templates
 	Route            *mux.Route // For getting current route in templates
@@ -68,7 +68,7 @@ type UserProfileEditVariables struct {
 	Languages   map[string]string
 	Search      SearchForm
 	Navigation  Navigation
-	T           i18n.TranslateFunc
+	T           languages.TemplateTfunc
 	User        *model.User
 	URL         *url.URL   // For parsing Url in templates
 	Route       *mux.Route // For getting current route in templates
@@ -78,7 +78,7 @@ type UserVerifyTemplateVariables struct {
 	FormErrors map[string][]string
 	Search     SearchForm
 	Navigation Navigation
-	T          i18n.TranslateFunc
+	T          languages.TemplateTfunc
 	User       *model.User
 	URL        *url.URL   // For parsing Url in templates
 	Route      *mux.Route // For getting current route in templates
@@ -89,7 +89,7 @@ type UserLoginFormVariables struct {
 	FormErrors map[string][]string
 	Search     SearchForm
 	Navigation Navigation
-	T          i18n.TranslateFunc
+	T          languages.TemplateTfunc
 	User       *model.User
 	URL        *url.URL   // For parsing Url in templates
 	Route      *mux.Route // For getting current route in templates
@@ -100,7 +100,7 @@ type UserProfileVariables struct {
 	FormInfos   map[string][]string
 	Search      SearchForm
 	Navigation  Navigation
-	T           i18n.TranslateFunc
+	T           languages.TemplateTfunc
 	User        *model.User
 	URL         *url.URL   // For parsing Url in templates
 	Route       *mux.Route // For getting current route in templates
@@ -110,7 +110,7 @@ type HomeTemplateVariables struct {
 	ListTorrents []model.TorrentJSON
 	Search       SearchForm
 	Navigation   Navigation
-	T            i18n.TranslateFunc
+	T            languages.TemplateTfunc
 	User         *model.User
 	URL          *url.URL   // For parsing Url in templates
 	Route        *mux.Route // For getting current route in templates
@@ -121,7 +121,7 @@ type DatabaseDumpTemplateVariables struct {
 	GPGLink    string
 	Search     SearchForm
 	Navigation Navigation
-	T          i18n.TranslateFunc
+	T          languages.TemplateTfunc
 	User       *model.User
 	URL        *url.URL   // For parsing Url in templates
 	Route      *mux.Route // For getting current route in templates
@@ -132,7 +132,7 @@ type UploadTemplateVariables struct {
 	FormErrors  map[string][]string
 	Search     SearchForm
 	Navigation Navigation
-	T          i18n.TranslateFunc
+	T          languages.TemplateTfunc
 	User       *model.User
 	URL        *url.URL
 	Route      *mux.Route
@@ -141,7 +141,7 @@ type UploadTemplateVariables struct {
 type ChangeLanguageVariables struct {
 	Search     SearchForm
 	Navigation Navigation
-	T          i18n.TranslateFunc
+	T          languages.TemplateTfunc
 	Language   string
 	Languages  map[string]string
 	User       *model.User
@@ -157,7 +157,7 @@ type PanelIndexVbs struct {
 	Users          []model.User
 	Comments       []model.Comment
 	Search         SearchForm
-	T              i18n.TranslateFunc
+	T              languages.TemplateTfunc
 	User           *model.User
 	URL            *url.URL // For parsing Url in templates
 }
@@ -166,7 +166,7 @@ type PanelTorrentListVbs struct {
 	Torrents   []model.Torrent
 	Search     SearchForm
 	Navigation Navigation
-	T          i18n.TranslateFunc
+	T          languages.TemplateTfunc
 	User       *model.User
 	Errors map[string][]string
 	Infos  map[string][]string
@@ -176,7 +176,7 @@ type PanelUserListVbs struct {
 	Users      []model.User
 	Search     SearchForm
 	Navigation Navigation
-	T          i18n.TranslateFunc
+	T          languages.TemplateTfunc
 	User       *model.User
 	URL        *url.URL // For parsing Url in templates
 }
@@ -184,7 +184,7 @@ type PanelCommentListVbs struct {
 	Comments   []model.Comment
 	Search     SearchForm
 	Navigation Navigation
-	T          i18n.TranslateFunc
+	T          languages.TemplateTfunc
 	User       *model.User
 	URL        *url.URL // For parsing Url in templates
 }
@@ -192,7 +192,7 @@ type PanelCommentListVbs struct {
 type PanelTorrentEdVbs struct {
 	Upload     UploadForm
 	Search     SearchForm
-	T          i18n.TranslateFunc
+	T          languages.TemplateTfunc
 	User       *model.User
 	FormErrors map[string][]string
 	FormInfos  map[string][]string
@@ -203,7 +203,7 @@ type PanelTorrentReportListVbs struct {
 	TorrentReports []model.TorrentReportJson
 	Search         SearchForm
 	Navigation     Navigation
-	T              i18n.TranslateFunc
+	T              languages.TemplateTfunc
 	User           *model.User
 	URL            *url.URL // For parsing Url in templates
 }
@@ -211,7 +211,7 @@ type PanelTorrentReportListVbs struct {
 type PanelTorrentReassignVbs struct {
 	Reassign   ReassignForm
 	Search     SearchForm  // unused?
-	T          i18n.TranslateFunc
+	T          languages.TemplateTfunc
 	User       *model.User // unused?
 	FormErrors map[string][]string
 	FormInfos  map[string][]string
@@ -252,3 +252,5 @@ func GetUser(r *http.Request) *model.User {
 	user, _, _ := userService.RetrieveCurrentUser(r)
 	return &user
 }
+
+
