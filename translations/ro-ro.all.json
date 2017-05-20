@@ -53,7 +53,7 @@
   },
   {
     "id":"terms_conditions_confirm",
-    "translation": "Dacă daţi click <strong class=\"label label-primary\">Register</strong>, sunteţi de acord cu <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Termenii şi Condiţiile</a> acestui site, incluzand folosirea noastra de Cookie-uri."
+    "translation": "Dacă daţi click <strong class=\"label label-primary\">Register</strong>, sunteţi de acord cu <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Termenii şi Condiţiile</a> acestui site, incluzând folosirea noastra de Cookie-uri."
   },
   {
     "id":"signin",
@@ -105,7 +105,7 @@
   },
   {
     "id":"signup_verification_noemail",
-    "translation": "Înregistrarea a fost reusită, acum îţi poţi folosi contul."
+    "translation": "Înregistrarea a fost reuşită, acum îţi poţi folosi contul."
   },
   {
     "id":"settings",
@@ -133,7 +133,7 @@
   },
   {
     "id":"profile_page",
-    "translation": "%s Pagina de profil"
+    "translation": "Pagina de profil a lui %s"
   },
   {
     "id":"see_more_torrents_from",
@@ -201,7 +201,7 @@
   },
   {
     "id": "no_torrents_uploaded",
-    "translation": "Niciun torrent uploadad incă!"
+    "translation": "Niciun torrent uploadat încă!"
   },
   {
     "id": "profile",
@@ -229,7 +229,7 @@
   },
   {
     "id": "notice_keep_seeding",
-    "translation": "ATENŢIE: STAI LA SEED ŞI ACTIVEAZĂ DHT"
+    "translation": "ATENŢIE: STAI LA SEED ŞI ACTIVEAZĂ DHT ÎN CLIENTUL DE TORRENTE!"
   },
   {
     "id": "official_nyaapocalipse_faq",
@@ -738,5 +738,25 @@
   {
     "id": "cancel",
     "translation": "Anulează"
-  }
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "Te rog include udp://tracker.doko.moe:6969 la trackerele tale."
+   },
+   {
+    "id": "unknown",
+    "translation": "Necunoscut"
+   },
+   {
+    "id": "last_scraped",
+    "translation": "Ultimul scrape: "
+   },
+   {
+    "id": "server_status_link",
+    "translation": "Statusul servărului poate fi găsit aici"
+   },
+   {
+    "id": "no_database_dumps_available",
+    "translation": "Dumpurile bazei de date nu sunt disponibile în acest moment."
+    }
 ]
