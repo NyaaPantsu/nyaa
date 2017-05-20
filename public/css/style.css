@@ -437,8 +437,7 @@ select#bottom_language_selector {
 }
 
 .text-error {
-	background: white;
-	color: #cf9fff;
+	color: #fb3333;
 }
 
 /* Wordbreak fix*/
