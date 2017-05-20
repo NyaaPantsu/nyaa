@@ -756,6 +756,10 @@
     "translation": "最終更新日: "
   },
   {
+    "id": "server_status_link",
+    "translation": "サーバーの状態はこちらから"
+  },
+  {
     "id": "no_database_dumps_available",
     "translation": "現在利用可能なデータベースダンプはありません。"
   }
