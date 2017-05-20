@@ -5,10 +5,10 @@
     {{with .Torrent}}
     <hr>
     {{ range (index $.FormErrors "errors")}}
-      <div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
+        <div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
     {{end}}
     {{ range (index $.Infos "infos")}}
-      <div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
+        <div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
     {{end}}
     <div class="content" style="margin-bottom: 2em;">
         <div class="row">
