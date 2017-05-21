@@ -13,8 +13,6 @@
 
     <!-- PureCSS -->
     <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
-    <!-- Open Iconic -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic.min.css" />
     <!-- Website CSS -->
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/style.css"}}">
 
@@ -23,7 +21,7 @@
 
     </head>
   <body>
-      <nav class="pure-menu pure-menu-horizontal">
+      <nav class="pure-menu pure-menu-horizontal" id="mainmenu">
           <a href="#" class="pure-menu-heading pure-menu-link">NyaaPantsu</a>
 		<ul class="pure-menu-list">
                       <li class="pure-menu-item"><a class="pure-menu-link" href="{{.URL.Parse "/upload"}}">{{call $.T "upload"}}</a></li>
@@ -44,11 +42,11 @@
                         {{block "search_button" .}}{{end}}
                       </fieldset>
                   </form>
-                  <!-- User dropdown -->
-                  {{block "badge_user" .}}{{end}}
+                </div>
+          </div>
       </nav>
 
-      <div class="container {{block "contclass" .}}generic{{end}}">
+      <div class="container {{block "contclass" .}}generic{{end}}" id="container">
         {{block "content" .}}{{call $.T "nothing_here"}}{{end}}
       </div>
 
