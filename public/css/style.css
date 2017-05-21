@@ -569,6 +569,17 @@ select#bottom_language_selector {
 		margin-left: 0;
 	}
 }
+@media (min-width: 768px)  {
+
+	#mainmenu .navbar-form select.form-control {
+		width: 12rem;
+	}
+	
+	#mainmenu .navbar-form select.form-control#max {
+		width: 6rem;
+	}
+
+}
 
 @media (max-width: 995px) {
 
@@ -614,12 +625,5 @@ select#bottom_language_selector {
 	}
 	.collapse.in {
 		display: block !important;
-	}
-}
-
-@media (max-width: 1500px) {
-
-	#mascot {
-		display: none;
 	}
 }
