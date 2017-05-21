@@ -49,13 +49,13 @@
               </div>
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
-                      <li><a href="{{.URL.Parse "/upload"}}"><div class="hidden-md hidden-sm">{{call $.T "upload"}}</div><span class="glyphicon glyphicon-cloud-upload visible-md"></span></a></li>
-                      <li><a href="{{.URL.Parse "/faq"}}"><div class="hidden-md hidden-sm">{{call $.T "faq"}}</div><span class="glyphicon glyphicon-question-sign visible-md"></span></a></li>
-                      <li><a href="{{ genRouteWithQuery "feed" .URL }}"><div class="hidden-md hidden-sm">RSS</div><span class="glyphicon glyphicon-flash visible-md"></span></a></li>
+                      <li><a href="{{.URL.Parse "/upload"}}"><span class="glyphicon glyphicon-cloud-upload hidden-md hidden-lg"></span> {{call $.T "upload"}}</a></li>
+                      <li><a href="{{.URL.Parse "/faq"}}"><span class="glyphicon glyphicon-question-sign hidden-md hidden-lg"></span> {{call $.T "faq"}}</a></li>
+                      <li><a href="{{ genRouteWithQuery "feed" .URL }}"><span class="glyphicon glyphicon-flash hidden-md hidden-lg"></span> RSS</a></li>
                       {{ if Sukebei }}
-                      <li><a href="https://nyaa.pantsu.cat"><div class="hidden-md hidden-sm">{{call $.T "fun"}}</div><span class="glyphicon glyphicon-eye-open visible-md"></span></a></li>
+                      <li><a href="https://nyaa.pantsu.cat"><span class="glyphicon glyphicon-eye-open hidden-md hidden-lg"></span> {{call $.T "fun"}}</a></li>
                       {{ else }}
-                      <li><a href="https://sukebei.pantsu.cat"><div class="hidden-md hidden-sm">{{call $.T "fap"}}</div><span class="glyphicon glyphicon-eye-close visible-md"></span></a></li>
+                      <li><a href="https://sukebei.pantsu.cat"><span class="glyphicon glyphicon-eye-close hidden-md hidden-lg"></span> {{call $.T "fap"}}</a></li>
                       {{ end }}
                   </ul>
                   {{block "badge_user" .}}{{end}}
@@ -67,7 +67,8 @@
                         {{block "search_button" .}}{{end}}
                       </div>
                   </form>
-                  
+                  <!-- bottom padding -->
+                  <div style="padding-top: 2rem"></div>
                 </div>
           </div>
       </nav>
