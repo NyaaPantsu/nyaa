@@ -74,11 +74,7 @@ Your browser does not support the audio element.
               {{end}}
               <td class="hidden-xs nowrap date-short">{{.Date}}</td>
               <td class="hidden-xs nowrap">
-                  {{if ne .Filesize "Unknown"}}
-                  {{.Filesize}}
-                  {{else}}
-                  {{ call $.T "unknown"}}
-                  {{end}}
+                  {{ fileSize .Filesize $.T }}
               </td>
               <td class="hidden-xs nowrap">
                   <a href="{{.Magnet}}" title="Magnet link">

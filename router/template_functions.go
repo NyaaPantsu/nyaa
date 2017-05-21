@@ -11,8 +11,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/languages"
-
-	"github.com/nicksnyder/go-i18n/i18n"
 )
 
 type captchaData struct {
@@ -210,11 +208,11 @@ var FuncMap = template.FuncMap{
         }
         return e
     },
-    "fileSize": func(filesize string, T i18n.TranslateFunc) string {
+    "fileSize": func(filesize string, T languages.TemplateTfunc) template.HTML {
  		if (filesize == "Unknown") { 
  			return T("unknown") 
  		}
- 			return filesize 
+ 			return template.HTML(filesize) 
      },
 	"makeCaptchaData": func(captchaID string, T languages.TemplateTfunc) captchaData {
 		return captchaData{captchaID, T}
