@@ -679,6 +679,10 @@
     "id": "delete",
     "translation": "ลบ"
   },
+   {
+    "id": "website_link",
+    "translation": "ลิงค์เว็บ"
+  },
   {
     "id": "files",
     "translation": "ไฟล์"
@@ -758,5 +762,21 @@
   {
     "id": "no_database_dumps_available",
     "translation": "ยังไม่มีไฟล์ดัมพ์ฐานข้อมูลในขณะนี้"
-  }
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "ล้างการแจ้งเตือน"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "ลบการแจ้งเตือนแล้ว!"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "การแจ้งเตือนของฉัน"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "ทอร์เรนท์ใหม่: \"%s\" จาก %s"
+}
 ]

@@ -15,7 +15,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
-	"github.com/gorilla/mux"
 )
 
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
@@ -125,14 +124,9 @@ func UploadGetHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	utv := UploadTemplateVariables{
+		CommonTemplateVariables: NewCommonVariables(r),
 		Upload:     uploadForm,
 		FormErrors: messages.GetAllErrors(),
-		Search:     NewSearchForm(),
-		Navigation: NewNavigation(),
-		T:          languages.GetTfuncFromRequest(r),
-		User:       GetUser(r),
-		URL:        r.URL,
-		Route:      mux.CurrentRoute(r),
 	}
 	err := uploadTemplate.ExecuteTemplate(w, "index.html", utv)
 	if err != nil {

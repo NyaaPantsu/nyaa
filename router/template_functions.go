@@ -15,6 +15,11 @@ import (
 	"github.com/nicksnyder/go-i18n/i18n"
 )
 
+type captchaData struct {
+	CaptchaID string
+	T         languages.TemplateTfunc
+}
+
 var FuncMap = template.FuncMap{
 	"inc": func(i int) int {
 		return i + 1
@@ -211,4 +216,7 @@ var FuncMap = template.FuncMap{
  		}
  			return filesize 
      },
+	"makeCaptchaData": func(captchaID string, T languages.TemplateTfunc) captchaData {
+		return captchaData{captchaID, T}
+	},
 }

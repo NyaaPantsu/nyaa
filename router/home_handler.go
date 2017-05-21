@@ -10,7 +10,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/util"
-	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/gorilla/mux"
 )
@@ -64,14 +63,11 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	torrentsJson := model.TorrentsToJSON(torrents)
+	common := NewCommonVariables(r)
+	common.Navigation = navigationTorrents
 	htv := HomeTemplateVariables{
+		CommonTemplateVariables: common,
 		ListTorrents: torrentsJson,
-		Search:       NewSearchForm(),
-		Navigation:   navigationTorrents,
-		T:            languages.GetTfuncFromRequest(r),
-		User:         GetUser(r),
-		URL:          r.URL,
-		Route:        mux.CurrentRoute(r),
 	}
 
 	err = homeTemplate.ExecuteTemplate(w, "index.html", htv)

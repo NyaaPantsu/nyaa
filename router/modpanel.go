@@ -17,7 +17,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	form "github.com/NyaaPantsu/nyaa/service/user/form"
-	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/search"
@@ -106,9 +105,13 @@ func NewPanelSearchForm() SearchForm {
 	return form
 }
 
+func NewPanelCommonVariables(r *http.Request) CommonTemplateVariables {
+	common := NewCommonVariables(r)
+	common.Search = NewPanelSearchForm()
+	return common
+}
+
 func IndexModPanel(w http.ResponseWriter, r *http.Request) {
-	// FIXME WrapModHandler already get user from db
-	currentUser := GetUser(r)
 	offset := 10
 
 	torrents, _, _ := torrentService.GetAllTorrents(offset, 0)
@@ -116,14 +119,12 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 	comments, _ := commentService.GetAllComments(offset, 0, "", "")
 	torrentReports, _, _ := reportService.GetAllTorrentReports(offset, 0)
 
-	T := languages.GetTfuncFromRequest(r)
-	htv := PanelIndexVbs{torrents, model.TorrentReportsToJSON(torrentReports), users, comments, NewPanelSearchForm(), T, currentUser, r.URL}
+	htv := PanelIndexVbs{NewPanelCommonVariables(r), torrents, model.TorrentReportsToJSON(torrentReports), users, comments}
 	err := panelIndex.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
 
 func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
-	currentUser := GetUser(r)
 	vars := mux.Vars(r)
 	page := vars["page"]
 
@@ -145,15 +146,15 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 		}
 
 	messages := msg.GetMessages(r)
-	T := languages.GetTfuncFromRequest(r)
-	navigation := Navigation{ count, int(searchParam.Max), pagenum, "mod_tlist_page"}
-	ptlv := PanelTorrentListVbs{torrents, searchForm, navigation, T, currentUser, messages.GetAllErrors(), messages.GetAllInfos(), r.URL}
+	common := NewCommonVariables(r)
+	common.Navigation = Navigation{ count, int(searchParam.Max), pagenum, "mod_tlist_page"}
+	common.Search = searchForm
+	ptlv := PanelTorrentListVbs{common, torrents, messages.GetAllErrors(), messages.GetAllInfos()}
 	err = panelTorrentList.ExecuteTemplate(w, "admin_index.html", ptlv)
 	log.CheckError(err)
 }
 
 func TorrentReportListPanel(w http.ResponseWriter, r *http.Request) {
-	currentUser := GetUser(r)
 	vars := mux.Vars(r)
 	page := vars["page"]
 
@@ -171,15 +172,14 @@ func TorrentReportListPanel(w http.ResponseWriter, r *http.Request) {
 	torrentReports, nbReports, _ := reportService.GetAllTorrentReports(offset, (pagenum-1)*offset)
 
 	reportJSON := model.TorrentReportsToJSON(torrentReports)
-	T := languages.GetTfuncFromRequest(r)
-	navigation := Navigation{nbReports, offset, pagenum, "mod_trlist_page"}
-	ptrlv := PanelTorrentReportListVbs{reportJSON, NewSearchForm(), navigation, T, currentUser, r.URL}
+	common := NewCommonVariables(r)
+	common.Navigation = Navigation{nbReports, offset, pagenum, "mod_trlist_page"}
+	ptrlv := PanelTorrentReportListVbs{common, reportJSON}
 	err = panelTorrentReportList.ExecuteTemplate(w, "admin_index.html", ptrlv)
 	log.CheckError(err)
 }
 
 func UsersListPanel(w http.ResponseWriter, r *http.Request) {
-	currentUser := GetUser(r)
 	vars := mux.Vars(r)
 	page := vars["page"]
 
@@ -195,14 +195,14 @@ func UsersListPanel(w http.ResponseWriter, r *http.Request) {
 	offset := 100
 
 	users, nbUsers := userService.RetrieveUsersForAdmin(offset, (pagenum-1)*offset)
-	T := languages.GetTfuncFromRequest(r)
-	htv := PanelUserListVbs{users, NewSearchForm(), Navigation{nbUsers, offset, pagenum, "mod_ulist_page"}, T, currentUser, r.URL}
+	common := NewCommonVariables(r)
+	common.Navigation = Navigation{nbUsers, offset, pagenum, "mod_ulist_page"}
+	htv := PanelUserListVbs{common, users}
 	err = panelUserList.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
 
 func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
-	currentUser := GetUser(r)
 	vars := mux.Vars(r)
 	page := vars["page"]
 
@@ -225,31 +225,30 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 	}
 
 	comments, nbComments := commentService.GetAllComments(offset, (pagenum-1)*offset, conditions, values...)
-	T := languages.GetTfuncFromRequest(r)
-	htv := PanelCommentListVbs{comments, NewSearchForm(), Navigation{nbComments, offset, pagenum, "mod_clist_page"}, T, currentUser, r.URL}
+	common := NewCommonVariables(r)
+	common.Navigation = Navigation{nbComments, offset, pagenum, "mod_clist_page"}
+	htv := PanelCommentListVbs{common, comments}
 	err = panelCommentList.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
 
 func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
-	currentUser := GetUser(r)
 	id := r.URL.Query().Get("id")
 	torrent, _ := torrentService.GetTorrentById(id)
-	T := languages.GetTfuncFromRequest(r)
 
 	torrentJson := torrent.ToJSON()
 	uploadForm := NewUploadForm()
 	uploadForm.Name = torrentJson.Name
 	uploadForm.Category = torrentJson.Category + "_" + torrentJson.SubCategory
 	uploadForm.Status = torrentJson.Status
+	uploadForm.WebsiteLink = string(torrentJson.WebsiteLink)
 	uploadForm.Description = string(torrentJson.Description)
-	htv := PanelTorrentEdVbs{uploadForm, NewPanelSearchForm(), T, currentUser, form.NewErrors(), form.NewInfos(), r.URL}
+	htv := PanelTorrentEdVbs{NewPanelCommonVariables(r), uploadForm, form.NewErrors(), form.NewInfos()}
 	err := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
 
 func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
-	currentUser := GetUser(r)
 	var uploadForm UploadForm
 	id := r.URL.Query().Get("id")
 	err := form.NewErrors()
@@ -266,14 +265,14 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 			torrent.Category = uploadForm.CategoryID
 			torrent.SubCategory = uploadForm.SubCategoryID
 			torrent.Status = uploadForm.Status
+			torrent.WebsiteLink = uploadForm.WebsiteLink
 			torrent.Description = uploadForm.Description
 			torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
 			db.ORM.Save(&torrent)
 			infos["infos"] = append(infos["infos"], "Torrent details updated.")
 		}
 	}
-	T := languages.GetTfuncFromRequest(r)
-	htv := PanelTorrentEdVbs{uploadForm, NewPanelSearchForm(), T, currentUser, err, infos, r.URL}
+	htv := PanelTorrentEdVbs{NewPanelCommonVariables(r), uploadForm, err, infos}
 	err_ := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err_)
 }
@@ -314,16 +313,12 @@ func TorrentReportDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 }
 
 func TorrentReassignModPanel(w http.ResponseWriter, r *http.Request) {
-	currentUser := GetUser(r)
-	T := languages.GetTfuncFromRequest(r)
-
-	htv := PanelTorrentReassignVbs{ReassignForm{}, NewPanelSearchForm(), T, currentUser, form.NewErrors(), form.NewInfos(), r.URL}
+	htv := PanelTorrentReassignVbs{NewPanelCommonVariables(r), ReassignForm{}, form.NewErrors(), form.NewInfos()}
 	err := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
 
 func TorrentPostReassignModPanel(w http.ResponseWriter, r *http.Request) {
-	currentUser := GetUser(r)
 	var rForm ReassignForm
 	err := form.NewErrors()
 	infos := form.NewInfos()
@@ -340,8 +335,7 @@ func TorrentPostReassignModPanel(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	T := languages.GetTfuncFromRequest(r)
-	htv := PanelTorrentReassignVbs{rForm, NewPanelSearchForm(), T, currentUser, err, infos, r.URL}
+	htv := PanelTorrentReassignVbs{NewPanelCommonVariables(r), rForm, err, infos}
 	err_ := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err_)
 }
