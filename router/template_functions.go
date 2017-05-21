@@ -11,6 +11,8 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/languages"
+
+	"github.com/nicksnyder/go-i18n/i18n"
 )
 
 var FuncMap = template.FuncMap{
@@ -203,4 +205,10 @@ var FuncMap = template.FuncMap{
         }
         return e
     },
+    "fileSize": func(filesize string, T i18n.TranslateFunc) string {
+ 		if (filesize == "Unknown") { 
+ 			return T("unknown") 
+ 		}
+ 			return filesize 
+     },
 }
