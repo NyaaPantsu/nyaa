@@ -3,26 +3,26 @@
 	<ul class="nav navbar-nav navbar-right badgemenu">
 		<li class="dropdown">
 			{{if gt .ID 0}}
-		    <a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}" class="dropdown-toggle profile-image" data-toggle="dropdown">
-		    <img src="https://www.gravatar.com/avatar/{{ .MD5 }}?s=50" class="img-circle special-img"> {{ .Username }} <span class="badge">{{ .GetUnreadNotifications }}</span><b class="caret"></b></a>
-		    <ul class="dropdown-menu">
-		        <li><a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}"><i class="fa fa-cog"></i> {{call $.T "profile"}}</a></li>
-		        <li><a href="{{ genRoute "user_notifications" }}"><i class="fa fa-cog"></i> {{ call $.T "my_notifications"}} <span class="badge">{{ .GetUnreadNotifications }}</span></a></li>
-		        <li><a href="{{ genRoute "user_profile_edit" "id" (print .ID) "username" .Username }}"><i class="fa fa-cog"></i> {{call $.T "settings"}}</a></li>
-		        <li class="divider"></li>
-		        {{if HasAdmin . }}<li><a href="{{ genRoute "mod_index" }}"><i class="fa fa-cog"></i> {{call $.T "moderation"}}</a></li><li class="divider"></li>{{end}}
-		        <li><a href="{{ genRoute "user_logout" }}"><i class="fa fa-sign-out"></i> {{ call $.T "sign_out"}}</a></li>
-		    </ul>
-		    {{ else }}
-            <a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-		    <span class="hidden-md hidden-sm">{{ call $.T "member" }}</span>
-		    <span class="glyphicon glyphicon-user visible-md-inline"></span>
-		    <span class="caret"></span>
-	    </a>
-            <ul class="dropdown-menu">
-                <li><a href="{{ genRoute "user_login" }}"><i class="fa fa-sign-out"></i> {{ call $.T "sign_in"}}</a></li>
-                <li><a href="{{ genRoute "user_register" }}"><i class="fa fa-cog"></i> {{ call $.T "sign_up"}}</a></li>
-            </ul>
+			<a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}" class="dropdown-toggle profile-image" data-toggle="dropdown">
+			<img src="https://www.gravatar.com/avatar/{{ .MD5 }}?s=50" class="img-circle special-img"> {{ .Username }} <span class="badge">{{ .GetUnreadNotifications }}</span><b class="caret"></b></a>
+			<ul class="dropdown-menu">
+					<li><a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}"><i class="fa fa-cog"></i> {{call $.T "profile"}}</a></li>
+					<li><a href="{{ genRoute "user_notifications" }}"><i class="fa fa-cog"></i> {{ call $.T "my_notifications"}} <span class="badge">{{ .GetUnreadNotifications }}</span></a></li>
+					<li><a href="{{ genRoute "user_profile_edit" "id" (print .ID) "username" .Username }}"><i class="fa fa-cog"></i> {{call $.T "settings"}}</a></li>
+					<li class="divider"></li>
+					{{if HasAdmin . }}<li><a href="{{ genRoute "mod_index" }}"><i class="fa fa-cog"></i> {{call $.T "moderation"}}</a></li><li class="divider"></li>{{end}}
+					<li><a href="{{ genRoute "user_logout" }}"><i class="fa fa-sign-out"></i> {{ call $.T "sign_out"}}</a></li>
+			</ul>
+			{{ else }}
+			<a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+				<span class="hidden-md hidden-sm">{{ call $.T "member" }}</span>
+				<span class="glyphicon glyphicon-user visible-md-inline"></span>
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+					<li><a href="{{ genRoute "user_login" }}"><i class="fa fa-sign-out"></i> {{ call $.T "sign_in"}}</a></li>
+					<li><a href="{{ genRoute "user_register" }}"><i class="fa fa-cog"></i> {{ call $.T "sign_up"}}</a></li>
+			</ul>
 	{{end}}
 		</li>
 		</ul>
