@@ -23,7 +23,7 @@
 
     </head>
   <body>
-      <nav class="pure-menu pure-menu-horizontal" id="mainmenu">
+      <nav class="pure-menu pure-menu-horizontal">
           <a href="#" class="pure-menu-heading pure-menu-link">NyaaPantsu</a>
 		<ul class="pure-menu-list">
                       <li class="pure-menu-item"><a class="pure-menu-link" href="{{.URL.Parse "/upload"}}">{{call $.T "upload"}}</a></li>
@@ -35,20 +35,20 @@
                       <li class="pure-menu-item"><a class="pure-menu-link" href="https://sukebei.pantsu.cat">{{call $.T "fap"}}</a></li>
                       {{ end }}
                   </ul>
-                  {{block "badge_user" .}}{{end}}
+                  <!-- Search bar -->
                   <form class="pure-form" role="search" action="/search" method="get">
-                      <div class="form-group">
+                      <fieldset class="pure-group">
                         {{block "search_common" .}}{{end}}
                       </fieldset>
                       <fieldset class="pure-group">
                         {{block "search_button" .}}{{end}}
                       </fieldset>
                   </form>
-                </div>
-          </div>
+                  <!-- User dropdown -->
+                  {{block "badge_user" .}}{{end}}
       </nav>
 
-      <div class="container {{block "contclass" .}}generic{{end}}" id="container">
+      <div class="container {{block "contclass" .}}generic{{end}}">
         {{block "content" .}}{{call $.T "nothing_here"}}{{end}}
       </div>
 
