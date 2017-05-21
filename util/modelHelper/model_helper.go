@@ -1,7 +1,6 @@
 package modelHelper
 
 import (
-	"fmt"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"net/http"

@@ -1,7 +1,6 @@
 package router
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -198,7 +197,7 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 // Post Registration controller, we do some check on the form here, the rest on user service
 func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 	b := form.RegistrationForm{}
-	messages = msg.GetMessages(r)
+	messages := msg.GetMessages(r)
 
 	if !captcha.Authenticate(captcha.Extract(r)) {
 		messages.AddError("errors", "Wrong captcha!")
@@ -255,7 +254,7 @@ func UserVerifyEmailHandler(w http.ResponseWriter, r *http.Request) {
 func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 	b := form.LoginForm{}
 	modelHelper.BindValueForm(&b, r)
-	messages := msg.GetAllErrors()
+	messages := msg.GetMessages(r)
 
 	modelHelper.ValidateForm(&b, &messages)
 	if !messages.HasErrors() {

@@ -81,7 +81,8 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 	user.Email = "" // unset email because it will be verified later
 	user.CreatedAt = time.Now()
 	// User settings to default
-	user.ToDefault()
+	user.Settings.ToDefault()
+	user.SaveSettings()
 	// currently unused but needs to be set:
 	user.ApiToken = ""
 	user.ApiTokenExpiry = time.Unix(0, 0)
@@ -321,7 +322,7 @@ func CreateUserAuthentication(w http.ResponseWriter, r *http.Request) (int, erro
 	modelHelper.BindValueForm(&form, r)
 	username := form.Username
 	pass := form.Password
-	status, err := SetCookieHandler(w, username, pass)
+	status, err := SetCookieHandler(w, r, username, pass)
 	return status, err
 }
 

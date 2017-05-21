@@ -16,7 +16,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
-	form "github.com/NyaaPantsu/nyaa/service/user/form"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/search"
@@ -235,6 +234,7 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	torrent, _ := torrentService.GetTorrentById(id)
+	messages:= msg.GetMessages(r)
 
 	torrentJson := torrent.ToJSON()
 	uploadForm := NewUploadForm()
@@ -243,7 +243,7 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 	uploadForm.Status = torrentJson.Status
 	uploadForm.WebsiteLink = string(torrentJson.WebsiteLink)
 	uploadForm.Description = string(torrentJson.Description)
-	htv := PanelTorrentEdVbs{NewPanelCommonVariables(r), uploadForm, form.NewErrors(), form.NewInfos()}
+	htv := PanelTorrentEdVbs{NewPanelCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
 	err := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
@@ -252,7 +252,6 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 	var uploadForm UploadForm
 	id := r.URL.Query().Get("id")
 	messages := msg.GetMessages(r)
-	infos := form.NewInfos()
 	torrent, _ := torrentService.GetTorrentById(id)
 	if torrent.ID > 0 {
 		errUp := uploadForm.ExtractEditInfo(r)
@@ -310,7 +309,8 @@ func TorrentReportDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 }
 
 func TorrentReassignModPanel(w http.ResponseWriter, r *http.Request) {
-	htv := PanelTorrentReassignVbs{NewPanelCommonVariables(r), ReassignForm{}, form.NewErrors(), form.NewInfos()}
+	messages := msg.GetMessages(r)
+	htv := PanelTorrentReassignVbs{NewPanelCommonVariables(r), ReassignForm{}, messages.GetAllErrors(), messages.GetAllInfos()}
 	err := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
@@ -318,7 +318,6 @@ func TorrentReassignModPanel(w http.ResponseWriter, r *http.Request) {
 func TorrentPostReassignModPanel(w http.ResponseWriter, r *http.Request) {
 	var rForm ReassignForm
 	messages := msg.GetMessages(r)
-	infos := form.NewInfos()
 
 	err2 := rForm.ExtractInfo(r)
 	if err2 != nil {

@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
@@ -84,7 +85,7 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 		if len(user.Likings) > 0 { // If we are followed by at least someone
 				for _, follower := range user.Likings {
 					follower.ParseSettings() // We need to call it before checking settings
-					if  follower.Settings.Get("notifications.new_torrent"] {
+					if  follower.Settings.Get("notifications.new_torrent") {
 						T, _, _ := languages.TfuncAndLanguageWithFallback(user.Language, user.Language) // We need to send the notification to every user in their language
 
 						notifierService.NotifyUser(&follower, torrent.Identifier(), fmt.Sprintf(T("new_torrent_uploaded"), torrent.Name, user.Username), url.String())
