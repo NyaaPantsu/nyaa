@@ -15,9 +15,7 @@
 			</ul>
 			{{ else }}
 			<a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-				<span class="hidden-md hidden-sm">{{ call $.T "member" }}</span>
-				<span class="glyphicon glyphicon-user visible-md-inline"></span>
-				<span class="caret"></span>
+				<span class="glyphicon glyphicon-user hidden-md hidden-lg"></span> {{ call $.T "member" }} <span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
 					<li><a href="{{ genRoute "user_login" }}"><i class="fa fa-sign-out"></i> {{ call $.T "sign_in"}}</a></li>
