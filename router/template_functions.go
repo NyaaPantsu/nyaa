@@ -2,7 +2,6 @@ package router
 
 import (
 	"html/template"
-	//"log"
 	"math"
 	"net/url"
 	"strconv"
@@ -10,6 +9,7 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
+	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 )
 
@@ -120,7 +120,6 @@ var FuncMap = template.FuncMap{
 			if endValue > int(maxPages) {
 				endValue = int(maxPages)
 			}
-			//log.Println(nav.TotalItem)
 			for i := startValue; i <= endValue; i++ {
 				pageNum := strconv.Itoa(i)
 				url, _ := Router.Get(nav.Route).URL("page", pageNum)
@@ -208,11 +207,11 @@ var FuncMap = template.FuncMap{
         }
         return e
     },
-    "fileSize": func(filesize string, T languages.TemplateTfunc) template.HTML {
- 		if (filesize == "Unknown") { 
- 			return T("unknown") 
- 		}
- 			return template.HTML(filesize) 
+    "fileSize": func(filesize int64, T languages.TemplateTfunc) template.HTML {
+        if (filesize == 0) {
+            return T("unknown")
+        }
+        return template.HTML(util.FormatFilesize(filesize))
      },
 	"makeCaptchaData": func(captchaID string, T languages.TemplateTfunc) captchaData {
 		return captchaData{captchaID, T}
