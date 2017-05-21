@@ -13,6 +13,8 @@
 
     <!-- PureCSS -->
     <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
+    <!-- Open Iconic -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic.min.css" />
     <!-- Website CSS -->
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/style.css"}}">
 
@@ -28,13 +30,13 @@
                       <li class="pure-menu-item"><a class="pure-menu-link" href="{{.URL.Parse "/faq"}}">{{call $.T "faq"}}</a></li>
                       <li class="pure-menu-item"><a class="pure-menu-link" href="{{ genRouteWithQuery "feed" .URL }}">RSS</a></li>
                       {{ if Sukebei }}
-                      <li><a href="https://nyaa.pantsu.cat"><div class="hidden-md hidden-sm">{{call $.T "fun"}}</div><span class="glyphicon glyphicon-eye-open visible-md"></span></a></li>
+                      <li class="pure-menu-item"><a class="pure-menu-link" href="https://nyaa.pantsu.cat">{{call $.T "fun"}}</a></li>
                       {{ else }}
-                      <li><a href="https://sukebei.pantsu.cat"><div class="hidden-md hidden-sm">{{call $.T "fap"}}</div><span class="glyphicon glyphicon-eye-close visible-md"></span></a></li>
+                      <li class="pure-menu-item"><a class="pure-menu-link" href="https://sukebei.pantsu.cat">{{call $.T "fap"}}</a></li>
                       {{ end }}
                   </ul>
                   {{block "badge_user" .}}{{end}}
-                  <form class="navbar-form navbar-right" role="search" action="/search" method="get">
+                  <form class="pure-form" role="search" action="/search" method="get">
                       <div class="form-group">
                         {{block "search_common" .}}{{end}}
                       </div>
