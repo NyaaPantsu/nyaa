@@ -184,6 +184,10 @@
     "translation": "Fap"
   },
   {
+    "id": "fun",
+    "translation": "Fun"
+  },
+  {
     "id": "advanced_search",
     "translation": "Erweiterte Suche"
   },
@@ -249,7 +253,7 @@
   },
   {
     "id": "future_not_looking_good",
-    "translation": "Die Zukunft für nyaa sieht schlecht aus. (Die Seite ist tot)"
+    "translation": "Die Zukunft für nyaa sieht schlecht aus. („Er ist tot, Jim.“)"
   },
   {
     "id": "recovery_effort",
@@ -284,6 +288,14 @@
     "translation": "Die obengenannten Datenbanken werden im Moment auf nyaa.pantsu.cat und sukebei.pantsu.cat bereitgestellt. Es gibt eine Suchfunktion und (fast) vollständige Funktionalität von nyaa sollte bald wiederhergestellt sein."
   },
   {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "Wie verbinde ich meine alten Uploads mit meinem neuen Account?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "Gehe zu <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> und bitte einen Moderator deine alten Torrents zu migrieren, während du deinen alten und neuen Benutzernamen erwähnst."
+  },
+  {
     "id": "are_the_trackers_working",
     "translation": "Funktionieren die Torrents noch?"
   },
@@ -309,11 +321,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Wir haben jetzt unseren eigenen Tracker! Füge ihn vor dem Hochladen deines Torrents hinzu:"
-  },
-  {
-    "id": "other_trackers",
-    "translation": "Allerdings solltest du diese auch hinzufügen. Nur für den Fall, dass etwas schief läuft:"
+    "translation": "Wir haben jetzt unseren eigenen Tracker!<small>(doko.moe)</small> Jedoch solltest du der Zuverlässigkeit wegen alle Tracker aus dieser Liste hinzufügen."
   },
   {
     "id": "how_can_i_help",
@@ -452,6 +460,42 @@
     "translation": "Software - Spiele"
   },
   {
+    "id": "art",
+    "translation": "Art"
+  },
+  {
+    "id": "art_anime",
+    "translation": "2D - Anime"
+  },
+  {
+    "id": "art_doujinshi",
+    "translation": "2D - Doujinshi"
+  },
+  {
+    "id": "art_games",
+    "translation": "2D - Spiele"
+  },
+  {
+    "id": "art_manga",
+    "translation": "2D - Manga"
+  },
+  {
+    "id": "art_pictures",
+    "translation": "2D - Bilder"
+  },
+  {
+    "id": "real_life",
+    "translation": "3D"
+  },
+  {
+    "id": "real_life_photobooks_and_pictures",
+    "translation": "3D - Fotokollektionen / Fotos"
+  },
+  {
+    "id": "real_life_videos",
+    "translation": "3D - Videos"
+  },
+  {
     "id": "torrent_description",
     "translation": "Torrent Beschreibung"
   },
@@ -548,6 +592,10 @@
     "translation": "Moderator"
   },
   {
+    "id": "api_token",
+    "translation": "API Token"
+  },
+  {
     "id": "save_changes",
     "translation": "Änderungen speichern"
   },
@@ -636,6 +684,18 @@
     "translation": "Löschen"
   },
   {
+    "id": "website_link",
+    "translation": "Webseiten Link"
+  },
+  {
+    "id": "files",
+    "translation": "Dateien"
+  },
+  {
+    "id": "filename",
+    "translation": "Dateiname"
+  },
+  {
     "id": "uploaded_by",
     "translation": "Hochgeladen von"
   },
@@ -686,5 +746,41 @@
   {
     "id": "cancel",
     "translation": "Abbrechen"
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "Bitte füge udp://tracker.doko.moe:6969 deinen Trackern hinzu."
+  },
+  {
+    "id": "unknown",
+    "translation": "Unbekannt"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "Letzter Scrape: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "Der Server-Status kann hier eingesehen werden"
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "Im Moment sind keine Datenbank-Dumps verfügbar."
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "Benachrichtigungen leeren"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "Benachrichtigungen geleert!"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "Meine Benachrichtigungen"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "Neuer Torrent: \"%s\" von %s"
   }
 ]
