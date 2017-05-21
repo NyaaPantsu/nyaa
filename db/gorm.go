@@ -54,7 +54,7 @@ func GormInit(conf *config.Config, logger Logger) (*gorm.DB, error) {
 		db.SetLogger(logger)
 	}
 
-	db.AutoMigrate(&model.User{}, &model.UserFollows{}, &model.UserUploadsOld{})
+	db.AutoMigrate(&model.User{}, &model.UserFollows{}, &model.UserUploadsOld{}, &model.Notification{})
 	if db.Error != nil {
 		return db, db.Error
 	}

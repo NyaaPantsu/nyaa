@@ -7,6 +7,7 @@ import (
 	formStruct "github.com/NyaaPantsu/nyaa/service/user/form"
 	"github.com/NyaaPantsu/nyaa/util/modelHelper"
 	"github.com/NyaaPantsu/nyaa/util/timeHelper"
+	"github.com/gorilla/context"
 	"github.com/gorilla/securecookie"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
@@ -14,7 +15,10 @@ import (
 	"time"
 )
 
-const CookieName = "session"
+const (
+	CookieName = "session"
+	UserContextKey = "user"
+	)
 
 // If you want to keep login cookies between restarts you need to make these permanent
 var cookieHandler = securecookie.New(
@@ -113,7 +117,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) (int, error) {
 	return RegisterHanderFromForm(w, registrationForm)
 }
 
-// CurrentUser determines the current user from the request
+// CurrentUser determines the current user from the request or context
 func CurrentUser(r *http.Request) (model.User, error) {
 	var user model.User
 	var encoded string
@@ -131,8 +135,17 @@ func CurrentUser(r *http.Request) (model.User, error) {
 	if err != nil {
 		return user, err
 	}
-	if db.ORM.Where("user_id = ?", user_id).First(&user).RecordNotFound() {
-		return user, errors.New("User not found")
+
+	userFromContext := getUserFromContext(r)
+
+	if userFromContext.ID > 0 && user_id == userFromContext.ID {
+		user = userFromContext
+	} else {
+		if db.ORM.Preload("Notifications").Where("user_id = ?", user_id).First(&user).RecordNotFound() { // We only load unread notifications
+			return user, errors.New("User not found")
+		} else {
+			setUserToContext(r, user)
+		}
 	}
 
 	if user.IsBanned() {
@@ -140,4 +153,14 @@ func CurrentUser(r *http.Request) (model.User, error) {
 		return user, errors.New("Account banned")
 	}
 	return user, nil
+}
+
+func getUserFromContext(r *http.Request) model.User {
+	if rv := context.Get(r, UserContextKey); rv != nil {
+        return rv.(model.User)
+    }
+    return model.User{}
+}
+func setUserToContext(r *http.Request, val model.User) {
+    context.Set(r, UserContextKey, val)
 }

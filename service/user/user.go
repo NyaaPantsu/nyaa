@@ -7,7 +7,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	formStruct "github.com/NyaaPantsu/nyaa/service/user/form"
@@ -129,7 +128,7 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 	var currentUserID uint
 	var isAuthor bool
 
-	if db.ORM.Table(config.TorrentsTableName).First(&user, id).RecordNotFound() {
+	if db.ORM.First(&user, id).RecordNotFound() {
 		return nil, isAuthor, currentUserID, http.StatusNotFound, errors.New("user not found")
 	}
 	currentUser, err := CurrentUser(r)
@@ -268,7 +267,7 @@ func RetrieveUserByUsername(username string) (*model.PublicUser, string, int, er
 func RetrieveOldUploadsByUsername(username string) ([]uint, error) {
 	var ret []uint
 	var tmp []*model.UserUploadsOld
-	err := db.ORM.Table(config.UploadsOldTableName).Where("username = ?", username).Find(&tmp).Error
+	err := db.ORM.Where("username = ?", username).Find(&tmp).Error
 	if err != nil {
 		return ret, err
 	}
@@ -281,7 +280,7 @@ func RetrieveOldUploadsByUsername(username string) ([]uint, error) {
 // RetrieveUserForAdmin retrieves a user for an administrator.
 func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	var user model.User
-	if db.ORM.Preload("Torrents").Last(&user, id).RecordNotFound() {
+	if db.ORM.Preload("Notifications").Preload("Torrents").Last(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("user not found")
 	}
 	var liked, likings []model.User
@@ -299,6 +298,19 @@ func RetrieveUsersForAdmin(limit int, offset int) ([]model.User, int) {
 	db.ORM.Model(&users).Count(&nbUsers)
 	db.ORM.Preload("Torrents").Limit(limit).Offset(offset).Find(&users)
 	return users, nbUsers
+}
+
+func GetLiked(user *model.User) *model.User {
+	var liked []model.User
+	db.ORM.Joins("JOIN user_follows on user_follows.following=?", user.ID).Where("users.user_id = user_follows.user_id").Group("users.user_id").Find(&liked)
+	user.Liked = liked
+	return user
+}
+func GetLikings(user *model.User) *model.User {
+	var likings []model.User
+	db.ORM.Joins("JOIN user_follows on user_follows.user_id=?", user.ID).Where("users.user_id = user_follows.following").Group("users.user_id").Find(&likings)
+	user.Likings = likings
+	return user
 }
 
 // CreateUserAuthentication creates user authentication.

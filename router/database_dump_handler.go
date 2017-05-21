@@ -8,10 +8,8 @@ import (
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/model"
-	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/NyaaPantsu/nyaa/util/metainfo"
-	"github.com/gorilla/mux"
 )
 
 const (
@@ -49,8 +47,9 @@ func DatabaseDumpHandler(w http.ResponseWriter, r *http.Request) {
 
 	// TODO Remove ?
 	navigationTorrents := Navigation{0, 0, 0, "search_page"}
-	languages.SetTranslationFromRequest(databaseDumpTemplate, r)
-	dtv := DatabaseDumpTemplateVariables{dumpsJson, "/gpg/gpg.pub", NewSearchForm(), navigationTorrents, GetUser(r), r.URL, mux.CurrentRoute(r)}
+	common := NewCommonVariables(r)
+	common.Navigation = navigationTorrents
+	dtv := DatabaseDumpTemplateVariables{common, dumpsJson, "/gpg/gpg.pub"}
 	err = databaseDumpTemplate.ExecuteTemplate(w, "index.html", dtv)
 	if err != nil {
 		log.Errorf("DatabaseDump(): %s", err)

@@ -4,6 +4,12 @@
 <div class="blockBody">
     {{with .Torrent}}
     <hr>
+    {{ range (index $.FormErrors "errors")}}
+        <div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
+    {{end}}
+    {{ range (index $.Infos "infos")}}
+        <div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
+    {{end}}
     <div class="content" style="margin-bottom: 2em;">
         <div class="row">
             <div class="col-md-12">
@@ -16,15 +22,15 @@
                 <div class="col-md-12">
                     <div style="float: left;">
                           {{ if Sukebei }}
-                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ T (Category_Sukebei .Category .SubCategory) }}"> 
-                          <span style="vertical-align:middle;font-size:large;">{{ T (Category_Sukebei .Category .SubCategory) }}</span>
+                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (Category_Sukebei .Category .SubCategory) }}"> 
+						  <span style="vertical-align:middle;font-size:large;">{{ call $.T (Category_Sukebei .Category .SubCategory) }}</span>
                           {{ else }}
-                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ T (Category_Nyaa .Category .SubCategory) }}"> 
-                          <span style="vertical-align:middle;font-size:large;">{{ T (Category_Nyaa .Category .SubCategory) }}</span>
+                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ call $.T (Category_Nyaa .Category .SubCategory) }}"> 
+                          <span style="vertical-align:middle;font-size:large;">{{ call $.T (Category_Nyaa .Category .SubCategory) }}</span>
                           {{ end }}
                           <br />
                           <h4 style="display:inline-block">
-                              {{ T "uploaded_by" }} <a href="{{$.URL.Parse (printf "/user/%d/-" .UploaderID) }}">{{.UploaderName}}</a>
+                              {{ call $.T "uploaded_by" }} <a href="{{$.URL.Parse (printf "/user/%d/-" .UploaderID) }}">{{.UploaderName}}</a>
                           </h4>
                           {{if ne .OldUploader ""}}
                           <span>({{.OldUploader}})</span>
@@ -33,63 +39,63 @@
 
                     <div style="float:right;">
                         <a style="margin: 5px;" aria-label="Magnet Button" href="{{.Magnet}}" type="button" class="btn btn-lg btn-success">
-                            <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> {{ T "download_btn" }}
+                            <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> {{ call $.T "download_btn" }}
                         </a>
                         {{if ne .TorrentLink ""}}
                         <a style="margin: 5px;" aria-label="Torrent file" href="{{.TorrentLink}}" type="button" class="btn btn-lg btn-success">
-                            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> {{ T "torrent_file" }}
+                            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> {{ call $.T "torrent_file" }}
                         </a>
                         {{end}}
                         <a style="margin: 5px;" aria-label="Report button" data-toggle="modal" data-target="#reportModal" class="btn btn-danger btn-sm">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ T "report_btn" }}
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ call $.T "report_btn" }}
                         </a>
 
                       {{ if HasAdmin $.User}}
-                      <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('{{ T "are_you_sure" }}')) return false;"><i class="glyphicon glyphicon-trash"></i></a>
+                      <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;"><i class="glyphicon glyphicon-trash"></i></a>
                       <a href="{{ genRoute "mod_tedit" }}?id={{ .ID }}" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                       {{end}}
                     </div>
                     <div style="clear: both;"></div>
                 </div>
                     <div class="col-md-12">
-                        <h4>{{T "description"}}</h4>
+                        <h4>{{call $.T "description"}}</h4>
                         <div class="break">{{.Description}}</div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <h4>{{T "hash"}}</h4>
+                <h4>{{call $.T "hash"}}</h4>
                 <p class="torrent-hash break">{{.Hash}}</p>
                 <hr>
-                <h4>{{T "date"}}</h4>
+                <h4>{{call $.T "date"}}</h4>
                 <p class="date-full">{{.Date}}</p>
                 <hr>
-                <h4>{{T "size"}}</h4>
+                <h4>{{ call $.T "size"}}</h4>
                 <p>
                   {{if ne .Filesize "Unknown"}}
                   {{.Filesize}}
                   {{else}}
-                  {{T "unknown"}}
+                  {{ call $.T "unknown"}}
                   {{end}}
                 </p>
                 <hr>
                 {{if ne .WebsiteLink ""}}
-                <h4>{{T "link"}}</h4>
+                <h4>{{call $.T "link"}}</h4>
                 <p><a href="{{.WebsiteLink}}">{{.WebsiteLink}}</a></p>
                 <hr>
                 {{end}}
                 <div class="row">
                     <div class="col-md-12 col-xs-6">
                     <div class="row">
-                        <div class="col-md-4">{{T "seeders"}}</div>
-                        <div class="col-md-4">{{T "leechers"}}</div>
-                        <div class="col-md-4">{{T "completed"}}</div>
+                        <div class="col-md-4">{{call $.T "seeders"}}</div>
+                        <div class="col-md-4">{{call $.T "leechers"}}</div>
+                        <div class="col-md-4">{{call $.T "completed"}}</div>
                     </div>
                     </div>
                     <div class="col-md-12 col-xs-6">
                     <div class="row">
                         {{if .LastScrape.IsZero}}
-                        <div class="col-md-12" align="center">{{T "unknown"}}</div>
+                        <div class="col-md-12" align="center">{{call $.T "unknown"}}</div>
                         {{else}}
                         <div class="col-md-4">{{.Seeders}}</div>
                         <div class="col-md-4">{{.Leechers}}</div>
@@ -107,7 +113,7 @@
                     </div>
                     <div class="col-md-12 col-xs-12">
                         {{if not .LastScrape.IsZero}}
-                        {{T "last_scraped"}}<span class="date-short">{{ formatDateRFC .LastScrape }}</span>
+                        {{call $.T "last_scraped"}}<span class="date-short">{{ formatDateRFC .LastScrape }}</span>
                         {{end}}
                     </div>
                 </div>
@@ -117,12 +123,12 @@
         {{ if gt (len .FileList) 0 }}
         <div class="row">
             <div class="col-md-12">
-                <h4 data-toggle="collapse" data-target="#files" class="filelist-control" aria-expanded="false">{{T "files"}}</h4>
+                <h4 data-toggle="collapse" data-target="#files" class="filelist-control" aria-expanded="false">{{call $.T "files"}}</h4>
                 <div class="table-responsive collapse" id="files">
                     <table class="table custom-table-hover">
                     <tr>
-                        <th class="col-xs-8">{{T "filename"}}</th>
-                        <th class="col-xs-1">{{T "size"}}</th>
+                        <th class="col-xs-8">{{call $.T "filename"}}</th>
+                        <th class="col-xs-1">{{call $.T "size"}}</th>
                     </tr>
                     {{ range .FileList }}
                     <tr>
@@ -138,7 +144,7 @@
         <div class="row" id="comments">
             <div class="col-md-12">
                 <div class="commentList">
-                    <h4>{{T "comments"}}</h4>
+                    <h4>{{call $.T "comments"}}</h4>
                     <hr/>
                     <ul class="comments">
                         {{ range $index, $element := .Comments }}
@@ -186,11 +192,11 @@
             <form method="post">
                 <div class="form-group">
                     {{/* There should be a better way to use translation on this... */}}
-                    <label for="comment">{{ if gt .User.ID 0}} {{T "submit_a_comment_as_username" .User.Username}} {{else}} {{T "submit_a_comment_as_anonymous"}} {{end}}</label>
+                    <label for="comment">{{ if gt .User.ID 0}} {{call $.T "submit_a_comment_as_username" .User.Username}} {{else}} {{call $.T "submit_a_comment_as_anonymous"}} {{end}}</label>
                     <textarea name="comment" class="form-control" rows="5"></textarea>
                 </div>
-                {{block "captcha" .}}{{end}}
-                <button type="submit" class="btn btn-success">{{T "submit" }}</button>
+                {{block "captcha" (makeCaptchaData .CaptchaID $.T)}}{{end}}
+                <button type="submit" class="btn btn-success">{{call $.T "submit" }}</button>
             </form>
         </div>
     </div>
@@ -202,17 +208,17 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{ T "report_torrent_number" (print .Torrent.ID) }}</h4>
+                <h4 class="modal-title">{{ call $.T "report_torrent_number" (print .Torrent.ID) }}</h4>
             </div>
             <div class="modal-body">
-                <b>{{ T "report_type" }}:</b>
+                <b>{{ call $.T "report_type" }}:</b>
                 <form method="post" action="/report/{{.Torrent.ID}}">
-                    <input type="radio" name="report_type" value="illegal" id="illegal" required> <label for="illegal">{{ T "illegal_content" }}</label><br />
-                    <input type="radio" name="report_type" value="spam" id="spam" required> <label for="spam">{{ T "spam_garbage" }}</label><br />
-                    <input type="radio" name="report_type" value="wrongcat" id="wrongcat" required> <label for="wrongcat">{{ T "wrong_category" }}</label><br />
-                    <input type="radio" name="report_type" value="dup" id="dup" required> <label for="dup">{{ T "duplicate_deprecated" }}</label><br />
-                    {{block "captcha" .}}{{end}}
-                    <button type="submit" class="btn btn-default">{{ T "report_btn" }}</button>
+                    <input type="radio" name="report_type" value="illegal" id="illegal" required> <label for="illegal">{{ call $.T "illegal_content" }}</label><br />
+                    <input type="radio" name="report_type" value="spam" id="spam" required> <label for="spam">{{ call $.T "spam_garbage" }}</label><br />
+                    <input type="radio" name="report_type" value="wrongcat" id="wrongcat" required> <label for="wrongcat">{{ call $.T "wrong_category" }}</label><br />
+                    <input type="radio" name="report_type" value="dup" id="dup" required> <label for="dup">{{ call $.T "duplicate_deprecated" }}</label><br />
+                    {{block "captcha" (makeCaptchaData .CaptchaID $.T)}}{{end}}
+                    <button type="submit" class="btn btn-default">{{ call $.T "report_btn" }}</button>
                 </form> <br />
             </div>
             <div class="modal-footer">

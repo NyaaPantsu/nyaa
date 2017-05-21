@@ -684,6 +684,10 @@
     "translation": "Delete"
   },
   {
+    "id": "website_link",
+    "translation": "Website Link"
+  },
+  {
     "id": "files",
     "translation": "Files"
   },
@@ -762,5 +766,21 @@
   {
     "id": "no_database_dumps_available",
     "translation": "No database dumps are available at this moment."
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "Clear Notifications"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "Notifications erased!"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "My Notifications"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "New torrent: \"%s\" from %s"
   }
 ]

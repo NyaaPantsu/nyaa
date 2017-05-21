@@ -44,7 +44,7 @@ type Torrent struct {
 	WebsiteLink string    `gorm:"column:website_link"`
 	DeletedAt   *time.Time
 
-	Uploader    *User        `gorm:"ForeignKey:uploader"`
+	Uploader    *User        `gorm:"AssociationForeignKey:UploaderID;ForeignKey:user_id"`
 	OldUploader string       `gorm:"-"` // ???????
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
@@ -84,6 +84,10 @@ func (t Torrent) Size() (s int) {
 
 func (t Torrent) TableName() string {
 	return config.TorrentsTableName
+}
+
+func (t Torrent) Identifier() string {
+	return "torrent_"+strconv.Itoa(int(t.ID))
 }
 
 func (t Torrent) IsNormal() bool {

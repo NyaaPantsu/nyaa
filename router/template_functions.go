@@ -2,7 +2,7 @@ package router
 
 import (
 	"html/template"
-	"log"
+	//"log"
 	"math"
 	"net/url"
 	"strconv"
@@ -11,8 +11,12 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/languages"
-	"github.com/nicksnyder/go-i18n/i18n"
 )
+
+type captchaData struct {
+	CaptchaID string
+	T         languages.TemplateTfunc
+}
 
 var FuncMap = template.FuncMap{
 	"inc": func(i int) int {
@@ -109,11 +113,14 @@ var FuncMap = template.FuncMap{
 			if nav.CurrentPage > pagesSelectable/2 {
 				startValue = (int(math.Min((float64(nav.CurrentPage)+math.Floor(float64(pagesSelectable)/2)), maxPages)) - pagesSelectable + 1)
 			}
+			if startValue < 1 {
+				startValue = 1
+			}
 			endValue := (startValue + pagesSelectable - 1)
 			if endValue > int(maxPages) {
 				endValue = int(maxPages)
 			}
-			log.Println(nav.TotalItem)
+			//log.Println(nav.TotalItem)
 			for i := startValue; i <= endValue; i++ {
 				pageNum := strconv.Itoa(i)
 				url, _ := Router.Get(nav.Route).URL("page", pageNum)
@@ -132,8 +139,6 @@ var FuncMap = template.FuncMap{
 		return template.HTML(ret)
 	},
 	"Sukebei":            config.IsSukebei,
-	"T":                  i18n.IdentityTfunc,
-	"Ts":                 i18n.IdentityTfunc,
 	"getDefaultLanguage": languages.GetDefaultLanguage,
 	"getAvatar": func(hash string, size int) string {
 		return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
@@ -203,4 +208,7 @@ var FuncMap = template.FuncMap{
         }
         return e
     },
+	"makeCaptchaData": func(captchaID string, T languages.TemplateTfunc) captchaData {
+		return captchaData{captchaID, T}
+	},
 }

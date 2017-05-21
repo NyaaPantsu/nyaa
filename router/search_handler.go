@@ -3,7 +3,6 @@ package router
 import (
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/util"
-	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/gorilla/mux"
@@ -39,16 +38,16 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 
 	b := model.TorrentsToJSON(torrents)
 
-	navigationTorrents := Navigation{nbTorrents, int(searchParam.Max), pagenum, "search_page"}
+	common := NewCommonVariables(r)
+	common.Navigation = Navigation{nbTorrents, int(searchParam.Max), pagenum, "search_page"}
 	// Convert back to strings for now.
-	searchForm := SearchForm{
+	common.Search = SearchForm{
 		SearchParam:      searchParam,
 		Category:         searchParam.Category.String(),
 		ShowItemsPerPage: true,
 	}
-	htv := HomeTemplateVariables{b, searchForm, navigationTorrents, GetUser(r), r.URL, mux.CurrentRoute(r)}
+	htv := HomeTemplateVariables{common, b}
 
-	languages.SetTranslationFromRequest(searchTemplate, r)
 	err = searchTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

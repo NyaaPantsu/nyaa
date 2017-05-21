@@ -8,6 +8,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	userForms "github.com/NyaaPantsu/nyaa/service/user/form"
+	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/gorilla/mux"
 )
 
@@ -18,184 +19,138 @@ import (
  */
 
 type FaqTemplateVariables struct {
-	Navigation Navigation
-	Search     SearchForm
-	User       *model.User
-	URL        *url.URL   // For parsing Url in templates
-	Route      *mux.Route // For getting current route in templates
+	CommonTemplateVariables
 }
 
 type NotFoundTemplateVariables struct {
-	Navigation Navigation
-	Search     SearchForm
-	User       *model.User
-	URL        *url.URL   // For parsing Url in templates
-	Route      *mux.Route // For getting current route in templates
+	CommonTemplateVariables
 }
 
 type ViewTemplateVariables struct {
+	CommonTemplateVariables
 	Torrent    model.TorrentJSON
 	CaptchaID  string
-	Search     SearchForm
-	Navigation Navigation
-	User       *model.User
-	URL        *url.URL   // For parsing Url in templates
-	Route      *mux.Route // For getting current route in templates
+	FormErrors  map[string][]string
+	Infos   map[string][]string
 }
 
 type UserRegisterTemplateVariables struct {
+	CommonTemplateVariables
 	RegistrationForm userForms.RegistrationForm
 	FormErrors       map[string][]string
-	Search           SearchForm
-	Navigation       Navigation
-	User             *model.User
-	URL              *url.URL   // For parsing Url in templates
-	Route            *mux.Route // For getting current route in templates
 }
 
 type UserProfileEditVariables struct {
+	CommonTemplateVariables
 	UserProfile *model.User
 	UserForm    userForms.UserForm
 	FormErrors  map[string][]string
 	FormInfos   map[string][]string
 	Languages   map[string]string
-	Search      SearchForm
-	Navigation  Navigation
-	User        *model.User
-	URL         *url.URL   // For parsing Url in templates
-	Route       *mux.Route // For getting current route in templates
 }
 
 type UserVerifyTemplateVariables struct {
+	CommonTemplateVariables
 	FormErrors map[string][]string
-	Search     SearchForm
-	Navigation Navigation
-	User       *model.User
-	URL        *url.URL   // For parsing Url in templates
-	Route      *mux.Route // For getting current route in templates
 }
 
 type UserLoginFormVariables struct {
+	CommonTemplateVariables
 	LoginForm  userForms.LoginForm
 	FormErrors map[string][]string
-	Search     SearchForm
-	Navigation Navigation
-	User       *model.User
-	URL        *url.URL   // For parsing Url in templates
-	Route      *mux.Route // For getting current route in templates
 }
 
 type UserProfileVariables struct {
+	CommonTemplateVariables
 	UserProfile *model.User
 	FormInfos   map[string][]string
-	Search      SearchForm
-	Navigation  Navigation
-	User        *model.User
-	URL         *url.URL   // For parsing Url in templates
-	Route       *mux.Route // For getting current route in templates
+}
+
+type UserProfileNotifVariables struct {
+	CommonTemplateVariables
+	Infos   map[string][]string
 }
 
 type HomeTemplateVariables struct {
+	CommonTemplateVariables
 	ListTorrents []model.TorrentJSON
-	Search       SearchForm
-	Navigation   Navigation
-	User         *model.User
-	URL          *url.URL   // For parsing Url in templates
-	Route        *mux.Route // For getting current route in templates
 }
 
 type DatabaseDumpTemplateVariables struct {
+	CommonTemplateVariables
 	ListDumps  []model.DatabaseDumpJSON
 	GPGLink    string
-	Search     SearchForm
-	Navigation Navigation
-	User       *model.User
-	URL        *url.URL   // For parsing Url in templates
-	Route      *mux.Route // For getting current route in templates
 }
 
 type UploadTemplateVariables struct {
+	CommonTemplateVariables
 	Upload     UploadForm
-	Search     SearchForm
-	Navigation Navigation
-	User       *model.User
-	URL        *url.URL
-	Route      *mux.Route
+	FormErrors  map[string][]string
 }
 
 type ChangeLanguageVariables struct {
-	Search     SearchForm
-	Navigation Navigation
+	CommonTemplateVariables
 	Language   string
 	Languages  map[string]string
-	User       *model.User
-	URL        *url.URL
-	Route      *mux.Route
 }
 
 /* MODERATION Variables */
 
 type PanelIndexVbs struct {
+	CommonTemplateVariables
 	Torrents       []model.Torrent
 	TorrentReports []model.TorrentReportJson
 	Users          []model.User
 	Comments       []model.Comment
-	Search         SearchForm
-	User           *model.User
-	URL            *url.URL // For parsing Url in templates
 }
 
 type PanelTorrentListVbs struct {
+	CommonTemplateVariables
 	Torrents   []model.Torrent
-	Search     SearchForm
-	Navigation Navigation
-	User       *model.User
-	URL        *url.URL // For parsing Url in templates
+	Errors map[string][]string
+	Infos  map[string][]string
 }
 type PanelUserListVbs struct {
+	CommonTemplateVariables
 	Users      []model.User
-	Search     SearchForm
-	Navigation Navigation
-	User       *model.User
-	URL        *url.URL // For parsing Url in templates
 }
 type PanelCommentListVbs struct {
+	CommonTemplateVariables
 	Comments   []model.Comment
-	Search     SearchForm
-	Navigation Navigation
-	User       *model.User
-	URL        *url.URL // For parsing Url in templates
 }
 
 type PanelTorrentEdVbs struct {
+	CommonTemplateVariables
 	Upload     UploadForm
-	Search     SearchForm
-	User       *model.User
 	FormErrors map[string][]string
 	FormInfos  map[string][]string
-	URL        *url.URL // For parsing Url in templates
 }
 
 type PanelTorrentReportListVbs struct {
+	CommonTemplateVariables
 	TorrentReports []model.TorrentReportJson
-	Search         SearchForm
-	Navigation     Navigation
-	User           *model.User
-	URL            *url.URL // For parsing Url in templates
 }
 
 type PanelTorrentReassignVbs struct {
+	CommonTemplateVariables
 	Reassign   ReassignForm
-	Search     SearchForm  // unused?
-	User       *model.User // unused?
 	FormErrors map[string][]string
 	FormInfos  map[string][]string
-	URL        *url.URL // For parsing Url in templates
 }
 
 /*
 * Variables used by the upper ones
  */
+
+type CommonTemplateVariables struct {
+	Navigation Navigation
+	Search     SearchForm
+	T          languages.TemplateTfunc
+	User       *model.User
+	URL        *url.URL // for parsing URL in templates
+    Route      *mux.Route // for getting current route in templates
+}
+
 type Navigation struct {
 	TotalItem      int
 	MaxItemPerPage int // FIXME: shouldn't this be in SearchForm?
@@ -227,3 +182,15 @@ func GetUser(r *http.Request) *model.User {
 	user, _, _ := userService.RetrieveCurrentUser(r)
 	return &user
 }
+
+func NewCommonVariables(r *http.Request) CommonTemplateVariables {
+	return CommonTemplateVariables{
+		Navigation: NewNavigation(),
+		Search:     NewSearchForm(),
+		T:          languages.GetTfuncFromRequest(r),
+		User:       GetUser(r),
+		URL:        r.URL,
+		Route:      mux.CurrentRoute(r),
+	}
+}
+
