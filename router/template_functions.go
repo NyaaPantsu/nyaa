@@ -13,6 +13,11 @@ import (
 	"github.com/NyaaPantsu/nyaa/util/languages"
 )
 
+type captchaData struct {
+	CaptchaID string
+	T         languages.TemplateTfunc
+}
+
 var FuncMap = template.FuncMap{
 	"inc": func(i int) int {
 		return i + 1
@@ -203,4 +208,7 @@ var FuncMap = template.FuncMap{
         }
         return e
     },
+	"makeCaptchaData": func(captchaID string, T languages.TemplateTfunc) captchaData {
+		return captchaData{captchaID, T}
+	},
 }

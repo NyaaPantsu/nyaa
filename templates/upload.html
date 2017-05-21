@@ -78,7 +78,7 @@
           <input name="website_link" id="website_link" class="form-control" type="text" value="{{.WebsiteLink}}">
       </div>
 
-      {{block "captcha" $}}{{end}}
+	  {{block "captcha" (makeCaptchaData .CaptchaID $.T)}}{{end}}
 
       <button type="submit" class="btn btn-success">{{call $.T "upload"}}</button>
       <br />
