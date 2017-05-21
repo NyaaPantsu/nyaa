@@ -67,6 +67,7 @@
 	bottom: 0px;
 	left: 2%;
 }
+
 /* This used to avoid usage of Javascript for switching images. */
 
 body {
@@ -218,52 +219,69 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 	max-height: 80vh;
 }
 
-/* Navbar  */
+/* 
+ * === Navbar ===
+*/
+
 .navbar {
 	border-radius: 0px;
+        /* Padding around the navbar, effectively determines it's size */
+        padding-top: 10px;
+        padding-bottom: 10px;
 }
 
 .navbar-logo {
-	padding-right: 10px;
+	margin-right: 10px;
 }
 
 :target {
+        /* Highlight menu items on hover */
 	background-color: #e5eecc;
 }
 
+/* Navbar search */
+
 #mainmenu button .search_text {
+        /* Hides the text on the search button */
 	display: none;
 }
 
-#mainmenu .navbar-form select.form-control
-{
+#mainmenu .navbar-form select.form-control {
+        /* Slight height adjustment to make the menues in line with text */
+        margin-top: 2px;
+        /* Limit the size of the dropdown menus */
 	width: 12rem;
 }
 
-#mainmenu .navbar-form select.form-control#max
-{
+#mainmenu .navbar-form select.form-control#max {
+	/* Further limit the size of the results per page menu */
 	width: 6rem;
 }
 
-.special-img 
-{
-	position: relative;
-	top: -7px;
-	float: left;
-	left: -5px;
+/* Navbar member section */
+
+.special-img {
+        /* Limit the avatar size */
+        height: 40px;
+        width: 40px;
+        /* Add a bit of extra vertical space so it won't look bad */
+        margin-top: 5px;
+        margin-bottom: 5px;
 }
 
-#mainmenu .badgemenu .profile-image {
-	line-height: 35px;
+.navbar-nav > li > .profile-image {
+        /* Overwrite bootstrap rules to get a sensible layout for our avatar */ 
+	padding-top: 0px;
+        padding-bottom: 0px;
+        /* Force the element to always be as large as when it contains a avatar */
+        height: 50px;
 }
 
-#mainmenu .navbar-header, #mainmenu .navbar-nav, #mainmenu .navbar-form {
-	padding-top: 8px;
-}
-
-#mainmenu .badgemenu {
-	padding-top: 0;
-	margin-right: -50px; /* Any order columns */
+.navbar-nav > li > .profile-image > span {
+        /* Ensure the member name is always centered */
+	margin-top: 15px;
+        margin-bottom: 15px;
+	display: inline-block;
 }
 
 /* PROFILE PAGE */
