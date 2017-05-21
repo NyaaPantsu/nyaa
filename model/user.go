@@ -1,7 +1,9 @@
 package model
 
 import (
+	"encoding/json"
 	"time"
+	"fmt"
 
 	"github.com/NyaaPantsu/nyaa/config"
 )
@@ -24,6 +26,7 @@ type User struct {
 	ApiToken       string    `gorm:"column:api_token"`
 	ApiTokenExpiry time.Time `gorm:"column:api_token_expiry"`
 	Language       string    `gorm:"column:language"`
+	UserSettings   string    `gorm:"column:settings"`
 
 	// TODO: move this to PublicUser
 	Likings     []User // Don't work `gorm:"foreignkey:user_id;associationforeignkey:follower_id;many2many:user_follows"`
@@ -31,9 +34,10 @@ type User struct {
 
 	MD5      string    `json:"md5" gorm:"column:md5"` // Hash of email address, used for Gravatar
 	Torrents []Torrent `gorm:"ForeignKey:UploaderID"`
+	Notifications []Notification `gorm:"ForeignKey:UserID"`
 
 	UnreadNotifications int `gorm:"-"` // We don't want to loop every notifications when accessing user unread notif
-	Notifications []Notification `gorm:"ForeignKey:UserID"`
+	Settings UserSettings `gorm:"-"` // We don't want to load settings everytime, stock it as a string, parse it when needed
 }
 
 type UserJSON struct {
@@ -99,6 +103,10 @@ type UserUploadsOld struct {
 	TorrentId uint   `gorm:"column:torrent_id"`
 }
 
+type UserSettings struct {
+	Settings map[string]bool`json:"settings"`
+}
+
 func (c UserUploadsOld) TableName() string {
 	// is this needed here?
 	return config.UploadsOldTableName
@@ -114,4 +122,52 @@ func (u *User) ToJSON() UserJSON {
 		LikedCount:  len(u.Liked),
 	}
 	return json
+}
+
+/* User Settings */
+
+func(s *UserSettings) Get(key string) bool {
+	if val, ok:= s.Settings[key]; ok {	
+	return val
+	} else {
+		return config.DefaultUserSettings[key]
+	}
+}
+
+func (s *UserSettings) GetSettings() map[string]bool {
+	return s.Settings
+}
+
+func (s *UserSettings) Set(key string, val bool) {
+	if s.Settings == nil {
+		s.Settings = make(map[string]bool)
+	}
+	s.Settings[key] = val
+}
+
+func (s *UserSettings) ToDefault() {
+	s.Settings = config.DefaultUserSettings
+}
+
+func (s *UserSettings) Initialize() {
+	s.Settings = make(map[string]bool)
+}
+
+func (u *User) SaveSettings() {
+	byteArray, err := json.Marshal(u.Settings)
+
+	if (err != nil) {
+		fmt.Print(err)
+	}
+	u.UserSettings = string(byteArray)
+}
+
+func (u *User) ParseSettings() {
+	if len(u.Settings.GetSettings()) == 0 && u.UserSettings != "" {
+		u.Settings.Initialize()
+		json.Unmarshal([]byte(u.UserSettings), &u.Settings)
+	} else if len(u.Settings.GetSettings()) == 0 && u.UserSettings != "" {
+		u.Settings.Initialize()
+		u.Settings.ToDefault()
+	}
 }

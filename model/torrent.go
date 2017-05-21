@@ -86,7 +86,7 @@ func (t Torrent) TableName() string {
 	return config.TorrentsTableName
 }
 
-func (t Torrent) Identifier() string {
+func (t *Torrent) Identifier() string {
 	return "torrent_"+strconv.Itoa(int(t.ID))
 }
 

@@ -216,4 +216,7 @@ var FuncMap = template.FuncMap{
 	"makeCaptchaData": func(captchaID string, T languages.TemplateTfunc) captchaData {
 		return captchaData{captchaID, T}
 	},
+	"DefaultUserSettings": func(s string) bool{
+		return config.DefaultUserSettings[s]
+	},
 }

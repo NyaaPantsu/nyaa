@@ -80,6 +80,9 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 	}
 	user.Email = "" // unset email because it will be verified later
 	user.CreatedAt = time.Now()
+	// User settings to default
+	user.Settings.ToDefault()
+	user.SaveSettings()
 	// currently unused but needs to be set:
 	user.ApiToken = ""
 	user.ApiTokenExpiry = time.Unix(0, 0)
@@ -172,7 +175,7 @@ func UpdateUserCore(user *model.User) (int, error) {
 }
 
 // UpdateUser updates a user.
-func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, currentUser *model.User, id string) (model.User, int, error) {
+func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, formSet *formStruct.UserSettingsForm, currentUser *model.User, id string) (model.User, int, error) {
 	var user model.User
 	if db.ORM.First(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("user not found")
@@ -203,6 +206,21 @@ func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, currentUser *m
 	}
 	log.Debugf("form %+v\n", form)
 	modelHelper.AssignValue(&user, form)
+
+	// We set settings here
+	user.ParseSettings()
+	user.Settings.Set("new_torrent", formSet.NewTorrent)
+	user.Settings.Set("new_torrent_email", formSet.NewTorrentEmail)
+	user.Settings.Set("new_comment", formSet.NewComment)
+	user.Settings.Set("new_comment_email", formSet.NewCommentEmail)
+	user.Settings.Set("new_responses", formSet.NewResponses)
+	user.Settings.Set("new_responses_email", formSet.NewResponsesEmail)
+	user.Settings.Set("new_follower", formSet.NewFollower)
+	user.Settings.Set("new_follower_email", formSet.NewFollowerEmail)
+	user.Settings.Set("followed", formSet.Followed)
+	user.Settings.Set("followed_email", formSet.FollowedEmail)
+	user.SaveSettings()
+
 	status, err := UpdateUserCore(&user)
 	return user, status, err
 }
@@ -319,7 +337,7 @@ func CreateUserAuthentication(w http.ResponseWriter, r *http.Request) (int, erro
 	modelHelper.BindValueForm(&form, r)
 	username := form.Username
 	pass := form.Password
-	status, err := SetCookieHandler(w, username, pass)
+	status, err := SetCookieHandler(w, r, username, pass)
 	return status, err
 }
 

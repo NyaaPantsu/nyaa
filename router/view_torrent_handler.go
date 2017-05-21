@@ -1,6 +1,7 @@
 package router
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -12,7 +13,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/notifier"
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
-	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/gorilla/mux"
@@ -55,73 +56,72 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
+	torrent, err := torrentService.GetTorrentById(id)
+	if (err != nil) {
+		NotFoundHandler(w, r)
+		return
+	}
+
 	currentUser := GetUser(r)
+	messages := msg.GetMessages(r)
+
 	if userPermission.NeedsCaptcha(currentUser) {
 		userCaptcha := captcha.Extract(r)
 		if !captcha.Authenticate(userCaptcha) {
-			http.Error(w, "bad captcha", 403)
-			return
+			messages.AddError("errors", "Bad captcham!")
 		}
 	}
 	content := p.Sanitize(r.FormValue("comment"))
 
 	if strings.TrimSpace(content) == "" {
-		http.Error(w, "comment empty", 406)
-		return
+		messages.AddError("errors", "Comment empty!")
 	}
+	if !messages.HasErrors() {
+		userID := currentUser.ID
+		comment := model.Comment{TorrentID: torrent.ID, UserID: userID, Content: content, CreatedAt: time.Now()}
+		err := db.ORM.Create(&comment).Error
+		comment.Torrent = &torrent
 
-	idNum, err := strconv.Atoi(id)
+		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
+		torrent.Uploader.ParseSettings()
+		if torrent.Uploader.Settings.Get("new_comment") {
+			T, _, _ := languages.TfuncAndLanguageWithFallback(torrent.Uploader.Language, torrent.Uploader.Language) // We need to send the notification to every user in their language
+			notifierService.NotifyUser(torrent.Uploader, comment.Identifier(), fmt.Sprintf(T("new_comment_on_torrent"), torrent.Name), url.String(), torrent.Uploader.Settings.Get("new_comment_email"))
+		}
 
-	userID := currentUser.ID
-	comment := model.Comment{TorrentID: uint(idNum), UserID: userID, Content: content, CreatedAt: time.Now()}
-
-	err = db.ORM.Create(&comment).Error
-	if err != nil {
-		util.SendError(w, err, 500)
-		return
+		if err != nil {
+			messages.ImportFromError("errors", err)
+		}
 	}
-
-	url, err := Router.Get("view_torrent").URL("id", id)
-	if err == nil {
-		http.Redirect(w, r, url.String(), 302)
-	} else {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	ViewHandler(w,r)
 }
 
 func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
-
+	messages := msg.GetMessages(r)
 	currentUser := GetUser(r)
 	if userPermission.NeedsCaptcha(currentUser) {
 		userCaptcha := captcha.Extract(r)
 		if !captcha.Authenticate(userCaptcha) {
-			http.Error(w, "bad captcha", 403)
-			return
+			messages.AddError("errors", "Bad captchae!")
 		}
 	}
+	if !messages.HasErrors() {
+		idNum, err := strconv.Atoi(id)
+		userID := currentUser.ID
 
-	idNum, err := strconv.Atoi(id)
-	userID := currentUser.ID
+		report := model.TorrentReport{
+			Description: r.FormValue("report_type"),
+			TorrentID:   uint(idNum),
+			UserID:      userID,
+			CreatedAt:   time.Now(),
+		}
 
-	report := model.TorrentReport{
-		Description: r.FormValue("report_type"),
-		TorrentID:   uint(idNum),
-		UserID:      userID,
-		CreatedAt:   time.Now(),
+		err = db.ORM.Create(&report).Error
+		if err != nil {
+			messages.ImportFromError("errors", err)
+		}
 	}
-
-	err = db.ORM.Create(&report).Error
-	if err != nil {
-		util.SendError(w, err, 500)
-		return
-	}
-
-	url, err := Router.Get("view_torrent").URL("id", id)
-	if err == nil {
-		http.Redirect(w, r, url.String(), 302)
-	} else {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	ViewHandler(w,r)
 }

@@ -4,33 +4,34 @@ import (
 	"regexp"
 
 	"github.com/NyaaPantsu/nyaa/util/log"
+	msg "github.com/NyaaPantsu/nyaa/util/messages"
 )
 
 const EMAIL_REGEX = `(\w[-._\w]*\w@\w[-._\w]*\w\.\w{2,3})`
 const USERNAME_REGEX = `(\W)`
 
-func EmailValidation(email string, err map[string][]string) (bool, map[string][]string) {
+func EmailValidation(email string, mes *msg.Messages) bool {
 	exp, errorRegex := regexp.Compile(EMAIL_REGEX)
 	if regexpCompiled := log.CheckError(errorRegex); regexpCompiled {
 		if exp.MatchString(email) {
-			return true, err
+			return true
 		}
 	}
-	err["email"] = append(err["email"], "Email Address is not valid")
-	return false, err
+	mes.AddError("email", "Email Address is not valid")
+	return false
 }
 
-func ValidateUsername(username string, err map[string][]string) (bool, map[string][]string) {
+func ValidateUsername(username string, mes *msg.Messages) bool {
 	exp, errorRegex := regexp.Compile(USERNAME_REGEX)
 	if regexpCompiled := log.CheckError(errorRegex); regexpCompiled {
 		if exp.MatchString(username) {
-			err["username"] = append(err["username"], "Username contains illegal characters")
-			return false, err
+			mes.AddError("username", "Username contains illegal characters")
+			return false
 		}
 	} else {
-		return false, err
+		return false
 	}
-	return true, err
+	return true
 }
 
 func NewErrors() map[string][]string {
@@ -71,6 +72,20 @@ type UserForm struct {
 	Password         string `form:"password" len_min:"6" len_max:"72" equalInput:"Confirm_Password"`
 	Confirm_Password string `form:"password_confirmation" omit:"true"`
 	Status           int    `form:"status" default:"0"`
+}
+
+// UserSettingsForm is used when updating a user.
+type UserSettingsForm struct {
+	NewTorrent         bool   `form:"new_torrent" default:"true"`
+	NewTorrentEmail    bool   `form:"new_torrent_email" default:"true"`
+	NewComment         bool   `form:"new_comment" default:"true"`
+	NewCommentEmail    bool   `form:"new_comment_email" default:"false"`
+	NewResponses       bool   `form:"new_responses" default:"true"`
+	NewResponsesEmail  bool   `form:"new_responses_email" default:"false"`
+	NewFollower        bool   `form:"new_follower" default:"true"`
+	NewFollowerEmail   bool   `form:"new_follower_email" default:"true"`
+	Followed           bool   `form:"followed" default:"false"`
+	FollowedEmail      bool   `form:"followed_email" default:"false"`
 }
 
 // PasswordForm is used when updating a user password.

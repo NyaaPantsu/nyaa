@@ -782,5 +782,61 @@
   {
     "id": "new_torrent_uploaded",
     "translation": "New torrent: \"%s\" from %s"
+  },
+  {
+    "id": "preferences",
+    "translation": "Preferences"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "Be notified when a new torrent is added from a user followed"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "Be notified by e-mail when a new torrent is added from a user followed"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "Be notified when there is a new comment on your torrents"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "Be notified by e-mail when there is a new comment on your torrents"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "Be notified when there is a new response to your comment"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "Be notified by e-mail when there is a new response to your comment"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "Be notified when you have a new follower"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "Be notified by e-mail when you have a new follower"
+  },
+  {
+    "id": "followed_settings",
+    "translation": "Be notified when you have followed someone"
+  },
+  {
+    "id": "followed_email_settings",
+    "translation": "Be notified by e-mail when you have followed someone"
+  },
+  {
+    "id": "yes",
+    "translation": "Yes"
+  },
+  {
+    "id": "no",
+    "translation": "No"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "New comment on torrent: \"%s\""
   }
 ]

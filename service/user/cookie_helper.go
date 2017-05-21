@@ -5,6 +5,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	formStruct "github.com/NyaaPantsu/nyaa/service/user/form"
+	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/modelHelper"
 	"github.com/NyaaPantsu/nyaa/util/timeHelper"
 	"github.com/gorilla/context"
@@ -62,14 +63,15 @@ func ClearCookie(w http.ResponseWriter) (int, error) {
 }
 
 // SetCookieHandler sets the authentication cookie
-func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, error) {
+func SetCookieHandler(w http.ResponseWriter, r *http.Request, email string, pass string) (int, error) {
 	if email == "" || pass == "" {
 		return http.StatusNotFound, errors.New("No username/password entered")
 	}
 
 	var user model.User
+	messages := msg.GetMessages(r)
 	// search by email or username
-	isValidEmail, _ := formStruct.EmailValidation(email, formStruct.NewErrors())
+	isValidEmail := formStruct.EmailValidation(email, &messages)
 	if isValidEmail {
 		if db.ORM.Where("email = ?", email).First(&user).RecordNotFound() {
 			return http.StatusNotFound, errors.New("User not found")
@@ -104,17 +106,17 @@ func SetCookieHandler(w http.ResponseWriter, email string, pass string) (int, er
 }
 
 // RegisterHanderFromForm sets cookie from a RegistrationForm.
-func RegisterHanderFromForm(w http.ResponseWriter, registrationForm formStruct.RegistrationForm) (int, error) {
+func RegisterHanderFromForm(w http.ResponseWriter, r *http.Request, registrationForm formStruct.RegistrationForm) (int, error) {
 	username := registrationForm.Username // email isn't set at this point
 	pass := registrationForm.Password
-	return SetCookieHandler(w, username, pass)
+	return SetCookieHandler(w, r, username, pass)
 }
 
 // RegisterHandler sets a cookie when user registered.
 func RegisterHandler(w http.ResponseWriter, r *http.Request) (int, error) {
 	var registrationForm formStruct.RegistrationForm
 	modelHelper.BindValueForm(&registrationForm, r)
-	return RegisterHanderFromForm(w, registrationForm)
+	return RegisterHanderFromForm(w, r, registrationForm)
 }
 
 // CurrentUser determines the current user from the request or context

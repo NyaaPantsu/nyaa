@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
@@ -79,14 +80,16 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 
 		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
 
-		if (user.ID > 0) { // If we are a member
+		if (user.ID > 0 && config.DefaultUserSettings["new_torrent"]) { // If we are a member and notifications for new torrents are enabled
 		userService.GetLikings(user) // We populate the liked field for users
 		if len(user.Likings) > 0 { // If we are followed by at least someone
 				for _, follower := range user.Likings {
-					T, _, _ := languages.TfuncAndLanguageWithFallback(user.Language, user.Language) // We need to send the notification to every user in their language
+					follower.ParseSettings() // We need to call it before checking settings
+					if  follower.Settings.Get("new_torrent") {
+						T, _, _ := languages.TfuncAndLanguageWithFallback(follower.Language, follower.Language) // We need to send the notification to every user in their language
 
-					notifierService.NotifyUser(&follower, torrent.Identifier(), fmt.Sprintf(T("new_torrent_uploaded"), torrent.Name, user.Username), url.String())
-					
+						notifierService.NotifyUser(&follower, torrent.Identifier(), fmt.Sprintf(T("new_torrent_uploaded"), torrent.Name, user.Username), url.String(), follower.Settings.Get("new_torrent_email"))
+					}
 				}
 			}
 		}

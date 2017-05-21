@@ -1,8 +1,9 @@
 package model
 
 import (
-	"github.com/NyaaPantsu/nyaa/config"
 	"time"
+	
+	"github.com/NyaaPantsu/nyaa/config"
 )
 
 type Comment struct {
@@ -25,6 +26,10 @@ func (c Comment) Size() int {
 
 func (c Comment) TableName() string {
 	return config.CommentsTableName
+}
+
+func (c *Comment) Identifier() string { // We Can personalize the identifier but we would have to handle toggle read in that case
+	return c.Torrent.Identifier()
 }
 
 type OldComment struct {
