@@ -23,6 +23,9 @@ func GetMessages(r *http.Request) Messages {
 }
 
 func (mes Messages) AddError(name string, msg string) {
+	if (mes.Errors == nil) {
+		mes.Errors = make(map[string][]string)
+	}
 	mes.Errors[name] = append(mes.Errors[name], msg)
 	mes.setMessagesInContext()
 }
@@ -34,6 +37,9 @@ func (mes Messages) ImportFromError(name string, err error) {
 }
 
 func (mes Messages) AddInfo(name string, msg string) {
+	if (mes.Infos == nil) {
+		mes.Infos = make(map[string][]string)
+	}
 	mes.Infos[name] = append(mes.Infos[name], msg)
 	mes.setMessagesInContext()
 }

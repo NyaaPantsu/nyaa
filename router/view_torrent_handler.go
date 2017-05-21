@@ -1,6 +1,7 @@
 package router
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -12,6 +13,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/notifier"
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
+	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/gorilla/mux"
@@ -54,13 +56,19 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
+	torrent, err := torrentService.GetTorrentById(id)
+	if (err != nil) {
+		NotFoundHandler(w, r)
+		return
+	}
+
 	currentUser := GetUser(r)
 	messages := msg.GetMessages(r)
 
 	if userPermission.NeedsCaptcha(currentUser) {
 		userCaptcha := captcha.Extract(r)
 		if !captcha.Authenticate(userCaptcha) {
-			messages.AddError("errors", "Bad captcha!")
+			messages.AddError("errors", "Bad captcham!")
 		}
 	}
 	content := p.Sanitize(r.FormValue("comment"))
@@ -69,12 +77,18 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 		messages.AddError("errors", "Comment empty!")
 	}
 	if !messages.HasErrors() {
-		idNum, err := strconv.Atoi(id)
-
 		userID := currentUser.ID
-		comment := model.Comment{TorrentID: uint(idNum), UserID: userID, Content: content, CreatedAt: time.Now()}
+		comment := model.Comment{TorrentID: torrent.ID, UserID: userID, Content: content, CreatedAt: time.Now()}
+		err := db.ORM.Create(&comment).Error
+		comment.Torrent = &torrent
 
-		err = db.ORM.Create(&comment).Error
+		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
+		torrent.Uploader.ParseSettings()
+		if torrent.Uploader.Settings.Get("new_comment") {
+			T, _, _ := languages.TfuncAndLanguageWithFallback(torrent.Uploader.Language, torrent.Uploader.Language) // We need to send the notification to every user in their language
+			notifierService.NotifyUser(torrent.Uploader, comment.Identifier(), fmt.Sprintf(T("new_comment_on_torrent"), torrent.Name), url.String(), torrent.Uploader.Settings.Get("new_comment_email"))
+		}
+
 		if err != nil {
 			messages.ImportFromError("errors", err)
 		}
@@ -90,7 +104,7 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 	if userPermission.NeedsCaptcha(currentUser) {
 		userCaptcha := captcha.Extract(r)
 		if !captcha.Authenticate(userCaptcha) {
-			messages.AddError("errors", "Bad captcha!")
+			messages.AddError("errors", "Bad captchae!")
 		}
 	}
 	if !messages.HasErrors() {

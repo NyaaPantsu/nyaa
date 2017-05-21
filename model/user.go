@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"time"
+	"fmt"
 
 	"github.com/NyaaPantsu/nyaa/config"
 )
@@ -103,7 +104,7 @@ type UserUploadsOld struct {
 }
 
 type UserSettings struct {
-	settings map[string]bool`json:"settings"`
+	Settings map[string]bool`json:"settings"`
 }
 
 func (c UserUploadsOld) TableName() string {
@@ -125,33 +126,48 @@ func (u *User) ToJSON() UserJSON {
 
 /* User Settings */
 
-func(s UserSettings) Get(key string) bool {
-	if val, ok:= s.settings[key]; ok {	
+func(s *UserSettings) Get(key string) bool {
+	if val, ok:= s.Settings[key]; ok {	
 	return val
 	} else {
 		return config.DefaultUserSettings[key]
 	}
 }
 
-func (s UserSettings) GetSettings() map[string]bool {
-	return s.settings
+func (s *UserSettings) GetSettings() map[string]bool {
+	return s.Settings
 }
 
-func (s UserSettings) Set(key string, val bool) {
-	s.settings[key] = val
+func (s *UserSettings) Set(key string, val bool) {
+	if s.Settings == nil {
+		s.Settings = make(map[string]bool)
+	}
+	s.Settings[key] = val
 }
 
-func (s UserSettings) ToDefault() {
-	s.settings = config.DefaultUserSettings
+func (s *UserSettings) ToDefault() {
+	s.Settings = config.DefaultUserSettings
 }
 
-func (u User) SaveSettings() {
-	byteArray, _ := json.Marshal(u.Settings.GetSettings())
-	u.UserSettings = string(byteArray[:])
+func (s *UserSettings) Initialize() {
+	s.Settings = make(map[string]bool)
 }
 
-func (u User) ParseSettings() {
+func (u *User) SaveSettings() {
+	byteArray, err := json.Marshal(u.Settings)
+
+	if (err != nil) {
+		fmt.Print(err)
+	}
+	u.UserSettings = string(byteArray)
+}
+
+func (u *User) ParseSettings() {
 	if len(u.Settings.GetSettings()) == 0 && u.UserSettings != "" {
-		json.Unmarshal([]byte(u.UserSettings), u.Settings)
+		u.Settings.Initialize()
+		json.Unmarshal([]byte(u.UserSettings), &u.Settings)
+	} else if len(u.Settings.GetSettings()) == 0 && u.UserSettings != "" {
+		u.Settings.Initialize()
+		u.Settings.ToDefault()
 	}
 }

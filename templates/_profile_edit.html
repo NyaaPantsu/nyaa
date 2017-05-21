@@ -67,6 +67,169 @@
 				{{end}}
             </div>
           </div>
+          <h3>{{ call $.T "preferences"}}</h3>
+          {{ with .Settings }}
+          {{ if DefaultUserSettings "new_torrent"}}
+          <div class="form-group">
+            <label class="col-lg-3 control-label">{{ call $.T "new_torrent_settings" }}:</label>
+            <div class="col-lg-8">
+              <div class="ui-select">
+                <select id="new_torrent" name="new_torrent" class="form-control">
+                  <option value="0" {{ if not (.Get "new_torrent") }}selected{{end}}>{{ call $.T "no"}}</option>
+                  <option value="1" {{ if .Get "new_torrent" }}selected{{end}}>{{ call $.T "yes"}}</option>
+                </select>
+              </div>
+              {{ range (index $.FormErrors "new_torrent")}}
+          <p class="text-error">{{ . }}</p>
+        {{end}}
+            </div>
+          </div>
+          {{end}}
+          {{ if DefaultUserSettings "new_torrent_email"}}
+          <div class="form-group">
+            <label class="col-lg-3 control-label">{{ call $.T "new_torrent_email_settings" }}:</label>
+            <div class="col-lg-8">
+              <div class="ui-select">
+                <select id="new_torrent_email" name="new_torrent_email" class="form-control">
+                  <option value="0" {{ if not (.Get "new_torrent_email") }}selected{{end}}>{{ call $.T "no"}}</option>
+                  <option value="1" {{ if .Get "new_torrent_email"}}selected{{end}}>{{ call $.T "yes"}}</option>
+                </select>
+              </div>
+              {{ range (index $.FormErrors "new_torrent_email")}}
+          <p class="text-error">{{ . }}</p>
+        {{end}}
+            </div>
+          </div>
+          {{end}}
+          {{ if DefaultUserSettings "new_comment"}}
+          <div class="form-group">
+            <label class="col-lg-3 control-label">{{ call $.T "new_comment_settings" }}:</label>
+            <div class="col-lg-8">
+              <div class="ui-select">
+                <select id="new_comment" name="new_comment" class="form-control">
+                  <option value="0" {{ if not (.Get "new_comment") }}selected{{end}}>{{ call $.T "no"}}</option>
+                  <option value="1" {{ if .Get "new_comment" }}selected{{end}}>{{ call $.T "yes"}}</option>
+                </select>
+              </div>
+              {{ range (index $.FormErrors "new_comment")}}
+          <p class="text-error">{{ . }}</p>
+        {{end}}
+            </div>
+          </div>
+          {{end}}
+          {{ if DefaultUserSettings "new_comment_email"}}
+          <div class="form-group">
+            <label class="col-lg-3 control-label">{{ call $.T "new_comment_email_settings" }}:</label>
+            <div class="col-lg-8">
+              <div class="ui-select">
+                <select id="new_comment_email" name="new_comment_email" class="form-control">
+                  <option value="0" {{ if not (.Get "new_comment_email") }}selected{{end}}>{{ call $.T "no"}}</option>
+                  <option value="1" {{ if .Get "new_comment_email" }}selected{{end}}>{{ call $.T "yes"}}</option>
+                </select>
+              </div>
+              {{ range (index $.FormErrors "new_comment_email")}}
+          <p class="text-error">{{ . }}</p>
+        {{end}}
+            </div>
+          </div>
+          {{end}}
+          {{ if DefaultUserSettings "new_responses"}}
+          <div class="form-group">
+            <label class="col-lg-3 control-label">{{ call $.T "new_responses_settings" }}:</label>
+            <div class="col-lg-8">
+              <div class="ui-select">
+                <select id="new_responses" name="new_responses" class="form-control">
+                  <option value="0" {{ if not (.Get "new_responses") }}selected{{end}}>{{ call $.T "no"}}</option>
+                  <option value="1" {{ if .Get "new_responses" }}selected{{end}}>{{ call $.T "yes"}}</option>
+                </select>
+              </div>
+              {{ range (index $.FormErrors "new_responses")}}
+          <p class="text-error">{{ . }}</p>
+        {{end}}
+            </div>
+          </div>
+          {{end}}
+          {{ if DefaultUserSettings "new_responses_email"}}
+          <div class="form-group">
+            <label class="col-lg-3 control-label">{{ call $.T "new_responses_email_settings" }}:</label>
+            <div class="col-lg-8">
+              <div class="ui-select">
+                <select id="new_responses_email" name="new_responses_email" class="form-control">
+                  <option value="0" {{ if not (.Get "new_responses_email") }}selected{{end}}>{{ call $.T "no"}}</option>
+                  <option value="1" {{ if .Get "new_responses_email" }}selected{{end}}>{{ call $.T "yes"}}</option>
+                </select>
+              </div>
+              {{ range (index $.FormErrors "new_responses_email")}}
+          <p class="text-error">{{ . }}</p>
+        {{end}}
+            </div>
+          </div>
+          {{end}}
+          {{ if DefaultUserSettings "new_follower"}}
+          <div class="form-group">
+            <label class="col-lg-3 control-label">{{ call $.T "new_follower_settings" }}:</label>
+            <div class="col-lg-8">
+              <div class="ui-select">
+                <select id="new_follower" name="new_follower" class="form-control">
+                  <option value="0" {{ if not (.Get "new_follower") }}selected{{end}}>{{ call $.T "no"}}</option>
+                  <option value="1" {{ if .Get "new_follower" }}selected{{end}}>{{ call $.T "yes"}}</option>
+                </select>
+              </div>
+              {{ range (index $.FormErrors "new_follower")}}
+          <p class="text-error">{{ . }}</p>
+        {{end}}
+            </div>
+          </div>
+          {{end}}
+          {{ if DefaultUserSettings "new_follower_email"}}
+          <div class="form-group">
+            <label class="col-lg-3 control-label">{{ call $.T "new_follower_email_settings" }}:</label>
+            <div class="col-lg-8">
+              <div class="ui-select">
+                <select id="new_follower_email" name="new_follower_email" class="form-control">
+                  <option value="0" {{ if not (.Get "new_follower_email") }}selected{{end}}>{{ call $.T "no"}}</option>
+                  <option value="1" {{ if .Get "new_follower_email"}}selected{{end}}>{{ call $.T "yes"}}</option>
+                </select>
+              </div>
+              {{ range (index $.FormErrors "new_follower_email")}}
+          <p class="text-error">{{ . }}</p>
+        {{end}}
+            </div>
+          </div>
+          {{end}}
+          {{ if DefaultUserSettings "followed"}}
+          <div class="form-group">
+            <label class="col-lg-3 control-label">{{ call $.T "followed_settings" }}:</label>
+            <div class="col-lg-8">
+              <div class="ui-select">
+                <select id="followed" name="followed" class="form-control">
+                  <option value="0" {{ if not (.Get "followed") }}selected{{end}}>{{ call $.T "no"}}</option>
+                  <option value="1" {{ if .Get "followed" }}selected{{end}}>{{ call $.T "yes"}}</option>
+                </select>
+              </div>
+              {{ range (index $.FormErrors "followed")}}
+          <p class="text-error">{{ . }}</p>
+        {{end}}
+            </div>
+          </div>
+          {{end}}
+          {{ if DefaultUserSettings "followed_email"}}
+          <div class="form-group">
+            <label class="col-lg-3 control-label">{{ call $.T "followed_email_settings" }}:</label>
+            <div class="col-lg-8">
+              <div class="ui-select">
+                <select id="followed_email" name="followed_email" class="form-control">
+                  <option value="0" {{ if not (.Get "followed_email") }}selected{{end}}>{{ call $.T "no"}}</option>
+                  <option value="1" {{ if .Get "followed_email" }}selected{{end}}>{{ call $.T "yes"}}</option>
+                </select>
+              </div>
+              {{ range (index $.FormErrors "followed_email")}}
+          <p class="text-error">{{ . }}</p>
+        {{end}}
+            </div>
+          </div>
+          {{end}}
+          {{end}}
           {{ if HasAdmin $.User}}
           <h3>{{ call $.T "moderation"}}</h3>
           <div class="form-group">

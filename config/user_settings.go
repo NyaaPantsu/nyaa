@@ -13,7 +13,7 @@ var DefaultUserSettings = map[string]bool {
 	"new_torrent_email": false,
 	"new_comment": true,
 	"new_comment_email": false,
-	"new_responses": true,
+	"new_responses": false,
 	"new_responses_email": false,
 	"new_follower": false,
 	"new_follower_email": false,

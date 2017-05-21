@@ -94,6 +94,7 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 			if unfollow != nil {
 				messages.AddInfof("infos", string(T("user_unfollowed_msg")), userProfile.Username)
 			}
+			userProfile.ParseSettings()
 			htv := UserProfileVariables{NewCommonVariables(r), &userProfile, messages.GetAllInfos()}
 
 			err := viewProfileTemplate.ExecuteTemplate(w, "index.html", htv)
@@ -119,6 +120,7 @@ func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
 			b := form.UserForm{}
 			modelHelper.BindValueForm(&b, r)
 			availableLanguages := languages.GetAvailableLanguages()
+			userProfile.ParseSettings()
 			htv := UserProfileEditVariables{NewCommonVariables(r), &userProfile, b, messages.GetAllErrors(), messages.GetAllInfos(), availableLanguages}
 			err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
 			if err != nil {
@@ -140,6 +142,7 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 		NotFoundHandler(w, r)
 		return
 	}
+	userProfile.ParseSettings()
 	messages := msg.GetMessages(r)
 	userForm := form.UserForm{}
 	userSettingsForm := form.UserSettingsForm{}
@@ -171,7 +174,7 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 				messages.AddInfof("infos", string(T("email_changed")), userForm.Email)
 				userForm.Email = userProfile.Email // reset, it will be set when user clicks verification
 			}
-			userProfile, _, errorUser = userService.UpdateUser(w, &userForm, currentUser, id)
+			userProfile, _, errorUser = userService.UpdateUser(w, &userForm, &userSettingsForm, currentUser, id)
 			if errorUser != nil {
 				messages.ImportFromError("errors", errorUser)
 			} else {

@@ -85,10 +85,10 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 		if len(user.Likings) > 0 { // If we are followed by at least someone
 				for _, follower := range user.Likings {
 					follower.ParseSettings() // We need to call it before checking settings
-					if  follower.Settings.Get("notifications.new_torrent") {
-						T, _, _ := languages.TfuncAndLanguageWithFallback(user.Language, user.Language) // We need to send the notification to every user in their language
+					if  follower.Settings.Get("new_torrent") {
+						T, _, _ := languages.TfuncAndLanguageWithFallback(follower.Language, follower.Language) // We need to send the notification to every user in their language
 
-						notifierService.NotifyUser(&follower, torrent.Identifier(), fmt.Sprintf(T("new_torrent_uploaded"), torrent.Name, user.Username), url.String())
+						notifierService.NotifyUser(&follower, torrent.Identifier(), fmt.Sprintf(T("new_torrent_uploaded"), torrent.Name, user.Username), url.String(), follower.Settings.Get("new_torrent_email"))
 					}
 				}
 			}
