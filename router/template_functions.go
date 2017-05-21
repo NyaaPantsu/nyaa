@@ -208,11 +208,11 @@ var FuncMap = template.FuncMap{
         }
         return e
     },
-    "fileSize": func(filesize string, T languages.TemplateTfunc) string {
+    "fileSize": func(filesize string, T languages.TemplateTfunc) template.HTML {
  		if (filesize == "Unknown") { 
  			return T("unknown") 
  		}
- 			return filesize 
+ 			return template.HTML(filesize) 
      },
 	"makeCaptchaData": func(captchaID string, T languages.TemplateTfunc) captchaData {
 		return captchaData{captchaID, T}
