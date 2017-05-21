@@ -77,7 +77,7 @@ Your browser does not support the audio element.
                   {{if ne .Filesize "Unknown"}}
                   {{.Filesize}}
                   {{else}}
-                  {{T "unknown"}}
+                  {{ call $.T "unknown"}}
                   {{end}}
               </td>
               <td class="hidden-xs nowrap">
