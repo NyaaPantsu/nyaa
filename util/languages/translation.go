@@ -103,8 +103,8 @@ func GetDefaultTfunc() (i18n.TranslateFunc, error) {
 
 func GetTfuncAndLanguageFromRequest(r *http.Request) (T i18n.TranslateFunc, Tlang *language.Language) {
 	userLanguage := ""
-	user, err := getCurrentUser(r)
-	if err == nil {
+	user, _ := getCurrentUser(r)
+	if user.ID > 0 {
 		userLanguage = user.Language
 	}
 

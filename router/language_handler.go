@@ -6,6 +6,7 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/util/timeHelper"
 	"github.com/gorilla/mux"
 )
 
@@ -55,13 +56,13 @@ func ChangeLanguageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// If logged in, update user language; if not, set cookie.
-	user, err := userService.CurrentUser(r)
-	if err == nil {
+	user, _ := userService.CurrentUser(r)
+	if user.ID > 0 { 
 		user.Language = lang
 		// I don't know if I should use this...
 		userService.UpdateUserCore(&user)
 	}
-	http.SetCookie(w, &http.Cookie{Name: "lang", Value: lang})
+	http.SetCookie(w, &http.Cookie{Name: "lang", Value: lang, Expires: timeHelper.FewDaysLater(365)})
 
 	url, _ := Router.Get("home").URL()
 	http.Redirect(w, r, url.String(), http.StatusSeeOther)
