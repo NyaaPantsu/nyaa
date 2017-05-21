@@ -11,7 +11,7 @@ Your browser does not support the audio element.
 Your browser does not support the audio element.
 </audio>
 
-  <span id="mascot"></span>
+  <span id="mascot" class="visible-lg"></span>
 
   <div class="blockBody">
       <nav>
@@ -73,7 +73,9 @@ Your browser does not support the audio element.
               </td>
               {{end}}
               <td class="hidden-xs nowrap date-short">{{.Date}}</td>
-              <td class="hidden-xs nowrap">{{.Filesize}}</td>
+              <td class="hidden-xs nowrap">
+                  {{ fileSize .Filesize $.T }}
+              </td>
               <td class="hidden-xs nowrap">
                   <a href="{{.Magnet}}" title="Magnet link">
                       <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>

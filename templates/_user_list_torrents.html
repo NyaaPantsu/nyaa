@@ -33,7 +33,9 @@
                   </a>
               </td>
               <td class="nowrap date-short">{{.Date}}</td>
-              <td class="nowrap">{{.Filesize}}</td>
+              <td class="nowrap">
+                  {{ fileSize .Filesize $.T }}
+              </td>
               <td>
                   <a href="{{.Magnet}}" title="{{ call $.T "magnet_link" }}">
                       <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>

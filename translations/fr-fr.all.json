@@ -680,6 +680,10 @@
     "translation": "Supprimer"
   },
   {
+    "id": "website_link",
+    "translation": "Lien du site web"
+  },
+  {
     "id": "files",
     "translation": "Fichiers"
   },
@@ -758,5 +762,21 @@
   {
     "id": "no_database_dumps_available",
     "translation": "Aucune sauvegarde de base de données n'est disponible en ce moment."
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "Effacer les notifications"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "Notifications supprimées !"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "Mes Notifications"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "Nouveau torrent : \"%s\" de %s"
   }
 ]
