@@ -72,11 +72,7 @@
                 <hr>
                 <h4>{{ call $.T "size"}}</h4>
                 <p>
-                  {{if ne .Filesize "Unknown"}}
-                  {{.Filesize}}
-                  {{else}}
-                  {{ call $.T "unknown"}}
-                  {{end}}
+                  {{ fileSize .Filesize $.T }}
                 </p>
                 <hr>
                 {{if ne .WebsiteLink ""}}

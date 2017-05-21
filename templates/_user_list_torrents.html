@@ -34,11 +34,7 @@
               </td>
               <td class="nowrap date-short">{{.Date}}</td>
               <td class="nowrap">
-                  {{if ne .Filesize "Unknown"}}
-                  {{.Filesize}}
-                  {{else}}
-                  {{ call $.T "unknown"}}
-                  {{end}}
+                  {{ fileSize .Filesize $.T }}
               </td>
               <td>
                   <a href="{{.Magnet}}" title="{{ call $.T "magnet_link" }}">
