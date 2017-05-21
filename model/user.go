@@ -35,7 +35,7 @@ type User struct {
 	Notifications []Notification `gorm:"ForeignKey:UserID"`
 
 	UnreadNotifications int `gorm:"-"` // We don't want to loop every notifications when accessing user unread notif
-	Settings *UserSettings `gorm:"-"` // We don't want to loop every notifications when accessing user unread notif
+	Settings UserSettings `gorm:"-"` // We don't want to load settings everytime, stock it as a string, parse it when needed
 }
 
 type UserJSON struct {
@@ -124,23 +124,32 @@ func (u *User) ToJSON() UserJSON {
 
 /* User Settings */
 
-func(s *UserSettings) Get(key string) interface{} {
+func(s UserSettings) Get(key string) interface{} {
+	if (s.settings[key] != nil) {
 	return s.settings[key]
+	} else {
+		return config.DefaultUserSettings[key]
+	}
 }
 
-func (s *UserSettings) Set(key string, val interface{}) {
-	s.settings[key] = val
-}
-
-func (s *UserSettings) GetSettings() {
+func (s UserSettings) GetSettings() {
 	return s.settings
 }
 
-func (u *User) SaveSettings() {
+func (s UserSettings) Set(key string, val interface{}) {
+	s.settings[key] = val
+}
+
+func (s UserSettings) ToDefault() {
+	s.settings = config.DefaultUserSettings
+}
+
+func (u User) SaveSettings() {
 	u.UserSettings , _ = json.Marshal(u.Settings.GetSettings())
 }
 
-func (u *User) ParseSettings() {
-	if len(u.Settings.GetSettings()) == 0
-	json.Unmarshal([]byte(u.UserSettings), u.Settings)
+func (u User) ParseSettings() {
+	if len(u.Settings.GetSettings()) == 0 && u.UserSettings != "" {
+		json.Unmarshal([]byte(u.UserSettings), u.Settings)
+	}
 }

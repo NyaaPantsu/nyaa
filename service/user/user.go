@@ -80,6 +80,8 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 	}
 	user.Email = "" // unset email because it will be verified later
 	user.CreatedAt = time.Now()
+	// User settings to default
+	user.ToDefault()
 	// currently unused but needs to be set:
 	user.ApiToken = ""
 	user.ApiTokenExpiry = time.Unix(0, 0)

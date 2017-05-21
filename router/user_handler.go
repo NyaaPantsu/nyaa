@@ -25,13 +25,14 @@ func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 		HomeHandler(w, r)
 		return
 	}
+	messages := msg.GetMessages(r)
 	registrationForm := form.RegistrationForm{}
 	modelHelper.BindValueForm(&registrationForm, r)
 	registrationForm.CaptchaID = captcha.GetID()
 	urtv := UserRegisterTemplateVariables{
 		CommonTemplateVariables: NewCommonVariables(r),
 		RegistrationForm:        registrationForm,
-		FormErrors:              form.NewErrors(),
+		FormErrors:              messages.GetAllErrors(),
 	}
 	err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", urtv)
 	if err != nil {
@@ -41,13 +42,20 @@ func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 
 // Getting View User Login
 func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
+	_, errorUser := userService.CurrentUser(r)
+	// User is already connected, redirect to home
+	if errorUser == nil {
+		HomeHandler(w, r)
+		return
+	}
+
 	loginForm := form.LoginForm{}
 	modelHelper.BindValueForm(&loginForm, r)
-
+	messages := msg.GetMessages(r)
 	ulfv := UserLoginFormVariables{
 		CommonTemplateVariables: NewCommonVariables(r),
 		LoginForm:               loginForm,
-		FormErrors:              form.NewErrors(),
+		FormErrors:              messages.GetAllErrors(),
 	}
 
 	err := viewLoginTemplate.ExecuteTemplate(w, "index.html", ulfv)
@@ -61,33 +69,33 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	T := languages.GetTfuncFromRequest(r)
+	messages := msg.GetMessages(r)
+
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser == nil {
 		currentUser := GetUser(r)
 		follow := r.URL.Query()["followed"]
 		unfollow := r.URL.Query()["unfollowed"]
-		infosForm := form.NewInfos()
 		deleteVar := r.URL.Query()["delete"]
 
 		if (deleteVar != nil) && (userPermission.CurrentOrAdmin(currentUser, userProfile.ID)) {
-			err := form.NewErrors()
 			_, errUser := userService.DeleteUser(w, currentUser, id)
 			if errUser != nil {
-				err["errors"] = append(err["errors"], errUser.Error())
+				messages.ImportFromError("errors", errUser)
 			}
-			htv := UserVerifyTemplateVariables{NewCommonVariables(r), err}
+			htv := UserVerifyTemplateVariables{NewCommonVariables(r), messages.GetAllErrors()}
 			errorTmpl := viewUserDeleteTemplate.ExecuteTemplate(w, "index.html", htv)
 			if errorTmpl != nil {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
 			}
 		} else {
 			if follow != nil {
-				infosForm["infos"] = append(infosForm["infos"], fmt.Sprintf(string(T("user_followed_msg")), userProfile.Username))
+				messages.AddInfof("infos", string(T("user_followed_msg")), userProfile.Username)
 			}
 			if unfollow != nil {
-				infosForm["infos"] = append(infosForm["infos"], fmt.Sprintf(string(T("user_unfollowed_msg")), userProfile.Username))
+				messages.AddInfof("infos", string(T("user_unfollowed_msg")), userProfile.Username)
 			}
-			htv := UserProfileVariables{NewCommonVariables(r), &userProfile, infosForm}
+			htv := UserProfileVariables{NewCommonVariables(r), &userProfile, messages.GetAllInfos()}
 
 			err := viewProfileTemplate.ExecuteTemplate(w, "index.html", htv)
 			if err != nil {
@@ -95,10 +103,7 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	} else {
-		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{NewCommonVariables(r)})
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
+		NotFoundHandler(w, r)
 	}
 }
 
@@ -107,23 +112,22 @@ func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	currentUser := GetUser(r)
+	messages := msg.GetMessages(r)
+
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser == nil && userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
 		if userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
 			b := form.UserForm{}
 			modelHelper.BindValueForm(&b, r)
 			availableLanguages := languages.GetAvailableLanguages()
-			htv := UserProfileEditVariables{NewCommonVariables(r), &userProfile, b, form.NewErrors(), form.NewInfos(), availableLanguages}
+			htv := UserProfileEditVariables{NewCommonVariables(r), &userProfile, b, messages.GetAllErrors(), messages.GetAllInfos(), availableLanguages}
 			err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 			}
 		}
 	} else {
-		err := notFoundTemplate.ExecuteTemplate(w, "index.html", NotFoundTemplateVariables{NewCommonVariables(r)})
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
+		NotFoundHandler(w, r)
 	}
 }
 
@@ -194,29 +198,30 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 // Post Registration controller, we do some check on the form here, the rest on user service
 func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 	b := form.RegistrationForm{}
-	err := form.NewErrors()
+	messages = msg.GetMessages(r)
+
 	if !captcha.Authenticate(captcha.Extract(r)) {
-		err["errors"] = append(err["errors"], "Wrong captcha!")
+		messages.AddError("errors", "Wrong captcha!")
 	}
-	if len(err) == 0 {
+	if !messages.HasErrors() {
 		if len(r.PostFormValue("email")) > 0 {
-			_, err = form.EmailValidation(r.PostFormValue("email"), err)
+			form.EmailValidation(r.PostFormValue("email"), &messages)
 		}
-		_, err = form.ValidateUsername(r.PostFormValue("username"), err)
-		if len(err) == 0 {
+		form.ValidateUsername(r.PostFormValue("username"), &messages)
+		if !messages.HasErrors() {
 			modelHelper.BindValueForm(&b, r)
-			err = modelHelper.ValidateForm(&b, err)
-			if len(err) == 0 {
+			modelHelper.ValidateForm(&b, &messages)
+			if !messages.HasErrors() {
 				_, errorUser := userService.CreateUser(w, r)
 				if errorUser != nil {
-					err["errors"] = append(err["errors"], errorUser.Error())
+					messages.ImportFromError("errors", errorUser)
 				}
-				if len(err) == 0 {
+				if !messages.HasErrors() {
 					common := NewCommonVariables(r)
 					common.User = &model.User{
 						Email: r.PostFormValue("email"), // indicate whether user had email set
 					}
-					htv := UserRegisterTemplateVariables{common, b, err}
+					htv := UserRegisterTemplateVariables{common, b, messages.GetAllErrors()}
 					errorTmpl := viewRegisterSuccessTemplate.ExecuteTemplate(w, "index.html", htv)
 					if errorTmpl != nil {
 						http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -225,25 +230,21 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-	if len(err) > 0 {
-		b.CaptchaID = captcha.GetID()
-		htv := UserRegisterTemplateVariables{NewCommonVariables(r), b, err}
-		errorTmpl := viewRegisterTemplate.ExecuteTemplate(w, "index.html", htv)
-		if errorTmpl != nil {
-			http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
-		}
+	if messages.HasErrors() {
+		UserRegisterFormHandler(w, r)
 	}
 }
 
 func UserVerifyEmailHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	token := vars["token"]
-	err := form.NewErrors()
+	messages := msg.GetMessages(r)
+
 	_, errEmail := userService.EmailVerification(token, w)
 	if errEmail != nil {
-		err["errors"] = append(err["errors"], errEmail.Error())
+		messages.ImportFromError("errors", errEmail)
 	}
-	htv := UserVerifyTemplateVariables{NewCommonVariables(r), err}
+	htv := UserVerifyTemplateVariables{NewCommonVariables(r), messages.GetAllErrors()}
 	errorTmpl := viewVerifySuccessTemplate.ExecuteTemplate(w, "index.html", htv)
 	if errorTmpl != nil {
 		http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -254,13 +255,14 @@ func UserVerifyEmailHandler(w http.ResponseWriter, r *http.Request) {
 func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 	b := form.LoginForm{}
 	modelHelper.BindValueForm(&b, r)
-	err := form.NewErrors()
-	err = modelHelper.ValidateForm(&b, err)
-	if len(err) == 0 {
+	messages := msg.GetAllErrors()
+
+	modelHelper.ValidateForm(&b, &messages)
+	if !messages.HasErrors() {
 		_, errorUser := userService.CreateUserAuthentication(w, r)
 		if errorUser != nil {
-			err["errors"] = append(err["errors"], errorUser.Error())
-			htv := UserLoginFormVariables{NewCommonVariables(r), b, err}
+			messages.ImportFromError("errors", errorUser)
+			htv := UserLoginFormVariables{NewCommonVariables(r), b, messages.GetAllErrors()}
 			errorTmpl := viewLoginTemplate.ExecuteTemplate(w, "index.html", htv)
 			if errorTmpl != nil {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -271,12 +273,8 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, url.String(), http.StatusSeeOther)
 		}
 	}
-	if len(err) > 0 {
-		htv := UserLoginFormVariables{NewCommonVariables(r), b, err}
-		errorTmpl := viewLoginTemplate.ExecuteTemplate(w, "index.html", htv)
-		if errorTmpl != nil {
-			http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
-		}
+	if messages.HasErrors() {
+		UserLoginFormHandler(w,r)
 	}
 }
 
