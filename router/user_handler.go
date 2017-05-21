@@ -137,40 +137,42 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 		NotFoundHandler(w, r)
 		return
 	}
-
+	messages := msg.GetMessages(r)
 	userForm := form.UserForm{}
-	err := form.NewErrors()
-	infos := form.NewInfos()
+	userSettingsForm := form.UserSettingsForm{}
+
+
 	T := languages.GetTfuncFromRequest(r)
 	if len(r.PostFormValue("email")) > 0 {
-		_, err = form.EmailValidation(r.PostFormValue("email"), err)
+		form.EmailValidation(r.PostFormValue("email"), &messages)
 	}
 	if len(r.PostFormValue("username")) > 0 {
-		_, err = form.ValidateUsername(r.PostFormValue("username"), err)
+		form.ValidateUsername(r.PostFormValue("username"), &messages)
 	}
 
-	if len(err) == 0 {
+	if !messages.HasErrors() {
 		modelHelper.BindValueForm(&userForm, r)
+		modelHelper.BindValueForm(&userSettingsForm, r)
 		if !userPermission.HasAdmin(currentUser) {
 			userForm.Username = userProfile.Username
 			userForm.Status = userProfile.Status
 		} else {
 			if userProfile.Status != userForm.Status && userForm.Status == 2 {
-				err["errors"] = append(err["errors"], "Elevating status to moderator is prohibited")
+				messages.AddError("errors", "Elevating status to moderator is prohibited")
 			}
 		}
-		err = modelHelper.ValidateForm(&userForm, err)
-		if len(err) == 0 {
+		modelHelper.ValidateForm(&userForm, &messages)
+		if !messages.HasErrors() {
 			if userForm.Email != userProfile.Email {
 				userService.SendVerificationToUser(*currentUser, userForm.Email)
-				infos["infos"] = append(infos["infos"], fmt.Sprintf(string(T("email_changed")), userForm.Email))
+				messages.AddInfof("infos", string(T("email_changed")), userForm.Email)
 				userForm.Email = userProfile.Email // reset, it will be set when user clicks verification
 			}
 			userProfile, _, errorUser = userService.UpdateUser(w, &userForm, currentUser, id)
 			if errorUser != nil {
-				err["errors"] = append(err["errors"], errorUser.Error())
+				messages.ImportFromError("errors", errorUser)
 			} else {
-				infos["infos"] = append(infos["infos"], string(T("profile_updated")))
+				messages.AddInfo("infos", string(T("profile_updated")))
 			}
 		}
 	}
@@ -179,8 +181,8 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 		CommonTemplateVariables: NewCommonVariables(r),
 		UserProfile:             &userProfile,
 		UserForm:                userForm,
-		FormErrors:              err,
-		FormInfos:               infos,
+		FormErrors:              messages.GetAllErrors(),
+		FormInfos:               messages.GetAllInfos(),
 		Languages:               availableLanguages,
 	}
 	errorTmpl := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", upev)

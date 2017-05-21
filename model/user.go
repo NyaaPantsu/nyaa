@@ -24,6 +24,7 @@ type User struct {
 	ApiToken       string    `gorm:"column:api_token"`
 	ApiTokenExpiry time.Time `gorm:"column:api_token_expiry"`
 	Language       string    `gorm:"column:language"`
+	UserSettings   string    `gorm:"column:settings"`
 
 	// TODO: move this to PublicUser
 	Likings     []User // Don't work `gorm:"foreignkey:user_id;associationforeignkey:follower_id;many2many:user_follows"`
@@ -31,9 +32,10 @@ type User struct {
 
 	MD5      string    `json:"md5" gorm:"column:md5"` // Hash of email address, used for Gravatar
 	Torrents []Torrent `gorm:"ForeignKey:UploaderID"`
+	Notifications []Notification `gorm:"ForeignKey:UserID"`
 
 	UnreadNotifications int `gorm:"-"` // We don't want to loop every notifications when accessing user unread notif
-	Notifications []Notification `gorm:"ForeignKey:UserID"`
+	Settings *UserSettings `gorm:"-"` // We don't want to loop every notifications when accessing user unread notif
 }
 
 type UserJSON struct {
@@ -99,6 +101,10 @@ type UserUploadsOld struct {
 	TorrentId uint   `gorm:"column:torrent_id"`
 }
 
+type UserSettings struct {
+	settings map[string]interface{} `json:"settings"`
+}
+
 func (c UserUploadsOld) TableName() string {
 	// is this needed here?
 	return config.UploadsOldTableName
@@ -114,4 +120,27 @@ func (u *User) ToJSON() UserJSON {
 		LikedCount:  len(u.Liked),
 	}
 	return json
+}
+
+/* User Settings */
+
+func(s *UserSettings) Get(key string) interface{} {
+	return s.settings[key]
+}
+
+func (s *UserSettings) Set(key string, val interface{}) {
+	s.settings[key] = val
+}
+
+func (s *UserSettings) GetSettings() {
+	return s.settings
+}
+
+func (u *User) SaveSettings() {
+	u.UserSettings , _ = json.Marshal(u.Settings.GetSettings())
+}
+
+func (u *User) ParseSettings() {
+	if len(u.Settings.GetSettings()) == 0
+	json.Unmarshal([]byte(u.UserSettings), u.Settings)
 }
