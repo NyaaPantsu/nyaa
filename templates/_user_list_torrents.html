@@ -37,7 +37,7 @@
                   {{if ne .Filesize "Unknown"}}
                   {{.Filesize}}
                   {{else}}
-                  {{T "unknown"}}
+                  {{ call $.T "unknown"}}
                   {{end}}
               </td>
               <td>
