@@ -33,6 +33,7 @@
 									<a href="{{ genRoute "user_follow" "id" ( print .ID ) "username" .Username }}" class="btn btn-danger btn-sm">{{ call $.T "unfollow"}}</a>
 								{{end}}
 							{{end}}
+							<a href="{{ genRoute "feed_user" "id" ( print .ID ) "username" .Username }}" class="btn btn-warning btn-sm">RSS</a>
 						{{end}}
 					<!-- <button type="button" class="btn btn-danger btn-sm">Message</button> -->
 				</div>
