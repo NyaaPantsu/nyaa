@@ -70,8 +70,14 @@
                 <h4>{{call $.T "date"}}</h4>
                 <p class="date-full">{{.Date}}</p>
                 <hr>
-                <h4>{{call $.T "size"}}</h4>
-                <p>{{.Filesize}}</p>
+                <h4>{{ call $.T "size"}}</h4>
+                <p>
+                  {{if ne .Filesize "Unknown"}}
+                  {{.Filesize}}
+                  {{else}}
+                  {{ call $.T "unknown"}}
+                  {{end}}
+                </p>
                 <hr>
                 {{if ne .WebsiteLink ""}}
                 <h4>{{call $.T "link"}}</h4>
@@ -93,7 +99,7 @@
                         {{else}}
                         <div class="col-md-4">{{.Seeders}}</div>
                         <div class="col-md-4">{{.Leechers}}</div>
-                       <div class="col-md-4"><span class="completed" style="">{{.Completed}}</span></div>
+                       <div class="col-md-4"><span class="completed">{{.Completed}}</span></div>
                         {{end}}
                     </div>
                     </div>

@@ -1,27 +1,44 @@
 /*Don't make changes to layout here, only colours*/
 /* Torrent status colors */
 .remake {
-	background-color: #473e50; /*270,13%,28%*/
+	/*270,13%,28%*/
+	background-color: #473e50;
 }
+
 .trusted {
-	background-color: #395045; /*150,17%,27%*/
+	/*150,17%,27%*/
+	background-color: #395045;
 }
+
 .aplus {
-	background-color: #3c5b71; /*205,30%,34%*/
+	/*205,30%,34%*/
+	background-color: #3c5b71;
 }
+
 .remake a {
-	color: #cfc2dc; /*270,26%,81%*/
+	/*270,26%,81%*/
+	color: #cfc2dc;
 }
+
 .trusted a {
-	color: #bde0db; /*170,36%,81%*/
+	/*170,36%,81%*/
+	color: #bde0db;
 }
+
 .remake a:hover {
 	color: #cf9fff;
 }
+
 .trusted a:hover {
 	color: #6ae3d1;
 }
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
 	border-color: hsla(200,60%,70%,0.15);
 }
 
@@ -60,26 +77,29 @@
 	background-image: url(/img/megumin.png);
 }
 
-body, footer {
+body,
+footer {
 	background-color: #282A2E;
 	color: #eff5f5;
 }
 
-
 .pagination > .active > a {
 	background: #ececec;
 	border-color: #ececec;
-	color: #337ab7; /* restore usual text color */
+	/* restore usual text color */
+	color: #337ab7;
 }
 
 /* Links, Text */
 a {
 	color: #a2c9dd;
 }
+
 a:hover {
 	color: #55c5ff;
 	text-shadow: 1px 1px 0 #000;
 }
+
 .btn-success {
 	color: #fff;
 	background-color: #b294bb;
@@ -90,16 +110,21 @@ a:hover {
 	background-color: #b294bb;
 }
 
-.form-control, pre {
+.form-control,
+pre {
 	color: #fff;
 	background-color: #29363d
 }
 
 /* style the dropdown member menu */
-.nav > .dropdown.open, .profile-image[aria-expanded="true"], .nav ul.dropdown-menu {
+.nav > .dropdown.open,
+.profile-image[aria-expanded="true"],
+.nav ul.dropdown-menu {
 	background: #282A2E;
 }
-.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+
+.dropdown-menu > li > a:focus,
+.dropdown-menu > li > a:hover {
 	background: #263238;
 }
 
@@ -127,9 +152,11 @@ a:hover {
 	border-bottom: .5em solid #fff;
 	margin-bottom: -.5em;
 }
+
 .modal-content {
 	background: #29363d;
 }
+
 .modal-content .close {
 	color: #fff;
 }
@@ -140,7 +167,6 @@ a:hover {
 }
 
 /*Comments*/
-
 .commentList .commentData {
 	color: #fff;
 }
@@ -153,6 +179,7 @@ a:hover {
 textarea.torrent-desc {
 	background: none;
 }
-.md-editor>textarea:focus {
+
+.md-editor > textarea:focus {
 	background: none;
 }
