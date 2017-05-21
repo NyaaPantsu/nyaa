@@ -241,6 +241,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 func (f *UploadForm) ExtractEditInfo(r *http.Request) error {
 	f.Name = r.FormValue(UploadFormName)
 	f.Category = r.FormValue(UploadFormCategory)
+	f.WebsiteLink = r.FormValue(UploadFormWebsiteLink)
 	f.Description = r.FormValue(UploadFormDescription)
 	f.Status, _ = strconv.Atoi(r.FormValue(UploadFormStatus))
 

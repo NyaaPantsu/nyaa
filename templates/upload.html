@@ -69,13 +69,13 @@
       </div>
 
       <div class="form-group">
+        <label for="website_link">{{call $.T "website_link"}}</label>
+        <input name="website_link" id="website_link" class="form-control" type="text" value="{{.WebsiteLink}}">
+      </div>
+      <div class="form-group">
           <label for="desc">{{call $.T "torrent_description"}}</label>
           <p class="help-block">{{call $.T "description_markdown_notice"}}</p>
           <textarea name="desc" id="desc" class="form-control torrent-desc" rows="15">{{.Description}}</textarea>
-      </div>
-      <div class="form-group">
-          <label for="website_link">{{call $.T "website_link"}}</label>
-          <input name="website_link" id="website_link" class="form-control" type="text" value="{{.WebsiteLink}}">
       </div>
 
 	  {{block "captcha" (makeCaptchaData .CaptchaID $.T)}}{{end}}

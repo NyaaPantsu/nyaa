@@ -242,6 +242,7 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 	uploadForm.Name = torrentJson.Name
 	uploadForm.Category = torrentJson.Category + "_" + torrentJson.SubCategory
 	uploadForm.Status = torrentJson.Status
+	uploadForm.WebsiteLink = string(torrentJson.WebsiteLink)
 	uploadForm.Description = string(torrentJson.Description)
 	htv := PanelTorrentEdVbs{uploadForm, NewPanelSearchForm(), T, currentUser, form.NewErrors(), form.NewInfos(), r.URL}
 	err := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
@@ -266,6 +267,7 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 			torrent.Category = uploadForm.CategoryID
 			torrent.SubCategory = uploadForm.SubCategoryID
 			torrent.Status = uploadForm.Status
+			torrent.WebsiteLink = uploadForm.WebsiteLink
 			torrent.Description = uploadForm.Description
 			torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
 			db.ORM.Save(&torrent)
