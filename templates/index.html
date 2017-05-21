@@ -13,6 +13,8 @@
 
     <!-- PureCSS -->
     <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
+    <!-- Open Iconic -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic.min.css" />
     <!-- Website CSS -->
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/style.css"}}">
 
@@ -33,9 +35,9 @@
                       <li class="pure-menu-item"><a class="pure-menu-link" href="https://sukebei.pantsu.cat">{{call $.T "fap"}}</a></li>
                       {{ end }}
                   </ul>
-                  <!-- Search bar -->
+                  {{block "badge_user" .}}{{end}}
                   <form class="pure-form" role="search" action="/search" method="get">
-                      <fieldset class="pure-group">
+                      <div class="form-group">
                         {{block "search_common" .}}{{end}}
                       </fieldset>
                       <fieldset class="pure-group">
