@@ -258,9 +258,9 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 
 .navbar {
 	border-radius: 0px;
-        /* Padding around the navbar, effectively determines it's size */
-        padding-top: 10px;
-        padding-bottom: 10px;
+	/* Padding around the navbar, effectively determines it's size */
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .navbar-logo {
@@ -268,21 +268,21 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 }
 
 :target {
-        /* Highlight menu items on hover */
+	/* Highlight menu items on hover */
 	background-color: #e5eecc;
 }
 
 /* Navbar search */
 
 #mainmenu button .search_text {
-        /* Hides the text on the search button */
+	/* Hides the text on the search button */
 	display: none;
 }
 
 #mainmenu .navbar-form select.form-control {
-        /* Slight height adjustment to make the menues in line with text */
-        margin-top: 2px;
-        /* Limit the size of the dropdown menus */
+	/* Slight height adjustment to make the menues in line with text */
+	margin-top: 2px;
+	/* Limit the size of the dropdown menus */
 	width: 12rem;
 }
 
@@ -294,26 +294,26 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 /* Navbar member section */
 
 .special-img {
-        /* Limit the avatar size */
-        height: 40px;
-        width: 40px;
-        /* Add a bit of extra vertical space so it won't look bad */
-        margin-top: 5px;
-        margin-bottom: 5px;
+	/* Limit the avatar size */
+	height: 40px;
+	width: 40px;
+	/* Add a bit of extra vertical space so it won't look bad */
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 .navbar-nav > li > .profile-image {
-        /* Overwrite bootstrap rules to get a sensible layout for our avatar */ 
+	/* Overwrite bootstrap rules to get a sensible layout for our avatar */ 
 	padding-top: 0px;
-        padding-bottom: 0px;
-        /* Force the element to always be as large as when it contains a avatar */
-        height: 50px;
+	padding-bottom: 0px;
+	/* Force the element to always be as large as when it contains a avatar */
+	height: 50px;
 }
 
 .navbar-nav > li > .profile-image > span {
-        /* Ensure the member name is always centered */
+	/* Ensure the member name is always centered */
 	margin-top: 15px;
-        margin-bottom: 15px;
+	margin-bottom: 15px;
 	display: inline-block;
 }
 
