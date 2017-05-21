@@ -68,7 +68,7 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	if userPermission.NeedsCaptcha(currentUser) {
 		userCaptcha := captcha.Extract(r)
 		if !captcha.Authenticate(userCaptcha) {
-			messages.AddError("errors", "Bad captcham!")
+			messages.AddError("errors", "Bad captcha!")
 		}
 	}
 	content := p.Sanitize(r.FormValue("comment"))
@@ -104,7 +104,7 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 	if userPermission.NeedsCaptcha(currentUser) {
 		userCaptcha := captcha.Extract(r)
 		if !captcha.Authenticate(userCaptcha) {
-			messages.AddError("errors", "Bad captchae!")
+			messages.AddError("errors", "Bad captcha!")
 		}
 	}
 	if !messages.HasErrors() {
