@@ -7,7 +7,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/NyaaPantsu/nyaa/util/timeHelper"
-	"github.com/gorilla/mux"
 )
 
 type LanguagesJSONResponse struct {
@@ -29,14 +28,9 @@ func SeeLanguagesHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		clv := ChangeLanguageVariables{
-			Search:     NewSearchForm(),
-			Navigation: NewNavigation(),
-			T:          languages.GetTfuncFromRequest(r),
+			CommonTemplateVariables: NewCommonVariables(r),
 			Language:   Tlang.Tag,
 			Languages:  availableLanguages,
-			User:       GetUser(r),
-			URL:        r.URL,
-			Route:      mux.CurrentRoute(r),
 		}
 		err := changeLanguageTemplate.ExecuteTemplate(w, "index.html", clv)
 		if err != nil {

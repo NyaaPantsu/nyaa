@@ -13,7 +13,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util"
-	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/gorilla/mux"
@@ -44,8 +43,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	if userPermission.NeedsCaptcha(user) {
 		captchaID = captcha.GetID()
 	}
-	T := languages.GetTfuncFromRequest(r)
-	htv := ViewTemplateVariables{b, captchaID, messages.GetAllErrors(), messages.GetAllInfos(), NewSearchForm(), NewNavigation(), T, user, r.URL, mux.CurrentRoute(r)}
+	htv := ViewTemplateVariables{NewCommonVariables(r), b, captchaID, messages.GetAllErrors(), messages.GetAllInfos()}
 
 	err = viewTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
