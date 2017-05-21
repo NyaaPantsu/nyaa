@@ -124,7 +124,7 @@ type CommentJSON struct {
 
 type FileJSON struct {
 	Path     string `json:"path"`
-	Filesize string `json:"filesize"`
+	Filesize int64  `json:"filesize"`
 }
 
 type TorrentJSON struct {
@@ -133,7 +133,7 @@ type TorrentJSON struct {
 	Status       int           `json:"status"`
 	Hash         string        `json:"hash"`
 	Date         string        `json:"date"`
-	Filesize     string        `json:"filesize"`
+	Filesize     int64         `json:"filesize"`
 	Description  template.HTML `json:"description"`
 	Comments     []CommentJSON `json:"comments"`
 	SubCategory  string        `json:"sub_category"`
@@ -176,7 +176,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	for _, f := range t.FileList {
 		fileListJSON = append(fileListJSON, FileJSON{
 			Path:     filepath.Join(f.Path()...),
-			Filesize: util.FormatFilesize2(f.Filesize),
+			Filesize: f.Filesize,
 		})
 	}
 
@@ -205,7 +205,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Status:       t.Status,
 		Hash:         t.Hash,
 		Date:         t.Date.Format(time.RFC3339),
-		Filesize:     util.FormatFilesize2(t.Filesize),
+		Filesize:     t.Filesize,
 		Description:  util.MarkdownToHTML(t.Description),
 		Comments:     commentsJSON,
 		SubCategory:  strconv.Itoa(t.SubCategory),
