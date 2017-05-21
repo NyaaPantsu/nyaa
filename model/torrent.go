@@ -86,6 +86,10 @@ func (t Torrent) TableName() string {
 	return config.TorrentsTableName
 }
 
+func (t Torrent) Identifier() string {
+	return "torrent_"+strconv.Itoa(int(t.ID))
+}
+
 func (t Torrent) IsNormal() bool {
 	return t.Status == TorrentStatusNormal
 }

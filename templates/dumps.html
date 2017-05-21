@@ -1,4 +1,4 @@
-{{define "title"}}{{T "home"}}{{end}}
+{{define "title"}}{{call $.T "home"}}{{end}}
 {{define "contclass"}}cont-home{{end}}
 {{define "content"}}
 	<div class="blockBody">
@@ -13,10 +13,10 @@
 		  {{ if gt (len .ListDumps) 0 }}
           <table class="table custom-table-hover">
           <tr>
-              <th class="col-xs-8">{{T "name"}}</th>
-              <th class="col-xs-1 hidden-xs">{{T "date"}}</th>
-              <th class="col-xs-1 hidden-xs">{{T "size"}}</th>
-              <th class="col-xs-1 hidden-xs">{{T "links"}}</th>
+              <th class="col-xs-8">{{call $.T "name"}}</th>
+              <th class="col-xs-1 hidden-xs">{{call $.T "date"}}</th>
+              <th class="col-xs-1 hidden-xs">{{call $.T "size"}}</th>
+              <th class="col-xs-1 hidden-xs">{{call $.T "links"}}</th>
           </tr>
           {{ range .ListDumps}}
           <tr class="torrent-info">
@@ -28,7 +28,7 @@
               <td class="hidden-xs nowrap">{{.Filesize}}</td>
               <td class="hidden-xs">
                   {{if ne .TorrentLink ""}}
-                  <a href="{{.TorrentLink}}" title="{{ T "torrent_file" }}">
+                  <a href="{{.TorrentLink}}" title="{{ call $.T "torrent_file" }}">
                       <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 
                   </a>
                   {{end}}
@@ -37,7 +37,7 @@
           {{end}}
       </table>
 	  {{else}}
-	  <h1>{{T "no_database_dumps_available"}}</h1>
+	  <h1>{{call $.T "no_database_dumps_available"}}</h1>
 	  {{end}}
       </div>
       <nav class="torrentNav" aria-label="Page navigation">

@@ -9,9 +9,12 @@ import (
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
+	"github.com/NyaaPantsu/nyaa/service/notifier"
 	"github.com/NyaaPantsu/nyaa/service/upload"
+	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/languages"
+	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/gorilla/mux"
 )
 
@@ -24,31 +27,28 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "POST" {
 		UploadPostHandler(w, r)
-	} else if r.Method == "GET" {
-		UploadGetHandler(w, r)
-	} else {
-		w.WriteHeader(http.StatusMethodNotAllowed)
-		return
 	}
+
+	UploadGetHandler(w, r)
 }
 
 func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 	var uploadForm UploadForm
 	defer r.Body.Close()
 	user := GetUser(r)
+	messages := msg.GetMessages(r) // new util for errors and infos
+
 	if userPermission.NeedsCaptcha(user) {
 		userCaptcha := captcha.Extract(r)
 		if !captcha.Authenticate(userCaptcha) {
-			http.Error(w, captcha.ErrInvalidCaptcha.Error(), http.StatusInternalServerError)
-			return
+			messages.AddError("errors", captcha.ErrInvalidCaptcha.Error())
 		}
 	}
 
 	// validation is done in ExtractInfo()
 	err := uploadForm.ExtractInfo(r)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		messages.AddError("errors", err.Error())
 	}
 	status := model.TorrentStatusNormal
 	if uploadForm.Remake { // overrides trusted
@@ -59,7 +59,11 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 
 	var sameTorrents int
 	db.ORM.Model(&model.Torrent{}).Where("torrent_hash = ?", uploadForm.Infohash).Count(&sameTorrents)
-	if sameTorrents == 0 {
+	if sameTorrents > 0 {
+		messages.AddError("errors", "Torrent already in database !")
+	}
+
+	if !messages.HasErrors() {
 		// add to db and redirect
 		torrent := model.Torrent{
 			Name:        uploadForm.Name,
@@ -70,8 +74,23 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			Date:        time.Now(),
 			Filesize:    uploadForm.Filesize,
 			Description: uploadForm.Description,
+			WebsiteLink: uploadForm.WebsiteLink,
 			UploaderID:  user.ID}
 		db.ORM.Create(&torrent)
+
+		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
+
+		if (user.ID > 0) { // If we are a member
+		userService.GetLikings(user) // We populate the liked field for users
+		if len(user.Likings) > 0 { // If we are followed by at least someone
+				for _, follower := range user.Likings {
+					T, _, _ := languages.TfuncAndLanguageWithFallback(user.Language, user.Language) // We need to send the notification to every user in their language
+
+					notifierService.NotifyUser(&follower, torrent.Identifier(), fmt.Sprintf(T("new_torrent_uploaded"), torrent.Name, user.Username), url.String())
+					
+				}
+			}
+		}
 
 		// add filelist to files db, if we have one
 		if len(uploadForm.FileList) > 0 {
@@ -79,30 +98,25 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 				file := model.File{TorrentID: torrent.ID, Filesize: uploadedFile.Filesize}
 				err := file.SetPath(uploadedFile.Path)
 				if err != nil {
-					http.Error(w, err.Error(), http.StatusInternalServerError)
-					return
+					messages.AddError("errors", err.Error())
 				}
 				db.ORM.Create(&file)
 			}
 		}
 
-		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		http.Redirect(w, r, url.String(), 302)
-	} else {
-		err = fmt.Errorf("Torrent already in database!")
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		http.Redirect(w, r, url.String()+"?success", 302)
 	}
 }
 
 func UploadGetHandler(w http.ResponseWriter, r *http.Request) {
-	languages.SetTranslationFromRequest(uploadTemplate, r)
+	messages := msg.GetMessages(r) // new util for errors and infos
 
 	var uploadForm UploadForm
+	_ = uploadForm.ExtractInfo(r)
 	user := GetUser(r)
 	if userPermission.NeedsCaptcha(user) {
 		uploadForm.CaptchaID = captcha.GetID()
@@ -112,8 +126,10 @@ func UploadGetHandler(w http.ResponseWriter, r *http.Request) {
 
 	utv := UploadTemplateVariables{
 		Upload:     uploadForm,
+		FormErrors: messages.GetAllErrors(),
 		Search:     NewSearchForm(),
 		Navigation: NewNavigation(),
+		T:          languages.GetTfuncFromRequest(r),
 		User:       GetUser(r),
 		URL:        r.URL,
 		Route:      mux.CurrentRoute(r),

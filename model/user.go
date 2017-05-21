@@ -26,13 +26,14 @@ type User struct {
 	Language       string    `gorm:"column:language"`
 
 	// TODO: move this to PublicUser
-	LikingCount int    `json:"likingCount" gorm:"-"`
-	LikedCount  int    `json:"likedCount" gorm:"-"`
 	Likings     []User // Don't work `gorm:"foreignkey:user_id;associationforeignkey:follower_id;many2many:user_follows"`
 	Liked       []User // Don't work `gorm:"foreignkey:follower_id;associationforeignkey:user_id;many2many:user_follows"`
 
 	MD5      string    `json:"md5" gorm:"column:md5"` // Hash of email address, used for Gravatar
 	Torrents []Torrent `gorm:"ForeignKey:UploaderID"`
+
+	UnreadNotifications int `gorm:"-"` // We don't want to loop every notifications when accessing user unread notif
+	Notifications []Notification `gorm:"ForeignKey:UserID"`
 }
 
 type UserJSON struct {
@@ -72,6 +73,17 @@ func (u User) IsModerator() bool {
 	return u.Status == UserStatusModerator
 }
 
+func (u User) GetUnreadNotifications() int {
+	if u.UnreadNotifications == 0 { 
+		for _, notif := range u.Notifications {
+			if !notif.Read {
+				u.UnreadNotifications++
+			}
+		}
+	}
+	return u.UnreadNotifications
+}
+
 type PublicUser struct {
 	User *User
 }
@@ -98,8 +110,8 @@ func (u *User) ToJSON() UserJSON {
 		Username:    u.Username,
 		Status:      u.Status,
 		CreatedAt:   u.CreatedAt.Format(time.RFC3339),
-		LikingCount: u.LikingCount,
-		LikedCount:  u.LikedCount,
+		LikingCount: len(u.Likings),
+		LikedCount:  len(u.Liked),
 	}
 	return json
 }

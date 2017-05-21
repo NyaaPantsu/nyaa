@@ -1,4 +1,4 @@
-{{define "title"}}{{ T "sign_in_title" }}{{end}}
+{{define "title"}}{{ call $.T "sign_in_title" }}{{end}}
 {{define "contclass"}}cont-view{{end}}
 {{define "content"}}
 <div class="blockBody">
@@ -7,35 +7,35 @@
 			{{ with .LoginForm }}
 			<form role="form" method="POST">
 				<fieldset>
-					<h2>{{T "sign_in_box_title"}}</h2>
+					<h2>{{call $.T "sign_in_box_title"}}</h2>
 					<hr class="colorgraph">
 					{{ range (index $.FormErrors "errors")}}
 	   					<div class="alert alert-danger">{{ . }}</div>
 	   				{{end}}
 					<div class="form-group">
-	                    <input type="text" name="username" id="username" class="form-control input-lg" autofocus placeholder="{{ T "email_address_or_username"}}">
+	                    <input type="text" name="username" id="username" class="form-control input-lg" autofocus placeholder="{{ call $.T "email_address_or_username"}}">
        	            	{{ range (index $.FormErrors "username")}}
 						<p class="text-error">{{ . }}</p>
 						{{end}}
 					</div>
 					<div class="form-group">
-	                    <input type="password" name="password" id="password" class="form-control input-lg" placeholder="{{ T "password"}}">
+	                    <input type="password" name="password" id="password" class="form-control input-lg" placeholder="{{ call $.T "password"}}">
                			{{ range (index $.FormErrors "password")}}
 						<p class="text-error">{{ . }}</p>
 						{{end}}
 					</div>
 					<!-- <span class="button-checkbox">
-						<button type="button" class="btn hidden" data-color="info">{{ T "remember_me"}}</button>
+						<button type="button" class="btn hidden" data-color="info">{{ call $.T "remember_me"}}</button>
 	                    <input type="checkbox" name="remember_me" id="remember_me" checked="checked">
-						<a href="" class="btn btn-link pull-right">{{ T "forgot_password"}}</a>
+						<a href="" class="btn btn-link pull-right">{{ call $.T "forgot_password"}}</a>
 					</span> -->
 					<hr class="colorgraph">
 					<div class="row">
 						<div class="col-xs-6 col-sm-6 col-md-6">
-	                        <input type="submit" class="btn btn-lg btn-success btn-block" value="{{ T "signin"}}">
+	                        <input type="submit" class="btn btn-lg btn-success btn-block" value="{{ call $.T "signin"}}">
 						</div>
 						<div class="col-xs-6 col-sm-6 col-md-6">
-							<a href="{{ genRoute "user_register" }}" class="btn btn-lg btn-primary btn-block">{{ T "register"}}</a>
+							<a href="{{ genRoute "user_register" }}" class="btn btn-lg btn-primary btn-block">{{ call $.T "register"}}</a>
 						</div>
 					</div>
 				</fieldset>

@@ -28,6 +28,7 @@ func init() {
 	gzipUserProfileHandler := http.HandlerFunc(UserProfileHandler)
 	gzipUserDetailsHandler := http.HandlerFunc(UserDetailsHandler)
 	gzipUserProfileFormHandler := http.HandlerFunc(UserProfileFormHandler)
+	gzipUserNotificationsHandler := http.HandlerFunc(UserNotificationsHandler)
 	gzipDumpsHandler := handlers.CompressHandler(dumpsHandler)
 	gzipGpgKeyHandler := handlers.CompressHandler(gpgKeyHandler)
 	gzipDatabaseDumpHandler := handlers.CompressHandler(http.HandlerFunc(DatabaseDumpHandler))
@@ -63,6 +64,7 @@ func init() {
 	Router.HandleFunc("/user/{id}/{username}/follow", UserFollowHandler).Name("user_follow").Methods("GET")
 	Router.Handle("/user/{id}/{username}/edit", wrapHandler(gzipUserDetailsHandler)).Name("user_profile_details").Methods("GET")
 	Router.Handle("/user/{id}/{username}/edit", wrapHandler(gzipUserProfileFormHandler)).Name("user_profile_edit").Methods("POST")
+	Router.Handle("/user/notifications", wrapHandler(gzipUserNotificationsHandler)).Name("user_notifications")
 	Router.HandleFunc("/user/{id}/{username}/feed", RSSHandler).Name("feed_user")
 	Router.HandleFunc("/user/{id}/{username}/feed/{page}", RSSHandler).Name("feed_user_page")
 

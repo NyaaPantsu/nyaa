@@ -6,6 +6,7 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/util/timeHelper"
 	"github.com/gorilla/mux"
 )
 
@@ -30,13 +31,13 @@ func SeeLanguagesHandler(w http.ResponseWriter, r *http.Request) {
 		clv := ChangeLanguageVariables{
 			Search:     NewSearchForm(),
 			Navigation: NewNavigation(),
+			T:          languages.GetTfuncFromRequest(r),
 			Language:   Tlang.Tag,
 			Languages:  availableLanguages,
 			User:       GetUser(r),
 			URL:        r.URL,
 			Route:      mux.CurrentRoute(r),
 		}
-		languages.SetTranslationFromRequest(changeLanguageTemplate, r)
 		err := changeLanguageTemplate.ExecuteTemplate(w, "index.html", clv)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -55,13 +56,13 @@ func ChangeLanguageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// If logged in, update user language; if not, set cookie.
-	user, err := userService.CurrentUser(r)
-	if err == nil {
+	user, _ := userService.CurrentUser(r)
+	if user.ID > 0 { 
 		user.Language = lang
 		// I don't know if I should use this...
 		userService.UpdateUserCore(&user)
 	}
-	http.SetCookie(w, &http.Cookie{Name: "lang", Value: lang})
+	http.SetCookie(w, &http.Cookie{Name: "lang", Value: lang, Expires: timeHelper.FewDaysLater(365)})
 
 	url, _ := Router.Get("home").URL()
 	http.Redirect(w, r, url.String(), http.StatusSeeOther)

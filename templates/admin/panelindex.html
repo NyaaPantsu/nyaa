@@ -11,7 +11,7 @@
 <tr>
     <td><a href="{{ genViewTorrentRoute .ID }}">{{ .Name }}</a> (<a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">Edit</a>)</td>
     <td><a href="{{ genRoute "mod_tlist" }}?userID={{.UploaderID}}">{{ .UploaderID }}</a></td>
-    <td><a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i> {{ T "delete" }}</a></td>
+    <td><a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i> {{ call $.T "delete" }}</a></td>
 </tr>
 {{end}}
 </table>
@@ -36,7 +36,7 @@
     <td><a href="{{ genRoute "view_torrent" "id" .Torrent.ID }}">{{ .Torrent.Name }}</a> (<a href="{{ genRoute "mod_tedit" }}?id={{.Torrent.ID}}">Edit</a>)</td>
     <td>{{.User.Username}}</td>
     <td>{{.Description}}</td>
-    <td><a href="{{ genRoute "mod_trdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg"><i class="glyphicon glyphicon-trash"></i> {{ T "delete" }}</a></td>
+    <td><a href="{{ genRoute "mod_trdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg"><i class="glyphicon glyphicon-trash"></i> {{ call $.T "delete" }}</a></td>
 </tr>
 {{end}}
 </table>
@@ -57,7 +57,7 @@
 
 <tr>
     <td><a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}?edit">{{ .Username }}</a></td>
-    <td><a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}?delete" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i> {{ T "delete" }}</a></td>
+    <td><a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}?delete" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i> {{ call $.T "delete" }}</a></td>
 </tr>
 {{end}}
 </table>
@@ -80,7 +80,7 @@
 <tr>
     <td><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{ .Content }}</a></td>
     <td><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{.UserID}}</a></td>
-    <td><a href="{{ genRoute "mod_cdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i> {{ T "delete" }}</a></td>
+    <td><a href="{{ genRoute "mod_cdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i> {{ call $.T "delete" }}</a></td>
 </tr>
 {{end}}
 </table>
