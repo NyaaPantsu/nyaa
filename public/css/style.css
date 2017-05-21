@@ -269,14 +269,6 @@ div.container div.blockBody:nth-of-type(2) table tr:first-of-type th:last-of-typ
 	display: none;
 }
 
-#mainmenu .navbar-form select.form-control {
-	width: 12rem;
-}
-
-#mainmenu .navbar-form select.form-control#max {
-	width: 6rem;
-}
-
 .special-img {
 	position: relative;
 	top: -7px;
