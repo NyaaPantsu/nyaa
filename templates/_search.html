@@ -1,5 +1,5 @@
 {{define "search_common"}}
-  <select name="c" value>
+  <select name="c" class="form-input" value>
     <option value="_">{{call $.T "all_categories"}}</option>
     {{ if Sukebei }}
     <option value="1_" {{if eq .Search.Category "1_"}}selected{{end}}>{{call $.T "art"}}</option>
@@ -37,14 +37,14 @@
     <option value="1_2" {{if eq .Search.Category "1_2"}}selected{{end}}>{{call $.T "software_games"}}</option>
     {{ end }}
   </select>
-  <select name="s" value>
+  <select name="s" class="form-input" value>
     <option value="0">{{call $.T "show_all"}}</option>
     <option value="1" {{if eq .Search.Status 1}}selected{{end}}>{{call $.T "filter_remakes"}}</option>
     <option value="2" {{if eq .Search.Status 2}}selected{{end}}>{{call $.T "trusted"}}</option>
     <option value="3" {{if eq .Search.Status 3}}selected{{end}}>A+</option>
   </select>
   {{ if .Search.ShowItemsPerPage }}
-  <select name="max" value>
+  <select name="max" class="form-input" value>
     <option value="5" {{if eq .Navigation.MaxItemPerPage 5}}selected{{end}}>5</option>
     <option value="10" {{if eq .Navigation.MaxItemPerPage 10}}selected{{end}}>10</option>
     <option value="15" {{if eq .Navigation.MaxItemPerPage 15}}selected{{end}}>15</option>
@@ -65,10 +65,6 @@
   <input type="hidden" name="userID" value="{{ .Search.UserID }}">
 {{end}}
 {{define "search_button"}}
-  <fieldset class="input-group">
-    <input name="q" placeholder="{{call $.T "search"}}" type="text" value="{{.Search.Query}}">
-    <span class="input-group-btn">
-      <button type="submit" class="pure-button pure-button-primary">{{call $.T "search"}}</button>
-    </span>
-  </fieldset>
+    <input class="form-input search-box" name="q" placeholder="{{call $.T "search"}}" type="text" value="{{.Search.Query}}">
+    <button type="submit" class="form-input search-btn">{{call $.T "search"}}</button>
 {{end}}

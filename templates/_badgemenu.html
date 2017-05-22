@@ -1,25 +1,23 @@
 {{define "badge_user"}}
 {{with .User}}
-		<li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+<div class="h-user">
 			{{if gt .ID 0}}
-			<a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}" class="pure-menu-link">
-			<img src="https://www.gravatar.com/avatar/{{ .MD5 }}?s=50" class="img-circle special-img"> {{ .Username }} <span class="badge">{{ .GetUnreadNotifications }}</span><b class="caret"></b></a>
-			<ul class="pure-menu-children">
-					<li class="pure-menu-item"><a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}">{{call $.T "profile"}}</a></li>
-					<li class="pure-menu-item"><a href="{{ genRoute "user_notifications" }}">{{ call $.T "my_notifications"}} <span class="badge">{{ .GetUnreadNotifications }}</span></a></li>
-					<li class="pure-menu-item"><a href="{{ genRoute "user_profile_edit" "id" (print .ID) "username" .Username }}">{{call $.T "settings"}}</a></li>
-					{{if HasAdmin . }}<li><a href="{{ genRoute "mod_index" }}">{{call $.T "moderation"}}</a></li>{{end}}
-					<li class="pure-menu-item"><a href="{{ genRoute "user_logout" }}">{{ call $.T "sign_out"}}</a></li>
-			</ul>
+			<button href="#" class="nav-btn">
+			<div class="user-avatar small"><img src="https://www.gravatar.com/avatar/{{ .MD5 }}?s=50"></div>
+			<span class="user-info" title="{{.Username}}">&nbsp;<i class="fa fa-caret-down"></i><span class="hide-md">&nbsp;&nbsp;{{.Username}}</span></span>
+			</button>
+			<div class="user-menu">
+					<a class="nav-btn" href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}">{{call $.T "profile"}}</a>
+					<a class="nav-btn" href="{{ genRoute "user_notifications" }}">{{ call $.T "my_notifications"}} <span class="badge">{{ .GetUnreadNotifications }}</span></a>
+					<a class="nav-btn" href="{{ genRoute "user_profile_edit" "id" (print .ID) "username" .Username }}">{{call $.T "settings"}}</a>
+					{{if HasAdmin . }}<a class="nav-btn" href="{{ genRoute "mod_index" }}">{{call $.T "moderation"}}</a>{{end}}
+					<a class="nav-btn" href="{{ genRoute "user_logout" }}">{{ call $.T "sign_out"}}</a></li>
+			</div>
 			{{ else }}
-			<a href="#" class="pure-menu-link">
-				{{ call $.T "member" }}<span class="caret"></span>
+			<a href="{{ genRoute "user_login" }}" class="nav-btn">
+				{{ call $.T "signin" }}<span class="caret"></span>
 			</a>
-			<ul class="pure-menu-children">
-					<li class="pure-menu-item"><a href="{{ genRoute "user_login" }}">{{ call $.T "sign_in"}}</a></li>
-					<li class="pure-menu-item"><a href="{{ genRoute "user_register" }}">{{ call $.T "sign_up"}}</a></li>
-			</ul>
 	{{end}}
-		</li>
+</div>
 {{end}}
 {{end}}
