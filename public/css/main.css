@@ -394,3 +394,19 @@ td.tr-le { color: #E84C4C; }
 .up-btn {
 	font-size: large;
 }
+
+.profile-sidebar {
+	display: inline-block;
+	text-align: center;
+}
+.profile-usertitle {
+	margin-top: 5px;
+	border-radius: 3px;
+}
+
+.profile-usertitle-job {
+	font-style: italic;
+}
+.profile-userpic img {
+	border-radius: 6px;
+}

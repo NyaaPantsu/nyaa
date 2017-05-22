@@ -6,13 +6,12 @@
 {{ range (index $.FormInfos "infos")}}
 	<div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
 {{end}}
-<div class="row profile">
 {{with .UserProfile}}
-		<div class="col-md-3">
+		<div class="profile-box">
 			<div class="profile-sidebar">
 				<!-- SIDEBAR USERPIC -->
 				<div class="profile-userpic">
-					<img src="{{ getAvatar .MD5 130 }}" class="img-responsive" alt="{{.Username}}">
+					<img src="{{ getAvatar .MD5 130 }}" alt="{{.Username}}">
 				</div>
 				<!-- END SIDEBAR USERPIC -->
 				<!-- SIDEBAR USER TITLE -->
