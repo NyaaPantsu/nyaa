@@ -2,6 +2,7 @@
 {{define "contclass"}}cont-view{{end}}
 {{define "content"}}
 			{{ with .LoginForm }}
+			<div class="box">
 			<form role="form" method="POST">
 					<h2>{{call $.T "sign_in_box_title"}}</h2>
 					{{ range (index $.FormErrors "errors")}}
@@ -22,13 +23,10 @@
 					</span> -->
 	                        <input type="submit" class="form-input" value="{{ call $.T "signin"}}">
 							<a href="{{ genRoute "user_register" }}" class="btn btn-lg btn-primary btn-block">{{ call $.T "register"}}</a>
-					</div>
 			</form>
+			</div>
 			{{end}}
-		</div>
-	</div>
     <br />
     <br />
-</div>
 {{end}}
 {{define "js_footer"}}<script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/registerPage.js"}}"></script>{{end}}
