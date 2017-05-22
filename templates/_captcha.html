@@ -2,10 +2,10 @@
 	{{/* unset if user doesn't need captcha */}}
 	{{if ne .CaptchaID ""}}
 	<div class="form-group captcha-container">
-		<label for="solution">{{call $.T "captcha"}}</label>
+		<label class="up-label" for="solution">{{call $.T "captcha"}}</label> <br>
 		<input type="text" name="captchaID" value="{{.CaptchaID}}" hidden>
-		<img src="/captcha/{{.CaptchaID}}.png">
-		<input type="text" name="solution" id="solution" class="form-control" placeholder="{{call $.T "captcha"}}" autocomplete="off" required>
+		<img src="/captcha/{{.CaptchaID}}.png"><br>
+		<input class="form-input up-input" type="text" name="solution" id="solution" class="form-control" placeholder="{{call $.T "captcha"}}" autocomplete="off" required>
 	</div>
 	{{end}}
 {{end}}
