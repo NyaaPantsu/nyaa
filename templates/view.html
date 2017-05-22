@@ -30,7 +30,7 @@
                           {{ end }}
                           <br />
                           <h4 style="display:inline-block">
-                              {{ call $.T "uploaded_by" }} <a href="{{ genRoute "user_profile" "id" (print .Uploader.ID) "username" .Uploader.Username) }}">{{.UploaderName}}</a>
+                              {{ call $.T "uploaded_by" }} <a href="{{ genRoute "user_profile" "id" ( print .Uploader.ID ) "username" .Uploader.Username }}">{{.UploaderName}}</a>
                           </h4>
                           {{if ne .OldUploader ""}}
                           <span>({{.OldUploader}})</span>
@@ -147,7 +147,7 @@
                         <li class="clearfix comment jumptarget" id="comment_{{inc $index}}">
                             {{/* The following line is wrong. Should be using the MD5 User hash but i don't knwo how to access it. */}}
                             {{/* Changing Gravatar for something else, so it can stay like this. */}}
-                            <img src="https://www.gravatar.com/avatar/{{ .UserID }}?s=50" class="avatar" alt="">
+                            <img src="https://www.gravatar.com/avatar/{{ .User.MD5 }}?s=50" class="avatar" alt="">
                             <div class="commentBody">
                                 <div class="commentData">
                                     <div class="row">
@@ -163,7 +163,7 @@
                                                 <a href="#comment_{{inc $index}}">#{{inc $index}}</a> by {{.Username}}
                                                 {{else}}
                                                 <a href="#comment_{{inc $index}}">#{{inc $index}}</a>
-                                                by <span class="break"><a href="{{$.URL.Parse (printf "/user/%d/-" .UserID ) }}">{{.Username}}</a></span>
+                                                by <span class="break"><a href="{{ genRoute "user_profile" "id" ( print .User.ID ) "username" .User.Username  }}">{{.Username}}</a></span>
                                                 {{end}}
                                             </div>
                                         </div>
