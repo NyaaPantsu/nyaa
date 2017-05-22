@@ -215,9 +215,9 @@ table {
 
 
 th { height: 40px;}
-td { height: 37px; }
+.home-td { height: 37px; }
 
-th, td {
+th, .home-td {
 	border-bottom:  1px solid;
 	text-align: center;
 	padding: 2px 5px;
@@ -409,4 +409,47 @@ td.tr-le { color: #E84C4C; }
 }
 .profile-userpic img {
 	border-radius: 6px;
+}
+
+.torrent-hr {
+	font-size: large;
+}
+
+.torrent-info-label {
+	width: 15%;
+	vertical-align: middle;
+	font-weight: bold;
+}
+.torrent-info-data {
+	width: 60%;
+}
+.torrent-info-row {
+	text-align: left;
+}
+.torrent-info-td {
+	padding: 4px 4px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.torrent-info-box {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+.comment-box {
+	margin-top: 10px;
+	padding-left: 7px;
+	margin-right: 30px;
+	margin-left: 30px;
+}
+.comment-form {
+	margin-left: 10px;
+	margin-top: 10px;
+	padding-bottom: 5px;
+}
+.comment-index {
+	margin-right: 5px;
+	margin-top: 5px;
+	float: right;
 }

@@ -40,7 +40,7 @@ Your browser does not support the audio element.
               {{if eq .Status 2}}remake{{end}}
               {{if eq .Status 3}}trusted{{end}}
               {{if eq .Status 4}}aplus{{end}}">
-              <td class="tr-cat">
+              <td class="tr-cat home-td">
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
                       {{ if Sukebei }}
                       <img src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (Category_Sukebei .Category .SubCategory) }}">
@@ -49,7 +49,7 @@ Your browser does not support the audio element.
                       {{ end}}
                   </a>
               </td>
-              <td class="tr-name">
+              <td class="tr-name home-td">
                   <a href="{{genRoute "view_torrent" "id" .ID }}">
                       {{.Name}}
                   </a>
@@ -59,7 +59,7 @@ Your browser does not support the audio element.
                   {{len .Comments}}
               </td>
               -->
-              <td class="tr-links">
+              <td class="tr-links home-td">
                   <a href="{{.Magnet}}" title="Magnet link">
                       <i class="fa fa-magnet"></i>
                   </a>
@@ -69,17 +69,17 @@ Your browser does not support the audio element.
                   </a>
                   {{end}}
               </td>
-              <td class="tr-size">
+              <td class="tr-size home-td">
                   {{ fileSize .Filesize $.T }}
               </td>
               {{if .LastScrape.IsZero}}
-              <td colspan="3">{{call $.T "unknown"}}</td>
+              <td class="home-td" colspan="3">{{call $.T "unknown"}}</td>
               {{else}}
-              <td class="tr-se">{{.Seeders}}</td>
-              <td class="tr-le">{{.Leechers}}</td>
-              <td class="tr-dl">{{.Completed}}</td>
+              <td class="tr-se home-td">{{.Seeders}}</td>
+              <td class="tr-le home-td">{{.Leechers}}</td>
+              <td class="tr-dl home-td">{{.Completed}}</td>
               {{end}}
-              <td class="tr-date">{{.Date}}</td>
+              <td class="tr-date home-td">{{.Date}}</td>
           </tr>
           {{end}}
       </table>
