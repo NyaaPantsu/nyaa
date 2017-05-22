@@ -94,8 +94,8 @@ float:  right; }
 
 select.form-input {
 	-webkit-appearance: none;
-	-moz-appearance: none;
-	padding-right: 1.5rem;
+  	-moz-appearance: none;
+  	padding-right: 1.5rem;
 }
 
 .form-icon {
