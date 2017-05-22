@@ -480,6 +480,10 @@
     "translation": "งานศิลป์ - มังงะ"
   },
   {
+    "id": "art_pictures",
+    "translation": "งานศิลป์ - ภาพวาด"
+  },
+  {
     "id": "real_life",
     "translation": "คนจริง"
   },
@@ -778,5 +782,61 @@
   {
     "id": "new_torrent_uploaded",
     "translation": "ทอร์เรนท์ใหม่: \"%s\" จาก %s"
-}
+  },
+  {
+    "id": "preferences",
+    "translation": "ตั้งค่า"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "แจ้งเตือนเมื่อมีทอร์เรนท์ใหม่ที่เพิ่มมาจากผู้ใช้ที่ติดตาม"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "แจ้งเตือนผ่านอีเมล์เมื่อมีทอร์เรนท์ใหม่ที่เพิ่มมาจากผู้ใช้ที่ติดตาม"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "แจ้งเตือนเมื่อมีคอมเมนท์ใหม่ในคอมเมนท์ของคุณ"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "แจ้งเตือนผ่านอีเมล์เมื่อมีคอมเมนท์ใหม่ในทอร์เรนท์ของคุณ"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "แจ้งเตือนเมื่อมีการตอบรับที่คอมเมนท์ของคุณ"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "แจ้งเตือนผ่านอีเมล์เมื่อมีการตอบรับที่คอมเมนท์ของคุณ"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "แจ้งเตือนเมื่อคุณมีผู้ติดตามใหม่"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "แจ้งเตือนผ่านอีเมล์เมื่อคุณมีผู้ติดตามใหม่"
+  },
+  {
+    "id": "followed_settings",
+    "translation": "แจ้งเตือนเมื่อคุณติดตามใครบางคน"
+  },
+  {
+    "id": "followed_email_settings",
+    "translation": "แจ้งเตือนผ่านอีเมล์เมื่อคุณติดตามใครบางคน"
+  },
+  {
+    "id": "yes",
+    "translation": "ใช่"
+  },
+  {
+    "id": "no",
+    "translation": "ไม่ใช่"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "คอมเมนท์ใหม่ในทอร์เรนท์: \"%s\""
+  }
 ]
