@@ -485,7 +485,7 @@
   },  
   {
     "id": "real_life",    
-    "translation": "Real Life"  
+    "translation": "Vida real"  
   },  
   {
     "id": "real_life_photobooks_and_pictures",
@@ -805,11 +805,11 @@
   },  
   {    
     "id": "new_responses_settings",    
-    "translation": "Seja notificado quando houver uma resposta em seus comentários"  
+    "translation": "Seja notificado quando houver uma resposta a seus comentários"  
   },  
   {    
     "id": "new_responses_email_settings",    
-    "translation": "Seja notificado por e-mail quando houver uma resposta em seus comentários"  
+    "translation": "Seja notificado por e-mail quando houver uma resposta a seus comentários"  
   },  
   {    
     "id": "new_follower_settings",    
