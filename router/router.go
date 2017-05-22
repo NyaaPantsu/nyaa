@@ -92,7 +92,7 @@ func init() {
 	Router.HandleFunc("/mod/reassign",        WrapModHandler(TorrentPostReassignModPanel)).Name("mod_treassign").Methods("POST")
 
 	//reporting a torrent
-	Router.HandleFunc("/report/{id}", ReportTorrentHandler).Methods("POST").Name("post_comment")
+	Router.HandleFunc("/report/{id}", ReportTorrentHandler).Methods("POST").Name("torrent_report")
 
 	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
 
