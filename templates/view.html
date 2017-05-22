@@ -22,11 +22,11 @@
                 <div class="col-md-12">
                     <div style="float: left;">
                           {{ if Sukebei }}
-                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (Category_Sukebei .Category .SubCategory) }}"> 
-						  <span style="vertical-align:middle;font-size:large;">{{ call $.T (Category_Sukebei .Category .SubCategory) }}</span>
+                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}"> 
+						  <span style="vertical-align:middle;font-size:large;">{{ call $.T (CategoryName .Category .SubCategory) }}</span>
                           {{ else }}
-                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ call $.T (Category_Nyaa .Category .SubCategory) }}"> 
-                          <span style="vertical-align:middle;font-size:large;">{{ call $.T (Category_Nyaa .Category .SubCategory) }}</span>
+                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}"> 
+                          <span style="vertical-align:middle;font-size:large;">{{ call $.T (CategoryName .Category .SubCategory) }}</span>
                           {{ end }}
                           <br />
                           <h4 style="display:inline-block">

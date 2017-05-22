@@ -21,9 +21,9 @@
               <td style="width:80px">
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
                       {{ if Sukebei }}
-                      <img src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (Category_Sukebei .Category .SubCategory) }}">
+                      <img src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
                       {{ else }}
-                      <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ call $.T (Category_Nyaa .Category .SubCategory) }}">
+                      <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
                       {{ end}}
                   </a>
               </td>
