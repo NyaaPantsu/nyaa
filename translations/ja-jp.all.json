@@ -393,11 +393,11 @@
   },
   {
     "id": "audio_lossless",
-    "translation": "オーディオ ‐ 可逆圧縮方式 (FLAC など)"
+    "translation": "オーディオ ‐ 可逆圧縮"
   },
   {
     "id": "audio_lossy",
-    "translation": "オーディオ ‐ 非可逆圧縮方式 (MP3 など)"
+    "translation": "オーディオ ‐ 非可逆圧縮"
   },
   {
     "id": "literature",
@@ -684,8 +684,12 @@
     "translation": "削除"
   },
   {
+    "id": "website_link",
+    "translation": "ウェブサイト"
+  },
+  {
     "id": "files",
-    "translation": "ファイル"
+    "translation": "ファイル一覧"
   },
   {
     "id": "filename",
@@ -762,5 +766,77 @@
   {
     "id": "no_database_dumps_available",
     "translation": "現在利用可能なデータベースダンプはありません。"
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "通知をクリア"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "通知がクリアされました。"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "通知"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "Torrent がアップロードされました: \"%s\"、 %s さんから"
+  },
+  {
+    "id": "preferences",
+    "translation": "カスタム設定"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "フォロー中のアカウントから新しい Torrent がアップロードされたら通知する"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "フォロー中のアカウントから新しい Torrent がアップロードされたらメールで通知する"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "自分の Torrent にコメントが付いたら通知する"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "自分の Torrent にコメントが付いたらメールで通知する"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "自分のコメントにリプライが付いたら通知する"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "自分のコメントにリプライが付いたらメールで通知する"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "フォローされたら通知する"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "フォローされたらメールで通知する"
+  },
+  {
+    "id": "followed_settings",
+    "translation": "フォローしたら通知する"
+  },
+  {
+    "id": "followed_email_settings",
+    "translation": "フォローしたらメールで通知する"
+  },
+  {
+    "id": "yes",
+    "translation": "はい"
+  },
+  {
+    "id": "no",
+    "translation": "いいえ"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "コメントが付きました: \"%s\""
   }
 ]
