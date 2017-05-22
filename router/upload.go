@@ -19,6 +19,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/service/upload"
 	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/NyaaPantsu/nyaa/util/categories"
 	"github.com/NyaaPantsu/nyaa/util/metainfo"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/zeebo/bencode"
@@ -114,6 +115,10 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 		}
 		SubCatID, err := strconv.Atoi(catsSplit[1])
 		if err != nil {
+			return ErrInvalidTorrentCategory
+		}
+
+		if !categories.CategoryExists(f.Category) {
 			return ErrInvalidTorrentCategory
 		}
 
