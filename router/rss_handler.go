@@ -2,10 +2,10 @@ package router
 
 import (
 	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/feeds"
 	userService "github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/search"
-	"github.com/gorilla/feeds"
 	"github.com/gorilla/mux"
 	"html"
 	"net/http"
@@ -78,6 +78,14 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 			Description: string(torrentJSON.Description),
 			Created:     torrent.Date,
 			Updated:     torrent.Date,
+			Torrent: &feeds.Torrent{
+				FileName:      torrent.Name,
+				Seeds:         torrent.Seeders,
+				Peers:         torrent.Leechers,
+				InfoHash:      torrent.Hash,
+				ContentLength: torrent.Filesize,
+				MagnetURI:     string(torrentJSON.Magnet),
+			},
 		}
 	}
 	// allow cross domain AJAX requests
