@@ -480,10 +480,14 @@
     "translation": "Arte - Manga"  
   },  
   {    
-    "id": "real_life",    
-    "translation": "Vida real"  
+    "id": "art_pictures",    
+    "translation": "Arte - Imagens"  
   },  
-  {    
+  {
+    "id": "real_life",    
+    "translation": "Real Life"  
+  },  
+  {
     "id": "real_life_photobooks_and_pictures",
     "translation": "Vida real - Albums de fotos e fotografias"  
   },  
@@ -678,7 +682,11 @@
   {
     "id": "delete",
     "translation": "Excluir"
-  },  
+  },
+  {    
+    "id": "website_link",    
+    "translation": "Link do Website"  
+  },
   {    
     "id": "files",
     "translation": "Arquivos"  
@@ -774,5 +782,61 @@
   {
     "id": "new_torrent_uploaded",
     "translation": "Novo torrent: \"%s\" por %s"
+  },  
+  {    
+    "id": "preferences",    
+    "translation": "Preferências"  
+  },  
+  {    
+    "id": "new_torrent_settings",    
+    "translation": "Seja notificado quando alguém que você está seguindo enviar um novo torrent"  
+  },  
+  {    
+    "id": "new_torrent_email_settings",    
+    "translation": "Seja notificado por e-mail quando alguém que você está seguindo enviar um novo torrent."  
+  },  
+  {    
+    "id": "new_comment_settings",    
+    "translation": "Seja notificado quando houver um novo comentário em seus torrents"  
+  },  
+  {    
+    "id": "new_comment_email_settings",    
+    "translation": "Seja notificado por e-mail quando houver um novo comentário em seus torrents"  
+  },  
+  {    
+    "id": "new_responses_settings",    
+    "translation": "Seja notificado quando houver uma resposta em seus comentários"  
+  },  
+  {    
+    "id": "new_responses_email_settings",    
+    "translation": "Seja notificado por e-mail quando houver uma resposta em seus comentários"  
+  },  
+  {    
+    "id": "new_follower_settings",    
+    "translation": "Seja notificado quando houver um novo seguidor"  
+  },  
+  {    
+    "id": "new_follower_email_settings",    
+    "translation": "Seja notificado por e-mail quando houver um novo seguidor"  
+  },  
+  {    
+    "id": "followed_settings",    
+    "translation": "Seja notificado ao seguir alguém."  
+  },  
+  {    
+    "id": "followed_email_settings",    
+    "translation": "Seja notificado por e-mail ao seguir alguém."  
+  },  
+  {    
+    "id": "yes",    
+    "translation": "Sim"  
+  },  
+  {    
+    "id": "no",    
+    "translation": "Não"  
+  },  
+  {    
+    "id": "new_comment_on_torrent",    
+    "translation": "Novo comentário no torrent: \"%s\""
   }
 ]
