@@ -12,7 +12,9 @@ Your browser does not support the audio element.
 </audio>
 
   <span id="mascot" class="visible-lg"></span>
-
+    {{ range (index $.Infos "infos")}}
+      <div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
+    {{end}}
   <div class="blockBody">
       <nav>
       <ul class="list-inline text-center" aria-label="Page navigation">
