@@ -11,64 +11,75 @@
     <!-- RSS Feed with Context -->
     <link href="{{ genRouteWithQuery "feed" .URL }}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
 
-    <!-- PureCSS -->
-    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
-    <!-- Open Iconic -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic.min.css" />
-    <!-- Website CSS -->
-    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/style.css"}}">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}">
+    <link rel="stylesheet" href="" id="theme">
+		<script>
+			function changeTheme(opt) {
+				document.getElementById('theme').href = "{{.URL.Parse " + opt.value + '"}}';
+			}
+		</script>
 
     <!-- Search Box for Google -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 
     </head>
   <body>
-      <nav class="pure-menu pure-menu-horizontal">
-          <a href="#" class="pure-menu-heading pure-menu-link">NyaaPantsu</a>
- 		<ul class="pure-menu-list">
-                      <li class="pure-menu-item"><a class="pure-menu-link" href="{{.URL.Parse "/upload"}}">{{call $.T "upload"}}</a></li>
-                      <li class="pure-menu-item"><a class="pure-menu-link" href="{{.URL.Parse "/faq"}}">{{call $.T "faq"}}</a></li>
-                      <li class="pure-menu-item"><a class="pure-menu-link" href="{{ genRouteWithQuery "feed" .URL }}">RSS</a></li>
-                      {{ if Sukebei }}
-                      <li class="pure-menu-item"><a class="pure-menu-link" href="https://nyaa.pantsu.cat">{{call $.T "fun"}}</a></li>
-                      {{ else }}
-                      <li class="pure-menu-item"><a class="pure-menu-link" href="https://sukebei.pantsu.cat">{{call $.T "fap"}}</a></li>
-                      {{ end }}
-                  </ul>
-                  <!-- Search bar -->
-                  <form class="pure-form" role="search" action="/search" method="get">
-                      <fieldset class="pure-group">
-                        {{block "search_common" .}}{{end}}
-                      </fieldset>
-                      <fieldset class="pure-group">
-                        {{block "search_button" .}}{{end}}
-                      </fieldset>
-                  </form>
-                  <!-- User dropdown -->
-                  {{block "badge_user" .}}{{end}}
-      </nav>
+     <div class="mascot"></div>
+	<nav id="header" class="header">
+		<div class="container">
+			<div class="h-left">
+					<div class="h-logo">
+						<a href="#"><img src="/img/logo.png" alt="NyaaPantsu"></a>
+					</div>
+					<div class="h-nav">
+						<a href="{{.URL.Parse "/upload"}}" class="nav-btn">Upload</a>
+						<a href="{{ genRouteWithQuery "feed" .URL }}" class="nav-btn">RSS</a>
+						<a href="{{.URL.Parse "/faq"}}" class="nav-btn">FAQ</a>
+						<a href="sukebei.html" class="nav-btn">Fap</a>
+					</div>
+			</div>
+			<div class="h-right">
+        {{block "badge_user" .}}{{end}}
+				<div class="h-search">
+				<form role="search" action="/search" method="get">
+						{{block "search_common" .}}{{end}}
+            {{block "search_button" .}}{{end}}
+				</form>
+				</div>
+			</div>
+		</div>
+	</nav>
 
-      <div class="container {{block "contclass" .}}generic{{end}}">
+<div id="content">
+      <div class="content container">
         {{block "content" .}}{{call $.T "nothing_here"}}{{end}}
       </div>
+<div class="pagination">
+              {{ genNav .Navigation .URL 15 }}
+</div>
 
-      <footer>
-      Powered by NyaaPantsu
-      </footer>
+<footer id="footer">
+			<div class="container footer">
 
+				<div class="footer-opt">
+					<select onchange="changeTheme(this.options[this.selectedIndex])" name="Theme" id="" class="form-input">
+						<option value="">Default</option>
+						<option value="css/theme_g_anon.css">/g/ Anon</option>
+						<option value="css/theme_tomorrow.css">Tomorrow</option>
+					</select><label class="form-input select-icon"><i class="fa fa-caret-down"></i></label>
 
-      {{if eq .User.ID 0}}
-	  <form method="POST" action="{{ .URL.Parse "/language" }}" id="bottom_language_selector_form">
-		  <select id="bottom_language_selector" name="language" onchange="javascript:document.getElementById('bottom_language_selector_form').submit()" hidden class="form-control"></select>
-	  </form>
-	  <noscript>
-		  <center><a href="{{ .URL.Parse "/language" }}">{{ call $.T "change_language" }}</a></center>
-	  </noscript>
-    <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/languages.js"}}"></script>
-	  {{end}}
+					<select name="Language" id="" class="form-input">
+						<option value="">English</option>
+					</select><label class="form-input select-icon"><i class="fa fa-caret-down"></i></label>
 
-    <!-- Website Javascript -->
-    <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}"></script>
-        {{block "js_footer" .}}{{end}}
+					<button class="form-input btn" onclick="toggleMascot(this)" value="hide"><i class="fa fa-eye-slash"></i> Mascot</button>
+				</div>
+
+				<span><i>Powered by <a href="#">NyaaPantsu</a></i></span>
+
+			</div>
+		</footer>
+</div>
 </body>
 </html>

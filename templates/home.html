@@ -2,6 +2,7 @@
 {{define "contclass"}}cont-home{{end}}
 {{define "content"}}
 
+<!-- 
 <audio id="nyaapassu" hidden>
   <source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
 Your browser does not support the audio element.
@@ -10,37 +11,36 @@ Your browser does not support the audio element.
   <source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
 Your browser does not support the audio element.
 </audio>
-
-      <nav>
-         <ul class="pagination">
-              {{ genNav .Navigation .URL 5 }}
-         </ul>
-      </nav>
+-->
       <!-- Contain the table within a grid, as for better sizing -->
-      <div class="pure-g">
-          <table class="pure-table">
-          <tr class="pure-u-1">
-              <th class="pure-u-1-12">{{call $.T "category"}}</th>
-              <th class="pure-u-5-12">
+      <div class="results box">
+          <table>
+          <tr class="torrent-info">
+              <th class="tr-cat">{{call $.T "category"}}</th>
+              <th class="tr-name">
                 <a href="{{ genSearchWithOrdering .URL "1" }}">{{call $.T "name"}}{{ genSortArrows .URL "1" }}</a>
               </th>
-              <th class="pure-u-1-12">
+              <th class="tr-links"></th>
+              <th class="tr-size"><a href="{{ genSearchWithOrdering .URL "4" }}">{{call $.T "size"}}{{ genSortArrows .URL "4" }}</a></th>
+
+              <th class="tr-se">
                 <a href="{{ genSearchWithOrdering .URL "5" }}">{{call $.T "S"}}{{ genSortArrows .URL "5" }}</a> / 
+              </th>
+              <th class="tr-le">
                 <a href="{{ genSearchWithOrdering .URL "6" }}">{{call $.T "L"}}{{ genSortArrows .URL "6" }}</a> / 
+              </th>
+              <th class="tr-dl">
                 <a href="{{ genSearchWithOrdering .URL "7" }}">{{call $.T "D"}}{{ genSortArrows .URL "7" }}</a>
               </th>
               <!-- <th><span class="glyphicon glyphicon-comment"></span></th> -->
-              <th class="pure-u-1-12"><a href="{{ genSearchWithOrdering .URL "2" }}">{{call $.T "date"}}{{ genSortArrows .URL "2" }}</th></a>
-              <th class="pure-u-1-12"><a href="{{ genSearchWithOrdering .URL "4" }}">{{call $.T "size"}}{{ genSortArrows .URL "4" }}</a></th>
-              <th class="pure-u-1-12">{{call $.T "links"}}</th>
+              <th class="tr-date"><a href="{{ genSearchWithOrdering .URL "2" }}">{{call $.T "date"}}{{ genSortArrows .URL "2" }}</th></a>
           </tr>
           {{ range .ListTorrents}}
-          <tr class="pure-u-1 torrent-info
+          <tr class="torrent-info
               {{if eq .Status 2}}remake{{end}}
               {{if eq .Status 3}}trusted{{end}}
               {{if eq .Status 4}}aplus{{end}}">
-              <!-- forced width because the <td> gets bigger randomly otherwise -->
-              <td class="pure-u-1-12">
+              <td class="tr-cat">
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
                       {{ if Sukebei }}
                       <img src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (Category_Sukebei .Category .SubCategory) }}">
@@ -49,7 +49,7 @@ Your browser does not support the audio element.
                       {{ end}}
                   </a>
               </td>
-              <td style="text-overflow: ellipis;" class="pure-u-5-12">
+              <td class="tr-name">
                   <a href="{{genRoute "view_torrent" "id" .ID }}">
                       {{.Name}}
                   </a>
@@ -59,37 +59,29 @@ Your browser does not support the audio element.
                   {{len .Comments}}
               </td>
               -->
-              {{if .LastScrape.IsZero}}
-              <td class="pure-u-1-12">{{call $.T "unknown"}}</td>
-              {{else}}
-              <td class="pure-u-1-12">
-                <b class="text-success">{{.Seeders}}</b> / 
-                <b class="text-danger">{{.Leechers}}</b> / 
-                {{.Completed}}
-              </td>
-              {{end}}
-              <td class="pure-u-1-12">{{.Date}}</td>
-              <td class="pure-u-1-12">
-                  {{ fileSize .Filesize $.T }}
-              </td>
-              <td class="pure-u-1-12">
+              <td class="tr-links">
                   <a href="{{.Magnet}}" title="Magnet link">
-                      <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>
+                      <i class="fa fa-magnet"></i>
                   </a>
                   {{if ne .TorrentLink ""}}
                   <a href="{{.TorrentLink}}" title="Torrent file">
-                      <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 
+                        <i class="fa fa-save"></i>
                   </a>
                   {{end}}
               </td>
+              <td class="tr-size">
+                  {{ fileSize .Filesize $.T }}
+              </td>
+              {{if .LastScrape.IsZero}}
+              <td colspan="3">{{call $.T "unknown"}}</td>
+              {{else}}
+              <td class="tr-se">{{.Seeders}}</td>
+              <td class="tr-le">{{.Leechers}}</td> 
+              <td class="tr-dl">{{.Completed}}</td>
+              {{end}}
+              <td class="tr-date">{{.Date}}</td>
           </tr>
           {{end}}
       </table>
     </div>
-      <nav>
-          <ul class="pagination">
-              {{ genNav .Navigation .URL 5 }}
-          </ul>
-      </nav>
-</div>
 {{end}}
