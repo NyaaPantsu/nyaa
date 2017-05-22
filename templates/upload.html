@@ -26,37 +26,29 @@
           <select name="c" id="c" class="form-control input-sm" required>
               <option value="">{{call $.T "select_a_torrent_category"}}</option>
               {{ if Sukebei }}
-              <option value="1_" {{if eq .Category "1_"}}selected{{end}} disabled>{{call $.T "art"}}</option>
               <option value="1_1" {{if eq .Category "1_1"}}selected{{end}}>{{call $.T "art_anime"}}</option>
               <option value="1_2" {{if eq .Category "1_2"}}selected{{end}}>{{call $.T "art_doujinshi"}}</option>
               <option value="1_3" {{if eq .Category "1_3"}}selected{{end}}>{{call $.T "art_games"}}</option>
               <option value="1_4" {{if eq .Category "1_4"}}selected{{end}}>{{call $.T "art_manga"}}</option>
               <option value="1_5" {{if eq .Category "1_5"}}selected{{end}}>{{call $.T "art_pictures"}}</option>
-              <option value="2_" {{if eq .Category "2_"}}selected{{end}} disabled>{{call $.T "real_life"}}</option>
               <option value="2_1" {{if eq .Category "2_1"}}selected{{end}}>{{call $.T "real_life_photobooks_and_Pictures"}}</option>
               <option value="2_2" {{if eq .Category "2_2"}}selected{{end}}>{{call $.T "real_life_videos"}}</option>
               {{ else }}
-              <option value="3_" {{if eq .Category "3_"}}selected{{end}} disabled>{{call $.T "anime"}}</option>
               <option value="3_12" {{if eq .Category "3_12"}}selected{{end}}>{{call $.T "anime_amv"}}</option>
               <option value="3_5" {{if eq .Category "3_5"}}selected{{end}}>{{call $.T "anime_english_translated"}}</option>
               <option value="3_13" {{if eq .Category "3_13"}}selected{{end}}>{{call $.T "anime_non_english_translated"}}</option>
               <option value="3_6" {{if eq .Category "3_6"}}selected{{end}}>{{call $.T "anime_raw"}}</option>
-              <option value="2_" {{if eq .Category "2_"}}selected{{end}} disabled>{{call $.T "audio"}}</option>
               <option value="2_3" {{if eq .Category "2_3"}}selected{{end}}>{{call $.T "audio_lossless"}}</option>
               <option value="2_4" {{if eq .Category "2_4"}}selected{{end}}>{{call $.T "audio_lossy"}}</option>
-              <option value="4_" {{if eq .Category "4_"}}selected{{end}} disabled>{{call $.T "literature"}}</option>
               <option value="4_7" {{if eq .Category "4_7"}}selected{{end}}>{{call $.T "literature_english_translated"}}</option>
               <option value="4_8" {{if eq .Category "4_8"}}selected{{end}}>{{call $.T "literature_raw"}}</option>
               <option value="4_14" {{if eq .Category "4_14"}}selected{{end}}>{{call $.T "literature_non_english_translated"}}</option>
-              <option value="5_" {{if eq .Category "5_"}}selected{{end}} disabled>{{call $.T "live_action"}}</option>
               <option value="5_9" {{if eq .Category "5_9"}}selected{{end}}>{{call $.T "live_action_english_translated"}}</option>
               <option value="5_10" {{if eq .Category "5_10"}}selected{{end}}>{{call $.T "live_action_idol_pv"}}</option>
               <option value="5_18" {{if eq .Category "5_18"}}selected{{end}}>{{call $.T "live_action_non_english_translated"}}</option>
               <option value="5_11" {{if eq .Category "5_11"}}selected{{end}}>{{call $.T "live_action_raw"}}</option>
-              <option value="6_" {{if eq .Category "6_"}}selected{{end}} disabled>{{call $.T "pictures"}}</option>
               <option value="6_15" {{if eq .Category "6_15"}}selected{{end}}>{{call $.T "pictures_graphics"}}</option>
               <option value="6_16" {{if eq .Category "6_16"}}selected{{end}}>{{call $.T "pictures_photos"}}</option>
-              <option value="1_" {{if eq .Category "1_"}}selected{{end}} disabled>{{call $.T "software"}}</option>
               <option value="1_1" {{if eq .Category "1_1"}}selected{{end}}>{{call $.T "software_applications"}}</option>
               <option value="1_2" {{if eq .Category "1_2"}}selected{{end}}>{{call $.T "software_games"}}</option>
               {{ end }}
