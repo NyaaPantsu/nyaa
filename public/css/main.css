@@ -382,3 +382,15 @@ td.tr-le { color: #E84C4C; }
 .sukebei th { color: #9C7575; }
 .sukebei th a { color: #893636; }
 .sukebei #mascot { background-image: url('/img/mafuyu.svg'); }
+
+.up-input {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+.up-label {
+	font-size: large;
+	font-weight: bold;
+}
+.up-btn {
+	font-size: large;
+}
