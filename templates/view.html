@@ -25,7 +25,7 @@
           <td class="torrent-info-td torrent-info-label">{{call $.T "leechers"}}:</td><td class="torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Leechers}}{{end}}</td>
       </tr>
     <tr class="torrent-info-row">
-          <td class="torrent-info-td torrent-info-label">{{call $.T "hash"}}:</td><td class="torrent-view-td torrent-info-data">{{.Hash}}</td>
+          <td class="torrent-info-td torrent-info-label">{{call $.T "hash"}}:</td><td style="font-family: monospace;" class="torrent-view-td torrent-info-data">{{.Hash}}</td>
           <td class="torrent-info-td torrent-info-label">{{call $.T "completed"}}:</td><td class="torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Completed}}{{end}}</td>
       </tr>
     <tr class="torrent-info-row">
@@ -57,8 +57,7 @@
   <p class="torrent-hr">{{call $.T "comments"}}</p>
   {{range $index, $element := .Comments}}
   <div class="torrent-info-box comment-box">
- <span class="comment-index"><a href="#comment_{{inc $index}}">#{{inc $index}}</a></span>
- <img src="https://www.gravatar.com/avatar/{{ .MD5 }}?s=50" class="avatar" alt="">
+ <span class="comment-index"><a href="#comment_{{inc $index}}">#{{inc $index}}</a><small style="padding-left: 4px;" class="date-short">  {{.Date}}</small></span>
   <p>{{.Username}}</p>
   <p>{{.Content}}</p>
   </div>

@@ -14,12 +14,6 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}">
     <link rel="stylesheet" href="" id="theme">
-		<script>
-			function changeTheme(opt) {
-				document.getElementById('theme').href = "{{.URL.Parse " + opt.value + '"}}';
-			}
-		</script>
-
     <!-- Search Box for Google -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 
@@ -81,5 +75,6 @@
 			</div>
 		</footer>
 </div>
+  <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}"></script>
 </body>
 </html>
