@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<title>{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{block "title" .}}{{ call $.T "error_404" }}{{end}}</title>
+    <title>{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{block "title" .}}{{ call $.T "error_404" }}{{end}}</title>
     <link rel="icon" type="image/png" href="/img/favicon.png?v=3" />
 
     <!-- RSS Feed with Context -->
-    <link href="{{ genRouteWithQuery "feed" .URL }}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
+    <link href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
 
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
@@ -51,7 +51,7 @@
  		<ul class="nav navbar-nav">
                       <li><a href="{{.URL.Parse "/upload"}}"><div class="hidden-md hidden-sm">{{call $.T "upload"}}</div><span class="glyphicon glyphicon-cloud-upload visible-md"></span></a></li>
                       <li><a href="{{.URL.Parse "/faq"}}"><div class="hidden-md hidden-sm">{{call $.T "faq"}}</div><span class="glyphicon glyphicon-question-sign visible-md"></span></a></li>
-                      <li><a href="{{ genRouteWithQuery "feed" .URL }}"><div class="hidden-md hidden-sm">RSS</div><span class="glyphicon glyphicon-flash visible-md"></span></a></li>
+                      <li><a href="{{ template "rss_link" . }}"><div class="hidden-md hidden-sm">RSS</div><span class="glyphicon glyphicon-flash visible-md"></span></a></li>
                       {{ if Sukebei }}
                       <li><a href="https://nyaa.pantsu.cat"><div class="hidden-md hidden-sm">{{call $.T "fun"}}</div><span class="glyphicon glyphicon-eye-open visible-md"></span></a></li>
                       {{ else }}
