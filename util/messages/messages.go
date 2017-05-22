@@ -44,8 +44,6 @@ func (mes *Messages) AddInfo(name string, msg string) {
 	mes.setMessagesInContext()
 }
 func (mes *Messages) AddInfof(name string, msg string, args ...interface{}) {
-	fmt.Println(msg)
-	fmt.Printf(msg, args)
 	mes.AddInfo(name, fmt.Sprintf(msg, args...))
 }
 
