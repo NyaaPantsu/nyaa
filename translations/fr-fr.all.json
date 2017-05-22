@@ -782,5 +782,61 @@
   {
     "id": "new_torrent_uploaded",
     "translation": "Nouveau torrent : \"%s\" de %s"
+  },
+  {
+    "id": "preferences",
+    "translation": "Préférences"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "Être notifié des nouveaux torrents de vos abonnements"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "Être notifié par email des nouveaux torrents de vos abonnements"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "Être notifié des nouveaux commentaires sur vos torrents"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "Être notifié par email des nouveaux commentaires sur vos torrents"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "Être notifié des nouvelles réponses à vos commentaires"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "Être notifié par email des nouvelles réponses à vos commentaires"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "Être notifié de vos nouveaux abonnés"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "Être notifié par email de vos nouveaux abonnés"
+  },
+  {
+    "id": "followed_settings",
+    "translation": "Être notifié de vos nouveaux abonnements"
+  },
+  {
+    "id": "followed_email_settings",
+    "translation": "Être notifié par email de vos nouveaux abonnements"
+  },
+  {
+    "id": "yes",
+    "translation": "Oui"
+  },
+  {
+    "id": "no",
+    "translation": "Non"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "Nouveau commentaire sur le torrent : \"%s\""
   }
 ]
