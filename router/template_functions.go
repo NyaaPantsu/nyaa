@@ -162,7 +162,7 @@ var FuncMap = template.FuncMap{
 		// because time.* isn't available in templates...
 		return t.Format(time.RFC3339)
 	},
-    "CategoryID": func(category string, sub_category string) string {
+    "CategoryName": func(category string, sub_category string) string {
 		s := category + "_" + sub_category
 
 		if category, ok := categories.GetCategories()[s]; ok {
