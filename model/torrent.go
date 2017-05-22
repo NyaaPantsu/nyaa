@@ -118,6 +118,7 @@ type ApiResultJSON struct {
 type CommentJSON struct {
 	Username string        `json:"username"`
 	UserID   int           `json:"user_id"`
+	UserAvatar   string           `json:"user_avatar"`
 	Content  template.HTML `json:"content"`
 	Date     time.Time     `json:"date"`
 }
@@ -161,7 +162,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	}
 	for _, c := range t.Comments {
 		if c.User != nil {
-			commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC()})
+			commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC(), UserAvatar: c.User.MD5})
 		} else {
 			commentsJSON = append(commentsJSON, CommentJSON{})
 		}
