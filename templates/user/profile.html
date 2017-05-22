@@ -1,5 +1,7 @@
 {{define "title"}}{{ call $.T "profile_page" .UserProfile.Username }}{{end}}
 {{define "contclass"}}cont-view{{end}}
+{{define "rss_link"}}{{ genRoute "feed_user" "id" ( print .UserProfile.ID ) "username" .UserProfile.Username }}{{end}}
+{{define "rsstitle" }}{{ .UserProfile.Username }}{{end}}
 {{define "content"}}
 {{ range (index $.FormInfos "infos")}}
 	<div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
@@ -33,7 +35,6 @@
 									<a href="{{ genRoute "user_follow" "id" ( print .ID ) "username" .Username }}" class="btn btn-danger btn-sm">{{ call $.T "unfollow"}}</a>
 								{{end}}
 							{{end}}
-							<a href="{{ genRoute "feed_user" "id" ( print .ID ) "username" .Username }}" class="btn btn-warning btn-sm">RSS</a>
 						{{end}}
 					<!-- <button type="button" class="btn btn-danger btn-sm">Message</button> -->
 				</div>
