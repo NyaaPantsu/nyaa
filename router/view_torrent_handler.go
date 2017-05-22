@@ -9,8 +9,10 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/service"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
 	"github.com/NyaaPantsu/nyaa/service/notifier"
+	"github.com/NyaaPantsu/nyaa/service/report"
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/languages"
@@ -68,13 +70,13 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	if userPermission.NeedsCaptcha(currentUser) {
 		userCaptcha := captcha.Extract(r)
 		if !captcha.Authenticate(userCaptcha) {
-			messages.AddError("errors", "Bad captcha!")
+			messages.AddErrorT("errors", "bad_captcha")
 		}
 	}
 	content := p.Sanitize(r.FormValue("comment"))
 
 	if strings.TrimSpace(content) == "" {
-		messages.AddError("errors", "Comment empty!")
+		messages.AddErrorT("errors", "comment_empty")
 	}
 	if !messages.HasErrors() {
 		userID := currentUser.ID
@@ -104,7 +106,7 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 	if userPermission.NeedsCaptcha(currentUser) {
 		userCaptcha := captcha.Extract(r)
 		if !captcha.Authenticate(userCaptcha) {
-			messages.AddError("errors", "Bad captcha!")
+			messages.AddErrorT("errors", "bad_captcha")
 		}
 	}
 	if !messages.HasErrors() {
@@ -124,4 +126,83 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	ViewHandler(w,r)
+}
+
+func TorrentEditUserPanel(w http.ResponseWriter, r *http.Request) {
+	id := r.URL.Query().Get("id")
+	torrent, _ := torrentService.GetTorrentById(id)
+	messages:= msg.GetMessages(r)
+	currentUser := GetUser(r)
+	if userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
+		torrentJson := torrent.ToJSON()
+		uploadForm := NewUploadForm()
+		uploadForm.Name = torrentJson.Name
+		uploadForm.Category = torrentJson.Category + "_" + torrentJson.SubCategory
+		uploadForm.Status = torrentJson.Status
+		uploadForm.WebsiteLink = string(torrentJson.WebsiteLink)
+		uploadForm.Description = string(torrentJson.Description)
+		htv := UserTorrentEdVbs{NewCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
+		err := userTorrentEd.ExecuteTemplate(w, "index.html", htv)
+		log.CheckError(err)
+	} else {
+		NotFoundHandler(w, r)
+	}
+}
+
+func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
+	var uploadForm UploadForm
+	id := r.URL.Query().Get("id")
+	messages := msg.GetMessages(r)
+	torrent, _ := torrentService.GetTorrentById(id)
+	currentUser := GetUser(r)
+	if torrent.ID > 0 && userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
+		errUp := uploadForm.ExtractEditInfo(r)
+		if errUp != nil {
+			messages.AddErrorT("errors", "fail_torrent_update")
+		}
+		if !messages.HasErrors() {
+			status := model.TorrentStatusNormal
+			if uploadForm.Remake { // overrides trusted
+				status = model.TorrentStatusRemake
+			} else if currentUser.IsTrusted() {
+				status = model.TorrentStatusTrusted
+			}
+			// update some (but not all!) values
+			torrent.Name = uploadForm.Name
+			torrent.Category = uploadForm.CategoryID
+			torrent.SubCategory = uploadForm.SubCategoryID
+			torrent.Status = status
+			torrent.WebsiteLink = uploadForm.WebsiteLink
+			torrent.Description = uploadForm.Description
+			torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
+			db.ORM.Save(&torrent)
+			messages.AddInfoT("infos", "torrent_updated")
+		}
+	htv := UserTorrentEdVbs{NewCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
+	err_ := userTorrentEd.ExecuteTemplate(w, "index.html", htv)
+	log.CheckError(err_)
+	} else {
+		NotFoundHandler(w, r)
+	}
+}
+
+func TorrentDeleteUserPanel(w http.ResponseWriter, r *http.Request) {
+	id := r.URL.Query().Get("id")
+	currentUser := GetUser(r)
+	torrent, _ := torrentService.GetTorrentById(id)
+	if userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
+		_, err := torrentService.DeleteTorrent(id)
+		if (err == nil) {
+			//delete reports of torrent
+			whereParams := serviceBase.CreateWhereParams("torrent_id = ?", id)
+			reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
+			for _, report := range reports {
+				reportService.DeleteTorrentReport(report.ID)
+			}
+		}
+		url, _ := Router.Get("home").URL()
+		http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
+	} else {
+		NotFoundHandler(w, r)
+	}
 }
