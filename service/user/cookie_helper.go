@@ -71,7 +71,7 @@ func SetCookieHandler(w http.ResponseWriter, r *http.Request, email string, pass
 	var user model.User
 	messages := msg.GetMessages(r)
 	// search by email or username
-	isValidEmail := formStruct.EmailValidation(email, &messages)
+	isValidEmail := formStruct.EmailValidation(email, messages)
 	if isValidEmail {
 		if db.ORM.Where("email = ?", email).First(&user).RecordNotFound() {
 			return http.StatusNotFound, errors.New("User not found")

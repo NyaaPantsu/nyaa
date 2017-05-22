@@ -67,7 +67,7 @@ func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
 func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
-	T := languages.GetTfuncFromRequest(r)
+	Ts, _ := languages.GetTfuncAndLanguageFromRequest(r)
 	messages := msg.GetMessages(r)
 
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
@@ -89,10 +89,10 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		} else {
 			if follow != nil {
-				messages.AddInfof("infos", string(T("user_followed_msg")), userProfile.Username)
+				messages.AddInfof("infos", Ts("user_followed_msg"), userProfile.Username)
 			}
 			if unfollow != nil {
-				messages.AddInfof("infos", string(T("user_unfollowed_msg")), userProfile.Username)
+				messages.AddInfof("infos", Ts("user_unfollowed_msg"), userProfile.Username)
 			}
 			userProfile.ParseSettings()
 			htv := UserProfileVariables{NewCommonVariables(r), &userProfile, messages.GetAllInfos()}
@@ -148,12 +148,13 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 	userSettingsForm := form.UserSettingsForm{}
 
 
-	T := languages.GetTfuncFromRequest(r)
+	Ts, _ := languages.GetTfuncAndLanguageFromRequest(r)
+
 	if len(r.PostFormValue("email")) > 0 {
-		form.EmailValidation(r.PostFormValue("email"), &messages)
+		form.EmailValidation(r.PostFormValue("email"), messages)
 	}
 	if len(r.PostFormValue("username")) > 0 {
-		form.ValidateUsername(r.PostFormValue("username"), &messages)
+		form.ValidateUsername(r.PostFormValue("username"), messages)
 	}
 
 	if !messages.HasErrors() {
@@ -167,18 +168,18 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 				messages.AddError("errors", "Elevating status to moderator is prohibited")
 			}
 		}
-		modelHelper.ValidateForm(&userForm, &messages)
+		modelHelper.ValidateForm(&userForm, messages)
 		if !messages.HasErrors() {
 			if userForm.Email != userProfile.Email {
 				userService.SendVerificationToUser(*currentUser, userForm.Email)
-				messages.AddInfof("infos", string(T("email_changed")), userForm.Email)
+				messages.AddInfof("infos", Ts("email_changed"), userForm.Email)
 				userForm.Email = userProfile.Email // reset, it will be set when user clicks verification
 			}
 			userProfile, _, errorUser = userService.UpdateUser(w, &userForm, &userSettingsForm, currentUser, id)
 			if errorUser != nil {
 				messages.ImportFromError("errors", errorUser)
 			} else {
-				messages.AddInfo("infos", string(T("profile_updated")))
+				messages.AddInfo("infos", Ts("profile_updated"))
 			}
 		}
 	}
@@ -207,12 +208,12 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	if !messages.HasErrors() {
 		if len(r.PostFormValue("email")) > 0 {
-			form.EmailValidation(r.PostFormValue("email"), &messages)
+			form.EmailValidation(r.PostFormValue("email"), messages)
 		}
-		form.ValidateUsername(r.PostFormValue("username"), &messages)
+		form.ValidateUsername(r.PostFormValue("username"), messages)
 		if !messages.HasErrors() {
 			modelHelper.BindValueForm(&b, r)
-			modelHelper.ValidateForm(&b, &messages)
+			modelHelper.ValidateForm(&b, messages)
 			if !messages.HasErrors() {
 				_, errorUser := userService.CreateUser(w, r)
 				if errorUser != nil {
@@ -259,7 +260,7 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 	modelHelper.BindValueForm(&b, r)
 	messages := msg.GetMessages(r)
 
-	modelHelper.ValidateForm(&b, &messages)
+	modelHelper.ValidateForm(&b, messages)
 	if !messages.HasErrors() {
 		_, errorUser := userService.CreateUserAuthentication(w, r)
 		if errorUser != nil {
