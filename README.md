@@ -71,9 +71,6 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 > nyaa_psql.backup.
 
 ## TODO
-* Improve tools for users
-  * Editing of uploaded torrents
-  * soft deletion of uploaded torrents
 * Scraping of fan subbing RSS feeds similar to metainfo_fetcher and scraper
   * nyaa.si
   * anidex.moe
