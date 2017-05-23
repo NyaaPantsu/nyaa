@@ -255,6 +255,10 @@ func (f *UploadForm) ExtractEditInfo(r *http.Request) error {
 			return ErrInvalidTorrentCategory
 		}
 
+		if !categories.CategoryExists(f.Category) {
+			return ErrInvalidTorrentCategory
+		}
+		
 		f.CategoryID = CatID
 		f.SubCategoryID = SubCatID
 	} else {

@@ -53,6 +53,9 @@
                       {{ if HasAdmin $.User}}
                       <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;"><i class="glyphicon glyphicon-trash"></i></a>
                       <a href="{{ genRoute "mod_tedit" }}?id={{ .ID }}" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                      {{ else if CurrentUserIdentical $.User .UploaderID }}
+                      <a href="{{ genRoute "user_torrent_delete" }}?id={{ .ID }}" class="btn btn-danger btn-lg" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;"><i class="glyphicon glyphicon-trash"></i></a>
+                      <a href="{{ genRoute "user_torrent_edit" }}?id={{ .ID }}" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                       {{end}}
                     </div>
                     <div style="clear: both;"></div>
