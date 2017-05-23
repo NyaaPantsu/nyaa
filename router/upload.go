@@ -1,7 +1,6 @@
 package router
 
 import (
-	"encoding/base32"
 	"encoding/hex"
 	"errors"
 	"fmt"
@@ -210,17 +209,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 			if !isBase16 {
 				return errors.New("Incorrect hash")
 			}
-		} else {
-			//convert to base16
-			data, err := base32.StdEncoding.DecodeString(f.Infohash)
-			if err != nil {
-				return err
-			}
-			hash16 := make([]byte, hex.EncodedLen(len(data)))
-			hex.Encode(hash16, data)
-			f.Infohash = strings.ToUpper(string(hash16))
 		}
-
 		f.Filesize = 0
 		f.Filepath = ""
 	}
