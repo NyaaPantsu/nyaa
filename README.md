@@ -20,7 +20,7 @@ All tested versions of Ubuntu fail to build, use a different OS or docker
 * Install [Golang](https://golang.org/doc/install) (version >=1.8)
 * `go get github.com/NyaaPantsu/nyaa`
 * `go build`
-* Download [DB](https://kitsunemimi.pw/tmp/nyaa.dump.zip) and place it in your root folder named as "nyaa.db" (rename it from .dump to .db)
+* Download the DB and place it in your root folder named as "nyaa.db" (You want the merged.sqlite3 database, see the dev IRC for more info)
 * `./nyaa`
 * You can now access your local site over on [localhost:9999](http://localhost:9999)
 
