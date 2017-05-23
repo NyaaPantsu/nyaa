@@ -38,3 +38,24 @@ func MarkdownToHTML(markdown string) template.HTML {
 	html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
 	return template.HTML(html)
 }
+
+
+/*
+ * Sanitize a message passed as a string according to a setted model or allowing a set of html tags and output a string
+ */
+func Sanitize(msg string, elements ...string) string {
+	p := bluemonday.StrictPolicy()
+	if len(elements) > 0 {
+		if elements[0] == "default" { // default model
+			p.AllowElements("b", "strong", "em", "i", "u", "blockquote", "q")
+			p.AllowImages()
+			p.AllowStandardURLs()
+			p.AllowAttrs("cite").OnElements("blockquote", "q")
+			p.AllowAttrs("href").OnElements("a")
+			p.AddTargetBlankToFullyQualifiedLinks(true)
+		} else { // allowing set of html tags
+			p.AllowElements(elements...)
+		}
+	}
+	return p.Sanitize(msg)
+}

@@ -20,7 +20,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/categories"
 	"github.com/NyaaPantsu/nyaa/util/metainfo"
-	"github.com/microcosm-cc/bluemonday"
 	"github.com/zeebo/bencode"
 )
 
@@ -83,7 +82,7 @@ var ErrInvalidWebsiteLink = errors.New("Website url or IRC link is invalid")
 // error indicating a torrent's category is invalid
 var ErrInvalidTorrentCategory = errors.New("Torrent category is invalid")
 
-var p = bluemonday.UGCPolicy()
+// var p = bluemonday.UGCPolicy()
 
 /**
 UploadForm.ExtractInfo takes an http request and computes all fields for this form
@@ -100,7 +99,7 @@ func (f *UploadForm) ExtractInfo(r *http.Request) error {
 
 	// trim whitespace
 	f.Name = util.TrimWhitespaces(f.Name)
-	f.Description = p.Sanitize(util.TrimWhitespaces(f.Description))
+	f.Description = util.Sanitize(util.TrimWhitespaces(f.Description), "default")
 	f.WebsiteLink = util.TrimWhitespaces(f.WebsiteLink)
 	f.Magnet = util.TrimWhitespaces(f.Magnet)
 	cache.Impl.ClearAll()
@@ -241,7 +240,7 @@ func (f *UploadForm) ExtractEditInfo(r *http.Request) error {
 
 	// trim whitespace
 	f.Name = util.TrimWhitespaces(f.Name)
-	f.Description = p.Sanitize(util.TrimWhitespaces(f.Description))
+	f.Description = util.Sanitize(util.TrimWhitespaces(f.Description), "default")
 
 	catsSplit := strings.Split(f.Category, "_")
 	// need this to prevent out of index panics
