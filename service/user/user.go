@@ -84,7 +84,7 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 	user.Settings.ToDefault()
 	user.SaveSettings()
 	// currently unused but needs to be set:
-	user.ApiToken = crypto.GenerateRandomToken32()
+	user.ApiToken, _ = crypto.GenerateRandomToken32()
 	user.ApiTokenExpiry = time.Unix(0, 0)
 
 	if db.ORM.Create(&user).Error != nil {
