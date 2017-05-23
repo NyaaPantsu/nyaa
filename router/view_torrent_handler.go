@@ -25,13 +25,13 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	messages := msg.GetMessages(r)
 	user := GetUser(r)
 
-	if (r.URL.Query()["success"] != nil) {
+	if r.URL.Query()["success"] != nil {
 		messages.AddInfo("infos", "Torrent uploaded successfully!")
 	}
 
 	torrent, err := torrentService.GetTorrentById(id)
-	
-	if (r.URL.Query()["notif"] != nil) {
+
+	if r.URL.Query()["notif"] != nil {
 		notifierService.ToggleReadNotification(torrent.Identifier(), user.ID)
 	}
 
@@ -52,12 +52,29 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func ViewHeadHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := strconv.ParseInt(vars["id"], 10, 32)
+	if err != nil {
+		return
+	}
+
+	_, err = torrentService.GetRawTorrentById(uint(id))
+
+	if err != nil {
+		NotFoundHandler(w, r)
+		return
+	}
+
+	w.Write(nil)
+}
+
 func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
 	torrent, err := torrentService.GetTorrentById(id)
-	if (err != nil) {
+	if err != nil {
 		NotFoundHandler(w, r)
 		return
 	}
@@ -93,7 +110,7 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 			messages.ImportFromError("errors", err)
 		}
 	}
-	ViewHandler(w,r)
+	ViewHandler(w, r)
 }
 
 func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
@@ -123,5 +140,5 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 			messages.ImportFromError("errors", err)
 		}
 	}
-	ViewHandler(w,r)
+	ViewHandler(w, r)
 }
