@@ -18,7 +18,11 @@ type Messages struct {
 
 func GetMessages(r *http.Request) *Messages {
 	if rv := context.Get(r, MessagesKey); rv != nil {
-        return rv.(*Messages)
+        mes := rv.(*Messages)
+        T, _ := languages.GetTfuncAndLanguageFromRequest(r)
+        mes.T = T
+        mes.r = r
+        return mes
     } else {
     	context.Set(r, MessagesKey, &Messages{})
     	T, _ := languages.GetTfuncAndLanguageFromRequest(r)

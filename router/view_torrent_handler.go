@@ -91,7 +91,7 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 			messages.AddErrorT("errors", "bad_captcha")
 		}
 	}
-	content := util.Sanitize(r.FormValue("comment"), "")
+	content := util.Sanitize(r.FormValue("comment"), "comment")
 
 	if strings.TrimSpace(content) == "" {
 		messages.AddErrorT("errors", "comment_empty")
