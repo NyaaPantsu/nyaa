@@ -455,3 +455,14 @@ td.tr-le { color: #E84C4C; }
 	margin-top: 5px;
 	float: right;
 }
+.torrent-buttons {
+	display: inline-block;
+	float: right;
+	margin-top: 5px;
+}
+.torrent-magnet-button {
+	background: green;
+	color: white;
+	font-size: larger;
+	vertical-align: bottom;
+}

@@ -33,6 +33,10 @@
           <td class="torrent-info-td torrent-info-label">{{call $.T "last_scraped"}}</td><td class="torrent-info-td">{{if not .LastScrape.IsZero}}{{formatDateRFC .LastScrape}}{{else}}{{call $.T "unknown"}}{{end}}</td>
       </tr>
   </table>
+  <div class="torrent-buttons">
+  <button class="form-input torrent-magnet-button">Magnet!</button>
+  <button class="form-input">Torrent!</button>
+  </div>
   <p class="torrent-hr">{{call $.T "description"}}</p>
   {{ if ne .Description ""}}
   <div class="torrent-info-box">{{.Description}}</div>
