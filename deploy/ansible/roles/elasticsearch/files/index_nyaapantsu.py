@@ -23,24 +23,32 @@ es = Elasticsearch()
 pgconn = psycopg2.connect(dbparams)
 
 cur = pgconn.cursor()
-cur.execute("""SELECT torrent_id, torrent_name, category, sub_category, status
+cur.execute("""SELECT torrent_id, torrent_name, category, sub_category, status, 
+                      torrent_hash, date, uploader, downloads, filesize
                FROM torrents
                WHERE deleted_at IS NULL""")
 
 fetches = cur.fetchmany(CHUNK_SIZE)
 while fetches:
     actions = list()
-    for torrent_id, torrent_name, category, sub_category, status in fetches:
+    for torrent_id, torrent_name, category, sub_category, status, torrent_hash, date, uploader, downloads, filesize in fetches:
+        # TODO Add seeds/leech
+        # TODO Consistent ID representation on the codebase
         doc = {
-          'torrent_id': torrent_id,
-          'torrent_name': torrent_name.decode('utf-8'),
-          'category': category,
-          'sub_category': sub_category,
-          'status': status
+          'id': str(torrent_id),
+          'name': torrent_name.decode('utf-8'),
+          'category': str(category),
+          'sub_category': str(sub_category),
+          'status': status,
+          'hash': torrent_hash,
+          'date': date,
+          'uploader_id': uploader,
+          'downloads': downloads,
+          'filesize': filesize
         }
         action = {
             '_index': pantsu_index,
-            '_type': 'document',
+            '_type': 'torrents',
             '_id': torrent_id,
             '_source': doc
         }

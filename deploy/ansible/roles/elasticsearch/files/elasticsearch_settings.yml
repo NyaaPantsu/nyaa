@@ -22,14 +22,26 @@ settings:
 mappings:
   torrents:
     properties:
-      torrent_id:
-        type: long
-      torrent_name:
+      # TODO Consistent ID's type in TorrentJSON
+      id:
+        type: text
+      name:
         type: text
         analyzer: nyaapantsu_analyzer
       category:
-        type: long
+        type: text
       sub_category:
-        type: long
+        type: text
       status:
+        type: long
+      hash:
+        type: text
+      date:
+        type: date
+        #fielddata: true # INFO Allow sort by date ?
+      uploader_id:
+        type: long
+      downloads:
+        type: long
+      filesize:
         type: long
