@@ -11,7 +11,6 @@ import (
 	"github.com/gorilla/context"
 	"github.com/gorilla/securecookie"
 	"golang.org/x/crypto/bcrypt"
-	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -124,9 +123,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) (int, error) {
 func CurrentUser(r *http.Request) (model.User, error) {
 	var user model.User
 	var encoded string
-	if r == nil {
-		fmt.Println("ERROR r is terminated")
-	}
+
 	encoded = r.Header.Get("X-Auth-Token")
 	if len(encoded) == 0 {
 		// check cookie instead
