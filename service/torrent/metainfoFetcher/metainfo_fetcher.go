@@ -23,6 +23,7 @@ type MetainfoFetcher struct {
 	maxDays          int
 	baseFailCooldown int
 	maxFailCooldown  int
+	newTorrentsOnly  bool
 	done             chan int
 	queue            []*FetchOperation
 	queueMutex       sync.Mutex
@@ -52,6 +53,7 @@ func New(fetcherConfig *config.MetainfoFetcherConfig) (fetcher *MetainfoFetcher,
 		queueSize:        fetcherConfig.QueueSize,
 		timeout:          fetcherConfig.Timeout,
 		maxDays:          fetcherConfig.MaxDays,
+		newTorrentsOnly:  fetcherConfig.FetchNewTorrentsOnly,
 		baseFailCooldown: fetcherConfig.BaseFailCooldown,
 		maxFailCooldown:  fetcherConfig.MaxFailCooldown,
 		done:             make(chan int, 1),
@@ -227,16 +229,32 @@ func (fetcher *MetainfoFetcher) fillQueue() {
 	for id, _ := range fetcher.failedOperations {
 		excludedIDS = append(excludedIDS, id)
 	}
+	
+	tFiles := config.FilesTableName
+	tTorrents := config.TorrentsTableName
+	// Select the torrents with no filesize, or without any rows with torrent_id in the files table...
+	queryString := "((filesize IS NULL OR filesize = 0) OR ("+tTorrents+".torrent_id NOT "+
+	               "IN (SELECT "+tFiles+".torrent_id FROM "+tFiles+" WHERE "+tFiles+
+	               ".torrent_id = "+tTorrents+".torrent_id)))"
+	var whereParamsArgs []interface{}
 
-	// Nice query lol
-	// Select the torrents with no filesize, or without any rows with torrent_id in the files table, that are younger than fetcher.MaxDays
-	var params serviceBase.WhereParams
+	// that are newer than maxDays...
+	queryString += " AND date > ? "
+	whereParamsArgs = append(whereParamsArgs, oldest)
 
+	// that didn't fail recently...
 	if len(excludedIDS) > 0 {
-		params = serviceBase.CreateWhereParams("((filesize IS NULL OR filesize = 0) OR ("+config.TorrentsTableName+".torrent_id NOT IN (SELECT files.torrent_id FROM files WHERE files.torrent_id = "+config.TorrentsTableName+".torrent_id))) AND date > ? AND torrent_id NOT IN (?)", oldest, excludedIDS)
-	} else {
-		params = serviceBase.CreateWhereParams("((filesize IS NULL OR filesize = 0) OR ("+config.TorrentsTableName+".torrent_id NOT IN (SELECT files.torrent_id FROM files WHERE files.torrent_id = "+config.TorrentsTableName+".torrent_id))) AND date > ?", oldest)
+		queryString += " AND torrent_id NOT IN (?) "
+		whereParamsArgs = append(whereParamsArgs, excludedIDS)
 	}
+
+	// and, if true, that aren't from the old Nyaa database
+	if fetcher.newTorrentsOnly {
+		queryString += " AND torrent_id > ? "
+		whereParamsArgs = append(whereParamsArgs, config.LastOldTorrentID)
+	}
+
+	params := serviceBase.CreateWhereParams(queryString, whereParamsArgs...)
 	dbTorrents, err := torrentService.GetTorrentsOrderByNoCount(&params, "", fetcher.queueSize, 0)
 
 	if len(dbTorrents) == 0 {
@@ -271,17 +289,18 @@ func (fetcher *MetainfoFetcher) run() {
 	defer fetcher.wg.Done()
 
 	done := 0
-	fetcher.fillQueue()
 	for done == 0 {
 		fetcher.removeOldFailures()
 		fetcher.fillQueue()
 		select {
 		case done = <-fetcher.done:
+			log.Infof("Got done signal on main loop, leaving...")
 			break
 		case result = <-fetcher.results:
 			fetcher.gotResult(result)
 			break
 		case <-fetcher.wakeUp.C:
+			log.Infof("Got wake up signal...")
 			break
 		}
 	}
