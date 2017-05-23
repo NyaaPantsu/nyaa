@@ -92,6 +92,12 @@ func ApiViewHandler(w http.ResponseWriter, r *http.Request) {
 	id := vars["id"]
 
 	torrent, err := torrentService.GetTorrentById(id)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+
 	b := torrent.ToJSON()
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(b)
