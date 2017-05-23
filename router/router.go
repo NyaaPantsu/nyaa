@@ -52,6 +52,7 @@ func init() {
 	Router.HandleFunc("/feed", RSSHandler).Name("feed")
 	Router.HandleFunc("/feed/{page}", RSSHandler).Name("feed_page")
 	Router.Handle("/view/{id}", wrapHandler(gzipViewHandler)).Methods("GET").Name("view_torrent")
+	Router.HandleFunc("/view/{id}", ViewHeadHandler).Methods("HEAD")
 	Router.HandleFunc("/view/{id}", PostCommentHandler).Methods("POST").Name("post_comment")
 	Router.HandleFunc("/upload", UploadHandler).Name("upload")
 	Router.HandleFunc("/user/register", UserRegisterFormHandler).Name("user_register").Methods("GET")
