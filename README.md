@@ -95,9 +95,9 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
  Use tabs for css and js files.
 
 # IRC
-[#nyaapantsu@irc.rizon.net](irc://irc.rizon.net/nyaapantsu)
+[#nyaapantsu@irc.rizon.net](#)
 
-[#nyaapantsu-dev@irc.rizon.net](irc://irc.rizon.net/nyaapantsu-dev) (Serious buisness only)
+[#nyaapantsu-dev@irc.rizon.net](#) (Serious buisness only)
 
 # Disclaimer
 We take no legal responsibility for anything this code is used for. This is purely an educational proof of concept.
