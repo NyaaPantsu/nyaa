@@ -49,13 +49,13 @@
               </div>
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
  		<ul class="nav navbar-nav">
-                      <li><a href="{{.URL.Parse "/upload"}}"><div class="hidden-md hidden-sm">{{call $.T "upload"}}</div><span class="glyphicon glyphicon-cloud-upload visible-md"></span></a></li>
-                      <li><a href="{{.URL.Parse "/faq"}}"><div class="hidden-md hidden-sm">{{call $.T "faq"}}</div><span class="glyphicon glyphicon-question-sign visible-md"></span></a></li>
-                      <li><a href="{{ template "rss_link" . }}"><div class="hidden-md hidden-sm">RSS</div><span class="glyphicon glyphicon-flash visible-md"></span></a></li>
+                      <li><a href="{{.URL.Parse "/upload"}}"><div class="hidden-md">{{call $.T "upload"}}</div><span class="glyphicon glyphicon-cloud-upload visible-md"></span></a></li>
+                      <li><a href="{{.URL.Parse "/faq"}}"><div class="hidden-md">{{call $.T "faq"}}</div><span class="glyphicon glyphicon-question-sign visible-md"></span></a></li>
+                      <li><a href="{{ template "rss_link" . }}"><div class="hidden-md">RSS</div><span class="glyphicon glyphicon-flash visible-md"></span></a></li>
                       {{ if Sukebei }}
-                      <li><a href="https://nyaa.pantsu.cat"><div class="hidden-md hidden-sm">{{call $.T "fun"}}</div><span class="glyphicon glyphicon-eye-open visible-md"></span></a></li>
+                      <li><a href="https://nyaa.pantsu.cat"><div class="hidden-md">{{call $.T "fun"}}</div><span class="glyphicon glyphicon-eye-open visible-md"></span></a></li>
                       {{ else }}
-                      <li><a href="https://sukebei.pantsu.cat"><div class="hidden-md hidden-sm">{{call $.T "fap"}}</div><span class="glyphicon glyphicon-eye-close visible-md"></span></a></li>
+                      <li><a href="https://sukebei.pantsu.cat"><div class="hidden-md">{{call $.T "fap"}}</div><span class="glyphicon glyphicon-eye-close visible-md"></span></a></li>
                       {{ end }}
                   </ul>
                   {{block "badge_user" .}}{{end}}
