@@ -23,7 +23,6 @@ var homeTemplate,
 	viewProfileNotifTemplate,
 	viewProfileEditTemplate,
 	viewUserDeleteTemplate,
-	userTorrentEd,
 	notFoundTemplate,
 	changeLanguageTemplate,
 	databaseDumpTemplate *template.Template
@@ -115,11 +114,6 @@ func ReloadTemplates() {
 			templ: &viewUserDeleteTemplate,
 			name:  "user_delete",
 			file:  filepath.Join("user", "delete_success.html"),
-		},
-		templateLoader{
-			templ: &userTorrentEd,
-			name:  "user_torrent_edit",
-			file:  filepath.Join("user", "torrent_edit.html"),
 		},
 		templateLoader{
 			templ: &notFoundTemplate,

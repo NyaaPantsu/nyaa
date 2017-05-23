@@ -11,15 +11,12 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/log"
-	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/gorilla/mux"
 )
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
-	messages := msg.GetMessages(r)
-	deleteVar := r.URL.Query()["deleted"]
 
 	// db params url
 	var err error
@@ -31,9 +28,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 			maxPerPage = 50 // default Value maxPerPage
 		}
 	}
-	if (deleteVar != nil) {
-		messages.AddInfoTf("infos", "torrent_deleted", "")
-	}
+
 	pagenum := 1
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
@@ -73,7 +68,6 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	htv := HomeTemplateVariables{
 		CommonTemplateVariables: common,
 		ListTorrents: torrentsJson,
-		Infos: messages.GetAllInfos(),
 	}
 
 	err = homeTemplate.ExecuteTemplate(w, "index.html", htv)
