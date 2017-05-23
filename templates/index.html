@@ -31,7 +31,9 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 
     <!-- Website CSS -->
-    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/style.css"}}">
+    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/style.css"}}" title="default">
+    <!-- Website CSS night-mode -->
+    <!--<link rel="alternate stylesheet" id="style-dark" href="{{.URL.Parse "/css/style-night.css"}}" title="Night mode">  -->
     {{block "night_theme_init" .}}{{end}}
   </head>
   <body>
