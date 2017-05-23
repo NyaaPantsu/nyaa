@@ -14,8 +14,8 @@ import (
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service"
 	"github.com/NyaaPantsu/nyaa/service/api"
-	"github.com/NyaaPantsu/nyaa/service/upload"
 	"github.com/NyaaPantsu/nyaa/service/torrent"
+	"github.com/NyaaPantsu/nyaa/service/upload"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/gorilla/mux"
@@ -100,6 +100,23 @@ func ApiViewHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+}
+
+func ApiViewHeadHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := strconv.ParseInt(vars["id"], 10, 32)
+	if err != nil {
+		return
+	}
+
+	_, err = torrentService.GetRawTorrentById(uint(id))
+
+	if err != nil {
+		NotFoundHandler(w, r)
+		return
+	}
+
+	w.Write(nil)
 }
 
 func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {

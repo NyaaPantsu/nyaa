@@ -46,6 +46,7 @@ func init() {
 	Router.Handle("/api", wrapHandler(gzipAPIHandler)).Methods("GET")
 	Router.Handle("/api/{page:[0-9]*}", wrapHandler(gzipAPIHandler)).Methods("GET")
 	Router.Handle("/api/view/{id}", wrapHandler(gzipAPIViewHandler)).Methods("GET")
+	Router.HandleFunc("/api/view/{id}", ApiViewHeadHandler).Methods("HEAD")
 	Router.HandleFunc("/api/upload", ApiUploadHandler).Methods("POST")
 	Router.HandleFunc("/api/update", ApiUpdateHandler).Methods("PUT")
 	Router.HandleFunc("/faq", FaqHandler).Name("faq")
