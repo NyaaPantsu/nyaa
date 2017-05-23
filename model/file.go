@@ -36,3 +36,9 @@ func (f *File) SetPath(path []string) error {
 	f.BencodedPath = encoded
 	return nil
 }
+
+func (f *File) Filename() string {
+	path := f.Path()
+	return path[len(path)-1]
+}
+

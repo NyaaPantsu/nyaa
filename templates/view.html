@@ -44,20 +44,27 @@
   <p>No description provided!</p>
   {{end}}
   <p class="torrent-hr">{{call $.T "files"}}</p>
-  {{ if gt (len .FileList) 0 }}
-  <div class="torrent-info-box">
-      <table>
-      {{range .FileList}}
-      <tr class="torrent-info-row">
-          <td style="width: 70%;" class="torrent-info-td">{{.Path}}</td>
-          <td class="torrent-info-td">{{.Filesize}}</td>
-      </tr>
-      {{end}}
-      </table>
-  </div>
-  {{else}}
-  <p>No files found? That doesn't even make sense!</p>
-  {{end}}
+	{{ if gt (len .FileList) 0 }}
+	{{ $folderFormat := "<tr class='childs-of-{{.ParentIdentifier}} collapse in' style='cursor: pointer' onclick=\"javascript:toggleFolder('childs-of-{{.Identifier}}')\"><td><span class='glyphicon glyphicon-folder-open' style='padding-left: calc({{.NestLevel}}*4rem); padding-right: 1rem;'></span>{{.FolderName}}<td></tr>" }}
+	{{ $fileFormat := "<tr class='childs-of-{{.ParentIdentifier}} collapse in'><td><span class='glyphicon glyphicon-file' style='padding-left: calc({{.NestLevel}}*4rem); padding-right: 1rem;'></span>{{.Filename}}</td><td>{{ fileSize .Filesize .Data.T }}</td>" }}
+	<script>
+		function toggleFolder(folder) { $("*[class^='" + folder + "']").collapse("toggle") }
+	</script>
+	<div class="torrent-info-box">
+		<table>
+		<thead>
+			<th>{{call $.T "filename"}}</th>
+			<th>{{call $.T "size"}}</th>
+		</thead>
+		<tbody>
+			{{ MakeFolderTreeView $.RootFolder $folderFormat $fileFormat $ }}
+		</tbody>
+		</table>
+	</div>
+	{{ else }}
+    <p>No files found? That doesn't even make sense!</p>
+    {{end}}
+
   <p class="torrent-hr">{{call $.T "comments"}}</p>
   {{range $index, $element := .Comments}}
   <div class="torrent-info-box comment-box">
@@ -83,3 +90,4 @@
   </div>
  </div>
 {{end}}
+
