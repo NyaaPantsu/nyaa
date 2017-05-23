@@ -134,13 +134,12 @@ func TorrentEditUserPanel(w http.ResponseWriter, r *http.Request) {
 	messages:= msg.GetMessages(r)
 	currentUser := GetUser(r)
 	if userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
-		torrentJson := torrent.ToJSON()
 		uploadForm := NewUploadForm()
-		uploadForm.Name = torrentJson.Name
-		uploadForm.Category = torrentJson.Category + "_" + torrentJson.SubCategory
-		uploadForm.Status = torrentJson.Status
-		uploadForm.WebsiteLink = string(torrentJson.WebsiteLink)
-		uploadForm.Description = string(torrentJson.Description)
+		uploadForm.Name = torrent.Name
+		uploadForm.Category = strconv.Itoa(torrent.Category) + "_" + strconv.Itoa(torrent.SubCategory)
+		uploadForm.Remake = torrent.Status == model.TorrentStatusRemake
+		uploadForm.WebsiteLink = string(torrent.WebsiteLink)
+		uploadForm.Description = string(torrent.Description)
 		htv := UserTorrentEdVbs{NewCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
 		err := userTorrentEd.ExecuteTemplate(w, "index.html", htv)
 		log.CheckError(err)
@@ -162,6 +161,7 @@ func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
 		}
 		if !messages.HasErrors() {
 			status := model.TorrentStatusNormal
+			uploadForm.Remake = r.FormValue(UploadFormRemake) == "on"
 			if uploadForm.Remake { // overrides trusted
 				status = model.TorrentStatusRemake
 			} else if currentUser.IsTrusted() {
