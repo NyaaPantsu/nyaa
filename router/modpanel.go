@@ -256,7 +256,7 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 	if torrent.ID > 0 {
 		errUp := uploadForm.ExtractEditInfo(r)
 		if errUp != nil {
-			messages.AddErrorT("errors", "fail_torrent_update")
+			messages.AddError("errors", "Failed to update torrent!")
 		}
 		if !messages.HasErrors() {
 			// update some (but not all!) values
@@ -268,7 +268,7 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 			torrent.Description = uploadForm.Description
 			torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
 			db.ORM.Save(&torrent)
-			messages.AddInfoT("infos", "torrent_updated")
+			messages.AddInfo("infos", "Torrent details updated.")
 		}
 	}
 	htv := PanelTorrentEdVbs{NewPanelCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
@@ -325,9 +325,9 @@ func TorrentPostReassignModPanel(w http.ResponseWriter, r *http.Request) {
 	} else {
 		count, err2 := rForm.ExecuteAction()
 		if err2 != nil {
-			messages.AddErrorT("errors", "something_went_wrong")
+			messages.AddError("errors", "Something went wrong")
 		} else {
-			messages.AddInfoTf("infos", "nb_torrents_updated", count)
+			messages.AddInfof("infos", "%d torrents updated.", count)
 		}
 	}
 
@@ -356,13 +356,13 @@ func torrentManyAction(r *http.Request) {
 	messages := msg.GetMessages(r) // new util for errors and infos
 
 	if action == "" {
-		messages.AddErrorT("errors", "no_action_selected")
+		messages.AddError("errors", "You have to tell what you want to do with your selection!")
 	}
 	if action == "move" && r.FormValue("moveto") == "" { // We need to check the form value, not the int one because hidden is 0
-		messages.AddErrorT("errors", "no_move_location_selected")
+		messages.AddError("errors", "Thou has't to telleth whither thee wanteth to moveth thy selection!")
 	}
 	if len(torrentsSelected) == 0 {
-		messages.AddErrorT("errors", "select_one_element")
+		messages.AddError("errors", "You need to select at least 1 element!")
 	}
 	if !messages.HasErrors() {
 		for _, torrent_id := range torrentsSelected {
@@ -373,22 +373,22 @@ func torrentManyAction(r *http.Request) {
 					if config.TorrentStatus[moveTo] {
 						torrent.Status = moveTo
 						db.ORM.Save(&torrent)
-						messages.AddInfoTf("infos", "torrent_moved", torrent.Name)
+						messages.AddInfof("infos", "Torrent %s moved!", torrent.Name)
 					} else { 
-						messages.AddErrorTf("errors", "no_status_exist", moveTo)
+						messages.AddErrorf("errors", "No such status %d exist!", moveTo)
 					}
 				case "delete":
 					_, err := torrentService.DeleteTorrent(torrent_id)
 					if err != nil {
 						messages.ImportFromError("errors", err)
 					} else {
-						messages.AddInfoTf("infos", "torrent_deleted", torrent.Name)
+						messages.AddInfof("infos", "Torrent %s deleted!", torrent.Name)
 					}
 				default:
-					messages.AddErrorTf("errors", "no_action_exist", action)
+					messages.AddErrorf("errors", "No such action %s exist!", action)
 				}
 			} else {
-				messages.AddErrorTf("errors", "torrent_not_exist", torrent_id)
+				messages.AddErrorf("errors", "Torrent with ID %s doesn't exist!", torrent_id)
 			} 
 		}
 	}

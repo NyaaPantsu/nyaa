@@ -162,9 +162,6 @@ var FuncMap = template.FuncMap{
 		// because time.* isn't available in templates...
 		return t.Format(time.RFC3339)
 	},
-    "GetCategories": func(keepParent bool) map[string]string {
-		return categories.GetCategoriesSelect(keepParent)
-    },
     "CategoryName": func(category string, sub_category string) string {
 		s := category + "_" + sub_category
 
