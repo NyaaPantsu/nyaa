@@ -1,6 +1,7 @@
 package router
 
 import (
+	"encoding/json"
 	"fmt"
 	"html"
 	"net/http"
@@ -342,6 +343,28 @@ func TorrentsPostListPanel(w http.ResponseWriter, r *http.Request) {
 }
 
 
+/*
+ * This function is used on the frontend for the mass
+ * Query is: action=move|delete
+ * moveto=0|1|2|3|4 according to config/torrent.go (can be omitted if action=delete)
+ * torrent_id[] Ids of torrents in checkboxes of name torrent_id
+ */
+func ApiMassMod(w http.ResponseWriter, r *http.Request) {
+	torrentManyAction(r)
+	messages := msg.GetMessages(r) // new util for errors and infos
+	var apiJson []byte
+	w.Header().Set("Content-Type", "application/json")	
+	
+	if !messages.HasErrors() {
+		mapOk := map[string]bool{"ok": true, "errors": false}
+    	apiJson, _ = json.Marshal(mapOk)
+	} else { // We need to show error messages
+		mapNotOk := map[string]interface{}{"ok": false, "errors": messages.GetAllErrors()}
+		apiJson, _ = json.Marshal(mapNotOk)
+	}
+
+	w.Write(apiJson)
+}
 
 /*
  * Controller to modify multiple torrents and can be used by the owner of the torrent or admin

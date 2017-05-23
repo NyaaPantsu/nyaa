@@ -95,6 +95,7 @@ func init() {
 	Router.HandleFunc("/mod/comment/delete",  WrapModHandler(CommentDeleteModPanel)).Name("mod_cdelete")
 	Router.HandleFunc("/mod/reassign",        WrapModHandler(TorrentReassignModPanel)).Name("mod_treassign").Methods("GET")
 	Router.HandleFunc("/mod/reassign",        WrapModHandler(TorrentPostReassignModPanel)).Name("mod_treassign").Methods("POST")
+	Router.HandleFunc("/mod/api/torrents",        WrapModHandler(ApiMassMod)).Name("mod_tapi").Methods("POST")
 
 	//reporting a torrent
 	Router.HandleFunc("/report/{id}", ReportTorrentHandler).Methods("POST").Name("torrent_report")
