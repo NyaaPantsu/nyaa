@@ -9,7 +9,6 @@
     {{ range (index $.Infos "infos")}}
         <div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
     {{end}}
-<<<<<<< HEAD
   <a class="torrent-hr" href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">{{ if Sukebei}}{{ call $.T (Category_Sukebei .Category .SubCategory) }}{{else}}{{ call $.T (Category_Nyaa .Category .SubCategory) }}{{end}}</a> <br>
   <br>
   <table>
@@ -67,62 +66,6 @@
   <p>{{.Content}}</p>
   </div>
   {{end}}
-||||||| merged common ancestors
-    <div class="content" style="margin-bottom: 2em;">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="break">{{.Name}}</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8">
-                <div class="row" id="description">
-                <div class="col-md-12">
-                    <div style="float: left;">
-                          {{ if Sukebei }}
-                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (Category_Sukebei .Category .SubCategory) }}"> 
-						  <span style="vertical-align:middle;font-size:large;">{{ call $.T (Category_Sukebei .Category .SubCategory) }}</span>
-                          {{ else }}
-                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ call $.T (Category_Nyaa .Category .SubCategory) }}"> 
-                          <span style="vertical-align:middle;font-size:large;">{{ call $.T (Category_Nyaa .Category .SubCategory) }}</span>
-                          {{ end }}
-                          <br />
-                          <h4 style="display:inline-block">
-                              {{ call $.T "uploaded_by" }} <a href="{{ genRoute "user_profile" "id" ( print .UploaderID ) "username" (print .UploaderName) }}">{{.UploaderName}}</a>
-                          </h4>
-                          {{if ne .OldUploader ""}}
-                          <span>({{.OldUploader}})</span>
-                          {{end}}
-                      </div>
-=======
-    <div class="content" style="margin-bottom: 2em;">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="break">{{.Name}}</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8">
-                <div class="row" id="description">
-                <div class="col-md-12">
-                    <div style="float: left;">
-                          {{ if Sukebei }}
-                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}"> 
-						  <span style="vertical-align:middle;font-size:large;">{{ call $.T (CategoryName .Category .SubCategory) }}</span>
-                          {{ else }}
-                          <img style="float:left; margin-right: 1em;" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}"> 
-                          <span style="vertical-align:middle;font-size:large;">{{ call $.T (CategoryName .Category .SubCategory) }}</span>
-                          {{ end }}
-                          <br />
-                          <h4 style="display:inline-block">
-                              {{ call $.T "uploaded_by" }} <a href="{{ genRoute "user_profile" "id" ( print .UploaderID ) "username" (print .UploaderName) }}">{{.UploaderName}}</a>
-                          </h4>
-                          {{if ne .OldUploader ""}}
-                          <span>({{.OldUploader}})</span>
-                          {{end}}
-                      </div>
->>>>>>> dev
-
   {{end}}
   <div style="margin-top: 10px" class="torrent-info-box">
     <form method="post">

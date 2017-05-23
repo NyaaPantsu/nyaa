@@ -1,6 +1,6 @@
 ![nyanpasu~](https://my.mixtape.moe/aglaxe.png)
 
-# Nyaa replacement [![Build Status](https://travis-ci.org/NyaaPantsu/nyaa.svg?branch=master)](https://travis-ci.org/NyaaPantsu/nyaa)
+# Nyaa replacement [![Build Status](https://travis-ci.org/NyaaPantsu/nyaa.svg?branch=master)](https://travis-ci.org/NyaaPantsu/nyaa) [![Go Report Card](https://goreportcard.com/badge/github.com/NyaaPantsu/nyaa)](https://goreportcard.com/report/github.com/NyaaPantsu/nyaa)
 
 ## Motivation
 The aim of this project is to write a fully featured nyaa replacement in golang
@@ -71,9 +71,6 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 > nyaa_psql.backup.
 
 ## TODO
-* Improve tools for users
-  * Editing of uploaded torrents
-  * soft deletion of uploaded torrents
 * Scraping of fan subbing RSS feeds similar to metainfo_fetcher and scraper
   * nyaa.si
   * anidex.moe
