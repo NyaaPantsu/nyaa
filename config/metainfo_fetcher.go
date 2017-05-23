@@ -10,6 +10,8 @@ type MetainfoFetcherConfig struct {
 
 	UploadRateLimiter   int `json:"upload_rate_limiter"`
 	DownloadRateLimiter int `json:"download_rate_limiter"`
+
+	FetchNewTorrentsOnly bool `json:"fetch_new_torrents_only"`
 }
 
 var DefaultMetainfoFetcherConfig = MetainfoFetcherConfig{
@@ -22,5 +24,6 @@ var DefaultMetainfoFetcherConfig = MetainfoFetcherConfig{
 
 	UploadRateLimiter:   1024, // kbps
 	DownloadRateLimiter: 1024,
+	FetchNewTorrentsOnly: true, // Only fetch torrents newer than config.LastOldTorrentID
 }
 
