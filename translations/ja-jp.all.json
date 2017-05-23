@@ -838,5 +838,61 @@
   {
     "id": "new_comment_on_torrent",
     "translation": "コメントが付きました: \"%s\""
+  },
+  {
+    "id": "no_action_selected",
+    "translation": "アクションが選択されていません。"
+  },
+  {
+    "id": "no_move_location_selected",
+    "translation": "移動先が選択されていません。"
+  },
+  {
+    "id": "select_one_element",
+    "translation": "1 つ以上の要素を選択する必要があります。"
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "Torrent %s が移動されました。"
+  },
+  {
+    "id": "no_status_exist",
+    "translation": "ステータス %d は存在しません。"
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "Torrent %s が削除されました。"
+  },
+  {
+    "id": "no_action_exist",
+    "translation": "アクション %s は存在しません。"
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "Torrent ID %s は存在しません。"
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "不具合が発生しました。"
+  },
+  {
+    "id": "nb_torrents_updated",
+    "translation": "%d 個の Torrent が更新されました。"
+  },
+  {
+    "id": "torrent_updated",
+    "translation": "Torrent の詳細が更新されました。"
+  },
+  {
+    "id": "fail_torrent_update",
+    "translation": "Torrent の更新に失敗しました。"
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "画像認証が間違っています。"
+  },
+  {
+    "id": "comment_empty",
+    "translation": "コメントなし"
   }
 ]
