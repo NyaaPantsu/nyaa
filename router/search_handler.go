@@ -4,7 +4,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/log"
-	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/gorilla/mux"
 	"html"
@@ -15,7 +14,6 @@ import (
 func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
-	messages := msg.GetMessages(r)
 
 	// db params url
 	var err error
@@ -31,7 +29,6 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-
 
 	searchParam, torrents, nbTorrents, err := search.SearchByQuery(r, pagenum)
 	if err != nil {
@@ -49,7 +46,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		Category:         searchParam.Category.String(),
 		ShowItemsPerPage: true,
 	}
-	htv := HomeTemplateVariables{common, b, messages.GetAllInfos()}
+	htv := HomeTemplateVariables{common, b}
 
 	err = searchTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
