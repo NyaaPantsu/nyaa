@@ -92,10 +92,11 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
 # Contributing
-Use tabs for css and js files.
+ Use tabs for css and js files.
 
 # IRC
 #nyaapantsu@irc.rizon.net
+
 #nyaapantsu-dev@irc.rizon.net (Serious buisness only)
 
 # Disclaimer
