@@ -15,6 +15,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/report"
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
+	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
@@ -90,7 +91,7 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 			messages.AddErrorT("errors", "bad_captcha")
 		}
 	}
-	content := p.Sanitize(r.FormValue("comment"))
+	content := util.Sanitize(r.FormValue("comment"), "comment")
 
 	if strings.TrimSpace(content) == "" {
 		messages.AddErrorT("errors", "comment_empty")
