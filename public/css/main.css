@@ -447,6 +447,8 @@ td.tr-le { color: #E84C4C; }
 	margin-left: 10px;
 	margin-top: 10px;
 	padding-bottom: 5px;
+	display: flex;
+	justify-content: space-between;
 }
 .comment-index {
 	margin-right: 5px;

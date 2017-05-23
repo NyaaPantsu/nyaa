@@ -67,11 +67,14 @@
   <div style="margin-top: 10px" class="torrent-info-box">
     <form method="post">
                 <div class="comment-form">
-                    {{/* There should be a better way to use translation on this... */}}
+                    <div class="comment-text">
                     <label style="margin-top: 5px; margin-left: 5px;" class="input-label"  for="comment">Submit a comment!</label> <br>
-                    <textarea name="comment" class="form-input" rows="5"></textarea>
+                    <textarea placeholder="Senkyuu~" name="comment" class="form-input" cols="50" rows="50"></textarea>
+                    </div>
+                    <div class="comment-captcha">
                 {{block "captcha" (makeCaptchaData .CaptchaID $.T)}}{{end}}
                 <button type="submit" class="form-input">{{call $.T "submit" }}</button>
+                    </div>
                 </div>
   </form>
   </div>
