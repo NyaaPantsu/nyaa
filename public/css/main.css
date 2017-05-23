@@ -466,3 +466,7 @@ td.tr-le { color: #E84C4C; }
 	font-size: larger;
 	vertical-align: bottom;
 }
+
+.profile-panel {
+	width: 30%;
+}

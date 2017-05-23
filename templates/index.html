@@ -11,7 +11,7 @@
     <!-- RSS Feed with Context -->
     <link href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
 
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{.URL.Parse "/css/open-iconic.min.css"}}">
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}">
     <link rel="stylesheet" href="" id="theme">
     <!-- Search Box for Google -->
@@ -61,13 +61,13 @@
 						<option value="">Default</option>
 						<option value="css/theme_g_anon.css">/g/ Anon</option>
 						<option value="css/theme_tomorrow.css">Tomorrow</option>
-					</select><label class="form-input select-icon"><i class="fa fa-caret-down"></i></label>
+					</select><label class="form-input select-icon"><span class="oi" data-glyph="caret-bottom"></span></label>
 
 					<select name="Language" id="" class="form-input">
 						<option value="">English</option>
-					</select><label class="form-input select-icon"><i class="fa fa-caret-down"></i></label>
+					</select><label class="form-input select-icon"><span class="oi" data-glyph="caret-bottom"></span></label>
 
-					<button class="form-input btn" onclick="toggleMascot(this)" value="hide"><i class="fa fa-eye-slash"></i> Mascot</button>
+					<button class="form-input btn" onclick="toggleMascot(this)" value="hide"><span class="oi" data-glyph="eye"></span> Mascot</button>
 				</div>
 
 				<span><i>Powered by <a href="#">NyaaPantsu</a></i></span>
