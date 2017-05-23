@@ -71,9 +71,17 @@ type UserProfileNotifVariables struct {
 	Infos   map[string][]string
 }
 
+type UserTorrentEdVbs struct {
+	CommonTemplateVariables
+	Upload     UploadForm
+	FormErrors map[string][]string
+	FormInfos  map[string][]string
+}
+
 type HomeTemplateVariables struct {
 	CommonTemplateVariables
 	ListTorrents []model.TorrentJSON
+	Infos   map[string][]string
 }
 
 type DatabaseDumpTemplateVariables struct {
