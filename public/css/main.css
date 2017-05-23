@@ -410,6 +410,13 @@ td.tr-le { color: #E84C4C; }
 .profile-userpic img {
 	border-radius: 6px;
 }
+.profile-usermenu {
+	display: inline-grid;
+}
+.profile-userbuttons {
+	display: inline-flex;
+	margin-bottom: 5px;
+}
 
 .torrent-hr {
 	font-size: large;
