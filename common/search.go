@@ -14,6 +14,18 @@ const (
 	APlus
 )
 
+func (st *Status) ToString() string {
+	switch *st {
+	case FilterRemakes:
+		return "1"
+	case Trusted:
+		return "2"
+	case APlus:
+		return "3"
+	}
+	return ""
+}
+
 func (st *Status) Parse(s string) {
 	switch s {
 	case "1":
@@ -82,11 +94,11 @@ func (s *SortMode) ToESField() string {
 	case Name:
 		return "name"
 	case Date:
-		return "name"
+		return "date"
 	case Downloads:
 		return "downloads"
 	case Size:
-		return "size"
+		return "filesize"
 	case Seeders:
 		return "seeders"
 	case Leechers:
@@ -94,7 +106,7 @@ func (s *SortMode) ToESField() string {
 	case Completed:
 		return "completed"
 	}
-	return "date"
+	return "id"
 }
 
 type Category struct {
@@ -113,7 +125,15 @@ func (c Category) String() (s string) {
 }
 
 func (c Category) IsSet() bool {
-	return c.Main != 0 && c.Sub != 0
+	return c.IsMainSet() && c.IsSubSet()
+}
+
+func (c Category) IsMainSet() bool {
+	return c.Main != 0
+}
+
+func (c Category) IsSubSet() bool {
+	return c.Sub != 0
 }
 
 // Parse sets category by string

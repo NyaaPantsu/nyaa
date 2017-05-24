@@ -30,8 +30,14 @@ type TorrentParam struct {
 	NameLike  string // csv
 }
 
-func (p *TorrentParam) FromRequest(r *http.Request) error {
+// TODO Should probably return an error ?
+func (p *TorrentParam) FromRequest(r *http.Request) {
 	var err error
+
+	nameLike := r.URL.Query().Get("q")
+	if nameLike == "" {
+		nameLike = "*"
+	}
 
 	page := mux.Vars(r)["page"]
 	pagenum, err := strconv.ParseUint(page, 10, 32)
@@ -46,10 +52,10 @@ func (p *TorrentParam) FromRequest(r *http.Request) error {
 		max = config.MaxTorrentsPerPage
 	}
 
-	// FIXME Use maxint to determine whether the query should include userID
+	// FIXME 0 means no userId defined
 	userId, err := strconv.ParseUint(r.URL.Query().Get("userID"), 10, 32)
 	if err != nil {
-		userId = uint64(^uint32(0)) // Bit-wise NOT to find maximum value
+		userId = 0
 	}
 
 	var status Status
@@ -66,7 +72,7 @@ func (p *TorrentParam) FromRequest(r *http.Request) error {
 		ascending = true
 	}
 
-	p.NameLike = r.URL.Query().Get("q")
+	p.NameLike = nameLike
 	p.Offset = uint32(pagenum)
 	p.Max = uint32(max)
 	p.UserID = uint32(userId)
@@ -78,60 +84,77 @@ func (p *TorrentParam) FromRequest(r *http.Request) error {
 	p.Status = status
 	p.Sort = sortMode
 	p.Category = category
-	// FIXME Don't use Max Uint32 value to determine if we use TorrentID
-	p.TorrentID = ^uint32(0) // Bit-wise NOT to find maximum value
-	return nil
+	// FIXME 0 means no TorrentId defined
+	// Do we even need that ?
+	p.TorrentID = 0
 }
 
-// TODO Query filter with Sort, Status, Category, UserID
-func (p *TorrentParam) Find(client elastic.Client) ([]model.TorrentJSON, error) {
-	// TODO Don't create a new client for every search
+// Builds a query string with for es query string query defined here
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html
+func (p *TorrentParam) ToFilterQuery() string {
+	// Don't set sub category unless main category is set
+	query := ""
+	if p.Category.IsMainSet() {
+		query += "category:" + strconv.FormatInt(int64(p.Category.Main), 10)
+		if p.Category.IsSubSet() {
+			query += " sub_category:" + strconv.FormatInt(int64(p.Category.Sub), 10)
+		}
+	}
+
+	if p.Status != ShowAll {
+		query += " status:" + p.Status.ToString()
+	}
+	return query
+}
+
+// Uses elasticsearch to find the torrents based on TorrentParam
+func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.TorrentJSON, error) {
 	// TODO Why is it needed, what does it do ?
 	ctx := context.Background()
 
-	simpleQuery := elastic.NewSimpleQueryStringQuery(p.NameLike).
-		Analyzer(config.DefaultElasticsearchAnalyzer).
-		Flags("AND|OR|NOT|PREFIX|PHRASE|PRECEDENCE|WHITESPACE").
+	query := elastic.NewSimpleQueryStringQuery(p.NameLike).
 		Field("name").
+		Analyzer(config.DefaultElasticsearchAnalyzer).
 		DefaultOperator("AND")
 
-		// Specify all field that should be returned by Elasticsearch
-		// TODO Add seeders, leechers, completed, etc
-		// TODO Find a better way to keep in sync with mapping in ansible
-	fsc := elastic.NewFetchSourceContext(true).
-		Include("id", "name", "category", "sub_category", "status", "hash",
-			"date", "uploader_id", "downloads", "filesize")
-
+	// TODO Find a better way to keep in sync with mapping in ansible
 	search := client.Search().
 		Index(config.DefaultElasticsearchIndex).
-		Query(simpleQuery).
+		Query(query).
 		Type(config.DefaultElasticsearchType).
-		From(int(p.Offset)).
+		From(int((p.Offset - 1) * p.Max)).
 		Size(int(p.Max)).
-		Sort("_score", false).
-		Sort("date", false).
-		FetchSourceContext(fsc)
+		Sort("_score", false). // TODO Do we want to sort by score first ?
+		Sort(p.Sort.ToESField(), p.Order)
+
+	filterQueryString := p.ToFilterQuery()
+	if filterQueryString != "" {
+		filterQuery := elastic.NewQueryStringQuery(filterQueryString).
+			DefaultOperator("AND")
+		search = search.PostFilter(filterQuery)
+	}
+
 
 	result, err := search.Do(ctx)
 	if err != nil {
-		return nil, err
+		return 0, nil, err
 	}
 
-	log.Infof("Query '%s' took %d milliseconds.\n", p.NameLike, result.TookInMillis)
-	log.Infof("Amount of results %d.\n", result.TotalHits())
+	log.Infof("Query '%s' took %d milliseconds.", p.NameLike, result.TookInMillis)
+	log.Infof("Amount of results %d.", result.TotalHits())
 
-	torrents := make([]model.TorrentJSON, result.Hits.TotalHits)
-	for _, hit := range result.Hits.Hits {
+	torrents := make([]model.TorrentJSON, len(result.Hits.Hits))
+	for i, hit := range result.Hits.Hits {
 		var torrent model.TorrentJSON
 		err := json.Unmarshal(*hit.Source, &torrent)
 		if err == nil {
-			torrents = append(torrents, torrent)
+			torrents[i] = torrent
 		} else {
 			log.Errorf("Failed to decode TorrentJSON from '%v'", *hit.Source)
 		}
 	}
 
-	return torrents, nil
+	return result.TotalHits(), torrents, nil
 }
 
 func (p *TorrentParam) Clone() TorrentParam {
