@@ -8,6 +8,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	userForms "github.com/NyaaPantsu/nyaa/service/user/form"
+	"github.com/NyaaPantsu/nyaa/util/filelist"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/gorilla/mux"
 )
@@ -29,6 +30,7 @@ type NotFoundTemplateVariables struct {
 type ViewTemplateVariables struct {
 	CommonTemplateVariables
 	Torrent    model.TorrentJSON
+	RootFolder *filelist.FileListFolder // used for tree view
 	CaptchaID  string
 	FormErrors map[string][]string
 	Infos      map[string][]string

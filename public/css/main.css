@@ -522,3 +522,43 @@ td.tr-le { color: #E84C4C; }
 	width: 16px;
 	margin-top: 25px;
 }
+/* Filelist */
+#filelist-control {
+	cursor: pointer;
+}
+#filelist-control::before {
+	content: "\25B6   ";
+}
+#filelist-control[data-filelist-open="true"]::before {
+	content: "\25BC   ";
+}
+
+.folder-icon {
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAADBJREFUOI1jZGBg+M+AHTDiEEcBTMQowgcY8biAKECxCwYeDHwYjBowbAw4SYH+YwB6YwSnsuTkoAAAAABJRU5ErkJggg==');
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+}
+.file-icon {
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAElJREFUOI1jYGBg+I8Dw0ADAwFAyID/hAwhxgC8hhBrAE5DSDEAqyGkGoBiCAsufyEBRnySTEQYQND0/wRV4dZLuQtGDRgMBgAARxw25MUCGPQAAAAASUVORK5CYII=');
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+}
+.tr-filelist td {
+	padding: 4px 4px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.tr-filelist td:first-child span {
+	margin-right: 0.5rem;
+}
+/* Filesize column */
+.tr-filelist td:nth-child(2) {
+	text-align: center;
+}
+
+.tr-folder {
+	cursor: pointer;
+}
