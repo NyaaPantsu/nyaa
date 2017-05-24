@@ -137,7 +137,7 @@ var FuncMap = template.FuncMap{
 			}
 			itemsThisPageStart := nav.MaxItemPerPage * (nav.CurrentPage - 1) + 1
 			itemsThisPageEnd := nav.MaxItemPerPage * nav.CurrentPage
-			if nav.MaxItemPerPage < itemsThisPageEnd {
+			if nav.TotalItem < itemsThisPageEnd {
 				itemsThisPageEnd = nav.TotalItem
 			}
 			ret = ret + "<p>" + strconv.Itoa(itemsThisPageStart) + "-" + strconv.Itoa(itemsThisPageEnd) + "/" + strconv.Itoa(nav.TotalItem) + "</p>"
