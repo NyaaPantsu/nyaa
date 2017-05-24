@@ -34,24 +34,9 @@ for(var i in list) {
 	e.title = e.innerText;
 	e.innerText = new Date(e.innerText).toLocaleString(lang);
 }
-$(".date-comments").each(function(index, el) {
-	$(this).attr("title", el.innerText);
-	$(this).text(new Date($(this).attr("title")).toLocaleDateString(lang, ymdOpt) + " ");
-	$(this).append($('<span class="hidden-xs"></span>').text(new Date($(this).attr("title")).toLocaleTimeString(lang, hmOpt)))
-});
 /*Fixed-Navbar offset fix*/
 window.onload = function() {
 	var shiftWindow = function() { scrollBy(0, -70) };
 	if (location.hash) shiftWindow();
 	window.addEventListener("hashchange", shiftWindow);
 };
-
-
-$('#mascot').bind('touchstart mousedown click', function(e){
-	var night = localStorage.getItem("night");
-	if(night == "true") {
-		$('#explosion')[0].play();
-	} else {
-		$('#nyaapassu')[0].play();
-	}
-});
