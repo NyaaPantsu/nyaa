@@ -144,6 +144,12 @@ var FuncMap = template.FuncMap{
 				url, _ := Router.Get(nav.Route).URL("page", strconv.Itoa(nav.CurrentPage+1))
 				ret = ret + "<li><a id=\"page-next\" href=\"" + url.String() + "?" + currentUrl.RawQuery + "\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li>"
 			}
+			itemsThisPageStart := nav.MaxItemPerPage * (nav.CurrentPage - 1) + 1
+			itemsThisPageEnd := nav.MaxItemPerPage * nav.CurrentPage
+			if nav.TotalItem < itemsThisPageEnd {
+				itemsThisPageEnd = nav.TotalItem
+			}
+			ret = ret + "<p>" + strconv.Itoa(itemsThisPageStart) + "-" + strconv.Itoa(itemsThisPageEnd) + "/" + strconv.Itoa(nav.TotalItem) + "</p>"
 		}
 		return template.HTML(ret)
 	},
