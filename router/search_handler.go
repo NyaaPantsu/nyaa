@@ -1,56 +1,54 @@
 package router
 
 import (
-	"html"
 	"net/http"
-	"strconv"
 
-	"github.com/NyaaPantsu/nyaa/model"
-	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/NyaaPantsu/nyaa/common"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
-	"github.com/NyaaPantsu/nyaa/util/search"
-	"github.com/gorilla/mux"
+	elastic "gopkg.in/olivere/elastic.v5"
 )
 
 // SearchHandler : Controller for displaying search result page, accepting common search arguments
 func SearchHandler(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	page := vars["page"]
-	messages := msg.GetMessages(r)
-
-	// db params url
-	var err error
-	pagenum := 1
-	if page != "" {
-		pagenum, err = strconv.Atoi(html.EscapeString(page))
-		if !log.CheckError(err) {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		if pagenum <= 0 {
-			NotFoundHandler(w, r)
-			return
-		}
-	}
-
-	searchParam, torrents, nbTorrents, err := search.SearchByQuery(r, pagenum)
+	// TODO Don't create a new client for each request
+	client, err := elastic.NewClient()
 	if err != nil {
-		util.SendError(w, err, 400)
+		log.Errorf("Unable to create elasticsearch client: %s\n", err)
+	}
+	var torrentParam common.TorrentParam
+	torrentParam.FromRequest(r)
+	totalHits, torrents, err := torrentParam.Find(client)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	messages := msg.GetMessages(r)
+	// TODO Fallback to postgres search if es is down
 
-	b := model.TorrentsToJSON(torrents)
-
-	common := newCommonVariables(r)
-	common.Navigation = navigation{nbTorrents, int(searchParam.Max), pagenum, "search_page"}
+	commonVar := newCommonVariables(r)
+	commonVar.Navigation = navigation{int(totalHits), int(torrentParam.Max), int(torrentParam.Offset), "search_page"}
 	// Convert back to strings for now.
-	common.Search = searchForm{
+	// Convert back to strings for now.
+	// TODO Deprecate fully SearchParam and only use TorrentParam
+	searchParam := common.SearchParam{
+		Order: torrentParam.Order,
+		Status: torrentParam.Status,
+		Sort: torrentParam.Sort,
+		Category: torrentParam.Category,
+		Page: int(torrentParam.Offset),
+		UserID: uint(torrentParam.UserID),
+		Max: uint(torrentParam.Max),
+		NotNull: torrentParam.NotNull,
+		Query: torrentParam.NameLike,
+	}
+
+	commonVar.Search = searchForm{
 		SearchParam:      searchParam,
 		Category:         searchParam.Category.String(),
 		ShowItemsPerPage: true,
 	}
-	htv := modelListVbs{common, b, messages.GetAllErrors(), messages.GetAllInfos()}
+	htv := modelListVbs{commonVar, torrents, messages.GetAllErrors(), messages.GetAllInfos()}
 
 	err = searchTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
