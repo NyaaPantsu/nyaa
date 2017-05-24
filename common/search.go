@@ -71,6 +71,32 @@ func (s *SortMode) Parse(str string) {
 	}
 }
 
+/* INFO Always need to keep in sync with the field that are used in the
+ * elasticsearch index.
+ * TODO Verify the field in postgres database
+ */
+func (s *SortMode) ToESField() string {
+	switch *s {
+	case ID:
+		return "id"
+	case Name:
+		return "name"
+	case Date:
+		return "name"
+	case Downloads:
+		return "downloads"
+	case Size:
+		return "size"
+	case Seeders:
+		return "seeders"
+	case Leechers:
+		return "leechers"
+	case Completed:
+		return "completed"
+	}
+	return "date"
+}
+
 type Category struct {
 	Main, Sub uint8
 }
