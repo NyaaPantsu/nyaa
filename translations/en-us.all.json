@@ -894,5 +894,33 @@
   {
     "id": "comment_empty",
     "translation": "Comment empty!"
+  },
+  {
+    "id": "no_owner_selected",
+    "translation": "New torrent owner is needed!"
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "No category selected!"
+  },
+  {
+    "id": "no_user_found_id",
+    "translation": "User with id %d isn't in the database!"
+  },
+  {
+    "id": "invalid_torrent_category",
+    "translation": "Torrent category doesn't exist!"
+  },
+  {
+    "id": "torrent_owner_changed",
+    "translation": "Owner of torrent \"%s\" has been successfully changed!"
+  },
+  {
+    "id": "torrent_category_changed",
+    "translation": "Category of torrent \"%s\" has been changed!"
+  },
+  {
+    "id": "torrent_reports_deleted",
+    "translation": "Reports of torrent \"%s\" were deleted!"
   }
 ]
