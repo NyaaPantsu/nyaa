@@ -74,16 +74,25 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 * Scraping of fan subbing RSS feeds similar to metainfo_fetcher and scraper
   * nyaa.si
   * anidex.moe
+  * e-hentai
+  * TT
+  * make it to local clients scrape from nyaa.pantsu.cat
+* Remove and replace gravatar
+* Custom trackers for magnet links
+* Make new layouts fully responsive
+* Make category icons buttons to search for that category
+* Finish themeing of forms and buttons
+* Make Mascots customizable
+* reset api key button
+* torznab api searching
 * Anidb integration
-* Site theme
-  * original nyaa theme
-  * Implement mockup design from /g/anon
+* make new layout fully responsive
 * Use elastic search or sphinix search
-* Use new db abstraction layer and remove all ORM code
 * API improvement
+* Use new db abstraction layer and remove all ORM code
 * Get code up to standard of go lint recommendations
 * Write tests
-
+* Make sure html and css are fully up to recommendations
 
 # LICENSE
 This project is licensed under the MIT License - see the LICENSE.md file for details
