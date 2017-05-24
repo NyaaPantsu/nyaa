@@ -46,12 +46,25 @@ func FileListToFolder(fileList []model.File) (out *FileListFolder) {
 	return
 }
 
+func (f *FileListFolder) TotalSize() (out int64) {
+	out = 0
+	for _, folder := range f.Folders {
+		out += folder.TotalSize()
+	}
+
+	for _, file := range f.Files {
+		out += file.Filesize
+	}
+	return
+}
+
 type folderFormatData struct {
 	Data interface{}
 	FolderName string
+	TotalSize int64
 	NestLevel uint
 	ParentIdentifier string
-	ChildIdentifier string
+	Identifier string
 }
 
 type fileFormatData struct {
@@ -87,7 +100,8 @@ func (f *FileListFolder) makeFolderTreeView(folderTmpl *template.Template, fileT
 	for i, folderName := range folderNames {
 		folder := f.Folders[folderName]
 		childIdentifier := identifier + "_d" + strconv.Itoa(i)
-		tmp, err = execTemplateToHTML(folderTmpl, folderFormatData{data, folderName, nestLevel, identifier, childIdentifier})
+		// To the folder, our identifier is their parent identifier, and our child identifier is their own identifier.
+		tmp, err = execTemplateToHTML(folderTmpl, folderFormatData{data, folderName, folder.TotalSize(), nestLevel, identifier, childIdentifier})
 		if err != nil {
 			return
 		}
