@@ -45,8 +45,9 @@
   {{end}}
   <p class="torrent-hr">{{call $.T "files"}}</p>
   {{ if gt (len .FileList) 0 }}
-  {{ $folderFormat := "<tr class='childs-of-{{.ParentIdentifier}}' style='cursor: pointer' onclick=\"javascript:toggleFolder('childs-of-{{.Identifier}}')\"><td style='padding-left: calc({{.NestLevel}}*2rem);'>{{.FolderName}}</td><td style='text-align: center'>{{ fileSize .TotalSize .Data.T }}</td></tr>" }}
-  {{ $fileFormat := "<tr class='childs-of-{{.ParentIdentifier}}'><td style='padding-left: calc({{.NestLevel}}*2rem);'>{{.Filename}}</td><td style='text-align: center'>{{ fileSize .Filesize .Data.T }}</td>" }}
+  {{/* how do i concat lol */}}
+  {{ $folderFormat := `<tr class='childs-of-{{.ParentIdentifier}} tr-filelist tr-folder' onclick="javascript:toggleFolder('childs-of-{{.Identifier}}')"><td><span class='folder-icon' style='margin-left: calc({{.NestLevel}}*2rem);'></span>{{.FolderName}}</td><td>{{ fileSize .TotalSize .Data.T }}</td></tr>` }}
+  {{ $fileFormat := `<tr class='childs-of-{{.ParentIdentifier}} tr-filelist'><td><span class="file-icon" style='margin-left: calc({{.NestLevel}}*2rem);'></span>{{.Filename}}</td><td>{{ fileSize .Filesize .Data.T }}</td>` }}
     <script>
     function toggleFolder(folder) {
         var rows = document.querySelectorAll("*[class^='" + folder + "']")
