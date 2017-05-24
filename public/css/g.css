@@ -1,7 +1,7 @@
 body { color: #373737; background: url('theme_g_anon/bg-body.png'); }
 
 .header, .user-menu { box-shadow: 1px 3px 4px hsla(200,20%,20%,0.15) }
-.box, .pagination a { box-shadow: 1px 3px 4px hsla(270,20%,20%,0.15) }
+.box, .pagination li { box-shadow: 1px 3px 4px hsla(270,20%,20%,0.15) }
 
 #mascot { background-image: url('/img/renchon.svg'); }
 a { color: #676767; }
@@ -14,7 +14,7 @@ a:hover { color:  #444; }
 .header .nav-btn { color: #1d6d90; }
 .header .nav-btn:hover { color: #2586B0; }
 
-.box, .pagination a { background: hsla(198, 63%, 97%, 0.85); border-color: #cbbdd7 !important; }
+.box, .pagination li { background: hsla(198, 63%, 97%, 0.85); border-color: #cbbdd7 !important; }
 
 .form-input { border-color: #c4c4c4 !important; background: #fff; color: #676767; }
 

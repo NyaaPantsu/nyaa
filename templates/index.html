@@ -24,9 +24,7 @@
 				console.log(theme);
 			}
 			function setTheme() {
-				window.onload = function () {
 				document.getElementById('theme').href = "/css/" + localStorage.getItem('theme');
-				}
 			}
 
 			function toggleMascot(btn) {
@@ -45,7 +43,7 @@
 		</script>
 
     </head>
-  <body>
+  <body onload="setTheme();">
      <div id="mascot"></div>
 	<nav id="header" class="header">
 		<div class="container">
