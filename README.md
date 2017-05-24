@@ -16,11 +16,11 @@ You can view the public trello board [here](https://trello.com/b/gMJBwoRq/nyaa-p
 * Golang
 
 # Installation
-Ubuntu 17.04 fails to build, use a different OS or docker
+All tested versions of Ubuntu fail to build, use a different OS or docker
 * Install [Golang](https://golang.org/doc/install) (version >=1.8)
 * `go get github.com/NyaaPantsu/nyaa`
 * `go build`
-* Download DB and place it in your root folder named as "nyaa.db"
+* Download the DB and place it in your root folder named as "nyaa.db" (You want the merged.sqlite3 database, see the dev IRC for more info)
 * `./nyaa`
 * You can now access your local site over on [localhost:9999](http://localhost:9999)
 
@@ -89,8 +89,12 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
 # Contributing
+ Use tabs for css and js files.
 
-Use tabs for css and js files.
+# IRC
+#nyaapant<span>su@irc<span>.rizon.n</span>et</span>
+
+#nyaapantsu-dev<span>@ir<span>c.rizon.n</span>et</span> (Serious buisness only)
 
 # Disclaimer
 We take no legal responsibility for anything this code is used for. This is purely an educational proof of concept.
