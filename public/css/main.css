@@ -386,9 +386,9 @@ tr:nth-child(even) { background: rgba(200,200,200,0.15); }
 td.tr-se { color: #22A243; }
 td.tr-le { color: #E84C4C; }
 
-.torrent-info.aplus { background: hsla(200, 100%, 70%, 0.2); }
-.torrent-info.trusted { background: hsla(100, 100%, 70%, 0.2); }
-.torrent-info.remake { background: hsla(30, 100%, 70%, 0.2); }
+.aplus { background: hsla(200, 100%, 70%, 0.2); }
+.trusted { background: hsla(100, 100%, 70%, 0.2); }
+.remake { background: hsla(30, 100%, 70%, 0.2); }
 
 .pagination .active { background: #d5d5d5; color: #222; }
 .pagination .disabled { color: #d5d5d5; cursor: unset; }
@@ -590,4 +590,10 @@ td.tr-le { color: #E84C4C; }
 	width: 16px;
 	height: 16px;
 	display: inline-block;
+}
+
+#torrent-name {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
 }
