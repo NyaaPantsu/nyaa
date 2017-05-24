@@ -37,9 +37,9 @@
           <td class="torrent-info-td torrent-info-label">{{call $.T "last_scraped"}}</td><td class="torrent-info-td">{{if not .LastScrape.IsZero}}{{formatDateRFC .LastScrape}}{{else}}{{call $.T "unknown"}}{{end}}</td>
       </tr>
   </table>
-  <div class="torrent-buttons">
-  <a href="{{.Magnet}}" class="form-input torrent-magnet-button">Magnet!</a>
-  <a href="{{.TorrentLink}}" class="form-input">Torrent!</a>
+<div class="torrent-buttons">
+  <a href="{{.Magnet}}" class="form-input">Magnet</a>
+  <a href="{{.TorrentLink}}" class="form-input">Torrent</a>
   {{ if gt $.User.ID 0}}
   <script>
       function reportPopup() {
