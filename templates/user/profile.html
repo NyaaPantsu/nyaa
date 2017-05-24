@@ -7,6 +7,7 @@
 	<div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
 {{end}}
 {{with .UserProfile}}
+	<div class="profile-main">
 		<div class="box profile-panel">
 			<div class="profile-sidebar">
 				<!-- SIDEBAR USERPIC -->
@@ -54,8 +55,7 @@
 			</div>
 		</div>
 {{end}}
-		<div class="col-md-9">
-            <div class="profile-content">
+            <div class="profile-content box">
 			   {{ block "profile_content" . }}{{end}}
             </div>
 		</div>

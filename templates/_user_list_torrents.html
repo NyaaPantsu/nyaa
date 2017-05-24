@@ -38,11 +38,11 @@
               </td>
               <td>
                   <a href="{{.Magnet}}" title="{{ call $.T "magnet_link" }}">
-                      <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>
+                      <span class="oi" data-glyph="cloud-download"></span>
                   </a>
                   {{if ne .TorrentLink ""}}
                   <a href="{{.TorrentLink}}" title="{{ call $.T "torrent_file" }}">
-                      <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 
+                      <span class="oi" data-glyph="data-transfer-download"></span>
                   </a>
                   {{end}}
               </td>
