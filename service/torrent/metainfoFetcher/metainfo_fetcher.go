@@ -226,7 +226,7 @@ func (fetcher *MetainfoFetcher) fillQueue() {
 
 	oldest := time.Now().Add(0 - (time.Hour * time.Duration(24*fetcher.maxDays)))
 	excludedIDS := make([]uint, 0, len(fetcher.failedOperations))
-	for id, _ := range fetcher.failedOperations {
+	for id := range fetcher.failedOperations {
 		excludedIDS = append(excludedIDS, id)
 	}
 
