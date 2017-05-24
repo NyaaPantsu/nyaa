@@ -9,11 +9,11 @@
     {{ range (index $.Infos "infos")}}
         <div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
     {{end}}
-  <a class="torrent-hr" href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">{{ if Sukebei}}{{ call $.T (CategoryName .Category .SubCategory) }}{{else}}{{ call $.T (CategoryName .Category .SubCategory) }}{{end}}</a> <br>
+  <p style="text-align: center;" class="torrent-hr">{{.Name}} </p>
   <br>
   <table>
       <tr class="torrent-info-row">
-      <td class="torrent-info-td torrent-info-label">Name:</td><td class="torrent-info-td torrent-info-data">{{.Name}}</td>
+      <td class="torrent-info-td torrent-info-label">Category:</td><td class="torrent-info-td torrent-info-data"><a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">{{ if Sukebei}}{{ call $.T (CategoryName .Category .SubCategory) }}{{else}}{{ call $.T (CategoryName .Category .SubCategory) }}{{end}}</a> <br></td>
       <td class="torrent-info-td torrent-info-label">Date:</td><td class="torrent-info-td date-short">{{.Date}}</td>
       </tr>
       <tr class="torrent-info-row">
@@ -25,7 +25,7 @@
           <td class="torrent-info-td torrent-info-label">{{call $.T "leechers"}}:</td><td class="torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Leechers}}{{end}}</td>
       </tr>
     <tr class="torrent-info-row">
-          <td class="torrent-info-td torrent-info-label">{{call $.T "hash"}}:</td><td style="font-family: monospace;" class="torrent-view-td torrent-info-data">{{.Hash}}</td>
+          <td class="torrent-info-td torrent-info-label">{{call $.T "hash"}}:</td><td style="font-size: small;" class="torrent-view-td torrent-info-data">{{.Hash}}</td>
           <td class="torrent-info-td torrent-info-label">{{call $.T "completed"}}:</td><td class="torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Completed}}{{end}}</td>
       </tr>
     <tr class="torrent-info-row">
@@ -39,7 +39,7 @@
   </div>
   <p class="torrent-hr">{{call $.T "description"}}</p>
   {{ if ne .Description ""}}
-  <div class="torrent-info-box">{{.Description}}</div>
+  <div style="padding-left: 14px;" class="torrent-info-box">{{.Description}}</div>
   {{else}}
   <p>No description provided!</p>
   {{end}}
@@ -99,8 +99,8 @@
                 <div class="comment-form">
                     <div class="comment-text">
                     <label style="margin-top: 5px; margin-left: 5px;" class="input-label"  for="comment">Submit a comment!</label> <br>
-                    <textarea placeholder="Senkyuu~" name="comment" class="form-input" cols="50" rows="50"></textarea>
-                    </div>
+                    <textarea style="width: 80%;" placeholder="Senkyuu~" name="comment" class="form-input" rows="50"></textarea>
+                    </div><br />
                     <div class="comment-captcha">
                 {{block "captcha" (makeCaptchaData .CaptchaID $.T)}}{{end}}
                 <button type="submit" class="form-input">{{call $.T "submit" }}</button>
