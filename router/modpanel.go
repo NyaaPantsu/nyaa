@@ -365,10 +365,10 @@ func ApiMassMod(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")	
 	
 	if !messages.HasErrors() {
-		mapOk := map[string]bool{"ok": true, "errors": false}
+		mapOk := map[string]interface{}{"ok": true, "infos": messages.GetAllInfos()["infos"]}
     	apiJson, _ = json.Marshal(mapOk)
 	} else { // We need to show error messages
-		mapNotOk := map[string]interface{}{"ok": false, "errors": messages.GetAllErrors()}
+		mapNotOk := map[string]interface{}{"ok": false, "errors": messages.GetAllErrors()["errors"]}
 		apiJson, _ = json.Marshal(mapNotOk)
 	}
 
@@ -411,14 +411,14 @@ func torrentManyAction(r *http.Request) {
 	if r.FormValue("withreport") == "" { // Default behavior for withreport
 		withReport = false
 	}
+	if !config.TorrentStatus[status] { // Check if the status exist
+		messages.AddErrorTf("errors", "no_status_exist", status)
+		status = -1
+	}
 	if !userPermission.HasAdmin(currentUser)  {
 		if r.FormValue("status") != "" { // Condition to check if a user try to change torrent status without having the right permission
 			if (status == model.TorrentStatusTrusted && !currentUser.IsTrusted()) || status == model.TorrentStatusAPlus || status == 0 {
 				status = model.TorrentStatusNormal
-			}
-			if !config.TorrentStatus[status] {
-				messages.AddErrorTf("errors", "no_status_exist", status)
-				status = -1
 			}
 		}
 		if r.FormValue("owner") != "" { // Only admins can change owner of torrents
@@ -429,8 +429,8 @@ func torrentManyAction(r *http.Request) {
 	if r.FormValue("owner") != "" && userPermission.HasAdmin(currentUser) { // We check that the user given exist and if not we return an error
 		_, _, errorUser := userService.RetrieveUserForAdmin(strconv.Itoa(owner))
 		if errorUser != nil {
-			owner = -1
 			messages.AddErrorTf("errors", "no_user_found_id", owner)
+			owner = -1
 		}
 	}
 	if category != "" {
@@ -474,7 +474,7 @@ func torrentManyAction(r *http.Request) {
 					}
 
 					/* Changes are done, we save */
-					db.ORM.Save(&torrent)
+					db.ORM.Model(&torrent).UpdateColumn(&torrent)
 				} else if action == "delete" {
 					_, err = torrentService.DeleteTorrent(torrent_id)
 					if err != nil {
