@@ -101,6 +101,10 @@ func (p *TorrentParam) ToFilterQuery() string {
 		}
 	}
 
+	if p.UserID != 0 {
+		query += "uploader_id:" + strconv.FormatInt(int64(p.UserID), 10)
+	}
+
 	if p.Status != ShowAll {
 		query += " status:" + p.Status.ToString()
 	}
