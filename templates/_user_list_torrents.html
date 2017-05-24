@@ -1,14 +1,13 @@
 {{define "profile_content"}}
 {{with .UserProfile}}
 {{ if gt (len .Torrents) 0 }}
-      <div class="table-responsive">
-          <table class="table custom-table-hover">
-          <tr>
-            <th>{{call $.T "category"}}</th>
-            <th>{{call $.T "name"}}</th>
-            <th>{{call $.T "date"}}</th>
-            <th>{{call $.T "size"}}</th>
-            <th>{{call $.T "links"}}</th>
+          <table>
+          <tr class="torrent-info">
+            <th class="tr-cat">{{call $.T "category"}}</th>
+            <th class="tr-name">{{call $.T "name"}}</th>
+            <th class="tr-date hide-xs">{{call $.T "date"}}</th>
+            <th class="tr-size hide-xs">{{call $.T "size"}}</th>
+            <th class="tr-dl">{{call $.T "links"}}</th>
           </tr>
           {{ range $i, $t := .Torrents }}
           {{ if lt $i 16 }}
@@ -18,7 +17,7 @@
               {{if eq .Status 3}}trusted{{end}}
               {{if eq .Status 4}}aplus{{end}}">
               <!-- forced width because the <td> gets bigger randomly otherwise -->
-              <td style="width:80px">
+              <td>
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
                       {{ if Sukebei }}
                       <img src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
@@ -32,17 +31,17 @@
                       {{.Name}}
                   </a>
               </td>
-              <td class="nowrap date-short">{{.Date}}</td>
-              <td class="nowrap">
+              <td class="nowrap date-short hide-xs">{{.Date}}</td>
+              <td class="nowrap hide-xs">
                   {{ fileSize .Filesize $.T }}
               </td>
               <td>
                   <a href="{{.Magnet}}" title="{{ call $.T "magnet_link" }}">
-                      <span class="oi" data-glyph="cloud-download"></span>
+                        <div class="magnet-icon"></div>
                   </a>
                   {{if ne .TorrentLink ""}}
                   <a href="{{.TorrentLink}}" title="{{ call $.T "torrent_file" }}">
-                      <span class="oi" data-glyph="data-transfer-download"></span>
+                        <div class="download-icon"></div>
                   </a>
                   {{end}}
               </td>
