@@ -14,10 +14,10 @@
        <div class="form-group">
           <select class="form-control" name="action">
             <option value="">Action...</option>
-            <option value="move">Move</option>
+            <option value="status">Change Status</option>
             <option value="delete">Delete</option>
           </select>
-          <select class="form-control" style="display: none;" name="moveto">
+          <select class="form-control" style="display: none;" name="status">
             <option value="">To...</option>
             <option value="0">{{call $.T "torrent_status_hidden"}}</option>
             <option value="1">{{call $.T "torrent_status_normal"}}</option>
