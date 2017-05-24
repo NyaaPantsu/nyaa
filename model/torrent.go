@@ -112,7 +112,7 @@ func (t *Torrent) IsBlocked() bool {
 }
 
 func (t *Torrent) IsDeleted() bool {
-	return t.DeletedAt == nil
+	return t.DeletedAt != nil
 }
 
 /* We need a JSON object instead of a Gorm structure because magnet URLs are
