@@ -31,7 +31,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 			maxPerPage = 50 // default Value maxPerPage
 		}
 	}
-	if (deleteVar != nil) {
+	if deleteVar != nil {
 		messages.AddInfoTf("infos", "torrent_deleted", "")
 	}
 	pagenum := 1
@@ -72,8 +72,8 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	common.Navigation = navigationTorrents
 	htv := HomeTemplateVariables{
 		CommonTemplateVariables: common,
-		ListTorrents: torrentsJson,
-		Infos: messages.GetAllInfos(),
+		ListTorrents:            torrentsJson,
+		Infos:                   messages.GetAllInfos(),
 	}
 
 	err = homeTemplate.ExecuteTemplate(w, "index.html", htv)

@@ -2,7 +2,7 @@ package model
 
 import (
 	"time"
-	
+
 	"github.com/NyaaPantsu/nyaa/config"
 )
 

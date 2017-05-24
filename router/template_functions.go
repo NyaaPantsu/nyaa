@@ -11,12 +11,21 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/categories"
+	"github.com/NyaaPantsu/nyaa/util/filelist"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 )
 
 type captchaData struct {
 	CaptchaID string
 	T         languages.TemplateTfunc
+}
+
+// Will be reused later.
+func fileSizeFunc(filesize int64, T languages.TemplateTfunc) template.HTML {
+	if (filesize == 0) {
+		return T("unknown")
+	}
+	return template.HTML(util.FormatFilesize(filesize))
 }
 
 var FuncMap = template.FuncMap{
@@ -135,6 +144,12 @@ var FuncMap = template.FuncMap{
 				url, _ := Router.Get(nav.Route).URL("page", strconv.Itoa(nav.CurrentPage+1))
 				ret = ret + "<li><a id=\"page-next\" href=\"" + url.String() + "?" + currentUrl.RawQuery + "\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li>"
 			}
+			itemsThisPageStart := nav.MaxItemPerPage * (nav.CurrentPage - 1) + 1
+			itemsThisPageEnd := nav.MaxItemPerPage * nav.CurrentPage
+			if nav.TotalItem < itemsThisPageEnd {
+				itemsThisPageEnd = nav.TotalItem
+			}
+			ret = ret + "<p>" + strconv.Itoa(itemsThisPageStart) + "-" + strconv.Itoa(itemsThisPageEnd) + "/" + strconv.Itoa(nav.TotalItem) + "</p>"
 		}
 		return template.HTML(ret)
 	},
@@ -162,10 +177,10 @@ var FuncMap = template.FuncMap{
 		// because time.* isn't available in templates...
 		return t.Format(time.RFC3339)
 	},
-    "GetCategories": func(keepParent bool) map[string]string {
+	"GetCategories": func(keepParent bool) map[string]string {
 		return categories.GetCategoriesSelect(keepParent)
-    },
-    "CategoryName": func(category string, sub_category string) string {
+	},
+	"CategoryName": func(category string, sub_category string) string {
 		s := category + "_" + sub_category
 
 		if category, ok := categories.GetCategories()[s]; ok {
@@ -174,16 +189,21 @@ var FuncMap = template.FuncMap{
 			return ""
 		}
     },
-    "fileSize": func(filesize int64, T languages.TemplateTfunc) template.HTML {
-        if (filesize == 0) {
-            return T("unknown")
-        }
-        return template.HTML(util.FormatFilesize(filesize))
-     },
+    "fileSize": fileSizeFunc,
 	"makeCaptchaData": func(captchaID string, T languages.TemplateTfunc) captchaData {
 		return captchaData{captchaID, T}
 	},
-	"DefaultUserSettings": func(s string) bool{
+	"DefaultUserSettings": func(s string) bool {
 		return config.DefaultUserSettings[s]
+	},
+	"MakeFolderTreeView": func(f *filelist.FileListFolder, folderFmt string, fileFmt string, data interface{}) template.HTML {
+		out, err := f.MakeFolderTreeView(folderFmt, fileFmt, map[string]interface{}{
+			// Add the functions needed for the tree view here.
+			"fileSize": fileSizeFunc,
+		}, data)
+		if err != nil {
+			return template.HTML("Error while making tree view")
+		}
+		return out
 	},
 }

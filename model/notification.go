@@ -5,13 +5,13 @@ import (
 )
 
 type Notification struct {
-	ID uint
-	Content string
-	Read bool
+	ID         uint
+	Content    string
+	Read       bool
 	Identifier string
-	Url string
-	UserID uint
-//	User *User `gorm:"AssociationForeignKey:UserID;ForeignKey:user_id"` // Don't think that we need it here
+	Url        string
+	UserID     uint
+	//	User *User `gorm:"AssociationForeignKey:UserID;ForeignKey:user_id"` // Don't think that we need it here
 }
 
 func NewNotification(identifier string, c string, url string) Notification {
@@ -21,4 +21,3 @@ func NewNotification(identifier string, c string, url string) Notification {
 func (n *Notification) TableName() string {
 	return config.NotificationTableName
 }
-

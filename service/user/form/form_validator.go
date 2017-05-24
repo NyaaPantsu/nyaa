@@ -76,16 +76,16 @@ type UserForm struct {
 
 // UserSettingsForm is used when updating a user.
 type UserSettingsForm struct {
-	NewTorrent         bool   `form:"new_torrent" default:"true"`
-	NewTorrentEmail    bool   `form:"new_torrent_email" default:"true"`
-	NewComment         bool   `form:"new_comment" default:"true"`
-	NewCommentEmail    bool   `form:"new_comment_email" default:"false"`
-	NewResponses       bool   `form:"new_responses" default:"true"`
-	NewResponsesEmail  bool   `form:"new_responses_email" default:"false"`
-	NewFollower        bool   `form:"new_follower" default:"true"`
-	NewFollowerEmail   bool   `form:"new_follower_email" default:"true"`
-	Followed           bool   `form:"followed" default:"false"`
-	FollowedEmail      bool   `form:"followed_email" default:"false"`
+	NewTorrent        bool `form:"new_torrent" default:"true"`
+	NewTorrentEmail   bool `form:"new_torrent_email" default:"true"`
+	NewComment        bool `form:"new_comment" default:"true"`
+	NewCommentEmail   bool `form:"new_comment_email" default:"false"`
+	NewResponses      bool `form:"new_responses" default:"true"`
+	NewResponsesEmail bool `form:"new_responses_email" default:"false"`
+	NewFollower       bool `form:"new_follower" default:"true"`
+	NewFollowerEmail  bool `form:"new_follower_email" default:"true"`
+	Followed          bool `form:"followed" default:"false"`
+	FollowedEmail     bool `form:"followed_email" default:"false"`
 }
 
 // PasswordForm is used when updating a user password.

@@ -51,8 +51,8 @@ func TestEncode(t *testing.T) {
 			{"c": 2, "d": 3},
 		}, `ld1:ai0e1:bi1eed1:ci2e1:di3eee`, false},
 		{[][]byte{
-			[]byte{'0', '2', '4', '6', '8'},
-			[]byte{'a', 'c', 'e'},
+			{'0', '2', '4', '6', '8'},
+			{'a', 'c', 'e'},
 		}, `l5:024683:acee`, false},
 
 		//boolean

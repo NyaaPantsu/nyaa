@@ -1,66 +1,41 @@
 {{define "title"}}Upload magnet{{end}}
 {{define "content"}}
-  <div class="blockBody">
   {{with .Upload}}
-  <hr>
+  <div style="text-align: left;" class="box">
   <form enctype="multipart/form-data" role="upload" method="POST">
     {{ range (index $.FormErrors "errors")}}
       <div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
     {{end}}
-      <div class="form-group">
-      <label for="name">{{call $.T "name"}}</label>
-          <input type="text" name="name" id="name" class="form-control" placeholder="{{call $.T "file_name"}}" value="{{.Name}}" autofocus required>
-      </div>
-      <div class="form-group">
-          <label for="torrent">{{call $.T "torrent_file"}}</label>
-          <input type="file" name="torrent" id="torrent" accept=".torrent">
-          <p class="help-block">{{call $.T "uploading_file_prefills_fields"}}</p>
-      </div>
-      <div class="form-group">
-          <label for="magnet">{{call $.T "magnet_link"}}</label>
-          <input  type="text" name="magnet" id="magnet" class="form-control"
-          style="width:60rem" placeholder="{{call $.T "magnet_link"}}" value="{{.Magnet}}">
-      </div>
-      <div class="form-group">
-          <label for="c">{{call $.T "category"}}</label>
-          <select name="c" class="form-control input-sm">
+      <label class="input-label" for="name">{{call $.T "name"}}</label> <br>
+          <input type="text" name="name" id="name" class="form-input up-input" placeholder="{{call $.T "file_name"}}" value="{{.Name}}" autofocus required> <br>
+     <label class="input-label" for="torrent">{{call $.T "torrent_file"}}</label> <br>
+          <input type="file" name="torrent" id="torrent" class="form-input up-input" accept=".torrent">
+          <i>{{call $.T "uploading_file_prefills_fields"}}</i><br>
+     <label class="input-label" for="magnet">{{call $.T "magnet_link"}}</label><br>
+     <input type="text" name="magnet" id="magnet" class="form-input up-input"
+          style="width:30rem" placeholder="{{call $.T "magnet_link"}}" value="{{.Magnet}}">
+<i>{{ call $.T "please_include_our_tracker" }}</i> <br>
+
+          <label class="input-label" for="c">{{call $.T "category"}}</label> <br>
+          <select name="c" id="c" class="form-input up-input" required>
               <option value="">{{call $.T "select_a_torrent_category"}}</option>
               {{ range $name_cat, $id_cat := (GetCategories false) }}
               <option value="{{ $id_cat }}" {{if eq $.Upload.Category $id_cat }}selected{{end}}>{{call $.T $name_cat }}</option>
               {{ end }}
           </select>
-          <p class="help-block">{{ call $.T "please_include_our_tracker" }}</p>
-      </div>
-      <div class="form-group">
       	  <input type="checkbox" name="remake" id="remake" >
-          <label for="remake">{{call $.T "mark_as_remake"}}</label>
-      </div>
+          <label for="remake">{{call $.T "mark_as_remake"}}</label> <br>
 
-      <div class="form-group">
-        <label for="website_link">{{call $.T "website_link"}}</label>
-        <input name="website_link" id="website_link" class="form-control" type="text" value="{{.WebsiteLink}}">
-      </div>
-      <div class="form-group">
-          <label for="desc">{{call $.T "torrent_description"}}</label>
-          <p class="help-block">{{call $.T "description_markdown_notice"}}</p>
-          <textarea name="desc" id="desc" class="form-control torrent-desc" rows="15">{{.Description}}</textarea>
-      </div>
+        <label class="input-label" for="website_link">{{call $.T "website_link"}}</label> <br>
+        <input name="website_link" id="website_link" class="form-input up-input" type="text" value="{{.WebsiteLink}}"> <br>
+          <label class="input-label" for="desc">{{call $.T "torrent_description"}}</label>
+          <i>{{call $.T "description_markdown_notice"}}</i> <br>
+          <textarea name="desc" id="desc" class="form-input up-input" rows="50" cols="50">{{.Description}}</textarea> <br>
 
 	  {{block "captcha" (makeCaptchaData .CaptchaID $.T)}}{{end}}
 
-      <button type="submit" class="btn btn-success">{{call $.T "upload"}}</button>
-      <br />
-      <br />
+      <button type="submit" class="form-input up-btn">{{call $.T "upload"}}</button>
   </form>
-  {{end}}
   </div>
-{{end}}
-{{define "js_footer"}}
-  <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/uploadPage.js"}}"></script>
-  <script type="text/javascript" charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/markdown.js/0.5.0/markdown.min.js"></script>
-  <script type="text/javascript" charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/to-markdown/3.0.4/to-markdown.js"></script>
-  <script type="text/javascript" charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-markdown/2.10.0/js/bootstrap-markdown.js"></script>
-  <script>
-    $(".torrent-desc").markdown({resize: "both"})
-  </script>
+  {{end}}
 {{end}}

@@ -18,6 +18,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/util/filelist"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/gorilla/mux"
 )
@@ -43,11 +44,12 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	b := torrent.ToJSON()
+	folder := filelist.FileListToFolder(torrent.FileList)
 	captchaID := ""
 	if userPermission.NeedsCaptcha(user) {
 		captchaID = captcha.GetID()
 	}
-	htv := ViewTemplateVariables{NewCommonVariables(r), b, captchaID, messages.GetAllErrors(), messages.GetAllInfos()}
+	htv := ViewTemplateVariables{NewCommonVariables(r), b, folder, captchaID, messages.GetAllErrors(), messages.GetAllInfos()}
 
 	err = viewTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -149,7 +151,7 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 func TorrentEditUserPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	torrent, _ := torrentService.GetTorrentById(id)
-	messages:= msg.GetMessages(r)
+	messages := msg.GetMessages(r)
 	currentUser := GetUser(r)
 	if userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
 		uploadForm := NewUploadForm()
@@ -196,9 +198,9 @@ func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
 			db.ORM.Save(&torrent)
 			messages.AddInfoT("infos", "torrent_updated")
 		}
-	htv := UserTorrentEdVbs{NewCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
-	err_ := userTorrentEd.ExecuteTemplate(w, "index.html", htv)
-	log.CheckError(err_)
+		htv := UserTorrentEdVbs{NewCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
+		err_ := userTorrentEd.ExecuteTemplate(w, "index.html", htv)
+		log.CheckError(err_)
 	} else {
 		NotFoundHandler(w, r)
 	}
@@ -210,7 +212,7 @@ func TorrentDeleteUserPanel(w http.ResponseWriter, r *http.Request) {
 	torrent, _ := torrentService.GetTorrentById(id)
 	if userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
 		_, err := torrentService.DeleteTorrent(id)
-		if (err == nil) {
+		if err == nil {
 			//delete reports of torrent
 			whereParams := serviceBase.CreateWhereParams("torrent_id = ?", id)
 			reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)

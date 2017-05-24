@@ -226,16 +226,16 @@ func (fetcher *MetainfoFetcher) fillQueue() {
 
 	oldest := time.Now().Add(0 - (time.Hour * time.Duration(24*fetcher.maxDays)))
 	excludedIDS := make([]uint, 0, len(fetcher.failedOperations))
-	for id, _ := range fetcher.failedOperations {
+	for id := range fetcher.failedOperations {
 		excludedIDS = append(excludedIDS, id)
 	}
-	
+
 	tFiles := config.FilesTableName
 	tTorrents := config.TorrentsTableName
 	// Select the torrents with no filesize, or without any rows with torrent_id in the files table...
-	queryString := "((filesize IS NULL OR filesize = 0) OR ("+tTorrents+".torrent_id NOT "+
-	               "IN (SELECT "+tFiles+".torrent_id FROM "+tFiles+" WHERE "+tFiles+
-	               ".torrent_id = "+tTorrents+".torrent_id)))"
+	queryString := "((filesize IS NULL OR filesize = 0) OR (" + tTorrents + ".torrent_id NOT " +
+		"IN (SELECT " + tFiles + ".torrent_id FROM " + tFiles + " WHERE " + tFiles +
+		".torrent_id = " + tTorrents + ".torrent_id)))"
 	var whereParamsArgs []interface{}
 
 	// that are newer than maxDays...

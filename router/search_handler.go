@@ -32,7 +32,6 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-
 	searchParam, torrents, nbTorrents, err := search.SearchByQuery(r, pagenum)
 	if err != nil {
 		util.SendError(w, err, 400)

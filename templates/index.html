@@ -11,100 +11,93 @@
     <!-- RSS Feed with Context -->
     <link href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
 
-    <!-- Bootstrap -->
-    <!-- Latest compiled and minified CSS -->
-    <!-- This should come before website CSS because it can f3ck up the website completely.. Use !important as a workaround -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Bootstrap Markdown -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-markdown/2.10.0/css/bootstrap-markdown.min.css" crossorigin="anonymous">
-
-    <!-- Bootstrap -->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}">
+    <link rel="stylesheet" id="theme" href="">
     <!-- Search Box for Google -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+		<script>
+			function changeTheme(opt) {
+				var theme = opt.value;
+				localStorage.setItem("theme", theme);
+				document.getElementById('theme').href = "/css/" + opt.value;
+				console.log(theme);
+			}
+			function setTheme() {
+				document.getElementById('theme').href = "/css/" + localStorage.getItem('theme');
+			}
 
-    <!-- Website CSS -->
-    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/style.css"}}">
-    {{block "night_theme_init" .}}{{end}}
-  </head>
-  <body>
-      <nav class="navbar navbar-default navbar-fixed-top" id="mainmenu">
-          <div class="container">
-              <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                      <span class="sr-only">{{ call $.T "toggle_navigation" }}</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                  </button>
-                  <a href="{{.URL.Parse "/"}}"><img src="/img/logo.png" class ="navbar-logo" alt="Nyaa Pantsu"></a>
-                  <a class="navbar-brand pull-right nightswitch" href="javascript:toggleNightMode();" ></a>
-              </div>
-              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
- 		<ul class="nav navbar-nav">
-                      <li><a href="{{.URL.Parse "/upload"}}"><div class="hidden-md">{{call $.T "upload"}}</div><span class="glyphicon glyphicon-cloud-upload visible-md"></span></a></li>
-                      <li><a href="{{.URL.Parse "/faq"}}"><div class="hidden-md">{{call $.T "faq"}}</div><span class="glyphicon glyphicon-question-sign visible-md"></span></a></li>
-                      <li><a href="{{ template "rss_link" . }}"><div class="hidden-md">RSS</div><span class="glyphicon glyphicon-flash visible-md"></span></a></li>
-                      {{ if Sukebei }}
-                      <li><a href="https://nyaa.pantsu.cat"><div class="hidden-md">{{call $.T "fun"}}</div><span class="glyphicon glyphicon-eye-open visible-md"></span></a></li>
-                      {{ else }}
-                      <li><a href="https://sukebei.pantsu.cat"><div class="hidden-md">{{call $.T "fap"}}</div><span class="glyphicon glyphicon-eye-close visible-md"></span></a></li>
-                      {{ end }}
-                  </ul>
-                  {{block "badge_user" .}}{{end}}
-                  <form class="navbar-form navbar-right" role="search" action="/search" method="get">
-                      <div class="form-group">
-                        {{block "search_common" .}}{{end}}
-                      </div>
-                      <div class="form-group">
-                        {{block "search_button" .}}{{end}}
-                      </div>
-                  </form>
-                  <!-- bottom padding -->
-                  <div style="padding-top: 2rem"></div>
-                </div>
-          </div>
-      </nav>
+			function toggleMascot(btn) {
+				var state= btn.getAttribute('value');
+				if (state == "hide") {
+					btn.innerHTML = "<i class='fa fa-eye'></i> Mascot";
+					document.getElementById('mascot').className = 'hide';
+					btn.setAttribute('value', 'show');
+				} else {
+					btn.innerHTML = "<i class='fa fa-eye-slash'></i> Mascot";
+					document.getElementById('mascot').className = '';
+					btn.setAttribute('value', 'hide');
+				}
+			}
 
-      <!-- top padding -->
-      <div style="padding-top: 10rem"></div>
+		</script>
 
-      <div class="container {{block "contclass" .}}generic{{end}}" id="container">
+    </head>
+  <body onload="setTheme();">
+     <div id="mascot"></div>
+	<nav id="header" class="header">
+		<div class="container">
+			<div class="h-left">
+					<div class="h-logo">
+						<a href="{{.URL.Parse "/"}}"><img src="/img/logo.png" alt="NyaaPantsu"></a>
+					</div>
+					<div class="h-nav">
+						<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><div class="upload-icon visible-md"></div><span class="hide-md">Upload</span></a>
+						<a href="{{ genRouteWithQuery "feed" .URL }}" class="nav-btn"><div class="rss-icon visible-md"></div><span class="hide-md">RSS</span></a>
+						<a href="{{.URL.Parse "/faq"}}" class="nav-btn"><div class="faq-icon visible-md"></div><span class="hide-md">FAQ</span></a>
+						<a href="//sukebei.pantsu.cat" class="nav-btn"><div class="fap-icon visible-md"></div><span class="hide-md">Fap</span></a>
+					</div>
+			</div>
+			<div class="h-right">
+        {{block "badge_user" .}}{{end}}
+				<div class="h-search hide-xs">
+				<form role="search" action="/search" method="get">
+						{{block "search_common" .}}{{end}}
+            {{block "search_button" .}}{{end}}
+				</form>
+				</div>
+			</div>
+		</div>
+	</nav>
+<div id="content">
+      <div class="content container">
         {{block "content" .}}{{call $.T "nothing_here"}}{{end}}
       </div>
+<div class="pagination">
+              {{ genNav .Navigation .URL 15 }}
+</div>
 
-      <!-- bottom padding -->
-      <div style="padding-top: 5rem"></div>
-      <footer>
-      Powered by NyaaPantsu
-      </footer>
+<footer id="footer">
+			<div class="container footer">
 
+				<div class="footer-opt">
+					<select onchange="changeTheme(this.options[this.selectedIndex])" name="Theme" id="" class="form-input">
+						<option value="">Default</option>
+						<option value="g.css">/g/ Anon</option>
+						<option value="tomorrow.css">Tomorrow</option>
+					</select>
 
-      {{if eq .User.ID 0}}
-	  <form method="POST" action="{{ .URL.Parse "/language" }}" id="bottom_language_selector_form">
-		  <select id="bottom_language_selector" name="language" onchange="javascript:document.getElementById('bottom_language_selector_form').submit()" hidden class="form-control"></select>
-	  </form>
-	  <noscript>
-		  <center><a href="{{ .URL.Parse "/language" }}">{{ call $.T "change_language" }}</a></center>
-	  </noscript>
-    <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/languages.js"}}"></script>
-	  {{end}}
+					<select name="Language" id="" class="form-input">
+						<option value="">English</option>
+					</select>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+					<button class="form-input btn" onclick="toggleMascot(this)" value="hide"><span class="oi" data-glyph="eye"></span> Mascot</button>
+				</div>
 
-    <!-- Main Javascript File -->
-    <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}"></script>
-        {{block "js_footer" .}}{{end}}
+				<span><i>Powered by <a href="#">NyaaPantsu</a></i></span>
+
+			</div>
+		</footer>
+</div>
+  <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}"></script>
 </body>
 </html>

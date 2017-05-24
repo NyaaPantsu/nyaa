@@ -8,6 +8,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	userForms "github.com/NyaaPantsu/nyaa/service/user/form"
+	"github.com/NyaaPantsu/nyaa/util/filelist"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/gorilla/mux"
 )
@@ -29,9 +30,10 @@ type NotFoundTemplateVariables struct {
 type ViewTemplateVariables struct {
 	CommonTemplateVariables
 	Torrent    model.TorrentJSON
+	RootFolder *filelist.FileListFolder // used for tree view
 	CaptchaID  string
-	FormErrors  map[string][]string
-	Infos   map[string][]string
+	FormErrors map[string][]string
+	Infos      map[string][]string
 }
 
 type UserRegisterTemplateVariables struct {
@@ -68,7 +70,7 @@ type UserProfileVariables struct {
 
 type UserProfileNotifVariables struct {
 	CommonTemplateVariables
-	Infos   map[string][]string
+	Infos map[string][]string
 }
 
 type UserTorrentEdVbs struct {
@@ -81,25 +83,25 @@ type UserTorrentEdVbs struct {
 type HomeTemplateVariables struct {
 	CommonTemplateVariables
 	ListTorrents []model.TorrentJSON
-	Infos   map[string][]string
+	Infos        map[string][]string
 }
 
 type DatabaseDumpTemplateVariables struct {
 	CommonTemplateVariables
-	ListDumps  []model.DatabaseDumpJSON
-	GPGLink    string
+	ListDumps []model.DatabaseDumpJSON
+	GPGLink   string
 }
 
 type UploadTemplateVariables struct {
 	CommonTemplateVariables
 	Upload     UploadForm
-	FormErrors  map[string][]string
+	FormErrors map[string][]string
 }
 
 type ChangeLanguageVariables struct {
 	CommonTemplateVariables
-	Language   string
-	Languages  map[string]string
+	Language  string
+	Languages map[string]string
 }
 
 /* MODERATION Variables */
@@ -114,17 +116,17 @@ type PanelIndexVbs struct {
 
 type PanelTorrentListVbs struct {
 	CommonTemplateVariables
-	Torrents   []model.Torrent
-	Errors map[string][]string
-	Infos  map[string][]string
+	Torrents []model.Torrent
+	Errors   map[string][]string
+	Infos    map[string][]string
 }
 type PanelUserListVbs struct {
 	CommonTemplateVariables
-	Users      []model.User
+	Users []model.User
 }
 type PanelCommentListVbs struct {
 	CommonTemplateVariables
-	Comments   []model.Comment
+	Comments []model.Comment
 }
 
 type PanelTorrentEdVbs struct {
@@ -155,8 +157,8 @@ type CommonTemplateVariables struct {
 	Search     SearchForm
 	T          languages.TemplateTfunc
 	User       *model.User
-	URL        *url.URL // for parsing URL in templates
-    Route      *mux.Route // for getting current route in templates
+	URL        *url.URL   // for parsing URL in templates
+	Route      *mux.Route // for getting current route in templates
 }
 
 type Navigation struct {
@@ -201,4 +203,3 @@ func NewCommonVariables(r *http.Request) CommonTemplateVariables {
 		Route:      mux.CurrentRoute(r),
 	}
 }
-

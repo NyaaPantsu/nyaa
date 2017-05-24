@@ -5,7 +5,6 @@ import (
 	"strings"
 )
 
-
 type Status uint8
 
 const (
@@ -109,16 +108,15 @@ func (c *Category) Parse(s string) (ok bool) {
 	return
 }
 
-
 // deprecated for TorrentParam
 type SearchParam struct {
-       Order    bool // True means acsending
-       Status   Status
-       Sort     SortMode
-       Category Category
-       Page     int
-       UserID   uint
-       Max      uint
-       NotNull  string
-       Query    string
+	Order    bool // True means acsending
+	Status   Status
+	Sort     SortMode
+	Category Category
+	Page     int
+	UserID   uint
+	Max      uint
+	NotNull  string
+	Query    string
 }

@@ -136,19 +136,19 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 		if !log.CheckError(err) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
-			}
 		}
+	}
 
-		searchParam, torrents, count, err := search.SearchByQueryWithUser(r, pagenum)
-		searchForm := SearchForm{
-			SearchParam:      searchParam,
-			Category:         searchParam.Category.String(),
-			ShowItemsPerPage: true,
-		}
+	searchParam, torrents, count, err := search.SearchByQueryWithUser(r, pagenum)
+	searchForm := SearchForm{
+		SearchParam:      searchParam,
+		Category:         searchParam.Category.String(),
+		ShowItemsPerPage: true,
+	}
 
 	messages := msg.GetMessages(r)
 	common := NewCommonVariables(r)
-	common.Navigation = Navigation{ count, int(searchParam.Max), pagenum, "mod_tlist_page"}
+	common.Navigation = Navigation{count, int(searchParam.Max), pagenum, "mod_tlist_page"}
 	common.Search = searchForm
 	ptlv := PanelTorrentListVbs{common, torrents, messages.GetAllErrors(), messages.GetAllInfos()}
 	err = panelTorrentList.ExecuteTemplate(w, "admin_index.html", ptlv)
@@ -236,7 +236,7 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	torrent, _ := torrentService.GetTorrentById(id)
-	messages:= msg.GetMessages(r)
+	messages := msg.GetMessages(r)
 
 	torrentJson := torrent.ToJSON()
 	uploadForm := NewUploadForm()
@@ -342,7 +342,6 @@ func TorrentsPostListPanel(w http.ResponseWriter, r *http.Request) {
 	torrentManyAction(r)
 	TorrentsListPanel(w, r)
 }
-
 
 /*
  * This function is used on the frontend for the mass
@@ -461,6 +460,7 @@ func torrentManyAction(r *http.Request) {
 					if r.FormValue("owner") != "" && owner != -1 {
 							torrent.UploaderID = uint(owner)
 							messages.AddInfoTf("infos", "torrent_owner_changed", torrent.Name)
+
 					}
 					if category != "" && catID != -1 && subCatID != -1 {
 							torrent.Category = catID
@@ -489,7 +489,7 @@ func torrentManyAction(r *http.Request) {
 				}
 			} else {
 				messages.AddErrorTf("errors", "torrent_not_exist", torrent_id)
-			} 
+			}
 		}
 	}
 }

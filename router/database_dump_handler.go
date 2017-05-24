@@ -1,10 +1,10 @@
 package router
 
 import (
+	"fmt"
+	"net/http"
 	"os"
 	"path/filepath"
-	"net/http"
-	"fmt"
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/model"
@@ -24,7 +24,7 @@ func DatabaseDumpHandler(w http.ResponseWriter, r *http.Request) {
 	files, err := filepath.Glob(filepath.Join(DatabaseDumpPath, "*.torrent"))
 	var dumpsJson []model.DatabaseDumpJSON
 	// TODO Filter *.torrent files
-    for _, f := range files {
+	for _, f := range files {
 		// TODO Use config from cli
 		file, err := os.Open(f)
 		if err != nil {
@@ -43,7 +43,7 @@ func DatabaseDumpHandler(w http.ResponseWriter, r *http.Request) {
 			Name:        tf.TorrentName(),
 			TorrentLink: "/dbdumps/" + file.Name()}
 		dumpsJson = append(dumpsJson, dump.ToJSON())
-    }
+	}
 
 	// TODO Remove ?
 	navigationTorrents := Navigation{0, 0, 0, "search_page"}
@@ -55,4 +55,3 @@ func DatabaseDumpHandler(w http.ResponseWriter, r *http.Request) {
 		log.Errorf("DatabaseDump(): %s", err)
 	}
 }
-

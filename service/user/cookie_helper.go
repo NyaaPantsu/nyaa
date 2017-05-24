@@ -17,9 +17,9 @@ import (
 )
 
 const (
-	CookieName = "session"
+	CookieName     = "session"
 	UserContextKey = "user"
-	)
+)
 
 // If you want to keep login cookies between restarts you need to make these permanent
 var cookieHandler = securecookie.New(
@@ -159,10 +159,10 @@ func CurrentUser(r *http.Request) (model.User, error) {
 
 func getUserFromContext(r *http.Request) model.User {
 	if rv := context.Get(r, UserContextKey); rv != nil {
-        return rv.(model.User)
-    }
-    return model.User{}
+		return rv.(model.User)
+	}
+	return model.User{}
 }
 func setUserToContext(r *http.Request, val model.User) {
-    context.Set(r, UserContextKey, val)
+	context.Set(r, UserContextKey, val)
 }

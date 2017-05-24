@@ -22,8 +22,7 @@ var DefaultMetainfoFetcherConfig = MetainfoFetcherConfig{
 	MaxFailCooldown:  48 * 60 * 60,
 	WakeUpInterval:   300, // 5 min
 
-	UploadRateLimiter:   1024, // kbps
-	DownloadRateLimiter: 1024,
+	UploadRateLimiter:    1024, // kbps
+	DownloadRateLimiter:  1024,
 	FetchNewTorrentsOnly: true, // Only fetch torrents newer than config.LastOldTorrentID
 }
-

@@ -87,7 +87,7 @@ func (t Torrent) TableName() string {
 }
 
 func (t *Torrent) Identifier() string {
-	return "torrent_"+strconv.Itoa(int(t.ID))
+	return "torrent_" + strconv.Itoa(int(t.ID))
 }
 
 func (t Torrent) IsNormal() bool {
@@ -116,11 +116,11 @@ type ApiResultJSON struct {
 }
 
 type CommentJSON struct {
-	Username string        `json:"username"`
-	UserID   int           `json:"user_id"`
-	UserAvatar   string           `json:"user_avatar"`
-	Content  template.HTML `json:"content"`
-	Date     time.Time     `json:"date"`
+	Username   string        `json:"username"`
+	UserID     int           `json:"user_id"`
+	UserAvatar string        `json:"user_avatar"`
+	Content    template.HTML `json:"content"`
+	Date       time.Time     `json:"date"`
 }
 
 type FileJSON struct {

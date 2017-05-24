@@ -32,4 +32,3 @@ func (p *TorrentParam) Clone() TorrentParam {
 		NameLike:  p.NameLike,
 	}
 }
-

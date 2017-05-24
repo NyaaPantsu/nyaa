@@ -2,8 +2,8 @@ package model
 
 import (
 	"encoding/json"
-	"time"
 	"fmt"
+	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
 )
@@ -29,15 +29,15 @@ type User struct {
 	UserSettings   string    `gorm:"column:settings"`
 
 	// TODO: move this to PublicUser
-	Likings     []User // Don't work `gorm:"foreignkey:user_id;associationforeignkey:follower_id;many2many:user_follows"`
-	Liked       []User // Don't work `gorm:"foreignkey:follower_id;associationforeignkey:user_id;many2many:user_follows"`
+	Likings []User // Don't work `gorm:"foreignkey:user_id;associationforeignkey:follower_id;many2many:user_follows"`
+	Liked   []User // Don't work `gorm:"foreignkey:follower_id;associationforeignkey:user_id;many2many:user_follows"`
 
-	MD5      string    `json:"md5" gorm:"column:md5"` // Hash of email address, used for Gravatar
-	Torrents []Torrent `gorm:"ForeignKey:UploaderID"`
+	MD5           string         `json:"md5" gorm:"column:md5"` // Hash of email address, used for Gravatar
+	Torrents      []Torrent      `gorm:"ForeignKey:UploaderID"`
 	Notifications []Notification `gorm:"ForeignKey:UserID"`
 
-	UnreadNotifications int `gorm:"-"` // We don't want to loop every notifications when accessing user unread notif
-	Settings UserSettings `gorm:"-"` // We don't want to load settings everytime, stock it as a string, parse it when needed
+	UnreadNotifications int          `gorm:"-"` // We don't want to loop every notifications when accessing user unread notif
+	Settings            UserSettings `gorm:"-"` // We don't want to load settings everytime, stock it as a string, parse it when needed
 }
 
 type UserJSON struct {
@@ -78,7 +78,7 @@ func (u User) IsModerator() bool {
 }
 
 func (u User) GetUnreadNotifications() int {
-	if u.UnreadNotifications == 0 { 
+	if u.UnreadNotifications == 0 {
 		for _, notif := range u.Notifications {
 			if !notif.Read {
 				u.UnreadNotifications++
@@ -104,7 +104,7 @@ type UserUploadsOld struct {
 }
 
 type UserSettings struct {
-	Settings map[string]bool`json:"settings"`
+	Settings map[string]bool `json:"settings"`
 }
 
 func (c UserUploadsOld) TableName() string {
@@ -126,9 +126,9 @@ func (u *User) ToJSON() UserJSON {
 
 /* User Settings */
 
-func(s *UserSettings) Get(key string) bool {
-	if val, ok:= s.Settings[key]; ok {	
-	return val
+func (s *UserSettings) Get(key string) bool {
+	if val, ok := s.Settings[key]; ok {
+		return val
 	} else {
 		return config.DefaultUserSettings[key]
 	}
@@ -156,7 +156,7 @@ func (s *UserSettings) Initialize() {
 func (u *User) SaveSettings() {
 	byteArray, err := json.Marshal(u.Settings)
 
-	if (err != nil) {
+	if err != nil {
 		fmt.Print(err)
 	}
 	u.UserSettings = string(byteArray)
