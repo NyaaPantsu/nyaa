@@ -52,3 +52,10 @@ td.tr-le { color: #cc6666; }
 .sukebei a { color: #cc6666; }
 .sukebei a:hover { color:  #c82829; }
 .sukebei th, .sukebei th a { color: #c5c8c6; }
+
+.captcha-container img {
+	background: #fff;
+	border-radius: .4em .4em 0 0;
+	border-bottom: .5em solid #fff;
+	margin-bottom: -.5em;
+}
