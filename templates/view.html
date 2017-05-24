@@ -9,7 +9,11 @@
     {{ range (index $.Infos "infos")}}
         <div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
     {{end}}
-  <p style="text-align: center;" class="torrent-hr">{{.Name}} </p>
+    <div id="torrent-name" class="{{if eq .Status 2}}remake{{end}}
+              {{if eq .Status 3}}trusted{{end}}
+              {{if eq .Status 4}}aplus{{end}}">
+  <p style="text-align: center;" class="torrent-hr">{{.Name}}</p>
+   </div>
   <br>
   <table>
       <tr class="torrent-info-row">
@@ -36,6 +40,26 @@
   <div class="torrent-buttons">
   <a href="{{.Magnet}}" class="form-input torrent-magnet-button">Magnet!</a>
   <a href="{{.TorrentLink}}" class="form-input">Torrent!</a>
+  {{ if gt $.User.ID 0}}
+  <script>
+      function reportPopup() {
+                reportContent = `
+                <h4>{{ call $.T "report_torrent_number" (print $.Torrent.ID) }}</h4>
+                <b>{{ call $.T "report_type" }}:</b>
+                <form method="post" action="/report/{{$.Torrent.ID}}">
+                    <input type="radio" name="report_type" value="illegal" required> {{ call $.T "illegal_content" }}<br />
+                    <input type="radio" name="report_type" value="spam" required> {{ call $.T "spam_garbage" }}<br />
+                    <input type="radio" name="report_type" value="wrongcat" required> {{ call $.T "wrong_category" }}<br />
+                    <input type="radio" name="report_type" value="dup" required> {{ call $.T "duplicate_deprecated" }}<br />
+                    <button type="submit" class="btn btn-default">{{ call $.T "report_btn" }}</button>
+                </form> <br />
+                `
+                reportWindow = window.open("", 'reportWindow', "width=300,height=300");   // Opens a new window
+                reportWindow.document.write(reportContent);
+       }
+  </script>
+  <a onclick="reportPopup();" class="form-input">{{ call $.T "report_btn" }}</a>
+  {{end}}
   </div>
   <p class="torrent-hr">{{call $.T "description"}}</p>
   {{ if ne .Description ""}}
