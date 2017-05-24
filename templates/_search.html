@@ -5,6 +5,7 @@
       <option value="{{ $id_cat }}" {{if eq $.Search.Category $id_cat }}selected{{end}}>{{call $.T $name_cat }}</option>
       {{ end }}
   </select>
+  <label><span class="select-icon caret-down-icon"></span></label>
   <select name="s" class="form-input" value>
     <option value="0">{{call $.T "show_all"}}</option>
     <option value="1" {{if eq .Search.Status 1}}selected{{end}}>{{call $.T "filter_remakes"}}</option>

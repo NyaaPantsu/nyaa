@@ -541,6 +541,11 @@ td.tr-le { color: #E84C4C; }
 .tr-filelist {
 	--nest-level: 0;
 }
+.caret-down-icon {
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALBAMAAABbgmoVAAAAIVBMVEUAAABmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmYs5FxxAAAACnRSTlMAByUqK1VzuvH9L+rg5gAAACtJREFUCFtjYEABVatWrVohwGAJpJYxMLDMWrUqASjqCeKAuAlgRaoMOAAAIO0LHGODAFsAAAAASUVORK5CYII=')
+				no-repeat center center;
+   vertical-align: middle;
+}
 .tr-filelist td {
 	padding: 4px 4px;
 	white-space: nowrap;
