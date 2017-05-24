@@ -437,6 +437,7 @@ td.tr-le { color: #E84C4C; }
 
 .torrent-hr {
 	font-size: large;
+	font-weight: bold;
 }
 
 .torrent-info-label {
@@ -481,15 +482,8 @@ td.tr-le { color: #E84C4C; }
 	display: inline-block;
 	float: right;
 	margin-top: 20px;
+	margin-right: 10px;
 	font-size: large;
-}
-.torrent-magnet-button {
-	background: green;
-	color: white;
-	font-size: larger;
-	vertical-align: bottom;
-	margin-right: 5px;
-	margin-top: 5px;
 }
 
 .profile-panel {
@@ -596,4 +590,5 @@ td.tr-le { color: #E84C4C; }
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+	font-weight: bold;
 }
