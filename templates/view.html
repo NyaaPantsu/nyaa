@@ -46,7 +46,7 @@
   <p class="torrent-hr" id="filelist-control" onclick="javascript:toggleFilelist()" data-filelist-open="true">{{call $.T "files"}}</p>
   {{ if gt (len .FileList) 0 }}
   {{/* how do i concat lol */}}
-  {{ $folderFormat := `<tr class='childs-of-{{.ParentIdentifier}} tr-filelist tr-folder' onclick="javascript:toggleFolder('childs-of-{{.Identifier}}')"><td><span class='folder-icon' style='margin-left: calc({{.NestLevel}}*2rem);'></span>{{.FolderName}}</td><td>{{ fileSize .TotalSize .Data.T }}</td></tr>` }}
+  {{ $folderFormat := `<tr id="{{.Identifier}}" class='childs-of-{{.ParentIdentifier}} tr-filelist tr-folder' onclick="javascript:toggleFolder('{{.Identifier}}')" data-filelist-open="true"><td><span class='folder-icon' style='margin-left: calc({{.NestLevel}}*2rem);'></span>{{.FolderName}}</td><td>{{ fileSize .TotalSize .Data.T }}</td></tr>` }}
   {{ $fileFormat := `<tr class='childs-of-{{.ParentIdentifier}} tr-filelist'><td><span class="file-icon" style='margin-left: calc({{.NestLevel}}*2rem);'></span>{{.Filename}}</td><td>{{ fileSize .Filesize .Data.T }}</td>` }}
     <script>
 	function toggleFilelist() {
@@ -58,11 +58,16 @@
 	}
 
     function toggleFolder(folder) {
-        var rows = document.querySelectorAll("*[class^='" + folder + "']")
+        var folderNode = document.getElementById(folder)
+        var isOpen = folderNode.getAttribute("data-filelist-open") == "true" ? true : false
+        var rows = document.querySelectorAll("*[class^='childs-of-" + folder + "']")
         for (var i = 0; i < rows.length; i++) {
             var row = rows[i]
-			row.hidden = !row.hidden
+            // If it's open (true), will hide, if not, will show.
+			row.hidden = isOpen
         }
+
+        folderNode.setAttribute("data-filelist-open", !isOpen ? "true" : "false")
     }
     </script>
     <div class="torrent-info-box" id="filelist">
