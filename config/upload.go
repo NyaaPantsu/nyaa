@@ -7,8 +7,8 @@ const (
 	TorrentStorageLink = ""
 
 	// TODO: deprecate this and move all files to the same server
-	TorrentCacheLink = "http://anicache.com/torrent/%s.torrent"
-	UploadsDisabled  = false
-	AdminsAreStillAllowedTo = true
+	TorrentCacheLink              = "http://anicache.com/torrent/%s.torrent"
+	UploadsDisabled               = false
+	AdminsAreStillAllowedTo       = true
 	TrustedUsersAreStillAllowedTo = true
 )

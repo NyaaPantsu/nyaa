@@ -31,6 +31,7 @@ var htmlFlags = 0 |
 func init() {
 	HtmlMdRenderer = md.HtmlRenderer(htmlFlags, "", "")
 }
+
 var HtmlMdRenderer md.Renderer
 
 // TODO: restrict certain types of markdown
@@ -38,12 +39,11 @@ func MarkdownToHTML(markdown string) template.HTML {
 	if len(markdown) >= 3 && markdown[:3] == "&gt;" {
 		markdown = ">" + markdown[3:]
 	}
-	markdown = strings.Replace(markdown,"\n&gt;","\n>", -1)
+	markdown = strings.Replace(markdown, "\n&gt;", "\n>", -1)
 	unsafe := md.MarkdownOptions([]byte(markdown), HtmlMdRenderer, md.Options{Extensions: mdOptions})
 	html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
 	return template.HTML(html)
 }
-
 
 /*
  * Sanitize a message passed as a string according to a setted model or allowing a set of html tags and output a string

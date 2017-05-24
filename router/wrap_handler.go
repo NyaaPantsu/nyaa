@@ -7,13 +7,13 @@ import (
 )
 
 type wrappedResponseWriter struct {
-	Rw http.ResponseWriter
+	Rw     http.ResponseWriter
 	Ignore bool
 }
 
 func (wrw *wrappedResponseWriter) WriteHeader(status int) {
-	if status==404 {
-		wrw.Ignore=true
+	if status == 404 {
+		wrw.Ignore = true
 	} else {
 		wrw.Rw.WriteHeader(status)
 	}
@@ -30,7 +30,6 @@ func (wrw *wrappedResponseWriter) Header() http.Header {
 	return wrw.Rw.Header()
 }
 
-
 type wrappedHandler struct {
 	h http.Handler
 }
@@ -38,7 +37,7 @@ type wrappedHandler struct {
 func (wh *wrappedHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	wrw := wrappedResponseWriter{w, false}
 	wh.h.ServeHTTP(&wrw, r)
-	if wrw.Ignore==true {
+	if wrw.Ignore == true {
 		wrw.Rw.Header().Del("Content-Encoding")
 		wrw.Rw.Header().Del("Vary")
 		wrw.Rw.Header().Set("Content-Type", "text/html; charset=utf-8")
@@ -52,8 +51,8 @@ func wrapHandler(handler http.Handler) http.Handler {
 
 // Make sure the user is a moderator, otherwise return forbidden
 // TODO Clean this
-func WrapModHandler(handler func (w http.ResponseWriter, r *http.Request)) (func (w http.ResponseWriter, r *http.Request)) {
-	return func (w http.ResponseWriter, r *http.Request) {
+func WrapModHandler(handler func(w http.ResponseWriter, r *http.Request)) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
 		currentUser := GetUser(r)
 		if userPermission.HasAdmin(currentUser) {
 			handler(w, r)

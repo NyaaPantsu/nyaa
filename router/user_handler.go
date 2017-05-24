@@ -147,7 +147,6 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 	userForm := form.UserForm{}
 	userSettingsForm := form.UserSettingsForm{}
 
-
 	Ts, _ := languages.GetTfuncAndLanguageFromRequest(r)
 
 	if len(r.PostFormValue("email")) > 0 {
@@ -277,7 +276,7 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if messages.HasErrors() {
-		UserLoginFormHandler(w,r)
+		UserLoginFormHandler(w, r)
 	}
 }
 

@@ -60,7 +60,7 @@ func CategoryExists(category string) bool {
 }
 
 func GetCategoriesSelect(keepParent bool) map[string]string {
-	categories :=  GetCategories()
+	categories := GetCategories()
 	catSelect := make(map[string]string, len(categories))
 	for k, v := range categories {
 		if len(k) > 2 || keepParent {

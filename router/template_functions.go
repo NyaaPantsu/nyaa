@@ -162,10 +162,10 @@ var FuncMap = template.FuncMap{
 		// because time.* isn't available in templates...
 		return t.Format(time.RFC3339)
 	},
-    "GetCategories": func(keepParent bool) map[string]string {
+	"GetCategories": func(keepParent bool) map[string]string {
 		return categories.GetCategoriesSelect(keepParent)
-    },
-    "CategoryName": func(category string, sub_category string) string {
+	},
+	"CategoryName": func(category string, sub_category string) string {
 		s := category + "_" + sub_category
 
 		if category, ok := categories.GetCategories()[s]; ok {
@@ -173,17 +173,17 @@ var FuncMap = template.FuncMap{
 		} else {
 			return ""
 		}
-    },
-    "fileSize": func(filesize int64, T languages.TemplateTfunc) template.HTML {
-        if (filesize == 0) {
-            return T("unknown")
-        }
-        return template.HTML(util.FormatFilesize(filesize))
-     },
+	},
+	"fileSize": func(filesize int64, T languages.TemplateTfunc) template.HTML {
+		if filesize == 0 {
+			return T("unknown")
+		}
+		return template.HTML(util.FormatFilesize(filesize))
+	},
 	"makeCaptchaData": func(captchaID string, T languages.TemplateTfunc) captchaData {
 		return captchaData{captchaID, T}
 	},
-	"DefaultUserSettings": func(s string) bool{
+	"DefaultUserSettings": func(s string) bool {
 		return config.DefaultUserSettings[s]
 	},
 }

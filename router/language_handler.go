@@ -29,8 +29,8 @@ func SeeLanguagesHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		clv := ChangeLanguageVariables{
 			CommonTemplateVariables: NewCommonVariables(r),
-			Language:   Tlang.Tag,
-			Languages:  availableLanguages,
+			Language:                Tlang.Tag,
+			Languages:               availableLanguages,
 		}
 		err := changeLanguageTemplate.ExecuteTemplate(w, "index.html", clv)
 		if err != nil {
@@ -51,7 +51,7 @@ func ChangeLanguageHandler(w http.ResponseWriter, r *http.Request) {
 
 	// If logged in, update user language; if not, set cookie.
 	user, _ := userService.CurrentUser(r)
-	if user.ID > 0 { 
+	if user.ID > 0 {
 		user.Language = lang
 		// I don't know if I should use this...
 		userService.UpdateUserCore(&user)

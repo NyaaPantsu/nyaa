@@ -6,8 +6,8 @@ import (
 )
 
 type File struct {
-	ID           uint   `gorm:"column:file_id;primary_key"`
-	TorrentID    uint   `gorm:"column:torrent_id;unique_index:idx_tid_path"`
+	ID        uint `gorm:"column:file_id;primary_key"`
+	TorrentID uint `gorm:"column:torrent_id;unique_index:idx_tid_path"`
 	// this path is bencode'd, call Path() to obtain
 	BencodedPath string `gorm:"column:path;unique_index:idx_tid_path"`
 	Filesize     int64  `gorm:"column:filesize"`
@@ -19,7 +19,7 @@ func (f File) TableName() string {
 
 // Returns the total size of memory allocated for this struct
 func (f File) Size() int {
-	return (2 + len(f.BencodedPath) + 1) * 8;
+	return (2 + len(f.BencodedPath) + 1) * 8
 }
 
 func (f *File) Path() (out []string) {
@@ -36,4 +36,3 @@ func (f *File) SetPath(path []string) error {
 	f.BencodedPath = encoded
 	return nil
 }
-

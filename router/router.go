@@ -17,7 +17,7 @@ func init() {
 	imgHandler := http.FileServer(http.Dir("./public/img/"))
 	// TODO Use config from cli
 	// TODO Make sure the directory exists
-	dumpsHandler  := http.FileServer(http.Dir(DatabaseDumpPath))
+	dumpsHandler := http.FileServer(http.Dir(DatabaseDumpPath))
 	// TODO Use config from cli
 	// TODO Make sure the directory exists
 	gpgKeyHandler := http.FileServer(http.Dir(GPGPublicKeyPath))
@@ -76,25 +76,25 @@ func init() {
 	// INFO Everything under /mod should be wrapped by WrapModHandler. This make
 	// sure the page is only accessible by moderators
 	// TODO Find a native mux way to add a 'prehook' for route /mod
-	Router.HandleFunc("/mod",                 WrapModHandler(IndexModPanel)).Name("mod_index")
-	Router.HandleFunc("/mod/torrents",        WrapModHandler(TorrentsListPanel)).Name("mod_tlist").Methods("GET")
+	Router.HandleFunc("/mod", WrapModHandler(IndexModPanel)).Name("mod_index")
+	Router.HandleFunc("/mod/torrents", WrapModHandler(TorrentsListPanel)).Name("mod_tlist").Methods("GET")
 	Router.HandleFunc("/mod/torrents/{page}", WrapModHandler(TorrentsListPanel)).Name("mod_tlist_page").Methods("GET")
 	Router.HandleFunc("/mod/torrents", WrapModHandler(TorrentsPostListPanel)).Methods("POST")
 	Router.HandleFunc("/mod/torrents/{page}", WrapModHandler(TorrentsPostListPanel)).Methods("POST")
-	Router.HandleFunc("/mod/reports",         WrapModHandler(TorrentReportListPanel)).Name("mod_trlist")
-	Router.HandleFunc("/mod/reports/{page}",  WrapModHandler(TorrentReportListPanel)).Name("mod_trlist_page")
-	Router.HandleFunc("/mod/users",           WrapModHandler(UsersListPanel)).Name("mod_ulist")
-	Router.HandleFunc("/mod/users/{page}",    WrapModHandler(UsersListPanel)).Name("mod_ulist_page")
-	Router.HandleFunc("/mod/comments",        WrapModHandler(CommentsListPanel)).Name("mod_clist")
+	Router.HandleFunc("/mod/reports", WrapModHandler(TorrentReportListPanel)).Name("mod_trlist")
+	Router.HandleFunc("/mod/reports/{page}", WrapModHandler(TorrentReportListPanel)).Name("mod_trlist_page")
+	Router.HandleFunc("/mod/users", WrapModHandler(UsersListPanel)).Name("mod_ulist")
+	Router.HandleFunc("/mod/users/{page}", WrapModHandler(UsersListPanel)).Name("mod_ulist_page")
+	Router.HandleFunc("/mod/comments", WrapModHandler(CommentsListPanel)).Name("mod_clist")
 	Router.HandleFunc("/mod/comments/{page}", WrapModHandler(CommentsListPanel)).Name("mod_clist_page")
-	Router.HandleFunc("/mod/comment",         WrapModHandler(CommentsListPanel)).Name("mod_cedit") // TODO
-	Router.HandleFunc("/mod/torrent/",        WrapModHandler(TorrentEditModPanel)).Name("mod_tedit").Methods("GET")
-	Router.HandleFunc("/mod/torrent/",        WrapModHandler(TorrentPostEditModPanel)).Name("mod_ptedit").Methods("POST")
-	Router.HandleFunc("/mod/torrent/delete",  WrapModHandler(TorrentDeleteModPanel)).Name("mod_tdelete")
-	Router.HandleFunc("/mod/report/delete",   WrapModHandler(TorrentReportDeleteModPanel)).Name("mod_trdelete")
-	Router.HandleFunc("/mod/comment/delete",  WrapModHandler(CommentDeleteModPanel)).Name("mod_cdelete")
-	Router.HandleFunc("/mod/reassign",        WrapModHandler(TorrentReassignModPanel)).Name("mod_treassign").Methods("GET")
-	Router.HandleFunc("/mod/reassign",        WrapModHandler(TorrentPostReassignModPanel)).Name("mod_treassign").Methods("POST")
+	Router.HandleFunc("/mod/comment", WrapModHandler(CommentsListPanel)).Name("mod_cedit") // TODO
+	Router.HandleFunc("/mod/torrent/", WrapModHandler(TorrentEditModPanel)).Name("mod_tedit").Methods("GET")
+	Router.HandleFunc("/mod/torrent/", WrapModHandler(TorrentPostEditModPanel)).Name("mod_ptedit").Methods("POST")
+	Router.HandleFunc("/mod/torrent/delete", WrapModHandler(TorrentDeleteModPanel)).Name("mod_tdelete")
+	Router.HandleFunc("/mod/report/delete", WrapModHandler(TorrentReportDeleteModPanel)).Name("mod_trdelete")
+	Router.HandleFunc("/mod/comment/delete", WrapModHandler(CommentDeleteModPanel)).Name("mod_cdelete")
+	Router.HandleFunc("/mod/reassign", WrapModHandler(TorrentReassignModPanel)).Name("mod_treassign").Methods("GET")
+	Router.HandleFunc("/mod/reassign", WrapModHandler(TorrentPostReassignModPanel)).Name("mod_treassign").Methods("POST")
 
 	//reporting a torrent
 	Router.HandleFunc("/report/{id}", ReportTorrentHandler).Methods("POST").Name("torrent_report")

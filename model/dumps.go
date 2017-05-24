@@ -1,8 +1,8 @@
 package model
 
 import (
-	"time"
 	"html/template"
+	"time"
 
 	"github.com/NyaaPantsu/nyaa/util"
 )
@@ -15,16 +15,16 @@ type DatabaseDump struct {
 }
 
 type DatabaseDumpJSON struct {
-	Date        string `json:"date"`
-	Filesize    string `json:"filesize"`
-	Name        string `json:"name"`
+	Date     string `json:"date"`
+	Filesize string `json:"filesize"`
+	Name     string `json:"name"`
 	//Magnet       template.URL  `json:"magnet"`
-	TorrentLink  template.URL  `json:"torrent"`
+	TorrentLink template.URL `json:"torrent"`
 }
 
 func (dump *DatabaseDump) ToJSON() DatabaseDumpJSON {
 	json := DatabaseDumpJSON{
-		Date:	     dump.Date.Format(time.RFC3339),
+		Date:        dump.Date.Format(time.RFC3339),
 		Filesize:    util.FormatFilesize(dump.Filesize),
 		Name:        dump.Name,
 		TorrentLink: template.URL(dump.TorrentLink),

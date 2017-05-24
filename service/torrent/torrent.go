@@ -11,7 +11,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service"
 	"github.com/NyaaPantsu/nyaa/util"
-//	"github.com/NyaaPantsu/nyaa/util/log"
+	//	"github.com/NyaaPantsu/nyaa/util/log"
 )
 
 /* Function to interact with Models
