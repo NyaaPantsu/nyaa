@@ -9,7 +9,7 @@
     {{ range (index $.Infos "infos")}}
         <div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
     {{end}}
-  <a class="torrent-hr" href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">{{ if Sukebei}}{{ call $.T (Category_Sukebei .Category .SubCategory) }}{{else}}{{ call $.T (Category_Nyaa .Category .SubCategory) }}{{end}}</a> <br>
+  <a class="torrent-hr" href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">{{ if Sukebei}}{{ call $.T (CategoryName .Category .SubCategory) }}{{else}}{{ call $.T (CategoryName .Category .SubCategory) }}{{end}}</a> <br>
   <br>
   <table>
       <tr class="torrent-info-row">
