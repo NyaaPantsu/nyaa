@@ -46,8 +46,8 @@
   <p class="torrent-hr" id="filelist-control" onclick="javascript:toggleFilelist()" data-filelist-open="true">{{call $.T "files"}}</p>
   {{ if gt (len .FileList) 0 }}
   {{/* how do i concat lol */}}
-  {{ $folderFormat := `<tr id="{{.Identifier}}" class='childs-of-{{.ParentIdentifier}} tr-filelist tr-folder' onclick="javascript:toggleFolder('{{.Identifier}}')" data-filelist-open="true"><td><span class='folder-icon' style='margin-left: calc({{.NestLevel}}*2rem);'></span>{{.FolderName}}</td><td>{{ fileSize .TotalSize .Data.T }}</td></tr>` }}
-  {{ $fileFormat := `<tr class='childs-of-{{.ParentIdentifier}} tr-filelist'><td><span class="file-icon" style='margin-left: calc({{.NestLevel}}*2rem);'></span>{{.Filename}}</td><td>{{ fileSize .Filesize .Data.T }}</td>` }}
+  {{ $folderFormat := `<tr id="{{.Identifier}}" class='childs-of-{{.ParentIdentifier}} tr-filelist tr-folder' onclick="javascript:toggleFolder(this)" data-filelist-open="true" style="--nest-level: {{.NestLevel}}"><td>{{.FolderName}}</td><td>{{ fileSize .TotalSize .Data.T }}</td></tr>` }}
+  {{ $fileFormat := `<tr class='childs-of-{{.ParentIdentifier}} tr-filelist tr-file' style="--nest-level: {{.NestLevel}}"><td>{{.Filename}}</td><td>{{ fileSize .Filesize .Data.T }}</td>` }}
     <script>
 	function toggleFilelist() {
 		var control = document.getElementById("filelist-control")
@@ -57,14 +57,12 @@
 		control.setAttribute("data-filelist-open", filelist.hidden ? "false" : "true")
 	}
 
-    function toggleFolder(folder) {
-        var folderNode = document.getElementById(folder)
+    function toggleFolder(folderNode) {
         var isOpen = folderNode.getAttribute("data-filelist-open") == "true" ? true : false
-        var rows = document.querySelectorAll("*[class^='childs-of-" + folder + "']")
+        var rows = document.querySelectorAll("*[class^='childs-of-" + folderNode.id + "']")
         for (var i = 0; i < rows.length; i++) {
-            var row = rows[i]
             // If it's open (true), will hide, if not, will show.
-			row.hidden = isOpen
+            rows[i].hidden = isOpen
         }
 
         folderNode.setAttribute("data-filelist-open", !isOpen ? "true" : "false")

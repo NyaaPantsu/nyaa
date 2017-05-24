@@ -533,17 +533,8 @@ td.tr-le { color: #E84C4C; }
 	content: "\25BC   ";
 }
 
-.folder-icon {
-	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAADBJREFUOI1jZGBg+M+AHTDiEEcBTMQowgcY8biAKECxCwYeDHwYjBowbAw4SYH+YwB6YwSnsuTkoAAAAABJRU5ErkJggg==');
-	width: 16px;
-	height: 16px;
-	display: inline-block;
-}
-.file-icon {
-	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAElJREFUOI1jYGBg+I8Dw0ADAwFAyID/hAwhxgC8hhBrAE5DSDEAqyGkGoBiCAsufyEBRnySTEQYQND0/wRV4dZLuQtGDRgMBgAARxw25MUCGPQAAAAASUVORK5CYII=');
-	width: 16px;
-	height: 16px;
-	display: inline-block;
+.tr-filelist {
+	--nest-level: 0;
 }
 .tr-filelist td {
 	padding: 4px 4px;
@@ -551,7 +542,9 @@ td.tr-le { color: #E84C4C; }
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-.tr-filelist td:first-child span {
+/* The margin that gives the tree-like effect, based on the nest-level */
+.tr-filelist td:first-child::before {
+	margin-left: calc(var(--nest-level) * 2rem);
 	margin-right: 0.5rem;
 }
 /* Filesize column */
@@ -561,4 +554,19 @@ td.tr-le { color: #E84C4C; }
 
 .tr-folder {
 	cursor: pointer;
+}
+/* The folder or file icon */
+.tr-folder td:first-child::before {
+	content: " ";
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAADBJREFUOI1jZGBg+M+AHTDiEEcBTMQowgcY8biAKECxCwYeDHwYjBowbAw4SYH+YwB6YwSnsuTkoAAAAABJRU5ErkJggg==');
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+}
+.tr-file td:first-child::before {
+	content: " ";
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAElJREFUOI1jYGBg+I8Dw0ADAwFAyID/hAwhxgC8hhBrAE5DSDEAqyGkGoBiCAsufyEBRnySTEQYQND0/wRV4dZLuQtGDRgMBgAARxw25MUCGPQAAAAASUVORK5CYII=');
+	width: 16px;
+	height: 16px;
+	display: inline-block;
 }
