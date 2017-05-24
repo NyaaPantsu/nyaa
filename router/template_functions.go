@@ -141,7 +141,6 @@ var FuncMap = template.FuncMap{
 				itemsThisPageEnd = nav.TotalItem
 			}
                         ret = ret + "<p>" + strconv.Itoa(itemsThisPageStart) + "-" + strconv.Itoa(itemsThisPageEnd) + "/" + strconv.Itoa(nav.TotalItem) + "</p>"
-                        return template.HTML(ret)
 		}
 		return template.HTML(ret)
 	},
