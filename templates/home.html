@@ -2,6 +2,7 @@
 {{define "contclass"}}cont-home{{end}}
 {{define "content"}}
 
+<!-- 
 <audio id="nyaapassu" hidden>
   <source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
 Your browser does not support the audio element.
@@ -10,43 +11,36 @@ Your browser does not support the audio element.
   <source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
 Your browser does not support the audio element.
 </audio>
-
-  <span id="mascot" class="visible-lg"></span>
-    {{ range (index $.Infos "infos")}}
-      <div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
-    {{end}}
-  <div class="blockBody">
-      <nav>
-      <ul class="list-inline text-center" aria-label="Page navigation">
-          <li><ul class="pagination">
-              {{ genNav .Navigation .URL 5 }}
-          </li></ul>
-      </nav>
-
-      <div class="table-responsive">
-          <table class="table custom-table-hover">
-          <tr>
-              <th class="col-xs-1 hidden-xs">{{call $.T "category"}}</th>
-              <th class="col-xs-12">
+-->
+      <!-- Contain the table within a grid, as for better sizing -->
+      <div class="results box">
+          <table>
+          <tr class="torrent-info">
+              <th class="tr-cat">{{call $.T "category"}}</th>
+              <th class="tr-name">
                 <a href="{{ genSearchWithOrdering .URL "1" }}">{{call $.T "name"}}{{ genSortArrows .URL "1" }}</a>
               </th>
-              <th class="col-xs-1 hidden-xs">
+              <th class="tr-links"></th>
+              <th class="tr-size hide-xs"><a href="{{ genSearchWithOrdering .URL "4" }}">{{call $.T "size"}}{{ genSortArrows .URL "4" }}</a></th>
+
+              <th class="tr-se hide-xs">
                 <a href="{{ genSearchWithOrdering .URL "5" }}">{{call $.T "S"}}{{ genSortArrows .URL "5" }}</a> / 
+              </th>
+              <th class="tr-le hide-xs">
                 <a href="{{ genSearchWithOrdering .URL "6" }}">{{call $.T "L"}}{{ genSortArrows .URL "6" }}</a> / 
+              </th>
+              <th class="tr-dl hide-xs">
                 <a href="{{ genSearchWithOrdering .URL "7" }}">{{call $.T "D"}}{{ genSortArrows .URL "7" }}</a>
               </th>
-              <!-- <th class="col-xs-1 hidden-xs"><span class="glyphicon glyphicon-comment"></span></th> -->
-              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{call $.T "date"}}{{ genSortArrows .URL "2" }}</th></a>
-              <th class="col-xs-1 hidden-xs"><a href="{{ genSearchWithOrdering .URL "4" }}">{{call $.T "size"}}{{ genSortArrows .URL "4" }}</a></th>
-              <th class="col-xs-1 hidden-xs">{{call $.T "links"}}</th>
+              <!-- <th><span class="glyphicon glyphicon-comment"></span></th> -->
+              <th class="tr-date hide-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{call $.T "date"}}{{ genSortArrows .URL "2" }}</th></a>
           </tr>
           {{ range .ListTorrents}}
           <tr class="torrent-info
               {{if eq .Status 2}}remake{{end}}
               {{if eq .Status 3}}trusted{{end}}
               {{if eq .Status 4}}aplus{{end}}">
-              <!-- forced width because the <td> gets bigger randomly otherwise -->
-              <td class="hidden-xs" style="width:80px">
+              <td class="tr-cat home-td">
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
                       {{ if Sukebei }}
                       <img src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
@@ -55,7 +49,7 @@ Your browser does not support the audio element.
                       {{ end}}
                   </a>
               </td>
-              <td class="name">
+              <td class="tr-name home-td">
                   <a href="{{genRoute "view_torrent" "id" .ID }}">
                       {{.Name}}
                   </a>
@@ -65,37 +59,29 @@ Your browser does not support the audio element.
                   {{len .Comments}}
               </td>
               -->
-              {{if .LastScrape.IsZero}}
-              <td class="hidden-xs" align="center">{{call $.T "unknown"}}</td>
-              {{else}}
-              <td class="hidden-xs">
-                <b class="text-success">{{.Seeders}}</b> / 
-                <b class="text-danger">{{.Leechers}}</b> / 
-                {{.Completed}}
-              </td>
-              {{end}}
-              <td class="hidden-xs nowrap date-short">{{.Date}}</td>
-              <td class="hidden-xs nowrap">
-                  {{ fileSize .Filesize $.T }}
-              </td>
-              <td class="hidden-xs nowrap">
+              <td class="tr-links home-td">
                   <a href="{{.Magnet}}" title="Magnet link">
-                      <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>
+                      <span class="oi" data-glyph="cloud-download"></span>
                   </a>
                   {{if ne .TorrentLink ""}}
                   <a href="{{.TorrentLink}}" title="Torrent file">
-                      <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 
+                      <span class="oi" data-glyph="data-transfer-download"></span>
                   </a>
                   {{end}}
               </td>
+              <td class="tr-size home-td hide-xs">
+                  {{ fileSize .Filesize $.T }}
+              </td>
+              {{if .LastScrape.IsZero}}
+              <td class="home-td hide-xs" colspan="3">{{call $.T "unknown"}}</td>
+              {{else}}
+              <td class="tr-se home-td hide-xs">{{.Seeders}}</td>
+              <td class="tr-le home-td hide-xs">{{.Leechers}}</td>
+              <td class="tr-dl home-td hide-xs">{{.Completed}}</td>
+              {{end}}
+              <td class="tr-date home-td date-short hide-xs">{{.Date}}</td>
           </tr>
           {{end}}
       </table>
-      </div>
-      <nav class="torrentNav" aria-label="Page navigation">
-          <ul class="pagination">
-              {{ genNav .Navigation .URL 5 }}
-          </ul>
-      </nav>
-</div>
+    </div>
 {{end}}

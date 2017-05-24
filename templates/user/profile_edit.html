@@ -1,9 +1,9 @@
 {{define "title"}}{{ call $.T "profile_edit_page" .UserProfile.Username }}{{end}}
 {{define "contclass"}}cont-view{{end}}
 {{define "content"}}
-<div class="row profile">
 {{with .UserProfile}}
-		<div class="col-md-3">
+		<div class="profile-main">
+			<div class="box profile-panel">
 			<div class="profile-sidebar">
 				<!-- SIDEBAR USERPIC -->
 				<div class="profile-userpic">
@@ -12,9 +12,9 @@
 				<!-- END SIDEBAR USERPIC -->
 				<!-- SIDEBAR USER TITLE -->
 				<div class="profile-usertitle">
-					<div class="profile-usertitle-name">
+					<p class="profile-usertitle-name">
 						{{.Username}}
-					</div>
+					</p>
 					<div class="profile-usertitle-job">
 						{{GetRole . }}
 					</div>
@@ -25,9 +25,9 @@
 						{{if gt $.User.ID 0 }}
 							{{if not (CurrentUserIdentical $.User .ID) }}
 								{{if not (IsFollower . $.User)}}
-									<a href="{{ genRoute "user_follow" "id" (print .ID) "username" .Username }}" class="btn btn-success btn-sm">{{ call $.T "follow"}}</a>
+									<a class="form-input" href="{{ genRoute "user_follow" "id" (print .ID) "username" .Username }}" class="btn btn-success btn-sm">{{ call $.T "follow"}}</a>
 								{{else}}
-									<a href="{{ genRoute "user_follow" "id" (print .ID) "username" .Username }}" class="btn btn-danger btn-sm">{{ call $.T "unfollow"}}</a>
+									<a class="form-input" href="{{ genRoute "user_follow" "id" (print .ID) "username" .Username }}" class="btn btn-danger btn-sm">{{ call $.T "unfollow"}}</a>
 								{{end}}
 							{{end}}
 						{{end}}
@@ -36,32 +36,23 @@
 				<!-- END SIDEBAR BUTTONS -->
 				<!-- SIDEBAR MENU -->
 				<div class="profile-usermenu">
-					<ul class="nav">
-						<li>
-							<a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}"><i class="glyphicon glyphicon-home"></i>{{call $.T "torrents"}}</a>
-						</li>
+							<a class="form-input" href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}"><i class="glyphicon glyphicon-home"></i>{{call $.T "torrents"}}</a><br>
 						{{if gt $.User.ID 0 }}
 							{{ if CurrentUserIdentical $.User .ID }}
-								<li>
-									<a href="{{ genRoute "user_notifications" "id" (print .ID) "username" .Username }}"><i class="glyphicon glyphicon-bell"></i>{{ call $.T "my_notifications"}}</a>
-								</li>
+									<a class="form-input" href="{{ genRoute "user_notifications" "id" (print .ID) "username" .Username }}"><i class="glyphicon glyphicon-bell"></i>{{ call $.T "my_notifications"}}</a> <br>
 							{{end}}							
 							{{if CurrentOrAdmin $.User .ID }}
-								<li class="active">
-									<a href="{{ genRoute "user_profile_edit" "id" (print .ID) "username" .Username }}"><i class="glyphicon glyphicon-user"></i>{{call $.T "settings"}}</a>
-								</li>
+									<a class="form-input" href="{{ genRoute "user_profile_edit" "id" (print .ID) "username" .Username }}"><i class="glyphicon glyphicon-user"></i>{{call $.T "settings"}}</a> <br>
 							{{end}}
 						{{end}}
-					</ul>
 				</div>
 				<!-- END MENU -->
 			</div>
 		</div>
 {{end}}
-		<div class="col-md-9">
-            <div class="profile-content">
+            <div class="profile-content box">
 			   {{ block "profile_edit_content" . }}{{end}}
-            </div>
 		</div>
 	</div>
+</div>
 {{end}}

@@ -1,18 +1,18 @@
 {{define "search_common"}}
-  <select name="c" class="form-control input-sm" value>
+  <select name="c" class="form-input" value>
     <option value="_">{{call $.T "all_categories"}}</option>
       {{ range $name_cat, $id_cat := (GetCategories true) }}
       <option value="{{ $id_cat }}" {{if eq $.Search.Category $id_cat }}selected{{end}}>{{call $.T $name_cat }}</option>
       {{ end }}
   </select>
-  <select name="s" class="form-control input-sm">
+  <select name="s" class="form-input" value>
     <option value="0">{{call $.T "show_all"}}</option>
     <option value="1" {{if eq .Search.Status 1}}selected{{end}}>{{call $.T "filter_remakes"}}</option>
     <option value="2" {{if eq .Search.Status 2}}selected{{end}}>{{call $.T "trusted"}}</option>
     <option value="3" {{if eq .Search.Status 3}}selected{{end}}>A+</option>
   </select>
   {{ if .Search.ShowItemsPerPage }}
-  <select id="max" name="max" class="form-control input-sm">
+  <select name="max" class="form-input" value>
     <option value="5" {{if eq .Navigation.MaxItemPerPage 5}}selected{{end}}>5</option>
     <option value="10" {{if eq .Navigation.MaxItemPerPage 10}}selected{{end}}>10</option>
     <option value="15" {{if eq .Navigation.MaxItemPerPage 15}}selected{{end}}>15</option>
@@ -33,10 +33,6 @@
   <input type="hidden" name="userID" value="{{ .Search.UserID }}">
 {{end}}
 {{define "search_button"}}
-  <div class="input-group">
-    <input name="q" class="form-control input-sm" placeholder="{{call $.T "search"}}" type="text" value="{{.Search.Query}}">
-    <span class="input-group-btn">
-      <button type="submit" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span class="search_text"> {{call $.T "search"}}</span></button>
-    </span>
-  </div>
+    <input class="form-input search-box" name="q" placeholder="{{call $.T "search"}}" type="text" value="{{.Search.Query}}">
+    <button type="submit" class="form-input search-btn">{{call $.T "search"}}</button>
 {{end}}
