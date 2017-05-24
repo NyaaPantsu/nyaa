@@ -11,9 +11,8 @@
     <!-- RSS Feed with Context -->
     <link href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
 
-    <link rel="stylesheet" href="{{.URL.Parse "/css/open-iconic.min.css"}}">
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}">
-    <link rel="stylesheet" id="theme" href="/css/">
+    <link rel="stylesheet" id="theme" href="">
     <!-- Search Box for Google -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 		<script>
@@ -52,10 +51,10 @@
 						<a href="{{.URL.Parse "/"}}"><img src="/img/logo.png" alt="NyaaPantsu"></a>
 					</div>
 					<div class="h-nav">
-						<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><span class="oi visible-md" data-glyph="data-transfer-upload"></span><span class="hide-md">Upload</span></a>
-						<a href="{{ genRouteWithQuery "feed" .URL }}" class="nav-btn"><span class="oi visible-md" data-glyph="rss-alt"></span><span class="hide-md">RSS</span></a>
-						<a href="{{.URL.Parse "/faq"}}" class="nav-btn"><span class="oi visible-md" data-glyph="question-mark"></span><span class="hide-md">FAQ</span></a>
-						<a href="//sukebei.pantsu.cat" class="nav-btn"><span class="oi visible-md" data-glyph="heart"></span><span class="hide-md">Fap</span></a>
+						<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><div class="upload-icon visible-md"></div><span class="hide-md">Upload</span></a>
+						<a href="{{ genRouteWithQuery "feed" .URL }}" class="nav-btn"><div class="rss-icon visible-md"></div><span class="hide-md">RSS</span></a>
+						<a href="{{.URL.Parse "/faq"}}" class="nav-btn"><div class="faq-icon visible-md"></div><span class="hide-md">FAQ</span></a>
+						<a href="//sukebei.pantsu.cat" class="nav-btn"><div class="fap-icon visible-md"></div><span class="hide-md">Fap</span></a>
 					</div>
 			</div>
 			<div class="h-right">

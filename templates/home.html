@@ -61,11 +61,11 @@ Your browser does not support the audio element.
               -->
               <td class="tr-links home-td">
                   <a href="{{.Magnet}}" title="Magnet link">
-                      <span class="oi" data-glyph="cloud-download"></span>
+                      <div class="magnet-icon"></div>
                   </a>
                   {{if ne .TorrentLink ""}}
                   <a href="{{.TorrentLink}}" title="Torrent file">
-                      <span class="oi" data-glyph="data-transfer-download"></span>
+                      <div class="download-icon"></div>
                   </a>
                   {{end}}
               </td>
