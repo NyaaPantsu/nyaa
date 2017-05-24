@@ -114,6 +114,11 @@ select.form-input + .select-icon {
 .form-input.search-box + .search-icon {
 	margin-left:  -2rem;
 	padding: 5px 10px;
+	background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAQAAAADpb+tAAAAjUlEQVQIHQXBoU1DYQCAwXviUQw4LHlYJAnBYQmqW3wdpkk3wLAEAxCSCkLSFSowBIFCIH7uQCfd9dgCALrvr9Fo9NopoItG21ZNLR17A/TcHqCl0RXopw1AU6MH0KEdQKtGN6B1o0ugbb/NoKmXRrs27Rt9dw5oat2hr5667r3PzgAANPfREQAAzd3yD3GyOPKUaUBTAAAAAElFTkSuQmCC")
+				no-repeat
+				center center;
+    border: none;
+	vertical-align: middle;
 }
 
 .header .h-user {
