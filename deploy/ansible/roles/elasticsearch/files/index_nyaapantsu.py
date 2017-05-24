@@ -44,7 +44,10 @@ while fetches:
           'date': date,
           'uploader_id': uploader,
           'downloads': downloads,
-          'filesize': filesize
+          'filesize': filesize,
+          'seeders': 0,   # TODO Get seeders from database
+          'leechers': 0,  # TODO Get leechers from database
+          'completed': 0  # TODO Get completed from database
         }
         action = {
             '_index': pantsu_index,
