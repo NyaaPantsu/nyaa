@@ -240,7 +240,7 @@ th { border-bottom-width: 2px; }
 .tr-date { width: 90px; }
 
 .sort-arrows { margin-left: 0.2rem; }
-.sort-arrows a {
+.sort-arrows span {
 	font-size: 	100%;
 	letter-spacing: -0.3rem;
 	opacity: 0.4;
