@@ -21,19 +21,19 @@ Your browser does not support the audio element.
                 <a href="{{ genSearchWithOrdering .URL "1" }}">{{call $.T "name"}}{{ genSortArrows .URL "1" }}</a>
               </th>
               <th class="tr-links"></th>
-              <th class="tr-size"><a href="{{ genSearchWithOrdering .URL "4" }}">{{call $.T "size"}}{{ genSortArrows .URL "4" }}</a></th>
+              <th class="tr-size hide-xs"><a href="{{ genSearchWithOrdering .URL "4" }}">{{call $.T "size"}}{{ genSortArrows .URL "4" }}</a></th>
 
-              <th class="tr-se">
+              <th class="tr-se hide-xs">
                 <a href="{{ genSearchWithOrdering .URL "5" }}">{{call $.T "S"}}{{ genSortArrows .URL "5" }}</a> / 
               </th>
-              <th class="tr-le">
+              <th class="tr-le hide-xs">
                 <a href="{{ genSearchWithOrdering .URL "6" }}">{{call $.T "L"}}{{ genSortArrows .URL "6" }}</a> / 
               </th>
-              <th class="tr-dl">
+              <th class="tr-dl hide-xs">
                 <a href="{{ genSearchWithOrdering .URL "7" }}">{{call $.T "D"}}{{ genSortArrows .URL "7" }}</a>
               </th>
               <!-- <th><span class="glyphicon glyphicon-comment"></span></th> -->
-              <th class="tr-date"><a href="{{ genSearchWithOrdering .URL "2" }}">{{call $.T "date"}}{{ genSortArrows .URL "2" }}</th></a>
+              <th class="tr-date hide-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{call $.T "date"}}{{ genSortArrows .URL "2" }}</th></a>
           </tr>
           {{ range .ListTorrents}}
           <tr class="torrent-info
@@ -69,17 +69,17 @@ Your browser does not support the audio element.
                   </a>
                   {{end}}
               </td>
-              <td class="tr-size home-td">
+              <td class="tr-size home-td hide-xs">
                   {{ fileSize .Filesize $.T }}
               </td>
               {{if .LastScrape.IsZero}}
-              <td class="home-td" colspan="3">{{call $.T "unknown"}}</td>
+              <td class="home-td hide-xs" colspan="3">{{call $.T "unknown"}}</td>
               {{else}}
-              <td class="tr-se home-td">{{.Seeders}}</td>
-              <td class="tr-le home-td">{{.Leechers}}</td>
-              <td class="tr-dl home-td">{{.Completed}}</td>
+              <td class="tr-se home-td hide-xs">{{.Seeders}}</td>
+              <td class="tr-le home-td hide-xs">{{.Leechers}}</td>
+              <td class="tr-dl home-td hide-xs">{{.Completed}}</td>
               {{end}}
-              <td class="tr-date home-td date-short">{{.Date}}</td>
+              <td class="tr-date home-td date-short hide-xs">{{.Date}}</td>
           </tr>
           {{end}}
       </table>

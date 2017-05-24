@@ -13,13 +13,40 @@
 
     <link rel="stylesheet" href="{{.URL.Parse "/css/open-iconic.min.css"}}">
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}">
-    <link rel="stylesheet" href="" id="theme">
+    <link rel="stylesheet" id="theme" href="/css/">
     <!-- Search Box for Google -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+		<script>
+			function changeTheme(opt) {
+				var theme = opt.value;
+				localStorage.setItem("theme", theme);
+				document.getElementById('theme').href = "/css/" + opt.value;
+				console.log(theme);
+			}
+			function setTheme() {
+				window.onload = function () {
+				document.getElementById('theme').href = "/css/" + localStorage.getItem('theme');
+				}
+			}
+
+			function toggleMascot(btn) {
+				var state= btn.getAttribute('value');
+				if (state == "hide") {
+					btn.innerHTML = "<i class='fa fa-eye'></i> Mascot";
+					document.getElementById('mascot').className = 'hide';
+					btn.setAttribute('value', 'show');
+				} else {
+					btn.innerHTML = "<i class='fa fa-eye-slash'></i> Mascot";
+					document.getElementById('mascot').className = '';
+					btn.setAttribute('value', 'hide');
+				}
+			}
+
+		</script>
 
     </head>
   <body>
-     <div class="mascot"></div>
+     <div id="mascot"></div>
 	<nav id="header" class="header">
 		<div class="container">
 			<div class="h-left">
@@ -27,15 +54,15 @@
 						<a href="{{.URL.Parse "/"}}"><img src="/img/logo.png" alt="NyaaPantsu"></a>
 					</div>
 					<div class="h-nav">
-						<a href="{{.URL.Parse "/upload"}}" class="nav-btn">Upload</a>
-						<a href="{{ genRouteWithQuery "feed" .URL }}" class="nav-btn">RSS</a>
-						<a href="{{.URL.Parse "/faq"}}" class="nav-btn">FAQ</a>
-						<a href="sukebei.html" class="nav-btn">Fap</a>
+						<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><span class="oi visible-md" data-glyph="data-transfer-upload"></span><span class="hide-md">Upload</span></a>
+						<a href="{{ genRouteWithQuery "feed" .URL }}" class="nav-btn"><span class="oi visible-md" data-glyph="rss-alt"></span><span class="hide-md">RSS</span></a>
+						<a href="{{.URL.Parse "/faq"}}" class="nav-btn"><span class="oi visible-md" data-glyph="question-mark"></span><span class="hide-md">FAQ</span></a>
+						<a href="//sukebei.pantsu.cat" class="nav-btn"><span class="oi visible-md" data-glyph="heart"></span><span class="hide-md">Fap</span></a>
 					</div>
 			</div>
 			<div class="h-right">
         {{block "badge_user" .}}{{end}}
-				<div class="h-search">
+				<div class="h-search hide-xs">
 				<form role="search" action="/search" method="get">
 						{{block "search_common" .}}{{end}}
             {{block "search_button" .}}{{end}}
@@ -58,8 +85,8 @@
 				<div class="footer-opt">
 					<select onchange="changeTheme(this.options[this.selectedIndex])" name="Theme" id="" class="form-input">
 						<option value="">Default</option>
-						<option value="css/theme_g_anon.css">/g/ Anon</option>
-						<option value="css/theme_tomorrow.css">Tomorrow</option>
+						<option value="g.css">/g/ Anon</option>
+						<option value="tomorrow.css">Tomorrow</option>
 					</select>
 
 					<select name="Language" id="" class="form-input">
