@@ -838,5 +838,61 @@
   {
     "id": "new_comment_on_torrent",
     "translation": "Nouveau commentaire sur le torrent : \"%s\""
+  },
+  {
+    "id": "no_action_selected",
+    "translation": "Vous devez indiquer ce que vous souhaitez faire avec votre sélection."
+  },
+  {
+    "id": "no_move_location_selected",
+    "translation": "Vous devez indiquer où vous souhaitez déplacer votre sélection."
+  },
+  {
+    "id": "select_one_element",
+    "translation": "Vous devez sélectionner au moins un élément."
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "Le torrent %s a été déplacé."
+  },
+  {
+    "id": "no_status_exist",
+    "translation": "Le statut %d n'existe pas."
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "Le torrent %s a été supprimé."
+  },
+  {
+    "id": "no_action_exist",
+    "translation": "L'action %s n'existe pas."
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "Le torrent d'ID %s n'existe pas."
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "Une erreur s'est produite."
+  },
+  {
+    "id": "nb_torrents_updated",
+    "translation": "%d torrents mis à jour."
+  },
+  {
+    "id": "torrent_updated",
+    "translation": "Les détails du torrent ont été mis à jour."
+  },
+  {
+    "id": "fail_torrent_update",
+    "translation": "La mise à jour du torrent a échoué."
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "Mauvais captcha !"
+  },
+  {
+    "id": "comment_empty",
+    "translation": "Commentaire vide !"
   }
 ]
