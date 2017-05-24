@@ -136,19 +136,19 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 		if !log.CheckError(err) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
+			}
 		}
-	}
 
-	searchParam, torrents, count, err := search.SearchByQueryWithUser(r, pagenum)
-	searchForm := SearchForm{
-		SearchParam:      searchParam,
-		Category:         searchParam.Category.String(),
-		ShowItemsPerPage: true,
-	}
+		searchParam, torrents, count, err := search.SearchByQueryWithUser(r, pagenum)
+		searchForm := SearchForm{
+			SearchParam:      searchParam,
+			Category:         searchParam.Category.String(),
+			ShowItemsPerPage: true,
+		}
 
 	messages := msg.GetMessages(r)
 	common := NewCommonVariables(r)
-	common.Navigation = Navigation{count, int(searchParam.Max), pagenum, "mod_tlist_page"}
+	common.Navigation = Navigation{ count, int(searchParam.Max), pagenum, "mod_tlist_page"}
 	common.Search = searchForm
 	ptlv := PanelTorrentListVbs{common, torrents, messages.GetAllErrors(), messages.GetAllInfos()}
 	err = panelTorrentList.ExecuteTemplate(w, "admin_index.html", ptlv)
@@ -236,7 +236,7 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	torrent, _ := torrentService.GetTorrentById(id)
-	messages := msg.GetMessages(r)
+	messages:= msg.GetMessages(r)
 
 	torrentJson := torrent.ToJSON()
 	uploadForm := NewUploadForm()
@@ -343,6 +343,7 @@ func TorrentsPostListPanel(w http.ResponseWriter, r *http.Request) {
 	TorrentsListPanel(w, r)
 }
 
+
 /*
  * This function is used on the frontend for the mass
  * Query is: action=status|delete|owner|category|multiple
@@ -352,7 +353,8 @@ func TorrentsPostListPanel(w http.ResponseWriter, r *http.Request) {
  * status=0|1|2|3|4 according to config/torrent.go (can be omitted if action=delete|owner|category|multiple)
  * owner is the User ID of the new owner of the torrents (can be omitted if action=delete|status|category|multiple)
  * category is the category string (eg. 1_3) of the new category of the torrents (can be omitted if action=delete|status|owner|multiple)
- * withreport is the bool to enable torrent reports deletion when action=delete (can be omitted if action=category|status|owner|multiple)
+ *
+ * withreport is the bool to enable torrent reports deletion (can be omitted)
  *
  * In case of action=multiple, torrents can be at the same time changed status, owner and category  
  */
@@ -406,6 +408,9 @@ func torrentManyAction(r *http.Request) {
 		messages.AddErrorT("errors", "select_one_element")
 	}
 
+	if r.FormValue("withreport") == "" { // Default behavior for withreport
+		withReport = false
+	}
 	if !userPermission.HasAdmin(currentUser)  {
 		if r.FormValue("status") != "" { // Condition to check if a user try to change torrent status without having the right permission
 			if (status == model.TorrentStatusTrusted && !currentUser.IsTrusted()) || status == model.TorrentStatusAPlus || status == 0 {
@@ -419,6 +424,7 @@ func torrentManyAction(r *http.Request) {
 		if r.FormValue("owner") != "" { // Only admins can change owner of torrents
 			owner = -1
 		}
+		withReport = false // Users should not be able to remove reports
 	}
 	if r.FormValue("owner") != "" && userPermission.HasAdmin(currentUser) { // We check that the user given exist and if not we return an error
 		_, _, errorUser := userService.RetrieveUserForAdmin(strconv.Itoa(owner))
@@ -460,7 +466,6 @@ func torrentManyAction(r *http.Request) {
 					if r.FormValue("owner") != "" && owner != -1 {
 							torrent.UploaderID = uint(owner)
 							messages.AddInfoTf("infos", "torrent_owner_changed", torrent.Name)
-
 					}
 					if category != "" && catID != -1 && subCatID != -1 {
 							torrent.Category = catID
@@ -475,21 +480,22 @@ func torrentManyAction(r *http.Request) {
 					if err != nil {
 						messages.ImportFromError("errors", err)
 					} else {
-						if withReport {
-							whereParams := serviceBase.CreateWhereParams("torrent_id = ?", torrent_id)
-							reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
-							for _, report := range reports {
-								reportService.DeleteTorrentReport(report.ID)
-							}
-						}
 						messages.AddInfoTf("infos", "torrent_deleted", torrent.Name)
 					}
 				} else {
 					messages.AddErrorTf("errors", "no_action_exist", action)
 				}
+				if withReport {
+					whereParams := serviceBase.CreateWhereParams("torrent_id = ?", torrent_id)
+					reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
+					for _, report := range reports {
+						reportService.DeleteTorrentReport(report.ID)
+					}
+					messages.AddInfoTf("infos", "torrent_reports_deleted", torrent.Name)
+				}
 			} else {
 				messages.AddErrorTf("errors", "torrent_not_exist", torrent_id)
-			}
+			} 
 		}
 	}
 }
