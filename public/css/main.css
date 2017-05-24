@@ -472,6 +472,8 @@ td.tr-le { color: #E84C4C; }
 	color: white;
 	font-size: larger;
 	vertical-align: bottom;
+	margin-right: 5px;
+	margin-top: 5px;
 }
 
 .profile-panel {
