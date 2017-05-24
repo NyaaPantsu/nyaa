@@ -44,22 +44,22 @@ func stringIsAscii(input string) bool {
 }
 
 func SearchByQuery(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
-	search, tor, count, err = searchByQuery(r, pagenum, true, false)
+	search, tor, count, err = searchByQuery(r, pagenum, true, false, false)
 	return
 }
 
 func SearchByQueryWithUser(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
-	search, tor, count, err = searchByQuery(r, pagenum, true, true)
+	search, tor, count, err = searchByQuery(r, pagenum, true, true, false)
 	return
 }
 
 func SearchByQueryNoCount(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, err error) {
-	search, tor, _, err = searchByQuery(r, pagenum, false, false)
+	search, tor, _, err = searchByQuery(r, pagenum, false, false, false)
 	return
 }
 
-func SearchByQueryDeleted(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, err error) {
-	search, tor, _, err = searchByQuery(r, pagenum, false, false)
+func SearchByQueryDeleted(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
+	search, tor, count, err = searchByQuery(r, pagenum, true, true, true)
 	return
 }
 

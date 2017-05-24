@@ -288,13 +288,26 @@ func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 
 func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
-	_, _ = torrentService.DeleteTorrent(id)
+	definitely := r.URL.Query()["definitely"]
 
-	//delete reports of torrent
-	whereParams := serviceBase.CreateWhereParams("torrent_id = ?", id)
-	reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
-	for _, report := range reports {
-		reportService.DeleteTorrentReport(report.ID)
+	if definitely != nil {
+		_, _ = torrentService.DefinitelyDeleteTorrent(id)
+
+		//delete reports of torrent
+		whereParams := serviceBase.CreateWhereParams("torrent_id = ?", id)
+		reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
+		for _, report := range reports {
+			reportService.DeleteDefinitelyTorrentReport(report.ID)
+		}
+	} else {
+		_, _ = torrentService.DeleteTorrent(id)
+
+		//delete reports of torrent
+		whereParams := serviceBase.CreateWhereParams("torrent_id = ?", id)
+		reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
+		for _, report := range reports {
+			reportService.DeleteTorrentReport(report.ID)
+		}
 	}
 	url, _ := Router.Get("mod_tlist").URL()
 	http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
