@@ -58,7 +58,12 @@ func SearchByQueryNoCount(r *http.Request, pagenum int) (search common.SearchPar
 	return
 }
 
-func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool) (
+func SearchByQueryDeleted(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, err error) {
+	search, tor, _, err = searchByQuery(r, pagenum, false, false)
+	return
+}
+
+func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool, deleted bool) (
 	search common.SearchParam, tor []model.Torrent, count int, err error,
 ) {
 	max, err := strconv.ParseUint(r.URL.Query().Get("max"), 10, 32)
@@ -215,8 +220,9 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool) (
 	log.Infof("SQL query is :: %s\n", parameters.Conditions)
 
 	tor, count, err = cache.Impl.Get(search, func() (tor []model.Torrent, count int, err error) {
-
-		if countAll && !withUser {
+		if deleted {
+			tor, count, err = torrentService.GetDeletedTorrents(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
+		} else if countAll && !withUser {
 			tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
 		} else if withUser {
 			tor, count, err = torrentService.GetTorrentsWithUserOrderBy(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))

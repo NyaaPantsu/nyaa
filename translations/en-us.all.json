@@ -922,5 +922,25 @@
   {
     "id": "torrent_reports_deleted",
     "translation": "Reports of torrent \"%s\" were deleted!"
+  },
+  {
+    "id": "edit",
+    "translation": "Edit"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "You will not be able to recover the file, neither stop someone to reupload it!"
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "Delete definitely"
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "Unlock"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "Lock"
   }
 ]

@@ -91,7 +91,7 @@ func (f *ReassignForm) ExecuteAction() (int, error) {
 		torrent, err2 := torrentService.GetRawTorrentById(torrent_id)
 		if err2 == nil {
 			torrent.UploaderID = f.AssignTo
-			db.ORM.Save(&torrent)
+			db.ORM.Model(&torrent).UpdateColumn(&torrent)
 			num += 1
 		}
 	}
@@ -268,8 +268,8 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 			torrent.Status = uploadForm.Status
 			torrent.WebsiteLink = uploadForm.WebsiteLink
 			torrent.Description = uploadForm.Description
-			torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
-			db.ORM.Save(&torrent)
+			// torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
+			db.ORM.Model(&torrent).UpdateColumn(&torrent)
 			messages.AddInfoT("infos", "torrent_updated")
 		}
 	}
@@ -376,6 +376,64 @@ func ApiMassMod(w http.ResponseWriter, r *http.Request) {
 }
 
 /*
+ * Manage deleted torrents
+ */
+
+func DeletedTorrentsModPanel(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	page := vars["page"]
+
+	var err error
+	pagenum := 1
+	if page != "" {
+		pagenum, err = strconv.Atoi(html.EscapeString(page))
+		if !log.CheckError(err) {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+			}
+		}
+
+		searchParam, torrents, count, err := search.SearchByQueryDeleted(r, pagenum)
+		searchForm := SearchForm{
+			SearchParam:      searchParam,
+			Category:         searchParam.Category.String(),
+			ShowItemsPerPage: true,
+		}
+
+	messages := msg.GetMessages(r)
+	common := NewCommonVariables(r)
+	common.Navigation = Navigation{ count, int(searchParam.Max), pagenum, "mod_tlist_page"}
+	common.Search = searchForm
+	ptlv := PanelTorrentListVbs{common, torrents, messages.GetAllErrors(), messages.GetAllInfos()}
+	err = panelTorrentList.ExecuteTemplate(w, "admin_index.html", ptlv)
+	log.CheckError(err)
+}
+
+func DeletedTorrentsPostPanel(w http.ResponseWriter, r *http.Request) {
+	torrentManyAction(r)
+	DeletedTorrentsModPanel(w, r)
+}
+
+func TorrentBlockModPanel(w http.ResponseWriter, r *http.Request) {
+	id := r.URL.Query().Get("id")
+	torrent, _, _ := torrentService.ToggleBlockTorrent(id)
+
+	var returnRoute, action string
+	if torrent.IsDeleted() {
+		returnRoute = "mod_tlist_deleted"
+	} else {
+		returnRoute = "mod_tlist"
+	}
+	if torrent.IsBlocked() {
+		action = "blocked"
+	} else {
+		action = "unblocked"
+	}
+	url, _ := Router.Get(returnRoute).URL()
+	http.Redirect(w, r, url.String()+"?"+action, http.StatusSeeOther)
+}
+
+/*
  * Controller to modify multiple torrents and can be used by the owner of the torrent or admin
  */
 
@@ -474,7 +532,7 @@ func torrentManyAction(r *http.Request) {
 					}
 
 					/* Changes are done, we save */
-					db.ORM.Model(&torrent).UpdateColumn(&torrent)
+					db.ORM.Unscoped().Model(&torrent).UpdateColumn(&torrent)
 				} else if action == "delete" {
 					_, err = torrentService.DeleteTorrent(torrent_id)
 					if err != nil {
