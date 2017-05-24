@@ -202,9 +202,10 @@ func DeleteTorrent(id string) (int, error) {
 }
 
 func UpdateTorrent(torrent model.Torrent) (int, error) {
-	if db.ORM.Save(torrent).Error != nil {
+	if db.ORM.Model(&torrent).UpdateColumn(&torrent).Error != nil {
 		return http.StatusInternalServerError, errors.New("Torrent was not updated.")
 	}
 
 	return http.StatusOK, nil
 }
+
