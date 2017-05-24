@@ -60,5 +60,5 @@ td.tr-le { color: #cc6666; }
 	margin-bottom: -.5em;
 }
 
-.folder-icon { filter: invert(100%); -webkit-filter: invert(100%); }
-.file-icon { filter: invert(100%); -webkit-filter: invert(100%); }
+.tr-folder td:first-child::before { filter: invert(100%); -webkit-filter: invert(100%); }
+.tr-file td:first-child::before { filter: invert(100%); -webkit-filter: invert(100%); }
