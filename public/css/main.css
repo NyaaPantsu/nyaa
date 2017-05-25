@@ -96,6 +96,12 @@ select.form-input {
 	-webkit-appearance: none;
   	-moz-appearance: none;
   	padding-right: 1.5rem;
+	background-color: white;
+  	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23676767' d='M24 34l18-20H6'/%3E%3C/svg%3E");
+  	background-position-x: right 0.3rem;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	background-size: auto 40%;
 }
 
 .form-icon {
@@ -103,12 +109,6 @@ select.form-input {
 	border-color: transparent !important;
 	box-shadow: none;
 	pointer-events: none;
-}
-
-select.form-input + .select-icon {
-	background:  none; border:  none;
-	margin-left: -1.25rem;
-	margin-right: 0.25rem;
 }
 
 .form-input.search-box + .search-icon {
