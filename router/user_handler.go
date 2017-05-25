@@ -274,7 +274,8 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 			}
 			return
 		}
-		messages.ImportFromError("errors", errorUser)
+		url, _ := Router.Get("home").URL()
+		http.Redirect(w, r, url.String(), http.StatusSeeOther)
 	}
 	if messages.HasErrors() {
 		UserLoginFormHandler(w, r)
