@@ -937,7 +937,7 @@
   },
   {
     "id": "torrent_unblock",
-    "translation": "解除"
+    "translation": "ロック解除"
   },
   {
     "id": "torrent_block",
@@ -949,7 +949,7 @@
   },
   {
     "id": "torrent_unblocked",
-    "translation": "Torrent が解除されました。"
+    "translation": "Torrent のロックが解除されました。"
   },
   {
     "id": "torrent_blocked",
