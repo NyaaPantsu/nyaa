@@ -1,6 +1,7 @@
 package router
 
 import (
+	"encoding/json"
 	"fmt"
 	"html"
 	"net/http"
@@ -16,6 +17,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
+	"github.com/NyaaPantsu/nyaa/util/categories"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/search"
@@ -89,7 +91,7 @@ func (f *ReassignForm) ExecuteAction() (int, error) {
 		torrent, err2 := torrentService.GetRawTorrentById(torrent_id)
 		if err2 == nil {
 			torrent.UploaderID = f.AssignTo
-			db.ORM.Save(&torrent)
+			db.ORM.Model(&torrent).UpdateColumn(&torrent)
 			num += 1
 		}
 	}
@@ -126,6 +128,20 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
+	messages := msg.GetMessages(r)
+
+	deleted := r.URL.Query()["deleted"]
+	unblocked := r.URL.Query()["unblocked"]
+	blocked := r.URL.Query()["blocked"]
+	if deleted != nil {
+		messages.AddInfoTf("infos", "torrent_deleted", "")
+	}
+	if blocked != nil {
+		messages.AddInfoT("infos", "torrent_blocked")
+	}
+	if unblocked != nil {
+		messages.AddInfoT("infos", "torrent_unblocked")
+	}
 
 	var err error
 	pagenum := 1
@@ -134,19 +150,18 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 		if !log.CheckError(err) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
+			}
 		}
-	}
 
-	searchParam, torrents, count, err := search.SearchByQueryWithUser(r, pagenum)
-	searchForm := SearchForm{
-		SearchParam:      searchParam,
-		Category:         searchParam.Category.String(),
-		ShowItemsPerPage: true,
-	}
+		searchParam, torrents, count, err := search.SearchByQueryWithUser(r, pagenum)
+		searchForm := SearchForm{
+			SearchParam:      searchParam,
+			Category:         searchParam.Category.String(),
+			ShowItemsPerPage: true,
+		}
 
-	messages := msg.GetMessages(r)
 	common := NewCommonVariables(r)
-	common.Navigation = Navigation{count, int(searchParam.Max), pagenum, "mod_tlist_page"}
+	common.Navigation = Navigation{ count, int(searchParam.Max), pagenum, "mod_tlist_page"}
 	common.Search = searchForm
 	ptlv := PanelTorrentListVbs{common, torrents, messages.GetAllErrors(), messages.GetAllInfos()}
 	err = panelTorrentList.ExecuteTemplate(w, "admin_index.html", ptlv)
@@ -234,7 +249,7 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	torrent, _ := torrentService.GetTorrentById(id)
-	messages := msg.GetMessages(r)
+	messages:= msg.GetMessages(r)
 
 	torrentJson := torrent.ToJSON()
 	uploadForm := NewUploadForm()
@@ -266,8 +281,8 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 			torrent.Status = uploadForm.Status
 			torrent.WebsiteLink = uploadForm.WebsiteLink
 			torrent.Description = uploadForm.Description
-			torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
-			db.ORM.Save(&torrent)
+			// torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
+			db.ORM.Model(&torrent).UpdateColumn(&torrent)
 			messages.AddInfoT("infos", "torrent_updated")
 		}
 	}
@@ -286,15 +301,30 @@ func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 
 func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
-	_, _ = torrentService.DeleteTorrent(id)
+	definitely := r.URL.Query()["definitely"]
+	var returnRoute string
+	if definitely != nil {
+		_, _ = torrentService.DefinitelyDeleteTorrent(id)
 
-	//delete reports of torrent
-	whereParams := serviceBase.CreateWhereParams("torrent_id = ?", id)
-	reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
-	for _, report := range reports {
-		reportService.DeleteTorrentReport(report.ID)
+		//delete reports of torrent
+		whereParams := serviceBase.CreateWhereParams("torrent_id = ?", id)
+		reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
+		for _, report := range reports {
+			reportService.DeleteDefinitelyTorrentReport(report.ID)
+		}
+		returnRoute = "mod_tlist_deleted"
+	} else {
+		_, _ = torrentService.DeleteTorrent(id)
+
+		//delete reports of torrent
+		whereParams := serviceBase.CreateWhereParams("torrent_id = ?", id)
+		reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
+		for _, report := range reports {
+			reportService.DeleteTorrentReport(report.ID)
+		}
+		returnRoute = "mod_tlist"
 	}
-	url, _ := Router.Get("mod_tlist").URL()
+	url, _ := Router.Get(returnRoute).URL()
 	http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
 }
 
@@ -341,6 +371,107 @@ func TorrentsPostListPanel(w http.ResponseWriter, r *http.Request) {
 	TorrentsListPanel(w, r)
 }
 
+
+/*
+ * This function is used on the frontend for the mass
+ * Query is: action=status|delete|owner|category|multiple
+ * Needed: torrent_id[] Ids of torrents in checkboxes of name torrent_id
+ * 
+ * Needed on context:
+ * status=0|1|2|3|4 according to config/torrent.go (can be omitted if action=delete|owner|category|multiple)
+ * owner is the User ID of the new owner of the torrents (can be omitted if action=delete|status|category|multiple)
+ * category is the category string (eg. 1_3) of the new category of the torrents (can be omitted if action=delete|status|owner|multiple)
+ *
+ * withreport is the bool to enable torrent reports deletion (can be omitted)
+ *
+ * In case of action=multiple, torrents can be at the same time changed status, owner and category  
+ */
+func ApiMassMod(w http.ResponseWriter, r *http.Request) {
+	torrentManyAction(r)
+	messages := msg.GetMessages(r) // new util for errors and infos
+	var apiJson []byte
+	w.Header().Set("Content-Type", "application/json")	
+	
+	if !messages.HasErrors() {
+		mapOk := map[string]interface{}{"ok": true, "infos": messages.GetAllInfos()["infos"]}
+    	apiJson, _ = json.Marshal(mapOk)
+	} else { // We need to show error messages
+		mapNotOk := map[string]interface{}{"ok": false, "errors": messages.GetAllErrors()["errors"]}
+		apiJson, _ = json.Marshal(mapNotOk)
+	}
+
+	w.Write(apiJson)
+}
+
+/*
+ * Manage deleted torrents
+ */
+
+func DeletedTorrentsModPanel(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	page := vars["page"]
+	messages := msg.GetMessages(r) // new util for errors and infos
+	deleted := r.URL.Query()["deleted"]
+	unblocked := r.URL.Query()["unblocked"]
+	blocked := r.URL.Query()["blocked"]
+	if deleted != nil {
+		messages.AddInfoT("infos", "torrent_deleted_definitely")
+	}
+	if blocked != nil {
+		messages.AddInfoT("infos", "torrent_blocked")
+	}
+	if unblocked != nil {
+		messages.AddInfoT("infos", "torrent_unblocked")
+	}
+	var err error
+	pagenum := 1
+	if page != "" {
+		pagenum, err = strconv.Atoi(html.EscapeString(page))
+		if !log.CheckError(err) {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+			}
+		}
+
+		searchParam, torrents, count, err := search.SearchByQueryDeleted(r, pagenum)
+		searchForm := SearchForm{
+			SearchParam:      searchParam,
+			Category:         searchParam.Category.String(),
+			ShowItemsPerPage: true,
+		}
+
+	common := NewCommonVariables(r)
+	common.Navigation = Navigation{ count, int(searchParam.Max), pagenum, "mod_tlist_page"}
+	common.Search = searchForm
+	ptlv := PanelTorrentListVbs{common, torrents, messages.GetAllErrors(), messages.GetAllInfos()}
+	err = panelTorrentList.ExecuteTemplate(w, "admin_index.html", ptlv)
+	log.CheckError(err)
+}
+
+func DeletedTorrentsPostPanel(w http.ResponseWriter, r *http.Request) {
+	torrentManyAction(r)
+	DeletedTorrentsModPanel(w, r)
+}
+
+func TorrentBlockModPanel(w http.ResponseWriter, r *http.Request) {
+	id := r.URL.Query().Get("id")
+	torrent, _, _ := torrentService.ToggleBlockTorrent(id)
+
+	var returnRoute, action string
+	if torrent.IsDeleted() {
+		returnRoute = "mod_tlist_deleted"
+	} else {
+		returnRoute = "mod_tlist"
+	}
+	if torrent.IsBlocked() {
+		action = "blocked"
+	} else {
+		action = "unblocked"
+	}
+	url, _ := Router.Get(returnRoute).URL()
+	http.Redirect(w, r, url.String()+"?"+action, http.StatusSeeOther)
+}
+
 /*
  * Controller to modify multiple torrents and can be used by the owner of the torrent or admin
  */
@@ -350,44 +481,118 @@ func torrentManyAction(r *http.Request) {
 	r.ParseForm()
 	torrentsSelected := r.Form["torrent_id"] // should be []string
 	action := r.FormValue("action")
-	moveTo, _ := strconv.Atoi(r.FormValue("moveto"))
+	status, _ := strconv.Atoi(r.FormValue("status"))
+	owner, _ := strconv.Atoi(r.FormValue("owner"))
+	category := r.FormValue("category")
+	withReport, _ := strconv.ParseBool(r.FormValue("withreport"))
 	messages := msg.GetMessages(r) // new util for errors and infos
+	catID, subCatID := -1, -1
+	var err error
 
 	if action == "" {
 		messages.AddErrorT("errors", "no_action_selected")
 	}
-	if action == "move" && r.FormValue("moveto") == "" { // We need to check the form value, not the int one because hidden is 0
+	if action == "status" && r.FormValue("status") == "" { // We need to check the form value, not the int one because hidden is 0
 		messages.AddErrorT("errors", "no_move_location_selected")
+	}
+	if action == "owner" && r.FormValue("owner") == "" { // We need to check the form value, not the int one because renchon is 0
+		messages.AddErrorT("errors", "no_owner_selected")
+	}
+	if action == "category" && category == "" { 
+		messages.AddErrorT("errors", "no_category_selected")
 	}
 	if len(torrentsSelected) == 0 {
 		messages.AddErrorT("errors", "select_one_element")
 	}
+
+	if r.FormValue("withreport") == "" { // Default behavior for withreport
+		withReport = false
+	}
+	if !config.TorrentStatus[status] { // Check if the status exist
+		messages.AddErrorTf("errors", "no_status_exist", status)
+		status = -1
+	}
+	if !userPermission.HasAdmin(currentUser)  {
+		if r.FormValue("status") != "" { // Condition to check if a user try to change torrent status without having the right permission
+			if (status == model.TorrentStatusTrusted && !currentUser.IsTrusted()) || status == model.TorrentStatusAPlus || status == 0 {
+				status = model.TorrentStatusNormal
+			}
+		}
+		if r.FormValue("owner") != "" { // Only admins can change owner of torrents
+			owner = -1
+		}
+		withReport = false // Users should not be able to remove reports
+	}
+	if r.FormValue("owner") != "" && userPermission.HasAdmin(currentUser) { // We check that the user given exist and if not we return an error
+		_, _, errorUser := userService.RetrieveUserForAdmin(strconv.Itoa(owner))
+		if errorUser != nil {
+			messages.AddErrorTf("errors", "no_user_found_id", owner)
+			owner = -1
+		}
+	}
+	if category != "" {
+		catsSplit := strings.Split(category, "_")
+		// need this to prevent out of index panics
+		if len(catsSplit) == 2 {
+			catID, err = strconv.Atoi(catsSplit[0])
+			if err != nil {
+				messages.AddErrorT("errors", "invalid_torrent_category")
+			}
+			subCatID, err = strconv.Atoi(catsSplit[1])
+			if err != nil {
+				messages.AddErrorT("errors", "invalid_torrent_category")
+			}
+
+			if !categories.CategoryExists(category) {
+				messages.AddErrorT("errors", "invalid_torrent_category")
+			}
+		}
+	}
+
 	if !messages.HasErrors() {
 		for _, torrent_id := range torrentsSelected {
 			torrent, _ := torrentService.GetTorrentById(torrent_id)
 			if torrent.ID > 0 && userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
-				switch action {
-				case "move":
-					if config.TorrentStatus[moveTo] {
-						torrent.Status = moveTo
-						db.ORM.Save(&torrent)
-						messages.AddInfoTf("infos", "torrent_moved", torrent.Name)
-					} else {
-						messages.AddErrorTf("errors", "no_status_exist", moveTo)
+				if action == "status" || action == "multiple" || action == "category" || action == "owner" {
+
+					/* If we don't delete, we make changes according to the form posted and we save at the end */
+					if r.FormValue("status") != "" && status != -1 {
+							torrent.Status = status
+							messages.AddInfoTf("infos", "torrent_moved", torrent.Name)
 					}
-				case "delete":
-					_, err := torrentService.DeleteTorrent(torrent_id)
+					if r.FormValue("owner") != "" && owner != -1 {
+							torrent.UploaderID = uint(owner)
+							messages.AddInfoTf("infos", "torrent_owner_changed", torrent.Name)
+					}
+					if category != "" && catID != -1 && subCatID != -1 {
+							torrent.Category = catID
+							torrent.SubCategory = subCatID
+							messages.AddInfoTf("infos", "torrent_category_changed", torrent.Name)
+					}
+
+					/* Changes are done, we save */
+					db.ORM.Unscoped().Model(&torrent).UpdateColumn(&torrent)
+				} else if action == "delete" {
+					_, err = torrentService.DeleteTorrent(torrent_id)
 					if err != nil {
 						messages.ImportFromError("errors", err)
 					} else {
 						messages.AddInfoTf("infos", "torrent_deleted", torrent.Name)
 					}
-				default:
+				} else {
 					messages.AddErrorTf("errors", "no_action_exist", action)
+				}
+				if withReport {
+					whereParams := serviceBase.CreateWhereParams("torrent_id = ?", torrent_id)
+					reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
+					for _, report := range reports {
+						reportService.DeleteTorrentReport(report.ID)
+					}
+					messages.AddInfoTf("infos", "torrent_reports_deleted", torrent.Name)
 				}
 			} else {
 				messages.AddErrorTf("errors", "torrent_not_exist", torrent_id)
-			}
+			} 
 		}
 	}
 }

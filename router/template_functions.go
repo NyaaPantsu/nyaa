@@ -11,12 +11,21 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/categories"
+	"github.com/NyaaPantsu/nyaa/util/filelist"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 )
 
 type captchaData struct {
 	CaptchaID string
 	T         languages.TemplateTfunc
+}
+
+// Will be reused later.
+func fileSizeFunc(filesize int64, T languages.TemplateTfunc) template.HTML {
+	if (filesize == 0) {
+		return T("unknown")
+	}
+	return template.HTML(util.FormatFilesize(filesize))
 }
 
 var FuncMap = template.FuncMap{
@@ -179,17 +188,22 @@ var FuncMap = template.FuncMap{
 		} else {
 			return ""
 		}
-	},
-	"fileSize": func(filesize int64, T languages.TemplateTfunc) template.HTML {
-		if filesize == 0 {
-			return T("unknown")
-		}
-		return template.HTML(util.FormatFilesize(filesize))
-	},
+    },
+    "fileSize": fileSizeFunc,
 	"makeCaptchaData": func(captchaID string, T languages.TemplateTfunc) captchaData {
 		return captchaData{captchaID, T}
 	},
 	"DefaultUserSettings": func(s string) bool {
 		return config.DefaultUserSettings[s]
+	},
+	"MakeFolderTreeView": func(f *filelist.FileListFolder, folderFmt string, fileFmt string, data interface{}) template.HTML {
+		out, err := f.MakeFolderTreeView(folderFmt, fileFmt, map[string]interface{}{
+			// Add the functions needed for the tree view here.
+			"fileSize": fileSizeFunc,
+		}, data)
+		if err != nil {
+			return template.HTML("Error while making tree view")
+		}
+		return out
 	},
 }

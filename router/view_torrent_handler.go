@@ -18,6 +18,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/util/filelist"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/gorilla/mux"
 )
@@ -43,11 +44,12 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	b := torrent.ToJSON()
+	folder := filelist.FileListToFolder(torrent.FileList)
 	captchaID := ""
 	if userPermission.NeedsCaptcha(user) {
 		captchaID = captcha.GetID()
 	}
-	htv := ViewTemplateVariables{NewCommonVariables(r), b, captchaID, messages.GetAllErrors(), messages.GetAllInfos()}
+	htv := ViewTemplateVariables{NewCommonVariables(r), b, folder, captchaID, messages.GetAllErrors(), messages.GetAllInfos()}
 
 	err = viewTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -192,8 +194,8 @@ func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
 			torrent.Status = status
 			torrent.WebsiteLink = uploadForm.WebsiteLink
 			torrent.Description = uploadForm.Description
-			torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
-			db.ORM.Save(&torrent)
+			// torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
+			db.ORM.Model(&torrent).UpdateColumn(&torrent)
 			messages.AddInfoT("infos", "torrent_updated")
 		}
 		htv := UserTorrentEdVbs{NewCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}

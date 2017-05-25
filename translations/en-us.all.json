@@ -894,5 +894,73 @@
   {
     "id": "comment_empty",
     "translation": "Comment empty!"
+  },
+  {
+    "id": "no_owner_selected",
+    "translation": "New torrent owner is needed!"
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "No category selected!"
+  },
+  {
+    "id": "no_user_found_id",
+    "translation": "User with id %d isn't in the database!"
+  },
+  {
+    "id": "invalid_torrent_category",
+    "translation": "Torrent category doesn't exist!"
+  },
+  {
+    "id": "torrent_owner_changed",
+    "translation": "Owner of torrent \"%s\" has been successfully changed!"
+  },
+  {
+    "id": "torrent_category_changed",
+    "translation": "Category of torrent \"%s\" has been changed!"
+  },
+  {
+    "id": "torrent_reports_deleted",
+    "translation": "Reports of torrent \"%s\" were deleted!"
+  },
+  {
+    "id": "edit",
+    "translation": "Edit"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "You will not be able to recover the file, neither stop someone to reupload it!"
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "Delete definitely"
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "Unlock"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "Lock"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "Torrent has been erased from the database!"
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "Torrent has been unlocked!"
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "Torrent has been locked!"
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "Torrents not deleted"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "Torrents deleted"
   }
 ]

@@ -738,5 +738,17 @@
   {
     "id": "cancel",
     "translation": "取消"
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "请把我们的tracker： udp://tracker.doko.moe:6969 添加到你的tracker列表里."
+  },
+  {
+    "id": "unknown",
+    "translation": "未知"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "最后完成时间: "
   }
 ]

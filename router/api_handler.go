@@ -18,6 +18,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/upload"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/gorilla/mux"
 )
 
@@ -253,11 +254,46 @@ func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		update.UpdateTorrent(&torrent)
 
-		db.ORM.Save(&torrent)
+		db.ORM.Model(&torrent).UpdateColumn(&torrent)
 		if err != nil {
 			util.SendError(w, err, 500)
 			return
 		}
 		fmt.Printf("%+v\n", torrent)
 	}
+}
+func ApiSearchHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	page := vars["page"]
+
+	// db params url
+	var err error
+	pagenum := 1
+	if page != "" {
+		pagenum, err = strconv.Atoi(html.EscapeString(page))
+		if !log.CheckError(err) {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		if pagenum <= 0 {
+			NotFoundHandler(w, r)
+			return
+		}
+	}
+
+	_, torrents, _, err := search.SearchByQuery(r, pagenum)
+	if err != nil {
+		util.SendError(w, err, 400)
+		return
+	}
+
+	b := model.TorrentsToJSON(torrents)
+	w.Header().Set("Content-Type", "application/json")
+	err = json.NewEncoder(w).Encode(b)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 }

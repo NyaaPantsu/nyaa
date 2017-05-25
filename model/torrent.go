@@ -14,10 +14,11 @@ import (
 )
 
 const (
-	TorrentStatusNormal  = 1
-	TorrentStatusRemake  = 2
-	TorrentStatusTrusted = 3
-	TorrentStatusAPlus   = 4
+	TorrentStatusNormal    = 1
+	TorrentStatusRemake    = 2
+	TorrentStatusTrusted   = 3
+	TorrentStatusAPlus     = 4
+	TorrentStatusBlocked   = 5
 )
 
 type Feed struct {
@@ -104,6 +105,14 @@ func (t Torrent) IsTrusted() bool {
 
 func (t Torrent) IsAPlus() bool {
 	return t.Status == TorrentStatusAPlus
+}
+
+func (t *Torrent) IsBlocked() bool {
+	return t.Status == TorrentStatusBlocked
+}
+
+func (t *Torrent) IsDeleted() bool {
+	return t.DeletedAt != nil
 }
 
 /* We need a JSON object instead of a Gorm structure because magnet URLs are

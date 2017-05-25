@@ -5,6 +5,7 @@
       <option value="{{ $id_cat }}" {{if eq $.Search.Category $id_cat }}selected{{end}}>{{call $.T $name_cat }}</option>
       {{ end }}
   </select>
+  <label><span class="select-icon caret-down-icon"></span></label>
   <select name="s" class="form-input" value>
     <option value="0">{{call $.T "show_all"}}</option>
     <option value="1" {{if eq .Search.Status 1}}selected{{end}}>{{call $.T "filter_remakes"}}</option>
@@ -34,5 +35,5 @@
 {{end}}
 {{define "search_button"}}
     <input class="form-input search-box" name="q" placeholder="{{call $.T "search"}}" type="text" value="{{.Search.Query}}">
-    <button type="submit" class="form-input search-btn">{{call $.T "search"}}</button>
+    <button type="submit" class="form-input search-icon"></button>
 {{end}}

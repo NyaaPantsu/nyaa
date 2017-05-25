@@ -41,9 +41,9 @@ tr:nth-child(even) { background: rgba(0,0,0,0.2); }
 td.tr-se { color: #b5bd68; }
 td.tr-le { color: #cc6666; }
 
-.torrent-info.aplus { background: hsla(180, 50%, 50%, 0.2) !important; }
-.torrent-info.trusted { background: hsla(90, 50%, 50%, 0.2) !important; }
-.torrent-info.remake { background: hsla(40, 50%, 50%, 0.2) !important; }
+.aplus { background: hsla(180, 50%, 50%, 0.2) !important; }
+.trusted { background: hsla(90, 50%, 50%, 0.2) !important; }
+.remake { background: hsla(40, 50%, 50%, 0.2) !important; }
 
 .pagination .active { background: #141517; color: #c5c8c6; }
 .pagination .disabled { color: #141517; cursor: unset; }
@@ -59,3 +59,6 @@ td.tr-le { color: #cc6666; }
 	border-bottom: .5em solid #fff;
 	margin-bottom: -.5em;
 }
+
+.tr-folder td:first-child::before { filter: invert(100%); -webkit-filter: invert(100%); }
+.tr-file td:first-child::before { filter: invert(100%); -webkit-filter: invert(100%); }
