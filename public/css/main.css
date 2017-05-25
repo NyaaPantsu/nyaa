@@ -486,11 +486,10 @@ td.tr-le { color: #E84C4C; }
 	float: right;
 }
 .torrent-buttons {
-	display: inline-block;
-	float: right;
 	margin-top: 20px;
 	margin-right: 10px;
 	font-size: large;
+	text-align: right;
 }
 
 .profile-panel {
