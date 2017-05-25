@@ -897,7 +897,7 @@
   },
   {
     "id": "no_owner_selected",
-    "translation": "Torrent の新しいオーナーが必要です。"
+    "translation": "Torrent の新しいオーナーが選択されていません。"
   },
   {
     "id": "no_category_selected",
