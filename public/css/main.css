@@ -4,9 +4,9 @@
 
 a { text-decoration: none; }
 .header, .pagination {
-		-webkit-user-select:  none;
-	   -moz-user-select:  none;
-		    user-select:  none;
+	-webkit-user-select:  none;
+	-moz-user-select:  none;
+	user-select:  none;
 }
 
 body {
@@ -96,7 +96,7 @@ select.form-input {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	padding-right: 1.5rem;
-	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 48'%3E%3Cpath fill='%23676767' d='M24 34l18-20H6'/%3E%3C/svg%3E");
+	background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48"><path fill="#676767" d="M24 34l18-20H6"/></svg>');
 	background-position-x: right;
 	background-position-y: center;
 	background-repeat: no-repeat;
@@ -154,12 +154,12 @@ select.form-input {
 	border-radius: 0 0 5px 5px;
 }
 .header .h-user .user-menu .nav-btn {
-    float: none;
-    display: block;
-    padding: 0px 10px;
-    height: 43px;
-    line-height: 40px;
-    text-align: left;
+	float: none;
+	display: block;
+	padding: 0px 10px;
+	height: 43px;
+	line-height: 40px;
+	text-align: left;
 }
 
 .header .h-user .nav-btn:focus + .user-menu,
@@ -254,7 +254,7 @@ th { border-bottom-width: 2px; }
 }
 .sort-arrows .sortarrowdim { opacity: 0.25; }
 .sort-arrows a:hover { opacity: 0.8; }
-.sort-arrows .active { opacity: 	1; }
+.sort-arrows .active { opacity: 1; }
 
 .pagination {
 	text-align: center;
