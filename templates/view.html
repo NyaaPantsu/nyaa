@@ -5,7 +5,7 @@
     {{with .Torrent}}
     <hr>
     <div class="content" style="margin-bottom: 2em;">
-        <div class="row {{if eq .Status 2}}remake{{end}} {{if eq .Status 3}}trusted{{end}} {{if eq .Status 4}}aplus{{end}}">
+        <div class="row">
             <div class="col-md-12">
                 <h3 class="break">{{.Name}}</h3>
             </div>
@@ -76,9 +76,15 @@
                     <div class="col-md-4">{{T "completed"}}</div>
                 </div>
                 <div class="row">
+                    {{if .LastScrape.IsZero}}
+                    <div class="col-md-12" align="center">{{T "unknown"}}</div>
+                    {{else}}
                     <div class="col-md-4">{{.Seeders}}</div>
                     <div class="col-md-4">{{.Leechers}}</div>
                     <div class="col-md-4"><span class="completed" style="">{{.Completed}}</span></div>
+                    <div class="col-md-4">{{T "last_scraped"}}</div>
+                    <div class="col-md-8 date-short">{{ formatDateRFC .LastScrape }}</div>
+                    {{end}}
                     <div class="col-md-8">
                         <div class="proSeedBar">
                             <div class="seeds" style="width: {{ calcWidthSeed .Seeders .Leechers }}%;"></div>
@@ -137,10 +143,8 @@
                                                 <div class="col-sm-3">
                                                     <i class="pull-right date-short comment-date">
                                                     <small>
-                                                    {{ .Date.Format ( Ts "date_format" ) }}
-                                                    {{/* output: "2017-05-01 15:30"
-                                                    Went with "Year-Month-Day" because it's the most unambiguous.
-                                                    If you want it to be determined by where you're from, be my guest. */}}
+                                                    {{ formatDateRFC .Date }}
+                                                    {{/* JS will format the date as always */}}
                                                     </small>
                                                     </i>
                                                 </div>

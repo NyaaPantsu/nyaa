@@ -6,6 +6,7 @@ import (
 	"math"
 	"net/url"
 	"strconv"
+	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
@@ -142,5 +143,9 @@ var FuncMap = template.FuncMap{
 	},
 	"calcWidthLeech": func(seed uint32, leech uint32) float64 {
 		return float64(float64(leech)/(float64(seed)+float64(leech))) * 100
+	},
+	"formatDateRFC": func(t time.Time) string {
+		// because time.* isn't available in templates...
+		return t.Format(time.RFC3339)
 	},
 }

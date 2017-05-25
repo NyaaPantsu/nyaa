@@ -3,7 +3,7 @@
 {{define "content"}}
   <div class="blockBody">
       <ul class="list-inline" aria-label="Page navigation">
-          <li><img id="mascot" src="/img/renchon.png" /></li>
+          <li id="mascot"></li>
           <li style="padding-top: 7%;" class="pull-right"><ul class="pagination">
               {{ genNav .Navigation .URL 5 }}
           </ul></li>
@@ -46,9 +46,13 @@
                   </a>
                   <span class="badge pull-right hidden-xs">{{ len .Comments }}</span>
               </td>
+              {{if .LastScrape.IsZero}}
+              <td class="hidden-xs" colspan="3" align="center">{{T "unknown"}}</td>
+              {{else}}
               <td class="hidden-xs"><b class="text-success">{{.Seeders}}</b></td>
               <td class="hidden-xs"><b class="text-danger">{{.Leechers}}</b></td>
               <td class="hidden-xs">{{.Completed}}</td>
+              {{end}}
               <td class="hidden-xs date date-short">{{.Date}}</td>
               <td class="hidden-xs filesize">{{.Filesize}}</td>
               <td class="hidden-xs">
