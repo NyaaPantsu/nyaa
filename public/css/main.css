@@ -248,8 +248,8 @@ th { border-bottom-width: 2px; }
 .sort-arrows span {
 	font-size: 	100%;
 	letter-spacing: -0.3rem;
-	opacity: 0.4;
 }
+.sort-arrows .sortarrowdim { opacity: 0.25; }
 .sort-arrows a:hover { opacity: 0.8; }
 .sort-arrows .active { opacity: 	1; }
 
