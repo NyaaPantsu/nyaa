@@ -122,12 +122,12 @@
     <form method="post">
                 <div class="comment-form">
                     <div class="comment-text">
-                    <label style="margin-top: 5px; margin-left: 5px;" class="input-label"  for="comment">Submit a comment!</label> <br>
-                    <textarea style="width: 80%;" placeholder="サンキュー" name="comment" class="form-input" rows="50"></textarea>
-                    </div><br />
+                    <h3>{{ if gt .User.ID 0}} {{call $.T "submit_a_comment_as_username" .User.Username}} {{else}} {{call $.T "submit_a_comment_as_anonymous"}} {{end}}</h3>
+                    <textarea style="height: 10rem;" placeholder="サンキュー" name="comment" class="form-input upload-input"></textarea>
+                    </div>
                     <div class="comment-captcha">
                 {{block "captcha" (makeCaptchaData .CaptchaID $.T)}}{{end}}
-                <button type="submit" class="form-input">{{call $.T "submit" }}</button>
+                <button type="submit" class="form-input up-btn">{{call $.T "submit" }}</button>
                     </div>
                 </div>
   </form>
