@@ -273,13 +273,6 @@ func APIUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		update.UpdateTorrent(&torrent)
 
-/* TODO Sorry akuma, you went to sleep so I commented it
-		db.ORM.Model(&torrent).UpdateColumn(&torrent)
-		if err != nil {
-			util.SendError(w, err, 500)
-			return
-*/
-		db.ORM.Save(&torrent)
 		torrentService.UpdateTorrent(torrent)
 	}
 }
