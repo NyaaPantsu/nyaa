@@ -1,10 +1,10 @@
 {{define "profile_edit_content"}}
 	{{with .UserProfile}}
 		{{ range (index $.FormInfos "infos")}}
-			<div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
+			<div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="fa fa-info-circle"></i> {{ . }}</div>
 		{{end}}
 		{{ range (index $.FormErrors "errors")}}
-			<div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
+			<div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="fa fa-exclamation-circle"></i> {{ . }}</div>
 		{{end}}
         <h3>{{ call $.T "personal_info"}}</h3>
        <div class="user-edit">
@@ -175,7 +175,7 @@
        </div>
         {{ if CurrentOrAdmin $.User .ID }}
         <hr>
-        <a href="{{ genRoute "user_profile" }}?delete" onclick="if (!confirm('{{ call $.T "delete_account_confirm" }}')) return false;" class="btn btn-danger btn-lg"><i class="glyphicon glyphicon-trash"></i> {{ call $.T "delete_account"}}</a>
+        <a href="{{ genRoute "user_profile" }}?delete" onclick="if (!confirm('{{ call $.T "delete_account_confirm" }}')) return false;" class="btn btn-danger btn-lg"><i class="fa fa-trash"></i> {{ call $.T "delete_account"}}</a>
         {{end}}
 	{{end}}
 {{end}}
