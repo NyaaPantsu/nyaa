@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"github.com/gorilla/mux"
 
+	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
@@ -51,7 +52,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		Category:         searchParam.Category.String(),
 		ShowItemsPerPage: true,
 	}
-	htv := modelListVbs{commonVar, torrents, messages.GetAllErrors(), messages.GetAllInfos()}
+	htv := modelListVbs{commonVar, model.TorrentsToJSON(torrents), messages.GetAllErrors(), messages.GetAllInfos()}
 
 	err = searchTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
