@@ -128,6 +128,20 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
+	messages := msg.GetMessages(r)
+
+	deleted := r.URL.Query()["deleted"]
+	unblocked := r.URL.Query()["unblocked"]
+	blocked := r.URL.Query()["blocked"]
+	if deleted != nil {
+		messages.AddInfoTf("infos", "torrent_deleted", "")
+	}
+	if blocked != nil {
+		messages.AddInfoT("infos", "torrent_blocked")
+	}
+	if unblocked != nil {
+		messages.AddInfoT("infos", "torrent_unblocked")
+	}
 
 	var err error
 	pagenum := 1
@@ -146,7 +160,6 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 			ShowItemsPerPage: true,
 		}
 
-	messages := msg.GetMessages(r)
 	common := NewCommonVariables(r)
 	common.Navigation = Navigation{ count, int(searchParam.Max), pagenum, "mod_tlist_page"}
 	common.Search = searchForm
@@ -289,7 +302,7 @@ func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	definitely := r.URL.Query()["definitely"]
-
+	var returnRoute string
 	if definitely != nil {
 		_, _ = torrentService.DefinitelyDeleteTorrent(id)
 
@@ -299,6 +312,7 @@ func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 		for _, report := range reports {
 			reportService.DeleteDefinitelyTorrentReport(report.ID)
 		}
+		returnRoute = "mod_tlist_deleted"
 	} else {
 		_, _ = torrentService.DeleteTorrent(id)
 
@@ -308,8 +322,9 @@ func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 		for _, report := range reports {
 			reportService.DeleteTorrentReport(report.ID)
 		}
+		returnRoute = "mod_tlist"
 	}
-	url, _ := Router.Get("mod_tlist").URL()
+	url, _ := Router.Get(returnRoute).URL()
 	http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
 }
 
@@ -395,7 +410,19 @@ func ApiMassMod(w http.ResponseWriter, r *http.Request) {
 func DeletedTorrentsModPanel(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
-
+	messages := msg.GetMessages(r) // new util for errors and infos
+	deleted := r.URL.Query()["deleted"]
+	unblocked := r.URL.Query()["unblocked"]
+	blocked := r.URL.Query()["blocked"]
+	if deleted != nil {
+		messages.AddInfoT("infos", "torrent_deleted_definitely")
+	}
+	if blocked != nil {
+		messages.AddInfoT("infos", "torrent_blocked")
+	}
+	if unblocked != nil {
+		messages.AddInfoT("infos", "torrent_unblocked")
+	}
 	var err error
 	pagenum := 1
 	if page != "" {
@@ -413,7 +440,6 @@ func DeletedTorrentsModPanel(w http.ResponseWriter, r *http.Request) {
 			ShowItemsPerPage: true,
 		}
 
-	messages := msg.GetMessages(r)
 	common := NewCommonVariables(r)
 	common.Navigation = Navigation{ count, int(searchParam.Max), pagenum, "mod_tlist_page"}
 	common.Search = searchForm

@@ -127,20 +127,18 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 		}
 		params = parameters.Params
 	}
+	if !deleted {
+		conditionArray = append(conditionArray, "deleted_at IS NULL")
+	} else {
+		conditionArray = append(conditionArray, "deleted_at NOT NULL")		
+	}
+	
 	conditions := strings.Join(conditionArray, " AND ")
+
 	if countAll {
-		// FIXME: `deleted_at IS NULL` is duplicate in here because GORM handles this for us
-		err = db.ORM.Model(&torrents).Where(conditions, params...).Count(&count).Error
+		err = db.ORM.Unscoped().Model(&torrents).Where(conditions, params...).Count(&count).Error
 		if err != nil {
 			return
-		}
-	}
-
-	if deleted {
-		if conditions != "" {
-			conditions = conditions + " AND deleted_at IS NULL"
-		} else {
-			conditions = "deleted_at IS NULL"
 		}
 	}
 
@@ -210,10 +208,10 @@ func DeleteTorrent(id string) (int, error) {
 
 func DefinitelyDeleteTorrent(id string) (int, error) {
 	var torrent model.Torrent
-	if db.ORM.Unscoped().First(&torrent, id).RecordNotFound() {
+	if db.ORM.Unscoped().Model(&torrent).First(&torrent, id).RecordNotFound() {
 		return http.StatusNotFound, errors.New("Torrent is not found.")
 	}
-	if db.ORM.Unscoped().Delete(&torrent).Error != nil {
+	if db.ORM.Unscoped().Model(&torrent).Delete(&torrent).Error != nil {
 		return http.StatusInternalServerError, errors.New("Torrent was not deleted.")
 	}
 	return http.StatusOK, nil
@@ -221,7 +219,7 @@ func DefinitelyDeleteTorrent(id string) (int, error) {
 
 func ToggleBlockTorrent(id string) (model.Torrent, int, error) {
 	var torrent model.Torrent
-	if db.ORM.Unscoped().First(&torrent, id).RecordNotFound() {
+	if db.ORM.Unscoped().Model(&torrent).First(&torrent, id).RecordNotFound() {
 		return torrent, http.StatusNotFound, errors.New("Torrent is not found.")
 	}
 	if torrent.Status == model.TorrentStatusBlocked {
@@ -229,7 +227,7 @@ func ToggleBlockTorrent(id string) (model.Torrent, int, error) {
 	} else {
 		torrent.Status = model.TorrentStatusBlocked		
 	}
-	if db.ORM.Unscoped().UpdateColumn(&torrent).Error != nil {
+	if db.ORM.Unscoped().Model(&torrent).UpdateColumn(&torrent).Error != nil {
 		return torrent, http.StatusInternalServerError, errors.New("Torrent was not updated.")
 	}
 	return torrent, http.StatusOK, nil

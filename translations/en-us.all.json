@@ -942,5 +942,25 @@
   {
     "id": "torrent_block",
     "translation": "Lock"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "Torrent has been erased from the database!"
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "Torrent has been unlocked!"
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "Torrent has been locked!"
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "Torrents not deleted"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "Torrents deleted"
   }
 ]
