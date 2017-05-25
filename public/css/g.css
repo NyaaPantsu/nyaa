@@ -22,16 +22,19 @@ a:hover { color:  #444; }
 	background: #99BFD0;
 	border-color: #1d6d90;
 }
-.header .h-user .user-menu, .header .h-user .nav-btn:focus {
-	background: #bfe3f3 url('theme_g_anon/bg-header-tile.png') repeat;
+.header .h-user .user-menu {
+	background: #99BFD0;
+	background:    -moz-linear-gradient(top, #99BFD0 0%, #ABCFDF 100%);
+	background: -webkit-linear-gradient(top, #99BFD0 0%, #ABCFDF 100%);
+	background:         linear-gradient(to bottom, #99BFD0 0%, #ABCFDF 100%);
 	border-color: #1d6d90;
 }
 
 table thead {
-	background: #93C7E0 !important; /* Old browsers */
-	background: -moz-linear-gradient(top, #dcccea 0%, #93C7E0 100%) !important;
-	background: -webkit-linear-gradient(top, #dcccea 0%,#93C7E0 100%) !important;
-	background: linear-gradient(to bottom, #dcccea 0%,#93C7E0 100%) !important;
+	background: #dcccea !important; /* Old browsers */
+	background: -moz-linear-gradient(top, #dcccea 0%, #d7c6e7 100%) !important;
+	background: -webkit-linear-gradient(top, #dcccea 0%,#d7c6e7 100%) !important;
+	background: linear-gradient(to bottom, #dcccea 0%,#d7c6e7 100%) !important;
 }
 
 th { color: #9b85ae; }
