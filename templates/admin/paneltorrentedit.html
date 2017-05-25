@@ -1,6 +1,6 @@
 {{define "title"}}Torrent Edit Panel{{end}}
 {{define "content"}}
-  {{with .Upload}}
+  {{with .Form}}
   <form enctype="multipart/form-data" role="upload" method="POST">
 		{{ range (index $.FormInfos "infos")}}
 			<div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>

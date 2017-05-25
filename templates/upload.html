@@ -1,6 +1,6 @@
 {{define "title"}}Upload magnet{{end}}
 {{define "content"}}
-{{with .Upload}}
+{{with .Form}}
 <div style="text-align: left;" class="box">
 	<form enctype="multipart/form-data" role="upload" method="POST">
 		{{ range (index $.FormErrors "errors")}}

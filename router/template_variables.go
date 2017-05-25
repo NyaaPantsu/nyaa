@@ -35,6 +35,13 @@ type formTemplateVariables struct {
 	FormInfos  map[string][]string
 }
 
+type modelListVbs struct {
+	commonTemplateVariables
+	Models interface{}
+	Errors map[string][]string
+	Infos  map[string][]string
+}
+
 type userProfileEditVariables struct {
 	commonTemplateVariables
 	UserProfile *model.User
@@ -82,13 +89,6 @@ type panelIndexVbs struct {
 	Comments       []model.Comment
 }
 
-type modelListVbs struct {
-	commonTemplateVariables
-	Models interface{}
-	Errors map[string][]string
-	Infos  map[string][]string
-}
-
 /*
 * Variables used by the upper ones
  */
@@ -126,6 +126,13 @@ func newSearchForm() searchForm {
 	return searchForm{
 		Category:         "_",
 		ShowItemsPerPage: true,
+	}
+}
+
+func newModelList(r *http.Request, models interface{}) modelListVbs {
+	return modelListVbs{
+		commonTemplateVariables: newCommonVariables(r),
+		Models:                  models,
 	}
 }
 

@@ -9,7 +9,7 @@
     {{end}}
     <p>Reassigning torrents to a new user is not easily reverted and should be done with care.</p>
 
-    {{with .Reassign}}
+    {{with .Form}}
     <div class="form-group">
         <label for="to">Reassign to:</label>
         <input type="text" name="to" class="form-control" placeholder="User ID" {{if ne .AssignTo 0}}value="{{.AssignTo}}"{{end}} required>

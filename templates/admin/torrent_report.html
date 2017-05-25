@@ -8,7 +8,7 @@
     <th class="col-xs-1">Action</th>
 </tr>
 
-  {{range .TorrentReports}}
+  {{range .Models}}
     <tr>
       <td><a href="{{ genRoute "view_torrent" "id" .Torrent.ID }}">{{ .Torrent.Name }}</a> (<a href="{{ genRoute "mod_tedit" }}?id={{.Torrent.ID}}">Edit</a>)</td>
       <td>{{.User.Username}}</td>
