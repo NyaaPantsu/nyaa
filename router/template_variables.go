@@ -81,7 +81,7 @@ type changeLanguageVariables struct {
 }
 
 type ChangeThemeVariables struct {
-	CommonTemplateVariables
+	commonTemplateVariables
 }
 
 /* MODERATION Variables */

@@ -1,7 +1,6 @@
 package router
 
 import (
-	//"encoding/json"
 	"net/http"
 
 	"github.com/NyaaPantsu/nyaa/service/user"
@@ -12,7 +11,7 @@ import (
 func SeeThemesHandler(w http.ResponseWriter, r *http.Request) {
 	//Just render a static page for now
 	ctv := ChangeThemeVariables{
-		CommonTemplateVariables: NewCommonVariables(r),
+		commonTemplateVariables: newCommonVariables(r),
 	}
 	changeThemeTemplate.ExecuteTemplate(w, "index.html", ctv)
 	return
