@@ -111,13 +111,15 @@ select.form-input {
 	pointer-events: none;
 }
 
+select.form-input + .select-icon {
+	border:  none;
+	margin-left: -1.25rem;
+	margin-right: 0.25rem;
+}
+
 .form-input.search-box + .search-icon {
-	margin-left:  -2rem;
+	margin-left:  2px;
 	padding: 5px 10px;
-	background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAQAAAADpb+tAAAAjUlEQVQIHQXBoU1DYQCAwXviUQw4LHlYJAnBYQmqW3wdpkk3wLAEAxCSCkLSFSowBIFCIH7uQCfd9dgCALrvr9Fo9NopoItG21ZNLR17A/TcHqCl0RXopw1AU6MH0KEdQKtGN6B1o0ugbb/NoKmXRrs27Rt9dw5oat2hr5667r3PzgAANPfREQAAzd3yD3GyOPKUaUBTAAAAAElFTkSuQmCC")
-				no-repeat
-				center center;
-    border: none;
 	vertical-align: middle;
 }
 
@@ -261,7 +263,6 @@ th { border-bottom-width: 2px; }
 	border:  1px solid;
 	display: inline-block;
 	padding: 0.5rem 0.8rem;
-	margin-right: -4px;
 	border-right-width: 0;
 	list-style-type: none;
 	text-align: center;
