@@ -562,6 +562,7 @@ td.tr-le { color: #E84C4C; }
 }
 .caret-down-icon {
 	background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#2196F3" d="M24 34l18-20H6"/></svg>') no-repeat center center;
+	background-size: 24px;
 	vertical-align: middle;
 }
 .tr-filelist td {
@@ -588,6 +589,7 @@ td.tr-le { color: #E84C4C; }
 	content: " ";
 	display: inline-block;
 	background-image: url('data:image/svg+xml;charset=UTF-8,<svg version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#FFA000" d="M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v8h40v-4c0-2.2-1.8-4-4-4z"/><path fill="#FFCA28" d="M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z"/></svg>');
+	background-size: 24px;
 	width: 24px;
 	height: 24px;
 }
@@ -595,6 +597,7 @@ td.tr-le { color: #E84C4C; }
 	content: " ";
 	display: inline-block;
 	background-image: url('data:image/svg+xml;charset=UTF-8,<svg version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#90CAF9" d="M40 45H8V3h22l10 10"/><path fill="#E1F5FE" d="M38.5 14H29V4.5"/></svg>');
+	background-size: 24px;
 	width: 24px;
 	height: 24px;
 }
