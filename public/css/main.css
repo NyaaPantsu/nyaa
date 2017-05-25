@@ -411,6 +411,7 @@ td.tr-le { color: #E84C4C; }
 
 .up-input {
 	width: 100%;
+	margin-bottom: 10px;
 }
 .input-label {
 	font-size: large;
@@ -608,4 +609,9 @@ td.tr-le { color: #E84C4C; }
 	display: flex;
 	flex-direction: column;
 	font-weight: bold;
+}
+
+.user-form {
+	margin-right: 30%;
+	margin-left: 30%;
 }
