@@ -13,7 +13,7 @@
     <!-- RSS Feed with Context -->
     <link href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
 
-    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}">
+    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css?v=2"}}">
     <link rel="stylesheet" id="theme" href="">
     <!-- Search Box for Google -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
@@ -102,6 +102,6 @@
 			</div>
 		</footer>
 </div>
-  <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}"></script>
+  <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js?v=2"}}"></script>
 </body>
 </html>
