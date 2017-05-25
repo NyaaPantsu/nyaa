@@ -19,16 +19,8 @@ import (
 * MAIN Template Variables
  */
 
-type FaqTemplateVariables struct {
-	CommonTemplateVariables
-}
-
-type NotFoundTemplateVariables struct {
-	CommonTemplateVariables
-}
-
-type ViewTemplateVariables struct {
-	CommonTemplateVariables
+type viewTemplateVariables struct {
+	commonTemplateVariables
 	Torrent    model.TorrentJSON
 	RootFolder *filelist.FileListFolder // used for tree view
 	CaptchaID  string
@@ -36,14 +28,15 @@ type ViewTemplateVariables struct {
 	Infos      map[string][]string
 }
 
-type UserRegisterTemplateVariables struct {
-	CommonTemplateVariables
-	RegistrationForm userForms.RegistrationForm
-	FormErrors       map[string][]string
+type formTemplateVariables struct {
+	commonTemplateVariables
+	Form       interface{}
+	FormErrors map[string][]string
+	FormInfos  map[string][]string
 }
 
-type UserProfileEditVariables struct {
-	CommonTemplateVariables
+type userProfileEditVariables struct {
+	commonTemplateVariables
 	UserProfile *model.User
 	UserForm    userForms.UserForm
 	FormErrors  map[string][]string
@@ -51,154 +44,102 @@ type UserProfileEditVariables struct {
 	Languages   map[string]string
 }
 
-type UserVerifyTemplateVariables struct {
-	CommonTemplateVariables
+type userVerifyTemplateVariables struct {
+	commonTemplateVariables
 	FormErrors map[string][]string
 }
 
-type UserLoginFormVariables struct {
-	CommonTemplateVariables
-	LoginForm  userForms.LoginForm
-	FormErrors map[string][]string
-}
-
-type UserProfileVariables struct {
-	CommonTemplateVariables
+type userProfileVariables struct {
+	commonTemplateVariables
 	UserProfile *model.User
 	FormInfos   map[string][]string
 }
 
-type UserProfileNotifVariables struct {
-	CommonTemplateVariables
+type userProfileNotifVariables struct {
+	commonTemplateVariables
 	Infos map[string][]string
 }
 
-type UserTorrentEdVbs struct {
-	CommonTemplateVariables
-	Upload     UploadForm
-	FormErrors map[string][]string
-	FormInfos  map[string][]string
-}
-
-type HomeTemplateVariables struct {
-	CommonTemplateVariables
-	ListTorrents []model.TorrentJSON
-	Infos        map[string][]string
-}
-
-type DatabaseDumpTemplateVariables struct {
-	CommonTemplateVariables
+type databaseDumpTemplateVariables struct {
+	commonTemplateVariables
 	ListDumps []model.DatabaseDumpJSON
 	GPGLink   string
 }
 
-type UploadTemplateVariables struct {
-	CommonTemplateVariables
-	Upload     UploadForm
-	FormErrors map[string][]string
-}
-
-type ChangeLanguageVariables struct {
-	CommonTemplateVariables
+type changeLanguageVariables struct {
+	commonTemplateVariables
 	Language  string
 	Languages map[string]string
 }
 
 /* MODERATION Variables */
 
-type PanelIndexVbs struct {
-	CommonTemplateVariables
+type panelIndexVbs struct {
+	commonTemplateVariables
 	Torrents       []model.Torrent
 	TorrentReports []model.TorrentReportJson
 	Users          []model.User
 	Comments       []model.Comment
 }
 
-type PanelTorrentListVbs struct {
-	CommonTemplateVariables
-	Torrents []model.Torrent
-	Errors   map[string][]string
-	Infos    map[string][]string
-}
-type PanelUserListVbs struct {
-	CommonTemplateVariables
-	Users []model.User
-}
-type PanelCommentListVbs struct {
-	CommonTemplateVariables
-	Comments []model.Comment
-}
-
-type PanelTorrentEdVbs struct {
-	CommonTemplateVariables
-	Upload     UploadForm
-	FormErrors map[string][]string
-	FormInfos  map[string][]string
-}
-
-type PanelTorrentReportListVbs struct {
-	CommonTemplateVariables
-	TorrentReports []model.TorrentReportJson
-}
-
-type PanelTorrentReassignVbs struct {
-	CommonTemplateVariables
-	Reassign   ReassignForm
-	FormErrors map[string][]string
-	FormInfos  map[string][]string
+type modelListVbs struct {
+	commonTemplateVariables
+	Models interface{}
+	Errors map[string][]string
+	Infos  map[string][]string
 }
 
 /*
 * Variables used by the upper ones
  */
 
-type CommonTemplateVariables struct {
-	Navigation Navigation
-	Search     SearchForm
+type commonTemplateVariables struct {
+	Navigation navigation
+	Search     searchForm
 	T          languages.TemplateTfunc
 	User       *model.User
 	URL        *url.URL   // for parsing URL in templates
 	Route      *mux.Route // for getting current route in templates
 }
 
-type Navigation struct {
+type navigation struct {
 	TotalItem      int
 	MaxItemPerPage int // FIXME: shouldn't this be in SearchForm?
 	CurrentPage    int
 	Route          string
 }
 
-type SearchForm struct {
+type searchForm struct {
 	common.SearchParam
 	Category         string
 	ShowItemsPerPage bool
 }
 
 // Some Default Values to ease things out
-func NewNavigation() Navigation {
-	return Navigation{
+func newNavigation() navigation {
+	return navigation{
 		MaxItemPerPage: 50,
 	}
 }
 
-func NewSearchForm() SearchForm {
-	return SearchForm{
+func newSearchForm() searchForm {
+	return searchForm{
 		Category:         "_",
 		ShowItemsPerPage: true,
 	}
 }
 
-func GetUser(r *http.Request) *model.User {
+func getUser(r *http.Request) *model.User {
 	user, _, _ := userService.RetrieveCurrentUser(r)
 	return &user
 }
 
-func NewCommonVariables(r *http.Request) CommonTemplateVariables {
-	return CommonTemplateVariables{
-		Navigation: NewNavigation(),
-		Search:     NewSearchForm(),
+func newCommonVariables(r *http.Request) commonTemplateVariables {
+	return commonTemplateVariables{
+		Navigation: newNavigation(),
+		Search:     newSearchForm(),
 		T:          languages.GetTfuncFromRequest(r),
-		User:       GetUser(r),
+		User:       getUser(r),
 		URL:        r.URL,
 		Route:      mux.CurrentRoute(r),
 	}
