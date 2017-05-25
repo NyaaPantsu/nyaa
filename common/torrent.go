@@ -9,6 +9,7 @@ import (
 	"strconv"
 
 	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/util/log"
 )
@@ -111,8 +112,11 @@ func (p *TorrentParam) ToFilterQuery() string {
 	return query
 }
 
-// Uses elasticsearch to find the torrents based on TorrentParam
-func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.TorrentJSON, error) {
+/* Uses elasticsearch to find the torrents based on TorrentParam
+ * We decided to fetch only the ids from ES and then query these ids to the
+ * database
+ */
+func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, error) {
 	// TODO Why is it needed, what does it do ?
 	ctx := context.Background()
 
@@ -121,15 +125,16 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.TorrentJSON,
 		Analyzer(config.DefaultElasticsearchAnalyzer).
 		DefaultOperator("AND")
 
+	// TODO Only fetch ids
 	// TODO Find a better way to keep in sync with mapping in ansible
 	search := client.Search().
 		Index(config.DefaultElasticsearchIndex).
 		Query(query).
 		Type(config.DefaultElasticsearchType).
-		From(int((p.Offset - 1) * p.Max)).
+		From(int((p.Offset-1)*p.Max)).
 		Size(int(p.Max)).
-		Sort("_score", false). // TODO Do we want to sort by score first ?
-		Sort(p.Sort.ToESField(), p.Order)
+		Sort(p.Sort.ToESField(), p.Order).
+		Sort("_score", false) // Don't put _score before the field sort, it messes with the sorting
 
 	filterQueryString := p.ToFilterQuery()
 	if filterQueryString != "" {
@@ -137,7 +142,6 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.TorrentJSON,
 			DefaultOperator("AND")
 		search = search.PostFilter(filterQuery)
 	}
-
 
 	result, err := search.Do(ctx)
 	if err != nil {
@@ -147,18 +151,40 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.TorrentJSON,
 	log.Infof("Query '%s' took %d milliseconds.", p.NameLike, result.TookInMillis)
 	log.Infof("Amount of results %d.", result.TotalHits())
 
-	torrents := make([]model.TorrentJSON, len(result.Hits.Hits))
+	torrentIds := make([]string, len(result.Hits.Hits))
 	for i, hit := range result.Hits.Hits {
 		var torrent model.TorrentJSON
 		err := json.Unmarshal(*hit.Source, &torrent)
 		if err == nil {
-			torrents[i] = torrent
+			torrentIds[i] = torrent.ID
 		} else {
 			log.Errorf("Failed to decode TorrentJSON from '%v'", *hit.Source)
 		}
 	}
 
-	return result.TotalHits(), torrents, nil
+	/* TODO Cleanup this giant mess
+	 * The raw query is used because we need to preserve the order of the id's
+	 * in the IN clause, so we can't just do
+	 *      select * from torrents where torrent_id IN (list_of_ids)
+	 * This query is said to work on postgres 9.4+
+	 */
+	{
+		var torrents []model.Torrent
+		if len(result.Hits.Hits) > 0 {
+			torrents = make([]model.Torrent, len(result.Hits.Hits))
+			// Building a string of the form {id1,id2,id3}
+			idsToString := "{" + torrentIds[0]
+			for _, t := range torrentIds[1:] {
+				idsToString += "," + t
+			}
+			idsToString += "}"
+			db.ORM.Raw("SELECT * FROM " + config.TorrentsTableName +
+				" JOIN unnest('" + idsToString + "'::int[]) " +
+				" WITH ORDINALITY t(torrent_id, ord) USING (torrent_id) ORDER  BY t.ord").Find(&torrents)
+		}
+		return result.TotalHits(), torrents, nil
+	}
+
 }
 
 func (p *TorrentParam) Clone() TorrentParam {

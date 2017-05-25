@@ -1,48 +1,51 @@
 package router
 
 import (
+	"html"
 	"net/http"
+	"strconv"
+	"github.com/gorilla/mux"
 
-	"github.com/NyaaPantsu/nyaa/common"
+	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
-	elastic "gopkg.in/olivere/elastic.v5"
+	"github.com/NyaaPantsu/nyaa/util/search"
 )
 
 // SearchHandler : Controller for displaying search result page, accepting common search arguments
 func SearchHandler(w http.ResponseWriter, r *http.Request) {
+	var err error
 	// TODO Don't create a new client for each request
-	client, err := elastic.NewClient()
-	if err != nil {
-		log.Errorf("Unable to create elasticsearch client: %s\n", err)
-	}
-	var torrentParam common.TorrentParam
-	torrentParam.FromRequest(r)
-	totalHits, torrents, err := torrentParam.Find(client)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
 	messages := msg.GetMessages(r)
 	// TODO Fallback to postgres search if es is down
 
-	commonVar := newCommonVariables(r)
-	commonVar.Navigation = navigation{int(totalHits), int(torrentParam.Max), int(torrentParam.Offset), "search_page"}
-	// Convert back to strings for now.
-	// Convert back to strings for now.
-	// TODO Deprecate fully SearchParam and only use TorrentParam
-	searchParam := common.SearchParam{
-		Order: torrentParam.Order,
-		Status: torrentParam.Status,
-		Sort: torrentParam.Sort,
-		Category: torrentParam.Category,
-		Page: int(torrentParam.Offset),
-		UserID: uint(torrentParam.UserID),
-		Max: uint(torrentParam.Max),
-		NotNull: torrentParam.NotNull,
-		Query: torrentParam.NameLike,
+	vars := mux.Vars(r)
+	page := vars["page"]
+
+	// db params url
+	pagenum := 1
+	if page != "" {
+		pagenum, err = strconv.Atoi(html.EscapeString(page))
+		if !log.CheckError(err) {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		if pagenum <= 0 {
+			NotFoundHandler(w, r)
+			return
+		}
 	}
 
+	searchParam, torrents, nbTorrents, err := search.SearchByQuery(r, pagenum)
+	if err != nil {
+		util.SendError(w, err, 400)
+		return
+	}
+
+	commonVar := newCommonVariables(r)
+	commonVar.Navigation = navigation{int(nbTorrents), int(searchParam.Max), int(searchParam.Page), "search_page"}
+	// Convert back to strings for now.
+	// TODO Deprecate fully SearchParam and only use TorrentParam
 	commonVar.Search = searchForm{
 		SearchParam:      searchParam,
 		Category:         searchParam.Category.String(),

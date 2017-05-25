@@ -2,10 +2,10 @@ package torrentService
 
 import (
 	"errors"
+	elastic "gopkg.in/olivere/elastic.v5"
 	"net/http"
 	"strconv"
 	"strings"
-	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"

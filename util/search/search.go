@@ -6,6 +6,7 @@ import (
 	"strings"
 	"unicode"
 	"unicode/utf8"
+	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/cache"
 	"github.com/NyaaPantsu/nyaa/common"
@@ -63,7 +64,36 @@ func SearchByQueryDeleted(r *http.Request, pagenum int) (search common.SearchPar
 	return
 }
 
+// TODO Clean this up
 func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool, deleted bool) (
+	search common.SearchParam, tor []model.Torrent, count int, err error,
+) {
+	client, err := elastic.NewClient()
+	if err == nil {
+		var torrentParam common.TorrentParam
+		torrentParam.FromRequest(r)
+		totalHits, torrents, err := torrentParam.Find(client)
+		searchParam := common.SearchParam{
+			Order: torrentParam.Order,
+			Status: torrentParam.Status,
+			Sort: torrentParam.Sort,
+			Category: torrentParam.Category,
+			Page: int(torrentParam.Offset),
+			UserID: uint(torrentParam.UserID),
+			Max: uint(torrentParam.Max),
+			NotNull: torrentParam.NotNull,
+			Query: torrentParam.NameLike,
+		}
+		// Convert back to non-json torrents
+		return searchParam, torrents, int(totalHits), err
+	} else {
+		log.Errorf("Unable to create elasticsearch client: %s", err)
+		log.Errorf("Falling back to postgresql query")
+		return searchByQueryPostgres(r, pagenum, countAll, withUser, deleted)
+	}
+}
+
+func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser bool, deleted bool) (
 	search common.SearchParam, tor []model.Torrent, count int, err error,
 ) {
 	max, err := strconv.ParseUint(r.URL.Query().Get("max"), 10, 32)
