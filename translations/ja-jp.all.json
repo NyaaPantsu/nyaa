@@ -894,5 +894,73 @@
   {
     "id": "comment_empty",
     "translation": "コメントなし"
+  },
+  {
+    "id": "no_owner_selected",
+    "translation": "Torrent の新しいオーナーが必要です。"
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "カテゴリーが選択されていません。"
+  },
+  {
+    "id": "no_user_found_id",
+    "translation": "ID %d のユーザーはデータベースに存在しません。"
+  },
+  {
+    "id": "invalid_torrent_category",
+    "translation": "Torrent カテゴリーは存在しません。"
+  },
+  {
+    "id": "torrent_owner_changed",
+    "translation": "Torrent \"%s\" のオーナーが変更されました。"
+  },
+  {
+    "id": "torrent_category_changed",
+    "translation": "Torrent \"%s\" のカテゴリーが変更されました。"
+  },
+  {
+    "id": "torrent_reports_deleted",
+    "translation": "Torrent \"%s\" の通報が削除されました。"
+  },
+  {
+    "id": "edit",
+    "translation": "編集"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "削除するとファイルを元に戻すことはできなくなります。また、他の誰かがファイルを再アップロードする恐れもあります。"
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "確実に削除"
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "解除"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "ロック"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "Torrent がデータベースから削除されました。"
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "Torrent が解除されました。"
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "Torrent がロックされました。"
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "Torrent は削除されません"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "Torrent は削除されました"
   }
 ]
