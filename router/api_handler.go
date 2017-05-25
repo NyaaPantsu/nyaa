@@ -273,25 +273,14 @@ func APIUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		update.UpdateTorrent(&torrent)
 
-/*
+/* TODO Sorry akuma, you went to sleep so I commented it
 		db.ORM.Model(&torrent).UpdateColumn(&torrent)
 		if err != nil {
 			util.SendError(w, err, 500)
 			return
 */
 		db.ORM.Save(&torrent)
-
-		client, err := elastic.NewClient()
-		if err == nil {
-			err = torrent.AddToESIndex(client)
-			if err == nil {
-				log.Infof("Successfully updated torrent to ES index.")
-			} else {
-				log.Errorf("Unable to update torrent to ES index: %s", err)
-			}
-		} else {
-			log.Errorf("Unable to create elasticsearch client: %s", err)
-		}
+		torrentService.UpdateTorrent(torrent)
 	}
 }
 

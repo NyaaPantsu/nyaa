@@ -130,6 +130,16 @@ func (t Torrent) AddToESIndex(client *elastic.Client) error {
 	return err
 }
 
+func (t Torrent) DeleteFromESIndex(client *elastic.Client) error {
+	ctx := context.Background()
+	_, err := client.Delete().
+		Index(config.DefaultElasticsearchIndex).
+		Type(config.DefaultElasticsearchType).
+		Id(strconv.FormatInt(int64(t.ID), 10)).
+		Do(ctx)
+	return err
+}
+
 /* We need a JSON object instead of a Gorm structure because magnet URLs are
    not in the database and have to be generated dynamically */
 
