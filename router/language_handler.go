@@ -9,11 +9,13 @@ import (
 	"github.com/NyaaPantsu/nyaa/util/timeHelper"
 )
 
+// LanguagesJSONResponse : Structure containing all the languages to parse it as a JSON response
 type LanguagesJSONResponse struct {
 	Current   string            `json:"current"`
 	Languages map[string]string `json:"languages"`
 }
 
+// SeeLanguagesHandler : Controller to view the languages
 func SeeLanguagesHandler(w http.ResponseWriter, r *http.Request) {
 	_, Tlang := languages.GetTfuncAndLanguageFromRequest(r)
 	availableLanguages := languages.GetAvailableLanguages()
@@ -27,8 +29,8 @@ func SeeLanguagesHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	} else {
-		clv := ChangeLanguageVariables{
-			CommonTemplateVariables: NewCommonVariables(r),
+		clv := changeLanguageVariables{
+			commonTemplateVariables: newCommonVariables(r),
 			Language:                Tlang.Tag,
 			Languages:               availableLanguages,
 		}
@@ -40,6 +42,7 @@ func SeeLanguagesHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// ChangeLanguageHandler : Controller for changing the current language
 func ChangeLanguageHandler(w http.ResponseWriter, r *http.Request) {
 	lang := r.FormValue("language")
 

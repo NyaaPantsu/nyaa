@@ -1,6 +1,6 @@
 {{define "title"}}Torrent Edit Panel{{end}}
 {{define "content"}}
-  {{with .Upload}}
+  {{with .Form}}
   <form enctype="multipart/form-data" role="upload" method="POST">
 		{{ range (index $.FormInfos "infos")}}
 			<div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
@@ -17,7 +17,7 @@
           <select name="c" class="form-control input-sm">
               <option value="">{{call $.T "select_a_torrent_category"}}</option>
               {{ range $name_cat, $id_cat := (GetCategories false) }}
-              <option value="{{ $id_cat }}" {{if eq $.Upload.Category $id_cat }}selected{{end}}>{{call $.T $name_cat }}</option>
+              <option value="{{ $id_cat }}" {{if eq $.Form.Category $id_cat }}selected{{end}}>{{call $.T $name_cat }}</option>
               {{ end }}
           </select>
       </div>

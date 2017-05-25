@@ -1,18 +1,20 @@
 package router
 
 import (
+	"html"
+	"net/http"
+	"strconv"
+	"time"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/feeds"
 	userService "github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/gorilla/mux"
-	"html"
-	"net/http"
-	"strconv"
-	"time"
 )
 
+// RSSHandler : Controller for displaying rss feed, accepting common search arguments
 func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]

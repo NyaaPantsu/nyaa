@@ -82,7 +82,7 @@ func DeleteTorrentHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	err = torrentReportTemplate.ExecuteTemplate(w, "admin_index.html", ViewTorrentReportsVariables{model.TorrentReportsToJSON(torrentReports), NewSearchForm(), Navigation{nbReports, offset, page, "mod_trlist_page"}, currentUser, r.URL})
+	err = torrentReportTemplate.ExecuteTemplate(w, "admin_index.html", ViewTorrentReportsVariables{model.TorrentReportsToJSON(torrentReports), newSearchForm(), navigation{nbReports, offset, page, "mod_trlist_page"}, currentUser, r.URL})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
