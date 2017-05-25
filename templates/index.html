@@ -56,7 +56,11 @@
 						<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><div class="upload-icon visible-md"></div><span class="hide-md">{{ call $.T "upload" }}</span></a>
 						<a href="{{ genRouteWithQuery "feed" .URL }}" class="nav-btn"><div class="rss-icon visible-md"></div><span class="hide-md">RSS</span></a>
 						<a href="{{.URL.Parse "/faq"}}" class="nav-btn"><div class="faq-icon visible-md"></div><span class="hide-md">{{ call $.T "faq" }}</span></a>
+						{{if Sukebei}}
+						<a href="//nyaa.pantsu.cat" class="nav-btn"><div class="fun-icon visible-md"></div><span class="hide-md">{{ call $.T "fun" }}</span></a>
+						{{else}}
 						<a href="//sukebei.pantsu.cat" class="nav-btn"><div class="fap-icon visible-md"></div><span class="hide-md">{{ call $.T "fap" }}</span></a>
+						{{end}}
 					</div>
 			</div>
 			<div class="h-right">
