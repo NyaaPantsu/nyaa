@@ -125,7 +125,9 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 		Analyzer(config.DefaultElasticsearchAnalyzer).
 		DefaultOperator("AND")
 
-	// TODO Only fetch ids
+	fsc := elastic.NewFetchSourceContext(true).
+		Include("id")
+
 	// TODO Find a better way to keep in sync with mapping in ansible
 	search := client.Search().
 		Index(config.DefaultElasticsearchIndex).
@@ -134,7 +136,8 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 		From(int((p.Offset-1)*p.Max)).
 		Size(int(p.Max)).
 		Sort(p.Sort.ToESField(), p.Order).
-		Sort("_score", false) // Don't put _score before the field sort, it messes with the sorting
+		Sort("_score", false).  // Don't put _score before the field sort, it messes with the sorting
+		FetchSourceContext(fsc)
 
 	filterQueryString := p.ToFilterQuery()
 	if filterQueryString != "" {
@@ -151,17 +154,6 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 	log.Infof("Query '%s' took %d milliseconds.", p.NameLike, result.TookInMillis)
 	log.Infof("Amount of results %d.", result.TotalHits())
 
-	torrentIds := make([]string, len(result.Hits.Hits))
-	for i, hit := range result.Hits.Hits {
-		var torrent model.TorrentJSON
-		err := json.Unmarshal(*hit.Source, &torrent)
-		if err == nil {
-			torrentIds[i] = torrent.ID
-		} else {
-			log.Errorf("Failed to decode TorrentJSON from '%v'", *hit.Source)
-		}
-	}
-
 	/* TODO Cleanup this giant mess
 	 * The raw query is used because we need to preserve the order of the id's
 	 * in the IN clause, so we can't just do
@@ -169,13 +161,25 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 	 * This query is said to work on postgres 9.4+
 	 */
 	{
+		// Temporary struct to hold the id
+		// INFO We are not using Hits.Id because the id in the index might not
+		// correspond to the id in the database later on.
+		type TId struct {
+			Id string
+		}
+		var tid TId
 		var torrents []model.Torrent
 		if len(result.Hits.Hits) > 0 {
 			torrents = make([]model.Torrent, len(result.Hits.Hits))
+			hits := result.Hits.Hits
 			// Building a string of the form {id1,id2,id3}
-			idsToString := "{" + torrentIds[0]
-			for _, t := range torrentIds[1:] {
-				idsToString += "," + t
+			source, _ := hits[0].Source.MarshalJSON()
+			json.Unmarshal(source, &tid)
+			idsToString := "{" + tid.Id
+			for _, t := range hits[1:] {
+				source, _ = t.Source.MarshalJSON()
+				json.Unmarshal(source, &tid)
+				idsToString += "," + tid.Id
 			}
 			idsToString += "}"
 			db.ORM.Raw("SELECT * FROM " + config.TorrentsTableName +
