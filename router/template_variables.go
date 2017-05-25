@@ -10,6 +10,7 @@ import (
 	userForms "github.com/NyaaPantsu/nyaa/service/user/form"
 	"github.com/NyaaPantsu/nyaa/util/filelist"
 	"github.com/NyaaPantsu/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/util/themes"
 	"github.com/gorilla/mux"
 )
 
@@ -160,6 +161,7 @@ type CommonTemplateVariables struct {
 	Navigation Navigation
 	Search     SearchForm
 	T          languages.TemplateTfunc
+	Theme      string
 	User       *model.User
 	URL        *url.URL   // for parsing URL in templates
 	Route      *mux.Route // for getting current route in templates
@@ -202,6 +204,7 @@ func NewCommonVariables(r *http.Request) CommonTemplateVariables {
 		Navigation: NewNavigation(),
 		Search:     NewSearchForm(),
 		T:          languages.GetTfuncFromRequest(r),
+		Theme:      themes.GetThemeFromRequest(r),
 		User:       GetUser(r),
 		URL:        r.URL,
 		Route:      mux.CurrentRoute(r),
