@@ -48,6 +48,8 @@ func init() {
 	Router.Handle("/api/view/{id}", wrapHandler(gzipAPIViewHandler)).Methods("GET")
 	Router.HandleFunc("/api/view/{id}", ApiViewHeadHandler).Methods("HEAD")
 	Router.HandleFunc("/api/upload", ApiUploadHandler).Methods("POST")
+	Router.HandleFunc("/api/search", ApiSearchHandler)
+	Router.HandleFunc("/api/search/{page}", ApiSearchHandler)
 	Router.HandleFunc("/api/update", ApiUpdateHandler).Methods("PUT")
 	Router.HandleFunc("/faq", FaqHandler).Name("faq")
 	Router.HandleFunc("/feed", RSSHandler).Name("feed")
@@ -95,7 +97,7 @@ func init() {
 	Router.HandleFunc("/mod/comment/delete", WrapModHandler(CommentDeleteModPanel)).Name("mod_cdelete")
 	Router.HandleFunc("/mod/reassign", WrapModHandler(TorrentReassignModPanel)).Name("mod_treassign").Methods("GET")
 	Router.HandleFunc("/mod/reassign", WrapModHandler(TorrentPostReassignModPanel)).Name("mod_treassign").Methods("POST")
-	Router.HandleFunc("/mod/api/torrents",        WrapModHandler(ApiMassMod)).Name("mod_tapi").Methods("POST")
+	Router.HandleFunc("/mod/api/torrents", WrapModHandler(ApiMassMod)).Name("mod_tapi").Methods("POST")
 
 	//reporting a torrent
 	Router.HandleFunc("/report/{id}", ReportTorrentHandler).Methods("POST").Name("torrent_report")
