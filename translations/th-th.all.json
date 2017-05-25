@@ -838,5 +838,129 @@
   {
     "id": "new_comment_on_torrent",
     "translation": "คอมเมนท์ใหม่ในทอร์เรนท์: \"%s\""
+  },
+  {
+    "id": "no_action_selected",
+    "translation": "คุณต้องบอกว่าคุณเลือกจะทำอะไร!"
+  },
+  {
+    "id": "no_move_location_selected",
+    "translation": "คุณยังไม่ได้บอกว่าจะย้ายไปไหน!"
+  },
+  {
+    "id": "select_one_element",
+    "translation": "คุณต้องเลือกอย่างน้อย 1 อย่าง!"
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "ย้ายทอร์เรนท์ %s แล้ว!"
+  },
+  {
+    "id": "no_status_exist",
+    "translation": "ไม่มีสถานะ %d !"
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "ลบทอร์เรนท์ %s แล้ว!"
+  },
+  {
+    "id": "no_action_exist",
+    "translation": "ไม่มีคำสั่ง %s !"
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "ไม่มีทอร์เรนท์ไอดี %s อยู่!"
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "มีบางอย่างผิดพลาด"
+  },
+  {
+    "id": "nb_torrents_updated",
+    "translation": "อัพเดตทอร์เรนท์ %d แล้ว"
+  },
+  {
+    "id": "torrent_updated",
+    "translation": "อัพเดตรายละเอียดทอร์เรนท์แล้ว"
+  },
+  {
+    "id": "fail_torrent_update",
+    "translation": "อัพเดตทอร์เรนท์ล้มเหลว!"
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "Bad captcha!"
+  },
+  {
+    "id": "comment_empty",
+    "translation": "คอมเมนท์ว่างเปล่า!"
+  },
+  {
+    "id": "no_owner_selected",
+    "translation": "ต้องการเจ้าของทอร์เรนท์คนใหม่!"
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "ยังไม่ได้เลือกหมวดหมู่!"
+  },
+  {
+    "id": "no_user_found_id",
+    "translation": "ไม่มีผู้ใช้ไอดี %d อยู่ในฐานข้อมูล!"
+  },
+  {
+    "id": "invalid_torrent_category",
+    "translation": "ไม่มีหมวดหมุ่ทอรเรนท์นี้!"
+  },
+  {
+    "id": "torrent_owner_changed",
+    "translation": "เปลี่ยนตัวเจ้าของทอร์เรนท์ \"%s\" เรียบร้อยแล้ว!"
+  },
+  {
+    "id": "torrent_category_changed",
+    "translation": "หมวดหมู่ของทอร์เรนท์ \"%s\" ถูกเปลี่ยน!"
+  },
+  {
+    "id": "torrent_reports_deleted",
+    "translation": "รายงานของทอร์เรนท์ \"%s\" ถูกลบ!"
+  },
+  {
+    "id": "edit",
+    "translation": "แก้ไข"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "คุณไม่สามารถกู้ไฟล์ได้ นอกจากหยุดคนอื่นไม่ให้อัพโหลดซ้ำ!!"
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "ลบถาวร"
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "ปลดล๊อค"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "ล๊อค"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "ทอร์เรนท์ถูกลบออกจากฐานข้อมูลแล้ว!"
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "ทอร์เรนท์ถูกปลดล๊อคแล้ว!"
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "ทอร์เรนท์ถูกล๊อคแล้ว!"
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "ทอร์เรนท์ยังไม่ถูกลบ"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "ทอรเรนท์ถูกลบแล้ว"
   }
 ]
