@@ -14,11 +14,11 @@ import (
 )
 
 const (
-	TorrentStatusNormal    = 1
-	TorrentStatusRemake    = 2
-	TorrentStatusTrusted   = 3
-	TorrentStatusAPlus     = 4
-	TorrentStatusBlocked   = 5
+	TorrentStatusNormal  = 1
+	TorrentStatusRemake  = 2
+	TorrentStatusTrusted = 3
+	TorrentStatusAPlus   = 4
+	TorrentStatusBlocked = 5
 )
 
 type Feed struct {

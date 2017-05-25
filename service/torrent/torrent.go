@@ -130,9 +130,9 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 	if !deleted {
 		conditionArray = append(conditionArray, "deleted_at IS NULL")
 	} else {
-		conditionArray = append(conditionArray, "deleted_at NOT NULL")		
+		conditionArray = append(conditionArray, "deleted_at NOT NULL")
 	}
-	
+
 	conditions := strings.Join(conditionArray, " AND ")
 
 	if countAll {
@@ -225,7 +225,7 @@ func ToggleBlockTorrent(id string) (model.Torrent, int, error) {
 	if torrent.Status == model.TorrentStatusBlocked {
 		torrent.Status = model.TorrentStatusNormal
 	} else {
-		torrent.Status = model.TorrentStatusBlocked		
+		torrent.Status = model.TorrentStatusBlocked
 	}
 	if db.ORM.Unscoped().Model(&torrent).UpdateColumn(&torrent).Error != nil {
 		return torrent, http.StatusInternalServerError, errors.New("Torrent was not updated.")

@@ -1,17 +1,17 @@
-package filelist;
+package filelist
 
 import (
-	"github.com/bradfitz/slice"
-	"github.com/NyaaPantsu/nyaa/model"
-	"html/template"
 	"bytes"
-	"strings"
+	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/bradfitz/slice"
+	"html/template"
 	"strconv"
+	"strings"
 )
 
 type FileListFolder struct {
 	Folders map[string]*FileListFolder
-	Files []model.File
+	Files   []model.File
 }
 
 func FileListToFolder(fileList []model.File) (out *FileListFolder) {
@@ -27,10 +27,10 @@ func FileListToFolder(fileList []model.File) (out *FileListFolder) {
 
 		if len(pathArray) > 1 {
 			pathStrippedFile := model.File{
-				ID: file.ID,
-				TorrentID: file.TorrentID,
+				ID:           file.ID,
+				TorrentID:    file.TorrentID,
 				BencodedPath: "",
-				Filesize: file.Filesize,
+				Filesize:     file.Filesize,
 			}
 			pathStrippedFile.SetPath(pathArray[1:])
 			pathsToFolders[pathArray[0]] = append(pathsToFolders[pathArray[0]], pathStrippedFile)
@@ -59,19 +59,19 @@ func (f *FileListFolder) TotalSize() (out int64) {
 }
 
 type folderFormatData struct {
-	Data interface{}
-	FolderName string
-	TotalSize int64
-	NestLevel uint
+	Data             interface{}
+	FolderName       string
+	TotalSize        int64
+	NestLevel        uint
 	ParentIdentifier string
-	Identifier string
+	Identifier       string
 }
 
 type fileFormatData struct {
-	Data interface{}
-	Filename string
-	Filesize int64
-	NestLevel uint
+	Data             interface{}
+	Filename         string
+	Filesize         int64
+	NestLevel        uint
 	ParentIdentifier string
 }
 
@@ -107,7 +107,7 @@ func (f *FileListFolder) makeFolderTreeView(folderTmpl *template.Template, fileT
 		}
 		output += tmp
 
-		tmp, err = folder.makeFolderTreeView(folderTmpl, fileTmpl, nestLevel + 1, childIdentifier, data)
+		tmp, err = folder.makeFolderTreeView(folderTmpl, fileTmpl, nestLevel+1, childIdentifier, data)
 		if err != nil {
 			return
 		}
@@ -141,4 +141,3 @@ func (f *FileListFolder) MakeFolderTreeView(folderFormat string, fileFormat stri
 	output, err = f.makeFolderTreeView(folderTmpl, fileTmpl, 0, "root", data)
 	return
 }
-
