@@ -194,8 +194,8 @@ func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
 			torrent.Status = status
 			torrent.WebsiteLink = uploadForm.WebsiteLink
 			torrent.Description = uploadForm.Description
-			torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
-			db.ORM.Save(&torrent)
+			// torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
+			db.ORM.Model(&torrent).UpdateColumn(&torrent)
 			messages.AddInfoT("infos", "torrent_updated")
 		}
 		htv := UserTorrentEdVbs{NewCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}

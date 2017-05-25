@@ -254,7 +254,7 @@ func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		update.UpdateTorrent(&torrent)
 
-		db.ORM.Save(&torrent)
+		db.ORM.Model(&torrent).UpdateColumn(&torrent)
 		if err != nil {
 			util.SendError(w, err, 500)
 			return

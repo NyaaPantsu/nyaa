@@ -102,25 +102,24 @@ func GetRawTorrentById(id uint) (torrent model.Torrent, err error) {
 }
 
 func GetTorrentsOrderByNoCount(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, err error) {
-	torrents, _, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, false, false)
+	torrents, _, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, false, false, false)
 	return
 }
 
 func GetTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, count int, err error) {
-	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true, false)
+	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true, false, false)
 	return
 }
 
 func GetTorrentsWithUserOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, count int, err error) {
-	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true, true)
+	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true, true, false)
 	return
 }
 
-func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int, countAll bool, withUser bool) (
+func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int, countAll bool, withUser bool, deleted bool) (
 	torrents []model.Torrent, count int, err error,
 ) {
 	var conditionArray []string
-	conditionArray = append(conditionArray, "deleted_at IS NULL")
 	var params []interface{}
 	if parameters != nil { // if there is where parameters
 		if len(parameters.Conditions) > 0 {
@@ -128,10 +127,16 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 		}
 		params = parameters.Params
 	}
+	if !deleted {
+		conditionArray = append(conditionArray, "deleted_at IS NULL")
+	} else {
+		conditionArray = append(conditionArray, "deleted_at NOT NULL")		
+	}
+	
 	conditions := strings.Join(conditionArray, " AND ")
+
 	if countAll {
-		// FIXME: `deleted_at IS NULL` is duplicate in here because GORM handles this for us
-		err = db.ORM.Model(&torrents).Where(conditions, params...).Count(&count).Error
+		err = db.ORM.Unscoped().Model(&torrents).Where(conditions, params...).Count(&count).Error
 		if err != nil {
 			return
 		}
@@ -201,10 +206,42 @@ func DeleteTorrent(id string) (int, error) {
 	return http.StatusOK, nil
 }
 
+func DefinitelyDeleteTorrent(id string) (int, error) {
+	var torrent model.Torrent
+	if db.ORM.Unscoped().Model(&torrent).First(&torrent, id).RecordNotFound() {
+		return http.StatusNotFound, errors.New("Torrent is not found.")
+	}
+	if db.ORM.Unscoped().Model(&torrent).Delete(&torrent).Error != nil {
+		return http.StatusInternalServerError, errors.New("Torrent was not deleted.")
+	}
+	return http.StatusOK, nil
+}
+
+func ToggleBlockTorrent(id string) (model.Torrent, int, error) {
+	var torrent model.Torrent
+	if db.ORM.Unscoped().Model(&torrent).First(&torrent, id).RecordNotFound() {
+		return torrent, http.StatusNotFound, errors.New("Torrent is not found.")
+	}
+	if torrent.Status == model.TorrentStatusBlocked {
+		torrent.Status = model.TorrentStatusNormal
+	} else {
+		torrent.Status = model.TorrentStatusBlocked		
+	}
+	if db.ORM.Unscoped().Model(&torrent).UpdateColumn(&torrent).Error != nil {
+		return torrent, http.StatusInternalServerError, errors.New("Torrent was not updated.")
+	}
+	return torrent, http.StatusOK, nil
+}
+
 func UpdateTorrent(torrent model.Torrent) (int, error) {
-	if db.ORM.Save(torrent).Error != nil {
+	if db.ORM.Model(&torrent).UpdateColumn(&torrent).Error != nil {
 		return http.StatusInternalServerError, errors.New("Torrent was not updated.")
 	}
 
 	return http.StatusOK, nil
+}
+
+func GetDeletedTorrents(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, count int, err error) {
+	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true, true, true)
+	return
 }

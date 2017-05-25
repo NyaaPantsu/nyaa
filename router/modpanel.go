@@ -91,7 +91,7 @@ func (f *ReassignForm) ExecuteAction() (int, error) {
 		torrent, err2 := torrentService.GetRawTorrentById(torrent_id)
 		if err2 == nil {
 			torrent.UploaderID = f.AssignTo
-			db.ORM.Save(&torrent)
+			db.ORM.Model(&torrent).UpdateColumn(&torrent)
 			num += 1
 		}
 	}
@@ -128,6 +128,20 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
+	messages := msg.GetMessages(r)
+
+	deleted := r.URL.Query()["deleted"]
+	unblocked := r.URL.Query()["unblocked"]
+	blocked := r.URL.Query()["blocked"]
+	if deleted != nil {
+		messages.AddInfoTf("infos", "torrent_deleted", "")
+	}
+	if blocked != nil {
+		messages.AddInfoT("infos", "torrent_blocked")
+	}
+	if unblocked != nil {
+		messages.AddInfoT("infos", "torrent_unblocked")
+	}
 
 	var err error
 	pagenum := 1
@@ -146,7 +160,6 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 			ShowItemsPerPage: true,
 		}
 
-	messages := msg.GetMessages(r)
 	common := NewCommonVariables(r)
 	common.Navigation = Navigation{ count, int(searchParam.Max), pagenum, "mod_tlist_page"}
 	common.Search = searchForm
@@ -268,8 +281,8 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 			torrent.Status = uploadForm.Status
 			torrent.WebsiteLink = uploadForm.WebsiteLink
 			torrent.Description = uploadForm.Description
-			torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
-			db.ORM.Save(&torrent)
+			// torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
+			db.ORM.Model(&torrent).UpdateColumn(&torrent)
 			messages.AddInfoT("infos", "torrent_updated")
 		}
 	}
@@ -288,15 +301,30 @@ func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 
 func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
-	_, _ = torrentService.DeleteTorrent(id)
+	definitely := r.URL.Query()["definitely"]
+	var returnRoute string
+	if definitely != nil {
+		_, _ = torrentService.DefinitelyDeleteTorrent(id)
 
-	//delete reports of torrent
-	whereParams := serviceBase.CreateWhereParams("torrent_id = ?", id)
-	reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
-	for _, report := range reports {
-		reportService.DeleteTorrentReport(report.ID)
+		//delete reports of torrent
+		whereParams := serviceBase.CreateWhereParams("torrent_id = ?", id)
+		reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
+		for _, report := range reports {
+			reportService.DeleteDefinitelyTorrentReport(report.ID)
+		}
+		returnRoute = "mod_tlist_deleted"
+	} else {
+		_, _ = torrentService.DeleteTorrent(id)
+
+		//delete reports of torrent
+		whereParams := serviceBase.CreateWhereParams("torrent_id = ?", id)
+		reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
+		for _, report := range reports {
+			reportService.DeleteTorrentReport(report.ID)
+		}
+		returnRoute = "mod_tlist"
 	}
-	url, _ := Router.Get("mod_tlist").URL()
+	url, _ := Router.Get(returnRoute).URL()
 	http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
 }
 
@@ -373,6 +401,75 @@ func ApiMassMod(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Write(apiJson)
+}
+
+/*
+ * Manage deleted torrents
+ */
+
+func DeletedTorrentsModPanel(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	page := vars["page"]
+	messages := msg.GetMessages(r) // new util for errors and infos
+	deleted := r.URL.Query()["deleted"]
+	unblocked := r.URL.Query()["unblocked"]
+	blocked := r.URL.Query()["blocked"]
+	if deleted != nil {
+		messages.AddInfoT("infos", "torrent_deleted_definitely")
+	}
+	if blocked != nil {
+		messages.AddInfoT("infos", "torrent_blocked")
+	}
+	if unblocked != nil {
+		messages.AddInfoT("infos", "torrent_unblocked")
+	}
+	var err error
+	pagenum := 1
+	if page != "" {
+		pagenum, err = strconv.Atoi(html.EscapeString(page))
+		if !log.CheckError(err) {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+			}
+		}
+
+		searchParam, torrents, count, err := search.SearchByQueryDeleted(r, pagenum)
+		searchForm := SearchForm{
+			SearchParam:      searchParam,
+			Category:         searchParam.Category.String(),
+			ShowItemsPerPage: true,
+		}
+
+	common := NewCommonVariables(r)
+	common.Navigation = Navigation{ count, int(searchParam.Max), pagenum, "mod_tlist_page"}
+	common.Search = searchForm
+	ptlv := PanelTorrentListVbs{common, torrents, messages.GetAllErrors(), messages.GetAllInfos()}
+	err = panelTorrentList.ExecuteTemplate(w, "admin_index.html", ptlv)
+	log.CheckError(err)
+}
+
+func DeletedTorrentsPostPanel(w http.ResponseWriter, r *http.Request) {
+	torrentManyAction(r)
+	DeletedTorrentsModPanel(w, r)
+}
+
+func TorrentBlockModPanel(w http.ResponseWriter, r *http.Request) {
+	id := r.URL.Query().Get("id")
+	torrent, _, _ := torrentService.ToggleBlockTorrent(id)
+
+	var returnRoute, action string
+	if torrent.IsDeleted() {
+		returnRoute = "mod_tlist_deleted"
+	} else {
+		returnRoute = "mod_tlist"
+	}
+	if torrent.IsBlocked() {
+		action = "blocked"
+	} else {
+		action = "unblocked"
+	}
+	url, _ := Router.Get(returnRoute).URL()
+	http.Redirect(w, r, url.String()+"?"+action, http.StatusSeeOther)
 }
 
 /*
@@ -474,7 +571,7 @@ func torrentManyAction(r *http.Request) {
 					}
 
 					/* Changes are done, we save */
-					db.ORM.Model(&torrent).UpdateColumn(&torrent)
+					db.ORM.Unscoped().Model(&torrent).UpdateColumn(&torrent)
 				} else if action == "delete" {
 					_, err = torrentService.DeleteTorrent(torrent_id)
 					if err != nil {

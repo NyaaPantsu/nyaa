@@ -47,9 +47,9 @@ tr:nth-child(even) { background: hsla(198, 5%, 90%, 0.2); }
 td.tr-se { color: #22A243; }
 td.tr-le { color: #E84C4C; }
 
-.torrent-info.aplus { background: hsla(200, 100%, 50%, 0.2) !important; }
-.torrent-info.trusted { background: hsla(100, 100%, 50%, 0.2) !important; }
-.torrent-info.remake { background: hsla(30, 100%, 50%, 0.2) !important; }
+.aplus { background: hsla(200, 100%, 50%, 0.2) !important; }
+.trusted { background: hsla(100, 100%, 50%, 0.2) !important; }
+.remake { background: hsla(30, 100%, 50%, 0.2) !important; }
 
 .pagination .active { background: #cbbdd7; color: #444; }
 
