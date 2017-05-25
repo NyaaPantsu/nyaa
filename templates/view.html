@@ -17,15 +17,15 @@
   <br>
   <table>
       <tr class="torrent-info-row">
-      <td class="torrent-info-td torrent-info-label">Category:</td><td class="torrent-info-td torrent-info-data"><a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">{{ if Sukebei}}{{ call $.T (CategoryName .Category .SubCategory) }}{{else}}{{ call $.T (CategoryName .Category .SubCategory) }}{{end}}</a> <br></td>
-      <td class="torrent-info-td torrent-info-label">Date:</td><td class="torrent-info-td date-short">{{.Date}}</td>
+      <td class="torrent-info-td torrent-info-label">{{ call $.T "category" }}:</td><td class="torrent-info-td torrent-info-data"><a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">{{ if Sukebei}}{{ call $.T (CategoryName .Category .SubCategory) }}{{else}}{{ call $.T (CategoryName .Category .SubCategory) }}{{end}}</a> <br></td>
+      <td class="torrent-info-td torrent-info-label">{{ call $.T "date" }}:</td><td class="torrent-info-td date-full">{{.Date}}</td>
       </tr>
       <tr class="torrent-info-row">
           <td class="torrent-info-td torrent-info-label">{{ call $.T "uploaded_by" }}:</td><td class="torrent-view-td torrent-info-data"><a href="{{ genRoute "user_profile" "id" ( print .UploaderID ) "username" (print .UploaderName) }}">{{.UploaderName}}</a></td>
           <td class="torrent-info-td torrent-info-label">{{call $.T "seeders"}}:</td><td class="torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Seeders}}{{end}}</td>
       </tr>
       <tr class="torrent-info-row">
-          <td class="torrent-info-td torrent-info-label">Website:</td><td class="torrent-view-td torrent-info-data">{{if ne .WebsiteLink ""}}<a href="{{.WebsiteLink}}">{{.WebsiteLink}}</a>{{else}}<a href="//nyaa.pantsu.cat">nyaa.pantsu.cat{{end}}</td>
+          <td class="torrent-info-td torrent-info-label">{{ call $.T "website_link" }}:</td><td class="torrent-view-td torrent-info-data">{{if ne .WebsiteLink ""}}<a href="{{.WebsiteLink}}">{{.WebsiteLink}}</a>{{else}}<a href="//nyaa.pantsu.cat">nyaa.pantsu.cat{{end}}</td>
           <td class="torrent-info-td torrent-info-label">{{call $.T "leechers"}}:</td><td class="torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Leechers}}{{end}}</td>
       </tr>
     <tr class="torrent-info-row">
@@ -38,8 +38,8 @@
       </tr>
   </table>
 <div class="torrent-buttons">
-  <a href="{{.Magnet}}" class="form-input">Magnet</a>
-  <a href="{{.TorrentLink}}" class="form-input">Torrent</a>
+  <a href="{{.Magnet}}" class="form-input">{{call $.T "magnet_link"}}</a>
+  <a href="{{.TorrentLink}}" class="form-input">{{call $.T "torrent_file"}}</a>
   {{ if gt $.User.ID 0}}
   <script>
       function reportPopup() {

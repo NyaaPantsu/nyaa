@@ -10,7 +10,7 @@ a { text-decoration: none; }
 }
 
 body {
-	font-size: 11pt;
+	font-size: 14px;
 	font-family: 'Noto Sans', Helvetica, Arial, sans-serif;
 }
 
@@ -238,7 +238,7 @@ th, .home-td {
 th { border-bottom-width: 2px; }
 
 .tr-cat { width: 90px; text-align: left; }
-.tr-name { width: auto; text-align: left; }
+.tr-name { width: auto; text-align: left; white-space: normal; font-weight: bold; }
 .tr-links { width: 50px; }
 .tr-size { width: 90px; }
 .tr-se, .tr-le, .tr-dl { width: 60px; }
@@ -248,8 +248,8 @@ th { border-bottom-width: 2px; }
 .sort-arrows span {
 	font-size: 	100%;
 	letter-spacing: -0.3rem;
-	opacity: 0.4;
 }
+.sort-arrows .sortarrowdim { opacity: 0.25; }
 .sort-arrows a:hover { opacity: 0.8; }
 .sort-arrows .active { opacity: 	1; }
 
@@ -486,11 +486,10 @@ td.tr-le { color: #E84C4C; }
 	float: right;
 }
 .torrent-buttons {
-	display: inline-block;
-	float: right;
 	margin-top: 20px;
 	margin-right: 10px;
 	font-size: large;
+	text-align: right;
 }
 
 .profile-panel {
