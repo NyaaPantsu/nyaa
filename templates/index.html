@@ -53,10 +53,10 @@
 						<a href="{{.URL.Parse "/"}}"><img class="hide-md" src="/img/logo.png" alt="NyaaPantsu"><img class="visible-md" src="/img/logo_s.png"></img></a>
 					</div>
 					<div class="h-nav">
-						<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><div class="upload-icon visible-md"></div><span class="hide-md">Upload</span></a>
+						<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><div class="upload-icon visible-md"></div><span class="hide-md">{{ call $.T "upload" }}</span></a>
 						<a href="{{ genRouteWithQuery "feed" .URL }}" class="nav-btn"><div class="rss-icon visible-md"></div><span class="hide-md">RSS</span></a>
-						<a href="{{.URL.Parse "/faq"}}" class="nav-btn"><div class="faq-icon visible-md"></div><span class="hide-md">FAQ</span></a>
-						<a href="//sukebei.pantsu.cat" class="nav-btn"><div class="fap-icon visible-md"></div><span class="hide-md">Fap</span></a>
+						<a href="{{.URL.Parse "/faq"}}" class="nav-btn"><div class="faq-icon visible-md"></div><span class="hide-md">{{ call $.T "faq" }}</span></a>
+						<a href="//sukebei.pantsu.cat" class="nav-btn"><div class="fap-icon visible-md"></div><span class="hide-md">{{ call $.T "fap" }}</span></a>
 					</div>
 			</div>
 			<div class="h-right">
