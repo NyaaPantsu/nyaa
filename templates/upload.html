@@ -1,41 +1,46 @@
 {{define "title"}}Upload magnet{{end}}
 {{define "content"}}
-  {{with .Upload}}
-  <div style="text-align: left;" class="box">
-  <form enctype="multipart/form-data" role="upload" method="POST">
-    {{ range (index $.FormErrors "errors")}}
-      <div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
-    {{end}}
-      <label class="input-label" for="name">{{call $.T "name"}}</label> <br>
-          <input type="text" name="name" id="name" class="form-input up-input" placeholder="{{call $.T "file_name"}}" value="{{.Name}}" autofocus required> <br>
-     <label class="input-label" for="torrent">{{call $.T "torrent_file"}}</label> <br>
-          <input type="file" name="torrent" id="torrent" class="form-input up-input" accept=".torrent">
-          <i>{{call $.T "uploading_file_prefills_fields"}}</i><br>
-     <label class="input-label" for="magnet">{{call $.T "magnet_link"}}</label><br>
-     <input type="text" name="magnet" id="magnet" class="form-input up-input"
-          style="width:30rem" placeholder="{{call $.T "magnet_link"}}" value="{{.Magnet}}">
-<i>{{ call $.T "please_include_our_tracker" }}</i> <br>
+{{with .Upload}}
+<div style="text-align: left;" class="box">
+	<form enctype="multipart/form-data" role="upload" method="POST">
+		{{ range (index $.FormErrors "errors")}}
+		<div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
+		{{end}}
 
-          <label class="input-label" for="c">{{call $.T "category"}}</label> <br>
-          <select name="c" id="c" class="form-input up-input" required>
-              <option value="">{{call $.T "select_a_torrent_category"}}</option>
-              {{ range $name_cat, $id_cat := (GetCategories false) }}
-              <option value="{{ $id_cat }}" {{if eq $.Upload.Category $id_cat }}selected{{end}}>{{call $.T $name_cat }}</option>
-              {{ end }}
-          </select>
-      	  <input type="checkbox" name="remake" id="remake" >
-          <label for="remake">{{call $.T "mark_as_remake"}}</label> <br>
+		<h3>{{call $.T "name"}}</h3>
+		<input type="text" name="name" id="name" class="form-input up-input" placeholder="{{call $.T "file_name"}}" value="{{.Name}}" autofocus required>
 
-        <label class="input-label" for="website_link">{{call $.T "website_link"}}</label> <br>
-        <input name="website_link" id="website_link" class="form-input up-input" type="text" value="{{.WebsiteLink}}"> <br>
-          <label class="input-label" for="desc">{{call $.T "torrent_description"}}</label>
-          <i>{{call $.T "description_markdown_notice"}}</i> <br>
-          <textarea name="desc" id="desc" class="form-input up-input" rows="50" cols="50">{{.Description}}</textarea> <br>
+		<h3>{{call $.T "torrent_file"}}</h3>
+		<input type="file" name="torrent" id="torrent" class="up-input" accept=".torrent">
+		<p>{{call $.T "uploading_file_prefills_fields"}}</p>
 
-	  {{block "captcha" (makeCaptchaData .CaptchaID $.T)}}{{end}}
+		<h3>{{call $.T "magnet_link"}}</h3>
+		<input type="text" name="magnet" id="magnet" class="form-input up-input" placeholder="{{call $.T "magnet_link"}}" value="{{.Magnet}}">
+		<p>{{ call $.T "please_include_our_tracker" }}</p>
 
-      <button type="submit" class="form-input up-btn">{{call $.T "upload"}}</button>
-  </form>
-  </div>
-  {{end}}
+		<h3>{{call $.T "category"}}</h3>
+		<select name="c" id="c" class="form-input up-input" required>
+			<option value="">{{call $.T "select_a_torrent_category"}}</option>
+			{{ range $name_cat, $id_cat := (GetCategories false) }}
+			<option value="{{ $id_cat }}" {{if eq $.Upload.Category $id_cat }}selected{{end}}>{{call $.T $name_cat }}</option>
+			{{ end }}
+		</select>
+		<p>
+			<input type="checkbox" name="remake" id="remake" >
+			<label for="remake">{{call $.T "mark_as_remake"}}</label>
+		</p>
+
+		<h3>{{call $.T "website_link"}}</h3>
+		<input name="website_link" id="website_link" class="form-input up-input" type="text" value="{{.WebsiteLink}}">
+
+		<h3>{{call $.T "torrent_description"}}</h3>
+		<p>{{call $.T "description_markdown_notice"}}</p>
+		<textarea name="desc" id="desc" class="form-input up-input" style="height: 10rem;">{{.Description}}</textarea>
+
+		{{block "captcha" (makeCaptchaData .CaptchaID $.T)}}{{end}}
+
+		<button type="submit" class="form-input up-btn">{{call $.T "upload"}}</button>
+	</form>
+</div>
+{{end}}
 {{end}}
