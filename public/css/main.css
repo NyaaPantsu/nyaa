@@ -244,6 +244,7 @@ th { border-bottom-width: 2px; }
 .tr-name { width: auto; text-align: left; white-space: normal; font-weight: bold; }
 .tr-links { width: 66px; }
 .tr-size { width: 90px; }
+.tr-se, .tr-le { font-weight: bold; }
 .tr-se, .tr-le, .tr-dl { width: 50px; }
 .tr-date { width: 90px; }
 
