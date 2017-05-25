@@ -104,6 +104,10 @@ type ChangeLanguageVariables struct {
 	Languages map[string]string
 }
 
+type ChangeThemeVariables struct {
+	CommonTemplateVariables
+}
+
 /* MODERATION Variables */
 
 type PanelIndexVbs struct {

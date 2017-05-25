@@ -26,6 +26,7 @@ var homeTemplate,
 	userTorrentEd,
 	notFoundTemplate,
 	changeLanguageTemplate,
+	changeThemeTemplate,
 	databaseDumpTemplate *template.Template
 
 var panelIndex,
@@ -130,6 +131,11 @@ func ReloadTemplates() {
 			templ: &changeLanguageTemplate,
 			name:  "change_language",
 			file:  "change_language.html",
+		},
+		{
+			templ: &changeThemeTemplate,
+			name:  "change_theme",
+			file:  "change_theme.html",
 		},
 	}
 	for idx := range pubTempls {
