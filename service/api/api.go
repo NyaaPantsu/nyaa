@@ -74,6 +74,7 @@ func validateName(r *TorrentRequest) (error, int) {
 	return nil, http.StatusOK
 }
 
+// TODO Check category is within accepted range
 func validateCategory(r *TorrentRequest) (error, int) {
 	if r.Category == 0 {
 		return ErrCategory, http.StatusNotAcceptable
@@ -81,6 +82,7 @@ func validateCategory(r *TorrentRequest) (error, int) {
 	return nil, http.StatusOK
 }
 
+// TODO Check subCategory is within accepted range
 func validateSubCategory(r *TorrentRequest) (error, int) {
 	if r.SubCategory == 0 {
 		return ErrSubCategory, http.StatusNotAcceptable

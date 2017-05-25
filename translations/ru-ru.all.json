@@ -69,7 +69,7 @@
   },
   {
     "id": "terms_conditions_full",
-    "translation": "Некоторое дерьмо."
+    "translation": "Здесь будет магия и дружба."
   },
   {
     "id": "remember_me",
@@ -117,7 +117,7 @@
   },
   {
     "id": "follow",
-    "translation": "Следить"
+    "translation": "Подписаться"
   },
   {
     "id": "unfollow",
@@ -125,7 +125,7 @@
   },
   {
     "id": "user_followed_msg",
-    "translation": "Вы отслеживаете %s!"
+    "translation": "Вы подписались на %s!"
   },
   {
     "id": "user_unfollowed_msg",
@@ -137,7 +137,7 @@
   },
   {
     "id": "see_more_torrents_from",
-    "translation": "Смотреть другие торренты %s "
+    "translation": "Посмотреть другие торренты %s "
   },
   {
     "id": "category",
@@ -180,8 +180,12 @@
     "translation": "FAQ"
   },
   {
+    "id": "fun",
+    "translation": "Fun"
+  },
+  {
     "id": "fap",
-    "translation": "Фап"
+    "translation": "Fap"
   },
   {
     "id": "advanced_search",
@@ -209,7 +213,7 @@
   },
   {
     "id": "member",
-    "translation": "Членство"
+    "translation": "Пользователь"
   },
   {
     "id": "sign_in",
@@ -225,7 +229,7 @@
   },
   {
     "id": "notice_keep_seeding",
-    "translation": "УВЕДОМЛЕНИЕ: УДЕРЖИВАЙ РАЗДАЧУ И ВКЛЮЧАЙ DHT ТЫ ТОРМОЗ"
+    "translation": "ОСТАВАЙТЕСЬ НА РАЗДАЧЕ И ВКЛЮЧИТЕ DHT!"
   },
   {
     "id": "official_nyaapocalipse_faq",
@@ -257,7 +261,7 @@
   },
   {
     "id": "is_everything_lost",
-    "translation": "Все потеряно?"
+    "translation": "Все пропало?"
   },
   {
     "id": "in_short_no",
@@ -265,7 +269,7 @@
   },
   {
     "id": "are_some_things_lost",
-    "translation": "Некоторые вещи потеряны?"
+    "translation": "Что-нибудь все же потерялось?"
   },
   {
     "id": "answer_is_nyaa_db_lost",
@@ -277,7 +281,7 @@
   },
   {
     "id": "how_are_we_recovering",
-    "translation": "Как мы выздоравливаем?"
+    "translation": "Как идет процесс восстановления?"
   },
   {
     "id": "answer_how_are_we_recovering",
@@ -317,11 +321,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Если ваша торрент-загрузка запрещена из-за трекеров, вам нужно добавить некоторые из них:"
-  },
-  {
-    "id": "other_trackers",
-    "translation": "Но тебе стоит еще добавить эти, просто на случай, если что-то пойдет не так"
+    "translation": "У нас теперь появился свой собственный трекер doko.moe, добавьте его наверх списка перед загрузкой. Вам стоит еще добавить эти, просто на случай, если что-то пойдет не так."
   },
   {
     "id": "how_can_i_help",
@@ -337,7 +337,7 @@
   },
   {
     "id": "why_written_in_go",
-    "translation": "Почему ваше дерьмо написано на Go?"
+    "translation": "Почему это дерьмо написано на Go?"
   },
   {
     "id": "authors_favorite_language",
@@ -460,6 +460,42 @@
     "translation": "Софт - Игры"
   },
   {
+    "id": "art",
+    "translation": "Арт"
+  },
+  {
+    "id": "art_anime",
+    "translation": "Арт - Аниме"
+  },
+  {
+    "id": "art_doujinshi",
+    "translation": "Арт - Додзинси"
+  },
+  {
+    "id": "art_games",
+    "translation": "Арт - Игры"
+  },
+  {
+    "id": "art_manga",
+    "translation": "Арт - Манга"
+  },
+  {
+    "id": "art_pictures",
+    "translation": "Арт - Картинки"
+  },
+  {
+    "id": "real_life",
+    "translation": "Real Life"
+  },
+  {
+    "id": "real_life_photobooks_and_pictures",
+    "translation": "Real Life - Фотокниги и картинки"
+  },
+  {
+    "id": "real_life_videos",
+    "translation": "Real Life - Видео"
+  },
+  {
     "id": "torrent_description",
     "translation": "Описание торрента"
   },
@@ -517,7 +553,7 @@
   },
   {
     "id": "submit_a_comment_as_anonymous",
-    "translation": "Отправить комментарий как Анонимный"
+    "translation": "Отправить анонимный комментарий"
   },
   {
     "id": "submit",
@@ -541,7 +577,7 @@
   },
   {
     "id": "banned",
-    "translation": "Banned"
+    "translation": "Забанен"
   },
   {
     "id": "default",
@@ -648,6 +684,14 @@
     "translation": "Удалить"
   },
   {
+    "id": "files",
+    "translation": "Файлы"
+  },
+  {
+    "id": "filename",
+    "translation": "Имя файла"
+  },
+  {
     "id": "uploaded_by",
     "translation": "Загрузил"
   },
@@ -698,5 +742,25 @@
   {
     "id": "cancel",
     "translation": "Отменить"
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "Пожалуйста добавьте udp://tracker.doko.moe:6969 в список трекеров."
+  },
+  {
+    "id": "unknown",
+    "translation": "Неизвестно"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "Обновлялось в: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "Узнать о состоянии сервера можно здесь"
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "Сейчас нет доступных дампов базы"
   }
 ]

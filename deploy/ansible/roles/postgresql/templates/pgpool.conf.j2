@@ -1,5 +1,5 @@
 listen_addresses = 'localhost'
-port = 9998
+port = {{ nyaapantsu_pgpool_port }}
 socket_dir = '/tmp'
 listen_backlog_multiplier = 2
 # Set the backlog parameter of listen(2) to
@@ -13,7 +13,7 @@ pcp_socket_dir = '/tmp'
 backend_hostname0 = 'localhost'
 backend_port0 = 5432
 backend_weight0 = 1
-backend_data_directory0 = '/var/lib/pgsql/data'
+backend_data_directory0 = '/var/lib/pgsql/9.6/data'
 backend_flag0 = 'ALLOW_TO_FAILOVER'
 # Controls various backend behavior
 # ALLOW_TO_FAILOVER or DISALLOW_TO_FAILOVER

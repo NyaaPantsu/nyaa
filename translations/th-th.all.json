@@ -25,7 +25,7 @@
   },
   {
     "id":"signup_box_title",
-    "translation": "กรุณาลงทะเบียน <small>มันฟรีตลอดชาติ</small>"
+    "translation": "กรุณาลงทะเบียน <small>ฟรีตลอดชาติ</small>"
   },
   {
     "id":"username",
@@ -197,7 +197,7 @@
   },
   {
     "id": "404_not_found",
-    "translation": "404 Not Found"
+    "translation": "404 ไม่พบหน้านี้"
   },
   {
     "id": "no_torrents_uploaded",
@@ -480,6 +480,10 @@
     "translation": "งานศิลป์ - มังงะ"
   },
   {
+    "id": "art_pictures",
+    "translation": "งานศิลป์ - ภาพวาด"
+  },
+  {
     "id": "real_life",
     "translation": "คนจริง"
   },
@@ -679,6 +683,10 @@
     "id": "delete",
     "translation": "ลบ"
   },
+   {
+    "id": "website_link",
+    "translation": "ลิงค์เว็บ"
+  },
   {
     "id": "files",
     "translation": "ไฟล์"
@@ -738,5 +746,97 @@
   {
     "id": "cancel",
     "translation": "ยกเลิก"
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "กรุณาใส่ udp://tracker.doko.moe:6969 ไว้ในรายชื่อแทรคเกอร์ของคุณ"
+  },
+  {
+    "id": "unknown",
+    "translation": "Unknown"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "Scrap ครั้งล่าสุด: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "สามารถดูสถานะของเซิร์ฟเวอร์ได้ที่นี่"
+  }, 
+  {
+    "id": "no_database_dumps_available",
+    "translation": "ยังไม่มีไฟล์ดัมพ์ฐานข้อมูลในขณะนี้"
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "ล้างการแจ้งเตือน"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "ลบการแจ้งเตือนแล้ว!"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "การแจ้งเตือนของฉัน"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "ทอร์เรนท์ใหม่: \"%s\" จาก %s"
+  },
+  {
+    "id": "preferences",
+    "translation": "ตั้งค่า"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "แจ้งเตือนเมื่อมีทอร์เรนท์ใหม่ที่เพิ่มมาจากผู้ใช้ที่ติดตาม"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "แจ้งเตือนผ่านอีเมล์เมื่อมีทอร์เรนท์ใหม่ที่เพิ่มมาจากผู้ใช้ที่ติดตาม"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "แจ้งเตือนเมื่อมีคอมเมนท์ใหม่ในคอมเมนท์ของคุณ"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "แจ้งเตือนผ่านอีเมล์เมื่อมีคอมเมนท์ใหม่ในทอร์เรนท์ของคุณ"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "แจ้งเตือนเมื่อมีการตอบรับที่คอมเมนท์ของคุณ"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "แจ้งเตือนผ่านอีเมล์เมื่อมีการตอบรับที่คอมเมนท์ของคุณ"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "แจ้งเตือนเมื่อคุณมีผู้ติดตามใหม่"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "แจ้งเตือนผ่านอีเมล์เมื่อคุณมีผู้ติดตามใหม่"
+  },
+  {
+    "id": "followed_settings",
+    "translation": "แจ้งเตือนเมื่อคุณติดตามใครบางคน"
+  },
+  {
+    "id": "followed_email_settings",
+    "translation": "แจ้งเตือนผ่านอีเมล์เมื่อคุณติดตามใครบางคน"
+  },
+  {
+    "id": "yes",
+    "translation": "ใช่"
+  },
+  {
+    "id": "no",
+    "translation": "ไม่ใช่"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "คอมเมนท์ใหม่ในทอร์เรนท์: \"%s\""
   }
 ]

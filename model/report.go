@@ -2,11 +2,11 @@ package model
 
 import (
 	"time"
+
+	"github.com/NyaaPantsu/nyaa/config"
 )
 
-// TODO Add field to specify kind of reports
-// TODO Add CreatedAt field
-// INFO User can be null (anonymous reports)
+// User can be null (anonymous reports)
 // FIXME  can't preload field Torrents for model.TorrentReport
 type TorrentReport struct {
 	ID          uint   `gorm:"column:torrent_report_id;primary_key"`
@@ -18,6 +18,10 @@ type TorrentReport struct {
 
 	Torrent *Torrent `gorm:"AssociationForeignKey:TorrentID;ForeignKey:torrent_id"`
 	User    *User    `gorm:"AssociationForeignKey:UserID;ForeignKey:user_id"`
+}
+
+func (r TorrentReport) TableName() string {
+	return config.ReportsTableName
 }
 
 type TorrentReportJson struct {
@@ -43,9 +47,8 @@ func getReportDescription(d string) string {
 }
 
 func (report *TorrentReport) ToJson() TorrentReportJson {
-	// FIXME: report.Torrent and report.User should never be nil
 	var t TorrentJSON = TorrentJSON{}
-	if report.Torrent != nil {
+	if report.Torrent != nil { // FIXME: report.Torrent should never be nil
 		t = report.Torrent.ToJSON()
 	}
 	var u UserJSON = UserJSON{}

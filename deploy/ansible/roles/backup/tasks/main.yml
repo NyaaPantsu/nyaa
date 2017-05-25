@@ -37,6 +37,15 @@
     - mktorrent
     - rtorrent
 
+- name: Create download and watch directory
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "~/.rtorrent_session/"
+    - "{{ torrent_downloaded_directory }}"
+    - "{{ torrent_watch_directory }}"
+
 - name: Configure rtorrent
   template:
     src: rtorrent.rc.j2
@@ -48,12 +57,12 @@
     dest: /etc/systemd/system/rtorrent.service
   become: true
 
-  #- name: Enable and start rtorrent service
-  #  systemd:
-  #    enabled: yes
-  #    name: rtorrent
-  #    state: started
-  #  become: true
+- name: Enable and start rtorrent service
+  systemd:
+    enabled: yes
+    name: rtorrent
+    state: started
+  become: true
 
 - name: Setup backup cron
   template:

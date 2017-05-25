@@ -13,6 +13,14 @@ import (
 	"time"
 )
 
+const (
+	TorrentStatusNormal    = 1
+	TorrentStatusRemake    = 2
+	TorrentStatusTrusted   = 3
+	TorrentStatusAPlus     = 4
+	TorrentStatusBlocked   = 5
+)
+
 type Feed struct {
 	ID        int
 	Name      string
@@ -37,7 +45,7 @@ type Torrent struct {
 	WebsiteLink string    `gorm:"column:website_link"`
 	DeletedAt   *time.Time
 
-	Uploader    *User        `gorm:"ForeignKey:uploader"`
+	Uploader    *User        `gorm:"AssociationForeignKey:UploaderID;ForeignKey:user_id"`
 	OldUploader string       `gorm:"-"` // ???????
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
@@ -76,7 +84,35 @@ func (t Torrent) Size() (s int) {
 }
 
 func (t Torrent) TableName() string {
-	return config.TableName
+	return config.TorrentsTableName
+}
+
+func (t *Torrent) Identifier() string {
+	return "torrent_" + strconv.Itoa(int(t.ID))
+}
+
+func (t Torrent) IsNormal() bool {
+	return t.Status == TorrentStatusNormal
+}
+
+func (t Torrent) IsRemake() bool {
+	return t.Status == TorrentStatusRemake
+}
+
+func (t Torrent) IsTrusted() bool {
+	return t.Status == TorrentStatusTrusted
+}
+
+func (t Torrent) IsAPlus() bool {
+	return t.Status == TorrentStatusAPlus
+}
+
+func (t *Torrent) IsBlocked() bool {
+	return t.Status == TorrentStatusBlocked
+}
+
+func (t *Torrent) IsDeleted() bool {
+	return t.DeletedAt != nil
 }
 
 /* We need a JSON object instead of a Gorm structure because magnet URLs are
@@ -89,15 +125,16 @@ type ApiResultJSON struct {
 }
 
 type CommentJSON struct {
-	Username string        `json:"username"`
-	UserID   int           `json:"user_id"`
-	Content  template.HTML `json:"content"`
-	Date     time.Time     `json:"date"`
+	Username   string        `json:"username"`
+	UserID     int           `json:"user_id"`
+	UserAvatar string        `json:"user_avatar"`
+	Content    template.HTML `json:"content"`
+	Date       time.Time     `json:"date"`
 }
 
 type FileJSON struct {
 	Path     string `json:"path"`
-	Filesize string `json:"filesize"`
+	Filesize int64  `json:"filesize"`
 }
 
 type TorrentJSON struct {
@@ -106,7 +143,7 @@ type TorrentJSON struct {
 	Status       int           `json:"status"`
 	Hash         string        `json:"hash"`
 	Date         string        `json:"date"`
-	Filesize     string        `json:"filesize"`
+	Filesize     int64         `json:"filesize"`
 	Description  template.HTML `json:"description"`
 	Comments     []CommentJSON `json:"comments"`
 	SubCategory  string        `json:"sub_category"`
@@ -134,7 +171,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	}
 	for _, c := range t.Comments {
 		if c.User != nil {
-			commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC()})
+			commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC(), UserAvatar: c.User.MD5})
 		} else {
 			commentsJSON = append(commentsJSON, CommentJSON{})
 		}
@@ -149,12 +186,12 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	for _, f := range t.FileList {
 		fileListJSON = append(fileListJSON, FileJSON{
 			Path:     filepath.Join(f.Path()...),
-			Filesize: util.FormatFilesize2(f.Filesize),
+			Filesize: f.Filesize,
 		})
 	}
 
 	// Sort file list by lowercase filename
-	slice.Sort(fileListJSON, func (i, j int) bool {
+	slice.Sort(fileListJSON, func(i, j int) bool {
 		return strings.ToLower(fileListJSON[i].Path) < strings.ToLower(fileListJSON[j].Path)
 	})
 
@@ -164,9 +201,12 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	}
 	torrentlink := ""
 	if t.ID <= config.LastOldTorrentID && len(config.TorrentCacheLink) > 0 {
-		torrentlink = fmt.Sprintf(config.TorrentCacheLink, t.Hash)
+		if config.IsSukebei() {
+			torrentlink = "" // torrent cache doesn't have sukebei torrents
+		} else {
+			torrentlink = fmt.Sprintf(config.TorrentCacheLink, t.Hash)
+		}
 	} else if t.ID > config.LastOldTorrentID && len(config.TorrentStorageLink) > 0 {
-		// TODO: Fix as part of configuration changes (fix what?)
 		torrentlink = fmt.Sprintf(config.TorrentStorageLink, t.Hash)
 	}
 	res := TorrentJSON{
@@ -175,7 +215,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Status:       t.Status,
 		Hash:         t.Hash,
 		Date:         t.Date.Format(time.RFC3339),
-		Filesize:     util.FormatFilesize2(t.Filesize),
+		Filesize:     t.Filesize,
 		Description:  util.MarkdownToHTML(t.Description),
 		Comments:     commentsJSON,
 		SubCategory:  strconv.Itoa(t.SubCategory),
@@ -200,7 +240,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 /* Complete the functions when necessary... */
 
 // Map Torrents to TorrentsToJSON without reallocations
-func TorrentsToJSON(t []Torrent) []TorrentJSON { // TODO: Convert to singular version
+func TorrentsToJSON(t []Torrent) []TorrentJSON {
 	json := make([]TorrentJSON, len(t))
 	for i := range t {
 		json[i] = t[i].ToJSON()

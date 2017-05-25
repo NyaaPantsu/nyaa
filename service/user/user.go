@@ -7,7 +7,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	formStruct "github.com/NyaaPantsu/nyaa/service/user/form"
@@ -81,8 +80,11 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 	}
 	user.Email = "" // unset email because it will be verified later
 	user.CreatedAt = time.Now()
+	// User settings to default
+	user.Settings.ToDefault()
+	user.SaveSettings()
 	// currently unused but needs to be set:
-	user.ApiToken = ""
+	user.ApiToken, _ = crypto.GenerateRandomToken32()
 	user.ApiTokenExpiry = time.Unix(0, 0)
 
 	if db.ORM.Create(&user).Error != nil {
@@ -129,7 +131,7 @@ func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, in
 	var currentUserID uint
 	var isAuthor bool
 
-	if db.ORM.Table(config.TableName).First(&user, id).RecordNotFound() {
+	if db.ORM.First(&user, id).RecordNotFound() {
 		return nil, isAuthor, currentUserID, http.StatusNotFound, errors.New("user not found")
 	}
 	currentUser, err := CurrentUser(r)
@@ -173,7 +175,7 @@ func UpdateUserCore(user *model.User) (int, error) {
 }
 
 // UpdateUser updates a user.
-func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, currentUser *model.User, id string) (model.User, int, error) {
+func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, formSet *formStruct.UserSettingsForm, currentUser *model.User, id string) (model.User, int, error) {
 	var user model.User
 	if db.ORM.First(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("user not found")
@@ -204,6 +206,21 @@ func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, currentUser *m
 	}
 	log.Debugf("form %+v\n", form)
 	modelHelper.AssignValue(&user, form)
+
+	// We set settings here
+	user.ParseSettings()
+	user.Settings.Set("new_torrent", formSet.NewTorrent)
+	user.Settings.Set("new_torrent_email", formSet.NewTorrentEmail)
+	user.Settings.Set("new_comment", formSet.NewComment)
+	user.Settings.Set("new_comment_email", formSet.NewCommentEmail)
+	user.Settings.Set("new_responses", formSet.NewResponses)
+	user.Settings.Set("new_responses_email", formSet.NewResponsesEmail)
+	user.Settings.Set("new_follower", formSet.NewFollower)
+	user.Settings.Set("new_follower_email", formSet.NewFollowerEmail)
+	user.Settings.Set("followed", formSet.Followed)
+	user.Settings.Set("followed_email", formSet.FollowedEmail)
+	user.SaveSettings()
+
 	status, err := UpdateUserCore(&user)
 	return user, status, err
 }
@@ -281,7 +298,7 @@ func RetrieveOldUploadsByUsername(username string) ([]uint, error) {
 // RetrieveUserForAdmin retrieves a user for an administrator.
 func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	var user model.User
-	if db.ORM.Preload("Torrents").First(&user, id).RecordNotFound() {
+	if db.ORM.Preload("Notifications").Preload("Torrents").Last(&user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("user not found")
 	}
 	var liked, likings []model.User
@@ -301,13 +318,26 @@ func RetrieveUsersForAdmin(limit int, offset int) ([]model.User, int) {
 	return users, nbUsers
 }
 
+func GetLiked(user *model.User) *model.User {
+	var liked []model.User
+	db.ORM.Joins("JOIN user_follows on user_follows.following=?", user.ID).Where("users.user_id = user_follows.user_id").Group("users.user_id").Find(&liked)
+	user.Liked = liked
+	return user
+}
+func GetLikings(user *model.User) *model.User {
+	var likings []model.User
+	db.ORM.Joins("JOIN user_follows on user_follows.user_id=?", user.ID).Where("users.user_id = user_follows.following").Group("users.user_id").Find(&likings)
+	user.Likings = likings
+	return user
+}
+
 // CreateUserAuthentication creates user authentication.
 func CreateUserAuthentication(w http.ResponseWriter, r *http.Request) (int, error) {
 	var form formStruct.LoginForm
 	modelHelper.BindValueForm(&form, r)
 	username := form.Username
 	pass := form.Password
-	status, err := SetCookieHandler(w, username, pass)
+	status, err := SetCookieHandler(w, r, username, pass)
 	return status, err
 }
 

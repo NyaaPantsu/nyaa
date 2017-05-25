@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/NyaaPantsu/nyaa/service/captcha"
-	// "github.com/gorilla/handlers"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -15,66 +15,52 @@ func init() {
 	cssHandler := http.FileServer(http.Dir("./public/css/"))
 	jsHandler := http.FileServer(http.Dir("./public/js/"))
 	imgHandler := http.FileServer(http.Dir("./public/img/"))
+	// TODO Use config from cli
+	// TODO Make sure the directory exists
+	dumpsHandler := http.FileServer(http.Dir(DatabaseDumpPath))
+	// TODO Use config from cli
+	// TODO Make sure the directory exists
+	gpgKeyHandler := http.FileServer(http.Dir(GPGPublicKeyPath))
 	gzipHomeHandler := http.HandlerFunc(HomeHandler)
 	gzipAPIHandler := http.HandlerFunc(ApiHandler)
 	gzipAPIViewHandler := http.HandlerFunc(ApiViewHandler)
 	gzipViewHandler := http.HandlerFunc(ViewHandler)
 	gzipUserProfileHandler := http.HandlerFunc(UserProfileHandler)
+	gzipUserApiKeyResetHandler := http.HandlerFunc(UserApiKeyResetHandler)
 	gzipUserDetailsHandler := http.HandlerFunc(UserDetailsHandler)
 	gzipUserProfileFormHandler := http.HandlerFunc(UserProfileFormHandler)
-	/*
-		// Enable GZIP compression for all handlers except imgHandler and captcha
-		gzipCSSHandler := cssHandler)
-		gzipJSHandler:= jsHandler)
-		gzipSearchHandler:= http.HandlerFunc(SearchHandler)
-		gzipAPIUploadHandler := http.HandlerFunc(ApiUploadHandler)
-		gzipAPIUpdateHandler := http.HandlerFunc(ApiUpdateHandler)
-		gzipFaqHandler := http.HandlerFunc(FaqHandler)
-		gzipRSSHandler := http.HandlerFunc(RSSHandler)
-		gzipUploadHandler := http.HandlerFunc(UploadHandler)
-		gzipUserRegisterFormHandler := http.HandlerFunc(UserRegisterFormHandler)
-		gzipUserLoginFormHandler := http.HandlerFunc(UserLoginFormHandler)
-		gzipUserVerifyEmailHandler := http.HandlerFunc(UserVerifyEmailHandler)
-		gzipUserRegisterPostHandler := http.HandlerFunc(UserRegisterPostHandler)
-		gzipUserLoginPostHandler := http.HandlerFunc(UserLoginPostHandler)
-		gzipUserLogoutHandler := http.HandlerFunc(UserLogoutHandler)
-		gzipUserFollowHandler := http.HandlerFunc(UserFollowHandler)
-
-		gzipIndexModPanel := http.HandlerFunc(IndexModPanel)
-		gzipTorrentsListPanel := http.HandlerFunc(TorrentsListPanel)
-		gzipTorrentReportListPanel := http.HandlerFunc(TorrentReportListPanel)
-		gzipUsersListPanel := http.HandlerFunc(UsersListPanel)
-		gzipCommentsListPanel := http.HandlerFunc(CommentsListPanel)
-		gzipTorrentEditModPanel := http.HandlerFunc(TorrentEditModPanel)
-		gzipTorrentPostEditModPanel := http.HandlerFunc(TorrentPostEditModPanel)
-		gzipCommentDeleteModPanel := http.HandlerFunc(CommentDeleteModPanel)
-		gzipTorrentDeleteModPanel := http.HandlerFunc(TorrentDeleteModPanel)
-		gzipTorrentReportDeleteModPanel := http.HandlerFunc(TorrentReportDeleteModPanel)*/
-
-	//gzipTorrentReportCreateHandler := http.HandlerFunc(CreateTorrentReportHandler)
-	//gzipTorrentReportDeleteHandler := http.HandlerFunc(DeleteTorrentReportHandler)
-	//gzipTorrentDeleteHandler := http.HandlerFunc(DeleteTorrentHandler)
+	gzipUserNotificationsHandler := http.HandlerFunc(UserNotificationsHandler)
+	gzipDumpsHandler := handlers.CompressHandler(dumpsHandler)
+	gzipGpgKeyHandler := handlers.CompressHandler(gpgKeyHandler)
+	gzipDatabaseDumpHandler := handlers.CompressHandler(http.HandlerFunc(DatabaseDumpHandler))
 
 	Router = mux.NewRouter()
-
-	// Routes
 	http.Handle("/css/", http.StripPrefix("/css/", cssHandler))
 	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
 	http.Handle("/img/", http.StripPrefix("/img/", imgHandler))
-	Router.Handle("/", wrapHandler(gzipHomeHandler)).Name("home")
+	http.Handle("/dbdumps/", http.StripPrefix("/dbdumps/", wrapHandler(gzipDumpsHandler)))
+	http.Handle("/gpg/", http.StripPrefix("/gpg/", wrapHandler(gzipGpgKeyHandler)))
+	Router.Handle("/", gzipHomeHandler).Name("home")
 	Router.Handle("/page/{page:[0-9]+}", wrapHandler(gzipHomeHandler)).Name("home_page")
 	Router.HandleFunc("/search", SearchHandler).Name("search")
 	Router.HandleFunc("/search/{page}", SearchHandler).Name("search_page")
 	Router.Handle("/api", wrapHandler(gzipAPIHandler)).Methods("GET")
 	Router.Handle("/api/{page:[0-9]*}", wrapHandler(gzipAPIHandler)).Methods("GET")
 	Router.Handle("/api/view/{id}", wrapHandler(gzipAPIViewHandler)).Methods("GET")
+	Router.HandleFunc("/api/view/{id}", ApiViewHeadHandler).Methods("HEAD")
 	Router.HandleFunc("/api/upload", ApiUploadHandler).Methods("POST")
+	Router.HandleFunc("/api/search", ApiSearchHandler)
+	Router.HandleFunc("/api/search/{page}", ApiSearchHandler)
 	Router.HandleFunc("/api/update", ApiUpdateHandler).Methods("PUT")
 	Router.HandleFunc("/faq", FaqHandler).Name("faq")
 	Router.HandleFunc("/feed", RSSHandler).Name("feed")
 	Router.HandleFunc("/feed/{page}", RSSHandler).Name("feed_page")
 	Router.Handle("/view/{id}", wrapHandler(gzipViewHandler)).Methods("GET").Name("view_torrent")
+	Router.HandleFunc("/view/{id}", ViewHeadHandler).Methods("HEAD")
 	Router.HandleFunc("/view/{id}", PostCommentHandler).Methods("POST").Name("post_comment")
+	Router.HandleFunc("/torrent/", TorrentEditUserPanel).Methods("GET").Name("user_torrent_edit")
+	Router.HandleFunc("/torrent/", TorrentPostEditUserPanel).Methods("POST").Name("user_torrent_edit")
+	Router.HandleFunc("/torrent/delete", TorrentDeleteUserPanel).Methods("GET").Name("user_torrent_delete")
 	Router.HandleFunc("/upload", UploadHandler).Name("upload")
 	Router.HandleFunc("/user/register", UserRegisterFormHandler).Name("user_register").Methods("GET")
 	Router.HandleFunc("/user/login", UserLoginFormHandler).Name("user_login").Methods("GET")
@@ -86,29 +72,46 @@ func init() {
 	Router.HandleFunc("/user/{id}/{username}/follow", UserFollowHandler).Name("user_follow").Methods("GET")
 	Router.Handle("/user/{id}/{username}/edit", wrapHandler(gzipUserDetailsHandler)).Name("user_profile_details").Methods("GET")
 	Router.Handle("/user/{id}/{username}/edit", wrapHandler(gzipUserProfileFormHandler)).Name("user_profile_edit").Methods("POST")
+	Router.Handle("/user/{id}/{username}/edit/apireset", wrapHandler(gzipUserApiKeyResetHandler)).Name("user_profile_edit").Methods("POST")
+	Router.Handle("/user/notifications", wrapHandler(gzipUserNotificationsHandler)).Name("user_notifications")
+	Router.HandleFunc("/user/{id}/{username}/feed", RSSHandler).Name("feed_user")
+	Router.HandleFunc("/user/{id}/{username}/feed/{page}", RSSHandler).Name("feed_user_page")
 
-	Router.HandleFunc("/mod", IndexModPanel).Name("mod_index")
-	Router.HandleFunc("/mod/torrents", TorrentsListPanel).Name("mod_tlist")
-	Router.HandleFunc("/mod/torrents/{page}", TorrentsListPanel).Name("mod_tlist_page")
-	Router.HandleFunc("/mod/reports", TorrentReportListPanel).Name("mod_trlist")
-	Router.HandleFunc("/mod/reports/{page}", TorrentReportListPanel).Name("mod_trlist_page")
-	Router.HandleFunc("/mod/users", UsersListPanel).Name("mod_ulist")
-	Router.HandleFunc("/mod/users/{page}", UsersListPanel).Name("mod_ulist_page")
-	Router.HandleFunc("/mod/comments", CommentsListPanel).Name("mod_clist")
-	Router.HandleFunc("/mod/comments/{page}", CommentsListPanel).Name("mod_clist_page")
-	Router.HandleFunc("/mod/comment", CommentsListPanel).Name("mod_cedit") // TODO
-	Router.HandleFunc("/mod/torrent/", TorrentEditModPanel).Name("mod_tedit").Methods("GET")
-	Router.HandleFunc("/mod/torrent/", TorrentPostEditModPanel).Name("mod_ptedit").Methods("POST")
-	Router.HandleFunc("/mod/torrent/delete", TorrentDeleteModPanel).Name("mod_tdelete")
-	Router.HandleFunc("/mod/report/delete", TorrentReportDeleteModPanel).Name("mod_trdelete")
-	Router.HandleFunc("/mod/comment/delete", CommentDeleteModPanel).Name("mod_cdelete")
-	Router.HandleFunc("/mod/reassign", TorrentReassignModPanel).Name("mod_treassign").Methods("GET")
-	Router.HandleFunc("/mod/reassign", TorrentPostReassignModPanel).Name("mod_treassign").Methods("POST")
+	// INFO Everything under /mod should be wrapped by WrapModHandler. This make
+	// sure the page is only accessible by moderators
+	// TODO Find a native mux way to add a 'prehook' for route /mod
+	Router.HandleFunc("/mod", WrapModHandler(IndexModPanel)).Name("mod_index")
+	Router.HandleFunc("/mod/torrents", WrapModHandler(TorrentsListPanel)).Name("mod_tlist").Methods("GET")
+	Router.HandleFunc("/mod/torrents/{page:[0-9]+}", WrapModHandler(TorrentsListPanel)).Name("mod_tlist_page").Methods("GET")
+	Router.HandleFunc("/mod/torrents", WrapModHandler(TorrentsPostListPanel)).Methods("POST")
+	Router.HandleFunc("/mod/torrents/{page:[0-9]+}", WrapModHandler(TorrentsPostListPanel)).Methods("POST")
+	Router.HandleFunc("/mod/torrents/deleted", WrapModHandler(DeletedTorrentsModPanel)).Name("mod_tlist_deleted").Methods("GET")
+	Router.HandleFunc("/mod/torrents/deleted/{page:[0-9]+}", WrapModHandler(DeletedTorrentsModPanel)).Name("mod_tlist_deleted_page").Methods("GET")
+	Router.HandleFunc("/mod/torrents/deleted", WrapModHandler(DeletedTorrentsPostPanel)).Name("mod_tlist_deleted").Methods("POST")
+	Router.HandleFunc("/mod/torrents/deleted/{page:[0-9]+}", WrapModHandler(DeletedTorrentsPostPanel)).Name("mod_tlist_deleted_page").Methods("POST")
+	Router.HandleFunc("/mod/reports", WrapModHandler(TorrentReportListPanel)).Name("mod_trlist")
+	Router.HandleFunc("/mod/reports/{page}", WrapModHandler(TorrentReportListPanel)).Name("mod_trlist_page")
+	Router.HandleFunc("/mod/users", WrapModHandler(UsersListPanel)).Name("mod_ulist")
+	Router.HandleFunc("/mod/users/{page}", WrapModHandler(UsersListPanel)).Name("mod_ulist_page")
+	Router.HandleFunc("/mod/comments", WrapModHandler(CommentsListPanel)).Name("mod_clist")
+	Router.HandleFunc("/mod/comments/{page}", WrapModHandler(CommentsListPanel)).Name("mod_clist_page")
+	Router.HandleFunc("/mod/comment", WrapModHandler(CommentsListPanel)).Name("mod_cedit") // TODO
+	Router.HandleFunc("/mod/torrent/", WrapModHandler(TorrentEditModPanel)).Name("mod_tedit").Methods("GET")
+	Router.HandleFunc("/mod/torrent/", WrapModHandler(TorrentPostEditModPanel)).Name("mod_ptedit").Methods("POST")
+	Router.HandleFunc("/mod/torrent/delete", WrapModHandler(TorrentDeleteModPanel)).Name("mod_tdelete")
+	Router.HandleFunc("/mod/torrent/block", WrapModHandler(TorrentBlockModPanel)).Name("mod_tblock")
+	Router.HandleFunc("/mod/report/delete", WrapModHandler(TorrentReportDeleteModPanel)).Name("mod_trdelete")
+	Router.HandleFunc("/mod/comment/delete", WrapModHandler(CommentDeleteModPanel)).Name("mod_cdelete")
+	Router.HandleFunc("/mod/reassign", WrapModHandler(TorrentReassignModPanel)).Name("mod_treassign").Methods("GET")
+	Router.HandleFunc("/mod/reassign", WrapModHandler(TorrentPostReassignModPanel)).Name("mod_treassign").Methods("POST")
+	Router.HandleFunc("/mod/api/torrents", WrapModHandler(ApiMassMod)).Name("mod_tapi").Methods("POST")
 
 	//reporting a torrent
-	Router.HandleFunc("/report/{id}", ReportTorrentHandler).Methods("POST").Name("post_comment")
+	Router.HandleFunc("/report/{id}", ReportTorrentHandler).Methods("POST").Name("torrent_report")
 
 	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
+
+	Router.Handle("/dumps", gzipDatabaseDumpHandler).Name("dump").Methods("GET")
 
 	Router.HandleFunc("/language", SeeLanguagesHandler).Methods("GET").Name("see_languages")
 	Router.HandleFunc("/language", ChangeLanguageHandler).Methods("POST").Name("change_language")

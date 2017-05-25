@@ -8,7 +8,7 @@ import (
 
 // HasAdmin checks that user has an admin permission.
 func HasAdmin(user *model.User) bool {
-	return user.Status == 2
+	return user.IsModerator()
 }
 
 // CurrentOrAdmin check that user has admin permission or user is the current user.
@@ -25,18 +25,18 @@ func CurrentUserIdentical(user *model.User, userID uint) bool {
 
 func NeedsCaptcha(user *model.User) bool {
 	// Trusted members & Moderators don't
-	return !(user.Status == 1 || user.Status == 2)
+	return !(user.IsTrusted() || user.IsModerator())
 }
 
 func GetRole(user *model.User) string {
 	switch user.Status {
-	case -1:
+	case model.UserStatusBanned:
 		return "Banned"
-	case 0:
+	case model.UserStatusMember:
 		return "Member"
-	case 1:
+	case model.UserStatusTrusted:
 		return "Trusted Member"
-	case 2:
+	case model.UserStatusModerator:
 		return "Moderator"
 	}
 	return "Member"

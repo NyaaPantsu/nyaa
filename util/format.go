@@ -25,10 +25,3 @@ func FormatFilesize(bytes int64) string {
 	}
 	return fmt.Sprintf("%.1f %s", value, unit)
 }
-
-func FormatFilesize2(bytes int64) string {
-	if bytes == 0 { // this is what gorm returns for NULL
-		return "Unknown"
-	}
-	return FormatFilesize(bytes)
-}

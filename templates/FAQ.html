@@ -1,69 +1,70 @@
-{{define "title"}}{{T "faq"}}{{end}}
+{{define "title"}}{{call $.T "faq"}}{{end}}
 {{define "content"}}
-    <div class="blockBody">
+    <div style="text-align: left;" class="box">
         <!-- marquees are the true purpose of HTML -->
-        <marquee><h2>{{T "notice_keep_seeding"}}</h2></marquee>
+        <marquee><h2>{{call $.T "notice_keep_seeding"}}</h2></marquee>
 
-        <h1>{{T "official_nyaapocalipse_faq"}}</h1>
+        <h1>{{call $.T "official_nyaapocalipse_faq"}}</h1>
         <br />
 
-        <h2>{{T "links_replacement_mirror"}}</h2>
+        <h2>{{call $.T "links_replacement_mirror"}}</h2>
         <a href="https://nyaa.pantsu.cat">Nyaa - nyaa.pantsu.cat</a><br />
         <a href="https://sukebei.pantsu.cat">Sukebei - sukebei.pantsu.cat</a>
 
-        <h2>{{T "what_happened"}}</h2>
+        <h2>{{call $.T "server_status_link"}}</h2>
+        <a href="https://status.pantsu.cat/">https://status.pantsu.cat/</a><br />
+
+        <h2>{{call $.T "what_happened"}}</h2>
         <ul>
-            <li>{{T "nyaa_se_went_offline"}}</li>
-            <li>{{T "its_not_a_ddos"}}</li>
-            <li>{{T "future_not_looking_good"}}</li>
-            <li>{{T "recovery_effort"}}</li>
+            <li>{{call $.T "nyaa_se_went_offline"}}</li>
+            <li>{{call $.T "its_not_a_ddos"}}</li>
+            <li>{{call $.T "future_not_looking_good"}}</li>
+            <li>{{call $.T "recovery_effort"}}</li>
         </ul>
 
-        <h2>{{T "is_everything_lost"}}</h2>
-        <p>{{T "in_short_no"}}</p>
+        <h2>{{call $.T "is_everything_lost"}}</h2>
+        <p>{{call $.T "in_short_no"}}</p>
 
-        <h2>{{T "are_some_things_lost"}}</h2>
-        <p>{{T "answer_is_nyaa_db_lost"}}</p>
-        <p>{{T "answer_is_sukebei_db_lost"}}</p>
+        <h2>{{call $.T "are_some_things_lost"}}</h2>
+        <p>{{call $.T "answer_is_nyaa_db_lost"}}</p>
+        <p>{{call $.T "answer_is_sukebei_db_lost"}}</p>
 
-        <h2>{{T "how_are_we_recovering"}}</h2>
-        <p>{{T "answer_how_are_we_recovering"}}</p>
+        <h2>{{call $.T "how_are_we_recovering"}}</h2>
+        <p>{{call $.T "answer_how_are_we_recovering"}}</p>
 
-        <h2>{{T "are_the_trackers_working"}}</h2>
-        <p>{{T "answer_are_the_trackers_working"}}</p>
+        <h2>{{call $.T "are_the_trackers_working"}}</h2>
+        <p>{{call $.T "answer_are_the_trackers_working"}}</p>
 
-        <h2>{{T "how_do_i_download_the_torrents"}}</h2>
-        <p>{{T "answer_how_do_i_download_the_torrents"}}</p>
-        <p>{{T "magnet_link_should_look_like"}} <span style="font-family:monospace">
+        <h2>{{call $.T "how_do_i_download_the_torrents"}}</h2>
+        <p>{{call $.T "answer_how_do_i_download_the_torrents"}}</p>
+        <p>{{call $.T "magnet_link_should_look_like"}} <span style="font-family:monospace">
             magnet:?xt=urn:btih:[hash]&amp;dn=[name]&amp;tr=[tracker]&amp;tr=[...]</span></p>
 
-        <h2>{{T "how_do_i_link_my_old_account"}}</h2>
-        <p>{{T "answer_how_do_i_link_my_old_account"}}</p>
+        <h2>{{call $.T "how_do_i_link_my_old_account"}}</h2>
+        <p>{{call $.T "answer_how_do_i_link_my_old_account"}}</p>
 
-        <h2 id="trackers">{{T "which_trackers_do_you_recommend"}}</h2>
-        <p>{{T "answer_which_trackers_do_you_recommend"}}</p>
-        <pre>udp://tracker.doko.moe:6969</pre>
-        <p>{{T "other_trackers"}}</p>
-        <pre>
-udp://zer0day.to:1337/announce
-udp://tracker.leechers-paradise.org:6969
-udp://explodie.org:6969
-udp://tracker.opentrackr.org:1337
-udp://tracker.internetwarriors.net:1337/announce
-http://mgtracker.org:6969/announce
-http://tracker.baka-sub.cf/announce</pre>
+        <h2 id="trackers">{{call $.T "which_trackers_do_you_recommend"}}</h2>
+        <p>{{call $.T "answer_which_trackers_do_you_recommend"}}</p>
+	<pre>udp://tracker.doko.moe:6969 
+udp://zer0day.to:1337/announce 
+udp://tracker.leechers-paradise.org:6969 
+udp://explodie.org:6969 
+udp://tracker.opentrackr.org:1337 
+udp://tracker.internetwarriors.net:1337/announce 
+http://mgtracker.org:6969/announce 
+http://tracker.baka-sub.cf/announce</pre> 
 
-        <h2>{{T "how_can_i_help"}}</h2>
-        <p>{{T "answer_how_can_i_help"}}</p>
+        <h2>{{call $.T "how_can_i_help"}}</h2>
+        <p>{{call $.T "answer_how_can_i_help"}}</p>
 
-        <h2>{{T "your_design_sucks_found_a_bug"}}</h2>
+        <h2>{{call $.T "your_design_sucks_found_a_bug"}}</h2>
         <p><a href="https://github.com/NyaaPantsu/nyaa/issues">https://github.com/NyaaPantsu/nyaa/issues</a>.</p>
 
-        <h2>{{T "why_written_in_go"}}</h2>
-        <p>{{T "authors_favorite_language"}}</p>
+        <h2>{{call $.T "why_written_in_go"}}</h2>
+        <p>{{call $.T "authors_favorite_language"}}</p>
 
-		<h2>{{T "who_is_renchon"}}</h2>
-		<p>{{T "renchon_anon_explanation" }}</p>
+		<h2>{{call $.T "who_is_renchon"}}</h2>
+		<p>{{call $.T "renchon_anon_explanation" }}</p>
 
         <br />
 

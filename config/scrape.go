@@ -21,7 +21,7 @@ var DefaultScraperConfig = ScraperConfig{
 	// every hour
 	IntervalSeconds: 60 * 60,
 	Trackers: []ScrapeConfig{
-		ScrapeConfig{
+		{
 			URL:  "udp://tracker.coppersurfer.tk:6969/",
 			Name: "coppersurfer.tk",
 		},

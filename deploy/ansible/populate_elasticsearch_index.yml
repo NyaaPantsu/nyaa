@@ -1,0 +1,13 @@
+- name: Populate elasticsearch index from database
+  hosts: dbs
+  roles:
+    - common
+    - postgresql
+    - elasticsearch
+
+  tasks:
+    - name: Index the database into elasticsearch
+      command: python "{{ nyaapantsu_directory }}/index_nyaapantsu.py"
+      environment:
+        PANTSU_DBPARAMS: "host=localhost port={{ nyaapantsu_pgpool_port }} user={{ nyaapantsu_user }} dbname={{ nyaapantsu_dbname }} sslmode=disable password={{ nyaapantsu_password }}"
+        PANTSU_ELASTICSEARCH_INDEX: "{{ nyaapantsu_elasticsearch_index }}"

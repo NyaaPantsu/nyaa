@@ -1,92 +1,41 @@
 {{define "title"}}Upload magnet{{end}}
 {{define "content"}}
-  <div class="blockBody">
   {{with .Upload}}
-  <hr>
+  <div style="text-align: left;" class="box">
   <form enctype="multipart/form-data" role="upload" method="POST">
+    {{ range (index $.FormErrors "errors")}}
+      <div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
+    {{end}}
+      <label class="input-label" for="name">{{call $.T "name"}}</label> <br>
+          <input type="text" name="name" id="name" class="form-input up-input" placeholder="{{call $.T "file_name"}}" value="{{.Name}}" autofocus required> <br>
+     <label class="input-label" for="torrent">{{call $.T "torrent_file"}}</label> <br>
+          <input type="file" name="torrent" id="torrent" class="form-input up-input" accept=".torrent">
+          <i>{{call $.T "uploading_file_prefills_fields"}}</i><br>
+     <label class="input-label" for="magnet">{{call $.T "magnet_link"}}</label><br>
+     <input type="text" name="magnet" id="magnet" class="form-input up-input"
+          style="width:30rem" placeholder="{{call $.T "magnet_link"}}" value="{{.Magnet}}">
+<i>{{ call $.T "please_include_our_tracker" }}</i> <br>
 
-      <div class="form-group">
-      <label for="name">{{T "name"}}</label>
-          <input type="text" name="name" id="name" class="form-control" placeholder="{{T "file_name"}}" value="{{.Name}}" autofocus required>
-      </div>
-      <div class="form-group">
-          <label for="torrent">{{T "torrent_file"}}</label>
-          <input type="file" name="torrent" id="torrent" accept=".torrent">
-          <p class="help-block">{{T "uploading_file_prefills_fields"}}</p>
-      </div>
-      <div class="form-group">
-          <label for="magnet">{{T "magnet_link"}}</label>
-          <input  type="text" name="magnet" id="magnet" class="form-control"
-          style="width:60rem" placeholder="{{T "magnet_link"}}" value="{{.Magnet}}">
-      </div>
-      <div class="form-group">
-          <label for="c">{{T "category"}}</label>
-          <select name="c" id="c" class="form-control input-sm" required>
-              <option value="">{{T "select_a_torrent_category"}}</option>
-              {{ if Sukebei }}
-              <option value="1_" {{if eq .Category "1_"}}selected{{end}}>{{T "art"}}</option>
-              <option value="1_1" {{if eq .Category "1_1"}}selected{{end}}>{{T "art_anime"}}</option>
-              <option value="1_2" {{if eq .Category "1_2"}}selected{{end}}>{{T "art_doujinshi"}}</option>
-              <option value="1_3" {{if eq .Category "1_3"}}selected{{end}}>{{T "art_games"}}</option>
-              <option value="1_4" {{if eq .Category "1_4"}}selected{{end}}>{{T "art_manga"}}</option>
-              <option value="1_5" {{if eq .Category "1_5"}}selected{{end}}>{{T  "art_pictures"}}</option>
-              <option value="2_" {{if eq .Category "2_"}}selected{{end}}>{{T "real_life"}}</option>
-              <option value="2_1" {{if eq .Category "2_1"}}selected{{end}}>{{T "real_life_photobooks_and_Pictures"}}</option>
-              <option value="2_2" {{if eq .Category "2_2"}}selected{{end}}>{{T "real_life_videos"}}</option>
-              {{ else }}
-              <option value="3_" {{if eq .Category "3_"}}selected{{end}}>{{T "anime"}}</option>
-              <option value="3_12" {{if eq .Category "3_12"}}selected{{end}}>{{T "anime_amv"}}</option>
-              <option value="3_5" {{if eq .Category "3_5"}}selected{{end}}>{{T "anime_english_translated"}}</option>
-              <option value="3_13" {{if eq .Category "3_13"}}selected{{end}}>{{T "anime_non_english_translated"}}</option>
-              <option value="3_6" {{if eq .Category "3_6"}}selected{{end}}>{{T "anime_raw"}}</option>
-              <option value="2_" {{if eq .Category "2_"}}selected{{end}}>{{T "audio"}}</option>
-              <option value="2_3" {{if eq .Category "2_3"}}selected{{end}}>{{T "audio_lossless"}}</option>
-              <option value="2_4" {{if eq .Category "2_4"}}selected{{end}}>{{T "audio_lossy"}}</option>
-              <option value="4_" {{if eq .Category "4_"}}selected{{end}}>{{T "literature"}}</option>
-              <option value="4_7" {{if eq .Category "4_7"}}selected{{end}}>{{T "literature_english_translated"}}</option>
-              <option value="4_8" {{if eq .Category "4_8"}}selected{{end}}>{{T "literature_raw"}}</option>
-              <option value="4_14" {{if eq .Category "4_14"}}selected{{end}}>{{T "literature_non_english_translated"}}</option>
-              <option value="5_" {{if eq .Category "5_"}}selected{{end}}>{{T "live_action"}}</option>
-              <option value="5_9" {{if eq .Category "5_9"}}selected{{end}}>{{T "live_action_english_translated"}}</option>
-              <option value="5_10" {{if eq .Category "5_10"}}selected{{end}}>{{T "live_action_idol_pv"}}</option>
-              <option value="5_18" {{if eq .Category "5_18"}}selected{{end}}>{{T "live_action_non_english_translated"}}</option>
-              <option value="5_11" {{if eq .Category "5_11"}}selected{{end}}>{{T "live_action_raw"}}</option>
-              <option value="6_" {{if eq .Category "6_"}}selected{{end}}>{{T "pictures"}}</option>
-              <option value="6_15" {{if eq .Category "6_15"}}selected{{end}}>{{T "pictures_graphics"}}</option>
-              <option value="6_16" {{if eq .Category "6_16"}}selected{{end}}>{{T "pictures_photos"}}</option>
-              <option value="1_" {{if eq .Category "1_"}}selected{{end}}>{{T "software"}}</option>
-              <option value="1_1" {{if eq .Category "1_1"}}selected{{end}}>{{T "software_applications"}}</option>
-              <option value="1_2" {{if eq .Category "1_2"}}selected{{end}}>{{T "software_games"}}</option>
+          <label class="input-label" for="c">{{call $.T "category"}}</label> <br>
+          <select name="c" id="c" class="form-input up-input" required>
+              <option value="">{{call $.T "select_a_torrent_category"}}</option>
+              {{ range $name_cat, $id_cat := (GetCategories false) }}
+              <option value="{{ $id_cat }}" {{if eq $.Upload.Category $id_cat }}selected{{end}}>{{call $.T $name_cat }}</option>
               {{ end }}
           </select>
-          <p class="help-block">{{ T "please_include_our_tracker" }}</p>
-      </div>
-      <div class="form-group">
       	  <input type="checkbox" name="remake" id="remake" >
-          <label for="remake">{{T "mark_as_remake"}}</label>
-      </div>
+          <label for="remake">{{call $.T "mark_as_remake"}}</label> <br>
 
-      <div class="form-group">
-          <label for="desc">{{T "torrent_description"}}</label>
-          <p class="help-block">{{T "description_markdown_notice"}}</p>
-          <textarea name="desc" id="desc" class="form-contro torrent-desc" rows="15">{{.Description}}</textarea>
-      </div>
+        <label class="input-label" for="website_link">{{call $.T "website_link"}}</label> <br>
+        <input name="website_link" id="website_link" class="form-input up-input" type="text" value="{{.WebsiteLink}}"> <br>
+          <label class="input-label" for="desc">{{call $.T "torrent_description"}}</label>
+          <i>{{call $.T "description_markdown_notice"}}</i> <br>
+          <textarea name="desc" id="desc" class="form-input up-input" rows="50" cols="50">{{.Description}}</textarea> <br>
 
-      {{block "captcha" .}}{{end}}
+	  {{block "captcha" (makeCaptchaData .CaptchaID $.T)}}{{end}}
 
-      <button type="submit" class="btn btn-success">{{T "upload"}}</button>
-      <br />
-      <br />
+      <button type="submit" class="form-input up-btn">{{call $.T "upload"}}</button>
   </form>
-  {{end}}
   </div>
-{{end}}
-{{define "js_footer"}}
-  <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/uploadPage.js"}}"></script>
-  <script type="text/javascript" charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/markdown.js/0.5.0/markdown.min.js"></script>
-  <script type="text/javascript" charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/to-markdown/3.0.4/to-markdown.js"></script>
-  <script type="text/javascript" charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-markdown/2.10.0/js/bootstrap-markdown.js"></script>
-  <script>
-    $(".torrent-desc").markdown({resize: "both"})
-  </script>
+  {{end}}
 {{end}}

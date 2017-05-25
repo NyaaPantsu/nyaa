@@ -44,16 +44,26 @@ func stringIsAscii(input string) bool {
 }
 
 func SearchByQuery(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
-	search, tor, count, err = searchByQuery(r, pagenum, true)
+	search, tor, count, err = searchByQuery(r, pagenum, true, false, false)
+	return
+}
+
+func SearchByQueryWithUser(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
+	search, tor, count, err = searchByQuery(r, pagenum, true, true, false)
 	return
 }
 
 func SearchByQueryNoCount(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, err error) {
-	search, tor, _, err = searchByQuery(r, pagenum, false)
+	search, tor, _, err = searchByQuery(r, pagenum, false, false, false)
 	return
 }
 
-func searchByQuery(r *http.Request, pagenum int, countAll bool) (
+func SearchByQueryDeleted(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
+	search, tor, count, err = searchByQuery(r, pagenum, true, true, true)
+	return
+}
+
+func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool, deleted bool) (
 	search common.SearchParam, tor []model.Torrent, count int, err error,
 ) {
 	max, err := strconv.ParseUint(r.URL.Query().Get("max"), 10, 32)
@@ -116,22 +126,22 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 		search.Sort = common.Size
 		orderBy += "filesize"
 		// avoid sorting completely breaking on postgres
-		search.NotNull = "filesize IS NOT NULL"
+		search.NotNull = ""
 		break
 	case "5":
 		search.Sort = common.Seeders
 		orderBy += "seeders"
-		search.NotNull = "seeders IS NOT NULL"
+		search.NotNull = ""
 		break
 	case "6":
 		search.Sort = common.Leechers
 		orderBy += "leechers"
-		search.NotNull = "leechers IS NOT NULL"
+		search.NotNull = ""
 		break
 	case "7":
 		search.Sort = common.Completed
 		orderBy += "completed"
-		search.NotNull = "completed IS NOT NULL"
+		search.NotNull = ""
 		break
 	default:
 		search.Sort = common.ID
@@ -144,9 +154,16 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	case "true":
 		search.Order = true
 		orderBy += "asc"
+		if db.ORM.Dialect().GetName() == "postgres" {
+			orderBy += " NULLS FIRST"
+		}
 	default:
 		orderBy += "desc"
+		if db.ORM.Dialect().GetName() == "postgres" {
+			orderBy += " NULLS LAST"
+		}
 	}
+
 	parameters := serviceBase.WhereParams{
 		Params: make([]interface{}, 0, 64),
 	}
@@ -203,9 +220,12 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool) (
 	log.Infof("SQL query is :: %s\n", parameters.Conditions)
 
 	tor, count, err = cache.Impl.Get(search, func() (tor []model.Torrent, count int, err error) {
-
-		if countAll {
+		if deleted {
+			tor, count, err = torrentService.GetDeletedTorrents(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
+		} else if countAll && !withUser {
 			tor, count, err = torrentService.GetTorrentsOrderBy(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
+		} else if withUser {
+			tor, count, err = torrentService.GetTorrentsWithUserOrderBy(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
 		} else {
 			tor, err = torrentService.GetTorrentsOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max)*(search.Page-1))
 		}

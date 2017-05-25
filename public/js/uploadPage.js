@@ -1,7 +1,7 @@
 (function() {
 	var torrent = $("input[name=torrent]"),
-		magnet = $("input[name=magnet]"),
-		name = $("input[name=name]");
+	magnet = $("input[name=magnet]"),
+	name = $("input[name=name]");
 
 	torrent.on("change", function() {
 		if (torrent.val() == "") {

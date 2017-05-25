@@ -321,11 +321,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Nous avons maintenant notre propre tracker appelé doko.moe, placez-le en haut de la liste avant d'uploader :"
-  },
-  {
-    "id": "other_trackers",
-    "translation": "Mais vous devriez aussi ajouter ceux-ci, dans le cas où cela ne fonctionnerait pas :"
+    "translation": "Nous avons maintenant notre propre tracker appelé doko.moe, placez-le en haut de la liste avant d'uploader. Vous devriez également ajouter plusieurs autres trackers pour assurer la pérennité du torrent :"
   },
   {
     "id": "how_can_i_help",
@@ -482,6 +478,10 @@
   {
     "id": "art_manga",
     "translation": "Art - Manga"
+  },
+  {
+    "id": "art_pictures",
+    "translation": "Art - Images"
   },
   {
     "id": "real_life",
@@ -684,6 +684,10 @@
     "translation": "Supprimer"
   },
   {
+    "id": "website_link",
+    "translation": "Lien du site web"
+  },
+  {
     "id": "files",
     "translation": "Fichiers"
   },
@@ -746,5 +750,217 @@
   {
     "id": "please_include_our_tracker",
     "translation": "Veuillez inclure udp://tracker.doko.moe:6969 dans vos trackers."
+  },
+  {
+    "id": "unknown",
+    "translation": "Inconnu"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "Dernier scrape effectué : "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "Statut du serveur"
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "Aucune sauvegarde de base de données n'est disponible en ce moment."
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "Effacer les notifications"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "Notifications supprimées !"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "Mes Notifications"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "Nouveau torrent : \"%s\" de %s"
+  },
+  {
+    "id": "preferences",
+    "translation": "Préférences"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "Être notifié des nouveaux torrents de vos abonnements"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "Être notifié par email des nouveaux torrents de vos abonnements"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "Être notifié des nouveaux commentaires sur vos torrents"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "Être notifié par email des nouveaux commentaires sur vos torrents"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "Être notifié des nouvelles réponses à vos commentaires"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "Être notifié par email des nouvelles réponses à vos commentaires"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "Être notifié de vos nouveaux abonnés"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "Être notifié par email de vos nouveaux abonnés"
+  },
+  {
+    "id": "followed_settings",
+    "translation": "Être notifié de vos nouveaux abonnements"
+  },
+  {
+    "id": "followed_email_settings",
+    "translation": "Être notifié par email de vos nouveaux abonnements"
+  },
+  {
+    "id": "yes",
+    "translation": "Oui"
+  },
+  {
+    "id": "no",
+    "translation": "Non"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "Nouveau commentaire sur le torrent : \"%s\""
+  },
+  {
+    "id": "no_action_selected",
+    "translation": "Vous devez indiquer ce que vous souhaitez faire avec votre sélection."
+  },
+  {
+    "id": "no_move_location_selected",
+    "translation": "Vous devez indiquer où vous souhaitez déplacer votre sélection."
+  },
+  {
+    "id": "select_one_element",
+    "translation": "Vous devez sélectionner au moins un élément."
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "Le torrent %s a été déplacé."
+  },
+  {
+    "id": "no_status_exist",
+    "translation": "Le statut %d n'existe pas."
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "Le torrent %s a été supprimé."
+  },
+  {
+    "id": "no_action_exist",
+    "translation": "L'action %s n'existe pas."
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "Le torrent d'ID %s n'existe pas."
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "Une erreur s'est produite."
+  },
+  {
+    "id": "nb_torrents_updated",
+    "translation": "%d torrents mis à jour."
+  },
+  {
+    "id": "torrent_updated",
+    "translation": "Les détails du torrent ont été mis à jour."
+  },
+  {
+    "id": "fail_torrent_update",
+    "translation": "La mise à jour du torrent a échoué."
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "Mauvais captcha !"
+  },
+  {
+    "id": "comment_empty",
+    "translation": "Commentaire vide !"
+  },
+  {
+    "id": "no_owner_selected",
+    "translation": "Le nom du nouveau propriétaire du torrent est requis."
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "Aucune catégorie n'a été sélectionnée."
+  },
+  {
+    "id": "no_user_found_id",
+    "translation": "L'utilisateur d'ID %d ne figure pas dans la base de données."
+  },
+  {
+    "id": "invalid_torrent_category",
+    "translation": "La catégorie spécifiée n'existe pas."
+  },
+  {
+    "id": "torrent_owner_changed",
+    "translation": "Le propriétaire du torrent \"%s\" a été modifié."
+  },
+  {
+    "id": "torrent_category_changed",
+    "translation": "La catégorie du torrent \"%s\" a été modifiée."
+  },
+  {
+    "id": "torrent_reports_deleted",
+    "translation": "Les signalements du torrent \"%s\" ont été supprimés."
+  },
+  {
+    "id": "edit",
+    "translation": "Éditer"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "Vous ne pourrez pas récupérer ce fichier, ni empêcher quelqu'un de le réuploader."
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "Supprimer définitivement"
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "Débloquer"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "Bloquer"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "Le torrent a été effacé de la base de données."
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "Le torrent a été débloqué."
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "Le torrent a été bloqué."
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "Torrents non supprimés"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "Torrents supprimés"
   }
 ]

@@ -11,6 +11,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service"
 	"github.com/NyaaPantsu/nyaa/util"
+	//	"github.com/NyaaPantsu/nyaa/util/log"
 )
 
 /* Function to interact with Models
@@ -24,7 +25,7 @@ func GetFeeds() (result []model.Feed, err error) {
 	result = make([]model.Feed, 0, 50)
 	rows, err := db.ORM.DB().
 		Query(
-			"SELECT `torrent_id` AS `id`, `torrent_name` AS `name`, `torrent_hash` AS `hash`, `timestamp` FROM `" + config.TableName +
+			"SELECT `torrent_id` AS `id`, `torrent_name` AS `name`, `torrent_hash` AS `hash`, `timestamp` FROM `" + config.TorrentsTableName +
 				"` ORDER BY `timestamp` desc LIMIT 50")
 	if err != nil {
 		return nil, err
@@ -53,14 +54,17 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 		return
 	}
 
-	tmp := db.ORM.Table(config.TableName).Where("torrent_id = ?", id).Preload("Comments").Preload("FileList")
+	tmp := db.ORM.Where("torrent_id = ?", id).Preload("Comments")
+	if id_int > config.LastOldTorrentID {
+		tmp = tmp.Preload("FileList")
+	}
+	if id_int <= config.LastOldTorrentID && !config.IsSukebei() {
+		// only preload old comments if they could actually exist
+		tmp = tmp.Preload("OldComments")
+	}
 	err = tmp.Error
 	if err != nil {
 		return
-	}
-	if id_int <= config.LastOldTorrentID {
-		// only preload old comments if they could actually exist
-		tmp = tmp.Preload("OldComments")
 	}
 	if tmp.Find(&torrent).RecordNotFound() {
 		err = errors.New("Article is not found.")
@@ -91,27 +95,31 @@ func GetTorrentById(id string) (torrent model.Torrent, err error) {
 // won't fetch user or comments
 func GetRawTorrentById(id uint) (torrent model.Torrent, err error) {
 	err = nil
-	if db.ORM.Table(config.TableName).Table(config.TableName).Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
+	if db.ORM.Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
 		err = errors.New("Article is not found.")
 	}
 	return
 }
 
 func GetTorrentsOrderByNoCount(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, err error) {
-	torrents, _, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, false)
+	torrents, _, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, false, false, false)
 	return
 }
 
 func GetTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, count int, err error) {
-	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true)
+	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true, false, false)
 	return
 }
 
-func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int, countAll bool) (
+func GetTorrentsWithUserOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, count int, err error) {
+	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true, true, false)
+	return
+}
+
+func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int, countAll bool, withUser bool, deleted bool) (
 	torrents []model.Torrent, count int, err error,
 ) {
 	var conditionArray []string
-	conditionArray = append(conditionArray, "deleted_at IS NULL")
 	var params []interface{}
 	if parameters != nil { // if there is where parameters
 		if len(parameters.Conditions) > 0 {
@@ -119,18 +127,23 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 		}
 		params = parameters.Params
 	}
+	if !deleted {
+		conditionArray = append(conditionArray, "deleted_at IS NULL")
+	} else {
+		conditionArray = append(conditionArray, "deleted_at NOT NULL")		
+	}
+	
 	conditions := strings.Join(conditionArray, " AND ")
+
 	if countAll {
-		// FIXME: `deleted_at IS NULL` is duplicate in here because GORM handles this for us
-		err = db.ORM.Model(&torrents).Table(config.TableName).Where(conditions, params...).Count(&count).Error
+		err = db.ORM.Unscoped().Model(&torrents).Where(conditions, params...).Count(&count).Error
 		if err != nil {
 			return
 		}
 	}
-	// TODO: Vulnerable to injections. Use query builder. (is it?)
 
 	// build custom db query for performance reasons
-	dbQuery := "SELECT * FROM " + config.TableName
+	dbQuery := "SELECT * FROM " + config.TorrentsTableName
 	if conditions != "" {
 		dbQuery = dbQuery + " WHERE " + conditions
 	}
@@ -146,7 +159,14 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 	if limit != 0 || offset != 0 { // if limits provided
 		dbQuery = dbQuery + " LIMIT " + strconv.Itoa(limit) + " OFFSET " + strconv.Itoa(offset)
 	}
-	err = db.ORM.Preload("Comments").Raw(dbQuery, params...).Find(&torrents).Error
+	dbQ := db.ORM
+	if withUser {
+		dbQ = dbQ.Preload("Uploader")
+	}
+	if countAll {
+		dbQ = dbQ.Preload("Comments")
+	}
+	err = dbQ.Raw(dbQuery, params...).Find(&torrents).Error
 	return
 }
 
@@ -177,19 +197,51 @@ func GetAllTorrentsDB() ([]model.Torrent, int, error) {
 
 func DeleteTorrent(id string) (int, error) {
 	var torrent model.Torrent
-	if db.ORM.Table(config.TableName).First(&torrent, id).RecordNotFound() {
+	if db.ORM.First(&torrent, id).RecordNotFound() {
 		return http.StatusNotFound, errors.New("Torrent is not found.")
 	}
-	if db.ORM.Table(config.TableName).Delete(&torrent).Error != nil {
-		return http.StatusInternalServerError, errors.New("Torrent is not deleted.")
+	if db.ORM.Delete(&torrent).Error != nil {
+		return http.StatusInternalServerError, errors.New("Torrent was not deleted.")
 	}
 	return http.StatusOK, nil
 }
 
+func DefinitelyDeleteTorrent(id string) (int, error) {
+	var torrent model.Torrent
+	if db.ORM.Unscoped().Model(&torrent).First(&torrent, id).RecordNotFound() {
+		return http.StatusNotFound, errors.New("Torrent is not found.")
+	}
+	if db.ORM.Unscoped().Model(&torrent).Delete(&torrent).Error != nil {
+		return http.StatusInternalServerError, errors.New("Torrent was not deleted.")
+	}
+	return http.StatusOK, nil
+}
+
+func ToggleBlockTorrent(id string) (model.Torrent, int, error) {
+	var torrent model.Torrent
+	if db.ORM.Unscoped().Model(&torrent).First(&torrent, id).RecordNotFound() {
+		return torrent, http.StatusNotFound, errors.New("Torrent is not found.")
+	}
+	if torrent.Status == model.TorrentStatusBlocked {
+		torrent.Status = model.TorrentStatusNormal
+	} else {
+		torrent.Status = model.TorrentStatusBlocked		
+	}
+	if db.ORM.Unscoped().Model(&torrent).UpdateColumn(&torrent).Error != nil {
+		return torrent, http.StatusInternalServerError, errors.New("Torrent was not updated.")
+	}
+	return torrent, http.StatusOK, nil
+}
+
 func UpdateTorrent(torrent model.Torrent) (int, error) {
-	if db.ORM.Table(config.TableName).Save(torrent).Error != nil {
-		return http.StatusInternalServerError, errors.New("Torrent is not updated.")
+	if db.ORM.Model(&torrent).UpdateColumn(&torrent).Error != nil {
+		return http.StatusInternalServerError, errors.New("Torrent was not updated.")
 	}
 
 	return http.StatusOK, nil
+}
+
+func GetDeletedTorrents(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, count int, err error) {
+	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true, true, true)
+	return
 }

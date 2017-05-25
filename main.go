@@ -24,12 +24,16 @@ import (
 
 // RunServer runs webapp mainloop
 func RunServer(conf *config.Config) {
+	// TODO Use config from cli
+	os.Mkdir(router.DatabaseDumpPath, 700)
+	// TODO Use config from cli
+	os.Mkdir(router.GPGPublicKeyPath, 700)
 	http.Handle("/", router.Router)
 
 	// Set up server,
 	srv := &http.Server{
-		WriteTimeout: 5 * time.Second,
-		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 30 * time.Second,
+		ReadTimeout:  10 * time.Second,
 	}
 	l, err := network.CreateHTTPListener(conf)
 	log.CheckError(err)

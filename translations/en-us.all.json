@@ -480,6 +480,10 @@
     "translation": "Art - Manga"
   },
   {
+    "id": "art_pictures",
+    "translation": "Art - Pictures"
+  },
+  {
     "id": "real_life",
     "translation": "Real Life"
   },
@@ -680,6 +684,10 @@
     "translation": "Delete"
   },
   {
+    "id": "website_link",
+    "translation": "Website Link"
+  },
+  {
     "id": "files",
     "translation": "Files"
   },
@@ -750,5 +758,209 @@
   {
     "id": "last_scraped",
     "translation": "Last scraped: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "Server status can be found here"
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "No database dumps are available at this moment."
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "Clear Notifications"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "Notifications erased!"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "My Notifications"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "New torrent: \"%s\" from %s"
+  },
+  {
+    "id": "preferences",
+    "translation": "Preferences"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "Be notified when a new torrent is added from a user followed"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "Be notified by e-mail when a new torrent is added from a user followed"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "Be notified when there is a new comment on your torrents"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "Be notified by e-mail when there is a new comment on your torrents"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "Be notified when there is a new response to your comment"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "Be notified by e-mail when there is a new response to your comment"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "Be notified when you have a new follower"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "Be notified by e-mail when you have a new follower"
+  },
+  {
+    "id": "followed_settings",
+    "translation": "Be notified when you have followed someone"
+  },
+  {
+    "id": "followed_email_settings",
+    "translation": "Be notified by e-mail when you have followed someone"
+  },
+  {
+    "id": "yes",
+    "translation": "Yes"
+  },
+  {
+    "id": "no",
+    "translation": "No"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "New comment on torrent: \"%s\""
+  },
+  {
+    "id": "no_action_selected",
+    "translation": "You have to tell what you want to do with your selection!"
+  },
+  {
+    "id": "no_move_location_selected",
+    "translation": "Thou has't to telleth whither thee wanteth to moveth thy selection!"
+  },
+  {
+    "id": "select_one_element",
+    "translation": "You need to select at least 1 element!"
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "Torrent %s moved!"
+  },
+  {
+    "id": "no_status_exist",
+    "translation": "No such status %d exist!"
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "Torrent %s deleted!"
+  },
+  {
+    "id": "no_action_exist",
+    "translation": "No such action %s exist!"
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "Torrent with ID %s doesn't exist!"
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "Something went wrong"
+  },
+  {
+    "id": "nb_torrents_updated",
+    "translation": "%d torrents updated."
+  },
+  {
+    "id": "torrent_updated",
+    "translation": "Torrent details updated."
+  },
+  {
+    "id": "fail_torrent_update",
+    "translation": "Failed to update torrent!"
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "Bad captcha!"
+  },
+  {
+    "id": "comment_empty",
+    "translation": "Comment empty!"
+  },
+  {
+    "id": "no_owner_selected",
+    "translation": "New torrent owner is needed!"
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "No category selected!"
+  },
+  {
+    "id": "no_user_found_id",
+    "translation": "User with id %d isn't in the database!"
+  },
+  {
+    "id": "invalid_torrent_category",
+    "translation": "Torrent category doesn't exist!"
+  },
+  {
+    "id": "torrent_owner_changed",
+    "translation": "Owner of torrent \"%s\" has been successfully changed!"
+  },
+  {
+    "id": "torrent_category_changed",
+    "translation": "Category of torrent \"%s\" has been changed!"
+  },
+  {
+    "id": "torrent_reports_deleted",
+    "translation": "Reports of torrent \"%s\" were deleted!"
+  },
+  {
+    "id": "edit",
+    "translation": "Edit"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "You will not be able to recover the file, neither stop someone to reupload it!"
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "Delete definitely"
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "Unlock"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "Lock"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "Torrent has been erased from the database!"
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "Torrent has been unlocked!"
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "Torrent has been locked!"
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "Torrents not deleted"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "Torrents deleted"
   }
 ]

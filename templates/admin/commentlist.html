@@ -15,7 +15,7 @@
     <td><a>{{ .Content }}</a></td>
     <td><a href="{{ genViewTorrentRoute .TorrentID }}">{{ .TorrentID }}</a></td>
     <td>{{ .UserID }}</td>
-    <td><a href="{{ genRoute "mod_cdelete" }}?id={{.ID}}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i> {{ T "delete" }}</a></td></tr>
+    <td><a href="{{ genRoute "mod_cdelete" }}?id={{.ID}}" class="btn btn-danger btn-lg" onclick="if (!confirm('Are you sure?')) return false;"><i class="glyphicon glyphicon-trash"></i> {{ call $.T "delete" }}</a></td></tr>
 {{end}}
 </table>
       <nav class="torrentNav" aria-label="Page navigation">
