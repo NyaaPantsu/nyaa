@@ -1,16 +1,18 @@
 package model
 
 import (
-	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/util"
-	"github.com/bradfitz/slice"
-
 	"fmt"
 	"html/template"
+	"context"
 	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
+	elastic "gopkg.in/olivere/elastic.v5"
+
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/bradfitz/slice"
 )
 
 const (
@@ -113,6 +115,19 @@ func (t *Torrent) IsBlocked() bool {
 
 func (t *Torrent) IsDeleted() bool {
 	return t.DeletedAt != nil
+}
+
+func (t Torrent) AddToESIndex(client *elastic.Client) error {
+	ctx := context.Background()
+	torrentJson := t.ToJSON()
+	_, err := client.Index().
+		Index(config.DefaultElasticsearchIndex).
+		Type(config.DefaultElasticsearchType).
+		Id(torrentJson.ID).
+		BodyJson(torrentJson).
+		Refresh("true").
+		Do(ctx)
+	return err
 }
 
 /* We need a JSON object instead of a Gorm structure because magnet URLs are

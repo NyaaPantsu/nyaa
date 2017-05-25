@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
@@ -202,6 +203,18 @@ func APIUploadHandler(w http.ResponseWriter, r *http.Request) {
 			Uploader:    &user,
 		}
 		db.ORM.Create(&torrent)
+
+		client, err := elastic.NewClient()
+		if err == nil {
+			err = torrent.AddToESIndex(client)
+			if err == nil {
+				log.Infof("Successfully added torrent to ES index.")
+			} else {
+				log.Errorf("Unable to add torrent to ES index: %s", err)
+			}
+		} else {
+			log.Errorf("Unable to create elasticsearch client: %s", err)
+		}
 		/*if err != nil {
 			util.SendError(w, err, 500)
 			return
@@ -260,12 +273,25 @@ func APIUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		update.UpdateTorrent(&torrent)
 
+/*
 		db.ORM.Model(&torrent).UpdateColumn(&torrent)
 		if err != nil {
 			util.SendError(w, err, 500)
 			return
+*/
+		db.ORM.Save(&torrent)
+
+		client, err := elastic.NewClient()
+		if err == nil {
+			err = torrent.AddToESIndex(client)
+			if err == nil {
+				log.Infof("Successfully updated torrent to ES index.")
+			} else {
+				log.Errorf("Unable to update torrent to ES index: %s", err)
+			}
+		} else {
+			log.Errorf("Unable to create elasticsearch client: %s", err)
 		}
-		fmt.Printf("%+v\n", torrent)
 	}
 }
 
