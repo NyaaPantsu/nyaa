@@ -60,11 +60,11 @@ Your browser does not support the audio element.
               </td>
               -->
               <td class="tr-links home-td">
-                  <a href="{{.Magnet}}" title="Magnet link">
+                  <a href="{{.Magnet}}" title="{{ call $.T "magnet_link" }}">
                       <div class="magnet-icon"></div>
                   </a>
                   {{if ne .TorrentLink ""}}
-                  <a href="{{.TorrentLink}}" title="Torrent file">
+                  <a href="{{.TorrentLink}}" title="{{ call $.T "torrent_file" }}">
                       <div class="download-icon"></div>
                   </a>
                   {{end}}
