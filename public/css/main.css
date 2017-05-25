@@ -95,7 +95,13 @@ float:  right; }
 select.form-input {
 	-webkit-appearance: none;
   	-moz-appearance: none;
-  	padding-right: 1.5rem;
+  	padding-right: 1.5rem;/
+  	background-color: white;
+  	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 48'%3E%3Cpath fill='%23676767' d='M24 34l18-20H6'/%3E%3C/svg%3E");
+  	background-position-x: right;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	background-size: auto 40%;
 }
 
 .form-icon {
@@ -111,15 +117,19 @@ select.form-input + .select-icon {
 	margin-right: 0.25rem;
 }
 
+.form-input.search-box { margin-right: -20px; }
 .form-input.search-box + .search-icon {
-	margin-left:  -2rem;
-	padding: 5px 10px;
+	left:  -5px;
+	position: relative;
+ 	padding: 0px;
+ 	width: 20px;
 	background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAQAAAADpb+tAAAAjUlEQVQIHQXBoU1DYQCAwXviUQw4LHlYJAnBYQmqW3wdpkk3wLAEAxCSCkLSFSowBIFCIH7uQCfd9dgCALrvr9Fo9NopoItG21ZNLR17A/TcHqCl0RXopw1AU6MH0KEdQKtGN6B1o0ugbb/NoKmXRrs27Rt9dw5oat2hr5667r3PzgAANPfREQAAzd3yD3GyOPKUaUBTAAAAAElFTkSuQmCC")
 				no-repeat
 				center center;
     border: none;
-	vertical-align: middle;
-}
+ 	vertical-align: middle;
+ 	box-shadow: none;
+ }
 
 .header .h-user {
 	display: inline-block;
