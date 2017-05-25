@@ -121,7 +121,11 @@ select.form-input {
 	background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAQAAAADpb+tAAAAjUlEQVQIHQXBoU1DYQCAwXviUQw4LHlYJAnBYQmqW3wdpkk3wLAEAxCSCkLSFSowBIFCIH7uQCfd9dgCALrvr9Fo9NopoItG21ZNLR17A/TcHqCl0RXopw1AU6MH0KEdQKtGN6B1o0ugbb/NoKmXRrs27Rt9dw5oat2hr5667r3PzgAANPfREQAAzd3yD3GyOPKUaUBTAAAAAElFTkSuQmCC")
 				no-repeat
 				center center;
+<<<<<<< HEAD
   	border: none;
+=======
+  border: none;
+>>>>>>> parentrepo/dev
 	vertical-align: middle;
 }
 .header .h-user {
