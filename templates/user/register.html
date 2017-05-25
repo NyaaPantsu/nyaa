@@ -1,7 +1,7 @@
 {{define "title"}}{{ call $.T "register_title" }}{{end}}
 {{define "contclass"}}cont-view{{end}}
 {{define "content"}}
-	    {{ with .RegistrationForm }}
+	    {{ with .Form }}
 		<div class="box">
 			<form role="form" method="POST">
 				<h2>{{call $.T "signup_box_title" }}</h2>

@@ -16,18 +16,19 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/NyaaPantsu/nyaa/util/filelist"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 	"github.com/NyaaPantsu/nyaa/util/log"
-	"github.com/NyaaPantsu/nyaa/util/filelist"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/gorilla/mux"
 )
 
+// ViewHandler : Controller for displaying a torrent
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	messages := msg.GetMessages(r)
-	user := GetUser(r)
+	user := getUser(r)
 
 	if r.URL.Query()["success"] != nil {
 		messages.AddInfo("infos", "Torrent uploaded successfully!")
@@ -49,7 +50,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	if userPermission.NeedsCaptcha(user) {
 		captchaID = captcha.GetID()
 	}
-	htv := ViewTemplateVariables{NewCommonVariables(r), b, folder, captchaID, messages.GetAllErrors(), messages.GetAllInfos()}
+	htv := viewTemplateVariables{newCommonVariables(r), b, folder, captchaID, messages.GetAllErrors(), messages.GetAllInfos()}
 
 	err = viewTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {
@@ -57,6 +58,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// ViewHeadHandler : Controller for checking a torrent
 func ViewHeadHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.ParseInt(vars["id"], 10, 32)
@@ -74,6 +76,7 @@ func ViewHeadHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(nil)
 }
 
+// PostCommentHandler : Controller for posting a comment
 func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
@@ -84,7 +87,7 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	currentUser := GetUser(r)
+	currentUser := getUser(r)
 	messages := msg.GetMessages(r)
 
 	if userPermission.NeedsCaptcha(currentUser) {
@@ -118,11 +121,12 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	ViewHandler(w, r)
 }
 
+// ReportTorrentHandler : Controller for sending a torrent report
 func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	messages := msg.GetMessages(r)
-	currentUser := GetUser(r)
+	currentUser := getUser(r)
 	if userPermission.NeedsCaptcha(currentUser) {
 		userCaptcha := captcha.Extract(r)
 		if !captcha.Authenticate(userCaptcha) {
@@ -148,19 +152,20 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 	ViewHandler(w, r)
 }
 
+// TorrentEditUserPanel : Controller for editing a user torrent by a user, after GET request
 func TorrentEditUserPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	torrent, _ := torrentService.GetTorrentById(id)
 	messages := msg.GetMessages(r)
-	currentUser := GetUser(r)
+	currentUser := getUser(r)
 	if userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
-		uploadForm := NewUploadForm()
+		uploadForm := newUploadForm()
 		uploadForm.Name = torrent.Name
 		uploadForm.Category = strconv.Itoa(torrent.Category) + "_" + strconv.Itoa(torrent.SubCategory)
 		uploadForm.Remake = torrent.Status == model.TorrentStatusRemake
 		uploadForm.WebsiteLink = string(torrent.WebsiteLink)
 		uploadForm.Description = string(torrent.Description)
-		htv := UserTorrentEdVbs{NewCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
+		htv := formTemplateVariables{newCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
 		err := userTorrentEd.ExecuteTemplate(w, "index.html", htv)
 		log.CheckError(err)
 	} else {
@@ -168,12 +173,13 @@ func TorrentEditUserPanel(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// TorrentPostEditUserPanel : Controller for editing a user torrent by a user, after post request
 func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
-	var uploadForm UploadForm
+	var uploadForm uploadForm
 	id := r.URL.Query().Get("id")
 	messages := msg.GetMessages(r)
 	torrent, _ := torrentService.GetTorrentById(id)
-	currentUser := GetUser(r)
+	currentUser := getUser(r)
 	if torrent.ID > 0 && userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
 		errUp := uploadForm.ExtractEditInfo(r)
 		if errUp != nil {
@@ -181,7 +187,7 @@ func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
 		}
 		if !messages.HasErrors() {
 			status := model.TorrentStatusNormal
-			uploadForm.Remake = r.FormValue(UploadFormRemake) == "on"
+			uploadForm.Remake = r.FormValue(uploadFormRemake) == "on"
 			if uploadForm.Remake { // overrides trusted
 				status = model.TorrentStatusRemake
 			} else if currentUser.IsTrusted() {
@@ -198,17 +204,18 @@ func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
 			db.ORM.Model(&torrent).UpdateColumn(&torrent)
 			messages.AddInfoT("infos", "torrent_updated")
 		}
-		htv := UserTorrentEdVbs{NewCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
-		err_ := userTorrentEd.ExecuteTemplate(w, "index.html", htv)
-		log.CheckError(err_)
+		htv := formTemplateVariables{newCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
+		err := userTorrentEd.ExecuteTemplate(w, "index.html", htv)
+		log.CheckError(err)
 	} else {
 		NotFoundHandler(w, r)
 	}
 }
 
+// TorrentDeleteUserPanel : Controller for deleting a user torrent by a user
 func TorrentDeleteUserPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
-	currentUser := GetUser(r)
+	currentUser := getUser(r)
 	torrent, _ := torrentService.GetTorrentById(id)
 	if userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
 		_, err := torrentService.DeleteTorrent(id)

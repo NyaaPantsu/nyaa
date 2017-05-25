@@ -1,17 +1,19 @@
 package router
 
 import (
+	"html"
+	"net/http"
+	"strconv"
+
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/gorilla/mux"
-	"html"
-	"net/http"
-	"strconv"
 )
 
+// SearchHandler : Controller for displaying search result page, accepting common search arguments
 func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
@@ -40,15 +42,15 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 
 	b := model.TorrentsToJSON(torrents)
 
-	common := NewCommonVariables(r)
-	common.Navigation = Navigation{nbTorrents, int(searchParam.Max), pagenum, "search_page"}
+	common := newCommonVariables(r)
+	common.Navigation = navigation{nbTorrents, int(searchParam.Max), pagenum, "search_page"}
 	// Convert back to strings for now.
-	common.Search = SearchForm{
+	common.Search = searchForm{
 		SearchParam:      searchParam,
 		Category:         searchParam.Category.String(),
 		ShowItemsPerPage: true,
 	}
-	htv := HomeTemplateVariables{common, b, messages.GetAllInfos()}
+	htv := modelListVbs{common, b, messages.GetAllErrors(), messages.GetAllInfos()}
 
 	err = searchTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {

@@ -181,7 +181,7 @@
   },
   {
     "id": "fap",
-    "translation": "秘密花园"
+    "translation": "TM射爆"
   },
   {
     "id": "fun",
@@ -750,5 +750,209 @@
   {
     "id": "last_scraped",
     "translation": "最后完成时间: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "服务器状态可以在这里查到"
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "目前没有任何的数据库备份可用."
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "清除所有提醒"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "已清除提醒!"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "我的提醒"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "新的资源: \"%s\" 来自 %s"
+  },
+  {
+    "id": "preferences",
+    "translation": "偏好设置"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "当我关注的人上传了新的资源时，请提醒我"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "当我关注的人上传了新的资源时，请通过邮件提醒我"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "当有人评论了我的资源时，请提醒我"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "当有人评论了我的资源时，请通过邮件提醒我"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "当有人回复了我的评论时，请提醒我"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "当有人回复了我的评论时，请通过邮件提醒我"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "当有人关注我时，请提醒我"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "当有人关注我时，请通过邮件提醒我"
+  },
+  {
+    "id": "followed_settings",
+    "translation": "当我关注了某人时，请提醒我"
+  },
+  {
+    "id": "followed_email_settings",
+    "translation": "当我关注了某人时，请通过邮件提醒我"
+  },
+  {
+    "id": "yes",
+    "translation": "是"
+  },
+  {
+    "id": "no",
+    "translation": "否"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "有人评论了您的资源: \"%s\""
+  },
+  {
+    "id": "no_action_selected",
+    "translation": "你不选点什么，我怎么知道你要干什么!"
+  },
+  {
+    "id": "no_move_location_selected",
+    "translation": "你不选点什么，我怎么知道你要移动什么！"
+  },
+  {
+    "id": "select_one_element",
+    "translation": "你至少应该选择一个项目!"
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "种子 %s 已被移动!"
+  },
+  {
+    "id": "no_status_exist",
+    "translation": "状态 %s 不存在!"
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "种子 %s 已被删除!"
+  },
+  {
+    "id": "no_action_exist",
+    "translation": "操作 %s 不存在!"
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "不存在ID为 %s 种子!"
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "不知道出了什么鬼问题"
+  },
+  {
+    "id": "nb_torrents_updated",
+    "translation": "种子 %d 已更新."
+  },
+  {
+    "id": "torrent_updated",
+    "translation": "种子详细信息已更新."
+  },
+  {
+    "id": "fail_torrent_update",
+    "translation": "更新种子信息失败!"
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "验证码输入错误!"
+  },
+  {
+    "id": "comment_empty",
+    "translation": "空的评论!"
+  },
+  {
+    "id": "no_owner_selected",
+    "translation": "种子需要新的主人!"
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "未选择任何分类!"
+  },
+  {
+    "id": "no_user_found_id",
+    "translation": "不存在ID为 %d 的用户!"
+  },
+  {
+    "id": "invalid_torrent_category",
+    "translation": "不存在的资源分类!"
+  },
+  {
+    "id": "torrent_owner_changed",
+    "translation": "种子 \"%s\" 的所有者已改变!"
+  },
+  {
+    "id": "torrent_category_changed",
+    "translation": "种子 \"%s\" 的分类已改变!"
+  },
+  {
+    "id": "torrent_reports_deleted",
+    "translation": "种子 \"%s\" 的举报信息已被删除!"
+  },
+  {
+    "id": "edit",
+    "translation": "编辑"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "除非你阻止另外一个正在上传这些文件的人，否则你无法恢复她们!"
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "确认删除"
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "解锁"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "锁定"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "该种子已从数据库中清除!"
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "种子已解锁!"
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "种子已锁定!"
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "种子没有被删除"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "种子已被删除"
   }
 ]

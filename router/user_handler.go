@@ -18,7 +18,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Getting View User Registration
+// UserRegisterFormHandler : Getting View User Registration
 func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 	_, errorUser := userService.CurrentUser(r)
 	// User is already connected, redirect to home
@@ -30,10 +30,10 @@ func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 	registrationForm := form.RegistrationForm{}
 	modelHelper.BindValueForm(&registrationForm, r)
 	registrationForm.CaptchaID = captcha.GetID()
-	urtv := UserRegisterTemplateVariables{
-		CommonTemplateVariables: NewCommonVariables(r),
-		RegistrationForm:        registrationForm,
-		FormErrors:              messages.GetAllErrors(),
+	urtv := formTemplateVariables{
+		commonTemplateVariables: newCommonVariables(r),
+		Form:       registrationForm,
+		FormErrors: messages.GetAllErrors(),
 	}
 	err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", urtv)
 	if err != nil {
@@ -41,7 +41,7 @@ func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Getting View User Login
+// UserLoginFormHandler : Getting View User Login
 func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
 	_, errorUser := userService.CurrentUser(r)
 	// User is already connected, redirect to home
@@ -53,10 +53,10 @@ func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
 	loginForm := form.LoginForm{}
 	modelHelper.BindValueForm(&loginForm, r)
 	messages := msg.GetMessages(r)
-	ulfv := UserLoginFormVariables{
-		CommonTemplateVariables: NewCommonVariables(r),
-		LoginForm:               loginForm,
-		FormErrors:              messages.GetAllErrors(),
+	ulfv := formTemplateVariables{
+		commonTemplateVariables: newCommonVariables(r),
+		Form:       loginForm,
+		FormErrors: messages.GetAllErrors(),
 	}
 
 	err := viewLoginTemplate.ExecuteTemplate(w, "index.html", ulfv)
@@ -65,7 +65,7 @@ func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Getting User Profile
+// UserProfileHandler :  Getting User Profile
 func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
@@ -74,7 +74,7 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser == nil {
-		currentUser := GetUser(r)
+		currentUser := getUser(r)
 		follow := r.URL.Query()["followed"]
 		unfollow := r.URL.Query()["unfollowed"]
 		deleteVar := r.URL.Query()["delete"]
@@ -84,7 +84,7 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 			if errUser != nil {
 				messages.ImportFromError("errors", errUser)
 			}
-			htv := UserVerifyTemplateVariables{NewCommonVariables(r), messages.GetAllErrors()}
+			htv := userVerifyTemplateVariables{newCommonVariables(r), messages.GetAllErrors()}
 			errorTmpl := viewUserDeleteTemplate.ExecuteTemplate(w, "index.html", htv)
 			if errorTmpl != nil {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -97,7 +97,7 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 				messages.AddInfof("infos", Ts("user_unfollowed_msg"), userProfile.Username)
 			}
 			userProfile.ParseSettings()
-			htv := UserProfileVariables{NewCommonVariables(r), &userProfile, messages.GetAllInfos()}
+			htv := userProfileVariables{newCommonVariables(r), &userProfile, messages.GetAllInfos()}
 
 			err := viewProfileTemplate.ExecuteTemplate(w, "index.html", htv)
 			if err != nil {
@@ -109,11 +109,11 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//Getting User Profile Details View
+// UserDetailsHandler : Getting User Profile Details View
 func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
-	currentUser := GetUser(r)
+	currentUser := getUser(r)
 	messages := msg.GetMessages(r)
 
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
@@ -123,7 +123,7 @@ func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
 			modelHelper.BindValueForm(&b, r)
 			availableLanguages := languages.GetAvailableLanguages()
 			userProfile.ParseSettings()
-			htv := UserProfileEditVariables{NewCommonVariables(r), &userProfile, b, messages.GetAllErrors(), messages.GetAllInfos(), availableLanguages}
+			htv := userProfileEditVariables{newCommonVariables(r), &userProfile, b, messages.GetAllErrors(), messages.GetAllInfos(), availableLanguages}
 			err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -134,11 +134,11 @@ func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Getting View User Profile Update
+// UserProfileFormHandler : Getting View User Profile Update
 func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
-	currentUser := GetUser(r)
+	currentUser := getUser(r)
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser != nil || !userPermission.CurrentOrAdmin(currentUser, userProfile.ID) || userProfile.ID == 0 {
 		NotFoundHandler(w, r)
@@ -185,8 +185,8 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	availableLanguages := languages.GetAvailableLanguages()
-	upev := UserProfileEditVariables{
-		CommonTemplateVariables: NewCommonVariables(r),
+	upev := userProfileEditVariables{
+		commonTemplateVariables: newCommonVariables(r),
 		UserProfile:             &userProfile,
 		UserForm:                userForm,
 		FormErrors:              messages.GetAllErrors(),
@@ -199,7 +199,7 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Post Registration controller, we do some check on the form here, the rest on user service
+// UserRegisterPostHandler : Post Registration controller, we do some check on the form here, the rest on user service
 func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 	b := form.RegistrationForm{}
 	messages := msg.GetMessages(r)
@@ -221,11 +221,11 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 					messages.ImportFromError("errors", errorUser)
 				}
 				if !messages.HasErrors() {
-					common := NewCommonVariables(r)
+					common := newCommonVariables(r)
 					common.User = &model.User{
 						Email: r.PostFormValue("email"), // indicate whether user had email set
 					}
-					htv := UserRegisterTemplateVariables{common, b, messages.GetAllErrors()}
+					htv := formTemplateVariables{common, b, messages.GetAllErrors(), messages.GetAllInfos()}
 					errorTmpl := viewRegisterSuccessTemplate.ExecuteTemplate(w, "index.html", htv)
 					if errorTmpl != nil {
 						http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
@@ -239,6 +239,7 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// UserVerifyEmailHandler : Controller when verifying email, needs a token
 func UserVerifyEmailHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	token := vars["token"]
@@ -248,14 +249,14 @@ func UserVerifyEmailHandler(w http.ResponseWriter, r *http.Request) {
 	if errEmail != nil {
 		messages.ImportFromError("errors", errEmail)
 	}
-	htv := UserVerifyTemplateVariables{NewCommonVariables(r), messages.GetAllErrors()}
+	htv := userVerifyTemplateVariables{newCommonVariables(r), messages.GetAllErrors()}
 	errorTmpl := viewVerifySuccessTemplate.ExecuteTemplate(w, "index.html", htv)
 	if errorTmpl != nil {
 		http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
 	}
 }
 
-// Post Login controller
+// UserLoginPostHandler : Post Login controller
 func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 	b := form.LoginForm{}
 	modelHelper.BindValueForm(&b, r)
@@ -266,34 +267,34 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 		_, errorUser := userService.CreateUserAuthentication(w, r)
 		if errorUser != nil {
 			messages.ImportFromError("errors", errorUser)
-			htv := UserLoginFormVariables{NewCommonVariables(r), b, messages.GetAllErrors()}
+			htv := formTemplateVariables{newCommonVariables(r), b, messages.GetAllErrors(), messages.GetAllInfos()}
 			errorTmpl := viewLoginTemplate.ExecuteTemplate(w, "index.html", htv)
 			if errorTmpl != nil {
 				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
 			}
 			return
-		} else {
-			url, _ := Router.Get("home").URL()
-			http.Redirect(w, r, url.String(), http.StatusSeeOther)
 		}
+		url, _ := Router.Get("home").URL()
+		http.Redirect(w, r, url.String(), http.StatusSeeOther)
 	}
 	if messages.HasErrors() {
 		UserLoginFormHandler(w, r)
 	}
 }
 
-// Logout
+// UserLogoutHandler : Controller to logout users
 func UserLogoutHandler(w http.ResponseWriter, r *http.Request) {
 	_, _ = userService.ClearCookie(w)
 	url, _ := Router.Get("home").URL()
 	http.Redirect(w, r, url.String(), http.StatusSeeOther)
 }
 
+// UserFollowHandler : Controller to follow/unfollow users, need user id to follow
 func UserFollowHandler(w http.ResponseWriter, r *http.Request) {
 	var followAction string
 	vars := mux.Vars(r)
 	id := vars["id"]
-	currentUser := GetUser(r)
+	currentUser := getUser(r)
 	user, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser == nil && user.ID > 0 {
 		if !userPermission.IsFollower(&user, currentUser) {
@@ -308,8 +309,9 @@ func UserFollowHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, url.String()+"?"+followAction, http.StatusSeeOther)
 }
 
+// UserNotificationsHandler : Controller to show user notifications
 func UserNotificationsHandler(w http.ResponseWriter, r *http.Request) {
-	currentUser := GetUser(r)
+	currentUser := getUser(r)
 	if currentUser.ID > 0 {
 		messages := msg.GetMessages(r)
 		Ts, _ := languages.GetTfuncAndLanguageFromRequest(r)
@@ -318,7 +320,7 @@ func UserNotificationsHandler(w http.ResponseWriter, r *http.Request) {
 			messages.AddInfo("infos", Ts("notifications_cleared"))
 			currentUser.Notifications = []model.Notification{}
 		}
-		htv := UserProfileNotifVariables{NewCommonVariables(r), messages.GetAllInfos()}
+		htv := userProfileNotifVariables{newCommonVariables(r), messages.GetAllInfos()}
 		err := viewProfileNotifTemplate.ExecuteTemplate(w, "index.html", htv)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -328,10 +330,11 @@ func UserNotificationsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func UserApiKeyResetHandler(w http.ResponseWriter, r *http.Request) {
+// UserAPIKeyResetHandler : Controller to reset user api key
+func UserAPIKeyResetHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
-	currentUser := GetUser(r)
+	currentUser := getUser(r)
 
 	Ts, _ := languages.GetTfuncAndLanguageFromRequest(r)
 	messages := msg.GetMessages(r)

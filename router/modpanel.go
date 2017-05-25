@@ -24,6 +24,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// ReassignForm : Structure for reassign Form used by the reassign page
 type ReassignForm struct {
 	AssignTo uint
 	By       string
@@ -32,6 +33,7 @@ type ReassignForm struct {
 	Torrents []uint
 }
 
+// ExtractInfo : Function to assign values from request to ReassignForm
 func (f *ReassignForm) ExtractInfo(r *http.Request) error {
 	f.By = r.FormValue("by")
 	if f.By != "olduser" && f.By != "torrentid" {
@@ -52,11 +54,11 @@ func (f *ReassignForm) ExtractInfo(r *http.Request) error {
 		splitData := strings.Split(f.Data, "\n")
 		for i, tmp := range splitData {
 			tmp = strings.Trim(tmp, " \r")
-			torrent_id, err := strconv.ParseUint(tmp, 10, 0)
+			torrentID, err := strconv.ParseUint(tmp, 10, 0)
 			if err != nil {
 				return fmt.Errorf("Couldn't parse number on line %d", i+1)
 			}
-			f.Torrents = append(f.Torrents, uint(torrent_id))
+			f.Torrents = append(f.Torrents, uint(torrentID))
 		}
 	}
 
@@ -74,6 +76,7 @@ func (f *ReassignForm) ExtractInfo(r *http.Request) error {
 	return nil
 }
 
+// ExecuteAction : Function for applying the changes from ReassignForm
 func (f *ReassignForm) ExecuteAction() (int, error) {
 	var toBeChanged []uint
 	var err error
@@ -87,31 +90,33 @@ func (f *ReassignForm) ExecuteAction() (int, error) {
 	}
 
 	num := 0
-	for _, torrent_id := range toBeChanged {
-		torrent, err2 := torrentService.GetRawTorrentById(torrent_id)
+	for _, torrentID := range toBeChanged {
+		torrent, err2 := torrentService.GetRawTorrentById(torrentID)
 		if err2 == nil {
 			torrent.UploaderID = f.AssignTo
 			db.ORM.Model(&torrent).UpdateColumn(&torrent)
-			num += 1
+			num++
 		}
 	}
 	return num, nil
 }
 
-// Helper that creates a search form without items/page field
-// these need to be used when the templateVariables don't include `Navigation`
-func NewPanelSearchForm() SearchForm {
-	form := NewSearchForm()
+// newPanelSearchForm : Helper that creates a search form without items/page field
+// these need to be used when the templateVariables don't include `navigation`
+func newPanelSearchForm() searchForm {
+	form := newSearchForm()
 	form.ShowItemsPerPage = false
 	return form
 }
 
-func NewPanelCommonVariables(r *http.Request) CommonTemplateVariables {
-	common := NewCommonVariables(r)
-	common.Search = NewPanelSearchForm()
+//
+func newPanelCommonVariables(r *http.Request) commonTemplateVariables {
+	common := newCommonVariables(r)
+	common.Search = newPanelSearchForm()
 	return common
 }
 
+// IndexModPanel : Controller for showing index page of Mod Panel
 func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 	offset := 10
 
@@ -120,11 +125,12 @@ func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 	comments, _ := commentService.GetAllComments(offset, 0, "", "")
 	torrentReports, _, _ := reportService.GetAllTorrentReports(offset, 0)
 
-	htv := PanelIndexVbs{NewPanelCommonVariables(r), torrents, model.TorrentReportsToJSON(torrentReports), users, comments}
+	htv := panelIndexVbs{newPanelCommonVariables(r), torrents, model.TorrentReportsToJSON(torrentReports), users, comments}
 	err := panelIndex.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
 
+// TorrentsListPanel : Controller for listing torrents, can accept common search arguments
 func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
@@ -150,30 +156,33 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 		if !log.CheckError(err) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
-			}
 		}
+	}
 
-		searchParam, torrents, count, err := search.SearchByQueryWithUser(r, pagenum)
-		searchForm := SearchForm{
-			SearchParam:      searchParam,
-			Category:         searchParam.Category.String(),
-			ShowItemsPerPage: true,
-		}
+	searchParam, torrents, count, err := search.SearchByQueryWithUser(r, pagenum)
+	searchForm := searchForm{
+		SearchParam:      searchParam,
+		Category:         searchParam.Category.String(),
+		ShowItemsPerPage: true,
+	}
 
-	common := NewCommonVariables(r)
-	common.Navigation = Navigation{ count, int(searchParam.Max), pagenum, "mod_tlist_page"}
+	common := newCommonVariables(r)
+	common.Navigation = navigation{count, int(searchParam.Max), pagenum, "mod_tlist_page"}
 	common.Search = searchForm
-	ptlv := PanelTorrentListVbs{common, torrents, messages.GetAllErrors(), messages.GetAllInfos()}
+	ptlv := modelListVbs{common, torrents, messages.GetAllErrors(), messages.GetAllInfos()}
 	err = panelTorrentList.ExecuteTemplate(w, "admin_index.html", ptlv)
 	log.CheckError(err)
 }
 
+// TorrentReportListPanel : Controller for listing torrent reports, can accept pages
 func TorrentReportListPanel(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
-
-	var err error
+	messages := msg.GetMessages(r)
 	pagenum := 1
+	offset := 100
+	var err error
+
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
 		if !log.CheckError(err) {
@@ -181,24 +190,26 @@ func TorrentReportListPanel(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	offset := 100
 
 	torrentReports, nbReports, _ := reportService.GetAllTorrentReports(offset, (pagenum-1)*offset)
 
 	reportJSON := model.TorrentReportsToJSON(torrentReports)
-	common := NewCommonVariables(r)
-	common.Navigation = Navigation{nbReports, offset, pagenum, "mod_trlist_page"}
-	ptrlv := PanelTorrentReportListVbs{common, reportJSON}
+	common := newCommonVariables(r)
+	common.Navigation = navigation{nbReports, offset, pagenum, "mod_trlist_page"}
+	ptrlv := modelListVbs{common, reportJSON, messages.GetAllErrors(), messages.GetAllInfos()}
 	err = panelTorrentReportList.ExecuteTemplate(w, "admin_index.html", ptrlv)
 	log.CheckError(err)
 }
 
+// UsersListPanel : Controller for listing users, can accept pages
 func UsersListPanel(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
-
-	var err error
 	pagenum := 1
+	offset := 100
+	var err error
+	messages := msg.GetMessages(r)
+
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
 		if !log.CheckError(err) {
@@ -206,22 +217,25 @@ func UsersListPanel(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	offset := 100
 
 	users, nbUsers := userService.RetrieveUsersForAdmin(offset, (pagenum-1)*offset)
-	common := NewCommonVariables(r)
-	common.Navigation = Navigation{nbUsers, offset, pagenum, "mod_ulist_page"}
-	htv := PanelUserListVbs{common, users}
+	common := newCommonVariables(r)
+	common.Navigation = navigation{nbUsers, offset, pagenum, "mod_ulist_page"}
+	htv := modelListVbs{common, users, messages.GetAllErrors(), messages.GetAllInfos()}
 	err = panelUserList.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
 
+// CommentsListPanel : Controller for listing comments, can accept pages and userID
 func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
-
-	var err error
 	pagenum := 1
+	offset := 100
+	userid := r.URL.Query().Get("userid")
+	var err error
+	messages := msg.GetMessages(r)
+
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
 		if !log.CheckError(err) {
@@ -229,8 +243,6 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	offset := 100
-	userid := r.URL.Query().Get("userid")
 	var conditions string
 	var values []interface{}
 	if userid != "" {
@@ -239,32 +251,34 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 	}
 
 	comments, nbComments := commentService.GetAllComments(offset, (pagenum-1)*offset, conditions, values...)
-	common := NewCommonVariables(r)
-	common.Navigation = Navigation{nbComments, offset, pagenum, "mod_clist_page"}
-	htv := PanelCommentListVbs{common, comments}
+	common := newCommonVariables(r)
+	common.Navigation = navigation{nbComments, offset, pagenum, "mod_clist_page"}
+	htv := modelListVbs{common, comments, messages.GetAllErrors(), messages.GetAllInfos()}
 	err = panelCommentList.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
 
+// TorrentEditModPanel : Controller for editing a torrent after GET request
 func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	torrent, _ := torrentService.GetTorrentById(id)
-	messages:= msg.GetMessages(r)
+	messages := msg.GetMessages(r)
 
-	torrentJson := torrent.ToJSON()
-	uploadForm := NewUploadForm()
-	uploadForm.Name = torrentJson.Name
-	uploadForm.Category = torrentJson.Category + "_" + torrentJson.SubCategory
-	uploadForm.Status = torrentJson.Status
-	uploadForm.WebsiteLink = string(torrentJson.WebsiteLink)
-	uploadForm.Description = string(torrentJson.Description)
-	htv := PanelTorrentEdVbs{NewPanelCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
+	torrentJSON := torrent.ToJSON()
+	uploadForm := newUploadForm()
+	uploadForm.Name = torrentJSON.Name
+	uploadForm.Category = torrentJSON.Category + "_" + torrentJSON.SubCategory
+	uploadForm.Status = torrentJSON.Status
+	uploadForm.WebsiteLink = string(torrentJSON.WebsiteLink)
+	uploadForm.Description = string(torrentJSON.Description)
+	htv := formTemplateVariables{newPanelCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
 	err := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
 
+// TorrentPostEditModPanel : Controller for editing a torrent after POST request
 func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
-	var uploadForm UploadForm
+	var uploadForm uploadForm
 	id := r.URL.Query().Get("id")
 	messages := msg.GetMessages(r)
 	torrent, _ := torrentService.GetTorrentById(id)
@@ -286,11 +300,12 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 			messages.AddInfoT("infos", "torrent_updated")
 		}
 	}
-	htv := PanelTorrentEdVbs{NewPanelCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
-	err_ := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
-	log.CheckError(err_)
+	htv := formTemplateVariables{newPanelCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
+	err := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
+	log.CheckError(err)
 }
 
+// CommentDeleteModPanel : Controller for deleting a comment
 func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 
@@ -299,6 +314,7 @@ func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
 }
 
+// TorrentDeleteModPanel : Controller for deleting a torrent
 func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	definitely := r.URL.Query()["definitely"]
@@ -328,6 +344,7 @@ func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
 }
 
+// TorrentReportDeleteModPanel : Controller for deleting a torrent report
 func TorrentReportDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	fmt.Println(id)
@@ -338,13 +355,15 @@ func TorrentReportDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
 }
 
+// TorrentReassignModPanel : Controller for reassigning a torrent, after GET request
 func TorrentReassignModPanel(w http.ResponseWriter, r *http.Request) {
 	messages := msg.GetMessages(r)
-	htv := PanelTorrentReassignVbs{NewPanelCommonVariables(r), ReassignForm{}, messages.GetAllErrors(), messages.GetAllInfos()}
+	htv := formTemplateVariables{newPanelCommonVariables(r), ReassignForm{}, messages.GetAllErrors(), messages.GetAllInfos()}
 	err := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)
 	log.CheckError(err)
 }
 
+// TorrentPostReassignModPanel : Controller for reassigning a torrent, after POST request
 func TorrentPostReassignModPanel(w http.ResponseWriter, r *http.Request) {
 	var rForm ReassignForm
 	messages := msg.GetMessages(r)
@@ -361,22 +380,21 @@ func TorrentPostReassignModPanel(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	htv := PanelTorrentReassignVbs{NewPanelCommonVariables(r), rForm, messages.GetAllErrors(), messages.GetAllInfos()}
-	err_ := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)
-	log.CheckError(err_)
+	htv := formTemplateVariables{newPanelCommonVariables(r), rForm, messages.GetAllErrors(), messages.GetAllInfos()}
+	err := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)
+	log.CheckError(err)
 }
 
+// TorrentsPostListPanel : Controller for listing torrents, after POST request when mass update
 func TorrentsPostListPanel(w http.ResponseWriter, r *http.Request) {
 	torrentManyAction(r)
 	TorrentsListPanel(w, r)
 }
 
-
-/*
- * This function is used on the frontend for the mass
- * Query is: action=status|delete|owner|category|multiple
+// APIMassMod : This function is used on the frontend for the mass
+/* Query is: action=status|delete|owner|category|multiple
  * Needed: torrent_id[] Ids of torrents in checkboxes of name torrent_id
- * 
+ *
  * Needed on context:
  * status=0|1|2|3|4 according to config/torrent.go (can be omitted if action=delete|owner|category|multiple)
  * owner is the User ID of the new owner of the torrents (can be omitted if action=delete|status|category|multiple)
@@ -384,29 +402,26 @@ func TorrentsPostListPanel(w http.ResponseWriter, r *http.Request) {
  *
  * withreport is the bool to enable torrent reports deletion (can be omitted)
  *
- * In case of action=multiple, torrents can be at the same time changed status, owner and category  
+ * In case of action=multiple, torrents can be at the same time changed status, owner and category
  */
-func ApiMassMod(w http.ResponseWriter, r *http.Request) {
+func APIMassMod(w http.ResponseWriter, r *http.Request) {
 	torrentManyAction(r)
 	messages := msg.GetMessages(r) // new util for errors and infos
-	var apiJson []byte
-	w.Header().Set("Content-Type", "application/json")	
-	
+	var apiJSON []byte
+	w.Header().Set("Content-Type", "application/json")
+
 	if !messages.HasErrors() {
 		mapOk := map[string]interface{}{"ok": true, "infos": messages.GetAllInfos()["infos"]}
-    	apiJson, _ = json.Marshal(mapOk)
+		apiJSON, _ = json.Marshal(mapOk)
 	} else { // We need to show error messages
 		mapNotOk := map[string]interface{}{"ok": false, "errors": messages.GetAllErrors()["errors"]}
-		apiJson, _ = json.Marshal(mapNotOk)
+		apiJSON, _ = json.Marshal(mapNotOk)
 	}
 
-	w.Write(apiJson)
+	w.Write(apiJSON)
 }
 
-/*
- * Manage deleted torrents
- */
-
+// DeletedTorrentsModPanel : Controller for viewing deleted torrents, accept common search arguments
 func DeletedTorrentsModPanel(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
@@ -430,29 +445,31 @@ func DeletedTorrentsModPanel(w http.ResponseWriter, r *http.Request) {
 		if !log.CheckError(err) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
-			}
 		}
+	}
 
-		searchParam, torrents, count, err := search.SearchByQueryDeleted(r, pagenum)
-		searchForm := SearchForm{
-			SearchParam:      searchParam,
-			Category:         searchParam.Category.String(),
-			ShowItemsPerPage: true,
-		}
+	searchParam, torrents, count, err := search.SearchByQueryDeleted(r, pagenum)
+	searchForm := searchForm{
+		SearchParam:      searchParam,
+		Category:         searchParam.Category.String(),
+		ShowItemsPerPage: true,
+	}
 
-	common := NewCommonVariables(r)
-	common.Navigation = Navigation{ count, int(searchParam.Max), pagenum, "mod_tlist_page"}
+	common := newCommonVariables(r)
+	common.Navigation = navigation{count, int(searchParam.Max), pagenum, "mod_tlist_page"}
 	common.Search = searchForm
-	ptlv := PanelTorrentListVbs{common, torrents, messages.GetAllErrors(), messages.GetAllInfos()}
+	ptlv := modelListVbs{common, torrents, messages.GetAllErrors(), messages.GetAllInfos()}
 	err = panelTorrentList.ExecuteTemplate(w, "admin_index.html", ptlv)
 	log.CheckError(err)
 }
 
+// DeletedTorrentsPostPanel : Controller for viewing deleted torrents after a mass update, accept common search arguments
 func DeletedTorrentsPostPanel(w http.ResponseWriter, r *http.Request) {
 	torrentManyAction(r)
 	DeletedTorrentsModPanel(w, r)
 }
 
+// TorrentBlockModPanel : Controller to lock torrents, redirecting to previous page
 func TorrentBlockModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	torrent, _, _ := torrentService.ToggleBlockTorrent(id)
@@ -475,9 +492,8 @@ func TorrentBlockModPanel(w http.ResponseWriter, r *http.Request) {
 /*
  * Controller to modify multiple torrents and can be used by the owner of the torrent or admin
  */
-
 func torrentManyAction(r *http.Request) {
-	currentUser := GetUser(r)
+	currentUser := getUser(r)
 	r.ParseForm()
 	torrentsSelected := r.Form["torrent_id"] // should be []string
 	action := r.FormValue("action")
@@ -498,7 +514,7 @@ func torrentManyAction(r *http.Request) {
 	if action == "owner" && r.FormValue("owner") == "" { // We need to check the form value, not the int one because renchon is 0
 		messages.AddErrorT("errors", "no_owner_selected")
 	}
-	if action == "category" && category == "" { 
+	if action == "category" && category == "" {
 		messages.AddErrorT("errors", "no_category_selected")
 	}
 	if len(torrentsSelected) == 0 {
@@ -512,7 +528,7 @@ func torrentManyAction(r *http.Request) {
 		messages.AddErrorTf("errors", "no_status_exist", status)
 		status = -1
 	}
-	if !userPermission.HasAdmin(currentUser)  {
+	if !userPermission.HasAdmin(currentUser) {
 		if r.FormValue("status") != "" { // Condition to check if a user try to change torrent status without having the right permission
 			if (status == model.TorrentStatusTrusted && !currentUser.IsTrusted()) || status == model.TorrentStatusAPlus || status == 0 {
 				status = model.TorrentStatusNormal
@@ -550,30 +566,30 @@ func torrentManyAction(r *http.Request) {
 	}
 
 	if !messages.HasErrors() {
-		for _, torrent_id := range torrentsSelected {
-			torrent, _ := torrentService.GetTorrentById(torrent_id)
+		for _, torrentID := range torrentsSelected {
+			torrent, _ := torrentService.GetTorrentById(torrentID)
 			if torrent.ID > 0 && userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
 				if action == "status" || action == "multiple" || action == "category" || action == "owner" {
 
 					/* If we don't delete, we make changes according to the form posted and we save at the end */
 					if r.FormValue("status") != "" && status != -1 {
-							torrent.Status = status
-							messages.AddInfoTf("infos", "torrent_moved", torrent.Name)
+						torrent.Status = status
+						messages.AddInfoTf("infos", "torrent_moved", torrent.Name)
 					}
 					if r.FormValue("owner") != "" && owner != -1 {
-							torrent.UploaderID = uint(owner)
-							messages.AddInfoTf("infos", "torrent_owner_changed", torrent.Name)
+						torrent.UploaderID = uint(owner)
+						messages.AddInfoTf("infos", "torrent_owner_changed", torrent.Name)
 					}
 					if category != "" && catID != -1 && subCatID != -1 {
-							torrent.Category = catID
-							torrent.SubCategory = subCatID
-							messages.AddInfoTf("infos", "torrent_category_changed", torrent.Name)
+						torrent.Category = catID
+						torrent.SubCategory = subCatID
+						messages.AddInfoTf("infos", "torrent_category_changed", torrent.Name)
 					}
 
 					/* Changes are done, we save */
 					db.ORM.Unscoped().Model(&torrent).UpdateColumn(&torrent)
 				} else if action == "delete" {
-					_, err = torrentService.DeleteTorrent(torrent_id)
+					_, err = torrentService.DeleteTorrent(torrentID)
 					if err != nil {
 						messages.ImportFromError("errors", err)
 					} else {
@@ -583,7 +599,7 @@ func torrentManyAction(r *http.Request) {
 					messages.AddErrorTf("errors", "no_action_exist", action)
 				}
 				if withReport {
-					whereParams := serviceBase.CreateWhereParams("torrent_id = ?", torrent_id)
+					whereParams := serviceBase.CreateWhereParams("torrent_id = ?", torrentID)
 					reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
 					for _, report := range reports {
 						reportService.DeleteTorrentReport(report.ID)
@@ -591,8 +607,8 @@ func torrentManyAction(r *http.Request) {
 					messages.AddInfoTf("infos", "torrent_reports_deleted", torrent.Name)
 				}
 			} else {
-				messages.AddErrorTf("errors", "torrent_not_exist", torrent_id)
-			} 
+				messages.AddErrorTf("errors", "torrent_not_exist", torrentID)
+			}
 		}
 	}
 }

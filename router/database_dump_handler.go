@@ -13,16 +13,19 @@ import (
 )
 
 const (
+	// DatabaseDumpPath : Location of database dumps
 	DatabaseDumpPath = "./public/dumps"
+	// GPGPublicKeyPath : Location of the GPG key
 	GPGPublicKeyPath = "./public/gpg/gpg.key"
 )
 
+// DatabaseDumpHandler : Controller for getting database dumps
 func DatabaseDumpHandler(w http.ResponseWriter, r *http.Request) {
 	// db params url
 	var err error
 	// TODO Use config from cli
 	files, err := filepath.Glob(filepath.Join(DatabaseDumpPath, "*.torrent"))
-	var dumpsJson []model.DatabaseDumpJSON
+	var dumpsJSON []model.DatabaseDumpJSON
 	// TODO Filter *.torrent files
 	for _, f := range files {
 		// TODO Use config from cli
@@ -42,14 +45,14 @@ func DatabaseDumpHandler(w http.ResponseWriter, r *http.Request) {
 			Filesize:    int64(tf.TotalSize()),
 			Name:        tf.TorrentName(),
 			TorrentLink: "/dbdumps/" + file.Name()}
-		dumpsJson = append(dumpsJson, dump.ToJSON())
+		dumpsJSON = append(dumpsJSON, dump.ToJSON())
 	}
 
 	// TODO Remove ?
-	navigationTorrents := Navigation{0, 0, 0, "search_page"}
-	common := NewCommonVariables(r)
+	navigationTorrents := navigation{0, 0, 0, "search_page"}
+	common := newCommonVariables(r)
 	common.Navigation = navigationTorrents
-	dtv := DatabaseDumpTemplateVariables{common, dumpsJson, "/gpg/gpg.pub"}
+	dtv := databaseDumpTemplateVariables{common, dumpsJSON, "/gpg/gpg.pub"}
 	err = databaseDumpTemplate.ExecuteTemplate(w, "index.html", dtv)
 	if err != nil {
 		log.Errorf("DatabaseDump(): %s", err)

@@ -22,7 +22,8 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func ApiHandler(w http.ResponseWriter, r *http.Request) {
+// APIHandler : Controller for api request on torrent list
+func APIHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
 	whereParams := serviceBase.WhereParams{}
@@ -88,7 +89,8 @@ func ApiHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ApiViewHandler(w http.ResponseWriter, r *http.Request) {
+// APIViewHandler : Controller for viewing a torrent by its ID
+func APIViewHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
@@ -109,7 +111,8 @@ func ApiViewHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ApiViewHeadHandler(w http.ResponseWriter, r *http.Request) {
+// APIViewHeadHandler : Controller for checking a torrent by its ID
+func APIViewHeadHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.ParseInt(vars["id"], 10, 32)
 	if err != nil {
@@ -126,7 +129,8 @@ func ApiViewHeadHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(nil)
 }
 
-func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
+// APIUploadHandler : Controller for uploading a torrent with api
+func APIUploadHandler(w http.ResponseWriter, r *http.Request) {
 	token := r.Header.Get("Authorization")
 	user := model.User{}
 	db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
@@ -178,6 +182,7 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 		// create a torrent from it
 		err := fmt.Errorf("Please provide either of Content-Type: application/json header or multipart/form-data").Error()
 		http.Error(w, err, http.StatusInternalServerError)
+		return
 	}
 	var sameTorrents int
 
@@ -208,8 +213,9 @@ func ApiUploadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// APIUpdateHandler : Controller for updating a torrent with api
 // FIXME Impossible to update a torrent uploaded by user 0
-func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
+func APIUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	token := r.Header.Get("Authorization")
 	user := model.User{}
 	db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
@@ -262,7 +268,9 @@ func ApiUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("%+v\n", torrent)
 	}
 }
-func ApiSearchHandler(w http.ResponseWriter, r *http.Request) {
+
+// APISearchHandler : Controller for searching with api
+func APISearchHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
 
