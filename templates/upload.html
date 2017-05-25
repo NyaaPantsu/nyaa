@@ -22,7 +22,7 @@
 		<select name="c" id="c" class="form-input up-input" required>
 			<option value="">{{call $.T "select_a_torrent_category"}}</option>
 			{{ range $name_cat, $id_cat := (GetCategories false) }}
-			<option value="{{ $id_cat }}" {{if eq $.Upload.Category $id_cat }}selected{{end}}>{{call $.T $name_cat }}</option>
+			<option value="{{ $id_cat }}" {{if eq $.Form.Category $id_cat }}selected{{end}}>{{call $.T $name_cat }}</option>
 			{{ end }}
 		</select>
 		<p>
