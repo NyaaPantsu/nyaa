@@ -26,6 +26,7 @@ type User struct {
 	ApiToken       string    `gorm:"column:api_token"`
 	ApiTokenExpiry time.Time `gorm:"column:api_token_expiry"`
 	Language       string    `gorm:"column:language"`
+	Theme          string    `gorm:"column:theme"`
 	UserSettings   string    `gorm:"column:settings"`
 
 	// TODO: move this to PublicUser
@@ -56,7 +57,7 @@ func (u User) Size() (s int) {
 		4*3 + //time.Time
 		3*2 + // arrays
 		// string arrays
-		len(u.Username) + len(u.Password) + len(u.Email) + len(u.ApiToken) + len(u.MD5) + len(u.Language)
+		len(u.Username) + len(u.Password) + len(u.Email) + len(u.ApiToken) + len(u.MD5) + len(u.Language) + len(u.Theme)
 	s *= 8
 
 	// Ignoring foreign key users. Fuck them.
