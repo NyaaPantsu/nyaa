@@ -3,6 +3,7 @@ package router
 import (
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
@@ -10,6 +11,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/service/user/form"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
+	"github.com/NyaaPantsu/nyaa/util/crypto"
 	"github.com/NyaaPantsu/nyaa/util/languages"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/modelHelper"
@@ -324,4 +326,27 @@ func UserNotificationsHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		NotFoundHandler(w, r)
 	}
+}
+
+func UserApiKeyResetHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	currentUser := GetUser(r)
+
+	Ts, _ := languages.GetTfuncAndLanguageFromRequest(r)
+	messages := msg.GetMessages(r)
+	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
+	if errorUser != nil || !userPermission.CurrentOrAdmin(currentUser, userProfile.ID) || userProfile.ID == 0 {
+		NotFoundHandler(w, r)
+		return
+	}
+	userProfile.ApiToken, _ = crypto.GenerateRandomToken32()
+	userProfile.ApiTokenExpiry = time.Unix(0, 0)
+	_, errorUser = userService.UpdateUserCore(&userProfile)
+	if errorUser != nil {
+		messages.ImportFromError("errors", errorUser)
+	} else {
+		messages.AddInfo("infos", Ts("profile_updated"))
+	}
+
 }
