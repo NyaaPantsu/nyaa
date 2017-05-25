@@ -65,6 +65,10 @@ func SearchByQueryDeleted(r *http.Request, pagenum int) (search common.SearchPar
 }
 
 // TODO Clean this up
+// FIXME Some fields are not used by elasticsearch (pagenum, countAll, deleted, withUser)
+// pagenum is extracted from request in .FromRequest()
+// elasticsearch always provide a count to how many hits
+// deleted is unused because es doesn't index deleted torrents
 func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool, deleted bool) (
 	search common.SearchParam, tor []model.Torrent, count int, err error,
 ) {
