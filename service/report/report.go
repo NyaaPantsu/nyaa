@@ -30,6 +30,17 @@ func DeleteTorrentReport(id uint) (error, int) {
 	return nil, http.StatusOK
 }
 
+func DeleteDefinitelyTorrentReport(id uint) (error, int) {
+	var torrentReport model.TorrentReport
+	if db.ORM.Unscoped().First(&torrentReport, id).RecordNotFound() {
+		return errors.New("Trying to delete a torrent report that does not exists."), http.StatusNotFound
+	}
+	if err := db.ORM.Unscoped().Delete(&torrentReport).Error; err != nil {
+		return err, http.StatusInternalServerError
+	}
+	return nil, http.StatusOK
+}
+
 func getTorrentReportsOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int, countAll bool) (
 	torrentReports []model.TorrentReport, count int, err error,
 ) {

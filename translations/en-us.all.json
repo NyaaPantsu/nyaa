@@ -922,5 +922,45 @@
   {
     "id": "torrent_reports_deleted",
     "translation": "Reports of torrent \"%s\" were deleted!"
+  },
+  {
+    "id": "edit",
+    "translation": "Edit"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "You will not be able to recover the file, neither stop someone to reupload it!"
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "Delete definitely"
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "Unlock"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "Lock"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "Torrent has been erased from the database!"
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "Torrent has been unlocked!"
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "Torrent has been locked!"
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "Torrents not deleted"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "Torrents deleted"
   }
 ]

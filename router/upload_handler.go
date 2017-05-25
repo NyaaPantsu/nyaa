@@ -11,6 +11,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
 	"github.com/NyaaPantsu/nyaa/service/notifier"
+	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/upload"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
@@ -57,10 +58,14 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 		status = model.TorrentStatusTrusted
 	}
 
-	var sameTorrents int
-	db.ORM.Model(&model.Torrent{}).Where("torrent_hash = ?", uploadForm.Infohash).Count(&sameTorrents)
-	if sameTorrents > 0 {
-		messages.AddError("errors", "Torrent already in database !")
+	torrentIndb := model.Torrent{}
+	db.ORM.Unscoped().Model(&model.Torrent{}).Where("torrent_hash = ?", uploadForm.Infohash).First(&torrentIndb)
+	if torrentIndb.ID > 0 {
+		if userPermission.CurrentUserIdentical(user, torrentIndb.UploaderID) && torrentIndb.IsDeleted() && !torrentIndb.IsBlocked() { // if torrent is not locked and is deleted and the user is the actual owner 
+			torrentService.DefinitelyDeleteTorrent(strconv.Itoa(int(torrentIndb.ID)))
+		} else {
+			messages.AddError("errors", "Torrent already in database !")
+		}
 	}
 
 	if !messages.HasErrors() {
