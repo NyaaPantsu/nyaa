@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="keywords" content="torrents, cartel, pantsu, anime, manga, sukebei, nyaapassu, horriblesubs, nyaa, hentai, dlsite">
+		<meta name="description" content='The (((official))) community-based nyaa.se successor, suitable for all anime and manga needs. にゃんぱす~!'>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{block "title" .}}{{ call $.T "error_404" }}{{end}}</title>
     <link rel="icon" type="image/png" href="/img/favicon.png?v=3" />
@@ -43,12 +45,12 @@
 
     </head>
   <body onload="setTheme();">
-     <div id="mascot"></div>
+     <div id="mascot" class="hide-xs"></div>
 	<nav id="header" class="header">
 		<div class="container">
 			<div class="h-left">
 					<div class="h-logo">
-						<a href="{{.URL.Parse "/"}}"><img src="/img/logo.png" alt="NyaaPantsu"></a>
+						<a href="{{.URL.Parse "/"}}"><img class="hide-md" src="/img/logo.png" alt="NyaaPantsu"><img class="visible-md" src="/img/logo_s.png"></img></a>
 					</div>
 					<div class="h-nav">
 						<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><div class="upload-icon visible-md"></div><span class="hide-md">Upload</span></a>
@@ -84,10 +86,6 @@
 						<option value="">Default</option>
 						<option value="g.css">/g/ Anon</option>
 						<option value="tomorrow.css">Tomorrow</option>
-					</select>
-
-					<select name="Language" id="" class="form-input">
-						<option value="">English</option>
 					</select>
 
 					<button class="form-input btn" onclick="toggleMascot(this)" value="hide"><span class="oi" data-glyph="eye"></span> Mascot</button>
