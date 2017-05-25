@@ -11,7 +11,7 @@ a { text-decoration: none; }
 
 body {
 	font-size: 14px;
-	font-family: 'Noto Sans', Helvetica, Arial, sans-serif;
+	font-family: 'Noto Sans', Arial, sans-serif;
 }
 
 #mascot {
@@ -96,7 +96,6 @@ select.form-input {
 	-webkit-appearance: none;
   	-moz-appearance: none;
   	padding-right: 1.5rem;
-	background-color: white;
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 48'%3E%3Cpath fill='%23676767' d='M24 34l18-20H6'/%3E%3C/svg%3E");
   background-position-x: right;
 	background-position-y: center;
@@ -264,15 +263,14 @@ th { border-bottom-width: 2px; }
 .pagination li {
 	border:  1px solid;
 	display: inline-block;
-	padding: 0.5rem 0.8rem;
-	margin-right: -4px;
+	padding: 0.4rem 0.5rem;
 	border-right-width: 0;
 	list-style-type: none;
 	text-align: center;
 }
 
 .pagination li:first-child { border-radius: 3px 0 0 3px; }
-.pagination li:last-child  { border-radius: 0 3px 3px 0; border-right-width: 1px !important}
+.pagination li:nth-last-child(2)  { border-radius: 0 3px 3px 0; border-right-width: 1px !important}
 
 
 #footer { width: 100%; bottom: 0; left: 0; margin-top: 40px;}
@@ -339,13 +337,13 @@ html, body {
 
 /* Default Theme */
 
-body { color: #5C7886; background: #ededed; }
+body { color: #333; background: #ededed; }
 
 .header, .box, .pagination li, .user-menu { box-shadow: 1px 3px 4px rgba(0,0,0,0.1) }
 
 #mascot { background: url('/img/renchon.svg') no-repeat right bottom transparent; }
 
-a { color: #36896B; }
+a { color: #196759; }
 a:hover { color:  #238BC7; }
 
 .header {
@@ -365,7 +363,7 @@ a:hover { color:  #238BC7; }
 
 .form-input { border-color: #BBC9CF !important; background: #fafafa; color: #666; }
 
-.form-input.btn:hover { background: #efefef; }
+.form-input.btn:hover { background: rgba(192,192,192,0.2); }
 
 .form-input:focus { box-shadow: 0 0 5px #fff; }
 
@@ -412,15 +410,14 @@ td.tr-le { color: #E84C4C; }
 .sukebei #mascot { background-image: url('/img/mafuyu.svg'); }
 
 .up-input {
-	margin-top: 1em;
-	margin-bottom: 1em;
+	width: 100%;
 }
 .input-label {
 	font-size: large;
 	font-weight: bold;
 }
 .up-btn {
-	font-size: large;
+	margin: 10px 0;
 }
 
 .profile-sidebar {
