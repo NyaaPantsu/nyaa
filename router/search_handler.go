@@ -4,23 +4,26 @@ import (
 	"html"
 	"net/http"
 	"strconv"
+	"github.com/gorilla/mux"
 
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/search"
-	"github.com/gorilla/mux"
 )
 
 // SearchHandler : Controller for displaying search result page, accepting common search arguments
 func SearchHandler(w http.ResponseWriter, r *http.Request) {
+	var err error
+	// TODO Don't create a new client for each request
+	messages := msg.GetMessages(r)
+	// TODO Fallback to postgres search if es is down
+
 	vars := mux.Vars(r)
 	page := vars["page"]
-	messages := msg.GetMessages(r)
 
 	// db params url
-	var err error
 	pagenum := 1
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
@@ -40,17 +43,16 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	b := model.TorrentsToJSON(torrents)
-
-	common := newCommonVariables(r)
-	common.Navigation = navigation{nbTorrents, int(searchParam.Max), pagenum, "search_page"}
+	commonVar := newCommonVariables(r)
+	commonVar.Navigation = navigation{int(nbTorrents), int(searchParam.Max), int(searchParam.Page), "search_page"}
 	// Convert back to strings for now.
-	common.Search = searchForm{
+	// TODO Deprecate fully SearchParam and only use TorrentParam
+	commonVar.Search = searchForm{
 		SearchParam:      searchParam,
 		Category:         searchParam.Category.String(),
 		ShowItemsPerPage: true,
 	}
-	htv := modelListVbs{common, b, messages.GetAllErrors(), messages.GetAllInfos()}
+	htv := modelListVbs{commonVar, model.TorrentsToJSON(torrents), messages.GetAllErrors(), messages.GetAllInfos()}
 
 	err = searchTemplate.ExecuteTemplate(w, "index.html", htv)
 	if err != nil {

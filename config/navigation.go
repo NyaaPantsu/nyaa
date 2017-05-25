@@ -5,4 +5,5 @@ package config
 
 const (
 	TorrentsPerPage = 50
+	MaxTorrentsPerPage = 300
 )

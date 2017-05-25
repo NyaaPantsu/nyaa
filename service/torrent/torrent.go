@@ -2,6 +2,7 @@ package torrentService
 
 import (
 	"errors"
+	elastic "gopkg.in/olivere/elastic.v5"
 	"net/http"
 	"strconv"
 	"strings"
@@ -11,7 +12,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service"
 	"github.com/NyaaPantsu/nyaa/util"
-	//	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/util/log"
 )
 
 /* Function to interact with Models
@@ -203,6 +204,19 @@ func DeleteTorrent(id string) (int, error) {
 	if db.ORM.Delete(&torrent).Error != nil {
 		return http.StatusInternalServerError, errors.New("Torrent was not deleted.")
 	}
+
+	// TODO Don't create a new client for each request
+	client, err := elastic.NewClient()
+	if err == nil {
+		err = torrent.DeleteFromESIndex(client)
+		if err == nil {
+			log.Infof("Successfully deleted torrent to ES index.")
+		} else {
+			log.Errorf("Unable to delete torrent to ES index: %s", err)
+		}
+	} else {
+		log.Errorf("Unable to create elasticsearch client: %s", err)
+	}
 	return http.StatusOK, nil
 }
 
@@ -213,6 +227,19 @@ func DefinitelyDeleteTorrent(id string) (int, error) {
 	}
 	if db.ORM.Unscoped().Model(&torrent).Delete(&torrent).Error != nil {
 		return http.StatusInternalServerError, errors.New("Torrent was not deleted.")
+	}
+
+	// TODO Don't create a new client for each request
+	client, err := elastic.NewClient()
+	if err == nil {
+		err = torrent.DeleteFromESIndex(client)
+		if err == nil {
+			log.Infof("Successfully deleted torrent to ES index.")
+		} else {
+			log.Errorf("Unable to delete torrent to ES index: %s", err)
+		}
+	} else {
+		log.Errorf("Unable to create elasticsearch client: %s", err)
 	}
 	return http.StatusOK, nil
 }
@@ -236,6 +263,19 @@ func ToggleBlockTorrent(id string) (model.Torrent, int, error) {
 func UpdateTorrent(torrent model.Torrent) (int, error) {
 	if db.ORM.Model(&torrent).UpdateColumn(&torrent).Error != nil {
 		return http.StatusInternalServerError, errors.New("Torrent was not updated.")
+	}
+
+	// TODO Don't create a new client for each request
+	client, err := elastic.NewClient()
+	if err == nil {
+		err = torrent.AddToESIndex(client)
+		if err == nil {
+			log.Infof("Successfully updated torrent to ES index.")
+		} else {
+			log.Errorf("Unable to update torrent to ES index: %s", err)
+		}
+	} else {
+		log.Errorf("Unable to create elasticsearch client: %s", err)
 	}
 
 	return http.StatusOK, nil

@@ -22,14 +22,33 @@ settings:
 mappings:
   torrents:
     properties:
-      torrent_id:
-        type: long
-      torrent_name:
+      # TODO Consistent ID's type in TorrentJSON
+      id:
+        type: text
+        fielddata: true # Use to sort by id because it is currently a text field
+      name:
         type: text
         analyzer: nyaapantsu_analyzer
+        fielddata: true # Use to sort by id because it is currently a text field
       category:
-        type: long
+        type: text
       sub_category:
-        type: long
+        type: text
       status:
+        type: long
+      hash:
+        type: text
+      date:
+        type: date
+      uploader_id:
+        type: long
+      downloads:
+        type: long
+      seeders:
+        type: long
+      leechers:
+        type: long
+      completed:
+        type: long
+      filesize:
         type: long
