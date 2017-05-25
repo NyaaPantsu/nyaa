@@ -1,9 +1,9 @@
-package filelist;
+package filelist
 
 import (
-	"testing"
-	"html/template"
 	"github.com/NyaaPantsu/nyaa/model"
+	"html/template"
+	"testing"
 )
 
 func makeDummyFile(path ...string) (file model.File) {
@@ -25,12 +25,12 @@ func TestFilelist(T *testing.T) {
 		makeDummyFile("A", "C", "C.txt"),
 		makeDummyFile("B.txt"),
 	}
-	expected := "A\n"+
-	            "-B\n"+
-	            "--C.txt\n"+
-	            "-C\n"+
-                "--C.txt\n"+
-                "B.txt\n"
+	expected := "A\n" +
+		"-B\n" +
+		"--C.txt\n" +
+		"-C\n" +
+		"--C.txt\n" +
+		"B.txt\n"
 
 	filelist := FileListToFolder(files)
 
@@ -46,4 +46,3 @@ func TestFilelist(T *testing.T) {
 		return
 	}
 }
-
