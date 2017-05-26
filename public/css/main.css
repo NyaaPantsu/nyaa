@@ -608,8 +608,6 @@ input.filelist-checkbox:checked + table.table-filelist {
 
 .tr-folder label {
 	cursor: pointer;
-	display: inline-block; /* Makes width work */
-	width: 100%;
 }
 /* The folder or file icon */
 .tr-folder td:first-child::before {
