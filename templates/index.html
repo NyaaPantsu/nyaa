@@ -17,35 +17,19 @@
     <link rel="stylesheet" id="theme" href="">
     <!-- Search Box for Google -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-		<script>
-			function changeTheme(opt) {
-				var theme = opt.value;
-				localStorage.setItem("theme", theme);
-				document.getElementById('theme').href = "/css/" + opt.value;
-				console.log(theme);
-			}
-			function setTheme() {
-				document.getElementById('theme').href = "/css/" + localStorage.getItem('theme');
-			}
-
-			function toggleMascot(btn) {
-				var state= btn.getAttribute('value');
-				if (state == "hide") {
-					btn.innerHTML = "Mascot";
-					document.getElementById('mascot').className = 'hide';
-					btn.setAttribute('value', 'show');
-				} else {
-					btn.innerHTML = "Mascot";
-					document.getElementById('mascot').className = '';
-					btn.setAttribute('value', 'hide');
-				}
-			}
-
-		</script>
-
     </head>
   <body onload="setTheme();">
+     <script type="text/javascript">
+        var theme = localStorage.getItem("theme");
+        if (theme != "") document.getElementById("theme").href = "/css/" + theme;
+     </script>
      <div id="mascot" class="hide-xs"></div>
+     <audio id="nyanpassu" hidden>
+        <source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
+     </audio>
+     <audio id="explosion" hidden>
+        <source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
+     </audio>
 	<nav id="header" class="header">
 		<div class="container">
 			<div class="h-left">
