@@ -126,7 +126,7 @@ func (t Torrent) AddToESIndex(client *elastic.Client) error {
 	_, err := client.Index().
 		Index(config.DefaultElasticsearchIndex).
 		Type(config.DefaultElasticsearchType).
-		Id(strconv.FormatUint(uint64(torrentJson.ID), 10)).
+		Id(strconv.FormatUint(uint64(torrentJSON.ID), 10)).
 		BodyJson(torrentJSON).
 		Refresh("true").
 		Do(ctx)
