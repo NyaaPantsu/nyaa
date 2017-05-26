@@ -90,7 +90,7 @@
   {{ if ne .Description ""}}
   <div id="description-box" class="torrent-info-box">{{.Description}}</div>
   {{else}}
-  <p>No description provided!</p>
+  <p>{{ call $.T "no_description" }}</p>
   {{end}}
   <input type="checkbox" id="show-filelist">
   <label class="torrent-hr filelist-control" for="show-filelist">{{call $.T "files"}}</label>
@@ -107,7 +107,7 @@
       </tbody>
     </table>
     {{ else }}
-      <p>No files found? That doesn't even make sense!</p>
+      <p>{{ call $.T "no_files" }}</p>
     {{ end }}
   </div>
 
