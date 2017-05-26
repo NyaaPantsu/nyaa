@@ -50,7 +50,7 @@ Your browser does not support the audio element.
                   </a>
               </td>
               <td class="tr-name home-td">
-                  <a href="{{genRoute "view_torrent" "id" .ID }}">
+                  <a href="{{genRoute "view_torrent" "id" ( print .ID ) }}">
                       {{.Name}}
                   </a>
               </td>

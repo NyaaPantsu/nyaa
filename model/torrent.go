@@ -138,7 +138,7 @@ func (t Torrent) AddToESIndex(client *elastic.Client) error {
 	_, err := client.Index().
 		Index(config.DefaultElasticsearchIndex).
 		Type(config.DefaultElasticsearchType).
-		Id(torrentJson.ID).
+		Id(strconv.FormatUint(uint64(torrentJson.ID), 10)).
 		BodyJson(torrentJson).
 		Refresh("true").
 		Do(ctx)
@@ -182,7 +182,7 @@ type FileJSON struct {
 
 // TorrentJSON for torrent model in json for api
 type TorrentJSON struct {
-	ID           string        `json:"id"`
+	ID           uint          `json:"id"`
 	Name         string        `json:"name"`
 	Status       int           `json:"status"`
 	Hash         string        `json:"hash"`
@@ -254,7 +254,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		torrentlink = fmt.Sprintf(config.TorrentStorageLink, t.Hash)
 	}
 	res := TorrentJSON{
-		ID:           strconv.FormatUint(uint64(t.ID), 10),
+		ID:           t.ID,
 		Name:         t.Name,
 		Status:       t.Status,
 		Hash:         t.Hash,
