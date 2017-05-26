@@ -1,14 +1,13 @@
 package uploadService
 
 import (
-	"regexp"
 	"strings"
+
+	"net/url"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/model"
 )
-
-const trackerRegex = `^(http[s]*|udp)://[a-z0-9\.:\-/?]+$`
 
 // CheckTrackers : Check if there is good trackers in torrent
 func CheckTrackers(trackers []string) bool {
@@ -59,16 +58,14 @@ func IsUploadEnabled(u model.User) bool {
 	return true
 }
 
-// RemoveInvalidTrackers : Goal is to remove invalid tracker url to prevent bad sql insert
-func RemoveInvalidTrackers(trackers []string) (trackersRet []string) {
-	exp, errorRegex := regexp.Compile(trackerRegex)
-	if errorRegex != nil {
-		return
-	}
+// EscapeTrackers : Escape trackers URL and adds them if they are urls
+func EscapeTrackers(trackers []string) (trackerRet []string) {
 	for _, tracker := range trackers {
-		if exp.MatchString(tracker) {
-			trackersRet = append(trackersRet, tracker)
+		urlTracker, err := url.Parse(tracker)
+		if err != nil {
+			break
 		}
+		trackerRet = append(trackerRet, url.PathEscape(urlTracker.String()))
 	}
 	return
 }

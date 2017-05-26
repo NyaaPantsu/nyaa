@@ -157,7 +157,7 @@ func (f *uploadForm) ExtractInfo(r *http.Request) error {
 		if !uploadService.CheckTrackers(trackers) {
 			return errTrackerProblem
 		}
-		f.Trackers = uploadService.RemoveInvalidTrackers(trackers)
+		f.Trackers = uploadService.EscapeTrackers(trackers)
 
 		// Name
 		if len(f.Name) == 0 {
