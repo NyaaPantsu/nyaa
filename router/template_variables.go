@@ -62,11 +62,6 @@ type userProfileVariables struct {
 	FormInfos   map[string][]string
 }
 
-type userProfileNotifVariables struct {
-	commonTemplateVariables
-	Infos map[string][]string
-}
-
 type databaseDumpTemplateVariables struct {
 	commonTemplateVariables
 	ListDumps []model.DatabaseDumpJSON
