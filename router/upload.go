@@ -47,6 +47,7 @@ type uploadForm struct {
 	Filesize      int64
 	Filepath      string
 	FileList      []uploadedFile
+	Trackers      []string
 }
 
 // TODO: these should be in another package (?)
@@ -156,6 +157,7 @@ func (f *uploadForm) ExtractInfo(r *http.Request) error {
 		if !uploadService.CheckTrackers(trackers) {
 			return errTrackerProblem
 		}
+		f.Trackers = uploadService.RemoveInvalidTrackers(trackers)
 
 		// Name
 		if len(f.Name) == 0 {
@@ -209,6 +211,7 @@ func (f *uploadForm) ExtractInfo(r *http.Request) error {
 				return errors.New("Incorrect hash")
 			}
 		}
+		// TODO: Get Trackers from magnet URL
 		f.Filesize = 0
 		f.Filepath = ""
 	}

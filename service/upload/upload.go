@@ -1,11 +1,14 @@
 package uploadService
 
 import (
+	"regexp"
 	"strings"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/model"
 )
+
+const trackerRegex = `^(http[s]*|udp)://[a-z0-9\.:\-/?]+$`
 
 // CheckTrackers : Check if there is good trackers in torrent
 func CheckTrackers(trackers []string) bool {
@@ -32,6 +35,7 @@ func CheckTrackers(trackers []string) bool {
 		for _, check := range deadTrackers {
 			if strings.Contains(t, check) {
 				good = false
+				break // No need to continue the for loop
 			}
 		}
 		if good {
@@ -53,4 +57,18 @@ func IsUploadEnabled(u model.User) bool {
 		return false
 	}
 	return true
+}
+
+// RemoveInvalidTrackers : Goal is to remove invalid tracker url to prevent bad sql insert
+func RemoveInvalidTrackers(trackers []string) (trackersRet []string) {
+	exp, errorRegex := regexp.Compile(trackerRegex)
+	if errorRegex != nil {
+		return
+	}
+	for _, tracker := range trackers {
+		if exp.MatchString(tracker) {
+			trackersRet = append(trackersRet, tracker)
+		}
+	}
+	return
 }

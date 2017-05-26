@@ -1,13 +1,15 @@
 package model
 
 import (
+	"context"
 	"fmt"
 	"html/template"
-	"context"
 	"path/filepath"
+	"reflect"
 	"strconv"
 	"strings"
 	"time"
+
 	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
@@ -52,6 +54,7 @@ type Torrent struct {
 	Filesize    int64     `gorm:"column:filesize"`
 	Description string    `gorm:"column:description"`
 	WebsiteLink string    `gorm:"column:website_link"`
+	Trackers    string    `gorm:"column:trackers"`
 	DeletedAt   *time.Time
 
 	Uploader    *User        `gorm:"AssociationForeignKey:UploaderID;ForeignKey:user_id"`
@@ -67,27 +70,9 @@ type Torrent struct {
 }
 
 // Size : Returns the total size of memory recursively allocated for this struct
-// FIXME: doesn't go have sizeof or something nicer for this?
+// FIXME: Is it deprecated?
 func (t Torrent) Size() (s int) {
-	s += 8 + // ints
-		2*3 + // time.Time
-		2 + // pointers
-		4*2 + // string pointers
-		// string array sizes
-		len(t.Name) + len(t.Hash) + len(t.Description) + len(t.WebsiteLink) +
-		2*2 // array pointers
-	s *= 8 // Assume 64 bit OS
-
-	if t.Uploader != nil {
-		s += t.Uploader.Size()
-	}
-	for _, c := range t.OldComments {
-		s += c.Size()
-	}
-	for _, c := range t.Comments {
-		s += c.Size()
-	}
-
+	s = int(reflect.TypeOf(t).Size())
 	return
 
 }
@@ -132,19 +117,21 @@ func (t *Torrent) IsDeleted() bool {
 	return t.DeletedAt != nil
 }
 
+// AddToESIndex : Adds a torrent to Elastic Search
 func (t Torrent) AddToESIndex(client *elastic.Client) error {
 	ctx := context.Background()
-	torrentJson := t.ToJSON()
+	torrentJSON := t.ToJSON()
 	_, err := client.Index().
 		Index(config.DefaultElasticsearchIndex).
 		Type(config.DefaultElasticsearchType).
-		Id(torrentJson.ID).
-		BodyJson(torrentJson).
+		Id(torrentJSON.ID).
+		BodyJson(torrentJSON).
 		Refresh("true").
 		Do(ctx)
 	return err
 }
 
+// DeleteFromESIndex : Removes a torrent from Elastic Search
 func (t Torrent) DeleteFromESIndex(client *elastic.Client) error {
 	ctx := context.Background()
 	_, err := client.Delete().
@@ -153,6 +140,35 @@ func (t Torrent) DeleteFromESIndex(client *elastic.Client) error {
 		Id(strconv.FormatInt(int64(t.ID), 10)).
 		Do(ctx)
 	return err
+}
+
+// ParseTrackers : Takes an array of trackers, adds needed trackers and parse it to url string
+func (t *Torrent) ParseTrackers(trackers []string) {
+	if len(config.NeededTrackers) > 0 { // if we have some needed trackers configured
+		if len(trackers) == 0 {
+			trackers = config.Trackers
+		} else {
+			for _, id := range config.NeededTrackers {
+				found := false
+				for _, tracker := range trackers {
+					if tracker == config.Trackers[id] {
+						found = true
+						break
+					}
+				}
+				if !found {
+					trackers = append(trackers, config.Trackers[id])
+				}
+			}
+		}
+	}
+	t.Trackers = strings.Join(trackers, "&")
+}
+
+// GetTrackersArray : Convert trackers string to Array
+func (t *Torrent) GetTrackersArray() (trackers []string) {
+	trackers = strings.Split(t.Trackers, "&")
+	return
 }
 
 /* We need a JSON object instead of a Gorm structure because magnet URLs are
@@ -208,7 +224,13 @@ type TorrentJSON struct {
 
 // ToJSON converts a model.Torrent to its equivalent JSON structure
 func (t *Torrent) ToJSON() TorrentJSON {
-	magnet := util.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, config.Trackers...)
+	var trackers []string
+	if t.Trackers == "" {
+		trackers = config.Trackers
+	} else {
+		trackers = t.GetTrackersArray()
+	}
+	magnet := util.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, trackers...)
 	commentsJSON := make([]CommentJSON, 0, len(t.OldComments)+len(t.Comments))
 	for _, c := range t.OldComments {
 		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, UserID: -1, Content: template.HTML(c.Content), Date: c.Date.UTC()})
