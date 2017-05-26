@@ -6,6 +6,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 )
 
+// Comment model
 type Comment struct {
 	ID        uint      `gorm:"column:comment_id;primary_key"`
 	TorrentID uint      `gorm:"column:torrent_id"`
@@ -19,19 +20,22 @@ type Comment struct {
 	User    *User    `gorm:"AssociationForeignKey:UserID;ForeignKey:user_id"`
 }
 
-// Returns the total size of memory recursively allocated for this struct
+// Size : Returns the total size of memory recursively allocated for this struct
 func (c Comment) Size() int {
 	return (3 + 3*3 + 2 + 2 + len(c.Content)) * 8
 }
 
+// TableName : Return the name of comment table
 func (c Comment) TableName() string {
 	return config.CommentsTableName
 }
 
+// Identifier : Return the identifier of the comment
 func (c *Comment) Identifier() string { // We Can personalize the identifier but we would have to handle toggle read in that case
 	return c.Torrent.Identifier()
 }
 
+// OldComment model from old nyaa
 type OldComment struct {
 	TorrentID uint      `gorm:"column:torrent_id"`
 	Username  string    `gorm:"column:username"`
@@ -41,11 +45,12 @@ type OldComment struct {
 	Torrent *Torrent `gorm:"ForeignKey:torrent_id"`
 }
 
-// Returns the total size of memory recursively allocated for this struct
+// Size : Returns the total size of memory recursively allocated for this struct
 func (c OldComment) Size() int {
 	return (1 + 2*2 + len(c.Username) + len(c.Content) + 3 + 1) * 8
 }
 
+// TableName : Return the name of OldComment table
 func (c OldComment) TableName() string {
 	// cba to rename this in the db
 	// TODO: Update database schema to fix this hack

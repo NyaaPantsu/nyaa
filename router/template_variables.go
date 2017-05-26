@@ -84,7 +84,7 @@ type changeLanguageVariables struct {
 type panelIndexVbs struct {
 	commonTemplateVariables
 	Torrents       []model.Torrent
-	TorrentReports []model.TorrentReportJson
+	TorrentReports []model.TorrentReportJSON
 	Users          []model.User
 	Comments       []model.Comment
 }

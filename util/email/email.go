@@ -8,17 +8,20 @@ import (
 	gomail "gopkg.in/gomail.v2"
 )
 
-type EmailError error
+// Error type
+type Error error
 
 var (
 	mailer = InitGomail()
 )
 
+// InitGomail : init the gomail dialer
 func InitGomail() *gomail.Dialer {
 	newMailer := gomail.NewDialer(config.EmailHost, config.EmailPort, config.EmailUsername, config.EmailPassword)
 	return newMailer
 }
 
+// SendEmailFromAdmin : send an email from system with email address in config/email.go
 func SendEmailFromAdmin(to string, subject string, body string, bodyHTML string) error {
 	msg := gomail.NewMessage()
 	msg.SetHeader("From", config.EmailFrom)
@@ -39,6 +42,7 @@ func SendEmailFromAdmin(to string, subject string, body string, bodyHTML string)
 	return nil
 }
 
+// SendTestEmail : function to send a test email to email address in config/email.go
 func SendTestEmail() error {
 	msg := gomail.NewMessage()
 	msg.SetHeader("From", config.EmailFrom)

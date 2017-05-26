@@ -2,6 +2,7 @@ package config
 
 // TODO: Update FAQ template to use this variable
 
+// Trackers : Default trackers supported
 var Trackers = []string{
 	"udp://tracker.doko.moe:6969",
 	"udp://tracker.coppersurfer.tk:6969",

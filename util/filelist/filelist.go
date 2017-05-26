@@ -1,17 +1,20 @@
 package filelist
 
 import (
+	"strings"
+
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/bradfitz/slice"
-	"strings"
 )
 
+// FileListFolder struct
 type FileListFolder struct {
 	Folders    []*FileListFolder
 	Files      []model.File
 	FolderName string
 }
 
+// FileListToFolder convert a filelist to filelistfolder
 func FileListToFolder(fileList []model.File, folderName string) (out *FileListFolder) {
 	out = &FileListFolder{
 		Folders:    make([]*FileListFolder, 0),
@@ -52,6 +55,7 @@ func FileListToFolder(fileList []model.File, folderName string) (out *FileListFo
 	return
 }
 
+// TotalSize : gives the total size of filelistfolder
 func (f *FileListFolder) TotalSize() (out int64) {
 	out = 0
 	for _, folder := range f.Folders {

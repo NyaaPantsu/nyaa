@@ -21,6 +21,7 @@ import (
 var searchOperator string
 var useTSQuery bool
 
+// Configure : initialize search
 func Configure(conf *config.SearchConfig) (err error) {
 	useTSQuery = false
 	// Postgres needs ILIKE for case-insensitivity
@@ -35,7 +36,7 @@ func Configure(conf *config.SearchConfig) (err error) {
 	return
 }
 
-func stringIsAscii(input string) bool {
+func stringIsASCII(input string) bool {
 	for _, char := range input {
 		if char > 127 {
 			return false
@@ -44,21 +45,25 @@ func stringIsAscii(input string) bool {
 	return true
 }
 
+// SearchByQuery : search torrents according to request without user
 func SearchByQuery(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
 	search, tor, count, err = searchByQuery(r, pagenum, true, false, false)
 	return
 }
 
+// SearchByQueryWithUser : search torrents according to request with user
 func SearchByQueryWithUser(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
 	search, tor, count, err = searchByQuery(r, pagenum, true, true, false)
 	return
 }
 
+// SearchByQueryNoCount : search torrents according to request without user and count
 func SearchByQueryNoCount(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, err error) {
 	search, tor, _, err = searchByQuery(r, pagenum, false, false, false)
 	return
 }
 
+// SearchByQueryDeleted : search deleted torrents according to request with user and count
 func SearchByQueryDeleted(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
 	search, tor, count, err = searchByQuery(r, pagenum, true, true, true)
 	return
@@ -239,7 +244,7 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 			continue
 		}
 
-		if useTSQuery && stringIsAscii(word) {
+		if useTSQuery && stringIsASCII(word) {
 			conditions = append(conditions, "torrent_name @@ plainto_tsquery(?)")
 			parameters.Params = append(parameters.Params, word)
 		} else {

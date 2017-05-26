@@ -23,11 +23,13 @@ func CurrentUserIdentical(user *model.User, userID uint) bool {
 	return user.ID == userID
 }
 
+// NeedsCaptcha : Check if a user needs captcha
 func NeedsCaptcha(user *model.User) bool {
 	// Trusted members & Moderators don't
 	return !(user.IsTrusted() || user.IsModerator())
 }
 
+// GetRole : Get the status/role of a user
 func GetRole(user *model.User) string {
 	switch user.Status {
 	case model.UserStatusBanned:
@@ -42,6 +44,7 @@ func GetRole(user *model.User) string {
 	return "Member"
 }
 
+// IsFollower : Check if a user is following another
 func IsFollower(user *model.User, currentUser *model.User) bool {
 	var likingUserCount int
 	db.ORM.Model(&model.UserFollows{}).Where("user_id = ? and following = ?", user.ID, currentUser.ID).Count(&likingUserCount)

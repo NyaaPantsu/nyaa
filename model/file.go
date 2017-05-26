@@ -5,6 +5,7 @@ import (
 	"github.com/zeebo/bencode"
 )
 
+// File model
 type File struct {
 	ID        uint `gorm:"column:file_id;primary_key"`
 	TorrentID uint `gorm:"column:torrent_id;unique_index:idx_tid_path"`
@@ -13,20 +14,23 @@ type File struct {
 	Filesize     int64  `gorm:"column:filesize"`
 }
 
+// TableName : Return the name of files table
 func (f File) TableName() string {
 	return config.FilesTableName
 }
 
-// Returns the total size of memory allocated for this struct
+// Size : Returns the total size of memory allocated for this struct
 func (f File) Size() int {
 	return (2 + len(f.BencodedPath) + 1) * 8
 }
 
+// Path : Returns the path to the file
 func (f *File) Path() (out []string) {
 	bencode.DecodeString(f.BencodedPath, &out)
 	return
 }
 
+// SetPath : Set the path of the file
 func (f *File) SetPath(path []string) error {
 	encoded, err := bencode.EncodeString(path)
 	if err != nil {
@@ -37,6 +41,7 @@ func (f *File) SetPath(path []string) error {
 	return nil
 }
 
+// Filename : Returns the filename of the file
 func (f *File) Filename() string {
 	path := f.Path()
 	return path[len(path)-1]

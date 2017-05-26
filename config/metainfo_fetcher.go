@@ -1,5 +1,6 @@
 package config
 
+// MetainfoFetcherConfig : Config struct for metainfo fetcher
 type MetainfoFetcherConfig struct {
 	QueueSize        int `json:"queue_size"`
 	Timeout          int `json:"timeout"`
@@ -14,6 +15,7 @@ type MetainfoFetcherConfig struct {
 	FetchNewTorrentsOnly bool `json:"fetch_new_torrents_only"`
 }
 
+// DefaultMetainfoFetcherConfig : Default configuration for metainfofetcher
 var DefaultMetainfoFetcherConfig = MetainfoFetcherConfig{
 	QueueSize:        10,
 	Timeout:          120, // 2 min

@@ -6,6 +6,7 @@ import (
 
 var categories map[string]string
 
+// GetCategories : function to get all categories depending on the actual website from config/categories.go
 func GetCategories() map[string]string {
 	if categories != nil {
 		return categories
@@ -20,11 +21,13 @@ func GetCategories() map[string]string {
 	return categories
 }
 
+// CategoryExists : Check if a category exist in config
 func CategoryExists(category string) bool {
 	_, exists := GetCategories()[category]
 	return exists
 }
 
+// GetCategoriesSelect : Format categories in map ordered alphabetically
 func GetCategoriesSelect(keepParent bool) map[string]string {
 	categories := GetCategories()
 	catSelect := make(map[string]string, len(categories))

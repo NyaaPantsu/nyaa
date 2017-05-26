@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// FormatFilesize : format file size
 func FormatFilesize(bytes int64) string {
 	var unit string
 	var value float64

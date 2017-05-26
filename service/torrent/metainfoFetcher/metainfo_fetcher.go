@@ -1,6 +1,10 @@
 package metainfoFetcher
 
 import (
+	"math"
+	"sync"
+	"time"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
@@ -10,11 +14,9 @@ import (
 	"github.com/anacrolix/torrent"
 	"github.com/anacrolix/torrent/metainfo"
 	"golang.org/x/time/rate"
-	"math"
-	"sync"
-	"time"
 )
 
+// MetainfoFetcher Struct
 type MetainfoFetcher struct {
 	torrentClient    *torrent.Client
 	results          chan Result
@@ -34,6 +36,7 @@ type MetainfoFetcher struct {
 	wg               sync.WaitGroup
 }
 
+// New : Creates a MetainfoFetcher struct
 func New(fetcherConfig *config.MetainfoFetcherConfig) (fetcher *MetainfoFetcher, err error) {
 	clientConfig := torrent.Config{}
 	// Well, it seems this is the right way to convert speed -> rate.Limiter
@@ -306,12 +309,14 @@ func (fetcher *MetainfoFetcher) run() {
 	}
 }
 
+// RunAsync method
 func (fetcher *MetainfoFetcher) RunAsync() {
 	fetcher.wg.Add(1)
 
 	go fetcher.run()
 }
 
+// Close method
 func (fetcher *MetainfoFetcher) Close() error {
 	fetcher.queueMutex.Lock()
 	defer fetcher.queueMutex.Unlock()
@@ -328,6 +333,7 @@ func (fetcher *MetainfoFetcher) Close() error {
 	return nil
 }
 
+// Wait method
 func (fetcher *MetainfoFetcher) Wait() {
 	fetcher.wg.Wait()
 }

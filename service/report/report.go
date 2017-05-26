@@ -11,7 +11,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service"
 )
 
-// Return torrentReport in case we did modified it (ie: CreatedAt field)
+// CreateTorrentReport : Return torrentReport in case we did modified it (ie: CreatedAt field)
 func CreateTorrentReport(torrentReport model.TorrentReport) error {
 	if db.ORM.Create(&torrentReport).Error != nil {
 		return errors.New("TorrentReport was not created")
@@ -19,10 +19,11 @@ func CreateTorrentReport(torrentReport model.TorrentReport) error {
 	return nil
 }
 
+// DeleteTorrentReport : Delete a torrent report by id
 func DeleteTorrentReport(id uint) (error, int) {
 	var torrentReport model.TorrentReport
 	if db.ORM.First(&torrentReport, id).RecordNotFound() {
-		return errors.New("Trying to delete a torrent report that does not exists."), http.StatusNotFound
+		return errors.New("Trying to delete a torrent report that does not exists"), http.StatusNotFound
 	}
 	if err := db.ORM.Delete(&torrentReport).Error; err != nil {
 		return err, http.StatusInternalServerError
@@ -30,10 +31,11 @@ func DeleteTorrentReport(id uint) (error, int) {
 	return nil, http.StatusOK
 }
 
+// DeleteDefinitelyTorrentReport : Delete definitely a torrent report by id
 func DeleteDefinitelyTorrentReport(id uint) (error, int) {
 	var torrentReport model.TorrentReport
 	if db.ORM.Unscoped().First(&torrentReport, id).RecordNotFound() {
-		return errors.New("Trying to delete a torrent report that does not exists."), http.StatusNotFound
+		return errors.New("Trying to delete a torrent report that does not exists"), http.StatusNotFound
 	}
 	if err := db.ORM.Unscoped().Delete(&torrentReport).Error; err != nil {
 		return err, http.StatusInternalServerError
@@ -77,10 +79,12 @@ func getTorrentReportsOrderBy(parameters *serviceBase.WhereParams, orderBy strin
 	return
 }
 
+// GetTorrentReportsOrderBy : Get torrents based on search parameters with order
 func GetTorrentReportsOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) ([]model.TorrentReport, int, error) {
 	return getTorrentReportsOrderBy(parameters, orderBy, limit, offset, true)
 }
 
+// GetAllTorrentReports : Get all torrents
 func GetAllTorrentReports(limit int, offset int) ([]model.TorrentReport, int, error) {
 	return GetTorrentReportsOrderBy(nil, "", limit, offset)
 }
