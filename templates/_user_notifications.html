@@ -1,17 +1,17 @@
 {{define "profile_notifications_content"}}
 	{{with .User}}
 	<div>
-	<a href="{{ genRoute "user_notifications" }}?clear" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-trash"></i> {{ call $.T "clear_notifications" }}</a>
+	<a href="{{ genRoute "user_notifications" }}?clear" class="btn btn-danger pull-right"><i class="fa fa-trash"></i> {{ call $.T "clear_notifications" }}</a>
 	<div style="clear: both;"></div>
 	</div>
 	{{ range (index $.Infos "infos")}}
-		<div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
+		<div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="fa fa-info-circle"></i> {{ . }}</div>
 	{{end}}
 	<table class="table table-hover table-striped">
 		{{ range .Notifications }}
 		<tr><td>
 			<div style="padding: 0 1rem 1rem;">
-				<a href="{{ .Url }}?notif"><h3><i class="glyphicon glyphicon-bell profile-usertitle-name" ></i>{{ .Content }}</h3></a>
+				<a href="{{ .Url }}?notif"><h3><i class="fa fa-bell profile-usertitle-name" ></i>{{ .Content }}</h3></a>
 			</div>
 		</td></tr>
 		{{end}}

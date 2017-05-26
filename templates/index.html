@@ -14,6 +14,7 @@
     <link href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
 
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v=2">
+    <link rel="stylesheet" href="{{.URL.Parse "/css/fa-custom.min.css"}}?v=2">
     <link rel="stylesheet" id="theme" href="">
     <!-- Search Box for Google -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
@@ -37,13 +38,13 @@
 						<a href="{{.URL.Parse "/"}}"><img class="hide-md" src="/img/logo.png" alt="NyaaPantsu"><img class="visible-md" src="/img/logo_s.png"></img></a>
 					</div>
 					<div class="h-nav">
-						<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><div class="upload-icon visible-md"></div><span class="hide-md">{{ call $.T "upload" }}</span></a>
-						<a href="{{ genRouteWithQuery "feed" .URL }}" class="nav-btn"><div class="rss-icon visible-md"></div><span class="hide-md">RSS</span></a>
-						<a href="{{.URL.Parse "/faq"}}" class="nav-btn"><div class="faq-icon visible-md"></div><span class="hide-md">{{ call $.T "faq" }}</span></a>
+						<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><i class="fa fa-upload visible-md"></i><span class="hide-md">{{ call $.T "upload" }}</span></a>
+						<a href="{{ genRouteWithQuery "feed" .URL }}" class="nav-btn"><i class="fa fa-rss-square visible-md"></i><span class="hide-md">RSS</span></a>
+						<a href="{{.URL.Parse "/faq"}}" class="nav-btn"><i class="fa fa-question-circle visible-md"></i><span class="hide-md">{{ call $.T "faq" }}</span></a>
 						{{if Sukebei}}
-						<a href="//nyaa.pantsu.cat" class="nav-btn"><div class="fun-icon visible-md"></div><span class="hide-md">{{ call $.T "fun" }}</span></a>
+						<a href="//nyaa.pantsu.cat" class="nav-btn"><i class="fa fa-star visible-md"></i><span class="hide-md">{{ call $.T "fun" }}</span></a>
 						{{else}}
-						<a href="//sukebei.pantsu.cat" class="nav-btn"><div class="fap-icon visible-md"></div><span class="hide-md">{{ call $.T "fap" }}</span></a>
+						<a href="//sukebei.pantsu.cat" class="nav-btn"><i class="fa fa-heart visible-md"></i><span class="hide-md">{{ call $.T "fap" }}</span></a>
 						{{end}}
 					</div>
 			</div>
@@ -76,7 +77,7 @@
 						<option value="tomorrow.css">Tomorrow</option>
 					</select>
 
-					<button class="form-input btn" onclick="toggleMascot(this)" value="hide"><span class="oi" data-glyph="eye"></span> Mascot</button>
+					<button class="form-input btn" onclick="toggleMascot(this)" value="hide"><i class='fa fa-eye-slash'></i> Mascot</button>
 
 					<p><a href="/language">Change Language</a></p>
 				</div>

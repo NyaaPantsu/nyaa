@@ -2,7 +2,7 @@
 {{define "contclass"}}cont-home{{end}}
 {{define "content"}}
 
-<!-- 
+<!--
 <audio id="nyaapassu" hidden>
   <source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
 Your browser does not support the audio element.
@@ -61,11 +61,11 @@ Your browser does not support the audio element.
               -->
               <td class="tr-links home-td">
                   <a href="{{.Magnet}}" title="{{ call $.T "magnet_link" }}">
-                      <div class="magnet-icon"></div>
+                      <i class="fa fa-magnet"></i>
                   </a>
                   {{if ne .TorrentLink ""}}
                   <a href="{{.TorrentLink}}" title="{{ call $.T "torrent_file" }}">
-                      <div class="download-icon"></div>
+                      <i class="fa fa-save"></i>
                   </a>
                   {{end}}
               </td>

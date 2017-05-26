@@ -4,7 +4,7 @@
 <div style="text-align: left;" class="box">
 	<form enctype="multipart/form-data" role="upload" method="POST">
 		{{ range (index $.FormErrors "errors")}}
-		<div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
+		<div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="fa fa-exclamation-triangle"></i> {{ . }}</div>
 		{{end}}
 
 		<h3>{{call $.T "name"}}</h3>
