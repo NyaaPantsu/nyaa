@@ -94,22 +94,22 @@
   {{end}}
   <input type="checkbox" id="show-filelist">
   <label class="torrent-hr filelist-control" for="show-filelist">{{call $.T "files"}}</label>
-  {{ if gt (len .FileList) 0 }}
-  {{/* how do i concat lol */}}
-    <div class="torrent-info-box" id="filelist">
-        <table>
-            <thead>
-                <th style="width: 70%">{{call $.T "filename"}}</th>
-                <th>{{call $.T "size"}}</th>
-            </thead>
-            <tbody>
-			  {{ template "make_treeview" (makeTreeViewData $.RootFolder 0 $.T "root") }}
-			</tbody>
-		</table>
-	</div>
+  <div class="torrent-info-box" id="filelist">
+    {{ if gt (len .FileList) 0 }}
+    {{/* how do i concat lol */}}
+    <table>
+      <thead>
+        <th style="width: 70%">{{call $.T "filename"}}</th>
+        <th>{{call $.T "size"}}</th>
+      </thead>
+      <tbody>
+        {{ template "make_treeview" (makeTreeViewData $.RootFolder 0 $.T "root") }}
+      </tbody>
+    </table>
     {{ else }}
-    <p>No files found? That doesn't even make sense!</p>
-    {{end}}
+      <p>No files found? That doesn't even make sense!</p>
+    {{ end }}
+  </div>
 
   <p class="torrent-hr">{{call $.T "comments"}}</p>
   {{range $index, $element := .Comments}}
