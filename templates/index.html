@@ -41,13 +41,19 @@
 				}
 			}
 			function setTheme() {
-				document.getElementById('theme').href = "/css/" + localStorage.getItem('theme');
+				var themeFromStorage = localStorage.getItem('theme');
+				document.getElementById('theme').href = "/css/" + themeFromStorage;
+				window.addEventListener("load", () => {
+					var selectOptions = document.getElementById("theme_select").children
+					for (var option of selectOptions) {
+						option.selected = option.value == themeFromStorage;
+					}
+				});
 			}
 		</script>
 		<!-- Fix theme switching for google chrome where onload doesn't work -->
     <script type="text/javascript">
-       var theme = localStorage.getItem("theme");
-       if (theme != "") document.getElementById("theme").href = "/css/" + theme;
+			setTheme();
     </script>
 		{{ block "additional_header" .}}{{end}}
     </head>
@@ -99,7 +105,7 @@
 			<div class="container footer center">
 
 				<div class="footer-opt">
-					<select onchange="changeTheme(this.options[this.selectedIndex])" name="Theme" id="" class="form-input">
+					<select onchange="changeTheme(this.options[this.selectedIndex])" name="Theme" id="theme_select" class="form-input">
 						<option value="">Default</option>
 						<option value="g.css">/g/ Anon</option>
 						<option value="tomorrow.css">Tomorrow</option>
