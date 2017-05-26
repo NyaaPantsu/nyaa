@@ -11,26 +11,6 @@ function toggleNightMode() {
 	localStorage.setItem("night", (night == "true") ? "false" : "true");
 }
 
-function changeTheme(opt) {
-	theme = opt.value;
-	localStorage.setItem("theme", theme);
-	document.getElementById("theme").href = "/css/" + theme;
-	console.log(theme);
-}
-
-function toggleMascot(btn) {
-	var state= btn.value;
-	if (state == "hide") {
-		btn.innerHTML = "Mascot";
-		document.getElementById("mascot").className = "hide";
-		btn.value = "show";
-	} else {
-		btn.innerHTML = "Mascot";
-		document.getElementById("mascot").className = "";
-		btn.value = "hide";
-	}
-}
-
 // Used by spoiler tags
 function toggleLayer(elem) {
 	if (elem.classList.contains("hide"))
