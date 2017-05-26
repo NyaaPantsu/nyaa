@@ -23,7 +23,7 @@
         var theme = localStorage.getItem("theme");
         if (theme != "") document.getElementById("theme").href = "/css/" + theme;
      </script>
-     <div id="mascot" class="hide-xs"></div>
+     <div id="mascot" class="hide-xs" onclick="playVoice();"></div>
      <audio id="nyanpassu" hidden>
         <source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
      </audio>
