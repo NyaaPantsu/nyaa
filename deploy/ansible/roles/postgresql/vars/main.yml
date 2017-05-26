@@ -6,3 +6,5 @@ memqcache_total_size_byte: 10737418240
 memqcache_maxcache_byte: 131072000
 # Has to be bigger or equal to maxcache_byte
 memqcache_cache_block_size_byte: 131072000
+# 20 seconds idle max (application shouldn't even make idle connections)
+child_life_time: 20

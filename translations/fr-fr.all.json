@@ -109,7 +109,7 @@
   },
   {
     "id": "settings",
-    "translation": "Paramètres du compte"
+    "translation": "Paramètres"
   },
   {
     "id": "torrents",
@@ -137,7 +137,7 @@
   },
   {
     "id": "see_more_torrents_from",
-    "translation": "Voir plus de torrents de %s "
+    "translation": "Voir plus de torrents de %s"
   },
   {
     "id": "category",
@@ -153,7 +153,7 @@
   },
   {
     "id": "size",
-    "translation": "Taille"
+    "translation": "Taille "
   },
   {
     "id": "links",
@@ -365,7 +365,7 @@
   },
   {
     "id": "select_a_torrent_category",
-    "translation": "Choisir une catégorie de torrents"
+    "translation": "Choisir une catégorie de torrent"
   },
   {
     "id": "anime",
@@ -537,7 +537,7 @@
   },
   {
     "id": "hash",
-    "translation": "Hash"
+    "translation": "Info Hash"
   },
   {
     "id": "description",
@@ -625,7 +625,7 @@
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Ren-chon) est le nom d'utilisateur par défaut assigné aux uploads et commentaires anonymes ainsi que la mascotte du site. Il est utilisé pour les torrents importés du Nyaa original, bien que l'auteur d'origine puisse parfois être affiché."
+    "translation": "れんちょん (Ren-chon) est le nom d'utilisateur par défaut assigné aux uploads et commentaires anonymes. Il est utilisé pour les torrents importés du Nyaa original, bien que l'auteur d'origine puisse parfois être affiché."
   },
   {
     "id": "mark_as_remake",
@@ -665,7 +665,7 @@
   },
   {
     "id": "completed",
-    "translation": "Complété"
+    "translation": "Téléchargements"
   },
   {
     "id": "change_language",
@@ -685,11 +685,11 @@
   },
   {
     "id": "website_link",
-    "translation": "Lien du site web"
+    "translation": "Site web"
   },
   {
     "id": "files",
-    "translation": "Fichiers"
+    "translation": "Liste des fichiers"
   },
   {
     "id": "filename",
@@ -749,7 +749,7 @@
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "Veuillez inclure udp://tracker.doko.moe:6969 dans vos trackers."
+    "translation": "Veuillez inclure udp://tracker.doko.moe:6969 parmi les trackers."
   },
   {
     "id": "unknown",
@@ -757,7 +757,7 @@
   },
   {
     "id": "last_scraped",
-    "translation": "Dernier scrape effectué : "
+    "translation": "Dernier scrape : "
   },
   {
     "id": "server_status_link",
@@ -777,7 +777,7 @@
   },
   {
     "id": "my_notifications",
-    "translation": "Mes Notifications"
+    "translation": "Notifications"
   },
   {
     "id": "new_torrent_uploaded",

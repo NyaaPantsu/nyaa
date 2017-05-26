@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+
 	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
@@ -85,8 +86,7 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			Description: uploadForm.Description,
 			WebsiteLink: uploadForm.WebsiteLink,
 			UploaderID:  user.ID}
-
-
+		torrent.ParseTrackers(uploadForm.Trackers)
 		db.ORM.Create(&torrent)
 
 		client, err := elastic.NewClient()
@@ -101,13 +101,12 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			log.Errorf("Unable to create elasticsearch client: %s", err)
 		}
 
-
 		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
 
 		if user.ID > 0 && config.DefaultUserSettings["new_torrent"] { // If we are a member and notifications for new torrents are enabled
-			userService.GetLikings(user) // We populate the liked field for users
-			if len(user.Likings) > 0 {   // If we are followed by at least someone
-				for _, follower := range user.Likings {
+			userService.GetFollowers(user) // We populate the liked field for users
+			if len(user.Followers) > 0 {   // If we are followed by at least someone
+				for _, follower := range user.Followers {
 					follower.ParseSettings() // We need to call it before checking settings
 					if follower.Settings.Get("new_torrent") {
 						T, _, _ := languages.TfuncAndLanguageWithFallback(follower.Language, follower.Language) // We need to send the notification to every user in their language
