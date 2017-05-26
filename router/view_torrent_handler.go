@@ -45,7 +45,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	b := torrent.ToJSON()
-	folder := filelist.FileListToFolder(torrent.FileList)
+	folder := filelist.FileListToFolder(torrent.FileList, "root")
 	captchaID := ""
 	if userPermission.NeedsCaptcha(user) {
 		captchaID = captcha.GetID()
