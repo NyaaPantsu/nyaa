@@ -9,6 +9,10 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/sqlite"   // Need for sqlite
 )
 
+const (
+	SqliteType = "sqlite3"
+)
+
 // Logger interface
 type Logger interface {
 	Print(v ...interface{})
@@ -32,15 +36,23 @@ func GormInit(conf *config.Config, logger Logger) (*gorm.DB, error) {
 		return nil, openErr
 	}
 
-	IsSqlite = conf.DBType == "sqlite"
+	IsSqlite = conf.DBType == SqliteType
 
 	connectionErr := db.DB().Ping()
 	if connectionErr != nil {
 		log.CheckError(connectionErr)
 		return nil, connectionErr
 	}
-	db.DB().SetMaxIdleConns(10)
-	db.DB().SetMaxOpenConns(100)
+
+	// Negative MaxIdleConns means don't retain any idle connection
+	maxIdleConns := -1
+	if IsSqlite {
+		// sqlite doesn't like having a negative maxIdleConns
+		maxIdleConns = 10
+	}
+
+	db.DB().SetMaxIdleConns(maxIdleConns)
+	db.DB().SetMaxOpenConns(400)
 
 	if config.Environment == "DEVELOPMENT" {
 		db.LogMode(true)
