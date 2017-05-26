@@ -16,6 +16,7 @@ body {
 
 #mascot {
 	position: fixed;
+	z-index: 1;
 	bottom: 0;
 	right: 0;
 	width: 60vh;
@@ -35,6 +36,10 @@ body {
 .container {
 	max-width: 1080px;
 	margin: 0 auto;
+}
+.content {
+	position: relative;
+	z-index: 100;
 }
 
 .header .container {
