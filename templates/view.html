@@ -54,7 +54,7 @@
           <td class="torrent-info-td torrent-info-label">{{call $.T "leechers"}}:</td><td class="torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Leechers}}{{end}}</td>
       </tr>
     <tr class="torrent-info-row">
-          <td class="torrent-info-td torrent-info-label">{{call $.T "hash"}}:</td><td style="font-size: small;" class="torrent-view-td torrent-info-data">{{.Hash}}</td>
+          <td class="torrent-info-td torrent-info-label">{{call $.T "hash"}}:</td><td style="font-family: monospace;" class="torrent-view-td torrent-info-data">{{.Hash}}</td>
           <td class="torrent-info-td torrent-info-label">{{call $.T "completed"}}:</td><td class="torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Completed}}{{end}}</td>
       </tr>
     <tr class="torrent-info-row">
