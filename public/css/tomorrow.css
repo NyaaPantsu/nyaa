@@ -69,7 +69,7 @@ td.tr-le { color: #cc6666; }
 	border-color: #828282;
 }
 .editor-toolbar {
-	background: #000;
+	background: #000 !important;
 }
 .editor-toolbar.fullscreen::before, .editor-toolbar.fullscreen::after {
 	display: none;
