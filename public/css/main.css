@@ -644,7 +644,12 @@ input.filelist-checkbox:checked + table.table-filelist {
 /* for mascot */
 #content {
 	text-align: center;
+	/* FIXME: Make the navigation not working,
+	and mascot is not in #content,
+	please explain and fix it:
+
 	pointer-events: none;
+	*/
 }
 
 .center {
