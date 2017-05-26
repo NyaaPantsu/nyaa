@@ -193,7 +193,7 @@ var FuncMap = template.FuncMap{
 	"DefaultUserSettings": func(s string) bool {
 		return config.DefaultUserSettings[s]
 	},
-	"makeFolderData": func(f *filelist.FileListFolder, nestLevel int, T languages.TemplateTfunc, identifierChain string) interface{} {
+	"makeTreeViewData": func(f *filelist.FileListFolder, nestLevel int, T languages.TemplateTfunc, identifierChain string) interface{} {
 		return struct{
 			Folder *filelist.FileListFolder
 			NestLevel int

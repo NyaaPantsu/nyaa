@@ -11,7 +11,7 @@
         <td colspan="2">
         <input id="contents_{{$folderId}}" type="checkbox" class="filelist-checkbox">
         <table class="table-filelist">
-        {{ template "make_treeview" (makeFolderData $folder (inc $.NestLevel) $.T $folderId) }}
+        {{ template "make_treeview" (makeTreeViewData $folder (inc $.NestLevel) $.T $folderId) }}
         </table>
         </td>
     </tr>
@@ -103,7 +103,7 @@
                 <th>{{call $.T "size"}}</th>
             </thead>
             <tbody>
-			  {{ template "make_treeview" (makeFolderData $.RootFolder 0 $.T "root") }}
+			  {{ template "make_treeview" (makeTreeViewData $.RootFolder 0 $.T "root") }}
 			</tbody>
 		</table>
 	</div>
