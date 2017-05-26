@@ -12,10 +12,12 @@
 
     <!-- RSS Feed with Context -->
     <link href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
+    
     <!-- Base theme -->
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v=2">
     <!-- User selected theme, if any -->
     <link rel="stylesheet" id="theme" href="{{.URL.Parse $.Theme}}">
+
     <!-- Search Box for Google -->
    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 		<script>
@@ -40,10 +42,21 @@
 				}
 			}
 			function setTheme() {
-				document.getElementById('theme').href = "/css/" + localStorage.getItem('theme');
+				var themeFromStorage = localStorage.getItem('theme');
+				document.getElementById('theme').href = "/css/" + themeFromStorage;
+				window.addEventListener("load", () => {
+					var selectOptions = document.getElementById("theme_select").children
+					for (var option of selectOptions) {
+						option.selected = option.value == themeFromStorage;
+					}
+				});
 			}
 		</script>
-
+		<!-- Fix theme switching for google chrome where onload doesn't work -->
+    <script type="text/javascript">
+			setTheme();
+    </script>
+		{{ block "additional_header" .}}{{end}}
     </head>
   <body onload="setTheme();">
      <div id="mascot" class="hide-xs" onclick="playVoice();"></div>
@@ -103,5 +116,6 @@
 		</footer>
 </div>
   <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}?v=2"></script>
+	{{ block "footer_js" .}}{{end}}
 </body>
 </html>
