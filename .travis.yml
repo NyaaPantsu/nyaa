@@ -3,14 +3,14 @@ go:
 - 1.x
 before_install:
 - sudo apt-get install gcc-mingw-w64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 binutils-mingw-w64-i686 binutils-mingw-w64-x86-64
-
-script:
-# Downloads deps automatically. No need to add manually.
-- go list -f '{{.Deps}}' | tr "[" " " | tr "]" " " | xargs go list -e -f '{{if not .Standard}}{{.ImportPath}}{{end}}' | grep -v 'github.com/NyaaPantsu/nyaa' | xargs go get -v
-- go get
-- go build
+- go get -u github.com/tools/godep
+before_script:
 - go vet
 - go test -v ./...
+install:
+  # Add Godeps dependencies to GOPATH and PATH
+  - export GOPATH="${TRAVIS_BUILD_DIR}/vendor:$GOPATH"
+  - export PATH="${TRAVIS_BUILD_DIR}/Godeps/_workspace/bin:$PATH"
 before_deploy:
 - ./package.sh
 deploy:

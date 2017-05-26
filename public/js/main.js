@@ -1,3 +1,6 @@
+var explosion = document.getElementById("explosion");
+var nyanpassu = document.getElementById("nyanpassu");
+
 function toggleNightMode() {
 	var night = localStorage.getItem("night");
 	if(night == "true") {
@@ -23,6 +26,25 @@ function switchThemes(){
 }
 
 
+function changeTheme(opt) {
+	theme = opt.value;
+	localStorage.setItem("theme", theme);
+	document.getElementById("theme").href = "/css/" + theme;
+	console.log(theme);
+}
+
+function toggleMascot(btn) {
+	var state= btn.value;
+	if (state == "hide") {
+		btn.innerHTML = "Mascot";
+		document.getElementById("mascot").className = "hide";
+		btn.value = "show";
+	} else {
+		btn.innerHTML = "Mascot";
+		document.getElementById("mascot").className = "";
+		btn.value = "hide";
+	}
+}
 
 // Used by spoiler tags
 function toggleLayer(elem) {
@@ -56,3 +78,15 @@ window.onload = function() {
 	if (location.hash) shiftWindow();
 	window.addEventListener("hashchange", shiftWindow);
 };
+
+function playVoice() {
+	switch (theme) {
+	case "tomorrow.css":
+		explosion.play();
+		break;
+	default:
+		nyanpassu.volume = 0.5;
+		nyanpassu.play();
+		break;
+	}
+}
