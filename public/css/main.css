@@ -648,7 +648,7 @@ input.filelist-checkbox:checked + table.table-filelist {
 	pointer-events: none;
 }
 
-#content > div, .footer {
+.center {
 	display: inline-block;
 	pointer-events: initial;
 }
