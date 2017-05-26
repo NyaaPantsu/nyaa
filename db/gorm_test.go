@@ -26,7 +26,7 @@ func (logger *errorLogger) Print(values ...interface{}) {
 
 func TestGormInitSqlite(t *testing.T) {
 	conf := config.New()
-	conf.DBType = "sqlite3"
+	conf.DBType = SqliteType
 	conf.DBParams = ":memory:?cache=shared&mode=memory"
 	conf.DBLogMode = "detailed"
 
