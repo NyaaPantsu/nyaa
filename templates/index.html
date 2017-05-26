@@ -18,7 +18,7 @@
     <!-- Search Box for Google -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
     </head>
-  <body onload="setTheme();">
+  <body>
      <script type="text/javascript">
         var theme = localStorage.getItem("theme");
         if (theme != "") document.getElementById("theme").href = "/css/" + theme;
@@ -59,7 +59,7 @@
 		</div>
 	</nav>
 <div id="content">
-      <div class="content container">
+      <div class="content container center">
         {{block "content" .}}{{call $.T "nothing_here"}}{{end}}
       </div>
 <div class="pagination">
@@ -67,7 +67,7 @@
 </div>
 
 <footer id="footer">
-			<div class="container footer">
+			<div class="container footer center">
 
 				<div class="footer-opt">
 					<select onchange="changeTheme(this.options[this.selectedIndex])" name="Theme" id="" class="form-input">
