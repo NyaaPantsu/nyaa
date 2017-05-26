@@ -25,7 +25,7 @@ body {
 }
 
 .header {
-	z-index: 9999;
+	z-index: 2;
 	position: fixed;
 	width: 100%;
 	top: 0; left: 0;
@@ -63,7 +63,8 @@ float:  right; }
 .h-logo { height: 60px; }
 .h-logo, .h-nav {
 	display: inline-block;
-	float: 	left;
+	float: 	left; 
+	/* Property is ignored due to the display. With 'display: inline-block', float properties have no effect. */
 }
 .header .h-logo img {
 	height:  60px;
@@ -173,6 +174,7 @@ select.form-input {
 	float: left;
 	height: 60px;
 	line-height: 60px;
+	/* Property is ignored due to the display. With 'display: block', vertical-align should not be used. */
 	vertical-align: middle;
 	max-width: 100px;
 

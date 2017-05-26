@@ -13,8 +13,15 @@
     <!-- RSS Feed with Context -->
     <link href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v=2">
     <link rel="stylesheet" id="theme" href="">
+    <script type="text/javascript">
+       var theme = localStorage.getItem("theme");
+       if (theme != "") document.getElementById("theme").href = "/css/" + theme;
+    </script>
     <!-- Search Box for Google -->
    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 		<script>
