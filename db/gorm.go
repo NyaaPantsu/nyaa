@@ -5,19 +5,22 @@ import (
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/azhao12345/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	_ "github.com/jinzhu/gorm/dialects/postgres" // Need for postgres support
+	_ "github.com/jinzhu/gorm/dialects/sqlite"   // Need for sqlite
 )
 
+// Logger interface
 type Logger interface {
 	Print(v ...interface{})
 }
 
-// use the default gorm logger that prints to stdout
+// DefaultLogger : use the default gorm logger that prints to stdout
 var DefaultLogger Logger = nil
 
+// ORM : Variable for interacting with database
 var ORM *gorm.DB
 
+// IsSqlite : Variable to know if we are in sqlite or postgres
 var IsSqlite bool
 
 // GormInit init gorm ORM.

@@ -9,6 +9,7 @@ import (
 	lumberjack "gopkg.in/natefinch/lumberjack.v2"
 )
 
+// LumberJackLogger : Initialize logger
 func LumberJackLogger(filePath string, maxSize int, maxBackups int, maxAge int) *lumberjack.Logger {
 	return &lumberjack.Logger{
 		Filename:   filePath,
@@ -18,18 +19,21 @@ func LumberJackLogger(filePath string, maxSize int, maxBackups int, maxAge int) 
 	}
 }
 
+// InitLogToStdoutDebug : set logrus to debug param
 func InitLogToStdoutDebug() {
 	logrus.SetFormatter(&logrus.TextFormatter{ForceColors: true})
 	logrus.SetOutput(os.Stdout)
 	logrus.SetLevel(logrus.DebugLevel)
 }
 
+// InitLogToStdout : set logrus to stdout
 func InitLogToStdout() {
 	logrus.SetFormatter(&logrus.TextFormatter{})
 	logrus.SetOutput(os.Stdout)
 	logrus.SetLevel(logrus.WarnLevel)
 }
 
+// InitLogToFile : set logrus to output in file
 func InitLogToFile() {
 	logrus.SetFormatter(&logrus.JSONFormatter{})
 
@@ -112,7 +116,7 @@ func Panicf(msg string, args ...interface{}) {
 	logrus.Panicf(msg, args...)
 }
 
-// log response body data for debugging
+// DebugResponse : log response body data for debugging
 func DebugResponse(response *http.Response) string {
 	bodyBuffer := make([]byte, 5000)
 	var str string

@@ -76,7 +76,7 @@ func APIHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	b := model.ApiResultJSON{
+	b := model.APIResultJSON{
 		Torrents: model.TorrentsToJSON(torrents),
 	}
 	b.QueryRecordCount = req.MaxPerPage
@@ -94,7 +94,7 @@ func APIViewHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	torrent, err := torrentService.GetTorrentById(id)
+	torrent, err := torrentService.GetTorrentByID(id)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
@@ -119,7 +119,7 @@ func APIViewHeadHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = torrentService.GetRawTorrentById(uint(id))
+	_, err = torrentService.GetRawTorrentByID(uint(id))
 
 	if err != nil {
 		NotFoundHandler(w, r)
@@ -141,7 +141,7 @@ func APIUploadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if user.ID == 0 {
-		http.Error(w, apiService.ErrApiKey.Error(), http.StatusUnauthorized)
+		http.Error(w, apiService.ErrAPIKey.Error(), http.StatusUnauthorized)
 		return
 	}
 
@@ -228,7 +228,7 @@ func APIUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	contentType := r.Header.Get("Content-Type")
 	if contentType == "application/json" {
 		if user.ID == 0 {
-			http.Error(w, apiService.ErrApiKey.Error(), http.StatusForbidden)
+			http.Error(w, apiService.ErrAPIKey.Error(), http.StatusForbidden)
 			return
 		}
 
@@ -245,7 +245,7 @@ func APIUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		torrent := model.Torrent{}
 		db.ORM.Where("torrent_id = ?", id).First(&torrent)
 		if torrent.ID == 0 {
-			http.Error(w, apiService.ErrTorrentId.Error(), http.StatusBadRequest)
+			http.Error(w, apiService.ErrTorrentID.Error(), http.StatusBadRequest)
 			return
 		}
 		if torrent.UploaderID != 0 && torrent.UploaderID != user.ID { //&& user.Status != mod

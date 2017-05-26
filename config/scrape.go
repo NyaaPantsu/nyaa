@@ -1,11 +1,13 @@
 package config
 
+// ScrapeConfig : Config struct for Scraping
 type ScrapeConfig struct {
 	URL             string `json:"scrape_url"`
 	Name            string `json:"name"`
 	IntervalSeconds int64  `json:"interval"`
 }
 
+// ScraperConfig :  Config struct for Scraper
 type ScraperConfig struct {
 	Addr            string         `json:"bind"`
 	NumWorkers      int            `json:"workers"`

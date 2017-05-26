@@ -2,18 +2,21 @@ package filelist
 
 import (
 	"bytes"
-	"github.com/NyaaPantsu/nyaa/model"
-	"github.com/bradfitz/slice"
 	"html/template"
 	"strconv"
 	"strings"
+
+	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/bradfitz/slice"
 )
 
+// FileListFolder struct
 type FileListFolder struct {
 	Folders map[string]*FileListFolder
 	Files   []model.File
 }
 
+// FileListToFolder convert a filelist to filelistfolder
 func FileListToFolder(fileList []model.File) (out *FileListFolder) {
 	out = &FileListFolder{
 		Folders: make(map[string]*FileListFolder),
@@ -46,6 +49,7 @@ func FileListToFolder(fileList []model.File) (out *FileListFolder) {
 	return
 }
 
+// TotalSize : gives the total size of filelistfolder
 func (f *FileListFolder) TotalSize() (out int64) {
 	out = 0
 	for _, folder := range f.Folders {
@@ -89,7 +93,7 @@ func (f *FileListFolder) makeFolderTreeView(folderTmpl *template.Template, fileT
 	output = template.HTML("")
 	var tmp template.HTML
 	var folderNames []string // need this for sorting
-	for folderName, _ := range f.Folders {
+	for folderName := range f.Folders {
 		folderNames = append(folderNames, folderName)
 	}
 
@@ -128,6 +132,7 @@ func (f *FileListFolder) makeFolderTreeView(folderTmpl *template.Template, fileT
 	return
 }
 
+// MakeFolderTreeView : Make the tree view for filelistfolder used in view torrent
 func (f *FileListFolder) MakeFolderTreeView(folderFormat string, fileFormat string, funcMap template.FuncMap, data interface{}) (output template.HTML, err error) {
 	folderTmpl, err := template.New("folderTemplate").Funcs(funcMap).Parse(folderFormat)
 	if err != nil {

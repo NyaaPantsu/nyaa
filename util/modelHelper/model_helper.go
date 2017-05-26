@@ -1,11 +1,12 @@
 package modelHelper
 
 import (
-	"github.com/NyaaPantsu/nyaa/util/log"
-	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"net/http"
 	"reflect"
 	"strconv"
+
+	"github.com/NyaaPantsu/nyaa/util/log"
+	msg "github.com/NyaaPantsu/nyaa/util/messages"
 )
 
 // TODO: Rewrite module
@@ -34,7 +35,7 @@ func AssignValue(model interface{}, form interface{}) {
 	}
 }
 
-// AssignValue assign form values to model.
+// BindValueForm assign populate form from a request
 func BindValueForm(form interface{}, r *http.Request) {
 	r.ParseForm()
 	formElem := reflect.ValueOf(form).Elem()
@@ -57,6 +58,7 @@ func BindValueForm(form interface{}, r *http.Request) {
 	}
 }
 
+// ValidateForm : Check if a form is valid according to its tags
 func ValidateForm(form interface{}, mes *msg.Messages) {
 	formElem := reflect.ValueOf(form).Elem()
 	for i := 0; i < formElem.NumField(); i++ {
@@ -105,7 +107,7 @@ func ValidateForm(form interface{}, mes *msg.Messages) {
 			if tag.Get("needed") != "" && formElem.Field(i).Int() == 0 {
 				mes.AddErrorf(tag.Get("form"), "Field needed: %s", inputName)
 			}
-			if formElem.Field(i).Interface == nil && tag.Get("default") != "" {
+			if formElem.Field(i).Interface == nil && tag.Get("default") != "" { // FIXME: always false :'(
 				defaultValue, _ := strconv.Atoi(tag.Get("default"))
 				formElem.Field(i).SetInt(int64(defaultValue))
 			}
@@ -119,7 +121,7 @@ func ValidateForm(form interface{}, mes *msg.Messages) {
 			if tag.Get("needed") != "" && formElem.Field(i).Float() == 0 {
 				mes.AddErrorf(tag.Get("form"), "Field needed: %s", inputName)
 			}
-			if formElem.Field(i).Interface == nil && tag.Get("default") != "" {
+			if formElem.Field(i).Interface == nil && tag.Get("default") != "" { // FIXME: always false :'(
 				defaultValue, _ := strconv.Atoi(tag.Get("default"))
 				formElem.Field(i).SetFloat(float64(defaultValue))
 			}
@@ -130,7 +132,7 @@ func ValidateForm(form interface{}, mes *msg.Messages) {
 					mes.AddErrorf(tag.Get("form"), "Wrong value for the input: %s", inputName)
 				}
 			}
-			if formElem.Field(i).Interface == nil && tag.Get("default") != "" {
+			if formElem.Field(i).Interface == nil && tag.Get("default") != "" { // FIXME: always false :'(
 				defaultValue, _ := strconv.ParseBool(tag.Get("default"))
 				formElem.Field(i).SetBool(defaultValue)
 			}

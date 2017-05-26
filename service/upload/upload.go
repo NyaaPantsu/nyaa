@@ -7,6 +7,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/model"
 )
 
+// CheckTrackers : Check if there is good trackers in torrent
 func CheckTrackers(trackers []string) bool {
 	// TODO: move to runtime configuration
 	var deadTrackers = []string{ // substring matches!
@@ -40,6 +41,7 @@ func CheckTrackers(trackers []string) bool {
 	return numGood > 0
 }
 
+// IsUploadEnabled : Check if upload is enabled in config
 func IsUploadEnabled(u model.User) bool {
 	if config.UploadsDisabled {
 		if config.AdminsAreStillAllowedTo && u.IsModerator() {

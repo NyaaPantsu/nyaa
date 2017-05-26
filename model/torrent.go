@@ -14,13 +14,19 @@ import (
 )
 
 const (
-	TorrentStatusNormal  = 1
-	TorrentStatusRemake  = 2
+	// TorrentStatusNormal Int for Torrent status normal
+	TorrentStatusNormal = 1
+	// TorrentStatusRemake Int for Torrent status remake
+	TorrentStatusRemake = 2
+	// TorrentStatusTrusted Int for Torrent status trusted
 	TorrentStatusTrusted = 3
-	TorrentStatusAPlus   = 4
+	// TorrentStatusAPlus Int for Torrent status a+
+	TorrentStatusAPlus = 4
+	// TorrentStatusBlocked Int for Torrent status locked
 	TorrentStatusBlocked = 5
 )
 
+// Feed struct
 type Feed struct {
 	ID        int
 	Name      string
@@ -29,6 +35,7 @@ type Feed struct {
 	Timestamp string
 }
 
+// Torrent model
 type Torrent struct {
 	ID          uint      `gorm:"column:torrent_id;primary_key"`
 	Name        string    `gorm:"column:torrent_name"`
@@ -57,7 +64,7 @@ type Torrent struct {
 	FileList   []File    `gorm:"ForeignKey:torrent_id"`
 }
 
-// Returns the total size of memory recursively allocated for this struct
+// Size : Returns the total size of memory recursively allocated for this struct
 // FIXME: doesn't go have sizeof or something nicer for this?
 func (t Torrent) Size() (s int) {
 	s += 8 + // ints
@@ -83,34 +90,42 @@ func (t Torrent) Size() (s int) {
 
 }
 
+// TableName : Return the name of torrents table
 func (t Torrent) TableName() string {
 	return config.TorrentsTableName
 }
 
+// Identifier : Return the identifier of a torrent
 func (t *Torrent) Identifier() string {
 	return "torrent_" + strconv.Itoa(int(t.ID))
 }
 
+// IsNormal : Return if a torrent status is normal
 func (t Torrent) IsNormal() bool {
 	return t.Status == TorrentStatusNormal
 }
 
+// IsRemake : Return if a torrent status is normal
 func (t Torrent) IsRemake() bool {
 	return t.Status == TorrentStatusRemake
 }
 
+// IsTrusted : Return if a torrent status is trusted
 func (t Torrent) IsTrusted() bool {
 	return t.Status == TorrentStatusTrusted
 }
 
+// IsAPlus : Return if a torrent status is a+
 func (t Torrent) IsAPlus() bool {
 	return t.Status == TorrentStatusAPlus
 }
 
+// IsBlocked : Return if a torrent status is locked
 func (t *Torrent) IsBlocked() bool {
 	return t.Status == TorrentStatusBlocked
 }
 
+// IsDeleted : Return if a torrent status is deleted
 func (t *Torrent) IsDeleted() bool {
 	return t.DeletedAt != nil
 }
@@ -118,12 +133,14 @@ func (t *Torrent) IsDeleted() bool {
 /* We need a JSON object instead of a Gorm structure because magnet URLs are
    not in the database and have to be generated dynamically */
 
-type ApiResultJSON struct {
+// APIResultJSON for torrents in json for api
+type APIResultJSON struct {
 	Torrents         []TorrentJSON `json:"torrents"`
 	QueryRecordCount int           `json:"queryRecordCount"`
 	TotalRecordCount int           `json:"totalRecordCount"`
 }
 
+// CommentJSON for comment model in json
 type CommentJSON struct {
 	Username   string        `json:"username"`
 	UserID     int           `json:"user_id"`
@@ -132,11 +149,13 @@ type CommentJSON struct {
 	Date       time.Time     `json:"date"`
 }
 
+// FileJSON for file model in json
 type FileJSON struct {
 	Path     string `json:"path"`
 	Filesize int64  `json:"filesize"`
 }
 
+// TorrentJSON for torrent model in json for api
 type TorrentJSON struct {
 	ID           string        `json:"id"`
 	Name         string        `json:"name"`
@@ -239,7 +258,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 
 /* Complete the functions when necessary... */
 
-// Map Torrents to TorrentsToJSON without reallocations
+// TorrentsToJSON : Map Torrents to TorrentsToJSON without reallocations
 func TorrentsToJSON(t []Torrent) []TorrentJSON {
 	json := make([]TorrentJSON, len(t))
 	for i := range t {

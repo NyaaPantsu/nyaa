@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 )
 
+// UnZlib : Is it deprecated?
 func UnZlib(description []byte) (string, error) {
 	if len(description) > 0 {
 		b := bytes.NewReader(description)

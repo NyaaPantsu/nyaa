@@ -1,6 +1,6 @@
 package config
 
-/* Config of different status id for torrents */
+// TorrentStatus : Config of different status id for torrents
 var TorrentStatus = map[int]bool{
 	0: true,
 	1: true,
@@ -9,7 +9,7 @@ var TorrentStatus = map[int]bool{
 	4: true,
 }
 
-/* Config for Sukebei categories */
+// TorrentSukebeiCategories : Config for Sukebei categories
 var TorrentSukebeiCategories = map[string]string{
 	"1_":  "art",
 	"1_1": "art_anime",
@@ -22,7 +22,7 @@ var TorrentSukebeiCategories = map[string]string{
 	"2_2": "real_life_videos",
 }
 
-/* Config for Site categories */
+// TorrentCleanCategories : Config for Site categories
 var TorrentCleanCategories = map[string]string{
 	"3_":   "anime",
 	"3_12": "anime_amv",

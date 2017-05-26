@@ -13,6 +13,7 @@ type GracefulListener struct {
 	stop     chan int
 }
 
+// Accept method
 func (l *GracefulListener) Accept() (net.Conn, error) {
 	for {
 		c, err := l.listener.Accept()
@@ -37,6 +38,7 @@ func (l *GracefulListener) Accept() (net.Conn, error) {
 	}
 }
 
+// Close method
 func (l *GracefulListener) Close() (err error) {
 	l.listener.Close()
 	if l.stop != nil {
@@ -45,6 +47,7 @@ func (l *GracefulListener) Close() (err error) {
 	return
 }
 
+// Addr method
 func (l *GracefulListener) Addr() net.Addr {
 	return l.listener.Addr()
 }

@@ -7,6 +7,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/util"
 )
 
+// DatabaseDump model
 type DatabaseDump struct {
 	Date        time.Time
 	Filesize    int64
@@ -14,6 +15,7 @@ type DatabaseDump struct {
 	TorrentLink string
 }
 
+// DatabaseDumpJSON : Json format of DatabaseDump model
 type DatabaseDumpJSON struct {
 	Date     string `json:"date"`
 	Filesize string `json:"filesize"`
@@ -22,6 +24,7 @@ type DatabaseDumpJSON struct {
 	TorrentLink template.URL `json:"torrent"`
 }
 
+// ToJSON : convert to JSON DatabaseDump model
 func (dump *DatabaseDump) ToJSON() DatabaseDumpJSON {
 	json := DatabaseDumpJSON{
 		Date:        dump.Date.Format(time.RFC3339),

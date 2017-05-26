@@ -5,7 +5,9 @@ package config
 
 const (
 	// Environment should be one of: DEVELOPMENT, TEST, PRODUCTION
-	Environment            = "DEVELOPMENT"
-	WebAddress             = "nyaa.pantsu.cat"
+	Environment = "DEVELOPMENT"
+	// WebAddress : url of the website
+	WebAddress = "nyaa.pantsu.cat"
+	// AuthTokenExpirationDay : Number of Days for token expiration when logged in
 	AuthTokenExpirationDay = 1000
 )

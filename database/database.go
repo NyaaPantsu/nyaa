@@ -72,22 +72,24 @@ type Database interface {
 	// XXX: add more as needed
 }
 
-var ErrInvalidDatabaseDialect = errors.New("invalid database dialect")
-var ErrSqliteSucksAss = errors.New("sqlite3 sucks ass so it's not supported yet")
+var errInvalidDatabaseDialect = errors.New("invalid database dialect")
+var errSqliteSucksAss = errors.New("sqlite3 sucks ass so it's not supported yet")
 
+// Impl : Database variable
 var Impl Database
 
+// Configure : Configure Database
 func Configure(conf *config.Config) (err error) {
 	switch conf.DBType {
 	case "postgres":
 		Impl, err = postgres.New(conf.DBParams)
 		break
 	case "sqlite3":
-		err = ErrSqliteSucksAss
+		err = errSqliteSucksAss
 		// Impl, err = sqlite.New(conf.DBParams)
 		break
 	default:
-		err = ErrInvalidDatabaseDialect
+		err = errInvalidDatabaseDialect
 	}
 	if err == nil {
 		log.Infof("Init %s database", conf.DBType)

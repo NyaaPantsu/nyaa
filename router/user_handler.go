@@ -343,8 +343,8 @@ func UserAPIKeyResetHandler(w http.ResponseWriter, r *http.Request) {
 		NotFoundHandler(w, r)
 		return
 	}
-	userProfile.ApiToken, _ = crypto.GenerateRandomToken32()
-	userProfile.ApiTokenExpiry = time.Unix(0, 0)
+	userProfile.APIToken, _ = crypto.GenerateRandomToken32()
+	userProfile.APITokenExpiry = time.Unix(0, 0)
 	_, errorUser = userService.UpdateUserCore(&userProfile)
 	if errorUser != nil {
 		messages.ImportFromError("errors", errorUser)

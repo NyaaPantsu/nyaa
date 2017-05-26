@@ -12,12 +12,18 @@ import (
 const (
 	// LastOldTorrentID is the highest torrent ID
 	// that was copied from the original Nyaa
-	LastOldTorrentID      = 923000
-	TorrentsTableName     = "torrents"
-	ReportsTableName      = "torrent_reports"
-	CommentsTableName     = "comments"
-	UploadsOldTableName   = "user_uploads_old"
-	FilesTableName        = "files"
+	LastOldTorrentID = 923000
+	// TorrentsTableName : Name of torrent table in DB
+	TorrentsTableName = "torrents"
+	// ReportsTableName : Name of torrent report table in DB
+	ReportsTableName = "torrent_reports"
+	// CommentsTableName : Name of comments table in DB
+	CommentsTableName = "comments"
+	// UploadsOldTableName : Name of uploads table in DB
+	UploadsOldTableName = "user_uploads_old"
+	// FilesTableName : Name of files table in DB
+	FilesTableName = "files"
+	// NotificationTableName : Name of notifications table in DB
 	NotificationTableName = "notifications"
 
 	// for sukebei:
@@ -29,10 +35,12 @@ const (
 	//FilesTableName      = "sukebei_files"
 )
 
+// IsSukebei : Tells if we are on the sukebei website
 func IsSukebei() bool {
 	return TorrentsTableName == "sukebei_torrents"
 }
 
+// Config : Configuration for DB, I2P, Fetcher, Go Server and Translation
 type Config struct {
 	Host   string `json:"host"`
 	Port   int    `json:"port"`
@@ -55,6 +63,7 @@ type Config struct {
 	I18n I18nConfig `json:"i18n"`
 }
 
+// Defaults : Configuration by default
 var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50", "default", DefaultScraperConfig, DefaultCacheConfig, DefaultSearchConfig, nil, DefaultMetainfoFetcherConfig, DefaultI18nConfig}
 
 var allowedDatabaseTypes = map[string]bool{
@@ -70,6 +79,7 @@ var allowedDBLogModes = map[string]bool{
 	"silent":   true,
 }
 
+// New : Construct a new config variable
 func New() *Config {
 	var config Config
 	config.Host = Defaults.Host
@@ -112,6 +122,7 @@ func (config *Config) BindFlags() func() error {
 	}
 }
 
+// HandleConfFileFlag : Read the config from a file
 func (config *Config) HandleConfFileFlag(path string) error {
 	if path != "" {
 		file, err := os.Open(path)
@@ -127,30 +138,35 @@ func (config *Config) HandleConfFileFlag(path string) error {
 	return nil
 }
 
-func (config *Config) SetDBType(db_type string) error {
-	if !allowedDatabaseTypes[db_type] {
-		return fmt.Errorf("unknown database backend '%s'", db_type)
+// SetDBType : Set the DataBase type in config
+func (config *Config) SetDBType(dbType string) error {
+	if !allowedDatabaseTypes[dbType] {
+		return fmt.Errorf("unknown database backend '%s'", dbType)
 	}
-	config.DBType = db_type
+	config.DBType = dbType
 	return nil
 }
 
-func (config *Config) SetDBLogMode(db_logmode string) error {
-	if !allowedDBLogModes[db_logmode] {
-		return fmt.Errorf("unknown database log mode '%s'", db_logmode)
+// SetDBLogMode : Set the log mode in config
+func (config *Config) SetDBLogMode(dbLogmode string) error {
+	if !allowedDBLogModes[dbLogmode] {
+		return fmt.Errorf("unknown database log mode '%s'", dbLogmode)
 	}
-	config.DBLogMode = db_logmode
+	config.DBLogMode = dbLogmode
 	return nil
 }
 
+// Read : Decode config from json to config
 func (config *Config) Read(input io.Reader) error {
 	return json.NewDecoder(input).Decode(config)
 }
 
+// Write : Encode config from json to config
 func (config *Config) Write(output io.Writer) error {
 	return json.NewEncoder(output).Encode(config)
 }
 
+// Pretty : Write config json in a file
 func (config *Config) Pretty(output io.Writer) error {
 	data, err := json.MarshalIndent(config, "", "\t")
 	if err != nil {

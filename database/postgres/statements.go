@@ -47,7 +47,7 @@ func scanTorrentReportColumnsFull(rows *sql.Rows, r *model.TorrentReport) {
 const userSelectColumnsFull = `user_id, username, password, email, status, created_at, updated_at, api_token, api_token_expiry, language, md5`
 
 func scanUserColumnsFull(rows *sql.Rows, u *model.User) {
-	rows.Scan(&u.ID, &u.Username, &u.Password, &u.Email, &u.Status, &u.CreatedAt, &u.UpdatedAt, &u.ApiToken, &u.ApiTokenExpiry, &u.Language, &u.MD5)
+	rows.Scan(&u.ID, &u.Username, &u.Password, &u.Email, &u.Status, &u.CreatedAt, &u.UpdatedAt, &u.APIToken, &u.APITokenExpiry, &u.Language, &u.MD5)
 
 }
 

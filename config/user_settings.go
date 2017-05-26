@@ -1,12 +1,11 @@
 package config
 
-/*
- * Here we config the notifications options
+// DefaultUserSettings :
+/* Here we config the notifications options
  * Uses in user model for default setting
  * Be aware, default values in user update form are
  * in service/user/form/form_validator.go
  */
-
 var DefaultUserSettings = map[string]bool{
 	"new_torrent":         true,
 	"new_torrent_email":   false,

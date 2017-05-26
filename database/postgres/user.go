@@ -82,12 +82,12 @@ func (db *Database) GetUserByID(id uint32) (user model.User, has bool, err error
 }
 
 func (db *Database) InsertUser(u *model.User) (err error) {
-	_, err = db.getPrepared(queryInsertUser).Exec(u.Username, u.Password, u.Email, u.Status, u.CreatedAt, u.UpdatedAt, u.ApiToken, u.ApiTokenExpiry, u.Language, u.MD5)
+	_, err = db.getPrepared(queryInsertUser).Exec(u.Username, u.Password, u.Email, u.Status, u.CreatedAt, u.UpdatedAt, u.APIToken, u.APITokenExpiry, u.Language, u.MD5)
 	return
 }
 
 func (db *Database) UpdateUser(u *model.User) (err error) {
-	_, err = db.getPrepared(queryUpdateUser).Exec(u.ID, u.Username, u.Password, u.Email, u.Status, u.UpdatedAt, u.ApiToken, u.ApiTokenExpiry, u.Language, u.MD5)
+	_, err = db.getPrepared(queryUpdateUser).Exec(u.ID, u.Username, u.Password, u.Email, u.Status, u.UpdatedAt, u.APIToken, u.APITokenExpiry, u.Language, u.MD5)
 	return
 }
 
@@ -101,8 +101,8 @@ func (db *Database) GetUsersWhere(param *common.UserParam) (users []model.User, 
 		if has {
 			users = append(users, user)
 		}
-	} else if len(param.ApiToken) > 0 {
-		user, has, err = db.GetUserByAPIToken(param.ApiToken)
+	} else if len(param.APIToken) > 0 {
+		user, has, err = db.GetUserByAPIToken(param.APIToken)
 		if has {
 			users = append(users, user)
 		}
@@ -141,9 +141,9 @@ func (db *Database) DeleteUsersWhere(param *common.UserParam) (deleted uint32, e
 	} else if len(param.Email) > 0 {
 		queryName = queryDeleteUserByEmail
 		p = param.Email
-	} else if len(param.ApiToken) > 0 {
+	} else if len(param.APIToken) > 0 {
 		queryName = queryDeleteUserByToken
-		p = param.ApiToken
+		p = param.APIToken
 	} else {
 		// delete nothing
 		return

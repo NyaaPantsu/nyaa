@@ -6,15 +6,17 @@ import (
 	"time"
 )
 
+// Link Struct
 type Link struct {
 	Href, Rel, Type, Length string
 }
 
+// Author Struct
 type Author struct {
 	Name, Email string
 }
 
-// modified for Nyaa
+// Torrent Struct modified for Nyaa
 type Torrent struct {
 	FileName      string
 	Seeds         uint32
@@ -24,18 +26,20 @@ type Torrent struct {
 	MagnetURI     string
 }
 
+// Item Struct
 type Item struct {
 	Title       string
 	Link        *Link
 	Author      *Author
 	Description string // used as description in rss, summary in atom
-	Id          string // used as guid in rss, id in atom
+	ID          string // used as guid in rss, id in atom
 	Updated     time.Time
 	Created     time.Time
 
 	Torrent *Torrent // modified for Nyaa
 }
 
+// Feed Struct
 type Feed struct {
 	Title       string
 	Link        *Link
@@ -43,13 +47,13 @@ type Feed struct {
 	Author      *Author
 	Updated     time.Time
 	Created     time.Time
-	Id          string
+	ID          string
 	Subtitle    string
 	Items       []*Item
 	Copyright   string
 }
 
-// add a new Item to a Feed
+// Add a new Item to a Feed
 func (f *Feed) Add(item *Item) {
 	f.Items = append(f.Items, item)
 }
@@ -64,15 +68,15 @@ func anyTimeFormat(format string, times ...time.Time) string {
 	return ""
 }
 
-// interface used by ToXML to get a object suitable for exporting XML.
-type XmlFeed interface {
-	FeedXml() interface{}
+// XMLFeed : interface used by ToXML to get a object suitable for exporting XML.
+type XMLFeed interface {
+	FeedXML() interface{}
 }
 
-// turn a feed object (either a Feed, AtomFeed, or RssFeed) into xml
+// ToXML : turn a feed object (either a Feed, AtomFeed, or RssFeed) into xml
 // returns an error if xml marshaling fails
-func ToXML(feed XmlFeed) (string, error) {
-	x := feed.FeedXml()
+func ToXML(feed XMLFeed) (string, error) {
+	x := feed.FeedXML()
 	data, err := xml.MarshalIndent(x, "", "  ")
 	if err != nil {
 		return "", err
@@ -82,10 +86,10 @@ func ToXML(feed XmlFeed) (string, error) {
 	return s, nil
 }
 
-// Write a feed object (either a Feed, AtomFeed, or RssFeed) as XML into
+// WriteXML : Write a feed object (either a Feed, AtomFeed, or RssFeed) as XML into
 // the writer. Returns an error if XML marshaling fails.
-func WriteXML(feed XmlFeed, w io.Writer) error {
-	x := feed.FeedXml()
+func WriteXML(feed XMLFeed, w io.Writer) error {
+	x := feed.FeedXML()
 	// write default xml header, without the newline
 	if _, err := w.Write([]byte(xml.Header[:len(xml.Header)-1])); err != nil {
 		return err
@@ -95,24 +99,24 @@ func WriteXML(feed XmlFeed, w io.Writer) error {
 	return e.Encode(x)
 }
 
-// creates an Atom representation of this feed
+// ToAtom : creates an Atom representation of this feed
 func (f *Feed) ToAtom() (string, error) {
 	a := &Atom{f}
 	return ToXML(a)
 }
 
-// Writes an Atom representation of this feed to the writer.
+// WriteAtom : Writes an Atom representation of this feed to the writer.
 func (f *Feed) WriteAtom(w io.Writer) error {
 	return WriteXML(&Atom{f}, w)
 }
 
-// creates an Rss representation of this feed
+// ToRss : creates an Rss representation of this feed
 func (f *Feed) ToRss() (string, error) {
 	r := &Rss{f}
 	return ToXML(r)
 }
 
-// Writes an RSS representation of this feed to the writer.
+// WriteRss : Writes an RSS representation of this feed to the writer.
 func (f *Feed) WriteRss(w io.Writer) error {
 	return WriteXML(&Rss{f}, w)
 }
