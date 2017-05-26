@@ -2,7 +2,6 @@ package bencode
 
 import (
 	"bytes"
-
 	"fmt"
 	"io"
 	"reflect"
@@ -67,9 +66,20 @@ func EncodeBytes(val interface{}) ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
+func isNilValue(v reflect.Value) bool {
+	return (v.Kind() == reflect.Interface || v.Kind() == reflect.Ptr) &&
+		v.IsNil()
+}
+
 func encodeValue(w io.Writer, val reflect.Value) error {
-	//inspect the val to check
-	v := indirect(val)
+	// indirect through interfaces and pointers, but don't allocate.
+	v := indirect(val, false)
+
+	// if indirection returns us an invalid value that means there was a nil
+	// pointer in the path somewhere.
+	if !v.IsValid() {
+		return nil
+	}
 
 	//send in a raw message if we have that type
 	if rm, ok := v.Interface().(RawMessage); ok {
@@ -133,10 +143,13 @@ func encodeValue(w io.Writer, val reflect.Value) error {
 		)
 		sort.Sort(keys)
 		for i := range keys {
+			mval = v.MapIndex(keys[i])
+			if isNilValue(mval) {
+				continue
+			}
 			if err := encodeValue(w, keys[i]); err != nil {
 				return err
 			}
-			mval = v.MapIndex(keys[i])
 			if err := encodeValue(w, mval); err != nil {
 				return err
 			}
@@ -165,6 +178,11 @@ func encodeValue(w io.Writer, val reflect.Value) error {
 
 			// filter out unexported values etc.
 			if !fieldValue.CanInterface() {
+				continue
+			}
+
+			// filter out nil pointer values
+			if isNilValue(fieldValue) {
 				continue
 			}
 
