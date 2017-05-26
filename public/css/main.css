@@ -26,7 +26,7 @@ body {
 }
 
 .header {
-	z-index: 2;
+	z-index: 3;
 	position: fixed;
 	width: 100%;
 	top: 0; left: 0;
@@ -39,7 +39,7 @@ body {
 }
 .content {
 	position: relative;
-	z-index: 100;
+	z-index: 2;
 }
 
 .header .container {
