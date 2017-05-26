@@ -9,7 +9,10 @@ type SearchConfig struct {
 var DefaultSearchConfig = SearchConfig{}
 
 const (
+	// DefaultElasticsearchAnalyzer : default analyzer for ES
 	DefaultElasticsearchAnalyzer = "nyaapantsu_analyzer"
+	// DefaultElasticsearchIndex : default search index for ES
 	DefaultElasticsearchIndex = "nyaapantsu"
-	DefaultElasticsearchType = "torrents" // Name of the type in the es mapping
+	// DefaultElasticsearchType :  Name of the type in the es mapping
+	DefaultElasticsearchType = "torrents"
 )
