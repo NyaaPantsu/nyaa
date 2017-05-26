@@ -549,16 +549,31 @@ td.tr-le { color: #E84C4C; }
 	width: 24px;
 }
 /* Filelist */
-#filelist-control {
+.filelist-control {
 	cursor: pointer;
 }
-#filelist-control::before {
+.filelist-control::before {
 	content: "\25B6   ";
 }
-#filelist-control[data-filelist-open="true"]::before {
+input#show-filelist:checked ~ .filelist-control::before {
 	content: "\25BC   ";
 }
 
+input#show-filelist {
+	display: none;
+}
+
+#filelist {
+	display: none;
+}
+
+input#show-filelist:checked ~ #filelist {
+	display: block;
+}
+
+#filelist tr {
+	background: none; /* Striped lines will look really ugly due to how it's drawn */
+}
 .tr-filelist {
 	--nest-level: 0;
 }
@@ -580,10 +595,18 @@ td.tr-le { color: #E84C4C; }
 }
 /* Filesize column */
 .tr-filelist td:nth-child(2) {
+	width: 30%;
 	text-align: center;
 }
+/* Input that show/hides each folder */
+input.filelist-checkbox {
+	display: none;
+}
+input.filelist-checkbox:checked + table.table-filelist {
+	display: none;
+}
 
-.tr-folder {
+.tr-folder label {
 	cursor: pointer;
 }
 /* The folder or file icon */
@@ -594,6 +617,7 @@ td.tr-le { color: #E84C4C; }
 	background-size: 24px;
 	width: 24px;
 	height: 24px;
+	vertical-align: middle;
 }
 .tr-file td:first-child::before {
 	content: " ";
@@ -602,6 +626,7 @@ td.tr-le { color: #E84C4C; }
 	background-size: 24px;
 	width: 24px;
 	height: 24px;
+	vertical-align: middle;
 }
 
 #torrent-name {

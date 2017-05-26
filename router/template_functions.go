@@ -20,14 +20,6 @@ type captchaData struct {
 	T         languages.TemplateTfunc
 }
 
-// Will be reused later.
-func fileSizeFunc(filesize int64, T languages.TemplateTfunc) template.HTML {
-	if filesize == 0 {
-		return T("unknown")
-	}
-	return template.HTML(util.FormatFilesize(filesize))
-}
-
 // FuncMap : Functions accessible in templates by {{ $.Function }}
 var FuncMap = template.FuncMap{
 	"inc": func(i int) int {
@@ -189,21 +181,24 @@ var FuncMap = template.FuncMap{
 		}
 		return ""
 	},
-	"fileSize": fileSizeFunc,
+	"fileSize": func(filesize int64, T languages.TemplateTfunc) template.HTML {
+		if filesize == 0 {
+			return T("unknown")
+		}
+		return template.HTML(util.FormatFilesize(filesize))
+	},
 	"makeCaptchaData": func(captchaID string, T languages.TemplateTfunc) captchaData {
 		return captchaData{captchaID, T}
 	},
 	"DefaultUserSettings": func(s string) bool {
 		return config.DefaultUserSettings[s]
 	},
-	"MakeFolderTreeView": func(f *filelist.FileListFolder, folderFmt string, fileFmt string, data interface{}) template.HTML {
-		out, err := f.MakeFolderTreeView(folderFmt, fileFmt, map[string]interface{}{
-			// Add the functions needed for the tree view here.
-			"fileSize": fileSizeFunc,
-		}, data)
-		if err != nil {
-			return template.HTML("Error while making tree view")
-		}
-		return out
+	"makeTreeViewData": func(f *filelist.FileListFolder, nestLevel int, T languages.TemplateTfunc, identifierChain string) interface{} {
+		return struct{
+			Folder *filelist.FileListFolder
+			NestLevel int
+			T languages.TemplateTfunc
+			IdentifierChain string
+		}{ f, nestLevel, T, identifierChain }
 	},
 }

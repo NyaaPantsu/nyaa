@@ -1,5 +1,30 @@
 {{define "title"}}{{.Torrent.Name}}{{end}}
 {{define "contclass"}}cont-view {{if eq .Torrent.Status 2}}remake{{end}} {{if eq .Torrent.Status 3}}trusted{{end}} {{if eq .Torrent.Status 4}}aplus{{end}}{{end}}
+{{ define "make_treeview" }}
+{{ range $index, $folder := .Folder.Folders }}
+    {{ $folderId := (print $.IdentifierChain "_" $index) }}
+    <tr class="tr-filelist tr-folder" style="--nest-level: {{ $.NestLevel }}">
+        <td><label for="contents_{{$folderId}}">{{$folder.FolderName}}</label></td>
+        <td>{{ fileSize $folder.TotalSize $.T }}</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+        <input id="contents_{{$folderId}}" type="checkbox" class="filelist-checkbox">
+        <table class="table-filelist">
+        {{ template "make_treeview" (makeTreeViewData $folder (inc $.NestLevel) $.T $folderId) }}
+        </table>
+        </td>
+    </tr>
+{{ end }}
+
+{{ range .Folder.Files }}
+    <tr class="tr-filelist tr-file" style="--nest-level: {{ $.NestLevel }}">
+            <td>{{.Filename}}</td>
+        <td>{{fileSize .Filesize $.T}}</td>
+    </tr>
+{{ end }}
+{{ end }}
+
 {{define "content"}}
 <div style="text-align: left;" class="box">
     {{with .Torrent}}
@@ -67,31 +92,10 @@
   {{else}}
   <p>No description provided!</p>
   {{end}}
-  <p class="torrent-hr" id="filelist-control" onclick="javascript:toggleFilelist()" data-filelist-open="true">{{call $.T "files"}}</p>
+  <input type="checkbox" id="show-filelist">
+  <label class="torrent-hr filelist-control" for="show-filelist">{{call $.T "files"}}</label>
   {{ if gt (len .FileList) 0 }}
   {{/* how do i concat lol */}}
-  {{ $folderFormat := `<tr id="{{.Identifier}}" class='childs-of-{{.ParentIdentifier}} tr-filelist tr-folder' onclick="javascript:toggleFolder(this)" data-filelist-open="true" style="--nest-level: {{.NestLevel}}"><td>{{.FolderName}}</td><td>{{ fileSize .TotalSize .Data.T }}</td></tr>` }}
-  {{ $fileFormat := `<tr class='childs-of-{{.ParentIdentifier}} tr-filelist tr-file' style="--nest-level: {{.NestLevel}}"><td>{{.Filename}}</td><td>{{ fileSize .Filesize .Data.T }}</td>` }}
-    <script>
-	function toggleFilelist() {
-		var control = document.getElementById("filelist-control")
-		var filelist = document.getElementById("filelist")
-
-		filelist.hidden = !filelist.hidden
-		control.setAttribute("data-filelist-open", filelist.hidden ? "false" : "true")
-	}
-
-    function toggleFolder(folderNode) {
-        var isOpen = folderNode.getAttribute("data-filelist-open") == "true" ? true : false
-        var rows = document.querySelectorAll("*[class^='childs-of-" + folderNode.id + "']")
-        for (var i = 0; i < rows.length; i++) {
-            // If it's open (true), will hide, if not, will show.
-            rows[i].hidden = isOpen
-        }
-
-        folderNode.setAttribute("data-filelist-open", !isOpen ? "true" : "false")
-    }
-    </script>
     <div class="torrent-info-box" id="filelist">
         <table>
             <thead>
@@ -99,12 +103,10 @@
                 <th>{{call $.T "size"}}</th>
             </thead>
             <tbody>
-                {{ MakeFolderTreeView $.RootFolder $folderFormat $fileFormat $ }}
-            </tbody>
-        </table>
-    </div>
-    {{/* Make filelist hidden by default with JS, but still visible without it */}}
-    <script>toggleFilelist()</script>
+			  {{ template "make_treeview" (makeTreeViewData $.RootFolder 0 $.T "root") }}
+			</tbody>
+		</table>
+	</div>
     {{ else }}
     <p>No files found? That doesn't even make sense!</p>
     {{end}}
