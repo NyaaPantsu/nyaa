@@ -6,6 +6,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 )
 
+// TorrentReport model
 // User can be null (anonymous reports)
 // FIXME  can't preload field Torrents for model.TorrentReport
 type TorrentReport struct {
@@ -20,11 +21,13 @@ type TorrentReport struct {
 	User    *User    `gorm:"AssociationForeignKey:UserID;ForeignKey:user_id"`
 }
 
-func (r TorrentReport) TableName() string {
+// TableName : Return the name of torrent report table
+func (report TorrentReport) TableName() string {
 	return config.ReportsTableName
 }
 
-type TorrentReportJson struct {
+// TorrentReportJSON : Json struct of torrent report model
+type TorrentReportJSON struct {
 	ID          uint        `json:"id"`
 	Description string      `json:"description"`
 	Torrent     TorrentJSON `json:"torrent"`
@@ -46,23 +49,25 @@ func getReportDescription(d string) string {
 	return "???"
 }
 
-func (report *TorrentReport) ToJson() TorrentReportJson {
-	var t TorrentJSON = TorrentJSON{}
+// ToJSON : conversion to json of a torrent report
+func (report *TorrentReport) ToJSON() TorrentReportJSON {
+	t := TorrentJSON{}
 	if report.Torrent != nil { // FIXME: report.Torrent should never be nil
 		t = report.Torrent.ToJSON()
 	}
-	var u UserJSON = UserJSON{}
+	u := UserJSON{}
 	if report.User != nil {
 		u = report.User.ToJSON()
 	}
-	json := TorrentReportJson{report.ID, getReportDescription(report.Description), t, u}
+	json := TorrentReportJSON{report.ID, getReportDescription(report.Description), t, u}
 	return json
 }
 
-func TorrentReportsToJSON(reports []TorrentReport) []TorrentReportJson {
-	json := make([]TorrentReportJson, len(reports))
+// TorrentReportsToJSON : Conversion of multiple reports to json
+func TorrentReportsToJSON(reports []TorrentReport) []TorrentReportJSON {
+	json := make([]TorrentReportJSON, len(reports))
 	for i := range reports {
-		json[i] = reports[i].ToJson()
+		json[i] = reports[i].ToJSON()
 	}
 	return json
 }

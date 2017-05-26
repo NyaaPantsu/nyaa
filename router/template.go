@@ -26,8 +26,6 @@ var homeTemplate,
 	viewUserDeleteTemplate,
 	userTorrentEd,
 	notFoundTemplate,
-	changeLanguageTemplate,
-	changeThemeTemplate,
 	changePublicSettingsTemplate,
 	databaseDumpTemplate *template.Template
 
@@ -128,16 +126,6 @@ func ReloadTemplates() {
 			templ: &notFoundTemplate,
 			name:  "404",
 			file:  "404.html",
-		},
-		{
-			templ: &changeLanguageTemplate,
-			name:  "change_language",
-			file:  "change_language.html",
-		},
-		{
-			templ: &changeThemeTemplate,
-			name:  "change_theme",
-			file:  "change_theme.html",
 		},
 		{
 			templ: &changePublicSettingsTemplate,

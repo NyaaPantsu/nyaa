@@ -74,7 +74,7 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	for i, torrent := range torrents {
 		torrentJSON := torrent.ToJSON()
 		feed.Items[i] = &feeds.Item{
-			Id:          "https://" + config.WebAddress + "/view/" + torrentJSON.ID,
+			ID:          "https://" + config.WebAddress + "/view/" + torrentJSON.ID,
 			Title:       torrent.Name,
 			Link:        &feeds.Link{Href: string(torrentJSON.Magnet)},
 			Description: string(torrentJSON.Description),

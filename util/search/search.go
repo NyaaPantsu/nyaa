@@ -6,6 +6,7 @@ import (
 	"strings"
 	"unicode"
 	"unicode/utf8"
+	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/cache"
 	"github.com/NyaaPantsu/nyaa/common"
@@ -20,6 +21,7 @@ import (
 var searchOperator string
 var useTSQuery bool
 
+// Configure : initialize search
 func Configure(conf *config.SearchConfig) (err error) {
 	useTSQuery = false
 	// Postgres needs ILIKE for case-insensitivity
@@ -34,7 +36,7 @@ func Configure(conf *config.SearchConfig) (err error) {
 	return
 }
 
-func stringIsAscii(input string) bool {
+func stringIsASCII(input string) bool {
 	for _, char := range input {
 		if char > 127 {
 			return false
@@ -43,27 +45,64 @@ func stringIsAscii(input string) bool {
 	return true
 }
 
+// SearchByQuery : search torrents according to request without user
 func SearchByQuery(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
 	search, tor, count, err = searchByQuery(r, pagenum, true, false, false)
 	return
 }
 
+// SearchByQueryWithUser : search torrents according to request with user
 func SearchByQueryWithUser(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
 	search, tor, count, err = searchByQuery(r, pagenum, true, true, false)
 	return
 }
 
+// SearchByQueryNoCount : search torrents according to request without user and count
 func SearchByQueryNoCount(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, err error) {
 	search, tor, _, err = searchByQuery(r, pagenum, false, false, false)
 	return
 }
 
+// SearchByQueryDeleted : search deleted torrents according to request with user and count
 func SearchByQueryDeleted(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
 	search, tor, count, err = searchByQuery(r, pagenum, true, true, true)
 	return
 }
 
+// TODO Clean this up
+// FIXME Some fields are not used by elasticsearch (pagenum, countAll, deleted, withUser)
+// pagenum is extracted from request in .FromRequest()
+// elasticsearch always provide a count to how many hits
+// deleted is unused because es doesn't index deleted torrents
 func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool, deleted bool) (
+	search common.SearchParam, tor []model.Torrent, count int, err error,
+) {
+	client, err := elastic.NewClient()
+	if err == nil {
+		var torrentParam common.TorrentParam
+		torrentParam.FromRequest(r)
+		totalHits, torrents, err := torrentParam.Find(client)
+		searchParam := common.SearchParam{
+			Order: torrentParam.Order,
+			Status: torrentParam.Status,
+			Sort: torrentParam.Sort,
+			Category: torrentParam.Category,
+			Page: int(torrentParam.Offset),
+			UserID: uint(torrentParam.UserID),
+			Max: uint(torrentParam.Max),
+			NotNull: torrentParam.NotNull,
+			Query: torrentParam.NameLike,
+		}
+		// Convert back to non-json torrents
+		return searchParam, torrents, int(totalHits), err
+	} else {
+		log.Errorf("Unable to create elasticsearch client: %s", err)
+		log.Errorf("Falling back to postgresql query")
+		return searchByQueryPostgres(r, pagenum, countAll, withUser, deleted)
+	}
+}
+
+func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser bool, deleted bool) (
 	search common.SearchParam, tor []model.Torrent, count int, err error,
 ) {
 	max, err := strconv.ParseUint(r.URL.Query().Get("max"), 10, 32)
@@ -205,7 +244,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool, d
 			continue
 		}
 
-		if useTSQuery && stringIsAscii(word) {
+		if useTSQuery && stringIsASCII(word) {
 			conditions = append(conditions, "torrent_name @@ plainto_tsquery(?)")
 			parameters.Params = append(parameters.Params, word)
 		} else {

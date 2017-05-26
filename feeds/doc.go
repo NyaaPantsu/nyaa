@@ -1,5 +1,7 @@
-/*
-Syndication (feed) generator library for golang.
+// Package feeds :
+package feeds
+
+/* Syndication (feed) generator library for golang.
 
 Installing
 
@@ -67,4 +69,3 @@ From here, you can modify or add each syndication's specific fields before outpu
 	rss, err := ToXML(rssFeed)
 
 */
-package feeds

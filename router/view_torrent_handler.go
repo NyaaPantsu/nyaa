@@ -17,7 +17,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/filelist"
-	"github.com/NyaaPantsu/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/gorilla/mux"
@@ -34,7 +34,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		messages.AddInfo("infos", "Torrent uploaded successfully!")
 	}
 
-	torrent, err := torrentService.GetTorrentById(id)
+	torrent, err := torrentService.GetTorrentByID(id)
 
 	if r.URL.Query()["notif"] != nil {
 		notifierService.ToggleReadNotification(torrent.Identifier(), user.ID)
@@ -45,7 +45,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	b := torrent.ToJSON()
-	folder := filelist.FileListToFolder(torrent.FileList)
+	folder := filelist.FileListToFolder(torrent.FileList, "root")
 	captchaID := ""
 	if userPermission.NeedsCaptcha(user) {
 		captchaID = captcha.GetID()
@@ -66,7 +66,7 @@ func ViewHeadHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = torrentService.GetRawTorrentById(uint(id))
+	_, err = torrentService.GetRawTorrentByID(uint(id))
 
 	if err != nil {
 		NotFoundHandler(w, r)
@@ -81,7 +81,7 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	torrent, err := torrentService.GetTorrentById(id)
+	torrent, err := torrentService.GetTorrentByID(id)
 	if err != nil {
 		NotFoundHandler(w, r)
 		return
@@ -110,7 +110,7 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
 		torrent.Uploader.ParseSettings()
 		if torrent.Uploader.Settings.Get("new_comment") {
-			T, _, _ := languages.TfuncAndLanguageWithFallback(torrent.Uploader.Language, torrent.Uploader.Language) // We need to send the notification to every user in their language
+			T, _, _ := publicSettings.TfuncAndLanguageWithFallback(torrent.Uploader.Language, torrent.Uploader.Language) // We need to send the notification to every user in their language
 			notifierService.NotifyUser(torrent.Uploader, comment.Identifier(), fmt.Sprintf(T("new_comment_on_torrent"), torrent.Name), url.String(), torrent.Uploader.Settings.Get("new_comment_email"))
 		}
 
@@ -155,7 +155,7 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 // TorrentEditUserPanel : Controller for editing a user torrent by a user, after GET request
 func TorrentEditUserPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
-	torrent, _ := torrentService.GetTorrentById(id)
+	torrent, _ := torrentService.GetTorrentByID(id)
 	messages := msg.GetMessages(r)
 	currentUser := getUser(r)
 	if userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
@@ -178,7 +178,7 @@ func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
 	var uploadForm uploadForm
 	id := r.URL.Query().Get("id")
 	messages := msg.GetMessages(r)
-	torrent, _ := torrentService.GetTorrentById(id)
+	torrent, _ := torrentService.GetTorrentByID(id)
 	currentUser := getUser(r)
 	if torrent.ID > 0 && userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
 		errUp := uploadForm.ExtractEditInfo(r)
@@ -216,7 +216,7 @@ func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
 func TorrentDeleteUserPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	currentUser := getUser(r)
-	torrent, _ := torrentService.GetTorrentById(id)
+	torrent, _ := torrentService.GetTorrentByID(id)
 	if userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
 		_, err := torrentService.DeleteTorrent(id)
 		if err == nil {

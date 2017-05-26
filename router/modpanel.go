@@ -91,7 +91,7 @@ func (f *ReassignForm) ExecuteAction() (int, error) {
 
 	num := 0
 	for _, torrentID := range toBeChanged {
-		torrent, err2 := torrentService.GetRawTorrentById(torrentID)
+		torrent, err2 := torrentService.GetRawTorrentByID(torrentID)
 		if err2 == nil {
 			torrent.UploaderID = f.AssignTo
 			db.ORM.Model(&torrent).UpdateColumn(&torrent)
@@ -261,7 +261,7 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 // TorrentEditModPanel : Controller for editing a torrent after GET request
 func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
-	torrent, _ := torrentService.GetTorrentById(id)
+	torrent, _ := torrentService.GetTorrentByID(id)
 	messages := msg.GetMessages(r)
 
 	torrentJSON := torrent.ToJSON()
@@ -281,7 +281,7 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 	var uploadForm uploadForm
 	id := r.URL.Query().Get("id")
 	messages := msg.GetMessages(r)
-	torrent, _ := torrentService.GetTorrentById(id)
+	torrent, _ := torrentService.GetTorrentByID(id)
 	if torrent.ID > 0 {
 		errUp := uploadForm.ExtractEditInfo(r)
 		if errUp != nil {
@@ -309,7 +309,7 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 
-	_, _ = userService.DeleteComment(id)
+	_, _ = commentService.DeleteComment(id)
 	url, _ := Router.Get("mod_clist").URL()
 	http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
 }
@@ -567,7 +567,7 @@ func torrentManyAction(r *http.Request) {
 
 	if !messages.HasErrors() {
 		for _, torrentID := range torrentsSelected {
-			torrent, _ := torrentService.GetTorrentById(torrentID)
+			torrent, _ := torrentService.GetTorrentByID(torrentID)
 			if torrent.ID > 0 && userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
 				if action == "status" || action == "multiple" || action == "category" || action == "owner" {
 

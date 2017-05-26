@@ -2,26 +2,30 @@ package metainfoFetcher
 
 import (
 	"errors"
+	"strings"
+	"time"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/anacrolix/torrent/metainfo"
-	"strings"
-	"time"
 )
 
+// FetchOperation struct
 type FetchOperation struct {
 	fetcher *MetainfoFetcher
 	torrent model.Torrent
 	done    chan int
 }
 
+// Result struct
 type Result struct {
 	operation *FetchOperation
 	err       error
 	info      *metainfo.Info
 }
 
+// NewFetchOperation : Creates a new fetchoperation
 func NewFetchOperation(fetcher *MetainfoFetcher, dbEntry model.Torrent) (op *FetchOperation) {
 	op = &FetchOperation{
 		fetcher: fetcher,
@@ -31,7 +35,7 @@ func NewFetchOperation(fetcher *MetainfoFetcher, dbEntry model.Torrent) (op *Fet
 	return
 }
 
-// Should be started from a goroutine somewhere
+// Start : Should be started from a goroutine somewhere
 func (op *FetchOperation) Start(out chan Result) {
 	defer op.fetcher.wg.Done()
 

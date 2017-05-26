@@ -16,7 +16,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/scraper"
 	"github.com/NyaaPantsu/nyaa/service/torrent/metainfoFetcher"
 	"github.com/NyaaPantsu/nyaa/service/user"
-	"github.com/NyaaPantsu/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/NyaaPantsu/nyaa/util/signals"
@@ -129,7 +129,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err.Error())
 		}
-		err = languages.InitI18n(conf.I18n, userService.NewCurrentUserRetriever())
+		err = publicSettings.InitI18n(conf.I18n, userService.NewCurrentUserRetriever())
 		if err != nil {
 			log.Fatal(err.Error())
 		}

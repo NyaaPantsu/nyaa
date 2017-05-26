@@ -1,4 +1,4 @@
-package languages
+package publicSettings
 
 import (
 	"errors"
@@ -14,19 +14,20 @@ import (
 	"github.com/nicksnyder/go-i18n/i18n/language"
 )
 
-// this interface is required to prevent a cyclic import between the languages and userService package.
+// UserRetriever : this interface is required to prevent a cyclic import between the languages and userService package.
 type UserRetriever interface {
 	RetrieveCurrentUser(r *http.Request) (model.User, error)
 }
 
+// TemplateTfunc : T func used in template
 type TemplateTfunc func(string, ...interface{}) template.HTML
 
 var (
-	defaultLanguage string        = config.DefaultI18nConfig.DefaultLanguage
-	userRetriever   UserRetriever = nil
+	defaultLanguage = config.DefaultI18nConfig.DefaultLanguage
+	userRetriever   UserRetriever
 )
 
-// Initialize the languages translation
+// InitI18n : Initialize the languages translation
 func InitI18n(conf config.I18nConfig, retriever UserRetriever) error {
 	defaultLanguage = conf.DefaultLanguage
 	userRetriever = retriever
@@ -52,11 +53,12 @@ func InitI18n(conf config.I18nConfig, retriever UserRetriever) error {
 	return nil
 }
 
+// GetDefaultLanguage : returns the default language from config
 func GetDefaultLanguage() string {
 	return defaultLanguage
 }
 
-// When go-i18n finds a language with >0 translations, it uses it as the Tfunc
+// TfuncAndLanguageWithFallback : When go-i18n finds a language with >0 translations, it uses it as the Tfunc
 // However, if said language has a missing translation, it won't fallback to the "main" language
 func TfuncAndLanguageWithFallback(language string, languages ...string) (i18n.TranslateFunc, *language.Language, error) {
 	fallbackLanguage := GetDefaultLanguage()
@@ -81,6 +83,7 @@ func TfuncAndLanguageWithFallback(language string, languages ...string) (i18n.Tr
 	return translateFunction, tLang, err1
 }
 
+// GetAvailableLanguages : Get languages available on the website
 func GetAvailableLanguages() (languages map[string]string) {
 	languages = make(map[string]string)
 	var T i18n.TranslateFunc
@@ -97,10 +100,12 @@ func GetAvailableLanguages() (languages map[string]string) {
 	return
 }
 
+// GetDefaultTfunc : Gets T func from default language
 func GetDefaultTfunc() (i18n.TranslateFunc, error) {
 	return i18n.Tfunc(defaultLanguage)
 }
 
+// GetTfuncAndLanguageFromRequest : Gets the T func and chosen language from the request
 func GetTfuncAndLanguageFromRequest(r *http.Request) (T i18n.TranslateFunc, Tlang *language.Language) {
 	userLanguage := ""
 	user, _ := getCurrentUser(r)
@@ -120,11 +125,25 @@ func GetTfuncAndLanguageFromRequest(r *http.Request) (T i18n.TranslateFunc, Tlan
 	return
 }
 
+// GetTfuncFromRequest : Gets the T func from the request
 func GetTfuncFromRequest(r *http.Request) TemplateTfunc {
 	T, _ := GetTfuncAndLanguageFromRequest(r)
 	return func(id string, args ...interface{}) template.HTML {
 		return template.HTML(fmt.Sprintf(T(id), args...))
 	}
+}
+
+// GetThemeFromRequest: Gets the user selected theme from the request
+func GetThemeFromRequest(r *http.Request) string {
+	user, _ := getCurrentUser(r)
+	if user.ID > 0 {
+		return user.Theme
+	}
+	cookie, err := r.Cookie("theme")
+	if err == nil {
+		return cookie.Value
+	}
+	return ""
 }
 
 func getCurrentUser(r *http.Request) (model.User, error) {

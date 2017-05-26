@@ -3,6 +3,7 @@
 {{define "content"}}
 			{{ with .Form }}
 			<div class="box">
+            <div class="user-form">
 			<form role="form" method="POST">
 					<h2>{{call $.T "sign_in_box_title"}}</h2>
 					{{ range (index $.FormErrors "errors")}}
@@ -24,6 +25,7 @@
 	                        <input type="submit" class="form-input" value="{{ call $.T "signin"}}">
 							<a href="{{ genRoute "user_register" }}" class="btn btn-lg btn-primary btn-block">{{ call $.T "register"}}</a>
 			</form>
+            </div>
 			</div>
 			{{end}}
     <br />

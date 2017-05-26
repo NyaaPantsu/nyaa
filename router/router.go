@@ -114,10 +114,6 @@ func init() {
 
 	Router.Handle("/dumps", gzipDatabaseDumpHandler).Name("dump").Methods("GET")
 
-	Router.HandleFunc("/theme", SeeThemesHandler).Methods("GET").Name("see_languages")
-	Router.HandleFunc("/theme", ChangeThemeHandler).Methods("POST").Name("see_languages")
-	Router.HandleFunc("/language", SeeLanguagesHandler).Methods("GET").Name("see_languages")
-	Router.HandleFunc("/language", ChangeLanguageHandler).Methods("POST").Name("change_language")
 	Router.HandleFunc("/settings", SeePublicSettingsHandler).Methods("GET").Name("see_languages")
 	Router.HandleFunc("/settings", ChangePublicSettingsHandler).Methods("POST").Name("see_languages")
 

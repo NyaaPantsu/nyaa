@@ -27,12 +27,14 @@ type torrentsQuery struct {
 	Downloads   int `json:"downloads"`
 }
 
+// TorrentsRequest struct
 type TorrentsRequest struct {
 	Query      torrentsQuery `json:"search"`
 	Page       int           `json:"page"`
 	MaxPerPage int           `json:"limit"`
 }
 
+// TorrentRequest struct
 //accept torrent files?
 type TorrentRequest struct {
 	Name        string `json:"name"`
@@ -43,11 +45,13 @@ type TorrentRequest struct {
 	Description string `json:"description"`
 }
 
+// UpdateRequest struct
 type UpdateRequest struct {
 	ID     int            `json:"id"`
 	Update TorrentRequest `json:"update"`
 }
 
+// ToParams : Convert a torrentsrequest to searchparams
 func (r *TorrentsRequest) ToParams() serviceBase.WhereParams {
 	res := serviceBase.WhereParams{}
 	conditions := ""
@@ -91,11 +95,11 @@ func validateSubCategory(r *TorrentRequest) (error, int) {
 }
 
 func validateMagnet(r *TorrentRequest) (error, int) {
-	magnetUrl, err := url.Parse(string(r.Magnet)) //?
+	magnetURL, err := url.Parse(string(r.Magnet)) //?
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
-	xt := magnetUrl.Query().Get("xt")
+	xt := magnetURL.Query().Get("xt")
 	if !strings.HasPrefix(xt, "urn:btih:") {
 		return ErrMagnet, http.StatusNotAcceptable
 	}
@@ -132,6 +136,7 @@ func validateHash(r *TorrentRequest) (error, int) {
 	return nil, http.StatusOK
 }
 
+// ValidateUpload : Check if an upload is valid
 func (r *TorrentRequest) ValidateUpload() (err error, code int) {
 	validators := []func(r *TorrentRequest) (error, int){
 		validateName,
@@ -153,6 +158,7 @@ func (r *TorrentRequest) ValidateUpload() (err error, code int) {
 	return err, code
 }
 
+// ValidateMultipartUpload : Check if multipart upload is valid
 func (r *TorrentRequest) ValidateMultipartUpload(req *http.Request) (int64, error, int) {
 	tfile, _, err := req.FormFile("torrent")
 	if err == nil {
@@ -191,6 +197,7 @@ func (r *TorrentRequest) ValidateMultipartUpload(req *http.Request) (int64, erro
 	return 0, err, http.StatusInternalServerError
 }
 
+// ValidateUpdate : Check if an update is valid
 func (r *TorrentRequest) ValidateUpdate() (err error, code int) {
 	validators := []func(r *TorrentRequest) (error, int){
 		validateName,
@@ -217,6 +224,7 @@ func (r *TorrentRequest) ValidateUpdate() (err error, code int) {
 	return err, code
 }
 
+// UpdateTorrent : Update torrent model
 //rewrite with reflect ?
 func (r *UpdateRequest) UpdateTorrent(t *model.Torrent) {
 	if r.Update.Name != "" {

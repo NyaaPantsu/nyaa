@@ -34,6 +34,7 @@ func init() {
 
 var HtmlMdRenderer md.Renderer
 
+// MarkdownToHTML : convert markdown to html
 // TODO: restrict certain types of markdown
 func MarkdownToHTML(markdown string) template.HTML {
 	if len(markdown) >= 3 && markdown[:3] == "&gt;" {
@@ -45,8 +46,8 @@ func MarkdownToHTML(markdown string) template.HTML {
 	return template.HTML(html)
 }
 
-/*
- * Sanitize a message passed as a string according to a setted model or allowing a set of html tags and output a string
+// Sanitize :
+/* Sanitize a message passed as a string according to a setted model or allowing a set of html tags and output a string
  */
 func Sanitize(msg string, elements ...string) string {
 	msg = repairHTMLTags(msg) // We repair possible broken html tags
@@ -263,8 +264,8 @@ func Sanitize(msg string, elements ...string) string {
 /*
  * Should close any opened tags and strip any empty end tags
  */
-func repairHTMLTags(brokenHtml string) string {
-	reader := strings.NewReader(brokenHtml)
+func repairHTMLTags(brokenHTML string) string {
+	reader := strings.NewReader(brokenHTML)
 	root, err := html.Parse(reader)
 	if err != nil {
 		log.Fatal(err)

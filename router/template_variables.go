@@ -9,8 +9,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user"
 	userForms "github.com/NyaaPantsu/nyaa/service/user/form"
 	"github.com/NyaaPantsu/nyaa/util/filelist"
-	"github.com/NyaaPantsu/nyaa/util/languages"
-	"github.com/NyaaPantsu/nyaa/util/themes"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/gorilla/mux"
 )
 
@@ -95,7 +94,7 @@ type publicSettingsVariables struct {
 type panelIndexVbs struct {
 	commonTemplateVariables
 	Torrents       []model.Torrent
-	TorrentReports []model.TorrentReportJson
+	TorrentReports []model.TorrentReportJSON
 	Users          []model.User
 	Comments       []model.Comment
 }
@@ -107,7 +106,7 @@ type panelIndexVbs struct {
 type commonTemplateVariables struct {
 	Navigation navigation
 	Search     searchForm
-	T          languages.TemplateTfunc
+	T          publicSettings.TemplateTfunc
 	Theme      string
 	User       *model.User
 	URL        *url.URL   // for parsing URL in templates
@@ -157,8 +156,8 @@ func newCommonVariables(r *http.Request) commonTemplateVariables {
 	return commonTemplateVariables{
 		Navigation: newNavigation(),
 		Search:     newSearchForm(),
-		T:          languages.GetTfuncFromRequest(r),
-		Theme:      themes.GetThemeFromRequest(r),
+		T:          publicSettings.GetTfuncFromRequest(r),
+		Theme:      publicSettings.GetThemeFromRequest(r),
 		User:       getUser(r),
 		URL:        r.URL,
 		Route:      mux.CurrentRoute(r),

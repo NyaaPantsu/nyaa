@@ -2,6 +2,10 @@ package userService
 
 import (
 	"errors"
+	"net/http"
+	"strconv"
+	"time"
+
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	formStruct "github.com/NyaaPantsu/nyaa/service/user/form"
@@ -11,13 +15,12 @@ import (
 	"github.com/gorilla/context"
 	"github.com/gorilla/securecookie"
 	"golang.org/x/crypto/bcrypt"
-	"net/http"
-	"strconv"
-	"time"
 )
 
 const (
-	CookieName     = "session"
+	// CookieName : Name of cookie
+	CookieName = "session"
+	// UserContextKey : key for user context
 	UserContextKey = "user"
 )
 
@@ -26,30 +29,32 @@ var cookieHandler = securecookie.New(
 	securecookie.GenerateRandomKey(64),
 	securecookie.GenerateRandomKey(32))
 
-// Encoding & Decoding of the cookie value
-func DecodeCookie(cookie_value string) (uint, error) {
+// DecodeCookie : Encoding & Decoding of the cookie value
+func DecodeCookie(cookieValue string) (uint, error) {
 	value := make(map[string]string)
-	err := cookieHandler.Decode(CookieName, cookie_value, &value)
+	err := cookieHandler.Decode(CookieName, cookieValue, &value)
 	if err != nil {
 		return 0, err
 	}
-	time_int, _ := strconv.ParseInt(value["t"], 10, 0)
-	if timeHelper.IsExpired(time.Unix(time_int, 0)) {
+	timeInt, _ := strconv.ParseInt(value["t"], 10, 0)
+	if timeHelper.IsExpired(time.Unix(timeInt, 0)) {
 		return 0, errors.New("Cookie is expired")
 	}
 	ret, err := strconv.ParseUint(value["u"], 10, 0)
 	return uint(ret), err
 }
 
-func EncodeCookie(user_id uint) (string, error) {
+// EncodeCookie : Encoding of the cookie value
+func EncodeCookie(userID uint) (string, error) {
 	validUntil := timeHelper.FewDaysLater(7) // 1 week
 	value := map[string]string{
-		"u": strconv.FormatUint(uint64(user_id), 10),
+		"u": strconv.FormatUint(uint64(userID), 10),
 		"t": strconv.FormatInt(validUntil.Unix(), 10),
 	}
 	return cookieHandler.Encode(CookieName, value)
 }
 
+// ClearCookie : Erase cookie session
 func ClearCookie(w http.ResponseWriter) (int, error) {
 	cookie := &http.Cookie{
 		Name:     CookieName,
@@ -133,21 +138,20 @@ func CurrentUser(r *http.Request) (model.User, error) {
 		}
 		encoded = cookie.Value
 	}
-	user_id, err := DecodeCookie(encoded)
+	userID, err := DecodeCookie(encoded)
 	if err != nil {
 		return user, err
 	}
 
 	userFromContext := getUserFromContext(r)
 
-	if userFromContext.ID > 0 && user_id == userFromContext.ID {
+	if userFromContext.ID > 0 && userID == userFromContext.ID {
 		user = userFromContext
 	} else {
-		if db.ORM.Preload("Notifications").Where("user_id = ?", user_id).First(&user).RecordNotFound() { // We only load unread notifications
+		if db.ORM.Preload("Notifications").Where("user_id = ?", userID).First(&user).RecordNotFound() { // We only load unread notifications
 			return user, errors.New("User not found")
-		} else {
-			setUserToContext(r, user)
 		}
+		setUserToContext(r, user)
 	}
 
 	if user.IsBanned() {

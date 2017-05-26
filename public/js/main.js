@@ -8,6 +8,22 @@ function toggleNightMode() {
 	localStorage.setItem("night", (night == "true") ? "false" : "true");
 }
 
+// Switches between themes when a new one is selected
+function switchThemes(){
+	themeURL = document.getElementById("theme-selector").value
+	var head = document.getElementsByTagName("head")[0];
+	// Remove the theme in place
+	head.removeChild(document.getElementById("theme"));
+	// Create the new one and put it back
+        var newTheme = document.createElement("link");
+        newTheme.setAttribute("rel", "stylesheet");
+        newTheme.setAttribute("href", themeURL);
+        newTheme.setAttribute("id", "theme");
+	head.appendChild(newTheme);
+}
+
+
+
 // Used by spoiler tags
 function toggleLayer(elem) {
 	if (elem.classList.contains("hide"))

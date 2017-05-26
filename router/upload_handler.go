@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
@@ -15,7 +16,8 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/upload"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
-	"github.com/NyaaPantsu/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
+	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 )
 
@@ -83,7 +85,22 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			Description: uploadForm.Description,
 			WebsiteLink: uploadForm.WebsiteLink,
 			UploaderID:  user.ID}
+
+
 		db.ORM.Create(&torrent)
+
+		client, err := elastic.NewClient()
+		if err == nil {
+			err = torrent.AddToESIndex(client)
+			if err == nil {
+				log.Infof("Successfully added torrent to ES index.")
+			} else {
+				log.Errorf("Unable to add torrent to ES index: %s", err)
+			}
+		} else {
+			log.Errorf("Unable to create elasticsearch client: %s", err)
+		}
+
 
 		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
 
@@ -93,7 +110,7 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 				for _, follower := range user.Likings {
 					follower.ParseSettings() // We need to call it before checking settings
 					if follower.Settings.Get("new_torrent") {
-						T, _, _ := languages.TfuncAndLanguageWithFallback(follower.Language, follower.Language) // We need to send the notification to every user in their language
+						T, _, _ := publicSettings.TfuncAndLanguageWithFallback(follower.Language, follower.Language) // We need to send the notification to every user in their language
 
 						notifierService.NotifyUser(&follower, torrent.Identifier(), fmt.Sprintf(T("new_torrent_uploaded"), torrent.Name, user.Username), url.String(), follower.Settings.Get("new_torrent_email"))
 					}

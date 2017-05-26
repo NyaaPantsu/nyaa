@@ -12,7 +12,8 @@
 			{{ end }}
 			</select>
 			<h3>{{call $.T "theme"}}</h3>
-			<select id="theme" name="theme" class="form-input">
+			<select id="theme-selector" name="theme" class="form-input" onchange="switchThemes()">
+				<option value="{{$.Theme}}" selected>{{call $.T "select"}}</option>
 				<option value="/css/g.css">/g/</option>
 				<option value="/css/tomorrow.css">Tomorrow</option>
 				<option value="">None</option>

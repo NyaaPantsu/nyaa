@@ -7,11 +7,12 @@ import (
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 )
 
-const EMAIL_REGEX = `(\w[-._\w]*\w@\w[-._\w]*\w\.\w{2,3})`
-const USERNAME_REGEX = `(\W)`
+const emailRegex = `(\w[-._\w]*\w@\w[-._\w]*\w\.\w{2,3})`
+const usernameRegex = `(\W)`
 
+// EmailValidation : Check if an email is valid
 func EmailValidation(email string, mes *msg.Messages) bool {
-	exp, errorRegex := regexp.Compile(EMAIL_REGEX)
+	exp, errorRegex := regexp.Compile(emailRegex)
 	if regexpCompiled := log.CheckError(errorRegex); regexpCompiled {
 		if exp.MatchString(email) {
 			return true
@@ -21,8 +22,9 @@ func EmailValidation(email string, mes *msg.Messages) bool {
 	return false
 }
 
+// ValidateUsername : Check if a username is valid
 func ValidateUsername(username string, mes *msg.Messages) bool {
-	exp, errorRegex := regexp.Compile(USERNAME_REGEX)
+	exp, errorRegex := regexp.Compile(usernameRegex)
 	if regexpCompiled := log.CheckError(errorRegex); regexpCompiled {
 		if exp.MatchString(username) {
 			mes.AddError("username", "Username contains illegal characters")
@@ -34,15 +36,7 @@ func ValidateUsername(username string, mes *msg.Messages) bool {
 	return true
 }
 
-func NewErrors() map[string][]string {
-	err := make(map[string][]string)
-	return err
-}
-func NewInfos() map[string][]string {
-	infos := make(map[string][]string)
-	return infos
-}
-
+// IsAgreed : Check if terms and conditions are valid
 func IsAgreed(termsAndConditions string) bool { // TODO: Inline function
 	return termsAndConditions == "1"
 }
@@ -65,13 +59,13 @@ type LoginForm struct {
 
 // UserForm is used when updating a user.
 type UserForm struct {
-	Username         string `form:"username" needed:"true" len_min:"3" len_max:"20"`
-	Email            string `form:"email"`
-	Language         string `form:"language" default:"en-us"`
-	CurrentPassword  string `form:"current_password" len_min:"6" len_max:"72" omit:"true"`
-	Password         string `form:"password" len_min:"6" len_max:"72" equalInput:"Confirm_Password"`
-	Confirm_Password string `form:"password_confirmation" omit:"true"`
-	Status           int    `form:"status" default:"0"`
+	Username        string `form:"username" needed:"true" len_min:"3" len_max:"20"`
+	Email           string `form:"email"`
+	Language        string `form:"language" default:"en-us"`
+	CurrentPassword string `form:"current_password" len_min:"6" len_max:"72" omit:"true"`
+	Password        string `form:"password" len_min:"6" len_max:"72" equalInput:"ConfirmPassword"`
+	ConfirmPassword string `form:"password_confirmation" omit:"true"`
+	Status          int    `form:"status" default:"0"`
 }
 
 // UserSettingsForm is used when updating a user.

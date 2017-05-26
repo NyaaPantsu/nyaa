@@ -1,26 +1,34 @@
 package model
 
 import (
-	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/util"
-	"github.com/bradfitz/slice"
-
 	"fmt"
 	"html/template"
+	"context"
 	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
+	elastic "gopkg.in/olivere/elastic.v5"
+
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/bradfitz/slice"
 )
 
 const (
-	TorrentStatusNormal    = 1
-	TorrentStatusRemake    = 2
-	TorrentStatusTrusted   = 3
-	TorrentStatusAPlus     = 4
-	TorrentStatusBlocked   = 5
+	// TorrentStatusNormal Int for Torrent status normal
+	TorrentStatusNormal = 1
+	// TorrentStatusRemake Int for Torrent status remake
+	TorrentStatusRemake = 2
+	// TorrentStatusTrusted Int for Torrent status trusted
+	TorrentStatusTrusted = 3
+	// TorrentStatusAPlus Int for Torrent status a+
+	TorrentStatusAPlus = 4
+	// TorrentStatusBlocked Int for Torrent status locked
+	TorrentStatusBlocked = 5
 )
 
+// Feed struct
 type Feed struct {
 	ID        int
 	Name      string
@@ -29,6 +37,7 @@ type Feed struct {
 	Timestamp string
 }
 
+// Torrent model
 type Torrent struct {
 	ID          uint      `gorm:"column:torrent_id;primary_key"`
 	Name        string    `gorm:"column:torrent_name"`
@@ -57,7 +66,7 @@ type Torrent struct {
 	FileList   []File    `gorm:"ForeignKey:torrent_id"`
 }
 
-// Returns the total size of memory recursively allocated for this struct
+// Size : Returns the total size of memory recursively allocated for this struct
 // FIXME: doesn't go have sizeof or something nicer for this?
 func (t Torrent) Size() (s int) {
 	s += 8 + // ints
@@ -83,47 +92,80 @@ func (t Torrent) Size() (s int) {
 
 }
 
+// TableName : Return the name of torrents table
 func (t Torrent) TableName() string {
 	return config.TorrentsTableName
 }
 
+// Identifier : Return the identifier of a torrent
 func (t *Torrent) Identifier() string {
 	return "torrent_" + strconv.Itoa(int(t.ID))
 }
 
+// IsNormal : Return if a torrent status is normal
 func (t Torrent) IsNormal() bool {
 	return t.Status == TorrentStatusNormal
 }
 
+// IsRemake : Return if a torrent status is normal
 func (t Torrent) IsRemake() bool {
 	return t.Status == TorrentStatusRemake
 }
 
+// IsTrusted : Return if a torrent status is trusted
 func (t Torrent) IsTrusted() bool {
 	return t.Status == TorrentStatusTrusted
 }
 
+// IsAPlus : Return if a torrent status is a+
 func (t Torrent) IsAPlus() bool {
 	return t.Status == TorrentStatusAPlus
 }
 
+// IsBlocked : Return if a torrent status is locked
 func (t *Torrent) IsBlocked() bool {
 	return t.Status == TorrentStatusBlocked
 }
 
+// IsDeleted : Return if a torrent status is deleted
 func (t *Torrent) IsDeleted() bool {
 	return t.DeletedAt != nil
+}
+
+func (t Torrent) AddToESIndex(client *elastic.Client) error {
+	ctx := context.Background()
+	torrentJson := t.ToJSON()
+	_, err := client.Index().
+		Index(config.DefaultElasticsearchIndex).
+		Type(config.DefaultElasticsearchType).
+		Id(torrentJson.ID).
+		BodyJson(torrentJson).
+		Refresh("true").
+		Do(ctx)
+	return err
+}
+
+func (t Torrent) DeleteFromESIndex(client *elastic.Client) error {
+	ctx := context.Background()
+	_, err := client.Delete().
+		Index(config.DefaultElasticsearchIndex).
+		Type(config.DefaultElasticsearchType).
+		Id(strconv.FormatInt(int64(t.ID), 10)).
+		Do(ctx)
+	return err
 }
 
 /* We need a JSON object instead of a Gorm structure because magnet URLs are
    not in the database and have to be generated dynamically */
 
-type ApiResultJSON struct {
+// APIResultJSON for torrents in json for api
+type APIResultJSON struct {
 	Torrents         []TorrentJSON `json:"torrents"`
 	QueryRecordCount int           `json:"queryRecordCount"`
 	TotalRecordCount int           `json:"totalRecordCount"`
 }
 
+// CommentJSON for comment model in json
 type CommentJSON struct {
 	Username   string        `json:"username"`
 	UserID     int           `json:"user_id"`
@@ -132,11 +174,13 @@ type CommentJSON struct {
 	Date       time.Time     `json:"date"`
 }
 
+// FileJSON for file model in json
 type FileJSON struct {
 	Path     string `json:"path"`
 	Filesize int64  `json:"filesize"`
 }
 
+// TorrentJSON for torrent model in json for api
 type TorrentJSON struct {
 	ID           string        `json:"id"`
 	Name         string        `json:"name"`
@@ -239,7 +283,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 
 /* Complete the functions when necessary... */
 
-// Map Torrents to TorrentsToJSON without reallocations
+// TorrentsToJSON : Map Torrents to TorrentsToJSON without reallocations
 func TorrentsToJSON(t []Torrent) []TorrentJSON {
 	json := make([]TorrentJSON, len(t))
 	for i := range t {

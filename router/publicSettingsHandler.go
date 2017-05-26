@@ -5,22 +5,20 @@ import (
 	"net/http"
 
 	"github.com/NyaaPantsu/nyaa/service/user"
-	"github.com/NyaaPantsu/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/timeHelper"
 )
 
 // LanguagesJSONResponse : Structure containing all the languages to parse it as a JSON response
-/* COMMITED OUT TEMPORARILY
 type LanguagesJSONResponse struct {
 	Current   string            `json:"current"`
 	Languages map[string]string `json:"languages"`
 }
-*/
 
-// SeeLanguagesHandler : Controller to view the languages
+// SeePublicSettingsHandler : Controller to view the languages and themes
 func SeePublicSettingsHandler(w http.ResponseWriter, r *http.Request) {
-	_, Tlang := languages.GetTfuncAndLanguageFromRequest(r)
-	availableLanguages := languages.GetAvailableLanguages()
+	_, Tlang := publicSettings.GetTfuncAndLanguageFromRequest(r)
+	availableLanguages := publicSettings.GetAvailableLanguages()
 	contentType := r.Header.Get("Content-Type")
 	if contentType == "application/json" {
 		w.Header().Set("Content-Type", "application/json")
@@ -43,12 +41,12 @@ func SeePublicSettingsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// ChangeLanguageHandler : Controller for changing the current language
+// ChangePublicSettingsHandler : Controller for changing the current language and theme
 func ChangePublicSettingsHandler(w http.ResponseWriter, r *http.Request) {
 	theme := r.FormValue("theme")
 	lang := r.FormValue("language")
 
-	availableLanguages := languages.GetAvailableLanguages()
+	availableLanguages := publicSettings.GetAvailableLanguages()
 	if _, exists := availableLanguages[lang]; !exists {
 		http.Error(w, "Language not available", http.StatusInternalServerError)
 		return
