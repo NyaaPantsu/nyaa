@@ -58,14 +58,7 @@
 		{{ block "additional_header" .}}{{end}}
     </head>
   <body onload="setTheme();">
-     <div id="mascot" class="hide-xs" onclick="playVoice();"></div>
-     <audio id="nyanpassu" hidden preload="none">
-        <source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
-     </audio>
-     <audio id="explosion" hidden preload="none">
-        <source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
-     </audio>
-	<nav id="header" class="header">
+   <nav id="header" class="header">
 		<div class="container">
 			<div class="h-left">
 					<div class="h-logo">
@@ -97,6 +90,14 @@
       <div class="content container center">
         {{block "content" .}}{{call $.T "nothing_here"}}{{end}}
       </div>
+<div id="mascot" class="hide-xs" onclick="playVoice();"></div>
+     <audio id="nyanpassu" hidden preload="none">
+        <source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
+     </audio>
+     <audio id="explosion" hidden preload="none">
+        <source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
+     </audio>
+
 <div class="pagination">
               {{ genNav .Navigation .URL 15 }}
 </div>
