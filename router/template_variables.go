@@ -84,6 +84,12 @@ type ChangeThemeVariables struct {
 	commonTemplateVariables
 }
 
+type publicSettingsVariables struct {
+	commonTemplateVariables
+	Language  string
+	Languages map[string]string
+}
+
 /* MODERATION Variables */
 
 type panelIndexVbs struct {

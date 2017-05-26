@@ -118,6 +118,8 @@ func init() {
 	Router.HandleFunc("/theme", ChangeThemeHandler).Methods("POST").Name("see_languages")
 	Router.HandleFunc("/language", SeeLanguagesHandler).Methods("GET").Name("see_languages")
 	Router.HandleFunc("/language", ChangeLanguageHandler).Methods("POST").Name("change_language")
+	Router.HandleFunc("/settings", SeePublicSettingsHandler).Methods("GET").Name("see_languages")
+	Router.HandleFunc("/settings", ChangePublicSettingsHandler).Methods("POST").Name("see_languages")
 
 	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
 }

@@ -28,6 +28,7 @@ var homeTemplate,
 	notFoundTemplate,
 	changeLanguageTemplate,
 	changeThemeTemplate,
+	changePublicSettingsTemplate,
 	databaseDumpTemplate *template.Template
 
 var panelIndex,
@@ -138,6 +139,12 @@ func ReloadTemplates() {
 			name:  "change_theme",
 			file:  "change_theme.html",
 		},
+		{
+			templ: &changePublicSettingsTemplate,
+			name:  "change_settings",
+			file:  "public_settings.html",
+		},
+
 	}
 	for idx := range pubTempls {
 		pubTempls[idx].indexFile = filepath.Join(TemplateDir, "index.html")
