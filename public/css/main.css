@@ -404,6 +404,7 @@ td.tr-le { color: #E84C4C; }
 
 .up-input {
 	width: 100%;
+	margin-bottom: 10px;
 }
 .input-label {
 	font-size: large;
@@ -496,22 +497,40 @@ td.tr-le { color: #E84C4C; }
 .profile-content {
 	width: 70%;
 }
-
 /* Filelist */
-#filelist-control {
+.filelist-control {
 	cursor: pointer;
 }
-#filelist-control::before {
+.filelist-control::before {
 	content: "\25B6   ";
 }
-#filelist-control[data-filelist-open="true"]::before {
+input#show-filelist:checked ~ .filelist-control::before {
 	content: "\25BC   ";
 }
 
+input#show-filelist {
+	display: none;
+}
+
+#filelist {
+	display: none;
+}
+
+input#show-filelist:checked ~ #filelist {
+	display: block;
+}
+
+#filelist tr {
+	background: none; /* Striped lines will look really ugly due to how it's drawn */
+}
 .tr-filelist {
 	--nest-level: 0;
 }
-
+.caret-down-icon {
+	background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%232196F3" d="M24 34l18-20H6"/></svg>') no-repeat center center;
+	background-size: 24px;
+	vertical-align: middle;
+}
 .tr-filelist td {
 	padding: 4px 4px;
 	white-space: nowrap;
@@ -525,28 +544,38 @@ td.tr-le { color: #E84C4C; }
 }
 /* Filesize column */
 .tr-filelist td:nth-child(2) {
+	width: 30%;
 	text-align: center;
 }
+/* Input that show/hides each folder */
+input.filelist-checkbox {
+	display: none;
+}
+input.filelist-checkbox:checked + table.table-filelist {
+	display: none;
+}
 
-.tr-folder {
+.tr-folder label {
 	cursor: pointer;
 }
 /* The folder or file icon */
 .tr-folder td:first-child::before {
 	content: " ";
 	display: inline-block;
-	background-image: url('data:image/svg+xml;charset=UTF-8,<svg version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#FFA000" d="M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v8h40v-4c0-2.2-1.8-4-4-4z"/><path fill="#FFCA28" d="M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z"/></svg>');
+	background-image: url('data:image/svg+xml;charset=UTF-8,<svg version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%23FFA000" d="M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v8h40v-4c0-2.2-1.8-4-4-4z"/><path fill="%23FFCA28" d="M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z"/></svg>');
 	background-size: 24px;
 	width: 24px;
 	height: 24px;
+	vertical-align: middle;
 }
 .tr-file td:first-child::before {
 	content: " ";
 	display: inline-block;
-	background-image: url('data:image/svg+xml;charset=UTF-8,<svg version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#90CAF9" d="M40 45H8V3h22l10 10"/><path fill="#E1F5FE" d="M38.5 14H29V4.5"/></svg>');
+	background-image: url('data:image/svg+xml;charset=UTF-8,<svg version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%2390CAF9" d="M40 45H8V3h22l10 10"/><path fill="%23E1F5FE" d="M38.5 14H29V4.5"/></svg>');
 	background-size: 24px;
 	width: 24px;
 	height: 24px;
+	vertical-align: middle;
 }
 
 #torrent-name {
@@ -554,4 +583,9 @@ td.tr-le { color: #E84C4C; }
 	display: flex;
 	flex-direction: column;
 	font-weight: bold;
+}
+
+.user-form {
+	margin-right: 30%;
+	margin-left: 30%;
 }

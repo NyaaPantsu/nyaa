@@ -1,8 +1,9 @@
 {{define "title"}}{{ call $.T "register_title" }}{{end}}
 {{define "contclass"}}cont-view{{end}}
 {{define "content"}}
-	    {{ with .RegistrationForm }}
+	    {{ with .Form }}
 		<div class="box">
+			<div class="user-form">
 			<form role="form" method="POST">
 				<h2>{{call $.T "signup_box_title" }}</h2>
 				{{ range (index $.FormErrors "errors")}}
@@ -36,6 +37,7 @@
 
 					<input type="submit" value="{{call $.T "register" }}" class="form-input"></input>
 			</form>
+			</div>
 			</div>
 			<script type="text/javascript" charset="utf-8">function terms() {alert("just don't be a dick thx");}</script>
 

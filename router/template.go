@@ -5,9 +5,10 @@ import (
 	"path/filepath"
 )
 
-// FIXME This should be a constant, but then the tests fails
-var TemplateDir = "templates"
+// TemplateDir : Variable to the template directory
+var TemplateDir = "templates" // FIXME: Need to be a constant!
 
+// ModeratorDir : Variable to the admin template sub directory
 const ModeratorDir = "admin"
 
 var homeTemplate,
@@ -43,7 +44,7 @@ type templateLoader struct {
 	name      string
 }
 
-// ReloadTemplates reloads templates on runtime
+// ReloadTemplates : reloads templates on runtime
 func ReloadTemplates() {
 	pubTempls := []templateLoader{
 		{

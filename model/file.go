@@ -41,4 +41,3 @@ func (f *File) Filename() string {
 	path := f.Path()
 	return path[len(path)-1]
 }
-

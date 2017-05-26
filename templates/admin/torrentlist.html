@@ -44,7 +44,7 @@
         <th>Action</th>
     </tr>
 
-    {{ range .Torrents}}
+    {{ range .Models}}
     <tr>
         <td><input type="checkbox" name="torrent_id" value="{{.ID }}"></td>
         <td><a href="{{ genViewTorrentRoute .ID }}">{{ .Name }}</a> {{ if not .IsDeleted }}(<a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">{{ call $.T "edit"}}</a>){{end}}</td>

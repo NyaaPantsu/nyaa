@@ -35,7 +35,7 @@ Your browser does not support the audio element.
               <!-- <th><span class="glyphicon glyphicon-comment"></span></th> -->
               <th class="tr-date hide-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{call $.T "date"}}<span class="sort-arrows">{{ genSortArrows .URL "2" }}</span></a></th>
           </tr>
-          {{ range .ListTorrents}}
+          {{ range .Models}}
           <tr class="torrent-info
               {{if eq .Status 2}}remake{{end}}
               {{if eq .Status 3}}trusted{{end}}

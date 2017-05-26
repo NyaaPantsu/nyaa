@@ -51,9 +51,9 @@ func wrapHandler(handler http.Handler) http.Handler {
 
 // Make sure the user is a moderator, otherwise return forbidden
 // TODO Clean this
-func WrapModHandler(handler func(w http.ResponseWriter, r *http.Request)) func(w http.ResponseWriter, r *http.Request) {
+func wrapModHandler(handler func(w http.ResponseWriter, r *http.Request)) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		currentUser := GetUser(r)
+		currentUser := getUser(r)
 		if userPermission.HasAdmin(currentUser) {
 			handler(w, r)
 		} else {
