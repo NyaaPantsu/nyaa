@@ -472,6 +472,10 @@ td.tr-le { color: #E84C4C; }
 	border: 1px solid #ccc;
 	border-radius: 4px;
 }
+.torrent-info-box img {
+	width: 100%;
+	height: auto;
+}
 .comment-box {
 	margin-top: 10px;
 	padding-left: 7px;
@@ -635,6 +639,7 @@ input.filelist-checkbox:checked + table.table-filelist {
 	display: flex;
 	flex-direction: column;
 	font-weight: bold;
+	word-wrap: break-word;
 }
 
 .user-form {
@@ -651,9 +656,4 @@ input.filelist-checkbox:checked + table.table-filelist {
 
 	pointer-events: none;
 	*/
-}
-
-.center {
-	display: inline-block;
-	pointer-events: initial;
 }
