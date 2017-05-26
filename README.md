@@ -18,8 +18,9 @@ You can view the public trello board [here](https://trello.com/b/gMJBwoRq/nyaa-p
 # Installation
 All tested versions of Ubuntu fail to build, use a different OS or docker
 * Install [Golang](https://golang.org/doc/install) (version >=1.8)
+* `go get -u github.com/tools/godep`
 * `go get github.com/NyaaPantsu/nyaa`
-* `go build`
+* `godep go build`
 * Download the DB and place it in your root folder named as "nyaa.db" (You want the merged.sqlite3 database, see the dev IRC for more info)
 * `./nyaa`
 * You can now access your local site over on [localhost:9999](http://localhost:9999)
