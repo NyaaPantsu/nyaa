@@ -24,15 +24,14 @@ pgconn = psycopg2.connect(dbparams)
 
 cur = pgconn.cursor()
 cur.execute("""SELECT torrent_id, torrent_name, category, sub_category, status, 
-                      torrent_hash, date, uploader, downloads, filesize
+                      torrent_hash, date, uploader, downloads, filesize, seeders, leechers, completed
                FROM torrents
                WHERE deleted_at IS NULL""")
 
 fetches = cur.fetchmany(CHUNK_SIZE)
 while fetches:
     actions = list()
-    for torrent_id, torrent_name, category, sub_category, status, torrent_hash, date, uploader, downloads, filesize in fetches:
-        # TODO Add seeds/leech
+    for torrent_id, torrent_name, category, sub_category, status, torrent_hash, date, uploader, downloads, filesize, seeders, leechers, completed in fetches:
         # TODO Consistent ID representation on the codebase
         doc = {
           'id': str(torrent_id),
@@ -45,9 +44,9 @@ while fetches:
           'uploader_id': uploader,
           'downloads': downloads,
           'filesize': filesize,
-          'seeders': 0,   # TODO Get seeders from database
-          'leechers': 0,  # TODO Get leechers from database
-          'completed': 0  # TODO Get completed from database
+          'seeders': seeders,
+          'leechers': leechers,
+          'completed': completed
         }
         action = {
             '_index': pantsu_index,
