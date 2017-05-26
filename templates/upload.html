@@ -41,7 +41,13 @@
 
 		<button type="submit" class="form-input up-btn">{{call $.T "upload"}}</button>
 	</form>
-	<script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc") });</script>
 </div>
 {{end}}
+{{end}}
+{{ define "footer_js"}}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc") });</script>
+{{end}}
+{{ define "additional_header"}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 {{end}}
