@@ -265,6 +265,8 @@ th { border-bottom-width: 2px; }
 .pagination {
 	text-align: center;
 	padding: 1rem 1rem 0 1rem;
+	position: relative;
+	z-index: 2;
 }
 .pagination li {
 	border:  1px solid;
