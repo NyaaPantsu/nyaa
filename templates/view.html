@@ -42,7 +42,7 @@
   <br>
   <table>
       <tr class="torrent-info-row">
-      <td class="torrent-info-td torrent-info-label">{{ call $.T "category" }}:</td><td class="torrent-info-td torrent-info-data"><a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">{{ if Sukebei}}{{ call $.T (CategoryName .Category .SubCategory) }}{{else}}{{ call $.T (CategoryName .Category .SubCategory) }}{{end}}</a> <br></td>
+      <td class="torrent-info-td torrent-info-label">{{ call $.T "category" }}:</td><td class="torrent-info-td torrent-info-data" style="padding:0"><a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">{{ if Sukebei}}{{ call $.T (CategoryName .Category .SubCategory) }}{{else}}{{ call $.T (CategoryName .Category .SubCategory) }}{{end}}</a> <br></td>
       <td class="torrent-info-td torrent-info-label">{{ call $.T "date" }}:</td><td class="torrent-info-td date-short">{{.Date}}</td>
       </tr>
       <tr class="torrent-info-row">
