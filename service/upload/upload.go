@@ -10,7 +10,7 @@ import (
 )
 
 // CheckTrackers : Check if there is good trackers in torrent
-func CheckTrackers(trackers []string) bool {
+func CheckTrackers(trackers []string) []string {
 	// TODO: move to runtime configuration
 	var deadTrackers = []string{ // substring matches!
 		"://open.nyaatorrents.info:6544",
@@ -28,20 +28,23 @@ func CheckTrackers(trackers []string) bool {
 		"://tracker.prq.to",
 		"://bt.rghost.net"}
 
-	var numGood int
+	var trackerRet []string
 	for _, t := range trackers {
-		good := true
-		for _, check := range deadTrackers {
-			if strings.Contains(t, check) {
-				good = false
-				break // No need to continue the for loop
+		urlTracker, err := url.Parse(t)
+		if err == nil {
+			good := true
+			for _, check := range deadTrackers {
+				if strings.Contains(t, check) {
+					good = false
+					break // No need to continue the for loop
+				}
+			}
+			if good {
+				trackerRet = append(trackerRet, urlTracker.String())
 			}
 		}
-		if good {
-			numGood++
-		}
 	}
-	return numGood > 0
+	return trackerRet
 }
 
 // IsUploadEnabled : Check if upload is enabled in config
@@ -56,16 +59,4 @@ func IsUploadEnabled(u model.User) bool {
 		return false
 	}
 	return true
-}
-
-// EscapeTrackers : Escape trackers URL and adds them if they are urls
-func EscapeTrackers(trackers []string) (trackerRet []string) {
-	for _, tracker := range trackers {
-		urlTracker, err := url.Parse(tracker)
-		if err != nil {
-			break
-		}
-		trackerRet = append(trackerRet, url.PathEscape(urlTracker.String()))
-	}
-	return
 }

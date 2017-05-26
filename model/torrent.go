@@ -12,6 +12,8 @@ import (
 
 	elastic "gopkg.in/olivere/elastic.v5"
 
+	"net/url"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/bradfitz/slice"
@@ -144,6 +146,7 @@ func (t Torrent) DeleteFromESIndex(client *elastic.Client) error {
 
 // ParseTrackers : Takes an array of trackers, adds needed trackers and parse it to url string
 func (t *Torrent) ParseTrackers(trackers []string) {
+	v := url.Values{}
 	if len(config.NeededTrackers) > 0 { // if we have some needed trackers configured
 		if len(trackers) == 0 {
 			trackers = config.Trackers
@@ -162,12 +165,14 @@ func (t *Torrent) ParseTrackers(trackers []string) {
 			}
 		}
 	}
-	t.Trackers = strings.Join(trackers, "&")
+	v["tr"] = trackers
+	t.Trackers = v.Encode()
 }
 
 // GetTrackersArray : Convert trackers string to Array
 func (t *Torrent) GetTrackersArray() (trackers []string) {
-	trackers = strings.Split(t.Trackers, "&")
+	v, _ := url.ParseQuery(t.Trackers)
+	trackers = v["tr"]
 	return
 }
 

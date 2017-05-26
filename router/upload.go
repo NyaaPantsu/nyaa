@@ -154,10 +154,10 @@ func (f *uploadForm) ExtractInfo(r *http.Request) error {
 			return errPrivateTorrent
 		}
 		trackers := torrent.GetAllAnnounceURLS()
-		if !uploadService.CheckTrackers(trackers) {
+		f.Trackers = uploadService.CheckTrackers(trackers)
+		if len(f.Trackers) == 0 {
 			return errTrackerProblem
 		}
-		f.Trackers = uploadService.EscapeTrackers(trackers)
 
 		// Name
 		if len(f.Name) == 0 {
