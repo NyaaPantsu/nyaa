@@ -1,9 +1,6 @@
 package filelist
 
 import (
-	"bytes"
-	"html/template"
-	"strconv"
 	"strings"
 
 	"github.com/NyaaPantsu/nyaa/model"
