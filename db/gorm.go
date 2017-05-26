@@ -39,8 +39,10 @@ func GormInit(conf *config.Config, logger Logger) (*gorm.DB, error) {
 		log.CheckError(connectionErr)
 		return nil, connectionErr
 	}
-	db.DB().SetMaxIdleConns(10)
-	db.DB().SetMaxOpenConns(100)
+
+	// Negative MaxIdleConns means don't retain any idle connection
+	db.DB().SetMaxIdleConns(-1)
+	db.DB().SetMaxOpenConns(400)
 
 	if config.Environment == "DEVELOPMENT" {
 		db.LogMode(true)
