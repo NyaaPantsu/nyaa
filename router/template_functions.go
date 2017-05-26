@@ -126,12 +126,11 @@ var FuncMap = template.FuncMap{
 			for i := startValue; i <= endValue; i++ {
 				pageNum := strconv.Itoa(i)
 				url, _ := Router.Get(nav.Route).URL("page", pageNum)
-				ret = ret + "<li"
+				ret = ret + "<a href=\"" + url.String() + "?" + currentUrl.RawQuery + "\">" + "<li"
 				if i == nav.CurrentPage {
 					ret = ret + " class=\"active\""
 				}
-
-				ret = ret + "><a href=\"" + url.String() + "?" + currentUrl.RawQuery + "\">" + strconv.Itoa(i) + "</a></li>"
+				ret = ret + ">" + strconv.Itoa(i) + "</li></a>"
 			}
 			if nav.CurrentPage < int(maxPages) {
 				url, _ := Router.Get(nav.Route).URL("page", strconv.Itoa(nav.CurrentPage+1))
