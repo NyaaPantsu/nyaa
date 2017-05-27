@@ -269,7 +269,10 @@ func (t *Torrent) ToJSON() TorrentJSON {
 
 	uploader := ""
 	var uploaderID uint
-	if t.Uploader != nil && !t.Hidden {
+	if t.Hidden {
+		uploader = "れんちょん"
+		uploaderID = 0
+	} else if t.Uploader != nil {
 		uploader = t.Uploader.Username
 		uploaderID = t.UploaderID
 	}
