@@ -178,6 +178,17 @@ func UpdateUserCore(user *model.User) (int, error) {
 	return http.StatusOK, nil
 }
 
+// UpdateRawUser : Function to update a user without updating his associations model
+func UpdateRawUser(user *model.User) (int, error) {
+	user.UpdatedAt = time.Now()
+	err := db.ORM.Model(&user).UpdateColumn(&user).Error
+	if err != nil {
+		return http.StatusInternalServerError, err
+	}
+
+	return http.StatusOK, nil
+}
+
 // UpdateUser updates a user.
 func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, formSet *formStruct.UserSettingsForm, currentUser *model.User, id string) (model.User, int, error) {
 	var user model.User
