@@ -1,7 +1,7 @@
 var explosion = document.getElementById("explosion");
 var nyanpassu = document.getElementById("nyanpassu");
 
-function toggleNightMode() {
+/*function toggleNightMode() {
 	var night = localStorage.getItem("night");
 	if(night == "true") {
 		document.getElementsByTagName("head")[0].removeChild(darkStyleLink);
@@ -11,9 +11,23 @@ function toggleNightMode() {
 	localStorage.setItem("night", (night == "true") ? "false" : "true");
 }
 
-// Switches between themes when a new one is selected
-function switchThemes(){
-	themeName = document.getElementById("theme-selector").value
+function changeTheme(opt) {
+	theme = opt.value;
+	localStorage.setItem("theme", theme);
+	document.getElementById("theme").href = "/css/" + theme;
+	console.log(theme);
+}
+
+*/
+
+
+function switchThemes(themeName=null){
+	// Switches between themes when a new one is selected
+
+	// Get the theme from the selector if we are not manually passing one
+	if(!themeName){
+		themeName = document.getElementById("theme-selector").value
+	}
 	var head = document.getElementsByTagName("head")[0];
 	// Remove the theme in place, it fails if one isn't set
 	try{
@@ -31,26 +45,60 @@ function switchThemes(){
 	head.appendChild(newTheme);
 }
 
-
-function changeTheme(opt) {
-	theme = opt.value;
-	localStorage.setItem("theme", theme);
-	document.getElementById("theme").href = "/css/" + theme;
-	console.log(theme);
-}
-
-function toggleMascot(btn) {
-	var state= btn.value;
-	if (state == "hide") {
-		btn.innerHTML = "Mascot";
-		document.getElementById("mascot").className = "hide";
-		btn.value = "show";
-	} else {
-		btn.innerHTML = "Mascot";
-		document.getElementById("mascot").className = "";
-		btn.value = "hide";
+function toggleNightMode(currentTheme){
+	// Turns night mode on and off
+	nightMode = sessionStorage.nightMode;
+	if(nightMode === undefined){
+		nightMode = "false";
+	}
+	console.log(nightMode);
+	// If nightmode is on, turn it off
+	if(nightMode === "true"){
+		console.log("turning off!")
+		sessionStorage.nightMode = "false";
+		switchThemes(sessionStorage.previousTheme);
+	}
+	// If nightmode is turned off, turn it on
+	else{
+		console.log("turning on!");
+		sessionStorage.nightMode = "true";
+		// Hardcoded to g for now, I need to find a better solution here
+		sessionStorage.setItem("previousTheme", currentTheme);
+		switchThemes("tomorrow");
 	}
 }
+
+function themeFixes(){
+	// Loads night mode if it is turned on, meant to be called onload
+	// Unloads the mascot too
+	if(sessionStorage.nightMode === "true"){
+		switchThemes("tomorrow");
+	}
+	if(localStorage.fuckRenge === "true"){
+		document.getElementById("mascot").className = "hide";
+	}
+}
+
+function disableNightMode(){
+	// Called when a user switches themes, we don't want him to automatically go back to nightmode
+	sessionStorage.nightMode = "false";
+}
+
+function toggleMascot() {
+	var fuckRenge = localStorage.fuckRenge;
+        if(fuckRenge === undefined){
+		fuckRenge = "false";
+	}
+	// If it is not specifically disabled, covers the undefined case as well
+	if (fuckRenge === "false") {
+		localStorage.fuckRenge = "true";
+		document.getElementById("mascot").className = "hide";
+	} else {
+		localStorage.fuckRenge = "false";
+		document.getElementById("mascot").className = "";
+	}
+}
+
 
 // Used by spoiler tags
 function toggleLayer(elem) {
@@ -84,6 +132,13 @@ window.onload = function() {
 	if (location.hash) shiftWindow();
 	window.addEventListener("hashchange", shiftWindow);
 };
+
+// $(document).ready equivilent, prevents night mode flickering
+document.addEventListener("DOMContentLoaded", function(event) { 
+	themeFixes();
+});
+
+
 
 function playVoice() {
 	switch (theme) {
