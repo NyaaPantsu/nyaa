@@ -9,7 +9,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user"
 	userForms "github.com/NyaaPantsu/nyaa/service/user/form"
 	"github.com/NyaaPantsu/nyaa/util/filelist"
-	"github.com/NyaaPantsu/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/gorilla/mux"
 )
 
@@ -74,6 +74,16 @@ type changeLanguageVariables struct {
 	Languages map[string]string
 }
 
+type ChangeThemeVariables struct {
+	commonTemplateVariables
+}
+
+type publicSettingsVariables struct {
+	commonTemplateVariables
+	Language  string
+	Languages map[string]string
+}
+
 /* MODERATION Variables */
 
 type panelIndexVbs struct {
@@ -91,7 +101,8 @@ type panelIndexVbs struct {
 type commonTemplateVariables struct {
 	Navigation navigation
 	Search     searchForm
-	T          languages.TemplateTfunc
+	T          publicSettings.TemplateTfunc
+	Theme      string
 	User       *model.User
 	URL        *url.URL   // for parsing URL in templates
 	Route      *mux.Route // for getting current route in templates
@@ -140,7 +151,8 @@ func newCommonVariables(r *http.Request) commonTemplateVariables {
 	return commonTemplateVariables{
 		Navigation: newNavigation(),
 		Search:     newSearchForm(),
-		T:          languages.GetTfuncFromRequest(r),
+		T:          publicSettings.GetTfuncFromRequest(r),
+		Theme:      publicSettings.GetThemeFromRequest(r),
 		User:       getUser(r),
 		URL:        r.URL,
 		Route:      mux.CurrentRoute(r),

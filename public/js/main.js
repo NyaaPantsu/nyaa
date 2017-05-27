@@ -11,6 +11,47 @@ function toggleNightMode() {
 	localStorage.setItem("night", (night == "true") ? "false" : "true");
 }
 
+// Switches between themes when a new one is selected
+function switchThemes(){
+	themeName = document.getElementById("theme-selector").value
+	var head = document.getElementsByTagName("head")[0];
+	// Remove the theme in place, it fails if one isn't set
+	try{
+		head.removeChild(document.getElementById("theme"));
+	} catch(err){}
+	// Don't add a node if we don't want extra styling
+	if(themeName === ""){
+		return;
+	}
+	// Create the new one and put it back
+        var newTheme = document.createElement("link");
+        newTheme.setAttribute("rel", "stylesheet");
+        newTheme.setAttribute("href", "/css/"+ themeName + ".css");
+        newTheme.setAttribute("id", "theme");
+	head.appendChild(newTheme);
+}
+
+
+function changeTheme(opt) {
+	theme = opt.value;
+	localStorage.setItem("theme", theme);
+	document.getElementById("theme").href = "/css/" + theme;
+	console.log(theme);
+}
+
+function toggleMascot(btn) {
+	var state= btn.value;
+	if (state == "hide") {
+		btn.innerHTML = "Mascot";
+		document.getElementById("mascot").className = "hide";
+		btn.value = "show";
+	} else {
+		btn.innerHTML = "Mascot";
+		document.getElementById("mascot").className = "";
+		btn.value = "hide";
+	}
+}
+
 // Used by spoiler tags
 function toggleLayer(elem) {
 	if (elem.classList.contains("hide"))
