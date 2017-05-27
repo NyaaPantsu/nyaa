@@ -49,6 +49,7 @@ type Torrent struct {
 	Category    int       `gorm:"column:category"`
 	SubCategory int       `gorm:"column:sub_category"`
 	Status      int       `gorm:"column:status"`
+	Hidden      bool      `gorm:"column:hidden"`
 	Date        time.Time `gorm:"column:date"`
 	UploaderID  uint      `gorm:"column:uploader"`
 	Downloads   int       `gorm:"column:downloads"`
@@ -267,8 +268,10 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	})
 
 	uploader := ""
-	if t.Uploader != nil {
+	var uploaderID uint
+	if t.Uploader != nil && !t.Hidden {
 		uploader = t.Uploader.Username
+		uploaderID = t.UploaderID
 	}
 	torrentlink := ""
 	if t.ID <= config.LastOldTorrentID && len(config.TorrentCacheLink) > 0 {
@@ -292,7 +295,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		SubCategory:  strconv.Itoa(t.SubCategory),
 		Category:     strconv.Itoa(t.Category),
 		Downloads:    t.Downloads,
-		UploaderID:   t.UploaderID,
+		UploaderID:   uploaderID,
 		UploaderName: util.SafeText(uploader),
 		OldUploader:  util.SafeText(t.OldUploader),
 		WebsiteLink:  util.Safe(t.WebsiteLink),

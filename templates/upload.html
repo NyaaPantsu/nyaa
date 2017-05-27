@@ -29,7 +29,12 @@
 			<input type="checkbox" name="remake" id="remake" >
 			<label for="remake">{{call $.T "mark_as_remake"}}</label>
 		</p>
-
+		{{ if $.User }}
+		<p>
+			<input type="checkbox" name="hidden" id="hidden" >
+			<label for="hidden">{{call $.T "mark_as_hidden"}}</label>
+		</p>
+		{{ end }}
 		<h3>{{call $.T "website_link"}}</h3>
 		<input name="website_link" id="website_link" class="form-input up-input" type="text" value="{{.WebsiteLink}}">
 
