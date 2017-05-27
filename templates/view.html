@@ -47,11 +47,11 @@
       </tr>
       <tr class="torrent-info-row">
           <td class="torrent-info-td torrent-info-label">{{ call $.T "uploaded_by" }}:</td><td class="torrent-view-td torrent-info-data"><a href="{{ genRoute "user_profile" "id" ( print .UploaderID ) "username" (print .UploaderName) }}">{{.UploaderName}}</a></td>
-          <td class="torrent-info-td torrent-info-label">{{call $.T "seeders"}}:</td><td class="torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Seeders}}{{end}}</td>
+          <td class="torrent-info-td torrent-info-label">{{call $.T "seeders"}}:</td><td class="tr-se torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Seeders}}{{end}}</td>
       </tr>
       <tr class="torrent-info-row">
           <td class="torrent-info-td torrent-info-label">{{ call $.T "website_link" }}:</td><td class="torrent-view-td torrent-info-data">{{if ne .WebsiteLink ""}}<a href="{{.WebsiteLink}}">{{.WebsiteLink}}</a>{{else}}<a href="//nyaa.pantsu.cat">nyaa.pantsu.cat{{end}}</td>
-          <td class="torrent-info-td torrent-info-label">{{call $.T "leechers"}}:</td><td class="torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Leechers}}{{end}}</td>
+          <td class="torrent-info-td torrent-info-label">{{call $.T "leechers"}}:</td><td class="tr-le torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Leechers}}{{end}}</td>
       </tr>
     <tr class="torrent-info-row">
           <td class="torrent-info-td torrent-info-label">{{call $.T "hash"}}:</td><td style="font-family: monospace;" class="torrent-view-td torrent-info-data">{{.Hash}}</td>
