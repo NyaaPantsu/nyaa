@@ -24,8 +24,7 @@ mappings:
     properties:
       # TODO Consistent ID's type in TorrentJSON
       id:
-        type: text
-        fielddata: true # Use to sort by id because it is currently a text field
+        type: long
       name:
         type: text
         analyzer: nyaapantsu_analyzer

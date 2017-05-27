@@ -165,7 +165,7 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 		// INFO We are not using Hits.Id because the id in the index might not
 		// correspond to the id in the database later on.
 		type TId struct {
-			Id string
+			Id uint
 		}
 		var tid TId
 		var torrents []model.Torrent
@@ -175,11 +175,11 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 			// Building a string of the form {id1,id2,id3}
 			source, _ := hits[0].Source.MarshalJSON()
 			json.Unmarshal(source, &tid)
-			idsToString := "{" + tid.Id
+			idsToString := "{" + strconv.FormatUint(uint64(tid.Id), 10)
 			for _, t := range hits[1:] {
 				source, _ = t.Source.MarshalJSON()
 				json.Unmarshal(source, &tid)
-				idsToString += "," + tid.Id
+				idsToString += "," + strconv.FormatUint(uint64(tid.Id), 10)
 			}
 			idsToString += "}"
 			db.ORM.Raw("SELECT * FROM " + config.TorrentsTableName +
