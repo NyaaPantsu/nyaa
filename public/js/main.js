@@ -21,7 +21,7 @@ function toggleLayer(elem) {
 
 // Date formatting
 var lang = document.getElementsByTagName("html")[0].getAttribute("lang"); 
-var ymdOpt = { year: "numeric", month: "2-digit", day: "2-digit" };
+var ymdOpt = { year: "numeric", month: "short", day: "numeric" };
 var hmOpt  = { hour: "numeric", minute: "numeric" };
 
 var list = document.getElementsByClassName("date-short");
