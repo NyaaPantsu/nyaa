@@ -43,7 +43,7 @@
   <table>
       <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ call $.T "category" }}:</td><td class="torrent-info-td torrent-info-data" style="padding:0"><a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">{{ if Sukebei}}{{ call $.T (CategoryName .Category .SubCategory) }}{{else}}{{ call $.T (CategoryName .Category .SubCategory) }}{{end}}</a> <br></td>
-      <td class="torrent-info-td torrent-info-label">{{ call $.T "date" }}:</td><td class="torrent-info-td date-short">{{.Date}}</td>
+      <td class="torrent-info-td torrent-info-label">{{ call $.T "date" }}:</td><td class="torrent-info-td date-full">{{.Date}}</td>
       </tr>
       <tr class="torrent-info-row">
           <td class="torrent-info-td torrent-info-label">{{ call $.T "uploaded_by" }}:</td><td class="torrent-view-td torrent-info-data"><a href="{{ genRoute "user_profile" "id" ( print .UploaderID ) "username" (print .UploaderName) }}">{{.UploaderName}}</a></td>
@@ -59,7 +59,7 @@
       </tr>
     <tr class="torrent-info-row">
           <td class="torrent-info-td torrent-info-label">{{call $.T "size"}}:</td><td class="torrent-view-td torrent-info-data">{{ fileSize .Filesize $.T }}</td>
-          <td class="torrent-info-td torrent-info-label">{{call $.T "last_scraped"}}</td><td class="torrent-info-td">{{if not .LastScrape.IsZero}}{{formatDateRFC .LastScrape}}{{else}}{{call $.T "unknown"}}{{end}}</td>
+          <td class="torrent-info-td torrent-info-label">{{call $.T "last_scraped"}}</td><td class="torrent-info-td date-full">{{if not .LastScrape.IsZero}}{{formatDateRFC .LastScrape}}{{else}}{{call $.T "unknown"}}{{end}}</td>
       </tr>
   </table>
 <div class="torrent-buttons">
