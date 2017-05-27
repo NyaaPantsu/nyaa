@@ -221,7 +221,6 @@ select.form-input {
 .results { padding: 0 }
 
 table {
-	width: 100%;
 	border-collapse:collapse;
 	table-layout: fixed;
 }
@@ -376,7 +375,7 @@ a:hover { color:  #238BC7; }
 
 .form-input { border-color: #BBC9CF !important; background: #fafafa; color: #666; }
 
-.form-input.btn:hover { background: rgba(192,192,192,0.2); }
+.btn:hover, .up-btn:hover { background: rgba(192,192,192,0.2); }
 
 .form-input:focus { box-shadow: 0 0 5px #fff; }
 
@@ -589,6 +588,9 @@ input#show-filelist:checked ~ #filelist {
 #filelist tr {
 	background: none; /* Striped lines will look really ugly due to how it's drawn */
 }
+.table-filelist {
+	width: 100%;
+}
 .tr-filelist {
 	--nest-level: 0;
 }
@@ -610,7 +612,7 @@ input#show-filelist:checked ~ #filelist {
 }
 /* Filesize column */
 .tr-filelist td:nth-child(2) {
-	width: 30%;
+	width: 20%;
 	text-align: center;
 }
 /* Input that show/hides each folder */
