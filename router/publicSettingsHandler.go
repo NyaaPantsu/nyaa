@@ -19,6 +19,7 @@ type LanguagesJSONResponse struct {
 func SeePublicSettingsHandler(w http.ResponseWriter, r *http.Request) {
 	_, Tlang := publicSettings.GetTfuncAndLanguageFromRequest(r)
 	availableLanguages := publicSettings.GetAvailableLanguages()
+	defer r.Body.Close()
 	contentType := r.Header.Get("Content-Type")
 	if contentType == "application/json" {
 		w.Header().Set("Content-Type", "application/json")
@@ -47,6 +48,7 @@ func ChangePublicSettingsHandler(w http.ResponseWriter, r *http.Request) {
 	lang := r.FormValue("language")
 
 	availableLanguages := publicSettings.GetAvailableLanguages()
+	defer r.Body.Close()
 	if _, exists := availableLanguages[lang]; !exists {
 		http.Error(w, "Language not available", http.StatusInternalServerError)
 		return

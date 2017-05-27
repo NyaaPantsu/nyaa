@@ -110,7 +110,7 @@ var FuncMap = template.FuncMap{
 
 			if nav.CurrentPage-1 > 0 {
 				url, _ := Router.Get(nav.Route).URL("page", "1")
-				ret = ret + "<li><a id=\"page-prev\" href=\"" + url.String() + "?" + currentUrl.RawQuery + "\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"
+				ret = ret + "<a id=\"page-prev\" href=\"" + url.String() + "?" + currentUrl.RawQuery + "\" aria-label=\"Previous\"><li><span aria-hidden=\"true\">&laquo;</span></li></a>"
 			}
 			startValue := 1
 			if nav.CurrentPage > pagesSelectable/2 {
@@ -126,16 +126,15 @@ var FuncMap = template.FuncMap{
 			for i := startValue; i <= endValue; i++ {
 				pageNum := strconv.Itoa(i)
 				url, _ := Router.Get(nav.Route).URL("page", pageNum)
-				ret = ret + "<li"
+				ret = ret + "<a href=\"" + url.String() + "?" + currentUrl.RawQuery + "\">" + "<li"
 				if i == nav.CurrentPage {
 					ret = ret + " class=\"active\""
 				}
-
-				ret = ret + "><a href=\"" + url.String() + "?" + currentUrl.RawQuery + "\">" + strconv.Itoa(i) + "</a></li>"
+				ret = ret + ">" + strconv.Itoa(i) + "</li></a>"
 			}
 			if nav.CurrentPage < int(maxPages) {
 				url, _ := Router.Get(nav.Route).URL("page", strconv.Itoa(nav.CurrentPage+1))
-				ret = ret + "<li><a id=\"page-next\" href=\"" + url.String() + "?" + currentUrl.RawQuery + "\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li>"
+				ret = ret + "<a id=\"page-next\" href=\"" + url.String() + "?" + currentUrl.RawQuery + "\" aria-label=\"Next\"><li><span aria-hidden=\"true\">&raquo;</span></li></a>"
 			}
 			itemsThisPageStart := nav.MaxItemPerPage*(nav.CurrentPage-1) + 1
 			itemsThisPageEnd := nav.MaxItemPerPage * nav.CurrentPage

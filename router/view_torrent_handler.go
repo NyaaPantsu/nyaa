@@ -25,6 +25,7 @@ import (
 
 // ViewHandler : Controller for displaying a torrent
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	vars := mux.Vars(r)
 	id := vars["id"]
 	messages := msg.GetMessages(r)
@@ -60,6 +61,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 
 // ViewHeadHandler : Controller for checking a torrent
 func ViewHeadHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	vars := mux.Vars(r)
 	id, err := strconv.ParseInt(vars["id"], 10, 32)
 	if err != nil {
@@ -78,6 +80,7 @@ func ViewHeadHandler(w http.ResponseWriter, r *http.Request) {
 
 // PostCommentHandler : Controller for posting a comment
 func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	vars := mux.Vars(r)
 	id := vars["id"]
 
@@ -123,6 +126,7 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 
 // ReportTorrentHandler : Controller for sending a torrent report
 func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	vars := mux.Vars(r)
 	id := vars["id"]
 	messages := msg.GetMessages(r)
@@ -154,6 +158,7 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 
 // TorrentEditUserPanel : Controller for editing a user torrent by a user, after GET request
 func TorrentEditUserPanel(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	id := r.URL.Query().Get("id")
 	torrent, _ := torrentService.GetTorrentByID(id)
 	messages := msg.GetMessages(r)
@@ -175,6 +180,7 @@ func TorrentEditUserPanel(w http.ResponseWriter, r *http.Request) {
 
 // TorrentPostEditUserPanel : Controller for editing a user torrent by a user, after post request
 func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	var uploadForm uploadForm
 	id := r.URL.Query().Get("id")
 	messages := msg.GetMessages(r)
@@ -214,6 +220,7 @@ func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
 
 // TorrentDeleteUserPanel : Controller for deleting a user torrent by a user
 func TorrentDeleteUserPanel(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	id := r.URL.Query().Get("id")
 	currentUser := getUser(r)
 	torrent, _ := torrentService.GetTorrentByID(id)

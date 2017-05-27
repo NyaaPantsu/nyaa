@@ -37,15 +37,15 @@
   },
   {
     "id": "email_address",
-    "translation": "Adresse email"
+    "translation": "Adresse email "
   },
   {
     "id": "password",
-    "translation": "Mot de passe"
+    "translation": "Mot de passe "
   },
   {
     "id": "confirm_password",
-    "translation": "Confirmer le mot de passe"
+    "translation": "Confirmer le mot de passe "
   },
   {
     "id": "i_agree",
@@ -109,7 +109,7 @@
   },
   {
     "id": "settings",
-    "translation": "Paramètres du compte"
+    "translation": "Paramètres"
   },
   {
     "id": "torrents",
@@ -137,11 +137,11 @@
   },
   {
     "id": "see_more_torrents_from",
-    "translation": "Voir plus de torrents de %s "
+    "translation": "Voir plus de torrents de %s"
   },
   {
     "id": "category",
-    "translation": "Catégorie"
+    "translation": "Catégorie "
   },
   {
     "id": "name",
@@ -149,11 +149,11 @@
   },
   {
     "id": "date",
-    "translation": "Date"
+    "translation": "Date "
   },
   {
     "id": "size",
-    "translation": "Taille"
+    "translation": "Taille "
   },
   {
     "id": "links",
@@ -365,7 +365,7 @@
   },
   {
     "id": "select_a_torrent_category",
-    "translation": "Choisir une catégorie de torrents"
+    "translation": "Choisir une catégorie de torrent"
   },
   {
     "id": "anime",
@@ -537,11 +537,15 @@
   },
   {
     "id": "hash",
-    "translation": "Hash"
+    "translation": "Info Hash "
   },
   {
     "id": "description",
     "translation": "Description"
+  },  
+  {
+    "id": "no_description",
+    "translation": "Aucune description disponible."
   },
   {
     "id": "comments",
@@ -565,11 +569,11 @@
   },
   {
     "id": "language",
-    "translation": "Langue"
+    "translation": "Langue "
   },
   {
     "id": "current_password",
-    "translation": "Mot de passe actuel"
+    "translation": "Mot de passe actuel "
   },
   {
     "id": "role",
@@ -593,7 +597,7 @@
   },
   {
     "id": "api_token",
-    "translation": "Authentifieur d'API"
+    "translation": "Authentifieur d'API "
   },
   {
     "id": "save_changes",
@@ -625,7 +629,7 @@
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Ren-chon) est le nom d'utilisateur par défaut assigné aux uploads et commentaires anonymes ainsi que la mascotte du site. Il est utilisé pour les torrents importés du Nyaa original, bien que l'auteur d'origine puisse parfois être affiché."
+    "translation": "れんちょん (Ren-chon) est le nom d'utilisateur par défaut assigné aux uploads et commentaires anonymes. Il est utilisé pour les torrents importés du Nyaa original, bien que l'auteur d'origine puisse parfois être affiché."
   },
   {
     "id": "mark_as_remake",
@@ -657,15 +661,15 @@
   },
   {
     "id": "seeders",
-    "translation": "Seeders"
+    "translation": "Seeders "
   },
   {
     "id": "leechers",
-    "translation": "Leechers"
+    "translation": "Leechers "
   },
   {
     "id": "completed",
-    "translation": "Complété"
+    "translation": "Téléchargements "
   },
   {
     "id": "change_language",
@@ -685,11 +689,15 @@
   },
   {
     "id": "website_link",
-    "translation": "Lien du site web"
+    "translation": "Site web "
   },
   {
     "id": "files",
-    "translation": "Fichiers"
+    "translation": "Liste des fichiers"
+  },
+  {
+    "id": "no_files",
+    "translation": "Aucun fichier trouvé."
   },
   {
     "id": "filename",
@@ -697,7 +705,7 @@
   },
   {
     "id": "uploaded_by",
-    "translation": "Uploadé par"
+    "translation": "Uploadé par "
   },
   {
     "id": "download_btn",
@@ -749,7 +757,7 @@
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "Veuillez inclure udp://tracker.doko.moe:6969 dans vos trackers."
+    "translation": "Veuillez inclure udp://tracker.doko.moe:6969 parmi les trackers."
   },
   {
     "id": "unknown",
@@ -757,7 +765,7 @@
   },
   {
     "id": "last_scraped",
-    "translation": "Dernier scrape effectué : "
+    "translation": "Dernier scrape :"
   },
   {
     "id": "server_status_link",
@@ -777,7 +785,7 @@
   },
   {
     "id": "my_notifications",
-    "translation": "Mes Notifications"
+    "translation": "Notifications"
   },
   {
     "id": "new_torrent_uploaded",

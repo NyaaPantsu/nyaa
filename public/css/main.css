@@ -16,6 +16,7 @@ body {
 
 #mascot {
 	position: fixed;
+	z-index: 1;
 	bottom: 0;
 	right: 0;
 	width: 60vh;
@@ -25,7 +26,7 @@ body {
 }
 
 .header {
-	z-index: 2;
+	z-index: 3;
 	position: fixed;
 	width: 100%;
 	top: 0; left: 0;
@@ -35,6 +36,10 @@ body {
 .container {
 	max-width: 1080px;
 	margin: 0 auto;
+}
+.content {
+	position: relative;
+	z-index: 2;
 }
 
 .header .container {
@@ -117,7 +122,7 @@ select.form-input {
  	padding: 0;
  	width: 16px;
 	box-shadow: none;
-	background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>')
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAMAAABFNRROAAAAS1BMVEUAAADFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMa1fVUnAAAAGHRSTlMAAgQHChRUVllwcZWipa2yurzHyOjx8/X7KHBhAAAAXklEQVQIHQXBAQKCIAAEsAlaYKWlWPf/l7ahtON7tAIsI0kyFigja1V7RkFLBz0NZyqoOfALIBfOVFDzRksHa24oI72qPZlhGUmSZJ+gtPP63Oct+wTAtOUFgOn5+AP1jwU8n7NnxAAAAABJRU5ErkJggg==')
 			no-repeat center center;
 	border: none;
 	vertical-align: middle;
@@ -216,7 +221,6 @@ select.form-input {
 .results { padding: 0 }
 
 table {
-	width: 100%;
 	border-collapse:collapse;
 	table-layout: fixed;
 }
@@ -240,7 +244,7 @@ th, .home-td {
 
 th { border-bottom-width: 2px; }
 
-.tr-cat { width: 90px; text-align: left; }
+.tr-cat { width: 90px; text-align: center; }
 .tr-name { width: auto; text-align: left; white-space: normal; word-break: break-word; font-weight: bold; }
 .tr-links { width: 66px; }
 .tr-size { width: 90px; }
@@ -260,15 +264,17 @@ th { border-bottom-width: 2px; }
 .pagination {
 	text-align: center;
 	padding: 1rem 1rem 0 1rem;
+	position: relative;
+	z-index: 2;
 }
 .pagination li {
 	border:  1px solid;
 	display: inline-block;
-	padding: 0.4rem 0.5rem;
+	padding: 0.4rem;
 	border-right-width: 0;
 	list-style-type: none;
 	text-align: center;
-	width: 35px;
+	min-width: 35px;
 }
 
 .pagination li:first-child { border-radius: 3px 0 0 3px; }
@@ -314,6 +320,10 @@ html, body {
 	.hide-xs {
 		display: none !important;
 	}
+#description-box img {
+	width: 100%;
+	height: auto;
+}
 
 }
 
@@ -365,7 +375,7 @@ a:hover { color:  #238BC7; }
 
 .form-input { border-color: #BBC9CF !important; background: #fafafa; color: #666; }
 
-.form-input.btn:hover { background: rgba(192,192,192,0.2); }
+.btn:hover, .up-btn:hover { background: rgba(192,192,192,0.2); }
 
 .form-input:focus { box-shadow: 0 0 5px #fff; }
 
@@ -393,13 +403,13 @@ th a { color: #6E96AA; }
 th { border-color:  #ddd !important; }
 td { border-color:  #ccc !important; }
 
-tr:nth-child(even) { background: rgba(200,200,200,0.15); }
 td.tr-se { color: #22A243; }
 td.tr-le { color: #E84C4C; }
 
-.aplus { background: hsla(200, 100%, 70%, 0.2); }
-.trusted { background: hsla(100, 100%, 70%, 0.2); }
-.remake { background: hsla(30, 100%, 70%, 0.2); }
+/* Original Nyaa colors, do NOT change! */
+.aplus { background: #60B0F0; }
+.trusted { background: #98D9A8; }
+.remake { background: #F0B080; }
 
 .pagination .active { background: #d5d5d5; color: #222; }
 .pagination .disabled { color: #d5d5d5; cursor: unset; }
@@ -473,6 +483,7 @@ td.tr-le { color: #E84C4C; }
 	border: 1px solid #ccc;
 	border-radius: 4px;
 }
+
 .comment-box {
 	margin-top: 10px;
 	padding-left: 7px;
@@ -482,6 +493,7 @@ td.tr-le { color: #E84C4C; }
 .comment-form {
 	margin-left: 10px;
 	margin-top: 10px;
+	margin-right: 10px;
 	padding-bottom: 5px;
 }
 .comment-index {
@@ -508,47 +520,47 @@ td.tr-le { color: #E84C4C; }
 }
 .magnet-icon {
 	display: inline-block;
-	background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><g fill="%23CFD8DC"><path d="M9 35.938h7V43H9zM32 35.938h7V43h-7z"/></g><path fill="%23F44336" d="M24 5v7c4.648 0 8 3.246 8 8v16h7V20.34C39 11.87 32.285 5 24 5z"/><path fill="%231976D2" d="M9 20.34V36h7V20c0-4.754 3.35-8 8-8V5C15.715 5 9 11.868 9 20.34z"/></svg>');
-	background-size: 24px;
-	height: 24px;
-	width: 24px;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAbFBMVEUAAAA2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWsVx+37AAAAI3RSTlMAAQIDBQgKDhItLklOT1JdY2Z4e3x/kZiwx8jX5unt7/f7/b5l+wAAAABrSURBVBhXhY7JEgFBFARTa4ydwbONNf//H116Ilo4qFNWHiqKTn0ngEKqZqCn/+KsdgOgou9sImIPwDYidvxu3FQnQFI1cVI9jsit6h1W1jlAftaiAaZVXwIwe5T6mpcreXFRr+tx/W/YwwejJxM5Y6lK9QAAAABJRU5ErkJggg==');
+	background-size: 13px;
+	height: 13px;
+	width: 13px;
 }
 .download-icon {
 	display: inline-block;
-	background-image: url('data:image/svg+xml;charset=UTF-8,<svg version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><g fill="%231565C0"><path d="M24 37.1L13 24h22M20 4h8v4h-8zM20 10h8v4h-8z"/><path d="M20 16h8v11h-8zM6 40h36v4H6z"/></g></svg>');
-	background-size: 24px;
-	height: 24px;
-	width: 24px;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAV1BMVEUAAAA2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWudYQmEAAAAHHRSTlMAAQIDBAYIDCAxO0pNYmN3ibS3urzBxcfM6+35eVmfrAAAAGZJREFUGFeNzkkOgCAMQNG2WnEecNbe/5wiRYM7f0iAF9IAozwdFdyJmdwloUTyufXA1oE/pEvzBUjX+guQnej2XmfupOoW+xBeiFJA0jBA935tULBleGEkQBEG8E/YJO4gQI4juAC37QvMhMtgFAAAAABJRU5ErkJggg==');
+	background-size: 13px;
+	height: 13px;
+	width: 13px;
 }
 .upload-icon {
-	background-image: url('data:image/svg+xml;charset=UTF-8,<svg version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><g fill="%23009688"><path d="M24 10.9L35 24H13M20 40h8v4h-8zM20 34h8v4h-8z"/><path d="M20 21h8v11h-8zM6 4h36v4H6z"/></g></svg>');
-	background-size: 24px;
-	height: 24px;
-	width: 24px;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAaVBMVEUAAADMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMypTxUEAAAAInRSTlMAAQUGEBESFh8jJS0uLzE0PlZZXV9+f4Wiz9PX4OL19/n7MnYmFwAAAGlJREFUGBldwYkSgiAARdFnO0aLUVCWFvf/PzIaGgY9R5kjGlUcEI0Kx080+ruQxZ2yawhveIZwUDGAV20Ar9oAXrUX3JRtrLV7Hbtuu7DJWiPJ/WTt+UEyihlRfFa0LeqZ6NUsJxrNfQHzXw5rV9iDdwAAAABJRU5ErkJggg==');
+	background-size: 13px;
+	height: 13px;
+	width: 13px;
 }
 .rss-icon {
-	background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path fill="%23FF9800" d="M42 37c0 2.762-2.238 5-5 5H11c-2.76 0-5-2.238-5-5V11c0-2.762 2.24-5 5-5h26c2.762 0 5 2.238 5 5v26z"/><path fill="%23FFF" d="M18 33.5c0-1.94-1.563-3.5-3.5-3.5S11 31.56 11 33.5c0 1.93 1.563 3.5 3.5 3.5s3.5-1.57 3.5-3.5z"/><path fill="none" stroke="%23FFF" stroke-width="4" stroke-miterlimit="10" d="M11 23h1c7.405 0 13 5.595 13 13v1M11 13h1c12.713 0 23 10.287 23 23v1"/></svg>');
-	background-size: 24px;
-	height: 24px;
-	width: 24px;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAq1BMVEUAAADMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMySzfq1AAAAOHRSTlMAAQMEBQYHCAkKCwwgMEdKS01QUVJYWWNka3eDho6Pm56rr7K8wMPFx8jP0dna3ODm6fHz9ff7/TynujoAAACGSURBVBgZBcGHIgIAAEDBZ4WQ7J2ZlZ1x//9l7mr0DMDLQW0DAMfNAIB5PC4OtyYA4r5q7RIQ5jf7y7UHBPyOawfEtI3DH+c1gXiohjO7rfwifJ8NWv8y7BTh/vpjtbGTNhHvdXXRwGtLiM/Fbv9qbqE/mvH5xuMdT1PmjQCAoxrNAHg56B9hpSk315NnvQAAAABJRU5ErkJggg==');
+	background-size: 13px;
+	height: 13px;
+	width: 13px;
 }
 .faq-icon {
-	background-image: url('data:image/svg+xml;charset=UTF-8,<svg version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%23558B2F" d="M15 40h23l6 6V25c0-2.2-1.8-4-4-4H15c-2.2 0-4 1.8-4 4v11c0 2.2 1.8 4 4 4z"/><path fill="%231B5E20" d="M28.8 32.8h-3.6l-.7 2.1h-2.2l3.7-10h1.9l3.7 10h-2.2l-.6-2.1zm-3.1-1.6h2.5L27 27.4l-1.3 3.8z"/><path fill="%238BC34A" d="M33 25H10l-6 6V8c0-2.2 1.8-4 4-4h25c2.2 0 4 1.8 4 4v13c0 2.2-1.8 4-4 4z"/><path fill="%23FFF" d="M25.4 14.2c0 1-.2 1.8-.5 2.5s-.7 1.3-1.3 1.7l1.7 1.3-1.3 1.2-2.2-1.7c-.2 0-.5.1-.8.1-.6 0-1.2-.1-1.8-.3-.5-.2-1-.6-1.4-1-.4-.4-.7-1-.9-1.6-.2-.6-.3-1.3-.3-2.1v-.4c0-.8.1-1.5.3-2.1.2-.6.5-1.2.9-1.6.4-.4.8-.8 1.4-1 .5-.2 1.1-.3 1.8-.3.6 0 1.2.1 1.8.3.5.2 1 .6 1.4 1 .4.4.7 1 .9 1.6.2.6.3 1.3.3 2.1v.3zm-2.2-.5c0-1.1-.2-1.9-.6-2.4-.4-.6-.9-.8-1.6-.8-.7 0-1.3.3-1.6.8-.4.6-.6 1.4-.6 2.4v.5c0 .5.1 1 .2 1.4.1.4.2.8.4 1 .2.3.4.5.7.6.3.1.6.2.9.2.7 0 1.3-.3 1.6-.8.4-.6.6-1.4.6-2.5v-.4z"/></svg>');
-	background-size: 24px;
-	height: 24px;
-	width: 24px;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAt1BMVEUAAADMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMxqc1leAAAAPHRSTlMAAQYIDA0OFxgcJCYnLjVNTk9RVlleX2Z1d3+AiYuOkZKUm52epqirr7C3uby+x8/V19na3N7m6O/3+f0LybYEAAAAmUlEQVQYGW3B10LCQAAAwT1CUKREg2Cl2cCGIvbs/38Xd4ZHZ0iaw+Xn+23RoBZOrVVHJOFJvR6erNQp0aW+5ETdbx1AW90ndFpwoFXGubrp3vgKQS1Y+2eRQ1Od82uyALJHdcnapA97P0ZzLkxW4/GbSUHbpA8joyqDiVEPBkbHQHhWr8ryQZ2RhDNrVclOPrr/+rg7bPCfLWJTH4pY+Ot0AAAAAElFTkSuQmCC');
+	background-size: 13px;
+	height: 13px;
+	width: 13px;
 }
 .fap-icon {
-	background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path fill="%23FF3D00" d="M32.635 8c-3.608 0-6.78 1.828-8.635 4.597C22.145 9.827 18.973 8 15.365 8 9.64 8 5 12.598 5 18.27 5 28.486 21.15 33.41 24 40c2.85-6.59 19-11.428 19-21.73C43 12.597 38.36 8 32.635 8"/></svg>');
-	background-size: 24px;
-	height: 24px;
-	width: 24px;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAXVBMVEUAAADMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzQDM+LAAAAHnRSTlMAAQIDBAUGB0BBR0qJjKaosrm6vL7AwcPFzNPe4PPKfDrFAAAAXklEQVQYGY3B2Q6CMABFwWORFmQVUGS7//+ZNA0hNL4ww79KXm1dLa+EQsGyKnjxU+TLpsjGW5EPmSI5j0EXHeBmneYUz046TJYgHRWMTw5JL69LOJlWag0XpmkMN+2thhBPURuEQAAAAABJRU5ErkJggg==');
+	background-size: 13px;
+	height: 13px;
+	width: 13px;
 }
 .fun-icon {
-	background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="19" fill="%23FFCA28"/><circle cx="17" cy="23" r="4" fill="%236D4C41"/><circle cx="15.5" cy="21.5" r="1.5" fill="%23FFF"/><circle cx="31" cy="23" r="4" fill="%236D4C41"/><circle cx="29.5" cy="21.5" r="1.5" fill="%23FFF"/><path d="M28 32c0 2.21-1.79 4-4 4s-4-1.79-4-4" fill="none" stroke="%23B76C09" stroke-width="2"/></svg>');
-	background-size: 24px;
-	height: 24px;
-	width: 24px;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAMAAABFNRROAAAATlBMVEUAAADFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbNe0M6AAAAGnRSTlMAAQIDERIqLTs8TU5Pfn+ClZeam52go9rg4utT698AAABiSURBVAgdBcEJAoIgAACwISCWGnih/v+jbTDuz3OMQLxqDiHXK0KfgM+FsmobbVNHzqQ1WpMP3gAQHt5gHhhm4eFMvmuM6yzvlB/LfS/UEX0Cpgti/6UQ0tojUM73PQsAAH+VkgQhR+bBQQAAAABJRU5ErkJggg==');
+	background-size: 13px;
+	height: 13px;
+	width: 13px;
 }
 /* Filelist */
 .filelist-control {
@@ -576,6 +588,9 @@ input#show-filelist:checked ~ #filelist {
 #filelist tr {
 	background: none; /* Striped lines will look really ugly due to how it's drawn */
 }
+.table-filelist {
+	width: 100%;
+}
 .tr-filelist {
 	--nest-level: 0;
 }
@@ -597,7 +612,7 @@ input#show-filelist:checked ~ #filelist {
 }
 /* Filesize column */
 .tr-filelist td:nth-child(2) {
-	width: 30%;
+	width: 20%;
 	text-align: center;
 }
 /* Input that show/hides each folder */
@@ -636,6 +651,7 @@ input.filelist-checkbox:checked + table.table-filelist {
 	display: flex;
 	flex-direction: column;
 	font-weight: bold;
+	word-wrap: break-word;
 }
 
 .user-form {
@@ -643,18 +659,18 @@ input.filelist-checkbox:checked + table.table-filelist {
 	margin-left: 30%;
 }
 
-/* for mascot */
-#content {
-	text-align: center;
-	/* FIXME: Make the navigation not working,
-	and mascot is not in #content,
-	please explain and fix it:
-
-	pointer-events: none;
-	*/
+#description-box {
+	padding-right: 14px;
+	padding-left: 14px;
 }
 
-.center {
-	display: inline-block;
-	pointer-events: initial;
+/* Markdown editor fixes */
+.editor-toolbar.fullscreen {
+	top: 60px;
+}
+.CodeMirror-fullscreen {
+	top: 110px;
+}
+.editor-preview-side {
+	top: 110px;
 }

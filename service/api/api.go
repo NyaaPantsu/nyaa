@@ -176,7 +176,8 @@ func (r *TorrentRequest) ValidateMultipartUpload(req *http.Request) (int64, erro
 			return 0, errors.New("private torrents not allowed"), http.StatusNotAcceptable
 		}
 		trackers := torrent.GetAllAnnounceURLS()
-		if !uploadService.CheckTrackers(trackers) {
+		trackers = uploadService.CheckTrackers(trackers)
+		if len(trackers) == 0 {
 			return 0, errors.New("tracker(s) not allowed"), http.StatusNotAcceptable
 		}
 		if r.Name == "" {

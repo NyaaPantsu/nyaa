@@ -47,6 +47,7 @@ type uploadForm struct {
 	Filesize      int64
 	Filepath      string
 	FileList      []uploadedFile
+	Trackers      []string
 }
 
 // TODO: these should be in another package (?)
@@ -103,6 +104,7 @@ func (f *uploadForm) ExtractInfo(r *http.Request) error {
 	f.WebsiteLink = util.TrimWhitespaces(f.WebsiteLink)
 	f.Magnet = util.TrimWhitespaces(f.Magnet)
 	cache.Impl.ClearAll()
+	defer r.Body.Close()
 
 	catsSplit := strings.Split(f.Category, "_")
 	// need this to prevent out of index panics
@@ -153,7 +155,8 @@ func (f *uploadForm) ExtractInfo(r *http.Request) error {
 			return errPrivateTorrent
 		}
 		trackers := torrent.GetAllAnnounceURLS()
-		if !uploadService.CheckTrackers(trackers) {
+		f.Trackers = uploadService.CheckTrackers(trackers)
+		if len(f.Trackers) == 0 {
 			return errTrackerProblem
 		}
 
@@ -209,8 +212,11 @@ func (f *uploadForm) ExtractInfo(r *http.Request) error {
 				return errors.New("Incorrect hash")
 			}
 		}
+		// TODO: Get Trackers from magnet URL
 		f.Filesize = 0
 		f.Filepath = ""
+
+		return nil
 	}
 
 	// then actually check that we have everything we need
@@ -241,6 +247,7 @@ func (f *uploadForm) ExtractEditInfo(r *http.Request) error {
 	// trim whitespace
 	f.Name = util.TrimWhitespaces(f.Name)
 	f.Description = util.Sanitize(util.TrimWhitespaces(f.Description), "default")
+	defer r.Body.Close()
 
 	catsSplit := strings.Split(f.Category, "_")
 	// need this to prevent out of index panics
