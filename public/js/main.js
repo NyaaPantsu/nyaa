@@ -32,13 +32,6 @@ function switchThemes(){
 }
 
 
-function changeTheme(opt) {
-	theme = opt.value;
-	localStorage.setItem("theme", theme);
-	document.getElementById("theme").href = "/css/" + theme;
-	console.log(theme);
-}
-
 function toggleMascot(btn) {
 	var state= btn.value;
 	if (state == "hide") {
@@ -86,13 +79,11 @@ window.onload = function() {
 };
 
 function playVoice() {
-	switch (theme) {
-	case "tomorrow.css":
+	if (explosion) {
 		explosion.play();
-		break;
-	default:
+	}
+	else {
 		nyanpassu.volume = 0.5;
 		nyanpassu.play();
-		break;
 	}
 }
