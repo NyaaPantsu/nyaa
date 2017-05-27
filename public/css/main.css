@@ -588,6 +588,9 @@ input#show-filelist:checked ~ #filelist {
 #filelist tr {
 	background: none; /* Striped lines will look really ugly due to how it's drawn */
 }
+table.table-filelist {
+	width: 100%;
+}
 .tr-filelist {
 	--nest-level: 0;
 }
@@ -609,7 +612,7 @@ input#show-filelist:checked ~ #filelist {
 }
 /* Filesize column */
 .tr-filelist td:nth-child(2) {
-	width: 30%;
+	width: 20%;
 	text-align: center;
 }
 /* Input that show/hides each folder */
