@@ -1,4 +1,4 @@
-package languages
+package publicSettings
 
 import (
 	"errors"
@@ -131,6 +131,19 @@ func GetTfuncFromRequest(r *http.Request) TemplateTfunc {
 	return func(id string, args ...interface{}) template.HTML {
 		return template.HTML(fmt.Sprintf(T(id), args...))
 	}
+}
+
+// GetThemeFromRequest: Gets the user selected theme from the request
+func GetThemeFromRequest(r *http.Request) string {
+	user, _ := getCurrentUser(r)
+	if user.ID > 0 {
+		return user.Theme
+	}
+	cookie, err := r.Cookie("theme")
+	if err == nil {
+		return cookie.Value
+	}
+	return ""
 }
 
 func getCurrentUser(r *http.Request) (model.User, error) {
