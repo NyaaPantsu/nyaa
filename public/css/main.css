@@ -518,6 +518,7 @@ td.tr-le { color: #E84C4C; }
 }
 .profile-content {
 	width: 70%;
+	text-align: left;
 }
 .magnet-icon {
 	display: inline-block;
