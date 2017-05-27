@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="keywords" content="torrents, cartel, pantsu, anime, manga, sukebei, nyaapassu, horriblesubs, nyaa, hentai, dlsite">
-		<meta name="description" content='The leading open-source community-based nyaa.se successor, suitable for all anime and manga needs. にゃんぱす~!'>
+    <meta name="keywords" content="torrents, cartel, pantsu, anime, manga, sukebei, nyaapassu, horriblesubs, nyaa, hentai, dlsite">
+    <meta name="description" content='The leading open-source community-based nyaa.se successor, suitable for all anime and manga needs. にゃんぱす~!'>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{block "title" .}}{{ call $.T "error_404" }}{{end}}</title>
     <link rel="icon" type="image/png" href="/img/favicon.png?v=3" />
@@ -13,8 +13,10 @@
     <!-- RSS Feed with Context -->
     <link href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
 
+    <!-- do NOT move -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 
-    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v=2">
+    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v=3">
     <link rel="stylesheet" id="theme" href="">
 
     <!-- Search Box for Google -->
@@ -58,14 +60,7 @@
 		{{ block "additional_header" .}}{{end}}
     </head>
   <body onload="setTheme();">
-     <div id="mascot" class="hide-xs" onclick="playVoice();"></div>
-     <audio id="nyanpassu" hidden preload="none">
-        <source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
-     </audio>
-     <audio id="explosion" hidden preload="none">
-        <source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
-     </audio>
-	<nav id="header" class="header">
+   <nav id="header" class="header">
 		<div class="container">
 			<div class="h-left">
 					<div class="h-logo">
@@ -84,7 +79,7 @@
 			</div>
 			<div class="h-right">
         {{block "badge_user" .}}{{end}}
-				<div class="h-search hide-xs">
+				<div class="h-search">
 				<form role="search" action="/search" method="get">
 						{{block "search_common" .}}{{end}}
             {{block "search_button" .}}{{end}}
@@ -97,6 +92,14 @@
       <div class="content container center">
         {{block "content" .}}{{call $.T "nothing_here"}}{{end}}
       </div>
+<div id="mascot" class="hide-xs" onclick="playVoice();"></div>
+     <audio id="nyanpassu" hidden preload="none">
+        <source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
+     </audio>
+     <audio id="explosion" hidden preload="none">
+        <source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
+     </audio>
+
 <div class="pagination">
               {{ genNav .Navigation .URL 15 }}
 </div>
@@ -121,7 +124,7 @@
 			</div>
 		</footer>
 </div>
-  <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}?v=2"></script>
+  <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}?v=3"></script>
 	{{ block "footer_js" .}}{{end}}
 </body>
 </html>

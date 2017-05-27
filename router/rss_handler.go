@@ -16,6 +16,7 @@ import (
 
 // RSSHandler : Controller for displaying rss feed, accepting common search arguments
 func RSSHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	vars := mux.Vars(r)
 	page := vars["page"]
 	userID := vars["id"]
@@ -74,7 +75,7 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	for i, torrent := range torrents {
 		torrentJSON := torrent.ToJSON()
 		feed.Items[i] = &feeds.Item{
-			ID:          "https://" + config.WebAddress + "/view/" + torrentJSON.ID,
+			ID:          "https://" + config.WebAddress + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
 			Title:       torrent.Name,
 			Link:        &feeds.Link{Href: string(torrentJSON.Magnet)},
 			Description: string(torrentJSON.Description),

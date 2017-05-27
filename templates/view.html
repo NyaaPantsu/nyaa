@@ -42,8 +42,8 @@
   <br>
   <table>
       <tr class="torrent-info-row">
-      <td class="torrent-info-td torrent-info-label">{{ call $.T "category" }}:</td><td class="torrent-info-td torrent-info-data"><a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">{{ if Sukebei}}{{ call $.T (CategoryName .Category .SubCategory) }}{{else}}{{ call $.T (CategoryName .Category .SubCategory) }}{{end}}</a> <br></td>
-      <td class="torrent-info-td torrent-info-label">{{ call $.T "date" }}:</td><td class="torrent-info-td date-full">{{.Date}}</td>
+      <td class="torrent-info-td torrent-info-label">{{ call $.T "category" }}:</td><td class="torrent-info-td torrent-info-data" style="padding:0"><a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">{{ if Sukebei}}{{ call $.T (CategoryName .Category .SubCategory) }}{{else}}{{ call $.T (CategoryName .Category .SubCategory) }}{{end}}</a> <br></td>
+      <td class="torrent-info-td torrent-info-label">{{ call $.T "date" }}:</td><td class="torrent-info-td date-short">{{.Date}}</td>
       </tr>
       <tr class="torrent-info-row">
           <td class="torrent-info-td torrent-info-label">{{ call $.T "uploaded_by" }}:</td><td class="torrent-view-td torrent-info-data"><a href="{{ genRoute "user_profile" "id" ( print .UploaderID ) "username" (print .UploaderName) }}">{{.UploaderName}}</a></td>
@@ -54,7 +54,7 @@
           <td class="torrent-info-td torrent-info-label">{{call $.T "leechers"}}:</td><td class="torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Leechers}}{{end}}</td>
       </tr>
     <tr class="torrent-info-row">
-          <td class="torrent-info-td torrent-info-label">{{call $.T "hash"}}:</td><td style="font-size: small;" class="torrent-view-td torrent-info-data">{{.Hash}}</td>
+          <td class="torrent-info-td torrent-info-label">{{call $.T "hash"}}:</td><td style="font-family: monospace;" class="torrent-view-td torrent-info-data">{{.Hash}}</td>
           <td class="torrent-info-td torrent-info-label">{{call $.T "completed"}}:</td><td class="torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Completed}}{{end}}</td>
       </tr>
     <tr class="torrent-info-row">
@@ -88,28 +88,28 @@
   </div>
   <p class="torrent-hr">{{call $.T "description"}}</p>
   {{ if ne .Description ""}}
-  <div style="padding-left: 14px;" class="torrent-info-box">{{.Description}}</div>
+  <div id="description-box" class="torrent-info-box">{{.Description}}</div>
   {{else}}
-  <p>No description provided!</p>
+  <p>{{ call $.T "no_description" }}</p>
   {{end}}
   <input type="checkbox" id="show-filelist">
   <label class="torrent-hr filelist-control" for="show-filelist">{{call $.T "files"}}</label>
-  {{ if gt (len .FileList) 0 }}
-  {{/* how do i concat lol */}}
-    <div class="torrent-info-box" id="filelist">
-        <table>
-            <thead>
-                <th style="width: 70%">{{call $.T "filename"}}</th>
-                <th>{{call $.T "size"}}</th>
-            </thead>
-            <tbody>
-			  {{ template "make_treeview" (makeTreeViewData $.RootFolder 0 $.T "root") }}
-			</tbody>
-		</table>
-	</div>
+  <div class="torrent-info-box" id="filelist">
+    {{ if gt (len .FileList) 0 }}
+    {{/* how do i concat lol */}}
+    <table>
+      <thead>
+        <th style="width: 70%">{{call $.T "filename"}}</th>
+        <th>{{call $.T "size"}}</th>
+      </thead>
+      <tbody>
+        {{ template "make_treeview" (makeTreeViewData $.RootFolder 0 $.T "root") }}
+      </tbody>
+    </table>
     {{ else }}
-    <p>No files found? That doesn't even make sense!</p>
-    {{end}}
+      <p>{{ call $.T "no_files" }}</p>
+    {{ end }}
+  </div>
 
   <p class="torrent-hr">{{call $.T "comments"}}</p>
   {{range $index, $element := .Comments}}

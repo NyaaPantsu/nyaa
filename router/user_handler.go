@@ -20,6 +20,7 @@ import (
 
 // UserRegisterFormHandler : Getting View User Registration
 func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	_, errorUser := userService.CurrentUser(r)
 	// User is already connected, redirect to home
 	if errorUser == nil {
@@ -43,6 +44,7 @@ func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 
 // UserLoginFormHandler : Getting View User Login
 func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	_, errorUser := userService.CurrentUser(r)
 	// User is already connected, redirect to home
 	if errorUser == nil {
@@ -67,6 +69,7 @@ func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
 
 // UserProfileHandler :  Getting User Profile
 func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	vars := mux.Vars(r)
 	id := vars["id"]
 	Ts, _ := languages.GetTfuncAndLanguageFromRequest(r)
@@ -111,6 +114,7 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 
 // UserDetailsHandler : Getting User Profile Details View
 func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	vars := mux.Vars(r)
 	id := vars["id"]
 	currentUser := getUser(r)
@@ -136,6 +140,7 @@ func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
 
 // UserProfileFormHandler : Getting View User Profile Update
 func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	vars := mux.Vars(r)
 	id := vars["id"]
 	currentUser := getUser(r)
@@ -201,6 +206,7 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 
 // UserRegisterPostHandler : Post Registration controller, we do some check on the form here, the rest on user service
 func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	b := form.RegistrationForm{}
 	messages := msg.GetMessages(r)
 
@@ -241,6 +247,7 @@ func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
 
 // UserVerifyEmailHandler : Controller when verifying email, needs a token
 func UserVerifyEmailHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	vars := mux.Vars(r)
 	token := vars["token"]
 	messages := msg.GetMessages(r)
@@ -258,6 +265,7 @@ func UserVerifyEmailHandler(w http.ResponseWriter, r *http.Request) {
 
 // UserLoginPostHandler : Post Login controller
 func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	b := form.LoginForm{}
 	modelHelper.BindValueForm(&b, r)
 	messages := msg.GetMessages(r)
@@ -284,6 +292,7 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 
 // UserLogoutHandler : Controller to logout users
 func UserLogoutHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	_, _ = userService.ClearCookie(w)
 	url, _ := Router.Get("home").URL()
 	http.Redirect(w, r, url.String(), http.StatusSeeOther)
@@ -291,6 +300,7 @@ func UserLogoutHandler(w http.ResponseWriter, r *http.Request) {
 
 // UserFollowHandler : Controller to follow/unfollow users, need user id to follow
 func UserFollowHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	var followAction string
 	vars := mux.Vars(r)
 	id := vars["id"]
@@ -311,6 +321,7 @@ func UserFollowHandler(w http.ResponseWriter, r *http.Request) {
 
 // UserNotificationsHandler : Controller to show user notifications
 func UserNotificationsHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	currentUser := getUser(r)
 	if currentUser.ID > 0 {
 		messages := msg.GetMessages(r)
@@ -332,6 +343,7 @@ func UserNotificationsHandler(w http.ResponseWriter, r *http.Request) {
 
 // UserAPIKeyResetHandler : Controller to reset user api key
 func UserAPIKeyResetHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	vars := mux.Vars(r)
 	id := vars["id"]
 	currentUser := getUser(r)
@@ -345,11 +357,11 @@ func UserAPIKeyResetHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	userProfile.APIToken, _ = crypto.GenerateRandomToken32()
 	userProfile.APITokenExpiry = time.Unix(0, 0)
-	_, errorUser = userService.UpdateUserCore(&userProfile)
+	_, errorUser = userService.UpdateRawUser(&userProfile)
 	if errorUser != nil {
 		messages.ImportFromError("errors", errorUser)
 	} else {
 		messages.AddInfo("infos", Ts("profile_updated"))
 	}
-
+	UserProfileHandler(w, r)
 }

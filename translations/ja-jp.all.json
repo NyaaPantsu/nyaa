@@ -109,7 +109,7 @@
   },
   {
     "id":"settings",
-    "translation": "アカウントの設定"
+    "translation": "アカウント設定"
   },
   {
     "id":"torrents",
@@ -544,6 +544,10 @@
     "translation": "説明"
   },
   {
+    "id": "no_description",
+    "translation": "説明はありません。"
+  },
+  {
     "id": "comments",
     "translation": "コメント"
   },
@@ -692,6 +696,10 @@
     "translation": "ファイル一覧"
   },
   {
+    "id": "no_files",
+    "translation": "ファイル一覧が見つからない？もー！意味わかんない！"
+  },
+  {
     "id": "filename",
     "translation": "ファイル名"
   },
@@ -757,7 +765,7 @@
   },
   {
     "id": "last_scraped",
-    "translation": "最終更新日: "
+    "translation": "最終統計日時: "
   },
   {
     "id": "server_status_link",

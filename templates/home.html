@@ -15,7 +15,8 @@ Your browser does not support the audio element.
       <!-- Contain the table within a grid, as for better sizing -->
       <div class="results box">
           <table>
-          <tr class="torrent-info">
+          <thead class="torrent-info">
+          <tr>
               <th class="tr-cat">{{call $.T "category"}}</th>
               <th class="tr-name">
                 <a href="{{ genSearchWithOrdering .URL "1" }}">{{call $.T "name"}}<span class="sort-arrows">{{ genSortArrows .URL "1" }}</span></a>
@@ -35,6 +36,7 @@ Your browser does not support the audio element.
               <!-- <th><span class="glyphicon glyphicon-comment"></span></th> -->
               <th class="tr-date hide-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{call $.T "date"}}<span class="sort-arrows">{{ genSortArrows .URL "2" }}</span></a></th>
           </tr>
+          </thead>
           {{ range .Models}}
           <tr class="torrent-info
               {{if eq .Status 2}}remake{{end}}
@@ -50,7 +52,7 @@ Your browser does not support the audio element.
                   </a>
               </td>
               <td class="tr-name home-td">
-                  <a href="{{genRoute "view_torrent" "id" .ID }}">
+                  <a href="{{genRoute "view_torrent" "id" ( print .ID ) }}">
                       {{.Name}}
                   </a>
               </td>

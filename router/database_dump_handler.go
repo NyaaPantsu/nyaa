@@ -25,6 +25,7 @@ func DatabaseDumpHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 	// TODO Use config from cli
 	files, err := filepath.Glob(filepath.Join(DatabaseDumpPath, "*.torrent"))
+	defer r.Body.Close()
 	var dumpsJSON []model.DatabaseDumpJSON
 	// TODO Filter *.torrent files
 	for _, f := range files {
