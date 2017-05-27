@@ -2,11 +2,15 @@ package router
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
 
+	"os"
+
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service"
@@ -241,4 +245,47 @@ func TorrentDeleteUserPanel(w http.ResponseWriter, r *http.Request) {
 	} else {
 		NotFoundHandler(w, r)
 	}
+}
+
+// DownloadTorrent : Controller for downloading a torrent
+func DownloadTorrent(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+	vars := mux.Vars(r)
+	hash := vars["hash"]
+
+	if hash == "" && len(config.TorrentFileStorage) == 0 {
+		//File not found, send 404
+		http.Error(w, "File not found.", 404)
+		return
+	}
+
+	//Check if file exists and open
+	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.TorrentFileStorage, os.PathSeparator, hash))
+	defer Openfile.Close() //Close after function return
+	if err != nil {
+		//File not found, send 404
+		http.Error(w, "File not found.", 404)
+		return
+	}
+
+	//Get the file size
+	FileStat, _ := Openfile.Stat()                     //Get info from file
+	FileSize := strconv.FormatInt(FileStat.Size(), 10) //Get file size as a string
+
+	torrent, err := torrentService.GetRawTorrentByHash(hash)
+
+	if err != nil {
+		//File not found, send 404
+		http.Error(w, "File not found.", 404)
+		return
+	}
+
+	w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s.torrent\"", torrent.Name))
+	w.Header().Set("Content-Type", "application/x-bittorrent")
+	w.Header().Set("Content-Length", FileSize)
+	//Send the file
+	// We reset the offset to 0
+	Openfile.Seek(0, 0)
+	io.Copy(w, Openfile) //'Copy' the file to the client
+	return
 }
