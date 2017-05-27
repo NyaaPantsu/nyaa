@@ -13,6 +13,8 @@
     <!-- RSS Feed with Context -->
     <link href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
 
+    <!-- do NOT move -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v=3">
     <link rel="stylesheet" id="theme" href="">
