@@ -59,7 +59,7 @@
       </tr>
     <tr class="torrent-info-row">
           <td class="torrent-info-td torrent-info-label">{{call $.T "size"}}:</td><td class="torrent-view-td torrent-info-data">{{ fileSize .Filesize $.T }}</td>
-          <td class="torrent-info-td torrent-info-label">{{call $.T "last_scraped"}}</td><td class="torrent-info-td date-full">{{if not .LastScrape.IsZero}}{{formatDateRFC .LastScrape}}{{else}}{{call $.T "unknown"}}{{end}}</td>
+          <td class="torrent-info-td torrent-info-label">{{call $.T "last_scraped"}}</td><td class="torrent-info-td{{if not .LastScrape.IsZero}} date-full">{{formatDateRFC .LastScrape}}{{else}}">{{call $.T "unknown"}}{{end}}</td>
       </tr>
   </table>
 <div class="torrent-buttons">
