@@ -211,6 +211,8 @@ func (f *uploadForm) ExtractInfo(r *http.Request) error {
 		}
 		f.Filesize = 0
 		f.Filepath = ""
+
+		return nil
 	}
 
 	// then actually check that we have everything we need
