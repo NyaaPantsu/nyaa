@@ -97,9 +97,9 @@
   <div class="torrent-info-box" id="filelist">
     {{ if gt (len .FileList) 0 }}
     {{/* how do i concat lol */}}
-    <table>
+    <table class="fileList">
       <thead>
-        <th style="width: 70%">{{call $.T "filename"}}</th>
+        <th style="width: 80%">{{call $.T "filename"}}</th>
         <th>{{call $.T "size"}}</th>
       </thead>
       <tbody>
