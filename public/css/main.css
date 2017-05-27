@@ -588,7 +588,7 @@ input#show-filelist:checked ~ #filelist {
 #filelist tr {
 	background: none; /* Striped lines will look really ugly due to how it's drawn */
 }
-table.table-filelist {
+.table-filelist {
 	width: 100%;
 }
 .tr-filelist {
