@@ -1,4 +1,4 @@
-package languages
+package publicSettings
 
 import (
 	"path"

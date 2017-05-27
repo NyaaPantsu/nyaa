@@ -12,7 +12,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user/form"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/crypto"
-	"github.com/NyaaPantsu/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/modelHelper"
 	"github.com/gorilla/mux"
@@ -72,7 +72,7 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	vars := mux.Vars(r)
 	id := vars["id"]
-	Ts, _ := languages.GetTfuncAndLanguageFromRequest(r)
+	Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(r)
 	messages := msg.GetMessages(r)
 
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
@@ -125,7 +125,7 @@ func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
 		if userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
 			b := form.UserForm{}
 			modelHelper.BindValueForm(&b, r)
-			availableLanguages := languages.GetAvailableLanguages()
+			availableLanguages := publicSettings.GetAvailableLanguages()
 			userProfile.ParseSettings()
 			htv := userProfileEditVariables{newCommonVariables(r), &userProfile, b, messages.GetAllErrors(), messages.GetAllInfos(), availableLanguages}
 			err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
@@ -154,7 +154,7 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 	userForm := form.UserForm{}
 	userSettingsForm := form.UserSettingsForm{}
 
-	Ts, _ := languages.GetTfuncAndLanguageFromRequest(r)
+	Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(r)
 
 	if len(r.PostFormValue("email")) > 0 {
 		form.EmailValidation(r.PostFormValue("email"), messages)
@@ -189,7 +189,7 @@ func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-	availableLanguages := languages.GetAvailableLanguages()
+	availableLanguages := publicSettings.GetAvailableLanguages()
 	upev := userProfileEditVariables{
 		commonTemplateVariables: newCommonVariables(r),
 		UserProfile:             &userProfile,
@@ -325,7 +325,7 @@ func UserNotificationsHandler(w http.ResponseWriter, r *http.Request) {
 	currentUser := getUser(r)
 	if currentUser.ID > 0 {
 		messages := msg.GetMessages(r)
-		Ts, _ := languages.GetTfuncAndLanguageFromRequest(r)
+		Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(r)
 		if r.URL.Query()["clear"] != nil {
 			notifierService.DeleteAllNotifications(currentUser.ID)
 			messages.AddInfo("infos", Ts("notifications_cleared"))
@@ -348,7 +348,7 @@ func UserAPIKeyResetHandler(w http.ResponseWriter, r *http.Request) {
 	id := vars["id"]
 	currentUser := getUser(r)
 
-	Ts, _ := languages.GetTfuncAndLanguageFromRequest(r)
+	Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(r)
 	messages := msg.GetMessages(r)
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser != nil || !userPermission.CurrentOrAdmin(currentUser, userProfile.ID) || userProfile.ID == 0 {

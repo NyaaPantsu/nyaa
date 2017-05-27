@@ -11,8 +11,18 @@
 				<option value="{{ $tag }}" {{ if eq $currentLanguage $tag }}selected{{end}}>{{ $translatedName }}</option>
 			{{ end }}
 			</select>
+			<h3>{{call $.T "theme"}}</h3>
+			<select id="theme-selector" name="theme" class="form-input" onchange="switchThemes()">
+				<option value="{{$.Theme}}" selected>{{call $.T "select"}}</option>
+				<option value="g">/g/</option>
+				<option value="tomorrow">Tomorrow</option>
+				<option value="">None</option>
+			</select>
+			</br>
+			</br>
 			<button type="submit" class="form-input btn">{{call $.T "save_changes"}}</button>
 		</div>
+
 	</form>
 	<div style="padding-bottom: 1em"></div>
 </div>
