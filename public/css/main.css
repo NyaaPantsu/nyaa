@@ -375,7 +375,7 @@ a:hover { color:  #238BC7; }
 
 .form-input { border-color: #BBC9CF !important; background: #fafafa; color: #666; }
 
-.form-input.btn:hover { background: rgba(192,192,192,0.2); }
+.btn:hover, .up-btn:hover { background: rgba(192,192,192,0.2); }
 
 .form-input:focus { box-shadow: 0 0 5px #fff; }
 
