@@ -221,7 +221,6 @@ select.form-input {
 .results { padding: 0 }
 
 table {
-	width: 100%;
 	border-collapse:collapse;
 	table-layout: fixed;
 }
