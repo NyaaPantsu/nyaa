@@ -17,9 +17,9 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/filelist"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/gorilla/mux"
 )
 
@@ -170,6 +170,7 @@ func TorrentEditUserPanel(w http.ResponseWriter, r *http.Request) {
 		uploadForm.Remake = torrent.Status == model.TorrentStatusRemake
 		uploadForm.WebsiteLink = string(torrent.WebsiteLink)
 		uploadForm.Description = string(torrent.Description)
+		uploadForm.Hidden = torrent.Hidden
 		htv := formTemplateVariables{newCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
 		err := userTorrentEd.ExecuteTemplate(w, "index.html", htv)
 		log.CheckError(err)
@@ -204,6 +205,7 @@ func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
 			torrent.Category = uploadForm.CategoryID
 			torrent.SubCategory = uploadForm.SubCategoryID
 			torrent.Status = status
+			torrent.Hidden = uploadForm.Hidden
 			torrent.WebsiteLink = uploadForm.WebsiteLink
 			torrent.Description = uploadForm.Description
 			// torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)

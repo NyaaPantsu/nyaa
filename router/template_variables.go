@@ -74,10 +74,6 @@ type changeLanguageVariables struct {
 	Languages map[string]string
 }
 
-type ChangeThemeVariables struct {
-	commonTemplateVariables
-}
-
 type publicSettingsVariables struct {
 	commonTemplateVariables
 	Language  string

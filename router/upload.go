@@ -38,6 +38,7 @@ type uploadForm struct {
 	Remake      bool
 	Description string
 	Status      int
+	Hidden      bool
 	CaptchaID   string
 	WebsiteLink string
 
@@ -61,6 +62,7 @@ const uploadFormRemake = "remake"
 const uploadFormDescription = "desc"
 const uploadFormWebsiteLink = "website_link"
 const uploadFormStatus = "status"
+const uploadFormHidden = "hidden"
 
 // error indicating that you can't send both a magnet link and torrent
 var errTorrentPlusMagnet = errors.New("Upload either a torrent file or magnet link, not both")
@@ -97,6 +99,7 @@ func (f *uploadForm) ExtractInfo(r *http.Request) error {
 	f.Status, _ = strconv.Atoi(r.FormValue(uploadFormStatus))
 	f.Magnet = r.FormValue(uploadFormMagnet)
 	f.Remake = r.FormValue(uploadFormRemake) == "on"
+	f.Hidden = r.FormValue(uploadFormHidden) == "on"
 
 	// trim whitespace
 	f.Name = util.TrimWhitespaces(f.Name)
@@ -242,6 +245,7 @@ func (f *uploadForm) ExtractEditInfo(r *http.Request) error {
 	f.Category = r.FormValue(uploadFormCategory)
 	f.WebsiteLink = r.FormValue(uploadFormWebsiteLink)
 	f.Description = r.FormValue(uploadFormDescription)
+	f.Hidden = r.FormValue(uploadFormHidden) == "on"
 	f.Status, _ = strconv.Atoi(r.FormValue(uploadFormStatus))
 
 	// trim whitespace
