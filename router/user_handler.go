@@ -331,7 +331,7 @@ func UserNotificationsHandler(w http.ResponseWriter, r *http.Request) {
 			messages.AddInfo("infos", Ts("notifications_cleared"))
 			currentUser.Notifications = []model.Notification{}
 		}
-		htv := userProfileNotifVariables{newCommonVariables(r), messages.GetAllInfos()}
+		htv := userProfileVariables{newCommonVariables(r), currentUser, messages.GetAllInfos()}
 		err := viewProfileNotifTemplate.ExecuteTemplate(w, "index.html", htv)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)

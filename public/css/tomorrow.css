@@ -37,7 +37,6 @@ th a { color: #c5c8c6; }
 
 th, td { border-color:  #141517 !important; }
 
-tr:nth-child(even) { background: rgba(0,0,0,0.2); }
 td.tr-se { color: #b5bd68; }
 td.tr-le { color: #cc6666; }
 
@@ -60,3 +59,36 @@ td.tr-le { color: #cc6666; }
 	margin-bottom: -.5em;
 }
 
+/* Markdown editor */
+.editor-toolbar a {
+	color: #fff !important;
+}
+.editor-toolbar a.active, .editor-toolbar a:hover {
+	background: #666;
+	border-color: #828282;
+}
+.editor-toolbar {
+	background: #000 !important;
+}
+.editor-toolbar.fullscreen::before, .editor-toolbar.fullscreen::after {
+	display: none;
+}
+.editor-preview, .editor-preview-side, .editor-toolbar.disabled-for-preview a:not(.no-disable) {
+	background: #141517;
+}
+.CodeMirror {
+	color: #fff;
+	background: #141517;
+}
+.CodeMirror-cursor {
+	border-color: #fff;
+}
+.CodeMirror .CodeMirror-selected {
+	background: #585858;
+}
+.CodeMirror-focused .CodeMirror-selected, .CodeMirror-line::selection, .CodeMirror-line>span::selection, .CodeMirror-line>span>span::selection {
+	background: #454545;
+}
+.CodeMirror-line::-moz-selection, .CodeMirror-line>span::-moz-selection, .CodeMirror-line>span>span::-moz-selection {
+	background: #454545;
+}

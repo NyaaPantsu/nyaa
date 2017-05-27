@@ -309,8 +309,8 @@ func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	var liked, likings []model.User
 	db.ORM.Joins("JOIN user_follows on user_follows.user_id=?", user.ID).Where("users.user_id = user_follows.following").Group("users.user_id").Find(&likings)
 	db.ORM.Joins("JOIN user_follows on user_follows.following=?", user.ID).Where("users.user_id = user_follows.user_id").Group("users.user_id").Find(&liked)
-	user.Likings = likings
-	user.Liked = liked
+	user.Followers = likings
+	user.Likings = liked
 	return user, http.StatusOK, nil
 }
 
@@ -323,19 +323,19 @@ func RetrieveUsersForAdmin(limit int, offset int) ([]model.User, int) {
 	return users, nbUsers
 }
 
-// GetLiked : Gets who is following the user
-func GetLiked(user *model.User) *model.User {
+// GetLikings : Gets who is followed by the user
+func GetLikings(user *model.User) *model.User {
 	var liked []model.User
 	db.ORM.Joins("JOIN user_follows on user_follows.following=?", user.ID).Where("users.user_id = user_follows.user_id").Group("users.user_id").Find(&liked)
-	user.Liked = liked
+	user.Likings = liked
 	return user
 }
 
-// GetLikings : Gets who is followed by the user
-func GetLikings(user *model.User) *model.User {
+// GetFollowers : Gets who is following the user
+func GetFollowers(user *model.User) *model.User {
 	var likings []model.User
 	db.ORM.Joins("JOIN user_follows on user_follows.user_id=?", user.ID).Where("users.user_id = user_follows.following").Group("users.user_id").Find(&likings)
-	user.Likings = likings
+	user.Followers = likings
 	return user
 }
 

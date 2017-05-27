@@ -13,24 +13,52 @@
     <!-- RSS Feed with Context -->
     <link href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
 
+
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v=2">
     <link rel="stylesheet" id="theme" href="">
+
     <!-- Search Box for Google -->
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+		<script>
+			// We need this inline javascript for preventing theme flickering
+			function changeTheme(opt) {
+				theme = opt.value;
+				localStorage.setItem("theme", theme);
+				document.getElementById("theme").href = "/css/" + theme;
+				console.log(theme);
+			}
+
+			function toggleMascot(btn) {
+				var state= btn.value;
+				if (state == "hide") {
+					btn.innerHTML = "Mascot";
+					document.getElementById("mascot").className = "hide";
+					btn.value = "show";
+				} else {
+					btn.innerHTML = "Mascot";
+					document.getElementById("mascot").className = "";
+					btn.value = "hide";
+				}
+			}
+			function setTheme() {
+				var themeFromStorage = localStorage.getItem('theme');
+				document.getElementById('theme').href = "/css/" + themeFromStorage;
+				window.addEventListener("load", () => {
+					var selectOptions = document.getElementById("theme_select").children
+					for (var option of selectOptions) {
+						option.selected = option.value == themeFromStorage;
+					}
+				});
+			}
+		</script>
+		<!-- Fix theme switching for google chrome where onload doesn't work -->
+    <script type="text/javascript">
+			setTheme();
+    </script>
+		{{ block "additional_header" .}}{{end}}
     </head>
-  <body>
-     <script type="text/javascript">
-        var theme = localStorage.getItem("theme");
-        if (theme != "") document.getElementById("theme").href = "/css/" + theme;
-     </script>
-     <div id="mascot" class="hide-xs" onclick="playVoice();"></div>
-     <audio id="nyanpassu" hidden preload="none">
-        <source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
-     </audio>
-     <audio id="explosion" hidden preload="none">
-        <source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
-     </audio>
-	<nav id="header" class="header">
+  <body onload="setTheme();">
+   <nav id="header" class="header">
 		<div class="container">
 			<div class="h-left">
 					<div class="h-logo">
@@ -49,7 +77,7 @@
 			</div>
 			<div class="h-right">
         {{block "badge_user" .}}{{end}}
-				<div class="h-search hide-xs">
+				<div class="h-search">
 				<form role="search" action="/search" method="get">
 						{{block "search_common" .}}{{end}}
             {{block "search_button" .}}{{end}}
@@ -62,6 +90,14 @@
       <div class="content container center">
         {{block "content" .}}{{call $.T "nothing_here"}}{{end}}
       </div>
+<div id="mascot" class="hide-xs" onclick="playVoice();"></div>
+     <audio id="nyanpassu" hidden preload="none">
+        <source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
+     </audio>
+     <audio id="explosion" hidden preload="none">
+        <source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
+     </audio>
+
 <div class="pagination">
               {{ genNav .Navigation .URL 15 }}
 </div>
@@ -70,7 +106,7 @@
 			<div class="container footer center">
 
 				<div class="footer-opt">
-					<select onchange="changeTheme(this.options[this.selectedIndex])" name="Theme" id="" class="form-input">
+					<select onchange="changeTheme(this.options[this.selectedIndex])" name="Theme" id="theme_select" class="form-input">
 						<option value="">Default</option>
 						<option value="g.css">/g/ Anon</option>
 						<option value="tomorrow.css">Tomorrow</option>
@@ -87,5 +123,6 @@
 		</footer>
 </div>
   <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}?v=2"></script>
+	{{ block "footer_js" .}}{{end}}
 </body>
 </html>

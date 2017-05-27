@@ -5,9 +5,9 @@
           <tr class="torrent-info">
             <th class="tr-cat">{{call $.T "category"}}</th>
             <th class="tr-name">{{call $.T "name"}}</th>
-            <th class="tr-date hide-xs">{{call $.T "date"}}</th>
-            <th class="tr-size hide-xs">{{call $.T "size"}}</th>
             <th class="tr-dl">{{call $.T "links"}}</th>
+            <th class="tr-size hide-xs">{{call $.T "size"}}</th>
+            <th class="tr-date hide-xs">{{call $.T "date"}}</th>
           </tr>
           {{ range $i, $t := .Torrents }}
           {{ if lt $i 16 }}
@@ -26,16 +26,12 @@
                       {{ end}}
                   </a>
               </td>
-              <td class="name">
+              <td class="tr-name">
                   <a href="{{genRoute "view_torrent" "id" .ID }}">
                       {{.Name}}
                   </a>
               </td>
-              <td class="nowrap date-short hide-xs">{{.Date}}</td>
-              <td class="nowrap hide-xs">
-                  {{ fileSize .Filesize $.T }}
-              </td>
-              <td>
+              <td class="tr-links">
                   <a href="{{.Magnet}}" title="{{ call $.T "magnet_link" }}">
                         <div class="magnet-icon"></div>
                   </a>
@@ -45,6 +41,10 @@
                   </a>
                   {{end}}
               </td>
+              <td class="tr-size hide-xs">
+                  {{ fileSize .Filesize $.T }}
+              </td>
+              <td class="tr-date home-td date-short hide-xs">{{.Date}}</td>
           </tr>
           {{end}}
           {{end}}
@@ -55,7 +55,6 @@
               <li><a href="{{ genRoute "search" }}?userID={{ .ID }}" aria-label="Next"><span class="glyphicon glyphicon-add"></span> {{ call $.T "see_more_torrents_from" .Username }}</a></li>
           </ul>
       </nav>
-    </div>
     {{else}}
      <h2 style="text-align: center;">{{ call $.T "no_torrents_uploaded" }}</h2>
 {{end}}

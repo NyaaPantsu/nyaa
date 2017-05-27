@@ -43,7 +43,6 @@ th a { color: #7A5C94; }
 th { border-color: #cbbdd7 !important; }
 td { border-color: #e6eff4 !important; }
 
-tr:nth-child(even) { background: hsla(198, 5%, 90%, 0.2); }
 td.tr-se { color: #22A243; }
 td.tr-le { color: #E84C4C; }
 
