@@ -109,7 +109,7 @@
   },
   {
     "id":"settings",
-    "translation": "アカウントの設定"
+    "translation": "アカウント設定"
   },
   {
     "id":"torrents",
@@ -205,7 +205,7 @@
   },
   {
     "id": "profile",
-    "translation": "プロフィール"
+    "translation": "ホーム"
   },
   {
     "id": "sign_out",
