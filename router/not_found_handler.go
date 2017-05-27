@@ -6,6 +6,7 @@ import (
 
 // NotFoundHandler : Controller for displaying 404 error page
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	w.WriteHeader(http.StatusNotFound)
 
 	nftv := newCommonVariables(r)

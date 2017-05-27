@@ -1,10 +1,10 @@
 package router
 
 import (
+	"github.com/gorilla/mux"
 	"html"
 	"net/http"
 	"strconv"
-	"github.com/gorilla/mux"
 
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/util"
@@ -15,6 +15,7 @@ import (
 
 // SearchHandler : Controller for displaying search result page, accepting common search arguments
 func SearchHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	var err error
 	// TODO Don't create a new client for each request
 	messages := msg.GetMessages(r)

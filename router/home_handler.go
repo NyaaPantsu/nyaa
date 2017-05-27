@@ -21,6 +21,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	page := vars["page"]
 	messages := msg.GetMessages(r)
 	deleteVar := r.URL.Query()["deleted"]
+	defer r.Body.Close()
 
 	// db params url
 	var err error

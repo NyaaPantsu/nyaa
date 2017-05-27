@@ -3,12 +3,12 @@ package router
 import (
 	"encoding/json"
 	"fmt"
+	elastic "gopkg.in/olivere/elastic.v5"
 	"html"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
-	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
@@ -29,6 +29,7 @@ func APIHandler(w http.ResponseWriter, r *http.Request) {
 	page := vars["page"]
 	whereParams := serviceBase.WhereParams{}
 	req := apiService.TorrentsRequest{}
+	defer r.Body.Close()
 
 	contentType := r.Header.Get("Content-Type")
 	if contentType == "application/json" {
@@ -110,12 +111,14 @@ func APIViewHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	defer r.Body.Close()
 }
 
 // APIViewHeadHandler : Controller for checking a torrent by its ID
 func APIViewHeadHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.ParseInt(vars["id"], 10, 32)
+	defer r.Body.Close()
 	if err != nil {
 		return
 	}
@@ -135,6 +138,7 @@ func APIUploadHandler(w http.ResponseWriter, r *http.Request) {
 	token := r.Header.Get("Authorization")
 	user := model.User{}
 	db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
+	defer r.Body.Close()
 
 	if !uploadService.IsUploadEnabled(user) {
 		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
@@ -151,7 +155,6 @@ func APIUploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	contentType := r.Header.Get("Content-Type")
 	if contentType == "application/json" {
-		defer r.Body.Close()
 
 		d := json.NewDecoder(r.Body)
 		if err := d.Decode(&upload); err != nil {
@@ -232,6 +235,7 @@ func APIUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	token := r.Header.Get("Authorization")
 	user := model.User{}
 	db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
+	defer r.Body.Close()
 
 	if !uploadService.IsUploadEnabled(user) {
 		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
@@ -244,8 +248,6 @@ func APIUpdateHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, apiService.ErrAPIKey.Error(), http.StatusForbidden)
 			return
 		}
-
-		defer r.Body.Close()
 
 		update := apiService.UpdateRequest{}
 		d := json.NewDecoder(r.Body)
@@ -281,6 +283,7 @@ func APIUpdateHandler(w http.ResponseWriter, r *http.Request) {
 func APISearchHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
+	defer r.Body.Close()
 
 	// db params url
 	var err error
@@ -311,5 +314,4 @@ func APISearchHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
 }

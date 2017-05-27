@@ -36,6 +36,7 @@ type ReassignForm struct {
 // ExtractInfo : Function to assign values from request to ReassignForm
 func (f *ReassignForm) ExtractInfo(r *http.Request) error {
 	f.By = r.FormValue("by")
+	defer r.Body.Close()
 	if f.By != "olduser" && f.By != "torrentid" {
 		return fmt.Errorf("what?")
 	}
@@ -111,6 +112,7 @@ func newPanelSearchForm() searchForm {
 
 //
 func newPanelCommonVariables(r *http.Request) commonTemplateVariables {
+	defer r.Body.Close()
 	common := newCommonVariables(r)
 	common.Search = newPanelSearchForm()
 	return common
@@ -119,7 +121,7 @@ func newPanelCommonVariables(r *http.Request) commonTemplateVariables {
 // IndexModPanel : Controller for showing index page of Mod Panel
 func IndexModPanel(w http.ResponseWriter, r *http.Request) {
 	offset := 10
-
+	defer r.Body.Close()
 	torrents, _, _ := torrentService.GetAllTorrents(offset, 0)
 	users, _ := userService.RetrieveUsersForAdmin(offset, 0)
 	comments, _ := commentService.GetAllComments(offset, 0, "", "")
@@ -135,7 +137,7 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	page := vars["page"]
 	messages := msg.GetMessages(r)
-
+	defer r.Body.Close()
 	deleted := r.URL.Query()["deleted"]
 	unblocked := r.URL.Query()["unblocked"]
 	blocked := r.URL.Query()["blocked"]
@@ -181,6 +183,7 @@ func TorrentReportListPanel(w http.ResponseWriter, r *http.Request) {
 	messages := msg.GetMessages(r)
 	pagenum := 1
 	offset := 100
+	defer r.Body.Close()
 	var err error
 
 	if page != "" {
@@ -207,6 +210,7 @@ func UsersListPanel(w http.ResponseWriter, r *http.Request) {
 	page := vars["page"]
 	pagenum := 1
 	offset := 100
+	defer r.Body.Close()
 	var err error
 	messages := msg.GetMessages(r)
 
@@ -233,6 +237,7 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 	pagenum := 1
 	offset := 100
 	userid := r.URL.Query().Get("userid")
+	defer r.Body.Close()
 	var err error
 	messages := msg.GetMessages(r)
 
@@ -264,6 +269,7 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 	torrent, _ := torrentService.GetTorrentByID(id)
 	messages := msg.GetMessages(r)
 
+	defer r.Body.Close()
 	torrentJSON := torrent.ToJSON()
 	uploadForm := newUploadForm()
 	uploadForm.Name = torrentJSON.Name
@@ -279,6 +285,7 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 // TorrentPostEditModPanel : Controller for editing a torrent after POST request
 func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 	var uploadForm uploadForm
+	defer r.Body.Close()
 	id := r.URL.Query().Get("id")
 	messages := msg.GetMessages(r)
 	torrent, _ := torrentService.GetTorrentByID(id)
@@ -309,6 +316,7 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 
+	defer r.Body.Close()
 	_, _ = commentService.DeleteComment(id)
 	url, _ := Router.Get("mod_clist").URL()
 	http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
@@ -318,6 +326,7 @@ func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	definitely := r.URL.Query()["definitely"]
+	defer r.Body.Close()
 	var returnRoute string
 	if definitely != nil {
 		_, _ = torrentService.DefinitelyDeleteTorrent(id)
@@ -347,6 +356,7 @@ func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 // TorrentReportDeleteModPanel : Controller for deleting a torrent report
 func TorrentReportDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
+	defer r.Body.Close()
 	fmt.Println(id)
 	idNum, _ := strconv.ParseUint(id, 10, 64)
 	_, _ = reportService.DeleteTorrentReport(uint(idNum))
@@ -357,6 +367,7 @@ func TorrentReportDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 
 // TorrentReassignModPanel : Controller for reassigning a torrent, after GET request
 func TorrentReassignModPanel(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	messages := msg.GetMessages(r)
 	htv := formTemplateVariables{newPanelCommonVariables(r), ReassignForm{}, messages.GetAllErrors(), messages.GetAllInfos()}
 	err := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)
@@ -365,6 +376,7 @@ func TorrentReassignModPanel(w http.ResponseWriter, r *http.Request) {
 
 // TorrentPostReassignModPanel : Controller for reassigning a torrent, after POST request
 func TorrentPostReassignModPanel(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	var rForm ReassignForm
 	messages := msg.GetMessages(r)
 
@@ -387,6 +399,7 @@ func TorrentPostReassignModPanel(w http.ResponseWriter, r *http.Request) {
 
 // TorrentsPostListPanel : Controller for listing torrents, after POST request when mass update
 func TorrentsPostListPanel(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	torrentManyAction(r)
 	TorrentsListPanel(w, r)
 }
@@ -405,6 +418,7 @@ func TorrentsPostListPanel(w http.ResponseWriter, r *http.Request) {
  * In case of action=multiple, torrents can be at the same time changed status, owner and category
  */
 func APIMassMod(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	torrentManyAction(r)
 	messages := msg.GetMessages(r) // new util for errors and infos
 	var apiJSON []byte
@@ -423,6 +437,7 @@ func APIMassMod(w http.ResponseWriter, r *http.Request) {
 
 // DeletedTorrentsModPanel : Controller for viewing deleted torrents, accept common search arguments
 func DeletedTorrentsModPanel(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	vars := mux.Vars(r)
 	page := vars["page"]
 	messages := msg.GetMessages(r) // new util for errors and infos
@@ -465,12 +480,14 @@ func DeletedTorrentsModPanel(w http.ResponseWriter, r *http.Request) {
 
 // DeletedTorrentsPostPanel : Controller for viewing deleted torrents after a mass update, accept common search arguments
 func DeletedTorrentsPostPanel(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	torrentManyAction(r)
 	DeletedTorrentsModPanel(w, r)
 }
 
 // TorrentBlockModPanel : Controller to lock torrents, redirecting to previous page
 func TorrentBlockModPanel(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	id := r.URL.Query().Get("id")
 	torrent, _, _ := torrentService.ToggleBlockTorrent(id)
 
@@ -493,6 +510,7 @@ func TorrentBlockModPanel(w http.ResponseWriter, r *http.Request) {
  * Controller to modify multiple torrents and can be used by the owner of the torrent or admin
  */
 func torrentManyAction(r *http.Request) {
+	defer r.Body.Close()
 	currentUser := getUser(r)
 	r.ParseForm()
 	torrentsSelected := r.Form["torrent_id"] // should be []string

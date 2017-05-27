@@ -2,10 +2,10 @@ package router
 
 import (
 	"fmt"
+	elastic "gopkg.in/olivere/elastic.v5"
 	"net/http"
 	"strconv"
 	"time"
-	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
@@ -23,6 +23,7 @@ import (
 
 // UploadHandler : Main Controller for uploading a torrent
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	user := getUser(r)
 	if !uploadService.IsUploadEnabled(*user) {
 		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
@@ -86,7 +87,6 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			WebsiteLink: uploadForm.WebsiteLink,
 			UploaderID:  user.ID}
 
-
 		db.ORM.Create(&torrent)
 
 		client, err := elastic.NewClient()
@@ -100,7 +100,6 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 		} else {
 			log.Errorf("Unable to create elasticsearch client: %s", err)
 		}
-
 
 		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
 
@@ -140,6 +139,7 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 
 // UploadGetHandler : Controller for uploading a torrent, after GET request or Failed Post request
 func UploadGetHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	messages := msg.GetMessages(r) // new util for errors and infos
 
 	var uploadForm uploadForm

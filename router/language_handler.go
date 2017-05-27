@@ -20,6 +20,7 @@ func SeeLanguagesHandler(w http.ResponseWriter, r *http.Request) {
 	_, Tlang := languages.GetTfuncAndLanguageFromRequest(r)
 	availableLanguages := languages.GetAvailableLanguages()
 
+	defer r.Body.Close()
 	contentType := r.Header.Get("Content-Type")
 	if contentType == "application/json" {
 		w.Header().Set("Content-Type", "application/json")
@@ -46,6 +47,7 @@ func SeeLanguagesHandler(w http.ResponseWriter, r *http.Request) {
 func ChangeLanguageHandler(w http.ResponseWriter, r *http.Request) {
 	lang := r.FormValue("language")
 
+	defer r.Body.Close()
 	availableLanguages := languages.GetAvailableLanguages()
 	if _, exists := availableLanguages[lang]; !exists {
 		http.Error(w, "Language not available", http.StatusInternalServerError)

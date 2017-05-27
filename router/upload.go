@@ -103,6 +103,7 @@ func (f *uploadForm) ExtractInfo(r *http.Request) error {
 	f.WebsiteLink = util.TrimWhitespaces(f.WebsiteLink)
 	f.Magnet = util.TrimWhitespaces(f.Magnet)
 	cache.Impl.ClearAll()
+	defer r.Body.Close()
 
 	catsSplit := strings.Split(f.Category, "_")
 	// need this to prevent out of index panics
@@ -243,6 +244,7 @@ func (f *uploadForm) ExtractEditInfo(r *http.Request) error {
 	// trim whitespace
 	f.Name = util.TrimWhitespaces(f.Name)
 	f.Description = util.Sanitize(util.TrimWhitespaces(f.Description), "default")
+	defer r.Body.Close()
 
 	catsSplit := strings.Split(f.Category, "_")
 	// need this to prevent out of index panics

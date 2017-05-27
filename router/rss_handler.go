@@ -16,6 +16,7 @@ import (
 
 // RSSHandler : Controller for displaying rss feed, accepting common search arguments
 func RSSHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	vars := mux.Vars(r)
 	page := vars["page"]
 	userID := vars["id"]
