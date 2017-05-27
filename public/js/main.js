@@ -17,6 +17,9 @@ function switchThemes(){
 	var head = document.getElementsByTagName("head")[0];
 	// Remove the theme in place
 	head.removeChild(document.getElementById("theme"));
+	// Don't add a node if we don't want extra styling
+	if themeName === "":
+		return
 	// Create the new one and put it back
         var newTheme = document.createElement("link");
         newTheme.setAttribute("rel", "stylesheet");
