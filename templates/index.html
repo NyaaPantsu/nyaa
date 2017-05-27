@@ -24,14 +24,6 @@
    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 		<script>
 			// We need this inline javascript for preventing theme flickering
-			/*
-			function changeTheme(opt) {
-				theme = opt.value;
-				localStorage.setItem("theme", theme);
-				document.getElementById("theme").href = "/css/" + theme;
-				console.log(theme);
-			}
-
 			function toggleMascot(btn) {
 				var state= btn.value;
 				if (state == "hide") {
@@ -44,25 +36,10 @@
 					btn.value = "hide";
 				}
 			}
-			function setTheme() {
-				var themeFromStorage = localStorage.getItem('theme');
-				document.getElementById('theme').href = "/css/" + themeFromStorage;
-				window.addEventListener("load", () => {
-					var selectOptions = document.getElementById("theme_select").children
-					for (var option of selectOptions) {
-						option.selected = option.value == themeFromStorage;
-					}
-				});
-			}
-			*/
 		</script>
-		<!-- Fix theme switching for google chrome where onload doesn't work -->
-    <script type="text/javascript">
-			setTheme();
-    </script>
 		{{ block "additional_header" .}}{{end}}
     </head>
-  <body onload="setTheme();">
+   <body>
    <nav id="header" class="header">
 		<div class="container">
 			<div class="h-left">
