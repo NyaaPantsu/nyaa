@@ -287,6 +287,8 @@ th { border-bottom-width: 2px; }
 .footer {
 	text-align: center;
 	padding: 1rem 0 1.2rem 0;
+	position: relative;
+	z-index: 2;
  }
 
 .footer-opt {
