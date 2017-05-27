@@ -544,6 +544,10 @@
     "translation": "Description"
   },
   {
+    "id": "no_description",
+    "translation": "No description provided!"
+  },
+  {
     "id": "comments",
     "translation": "Comments"
   },
@@ -690,6 +694,10 @@
   {
     "id": "files",
     "translation": "Files"
+  },
+  {
+    "id": "no_files",
+    "translation": "No files found? That doesn't even make sense!"
   },
   {
     "id": "filename",

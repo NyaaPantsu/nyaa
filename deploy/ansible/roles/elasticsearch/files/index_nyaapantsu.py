@@ -32,9 +32,8 @@ fetches = cur.fetchmany(CHUNK_SIZE)
 while fetches:
     actions = list()
     for torrent_id, torrent_name, category, sub_category, status, torrent_hash, date, uploader, downloads, filesize, seeders, leechers, completed in fetches:
-        # TODO Consistent ID representation on the codebase
         doc = {
-          'id': str(torrent_id),
+          'id': torrent_id,
           'name': torrent_name.decode('utf-8'),
           'category': str(category),
           'sub_category': str(sub_category),

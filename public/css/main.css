@@ -407,9 +407,10 @@ td { border-color:  #ccc !important; }
 td.tr-se { color: #22A243; }
 td.tr-le { color: #E84C4C; }
 
-.aplus { background: hsla(200, 100%, 70%, 0.2); }
-.trusted { background: hsla(100, 100%, 70%, 0.2); }
-.remake { background: hsla(30, 100%, 70%, 0.2); }
+/* Original Nyaa colors, do NOT change! */
+.aplus { background: #60B0F0; }
+.trusted { background: #98D9A8; }
+.remake { background: #F0B080; }
 
 .pagination .active { background: #d5d5d5; color: #222; }
 .pagination .disabled { color: #d5d5d5; cursor: unset; }

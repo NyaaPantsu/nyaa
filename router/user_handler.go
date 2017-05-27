@@ -357,11 +357,11 @@ func UserAPIKeyResetHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	userProfile.APIToken, _ = crypto.GenerateRandomToken32()
 	userProfile.APITokenExpiry = time.Unix(0, 0)
-	_, errorUser = userService.UpdateUserCore(&userProfile)
+	_, errorUser = userService.UpdateRawUser(&userProfile)
 	if errorUser != nil {
 		messages.ImportFromError("errors", errorUser)
 	} else {
 		messages.AddInfo("infos", Ts("profile_updated"))
 	}
-
+	UserProfileHandler(w, r)
 }
