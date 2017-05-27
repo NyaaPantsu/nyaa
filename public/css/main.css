@@ -657,17 +657,18 @@ input.filelist-checkbox:checked + table.table-filelist {
 	margin-left: 30%;
 }
 
-/* for mascot */
-#content {
-	text-align: center;
-	/* FIXME: Make the navigation not working,
-	and mascot is not in #content,
-	please explain and fix it:
-
-	pointer-events: none;
-	*/
-}
 #description-box {
 	padding-right: 14px;
 	padding-left: 14px;
+}
+
+/* Markdown editor fixes */
+.editor-toolbar.fullscreen {
+	top: 60px;
+}
+.CodeMirror-fullscreen {
+	top: 110px;
+}
+.editor-preview-side {
+	top: 110px;
 }
