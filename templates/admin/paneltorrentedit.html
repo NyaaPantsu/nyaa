@@ -32,7 +32,12 @@
               <option value="4" {{if eq .Status 4}}selected{{end}}>A+</option>
       	 </select>
       </div>
-
+		{{ if $.User }}
+		<p>
+			<input type="checkbox" name="hidden" id="hidden" {{ if .Hidden }}checked{{end}}>
+			<label for="hidden">{{call $.T "mark_as_hidden"}}</label>
+		</p>
+		{{ end }}
       <div class="form-group">
           <label for="website_link">{{call $.T "website_link"}}</label>
           <input name="website_link" id="website_link" class="form-control" type="text" value="{{.WebsiteLink}}">
