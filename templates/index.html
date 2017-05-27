@@ -18,16 +18,13 @@
     <!-- Base theme -->
     <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v=2">
     <!-- User selected theme, if any -->
-    <link rel="stylesheet" id="theme" href="{{.URL.Parse $.Theme}}">
-
-
-    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v=3">
-    <link rel="stylesheet" id="theme" href="">
+    <link rel="stylesheet" id="theme" href="/css/{{$.Theme}}.css">
 
     <!-- Search Box for Google -->
    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 		<script>
 			// We need this inline javascript for preventing theme flickering
+			/*
 			function changeTheme(opt) {
 				theme = opt.value;
 				localStorage.setItem("theme", theme);
@@ -57,6 +54,7 @@
 					}
 				});
 			}
+			*/
 		</script>
 		<!-- Fix theme switching for google chrome where onload doesn't work -->
     <script type="text/javascript">

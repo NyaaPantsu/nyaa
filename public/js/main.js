@@ -13,14 +13,14 @@ function toggleNightMode() {
 
 // Switches between themes when a new one is selected
 function switchThemes(){
-	themeURL = document.getElementById("theme-selector").value
+	themeName = document.getElementById("theme-selector").value
 	var head = document.getElementsByTagName("head")[0];
 	// Remove the theme in place
 	head.removeChild(document.getElementById("theme"));
 	// Create the new one and put it back
         var newTheme = document.createElement("link");
         newTheme.setAttribute("rel", "stylesheet");
-        newTheme.setAttribute("href", themeURL);
+        newTheme.setAttribute("href", "/css/"+ themeName + ".css");
         newTheme.setAttribute("id", "theme");
 	head.appendChild(newTheme);
 }
