@@ -15,11 +15,14 @@ function toggleNightMode() {
 function switchThemes(){
 	themeName = document.getElementById("theme-selector").value
 	var head = document.getElementsByTagName("head")[0];
-	// Remove the theme in place
-	head.removeChild(document.getElementById("theme"));
+	// Remove the theme in place, it fails if one isn't set
+	try{
+		head.removeChild(document.getElementById("theme"));
+	} catch(err){}
 	// Don't add a node if we don't want extra styling
-	if themeName === "":
-		return
+	if(themeName === ""){
+		return;
+	}
 	// Create the new one and put it back
         var newTheme = document.createElement("link");
         newTheme.setAttribute("rel", "stylesheet");
