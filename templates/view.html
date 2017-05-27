@@ -64,7 +64,9 @@
   </table>
 <div class="torrent-buttons">
   <a href="{{.Magnet}}" class="form-input">{{call $.T "magnet_link"}}</a>
+  {{ if ne .TorrentLink ""}}
   <a href="{{.TorrentLink}}" class="form-input">{{call $.T "torrent_file"}}</a>
+  {{end}}
   {{ if gt $.User.ID 0}}
   <script>
       function reportPopup() {
