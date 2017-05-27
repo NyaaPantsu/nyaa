@@ -222,6 +222,7 @@ select.form-input {
 
 table {
 	border-collapse:collapse;
+	width: 100%;
 	table-layout: fixed;
 }
 
@@ -250,7 +251,7 @@ th { border-bottom-width: 2px; }
 .tr-size { width: 90px; }
 .tr-se, .tr-le { font-weight: bold; }
 .tr-se, .tr-le, .tr-dl { width: 50px; }
-.tr-date { width: 90px; }
+.tr-date { width: 100px; }
 
 .sort-arrows { margin-left: 0.2rem; }
 .sort-arrows span {
@@ -467,7 +468,7 @@ td.tr-le { color: #E84C4C; }
 	font-weight: bold;
 }
 .torrent-info-data {
-	width: 60%;
+	width: 50%;
 }
 .torrent-info-row {
 	text-align: left;
