@@ -8,30 +8,18 @@ import (
 )
 
 func Handle() {
-	// TODO: Something about SIGHUP for Windows
-
+	// TODO: Something about SIGHUP for Windows, stdin could be used
 	chnl := make(chan os.Signal)
 	signal.Notify(chnl, os.Interrupt)
 	go func(chnl chan os.Signal) {
-		for {
-			sig, ok := <-chnl
-			if !ok {
-				break
-			}
+		for sig := chnl {
 			switch sig {
 			case os.Interrupt:
 				// this also closes listeners
 				interrupted()
+				// XXX: put any win32 specific cleanup here as needed
 				return
-			default:
-				break
 			}
 		}
 	}(chnl)
-}
-
-// win32 interrupt handler
-// called in interrupted()
-func handleInterrupt() {
-	// XXX: put any win32 specific cleanup here as needed
 }

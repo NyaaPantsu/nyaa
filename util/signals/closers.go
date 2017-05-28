@@ -19,8 +19,8 @@ func RegisterCloser(c io.Closer) {
 
 func closeClosers() {
 	closeAccess.Lock()
-	for idx := range closers {
-		closers[idx].Close()
+	for _, c := range closers {
+		c.Close()
 	}
 	closeAccess.Unlock()
 }
