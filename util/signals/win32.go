@@ -12,20 +12,22 @@ func Handle() {
 
 	chnl := make(chan os.Signal)
 	signal.Notify(chnl, os.Interrupt)
-	for {
-		sig, ok := <-chnl
-		if !ok {
-			break
+	go func(chnl chan os.Signal) {
+		for {
+			sig, ok := <-chnl
+			if !ok {
+				break
+			}
+			switch sig {
+			case os.Interrupt:
+				// this also closes listeners
+				interrupted()
+				return
+			default:
+				break
+			}
 		}
-		switch sig {
-		case os.Interrupt:
-			// this also closes listeners
-			interrupted()
-			return
-		default:
-			break
-		}
-	}
+	}(chnl)
 }
 
 // win32 interrupt handler
