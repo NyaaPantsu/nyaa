@@ -115,7 +115,7 @@ select.form-input {
 	pointer-events: none;
 }
 
-.form-input.search-box { margin-right: -20px; }
+.form-input.search-box { margin-right: -20px;  padding-right: 20px;  }
 .form-input.search-box + .search-icon {
 	left: -5px;
 	position: relative;
