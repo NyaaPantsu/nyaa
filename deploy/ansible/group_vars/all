@@ -14,4 +14,7 @@ nyaapantsu_elasticsearch_index: nyaapantsu_v1
 nyaapantsu_torrent_tablename: torrents
 # nyaapantsu_torrent_tablename: torrents_sukebei
 
+nyaapantsu_max_open_files: 200000
+nyaapantsu_jvm_heapsize_gb: 1
+
 # vim: ft=yaml

@@ -32,11 +32,37 @@
     - elasticsearch_settings.yml
     - index_nyaapantsu.py
 
+- name: Increase system max open files
+  lineinfile:
+    path: /etc/sysctl.conf
+    regexp: '^fs.file-max.*'
+    line: 'fs.file-max = {{ nyaapantsu_max_open_files }}'
+  become: true
+
+- name: Increase JVM heapsize
+  lineinfile:
+    path: /etc/sysconfig/elasticsearch
+    regexp: '^ES_JAVA_OPTS=.*'
+    line: 'ES_JAVA_OPTS="-Xms{{ nyaapantsu_jvm_heapsize_gb }}g -Xmx{{ nyaapantsu_jvm_heapsize_gb }}g"'
+  become: true
+
+- name: Create override folder
+  file:
+    path: /etc/systemd/system/elasticsearch.service.d/
+    state: directory
+    mode: 0755
+  become: true
+
+- name: Add override service file
+  template:
+    src: elasticsearch.override.j2
+    dest: /etc/systemd/system/elasticsearch.service.d/override.conf
+  become: true
+
 - name: Enable and start elasticsearch
   systemd:
     enabled: yes
     name: elasticsearch
     state: started
+    daemon_reload: yes
   become: true
-
-# TODO Create / update index
