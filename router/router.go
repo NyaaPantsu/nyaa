@@ -29,6 +29,7 @@ func init() {
 	gzipUserProfileHandler := http.HandlerFunc(UserProfileHandler)
 	gzipUserAPIKeyResetHandler := http.HandlerFunc(UserAPIKeyResetHandler)
 	gzipUserDetailsHandler := http.HandlerFunc(UserDetailsHandler)
+	downloadTorrentHandler := http.HandlerFunc(DownloadTorrent)
 	gzipUserProfileFormHandler := http.HandlerFunc(UserProfileFormHandler)
 	gzipUserNotificationsHandler := http.HandlerFunc(UserNotificationsHandler)
 	gzipDumpsHandler := handlers.CompressHandler(dumpsHandler)
@@ -77,6 +78,9 @@ func init() {
 	Router.Handle("/user/notifications", wrapHandler(gzipUserNotificationsHandler)).Name("user_notifications")
 	Router.HandleFunc("/user/{id}/{username}/feed", RSSHandler).Name("feed_user")
 	Router.HandleFunc("/user/{id}/{username}/feed/{page}", RSSHandler).Name("feed_user_page")
+
+	// !!! This line need to have the same download location as the one define in config.TorrentStorageLink !!!
+	Router.Handle("/download/{hash}", wrapHandler(downloadTorrentHandler)).Name("torrent_download")
 
 	// INFO Everything under /mod should be wrapped by wrapModHandler. This make
 	// sure the page is only accessible by moderators

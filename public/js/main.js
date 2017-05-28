@@ -79,6 +79,7 @@ function themeFixes(){
 	}
 }
 
+
 function disableNightMode(){
 	// Called when a user switches themes, we don't want him to automatically go back to nightmode
 	sessionStorage.nightMode = "false";
@@ -131,6 +132,16 @@ window.onload = function() {
 	var shiftWindow = function() { scrollBy(0, -70) };
 	if (location.hash) shiftWindow();
 	window.addEventListener("hashchange", shiftWindow);
+	
+	document.getElementsByClassName("search-box")[0].addEventListener("focus", function (e) {
+		var w = document.getElementsByClassName("h-user")[0].offsetWidth;
+		document.getElementsByClassName("h-user")[0].style.display = "none";
+		document.getElementsByClassName("search-box")[0].style.width = document.getElementsByClassName("search-box")[0].offsetWidth + w + "px";
+	});
+	document.getElementsByClassName("search-box")[0].addEventListener("blur", function (e) {
+		document.getElementsByClassName("search-box")[0].style.width = "";
+		document.getElementsByClassName("h-user")[0].style.display = "inline-block";
+	});
 };
 
 // $(document).ready equivilent, prevents night mode flickering
@@ -141,13 +152,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 function playVoice() {
-	switch (theme) {
-	case "tomorrow.css":
+	if (explosion) {
 		explosion.play();
-		break;
-	default:
+	}
+	else {
 		nyanpassu.volume = 0.5;
 		nyanpassu.play();
-		break;
 	}
 }

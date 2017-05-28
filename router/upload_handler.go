@@ -2,10 +2,11 @@ package router
 
 import (
 	"fmt"
-	elastic "gopkg.in/olivere/elastic.v5"
 	"net/http"
 	"strconv"
 	"time"
+
+	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
@@ -16,9 +17,9 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/upload"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 )
 
 // UploadHandler : Main Controller for uploading a torrent
@@ -80,6 +81,7 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			Category:    uploadForm.CategoryID,
 			SubCategory: uploadForm.SubCategoryID,
 			Status:      status,
+			Hidden:      uploadForm.Hidden,
 			Hash:        uploadForm.Infohash,
 			Date:        time.Now(),
 			Filesize:    uploadForm.Filesize,
