@@ -2,41 +2,19 @@
 settings:
   analysis:
     analyzer:
-      nyaapantsu_search_analyzer:
-        type: custom
-        tokenizer: standard
-        char_filter:
-          - my_char_filter
+      nyaapantsu_analyzer:
+        tokenizer: nyaapantsu_tokenizer
         filter:
           - standard
           - lowercase
-      nyaapantsu_index_analyzer:
-        type: custom
-        tokenizer: standard
-        char_filter:
-          - my_char_filter
-        filter:
-          - resolution
-          - lowercase
-          - my_ngram
-          - word_delimit
-    filter:
-      my_ngram:
-        type: edgeNGram
+    tokenizer:
+      nyaapantsu_tokenizer:
+        type: edge_ngram
         min_gram: 2
         max_gram: 15
-      resolution:
-        type: pattern_capture
-        patterns: ["(\\d+)[xX](\\d+)"]
-      word_delimit:
-        type: word_delimiter
-        preserve_original: true
-        split_on_numerics: false
-    char_filter:
-      my_char_filter:
-        type: mapping
-        mappings: ["-=>_", "!=>_", "_=>\\u0020"]
-
+        token_chars:
+          - letter
+          - digit 
   index:
     number_of_shards: 1
     number_of_replicas: 0
@@ -49,7 +27,7 @@ mappings:
         type: long
       name:
         type: text
-        analyzer: nyaapantsu_index_analyzer
+        analyzer: nyaapantsu_analyzer
         fielddata: true # Use to sort by id because it is currently a text field
       category:
         type: text

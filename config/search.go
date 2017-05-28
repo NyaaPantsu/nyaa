@@ -10,7 +10,7 @@ var DefaultSearchConfig = SearchConfig{}
 
 const (
 	// DefaultElasticsearchAnalyzer : default analyzer for ES
-	DefaultElasticsearchAnalyzer = "nyaapantsu_search_analyzer"
+	DefaultElasticsearchAnalyzer = "nyaapantsu_analyzer"
 	// DefaultElasticsearchIndex : default search index for ES
 	DefaultElasticsearchIndex = "nyaapantsu"
 	// DefaultElasticsearchType :  Name of the type in the es mapping

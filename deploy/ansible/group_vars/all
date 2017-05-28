@@ -5,5 +5,4 @@ nyaapantsu_pgpool_port: 9998
 nyaapantsu_directory: /nyaapantsu/
 nyaapantsu_gpg_passphrase_file: "{{ nyaapantsu_directory }}/passphrase"
 nyaapantsu_elasticsearch_index: nyaapantsu
-nyaapantsu_build_directory: go_nyaa/
 # vim: ft=yaml
