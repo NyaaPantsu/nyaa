@@ -79,7 +79,7 @@ var errInvalidTorrentName = errors.New("Torrent name is invalid")
 // error indicating a torrent's description is invalid
 var errInvalidTorrentDescription = errors.New("Torrent description is invalid")
 
-// error indicating a torrent's description is invalid
+// error indicating a torrent's website link is invalid
 var errInvalidWebsiteLink = errors.New("Website url or IRC link is invalid")
 
 // error indicating a torrent's category is invalid

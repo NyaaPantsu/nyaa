@@ -43,6 +43,8 @@ type TorrentRequest struct {
 	Magnet      string `json:"magnet"`
 	Hash        string `json:"hash"`
 	Description string `json:"description"`
+	Remake      bool   `json:"remake"`
+	WebsiteLink string `json:"website_link"`
 }
 
 // UpdateRequest struct
@@ -90,6 +92,17 @@ func validateCategory(r *TorrentRequest) (error, int) {
 func validateSubCategory(r *TorrentRequest) (error, int) {
 	if r.SubCategory == 0 {
 		return ErrSubCategory, http.StatusNotAcceptable
+	}
+	return nil, http.StatusOK
+}
+
+func validateWebsiteLink(r *TorrentRequest) (error, int) {
+	if r.WebsiteLink != "" {
+		// WebsiteLink
+		urlRegexp, _ := regexp.Compile(`^(https?:\/\/|ircs?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$`)
+		if !urlRegexp.MatchString(r.WebsiteLink) {
+			return ErrWebsiteLink, http.StatusNotAcceptable
+		}
 	}
 	return nil, http.StatusOK
 }
@@ -144,6 +157,7 @@ func (r *TorrentRequest) ValidateUpload() (err error, code int) {
 		validateSubCategory,
 		validateMagnet,
 		validateHash,
+		validateWebsiteLink,
 	}
 
 	for i, validator := range validators {
@@ -206,6 +220,7 @@ func (r *TorrentRequest) ValidateUpdate() (err error, code int) {
 		validateSubCategory,
 		validateMagnet,
 		validateHash,
+		validateWebsiteLink,
 	}
 
 	//don't update not requested values
@@ -242,5 +257,8 @@ func (r *UpdateRequest) UpdateTorrent(t *model.Torrent) {
 	}
 	if r.Update.Description != "" {
 		t.Description = r.Update.Description
+	}
+	if r.Update.WebsiteLink != "" {
+		t.WebsiteLink = r.Update.WebsiteLink
 	}
 }
