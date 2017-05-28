@@ -73,14 +73,16 @@
         {{block "content" .}}{{call $.T "nothing_here"}}{{end}}
       </div>
 <div id="mascot" class="hide-xs" onclick="playVoice();"></div>
+	{{ if eq .Theme "tomorrow" }}
+	<audio id="explosion" hidden preload="none">
+        <source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
+     </audio>
+	{{ else }}
      <audio id="nyanpassu" hidden preload="none">
         <source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
      </audio>
-     <audio id="explosion" hidden preload="none">
-        <source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
-     </audio>
-
-<div class="pagination">
+	 {{end}}
+     <div class="pagination">
               {{ genNav .Navigation .URL 15 }}
 </div>
 
