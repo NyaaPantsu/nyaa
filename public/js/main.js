@@ -11,6 +11,40 @@ function toggleNightMode() {
 	localStorage.setItem("night", (night == "true") ? "false" : "true");
 }
 
+// Switches between themes when a new one is selected
+function switchThemes(){
+	themeName = document.getElementById("theme-selector").value
+	var head = document.getElementsByTagName("head")[0];
+	// Remove the theme in place, it fails if one isn't set
+	try{
+		head.removeChild(document.getElementById("theme"));
+	} catch(err){}
+	// Don't add a node if we don't want extra styling
+	if(themeName === ""){
+		return;
+	}
+	// Create the new one and put it back
+        var newTheme = document.createElement("link");
+        newTheme.setAttribute("rel", "stylesheet");
+        newTheme.setAttribute("href", "/css/"+ themeName + ".css");
+        newTheme.setAttribute("id", "theme");
+	head.appendChild(newTheme);
+}
+
+
+function toggleMascot(btn) {
+	var state= btn.value;
+	if (state == "hide") {
+		btn.innerHTML = "Mascot";
+		document.getElementById("mascot").className = "hide";
+		btn.value = "show";
+	} else {
+		btn.innerHTML = "Mascot";
+		document.getElementById("mascot").className = "";
+		btn.value = "hide";
+	}
+}
+
 // Used by spoiler tags
 function toggleLayer(elem) {
 	if (elem.classList.contains("hide"))
@@ -21,7 +55,7 @@ function toggleLayer(elem) {
 
 // Date formatting
 var lang = document.getElementsByTagName("html")[0].getAttribute("lang"); 
-var ymdOpt = { year: "numeric", month: "2-digit", day: "2-digit" };
+var ymdOpt = { year: "numeric", month: "short", day: "numeric" };
 var hmOpt  = { hour: "numeric", minute: "numeric" };
 
 var list = document.getElementsByClassName("date-short");
@@ -42,16 +76,24 @@ window.onload = function() {
 	var shiftWindow = function() { scrollBy(0, -70) };
 	if (location.hash) shiftWindow();
 	window.addEventListener("hashchange", shiftWindow);
+	
+	document.getElementsByClassName("search-box")[0].addEventListener("focus", function (e) {
+		var w = document.getElementsByClassName("h-user")[0].offsetWidth;
+		document.getElementsByClassName("h-user")[0].style.display = "none";
+		document.getElementsByClassName("search-box")[0].style.width = document.getElementsByClassName("search-box")[0].offsetWidth + w + "px";
+	});
+	document.getElementsByClassName("search-box")[0].addEventListener("blur", function (e) {
+		document.getElementsByClassName("search-box")[0].style.width = "";
+		document.getElementsByClassName("h-user")[0].style.display = "inline-block";
+	});
 };
 
 function playVoice() {
-	switch (theme) {
-	case "tomorrow.css":
+	if (explosion) {
 		explosion.play();
-		break;
-	default:
+	}
+	else {
 		nyanpassu.volume = 0.5;
 		nyanpassu.play();
-		break;
 	}
 }

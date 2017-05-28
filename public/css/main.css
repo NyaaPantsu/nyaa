@@ -115,7 +115,7 @@ select.form-input {
 	pointer-events: none;
 }
 
-.form-input.search-box { margin-right: -20px; }
+.form-input.search-box { margin-right: -20px;  padding-right: 20px;  }
 .form-input.search-box + .search-icon {
 	left: -5px;
 	position: relative;
@@ -221,8 +221,8 @@ select.form-input {
 .results { padding: 0 }
 
 table {
-	width: 100%;
 	border-collapse:collapse;
+	width: 100%;
 	table-layout: fixed;
 }
 
@@ -251,7 +251,7 @@ th { border-bottom-width: 2px; }
 .tr-size { width: 90px; }
 .tr-se, .tr-le { font-weight: bold; }
 .tr-se, .tr-le, .tr-dl { width: 50px; }
-.tr-date { width: 90px; }
+.tr-date { width: 100px; }
 
 .sort-arrows { margin-left: 0.2rem; }
 .sort-arrows span {
@@ -278,8 +278,8 @@ th { border-bottom-width: 2px; }
 	min-width: 35px;
 }
 
-.pagination li:first-child { border-radius: 3px 0 0 3px; }
-.pagination li:nth-last-child(2)  { border-radius: 0 3px 3px 0; border-right-width: 1px !important}
+.pagination a:first-child li { border-radius: 3px 0 0 3px; }
+.pagination a:nth-last-child(2) li { border-radius: 0 3px 3px 0; border-right-width: 1px !important}
 
 
 #footer { width: 100%; bottom: 0; left: 0; margin-top: 40px;}
@@ -287,6 +287,8 @@ th { border-bottom-width: 2px; }
 .footer {
 	text-align: center;
 	padding: 1rem 0 1.2rem 0;
+	position: relative;
+	z-index: 2;
  }
 
 .footer-opt {
@@ -376,7 +378,7 @@ a:hover { color:  #238BC7; }
 
 .form-input { border-color: #BBC9CF !important; background: #fafafa; color: #666; }
 
-.form-input.btn:hover { background: rgba(192,192,192,0.2); }
+.btn:hover, .up-btn:hover { background: rgba(192,192,192,0.2); }
 
 .form-input:focus { box-shadow: 0 0 5px #fff; }
 
@@ -468,7 +470,7 @@ td.tr-le { color: #E84C4C; }
 	font-weight: bold;
 }
 .torrent-info-data {
-	width: 60%;
+	width: 50%;
 }
 .torrent-info-row {
 	text-align: left;
@@ -518,6 +520,10 @@ td.tr-le { color: #E84C4C; }
 }
 .profile-content {
 	width: 70%;
+	text-align: left;
+}
+div.profile-content.box > nav > ul > li {
+	border-right-width: 1px;
 }
 .magnet-icon {
 	display: inline-block;
@@ -589,6 +595,9 @@ input#show-filelist:checked ~ #filelist {
 #filelist tr {
 	background: none; /* Striped lines will look really ugly due to how it's drawn */
 }
+.table-filelist {
+	width: 100%;
+}
 .tr-filelist {
 	--nest-level: 0;
 }
@@ -610,7 +619,7 @@ input#show-filelist:checked ~ #filelist {
 }
 /* Filesize column */
 .tr-filelist td:nth-child(2) {
-	width: 30%;
+	width: 20%;
 	text-align: center;
 }
 /* Input that show/hides each folder */

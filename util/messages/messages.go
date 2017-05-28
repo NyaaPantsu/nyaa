@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/NyaaPantsu/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/gorilla/context"
 	"github.com/nicksnyder/go-i18n/i18n"
 )
@@ -24,13 +24,13 @@ type Messages struct {
 func GetMessages(r *http.Request) *Messages {
 	if rv := context.Get(r, MessagesKey); rv != nil {
 		mes := rv.(*Messages)
-		T, _ := languages.GetTfuncAndLanguageFromRequest(r)
+		T, _ := publicSettings.GetTfuncAndLanguageFromRequest(r)
 		mes.T = T
 		mes.r = r
 		return mes
 	}
 	context.Set(r, MessagesKey, &Messages{})
-	T, _ := languages.GetTfuncAndLanguageFromRequest(r)
+	T, _ := publicSettings.GetTfuncAndLanguageFromRequest(r)
 	return &Messages{make(map[string][]string), make(map[string][]string), r, T}
 }
 

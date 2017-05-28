@@ -2,10 +2,11 @@ package torrentService
 
 import (
 	"errors"
-	elastic "gopkg.in/olivere/elastic.v5"
 	"net/http"
 	"strconv"
 	"strings"
+
+	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
@@ -99,7 +100,17 @@ func GetTorrentByID(id string) (torrent model.Torrent, err error) {
 func GetRawTorrentByID(id uint) (torrent model.Torrent, err error) {
 	err = nil
 	if db.ORM.Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
-		err = errors.New("Article is not found")
+		err = errors.New("Torrent is not found")
+	}
+	return
+}
+
+// GetRawTorrentByHash : Get torrent with id without user or comments
+// won't fetch user or comments
+func GetRawTorrentByHash(hash string) (torrent model.Torrent, err error) {
+	err = nil
+	if db.ORM.Where("torrent_hash = ?", hash).Find(&torrent).RecordNotFound() {
+		err = errors.New("Torrent is not found")
 	}
 	return
 }

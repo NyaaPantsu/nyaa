@@ -12,24 +12,18 @@
 
     <!-- RSS Feed with Context -->
     <link href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
-
+    
     <!-- do NOT move -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-
-    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v=3">
-    <link rel="stylesheet" id="theme" href="">
+    <!-- Base theme -->
+    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v=2">
+    <!-- User selected theme, if any -->
+    {{if $.Theme}}<link rel="stylesheet" id="theme" href="/css/{{$.Theme}}.css">{{end}}
 
     <!-- Search Box for Google -->
    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 		<script>
 			// We need this inline javascript for preventing theme flickering
-			function changeTheme(opt) {
-				theme = opt.value;
-				localStorage.setItem("theme", theme);
-				document.getElementById("theme").href = "/css/" + theme;
-				console.log(theme);
-			}
-
 			function toggleMascot(btn) {
 				var state= btn.value;
 				if (state == "hide") {
@@ -42,24 +36,10 @@
 					btn.value = "hide";
 				}
 			}
-			function setTheme() {
-				var themeFromStorage = localStorage.getItem('theme');
-				document.getElementById('theme').href = "/css/" + themeFromStorage;
-				window.addEventListener("load", () => {
-					var selectOptions = document.getElementById("theme_select").children
-					for (var option of selectOptions) {
-						option.selected = option.value == themeFromStorage;
-					}
-				});
-			}
 		</script>
-		<!-- Fix theme switching for google chrome where onload doesn't work -->
-    <script type="text/javascript">
-			setTheme();
-    </script>
 		{{ block "additional_header" .}}{{end}}
     </head>
-  <body onload="setTheme();">
+   <body>
    <nav id="header" class="header">
 		<div class="container">
 			<div class="h-left">
@@ -93,14 +73,16 @@
         {{block "content" .}}{{call $.T "nothing_here"}}{{end}}
       </div>
 <div id="mascot" class="hide-xs" onclick="playVoice();"></div>
+	{{ if eq .Theme "tomorrow" }}
+	<audio id="explosion" hidden preload="none">
+        <source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
+     </audio>
+	{{ else }}
      <audio id="nyanpassu" hidden preload="none">
         <source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
      </audio>
-     <audio id="explosion" hidden preload="none">
-        <source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
-     </audio>
-
-<div class="pagination">
+	 {{end}}
+     <div class="pagination">
               {{ genNav .Navigation .URL 15 }}
 </div>
 
@@ -108,15 +90,8 @@
 			<div class="container footer center">
 
 				<div class="footer-opt">
-					<select onchange="changeTheme(this.options[this.selectedIndex])" name="Theme" id="theme_select" class="form-input">
-						<option value="">Default</option>
-						<option value="g.css">/g/ Anon</option>
-						<option value="tomorrow.css">Tomorrow</option>
-					</select>
-
 					<button class="form-input btn" onclick="toggleMascot(this)" value="hide"><span class="oi" data-glyph="eye"></span> Mascot</button>
-
-					<p><a href="/language">Change Language</a></p>
+					<p><a href="/settings">Change Settings</a></p>
 				</div>
 
 				<span><i>Powered by <a href="#">NyaaPantsu</a></i></span>

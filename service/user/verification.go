@@ -11,7 +11,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/util/email"
-	"github.com/NyaaPantsu/nyaa/util/languages"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/timeHelper"
 	"github.com/gorilla/securecookie"
 )
@@ -20,7 +20,7 @@ var verificationHandler = securecookie.New(config.EmailTokenHashKey, nil)
 
 // SendEmailVerification sends an email verification token via email.
 func SendEmailVerification(to string, token string) error {
-	T, err := languages.GetDefaultTfunc()
+	T, err := publicSettings.GetDefaultTfunc()
 	if err != nil {
 		return err
 	}

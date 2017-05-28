@@ -29,6 +29,7 @@ func init() {
 	gzipUserProfileHandler := http.HandlerFunc(UserProfileHandler)
 	gzipUserAPIKeyResetHandler := http.HandlerFunc(UserAPIKeyResetHandler)
 	gzipUserDetailsHandler := http.HandlerFunc(UserDetailsHandler)
+	downloadTorrentHandler := http.HandlerFunc(DownloadTorrent)
 	gzipUserProfileFormHandler := http.HandlerFunc(UserProfileFormHandler)
 	gzipUserNotificationsHandler := http.HandlerFunc(UserNotificationsHandler)
 	gzipDumpsHandler := handlers.CompressHandler(dumpsHandler)
@@ -78,6 +79,9 @@ func init() {
 	Router.HandleFunc("/user/{id}/{username}/feed", RSSHandler).Name("feed_user")
 	Router.HandleFunc("/user/{id}/{username}/feed/{page}", RSSHandler).Name("feed_user_page")
 
+	// !!! This line need to have the same download location as the one define in config.TorrentStorageLink !!!
+	Router.Handle("/download/{hash}", wrapHandler(downloadTorrentHandler)).Name("torrent_download")
+
 	// INFO Everything under /mod should be wrapped by wrapModHandler. This make
 	// sure the page is only accessible by moderators
 	// TODO Find a native mux way to add a 'prehook' for route /mod
@@ -114,8 +118,8 @@ func init() {
 
 	Router.Handle("/dumps", gzipDatabaseDumpHandler).Name("dump").Methods("GET")
 
-	Router.HandleFunc("/language", SeeLanguagesHandler).Methods("GET").Name("see_languages")
-	Router.HandleFunc("/language", ChangeLanguageHandler).Methods("POST").Name("change_language")
+	Router.HandleFunc("/settings", SeePublicSettingsHandler).Methods("GET").Name("see_languages")
+	Router.HandleFunc("/settings", ChangePublicSettingsHandler).Methods("POST").Name("see_languages")
 
 	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
 }

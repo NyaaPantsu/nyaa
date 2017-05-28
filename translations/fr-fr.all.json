@@ -37,15 +37,15 @@
   },
   {
     "id": "email_address",
-    "translation": "Adresse email"
+    "translation": "Adresse email "
   },
   {
     "id": "password",
-    "translation": "Mot de passe"
+    "translation": "Mot de passe "
   },
   {
     "id": "confirm_password",
-    "translation": "Confirmer le mot de passe"
+    "translation": "Confirmer le mot de passe "
   },
   {
     "id": "i_agree",
@@ -141,7 +141,7 @@
   },
   {
     "id": "category",
-    "translation": "Catégorie"
+    "translation": "Catégorie "
   },
   {
     "id": "name",
@@ -149,7 +149,7 @@
   },
   {
     "id": "date",
-    "translation": "Date"
+    "translation": "Date "
   },
   {
     "id": "size",
@@ -537,11 +537,15 @@
   },
   {
     "id": "hash",
-    "translation": "Info Hash"
+    "translation": "Info Hash "
   },
   {
     "id": "description",
     "translation": "Description"
+  },  
+  {
+    "id": "no_description",
+    "translation": "Aucune description disponible."
   },
   {
     "id": "comments",
@@ -565,11 +569,11 @@
   },
   {
     "id": "language",
-    "translation": "Langue"
+    "translation": "Langue "
   },
   {
     "id": "current_password",
-    "translation": "Mot de passe actuel"
+    "translation": "Mot de passe actuel "
   },
   {
     "id": "role",
@@ -593,7 +597,7 @@
   },
   {
     "id": "api_token",
-    "translation": "Authentifieur d'API"
+    "translation": "Authentifieur d'API "
   },
   {
     "id": "save_changes",
@@ -657,15 +661,15 @@
   },
   {
     "id": "seeders",
-    "translation": "Seeders"
+    "translation": "Seeders "
   },
   {
     "id": "leechers",
-    "translation": "Leechers"
+    "translation": "Leechers "
   },
   {
     "id": "completed",
-    "translation": "Téléchargements"
+    "translation": "Téléchargements "
   },
   {
     "id": "change_language",
@@ -685,11 +689,15 @@
   },
   {
     "id": "website_link",
-    "translation": "Site web"
+    "translation": "Site web "
   },
   {
     "id": "files",
     "translation": "Liste des fichiers"
+  },
+  {
+    "id": "no_files",
+    "translation": "Aucun fichier trouvé."
   },
   {
     "id": "filename",
@@ -697,7 +705,7 @@
   },
   {
     "id": "uploaded_by",
-    "translation": "Uploadé par"
+    "translation": "Uploadé par "
   },
   {
     "id": "download_btn",
@@ -757,7 +765,7 @@
   },
   {
     "id": "last_scraped",
-    "translation": "Dernier scrape : "
+    "translation": "Dernier scrape :"
   },
   {
     "id": "server_status_link",
