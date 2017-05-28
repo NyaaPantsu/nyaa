@@ -23,6 +23,7 @@ body {
 	max-width: 100%;
 	height: 60vh;
 	-webkit-tap-highlight-color: transparent;
+	pointer-events: auto;
 }
 
 .header {
@@ -200,9 +201,9 @@ select.form-input {
 	height: auto;
 }
 
-#content { position: relative; top: 70px;   }
+#content { position: relative; top: 70px; pointer-events: none; }
 /* #content { padding-top: 70px;  } */
-.content { border-radius: 3px; padding: 5px 10px; }
+.content { border-radius: 3px; padding: 5px 10px; pointer-events: auto; }
 
 .box {
 	overflow: hidden;
@@ -282,7 +283,7 @@ th { border-bottom-width: 2px; }
 .pagination a:nth-last-child(2) li { border-radius: 0 3px 3px 0; border-right-width: 1px !important}
 
 
-#footer { width: 100%; bottom: 0; left: 0; margin-top: 40px;}
+#footer { width: 100%; bottom: 0; left: 0; margin-top: 40px; }
 
 .footer {
 	text-align: center;
@@ -358,7 +359,10 @@ body { color: #333; background: #ededed; }
 
 #mascot { background: url('/img/renchon.svg') no-repeat right bottom transparent; }
 
-a { color: #196759; }
+a { 
+	color: #196759;
+	pointer-events: auto;
+}
 a:hover { color:  #238BC7; }
 
 .header {
@@ -375,6 +379,8 @@ a:hover { color:  #238BC7; }
 	background: rgba(255,255,255, 0.8);
 	border-color: #BBC9CF !important;
 }
+
+#toggle_mascot { pointer-events: auto; }
 
 .form-input { border-color: #BBC9CF !important; background: #fafafa; color: #666; }
 
