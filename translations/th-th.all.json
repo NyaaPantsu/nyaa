@@ -546,6 +546,9 @@
   {
     "id": "comments",
     "translation": "คอมเมนท์"
+  {
+    "id": "no_description",
+    "translation": "ไม่ได้ระบุรายละเอียดเอาไว้!"
   },
   {
     "id": "submit_a_comment_as_username",
@@ -690,6 +693,10 @@
   {
     "id": "files",
     "translation": "ไฟล์"
+  },
+  {
+    "id": "no_files",
+    "translation": "ไม่เจอไฟล์? บ้าน่า!"
   },
   {
     "id": "filename",
@@ -841,7 +848,7 @@
   },
   {
     "id": "no_action_selected",
-    "translation": "คุณต้องบอกว่าคุณเลือกจะทำอะไร!"
+    "translation": "คุณต้องเลือกว่าคุณจะทำอะไร!"
   },
   {
     "id": "no_move_location_selected",
@@ -929,7 +936,7 @@
   },
   {
     "id": "delete_definitely_torrent_warning",
-    "translation": "คุณไม่สามารถกู้ไฟล์ได้ นอกจากหยุดคนอื่นไม่ให้อัพโหลดซ้ำ!!"
+    "translation": "คุณจะกู้ไฟล์กลับมาและหยุดคนอื่นไม่ให้อัพโหลดซ้ำไม่ได้!"
   },
   {
     "id": "delete_definitely",
