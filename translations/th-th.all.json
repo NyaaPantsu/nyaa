@@ -546,6 +546,7 @@
   {
     "id": "comments",
     "translation": "คอมเมนท์"
+  },
   {
     "id": "no_description",
     "translation": "ไม่ได้ระบุรายละเอียดเอาไว้!"
@@ -936,7 +937,7 @@
   },
   {
     "id": "delete_definitely_torrent_warning",
-    "translation": "คุณจะกู้ไฟล์กลับมาและหยุดคนอื่นไม่ให้อัพโหลดซ้ำไม่ได้!"
+    "translation": "คุณจะกู้ไฟล์กลับมาไม่ได้ จะหยุดคนอื่นไม่ให้อัพโหลดซ้ำก็ไม่ได้!"
   },
   {
     "id": "delete_definitely",
