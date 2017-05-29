@@ -1,0 +1,17 @@
+- name: Make directory
+  file:
+    state: directory
+    path: "{{ nyaapantsu_build_directory }}/src/github.com/NyaaPantsu"
+
+# TODO ability to get specify commit
+- name: Get latest nyaa
+  git:
+    repo: 'https://github.com/NyaaPantsu/nyaa'
+    dest: "{{ nyaapantsu_build_directory }}/src/github.com/NyaaPantsu/nyaa"
+
+- name: Go build
+  shell: go build
+  args: 
+    chdir: "{{ nyaapantsu_build_directory }}/src/github.com/NyaaPantsu/nyaa"
+  environment:
+    GOPATH: "/home/{{ ansible_ssh_user }}/{{ nyaapantsu_build_directory }}"
