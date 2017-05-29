@@ -21,7 +21,7 @@ const (
 	// CookieName : Name of cookie
 	CookieName = "session"
 	// UserContextKey : key for user context
-	UserContextKey = "user"
+	UserContextKey = "nyaapantsu.user"
 )
 
 // If you want to keep login cookies between restarts you need to make these permanent

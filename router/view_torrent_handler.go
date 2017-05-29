@@ -84,7 +84,7 @@ func ViewHeadHandler(w http.ResponseWriter, r *http.Request) {
 
 // PostCommentHandler : Controller for posting a comment
 func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
+	//defer r.Body.Close()
 	vars := mux.Vars(r)
 	id := vars["id"]
 

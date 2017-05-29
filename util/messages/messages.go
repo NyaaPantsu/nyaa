@@ -10,7 +10,7 @@ import (
 )
 
 // MessagesKey : use for context
-const MessagesKey = "messages"
+const MessagesKey = "nyaapantsu.messages"
 
 // Messages struct
 type Messages struct {

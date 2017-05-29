@@ -1,6 +1,7 @@
 package router
 
 import (
+	"html/template"
 	"net/http"
 	"net/url"
 
@@ -10,6 +11,7 @@ import (
 	userForms "github.com/NyaaPantsu/nyaa/service/user/form"
 	"github.com/NyaaPantsu/nyaa/util/filelist"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
+	"github.com/gorilla/csrf"
 	"github.com/gorilla/mux"
 )
 
@@ -102,6 +104,7 @@ type commonTemplateVariables struct {
 	User       *model.User
 	URL        *url.URL   // for parsing URL in templates
 	Route      *mux.Route // for getting current route in templates
+	CsrfField  template.HTML
 }
 
 type navigation struct {
@@ -152,5 +155,6 @@ func newCommonVariables(r *http.Request) commonTemplateVariables {
 		User:       getUser(r),
 		URL:        r.URL,
 		Route:      mux.CurrentRoute(r),
+		CsrfField:  csrf.TemplateField(r),
 	}
 }
