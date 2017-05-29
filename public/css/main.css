@@ -487,6 +487,11 @@ td.tr-le { color: #E84C4C; }
 	border-radius: 4px;
 }
 
+#filelist > p {
+	padding-right: 14px;
+    padding-left: 14px;
+}
+
 .torrent-info-box > * > img {
 	max-width: 100%;
 	max-height: 100%;
