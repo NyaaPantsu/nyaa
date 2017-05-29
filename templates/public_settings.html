@@ -13,10 +13,10 @@
 			</select>
 			<h3>{{call $.T "theme"}}</h3>
 			<select id="theme-selector" name="theme" class="form-input" onchange="switchThemes()">
-				<option value="{{$.Theme}}" selected>{{call $.T "select"}}</option>
+				<option value="{{$.Theme}}" selected>{{call $.T "theme_select"}}</option>
 				<option value="g">/g/</option>
 				<option value="tomorrow">Tomorrow</option>
-				<option value="">None</option>
+				<option value="">{{call $.T "theme_none"}}</option>
 			</select>
 			</br>
 			</br>
