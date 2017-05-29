@@ -542,10 +542,10 @@
   {
     "id": "description",
     "translation": "Descrição"
-  },		
-	{		
-	  "id": "no_description",		
-	  "translation": "Nenhuma descrição foi fornecida!"
+  },
+  {
+    "id": "no_description",
+    "translation": "Nenhuma descrição foi fornecida!"
   },
   {
     "id": "comments",
