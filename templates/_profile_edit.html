@@ -45,6 +45,16 @@
 					<p class="text-error">{{ . }}</p>
 				{{end}}
           <h3>{{ call $.T "preferences"}}</h3>
+          <label class="input-label" for="theme">{{call $.T "theme"}}</label> <br>
+          <select id="theme-selector" name="theme" class="form-input up-input" onchange="switchThemes()">
+            <option value="">{{call $.T "theme_select"}}</option>
+            <option value="g"{{ if eq $.Theme "g" }} selected{{end}}>/g/</option>
+            <option value="tomorrow"{{ if eq $.Theme "tomorrow" }} selected{{end}}>Tomorrow</option>
+            <option value=""{{ if eq $.Theme "" }} selected{{end}}>{{call $.T "theme_none"}}</option>
+          </select><br>
+          {{ range (index $.FormErrors "theme")}}
+          <p class="text-error">{{ . }}</p>
+          {{end}}
           {{ with .Settings }}
           {{ if DefaultUserSettings "new_torrent"}}
             <label class="input-label">{{ call $.T "new_torrent_settings" }}:</label> <br>

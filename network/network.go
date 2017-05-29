@@ -9,33 +9,27 @@ import (
 )
 
 // CreateHTTPListener creates a net.Listener for main http webapp given main config
-func CreateHTTPListener(conf *config.Config) (l net.Listener, err error) {
-	if conf.I2P == nil {
-		l, err = net.Listen("tcp", fmt.Sprintf("%s:%d", conf.Host, conf.Port))
-	} else {
+func CreateHTTPListener(conf *config.Config) (net.Listener, error) {
+	if conf.I2P != nil {
 		s := i2p.NewSession(conf.I2P.Name, conf.I2P.Addr, conf.I2P.Keyfile)
-		err = s.Open()
+		err := s.Open()
 		if s != nil {
 			log.Infof("i2p address: %s", s.B32Addr())
-			l = s
 		}
+		return s, err
 	}
-	if l != nil {
-		l = WrapListener(l)
-	}
-	return
+	return net.Listen("tcp", fmt.Sprintf("%s:%d", conf.Host, conf.Port))
 }
 
 // CreateScraperSocket creates a UDP Scraper socket
-func CreateScraperSocket(conf *config.Config) (pc net.PacketConn, err error) {
-	if conf.I2P == nil {
-		var laddr *net.UDPAddr
-		laddr, err = net.ResolveUDPAddr("udp", conf.Scrape.Addr)
-		if err == nil {
-			pc, err = net.ListenUDP("udp", laddr)
-		}
-	} else {
+func CreateScraperSocket(conf *config.Config) (net.PacketConn, error) {
+	if conf.I2P != nil {
 		log.Fatal("i2p udp scraper not supported")
 	}
-	return
+	var laddr *net.UDPAddr
+	laddr, err := net.ResolveUDPAddr("udp", conf.Scrape.Addr)
+	if err != nil {
+		return nil, err
+	}
+	return net.ListenUDP("udp", laddr)
 }

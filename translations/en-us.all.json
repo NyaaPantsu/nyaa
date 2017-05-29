@@ -970,5 +970,21 @@
   {
     "id": "torrent_nav_deleted",
     "translation": "Torrents deleted"
+  },
+  {
+    "id": "theme",
+    "translation": "Theme"
+  },
+  {
+    "id": "theme_select",
+    "translation": "Select a Theme"
+  },
+  {
+    "id": "theme_none",
+    "translation": "None"
+  },
+  {
+    "id": "mark_as_hidden",
+    "translation": "Mark as Hidden"
   }
 ]
