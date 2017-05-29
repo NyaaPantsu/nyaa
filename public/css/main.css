@@ -380,7 +380,7 @@ a:hover { color:  #238BC7; }
 	border-color: #BBC9CF !important;
 }
 
-#toggle_mascot { pointer-events: auto; }
+#mascotKeepHide { pointer-events: auto; }
 
 .form-input { border-color: #BBC9CF !important; background: #fafafa; color: #666; }
 
