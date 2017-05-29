@@ -17,10 +17,11 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/scraper"
 	"github.com/NyaaPantsu/nyaa/service/torrent/metainfoFetcher"
 	"github.com/NyaaPantsu/nyaa/service/user"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/NyaaPantsu/nyaa/util/signals"
+	"github.com/gorilla/csrf"
 )
 
 // RunServer runs webapp mainloop
@@ -29,8 +30,13 @@ func RunServer(conf *config.Config) {
 	os.Mkdir(router.DatabaseDumpPath, 700)
 	// TODO Use config from cli
 	os.Mkdir(router.GPGPublicKeyPath, 700)
-	http.Handle("/", router.Router)
 
+	// Please make EnableSecureCSRF to false when testing locally
+	if config.EnableSecureCSRF {
+		http.Handle("/", csrf.Protect(config.CSRFTokenHashKey)(router.Router))
+	} else {
+		http.Handle("/", csrf.Protect(config.CSRFTokenHashKey, csrf.Secure(false))(router.Router))
+	}
 	// Set up server,
 	srv := &http.Server{
 		WriteTimeout: 30 * time.Second,

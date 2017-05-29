@@ -5,6 +5,7 @@
 		<div class="box">
 			<div class="user-form">
 			<form role="form" method="POST">
+				{{ block "csrf_field" $ }}{{end}}
 				<h2>{{call $.T "signup_box_title" }}</h2>
 				{{ range (index $.FormErrors "errors")}}
    					<div class="alert alert-danger">{{ . }}</div>

@@ -9,6 +9,7 @@
         <h3>{{ call $.T "personal_info"}}</h3>
        <div class="user-edit">
         <form role="form" method="POST">
+            {{ block "csrf_field" $ }}{{end}}
             <label class="input-label">{{call $.T "api_token" }}:</label>
               <p style="font-family: monospace;">{{.APIToken}}</p>
               <a class="form-input up-input" href="{{ genRoute "user_profile_apireset" "id" (print .ID) "username" .Username }}">Reset Api key</a> <br> <br>

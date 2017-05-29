@@ -74,6 +74,7 @@
                 <h4>{{ call $.T "report_torrent_number" (print $.Torrent.ID) }}</h4>
                 <b>{{ call $.T "report_type" }}:</b>
                 <form method="post" action="/report/{{$.Torrent.ID}}">
+                    {{ block "csrf_field" $ }}{{end}}
                     <input type="radio" name="report_type" value="illegal" id="illegal" required> <label for="illegal">{{ call $.T "illegal_content" }}</label><br />
                     <input type="radio" name="report_type" value="spam" id="spam" required> <label for="spam">{{ call $.T "spam_garbage" }}</label><br />
                     <input type="radio" name="report_type" value="wrongcat" id="wrongcat" required> <label for="wrongcat">{{ call $.T "wrong_category" }}</label><br />
@@ -124,6 +125,7 @@
   {{end}}
   <div style="margin-top: 10px" class="torrent-info-box">
     <form method="post">
+                {{ block "csrf_field" $ }}{{end}}
                 <div class="comment-form">
                     <div class="comment-text">
                     <h3>{{ if gt .User.ID 0}} {{call $.T "submit_a_comment_as_username" .User.Username}} {{else}} {{call $.T "submit_a_comment_as_anonymous"}} {{end}}</h3>
