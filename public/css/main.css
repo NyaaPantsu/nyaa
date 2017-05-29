@@ -487,6 +487,11 @@ td.tr-le { color: #E84C4C; }
 	border-radius: 4px;
 }
 
+#filelist > p {
+	padding-right: 14px;
+    padding-left: 14px;
+}
+
 .torrent-info-box > * > img {
 	max-width: 100%;
 	max-height: 100%;
@@ -495,8 +500,11 @@ td.tr-le { color: #E84C4C; }
 .comment-box {
 	margin-top: 10px;
 	padding-left: 7px;
+	padding-right: 7px;
 	margin-right: 30px;
 	margin-left: 30px;
+	word-break: break-word;
+	text-align: justify;
 }
 .comment-form {
 	margin-left: 10px;
