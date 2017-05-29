@@ -1,72 +1,59 @@
 <!DOCTYPE html>
 <html lang="{{ call $.T "language_code" }}">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="torrents, cartel, pantsu, anime, manga, sukebei, nyaapassu, horriblesubs, nyaa, hentai, dlsite">
-    <meta name="description" content='The leading open-source community-based nyaa.se successor, suitable for all anime and manga needs. にゃんぱす~!'>
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{block "title" .}}{{ call $.T "error_404" }}{{end}}</title>
-    <link rel="icon" type="image/png" href="/img/favicon.png?v=3" />
+  	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="keywords" content="torrents, cartel, pantsu, anime, manga, sukebei, nyaapassu, horriblesubs, nyaa, hentai, dlsite">
+		<meta name="description" content='The leading open-source community-based nyaa.se successor, suitable for all anime and manga needs. にゃんぱす~!'>
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<title>{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{block "title" .}}{{ call $.T "error_404" }}{{end}}</title>
+		<link rel="icon" type="image/png" href="/img/favicon.png?v=3" />
 
-    <!-- RSS Feed with Context -->
-    <link href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
-    
-    <!-- do NOT move -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-    <!-- Base theme -->
-    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v=2">
-    <!-- User selected theme, if any -->
-    {{if $.Theme}}<link rel="stylesheet" id="theme" href="/css/{{$.Theme}}.css">{{end}}
+		<!-- RSS Feed with Context -->
+		<link href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}" rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" />
+		
+		<!-- do NOT move -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+		<!-- Base theme -->
+		<link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v=2">
+		<!-- User selected theme, if any -->
+		{{if $.Theme}}<link rel="stylesheet" id="theme" href="/css/{{$.Theme}}.css">{{end}}
 
-    <!-- Search Box for Google -->
-   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-		<script>
-			// We need this inline javascript for preventing theme flickering
-			function toggleMascot(btn) {
-				var state= btn.value;
-				if (state == "hide") {
-					btn.innerHTML = "Mascot";
-					document.getElementById("mascot").className = "hide";
-					btn.value = "show";
-				} else {
-					btn.innerHTML = "Mascot";
-					document.getElementById("mascot").className = "";
-					btn.value = "hide";
-				}
-			}
-		</script>
+		<!-- Search Box for Google -->
+		<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 		{{ block "additional_header" .}}{{end}}
-    </head>
-   <body>
-   <nav id="header" class="header">
-		<div class="container">
-			<div class="h-left">
-					<div class="h-logo">
-						<a href="{{.URL.Parse "/"}}"><img class="hide-md" src="/img/logo.png" alt="NyaaPantsu"><img class="visible-md" src="/img/logo_s.png"></img></a>
+	</head>
+   <body {{if Sukebei}}class="sukebei"{{end}}>
+	   <nav id="header" class="header">
+			<div class="container">
+				<div class="h-left">
+						<div class="h-logo">
+							<a href="{{.URL.Parse "/"}}"><img class="hide-md" src="/img/{{if Sukebei}}sukebei_logo.png{{else}}logo.png{{end}}" alt="NyaaPantsu"><img class="visible-md" src="/img/logo_s.png"/></a>
+						</div>
+						<div class="h-nav">
+							<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><div class="upload-icon visible-md"></div><span class="hide-md">{{ call $.T "upload" }}</span></a>
+							<a href="{{ genRouteWithQuery "feed" .URL }}" class="nav-btn"><div class="rss-icon visible-md"></div><span class="hide-md">RSS</span></a>
+							<a href="{{.URL.Parse "/faq"}}" class="nav-btn"><div class="faq-icon visible-md"></div><span class="hide-md">{{ call $.T "faq" }}</span></a>
+							{{if Sukebei}}
+							<a href="//nyaa.pantsu.cat" class="nav-btn"><div class="fun-icon visible-md"></div><span class="hide-md">{{ call $.T "fun" }}</span></a>
+							{{else}}
+							<a href="//sukebei.pantsu.cat" class="nav-btn"><div class="fap-icon visible-md"></div><span class="hide-md">{{ call $.T "fap" }}</span></a>
+							{{end}}
+						</div>
+				</div>
+				<div class="h-right">
+			{{block "badge_user" .}}{{end}}
+					<div class="h-search">
+					<form role="search" action="/search" method="get">
+							{{block "search_common" .}}{{end}}
+				{{block "search_button" .}}{{end}}
+					</form>
 					</div>
-					<div class="h-nav">
-						<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><div class="upload-icon visible-md"></div><span class="hide-md">{{ call $.T "upload" }}</span></a>
-						<a href="{{ genRouteWithQuery "feed" .URL }}" class="nav-btn"><div class="rss-icon visible-md"></div><span class="hide-md">RSS</span></a>
-						<a href="{{.URL.Parse "/faq"}}" class="nav-btn"><div class="faq-icon visible-md"></div><span class="hide-md">{{ call $.T "faq" }}</span></a>
-						{{if Sukebei}}
-						<a href="//nyaa.pantsu.cat" class="nav-btn"><div class="fun-icon visible-md"></div><span class="hide-md">{{ call $.T "fun" }}</span></a>
-						{{else}}
-						<a href="//sukebei.pantsu.cat" class="nav-btn"><div class="fap-icon visible-md"></div><span class="hide-md">{{ call $.T "fap" }}</span></a>
-						{{end}}
-					</div>
-			</div>
-			<div class="h-right">
-        {{block "badge_user" .}}{{end}}
-				<div class="h-search">
-				<form role="search" action="/search" method="get">
-						{{block "search_common" .}}{{end}}
-            {{block "search_button" .}}{{end}}
-				</form>
 				</div>
 			</div>
 		</div>
+<<<<<<< HEAD
 	</nav>
 <div id="content">
       <div class="content container center">
@@ -85,22 +72,18 @@
      <div class="pagination">
               {{ genNav .Navigation .URL 15 }}
 </div>
-
 <footer id="footer">
 			<div class="container footer center">
-
 				<div class="footer-opt">
-					<button class="form-input btn" onclick="toggleNightMode()" value="hide"><span class="oi" data-glyph="eye"></span>NightMode</button>
-					<button class="form-input btn" onclick="toggleMascot()" value="hide"><span class="oi" data-glyph="eye"></span>Mascot</button>
+					<button class="form-input btn indexbutton" onclick="toggleNightMode()" value="hide"><span class="oi" data-glyph="eye"></span>NightMode</button>
+					<button class="form-input btn indexbutton" onclick="toggleMascot()" value="hide"><span class="oi" data-glyph="eye"></span>Mascot</button>
 					<p><a href="/settings">Change Theme/Language</a></p>
 				</div>
-
 				<span><i>Powered by <a href="#">NyaaPantsu</a></i></span>
-
 			</div>
-		</footer>
-</div>
-  <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}?v=3"></script>
-	{{ block "footer_js" .}}{{end}}
-</body>
+			</footer>
+		</div>
+		<script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}?v=3"></script>
+		{{ block "footer_js" .}}{{end}}
+	</body>
 </html>

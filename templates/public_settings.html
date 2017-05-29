@@ -12,11 +12,18 @@
 			{{ end }}
 			</select>
 			<h3>{{call $.T "theme"}}</h3>
+<!-- Keeping around for now
 			<select id="theme-selector" name="theme" class="form-input" onchange="switchThemes();disableNightMode()">
 				<option value="{{$.Theme}}" selected>{{call $.T "select"}}</option>
 				<option value="g">/g/</option>
 				<option value="tomorrow">Tomorrow</option>
 				<option value="">None</option>
+-->
+			<select id="theme-selector" name="theme" class="form-input" onchange="switchThemes();disableNightMode">
+				<option value="">{{call $.T "theme_select"}}</option>
+				<option value="g"{{ if eq $.Theme "g" }} selected{{end}}>/g/</option>
+				<option value="tomorrow"{{ if eq $.Theme "tomorrow" }} selected{{end}}>Tomorrow</option>
+				<option value=""{{ if eq $.Theme "" }} selected{{end}}>{{call $.T "theme_none"}}</option>
 			</select>
 			</br>
 			</br>

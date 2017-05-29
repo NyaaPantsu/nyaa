@@ -107,11 +107,30 @@ for(var i in list) {
 }
 
 /*Fixed-Navbar offset fix*/
-window.onload = function() {
+document.addEventListener("DOMContentLoaded", function(event) {
 	var shiftWindow = function() { scrollBy(0, -70) };
 	if (location.hash) shiftWindow();
 	window.addEventListener("hashchange", shiftWindow);
-};
+	
+	document.getElementsByClassName("search-box")[0].addEventListener("focus", function (e) {
+		var w = document.getElementsByClassName("h-user")[0].offsetWidth;
+		document.getElementsByClassName("h-user")[0].style.display = "none";
+		document.getElementsByClassName("search-box")[0].style.width = document.getElementsByClassName("search-box")[0].offsetWidth + w + "px";
+	});
+	document.getElementsByClassName("search-box")[0].addEventListener("blur", function (e) {
+		document.getElementsByClassName("search-box")[0].style.width = "";
+		document.getElementsByClassName("h-user")[0].style.display = "inline-block";
+	});
+
+	// Keep mascot hiding choice
+	var hideMascot = (localStorage.getItem("hide_mascot") == "true")
+	if (hideMascot) {
+		var btn = document.getElementById("mascotKeepHide");
+		btn.innerHTML = "Mascot";
+		document.getElementById("mascot").className = "hide";
+		btn.value = "show";
+	}
+});
 
 // $(document).ready equivilent, prevents night mode flickering
 document.addEventListener("DOMContentLoaded", function(event) { 
@@ -126,5 +145,20 @@ function playVoice() {
 	else {
 		nyanpassu.volume = 0.5;
 		nyanpassu.play();
+	}
+}
+
+function toggleMascot(btn) {
+	var state= btn.value;
+	if (state == "hide") {
+		btn.innerHTML = "Mascot";
+		document.getElementById("mascot").className = "hide";
+		btn.value = "show";
+		localStorage.setItem("hide_mascot", "true")
+	} else {
+		btn.innerHTML = "Mascot";
+		document.getElementById("mascot").className = "";
+		btn.value = "hide";
+		localStorage.setItem("hide_mascot", "false")
 	}
 }

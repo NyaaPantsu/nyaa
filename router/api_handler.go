@@ -3,12 +3,13 @@ package router
 import (
 	"encoding/json"
 	"fmt"
-	elastic "gopkg.in/olivere/elastic.v5"
 	"html"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
+
+	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
@@ -172,6 +173,8 @@ func APIUploadHandler(w http.ResponseWriter, r *http.Request) {
 		upload.Category, _ = strconv.Atoi(r.FormValue("category"))
 		upload.SubCategory, _ = strconv.Atoi(r.FormValue("sub_category"))
 		upload.Description = r.FormValue("description")
+		upload.Remake, _ = strconv.ParseBool(r.FormValue("remake"))
+		upload.WebsiteLink = r.FormValue("website_link")
 
 		var err error
 		var code int
@@ -197,14 +200,22 @@ func APIUploadHandler(w http.ResponseWriter, r *http.Request) {
 			Name:        upload.Name,
 			Category:    upload.Category,
 			SubCategory: upload.SubCategory,
-			Status:      1,
+			Status:      model.TorrentStatusNormal,
 			Hash:        upload.Hash,
 			Date:        time.Now(),
 			Filesize:    filesize,
 			Description: upload.Description,
 			UploaderID:  user.ID,
 			Uploader:    &user,
+			WebsiteLink: upload.WebsiteLink,
 		}
+
+		if upload.Remake {
+			torrent.Status = model.TorrentStatusRemake
+		} else if user.IsTrusted() {
+			torrent.Status = model.TorrentStatusTrusted
+		}
+
 		db.ORM.Create(&torrent)
 
 		client, err := elastic.NewClient()

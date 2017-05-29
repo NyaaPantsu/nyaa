@@ -108,8 +108,12 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	if strings.TrimSpace(content) == "" {
 		messages.AddErrorT("errors", "comment_empty")
 	}
+	if len(content) > 500 {
+		messages.AddErrorT("errors", "comment_toolong")
+	}
 	if !messages.HasErrors() {
 		userID := currentUser.ID
+
 		comment := model.Comment{TorrentID: torrent.ID, UserID: userID, Content: content, CreatedAt: time.Now()}
 		err := db.ORM.Create(&comment).Error
 		comment.Torrent = &torrent

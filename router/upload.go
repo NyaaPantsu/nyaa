@@ -1,7 +1,6 @@
 package router
 
 import (
-	"encoding/hex"
 	"errors"
 	"fmt"
 	"io"
@@ -79,7 +78,7 @@ var errInvalidTorrentName = errors.New("Torrent name is invalid")
 // error indicating a torrent's description is invalid
 var errInvalidTorrentDescription = errors.New("Torrent description is invalid")
 
-// error indicating a torrent's description is invalid
+// error indicating a torrent's website link is invalid
 var errInvalidWebsiteLink = errors.New("Website url or IRC link is invalid")
 
 // error indicating a torrent's category is invalid
@@ -102,10 +101,10 @@ func (f *uploadForm) ExtractInfo(r *http.Request) error {
 	f.Hidden = r.FormValue(uploadFormHidden) == "on"
 
 	// trim whitespace
-	f.Name = util.TrimWhitespaces(f.Name)
-	f.Description = util.Sanitize(util.TrimWhitespaces(f.Description), "default")
-	f.WebsiteLink = util.TrimWhitespaces(f.WebsiteLink)
-	f.Magnet = util.TrimWhitespaces(f.Magnet)
+	f.Name = strings.TrimSpace(f.Name)
+	f.Description = util.Sanitize(strings.TrimSpace(f.Description), "default")
+	f.WebsiteLink = strings.TrimSpace(f.WebsiteLink)
+	f.Magnet = strings.TrimSpace(f.Magnet)
 	cache.Impl.ClearAll()
 	defer r.Body.Close()
 
@@ -172,12 +171,17 @@ func (f *uploadForm) ExtractInfo(r *http.Request) error {
 		if len(f.Magnet) != 0 {
 			return errTorrentPlusMagnet
 		}
-		binInfohash, err := torrent.Infohash()
-		if err != nil {
-			return err
+
+		_, seekErr = tfile.Seek(0, io.SeekStart)
+		if seekErr != nil {
+			return seekErr
 		}
-		f.Infohash = strings.ToUpper(hex.EncodeToString(binInfohash[:]))
-		f.Magnet = util.InfoHashToMagnet(f.Infohash, f.Name, trackers...)
+		infohash, err := metainfo.DecodeInfohash(tfile)
+		if err != nil {
+			return metainfo.ErrInvalidTorrentFile
+		}
+		f.Infohash = infohash
+		f.Magnet = util.InfoHashToMagnet(infohash, f.Name, trackers...)
 
 		// extract filesize
 		f.Filesize = int64(torrent.TotalSize())
@@ -249,8 +253,8 @@ func (f *uploadForm) ExtractEditInfo(r *http.Request) error {
 	f.Status, _ = strconv.Atoi(r.FormValue(uploadFormStatus))
 
 	// trim whitespace
-	f.Name = util.TrimWhitespaces(f.Name)
-	f.Description = util.Sanitize(util.TrimWhitespaces(f.Description), "default")
+	f.Name = strings.TrimSpace(f.Name)
+	f.Description = util.Sanitize(strings.TrimSpace(f.Description), "default")
 	defer r.Body.Close()
 
 	catsSplit := strings.Split(f.Category, "_")
