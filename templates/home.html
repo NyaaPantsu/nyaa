@@ -120,5 +120,6 @@ Your browser does not support the audio element.
           "</tr>";
         });
        Torrents.LastID = {{ lastID .URL .Models }};
+       if (Torrents.LastID > 0) Torrents.StartRefresh()
     </script>
 {{end}}

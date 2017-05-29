@@ -1,7 +1,7 @@
 var Torrents = {
     CanRefresh: false,
     timeout: undefined,
-    Seconds: 3,
+    Seconds: 300,
     SearchURL: "/api/search",
     Method: "prepend",
     LastID: 0,

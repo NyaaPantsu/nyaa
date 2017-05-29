@@ -5,12 +5,10 @@ var Templates = {
 		this.tmpl[templateName] = template
 	},
 	Render: function(templateName, model) {
-		console.log(model)
 		return this.tmpl[templateName](model)
 	},
 	ApplyItemListRenderer: function(params) {
 		return function(models) {
-			console.log("Parsing results...")
 			for (var i=0; i < models.length; i++) {
 				var object = Templates.Render(params.templateName, models[i]);
 				if (params.method == "append") {

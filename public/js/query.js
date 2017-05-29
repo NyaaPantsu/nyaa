@@ -6,7 +6,6 @@ var Query = {
         xhr.responseType = 'json';
         xhr.onload = function(e) {
             if (this.status == 200) {
-                console.log("Getting results...")
                 renderer(this.response);
                 callback(this.response)
             }
