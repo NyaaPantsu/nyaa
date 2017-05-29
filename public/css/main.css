@@ -498,7 +498,7 @@ td.tr-le { color: #E84C4C; }
     padding-left: 14px;
 }
 
-.torrent-info-box > * > img {
+.torrent-info-box img {
 	max-width: 100%;
 	max-height: 100%;
 }
