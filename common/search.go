@@ -156,13 +156,14 @@ func (c *Category) Parse(s string) (ok bool) {
 
 // deprecated for TorrentParam
 type SearchParam struct {
-	Order    bool // True means acsending
-	Status   Status
-	Sort     SortMode
-	Category Category
-	Page     int
-	UserID   uint
-	Max      uint
-	NotNull  string
-	Query    string
+	TorrentID uint
+	Order     bool // True means acsending
+	Status    Status
+	Sort      SortMode
+	Category  Category
+	Page      int
+	UserID    uint
+	Max       uint
+	NotNull   string
+	Query     string
 }

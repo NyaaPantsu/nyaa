@@ -6,6 +6,7 @@ import (
 	"strings"
 	"unicode"
 	"unicode/utf8"
+
 	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/cache"
@@ -83,23 +84,23 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool, d
 		torrentParam.FromRequest(r)
 		totalHits, torrents, err := torrentParam.Find(client)
 		searchParam := common.SearchParam{
-			Order: torrentParam.Order,
-			Status: torrentParam.Status,
-			Sort: torrentParam.Sort,
-			Category: torrentParam.Category,
-			Page: int(torrentParam.Offset),
-			UserID: uint(torrentParam.UserID),
-			Max: uint(torrentParam.Max),
-			NotNull: torrentParam.NotNull,
-			Query: torrentParam.NameLike,
+			TorrentID: uint(torrentParam.TorrentID),
+			Order:     torrentParam.Order,
+			Status:    torrentParam.Status,
+			Sort:      torrentParam.Sort,
+			Category:  torrentParam.Category,
+			Page:      int(torrentParam.Offset),
+			UserID:    uint(torrentParam.UserID),
+			Max:       uint(torrentParam.Max),
+			NotNull:   torrentParam.NotNull,
+			Query:     torrentParam.NameLike,
 		}
 		// Convert back to non-json torrents
 		return searchParam, torrents, int(totalHits), err
-	} else {
-		log.Errorf("Unable to create elasticsearch client: %s", err)
-		log.Errorf("Falling back to postgresql query")
-		return searchByQueryPostgres(r, pagenum, countAll, withUser, deleted)
 	}
+	log.Errorf("Unable to create elasticsearch client: %s", err)
+	log.Errorf("Falling back to postgresql query")
+	return searchByQueryPostgres(r, pagenum, countAll, withUser, deleted)
 }
 
 func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser bool, deleted bool) (
@@ -117,6 +118,8 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 	search.Query = r.URL.Query().Get("q")
 	userID, _ := strconv.Atoi(r.URL.Query().Get("userID"))
 	search.UserID = uint(userID)
+	torrentID, _ := strconv.Atoi(r.URL.Query().Get("torrentID"))
+	search.TorrentID = uint(torrentID)
 
 	switch s := r.URL.Query().Get("s"); s {
 	case "1":
@@ -215,6 +218,10 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 	if search.UserID != 0 {
 		conditions = append(conditions, "uploader = ?")
 		parameters.Params = append(parameters.Params, search.UserID)
+	}
+	if search.TorrentID != 0 {
+		conditions = append(conditions, "torrent_id > ?")
+		parameters.Params = append(parameters.Params, search.TorrentID)
 	}
 	if search.Category.Sub != 0 {
 		conditions = append(conditions, "sub_category = ?")
