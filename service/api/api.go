@@ -198,11 +198,15 @@ func (r *TorrentRequest) ValidateMultipartUpload(req *http.Request) (int64, erro
 			r.Name = torrent.TorrentName()
 		}
 
-		binInfohash, err := torrent.Infohash()
+		_, err = tfile.Seek(0, io.SeekStart)
 		if err != nil {
 			return 0, err, http.StatusInternalServerError
 		}
-		r.Hash = strings.ToUpper(hex.EncodeToString(binInfohash[:]))
+		infohash, err := metainfo.DecodeInfohash(tfile)
+		if err != nil {
+			return 0, err, http.StatusInternalServerError
+		}
+		r.Hash = infohash
 
 		// extract filesize
 		filesize := int64(torrent.TotalSize())

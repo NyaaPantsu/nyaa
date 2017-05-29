@@ -1,7 +1,6 @@
 package router
 
 import (
-	"encoding/hex"
 	"errors"
 	"fmt"
 	"io"
@@ -172,12 +171,17 @@ func (f *uploadForm) ExtractInfo(r *http.Request) error {
 		if len(f.Magnet) != 0 {
 			return errTorrentPlusMagnet
 		}
-		binInfohash, err := torrent.Infohash()
-		if err != nil {
-			return err
+
+		_, seekErr = tfile.Seek(0, io.SeekStart)
+		if seekErr != nil {
+			return seekErr
 		}
-		f.Infohash = strings.ToUpper(hex.EncodeToString(binInfohash[:]))
-		f.Magnet = util.InfoHashToMagnet(f.Infohash, f.Name, trackers...)
+		infohash, err := metainfo.DecodeInfohash(tfile)
+		if err != nil {
+			return metainfo.ErrInvalidTorrentFile
+		}
+		f.Infohash = infohash
+		f.Magnet = util.InfoHashToMagnet(infohash, f.Name, trackers...)
 
 		// extract filesize
 		f.Filesize = int64(torrent.TotalSize())
