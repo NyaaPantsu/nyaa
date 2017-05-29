@@ -33,9 +33,9 @@ func RunServer(conf *config.Config) {
 
 	// Please make EnableSecureCSRF to false when testing locally
 	if config.EnableSecureCSRF {
-		http.Handle("/", csrf.Protect([]byte("q8satbudwexfzh2j3m5n6p8r9satcvsd"))(router.Router))
+		http.Handle("/", csrf.Protect(config.CSRFTokenHashKey)(router.Router))
 	} else {
-		http.Handle("/", csrf.Protect([]byte("q8satbudwexfzh2j3m5n6p8r9satcvsd"), csrf.Secure(false))(router.Router))
+		http.Handle("/", csrf.Protect(config.CSRFTokenHashKey, csrf.Secure(false))(router.Router))
 	}
 	// Set up server,
 	srv := &http.Server{
