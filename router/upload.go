@@ -101,10 +101,10 @@ func (f *uploadForm) ExtractInfo(r *http.Request) error {
 	f.Hidden = r.FormValue(uploadFormHidden) == "on"
 
 	// trim whitespace
-	f.Name = util.TrimWhitespaces(f.Name)
-	f.Description = util.Sanitize(util.TrimWhitespaces(f.Description), "default")
-	f.WebsiteLink = util.TrimWhitespaces(f.WebsiteLink)
-	f.Magnet = util.TrimWhitespaces(f.Magnet)
+	f.Name = strings.TrimSpace(f.Name)
+	f.Description = util.Sanitize(strings.TrimSpace(f.Description), "default")
+	f.WebsiteLink = strings.TrimSpace(f.WebsiteLink)
+	f.Magnet = strings.TrimSpace(f.Magnet)
 	cache.Impl.ClearAll()
 	defer r.Body.Close()
 
@@ -253,8 +253,8 @@ func (f *uploadForm) ExtractEditInfo(r *http.Request) error {
 	f.Status, _ = strconv.Atoi(r.FormValue(uploadFormStatus))
 
 	// trim whitespace
-	f.Name = util.TrimWhitespaces(f.Name)
-	f.Description = util.Sanitize(util.TrimWhitespaces(f.Description), "default")
+	f.Name = strings.TrimSpace(f.Name)
+	f.Description = util.Sanitize(strings.TrimSpace(f.Description), "default")
 	defer r.Body.Close()
 
 	catsSplit := strings.Split(f.Category, "_")
