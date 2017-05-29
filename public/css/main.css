@@ -26,6 +26,11 @@ body {
 	pointer-events: auto;
 }
 
+.indexbutton {
+	/* Makes sure the buttons have higher priority than Renge */
+	pointer-events: auto;
+}
+
 .header {
 	z-index: 3;
 	position: fixed;
