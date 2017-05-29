@@ -141,7 +141,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err.Error())
 		}
-		go signals.Handle()
+		signals.Handle()
 		if len(config.TorrentFileStorage) > 0 {
 			err := os.MkdirAll(config.TorrentFileStorage, 0700)
 			if err != nil {
