@@ -1,7 +1,7 @@
 var explosion = document.getElementById("explosion");
 var nyanpassu = document.getElementById("nyanpassu");
 
-function switchThemes(themeName=null){
+function switchThemes(themeName){
 	// Switches between themes when a new one is selected
 
 	// Get the theme from the selector if we are not manually passing one
