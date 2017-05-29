@@ -970,5 +970,17 @@
   {
     "id": "torrent_nav_deleted",
     "translation": "Torrent は削除されました"
+  },
+  {
+    "id": "theme",
+    "translation": "テーマ"
+  },
+  {
+    "id": "theme_select",
+    "translation": "-- テーマを選択 --"
+  },
+  {
+    "id": "theme_none",
+    "translation": "なし"
   }
 ]
