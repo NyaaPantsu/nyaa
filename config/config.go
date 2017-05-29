@@ -64,7 +64,19 @@ type Config struct {
 }
 
 // Defaults : Configuration by default
-var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50", "default", DefaultScraperConfig, DefaultCacheConfig, DefaultSearchConfig, nil, DefaultMetainfoFetcherConfig, DefaultI18nConfig}
+var Defaults = Config{
+	Host: "localhost",
+	Port: 9999,
+	DBType: "sqlite3",
+	DBParams: "./nyaa.db?cache_size=50",
+	DBLogMode: "default",
+	Scrape: DefaultScraperConfig,
+	Cache: DefaultCacheConfig,
+	Search: DefaultSearchConfig,
+	I2P: nil,
+	MetainfoFetcher: DefaultMetainfoFetcherConfig,
+	I18n: DefaultI18nConfig,
+}
 
 var allowedDatabaseTypes = map[string]bool{
 	"sqlite3":  true,
@@ -81,17 +93,9 @@ var allowedDBLogModes = map[string]bool{
 
 // New : Construct a new config variable
 func New() *Config {
-	var config Config
-	config.Host = Defaults.Host
-	config.Port = Defaults.Port
-	config.DBType = Defaults.DBType
-	config.DBParams = Defaults.DBParams
-	config.DBLogMode = Defaults.DBLogMode
-	config.Scrape = Defaults.Scrape
-	config.Cache = Defaults.Cache
-	config.MetainfoFetcher = Defaults.MetainfoFetcher
-	config.I18n = Defaults.I18n
-	return &config
+	cfg := &Config{}
+	*cfg = Defaults
+	return cfg
 }
 
 // BindFlags returns a function which is to be used after
