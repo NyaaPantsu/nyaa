@@ -52,10 +52,37 @@
 					</div>
 				</div>
 			</div>
-		</nav>
-		<div id="content">
-			<div class="content container center">
-				{{block "content" .}}{{call $.T "nothing_here"}}{{end}}
+		</div>
+	</nav>
+<div id="content">
+      <div class="content container center">
+        {{block "content" .}}{{call $.T "nothing_here"}}{{end}}
+      </div>
+<div id="mascot" class="hide-xs" onclick="playVoice();"></div>
+	{{ if eq .Theme "tomorrow" }}
+	<audio id="explosion" hidden preload="none">
+        <source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
+     </audio>
+	{{ else }}
+     <audio id="nyanpassu" hidden preload="none">
+        <source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
+     </audio>
+	 {{end}}
+     <div class="pagination">
+              {{ genNav .Navigation .URL 15 }}
+</div>
+
+<footer id="footer">
+			<div class="container footer center">
+
+				<div class="footer-opt">
+					<button class="form-input btn" onclick="toggleNightMode({{$.Theme}})" value="hide"><span class="oi" data-glyph="eye"></span>NightMode</button>
+					<button class="form-input btn" onclick="toggleMascot()" value="hide"><span class="oi" data-glyph="eye"></span>Mascot</button>
+					<p><a href="/settings">Change Language/Theme</a></p>
+				</div>
+
+				<span><i>Powered by <a href="#">NyaaPantsu</a></i></span>
+
 			</div>
 			<div id="mascot" class="hide-xs" onclick="playVoice();"></div>
 			{{ if eq .Theme "tomorrow" }}

@@ -12,7 +12,7 @@
 			{{ end }}
 			</select>
 			<h3>{{call $.T "theme"}}</h3>
-			<select id="theme-selector" name="theme" class="form-input" onchange="switchThemes()">
+			<select id="theme-selector" name="theme" class="form-input" onchange="switchThemes();disableNightMode()"">
 				<option value="">{{call $.T "theme_select"}}</option>
 				<option value="g"{{ if eq $.Theme "g" }} selected{{end}}>/g/</option>
 				<option value="tomorrow"{{ if eq $.Theme "tomorrow" }} selected{{end}}>Tomorrow</option>
