@@ -21,7 +21,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/NyaaPantsu/nyaa/util/signals"
-	"github.com/gorilla/csrf"
 )
 
 // RunServer runs webapp mainloop
@@ -31,12 +30,8 @@ func RunServer(conf *config.Config) {
 	// TODO Use config from cli
 	os.Mkdir(router.GPGPublicKeyPath, 700)
 
-	// Please make EnableSecureCSRF to false when testing locally
-	if config.EnableSecureCSRF {
-		http.Handle("/", csrf.Protect(config.CSRFTokenHashKey)(router.Router))
-	} else {
-		http.Handle("/", csrf.Protect(config.CSRFTokenHashKey, csrf.Secure(false))(router.Router))
-	}
+	http.Handle("/", router.Router)
+
 	// Set up server,
 	srv := &http.Server{
 		WriteTimeout: 30 * time.Second,
