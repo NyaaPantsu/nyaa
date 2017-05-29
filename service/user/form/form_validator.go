@@ -67,6 +67,7 @@ type UserForm struct {
 	Password        string `form:"password" len_min:"6" len_max:"72" equalInput:"ConfirmPassword"`
 	ConfirmPassword string `form:"password_confirmation" omit:"true"`
 	Status          int    `form:"status" default:"0"`
+	Theme           string `form:"theme"`
 }
 
 // UserSettingsForm is used when updating a user.
