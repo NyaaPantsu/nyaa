@@ -8,8 +8,20 @@
     "translation": "404 Page Introuvable"
   },
   {
+    "id": "language_code",
+    "translation": "fr-fr"
+  },
+  {
     "id": "error_404",
     "translation": "Erreur 404"
+  },
+  {
+    "id": "fun",
+    "translation": "Fun"
+  },
+  {
+    "id": "fap",
+    "translation": "Fap"
   },
   {
     "id": "nothing_here",
@@ -24,12 +36,20 @@
     "translation": "Langue"
   },
   {
-    "id": "language_code",
-    "translation": "fr-fr"
-  },
-  {
     "id": "language_name",
     "translation": "Français"
+  },
+  {
+    "id": "theme",
+    "translation": "Thème"
+  },
+  {
+    "id": "theme_select",
+    "translation": "Choisir un thème"
+  },
+  {
+    "id": "theme_none",
+    "translation": "Aucun"
   },
   {
     "id": "save_changes",
@@ -78,6 +98,10 @@
   {
     "id": "mark_as_remake",
     "translation": "Marquer comme remake"
+  },
+  {
+    "id": "mark_as_hidden",
+    "translation": "Marquer comme caché"
   },
   {
     "id": "website_link",
@@ -230,14 +254,6 @@
   {
     "id": "renchon_anon_explanation",
     "translation": "れんちょん (Ren-chon) est le nom d'utilisateur par défaut assigné aux uploads et commentaires anonymes. Il est utilisé pour les torrents importés du Nyaa original, bien que l'auteur d'origine puisse parfois être affiché."
-  },
-  {
-    "id": "fap",
-    "translation": "Fap"
-  },
-  {
-    "id": "fun",
-    "translation": "Fun"
   },
   {
     "id": "all_categories",
