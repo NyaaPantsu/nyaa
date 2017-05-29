@@ -39,12 +39,12 @@
 		</script>
 		{{ block "additional_header" .}}{{end}}
     </head>
-   <body>
+   <body {{if Sukebei}}class="sukebei"{{end}}>
    <nav id="header" class="header">
 		<div class="container">
 			<div class="h-left">
 					<div class="h-logo">
-						<a href="{{.URL.Parse "/"}}"><img class="hide-md" src="/img/logo.png" alt="NyaaPantsu"><img class="visible-md" src="/img/logo_s.png" /></a>
+						<a href="{{.URL.Parse "/"}}"><img class="hide-md" src="/img/{{if Sukebei}}sukebei_logo.png{{else}}logo.png{{end}}" alt="NyaaPantsu"><img class="visible-md" src="/img/logo_s.png"/></a>
 					</div>
 					<div class="h-nav">
 						<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><div class="upload-icon visible-md"></div><span class="hide-md">{{ call $.T "upload" }}</span></a>
