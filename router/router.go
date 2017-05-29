@@ -60,6 +60,7 @@ func init() {
 
 	// For now, no CSRF protection here, as API is not usable for uploads
 	Router.HandleFunc("/upload", UploadHandler).Name("upload")
+	Router.HandleFunc("/user/login", UserLoginPostHandler).Name("user_login").Methods("POST")
 
 	torrentViewRoutes := Router.PathPrefix("/view").Subrouter()
 	torrentViewRoutes.Handle("/{id}", wrapHandler(gzipViewHandler)).Methods("GET").Name("view_torrent")
@@ -75,7 +76,6 @@ func init() {
 	userRoutes.HandleFunc("/register", UserRegisterFormHandler).Name("user_register").Methods("GET")
 	userRoutes.HandleFunc("/login", UserLoginFormHandler).Name("user_login").Methods("GET")
 	userRoutes.HandleFunc("/register", UserRegisterPostHandler).Name("user_register").Methods("POST")
-	userRoutes.HandleFunc("/login", UserLoginPostHandler).Name("user_login").Methods("POST")
 	userRoutes.HandleFunc("/logout", UserLogoutHandler).Name("user_logout")
 	userRoutes.Handle("/{id}/{username}", wrapHandler(gzipUserProfileHandler)).Name("user_profile").Methods("GET")
 	userRoutes.HandleFunc("/{id}/{username}/follow", UserFollowHandler).Name("user_follow").Methods("GET")
