@@ -25,11 +25,12 @@ func (logger *errorLogger) Print(values ...interface{}) {
 }
 
 func TestGormInitSqlite(t *testing.T) {
-	config.Conf.DBType = SqliteType
-	config.Conf.DBParams = ":memory:?cache=shared&mode=memory"
-	config.Conf.DBLogMode = "detailed"
+	conf := &config.Config{}
+	conf.DBType = SqliteType
+	conf.DBParams = ":memory:?cache=shared&mode=memory"
+	conf.DBLogMode = "detailed"
 
-	db, err := GormInit(config.Conf, &errorLogger{t})
+	db, err := GormInit(conf, &errorLogger{t})
 	if err != nil {
 		t.Errorf("failed to initialize database: %v", err)
 		return
@@ -60,12 +61,13 @@ func TestGormInitPostgres(t *testing.T) {
 	if testPostgres != "true" {
 		t.Skip("skip", testPostgres)
 	}
+	conf := &config.Config{}
 
-	config.Conf.DBType = "postgres"
-	config.Conf.DBParams = "host=localhost user=nyaapantsu dbname=nyaapantsu sslmode=disable password=nyaapantsu"
-	config.Conf.DBLogMode = "detailed"
+	conf.DBType = "postgres"
+	conf.DBParams = "host=localhost user=nyaapantsu dbname=nyaapantsu sslmode=disable password=nyaapantsu"
+	conf.DBLogMode = "detailed"
 
-	db, err := GormInit(config.Conf, &errorLogger{t})
+	db, err := GormInit(conf, &errorLogger{t})
 	if err != nil {
 		t.Errorf("failed to initialize database: %v", err)
 	}

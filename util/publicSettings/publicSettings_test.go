@@ -8,7 +8,7 @@ import (
 )
 
 func TestInitI18n(t *testing.T) {
-	conf := config.Conf.I18n
+	conf := config.I18nConfig{}
 	conf.Directory = path.Join("..", "..", conf.Directory)
 	var retriever UserRetriever // not required during initialization
 
