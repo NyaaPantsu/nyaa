@@ -3,6 +3,7 @@
 <div class="blockBody">
 	<hr>
 	<form role="form" method="POST">
+		{{ block "csrf_field" $ }}{{end}}
 		<div class="form-group">
 			<h3>{{call $.T "language"}}</h3>
 			<select id="language" name="language" class="form-input">

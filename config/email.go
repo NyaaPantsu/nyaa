@@ -23,6 +23,3 @@ const (
 	// EmailTimeout : Timeout for waiting server response
 	EmailTimeout = 10 * time.Second
 )
-
-// EmailTokenHashKey : /!\ Email hash for generating email activation token /!\
-var EmailTokenHashKey = []byte("CHANGE_THIS_BEFORE_DEPLOYING_YOU_GIT")
