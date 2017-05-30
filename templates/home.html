@@ -106,11 +106,11 @@ Your browser does not support the audio element.
                       {{ end }}
                   "</a>"+
               "</td>"+
-              "<td class=\"tr-name home-td\"><a href=\"/view/"+torrent.id+"\">"+ torrent.name +"</a></td>"+
+              "<td class=\"tr-name home-td\"><a href=\"/view/"+torrent.id+"\">"+Templates.EncodeEntities(torrent.name) +"</a></td>"+
               "<td class=\"tr-links home-td\">"+
                   "<a href=\""+torrent.magnet +"\" title=\"{{ call $.T "magnet_link" }}\">"+
                       "<div class=\"magnet-icon\"></div>"+
-                  "</a>"+(torrent.torrent != "" ? "<a href=\""+torrent.torrent+"\" title=\"{{ call $.T "torrent_file" }}\"><div class=\"download-icon\"></div></a>" : "") +
+                  "</a>"+(torrent.torrent != "" ? " <a href=\""+torrent.torrent+"\" title=\"{{ call $.T "torrent_file" }}\"><div class=\"download-icon\"></div></a>" : "") +
               "</td>"+
               "<td class=\"tr-size home-td hide-xs\">"+humanFileSize(torrent.filesize)+"</td>"+
               "<td class=\"tr-se home-td hide-xs\">"+torrent.seeders+"</td>"+
@@ -120,6 +120,6 @@ Your browser does not support the audio element.
           "</tr>";
         });
        Torrents.LastID = {{ lastID .URL .Models }};
-       if (Torrents.LastID > 0) Torrents.StartRefresh()
+       if (Torrents.LastID > 0) Torrents.CanRefresh = true;
     </script>
 {{end}}
