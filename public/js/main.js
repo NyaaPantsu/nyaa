@@ -52,25 +52,27 @@ function toggleLayer(elem) {
 	else
 		elem.classList.add("hide");
 }
+function parseAllDates() {
+	// Date formatting
+	var lang = document.getElementsByTagName("html")[0].getAttribute("lang"); 
+	var ymdOpt = { year: "numeric", month: "short", day: "numeric" };
+	var hmOpt  = { hour: "numeric", minute: "numeric" };
 
-// Date formatting
-var lang = document.getElementsByTagName("html")[0].getAttribute("lang"); 
-var ymdOpt = { year: "numeric", month: "short", day: "numeric" };
-var hmOpt  = { hour: "numeric", minute: "numeric" };
+	var list = document.getElementsByClassName("date-short");
+	for(var i in list) {
+		var e = list[i];
+		e.title = e.innerText;
+		e.innerText = new Date(e.innerText).toLocaleString(lang, ymdOpt);
+	}
 
-var list = document.getElementsByClassName("date-short");
-for(var i in list) {
-	var e = list[i];
-	e.title = e.innerText;
-	e.innerText = new Date(e.innerText).toLocaleString(lang, ymdOpt);
+	var list = document.getElementsByClassName("date-full");
+	for(var i in list) {
+		var e = list[i];
+		e.title = e.innerText;
+		e.innerText = new Date(e.innerText).toLocaleString(lang);
+	}
 }
-
-var list = document.getElementsByClassName("date-full");
-for(var i in list) {
-	var e = list[i];
-	e.title = e.innerText;
-	e.innerText = new Date(e.innerText).toLocaleString(lang);
-}
+parseAllDates();
 /*Fixed-Navbar offset fix*/
 document.addEventListener("DOMContentLoaded", function(event) {
 	var shiftWindow = function() { scrollBy(0, -70) };
