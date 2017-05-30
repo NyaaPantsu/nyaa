@@ -1,16 +1,6 @@
 var explosion = document.getElementById("explosion");
 var nyanpassu = document.getElementById("nyanpassu");
 
-function toggleNightMode() {
-	var night = localStorage.getItem("night");
-	if(night == "true") {
-		document.getElementsByTagName("head")[0].removeChild(darkStyleLink);
-	} else {
-		document.getElementsByTagName("head")[0].appendChild(darkStyleLink);
-	}
-	localStorage.setItem("night", (night == "true") ? "false" : "true");
-}
-
 // Switches between themes when a new one is selected
 function switchThemes(){
 	themeName = document.getElementById("theme-selector").value
@@ -29,20 +19,6 @@ function switchThemes(){
         newTheme.setAttribute("href", "/css/"+ themeName + ".css");
         newTheme.setAttribute("id", "theme");
 	head.appendChild(newTheme);
-}
-
-
-function toggleMascot(btn) {
-	var state= btn.value;
-	if (state == "hide") {
-		btn.innerHTML = "Mascot";
-		document.getElementById("mascot").className = "hide";
-		btn.value = "show";
-	} else {
-		btn.innerHTML = "Mascot";
-		document.getElementById("mascot").className = "";
-		btn.value = "hide";
-	}
 }
 
 // Used by spoiler tags
@@ -71,6 +47,7 @@ for(var i in list) {
 	e.title = e.innerText;
 	e.innerText = new Date(e.innerText).toLocaleString(lang);
 }
+
 /*Fixed-Navbar offset fix*/
 document.addEventListener("DOMContentLoaded", function(event) {
 	var shiftWindow = function() { scrollBy(0, -70) };
@@ -86,15 +63,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		document.getElementsByClassName("search-box")[0].style.width = "";
 		document.getElementsByClassName("h-user")[0].style.display = "inline-block";
 	});
-
-	// Keep mascot hiding choice
-	var hideMascot = (localStorage.getItem("hide_mascot") == "true")
-	if (hideMascot) {
-		var btn = document.getElementById("mascotKeepHide");
-		btn.innerHTML = "Mascot";
-		document.getElementById("mascot").className = "hide";
-		btn.value = "show";
-	}
 });
 
 function playVoice() {
@@ -104,20 +72,5 @@ function playVoice() {
 	else {
 		nyanpassu.volume = 0.5;
 		nyanpassu.play();
-	}
-}
-
-function toggleMascot(btn) {
-	var state= btn.value;
-	if (state == "hide") {
-		btn.innerHTML = "Mascot";
-		document.getElementById("mascot").className = "hide";
-		btn.value = "show";
-		localStorage.setItem("hide_mascot", "true")
-	} else {
-		btn.innerHTML = "Mascot";
-		document.getElementById("mascot").className = "";
-		btn.value = "hide";
-		localStorage.setItem("hide_mascot", "false")
 	}
 }

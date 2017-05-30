@@ -46,6 +46,7 @@ func SeePublicSettingsHandler(w http.ResponseWriter, r *http.Request) {
 func ChangePublicSettingsHandler(w http.ResponseWriter, r *http.Request) {
 	theme := r.FormValue("theme")
 	lang := r.FormValue("language")
+	mascot := r.FormValue("mascot")
 
 	availableLanguages := publicSettings.GetAvailableLanguages()
 	defer r.Body.Close()
@@ -59,12 +60,14 @@ func ChangePublicSettingsHandler(w http.ResponseWriter, r *http.Request) {
 	if user.ID > 0 {
 		user.Language = lang
 		user.Theme = theme
+		user.Mascot = mascot
 		// I don't know if I should use this...
 		userService.UpdateUserCore(&user)
 	}
 	// Set cookie
 	http.SetCookie(w, &http.Cookie{Name: "lang", Value: lang, Expires: timeHelper.FewDaysLater(365)})
 	http.SetCookie(w, &http.Cookie{Name: "theme", Value: theme, Expires: timeHelper.FewDaysLater(365)})
+	http.SetCookie(w, &http.Cookie{Name: "mascot", Value: mascot, Expires: timeHelper.FewDaysLater(365)})
 
 	url, _ := Router.Get("home").URL()
 	http.Redirect(w, r, url.String(), http.StatusSeeOther)

@@ -146,10 +146,23 @@ func GetThemeFromRequest(r *http.Request) string {
 	return ""
 }
 
+// GetThemeFromRequest: Gets the user selected theme from the request
+func GetMascotFromRequest(r *http.Request) string {
+	user, _ := getCurrentUser(r)
+	if user.ID > 0 {
+		return user.Mascot
+	}
+	cookie, err := r.Cookie("mascot")
+	if err == nil {
+		return cookie.Value
+	}
+	return "show"
+}
+
+
 func getCurrentUser(r *http.Request) (model.User, error) {
 	if userRetriever == nil {
 		return model.User{}, errors.New("failed to get current user: no user retriever set")
 	}
-
 	return userRetriever.RetrieveCurrentUser(r)
 }

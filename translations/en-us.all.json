@@ -986,5 +986,22 @@
   {
     "id": "mark_as_hidden",
     "translation": "Mark as Hidden"
+  },
+  {
+    "id": "mascot_select",
+    "translation": "Mascot"
+  },
+
+  {
+    "id": "cookies",
+    "translation": "By cliking save you consent to our use of cookies"
+  },
+  {
+    "id": "show",
+    "translation": "Show"
+  },
+  {
+    "id": "hide",
+    "translation": "Hide"
   }
 ]

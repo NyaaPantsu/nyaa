@@ -32,6 +32,7 @@ type User struct {
 	APITokenExpiry time.Time `gorm:"column:api_token_expiry"`
 	Language       string    `gorm:"column:language"`
 	Theme          string    `gorm:"column:theme"`
+	Mascot         string    `gorm:"column:mascot"`
 	UserSettings   string    `gorm:"column:settings"`
 
 	// TODO: move this to PublicUser
