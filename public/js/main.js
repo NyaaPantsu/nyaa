@@ -35,11 +35,9 @@ function switchThemes(){
 function toggleMascot(btn) {
 	var state= btn.value;
 	if (state == "hide") {
-		btn.innerHTML = "Mascot";
 		document.getElementById("mascot").className = "hide";
 		btn.value = "show";
 	} else {
-		btn.innerHTML = "Mascot";
 		document.getElementById("mascot").className = "";
 		btn.value = "hide";
 	}
@@ -93,7 +91,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var hideMascot = (localStorage.getItem("hide_mascot") == "true")
 	if (hideMascot) {
 		var btn = document.getElementById("mascotKeepHide");
-		btn.innerHTML = "Mascot";
 		document.getElementById("mascot").className = "hide";
 		btn.value = "show";
 	}
@@ -112,12 +109,10 @@ function playVoice() {
 function toggleMascot(btn) {
 	var state= btn.value;
 	if (state == "hide") {
-		btn.innerHTML = "Mascot";
 		document.getElementById("mascot").className = "hide";
 		btn.value = "show";
 		localStorage.setItem("hide_mascot", "true")
 	} else {
-		btn.innerHTML = "Mascot";
 		document.getElementById("mascot").className = "";
 		btn.value = "hide";
 		localStorage.setItem("hide_mascot", "false")
