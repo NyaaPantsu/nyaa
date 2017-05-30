@@ -22,6 +22,8 @@ const (
 	CookieName = "session"
 	// UserContextKey : key for user context
 	UserContextKey = "user"
+	// Domain name : The host domain so these can be shared across sukebei and nyaa
+	DomainName = "pantsu.cat"
 )
 
 // If you want to keep login cookies between restarts you need to make these permanent
@@ -58,6 +60,7 @@ func EncodeCookie(userID uint) (string, error) {
 func ClearCookie(w http.ResponseWriter) (int, error) {
 	cookie := &http.Cookie{
 		Name:     CookieName,
+		Domain:   DomainName,
 		Value:    "",
 		Path:     "/",
 		HttpOnly: true,
@@ -100,6 +103,7 @@ func SetCookieHandler(w http.ResponseWriter, r *http.Request, email string, pass
 	}
 	cookie := &http.Cookie{
 		Name:     CookieName,
+		Domain:   DomainName,
 		Value:    encoded,
 		Path:     "/",
 		HttpOnly: true,
