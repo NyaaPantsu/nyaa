@@ -3,12 +3,13 @@
 {{with .Form}}
 <div style="text-align: left;" class="box">
 	<form enctype="multipart/form-data" role="upload" method="POST">
+	    {{ block "csrf_field" $ }}{{end}}
 		{{ range (index $.FormErrors "errors")}}
 		<div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
 		{{end}}
 
 		<h3>{{call $.T "name"}}</h3>
-		<input type="text" name="name" id="name" class="form-input up-input" placeholder="{{call $.T "file_name"}}" value="{{.Name}}" autofocus required>
+		<input type="text" name="name" id="name" class="form-input up-input" placeholder="{{call $.T "file_name"}}" value="{{.Name}}" autofocus>
 
 		<h3>{{call $.T "torrent_file"}}</h3>
 		<input type="file" name="torrent" id="torrent" class="up-input" accept=".torrent">
@@ -29,7 +30,12 @@
 			<input type="checkbox" name="remake" id="remake" >
 			<label for="remake">{{call $.T "mark_as_remake"}}</label>
 		</p>
-
+		{{ if gt $.User.ID 0 }}
+		<p>
+			<input type="checkbox" name="hidden" id="hidden" >
+			<label for="hidden">{{call $.T "mark_as_hidden"}}</label>
+		</p>
+		{{ end }}
 		<h3>{{call $.T "website_link"}}</h3>
 		<input name="website_link" id="website_link" class="form-input up-input" type="text" value="{{.WebsiteLink}}">
 

@@ -4,9 +4,11 @@ package metainfo
 
 import (
 	"crypto/sha1"
+	"encoding/hex"
 	"io"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/zeebo/bencode"
 )
@@ -120,19 +122,6 @@ func (tf *TorrentFile) IsPrivate() bool {
 	return tf.Info.Private != nil && *tf.Info.Private == 1
 }
 
-// Infohash : calculate infohash
-func (tf *TorrentFile) Infohash() (ih [20]byte, err error) {
-	s := sha1.New()
-	enc := bencode.NewEncoder(s)
-	err = enc.Encode(&tf.Info)
-	if err != nil {
-		return
-	}
-	d := s.Sum(nil)
-	copy(ih[:], d[:])
-	return
-}
-
 // IsSingleFile : return true if this torrent is for a single file
 func (tf *TorrentFile) IsSingleFile() bool {
 	return tf.Info.Length > 0
@@ -149,5 +138,29 @@ func (tf *TorrentFile) Encode(w io.Writer) (err error) {
 func (tf *TorrentFile) Decode(r io.Reader) (err error) {
 	dec := bencode.NewDecoder(r)
 	err = dec.Decode(tf)
+	return
+}
+
+type torrentRaw struct {
+	InfoRaw bencode.RawMessage `bencode:"info"`
+}
+
+// DecodeInfohash : Decode and calculate the info hash
+func DecodeInfohash(r io.Reader) (hash string, err error) {
+	var t torrentRaw
+	d := bencode.NewDecoder(r)
+	err = d.Decode(&t)
+	if err != nil {
+		return
+	}
+
+	s := sha1.New()
+	_, err = s.Write(t.InfoRaw)
+	if err != nil {
+		return
+	}
+	rawHash := s.Sum(nil)
+
+	hash = strings.ToUpper(hex.EncodeToString(rawHash))
 	return
 }

@@ -969,6 +969,30 @@
   },
   {
     "id": "torrent_nav_deleted",
-    "translation": "Torrent は削除されました"
+    "translation": "Torrent は削除されます"
+  },
+  {
+    "id": "change_settings",
+    "translation": "設定の変更"
+  },
+  {
+    "id": "mascot",
+    "translation": "マスコット"
+  },
+  {
+    "id": "theme",
+    "translation": "テーマ"
+  },
+  {
+    "id": "theme_select",
+    "translation": "-- テーマを選択 --"
+  },
+  {
+    "id": "theme_none",
+    "translation": "なし"
+  },
+  {
+    "id": "mark_as_hidden",
+    "translation": "非表示としてマークする"
   }
 ]

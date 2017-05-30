@@ -3,6 +3,7 @@
 <div class="blockBody">
 	<hr>
 	<form role="form" method="POST">
+		{{ block "csrf_field" $ }}{{end}}
 		<div class="form-group">
 			<h3>{{call $.T "language"}}</h3>
 			<select id="language" name="language" class="form-input">
@@ -13,10 +14,10 @@
 			</select>
 			<h3>{{call $.T "theme"}}</h3>
 			<select id="theme-selector" name="theme" class="form-input" onchange="switchThemes()">
-				<option value="{{$.Theme}}" selected>{{call $.T "select"}}</option>
-				<option value="g">/g/</option>
-				<option value="tomorrow">Tomorrow</option>
-				<option value="">None</option>
+				<option value="">{{call $.T "theme_select"}}</option>
+				<option value="g"{{ if eq $.Theme "g" }} selected{{end}}>/g/</option>
+				<option value="tomorrow"{{ if eq $.Theme "tomorrow" }} selected{{end}}>Tomorrow</option>
+				<option value=""{{ if eq $.Theme "" }} selected{{end}}>{{call $.T "theme_none"}}</option>
 			</select>
 			</br>
 			</br>

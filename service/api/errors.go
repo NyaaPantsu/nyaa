@@ -11,6 +11,9 @@ var ErrCategory = errors.New("this category doesn't exist")
 // ErrSubCategory : Error for not found sub category used by api
 var ErrSubCategory = errors.New("this sub category doesn't exist")
 
+// ErrWebsiteLink : error indicating a torrent's website link is invalid
+var ErrWebsiteLink = errors.New("website url or IRC link is invalid")
+
 // ErrMagnet : Error for incorrect magnet used by api
 var ErrMagnet = errors.New("incorrect magnet")
 

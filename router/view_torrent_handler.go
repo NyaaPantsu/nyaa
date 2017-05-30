@@ -2,11 +2,15 @@ package router
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
 
+	"os"
+
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service"
@@ -17,9 +21,9 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/filelist"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/gorilla/mux"
 )
 
@@ -104,8 +108,12 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	if strings.TrimSpace(content) == "" {
 		messages.AddErrorT("errors", "comment_empty")
 	}
+	if len(content) > 500 {
+		messages.AddErrorT("errors", "comment_toolong")
+	}
 	if !messages.HasErrors() {
 		userID := currentUser.ID
+
 		comment := model.Comment{TorrentID: torrent.ID, UserID: userID, Content: content, CreatedAt: time.Now()}
 		err := db.ORM.Create(&comment).Error
 		comment.Torrent = &torrent
@@ -170,6 +178,7 @@ func TorrentEditUserPanel(w http.ResponseWriter, r *http.Request) {
 		uploadForm.Remake = torrent.Status == model.TorrentStatusRemake
 		uploadForm.WebsiteLink = string(torrent.WebsiteLink)
 		uploadForm.Description = string(torrent.Description)
+		uploadForm.Hidden = torrent.Hidden
 		htv := formTemplateVariables{newCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
 		err := userTorrentEd.ExecuteTemplate(w, "index.html", htv)
 		log.CheckError(err)
@@ -204,6 +213,7 @@ func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
 			torrent.Category = uploadForm.CategoryID
 			torrent.SubCategory = uploadForm.SubCategoryID
 			torrent.Status = status
+			torrent.Hidden = uploadForm.Hidden
 			torrent.WebsiteLink = uploadForm.WebsiteLink
 			torrent.Description = uploadForm.Description
 			// torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
@@ -239,4 +249,47 @@ func TorrentDeleteUserPanel(w http.ResponseWriter, r *http.Request) {
 	} else {
 		NotFoundHandler(w, r)
 	}
+}
+
+// DownloadTorrent : Controller for downloading a torrent
+func DownloadTorrent(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+	vars := mux.Vars(r)
+	hash := vars["hash"]
+
+	if hash == "" && len(config.TorrentFileStorage) == 0 {
+		//File not found, send 404
+		http.Error(w, "File not found.", 404)
+		return
+	}
+
+	//Check if file exists and open
+	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.TorrentFileStorage, os.PathSeparator, hash))
+	defer Openfile.Close() //Close after function return
+	if err != nil {
+		//File not found, send 404
+		http.Error(w, "File not found.", 404)
+		return
+	}
+
+	//Get the file size
+	FileStat, _ := Openfile.Stat()                     //Get info from file
+	FileSize := strconv.FormatInt(FileStat.Size(), 10) //Get file size as a string
+
+	torrent, err := torrentService.GetRawTorrentByHash(hash)
+
+	if err != nil {
+		//File not found, send 404
+		http.Error(w, "File not found.", 404)
+		return
+	}
+
+	w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s.torrent\"", torrent.Name))
+	w.Header().Set("Content-Type", "application/x-bittorrent")
+	w.Header().Set("Content-Length", FileSize)
+	//Send the file
+	// We reset the offset to 0
+	Openfile.Seek(0, 0)
+	io.Copy(w, Openfile) //'Copy' the file to the client
+	return
 }

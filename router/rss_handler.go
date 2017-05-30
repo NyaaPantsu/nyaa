@@ -77,7 +77,7 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 		feed.Items[i] = &feeds.Item{
 			ID:          "https://" + config.WebAddress + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
 			Title:       torrent.Name,
-			Link:        &feeds.Link{Href: string(torrentJSON.Magnet)},
+			Link:        &feeds.Link{Href: string("<![CDATA[" + torrentJSON.Magnet + "]]>")},
 			Description: string(torrentJSON.Description),
 			Created:     torrent.Date,
 			Updated:     torrent.Date,

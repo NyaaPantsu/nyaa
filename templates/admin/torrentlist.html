@@ -3,6 +3,7 @@
 {{define "content"}}
 <div class="blockBody">
   <form method="post" action="">
+    {{ block "csrf_field" $ }}{{end}}
     {{ range (index $.Infos "infos")}}
         <div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
     {{end}}

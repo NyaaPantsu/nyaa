@@ -3,10 +3,11 @@ package common
 import (
 	"context"
 	"encoding/json"
-	"github.com/gorilla/mux"
-	elastic "gopkg.in/olivere/elastic.v5"
 	"net/http"
 	"strconv"
+
+	"github.com/gorilla/mux"
+	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
@@ -26,11 +27,13 @@ type TorrentParam struct {
 	Offset    uint32
 	UserID    uint32
 	TorrentID uint32
+	FromID    uint32
 	NotNull   string // csv
 	Null      string // csv
 	NameLike  string // csv
 }
 
+// FromRequest : parse a request in torrent param
 // TODO Should probably return an error ?
 func (p *TorrentParam) FromRequest(r *http.Request) {
 	var err error
@@ -54,9 +57,15 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	}
 
 	// FIXME 0 means no userId defined
-	userId, err := strconv.ParseUint(r.URL.Query().Get("userID"), 10, 32)
+	userID, err := strconv.ParseUint(r.URL.Query().Get("userID"), 10, 32)
 	if err != nil {
-		userId = 0
+		userID = 0
+	}
+
+	// FIXME 0 means no userId defined
+	fromID, err := strconv.ParseUint(r.URL.Query().Get("fromID"), 10, 32)
+	if err != nil {
+		fromID = 0
 	}
 
 	var status Status
@@ -76,7 +85,7 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	p.NameLike = nameLike
 	p.Offset = uint32(pagenum)
 	p.Max = uint32(max)
-	p.UserID = uint32(userId)
+	p.UserID = uint32(userID)
 	// TODO Use All
 	p.All = false
 	// TODO Use Full
@@ -88,9 +97,11 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	// FIXME 0 means no TorrentId defined
 	// Do we even need that ?
 	p.TorrentID = 0
+	// Needed to display result after a certain torrentID
+	p.FromID = uint32(fromID)
 }
 
-// Builds a query string with for es query string query defined here
+// ToFilterQuery : Builds a query string with for es query string query defined here
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html
 func (p *TorrentParam) ToFilterQuery() string {
 	// Don't set sub category unless main category is set
@@ -107,11 +118,23 @@ func (p *TorrentParam) ToFilterQuery() string {
 	}
 
 	if p.Status != ShowAll {
-		query += " status:" + p.Status.ToString()
+		if p.Status != FilterRemakes {
+			query += " status:" + p.Status.ToString()
+		} else {
+			/* From the old nyaa behavior, FilterRemake means everything BUT
+			 * remakes
+			 */
+			query += " !status:" + p.Status.ToString()
+		}
+	}
+
+	if p.FromID != 0 {
+		query += " id:>" + strconv.FormatInt(int64(p.FromID), 10)
 	}
 	return query
 }
 
+// Find :
 /* Uses elasticsearch to find the torrents based on TorrentParam
  * We decided to fetch only the ids from ES and then query these ids to the
  * database
@@ -136,7 +159,7 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 		From(int((p.Offset-1)*p.Max)).
 		Size(int(p.Max)).
 		Sort(p.Sort.ToESField(), p.Order).
-		Sort("_score", false).  // Don't put _score before the field sort, it messes with the sorting
+		Sort("_score", false). // Don't put _score before the field sort, it messes with the sorting
 		FetchSourceContext(fsc)
 
 	filterQueryString := p.ToFilterQuery()
@@ -191,6 +214,7 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 
 }
 
+// Clone : To clone a torrent params
 func (p *TorrentParam) Clone() TorrentParam {
 	return TorrentParam{
 		Order:     p.Order,
@@ -201,6 +225,7 @@ func (p *TorrentParam) Clone() TorrentParam {
 		Offset:    p.Offset,
 		UserID:    p.UserID,
 		TorrentID: p.TorrentID,
+		FromID:    p.FromID,
 		NotNull:   p.NotNull,
 		Null:      p.Null,
 		NameLike:  p.NameLike,

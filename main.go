@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"flag"
 
+	"context"
 	"net/http"
 	"os"
 	"time"
@@ -16,8 +17,8 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/scraper"
 	"github.com/NyaaPantsu/nyaa/service/torrent/metainfoFetcher"
 	"github.com/NyaaPantsu/nyaa/service/user"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/NyaaPantsu/nyaa/util/signals"
 )
@@ -28,6 +29,7 @@ func RunServer(conf *config.Config) {
 	os.Mkdir(router.DatabaseDumpPath, 700)
 	// TODO Use config from cli
 	os.Mkdir(router.GPGPublicKeyPath, 700)
+
 	http.Handle("/", router.Router)
 
 	// Set up server,
@@ -37,19 +39,24 @@ func RunServer(conf *config.Config) {
 	}
 	l, err := network.CreateHTTPListener(conf)
 	log.CheckError(err)
-	if err == nil {
-		// add http server to be closed gracefully
-		signals.RegisterCloser(&network.GracefulHttpCloser{
-			Server:   srv,
-			Listener: l,
-		})
-		log.Infof("listening on %s", l.Addr())
-		err := srv.Serve(l)
-		if err != nil && err != network.ErrListenerStopped {
-			log.CheckError(err)
-		}
-
+	if err != nil {
+		return
 	}
+	log.Infof("listening on %s", l.Addr())
+	// http.Server.Shutdown closes associated listeners/clients.
+	// context.Background causes srv to indefinitely try to
+	// gracefully shutdown. add a timeout if this becomes a problem.
+	signals.OnInterrupt(func() {
+		srv.Shutdown(context.Background())
+	})
+	err = srv.Serve(l)
+	if err == nil {
+		log.Panic("http.Server.Serve never returns nil")
+	}
+	if err == http.ErrServerClosed {
+		return
+	}
+	log.CheckError(err)
 }
 
 // RunScraper runs tracker scraper mainloop
@@ -73,10 +80,10 @@ func RunScraper(conf *config.Config) {
 		workers = 1
 	}
 
-	// register udp socket with signals
-	signals.RegisterCloser(pc)
-	// register scraper with signals
-	signals.RegisterCloser(scraper)
+	signals.OnInterrupt(func() {
+		pc.Close()
+		scraper.Close()
+	})
 	// run udp scraper worker
 	for workers > 0 {
 		log.Infof("starting up worker %d", workers)
@@ -96,7 +103,9 @@ func RunMetainfoFetcher(conf *config.Config) {
 		return
 	}
 
-	signals.RegisterCloser(fetcher)
+	signals.OnInterrupt(func() {
+		fetcher.Close()
+	})
 	fetcher.RunAsync()
 	fetcher.Wait()
 }
@@ -141,7 +150,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err.Error())
 		}
-		go signals.Handle()
+		signals.Handle()
 		if len(config.TorrentFileStorage) > 0 {
 			err := os.MkdirAll(config.TorrentFileStorage, 0700)
 			if err != nil {

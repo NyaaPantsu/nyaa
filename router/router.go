@@ -3,7 +3,9 @@ package router
 import (
 	"net/http"
 
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
+	"github.com/gorilla/csrf"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
@@ -29,6 +31,7 @@ func init() {
 	gzipUserProfileHandler := http.HandlerFunc(UserProfileHandler)
 	gzipUserAPIKeyResetHandler := http.HandlerFunc(UserAPIKeyResetHandler)
 	gzipUserDetailsHandler := http.HandlerFunc(UserDetailsHandler)
+	downloadTorrentHandler := http.HandlerFunc(DownloadTorrent)
 	gzipUserProfileFormHandler := http.HandlerFunc(UserProfileFormHandler)
 	gzipUserNotificationsHandler := http.HandlerFunc(UserNotificationsHandler)
 	gzipDumpsHandler := handlers.CompressHandler(dumpsHandler)
@@ -41,45 +44,74 @@ func init() {
 	http.Handle("/img/", http.StripPrefix("/img/", imgHandler))
 	http.Handle("/dbdumps/", http.StripPrefix("/dbdumps/", wrapHandler(gzipDumpsHandler)))
 	http.Handle("/gpg/", http.StripPrefix("/gpg/", wrapHandler(gzipGpgKeyHandler)))
+
+	// We don't need CSRF here
 	Router.Handle("/", gzipHomeHandler).Name("home")
 	Router.Handle("/page/{page:[0-9]+}", wrapHandler(gzipHomeHandler)).Name("home_page")
 	Router.HandleFunc("/search", SearchHandler).Name("search")
 	Router.HandleFunc("/search/{page}", SearchHandler).Name("search_page")
-	Router.Handle("/api", wrapHandler(gzipAPIHandler)).Methods("GET")
-	Router.Handle("/api/{page:[0-9]*}", wrapHandler(gzipAPIHandler)).Methods("GET")
-	Router.Handle("/api/view/{id}", wrapHandler(gzipAPIViewHandler)).Methods("GET")
-	Router.HandleFunc("/api/view/{id}", APIViewHeadHandler).Methods("HEAD")
-	Router.HandleFunc("/api/upload", APIUploadHandler).Methods("POST")
-	Router.HandleFunc("/api/search", APISearchHandler)
-	Router.HandleFunc("/api/search/{page}", APISearchHandler)
-	Router.HandleFunc("/api/update", APIUpdateHandler).Methods("PUT")
+	Router.HandleFunc("/verify/email/{token}", UserVerifyEmailHandler).Name("user_verify").Methods("GET")
 	Router.HandleFunc("/faq", FaqHandler).Name("faq")
 	Router.HandleFunc("/feed", RSSHandler).Name("feed")
 	Router.HandleFunc("/feed/{page}", RSSHandler).Name("feed_page")
-	Router.Handle("/view/{id}", wrapHandler(gzipViewHandler)).Methods("GET").Name("view_torrent")
-	Router.HandleFunc("/view/{id}", ViewHeadHandler).Methods("HEAD")
-	Router.HandleFunc("/view/{id}", PostCommentHandler).Methods("POST").Name("post_comment")
-	Router.HandleFunc("/torrent/", TorrentEditUserPanel).Methods("GET").Name("user_torrent_edit")
-	Router.HandleFunc("/torrent/", TorrentPostEditUserPanel).Methods("POST").Name("user_torrent_edit")
-	Router.HandleFunc("/torrent/delete", TorrentDeleteUserPanel).Methods("GET").Name("user_torrent_delete")
+
+	// !!! This line need to have the same download location as the one define in config.TorrentStorageLink !!!
+	Router.Handle("/download/{hash}", wrapHandler(downloadTorrentHandler)).Name("torrent_download")
+
+	// For now, no CSRF protection here, as API is not usable for uploads
 	Router.HandleFunc("/upload", UploadHandler).Name("upload")
-	Router.HandleFunc("/user/register", UserRegisterFormHandler).Name("user_register").Methods("GET")
-	Router.HandleFunc("/user/login", UserLoginFormHandler).Name("user_login").Methods("GET")
-	Router.HandleFunc("/verify/email/{token}", UserVerifyEmailHandler).Name("user_verify").Methods("GET")
-	Router.HandleFunc("/user/register", UserRegisterPostHandler).Name("user_register").Methods("POST")
 	Router.HandleFunc("/user/login", UserLoginPostHandler).Name("user_login").Methods("POST")
-	Router.HandleFunc("/user/logout", UserLogoutHandler).Name("user_logout")
-	Router.Handle("/user/{id}/{username}", wrapHandler(gzipUserProfileHandler)).Name("user_profile").Methods("GET")
-	Router.HandleFunc("/user/{id}/{username}/follow", UserFollowHandler).Name("user_follow").Methods("GET")
-	Router.Handle("/user/{id}/{username}/edit", wrapHandler(gzipUserDetailsHandler)).Name("user_profile_details").Methods("GET")
-	Router.Handle("/user/{id}/{username}/edit", wrapHandler(gzipUserProfileFormHandler)).Name("user_profile_edit").Methods("POST")
-	Router.Handle("/user/{id}/{username}/apireset", wrapHandler(gzipUserAPIKeyResetHandler)).Name("user_profile_apireset").Methods("GET")
-	Router.Handle("/user/notifications", wrapHandler(gzipUserNotificationsHandler)).Name("user_notifications")
-	Router.HandleFunc("/user/{id}/{username}/feed", RSSHandler).Name("feed_user")
-	Router.HandleFunc("/user/{id}/{username}/feed/{page}", RSSHandler).Name("feed_user_page")
+
+	torrentViewRoutes := Router.PathPrefix("/view").Subrouter()
+	torrentViewRoutes.Handle("/{id}", wrapHandler(gzipViewHandler)).Methods("GET").Name("view_torrent")
+	torrentViewRoutes.HandleFunc("/{id}", ViewHeadHandler).Methods("HEAD")
+	torrentViewRoutes.HandleFunc("/{id}", PostCommentHandler).Methods("POST").Name("post_comment")
+
+	torrentRoutes := Router.PathPrefix("/torrent").Subrouter()
+	torrentRoutes.HandleFunc("/", TorrentEditUserPanel).Methods("GET").Name("user_torrent_edit")
+	torrentRoutes.HandleFunc("/", TorrentPostEditUserPanel).Methods("POST").Name("user_torrent_edit")
+	torrentRoutes.HandleFunc("/delete", TorrentDeleteUserPanel).Methods("GET").Name("user_torrent_delete")
+
+	userRoutes := Router.PathPrefix("/user").Subrouter()
+	userRoutes.HandleFunc("/register", UserRegisterFormHandler).Name("user_register").Methods("GET")
+	userRoutes.HandleFunc("/login", UserLoginFormHandler).Name("user_login").Methods("GET")
+	userRoutes.HandleFunc("/register", UserRegisterPostHandler).Name("user_register").Methods("POST")
+	userRoutes.HandleFunc("/logout", UserLogoutHandler).Name("user_logout")
+	userRoutes.Handle("/{id}/{username}", wrapHandler(gzipUserProfileHandler)).Name("user_profile").Methods("GET")
+	userRoutes.HandleFunc("/{id}/{username}/follow", UserFollowHandler).Name("user_follow").Methods("GET")
+	userRoutes.Handle("/{id}/{username}/edit", wrapHandler(gzipUserDetailsHandler)).Name("user_profile_details").Methods("GET")
+	userRoutes.Handle("/{id}/{username}/edit", wrapHandler(gzipUserProfileFormHandler)).Name("user_profile_edit").Methods("POST")
+	userRoutes.Handle("/{id}/{username}/apireset", wrapHandler(gzipUserAPIKeyResetHandler)).Name("user_profile_apireset").Methods("GET")
+	userRoutes.Handle("/notifications", wrapHandler(gzipUserNotificationsHandler)).Name("user_notifications")
+	userRoutes.HandleFunc("/{id}/{username}/feed", RSSHandler).Name("feed_user")
+	userRoutes.HandleFunc("/{id}/{username}/feed/{page}", RSSHandler).Name("feed_user_page")
+
+	// Please make EnableSecureCSRF to false when testing locally
+	if config.EnableSecureCSRF {
+		userRoutes.Handle("/", csrf.Protect(config.CSRFTokenHashKey)(userRoutes))
+		torrentRoutes.Handle("/", csrf.Protect(config.CSRFTokenHashKey)(torrentRoutes))
+		torrentViewRoutes.Handle("/", csrf.Protect(config.CSRFTokenHashKey)(torrentViewRoutes))
+	} else {
+		userRoutes.Handle("/", csrf.Protect(config.CSRFTokenHashKey, csrf.Secure(false))(userRoutes))
+		torrentRoutes.Handle("/", csrf.Protect(config.CSRFTokenHashKey, csrf.Secure(false))(torrentRoutes))
+		torrentViewRoutes.Handle("/", csrf.Protect(config.CSRFTokenHashKey, csrf.Secure(false))(torrentViewRoutes))
+	}
+
+	// We don't need CSRF here
+	api := Router.PathPrefix("/api").Subrouter()
+	api.Handle("", wrapHandler(gzipAPIHandler)).Methods("GET")
+	api.Handle("/", wrapHandler(gzipAPIHandler)).Methods("GET")
+	api.Handle("/{page:[0-9]*}", wrapHandler(gzipAPIHandler)).Methods("GET")
+	api.Handle("/view/{id}", wrapHandler(gzipAPIViewHandler)).Methods("GET")
+	api.HandleFunc("/view/{id}", APIViewHeadHandler).Methods("HEAD")
+	api.HandleFunc("/upload", APIUploadHandler).Methods("POST")
+	api.HandleFunc("/search", APISearchHandler)
+	api.HandleFunc("/search/{page}", APISearchHandler)
+	api.HandleFunc("/update", APIUpdateHandler).Methods("PUT")
 
 	// INFO Everything under /mod should be wrapped by wrapModHandler. This make
 	// sure the page is only accessible by moderators
+	// We don't need CSRF here
 	// TODO Find a native mux way to add a 'prehook' for route /mod
 	Router.HandleFunc("/mod", wrapModHandler(IndexModPanel)).Name("mod_index")
 	Router.HandleFunc("/mod/torrents", wrapModHandler(TorrentsListPanel)).Name("mod_tlist").Methods("GET")
@@ -105,7 +137,9 @@ func init() {
 	Router.HandleFunc("/mod/comment/delete", wrapModHandler(CommentDeleteModPanel)).Name("mod_cdelete")
 	Router.HandleFunc("/mod/reassign", wrapModHandler(TorrentReassignModPanel)).Name("mod_treassign").Methods("GET")
 	Router.HandleFunc("/mod/reassign", wrapModHandler(TorrentPostReassignModPanel)).Name("mod_treassign").Methods("POST")
-	Router.HandleFunc("/mod/api/torrents", wrapModHandler(APIMassMod)).Name("mod_tapi").Methods("POST")
+
+	apiMod := Router.PathPrefix("/mod/api").Subrouter()
+	apiMod.HandleFunc("/torrents", wrapModHandler(APIMassMod)).Name("mod_tapi").Methods("POST")
 
 	//reporting a torrent
 	Router.HandleFunc("/report/{id}", ReportTorrentHandler).Methods("POST").Name("torrent_report")

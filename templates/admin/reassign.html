@@ -1,6 +1,7 @@
 {{define "title"}}Torrent Reassign{{end}}
 {{define "content"}}
 <form enctype="multipart/form-data" method="POST">
+    {{ block "csrf_field" $ }}{{end}}
     {{ range (index $.FormInfos "infos")}}
         <div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
     {{end}}
