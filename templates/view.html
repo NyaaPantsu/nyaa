@@ -89,8 +89,8 @@
   <a onclick="reportPopup();" class="form-input">{{ call $.T "report_btn" }}</a>
   {{end}}
     {{ if HasAdmin $.User}}
-    <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="form-input" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;">Delete</a>
-    <a href="{{ genRoute "mod_tedit" }}?id={{ .ID }}" class="form-input">Edit</a>
+    <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="form-input" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;">{{ call $.T "delete" }}</a>
+    <a href="{{ genRoute "mod_tedit" }}?id={{ .ID }}" class="form-input">{{ call $.T "edit" }}</a>
     {{end}}
   </div>
   <p class="torrent-hr">{{call $.T "description"}}</p>
