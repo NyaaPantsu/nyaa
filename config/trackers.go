@@ -12,7 +12,7 @@ var Trackers = []string{
 	"udp://tracker.opentrackr.org:1337",
 	"udp://tracker.internetwarriors.net:1337/announce",
 	"http://mgtracker.org:6969/announce",
-	"http://tracker.baka-sub.cf/announce"}
+	"udp://ipv6.leechers-paradise.org:6969/announce"}
 
 // NeededTrackers : Array indexes of Trackers for needed tracker in a torrent file
 var NeededTrackers = []int{
