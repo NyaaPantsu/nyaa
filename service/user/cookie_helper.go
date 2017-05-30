@@ -21,11 +21,10 @@ const (
 	// CookieName : Name of cookie
 	CookieName = "session"
 	// UserContextKey : key for user context
-	UserContextKey = "user"
+	UserContextKey = "nyaapantsu.user"
 	// Domain name : The host domain so these can be shared across sukebei and nyaa
 	DomainName = "pantsu.cat"
 
-	UserContextKey = "nyaapantsu.user"
 
 )
 
