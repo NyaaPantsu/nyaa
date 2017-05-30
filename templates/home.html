@@ -37,6 +37,7 @@ Your browser does not support the audio element.
               <th class="tr-date hide-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{call $.T "date"}}<span class="sort-arrows">{{ genSortArrows .URL "2" }}</span></a></th>
           </tr>
           </thead>
+          <tbody id="torrentListResults">
           {{ range .Models}}
           <tr class="torrent-info
               {{if eq .Status 2}}remake{{end}}
@@ -84,6 +85,41 @@ Your browser does not support the audio element.
               <td class="tr-date home-td date-short hide-xs">{{.Date}}</td>
           </tr>
           {{end}}
+          </tbody>
       </table>
     </div>
+{{end}}
+{{ define "footer_js"}}
+<script type="text/javascript" src="{{ $.URL.Parse "/js/template.js" }}"></script>
+<script type="text/javascript" src="{{ $.URL.Parse "/js/query.js" }}"></script>
+<script type="text/javascript" src="{{ $.URL.Parse "/js/torrents.js" }}"></script>
+<!-- JS Template -->
+    <script type="text/javascript">
+        Templates.Add("torrents.item", function(torrent) {
+            return "<tr class=\"torrent-info"+ ((torrent.status == 2) ? " remake" : ((torrent.status == 3) ? " trusted" : ((torrent.status == 3) ? " aplus" : "" )))+"\">"+
+              "<td class=\"tr-cat home-td\">"+
+                  "<a href=\"{{$.URL.Parse "/search?c=" }}"+ torrent.category + "_" + torrent.sub_category +"\">"+
+                      {{ if Sukebei }}
+                      "<img src=\"{{ $.URL.Parse "/img/torrents/sukebei/" }}"+ torrent.category + torrent.sub_category+".png\" title=\""+ torrent.CategoryName +"\">"+
+                      {{ else }}
+                      "<img src=\"{{ $.URL.Parse "/img/torrents/" }}"+ torrent.sub_category +".png\" title=\""+ torrent.CategoryName +"\">"+
+                      {{ end }}
+                  "</a>"+
+              "</td>"+
+              "<td class=\"tr-name home-td\"><a href=\"/view/"+torrent.id+"\">"+Templates.EncodeEntities(torrent.name) +"</a></td>"+
+              "<td class=\"tr-links home-td\">"+
+                  "<a href=\""+torrent.magnet +"\" title=\"{{ call $.T "magnet_link" }}\">"+
+                      "<div class=\"magnet-icon\"></div>"+
+                  "</a>"+(torrent.torrent != "" ? " <a href=\""+torrent.torrent+"\" title=\"{{ call $.T "torrent_file" }}\"><div class=\"download-icon\"></div></a>" : "") +
+              "</td>"+
+              "<td class=\"tr-size home-td hide-xs\">"+humanFileSize(torrent.filesize)+"</td>"+
+              "<td class=\"tr-se home-td hide-xs\">"+torrent.seeders+"</td>"+
+              "<td class=\"tr-le home-td hide-xs\">"+torrent.leechers+"</td>"+
+              "<td class=\"tr-dl home-td hide-xs\">"+torrent.completed+"</td>"+
+              "<td class=\"tr-date home-td date-short hide-xs\">"+torrent.date+"</td>"+
+          "</tr>";
+        });
+       Torrents.LastID = {{ lastID .URL .Models }};
+       if (Torrents.LastID > 0) Torrents.CanRefresh = true;
+    </script>
 {{end}}

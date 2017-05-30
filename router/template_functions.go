@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/categories"
@@ -199,5 +200,27 @@ var FuncMap = template.FuncMap{
 			T               publicSettings.TemplateTfunc
 			IdentifierChain string
 		}{f, nestLevel, T, identifierChain}
+	},
+	"lastID": func(currentUrl url.URL, torrents []model.TorrentJSON) int {
+		values := currentUrl.Query()
+
+		order := false
+		sort := "2"
+
+		if _, ok := values["order"]; ok {
+			order, _ = strconv.ParseBool(values["order"][0])
+		}
+		if _, ok := values["sort"]; ok {
+			sort = values["sort"][0]
+		}
+		lastID := 0
+		if sort == "2" || sort == "" {
+			if order {
+				lastID = int(torrents[len(torrents)-1].ID)
+			} else {
+				lastID = int(torrents[0].ID)
+			}
+		}
+		return lastID
 	},
 }
