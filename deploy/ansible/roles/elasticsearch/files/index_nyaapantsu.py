@@ -55,3 +55,5 @@ while fetches:
     helpers.bulk(es, actions, chunk_size=CHUNK_SIZE, request_timeout=120)
     del(fetches)
     fetches = cur.fetchmany(CHUNK_SIZE)
+cur.close()
+pgconn.close()
