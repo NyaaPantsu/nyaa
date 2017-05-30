@@ -66,3 +66,22 @@
     state: started
     daemon_reload: yes
   become: true
+
+- name: Copy reindexing triggers
+  template:
+    src: reindex_triggers.sql.j2
+    dest: "{{ nyaapantsu_directory }}/reindex_triggers.sql"
+
+- name: Apply reindexing triggers
+  shell: psql -U "{{ nyaapantsu_user }}" "{{ nyaapantsu_dbname }}" < "{{ nyaapantsu_directory }}/reindex_triggers.sql"
+
+- name: Copy reindexing script
+  copy:
+    src: reindex_nyaapantsu.py
+    dest: "{{ elasticsearch_reindex_script }}"
+
+- name: Setup reindexing cron job
+  template:
+    src: reindex_cron.j2
+    dest: "/etc/cron.d/reindex_{{ nyaapantsu_torrent_tablename }}"
+  become: true
