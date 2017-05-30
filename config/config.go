@@ -46,13 +46,12 @@ func overrideDefaults() {
 	path := "config/config.yml"
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
-		log.Fatalf("can't read file '%s'", path)
+		log.Printf("can't read file '%s'", path)
 	}
 	err = yaml.Unmarshal(data, &Conf)
 	if err != nil {
-		log.Fatalf("error: %v", err)
+		log.Printf("error: %v", err)
 	}
-	log.Printf("Config overrided: %v", Conf)
 }
 
 // BindFlags returns a function which is to be used after
