@@ -27,6 +27,7 @@ type TorrentParam struct {
 	Offset    uint32
 	UserID    uint32
 	TorrentID uint32
+	FromID    uint32
 	NotNull   string // csv
 	Null      string // csv
 	NameLike  string // csv
@@ -62,9 +63,9 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	}
 
 	// FIXME 0 means no userId defined
-	torrentID, err := strconv.ParseUint(r.URL.Query().Get("torrentID"), 10, 32)
+	fromID, err := strconv.ParseUint(r.URL.Query().Get("fromID"), 10, 32)
 	if err != nil {
-		torrentID = 0
+		fromID = 0
 	}
 
 	var status Status
@@ -94,8 +95,10 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	p.Sort = sortMode
 	p.Category = category
 	// FIXME 0 means no TorrentId defined
-	// Do we even need that ? I do now :p
-	p.TorrentID = uint32(torrentID)
+	// Do we even need that ?
+	p.TorrentID = 0
+	// Needed to display result after a certain torrentID
+	p.FromID = uint32(fromID)
 }
 
 // ToFilterQuery : Builds a query string with for es query string query defined here
@@ -118,8 +121,8 @@ func (p *TorrentParam) ToFilterQuery() string {
 		query += " status:" + p.Status.ToString()
 	}
 
-	if p.TorrentID != 0 {
-		query += " id:>" + strconv.FormatInt(int64(p.TorrentID), 10)
+	if p.FromID != 0 {
+		query += " id:>" + strconv.FormatInt(int64(p.FromID), 10)
 	}
 	return query
 }
@@ -215,6 +218,7 @@ func (p *TorrentParam) Clone() TorrentParam {
 		Offset:    p.Offset,
 		UserID:    p.UserID,
 		TorrentID: p.TorrentID,
+		FromID:    p.FromID,
 		NotNull:   p.NotNull,
 		Null:      p.Null,
 		NameLike:  p.NameLike,

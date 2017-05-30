@@ -85,6 +85,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool, d
 		totalHits, torrents, err := torrentParam.Find(client)
 		searchParam := common.SearchParam{
 			TorrentID: uint(torrentParam.TorrentID),
+			FromID:    uint(torrentParam.FromID),
 			Order:     torrentParam.Order,
 			Status:    torrentParam.Status,
 			Sort:      torrentParam.Sort,
@@ -118,8 +119,8 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 	search.Query = r.URL.Query().Get("q")
 	userID, _ := strconv.Atoi(r.URL.Query().Get("userID"))
 	search.UserID = uint(userID)
-	torrentID, _ := strconv.Atoi(r.URL.Query().Get("torrentID"))
-	search.TorrentID = uint(torrentID)
+	fromID, _ := strconv.Atoi(r.URL.Query().Get("fromID"))
+	search.FromID = uint(fromID)
 
 	switch s := r.URL.Query().Get("s"); s {
 	case "1":
@@ -219,9 +220,9 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 		conditions = append(conditions, "uploader = ?")
 		parameters.Params = append(parameters.Params, search.UserID)
 	}
-	if search.TorrentID != 0 {
+	if search.FromID != 0 {
 		conditions = append(conditions, "torrent_id > ?")
-		parameters.Params = append(parameters.Params, search.TorrentID)
+		parameters.Params = append(parameters.Params, search.FromID)
 	}
 	if search.Category.Sub != 0 {
 		conditions = append(conditions, "sub_category = ?")

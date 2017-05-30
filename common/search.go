@@ -157,6 +157,7 @@ func (c *Category) Parse(s string) (ok bool) {
 // deprecated for TorrentParam
 type SearchParam struct {
 	TorrentID uint
+	FromID    uint // Search for torrentID > FromID
 	Order     bool // True means acsending
 	Status    Status
 	Sort      SortMode
