@@ -27,7 +27,7 @@ func GetFeeds() (result []model.Feed, err error) {
 	result = make([]model.Feed, 0, 50)
 	rows, err := db.ORM.DB().
 		Query(
-			"SELECT `torrent_id` AS `id`, `torrent_name` AS `name`, `torrent_hash` AS `hash`, `timestamp` FROM `" + config.TorrentsTableName +
+			"SELECT `torrent_id` AS `id`, `torrent_name` AS `name`, `torrent_hash` AS `hash`, `timestamp` FROM `" + config.Conf.Models.TorrentsTableName +
 				"` ORDER BY `timestamp` desc LIMIT 50")
 	if err != nil {
 		return nil, err
@@ -40,7 +40,7 @@ func GetFeeds() (result []model.Feed, err error) {
 		if err != nil {
 			return
 		}
-		magnet := util.InfoHashToMagnet(strings.TrimSpace(item.Hash), item.Name, config.Trackers...)
+		magnet := util.InfoHashToMagnet(strings.TrimSpace(item.Hash), item.Name, config.Conf.Torrents.Trackers.Default...)
 		item.Magnet = magnet
 		// TODO: memory hog
 		result = append(result, item)
@@ -58,10 +58,10 @@ func GetTorrentByID(id string) (torrent model.Torrent, err error) {
 	}
 
 	tmp := db.ORM.Where("torrent_id = ?", id).Preload("Comments")
-	if idInt > config.LastOldTorrentID {
+	if idInt > int64(config.Conf.Models.LastOldTorrentID) {
 		tmp = tmp.Preload("FileList")
 	}
-	if idInt <= config.LastOldTorrentID && !config.IsSukebei() {
+	if idInt <= int64(config.Conf.Models.LastOldTorrentID) && !config.IsSukebei() {
 		// only preload old comments if they could actually exist
 		tmp = tmp.Preload("OldComments")
 	}
@@ -78,7 +78,7 @@ func GetTorrentByID(id string) (torrent model.Torrent, err error) {
 	torrent.Uploader = new(model.User)
 	db.ORM.Where("user_id = ?", torrent.UploaderID).Find(torrent.Uploader)
 	torrent.OldUploader = ""
-	if torrent.ID <= config.LastOldTorrentID && torrent.UploaderID == 0 {
+	if torrent.ID <= config.Conf.Models.LastOldTorrentID && torrent.UploaderID == 0 {
 		var tmp model.UserUploadsOld
 		if !db.ORM.Where("torrent_id = ?", torrent.ID).Find(&tmp).RecordNotFound() {
 			torrent.OldUploader = tmp.Username
@@ -160,7 +160,7 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 	}
 
 	// build custom db query for performance reasons
-	dbQuery := "SELECT * FROM " + config.TorrentsTableName
+	dbQuery := "SELECT * FROM " + config.Conf.Models.TorrentsTableName
 	if conditions != "" {
 		dbQuery = dbQuery + " WHERE " + conditions
 	}

@@ -22,5 +22,5 @@ func NewNotification(identifier string, c string, url string) Notification {
 
 // TableName : Return the name of notification table
 func (n *Notification) TableName() string {
-	return config.NotificationTableName
+	return config.Conf.Models.NotificationsTableName
 }

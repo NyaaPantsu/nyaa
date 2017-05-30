@@ -1,0 +1,164 @@
+# Default Configuration file for NyaaPantsu
+# PLEASE, do NOT change default_config.yml, create your own config.yml
+
+# Host of server
+host: localhost
+# port of server
+port: 9999
+# database type
+db_type: sqlite3
+# DBParams will be directly passed to Gorm, and its internal structure depends on the dialect for each db type
+db_params: ./nyaa.db?cache_size=50
+# logmode for database
+db_logmode: default
+# Environment should be one of: DEVELOPMENT, TEST, PRODUCTION
+environment: DEVELOPMENT
+# WebAddress : url of the website
+web_address: nyaa.pantsu.cat
+# AuthTokenExpirationDay : Number of Days for token expiration when logged in
+auth_token_expiration: 1000
+# EnableSecureCSRF : Enable CSRF https mode : True if website support https, false otherwise (eg. testing locally: false)
+enable_secure_csrf: true
+# the default config for bittorrent scraping
+scraper:
+  addr: :9999
+  workers: 4
+  interval: 3600
+  trackers:
+    - {url: "udp://tracker.coppersurfer.tk:6969/", name: coppersurfer.tk}
+# Config by default for the cache
+cache:
+  dialect: nop
+# Size by default for the cache
+  size: 1024
+search:
+# default analyzer for ES
+  es_analyze: nyaapantsu_analyzer
+# default search index for ES
+  es_index: nyaapantsu
+# Name of the type in the es mapping
+  es_type: torrents
+# Default configuration for i2p
+#i2p:
+#  name:
+#  addr:
+#  keyfile:
+# Default configuration for metainfofetcher
+metainfo_fetcher:
+  queue_size: 10
+  timeout: 120
+  max_days: 90
+  base_fail_cooldown: 1800
+  max_fail_cooldown: 172800
+  wake_up_interval: 300
+  upload_rate_limiter: 1024
+  download_rate_limiter: 1024
+  fetch_new_torrents_only: true
+i18n:
+# Default configuration for translation directory
+  directory: translations
+# Default configuration for language
+  default_language: en-us
+torrents:
+# TorrentStatus : Config of different status id for torrents
+  status: [true, true, true, true, true, true]
+# TorrentSukebeiCategories : Config for Sukebei categories
+  sukebei_categories: {"1_":  "art", "1_1": "art_anime", "1_2": "art_doujinshi", "1_3": "art_games", "1_4": "art_manga", "1_5": "art_pictures", "2_": "real_life", "2_1": "real_life_photobooks_and_pictures", "2_2": "real_life_videos"}
+# TorrentCleanCategories : Config for Site categories
+  clean_categories: {"3_": "anime", "3_12": "anime_amv", "3_5":  "anime_english_translated", "3_13": "anime_non_english_translated", "3_6": "anime_raw", "2_": "audio", "2_3":  "audio_lossless", "2_4":  "audio_lossy", "4_": "literature", "4_7": "literature_english_translated", "4_8": "literature_raw", "4_14": "literature_non_english_translated", "5_": "live_action", "5_9": "live_action_english_translated", "5_10": "live_action_idol_pv", "5_18": "live_action_non_english_translated", "5_11": "live_action_raw", "6_": "pictures", "6_15": "pictures_graphics", "6_16": "pictures_photos", "1_": "software", "1_1": "software_applications", "1_2": "software_games"}
+# TorrentFileStorage : Path to default torrent storage location (eg /var/www/wherever/you/want)
+  filestorage:
+# TorrentStorageLink : Url of torrent file download location (eg https://your.site/somewhere/%s.torrent)
+  storage_link:
+# TorrentCacheLink : Url of torrent site cache
+  cache_link: http://anicache.com/torrent/%s.torrent
+# UploadsDisabled : Disable uploads for everyone except below
+  uploads_disabled: false
+# AdminsAreStillAllowedTo : Enable admin torrent upload even if UploadsDisabled is true
+  admins_are_still_allowed_to: true
+# TrustedUsersAreStillAllowedTo : Enable trusted users torrent upload even if UploadsDisabled is true
+  trusted_users_are_still_allowed_to: true
+  trackers:
+# Trackers : Default trackers supported
+    default:
+      - udp://tracker.doko.moe:6969
+      - udp://tracker.coppersurfer.tk:6969
+      - udp://tracker.zer0day.to:1337/announce
+      - udp://tracker.leechers-paradise.org:6969
+      - udp://explodie.org:6969
+      - udp://tracker.opentrackr.org:1337
+      - udp://tracker.internetwarriors.net:1337/announce
+      - http://mgtracker.org:6969/announce
+      - http://tracker.baka-sub.cf/announce
+# NeededTrackers : Array indexes of Trackers for needed tracker in a torrent file
+    needed:
+      - 0
+# TorrentOrder : Default sorting field for torrents
+  order: torrent_id
+# TorrentSort : Default sorting order for torrents
+  sort: DESC
+users:
+  default_notifications_settings: {"new_torrent": true, "new_torrent_email": false, "new_comment": true, "new_comment_email": false, "new_responses": false, "new_responses_email": false, "new_follower": false, "new_follower_email": false, "followed": false, "followed_email": false}
+navigation:
+  torrents_per_page: 50
+  max_torrents_per_page: 300
+log:
+# AccessLogFilePath : Path to logs access
+  access_log_filepath: log/access
+# AccessLogFileExtension : Extension for log file
+  access_log_fileextension: .txt
+# AccessLogMaxSize : Size max for a log file in megabytes
+  access_log_max_size: 5
+# AccessLogMaxBackups : Number of file for logs
+  access_log_max_backups: 7
+# AccessLogMaxAge : Number of days that we keep logs
+  access_log_max_age: 30
+# ErrorLogFilePath : Path to log errors
+  error_log_filepath: log/error
+# ErrorLogFileExtension : Extension for log file
+  error_log_fileextension: .json
+# ErrorLogMaxSize : Size max for a log file in megabytes
+  error_log_max_size: 10
+# ErrorLogMaxBackups : Number of file for logs
+  error_log_max_backups: 7
+# ErrorLogMaxAge : Number of days that we keep logs
+  error_log_max_age: 30
+email:
+# SendEmail : Enable Email
+  send_email: true
+# EmailFrom : email address by default
+  from: donotrespond@nyaa.pantsu.cat
+# EmailTestTo : when testing to who send email
+  test_to:
+# EmailHost : Host of mail server
+  host: localhost
+# EmailUsername : Username needed for the connection
+  username:
+# EmailPassword : Password needed for the connection
+  password:
+# EmailPort : Mail Server port
+  port: 465
+# EmailTimeout : Timeout for waiting server response
+  timeout: 10000000000
+models:
+# LastOldTorrentID is the highest torrent ID that was copied from the original Nyaa
+  last_old_torrent_id: 923000
+# TorrentsTableName : Name of torrent table in DB
+  torrents_table_name: torrents
+# ReportsTableName : Name of torrent report table in DB
+  reports_table_name: torrent_reports
+# CommentsTableName : Name of comments table in DB
+  comments_table_name: comments
+# UploadsOldTableName : Name of uploads table in DB
+  uploads_old_table_name: user_uploads_old
+# FilesTableName : Name of files table in DB
+  files_table_name: files
+# NotificationTableName : Name of notifications table in DB
+  notifications_table_name: notifications
+# for sukebei:
+#	LastOldTorrentID    = 2303945
+#	TorrentsTableName   = "sukebei_torrents"
+#	ReportsTableName    = "sukebei_torrent_reports"
+#	CommentsTableName   = "sukebei_comments"
+#	UploadsOldTableName = "sukebei_user_uploads_old"
+#	FilesTableName      = "sukebei_files"

@@ -544,7 +544,7 @@ func torrentManyAction(r *http.Request) {
 	if r.FormValue("withreport") == "" { // Default behavior for withreport
 		withReport = false
 	}
-	if !config.TorrentStatus[status] { // Check if the status exist
+	if !config.Conf.Torrents.Status[status] { // Check if the status exist
 		messages.AddErrorTf("errors", "no_status_exist", status)
 		status = -1
 	}

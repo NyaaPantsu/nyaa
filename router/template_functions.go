@@ -190,14 +190,14 @@ var FuncMap = template.FuncMap{
 		return captchaData{captchaID, T}
 	},
 	"DefaultUserSettings": func(s string) bool {
-		return config.DefaultUserSettings[s]
+		return config.Conf.Users.DefaultUserSettings[s]
 	},
 	"makeTreeViewData": func(f *filelist.FileListFolder, nestLevel int, T publicSettings.TemplateTfunc, identifierChain string) interface{} {
-		return struct{
-			Folder *filelist.FileListFolder
-			NestLevel int
-			T publicSettings.TemplateTfunc
+		return struct {
+			Folder          *filelist.FileListFolder
+			NestLevel       int
+			T               publicSettings.TemplateTfunc
 			IdentifierChain string
-		}{ f, nestLevel, T, identifierChain }
+		}{f, nestLevel, T, identifierChain}
 	},
 }

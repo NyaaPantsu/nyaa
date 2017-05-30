@@ -13,9 +13,9 @@ func GetCategories() map[string]string {
 	}
 
 	if config.IsSukebei() {
-		categories = config.TorrentSukebeiCategories
+		categories = config.Conf.Torrents.SukebeiCategories
 	} else {
-		categories = config.TorrentCleanCategories
+		categories = config.Conf.Torrents.CleanCategories
 	}
 
 	return categories

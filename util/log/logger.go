@@ -37,7 +37,7 @@ func InitLogToStdout() {
 func InitLogToFile() {
 	logrus.SetFormatter(&logrus.JSONFormatter{})
 
-	out := LumberJackLogger(config.ErrorLogFilePath+config.ErrorLogFileExtension, config.ErrorLogMaxSize, config.ErrorLogMaxBackups, config.ErrorLogMaxAge)
+	out := LumberJackLogger(config.Conf.Log.ErrorLogFilePath+config.Conf.Log.ErrorLogFileExtension, config.Conf.Log.ErrorLogMaxSize, config.Conf.Log.ErrorLogMaxBackups, config.Conf.Log.ErrorLogMaxAge)
 
 	logrus.SetOutput(out)
 	logrus.SetLevel(logrus.WarnLevel)
