@@ -28,6 +28,14 @@
     "translation": "RAS"
   },
   {
+    "id": "mascot",
+    "translation": "Mascotte"
+  },
+  {
+    "id": "change_settings",
+    "translation": "Préférences"
+  },
+  {
     "id": "change_language",
     "translation": "Changer la langue"
   },
@@ -101,7 +109,7 @@
   },
   {
     "id": "mark_as_hidden",
-    "translation": "Marquer comme caché"
+    "translation": "Marquer comme invisible"
   },
   {
     "id": "website_link",
@@ -585,7 +593,7 @@
   },
   {
     "id": "sign_in_box_title",
-    "translation": "Veuillez vous connecter"
+    "translation": "Connexion"
   },
   {
     "id": "email_address_or_username",
