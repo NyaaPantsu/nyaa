@@ -55,7 +55,7 @@
       </tr>
     <tr class="torrent-info-row">
           <td class="torrent-info-td torrent-info-label">{{call $.T "hash"}}:</td><td style="font-family: monospace;" class="torrent-view-td torrent-info-data">{{.Hash}}</td>
-          <td class="torrent-info-td torrent-info-label">{{call $.T "completed"}}:</td><td class="torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Completed}}{{end}}</td>
+          <td class="torrent-info-td torrent-info-label">{{call $.T "completed"}}:</td><td class="torrent-info-td"><b>{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Completed}}{{end}}</b></td>
       </tr>
     <tr class="torrent-info-row">
           <td class="torrent-info-td torrent-info-label">{{call $.T "size"}}:</td><td class="torrent-view-td torrent-info-data">{{ fileSize .Filesize $.T }}</td>
@@ -70,7 +70,7 @@
   {{ if gt $.User.ID 0}}
   <script>
       function reportPopup() {
-                reportContent = `
+                var reportContent = `
                 <h4>{{ call $.T "report_torrent_number" (print $.Torrent.ID) }}</h4>
                 <b>{{ call $.T "report_type" }}:</b>
                 <form method="post" action="/report/{{$.Torrent.ID}}">
@@ -81,16 +81,16 @@
                     <input type="radio" name="report_type" value="dup" id="dup" required> <label for="dup">{{ call $.T "duplicate_deprecated" }}</label><br />
                     <button type="submit" class="btn btn-default">{{ call $.T "report_btn" }}</button>
                 </form> <br />
-                `
-                reportWindow = window.open("", 'reportWindow', "width=300,height=300");   // Opens a new window
+                `;
+                var reportWindow = window.open("", 'reportWindow', "width=300,height=300");   // Opens a new window
                 reportWindow.document.write(reportContent);
        }
   </script>
   <a onclick="reportPopup();" class="form-input">{{ call $.T "report_btn" }}</a>
   {{end}}
     {{ if HasAdmin $.User}}
-    <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="form-input" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;">Delete</a>
-    <a href="{{ genRoute "mod_tedit" }}?id={{ .ID }}" class="form-input">Edit</a>
+    <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="form-input" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;">{{ call $.T "delete" }}</a>
+    <a href="{{ genRoute "mod_tedit" }}?id={{ .ID }}" class="form-input">{{ call $.T "edit" }}</a>
     {{end}}
   </div>
   <p class="torrent-hr">{{call $.T "description"}}</p>

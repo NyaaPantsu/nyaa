@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	formStruct "github.com/NyaaPantsu/nyaa/service/user/form"
@@ -20,12 +21,11 @@ import (
 const (
 	// CookieName : Name of cookie
 	CookieName = "session"
-	// UserContextKey : key for user context
-	UserContextKey = "nyaapantsu.user"
 	// Domain name : The host domain so these can be shared across sukebei and nyaa
 	DomainName = "pantsu.cat"
 
-
+	// UserContextKey : key for user context
+	UserContextKey = "nyaapantsu.user"
 )
 
 // If you want to keep login cookies between restarts you need to make these permanent
@@ -60,9 +60,13 @@ func EncodeCookie(userID uint) (string, error) {
 
 // ClearCookie : Erase cookie session
 func ClearCookie(w http.ResponseWriter) (int, error) {
+	domain := DomainName
+	if config.Environment == "DEVELOPMENT" {
+		domain = ""
+	}
 	cookie := &http.Cookie{
 		Name:     CookieName,
-		Domain:   DomainName,
+		Domain:   domain,
 		Value:    "",
 		Path:     "/",
 		HttpOnly: true,
@@ -103,9 +107,13 @@ func SetCookieHandler(w http.ResponseWriter, r *http.Request, email string, pass
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
+	domain := DomainName
+	if config.Environment == "DEVELOPMENT" {
+		domain = ""
+	}
 	cookie := &http.Cookie{
 		Name:     CookieName,
-		Domain:   DomainName,
+		Domain:   domain,
 		Value:    encoded,
 		Path:     "/",
 		HttpOnly: true,
