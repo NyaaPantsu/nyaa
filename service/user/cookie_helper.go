@@ -24,6 +24,9 @@ const (
 	UserContextKey = "user"
 	// Domain name : The host domain so these can be shared across sukebei and nyaa
 	DomainName = "pantsu.cat"
+
+	UserContextKey = "nyaapantsu.user"
+
 )
 
 // If you want to keep login cookies between restarts you need to make these permanent
