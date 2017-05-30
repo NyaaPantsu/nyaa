@@ -972,6 +972,14 @@
     "translation": "Torrents deletados"
   },
   {
+    "id": "change_settings",
+    "translation": "Alterar Configurações"
+  },
+  {
+    "id": "mascot",
+    "translation": "Mascote"
+  },
+  {
     "id": "theme",
     "translation": "Tema"
   },
