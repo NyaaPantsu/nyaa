@@ -9,6 +9,8 @@ import (
 
 func TestInitI18n(t *testing.T) {
 	conf := config.I18nConfig{}
+	conf.Directory = "translations"
+	conf.DefaultLanguage = "en-us"
 	conf.Directory = path.Join("..", "..", conf.Directory)
 	var retriever UserRetriever // not required during initialization
 
