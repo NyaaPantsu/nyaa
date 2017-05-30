@@ -22,7 +22,7 @@
 			</br>
                         <h3>{{call $.T "mascot"}}</h3>
 			<select id="mascot-selector" name="mascot" class="form-input">
-				{{call $.T "mascot_select"}}
+				{{call $.T "mascot"}}
 				<option value="show" {{ if eq $.Mascot "show" }} selected{{end}}>{{call $.T "show"}}</option>
 				<option value="hide" {{ if eq $.Mascot "hide" }} selected{{end}}>{{call $.T "hide"}}</option>
 			</select>
