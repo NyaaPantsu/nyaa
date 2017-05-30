@@ -544,6 +544,10 @@
     "translation": "Descrição"
   },
   {
+    "id": "no_description",
+    "translation": "Nenhuma descrição foi fornecida!"
+  },
+  {
     "id": "comments",
     "translation": "Comentários"
   },
@@ -690,8 +694,12 @@
   {    
     "id": "files",
     "translation": "Arquivos"  
-  },  
-  {    
+  },
+  {
+    "id": "no_files",
+    "translation": "Nenhum arquivo encontrado? Isto sequer faz sentido!"
+  },
+  {
     "id": "filename",
     "translation": "Nome do arquivo"
   },
@@ -838,5 +846,145 @@
   {    
     "id": "new_comment_on_torrent",    
     "translation": "Novo comentário no torrent: \"%s\""
+  },
+  {
+    "id": "no_action_selected",
+    "translation": "Você deve dizer o que quer fazer com a seleção!"
+  },
+  {
+    "id": "no_move_location_selected",
+    "translation": "Tu deves dizer para onde mover a seleção!"
+  },
+  {
+    "id": "select_one_element",
+    "translation": "Você precisa selecionar algum elemento!"
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "Torrent %s movido!"
+  },
+  {
+    "id": "no_status_exist",
+    "translation": "O status %d não existe!"
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "Torrent %s excluído!"
+  },
+  {
+    "id": "no_action_exist",
+    "translation": "A ação %s não existe!"
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "O torrent de ID %s não existe!"
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "Algo deu errado"
+  },
+  {
+    "id": "nb_torrents_updated",
+    "translation": "%d torrents atualizados."
+  },
+  {
+    "id": "torrent_updated",
+    "translation": "As informações do torrent foram atualizadas."
+  },
+  {
+    "id": "fail_torrent_update",
+    "translation": "Falha ao atualizar o torrent!"
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "Captcha incorreto!"
+  },
+  {
+    "id": "comment_empty",
+    "translation": "Comentário vazio!"
+  },
+  {
+    "id": "no_owner_selected",
+    "translation": "Você deve informar o novo dono do torrent!"
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "Nenhuma categoria selecionada!"
+  },
+  {
+    "id": "no_user_found_id",
+    "translation": "O usuário de ID %d não está na database!"
+  },
+  {
+    "id": "invalid_torrent_category",
+    "translation": "Esta categoria de torrents não existe!"
+  },
+  {
+    "id": "torrent_owner_changed",
+    "translation": "O dono do torrent \"%s\" foi alterado com sucesso!"
+  },
+  {
+    "id": "torrent_category_changed",
+    "translation": "A categoria do torrent \"%s\" foi alterada com sucesso!"
+  },
+  {
+    "id": "torrent_reports_deleted",
+    "translation": "As denúncias do torrent \"%s\" foram excluídas!"
+  },
+  {
+    "id": "edit",
+    "translation": "Editar"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "Você não poderá recuperar este arquivo, nem impedir alguém de enviá-lo novamente."
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "Excluir definitivamente"
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "Desbloquear"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "Bloquear"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "O torrent foi excluído do banco de dados!"
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "O torrent foi desbloqueado!"
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "O torrent foi bloqueado!"
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "Os torrents não foram deletados"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "Torrents deletados"
+  },
+  {
+    "id": "theme",
+    "translation": "Tema"
+  },
+  {
+    "id": "theme_select",
+    "translation": "Selecione um tema"
+  },
+  {
+    "id": "theme_none",
+    "translation": "Nenhum"
+  },
+  {
+    "id": "mark_as_hidden",
+    "translation": "Marcar como oculto"
   }
 ]
