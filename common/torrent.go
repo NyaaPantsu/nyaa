@@ -107,7 +107,14 @@ func (p *TorrentParam) ToFilterQuery() string {
 	}
 
 	if p.Status != ShowAll {
-		query += " status:" + p.Status.ToString()
+		if p.Status != FilterRemakes {
+			query += " status:" + p.Status.ToString()
+		} else {
+			/* From the old nyaa behavior, FilterRemake means everything BUT
+			 * remakes
+			 */
+			query += " !status:" + p.Status.ToString()
+		}
 	}
 	return query
 }
