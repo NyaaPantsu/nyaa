@@ -23,6 +23,8 @@ import (
 	"github.com/NyaaPantsu/nyaa/util/signals"
 )
 
+var buildversion string
+
 // RunServer runs webapp mainloop
 func RunServer(conf *config.Config) {
 	// TODO Use config from cli
@@ -111,11 +113,16 @@ func RunMetainfoFetcher(conf *config.Config) {
 }
 
 func main() {
-	conf := config.New()
+	conf := config.Conf
+	if buildversion != "" {
+		conf.Build = buildversion
+	} else {
+		conf.Build = "unknown"
+	}
 	processFlags := conf.BindFlags()
 	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
 	mode := flag.String("mode", "webapp", "which mode to run daemon in, either webapp, scraper or metainfo_fetcher")
-	flag.Float64Var(&conf.Cache.Size, "c", config.DefaultCacheSize, "size of the search cache in MB")
+	flag.Float64Var(&conf.Cache.Size, "c", config.Conf.Cache.Size, "size of the search cache in MB")
 
 	flag.Parse()
 	if *defaults {
@@ -151,8 +158,8 @@ func main() {
 			log.Fatal(err.Error())
 		}
 		signals.Handle()
-		if len(config.TorrentFileStorage) > 0 {
-			err := os.MkdirAll(config.TorrentFileStorage, 0700)
+		if len(config.Conf.Torrents.FileStorage) > 0 {
+			err := os.MkdirAll(config.Conf.Torrents.FileStorage, 0700)
 			if err != nil {
 				log.Fatal(err.Error())
 			}

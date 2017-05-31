@@ -39,7 +39,7 @@ func NewFetchOperation(fetcher *MetainfoFetcher, dbEntry model.Torrent) (op *Fet
 func (op *FetchOperation) Start(out chan Result) {
 	defer op.fetcher.wg.Done()
 
-	magnet := util.InfoHashToMagnet(strings.TrimSpace(op.torrent.Hash), op.torrent.Name, config.Trackers...)
+	magnet := util.InfoHashToMagnet(strings.TrimSpace(op.torrent.Hash), op.torrent.Name, config.Conf.Torrents.Trackers.Default...)
 	downloadingTorrent, err := op.fetcher.torrentClient.AddMagnet(magnet)
 	if err != nil {
 		out <- Result{op, err, nil}

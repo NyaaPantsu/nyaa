@@ -32,11 +32,56 @@
     - elasticsearch_settings.yml
     - index_nyaapantsu.py
 
+- name: Increase system max open files
+  lineinfile:
+    path: /etc/sysctl.conf
+    regexp: '^fs.file-max.*'
+    line: 'fs.file-max = {{ nyaapantsu_max_open_files }}'
+  become: true
+
+- name: Increase JVM heapsize
+  lineinfile:
+    path: /etc/sysconfig/elasticsearch
+    regexp: '^ES_JAVA_OPTS=.*'
+    line: 'ES_JAVA_OPTS="-Xms{{ nyaapantsu_jvm_heapsize_gb }}g -Xmx{{ nyaapantsu_jvm_heapsize_gb }}g"'
+  become: true
+
+- name: Create override folder
+  file:
+    path: /etc/systemd/system/elasticsearch.service.d/
+    state: directory
+    mode: 0755
+  become: true
+
+- name: Add override service file
+  template:
+    src: elasticsearch.override.j2
+    dest: /etc/systemd/system/elasticsearch.service.d/override.conf
+  become: true
+
 - name: Enable and start elasticsearch
   systemd:
     enabled: yes
     name: elasticsearch
     state: started
+    daemon_reload: yes
   become: true
 
-# TODO Create / update index
+- name: Copy reindexing triggers
+  template:
+    src: reindex_triggers.sql.j2
+    dest: "{{ nyaapantsu_directory }}/reindex_triggers.sql"
+
+- name: Apply reindexing triggers
+  shell: psql -U "{{ nyaapantsu_user }}" "{{ nyaapantsu_dbname }}" < "{{ nyaapantsu_directory }}/reindex_triggers.sql"
+
+- name: Copy reindexing script
+  copy:
+    src: reindex_nyaapantsu.py
+    dest: "{{ elasticsearch_reindex_script }}"
+
+- name: Setup reindexing cron job
+  template:
+    src: reindex_cron.j2
+    dest: "/etc/cron.d/reindex_{{ nyaapantsu_torrent_tablename }}"
+  become: true

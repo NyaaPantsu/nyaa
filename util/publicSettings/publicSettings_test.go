@@ -7,9 +7,17 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 )
 
+// run before config/parse.go:init()
+var _ = func() (_ struct{}) {
+	config.ConfigPath = path.Join("..", "..", config.ConfigPath)
+	config.DefaultConfigPath = path.Join("..", "..", config.DefaultConfigPath)
+	config.Parse()
+	return
+}()
+
 func TestInitI18n(t *testing.T) {
-	conf := config.DefaultI18nConfig
-	conf.TranslationsDirectory = path.Join("..", "..", conf.TranslationsDirectory)
+	conf := config.Conf.I18n
+	conf.Directory = path.Join("..", "..", conf.Directory)
 	var retriever UserRetriever // not required during initialization
 
 	err := InitI18n(conf, retriever)

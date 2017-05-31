@@ -105,7 +105,7 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 
 		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
 
-		if user.ID > 0 && config.DefaultUserSettings["new_torrent"] { // If we are a member and notifications for new torrents are enabled
+		if user.ID > 0 && config.Conf.Users.DefaultUserSettings["new_torrent"] { // If we are a member and notifications for new torrents are enabled
 			userService.GetFollowers(user) // We populate the liked field for users
 			if len(user.Followers) > 0 {   // If we are followed by at least someone
 				for _, follower := range user.Followers {
