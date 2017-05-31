@@ -970,5 +970,41 @@
   {
     "id": "torrent_nav_deleted",
     "translation": "ทอรเรนท์ถูกลบแล้ว"
+  },
+  {
+    "id": "change_settings",
+    "translation": "เปลี่ยนรูปลักษณ์/ภาษา"
+  },
+  {
+    "id": "mascot",
+    "translation": "มาสคอต"
+  },
+  {
+    "id": "theme",
+    "translation": "ธีม"
+  },
+  {
+    "id": "theme_select",
+    "translation": "เลือกธีม"
+  },
+  {
+    "id": "theme_none",
+    "translation": "None"
+  },
+  {
+    "id": "mark_as_hidden",
+    "translation": "ทำเครื่องหมายว่าถูกซ่อน"
+  },
+  {
+    "id": "cookies",
+    "translation": "หากคุณกดบันทึกแสดงว่าคุณอนุญาตให้เราใช้คุกกี้"
+  },
+  {
+    "id": "show",
+    "translation": "แสดง"
+  },
+  {
+    "id": "hide",
+    "translation": "ซ่อน"
   }
 ]
