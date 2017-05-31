@@ -12,10 +12,9 @@ var DefaultConfig *Config
 
 func getDefaultConfig() *Config {
 	DefaultConfig = &Config{}
-	path := "config/default_config.yml"
-	data, err := ioutil.ReadFile(path)
+	data, err := ioutil.ReadFile(DefaultConfigPath)
 	if err != nil {
-		log.Printf("can't read file '%s'", path)
+		log.Printf("can't read file '%s'", DefaultConfigPath)
 	}
 	err = yaml.Unmarshal(data, DefaultConfig)
 	if err != nil {

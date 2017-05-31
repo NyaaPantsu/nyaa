@@ -2,11 +2,20 @@ package db
 
 import (
 	"fmt"
+	"path"
 	"testing"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/azhao12345/gorm"
 )
+
+// run before config/parse.go:init()
+var _ = func() (_ struct{}) {
+	config.ConfigPath = path.Join("..", config.ConfigPath)
+	config.DefaultConfigPath = path.Join("..", config.DefaultConfigPath)
+	config.Parse()
+	return
+}()
 
 type errorLogger struct {
 	t *testing.T
@@ -29,13 +38,6 @@ func TestGormInitSqlite(t *testing.T) {
 	config.Conf.DBType = SqliteType
 	config.Conf.DBParams = ":memory:?cache=shared&mode=memory"
 	config.Conf.DBLogMode = "detailed"
-	config.Conf.Models.CommentsTableName = "comments"
-	config.Conf.Models.FilesTableName = "files"
-	config.Conf.Models.NotificationsTableName = "notifications"
-	config.Conf.Models.ReportsTableName = "torrent_reports"
-	config.Conf.Models.TorrentsTableName = "torrents"
-	config.Conf.Models.UploadsOldTableName = "user_uploads_old"
-	config.Conf.Models.LastOldTorrentID = 90000
 
 	db, err := GormInit(config.Conf, &errorLogger{t})
 	if err != nil {

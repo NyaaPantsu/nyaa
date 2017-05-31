@@ -12,6 +12,13 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
+var (
+	// DefaultConfigPath : path to the default config file (please do not change it)
+	DefaultConfigPath = "config/default_config.yml"
+	// ConfigPath : path to the user specific config file (please do not change it)
+	ConfigPath = "config/config.yml"
+)
+
 // Conf : Modified configuration
 var Conf *Config
 var privateConf Config
@@ -34,8 +41,12 @@ var allowedDBLogModes = map[string]bool{
 	"silent":   true,
 }
 
-// Construct a new config variable
 func init() {
+	Parse()
+}
+
+// Parse : Parse config into a config variable
+func Parse() {
 	getDefaultConfig()
 	privateConf = *DefaultConfig
 	Conf = &privateConf
@@ -43,10 +54,9 @@ func init() {
 }
 
 func overrideDefaults() {
-	path := "config/config.yml"
-	data, err := ioutil.ReadFile(path)
+	data, err := ioutil.ReadFile(ConfigPath)
 	if err != nil {
-		log.Printf("can't read file '%s'", path)
+		log.Printf("can't read file '%s'", ConfigPath)
 	}
 	err = yaml.Unmarshal(data, &Conf)
 	if err != nil {

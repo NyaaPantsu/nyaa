@@ -1,12 +1,22 @@
 package native
 
 import (
+	"path"
 	"sync"
 	"testing"
 
 	"github.com/NyaaPantsu/nyaa/common"
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/model"
 )
+
+// run before config/parse.go:init()
+var _ = func() (_ struct{}) {
+	config.ConfigPath = path.Join("..", "..", config.ConfigPath)
+	config.DefaultConfigPath = path.Join("..", "..", config.DefaultConfigPath)
+	config.Parse()
+	return
+}()
 
 // Basic test for deadlocks and race conditions
 func TestConcurrency(t *testing.T) {
