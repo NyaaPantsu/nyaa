@@ -12,7 +12,6 @@ var Torrents = {
     },
     Refresh: function() {
         if (this.CanRefresh) {
-            console.log("Start Refresh...")
             this.timeout = setTimeout(function() {
                 var searchArgs = (window.location.search != "") ? window.location.search.substr(1) : ""
                 searchArgs = (Torrents.LastID > 0) ? "?fromID="+Torrents.LastID+"&"+searchArgs : "?"+searchArgs
