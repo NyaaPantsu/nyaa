@@ -257,14 +257,14 @@ func DownloadTorrent(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	hash := vars["hash"]
 
-	if hash == "" && len(config.TorrentFileStorage) == 0 {
+	if hash == "" && len(config.Conf.Torrents.FileStorage) == 0 {
 		//File not found, send 404
 		http.Error(w, "File not found.", 404)
 		return
 	}
 
 	//Check if file exists and open
-	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.TorrentFileStorage, os.PathSeparator, hash))
+	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Conf.Torrents.FileStorage, os.PathSeparator, hash))
 	defer Openfile.Close() //Close after function return
 	if err != nil {
 		//File not found, send 404

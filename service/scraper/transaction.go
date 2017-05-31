@@ -54,8 +54,8 @@ func (t *Transaction) handleScrapeReply(data []byte) {
 	}
 }
 
-const pgQuery = "UPDATE " + config.TorrentsTableName + " SET seeders = $1 , leechers = $2 , completed = $3 , last_scrape = $4 WHERE torrent_id = $5"
-const sqliteQuery = "UPDATE " + config.TorrentsTableName + " SET seeders = ? , leechers = ? , completed = ? , last_scrape = ? WHERE torrent_id = ?"
+var pgQuery = "UPDATE " + config.Conf.Models.TorrentsTableName + " SET seeders = $1 , leechers = $2 , completed = $3 , last_scrape = $4 WHERE torrent_id = $5"
+var sqliteQuery = "UPDATE " + config.Conf.Models.TorrentsTableName + " SET seeders = ? , leechers = ? , completed = ? , last_scrape = ? WHERE torrent_id = ?"
 
 // Sync syncs models with database
 func (t *Transaction) Sync() (err error) {

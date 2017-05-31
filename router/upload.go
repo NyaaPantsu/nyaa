@@ -70,7 +70,7 @@ var errTorrentPlusMagnet = errors.New("Upload either a torrent file or magnet li
 var errPrivateTorrent = errors.New("Torrent is private")
 
 // error indicating a problem with its trackers
-var errTrackerProblem = errors.New("Torrent does not have any (working) trackers: https://" + config.WebAddress + "/faq#trackers")
+var errTrackerProblem = errors.New("Torrent does not have any (working) trackers: https://" + config.Conf.WebAddress + "/faq#trackers")
 
 // error indicating a torrent's name is invalid
 var errInvalidTorrentName = errors.New("Torrent name is invalid")
@@ -232,7 +232,7 @@ func (f *uploadForm) ExtractInfo(r *http.Request) error {
 	}
 
 	// after data has been checked & extracted, write it to disk
-	if len(config.TorrentFileStorage) > 0 {
+	if len(config.Conf.Torrents.FileStorage) > 0 {
 		err := writeTorrentToDisk(tfile, f.Infohash+".torrent", &f.Filepath)
 		if err != nil {
 			return err
@@ -290,7 +290,7 @@ func writeTorrentToDisk(file multipart.File, name string, fullpath *string) erro
 	if err != nil {
 		return err
 	}
-	*fullpath = fmt.Sprintf("%s%c%s", config.TorrentFileStorage, os.PathSeparator, name)
+	*fullpath = fmt.Sprintf("%s%c%s", config.Conf.Torrents.FileStorage, os.PathSeparator, name)
 	return ioutil.WriteFile(*fullpath, b, 0644)
 }
 

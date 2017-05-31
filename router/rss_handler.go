@@ -67,7 +67,7 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	feed := &feeds.Feed{
 		Title:   "Nyaa Pantsu",
-		Link:    &feeds.Link{Href: "https://" + config.WebAddress + "/"},
+		Link:    &feeds.Link{Href: "https://" + config.Conf.WebAddress + "/"},
 		Created: createdAsTime,
 	}
 	feed.Items = make([]*feeds.Item, len(torrents))
@@ -75,7 +75,7 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	for i, torrent := range torrents {
 		torrentJSON := torrent.ToJSON()
 		feed.Items[i] = &feeds.Item{
-			ID:          "https://" + config.WebAddress + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
+			ID:          "https://" + config.Conf.WebAddress + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
 			Title:       torrent.Name,
 			Link:        &feeds.Link{Href: string("<![CDATA[" + torrentJSON.Magnet + "]]>")},
 			Description: string(torrentJSON.Description),
