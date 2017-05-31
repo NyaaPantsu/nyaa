@@ -25,12 +25,19 @@ func (logger *errorLogger) Print(values ...interface{}) {
 }
 
 func TestGormInitSqlite(t *testing.T) {
-	conf := config.New()
-	conf.DBType = SqliteType
-	conf.DBParams = ":memory:?cache=shared&mode=memory"
-	conf.DBLogMode = "detailed"
 
-	db, err := GormInit(conf, &errorLogger{t})
+	config.Conf.DBType = SqliteType
+	config.Conf.DBParams = ":memory:?cache=shared&mode=memory"
+	config.Conf.DBLogMode = "detailed"
+	config.Conf.Models.CommentsTableName = "comments"
+	config.Conf.Models.FilesTableName = "files"
+	config.Conf.Models.NotificationsTableName = "notifications"
+	config.Conf.Models.ReportsTableName = "torrent_reports"
+	config.Conf.Models.TorrentsTableName = "torrents"
+	config.Conf.Models.UploadsOldTableName = "user_uploads_old"
+	config.Conf.Models.LastOldTorrentID = 90000
+
+	db, err := GormInit(config.Conf, &errorLogger{t})
 	if err != nil {
 		t.Errorf("failed to initialize database: %v", err)
 		return
@@ -62,12 +69,18 @@ func TestGormInitPostgres(t *testing.T) {
 		t.Skip("skip", testPostgres)
 	}
 
-	conf := config.New()
-	conf.DBType = "postgres"
-	conf.DBParams = "host=localhost user=nyaapantsu dbname=nyaapantsu sslmode=disable password=nyaapantsu"
-	conf.DBLogMode = "detailed"
+	config.Conf.DBType = "postgres"
+	config.Conf.DBParams = "host=localhost user=nyaapantsu dbname=nyaapantsu sslmode=disable password=nyaapantsu"
+	config.Conf.DBLogMode = "detailed"
+	config.Conf.Models.CommentsTableName = "comments"
+	config.Conf.Models.FilesTableName = "files"
+	config.Conf.Models.NotificationsTableName = "notifications"
+	config.Conf.Models.ReportsTableName = "torrent_reports"
+	config.Conf.Models.TorrentsTableName = "torrents"
+	config.Conf.Models.UploadsOldTableName = "user_uploads_old"
+	config.Conf.Models.LastOldTorrentID = 90000
 
-	db, err := GormInit(conf, &errorLogger{t})
+	db, err := GormInit(config.Conf, &errorLogger{t})
 	if err != nil {
 		t.Errorf("failed to initialize database: %v", err)
 	}

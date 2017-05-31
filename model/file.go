@@ -16,7 +16,7 @@ type File struct {
 
 // TableName : Return the name of files table
 func (f File) TableName() string {
-	return config.FilesTableName
+	return config.Conf.Models.FilesTableName
 }
 
 // Size : Returns the total size of memory allocated for this struct

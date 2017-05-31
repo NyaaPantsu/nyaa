@@ -51,9 +51,9 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 
 	max, err := strconv.ParseUint(r.URL.Query().Get("max"), 10, 32)
 	if err != nil {
-		max = config.TorrentsPerPage
-	} else if max > config.MaxTorrentsPerPage {
-		max = config.MaxTorrentsPerPage
+		max = uint64(config.Conf.Navigation.TorrentsPerPage)
+	} else if max > uint64(config.Conf.Navigation.MaxTorrentsPerPage) {
+		max = uint64(config.Conf.Navigation.MaxTorrentsPerPage)
 	}
 
 	// FIXME 0 means no userId defined
@@ -145,7 +145,7 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 
 	query := elastic.NewSimpleQueryStringQuery(p.NameLike).
 		Field("name").
-		Analyzer(config.DefaultElasticsearchAnalyzer).
+		Analyzer(config.Conf.Search.ElasticsearchAnalyzer).
 		DefaultOperator("AND")
 
 	fsc := elastic.NewFetchSourceContext(true).
@@ -153,9 +153,9 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 
 	// TODO Find a better way to keep in sync with mapping in ansible
 	search := client.Search().
-		Index(config.DefaultElasticsearchIndex).
+		Index(config.Conf.Search.ElasticsearchIndex).
 		Query(query).
-		Type(config.DefaultElasticsearchType).
+		Type(config.Conf.Search.ElasticsearchType).
 		From(int((p.Offset-1)*p.Max)).
 		Size(int(p.Max)).
 		Sort(p.Sort.ToESField(), p.Order).
@@ -205,7 +205,7 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 				idsToString += "," + strconv.FormatUint(uint64(tid.Id), 10)
 			}
 			idsToString += "}"
-			db.ORM.Raw("SELECT * FROM " + config.TorrentsTableName +
+			db.ORM.Raw("SELECT * FROM " + config.Conf.Models.TorrentsTableName +
 				" JOIN unnest('" + idsToString + "'::int[]) " +
 				" WITH ORDINALITY t(torrent_id, ord) USING (torrent_id) ORDER  BY t.ord").Find(&torrents)
 		}

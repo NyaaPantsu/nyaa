@@ -13,7 +13,7 @@ NYAAPANTSU_WATCH_DIR="$7"
 
 dump_file="${NYAAPANTSU_DB}_$(date +'%Y_%m_%d_%H_%M').backup"
 
-pg_dump -U "${NYAAPANTSU_USERNAME}" --exclude-table-data=users -f "${dump_file}"
+pg_dump -U "${NYAAPANTSU_USERNAME}" -Fc --exclude-table-data=users -f "${dump_file}"
 
 xz -z "${dump_file}"
 

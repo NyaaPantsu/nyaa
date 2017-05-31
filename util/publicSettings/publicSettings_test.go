@@ -8,8 +8,10 @@ import (
 )
 
 func TestInitI18n(t *testing.T) {
-	conf := config.DefaultI18nConfig
-	conf.TranslationsDirectory = path.Join("..", "..", conf.TranslationsDirectory)
+	conf := config.I18nConfig{}
+	conf.Directory = "translations"
+	conf.DefaultLanguage = "en-us"
+	conf.Directory = path.Join("..", "..", conf.Directory)
 	var retriever UserRetriever // not required during initialization
 
 	err := InitI18n(conf, retriever)

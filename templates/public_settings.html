@@ -20,10 +20,16 @@
 				<option value=""{{ if eq $.Theme "" }} selected{{end}}>{{call $.T "theme_none"}}</option>
 			</select>
 			</br>
+                        <h3>{{call $.T "mascot"}}</h3>
+			<select id="mascot-selector" name="mascot" class="form-input">
+				{{call $.T "mascot"}}
+				<option value="show" {{ if eq $.Mascot "show" }} selected{{end}}>{{call $.T "show"}}</option>
+				<option value="hide" {{ if eq $.Mascot "hide" }} selected{{end}}>{{call $.T "hide"}}</option>
+			</select>
 			</br>
+			<p>{{call $.T "cookies"}}</p>
 			<button type="submit" class="form-input btn">{{call $.T "save_changes"}}</button>
 		</div>
-
 	</form>
 	<div style="padding-bottom: 1em"></div>
 </div>

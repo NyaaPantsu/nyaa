@@ -27,7 +27,7 @@ func (c Comment) Size() int {
 
 // TableName : Return the name of comment table
 func (c Comment) TableName() string {
-	return config.CommentsTableName
+	return config.Conf.Models.CommentsTableName
 }
 
 // Identifier : Return the identifier of the comment

@@ -61,7 +61,7 @@ func EncodeCookie(userID uint) (string, error) {
 // ClearCookie : Erase cookie session
 func ClearCookie(w http.ResponseWriter) (int, error) {
 	domain := DomainName
-	if config.Environment == "DEVELOPMENT" {
+	if config.Conf.Environment == "DEVELOPMENT" {
 		domain = ""
 	}
 	cookie := &http.Cookie{
@@ -108,7 +108,7 @@ func SetCookieHandler(w http.ResponseWriter, r *http.Request, email string, pass
 		return http.StatusInternalServerError, err
 	}
 	domain := DomainName
-	if config.Environment == "DEVELOPMENT" {
+	if config.Conf.Environment == "DEVELOPMENT" {
 		domain = ""
 	}
 	cookie := &http.Cookie{

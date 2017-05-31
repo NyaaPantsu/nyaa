@@ -23,7 +23,7 @@ type TorrentReport struct {
 
 // TableName : Return the name of torrent report table
 func (report TorrentReport) TableName() string {
-	return config.ReportsTableName
+	return config.Conf.Models.ReportsTableName
 }
 
 // TorrentReportJSON : Json struct of torrent report model
