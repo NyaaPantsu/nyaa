@@ -34,8 +34,8 @@ cache:
 # Size by default for the cache
   size: 1024
 search:
-# default analyzer for ES
-  es_analyze: nyaapantsu_analyzer
+# default search analyzer for ES
+  es_analyze: nyaapantsu_search_analyzer
 # default search index for ES
   es_index: nyaapantsu
 # Name of the type in the es mapping
