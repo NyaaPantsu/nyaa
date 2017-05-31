@@ -28,10 +28,6 @@
     "translation": "RAS"
   },
   {
-    "id": "mascot",
-    "translation": "Mascotte"
-  },
-  {
     "id": "change_settings",
     "translation": "Préférences"
   },
@@ -60,8 +56,24 @@
     "translation": "Aucun"
   },
   {
+    "id": "mascot",
+    "translation": "Mascotte"
+  },
+  {
+    "id": "show",
+    "translation": "Afficher"
+  },
+  {
+    "id": "hide",
+    "translation": "Masquer"
+  },
+  {
+    "id": "cookies",
+    "translation": "En cliquant sur Sauvegarder, vous acceptez notre utilisation des cookies."
+  },
+  {
     "id": "save_changes",
-    "translation": "Sauvegarder les changements"
+    "translation": "Sauvegarder"
   },
   {
     "id": "links",
