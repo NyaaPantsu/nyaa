@@ -110,14 +110,19 @@ Your browser does not support the audio element.
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
-                <h2>Mod Panel Tools</h2>
+                <h2>Following changes will be applied</h2>
             </div>
             <div class="modal-body">
-                <p>Some text in the Modal Body</p>
-                <p>Some other text...</p>
+                <h3>Changes will be made in the following order:</h3>
+                <div class="progress-bar"><div class="progress-green"></div></div>
+                <hr>
+                <p>Edit Changes</p>
+                <div class="edit_changes"></div>
+                <p>Delete Changes</p>
+                <div class="edit_changes"></div>
             </div>
             <div class="modal-footer">
-                <h3>Modal Footer</h3>
+                <h3>Confirm? <button id="confirm_changes">{{ call $.T "yes"}}</button><button class="close">{{ call $.T "no"}}</button></h3>
             </div>
         </div>
     </div>
