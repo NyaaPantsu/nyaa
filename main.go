@@ -23,6 +23,8 @@ import (
 	"github.com/NyaaPantsu/nyaa/util/signals"
 )
 
+var buildversion string
+
 // RunServer runs webapp mainloop
 func RunServer(conf *config.Config) {
 	// TODO Use config from cli
@@ -112,6 +114,11 @@ func RunMetainfoFetcher(conf *config.Config) {
 
 func main() {
 	conf := config.Conf
+	if buildversion != "" {
+		conf.Build = buildversion
+	} else {
+		conf.Build = "unknown"
+	}
 	processFlags := conf.BindFlags()
 	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
 	mode := flag.String("mode", "webapp", "which mode to run daemon in, either webapp, scraper or metainfo_fetcher")

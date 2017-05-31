@@ -13,6 +13,8 @@ type Config struct {
 	// structure depends on the dialect for each db type
 	DBParams  string `json:"db_params" yaml:"db_params,omitempty"`
 	DBLogMode string `json:"db_logmode" yaml:"db_logmode,omitempty"`
+	Version   string `json:"version" yaml:"version,omitempty"`
+	Build     string `yaml:"-"`
 	// tracker scraper config (required)
 	Scrape ScraperConfig `json:"scraper" yaml:"scraper,flow,omitempty"`
 	// cache config
