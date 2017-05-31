@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/gorilla/mux"
 	elastic "gopkg.in/olivere/elastic.v5"
@@ -38,10 +39,7 @@ type TorrentParam struct {
 func (p *TorrentParam) FromRequest(r *http.Request) {
 	var err error
 
-	nameLike := r.URL.Query().Get("q")
-	if nameLike == "" {
-		nameLike = "*"
-	}
+	nameLike := strings.TrimSpace(r.URL.Query().Get("q"))
 
 	page := mux.Vars(r)["page"]
 	pagenum, err := strconv.ParseUint(page, 10, 32)
@@ -143,10 +141,15 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 	// TODO Why is it needed, what does it do ?
 	ctx := context.Background()
 
-	query := elastic.NewSimpleQueryStringQuery(p.NameLike).
-		Field("name").
-		Analyzer(config.Conf.Search.ElasticsearchAnalyzer).
-		DefaultOperator("AND")
+	var query elastic.Query
+	if p.NameLike == "" {
+		query = elastic.NewMatchAllQuery()
+	} else {
+		query = elastic.NewSimpleQueryStringQuery(p.NameLike).
+			Field("name").
+			Analyzer(config.Conf.Search.ElasticsearchAnalyzer).
+			DefaultOperator("AND")
+	}
 
 	fsc := elastic.NewFetchSourceContext(true).
 		Include("id")

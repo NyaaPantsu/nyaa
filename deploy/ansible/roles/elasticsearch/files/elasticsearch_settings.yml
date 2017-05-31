@@ -2,19 +2,37 @@
 settings:
   analysis:
     analyzer:
-      nyaapantsu_analyzer:
-        tokenizer: nyaapantsu_tokenizer
+      # Don't use ngram for search otherwise 'horribleexample' would match
+      # 'horriblesubs'
+      nyaapantsu_search_analyzer:
+        tokenizer: standard
         filter:
           - standard
           - lowercase
-    tokenizer:
-      nyaapantsu_tokenizer:
+        char_filter:
+          - dash_to_underscore
+
+      nyaapantsu_index_analyzer:
+        tokenizer: standard
+        filter:
+          - standard
+          - lowercase
+          - e_ngram_filter
+        char_filter:
+          - dash_to_underscore
+
+    filter:
+      e_ngram_filter:
         type: edge_ngram
         min_gram: 2
         max_gram: 15
-        token_chars:
-          - letter
-          - digit 
+
+    char_filter:
+      dash_to_underscore:
+        type: pattern_replace
+        pattern: "([^\\s]+)-(?=[^\\s]+)"
+        replacement: "$1_"
+
   index:
     number_of_shards: 1
     number_of_replicas: 0
@@ -28,8 +46,10 @@ mappings:
         type: long
       name:
         type: text
-        analyzer: nyaapantsu_analyzer
-        fielddata: true # Use to sort by id because it is currently a text field
+        analyzer: nyaapantsu_index_analyzer
+        fields:
+          raw:
+            type: keyword
       category:
         type: text
       sub_category:
