@@ -17,6 +17,9 @@ Your browser does not support the audio element.
           <table>
           <thead class="torrent-info">
           <tr>
+              {{ if HasAdmin $.User }}
+              <th class="tr-cb"></th>
+              {{end}}
               <th class="tr-cat">{{call $.T "category"}}</th>
               <th class="tr-name">
                 <a href="{{ genSearchWithOrdering .URL "1" }}">{{call $.T "name"}}<span class="sort-arrows">{{ genSortArrows .URL "1" }}</span></a>
@@ -42,7 +45,12 @@ Your browser does not support the audio element.
           <tr class="torrent-info
               {{if eq .Status 2}}remake{{end}}
               {{if eq .Status 3}}trusted{{end}}
-              {{if eq .Status 4}}aplus{{end}}">
+              {{if eq .Status 4}}aplus{{end}}" id="torrent{{ .ID }}">
+                {{ if HasAdmin $.User }}
+              <td class="tr-cb">
+                <input data-name="{{ .Name }}" type="checkbox" id="torrent_cb_{{ .ID }}" name="torrent_id" value="{{ .ID }}">
+              </td>
+                {{ end }}
               <td class="tr-cat home-td">
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
                       {{ if Sukebei }}
@@ -88,11 +96,49 @@ Your browser does not support the audio element.
           </tbody>
       </table>
     </div>
+    {{ if HasAdmin $.User }}
+    <div class="modtools">
+        <button id="show_actions" data-toggle-text="Hide Mod Tools">Show Mod Tools</button>
+        <span class="actions">
+            <button class="cb_action" id="delete">Delete</button>
+            <button class="cb_submit" id="modal_active">Moderation Tools</button>
+        </span>
+    </div>
+    <!-- Modal -->
+    <div id="modal_mod_tools" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Mod Panel Tools</h2>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the Modal Body</p>
+                <p>Some other text...</p>
+            </div>
+            <div class="modal-footer">
+                <h3>Modal Footer</h3>
+            </div>
+        </div>
+    </div>
+    {{end}}
 {{end}}
 {{ define "footer_js"}}
 <script type="text/javascript" src="{{ $.URL.Parse "/js/template.js" }}"></script>
 <script type="text/javascript" src="{{ $.URL.Parse "/js/query.js" }}"></script>
+<script type="text/javascript" src="{{ $.URL.Parse "/js/modal.js" }}"></script>
 <script type="text/javascript" src="{{ $.URL.Parse "/js/torrents.js" }}"></script>
+{{ if HasAdmin $.User }}
+<script type="text/javascript" src="{{ $.URL.Parse "/js/torrentsMod.js" }}"></script>
+    <script type="text/javascript">
+        Modal.Init({elements: document.getElementsByClassName("modal"),
+            button: "#modal_active",
+            before: function() {
+                // TODO: List all actions
+            }
+        });
+        </script>
+{{end}}
 <!-- JS Template -->
     <script type="text/javascript">
         Templates.Add("torrents.item", function(torrent) {
@@ -119,7 +165,7 @@ Your browser does not support the audio element.
               "<td class=\"tr-date home-td date-short hide-xs\">"+torrent.date+"</td>"+
           "</tr>";
         });
-       Torrents.LastID = {{ lastID .URL .Models }};
-       if (Torrents.LastID > 0) Torrents.CanRefresh = true;
+        Torrents.LastID = {{ lastID .URL .Models }};
+        if (Torrents.LastID > 0) Torrents.CanRefresh = true;     
     </script>
 {{end}}

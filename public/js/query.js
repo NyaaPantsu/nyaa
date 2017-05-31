@@ -1,6 +1,6 @@
 var Query = {
     Failed:0,
-    MaxConsecutingFailing:-1,
+    MaxFail: -1,
     Get: function(url, renderer, callback) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
@@ -14,10 +14,10 @@ var Query = {
                 console.log("Error when refresh")
                 Query.Failed++;
                 console.log("Attempt to refresh "+Query.Failed+"...");
-                if ((Query.MaxConsecutingFailing == -1) || (Query.Failed < Query.MaxConsecutingFailing)) Query.Get(url, renderer, callback);
+                if ((Query.MaxFail == -1) || (Query.Failed < Query.MaxFail)) Query.Get(url, renderer, callback);
                 else console.error("Too many attempts, stopping...")
             }
         };
         xhr.send();
     }
-}
+};
