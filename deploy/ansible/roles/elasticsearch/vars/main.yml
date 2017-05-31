@@ -1,0 +1,3 @@
+# Run job every 5 minutes
+elasticsearch_cron_minutes: "*/5"
+elasticsearch_reindex_script: "{{ nyaapantsu_directory }}/reindex_nyaapantsu.py"

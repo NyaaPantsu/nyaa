@@ -1,0 +1,5 @@
+PANTSU_DBPARAMS="host=localhost port={{ nyaapantsu_pgpool_port }} user={{ nyaapantsu_user }} password={{ nyaapantsu_password }} sslmode=disable"
+PANTSU_ELASTICSEARCH_INDEX="{{ nyaapantsu_elasticsearch_alias }}"
+PANTSU_TORRENT_TABLENAME="{{ nyaapantsu_torrent_tablename }}"
+{{ elasticsearch_cron_minutes }} * * * * {{ ansible_ssh_user }} python {{ elasticsearch_reindex_script }}
+
