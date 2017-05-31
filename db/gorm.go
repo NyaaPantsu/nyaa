@@ -19,7 +19,7 @@ type Logger interface {
 }
 
 // DefaultLogger : use the default gorm logger that prints to stdout
-var DefaultLogger Logger = nil
+var DefaultLogger Logger
 
 // ORM : Variable for interacting with database
 var ORM *gorm.DB
@@ -54,7 +54,7 @@ func GormInit(conf *config.Config, logger Logger) (*gorm.DB, error) {
 	db.DB().SetMaxIdleConns(maxIdleConns)
 	db.DB().SetMaxOpenConns(400)
 
-	if config.Environment == "DEVELOPMENT" {
+	if config.Conf.Environment == "DEVELOPMENT" {
 		db.LogMode(true)
 	}
 

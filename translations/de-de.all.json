@@ -544,6 +544,10 @@
     "translation": "Beschreibung"
   },
   {
+    "id": "no_description",
+    "translation": "Keine Beschreibung vorhanden!"
+  },
+  {
     "id": "comments",
     "translation": "Kommentare"
   },
@@ -692,6 +696,10 @@
     "translation": "Dateien"
   },
   {
+    "id": "no_files",
+    "translation": "Nanu, wo sind denn die Dateien hin?"
+  },
+  {
     "id": "filename",
     "translation": "Dateiname"
   },
@@ -782,5 +790,113 @@
   {
     "id": "new_torrent_uploaded",
     "translation": "Neuer Torrent: \"%s\" von %s"
+  },
+  {
+    "id": "preferences",
+    "translation": "Einstellungen"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "Benachrichtigt werden wenn ein gefolgter Benutzer einen neuen Torrent hinzufügt"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "Per E-Mail benachrichtigt werden wenn ein gefolgter Benutzer einen neuen Torrent hinzufügt"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "Benachrichtigt werden wenn deine Torrents kommentiert werden"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "Per E-Mail benachrichtigt werden wenn deine Torrents kommentiert werden"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "Benachrichtigt werden wenn auf deine Kommentare geantwortet wird"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "Per E-Mail benachrichtigt werden wenn auf deine Kommentare geantwortet wird"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "Benachrichtigt werden wenn du einen neuen Follower hast"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "Per E-Mail benachrichtigt werden wenn du einen neuen Follower hast"
+  },
+  {
+    "id": "yes",
+    "translation": "Ja"
+  },
+  {
+    "id": "no",
+    "translation": "Nein"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "Neuer Kommentar zu einem Torrent: \"%s\""
+  },
+  {
+    "id": "select_one_element",
+    "translation": "Du musst mindestens ein Element auswählen!"
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "Torrent %s verschoben!"
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "Torrent %s gelöscht!"
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "Torrent mit ID %s existiert nicht!"
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "Da ist wohl etwas schief gelaufen..."
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "Falsches Captcha!"
+  },
+  {
+    "id": "comment_empty",
+    "translation": "Kommentar ist leer!"
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "Keine Kategorie ausgewählt!"
+  },
+  {
+    "id": "edit",
+    "translation": "Bearbeiten"
+  },
+  {
+    "id": "change_settings",
+    "translation": "Einstellungen ändern"
+  },
+  {
+    "id": "mascot",
+    "translation": "Maskottchen"
+  },
+  {
+    "id": "theme",
+    "translation": "Thema"
+  },
+  {
+    "id": "theme_select",
+    "translation": "Wähle ein Thema aus"
+  },
+  {
+    "id": "theme_none",
+    "translation": "Keins"
+  },
+  {
+    "id": "mark_as_hidden",
+    "translation": "Als Versteckt markieren"
   }
 ]

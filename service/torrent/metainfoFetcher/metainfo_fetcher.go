@@ -233,8 +233,8 @@ func (fetcher *MetainfoFetcher) fillQueue() {
 		excludedIDS = append(excludedIDS, id)
 	}
 
-	tFiles := config.FilesTableName
-	tTorrents := config.TorrentsTableName
+	tFiles := config.Conf.Models.FilesTableName
+	tTorrents := config.Conf.Models.TorrentsTableName
 	// Select the torrents with no filesize, or without any rows with torrent_id in the files table...
 	queryString := "((filesize IS NULL OR filesize = 0) OR (" + tTorrents + ".torrent_id NOT " +
 		"IN (SELECT " + tFiles + ".torrent_id FROM " + tFiles + " WHERE " + tFiles +
@@ -254,7 +254,7 @@ func (fetcher *MetainfoFetcher) fillQueue() {
 	// and, if true, that aren't from the old Nyaa database
 	if fetcher.newTorrentsOnly {
 		queryString += " AND torrent_id > ? "
-		whereParamsArgs = append(whereParamsArgs, config.LastOldTorrentID)
+		whereParamsArgs = append(whereParamsArgs, config.Conf.Models.LastOldTorrentID)
 	}
 
 	params := serviceBase.CreateWhereParams(queryString, whereParamsArgs...)

@@ -32,6 +32,7 @@ type User struct {
 	APITokenExpiry time.Time `gorm:"column:api_token_expiry"`
 	Language       string    `gorm:"column:language"`
 	Theme          string    `gorm:"column:theme"`
+	Mascot         string    `gorm:"column:mascot"`
 	UserSettings   string    `gorm:"column:settings"`
 
 	// TODO: move this to PublicUser
@@ -128,7 +129,7 @@ type UserSettings struct {
 // TableName : Return the name of OldComment table
 func (c UserUploadsOld) TableName() string {
 	// is this needed here?
-	return config.UploadsOldTableName
+	return config.Conf.Models.UploadsOldTableName
 }
 
 // ToJSON : Conversion of a user model to json
@@ -151,7 +152,7 @@ func (s *UserSettings) Get(key string) bool {
 	if val, ok := s.Settings[key]; ok {
 		return val
 	}
-	return config.DefaultUserSettings[key]
+	return config.Conf.Users.DefaultUserSettings[key]
 }
 
 // GetSettings : get all user settings
@@ -169,7 +170,7 @@ func (s *UserSettings) Set(key string, val bool) {
 
 // ToDefault : Set user settings to default
 func (s *UserSettings) ToDefault() {
-	s.Settings = config.DefaultUserSettings
+	s.Settings = config.Conf.Users.DefaultUserSettings
 }
 
 func (s *UserSettings) initialize() {

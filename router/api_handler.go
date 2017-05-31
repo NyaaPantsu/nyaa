@@ -40,7 +40,7 @@ func APIHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if req.MaxPerPage == 0 {
-			req.MaxPerPage = config.TorrentsPerPage
+			req.MaxPerPage = config.Conf.Navigation.TorrentsPerPage
 		}
 		if req.Page <= 0 {
 			req.Page = 1
@@ -53,10 +53,10 @@ func APIHandler(w http.ResponseWriter, r *http.Request) {
 		if maxString != "" {
 			req.MaxPerPage, err = strconv.Atoi(maxString)
 			if !log.CheckError(err) {
-				req.MaxPerPage = config.TorrentsPerPage
+				req.MaxPerPage = config.Conf.Navigation.TorrentsPerPage
 			}
 		} else {
-			req.MaxPerPage = config.TorrentsPerPage
+			req.MaxPerPage = config.Conf.Navigation.TorrentsPerPage
 		}
 
 		req.Page = 1

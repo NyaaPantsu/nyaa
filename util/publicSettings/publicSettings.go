@@ -23,7 +23,7 @@ type UserRetriever interface {
 type TemplateTfunc func(string, ...interface{}) template.HTML
 
 var (
-	defaultLanguage = config.DefaultI18nConfig.DefaultLanguage
+	defaultLanguage = config.Conf.I18n.DefaultLanguage
 	userRetriever   UserRetriever
 )
 
@@ -32,13 +32,13 @@ func InitI18n(conf config.I18nConfig, retriever UserRetriever) error {
 	defaultLanguage = conf.DefaultLanguage
 	userRetriever = retriever
 
-	defaultFilepath := path.Join(conf.TranslationsDirectory, defaultLanguage+".all.json")
+	defaultFilepath := path.Join(conf.Directory, defaultLanguage+".all.json")
 	err := i18n.LoadTranslationFile(defaultFilepath)
 	if err != nil {
 		panic(fmt.Sprintf("failed to load default translation file '%s': %v", defaultFilepath, err))
 	}
 
-	paths, err := filepath.Glob(path.Join(conf.TranslationsDirectory, "*.json"))
+	paths, err := filepath.Glob(path.Join(conf.Directory, "*.json"))
 	if err != nil {
 		return fmt.Errorf("failed to get translation files: %v", err)
 	}
@@ -146,10 +146,23 @@ func GetThemeFromRequest(r *http.Request) string {
 	return ""
 }
 
+// GetThemeFromRequest: Gets the user selected theme from the request
+func GetMascotFromRequest(r *http.Request) string {
+	user, _ := getCurrentUser(r)
+	if user.ID > 0 {
+		return user.Mascot
+	}
+	cookie, err := r.Cookie("mascot")
+	if err == nil {
+		return cookie.Value
+	}
+	return "show"
+}
+
+
 func getCurrentUser(r *http.Request) (model.User, error) {
 	if userRetriever == nil {
 		return model.User{}, errors.New("failed to get current user: no user retriever set")
 	}
-
 	return userRetriever.RetrieveCurrentUser(r)
 }

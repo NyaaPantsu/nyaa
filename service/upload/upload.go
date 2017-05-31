@@ -49,11 +49,11 @@ func CheckTrackers(trackers []string) []string {
 
 // IsUploadEnabled : Check if upload is enabled in config
 func IsUploadEnabled(u model.User) bool {
-	if config.UploadsDisabled {
-		if config.AdminsAreStillAllowedTo && u.IsModerator() {
+	if config.Conf.Torrents.UploadsDisabled {
+		if config.Conf.Torrents.AdminsAreStillAllowedTo && u.IsModerator() {
 			return true
 		}
-		if config.TrustedUsersAreStillAllowedTo && u.IsTrusted() {
+		if config.Conf.Torrents.TrustedUsersAreStillAllowedTo && u.IsTrusted() {
 			return true
 		}
 		return false

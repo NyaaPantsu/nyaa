@@ -1,81 +1,31 @@
 package config
 
 import (
-	"bufio"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
+	"io/ioutil"
+	"log"
 	"os"
+
+	yaml "gopkg.in/yaml.v2"
 )
 
-const (
-	// LastOldTorrentID is the highest torrent ID
-	// that was copied from the original Nyaa
-	LastOldTorrentID = 923000
-	// TorrentsTableName : Name of torrent table in DB
-	TorrentsTableName = "torrents"
-	// ReportsTableName : Name of torrent report table in DB
-	ReportsTableName = "torrent_reports"
-	// CommentsTableName : Name of comments table in DB
-	CommentsTableName = "comments"
-	// UploadsOldTableName : Name of uploads table in DB
-	UploadsOldTableName = "user_uploads_old"
-	// FilesTableName : Name of files table in DB
-	FilesTableName = "files"
-	// NotificationTableName : Name of notifications table in DB
-	NotificationTableName = "notifications"
-
-	// for sukebei:
-	//LastOldTorrentID    = 2303945
-	//TorrentsTableName   = "sukebei_torrents"
-	//ReportsTableName    = "sukebei_torrent_reports"
-	//CommentsTableName   = "sukebei_comments"
-	//UploadsOldTableName = "sukebei_user_uploads_old"
-	//FilesTableName      = "sukebei_files"
+var (
+	// DefaultConfigPath : path to the default config file (please do not change it)
+	DefaultConfigPath = "config/default_config.yml"
+	// ConfigPath : path to the user specific config file (please do not change it)
+	ConfigPath = "config/config.yml"
 )
+
+// Conf : Modified configuration
+var Conf *Config
+var privateConf Config
 
 // IsSukebei : Tells if we are on the sukebei website
 func IsSukebei() bool {
-	return TorrentsTableName == "sukebei_torrents"
-}
-
-// Config : Configuration for DB, I2P, Fetcher, Go Server and Translation
-type Config struct {
-	Host   string `json:"host"`
-	Port   int    `json:"port"`
-	DBType string `json:"db_type"`
-	// DBParams will be directly passed to Gorm, and its internal
-	// structure depends on the dialect for each db type
-	DBParams  string `json:"db_params"`
-	DBLogMode string `json:"db_logmode"`
-	// tracker scraper config (required)
-	Scrape ScraperConfig `json:"scraper"`
-	// cache config
-	Cache CacheConfig `json:"cache"`
-	// search config
-	Search SearchConfig `json:"search"`
-	// optional i2p configuration
-	I2P *I2PConfig `json:"i2p"`
-	// filesize fetcher config
-	MetainfoFetcher MetainfoFetcherConfig `json:"metainfo_fetcher"`
-	// internationalization config
-	I18n I18nConfig `json:"i18n"`
-}
-
-// Defaults : Configuration by default
-var Defaults = Config{
-	Host: "localhost",
-	Port: 9999,
-	DBType: "sqlite3",
-	DBParams: "./nyaa.db?cache_size=50",
-	DBLogMode: "default",
-	Scrape: DefaultScraperConfig,
-	Cache: DefaultCacheConfig,
-	Search: DefaultSearchConfig,
-	I2P: nil,
-	MetainfoFetcher: DefaultMetainfoFetcherConfig,
-	I18n: DefaultI18nConfig,
+	return Conf.Models.TorrentsTableName == "sukebei_torrents"
 }
 
 var allowedDatabaseTypes = map[string]bool{
@@ -91,22 +41,38 @@ var allowedDBLogModes = map[string]bool{
 	"silent":   true,
 }
 
-// New : Construct a new config variable
-func New() *Config {
-	cfg := &Config{}
-	*cfg = Defaults
-	return cfg
+func init() {
+	Parse()
+}
+
+// Parse : Parse config into a config variable
+func Parse() {
+	getDefaultConfig()
+	privateConf = *DefaultConfig
+	Conf = &privateConf
+	overrideDefaults()
+}
+
+func overrideDefaults() {
+	data, err := ioutil.ReadFile(ConfigPath)
+	if err != nil {
+		log.Printf("can't read file '%s'", ConfigPath)
+	}
+	err = yaml.Unmarshal(data, &Conf)
+	if err != nil {
+		log.Printf("error: %v", err)
+	}
 }
 
 // BindFlags returns a function which is to be used after
 // flag.Parse to check and copy the flags' values to the Config instance.
 func (config *Config) BindFlags() func() error {
 	confFile := flag.String("conf", "", "path to the configuration file")
-	dbType := flag.String("dbtype", Defaults.DBType, "database backend")
-	host := flag.String("host", Defaults.Host, "binding address of the server")
-	port := flag.Int("port", Defaults.Port, "port of the server")
-	dbParams := flag.String("dbparams", Defaults.DBParams, "parameters to open the database (see Gorm's doc)")
-	dbLogMode := flag.String("dblogmode", Defaults.DBLogMode, "database log verbosity (errors only by default)")
+	dbType := flag.String("dbtype", Conf.DBType, "database backend")
+	host := flag.String("host", Conf.Host, "binding address of the server")
+	port := flag.Int("port", Conf.Port, "port of the server")
+	dbParams := flag.String("dbparams", Conf.DBParams, "parameters to open the database (see Gorm's doc)")
+	dbLogMode := flag.String("dblogmode", Conf.DBLogMode, "database log verbosity (errors only by default)")
 
 	return func() error {
 		// You can override fields in the config file with flags.
@@ -133,8 +99,12 @@ func (config *Config) HandleConfFileFlag(path string) error {
 		if err != nil {
 			return fmt.Errorf("can't read file '%s'", path)
 		}
-
-		err = config.Read(bufio.NewReader(file))
+		var b []byte
+		_, err = file.Read(b)
+		if err != nil {
+			return fmt.Errorf("failed to parse file '%s' (%s)", path, err)
+		}
+		err = yaml.Unmarshal(b, config)
 		if err != nil {
 			return fmt.Errorf("failed to parse file '%s' (%s)", path, err)
 		}
@@ -172,11 +142,10 @@ func (config *Config) Write(output io.Writer) error {
 
 // Pretty : Write config json in a file
 func (config *Config) Pretty(output io.Writer) error {
-	data, err := json.MarshalIndent(config, "", "\t")
+	data, err := yaml.Marshal(config)
 	if err != nil {
 		return err
 	}
-	data = append(data, []byte("\n")...)
 	_, err = output.Write(data)
 	return err
 }

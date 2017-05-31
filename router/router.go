@@ -87,7 +87,7 @@ func init() {
 	userRoutes.HandleFunc("/{id}/{username}/feed/{page}", RSSHandler).Name("feed_user_page")
 
 	// Please make EnableSecureCSRF to false when testing locally
-	if config.EnableSecureCSRF {
+	if config.Conf.EnableSecureCSRF {
 		userRoutes.Handle("/", csrf.Protect(config.CSRFTokenHashKey)(userRoutes))
 		torrentRoutes.Handle("/", csrf.Protect(config.CSRFTokenHashKey)(torrentRoutes))
 		torrentViewRoutes.Handle("/", csrf.Protect(config.CSRFTokenHashKey)(torrentViewRoutes))
