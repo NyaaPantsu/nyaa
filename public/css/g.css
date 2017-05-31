@@ -71,3 +71,5 @@ td.tr-le { color: #E84C4C; }
 	background:         linear-gradient(to bottom, #EFDCF0 0%, #EBCFEC 100%);
 	border-color: #C48CBE;
 }
+
+.header .h-user button:focus {background-color: rgba(0,0,255, 0.2);}
