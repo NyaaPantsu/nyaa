@@ -117,6 +117,7 @@ func SetCookieHandler(w http.ResponseWriter, r *http.Request, email string, pass
 		Value:    encoded,
 		Path:     "/",
 		HttpOnly: true,
+		MaxAge:   2592000, // One month
 	}
 	http.SetCookie(w, cookie)
 	// also set response header for convenience
