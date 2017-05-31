@@ -4,6 +4,7 @@ var TorrentsMod = {
     btn_class_submit: "cb_submit",
     selected: [],
     queued: [],
+    unique_id:1,
     Create: function() {
         var sh_btn = document.getElementById(TorrentsMod.show_hide_button);
         var btn_actions = document.getElementsByClassName(this.btn_class_action)
@@ -11,6 +12,14 @@ var TorrentsMod = {
         btn_submit[0].disabled = true;
         for (var i=0; i < btn_actions.length; i++) {
             btn_actions[i].disabled = true;
+            switch (btn_actions[i].id) {
+                case "delete":
+                    btn_actions[i].addEventListener("click", this.Delete)
+                    break;
+            
+                default:
+                    break;
+            }
         }
         for (var i=0; i < this.checkboxes.length; i++) {
             checkbox = this.checkboxes[i];
@@ -34,6 +43,9 @@ var TorrentsMod = {
             this.innerText = toggleText;
         });
     },
+    getId: function(){
+        return this.unique_id++;
+    },
 
     // UI Methods
     disableBtnActions: function() {
@@ -56,6 +68,35 @@ var TorrentsMod = {
         var btn_submit = document.getElementsByClassName(this.btn_class_submit)
         btn_submit[0].disabled = true;
     },
+    removeDivFromList: function(i) {
+        var queueAction = this.queued[i];
+        var parentDiv = document.getElementById(queueAction.unique_id).parentNode;
+        parentDiv.removeChild(document.getElementById(queueAction.unique_id));
+    },
+    removeFromParent: function(el) {
+        var parentDiv = el.parentNode;
+        parentDiv.removeChild(el);
+    },
+    generatingModal: function() {
+        listLength = this.queued.length;
+        var div = {"edit": "", "delete": ""};
+        for (var i=0; i < listLength; i++) {
+            var listHTML = "";
+            for(key in this.queued[i].selection) {
+                var selection = this.queued[i].selection[key];
+                selection.key = i
+                listHTML += Templates.Render("torrents."+this.queued[i].action+".item", selection);
+            }
+            this.queued[i].list = listHTML;
+            this.queued[i].key = i;
+            div[this.queued[i].action] += Templates.Render("torrents."+this.queued[i].action+".block", this.queued[i])
+        }
+        document.querySelector(".modal .edit_changes").innerHTML = div["edit"]
+        document.querySelector(".modal .delete_changes").innerHTML = div["delete"]
+    },
+    toggleList: function(el) {
+        el.parentNode.nextSibling.style.display = (el.parentNode.nextSibling.style.display != "block") ? "block" : "none"
+    },
 
     // Selection Management Methods
     addToSelection: function (torrent) {
@@ -71,13 +112,43 @@ var TorrentsMod = {
 
     // Query Queue Management Methods
     AddToQueue: function(QueueAction) {
+        QueueAction.unique_id = this.getId(); // used for DOM interaction
         this.queued.push(QueueAction);
+        this.enableBtnSubmit()
     },
     RemoveFromQueue: function(i) {
+        for (t in this.queued[i].selection) {
+            this.RemoveItemFromQueue(i, t);
+        }
+        return false;
+    },
+    RemoveFromQueueAction: function(i) {
+        this.removeFromParent(document.getElementById("list_"+this.queued[i].unique_id));
         this.queued.splice(i, 1);
+        if (this.queued.length == 0) {
+             this.disableBtnSubmit();
+             Modal.CloseActive();
+        }
     },
     formatSelectionToQuery: function() {
-        return (this.selected.length > 0 ) ? "torrent_id="+this.selected.join("&torrent_id=") : ""
+        var format = "";
+        for (s in this.selected) {
+            format += "&torrent_id="+this.selected[s].id
+        }
+        return (format != "") ? format.substr(1) : ""
+    },
+    RemoveItemFromQueue: function(i, id) {
+        this.removeFromParent(document.getElementById("list_item_"+id));
+        delete this.queued[i].selection[id];
+        document.getElementById("torrent_cb_"+id).checked=false;
+        document.getElementById("torrent_"+id).style.display="";
+        var test = 0;
+        for (t in this.queued[i].selection) {
+            test++
+            break;
+        }
+        if (test == 0) this.RemoveFromQueueAction(i);
+        return false;
     },
 
     // Event Handlers
@@ -92,9 +163,14 @@ var TorrentsMod = {
     },
 
     // Action Methods
-    Delete: function() {
-        var withReport = prompt("Do you want delete the reports along the selected torrents?")
-        this.AddToQueue({ action: "delete", withReport: withReport, selection: this.selected, queryPost: this.formatSelectionToQuery() });
+    Delete: function(e) {
+        var withReport = confirm("Do you want to delete the reports along the selected torrents?")
+        var selection = TorrentsMod.selected;
+        TorrentsMod.AddToQueue({ action: "delete", withReport: withReport, selection: selection, queryPost: TorrentsMod.formatSelectionToQuery() });
+        for (i in selection) document.getElementById("torrent_"+i).style.display="none";
+        TorrentsMod.selected = []
+        TorrentsMod.disableBtnActions();
+        e.preventDefault();
     },
 };
 

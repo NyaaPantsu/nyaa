@@ -9,7 +9,7 @@ var Query = {
             if (this.status == 200) {
                 Query.Failed = 0;
                 renderer(this.response);
-                callback(this.response);
+                if (callback != undefined) callback(this.response);
             } else {
                 console.log("Error when refresh")
                 Query.Failed++;
