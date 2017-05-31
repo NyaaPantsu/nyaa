@@ -1,0 +1,38 @@
+- name: Make directory
+  file:
+    state: directory
+    path: "{{ nyaapantsu_build_directory }}/src/github.com/NyaaPantsu"
+
+- name: Register nyaa directory
+  stat:
+    path: "{{ nyaapantsu_build_directory }}/src/github.com/NyaaPantsu/nyaa"
+  register: nyaa_directory
+
+- name: Register old nyaa directory
+  stat:
+    path: "{{ nyaapantsu_build_directory }}/src/github.com/NyaaPantsu/nyaa_old"
+  register: old_nyaa_directory
+
+- name: Remove old nyaa directory
+  file:
+    path: "{{ nyaapantsu_build_directory }}/src/github.com/NyaaPantsu/nyaa_old"
+    state: absent
+  when: old_nyaa_directory.stat.exists == true
+  become: true # FIXME Need super user because public/dumps gives permission error
+
+- name: Backup nyaa to old nyaa directory
+  command: mv -Tf "{{ nyaapantsu_build_directory }}/src/github.com/NyaaPantsu/nyaa/" "{{ nyaapantsu_build_directory }}/src/github.com/NyaaPantsu/nyaa_old/"
+  when: nyaa_directory.stat.exists == true
+
+# TODO ability to get specify commit
+- name: Get latest nyaa
+  git:
+    repo: 'https://github.com/NyaaPantsu/nyaa'
+    dest: "{{ nyaapantsu_build_directory }}/src/github.com/NyaaPantsu/nyaa"
+
+- name: Go build
+  shell: go build
+  args: 
+    chdir: "{{ nyaapantsu_build_directory }}/src/github.com/NyaaPantsu/nyaa"
+  environment:
+    GOPATH: "/home/{{ ansible_ssh_user }}/{{ nyaapantsu_build_directory }}"

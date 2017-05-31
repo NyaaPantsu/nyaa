@@ -1,0 +1,6 @@
+# Should only be used for the dev machine until we get a nice setup to install
+# both sukebei AND nyaa.
+- name: Install nyaa
+  hosts: webservers
+  roles:
+    - nyaapantsu
