@@ -6,6 +6,7 @@ import (
 	"net/url"
 
 	"github.com/NyaaPantsu/nyaa/common"
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	userForms "github.com/NyaaPantsu/nyaa/service/user/form"
@@ -106,6 +107,7 @@ type commonTemplateVariables struct {
 	URL        *url.URL   // for parsing URL in templates
 	Route      *mux.Route // for getting current route in templates
 	CsrfField  template.HTML
+	Config     *config.Config
 }
 
 type navigation struct {
@@ -158,5 +160,6 @@ func newCommonVariables(r *http.Request) commonTemplateVariables {
 		URL:        r.URL,
 		Route:      mux.CurrentRoute(r),
 		CsrfField:  csrf.TemplateField(r),
+		Config:     config.Conf,
 	}
 }
