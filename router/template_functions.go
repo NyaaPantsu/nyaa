@@ -217,7 +217,7 @@ var FuncMap = template.FuncMap{
 		if sort == "2" || sort == "" {
 			if order {
 				lastID = int(torrents[len(torrents)-1].ID)
-			} else {
+			} else if len(torrents) > 0 {
 				lastID = int(torrents[0].ID)
 			}
 		}

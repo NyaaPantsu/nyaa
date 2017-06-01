@@ -4,7 +4,7 @@
 			{{if gt .ID 0}}
 			<button href="#" class="nav-btn">
 			<div class="user-avatar small"><img src="https://www.gravatar.com/avatar/{{ .MD5 }}?s=50"></div> 
-			<span class="user-info" title="{{.Username}}">&nbsp;<i class="fa fa-caret-down"></i><span class="hide-md">&nbsp;&nbsp;{{.Username}}</span></span>
+			<span class="user-info" title="{{.Username}}"><span class="hide-md">{{.Username}}</span></span>
 			</button>
 			<div class="user-menu">
 					<a class="nav-btn" href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}">{{call $.T "profile"}}</a>
