@@ -26,8 +26,13 @@
 		<!-- Base theme -->
 		<link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v=2">
 		<!-- User selected theme, if any -->
-		{{if $.Theme}}<link rel="stylesheet" id="theme" href="/css/{{$.Theme}}.css">{{end}}
-      
+		<!-- This is a hack to make /g/ the default theme as changing the main file to look like it is a colossal task 
+		     and would likely need a full CSS rework -->
+		{{if eq $.Theme ""}} 
+			<link rel="stylesheet" id="theme" href="/css/g.css">
+		{{else}}
+			<link rel="stylesheet" id="theme" href="/css/{{$.Theme}}.css">
+		{{end}}
 		<!-- Search Box for Google -->
 		<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 		{{ block "additional_header" .}}{{end}}
