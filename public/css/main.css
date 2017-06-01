@@ -716,14 +716,21 @@ input.filelist-checkbox:checked + table.table-filelist {
 	width:100%;
 	background: #111;
 	border: 1px solid #222;
+	height: 25px;
 }
 .tr-cb {
-	width: 15px;
+	width: 20px;
 	text-align: left;
 	display: none;
 }
 .modtools .actions {
 	display: none;
+}
+.modtools span.btn-group {
+    margin-left: 20px;
+}
+.modtools .cb_action {
+	height: 100%;
 }
 /* Modal box */
 /* The Modal (background) */
@@ -829,8 +836,17 @@ input.filelist-checkbox:checked + table.table-filelist {
 	font-weight: bold;
     padding: 3px;
 } 
-.delete_item a, .edit_item a {
+
+.modal .edit_item {
+	font-weight: bold;
+    padding: 3px;
+} 
+.delete_item a, .delete_item span.infos, .edit_item a, .edit_item span.infos {
 	float: right;
+}
+.delete_list span.infos, .edit_list span.infos {
+    float: right;
+    margin-top: 1em;
 }
 .modal-body div .title h3 {
 	cursor: pointer;
@@ -842,6 +858,10 @@ input.filelist-checkbox:checked + table.table-filelist {
 }
 .modal .list .delete_item:nth-child(even), .modal .list .edit_item:nth-child(even) {background: #CCC}
 .modal .list .delete_item:nth-child(odd), .modal .list .edit_item:nth-child(odd) {background: #FFF}
+
+.modal-footer button {
+	cursor: pointer;
+}
 
 .modal .close:hover, .modal-footer span button:hover, .modal a.icon:hover {
 	opacity: 0.7;
@@ -856,4 +876,36 @@ input.filelist-checkbox:checked + table.table-filelist {
 @keyframes animatetop {
     from {top: -300px; opacity: 0}
     to {top: 0; opacity: 1}
+}
+.progress-bar {
+	height:1.5em;
+	width: 100%;
+	background: #333;
+	padding: 0;
+}
+
+.progress-green {
+	height: 100%;
+	margin: 0;
+	background: #22A243;
+	text-align: right;
+	padding-right: 2px;
+	color: white;
+	padding-top: 0.25em;
+}
+
+.logs_mess {
+	background: #ddd;
+	height: 100px;
+	overflow: auto;
+	padding: 3px;
+	font-style: italic;
+}
+
+.logs_mess div.success {
+	color: #22A243;
+}
+
+.logs_mess div.error {
+	color: #893636;
 }

@@ -1,10 +1,26 @@
 var TorrentsMod = {
+    // Variables that can be modified to change the dom interactions
     show_hide_button: "show_actions",
     btn_class_action: "cb_action",
     btn_class_submit: "cb_submit",
+    progress_bar_id: "progress_modtool",
+    status_input_name: "status_id",
+    owner_input_name: "owner_id",
+    category_input_name: "category_id",
+    delete_btn: "delete",
+    lock_delete_btn: "lock_delete",
+    edit_btn: "edit",
+
+    // Internal variables used for processing the request
     selected: [],
     queued: [],
     unique_id:1,
+    error_count:0,
+    progress_count: 0,
+    progress_max: 0,
+    pause: false,
+
+    // Init method
     Create: function() {
         var sh_btn = document.getElementById(TorrentsMod.show_hide_button);
         var btn_actions = document.getElementsByClassName(this.btn_class_action)
@@ -13,10 +29,15 @@ var TorrentsMod = {
         for (var i=0; i < btn_actions.length; i++) {
             btn_actions[i].disabled = true;
             switch (btn_actions[i].id) {
-                case "delete":
+                case this.delete_btn:
                     btn_actions[i].addEventListener("click", this.Delete)
                     break;
-            
+                case this.lock_delete_btn:
+                    btn_actions[i].addEventListener("click", this.LockDelete)
+                    break;
+                case this.edit_btn:
+                    btn_actions[i].addEventListener("click", this.Edit)
+                    break;
                 default:
                     break;
             }
@@ -43,11 +64,19 @@ var TorrentsMod = {
             this.innerText = toggleText;
         });
     },
+    // generate a unique id for a query
     getId: function(){
         return this.unique_id++;
     },
 
     // UI Methods
+    selectAll: function(bool) {
+        var l = TorrentsMod.checkboxes.length;
+        for (var i = 0; i < l; i++) {
+            TorrentsMod.checkboxes[i].checked = bool;
+            TorrentsMod.checkboxEventHandlerFunc(TorrentsMod.checkboxes[i]);
+        }
+    },
     disableBtnActions: function() {
         var btn_actions = document.getElementsByClassName(this.btn_class_action)
         for (var i=0; i < btn_actions.length; i++) {
@@ -64,9 +93,17 @@ var TorrentsMod = {
         var btn_submit = document.getElementsByClassName(this.btn_class_submit)
         btn_submit[0].disabled = false;
     },
+    enableApplyChangesBtn: function() {
+        var btn_apply_changes = document.getElementById("confirm_changes");
+        btn_apply_changes.disabled=false;
+    },
     disableBtnSubmit: function() {
         var btn_submit = document.getElementsByClassName(this.btn_class_submit)
         btn_submit[0].disabled = true;
+    },
+    disableApplyChangesBtn: function() {
+        var btn_apply_changes = document.getElementById("confirm_changes");
+        btn_apply_changes.disabled=true;
     },
     removeDivFromList: function(i) {
         var queueAction = this.queued[i];
@@ -84,18 +121,45 @@ var TorrentsMod = {
             var listHTML = "";
             for(key in this.queued[i].selection) {
                 var selection = this.queued[i].selection[key];
-                selection.key = i
+                selection.key = i;
                 listHTML += Templates.Render("torrents."+this.queued[i].action+".item", selection);
             }
             this.queued[i].list = listHTML;
             this.queued[i].key = i;
-            div[this.queued[i].action] += Templates.Render("torrents."+this.queued[i].action+".block", this.queued[i])
+            div[this.queued[i].action] += Templates.Render("torrents."+this.queued[i].action+".block", this.queued[i]);
         }
-        document.querySelector(".modal .edit_changes").innerHTML = div["edit"]
-        document.querySelector(".modal .delete_changes").innerHTML = div["delete"]
+        this.progress_count = 0;
+        this.progress_max = listLength;
+        document.querySelector(".modal .edit_changes").innerHTML = div["edit"];
+        document.querySelector(".modal .delete_changes").innerHTML = div["delete"];
     },
     toggleList: function(el) {
         el.parentNode.nextSibling.style.display = (el.parentNode.nextSibling.style.display != "block") ? "block" : "none"
+    },
+    addToLog: function(type, msg) {
+        var logDiv = document.querySelector(".modal .logs_mess");
+        if (logDiv.style.display == "none") logDiv.style.display = "block"
+        logDiv.innerHTML += Templates.Render("torrents.logs."+type, msg);
+    },
+    updateProgressBar: function() {
+        document.querySelector("#"+this.progress_bar_id).style.display = "block";
+        var progress_green = document.querySelector("#"+this.progress_bar_id+" .progress-green");
+        var perc = this.progress_count/this.progress_max*100;
+        progress_green.style.width=perc+"%";
+        progress_green.innerText = this.progress_count+"/"+this.progress_max;
+    },
+    resetModal: function() {
+        var logDiv = document.querySelector(".modal .logs_mess");
+        logDiv.style.display = "none";
+        document.querySelector("#"+this.progress_bar_id).style.display = "none";
+        logDiv.innerHTML = "";
+        document.querySelector(".modal .edit_changes").innerHTML = "";
+        document.querySelector(".modal .delete_changes").innerHTML = "";
+        this.enableApplyChangesBtn();
+    },
+    statusToClassName: function(status) {
+        var className = ["", "normal", "remake", "trusted", "aplus", ""]
+        return className[status];
     },
 
     // Selection Management Methods
@@ -116,10 +180,14 @@ var TorrentsMod = {
         this.queued.push(QueueAction);
         this.enableBtnSubmit()
     },
-    RemoveFromQueue: function(i) {
+    RemoveFromQueueAfterItems: function(i) {
         for (t in this.queued[i].selection) {
             this.RemoveItemFromQueue(i, t);
         }
+    },
+    RemoveFromQueue: function(i) {
+        this.progress_max = (this.progress_max - 1 >= 0) ? this.progress_max-1 : 0;
+        this.RemoveFromQueueAction(i)
         return false;
     },
     RemoveFromQueueAction: function(i) {
@@ -127,7 +195,11 @@ var TorrentsMod = {
         this.queued.splice(i, 1);
         if (this.queued.length == 0) {
              this.disableBtnSubmit();
-             Modal.CloseActive();
+             if (this.progress_max>0) {
+                 this.disableApplyChangesBtn();
+             } else {
+                 Modal.CloseActive();
+             }
         }
     },
     formatSelectionToQuery: function() {
@@ -147,13 +219,71 @@ var TorrentsMod = {
             test++
             break;
         }
-        if (test == 0) this.RemoveFromQueueAction(i);
+        if (test == 0) this.RemoveFromQueue(i);
         return false;
+    },
+    newQueryAttempt: function(queryUrl, queryPost, callback) {
+        Query.Post(queryUrl, queryPost, function (response) {
+            if ((response.length == 0)||(!response.ok)) { // Query has failed
+                var errorMsg = response.errors.join("<br>");
+                TorrentsMod.addToLog("error", errorMsg);
+                TorrentsMod.error_count++;
+                if (TorrentsMod.error_count < 2) {
+                    TorrentsMod.addToLog("success", "Trying a new attempt...");
+                    TorrentsMod.newQueryAttempt(queryUrl, queryPost, callback)
+                } else {
+                    TorrentsMod.addToLog("error", "The query ("+queryUrl+"?"+queryPost+") seems broken!");
+                    if (callback != undefined) {
+                        TorrentsMod.addToLog("error", "Passing to the next query...");
+                        callback(response) // So we can query only one item
+                    }
+                }
+            } else {
+                var succesMsg = (response.infos != null) ? response.infos.join("<br>") : "Query executed with success!";
+                TorrentsMod.addToLog("success", succesMsg) 
+                if (callback != undefined) callback(response) // So we can query only one item
+            }
+        });
+    },
+    QueryQueue: function(i, callback) {
+        if (this.queued.length > 0) {
+            var QueueAction = this.queued[i]; // we clone it so we can delete it safely
+            this.RemoveFromQueueAction(i);
+            var queryPost = "";
+            var queryUrl = "/mod/api/torrents"; 
+            if (QueueAction.action == "delete") {
+                queryPost="action="+QueueAction.action;
+                queryPost+="&withreport="+QueueAction.withReport;
+                queryPost += "&status="+((QueueAction.status != undefined) ? QueueAction.status : "");
+                queryPost += "&"+QueueAction.queryPost; // we add torrent id
+            } else if (QueueAction.action == "edit") {
+                queryPost="action=multiple";
+                queryPost += "&status="+QueueAction.status;
+                queryPost += "&owner="+QueueAction.owner;
+                queryPost += "&category="+QueueAction.category;
+                queryPost += "&"+QueueAction.queryPost; // we add torrent id
+            }
+            TorrentsMod.newQueryAttempt(queryUrl, queryPost, callback)
+        } else {
+            TorrentsMod.addToLog("success", "All operations are done!")
+            TorrentsMod.addToLog("success", "Refreshing the page...")
+        }
+    },
+    QueryLoop: function() {
+        if (TorrentsMod.progress_count <= TorrentsMod.progress_max) {
+            TorrentsMod.updateProgressBar()
+            TorrentsMod.progress_count++;
+            if (TorrentsMod.progress_count > TorrentsMod.progress_max) TorrentsMod.progress_count = TorrentsMod.progress_max;
+            TorrentsMod.QueryQueue(0, TorrentsMod.QueryLoop);
+        }
     },
 
     // Event Handlers
     checkboxEventHandler: function(e) {
         var el = e.target;
+        TorrentsMod.checkboxEventHandlerFunc(el);
+    },
+    checkboxEventHandlerFunc: function(el) {
         var name = el.dataset.name;
         var id = el.value;
         if (el.checked) TorrentsMod.addToSelection({name:name, id:id});
@@ -163,15 +293,62 @@ var TorrentsMod = {
     },
 
     // Action Methods
-    Delete: function(e) {
+    DeleteHandler: function(locked) {
         var withReport = confirm("Do you want to delete the reports along the selected torrents?")
         var selection = TorrentsMod.selected;
-        TorrentsMod.AddToQueue({ action: "delete", withReport: withReport, selection: selection, queryPost: TorrentsMod.formatSelectionToQuery() });
+        if (locked)
+        TorrentsMod.AddToQueue({ action: "delete",
+        withReport: withReport, 
+        selection: selection,
+        queryPost: TorrentsMod.formatSelectionToQuery(),
+        infos: "with lock"+ ((withReport) ? " and reports" : ""),
+        status: "5" });
+        else TorrentsMod.AddToQueue({
+            action: "delete",
+            withReport: withReport,
+            selection: selection,
+            infos: (withReport) ? "with reports" : "",
+            queryPost: TorrentsMod.formatSelectionToQuery()});
         for (i in selection) document.getElementById("torrent_"+i).style.display="none";
+        TorrentsMod.selected = []
+        TorrentsMod.disableBtnActions();
+    },
+    Delete: function(e) {
+        TorrentsMod.DeleteHandler(false);
+        e.preventDefault();
+    },
+    LockDelete: function(e) {
+        TorrentsMod.DeleteHandler(true);
+        e.preventDefault();
+    },
+    Edit: function(e) {
+        var selection = TorrentsMod.selected;
+        var status = document.querySelector(".modtools *[name='"+TorrentsMod.status_input_name+"']").value;
+        var owner_id = document.querySelector(".modtools *[name='"+TorrentsMod.owner_input_name+"']").value;
+        var category = document.querySelector(".modtools *[name='"+TorrentsMod.category_input_name+"']").value;
+        var infos = "";
+        infos += (status != "") ? "status: "+status : "";
+        infos += (owner_id != "") ? " owner_id: "+owner_id : "";
+        infos += (category != "") ? " category: "+category : "";
+        TorrentsMod.AddToQueue({
+            action: "edit",
+            selection: selection,
+            queryPost: TorrentsMod.formatSelectionToQuery(),
+            infos: (infos != "" ) ? "with "+infos : "No changes",
+            status: status,
+            category: category,
+            owner: owner_id });
+        if (status != "") {
+            for (i in selection) document.getElementById("torrent_"+i).className="torrent-info "+TorrentsMod.statusToClassName(status);
+        }
         TorrentsMod.selected = []
         TorrentsMod.disableBtnActions();
         e.preventDefault();
     },
+    ApplyChanges: function() {
+        this.pause = false;
+        this.QueryLoop();
+    }
 };
 
 // Load torrentMods when DOM is ready
