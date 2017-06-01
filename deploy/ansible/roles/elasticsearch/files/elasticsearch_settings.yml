@@ -24,8 +24,8 @@ settings:
     filter:
       e_ngram_filter:
         type: edge_ngram
-        min_gram: 2
-        max_gram: 15
+        min_gram: 1
+        max_gram: 16
 
     char_filter:
       dash_to_underscore:
