@@ -24,9 +24,9 @@
 		<!-- do NOT move -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 		<!-- Base theme -->
-		<link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v=2">
+		<link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v={{ .Config.Version }}">
 		<!-- User selected theme, if any -->
-		{{if .Theme}}<link rel="stylesheet" id="theme" href="/css/{{$.Theme}}.css">{{end}}
+		{{if .Theme}}<link rel="stylesheet" id="theme" href="/css/{{$.Theme}}.css?v={{ .Config.Version }}">{{end}}
       
 		<!-- Search Box for Google -->
 		<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
@@ -90,7 +90,7 @@
 						</div>
 			</footer>
 		</div>
-		<script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}?v=3"></script>
+		<script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}?v={{ .Config.Version }}" async></script>
 		{{ block "footer_js" .}}{{end}}
 	</body>
 </html>
