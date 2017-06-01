@@ -131,6 +131,7 @@ select.form-input {
 
 .header .h-user {
 	display: inline-block;
+	width: 160px;
 }
 
 .header .h-user .nav-btn {
@@ -143,7 +144,9 @@ select.form-input {
 	text-overflow: ellipsis;
 	float: right;
 }
-.header .h-user button:focus { outline: none; }
+
+.header .h-user button:focus {outline:none; background-color: rgba(0,0,0, 0.3);}::-moz-focus-inner {border:0;}
+
 
 .header .h-user .user-avatar {
 	float: right;
@@ -158,6 +161,7 @@ select.form-input {
 	border: 1px solid;
 	border-top: none;
 	border-radius: 0 0 5px 5px;
+	width:150px;
 }
 .header .h-user .user-menu .nav-btn {
 	float: none;
@@ -182,9 +186,8 @@ select.form-input {
 	line-height: 60px;
 	/* Property is ignored due to the display. With 'display: block', vertical-align should not be used. */
 	vertical-align: middle;
-	max-width: 100px;
-
-	max-width: 100px;
+	/* Hardcoded so the div always fills up all available space while floating right */
+	width: 91px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -306,14 +309,21 @@ html, body {
 
 /* holy fucking shit fuck responsive design */
 
+/* hide the username */
+@media (max-width: 1100px)  {
+	.header .h-user { width: 58px; padding-left: 0px; }
+	.header .h-user .user-menu { right: 15px; }
+	.header .h-user .user-info { display: none; }
+	.header .h-user .nav-btn { padding: 0px; }
+}
+
 @media (min-width: 960px)  { .visible-md { display: none } }
+
 @media (max-width: 960px)  {
 	.hide-md {
 		display: none;
 	}
-
 	.visible-md { display: block }
-
 	.header .h-search { margin-right: 10px; }
 	.header .h-search input { width: 90px !important; }
 	.header .h-search input:focus { width: 150px !important; }
@@ -403,6 +413,8 @@ select:after {
 	background: -webkit-linear-gradient(bottom, #333 0%, #222 100%);
 	background:         linear-gradient(to top, #333 0%, #222 100%);
 	border-color: #444;
+	position: absolute;
+	top: 60px
 }
 
 table thead { background: #fff; }

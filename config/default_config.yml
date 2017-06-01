@@ -21,6 +21,16 @@ web_address: nyaa.pantsu.cat
 auth_token_expiration: 1000
 # EnableSecureCSRF : Enable CSRF https mode : True if website support https, false otherwise (eg. testing locally: false)
 enable_secure_csrf: true
+# the default config for session cookies
+cookies:
+  # DomainName : The host domain so the cookies can be shared across subdomains
+  domain_name: pantsu.cat
+  # MaxAge : The expiration time of sessions cookies in seconds (default: 7 days)
+  max_age: 604800
+  # HashKey : 64 byte key used to authenticate cookies using HMAC. Leave blank for a random key after each restart.
+  hash_key:
+  # EncryptionKey : 32 byte key used to encrypt values. Leave blank for a random key after each restart.
+  encryption_key:
 # the default config for bittorrent scraping
 scraper:
   addr: :9999
@@ -34,8 +44,8 @@ cache:
 # Size by default for the cache
   size: 1024
 search:
-# default analyzer for ES
-  es_analyze: nyaapantsu_analyzer
+# default search analyzer for ES
+  es_analyze: nyaapantsu_search_analyzer
 # default search index for ES
   es_index: nyaapantsu
 # Name of the type in the es mapping

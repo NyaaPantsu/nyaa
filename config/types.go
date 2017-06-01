@@ -15,6 +15,8 @@ type Config struct {
 	DBLogMode string `json:"db_logmode" yaml:"db_logmode,omitempty"`
 	Version   string `json:"version" yaml:"version,omitempty"`
 	Build     string `yaml:"-"`
+	// cookies config
+	Cookies CookiesConfig `yaml:"cookies,flow,omitempty"`
 	// tracker scraper config (required)
 	Scrape ScraperConfig `json:"scraper" yaml:"scraper,flow,omitempty"`
 	// cache config
@@ -39,6 +41,14 @@ type Config struct {
 	Email EmailConfig `yaml:"email,flow,omitempty"`
 	// models config
 	Models ModelsConfig `yaml:"models,flow,omitempty"`
+}
+
+// CookiesConfig : Config struct for session cookies
+type CookiesConfig struct {
+	DomainName    string `yaml:"domain_name,omitempty"`
+	MaxAge        int    `yaml:"max_age,omitempty"`
+	HashKey       string `yaml:"hash_key,omitempty"`
+	EncryptionKey string `yaml:"encryption_key,omitempty"`
 }
 
 // CacheConfig is config struct for caching strategy
