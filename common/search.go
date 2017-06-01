@@ -92,7 +92,7 @@ func (s *SortMode) ToESField() string {
 	case ID:
 		return "id"
 	case Name:
-		return "name"
+		return "name.raw"
 	case Date:
 		return "date"
 	case Downloads:
