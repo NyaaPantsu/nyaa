@@ -19,6 +19,7 @@ var TorrentsMod = {
     progress_count: 0,
     progress_max: 0,
     pause: false,
+    enabled: false,
 
     // Init method
     Create: function() {
@@ -47,17 +48,17 @@ var TorrentsMod = {
             checkbox.addEventListener("change", this.checkboxEventHandler)
         }
             sh_btn.addEventListener("click", function(e) {
-            var display = "inline"
             var divActions = this.nextElementSibling;
-            console.log(divActions)
             if (divActions.style.display == "inline") {
-            display = "none";
+                TorrentsMod.enabled = false;
+            } else {
+                TorrentsMod.enabled = true;
             }
-            divActions.style.display = display;
+            divActions.style.display = (TorrentsMod.enabled) ? "inline" : "none";
             var td_cbs = document.getElementsByClassName("tr-cb")
             for (var i=0; i < td_cbs.length; i++) {
                 td_cb = td_cbs[i];
-                td_cb.style.display = (display == "inline") ? "table-cell" : "none";
+                td_cb.style.display = (TorrentsMod.enabled) ? "table-cell" : "none";
             }
             var toggleText = this.dataset.toggleText;
             this.dataset.toggleText = this.innerText;
@@ -229,17 +230,17 @@ var TorrentsMod = {
                 TorrentsMod.addToLog("error", errorMsg);
                 TorrentsMod.error_count++;
                 if (TorrentsMod.error_count < 2) {
-                    TorrentsMod.addToLog("success", "Trying a new attempt...");
+                    TorrentsMod.addToLog("success", T.r("try_new_attempt"));
                     TorrentsMod.newQueryAttempt(queryUrl, queryPost, callback)
                 } else {
-                    TorrentsMod.addToLog("error", "The query ("+queryUrl+"?"+queryPost+") seems broken!");
+                    TorrentsMod.addToLog("error", T.r("query_is_broken", queryUrl, queryPost));
                     if (callback != undefined) {
                         TorrentsMod.addToLog("error", "Passing to the next query...");
                         callback(response) // So we can query only one item
                     }
                 }
             } else {
-                var succesMsg = (response.infos != null) ? response.infos.join("<br>") : "Query executed with success!";
+                var succesMsg = (response.infos != null) ? response.infos.join("<br>") : T.r("query_executed_success");
                 TorrentsMod.addToLog("success", succesMsg) 
                 if (callback != undefined) callback(response) // So we can query only one item
             }
@@ -266,9 +267,9 @@ var TorrentsMod = {
             }
             TorrentsMod.newQueryAttempt(queryUrl, queryPost, callback)
         } else {
-            TorrentsMod.addToLog("success", "All operations are done!")
+            TorrentsMod.addToLog("success", T.r("all_operations_done"))
             if (TorrentsMod.refreshTimeout > 0) {
-                TorrentsMod.addToLog("success", "Refreshing the page in 3 seconds...")
+                TorrentsMod.addToLog("success", T.r("refreshing_in", TorrentsMod.refreshTimeout/1000))
                 setTimeout(function(){
                     window.location.reload()
                 }, TorrentsMod.refreshTimeout);
@@ -300,20 +301,20 @@ var TorrentsMod = {
 
     // Action Methods
     DeleteHandler: function(locked) {
-        var withReport = confirm("Do you want to delete the reports along the selected torrents?")
+        var withReport = confirm(T.r("delete_reports_with_torrents"))
         var selection = TorrentsMod.selected;
         if (locked)
         TorrentsMod.AddToQueue({ action: "delete",
         withReport: withReport, 
         selection: selection,
         queryPost: "",
-        infos: "with lock"+ ((withReport) ? " and reports" : ""),
+        infos: T.r("with_lock")+ ((withReport) ? T.r("and_reports") : ""),
         status: "5" });
         else TorrentsMod.AddToQueue({
             action: "delete",
             withReport: withReport,
             selection: selection,
-            infos: (withReport) ? "with reports" : "",
+            infos: (withReport) ? T.r("with_reports") : "",
             queryPost: ""});
         for (i in selection) document.getElementById("torrent_"+i).style.display="none";
         TorrentsMod.selected = []
@@ -333,14 +334,14 @@ var TorrentsMod = {
         var owner_id = document.querySelector(".modtools *[name='"+TorrentsMod.owner_input_name+"']").value;
         var category = document.querySelector(".modtools *[name='"+TorrentsMod.category_input_name+"']").value;
         var infos = "";
-        infos += (status != "") ? "status: "+status : "";
-        infos += (owner_id != "") ? " owner_id: "+owner_id : "";
-        infos += (category != "") ? " category: "+category : "";
+        infos += (status != "") ? T.r("status_js", status) : "";
+        infos += (owner_id != "") ? T.r("owner_id_js", owner_id) : "";
+        infos += (category != "") ? T.r("category_js", category) : "";
         TorrentsMod.AddToQueue({
             action: "edit",
             selection: selection,
             queryPost: "", // We don't format now, we wait until the query is sent
-            infos: (infos != "" ) ? "with "+infos : "No changes",
+            infos: (infos != "" ) ? T.r("with_st", infos) : T.r("no_changes"),
             status: status,
             category: category,
             owner: owner_id });

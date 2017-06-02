@@ -1038,5 +1038,69 @@
   {
     "id": "delete_changes",
     "translation": "Delete Changes"
+  },
+  {
+    "id": "owner_id_placeholder",
+    "translation": "Owner ID (eg. Renchon = 0)"
+  },
+  {
+    "id": "try_new_attempt",
+    "translation": "Trying a new attempt..."
+  },
+  {
+    "id": "query_is_broken",
+    "translation": "The query ({0}?{1}) seems broken!"
+  },
+  {
+    "id": "query_executed_success",
+    "translation": "Query executed with success!"
+  },
+  {
+    "id": "all_operations_done",
+    "translation": "All operations are done!"
+  },
+  {
+    "id": "refreshing_in",
+    "translation": "Refreshing the page in {0} seconds..."
+  },
+  {
+    "id": "delete_reports_with_torrents",
+    "translation": "Do you want to delete the reports along the selected torrents?"
+  },
+  {
+    "id": "with_st",
+    "translation": "with {0}"
+  },
+  {
+    "id": "and_reports",
+    "translation": " and reports"
+  },
+  {
+    "id": "reports",
+    "translation": "reports"
+  },
+  {
+    "id": "lock",
+    "translation": "lock"
+  },
+  {
+    "id": "status_js",
+    "translation": "status: {0}"
+  },
+  {
+    "id": "owner_id_js",
+    "translation": "owner_id: {0}"
+  },
+  {
+    "id": "category_js",
+    "translation": "category: {0}"
+  },
+  {
+    "id": "no_changes",
+    "translation": "No changes"
+  },
+  {
+    "id": "query_nb",
+    "translation": "Query #{0}"
   }
 ]
