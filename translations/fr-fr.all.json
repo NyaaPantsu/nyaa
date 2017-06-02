@@ -53,7 +53,7 @@
   },
   {
     "id": "theme_none",
-    "translation": "Aucun"
+    "translation": "Classique"
   },
   {
     "id": "mascot",
@@ -868,6 +868,14 @@
     "translation": "Activer la navigation"
   },
   {
+    "id":"show_mod_tools",
+    "translation": "Afficher les outils de modération"
+  },
+  {
+    "id":"hide_mod_tools",
+    "translation": "Maquer les outils de modération"
+  },
+  {
     "id": "torrent_status",
     "translation": "Statut du torrent"
   },
@@ -886,6 +894,22 @@
   {
     "id": "torrent_status_remake",
     "translation": "Remake"
+  },
+  {
+    "id": "following_changes_applied",
+    "translation": "Les modifications suivantes seront appliquées :"
+  },
+  {
+    "id": "changes_in_following_order",
+    "translation": "Les modifications seront effectuées dans l'ordre suivant :"
+  },
+  {
+    "id": "edit_changes",
+    "translation": "Éditer les modifications"
+  },
+  {
+    "id": "delete_changes",
+    "translation": "Supprimer les modifications"
   },
   {
     "id": "are_you_sure",
@@ -926,6 +950,10 @@
   {
     "id": "edit",
     "translation": "Éditer"
+  },
+  {
+    "id": "lock_delete",
+    "translation": "Bloquer et Supprimer"
   },
   {
     "id": "torrent_unblock",
