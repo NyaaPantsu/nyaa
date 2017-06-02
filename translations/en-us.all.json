@@ -1204,7 +1204,7 @@
     "translation": "One ID per line <b>or</b> a single username"
   },
   {
-    "id": "reassign_warn_2",
+    "id": "reassign_warning_2",
     "translation": "Might take a long time, do <b>NOT</b> abort the request."
   },
   {
