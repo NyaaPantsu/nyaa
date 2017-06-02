@@ -29,6 +29,8 @@ type TorrentParam struct {
 	UserID    uint32
 	TorrentID uint32
 	FromID    uint32
+	FromDate  string
+	ToDate    string
 	NotNull   string // csv
 	Null      string // csv
 	NameLike  string // csv
@@ -68,6 +70,9 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 
 	var status Status
 	status.Parse(r.URL.Query().Get("s"))
+
+	p.FromDate = r.URL.Query().Get("fromDate")
+	p.ToDate = r.URL.Query().Get("toDate")
 
 	var category Category
 	category.Parse(r.URL.Query().Get("c"))
@@ -129,6 +134,15 @@ func (p *TorrentParam) ToFilterQuery() string {
 	if p.FromID != 0 {
 		query += " id:>" + strconv.FormatInt(int64(p.FromID), 10)
 	}
+
+	if p.FromDate != "" && p.ToDate != "" {
+		query += " date: [" + p.FromDate + " " + p.ToDate + "]"
+	} else if p.FromDate != "" {
+		query += " date: [" + p.FromDate + " *]"
+	} else if p.ToDate != "" {
+		query += " date: [* " + p.ToDate + "]"
+	}
+
 	return query
 }
 
@@ -229,6 +243,8 @@ func (p *TorrentParam) Clone() TorrentParam {
 		UserID:    p.UserID,
 		TorrentID: p.TorrentID,
 		FromID:    p.FromID,
+		FromDate:  p.FromDate,
+		ToDate:    p.ToDate,
 		NotNull:   p.NotNull,
 		Null:      p.Null,
 		NameLike:  p.NameLike,

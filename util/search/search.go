@@ -86,6 +86,8 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool, d
 		searchParam := common.SearchParam{
 			TorrentID: uint(torrentParam.TorrentID),
 			FromID:    uint(torrentParam.FromID),
+			FromDate:  torrentParam.FromDate,
+			ToDate:    torrentParam.ToDate,
 			Order:     torrentParam.Order,
 			Status:    torrentParam.Status,
 			Sort:      torrentParam.Sort,
@@ -121,6 +123,8 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 	search.UserID = uint(userID)
 	fromID, _ := strconv.Atoi(r.URL.Query().Get("fromID"))
 	search.FromID = uint(fromID)
+	search.FromDate = r.URL.Query().Get("fromDate")
+	search.ToDate = r.URL.Query().Get("toDate")
 
 	switch s := r.URL.Query().Get("s"); s {
 	case "1":
@@ -223,6 +227,14 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 	if search.FromID != 0 {
 		conditions = append(conditions, "torrent_id > ?")
 		parameters.Params = append(parameters.Params, search.FromID)
+	}
+	if search.FromDate != "" {
+		conditions = append(conditions, "date >= ?")
+		parameters.Params = append(parameters.Params, search.FromDate)
+	}
+	if search.ToDate != "" {
+		conditions = append(conditions, "date <= ?")
+		parameters.Params = append(parameters.Params, search.ToDate)
 	}
 	if search.Category.Sub != 0 {
 		conditions = append(conditions, "sub_category = ?")
