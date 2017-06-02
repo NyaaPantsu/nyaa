@@ -1,7 +1,6 @@
 {{define "title"}}{{call $.T "change_language"}}{{end}}
 {{define "content"}}
-<div class="blockBody">
-	<hr>
+	<div style="text-align: left;" class="box">
 	<form role="form" method="POST">
 		{{ block "csrf_field" $ }}{{end}}
 		<div class="form-group">
@@ -31,8 +30,7 @@
 			<button type="submit" class="form-input btn">{{call $.T "save_changes"}}</button>
 		</div>
 	</form>
-	<div style="padding-bottom: 1em"></div>
-</div>
+	</div>
 {{end}}
 
 
