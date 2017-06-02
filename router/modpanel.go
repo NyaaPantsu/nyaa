@@ -609,6 +609,11 @@ func torrentManyAction(r *http.Request) {
 					/* Changes are done, we save */
 					db.ORM.Unscoped().Model(&torrent).UpdateColumn(&torrent)
 				} else if action == "delete" {
+					if status == model.TorrentStatusBlocked { // Then we should lock torrents before deleting them
+						torrent.Status = status
+						messages.AddInfoTf("infos", "torrent_moved", torrent.Name)
+						db.ORM.Unscoped().Model(&torrent).UpdateColumn(&torrent) // We must save it here and soft delete it after
+					}
 					_, err = torrentService.DeleteTorrent(torrentID)
 					if err != nil {
 						messages.ImportFromError("errors", err)

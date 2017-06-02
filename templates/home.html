@@ -17,6 +17,9 @@ Your browser does not support the audio element.
           <table>
           <thead class="torrent-info">
           <tr>
+              {{ if HasAdmin $.User }}
+              <th class="tr-cb"><input type="checkbox" name="select_all" onchange="TorrentsMod.selectAll(this.checked)"></th>
+              {{end}}
               <th class="tr-cat">{{call $.T "category"}}</th>
               <th class="tr-name">
                 <a href="{{ genSearchWithOrdering .URL "1" }}">{{call $.T "name"}}<span class="sort-arrows">{{ genSortArrows .URL "1" }}</span></a>
@@ -39,10 +42,15 @@ Your browser does not support the audio element.
           </thead>
           <tbody id="torrentListResults">
           {{ range .Models}}
-          <tr class="torrent-info
+          <tr id="torrent_{{ .ID }}" class="torrent-info
               {{if eq .Status 2}}remake{{end}}
               {{if eq .Status 3}}trusted{{end}}
-              {{if eq .Status 4}}aplus{{end}}">
+              {{if eq .Status 4}}aplus{{end}}" id="torrent{{ .ID }}">
+                {{ if HasAdmin $.User }}
+              <td class="tr-cb">
+                <input data-name="{{ .Name }}" type="checkbox" id="torrent_cb_{{ .ID }}" name="torrent_id" value="{{ .ID }}">
+              </td>
+                {{ end }}
               <td class="tr-cat home-td">
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
                       {{ if Sukebei }}
@@ -88,11 +96,113 @@ Your browser does not support the audio element.
           </tbody>
       </table>
     </div>
+    {{ if HasAdmin $.User }}
+    <div class="modtools">
+        <button id="show_actions" data-toggle-text="{{call $.T "hide_mod_tools"}}">{{call $.T "show_mod_tools"}}</button>
+        <span class="actions">
+            <span class="btn-group">
+                <select class="cb_action" name="category_id">
+                    <option value="">{{call $.T "category"}}</option>
+                    {{ range $name_cat, $id_cat := (GetCategories true) }}
+                    <option value="{{ $id_cat }}">{{call $.T $name_cat }}</option>
+                    {{ end }}
+                </select>
+                <input class="cb_action" type="text" name="owner_id" placeholder="Owner ID (eg. Renchon = 0)">
+                <select class="cb_action" name="status_id">
+                    <option value="">{{call $.T "torrent_status"}}</option>
+                    <option value="5">{{ call $.T "torrent_status_blocked" }}</option>
+                    <option value="1">{{call $.T "torrent_status_normal"}}</option>
+                    <option value="2" >{{call $.T "torrent_status_remake"}}</option>
+                    <option value="3">{{call $.T "trusted"}}</option>
+                    <option value="4">A+</option>
+                </select>
+                <button class="cb_action" id="edit">{{ call $.T "edit" }}</button>
+            </span>
+            <span class="btn-group">
+                <button class="cb_action" id="lock_delete">{{ call $.T "lock_delete" }}</button>
+                <button class="cb_action" id="delete">{{ call $.T "delete" }}</button>
+            </span>
+            <span class="btn-group">
+                <button class="cb_submit" id="modal_active">{{ call $.T "save_changes" }}</button>
+            </span>
+        </span>
+    </div>
+    <!-- Modal -->
+    <div id="modal_mod_tools" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>{{ call $.T "following_changes_applied" }}</h2>
+            </div>
+            <div class="modal-body">
+                <h3>{{ call $.T "changes_in_following_order" }}</h3>
+                <div class="progress-bar" id="progress_modtool" style="display: none;"><div class="progress-green"></div></div>
+                <hr>
+                <div class="logs_mess" style="display: none;"></div>
+                <h2>{{ call $.T "edit_changes" }}</h2>
+                <div class="edit_changes"></div>
+                <h2>{{ call $.T "delete_changes" }}</h2>
+                <div class="delete_changes"></div>
+            </div>
+            <div class="modal-footer">
+                <span><button id="confirm_changes" onclick="TorrentsMod.ApplyChanges();">{{ call $.T "yes"}}</button>
+                <button class="close" onclick="Modal.CloseActive();">{{ call $.T "no"}}</button></span>
+                <h3>{{ call $.T "are_you_sure" }} </h3>
+            </div>
+        </div>
+    </div>
+    {{end}}
 {{end}}
 {{ define "footer_js"}}
 <script type="text/javascript" src="{{ $.URL.Parse "/js/template.js" }}"></script>
 <script type="text/javascript" src="{{ $.URL.Parse "/js/query.js" }}"></script>
+<script type="text/javascript" src="{{ $.URL.Parse "/js/modal.js" }}"></script>
 <script type="text/javascript" src="{{ $.URL.Parse "/js/torrents.js" }}"></script>
+{{ if HasAdmin $.User }}
+<script type="text/javascript" src="{{ $.URL.Parse "/js/torrentsMod.js" }}"></script>
+    <script type="text/javascript">
+        Modal.Init({elements: document.getElementsByClassName("modal"),
+            button: "#modal_active",
+            before: function() {
+                TorrentsMod.generatingModal();
+            },
+            close: function() {
+                TorrentsMod.resetModal();
+            }
+        });
+        Templates.Add("torrents.delete.item", function(torrent) {
+            return '<div class="delete_item" id="list_item_'+torrent.id+'"><span>'+Templates.EncodeEntities(torrent.name)+'</span>'+
+            '<a href="#" onclick="return TorrentsMod.RemoveItemFromQueue('+torrent.key+', '+torrent.id+')"><i class="trash-icon"></i></a></div>'
+        });
+        Templates.Add("torrents.delete.block", function(torrentQuery){
+            return '<div class="delete_list" id="list_'+torrentQuery.unique_id+'"><div class="title">'+
+            '<h3 style="display:inline-block;" onclick="TorrentsMod.toggleList(this);">Query #'+torrentQuery.unique_id+
+            '</h3>'+
+            '<span class="infos">'+torrentQuery.infos+'<a href="#" class="icon" onclick="return TorrentsMod.RemoveFromQueue('+torrentQuery.key+')"><div class="trash-icon"></div></a>'+
+            '</span></div>'+
+            '<div class="list">'+torrentQuery.list+'</div></div>';
+        });
+        Templates.Add("torrents.edit.item", function(torrent) {
+            return '<div class="edit_item" id="list_item_'+torrent.id+'"><span>'+Templates.EncodeEntities(torrent.name)+'</span>'+
+            '<a href="#" onclick="return TorrentsMod.RemoveItemFromQueue('+torrent.key+', '+torrent.id+')"><i class="trash-icon"></i></a></div>'
+        });
+        Templates.Add("torrents.edit.block", function(torrentQuery){
+            return '<div class="edit_list" id="list_'+torrentQuery.unique_id+'"><div class="title">'+
+            '<h3 style="display:inline-block;" onclick="TorrentsMod.toggleList(this);">Query #'+torrentQuery.unique_id+
+            '</h3>'+
+            '<span class="infos">'+torrentQuery.infos+'<a href="#" class="icon" onclick="return TorrentsMod.RemoveFromQueue('+torrentQuery.key+')"><div class="trash-icon"></div></a>'+
+            '</span></div>'+
+            '<div class="list">'+torrentQuery.list+'</div></div>';
+        });
+        Templates.Add("torrents.logs.error", function(msg) {
+            return '<div class="error">'+msg+'</div>';
+        });
+        Templates.Add("torrents.logs.success", function(msg) {
+            return '<div class="success">'+msg+'</div>';
+        });
+        </script>
+{{end}}
 <!-- JS Template -->
     <script type="text/javascript">
         Templates.Add("torrents.item", function(torrent) {
@@ -119,7 +229,7 @@ Your browser does not support the audio element.
               "<td class=\"tr-date home-td date-short hide-xs\">"+torrent.date+"</td>"+
           "</tr>";
         });
-       Torrents.LastID = {{ lastID .URL .Models }};
-       if (Torrents.LastID > 0) Torrents.CanRefresh = true;
+        Torrents.LastID = {{ lastID .URL .Models }};
+        if (Torrents.LastID > 0) Torrents.CanRefresh = true;     
     </script>
 {{end}}

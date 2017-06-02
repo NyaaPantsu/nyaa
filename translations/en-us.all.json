@@ -656,6 +656,10 @@
     "translation": "Remake"
   },
   {
+    "id": "torrent_status_blocked",
+    "translation": "Locked"
+  },
+  {
     "id": "profile_edit_page",
     "translation": "Edit %s's profile"
   },
@@ -936,6 +940,10 @@
     "translation": "Edit"
   },
   {
+    "id": "lock_delete",
+    "translation": "Lock & Delete"
+  },
+  {
     "id": "delete_definitely_torrent_warning",
     "translation": "You will not be able to recover the file, neither stop someone to reupload it!"
   },
@@ -1006,5 +1014,29 @@
   {
     "id": "hide",
     "translation": "Hide"
+  },
+  {
+    "id":"show_mod_tools",
+    "translation": "Show Mod Tools"
+  },
+  {
+    "id":"hide_mod_tools",
+    "translation": "Hide Mod Tools"
+  },
+  {
+    "id": "following_changes_applied",
+    "translation": "Following changes will be applied"
+  },
+  {
+    "id": "changes_in_following_order",
+    "translation": "Changes will be made in the following order:"
+  },
+  {
+    "id": "edit_changes",
+    "translation": "Edit Changes"
+  },
+  {
+    "id": "delete_changes",
+    "translation": "Delete Changes"
   }
 ]

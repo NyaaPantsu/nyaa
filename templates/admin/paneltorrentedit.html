@@ -26,7 +26,6 @@
           <label for="Status">{{call $.T "torrent_status"}}</label>
           <select name="status" class="form-control input-sm">
               <option value="5" {{if eq .Status 5}}selected{{end}}>{{ call $.T "torrent_status_blocked" }}</option>
-              <option value="0" {{if eq .Status 0}}selected{{end}}>{{call $.T "torrent_status_hidden"}}</option>
               <option value="1" {{if eq .Status 1}}selected{{end}}>{{call $.T "torrent_status_normal"}}</option>
               <option value="2" {{if eq .Status 2}}selected{{end}}>{{call $.T "torrent_status_remake"}}</option>
               <option value="3" {{if eq .Status 3}}selected{{end}}>{{call $.T "trusted"}}</option>
