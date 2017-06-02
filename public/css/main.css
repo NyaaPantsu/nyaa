@@ -424,8 +424,8 @@ th a { color: #6E96AA; }
 th { border-color:  #ddd !important; }
 td { border-color:  #ccc !important; }
 
-td.tr-se { color: #22A243; }
-td.tr-le { color: #E84C4C; }
+td.tr-se, .success-text { color: #22A243; }
+td.tr-le, .error-text { color: #E84C4C; }
 
 /* Original Nyaa colors, do NOT change! */
 .aplus { background: #60B0F0; }
@@ -920,4 +920,8 @@ input.filelist-checkbox:checked + table.table-filelist {
 
 .logs_mess div.error {
 	color: #893636;
+
+.error-text, .success-text {
+	text-align: center;
 }
+

@@ -43,8 +43,8 @@ th a { color: #7A5C94; }
 th { border-color: #cbbdd7 !important; }
 td { border-color: #e6eff4 !important; }
 
-td.tr-se { color: #22A243; }
-td.tr-le { color: #E84C4C; }
+td.tr-se, .success-text { color: #22A243; }
+td.tr-le, .error-text { color: #E84C4C; }
 
 .aplus { background: hsla(200, 100%, 50%, 0.2) !important; }
 .trusted { background: hsla(100, 100%, 50%, 0.2) !important; }
