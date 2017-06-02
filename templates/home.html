@@ -107,7 +107,7 @@ Your browser does not support the audio element.
                     <option value="{{ $id_cat }}">{{call $.T $name_cat }}</option>
                     {{ end }}
                 </select>
-                <input class="cb_action" type="text" name="owner_id" placeholder="Owner ID (eg. Renchon = 0)">
+                <input class="cb_action" type="text" name="owner_id" placeholder="{{ call $.T "owner_id_placeholder" }}">
                 <select class="cb_action" name="status_id">
                     <option value="">{{call $.T "torrent_status"}}</option>
                     <option value="5">{{ call $.T "torrent_status_blocked" }}</option>
@@ -160,8 +160,28 @@ Your browser does not support the audio element.
 <script type="text/javascript" src="{{ $.URL.Parse "/js/modal.js" }}"></script>
 <script type="text/javascript" src="{{ $.URL.Parse "/js/torrents.js" }}"></script>
 {{ if HasAdmin $.User }}
+<script type="text/javascript" src="{{ $.URL.Parse "/js/translation.js" }}"></script>
 <script type="text/javascript" src="{{ $.URL.Parse "/js/torrentsMod.js" }}"></script>
     <script type="text/javascript">
+    // We add translations string
+        T.Add({
+            try_new_attempt: "{{ call $.T "try_new_attempt" }}",
+            query_is_broken: "{{ call $.T "query_is_broken" }}",
+            query_executed_success: "{{ call $.T "query_executed_success" }}",
+            all_operations_done: "{{ call $.T "all_operations_done" }}",
+            refreshing_in: "{{ call $.T "refreshing_in" }}",
+            delete_reports_with_torrents: "{{ call $.T "delete_reports_with_torrents" }}",
+            with_st: "{{ call $.T "with_st" }}",
+            and_reports: "{{ call $.T "and_reports" }}",
+            reports: "{{ call $.T "reports" }}",
+            lock: "{{ call $.T "lock" }}",
+            status_js: "{{ call $.T "status_js" }}",
+            owner_id_js: "{{ call $.T "owner_id_js" }}",
+            category_js: "{{ call $.T "category_js" }}",
+            no_changes: "{{ call $.T "no_changes" }}",
+            query_nb: "{{ call $.T "query_nb" }}"
+        });
+    // Modal initialization
         Modal.Init({elements: document.getElementsByClassName("modal"),
             button: "#modal_active",
             before: function() {
@@ -171,13 +191,14 @@ Your browser does not support the audio element.
                 TorrentsMod.resetModal();
             }
         });
+    // Templates initialization
         Templates.Add("torrents.delete.item", function(torrent) {
             return '<div class="delete_item" id="list_item_'+torrent.id+'"><span>'+Templates.EncodeEntities(torrent.name)+'</span>'+
             '<a href="#" onclick="return TorrentsMod.RemoveItemFromQueue('+torrent.key+', '+torrent.id+')"><i class="trash-icon"></i></a></div>'
         });
         Templates.Add("torrents.delete.block", function(torrentQuery){
             return '<div class="delete_list" id="list_'+torrentQuery.unique_id+'"><div class="title">'+
-            '<h3 style="display:inline-block;" onclick="TorrentsMod.toggleList(this);">Query #'+torrentQuery.unique_id+
+            '<h3 style="display:inline-block;" onclick="TorrentsMod.toggleList(this);">'+T.r("query_nb", torrentQuery.unique_id)+
             '</h3>'+
             '<span class="infos">'+torrentQuery.infos+'<a href="#" class="icon" onclick="return TorrentsMod.RemoveFromQueue('+torrentQuery.key+')"><div class="trash-icon"></div></a>'+
             '</span></div>'+
@@ -189,7 +210,7 @@ Your browser does not support the audio element.
         });
         Templates.Add("torrents.edit.block", function(torrentQuery){
             return '<div class="edit_list" id="list_'+torrentQuery.unique_id+'"><div class="title">'+
-            '<h3 style="display:inline-block;" onclick="TorrentsMod.toggleList(this);">Query #'+torrentQuery.unique_id+
+            '<h3 style="display:inline-block;" onclick="TorrentsMod.toggleList(this);">'+T.r("query_nb", torrentQuery.unique_id)+
             '</h3>'+
             '<span class="infos">'+torrentQuery.infos+'<a href="#" class="icon" onclick="return TorrentsMod.RemoveFromQueue('+torrentQuery.key+')"><div class="trash-icon"></div></a>'+
             '</span></div>'+
@@ -203,10 +224,15 @@ Your browser does not support the audio element.
         });
         </script>
 {{end}}
-<!-- JS Template -->
+<!-- JS Template for torrents ajax -->
     <script type="text/javascript">
         Templates.Add("torrents.item", function(torrent) {
             return "<tr class=\"torrent-info"+ ((torrent.status == 2) ? " remake" : ((torrent.status == 3) ? " trusted" : ((torrent.status == 3) ? " aplus" : "" )))+"\">"+
+            {{ if HasAdmin $.User }}
+              "<td class=\"tr-cb\""+ ((TorrentsMod.enabled) ? "style=\"display:table-cell;\"" : "") +">"+
+                "<input data-name=\""+Templates.EncodeEntities(torrent.name)+"\" type=\"checkbox\" id=\"torrent_cb_"+torrent.id+"\" name=\"torrent_id\" value=\""+torrent.id+"\">"+
+              "</td>"+
+            {{ end }}
               "<td class=\"tr-cat home-td\">"+
                   "<a href=\"{{$.URL.Parse "/search?c=" }}"+ torrent.category + "_" + torrent.sub_category +"\">"+
                       {{ if Sukebei }}
