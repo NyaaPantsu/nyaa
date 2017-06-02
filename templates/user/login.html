@@ -8,15 +8,15 @@
 				    {{ block "csrf_field" $ }}{{end}}
 					<h2>{{call $.T "sign_in_box_title"}}</h2>
 					{{ range (index $.FormErrors "errors")}}
-	   					<div class="alert alert-danger">{{ . }}</div>
+	   					<p class="error-text">{{ . }}</p>
 	   				{{end}}
 	                    <input type="text" name="username" id="username" class="form-input up-input" autofocus placeholder="{{ call $.T "email_address_or_username"}}"><br>
        	            	{{ range (index $.FormErrors "username")}}
-						<p class="text-error">{{ . }}</p>
+						<p class="error-text">{{ . }}</p>
 						{{end}}
 	                    <input type="password" name="password" id="password" class="form-input up-input" placeholder="{{ call $.T "password"}}"><br>
                			{{ range (index $.FormErrors "password")}}
-						<p class="text-error">{{ . }}</p>
+						<p class="error-text">{{ . }}</p>
 						{{end}}
 					<!-- <span class="button-checkbox">
 						<button type="button" class="btn hidden" data-color="info">{{ call $.T "remember_me"}}</button>

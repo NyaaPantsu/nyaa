@@ -37,8 +37,8 @@ th a { color: #c5c8c6; }
 
 th, td { border-color:  #141517 !important; }
 
-td.tr-se { color: #b5bd68; }
-td.tr-le { color: #cc6666; }
+td.tr-se, .success-text { color: #b5bd68; }
+td.tr-le, .error-text { color: #cc6666; }
 
 .aplus { background: hsla(180, 50%, 50%, 0.2) !important; }
 .trusted { background: hsla(90, 50%, 50%, 0.2) !important; }
