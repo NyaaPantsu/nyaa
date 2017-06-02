@@ -15,7 +15,7 @@ import (
 type FetchOperation struct {
 	fetcher *MetainfoFetcher
 	torrent model.Torrent
-	done    chan int
+	done    chan struct{}
 }
 
 // Result struct
@@ -30,7 +30,7 @@ func NewFetchOperation(fetcher *MetainfoFetcher, dbEntry model.Torrent) (op *Fet
 	op = &FetchOperation{
 		fetcher: fetcher,
 		torrent: dbEntry,
-		done:    make(chan int, 1),
+		done:    make(chan struct{}, 1),
 	}
 	return
 }
@@ -52,11 +52,8 @@ func (op *FetchOperation) Start(out chan Result) {
 	select {
 	case <-downloadingTorrent.GotInfo():
 		out <- Result{op, nil, downloadingTorrent.Info()}
-		break
 	case <-timeoutTimer.C:
 		out <- Result{op, errors.New("Timeout"), nil}
-		break
 	case <-op.done:
-		break
 	}
 }

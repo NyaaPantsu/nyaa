@@ -136,8 +136,8 @@ type MetainfoFetcherConfig struct {
 	MaxFailCooldown  int `json:"max_fail_cooldown" yaml:"max_fail_cooldown,omitempty"`
 	WakeUpInterval   int `json:"wake_up_interval" yaml:"wake_up_interval,omitempty"`
 
-	UploadRateLimiter   int `json:"upload_rate_limiter" yaml:"upload_rate_limiter,omitempty"`
-	DownloadRateLimiter int `json:"download_rate_limiter" yaml:"download_rate_limiter,omitempty"`
+	UploadRateLimitKiB   int `json:"upload_rate_limit" yaml:"upload_rate_limit,omitempty"`
+	DownloadRateLimitKiB int `json:"download_rate_limit" yaml:"download_rate_limit,omitempty"`
 
 	FetchNewTorrentsOnly bool `json:"fetch_new_torrents_only" yaml:"fetch_new_torrents_only,omitempty"`
 }
