@@ -1,21 +1,32 @@
-{{define "title"}}Torrents Report{{end}}
+{{define "title"}}{{ call $.T "reports_list" }}{{end}}
 {{define "content"}}
-<table class="table">
-<tr>
-    <th class="col-xs-8">Torrent Name</th>
-    <th class="col-xs-1">User</th>
-    <th class="col-xs-1">Reason</th>
-    <th class="col-xs-1">Action</th>
-</tr>
-
-  {{range .Models}}
-    <tr>
-      <td><a href="{{ genRoute "view_torrent" "id" (print .Torrent.ID) }}">{{ .Torrent.Name }}</a> (<a href="{{ genRoute "mod_tedit" }}?id={{ print .Torrent.ID}}">Edit</a>)</td>
-      <td>{{.User.Username}}</td>
-      <td>{{.Description}}</td>
-      <td><a href="{{ genRoute "mod_tdelete" }}?id={{ print .Torrent.ID }}" onclick="if (!confirm('Are you sure?')) return false;">Delete</a><br />
-      <a href="{{ genRoute "mod_trdelete" }}?id={{ print .ID }}">Delete Report</a></td>
-    </tr>
-  {{end}}
-</table>
+<div class="results box">
+    <table class="table">
+        <thead class="torrent-info">
+            <tr>
+              <th class="tr-name">{{ call $.T "name" }}</th>
+              <th class="tr-size">{{ call $.T "username" }}</th>
+              <th class="tr-size">{{ call $.T "reason" }}</th>
+              <th class="tr-actions">{{ call $.T "actions" }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{range .Models}}
+          <tr>
+            <td class="tr-name"><a href="{{ genRoute "view_torrent" "id" (print .Torrent.ID) }}">{{ .Torrent.Name }}</a> <a href="{{ genRoute "mod_tedit" }}?id={{ print .Torrent.ID}}" class="form-input float-right">{{ call $.T "edit"}}</a></td>
+            <td class="tr-size home-td">{{.User.Username}}</td>
+            <td class="tr-size home-td">{{.Description}}</td>
+            <td class="tr-actions home-td">
+            <a href="{{ genRoute "mod_tdelete" }}?id={{ print .Torrent.ID }}" class="form-input" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;"><i class="trash-icon"></i>{{ call $.T "delete_torrent" }}</a><br>
+            <a href="{{ genRoute "mod_trdelete" }}?id={{ print .ID }}" class="form-input"><i class="trash-icon"></i>{{ call $.T "delete_report" }}</a></td>
+          </tr>
+        {{end}}
+        </tbody>
+    </table>
+    <nav class="torrentNav" aria-label="Page navigation">
+        <ul class="pagination">
+            {{ genNav .Navigation .URL 5 }}
+        </ul>
+    </nav>
+</div>
 {{end}}

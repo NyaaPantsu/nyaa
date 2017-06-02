@@ -876,6 +876,18 @@
     "translation": "Torrent %s deleted!"
   },
   {
+    "id": "torrents_deleted",
+    "translation": "Torrents Deleted"
+  },
+  {
+    "id": "delete_torrent",
+    "translation": "Delete Torrent"
+  },
+  {
+    "id": "delete_report",
+    "translation": "Delete Report"
+  },
+  {
     "id": "no_action_exist",
     "translation": "No such action %s exist!"
   },
@@ -1102,5 +1114,69 @@
   {
     "id": "query_nb",
     "translation": "Query #{0}"
+  },
+  {
+    "id": "reason",
+    "translation": "Reason"
+  },
+  {
+    "id": "actions",
+    "translation": "Actions"
+  },
+  {
+    "id": "action_select",
+    "translation": "Action..."
+  },
+  {
+    "id": "change_status",
+    "translation": "Change Status"
+  },
+  {
+    "id": "to_status",
+    "translation": "To..."
+  },
+  {
+    "id": "torrents_not_deleted",
+    "translation": "Torrents Not Deleted"
+  },
+  {
+    "id": "more",
+    "translation": "More"
+  },
+  {
+    "id": "last_comments",
+    "translation": "Last Comments"
+  },
+  {
+    "id": "last_reports",
+    "translation": "Last Reports"
+  },
+  {
+    "id": "last_torrents",
+    "translation": "Last Torrents"
+  },
+  {
+    "id": "last_users",
+    "translation": "Last Users"
+  },
+  {
+    "id": "moderation_overview",
+    "translation": "Moderation Overview"
+  },
+  {
+    "id": "users_list",
+    "translation": "Users List"
+  },
+  {
+    "id": "comments_list",
+    "translation": "Comments List"
+  },
+  {
+    "id": "reports_list",
+    "translation": "Reports List"
+  },
+  {
+    "id": "torrents_list",
+    "translation": "Torrents List"
   }
 ]

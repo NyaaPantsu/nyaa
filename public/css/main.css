@@ -553,7 +553,7 @@ td.tr-le, .error-text { color: #E84C4C; }
 	width: 70%;
 	text-align: left;
 }
-div.profile-content.box > nav > ul > li {
+div.profile-content.box > nav > ul > li, nav.adminNav > ul > li {
 	border-right-width: 1px;
 }
 .magnet-icon {
@@ -741,7 +741,7 @@ input.filelist-checkbox:checked + table.table-filelist {
 .modtools span.btn-group {
     margin-left: 20px;
 }
-.modtools .cb_action {
+.modtools .cb_action, .toolbar .cb_action {
 	height: 100%;
 }
 /* Modal box */
@@ -920,8 +920,43 @@ input.filelist-checkbox:checked + table.table-filelist {
 
 .logs_mess div.error {
 	color: #893636;
+}
 
 .error-text, .success-text {
 	text-align: center;
 }
 
+.header-admin {
+	height: 120px;
+}
+
+.float-right {
+	float:right;
+}
+
+.header-admin .user-menu {
+	width: 155px!important;
+	z-index: 10;
+}
+
+#content.content-admin {
+	top:130px;
+}
+
+#content.content-admin .tr-cb {
+	display: table-cell;
+}
+
+.tr-actions {
+	width: 120px;
+}
+
+.toolbar {
+	height: 40px;
+	padding: 5px;
+	text-align: left;
+}
+
+.toolbar > div.float-right {
+	margin-top: 5px;
+}

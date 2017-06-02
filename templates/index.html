@@ -2,25 +2,25 @@
 <html lang="{{ call $.T "language_code" }}">
   	<head>
 		<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="torrents, pantsu, anime, manga, sukebei, nyaapassu, horriblesubs, nyaa, hentai, dlsite">
-    <meta name="description" content='The leading open-source community-based nyaa.se successor, suitable for all anime and manga needs. にゃんぱす~!'>
-		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{block "title" .}}{{ call $.T "error_404" }}{{end}}</title>
-    <!-- Flavicons and icons -->
-    <link rel="icon" type="image/png" href="/img/favicon.png" />
-    <link rel="shortcut icon" type="image/png" href="/img/favicon.png">
-    
-    <!-- SMO -->
-    <meta property="og:site_name" content="Nyaa Pantsu">
-    <meta property="og:site_name" content="{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{template "title" .}}{{ call $.T "error_404" }}">
-    <meta property="og:image" content="/img/favicon.png">
-    <meta property="og:description" content="Nyaa Pantsu Homepage">
-      
-		<!-- RSS Feed with Context -->
-    <link rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}"  />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="keywords" content="torrents, pantsu, anime, manga, sukebei, nyaapassu, horriblesubs, nyaa, hentai, dlsite">
+		<meta name="description" content='The leading open-source community-based nyaa.se successor, suitable for all anime and manga needs. にゃんぱす~!'>
+			<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+			<title>{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{block "title" .}}{{ call $.T "error_404" }}{{end}}</title>
+		<!-- Flavicons and icons -->
+		<link rel="icon" type="image/png" href="/img/favicon.png" />
+		<link rel="shortcut icon" type="image/png" href="/img/favicon.png">
 		
+		<!-- SMO -->
+		<meta property="og:site_name" content="Nyaa Pantsu">
+		<meta property="og:site_name" content="{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{template "title" .}}{{ call $.T "error_404" }}">
+		<meta property="og:image" content="/img/favicon.png">
+		<meta property="og:description" content="Nyaa Pantsu Homepage">
+		
+			<!-- RSS Feed with Context -->
+		<link rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}"  />
+			
 		<!-- do NOT move -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 		<!-- Base theme -->
@@ -84,13 +84,12 @@
 					{{ genNav .Navigation .URL 15 }}
 			</div>
 			<footer id="footer">
-						<div class="container footer center">
-							<div class="footer-opt">
-								<p><a href="/settings">{{ call $.T "change_settings" }}</a></p>
-							</div>
-							<span><i>Powered by <a href="#">NyaaPantsu</a> v{{ .Config.Version }}{{ .Config.Build }}</i></span>
-
-						</div>
+				<div class="container footer center">
+					<div class="footer-opt">
+						<p><a href="/settings">{{ call $.T "change_settings" }}</a></p>
+					</div>
+					<span><i>Powered by <a href="#">NyaaPantsu</a> v{{ .Config.Version }}{{ .Config.Build }}</i></span>
+				</div>
 			</footer>
 		</div>
 		<script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}?v={{ .Config.Version }}" async></script>
