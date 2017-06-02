@@ -1,5 +1,7 @@
-{{define "title"}}Torrent Edit Panel{{end}}
+{{define "title"}}{{ call $.T "torrent_edit_panel" }}{{end}}
 {{define "content"}}
+<div class="results box">
+<h3 id="torrents">{{ call $.T "torrent_edit_panel" }}</h3>
   {{with .Form}}
   <form enctype="multipart/form-data" role="upload" method="POST">
         {{ block "csrf_field" $ }}{{end}}
@@ -49,5 +51,6 @@
       </div>
       <button type="submit" class="btn btn-success">{{call $.T "save_changes"}}</button>
   </form>
+</div>
 {{end}}
 {{end}}

@@ -1178,5 +1178,45 @@
   {
     "id": "torrents_list",
     "translation": "Torrents List"
+  },
+  {
+    "id": "torrent_edit_panel",
+    "translation": "Torrent Edit Panel"
+  },
+  {
+    "id": "torrent_reassign",
+    "translation": "Torrent Reassign"
+  },
+  {
+    "id": "reassign_warning",
+    "translation": "Reassigning torrents to a new user is not easily reverted and should be done with care."
+  },
+  {
+    "id": "previous_username",
+    "translation": "Previous Username"
+  },
+  {
+    "id": "torrent_id",
+    "translation": "Torrent ID"
+  },
+  {
+    "id": "reassign_indication",
+    "translation": "One ID per line <b>or</b> a single username"
+  },
+  {
+    "id": "reassign_warn_2",
+    "translation": "Might take a long time, do <b>NOT</b> abort the request."
+  },
+  {
+    "id":"reassign_to",
+    "translation": "Reassign to:"
+  },
+  {
+    "id": "reassign_based_on",
+    "translation": "Reassign based on:"
+  },
+  {
+    "id": "user_id",
+    "translation": "User ID"
   }
 ]

@@ -40,7 +40,7 @@
 			<div class="container">
 				<div>
 						<div class="h-logo">
-							<a href="{{.URL.Parse "/"}}"><img class="hide-md" src="/img/{{if Sukebei}}sukebei_logo.png{{else}}logo.png{{end}}" alt="NyaaPantsu"><img class="visible-md" src="/img/logo_s.png"/></a>
+							<a href="{{ genRoute "mod_index" }}"><img class="hide-md" src="/img/{{if Sukebei}}sukebei_logo.png{{else}}logo.png{{end}}" alt="NyaaPantsu"><img class="visible-md" src="/img/logo_s.png"/></a>
 						</div>
 						<div class="h-nav">
                         <a href="{{.URL.Parse "/"}}" class="nav-btn">{{call $.T "Nyaa Pantsu"}}</a>

@@ -1,6 +1,7 @@
 {{define "title"}}{{ call $.T "torrents_list" }}{{end}}
 {{define "content"}}
 <div class="results box">
+    <h1>{{ call $.T "torrents_list" }}</h1>
     <form method="post" action="">
     {{ block "csrf_field" $ }}{{end}}
     {{ range (index $.Infos "infos")}}

@@ -1,5 +1,6 @@
 {{define "title"}}{{ call $.T "moderation_overview" }}{{end}}
 {{define "content"}}
+<div class="results box">
 <h3 id="torrents">{{ call $.T "last_torrents" }}</h3>
 <table class="table">
     <thead class="torrent-info">
@@ -100,4 +101,5 @@
               <li><a href="{{ genRoute "mod_clist" }}">{{ call $.T "more" }}</a></li>
           </ul>
       </nav>
+</div>
 {{end}}
