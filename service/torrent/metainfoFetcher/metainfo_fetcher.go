@@ -80,22 +80,11 @@ func New(fetcherConfig *config.MetainfoFetcherConfig) (*MetainfoFetcher, error) 
 	return fetcher, nil
 }
 
-func (fetcher *MetainfoFetcher) isFetchingOrFailed(t model.Torrent) bool {
-	for _, op := range fetcher.queue {
-		if op.torrent.ID == t.ID {
-			return true
-		}
-	}
-
-	_, ok := fetcher.failedOperations[t.ID]
-	return ok
-}
-
 func (fetcher *MetainfoFetcher) addToQueue(op *FetchOperation) bool {
 	fetcher.queueMutex.Lock()
 	defer fetcher.queueMutex.Unlock()
 
-	if len(fetcher.queue)+1 > fetcher.queueSize {
+	if fetcher.queueSize > 0 && len(fetcher.queue) > fetcher.queueSize-1 {
 		return false
 	}
 
@@ -283,18 +272,26 @@ func (fetcher *MetainfoFetcher) fillQueue() {
 	}
 
 	for _, T := range dbTorrents {
-		if fetcher.isFetchingOrFailed(T) {
+		for _, v := range fetcher.queue {
+			if v.torrent.ID == T.ID {
+				continue
+			}
+		}
+		if _, ok := fetcher.failedOperations[T.ID]; ok {
+			// do not start new jobs that have recently failed.
+			// removeOldFailures() takes care of that.
 			continue
 		}
 
 		operation := NewFetchOperation(fetcher, T)
-		if fetcher.addToQueue(operation) {
-			log.Infof("Added TID %d for filesize fetching", T.ID)
-			fetcher.wg.Add(1)
-			go operation.Start(fetcher.results)
-		} else {
+		if !fetcher.addToQueue(operation) {
+			// queue is full, stop and wait for results
 			break
 		}
+
+		log.Infof("Added TID %d for filesize fetching", T.ID)
+		fetcher.wg.Add(1)
+		go operation.Start(fetcher.results)
 	}
 }
 
