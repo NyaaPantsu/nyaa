@@ -43,7 +43,7 @@
     <tbody>
     {{ range .Models}}
     <tr>
-        <td class="tr-cb"><input type="checkbox" name="torrent_id" value="{{.ID }}"></td>
+        <td class="tr-cb"><input type="checkbox" class="selectable" name="torrent_id" value="{{.ID }}"></td>
         <td class="tr-name"><a href="{{ genViewTorrentRoute .ID }}">{{ .Name }}</a> {{ if not .IsDeleted }}(<a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">{{ call $.T "edit"}}</a>){{end}}</td>
         <td class="tr-size home-td">{{ if .Uploader }}<a href="{{ if .IsDeleted }}{{ genRoute "mod_tlist_deleted" }}{{else}}{{ genRoute "mod_tlist" }}{{end}}?userID={{.UploaderID}}">{{ .Uploader.Username }}</a>{{ else }}れんちょん{{end}}</td>
         <td class="tr-actions home-td">
