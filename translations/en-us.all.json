@@ -876,6 +876,18 @@
     "translation": "Torrent %s deleted!"
   },
   {
+    "id": "torrents_deleted",
+    "translation": "Torrents Deleted"
+  },
+  {
+    "id": "delete_torrent",
+    "translation": "Delete Torrent"
+  },
+  {
+    "id": "delete_report",
+    "translation": "Delete Report"
+  },
+  {
     "id": "no_action_exist",
     "translation": "No such action %s exist!"
   },
@@ -1102,5 +1114,109 @@
   {
     "id": "query_nb",
     "translation": "Query #{0}"
+  },
+  {
+    "id": "reason",
+    "translation": "Reason"
+  },
+  {
+    "id": "actions",
+    "translation": "Actions"
+  },
+  {
+    "id": "action_select",
+    "translation": "Action..."
+  },
+  {
+    "id": "change_status",
+    "translation": "Change Status"
+  },
+  {
+    "id": "to_status",
+    "translation": "To..."
+  },
+  {
+    "id": "torrents_not_deleted",
+    "translation": "Torrents Not Deleted"
+  },
+  {
+    "id": "more",
+    "translation": "More"
+  },
+  {
+    "id": "last_comments",
+    "translation": "Last Comments"
+  },
+  {
+    "id": "last_reports",
+    "translation": "Last Reports"
+  },
+  {
+    "id": "last_torrents",
+    "translation": "Last Torrents"
+  },
+  {
+    "id": "last_users",
+    "translation": "Last Users"
+  },
+  {
+    "id": "moderation_overview",
+    "translation": "Moderation Overview"
+  },
+  {
+    "id": "users_list",
+    "translation": "Users List"
+  },
+  {
+    "id": "comments_list",
+    "translation": "Comments List"
+  },
+  {
+    "id": "reports_list",
+    "translation": "Reports List"
+  },
+  {
+    "id": "torrents_list",
+    "translation": "Torrents List"
+  },
+  {
+    "id": "torrent_edit_panel",
+    "translation": "Torrent Edit Panel"
+  },
+  {
+    "id": "torrent_reassign",
+    "translation": "Torrent Reassign"
+  },
+  {
+    "id": "reassign_warning",
+    "translation": "Reassigning torrents to a new user is not easily reverted and should be done with care."
+  },
+  {
+    "id": "previous_username",
+    "translation": "Previous Username"
+  },
+  {
+    "id": "torrent_id",
+    "translation": "Torrent ID"
+  },
+  {
+    "id": "reassign_indication",
+    "translation": "One ID per line <b>or</b> a single username"
+  },
+  {
+    "id": "reassign_warning_2",
+    "translation": "Might take a long time, do <b>NOT</b> abort the request."
+  },
+  {
+    "id":"reassign_to",
+    "translation": "Reassign to:"
+  },
+  {
+    "id": "reassign_based_on",
+    "translation": "Reassign based on:"
+  },
+  {
+    "id": "user_id",
+    "translation": "User ID"
   }
 ]

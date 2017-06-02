@@ -1,84 +1,79 @@
-{{define "title"}}Torrents List{{end}}
-{{define "contclass"}}cont-view{{end}}
+{{define "title"}}{{ call $.T "torrents_list" }}{{end}}
 {{define "content"}}
-<div class="blockBody">
-  <form method="post" action="">
+<div class="results box">
+    <h1>{{ call $.T "torrents_list" }}</h1>
+    <form method="post" action="">
     {{ block "csrf_field" $ }}{{end}}
     {{ range (index $.Infos "infos")}}
-        <div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
+        <p class="success-text">{{ . }}</p>
     {{end}}
     {{ range (index $.Errors "errors")}}
-        <div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
+        <p class="error-text">{{ . }}</p>
     {{end}}
-    <nav class="navbar navbar-default">
-       <div class="navbar-form">
-       <div class="form-group">
-          <select class="form-control" name="action">
-            <option value="">Action...</option>
-            <option value="status">Change Status</option>
-            <option value="delete">Delete</option>
+    <div class="toolbar">
+          <select class="cb_action" name="action">
+            <option value="">{{ call $.T "action_select" }}</option>
+            <option value="status">{{ call $.T "change_status" }}</option>
+            <option value="delete">{{ call $.T "delete" }}</option>
           </select>
-          <select class="form-control" style="display: none;" name="status">
-            <option value="">To...</option>
+          <select class="cb_action" style="display: none;" name="status">
+            <option value="">{{ call $.T "to_status" }}</option>
             <option value="5">{{call $.T "torrent_status_blocked"}}</option>
-            <option value="0">{{call $.T "torrent_status_hidden"}}</option>
             <option value="1">{{call $.T "torrent_status_normal"}}</option>
             <option value="2">{{call $.T "torrent_status_remake"}}</option>
             <option value="3">{{call $.T "trusted"}}</option>
             <option value="4">A+</option>
           </select>
+        <input type="submit" class="form-input" value="Apply">
+        <input type="reset" class="form-input" value="Reset">
+        <div class="float-right">
+            <a href="{{genRoute "mod_tlist" }}" class="form-input">{{ call $.T "torrents_not_deleted" }}</a>
+            <a href="{{genRoute "mod_tlist_deleted" }}" class="form-input">{{ call $.T "torrents_deleted" }}</a>
         </div>
-        <input type="submit" class="btn btn-success" value="Apply">
-        <input type="reset" class="btn btn-danger" value="Reset">
-        <div class="pull-right">
-        <a href="{{genRoute "mod_tlist" }}" class="btn btn-success">Not Deleted</a>
-        <a href="{{genRoute "mod_tlist_deleted" }}" class="btn btn-danger">Deleted</a>
-        </div>
-        </div>
-    </nav>
-    <div class="table-responsive">
-    <table class="table table-hover">
-    <tr>
-        <th style="width:12px;"><input type="checkbox" name="checkall" data-selectall="checkbox"></th>
-        <th>Torrent Name</th>
-        <th>Uploader</th>
-        <th>Action</th>
-    </tr>
-
+    </div>
+<table class="table">
+    <thead class="torrent-info">
+        <tr>
+            <th class="tr-cb"><input type="checkbox" name="checkall" data-selectall="checkbox"></th>
+            <th class="tr-name">{{ call $.T "name" }}</th>
+            <th class="tr-size">{{ call $.T "uploaded_by" }}</th>
+            <th class="tr-actions">{{ call $.T "actions" }}</th>
+        </tr>
+    </thead>
+    <tbody>
     {{ range .Models}}
     <tr>
-        <td><input type="checkbox" name="torrent_id" value="{{.ID }}"></td>
-        <td><a href="{{ genViewTorrentRoute .ID }}">{{ .Name }}</a> {{ if not .IsDeleted }}(<a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">{{ call $.T "edit"}}</a>){{end}}</td>
-        <td>{{ if .Uploader }}<a href="{{ if .IsDeleted }}{{ genRoute "mod_tlist_deleted" }}{{else}}{{ genRoute "mod_tlist" }}{{end}}?userID={{.UploaderID}}">{{ .Uploader.Username }}</a>{{ else }}れんちょん{{end}}</td>
-        <td>
-        <a href="{{ genRoute "mod_tblock" }}?id={{ .ID }}" class="btn btn-danger" onclick="if (!confirm('{{ call $.T "are_you_sure"}}')) return false;">{{ if .IsBlocked }}{{ call $.T "torrent_unblock" }}{{else}}{{ call $.T "torrent_block" }}{{end}}</a>
+        <td class="tr-cb"><input type="checkbox" name="torrent_id" value="{{.ID }}"></td>
+        <td class="tr-name"><a href="{{ genViewTorrentRoute .ID }}">{{ .Name }}</a> {{ if not .IsDeleted }}(<a href="{{ genRoute "mod_tedit" }}?id={{.ID}}">{{ call $.T "edit"}}</a>){{end}}</td>
+        <td class="tr-size home-td">{{ if .Uploader }}<a href="{{ if .IsDeleted }}{{ genRoute "mod_tlist_deleted" }}{{else}}{{ genRoute "mod_tlist" }}{{end}}?userID={{.UploaderID}}">{{ .Uploader.Username }}</a>{{ else }}れんちょん{{end}}</td>
+        <td class="tr-actions home-td">
+        <a href="{{ genRoute "mod_tblock" }}?id={{ .ID }}" class="form-input" onclick="if (!confirm('{{ call $.T "are_you_sure"}}')) return false;">{{ if .IsBlocked }}{{ call $.T "torrent_unblock" }}{{else}}{{ call $.T "torrent_block" }}{{end}}</a>
         {{ if .IsDeleted }}
-        <a href="{{ genRoute "mod_tdelete" }}?definitely&id={{ .ID }}" class="btn btn-danger" onclick="if (!confirm('{{ call $.T "are_you_sure"}} {{ call $.T "delete_definitely_torrent_warning"}}')) return false;"><i class="glyphicon glyphicon-trash"></i> {{ call $.T "delete_definitely" }}</a>
+        <br><a href="{{ genRoute "mod_tdelete" }}?definitely&id={{ .ID }}" class="form-input" onclick="if (!confirm('{{ call $.T "are_you_sure"}} {{ call $.T "delete_definitely_torrent_warning"}}')) return false;"><i class="trash-icon"></i> {{ call $.T "delete_definitely" }}</a>
         {{ else }}
-        <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="btn btn-danger" onclick="if (!confirm('{{ call $.T "are_you_sure"}}')) return false;"><i class="glyphicon glyphicon-trash"></i> {{ call $.T "delete" }}</a>
+        <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="form-input" onclick="if (!confirm('{{ call $.T "are_you_sure"}}')) return false;"><i class="trash-icon"></i> {{ call $.T "delete" }}</a>
         {{ end }}
         </td>
     </tr>
     {{end}}
-    </table>
-    </div>
+    </tbody>
+</table> 
   </form>
-      <nav class="torrentNav" aria-label="Page navigation">
-          <ul class="pagination">
-              {{ genNav .Navigation .URL 5 }}
-          </ul>
-      </nav>
 </div>
 {{end}}
-{{ define "js_footer"}}
+{{ define "footer_js"}}
 <!-- JS Function for selecting multiple checkboxes -->
 <script type="text/javascript" src="{{ .URL.Parse "/js/selectAll.js" }}"></script>
 <script type="text/javascript">
-  $("select[name='action']").on("change", function(e) {
-    if ($(this).val() == "move")
-      $(this).siblings("select[name='moveto']").show()
-    else 
-      $(this).siblings("select[name='moveto']").hide()
-  });
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector("select[name='action']").addEventListener("change", function(e) {
+        var el = e.target;
+        if (el.value == "status")
+            document.querySelector("select[name='status']").style.display = "inline"
+        else 
+            document.querySelector("select[name='status']").style.display = "none"
+            console.log(el.value);
+    });
+});
 </script>
 {{end}}
