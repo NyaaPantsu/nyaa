@@ -5,7 +5,7 @@
 	<form enctype="multipart/form-data" role="upload" method="POST">
 	    {{ block "csrf_field" $ }}{{end}}
 		{{ range (index $.FormErrors "errors")}}
-		<div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
+		 <p class="error-text">{{ . }}</p>
 		{{end}}
 
 		<h3>{{call $.T "name"}}</h3>

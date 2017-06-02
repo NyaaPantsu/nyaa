@@ -424,8 +424,8 @@ th a { color: #6E96AA; }
 th { border-color:  #ddd !important; }
 td { border-color:  #ccc !important; }
 
-td.tr-se { color: #22A243; }
-td.tr-le { color: #E84C4C; }
+td.tr-se, .success-text { color: #22A243; }
+td.tr-le, .error-text { color: #E84C4C; }
 
 /* Original Nyaa colors, do NOT change! */
 .aplus { background: #60B0F0; }
@@ -600,6 +600,12 @@ div.profile-content.box > nav > ul > li {
 	height: 13px;
 	width: 13px;
 }
+.trash-icon {
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCI+CjxnPgoJPGc+CgkJPHBhdGggZD0iTTQ2NS40MjMsNDguMjQxaC0xMzcuNjFWMjMuOTU1QzMyNy44MTMsMTAuNzQ2LDMxNy4wODIsMCwzMDMuODkzLDBoLTk1Ljc4NWMtMTMuMTksMC0yMy45MiwxMC43NDYtMjMuOTIsMjMuOTU1VjQ4LjI0ICAgIEg0Ni41NzdjLTYuNjU1LDAtMTIuMDQ5LDUuMzk0LTEyLjA0OSwxMi4wNDljMCw2LjY1NSw1LjM5NCwxMi4wNDksMTIuMDQ5LDEyLjA0OWgyMi4zMzJsMTUuMjI4LDM5Ni4zOTYgICAgQzg1LjA2OSw0OTIuOTk1LDEwNC44MTgsNTEyLDEyOS4wOTksNTEyaDI1My44MDRjMjQuMjgxLDAsNDQuMDMtMTkuMDA2LDQ0Ljk2LTQzLjI2N2wxNS4yMjgtMzk2LjM5NmgyMi4zMzIgICAgYzYuNjUzLDAsMTIuMDQ5LTUuMzk0LDEyLjA0OS0xMi4wNDlDNDc3LjQ3Miw1My42MzUsNDcyLjA3OCw0OC4yNDEsNDY1LjQyMyw0OC4yNDF6IE0yMDguMjg1LDI0LjA5N2g5NS40M3YyNC4xNDNoLTk1LjQzVjI0LjA5N3ogICAgIE00MDMuNzg0LDQ2Ny44MDljLTAuNDMzLDExLjI2OC05LjYwNSwyMC4wOTQtMjAuODgyLDIwLjA5NEgxMjkuMDk5Yy0xMS4yNzYsMC0yMC40NDgtOC44MjctMjAuODgyLTIwLjA5NUw5My4wMjUsNzIuMzM4aDMyNS45NTIgICAgTDQwMy43ODQsNDY3LjgwOXoiIGZpbGw9IiMwMDAwMDAiLz4KCTwvZz4KPC9nPgo8Zz4KCTxnPgoJCTxwYXRoIGQ9Ik0xODIuNjMsMTgxLjU3MWMtMC4xMjctNi41NzUtNS40OTQtMTEuODE3LTEyLjA0Mi0xMS44MTdjLTAuMDc4LDAtMC4xNTgsMC0wLjIzNiwwLjAwMiAgICBjLTYuNjUyLDAuMTI4LTExLjk0Myw1LjYyNi0xMS44MTUsMTIuMjc4bDMuNzgxLDE5Ni42MzRjMC4xMjYsNi41NzUsNS40OTUsMTEuODE3LDEyLjA0MiwxMS44MTdjMC4wNzgsMCwwLjE1OCwwLDAuMjM2LTAuMDAyICAgIGM2LjY1My0wLjEyOCwxMS45NDMtNS42MjQsMTEuODE1LTEyLjI3OEwxODIuNjMsMTgxLjU3MXoiIGZpbGw9IiMwMDAwMDAiLz4KCTwvZz4KPC9nPgo8Zz4KCTxnPgoJCTxwYXRoIGQ9Ik0yNTUuOTk4LDE2OS43NTNjLTYuNjU0LDAtMTIuMDQ5LDUuMzk0LTEyLjA0OSwxMi4wNDl2MTk2LjYzNGMwLDYuNjU0LDUuMzk0LDEyLjA0OSwxMi4wNDksMTIuMDQ5ICAgIGM2LjY1NSwwLDEyLjA0OS01LjM5NCwxMi4wNDktMTIuMDQ5VjE4MS44MDJDMjY4LjA0NywxNzUuMTQ4LDI2Mi42NTMsMTY5Ljc1MywyNTUuOTk4LDE2OS43NTN6IiBmaWxsPSIjMDAwMDAwIi8+Cgk8L2c+CjwvZz4KPGc+Cgk8Zz4KCQk8cGF0aCBkPSJNMzQxLjY0NSwxNjkuNzU2Yy02LjYyOC0wLjE0Ny0xMi4xNTEsNS4xNjItMTIuMjc4LDExLjgxNWwtMy43ODEsMTk2LjYzNGMtMC4xMjksNi42NTMsNS4xNjIsMTIuMTUsMTEuODE1LDEyLjI3OCAgICBjMC4wNzgsMC4wMDEsMC4xNTgsMC4wMDIsMC4yMzYsMC4wMDJjNi41NDYsMCwxMS45MTYtNS4yNDQsMTIuMDQyLTExLjgxN2wzLjc4MS0xOTYuNjM0ICAgIEMzNTMuNTg4LDE3NS4zOCwzNDguMjk5LDE2OS44ODMsMzQxLjY0NSwxNjkuNzU2eiIgZmlsbD0iIzAwMDAwMCIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=)
+}
 /* Filelist */
 .filelist-control {
 	cursor: pointer;
@@ -712,3 +718,210 @@ input.filelist-checkbox:checked + table.table-filelist {
 .editor-preview-side {
 	top: 110px;
 }
+
+/* Mod Tools */
+.modtools {
+	position: fixed;
+	top:60px;
+	padding: 1px 10px;
+	max-width: 1060px;
+	width:100%;
+	background: #111;
+	border: 1px solid #222;
+	height: 25px;
+}
+.tr-cb {
+	width: 20px;
+	text-align: left;
+	display: none;
+}
+.modtools .actions {
+	display: none;
+}
+.modtools span.btn-group {
+    margin-left: 20px;
+}
+.modtools .cb_action {
+	height: 100%;
+}
+/* Modal box */
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 4; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+/* Modal Header */
+.modal-header {
+    padding: 2px 16px;
+	background: #111; /* Old browsers */
+	background:    -moz-linear-gradient(bottom, #222 0%, #111 100%);
+	background: -webkit-linear-gradient(bottom, #222 0%, #111 100%);
+	background:         linear-gradient(to top, #222 0%, #111 100%);
+    color: white;
+}
+
+/* Modal Body */
+.modal-body {padding: 2px 16px;}
+
+/* Modal Footer */
+.modal-footer {
+    padding: 2px 16px;
+	background: #222; /* Old browsers */
+	background:    -moz-linear-gradient(bottom, #111 0%, #222 100%);
+	background: -webkit-linear-gradient(bottom, #111 0%, #222 100%);
+	background:         linear-gradient(to top, #111 0%, #222 100%);
+    color: white;
+}
+.modal-footer span {
+	float: right;
+	margin-right: 20px;
+}
+.modal-footer span button {
+	margin-right: 5px;
+	padding: 1em 2em;
+	background: none;
+	border: 1px solid white;
+	border-radius: 3px;
+	color: white;
+	font-weight: bold;
+}
+.modal-footer span .close {
+	font-size: 1em;
+	float: none;
+	background: #E84C4C;
+}
+.modal-footer span #confirm_changes {
+	font-size: 1em;
+	background: #98D9A8;
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+	margin-top: 20%; 
+	max-width: 1000px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+.modal .close {
+	float: right;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+.modal a.icon {
+	width: 16px;
+	height: 16px;
+}
+
+.modal .edit_list {
+	background: #98D9A8;
+    padding: 0.3em;
+	margin-bottom: 3px;
+}
+
+.modal .delete_list {
+	background: #E84C4C;
+    padding: 0.3em;
+	margin-bottom: 3px;
+}
+
+.modal .delete_item {
+	font-weight: bold;
+    padding: 3px;
+} 
+
+.modal .edit_item {
+	font-weight: bold;
+    padding: 3px;
+} 
+.delete_item a, .delete_item span.infos, .edit_item a, .edit_item span.infos {
+	float: right;
+}
+.delete_list span.infos, .edit_list span.infos {
+    float: right;
+    margin-top: 1em;
+}
+.modal-body div .title h3 {
+	cursor: pointer;
+}
+.modal .list {
+	border: 1px solid #222;
+	margin-bottom: 0.5em; 
+	display: none;
+}
+.modal .list .delete_item:nth-child(even), .modal .list .edit_item:nth-child(even) {background: #CCC}
+.modal .list .delete_item:nth-child(odd), .modal .list .edit_item:nth-child(odd) {background: #FFF}
+
+.modal-footer button {
+	cursor: pointer;
+}
+
+.modal .close:hover, .modal-footer span button:hover, .modal a.icon:hover {
+	opacity: 0.7;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top: -300px; opacity: 0} 
+    to {top: 0; opacity: 1}
+}
+
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+.progress-bar {
+	height:1.5em;
+	width: 100%;
+	background: #333;
+	padding: 0;
+}
+
+.progress-green {
+	height: 100%;
+	margin: 0;
+	background: #22A243;
+	text-align: right;
+	padding-right: 2px;
+	color: white;
+	padding-top: 0.25em;
+}
+
+.logs_mess {
+	background: #ddd;
+	height: 100px;
+	overflow: auto;
+	padding: 3px;
+	font-style: italic;
+}
+
+.logs_mess div.success {
+	color: #22A243;
+}
+
+.logs_mess div.error {
+	color: #893636;
+
+.error-text, .success-text {
+	text-align: center;
+}
+

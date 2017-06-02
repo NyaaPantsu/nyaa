@@ -25,9 +25,12 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 		<!-- Base theme -->
 		<link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v={{ .Config.Version }}">
-		<!-- User selected theme, if any -->
-		{{if .Theme}}<link rel="stylesheet" id="theme" href="/css/{{$.Theme}}.css?v={{ .Config.Version }}">{{end}}
-      
+		<!-- User selected theme, if any, defaults to /g/ -->
+		{{if eq $.Theme ""}} 
+			<link rel="stylesheet" id="theme" href="/css/g.css?v={{ .Config.Version }}">
+		{{else}}
+			<link rel="stylesheet" id="theme" href="/css/{{$.Theme}}.css?v={{ .Config.Version }}">
+		{{end}}
 		<!-- Search Box for Google -->
 		<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 		{{ block "additional_header" .}}{{end}}
