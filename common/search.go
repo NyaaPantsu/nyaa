@@ -162,6 +162,8 @@ type SearchParam struct {
 	Status    Status
 	Sort      SortMode
 	Category  Category
+	FromDate  string
+	ToDate    string
 	Page      int
 	UserID    uint
 	Max       uint
