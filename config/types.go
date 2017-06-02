@@ -6,7 +6,6 @@ type Config struct {
 	Port                   int    `json:"port" yaml:"port,omitempty"`
 	DBType                 string `json:"db_type" yaml:"db_type,omitempty"`
 	Environment            string `json:"environment" yaml:"environment,omitempty"`
-	WebAddress             string `json:"web_address" yaml:"web_address,omitempty"`
 	AuthTokenExpirationDay int    `json:"auth_token_expiration" yaml:"auth_token_expiration,omitempty"`
 	EnableSecureCSRF       bool   `json:"enable_secure_csrf" yaml:"enable_secure_csrf,omitempty"`
 	// DBParams will be directly passed to Gorm, and its internal
@@ -15,6 +14,8 @@ type Config struct {
 	DBLogMode string `json:"db_logmode" yaml:"db_logmode,omitempty"`
 	Version   string `json:"version" yaml:"version,omitempty"`
 	Build     string `yaml:"-"`
+	// web address config
+	WebAddress WebAddressConfig `yaml:"web_address,flow,omitempty"`
 	// cookies config
 	Cookies CookiesConfig `yaml:"cookies,flow,omitempty"`
 	// tracker scraper config (required)
@@ -41,6 +42,13 @@ type Config struct {
 	Email EmailConfig `yaml:"email,flow,omitempty"`
 	// models config
 	Models ModelsConfig `yaml:"models,flow,omitempty"`
+}
+
+// WebAddressConfig : Config struct for web addresses
+type WebAddressConfig struct {
+	Nyaa    string `yaml:"nyaa,omitempty"`
+	Sukebei string `yaml:"sukebei,omitempty"`
+	Status  string `yaml:"status,omitempty"`
 }
 
 // CookiesConfig : Config struct for session cookies

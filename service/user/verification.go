@@ -10,6 +10,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/email"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/timeHelper"
@@ -24,8 +25,8 @@ func SendEmailVerification(to string, token string) error {
 	if err != nil {
 		return err
 	}
-	content := T("link") + " : https://" + config.Conf.WebAddress + "/verify/email/" + token
-	contentHTML := T("verify_email_content") + "<br/>" + "<a href=\"https://" + config.Conf.WebAddress + "/verify/email/" + token + "\" target=\"_blank\">" + config.Conf.WebAddress + "/verify/email/" + token + "</a>"
+	content := T("link") + " : " + config.Conf.WebAddress.Nyaa + "/verify/email/" + token
+	contentHTML := T("verify_email_content") + "<br/>" + "<a href=\"" + config.Conf.WebAddress.Nyaa + "/verify/email/" + token + "\" target=\"_blank\">" + util.GetHostname(config.Conf.WebAddress.Nyaa) + "/verify/email/" + token + "</a>"
 	return email.SendEmailFromAdmin(to, T("verify_email_title"), content, contentHTML)
 }
 
