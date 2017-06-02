@@ -947,8 +947,12 @@ input.filelist-checkbox:checked + table.table-filelist {
 	display: table-cell;
 }
 
+.tr-actions .form-input{
+	display: inline-block;
+}
+
 .tr-actions {
-	width: 120px;
+	width: 130px;
 }
 
 .toolbar {
