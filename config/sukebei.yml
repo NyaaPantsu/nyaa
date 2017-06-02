@@ -1,0 +1,20 @@
+# Configuration file for NyaaPantsu
+# Please, do not change default_config, create your own config.yml
+# You do not have to change every values, just set here what you want to edit
+# For example, if you just want to change the port, just write:
+#port: 9998
+models:
+# LastOldTorrentID is the highest torrent ID that was copied from the original Nyaa
+  last_old_torrent_id: 2303945
+# TorrentsTableName : Name of torrent table in DB
+  torrents_table_name: sukebei_torrents
+# ReportsTableName : Name of torrent report table in DB
+  reports_table_name: sukebei_torrent_reports
+# CommentsTableName : Name of comments table in DB
+  comments_table_name: sukebei_comments
+# UploadsOldTableName : Name of uploads table in DB
+  uploads_old_table_name: sukebei_user_uploads_old
+# FilesTableName : Name of files table in DB
+  files_table_name: sukebei_files
+# NotificationTableName : Name of notifications table in DB
+  notifications_table_name: sukebei_notifications

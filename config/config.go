@@ -7,7 +7,6 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
-	"os"
 
 	yaml "gopkg.in/yaml.v2"
 )
@@ -95,16 +94,11 @@ func (config *Config) BindFlags() func() error {
 // HandleConfFileFlag : Read the config from a file
 func (config *Config) HandleConfFileFlag(path string) error {
 	if path != "" {
-		file, err := os.Open(path)
+		data, err := ioutil.ReadFile(path)
 		if err != nil {
 			return fmt.Errorf("can't read file '%s'", path)
 		}
-		var b []byte
-		_, err = file.Read(b)
-		if err != nil {
-			return fmt.Errorf("failed to parse file '%s' (%s)", path, err)
-		}
-		err = yaml.Unmarshal(b, config)
+		err = yaml.Unmarshal(data, config)
 		if err != nil {
 			return fmt.Errorf("failed to parse file '%s' (%s)", path, err)
 		}
