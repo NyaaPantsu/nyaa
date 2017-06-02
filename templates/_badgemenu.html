@@ -8,7 +8,7 @@
 			</button>
 			<div class="user-menu">
 					<a class="nav-btn" href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}">{{call $.T "profile"}}</a>
-					<a class="nav-btn" href="{{ genRoute "user_notifications" }}">{{ call $.T "my_notifications"}} <span class="badge">{{ .GetUnreadNotifications }}</span></a>
+					<a class="nav-btn" href="{{ genRoute "user_notifications" }}">{{ call $.T "my_notifications"}} <span class="badge">({{ .GetUnreadNotifications }})</span></a>
 					<a class="nav-btn" href="{{ genRoute "user_profile_edit" "id" (print .ID) "username" .Username }}">{{call $.T "settings"}}</a>
 					{{if HasAdmin . }}<a class="nav-btn" href="{{ genRoute "mod_index" }}">{{call $.T "moderation"}}</a>{{end}}
 					<a class="nav-btn" href="{{ genRoute "user_logout" }}">{{ call $.T "sign_out"}}</a></li>
