@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 	"unicode"
 	"unicode/utf8"
 
@@ -123,8 +124,14 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 	search.UserID = uint(userID)
 	fromID, _ := strconv.Atoi(r.URL.Query().Get("fromID"))
 	search.FromID = uint(fromID)
-	search.FromDate = r.URL.Query().Get("fromDate")
-	search.ToDate = r.URL.Query().Get("toDate")
+
+	maxage, err := strconv.Atoi(r.URL.Query().Get("maxage"))
+	if err != nil {
+		search.FromDate = r.URL.Query().Get("fromDate")
+		search.ToDate = r.URL.Query().Get("toDate")
+	} else {
+		search.FromDate = time.Now().AddDate(0, 0, -maxage).Format("2006-01-02")
+	}
 
 	switch s := r.URL.Query().Get("s"); s {
 	case "1":

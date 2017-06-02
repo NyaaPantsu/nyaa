@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/gorilla/mux"
 	elastic "gopkg.in/olivere/elastic.v5"
@@ -71,8 +72,13 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	var status Status
 	status.Parse(r.URL.Query().Get("s"))
 
-	p.FromDate = r.URL.Query().Get("fromDate")
-	p.ToDate = r.URL.Query().Get("toDate")
+	maxage, err := strconv.Atoi(r.URL.Query().Get("maxage"))
+	if err != nil {
+		p.FromDate = r.URL.Query().Get("fromDate")
+		p.ToDate = r.URL.Query().Get("toDate")
+	} else {
+		p.FromDate = time.Now().AddDate(0, 0, -maxage).Format("2006-01-02")
+	}
 
 	var category Category
 	category.Parse(r.URL.Query().Get("c"))
