@@ -928,3 +928,36 @@ input.filelist-checkbox:checked + table.table-filelist {
 .toolbar > div.float-right {
 	margin-top: 5px;
 }
+
+.content-admin .form-box form {
+	text-align: left;
+	padding: 0 10px 10px;
+}
+
+.btn-green {
+	background: #98D9A8;
+	color:white;
+	font-weight: bold;
+}
+
+.btn-red {
+	background: #E84C4C;
+	color:white;
+	font-weight: bold;
+}
+
+.btn-blue {
+	background: #60B0F0;
+	color:white;
+	font-weight: bold;
+}
+
+.btn-orange {
+	background: #F0B080;
+	color:white;
+	font-weight: bold;
+}
+
+.btn-blue:hover, .btn-red:hover, .btn-green:hover, .btn-orange:hover {
+	opacity: 0.7;
+}

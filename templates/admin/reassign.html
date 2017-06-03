@@ -1,6 +1,6 @@
 {{define "title"}}{{ call $.T "torrent_reassign" }}{{end}}
 {{define "content"}}
-<div class="results box">
+<div class="results box form-box">
     <h1>{{ call $.T "torrent_reassign" }}</h1>
     <form enctype="multipart/form-data" method="POST">
     {{ block "csrf_field" $ }}{{end}}
@@ -25,12 +25,12 @@
 
     <div class="form-group">
         <p>{{call $.T "reassign_indication"}}</p>
-        <textarea class="form-input" rows="20" cols="40" name="data">{{.Data}}</textarea>
+        <textarea rows="20" cols="40" name="data">{{.Data}}</textarea>
     </div>
     {{end}}
 
     <p>{{ call $.T "reassign_warning_2" }}</p>
-    <button type="submit" class="form-input">{{call $.T "save_changes"}}</button>
+    <button type="submit" class="form-input btn-green">{{call $.T "save_changes"}}</button>
 </form>
 </div>
 {{end}}

@@ -34,7 +34,7 @@ type TorrentReportJSON struct {
 	User        UserJSON    `json:"user"`
 }
 
-/* Model Conversion to Json */
+/* Model Conversion to Json : Deprecated, use translation instead please */
 
 func getReportDescription(d string) string {
 	if d == "illegal" {
@@ -59,7 +59,7 @@ func (report *TorrentReport) ToJSON() TorrentReportJSON {
 	if report.User != nil {
 		u = report.User.ToJSON()
 	}
-	json := TorrentReportJSON{report.ID, getReportDescription(report.Description), t, u}
+	json := TorrentReportJSON{report.ID, report.Description, t, u}
 	return json
 }
 

@@ -7,19 +7,19 @@
             <tr>
               <th class="tr-name">{{ call $.T "name" }}</th>
               <th class="tr-size">{{ call $.T "username" }}</th>
-              <th class="tr-size">{{ call $.T "reason" }}</th>
+              <th class="tr-actions">{{ call $.T "reason" }}</th>
               <th class="tr-actions">{{ call $.T "actions" }}</th>
             </tr>
         </thead>
         <tbody>
         {{range .Models}}
           <tr>
-            <td class="tr-name"><a href="{{ genRoute "view_torrent" "id" (print .Torrent.ID) }}">{{ .Torrent.Name }}</a> <a href="{{ genRoute "mod_tedit" }}?id={{ print .Torrent.ID}}" class="form-input float-right">{{ call $.T "edit"}}</a></td>
+            <td class="tr-name home-td"><a href="{{ genRoute "view_torrent" "id" (print .Torrent.ID) }}">{{ .Torrent.Name }}</a> <a href="{{ genRoute "mod_tedit" }}?id={{ print .Torrent.ID}}" class="form-input btn-blue float-right">{{ call $.T "edit"}}</a></td>
             <td class="tr-size home-td">{{.User.Username}}</td>
-            <td class="tr-size home-td">{{.Description}}</td>
+            <td class="tr-actions home-td">{{ call $.T .Description }}</td>
             <td class="tr-actions home-td">
-            <a href="{{ genRoute "mod_tdelete" }}?id={{ print .Torrent.ID }}" class="form-input" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;"><i class="trash-icon"></i>{{ call $.T "delete_torrent" }}</a><br>
-            <a href="{{ genRoute "mod_trdelete" }}?id={{ print .ID }}" class="form-input"><i class="trash-icon"></i>{{ call $.T "delete_report" }}</a></td>
+            <a href="{{ genRoute "mod_tdelete" }}?id={{ print .Torrent.ID }}" class="form-input btn-red" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;"><i class="trash-icon"></i>{{ call $.T "delete_torrent" }}</a><br>
+            <a href="{{ genRoute "mod_trdelete" }}?id={{ print .ID }}" class="form-input btn-red"><i class="trash-icon"></i>{{ call $.T "delete_report" }}</a></td>
           </tr>
         {{end}}
         </tbody>
