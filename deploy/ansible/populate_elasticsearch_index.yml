@@ -6,6 +6,13 @@
     - elasticsearch
 
   tasks:
+    # Needed otherwise we'll lose information when people upload when we're
+    # populating to the new index.
+    # DONT FORGET TO RE-ENABLE THE CRON JOB AFTER
+    - name: Disable reindex cron job
+      command: mv "/etc/cron.d/reindex_{{ nyaapantsu_torrent_tablename }}" /tmp/
+      become: true
+
     - name: Index the database into elasticsearch
       command: python "{{ nyaapantsu_directory }}/index_nyaapantsu.py"
       environment:
