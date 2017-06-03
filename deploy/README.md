@@ -109,27 +109,39 @@ $ ansible-playbook -i hosts restore_database.yml
 ```
 
 
-### Create Elasticsearch Index Playbook
+### Elasticsearch Index Playbooks
 
-This playbook creates the elasticsearch index for our database from
-[ansible/roles/elasticsearch/files/elasticsearch_settings.yml](ansible/roles/elasticsearch/files/elasticsearch_settings.yml)
+We are using index aliases for a zero downtime and index hotswapping. You can
+find more information [here](https://www.elastic.co/guide/en/elasticsearch/guide/current/index-aliases.html).
 
+I'll assume you already have an index named `nyaapantsu_old` that is aliased to
+`nyaapantsu` and you want to create a new index to become the new `nyaapantsu`.
+
+First you'll need to modify the variables in the [group_vars/all](group_vars/all)
+file.
+
+The new index will be called `nyaapantsu_new`.
+
+```yaml
+nyaapantsu_elasticsearch_alias: nyaapantsu
+nyaapantsu_elasticsearch_index: nyaapantsu_new
+nyaapantsu_elasticsearch_old_index: nyaapantsu_old
 ```
+
+Now you need to run three playbooks.
+
+```bash
+# Creates the new index
 $ ansible-playbook -i hosts create_elasticsearch_index.yml
-```
-
-
-### Populate Elasticsearch Index Playbook
-
-This playbook uses a python script to populate the elasticsearch index from all
-the data inside the database.
-
-> WARNING: Make sure the python script is in sync with the mapping defined in
-> the elasticsearch index configuration.
-
-```
+# Populate the new index and disable the reindexing cron job. This avoid
+# losing new entries.
 $ ansible-playbook -i hosts populate_elasticsearch_index.yml
+# Remove the alias nyaapantsu from nyaapantsu_old and adds it to nyaapantsu_new
+$ ansible-playbook -i hosts swap_elasticsearch_index.yml
 ```
+
+Nyaa can now access the new index `nyaapantsu_new` by using the alias
+`nyaapantsu`.
 
 ## Playbook Testing
 
@@ -138,7 +150,7 @@ installed:
 
 ```
 # Download centos/7 image
-$ vagrant  init centos/7
+$ vagrant init centos/7
 
 # Create and boot the vm
 $ vagrant up
