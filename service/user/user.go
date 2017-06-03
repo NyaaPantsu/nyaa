@@ -269,32 +269,37 @@ func RetrieveCurrentUser(r *http.Request) (model.User, int, error) {
 }
 
 // RetrieveUserByEmail retrieves a user by an email
-func RetrieveUserByEmail(email string) (*model.PublicUser, string, int, error) {
+func RetrieveUserByEmail(email string) (*model.User, string, int, error) {
 	var user model.User
 	if db.ORM.Unscoped().Where("email = ?", email).First(&user).RecordNotFound() {
-		return &model.PublicUser{User: &user}, email, http.StatusNotFound, errors.New("user not found")
+		return &user, email, http.StatusNotFound, errors.New("user not found")
 	}
-	return &model.PublicUser{User: &user}, email, http.StatusOK, nil
+	return &user, email, http.StatusOK, nil
+}
+
+// RetrieveUserByAPIToken retrieves a user by an API token
+func RetrieveUserByAPIToken(apiToken string) (*model.User, string, int, error) {
+	var user model.User
+	if db.ORM.Unscoped().Where("api_token = ?", apiToken).First(&user).RecordNotFound() {
+		return &user, apiToken, http.StatusNotFound, errors.New("user not found")
+	}
+	return &user, apiToken, http.StatusOK, nil
 }
 
 // RetrieveUsersByEmail retrieves users by an email
-func RetrieveUsersByEmail(email string) []*model.PublicUser {
+func RetrieveUsersByEmail(email string) []*model.User {
 	var users []*model.User
-	var userArr []*model.PublicUser
 	db.ORM.Where("email = ?", email).Find(&users)
-	for _, user := range users {
-		userArr = append(userArr, &model.PublicUser{User: user})
-	}
-	return userArr
+	return users
 }
 
 // RetrieveUserByUsername retrieves a user by username.
-func RetrieveUserByUsername(username string) (*model.PublicUser, string, int, error) {
+func RetrieveUserByUsername(username string) (*model.User, string, int, error) {
 	var user model.User
 	if db.ORM.Where("username = ?", username).First(&user).RecordNotFound() {
-		return &model.PublicUser{User: &user}, username, http.StatusNotFound, errors.New("user not found")
+		return &user, username, http.StatusNotFound, errors.New("user not found")
 	}
-	return &model.PublicUser{User: &user}, username, http.StatusOK, nil
+	return &user, username, http.StatusOK, nil
 }
 
 // RetrieveOldUploadsByUsername retrieves olduploads by username

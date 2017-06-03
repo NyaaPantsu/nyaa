@@ -172,7 +172,7 @@ func TorrentEditUserPanel(w http.ResponseWriter, r *http.Request) {
 	messages := msg.GetMessages(r)
 	currentUser := getUser(r)
 	if userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
-		uploadForm := newUploadForm()
+		uploadForm := apiService.NewUploadForm()
 		uploadForm.Name = torrent.Name
 		uploadForm.Category = strconv.Itoa(torrent.Category) + "_" + strconv.Itoa(torrent.SubCategory)
 		uploadForm.Remake = torrent.Status == model.TorrentStatusRemake
@@ -190,7 +190,7 @@ func TorrentEditUserPanel(w http.ResponseWriter, r *http.Request) {
 // TorrentPostEditUserPanel : Controller for editing a user torrent by a user, after post request
 func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
-	var uploadForm uploadForm
+	var uploadForm apiService.TorrentRequest
 	id := r.URL.Query().Get("id")
 	messages := msg.GetMessages(r)
 	torrent, _ := torrentService.GetTorrentByID(id)
