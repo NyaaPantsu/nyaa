@@ -158,8 +158,6 @@ func APIUploadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	upload := apiService.TorrentRequest{}
-	var filesize int64
-
 	contentType := r.Header.Get("Content-Type")
 	if contentType != "application/json" && !strings.HasPrefix(contentType, "multipart/form-data") {
 		// TODO What should we do here ? upload is empty so we shouldn't
@@ -214,6 +212,18 @@ func APIUploadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	torrentService.NewTorrentEvent(Router, user, &torrent)
+	// add filelist to files db, if we have one
+	if len(upload.FileList) > 0 {
+		for _, uploadedFile := range upload.FileList {
+			file := model.File{TorrentID: torrent.ID, Filesize: upload.Filesize}
+			err := file.SetPath(uploadedFile.Path)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusBadRequest)
+				return
+			}
+			db.ORM.Create(&file)
+		}
+	}
 	/*if err != nil {
 		util.SendError(w, err, 500)
 		return
@@ -239,40 +249,35 @@ func APIUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	contentType := r.Header.Get("Content-Type")
-	if contentType == "application/json" {
-		if user.ID == 0 {
-			http.Error(w, apiService.ErrAPIKey.Error(), http.StatusForbidden)
-			return
-		}
-
-		update := apiService.UpdateRequest{}
-		d := json.NewDecoder(r.Body)
-		if err := d.Decode(&update); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		id := update.ID
-		torrent := model.Torrent{}
-		db.ORM.Where("torrent_id = ?", id).First(&torrent)
-		if torrent.ID == 0 {
-			http.Error(w, apiService.ErrTorrentID.Error(), http.StatusBadRequest)
-			return
-		}
-		if torrent.UploaderID != 0 && torrent.UploaderID != user.ID { //&& user.Status != mod
-			http.Error(w, apiService.ErrRights.Error(), http.StatusForbidden)
-			return
-		}
-
-		err := update.Update.ExtractEditInfo(r)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-			return
-		}
-		update.UpdateTorrent(&torrent)
-
-		torrentService.UpdateTorrent(torrent)
+	if contentType != "application/json" && !strings.HasPrefix(contentType, "multipart/form-data") {
+		// TODO What should we do here ? upload is empty so we shouldn't
+		// create a torrent from it
+		http.Error(w, errors.New("Please provide either of Content-Type: application/json header or multipart/form-data").Error(), http.StatusInternalServerError)
+		return
 	}
+	if user.ID == 0 {
+		http.Error(w, apiService.ErrAPIKey.Error(), http.StatusForbidden)
+		return
+	}
+
+	update := apiService.UpdateRequest{}
+	err = update.Update.ExtractEditInfo(r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	torrent := model.Torrent{}
+	db.ORM.Where("torrent_id = ?", r.FormValue("id")).First(&torrent)
+	if torrent.ID == 0 {
+		http.Error(w, apiService.ErrTorrentID.Error(), http.StatusBadRequest)
+		return
+	}
+	if torrent.UploaderID != 0 && torrent.UploaderID != user.ID { //&& user.Status != mod
+		http.Error(w, apiService.ErrRights.Error(), http.StatusForbidden)
+		return
+	}
+	update.UpdateTorrent(&torrent, user)
+	torrentService.UpdateTorrent(torrent)
 }
 
 // APISearchHandler : Controller for searching with api

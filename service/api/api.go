@@ -244,19 +244,21 @@ func (r *TorrentRequest) ExtractCategory(req *http.Request) error {
 		r.CategoryID = CatID
 		r.SubCategoryID = SubCatID
 	} else {
-		return errInvalidTorrentCategory
+		return errors.New("lol")
 	}
 	return nil
 }
 
 // ExtractBasicValue : takes an http request and computes all basic fields for this form
 func (r *TorrentRequest) ExtractBasicValue(req *http.Request) error {
+	req.ParseForm()
 	r.Name = req.FormValue(uploadFormName)
 	r.Category = req.FormValue(uploadFormCategory)
 	r.WebsiteLink = req.FormValue(uploadFormWebsiteLink)
 	r.Description = req.FormValue(uploadFormDescription)
 	r.Hidden = req.FormValue(uploadFormHidden) == "on"
 	r.Status, _ = strconv.Atoi(req.FormValue(uploadFormStatus))
+	r.Remake = req.FormValue(uploadFormRemake) == "on"
 
 	// trim whitespace
 	r.Name = strings.TrimSpace(r.Name)
@@ -280,7 +282,6 @@ func (r *TorrentRequest) ExtractInfo(req *http.Request) error {
 		return err
 	}
 
-	r.Remake = req.FormValue(uploadFormRemake) == "on"
 	r.Magnet = req.FormValue(uploadFormMagnet)
 
 	// trim whitespace
@@ -397,7 +398,7 @@ func (r *TorrentRequest) ValidateMultipartUpload(req *http.Request) (multipart.F
 
 // UpdateTorrent : Update torrent model
 //rewrite with reflect ?
-func (r *UpdateRequest) UpdateTorrent(t *model.Torrent) {
+func (r *UpdateRequest) UpdateTorrent(t *model.Torrent, currentUser *model.User) {
 	if r.Update.Name != "" {
 		t.Name = r.Update.Name
 	}
@@ -416,6 +417,13 @@ func (r *UpdateRequest) UpdateTorrent(t *model.Torrent) {
 	if r.Update.WebsiteLink != "" {
 		t.WebsiteLink = r.Update.WebsiteLink
 	}
+	status := model.TorrentStatusNormal
+	if r.Update.Remake { // overrides trusted
+		status = model.TorrentStatusRemake
+	} else if currentUser.IsTrusted() {
+		status = model.TorrentStatusTrusted
+	}
+	t.Status = status
 }
 
 func writeTorrentToDisk(file multipart.File, name string, fullpath *string) error {
