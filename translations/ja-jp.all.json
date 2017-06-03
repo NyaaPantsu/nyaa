@@ -53,7 +53,7 @@
   },
   {
     "id":"terms_conditions_confirm",
-    "translation": "<strong class=\"label label-primary\">登録</strong> をクリックすることにより、クッキーの使用を含む、本サイトの <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">利用規約</a> に同意したものとみなします。"
+    "translation": "<strong class=\"label label-primary\">登録</strong> をクリックすることにより、Cookie の使用を含む、本サイトの <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">利用規約</a> に同意したものとみなします。"
   },
   {
     "id":"signin",
@@ -621,7 +621,7 @@
   },
   {
     "id": "moderation",
-    "translation": "節制"
+    "translation": "モデレーション"
   },
   {
     "id": "who_is_renchon",
@@ -994,5 +994,209 @@
   {
     "id": "mark_as_hidden",
     "translation": "非表示としてマークする"
+  },
+  {
+    "id": "cookies",
+    "translation": "保存をクリックすることで、Cookie の使用に同意したことになります。"
+  },
+  {
+    "id": "show",
+    "translation": "表示"
+  },
+  {
+    "id": "hide",
+    "translation": "非表示"
+  },
+  {
+    "id":"show_mod_tools",
+    "translation": "Mod Tools を表示"
+  },
+  {
+    "id":"hide_mod_tools",
+    "translation": "Mod Tools を非表示"
+  },
+  {
+    "id": "following_changes_applied",
+    "translation": "以下の変更が適用されます"
+  },
+  {
+    "id": "changes_in_following_order",
+    "translation": "変更は以下の順序で行われます:"
+  },
+  {
+    "id": "edit_changes",
+    "translation": "変更の編集"
+  },
+  {
+    "id": "delete_changes",
+    "translation": "変更の破棄"
+  },
+  {
+    "id": "owner_id_placeholder",
+    "translation": "オーナー ID (例えば、れんちょんは 0)"
+  },
+  {
+    "id": "try_new_attempt",
+    "translation": "変更を試行中..."
+  },
+  {
+    "id": "query_is_broken",
+    "translation": "クエリー ({0}?{1}) が破損しているようです。"
+  },
+  {
+    "id": "query_executed_success",
+    "translation": "クエリーが正常に実行されました。"
+  },
+  {
+    "id": "all_operations_done",
+    "translation": "すべての操作が完了しました。"
+  },
+  {
+    "id": "refreshing_in",
+    "translation": "{0} 秒後にページが更新されます..."
+  },
+  {
+    "id": "delete_reports_with_torrents",
+    "translation": "選択した Torrent に沿ってレポートを削除しますか。"
+  },
+  {
+    "id": "with_st",
+    "translation": "{0} に沿う"
+  },
+  {
+    "id": "and_reports",
+    "translation": "およびレポート"
+  },
+  {
+    "id": "reports",
+    "translation": "レポート"
+  },
+  {
+    "id": "lock",
+    "translation": "ロック"
+  },
+  {
+    "id": "status_js",
+    "translation": "status: {0}"
+  },
+  {
+    "id": "owner_id_js",
+    "translation": "owner_id: {0}"
+  },
+  {
+    "id": "category_js",
+    "translation": "category: {0}"
+  },
+  {
+    "id": "no_changes",
+    "translation": "変更なし"
+  },
+  {
+    "id": "query_nb",
+    "translation": "クエリー #{0}"
+  },
+  {
+    "id": "reason",
+    "translation": "理由"
+  },
+  {
+    "id": "actions",
+    "translation": "アクション"
+  },
+  {
+    "id": "action_select",
+    "translation": "アクション..."
+  },
+  {
+    "id": "change_status",
+    "translation": "状態の変更"
+  },
+  {
+    "id": "to_status",
+    "translation": "変更後の状態..."
+  },
+  {
+    "id": "torrents_not_deleted",
+    "translation": "Torrent は削除されません"
+  },
+  {
+    "id": "more",
+    "translation": "もっと表示"
+  },
+  {
+    "id": "last_comments",
+    "translation": "最後のコメント"
+  },
+  {
+    "id": "last_reports",
+    "translation": "最後のレポート"
+  },
+  {
+    "id": "last_torrents",
+    "translation": "最後の Torrent"
+  },
+  {
+    "id": "last_users",
+    "translation": "最後のユーザー"
+  },
+  {
+    "id": "moderation_overview",
+    "translation": "モデレーションの概要"
+  },
+  {
+    "id": "users_list",
+    "translation": "ユーザー一覧"
+  },
+  {
+    "id": "comments_list",
+    "translation": "コメント一覧"
+  },
+  {
+    "id": "reports_list",
+    "translation": "レポート一覧"
+  },
+  {
+    "id": "torrents_list",
+    "translation": "Torrent 一覧"
+  },
+  {
+    "id": "torrent_edit_panel",
+    "translation": "Torrent 編集パネル"
+  },
+  {
+    "id": "torrent_reassign",
+    "translation": "Torrent 再割り当て"
+  },
+  {
+    "id": "reassign_warning",
+    "translation": "Torrent の新しいユーザーへの再割り当ては容易に元に戻すことができないため、細心の注意を払ってください。"
+  },
+  {
+    "id": "previous_username",
+    "translation": "変更前のユーザー名"
+  },
+  {
+    "id": "torrent_id",
+    "translation": "Torrent ID"
+  },
+  {
+    "id": "reassign_indication",
+    "translation": "1 行につき 1 つの ID <b>もしくは</b> 1 つのユーザー名"
+  },
+  {
+    "id": "reassign_warning_2",
+    "translation": "処理には時間がかかることがあります。<b>絶対に</b>リクエストを中止しないでください。"
+  },
+  {
+    "id":"reassign_to",
+    "translation": "再割り当て先:"
+  },
+  {
+    "id": "reassign_based_on",
+    "translation": "以下に基づいて再割り当て:"
+  },
+  {
+    "id": "user_id",
+    "translation": "ユーザー ID"
   }
 ]
