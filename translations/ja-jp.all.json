@@ -53,7 +53,7 @@
   },
   {
     "id":"terms_conditions_confirm",
-    "translation": "<strong class=\"label label-primary\">登録</strong> をクリックすることにより、クッキーの使用を含む、本サイトの <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">利用規約</a> に同意したものとみなします。"
+    "translation": "<strong class=\"label label-primary\">登録</strong> をクリックすることにより、Cookie の使用を含む、本サイトの <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">利用規約</a> に同意したものとみなします。"
   },
   {
     "id":"signin",
@@ -994,5 +994,105 @@
   {
     "id": "mark_as_hidden",
     "translation": "非表示としてマークする"
+  },
+  {
+    "id": "cookies",
+    "translation": "保存をクリックすることで、Cookie の使用に同意したことになります。"
+  },
+  {
+    "id": "show",
+    "translation": "表示"
+  },
+  {
+    "id": "hide",
+    "translation": "非表示"
+  },
+  {
+    "id":"show_mod_tools",
+    "translation": "Mod Tools を表示"
+  },
+  {
+    "id":"hide_mod_tools",
+    "translation": "Mod Tools を非表示"
+  },
+  {
+    "id": "following_changes_applied",
+    "translation": "以下の変更が適用されます"
+  },
+  {
+    "id": "changes_in_following_order",
+    "translation": "変更は以下の順序で行われます:"
+  },
+  {
+    "id": "edit_changes",
+    "translation": "変更の編集"
+  },
+  {
+    "id": "delete_changes",
+    "translation": "変更の破棄"
+  },
+  {
+    "id": "owner_id_placeholder",
+    "translation": "オーナー ID (例えば、れんちょんは 0)"
+  },
+  {
+    "id": "try_new_attempt",
+    "translation": "変更を試行中..."
+  },
+  {
+    "id": "query_is_broken",
+    "translation": "クエリー ({0}?{1}) が破損しているようです。"
+  },
+  {
+    "id": "query_executed_success",
+    "translation": "クエリーが正常に実行されました。"
+  },
+  {
+    "id": "all_operations_done",
+    "translation": "すべての操作が完了しました。"
+  },
+  {
+    "id": "refreshing_in",
+    "translation": "{0} 秒後にページが更新されます..."
+  },
+  {
+    "id": "delete_reports_with_torrents",
+    "translation": "選択した Torrent に沿ってレポートを削除しますか。"
+  },
+  {
+    "id": "with_st",
+    "translation": "{0} に沿う"
+  },
+  {
+    "id": "and_reports",
+    "translation": "およびレポート"
+  },
+  {
+    "id": "reports",
+    "translation": "レポート"
+  },
+  {
+    "id": "lock",
+    "translation": "ロック"
+  },
+  {
+    "id": "status_js",
+    "translation": "status: {0}"
+  },
+  {
+    "id": "owner_id_js",
+    "translation": "owner_id: {0}"
+  },
+  {
+    "id": "category_js",
+    "translation": "category: {0}"
+  },
+  {
+    "id": "no_changes",
+    "translation": "変更なし"
+  },
+  {
+    "id": "query_nb",
+    "translation": "クエリー #{0}"
   }
 ]
