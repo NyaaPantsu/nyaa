@@ -1094,5 +1094,109 @@
   {
     "id": "query_nb",
     "translation": "クエリー #{0}"
+  },
+  {
+    "id": "reason",
+    "translation": "理由"
+  },
+  {
+    "id": "actions",
+    "translation": "アクション"
+  },
+  {
+    "id": "action_select",
+    "translation": "アクション..."
+  },
+  {
+    "id": "change_status",
+    "translation": "状態の変更"
+  },
+  {
+    "id": "to_status",
+    "translation": "変更後の状態..."
+  },
+  {
+    "id": "torrents_not_deleted",
+    "translation": "Torrent は削除されません"
+  },
+  {
+    "id": "more",
+    "translation": "もっと表示"
+  },
+  {
+    "id": "last_comments",
+    "translation": "最後のコメント"
+  },
+  {
+    "id": "last_reports",
+    "translation": "最後のレポート"
+  },
+  {
+    "id": "last_torrents",
+    "translation": "最後の Torrent"
+  },
+  {
+    "id": "last_users",
+    "translation": "最後のユーザー"
+  },
+  {
+    "id": "moderation_overview",
+    "translation": "モデレーションの概要"
+  },
+  {
+    "id": "users_list",
+    "translation": "ユーザー一覧"
+  },
+  {
+    "id": "comments_list",
+    "translation": "コメント一覧"
+  },
+  {
+    "id": "reports_list",
+    "translation": "レポート一覧"
+  },
+  {
+    "id": "torrents_list",
+    "translation": "Torrent 一覧"
+  },
+  {
+    "id": "torrent_edit_panel",
+    "translation": "Torrent 編集パネル"
+  },
+  {
+    "id": "torrent_reassign",
+    "translation": "Torrent 再割り当て"
+  },
+  {
+    "id": "reassign_warning",
+    "translation": "Torrent の新しいユーザーへの再割り当ては容易に元に戻すことができないため、細心の注意を払ってください。"
+  },
+  {
+    "id": "previous_username",
+    "translation": "前のユーザー名"
+  },
+  {
+    "id": "torrent_id",
+    "translation": "Torrent ID"
+  },
+  {
+    "id": "reassign_indication",
+    "translation": "1 行につき 1 つの ID <b>もしくは</b> 1 つのユーザー名"
+  },
+  {
+    "id": "reassign_warning_2",
+    "translation": "処理には時間がかかることがあります。<b>絶対に</b>要求を中止しないでください。"
+  },
+  {
+    "id":"reassign_to",
+    "translation": "再割り当て先:"
+  },
+  {
+    "id": "reassign_based_on",
+    "translation": "以下に基づいて再割り当て:"
+  },
+  {
+    "id": "user_id",
+    "translation": "ユーザー ID"
   }
 ]
