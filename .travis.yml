@@ -4,8 +4,8 @@ go:
 gobuild_args: -x -ldflags "-X main.buildversion=$(date -u +.%Y%m%d.%H%M%S)"
 before_install:
 - echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list
-- apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
-- apt-get update
+- sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+- sudo apt-get update
 - sudo apt-get install gcc-mingw-w64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 binutils-mingw-w64-i686 binutils-mingw-w64-x86-64 ansible
 - go get -u github.com/tools/godep
 before_script:
