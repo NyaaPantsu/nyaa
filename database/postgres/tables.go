@@ -37,7 +37,6 @@ var tables = []createTable{
 			"created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL",
 			"updated_at TIMESTAMP WITHOUT TIME ZONE",
 			"last_login_at TIMESTAMP WITHOUT TIME ZONE",
-			"last_login_ip TEXT",
 			"api_token TEXT",
 			"api_token_expiry TIMESTAMP WITHOUT TIME ZONE NOT NULL",
 			"language TEXT",

@@ -2,6 +2,7 @@ package util
 
 import (
 	"fmt"
+	"net/url"
 )
 
 // FormatFilesize : format file size
@@ -25,4 +26,13 @@ func FormatFilesize(bytes int64) string {
 		value = float64(bytes)
 	}
 	return fmt.Sprintf("%.1f %s", value, unit)
+}
+
+// GetHostname : Returns the host of a URL, without any scheme or port number.
+func GetHostname(rawurl string) string {
+	u, err := url.Parse(rawurl)
+	if err != nil {
+		return rawurl
+	}
+	return u.Hostname()
 }

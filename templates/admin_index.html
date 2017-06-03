@@ -32,7 +32,7 @@
 			<link rel="stylesheet" id="theme" href="/css/{{$.Theme}}.css?v={{ .Config.Version }}">
 		{{end}}
 		<!-- Search Box for Google -->
-		<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://nyaa.pantsu.cat/","potentialAction":{"@type":"SearchAction","target":"https://nyaa.pantsu.cat/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+		<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"{{.Config.WebAddress.Nyaa}}/","potentialAction":{"@type":"SearchAction","target":"{{.Config.WebAddress.Nyaa}}/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 		{{ block "additional_header" .}}{{end}}
   </head>
    <body {{if Sukebei}}class="sukebei"{{end}}>

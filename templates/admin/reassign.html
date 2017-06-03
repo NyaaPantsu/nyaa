@@ -15,7 +15,7 @@
     {{with .Form}}
     <div class="form-group">
         <label for="to">{{ call $.T "reassign_to" }}</label>
-        <input type="text" name="to" class="form-control" placeholder="{{ call $.T "user_id" }}" {{if ne .AssignTo 0}}value="{{.AssignTo}}"{{end}} required>
+        <input class="form-input" type="text" name="to" class="form-control" placeholder="{{ call $.T "user_id" }}" {{if ne .AssignTo 0}}value="{{.AssignTo}}"{{end}} required>
     </div>
     <div class="form-group">
 	    <label for="by">{{ call $.T "reassign_based_on" }}</label><br />
@@ -25,12 +25,12 @@
 
     <div class="form-group">
         <p>{{call $.T "reassign_indication"}}</p>
-        <textarea rows="20" cols="40" name="data">{{.Data}}</textarea>
+        <textarea class="form-input" rows="20" cols="40" name="data">{{.Data}}</textarea>
     </div>
     {{end}}
 
     <p>{{ call $.T "reassign_warning_2" }}</p>
-    <button type="submit" class="btn btn-success">{{call $.T "save_changes"}}</button>
+    <button type="submit" class="form-input">{{call $.T "save_changes"}}</button>
 </form>
 </div>
 {{end}}

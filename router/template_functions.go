@@ -170,6 +170,7 @@ var FuncMap = template.FuncMap{
 		// because time.* isn't available in templates...
 		return t.Format(time.RFC3339)
 	},
+	"GetHostname": util.GetHostname,
 	"GetCategories": func(keepParent bool) map[string]string {
 		return categories.GetCategoriesSelect(keepParent)
 	},

@@ -8,11 +8,11 @@
         <br />
 
         <h2>{{call $.T "links_replacement_mirror"}}</h2>
-        <a href="https://nyaa.pantsu.cat">Nyaa - nyaa.pantsu.cat</a><br />
-        <a href="https://sukebei.pantsu.cat">Sukebei - sukebei.pantsu.cat</a>
+        <a href="{{.Config.WebAddress.Nyaa}}">Nyaa - {{GetHostname .Config.WebAddress.Nyaa}}</a><br />
+        <a href="{{.Config.WebAddress.Sukebei}}">Sukebei - {{GetHostname .Config.WebAddress.Sukebei}}</a>
 
         <h2>{{call $.T "server_status_link"}}</h2>
-        <a href="https://status.pantsu.cat/">https://status.pantsu.cat/</a><br />
+        <a href="{{.Config.WebAddress.Status}}">Status - {{GetHostname .Config.WebAddress.Status}}</a><br />
 
         <h2>{{call $.T "what_happened"}}</h2>
         <ul>
