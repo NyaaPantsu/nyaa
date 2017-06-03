@@ -34,21 +34,6 @@ type TorrentReportJSON struct {
 	User        UserJSON    `json:"user"`
 }
 
-/* Model Conversion to Json : Deprecated, use translation instead please */
-
-func getReportDescription(d string) string {
-	if d == "illegal" {
-		return "Illegal content"
-	} else if d == "spam" {
-		return "Spam / Garbage"
-	} else if d == "wrongcat" {
-		return "Wrong category"
-	} else if d == "dup" {
-		return "Duplicate / Deprecated"
-	}
-	return "???"
-}
-
 // ToJSON : conversion to json of a torrent report
 func (report *TorrentReport) ToJSON() TorrentReportJSON {
 	t := TorrentJSON{}
