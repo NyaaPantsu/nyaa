@@ -70,7 +70,7 @@ var errTorrentPlusMagnet = errors.New("Upload either a torrent file or magnet li
 var errPrivateTorrent = errors.New("Torrent is private")
 
 // error indicating a problem with its trackers
-var errTrackerProblem = errors.New("Torrent does not have any (working) trackers: https://" + config.Conf.WebAddress + "/faq#trackers")
+var errTrackerProblem = errors.New("Torrent does not have any (working) trackers: " + config.Conf.WebAddress.Nyaa + "/faq#trackers")
 
 // error indicating a torrent's name is invalid
 var errInvalidTorrentName = errors.New("Torrent name is invalid")

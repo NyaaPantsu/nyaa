@@ -15,12 +15,18 @@ db_params: ./nyaa.db?cache_size=50
 db_logmode: default
 # Environment should be one of: DEVELOPMENT, TEST, PRODUCTION
 environment: DEVELOPMENT
-# WebAddress : url of the website
-web_address: nyaa.pantsu.cat
 # AuthTokenExpirationDay : Number of Days for token expiration when logged in
 auth_token_expiration: 1000
 # EnableSecureCSRF : Enable CSRF https mode : True if website support https, false otherwise (eg. testing locally: false)
 enable_secure_csrf: true
+# the default config for web addresses
+web_address:
+  # Nyaa : Origin of the website
+  nyaa: https://nyaa.pantsu.cat
+  # Sukebei : Origin of the sukebei website
+  sukebei: https://sukebei.pantsu.cat
+  # Status : Origin of the status website
+  status: https://status.pantsu.cat
 # the default config for session cookies
 cookies:
   # DomainName : The host domain so the cookies can be shared across subdomains
