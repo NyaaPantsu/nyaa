@@ -46,7 +46,7 @@ Your browser does not support the audio element.
           <tr id="torrent_{{ .ID }}" class="torrent-info
               {{if eq .Status 2}}remake{{end}}
               {{if eq .Status 3}}trusted{{end}}
-              {{if eq .Status 4}}aplus{{end}}" id="torrent{{ .ID }}">
+              {{if eq .Status 4}}aplus{{end}}" >
                 {{ if HasAdmin $.User }}
               <td class="tr-cb">
                 <input data-name="{{ .Name }}" type="checkbox" id="torrent_cb_{{ .ID }}" name="torrent_id" value="{{ .ID }}">
