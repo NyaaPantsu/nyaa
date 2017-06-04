@@ -1,0 +1,28 @@
+# We're not putting elasticsearch role because we don't want to re-enable the
+# reindexing cron job before we've actually made the swap
+- name: Populate elasticsearch index from database
+  hosts: dbs
+  roles:
+    - common
+    - postgresql
+
+  tasks:
+    - name: Swap elasticsearch index
+      uri:
+        url: "http://localhost:9200/_aliases"
+        method: POST
+        body_format: json
+        body:
+          actions:
+            - remove:
+                index: "{{ nyaapantsu_elasticsearch_old_index }}"
+                alias: "{{ nyaapantsu_elasticsearch_alias }}"
+            - add:
+                index: "{{ nyaapantsu_elasticsearch_index }}"
+                alias: "{{ nyaapantsu_elasticsearch_alias }}"
+
+    - name: Re-enable reindex cron job
+      command: mv "/tmp/reindex_{{ nyaapantsu_torrent_tablename }}" /etc/cron.d/
+      become: true
+      ignore_errors: yes # Can ignore error here if the file had previously been
+                         # moved.

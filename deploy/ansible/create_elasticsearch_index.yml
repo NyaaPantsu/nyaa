@@ -16,8 +16,3 @@
         url: "http://localhost:9200/{{ nyaapantsu_elasticsearch_index }}"
         method: PUT
         body: "{{ config.stdout }}"
-
-    - name: Create alias
-      uri:
-        url: "http://localhost:9200/{{ nyaapantsu_elasticsearch_index }}/_alias/{{ nyaapantsu_elasticsearch_alias }}"
-        method: PUT
