@@ -997,7 +997,7 @@
   },
   {
     "id": "cookies",
-    "translation": "保存をクリックすることで、Cookie の使用に同意したことになります。"
+    "translation": "保存をクリックすることで、Cookie の使用に同意したことになります"
   },
   {
     "id": "show",
@@ -1169,7 +1169,7 @@
   },
   {
     "id": "reassign_warning",
-    "translation": "Torrent の新しいユーザーへの再割り当ては容易に元に戻すことができないため、細心の注意を払ってください。"
+    "translation": "Torrent の新しいユーザーへの再割り当ては容易に元に戻すことができないため、注意して行うようにしてください。"
   },
   {
     "id": "previous_username",
