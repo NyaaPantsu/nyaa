@@ -629,7 +629,7 @@
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Ren-chon) is the username assigned to uploads and comments made anonymously. It is also used for torrents imported from the original nyaa, though sometimes the original uploader can be displayed alongside."
+    "translation": "<span lang=\"ja\"><ruby>れ<rp>(</rp><rt>Re</rt><rp>)</rp>ん<rp>(</rp><rt>n</rt><rp>)</rp>ちょ<rp>(</rp><rt>-cho</rt><rp>)</rp>ん<rp>(</rp><rt>n</rt><rp>)</rp></ruby></span> is the username assigned to uploads and comments made anonymously. It is also used for torrents imported from the original nyaa, though sometimes the original uploader can be displayed alongside."
   },
   {
     "id": "mark_as_remake",
