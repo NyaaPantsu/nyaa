@@ -24,6 +24,7 @@ Your browser does not support the audio element.
               <th class="tr-name">
                 <a href="{{ genSearchWithOrdering .URL "1" }}">{{call $.T "name"}}<span class="sort-arrows">{{ genSortArrows .URL "1" }}</span></a>
               </th>
+              <th class="tr-cs"></th>
               <th class="tr-links"></th>
               <th class="tr-size hide-xs"><a href="{{ genSearchWithOrdering .URL "4" }}">{{call $.T "size"}}<span class="sort-arrows">{{ genSortArrows .URL "4" }}</span></a></th>
 
@@ -65,11 +66,11 @@ Your browser does not support the audio element.
                       {{.Name}}
                   </a>
               </td>
-              <!--
-              <td class="hidden-xs">
-                  {{len .Comments}}
+              <td class="tr-cs home-td hide-xs">
+              {{ if gt (len .Comments) 0 }}
+                  <i class="comment-icon" title="{{ call $.T "comments" }}">{{len .Comments}}</i>
+              {{end}}
               </td>
-              -->
               <td class="tr-links home-td">
                   <a href="{{.Magnet}}" title="{{ call $.T "magnet_link" }}">
                       <div class="magnet-icon"></div>
@@ -227,7 +228,7 @@ Your browser does not support the audio element.
 <!-- JS Template for torrents ajax -->
     <script type="text/javascript">
         Templates.Add("torrents.item", function(torrent) {
-            return "<tr class=\"torrent-info"+ ((torrent.status == 2) ? " remake" : ((torrent.status == 3) ? " trusted" : ((torrent.status == 3) ? " aplus" : "" )))+"\">"+
+            return "<tr id=\"torrent_" + torrent.id + "\" class=\"torrent-info"+ ((torrent.status == 2) ? " remake" : ((torrent.status == 3) ? " trusted" : ((torrent.status == 3) ? " aplus" : "" )))+"\">"+
             {{ if HasAdmin $.User }}
               "<td class=\"tr-cb\""+ ((TorrentsMod.enabled) ? "style=\"display:table-cell;\"" : "") +">"+
                 "<input data-name=\""+Templates.EncodeEntities(torrent.name)+"\" type=\"checkbox\" id=\"torrent_cb_"+torrent.id+"\" name=\"torrent_id\" value=\""+torrent.id+"\">"+
@@ -243,6 +244,9 @@ Your browser does not support the audio element.
                   "</a>"+
               "</td>"+
               "<td class=\"tr-name home-td\"><a href=\"/view/"+torrent.id+"\">"+Templates.EncodeEntities(torrent.name) +"</a></td>"+
+              "<td class=\"tr-cs home-td hide-xs\">"+
+              ((torrent.comments.length > 0) ? "<i class=\"comment-icon\" title=\"{{ call $.T "comments" }}\">" + torrent.comments.length + "</i>" : "")+
+              "</td>"+
               "<td class=\"tr-links home-td\">"+
                   "<a href=\""+torrent.magnet +"\" title=\"{{ call $.T "magnet_link" }}\">"+
                       "<div class=\"magnet-icon\"></div>"+
