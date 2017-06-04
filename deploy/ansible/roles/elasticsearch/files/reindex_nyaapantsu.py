@@ -23,7 +23,7 @@ pgconn = psycopg2.connect(dbparams)
 cur = pgconn.cursor()
 # We MUST use NO QUERY CACHE because the values are insert on triggers and
 # not through pgppool.
-cur.execute("""/*NO QUERY CACHE*/ SELECT reindex_torrents_id, torrent_id, action FROM reindex_torrents""")
+cur.execute('/*NO QUERY CACHE*/ SELECT reindex_torrents_id, torrent_id, action FROM reindex_{torrent_tablename}'.format(torrent_tablename=torrent_tablename))
 
 fetches = cur.fetchmany(CHUNK_SIZE)
 while fetches:
