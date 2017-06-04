@@ -107,6 +107,9 @@ func (f *uploadForm) ExtractInfo(r *http.Request) error {
 	f.Magnet = strings.TrimSpace(f.Magnet)
 	cache.Impl.ClearAll()
 	defer r.Body.Close()
+	if len(f.Description) > 500 {
+		return errInvalidTorrentDescription
+	}
 
 	catsSplit := strings.Split(f.Category, "_")
 	// need this to prevent out of index panics
