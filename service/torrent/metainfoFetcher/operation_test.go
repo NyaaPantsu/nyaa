@@ -22,6 +22,7 @@ func TestInvalidHash(t *testing.T) {
 	if err != nil {
 		t.Skipf("Failed to create client, with err %v. Skipping.", err)
 	}
+	defer client.Close()
 
 	fetcher := &MetainfoFetcher{
 		timeout:       5,
