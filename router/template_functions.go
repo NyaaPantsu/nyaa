@@ -224,4 +224,16 @@ var FuncMap = template.FuncMap{
 		}
 		return lastID
 	},
+	"getReportDescription": func(d string, T publicSettings.TemplateTfunc) string {
+		if d == "illegal" {
+			return "Illegal content"
+		} else if d == "spam" {
+			return "Spam / Garbage"
+		} else if d == "wrongcat" {
+			return "Wrong category"
+		} else if d == "dup" {
+			return "Duplicate / Deprecated"
+		}
+		return string(T(d))
+	},
 }

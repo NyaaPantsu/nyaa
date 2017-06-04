@@ -155,3 +155,24 @@ td.tr-le, .error-text { color: #E84C4C; }
 	width: 13px;
 }
 
+.btn-green {
+	background: #98D9A8;
+	color:white;
+	font-weight: bold;
+}
+
+.btn-red {
+	background: #E84C4C;
+	color:white;
+	font-weight: bold;
+}
+.btn-blue {
+	background: #60B0F0;
+	color:white;
+	font-weight: bold;
+}
+.btn-orange {
+	background: #F0B080;
+	color:white;
+	font-weight: bold;
+}

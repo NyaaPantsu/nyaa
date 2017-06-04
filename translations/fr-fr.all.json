@@ -792,6 +792,18 @@
     "translation": "Le torrent %s a été supprimé."
   },
   {
+    "id": "torrents_deleted",
+    "translation": "Torrents supprimés"
+  },
+  {
+    "id": "delete_torrent",
+    "translation": "Supprimer le torrent"
+  },
+  {
+    "id": "delete_report",
+    "translation": "Supprimer le signalement"
+  },
+  {
     "id": "no_action_exist",
     "translation": "L'action %s n'existe pas."
   },
@@ -990,5 +1002,173 @@
   {
     "id": "torrent_nav_deleted",
     "translation": "Torrents supprimés"
+  },
+  {
+    "id": "owner_id_placeholder",
+    "translation": "ID du compte (e.g. Ren-chon = 0)"
+  },
+  {
+    "id": "try_new_attempt",
+    "translation": "Nouvel essai..."
+  },
+  {
+    "id": "query_is_broken",
+    "translation": "La requête ({0}?{1}) semble interrompue."
+  },
+  {
+    "id": "query_executed_success",
+    "translation": "Requête exécutée avec succès."
+  },
+  {
+    "id": "all_operations_done",
+    "translation": "Toutes les opérations sont réalisées."
+  },
+  {
+    "id": "refreshing_in",
+    "translation": "Rafraîchissement de la page dans {0} secondes..."
+  },
+  {
+    "id": "delete_reports_with_torrents",
+    "translation": "Souhaitez-vous supprimer les signalements en même temps que les torrents sélectionnés ?"
+  },
+  {
+    "id": "with_st",
+    "translation": "avec {0}"
+  },
+  {
+    "id": "and_reports",
+    "translation": " et signalements"
+  },
+  {
+    "id": "reports",
+    "translation": "signalements"
+  },
+  {
+    "id": "lock",
+    "translation": "bloquer"
+  },
+  {
+    "id": "status_js",
+    "translation": "statut : {0}"
+  },
+  {
+    "id": "owner_id_js",
+    "translation": "id_compte : {0}"
+  },
+  {
+    "id": "category_js",
+    "translation": "catégorie : {0}"
+  },
+  {
+    "id": "no_changes",
+    "translation": "Aucune modification"
+  },
+  {
+    "id": "query_nb",
+    "translation": "Requête n° {0}"
+  },
+  {
+    "id": "reason",
+    "translation": "Raison"
+  },
+  {
+    "id": "actions",
+    "translation": "Actions"
+  },
+  {
+    "id": "action_select",
+    "translation": "Action..."
+  },
+  {
+    "id": "change_status",
+    "translation": "Changer le statut"
+  },
+  {
+    "id": "to_status",
+    "translation": "À..."
+  },
+  {
+    "id": "torrents_not_deleted",
+    "translation": "Torrents non supprimés"
+  },
+  {
+    "id": "more",
+    "translation": "Plus"
+  },
+  {
+    "id": "last_comments",
+    "translation": "Derniers commentaires"
+  },
+  {
+    "id": "last_reports",
+    "translation": "Derniers signalements"
+  },
+  {
+    "id": "last_torrents",
+    "translation": "Derniers torrents"
+  },
+  {
+    "id": "last_users",
+    "translation": "Derniers utilisateurs"
+  },
+  {
+    "id": "moderation_overview",
+    "translation": "Aperçu de la modération"
+  },
+  {
+    "id": "users_list",
+    "translation": "Liste des utilisateurs"
+  },
+  {
+    "id": "comments_list",
+    "translation": "Liste des commentaires"
+  },
+  {
+    "id": "reports_list",
+    "translation": "Liste des signalements"
+  },
+  {
+    "id": "torrents_list",
+    "translation": "Liste des torrents"
+  },
+  {
+    "id": "torrent_edit_panel",
+    "translation": "Panneau d'édition du torrent"
+  },
+  {
+    "id": "torrent_reassign",
+    "translation": "Réassigner le torrent"
+  },
+  {
+    "id": "reassign_warning",
+    "translation": "La réassignation de torrents à un nouvel utilisateur est difficilement réversible et doit être effectuée avec attention."
+  },
+  {
+    "id": "previous_username",
+    "translation": "Nom d'utilisateur précédent"
+  },
+  {
+    "id": "torrent_id",
+    "translation": "ID du torrent"
+  },
+  {
+    "id": "reassign_indication",
+    "translation": "Un ID par ligne <b>ou</b> un seul nom d'utilisateur"
+  },
+  {
+    "id": "reassign_warning_2",
+    "translation": "Cela peut prendre un certain temps, veuillez ne pas interrompre la requête."
+  },
+  {
+    "id":"reassign_to",
+    "translation": "Réassigner à :"
+  },
+  {
+    "id": "reassign_based_on",
+    "translation": "Réassigner en fonction de :"
+  },
+  {
+    "id": "user_id",
+    "translation": "ID d'utilisateur"
   }
 ]
