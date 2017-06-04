@@ -3,6 +3,7 @@ package apiService
 import (
 	"encoding/base32"
 	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -82,26 +83,26 @@ type uploadedFile struct {
 }
 
 // TorrentRequest struct
-//accept torrent files?
+// Same json name as the constant!
 type TorrentRequest struct {
-	Name        string `json:"name"`
-	Magnet      string `json:"magnet"`
-	Category    string `json:"category"`
-	Remake      bool   `json:"remake"`
-	Description string `json:"description"`
-	Status      int    `json:"status"`
-	Hidden      bool   `json:"-"`
+	Name        string `json:"name,omitempty"`
+	Magnet      string `json:"magnet,omitempty"`
+	Category    string `json:"c"`
+	Remake      bool   `json:"remake,omitempty"`
+	Description string `json:"desc,omitempty"`
+	Status      int    `json:"status,omitempty"`
+	Hidden      bool   `json:"hidden,omitempty"`
 	CaptchaID   string `json:"-"`
-	WebsiteLink string `json:"website_link"`
-	SubCategory int    `json:"sub_category"`
+	WebsiteLink string `json:"website_link,omitempty"`
+	SubCategory int    `json:"sub_category,omitempty"`
 
-	Infohash      string         `json:"hash"`
+	Infohash      string         `json:"hash,omitempty"`
 	CategoryID    int            `json:"-"`
 	SubCategoryID int            `json:"-"`
-	Filesize      int64          `json:"filesize"`
+	Filesize      int64          `json:"filesize,omitempty"`
 	Filepath      string         `json:"-"`
-	FileList      []uploadedFile `json:"filelist"`
-	Trackers      []string       `json:"trackers"`
+	FileList      []uploadedFile `json:"filelist,omitempty"`
+	Trackers      []string       `json:"trackers,omitempty"`
 }
 
 // UpdateRequest struct
@@ -244,26 +245,40 @@ func (r *TorrentRequest) ExtractCategory(req *http.Request) error {
 		r.CategoryID = CatID
 		r.SubCategoryID = SubCatID
 	} else {
-		return errors.New("lol")
+		return errInvalidTorrentCategory
 	}
 	return nil
 }
 
 // ExtractBasicValue : takes an http request and computes all basic fields for this form
 func (r *TorrentRequest) ExtractBasicValue(req *http.Request) error {
-	req.ParseForm()
-	r.Name = req.FormValue(uploadFormName)
-	r.Category = req.FormValue(uploadFormCategory)
-	r.WebsiteLink = req.FormValue(uploadFormWebsiteLink)
-	r.Description = req.FormValue(uploadFormDescription)
-	r.Hidden = req.FormValue(uploadFormHidden) == "on"
-	r.Status, _ = strconv.Atoi(req.FormValue(uploadFormStatus))
-	r.Remake = req.FormValue(uploadFormRemake) == "on"
-
+	if strings.HasPrefix(req.Header.Get("Content-type"), "multipart/form-data") || req.Header.Get("Content-Type") == "application/x-www-form-urlencoded" { // Multipart
+		if strings.HasPrefix(req.Header.Get("Content-type"), "multipart/form-data") { // We parse the multipart form
+			err := req.ParseMultipartForm(15485760)
+			if err != nil {
+				return err
+			}
+		}
+		r.Name = req.FormValue(uploadFormName)
+		r.Category = req.FormValue(uploadFormCategory)
+		r.WebsiteLink = req.FormValue(uploadFormWebsiteLink)
+		r.Description = req.FormValue(uploadFormDescription)
+		r.Hidden = req.FormValue(uploadFormHidden) == "on"
+		r.Status, _ = strconv.Atoi(req.FormValue(uploadFormStatus))
+		r.Remake = req.FormValue(uploadFormRemake) == "on"
+		r.Magnet = req.FormValue(uploadFormMagnet)
+	} else { // JSON (no file upload then)
+		decoder := json.NewDecoder(req.Body)
+		err := decoder.Decode(&r)
+		if err != nil {
+			return err
+		}
+	}
 	// trim whitespace
 	r.Name = strings.TrimSpace(r.Name)
 	r.Description = util.Sanitize(strings.TrimSpace(r.Description), "default")
 	r.WebsiteLink = strings.TrimSpace(r.WebsiteLink)
+	r.Magnet = strings.TrimSpace(r.Magnet)
 
 	if r.WebsiteLink != "" {
 		// WebsiteLink
@@ -281,11 +296,6 @@ func (r *TorrentRequest) ExtractInfo(req *http.Request) error {
 	if err != nil {
 		return err
 	}
-
-	r.Magnet = req.FormValue(uploadFormMagnet)
-
-	// trim whitespace
-	r.Magnet = strings.TrimSpace(r.Magnet)
 
 	cache.Impl.ClearAll()
 	defer req.Body.Close()

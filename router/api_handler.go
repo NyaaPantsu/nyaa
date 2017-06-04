@@ -159,7 +159,7 @@ func APIUploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	upload := apiService.TorrentRequest{}
 	contentType := r.Header.Get("Content-Type")
-	if contentType != "application/json" && !strings.HasPrefix(contentType, "multipart/form-data") {
+	if contentType != "application/json" && !strings.HasPrefix(contentType, "multipart/form-data") && r.Header.Get("Content-Type") != "application/x-www-form-urlencoded" {
 		// TODO What should we do here ? upload is empty so we shouldn't
 		// create a torrent from it
 		http.Error(w, errors.New("Please provide either of Content-Type: application/json header or multipart/form-data").Error(), http.StatusInternalServerError)
@@ -248,18 +248,17 @@ func APIUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if user.ID == 0 {
+		http.Error(w, apiService.ErrAPIKey.Error(), http.StatusForbidden)
+		return
+	}
 	contentType := r.Header.Get("Content-Type")
-	if contentType != "application/json" && !strings.HasPrefix(contentType, "multipart/form-data") {
+	if contentType != "application/json" && !strings.HasPrefix(contentType, "multipart/form-data") && r.Header.Get("Content-Type") != "application/x-www-form-urlencoded" {
 		// TODO What should we do here ? upload is empty so we shouldn't
 		// create a torrent from it
 		http.Error(w, errors.New("Please provide either of Content-Type: application/json header or multipart/form-data").Error(), http.StatusInternalServerError)
 		return
 	}
-	if user.ID == 0 {
-		http.Error(w, apiService.ErrAPIKey.Error(), http.StatusForbidden)
-		return
-	}
-
 	update := apiService.UpdateRequest{}
 	err = update.Update.ExtractEditInfo(r)
 	if err != nil {
