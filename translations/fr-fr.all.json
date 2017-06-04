@@ -273,7 +273,7 @@
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Ren-chon) est le nom d'utilisateur par défaut assigné aux uploads et commentaires anonymes. Il est utilisé pour les torrents importés du Nyaa original, bien que l'auteur d'origine puisse parfois être affiché."
+    "translation": "<span lang=\"ja\"><ruby>れ<rp>(</rp><rt>Re</rt><rp>)</rp>ん<rp>(</rp><rt>n</rt><rp>)</rp>ちょ<rp>(</rp><rt>-cho</rt><rp>)</rp>ん<rp>(</rp><rt>n</rt><rp>)</rp></ruby></span> est le nom d'utilisateur par défaut assigné aux uploads et commentaires anonymes. Il est utilisé pour les torrents importés du Nyaa original, bien que l'auteur d'origine puisse parfois être affiché."
   },
   {
     "id": "all_categories",
