@@ -1,6 +1,7 @@
 package userService
 
 import (
+	"crypto/sha256"
 	"errors"
 	"fmt"
 	"net/http"
@@ -185,6 +186,18 @@ func getDomainName() string {
 		domain = ""
 	}
 	return domain
+}
+
+func GetLogoutToken(r *http.Request) string {
+	encoded := r.Header.Get("X-Auth-Token")
+	if len(encoded) == 0 {
+		cookie, err := r.Cookie(CookieName)
+		if err != nil {
+			return ""
+		}
+		encoded = cookie.Value
+	}
+	return fmt.Sprintf("%x", sha256.Sum256([]byte(encoded)))
 }
 
 func getMaxAge() int {

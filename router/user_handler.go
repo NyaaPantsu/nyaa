@@ -293,9 +293,14 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 // UserLogoutHandler : Controller to logout users
 func UserLogoutHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
-	_, _ = userService.ClearCookie(w)
-	url, _ := Router.Get("home").URL()
-	http.Redirect(w, r, url.String(), http.StatusSeeOther)
+	token := userService.GetLogoutToken(r)
+	if token == r.URL.Query().Get("token") {
+		_, _ = userService.ClearCookie(w)
+		url, _ := Router.Get("home").URL()
+		http.Redirect(w, r, url.String(), http.StatusSeeOther)
+	} else {
+		http.Error(w, "Invalid token", 403)
+	}
 }
 
 // UserFollowHandler : Controller to follow/unfollow users, need user id to follow

@@ -98,16 +98,17 @@ type panelIndexVbs struct {
  */
 
 type commonTemplateVariables struct {
-	Navigation navigation
-	Search     searchForm
-	T          publicSettings.TemplateTfunc
-	Theme      string
-	Mascot     string
-	User       *model.User
-	URL        *url.URL   // for parsing URL in templates
-	Route      *mux.Route // for getting current route in templates
-	CsrfField  template.HTML
-	Config     *config.Config
+	Navigation  navigation
+	Search      searchForm
+	T           publicSettings.TemplateTfunc
+	Theme       string
+	Mascot      string
+	User        *model.User
+	URL         *url.URL   // for parsing URL in templates
+	Route       *mux.Route // for getting current route in templates
+	CsrfField   template.HTML
+	Config      *config.Config
+	LogoutToken string
 }
 
 type navigation struct {
@@ -151,15 +152,16 @@ func getUser(r *http.Request) *model.User {
 
 func newCommonVariables(r *http.Request) commonTemplateVariables {
 	return commonTemplateVariables{
-		Navigation: newNavigation(),
-		Search:     newSearchForm(),
-		T:          publicSettings.GetTfuncFromRequest(r),
-		Theme:      publicSettings.GetThemeFromRequest(r),
-		Mascot:     publicSettings.GetMascotFromRequest(r),
-		User:       getUser(r),
-		URL:        r.URL,
-		Route:      mux.CurrentRoute(r),
-		CsrfField:  csrf.TemplateField(r),
-		Config:     config.Conf,
+		Navigation:  newNavigation(),
+		Search:      newSearchForm(),
+		T:           publicSettings.GetTfuncFromRequest(r),
+		Theme:       publicSettings.GetThemeFromRequest(r),
+		Mascot:      publicSettings.GetMascotFromRequest(r),
+		User:        getUser(r),
+		URL:         r.URL,
+		Route:       mux.CurrentRoute(r),
+		CsrfField:   csrf.TemplateField(r),
+		Config:      config.Conf,
+		LogoutToken: userService.GetLogoutToken(r),
 	}
 }
