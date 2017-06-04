@@ -257,7 +257,7 @@ th { border-bottom-width: 2px; }
 .tr-size { width: 90px; }
 .tr-se, .tr-le { font-weight: bold; }
 .tr-se, .tr-le, .tr-dl { width: 50px; }
-.tr-date { width: 100px; }
+.tr-date { width: 130px; }
 
 .sort-arrows { margin-left: 0.2rem; }
 .sort-arrows span {

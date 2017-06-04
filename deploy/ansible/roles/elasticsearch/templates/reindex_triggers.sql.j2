@@ -3,7 +3,7 @@
 
 CREATE TYPE torrents_action AS ENUM ('index', 'delete');
 
-CREATE TABLE IF NOT EXISTS reindex_torrents (
+CREATE TABLE IF NOT EXISTS reindex_{{ nyaapantsu_torrent_tablename }} (
 	reindex_torrents_id SERIAL,
 	torrent_id int,
 	action torrents_action

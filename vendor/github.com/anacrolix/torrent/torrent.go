@@ -576,7 +576,7 @@ func (t *Torrent) writeChunk(piece int, begin int64, data []byte) (err error) {
 		err = io.ErrShortWrite
 	}
 	if err == nil {
-		tr.Stop("write chunk")
+		tr.Mark("write chunk")
 	}
 	return
 }
@@ -1296,7 +1296,7 @@ func (t *Torrent) numTotalPeers() int {
 }
 
 // Returns true if the connection is added.
-func (t *Torrent) addConnection(c *connection) bool {
+func (t *Torrent) addConnection(c *connection, outgoing bool) bool {
 	if t.cl.closed.IsSet() {
 		return false
 	}
@@ -1307,7 +1307,19 @@ func (t *Torrent) addConnection(c *connection) bool {
 		if c.PeerID == c0.PeerID {
 			// Already connected to a client with that ID.
 			duplicateClientConns.Add(1)
-			return false
+			lower := string(t.cl.peerID[:]) < string(c.PeerID[:])
+			// Retain the connection from initiated from lower peer ID to
+			// higher.
+			if outgoing == lower {
+				// Close the other one.
+				c0.Close()
+				// Is it safe to delete from the map while we're iterating
+				// over it?
+				t.deleteConnection(c0)
+			} else {
+				// Abandon this one.
+				return false
+			}
 		}
 	}
 	if len(t.conns) >= t.maxEstablishedConns {
