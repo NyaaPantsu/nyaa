@@ -1,30 +1,26 @@
 package router
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 	"time"
 
-	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/service/api"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
-	"github.com/NyaaPantsu/nyaa/service/notifier"
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/upload"
-	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 )
 
 // UploadHandler : Main Controller for uploading a torrent
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	user := getUser(r)
-	if !uploadService.IsUploadEnabled(*user) {
+	if !uploadService.IsUploadEnabled(user) {
 		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
 		return
 	}
@@ -38,7 +34,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 
 // UploadPostHandler : Controller for uploading a torrent, after POST request, redirect or makes error in messages
 func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
-	var uploadForm uploadForm
+	var uploadForm apiService.TorrentRequest
 	defer r.Body.Close()
 	user := getUser(r)
 	messages := msg.GetMessages(r) // new util for errors and infos
@@ -62,14 +58,9 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 		status = model.TorrentStatusTrusted
 	}
 
-	torrentIndb := model.Torrent{}
-	db.ORM.Unscoped().Model(&model.Torrent{}).Where("torrent_hash = ?", uploadForm.Infohash).First(&torrentIndb)
-	if torrentIndb.ID > 0 {
-		if userPermission.CurrentUserIdentical(user, torrentIndb.UploaderID) && torrentIndb.IsDeleted() && !torrentIndb.IsBlocked() { // if torrent is not locked and is deleted and the user is the actual owner
-			torrentService.DefinitelyDeleteTorrent(strconv.Itoa(int(torrentIndb.ID)))
-		} else {
-			messages.AddError("errors", "Torrent already in database !")
-		}
+	err = torrentService.ExistOrDelete(uploadForm.Infohash, user)
+	if err != nil {
+		messages.AddError("errors", err.Error())
 	}
 
 	if !messages.HasErrors() {
@@ -98,21 +89,7 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
-		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
-
-		if user.ID > 0 && config.Conf.Users.DefaultUserSettings["new_torrent"] { // If we are a member and notifications for new torrents are enabled
-			userService.GetFollowers(user) // We populate the liked field for users
-			if len(user.Followers) > 0 {   // If we are followed by at least someone
-				for _, follower := range user.Followers {
-					follower.ParseSettings() // We need to call it before checking settings
-					if follower.Settings.Get("new_torrent") {
-						T, _, _ := publicSettings.TfuncAndLanguageWithFallback(follower.Language, follower.Language) // We need to send the notification to every user in their language
-
-						notifierService.NotifyUser(&follower, torrent.Identifier(), fmt.Sprintf(T("new_torrent_uploaded"), torrent.Name, user.Username), url.String(), follower.Settings.Get("new_torrent_email"))
-					}
-				}
-			}
-		}
+		torrentService.NewTorrentEvent(Router, user, &torrent)
 
 		// add filelist to files db, if we have one
 		if len(uploadForm.FileList) > 0 {
@@ -126,6 +103,7 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
+		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -139,7 +117,7 @@ func UploadGetHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	messages := msg.GetMessages(r) // new util for errors and infos
 
-	var uploadForm uploadForm
+	var uploadForm apiService.TorrentRequest
 	_ = uploadForm.ExtractInfo(r)
 	user := getUser(r)
 	if userPermission.NeedsCaptcha(user) {

@@ -12,6 +12,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service"
+	"github.com/NyaaPantsu/nyaa/service/api"
 	"github.com/NyaaPantsu/nyaa/service/comment"
 	"github.com/NyaaPantsu/nyaa/service/report"
 	"github.com/NyaaPantsu/nyaa/service/torrent"
@@ -271,7 +272,7 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 
 	defer r.Body.Close()
 	torrentJSON := torrent.ToJSON()
-	uploadForm := newUploadForm()
+	uploadForm := apiService.NewTorrentRequest()
 	uploadForm.Name = torrentJSON.Name
 	uploadForm.Category = torrentJSON.Category + "_" + torrentJSON.SubCategory
 	uploadForm.Status = torrentJSON.Status
@@ -285,7 +286,7 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 
 // TorrentPostEditModPanel : Controller for editing a torrent after POST request
 func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
-	var uploadForm uploadForm
+	var uploadForm apiService.TorrentRequest
 	defer r.Body.Close()
 	id := r.URL.Query().Get("id")
 	messages := msg.GetMessages(r)

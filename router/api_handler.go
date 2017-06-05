@@ -2,6 +2,7 @@ package router
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"html"
 	"net/http"
@@ -16,6 +17,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/api"
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/upload"
+	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/NyaaPantsu/nyaa/util/search"
@@ -135,9 +137,13 @@ func APIViewHeadHandler(w http.ResponseWriter, r *http.Request) {
 // APIUploadHandler : Controller for uploading a torrent with api
 func APIUploadHandler(w http.ResponseWriter, r *http.Request) {
 	token := r.Header.Get("Authorization")
-	user := model.User{}
-	db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
+	user, _, _, err := userService.RetrieveUserByAPIToken(token)
 	defer r.Body.Close()
+
+	if err != nil {
+		http.Error(w, "Error API token doesn't exist", http.StatusBadRequest)
+		return
+	}
 
 	if !uploadService.IsUploadEnabled(user) {
 		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
@@ -150,139 +156,124 @@ func APIUploadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	upload := apiService.TorrentRequest{}
-	var filesize int64
-
 	contentType := r.Header.Get("Content-Type")
-	if contentType == "application/json" {
-
-		d := json.NewDecoder(r.Body)
-		if err := d.Decode(&upload); err != nil {
-			decodeError := fmt.Errorf("Unable to decode upload data: %s", err).Error()
-			http.Error(w, decodeError, http.StatusInternalServerError)
-			return
-		}
-		err, code := upload.ValidateUpload()
-		if err != nil {
-			http.Error(w, err.Error(), code)
-			return
-		}
-	} else if strings.HasPrefix(contentType, "multipart/form-data") {
-		upload.Name = r.FormValue("name")
-		upload.Category, _ = strconv.Atoi(r.FormValue("category"))
-		upload.SubCategory, _ = strconv.Atoi(r.FormValue("sub_category"))
-		upload.Description = r.FormValue("description")
-		upload.Remake, _ = strconv.ParseBool(r.FormValue("remake"))
-		upload.WebsiteLink = r.FormValue("website_link")
-
-		var err error
-		var code int
-
-		filesize, err, code = upload.ValidateMultipartUpload(r)
-		if err != nil {
-			http.Error(w, err.Error(), code)
-			return
-		}
-	} else {
+	if contentType != "application/json" && !strings.HasPrefix(contentType, "multipart/form-data") && r.Header.Get("Content-Type") != "application/x-www-form-urlencoded" {
 		// TODO What should we do here ? upload is empty so we shouldn't
 		// create a torrent from it
-		err := fmt.Errorf("Please provide either of Content-Type: application/json header or multipart/form-data").Error()
-		http.Error(w, err, http.StatusInternalServerError)
+		http.Error(w, errors.New("Please provide either of Content-Type: application/json header or multipart/form-data").Error(), http.StatusInternalServerError)
 		return
 	}
-	var sameTorrents int
+	// As long as the right content-type is sent, formValue is smart enough to parse it
+	err = upload.ExtractInfo(r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 
-	db.ORM.Model(&model.Torrent{}).Where("torrent_hash = ?", upload.Hash).Count(&sameTorrents)
+	status := model.TorrentStatusNormal
+	if upload.Remake { // overrides trusted
+		status = model.TorrentStatusRemake
+	} else if user.IsTrusted() {
+		status = model.TorrentStatusTrusted
+	}
 
-	if sameTorrents == 0 {
-		torrent := model.Torrent{
-			Name:        upload.Name,
-			Category:    upload.Category,
-			SubCategory: upload.SubCategory,
-			Status:      model.TorrentStatusNormal,
-			Hash:        upload.Hash,
-			Date:        time.Now(),
-			Filesize:    filesize,
-			Description: upload.Description,
-			UploaderID:  user.ID,
-			Uploader:    &user,
-			WebsiteLink: upload.WebsiteLink,
+	err = torrentService.ExistOrDelete(upload.Infohash, user)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	torrent := model.Torrent{
+		Name:        upload.Name,
+		Category:    upload.CategoryID,
+		SubCategory: upload.SubCategoryID,
+		Status:      status,
+		Hidden:      upload.Hidden,
+		Hash:        upload.Infohash,
+		Date:        time.Now(),
+		Filesize:    upload.Filesize,
+		Description: upload.Description,
+		WebsiteLink: upload.WebsiteLink,
+		UploaderID:  user.ID}
+	torrent.ParseTrackers(upload.Trackers)
+	db.ORM.Create(&torrent)
+
+	if db.ElasticSearchClient != nil {
+		err := torrent.AddToESIndex(db.ElasticSearchClient)
+		if err == nil {
+			log.Infof("Successfully added torrent to ES index.")
+		} else {
+			log.Errorf("Unable to add torrent to ES index: %s", err)
 		}
-
-		if upload.Remake {
-			torrent.Status = model.TorrentStatusRemake
-		} else if user.IsTrusted() {
-			torrent.Status = model.TorrentStatusTrusted
-		}
-
-		db.ORM.Create(&torrent)
-
-		if db.ElasticSearchClient != nil {
-			err := torrent.AddToESIndex(db.ElasticSearchClient)
-			if err == nil {
-				log.Infof("Successfully added torrent to ES index.")
-			} else {
-				log.Errorf("Unable to add torrent to ES index: %s", err)
-			}
-		}
-		/*if err != nil {
-			util.SendError(w, err, 500)
-			return
-		}*/
-		fmt.Printf("%+v\n", torrent)
 	} else {
-		http.Error(w, "torrent already exists", http.StatusBadRequest)
-		return
+		log.Errorf("Unable to create elasticsearch client: %s", err)
 	}
+
+	torrentService.NewTorrentEvent(Router, user, &torrent)
+	// add filelist to files db, if we have one
+	if len(upload.FileList) > 0 {
+		for _, uploadedFile := range upload.FileList {
+			file := model.File{TorrentID: torrent.ID, Filesize: upload.Filesize}
+			err := file.SetPath(uploadedFile.Path)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusBadRequest)
+				return
+			}
+			db.ORM.Create(&file)
+		}
+	}
+	/*if err != nil {
+		util.SendError(w, err, 500)
+		return
+	}*/
+	fmt.Printf("%+v\n", torrent)
 }
 
 // APIUpdateHandler : Controller for updating a torrent with api
 // FIXME Impossible to update a torrent uploaded by user 0
 func APIUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	token := r.Header.Get("Authorization")
-	user := model.User{}
-	db.ORM.Where("api_token = ?", token).First(&user) //i don't like this
+	user, _, _, err := userService.RetrieveUserByAPIToken(token)
 	defer r.Body.Close()
+
+	if err != nil {
+		http.Error(w, "Error API token doesn't exist", http.StatusBadRequest)
+		return
+	}
 
 	if !uploadService.IsUploadEnabled(user) {
 		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
 		return
 	}
 
-	contentType := r.Header.Get("Content-Type")
-	if contentType == "application/json" {
-		if user.ID == 0 {
-			http.Error(w, apiService.ErrAPIKey.Error(), http.StatusForbidden)
-			return
-		}
-
-		update := apiService.UpdateRequest{}
-		d := json.NewDecoder(r.Body)
-		if err := d.Decode(&update); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		id := update.ID
-		torrent := model.Torrent{}
-		db.ORM.Where("torrent_id = ?", id).First(&torrent)
-		if torrent.ID == 0 {
-			http.Error(w, apiService.ErrTorrentID.Error(), http.StatusBadRequest)
-			return
-		}
-		if torrent.UploaderID != 0 && torrent.UploaderID != user.ID { //&& user.Status != mod
-			http.Error(w, apiService.ErrRights.Error(), http.StatusForbidden)
-			return
-		}
-
-		err, code := update.Update.ValidateUpdate()
-		if err != nil {
-			http.Error(w, err.Error(), code)
-			return
-		}
-		update.UpdateTorrent(&torrent)
-
-		torrentService.UpdateTorrent(torrent)
+	if user.ID == 0 {
+		http.Error(w, apiService.ErrAPIKey.Error(), http.StatusForbidden)
+		return
 	}
+	contentType := r.Header.Get("Content-Type")
+	if contentType != "application/json" && !strings.HasPrefix(contentType, "multipart/form-data") && r.Header.Get("Content-Type") != "application/x-www-form-urlencoded" {
+		// TODO What should we do here ? upload is empty so we shouldn't
+		// create a torrent from it
+		http.Error(w, errors.New("Please provide either of Content-Type: application/json header or multipart/form-data").Error(), http.StatusInternalServerError)
+		return
+	}
+	update := apiService.UpdateRequest{}
+	err = update.Update.ExtractEditInfo(r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	torrent := model.Torrent{}
+	db.ORM.Where("torrent_id = ?", r.FormValue("id")).First(&torrent)
+	if torrent.ID == 0 {
+		http.Error(w, apiService.ErrTorrentID.Error(), http.StatusBadRequest)
+		return
+	}
+	if torrent.UploaderID != 0 && torrent.UploaderID != user.ID { //&& user.Status != mod
+		http.Error(w, apiService.ErrRights.Error(), http.StatusForbidden)
+		return
+	}
+	update.UpdateTorrent(&torrent, user)
+	torrentService.UpdateTorrent(torrent)
 }
 
 // APISearchHandler : Controller for searching with api
