@@ -1221,6 +1221,6 @@
   },
   {
     "id": "report_msg",
-    "translation": "The torrent has been reported!"
+    "translation": "The torrent #%s has been reported!"
   }
 ]
