@@ -3,15 +3,17 @@ package router
 import (
 	"net/http"
 
-	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
-	"github.com/gorilla/csrf"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/justinas/nosurf"
 )
 
 // Router variable for exporting the route configuration
 var Router *mux.Router
+
+// CSRFRouter : CSRF protection for Router variable for exporting the route configuration
+var CSRFRouter *nosurf.CSRFHandler
 
 func init() {
 	// Static file handlers
@@ -86,17 +88,6 @@ func init() {
 	userRoutes.HandleFunc("/{id}/{username}/feed", RSSHandler).Name("feed_user")
 	userRoutes.HandleFunc("/{id}/{username}/feed/{page}", RSSHandler).Name("feed_user_page")
 
-	// Please make EnableSecureCSRF to false when testing locally
-	if config.Conf.EnableSecureCSRF {
-		userRoutes.Handle("/", csrf.Protect(config.CSRFTokenHashKey)(userRoutes))
-		torrentRoutes.Handle("/", csrf.Protect(config.CSRFTokenHashKey)(torrentRoutes))
-		torrentViewRoutes.Handle("/", csrf.Protect(config.CSRFTokenHashKey)(torrentViewRoutes))
-	} else {
-		userRoutes.Handle("/", csrf.Protect(config.CSRFTokenHashKey, csrf.Secure(false))(userRoutes))
-		torrentRoutes.Handle("/", csrf.Protect(config.CSRFTokenHashKey, csrf.Secure(false))(torrentRoutes))
-		torrentViewRoutes.Handle("/", csrf.Protect(config.CSRFTokenHashKey, csrf.Secure(false))(torrentViewRoutes))
-	}
-
 	// We don't need CSRF here
 	api := Router.PathPrefix("/api").Subrouter()
 	api.Handle("", wrapHandler(gzipAPIHandler)).Methods("GET")
@@ -152,4 +143,10 @@ func init() {
 	Router.HandleFunc("/settings", ChangePublicSettingsHandler).Methods("POST").Name("see_languages")
 
 	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
+
+	CSRFRouter = nosurf.New(Router)
+	CSRFRouter.ExemptPath("/api")
+	CSRFRouter.ExemptPath("/mod")
+	CSRFRouter.ExemptPath("/upload")
+	CSRFRouter.ExemptPath("/user/login")
 }
