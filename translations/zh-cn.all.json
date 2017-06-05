@@ -705,7 +705,7 @@
   },
   {
     "id": "report_torrent_number",
-    "translation": "举报种子 #"
+    "translation": "举报种子 #%s"
   },
   {
     "id": "report_type",

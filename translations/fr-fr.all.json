@@ -509,7 +509,7 @@
   },
   {
     "id": "report_torrent_number",
-    "translation": "Signaler le torrent n° "
+    "translation": "Signaler le torrent n°%s"
   },
   {
     "id": "report_type",
