@@ -1,4 +1,4 @@
-{{define "title"}}Upload magnet{{end}}
+{{define "title"}}{{call $.T "upload"}}{{end}}
 {{define "content"}}
 {{with .Form}}
 <div style="text-align: left;" class="box">
@@ -52,5 +52,5 @@
 {{end}}
 {{ define "footer_js"}}
 <script type="text/javascript" src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-<script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc"), spellChecker: false });</script>
+<script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc"), spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
 {{end}}
