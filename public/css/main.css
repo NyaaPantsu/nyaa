@@ -45,6 +45,7 @@ body {
 
 .header .container {
 	position: relative;
+	max-width: 100%;
 }
 
 .header .container > div {
@@ -442,7 +443,7 @@ td.tr-le, .error-text { color: #E84C4C; }
 .sukebei a:hover { color:  #C7235D; }
 .sukebei th { color: #9C7575; }
 .sukebei th a { color: #893636; }
-.sukebei #mascot { background-image: url('/img/mafuyu.svg'); }
+.sukebei #mascot { background-image: url('/img/mafuyu.svg'); background-size: 100%; }
 
 .up-input {
 	width: 100%;
