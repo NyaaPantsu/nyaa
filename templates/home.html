@@ -41,12 +41,12 @@ Your browser does not support the audio element.
               <th class="tr-date hide-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{call $.T "date"}}<span class="sort-arrows">{{ genSortArrows .URL "2" }}</span></a></th>
           </tr>
           </thead>
-          <tbody id="torrentListResults">
+          <tbody>
           {{ range .Models}}
           <tr id="torrent_{{ .ID }}" class="torrent-info
               {{if eq .Status 2}}remake{{end}}
               {{if eq .Status 3}}trusted{{end}}
-              {{if eq .Status 4}}aplus{{end}}" id="torrent{{ .ID }}">
+              {{if eq .Status 4}}aplus{{end}}" >
                 {{ if HasAdmin $.User }}
               <td class="tr-cb">
                 <input data-name="{{ .Name }}" type="checkbox" id="torrent_cb_{{ .ID }}" name="torrent_id" value="{{ .ID }}">
@@ -55,9 +55,9 @@ Your browser does not support the audio element.
               <td class="tr-cat home-td">
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
                       {{ if Sukebei }}
-                      <img src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
+                      <img alt="{{ call $.T (CategoryName .Category .SubCategory) }}" src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
                       {{ else }}
-                      <img src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
+                      <img alt="{{ call $.T (CategoryName .Category .SubCategory) }}" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
                       {{ end}}
                   </a>
               </td>
@@ -66,9 +66,9 @@ Your browser does not support the audio element.
                       {{.Name}}
                   </a>
               </td>
-              <td class="tr-cs home-td hide-xs">
+              <td class="tr-cs home-td">
               {{ if gt (len .Comments) 0 }}
-                  <i class="comment-icon" title="{{ call $.T "comments" }}">{{len .Comments}}</i>
+                  <span>{{len .Comments}}</span>
               {{end}}
               </td>
               <td class="tr-links home-td">

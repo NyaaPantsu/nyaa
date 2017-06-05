@@ -12,7 +12,6 @@ import (
 	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/util/log"
 )
@@ -171,9 +170,6 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 			DefaultOperator("AND")
 	}
 
-	fsc := elastic.NewFetchSourceContext(true).
-		Include("id")
-
 	// TODO Find a better way to keep in sync with mapping in ansible
 	search := client.Search().
 		Index(config.Conf.Search.ElasticsearchIndex).
@@ -182,8 +178,7 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 		From(int((p.Offset-1)*p.Max)).
 		Size(int(p.Max)).
 		Sort(p.Sort.ToESField(), p.Order).
-		Sort("_score", false). // Don't put _score before the field sort, it messes with the sorting
-		FetchSourceContext(fsc)
+		Sort("_score", false) // Don't put _score before the field sort, it messes with the sorting
 
 	filterQueryString := p.ToFilterQuery()
 	if filterQueryString != "" {
@@ -200,40 +195,21 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 	log.Infof("Query '%s' took %d milliseconds.", p.NameLike, result.TookInMillis)
 	log.Infof("Amount of results %d.", result.TotalHits())
 
-	/* TODO Cleanup this giant mess
-	 * The raw query is used because we need to preserve the order of the id's
-	 * in the IN clause, so we can't just do
-	 *      select * from torrents where torrent_id IN (list_of_ids)
-	 * This query is said to work on postgres 9.4+
-	 */
-	{
-		// Temporary struct to hold the id
-		// INFO We are not using Hits.Id because the id in the index might not
-		// correspond to the id in the database later on.
-		type TId struct {
-			Id uint
-		}
-		var tid TId
-		var torrents []model.Torrent
-		if len(result.Hits.Hits) > 0 {
-			torrents = make([]model.Torrent, len(result.Hits.Hits))
-			hits := result.Hits.Hits
-			// Building a string of the form {id1,id2,id3}
-			source, _ := hits[0].Source.MarshalJSON()
-			json.Unmarshal(source, &tid)
-			idsToString := "{" + strconv.FormatUint(uint64(tid.Id), 10)
-			for _, t := range hits[1:] {
-				source, _ = t.Source.MarshalJSON()
-				json.Unmarshal(source, &tid)
-				idsToString += "," + strconv.FormatUint(uint64(tid.Id), 10)
-			}
-			idsToString += "}"
-			db.ORM.Raw("SELECT * FROM " + config.Conf.Models.TorrentsTableName +
-				" JOIN unnest('" + idsToString + "'::int[]) " +
-				" WITH ORDINALITY t(torrent_id, ord) USING (torrent_id) ORDER  BY t.ord").Find(&torrents)
-		}
-		return result.TotalHits(), torrents, nil
+	torrents := make([]model.Torrent, len(result.Hits.Hits))
+	if len(result.Hits.Hits) <= 0 {
+		return 0, nil, nil
 	}
+	for i, hit := range result.Hits.Hits {
+		// Deserialize hit.Source into a Tweet (could also be just a map[string]interface{}).
+		var tJson model.TorrentJSON
+		err := json.Unmarshal(*hit.Source, &tJson)
+		if err != nil {
+			log.Errorf("Cannot unmarshal elasticsearch torrent: %s", err)
+		}
+		torrent := tJson.ToTorrent()
+		torrents[i] = torrent
+	}
+	return result.TotalHits(), torrents, nil
 
 }
 

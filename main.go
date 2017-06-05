@@ -32,7 +32,7 @@ func RunServer(conf *config.Config) {
 	// TODO Use config from cli
 	os.Mkdir(router.GPGPublicKeyPath, 700)
 
-	http.Handle("/", router.Router)
+	http.Handle("/", router.CSRFRouter)
 
 	// Set up server,
 	srv := &http.Server{
@@ -145,6 +145,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err.Error())
 		}
+		db.ElasticSearchClient, _ = db.ElasticSearchInit()
 		err = publicSettings.InitI18n(conf.I18n, userService.NewCurrentUserRetriever())
 		if err != nil {
 			log.Fatal(err.Error())

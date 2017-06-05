@@ -29,10 +29,10 @@
 <div style="text-align: left;" class="box">
     {{with .Torrent}}
     {{ range (index $.FormErrors "errors")}}
-        <div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
+        <p class="error-text">{{ . }}</p>
     {{end}}
     {{ range (index $.Infos "infos")}}
-        <div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
+        <p class="success-text">{{ . }}</p>
     {{end}}
     <div id="torrent-name" class="{{if eq .Status 2}}remake{{end}}
               {{if eq .Status 3}}trusted{{end}}
@@ -46,7 +46,7 @@
       <td class="torrent-info-td torrent-info-label">{{ call $.T "date" }}:</td><td class="torrent-info-td date-full">{{.Date}}</td>
       </tr>
       <tr class="torrent-info-row">
-          <td class="torrent-info-td torrent-info-label">{{ call $.T "uploaded_by" }}:</td><td class="torrent-view-td torrent-info-data"><a href="{{ genRoute "user_profile" "id" ( print .UploaderID ) "username" (print .UploaderName) }}">{{.UploaderName}}</a></td>
+          <td class="torrent-info-td torrent-info-label">{{ call $.T "uploaded_by" }}:</td><td class="torrent-view-td torrent-info-data">{{ genUploaderLink .UploaderID .UploaderName .Hidden }}</td>
           <td class="torrent-info-td torrent-info-label">{{call $.T "seeders"}}:</td><td class="tr-se torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Seeders}}{{end}}</td>
       </tr>
       <tr class="torrent-info-row">
@@ -68,30 +68,15 @@
   <a href="{{.TorrentLink}}" class="form-input">{{call $.T "torrent_file"}}</a>
   {{end}}
   {{ if gt $.User.ID 0}}
-  <script>
-      function reportPopup() {
-                var reportContent = `
-                <h4>{{ call $.T "report_torrent_number" (print $.Torrent.ID) }}</h4>
-                <b>{{ call $.T "report_type" }}:</b>
-                <form method="post" action="/report/{{$.Torrent.ID}}">
-                    {{ block "csrf_field" $ }}{{end}}
-                    <input type="radio" name="report_type" value="illegal_content" id="illegal" required> <label for="illegal">{{ call $.T "illegal_content" }}</label><br />
-                    <input type="radio" name="report_type" value="spam_garbage" id="spam" required> <label for="spam">{{ call $.T "spam_garbage" }}</label><br />
-                    <input type="radio" name="report_type" value="wrong_category" id="wrongcat" required> <label for="wrongcat">{{ call $.T "wrong_category" }}</label><br />
-                    <input type="radio" name="report_type" value="duplicate_deprecated" id="dup" required> <label for="dup">{{ call $.T "duplicate_deprecated" }}</label><br />
-                    <button type="submit" class="btn btn-default">{{ call $.T "report_btn" }}</button>
-                </form> <br />
-                `;
-                var reportWindow = window.open("", 'reportWindow', "width=300,height=300");   // Opens a new window
-                reportWindow.document.write(reportContent);
-       }
-  </script>
-  <a onclick="reportPopup();" class="form-input">{{ call $.T "report_btn" }}</a>
-  {{end}}
+  <a id="reportPopup" href="#" class="form-input">{{ call $.T "report_btn" }}</a>
     {{ if HasAdmin $.User}}
     <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="form-input" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;">{{ call $.T "delete" }}</a>
     <a href="{{ genRoute "mod_tedit" }}?id={{ .ID }}" class="form-input">{{ call $.T "edit" }}</a>
+    {{ else if CurrentUserIdentical $.User .UploaderID }}
+    <a href="{{ genRoute "user_torrent_delete" }}?id={{ .ID }}" class="form-input" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;">{{ call $.T "delete" }}</a>
+    <a href="{{ genRoute "user_torrent_edit" }}?id={{ .ID }}" class="form-input">{{ call $.T "edit" }}</a>
     {{end}}
+{{end}}
   </div>
   <p class="torrent-hr">{{call $.T "description"}}</p>
   {{ if ne .Description ""}}
@@ -143,5 +128,42 @@
   </form>
   </div>
  </div>
+ {{ if gt $.User.ID 0 }}
+     <!-- Modal -->
+    <div id="modal_mod_tools" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <form method="post" action="/report/{{$.Torrent.ID}}">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>{{ call $.T "report_torrent_number" (print $.Torrent.ID) }}</h2>
+                </div>
+                <div class="modal-body">
+                    <h4>{{ call $.T "report_type" }}</h4>
+                        {{ template "csrf_field" $ }}
+                        <input type="radio" name="report_type" value="illegal_content" id="illegal" required> <label for="illegal">{{ call $.T "illegal_content" }}</label><br />
+                        <input type="radio" name="report_type" value="spam_garbage" id="spam" required> <label for="spam">{{ call $.T "spam_garbage" }}</label><br />
+                        <input type="radio" name="report_type" value="wrong_category" id="wrongcat" required> <label for="wrongcat">{{ call $.T "wrong_category" }}</label><br />
+                        <input type="radio" name="report_type" value="duplicate_deprecated" id="dup" required> <label for="dup">{{ call $.T "duplicate_deprecated" }}</label><br />
+                        {{template "captcha" (makeCaptchaData $.CaptchaID $.T)}}
+                </div>
+                <div class="modal-footer">
+                    <span><button id="confirm_changes" type="submit">{{ call $.T "yes"}}</button>
+                    <button class="close" onclick="Modal.CloseActive();">{{ call $.T "no"}}</button></span>
+                    <h3>{{ call $.T "are_you_sure" }} </h3>
+                </div>
+            </form>
+        </div>
+    </div>
+ {{end}}
 {{end}}
-
+{{ define "footer_js"}}
+<script type="text/javascript" src="{{ $.URL.Parse "/js/modal.js" }}"></script>
+<script type="text/javascript">
+    // Modal initialization
+    Modal.Init({
+        elements: document.getElementsByClassName("modal"),
+        button: "#reportPopup"
+    });
+</script>
+{{end}}

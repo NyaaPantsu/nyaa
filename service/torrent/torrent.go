@@ -2,18 +2,22 @@ package torrentService
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
-
-	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service"
+	"github.com/NyaaPantsu/nyaa/service/notifier"
+	"github.com/NyaaPantsu/nyaa/service/user"
+	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
+	"github.com/gorilla/mux"
 )
 
 /* Function to interact with Models
@@ -225,17 +229,13 @@ func DeleteTorrent(id string) (int, error) {
 		return http.StatusInternalServerError, errors.New("Torrent was not deleted")
 	}
 
-	// TODO Don't create a new client for each request
-	client, err := elastic.NewClient()
-	if err == nil {
-		err = torrent.DeleteFromESIndex(client)
+	if db.ElasticSearchClient != nil {
+		err := torrent.DeleteFromESIndex(db.ElasticSearchClient)
 		if err == nil {
 			log.Infof("Successfully deleted torrent to ES index.")
 		} else {
 			log.Errorf("Unable to delete torrent to ES index: %s", err)
 		}
-	} else {
-		log.Errorf("Unable to create elasticsearch client: %s", err)
 	}
 	return http.StatusOK, nil
 }
@@ -250,17 +250,13 @@ func DefinitelyDeleteTorrent(id string) (int, error) {
 		return http.StatusInternalServerError, errors.New("Torrent was not deleted")
 	}
 
-	// TODO Don't create a new client for each request
-	client, err := elastic.NewClient()
-	if err == nil {
-		err = torrent.DeleteFromESIndex(client)
+	if db.ElasticSearchClient != nil {
+		err := torrent.DeleteFromESIndex(db.ElasticSearchClient)
 		if err == nil {
 			log.Infof("Successfully deleted torrent to ES index.")
 		} else {
 			log.Errorf("Unable to delete torrent to ES index: %s", err)
 		}
-	} else {
-		log.Errorf("Unable to create elasticsearch client: %s", err)
 	}
 	return http.StatusOK, nil
 }
@@ -288,17 +284,14 @@ func UpdateTorrent(torrent model.Torrent) (int, error) {
 		return http.StatusInternalServerError, errors.New("Torrent was not updated")
 	}
 
-	// TODO Don't create a new client for each request
-	client, err := elastic.NewClient()
-	if err == nil {
-		err = torrent.AddToESIndex(client)
+// TODO Don't create a new client for each request
+	if db.ElasticSearchClient != nil {
+		err := torrent.AddToESIndex(db.ElasticSearchClient)
 		if err == nil {
 			log.Infof("Successfully updated torrent to ES index.")
 		} else {
 			log.Errorf("Unable to update torrent to ES index: %s", err)
 		}
-	} else {
-		log.Errorf("Unable to create elasticsearch client: %s", err)
 	}
 
 	return http.StatusOK, nil
@@ -308,4 +301,42 @@ func UpdateTorrent(torrent model.Torrent) (int, error) {
 func GetDeletedTorrents(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []model.Torrent, count int, err error) {
 	torrents, count, err = getTorrentsOrderBy(parameters, orderBy, limit, offset, true, true, true)
 	return
+}
+
+// ExistOrDelete : Check if a torrent exist with the same hash and if it can be replaced, it is replaced
+func ExistOrDelete(hash string, user *model.User) error {
+	torrentIndb := model.Torrent{}
+	db.ORM.Unscoped().Model(&model.Torrent{}).Where("torrent_hash = ?", hash).First(&torrentIndb)
+	if torrentIndb.ID > 0 {
+		if userPermission.CurrentUserIdentical(user, torrentIndb.UploaderID) && torrentIndb.IsDeleted() && !torrentIndb.IsBlocked() { // if torrent is not locked and is deleted and the user is the actual owner
+			_, err := DefinitelyDeleteTorrent(strconv.Itoa(int(torrentIndb.ID)))
+			if err != nil {
+				return err
+			}
+		} else {
+			return errors.New("Torrent already in database")
+		}
+	}
+	return nil
+}
+
+// NewTorrentEvent : Should be called when you create a new torrent
+func NewTorrentEvent(router *mux.Router, user *model.User, torrent *model.Torrent) error {
+	url, err := router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
+	if err != nil {
+		return err
+	}
+	if user.ID > 0 && config.Conf.Users.DefaultUserSettings["new_torrent"] { // If we are a member and notifications for new torrents are enabled
+		userService.GetFollowers(user) // We populate the liked field for users
+		if len(user.Followers) > 0 {   // If we are followed by at least someone
+			for _, follower := range user.Followers {
+				follower.ParseSettings() // We need to call it before checking settings
+				if follower.Settings.Get("new_torrent") {
+					T, _, _ := publicSettings.TfuncAndLanguageWithFallback(follower.Language, follower.Language) // We need to send the notification to every user in their language
+					notifierService.NotifyUser(&follower, torrent.Identifier(), fmt.Sprintf(T("new_torrent_uploaded"), torrent.Name, user.Username), url.String(), follower.Settings.Get("new_torrent_email"))
+				}
+			}
+		}
+	}
+	return nil
 }

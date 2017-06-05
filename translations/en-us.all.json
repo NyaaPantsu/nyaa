@@ -108,6 +108,10 @@
     "translation": "Registration was successful, you may now use your account."
   },
   {
+    "id":"email_placeholder",
+    "translation":"Can be left blank."
+  },
+  {
     "id":"settings",
     "translation": "Account Settings"
   },
@@ -1222,5 +1226,13 @@
   {
     "id": "mascot_url",
     "translation": "Mascot URL"
+  },
+  {
+    "id": "no_notifications",
+    "translation": "No Notifications"
+  },
+  {
+    "id": "report_msg",
+    "translation": "The torrent #%s has been reported!"
   }
 ]

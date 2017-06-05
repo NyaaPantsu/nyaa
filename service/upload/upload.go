@@ -48,7 +48,7 @@ func CheckTrackers(trackers []string) []string {
 }
 
 // IsUploadEnabled : Check if upload is enabled in config
-func IsUploadEnabled(u model.User) bool {
+func IsUploadEnabled(u *model.User) bool {
 	if config.Conf.Torrents.UploadsDisabled {
 		if config.Conf.Torrents.AdminsAreStillAllowedTo && u.IsModerator() {
 			return true

@@ -14,6 +14,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service"
+	"github.com/NyaaPantsu/nyaa/service/api"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
 	"github.com/NyaaPantsu/nyaa/service/notifier"
 	"github.com/NyaaPantsu/nyaa/service/report"
@@ -157,6 +158,7 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		err = db.ORM.Create(&report).Error
+		messages.AddInfoTf("infos", "report_msg", id)
 		if err != nil {
 			messages.ImportFromError("errors", err)
 		}
@@ -172,7 +174,7 @@ func TorrentEditUserPanel(w http.ResponseWriter, r *http.Request) {
 	messages := msg.GetMessages(r)
 	currentUser := getUser(r)
 	if userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
-		uploadForm := newUploadForm()
+		uploadForm := apiService.NewTorrentRequest()
 		uploadForm.Name = torrent.Name
 		uploadForm.Category = strconv.Itoa(torrent.Category) + "_" + strconv.Itoa(torrent.SubCategory)
 		uploadForm.Remake = torrent.Status == model.TorrentStatusRemake
@@ -190,7 +192,7 @@ func TorrentEditUserPanel(w http.ResponseWriter, r *http.Request) {
 // TorrentPostEditUserPanel : Controller for editing a user torrent by a user, after post request
 func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
-	var uploadForm uploadForm
+	var uploadForm apiService.TorrentRequest
 	id := r.URL.Query().Get("id")
 	messages := msg.GetMessages(r)
 	torrent, _ := torrentService.GetTorrentByID(id)
@@ -202,7 +204,6 @@ func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
 		}
 		if !messages.HasErrors() {
 			status := model.TorrentStatusNormal
-			uploadForm.Remake = r.FormValue(uploadFormRemake) == "on"
 			if uploadForm.Remake { // overrides trusted
 				status = model.TorrentStatusRemake
 			} else if currentUser.IsTrusted() {

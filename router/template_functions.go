@@ -236,4 +236,19 @@ var FuncMap = template.FuncMap{
 		}
 		return string(T(d))
 	},
+	"genUploaderLink": func(uploaderID uint, uploaderName template.HTML, torrentHidden bool) template.HTML {
+
+		if torrentHidden {
+			return template.HTML("れんちょん")
+		}
+		if uploaderID == 0 {
+			return template.HTML("れんちょん")
+		}
+		url, err := Router.Get("user_profile").URL("id", strconv.Itoa(int(uploaderID)), "username", string(uploaderName))
+		if err != nil {
+			return "error"
+		}
+		return template.HTML("<a href=\"" + url.String() + "\">" + string(uploaderName) + "</a>")
+
+	},
 }
