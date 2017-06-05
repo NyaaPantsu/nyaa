@@ -228,6 +228,52 @@ type TorrentJSON struct {
 	FileList     []FileJSON    `json:"file_list"`
 }
 
+// TODO: Need to get rid of TorrentJSON altogether and have only one true Torrent
+//       model
+func (t *TorrentJSON) ToTorrent() Torrent {
+	category, err := strconv.ParseInt(t.Category, 10, 64)
+	if err != nil {
+		category = 0
+	}
+	subCategory, err := strconv.ParseInt(t.SubCategory, 10, 64)
+	if err != nil {
+		subCategory = 0
+	}
+	// Need to add +00:00 at the end because ES doesn't store it by default
+	date, err := time.Parse(time.RFC3339, t.Date + "+00:00")
+	if err != nil {
+		// TODO: Not sure what I should do here
+		date = time.Now()
+	}
+	torrent := Torrent{
+		ID: t.ID,
+		Name: t.Name,
+		Hash: t.Hash,
+		Category: int(category),
+		SubCategory: int(subCategory),
+		Status: t.Status,
+		Date: date,
+		UploaderID: t.UploaderID,
+		Downloads: t.Downloads,
+		//Stardom: t.Stardom,
+		Filesize: t.Filesize,
+		//Description: t.Description,
+		//WebsiteLink: t.WebsiteLink,
+		//Trackers: t.Trackers,
+		//DeletedAt: t.DeletedAt,
+		// Uploader: TODO
+		//OldUploader: t.OldUploader,
+		//OldComments: TODO
+		// Comments: TODO
+		Seeders: t.Seeders,
+		Leechers: t.Leechers,
+		Completed: t.Completed,
+		LastScrape: t.LastScrape,
+		//FileList: TODO
+	}
+	return torrent
+}
+
 // ToJSON converts a model.Torrent to its equivalent JSON structure
 func (t *Torrent) ToJSON() TorrentJSON {
 	var trackers []string
