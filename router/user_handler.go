@@ -12,9 +12,9 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user/form"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/crypto"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/modelHelper"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/gorilla/mux"
 )
 
@@ -293,9 +293,14 @@ func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
 // UserLogoutHandler : Controller to logout users
 func UserLogoutHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
-	_, _ = userService.ClearCookie(w)
-	url, _ := Router.Get("home").URL()
-	http.Redirect(w, r, url.String(), http.StatusSeeOther)
+	logout := r.FormValue("logout")
+	if logout != "" {
+		_, _ = userService.ClearCookie(w)
+		url, _ := Router.Get("home").URL()
+		http.Redirect(w, r, url.String(), http.StatusSeeOther)
+	} else {
+		NotFoundHandler(w, r)
+	}
 }
 
 // UserFollowHandler : Controller to follow/unfollow users, need user id to follow
