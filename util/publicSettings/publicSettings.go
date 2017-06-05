@@ -159,6 +159,21 @@ func GetMascotFromRequest(r *http.Request) string {
 	return "show"
 }
 
+// GetMascotUrlFromRequest: Get the user selected mascot url from the request.
+// Returns an empty string if not set.
+func GetMascotUrlFromRequest(r *http.Request) string {
+	user, _ := getCurrentUser(r)
+	if user.ID > 0 {
+		return user.MascotURL
+	}
+
+	cookie, err := r.Cookie("mascot_url")
+	if err == nil {
+		return cookie.Value
+	}
+
+	return ""
+}
 
 func getCurrentUser(r *http.Request) (model.User, error) {
 	if userRetriever == nil {

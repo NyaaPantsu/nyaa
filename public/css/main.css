@@ -26,6 +26,10 @@ body {
 	pointer-events: auto;
 }
 
+#mascot.custom-mascot {
+	background-size: contain;
+}
+
 .header {
 	z-index: 3;
 	position: fixed;

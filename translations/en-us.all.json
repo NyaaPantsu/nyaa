@@ -1224,6 +1224,10 @@
     "translation": "User ID"
   },
   {
+    "id": "mascot_url",
+    "translation": "Mascot URL"
+  },
+  {
     "id": "no_notifications",
     "translation": "No Notifications"
   },
