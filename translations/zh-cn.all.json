@@ -53,7 +53,7 @@
   },
   {
     "id":"terms_conditions_confirm",
-    "translation": "按下 <strong class=\"label label-primary\">注册账号</strong> 即表示您同意本网站的 <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">条款与条件</a> 以及浏览器Cookie喵~"
+    "translation": "按下 <strong class=\"label label-primary\">注册账号</strong> 即表示您同意本网站的 <a id=\"modal_active\" href=\"#\">条款与条件</a> 以及浏览器Cookie喵~"
   },
   {
     "id":"signin",

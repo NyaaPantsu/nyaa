@@ -53,7 +53,7 @@
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "A <strong class=\"label label-primary\">Regisztráció</strong>-ra kattintva beleegyezel az oldal <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Felhasználási Feltételei</a>-be, és a Cookie-k használatába."
+    "translation": "A <strong class=\"label label-primary\">Regisztráció</strong>-ra kattintva beleegyezel az oldal <a id=\"modal_active\" href=\"#\">Felhasználási Feltételei</a>-be, és a Cookie-k használatába."
   },
   {
     "id": "signin",
