@@ -198,12 +198,11 @@ func APIUploadHandler(w http.ResponseWriter, r *http.Request) {
 	db.ORM.Create(&torrent)
 
 	if db.ElasticSearchClient != nil {
-			err := torrent.AddToESIndex(db.ElasticSearchClient)
-			if err == nil {
-				log.Infof("Successfully added torrent to ES index.")
-			} else {
-				log.Errorf("Unable to add torrent to ES index: %s", err)
-			}
+		err := torrent.AddToESIndex(db.ElasticSearchClient)
+		if err == nil {
+			log.Infof("Successfully added torrent to ES index.")
+		} else {
+			log.Errorf("Unable to add torrent to ES index: %s", err)
 		}
 	} else {
 		log.Errorf("Unable to create elasticsearch client: %s", err)
