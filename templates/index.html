@@ -27,7 +27,7 @@
 		<link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v={{ .Config.Version }}{{ .Config.Build }}">
 		<!-- User selected theme, if any, defaults to /g/ -->
 		{{if eq $.Theme ""}} 
-			<link rel="stylesheet" id="theme" href="/css/g.css?v={{ .Config.Version }}{{ .Config.Build }}">
+			<link rel="stylesheet" id="theme" href="/css/classic.css?v={{ .Config.Version }}{{ .Config.Build }}">
 		{{else}}
 			<link rel="stylesheet" id="theme" href="/css/{{$.Theme}}.css?v={{ .Config.Version }}{{ .Config.Build }}">
 		{{end}}
