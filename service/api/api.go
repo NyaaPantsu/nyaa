@@ -139,6 +139,13 @@ func (r *TorrentRequest) validateName() error {
 	return nil
 }
 
+func (r *TorrentRequest) validateDescription() error {
+	if len(r.Description) > 500 {
+		return errInvalidTorrentDescription
+	}
+	return nil
+}
+
 // TODO Check category is within accepted range
 func validateCategory(r *TorrentRequest) (error, int) {
 	if r.CategoryID == 0 {
@@ -280,6 +287,17 @@ func (r *TorrentRequest) ExtractBasicValue(req *http.Request) error {
 	r.WebsiteLink = strings.TrimSpace(r.WebsiteLink)
 	r.Magnet = strings.TrimSpace(r.Magnet)
 
+	// then actually check that we have everything we need
+	err := r.validateName()
+	if err != nil {
+		return err
+	}
+
+	err = r.validateDescription()
+	if err != nil {
+		return err
+	}
+
 	if r.WebsiteLink != "" {
 		// WebsiteLink
 		urlRegexp, _ := regexp.Compile(`^(https?:\/\/|ircs?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$`)
@@ -306,12 +324,6 @@ func (r *TorrentRequest) ExtractInfo(req *http.Request) error {
 	}
 
 	tfile, err := r.ValidateMultipartUpload(req)
-	if err != nil {
-		return err
-	}
-
-	// then actually check that we have everything we need
-	err = r.validateName()
 	if err != nil {
 		return err
 	}
