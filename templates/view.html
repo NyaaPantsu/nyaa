@@ -29,10 +29,10 @@
 <div style="text-align: left;" class="box">
     {{with .Torrent}}
     {{ range (index $.FormErrors "errors")}}
-        <div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
+        <p class="error-text">{{ . }}</p>
     {{end}}
     {{ range (index $.Infos "infos")}}
-        <div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
+        <p class="success-text">{{ . }}</p>
     {{end}}
     <div id="torrent-name" class="{{if eq .Status 2}}remake{{end}}
               {{if eq .Status 3}}trusted{{end}}
