@@ -76,7 +76,7 @@ func init() {
 	userRoutes.HandleFunc("/register", UserRegisterFormHandler).Name("user_register").Methods("GET")
 	userRoutes.HandleFunc("/login", UserLoginFormHandler).Name("user_login").Methods("GET")
 	userRoutes.HandleFunc("/register", UserRegisterPostHandler).Name("user_register").Methods("POST")
-	userRoutes.HandleFunc("/logout", UserLogoutHandler).Name("user_logout")
+	userRoutes.HandleFunc("/logout", UserLogoutHandler).Name("user_logout").Methods("POST")
 	userRoutes.Handle("/{id}/{username}", wrapHandler(gzipUserProfileHandler)).Name("user_profile").Methods("GET")
 	userRoutes.HandleFunc("/{id}/{username}/follow", UserFollowHandler).Name("user_follow").Methods("GET")
 	userRoutes.Handle("/{id}/{username}/edit", wrapHandler(gzipUserDetailsHandler)).Name("user_profile_details").Methods("GET")

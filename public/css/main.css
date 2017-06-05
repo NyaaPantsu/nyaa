@@ -961,3 +961,7 @@ input.filelist-checkbox:checked + table.table-filelist {
 .btn-blue:hover, .btn-red:hover, .btn-green:hover, .btn-orange:hover {
 	opacity: 0.7;
 }
+
+input.nav-btn {
+	cursor: pointer;
+}
