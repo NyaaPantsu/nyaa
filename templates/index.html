@@ -24,12 +24,12 @@
 		<!-- do NOT move -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 		<!-- Base theme -->
-		<link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v={{ .Config.Version }}">
+		<link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v={{ .Config.Version }}{{ .Config.Build }}">
 		<!-- User selected theme, if any, defaults to /g/ -->
 		{{if eq $.Theme ""}} 
-			<link rel="stylesheet" id="theme" href="/css/g.css?v={{ .Config.Version }}">
+			<link rel="stylesheet" id="theme" href="/css/g.css?v={{ .Config.Version }}{{ .Config.Build }}">
 		{{else}}
-			<link rel="stylesheet" id="theme" href="/css/{{$.Theme}}.css?v={{ .Config.Version }}">
+			<link rel="stylesheet" id="theme" href="/css/{{$.Theme}}.css?v={{ .Config.Version }}{{ .Config.Build }}">
 		{{end}}
 		<!-- Search Box for Google -->
 		<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"{{.Config.WebAddress.Nyaa}}/","potentialAction":{"@type":"SearchAction","target":"{{.Config.WebAddress.Nyaa}}/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
@@ -92,7 +92,7 @@
 				</div>
 			</footer>
 		</div>
-		<script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}?v={{ .Config.Version }}" async></script>
+		<script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}?v={{ .Config.Version }}{{ .Config.Build }}" async></script>
 		{{ block "footer_js" .}}{{end}}
 	</body>
 </html>
