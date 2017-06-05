@@ -84,8 +84,9 @@
                         <input type="radio" name="report_type" value="spam_garbage" id="spam" required> <label for="spam">{{ call $.T "spam_garbage" }}</label><br />
                         <input type="radio" name="report_type" value="wrong_category" id="wrongcat" required> <label for="wrongcat">{{ call $.T "wrong_category" }}</label><br />
                         <input type="radio" name="report_type" value="duplicate_deprecated" id="dup" required> <label for="dup">{{ call $.T "duplicate_deprecated" }}</label><br />
-                        {{template "captcha" (makeCaptchaData .CaptchaID $.T)}}
-                    <div class="modal-footer">
+                        {{template "captcha" (makeCaptchaData $.CaptchaID $.T)}}
+                </div>
+                <div class="modal-footer">
                     <span><button id="confirm_changes" type="submit">{{ call $.T "yes"}}</button>
                     <button class="close" onclick="Modal.CloseActive();">{{ call $.T "no"}}</button></span>
                     <h3>{{ call $.T "are_you_sure" }} </h3>
@@ -94,7 +95,6 @@
         </div>
     </div>
   <a id="reportPopup" href="#" class="form-input">{{ call $.T "report_btn" }}</a>
-  {{end}}
     {{ if HasAdmin $.User}}
     <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="form-input" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;">{{ call $.T "delete" }}</a>
     <a href="{{ genRoute "mod_tedit" }}?id={{ .ID }}" class="form-input">{{ call $.T "edit" }}</a>
@@ -102,6 +102,7 @@
     <a href="{{ genRoute "user_torrent_delete" }}?id={{ .ID }}" class="form-input" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;">{{ call $.T "delete" }}</a>
     <a href="{{ genRoute "user_torrent_edit" }}?id={{ .ID }}" class="form-input">{{ call $.T "edit" }}</a>
     {{end}}
+{{end}}
   </div>
   <p class="torrent-hr">{{call $.T "description"}}</p>
   {{ if ne .Description ""}}
