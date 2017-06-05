@@ -60,7 +60,7 @@ while fetches:
             }
             new_action['_source'] = doc
             select_cur.close()
-        delete_cur.execute('DELETE FROM reindex_torrents WHERE id = {reindex_id}'.format(reindex_id=reindex_id))
+        delete_cur.execute('DELETE FROM reindex_{torrent_tablename} WHERE reindex_torrents_id = {reindex_id}'.format(reindex_id=reindex_id,torrent_tablename=torrent_tablename))
         actions.append(new_action)
     pgconn.commit() # Commit the deletes transaction
     delete_cur.close()
