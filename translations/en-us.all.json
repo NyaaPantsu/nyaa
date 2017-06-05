@@ -1222,5 +1222,9 @@
   {
     "id": "user_id",
     "translation": "User ID"
+  },
+  {
+    "id": "no_notifications",
+    "translation": "No Notifications"
   }
 ]
