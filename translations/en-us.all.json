@@ -1218,5 +1218,9 @@
   {
     "id": "user_id",
     "translation": "User ID"
+  },
+  {
+    "id": "mascot_url",
+    "translation": "Mascot URL"
   }
 ]
