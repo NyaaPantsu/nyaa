@@ -33,6 +33,7 @@ type User struct {
 	Language       string    `gorm:"column:language"`
 	Theme          string    `gorm:"column:theme"`
 	Mascot         string    `gorm:"column:mascot"`
+	MascotURL      string    `gorm:"column:mascot_url"`
 	UserSettings   string    `gorm:"column:settings"`
 
 	// TODO: move this to PublicUser

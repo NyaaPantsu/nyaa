@@ -68,16 +68,19 @@
 			<div class="content container center">
 				{{block "content" .}}{{call $.T "nothing_here"}}{{end}}
 			</div>
+
 			{{if ne .Mascot "hide"}}
-				<div id="mascot" class="hide-xs" onclick="playVoice();"></div>
-				{{ if eq .Theme "tomorrow" }}
-				<audio id="explosion" hidden preload="none">
-					<source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
-				</audio>
-				{{ else }}
-				<audio id="nyanpassu" hidden preload="none">
-					<source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
-				</audio>
+				<div id="mascot" class="hide-xs{{if ne .MascotURL ""}} custom-mascot{{end}}" onclick="playVoice();" {{if ne .MascotURL ""}}style="background-image: url('{{.MascotURL}}');"{{end}}></div>
+				{{ if ne .MascotURL "" }}
+					{{ if eq .Theme "tomorrow" }}
+					<audio id="explosion" hidden preload="none">
+						<source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
+					</audio>
+					{{ else }}
+					<audio id="nyanpassu" hidden preload="none">
+						<source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
+					</audio>
+					{{end}}
 				{{end}}
 			{{end}}
 			<div class="pagination">

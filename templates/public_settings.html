@@ -25,6 +25,11 @@
 				<option value="hide" {{ if eq $.Mascot "hide" }} selected{{end}}>{{call $.T "hide"}}</option>
 			</select>
 			</br>
+			
+			<h3>{{call $.T "mascot_url"}}</h3>
+			<input type="text" name="mascot_url" class="form-input" value="{{ $.MascotURL }}">
+			</br>
+
 			<p>{{call $.T "cookies"}}</p>
 			<button type="submit" class="form-input btn">{{call $.T "save_changes"}}</button>
 		</div>

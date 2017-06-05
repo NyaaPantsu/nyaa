@@ -103,6 +103,7 @@ type commonTemplateVariables struct {
 	T          publicSettings.TemplateTfunc
 	Theme      string
 	Mascot     string
+	MascotURL  string
 	User       *model.User
 	URL        *url.URL   // for parsing URL in templates
 	Route      *mux.Route // for getting current route in templates
@@ -156,6 +157,7 @@ func newCommonVariables(r *http.Request) commonTemplateVariables {
 		T:          publicSettings.GetTfuncFromRequest(r),
 		Theme:      publicSettings.GetThemeFromRequest(r),
 		Mascot:     publicSettings.GetMascotFromRequest(r),
+		MascotURL:  publicSettings.GetMascotUrlFromRequest(r),
 		User:       getUser(r),
 		URL:        r.URL,
 		Route:      mux.CurrentRoute(r),
