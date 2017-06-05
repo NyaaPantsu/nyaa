@@ -6,8 +6,6 @@ import (
 	"strconv"
 	"time"
 
-	elastic "gopkg.in/olivere/elastic.v5"
-
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
@@ -91,16 +89,13 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 		torrent.ParseTrackers(uploadForm.Trackers)
 		db.ORM.Create(&torrent)
 
-		client, err := elastic.NewClient()
-		if err == nil {
-			err = torrent.AddToESIndex(client)
+		if db.ElasticSearchClient != nil {
+			err := torrent.AddToESIndex(db.ElasticSearchClient)
 			if err == nil {
 				log.Infof("Successfully added torrent to ES index.")
 			} else {
 				log.Errorf("Unable to add torrent to ES index: %s", err)
 			}
-		} else {
-			log.Errorf("Unable to create elasticsearch client: %s", err)
 		}
 
 		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))

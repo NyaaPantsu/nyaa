@@ -145,6 +145,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err.Error())
 		}
+		db.ElasticSearchClient, _ = db.ElasticSearchInit()
 		err = publicSettings.InitI18n(conf.I18n, userService.NewCurrentUserRetriever())
 		if err != nil {
 			log.Fatal(err.Error())
