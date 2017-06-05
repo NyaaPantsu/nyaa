@@ -207,6 +207,7 @@ type TorrentJSON struct {
 	ID           uint          `json:"id"`
 	Name         string        `json:"name"`
 	Status       int           `json:"status"`
+	Hidden       bool          `json:"-"`
 	Hash         string        `json:"hash"`
 	Date         string        `json:"date"`
 	Filesize     int64         `json:"filesize"`
@@ -240,21 +241,21 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 		subCategory = 0
 	}
 	// Need to add +00:00 at the end because ES doesn't store it by default
-	date, err := time.Parse(time.RFC3339, t.Date + "+00:00")
+	date, err := time.Parse(time.RFC3339, t.Date+"+00:00")
 	if err != nil {
 		// TODO: Not sure what I should do here
 		date = time.Now()
 	}
 	torrent := Torrent{
-		ID: t.ID,
-		Name: t.Name,
-		Hash: t.Hash,
-		Category: int(category),
+		ID:          t.ID,
+		Name:        t.Name,
+		Hash:        t.Hash,
+		Category:    int(category),
 		SubCategory: int(subCategory),
-		Status: t.Status,
-		Date: date,
-		UploaderID: t.UploaderID,
-		Downloads: t.Downloads,
+		Status:      t.Status,
+		Date:        date,
+		UploaderID:  t.UploaderID,
+		Downloads:   t.Downloads,
 		//Stardom: t.Stardom,
 		Filesize: t.Filesize,
 		//Description: t.Description,
@@ -265,9 +266,9 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 		//OldUploader: t.OldUploader,
 		//OldComments: TODO
 		// Comments: TODO
-		Seeders: t.Seeders,
-		Leechers: t.Leechers,
-		Completed: t.Completed,
+		Seeders:    t.Seeders,
+		Leechers:   t.Leechers,
+		Completed:  t.Completed,
 		LastScrape: t.LastScrape,
 		//FileList: TODO
 	}
@@ -313,12 +314,9 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		return strings.ToLower(fileListJSON[i].Path) < strings.ToLower(fileListJSON[j].Path)
 	})
 
-	uploader := ""
+	uploader := "れんちょん" // by default
 	var uploaderID uint
-	if t.Hidden {
-		uploader = "れんちょん"
-		uploaderID = 0
-	} else if t.Uploader != nil {
+	if t.Uploader != nil {
 		uploader = t.Uploader.Username
 		uploaderID = t.UploaderID
 	}
@@ -336,6 +334,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		ID:           t.ID,
 		Name:         t.Name,
 		Status:       t.Status,
+		Hidden:       t.Hidden,
 		Hash:         t.Hash,
 		Date:         t.Date.Format(time.RFC3339),
 		Filesize:     t.Filesize,
