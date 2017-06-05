@@ -5,16 +5,20 @@
 	<div style="clear: both;"></div>
 	</div>
 	{{ range (index $.FormInfos "infos")}}
-		<div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
+		<p class="success-text">{{ . }}</p>
 	{{end}}
-	<table class="table table-hover table-striped">
+	{{ if gt (len .Notifications) 0}}
+	<table>
 		{{ range .Notifications }}
 		<tr><td>
 			<div style="padding: 0 1rem 1rem;">
-				<a href="{{ .URL }}?notif"><h3><i class="glyphicon glyphicon-bell profile-usertitle-name" ></i>{{ .Content }}</h3></a>
+				<a href="{{ .URL }}?notif"><h3>{{ .Content }}</h3></a>
 			</div>
 		</td></tr>
 		{{end}}
 	</table>
+	{{else}}
+	<h2>No notifications</h2>
+	{{end}}
 	{{end}}
 {{end}}

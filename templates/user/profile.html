@@ -4,7 +4,7 @@
 {{define "rsstitle" }}{{ .UserProfile.Username }}{{end}}
 {{define "content"}}
 {{ range (index $.FormInfos "infos")}}
-	<div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
+	<p class="success-text">{{ . }}</p>
 {{end}}
 {{with .UserProfile}}
 	<div class="profile-main">

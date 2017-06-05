@@ -108,6 +108,10 @@
     "translation": "Registration was successful, you may now use your account."
   },
   {
+    "id":"email_placeholder",
+    "translation":"Can be left blank."
+  },
+  {
     "id":"settings",
     "translation": "Account Settings"
   },
