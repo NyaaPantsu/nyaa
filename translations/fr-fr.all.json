@@ -768,6 +768,22 @@
     "translation": "Votre profil a été correctement mis à jour !"
   },
   {
+    "id": "email_changed",
+    "translation": "L'adresse email a été modifiée avec succès ! Confirmez le changement en cliquant sur le lien envoyé à : %s"
+  },
+  {
+    "id": "delete_account",
+    "translation": "Supprimer compte"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "Êtes-vous sûr de vouloir supprimer ce compte ?"
+  },
+  {
+    "id": "delete_success",
+    "translation": "Le compte a été supprimé avec succès !"
+  },
+  {
     "id": "no_action_selected",
     "translation": "Vous devez indiquer ce que vous souhaitez faire avec votre sélection."
   },
@@ -860,24 +876,24 @@
     "translation": "Annuler"
   },
   {
-    "id": "delete_account",
-    "translation": "Supprimer compte"
+    "id": "Nyaa Pantsu",
+    "translation": "Pantsu"
   },
   {
-    "id": "delete_account_confirm",
-    "translation": "Êtes-vous sûr de vouloir supprimer ce compte ?"
+    "id": "Torrents",
+    "translation": "Torrents"
   },
   {
-    "id": "delete_success",
-    "translation": "Le compte a été supprimé avec succès !"
+    "id": "Users",
+    "translation": "Utilisateurs"
   },
   {
-    "id": "email_changed",
-    "translation": "L'adresse email a été modifiée avec succès ! Confirmez le changement en cliquant sur le lien envoyé à : %s"
+    "id": "Comments",
+    "translation": "Commentaires"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "Activer la navigation"
+    "id": "Torrent Reports",
+    "translation": "Signalements de torrents"
   },
   {
     "id":"show_mod_tools",
@@ -930,6 +946,70 @@
   {
     "id": "delete",
     "translation": "Supprimer"
+  },
+  {
+    "id": "try_new_attempt",
+    "translation": "Nouvel essai..."
+  },
+  {
+    "id": "query_is_broken",
+    "translation": "La requête ({0}?{1}) semble interrompue."
+  },
+  {
+    "id": "query_executed_success",
+    "translation": "Requête exécutée avec succès."
+  },
+  {
+    "id": "all_operations_done",
+    "translation": "Toutes les opérations sont réalisées."
+  },
+  {
+    "id": "refreshing_in",
+    "translation": "Rafraîchissement de la page dans {0} secondes..."
+  },
+  {
+    "id": "delete_reports_with_torrents",
+    "translation": "Souhaitez-vous supprimer les signalements en même temps que les torrents sélectionnés ?"
+  },
+  {
+    "id": "with_st",
+    "translation": "avec {0}"
+  },
+  {
+    "id": "and_reports",
+    "translation": " et signalements"
+  },
+  {
+    "id": "reports",
+    "translation": "Signalements"
+  },
+  {
+    "id": "lock",
+    "translation": "Bloquer"
+  },
+  {
+    "id": "status_js",
+    "translation": "Statut : {0}"
+  },
+  {
+    "id": "owner_id_js",
+    "translation": "ID compte : {0}"
+  },
+  {
+    "id": "category_js",
+    "translation": "Catégorie : {0}"
+  },
+  {
+    "id": "no_changes",
+    "translation": "Aucune modification"
+  },
+  {
+    "id": "query_nb",
+    "translation": "Requête n° {0}"
+  },
+  {
+    "id": "owner_id_placeholder",
+    "translation": "ID du compte (e.g. Ren-chon = 0)"
   },
   {
     "id": "no_owner_selected",
@@ -1004,76 +1084,40 @@
     "translation": "Torrents supprimés"
   },
   {
-    "id": "owner_id_placeholder",
-    "translation": "ID du compte (e.g. Ren-chon = 0)"
+    "id": "moderation_overview",
+    "translation": "Aperçu de la modération"
   },
   {
-    "id": "try_new_attempt",
-    "translation": "Nouvel essai..."
+    "id": "last_torrents",
+    "translation": "Derniers torrents"
   },
   {
-    "id": "query_is_broken",
-    "translation": "La requête ({0}?{1}) semble interrompue."
+    "id": "last_reports",
+    "translation": "Derniers signalements"
   },
   {
-    "id": "query_executed_success",
-    "translation": "Requête exécutée avec succès."
+    "id": "last_users",
+    "translation": "Derniers utilisateurs"
   },
   {
-    "id": "all_operations_done",
-    "translation": "Toutes les opérations sont réalisées."
-  },
-  {
-    "id": "refreshing_in",
-    "translation": "Rafraîchissement de la page dans {0} secondes..."
-  },
-  {
-    "id": "delete_reports_with_torrents",
-    "translation": "Souhaitez-vous supprimer les signalements en même temps que les torrents sélectionnés ?"
-  },
-  {
-    "id": "with_st",
-    "translation": "avec {0}"
-  },
-  {
-    "id": "and_reports",
-    "translation": " et signalements"
-  },
-  {
-    "id": "reports",
-    "translation": "signalements"
-  },
-  {
-    "id": "lock",
-    "translation": "bloquer"
-  },
-  {
-    "id": "status_js",
-    "translation": "statut : {0}"
-  },
-  {
-    "id": "owner_id_js",
-    "translation": "id_compte : {0}"
-  },
-  {
-    "id": "category_js",
-    "translation": "catégorie : {0}"
-  },
-  {
-    "id": "no_changes",
-    "translation": "Aucune modification"
-  },
-  {
-    "id": "query_nb",
-    "translation": "Requête n° {0}"
-  },
-  {
-    "id": "reason",
-    "translation": "Raison"
+    "id": "last_comments",
+    "translation": "Derniers commentaires"
   },
   {
     "id": "actions",
     "translation": "Actions"
+  },
+  {
+    "id": "more",
+    "translation": "Plus"
+  },
+  {
+    "id": "torrents_list",
+    "translation": "Liste des torrents"
+  },
+  {
+    "id": "torrent_edit_panel",
+    "translation": "Panneau d'édition du torrent"
   },
   {
     "id": "action_select",
@@ -1092,48 +1136,12 @@
     "translation": "Torrents non supprimés"
   },
   {
-    "id": "more",
-    "translation": "Plus"
-  },
-  {
-    "id": "last_comments",
-    "translation": "Derniers commentaires"
-  },
-  {
-    "id": "last_reports",
-    "translation": "Derniers signalements"
-  },
-  {
-    "id": "last_torrents",
-    "translation": "Derniers torrents"
-  },
-  {
-    "id": "last_users",
-    "translation": "Derniers utilisateurs"
-  },
-  {
-    "id": "moderation_overview",
-    "translation": "Aperçu de la modération"
-  },
-  {
-    "id": "users_list",
-    "translation": "Liste des utilisateurs"
-  },
-  {
-    "id": "comments_list",
-    "translation": "Liste des commentaires"
-  },
-  {
     "id": "reports_list",
     "translation": "Liste des signalements"
   },
   {
-    "id": "torrents_list",
-    "translation": "Liste des torrents"
-  },
-  {
-    "id": "torrent_edit_panel",
-    "translation": "Panneau d'édition du torrent"
+    "id": "reason",
+    "translation": "Raison"
   },
   {
     "id": "torrent_reassign",
@@ -1142,6 +1150,18 @@
   {
     "id": "reassign_warning",
     "translation": "La réassignation de torrents à un nouvel utilisateur est difficilement réversible et doit être effectuée avec attention."
+  },
+  {
+    "id":"reassign_to",
+    "translation": "Réassigner à :"
+  },
+  {
+    "id": "user_id",
+    "translation": "ID d'utilisateur"
+  },
+  {
+    "id": "reassign_based_on",
+    "translation": "Réassigner en fonction de :"
   },
   {
     "id": "previous_username",
@@ -1160,15 +1180,11 @@
     "translation": "Cela peut prendre un certain temps, veuillez ne pas interrompre la requête."
   },
   {
-    "id":"reassign_to",
-    "translation": "Réassigner à :"
+    "id": "users_list",
+    "translation": "Liste des utilisateurs"
   },
   {
-    "id": "reassign_based_on",
-    "translation": "Réassigner en fonction de :"
-  },
-  {
-    "id": "user_id",
-    "translation": "ID d'utilisateur"
+    "id": "comments_list",
+    "translation": "Liste des commentaires"
   }
 ]
