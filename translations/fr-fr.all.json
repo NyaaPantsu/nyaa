@@ -68,6 +68,10 @@
     "translation": "Masquer"
   },
   {
+    "id": "mascot_url",
+    "translation": "URL de la mascotte"
+  },
+  {
     "id": "cookies",
     "translation": "En cliquant sur Sauvegarder, vous acceptez notre utilisation des cookies."
   },
@@ -509,8 +513,12 @@
   },
   {
     "id": "report_torrent_number",
-    "translation": "Signaler le torrent n°%s"
+    "translation": "Signaler le torrent n° %s"
   },
+  {
+    "id": "report_msg",
+    "translation": "Le torrent n° %s a été signalé."
+  }
   {
     "id": "report_type",
     "translation": "Motif de signalement"
@@ -680,6 +688,10 @@
     "translation": "Notifications"
   },
   {
+    "id": "no_notifications",
+    "translation": "Aucune notification"
+  },
+  {
     "id": "new_torrent_uploaded",
     "translation": "Nouveau torrent : \"%s\" de %s"
   },
@@ -706,6 +718,10 @@
   {
     "id": "api_token",
     "translation": "Authentifieur d'API"
+  },
+  {
+    "id":"email_placeholder",
+    "translation":"Peut être laissé vide."
   },
   {
     "id": "current_password",
