@@ -12,9 +12,9 @@
             {{ block "csrf_field" $ }}{{end}}
             <label class="input-label">{{call $.T "api_token" }}:</label>
               <p style="font-family: monospace;">{{.APIToken}}</p>
-              <a class="form-input up-input" href="{{ genRoute "user_profile_apireset" "id" (print .ID) "username" .Username }}">Reset Api key</a> <br> <br>
+              <a class="form-input up-input" href="{{ genRoute "user_profile_apireset" "id" (print .ID) "username" .Username }}">Reset API key</a> <br> <br>
             <label class="input-label">{{ call $.T "email_address" }}:</label> <br>
-              <input class="form-input up-input" type="text" name="email" id="email" value="{{.Email}}"> <br>
+              <input class="form-input up-input" placeholder="{{ call $.T "email_placeholder"}}" type="text" name="email" id="email" value="{{.Email}}"> <br>
 	 			{{ range (index $.FormErrors "email")}}
 					<p class="error-text">{{ . }}</p>
 				{{end}}

@@ -1,25 +1,26 @@
 {{define "title"}}Torrent Edit{{end}}
 {{define "content"}}
-  <div class="blockBody">
+  <div class="box results">
+  <h3 id="torrents">{{ call $.T "torrent_edit_panel" }}</h3>
   {{with .Form}}
-  <form enctype="multipart/form-data" role="upload" method="POST">
+  <form style="text-align:left;padding-left:10px;padding-right:10px;" enctype="multipart/form-data" role="upload" method="POST">
         {{ block "csrf_field" $ }}{{end}}
 		{{ range (index $.FormInfos "infos")}}
-			<div class="alert alert-info"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-info-sign"></i> {{ . }}</div>
+			<p class="success-text">{{ . }}</p>
 		{{end}}
 		{{ range (index $.FormErrors "errors")}}
-			<div class="alert alert-danger"><a class="panel-close close" data-dismiss="alert">×</a><i class="glyphicon glyphicon-exclamation-sign"></i> {{ . }}</div>
+			<p class="error-text">{{ . }}</p>
 		{{end}}
       <div class="form-group">
-      <label for="name">{{call $.T "name"}}</label>
-          <input type="text" name="name" class="form-control" placeholder="{{call $.T "file_name"}}" value="{{.Name}}" required>
+      <label class="input-label" for="name">{{call $.T "name"}}</label>
+          <input type="text" name="name" class="form-input up-input" placeholder="{{call $.T "file_name"}}" value="{{.Name}}" required>
       </div>
       <div class="form-group">
           <label for="c">{{call $.T "category"}}</label>
-          <select name="c" class="form-control input-sm">
+          <select name="c" class="form-input up-input">
               <option value="">{{call $.T "select_a_torrent_category"}}</option>
               {{ range $name_cat, $id_cat := (GetCategories false) }}
-              <option value="{{ $id_cat }}" {{if eq $.Upload.Category $id_cat }}selected{{end}}>{{call $.T $name_cat }}</option>
+              <option value="{{ $id_cat }}" {{if eq $.Form.Category $id_cat }}selected{{end}}>{{call $.T $name_cat }}</option>
               {{ end }}
           </select>
       </div>
@@ -34,15 +35,15 @@
 		</p>
 		{{ end }}
       <div class="form-group">
-          <label for="website_link">{{call $.T "website_link"}}</label>
-          <input name="website_link" id="website_link" class="form-control" type="text" value="{{.WebsiteLink}}">
+          <label class="input-label" for="website_link">{{call $.T "website_link"}}</label>
+          <input name="website_link" id="website_link" class="form-input up-input" type="text" value="{{.WebsiteLink}}">
       </div>
       <div class="form-group">
           <label for="desc">{{call $.T "torrent_description"}}</label>
           <p class="help-block">{{call $.T "description_markdown_notice"}}</p>
-          <textarea name="desc" class="form-control torrent-desc" rows="10">{{.Description}}</textarea>
+          <textarea style="height: 10rem;" name="desc" class="form-input up-input" rows="10">{{.Description}}</textarea>
       </div>
-      <button type="submit" class="btn btn-success">{{call $.T "save_changes"}}</button>
+      <button type="submit" class="form-input up-input">{{call $.T "save_changes"}}</button>
       <br>
       <br>
   </form>

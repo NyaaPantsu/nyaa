@@ -41,7 +41,7 @@ Your browser does not support the audio element.
               <th class="tr-date hide-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{call $.T "date"}}<span class="sort-arrows">{{ genSortArrows .URL "2" }}</span></a></th>
           </tr>
           </thead>
-          <tbody id="torrentListResults">
+          <tbody>
           {{ range .Models}}
           <tr id="torrent_{{ .ID }}" class="torrent-info
               {{if eq .Status 2}}remake{{end}}
@@ -66,9 +66,9 @@ Your browser does not support the audio element.
                       {{.Name}}
                   </a>
               </td>
-              <td class="tr-cs home-td hide-xs">
+              <td class="tr-cs home-td">
               {{ if gt (len .Comments) 0 }}
-                  <i class="comment-icon" title="{{ call $.T "comments" }}">{{len .Comments}}</i>
+                  <span>{{len .Comments}}</span>
               {{end}}
               </td>
               <td class="tr-links home-td">
