@@ -8,8 +8,6 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	elastic "gopkg.in/olivere/elastic.v5"
-
 	"github.com/NyaaPantsu/nyaa/cache"
 	"github.com/NyaaPantsu/nyaa/common"
 	"github.com/NyaaPantsu/nyaa/config"
@@ -79,11 +77,10 @@ func SearchByQueryDeleted(r *http.Request, pagenum int) (search common.SearchPar
 func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool, deleted bool) (
 	search common.SearchParam, tor []model.Torrent, count int, err error,
 ) {
-	client, err := elastic.NewClient()
-	if err == nil {
+	if db.ElasticSearchClient != nil {
 		var torrentParam common.TorrentParam
 		torrentParam.FromRequest(r)
-		totalHits, torrents, err := torrentParam.Find(client)
+		totalHits, torrents, err := torrentParam.Find(db.ElasticSearchClient)
 		searchParam := common.SearchParam{
 			TorrentID: uint(torrentParam.TorrentID),
 			FromID:    uint(torrentParam.FromID),

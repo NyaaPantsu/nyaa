@@ -7,6 +7,7 @@ import (
 	"github.com/azhao12345/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres" // Need for postgres support
 	_ "github.com/jinzhu/gorm/dialects/sqlite"   // Need for sqlite
+	elastic "gopkg.in/olivere/elastic.v5"
 )
 
 const (
@@ -23,9 +24,21 @@ var DefaultLogger Logger
 
 // ORM : Variable for interacting with database
 var ORM *gorm.DB
+var ElasticSearchClient *elastic.Client
 
 // IsSqlite : Variable to know if we are in sqlite or postgres
 var IsSqlite bool
+
+func ElasticSearchInit() (*elastic.Client, error) {
+	client, err := elastic.NewClient()
+	if err != nil {
+		log.Errorf("Unable to create elasticsearch client: %s", err)
+		return nil, err
+	} else {
+		log.Infof("Using elasticsearch client")
+		return client, nil
+	}
+}
 
 // GormInit init gorm ORM.
 func GormInit(conf *config.Config, logger Logger) (*gorm.DB, error) {

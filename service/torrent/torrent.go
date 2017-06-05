@@ -7,8 +7,6 @@ import (
 	"strconv"
 	"strings"
 
-	elastic "gopkg.in/olivere/elastic.v5"
-
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
@@ -231,17 +229,13 @@ func DeleteTorrent(id string) (int, error) {
 		return http.StatusInternalServerError, errors.New("Torrent was not deleted")
 	}
 
-	// TODO Don't create a new client for each request
-	client, err := elastic.NewClient()
-	if err == nil {
-		err = torrent.DeleteFromESIndex(client)
+	if db.ElasticSearchClient != nil {
+		err := torrent.DeleteFromESIndex(db.ElasticSearchClient)
 		if err == nil {
 			log.Infof("Successfully deleted torrent to ES index.")
 		} else {
 			log.Errorf("Unable to delete torrent to ES index: %s", err)
 		}
-	} else {
-		log.Errorf("Unable to create elasticsearch client: %s", err)
 	}
 	return http.StatusOK, nil
 }
@@ -256,17 +250,13 @@ func DefinitelyDeleteTorrent(id string) (int, error) {
 		return http.StatusInternalServerError, errors.New("Torrent was not deleted")
 	}
 
-	// TODO Don't create a new client for each request
-	client, err := elastic.NewClient()
-	if err == nil {
-		err = torrent.DeleteFromESIndex(client)
+	if db.ElasticSearchClient != nil {
+		err := torrent.DeleteFromESIndex(db.ElasticSearchClient)
 		if err == nil {
 			log.Infof("Successfully deleted torrent to ES index.")
 		} else {
 			log.Errorf("Unable to delete torrent to ES index: %s", err)
 		}
-	} else {
-		log.Errorf("Unable to create elasticsearch client: %s", err)
 	}
 	return http.StatusOK, nil
 }
@@ -294,17 +284,14 @@ func UpdateTorrent(torrent model.Torrent) (int, error) {
 		return http.StatusInternalServerError, errors.New("Torrent was not updated")
 	}
 
-	// TODO Don't create a new client for each request
-	client, err := elastic.NewClient()
-	if err == nil {
-		err = torrent.AddToESIndex(client)
+// TODO Don't create a new client for each request
+	if db.ElasticSearchClient != nil {
+		err := torrent.AddToESIndex(db.ElasticSearchClient)
 		if err == nil {
 			log.Infof("Successfully updated torrent to ES index.")
 		} else {
 			log.Errorf("Unable to update torrent to ES index: %s", err)
 		}
-	} else {
-		log.Errorf("Unable to create elasticsearch client: %s", err)
 	}
 
 	return http.StatusOK, nil
