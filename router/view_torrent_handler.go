@@ -158,6 +158,7 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		err = db.ORM.Create(&report).Error
+		messages.AddInfoTf("infos", "report_msg", id)
 		if err != nil {
 			messages.ImportFromError("errors", err)
 		}

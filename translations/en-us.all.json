@@ -1218,5 +1218,9 @@
   {
     "id": "user_id",
     "translation": "User ID"
+  },
+  {
+    "id": "report_msg",
+    "translation": "The torrent has been reported!"
   }
 ]
