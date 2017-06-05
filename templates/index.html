@@ -25,7 +25,7 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 		<!-- Base theme -->
 		<link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v={{ .Config.Version }}{{ .Config.Build }}">
-		<!-- User selected theme, if any, defaults to /g/ -->
+		<!-- User selected theme, if any, defaults to classic theme -->
 		{{if eq $.Theme ""}} 
 			<link rel="stylesheet" id="theme" href="/css/classic.css?v={{ .Config.Version }}{{ .Config.Build }}">
 		{{else}}
