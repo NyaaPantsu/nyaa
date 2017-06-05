@@ -237,6 +237,7 @@ var FuncMap = template.FuncMap{
 		return string(T(d))
 	},
 	"genUploaderLink": func(uploaderID uint, uploaderName template.HTML, torrentHidden bool) template.HTML {
+
 		if torrentHidden {
 			return template.HTML("れんちょん")
 		}
@@ -248,5 +249,6 @@ var FuncMap = template.FuncMap{
 			return "error"
 		}
 		return template.HTML("<a href=\"" + url.String() + "\">" + string(uploaderName) + "</a>")
+
 	},
 }
