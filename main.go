@@ -32,7 +32,7 @@ func RunServer(conf *config.Config) {
 	// TODO Use config from cli
 	os.Mkdir(router.GPGPublicKeyPath, 700)
 
-	http.Handle("/", router.Router)
+	http.Handle("/", router.CSRFRouter)
 
 	// Set up server,
 	srv := &http.Server{

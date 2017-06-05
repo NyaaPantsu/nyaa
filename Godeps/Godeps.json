@@ -174,11 +174,6 @@
 			"Rev": "08b5f424b9271eedf6f9f0ce86cb9396ed337a42"
 		},
 		{
-			"ImportPath": "github.com/gorilla/csrf",
-			"Comment": "v1.5-4-ge6dca67",
-			"Rev": "e6dca6753d92320b18aaf5d4682691b96f7b4564"
-		},
-		{
 			"ImportPath": "github.com/gorilla/handlers",
 			"Comment": "v1.2-4-g13d7309",
 			"Rev": "13d73096a474cac93275c679c7b8a2dc17ddba82"
@@ -206,6 +201,11 @@
 		{
 			"ImportPath": "github.com/jinzhu/inflection",
 			"Rev": "1c35d901db3da928c72a72d8458480cc9ade058f"
+		},
+		{
+			"ImportPath": "github.com/justinas/nosurf",
+			"Comment": "0.1-68-g8e15682",
+			"Rev": "8e15682772641a1e39c431233e6a9338a32def32"
 		},
 		{
 			"ImportPath": "github.com/lib/pq",
