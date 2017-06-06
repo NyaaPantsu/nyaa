@@ -63,18 +63,18 @@
       </tr>
   </table>
 <div class="torrent-buttons">
-  <a href="{{.Magnet}}" class="form-input">{{call $.T "magnet_link"}}</a>
+  <a href="{{.Magnet}}" class="form-input btn-green">{{call $.T "magnet_link"}}</a>
   {{ if ne .TorrentLink ""}}
   <a href="{{.TorrentLink}}" class="form-input">{{call $.T "torrent_file"}}</a>
   {{end}}
   {{ if gt $.User.ID 0}}
   <a id="reportPopup" href="#" class="form-input">{{ call $.T "report_btn" }}</a>
     {{ if HasAdmin $.User}}
-    <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="form-input" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;">{{ call $.T "delete" }}</a>
-    <a href="{{ genRoute "mod_tedit" }}?id={{ .ID }}" class="form-input">{{ call $.T "edit" }}</a>
+    <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;">{{ call $.T "delete" }}</a>
+    <a href="{{ genRoute "mod_tedit" }}?id={{ .ID }}" class="form-input btn-orange">{{ call $.T "edit" }}</a>
     {{ else if CurrentUserIdentical $.User .UploaderID }}
-    <a href="{{ genRoute "user_torrent_delete" }}?id={{ .ID }}" class="form-input" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;">{{ call $.T "delete" }}</a>
-    <a href="{{ genRoute "user_torrent_edit" }}?id={{ .ID }}" class="form-input">{{ call $.T "edit" }}</a>
+    <a href="{{ genRoute "user_torrent_delete" }}?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;">{{ call $.T "delete" }}</a>
+    <a href="{{ genRoute "user_torrent_edit" }}?id={{ .ID }}" class="form-input btn-orange">{{ call $.T "edit" }}</a>
     {{end}}
 {{end}}
   </div>
