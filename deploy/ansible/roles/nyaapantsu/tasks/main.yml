@@ -36,3 +36,11 @@
     chdir: "{{ nyaapantsu_build_directory }}/src/github.com/NyaaPantsu/nyaa"
   environment:
     GOPATH: "/home/{{ ansible_ssh_user }}/{{ nyaapantsu_build_directory }}"
+
+- name: Copy nyaa.yml
+  template:
+    src: "{{ item }}.yml.j2"
+    dest: "{{ nyaapantsu_build_directory }}/src/github.com/NyaaPantsu/nyaa/config/{{ item }}.yml"
+  with_items:
+    - nyaa
+    - sukebei
