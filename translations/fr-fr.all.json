@@ -301,7 +301,7 @@
   },
   {
     "id": "no_results_found",
-    "translation": "Aucun résultat trouvé"
+    "translation": "Aucun résultat trouvé."
   },
   {
     "id": "anime",
@@ -484,10 +484,6 @@
     "translation": "Liste des fichiers"
   },
   {
-    "id": "filename",
-    "translation": "Nom du fichier"
-  },
-  {
     "id": "no_files",
     "translation": "Aucun fichier trouvé."
   },
@@ -576,8 +572,12 @@
     "translation": "S'inscrire"
   },
   {
+    "id": "terms_conditions",
+    "translation": "Termes et Conditions"
+  },
+  {
     "id": "terms_conditions_full",
-    "translation": "À définir"
+    "translation": "Ne faites pas le con."
   },
   {
     "id": "register_success_title",
@@ -720,8 +720,8 @@
     "translation": "Authentifieur d'API"
   },
   {
-    "id":"email_placeholder",
-    "translation":"Peut être laissé vide."
+    "id": "email_placeholder",
+    "translation": "Peut être laissé vide."
   },
   {
     "id": "current_password",
@@ -912,11 +912,11 @@
     "translation": "Signalements de torrents"
   },
   {
-    "id":"show_mod_tools",
+    "id": "show_mod_tools",
     "translation": "Afficher les outils de modération"
   },
   {
-    "id":"hide_mod_tools",
+    "id": "hide_mod_tools",
     "translation": "Maquer les outils de modération"
   },
   {
@@ -926,10 +926,6 @@
   {
     "id": "torrent_status_blocked",
     "translation": "Bloqué"
-  },
-  {
-    "id": "torrent_status_hidden",
-    "translation": "Invisible"
   },
   {
     "id": "torrent_status_normal",
@@ -1168,7 +1164,7 @@
     "translation": "La réassignation de torrents à un nouvel utilisateur est difficilement réversible et doit être effectuée avec attention."
   },
   {
-    "id":"reassign_to",
+    "id": "reassign_to",
     "translation": "Réassigner à :"
   },
   {
