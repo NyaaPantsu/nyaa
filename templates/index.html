@@ -68,7 +68,7 @@
 			<div class="content container center">
 				{{block "content" .}}{{call $.T "nothing_here"}}{{end}}
 			</div>
-
+			{{ block "mascot" .}}
 			{{if ne .Mascot "hide"}}
 				<div id="mascot" class="hide-xs{{if ne .MascotURL ""}} custom-mascot{{end}}" onclick="playVoice();" {{if ne .MascotURL ""}}style="background-image: url('{{.MascotURL}}');"{{end}}></div>
 				{{ if ne .MascotURL "" }}
@@ -82,6 +82,7 @@
 					</audio>
 					{{end}}
 				{{end}}
+			{{end}}
 			{{end}}
 			<div class="pagination">
 					{{ genNav .Navigation .URL 15 }}
