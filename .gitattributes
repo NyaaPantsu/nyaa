@@ -1,1 +1,2 @@
-*.dia binary 
+*.dia		binary 
+*.sh		text eol=lf
