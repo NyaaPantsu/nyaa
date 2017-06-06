@@ -45,7 +45,7 @@
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "<strong class=\"label label-primary\">登録</strong> をクリックすることにより、Cookie の使用を含む、本サイトの <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">利用規約</a> に同意したものとみなします。"
+    "translation": "<strong class=\"label label-primary\">登録</strong> をクリックすることにより、Cookie の使用を含む、本サイトの <a id=\"modal_active\" href=\"#\">利用規約</a> に同意したものとみなします。"
   },
   {
     "id": "signin",
@@ -598,10 +598,6 @@
   {
     "id": "torrent_status",
     "translation": "Torrent の状態"
-  },
-  {
-    "id": <a id=\"modal_active\" href=\"#\">,
-    "translation": "非表示"
   },
   {
     "id": "torrent_status_normal",
