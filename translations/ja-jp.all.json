@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "リンク"
-  },
-  {
     "id": "verify_email_title",
     "translation": "【Nyaapantsu】メールアドレスの認証"
   },
@@ -20,127 +16,123 @@
     "translation": "パスワードをリセットするには、以下のリンクをクリックします。"
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "新しいアカウントの作成"
   },
   {
-    "id":"signup_box_title",
+    "id": "signup_box_title",
     "translation": "アカウント登録 <small>ずっと無料です</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "ユーザー名"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "メールアドレスまたはユーザー名"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "メールアドレス"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "パスワード"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "パスワードの再入力"
   },
   {
-    "id":"i_agree",
-    "translation": "同意する"
-  },
-  {
-    "id":"terms_conditions_confirm",
+    "id": "terms_conditions_confirm",
     "translation": "<strong class=\"label label-primary\">登録</strong> をクリックすることにより、Cookie の使用を含む、本サイトの <a id=\"modal_active\" href=\"#\">利用規約</a> に同意したものとみなします。"
   },
   {
-    "id":"signin",
+    "id": "signin",
     "translation": "ログイン"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "登録"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "利用規約"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "ダミー"
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "ログイン情報を記憶する"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "パスワードをお忘れですか？"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "ログイン"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "ログイン"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "登録完了"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "ご登録いただきありがとうございます。"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>お使いのアカウントは有効になりました。"
   },
   {
-    "id":"signup_verification_email",
+    "id": "signup_verification_email",
     "translation": "現在は一時的にメールアドレスの認証が無効になっているので、すぐにアカウントを使うことができます。後日、メールボックスを確認してください。迷惑メールフォルダーの確認もお忘れなく。"
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "認証が完了しました。今からこのアカウントを使えるようになります。"
   },
   {
-    "id":"settings",
+    "id": "settings",
     "translation": "アカウント設定"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "Torrent"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "フォロー"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "フォロー解除"
   },
   {
-    "id":"user_followed_msg",
+    "id": "user_followed_msg",
     "translation": "%s さんをフォローしました。"
   },
   {
-    "id":"user_unfollowed_msg",
+    "id": "user_unfollowed_msg",
     "translation": "%s さんのフォローを解除しました。"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "%s さんのプロフィールページ"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "%s さんの Torrent をもっと表示"
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "カテゴリー"
   },
   {
@@ -168,10 +160,6 @@
     "translation": "404 エラー"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "ナビゲーションの切り替え"
-  },
-  {
     "id": "upload",
     "translation": "アップロード"
   },
@@ -186,10 +174,6 @@
   {
     "id": "fun",
     "translation": "にゃあ"
-  },
-  {
-    "id": "advanced_search",
-    "translation": "高度な検索"
   },
   {
     "id": "nothing_here",
@@ -214,14 +198,6 @@
   {
     "id": "member",
     "translation": "アカウント"
-  },
-  {
-    "id": "sign_in",
-    "translation": "ログイン"
-  },
-  {
-    "id": "sign_up",
-    "translation": "登録"
   },
   {
     "id": "no_results_found",
@@ -342,10 +318,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "作者の一番好きなプログラミング言語だからです。"
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "magnet リンクのアップロード"
   },
   {
     "id": "torrent_file",
@@ -516,22 +488,6 @@
     "translation": "高信頼のみ"
   },
   {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "ダウンロード数"
-  },
-  {
-    "id": "descending",
-    "translation": "降順"
-  },
-  {
-    "id": "ascending",
-    "translation": "昇順"
-  },
-  {
     "id": "search",
     "translation": "検索"
   },
@@ -596,7 +552,7 @@
     "translation": "モデレーター"
   },
   {
-    "id":" api_token",
+    "id": " api_token",
     "translation": "API トークン"
   },
   {
@@ -642,10 +598,6 @@
   {
     "id": "torrent_status",
     "translation": "Torrent の状態"
-  },
-  {
-    "id": "torrent_status_hidden",
-    "translation": "非表示"
   },
   {
     "id": "torrent_status_normal",
@@ -700,16 +652,8 @@
     "translation": "ファイル一覧が見つからない？もー！意味わかんない！"
   },
   {
-    "id": "filename",
-    "translation": "ファイル名"
-  },
-  {
     "id": "uploaded_by",
     "translation": "アップロード者"
-  },
-  {
-    "id": "download_btn",
-    "translation": "ダウンロード"
   },
   {
     "id": "report_btn",
@@ -1008,11 +952,11 @@
     "translation": "非表示"
   },
   {
-    "id":"show_mod_tools",
+    "id": "show_mod_tools",
     "translation": "Mod Tools を表示"
   },
   {
-    "id":"hide_mod_tools",
+    "id": "hide_mod_tools",
     "translation": "Mod Tools を非表示"
   },
   {
@@ -1188,7 +1132,7 @@
     "translation": "処理には時間がかかることがあります。<b>絶対に</b>リクエストを中止しないでください。"
   },
   {
-    "id":"reassign_to",
+    "id": "reassign_to",
     "translation": "再割り当て先:"
   },
   {

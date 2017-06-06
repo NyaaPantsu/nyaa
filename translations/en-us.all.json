@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "link"
-  },
-  {
     "id": "verify_email_title",
     "translation": "Verify your email address for Nyaapantsu."
   },
@@ -20,131 +16,127 @@
     "translation": "Please click below link to reset your password."
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "Creating a new account"
   },
   {
-    "id":"signup_box_title",
+    "id": "signup_box_title",
     "translation": "Please Sign Up <small>It's free and always will be.</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "Username"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "Email Address or Username"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "Email Address"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "Password"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "Confirm Password"
   },
   {
-    "id":"i_agree",
-    "translation": "I agree"
+    "id": "terms_conditions_confirm",
+    "translation": "By clicking <strong class=\"label label-primary\">Register</strong>, you agree to the <a id=\"modal_active\" href=\"#\">Terms and Conditions</a> set out by this site, including our Cookie Use."
   },
   {
-    "id":"terms_conditions_confirm",
-    "translation": "By checking this box, you agree to the <a id=\"modal_active\" href=\"#\">terms and conditions</a>"
-  },
-  {
-    "id":"signin",
+    "id": "signin",
     "translation": "Sign In"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "Register"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "Terms and Conditions"
   },
   {
-    "id":"terms_conditions_full",
-    "translation": "Just don't be a dick."
+    "id": "terms_conditions_full",
+    "translation": "Some Shit."
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "Remember me"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "Forgot Password?"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "Please Sign In"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "Sign In"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "Sign Up Successful"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "Thank you for registering!"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Your account is now activated!"
   },
   {
-    "id":"signup_verification_email",
+    "id": "signup_verification_email",
     "translation": "Email verification is disabled at the moment, so you may use your account immediately. In the future, please check your mail inbox (and spam folder!) for the verification email."
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "Registration was successful, you may now use your account."
   },
   {
-    "id":"email_placeholder",
-    "translation":"Can be left blank."
+    "id": "email_placeholder",
+    "translation": "Can be left blank."
   },
   {
-    "id":"settings",
+    "id": "settings",
     "translation": "Account Settings"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "Torrents"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "Follow"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "Unfollow"
   },
   {
-    "id":"user_followed_msg",
+    "id": "user_followed_msg",
     "translation": "You have followed %s!"
   },
   {
-    "id":"user_unfollowed_msg",
+    "id": "user_unfollowed_msg",
     "translation": "You have unfollowed %s!"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "%s Profile Page"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "See more torrents from %s "
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "Category"
   },
   {
@@ -172,10 +164,6 @@
     "translation": "Error 404"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "Toggle navigation"
-  },
-  {
     "id": "upload",
     "translation": "Upload"
   },
@@ -190,10 +178,6 @@
   {
     "id": "fun",
     "translation": "Fun"
-  },
-  {
-    "id": "advanced_search",
-    "translation": "Advanced Search"
   },
   {
     "id": "nothing_here",
@@ -218,14 +202,6 @@
   {
     "id": "member",
     "translation": "Member"
-  },
-  {
-    "id": "sign_in",
-    "translation": "Sign In"
-  },
-  {
-    "id": "sign_up",
-    "translation": "Sign Up"
   },
   {
     "id": "no_results_found",
@@ -346,10 +322,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "It's the author's favorite programming language."
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "Upload magnet"
   },
   {
     "id": "torrent_file",
@@ -520,22 +492,6 @@
     "translation": "Trusted"
   },
   {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "Downloads"
-  },
-  {
-    "id": "descending",
-    "translation": "Descending"
-  },
-  {
-    "id": "ascending",
-    "translation": "Ascending"
-  },
-  {
     "id": "search",
     "translation": "Search"
   },
@@ -648,10 +604,6 @@
     "translation": "Torrent status"
   },
   {
-    "id": "torrent_status_hidden",
-    "translation": "Hidden"
-  },
-  {
     "id": "torrent_status_normal",
     "translation": "Normal"
   },
@@ -708,16 +660,8 @@
     "translation": "No files found? That doesn't even make sense!"
   },
   {
-    "id": "filename",
-    "translation": "Filename"
-  },
-  {
     "id": "uploaded_by",
     "translation": "Uploaded by"
-  },
-  {
-    "id": "download_btn",
-    "translation": "Download!"
   },
   {
     "id": "report_btn",
@@ -1032,11 +976,31 @@
     "translation": "Hide"
   },
   {
-    "id":"show_mod_tools",
+    "id": "Nyaa Pantsu",
+    "translation": "Nyaa Pantsu"
+  },
+  {
+    "id": "Torrents",
+    "translation": "Torrents"
+  },
+  {
+    "id": "Users",
+    "translation": "Users"
+  },
+  {
+    "id": "Comments",
+    "translation": "Comments"
+  },
+  {
+    "id": "Torrent Reports",
+    "translation": "Torrent Reports"
+  },
+  {
+    "id": "show_mod_tools",
     "translation": "Show Mod Tools"
   },
   {
-    "id":"hide_mod_tools",
+    "id": "hide_mod_tools",
     "translation": "Hide Mod Tools"
   },
   {
@@ -1212,7 +1176,7 @@
     "translation": "Might take a long time, do <b>NOT</b> abort the request."
   },
   {
-    "id":"reassign_to",
+    "id": "reassign_to",
     "translation": "Reassign to:"
   },
   {

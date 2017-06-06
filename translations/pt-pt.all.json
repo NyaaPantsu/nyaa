@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "link"
-  },
-  {
     "id": "verify_email_title",
     "translation": "Verifique o seu endereço de e-mail do Nyaapantsu."
   },
@@ -20,127 +16,123 @@
     "translation": "Clique no link abaixo para redefinir a sua senha."
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "Criar conta"
   },
   {
-    "id":"signup_box_title",
+    "id": "signup_box_title",
     "translation": "Por favor, registe-se <small>(é de graça e sempre será)</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "Nome de usuário"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "Endereço de e-mail ou nome de usuário"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "Endereço de e-mail"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "Senha"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "Confirmar senha"
   },
   {
-    "id":"i_agree",
-    "translation": "Eu aceito"
-  },
-  {
-    "id":"terms_conditions_confirm",
+    "id": "terms_conditions_confirm",
     "translation": "Ao clicar em <strong class=\"label label-primary\">Registar</strong>, estará a concordar com os <a id=\"modal_active\" href=\"#\">Termos e Condições</a> estabelecidos pelo site, incluindo o nosso uso de cookies."
   },
   {
-    "id":"signin",
+    "id": "signin",
     "translation": "Iniciar sessão"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "Registar"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "Termos e Condições"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "Algumas coisas."
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "Lembre-se de mim"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "Esqueceu-se da sua senha?"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "Por favor, inicie a sessão"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "Iniciar sessão"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "Registo bem-sucedido"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "Obrigado por se registar!"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>A sua conta foi ativada!"
   },
   {
-    "id":"signup_verification_email",
+    "id": "signup_verification_email",
     "translation": "Por fim, procure o e-mail de verificação na sua caixa de entrada (e pasta de spam!)."
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "Registo bem-sucedido. Já pode usar a sua conta."
   },
   {
-    "id":"settings",
+    "id": "settings",
     "translation": "Configurações de conta"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "Torrents"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "Seguir"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "Deixar de seguir"
   },
   {
-    "id":"user_followed_msg",
+    "id": "user_followed_msg",
     "translation": "Seguiu %s!"
   },
   {
-    "id":"user_unfollowed_msg",
+    "id": "user_unfollowed_msg",
     "translation": "Deixou de seguir %s!"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "Perfil de %s"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "Ver mais torrents de %s "
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "Categoria"
   },
   {
@@ -168,10 +160,6 @@
     "translation": "Erro 404"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "Alternar navegação"
-  },
-  {
     "id": "upload",
     "translation": "Enviar"
   },
@@ -182,10 +170,6 @@
   {
     "id": "fap",
     "translation": "Fap"
-  },
-  {
-    "id": "advanced_search",
-    "translation": "Pesquisa avançada"
   },
   {
     "id": "nothing_here",
@@ -210,14 +194,6 @@
   {
     "id": "member",
     "translation": "Membro"
-  },
-  {
-    "id": "sign_in",
-    "translation": "Iniciar sessão"
-  },
-  {
-    "id": "sign_up",
-    "translation": "Registar-se"
   },
   {
     "id": "no_results_found",
@@ -342,10 +318,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "É a linguagem de programação favorita do autor."
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "Enviar link magnético"
   },
   {
     "id": "torrent_file",
@@ -474,22 +446,6 @@
   {
     "id": "trusted",
     "translation": "Confiável"
-  },
-  {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "Downloads"
-  },
-  {
-    "id": "descending",
-    "translation": "Decrescente"
-  },
-  {
-    "id": "ascending",
-    "translation": "Crescente"
   },
   {
     "id": "search",

@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "ลิงค์"
-  },
-  {
     "id": "verify_email_title",
     "translation": "ยืนยันอีเมลสำหรับ NyaaPantsu"
   },
@@ -20,127 +16,123 @@
     "translation": "กรุณากดลิงค์ข้างล่างเพื่อรีเซ็ทรหัสผ่าน"
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "สร้างแอคเคาท์ใหม่"
   },
   {
-    "id":"signup_box_title",
+    "id": "signup_box_title",
     "translation": "กรุณาลงทะเบียน <small>ฟรีตลอดชาติ</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "ชื่อผู้ใช้"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "อีเมลหรือชื่อผู้ใช้"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "อีเมล"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "รหัสผ่าน"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "ยืนยันรหัสผ่าน"
   },
   {
-    "id":"i_agree",
-    "translation": "ฉันยอมรับ"
-  },
-  {
-    "id":"terms_conditions_confirm",
+    "id": "terms_conditions_confirm",
     "translation": "หากคุณกด <strong class=\"label label-primary\">ลงทะเบียน</strong> คุณต้องยอมรับ<a id=\"modal_active\" href=\"#\">เงื่อนไขและข้อตกลง</a>ของเว็บนี้ รวมถึงการใช้งาน Cookie ของทางเรา"
   },
   {
-    "id":"signin",
+    "id": "signin",
     "translation": "เข้าสู่ระบบ"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "ลงทะเบียน"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "เงื่อนไขและข้อตกลง"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "Nope.avi"
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "จดจำฉันไว้"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "ลืมรหัสผ่าน?"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "กรุณาเข้าสู่ระบบ"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "เข้าสู่ระบบ"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "ลงทะเบียนเรียบร้อย"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "ขอบคุณที่ลงทะเบียน!"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>แอคเคาท์ของคุณถูกเปิดใช้งานแล้ว!"
   },
   {
-    "id":"signup_verification_email",
+    "id": "signup_verification_email",
     "translation": "ขณะนี้การยืนยันอีเมลถูกปิดใช้งาน ฉะนั้นคุณสามารถใช้งานแอคเคาท์ได้ทันที แต่ในอนาคตกรุณาเช็คอีเมล (และในโฟลเดอร์เมลขยะ!) สำหรับเมลยืนยันตัวตน"
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "การลงทะเบียนเสร็จเรียบร้อย คุณสามารถใช้งานแอคเคาท์ของคุณได้ในตอนนี้"
   },
   {
-    "id":"settings",
+    "id": "settings",
     "translation": "ตั้งค่าแอคเคาท์"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "ทอร์เรนท์"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "ติดตาม"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "ไม่ติดตาม"
   },
   {
-    "id":"user_followed_msg",
+    "id": "user_followed_msg",
     "translation": "คุณติดตาม %s แล้ว!"
   },
   {
-    "id":"user_unfollowed_msg",
+    "id": "user_unfollowed_msg",
     "translation": "คุณไม่ได้ติดตาม %s แล้ว!"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "หน้าโปรไฟล์ของ %s"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "ดูทอร์เรนท์อื่นๆ ของ %s "
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "หมวดหมู่"
   },
   {
@@ -168,10 +160,6 @@
     "translation": "ข้อผิดพลาด 404"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "Toggle navigation"
-  },
-  {
     "id": "upload",
     "translation": "อัพโหลด"
   },
@@ -186,10 +174,6 @@
   {
     "id": "fun",
     "translation": "ไม่กาม"
-  },
-  {
-    "id": "advanced_search",
-    "translation": "การค้นหาระดับสูง"
   },
   {
     "id": "nothing_here",
@@ -214,14 +198,6 @@
   {
     "id": "member",
     "translation": "สมาชิก"
-  },
-  {
-    "id": "sign_in",
-    "translation": "เข้าสู่ระบบ"
-  },
-  {
-    "id": "sign_up",
-    "translation": "ลงทะเบียน"
   },
   {
     "id": "no_results_found",
@@ -342,10 +318,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "เพราะเป็นภาษาที่ผู้พัฒนาชอบ"
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "อัพโหลด Magnet"
   },
   {
     "id": "torrent_file",
@@ -516,22 +488,6 @@
     "translation": "Trusted"
   },
   {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "ดาวน์โหลด"
-  },
-  {
-    "id": "descending",
-    "translation": "เรียงจากบนลงล่าง"
-  },
-  {
-    "id": "ascending",
-    "translation": "เรียงจากล่างขึ้นบน"
-  },
-  {
     "id": "search",
     "translation": "ค้นหา"
   },
@@ -596,7 +552,7 @@
     "translation": "Moderator"
   },
   {
-    "id":" api_token",
+    "id": " api_token",
     "translation": "API Token"
   },
   {
@@ -642,10 +598,6 @@
   {
     "id": "torrent_status",
     "translation": "สถานะทอร์เรนท์"
-  },
-  {
-    "id": "torrent_status_hidden",
-    "translation": "ถูกซ่อน"
   },
   {
     "id": "torrent_status_normal",
@@ -700,16 +652,8 @@
     "translation": "ไม่เจอไฟล์? บ้าน่า!"
   },
   {
-    "id": "filename",
-    "translation": "ชื่อไฟล์"
-  },
-  {
     "id": "uploaded_by",
     "translation": "อัพโหลดโดย"
-  },
-  {
-    "id": "download_btn",
-    "translation": "ดาวน์โหลด!"
   },
   {
     "id": "report_btn",

@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "link"
-  },
-  {
     "id": "verify_email_title",
     "translation": "Verifică adresa ta de email pentru Nyaapantsu."
   },
@@ -20,127 +16,123 @@
     "translation": "Vă rog să daţi click pe link-ul de dedesupt pentru a reseta parola dumneavoastră."
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "Crează un cont nou"
   },
   {
-    "id":"signup_box_title",
+    "id": "signup_box_title",
     "translation": "Vă rog înregistraţi-vă <small>E gratuit şi va fi întotdeauna.</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "Nume de utilizator"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "Adresă de email sau Nume de utilizator"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "Adresă de email"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "Parola"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "Confirmă parola"
   },
   {
-    "id":"i_agree",
-    "translation": "Sunt de acord"
-  },
-  {
-    "id":"terms_conditions_confirm",
+    "id": "terms_conditions_confirm",
     "translation": "Dacă daţi click <strong class=\"label label-primary\">Register</strong>, sunteţi de acord cu <a id=\"modal_active\" href=\"#\">Termenii şi Condiţiile</a> acestui site, incluzând folosirea noastra de Cookie-uri."
   },
   {
-    "id":"signin",
+    "id": "signin",
     "translation": "Autentificare"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "Înregistrare"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "Termeni şi Condiţii"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "Some Shit."
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "Ţine-mă minte"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "Ai uitat parola?"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "Vă rog să vă autentificați"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "Autentificare"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "Înregistrare reuşită"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "Mulţumim pentru înregistrare!"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Contul tău este acum activat!"
   },
   {
-    "id":"signup_verification_email",
+    "id": "signup_verification_email",
     "translation": "Verificarea prin email nu funcţionează în acest moment, aşa că puteţi folosi contul imediat. În viitor, vă rog să verificaţi inbox-ul(şi folderul de spam!) pentru emailul de verificare."
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "Înregistrarea a fost reuşită, acum îţi poţi folosi contul."
   },
   {
-    "id":"settings",
+    "id": "settings",
     "translation": "Setări cont"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "Torrente"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "Urmăreşte"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "Nu mai urmări"
   },
   {
-    "id":"user_followed_msg",
+    "id": "user_followed_msg",
     "translation": "Ai urmărit %s!"
   },
   {
-    "id":"user_unfollowed_msg",
+    "id": "user_unfollowed_msg",
     "translation": "Nu mai urmăreşti %s!"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "Pagina de profil a lui %s"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "Vezi mai multe torrente de la %s "
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "Categorie"
   },
   {
@@ -168,10 +160,6 @@
     "translation": "Eroare 404"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "Alternează navigaţia"
-  },
-  {
     "id": "upload",
     "translation": "Upload"
   },
@@ -186,10 +174,6 @@
   {
     "id": "fun",
     "translation": "Distracţie"
-  },
-  {
-    "id": "advanced_search",
-    "translation": "Căutare avansată"
   },
   {
     "id": "nothing_here",
@@ -214,14 +198,6 @@
   {
     "id": "member",
     "translation": "Membru"
-  },
-  {
-    "id": "sign_in",
-    "translation": "Autentificare"
-  },
-  {
-    "id": "sign_up",
-    "translation": "Înregistrare"
   },
   {
     "id": "no_results_found",
@@ -342,10 +318,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "Este limbajul de programare favorit al autorului."
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "Upload magnet"
   },
   {
     "id": "torrent_file",
@@ -512,22 +484,6 @@
     "translation": "De încredere"
   },
   {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "Downloads"
-  },
-  {
-    "id": "descending",
-    "translation": "Descrescător"
-  },
-  {
-    "id": "ascending",
-    "translation": "Crescător"
-  },
-  {
     "id": "search",
     "translation": "Caută"
   },
@@ -636,10 +592,6 @@
     "translation": "Status torrent"
   },
   {
-    "id": "torrent_status_hidden",
-    "translation": "Ascuns"
-  },
-  {
     "id": "torrent_status_normal",
     "translation": "Normal"
   },
@@ -684,16 +636,8 @@
     "translation": "Fişiere"
   },
   {
-    "id": "filename",
-    "translation": "Nume fişier"
-  },
-  {
     "id": "uploaded_by",
     "translation": "Uploadat de"
-  },
-  {
-    "id": "download_btn",
-    "translation": "Download!"
   },
   {
     "id": "report_btn",
@@ -742,21 +686,21 @@
   {
     "id": "please_include_our_tracker",
     "translation": "Te rog include udp://tracker.doko.moe:6969 la trackerele tale."
-   },
-   {
+  },
+  {
     "id": "unknown",
     "translation": "Necunoscut"
-   },
-   {
+  },
+  {
     "id": "last_scraped",
     "translation": "Ultimul scrape: "
-   },
-   {
+  },
+  {
     "id": "server_status_link",
     "translation": "Statusul servărului poate fi găsit aici"
-   },
-   {
+  },
+  {
     "id": "no_database_dumps_available",
     "translation": "Dumpurile bazei de date nu sunt disponibile în acest moment."
-    }
+  }
 ]

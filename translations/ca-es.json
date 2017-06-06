@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "enllaç"
-  },
-  {
     "id": "verify_email_title",
     "translation": "Verifiqueu la vostra adreça electrònica de Nyaapantsu."
   },
@@ -20,127 +16,123 @@
     "translation": "Feu clic a l'enllaç de sota per restablir la contrasenya."
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "Crea un compte nou"
   },
   {
-    "id":"signup_box_title",
+    "id": "signup_box_title",
     "translation": "Registreu-vos <small>És de franc i sempre ho serà.</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "Nom d'usuari"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "Adreça de correu electrònic o nom d'usuari"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "Adreça de correu electrònic"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "Contrasenya"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "Confirmeu la contrasenya"
   },
   {
-    "id":"i_agree",
-    "translation": "Hi estic d'acord"
-  },
-  {
-    "id":"terms_conditions_confirm",
+    "id": "terms_conditions_confirm",
     "translation": "Si feu clic a <strong class=\"label label-primary\">Registra-m'hi</strong>, accepteu els <a id=\"modal_active\" href=\"#\">termes i condicions</a> definits en aquest lloc, incloent-hi el nostre ús de les galetes."
   },
   {
-    "id":"signin",
+    "id": "signin",
     "translation": "Inicia la sessió"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "Registra-m'hi"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "Termes i condicions"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "Una mica de merda."
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "Recorda'm"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "Heu oblidat la contrasenya?"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "Inicieu la sessió"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "Inicia la sessió"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "Registre completat"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "Gràcies per registrar-vos!"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>El vostre compte ha estat activat!"
   },
   {
-    "id":"signup_verification_email",
+    "id": "signup_verification_email",
     "translation": "La verificació del correu electrònic està desactivada per ara, així que podeu utilitzar el vostre compte immediatament. En el futur, comproveu la vostra safata d'entrada de correu (i la carpeta de correu brossa!) cercant-hi el correu electrònic de verificació."
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "El registre s'ha completat, ja podeu fer servir el vostre compte."
   },
   {
-    "id":"settings",
+    "id": "settings",
     "translation": "Configuració del compte"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "Torrents"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "Segueix"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "Deixa de seguir"
   },
   {
-    "id":"user_followed_msg",
+    "id": "user_followed_msg",
     "translation": "Ara seguiu %s!"
   },
   {
-    "id":"user_unfollowed_msg",
+    "id": "user_unfollowed_msg",
     "translation": "Ja no seguiu %s!"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "Pàgina de perfil de %s"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "Mostra més torrents de %s"
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "Categoria"
   },
   {
@@ -168,10 +160,6 @@
     "translation": "Error 404"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "Activa/desactiva la navegació"
-  },
-  {
     "id": "upload",
     "translation": "Carrega"
   },
@@ -186,10 +174,6 @@
   {
     "id": "fun",
     "translation": "Diversió"
-  },
-  {
-    "id": "advanced_search",
-    "translation": "Cerca avançada"
   },
   {
     "id": "nothing_here",
@@ -214,14 +198,6 @@
   {
     "id": "member",
     "translation": "Membres"
-  },
-  {
-    "id": "sign_in",
-    "translation": "Inicia la sessió"
-  },
-  {
-    "id": "sign_up",
-    "translation": "Registra-t'hi"
   },
   {
     "id": "no_results_found",
@@ -342,10 +318,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "És el llenguatge de programació preferit de l'autor."
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "Carrega un enllaç magnètic"
   },
   {
     "id": "torrent_file",
@@ -512,22 +484,6 @@
     "translation": "De confiança"
   },
   {
-    "id": "id",
-    "translation": "Identificador"
-  },
-  {
-    "id": "downloads",
-    "translation": "Descàrregues"
-  },
-  {
-    "id": "descending",
-    "translation": "Descendent"
-  },
-  {
-    "id": "ascending",
-    "translation": "Ascendent"
-  },
-  {
     "id": "search",
     "translation": "Cerca"
   },
@@ -636,10 +592,6 @@
     "translation": "Estat del torrent"
   },
   {
-    "id": "torrent_status_hidden",
-    "translation": "Ocult"
-  },
-  {
     "id": "torrent_status_normal",
     "translation": "Normal"
   },
@@ -690,10 +642,6 @@
   {
     "id": "uploaded_by",
     "translation": "Carregat per"
-  },
-  {
-    "id": "download_btn",
-    "translation": "Descarrega!"
   },
   {
     "id": "report_btn",

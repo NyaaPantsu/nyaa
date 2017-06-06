@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "連結"
-  },
-  {
     "id": "verify_email_title",
     "translation": "喵 請驗證您的電子郵件"
   },
@@ -20,127 +16,123 @@
     "translation": "請按下面連結重設密碼"
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "建立新帳號"
   },
   {
-    "id":"signup_box_title",
+    "id": "signup_box_title",
     "translation": "請註冊 <small>永遠免費</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "使用者名稱"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "電子郵件或使用者名稱"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "電子郵件"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "密碼"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "密碼確認"
   },
   {
-    "id":"i_agree",
-    "translation": "我同意"
-  },
-  {
-    "id":"terms_conditions_confirm",
+    "id": "terms_conditions_confirm",
     "translation": "按下 <strong class=\"label label-primary\">註冊</strong> 表示您同意此網站之 <a id=\"modal_active\" href=\"#\">條款和條件</a> 以及瀏覽器 Cookie 之使用"
   },
   {
-    "id":"signin",
+    "id": "signin",
     "translation": "登入"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "註冊"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "條款和條件"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "一些扯淡"
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "請記住我"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "忘記密碼嗎？"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "請登入"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "登入"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "註冊成功"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "感謝您的註冊！"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>您的帳號已啟用！"
   },
   {
-    "id":"signup_verification_email",
+    "id": "signup_verification_email",
     "translation": "最後請檢查您的電子信箱 （與垃圾郵件）直到找到帳號確認郵件"
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "註冊成功，帳號已可供使用"
   },
   {
-    "id":"settings",
+    "id": "settings",
     "translation": "帳號設定"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "種子種子"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "跟隨"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "取消跟隨"
   },
   {
-    "id":"user_followed_msg",
+    "id": "user_followed_msg",
     "translation": "您已經跟隨 %s！"
   },
   {
-    "id":"user_unfollowed_msg",
+    "id": "user_unfollowed_msg",
     "translation": "您已經取消跟隨 %s！"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "%s 使用者資料"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "更多種子來自 %s "
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "分類"
   },
   {
@@ -168,10 +160,6 @@
     "translation": "糟糕！ 是 404"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "切換導覽列"
-  },
-  {
     "id": "upload",
     "translation": "上傳"
   },
@@ -182,10 +170,6 @@
   {
     "id": "fap",
     "translation": "尻尻"
-  },
-  {
-    "id": "advanced_search",
-    "translation": "進階搜尋"
   },
   {
     "id": "nothing_here",
@@ -210,14 +194,6 @@
   {
     "id": "member",
     "translation": "會員"
-  },
-  {
-    "id": "sign_in",
-    "translation": "登入"
-  },
-  {
-    "id": "sign_up",
-    "translation": "註冊"
   },
   {
     "id": "no_results_found",
@@ -334,10 +310,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "作者尬意"
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "上傳磁力連結"
   },
   {
     "id": "torrent_file",
@@ -472,22 +444,6 @@
     "translation": "受信任"
   },
   {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "下載數"
-  },
-  {
-    "id": "descending",
-    "translation": "降序"
-  },
-  {
-    "id": "ascending",
-    "translation": "升序"
-  },
-  {
     "id": "search",
     "translation": "搜尋"
   },
@@ -548,7 +504,7 @@
     "translation": "管理員"
   },
   {
-    "id":" api_token",
+    "id": " api_token",
     "translation": "API Token"
   },
   {
@@ -594,10 +550,6 @@
   {
     "id": "torrent_status",
     "translation": "種子狀態"
-  },
-  {
-    "id": "torrent_status_hidden",
-    "translation": "隱藏"
   },
   {
     "id": "torrent_status_normal",

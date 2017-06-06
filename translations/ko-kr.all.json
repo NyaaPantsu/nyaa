@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "링크"
-  },
-  {
     "id": "verify_email_title",
     "translation": "고양이를 위해 이메일을 확인해주세요"
   },
@@ -20,115 +16,111 @@
     "translation": "암호를 리셋하려면 아래의 링크를 눌러주세요"
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "새 계정 만들기"
   },
   {
-    "id":"signup_box_title",
+    "id": "signup_box_title",
     "translation": "회원가입 해주세요! <small>가입은 무료이며 언제나 그럴 것입니다</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "아이디"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "이메일 주소 또는 아이디"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "이메일 주소"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "비밀번호"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "비밀번호 재확인"
   },
   {
-    "id":"i_agree",
-    "translation": "동의"
-  },
-  {
-    "id":"terms_conditions_confirm",
+    "id": "terms_conditions_confirm",
     "translation": "<strong class=\"label label-primary\">회원가입</strong>을 하시면, 쿠키 사용과 더불어 <a id=\"modal_active\" href=\"#\">약관</a>에 동의하신 것으로 간주합니다."
   },
   {
-    "id":"signin",
+    "id": "signin",
     "translation": "로그인"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "회원가입"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "이용약관"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "ㅅㅂ"
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "로그인 상태 유지"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "비밀번호 찾기"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "로그인 하세요"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "로그인"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "성공적으로 가입했습니다!"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "가입해주셔서 고마워요!"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>계정이 활성화 되었습니다!"
   },
   {
-    "id":"signup_verification_email",
+    "id": "signup_verification_email",
     "translation": "마지막으로 이메일 인증을 완료해 주세요! 이메일이 도착하지 않았다면 스팸 메일함도 확인해 주세요."
   },
   {
-    "id":"settings",
+    "id": "settings",
     "translation": "계정 설정"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "토렌트"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "팔로우"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "언팔로우"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "%s 프로필 페이지"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "%s 에서 더 많은 토렌트 보기"
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "카테고리"
   },
   {
@@ -156,10 +148,6 @@
     "translation": "에러 404"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "네비게이션 토글"
-  },
-  {
     "id": "upload",
     "translation": "업로드"
   },
@@ -170,10 +158,6 @@
   {
     "id": "fap",
     "translation": "자위"
-  },
-  {
-    "id": "advanced_search",
-    "translation": "고급 검색"
   },
   {
     "id": "nothing_here",
@@ -198,14 +182,6 @@
   {
     "id": "member",
     "translation": "멤버"
-  },
-  {
-    "id": "sign_in",
-    "translation": "로그인"
-  },
-  {
-    "id": "sign_up",
-    "translation": "회원가입"
   },
   {
     "id": "no_results_found",
@@ -318,10 +294,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "제일 좋아하는 언어입니다. >__- 찡긋"
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "마그넷 업로드"
   },
   {
     "id": "torrent_file",
@@ -450,22 +422,6 @@
   {
     "id": "trusted",
     "translation": "신뢰된"
-  },
-  {
-    "id": "id",
-    "translation": "아이디"
-  },
-  {
-    "id": "downloads",
-    "translation": "다운로드"
-  },
-  {
-    "id": "descending",
-    "translation": "내림차순"
-  },
-  {
-    "id": "ascending",
-    "translation": "오름차순"
   },
   {
     "id": "search",

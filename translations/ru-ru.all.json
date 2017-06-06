@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "ссылка"
-  },
-  {
     "id": "verify_email_title",
     "translation": "Подтвердите свой Email адрес для Nyaapantsu."
   },
@@ -46,10 +42,6 @@
   {
     "id": "confirm_password",
     "translation": "Подтвердите пароль"
-  },
-  {
-    "id": "i_agree",
-    "translation": "Я согласен"
   },
   {
     "id": "terms_conditions_confirm",
@@ -168,10 +160,6 @@
     "translation": "Ошибка 404"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "Включить навигацию"
-  },
-  {
     "id": "upload",
     "translation": "Загрузить"
   },
@@ -186,10 +174,6 @@
   {
     "id": "fap",
     "translation": "Fap"
-  },
-  {
-    "id": "advanced_search",
-    "translation": "Расширенный поиск"
   },
   {
     "id": "nothing_here",
@@ -214,14 +198,6 @@
   {
     "id": "member",
     "translation": "Пользователь"
-  },
-  {
-    "id": "sign_in",
-    "translation": "Вход"
-  },
-  {
-    "id": "sign_up",
-    "translation": "Регистрация"
   },
   {
     "id": "no_results_found",
@@ -342,10 +318,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "Это любимый язык программирования автора."
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "Загрузить магнит"
   },
   {
     "id": "torrent_file",
@@ -516,22 +488,6 @@
     "translation": "Надёжные"
   },
   {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "Загрузки"
-  },
-  {
-    "id": "descending",
-    "translation": "Нисходящий"
-  },
-  {
-    "id": "ascending",
-    "translation": "Восходящий"
-  },
-  {
     "id": "search",
     "translation": "Поиск"
   },
@@ -640,10 +596,6 @@
     "translation": "Статус торрента"
   },
   {
-    "id": "torrent_status_hidden",
-    "translation": "Скрытый"
-  },
-  {
     "id": "torrent_status_normal",
     "translation": "Обычный"
   },
@@ -688,16 +640,8 @@
     "translation": "Файлы"
   },
   {
-    "id": "filename",
-    "translation": "Имя файла"
-  },
-  {
     "id": "uploaded_by",
     "translation": "Загрузил"
-  },
-  {
-    "id": "download_btn",
-    "translation": "Загрузить!"
   },
   {
     "id": "report_btn",
