@@ -261,8 +261,12 @@ th { border-bottom-width: 2px; }
 .tr-cs .comment-icon { margin-bottom: 4px; }
 .tr-size { width: 90px; }
 .tr-se, .tr-le { font-weight: bold; }
-.tr-se, .tr-le, .tr-dl { width: 50px; }
+.tr-se, .tr-le, .tr-dl { width: 40px; }
 .tr-date { width: 130px; }
+
+.tr-se > a > .sort-arrows,
+.tr-le > a > .sort-arrows,
+.tr-dl > a > .sort-arrows { margin-left: 0; }
 
 .sort-arrows { margin-left: 0.2rem; }
 .sort-arrows span {
