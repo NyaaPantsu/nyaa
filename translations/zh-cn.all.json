@@ -45,7 +45,7 @@
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "按下 <strong class=\"label label-primary\">注册账号</strong> 即表示您同意本网站的 <a id=\"modal_active\" href=\"#\">条款与条件</a> 以及浏览器Cookie喵~"
+    "translation": "按下 <b>注册账号</b> 即表示您同意本网站的 <a id=\"modal_active\" href=\"#\">条款与条件</a> 以及浏览器Cookie喵~"
   },
   {
     "id": "signin",
@@ -573,11 +573,11 @@
   },
   {
     "id": "who_is_renchon",
-    "translation": "れんちょん是谁?"
+    "translation": "<span lang=\"ja\">れんちょん</span>是谁?"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん(小莲)是匿名评论与上传者的默认用户名，同时也显示为Nyaa站原始资源的上传者."
+    "translation": "<span lang=\"ja\">れんちょん</span>(小莲)是匿名评论与上传者的默认用户名，同时也显示为Nyaa站原始资源的上传者."
   },
   {
     "id": "mark_as_remake",

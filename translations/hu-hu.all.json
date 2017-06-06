@@ -45,7 +45,7 @@
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "A <strong class=\"label label-primary\">Regisztráció</strong>-ra kattintva beleegyezel az oldal <a id=\"modal_active\" href=\"#\">Felhasználási Feltételei</a>-be, és a Cookie-k használatába."
+    "translation": "A <b>Regisztráció</b>-ra kattintva beleegyezel az oldal <a id=\"modal_active\" href=\"#\">Felhasználási Feltételei</a>-be, és a Cookie-k használatába."
   },
   {
     "id": "signin",
@@ -509,11 +509,11 @@
   },
   {
     "id": "who_is_renchon",
-    "translation": "Ki a fasz az a れんちょん?"
+    "translation": "Ki a fasz az a <span lang=\"ja\">れんちょん</span>?"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Ren-chon) nevet az kapja, aki névtelenül ír kommentet vagy tölt fel valamit. Ezt a nevet kapják az eredeti nyaa-ról átimportált torrentek is, viszont az eredeti feltöltő neve megjelenhet mellette."
+    "translation": "<span lang=\"ja\">れんちょん</span> (Ren-chon) nevet az kapja, aki névtelenül ír kommentet vagy tölt fel valamit. Ezt a nevet kapják az eredeti nyaa-ról átimportált torrentek is, viszont az eredeti feltöltő neve megjelenhet mellette."
   },
   {
     "id": "mark_as_remake",

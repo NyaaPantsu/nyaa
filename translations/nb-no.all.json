@@ -45,7 +45,7 @@
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "Ved å klikke på <strong class=\"label label-primary\">Registrer</strong> godtar du <a id=\"modal_active\" href=\"#\">Vilkår og Betingelser</a> som gjelder for denne siden, samt vår bruk av Cookies."
+    "translation": "Ved å klikke på <b>Registrer</b> godtar du <a id=\"modal_active\" href=\"#\">Vilkår og Betingelser</a> som gjelder for denne siden, samt vår bruk av Cookies."
   },
   {
     "id": "signin",
@@ -521,11 +521,11 @@
   },
   {
     "id": "who_is_renchon",
-    "translation": "Hvem faen er れんちょん?"
+    "translation": "Hvem faen er <span lang=\"ja\">れんちょん</span>?"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Ren-chon) er brukernavnet vi putter på anonyme torrenter og kommentarer. Navnet brukes også for materiale fra proto-nyaa, men vanligvis ser man det ordentlige brukernavnet ved siden av."
+    "translation": "<span lang=\"ja\">れんちょん</span> (Ren-chon) er brukernavnet vi putter på anonyme torrenter og kommentarer. Navnet brukes også for materiale fra proto-nyaa, men vanligvis ser man det ordentlige brukernavnet ved siden av."
   },
   {
     "id": "mark_as_remake",

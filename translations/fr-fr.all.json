@@ -273,11 +273,11 @@
   },
   {
     "id": "who_is_renchon",
-    "translation": "Qui est れんちょん ?"
+    "translation": "Qui est <span lang=\"ja\">れんちょん</span> ?"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Ren-chon) est le nom d'utilisateur par défaut assigné aux uploads et commentaires anonymes. Il est utilisé pour les torrents importés du Nyaa original, bien que l'auteur d'origine puisse parfois être affiché."
+    "translation": "<span lang=\"ja\">れんちょん</span> (Ren-chon) est le nom d'utilisateur par défaut assigné aux uploads et commentaires anonymes. Il est utilisé pour les torrents importés du Nyaa original, bien que l'auteur d'origine puisse parfois être affiché."
   },
   {
     "id": "all_categories",
@@ -497,7 +497,7 @@
   },
   {
     "id": "submit_a_comment_as_anonymous",
-    "translation": "Envoyer un commentaire sous れんちょん"
+    "translation": "Envoyer un commentaire sous <span lang=\"ja\">れんちょん</span>"
   },
   {
     "id": "comment_empty",
@@ -565,7 +565,7 @@
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "En cliquant sur <strong class=\"label label-primary\">S'inscrire</strong>, vous acceptez les <a id=\"modal_active\" href=\"#\">Termes et Conditions</a> et l'usage des cookies établis par le site."
+    "translation": "En cliquant sur <b>S'inscrire</b>, vous acceptez les <a id=\"modal_active\" href=\"#\">Termes et Conditions</a> et l'usage des cookies établis par le site."
   },
   {
     "id": "register",

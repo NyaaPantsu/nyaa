@@ -45,7 +45,7 @@
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "<strong class=\"label label-primary\">회원가입</strong>을 하시면, 쿠키 사용과 더불어 <a id=\"modal_active\" href=\"#\">약관</a>에 동의하신 것으로 간주합니다."
+    "translation": "<b>회원가입</b>을 하시면, 쿠키 사용과 더불어 <a id=\"modal_active\" href=\"#\">약관</a>에 동의하신 것으로 간주합니다."
   },
   {
     "id": "signin",

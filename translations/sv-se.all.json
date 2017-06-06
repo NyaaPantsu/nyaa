@@ -45,7 +45,7 @@
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "Genom att klicka på <strong class=\"label label-primary\">Registrera</strong> accepterar du denna webbsidas <a id=\"modal_active\" href=\"#\">användarvillkor</a>, samt vår användning av kakor (cookies)."
+    "translation": "Genom att klicka på <b>Registrera</b> accepterar du denna webbsidas <a id=\"modal_active\" href=\"#\">användarvillkor</a>, samt vår användning av kakor (cookies)."
   },
   {
     "id": "signin",
@@ -521,11 +521,11 @@
   },
   {
     "id": "who_is_renchon",
-    "translation": "Vem fan är れんちょん?"
+    "translation": "Vem fan är <span lang=\"ja\">れんちょん</span>?"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Ren-chon) är användarnamnet som ges till anonyma kommentarer och uppladdningar. Det används även för importerade torrents från gamla nyaa, men den ursprungliga uppladdaren kan även visas vid sidan av."
+    "translation": "<span lang=\"ja\">れんちょん</span> (Ren-chon) är användarnamnet som ges till anonyma kommentarer och uppladdningar. Det används även för importerade torrents från gamla nyaa, men den ursprungliga uppladdaren kan även visas vid sidan av."
   },
   {
     "id": "mark_as_remake",

@@ -45,7 +45,7 @@
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "Durch Klicken auf <strong class=\"label label-primary\">Registrieren</strong> stimmst du den <a id=\"modal_active\" href=\"#\">Nutzungsbedingungen</a> sowie der Nutzung von Cookies zu."
+    "translation": "Durch Klicken auf <b>Registrieren</b> stimmst du den <a id=\"modal_active\" href=\"#\">Nutzungsbedingungen</a> sowie der Nutzung von Cookies zu."
   },
   {
     "id": "signin",
@@ -581,11 +581,11 @@
   },
    {
     "id": "who_is_renchon",
-    "translation": "Wer zum Teufel ist れんちょん?"
+    "translation": "Wer zum Teufel ist <span lang=\"ja\">れんちょん</span>?"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "Der Benutzername れんちょん (Ren-chon) wird Uploads und Kommentaren zugewiesen, die anonym hochgeladen beziehungsweise verfasst wurden. Außerdem ist er bei Torrents zu finden, die von nyaa importiert wurden, wobei gegebenenfalls auch der Benutzername des originalen Uploaders daneben angezeigt wird."
+    "translation": "Der Benutzername <span lang=\"ja\">れんちょん</span> (Ren-chon) wird Uploads und Kommentaren zugewiesen, die anonym hochgeladen beziehungsweise verfasst wurden. Außerdem ist er bei Torrents zu finden, die von nyaa importiert wurden, wobei gegebenenfalls auch der Benutzername des originalen Uploaders daneben angezeigt wird."
   },
   {
     "id": "mark_as_remake",
