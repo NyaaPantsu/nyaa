@@ -81,10 +81,10 @@ func ChangePublicSettingsHandler(w http.ResponseWriter, r *http.Request) {
 		userService.UpdateRawUser(&user)
 	}
 	// Set cookie
-	http.SetCookie(w, &http.Cookie{Name: "lang", Value: lang, Domain: getDomainName(), Expires: timeHelper.FewDaysLater(365)})
-	http.SetCookie(w, &http.Cookie{Name: "theme", Value: theme, Domain: getDomainName(), Expires: timeHelper.FewDaysLater(365)})
-	http.SetCookie(w, &http.Cookie{Name: "mascot", Value: mascot, Domain: getDomainName(), Expires: timeHelper.FewDaysLater(365)})
-	http.SetCookie(w, &http.Cookie{Name: "mascot_url", Value: mascotURL, Domain: getDomainName(), Expires: timeHelper.FewDaysLater(365)})
+	http.SetCookie(w, &http.Cookie{Name: "lang", Value: lang, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})
+	http.SetCookie(w, &http.Cookie{Name: "theme", Value: theme, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})
+	http.SetCookie(w, &http.Cookie{Name: "mascot", Value: mascot, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})
+	http.SetCookie(w, &http.Cookie{Name: "mascot_url", Value: mascotURL, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})
 
 	url, _ := Router.Get("home").URL()
 	http.Redirect(w, r, url.String(), http.StatusSeeOther)
