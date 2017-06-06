@@ -976,23 +976,15 @@
     "translation": "Hide"
   },
   {
-    "id": "Nyaa Pantsu",
+    "id": "nyaa_pantsu",
     "translation": "Nyaa Pantsu"
   },
   {
-    "id": "Torrents",
-    "translation": "Torrents"
-  },
-  {
-    "id": "Users",
+    "id": "users",
     "translation": "Users"
   },
   {
-    "id": "Comments",
-    "translation": "Comments"
-  },
-  {
-    "id": "Torrent Reports",
+    "id": "torrent_reports",
     "translation": "Torrent Reports"
   },
   {
