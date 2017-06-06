@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "link"
-  },
-  {
     "id": "verify_email_title",
     "translation": "Erősítsd meg az e-mail címedet a hozzáféréshez."
   },
@@ -46,10 +42,6 @@
   {
     "id": "confirm_password",
     "translation": "Jelszó mégegyszer"
-  },
-  {
-    "id": "i_agree",
-    "translation": "Beleegyezek"
   },
   {
     "id": "terms_conditions_confirm",
@@ -156,10 +148,6 @@
     "translation": "Hiba: 404"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "Navigáció átváltása"
-  },
-  {
     "id": "upload",
     "translation": "Feltöltés"
   },
@@ -170,10 +158,6 @@
   {
     "id": "fap",
     "translation": "Fap"
-  },
-  {
-    "id": "advanced_search",
-    "translation": "Részletes Keresés"
   },
   {
     "id": "nothing_here",
@@ -198,14 +182,6 @@
   {
     "id": "member",
     "translation": "Tag"
-  },
-  {
-    "id": "sign_in",
-    "translation": "Bejelentkezés"
-  },
-  {
-    "id": "sign_up",
-    "translation": "Regisztráció"
   },
   {
     "id": "no_results_found",
@@ -318,10 +294,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "Ez a dev kedvenc programozási nyelve."
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "Magnet Feltöltése"
   },
   {
     "id": "torrent_file",
@@ -452,22 +424,6 @@
     "translation": "Megbízható"
   },
   {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "Letöltések"
-  },
-  {
-    "id": "descending",
-    "translation": "Csökkenő"
-  },
-  {
-    "id": "ascending",
-    "translation": "Növekvő"
-  },
-  {
     "id": "search",
     "translation": "Keresés"
   },
@@ -572,10 +528,6 @@
     "translation": "Torrent állapota"
   },
   {
-    "id": "torrent_status_hidden",
-    "translation": "Eltüntetett"
-  },
-  {
     "id": "torrent_status_normal",
     "translation": "Normál"
   },
@@ -628,16 +580,8 @@
     "translation": "Nincsenek meg a fájlok? Na, az meg hogy lehet?"
   },
   {
-    "id": "filename",
-    "translation": "Fájlnév"
-  },
-  {
     "id": "uploaded_by",
     "translation": "Feltöltötte: "
-  },
-  {
-    "id": "download_btn",
-    "translation": "Letöltés!"
   },
   {
     "id": "report_btn",
