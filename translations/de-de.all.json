@@ -53,7 +53,7 @@
   },
   {
     "id":"terms_conditions_confirm",
-    "translation": "Durch Klicken auf <strong class=\"label label-primary\">Registrieren</strong> stimmst du den <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Nutzungsbedingungen</a> sowie der Nutzung von Cookies zu."
+    "translation": "Durch Klicken auf <strong class=\"label label-primary\">Registrieren</strong> stimmst du den <a id=\"modal_active\" href=\"#\">Nutzungsbedingungen</a> sowie der Nutzung von Cookies zu."
   },
   {
     "id":"signin",

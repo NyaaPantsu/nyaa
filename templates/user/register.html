@@ -32,16 +32,37 @@
    							<p class="error-text">{{ . }}</p>
    							{{end}}
 						</span>
-						<p>By checking this box, you agree to the <a onclick="terms()">terms and conditions</a></p>
-						<!-- {{call $.T "terms_conditions_confirm" }} -->
+						<p>{{call $.T "terms_conditions_confirm" }}</p>
+						<!--  -->
 				{{block "captcha" (makeCaptchaData .CaptchaID $.T)}}{{end}}
 
 					<input type="submit" value="{{call $.T "register" }}" class="form-input"></input>
 			</form>
 			</div>
 			</div>
-			<script type="text/javascript" charset="utf-8">function terms() {alert("just don't be a dick thx");}</script>
-
+			<!-- Modal -->
+    <div id="modal_mod_tools" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>{{ call $.T "terms_conditions" }}</h2>
+            </div>
+            <div class="modal-body">
+                <p>{{ call $.T "terms_conditions_full" }}</p>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 			{{end}}
-					<!--<p>{{call $.T "terms_conditions_full" }}</p> -->
+{{end}}
+{{ define "footer_js" }}
+<script type="text/javascript" src="{{ $.URL.Parse "/js/modal.js" }}"></script>
+<script type="text/javascript" charset="utf-8">
+    // Modal initialization
+	Modal.Init({elements: document.getElementsByClassName("modal"),
+		button: "#modal_active"
+	});
+</script>
 {{end}}

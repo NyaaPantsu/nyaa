@@ -53,7 +53,7 @@
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "Нажимая <strong class=\"label label-primary\">Регистрация</strong>, вы соглашаетесь с <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Правилами и условиями</a>, указанными на этом сайте, включая использование файлов Cookie."
+    "translation": "Нажимая <strong class=\"label label-primary\">Регистрация</strong>, вы соглашаетесь с <a id=\"modal_active\" href=\"#\">Правилами и условиями</a>, указанными на этом сайте, включая использование файлов Cookie."
   },
   {
     "id": "signin",

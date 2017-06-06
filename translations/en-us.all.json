@@ -53,7 +53,7 @@
   },
   {
     "id":"terms_conditions_confirm",
-    "translation": "By clicking <strong class=\"label label-primary\">Register</strong>, you agree to the <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Terms and Conditions</a> set out by this site, including our Cookie Use."
+    "translation": "By checking this box, you agree to the <a id=\"modal_active\" href=\"#\">terms and conditions</a>"
   },
   {
     "id":"signin",
@@ -69,7 +69,7 @@
   },
   {
     "id":"terms_conditions_full",
-    "translation": "Some Shit."
+    "translation": "Just don't be a dick."
   },
   {
     "id":"remember_me",

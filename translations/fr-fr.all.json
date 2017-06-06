@@ -569,7 +569,7 @@
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "En cliquant sur <strong class=\"label label-primary\">S'inscrire</strong>, vous acceptez les <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Termes et Conditions</a> et l'usage des cookies établis par le site."
+    "translation": "En cliquant sur <strong class=\"label label-primary\">S'inscrire</strong>, vous acceptez les <a id=\"modal_active\" href=\"#\">Termes et Conditions</a> et l'usage des cookies établis par le site."
   },
   {
     "id": "register",
