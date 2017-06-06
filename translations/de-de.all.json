@@ -20,127 +20,123 @@
     "translation": "Klicke auf den Link, um dein Passwort zurückzusetzen."
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "Neuen Account erstellen"
   },
   {
-    "id":"signup_box_title",
+    "id": "signup_box_title",
     "translation": "Registrierung <small>Es ist kostenlos und wird immer so bleiben.</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "Benutzername"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "E-Mail oder Benutzername"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "E-Mail"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "Passwort"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "Passwort-Bestätigung"
   },
   {
-    "id":"i_agree",
-    "translation": "Ich stimme zu"
-  },
-  {
-    "id":"terms_conditions_confirm",
+    "id": "terms_conditions_confirm",
     "translation": "Durch Klicken auf <strong class=\"label label-primary\">Registrieren</strong> stimmst du den <a id=\"modal_active\" href=\"#\">Nutzungsbedingungen</a> sowie der Nutzung von Cookies zu."
   },
   {
-    "id":"signin",
+    "id": "signin",
     "translation": "Einloggen"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "Registrieren"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "Nutzungsbedingungen"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "Coming sooner than you might expect..."
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "Eingeloggt bleiben"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "Passwort vergessen"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "Bitte einloggen"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "Login"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "Login erfolgreich"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "Danke für's Registrieren!"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Dein Account ist jetzt aktiviert!"
   },
   {
-    "id":"signup_verification_email",
+    "id": "signup_verification_email",
     "translation": "Derzeit ist die Verfizierung der E-Mail-Adresse deaktiviert, also kannst du deinen Account direkt nutzen. In Zukunft, überprüfe bitte deinen Posteingang (auch deinen Spam-Ordner!) auf eine Bestätigungsmail."
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "Die Registrierung war erfolgreich. Du kannst deinen Account jetzt benutzen."
   },
   {
-    "id":"settings",
+    "id": "settings",
     "translation": "Profil-Einstellungen"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "Torrents"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "Folgen"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "Nicht mehr Folgen"
   },
   {
-    "id":"user_followed_msg",
+    "id": "user_followed_msg",
     "translation": "Du folgst jetzt %s!"
   },
   {
-    "id":"user_unfollowed_msg",
+    "id": "user_unfollowed_msg",
     "translation": "Du folgst %s nicht mehr!"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "Profil von %s"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "Mehr Torrents von %s "
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "Kategorie"
   },
   {
@@ -168,10 +164,6 @@
     "translation": "Fehler 404"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "Navigation umschalten"
-  },
-  {
     "id": "upload",
     "translation": "Hochladen"
   },
@@ -186,10 +178,6 @@
   {
     "id": "fun",
     "translation": "Fun"
-  },
-  {
-    "id": "advanced_search",
-    "translation": "Erweiterte Suche"
   },
   {
     "id": "nothing_here",
@@ -214,14 +202,6 @@
   {
     "id": "member",
     "translation": "Mitglied"
-  },
-  {
-    "id": "sign_in",
-    "translation": "Einloggen"
-  },
-  {
-    "id": "sign_up",
-    "translation": "Registrieren"
   },
   {
     "id": "no_results_found",
@@ -342,10 +322,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "Weil es die Lieblingsprogrammiersprache des Entwicklers ist."
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "Magnet hochladen"
   },
   {
     "id": "torrent_file",
@@ -516,22 +492,6 @@
     "translation": "Trusted"
   },
   {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "Downloads"
-  },
-  {
-    "id": "descending",
-    "translation": "Absteigend"
-  },
-  {
-    "id": "ascending",
-    "translation": "Aufsteigend"
-  },
-  {
     "id": "search",
     "translation": "Suche"
   },
@@ -644,10 +604,6 @@
     "translation": "Torrent-Status"
   },
   {
-    "id": "torrent_status_hidden",
-    "translation": "Versteckt"
-  },
-  {
     "id": "torrent_status_normal",
     "translation": "Normal"
   },
@@ -700,16 +656,8 @@
     "translation": "Nanu, wo sind denn die Dateien hin?"
   },
   {
-    "id": "filename",
-    "translation": "Dateiname"
-  },
-  {
     "id": "uploaded_by",
     "translation": "Hochgeladen von"
-  },
-  {
-    "id": "download_btn",
-    "translation": "Download!"
   },
   {
     "id": "report_btn",
