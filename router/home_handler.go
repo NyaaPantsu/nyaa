@@ -9,7 +9,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/common"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service/torrent"
-	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/gorilla/mux"
@@ -55,12 +54,12 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	torrents, nbTorrents, err := cache.Impl.Get(search, func() ([]model.Torrent, int, error) {
-		torrents, nbTorrents, err := torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
-		if !log.CheckError(err) {
-			util.SendError(w, err, 400)
-		}
-		return torrents, nbTorrents, err
+		return torrentService.GetAllTorrents(maxPerPage, maxPerPage*(pagenum-1))
 	})
+	if !log.CheckError(err) {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	navigationTorrents := navigation{
 		TotalItem:      nbTorrents,

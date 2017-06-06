@@ -9,7 +9,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/feeds"
 	userService "github.com/NyaaPantsu/nyaa/service/user"
-	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/gorilla/mux"
 )
@@ -26,7 +25,7 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
 		if err != nil {
-			util.SendError(w, err, 400)
+			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
 		if pagenum <= 0 {
@@ -39,13 +38,13 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 		userIDnum, err := strconv.Atoi(html.EscapeString(userID))
 		// Should we have a feed for anonymous uploads?
 		if err != nil || userIDnum == 0 {
-			util.SendError(w, err, 400)
+			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
 
 		_, _, err = userService.RetrieveUserForAdmin(userID)
 		if err != nil {
-			util.SendError(w, err, 404)
+			http.Error(w, "", http.StatusNotFound)
 			return
 		}
 
@@ -57,7 +56,7 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 
 	_, torrents, err := search.SearchByQueryNoCount(r, pagenum)
 	if err != nil {
-		util.SendError(w, err, 400)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	createdAsTime := time.Now()

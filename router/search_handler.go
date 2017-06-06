@@ -7,7 +7,6 @@ import (
 	"strconv"
 
 	"github.com/NyaaPantsu/nyaa/model"
-	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/search"
@@ -40,7 +39,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 
 	searchParam, torrents, nbTorrents, err := search.SearchByQuery(r, pagenum)
 	if err != nil {
-		util.SendError(w, err, 400)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 

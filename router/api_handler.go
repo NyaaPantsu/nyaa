@@ -3,7 +3,6 @@ package router
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"html"
 	"net/http"
 	"strconv"
@@ -18,7 +17,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/upload"
 	"github.com/NyaaPantsu/nyaa/service/user"
-	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/gorilla/mux"
@@ -36,7 +34,7 @@ func APIHandler(w http.ResponseWriter, r *http.Request) {
 	if contentType == "application/json" {
 		d := json.NewDecoder(r.Body)
 		if err := d.Decode(&req); err != nil {
-			util.SendError(w, err, 502)
+			http.Error(w, err.Error(), http.StatusBadRequest)
 		}
 
 		if req.MaxPerPage == 0 {
@@ -75,7 +73,7 @@ func APIHandler(w http.ResponseWriter, r *http.Request) {
 
 	torrents, nbTorrents, err := torrentService.GetTorrents(whereParams, req.MaxPerPage, req.MaxPerPage*(req.Page-1))
 	if err != nil {
-		util.SendError(w, err, 400)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -221,11 +219,10 @@ func APIUploadHandler(w http.ResponseWriter, r *http.Request) {
 			db.ORM.Create(&file)
 		}
 	}
-	/*if err != nil {
-		util.SendError(w, err, 500)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
-	}*/
-	fmt.Printf("%+v\n", torrent)
+	}
 }
 
 // APIUpdateHandler : Controller for updating a torrent with api
@@ -299,7 +296,7 @@ func APISearchHandler(w http.ResponseWriter, r *http.Request) {
 
 	_, torrents, _, err := search.SearchByQuery(r, pagenum)
 	if err != nil {
-		util.SendError(w, err, 400)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
