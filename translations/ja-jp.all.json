@@ -1142,5 +1142,17 @@
   {
     "id": "user_id",
     "translation": "ユーザー ID"
+  },
+  {
+    "id": "mascot_url",
+    "translation": "マスコット URL"
+  },
+  {
+    "id": "no_notifications",
+    "translation": "通知なし"
+  },
+  {
+    "id": "report_msg",
+    "translation": "Torrent #%s は通報されました。"
   }
 ]
