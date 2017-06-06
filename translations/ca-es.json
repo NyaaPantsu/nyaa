@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "enllaç"
-  },
-  {
     "id": "verify_email_title",
     "translation": "Verifiqueu la vostra adreça electrònica de Nyaapantsu."
   },
@@ -594,10 +590,6 @@
   {
     "id": "torrent_status",
     "translation": "Estat del torrent"
-  },
-  {
-    "id": "torrent_status_hidden",
-    "translation": "Ocult"
   },
   {
     "id": "torrent_status_normal",
