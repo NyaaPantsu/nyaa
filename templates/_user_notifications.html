@@ -10,7 +10,7 @@
 	{{ if gt (len .Notifications) 0}}
 	<table>
 		{{ range .Notifications }}
-		<tr><td>
+		<tr><td{{ if not .Read }} class="btn-orange"{{end}}>
 			<div style="padding: 0 1rem 1rem;">
 				<a href="{{ .URL }}?notif"><h3>{{ .Content }}</h3></a>
 			</div>
