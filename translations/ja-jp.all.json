@@ -45,7 +45,7 @@
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "<strong class=\"label label-primary\">登録</strong> をクリックすることにより、Cookie の使用を含む、本サイトの <a id=\"modal_active\" href=\"#\">利用規約</a> に同意したものとみなします。"
+    "translation": "<b>登録</b> をクリックすることにより、Cookie の使用を含む、本サイトの <a id=\"modal_active\" href=\"#\">利用規約</a> に同意したものとみなします。"
   },
   {
     "id": "signin",
@@ -581,11 +581,11 @@
   },
   {
     "id": "who_is_renchon",
-    "translation": "「れんちょん」って誰やねん"
+    "translation": "「<span lang=\"ja\">れんちょん</span>」って誰やねん"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "「れんちょん」は匿名でアップロードもしくはコメントを書き込んだ際に割り当てられるユーザー名なのん。オリジナルのアップロード者と一緒に表示されることがあるけど、オリジナルの nyaa からインポートされた Torrent にも使用されるのん。"
+    "translation": "「<span lang=\"ja\">れんちょん</span>」は匿名でアップロードもしくはコメントを書き込んだ際に割り当てられるユーザー名なのん。オリジナルのアップロード者と一緒に表示されることがあるけど、オリジナルの nyaa からインポートされた Torrent にも使用されるのん。"
   },
   {
     "id": "mark_as_remake",
@@ -977,7 +977,7 @@
   },
   {
     "id": "owner_id_placeholder",
-    "translation": "オーナー ID (例えば、れんちょんは 0)"
+    "translation": "オーナー ID (例えば、<span lang=\"ja\">れんちょん</span>は 0)"
   },
   {
     "id": "try_new_attempt",

@@ -45,7 +45,7 @@
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "Með því að smella á <strong class=\"label label-primary\">Nýskrá</strong> samþykkir þú <a id=\"modal_active\" href=\"#\">Skilmála</a> síðunnar, þar á meðal notkun hennar á smákökum."
+    "translation": "Með því að smella á <b>Nýskrá</b> samþykkir þú <a id=\"modal_active\" href=\"#\">Skilmála</a> síðunnar, þar á meðal notkun hennar á smákökum."
   },
   {
     "id": "signin",
@@ -573,11 +573,11 @@
   },
   {
     "id": "who_is_renchon",
-    "translation": "Hver er れんちょん?"
+    "translation": "Hver er <span lang=\"ja\">れんちょん</span>?"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Ren-chon) er notendanafnið sem er úthlutað nafnlausum athugasemdum. Það er einnig notað fyrir athugasemdir sem eru fluttar inn frá nyaa, þó stundum taktist að birta upprunalegan höfund."
+    "translation": "<span lang=\"ja\">れんちょん</span> (Ren-chon) er notendanafnið sem er úthlutað nafnlausum athugasemdum. Það er einnig notað fyrir athugasemdir sem eru fluttar inn frá nyaa, þó stundum taktist að birta upprunalegan höfund."
   },
   {
     "id": "mark_as_remake",

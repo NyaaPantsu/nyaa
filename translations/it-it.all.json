@@ -45,7 +45,7 @@
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "Cliccando <strong class=\"label label-primary\">Registrati</strong>, accetti i <a id=\"modal_active\" href=\"#\">Termini e le condizioni</a> stabilite da questo sito, incluso il nostro Utilizzo dei Cookie."
+    "translation": "Cliccando <b>Registrati</b>, accetti i <a id=\"modal_active\" href=\"#\">Termini e le condizioni</a> stabilite da questo sito, incluso il nostro Utilizzo dei Cookie."
   },
   {
     "id": "signin",
@@ -537,11 +537,11 @@
   },
   {
     "id": "who_is_renchon",
-    "translation": "Chi cazzo è れんちょん?"
+    "translation": "Chi cazzo è <span lang=\"ja\">れんちょん</span>?"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Ren-chon) è il nome utente assegnato per uploads e commenti anonimi. È anche utilizzato anche per i torrent importati dal nyaa originale, anche se a volte l'uploader originale è mostrato di fianco."
+    "translation": "<span lang=\"ja\">れんちょん</span> (Ren-chon) è il nome utente assegnato per uploads e commenti anonimi. È anche utilizzato anche per i torrent importati dal nyaa originale, anche se a volte l'uploader originale è mostrato di fianco."
   },
   {
     "id": "mark_as_remake",
