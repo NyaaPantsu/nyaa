@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/url"
 
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/timeHelper"
@@ -48,7 +49,7 @@ func ChangePublicSettingsHandler(w http.ResponseWriter, r *http.Request) {
 	theme := r.FormValue("theme")
 	lang := r.FormValue("language")
 	mascot := r.FormValue("mascot")
-	mascotUrl := r.FormValue("mascot_url")
+	mascotURL := r.FormValue("mascot_url")
 
 	availableLanguages := publicSettings.GetAvailableLanguages()
 	defer r.Body.Close()
@@ -58,14 +59,14 @@ func ChangePublicSettingsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	// FIXME Are the settings actually sanitized?
 	// Limit the mascot URL, so base64-encoded images aren't valid
-	if len(mascotUrl) > 256 {
+	if len(mascotURL) > 256 {
 		http.Error(w, "Mascot URL is too long (max is 255 chars)", http.StatusInternalServerError)
 		return
 	}
 
-	_, err := url.Parse(mascotUrl)
+	_, err := url.Parse(mascotURL)
 	if err != nil {
-		http.Error(w, "Error parsing mascot URL: " + err.Error(), http.StatusInternalServerError)
+		http.Error(w, "Error parsing mascot URL: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -75,16 +76,23 @@ func ChangePublicSettingsHandler(w http.ResponseWriter, r *http.Request) {
 		user.Language = lang
 		user.Theme = theme
 		user.Mascot = mascot
-		user.MascotURL = mascotUrl
+		user.MascotURL = mascotURL
 		// I don't know if I should use this...
-		userService.UpdateUserCore(&user)
+		userService.UpdateRawUser(&user)
 	}
 	// Set cookie
-	http.SetCookie(w, &http.Cookie{Name: "lang", Value: lang, Expires: timeHelper.FewDaysLater(365)})
-	http.SetCookie(w, &http.Cookie{Name: "theme", Value: theme, Expires: timeHelper.FewDaysLater(365)})
-	http.SetCookie(w, &http.Cookie{Name: "mascot", Value: mascot, Expires: timeHelper.FewDaysLater(365)})
-	http.SetCookie(w, &http.Cookie{Name: "mascot_url", Value: mascotUrl, Expires: timeHelper.FewDaysLater(365)})
+	http.SetCookie(w, &http.Cookie{Name: "lang", Value: lang, Domain: getDomainName(), Expires: timeHelper.FewDaysLater(365)})
+	http.SetCookie(w, &http.Cookie{Name: "theme", Value: theme, Domain: getDomainName(), Expires: timeHelper.FewDaysLater(365)})
+	http.SetCookie(w, &http.Cookie{Name: "mascot", Value: mascot, Domain: getDomainName(), Expires: timeHelper.FewDaysLater(365)})
+	http.SetCookie(w, &http.Cookie{Name: "mascot_url", Value: mascotURL, Domain: getDomainName(), Expires: timeHelper.FewDaysLater(365)})
 
 	url, _ := Router.Get("home").URL()
 	http.Redirect(w, r, url.String(), http.StatusSeeOther)
+}
+func getDomainName() string {
+	domain := config.Conf.Cookies.DomainName
+	if config.Conf.Environment == "DEVELOPMENT" {
+		domain = ""
+	}
+	return domain
 }
