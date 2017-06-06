@@ -892,23 +892,15 @@
     "translation": "Annuler"
   },
   {
-    "id": "Nyaa Pantsu",
+    "id": "nyaa_pantsu",
     "translation": "Pantsu"
   },
   {
-    "id": "Torrents",
-    "translation": "Torrents"
-  },
-  {
-    "id": "Users",
+    "id": "users",
     "translation": "Utilisateurs"
   },
   {
-    "id": "Comments",
-    "translation": "Commentaires"
-  },
-  {
-    "id": "Torrent Reports",
+    "id": "torrent_reports",
     "translation": "Signalements de torrents"
   },
   {
