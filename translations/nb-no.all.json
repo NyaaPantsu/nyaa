@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "lenke"
-  },
-  {
     "id": "verify_email_title",
     "translation": "Bekreft epost-addressen din."
   },
@@ -20,127 +16,123 @@
     "translation": "For å bytte passordet ditt, klikk på lenken nedenfor."
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "Opprett konto"
   },
   {
-    "id":"signup_box_title",
+    "id": "signup_box_title",
     "translation": "Registrer deg her! <small>Gratis, nå og for alltid.</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "Brukernavn"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "Epost eller brukernavn"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "Epost-addresse"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "Passord"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "Bekreft passord"
   },
   {
-    "id":"i_agree",
-    "translation": "Aksepter"
-  },
-  {
-    "id":"terms_conditions_confirm",
+    "id": "terms_conditions_confirm",
     "translation": "Ved å klikke på <strong class=\"label label-primary\">Registrer</strong> godtar du <a id=\"modal_active\" href=\"#\">Vilkår og Betingelser</a> som gjelder for denne siden, samt vår bruk av Cookies."
   },
   {
-    "id":"signin",
+    "id": "signin",
     "translation": "Logg inn"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "Registrer"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "Vilkår og Betingelser"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "Pess og mannskit"
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "Husk meg"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "Glemt passordet?"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "Vennligst logg inn."
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "Logg inn"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "Registrering fullført"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "Takk og velkommen!"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Din konto er nå aktivert!"
   },
   {
-    "id":"signup_verification_email",
+    "id": "signup_verification_email",
     "translation": "Du har fått post! Sjekk innboksen din (muligens spam-kassa) for å bekrefte epost-addressen."
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "Ferdig! Ikkeno epost-piss her, bare kjør på."
   },
   {
-    "id":"settings",
+    "id": "settings",
     "translation": "Innstillinger"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "Torrenter"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "Følg"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "Avfølg"
   },
   {
-    "id":"user_followed_msg",
+    "id": "user_followed_msg",
     "translation": "Du følger nå %s!"
   },
   {
-    "id":"user_unfollowed_msg",
+    "id": "user_unfollowed_msg",
     "translation": "Du har sluttet å følge %s!"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "%s profilside"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "Se flere torrenter fra %s "
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "Kategori"
   },
   {
@@ -168,10 +160,6 @@
     "translation": "Ikke funnet"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "Vis meny"
-  },
-  {
     "id": "upload",
     "translation": "Last opp"
   },
@@ -182,10 +170,6 @@
   {
     "id": "fap",
     "translation": "Snusk"
-  },
-  {
-    "id": "advanced_search",
-    "translation": "Avansert"
   },
   {
     "id": "nothing_here",
@@ -210,14 +194,6 @@
   {
     "id": "member",
     "translation": "Medlem"
-  },
-  {
-    "id": "sign_in",
-    "translation": "Logg inn"
-  },
-  {
-    "id": "sign_up",
-    "translation": "Registrer"
   },
   {
     "id": "no_results_found",
@@ -330,10 +306,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "Favorittspråket til karen som dro sulamitten i gang."
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "Last opp magnet"
   },
   {
     "id": "torrent_file",
@@ -462,22 +434,6 @@
   {
     "id": "trusted",
     "translation": "Fra kjentfolk"
-  },
-  {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "Nedlastinger"
-  },
-  {
-    "id": "descending",
-    "translation": "Synkende"
-  },
-  {
-    "id": "ascending",
-    "translation": "Stigende"
   },
   {
     "id": "search",
