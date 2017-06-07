@@ -188,6 +188,26 @@
     "translation": "Un travail de récupération est en cours."
   },
   {
+    "id": "extensions_and_plugins",
+    "translation": "Extensions et Plugins (réalisés par des développeurs tiers)"
+  },
+  {
+    "id": "chrome_extension",
+    "translation": "Extension Chrome"
+  },
+  {
+    "id": "firefox_extension",
+    "translation": "Extension Firefox"
+  },
+  {
+    "id": "qbittorrent_plugin",
+    "translation": "Plugin qBittorrent"
+  },
+  {
+    "id": "local_client",
+    "translation": "Client local"
+  },
+  {
     "id": "is_everything_lost",
     "translation": "Tout est-il perdu ?"
   },
@@ -882,6 +902,10 @@
   {
     "id": "trusted_member",
     "translation": "Membre de confiance"
+  },
+  {
+    "id": "scraped_user",
+    "translation": "Utilisateur scrapé"
   },
   {
     "id": "moderator",
