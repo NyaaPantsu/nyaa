@@ -3,6 +3,7 @@ Description=Nyaa torrent
 After=network.target elasticsearch.service postgresql-9.6.service pgpool-II-96.service
 
 [Service]
+LimitNOFILE=512000
 WorkingDirectory=/home/nyaapantsu/go/src/github.com/NyaaPantsu/nyaa/
 ExecStart=/home/nyaapantsu/go/src/github.com/NyaaPantsu/nyaa/nyaa -conf=config/nyaa.yml
 StandardOutput=syslog
