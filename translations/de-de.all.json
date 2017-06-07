@@ -433,7 +433,7 @@
   },
   {
     "id": "art",
-    "translation": "Art"
+    "translation": "2D"
   },
   {
     "id": "art_anime",
@@ -842,5 +842,13 @@
   {
     "id": "mark_as_hidden",
     "translation": "Als Versteckt markieren"
-  }
+  },
+  {
+    "id": "mascot_url",
+    "translation": "Maskottchen URL"
+  },
+  {
+    "id": "no_notifications",
+    "translation": "Keine Benachrichtigungen"
+  },
 ]
