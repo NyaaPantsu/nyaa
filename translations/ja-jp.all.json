@@ -100,6 +100,10 @@
     "translation": "認証が完了しました。今からこのアカウントを使えるようになります。"
   },
   {
+    "id": "email_placeholder",
+    "translation": "空白のままでも OK です。"
+  },
+  {
     "id": "settings",
     "translation": "アカウント設定"
   },
@@ -309,7 +313,7 @@
   },
   {
     "id": "your_design_sucks_found_a_bug",
-    "translation": "なんだこのサイトデザイン！？ / バグを見つけたよ"
+    "translation": "なんだこのデザイン！？ / バグを見つけたよ"
   },
   {
     "id": "why_written_in_go",
@@ -548,7 +552,7 @@
     "translation": "高信頼アカウント"
   },
   {
-    "id": "scrapped_user",
+    "id": "scraped_user",
     "translation": "保留ユーザー"
   },
   {
@@ -584,6 +588,26 @@
     "translation": "モデレーション"
   },
   {
+    "id": "extensions_and_plugins",
+    "translation": "拡張機能およびプラグイン (サードパーティーの開発者様作成)"
+  },
+  {
+    "id": "qbittorrent_plugin",
+    "translation": "qBittorrent プラグイン"
+  },
+  {
+    "id": "local_client",
+    "translation": "ローカルクライアント"
+  },
+  {
+    "id": "chrome_extension",
+    "translation": "Chrome 拡張機能"
+  },
+  {
+    "id": "firefox_extension",
+    "translation": "Firefox 拡張機能"
+  },
+  {
     "id": "who_is_renchon",
     "translation": "「れんちょん」って誰やねん"
   },
@@ -610,6 +634,10 @@
   {
     "id": "torrent_status_remake",
     "translation": "再加工"
+  },
+  {
+    "id": "torrent_status_blocked",
+    "translation": "ロック"
   },
   {
     "id": "profile_edit_page",
@@ -820,6 +848,18 @@
     "translation": "Torrent %s が削除されました。"
   },
   {
+    "id": "torrents_deleted",
+    "translation": "Torrent が削除されました"
+  },
+  {
+    "id": "delete_torrent",
+    "translation": "Torrent を削除"
+  },
+  {
+    "id": "delete_report",
+    "translation": "レポートを削除"
+  },
+  {
     "id": "no_action_exist",
     "translation": "アクション %s は存在しません。"
   },
@@ -882,6 +922,10 @@
   {
     "id": "edit",
     "translation": "編集"
+  },
+  {
+    "id": "lock_delete",
+    "translation": "ロックおよび削除"
   },
   {
     "id": "delete_definitely_torrent_warning",
@@ -954,6 +998,18 @@
   {
     "id": "hide",
     "translation": "非表示"
+  },
+  {
+    "id": "nyaa_pantsu",
+    "translation": "Nyaa Pantsu"
+  },
+  {
+    "id": "users",
+    "translation": "ユーザー"
+  },
+  {
+    "id": "torrent_reports",
+    "translation": "Torrent レポート"
   },
   {
     "id": "show_mod_tools",
