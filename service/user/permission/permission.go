@@ -36,7 +36,7 @@ func GetRole(user *model.User) string {
 		return "Banned"
 	case model.UserStatusMember:
 		return "Member"
-	case model.UserStatusScrapped:
+	case model.UserStatusScraped:
 		return "Member"
 	case model.UserStatusTrusted:
 		return "Trusted Member"

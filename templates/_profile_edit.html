@@ -173,7 +173,7 @@
                 	{{ if eq .Status 2 }} <!-- just so that it shows correctly -->
                         <option value="2" selected>{{ call $.T "moderator"}}</option>
                 	{{end}}
-                	<option value="3" {{ if eq .Status 3 }}selected{{end}}>{{ call $.T "scrapped_user"}}</option>
+                	<option value="3" {{ if eq .Status 3 }}selected{{end}}>{{ call $.T "scraped_user"}}</option>
                 </select>
 	 			{{ range (index $.FormErrors "status")}}
 					<p class="error-text">{{ . }}</p>

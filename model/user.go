@@ -17,8 +17,8 @@ const (
 	UserStatusTrusted = 1
 	// UserStatusModerator : Int for User status moderator
 	UserStatusModerator = 2
-	// UserStatusScrapped : Int for User status scrapped
-	UserStatusScrapped = 3
+	// UserStatusScraped : Int for User status scrapped
+	UserStatusScraped = 3
 )
 
 // User model
@@ -95,9 +95,9 @@ func (u *User) IsModerator() bool {
 	return u.Status == UserStatusModerator
 }
 
-// IsScrapped : Return true if user is a scrapped user
-func (u *User) IsScrapped() bool {
-	return u.Status == UserStatusScrapped
+// IsScraped : Return true if user is a scrapped user
+func (u *User) IsScraped() bool {
+	return u.Status == UserStatusScraped
 }
 
 // GetUnreadNotifications : Get unread notifications from a user
