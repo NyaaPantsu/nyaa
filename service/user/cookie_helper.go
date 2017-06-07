@@ -106,6 +106,9 @@ func SetCookieHandler(w http.ResponseWriter, r *http.Request, email string, pass
 	if user.IsBanned() {
 		return http.StatusUnauthorized, errors.New("Account banned")
 	}
+	if user.IsScrapped() {
+		return http.StatusUnauthorized, errors.New("Account need activation from Moderators, please contact us")
+	}
 
 	maxAge := getMaxAge()
 	validUntil := timeHelper.FewDurationLater(time.Duration(maxAge) * time.Second)
