@@ -1,5 +1,6 @@
 {{define "title"}}{{.Torrent.Name}}{{end}}
 {{define "contclass"}}cont-view {{if eq .Torrent.Status 2}}remake{{end}} {{if eq .Torrent.Status 3}}trusted{{end}} {{if eq .Torrent.Status 4}}aplus{{end}}{{end}}
+{{define "additional_header"}}<link rel="stylesheet" href="/css/flags/flags.min.css">{{end}}
 {{ define "make_treeview" }}
 {{ range $index, $folder := .Folder.Folders }}
     {{ $folderId := (print $.IdentifierChain "_" $index) }}
@@ -61,9 +62,9 @@
           <td class="torrent-info-td torrent-info-label">{{call $.T "size"}}:</td><td class="torrent-view-td torrent-info-data">{{ fileSize .Filesize $.T }}</td>
           <td class="torrent-info-td torrent-info-label">{{call $.T "last_scraped"}}</td><td class="torrent-info-td{{if not .LastScrape.IsZero}} date-full">{{formatDateRFC .LastScrape}}{{else}}">{{call $.T "unknown"}}{{end}}</td>
       </tr>
-    {{if ne .Language ""}}
+    {{if ne (CountryCode .Language) ""}}
     <tr class="torrent-info-row">
-          <td class="torrent-info-td torrent-info-label">{{call $.T "torrent_language"}}:</td><td class="tr-flag torrent-info"><span alt="{{ LanguageName .Language $.T }}" style="background-image: url({{$.URL.Parse (printf "/img/flags/%s.png" (LanguageFlag .Language)) }})" title="{{ LanguageName .Language $.T }}"></span> {{ LanguageName .Language $.T }}</td>
+          <td class="torrent-info-td torrent-info-label">{{call $.T "torrent_language"}}:</td><td class="torrent-view-td torrent-info-data"><img src="/img/blank.gif" alt="{{ LanguageName .Language $.T }}" class="flag flag-{{CountryCode .Language}}" title="{{ LanguageName .Language $.T }}"></img> {{ LanguageName .Language $.T }}</td>
     </tr>
     {{end}}
   </table>

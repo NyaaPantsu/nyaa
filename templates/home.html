@@ -1,5 +1,6 @@
 {{define "title"}}{{call $.T "home"}}{{end}}
 {{define "contclass"}}cont-home{{end}}
+{{define "additional_header"}}<link rel="stylesheet" href="/css/flags/flags.min.css">{{end}}
 {{define "content"}}
       <!-- Contain the table within a grid, as for better sizing -->
       <div class="results box">
@@ -51,9 +52,9 @@
                       {{ end}}
                   </a>
               </td>
-              <td class="tr-lang tr-flag home-td">
-              {{if ne .Language ""}}
-                  <span alt="{{ LanguageName .Language $.T }}" style="background-image: url({{$.URL.Parse (printf "/img/flags/%s.png" (LanguageFlag .Language)) }})" title="{{ LanguageName .Language $.T }}">
+              <td class="tr-lang home-td">
+              {{if ne (CountryCode .Language) ""}}
+                  <img src="img/blank.gif" alt="{{ LanguageName .Language $.T }}" class="flag flag-{{CountryCode .Language}}" title="{{ LanguageName .Language $.T }}">
               {{end}}
               </td>
               <td class="tr-name home-td">

@@ -5,6 +5,7 @@ import (
 	"math"
 	"net/url"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
@@ -192,13 +193,20 @@ var FuncMap = template.FuncMap{
 
 		return T(language.NameTranslationID)
 	},
-	"LanguageFlag": func(code string) string {
-		language, exists := torrentLanguages.GetTorrentLanguages()[code]
-		if !exists {
-			return "unknown"
+	"CountryCode": func(languageCode string) string {
+		// If we have a translation, there's the possibility that the flag
+		// was overriden, so we need to use torrentLanguages.
+		language, exists := torrentLanguages.GetTorrentLanguages()[languageCode]
+		if exists {
+			return language.Flag
 		}
 
-		return language.Flag
+		languageSplit := strings.Split(languageCode, "-")
+		if len(languageSplit) > 1 {
+			return languageSplit[1]
+		}
+
+		return ""
 	},
 	"fileSize": func(filesize int64, T publicSettings.TemplateTfunc) template.HTML {
 		if filesize == 0 {
