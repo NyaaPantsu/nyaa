@@ -1,7 +1,7 @@
 [
   {
     "id": "verify_email_title",
-    "translation": "【Nyaapantsu】メールアドレスの認証"
+    "translation": "【Nyaa Pantsu】メールアドレスの認証"
   },
   {
     "id": "verify_email_content",
@@ -9,7 +9,7 @@
   },
   {
     "id": "reset_password_title",
-    "translation": "【Nyaapantsu】パスワードのリセット"
+    "translation": "【Nyaa Pantsu】パスワードのリセット"
   },
   {
     "id": "reset_password_content",
@@ -548,6 +548,10 @@
     "translation": "高信頼アカウント"
   },
   {
+    "id": "scrapped_user",
+    "translation": "保留ユーザー"
+  },
+  {
     "id": "moderator",
     "translation": "モデレーター"
   },
@@ -581,11 +585,11 @@
   },
   {
     "id": "who_is_renchon",
-    "translation": "「<span lang=\"ja\">れんちょん</span>」って誰やねん"
+    "translation": "「れんちょん」って誰やねん"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "「<span lang=\"ja\">れんちょん</span>」は匿名でアップロードもしくはコメントを書き込んだ際に割り当てられるユーザー名なのん。オリジナルのアップロード者と一緒に表示されることがあるけど、オリジナルの nyaa からインポートされた Torrent にも使用されるのん。"
+    "translation": "「れんちょん」は匿名でアップロードもしくはコメントを書き込んだ場合に割り当てられるユーザー名なのん。オリジナルのアップロード者と一緒に表示されることがあるけど、オリジナルの nyaa からインポートされた Torrent にも使用されるのん。"
   },
   {
     "id": "mark_as_remake",
