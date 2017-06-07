@@ -57,6 +57,7 @@ type Torrent struct {
 	Filesize    int64     `gorm:"column:filesize"`
 	Description string    `gorm:"column:description"`
 	WebsiteLink string    `gorm:"column:website_link"`
+	AnidbID     string    `gorm:"column:anidb_id"`
 	Trackers    string    `gorm:"column:trackers"`
 	DeletedAt   *time.Time
 
@@ -215,6 +216,7 @@ type TorrentJSON struct {
 	Comments     []CommentJSON `json:"comments"`
 	SubCategory  string        `json:"sub_category"`
 	Category     string        `json:"category"`
+	AnidbID      string        `json:"anidb_id"`
 	Downloads    int           `json:"downloads"`
 	UploaderID   uint          `json:"uploader_id"`
 	UploaderName template.HTML `json:"uploader_name"`
