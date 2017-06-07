@@ -592,8 +592,8 @@
     "translation": "Extensions and Plugins (made by third-party developpers)"
   },
   {
-    "id": "qbitorrent_plugin",
-    "translation": "qBitorrent Plugin"
+    "id": "qbittorrent_plugin",
+    "translation": "qBittorrent Plugin"
   },
   {
     "id": "local_client",
