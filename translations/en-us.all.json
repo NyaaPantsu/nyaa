@@ -1222,5 +1222,97 @@
   {
     "id": "username_illegal",
     "translation": "Username contains illegal characters!"
+  },
+  {
+    "id": "torrent_language",
+    "translation": "Torrent language"
+  },
+  {
+    "id": "select_a_torrent_language",
+    "translation": "Select a Torrent Language"
+  },
+  {
+    "id": "flag",
+    "translation": "gb"
+  },
+  {
+    "id": "language_en-us_name",
+    "translation": "English"
+  },
+  {
+    "id": "language_ca-es_name",
+    "translation": "Catalan"
+  },
+  {
+    "id": "language_de-de_name",
+    "translation": "German"
+  },
+  {
+    "id": "language_es-es_name",
+    "translation": "Spanish"
+  },
+  {
+    "id": "language_fr-fr_name",
+    "translation": "French"
+  },
+  {
+    "id": "language_hu-hu_name",
+    "translation": "Hungarian"
+  },
+  {
+    "id": "language_is-is_name",
+    "translation": "Icelandic"
+  },
+  {
+    "id": "language_it-it_name",
+    "translation": "Italian"
+  },
+  {
+    "id": "language_ja-jp_name",
+    "translation": "Japanese"
+  },
+  {
+    "id": "language_ko-kr_name",
+    "translation": "Korean"
+  },
+  {
+    "id": "language_nb-no_name",
+    "translation": "Norwegian"
+  },
+  {
+    "id": "language_nl-nl_name",
+    "translation": "Dutch"
+  },
+  {
+    "id": "language_pt-br_name",
+    "translation": "Portuguese (Brazil)"
+  },
+  {
+    "id": "language_pt-pt_name",
+    "translation": "Portuguese (Portugal)"
+  },
+  {
+    "id": "language_ro-ro_name",
+    "translation": "Romanian"
+  },
+  {
+    "id": "language_ru-ru_name",
+    "translation": "Russian"
+  },
+  {
+    "id": "language_sv-se_name",
+    "translation": "Swedish"
+  },
+  {
+    "id": "language_th-th_name",
+    "translation": "Thai"
+  },
+  {
+    "id": "language_zh-cn_name",
+    "translation": "Chinese"
+  },
+  {
+    "id": "language_zh-tw_name",
+    "translation": "Chinese (Taiwan)"
   }
 ]

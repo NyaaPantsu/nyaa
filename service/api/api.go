@@ -25,6 +25,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/categories"
 	"github.com/NyaaPantsu/nyaa/util/metainfo"
+	"github.com/NyaaPantsu/nyaa/util/torrentLanguages"
 	"github.com/zeebo/bencode"
 )
 
@@ -38,6 +39,7 @@ const uploadFormDescription = "desc"
 const uploadFormWebsiteLink = "website_link"
 const uploadFormStatus = "status"
 const uploadFormHidden = "hidden"
+const uploadFormLanguage = "language"
 
 // error indicating that you can't send both a magnet link and torrent
 var errTorrentPlusMagnet = errors.New("Upload either a torrent file or magnet link, not both")
@@ -59,6 +61,15 @@ var errInvalidWebsiteLink = errors.New("Website url or IRC link is invalid")
 
 // error indicating a torrent's category is invalid
 var errInvalidTorrentCategory = errors.New("Torrent category is invalid")
+
+// error indicating a torrent's language is invalid
+var errInvalidTorrentLanguage = errors.New("Torrent language is invalid")
+
+// error indicating that a non-english torrent was uploaded to a english category
+var errNonEnglishLanguageInEnglishCategory = errors.New("Torrent's category is for English translations, but torrent language isn't English.")
+
+// error indicating that a english torrent was uploaded to a non-english category
+var errEnglishLanguageInNonEnglishCategory = errors.New("Torrent's category is for non-English translations, but torrent language is English.")
 
 type torrentsQuery struct {
 	Category    int `json:"category"`
@@ -95,6 +106,7 @@ type TorrentRequest struct {
 	CaptchaID   string `json:"-"`
 	WebsiteLink string `json:"website_link,omitempty"`
 	SubCategory int    `json:"sub_category,omitempty"`
+	Language    string `json:"language,omitempty"`
 
 	Infohash      string         `json:"hash,omitempty"`
 	CategoryID    int            `json:"-"`
@@ -228,6 +240,11 @@ func (r *TorrentRequest) ExtractEditInfo(req *http.Request) error {
 		return err
 	}
 
+	err = r.ExtractLanguage(req)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -257,6 +274,45 @@ func (r *TorrentRequest) ExtractCategory(req *http.Request) error {
 	return nil
 }
 
+// ExtractLanguage : takes a http request, computes the torrent language from the form.
+func (r *TorrentRequest) ExtractLanguage(req *http.Request) error {
+	isEnglishCategory := false
+	for _, cat := range config.Conf.Torrents.EnglishOnlyCategories {
+		if cat == r.Category {
+			isEnglishCategory = true
+			break
+		}
+	}
+
+	if r.Language == "" {
+		if isEnglishCategory { // If no language, but in an English category, set to en-us.
+			// FIXME Maybe this shouldn't be hard-coded?
+			r.Language = "en-us"
+		} else {
+			return errInvalidTorrentLanguage
+		}
+	}
+
+	languages := torrentLanguages.GetTorrentLanguages()
+	if _, exists := languages[r.Language]; !exists {
+		return errInvalidTorrentLanguage
+	}
+
+	if !strings.HasPrefix(r.Language, "en") {
+		if isEnglishCategory {
+			return errNonEnglishLanguageInEnglishCategory
+		}
+	} else {
+		for _, cat := range config.Conf.Torrents.NonEnglishOnlyCategories {
+			if cat == r.Category {
+				return errEnglishLanguageInNonEnglishCategory
+			}
+		}
+	}
+
+	return nil
+}
+
 // ExtractBasicValue : takes an http request and computes all basic fields for this form
 func (r *TorrentRequest) ExtractBasicValue(req *http.Request) error {
 	if strings.HasPrefix(req.Header.Get("Content-type"), "multipart/form-data") || req.Header.Get("Content-Type") == "application/x-www-form-urlencoded" { // Multipart
@@ -274,6 +330,7 @@ func (r *TorrentRequest) ExtractBasicValue(req *http.Request) error {
 		r.Status, _ = strconv.Atoi(req.FormValue(uploadFormStatus))
 		r.Remake = req.FormValue(uploadFormRemake) == "on"
 		r.Magnet = req.FormValue(uploadFormMagnet)
+		r.Language = req.FormValue(uploadFormLanguage)
 	} else { // JSON (no file upload then)
 		decoder := json.NewDecoder(req.Body)
 		err := decoder.Decode(&r)
@@ -319,6 +376,11 @@ func (r *TorrentRequest) ExtractInfo(req *http.Request) error {
 	defer req.Body.Close()
 
 	err = r.ExtractCategory(req)
+	if err != nil {
+		return err
+	}
+
+	err = r.ExtractLanguage(req)
 	if err != nil {
 		return err
 	}

@@ -59,6 +59,7 @@ type Torrent struct {
 	WebsiteLink string    `gorm:"column:website_link"`
 	AnidbID     string    `gorm:"column:anidb_id"`
 	Trackers    string    `gorm:"column:trackers"`
+	Language    string    `gorm:"column:language"`
 	DeletedAt   *time.Time
 
 	Uploader    *User        `gorm:"AssociationForeignKey:UploaderID;ForeignKey:user_id"`
@@ -222,6 +223,7 @@ type TorrentJSON struct {
 	UploaderName template.HTML `json:"uploader_name"`
 	OldUploader  template.HTML `json:"uploader_old"`
 	WebsiteLink  template.URL  `json:"website_link"`
+	Language     string        `json:"language"`
 	Magnet       template.URL  `json:"magnet"`
 	TorrentLink  template.URL  `json:"torrent"`
 	Seeders      uint32        `json:"seeders"`
@@ -349,6 +351,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		UploaderName: util.SafeText(uploader),
 		OldUploader:  util.SafeText(t.OldUploader),
 		WebsiteLink:  util.Safe(t.WebsiteLink),
+		Language:     t.Language,
 		Magnet:       template.URL(magnet),
 		TorrentLink:  util.Safe(torrentlink),
 		Leechers:     t.Leechers,

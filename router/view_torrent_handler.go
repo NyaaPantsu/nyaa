@@ -181,6 +181,7 @@ func TorrentEditUserPanel(w http.ResponseWriter, r *http.Request) {
 		uploadForm.WebsiteLink = string(torrent.WebsiteLink)
 		uploadForm.Description = string(torrent.Description)
 		uploadForm.Hidden = torrent.Hidden
+		uploadForm.Language = torrent.Language
 		htv := formTemplateVariables{newCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
 		err := userTorrentEd.ExecuteTemplate(w, "index.html", htv)
 		log.CheckError(err)
@@ -217,6 +218,7 @@ func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
 			torrent.Hidden = uploadForm.Hidden
 			torrent.WebsiteLink = uploadForm.WebsiteLink
 			torrent.Description = uploadForm.Description
+			torrent.Language = uploadForm.Language
 			// torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
 			db.ORM.Model(&torrent).UpdateColumn(&torrent)
 			messages.AddInfoT("infos", "torrent_updated")

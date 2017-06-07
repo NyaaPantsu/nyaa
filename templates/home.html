@@ -10,6 +10,7 @@
               <th class="tr-cb"><input type="checkbox" name="select_all" onchange="TorrentsMod.selectAll(this.checked)"></th>
               {{end}}
               <th class="tr-cat">{{call $.T "category"}}</th>
+              <th class="tr-lang"></th>
               <th class="tr-name">
                 <a href="{{ genSearchWithOrdering .URL "1" }}">{{call $.T "name"}}<span class="sort-arrows">{{ genSortArrows .URL "1" }}</span></a>
               </th>
@@ -49,6 +50,11 @@
                       <img alt="{{ call $.T (CategoryName .Category .SubCategory) }}" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
                       {{ end}}
                   </a>
+              </td>
+              <td class="tr-lang tr-flag home-td">
+              {{if ne .Language ""}}
+                  <span alt="{{ LanguageName .Language $.T }}" style="background-image: url({{$.URL.Parse (printf "/img/flags/%s.png" (LanguageFlag .Language)) }})" title="{{ LanguageName .Language $.T }}">
+              {{end}}
               </td>
               <td class="tr-name home-td">
                   <a href="{{genRoute "view_torrent" "id" ( print .ID ) }}">

@@ -14,6 +14,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/util/categories"
 	"github.com/NyaaPantsu/nyaa/util/filelist"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
+	"github.com/NyaaPantsu/nyaa/util/torrentLanguages"
 )
 
 type captchaData struct {
@@ -181,6 +182,23 @@ var FuncMap = template.FuncMap{
 			return category
 		}
 		return ""
+	},
+	"GetTorrentLanguages": torrentLanguages.GetTorrentLanguages,
+	"LanguageName": func(code string, T publicSettings.TemplateTfunc) template.HTML {
+		language, exists := torrentLanguages.GetTorrentLanguages()[code]
+		if !exists {
+			return T("unknown")
+		}
+
+		return T(language.NameTranslationID)
+	},
+	"LanguageFlag": func(code string) string {
+		language, exists := torrentLanguages.GetTorrentLanguages()[code]
+		if !exists {
+			return "unknown"
+		}
+
+		return language.Flag
 	},
 	"fileSize": func(filesize int64, T publicSettings.TemplateTfunc) template.HTML {
 		if filesize == 0 {
