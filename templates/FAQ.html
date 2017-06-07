@@ -7,40 +7,48 @@
         <h1>{{call $.T "official_nyaapocalipse_faq"}}</h1>
         <br />
 
-        <h2>{{call $.T "links_replacement_mirror"}}</h2>
+        <h2 id="links">{{call $.T "links_replacement_mirror"}}</h2>
         <a href="{{.Config.WebAddress.Nyaa}}">Nyaa - {{GetHostname .Config.WebAddress.Nyaa}}</a><br />
         <a href="{{.Config.WebAddress.Sukebei}}">Sukebei - {{GetHostname .Config.WebAddress.Sukebei}}</a>
 
-        <h2>{{call $.T "server_status_link"}}</h2>
+        <h2 id="server_status">{{call $.T "server_status_link"}}</h2>
         <a href="{{.Config.WebAddress.Status}}">Status - {{GetHostname .Config.WebAddress.Status}}</a><br />
 
-        <h2>{{call $.T "what_happened"}}</h2>
+        <h2 id="what_happened">{{call $.T "what_happened"}}</h2>
         <ul>
             <li>{{call $.T "nyaa_se_went_offline"}}</li>
             <li>{{call $.T "its_not_a_ddos"}}</li>
             <li>{{call $.T "future_not_looking_good"}}</li>
             <li>{{call $.T "recovery_effort"}}</li>
         </ul>
-
-        <h2>{{call $.T "is_everything_lost"}}</h2>
+        <h2 id="extensions">{{ call $.T "extensions_and_plugins" }}</h2>
+        <p><a href="https://chrome.google.com/webstore/detail/nyaa-pantsu-latest-anime/beoinfnicondcdidhmoaiaehnmaebkfk?hl=fr" target="_blank" rel="noopener noreferrer">
+        <img title="{{ call $.T "chrome_extension" }}" src="data:image/png;base64,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">
+        </a>
+        <a href="https://addons.mozilla.org/fr/firefox/addon/nyaapantsu-latest-anime/" target="_blank" rel="noopener noreferrer">
+        <img title="{{ call $.T "firefox_extension" }}" src="data:image/png;base64,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">
+        </a>
+        <a href"https://github.com/4chenz/pantsu-plugin" target="_blank" rel="noopener noreferrer">{{ call $.T "qbitorrent_plugin"}}</a>
+        <a href="https://nyanner.net" target="_blank" rel="noopener noreferrer">{{ call $.T "local_client"}}</a></p>
+        <h2 id="everything_lost">{{call $.T "is_everything_lost"}}</h2>
         <p>{{call $.T "in_short_no"}}</p>
 
-        <h2>{{call $.T "are_some_things_lost"}}</h2>
+        <h2 id="somethings_lost">{{call $.T "are_some_things_lost"}}</h2>
         <p>{{call $.T "answer_is_nyaa_db_lost"}}</p>
         <p>{{call $.T "answer_is_sukebei_db_lost"}}</p>
 
-        <h2>{{call $.T "how_are_we_recovering"}}</h2>
+        <h2 id="how_recover">{{call $.T "how_are_we_recovering"}}</h2>
         <p>{{call $.T "answer_how_are_we_recovering"}}</p>
 
-        <h2>{{call $.T "are_the_trackers_working"}}</h2>
+        <h2 id="trackers_working">{{call $.T "are_the_trackers_working"}}</h2>
         <p>{{call $.T "answer_are_the_trackers_working"}}</p>
 
-        <h2>{{call $.T "how_do_i_download_the_torrents"}}</h2>
+        <h2 id="how_to_download">{{call $.T "how_do_i_download_the_torrents"}}</h2>
         <p>{{call $.T "answer_how_do_i_download_the_torrents"}}</p>
         <p>{{call $.T "magnet_link_should_look_like"}} <span style="font-family:monospace">
             magnet:?xt=urn:btih:[hash]&amp;dn=[name]&amp;tr=[tracker]&amp;tr=[...]</span></p>
 
-        <h2>{{call $.T "how_do_i_link_my_old_account"}}</h2>
+        <h2 id="how_get_old_account">{{call $.T "how_do_i_link_my_old_account"}}</h2>
         <p>{{call $.T "answer_how_do_i_link_my_old_account"}}</p>
 
         <h2 id="trackers">{{call $.T "which_trackers_do_you_recommend"}}</h2>
@@ -54,16 +62,16 @@ udp://tracker.internetwarriors.net:1337/announce
 http://mgtracker.org:6969/announce 
 udp://ipv6.leechers-paradise.org:6969/announce</pre>
 
-        <h2>{{call $.T "how_can_i_help"}}</h2>
+        <h2 id="can_i_help">{{call $.T "how_can_i_help"}}</h2>
         <p>{{call $.T "answer_how_can_i_help"}}</p>
 
-        <h2>{{call $.T "your_design_sucks_found_a_bug"}}</h2>
+        <h2 id="found_a_bug">{{call $.T "your_design_sucks_found_a_bug"}}</h2>
         <p><a href="https://github.com/NyaaPantsu/nyaa/issues">https://github.com/NyaaPantsu/nyaa/issues</a>.</p>
 
-        <h2>{{call $.T "why_written_in_go"}}</h2>
+        <h2 id="why_go">{{call $.T "why_written_in_go"}}</h2>
         <p>{{call $.T "authors_favorite_language"}}</p>
 
-		<h2>{{call $.T "who_is_renchon"}}</h2>
+		<h2 id="who_is_renchon">{{call $.T "who_is_renchon"}}</h2>
 		<p>{{call $.T "renchon_anon_explanation" }}</p>
 
         <br />

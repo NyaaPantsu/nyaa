@@ -588,6 +588,26 @@
     "translation": "Moderation"
   },
   {
+    "id": "extensions_and_plugins",
+    "translation": "Extensions and Plugins (made by third-party developpers)"
+  },
+  {
+    "id": "qbitorrent_plugin",
+    "translation": "qBitorrent Plugin"
+  },
+  {
+    "id": "local_client",
+    "translation": "Local Client"
+  },
+  {
+    "id": "chrome_extension",
+    "translation": "Chrome Extension"
+  },
+  {
+    "id": "firefox_extension",
+    "translation": "Firefox Extension"
+  },
+  {
     "id": "who_is_renchon",
     "translation": "Who the fuck is <span lang=\"ja\">れんちょん</span>?"
   },
