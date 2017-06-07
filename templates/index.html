@@ -71,7 +71,8 @@
 			{{ block "mascot" .}}
 			{{if ne .Mascot "hide"}}
 				<div id="mascot" class="hide-xs{{if ne .MascotURL ""}} custom-mascot{{end}}" onclick="playVoice();" {{if ne .MascotURL ""}}style="background-image: url('{{.MascotURL}}');"{{end}}></div>
-				{{ if ne .MascotURL "" }}
+				{{/* Only play the sounds with the default mascot */}}
+				{{ if eq .MascotURL "" }}
 					{{ if eq .Theme "tomorrow" }}
 					<audio id="explosion" hidden preload="none">
 						<source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
