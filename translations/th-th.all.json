@@ -100,6 +100,10 @@
     "translation": "การลงทะเบียนเสร็จเรียบร้อย คุณสามารถใช้งานแอคเคาท์ของคุณได้ในตอนนี้"
   },
   {
+    "id": "email_placeholder",
+    "translation": "สามารถปล่อยว่างได้"
+  },
+  {
     "id": "settings",
     "translation": "ตั้งค่าแอคเคาท์"
   },
@@ -548,6 +552,10 @@
     "translation": "Trusted member"
   },
   {
+    "id": "scraped_user",
+    "translation": "Scraped user"
+  },
+  {
     "id": "moderator",
     "translation": "Moderator"
   },
@@ -606,6 +614,10 @@
   {
     "id": "torrent_status_remake",
     "translation": "งานทำซ้ำ"
+  },
+  {
+    "id": "torrent_status_blocked",
+    "translation": "ถูกล๊อค"
   },
   {
     "id": "profile_edit_page",
@@ -816,6 +828,18 @@
     "translation": "ลบทอร์เรนท์ %s แล้ว!"
   },
   {
+    "id": "torrents_deleted",
+    "translation": "ลบทอร์เรนท์แล้ว"
+  },
+  {
+    "id": "delete_torrent",
+    "translation": "ลบทอร์เรนท์"
+  },
+  {
+    "id": "delete_report",
+    "translation": "ลบรายงาน"
+  },
+  {
     "id": "no_action_exist",
     "translation": "ไม่มีคำสั่ง %s !"
   },
@@ -861,7 +885,7 @@
   },
   {
     "id": "invalid_torrent_category",
-    "translation": "ไม่มีหมวดหมุ่ทอรเรนท์นี้!"
+    "translation": "ไม่มีหมวดหมุ่ทอร์เรนท์นี้!"
   },
   {
     "id": "torrent_owner_changed",
@@ -878,6 +902,10 @@
   {
     "id": "edit",
     "translation": "แก้ไข"
+  },
+  {
+    "id": "lock_delete",
+    "translation": "ล๊อคและลบ"
   },
   {
     "id": "delete_definitely_torrent_warning",
@@ -950,5 +978,221 @@
   {
     "id": "hide",
     "translation": "ซ่อน"
+  },
+  {
+    "id": "nyaa_pantsu",
+    "translation": "Nyaa Pantsu"
+  },
+  {
+    "id": "users",
+    "translation": "ผู้ใช้"
+  },
+  {
+    "id": "torrent_reports",
+    "translation": "รายงานทอร์เรนท์"
+  },
+  {
+    "id": "show_mod_tools",
+    "translation": "แสดงเครื่องมือ Mod"
+  },
+  {
+    "id": "hide_mod_tools",
+    "translation": "ซ่อนเครื่องมือ Mod"
+  },
+  {
+    "id": "following_changes_applied",
+    "translation": "การเปลี่ยนแปลงดังกล่าวถูกยืนยัน"
+  },
+  {
+    "id": "changes_in_following_order",
+    "translation": "การเปลี่ยนแปลงจะเกิดขึ้นตามคำสั่งต่อไปนี้:"
+  },
+  {
+    "id": "edit_changes",
+    "translation": "แก้ไขการเปลี่ยนแปลง"
+  },
+  {
+    "id": "delete_changes",
+    "translation": "ลบการเปลี่ยนแปลง"
+  },
+  {
+    "id": "owner_id_placeholder",
+    "translation": "ไอดีเจ้าของ (เช่น Renchon = 0)"
+  },
+  {
+    "id": "try_new_attempt",
+    "translation": "กำลังลองใหม่อีกครั้ง..."
+  },
+  {
+    "id": "query_is_broken",
+    "translation": "การสืบค้น ({0}?{1}) ผิดพลาด!"
+  },
+  {
+    "id": "query_executed_success",
+    "translation": "การสืบค้นที่ดำเนินการอยู่สำเร็จ!"
+  },
+  {
+    "id": "all_operations_done",
+    "translation": "All operations are done!"
+  },
+  {
+    "id": "refreshing_in",
+    "translation": "กำลัง Refresh หน้าใน {0} วินาที..."
+  },
+  {
+    "id": "delete_reports_with_torrents",
+    "translation": "Do you want to delete the reports along the selected torrents?"
+  },
+  {
+    "id": "with_st",
+    "translation": "กับ {0}"
+  },
+  {
+    "id": "and_reports",
+    "translation": " และรายงาน"
+  },
+  {
+    "id": "reports",
+    "translation": "รายงาน"
+  },
+  {
+    "id": "lock",
+    "translation": "ล๊อค"
+  },
+  {
+    "id": "status_js",
+    "translation": "สถานะ: {0}"
+  },
+  {
+    "id": "owner_id_js",
+    "translation": "owner_id: {0}"
+  },
+  {
+    "id": "category_js",
+    "translation": "หมวดหมู่: {0}"
+  },
+  {
+    "id": "no_changes",
+    "translation": "ไม่มีการเปลี่ยนแปลง"
+  },
+  {
+    "id": "query_nb",
+    "translation": "การสืบค้น #{0}"
+  },
+  {
+    "id": "reason",
+    "translation": "เหตุผล"
+  },
+  {
+    "id": "actions",
+    "translation": "คำสั่ง"
+  },
+  {
+    "id": "action_select",
+    "translation": "คำสั่ง..."
+  },
+  {
+    "id": "change_status",
+    "translation": "เปลี่ยนสถานะ"
+  },
+  {
+    "id": "to_status",
+    "translation": "เป็น..."
+  },
+  {
+    "id": "torrents_not_deleted",
+    "translation": "ทอร์เรนท์"
+  },
+  {
+    "id": "more",
+    "translation": "เพิ่มเติม"
+  },
+  {
+    "id": "last_comments",
+    "translation": "คอมเมนท์ล่าสุด"
+  },
+  {
+    "id": "last_reports",
+    "translation": "รายงานล่าสุด"
+  },
+  {
+    "id": "last_torrents",
+    "translation": "ทอรเรนท์ล่าสุด"
+  },
+  {
+    "id": "last_users",
+    "translation": "ผู้ใช้ล่าสุด"
+  },
+  {
+    "id": "moderation_overview",
+    "translation": "การดูแลโดยรวม"
+  },
+  {
+    "id": "users_list",
+    "translation": "รายชื่อผู้ใช้"
+  },
+  {
+    "id": "comments_list",
+    "translation": "ลิสต์คอมเมนท์"
+  },
+  {
+    "id": "reports_list",
+    "translation": "ลิสต์รายงาน"
+  },
+  {
+    "id": "torrents_list",
+    "translation": "ลิสต์ทอรเรนท์"
+  },
+  {
+    "id": "torrent_edit_panel",
+    "translation": "แผงแก้ไขทอร์เรนท์"
+  },
+  {
+    "id": "torrent_reassign",
+    "translation": "บรรจุทอร์เรนท์"
+  },
+  {
+    "id": "reassign_warning",
+    "translation": "จึงพึงระลึกเสมอว่าการบรรจุทอร์เรนท์ไปยังผู้ใช้ใหม่จะแก้ไขกลับไปยาก"
+  },
+  {
+    "id": "previous_username",
+    "translation": "ชื่อผู้ใช้เดิม"
+  },
+  {
+    "id": "torrent_id",
+    "translation": "ไอดีทอร์เรนท์"
+  },
+  {
+    "id": "reassign_indication",
+    "translation": "หนึ่งไอดีต่อบรรทัด<b>หรือ</b>หนึ่งชื่อผู้ใช้"
+  },
+  {
+    "id": "reassign_warning_2",
+    "translation": "อาจจะกินเวลานานฉะนั้น<b>อย่า</b>ยุติคำขอ"
+  },
+  {
+    "id": "reassign_to",
+    "translation": "บรรจุใหม่ไปยัง:"
+  },
+  {
+    "id": "reassign_based_on",
+    "translation": "บรรจุใหม่ภายใต้:"
+  },
+  {
+    "id": "user_id",
+    "translation": "ไอดีผู้ใช้"
+  },
+  {
+    "id": "mascot_url",
+    "translation": "URL มาสคอต"
+  },
+  {
+    "id": "no_notifications",
+    "translation": "ไม่มีการแจ้งเตือน"
+  },
+  {
+    "id": "report_msg",
+    "translation": "ทอร์เรนท์ #%s ถูกรายงาน!"
   }
 ]
