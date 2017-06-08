@@ -64,7 +64,7 @@
       </tr>
     {{if ne (CountryCode .Language) ""}}
     <tr class="torrent-info-row">
-          <td class="torrent-info-td torrent-info-label">{{call $.T "torrent_language"}}:</td><td class="torrent-view-td torrent-info-data"><img src="/img/blank.gif" alt="{{ LanguageName .Language $.T }}" class="flag flag-{{CountryCode .Language}}" title="{{ LanguageName .Language $.T }}"></img> {{ LanguageName .Language $.T }}</td>
+          <td class="torrent-info-td torrent-info-label">{{call $.T "torrent_language"}}:</td><td class="tr-flag torrent-view-td torrent-info-data"><img src="/img/blank.gif" alt="{{ LanguageName .Language $.T }}" class="flag flag-{{CountryCode .Language}}" title="{{ LanguageName .Language $.T }}"></img> {{ LanguageName .Language $.T }}</td>
     </tr>
     {{end}}
   </table>

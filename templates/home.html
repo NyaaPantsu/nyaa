@@ -52,7 +52,7 @@
                       {{ end}}
                   </a>
               </td>
-              <td class="tr-lang home-td">
+              <td class="tr-lang tr-flag home-td">
               {{if ne (CountryCode .Language) ""}}
                   <img src="img/blank.gif" alt="{{ LanguageName .Language $.T }}" class="flag flag-{{CountryCode .Language}}" title="{{ LanguageName .Language $.T }}">
               {{end}}
