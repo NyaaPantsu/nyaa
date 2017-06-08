@@ -27,6 +27,15 @@ func IsSukebei() bool {
 	return Conf.Models.TorrentsTableName == "sukebei_torrents"
 }
 
+// WebAddress : Returns web address for current site
+func WebAddress() string {
+	if IsSukebei() {
+		return Conf.WebAddress.Sukebei
+	} else {
+		return Conf.WebAddress.Nyaa
+	}
+}
+
 var allowedDatabaseTypes = map[string]bool{
 	"sqlite3":  true,
 	"postgres": true,
