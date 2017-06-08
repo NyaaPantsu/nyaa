@@ -284,6 +284,14 @@ func (r *TorrentRequest) ExtractLanguage(req *http.Request) error {
 		}
 	}
 
+	if r.Language == "other" || r.Language == "multiple" {
+		// In this case, only check if it's on a English-only category.
+		if isEnglishCategory {
+			return errNonEnglishLanguageInEnglishCategory
+		}
+		return nil
+	}
+
 	if r.Language == "" {
 		if isEnglishCategory { // If no language, but in an English category, set to en-us.
 			// FIXME Maybe this shouldn't be hard-coded?
@@ -293,8 +301,7 @@ func (r *TorrentRequest) ExtractLanguage(req *http.Request) error {
 		}
 	}
 
-	languages := torrentLanguages.GetTorrentLanguages()
-	if _, exists := languages[r.Language]; !exists {
+	if !torrentLanguages.LanguageExists(r.Language) {
 		return errInvalidTorrentLanguage
 	}
 

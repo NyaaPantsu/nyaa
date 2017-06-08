@@ -1,6 +1,9 @@
 {{define "title"}}{{call $.T "home"}}{{end}}
 {{define "contclass"}}cont-home{{end}}
-{{define "additional_header"}}<link rel="stylesheet" href="/css/flags/flags.min.css">{{end}}
+{{define "additional_header"}}
+<link rel="stylesheet" href="/css/flags/flags.min.css">
+<link rel="stylesheet" href="/css/flags/custom_flags.css">
+{{end}}
 {{define "content"}}
       <!-- Contain the table within a grid, as for better sizing -->
       <div class="results box">
@@ -53,8 +56,8 @@
                   </a>
               </td>
               <td class="tr-lang tr-flag home-td">
-              {{if ne (CountryCode .Language) ""}}
-                  <img src="img/blank.gif" alt="{{ LanguageName .Language $.T }}" class="flag flag-{{CountryCode .Language}}" title="{{ LanguageName .Language $.T }}">
+              {{if ne (FlagCode .Language) ""}}
+                  <img src="img/blank.gif" alt="{{ LanguageName .Language $.T }}" class="flag flag-{{FlagCode .Language}}" title="{{ LanguageName .Language $.T }}">
               {{end}}
               </td>
               <td class="tr-name home-td">

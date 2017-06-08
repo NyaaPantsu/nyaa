@@ -186,19 +186,19 @@ var FuncMap = template.FuncMap{
 	},
 	"GetTorrentLanguages": torrentLanguages.GetTorrentLanguages,
 	"LanguageName": func(code string, T publicSettings.TemplateTfunc) template.HTML {
-		language, exists := torrentLanguages.GetTorrentLanguages()[code]
-		if !exists {
+		if code == "other" || code == "multiple" {
+			return T("language_" + code + "_name")
+		}
+
+		if !torrentLanguages.LanguageExists(code) {
 			return T("unknown")
 		}
 
-		return T(language.NameTranslationID)
+		return T("language_" + code + "_name")
 	},
-	"CountryCode": func(languageCode string) string {
-		// If we have a translation, there's the possibility that the flag
-		// was overriden, so we need to use torrentLanguages.
-		language, exists := torrentLanguages.GetTorrentLanguages()[languageCode]
-		if exists {
-			return language.Flag
+	"FlagCode": func(languageCode string) string {
+		if languageCode == "other" || languageCode == "multiple" {
+			return languageCode
 		}
 
 		languageSplit := strings.Split(languageCode, "-")

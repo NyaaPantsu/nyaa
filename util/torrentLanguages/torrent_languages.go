@@ -1,68 +1,41 @@
 package torrentLanguages
 
 import (
-	"strings"
-
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
-	"github.com/nicksnyder/go-i18n/i18n"
 )
 
-// TorrentLanguage stores info about a language (code, flag), and defines the
-// translation ID to be used when translating its name. The language code is read
-// automatically from the available translations, but the flag should be defined
-// inside them.
-type TorrentLanguage struct {
-	Code string
-	Flag string
-	/* We need to translate every language name in each language,
-	so you see eg. Spanish and not Español */
-	NameTranslationID string
-}
-
-var torrentLanguages map[string]TorrentLanguage
+var torrentLanguages []string
 
 func initTorrentLanguages() {
-	torrentLanguages = make(map[string]TorrentLanguage)
 	languages := publicSettings.GetAvailableLanguages()
 	for code := range languages {
-		T, _, _ := i18n.TfuncAndLanguage(code)
-
-		// Read the flag from the translation file, if it has one.
-		flag := T("flag")
-		if flag == "flag" {
-			// Try using the flag from the second part of the language code (en-us would give "us", for example)
-			split := strings.Split(code, "-")
-			if len(split) > 1 {
-				flag = split[1]
-			}
-		}
-
-		if flag != "flag" {
-			torrentLanguages[code] = TorrentLanguage{code, flag, "language_" + code + "_name"}
-		}
+		torrentLanguages = append(torrentLanguages, code)
 	}
 
 	// Also support languages we don't have a translation
 	for _, code := range config.Conf.Torrents.AdditionalLanguages {
-		_, exists := torrentLanguages[code]
-		if exists {
-			continue
-		}
-
-		split := strings.Split(code, "-")
-		if len(split) > 1 {
-			flag := split[1]
-			torrentLanguages[code] = TorrentLanguage{code, flag, "language_" + code + "_name"}
-		}
+		torrentLanguages = append(torrentLanguages, code)
 	}
 }
 
-// GetTorrentLanguages returns a map of available torrent languages.
-func GetTorrentLanguages() map[string]TorrentLanguage {
+// GetTorrentLanguages returns a list of available torrent languages.
+func GetTorrentLanguages() []string {
 	if torrentLanguages == nil {
 		initTorrentLanguages()
 	}
 
 	return torrentLanguages
+}
+
+// LanguageExists check if said language is available for torrents
+func LanguageExists(lang string) bool {
+	langs := GetTorrentLanguages()
+	for _, code := range langs {
+		if code == lang {
+			return true
+		}
+	}
+
+	return false
 }

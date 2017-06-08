@@ -1318,5 +1318,13 @@
   {
     "id": "language_zh-tw_name",
     "translation": "Chinese (Taiwan)"
+  },
+  {
+    "id": "language_other_name",
+    "translation": "Other"
+  },
+  {
+    "id": "language_multiple_name",
+    "translation": "Multiple Languages"
   }
 ]
