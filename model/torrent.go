@@ -274,6 +274,7 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 		Leechers:   t.Leechers,
 		Completed:  t.Completed,
 		LastScrape: t.LastScrape,
+		Language:   t.Language,
 		//FileList: TODO
 	}
 	return torrent

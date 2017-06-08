@@ -168,5 +168,6 @@ type SearchParam struct {
 	UserID    uint
 	Max       uint
 	NotNull   string
+	Language  string
 	Query     string
 }

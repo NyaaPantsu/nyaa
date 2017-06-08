@@ -34,6 +34,7 @@ type TorrentParam struct {
 	NotNull   string // csv
 	Null      string // csv
 	NameLike  string // csv
+	Language  string
 }
 
 // FromRequest : parse a request in torrent param
@@ -90,6 +91,8 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 		ascending = true
 	}
 
+	language := strings.TrimSpace(r.URL.Query().Get("lang"))
+
 	p.NameLike = nameLike
 	p.Offset = uint32(pagenum)
 	p.Max = uint32(max)
@@ -102,6 +105,7 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	p.Status = status
 	p.Sort = sortMode
 	p.Category = category
+	p.Language = language
 	// FIXME 0 means no TorrentId defined
 	// Do we even need that ?
 	p.TorrentID = 0
@@ -146,6 +150,10 @@ func (p *TorrentParam) ToFilterQuery() string {
 		query += " date: [" + p.FromDate + " *]"
 	} else if p.ToDate != "" {
 		query += " date: [* " + p.ToDate + "]"
+	}
+
+	if p.Language != "" {
+		query += " language:" + p.Language
 	}
 
 	return query
@@ -230,5 +238,6 @@ func (p *TorrentParam) Clone() TorrentParam {
 		NotNull:   p.NotNull,
 		Null:      p.Null,
 		NameLike:  p.NameLike,
+		Language:  p.Language,
 	}
 }
