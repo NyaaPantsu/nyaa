@@ -46,7 +46,7 @@
                 <input data-name="{{ .Name }}" type="checkbox" id="torrent_cb_{{ .ID }}" name="torrent_id" value="{{ .ID }}">
               </td>
                 {{ end }}
-              <td class="tr-cat home-td">
+              <td class="tr-cat home-td" {{if eq (FlagCode .Language) ""}}colspan="2"{{end}}>
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
                       {{ if Sukebei }}
                       <img alt="{{ call $.T (CategoryName .Category .SubCategory) }}" src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
@@ -55,11 +55,11 @@
                       {{ end}}
                   </a>
               </td>
-              <td class="tr-lang tr-flag home-td">
               {{if ne (FlagCode .Language) ""}}
+              <td class="tr-lang tr-flag home-td">
                   <img src="img/blank.gif" alt="{{ LanguageName .Language $.T }}" class="flag flag-{{FlagCode .Language}}" title="{{ LanguageName .Language $.T }}">
-              {{end}}
               </td>
+              {{end}}
               <td class="tr-name home-td">
                   <a href="{{genRoute "view_torrent" "id" ( print .ID ) }}">
                       {{.Name}}
