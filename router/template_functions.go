@@ -5,7 +5,6 @@ import (
 	"math"
 	"net/url"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
@@ -201,12 +200,7 @@ var FuncMap = template.FuncMap{
 			return languageCode
 		}
 
-		languageSplit := strings.Split(languageCode, "-")
-		if len(languageSplit) > 1 {
-			return languageSplit[1]
-		}
-
-		return ""
+		return torrentLanguages.FlagFromLanguage(languageCode)
 	},
 	"fileSize": func(filesize int64, T publicSettings.TemplateTfunc) template.HTML {
 		if filesize == 0 {

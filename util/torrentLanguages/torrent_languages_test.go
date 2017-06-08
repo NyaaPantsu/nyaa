@@ -1,10 +1,10 @@
 package torrentLanguages
 
 import (
-	"path"
-	"testing"
 	"io/ioutil"
+	"path"
 	"strings"
+	"testing"
 
 	"github.com/NyaaPantsu/nyaa/config"
 )
@@ -28,8 +28,8 @@ func TestCSSFlags(t *testing.T) {
 
 	contents := string(file)
 	for _, language := range languages {
-		flag := language.Flag
-		if !strings.Contains(contents, ".flag-" + flag) {
+		flag := FlagFromLanguage(language)
+		if !strings.Contains(contents, ".flag-"+flag) {
 			t.Errorf("flags.css does not contains class .flag-%s. You probably need to update it.", flag)
 		}
 	}

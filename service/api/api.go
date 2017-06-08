@@ -292,13 +292,9 @@ func (r *TorrentRequest) ExtractLanguage(req *http.Request) error {
 		return nil
 	}
 
-	if r.Language == "" {
-		if isEnglishCategory { // If no language, but in an English category, set to en-us.
-			// FIXME Maybe this shouldn't be hard-coded?
-			r.Language = "en-us"
-		} else {
-			return errInvalidTorrentLanguage
-		}
+	if r.Language == "" && isEnglishCategory { // If no language, but in an English category, set to en-us.
+		// FIXME Maybe this shouldn't be hard-coded?
+		r.Language = "en-us"
 	}
 
 	if !torrentLanguages.LanguageExists(r.Language) {

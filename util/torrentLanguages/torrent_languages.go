@@ -1,6 +1,8 @@
 package torrentLanguages
 
 import (
+	"strings"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 )
@@ -38,4 +40,14 @@ func LanguageExists(lang string) bool {
 	}
 
 	return false
+}
+
+// FlagFromLanguage reads the language's country code.
+func FlagFromLanguage(lang string) string {
+	languageSplit := strings.Split(lang, "-")
+	if len(languageSplit) > 1 {
+		return languageSplit[1]
+	}
+
+	return ""
 }
