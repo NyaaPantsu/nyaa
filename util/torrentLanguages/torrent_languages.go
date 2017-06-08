@@ -3,6 +3,7 @@ package torrentLanguages
 import (
 	"strings"
 
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/nicksnyder/go-i18n/i18n"
 )
@@ -38,6 +39,20 @@ func initTorrentLanguages() {
 		}
 
 		if flag != "flag" {
+			torrentLanguages[code] = TorrentLanguage{code, flag, "language_" + code + "_name"}
+		}
+	}
+
+	// Also support languages we don't have a translation
+	for _, code := range config.Conf.Torrents.AdditionalLanguages {
+		_, exists := torrentLanguages[code]
+		if exists {
+			continue
+		}
+
+		split := strings.Split(code, "-")
+		if len(split) > 1 {
+			flag := split[1]
 			torrentLanguages[code] = TorrentLanguage{code, flag, "language_" + code + "_name"}
 		}
 	}

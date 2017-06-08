@@ -89,6 +89,9 @@ torrents:
   english_only_categories: ["3_5", "4_7", "5_9"]
 # NonEnglishOnlyCategories : Which categories will only accept non-English torrents
   non_english_only_categories: ["3_13", "4_14", "5_18"]
+# AdditionalLanguages : Which languages are available for selection when uploading a torrent, aside from
+# the ones we have translations.
+  additional_languages: ["es-mx"]
 # TorrentFileStorage : Path to default torrent storage location (eg /var/www/wherever/you/want)
   filestorage:
 # TorrentStorageLink : Url of torrent file download location (eg https://your.site/somewhere/%s.torrent)
