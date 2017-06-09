@@ -45,4 +45,12 @@ function humanFileSize(bytes, si) {
 	var i = ~~(Math.log(bytes) / Math.log(k));
 	return i == 0 ? bytes + " B" : (bytes / Math.pow(k, i)).toFixed(1) + " " + "KMGTPEZY"[i - 1] + (si ? "" : "i") + "B";
 }
+
+function flagCode(language) {
+    split = language.split("-");
+    if (split.length > 1) {
+        return split[1];
+    }
+    return language;
+}
 // @license-end

@@ -233,7 +233,7 @@
                 "<input data-name=\""+Templates.EncodeEntities(torrent.name)+"\" type=\"checkbox\" id=\"torrent_cb_"+torrent.id+"\" name=\"torrent_id\" value=\""+torrent.id+"\">"+
               "</td>"+
             {{ end }}
-              "<td class=\"tr-cat home-td\">"+
+              "<td class=\"tr-cat home-td\""+(torrent.language == "" ? " colspan=2" : "")+">"+
                   "<a href=\"{{$.URL.Parse "/search?c=" }}"+ torrent.category + "_" + torrent.sub_category +"\">"+
                       {{ if Sukebei }}
                       "<img src=\"{{ $.URL.Parse "/img/torrents/sukebei/" }}"+ torrent.category + torrent.sub_category+".png\" title=\""+ torrent.CategoryName +"\">"+
@@ -242,6 +242,9 @@
                       {{ end }}
                   "</a>"+
               "</td>"+
+              (torrent.language != "" ? "<td class=\"tr-lang tr-flag home-td\">" +
+                "<img src=\"img/blank.gif\" class=\"flag flag-"+flagCode(torrent.language)+"\">"+
+              "</td>" : "")+
               "<td class=\"tr-name home-td\"><a href=\"/view/"+torrent.id+"\">"+Templates.EncodeEntities(torrent.name) +"</a></td>"+
               "<td class=\"tr-cs home-td hide-xs\">"+
               ((torrent.comments.length > 0) ? "<i class=\"comment-icon\" title=\"{{ call $.T "comments" }}\">" + torrent.comments.length + "</i>" : "")+
