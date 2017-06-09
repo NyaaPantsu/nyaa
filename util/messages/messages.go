@@ -87,15 +87,27 @@ func (mes *Messages) AddInfoT(name string, id string) {
 	mes.AddInfo(name, mes.T(id))
 }
 
-// ClearErrors : Erase all errors in messages
-func (mes *Messages) ClearErrors() {
+// ClearAllErrors : Erase all errors in messages
+func (mes *Messages) ClearAllErrors() {
+	mes.Errors = nil
+	mes.setMessagesInContext()
+}
+
+// ClearAllInfos : Erase all infos in messages
+func (mes *Messages) ClearAllInfos() {
 	mes.Infos = nil
 	mes.setMessagesInContext()
 }
 
+// ClearErrors : Erase all errors in messages
+func (mes *Messages) ClearErrors(name string) {
+	mes.Errors[name] = nil
+	mes.setMessagesInContext()
+}
+
 // ClearInfos : Erase all infos in messages
-func (mes *Messages) ClearInfos() {
-	mes.Errors = nil
+func (mes *Messages) ClearInfos(name string) {
+	mes.Infos[name] = nil
 	mes.setMessagesInContext()
 }
 

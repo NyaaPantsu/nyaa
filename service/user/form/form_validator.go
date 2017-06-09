@@ -18,8 +18,10 @@ func EmailValidation(email string, mes *msg.Messages) bool {
 		if exp.MatchString(email) {
 			return true
 		}
+		mes.AddErrorT("email", "email_not_valid")
+		return false
 	}
-	mes.AddError("email", "Email Address is not valid")
+	mes.AddError("errors", "Regexp couldn't be parsed!")
 	return false
 }
 
@@ -28,13 +30,13 @@ func ValidateUsername(username string, mes *msg.Messages) bool {
 	exp, errorRegex := regexp.Compile(usernameRegex)
 	if regexpCompiled := log.CheckError(errorRegex); regexpCompiled {
 		if exp.MatchString(username) {
-			mes.AddError("username", "Username contains illegal characters")
+			mes.AddErrorT("username", "username_illegal")
 			return false
 		}
-	} else {
-		return false
+		return true
 	}
-	return true
+	mes.AddError("errors", "Regexp couldn't be parsed!")
+	return false
 }
 
 // IsAgreed : Check if terms and conditions are valid
