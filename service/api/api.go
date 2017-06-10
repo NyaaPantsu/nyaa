@@ -221,6 +221,10 @@ func (r *TorrentRequest) ExtractEditInfo(req *http.Request) error {
 		return err
 	}
 
+	err = r.validateName()
+	if err != nil {
+		return err
+	}
 	defer req.Body.Close()
 
 	err = r.ExtractCategory(req)
@@ -288,12 +292,8 @@ func (r *TorrentRequest) ExtractBasicValue(req *http.Request) error {
 	r.Magnet = strings.TrimSpace(r.Magnet)
 
 	// then actually check that we have everything we need
-	err := r.validateName()
-	if err != nil {
-		return err
-	}
 
-	err = r.validateDescription()
+	err := r.validateDescription()
 	if err != nil {
 		return err
 	}
@@ -324,6 +324,12 @@ func (r *TorrentRequest) ExtractInfo(req *http.Request) error {
 	}
 
 	tfile, err := r.ValidateMultipartUpload(req)
+	if err != nil {
+		return err
+	}
+
+	// We check name only here, reason: we can try to retrieve them from the torrent file
+	err = r.validateName()
 	if err != nil {
 		return err
 	}
