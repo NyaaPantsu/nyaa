@@ -294,7 +294,7 @@ func APISearchHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	_, torrents, _, err := search.SearchByQuery(r, pagenum)
+	_, torrents, _, err := search.SearchByQueryWithUser(r, pagenum)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
