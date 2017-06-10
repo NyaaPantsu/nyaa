@@ -1214,5 +1214,13 @@
   {
     "id": "report_msg",
     "translation": "Torrent #%s は通報されました。"
+  },
+  {
+    "id": "email_not_valid",
+    "translation": "メールアドレスが有効ではありません。"
+  },
+  {
+    "id": "username_illegal",
+    "translation": "ユーザー名に使用できない文字が含まれています。"
   }
 ]
