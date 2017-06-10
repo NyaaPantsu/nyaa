@@ -59,6 +59,7 @@ type Torrent struct {
 	WebsiteLink string    `gorm:"column:website_link"`
 	AnidbID     string    `gorm:"column:anidb_id"`
 	Trackers    string    `gorm:"column:trackers"`
+	// Indicates the language of the torrent's content (eg. subs, dubs, raws, manga TLs)
 	Language    string    `gorm:"column:language"`
 	DeletedAt   *time.Time
 
