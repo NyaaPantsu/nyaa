@@ -36,12 +36,14 @@ settings:
   index:
     number_of_shards: 1
     number_of_replicas: 0
-    max_result_window: 30000
+    # This is needed until we move to using the scroll API.
+    # ES gives an error when we have a too big offset+limit for
+    # torrents.
+    max_result_window: 5000000
 
 mappings:
   torrents:
     properties:
-      # TODO Consistent ID's type in TorrentJSON
       id:
         type: long
       name:
