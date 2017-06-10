@@ -551,9 +551,9 @@
     "id": "trusted_member",
     "translation": "Membro confiável"
   },
-	{
-	  "id": "scraped_user",
-	  "translation": "Usuário analisado"
+  {
+    "id": "scraped_user",
+    "translation": "Usuário analisado"
   },
   {
     "id": "moderator",
@@ -641,9 +641,9 @@
   },
   {
     "id": "torrent_status_blocked",
-	  "translation": "Bloqueado"
-	},
-	{
+    "translation": "Bloqueado"
+  },
+  {
     "id": "seeders",
     "translation": "Seeders"
   },
@@ -847,17 +847,17 @@
     "id": "torrent_deleted",
     "translation": "Torrent %s excluído!"
   },
-	{
-	  "id": "torrents_deleted",
-	  "translation": "Torrents excluídos"
-	},
-	{
-	  "id": "delete_torrent",
-	  "translation": "Excluir Torrent"
-	},
-	{
-	  "id": "delete_report",
-	  "translation": "Excluir Denúncia"
+  {
+    "id": "torrents_deleted",
+    "translation": "Torrents excluídos"
+  },
+  {
+    "id": "delete_torrent",
+    "translation": "Excluir Torrent"
+  },
+  {
+    "id": "delete_report",
+    "translation": "Excluir Denúncia"
   },
   {
     "id": "no_action_exist",
