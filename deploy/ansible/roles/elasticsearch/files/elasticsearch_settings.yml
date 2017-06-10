@@ -73,7 +73,4 @@ mappings:
       filesize:
         type: long
       language:
-        type: text
-        fields:
-          raw:
-            type: keyword
+        type: keyword
