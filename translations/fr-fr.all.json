@@ -572,8 +572,16 @@
     "translation": "Nom d'utilisateur"
   },
   {
+    "id": "username_illegal",
+    "translation": "Le nom d'utilisateur contient des caractères interdits !"
+  },
+  {
     "id": "email_address",
     "translation": "Adresse email"
+  },
+  {
+    "id": "email_not_valid",
+    "translation": "L'adresse email est invalide !"
   },
   {
     "id": "password",
