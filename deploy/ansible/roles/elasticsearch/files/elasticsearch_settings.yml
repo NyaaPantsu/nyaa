@@ -74,3 +74,6 @@ mappings:
         type: long
       language:
         type: text
+        fields:
+          raw:
+            type: keyword
