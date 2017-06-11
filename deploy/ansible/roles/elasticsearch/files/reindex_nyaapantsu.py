@@ -39,10 +39,10 @@ while fetches:
         if action == 'index':
             select_cur = pgconn.cursor()
             select_cur.execute("""SELECT torrent_id, torrent_name, category, sub_category, status,
-                                  torrent_hash, date, uploader, downloads, filesize, seeders, leechers, completed
+                                  torrent_hash, date, uploader, downloads, filesize, seeders, leechers, completed, language
                            FROM {torrent_tablename}
                            WHERE torrent_id = {torrent_id}""".format(torrent_id=torrent_id, torrent_tablename=torrent_tablename))
-            torrent_id, torrent_name, category, sub_category, status, torrent_hash, date, uploader, downloads, filesize, seeders, leechers, completed = select_cur.fetchone()
+            torrent_id, torrent_name, category, sub_category, status, torrent_hash, date, uploader, downloads, filesize, seeders, leechers, completed, language = select_cur.fetchone()
             doc = {
               'id': torrent_id,
               'name': torrent_name.decode('utf-8'),
@@ -56,7 +56,8 @@ while fetches:
               'filesize': filesize,
               'seeders': seeders,
               'leechers': leechers,
-              'completed': completed
+              'completed': completed,
+              'language': language
             }
             new_action['_source'] = doc
             select_cur.close()

@@ -76,7 +76,8 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			Filesize:    uploadForm.Filesize,
 			Description: uploadForm.Description,
 			WebsiteLink: uploadForm.WebsiteLink,
-			UploaderID:  user.ID}
+			UploaderID:  user.ID,
+			Language:    uploadForm.Language}
 		torrent.ParseTrackers(uploadForm.Trackers)
 		db.ORM.Create(&torrent)
 

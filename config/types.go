@@ -105,6 +105,9 @@ type TorrentsConfig struct {
 	Status                        []bool            `yaml:"status,omitempty,omitempty"`
 	SukebeiCategories             map[string]string `yaml:"sukebei_categories,omitempty"`
 	CleanCategories               map[string]string `yaml:"clean_categories,omitempty"`
+	EnglishOnlyCategories         []string          `yaml:"english_only_categories,omitempty"`
+	NonEnglishOnlyCategories      []string          `yaml:"non_english_only_categories,omitempty"`
+	AdditionalLanguages           []string          `yaml:"additional_languages,omitempty"`
 	FileStorage                   string            `yaml:"filestorage,omitempty"`
 	StorageLink                   string            `yaml:"storage_link,omitempty"`
 	CacheLink                     string            `yaml:"cache_link,omitempty"`

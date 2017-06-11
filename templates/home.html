@@ -1,5 +1,9 @@
 {{define "title"}}{{call $.T "home"}}{{end}}
 {{define "contclass"}}cont-home{{end}}
+{{define "additional_header"}}
+<link rel="stylesheet" href="/css/flags/flags.min.css">
+<link rel="stylesheet" href="/css/flags/custom_flags.css">
+{{end}}
 {{define "content"}}
       <!-- Contain the table within a grid, as for better sizing -->
       <div class="results box">
@@ -10,6 +14,7 @@
               <th class="tr-cb"><input type="checkbox" name="select_all" onchange="TorrentsMod.selectAll(this.checked)"></th>
               {{end}}
               <th class="tr-cat">{{call $.T "category"}}</th>
+              <th class="tr-lang"></th>
               <th class="tr-name">
                 <a href="{{ genSearchWithOrdering .URL "1" }}">{{call $.T "name"}}<span class="sort-arrows">{{ genSortArrows .URL "1" }}</span></a>
               </th>
@@ -41,7 +46,7 @@
                 <input data-name="{{ .Name }}" type="checkbox" id="torrent_cb_{{ .ID }}" name="torrent_id" value="{{ .ID }}">
               </td>
                 {{ end }}
-              <td class="tr-cat home-td">
+              <td class="tr-cat home-td" {{if eq (FlagCode .Language) ""}}colspan="2"{{end}}>
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
                       {{ if Sukebei }}
                       <img alt="{{ call $.T (CategoryName .Category .SubCategory) }}" src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
@@ -50,6 +55,11 @@
                       {{ end}}
                   </a>
               </td>
+              {{if ne (FlagCode .Language) ""}}
+              <td class="tr-lang tr-flag home-td">
+                  <img src="img/blank.gif" alt="{{ LanguageName .Language $.T }}" class="flag flag-{{FlagCode .Language}}" title="{{ LanguageName .Language $.T }}">
+              </td>
+              {{end}}
               <td class="tr-name home-td">
                   <a href="{{genRoute "view_torrent" "id" ( print .ID ) }}">
                       {{.Name}}
@@ -223,7 +233,7 @@
                 "<input data-name=\""+Templates.EncodeEntities(torrent.name)+"\" type=\"checkbox\" id=\"torrent_cb_"+torrent.id+"\" name=\"torrent_id\" value=\""+torrent.id+"\">"+
               "</td>"+
             {{ end }}
-              "<td class=\"tr-cat home-td\">"+
+              "<td class=\"tr-cat home-td\""+(torrent.language == "" ? " colspan=2" : "")+">"+
                   "<a href=\"{{$.URL.Parse "/search?c=" }}"+ torrent.category + "_" + torrent.sub_category +"\">"+
                       {{ if Sukebei }}
                       "<img src=\"{{ $.URL.Parse "/img/torrents/sukebei/" }}"+ torrent.category + torrent.sub_category+".png\" title=\""+ torrent.CategoryName +"\">"+
@@ -232,6 +242,9 @@
                       {{ end }}
                   "</a>"+
               "</td>"+
+              (torrent.language != "" ? "<td class=\"tr-lang tr-flag home-td\">" +
+                "<img src=\"img/blank.gif\" class=\"flag flag-"+flagCode(torrent.language)+"\">"+
+              "</td>" : "")+
               "<td class=\"tr-name home-td\"><a href=\"/view/"+torrent.id+"\">"+Templates.EncodeEntities(torrent.name) +"</a></td>"+
               "<td class=\"tr-cs home-td hide-xs\">"+
               ((torrent.comments.length > 0) ? "<i class=\"comment-icon\" title=\"{{ call $.T "comments" }}\">" + torrent.comments.length + "</i>" : "")+

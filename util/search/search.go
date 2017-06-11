@@ -94,6 +94,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool, d
 			UserID:    uint(torrentParam.UserID),
 			Max:       uint(torrentParam.Max),
 			NotNull:   torrentParam.NotNull,
+			Language:  torrentParam.Language,
 			Query:     torrentParam.NameLike,
 		}
 		// Convert back to non-json torrents
@@ -117,6 +118,7 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 
 	search.Page = pagenum
 	search.Query = r.URL.Query().Get("q")
+	search.Language = r.URL.Query().Get("lang")
 	userID, _ := strconv.Atoi(r.URL.Query().Get("userID"))
 	search.UserID = uint(userID)
 	fromID, _ := strconv.Atoi(r.URL.Query().Get("fromID"))
@@ -254,6 +256,10 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 	}
 	if len(search.NotNull) > 0 {
 		conditions = append(conditions, search.NotNull)
+	}
+	if search.Language != "" {
+		conditions = append(conditions, "language "+searchOperator)
+		parameters.Params = append(parameters.Params, "%"+search.Language+"%")
 	}
 
 	searchQuerySplit := strings.Fields(search.Query)

@@ -1,5 +1,9 @@
 {{define "title"}}{{.Torrent.Name}}{{end}}
 {{define "contclass"}}cont-view {{if eq .Torrent.Status 2}}remake{{end}} {{if eq .Torrent.Status 3}}trusted{{end}} {{if eq .Torrent.Status 4}}aplus{{end}}{{end}}
+{{define "additional_header"}}
+<link rel="stylesheet" href="/css/flags/flags.min.css">
+<link rel="stylesheet" href="/css/flags/custom_flags.css">
+{{end}}
 {{ define "make_treeview" }}
 {{ range $index, $folder := .Folder.Folders }}
     {{ $folderId := (print $.IdentifierChain "_" $index) }}
@@ -61,6 +65,11 @@
           <td class="torrent-info-td torrent-info-label">{{call $.T "size"}}:</td><td class="torrent-view-td torrent-info-data">{{ fileSize .Filesize $.T }}</td>
           <td class="torrent-info-td torrent-info-label">{{call $.T "last_scraped"}}</td><td class="torrent-info-td{{if not .LastScrape.IsZero}} date-full">{{formatDateRFC .LastScrape}}{{else}}">{{call $.T "unknown"}}{{end}}</td>
       </tr>
+    {{if ne (FlagCode .Language) ""}}
+    <tr class="torrent-info-row">
+          <td class="torrent-info-td torrent-info-label">{{call $.T "torrent_language"}}:</td><td class="tr-flag torrent-view-td torrent-info-data"><img src="/img/blank.gif" alt="{{ LanguageName .Language $.T }}" class="flag flag-{{FlagCode .Language}}" title="{{ LanguageName .Language $.T }}"></img> {{ LanguageName .Language $.T }}</td>
+    </tr>
+    {{end}}
   </table>
 <div class="torrent-buttons">
   <a href="{{.Magnet}}" class="form-input btn-green"><div class="magnet-icon"></div> {{call $.T "magnet_link"}}</a>

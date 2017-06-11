@@ -25,6 +25,19 @@
           </select>
       </div>
       <div class="form-group">
+          <label for="language">{{ call $.T "torrent_language" }}</label>
+          <select name="language" id="language" class="form-input up-input" required>
+			<option value="">{{call $.T "select_a_torrent_language"}}</option>
+            <option value="other" {{if eq $.Form.Language "other"}}selected{{end}}>{{call $.T "language_other_name"}}</option>
+			<option value="multiple" {{if eq $.Form.Language "multiple"}}selected{{end}}>{{call $.T "language_multiple_name"}}</option>
+			{{ range $_, $language := (GetTorrentLanguages) }}
+			<option value="{{ $language }}" {{if eq $.Form.Language $language}}selected{{end}}>
+				{{LanguageName $language $.T}}
+			</option>
+			{{ end }}
+		  </select>
+      </div>
+      <div class="form-group">
           <label for="Status">{{call $.T "torrent_status"}}</label>
           <select name="status" class="form-input up-input">
               <option value="5" {{if eq .Status 5}}selected{{end}}>{{ call $.T "torrent_status_blocked" }}</option>

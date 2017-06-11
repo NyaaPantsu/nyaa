@@ -72,3 +72,6 @@ mappings:
         type: long
       filesize:
         type: long
+      language:
+        type: text
+        analyzer: simple
