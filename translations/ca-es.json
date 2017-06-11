@@ -100,6 +100,10 @@
     "translation": "El registre s'ha completat, ja podeu fer servir el vostre compte."
   },
   {
+    "id": "email_placeholder",
+    "translation": "Podeu deixar-ho en blanc."
+  },
+  {
     "id": "settings",
     "translation": "Configuració del compte"
   },
@@ -205,11 +209,11 @@
   },
   {
     "id": "notice_keep_seeding",
-    "translation": "AVÍS: CONTINUA SEMBRANT I ACTIVA EL DHT, IGNORANT"
+    "translation": "AVÍS: CONTINUEU SEMBRANT I ACTIVEU EL DHT, IGNORANTS"
   },
   {
     "id": "official_nyaapocalipse_faq",
-    "translation": "PMF oficials del Nyaapocalypse"
+    "translation": "PMF oficials del Nyaapocalipsi"
   },
   {
     "id": "links_replacement_mirror",
@@ -261,7 +265,7 @@
   },
   {
     "id": "answer_how_are_we_recovering",
-    "translation": "Les bases de dades esmentades estan sent allotjades a nyaa.pantsu.cat i sukebei.pantsu.cat. Hi ha una funció de cerca, i aviat hi hauria d'haver funcionalitat (gairebé) plena de nyaa."
+    "translation": "Les bases de dades esmentades estan sent allotjades a nyaa.pantsu.cat i sukebei.pantsu.cat. Hi ha una funció de cerca, i aviat hi hauria d'haver (gairebé) totes les funcionalitats de nyaa."
   },
   {
     "id": "how_do_i_link_my_old_account",
@@ -452,6 +456,10 @@
     "translation": "Art - Manga"
   },
   {
+    "id": "art_pictures",
+    "translation": "Art - Imatges"
+  },
+  {
     "id": "real_life",
     "translation": "Vida real"
   },
@@ -494,6 +502,10 @@
   {
     "id": "description",
     "translation": "Descripció"
+  },
+  {
+    "id": "no_description",
+    "translation": "No hi ha cap descripció!"
   },
   {
     "id": "comments",
@@ -540,6 +552,10 @@
     "translation": "Membre de confiança"
   },
   {
+    "id": "scraped_user",
+    "translation": "Usuari raspat"
+  },
+  {
     "id": "moderator",
     "translation": "Moderador"
   },
@@ -572,6 +588,26 @@
     "translation": "Moderació"
   },
   {
+    "id": "extensions_and_plugins",
+    "translation": "Extensions i connectors (creats per programadors aliens)"
+  },
+  {
+    "id": "qbittorrent_plugin",
+    "translation": "Connector per al qBittorrent"
+  },
+  {
+    "id": "local_client",
+    "translation": "Client local"
+  },
+  {
+    "id": "chrome_extension",
+    "translation": "Extensió per al Chrome"
+  },
+  {
+    "id": "firefox_extension",
+    "translation": "Extensió per al Firefox"
+  },
+  {
     "id": "who_is_renchon",
     "translation": "Qui collons és <span lang=\"ja\">れんちょん</span>?"
   },
@@ -598,6 +634,10 @@
   {
     "id": "torrent_status_remake",
     "translation": "Reedició"
+  },
+  {
+    "id": "torrent_status_blocked",
+    "translation": "Blocat"
   },
   {
     "id": "profile_edit_page",
@@ -632,12 +672,16 @@
     "translation": "Suprimeix"
   },
   {
+    "id": "website_link",
+    "translation": "Enllaç al lloc web"
+  },
+  {
     "id": "files",
     "translation": "Fitxers"
   },
   {
-    "id": "filename",
-    "translation": "Nom del fitxer"
+    "id": "no_files",
+    "translation": "No hi ha fitxers? Això no té cap sentit!"
   },
   {
     "id": "uploaded_by",
@@ -706,5 +750,477 @@
   {
     "id": "no_database_dumps_available",
     "translation": "No hi ha abocaments de la base de dades disponibles en aquest moment."
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "Neteja les notificacions"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "S'han netejat les notificacions!"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "Les meves notificacions"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "Torrent nou: \"%s\" de %s"
+  },
+  {
+    "id": "preferences",
+    "translation": "Preferències"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "Notifica'm quan hi hagi un torrent nou d'un usuari que segueixo"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "Notifica'm per correu electrònic quan hi hagi un torrent nou d'un usuari que segueixo"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "Notifica'm quan hi hagi un comentari nou en un dels meus torrents"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "Notifica'm per correu electrònic quan hi hagi un comentari nou en un dels meus torrents"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "Notifica'm quan hi hagi una resposta nova a un dels meus comentaris"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "Notifica'm per correu electrònic quan hi hagi una resposta nova a un dels meus comentaris"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "Notifica'm quan tingui un seguidor nou"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "Notifica'm per correu electrònic quan tingui un seguidor nou"
+  },
+  {
+    "id": "followed_settings",
+    "translation": "Notifica'm quan segueixi algú"
+  },
+  {
+    "id": "followed_email_settings",
+    "translation": "Notifica'm per correu electrònic quan segueixi algú"
+  },
+  {
+    "id": "yes",
+    "translation": "Sí"
+  },
+  {
+    "id": "no",
+    "translation": "No"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "Comentari nou al torrent: \"%s\""
+  },
+  {
+    "id": "no_action_selected",
+    "translation": "Heu de dir què voleu fer amb la selecció!"
+  },
+  {
+    "id": "no_move_location_selected",
+    "translation": "Heu de dir on voleu moure la selecció!"
+  },
+  {
+    "id": "select_one_element",
+    "translation": "Heu de seleccionar almenys 1 element!"
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "S'ha mogut el torrent %s!"
+  },
+  {
+    "id": "no_status_exist",
+    "translation": "L'estat %s no existeix!"
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "S'ha suprimit el torrent %s!"
+  },
+  {
+    "id": "torrents_deleted",
+    "translation": "Torrents suprimits"
+  },
+  {
+    "id": "delete_torrent",
+    "translation": "Suprimeix el torrent"
+  },
+  {
+    "id": "delete_report",
+    "translation": "Suprimeix l'informe"
+  },
+  {
+    "id": "no_action_exist",
+    "translation": "No existeix l'acció %s!"
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "El torrent amb l'identificador %s no existeix!"
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "Alguna cosa ha anat malament"
+  },
+  {
+    "id": "nb_torrents_updated",
+    "translation": "S'han actualitzat %d torrents."
+  },
+  {
+    "id": "torrent_updated",
+    "translation": "S'han actualitzat els detalls del torrent."
+  },
+  {
+    "id": "fail_torrent_update",
+    "translation": "No s'ha pogut actualitzar el torrent!"
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "El captcha era erroni!"
+  },
+  {
+    "id": "comment_empty",
+    "translation": "El comentari és buit!"
+  },
+  {
+    "id": "no_owner_selected",
+    "translation": "Cal un nou propietari per al torrent!"
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "No heu seleccionat la categoria!"
+  },
+  {
+    "id": "no_user_found_id",
+    "translation": "L'usuari amb l'identificador %d no és a la base de dades!"
+  },
+  {
+    "id": "invalid_torrent_category",
+    "translation": "La categoria del torrent no existeix!"
+  },
+  {
+    "id": "torrent_owner_changed",
+    "translation": "S'ha canviat correctament el propietari del torrent \"%s\"!"
+  },
+  {
+    "id": "torrent_category_changed",
+    "translation": "S'ha canviat la categoria del torrent \"%s\"!"
+  },
+  {
+    "id": "torrent_reports_deleted",
+    "translation": "S'han suprimit els informes del torrent \"%s\"!"
+  },
+  {
+    "id": "edit",
+    "translation": "Edita"
+  },
+  {
+    "id": "lock_delete",
+    "translation": "Bloca i suprimeix"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "No podreu recuperar el fitxer, ni podreu evitar que algú altre el torni a pujar!"
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "Suprimeix-lo definitivament"
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "Desbloca"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "Bloca"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "S'ha esborrat el torrent de la base de dades!"
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "S'ha desblocat el torrent!"
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "S'ha blocat el torrent!"
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "Torrents no suprimits"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "Torrents suprimits"
+  },
+  {
+    "id": "change_settings",
+    "translation": "Canvia l'aparença o l'idioma"
+  },
+  {
+    "id": "mascot",
+    "translation": "Mascota"
+  },
+  {
+    "id": "theme",
+    "translation": "Tema"
+  },
+  {
+    "id": "theme_select",
+    "translation": "Seleccioneu un tema"
+  },
+  {
+    "id": "theme_none",
+    "translation": "Cap"
+  },
+  {
+    "id": "mark_as_hidden",
+    "translation": "Marca com a ocult"
+  },
+  {
+    "id": "cookies",
+    "translation": "En fer clic a desa, autoritzeu el nostre ús de les galetes"
+  },
+  {
+    "id": "show",
+    "translation": "Mostra"
+  },
+  {
+    "id": "hide",
+    "translation": "Amaga"
+  },
+  {
+    "id": "nyaa_pantsu",
+    "translation": "Nyaa Pantsu"
+  },
+  {
+    "id": "users",
+    "translation": "Usuaris"
+  },
+  {
+    "id": "torrent_reports",
+    "translation": "Informes de torrents"
+  },
+  {
+    "id": "show_mod_tools",
+    "translation": "Mostra les eines de moderació"
+  },
+  {
+    "id": "hide_mod_tools",
+    "translation": "Amaga les eines de moderació"
+  },
+  {
+    "id": "following_changes_applied",
+    "translation": "S'aplicaran els canvis següents"
+  },
+  {
+    "id": "changes_in_following_order",
+    "translation": "Els canvis es faran en l'ordre següent:"
+  },
+  {
+    "id": "edit_changes",
+    "translation": "Edita els canvis"
+  },
+  {
+    "id": "delete_changes",
+    "translation": "Suprimeix els canvis"
+  },
+  {
+    "id": "owner_id_placeholder",
+    "translation": "Identificador del propietari (p. ex. Renchon = 0)"
+  },
+  {
+    "id": "try_new_attempt",
+    "translation": "S'està tornant a fer un nou intent..."
+  },
+  {
+    "id": "query_is_broken",
+    "translation": "La consulta ({0}?{1}) sembla que és errònia!"
+  },
+  {
+    "id": "query_executed_success",
+    "translation": "La consulta s'ha executat satisfactòriament!"
+  },
+  {
+    "id": "all_operations_done",
+    "translation": "Totes les operacions s'han realitzat!"
+  },
+  {
+    "id": "refreshing_in",
+    "translation": "Es refrescarà la pàgina d'aquí a {0} segons..."
+  },
+  {
+    "id": "delete_reports_with_torrents",
+    "translation": "Voleu suprimir els informes dels torrents seleccionats?"
+  },
+  {
+    "id": "with_st",
+    "translation": "amb {0}"
+  },
+  {
+    "id": "and_reports",
+    "translation": " i els informes"
+  },
+  {
+    "id": "reports",
+    "translation": "informes"
+  },
+  {
+    "id": "lock",
+    "translation": "bloca"
+  },
+  {
+    "id": "status_js",
+    "translation": "estat: {0}"
+  },
+  {
+    "id": "owner_id_js",
+    "translation": "identificador del propietari: {0}"
+  },
+  {
+    "id": "category_js",
+    "translation": "categoria: {0}"
+  },
+  {
+    "id": "no_changes",
+    "translation": "No hi ha canvis"
+  },
+  {
+    "id": "query_nb",
+    "translation": "Consulta número {0}"
+  },
+  {
+    "id": "reason",
+    "translation": "Motiu"
+  },
+  {
+    "id": "actions",
+    "translation": "Accions"
+  },
+  {
+    "id": "action_select",
+    "translation": "Acció..."
+  },
+  {
+    "id": "change_status",
+    "translation": "Canvia l'estat"
+  },
+  {
+    "id": "to_status",
+    "translation": "A..."
+  },
+  {
+    "id": "torrents_not_deleted",
+    "translation": "Torrents no suprimits"
+  },
+  {
+    "id": "more",
+    "translation": "Més"
+  },
+  {
+    "id": "last_comments",
+    "translation": "Darrers comentaris"
+  },
+  {
+    "id": "last_reports",
+    "translation": "Darrers informes"
+  },
+  {
+    "id": "last_torrents",
+    "translation": "Darrers torrents"
+  },
+  {
+    "id": "last_users",
+    "translation": "Darrers usuaris"
+  },
+  {
+    "id": "moderation_overview",
+    "translation": "Visualització de moderació"
+  },
+  {
+    "id": "users_list",
+    "translation": "Llista d'usuaris"
+  },
+  {
+    "id": "comments_list",
+    "translation": "Llista de comentaris"
+  },
+  {
+    "id": "reports_list",
+    "translation": "Llista d'informes"
+  },
+  {
+    "id": "torrents_list",
+    "translation": "Llista de torrents"
+  },
+  {
+    "id": "torrent_edit_panel",
+    "translation": "Tauler d'edició de torrents"
+  },
+  {
+    "id": "torrent_reassign",
+    "translation": "Reassignació de torrents"
+  },
+  {
+    "id": "reassign_warning",
+    "translation": "Reassignar torrents a un usuari nou no és fàcil de revertir i hauríeu de fer-ho amb cura."
+  },
+  {
+    "id": "previous_username",
+    "translation": "Nom d'usuari anterior"
+  },
+  {
+    "id": "torrent_id",
+    "translation": "Identificador del torrent"
+  },
+  {
+    "id": "reassign_indication",
+    "translation": "Un identificador per línia <b>o</b> un únic nom d'usuari"
+  },
+  {
+    "id": "reassign_warning_2",
+    "translation": "Pot trigar molt de temps, <b>NO</b> avorteu la petició."
+  },
+  {
+    "id": "reassign_to",
+    "translation": "Reassigna a:"
+  },
+  {
+    "id": "reassign_based_on",
+    "translation": "Reassigna basat en:"
+  },
+  {
+    "id": "user_id",
+    "translation": "Identificador d'usuari"
+  },
+  {
+    "id": "mascot_url",
+    "translation": "URL de la mascota"
+  },
+  {
+    "id": "no_notifications",
+    "translation": "No hi ha notificacions"
+  },
+  {
+    "id": "report_msg",
+    "translation": "S'ha informat del torrent número %s!"
+  },
+  {
+    "id": "email_not_valid",
+    "translation": "L'adreça de correu electrònic no és vàlida!"
+  },
+  {
+    "id": "username_illegal",
+    "translation": "El nom d'usuari conté caràcters no permesos!"
   }
 ]
