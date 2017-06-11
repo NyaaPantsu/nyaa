@@ -44,19 +44,20 @@ func (t *Transaction) handleScrapeReply(data []byte) {
 	data = data[8:]
 	now := time.Now()
 	for idx := range t.swarms {
-		t.swarms[idx].Seeders = binary.BigEndian.Uint32(data)
+		t.swarms[idx].Scrape = &model.Scrape{}
+		t.swarms[idx].Scrape.Seeders = binary.BigEndian.Uint32(data)
 		data = data[4:]
-		t.swarms[idx].Completed = binary.BigEndian.Uint32(data)
+		t.swarms[idx].Scrape.Completed = binary.BigEndian.Uint32(data)
 		data = data[4:]
-		t.swarms[idx].Leechers = binary.BigEndian.Uint32(data)
+		t.swarms[idx].Scrape.Leechers = binary.BigEndian.Uint32(data)
 		data = data[4:]
-		t.swarms[idx].LastScrape = now
+		t.swarms[idx].Scrape.LastScrape = now
 		idx++
 	}
 }
 
-var pgQuery = "UPDATE " + config.Conf.Models.TorrentsTableName + " SET seeders = $1 , leechers = $2 , completed = $3 , last_scrape = $4 WHERE torrent_id = $5"
-var sqliteQuery = "UPDATE " + config.Conf.Models.TorrentsTableName + " SET seeders = ? , leechers = ? , completed = ? , last_scrape = ? WHERE torrent_id = ?"
+var pgQuery = "UPDATE " + config.Conf.Models.ScrapeTableName + " SET seeders = $1 , leechers = $2 , completed = $3 , last_scrape = $4 WHERE torrent_id = $5"
+var sqliteQuery = "UPDATE " + config.Conf.Models.ScrapeTableName + " SET seeders = ? , leechers = ? , completed = ? , last_scrape = ? WHERE torrent_id = ?"
 
 // Sync syncs models with database
 func (t *Transaction) Sync() (err error) {
@@ -68,7 +69,7 @@ func (t *Transaction) Sync() (err error) {
 	err = e
 	if err == nil {
 		for idx := range t.swarms {
-			_, err = tx.Exec(q, t.swarms[idx].Seeders, t.swarms[idx].Leechers, t.swarms[idx].Completed, t.swarms[idx].LastScrape, t.swarms[idx].ID)
+			_, err = tx.Exec(q, t.swarms[idx].Scrape.Seeders, t.swarms[idx].Scrape.Leechers, t.swarms[idx].Scrape.Completed, t.swarms[idx].Scrape.LastScrape, t.swarms[idx].ID)
 		}
 		tx.Commit()
 	}

@@ -67,7 +67,13 @@ type Torrent struct {
 	OldUploader string       `gorm:"-"` // ???????
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
+	Scrape      *Scrape      `gorm:"AssociationForeignKey:ID;ForeignKey:torrent_id"`
+	FileList    []File       `gorm:"ForeignKey:torrent_id"`
+}
 
+// Scrape model
+type Scrape struct{
+	TorrentID  uint      `gorm:"column:torrent_id;primary_key"`
 	Seeders    uint32    `gorm:"column:seeders"`
 	Leechers   uint32    `gorm:"column:leechers"`
 	Completed  uint32    `gorm:"column:completed"`
@@ -80,13 +86,16 @@ type Torrent struct {
 func (t Torrent) Size() (s int) {
 	s = int(reflect.TypeOf(t).Size())
 	return
-
 }
 
-// TableName : Return the name of torrents table
 func (t Torrent) TableName() string {
 	return config.Conf.Models.TorrentsTableName
 }
+
+func (t Scrape) TableName() string {
+	return config.Conf.Models.ScrapeTableName
+}
+
 
 // Identifier : Return the identifier of a torrent
 func (t *Torrent) Identifier() string {
@@ -98,7 +107,7 @@ func (t Torrent) IsNormal() bool {
 	return t.Status == TorrentStatusNormal
 }
 
-// IsRemake : Return if a torrent status is normal
+// IsRemake : Return if a torrent status is remake
 func (t Torrent) IsRemake() bool {
 	return t.Status == TorrentStatusRemake
 }
@@ -262,7 +271,7 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 		UploaderID:  t.UploaderID,
 		Downloads:   t.Downloads,
 		//Stardom: t.Stardom,
-		Filesize: t.Filesize,
+		Filesize:    t.Filesize,
 		//Description: t.Description,
 		//WebsiteLink: t.WebsiteLink,
 		//Trackers: t.Trackers,
@@ -271,10 +280,8 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 		//OldUploader: t.OldUploader,
 		//OldComments: TODO
 		// Comments: TODO
-		Seeders:    t.Seeders,
-		Leechers:   t.Leechers,
-		Completed:  t.Completed,
-		LastScrape: time.Now(), // Not stored in ES, counts won't show without value
+		// LastScrape not stored in ES, counts won't show without a value however
+		Scrape:      &Scrape{Seeders: t.Seeders, Leechers: t.Leechers, Completed: t.Completed, LastScrape: time.Now()},
 		Language:   t.Language,
 		//FileList: TODO
 	}
@@ -357,10 +364,10 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Language:     t.Language,
 		Magnet:       template.URL(magnet),
 		TorrentLink:  util.Safe(torrentlink),
-		Leechers:     t.Leechers,
-		Seeders:      t.Seeders,
-		Completed:    t.Completed,
-		LastScrape:   t.LastScrape,
+		Leechers:     t.Scrape.Leechers,
+		Seeders:      t.Scrape.Seeders,
+		Completed:    t.Scrape.Completed,
+		LastScrape:   t.Scrape.LastScrape,
 		FileList:     fileListJSON,
 	}
 
