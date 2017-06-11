@@ -345,6 +345,10 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	} else if t.ID > config.Conf.Models.LastOldTorrentID && len(config.Conf.Torrents.StorageLink) > 0 {
 		torrentlink = fmt.Sprintf(config.Conf.Torrents.StorageLink, t.Hash)
 	}
+	scrape := Scrape{}
+	if t.Scrape != nil {
+		scrape = *t.Scrape
+	}
 	res := TorrentJSON{
 		ID:           t.ID,
 		Name:         t.Name,
@@ -364,10 +368,10 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Language:     t.Language,
 		Magnet:       template.URL(magnet),
 		TorrentLink:  util.Safe(torrentlink),
-		Leechers:     t.Scrape.Leechers,
-		Seeders:      t.Scrape.Seeders,
-		Completed:    t.Scrape.Completed,
-		LastScrape:   t.Scrape.LastScrape,
+		Leechers:     scrape.Leechers,
+		Seeders:      scrape.Seeders,
+		Completed:    scrape.Completed,
+		LastScrape:   scrape.LastScrape,
 		FileList:     fileListJSON,
 	}
 
