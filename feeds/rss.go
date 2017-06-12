@@ -63,11 +63,17 @@ type RssFeed struct {
 	Items          []*RssItem
 }
 
+// https://stackoverflow.com/questions/14191596/#answer-42056891
+type Derp struct {
+    XMLName xml.Name `xml:"link"`
+    Text    string   `xml:",cdata"`
+}
+
 // RssItem Struct
 type RssItem struct {
 	XMLName     xml.Name `xml:"item"`
 	Title       string   `xml:"title"`       // required
-	Link        string   `xml:"link"`        // required
+	Link        *Derp    `xml:"link"`        // required
 	Description string   `xml:"description"` // required
 	Author      string   `xml:"author,omitempty"`
 	Category    string   `xml:"category,omitempty"`
@@ -104,7 +110,7 @@ type Rss struct {
 func newRssItem(i *Item) *RssItem {
 	item := &RssItem{
 		Title:       i.Title,
-		Link:        i.Link.Href,
+		Link:        &Derp{Text: i.Link.Href},
 		Description: i.Description,
 		GUID:        i.ID,
 		PubDate:     anyTimeFormat(time.RFC1123Z, i.Created, i.Updated),
