@@ -1222,5 +1222,109 @@
   {
     "id": "username_illegal",
     "translation": "ユーザー名に使用できない文字が含まれています。"
+  },
+  {
+    "id": "torrent_language",
+    "translation": "Torrent の言語"
+  },
+  {
+    "id": "select_a_torrent_language",
+    "translation": "-- Torrent の言語を選択 --"
+  },
+  {
+    "id": "flag",
+    "translation": "gb"
+  },
+  {
+    "id": "language_en-us_name",
+    "translation": "英語"
+  },
+  {
+    "id": "language_ca-es_name",
+    "translation": "カタルーニャ語"
+  },
+  {
+    "id": "language_de-de_name",
+    "translation": "ドイツ語"
+  },
+  {
+    "id": "language_es-es_name",
+    "translation": "スペイン語"
+  },
+  {
+    "id": "language_es-mx_name",
+    "translation": "スペイン語 (ラテンアメリカ)"
+  },
+  {
+    "id": "language_fr-fr_name",
+    "translation": "フランス語"
+  },
+  {
+    "id": "language_hu-hu_name",
+    "translation": "ハンガリー語"
+  },
+  {
+    "id": "language_is-is_name",
+    "translation": "アイスランド語"
+  },
+  {
+    "id": "language_it-it_name",
+    "translation": "イタリア語"
+  },
+  {
+    "id": "language_ja-jp_name",
+    "translation": "日本語"
+  },
+  {
+    "id": "language_ko-kr_name",
+    "translation": "韓国語"
+  },
+  {
+    "id": "language_nb-no_name",
+    "translation": "ノルウェー語"
+  },
+  {
+    "id": "language_nl-nl_name",
+    "translation": "オランダ語"
+  },
+  {
+    "id": "language_pt-br_name",
+    "translation": "ポルトガル語 (ブラジル)"
+  },
+  {
+    "id": "language_pt-pt_name",
+    "translation": "ポルトガル語 (ポルトガル)"
+  },
+  {
+    "id": "language_ro-ro_name",
+    "translation": "ルーマニア語"
+  },
+  {
+    "id": "language_ru-ru_name",
+    "translation": "ロシア語"
+  },
+  {
+    "id": "language_sv-se_name",
+    "translation": "スウェーデン語"
+  },
+  {
+    "id": "language_th-th_name",
+    "translation": "タイ語"
+  },
+  {
+    "id": "language_zh-cn_name",
+    "translation": "簡体中国語"
+  },
+  {
+    "id": "language_zh-tw_name",
+    "translation": "繁体中国語"
+  },
+  {
+    "id": "language_other_name",
+    "translation": "その他"
+  },
+  {
+    "id": "language_multiple_name",
+    "translation": "複数の言語"
   }
 ]
