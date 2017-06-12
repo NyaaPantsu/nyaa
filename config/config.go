@@ -1,48 +1,40 @@
 package config
 
 import (
-	"bufio"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
-	"os"
+	"io/ioutil"
+	"log"
+
+	yaml "gopkg.in/yaml.v2"
 )
 
-const (
-	// LastOldTorrentID is the highest torrent ID
-	// that was copied from the original Nyaa
-	LastOldTorrentID  = 923000
-	TableName         = "torrents"
-	CommentsTableName = "comments"
-	// for sukebei
-	//TableName         = "sukebei_torrents"
-	//CommentsTableName = "sukebei_comments"
+var (
+	// DefaultConfigPath : path to the default config file (please do not change it)
+	DefaultConfigPath = "config/default_config.yml"
+	// ConfigPath : path to the user specific config file (please do not change it)
+	ConfigPath = "config/config.yml"
 )
 
-type Config struct {
-	Host   string `json:"host"`
-	Port   int    `json:"port"`
-	DBType string `json:"db_type"`
-	// DBParams will be directly passed to Gorm, and its internal
-	// structure depends on the dialect for each db type
-	DBParams  string `json:"db_params"`
-	DBLogMode string `json:"db_logmode"`
-	// tracker scraper config (required)
-	Scrape ScraperConfig `json:"scraper"`
-	// cache config
-	Cache CacheConfig `json:"cache"`
-	// search config
-	Search SearchConfig `json:"search"`
-	// optional i2p configuration
-	I2P *I2PConfig `json:"i2p"`
-	// filesize fetcher config
-	MetainfoFetcher MetainfoFetcherConfig `json:"metainfo_fetcher"`
-	// internationalization config
-	I18n I18nConfig `json:"i18n"`
+// Conf : Modified configuration
+var Conf *Config
+var privateConf Config
+
+// IsSukebei : Tells if we are on the sukebei website
+func IsSukebei() bool {
+	return Conf.Models.TorrentsTableName == "sukebei_torrents"
 }
 
-var Defaults = Config{"localhost", 9999, "sqlite3", "./nyaa.db?cache_size=50", "default", DefaultScraperConfig, DefaultCacheConfig, DefaultSearchConfig, nil, DefaultMetainfoFetcherConfig, DefaultI18nConfig}
+// WebAddress : Returns web address for current site
+func WebAddress() string {
+	if IsSukebei() {
+		return Conf.WebAddress.Sukebei
+	} else {
+		return Conf.WebAddress.Nyaa
+	}
+}
 
 var allowedDatabaseTypes = map[string]bool{
 	"sqlite3":  true,
@@ -57,29 +49,38 @@ var allowedDBLogModes = map[string]bool{
 	"silent":   true,
 }
 
-func New() *Config {
-	var config Config
-	config.Host = Defaults.Host
-	config.Port = Defaults.Port
-	config.DBType = Defaults.DBType
-	config.DBParams = Defaults.DBParams
-	config.DBLogMode = Defaults.DBLogMode
-	config.Scrape = Defaults.Scrape
-	config.Cache = Defaults.Cache
-	config.MetainfoFetcher = Defaults.MetainfoFetcher
-	config.I18n = Defaults.I18n
-	return &config
+func init() {
+	Parse()
+}
+
+// Parse : Parse config into a config variable
+func Parse() {
+	getDefaultConfig()
+	privateConf = *DefaultConfig
+	Conf = &privateConf
+	overrideDefaults()
+}
+
+func overrideDefaults() {
+	data, err := ioutil.ReadFile(ConfigPath)
+	if err != nil {
+		log.Printf("can't read file '%s'", ConfigPath)
+	}
+	err = yaml.Unmarshal(data, &Conf)
+	if err != nil {
+		log.Printf("error: %v", err)
+	}
 }
 
 // BindFlags returns a function which is to be used after
 // flag.Parse to check and copy the flags' values to the Config instance.
 func (config *Config) BindFlags() func() error {
 	confFile := flag.String("conf", "", "path to the configuration file")
-	dbType := flag.String("dbtype", Defaults.DBType, "database backend")
-	host := flag.String("host", Defaults.Host, "binding address of the server")
-	port := flag.Int("port", Defaults.Port, "port of the server")
-	dbParams := flag.String("dbparams", Defaults.DBParams, "parameters to open the database (see Gorm's doc)")
-	dbLogMode := flag.String("dblogmode", Defaults.DBLogMode, "database log verbosity (errors only by default)")
+	dbType := flag.String("dbtype", Conf.DBType, "database backend")
+	host := flag.String("host", Conf.Host, "binding address of the server")
+	port := flag.Int("port", Conf.Port, "port of the server")
+	dbParams := flag.String("dbparams", Conf.DBParams, "parameters to open the database (see Gorm's doc)")
+	dbLogMode := flag.String("dblogmode", Conf.DBLogMode, "database log verbosity (errors only by default)")
 
 	return func() error {
 		// You can override fields in the config file with flags.
@@ -99,14 +100,14 @@ func (config *Config) BindFlags() func() error {
 	}
 }
 
+// HandleConfFileFlag : Read the config from a file
 func (config *Config) HandleConfFileFlag(path string) error {
 	if path != "" {
-		file, err := os.Open(path)
+		data, err := ioutil.ReadFile(path)
 		if err != nil {
 			return fmt.Errorf("can't read file '%s'", path)
 		}
-
-		err = config.Read(bufio.NewReader(file))
+		err = yaml.Unmarshal(data, config)
 		if err != nil {
 			return fmt.Errorf("failed to parse file '%s' (%s)", path, err)
 		}
@@ -114,36 +115,40 @@ func (config *Config) HandleConfFileFlag(path string) error {
 	return nil
 }
 
-func (config *Config) SetDBType(db_type string) error {
-	if !allowedDatabaseTypes[db_type] {
-		return fmt.Errorf("unknown database backend '%s'", db_type)
+// SetDBType : Set the DataBase type in config
+func (config *Config) SetDBType(dbType string) error {
+	if !allowedDatabaseTypes[dbType] {
+		return fmt.Errorf("unknown database backend '%s'", dbType)
 	}
-	config.DBType = db_type
+	config.DBType = dbType
 	return nil
 }
 
-func (config *Config) SetDBLogMode(db_logmode string) error {
-	if !allowedDBLogModes[db_logmode] {
-		return fmt.Errorf("unknown database log mode '%s'", db_logmode)
+// SetDBLogMode : Set the log mode in config
+func (config *Config) SetDBLogMode(dbLogmode string) error {
+	if !allowedDBLogModes[dbLogmode] {
+		return fmt.Errorf("unknown database log mode '%s'", dbLogmode)
 	}
-	config.DBLogMode = db_logmode
+	config.DBLogMode = dbLogmode
 	return nil
 }
 
+// Read : Decode config from json to config
 func (config *Config) Read(input io.Reader) error {
 	return json.NewDecoder(input).Decode(config)
 }
 
+// Write : Encode config from json to config
 func (config *Config) Write(output io.Writer) error {
 	return json.NewEncoder(output).Encode(config)
 }
 
+// Pretty : Write config json in a file
 func (config *Config) Pretty(output io.Writer) error {
-	data, err := json.MarshalIndent(config, "", "\t")
+	data, err := yaml.Marshal(config)
 	if err != nil {
 		return err
 	}
-	data = append(data, []byte("\n")...)
 	_, err = output.Write(data)
 	return err
 }

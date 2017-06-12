@@ -1,17 +1,46 @@
+- name: Download postgresql rpm
+  get_url:
+    url: https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+    dest: /tmp/postgresql.rpm
+
+- name: Install postgresql.rpm
+  yum:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - /tmp/postgresql.rpm
+
 - name: Install postgresql
   yum:
     name: "{{ item }}"
     state: present
   become: true
   with_items:
-    - postgresql-server
-    - postgresql-pgpool-II
+    - postgresql96-server
+    - postgresql96-contrib # Needed for extensions (ie: btree_gin)
+    - pgpool-II-96
+
+- name: Add go to PATH
+  lineinfile:
+    path: ~/.bashrc
+    regexp: 'export PATH=.*pgsql.*'
+    line:   'export PATH=$PATH:/usr/pgsql-9.6/bin'
 
 - name: Initialize postgresql
-  command: postgresql-setup initdb
+  command: /usr/pgsql-9.6/bin/initdb -D /var/lib/pgsql/9.6/data
   # Will error when database has already been initialized so just ignore it
   ignore_errors: yes
   become: true
+  become_user: postgres
+
+- name: Copy configuration file for postgresql
+  template:
+    src: postgresql.conf.j2
+    dest: /var/lib/pgsql/9.6/data/postgresql.conf
+  become: true
+  become_user: postgres
+
 
 - name: Install adapter for python
   yum:
@@ -22,7 +51,7 @@
 - name: Configure pgpool
   template:
     src: pgpool.conf.j2
-    dest: /etc/pgpool-II/pgpool.conf
+    dest: /etc/pgpool-II-96/pgpool.conf
   become: true
 
 - name: Create oiddir for pgpool
@@ -31,6 +60,14 @@
     state: directory
   become: true 
 
+- name: Fix bug where pid is in wrong pool
+  file:
+    src: /var/run/pgpool-II-96
+    path: /var/run/pgpool
+    state: link
+    force: yes
+  become: true
+
 - name: Start postgresql, pgpool and enable at boot
   systemd:
     enabled: yes
@@ -38,8 +75,8 @@
     state: started
   become: true
   with_items:
-    - postgresql
-    - pgpool
+    - postgresql-9.6
+    - pgpool-II-96
 
 - name: Create nyaapantsu database
   postgresql_db:
@@ -70,7 +107,7 @@
 - name: Add custom pg_hba.conf
   template:
     src: pg_hba.conf.j2
-    dest: /var/lib/pgsql/data/pg_hba.conf
+    dest: /var/lib/pgsql/9.6/data/pg_hba.conf
   become: true
   become_user: postgres
 
@@ -82,6 +119,6 @@
 
 - name: Reload postgres
   systemd:
-    name: postgresql
+    name: postgresql-9.6
     state: reloaded
   become: true

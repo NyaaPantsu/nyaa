@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "链接"
-  },
-  {
     "id": "verify_email_title",
     "translation": "请验证您的电子邮箱喵~"
   },
@@ -20,127 +16,123 @@
     "translation": "请点击下面的链接重置密码喵~"
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "注册账号"
   },
   {
-    "id":"signup_box_title",
+    "id": "signup_box_title",
     "translation": "请注册 <small>我们永久免费</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "用户名"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "电子邮箱或用户名"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "电子邮箱"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "密码"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "确认密码"
   },
   {
-    "id":"i_agree",
-    "translation": "我同意"
+    "id": "terms_conditions_confirm",
+    "translation": "按下 <b>注册账号</b> 即表示您同意本网站的 <a id=\"modal_active\" href=\"#\">条款与条件</a> 以及浏览器Cookie喵~"
   },
   {
-    "id":"terms_conditions_confirm",
-    "translation": "按下 <strong class=\"label label-primary\">注册账号</strong> 即表示您同意本网站的 <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">条款与条件</a> 以及浏览器Cookie喵~"
-  },
-  {
-    "id":"signin",
+    "id": "signin",
     "translation": "登录"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "注册"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "条款与条件"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "一些扯淡"
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "记住我"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "忘记密码？"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "请登录"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "登录"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "注册完成"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "恭喜您注册成功喵！"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>您的账号已可以使用了喵！"
   },
   {
-    "id":"signup_verification_email",
+    "id": "signup_verification_email",
     "translation": "请检查您的电子邮箱（或垃圾邮件）找到账号确认邮件喵~"
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "注册成功喵，账号已经可以使用了！"
   },
   {
-    "id":"settings",
+    "id": "settings",
     "translation": "账号设置"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "种子列表"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "关注"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "取消关注"
   },
   {
-    "id":"user_followed_msg",
+    "id": "user_followed_msg",
     "translation": "您已经关注了 %s 喵！"
   },
   {
-    "id":"user_unfollowed_msg",
+    "id": "user_unfollowed_msg",
     "translation": "您已经取消了对 %s 的关注喵！"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "%s 用户资料"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "更多种子来自 %s "
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "分类"
   },
   {
@@ -168,10 +160,6 @@
     "translation": "纳尼？ 是 404 喵！"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "切换索引"
-  },
-  {
     "id": "upload",
     "translation": "上传"
   },
@@ -181,15 +169,11 @@
   },
   {
     "id": "fap",
-    "translation": "秘密花园"
+    "translation": "TM射爆"
   },
   {
     "id": "fun",
     "translation": "贤者模式"
-  },
-  {
-    "id": "advanced_search",
-    "translation": "高级搜索"
   },
   {
     "id": "nothing_here",
@@ -214,14 +198,6 @@
   {
     "id": "member",
     "translation": "会员"
-  },
-  {
-    "id": "sign_in",
-    "translation": "登录"
-  },
-  {
-    "id": "sign_up",
-    "translation": "注册"
   },
   {
     "id": "no_results_found",
@@ -342,10 +318,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "这是作者的信仰！"
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "上传磁力链接"
   },
   {
     "id": "torrent_file",
@@ -512,22 +484,6 @@
     "translation": "受信任的资源"
   },
   {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "下载量"
-  },
-  {
-    "id": "descending",
-    "translation": "降序"
-  },
-  {
-    "id": "ascending",
-    "translation": "升序"
-  },
-  {
     "id": "search",
     "translation": "搜索"
   },
@@ -617,11 +573,11 @@
   },
   {
     "id": "who_is_renchon",
-    "translation": "れんちょん是谁?"
+    "translation": "<span lang=\"ja\">れんちょん</span>是谁?"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん(小莲)是匿名评论与上传者的默认用户名，同时也显示为Nyaa站原始资源的上传者."
+    "translation": "<span lang=\"ja\">れんちょん</span>(小莲)是匿名评论与上传者的默认用户名，同时也显示为Nyaa站原始资源的上传者."
   },
   {
     "id": "mark_as_remake",
@@ -634,10 +590,6 @@
   {
     "id": "torrent_status",
     "translation": "种子状态"
-  },
-  {
-    "id": "torrent_status_hidden",
-    "translation": "隐藏"
   },
   {
     "id": "torrent_status_normal",
@@ -684,16 +636,8 @@
     "translation": "文件"
   },
   {
-    "id": "filename",
-    "translation": "文件名"
-  },
-  {
     "id": "uploaded_by",
     "translation": "上传者"
-  },
-  {
-    "id": "download_btn",
-    "translation": "下载！"
   },
   {
     "id": "report_btn",
@@ -705,7 +649,7 @@
   },
   {
     "id": "report_torrent_number",
-    "translation": "举报种子 #"
+    "translation": "举报种子 #%s"
   },
   {
     "id": "report_type",
@@ -738,5 +682,221 @@
   {
     "id": "cancel",
     "translation": "取消"
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "请把我们的tracker： udp://tracker.doko.moe:6969 添加到你的tracker列表里."
+  },
+  {
+    "id": "unknown",
+    "translation": "未知"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "最后完成时间: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "服务器状态可以在这里查到"
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "目前没有任何的数据库备份可用."
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "清除所有提醒"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "已清除提醒!"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "我的提醒"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "新的资源: \"%s\" 来自 %s"
+  },
+  {
+    "id": "preferences",
+    "translation": "偏好设置"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "当我关注的人上传了新的资源时，请提醒我"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "当我关注的人上传了新的资源时，请通过邮件提醒我"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "当有人评论了我的资源时，请提醒我"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "当有人评论了我的资源时，请通过邮件提醒我"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "当有人回复了我的评论时，请提醒我"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "当有人回复了我的评论时，请通过邮件提醒我"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "当有人关注我时，请提醒我"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "当有人关注我时，请通过邮件提醒我"
+  },
+  {
+    "id": "followed_settings",
+    "translation": "当我关注了某人时，请提醒我"
+  },
+  {
+    "id": "followed_email_settings",
+    "translation": "当我关注了某人时，请通过邮件提醒我"
+  },
+  {
+    "id": "yes",
+    "translation": "是"
+  },
+  {
+    "id": "no",
+    "translation": "否"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "有人评论了您的资源: \"%s\""
+  },
+  {
+    "id": "no_action_selected",
+    "translation": "你不选点什么，我怎么知道你要干什么!"
+  },
+  {
+    "id": "no_move_location_selected",
+    "translation": "你不选点什么，我怎么知道你要移动什么！"
+  },
+  {
+    "id": "select_one_element",
+    "translation": "你至少应该选择一个项目!"
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "种子 %s 已被移动!"
+  },
+  {
+    "id": "no_status_exist",
+    "translation": "状态 %s 不存在!"
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "种子 %s 已被删除!"
+  },
+  {
+    "id": "no_action_exist",
+    "translation": "操作 %s 不存在!"
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "不存在ID为 %s 种子!"
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "不知道出了什么鬼问题"
+  },
+  {
+    "id": "nb_torrents_updated",
+    "translation": "种子 %d 已更新."
+  },
+  {
+    "id": "torrent_updated",
+    "translation": "种子详细信息已更新."
+  },
+  {
+    "id": "fail_torrent_update",
+    "translation": "更新种子信息失败!"
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "验证码输入错误!"
+  },
+  {
+    "id": "comment_empty",
+    "translation": "空的评论!"
+  },
+  {
+    "id": "no_owner_selected",
+    "translation": "种子需要新的主人!"
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "未选择任何分类!"
+  },
+  {
+    "id": "no_user_found_id",
+    "translation": "不存在ID为 %d 的用户!"
+  },
+  {
+    "id": "invalid_torrent_category",
+    "translation": "不存在的资源分类!"
+  },
+  {
+    "id": "torrent_owner_changed",
+    "translation": "种子 \"%s\" 的所有者已改变!"
+  },
+  {
+    "id": "torrent_category_changed",
+    "translation": "种子 \"%s\" 的分类已改变!"
+  },
+  {
+    "id": "torrent_reports_deleted",
+    "translation": "种子 \"%s\" 的举报信息已被删除!"
+  },
+  {
+    "id": "edit",
+    "translation": "编辑"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "除非你阻止另外一个正在上传这些文件的人，否则你无法恢复她们!"
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "确认删除"
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "解锁"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "锁定"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "该种子已从数据库中清除!"
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "种子已解锁!"
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "种子已锁定!"
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "种子没有被删除"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "种子已被删除"
   }
 ]

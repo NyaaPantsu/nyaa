@@ -1,0 +1,38 @@
+-- Matches the _op_type values from elasticsearch bulk API
+-- https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html
+
+CREATE TYPE torrents_action AS ENUM ('index', 'delete');
+
+CREATE TABLE IF NOT EXISTS reindex_{{ nyaapantsu_torrent_tablename }} (
+	reindex_torrents_id SERIAL,
+	torrent_id int,
+	action torrents_action
+);
+
+CREATE OR REPLACE FUNCTION add_reindex_{{ nyaapantsu_torrent_tablename }}_action() RETURNS TRIGGER AS $$
+    BEGIN
+        IF (TG_OP = 'INSERT') THEN
+            INSERT INTO reindex_{{ nyaapantsu_torrent_tablename }} (torrent_id, action) VALUES (NEW.torrent_id, 'index');
+            RETURN NEW;
+        ELSIF (TG_OP = 'UPDATE') THEN
+          IF (NEW.deleted_at IS NOT NULL) THEN
+            INSERT INTO reindex_{{ nyaapantsu_torrent_tablename }} (torrent_id, action) VALUES (OLD.torrent_id, 'delete');
+            RETURN NEW;
+          ELSE
+            INSERT INTO reindex_{{ nyaapantsu_torrent_tablename }} (torrent_id, action) VALUES (NEW.torrent_id, 'index');
+            RETURN NEW;
+          END IF;
+        ELSIF (TG_OP = 'DELETE') THEN
+            INSERT INTO reindex_{{ nyaapantsu_torrent_tablename }} (torrent_id, action) VALUES (OLD.torrent_id, 'delete');
+            RETURN OLD;
+        END IF;
+        RETURN NULL; -- result is ignored since this is an AFTER trigger
+    END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trigger_reindex_{{ nyaapantsu_torrent_tablename }} ON {{ nyaapantsu_torrent_tablename }};
+CREATE TRIGGER trigger_reindex_{{ nyaapantsu_torrent_tablename }}
+AFTER INSERT OR UPDATE OR DELETE ON {{ nyaapantsu_torrent_tablename }}
+    FOR EACH ROW EXECUTE PROCEDURE add_reindex_{{ nyaapantsu_torrent_tablename }}_action();
+
+-- vim: ft=sql

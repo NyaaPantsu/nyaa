@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "ссылка"
-  },
-  {
     "id": "verify_email_title",
     "translation": "Подтвердите свой Email адрес для Nyaapantsu."
   },
@@ -48,12 +44,8 @@
     "translation": "Подтвердите пароль"
   },
   {
-    "id": "i_agree",
-    "translation": "Я согласен"
-  },
-  {
     "id": "terms_conditions_confirm",
-    "translation": "Нажимая <strong class=\"label label-primary\">Регистрация</strong>, вы соглашаетесь с <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Правилами и условиями</a>, указанными на этом сайте, включая использование файлов Cookie."
+    "translation": "Нажимая <b>Регистрация</b>, вы соглашаетесь с <a id=\"modal_active\" href=\"#\">Правилами и условиями</a>, указанными на этом сайте, включая использование файлов Cookie."
   },
   {
     "id": "signin",
@@ -69,7 +61,7 @@
   },
   {
     "id": "terms_conditions_full",
-    "translation": "Некоторое дерьмо."
+    "translation": "Здесь будет магия и дружба."
   },
   {
     "id": "remember_me",
@@ -117,7 +109,7 @@
   },
   {
     "id": "follow",
-    "translation": "Следить"
+    "translation": "Подписаться"
   },
   {
     "id": "unfollow",
@@ -125,7 +117,7 @@
   },
   {
     "id": "user_followed_msg",
-    "translation": "Вы отслеживаете %s!"
+    "translation": "Вы подписались на %s!"
   },
   {
     "id": "user_unfollowed_msg",
@@ -137,7 +129,7 @@
   },
   {
     "id": "see_more_torrents_from",
-    "translation": "Смотреть другие торренты %s "
+    "translation": "Посмотреть другие торренты %s "
   },
   {
     "id": "category",
@@ -168,10 +160,6 @@
     "translation": "Ошибка 404"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "Включить навигацию"
-  },
-  {
     "id": "upload",
     "translation": "Загрузить"
   },
@@ -180,12 +168,12 @@
     "translation": "FAQ"
   },
   {
-    "id": "fap",
-    "translation": "Фап"
+    "id": "fun",
+    "translation": "Fun"
   },
   {
-    "id": "advanced_search",
-    "translation": "Расширенный поиск"
+    "id": "fap",
+    "translation": "Fap"
   },
   {
     "id": "nothing_here",
@@ -209,15 +197,7 @@
   },
   {
     "id": "member",
-    "translation": "Членство"
-  },
-  {
-    "id": "sign_in",
-    "translation": "Вход"
-  },
-  {
-    "id": "sign_up",
-    "translation": "Регистрация"
+    "translation": "Пользователь"
   },
   {
     "id": "no_results_found",
@@ -225,7 +205,7 @@
   },
   {
     "id": "notice_keep_seeding",
-    "translation": "УВЕДОМЛЕНИЕ: УДЕРЖИВАЙ РАЗДАЧУ И ВКЛЮЧАЙ DHT ТЫ ТОРМОЗ"
+    "translation": "ОСТАВАЙТЕСЬ НА РАЗДАЧЕ И ВКЛЮЧИТЕ DHT!"
   },
   {
     "id": "official_nyaapocalipse_faq",
@@ -257,7 +237,7 @@
   },
   {
     "id": "is_everything_lost",
-    "translation": "Все потеряно?"
+    "translation": "Все пропало?"
   },
   {
     "id": "in_short_no",
@@ -265,7 +245,7 @@
   },
   {
     "id": "are_some_things_lost",
-    "translation": "Некоторые вещи потеряны?"
+    "translation": "Что-нибудь все же потерялось?"
   },
   {
     "id": "answer_is_nyaa_db_lost",
@@ -277,7 +257,7 @@
   },
   {
     "id": "how_are_we_recovering",
-    "translation": "Как мы выздоравливаем?"
+    "translation": "Как идет процесс восстановления?"
   },
   {
     "id": "answer_how_are_we_recovering",
@@ -317,11 +297,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Если ваша торрент-загрузка запрещена из-за трекеров, вам нужно добавить некоторые из них:"
-  },
-  {
-    "id": "other_trackers",
-    "translation": "Но тебе стоит еще добавить эти, просто на случай, если что-то пойдет не так"
+    "translation": "У нас теперь появился свой собственный трекер doko.moe, добавьте его наверх списка перед загрузкой. Вам стоит еще добавить эти, просто на случай, если что-то пойдет не так."
   },
   {
     "id": "how_can_i_help",
@@ -337,15 +313,11 @@
   },
   {
     "id": "why_written_in_go",
-    "translation": "Почему ваше дерьмо написано на Go?"
+    "translation": "Почему это дерьмо написано на Go?"
   },
   {
     "id": "authors_favorite_language",
     "translation": "Это любимый язык программирования автора."
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "Загрузить магнит"
   },
   {
     "id": "torrent_file",
@@ -460,6 +432,42 @@
     "translation": "Софт - Игры"
   },
   {
+    "id": "art",
+    "translation": "Арт"
+  },
+  {
+    "id": "art_anime",
+    "translation": "Арт - Аниме"
+  },
+  {
+    "id": "art_doujinshi",
+    "translation": "Арт - Додзинси"
+  },
+  {
+    "id": "art_games",
+    "translation": "Арт - Игры"
+  },
+  {
+    "id": "art_manga",
+    "translation": "Арт - Манга"
+  },
+  {
+    "id": "art_pictures",
+    "translation": "Арт - Картинки"
+  },
+  {
+    "id": "real_life",
+    "translation": "Real Life"
+  },
+  {
+    "id": "real_life_photobooks_and_pictures",
+    "translation": "Real Life - Фотокниги и картинки"
+  },
+  {
+    "id": "real_life_videos",
+    "translation": "Real Life - Видео"
+  },
+  {
     "id": "torrent_description",
     "translation": "Описание торрента"
   },
@@ -478,22 +486,6 @@
   {
     "id": "trusted",
     "translation": "Надёжные"
-  },
-  {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "Загрузки"
-  },
-  {
-    "id": "descending",
-    "translation": "Нисходящий"
-  },
-  {
-    "id": "ascending",
-    "translation": "Восходящий"
   },
   {
     "id": "search",
@@ -517,7 +509,7 @@
   },
   {
     "id": "submit_a_comment_as_anonymous",
-    "translation": "Отправить комментарий как Анонимный"
+    "translation": "Отправить анонимный комментарий"
   },
   {
     "id": "submit",
@@ -541,7 +533,7 @@
   },
   {
     "id": "banned",
-    "translation": "Banned"
+    "translation": "Забанен"
   },
   {
     "id": "default",
@@ -585,11 +577,11 @@
   },
   {
     "id": "who_is_renchon",
-    "translation": "Кто, черт побери, такой れんちょん?"
+    "translation": "Кто, черт побери, такой <span lang=\"ja\">れんちょん</span>?"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Ren-chon) Это имя пользователя, назначенное для загрузок и комментариев, сделанных анонимно. Он также используется для торрентов, импортированных из оригинального nyaa, хотя оригинальный загрузчик может отображаться рядом."
+    "translation": "<span lang=\"ja\">れんちょん</span> (Ren-chon) Это имя пользователя, назначенное для загрузок и комментариев, сделанных анонимно. Он также используется для торрентов, импортированных из оригинального nyaa, хотя оригинальный загрузчик может отображаться рядом."
   },
   {
     "id": "mark_as_remake",
@@ -602,10 +594,6 @@
   {
     "id": "torrent_status",
     "translation": "Статус торрента"
-  },
-  {
-    "id": "torrent_status_hidden",
-    "translation": "Скрытый"
   },
   {
     "id": "torrent_status_normal",
@@ -648,12 +636,12 @@
     "translation": "Удалить"
   },
   {
-    "id": "uploaded_by",
-    "translation": "Загрузил"
+    "id": "files",
+    "translation": "Файлы"
   },
   {
-    "id": "download_btn",
-    "translation": "Загрузить!"
+    "id": "uploaded_by",
+    "translation": "Загрузил"
   },
   {
     "id": "report_btn",
@@ -698,5 +686,25 @@
   {
     "id": "cancel",
     "translation": "Отменить"
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "Пожалуйста добавьте udp://tracker.doko.moe:6969 в список трекеров."
+  },
+  {
+    "id": "unknown",
+    "translation": "Неизвестно"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "Обновлялось в: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "Узнать о состоянии сервера можно здесь"
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "Сейчас нет доступных дампов базы"
   }
 ]

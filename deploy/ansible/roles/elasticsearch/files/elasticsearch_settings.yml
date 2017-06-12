@@ -1,0 +1,77 @@
+---
+settings:
+  analysis:
+    analyzer:
+      # Don't use ngram for search otherwise 'horribleexample' would match
+      # 'horriblesubs'
+      nyaapantsu_search_analyzer:
+        tokenizer: standard
+        filter:
+          - standard
+          - lowercase
+        char_filter:
+          - dash_to_underscore
+
+      nyaapantsu_index_analyzer:
+        tokenizer: standard
+        filter:
+          - standard
+          - lowercase
+          - e_ngram_filter
+        char_filter:
+          - dash_to_underscore
+
+    filter:
+      e_ngram_filter:
+        type: edge_ngram
+        min_gram: 1
+        max_gram: 16
+
+    char_filter:
+      dash_to_underscore:
+        type: pattern_replace
+        pattern: "([^\\s]+)-(?=[^\\s]+)"
+        replacement: "$1_"
+
+  index:
+    number_of_shards: 1
+    number_of_replicas: 0
+    max_result_window: 30000
+
+mappings:
+  torrents:
+    properties:
+      # TODO Consistent ID's type in TorrentJSON
+      id:
+        type: long
+      name:
+        type: text
+        analyzer: nyaapantsu_index_analyzer
+        fields:
+          raw:
+            type: keyword
+      category:
+        type: text
+      sub_category:
+        type: text
+      status:
+        type: long
+      hash:
+        type: text
+      date:
+        type: date
+      uploader_id:
+        type: long
+      downloads:
+        type: long
+      seeders:
+        type: long
+      leechers:
+        type: long
+      completed:
+        type: long
+      filesize:
+        type: long
+      language:
+        type: text
+        analyzer: simple

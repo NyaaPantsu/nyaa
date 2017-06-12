@@ -5,11 +5,37 @@ import (
 	"path/filepath"
 )
 
-var TemplateDir = "templates"
+// TemplateDir : Variable to the template directory
+var TemplateDir = "templates" // FIXME: Need to be a constant!
 
-var homeTemplate, searchTemplate, faqTemplate, uploadTemplate, viewTemplate, viewRegisterTemplate, viewLoginTemplate, viewRegisterSuccessTemplate, viewVerifySuccessTemplate, viewProfileTemplate, viewProfileEditTemplate, viewUserDeleteTemplate, notFoundTemplate, changeLanguageTemplate *template.Template
+// ModeratorDir : Variable to the admin template sub directory
+const ModeratorDir = "admin"
 
-var panelIndex, panelTorrentList, panelUserList, panelCommentList, panelTorrentEd, panelTorrentReportList, panelTorrentReassign *template.Template
+var homeTemplate,
+	searchTemplate,
+	faqTemplate,
+	uploadTemplate,
+	viewTemplate,
+	viewRegisterTemplate,
+	viewLoginTemplate,
+	viewRegisterSuccessTemplate,
+	viewVerifySuccessTemplate,
+	viewProfileTemplate,
+	viewProfileNotifTemplate,
+	viewProfileEditTemplate,
+	viewUserDeleteTemplate,
+	userTorrentEd,
+	notFoundTemplate,
+	changePublicSettingsTemplate,
+	databaseDumpTemplate *template.Template
+
+var panelIndex,
+	panelTorrentList,
+	panelUserList,
+	panelCommentList,
+	panelTorrentEd,
+	panelTorrentReportList,
+	panelTorrentReassign *template.Template
 
 type templateLoader struct {
 	templ     **template.Template
@@ -18,119 +44,135 @@ type templateLoader struct {
 	name      string
 }
 
-// ReloadTemplates reloads templates on runtime
+// ReloadTemplates : reloads templates on runtime
 func ReloadTemplates() {
 	pubTempls := []templateLoader{
-		templateLoader{
+		{
+			templ: &databaseDumpTemplate,
+			name:  "dump",
+			file:  "dumps.html",
+		},
+		{
 			templ: &homeTemplate,
 			name:  "home",
 			file:  "home.html",
 		},
-		templateLoader{
+		{
 			templ: &searchTemplate,
 			name:  "search",
 			file:  "home.html",
 		},
-		templateLoader{
+		{
 			templ: &uploadTemplate,
 			name:  "upload",
 			file:  "upload.html",
 		},
-		templateLoader{
+		{
 			templ: &faqTemplate,
 			name:  "FAQ",
 			file:  "FAQ.html",
 		},
-		templateLoader{
+		{
 			templ: &viewTemplate,
 			name:  "view",
 			file:  "view.html",
 		},
-		templateLoader{
+		{
 			templ: &viewRegisterTemplate,
 			name:  "user_register",
 			file:  filepath.Join("user", "register.html"),
 		},
-		templateLoader{
+		{
 			templ: &viewRegisterSuccessTemplate,
 			name:  "user_register_success",
 			file:  filepath.Join("user", "signup_success.html"),
 		},
-		templateLoader{
+		{
 			templ: &viewVerifySuccessTemplate,
 			name:  "user_verify_success",
 			file:  filepath.Join("user", "verify_success.html"),
 		},
-		templateLoader{
+		{
 			templ: &viewLoginTemplate,
 			name:  "user_login",
 			file:  filepath.Join("user", "login.html"),
 		},
-		templateLoader{
+		{
 			templ: &viewProfileTemplate,
 			name:  "user_profile",
 			file:  filepath.Join("user", "profile.html"),
 		},
-		templateLoader{
+		{
+			templ: &viewProfileNotifTemplate,
+			name:  "user_profile",
+			file:  filepath.Join("user", "profile_notifications.html"),
+		},
+		{
 			templ: &viewProfileEditTemplate,
 			name:  "user_profile",
 			file:  filepath.Join("user", "profile_edit.html"),
 		},
-		templateLoader{
+		{
 			templ: &viewUserDeleteTemplate,
 			name:  "user_delete",
 			file:  filepath.Join("user", "delete_success.html"),
 		},
-		templateLoader{
+		{
+			templ: &userTorrentEd,
+			name:  "user_torrent_edit",
+			file:  filepath.Join("user", "torrent_edit.html"),
+		},
+		{
 			templ: &notFoundTemplate,
 			name:  "404",
 			file:  "404.html",
 		},
-		templateLoader{
-			templ: &changeLanguageTemplate,
-			name: "change_language",
-			file: "change_language.html",
+		{
+			templ: &changePublicSettingsTemplate,
+			name:  "change_settings",
+			file:  "public_settings.html",
 		},
+
 	}
 	for idx := range pubTempls {
 		pubTempls[idx].indexFile = filepath.Join(TemplateDir, "index.html")
 	}
 
 	modTempls := []templateLoader{
-		templateLoader{
+		{
 			templ: &panelTorrentList,
 			name:  "torrentlist",
-			file:  filepath.Join("admin", "torrentlist.html"),
+			file:  filepath.Join(ModeratorDir, "torrentlist.html"),
 		},
-		templateLoader{
+		{
 			templ: &panelUserList,
 			name:  "userlist",
-			file:  filepath.Join("admin", "userlist.html"),
+			file:  filepath.Join(ModeratorDir, "userlist.html"),
 		},
-		templateLoader{
+		{
 			templ: &panelCommentList,
 			name:  "commentlist",
-			file:  filepath.Join("admin", "commentlist.html"),
+			file:  filepath.Join(ModeratorDir, "commentlist.html"),
 		},
-		templateLoader{
+		{
 			templ: &panelIndex,
 			name:  "indexPanel",
-			file:  filepath.Join("admin", "panelindex.html"),
+			file:  filepath.Join(ModeratorDir, "panelindex.html"),
 		},
-		templateLoader{
+		{
 			templ: &panelTorrentEd,
 			name:  "torrent_ed",
-			file:  filepath.Join("admin", "paneltorrentedit.html"),
+			file:  filepath.Join(ModeratorDir, "paneltorrentedit.html"),
 		},
-		templateLoader{
+		{
 			templ: &panelTorrentReportList,
 			name:  "torrent_report",
-			file:  filepath.Join("admin", "torrent_report.html"),
+			file:  filepath.Join(ModeratorDir, "torrent_report.html"),
 		},
-		templateLoader{
+		{
 			templ: &panelTorrentReassign,
 			name:  "torrent_reassign",
-			file:  filepath.Join("admin", "reassign.html"),
+			file:  filepath.Join(ModeratorDir, "reassign.html"),
 		},
 	}
 
@@ -139,7 +181,6 @@ func ReloadTemplates() {
 	}
 
 	templs := make([]templateLoader, 0, len(modTempls)+len(pubTempls))
-
 	templs = append(templs, pubTempls...)
 	templs = append(templs, modTempls...)
 
@@ -148,5 +189,4 @@ func ReloadTemplates() {
 		t = template.Must(t.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
 		*templ.templ = t
 	}
-
 }

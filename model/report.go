@@ -2,11 +2,12 @@ package model
 
 import (
 	"time"
+
+	"github.com/NyaaPantsu/nyaa/config"
 )
 
-// TODO Add field to specify kind of reports
-// TODO Add CreatedAt field
-// INFO User can be null (anonymous reports)
+// TorrentReport model
+// User can be null (anonymous reports)
 // FIXME  can't preload field Torrents for model.TorrentReport
 type TorrentReport struct {
 	ID          uint   `gorm:"column:torrent_report_id;primary_key"`
@@ -20,46 +21,38 @@ type TorrentReport struct {
 	User    *User    `gorm:"AssociationForeignKey:UserID;ForeignKey:user_id"`
 }
 
-type TorrentReportJson struct {
+// TableName : Return the name of torrent report table
+func (report TorrentReport) TableName() string {
+	return config.Conf.Models.ReportsTableName
+}
+
+// TorrentReportJSON : Json struct of torrent report model
+type TorrentReportJSON struct {
 	ID          uint        `json:"id"`
 	Description string      `json:"description"`
 	Torrent     TorrentJSON `json:"torrent"`
 	User        UserJSON    `json:"user"`
 }
 
-/* Model Conversion to Json */
-
-func getReportDescription(d string) string {
-	if d == "illegal" {
-		return "Illegal content"
-	} else if d == "spam" {
-		return "Spam / Garbage"
-	} else if d == "wrongcat" {
-		return "Wrong category"
-	} else if d == "dup" {
-		return "Duplicate / Deprecated"
-	}
-	return "???"
-}
-
-func (report *TorrentReport) ToJson() TorrentReportJson {
-	// FIXME: report.Torrent and report.User should never be nil
-	var t TorrentJSON = TorrentJSON{}
-	if report.Torrent != nil {
+// ToJSON : conversion to json of a torrent report
+func (report *TorrentReport) ToJSON() TorrentReportJSON {
+	t := TorrentJSON{}
+	if report.Torrent != nil { // FIXME: report.Torrent should never be nil
 		t = report.Torrent.ToJSON()
 	}
-	var u UserJSON = UserJSON{}
+	u := UserJSON{}
 	if report.User != nil {
 		u = report.User.ToJSON()
 	}
-	json := TorrentReportJson{report.ID, getReportDescription(report.Description), t, u}
+	json := TorrentReportJSON{report.ID, report.Description, t, u}
 	return json
 }
 
-func TorrentReportsToJSON(reports []TorrentReport) []TorrentReportJson {
-	json := make([]TorrentReportJson, len(reports))
+// TorrentReportsToJSON : Conversion of multiple reports to json
+func TorrentReportsToJSON(reports []TorrentReport) []TorrentReportJSON {
+	json := make([]TorrentReportJSON, len(reports))
 	for i := range reports {
-		json[i] = reports[i].ToJson()
+		json[i] = reports[i].ToJSON()
 	}
 	return json
 }

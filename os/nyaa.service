@@ -1,10 +1,11 @@
 [Unit]
-Description=Torrent indexer for weebs
-After=network.target
+Description=Nyaa torrent
+After=network.target elasticsearch.service postgresql-9.6.service pgpool-II-96.service
 
 [Service]
-WorkingDirectory=/srv/nyaa/
-ExecStart=/usr/local/bin/nyaa -dbtype sqlite3 -dbparams ./nyaa.db
+LimitNOFILE=512000
+WorkingDirectory=/home/nyaapantsu/go/src/github.com/NyaaPantsu/nyaa/
+ExecStart=/home/nyaapantsu/go/src/github.com/NyaaPantsu/nyaa/nyaa -conf=config/nyaa.yml
 StandardOutput=syslog
 Restart=on-failure
 

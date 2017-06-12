@@ -1,0 +1,23 @@
+- name: Install firewalld
+  yum:
+    name: firewalld
+    state: present
+
+- name: Start firewalld
+  systemd:
+    name: firewalld
+    enabled: yes
+    state: started
+  become: true
+
+- name: Add firewalld http and https service
+  firewalld:
+    service: "{{ item }}"
+    permanent: true
+    state: enabled
+    zone: public
+    immediate: true
+  with_items:
+    - http
+    - https
+  become: true

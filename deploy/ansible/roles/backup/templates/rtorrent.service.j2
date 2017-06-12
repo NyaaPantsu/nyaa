@@ -5,11 +5,12 @@ After=network.target
 [Service]
 Type=forking
 KillMode=none
-User=rtorrent
-ExecStartPre=/usr/bin/bash -c "if test -e /home/{{ ansible_ssh_user }}/.rtorrent_session/rtorrent.lock && test -z `pidof rtorrent`; then rm -f  /home/{{ ansible_ssh_user }}/.rtorrent_session/rtorrent.lock; fi"
+User={{ ansible_ssh_user }}
+# FIXME Start-pre gives an 'Operation not supported error'
+#ExecStartPre=/usr/bin/bash -c "if test -e %h/.rtorrent_session/rtorrent.lock && test -z `pidof rtorrent`; then rm -f  %h/.rtorrent_session/rtorrent.lock; fi"
 ExecStart=/usr/bin/screen -dmfa -S rtorrent /usr/bin/rtorrent
 ExecStop=/usr/bin/bash -c "test `pidof rtorrent` && killall -w -s 2 /usr/bin/rtorrent"
-WorkingDirectory=/home/{{ ansible_ssh_user }}
+WorkingDirectory=%h
 Restart=on-failure
 
 [Install]

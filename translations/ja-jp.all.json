@@ -1,11 +1,7 @@
 [
   {
-    "id": "link",
-    "translation": "リンク"
-  },
-  {
     "id": "verify_email_title",
-    "translation": "【Nyaapantsu】メールアドレスの認証"
+    "translation": "【Nyaa Pantsu】メールアドレスの認証"
   },
   {
     "id": "verify_email_content",
@@ -13,134 +9,134 @@
   },
   {
     "id": "reset_password_title",
-    "translation": "【Nyaapantsu】パスワードのリセット"
+    "translation": "【Nyaa Pantsu】パスワードのリセット"
   },
   {
     "id": "reset_password_content",
     "translation": "パスワードをリセットするには、以下のリンクをクリックします。"
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "新しいアカウントの作成"
   },
   {
-    "id":"signup_box_title",
-    "translation": "登録 <small>永久無料です</small>"
+    "id": "signup_box_title",
+    "translation": "アカウント登録 <small>ずっと無料です</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "ユーザー名"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "メールアドレスまたはユーザー名"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "メールアドレス"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "パスワード"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "パスワードの再入力"
   },
   {
-    "id":"i_agree",
-    "translation": "同意する"
+    "id": "terms_conditions_confirm",
+    "translation": "<b>登録</b> をクリックすることにより、Cookie の使用を含む、本サイトの <a id=\"modal_active\" href=\"#\">利用規約</a> に同意したものとみなします。"
   },
   {
-    "id":"terms_conditions_confirm",
-    "translation": "<strong class=\"label label-primary\">登録</strong> をクリックすることにより、クッキーの使用を含む、本サイトの <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">利用規約</a> に同意したものとみなします。"
-  },
-  {
-    "id":"signin",
+    "id": "signin",
     "translation": "ログイン"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "登録"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "利用規約"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "ダミー"
   },
   {
-    "id":"remember_me",
-    "translation": "ログイン情報を記憶"
+    "id": "remember_me",
+    "translation": "ログイン情報を記憶する"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "パスワードをお忘れですか？"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "ログイン"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "ログイン"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "登録完了"
   },
   {
-    "id":"sign_up_success",
-    "translation": "ご登録ありがとうございます。"
+    "id": "sign_up_success",
+    "translation": "ご登録いただきありがとうございます。"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>お使いのアカウントは有効になりました。"
   },
   {
-    "id":"signup_verification_email",
-    "translation": "現在は一時的にメールアドレスの認証が無効になっているので、すぐにアカウントを使うことができます。後日、メールボックスを確認してください。迷惑メールフォルダーの確認もお忘れなく。"
+    "id": "signup_verification_email",
+    "translation": "現在は一時的にメールアドレスの認証が無効になっているため、すぐにアカウントを使うことができます。後日、メールボックスを確認してください。迷惑メールフォルダーの確認もお忘れなく。"
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "認証が完了しました。今からこのアカウントを使えるようになります。"
   },
   {
-    "id":"settings",
+    "id": "email_placeholder",
+    "translation": "空欄のままでも構いません。"
+  },
+  {
+    "id": "settings",
     "translation": "アカウント設定"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "Torrent"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "フォロー"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "フォロー解除"
   },
   {
-    "id":"user_followed_msg",
+    "id": "user_followed_msg",
     "translation": "%s さんをフォローしました。"
   },
   {
-    "id":"user_unfollowed_msg",
+    "id": "user_unfollowed_msg",
     "translation": "%s さんのフォローを解除しました。"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "%s さんのプロフィールページ"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "%s さんの Torrent をもっと表示"
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "カテゴリー"
   },
   {
@@ -168,10 +164,6 @@
     "translation": "404 エラー"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "ナビゲーションの切り替え"
-  },
-  {
     "id": "upload",
     "translation": "アップロード"
   },
@@ -188,20 +180,16 @@
     "translation": "にゃあ"
   },
   {
-    "id": "advanced_search",
-    "translation": "高度な検索"
-  },
-  {
     "id": "nothing_here",
     "translation": "ここには何もありません。"
   },
   {
     "id": "404_not_found",
-    "translation": "404 ページが見つかりません"
+    "translation": "404 - ページが見つかりません"
   },
   {
     "id": "no_torrents_uploaded",
-    "translation": "まだ Torrent がアップロードされていません。"
+    "translation": "まだアップロードされた Torrent はありません。"
   },
   {
     "id": "profile",
@@ -213,15 +201,7 @@
   },
   {
     "id": "member",
-    "translation": "会員"
-  },
-  {
-    "id": "sign_in",
-    "translation": "ログイン"
-  },
-  {
-    "id": "sign_up",
-    "translation": "登録"
+    "translation": "アカウント"
   },
   {
     "id": "no_results_found",
@@ -333,7 +313,7 @@
   },
   {
     "id": "your_design_sucks_found_a_bug",
-    "translation": "なんだこのサイトデザイン！？ / バグを見つけたよ"
+    "translation": "なんだこのデザイン！？ / バグを見つけたよ"
   },
   {
     "id": "why_written_in_go",
@@ -342,10 +322,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "作者の一番好きなプログラミング言語だからです。"
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "magnet リンクのアップロード"
   },
   {
     "id": "torrent_file",
@@ -365,7 +341,7 @@
   },
   {
     "id": "select_a_torrent_category",
-    "translation": "Torrent カテゴリーを選択"
+    "translation": "-- Torrent カテゴリーを選択 --"
   },
   {
     "id": "anime",
@@ -377,11 +353,11 @@
   },
   {
     "id": "anime_english_translated",
-    "translation": "アニメ ‐ 英訳済み"
+    "translation": "アニメ ‐ 英訳"
   },
   {
     "id": "anime_non_english_translated",
-    "translation": "アニメ ‐ 未英訳"
+    "translation": "アニメ ‐ 非英訳"
   },
   {
     "id": "anime_raw",
@@ -393,11 +369,11 @@
   },
   {
     "id": "audio_lossless",
-    "translation": "オーディオ ‐ 可逆圧縮方式 (FLAC など)"
+    "translation": "オーディオ ‐ 可逆圧縮"
   },
   {
     "id": "audio_lossy",
-    "translation": "オーディオ ‐ 非可逆圧縮方式 (MP3 など)"
+    "translation": "オーディオ ‐ 非可逆圧縮"
   },
   {
     "id": "literature",
@@ -405,7 +381,7 @@
   },
   {
     "id": "literature_english_translated",
-    "translation": "書籍 ‐ 英訳済み"
+    "translation": "書籍 ‐ 英訳"
   },
   {
     "id": "literature_raw",
@@ -413,7 +389,7 @@
   },
   {
     "id": "literature_non_english_translated",
-    "translation": "書籍 ‐ 未英訳"
+    "translation": "書籍 ‐ 非英訳"
   },
   {
     "id": "live_action",
@@ -421,7 +397,7 @@
   },
   {
     "id": "live_action_english_translated",
-    "translation": "実写 ‐ 英訳済み"
+    "translation": "実写 ‐ 英訳"
   },
   {
     "id": "live_action_idol_pv",
@@ -429,7 +405,7 @@
   },
   {
     "id": "live_action_non_english_translated",
-    "translation": "実写 ‐ 未英訳"
+    "translation": "実写 ‐ 非英訳"
   },
   {
     "id": "live_action_raw",
@@ -480,6 +456,10 @@
     "translation": "二次元 - 漫画"
   },
   {
+    "id": "art_pictures",
+    "translation": "二次元 - 画像"
+  },
+  {
     "id": "real_life",
     "translation": "三次元"
   },
@@ -505,27 +485,11 @@
   },
   {
     "id": "filter_remakes",
-    "translation": "リメイクを非表示"
+    "translation": "再加工を非表示"
   },
   {
     "id": "trusted",
-    "translation": "信頼されたもの"
-  },
-  {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "ダウンロード数"
-  },
-  {
-    "id": "descending",
-    "translation": "降順"
-  },
-  {
-    "id": "ascending",
-    "translation": "昇順"
+    "translation": "高信頼のみ"
   },
   {
     "id": "search",
@@ -538,6 +502,10 @@
   {
     "id": "description",
     "translation": "説明"
+  },
+  {
+    "id": "no_description",
+    "translation": "説明はありません。"
   },
   {
     "id": "comments",
@@ -581,14 +549,18 @@
   },
   {
     "id": "trusted_member",
-    "translation": "信頼された会員"
+    "translation": "高信頼アカウント"
+  },
+  {
+    "id": "scraped_user",
+    "translation": "保留ユーザー"
   },
   {
     "id": "moderator",
     "translation": "モデレーター"
   },
   {
-    "id":" api_token",
+    "id": " api_token",
     "translation": "API トークン"
   },
   {
@@ -613,7 +585,27 @@
   },
   {
     "id": "moderation",
-    "translation": "節制"
+    "translation": "モデレーション"
+  },
+  {
+    "id": "extensions_and_plugins",
+    "translation": "拡張機能およびプラグイン (サードパーティーの開発者様作成)"
+  },
+  {
+    "id": "qbittorrent_plugin",
+    "translation": "qBittorrent プラグイン"
+  },
+  {
+    "id": "local_client",
+    "translation": "ローカルクライアント"
+  },
+  {
+    "id": "chrome_extension",
+    "translation": "Chrome 拡張機能"
+  },
+  {
+    "id": "firefox_extension",
+    "translation": "Firefox 拡張機能"
   },
   {
     "id": "who_is_renchon",
@@ -621,11 +613,11 @@
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "「れんちょん」は匿名でアップロードもしくはコメントを書き込んだ際に割り当てられるユーザー名なのん。オリジナルのアップロード者と一緒に表示されることがあるけど、オリジナルの nyaa からインポートされた Torrent にも使用されるのん。"
+    "translation": "「れんちょん」は匿名でアップロードもしくはコメントを書き込んだ場合に割り当てられるユーザー名なのん。オリジナルのアップロード者と一緒に表示されることがあるけど、オリジナルの nyaa からインポートされた Torrent にも使用されるのん。"
   },
   {
     "id": "mark_as_remake",
-    "translation": "リメイクとしてマーク"
+    "translation": "再加工としてマークする"
   },
   {
     "id": "email_changed",
@@ -636,16 +628,16 @@
     "translation": "Torrent の状態"
   },
   {
-    "id": "torrent_status_hidden",
-    "translation": "非表示"
-  },
-  {
     "id": "torrent_status_normal",
     "translation": "通常"
   },
   {
     "id": "torrent_status_remake",
-    "translation": "リメイク"
+    "translation": "再加工"
+  },
+  {
+    "id": "torrent_status_blocked",
+    "translation": "ロック"
   },
   {
     "id": "profile_edit_page",
@@ -680,20 +672,20 @@
     "translation": "削除"
   },
   {
-    "id": "files",
-    "translation": "ファイル"
+    "id": "website_link",
+    "translation": "ウェブサイト"
   },
   {
-    "id": "filename",
-    "translation": "ファイル名"
+    "id": "files",
+    "translation": "ファイル一覧"
+  },
+  {
+    "id": "no_files",
+    "translation": "ファイル一覧が見つからない？もー！意味わかんない！"
   },
   {
     "id": "uploaded_by",
-    "translation": "アップロード者:"
-  },
-  {
-    "id": "download_btn",
-    "translation": "ダウンロード"
+    "translation": "アップロード者"
   },
   {
     "id": "report_btn",
@@ -717,7 +709,7 @@
   },
   {
     "id": "spam_garbage",
-    "translation": "スパム / ゴミ"
+    "translation": "スパム / ゴミファイル"
   },
   {
     "id": "wrong_category",
@@ -742,5 +734,597 @@
   {
     "id": "please_include_our_tracker",
     "translation": "トラッカーに udp://tracker.doko.moe:6969 を含めてください。"
+  },
+  {
+    "id": "unknown",
+    "translation": "不明"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "最終統計日時: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "サーバーの状態"
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "現在利用可能なデータベースダンプはありません。"
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "通知をクリア"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "通知がクリアされました。"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "通知"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "Torrent がアップロードされました: \"%s\"、 %s さんから"
+  },
+  {
+    "id": "preferences",
+    "translation": "カスタム設定"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "フォロー中のアカウントから新しい Torrent がアップロードされたら通知する"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "フォロー中のアカウントから新しい Torrent がアップロードされたらメールで通知する"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "自分の Torrent にコメントが付いたら通知する"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "自分の Torrent にコメントが付いたらメールで通知する"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "自分のコメントにリプライが付いたら通知する"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "自分のコメントにリプライが付いたらメールで通知する"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "フォローされたら通知する"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "フォローされたらメールで通知する"
+  },
+  {
+    "id": "followed_settings",
+    "translation": "フォローしたら通知する"
+  },
+  {
+    "id": "followed_email_settings",
+    "translation": "フォローしたらメールで通知する"
+  },
+  {
+    "id": "yes",
+    "translation": "はい"
+  },
+  {
+    "id": "no",
+    "translation": "いいえ"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "コメントが付きました: \"%s\""
+  },
+  {
+    "id": "no_action_selected",
+    "translation": "アクションが選択されていません。"
+  },
+  {
+    "id": "no_move_location_selected",
+    "translation": "移動先が選択されていません。"
+  },
+  {
+    "id": "select_one_element",
+    "translation": "1 つ以上の要素を選択する必要があります。"
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "Torrent %s が移動されました。"
+  },
+  {
+    "id": "no_status_exist",
+    "translation": "ステータス %d は存在しません。"
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "Torrent %s が削除されました。"
+  },
+  {
+    "id": "torrents_deleted",
+    "translation": "Torrent が削除されました"
+  },
+  {
+    "id": "delete_torrent",
+    "translation": "Torrent を削除"
+  },
+  {
+    "id": "delete_report",
+    "translation": "レポートを削除"
+  },
+  {
+    "id": "no_action_exist",
+    "translation": "アクション %s は存在しません。"
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "Torrent ID %s は存在しません。"
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "不具合が発生しました。"
+  },
+  {
+    "id": "nb_torrents_updated",
+    "translation": "%d 個の Torrent が更新されました。"
+  },
+  {
+    "id": "torrent_updated",
+    "translation": "Torrent の詳細が更新されました。"
+  },
+  {
+    "id": "fail_torrent_update",
+    "translation": "Torrent の更新に失敗しました。"
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "画像認証が間違っています。"
+  },
+  {
+    "id": "comment_empty",
+    "translation": "コメントなし"
+  },
+  {
+    "id": "no_owner_selected",
+    "translation": "Torrent の新しいオーナーが選択されていません。"
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "カテゴリーが選択されていません。"
+  },
+  {
+    "id": "no_user_found_id",
+    "translation": "ID %d のユーザーはデータベースに存在しません。"
+  },
+  {
+    "id": "invalid_torrent_category",
+    "translation": "Torrent カテゴリーは存在しません。"
+  },
+  {
+    "id": "torrent_owner_changed",
+    "translation": "Torrent \"%s\" のオーナーが変更されました。"
+  },
+  {
+    "id": "torrent_category_changed",
+    "translation": "Torrent \"%s\" のカテゴリーが変更されました。"
+  },
+  {
+    "id": "torrent_reports_deleted",
+    "translation": "Torrent \"%s\" の通報が削除されました。"
+  },
+  {
+    "id": "edit",
+    "translation": "編集"
+  },
+  {
+    "id": "lock_delete",
+    "translation": "ロックおよび削除"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "削除するとファイルを元に戻すことはできなくなります。また、他の誰かがファイルを再アップロードする恐れもあります。"
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "確実に削除"
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "ロック解除"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "ロック"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "Torrent がデータベースから削除されました。"
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "Torrent のロックが解除されました。"
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "Torrent がロックされました。"
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "Torrent は削除されません"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "Torrent は削除されます"
+  },
+  {
+    "id": "change_settings",
+    "translation": "外観 / 言語の変更"
+  },
+  {
+    "id": "mascot",
+    "translation": "マスコット"
+  },
+  {
+    "id": "theme",
+    "translation": "テーマ"
+  },
+  {
+    "id": "theme_select",
+    "translation": "-- テーマを選択 --"
+  },
+  {
+    "id": "theme_none",
+    "translation": "なし"
+  },
+  {
+    "id": "mark_as_hidden",
+    "translation": "非表示としてマークする"
+  },
+  {
+    "id": "cookies",
+    "translation": "保存をクリックすることで、Cookie の使用に同意したことになります"
+  },
+  {
+    "id": "show",
+    "translation": "表示"
+  },
+  {
+    "id": "hide",
+    "translation": "非表示"
+  },
+  {
+    "id": "nyaa_pantsu",
+    "translation": "Nyaa Pantsu"
+  },
+  {
+    "id": "users",
+    "translation": "ユーザー"
+  },
+  {
+    "id": "torrent_reports",
+    "translation": "Torrent レポート"
+  },
+  {
+    "id": "show_mod_tools",
+    "translation": "Mod Tools を表示"
+  },
+  {
+    "id": "hide_mod_tools",
+    "translation": "Mod Tools を非表示"
+  },
+  {
+    "id": "following_changes_applied",
+    "translation": "以下の変更が適用されます"
+  },
+  {
+    "id": "changes_in_following_order",
+    "translation": "変更は以下の順序で行われます:"
+  },
+  {
+    "id": "edit_changes",
+    "translation": "変更の編集"
+  },
+  {
+    "id": "delete_changes",
+    "translation": "変更の破棄"
+  },
+  {
+    "id": "owner_id_placeholder",
+    "translation": "オーナー ID (例えば、れんちょんは 0)"
+  },
+  {
+    "id": "try_new_attempt",
+    "translation": "変更を試行中..."
+  },
+  {
+    "id": "query_is_broken",
+    "translation": "クエリー ({0}?{1}) が破損しているようです。"
+  },
+  {
+    "id": "query_executed_success",
+    "translation": "クエリーが正常に実行されました。"
+  },
+  {
+    "id": "all_operations_done",
+    "translation": "すべての操作が完了しました。"
+  },
+  {
+    "id": "refreshing_in",
+    "translation": "{0} 秒後にページが更新されます..."
+  },
+  {
+    "id": "delete_reports_with_torrents",
+    "translation": "選択した Torrent に沿ってレポートを削除しますか。"
+  },
+  {
+    "id": "with_st",
+    "translation": "{0} に沿う"
+  },
+  {
+    "id": "and_reports",
+    "translation": "およびレポート"
+  },
+  {
+    "id": "reports",
+    "translation": "レポート"
+  },
+  {
+    "id": "lock",
+    "translation": "ロック"
+  },
+  {
+    "id": "status_js",
+    "translation": "status: {0}"
+  },
+  {
+    "id": "owner_id_js",
+    "translation": "owner_id: {0}"
+  },
+  {
+    "id": "category_js",
+    "translation": "category: {0}"
+  },
+  {
+    "id": "no_changes",
+    "translation": "変更なし"
+  },
+  {
+    "id": "query_nb",
+    "translation": "クエリー #{0}"
+  },
+  {
+    "id": "reason",
+    "translation": "理由"
+  },
+  {
+    "id": "actions",
+    "translation": "アクション"
+  },
+  {
+    "id": "action_select",
+    "translation": "アクション..."
+  },
+  {
+    "id": "change_status",
+    "translation": "状態の変更"
+  },
+  {
+    "id": "to_status",
+    "translation": "変更後の状態..."
+  },
+  {
+    "id": "torrents_not_deleted",
+    "translation": "Torrent は削除されません"
+  },
+  {
+    "id": "more",
+    "translation": "もっと表示"
+  },
+  {
+    "id": "last_comments",
+    "translation": "最後のコメント"
+  },
+  {
+    "id": "last_reports",
+    "translation": "最後のレポート"
+  },
+  {
+    "id": "last_torrents",
+    "translation": "最後の Torrent"
+  },
+  {
+    "id": "last_users",
+    "translation": "最後のユーザー"
+  },
+  {
+    "id": "moderation_overview",
+    "translation": "モデレーションの概要"
+  },
+  {
+    "id": "users_list",
+    "translation": "ユーザー一覧"
+  },
+  {
+    "id": "comments_list",
+    "translation": "コメント一覧"
+  },
+  {
+    "id": "reports_list",
+    "translation": "レポート一覧"
+  },
+  {
+    "id": "torrents_list",
+    "translation": "Torrent 一覧"
+  },
+  {
+    "id": "torrent_edit_panel",
+    "translation": "Torrent 編集パネル"
+  },
+  {
+    "id": "torrent_reassign",
+    "translation": "Torrent 再割り当て"
+  },
+  {
+    "id": "reassign_warning",
+    "translation": "Torrent の新しいユーザーへの再割り当ては容易に元に戻すことができないため、注意して行うようにしてください。"
+  },
+  {
+    "id": "previous_username",
+    "translation": "変更前のユーザー名"
+  },
+  {
+    "id": "torrent_id",
+    "translation": "Torrent ID"
+  },
+  {
+    "id": "reassign_indication",
+    "translation": "1 行につき 1 つの ID <b>もしくは</b> 1 つのユーザー名"
+  },
+  {
+    "id": "reassign_warning_2",
+    "translation": "処理には時間がかかることがあります。<b>絶対に</b>リクエストを中止しないでください。"
+  },
+  {
+    "id": "reassign_to",
+    "translation": "再割り当て先:"
+  },
+  {
+    "id": "reassign_based_on",
+    "translation": "以下に基づいて再割り当て:"
+  },
+  {
+    "id": "user_id",
+    "translation": "ユーザー ID"
+  },
+  {
+    "id": "mascot_url",
+    "translation": "マスコット URL"
+  },
+  {
+    "id": "no_notifications",
+    "translation": "通知なし"
+  },
+  {
+    "id": "report_msg",
+    "translation": "Torrent #%s は通報されました。"
+  },
+  {
+    "id": "email_not_valid",
+    "translation": "メールアドレスが有効ではありません。"
+  },
+  {
+    "id": "username_illegal",
+    "translation": "ユーザー名に使用できない文字が含まれています。"
+  },
+  {
+    "id": "torrent_language",
+    "translation": "Torrent の言語"
+  },
+  {
+    "id": "select_a_torrent_language",
+    "translation": "-- Torrent の言語を選択 --"
+  },
+  {
+    "id": "flag",
+    "translation": "gb"
+  },
+  {
+    "id": "language_en-us_name",
+    "translation": "英語"
+  },
+  {
+    "id": "language_ca-es_name",
+    "translation": "カタルーニャ語"
+  },
+  {
+    "id": "language_de-de_name",
+    "translation": "ドイツ語"
+  },
+  {
+    "id": "language_es-es_name",
+    "translation": "スペイン語"
+  },
+  {
+    "id": "language_es-mx_name",
+    "translation": "スペイン語 (ラテンアメリカ)"
+  },
+  {
+    "id": "language_fr-fr_name",
+    "translation": "フランス語"
+  },
+  {
+    "id": "language_hu-hu_name",
+    "translation": "ハンガリー語"
+  },
+  {
+    "id": "language_is-is_name",
+    "translation": "アイスランド語"
+  },
+  {
+    "id": "language_it-it_name",
+    "translation": "イタリア語"
+  },
+  {
+    "id": "language_ja-jp_name",
+    "translation": "日本語"
+  },
+  {
+    "id": "language_ko-kr_name",
+    "translation": "韓国語"
+  },
+  {
+    "id": "language_nb-no_name",
+    "translation": "ノルウェー語"
+  },
+  {
+    "id": "language_nl-nl_name",
+    "translation": "オランダ語"
+  },
+  {
+    "id": "language_pt-br_name",
+    "translation": "ポルトガル語 (ブラジル)"
+  },
+  {
+    "id": "language_pt-pt_name",
+    "translation": "ポルトガル語 (ポルトガル)"
+  },
+  {
+    "id": "language_ro-ro_name",
+    "translation": "ルーマニア語"
+  },
+  {
+    "id": "language_ru-ru_name",
+    "translation": "ロシア語"
+  },
+  {
+    "id": "language_sv-se_name",
+    "translation": "スウェーデン語"
+  },
+  {
+    "id": "language_th-th_name",
+    "translation": "タイ語"
+  },
+  {
+    "id": "language_zh-cn_name",
+    "translation": "簡体中国語"
+  },
+  {
+    "id": "language_zh-tw_name",
+    "translation": "繁体中国語"
+  },
+  {
+    "id": "language_other_name",
+    "translation": "その他"
+  },
+  {
+    "id": "language_multiple_name",
+    "translation": "複数の言語"
   }
 ]

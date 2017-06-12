@@ -5,7 +5,6 @@ import (
 	"strings"
 )
 
-
 type Status uint8
 
 const (
@@ -14,6 +13,18 @@ const (
 	Trusted
 	APlus
 )
+
+func (st *Status) ToString() string {
+	switch *st {
+	case FilterRemakes:
+		return "1"
+	case Trusted:
+		return "2"
+	case APlus:
+		return "3"
+	}
+	return ""
+}
 
 func (st *Status) Parse(s string) {
 	switch s {
@@ -72,6 +83,32 @@ func (s *SortMode) Parse(str string) {
 	}
 }
 
+/* INFO Always need to keep in sync with the field that are used in the
+ * elasticsearch index.
+ * TODO Verify the field in postgres database
+ */
+func (s *SortMode) ToESField() string {
+	switch *s {
+	case ID:
+		return "id"
+	case Name:
+		return "name.raw"
+	case Date:
+		return "date"
+	case Downloads:
+		return "downloads"
+	case Size:
+		return "filesize"
+	case Seeders:
+		return "seeders"
+	case Leechers:
+		return "leechers"
+	case Completed:
+		return "completed"
+	}
+	return "id"
+}
+
 type Category struct {
 	Main, Sub uint8
 }
@@ -88,7 +125,15 @@ func (c Category) String() (s string) {
 }
 
 func (c Category) IsSet() bool {
-	return c.Main != 0 && c.Sub != 0
+	return c.IsMainSet() && c.IsSubSet()
+}
+
+func (c Category) IsMainSet() bool {
+	return c.Main != 0
+}
+
+func (c Category) IsSubSet() bool {
+	return c.Sub != 0
 }
 
 // Parse sets category by string
@@ -109,16 +154,20 @@ func (c *Category) Parse(s string) (ok bool) {
 	return
 }
 
-
 // deprecated for TorrentParam
 type SearchParam struct {
-       Order    bool // True means acsending
-       Status   Status
-       Sort     SortMode
-       Category Category
-       Page     int
-       UserID   uint
-       Max      uint
-       NotNull  string
-       Query    string
+	TorrentID uint
+	FromID    uint // Search for torrentID > FromID
+	Order     bool // True means acsending
+	Status    Status
+	Sort      SortMode
+	Category  Category
+	FromDate  string
+	ToDate    string
+	Page      int
+	UserID    uint
+	Max       uint
+	NotNull   string
+	Language  string
+	Query     string
 }

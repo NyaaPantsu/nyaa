@@ -2,9 +2,15 @@ package uploadService
 
 import (
 	"strings"
+
+	"net/url"
+
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/model"
 )
 
-func CheckTrackers(trackers []string) bool {
+// CheckTrackers : Check if there is good trackers in torrent
+func CheckTrackers(trackers []string) []string {
 	// TODO: move to runtime configuration
 	var deadTrackers = []string{ // substring matches!
 		"://open.nyaatorrents.info:6544",
@@ -22,17 +28,35 @@ func CheckTrackers(trackers []string) bool {
 		"://tracker.prq.to",
 		"://bt.rghost.net"}
 
-	var numGood int
+	var trackerRet []string
 	for _, t := range trackers {
-		good := true
-		for _, check := range deadTrackers {
-			if strings.Contains(t, check) {
-				good = false
+		urlTracker, err := url.Parse(t)
+		if err == nil {
+			good := true
+			for _, check := range deadTrackers {
+				if strings.Contains(t, check) {
+					good = false
+					break // No need to continue the for loop
+				}
+			}
+			if good {
+				trackerRet = append(trackerRet, urlTracker.String())
 			}
 		}
-		if good {
-			numGood++
-		}
 	}
-	return numGood > 0
+	return trackerRet
+}
+
+// IsUploadEnabled : Check if upload is enabled in config
+func IsUploadEnabled(u *model.User) bool {
+	if config.Conf.Torrents.UploadsDisabled {
+		if config.Conf.Torrents.AdminsAreStillAllowedTo && u.IsModerator() {
+			return true
+		}
+		if config.Conf.Torrents.TrustedUsersAreStillAllowedTo && u.IsTrusted() {
+			return true
+		}
+		return false
+	}
+	return true
 }

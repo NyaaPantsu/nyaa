@@ -8,7 +8,7 @@ import (
 
 // HasAdmin checks that user has an admin permission.
 func HasAdmin(user *model.User) bool {
-	return user.Status == 2
+	return user.IsModerator()
 }
 
 // CurrentOrAdmin check that user has admin permission or user is the current user.
@@ -23,25 +23,30 @@ func CurrentUserIdentical(user *model.User, userID uint) bool {
 	return user.ID == userID
 }
 
+// NeedsCaptcha : Check if a user needs captcha
 func NeedsCaptcha(user *model.User) bool {
 	// Trusted members & Moderators don't
-	return !(user.Status == 1 || user.Status == 2)
+	return !(user.IsTrusted() || user.IsModerator())
 }
 
+// GetRole : Get the status/role of a user
 func GetRole(user *model.User) string {
 	switch user.Status {
-	case -1:
+	case model.UserStatusBanned:
 		return "Banned"
-	case 0:
+	case model.UserStatusMember:
 		return "Member"
-	case 1:
+	case model.UserStatusScraped:
+		return "Member"
+	case model.UserStatusTrusted:
 		return "Trusted Member"
-	case 2:
+	case model.UserStatusModerator:
 		return "Moderator"
 	}
 	return "Member"
 }
 
+// IsFollower : Check if a user is following another
 func IsFollower(user *model.User, currentUser *model.User) bool {
 	var likingUserCount int
 	db.ORM.Model(&model.UserFollows{}).Where("user_id = ? and following = ?", user.ID, currentUser.ID).Count(&likingUserCount)

@@ -2,8 +2,10 @@ package util
 
 import (
 	"fmt"
+	"net/url"
 )
 
+// FormatFilesize : format file size
 func FormatFilesize(bytes int64) string {
 	var unit string
 	var value float64
@@ -26,9 +28,11 @@ func FormatFilesize(bytes int64) string {
 	return fmt.Sprintf("%.1f %s", value, unit)
 }
 
-func FormatFilesize2(bytes int64) string {
-	if bytes == 0 { // this is what gorm returns for NULL
-		return "Unknown"
+// GetHostname : Returns the host of a URL, without any scheme or port number.
+func GetHostname(rawurl string) string {
+	u, err := url.Parse(rawurl)
+	if err != nil {
+		return rawurl
 	}
-	return FormatFilesize(bytes)
+	return u.Hostname()
 }

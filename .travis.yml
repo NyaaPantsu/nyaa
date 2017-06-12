@@ -1,16 +1,21 @@
 language: go
 go:
 - 1.x
+gobuild_args: -x -ldflags "-X main.buildversion=$(date -u +.%Y%m%d.%H%M%S)"
 before_install:
-- sudo apt-get install gcc-mingw-w64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 binutils-mingw-w64-i686 binutils-mingw-w64-x86-64
-
-script:
-# Downloads deps automatically. No need to add manually.
-- go list -f '{{.Deps}}' | tr "[" " " | tr "]" " " | xargs go list -e -f '{{if not .Standard}}{{.ImportPath}}{{end}}' | grep -v 'github.com/NyaaPantsu/nyaa' | xargs go get -v
-- go get
-- go build
+- sudo apt-add-repository ppa:ansible/ansible -y
+- sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+- sudo apt-get update
+- sudo apt-get install gcc-mingw-w64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 binutils-mingw-w64-i686 binutils-mingw-w64-x86-64 ansible
+- go get -u github.com/tools/godep
+before_script:
 - go vet
 - go test -v ./...
+- cd deploy/ansible/ && for playbook in *.yml; do ansible-playbook -i hosts $playbook --syntax-check; done && cd ../..
+install:
+  # Add Godeps dependencies to GOPATH and PATH
+  - export GOPATH="${TRAVIS_BUILD_DIR}/vendor:$GOPATH"
+  - export PATH="${TRAVIS_BUILD_DIR}/Godeps/_workspace/bin:$PATH"
 before_deploy:
 - ./package.sh
 deploy:

@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "link"
-  },
-  {
     "id": "verify_email_title",
     "translation": "Erősítsd meg az e-mail címedet a hozzáféréshez."
   },
@@ -20,115 +16,111 @@
     "translation": "Kattints az alábbi linkre jelszavad visszaállításához."
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "Új felhasználói fiók létrehozása"
   },
   {
-    "id":"signup_box_title",
+    "id": "signup_box_title",
     "translation": "Kérlek Regisztrálj <small>Ingyenes, és mindig is az lesz.</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "Felhasználónév"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "E-mail Cím vagy Felhasználónév"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "E-mail Cím"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "Jelszó"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "Jelszó mégegyszer"
   },
   {
-    "id":"i_agree",
-    "translation": "Beleegyezek"
+    "id": "terms_conditions_confirm",
+    "translation": "A <b>Regisztráció</b>-ra kattintva beleegyezel az oldal <a id=\"modal_active\" href=\"#\">Felhasználási Feltételei</a>-be, és a Cookie-k használatába."
   },
   {
-    "id":"terms_conditions_confirm",
-    "translation": "A <strong class=\"label label-primary\">Regisztráció</strong>-ra kattintva beleegyezel az oldal <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Felhasználási Feltételei</a>-be, és a Cookie-k használatába."
-  },
-  {
-    "id":"signin",
+    "id": "signin",
     "translation": "Bejelentkezés"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "Regisztráció"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "Felhasználási Feltételek"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "Valami Szar."
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "Emlékezz Rám"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "Elfelejtett Jelszó?"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "Kérlek Jelentkezz Be"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "Bejelentkezés"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "Sikeres Regisztráció"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "Köszönjük, hogy regisztráltál!"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>A felhasználói fiókod aktiválásra került."
   },
   {
-    "id":"signup_verification_email",
+    "id": "signup_verification_email",
     "translation": "Végezetül kérlek nézd meg a bejövő e-mailjeidet (a Spam mappát is!) az Ellenörző E-mail miatt."
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "Sikeres Regisztráció, mostmár használhatod a felhasználói fiókodat."
   },
   {
-    "id":"settings",
+    "id": "settings",
     "translation": "Fiók Beállításai"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "Torrentek"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "Követés"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "%s Profilja"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "További torrentek megtekintése %s-től "
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "Kategória"
   },
   {
@@ -156,10 +148,6 @@
     "translation": "Hiba: 404"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "Navigáció átváltása"
-  },
-  {
     "id": "upload",
     "translation": "Feltöltés"
   },
@@ -170,10 +158,6 @@
   {
     "id": "fap",
     "translation": "Fap"
-  },
-  {
-    "id": "advanced_search",
-    "translation": "Részletes Keresés"
   },
   {
     "id": "nothing_here",
@@ -198,14 +182,6 @@
   {
     "id": "member",
     "translation": "Tag"
-  },
-  {
-    "id": "sign_in",
-    "translation": "Bejelentkezés"
-  },
-  {
-    "id": "sign_up",
-    "translation": "Regisztráció"
   },
   {
     "id": "no_results_found",
@@ -318,10 +294,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "Ez a dev kedvenc programozási nyelve."
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "Magnet Feltöltése"
   },
   {
     "id": "torrent_file",
@@ -452,22 +424,6 @@
     "translation": "Megbízható"
   },
   {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "Letöltések"
-  },
-  {
-    "id": "descending",
-    "translation": "Csökkenő"
-  },
-  {
-    "id": "ascending",
-    "translation": "Növekvő"
-  },
-  {
     "id": "search",
     "translation": "Keresés"
   },
@@ -553,11 +509,11 @@
   },
   {
     "id": "who_is_renchon",
-    "translation": "Ki a fasz az a れんちょん?"
+    "translation": "Ki a fasz az a <span lang=\"ja\">れんちょん</span>?"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Ren-chon) nevet az kapja, aki névtelenül ír kommentet vagy tölt fel valamit. Ezt a nevet kapják az eredeti nyaa-ról átimportált torrentek is, viszont az eredeti feltöltő neve megjelenhet mellette."
+    "translation": "<span lang=\"ja\">れんちょん</span> (Ren-chon) nevet az kapja, aki névtelenül ír kommentet vagy tölt fel valamit. Ezt a nevet kapják az eredeti nyaa-ról átimportált torrentek is, viszont az eredeti feltöltő neve megjelenhet mellette."
   },
   {
     "id": "mark_as_remake",
@@ -570,10 +526,6 @@
   {
     "id": "torrent_status",
     "translation": "Torrent állapota"
-  },
-  {
-    "id": "torrent_status_hidden",
-    "translation": "Eltüntetett"
   },
   {
     "id": "torrent_status_normal",
@@ -610,5 +562,285 @@
   {
     "id": "language_code",
     "translation": "hu-hu"
+  },
+  {
+    "id": "delete",
+    "translation": "Törlés"
+  },
+  {
+    "id": "website_link",
+    "translation": "Oldal linkje"
+  },
+  {
+    "id": "files",
+    "translation": "Fájlok"
+  },
+  {
+    "id": "no_files",
+    "translation": "Nincsenek meg a fájlok? Na, az meg hogy lehet?"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "Feltöltötte: "
+  },
+  {
+    "id": "report_btn",
+    "translation": "Bejelentés"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "Biztos vagy benne?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "#%s számú torránt bejelentése"
+  },
+  {
+    "id": "report_type",
+    "translation": "Bejelentés jellege"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "Illegális tartalom"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "Spam / Szemét"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "Hibás kategória"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "Másolat / elavult"
+  },
+  {
+    "id": "captcha",
+    "translation": "Captcha"
+  },
+  {
+    "id": "file_name",
+    "translation": "Fájlnév"
+  },
+  {
+    "id": "cancel",
+    "translation": "Mégse"
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "Kérlek a trackerek között add meg a udp://tracker.doko.moe:6969-et is."
+  },
+  {
+    "id": "unknown",
+    "translation": "Ismeretlen"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "legutóbb kiselejtezett: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "Itt találhatod meg a szerver állapotát"
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "Jelenleg nincsenek adatbázis dumpok. "
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "Értesítések törlése"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "Értesítések törölve!"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "Értesítéseim"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "Új torrent: \"%s\". Feltöltötte: %s"
+  },
+  {
+    "id": "preferences",
+    "translation": "Beállítások"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "Értesíts, ha egy követett felhasználó új torrentet tölt fel."
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "Értesíts e-mailben, ha egy követett felhasználó új torrentet tölt fel."
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "Értesíts, ha a torrentemre új megjegyzés érkezik"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "Értesíts e-mailben, ha a torrentemre új megjegyzés érkezik"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "Értesíts, ha válasz érkezik az egyik megjegyzésemre"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "Értesíts e-mailben, ha válasz érkezik az egyik megjegyzésemre"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "Értesíts, ha valaki elkezd követni."
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "Értesíts e-mailban, ha valaki elkezd követni."
+  },
+  {
+    "id": "followed_settings",
+    "translation": "Értesíts, ha elkezdek valakit követni"
+  },
+  {
+    "id": "followed_email_settings",
+    "translation": "Értesíts e-mailben, ha elkezdek valakit követni"
+  },
+  {
+    "id": "yes",
+    "translation": "Igen"
+  },
+  {
+    "id": "no",
+    "translation": "Nem"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "Új komment a torrenten: \"%s\""
+  },
+  {
+    "id": "no_action_selected",
+    "translation": "Meg kell adnod, hogy mit akarsz csinálni a kijelöléssel."
+  },
+  {
+    "id": "no_move_location_selected",
+    "translation": "Té ném mégmondání hová vinni kijelulés"
+  },
+  {
+    "id": "select_one_element",
+    "translation": "Legalább egy elemet ki kell választanod"
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "Torrent %s elmozdítva!"
+  },
+  {
+    "id": "no_status_exist",
+    "translation": "Nincs olyan állapot, hogy %d."
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "Torrent %s kitörölve!"
+  },
+  {
+    "id": "no_action_exist",
+    "translation": "Nincs olyan művelet, hogy %s."
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "Nem létezik torrent %s azonosítóval."
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "Valami elromlott..."
+  },
+  {
+    "id": "nb_torrents_updated",
+    "translation": "%d torrent feltöltve."
+  },
+  {
+    "id": "torrent_updated",
+    "translation": "Torrent részletek frissítve."
+  },
+  {
+    "id": "fail_torrent_update",
+    "translation": "Nem sikerült frissíteni a torrentet."
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "Hibás captcha."
+  },
+  {
+    "id": "comment_empty",
+    "translation": "Üres megjegyzés."
+  },
+  {
+    "id": "no_owner_selected",
+    "translation": "Szükség van egy új torrent tulajra."
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "Nincs kijelölve kategória"
+  },
+  {
+    "id": "no_user_found_id",
+    "translation": "Az adatbázisban nincs felhasználó %d azonosítóval."
+  },
+  {
+    "id": "invalid_torrent_category",
+    "translation": "Ez a kategória nem létezik."
+  },
+  {
+    "id": "torrent_owner_changed",
+    "translation": "\"%s\" torrent tulaját sikeresen lecserélted."
+  },
+  {
+    "id": "torrent_category_changed",
+    "translation": "\"%s\" torrent kategóriájáját sikeresen megváltoztattad."
+  },
+  {
+    "id": "torrent_reports_deleted",
+    "translation": "\"%s\" torrent bejelentéseit sikeresen kitörölted."
+  },
+  {
+    "id": "edit",
+    "translation": "Szerkesztés"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "A fájlokat nem leszel képes visszaszerezni, viszont másokat sem tudsz megállítani attól, hogy újra feltöltsék."
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "Biztosan töröld."
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "Felnyitás"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "Lezárás"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "A torrent ki lett törölve az adatbázisról."
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "A torrent fel van nyitva."
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "A torrent le van zárva."
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "A Torrentek nincsenek törölve"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "A Torrentek törölve lettek"
   }
 ]

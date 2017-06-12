@@ -1,0 +1,13 @@
+[Unit]
+Description=Sukebei torrent
+After=network.target elasticsearch.service postgresql-9.6.service pgpool-II-96.service
+
+[Service]
+LimitNOFILE=512000
+WorkingDirectory=/home/nyaapantsu/go/src/github.com/NyaaPantsu/nyaa/
+ExecStart=/home/nyaapantsu/go/src/github.com/NyaaPantsu/nyaa/nyaa -conf=config/sukebei.yml
+StandardOutput=syslog
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

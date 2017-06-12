@@ -1,0 +1,26 @@
+- name: Download Golang
+  get_url:
+    url: "https://storage.googleapis.com/golang/go{{ golang_version }}.linux-amd64.tar.gz"
+    dest: /tmp/golang.tar.gz
+
+- name: Unzip golang
+  unarchive: 
+    src: /tmp/golang.tar.gz
+    dest: /usr/local/
+    remote_src: True
+  become: true
+
+- name: Add go to PATH
+  lineinfile:
+    path: ~/.bashrc
+    regexp: 'export PATH=.*go.*'
+    line:   'export PATH=$PATH:/usr/local/go/bin'
+
+- name: Install git for go get command
+  yum:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - git
+    - gcc

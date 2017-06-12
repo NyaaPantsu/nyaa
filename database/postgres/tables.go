@@ -26,7 +26,7 @@ const tableOldUserUploads = "user_uploads_old"
 // all tables that we have in current database schema in the order they are created
 var tables = []createTable{
 	// users table
-	createTable{
+	{
 		name: tableUsers,
 		columns: tableColumns{
 			"user_id SERIAL PRIMARY KEY",
@@ -37,7 +37,6 @@ var tables = []createTable{
 			"created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL",
 			"updated_at TIMESTAMP WITHOUT TIME ZONE",
 			"last_login_at TIMESTAMP WITHOUT TIME ZONE",
-			"last_login_ip TEXT",
 			"api_token TEXT",
 			"api_token_expiry TIMESTAMP WITHOUT TIME ZONE NOT NULL",
 			"language TEXT",
@@ -48,7 +47,7 @@ var tables = []createTable{
 		},
 	},
 	// torrents table
-	createTable{
+	{
 		name: tableTorrents,
 		columns: tableColumns{
 			"torrent_id SERIAL PRIMARY KEY",
@@ -81,7 +80,7 @@ var tables = []createTable{
 		},
 	},
 	// new comments table
-	createTable{
+	{
 		name: tableComments,
 		columns: tableColumns{
 			"comment_id SERIAL PRIMARY KEY",
@@ -97,7 +96,7 @@ var tables = []createTable{
 		},
 	},
 	// old comments table
-	createTable{
+	{
 		name: tableOldComments,
 		columns: tableColumns{
 			fmt.Sprintf("torrent_id INTEGER NOT NULL REFERENCES %s (torrent_id)", tableTorrents),
@@ -107,7 +106,7 @@ var tables = []createTable{
 		},
 	},
 	// torrent reports table
-	createTable{
+	{
 		name: tableTorrentReports,
 		columns: tableColumns{
 			"torrent_report_id SERIAL PRIMARY KEY",
@@ -121,7 +120,7 @@ var tables = []createTable{
 		},
 	},
 	// user follows table
-	createTable{
+	{
 		name: tableUserFollows,
 		columns: tableColumns{
 			"user_id INTEGER NOT NULL",
@@ -130,7 +129,7 @@ var tables = []createTable{
 		},
 	},
 	// old uploads table
-	createTable{
+	{
 		name: tableOldUserUploads,
 		columns: tableColumns{
 			"username TEXT IS NOT NULL",

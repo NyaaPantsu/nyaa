@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "Link"
-  },
-  {
     "id": "verify_email_title",
     "translation": "Bestätigung der E-Mail-Adresse für NyaaPantsu."
   },
@@ -20,127 +16,123 @@
     "translation": "Klicke auf den Link, um dein Passwort zurückzusetzen."
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "Neuen Account erstellen"
   },
   {
-    "id":"signup_box_title",
+    "id": "signup_box_title",
     "translation": "Registrierung <small>Es ist kostenlos und wird immer so bleiben.</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "Benutzername"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "E-Mail oder Benutzername"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "E-Mail"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "Passwort"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "Passwort-Bestätigung"
   },
   {
-    "id":"i_agree",
-    "translation": "Ich stimme zu"
+    "id": "terms_conditions_confirm",
+    "translation": "Durch Klicken auf <b>Registrieren</b> stimmst du den <a id=\"modal_active\" href=\"#\">Nutzungsbedingungen</a> sowie der Nutzung von Cookies zu."
   },
   {
-    "id":"terms_conditions_confirm",
-    "translation": "Durch Klicken auf <strong class=\"label label-primary\">Registrieren</strong> stimmst du den <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Nutzungsbedingungen</a> sowie der Nutzung von Cookies zu."
-  },
-  {
-    "id":"signin",
+    "id": "signin",
     "translation": "Einloggen"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "Registrieren"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "Nutzungsbedingungen"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "Coming sooner than you might expect..."
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "Eingeloggt bleiben"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "Passwort vergessen"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "Bitte einloggen"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "Login"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "Login erfolgreich"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "Danke für's Registrieren!"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Dein Account ist jetzt aktiviert!"
   },
   {
-    "id":"signup_verification_email",
+    "id": "signup_verification_email",
     "translation": "Derzeit ist die Verfizierung der E-Mail-Adresse deaktiviert, also kannst du deinen Account direkt nutzen. In Zukunft, überprüfe bitte deinen Posteingang (auch deinen Spam-Ordner!) auf eine Bestätigungsmail."
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "Die Registrierung war erfolgreich. Du kannst deinen Account jetzt benutzen."
   },
   {
-    "id":"settings",
+    "id": "settings",
     "translation": "Profil-Einstellungen"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "Torrents"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "Folgen"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "Nicht mehr Folgen"
   },
   {
-    "id":"user_followed_msg",
+    "id": "user_followed_msg",
     "translation": "Du folgst jetzt %s!"
   },
   {
-    "id":"user_unfollowed_msg",
+    "id": "user_unfollowed_msg",
     "translation": "Du folgst %s nicht mehr!"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "Profil von %s"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "Mehr Torrents von %s "
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "Kategorie"
   },
   {
@@ -168,10 +160,6 @@
     "translation": "Fehler 404"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "Navigation umschalten"
-  },
-  {
     "id": "upload",
     "translation": "Hochladen"
   },
@@ -184,8 +172,8 @@
     "translation": "Fap"
   },
   {
-    "id": "advanced_search",
-    "translation": "Erweiterte Suche"
+    "id": "fun",
+    "translation": "Fun"
   },
   {
     "id": "nothing_here",
@@ -210,14 +198,6 @@
   {
     "id": "member",
     "translation": "Mitglied"
-  },
-  {
-    "id": "sign_in",
-    "translation": "Einloggen"
-  },
-  {
-    "id": "sign_up",
-    "translation": "Registrieren"
   },
   {
     "id": "no_results_found",
@@ -249,7 +229,7 @@
   },
   {
     "id": "future_not_looking_good",
-    "translation": "Die Zukunft für nyaa sieht schlecht aus. (Die Seite ist tot)"
+    "translation": "Die Zukunft für nyaa sieht schlecht aus. („Er ist tot, Jim.“)"
   },
   {
     "id": "recovery_effort",
@@ -284,6 +264,14 @@
     "translation": "Die obengenannten Datenbanken werden im Moment auf nyaa.pantsu.cat und sukebei.pantsu.cat bereitgestellt. Es gibt eine Suchfunktion und (fast) vollständige Funktionalität von nyaa sollte bald wiederhergestellt sein."
   },
   {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "Wie verbinde ich meine alten Uploads mit meinem neuen Account?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "Gehe zu <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> und bitte einen Moderator deine alten Torrents zu migrieren, während du deinen alten und neuen Benutzernamen erwähnst."
+  },
+  {
     "id": "are_the_trackers_working",
     "translation": "Funktionieren die Torrents noch?"
   },
@@ -309,11 +297,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Wir haben jetzt unseren eigenen Tracker! Füge ihn vor dem Hochladen deines Torrents hinzu:"
-  },
-  {
-    "id": "other_trackers",
-    "translation": "Allerdings solltest du diese auch hinzufügen. Nur für den Fall, dass etwas schief läuft:"
+    "translation": "Wir haben jetzt unseren eigenen Tracker!<small>(doko.moe)</small> Jedoch solltest du der Zuverlässigkeit wegen alle Tracker aus dieser Liste hinzufügen."
   },
   {
     "id": "how_can_i_help",
@@ -334,10 +318,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "Weil es die Lieblingsprogrammiersprache des Entwicklers ist."
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "Magnet hochladen"
   },
   {
     "id": "torrent_file",
@@ -452,6 +432,42 @@
     "translation": "Software - Spiele"
   },
   {
+    "id": "art",
+    "translation": "2D"
+  },
+  {
+    "id": "art_anime",
+    "translation": "2D - Anime"
+  },
+  {
+    "id": "art_doujinshi",
+    "translation": "2D - Doujinshi"
+  },
+  {
+    "id": "art_games",
+    "translation": "2D - Spiele"
+  },
+  {
+    "id": "art_manga",
+    "translation": "2D - Manga"
+  },
+  {
+    "id": "art_pictures",
+    "translation": "2D - Bilder"
+  },
+  {
+    "id": "real_life",
+    "translation": "3D"
+  },
+  {
+    "id": "real_life_photobooks_and_pictures",
+    "translation": "3D - Fotokollektionen / Fotos"
+  },
+  {
+    "id": "real_life_videos",
+    "translation": "3D - Videos"
+  },
+  {
     "id": "torrent_description",
     "translation": "Torrent Beschreibung"
   },
@@ -472,22 +488,6 @@
     "translation": "Trusted"
   },
   {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "Downloads"
-  },
-  {
-    "id": "descending",
-    "translation": "Absteigend"
-  },
-  {
-    "id": "ascending",
-    "translation": "Aufsteigend"
-  },
-  {
     "id": "search",
     "translation": "Suche"
   },
@@ -498,6 +498,10 @@
   {
     "id": "description",
     "translation": "Beschreibung"
+  },
+  {
+    "id": "no_description",
+    "translation": "Keine Beschreibung vorhanden!"
   },
   {
     "id": "comments",
@@ -548,6 +552,10 @@
     "translation": "Moderator"
   },
   {
+    "id": "api_token",
+    "translation": "API Token"
+  },
+  {
     "id": "save_changes",
     "translation": "Änderungen speichern"
   },
@@ -573,11 +581,11 @@
   },
    {
     "id": "who_is_renchon",
-    "translation": "Wer zum Teufel ist れんちょん?"
+    "translation": "Wer zum Teufel ist <span lang=\"ja\">れんちょん</span>?"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "Der Benutzername れんちょん (Ren-chon) wird Uploads und Kommentaren zugewiesen, die anonym hochgeladen beziehungsweise verfasst wurden. Außerdem ist er bei Torrents zu finden, die von nyaa importiert wurden, wobei gegebenenfalls auch der Benutzername des originalen Uploaders daneben angezeigt wird."
+    "translation": "Der Benutzername <span lang=\"ja\">れんちょん</span> (Ren-chon) wird Uploads und Kommentaren zugewiesen, die anonym hochgeladen beziehungsweise verfasst wurden. Außerdem ist er bei Torrents zu finden, die von nyaa importiert wurden, wobei gegebenenfalls auch der Benutzername des originalen Uploaders daneben angezeigt wird."
   },
   {
     "id": "mark_as_remake",
@@ -590,10 +598,6 @@
   {
     "id": "torrent_status",
     "translation": "Torrent-Status"
-  },
-  {
-    "id": "torrent_status_hidden",
-    "translation": "Versteckt"
   },
   {
     "id": "torrent_status_normal",
@@ -636,12 +640,20 @@
     "translation": "Löschen"
   },
   {
-    "id": "uploaded_by",
-    "translation": "Hochgeladen von"
+    "id": "website_link",
+    "translation": "Webseiten Link"
   },
   {
-    "id": "download_btn",
-    "translation": "Download!"
+    "id": "files",
+    "translation": "Dateien"
+  },
+  {
+    "id": "no_files",
+    "translation": "Nanu, wo sind denn die Dateien hin?"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "Hochgeladen von"
   },
   {
     "id": "report_btn",
@@ -686,5 +698,157 @@
   {
     "id": "cancel",
     "translation": "Abbrechen"
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "Bitte füge udp://tracker.doko.moe:6969 deinen Trackern hinzu."
+  },
+  {
+    "id": "unknown",
+    "translation": "Unbekannt"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "Letzter Scrape: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "Der Server-Status kann hier eingesehen werden"
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "Im Moment sind keine Datenbank-Dumps verfügbar."
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "Benachrichtigungen leeren"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "Benachrichtigungen geleert!"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "Meine Benachrichtigungen"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "Neuer Torrent: \"%s\" von %s"
+  },
+  {
+    "id": "preferences",
+    "translation": "Einstellungen"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "Benachrichtigt werden wenn ein gefolgter Benutzer einen neuen Torrent hinzufügt"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "Per E-Mail benachrichtigt werden wenn ein gefolgter Benutzer einen neuen Torrent hinzufügt"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "Benachrichtigt werden wenn deine Torrents kommentiert werden"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "Per E-Mail benachrichtigt werden wenn deine Torrents kommentiert werden"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "Benachrichtigt werden wenn auf deine Kommentare geantwortet wird"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "Per E-Mail benachrichtigt werden wenn auf deine Kommentare geantwortet wird"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "Benachrichtigt werden wenn du einen neuen Follower hast"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "Per E-Mail benachrichtigt werden wenn du einen neuen Follower hast"
+  },
+  {
+    "id": "yes",
+    "translation": "Ja"
+  },
+  {
+    "id": "no",
+    "translation": "Nein"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "Neuer Kommentar zu einem Torrent: \"%s\""
+  },
+  {
+    "id": "select_one_element",
+    "translation": "Du musst mindestens ein Element auswählen!"
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "Torrent %s verschoben!"
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "Torrent %s gelöscht!"
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "Torrent mit ID %s existiert nicht!"
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "Da ist wohl etwas schief gelaufen..."
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "Falsches Captcha!"
+  },
+  {
+    "id": "comment_empty",
+    "translation": "Kommentar ist leer!"
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "Keine Kategorie ausgewählt!"
+  },
+  {
+    "id": "edit",
+    "translation": "Bearbeiten"
+  },
+  {
+    "id": "change_settings",
+    "translation": "Einstellungen ändern"
+  },
+  {
+    "id": "mascot",
+    "translation": "Maskottchen"
+  },
+  {
+    "id": "theme",
+    "translation": "Thema"
+  },
+  {
+    "id": "theme_select",
+    "translation": "Wähle ein Thema aus"
+  },
+  {
+    "id": "theme_none",
+    "translation": "Keins"
+  },
+  {
+    "id": "mark_as_hidden",
+    "translation": "Als Versteckt markieren"
+  },
+  {
+    "id": "mascot_url",
+    "translation": "Maskottchen URL"
+  },
+  {
+    "id": "no_notifications",
+    "translation": "Keine Benachrichtigungen"
   }
 ]

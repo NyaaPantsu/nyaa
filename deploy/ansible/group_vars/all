@@ -1,5 +1,17 @@
 nyaapantsu_dbname: nyaapantsu
 nyaapantsu_user: nyaapantsu
 nyaapantsu_password: nyaapantsu
-nyaapantsu_gpg_passphrase_file: ~/passphrase
+nyaapantsu_pgpool_port: 9998
+nyaapantsu_directory: /nyaapantsu/
+nyaapantsu_gpg_passphrase_file: "{{ nyaapantsu_directory }}/passphrase"
+nyaapantsu_build_directory: go_nyaa/
+nyaapantsu_elasticsearch_alias: nyaapantsu
+# nyaapantsu_elasticsearch_alias: sukebei
+nyaapantsu_elasticsearch_index: nyaapantsu_v1
+# nyaapantsu_elasticsearch_index: nyaapantsu_sukebei_v1
+nyaapantsu_elasticsearch_old_index: CHANGETHIS
+nyaapantsu_torrent_tablename: torrents
+# nyaapantsu_torrent_tablename: torrents_sukebei
+nyaapantsu_max_open_files: 200000
+nyaapantsu_jvm_heapsize_gb: 1
 # vim: ft=yaml

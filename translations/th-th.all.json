@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "ลิงค์"
-  },
-  {
     "id": "verify_email_title",
     "translation": "ยืนยันอีเมลสำหรับ NyaaPantsu"
   },
@@ -20,127 +16,127 @@
     "translation": "กรุณากดลิงค์ข้างล่างเพื่อรีเซ็ทรหัสผ่าน"
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "สร้างแอคเคาท์ใหม่"
   },
   {
-    "id":"signup_box_title",
-    "translation": "กรุณาลงทะเบียน <small>มันฟรีตลอดชาติ</small>"
+    "id": "signup_box_title",
+    "translation": "กรุณาลงทะเบียน <small>ฟรีตลอดชาติ</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "ชื่อผู้ใช้"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "อีเมลหรือชื่อผู้ใช้"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "อีเมล"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "รหัสผ่าน"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "ยืนยันรหัสผ่าน"
   },
   {
-    "id":"i_agree",
-    "translation": "ฉันยอมรับ"
+    "id": "terms_conditions_confirm",
+    "translation": "หากคุณกด <b>ลงทะเบียน</b> คุณต้องยอมรับ<a id=\"modal_active\" href=\"#\">เงื่อนไขและข้อตกลง</a>ของเว็บนี้ รวมถึงการใช้งาน Cookie ของทางเรา"
   },
   {
-    "id":"terms_conditions_confirm",
-    "translation": "หากคุณกด <strong class=\"label label-primary\">ลงทะเบียน</strong> คุณต้องยอมรับ<a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">เงื่อนไขและข้อตกลง</a>ของเว็บนี้ รวมถึงการใช้งาน Cookie ของทางเรา"
-  },
-  {
-    "id":"signin",
+    "id": "signin",
     "translation": "เข้าสู่ระบบ"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "ลงทะเบียน"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "เงื่อนไขและข้อตกลง"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "Nope.avi"
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "จดจำฉันไว้"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "ลืมรหัสผ่าน?"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "กรุณาเข้าสู่ระบบ"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "เข้าสู่ระบบ"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "ลงทะเบียนเรียบร้อย"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "ขอบคุณที่ลงทะเบียน!"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>แอคเคาท์ของคุณถูกเปิดใช้งานแล้ว!"
   },
   {
-    "id":"signup_verification_email",
+    "id": "signup_verification_email",
     "translation": "ขณะนี้การยืนยันอีเมลถูกปิดใช้งาน ฉะนั้นคุณสามารถใช้งานแอคเคาท์ได้ทันที แต่ในอนาคตกรุณาเช็คอีเมล (และในโฟลเดอร์เมลขยะ!) สำหรับเมลยืนยันตัวตน"
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "การลงทะเบียนเสร็จเรียบร้อย คุณสามารถใช้งานแอคเคาท์ของคุณได้ในตอนนี้"
   },
   {
-    "id":"settings",
+    "id": "email_placeholder",
+    "translation": "สามารถปล่อยว่างได้"
+  },
+  {
+    "id": "settings",
     "translation": "ตั้งค่าแอคเคาท์"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "ทอร์เรนท์"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "ติดตาม"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "ไม่ติดตาม"
   },
   {
-    "id":"user_followed_msg",
+    "id": "user_followed_msg",
     "translation": "คุณติดตาม %s แล้ว!"
   },
   {
-    "id":"user_unfollowed_msg",
+    "id": "user_unfollowed_msg",
     "translation": "คุณไม่ได้ติดตาม %s แล้ว!"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "หน้าโปรไฟล์ของ %s"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "ดูทอร์เรนท์อื่นๆ ของ %s "
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "หมวดหมู่"
   },
   {
@@ -168,10 +164,6 @@
     "translation": "ข้อผิดพลาด 404"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "Toggle navigation"
-  },
-  {
     "id": "upload",
     "translation": "อัพโหลด"
   },
@@ -188,16 +180,12 @@
     "translation": "ไม่กาม"
   },
   {
-    "id": "advanced_search",
-    "translation": "การค้นหาระดับสูง"
-  },
-  {
     "id": "nothing_here",
     "translation": "ไม่มีอะไรในนี้"
   },
   {
     "id": "404_not_found",
-    "translation": "404 Not Found"
+    "translation": "404 ไม่พบหน้านี้"
   },
   {
     "id": "no_torrents_uploaded",
@@ -214,14 +202,6 @@
   {
     "id": "member",
     "translation": "สมาชิก"
-  },
-  {
-    "id": "sign_in",
-    "translation": "เข้าสู่ระบบ"
-  },
-  {
-    "id": "sign_up",
-    "translation": "ลงทะเบียน"
   },
   {
     "id": "no_results_found",
@@ -342,10 +322,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "เพราะเป็นภาษาที่ผู้พัฒนาชอบ"
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "อัพโหลด Magnet"
   },
   {
     "id": "torrent_file",
@@ -480,6 +456,10 @@
     "translation": "งานศิลป์ - มังงะ"
   },
   {
+    "id": "art_pictures",
+    "translation": "งานศิลป์ - ภาพวาด"
+  },
+  {
     "id": "real_life",
     "translation": "คนจริง"
   },
@@ -512,22 +492,6 @@
     "translation": "Trusted"
   },
   {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "ดาวน์โหลด"
-  },
-  {
-    "id": "descending",
-    "translation": "เรียงจากบนลงล่าง"
-  },
-  {
-    "id": "ascending",
-    "translation": "เรียงจากล่างขึ้นบน"
-  },
-  {
     "id": "search",
     "translation": "ค้นหา"
   },
@@ -542,6 +506,10 @@
   {
     "id": "comments",
     "translation": "คอมเมนท์"
+  },
+  {
+    "id": "no_description",
+    "translation": "ไม่ได้ระบุรายละเอียดเอาไว้!"
   },
   {
     "id": "submit_a_comment_as_username",
@@ -584,11 +552,15 @@
     "translation": "Trusted member"
   },
   {
+    "id": "scraped_user",
+    "translation": "Scraped user"
+  },
+  {
     "id": "moderator",
     "translation": "Moderator"
   },
   {
-    "id":" api_token",
+    "id": " api_token",
     "translation": "API Token"
   },
   {
@@ -617,11 +589,11 @@
   },
   {
     "id": "who_is_renchon",
-    "translation": "ใครคือ れんちょん?"
+    "translation": "ใครคือ <span lang=\"ja\">れんちょん</span>?"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Ren-chon) คือชื่อผู้ใช้ที่ตั้งไว้สำหรับอัพโหลดและคอมเมนท์แบบไม่ระบุตัวตน ซึ่งถูกใช้กับทอร์เรนท์ที่กู้มาจาก Nyaa ดั้งเดิม และในบางครั้งชื่อผู้อัพโหลดดั้งเดิมจะแสดงผลคู่กัน"
+    "translation": "<span lang=\"ja\">れんちょん</span> (Ren-chon) คือชื่อผู้ใช้ที่ตั้งไว้สำหรับอัพโหลดและคอมเมนท์แบบไม่ระบุตัวตน ซึ่งถูกใช้กับทอร์เรนท์ที่กู้มาจาก Nyaa ดั้งเดิม และในบางครั้งชื่อผู้อัพโหลดดั้งเดิมจะแสดงผลคู่กัน"
   },
   {
     "id": "mark_as_remake",
@@ -636,16 +608,16 @@
     "translation": "สถานะทอร์เรนท์"
   },
   {
-    "id": "torrent_status_hidden",
-    "translation": "ถูกซ่อน"
-  },
-  {
     "id": "torrent_status_normal",
     "translation": "ปกติ"
   },
   {
     "id": "torrent_status_remake",
     "translation": "งานทำซ้ำ"
+  },
+  {
+    "id": "torrent_status_blocked",
+    "translation": "ถูกล๊อค"
   },
   {
     "id": "profile_edit_page",
@@ -679,21 +651,21 @@
     "id": "delete",
     "translation": "ลบ"
   },
+   {
+    "id": "website_link",
+    "translation": "ลิงค์เว็บ"
+  },
   {
     "id": "files",
     "translation": "ไฟล์"
   },
   {
-    "id": "filename",
-    "translation": "ชื่อไฟล์"
+    "id": "no_files",
+    "translation": "ไม่เจอไฟล์? บ้าน่า!"
   },
   {
     "id": "uploaded_by",
     "translation": "อัพโหลดโดย"
-  },
-  {
-    "id": "download_btn",
-    "translation": "ดาวน์โหลด!"
   },
   {
     "id": "report_btn",
@@ -738,5 +710,489 @@
   {
     "id": "cancel",
     "translation": "ยกเลิก"
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "กรุณาใส่ udp://tracker.doko.moe:6969 ไว้ในรายชื่อแทรคเกอร์ของคุณ"
+  },
+  {
+    "id": "unknown",
+    "translation": "Unknown"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "Scrap ครั้งล่าสุด: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "สามารถดูสถานะของเซิร์ฟเวอร์ได้ที่นี่"
+  }, 
+  {
+    "id": "no_database_dumps_available",
+    "translation": "ยังไม่มีไฟล์ดัมพ์ฐานข้อมูลในขณะนี้"
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "ล้างการแจ้งเตือน"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "ลบการแจ้งเตือนแล้ว!"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "การแจ้งเตือนของฉัน"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "ทอร์เรนท์ใหม่: \"%s\" จาก %s"
+  },
+  {
+    "id": "preferences",
+    "translation": "ตั้งค่า"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "แจ้งเตือนเมื่อมีทอร์เรนท์ใหม่ที่เพิ่มมาจากผู้ใช้ที่ติดตาม"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "แจ้งเตือนผ่านอีเมล์เมื่อมีทอร์เรนท์ใหม่ที่เพิ่มมาจากผู้ใช้ที่ติดตาม"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "แจ้งเตือนเมื่อมีคอมเมนท์ใหม่ในคอมเมนท์ของคุณ"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "แจ้งเตือนผ่านอีเมล์เมื่อมีคอมเมนท์ใหม่ในทอร์เรนท์ของคุณ"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "แจ้งเตือนเมื่อมีการตอบรับที่คอมเมนท์ของคุณ"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "แจ้งเตือนผ่านอีเมล์เมื่อมีการตอบรับที่คอมเมนท์ของคุณ"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "แจ้งเตือนเมื่อคุณมีผู้ติดตามใหม่"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "แจ้งเตือนผ่านอีเมล์เมื่อคุณมีผู้ติดตามใหม่"
+  },
+  {
+    "id": "followed_settings",
+    "translation": "แจ้งเตือนเมื่อคุณติดตามใครบางคน"
+  },
+  {
+    "id": "followed_email_settings",
+    "translation": "แจ้งเตือนผ่านอีเมล์เมื่อคุณติดตามใครบางคน"
+  },
+  {
+    "id": "yes",
+    "translation": "ใช่"
+  },
+  {
+    "id": "no",
+    "translation": "ไม่ใช่"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "คอมเมนท์ใหม่ในทอร์เรนท์: \"%s\""
+  },
+  {
+    "id": "no_action_selected",
+    "translation": "คุณต้องเลือกว่าคุณจะทำอะไร!"
+  },
+  {
+    "id": "no_move_location_selected",
+    "translation": "คุณยังไม่ได้บอกว่าจะย้ายไปไหน!"
+  },
+  {
+    "id": "select_one_element",
+    "translation": "คุณต้องเลือกอย่างน้อย 1 อย่าง!"
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "ย้ายทอร์เรนท์ %s แล้ว!"
+  },
+  {
+    "id": "no_status_exist",
+    "translation": "ไม่มีสถานะ %d !"
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "ลบทอร์เรนท์ %s แล้ว!"
+  },
+  {
+    "id": "torrents_deleted",
+    "translation": "ลบทอร์เรนท์แล้ว"
+  },
+  {
+    "id": "delete_torrent",
+    "translation": "ลบทอร์เรนท์"
+  },
+  {
+    "id": "delete_report",
+    "translation": "ลบรายงาน"
+  },
+  {
+    "id": "no_action_exist",
+    "translation": "ไม่มีคำสั่ง %s !"
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "ไม่มีทอร์เรนท์ไอดี %s อยู่!"
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "มีบางอย่างผิดพลาด"
+  },
+  {
+    "id": "nb_torrents_updated",
+    "translation": "อัพเดตทอร์เรนท์ %d แล้ว"
+  },
+  {
+    "id": "torrent_updated",
+    "translation": "อัพเดตรายละเอียดทอร์เรนท์แล้ว"
+  },
+  {
+    "id": "fail_torrent_update",
+    "translation": "อัพเดตทอร์เรนท์ล้มเหลว!"
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "Bad captcha!"
+  },
+  {
+    "id": "comment_empty",
+    "translation": "คอมเมนท์ว่างเปล่า!"
+  },
+  {
+    "id": "no_owner_selected",
+    "translation": "ต้องการเจ้าของทอร์เรนท์คนใหม่!"
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "ยังไม่ได้เลือกหมวดหมู่!"
+  },
+  {
+    "id": "no_user_found_id",
+    "translation": "ไม่มีผู้ใช้ไอดี %d อยู่ในฐานข้อมูล!"
+  },
+  {
+    "id": "invalid_torrent_category",
+    "translation": "ไม่มีหมวดหมุ่ทอร์เรนท์นี้!"
+  },
+  {
+    "id": "torrent_owner_changed",
+    "translation": "เปลี่ยนตัวเจ้าของทอร์เรนท์ \"%s\" เรียบร้อยแล้ว!"
+  },
+  {
+    "id": "torrent_category_changed",
+    "translation": "หมวดหมู่ของทอร์เรนท์ \"%s\" ถูกเปลี่ยน!"
+  },
+  {
+    "id": "torrent_reports_deleted",
+    "translation": "รายงานของทอร์เรนท์ \"%s\" ถูกลบ!"
+  },
+  {
+    "id": "edit",
+    "translation": "แก้ไข"
+  },
+  {
+    "id": "lock_delete",
+    "translation": "ล๊อคและลบ"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "คุณจะกู้ไฟล์กลับมาไม่ได้ จะหยุดคนอื่นไม่ให้อัพโหลดซ้ำก็ไม่ได้!"
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "ลบถาวร"
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "ปลดล๊อค"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "ล๊อค"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "ทอร์เรนท์ถูกลบออกจากฐานข้อมูลแล้ว!"
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "ทอร์เรนท์ถูกปลดล๊อคแล้ว!"
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "ทอร์เรนท์ถูกล๊อคแล้ว!"
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "ทอร์เรนท์ยังไม่ถูกลบ"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "ทอรเรนท์ถูกลบแล้ว"
+  },
+  {
+    "id": "change_settings",
+    "translation": "เปลี่ยนรูปลักษณ์/ภาษา"
+  },
+  {
+    "id": "mascot",
+    "translation": "มาสคอต"
+  },
+  {
+    "id": "theme",
+    "translation": "ธีม"
+  },
+  {
+    "id": "theme_select",
+    "translation": "เลือกธีม"
+  },
+  {
+    "id": "theme_none",
+    "translation": "None"
+  },
+  {
+    "id": "mark_as_hidden",
+    "translation": "ทำเครื่องหมายว่าถูกซ่อน"
+  },
+  {
+    "id": "cookies",
+    "translation": "หากคุณกดบันทึกแสดงว่าคุณอนุญาตให้เราใช้คุกกี้"
+  },
+  {
+    "id": "show",
+    "translation": "แสดง"
+  },
+  {
+    "id": "hide",
+    "translation": "ซ่อน"
+  },
+  {
+    "id": "nyaa_pantsu",
+    "translation": "Nyaa Pantsu"
+  },
+  {
+    "id": "users",
+    "translation": "ผู้ใช้"
+  },
+  {
+    "id": "torrent_reports",
+    "translation": "รายงานทอร์เรนท์"
+  },
+  {
+    "id": "show_mod_tools",
+    "translation": "แสดงเครื่องมือ Mod"
+  },
+  {
+    "id": "hide_mod_tools",
+    "translation": "ซ่อนเครื่องมือ Mod"
+  },
+  {
+    "id": "following_changes_applied",
+    "translation": "การเปลี่ยนแปลงดังกล่าวถูกยืนยัน"
+  },
+  {
+    "id": "changes_in_following_order",
+    "translation": "การเปลี่ยนแปลงจะเกิดขึ้นตามคำสั่งต่อไปนี้:"
+  },
+  {
+    "id": "edit_changes",
+    "translation": "แก้ไขการเปลี่ยนแปลง"
+  },
+  {
+    "id": "delete_changes",
+    "translation": "ลบการเปลี่ยนแปลง"
+  },
+  {
+    "id": "owner_id_placeholder",
+    "translation": "ไอดีเจ้าของ (เช่น Renchon = 0)"
+  },
+  {
+    "id": "try_new_attempt",
+    "translation": "กำลังลองใหม่อีกครั้ง..."
+  },
+  {
+    "id": "query_is_broken",
+    "translation": "การสืบค้น ({0}?{1}) ผิดพลาด!"
+  },
+  {
+    "id": "query_executed_success",
+    "translation": "การสืบค้นที่ดำเนินการอยู่สำเร็จ!"
+  },
+  {
+    "id": "all_operations_done",
+    "translation": "All operations are done!"
+  },
+  {
+    "id": "refreshing_in",
+    "translation": "กำลัง Refresh หน้าใน {0} วินาที..."
+  },
+  {
+    "id": "delete_reports_with_torrents",
+    "translation": "Do you want to delete the reports along the selected torrents?"
+  },
+  {
+    "id": "with_st",
+    "translation": "กับ {0}"
+  },
+  {
+    "id": "and_reports",
+    "translation": " และรายงาน"
+  },
+  {
+    "id": "reports",
+    "translation": "รายงาน"
+  },
+  {
+    "id": "lock",
+    "translation": "ล๊อค"
+  },
+  {
+    "id": "status_js",
+    "translation": "สถานะ: {0}"
+  },
+  {
+    "id": "owner_id_js",
+    "translation": "owner_id: {0}"
+  },
+  {
+    "id": "category_js",
+    "translation": "หมวดหมู่: {0}"
+  },
+  {
+    "id": "no_changes",
+    "translation": "ไม่มีการเปลี่ยนแปลง"
+  },
+  {
+    "id": "query_nb",
+    "translation": "การสืบค้น #{0}"
+  },
+  {
+    "id": "reason",
+    "translation": "เหตุผล"
+  },
+  {
+    "id": "actions",
+    "translation": "คำสั่ง"
+  },
+  {
+    "id": "action_select",
+    "translation": "คำสั่ง..."
+  },
+  {
+    "id": "change_status",
+    "translation": "เปลี่ยนสถานะ"
+  },
+  {
+    "id": "to_status",
+    "translation": "เป็น..."
+  },
+  {
+    "id": "torrents_not_deleted",
+    "translation": "ทอร์เรนท์"
+  },
+  {
+    "id": "more",
+    "translation": "เพิ่มเติม"
+  },
+  {
+    "id": "last_comments",
+    "translation": "คอมเมนท์ล่าสุด"
+  },
+  {
+    "id": "last_reports",
+    "translation": "รายงานล่าสุด"
+  },
+  {
+    "id": "last_torrents",
+    "translation": "ทอรเรนท์ล่าสุด"
+  },
+  {
+    "id": "last_users",
+    "translation": "ผู้ใช้ล่าสุด"
+  },
+  {
+    "id": "moderation_overview",
+    "translation": "การดูแลโดยรวม"
+  },
+  {
+    "id": "users_list",
+    "translation": "รายชื่อผู้ใช้"
+  },
+  {
+    "id": "comments_list",
+    "translation": "ลิสต์คอมเมนท์"
+  },
+  {
+    "id": "reports_list",
+    "translation": "ลิสต์รายงาน"
+  },
+  {
+    "id": "torrents_list",
+    "translation": "ลิสต์ทอรเรนท์"
+  },
+  {
+    "id": "torrent_edit_panel",
+    "translation": "แผงแก้ไขทอร์เรนท์"
+  },
+  {
+    "id": "torrent_reassign",
+    "translation": "บรรจุทอร์เรนท์"
+  },
+  {
+    "id": "reassign_warning",
+    "translation": "จึงพึงระลึกเสมอว่าการบรรจุทอร์เรนท์ไปยังผู้ใช้ใหม่จะแก้ไขกลับไปยาก"
+  },
+  {
+    "id": "previous_username",
+    "translation": "ชื่อผู้ใช้เดิม"
+  },
+  {
+    "id": "torrent_id",
+    "translation": "ไอดีทอร์เรนท์"
+  },
+  {
+    "id": "reassign_indication",
+    "translation": "หนึ่งไอดีต่อบรรทัด<b>หรือ</b>หนึ่งชื่อผู้ใช้"
+  },
+  {
+    "id": "reassign_warning_2",
+    "translation": "อาจจะกินเวลานานฉะนั้น<b>อย่า</b>ยุติคำขอ"
+  },
+  {
+    "id": "reassign_to",
+    "translation": "บรรจุใหม่ไปยัง:"
+  },
+  {
+    "id": "reassign_based_on",
+    "translation": "บรรจุใหม่ภายใต้:"
+  },
+  {
+    "id": "user_id",
+    "translation": "ไอดีผู้ใช้"
+  },
+  {
+    "id": "mascot_url",
+    "translation": "URL มาสคอต"
+  },
+  {
+    "id": "no_notifications",
+    "translation": "ไม่มีการแจ้งเตือน"
+  },
+  {
+    "id": "report_msg",
+    "translation": "ทอร์เรนท์ #%s ถูกรายงาน!"
   }
 ]

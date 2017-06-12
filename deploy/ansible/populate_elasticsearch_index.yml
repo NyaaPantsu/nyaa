@@ -1,0 +1,21 @@
+- name: Populate elasticsearch index from database
+  hosts: dbs
+  roles:
+    - common
+    - postgresql
+    - elasticsearch
+
+  tasks:
+    # Needed otherwise we'll lose information when people upload when we're
+    # populating to the new index.
+    # DONT FORGET TO RE-ENABLE THE CRON JOB AFTER
+    - name: Disable reindex cron job
+      command: mv "/etc/cron.d/reindex_{{ nyaapantsu_torrent_tablename }}" /tmp/
+      become: true
+
+    - name: Index the database into elasticsearch
+      command: python "{{ nyaapantsu_directory }}/index_nyaapantsu.py"
+      environment:
+        PANTSU_DBPARAMS: "host=localhost port={{ nyaapantsu_pgpool_port }} user={{ nyaapantsu_user }} dbname={{ nyaapantsu_dbname }} sslmode=disable password={{ nyaapantsu_password }}"
+        PANTSU_ELASTICSEARCH_INDEX: "{{ nyaapantsu_elasticsearch_index }}"
+        PANTSU_TORRENT_TABLENAME: "{{ nyaapantsu_torrent_tablename }}"

@@ -2,40 +2,44 @@ package metainfoFetcher
 
 import (
 	"errors"
+	"strings"
+	"time"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/anacrolix/torrent/metainfo"
-	"strings"
-	"time"
 )
 
+// FetchOperation struct
 type FetchOperation struct {
 	fetcher *MetainfoFetcher
 	torrent model.Torrent
-	done    chan int
+	done    chan struct{}
 }
 
+// Result struct
 type Result struct {
 	operation *FetchOperation
 	err       error
 	info      *metainfo.Info
 }
 
+// NewFetchOperation : Creates a new fetchoperation
 func NewFetchOperation(fetcher *MetainfoFetcher, dbEntry model.Torrent) (op *FetchOperation) {
 	op = &FetchOperation{
 		fetcher: fetcher,
 		torrent: dbEntry,
-		done:    make(chan int, 1),
+		done:    make(chan struct{}, 1),
 	}
 	return
 }
 
-// Should be started from a goroutine somewhere
+// Start : Should be started from a goroutine somewhere
 func (op *FetchOperation) Start(out chan Result) {
 	defer op.fetcher.wg.Done()
 
-	magnet := util.InfoHashToMagnet(strings.TrimSpace(op.torrent.Hash), op.torrent.Name, config.Trackers...)
+	magnet := util.InfoHashToMagnet(strings.TrimSpace(op.torrent.Hash), op.torrent.Name, config.Conf.Torrents.Trackers.Default...)
 	downloadingTorrent, err := op.fetcher.torrentClient.AddMagnet(magnet)
 	if err != nil {
 		out <- Result{op, err, nil}
@@ -48,11 +52,8 @@ func (op *FetchOperation) Start(out chan Result) {
 	select {
 	case <-downloadingTorrent.GotInfo():
 		out <- Result{op, nil, downloadingTorrent.Info()}
-		break
 	case <-timeoutTimer.C:
 		out <- Result{op, errors.New("Timeout"), nil}
-		break
 	case <-op.done:
-		break
 	}
 }

@@ -1,88 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<title>Nyaa Pantsu - {{block "title" .}}{{ T "error_404" }}{{end}}</title>
-    <link rel="icon" type="image/png" href="/img/favicon.png?v=3" />
-
-    <!-- RSS Feed with Context -->
-
-    <!-- Bootstrap -->
-    <!-- Latest compiled and minified CSS -->
-    <!-- This should come before website CSS because it can f3ck up the website completely.. Use !important as a workaround -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Bootstrap -->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Website CSS -->
-    <link rel="stylesheet" id="style" href="{{.URL.Parse "/css/style.css"}}">
-    {{block "night_theme_init" .}}{{end}}
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="keywords" content="torrents, pantsu, anime, manga, sukebei, nyaapassu, horriblesubs, nyaa, hentai, dlsite">
+		<meta name="description" content='The leading open-source community-based nyaa.se successor, suitable for all anime and manga needs. にゃんぱす~!'>
+			<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+			<title>{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu Moderation Panel - {{block "title" .}}{{ call $.T "error_404" }}{{end}}</title>
+		<!-- Flavicons and icons -->
+		<link rel="icon" type="image/png" href="/img/favicon.png" />
+		<link rel="shortcut icon" type="image/png" href="/img/favicon.png">
+		
+		<!-- SMO -->
+		<meta property="og:site_name" content="Nyaa Pantsu">
+		<meta property="og:site_name" content="{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{template "title" .}}{{ call $.T "error_404" }}">
+		<meta property="og:image" content="/img/favicon.png">
+		<meta property="og:description" content="Nyaa Pantsu Homepage">
+		
+			<!-- RSS Feed with Context -->
+		<link rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}"  />
+			
+		<!-- do NOT move -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+		<!-- Base theme -->
+		<link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v={{ .Config.Version }}">
+		<!-- User selected theme, if any, defaults to /g/ -->
+		{{if eq $.Theme ""}} 
+			<link rel="stylesheet" id="theme" href="/css/g.css?v={{ .Config.Version }}">
+		{{else}}
+			<link rel="stylesheet" id="theme" href="/css/{{$.Theme}}.css?v={{ .Config.Version }}">
+		{{end}}
+		<!-- Search Box for Google -->
+		<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"{{.Config.WebAddress.Nyaa}}/","potentialAction":{"@type":"SearchAction","target":"{{.Config.WebAddress.Nyaa}}/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+		{{ block "additional_header" .}}{{end}}
   </head>
-  <body>
-      <nav class="navbar navbar-default" id="mainmenu">
-          <div class="container">
-              <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                      <span class="sr-only">{{ T "toggle_navigation" }}</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" href="{{ genRoute "mod_index" }}">Nyaa Pantsu Moderation</a>
-                  <a class="navbar-brand hidden-md pull-right nightswitch" href="javascript:toggleNightMode();" ></a>
-              </div>
-              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                  <ul class="nav navbar-nav">
-                      <li><a href="{{.URL.Parse "/"}}">{{T "Nyaa Pantsu"}}</a></li>
-                      <li><a href="{{ genRoute "mod_tlist"}}">{{T "Torrents"}}</a></li>
-                      <li><a href="{{ genRoute "mod_ulist"}}">{{T "Users"}}</a></li>
-                      <li><a href="{{ genRoute "mod_clist"}}">{{T "Comments"}}</a></li>
-                      <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other<span class="caret"></span></a>
-                          <ul class="dropdown-menu">
-                              <li><a href="{{ genRoute "mod_trlist"}}">{{T "Torrent Reports"}}</a></li>
-                              <li><a href="{{ genRoute "mod_treassign" }}">Torrent Reassign</a></li>
-                          </ul>
-                      </li>
-                  </ul>
-                  {{block "badge_user" .}}{{end}}
-                                    
-                </div>
-          </div>
-      </nav>
-<div style="padding-top: 10rem"></div>
-
-  <div class="container" id="container">
-  <form class="navbar-form navbar-right" role="search" action="{{ genRoute "mod_tlist" }}" method="get">
-                      <div class="form-group">
+   <body {{if Sukebei}}class="sukebei"{{end}}>
+	   <nav id="header" class="header header-admin">
+			<div class="container">
+				<div>
+						<div class="h-logo">
+							<a href="{{ genRoute "mod_index" }}"><img class="hide-md" src="/img/{{if Sukebei}}sukebei_logo.png{{else}}logo.png{{end}}" alt="NyaaPantsu"><img class="visible-md" src="/img/logo_s.png"/></a>
+						</div>
+						<div class="h-nav">
+                        <a href="{{.URL.Parse "/"}}" class="nav-btn">{{call $.T "nyaa_pantsu"}}</a>
+                        <a href="{{ genRoute "mod_tlist"}}" class="nav-btn">{{call $.T "torrents"}}</a>
+                        <a href="{{ genRoute "mod_ulist"}}" class="nav-btn">{{call $.T "users"}}</a>
+                        <a href="{{ genRoute "mod_clist"}}" class="nav-btn">{{call $.T "comments"}}</a>
+                        <a href="{{ genRoute "mod_trlist"}}" class="nav-btn">{{call $.T "torrent_reports"}}</a>
+                        <a href="{{ genRoute "mod_treassign" }}" class="nav-btn">Torrent Reassign</a>
+                       </div>
+				</div>
+				<div class="h-right">
+			        {{block "badge_user" .}}{{end}}
+				</div>
+                <div class="float-right">
+                    <div class="h-search">
+                        <form role="search" action="{{ genRoute "mod_tlist" }}" method="get">
                         {{block "search_common" .}}{{end}}
-                      </div>
-                      <div class="form-group">
                         {{block "search_button" .}}{{end}}
-                      </div>
-                  </form>
-  	{{block "content" .}}{{end}}
-  </div>
-	      <footer style="text-align: center; padding-bottom: 2rem;font-size: 2rem;font-family: cursive; color: #616161;text-shadow: -1px -1px #999999;">
-      Powered by NyaaPantsu
-      </footer>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}"></script>
-
-        {{block "js_footer" .}}{{end}}
-</body>
+                        </form>
+                    </div>
+                </div>
+			</div>
+		</nav>
+		<div id="content" class="content-admin">
+			<div class="content container center">
+  {{block "content" .}}{{call $.T "nothing_here"}}{{end}}
+			</div>
+			{{if ne .Mascot "hide"}}
+				<div id="mascot" class="hide-xs" onclick="playVoice();"></div>
+				{{ if eq .Theme "tomorrow" }}
+				<audio id="explosion" hidden preload="none">
+					<source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
+				</audio>
+				{{ else }}
+				<audio id="nyanpassu" hidden preload="none">
+					<source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
+				</audio>
+				{{end}}
+			{{end}}
+			<div class="pagination">
+					{{ genNav .Navigation .URL 15 }}
+			</div>
+			<footer id="footer">
+                <div class="container footer center">
+                    <div class="footer-opt">
+                        <p><a href="/settings">{{ call $.T "change_settings" }}</a></p>
+                    </div>
+                    <span><i>Powered by <a href="#">NyaaPantsu</a> v{{ .Config.Version }}{{ .Config.Build }}</i></span>
+                </div>
+			</footer>
+		</div>
+		<script type="text/javascript" charset="utf-8" src="{{.URL.Parse "/js/main.js"}}?v={{ .Config.Version }}" async></script>
+		{{ block "footer_js" .}}{{end}}
+	</body>
 </html>

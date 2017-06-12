@@ -1,8 +1,8 @@
-{{define "title"}}{{T "404_not_found"}}{{end}}
+{{define "title"}}{{call $.T "404_not_found"}}{{end}}
 {{define "content"}}
     <div>
-        <h1>{{T "404_not_found"}}</h1>
-        <br />
-        <img class="center-block center-image" src="/img/404.svg"></img>
+        <h1>{{call $.T "404_not_found"}}</h1>
+        <img src="/img/404.png" />
     </div>
 {{end}}
+{{define "mascot"}}<br>{{end}}

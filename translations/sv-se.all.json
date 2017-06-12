@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "länk"
-  },
-  {
     "id": "verify_email_title",
     "translation": "Bekräfta din mailadress för Nyaapantsu."
   },
@@ -20,127 +16,123 @@
     "translation": "Var vänlig klicka länken nedan för att återställa ditt lösenord."
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "Skapa ett nytt konto"
   },
   {
-    "id":"signup_box_title",
+    "id": "signup_box_title",
     "translation": "Registrera dig <small>Det är gratis och kommer alltid att vara det.</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "Användarnamn"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "Mailadress eller användarnamn"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "Mailadress"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "Lösenord"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "Bekräfta lösenord"
   },
   {
-    "id":"i_agree",
-    "translation": "Jag accepterar"
+    "id": "terms_conditions_confirm",
+    "translation": "Genom att klicka på <b>Registrera</b> accepterar du denna webbsidas <a id=\"modal_active\" href=\"#\">användarvillkor</a>, samt vår användning av kakor (cookies)."
   },
   {
-    "id":"terms_conditions_confirm",
-    "translation": "Genom att klicka på <strong class=\"label label-primary\">Registrera</strong> accepterar du denna webbsidas <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">användarvillkor</a>, samt vår användning av kakor (cookies)."
-  },
-  {
-    "id":"signin",
+    "id": "signin",
     "translation": "Logga in"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "Registrera"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "Användarvillkor"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "Nån skit."
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "Kom ihåg mig"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "Glömt lösenordet?"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "Logga in"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "Logga in"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "Registrering lyckades"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "Tack för att du registrerat dig!"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Ditt konto är nu aktiverat!"
   },
   {
-    "id":"signup_verification_email",
+    "id": "signup_verification_email",
     "translation": "För att slutföra, var vänlig se verifikationsmailet i din inkorg (eller din skräppost)."
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "Registreringen var lyckad. Du kan nu använda ditt konto."
   },
   {
-    "id":"settings",
+    "id": "settings",
     "translation": "Kontoinställningar"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "Torrents"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "Följ"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "Sluta följ"
   },
   {
-    "id":"user_followed_msg",
+    "id": "user_followed_msg",
     "translation": "Du följer nu %s!"
   },
   {
-    "id":"user_unfollowed_msg",
+    "id": "user_unfollowed_msg",
     "translation": "Du har slutat följa %s!"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "%s profil"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "Se flera torrents från %s "
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "Kategori"
   },
   {
@@ -168,10 +160,6 @@
     "translation": "Error 404"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "Öppna/stäng navigering"
-  },
-  {
     "id": "upload",
     "translation": "Ladda upp"
   },
@@ -182,10 +170,6 @@
   {
     "id": "fap",
     "translation": "Onanera"
-  },
-  {
-    "id": "advanced_search",
-    "translation": "Avancerad sökning"
   },
   {
     "id": "nothing_here",
@@ -210,14 +194,6 @@
   {
     "id": "member",
     "translation": "Medlem"
-  },
-  {
-    "id": "sign_in",
-    "translation": "Logga in"
-  },
-  {
-    "id": "sign_up",
-    "translation": "Registrera"
   },
   {
     "id": "no_results_found",
@@ -330,10 +306,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "Det är skaparens favoritspråk."
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "Ladda upp magnet"
   },
   {
     "id": "torrent_file",
@@ -464,22 +436,6 @@
     "translation": "Endast pålitliga medlemmar"
   },
   {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "Nedladdningar"
-  },
-  {
-    "id": "descending",
-    "translation": "Fallande"
-  },
-  {
-    "id": "ascending",
-    "translation": "Stigande"
-  },
-  {
     "id": "search",
     "translation": "Sök"
   },
@@ -565,11 +521,11 @@
   },
   {
     "id": "who_is_renchon",
-    "translation": "Vem fan är れんちょん?"
+    "translation": "Vem fan är <span lang=\"ja\">れんちょん</span>?"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Ren-chon) är användarnamnet som ges till anonyma kommentarer och uppladdningar. Det används även för importerade torrents från gamla nyaa, men den ursprungliga uppladdaren kan även visas vid sidan av."
+    "translation": "<span lang=\"ja\">れんちょん</span> (Ren-chon) är användarnamnet som ges till anonyma kommentarer och uppladdningar. Det används även för importerade torrents från gamla nyaa, men den ursprungliga uppladdaren kan även visas vid sidan av."
   },
   {
     "id": "mark_as_remake",

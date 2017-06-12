@@ -1,9 +1,5 @@
 [
   {
-    "id": "link",
-    "translation": "enlace"
-  },
-  {
     "id": "verify_email_title",
     "translation": "Verifica tu correo electrónico para Nyaapantsu."
   },
@@ -20,127 +16,123 @@
     "translation": "Por favor, da click en el siguiente enlace para reestablecer tu contraseña."
   },
   {
-    "id":"register_title",
+    "id": "register_title",
     "translation": "Creando una nueva cuenta."
   },
   {
-    "id":"signup_box_title",
+    "id": "signup_box_title",
     "translation": "Por favor, regístrate. <small>Es gratis y siempre lo será.</small>"
   },
   {
-    "id":"username",
+    "id": "username",
     "translation": "Usuario"
   },
   {
-    "id":"email_address_or_username",
+    "id": "email_address_or_username",
     "translation": "Correo Electrónico o Usuario"
   },
   {
-    "id":"email_address",
+    "id": "email_address",
     "translation": "Correo Electrónico"
   },
   {
-    "id":"password",
+    "id": "password",
     "translation": "Contraseña"
   },
   {
-    "id":"confirm_password",
+    "id": "confirm_password",
     "translation": "Confirmar Contraseña"
   },
   {
-    "id":"i_agree",
-    "translation": "Acepto"
+    "id": "terms_conditions_confirm",
+    "translation": "Al dar click en <b>Registrarse</b>, aceptas los <a id=\"modal_active\" href=\"#\">Términos y Condiciones</a> del sitio, incluyendo nuestro Uso de Cookies."
   },
   {
-    "id":"terms_conditions_confirm",
-    "translation": "Al dar click en <strong class=\"label label-primary\">Registrarse</strong>, aceptas los <a href=\"#\" data-toggle=\"modal\" data-target=\"#t_and_c_m\">Términos y Condiciones</a> del sitio, incluyendo nuestro Uso de Cookies."
-  },
-  {
-    "id":"signin",
+    "id": "signin",
     "translation": "Iniciar Sesión"
   },
   {
-    "id":"register",
+    "id": "register",
     "translation": "Registrarse"
   },
   {
-    "id":"terms_conditions",
+    "id": "terms_conditions",
     "translation": "Términos y Condiciones"
   },
   {
-    "id":"terms_conditions_full",
+    "id": "terms_conditions_full",
     "translation": "Por definir."
   },
   {
-    "id":"remember_me",
+    "id": "remember_me",
     "translation": "Mantener sesión iniciada"
   },
   {
-    "id":"forgot_password",
+    "id": "forgot_password",
     "translation": "¿Olvidaste tu contraseña?"
   },
   {
-    "id":"sign_in_box_title",
+    "id": "sign_in_box_title",
     "translation": "Por favor, Inicia Sesión"
   },
   {
-    "id":"sign_in_title",
+    "id": "sign_in_title",
     "translation": "Iniciar Sesión"
   },
   {
-    "id":"register_success_title",
+    "id": "register_success_title",
     "translation": "Registro Exitoso"
   },
   {
-    "id":"sign_up_success",
+    "id": "sign_up_success",
     "translation": "¡Gracias por registrarte!"
   },
   {
-    "id":"verify_success",
+    "id": "verify_success",
     "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>¡Tu cuenta ha sido activada!"
   },
   {
-    "id":"signup_verification_email",
+    "id": "signup_verification_email",
     "translation": "Por último, revisa en tu bandeja de entrada (¡y en la carpeta de spam!) el correo de verificación."
   },
   {
-    "id":"signup_verification_noemail",
+    "id": "signup_verification_noemail",
     "translation": "Te has registrado exitosamente, ahora puedes usar tu cuenta."
   },
   {
-    "id":"settings",
+    "id": "settings",
     "translation": "Ajustes de la Cuenta"
   },
   {
-    "id":"torrents",
+    "id": "torrents",
     "translation": "Torrents"
   },
   {
-    "id":"follow",
+    "id": "follow",
     "translation": "Seguir"
   },
   {
-    "id":"unfollow",
+    "id": "unfollow",
     "translation": "Dejar de Seguir"
   },
   {
-    "id":"user_followed_msg",
+    "id": "user_followed_msg",
     "translation": "¡Ahora sigues a %s!"
   },
   {
-    "id":"user_unfollowed_msg",
+    "id": "user_unfollowed_msg",
     "translation": "¡Has dejado de seguir a %s!"
   },
   {
-    "id":"profile_page",
+    "id": "profile_page",
     "translation": "Perfil de %s"
   },
   {
-    "id":"see_more_torrents_from",
+    "id": "see_more_torrents_from",
     "translation": "Ver más torrents de %s "
   },
   {
-    "id":"category",
+    "id": "category",
     "translation": "Categoría"
   },
   {
@@ -168,10 +160,6 @@
     "translation": "Error 404"
   },
   {
-    "id": "toggle_navigation",
-    "translation": "Alternar navegación"
-  },
-  {
     "id": "upload",
     "translation": "Subir"
   },
@@ -182,10 +170,6 @@
   {
     "id": "fap",
     "translation": "Fap"
-  },
-  {
-    "id": "advanced_search",
-    "translation": "Búsqueda Avanzada"
   },
   {
     "id": "nothing_here",
@@ -210,14 +194,6 @@
   {
     "id": "member",
     "translation": "Miembro"
-  },
-  {
-    "id": "sign_in",
-    "translation": "Iniciar Sesión"
-  },
-  {
-    "id": "sign_up",
-    "translation": "Registrarse"
   },
   {
     "id": "no_results_found",
@@ -330,10 +306,6 @@
   {
     "id": "authors_favorite_language",
     "translation": "Es el lenguaje de programación favorito del autor."
-  },
-  {
-    "id": "upload_magnet",
-    "translation": "Subir Magnet"
   },
   {
     "id": "torrent_file",
@@ -468,22 +440,6 @@
     "translation": "Confiables"
   },
   {
-    "id": "id",
-    "translation": "ID"
-  },
-  {
-    "id": "downloads",
-    "translation": "Descargas"
-  },
-  {
-    "id": "descending",
-    "translation": "Descendente"
-  },
-  {
-    "id": "ascending",
-    "translation": "Ascendente"
-  },
-  {
     "id": "search",
     "translation": "Buscar"
   },
@@ -569,11 +525,11 @@
   },
   {
     "id": "who_is_renchon",
-    "translation": "¿Quién es れんちょん?"
+    "translation": "¿Quién es <span lang=\"ja\">れんちょん</span>?"
   },
   {
     "id": "renchon_anon_explanation",
-    "translation": "れんちょん (Ren-chon) es el nombre de usuario asignado a las subidas y comentarios hechos anónimamente. También es usado en los torrents importados desde el nyaa original, aunque es posible que se muestre junto al nombre de usuario original."
+    "translation": "<span lang=\"ja\">れんちょん</span> (Ren-chon) es el nombre de usuario asignado a las subidas y comentarios hechos anónimamente. También es usado en los torrents importados desde el nyaa original, aunque es posible que se muestre junto al nombre de usuario original."
   },
   {
     "id": "mark_as_remake",
@@ -586,10 +542,6 @@
   {
     "id": "torrent_status",
     "translation": "Estado del Torrent"
-  },
-  {
-    "id": "torrent_status_hidden",
-    "translation": "Oculto"
   },
   {
     "id": "torrent_status_normal",

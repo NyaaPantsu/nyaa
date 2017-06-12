@@ -1,17 +1,28 @@
 package metainfoFetcher
 
 import (
+	"path"
 	"testing"
 
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/anacrolix/torrent"
 )
+
+// run before config/parse.go:init()
+var _ = func() (_ struct{}) {
+	config.ConfigPath = path.Join("..", "..", "..", config.ConfigPath)
+	config.DefaultConfigPath = path.Join("..", "..", "..", config.DefaultConfigPath)
+	config.Parse()
+	return
+}()
 
 func TestInvalidHash(t *testing.T) {
 	client, err := torrent.NewClient(nil)
 	if err != nil {
 		t.Skipf("Failed to create client, with err %v. Skipping.", err)
 	}
+	defer client.Close()
 
 	fetcher := &MetainfoFetcher{
 		timeout:       5,

@@ -11,7 +11,8 @@ import (
 const lifetime = time.Minute * 20
 
 var (
-	server            = captcha.Server(captcha.StdWidth, captcha.StdHeight)
+	server = captcha.Server(captcha.StdWidth, captcha.StdHeight)
+	// ErrInvalidCaptcha : Error when captcha is invalid
 	ErrInvalidCaptcha = errors.New("invalid captcha")
 )
 
