@@ -1,6 +1,8 @@
 package common
 
 import (
+	humanize "github.com/dustin/go-humanize"
+
 	"strconv"
 	"strings"
 )
@@ -109,6 +111,28 @@ func (s *SortMode) ToESField() string {
 	return "id"
 }
 
+func (s *SortMode) ToDBField() string {
+	switch *s {
+	case ID:
+		return "torrent_id"
+	case Name:
+		return "torrent_name"
+	case Date:
+		return "date"
+	case Downloads:
+		return "downloads"
+	case Size:
+		return "filesize"
+	case Seeders:
+		return "seeders"
+	case Leechers:
+		return "leechers"
+	case Completed:
+		return "completed"
+	}
+	return "id"
+}
+
 type Category struct {
 	Main, Sub uint8
 }
@@ -154,6 +178,18 @@ func (c *Category) Parse(s string) (ok bool) {
 	return
 }
 
+type SizeBytes uint64
+
+func (sz *SizeBytes) Parse(s string) bool {
+	size64, err := humanize.ParseBytes(s)
+	if err != nil {
+		*sz = 0
+		return false
+	}
+	*sz = SizeBytes(size64)
+	return true
+}
+
 // deprecated for TorrentParam
 type SearchParam struct {
 	TorrentID uint
@@ -169,5 +205,7 @@ type SearchParam struct {
 	Max       uint
 	NotNull   string
 	Language  string
+	MinSize   SizeBytes
+	MaxSize   SizeBytes
 	Query     string
 }
