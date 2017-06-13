@@ -2,7 +2,6 @@ package router
 
 import (
 	"encoding/json"
-	"errors"
 	"html"
 	"net/http"
 	"strconv"
@@ -17,7 +16,11 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/upload"
 	"github.com/NyaaPantsu/nyaa/service/user"
+	"github.com/NyaaPantsu/nyaa/service/user/form"
+	"github.com/NyaaPantsu/nyaa/util/crypto"
 	"github.com/NyaaPantsu/nyaa/util/log"
+	msg "github.com/NyaaPantsu/nyaa/util/messages"
+	"github.com/NyaaPantsu/nyaa/util/modelHelper"
 	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/gorilla/mux"
 )
@@ -135,142 +138,140 @@ func APIViewHeadHandler(w http.ResponseWriter, r *http.Request) {
 // APIUploadHandler : Controller for uploading a torrent with api
 func APIUploadHandler(w http.ResponseWriter, r *http.Request) {
 	token := r.Header.Get("Authorization")
-	user, _, _, err := userService.RetrieveUserByAPIToken(token)
+	username := r.FormValue("username")
+	user, _, _, _, err := userService.RetrieveUserByAPITokenAndName(token, username)
+	messages := msg.GetMessages(r)
 	defer r.Body.Close()
 
 	if err != nil {
-		http.Error(w, "Error API token doesn't exist", http.StatusBadRequest)
-		return
+		messages.AddError("errors", "Error API token doesn't exist")
 	}
 
 	if !uploadService.IsUploadEnabled(user) {
-		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
-		return
+		messages.AddError("errors", "Error uploads are disabled")
 	}
 
 	if user.ID == 0 {
-		http.Error(w, apiService.ErrAPIKey.Error(), http.StatusUnauthorized)
-		return
+		messages.ImportFromError("errors", apiService.ErrAPIKey)
 	}
 
-	upload := apiService.TorrentRequest{}
-	contentType := r.Header.Get("Content-Type")
-	if contentType != "application/json" && !strings.HasPrefix(contentType, "multipart/form-data") && r.Header.Get("Content-Type") != "application/x-www-form-urlencoded" {
-		// TODO What should we do here ? upload is empty so we shouldn't
-		// create a torrent from it
-		http.Error(w, errors.New("Please provide either of Content-Type: application/json header or multipart/form-data").Error(), http.StatusInternalServerError)
-		return
-	}
-	// As long as the right content-type is sent, formValue is smart enough to parse it
-	err = upload.ExtractInfo(r)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	status := model.TorrentStatusNormal
-	if upload.Remake { // overrides trusted
-		status = model.TorrentStatusRemake
-	} else if user.IsTrusted() {
-		status = model.TorrentStatusTrusted
-	}
-
-	err = torrentService.ExistOrDelete(upload.Infohash, user)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-	torrent := model.Torrent{
-		Name:        upload.Name,
-		Category:    upload.CategoryID,
-		SubCategory: upload.SubCategoryID,
-		Status:      status,
-		Hidden:      upload.Hidden,
-		Hash:        upload.Infohash,
-		Date:        time.Now(),
-		Filesize:    upload.Filesize,
-		Description: upload.Description,
-		WebsiteLink: upload.WebsiteLink,
-		UploaderID:  user.ID}
-	torrent.ParseTrackers(upload.Trackers)
-	db.ORM.Create(&torrent)
-
-	if db.ElasticSearchClient != nil {
-		err := torrent.AddToESIndex(db.ElasticSearchClient)
-		if err == nil {
-			log.Infof("Successfully added torrent to ES index.")
-		} else {
-			log.Errorf("Unable to add torrent to ES index: %s", err)
+	if !messages.HasErrors() {
+		upload := apiService.TorrentRequest{}
+		contentType := r.Header.Get("Content-Type")
+		if contentType != "application/json" && !strings.HasPrefix(contentType, "multipart/form-data") && r.Header.Get("Content-Type") != "application/x-www-form-urlencoded" {
+			// TODO What should we do here ? upload is empty so we shouldn't
+			// create a torrent from it
+			messages.AddError("errors", "Please provide either of Content-Type: application/json header or multipart/form-data")
 		}
-	} else {
-		log.Errorf("Unable to create elasticsearch client: %s", err)
-	}
+		// As long as the right content-type is sent, formValue is smart enough to parse it
+		err = upload.ExtractInfo(r)
+		if err != nil {
+			messages.ImportFromError("errors", err)
+		}
 
-	torrentService.NewTorrentEvent(Router, user, &torrent)
-	// add filelist to files db, if we have one
-	if len(upload.FileList) > 0 {
-		for _, uploadedFile := range upload.FileList {
-			file := model.File{TorrentID: torrent.ID, Filesize: upload.Filesize}
-			err := file.SetPath(uploadedFile.Path)
+		if !messages.HasErrors() {
+			status := model.TorrentStatusNormal
+			if upload.Remake { // overrides trusted
+				status = model.TorrentStatusRemake
+			} else if user.IsTrusted() {
+				status = model.TorrentStatusTrusted
+			}
+			err = torrentService.ExistOrDelete(upload.Infohash, user)
 			if err != nil {
-				http.Error(w, err.Error(), http.StatusBadRequest)
+				messages.ImportFromError("errors", err)
+			}
+			if !messages.HasErrors() {
+				torrent := model.Torrent{
+					Name:        upload.Name,
+					Category:    upload.CategoryID,
+					SubCategory: upload.SubCategoryID,
+					Status:      status,
+					Hidden:      upload.Hidden,
+					Hash:        upload.Infohash,
+					Date:        time.Now(),
+					Filesize:    upload.Filesize,
+					Description: upload.Description,
+					WebsiteLink: upload.WebsiteLink,
+					UploaderID:  user.ID}
+				torrent.ParseTrackers(upload.Trackers)
+				db.ORM.Create(&torrent)
+
+				if db.ElasticSearchClient != nil {
+					err := torrent.AddToESIndex(db.ElasticSearchClient)
+					if err == nil {
+						log.Infof("Successfully added torrent to ES index.")
+					} else {
+						log.Errorf("Unable to add torrent to ES index: %s", err)
+					}
+				} else {
+					log.Errorf("Unable to create elasticsearch client: %s", err)
+				}
+				messages.AddInfoT("infos", "torrent_uploaded")
+				torrentService.NewTorrentEvent(Router, user, &torrent)
+				// add filelist to files db, if we have one
+				if len(upload.FileList) > 0 {
+					for _, uploadedFile := range upload.FileList {
+						file := model.File{TorrentID: torrent.ID, Filesize: upload.Filesize}
+						err := file.SetPath(uploadedFile.Path)
+						if err != nil {
+							http.Error(w, err.Error(), http.StatusBadRequest)
+							return
+						}
+						db.ORM.Create(&file)
+					}
+				}
+				apiResponseHandler(w, r, torrent.ToJSON())
 				return
 			}
-			db.ORM.Create(&file)
 		}
 	}
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
+	apiResponseHandler(w, r)
 }
 
 // APIUpdateHandler : Controller for updating a torrent with api
 // FIXME Impossible to update a torrent uploaded by user 0
 func APIUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	token := r.Header.Get("Authorization")
-	user, _, _, err := userService.RetrieveUserByAPIToken(token)
+	username := r.FormValue("username")
+	user, _, _, _, err := userService.RetrieveUserByAPITokenAndName(token, username)
 	defer r.Body.Close()
+	messages := msg.GetMessages(r)
 
 	if err != nil {
-		http.Error(w, "Error API token doesn't exist", http.StatusBadRequest)
-		return
+		messages.AddError("errors", "Error API token doesn't exist")
 	}
 
 	if !uploadService.IsUploadEnabled(user) {
-		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
-		return
+		messages.AddError("errors", "Error uploads are disabled")
 	}
 
 	if user.ID == 0 {
-		http.Error(w, apiService.ErrAPIKey.Error(), http.StatusForbidden)
-		return
+		messages.ImportFromError("errors", apiService.ErrAPIKey)
 	}
 	contentType := r.Header.Get("Content-Type")
 	if contentType != "application/json" && !strings.HasPrefix(contentType, "multipart/form-data") && r.Header.Get("Content-Type") != "application/x-www-form-urlencoded" {
 		// TODO What should we do here ? upload is empty so we shouldn't
 		// create a torrent from it
-		http.Error(w, errors.New("Please provide either of Content-Type: application/json header or multipart/form-data").Error(), http.StatusInternalServerError)
-		return
+		messages.AddError("errors", "Please provide either of Content-Type: application/json header or multipart/form-data")
 	}
 	update := apiService.UpdateRequest{}
 	err = update.Update.ExtractEditInfo(r)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
+		messages.ImportFromError("errors", err)
 	}
-	torrent := model.Torrent{}
-	db.ORM.Where("torrent_id = ?", r.FormValue("id")).First(&torrent)
-	if torrent.ID == 0 {
-		http.Error(w, apiService.ErrTorrentID.Error(), http.StatusBadRequest)
-		return
+	if !messages.HasErrors() {
+		torrent := model.Torrent{}
+		db.ORM.Where("torrent_id = ?", r.FormValue("id")).First(&torrent)
+		if torrent.ID == 0 {
+			messages.ImportFromError("errors", apiService.ErrTorrentID)
+		}
+		if torrent.UploaderID != 0 && torrent.UploaderID != user.ID { //&& user.Status != mod
+			messages.ImportFromError("errors", apiService.ErrRights)
+		}
+		update.UpdateTorrent(&torrent, user)
+		torrentService.UpdateTorrent(torrent)
 	}
-	if torrent.UploaderID != 0 && torrent.UploaderID != user.ID { //&& user.Status != mod
-		http.Error(w, apiService.ErrRights.Error(), http.StatusForbidden)
-		return
-	}
-	update.UpdateTorrent(&torrent, user)
-	torrentService.UpdateTorrent(torrent)
+	apiResponseHandler(w, r)
 }
 
 // APISearchHandler : Controller for searching with api
@@ -308,4 +309,113 @@ func APISearchHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+}
+
+// APILoginHandler : Login with API
+// This is not an OAuth api like and shouldn't be used for anything except getting the API Token in order to not store a password
+func APILoginHandler(w http.ResponseWriter, r *http.Request) {
+	b := form.LoginForm{}
+	messages := msg.GetMessages(r)
+	contentType := r.Header.Get("Content-type")
+	if !strings.HasPrefix(contentType, "application/json") && !strings.HasPrefix(contentType, "multipart/form-data") && !strings.HasPrefix(contentType, "application/x-www-form-urlencoded") {
+		// TODO What should we do here ? upload is empty so we shouldn't
+		// create a torrent from it
+		messages.AddError("errors", "Please provide either of Content-Type: application/json header or multipart/form-data")
+	}
+	if strings.HasPrefix(contentType, "multipart/form-data") || strings.HasPrefix(contentType, "application/x-www-form-urlencoded") {
+		modelHelper.BindValueForm(&b, r)
+	} else {
+		decoder := json.NewDecoder(r.Body)
+		err := decoder.Decode(&b)
+		if err != nil {
+			messages.ImportFromError("errors", err)
+		}
+	}
+	defer r.Body.Close()
+
+	modelHelper.ValidateForm(&b, messages)
+	if !messages.HasErrors() {
+		user, _, errorUser := userService.CreateUserAuthenticationAPI(r, &b)
+		if errorUser == nil {
+			messages.AddInfo("infos", "Logged")
+			apiResponseHandler(w, r, user.ToJSON())
+			return
+		}
+		messages.ImportFromError("errors", errorUser)
+	}
+	apiResponseHandler(w, r)
+}
+
+// APIRefreshTokenHandler : Refresh Token with API
+func APIRefreshTokenHandler(w http.ResponseWriter, r *http.Request) {
+	token := r.Header.Get("Authorization")
+	username := r.FormValue("username")
+	user, _, _, _, err := userService.RetrieveUserByAPITokenAndName(token, username)
+	defer r.Body.Close()
+	messages := msg.GetMessages(r)
+	if err != nil {
+		messages.AddError("errors", "Error API token doesn't exist")
+	}
+	if !messages.HasErrors() {
+		user.APIToken, _ = crypto.GenerateRandomToken32()
+		user.APITokenExpiry = time.Unix(0, 0)
+		_, errorUser := userService.UpdateRawUser(user)
+		if errorUser == nil {
+			messages.AddInfoT("infos", "profile_updated")
+			apiResponseHandler(w, r, user.ToJSON())
+			return
+		}
+		messages.ImportFromError("errors", errorUser)
+	}
+	apiResponseHandler(w, r)
+}
+
+// APICheckTokenHandler : Check Token with API
+func APICheckTokenHandler(w http.ResponseWriter, r *http.Request) {
+	token := r.Header.Get("Authorization")
+	username := r.FormValue("username")
+	user, _, _, _, err := userService.RetrieveUserByAPITokenAndName(token, username)
+	defer r.Body.Close()
+	messages := msg.GetMessages(r)
+	if err != nil {
+		messages.AddError("errors", "Error API token doesn't exist")
+	} else {
+		messages.AddInfo("infos", "Logged")
+	}
+	apiResponseHandler(w, r, user.ToJSON())
+}
+
+// This function is the global response for every simple Post Request API
+// Please use it. Responses are of the type:
+// {ok: bool, [errors | infos]: ArrayOfString [, data: ArrayOfObjects, all_errors: ArrayOfObjects]}
+// To send errors or infos, you just need to use the Messages Util
+func apiResponseHandler(w http.ResponseWriter, r *http.Request, obj ...interface{}) {
+	messages := msg.GetMessages(r)
+	var apiJSON []byte
+	w.Header().Set("Content-Type", "application/json")
+
+	if !messages.HasErrors() {
+		mapOk := map[string]interface{}{"ok": true, "infos": messages.GetInfos("infos")}
+		if len(obj) > 0 {
+			mapOk["data"] = obj
+			if len(obj) == 1 {
+				mapOk["data"] = obj[0]
+			}
+		}
+		apiJSON, _ = json.Marshal(mapOk)
+	} else { // We need to show error messages
+		mapNotOk := map[string]interface{}{"ok": false, "errors": messages.GetErrors("errors"), "all_errors": messages.GetAllErrors()}
+		if len(obj) > 0 {
+			mapNotOk["data"] = obj
+			if len(obj) == 1 {
+				mapNotOk["data"] = obj[0]
+			}
+		}
+		if len(messages.GetAllErrors()) > 0 && len(messages.GetErrors("errors")) == 0 {
+			mapNotOk["errors"] = "errors"
+		}
+		apiJSON, _ = json.Marshal(mapNotOk)
+	}
+
+	w.Write(apiJSON)
 }

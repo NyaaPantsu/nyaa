@@ -768,6 +768,10 @@
     "translation": "New torrent: \"%s\" from %s"
   },
   {
+    "id": "torrent_uploaded",
+    "translation": "torrent uploaded successfully!"
+  },
+  {
     "id": "preferences",
     "translation": "Preferences"
   },

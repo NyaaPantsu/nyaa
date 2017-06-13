@@ -11,12 +11,10 @@ import (
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	formStruct "github.com/NyaaPantsu/nyaa/service/user/form"
-	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/modelHelper"
 	"github.com/NyaaPantsu/nyaa/util/timeHelper"
 	"github.com/gorilla/context"
 	"github.com/gorilla/securecookie"
-	"golang.org/x/crypto/bcrypt"
 )
 
 const (
@@ -81,36 +79,7 @@ func ClearCookie(w http.ResponseWriter) (int, error) {
 }
 
 // SetCookieHandler sets the authentication cookie
-func SetCookieHandler(w http.ResponseWriter, r *http.Request, email string, pass string) (int, error) {
-	if email == "" || pass == "" {
-		return http.StatusNotFound, errors.New("No username/password entered")
-	}
-
-	var user model.User
-	messages := msg.GetMessages(r)
-	// search by email or username
-	isValidEmail := formStruct.EmailValidation(email, messages)
-	messages.ClearErrors("email") // We need to clear the error added on messages
-	if isValidEmail {
-		if db.ORM.Where("email = ?", email).First(&user).RecordNotFound() {
-			return http.StatusNotFound, errors.New("User not found")
-		}
-	} else {
-		if db.ORM.Where("username = ?", email).First(&user).RecordNotFound() {
-			return http.StatusNotFound, errors.New("User not found")
-		}
-	}
-	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(pass))
-	if err != nil {
-		return http.StatusUnauthorized, errors.New("Password incorrect")
-	}
-	if user.IsBanned() {
-		return http.StatusUnauthorized, errors.New("Account banned")
-	}
-	if user.IsScraped() {
-		return http.StatusUnauthorized, errors.New("Account need activation from Moderators, please contact us")
-	}
-
+func SetCookieHandler(w http.ResponseWriter, r *http.Request, user model.User) (int, error) {
 	maxAge := getMaxAge()
 	validUntil := timeHelper.FewDurationLater(time.Duration(maxAge) * time.Second)
 	encoded, err := EncodeCookie(user.ID, validUntil)
@@ -136,7 +105,11 @@ func SetCookieHandler(w http.ResponseWriter, r *http.Request, email string, pass
 func RegisterHanderFromForm(w http.ResponseWriter, r *http.Request, registrationForm formStruct.RegistrationForm) (int, error) {
 	username := registrationForm.Username // email isn't set at this point
 	pass := registrationForm.Password
-	return SetCookieHandler(w, r, username, pass)
+	user, status, err := checkAuth(r, username, pass)
+	if err != nil {
+		return status, err
+	}
+	return SetCookieHandler(w, r, user)
 }
 
 // RegisterHandler sets a cookie when user registered.
