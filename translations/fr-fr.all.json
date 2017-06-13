@@ -132,6 +132,10 @@
     "translation": "Mauvais captcha !"
   },
   {
+    "id": "torrent_uploaded",
+    "translation": "Le torrent a été uploadé avec succès !"
+  },
+  {
     "id": "torrent_language",
     "translation": "Langue du torrent"
   },
