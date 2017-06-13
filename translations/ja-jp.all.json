@@ -769,7 +769,7 @@
   },
   {
     "id": "torrent_uploaded",
-    "translation": "Torrent がアップロードされました。"
+    "translation": "Torrent は正常にアップロードされました。"
   },
   {
     "id": "preferences",
