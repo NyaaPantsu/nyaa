@@ -25,6 +25,8 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 		<!-- Base theme -->
 		<link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v={{ .Config.Version }}{{ .Config.Build }}">
+		<!-- nyaacon, custom icon set -->
+		<link rel="stylesheet" href="{{.URL.Parse "/css/nyacon.css"}}?v={{ .Config.Version}}{{ .Config.Build }}">
 		<!-- User selected theme, if any, defaults to /g/ -->
 		{{if eq $.Theme ""}} 
 			<link rel="stylesheet" id="theme" href="/css/g.css?v={{ .Config.Version }}{{ .Config.Build }}">
@@ -43,13 +45,13 @@
 							<a href="{{.URL.Parse "/"}}"><img class="hide-md" src="/img/{{if Sukebei}}sukebei_logo.png{{else}}logo.png{{end}}" alt="NyaaPantsu"><img class="visible-md" src="/img/logo_s.png"/></a>
 						</div>
 						<div class="h-nav">
-							<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><div class="upload-icon visible-md"></div><span class="hide-md">{{ call $.T "upload" }}</span></a>
-							<a href="{{ template "rss_link" . }}" class="nav-btn"><div class="rss-icon visible-md"></div><span class="hide-md">RSS</span></a>
-							<a href="{{.URL.Parse "/faq"}}" class="nav-btn"><div class="faq-icon visible-md"></div><span class="hide-md">{{ call $.T "faq" }}</span></a>
+							<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><div class="icon-upload visible-md"></div><span class="hide-md">{{ call $.T "upload" }}</span></a>
+							<a href="{{ template "rss_link" . }}" class="nav-btn"><div class="icon-rss-squared visible-md"></div><span class="hide-md">RSS</span></a>
+							<a href="{{.URL.Parse "/faq"}}" class="nav-btn"><div class="icon-help-circled visible-md"></div><span class="hide-md">{{ call $.T "faq" }}</span></a>
 							{{if Sukebei}}
-							<a href="{{.Config.WebAddress.Nyaa}}" class="nav-btn"><div class="fun-icon visible-md"></div><span class="hide-md">{{ call $.T "fun" }}</span></a>
+							<a href="{{.Config.WebAddress.Nyaa}}" class="nav-btn"><div class="icon-heart visible-md"></div><span class="hide-md">{{ call $.T "fun" }}</span></a>
 							{{else}}
-							<a href="{{.Config.WebAddress.Sukebei}}" class="nav-btn"><div class="fap-icon visible-md"></div><span class="hide-md">{{ call $.T "fap" }}</span></a>
+							<a href="{{.Config.WebAddress.Sukebei}}" class="nav-btn"><div class="icon-heart visible-md"></div><span class="hide-md">{{ call $.T "fap" }}</span></a>
 							{{end}}
 						</div>
 				</div>
