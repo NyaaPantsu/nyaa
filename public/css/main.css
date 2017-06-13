@@ -438,12 +438,16 @@ th { border-color:  #ddd !important; }
 td { border-color:  #ccc !important; }
 
 td.tr-se, .success-text { color: #22A243; }
-td.tr-le, .error-text { color: #E84C4C; }
+td.tr-le, .error-text, { color: #E84C4C; }
+
+.btn-red {
+	background-color: #E84C4C;
+}
 
 /* Original Nyaa colors, do NOT change! */
-.aplus { background: #60B0F0; }
-.trusted { background: #98D9A8; }
-.remake { background: #F0B080; }
+.aplus, .btn-blue { background: #60B0F0; }
+.trusted, .btn-green { background: #98D9A8; }
+.remake, .btn-orange { background: #F0B080; }
 
 .pagination .active { background: #d5d5d5; color: #222; }
 .pagination .disabled { color: #d5d5d5; cursor: unset; }
@@ -933,35 +937,13 @@ input.filelist-checkbox:checked + table.table-filelist {
 	text-align: left;
 	padding: 0 10px 10px;
 }
-
-.btn-green {
-	background: #98D9A8;
-	color:white;
-	font-weight: bold;
-}
-
-.btn-red {
-	background: #E84C4C;
-	color:white;
-	font-weight: bold;
-}
-
-.btn-blue {
-	background: #60B0F0;
-	color:white;
-	font-weight: bold;
-}
-
-.btn-orange {
-	background: #F0B080;
-	color:white;
-	font-weight: bold;
-}
-
 .btn-blue:hover, .btn-red:hover, .btn-green:hover, .btn-orange:hover {
 	opacity: 0.7;
 }
-
+.btn-blue, .btn-red, .btn-green, .btn-orange {
+	font-weight: bold;
+	color: white;
+}
 input.nav-btn {
 	cursor: pointer;
 }

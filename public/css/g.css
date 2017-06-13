@@ -46,9 +46,13 @@ td { border-color: #e6eff4 !important; }
 td.tr-se, .success-text { color: #22A243; }
 td.tr-le, .error-text { color: #E84C4C; }
 
-.aplus { background: hsla(200, 100%, 50%, 0.2) !important; }
-.trusted { background: hsla(100, 100%, 50%, 0.2) !important; }
-.remake { background: hsla(30, 100%, 50%, 0.2) !important; }
+.btn-red {
+	background-color: #E84C4C;
+}
+
+.aplus, .btn-blue { background: hsla(200, 100%, 50%, 0.2) !important; }
+.trusted, .btn-green { background: hsla(100, 100%, 50%, 0.2) !important; }
+.remake, .btn-orange { background: hsla(30, 100%, 50%, 0.2) !important; }
 
 .pagination .active { background: #cbbdd7; color: #444; }
 
@@ -155,26 +159,4 @@ td.tr-le, .error-text { color: #E84C4C; }
 	background-size: 13px;
 	height: 13px;
 	width: 13px;
-}
-
-.btn-green {
-	background: #98D9A8;
-	color:white;
-	font-weight: bold;
-}
-
-.btn-red {
-	background: #E84C4C;
-	color:white;
-	font-weight: bold;
-}
-.btn-blue {
-	background: #60B0F0;
-	color:white;
-	font-weight: bold;
-}
-.btn-orange {
-	background: #F0B080;
-	color:white;
-	font-weight: bold;
 }
