@@ -36,9 +36,9 @@
 		{{ block "additional_header" .}}{{end}}
   </head>
    <body {{if Sukebei}}class="sukebei"{{end}}>
-	   <nav id="header" class="header header-admin">
+	   <nav id="header" class="header">
 			<div class="container">
-				<div>
+				<div class="h-left">
 						<div class="h-logo">
 							<a href="{{ genRoute "mod_index" }}"><img class="hide-md" src="/img/{{if Sukebei}}sukebei_logo.png{{else}}logo.png{{end}}" alt="NyaaPantsu"><img class="visible-md" src="/img/logo_s.png"/></a>
 						</div>
@@ -52,16 +52,16 @@
                        </div>
 				</div>
 				<div class="h-right">
+					<div class="h-user">
 			        {{block "badge_user" .}}{{end}}
-				</div>
-                <div class="float-right">
+					</div>
                     <div class="h-search">
                         <form role="search" action="{{ genRoute "mod_tlist" }}" method="get">
                         {{block "search_common" .}}{{end}}
                         {{block "search_button" .}}{{end}}
                         </form>
                     </div>
-                </div>
+				</div>
 			</div>
 		</nav>
 		<div id="content" class="content-admin">
