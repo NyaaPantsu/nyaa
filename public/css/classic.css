@@ -4,7 +4,6 @@ body { color: #333; background: #ededed; }
 
 .header, .box, .pagination li, .user-menu { box-shadow: 1px 3px 4px rgba(0,0,0,0.1) }
 
-#mascot { background: url('/img/renchon.svg') no-repeat right bottom transparent; }
 
 a {
 	color: #196759;
@@ -27,7 +26,6 @@ a:hover { color:  #238BC7; }
 	border-color: #BBC9CF !important;
 }
 
-#mascotKeepHide { pointer-events: auto; }
 
 .form-input { border-color: #BBC9CF !important; background: #fafafa; color: #666; }
 

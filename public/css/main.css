@@ -13,6 +13,7 @@ body {
 	font-size: 14px;
 	font-family: 'Noto Sans', Arial, sans-serif;
 }
+#mascot { background: url('/img/renchon.svg') no-repeat right bottom transparent; }
 
 #mascot {
 	position: fixed;
@@ -209,7 +210,7 @@ select.form-input {
 	height: auto;
 }
 
-#content { position: relative; top: 70px; pointer-events: none; }
+#content { position: relative; top: 70px;}
 /* #content { padding-top: 70px;  } */
 .content { border-radius: 3px; padding: 5px 10px; pointer-events: auto; }
 
@@ -318,6 +319,14 @@ html, body {
   height: 100%;
 }
 
+/* Global icon formmating  */
+[class^="icon-"], [class*=" icon-"] {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+
+#mascotKeepHide { pointer-events: auto; }
 
 
 /* holy fucking shit fuck responsive design */
