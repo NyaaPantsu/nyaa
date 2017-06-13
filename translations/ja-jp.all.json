@@ -768,6 +768,10 @@
     "translation": "Torrent がアップロードされました: \"%s\"、 %s さんから"
   },
   {
+    "id": "torrent_uploaded",
+    "translation": "Torrent がアップロードされました。"
+  },
+  {
     "id": "preferences",
     "translation": "カスタム設定"
   },
