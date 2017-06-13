@@ -96,6 +96,9 @@ func init() {
 	api.Handle("/view/{id}", wrapHandler(gzipAPIViewHandler)).Methods("GET")
 	api.HandleFunc("/view/{id}", APIViewHeadHandler).Methods("HEAD")
 	api.HandleFunc("/upload", APIUploadHandler).Methods("POST")
+	api.HandleFunc("/login", APILoginHandler).Methods("POST")
+	api.HandleFunc("/token/check", APICheckTokenHandler).Methods("GET")
+	api.HandleFunc("/token/refresh", APIRefreshTokenHandler).Methods("GET")
 	api.HandleFunc("/search", APISearchHandler)
 	api.HandleFunc("/search/{page}", APISearchHandler)
 	api.HandleFunc("/update", APIUpdateHandler).Methods("PUT")
@@ -145,7 +148,7 @@ func init() {
 	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
 
 	CSRFRouter = nosurf.New(Router)
-	CSRFRouter.ExemptPath("/api")
+	CSRFRouter.ExemptRegexp("/api(?:/.+)*")
 	CSRFRouter.ExemptPath("/mod")
 	CSRFRouter.ExemptPath("/upload")
 	CSRFRouter.ExemptPath("/user/login")

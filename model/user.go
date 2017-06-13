@@ -55,6 +55,8 @@ type UserJSON struct {
 	ID          uint   `json:"user_id"`
 	Username    string `json:"username"`
 	Status      int    `json:"status"`
+	APIToken    string `json:"token"`
+	MD5         string `json:"md5"`
 	CreatedAt   string `json:"created_at"`
 	LikingCount int    `json:"liking_count"`
 	LikedCount  int    `json:"liked_count"`
@@ -145,6 +147,8 @@ func (u *User) ToJSON() UserJSON {
 	json := UserJSON{
 		ID:          u.ID,
 		Username:    u.Username,
+		APIToken:    u.APIToken,
+		MD5:         u.MD5,
 		Status:      u.Status,
 		CreatedAt:   u.CreatedAt.Format(time.RFC3339),
 		LikingCount: len(u.Followers),
