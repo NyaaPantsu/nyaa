@@ -35,6 +35,8 @@ type TorrentParam struct {
 	Null      string // csv
 	NameLike  string // csv
 	Language  string
+	MinSize   SizeBytes
+	MaxSize   SizeBytes
 }
 
 // FromRequest : parse a request in torrent param
@@ -86,6 +88,11 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	var sortMode SortMode
 	sortMode.Parse(r.URL.Query().Get("sort"))
 
+	var minSize SizeBytes
+	minSize.Parse(r.URL.Query().Get("minSize"))
+	var maxSize SizeBytes
+	maxSize.Parse(r.URL.Query().Get("maxSize"))
+
 	ascending := false
 	if r.URL.Query().Get("order") == "true" {
 		ascending = true
@@ -106,6 +113,8 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	p.Sort = sortMode
 	p.Category = category
 	p.Language = language
+	p.MinSize = minSize
+	p.MaxSize = maxSize
 	// FIXME 0 means no TorrentId defined
 	// Do we even need that ?
 	p.TorrentID = 0
@@ -150,6 +159,16 @@ func (p *TorrentParam) ToFilterQuery() string {
 		query += " date: [" + p.FromDate + " *]"
 	} else if p.ToDate != "" {
 		query += " date: [* " + p.ToDate + "]"
+	}
+
+	sMinSize := strconv.FormatUint(uint64(p.MinSize), 10)
+	sMaxSize := strconv.FormatUint(uint64(p.MaxSize), 10)
+	if p.MinSize > 0 && p.MaxSize > 0 {
+		query += " filesize: [" + sMinSize + " " + sMaxSize + "]"
+	} else if p.MinSize > 0 {
+		query += " filesize: [" + sMinSize + " *]"
+	} else if p.MaxSize > 0 {
+		query += " filesize: [* " + sMaxSize + "]"
 	}
 
 	if p.Language != "" {
@@ -239,5 +258,7 @@ func (p *TorrentParam) Clone() TorrentParam {
 		Null:      p.Null,
 		NameLike:  p.NameLike,
 		Language:  p.Language,
+		MinSize:   p.MinSize,
+		MaxSize:   p.MaxSize,
 	}
 }

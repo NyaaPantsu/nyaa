@@ -95,6 +95,8 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool, d
 			Max:       uint(torrentParam.Max),
 			NotNull:   torrentParam.NotNull,
 			Language:  torrentParam.Language,
+			MinSize:   torrentParam.MinSize,
+			MaxSize:   torrentParam.MaxSize,
 			Query:     torrentParam.NameLike,
 		}
 		// Convert back to non-json torrents
@@ -132,73 +134,15 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 		search.FromDate = time.Now().AddDate(0, 0, -maxage).Format("2006-01-02")
 	}
 
-	switch s := r.URL.Query().Get("s"); s {
-	case "1":
-		search.Status = common.FilterRemakes
-	case "2":
-		search.Status = common.Trusted
-	case "3":
-		search.Status = common.APlus
-	}
+	search.Status.Parse(r.URL.Query().Get("s"))
+	search.Category.Parse(r.URL.Query().Get("c"))
+	search.Sort.Parse(r.URL.Query().Get("sort"))
+	search.MinSize.Parse(r.URL.Query().Get("minSize"))
+	search.MaxSize.Parse(r.URL.Query().Get("maxSize"))
 
-	catString := r.URL.Query().Get("c")
-	if s := catString; len(s) > 1 && s != "_" {
-		var tmp uint64
-		tmp, err = strconv.ParseUint(string(s[0]), 10, 8)
-		if err != nil {
-			return
-		}
-		search.Category.Main = uint8(tmp)
-
-		if len(s) > 2 && len(s) < 5 {
-			tmp, err = strconv.ParseUint(s[2:], 10, 8)
-			if err != nil {
-				return
-			}
-			search.Category.Sub = uint8(tmp)
-		}
-	}
-
-	orderBy := ""
-
-	switch s := r.URL.Query().Get("sort"); s {
-	case "1":
-		search.Sort = common.Name
-		orderBy += "torrent_name"
-		break
-	case "2":
-		search.Sort = common.Date
-		orderBy += "date"
-		search.NotNull = "date IS NOT NULL"
-		break
-	case "3":
-		search.Sort = common.Downloads
-		orderBy += "downloads"
-		break
-	case "4":
-		search.Sort = common.Size
-		orderBy += "filesize"
-		// avoid sorting completely breaking on postgres
-		search.NotNull = ""
-		break
-	case "5":
-		search.Sort = common.Seeders
-		orderBy += "seeders"
-		search.NotNull = ""
-		break
-	case "6":
-		search.Sort = common.Leechers
-		orderBy += "leechers"
-		search.NotNull = ""
-		break
-	case "7":
-		search.Sort = common.Completed
-		orderBy += "completed"
-		search.NotNull = ""
-		break
-	default:
-		search.Sort = common.ID
-		orderBy += "torrent_id"
+	orderBy := search.Sort.ToDBField()
+	if search.Sort == common.Date {
+		search.NotNull = search.Sort.ToDBField() + " IS NOT NULL"
 	}
 
 	orderBy += " "
@@ -260,6 +204,14 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 	if search.Language != "" {
 		conditions = append(conditions, "language "+searchOperator)
 		parameters.Params = append(parameters.Params, "%"+search.Language+"%")
+	}
+	if search.MinSize > 0 {
+		conditions = append(conditions, "filesize >= ?")
+		parameters.Params = append(parameters.Params, uint64(search.MinSize))
+	}
+	if search.MaxSize > 0 {
+		conditions = append(conditions, "filesize <= ?")
+		parameters.Params = append(parameters.Params, uint64(search.MaxSize))
 	}
 
 	searchQuerySplit := strings.Fields(search.Query)
