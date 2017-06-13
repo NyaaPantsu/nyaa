@@ -56,8 +56,9 @@ func (t *Transaction) handleScrapeReply(data []byte) {
 	}
 }
 
-var pgQuery = "UPDATE " + config.Conf.Models.ScrapeTableName + " SET seeders = $1 , leechers = $2 , completed = $3 , last_scrape = $4 WHERE torrent_id = $5"
-var sqliteQuery = "UPDATE " + config.Conf.Models.ScrapeTableName + " SET seeders = ? , leechers = ? , completed = ? , last_scrape = ? WHERE torrent_id = ?"
+
+var pgQuery     = "REPLACE INTO " + config.Conf.Models.ScrapeTableName + " (torrent_id, seeders, leechers, completed, last_scrape) VALUES ($1, $2, $3, $4, $5)"
+var sqliteQuery = "REPLACE INTO " + config.Conf.Models.ScrapeTableName + " (torrent_id, seeders, leechers, completed, last_scrape) VALUES (?, ?, ?, ?, ?)"
 
 // Sync syncs models with database
 func (t *Transaction) Sync() (err error) {
@@ -69,7 +70,7 @@ func (t *Transaction) Sync() (err error) {
 	err = e
 	if err == nil {
 		for idx := range t.swarms {
-			_, err = tx.Exec(q, t.swarms[idx].Scrape.Seeders, t.swarms[idx].Scrape.Leechers, t.swarms[idx].Scrape.Completed, t.swarms[idx].Scrape.LastScrape, t.swarms[idx].ID)
+			_, err = tx.Exec(q, t.swarms[idx].ID, t.swarms[idx].Scrape.Seeders, t.swarms[idx].Scrape.Leechers, t.swarms[idx].Scrape.Completed, t.swarms[idx].Scrape.LastScrape)
 		}
 		tx.Commit()
 	}

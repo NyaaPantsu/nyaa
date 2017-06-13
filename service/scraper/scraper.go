@@ -1,6 +1,7 @@
 package scraperService
 
 import (
+	"fmt"
 	"net"
 	"net/url"
 	"time"
@@ -188,7 +189,26 @@ func (sc *Scraper) Scrape(packets uint) {
 	now := time.Now().Add(0 - sc.interval)
 	// only scrape torretns uploaded within 90 days
 	oldest := now.Add(0 - (time.Hour * 24 * 90))
-	rows, err := db.ORM.Raw("SELECT torrent_id, torrent_hash FROM "+config.Conf.Models.TorrentsTableName+" WHERE ( last_scrape IS NULL OR  last_scrape < ? ) AND date > ? ORDER BY torrent_id DESC LIMIT ?", now, oldest, packets*ScrapesPerPacket).Rows()
+
+	query := fmt.Sprintf(
+		"SELECT * FROM ("+
+
+		// previously scraped torrents that will be scraped again:
+		"SELECT %[1]s.torrent_id, torrent_hash FROM %[1]s, %[2]s WHERE "+
+		"date > ? AND "+
+		"%[1]s.torrent_id = %[2]s.torrent_id AND "+
+		"last_scrape < ?"+
+
+		// torrents that weren't scraped before:
+		" UNION "+
+		"SELECT torrent_id, torrent_hash FROM %[1]s WHERE "+
+		"date > ? AND "+
+		"torrent_id NOT IN (SELECT torrent_id FROM %[2]s)"+
+
+		") ORDER BY torrent_id DESC LIMIT ?", 
+		config.Conf.Models.TorrentsTableName, config.Conf.Models.ScrapeTableName)
+	rows, err := db.ORM.Raw(query, oldest, now, oldest, packets*ScrapesPerPacket).Rows()
+
 	if err == nil {
 		counter := 0
 		var scrape [ScrapesPerPacket]model.Torrent
@@ -212,7 +232,6 @@ func (sc *Scraper) Scrape(packets uint) {
 		}
 		log.Infof("scrape %d", counter)
 		rows.Close()
-
 	} else {
 		log.Warnf("failed to select torrents for scrape: %s", err)
 	}
