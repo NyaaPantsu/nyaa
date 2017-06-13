@@ -29,7 +29,7 @@ const queryDeleteUserFollowing = "DeleteUserFollowing"
 const torrentSelectColumnsFull = `torrent_id, torrent_name, torrent_hash, category, sub_category, status, date, uploader, downloads, stardom, description, website_link, deleted_at, seeders, leechers, completed, last_scrape`
 
 func scanTorrentColumnsFull(rows *sql.Rows, t *model.Torrent) {
-	rows.Scan(&t.ID, &t.Name, &t.Hash, &t.Category, &t.SubCategory, &t.Status, &t.Date, &t.UploaderID, &t.Downloads, &t.Stardom, &t.Description, &t.WebsiteLink, &t.DeletedAt, &t.Seeders, &t.Leechers, &t.Completed, &t.LastScrape)
+	rows.Scan(&t.ID, &t.Name, &t.Hash, &t.Category, &t.SubCategory, &t.Status, &t.Date, &t.UploaderID, &t.Downloads, &t.Stardom, &t.Description, &t.WebsiteLink, &t.DeletedAt, &t.Scrape.Seeders, &t.Scrape.Leechers, &t.Scrape.Completed, &t.Scrape.LastScrape)
 }
 
 const commentSelectColumnsFull = `comment_id, torrent_id, user_id, content, created_at, updated_at, deleted_at`
