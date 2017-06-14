@@ -28,9 +28,9 @@ var buildversion string
 // RunServer runs webapp mainloop
 func RunServer(conf *config.Config) {
 	// TODO Use config from cli
-	os.Mkdir(router.DatabaseDumpPath, 700)
+	os.Mkdir(router.DatabaseDumpPath, 0700)
 	// TODO Use config from cli
-	os.Mkdir(router.GPGPublicKeyPath, 700)
+	os.Mkdir(router.GPGPublicKeyPath, 0700)
 
 	http.Handle("/", router.CSRFRouter)
 

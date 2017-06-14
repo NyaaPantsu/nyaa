@@ -117,6 +117,9 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 
 		comment := model.Comment{TorrentID: torrent.ID, UserID: userID, Content: content, CreatedAt: time.Now()}
 		err := db.ORM.Create(&comment).Error
+		if err != nil {
+			messages.ImportFromError("errors", err)
+		}
 		comment.Torrent = &torrent
 
 		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
@@ -147,7 +150,7 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if !messages.HasErrors() {
-		idNum, err := strconv.Atoi(id)
+		idNum, _ := strconv.Atoi(id)
 		userID := currentUser.ID
 
 		report := model.TorrentReport{
@@ -157,7 +160,7 @@ func ReportTorrentHandler(w http.ResponseWriter, r *http.Request) {
 			CreatedAt:   time.Now(),
 		}
 
-		err = db.ORM.Create(&report).Error
+		err := db.ORM.Create(&report).Error
 		messages.AddInfoTf("infos", "report_msg", id)
 		if err != nil {
 			messages.ImportFromError("errors", err)
@@ -268,12 +271,12 @@ func DownloadTorrent(w http.ResponseWriter, r *http.Request) {
 
 	//Check if file exists and open
 	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Conf.Torrents.FileStorage, os.PathSeparator, hash))
-	defer Openfile.Close() //Close after function return
 	if err != nil {
 		//File not found, send 404
 		http.Error(w, "File not found.", 404)
 		return
 	}
+	defer Openfile.Close() //Close after function return
 
 	//Get the file size
 	FileStat, _ := Openfile.Stat()                     //Get info from file

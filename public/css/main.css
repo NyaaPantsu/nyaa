@@ -965,3 +965,7 @@ input.filelist-checkbox:checked + table.table-filelist {
 input.nav-btn {
 	cursor: pointer;
 }
+
+.comment-captcha {
+	width: 240px;
+}

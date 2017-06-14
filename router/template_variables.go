@@ -76,12 +76,6 @@ type changeLanguageVariables struct {
 	Languages map[string]string
 }
 
-type publicSettingsVariables struct {
-	commonTemplateVariables
-	Language  string
-	Languages map[string]string
-}
-
 /* MODERATION Variables */
 
 type panelIndexVbs struct {

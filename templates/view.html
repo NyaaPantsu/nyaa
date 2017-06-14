@@ -131,8 +131,8 @@
                     </div>
                     <div class="comment-captcha">
                 {{block "captcha" (makeCaptchaData .CaptchaID $.T)}}{{end}}
-                <button type="submit" class="form-input up-btn">{{call $.T "submit" }}</button>
                     </div>
+                    <button type="submit" class="form-input up-btn">{{call $.T "submit" }}</button>
                 </div>
   </form>
   </div>
@@ -154,7 +154,9 @@
                         <input type="radio" name="report_type" value="spam_garbage" id="spam" required> <label for="spam">{{ call $.T "spam_garbage" }}</label><br />
                         <input type="radio" name="report_type" value="wrong_category" id="wrongcat" required> <label for="wrongcat">{{ call $.T "wrong_category" }}</label><br />
                         <input type="radio" name="report_type" value="duplicate_deprecated" id="dup" required> <label for="dup">{{ call $.T "duplicate_deprecated" }}</label><br />
+                        <div class="comment-captcha">
                         {{template "captcha" (makeCaptchaData $.CaptchaID $.T)}}
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <span><button id="confirm_changes" type="submit">{{ call $.T "yes"}}</button>

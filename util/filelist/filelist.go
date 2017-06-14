@@ -50,7 +50,7 @@ func FileListToFolder(fileList []model.File, folderName string) (out *FileListFo
 		return strings.ToLower(out.Folders[i].FolderName) < strings.ToLower(out.Folders[j].FolderName)
 	})
 	slice.Sort(out.Files, func(i, j int) bool {
-		return strings.ToLower(out.Files[i].Filename()) < strings.ToLower(out.Files[i].Filename())
+		return strings.ToLower(out.Files[i].Filename()) < strings.ToLower(out.Files[j].Filename())
 	})
 	return
 }
@@ -67,4 +67,3 @@ func (f *FileListFolder) TotalSize() (out int64) {
 	}
 	return
 }
-
