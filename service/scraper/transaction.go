@@ -21,7 +21,8 @@ const stateTransact = 2
 
 const actionError = 3
 const actionScrape = 2
-const actionAnnounce = 1
+
+//const actionAnnounce = 1
 const actionConnect = 0
 
 // Transaction a scrape transaction on a udp tracker

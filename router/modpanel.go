@@ -163,6 +163,9 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 	}
 
 	searchParam, torrents, count, err := search.SearchByQueryWithUser(r, pagenum)
+	if err != nil {
+		messages.ImportFromError("errors", err)
+	}
 	searchForm := searchForm{
 		SearchParam:      searchParam,
 		Category:         searchParam.Category.String(),
@@ -469,6 +472,9 @@ func DeletedTorrentsModPanel(w http.ResponseWriter, r *http.Request) {
 	}
 
 	searchParam, torrents, count, err := search.SearchByQueryDeleted(r, pagenum)
+	if err != nil {
+		messages.ImportFromError("errors", err)
+	}
 	searchForm := searchForm{
 		SearchParam:      searchParam,
 		Category:         searchParam.Category.String(),
