@@ -75,14 +75,20 @@
 				<div id="mascot" class="hide-xs{{if ne .MascotURL ""}} custom-mascot{{end}}" onclick="playVoice();" {{if ne .MascotURL ""}}style="background-image: url('{{.MascotURL}}');"{{end}}></div>
 				{{/* Only play the sounds with the default mascot */}}
 				{{ if eq .MascotURL "" }}
+					{{ if Sukebei }}
+					<audio id="kawaii" hidden preload="none">
+						<source src="https://a.doko.moe/jnqmma.mp3" type="audio/mpeg">
+					</audio>
+					{{else}}
 					{{ if eq .Theme "tomorrow" }}
 					<audio id="explosion" hidden preload="none">
-						<source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
+						<source src="https://a.doko.moe/vrlrtw.mp3" type="audio/mpeg">
 					</audio>
 					{{ else }}
 					<audio id="nyanpassu" hidden preload="none">
 						<source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
 					</audio>
+					{{end}}
 					{{end}}
 				{{end}}
 			{{end}}

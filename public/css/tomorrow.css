@@ -96,11 +96,3 @@ td.tr-le, .error-text { color: #cc6666; }
 .CodeMirror-line::-moz-selection, .CodeMirror-line>span::-moz-selection, .CodeMirror-line>span>span::-moz-selection {
 	background: #454545;
 }
-.magnet-icon {
-	display: inline-block;
-	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAbFBMVEUAAAA2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWs2iWsVx+37AAAAI3RSTlMAAQIDBQgKDhItLklOT1JdY2Z4e3x/kZiwx8jX5unt7/f7/b5l+wAAAABrSURBVBhXhY7JEgFBFARTa4ydwbONNf//H116Ilo4qFNWHiqKTn0ngEKqZqCn/+KsdgOgou9sImIPwDYidvxu3FQnQFI1cVI9jsit6h1W1jlAftaiAaZVXwIwe5T6mpcreXFRr+tx/W/YwwejJxM5Y6lK9QAAAABJRU5ErkJggg==');
-	background-size: 13px;
-	vertical-align: middle;
-	height: 13px;
-	width: 13px;
-}

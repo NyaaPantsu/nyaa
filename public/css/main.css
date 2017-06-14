@@ -14,6 +14,7 @@ body {
 	font-family: 'Noto Sans', Arial, sans-serif;
 }
 #mascot { background: url('/img/renchon.svg') no-repeat right bottom transparent; }
+.sukebei #mascot { background-image: url('/img/mafuyu.svg'); background-size: 100%; }
 
 #mascot {
 	position: fixed;
