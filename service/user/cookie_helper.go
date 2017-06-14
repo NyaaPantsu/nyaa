@@ -122,9 +122,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) (int, error) {
 // CurrentUser determines the current user from the request or context
 func CurrentUser(r *http.Request) (model.User, error) {
 	var user model.User
-	var encoded string
-
-	encoded = r.Header.Get("X-Auth-Token")
+	encoded := r.Header.Get("X-Auth-Token")
 	if len(encoded) == 0 {
 		// check cookie instead
 		cookie, err := r.Cookie(CookieName)

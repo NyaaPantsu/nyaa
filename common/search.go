@@ -32,13 +32,10 @@ func (st *Status) Parse(s string) {
 	switch s {
 	case "1":
 		*st = FilterRemakes
-		break
 	case "2":
 		*st = Trusted
-		break
 	case "3":
 		*st = APlus
-		break
 	default:
 		*st = ShowAll
 	}
@@ -61,25 +58,18 @@ func (s *SortMode) Parse(str string) {
 	switch str {
 	case "1":
 		*s = Name
-		break
 	case "2":
 		*s = Date
-		break
 	case "3":
 		*s = Downloads
-		break
 	case "4":
 		*s = Size
-		break
 	case "5":
 		*s = Seeders
-		break
 	case "6":
 		*s = Leechers
-		break
 	case "7":
 		*s = Completed
-		break
 	default:
 		*s = ID
 	}

@@ -294,5 +294,4 @@ func DownloadTorrent(w http.ResponseWriter, r *http.Request) {
 	// We reset the offset to 0
 	Openfile.Seek(0, 0)
 	io.Copy(w, Openfile) //'Copy' the file to the client
-	return
 }

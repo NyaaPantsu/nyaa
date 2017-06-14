@@ -83,11 +83,9 @@ func Configure(conf *config.Config) (err error) {
 	switch conf.DBType {
 	case "postgres":
 		Impl, err = postgres.New(conf.DBParams)
-		break
 	case "sqlite3":
 		err = errSqliteSucksAss
 		// Impl, err = sqlite.New(conf.DBParams)
-		break
 	default:
 		err = errInvalidDatabaseDialect
 	}

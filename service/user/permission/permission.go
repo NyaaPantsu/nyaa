@@ -50,8 +50,5 @@ func GetRole(user *model.User) string {
 func IsFollower(user *model.User, currentUser *model.User) bool {
 	var likingUserCount int
 	db.ORM.Model(&model.UserFollows{}).Where("user_id = ? and following = ?", user.ID, currentUser.ID).Count(&likingUserCount)
-	if likingUserCount != 0 {
-		return true
-	}
-	return false
+	return likingUserCount != 0
 }

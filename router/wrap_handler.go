@@ -38,7 +38,7 @@ func (wh *wrappedHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	wrw := wrappedResponseWriter{w, false}
 	defer r.Body.Close()
 	wh.h.ServeHTTP(&wrw, r)
-	if wrw.Ignore == true {
+	if wrw.Ignore {
 		wrw.Rw.Header().Del("Content-Encoding")
 		wrw.Rw.Header().Del("Vary")
 		wrw.Rw.Header().Set("Content-Type", "text/html; charset=utf-8")

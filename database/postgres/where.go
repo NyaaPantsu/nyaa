@@ -47,9 +47,7 @@ func searchParamToTorrentQuery(param *common.TorrentParam) (q sqlQuery) {
 		case "completed":
 		case "last_scrape":
 			q.query += fmt.Sprintf("AND %s IS NOT NULL ", k)
-			break
 		default:
-			break
 		}
 	}
 
@@ -67,9 +65,7 @@ func searchParamToTorrentQuery(param *common.TorrentParam) (q sqlQuery) {
 		case "completed":
 		case "last_scrape":
 			q.query += fmt.Sprintf("AND %s IS NULL ", k)
-			break
 		default:
-			break
 		}
 	}
 
@@ -84,25 +80,18 @@ func searchParamToTorrentQuery(param *common.TorrentParam) (q sqlQuery) {
 	switch param.Sort {
 	case common.Name:
 		sort = "torrent_name"
-		break
 	case common.Date:
 		sort = "date"
-		break
 	case common.Downloads:
 		sort = "downloads"
-		break
 	case common.Size:
 		sort = "filesize"
-		break
 	case common.Seeders:
 		sort = "seeders"
-		break
 	case common.Leechers:
 		sort = "leechers"
-		break
 	case common.Completed:
 		sort = "completed"
-		break
 	case common.ID:
 	default:
 		sort = "torrent_id"

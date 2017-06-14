@@ -245,11 +245,7 @@ func (r *TorrentRequest) ExtractEditInfo(req *http.Request) error {
 	}
 
 	err = r.ExtractLanguage(req)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return err
 }
 
 // ExtractCategory : takes an http request and computes category field for this form

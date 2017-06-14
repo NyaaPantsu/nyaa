@@ -122,13 +122,11 @@ func (t *Transaction) GotData(data []byte) (done bool) {
 					t.ConnectionID = binary.BigEndian.Uint64(data[8:])
 				}
 			}
-			break
 		case actionScrape:
 			if len(data) == (12*len(t.swarms))+8 && t.state == stateTransact {
 				t.handleScrapeReply(data)
 			}
 			done = true
-			break
 		case actionError:
 			if len(data) == 12 {
 				t.handleError(string(data[4:12]))
