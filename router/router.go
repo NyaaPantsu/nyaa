@@ -26,7 +26,7 @@ func init() {
 	// TODO Use config from cli
 	// TODO Make sure the directory exists
 	gpgKeyHandler := http.FileServer(http.Dir(GPGPublicKeyPath))
-	gzipHomeHandler := http.HandlerFunc(HomeHandler)
+	gzipHomeHandler := http.HandlerFunc(SearchHandler)
 	gzipAPIHandler := http.HandlerFunc(APIHandler)
 	gzipAPIViewHandler := http.HandlerFunc(APIViewHandler)
 	gzipViewHandler := http.HandlerFunc(ViewHandler)
