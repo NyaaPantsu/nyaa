@@ -287,7 +287,7 @@ func RetrieveUserByAPIToken(apiToken string) (*model.User, string, int, error) {
 	return &user, apiToken, http.StatusOK, nil
 }
 
-// RetrieveUserByAPIToken retrieves a user by an API token
+// RetrieveUserByAPITokenAndName retrieves a user by an API token and his username
 func RetrieveUserByAPITokenAndName(apiToken string, username string) (*model.User, string, string, int, error) {
 	var user model.User
 	if db.ORM.Unscoped().Where("api_token = ? AND username = ?", apiToken, username).First(&user).RecordNotFound() {
