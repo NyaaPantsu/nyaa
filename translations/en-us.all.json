@@ -724,6 +724,10 @@
     "translation": "Captcha"
   },
   {
+    "id": "captcha_audio",
+    "translation": "Captcha Audio"
+  },
+  {
     "id": "file_name",
     "translation": "File Name"
   },
