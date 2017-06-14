@@ -608,6 +608,10 @@
     "translation": "Firefox 拡張機能"
   },
   {
+    "id": "android_app",
+    "translation": "Android アプリ"
+  },
+  {
     "id": "who_is_renchon",
     "translation": "「れんちょん」って誰やねん"
   },
@@ -673,7 +677,7 @@
   },
   {
     "id": "website_link",
-    "translation": "ウェブサイト"
+    "translation": "Web サイト"
   },
   {
     "id": "files",
@@ -722,6 +726,10 @@
   {
     "id": "captcha",
     "translation": "画像認証"
+  },
+  {
+    "id": "captcha_audio",
+    "translation": "音声認証"
   },
   {
     "id": "file_name",
