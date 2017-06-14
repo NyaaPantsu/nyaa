@@ -62,10 +62,8 @@ func CheckEmail(email string) bool {
 	}
 	var count int
 	db.ORM.Model(model.User{}).Where("email = ?", email).Count(&count)
-	if count != 0 {
-		return true // error: duplicate
-	}
-	return false
+
+	return count != 0
 }
 
 // CreateUserFromForm creates a user from a registration form.

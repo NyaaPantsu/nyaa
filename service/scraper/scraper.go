@@ -124,32 +124,38 @@ func (sc *Scraper) RunWorker(pc net.PacketConn) (err error) {
 			break
 		}
 		tid, err := ev.TID()
+		if err != nil {
+			log.Warnf("failed: %s", err)
+			break
+		}
 		action, err := ev.Action()
+		if err != nil {
+			log.Warnf("failed: %s", err)
+			break
+		}
 		log.Debugf("transaction = %d action = %d", tid, action)
-		if err == nil {
-			bucket, ok = sc.trackers[ev.From.String()]
-			if ok && bucket != nil {
-				bucket.VisitTransaction(tid, func(t *Transaction) {
-					if t == nil {
-						log.Warnf("no transaction %d", tid)
-					} else {
-						if t.GotData(ev.Data) {
-							err := t.Sync()
-							if err != nil {
-								log.Warnf("failed to sync swarm: %s", err)
-							}
-							t.Done()
-							log.Debugf("transaction %d done", tid)
-						} else {
-							sc.sendQueue <- t.SendEvent(ev.From)
-						}
-					}
-				})
-			} else {
-				log.Warnf("bucket not found for %s", ev.From)
-			}
+		bucket, ok = sc.trackers[ev.From.String()]
+		if !ok || bucket == nil {
+			log.Warnf("bucket not found for %s", ev.From)
+			break
 		}
 
+		bucket.VisitTransaction(tid, func(t *Transaction) {
+			if t == nil {
+				log.Warnf("no transaction %d", tid)
+				return
+			}
+			if t.GotData(ev.Data) {
+				err := t.Sync()
+				if err != nil {
+					log.Warnf("failed to sync swarm: %s", err)
+				}
+				t.Done()
+				log.Debugf("transaction %d done", tid)
+			} else {
+				sc.sendQueue <- t.SendEvent(ev.From)
+			}
+		})
 	}
 	return
 }
