@@ -24,9 +24,9 @@ const (
 // User model
 type User struct {
 	ID             uint      `gorm:"column:user_id;primary_key"`
-	Username       string    `gorm:"column:username"`
+	Username       string    `gorm:"column:username;unique"`
 	Password       string    `gorm:"column:password"`
-	Email          string    `gorm:"column:email"`
+	Email          string    `gorm:"column:email;unique"`
 	Status         int       `gorm:"column:status"`
 	CreatedAt      time.Time `gorm:"column:created_at"`
 	UpdatedAt      time.Time `gorm:"column:updated_at"`

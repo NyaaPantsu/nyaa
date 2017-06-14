@@ -45,7 +45,7 @@ type Feed struct {
 type Torrent struct {
 	ID          uint      `gorm:"column:torrent_id;primary_key"`
 	Name        string    `gorm:"column:torrent_name"`
-	Hash        string    `gorm:"column:torrent_hash"`
+	Hash        string    `gorm:"column:torrent_hash;unique"`
 	Category    int       `gorm:"column:category"`
 	SubCategory int       `gorm:"column:sub_category"`
 	Status      int       `gorm:"column:status"`
@@ -60,8 +60,8 @@ type Torrent struct {
 	AnidbID     string    `gorm:"column:anidb_id"`
 	Trackers    string    `gorm:"column:trackers"`
 	// Indicates the language of the torrent's content (eg. subs, dubs, raws, manga TLs)
-	Language    string    `gorm:"column:language"`
-	DeletedAt   *time.Time
+	Language  string `gorm:"column:language"`
+	DeletedAt *time.Time
 
 	Uploader    *User        `gorm:"AssociationForeignKey:UploaderID;ForeignKey:user_id"`
 	OldUploader string       `gorm:"-"` // ???????
