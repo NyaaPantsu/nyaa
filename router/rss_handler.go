@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/feeds"
 	userService "github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/util/search"
+	"github.com/gorilla/feeds"
 	"github.com/gorilla/mux"
 )
 
@@ -78,20 +78,12 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	for i, torrent := range torrents {
 		torrentJSON := torrent.ToJSON()
 		feed.Items[i] = &feeds.Item{
-			ID:          config.WebAddress() + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
-			Title:       torrent.Name,
+			Title:       torrentJSON.Name,
 			Link:        &feeds.Link{Href: string(torrentJSON.Magnet)},
 			Description: string(torrentJSON.Description),
+			Author:      &feeds.Author{Name: config.WebAddress() + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10)},
 			Created:     torrent.Date,
 			Updated:     torrent.Date,
-			Torrent: &feeds.Torrent{
-				FileName:      torrent.Name,
-				Seeds:         torrent.Seeders,
-				Peers:         torrent.Leechers,
-				InfoHash:      torrent.Hash,
-				ContentLength: torrent.Filesize,
-				MagnetURI:     string(torrentJSON.Magnet),
-			},
 		}
 	}
 	// allow cross domain AJAX requests

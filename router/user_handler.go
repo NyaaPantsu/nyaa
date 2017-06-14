@@ -24,7 +24,7 @@ func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 	_, errorUser := userService.CurrentUser(r)
 	// User is already connected, redirect to home
 	if errorUser == nil {
-		HomeHandler(w, r)
+		SearchHandler(w, r)
 		return
 	}
 	messages := msg.GetMessages(r)
@@ -48,7 +48,7 @@ func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
 	_, errorUser := userService.CurrentUser(r)
 	// User is already connected, redirect to home
 	if errorUser == nil {
-		HomeHandler(w, r)
+		SearchHandler(w, r)
 		return
 	}
 

@@ -14,7 +14,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/notifier"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
-	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/gorilla/mux"
@@ -25,33 +24,6 @@ import (
  * Get the torrents with where clause
  *
  */
-
-// GetFeeds : don't need raw SQL once we get MySQL
-func GetFeeds() (result []model.Feed, err error) {
-	result = make([]model.Feed, 0, 50)
-	rows, err := db.ORM.DB().
-		Query(
-			"SELECT `torrent_id` AS `id`, `torrent_name` AS `name`, `torrent_hash` AS `hash`, `timestamp` FROM `" + config.Conf.Models.TorrentsTableName +
-				"` ORDER BY `timestamp` desc LIMIT 50")
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-
-	for rows.Next() {
-		item := model.Feed{}
-		err = rows.Scan(&item.ID, &item.Name, &item.Hash, &item.Timestamp)
-		if err != nil {
-			return
-		}
-		magnet := util.InfoHashToMagnet(strings.TrimSpace(item.Hash), item.Name, config.Conf.Torrents.Trackers.Default...)
-		item.Magnet = magnet
-		// TODO: memory hog
-		result = append(result, item)
-	}
-	err = rows.Err()
-	return
-}
 
 // GetTorrentByID : get a torrent with its id
 func GetTorrentByID(id string) (torrent model.Torrent, err error) {
@@ -284,7 +256,7 @@ func UpdateTorrent(torrent model.Torrent) (int, error) {
 		return http.StatusInternalServerError, errors.New("Torrent was not updated")
 	}
 
-// TODO Don't create a new client for each request
+	// TODO Don't create a new client for each request
 	if db.ElasticSearchClient != nil {
 		err := torrent.AddToESIndex(db.ElasticSearchClient)
 		if err == nil {
