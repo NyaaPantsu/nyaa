@@ -1,7 +1,7 @@
 {{define "captcha"}}
 	{{/* unset if user doesn't need captcha */}}
 	{{if ne .CaptchaID ""}}
-	<div class="form-group captcha-container" style="width: 240px;">
+	<div class="form-group captcha-container" style="width: 240px;margin: auto;">
 		<h3>{{call $.T "captcha"}}</h3>
 		<input type="text" name="captchaID" value="{{.CaptchaID}}" hidden>
 		<img src="/captcha/{{.CaptchaID}}.png"><br>
