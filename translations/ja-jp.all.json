@@ -673,7 +673,7 @@
   },
   {
     "id": "website_link",
-    "translation": "ウェブサイト"
+    "translation": "Web サイト"
   },
   {
     "id": "files",
@@ -722,6 +722,10 @@
   {
     "id": "captcha",
     "translation": "画像認証"
+  },
+  {
+    "id": "captcha_audio",
+    "translation": "音声認証"
   },
   {
     "id": "file_name",
