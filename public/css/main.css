@@ -124,14 +124,13 @@ select.form-input {
 }
 
 .form-input.search-box { margin-right: -20px;  padding-right: 20px;  }
-.form-input.search-box + .search-icon {
+.form-input.search-box + .icon-search {
 	left: -5px;
 	position: relative;
  	padding: 0;
  	width: 16px;
+    height: 16px;
 	box-shadow: none;
-	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAMAAABFNRROAAAAS1BMVEUAAADFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMa1fVUnAAAAGHRSTlMAAgQHChRUVllwcZWipa2yurzHyOjx8/X7KHBhAAAAXklEQVQIHQXBAQKCIAAEsAlaYKWlWPf/l7ahtON7tAIsI0kyFigja1V7RkFLBz0NZyqoOfALIBfOVFDzRksHa24oI72qPZlhGUmSZJ+gtPP63Oct+wTAtOUFgOn5+AP1jwU8n7NnxAAAAABJRU5ErkJggg==')
-			no-repeat center center;
 	border: none;
 	vertical-align: middle;
 }
@@ -170,6 +169,16 @@ select.form-input {
 	border-radius: 0 0 5px 5px;
 	width:150px;
 }
+.header .h-user .user-menu {
+	background: #222; /* Old browsers */
+	background:    -moz-linear-gradient(bottom, #333 0%, #222 100%);
+	background: -webkit-linear-gradient(bottom, #333 0%, #222 100%);
+	background:         linear-gradient(to top, #333 0%, #222 100%);
+	border-color: #444;
+	position: absolute;
+	top: 60px
+}
+
 .header .h-user .user-menu .nav-btn {
 	float: none;
 	display: block;

@@ -42,15 +42,6 @@ select:after {
 	background: #111;
 	border-color: #444;
 }
-.header .h-user .user-menu {
-	background: #222; /* Old browsers */
-	background:    -moz-linear-gradient(bottom, #333 0%, #222 100%);
-	background: -webkit-linear-gradient(bottom, #333 0%, #222 100%);
-	background:         linear-gradient(to top, #333 0%, #222 100%);
-	border-color: #444;
-	position: absolute;
-	top: 60px
-}
 
 table thead { background: #fff; }
 
