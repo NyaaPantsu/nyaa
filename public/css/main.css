@@ -623,13 +623,14 @@ input.filelist-checkbox:checked + table.table-filelist {
 /* Mod Tools */
 .modtools {
 	position: fixed;
-	top:60px;
-	padding: 1px 10px;
-	max-width: 1060px;
-	width:100%;
-	background: #111;
-	border: 1px solid #222;
-	height: 25px;
+    top: 65px;
+    padding: 5px 10px;
+    max-width: 1060px;
+    width: 100%;
+    background: #e6eff4;
+    border: 1px solid #cbbdd7;
+    height: 50px;
+    border-radius: 5px;
 }
 .tr-cb {
 	width: 20px;

@@ -341,7 +341,7 @@ func HideTorrentUser(uploaderID uint, uploaderName string, torrentHidden bool) (
 		return 0, "れんちょん"
 	}
 	if uploaderID == 0 {
-		return 0, "れんちょん"
+		return 0, uploaderName
 	}
 	return uploaderID, uploaderName
 }
