@@ -180,6 +180,7 @@ type ModelsConfig struct {
 	UploadsOldTableName    string `yaml:"uploads_old_table_name,omitempty"`
 	FilesTableName         string `yaml:"files_table_name,omitempty"`
 	NotificationsTableName string `yaml:"notifications_table_name,omitempty"`
+	ActivityTableName      string `yaml:"activities_table_name,omitempty"`
 }
 
 // SearchConfig : Config struct for search

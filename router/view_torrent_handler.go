@@ -14,6 +14,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service"
+	"github.com/NyaaPantsu/nyaa/service/activity"
 	"github.com/NyaaPantsu/nyaa/service/api"
 	"github.com/NyaaPantsu/nyaa/service/captcha"
 	"github.com/NyaaPantsu/nyaa/service/notifier"
@@ -222,7 +223,6 @@ func TorrentPostEditUserPanel(w http.ResponseWriter, r *http.Request) {
 			torrent.WebsiteLink = uploadForm.WebsiteLink
 			torrent.Description = uploadForm.Description
 			torrent.Language = uploadForm.Language
-			// torrent.Uploader = nil // GORM will create a new user otherwise (wtf?!)
 			db.ORM.Model(&torrent).UpdateColumn(&torrent)
 			messages.AddInfoT("infos", "torrent_updated")
 		}
@@ -241,8 +241,14 @@ func TorrentDeleteUserPanel(w http.ResponseWriter, r *http.Request) {
 	currentUser := getUser(r)
 	torrent, _ := torrentService.GetTorrentByID(id)
 	if userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
-		_, err := torrentService.DeleteTorrent(id)
+		_, _, err := torrentService.DeleteTorrent(id)
 		if err == nil {
+			_, username := torrentService.HideTorrentUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
+			if userPermission.HasAdmin(currentUser) { // We hide username on log activity if user is not admin and torrent is hidden
+				activity.Log(&model.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, currentUser.Username)
+			} else {
+				activity.Log(&model.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, username)
+			}
 			//delete reports of torrent
 			whereParams := serviceBase.CreateWhereParams("torrent_id = ?", id)
 			reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)

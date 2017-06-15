@@ -860,6 +860,22 @@
     "translation": "Torrent %s deleted!"
   },
   {
+    "id": "torrent_deleted_by",
+    "translation": "Torrent #%s from %s has been deleted by %s."
+  },
+  {
+    "id": "torrent_edited_by",
+    "translation": "Torrent #%s from %s has been edited by %s."
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "Torrent #%s from %s has been locked by %s."
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "Torrent #%s from %s has been unlocked by %s."
+  },
+  {
     "id": "torrents_deleted",
     "translation": "Torrents Deleted"
   },
@@ -870,6 +886,14 @@
   {
     "id": "delete_report",
     "translation": "Delete Report"
+  },
+  {
+    "id": "comment_deleted_by",
+    "translation": "Comment #%s from %s has been deleted by %s."
+  },
+  {
+    "id": "comment_edited_by",
+    "translation": "Comment #%s from %s has been edited by %s."
   },
   {
     "id": "no_action_exist",
@@ -1334,5 +1358,17 @@
   {
     "id": "language_multiple_name",
     "translation": "Multiple Languages"
+  },
+  {
+    "id": "activity_list",
+    "translation": "Activity List"
+  },
+  {
+    "id": "activities",
+    "translation": "Activities"
+  },
+  {
+    "id": "filter",
+    "translation": "Filter"
   }
 ]

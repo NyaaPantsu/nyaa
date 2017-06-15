@@ -269,7 +269,7 @@ func APIUpdateHandler(w http.ResponseWriter, r *http.Request) {
 			messages.ImportFromError("errors", apiService.ErrRights)
 		}
 		update.UpdateTorrent(&torrent, user)
-		torrentService.UpdateTorrent(torrent)
+		torrentService.UpdateTorrent(&torrent)
 	}
 	apiResponseHandler(w, r)
 }

@@ -181,6 +181,8 @@ models:
   files_table_name: files
 # NotificationTableName : Name of notifications table in DB
   notifications_table_name: notifications
+# ActivitiesTableName : Name of activitis log table in DB
+  activities_table_name: activities
 # for sukebei:
 #	LastOldTorrentID    = 2303945
 #	TorrentsTableName   = "sukebei_torrents"

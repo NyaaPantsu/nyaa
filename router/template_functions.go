@@ -9,6 +9,8 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/service/activity"
+	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/categories"
@@ -257,18 +259,17 @@ var FuncMap = template.FuncMap{
 		return string(T(d))
 	},
 	"genUploaderLink": func(uploaderID uint, uploaderName template.HTML, torrentHidden bool) template.HTML {
-
-		if torrentHidden {
-			return template.HTML("れんちょん")
-		}
+		uploaderID, username := torrentService.HideTorrentUser(uploaderID, string(uploaderName), torrentHidden)
 		if uploaderID == 0 {
-			return template.HTML("れんちょん")
+			return template.HTML(username)
 		}
-		url, err := Router.Get("user_profile").URL("id", strconv.Itoa(int(uploaderID)), "username", string(uploaderName))
+		url, err := Router.Get("user_profile").URL("id", strconv.Itoa(int(uploaderID)), "username", username)
 		if err != nil {
 			return "error"
 		}
-		return template.HTML("<a href=\"" + url.String() + "\">" + string(uploaderName) + "</a>")
-
+		return template.HTML("<a href=\"" + url.String() + "\">" + username + "</a>")
+	},
+	"genActivityContent": func(a model.Activity, T publicSettings.TemplateTfunc) template.HTML {
+		return activity.ToLocale(&a, T)
 	},
 }

@@ -3,6 +3,7 @@ package torrentService
 import (
 	"errors"
 	"fmt"
+	"html/template"
 	"net/http"
 	"strconv"
 	"strings"
@@ -11,6 +12,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service"
+	"github.com/NyaaPantsu/nyaa/service/activity"
 	"github.com/NyaaPantsu/nyaa/service/notifier"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
@@ -192,13 +194,13 @@ func GetAllTorrentsDB() ([]model.Torrent, int, error) {
 }
 
 // DeleteTorrent : delete a torrent based on id
-func DeleteTorrent(id string) (int, error) {
+func DeleteTorrent(id string) (*model.Torrent, int, error) {
 	var torrent model.Torrent
 	if db.ORM.First(&torrent, id).RecordNotFound() {
-		return http.StatusNotFound, errors.New("Torrent is not found")
+		return &torrent, http.StatusNotFound, errors.New("Torrent is not found")
 	}
 	if db.ORM.Delete(&torrent).Error != nil {
-		return http.StatusInternalServerError, errors.New("Torrent was not deleted")
+		return &torrent, http.StatusInternalServerError, errors.New("Torrent was not deleted")
 	}
 
 	if db.ElasticSearchClient != nil {
@@ -209,17 +211,17 @@ func DeleteTorrent(id string) (int, error) {
 			log.Errorf("Unable to delete torrent to ES index: %s", err)
 		}
 	}
-	return http.StatusOK, nil
+	return &torrent, http.StatusOK, nil
 }
 
 // DefinitelyDeleteTorrent : deletes definitely a torrent based on id
-func DefinitelyDeleteTorrent(id string) (int, error) {
+func DefinitelyDeleteTorrent(id string) (*model.Torrent, int, error) {
 	var torrent model.Torrent
 	if db.ORM.Unscoped().Model(&torrent).First(&torrent, id).RecordNotFound() {
-		return http.StatusNotFound, errors.New("Torrent is not found")
+		return &torrent, http.StatusNotFound, errors.New("Torrent is not found")
 	}
 	if db.ORM.Unscoped().Model(&torrent).Delete(&torrent).Error != nil {
-		return http.StatusInternalServerError, errors.New("Torrent was not deleted")
+		return &torrent, http.StatusInternalServerError, errors.New("Torrent was not deleted")
 	}
 
 	if db.ElasticSearchClient != nil {
@@ -230,7 +232,7 @@ func DefinitelyDeleteTorrent(id string) (int, error) {
 			log.Errorf("Unable to delete torrent to ES index: %s", err)
 		}
 	}
-	return http.StatusOK, nil
+	return &torrent, http.StatusOK, nil
 }
 
 // ToggleBlockTorrent ; Lock/Unlock a torrent based on id
@@ -251,8 +253,27 @@ func ToggleBlockTorrent(id string) (model.Torrent, int, error) {
 }
 
 // UpdateTorrent : Update a torrent based on model
-func UpdateTorrent(torrent model.Torrent) (int, error) {
-	if db.ORM.Model(&torrent).UpdateColumn(&torrent).Error != nil {
+func UpdateTorrent(torrent *model.Torrent) (int, error) {
+	if db.ORM.Model(torrent).UpdateColumn(torrent).Error != nil {
+		return http.StatusInternalServerError, errors.New("Torrent was not updated")
+	}
+
+	// TODO Don't create a new client for each request
+	if db.ElasticSearchClient != nil {
+		err := torrent.AddToESIndex(db.ElasticSearchClient)
+		if err == nil {
+			log.Infof("Successfully updated torrent to ES index.")
+		} else {
+			log.Errorf("Unable to update torrent to ES index: %s", err)
+		}
+	}
+
+	return http.StatusOK, nil
+}
+
+// UpdateUnscopeTorrent : Update a torrent based on model
+func UpdateUnscopeTorrent(torrent *model.Torrent) (int, error) {
+	if db.ORM.Unscoped().Model(torrent).UpdateColumn(torrent).Error != nil {
 		return http.StatusInternalServerError, errors.New("Torrent was not updated")
 	}
 
@@ -281,10 +302,11 @@ func ExistOrDelete(hash string, user *model.User) error {
 	db.ORM.Unscoped().Model(&model.Torrent{}).Where("torrent_hash = ?", hash).First(&torrentIndb)
 	if torrentIndb.ID > 0 {
 		if userPermission.CurrentUserIdentical(user, torrentIndb.UploaderID) && torrentIndb.IsDeleted() && !torrentIndb.IsBlocked() { // if torrent is not locked and is deleted and the user is the actual owner
-			_, err := DefinitelyDeleteTorrent(strconv.Itoa(int(torrentIndb.ID)))
+			torrent, _, err := DefinitelyDeleteTorrent(strconv.Itoa(int(torrentIndb.ID)))
 			if err != nil {
 				return err
 			}
+			activity.Log(&model.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), torrent.Uploader.Username, user.Username)
 		} else {
 			return errors.New("Torrent already in database")
 		}
@@ -311,4 +333,27 @@ func NewTorrentEvent(router *mux.Router, user *model.User, torrent *model.Torren
 		}
 	}
 	return nil
+}
+
+// HideTorrentUser : hides a torrent user for hidden torrents
+func HideTorrentUser(uploaderID uint, uploaderName string, torrentHidden bool) (uint, string) {
+	if torrentHidden {
+		return 0, "れんちょん"
+	}
+	if uploaderID == 0 {
+		return 0, "れんちょん"
+	}
+	return uploaderID, uploaderName
+}
+
+// TorrentsToAPI : Map Torrents for API usage without reallocations
+func TorrentsToAPI(t []model.Torrent) []model.TorrentJSON {
+	json := make([]model.TorrentJSON, len(t))
+	for i := range t {
+		json[i] = t[i].ToJSON()
+		uploaderID, username := HideTorrentUser(json[i].UploaderID, string(json[i].UploaderName), json[i].Hidden)
+		json[i].UploaderName = template.HTML(username)
+		json[i].UploaderID = uploaderID
+	}
+	return json
 }
