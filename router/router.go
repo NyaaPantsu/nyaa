@@ -54,6 +54,7 @@ func init() {
 	Router.HandleFunc("/search/{page}", SearchHandler).Name("search_page")
 	Router.HandleFunc("/verify/email/{token}", UserVerifyEmailHandler).Name("user_verify").Methods("GET")
 	Router.HandleFunc("/faq", FaqHandler).Name("faq")
+	Router.HandleFunc("/activities", ActivityListHandler).Name("activity_list")
 	Router.HandleFunc("/feed", RSSHandler).Name("feed")
 	Router.HandleFunc("/feed/{page}", RSSHandler).Name("feed_page")
 

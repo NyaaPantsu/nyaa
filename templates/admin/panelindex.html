@@ -92,7 +92,7 @@
     {{range .Comments}}
     <tr>
         <td class="tr-name home-td"><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{ .Content }}</a></td>
-        <td class="tr-size home-td"><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{.UserID}}</a></td>
+        <td class="tr-size home-td"><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{if .User }}{{ .User.Username }}{{else}}れんちょん{{end}}</a></td>
         <td class="tr-size home-td"><a href="{{ genRoute "mod_cdelete" }}?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;"><i class="trash-icon"></i> {{ call $.T "delete" }}</a></td>
     </tr>
     {{end}}

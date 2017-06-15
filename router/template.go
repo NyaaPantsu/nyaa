@@ -14,6 +14,7 @@ const ModeratorDir = "admin"
 var homeTemplate,
 	searchTemplate,
 	faqTemplate,
+	activityList,
 	uploadTemplate,
 	viewTemplate,
 	viewRegisterTemplate,
@@ -71,6 +72,11 @@ func ReloadTemplates() {
 			templ: &faqTemplate,
 			name:  "FAQ",
 			file:  "FAQ.html",
+		},
+		{
+			templ: &activityList,
+			name:  "activityList",
+			file:  "activity_list.html",
 		},
 		{
 			templ: &viewTemplate,
@@ -132,7 +138,6 @@ func ReloadTemplates() {
 			name:  "change_settings",
 			file:  "public_settings.html",
 		},
-
 	}
 	for idx := range pubTempls {
 		pubTempls[idx].indexFile = filepath.Join(TemplateDir, "index.html")

@@ -20,15 +20,15 @@ func CreateTorrentReport(torrentReport model.TorrentReport) error {
 }
 
 // DeleteTorrentReport : Delete a torrent report by id
-func DeleteTorrentReport(id uint) (error, int) {
+func DeleteTorrentReport(id uint) (*model.TorrentReport, error, int) {
 	var torrentReport model.TorrentReport
 	if db.ORM.First(&torrentReport, id).RecordNotFound() {
-		return errors.New("Trying to delete a torrent report that does not exists"), http.StatusNotFound
+		return &torrentReport, errors.New("Trying to delete a torrent report that does not exists"), http.StatusNotFound
 	}
 	if err := db.ORM.Delete(&torrentReport).Error; err != nil {
-		return err, http.StatusInternalServerError
+		return &torrentReport, err, http.StatusInternalServerError
 	}
-	return nil, http.StatusOK
+	return &torrentReport, nil, http.StatusOK
 }
 
 // DeleteDefinitelyTorrentReport : Delete definitely a torrent report by id

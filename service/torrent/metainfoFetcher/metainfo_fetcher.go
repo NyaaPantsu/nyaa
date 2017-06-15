@@ -41,10 +41,10 @@ func New(fetcherConfig *config.MetainfoFetcherConfig) (*MetainfoFetcher, error) 
 
 	// Well, it seems this is the right way to convert speed -> rate.Limiter
 	// https://github.com/anacrolix/torrent/blob/master/cmd/torrent/main.go
-	const uploadBurst = 0x40000 // 256K
+	const uploadBurst = 0x40000    // 256K
 	const downloadBurst = 0x100000 // 1M
-	uploadLimit := fetcherConfig.UploadRateLimitKiB*1024
-	downloadLimit := fetcherConfig.DownloadRateLimitKiB*1024
+	uploadLimit := fetcherConfig.UploadRateLimitKiB * 1024
+	downloadLimit := fetcherConfig.DownloadRateLimitKiB * 1024
 	if uploadLimit > 0 {
 		limit := rate.Limit(uploadLimit)
 		limiter := rate.NewLimiter(limit, uploadBurst)
@@ -170,7 +170,7 @@ func (fetcher *MetainfoFetcher) gotResult(r Result) {
 		if r.operation.torrent.Filesize != r.info.TotalLength() {
 			log.Infof("Got length %d for torrent TID: %d. Updating.", r.info.TotalLength(), r.operation.torrent.ID)
 			r.operation.torrent.Filesize = r.info.TotalLength()
-			_, err := torrentService.UpdateTorrent(r.operation.torrent)
+			_, err := torrentService.UpdateTorrent(&r.operation.torrent)
 			if err != nil {
 				log.Infof("Failed to update torrent TID: %d with new filesize", r.operation.torrent.ID)
 				lengthOK = false
@@ -217,7 +217,7 @@ func (fetcher *MetainfoFetcher) removeOldFailures() {
 		// | 3       | 8 * base
 		// integers inside fetcher.numFails are never less than or equal to zero
 		mul := 1 << uint(fetcher.numFails[id]-1)
-		cd := time.Duration(mul * fetcher.baseFailCooldown) * time.Second
+		cd := time.Duration(mul*fetcher.baseFailCooldown) * time.Second
 		if cd > max {
 			cd = max
 		}
