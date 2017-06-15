@@ -161,7 +161,7 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 	if countAll {
 		dbQ = dbQ.Preload("Comments")
 	}
-	err = dbQ.Raw(dbQuery, params...).Find(&torrents).Error
+	err = dbQ.Preload("FileList").Raw(dbQuery, params...).Find(&torrents).Error
 	return
 }
 

@@ -15,9 +15,11 @@ import (
 
 // private wrapper around the RssFeed which gives us the <rss>..</rss> xml
 type rssFeedXML struct {
-	XMLName xml.Name `xml:"rss"`
-	Version string   `xml:"version,attr"`
-	Channel *RssFeed
+	XMLName  xml.Name `xml:"rss"`
+	Version  string   `xml:"version,attr"`
+	Encoding string   `xml:"encoding,attr"`
+	Channel  *RssFeed `xml:"channel,omitempty"`
+	Caps     *RssCaps `xml:"caps,omitempty"`
 }
 
 type RssImage struct {
@@ -75,6 +77,70 @@ type RssItem struct {
 	Source      string      `xml:"source,omitempty"`
 	Torrent     *RssTorrent `xml:"torrent,omitempty"`
 	Torznab     *RssTorznab `xml:"torznab,omitempty"`
+}
+
+type RssCaps struct {
+	XMLName      xml.Name         `xml:"caps"`
+	Server       *RssServer       `xml:"server,omitempty"`
+	Limits       *RssLimits       `xml:"limits,omitempty"`
+	Registration *RssRegistration `xml:"registration,omitempty"`
+	Searching    *RssSearching    `xml:"searching,omitempty"`
+	Categories   *RssCategories   `xml:"categories,omitempty"`
+}
+
+type RssServer struct {
+	XMLName   xml.Name `xml:"server"`
+	Xmlns     string   `xml:"xmlns,attr"`
+	Version   string   `xml:"version,attr"`
+	Title     string   `xml:"title,attr"`
+	Strapline string   `xml:"strapline,attr"`
+	Email     string   `xml:"email,attr"`
+	URL       string   `xml:"url,attr"`
+	Image     string   `xml:"image,attr"`
+}
+
+type RssLimits struct {
+	XMLName xml.Name `xml:"limits"`
+	Max     string   `xml:"limits,attr"`
+	Default string   `xml:"default,attr"`
+}
+
+type RssRegistration struct {
+	XMLName   xml.Name `xml:"registration"`
+	Available string   `xml:"available,attr"`
+	Open      string   `xml:"open,attr"`
+}
+
+type RssSearching struct {
+	XMLName     xml.Name   `xml:"searching"`
+	Search      *RssSearch `xml:"search,omitempty"`
+	TvSearch    *RssSearch `xml:"tv-search,omitempty"`
+	MovieSearch *RssSearch `xml:"movie-search,omitempty"`
+}
+
+type RssSearch struct {
+	Available       string `xml:"available,attr"`
+	SupportedParams string `xml:"supportedParams,attr,omitempty"`
+}
+
+type RssCategories struct {
+	XMLName  xml.Name `xml:"categories"`
+	Category []*RssCategoryTorznab
+}
+
+type RssCategoryTorznab struct {
+	XMLName     xml.Name `xml:"category"`
+	ID          string   `xml:"id,attr"`
+	Name        string   `xml:"name,attr"`
+	Subcat      []*RssSubCat
+	Description string `xml:"description,attr,omitempty"`
+}
+
+type RssSubCat struct {
+	XMLName     xml.Name `xml:"subcat"`
+	ID          string   `xml:"id"`
+	Name        string   `xml:"name"`
+	Description string   `xml:"description,omitempty"`
 }
 
 type RssTorrent struct {
@@ -195,5 +261,10 @@ func (r *Rss) FeedXml() interface{} {
 
 // FeedXml : return an XML-ready object for an RssFeed object
 func (r *RssFeed) FeedXml() interface{} {
-	return &rssFeedXML{Version: "2.0", Channel: r}
+	return &rssFeedXML{Version: "2.0", Encoding: "UTF-8", Channel: r}
+}
+
+// FeedXml : return an XML-ready object for an RssFeed object
+func (r *RssCaps) FeedXml() interface{} {
+	return &rssFeedXML{Version: "2.0", Encoding: "UTF-8", Caps: r}
 }
