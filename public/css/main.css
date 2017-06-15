@@ -39,7 +39,7 @@ body {
 	border-bottom: 1px solid;
 }
 .container {
-	max-width: 1080px;
+	max-width: 1380px;
 	margin: 0 auto;
 }
 .content {
@@ -688,7 +688,7 @@ input.filelist-checkbox:checked + table.table-filelist {
 	position: fixed;
     top: 65px;
     padding: 5px 10px;
-    max-width: 1060px;
+    max-width: 1360px;
     width: 100%;
     background: #e6eff4;
     border: 1px solid #cbbdd7;
@@ -969,4 +969,9 @@ input.nav-btn {
 
 .comment-captcha {
 	width: 240px;
+}
+
+.download {
+	font-size: 1.5em;
+	padding: 0.3em;
 }

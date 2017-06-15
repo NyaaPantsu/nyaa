@@ -72,9 +72,9 @@
     {{end}}
   </table>
 <div class="torrent-buttons">
-  <a href="{{.Magnet}}" class="form-input btn-green"><div class="magnet-icon"></div> {{call $.T "magnet_link"}}</a>
+  <a href="{{.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;"><div class="magnet-icon"></div> {{call $.T "magnet_link"}}</a>
   {{ if ne .TorrentLink ""}}
-  <a href="{{.TorrentLink}}" class="form-input"><div class="download-icon"></div> {{call $.T "torrent_file"}}</a>
+  <a href="{{.TorrentLink}}" class="form-input float-left download" style="float:left;height: auto;"><div class="download-icon"></div> {{call $.T "torrent_file"}}</a>
   {{end}}
   {{ if gt $.User.ID 0}}
   <a id="reportPopup" href="#" class="form-input">{{ call $.T "report_btn" }}</a>
@@ -86,6 +86,7 @@
     <a href="{{ genRoute "user_torrent_edit" }}?id={{ .ID }}" class="form-input btn-orange">{{ call $.T "edit" }}</a>
     {{end}}
 {{end}}
+    <div style="clear:both;"></div>
   </div>
   <p class="torrent-hr">{{call $.T "description"}}</p>
   {{ if ne .Description ""}}
