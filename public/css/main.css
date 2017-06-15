@@ -13,6 +13,8 @@ body {
 	font-size: 14px;
 	font-family: 'Noto Sans', Arial, sans-serif;
 }
+#mascot { background: url('/img/renchon.svg') no-repeat right bottom transparent; }
+.sukebei #mascot { background-image: url('/img/mafuyu.svg'); background-size: 100%; }
 
 #mascot {
 	position: fixed;
@@ -122,14 +124,13 @@ select.form-input {
 }
 
 .form-input.search-box { margin-right: -20px;  padding-right: 20px;  }
-.form-input.search-box + .search-icon {
+.form-input.search-box + .icon-search {
 	left: -5px;
 	position: relative;
  	padding: 0;
  	width: 16px;
+    height: 16px;
 	box-shadow: none;
-	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAMAAABFNRROAAAAS1BMVEUAAADFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMbFyMa1fVUnAAAAGHRSTlMAAgQHChRUVllwcZWipa2yurzHyOjx8/X7KHBhAAAAXklEQVQIHQXBAQKCIAAEsAlaYKWlWPf/l7ahtON7tAIsI0kyFigja1V7RkFLBz0NZyqoOfALIBfOVFDzRksHa24oI72qPZlhGUmSZJ+gtPP63Oct+wTAtOUFgOn5+AP1jwU8n7NnxAAAAABJRU5ErkJggg==')
-			no-repeat center center;
 	border: none;
 	vertical-align: middle;
 }
@@ -168,6 +169,16 @@ select.form-input {
 	border-radius: 0 0 5px 5px;
 	width:150px;
 }
+.header .h-user .user-menu {
+	background: #222; /* Old browsers */
+	background:    -moz-linear-gradient(bottom, #333 0%, #222 100%);
+	background: -webkit-linear-gradient(bottom, #333 0%, #222 100%);
+	background:         linear-gradient(to top, #333 0%, #222 100%);
+	border-color: #444;
+	position: absolute;
+	top: 60px
+}
+
 .header .h-user .user-menu .nav-btn {
 	float: none;
 	display: block;
@@ -209,7 +220,7 @@ select.form-input {
 	height: auto;
 }
 
-#content { position: relative; top: 70px; pointer-events: none; }
+#content { position: relative; top: 70px;}
 /* #content { padding-top: 70px;  } */
 .content { border-radius: 3px; padding: 5px 10px; pointer-events: auto; }
 
@@ -318,6 +329,14 @@ html, body {
   height: 100%;
 }
 
+/* Global icon formmating  */
+[class^="icon-"], [class*=" icon-"] {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+
+#mascotKeepHide { pointer-events: auto; }
 
 
 /* holy fucking shit fuck responsive design */
@@ -372,88 +391,6 @@ html, body {
 		margin-bottom: 20px;
 	}
 }
-
-
-/* Default Theme */
-
-body { color: #333; background: #ededed; }
-
-.header, .box, .pagination li, .user-menu { box-shadow: 1px 3px 4px rgba(0,0,0,0.1) }
-
-#mascot { background: url('/img/renchon.svg') no-repeat right bottom transparent; }
-
-a { 
-	color: #196759;
-	pointer-events: auto;
-}
-a:hover { color:  #238BC7; }
-
-.header {
-	background: #111; /* Old browsers */
-	background:    -moz-linear-gradient(bottom, #222 0%, #111 100%);
-	background: -webkit-linear-gradient(bottom, #222 0%, #111 100%);
-	background:         linear-gradient(to top, #222 0%, #111 100%);
-	border-color: #444;
-}
-.header .nav-btn { color: #ccc; }
-.header .nav-btn:hover { color: #d5d5d5; }
-
-.box, .pagination li {
-	background: rgba(255,255,255, 0.8);
-	border-color: #BBC9CF !important;
-}
-
-#mascotKeepHide { pointer-events: auto; }
-
-.form-input { border-color: #BBC9CF !important; background: #fafafa; color: #666; }
-
-.btn:hover, .up-btn:hover { background: rgba(192,192,192,0.2); }
-
-.form-input:focus { box-shadow: 0 0 5px #fff; }
-
-
-select:after {
-	content: "AAAAA";
-}
-
-.header .h-user .user-avatar {
-	background: #111;
-	border-color: #444;
-}
-.header .h-user .user-menu {
-	background: #222; /* Old browsers */
-	background:    -moz-linear-gradient(bottom, #333 0%, #222 100%);
-	background: -webkit-linear-gradient(bottom, #333 0%, #222 100%);
-	background:         linear-gradient(to top, #333 0%, #222 100%);
-	border-color: #444;
-	position: absolute;
-	top: 60px
-}
-
-table thead { background: #fff; }
-
-
-th a { color: #6E96AA; }
-th { border-color:  #ddd !important; }
-td { border-color:  #ccc !important; }
-
-td.tr-se, .success-text { color: #22A243; }
-td.tr-le, .error-text { color: #E84C4C; }
-
-/* Original Nyaa colors, do NOT change! */
-.aplus { background: #60B0F0; }
-.trusted { background: #98D9A8; }
-.remake { background: #F0B080; }
-
-.pagination .active { background: #d5d5d5; color: #222; }
-.pagination .disabled { color: #d5d5d5; cursor: unset; }
-
-.sukebei { color: #9C7575; }
-.sukebei a { color: #893636; }
-.sukebei a:hover { color:  #C7235D; }
-.sukebei th { color: #9C7575; }
-.sukebei th a { color: #893636; }
-.sukebei #mascot { background-image: url('/img/mafuyu.svg'); background-size: 100%; }
 
 .up-input {
 	width: 100%;
@@ -686,13 +623,14 @@ input.filelist-checkbox:checked + table.table-filelist {
 /* Mod Tools */
 .modtools {
 	position: fixed;
-	top:60px;
-	padding: 1px 10px;
-	max-width: 1060px;
-	width:100%;
-	background: #111;
-	border: 1px solid #222;
-	height: 25px;
+    top: 65px;
+    padding: 5px 10px;
+    max-width: 1060px;
+    width: 100%;
+    background: #e6eff4;
+    border: 1px solid #cbbdd7;
+    height: 50px;
+    border-radius: 5px;
 }
 .tr-cb {
 	width: 20px;
@@ -933,35 +871,13 @@ input.filelist-checkbox:checked + table.table-filelist {
 	text-align: left;
 	padding: 0 10px 10px;
 }
-
-.btn-green {
-	background: #98D9A8;
-	color:white;
-	font-weight: bold;
-}
-
-.btn-red {
-	background: #E84C4C;
-	color:white;
-	font-weight: bold;
-}
-
-.btn-blue {
-	background: #60B0F0;
-	color:white;
-	font-weight: bold;
-}
-
-.btn-orange {
-	background: #F0B080;
-	color:white;
-	font-weight: bold;
-}
-
 .btn-blue:hover, .btn-red:hover, .btn-green:hover, .btn-orange:hover {
 	opacity: 0.7;
 }
-
+.btn-blue, .btn-red, .btn-green, .btn-orange {
+	font-weight: bold;
+	color: white;
+}
 input.nav-btn {
 	cursor: pointer;
 }

@@ -2,6 +2,7 @@
 // @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
 var explosion = document.getElementById("explosion");
 var nyanpassu = document.getElementById("nyanpassu");
+var kawaii    = document.getElementById("kawaii");
 
 // Switches between themes when a new one is selected
 function switchThemes(){
@@ -73,6 +74,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 function playVoice() {
 	if (explosion) {
 		explosion.play();
+	}
+	else if (kawaii) {
+		kawaii.volume = 0.7;
+		kawaii.play();
 	}
 	else {
 		nyanpassu.volume = 0.5;
