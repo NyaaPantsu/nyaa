@@ -68,27 +68,32 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	if config.IsSukebei() {
 		title = "Sukebei Pantsu"
 	}
-	feed := &feeds.Feed{
+	feed := &feeds.RssFeed{
 		Title:   title,
-		Link:    &feeds.Link{Href: config.WebAddress() + "/"},
-		Created: createdAsTime,
+		Link:    config.WebAddress() + "/",
+		PubDate: createdAsTime.String(),
 	}
-	feed.Items = make([]*feeds.Item, len(torrents))
+	feed.Items = make([]*feeds.RssItem, len(torrents))
 
 	for i, torrent := range torrents {
 		torrentJSON := torrent.ToJSON()
-		feed.Items[i] = &feeds.Item{
+		feed.Items[i] = &feeds.RssItem{
 			Title:       torrentJSON.Name,
-			Link:        &feeds.Link{Href: string(torrentJSON.Magnet)},
+			Link:        config.WebAddress() + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
 			Description: string(torrentJSON.Description),
-			Author:      &feeds.Author{Name: config.WebAddress() + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10)},
-			Created:     torrent.Date,
-			Updated:     torrent.Date,
+			Author:      config.WebAddress() + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
+			PubDate:     torrent.Date.String(),
+			Guid:        config.WebAddress() + "/download/" + torrentJSON.Hash,
+			Enclosure: &feeds.RssEnclosure{
+				Url:    config.WebAddress() + "/download/" + torrentJSON.Hash,
+				Length: strconv.FormatUint(uint64(torrentJSON.Filesize), 10),
+				Type:   "application/x-bittorrent",
+			},
 		}
 	}
 	// allow cross domain AJAX requests
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	rss, rssErr := feed.ToRss()
+	rss, rssErr := feeds.ToXML(feed)
 	if rssErr != nil {
 		http.Error(w, rssErr.Error(), http.StatusInternalServerError)
 	}
