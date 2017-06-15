@@ -138,9 +138,9 @@ type RssCategoryTorznab struct {
 
 type RssSubCat struct {
 	XMLName     xml.Name `xml:"subcat"`
-	ID          string   `xml:"id"`
-	Name        string   `xml:"name"`
-	Description string   `xml:"description,omitempty"`
+	ID          string   `xml:"id,attr"`
+	Name        string   `xml:"name,attr"`
+	Description string   `xml:"description,attr,omitempty"`
 }
 
 type RssTorrent struct {
