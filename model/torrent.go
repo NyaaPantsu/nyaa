@@ -322,9 +322,11 @@ func (t *Torrent) ToJSON() TorrentJSON {
 
 	uploader := "れんちょん" // by default
 	var uploaderID uint
-	if t.Uploader != nil {
+	if t.UploaderID > 0 {
 		uploader = t.Uploader.Username
 		uploaderID = t.UploaderID
+	} else if t.OldUploader != "" {
+		uploader = t.OldUploader
 	}
 	torrentlink := ""
 	if t.ID <= config.Conf.Models.LastOldTorrentID && len(config.Conf.Torrents.CacheLink) > 0 {
@@ -351,7 +353,6 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Downloads:    t.Downloads,
 		UploaderID:   uploaderID,
 		UploaderName: util.SafeText(uploader),
-		OldUploader:  util.SafeText(t.OldUploader),
 		WebsiteLink:  util.Safe(t.WebsiteLink),
 		Language:     t.Language,
 		Magnet:       template.URL(magnet),
