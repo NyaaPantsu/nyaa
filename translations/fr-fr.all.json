@@ -292,6 +292,10 @@
     "translation": "Extension Firefox"
   },
   {
+    "id": "android_app",
+    "translation": "Application Android"
+  },
+  {
     "id": "qbittorrent_plugin",
     "translation": "Plugin qBittorrent"
   },
@@ -944,6 +948,22 @@
     "translation": "Le torrent %s a été supprimé."
   },
   {
+    "id": "torrent_deleted_by",
+    "translation": "Le torrent n° %s de %s a été supprimé par %s."
+  },
+  {
+    "id": "torrent_edited_by",
+    "translation": "Le torrent n° %s de %s a été édité par %s."
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "Le torrent n° %s de %s a été bloqué par %s."
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "Le torrent n° %s de %s a été débloqué par %s."
+  },
+  {
     "id": "torrents_deleted",
     "translation": "Torrents supprimés"
   },
@@ -954,6 +974,14 @@
   {
     "id": "delete_report",
     "translation": "Supprimer le signalement"
+  },
+  {
+    "id": "comment_deleted_by",
+    "translation": "Le commentaire n° %s de %s a été supprimé par %s."
+  },
+  {
+    "id": "comment_edited_by",
+    "translation": "Le commentaire n° %s de %s a été édité par %s."
   },
   {
     "id": "no_action_exist",
@@ -1314,5 +1342,17 @@
   {
     "id": "comments_list",
     "translation": "Liste des commentaires"
+  },
+  {
+    "id": "activity_list",
+    "translation": "Liste des activités"
+  },
+  {
+    "id": "activities",
+    "translation": "Activités"
+  },
+  {
+    "id": "filter",
+    "translation": "Filtrer"
   }
 ]
