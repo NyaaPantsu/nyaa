@@ -1073,7 +1073,7 @@
   },
   {
     "id": "owner_id_placeholder",
-    "translation": "New Owner"
+    "translation": "Owner ID (eg. Renchon = 0)"
   },
   {
     "id": "try_new_attempt",
