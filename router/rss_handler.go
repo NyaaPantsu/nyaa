@@ -20,8 +20,12 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	page := vars["page"]
 	userID := vars["id"]
 
+	offset := r.URL.Query().Get("offset")
 	var err error
 	pagenum := 1
+	if page == "" && offset != "" {
+		page = offset
+	}
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
 		if err != nil {

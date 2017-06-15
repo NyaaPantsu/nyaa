@@ -47,12 +47,16 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	nameLike := strings.TrimSpace(r.URL.Query().Get("q"))
 
 	page := mux.Vars(r)["page"]
+	if page == "" {
+		page = r.URL.Query().Get("offset")
+	}
+
 	pagenum, err := strconv.ParseUint(page, 10, 32)
 	if err != nil {
 		pagenum = 1
 	}
 
-	max, err := strconv.ParseUint(r.URL.Query().Get("max"), 10, 32)
+	max, err := strconv.ParseUint(r.URL.Query().Get("limit"), 10, 32)
 	if err != nil {
 		max = uint64(config.Conf.Navigation.TorrentsPerPage)
 	} else if max > uint64(config.Conf.Navigation.MaxTorrentsPerPage) {
@@ -83,6 +87,11 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	}
 
 	var category Category
+	cat := r.URL.Query().Get("cat")
+	if cat != "" {
+		category.Parse(r.URL.Query().Get("cat"))
+	}
+
 	category.Parse(r.URL.Query().Get("c"))
 
 	var sortMode SortMode
