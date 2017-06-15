@@ -1,5 +1,5 @@
 {{define "title"}}{{call $.T "home"}}{{end}}
-{{define "contclass"}}cont-home{{end}}
+{{define "contclass"}}{{if HasAdmin .User }}content-admin{{end}}{{end}}
 {{define "additional_header"}}
 <link rel="stylesheet" href="/css/flags/flags.min.css">
 <link rel="stylesheet" href="/css/flags/custom_flags.css">
@@ -98,7 +98,7 @@
     </div>
     {{ if HasAdmin $.User }}
     <div class="modtools">
-        <button id="show_actions" data-toggle-text="{{call $.T "hide_mod_tools"}}">{{call $.T "show_mod_tools"}}</button>
+        <button id="show_actions" class="form-input" data-toggle-text="{{call $.T "hide_mod_tools"}}">{{call $.T "show_mod_tools"}}</button>
         <span class="actions">
             <span class="btn-group">
                 <select class="cb_action" name="category_id" style="width: 14em;">
@@ -116,14 +116,14 @@
                     <option value="3">{{call $.T "trusted"}}</option>
                     <option value="4">A+</option>
                 </select>
-                <button class="cb_action" id="edit">{{ call $.T "edit" }}</button>
+                <button class="form-input btn-orange" id="edit">{{ call $.T "edit" }}</button>
             </span>
             <span class="btn-group">
-                <button class="cb_action" id="lock_delete">{{ call $.T "lock_delete" }}</button>
-                <button class="cb_action" id="delete">{{ call $.T "delete" }}</button>
+                <button class="form-input btn-red" id="lock_delete">{{ call $.T "lock_delete" }}</button>
+                <button class="form-input btn-red" id="delete">{{ call $.T "delete" }}</button>
             </span>
             <span class="btn-group">
-                <button class="cb_submit" id="modal_active">{{ call $.T "save_changes" }}</button>
+                <button class="cb_submit form-input btn-green" id="modal_active">{{ call $.T "save_changes" }}</button>
             </span>
         </span>
     </div>
