@@ -56,7 +56,7 @@ func init() {
 	Router.HandleFunc("/faq", FaqHandler).Name("faq")
 	Router.HandleFunc("/activities", ActivityListHandler).Name("activity_list")
 	Router.HandleFunc("/feed", RSSHandler).Name("feed")
-	Router.HandleFunc("/feed/{page}", RSSHandler).Name("feed_page")
+	Router.HandleFunc("/feed/{page:[0-9]+}", RSSHandler).Name("feed_page")
 	Router.HandleFunc("/feed/torznab", RSSTorznabHandler).Name("feed_torznab")
 	Router.HandleFunc("/feed/eztv", RSSEztvHandler).Name("feed_eztv")
 
