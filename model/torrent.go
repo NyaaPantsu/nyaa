@@ -78,7 +78,6 @@ type Scrape struct{
 	Leechers   uint32    `gorm:"column:leechers"`
 	Completed  uint32    `gorm:"column:completed"`
 	LastScrape time.Time `gorm:"column:last_scrape"`
-	FileList   []File    `gorm:"ForeignKey:torrent_id"`
 }
 
 // Size : Returns the total size of memory recursively allocated for this struct
@@ -282,7 +281,7 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 		// Comments: TODO
 		// LastScrape not stored in ES, counts won't show without a value however
 		Scrape:      &Scrape{Seeders: t.Seeders, Leechers: t.Leechers, Completed: t.Completed, LastScrape: time.Now()},
-		Language:   t.Language,
+		Language:    t.Language,
 		//FileList: TODO
 	}
 	return torrent
