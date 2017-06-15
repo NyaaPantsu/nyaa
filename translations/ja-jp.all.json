@@ -860,6 +860,22 @@
     "translation": "Torrent %s が削除されました。"
   },
   {
+    "id": "torrent_deleted_by",
+    "translation": "Torrent #%s (%s アップロード) は %s によって削除されました。"
+  },
+  {
+    "id": "torrent_edited_by",
+    "translation": "Torrent #%s (%s アップロード) は %s によって編集されました。"
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "Torrent #%s (%s アップロード) は %s によってロックされました。"
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "Torrent #%s (%s アップロード) は %s によってロック解除されました。"
+  },
+  {
     "id": "torrents_deleted",
     "translation": "Torrent が削除されました"
   },
@@ -870,6 +886,14 @@
   {
     "id": "delete_report",
     "translation": "レポートを削除"
+  },
+  {
+    "id": "comment_deleted_by",
+    "translation": "コメント #%s (%s 投稿) は %s によって削除されました。"
+  },
+  {
+    "id": "comment_edited_by",
+    "translation": "コメント #%s (%s 投稿) は %s によって編集されました。"
   },
   {
     "id": "no_action_exist",
@@ -1334,5 +1358,17 @@
   {
     "id": "language_multiple_name",
     "translation": "複数の言語"
+  },
+  {
+    "id": "activity_list",
+    "translation": "アクティビティー一覧"
+  },
+  {
+    "id": "activities",
+    "translation": "アクティビティー"
+  },
+  {
+    "id": "filter",
+    "translation": "フィルター"
   }
 ]
