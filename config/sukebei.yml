@@ -18,3 +18,5 @@ models:
   files_table_name: sukebei_files
 # NotificationTableName : Name of notifications table in DB
   notifications_table_name: sukebei_notifications
+# NotificationTableName : Name of scrape table in DB
+  scrape_table_name: sukebei_scrape

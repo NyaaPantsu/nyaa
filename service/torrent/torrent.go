@@ -35,7 +35,7 @@ func GetTorrentByID(id string) (torrent model.Torrent, err error) {
 		return
 	}
 
-	tmp := db.ORM.Where("torrent_id = ?", id).Preload("Comments")
+	tmp := db.ORM.Where("torrent_id = ?", id).Preload("Scrape").Preload("Comments")
 	if idInt > int64(config.Conf.Models.LastOldTorrentID) {
 		tmp = tmp.Preload("FileList")
 	}
@@ -142,10 +142,6 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 	if conditions != "" {
 		dbQuery = dbQuery + " WHERE " + conditions
 	}
-	/* This makes all queries take roughly the same amount of time (lots)...
-	if strings.Contains(conditions, "torrent_name") && offset > 0 {
-		dbQuery = "WITH t AS (SELECT * FROM torrents WHERE " + conditions + ") SELECT * FROM t"
-	}*/
 
 	if orderBy == "" { // default OrderBy
 		orderBy = "torrent_id DESC"
@@ -154,7 +150,7 @@ func getTorrentsOrderBy(parameters *serviceBase.WhereParams, orderBy string, lim
 	if limit != 0 || offset != 0 { // if limits provided
 		dbQuery = dbQuery + " LIMIT " + strconv.Itoa(limit) + " OFFSET " + strconv.Itoa(offset)
 	}
-	dbQ := db.ORM
+	dbQ := db.ORM.Preload("Scrape")
 	if withUser {
 		dbQ = dbQ.Preload("Uploader")
 	}
