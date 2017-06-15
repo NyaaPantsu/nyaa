@@ -83,9 +83,13 @@
               <td class="tr-size home-td hide-xs">
                   {{ fileSize .Filesize $.T }}
               </td>
+              {{if .LastScrape.IsZero}}
+              <td class="home-td hide-xs" colspan="3">{{call $.T "unknown"}}</td>
+              {{else}}
               <td class="tr-se home-td hide-xs">{{.Seeders}}</td>
               <td class="tr-le home-td hide-xs">{{.Leechers}}</td>
               <td class="tr-dl home-td hide-xs">{{.Completed}}</td>
+              {{end}}
               <td class="tr-date home-td date-short hide-xs">{{.Date}}</td>
           </tr>
           {{end}}

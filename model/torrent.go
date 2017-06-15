@@ -274,7 +274,7 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 		Seeders:    t.Seeders,
 		Leechers:   t.Leechers,
 		Completed:  t.Completed,
-		LastScrape: t.LastScrape,
+		LastScrape: time.Now(), // Not stored in ES, counts won't show without value
 		Language:   t.Language,
 		//FileList: TODO
 	}
