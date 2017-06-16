@@ -81,7 +81,8 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 
 # Contributing
  Use tabs for css and js files.
-
+# Contributing to translation
+Please look at /translations/README.md
 # IRC
 #nyaapant<span>su@irc<span>.rizon.n</span>et</span>
 
