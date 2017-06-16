@@ -439,6 +439,9 @@ html, body {
 }
 .torrent-info-data {
 	width: 50%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .torrent-info-row {
 	text-align: left;
