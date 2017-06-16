@@ -76,30 +76,6 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 > For postgres, place the dump in the toplevel directory and name it to
 > nyaa_psql.backup.
 
-## TODO
-* Scraping of fan subbing RSS feeds similar to metainfo_fetcher and scraper
-  * nyaa.si
-  * anidex.moe
-  * e-hentai
-  * TT
-  * make it to local clients scrape from nyaa.pantsu.cat
-* Remove and replace gravatar
-* Custom trackers for magnet links
-* Theme fixes(WIP)
-  * make new layout fully responsive
-  * Finish themeing of forms and buttons
-* Make Mascots customizable
-* reset api key button(Completely untested)
-* API improvement
-  * torznab api searching (halfish done)
-  * uploading of torrent files
-* Anidb integration
-* Use elastic search or sphinix search
-* Use new db abstraction layer and remove all ORM code
-* Get code up to standard of go lint recommendations
-* Write tests
-* Make sure html and css are fully up to recommendations
-
 # LICENSE
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
