@@ -25,10 +25,14 @@ func ConvertToCat(cat string) string {
 }
 
 func convertCat(cat string) string {
+	if cat == "5070" {
+		return "3_13"
+	}
 
 	if len(cat) < 6 {
 		return ""
 	}
+
 	cI, _ := strconv.Atoi(cat[2:4])
 	subI, _ := strconv.Atoi(cat[4:6])
 

@@ -354,15 +354,11 @@ func getTorrentList(r *http.Request) (torrents []model.Torrent, createdAsTime ti
 
 	if cat != "" {
 		query := r.URL.Query()
-		if cat == "5070" {
-			query.Set("c", "3_")
-		} else {
-			c := nyaafeeds.ConvertToCat(cat)
-			if c == "" {
-				return
-			}
-			query.Set("c", c)
+		c := nyaafeeds.ConvertToCat(cat)
+		if c == "" {
+			return
 		}
+		query.Set("c", c)
 		r.URL.RawQuery = query.Encode()
 	}
 
