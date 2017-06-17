@@ -72,7 +72,7 @@ type Torrent struct {
 }
 
 // Scrape model
-type Scrape struct{
+type Scrape struct {
 	TorrentID  uint      `gorm:"column:torrent_id;primary_key"`
 	Seeders    uint32    `gorm:"column:seeders"`
 	Leechers   uint32    `gorm:"column:leechers"`
@@ -94,7 +94,6 @@ func (t Torrent) TableName() string {
 func (t Scrape) TableName() string {
 	return config.Conf.Models.ScrapeTableName
 }
-
 
 // Identifier : Return the identifier of a torrent
 func (t *Torrent) Identifier() string {
@@ -270,7 +269,7 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 		UploaderID:  t.UploaderID,
 		Downloads:   t.Downloads,
 		//Stardom: t.Stardom,
-		Filesize:    t.Filesize,
+		Filesize: t.Filesize,
 		//Description: t.Description,
 		//WebsiteLink: t.WebsiteLink,
 		//Trackers: t.Trackers,
@@ -280,8 +279,8 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 		//OldComments: TODO
 		// Comments: TODO
 		// LastScrape not stored in ES, counts won't show without a value however
-		Scrape:      &Scrape{Seeders: t.Seeders, Leechers: t.Leechers, Completed: t.Completed, LastScrape: time.Now()},
-		Language:    t.Language,
+		Scrape:   &Scrape{Seeders: t.Seeders, Leechers: t.Leechers, Completed: t.Completed, LastScrape: time.Now()},
+		Language: t.Language,
 		//FileList: TODO
 	}
 	return torrent
@@ -328,7 +327,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 
 	uploader := "れんちょん" // by default
 	var uploaderID uint
-	if t.UploaderID > 0 {
+	if t.UploaderID > 0 && t.Uploader != nil {
 		uploader = t.Uploader.Username
 		uploaderID = t.UploaderID
 	} else if t.OldUploader != "" {
