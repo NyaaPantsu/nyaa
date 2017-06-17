@@ -37,3 +37,27 @@
     <input class="form-input search-box" name="q" placeholder="{{call $.T "search"}}" type="text" value="{{.Search.Query}}">
     <button type="submit" class="form-input icon-search"></button>
 {{end}}
+{{define "search_refine"}}
+<div style="text-align:left;" class="box">
+    <span>Between <input class="form-input" size="7" name="minSize" type="text"> and <input size="7" class="form-input" name="maxSize" type="text"> 
+    <select name="sizeType" class="form-input">
+        <option value="b">B</option>
+        <option value="k">KiB</option>
+        <option selected value="m">MiB</option>
+        <option value="g">GiB</option>
+    </select>
+     large.
+    </span>
+    <br>
+    <span>Between <input class="form-input" size="7" name="minDate" type="text"> and <input class="form-input" size="7" name="minDate" type="text"> 
+    <select name="dateType" class="form-input">
+        <option value="d">days</option>
+        <option value="m">months</option>
+        <option value="y">years</option>
+    </select>
+     old.
+    </span>
+    <br>
+    <button style="margin-top:10px;" type="submit" class="form-input">Refine</button>
+</div>
+{{end}}
