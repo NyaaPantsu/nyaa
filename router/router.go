@@ -58,6 +58,7 @@ func init() {
 	Router.HandleFunc("/feed", RSSHandler).Name("feed")
 	Router.HandleFunc("/feed/{page:[0-9]+}", RSSHandler).Name("feed_page")
 	Router.HandleFunc("/feed/torznab", RSSTorznabHandler).Name("feed_torznab")
+	Router.HandleFunc("/feed/torznab/api", RSSTorznabHandler).Name("feed_torznab")
 	Router.HandleFunc("/feed/torznab/{page:[0-9]+}", RSSTorznabHandler).Name("feed_torznab_page")
 	Router.HandleFunc("/feed/eztv", RSSEztvHandler).Name("feed_eztv")
 	Router.HandleFunc("/feed/eztv/{page:[0-9]+}", RSSEztvHandler).Name("feed_eztv_page")
