@@ -28,11 +28,11 @@ func CategoryExists(category string) bool {
 }
 
 // GetCategoriesSelect : Format categories in map ordered alphabetically
-func GetCategoriesSelect(keepParent bool) map[string]string {
+func GetCategoriesSelect(keepParent bool, keepChild bool) map[string]string {
 	categories := GetCategories()
 	catSelect := make(map[string]string, len(categories))
 	for k, v := range categories {
-		if len(k) > 2 || keepParent {
+		if (keepParent && keepChild) || (len(k) > 2 && !keepParent) || (len(k) <= 2 && !keepChild) {
 			catSelect[v] = k
 		}
 	}

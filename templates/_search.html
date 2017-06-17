@@ -1,7 +1,7 @@
 {{define "search_common"}}
   <select name="c" class="form-input hide-xs">
     <option value="_">{{call $.T "all_categories"}}</option>
-      {{ range $name_cat, $id_cat := (GetCategories true) }}
+      {{ range $name_cat, $id_cat := (GetCategories true true) }}
       <option value="{{ $id_cat }}" {{if eq $.Search.Category $id_cat }}selected{{end}}>{{call $.T $name_cat }}</option>
       {{ end }}
   </select>

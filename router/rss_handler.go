@@ -137,7 +137,7 @@ func RSSTorznabHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	if t == "caps" {
 		T := publicSettings.GetTfuncFromRequest(r)
-		cat := categories.GetCategoriesSelect(true)
+		cat := categories.GetCategoriesSelect(true, true)
 		var categories []*nyaafeeds.RssCategoryTorznab
 		var keys []string
 		for name := range cat {

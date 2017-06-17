@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"math"
 	"net/url"
+	"sort"
 	"strconv"
 	"time"
 
@@ -174,8 +175,32 @@ var FuncMap = template.FuncMap{
 		return t.Format(time.RFC3339)
 	},
 	"GetHostname": util.GetHostname,
-	"GetCategories": func(keepParent bool) map[string]string {
-		return categories.GetCategoriesSelect(keepParent)
+	"GetCategories": func(keepParent bool, keepChild bool) map[string]string {
+		return categories.GetCategoriesSelect(keepParent, keepChild)
+	},
+	"GetCategory": func(category string, keepParent bool) (categoryRet map[string]string) {
+		cat := categories.GetCategoriesSelect(true, true)
+		var keys []string
+		for name := range cat {
+			keys = append(keys, name)
+		}
+
+		sort.Strings(keys)
+		found := false
+		categoryRet = make(map[string]string)
+		for _, key := range keys {
+			if cat[key] == category+"_" {
+				found = true
+				if keepParent {
+					categoryRet[key] = cat[key]
+				}
+			} else if len(cat[key]) <= 2 && len(categoryRet) > 0 {
+				break
+			} else if found {
+				categoryRet[key] = cat[key]
+			}
+		}
+		return
 	},
 	"CategoryName": func(category string, sub_category string) string {
 		s := category + "_" + sub_category

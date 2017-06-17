@@ -19,7 +19,7 @@
           <label for="c">{{call $.T "category"}}</label>
           <select name="c" class="form-input up-input">
               <option value="">{{call $.T "select_a_torrent_category"}}</option>
-              {{ range $name_cat, $id_cat := (GetCategories false) }}
+              {{ range $name_cat, $id_cat := (GetCategories false true) }}
               <option value="{{ $id_cat }}" {{if eq $.Form.Category $id_cat }}selected{{end}}>{{call $.T $name_cat }}</option>
               {{ end }}
           </select>

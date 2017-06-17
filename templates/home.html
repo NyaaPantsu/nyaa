@@ -103,7 +103,7 @@
             <span class="btn-group">
                 <select class="cb_action" name="category_id" style="width: 14em;">
                     <option value="">{{call $.T "category"}}</option>
-                    {{ range $name_cat, $id_cat := (GetCategories true) }}
+                    {{ range $name_cat, $id_cat := (GetCategories true true) }}
                     <option value="{{ $id_cat }}">{{call $.T $name_cat }}</option>
                     {{ end }}
                 </select>
