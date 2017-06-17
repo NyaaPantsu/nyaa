@@ -6,6 +6,9 @@
 {{end}}
 {{define "content"}}
       <!-- Contain the table within a grid, as for better sizing -->
+      {{if ne $.Search.Query ""}}
+      {{block "search_refine" .}}{{end}}
+      {{end}}
       <div class="results box">
           <table>
           <thead class="torrent-info">
