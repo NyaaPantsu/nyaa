@@ -3,6 +3,7 @@ package common
 import (
 	humanize "github.com/dustin/go-humanize"
 
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -152,20 +153,33 @@ func (c Category) IsSubSet() bool {
 
 // Parse sets category by string
 // returns true if string is valid otherwise returns false
-func (c *Category) Parse(s string) (ok bool) {
-	parts := strings.Split(s, "_")
-	if len(parts) == 2 {
-		tmp, err := strconv.ParseUint(parts[0], 10, 8)
-		if err == nil {
-			c.Main = uint8(tmp)
-			tmp, err = strconv.ParseUint(parts[1], 10, 8)
-			if err == nil {
-				c.Sub = uint8(tmp)
-				ok = true
+func ParseCategories(s string) []*Category {
+	fmt.Println("s: " + s)
+	if s != "" {
+		parts := strings.Split(s, ",")
+		categories := make([]*Category, len(parts))
+		for key, val := range parts {
+			partsCat := strings.Split(val, "_")
+
+			if len(partsCat) == 2 {
+				tmp, err := strconv.ParseUint(partsCat[0], 10, 8)
+				if err == nil {
+					c := uint8(tmp)
+					tmp, err = strconv.ParseUint(partsCat[1], 10, 8)
+					var sub uint8
+					if err == nil {
+						sub = uint8(tmp)
+					}
+					categories[key] = &Category{
+						Main: c,
+						Sub:  sub,
+					}
+				}
 			}
 		}
+		return categories
 	}
-	return
+	return Categories{}
 }
 
 type SizeBytes uint64
@@ -180,6 +194,8 @@ func (sz *SizeBytes) Parse(s string) bool {
 	return true
 }
 
+type Categories []*Category
+
 // deprecated for TorrentParam
 type SearchParam struct {
 	TorrentID uint
@@ -187,7 +203,7 @@ type SearchParam struct {
 	Order     bool // True means acsending
 	Status    Status
 	Sort      SortMode
-	Category  Category
+	Category  Categories
 	FromDate  string
 	ToDate    string
 	Page      int

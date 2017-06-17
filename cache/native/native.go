@@ -1,5 +1,6 @@
 package native
 
+/*
 import (
 	"container/list"
 	"sync"
@@ -141,3 +142,4 @@ func (s *store) update(data []model.Torrent, count int) {
 	// In a separate goroutine, to ensure there is never any lock intersection
 	go s.n.updateUsedSize(delta)
 }
+*/

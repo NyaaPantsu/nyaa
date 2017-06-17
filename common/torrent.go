@@ -23,7 +23,7 @@ type TorrentParam struct {
 	Order     bool // True means ascending
 	Status    Status
 	Sort      SortMode
-	Category  Category
+	Category  Categories
 	Max       uint32
 	Offset    uint32
 	UserID    uint32
@@ -86,13 +86,7 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 		p.FromDate = time.Now().AddDate(0, 0, -maxage).Format("2006-01-02")
 	}
 
-	var category Category
-	cat := r.URL.Query().Get("cat")
-	if cat != "" {
-		category.Parse(r.URL.Query().Get("cat"))
-	}
-
-	category.Parse(r.URL.Query().Get("c"))
+	categories := ParseCategories(r.URL.Query().Get("c"))
 
 	var sortMode SortMode
 	sortMode.Parse(r.URL.Query().Get("sort"))
@@ -120,7 +114,7 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	p.Order = ascending
 	p.Status = status
 	p.Sort = sortMode
-	p.Category = category
+	p.Category = categories
 	p.Language = language
 	p.MinSize = minSize
 	p.MaxSize = maxSize
@@ -136,11 +130,16 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 func (p *TorrentParam) ToFilterQuery() string {
 	// Don't set sub category unless main category is set
 	query := ""
-	if p.Category.IsMainSet() {
-		query += "category:" + strconv.FormatInt(int64(p.Category.Main), 10)
-		if p.Category.IsSubSet() {
-			query += " sub_category:" + strconv.FormatInt(int64(p.Category.Sub), 10)
+	if len(p.Category) > 0 {
+		conditionsOr := make([]string, len(p.Category))
+		for key, val := range p.Category {
+			if val.IsSubSet() {
+				conditionsOr[key] = "(category: " + strconv.FormatInt(int64(val.Main), 10) + " AND sub_category: " + strconv.FormatInt(int64(val.Sub), 10) + ")"
+			} else if val.IsMainSet() {
+				conditionsOr[key] = "(category: " + strconv.FormatInt(int64(val.Main), 10) + ")"
+			}
 		}
+		query += strings.Join(conditionsOr, " OR ")
 	}
 
 	if p.UserID != 0 {
