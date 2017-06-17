@@ -167,9 +167,13 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		messages.ImportFromError("errors", err)
 	}
+	category := ""
+	if len(searchParam.Category) > 0 {
+		category = searchParam.Category[0].String()
+	}
 	searchForm := searchForm{
 		SearchParam:      searchParam,
-		Category:         searchParam.Category.String(),
+		Category:         category,
 		ShowItemsPerPage: true,
 	}
 
@@ -492,9 +496,13 @@ func DeletedTorrentsModPanel(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		messages.ImportFromError("errors", err)
 	}
+	category := ""
+	if len(searchParam.Category) > 0 {
+		category = searchParam.Category[0].String()
+	}
 	searchForm := searchForm{
 		SearchParam:      searchParam,
-		Category:         searchParam.Category.String(),
+		Category:         category,
 		ShowItemsPerPage: true,
 	}
 

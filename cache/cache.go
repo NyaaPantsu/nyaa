@@ -2,7 +2,6 @@ package cache
 
 import (
 	"github.com/NyaaPantsu/nyaa/cache/memcache"
-	"github.com/NyaaPantsu/nyaa/cache/native"
 	"github.com/NyaaPantsu/nyaa/cache/nop"
 	"github.com/NyaaPantsu/nyaa/common"
 	"github.com/NyaaPantsu/nyaa/config"
@@ -20,9 +19,10 @@ var Impl Cache
 
 func Configure(conf *config.CacheConfig) (err error) {
 	switch conf.Dialect {
-	case "native":
-		Impl = native.New(conf.Size)
-		return
+	/*case "native":
+	Impl = native.New(conf.Size)
+	return
+	*/
 	case "memcache":
 		Impl = memcache.New()
 		return

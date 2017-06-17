@@ -139,12 +139,17 @@ func RSSTorznabHandler(w http.ResponseWriter, r *http.Request) {
 		T := publicSettings.GetTfuncFromRequest(r)
 		cat := categories.GetCategoriesSelect(true, true)
 		var categories []*nyaafeeds.RssCategoryTorznab
+		categories = append(categories, &nyaafeeds.RssCategoryTorznab{
+			ID:          "5070",
+			Name:        "Anime",
+			Description: "Anime",
+		})
 		var keys []string
 		for name := range cat {
 			keys = append(keys, name)
 		}
 		sort.Strings(keys)
-		last := -1
+		last := 0
 		for _, key := range keys {
 			if len(cat[key]) <= 2 {
 				categories = append(categories, &nyaafeeds.RssCategoryTorznab{
@@ -208,13 +213,27 @@ func RSSTorznabHandler(w http.ResponseWriter, r *http.Request) {
 
 		feed := &nyaafeeds.RssFeed{
 			Title:   title,
+			Xmlns:   "http://torznab.com/schemas/2015/feed",
 			Link:    config.WebAddress() + "/",
 			PubDate: createdAsTime.String(),
 		}
 		feed.Items = make([]*nyaafeeds.RssItem, len(torrents))
 
 		for i, torrent := range torrents {
+
 			torrentJSON := torrent.ToJSON()
+			filesNumber := ""
+			if len(torrentJSON.FileList) > 0 {
+				filesNumber = strconv.Itoa(len(torrentJSON.FileList))
+			}
+			seeders := ""
+			if torrentJSON.Seeders > 0 {
+				seeders = strconv.Itoa(int(torrentJSON.Seeders))
+			}
+			leechers := ""
+			if torrentJSON.Leechers > 0 {
+				leechers = strconv.Itoa(int(torrentJSON.Leechers))
+			}
 			feed.Items[i] = &nyaafeeds.RssItem{
 				Title: torrentJSON.Name,
 				Link:  config.WebAddress() + "/download/" + torrentJSON.Hash,
@@ -230,15 +249,35 @@ func RSSTorznabHandler(w http.ResponseWriter, r *http.Request) {
 					Length: strconv.FormatUint(uint64(torrentJSON.Filesize), 10),
 					Type:   "application/x-bittorrent",
 				},
-				Torznab: &nyaafeeds.RssTorznab{
-					Xmlns:     "http://torznab.com/schemas/2015/feed",
-					Size:      strconv.FormatUint(uint64(torrentJSON.Filesize), 10),
-					Files:     strconv.Itoa(len(torrentJSON.FileList)),
-					Grabs:     strconv.Itoa(torrentJSON.Downloads),
-					Seeders:   strconv.Itoa(int(torrentJSON.Seeders)),
-					Leechers:  strconv.Itoa(int(torrentJSON.Leechers)),
-					Infohash:  torrentJSON.Hash,
-					MagnetURL: string(torrentJSON.Magnet),
+				Torznab: []*nyaafeeds.RssTorznab{
+					&nyaafeeds.RssTorznab{
+						Name:  "size",
+						Value: strconv.FormatUint(uint64(torrentJSON.Filesize), 10),
+					},
+					&nyaafeeds.RssTorznab{
+						Name:  "files",
+						Value: filesNumber,
+					},
+					&nyaafeeds.RssTorznab{
+						Name:  "grabs",
+						Value: strconv.Itoa(torrentJSON.Downloads),
+					},
+					&nyaafeeds.RssTorznab{
+						Name:  "seeders",
+						Value: seeders,
+					},
+					&nyaafeeds.RssTorznab{
+						Name:  "leechers",
+						Value: leechers,
+					},
+					&nyaafeeds.RssTorznab{
+						Name:  "infohash",
+						Value: torrentJSON.Hash,
+					},
+					&nyaafeeds.RssTorznab{
+						Name:  "magneturl",
+						Value: string(torrentJSON.Magnet),
+					},
 				},
 			}
 		}
@@ -262,21 +301,37 @@ func getTorrentList(r *http.Request) (torrents []model.Torrent, createdAsTime ti
 	page := vars["page"]
 	userID := vars["id"]
 	cat := r.URL.Query().Get("cat")
-
-	offset := r.URL.Query().Get("offset")
-	pagenum := 1
-	if page == "" && offset != "" {
-		page = offset
+	offset := 0
+	if r.URL.Query().Get("offset") != "" {
+		offset, err = strconv.Atoi(html.EscapeString(r.URL.Query().Get("offset")))
+		if err != nil {
+			return
+		}
 	}
-	if page != "" {
+
+	createdAsTime = time.Now()
+
+	if len(torrents) > 0 {
+		createdAsTime = torrents[0].Date
+	}
+
+	title = "Nyaa Pantsu"
+	if config.IsSukebei() {
+		title = "Sukebei Pantsu"
+	}
+
+	pagenum := 1
+	if page == "" && offset > 0 { // first page for offset is 0
+		pagenum = offset + 1
+	} else if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
 		if err != nil {
 			return
 		}
-		if pagenum <= 0 {
-			err = errors.New("Page number is invalid")
-			return
-		}
+	}
+	if pagenum <= 0 {
+		err = errors.New("Page number is invalid")
+		return
 	}
 
 	if userID != "" {
@@ -299,22 +354,19 @@ func getTorrentList(r *http.Request) (torrents []model.Torrent, createdAsTime ti
 
 	if cat != "" {
 		query := r.URL.Query()
-		c, sub := nyaafeeds.ConvertToCat(cat)
-		query.Set("c", c+"_"+sub)
+		if cat == "5070" {
+			query.Set("c", "3_")
+		} else {
+			c := nyaafeeds.ConvertToCat(cat)
+			if c == "" {
+				return
+			}
+			query.Set("c", c)
+		}
+		r.URL.RawQuery = query.Encode()
 	}
 
 	_, torrents, err = search.SearchByQueryNoCount(r, pagenum)
-
-	createdAsTime = time.Now()
-
-	if len(torrents) > 0 {
-		createdAsTime = torrents[0].Date
-	}
-
-	title = "Nyaa Pantsu"
-	if config.IsSukebei() {
-		title = "Sukebei Pantsu"
-	}
 
 	return
 }

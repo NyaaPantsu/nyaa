@@ -133,9 +133,8 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 	} else {
 		search.FromDate = time.Now().AddDate(0, 0, -maxage).Format("2006-01-02")
 	}
-
+	search.Category = common.ParseCategories(r.URL.Query().Get("c"))
 	search.Status.Parse(r.URL.Query().Get("s"))
-	search.Category.Parse(r.URL.Query().Get("c"))
 	search.Sort.Parse(r.URL.Query().Get("sort"))
 	search.MinSize.Parse(r.URL.Query().Get("minSize"))
 	search.MaxSize.Parse(r.URL.Query().Get("maxSize"))
@@ -165,11 +164,16 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 		Params: make([]interface{}, 0, 64),
 	}
 	conditions := make([]string, 0, 64)
-
-	if search.Category.Main != 0 {
-		conditions = append(conditions, "category = ?")
-		parameters.Params = append(parameters.Params, search.Category.Main)
+	if len(search.Category) > 0 {
+		conditionsOr := make([]string, len(search.Category))
+		for key, val := range search.Category {
+			conditionsOr[key] = "(category = ? AND sub_category = ?)"
+			parameters.Params = append(parameters.Params, val.Main)
+			parameters.Params = append(parameters.Params, val.Sub)
+		}
+		conditions = append(conditions, strings.Join(conditionsOr, " OR "))
 	}
+
 	if search.UserID != 0 {
 		conditions = append(conditions, "uploader = ?")
 		parameters.Params = append(parameters.Params, search.UserID)
@@ -185,10 +189,6 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 	if search.ToDate != "" {
 		conditions = append(conditions, "date <= ?")
 		parameters.Params = append(parameters.Params, search.ToDate)
-	}
-	if search.Category.Sub != 0 {
-		conditions = append(conditions, "sub_category = ?")
-		parameters.Params = append(parameters.Params, search.Category.Sub)
 	}
 	if search.Status != 0 {
 		if search.Status == common.FilterRemakes {
