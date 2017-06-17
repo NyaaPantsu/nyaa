@@ -135,11 +135,11 @@ func (p *TorrentParam) ToFilterQuery() string {
 		for key, val := range p.Category {
 			if val.IsSubSet() {
 				conditionsOr[key] = "(category: " + strconv.FormatInt(int64(val.Main), 10) + " AND sub_category: " + strconv.FormatInt(int64(val.Sub), 10) + ")"
-			} else if val.IsMainSet() {
+			} else {
 				conditionsOr[key] = "(category: " + strconv.FormatInt(int64(val.Main), 10) + ")"
 			}
 		}
-		query += strings.Join(conditionsOr, " OR ")
+		query += "(" + strings.Join(conditionsOr, " OR ") + ")"
 	}
 
 	if p.UserID != 0 {

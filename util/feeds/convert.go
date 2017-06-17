@@ -26,7 +26,7 @@ func ConvertToCat(cat string) string {
 
 func convertCat(cat string) string {
 	if cat == "5070" {
-		return "3_13"
+		return "3_5"
 	}
 
 	if len(cat) < 6 {
