@@ -8,7 +8,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gorilla/mux"
 	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
@@ -45,17 +44,6 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	var err error
 
 	nameLike := strings.TrimSpace(r.URL.Query().Get("q"))
-
-	page := mux.Vars(r)["page"]
-	if page == "" {
-		page = r.URL.Query().Get("offset")
-	}
-
-	pagenum, err := strconv.ParseUint(page, 10, 32)
-	if err != nil {
-		pagenum = 1
-	}
-
 	max, err := strconv.ParseUint(r.URL.Query().Get("limit"), 10, 32)
 	if err != nil {
 		max = uint64(config.Conf.Navigation.TorrentsPerPage)
@@ -104,7 +92,6 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	language := strings.TrimSpace(r.URL.Query().Get("lang"))
 
 	p.NameLike = nameLike
-	p.Offset = uint32(pagenum)
 	p.Max = uint32(max)
 	p.UserID = uint32(userID)
 	// TODO Use All

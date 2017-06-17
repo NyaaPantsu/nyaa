@@ -80,6 +80,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool, d
 	if db.ElasticSearchClient != nil {
 		var torrentParam common.TorrentParam
 		torrentParam.FromRequest(r)
+		torrentParam.Offset = uint32(pagenum)
 		totalHits, torrents, err := torrentParam.Find(db.ElasticSearchClient)
 		searchParam := common.SearchParam{
 			TorrentID: uint(torrentParam.TorrentID),
