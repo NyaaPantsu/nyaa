@@ -8,8 +8,6 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"fmt"
-
 	"github.com/NyaaPantsu/nyaa/cache"
 	"github.com/NyaaPantsu/nyaa/common"
 	"github.com/NyaaPantsu/nyaa/config"
@@ -166,7 +164,6 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 		Params: make([]interface{}, 0, 64),
 	}
 	conditions := make([]string, 0, 64)
-	fmt.Println(search.Category)
 	if len(search.Category) > 0 {
 		conditionsOr := make([]string, len(search.Category))
 		for key, val := range search.Category {

@@ -3,9 +3,10 @@ package common
 import (
 	humanize "github.com/dustin/go-humanize"
 
-	"fmt"
 	"strconv"
 	"strings"
+
+	"github.com/NyaaPantsu/nyaa/config"
 )
 
 type Status uint8
@@ -121,7 +122,7 @@ func (s *SortMode) ToDBField() string {
 	case Completed:
 		return "completed"
 	}
-	return "id"
+	return config.Conf.Torrents.Order
 }
 
 type Category struct {
@@ -154,7 +155,6 @@ func (c Category) IsSubSet() bool {
 // Parse sets category by string
 // returns true if string is valid otherwise returns false
 func ParseCategories(s string) []*Category {
-	fmt.Println("s: " + s)
 	if s != "" {
 		parts := strings.Split(s, ",")
 		categories := make([]*Category, len(parts))
