@@ -4,6 +4,8 @@ import (
 	"path"
 	"testing"
 
+	"reflect"
+
 	"github.com/NyaaPantsu/nyaa/config"
 )
 
@@ -33,11 +35,22 @@ func TestParseCategories(t *testing.T) {
 		t.Fatal("ParseCategories with good arg return an empty array")
 	}
 	cat = ParseCategories("3_13,3_5")
-	if len(cat) != 2 {
+	catEqual := []*Category{
+		&Category{
+			Main: 3,
+			Sub:  13,
+		},
+		&Category{
+			Main: 3,
+			Sub:  5,
+		},
+	}
+	if !reflect.DeepEqual(cat, catEqual) {
 		t.Fatal("ParseCategories with good arg doesn't return the right array")
 	}
 	cat = ParseCategories("3_13,3_5,5_50")
-	if len(cat) != 2 {
+	if !reflect.DeepEqual(cat, catEqual) {
 		t.Fatal("ParseCategories doesn't filter the wrong categories")
 	}
+
 }
