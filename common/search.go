@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/NyaaPantsu/nyaa/config"
+	catUtil "github.com/NyaaPantsu/nyaa/util/categories"
 )
 
 type Status uint8
@@ -157,10 +158,9 @@ func (c Category) IsSubSet() bool {
 func ParseCategories(s string) []*Category {
 	if s != "" {
 		parts := strings.Split(s, ",")
-		categories := make([]*Category, len(parts))
-		for key, val := range parts {
+		var categories []*Category
+		for _, val := range parts {
 			partsCat := strings.Split(val, "_")
-
 			if len(partsCat) == 2 {
 				tmp, err := strconv.ParseUint(partsCat[0], 10, 8)
 				if err == nil {
@@ -170,9 +170,11 @@ func ParseCategories(s string) []*Category {
 					if err == nil {
 						sub = uint8(tmp)
 					}
-					categories[key] = &Category{
-						Main: c,
-						Sub:  sub,
+					if catUtil.CategoryExists(partsCat[0] + "_" + partsCat[1]) {
+						categories = append(categories, &Category{
+							Main: c,
+							Sub:  sub,
+						})
 					}
 				}
 			}
