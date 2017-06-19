@@ -28,8 +28,8 @@ type TorrentParam struct {
 	UserID    uint32
 	TorrentID uint32
 	FromID    uint32
-	FromDate  string
-	ToDate    string
+	FromDate  DateFilter
+	ToDate    DateFilter
 	NotNull   string // csv
 	Null      string // csv
 	NameLike  string // csv
@@ -67,11 +67,17 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	status.Parse(r.URL.Query().Get("s"))
 
 	maxage, err := strconv.Atoi(r.URL.Query().Get("maxage"))
+	fromDate, toDate := DateFilter(""), DateFilter("")
 	if err != nil {
-		p.FromDate = r.URL.Query().Get("fromDate")
-		p.ToDate = r.URL.Query().Get("toDate")
+		// if to xxx is not provided, fromDate is equal to from xxx
+		if r.URL.Query().Get("toDate") != "" {
+			fromDate.Parse(r.URL.Query().Get("toDate"), r.URL.Query().Get("dateType"))
+			toDate.Parse(r.URL.Query().Get("fromDate"), r.URL.Query().Get("dateType"))
+		} else {
+			fromDate.Parse(r.URL.Query().Get("fromDate"), r.URL.Query().Get("dateType"))
+		}
 	} else {
-		p.FromDate = time.Now().AddDate(0, 0, -maxage).Format("2006-01-02")
+		fromDate = DateFilter(time.Now().AddDate(0, 0, -maxage).Format("2006-01-02"))
 	}
 
 	categories := ParseCategories(r.URL.Query().Get("c"))
@@ -80,9 +86,10 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	sortMode.Parse(r.URL.Query().Get("sort"))
 
 	var minSize SizeBytes
-	minSize.Parse(r.URL.Query().Get("minSize"))
 	var maxSize SizeBytes
-	maxSize.Parse(r.URL.Query().Get("maxSize"))
+
+	minSize.Parse(r.URL.Query().Get("minSize"), r.URL.Query().Get("sizeType"))
+	maxSize.Parse(r.URL.Query().Get("maxSize"), r.URL.Query().Get("sizeType"))
 
 	ascending := false
 	if r.URL.Query().Get("order") == "true" {
@@ -103,6 +110,8 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	p.Sort = sortMode
 	p.Category = categories
 	p.Language = language
+	p.FromDate = fromDate
+	p.ToDate = toDate
 	p.MinSize = minSize
 	p.MaxSize = maxSize
 	// FIXME 0 means no TorrentId defined
@@ -149,11 +158,11 @@ func (p *TorrentParam) ToFilterQuery() string {
 	}
 
 	if p.FromDate != "" && p.ToDate != "" {
-		query += " date: [" + p.FromDate + " " + p.ToDate + "]"
+		query += " date: [" + string(p.FromDate) + " " + string(p.ToDate) + "]"
 	} else if p.FromDate != "" {
-		query += " date: [" + p.FromDate + " *]"
+		query += " date: [" + string(p.FromDate) + " *]"
 	} else if p.ToDate != "" {
-		query += " date: [* " + p.ToDate + "]"
+		query += " date: [* " + string(p.ToDate) + "]"
 	}
 
 	sMinSize := strconv.FormatUint(uint64(p.MinSize), 10)
