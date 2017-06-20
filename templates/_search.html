@@ -54,7 +54,7 @@
         <option value="m"{{if eq .Search.SizeType "m"}} selected{{end}}>MiB</option>
         <option value="g"{{if eq .Search.SizeType "g"}} selected{{end}}>GiB</option>
     </select>
-     {{ call $.T "large"}}.
+     {{ call $.T "large"}}
     </span>
     <span class="form-refine">{{ call $.T "between"}} <input class="form-input" size="7" name="fromDate" type="text" value="{{.Search.FromDate}}"> {{ call $.T "and"}} <input class="form-input" size="7" name="toDate" type="text" value="{{.Search.ToDate}}"> 
     <select name="dateType" class="form-input">
