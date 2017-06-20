@@ -69,73 +69,88 @@ func ValidateForm(form interface{}, mes *msg.Messages) {
 			inputName = tag.Get("hum_name")
 		}
 		if tag.Get("len_min") != "" && (tag.Get("needed") != "" || formElem.Field(i).Len() > 0) { // Check minimum length
-			lenMin, _ := strconv.Atoi(tag.Get("len_min"))
-			if formElem.Field(i).Len() < lenMin {
-				mes.AddErrorf(tag.Get("form"), "Minimal length of %s required for the input: %s", strconv.Itoa(lenMin), inputName)
-			}
+			checkMinLength(formElem.Field(i), tag, inputName, mes)
 		}
 		if tag.Get("len_max") != "" && (tag.Get("needed") != "" || formElem.Field(i).Len() > 0) { // Check maximum length
-			lenMax, _ := strconv.Atoi(tag.Get("len_max"))
-			if formElem.Field(i).Len() > lenMax {
-				mes.AddErrorf(tag.Get("form"), "Maximal length of %s required for the input: %s", strconv.Itoa(lenMax), inputName)
-			}
+			checkMaxLength(formElem.Field(i), tag, inputName, mes)
 		}
 		if tag.Get("equalInput") != "" && (tag.Get("needed") != "" || formElem.Field(i).Len() > 0) {
-			otherInput := formElem.FieldByName(tag.Get("equalInput"))
-			if formElem.Field(i).Interface() != otherInput.Interface() {
-				mes.AddErrorf(tag.Get("form"), "Must be same %s", inputName)
+			checkEqualValue(formElem, i, tag, inputName, mes)
+		}
+		checksOnFieldTypes(formElem.Field(i), inputName, typeField, tag, mes)
+	}
+}
+
+func checkMinLength(fieldElem reflect.Value, tag reflect.StructTag, inputName string, mes *msg.Messages) {
+	lenMin, _ := strconv.Atoi(tag.Get("len_min"))
+	if fieldElem.Len() < lenMin {
+		mes.AddErrorTf(tag.Get("form"), "error_min_length", strconv.Itoa(lenMin), inputName)
+	}
+}
+func checkMaxLength(fieldElem reflect.Value, tag reflect.StructTag, inputName string, mes *msg.Messages) {
+	lenMax, _ := strconv.Atoi(tag.Get("len_max"))
+	if fieldElem.Len() > lenMax {
+		mes.AddErrorTf(tag.Get("form"), "error_max_length", strconv.Itoa(lenMax), inputName)
+	}
+}
+
+func checkEqualValue(formElem reflect.Value, i int, tag reflect.StructTag, inputName string, mes *msg.Messages) {
+	otherInput := formElem.FieldByName(tag.Get("equalInput"))
+	if formElem.Field(i).Interface() != otherInput.Interface() {
+		mes.AddErrorTf(tag.Get("form"), "error_same_value", inputName)
+	}
+}
+
+func checksOnFieldTypes(fieldElem reflect.Value, inputName string, typeField reflect.StructField, tag reflect.StructTag, mes *msg.Messages) {
+	switch typeField.Type.Name() {
+	case "string":
+		if tag.Get("equal") != "" && fieldElem.String() != tag.Get("equal") {
+			mes.AddErrorTf(tag.Get("form"), "error_wrong_value", inputName)
+		}
+		if tag.Get("needed") != "" && fieldElem.String() == "" {
+			mes.AddErrorTf(tag.Get("form"), "error_field_needed", inputName)
+		}
+		if fieldElem.String() == "" && tag.Get("default") != "" {
+			fieldElem.SetString(tag.Get("default"))
+		}
+	case "int":
+		if tag.Get("equal") != "" { // Check minimum length
+			equal, _ := strconv.Atoi(tag.Get("equal"))
+			if fieldElem.Int() > int64(equal) {
+				mes.AddErrorTf(tag.Get("form"), "error_wrong_value", inputName)
 			}
 		}
-		switch typeField.Type.Name() {
-		case "string":
-			if tag.Get("equal") != "" && formElem.Field(i).String() != tag.Get("equal") {
-				mes.AddErrorf(tag.Get("form"), "Wrong value for the input: %s", inputName)
+		if tag.Get("needed") != "" && fieldElem.Int() == 0 {
+			mes.AddErrorTf(tag.Get("form"), "error_field_needed", inputName)
+		}
+		if fieldElem.Int() == 0 && tag.Get("default") != "" && tag.Get("notnull") != "" {
+			defaultValue, _ := strconv.Atoi(tag.Get("default"))
+			fieldElem.SetInt(int64(defaultValue))
+		}
+	case "float":
+		if tag.Get("equal") != "" { // Check minimum length
+			equal, _ := strconv.Atoi(tag.Get("equal"))
+			if fieldElem.Float() != float64(equal) {
+				mes.AddErrorTf(tag.Get("form"), "error_wrong_value", inputName)
 			}
-			if tag.Get("needed") != "" && formElem.Field(i).String() == "" {
-				mes.AddErrorf(tag.Get("form"), "Field needed: %s", inputName)
+		}
+		if tag.Get("needed") != "" && fieldElem.Float() == 0 {
+			mes.AddErrorTf(tag.Get("form"), "error_field_needed", inputName)
+		}
+		if fieldElem.Float() == 0 && tag.Get("default") != "" && tag.Get("notnull") != "" {
+			defaultValue, _ := strconv.Atoi(tag.Get("default"))
+			fieldElem.SetFloat(float64(defaultValue))
+		}
+	case "bool":
+		if tag.Get("equal") != "" { // Check minimum length
+			equal, _ := strconv.ParseBool(tag.Get("equal"))
+			if fieldElem.Bool() != equal {
+				mes.AddErrorTf(tag.Get("form"), "error_wrong_value", inputName)
 			}
-			if formElem.Field(i).String() == "" && tag.Get("default") != "" {
-				formElem.Field(i).SetString(tag.Get("default"))
-			}
-		case "int":
-			if tag.Get("equal") != "" { // Check minimum length
-				equal, _ := strconv.Atoi(tag.Get("equal"))
-				if formElem.Field(i).Int() > int64(equal) {
-					mes.AddErrorf(tag.Get("form"), "Wrong value for the input: %s", inputName)
-				}
-			}
-			if tag.Get("needed") != "" && formElem.Field(i).Int() == 0 {
-				mes.AddErrorf(tag.Get("form"), "Field needed: %s", inputName)
-			}
-			if formElem.Field(i).Interface == nil && tag.Get("default") != "" { // FIXME: always false :'(
-				defaultValue, _ := strconv.Atoi(tag.Get("default"))
-				formElem.Field(i).SetInt(int64(defaultValue))
-			}
-		case "float":
-			if tag.Get("equal") != "" { // Check minimum length
-				equal, _ := strconv.Atoi(tag.Get("equal"))
-				if formElem.Field(i).Float() != float64(equal) {
-					mes.AddErrorf(tag.Get("form"), "Wrong value for the input: %s", inputName)
-				}
-			}
-			if tag.Get("needed") != "" && formElem.Field(i).Float() == 0 {
-				mes.AddErrorf(tag.Get("form"), "Field needed: %s", inputName)
-			}
-			if formElem.Field(i).Interface == nil && tag.Get("default") != "" { // FIXME: always false :'(
-				defaultValue, _ := strconv.Atoi(tag.Get("default"))
-				formElem.Field(i).SetFloat(float64(defaultValue))
-			}
-		case "bool":
-			if tag.Get("equal") != "" { // Check minimum length
-				equal, _ := strconv.ParseBool(tag.Get("equal"))
-				if formElem.Field(i).Bool() != equal {
-					mes.AddErrorf(tag.Get("form"), "Wrong value for the input: %s", inputName)
-				}
-			}
-			if formElem.Field(i).Interface == nil && tag.Get("default") != "" { // FIXME: always false :'(
-				defaultValue, _ := strconv.ParseBool(tag.Get("default"))
-				formElem.Field(i).SetBool(defaultValue)
-			}
+		}
+		if !fieldElem.Bool() && tag.Get("default") != "" && tag.Get("notnull") != "" {
+			defaultValue, _ := strconv.ParseBool(tag.Get("default"))
+			fieldElem.SetBool(defaultValue)
 		}
 	}
 }
