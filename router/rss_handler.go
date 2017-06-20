@@ -249,36 +249,50 @@ func RSSTorznabHandler(w http.ResponseWriter, r *http.Request) {
 					Length: strconv.FormatUint(uint64(torrentJSON.Filesize), 10),
 					Type:   "application/x-bittorrent",
 				},
-				Torznab: []*nyaafeeds.RssTorznab{
-					&nyaafeeds.RssTorznab{
-						Name:  "size",
-						Value: strconv.FormatUint(uint64(torrentJSON.Filesize), 10),
-					},
-					&nyaafeeds.RssTorznab{
-						Name:  "files",
-						Value: filesNumber,
-					},
-					&nyaafeeds.RssTorznab{
-						Name:  "grabs",
-						Value: strconv.Itoa(torrentJSON.Downloads),
-					},
-					&nyaafeeds.RssTorznab{
-						Name:  "seeders",
-						Value: seeders,
-					},
-					&nyaafeeds.RssTorznab{
-						Name:  "leechers",
-						Value: leechers,
-					},
-					&nyaafeeds.RssTorznab{
-						Name:  "infohash",
-						Value: torrentJSON.Hash,
-					},
-					&nyaafeeds.RssTorznab{
-						Name:  "magneturl",
-						Value: string(torrentJSON.Magnet),
-					},
-				},
+			}
+			torznab := []*nyaafeeds.RssTorznab{}
+			if torrentJSON.Filesize > 0 {
+				torznab = append(torznab, &nyaafeeds.RssTorznab{
+					Name:  "size",
+					Value: strconv.FormatUint(uint64(torrentJSON.Filesize), 10),
+				})
+			}
+			if filesNumber != "" {
+				torznab = append(torznab, &nyaafeeds.RssTorznab{
+					Name:  "files",
+					Value: filesNumber,
+				})
+			}
+			torznab = append(torznab, &nyaafeeds.RssTorznab{
+				Name:  "grabs",
+				Value: strconv.Itoa(torrentJSON.Downloads),
+			})
+			if seeders != "" {
+				torznab = append(torznab, &nyaafeeds.RssTorznab{
+					Name:  "seeders",
+					Value: seeders,
+				})
+			}
+			if leechers != "" {
+				torznab = append(torznab, &nyaafeeds.RssTorznab{
+					Name:  "leechers",
+					Value: leechers,
+				})
+			}
+			if torrentJSON.Hash != "" {
+				torznab = append(torznab, &nyaafeeds.RssTorznab{
+					Name:  "infohash",
+					Value: torrentJSON.Hash,
+				})
+			}
+			if torrentJSON.Magnet != "" {
+				torznab = append(torznab, &nyaafeeds.RssTorznab{
+					Name:  "magneturl",
+					Value: string(torrentJSON.Magnet),
+				})
+			}
+			if len(torznab) > 0 {
+				feed.Items[i].Torznab = torznab
 			}
 		}
 		var rssErr error
