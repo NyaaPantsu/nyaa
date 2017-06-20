@@ -359,6 +359,14 @@ html, body {
 	.header .h-search input { width: 90px !important; }
 	.header .h-search input:focus { width: 150px !important; }
 }
+@media (min-width: 1920px) {
+	.h-left {
+		left: 15%;
+	}
+	.h-right {
+		right: 15%;
+	}
+}
 
 @media (max-width: 810px)  {
 
