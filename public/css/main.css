@@ -26,6 +26,7 @@ body {
 	height: 60vh;
 	-webkit-tap-highlight-color: transparent;
 	pointer-events: auto;
+	cursor: pointer;
 }
 
 #mascot.custom-mascot {
