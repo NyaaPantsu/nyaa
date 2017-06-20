@@ -54,7 +54,7 @@
           <td class="torrent-info-td torrent-info-label">{{call $.T "seeders"}}:</td><td class="tr-se torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Seeders}}{{end}}</td>
       </tr>
       <tr class="torrent-info-row">
-          <td class="torrent-info-td torrent-info-label">{{ call $.T "website_link" }}:</td><td class="torrent-view-td torrent-info-data">{{if ne .WebsiteLink ""}}<a href="{{.WebsiteLink}}">{{.WebsiteLink}}</a>{{else}}<a href="{{$.Config.WebAddress.Nyaa}}">{{GetHostname $.Config.WebAddress.Nyaa}}{{end}}</td>
+          <td class="torrent-info-td torrent-info-label">{{ call $.T "website_link" }}:</td><td class="torrent-view-td torrent-info-data">{{if ne .WebsiteLink ""}}<a href="{{.WebsiteLink}}">{{.WebsiteLink}}</a>{{else}}N/A{{end}}</td>
           <td class="torrent-info-td torrent-info-label">{{call $.T "leechers"}}:</td><td class="tr-le torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Leechers}}{{end}}</td>
       </tr>
     <tr class="torrent-info-row">
