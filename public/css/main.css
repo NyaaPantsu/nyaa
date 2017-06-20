@@ -137,7 +137,7 @@ select.form-input {
 
 .header .h-user {
 	display: inline-block;
-	width: 160px;
+	max-width: 160px;
 }
 
 .header .h-user .nav-btn {
