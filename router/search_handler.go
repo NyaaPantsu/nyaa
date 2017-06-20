@@ -52,11 +52,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	if len(searchParam.Category) > 0 {
 		category = searchParam.Category[0].String()
 	}
-	commonVar.Search = searchForm{
-		SearchParam:      searchParam,
-		Category:         category,
-		ShowItemsPerPage: true,
-	}
+	commonVar.Search.SearchParam, commonVar.Search.Category = searchParam, category
 
 	htv := modelListVbs{commonVar, model.TorrentsToJSON(torrents), messages.GetAllErrors(), messages.GetAllInfos()}
 

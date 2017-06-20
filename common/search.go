@@ -1,6 +1,9 @@
 package common
 
 import (
+	"math"
+	"time"
+
 	humanize "github.com/dustin/go-humanize"
 
 	"strconv"
@@ -186,13 +189,51 @@ func ParseCategories(s string) []*Category {
 
 type SizeBytes uint64
 
-func (sz *SizeBytes) Parse(s string) bool {
+func (sz *SizeBytes) Parse(s string, sizeType string) bool {
+	if s == "" {
+		*sz = 0
+		return false
+	}
+	var multiplier uint64
+	switch sizeType {
+	case "b":
+		multiplier = 1
+	case "k":
+		multiplier = uint64(math.Exp2(10))
+	case "m":
+		multiplier = uint64(math.Exp2(20))
+	case "g":
+		multiplier = uint64(math.Exp2(30))
+	}
 	size64, err := humanize.ParseBytes(s)
 	if err != nil {
 		*sz = 0
 		return false
 	}
-	*sz = SizeBytes(size64)
+	*sz = SizeBytes(size64 * multiplier)
+	return true
+}
+
+type DateFilter string
+
+func (d *DateFilter) Parse(s string, dateType string) bool {
+	if s == "" {
+		*d = ""
+		return false
+	}
+	dateInt, err := strconv.Atoi(s)
+	if err != nil {
+		*d = ""
+		return false
+	}
+	switch dateType {
+	case "m":
+		*d = DateFilter(time.Now().AddDate(0, -dateInt, 0).Format("2006-01-02"))
+	case "y":
+		*d = DateFilter(time.Now().AddDate(-dateInt, 0, 0).Format("2006-01-02"))
+	default:
+		*d = DateFilter(time.Now().AddDate(0, 0, -dateInt).Format("2006-01-02"))
+	}
 	return true
 }
 
@@ -206,8 +247,8 @@ type SearchParam struct {
 	Status    Status
 	Sort      SortMode
 	Category  Categories
-	FromDate  string
-	ToDate    string
+	FromDate  DateFilter
+	ToDate    DateFilter
 	Page      int
 	UserID    uint
 	Max       uint

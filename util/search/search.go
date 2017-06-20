@@ -129,16 +129,20 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 
 	maxage, err := strconv.Atoi(r.URL.Query().Get("maxage"))
 	if err != nil {
-		search.FromDate = r.URL.Query().Get("fromDate")
-		search.ToDate = r.URL.Query().Get("toDate")
+		if r.URL.Query().Get("toDate") != "" {
+			search.FromDate.Parse(r.URL.Query().Get("toDate"), r.URL.Query().Get("dateType"))
+			search.ToDate.Parse(r.URL.Query().Get("fromDate"), r.URL.Query().Get("dateType"))
+		} else {
+			search.FromDate.Parse(r.URL.Query().Get("fromDate"), r.URL.Query().Get("dateType"))
+		}
 	} else {
-		search.FromDate = time.Now().AddDate(0, 0, -maxage).Format("2006-01-02")
+		search.FromDate = common.DateFilter(time.Now().AddDate(0, 0, -maxage).Format("2006-01-02"))
 	}
 	search.Category = common.ParseCategories(r.URL.Query().Get("c"))
 	search.Status.Parse(r.URL.Query().Get("s"))
 	search.Sort.Parse(r.URL.Query().Get("sort"))
-	search.MinSize.Parse(r.URL.Query().Get("minSize"))
-	search.MaxSize.Parse(r.URL.Query().Get("maxSize"))
+	search.MinSize.Parse(r.URL.Query().Get("minSize"), r.URL.Query().Get("sizeType"))
+	search.MaxSize.Parse(r.URL.Query().Get("maxSize"), r.URL.Query().Get("sizeType"))
 
 	orderBy := search.Sort.ToDBField()
 	if search.Sort == common.Date {
