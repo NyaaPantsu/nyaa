@@ -887,3 +887,29 @@ input.nav-btn {
 .comment-captcha {
 	width: 240px;
 }
+.refine-drop {
+	display: inline-block;
+	user-select: none;
+	cursor: pointer;
+}
+.refine-btn {
+	width: 10%;
+}
+.form-refine {
+	margin-bottom: 10px;
+}
+summary::-webkit-details-marker {
+	display: none
+}
+summary:after {
+	vertical-align: middle;
+	float: left;
+	margin: -3px 5px 0 0; 
+	content: "+"; 
+	font-size: 1.5em; 
+	font-weight: bold; 
+}
+details[open] summary:after {
+	content: "-";
+	margin: -4px 5px 0 0;
+}

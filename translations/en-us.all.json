@@ -1390,5 +1390,41 @@
   {
     "id": "error_field_needed",
     "translation": "Field needed: %s"
+  },
+  {
+    "id": "refine_search",
+    "translation": "Refine your search"
+  },
+  {
+    "id": "between",
+    "translation": "Between"
+  },
+  {
+    "id": "and",
+    "translation": "and"
+  },
+  {
+    "id": "days",
+    "translation": "Days"
+  },
+  {
+    "id": "months",
+    "translation": "Months"
+  },
+  {
+    "id": "years",
+    "translation": "Years"
+  },
+  {
+    "id": "refine",
+    "translation": "Refine"
+  },
+  {
+    "id": "large",
+    "translation": "large."
+  },
+  {
+    "id": "old",
+    "translation": "old"
   }
 ]
