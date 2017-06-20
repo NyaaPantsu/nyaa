@@ -420,6 +420,42 @@
     "translation": "Aucun résultat trouvé."
   },
   {
+    "id": "refine_search",
+    "translation": "Affiner votre recherche"
+  },
+  {
+    "id": "between",
+    "translation": "Entre"
+  },
+  {
+    "id": "and",
+    "translation": "et"
+  },
+  {
+    "id": "days",
+    "translation": "jours"
+  },
+  {
+    "id": "months",
+    "translation": "mois"
+  },
+  {
+    "id": "years",
+    "translation": "années"
+  },
+  {
+    "id": "refine",
+    "translation": "Affiner"
+  },
+  {
+    "id": "large",
+    "translation": "de taille."
+  },
+  {
+    "id": "old",
+    "translation": "d'ancienneté."
+  },
+  {
     "id": "anime",
     "translation": "Anime"
   },
@@ -1165,7 +1201,7 @@
   },
   {
     "id": "owner_id_placeholder",
-    "translation": "ID du compte (e.g. Ren-chon = 0)"
+    "translation": "Nouveau propriétaire"
   },
   {
     "id": "no_owner_selected",
@@ -1354,5 +1390,25 @@
   {
     "id": "filter",
     "translation": "Filtrer"
+  },
+  {
+    "id": "error_min_length",
+    "translation": "Longueur minimale de %s requise pour l'entrée : %s"
+  },
+  {
+    "id": "error_max_length",
+    "translation": "Longueur maximale de %s requise pour l'entrée : %s"
+  },
+  {
+    "id": "error_same_value",
+    "translation": "Doit être le même %s"
+  },
+  {
+    "id": "error_wrong_value",
+    "translation": "Mauvaise valeur pour l'entrée : %s"
+  },
+  {
+    "id": "error_field_needed",
+    "translation": "Champ requis : %s"
   }
 ]

@@ -27,69 +27,74 @@ import (
 
 // APIHandler : Controller for api request on torrent list
 func APIHandler(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	page := vars["page"]
-	whereParams := serviceBase.WhereParams{}
-	req := apiService.TorrentsRequest{}
-	defer r.Body.Close()
-
-	contentType := r.Header.Get("Content-Type")
-	if contentType == "application/json" {
-		d := json.NewDecoder(r.Body)
-		if err := d.Decode(&req); err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-		}
-
-		if req.MaxPerPage == 0 {
-			req.MaxPerPage = config.Conf.Navigation.TorrentsPerPage
-		}
-		if req.Page <= 0 {
-			req.Page = 1
-		}
-
-		whereParams = req.ToParams()
+	t := r.URL.Query().Get("t")
+	if t != "" {
+		RSSTorznabHandler(w, r)
 	} else {
-		var err error
-		maxString := r.URL.Query().Get("max")
-		if maxString != "" {
-			req.MaxPerPage, err = strconv.Atoi(maxString)
-			if !log.CheckError(err) {
+		vars := mux.Vars(r)
+		page := vars["page"]
+		whereParams := serviceBase.WhereParams{}
+		req := apiService.TorrentsRequest{}
+		defer r.Body.Close()
+
+		contentType := r.Header.Get("Content-Type")
+		if contentType == "application/json" {
+			d := json.NewDecoder(r.Body)
+			if err := d.Decode(&req); err != nil {
+				http.Error(w, err.Error(), http.StatusBadRequest)
+			}
+
+			if req.MaxPerPage == 0 {
 				req.MaxPerPage = config.Conf.Navigation.TorrentsPerPage
 			}
-		} else {
-			req.MaxPerPage = config.Conf.Navigation.TorrentsPerPage
-		}
-
-		req.Page = 1
-		if page != "" {
-			req.Page, err = strconv.Atoi(html.EscapeString(page))
-			if !log.CheckError(err) {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
 			if req.Page <= 0 {
-				NotFoundHandler(w, r)
-				return
+				req.Page = 1
+			}
+
+			whereParams = req.ToParams()
+		} else {
+			var err error
+			maxString := r.URL.Query().Get("max")
+			if maxString != "" {
+				req.MaxPerPage, err = strconv.Atoi(maxString)
+				if !log.CheckError(err) {
+					req.MaxPerPage = config.Conf.Navigation.TorrentsPerPage
+				}
+			} else {
+				req.MaxPerPage = config.Conf.Navigation.TorrentsPerPage
+			}
+
+			req.Page = 1
+			if page != "" {
+				req.Page, err = strconv.Atoi(html.EscapeString(page))
+				if !log.CheckError(err) {
+					http.Error(w, err.Error(), http.StatusInternalServerError)
+					return
+				}
+				if req.Page <= 0 {
+					NotFoundHandler(w, r)
+					return
+				}
 			}
 		}
-	}
 
-	torrents, nbTorrents, err := torrentService.GetTorrents(whereParams, req.MaxPerPage, req.MaxPerPage*(req.Page-1))
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+		torrents, nbTorrents, err := torrentService.GetTorrents(whereParams, req.MaxPerPage, req.MaxPerPage*(req.Page-1))
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
-	b := model.APIResultJSON{
-		Torrents: model.TorrentsToJSON(torrents),
-	}
-	b.QueryRecordCount = req.MaxPerPage
-	b.TotalRecordCount = nbTorrents
-	w.Header().Set("Content-Type", "application/json")
-	err = json.NewEncoder(w).Encode(b)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		b := model.APIResultJSON{
+			Torrents: model.TorrentsToJSON(torrents),
+		}
+		b.QueryRecordCount = req.MaxPerPage
+		b.TotalRecordCount = nbTorrents
+		w.Header().Set("Content-Type", "application/json")
+		err = json.NewEncoder(w).Encode(b)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	}
 }
 

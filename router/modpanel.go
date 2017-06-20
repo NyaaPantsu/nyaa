@@ -106,8 +106,8 @@ func (f *ReassignForm) ExecuteAction() (int, error) {
 
 // newPanelSearchForm : Helper that creates a search form without items/page field
 // these need to be used when the templateVariables don't include `navigation`
-func newPanelSearchForm() searchForm {
-	form := newSearchForm()
+func newPanelSearchForm(r *http.Request) searchForm {
+	form := newSearchForm(r)
 	form.ShowItemsPerPage = false
 	return form
 }
@@ -116,7 +116,7 @@ func newPanelSearchForm() searchForm {
 func newPanelCommonVariables(r *http.Request) commonTemplateVariables {
 	defer r.Body.Close()
 	common := newCommonVariables(r)
-	common.Search = newPanelSearchForm()
+	common.Search = newPanelSearchForm(r)
 	return common
 }
 
@@ -167,9 +167,13 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		messages.ImportFromError("errors", err)
 	}
+	category := ""
+	if len(searchParam.Category) > 0 {
+		category = searchParam.Category[0].String()
+	}
 	searchForm := searchForm{
 		SearchParam:      searchParam,
-		Category:         searchParam.Category.String(),
+		Category:         category,
 		ShowItemsPerPage: true,
 	}
 
@@ -492,9 +496,13 @@ func DeletedTorrentsModPanel(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		messages.ImportFromError("errors", err)
 	}
+	category := ""
+	if len(searchParam.Category) > 0 {
+		category = searchParam.Category[0].String()
+	}
 	searchForm := searchForm{
 		SearchParam:      searchParam,
-		Category:         searchParam.Category.String(),
+		Category:         category,
 		ShowItemsPerPage: true,
 	}
 

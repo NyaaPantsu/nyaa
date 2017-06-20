@@ -46,6 +46,13 @@
     line: 'ES_JAVA_OPTS="-Xms{{ nyaapantsu_jvm_heapsize_gb }}g -Xmx{{ nyaapantsu_jvm_heapsize_gb }}g"'
   become: true
 
+- name: Lock elasticsearch memory
+  lineinfile:
+    path: /etc/elasticsearch/elasticsearch.yml
+    regexp: '^bootstrap.memory_lock: true'
+    line: 'bootstrap.memory_lock: true'
+  become: true
+
 - name: Create override folder
   file:
     path: /etc/systemd/system/elasticsearch.service.d/

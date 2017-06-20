@@ -1,10 +1,16 @@
 package common
 
 import (
+	"math"
+	"time"
+
 	humanize "github.com/dustin/go-humanize"
 
 	"strconv"
 	"strings"
+
+	"github.com/NyaaPantsu/nyaa/config"
+	catUtil "github.com/NyaaPantsu/nyaa/util/categories"
 )
 
 type Status uint8
@@ -120,7 +126,7 @@ func (s *SortMode) ToDBField() string {
 	case Completed:
 		return "completed"
 	}
-	return "id"
+	return config.Conf.Torrents.Order
 }
 
 type Category struct {
@@ -152,33 +158,86 @@ func (c Category) IsSubSet() bool {
 
 // Parse sets category by string
 // returns true if string is valid otherwise returns false
-func (c *Category) Parse(s string) (ok bool) {
-	parts := strings.Split(s, "_")
-	if len(parts) == 2 {
-		tmp, err := strconv.ParseUint(parts[0], 10, 8)
-		if err == nil {
-			c.Main = uint8(tmp)
-			tmp, err = strconv.ParseUint(parts[1], 10, 8)
-			if err == nil {
-				c.Sub = uint8(tmp)
-				ok = true
+func ParseCategories(s string) []*Category {
+	if s != "" {
+		parts := strings.Split(s, ",")
+		var categories []*Category
+		for _, val := range parts {
+			partsCat := strings.Split(val, "_")
+			if len(partsCat) == 2 {
+				tmp, err := strconv.ParseUint(partsCat[0], 10, 8)
+				if err == nil {
+					c := uint8(tmp)
+					tmp, err = strconv.ParseUint(partsCat[1], 10, 8)
+					var sub uint8
+					if err == nil {
+						sub = uint8(tmp)
+					}
+					if catUtil.CategoryExists(partsCat[0] + "_" + partsCat[1]) {
+						categories = append(categories, &Category{
+							Main: c,
+							Sub:  sub,
+						})
+					}
+				}
 			}
 		}
+		return categories
 	}
-	return
+	return Categories{}
 }
 
 type SizeBytes uint64
 
-func (sz *SizeBytes) Parse(s string) bool {
+func (sz *SizeBytes) Parse(s string, sizeType string) bool {
+	if s == "" {
+		*sz = 0
+		return false
+	}
+	var multiplier uint64
+	switch sizeType {
+	case "b":
+		multiplier = 1
+	case "k":
+		multiplier = uint64(math.Exp2(10))
+	case "m":
+		multiplier = uint64(math.Exp2(20))
+	case "g":
+		multiplier = uint64(math.Exp2(30))
+	}
 	size64, err := humanize.ParseBytes(s)
 	if err != nil {
 		*sz = 0
 		return false
 	}
-	*sz = SizeBytes(size64)
+	*sz = SizeBytes(size64 * multiplier)
 	return true
 }
+
+type DateFilter string
+
+func (d *DateFilter) Parse(s string, dateType string) bool {
+	if s == "" {
+		*d = ""
+		return false
+	}
+	dateInt, err := strconv.Atoi(s)
+	if err != nil {
+		*d = ""
+		return false
+	}
+	switch dateType {
+	case "m":
+		*d = DateFilter(time.Now().AddDate(0, -dateInt, 0).Format("2006-01-02"))
+	case "y":
+		*d = DateFilter(time.Now().AddDate(-dateInt, 0, 0).Format("2006-01-02"))
+	default:
+		*d = DateFilter(time.Now().AddDate(0, 0, -dateInt).Format("2006-01-02"))
+	}
+	return true
+}
+
+type Categories []*Category
 
 // deprecated for TorrentParam
 type SearchParam struct {
@@ -187,9 +246,9 @@ type SearchParam struct {
 	Order     bool // True means acsending
 	Status    Status
 	Sort      SortMode
-	Category  Category
-	FromDate  string
-	ToDate    string
+	Category  Categories
+	FromDate  DateFilter
+	ToDate    DateFilter
 	Page      int
 	UserID    uint
 	Max       uint

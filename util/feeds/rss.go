@@ -16,6 +16,7 @@ import (
 // private wrapper around the RssFeed which gives us the <rss>..</rss> xml
 type rssFeedXML struct {
 	XMLName  xml.Name `xml:"rss"`
+	Xmlns    string   `xml:"xmlns:torznab,attr,omitempty"`
 	Version  string   `xml:"version,attr"`
 	Encoding string   `xml:"encoding,attr"`
 	Channel  *RssFeed `xml:"channel,omitempty"`
@@ -41,6 +42,7 @@ type RssTextInput struct {
 
 type RssFeed struct {
 	XMLName        xml.Name `xml:"channel"`
+	Xmlns          string   `xml:"-"`
 	Title          string   `xml:"title"`       // required
 	Link           string   `xml:"link"`        // required
 	Description    string   `xml:"description"` // required
@@ -76,7 +78,7 @@ type RssItem struct {
 	PubDate     string      `xml:"pubDate,omitempty"` // created or updated
 	Source      string      `xml:"source,omitempty"`
 	Torrent     *RssTorrent `xml:"torrent,omitempty"`
-	Torznab     *RssTorznab `xml:"torznab,omitempty"`
+	Torznab     []*RssTorznab
 }
 
 type RssCaps struct {
@@ -101,7 +103,7 @@ type RssServer struct {
 
 type RssLimits struct {
 	XMLName xml.Name `xml:"limits"`
-	Max     string   `xml:"limits,attr"`
+	Max     string   `xml:"max,attr"`
 	Default string   `xml:"default,attr"`
 }
 
@@ -153,27 +155,9 @@ type RssTorrent struct {
 }
 
 type RssTorznab struct {
-	XMLName              xml.Name `xml:"torznab"`
-	Xmlns                string   `xml:"xmlns,attr"`
-	Type                 string   `xml:"type,omitempty"`
-	Size                 string   `xml:"size,omitempty"`
-	Files                string   `xml:"files,omitempty"`
-	Grabs                string   `xml:"grabs,omitempty"`
-	Tvdbid               string   `xml:"tvdbid,omitempty"`
-	Rageid               string   `xml:"rageid,omitempty"`
-	Tvmazeid             string   `xml:"tvmazeid,omitempty"`
-	Imdb                 string   `xml:"imdb,omitempty"`
-	BannerURL            string   `xml:"bannerurl,omitempty"`
-	Infohash             string   `xml:"infohash,omitempty"`
-	MagnetURL            string   `xml:"magneturl,omitempty"`
-	Seeders              string   `xml:"seeders,omitempty"`
-	Leechers             string   `xml:"leechers,omitempty"`
-	Peers                string   `xml:"peers,omitempty"`
-	SeedType             string   `xml:"seedtype,omitempty"`
-	MinimumRatio         string   `xml:"minimumratio,omitempty"`
-	MinimumSeedTime      string   `xml:"minimumseedtime,omitempty"`
-	DownloadVolumeFactor string   `xml:"downloadvolumefactor,omitempty"`
-	UploadVolumeFactor   string   `xml:"uploadvolumefactor,omitempty"`
+	XMLName xml.Name `xml:"torznab:attr,omitempty"`
+	Name    string   `xml:"name,attr,omitempty"`
+	Value   string   `xml:"value,attr,omitempty"`
 }
 
 // RssCategory is a category for rss item
@@ -261,10 +245,13 @@ func (r *Rss) FeedXml() interface{} {
 
 // FeedXml : return an XML-ready object for an RssFeed object
 func (r *RssFeed) FeedXml() interface{} {
+	if r.Xmlns != "" {
+		return &rssFeedXML{Version: "2.0", Encoding: "UTF-8", Channel: r, Xmlns: r.Xmlns}
+	}
 	return &rssFeedXML{Version: "2.0", Encoding: "UTF-8", Channel: r}
 }
 
 // FeedXml : return an XML-ready object for an RssFeed object
 func (r *RssCaps) FeedXml() interface{} {
-	return &rssFeedXML{Version: "2.0", Encoding: "UTF-8", Caps: r}
+	return r
 }

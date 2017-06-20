@@ -6,6 +6,9 @@
 {{end}}
 {{define "content"}}
       <!-- Contain the table within a grid, as for better sizing -->
+      {{if ne $.Search.Query ""}}
+      {{block "search_refine" .}}{{end}}
+      {{end}}
       <div class="results box">
           <table>
           <thead class="torrent-info">
@@ -72,11 +75,11 @@
               </td>
               <td class="tr-links home-td">
                   <a href="{{.Magnet}}" title="{{ call $.T "magnet_link" }}">
-                      <div class="magnet-icon"></div>
+                      <div class="icon-magnet"></div>
                   </a>
                   {{if ne .TorrentLink ""}}
                   <a href="{{.TorrentLink}}" title="{{ call $.T "torrent_file" }}">
-                      <div class="download-icon"></div>
+                      <div class="icon-floppy"></div>
                   </a>
                   {{end}}
               </td>
@@ -101,9 +104,9 @@
         <button id="show_actions" class="form-input" data-toggle-text="{{call $.T "hide_mod_tools"}}">{{call $.T "show_mod_tools"}}</button>
         <span class="actions">
             <span class="btn-group">
-                <select class="cb_action" name="category_id">
+                <select class="cb_action" name="category_id" style="width: 14em;">
                     <option value="">{{call $.T "category"}}</option>
-                    {{ range $name_cat, $id_cat := (GetCategories true) }}
+                    {{ range $name_cat, $id_cat := (GetCategories true true) }}
                     <option value="{{ $id_cat }}">{{call $.T $name_cat }}</option>
                     {{ end }}
                 </select>

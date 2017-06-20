@@ -179,7 +179,7 @@ func (r *TorrentRequest) validateMagnet() error {
 		return ErrMagnet
 	}
 	xt = strings.SplitAfter(xt, ":")[2]
-	r.Infohash = strings.ToUpper(strings.Split(xt, "&")[0])
+	r.Infohash = strings.TrimSpace(strings.ToUpper(strings.Split(xt, "&")[0]))
 
 	return nil
 }

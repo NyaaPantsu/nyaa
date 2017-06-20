@@ -1,10 +1,11 @@
 package router
 
 import (
-	"github.com/gorilla/mux"
 	"html"
 	"net/http"
 	"strconv"
+
+	"github.com/gorilla/mux"
 
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/util/log"
@@ -47,11 +48,12 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	commonVar.Navigation = navigation{int(nbTorrents), int(searchParam.Max), int(searchParam.Page), "search_page"}
 	// Convert back to strings for now.
 	// TODO Deprecate fully SearchParam and only use TorrentParam
-	commonVar.Search = searchForm{
-		SearchParam:      searchParam,
-		Category:         searchParam.Category.String(),
-		ShowItemsPerPage: true,
+	category := ""
+	if len(searchParam.Category) > 0 {
+		category = searchParam.Category[0].String()
 	}
+	commonVar.Search.SearchParam, commonVar.Search.Category = searchParam, category
+
 	htv := modelListVbs{commonVar, model.TorrentsToJSON(torrents), messages.GetAllErrors(), messages.GetAllInfos()}
 
 	err = searchTemplate.ExecuteTemplate(w, "index.html", htv)

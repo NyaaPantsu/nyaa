@@ -8,7 +8,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gorilla/mux"
 	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
@@ -23,14 +22,14 @@ type TorrentParam struct {
 	Order     bool // True means ascending
 	Status    Status
 	Sort      SortMode
-	Category  Category
+	Category  Categories
 	Max       uint32
 	Offset    uint32
 	UserID    uint32
 	TorrentID uint32
 	FromID    uint32
-	FromDate  string
-	ToDate    string
+	FromDate  DateFilter
+	ToDate    DateFilter
 	NotNull   string // csv
 	Null      string // csv
 	NameLike  string // csv
@@ -45,17 +44,6 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	var err error
 
 	nameLike := strings.TrimSpace(r.URL.Query().Get("q"))
-
-	page := mux.Vars(r)["page"]
-	if page == "" {
-		page = r.URL.Query().Get("offset")
-	}
-
-	pagenum, err := strconv.ParseUint(page, 10, 32)
-	if err != nil {
-		pagenum = 1
-	}
-
 	max, err := strconv.ParseUint(r.URL.Query().Get("limit"), 10, 32)
 	if err != nil {
 		max = uint64(config.Conf.Navigation.TorrentsPerPage)
@@ -79,28 +67,29 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	status.Parse(r.URL.Query().Get("s"))
 
 	maxage, err := strconv.Atoi(r.URL.Query().Get("maxage"))
+	fromDate, toDate := DateFilter(""), DateFilter("")
 	if err != nil {
-		p.FromDate = r.URL.Query().Get("fromDate")
-		p.ToDate = r.URL.Query().Get("toDate")
+		// if to xxx is not provided, fromDate is equal to from xxx
+		if r.URL.Query().Get("toDate") != "" {
+			fromDate.Parse(r.URL.Query().Get("toDate"), r.URL.Query().Get("dateType"))
+			toDate.Parse(r.URL.Query().Get("fromDate"), r.URL.Query().Get("dateType"))
+		} else {
+			fromDate.Parse(r.URL.Query().Get("fromDate"), r.URL.Query().Get("dateType"))
+		}
 	} else {
-		p.FromDate = time.Now().AddDate(0, 0, -maxage).Format("2006-01-02")
+		fromDate = DateFilter(time.Now().AddDate(0, 0, -maxage).Format("2006-01-02"))
 	}
 
-	var category Category
-	cat := r.URL.Query().Get("cat")
-	if cat != "" {
-		category.Parse(r.URL.Query().Get("cat"))
-	}
-
-	category.Parse(r.URL.Query().Get("c"))
+	categories := ParseCategories(r.URL.Query().Get("c"))
 
 	var sortMode SortMode
 	sortMode.Parse(r.URL.Query().Get("sort"))
 
 	var minSize SizeBytes
-	minSize.Parse(r.URL.Query().Get("minSize"))
 	var maxSize SizeBytes
-	maxSize.Parse(r.URL.Query().Get("maxSize"))
+
+	minSize.Parse(r.URL.Query().Get("minSize"), r.URL.Query().Get("sizeType"))
+	maxSize.Parse(r.URL.Query().Get("maxSize"), r.URL.Query().Get("sizeType"))
 
 	ascending := false
 	if r.URL.Query().Get("order") == "true" {
@@ -110,7 +99,6 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	language := strings.TrimSpace(r.URL.Query().Get("lang"))
 
 	p.NameLike = nameLike
-	p.Offset = uint32(pagenum)
 	p.Max = uint32(max)
 	p.UserID = uint32(userID)
 	// TODO Use All
@@ -120,8 +108,10 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	p.Order = ascending
 	p.Status = status
 	p.Sort = sortMode
-	p.Category = category
+	p.Category = categories
 	p.Language = language
+	p.FromDate = fromDate
+	p.ToDate = toDate
 	p.MinSize = minSize
 	p.MaxSize = maxSize
 	// FIXME 0 means no TorrentId defined
@@ -136,11 +126,16 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 func (p *TorrentParam) ToFilterQuery() string {
 	// Don't set sub category unless main category is set
 	query := ""
-	if p.Category.IsMainSet() {
-		query += "category:" + strconv.FormatInt(int64(p.Category.Main), 10)
-		if p.Category.IsSubSet() {
-			query += " sub_category:" + strconv.FormatInt(int64(p.Category.Sub), 10)
+	if len(p.Category) > 0 {
+		conditionsOr := make([]string, len(p.Category))
+		for key, val := range p.Category {
+			if val.IsSubSet() {
+				conditionsOr[key] = "(category: " + strconv.FormatInt(int64(val.Main), 10) + " AND sub_category: " + strconv.FormatInt(int64(val.Sub), 10) + ")"
+			} else {
+				conditionsOr[key] = "(category: " + strconv.FormatInt(int64(val.Main), 10) + ")"
+			}
 		}
+		query += "(" + strings.Join(conditionsOr, " OR ") + ")"
 	}
 
 	if p.UserID != 0 {
@@ -163,11 +158,11 @@ func (p *TorrentParam) ToFilterQuery() string {
 	}
 
 	if p.FromDate != "" && p.ToDate != "" {
-		query += " date: [" + p.FromDate + " " + p.ToDate + "]"
+		query += " date: [" + string(p.FromDate) + " " + string(p.ToDate) + "]"
 	} else if p.FromDate != "" {
-		query += " date: [" + p.FromDate + " *]"
+		query += " date: [" + string(p.FromDate) + " *]"
 	} else if p.ToDate != "" {
-		query += " date: [* " + p.ToDate + "]"
+		query += " date: [* " + string(p.ToDate) + "]"
 	}
 
 	sMinSize := strconv.FormatUint(uint64(p.MinSize), 10)

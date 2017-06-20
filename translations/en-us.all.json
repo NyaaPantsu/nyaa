@@ -1370,5 +1370,61 @@
   {
     "id": "filter",
     "translation": "Filter"
+  },
+  {
+    "id": "error_min_length",
+    "translation": "Minimal length of %s required for the input: %s"
+  },
+  {
+    "id":"error_max_length",
+    "translation":"Maximal length of %s required for the input: %s"
+  },
+  {
+    "id":"error_same_value",
+    "translation": "Must be same %s"
+  },
+  {
+    "id": "error_wrong_value",
+    "translation": "Wrong value for the input: %s"
+  },
+  {
+    "id": "error_field_needed",
+    "translation": "Field needed: %s"
+  },
+  {
+    "id": "refine_search",
+    "translation": "Refine your search"
+  },
+  {
+    "id": "between",
+    "translation": "Between"
+  },
+  {
+    "id": "and",
+    "translation": "and"
+  },
+  {
+    "id": "days",
+    "translation": "Days"
+  },
+  {
+    "id": "months",
+    "translation": "Months"
+  },
+  {
+    "id": "years",
+    "translation": "Years"
+  },
+  {
+    "id": "refine",
+    "translation": "Refine"
+  },
+  {
+    "id": "large",
+    "translation": "large."
+  },
+  {
+    "id": "old",
+    "translation": "old"
   }
 ]

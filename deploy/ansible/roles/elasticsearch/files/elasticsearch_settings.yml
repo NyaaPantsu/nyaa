@@ -36,7 +36,7 @@ settings:
   index:
     number_of_shards: 1
     number_of_replicas: 0
-    max_result_window: 30000
+    max_result_window: 5000000
 
 mappings:
   torrents:
