@@ -1370,5 +1370,61 @@
   {
     "id": "filter",
     "translation": "フィルター"
+  },
+  {
+    "id": "error_min_length",
+    "translation": "必要な入力値 %s の最小長: %s"
+  },
+  {
+    "id":"error_max_length",
+    "translation": "必要な入力値 %s の最大長: %s"
+  },
+  {
+    "id":"error_same_value",
+    "translation": "同じ %s である必要があります"
+  },
+  {
+    "id": "error_wrong_value",
+    "translation": "誤った入力値: %s"
+  },
+  {
+    "id": "error_field_needed",
+    "translation": "必要なフィールド: %s"
+  },
+  {
+    "id": "refine_search",
+    "translation": "検索の絞り込み"
+  },
+  {
+    "id": "between",
+    "translation": ""
+  },
+  {
+    "id": "and",
+    "translation": "〜"
+  },
+  {
+    "id": "days",
+    "translation": "日"
+  },
+  {
+    "id": "months",
+    "translation": "ヶ月"
+  },
+  {
+    "id": "years",
+    "translation": "年"
+  },
+  {
+    "id": "refine",
+    "translation": "絞り込み"
+  },
+  {
+    "id": "large",
+    "translation": ""
+  },
+  {
+    "id": "old",
+    "translation": "前"
   }
 ]
