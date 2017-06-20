@@ -608,6 +608,10 @@
     "translation": "Extensão para Firefox"
   },
   {
+    "id": "android_app",
+    "translation": "App para Android"
+  },
+  {
     "id": "who_is_renchon",
     "translation": "Quem é <span lang=\"ja\">れんちょん</span>?"
   },
@@ -724,6 +728,10 @@
     "translation": "Captcha"
   },
   {
+    "id": "captcha_audio",
+    "translation": "Captcha Auditivo"
+  },
+  {
     "id": "file_name",
     "translation": "Nome do arquivo"
   },
@@ -766,6 +774,10 @@
   {
     "id": "new_torrent_uploaded",
     "translation": "Novo torrent: \"%s\" por %s"
+  },
+  {
+    "id": "torrent_uploaded",
+    "translation": "torrent enviado com sucesso!"
   },
   {
     "id": "preferences",
@@ -848,6 +860,22 @@
     "translation": "Torrent %s excluído!"
   },
   {
+    "id": "torrent_deleted_by",
+    "translation": "Torrent #%s de %s foi deletado por %s."
+  },
+  {
+    "id": "torrent_edited_by",
+    "translation": "Torrent #%s de %s foi editado por %s."
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "Torrent #%s de %s foi bloqueado por %s."
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "Torrent #%s de %s foi desbloqueado por %s."
+  },
+  {
     "id": "torrents_deleted",
     "translation": "Torrents excluídos"
   },
@@ -858,6 +886,14 @@
   {
     "id": "delete_report",
     "translation": "Excluir Denúncia"
+  },
+  {
+    "id": "comment_deleted_by",
+    "translation": "Comentário #%s de %s foi deletado por %s."
+  },
+  {
+    "id": "comment_edited_by",
+    "translation": "Comentário #%s de %s foi editado por %s."
   },
   {
     "id": "no_action_exist",
@@ -1037,7 +1073,7 @@
   },
   {
     "id": "owner_id_placeholder",
-    "translation": "ID do Dono (ex: Renchon = 0)"
+    "translation": "Novo Dono"
   },
   {
     "id": "try_new_attempt",
@@ -1222,5 +1258,117 @@
   {
     "id": "username_illegal",
     "translation": "O nome de usuário contém caracteres não permitidos!"
+  },
+  {
+    "id": "torrent_language",
+    "translation": "Idioma do Torrent"
+  },
+  {
+    "id": "select_a_torrent_language",
+    "translation": "Selecione um Idioma"
+  },
+  {
+    "id": "language_en-us_name",
+    "translation": "Inglês"
+  },
+  {
+    "id": "language_ca-es_name",
+    "translation": "Catalã"
+  },
+  {
+    "id": "language_de-de_name",
+    "translation": "Alemão"
+  },
+  {
+    "id": "language_es-es_name",
+    "translation": "Espanhol"
+  },
+  {
+    "id": "language_es-mx_name",
+    "translation": "Espanhol (LATAM)"
+  },
+  {
+    "id": "language_fr-fr_name",
+    "translation": "Francês"
+  },
+  {
+    "id": "language_hu-hu_name",
+    "translation": "Húngaro"
+  },
+  {
+    "id": "language_is-is_name",
+    "translation": "Islandês"
+  },
+  {
+    "id": "language_it-it_name",
+    "translation": "Italiano"
+  },
+  {
+    "id": "language_ja-jp_name",
+    "translation": "Japonês"
+  },
+  {
+    "id": "language_ko-kr_name",
+    "translation": "Coreano"
+  },
+  {
+    "id": "language_nb-no_name",
+    "translation": "Norueguês"
+  },
+  {
+    "id": "language_nl-nl_name",
+    "translation": "Holandês"
+  },
+  {
+    "id": "language_pt-br_name",
+    "translation": "Português (Brazil)"
+  },
+  {
+    "id": "language_pt-pt_name",
+    "translation": "Português (Portugal)"
+  },
+  {
+    "id": "language_ro-ro_name",
+    "translation": "Romeno"
+  },
+  {
+    "id": "language_ru-ru_name",
+    "translation": "Russo"
+  },
+  {
+    "id": "language_sv-se_name",
+    "translation": "Sueco"
+  },
+  {
+    "id": "language_th-th_name",
+    "translation": "Tailandês"
+  },
+  {
+    "id": "language_zh-cn_name",
+    "translation": "Chinês Simplifiacdo"
+  },
+  {
+    "id": "language_zh-tw_name",
+    "translation": "Chinês Tradicional"
+  },
+  {
+    "id": "language_other_name",
+    "translation": "Outro"
+  },
+  {
+    "id": "language_multiple_name",
+    "translation": "Multiplos Idiomas"
+  },
+  {
+    "id": "activity_list",
+    "translation": "Lista de Atividades"
+  },
+  {
+    "id": "activities",
+    "translation": "Atividades"
+  },
+  {
+    "id": "filter",
+    "translation": "Filtro"
   }
 ]
