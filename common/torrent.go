@@ -20,6 +20,7 @@ type TorrentParam struct {
 	All       bool // True means ignore everything but Max and Offset
 	Full      bool // True means load all members
 	Order     bool // True means ascending
+	Hidden    bool // True means filter hidden torrents
 	Status    Status
 	Sort      SortMode
 	Category  Categories
@@ -140,6 +141,10 @@ func (p *TorrentParam) ToFilterQuery() string {
 
 	if p.UserID != 0 {
 		query += " uploader_id:" + strconv.FormatInt(int64(p.UserID), 10)
+	}
+
+	if p.Hidden {
+		query += " hidden:false"
 	}
 
 	if p.Status != ShowAll {
