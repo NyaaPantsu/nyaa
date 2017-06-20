@@ -36,6 +36,10 @@
     "translation": "Langue"
   },
   {
+    "id": "language_name",
+    "translation": "Français"
+  },
+  {
     "id": "theme",
     "translation": "Thème"
   },
@@ -397,7 +401,7 @@
   },
   {
     "id": "all_categories",
-    "translation": "Toutes les catégories"
+    "translation": "Ttes catégories"
   },
   {
     "id": "show_all",
@@ -449,11 +453,11 @@
   },
   {
     "id": "large",
-    "translation": "de taille."
+    "translation": "de taille"
   },
   {
     "id": "old",
-    "translation": "d'ancienneté."
+    "translation": "d'ancienneté"
   },
   {
     "id": "anime",
