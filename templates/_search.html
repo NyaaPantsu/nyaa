@@ -39,13 +39,15 @@
 {{end}}
 {{define "search_refine"}}
 <div style="text-align:left;" class="box">
-    <form method="GET" action="">
+    <details>
+        <summary class="form-input refine-drop">Refine your search</summary>
+    <form style="display: grid;" method="GET" action="">
         <input type="hidden" name="s" value="{{.Search.Status}}"/>
         <input type="hidden" name="c" value="{{.Search.Category}}"/>
         <input type="hidden" name="max" value="{{.Navigation.MaxItemPerPage}}"/>
         <input type="hidden" name="userID" value="{{.Search.UserID}}"/>
         <input type="hidden" name="q" value="{{.Search.Query}}"/>
-    <span>Between <input class="form-input" size="7" name="minSize" type="text" value="{{.Search.MinSize}}"> and <input size="7" class="form-input" name="maxSize" type="text" value="{{.Search.MaxSize}}"> 
+    <span style="margin-top: 10px;" class="form-refine">Between <input class="form-input" size="7" name="minSize" type="text" value="{{.Search.MinSize}}"> and <input size="7" class="form-input" name="maxSize" type="text" value="{{.Search.MaxSize}}"> 
     <select name="sizeType" class="form-input">
         <option value="b"{{if eq .Search.SizeType "b"}} selected{{end}}>B</option>
         <option value="k"{{if eq .Search.SizeType "k"}} selected{{end}}>KiB</option>
@@ -54,8 +56,7 @@
     </select>
      large.
     </span>
-    <br>
-    <span>Between <input class="form-input" size="7" name="fromDate" type="text" value="{{.Search.FromDate}}"> and <input class="form-input" size="7" name="toDate" type="text" value="{{.Search.ToDate}}"> 
+    <span class="form-refine">Between <input class="form-input" size="7" name="fromDate" type="text" value="{{.Search.FromDate}}"> and <input class="form-input" size="7" name="toDate" type="text" value="{{.Search.ToDate}}"> 
     <select name="dateType" class="form-input">
         <option value="d"{{if eq .Search.DateType "d"}} selected{{end}}>days</option>
         <option value="m"{{if eq .Search.DateType "m"}} selected{{end}}>months</option>
@@ -63,8 +64,8 @@
     </select>
      old.
     </span>
-    <br>
-    <button style="margin-top:10px;" type="submit" class="form-input">Refine</button>
+    <button type="submit" class="form-input refine-btn">Refine</button>
     </form>
+    </details>
 </div>
 {{end}}
