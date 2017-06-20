@@ -155,8 +155,8 @@ type RssTorrent struct {
 }
 
 type RssTorznab struct {
-	XMLName xml.Name `xml:"torznab:attr"`
-	Name    string   `xml:"name,attr"`
+	XMLName xml.Name `xml:"torznab:attr,omitempty"`
+	Name    string   `xml:"name,attr,omitempty"`
 	Value   string   `xml:"value,attr,omitempty"`
 }
 
