@@ -14,7 +14,7 @@
    							{{ range (index $.FormErrors "username")}}
    							<p class="error-text">{{ . }}</p>
    							{{end}}
-					<input type="email" name="email" id="email" class="form-input up-input" placeholder="{{call $.T "email_address" }}" value="{{ .Email }}"> <br>
+					<input type="email" name="email" id="email" class="form-input up-input" placeholder="{{call $.T "email_address" }} ({{call $.T "optional"}})" value="{{ .Email }}"> <br>
    							{{ range (index $.FormErrors "email")}}
    							<p class="error-text">{{ . }}</p>
    							{{end}}
