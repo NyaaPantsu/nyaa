@@ -28,7 +28,7 @@
 		</select>
 
 		<h3>{{ call $.T "torrent_language" }}</h3>
-		<select name="language" id="language" class="form-input up-input" required>
+		<select name="language" id="language" class="form-input up-input">
 			<option value="">{{call $.T "select_a_torrent_language"}}</option>
 			<option value="other" {{if eq $.Form.Language "other"}}selected{{end}}>{{call $.T "language_other_name"}}</option>
 			<option value="multiple" {{if eq $.Form.Language "multiple"}}selected{{end}}>{{call $.T "language_multiple_name"}}</option>
