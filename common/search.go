@@ -77,7 +77,7 @@ func (s *SortMode) Parse(str string) {
 	case "7":
 		*s = Completed
 	default:
-		*s = ID
+		*s = Date
 	}
 }
 
