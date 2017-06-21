@@ -716,6 +716,10 @@
     "translation": "Adresse email"
   },
   {
+    "id": "optional",
+    "translation": "Facultatif"
+  },
+  {
     "id": "email_not_valid",
     "translation": "L'adresse email est invalide !"
   },
