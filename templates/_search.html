@@ -8,9 +8,9 @@
   <label><span class="select-icon caret-down-icon"></span></label>
   <select name="s" class="form-input hide-xs">
     <option value="0">{{call $.T "show_all"}}</option>
-    <option value="1" {{if eq .Search.Status 1}}selected{{end}}>{{call $.T "filter_remakes"}}</option>
-    <option value="2" {{if eq .Search.Status 2}}selected{{end}}>{{call $.T "trusted"}}</option>
-    <option value="3" {{if eq .Search.Status 3}}selected{{end}}>A+</option>
+    <option value="2" {{if eq .Search.Status 2}}selected{{end}}>{{call $.T "filter_remakes"}}</option>
+    <option value="3" {{if eq .Search.Status 3}}selected{{end}}>{{call $.T "trusted"}}</option>
+    <option value="4" {{if eq .Search.Status 4}}selected{{end}}>A+</option>
   </select>
   {{ if .Search.ShowItemsPerPage }}
   <select name="max" class="form-input hide-xs">
