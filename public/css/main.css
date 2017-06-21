@@ -26,6 +26,7 @@ body {
 	height: 60vh;
 	-webkit-tap-highlight-color: transparent;
 	pointer-events: auto;
+	cursor: pointer;
 }
 
 #mascot.custom-mascot {
@@ -273,7 +274,7 @@ th { border-bottom-width: 2px; }
 .tr-cs .comment-icon { margin-bottom: 4px; }
 .tr-size { width: 90px; }
 .tr-se, .tr-le { font-weight: bold; }
-.tr-se, .tr-le, .tr-dl { width: 40px; }
+.tr-se, .tr-le, .tr-dl { width: 50px; }
 .tr-date { width: 130px; }
 
 .tr-se > a > .sort-arrows,
@@ -358,6 +359,14 @@ html, body {
 	.header .h-search { margin-right: 10px; }
 	.header .h-search input { width: 90px !important; }
 	.header .h-search input:focus { width: 150px !important; }
+}
+@media (min-width: 1920px) {
+	.h-left {
+		left: 15%;
+	}
+	.h-right {
+		right: 15%;
+	}
 }
 
 @media (max-width: 810px)  {
@@ -490,7 +499,6 @@ html, body {
 .torrent-buttons {
 	margin-top: 20px;
 	margin-right: 10px;
-	font-size: large;
 	text-align: right;
 }
 
@@ -888,7 +896,6 @@ input.nav-btn {
 	width: 240px;
 }
 .download {
-	font-size: 1.5em;
 	padding: 0.3em;
 }
 .refine-drop {

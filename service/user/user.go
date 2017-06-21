@@ -324,6 +324,20 @@ func RetrieveOldUploadsByUsername(username string) ([]uint, error) {
 	return ret, nil
 }
 
+// RetrieveUserByID retrieves a user by ID.
+func RetrieveUserByID(id string) (model.User, int, error) {
+	var user model.User
+	if db.ORM.Preload("Notifications").Last(&user, id).RecordNotFound() {
+		return user, http.StatusNotFound, errors.New("user not found")
+	}
+	var liked, likings []model.User
+	db.ORM.Joins("JOIN user_follows on user_follows.user_id=?", user.ID).Where("users.user_id = user_follows.following").Group("users.user_id").Find(&likings)
+	db.ORM.Joins("JOIN user_follows on user_follows.following=?", user.ID).Where("users.user_id = user_follows.user_id").Group("users.user_id").Find(&liked)
+	user.Followers = likings
+	user.Likings = liked
+	return user, http.StatusOK, nil
+}
+
 // RetrieveUserForAdmin retrieves a user for an administrator.
 func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	var user model.User

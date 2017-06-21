@@ -16,31 +16,31 @@ import (
 type Status uint8
 
 const (
-	ShowAll Status = iota
-	FilterRemakes
-	Trusted
-	APlus
+	ShowAll Status = 0
+	FilterRemakes = 2
+	Trusted = 3
+	APlus = 4
 )
 
 func (st *Status) ToString() string {
 	switch *st {
 	case FilterRemakes:
-		return "1"
-	case Trusted:
 		return "2"
-	case APlus:
+	case Trusted:
 		return "3"
+	case APlus:
+		return "4"
 	}
 	return ""
 }
 
 func (st *Status) Parse(s string) {
 	switch s {
-	case "1":
-		*st = FilterRemakes
 	case "2":
-		*st = Trusted
+		*st = FilterRemakes
 	case "3":
+		*st = Trusted
+	case "4":
 		*st = APlus
 	default:
 		*st = ShowAll
@@ -77,7 +77,7 @@ func (s *SortMode) Parse(str string) {
 	case "7":
 		*s = Completed
 	default:
-		*s = ID
+		*s = Date
 	}
 }
 
@@ -244,6 +244,7 @@ type SearchParam struct {
 	TorrentID uint
 	FromID    uint // Search for torrentID > FromID
 	Order     bool // True means acsending
+	Hidden    bool // True means filter hidden torrents
 	Status    Status
 	Sort      SortMode
 	Category  Categories

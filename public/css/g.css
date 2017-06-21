@@ -48,6 +48,7 @@ td.tr-le, .error-text { color: #E84C4C; }
 
 .btn-red {
 	background-color: #E84C4C;
+	color: #E8E8E8;
 }
 
 .aplus, .btn-blue { background: hsla(200, 100%, 50%, 0.2) !important; }
