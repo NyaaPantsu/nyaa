@@ -1426,5 +1426,9 @@
   {
     "id": "old",
     "translation": "前"
+  },
+  {
+    "id": "optional",
+    "translation": "任意"
   }
 ]
