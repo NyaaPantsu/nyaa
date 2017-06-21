@@ -73,14 +73,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 function playVoice() {
 	if (explosion) {
+		explosion.volume = 0.2;
 		explosion.play();
 	}
 	else if (kawaii) {
-		kawaii.volume = 0.7;
+		kawaii.volume = 0.2;
 		kawaii.play();
 	}
 	else {
-		nyanpassu.volume = 0.5;
+		nyanpassu.volume = 0.2;
 		nyanpassu.play();
 	}
 }
