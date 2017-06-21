@@ -47,7 +47,7 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 			Link:        config.WebAddress() + "/download/" + torrentJSON.Hash,
 			Description: string(torrentJSON.Description),
 			PubDate:     torrent.Date.Format(time.RFC822),
-			GUID:        config.WebAddress() + "view" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
+			GUID:        config.WebAddress() + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
 			Enclosure: &nyaafeeds.RssEnclosure{
 				URL:    config.WebAddress() + "/download/" + strings.TrimSpace(torrentJSON.Hash),
 				Length: strconv.FormatUint(uint64(torrentJSON.Filesize), 10),
