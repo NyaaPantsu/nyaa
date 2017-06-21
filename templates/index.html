@@ -42,7 +42,7 @@
 			<div class="container">
 				<div class="h-left">
 						<div class="h-logo">
-							<a href="{{.URL.Parse "/"}}"><img class="hide-md" src="/img/{{if Sukebei}}sukebei_logo.png{{else}}logo.png{{end}}" alt="NyaaPantsu"><img class="visible-md" src="/img/logo_s.png"/></a>
+							<a href="{{.URL.Parse "/"}}"><img class="hide-md" src="/img/{{if Sukebei}}sukebei_logo.png{{else}}logo.png{{end}}" alt="Nyaa Pantsu"><img class="visible-md" src="/img/logo_s.png"/></a>
 						</div>
 						<div class="h-nav">
 							<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><div class="icon-upload visible-md"></div><span class="hide-md">{{ call $.T "upload" }}</span></a>
@@ -101,7 +101,7 @@
 					<div class="footer-opt">
 						<p><a href="/settings">{{ call $.T "change_settings" }}</a></p>
 					</div>
-					<span><i>Powered by <a href="#">NyaaPantsu</a> v{{ .Config.Version }} - commit {{ .Config.Build }}</i></span>
+					<span><i>Powered by <a href="#">Nyaa Pantsu</a> v{{ .Config.Version }} - commit {{ .Config.Build }}</i></span>
 				</div>
 			</footer>
 		</div>
