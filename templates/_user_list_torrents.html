@@ -10,7 +10,7 @@
             <th class="tr-date hide-xs">{{call $.T "date"}}</th>
           </tr>
           {{ range $i, $t := .Torrents }}
-          {{ if lt $i 16 }}
+          {{ if DisplayTorrent $t $.User }}
           {{ with $t.ToJSON }}
           <tr class="torrent-info
               {{if eq .Status 2}}remake{{end}}

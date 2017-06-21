@@ -244,6 +244,7 @@ type SearchParam struct {
 	TorrentID uint
 	FromID    uint // Search for torrentID > FromID
 	Order     bool // True means acsending
+	Hidden    bool // True means filter hidden torrents
 	Status    Status
 	Sort      SortMode
 	Category  Categories

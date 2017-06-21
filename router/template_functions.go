@@ -161,6 +161,9 @@ var FuncMap = template.FuncMap{
 	"NeedsCaptcha":         userPermission.NeedsCaptcha,
 	"GetRole":              userPermission.GetRole,
 	"IsFollower":           userPermission.IsFollower,
+	"DisplayTorrent": func(t model.Torrent, u model.User) bool {
+		return ((!t.Hidden && t.Status != 0) || userPermission.CurrentOrAdmin(&u, t.UploaderID))
+	},
 	"NoEncode": func(str string) template.HTML {
 		return template.HTML(str)
 	},

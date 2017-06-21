@@ -66,6 +66,8 @@ mappings:
         type: long
       seeders:
         type: long
+      hidden:
+        type: boolean
       leechers:
         type: long
       completed:
