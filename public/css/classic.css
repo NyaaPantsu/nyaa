@@ -51,7 +51,7 @@ th { border-color:  #ddd !important; }
 td { border-color:  #ccc !important; }
 
 td.tr-se, .success-text { color: #22A243; }
-td.tr-le, .error-text, { color: #E84C4C; }
+td.tr-le, .error-text { color: #E84C4C; }
 
 .btn-red {
 	background-color: #E84C4C;
