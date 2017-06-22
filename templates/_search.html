@@ -13,7 +13,7 @@
     <option value="4" {{if eq .Search.Status 4}}selected{{end}}>A+</option>
   </select>
   {{ if .Search.ShowItemsPerPage }}
-  <select name="max" class="form-input hide-xs">
+  <select name="limit" class="form-input hide-xs">
     <option value="5" {{if eq .Navigation.MaxItemPerPage 5}}selected{{end}}>5</option>
     <option value="10" {{if eq .Navigation.MaxItemPerPage 10}}selected{{end}}>10</option>
     <option value="15" {{if eq .Navigation.MaxItemPerPage 15}}selected{{end}}>15</option>
