@@ -110,7 +110,7 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	if strings.TrimSpace(content) == "" {
 		messages.AddErrorT("errors", "comment_empty")
 	}
-	if len(content) > 500 {
+	if len(content) > config.Conf.CommentLength {
 		messages.AddErrorT("errors", "comment_toolong")
 	}
 	if !messages.HasErrors() {

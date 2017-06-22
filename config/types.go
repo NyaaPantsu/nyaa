@@ -8,6 +8,8 @@ type Config struct {
 	Environment            string `json:"environment" yaml:"environment,omitempty"`
 	AuthTokenExpirationDay int    `json:"auth_token_expiration" yaml:"auth_token_expiration,omitempty"`
 	EnableSecureCSRF       bool   `json:"enable_secure_csrf" yaml:"enable_secure_csrf,omitempty"`
+	DescriptionLength      int    `json:"description_length" yaml:"description_length,omitempty"`
+	CommentLength          int    `json:"comment_length" yaml:"comment_length,omitempty"`
 	// DBParams will be directly passed to Gorm, and its internal
 	// structure depends on the dialect for each db type
 	DBParams  string `json:"db_params" yaml:"db_params,omitempty"`

@@ -19,6 +19,8 @@ environment: DEVELOPMENT
 auth_token_expiration: 1000
 # EnableSecureCSRF : Enable CSRF https mode : True if website support https, false otherwise (eg. testing locally: false)
 enable_secure_csrf: true
+description_length: 10000
+comment_length: 2000
 # the default config for web addresses
 web_address:
   # Nyaa : Origin of the website

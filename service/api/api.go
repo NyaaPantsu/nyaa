@@ -152,7 +152,7 @@ func (r *TorrentRequest) validateName() error {
 }
 
 func (r *TorrentRequest) validateDescription() error {
-	if len(r.Description) > 500 {
+	if len(r.Description) > config.Conf.DescriptionLength {
 		return errInvalidTorrentDescription
 	}
 	return nil
