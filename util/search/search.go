@@ -119,7 +119,7 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool, d
 func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (
 	search common.SearchParam, tor []model.Torrent, count int, err error,
 ) {
-	max, err := strconv.ParseUint(r.URL.Query().Get("max"), 10, 32)
+	max, err := strconv.ParseUint(r.URL.Query().Get("limit"), 10, 32)
 	if err != nil {
 		max = 50 // default Value maxPerPage
 	} else if max > 300 {
