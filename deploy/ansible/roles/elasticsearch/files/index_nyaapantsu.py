@@ -21,7 +21,7 @@ es = Elasticsearch()
 pgconn = psycopg2.connect(dbparams)
 
 cur = pgconn.cursor()
-cur.execute("""SELECT torrent_id, torrent_name, hidden, category, sub_category, status, 
+cur.execute("""SELECT torrent_id, torrent_name, description, hidden, category, sub_category, status, 
                       torrent_hash, date, uploader, downloads, filesize, seeders, leechers, completed, language
                FROM {torrent_tablename}
                WHERE deleted_at IS NULL""".format(torrent_tablename=torrent_tablename))
@@ -29,7 +29,7 @@ cur.execute("""SELECT torrent_id, torrent_name, hidden, category, sub_category, 
 fetches = cur.fetchmany(CHUNK_SIZE)
 while fetches:
     actions = list()
-    for torrent_id, torrent_name, hidden, category, sub_category, status, torrent_hash, date, uploader, downloads, filesize, seeders, leechers, completed, language in fetches:
+    for torrent_id, torrent_name, description, hidden, category, sub_category, status, torrent_hash, date, uploader, downloads, filesize, seeders, leechers, completed, language in fetches:
         doc = {
           'id': torrent_id,
           'name': torrent_name.decode('utf-8'),
@@ -38,6 +38,7 @@ while fetches:
           'status': status,
           'hash': torrent_hash,
           'hidden': hidden,
+          'description': description,
           'date': date,
           'uploader_id': uploader,
           'downloads': downloads,
