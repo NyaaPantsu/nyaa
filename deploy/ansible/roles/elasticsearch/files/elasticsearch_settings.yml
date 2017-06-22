@@ -52,6 +52,8 @@ mappings:
             type: keyword
       category:
         type: text
+      description:
+        type: text
       sub_category:
         type: text
       status:

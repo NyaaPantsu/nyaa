@@ -38,11 +38,11 @@ while fetches:
         }
         if action == 'index':
             select_cur = pgconn.cursor()
-            select_cur.execute("""SELECT torrent_id, torrent_name, hidden, category, sub_category, status,
+            select_cur.execute("""SELECT torrent_id, torrent_name, description, hidden, category, sub_category, status,
                                   torrent_hash, date, uploader, downloads, filesize, seeders, leechers, completed, language
                            FROM {torrent_tablename}
                            WHERE torrent_id = {torrent_id}""".format(torrent_id=torrent_id, torrent_tablename=torrent_tablename))
-            torrent_id, torrent_name, hidden, category, sub_category, status, torrent_hash, date, uploader, downloads, filesize, seeders, leechers, completed, language = select_cur.fetchone()
+            torrent_id, torrent_name, description, hidden, category, sub_category, status, torrent_hash, date, uploader, downloads, filesize, seeders, leechers, completed, language = select_cur.fetchone()
             doc = {
               'id': torrent_id,
               'name': torrent_name.decode('utf-8'),
@@ -50,6 +50,7 @@ while fetches:
               'sub_category': str(sub_category),
               'status': status,
               'hidden': hidden,
+              'description': description,
               'hash': torrent_hash,
               'date': date,
               'uploader_id': uploader,
