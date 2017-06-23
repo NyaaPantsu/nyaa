@@ -17,7 +17,6 @@
               <th class="tr-cb hide"><input type="checkbox" name="select_all" onchange="TorrentsMod.selectAll(this.checked)"></th>
               {{end}}
               <th class="tr-cat">{{call $.T "category"}}</th>
-              <th class="tr-lang"></th>
               <th class="tr-name">
                 <a href="{{ genSearchWithOrdering .URL "1" }}">{{call $.T "name"}}<span class="sort-arrows">{{ genSortArrows .URL "1" }}</span></a>
               </th>
@@ -38,7 +37,7 @@
               <th class="tr-date hide-xs"><a href="{{ genSearchWithOrdering .URL "2" }}">{{call $.T "date"}}<span class="sort-arrows">{{ genSortArrows .URL "2" }}</span></a></th>
           </tr>
           </thead>
-          <tbody>
+          <tbody id="torrentListResults">
           {{ range .Models}}
           <tr id="torrent_{{ .ID }}" class="torrent-info
               {{if eq .Status 2}}remake{{end}}
@@ -49,20 +48,19 @@
                 <input data-name="{{ .Name }}" type="checkbox" id="torrent_cb_{{ .ID }}" name="torrent_id" value="{{ .ID }}">
               </td>
                 {{ end }}
-              <td class="tr-cat home-td" {{if eq (FlagCode .Language) ""}}colspan="2"{{end}}>
-                  <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
-                      {{ if Sukebei }}
-                      <img alt="{{ call $.T (CategoryName .Category .SubCategory) }}" src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
-                      {{ else }}
-                      <img alt="{{ call $.T (CategoryName .Category .SubCategory) }}" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
-                      {{ end}}
-                  </a>
-              </td>
+              <td class="tr-cat home-td">
+			  {{ if Sukebei }}
+              <div class="nyaa-cat sukebei-cat-{{printf "%s%s" .Category .SubCategory}}">
+			  {{ else}}
+              <div class="nyaa-cat nyaa-cat-{{printf "%s" .SubCategory}}">
+			  {{end}}
+                  <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
               {{if ne (FlagCode .Language) ""}}
-              <td class="tr-lang tr-flag home-td">
                   <img src="img/blank.gif" alt="{{ LanguageName .Language $.T }}" class="flag flag-{{FlagCode .Language}}" title="{{ LanguageName .Language $.T }}">
-              </td>
               {{end}}
+                  </a>
+              </div>
+              </td>
               <td class="tr-name home-td">
                   <a href="{{genRoute "view_torrent" "id" ( print .ID ) }}">
                       {{.Name}}
@@ -236,26 +234,24 @@
                 "<input data-name=\""+Templates.EncodeEntities(torrent.name)+"\" type=\"checkbox\" id=\"torrent_cb_"+torrent.id+"\" name=\"torrent_id\" value=\""+torrent.id+"\">"+
               "</td>"+
             {{ end }}
-              "<td class=\"tr-cat home-td\""+(torrent.language == "" ? " colspan=2" : "")+">"+
-                  "<a href=\"{{$.URL.Parse "/search?c=" }}"+ torrent.category + "_" + torrent.sub_category +"\">"+
-                      {{ if Sukebei }}
-                      "<img src=\"{{ $.URL.Parse "/img/torrents/sukebei/" }}"+ torrent.category + torrent.sub_category+".png\" title=\""+ torrent.CategoryName +"\">"+
-                      {{ else }}
-                      "<img src=\"{{ $.URL.Parse "/img/torrents/" }}"+ torrent.sub_category +".png\" title=\""+ torrent.CategoryName +"\">"+
-                      {{ end }}
+            "<td class=\"tr-cat home-td\">"+
+			{{ if Sukebei }}
+              "<div class=\"nyaa-cat sukebei-cat-"+ torrent.category + torrent.sub_category +"\">"+
+			{{else}}
+              "<div class=\"nyaa-cat nyaa-cat-"+ torrent.sub_category +"\">"+
+			{{end}}
+                  "<a href=\"{{$.URL.Parse "/search?c=" }}"+ torrent.category + "_" + torrent.sub_category +"\" title=\""+ torrent.CategoryName +"\">"+
+					((torrent.language != "") ? "<img src=\"img/blank.gif\" class=\"flag flag-"+flagCode(torrent.language)+"\">" : "") +
                   "</a>"+
-              "</td>"+
-              (torrent.language != "" ? "<td class=\"tr-lang tr-flag home-td\">" +
-                "<img src=\"img/blank.gif\" class=\"flag flag-"+flagCode(torrent.language)+"\">"+
-              "</td>" : "")+
+              "</div></td>"+
               "<td class=\"tr-name home-td\"><a href=\"/view/"+torrent.id+"\">"+Templates.EncodeEntities(torrent.name) +"</a></td>"+
               "<td class=\"tr-cs home-td hide-xs\">"+
               ((torrent.comments.length > 0) ? "<i class=\"comment-icon\" title=\"{{ call $.T "comments" }}\">" + torrent.comments.length + "</i>" : "")+
               "</td>"+
               "<td class=\"tr-links home-td\">"+
                   "<a href=\""+torrent.magnet +"\" title=\"{{ call $.T "magnet_link" }}\">"+
-                      "<div class=\"magnet-icon\"></div>"+
-                  "</a>"+(torrent.torrent != "" ? " <a href=\""+torrent.torrent+"\" title=\"{{ call $.T "torrent_file" }}\"><div class=\"download-icon\"></div></a>" : "") +
+                      "<div class=\"icon-magnet\"></div>"+
+                  "</a>"+(torrent.torrent != "" ? " <a href=\""+torrent.torrent+"\" title=\"{{ call $.T "torrent_file" }}\"><div class=\"icon-floppy\"></div></a>" : "") +
               "</td>"+
               "<td class=\"tr-size home-td hide-xs\">"+humanFileSize(torrent.filesize)+"</td>"+
               "<td class=\"tr-se home-td hide-xs\">"+torrent.seeders+"</td>"+
