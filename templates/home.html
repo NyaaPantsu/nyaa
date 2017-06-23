@@ -49,20 +49,17 @@
                 <input data-name="{{ .Name }}" type="checkbox" id="torrent_cb_{{ .ID }}" name="torrent_id" value="{{ .ID }}">
               </td>
                 {{ end }}
-              <td class="tr-cat home-td" {{if eq (FlagCode .Language) ""}}colspan="2"{{end}}>
-                  <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}">
-                      {{ if Sukebei }}
-                      <img alt="{{ call $.T (CategoryName .Category .SubCategory) }}" src="{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
-                      {{ else }}
-                      <img alt="{{ call $.T (CategoryName .Category .SubCategory) }}" src="{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
-                      {{ end}}
+			  {{ if Sukebei }}
+              <td class="tr-cat home-td" {{if eq (FlagCode .Language) ""}}colspan="2"{{end}} style="background-image: url('{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}');">
+			  {{ else}}
+              <td class="tr-cat home-td" {{if eq (FlagCode .Language) ""}}colspan="2"{{end}} style="background-image: url('{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}');">
+			  {{end}}
+                  <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
+              {{if ne (FlagCode .Language) ""}}
+                  <img src="img/blank.gif" alt="{{ LanguageName .Language $.T }}" class="flag flag-{{FlagCode .Language}}" title="{{ LanguageName .Language $.T }}">
+              {{end}}
                   </a>
               </td>
-              {{if ne (FlagCode .Language) ""}}
-              <td class="tr-lang tr-flag home-td">
-                  <img src="img/blank.gif" alt="{{ LanguageName .Language $.T }}" class="flag flag-{{FlagCode .Language}}" title="{{ LanguageName .Language $.T }}">
-              </td>
-              {{end}}
               <td class="tr-name home-td">
                   <a href="{{genRoute "view_torrent" "id" ( print .ID ) }}">
                       {{.Name}}
@@ -236,13 +233,13 @@
                 "<input data-name=\""+Templates.EncodeEntities(torrent.name)+"\" type=\"checkbox\" id=\"torrent_cb_"+torrent.id+"\" name=\"torrent_id\" value=\""+torrent.id+"\">"+
               "</td>"+
             {{ end }}
-              "<td class=\"tr-cat home-td\""+(torrent.language == "" ? " colspan=2" : "")+">"+
-                  "<a href=\"{{$.URL.Parse "/search?c=" }}"+ torrent.category + "_" + torrent.sub_category +"\">"+
-                      {{ if Sukebei }}
-                      "<img src=\"{{ $.URL.Parse "/img/torrents/sukebei/" }}"+ torrent.category + torrent.sub_category+".png\" title=\""+ torrent.CategoryName +"\">"+
-                      {{ else }}
-                      "<img src=\"{{ $.URL.Parse "/img/torrents/" }}"+ torrent.sub_category +".png\" title=\""+ torrent.CategoryName +"\">"+
-                      {{ end }}
+			{{ if Sukebei }}
+              "<td class=\"tr-cat home-td\""+(torrent.language == "" ? " colspan=2" : "")+" style=\"background-image: url('/img/torrents/sukebei/"+ torrent.category + torrent.sub_category".png');\">"+
+			{{else}}
+              "<td class=\"tr-cat home-td\""+(torrent.language == "" ? " colspan=2" : "")+" style=\"background-image: url('/img/torrents/"+ torrent.sub_category".png');\">"+
+			{{end}}
+                  "<a href=\"{{$.URL.Parse "/search?c=" }}"+ torrent.category + "_" + torrent.sub_category +"\" title=\""+ torrent.CategoryName +"\">"+
+					(torrent.language != "" ? "<img src=\"img/blank.gif\" class=\"flag flag-"+flagCode(torrent.language)+"\">" : "" +
                   "</a>"+
               "</td>"+
               (torrent.language != "" ? "<td class=\"tr-lang tr-flag home-td\">" +
