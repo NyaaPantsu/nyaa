@@ -50,9 +50,9 @@
               </td>
                 {{ end }}
 			  {{ if Sukebei }}
-              <td class="tr-cat home-td" {{if eq (FlagCode .Language) ""}}colspan="2"{{end}} style="background-image: url('{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}');">
+              <td class="tr-cat home-td" colspan="2" style="background: url('{{$.URL.Parse (printf "/img/torrents/sukebei/%s%s.png" .Category .SubCategory) }}') no-repeat center;">
 			  {{ else}}
-              <td class="tr-cat home-td" {{if eq (FlagCode .Language) ""}}colspan="2"{{end}} style="background-image: url('{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}');">
+              <td class="tr-cat home-td" colspan="2" style="background: url('{{$.URL.Parse (printf "/img/torrents/%s.png" .SubCategory) }}') no-repeat center;">
 			  {{end}}
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
               {{if ne (FlagCode .Language) ""}}
@@ -234,9 +234,9 @@
               "</td>"+
             {{ end }}
 			{{ if Sukebei }}
-              "<td class=\"tr-cat home-td\""+(torrent.language == "" ? " colspan=2" : "")+" style=\"background-image: url('/img/torrents/sukebei/"+ torrent.category + torrent.sub_category".png');\">"+
+              "<td class=\"tr-cat home-td\" colspan=\"2\" style=\"background: url('/img/torrents/sukebei/"+ torrent.category + torrent.sub_category".png') no-repeat center;\">"+
 			{{else}}
-              "<td class=\"tr-cat home-td\""+(torrent.language == "" ? " colspan=2" : "")+" style=\"background-image: url('/img/torrents/"+ torrent.sub_category".png');\">"+
+              "<td class=\"tr-cat home-td\" colspan=\"2\" style=\"background: url('/img/torrents/"+ torrent.sub_category".png') no-repeat cneter;\">"+
 			{{end}}
                   "<a href=\"{{$.URL.Parse "/search?c=" }}"+ torrent.category + "_" + torrent.sub_category +"\" title=\""+ torrent.CategoryName +"\">"+
 					(torrent.language != "" ? "<img src=\"img/blank.gif\" class=\"flag flag-"+flagCode(torrent.language)+"\">" : "" +
