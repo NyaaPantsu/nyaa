@@ -50,7 +50,7 @@
                 {{ end }}
               <td class="tr-cat home-td">
 			  {{ if Sukebei }}
-              <div class="nyaa-cat nyaa-cat-{{printf "%s%s" .Category .SubCategory}}">
+              <div class="nyaa-cat sukebei-cat-{{printf "%s%s" .Category .SubCategory}}">
 			  {{ else}}
               <div class="nyaa-cat nyaa-cat-{{printf "%s" .SubCategory}}">
 			  {{end}}
@@ -236,7 +236,7 @@
             {{ end }}
             "<td class=\"tr-cat home-td\">"+
 			{{ if Sukebei }}
-              "<div class=\"nyaa-cat nyaa-cat-"+ torrent.category + torrent.sub_category +"\">"+
+              "<div class=\"nyaa-cat sukebei-cat-"+ torrent.category + torrent.sub_category +"\">"+
 			{{else}}
               "<div class=\"nyaa-cat nyaa-cat-"+ torrent.sub_category +"\">"+
 			{{end}}
