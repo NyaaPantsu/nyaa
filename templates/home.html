@@ -14,7 +14,7 @@
           <thead class="torrent-info">
           <tr>
               {{ if HasAdmin $.User }}
-              <th class="tr-cb"><input type="checkbox" name="select_all" onchange="TorrentsMod.selectAll(this.checked)"></th>
+              <th class="tr-cb hide"><input type="checkbox" name="select_all" onchange="TorrentsMod.selectAll(this.checked)"></th>
               {{end}}
               <th class="tr-cat">{{call $.T "category"}}</th>
               <th class="tr-lang"></th>
@@ -45,7 +45,7 @@
               {{if eq .Status 3}}trusted{{end}}
               {{if eq .Status 4}}aplus{{end}}" >
                 {{ if HasAdmin $.User }}
-              <td class="tr-cb">
+              <td class="tr-cb hide">
                 <input data-name="{{ .Name }}" type="checkbox" id="torrent_cb_{{ .ID }}" name="torrent_id" value="{{ .ID }}">
               </td>
                 {{ end }}

@@ -645,7 +645,6 @@ input.filelist-checkbox:checked + table.table-filelist {
 .tr-cb {
 	width: 20px;
 	text-align: left;
-	display: none;
 }
 .modtools .actions {
 	display: none;
@@ -853,10 +852,6 @@ input.filelist-checkbox:checked + table.table-filelist {
 
 #content.content-admin {
 	top:130px;
-}
-
-#content.content-admin .tr-cb {
-	display: table-cell;
 }
 
 .tr-actions .form-input{
