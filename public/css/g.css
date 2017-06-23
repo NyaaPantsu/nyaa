@@ -51,6 +51,8 @@ td.tr-le, .error-text { color: #E84C4C; }
 	color: #E8E8E8;
 }
 
+.btn-red:hover { color: #E8E8E8; }
+
 .aplus, .btn-blue { background: hsla(200, 100%, 50%, 0.2) !important; }
 .trusted, .btn-green { background: hsla(100, 100%, 50%, 0.2) !important; }
 .remake, .btn-orange { background: hsla(30, 100%, 50%, 0.2) !important; }
@@ -77,4 +79,4 @@ td.tr-le, .error-text { color: #E84C4C; }
 	border-color: #C48CBE;
 }
 
-.header .h-user button:focus {background-color: rgba(0,0,255, 0.2);}
+.header .h-user button:focus {background-color: rgba(0,100,200, 0.15);}

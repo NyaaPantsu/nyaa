@@ -55,6 +55,11 @@ td.tr-le, .error-text { color: #E84C4C; }
 
 .btn-red {
 	background-color: #E84C4C;
+	color: #E8E8E8;
+}
+
+.btn-red:hover {
+	color: #E8E8E8;
 }
 
 /* Original Nyaa colors, do NOT change! */
