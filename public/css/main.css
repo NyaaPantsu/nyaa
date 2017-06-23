@@ -260,18 +260,29 @@ th, .home-td {
 	text-overflow: ellipsis;
 
 }
+.tr-cat div.nyaa-cat {
+	position: relative;
+	text-align: left;
+}
 .tr-cat a { 
 	width: 100%;
 	height: 100%;
 	display: block; 
-	background: no-repeat center;
 }
-.tr-cat img { margin-top: 2px; }
+.tr-cat img {
+	margin-top: 2px;
+}
+.tr-cat .nyaa-cat img {
+	position: absolute;
+    bottom: -6px;
+    display: block;
+    left: 60px;
+}
 
 
 th { border-bottom-width: 2px; }
 
-.tr-cat { width: 70px; text-align: center; }
+.tr-cat { width: 90px; text-align: center; }
 .tr-lang { width: 32px; margin: 0; padding: 0; }
 .tr-name { width: auto; text-align: left; white-space: normal; word-break: break-word; font-weight: bold; }
 .tr-links { width: 66px; }
@@ -916,4 +927,89 @@ summary:after {
 details[open] summary:after {
 	content: "-";
 	margin: -4px 5px 0 0;
+}
+
+.nyaa-cat {
+	background-repeat: no-repeat;
+	background-position: center center;
+	width:80px;
+	height: 28px;
+	display: block;
+}
+
+.nyaa-cat-1 {
+	background: url("/img/torrents/1.png")
+}
+.nyaa-cat-2 {
+	background: url("/img/torrents/2.png")
+}
+.nyaa-cat-3 {
+	background: url("/img/torrents/3.png")
+}
+.nyaa-cat-4 {
+	background: url("/img/torrents/4.png")
+}
+.nyaa-cat-5 {
+	background: url("/img/torrents/5.png")
+}
+.nyaa-cat-6 {
+	background: url("/img/torrents/6.png")
+}
+.nyaa-cat-7 {
+	background: url("/img/torrents/7.png")
+}
+.nyaa-cat-8 {
+	background: url("/img/torrents/8.png")
+}
+.nyaa-cat-9 {
+	background: url("/img/torrents/9.png")
+}
+.nyaa-cat-10 {
+	background: url("/img/torrents/10.png")
+}
+.nyaa-cat-11 {
+	background: url("/img/torrents/11.png")
+}
+.nyaa-cat-12 {
+	background: url("/img/torrents/12.png")
+}
+.nyaa-cat-13 {
+	background: url("/img/torrents/13.png")
+}
+.nyaa-cat-14 {
+	background: url("/img/torrents/14.png")
+}
+.nyaa-cat-15 {
+	background: url("/img/torrents/15.png")
+}
+.nyaa-cat-16 {
+	background: url("/img/torrents/16.png")
+}
+.nyaa-cat-17 {
+	background: url("/img/torrents/17.png")
+}
+.nyaa-cat-18 {
+	background: url("/img/torrents/18.png")
+}
+
+.sukebei-cat-11 {
+	background: url("/img/torrents/sukebei/11.png")
+}
+.sukebei-cat-12 {
+	background: url("/img/torrents/sukebei/12.png")
+}
+.sukebei-cat-13 {
+	background: url("/img/torrents/sukebei/13.png")
+}
+.sukebei-cat-14 {
+	background: url("/img/torrents/sukebei/14.png")
+}
+.sukebei-cat-15 {
+	background: url("/img/torrents/sukebei/15.png")
+}
+.sukebei-cat-21 {
+	background: url("/img/torrents/sukebei/21.png")
+}
+.sukebei-cat-22 {
+	background: url("/img/torrents/sukebei/22.png")
 }
