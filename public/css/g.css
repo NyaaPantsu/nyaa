@@ -29,6 +29,7 @@ a:hover { color:  #444; }
 	background:         linear-gradient(to bottom, #BDE0EF 0%, #ABCFDF 100%);
 	border-color: #1d6d90;
 }
+.header .h-user button:focus {background-color: rgba(0,100,200, 0.15);}
 
 table thead {
 	background: #dcccea !important; /* Old browsers */
@@ -64,12 +65,13 @@ td.tr-le, .error-text { color: #E84C4C; }
 .sukebei { color: #373737; }
 .sukebei .header { background-image: url('theme_g_anon/s_bg-header-tile.png'); border-color: #C48CBE; }
 .sukebei .header .nav-btn { color: #C48CBE; }
-.sukebei .header .nav-btn:hover { color: #75184A; }
+.sukebei .header .nav-btn:hover { color: #AD6CA6; }
 .sukebei a { color: #676767; }
 .sukebei a:hover { color:  #444; }
 .sukebei th { color: #9b85ae; }
 .sukebei th a { color: #7A5C94; }
 .sukebei tr:nth-child(2n+1) { background: hsla(330, 100%, 91%, 0.2); }
+.sukebei .header .h-user button:focus {background-color: rgba(150,100,255, 0.16);}
 
 .sukebei .header .h-user .user-menu {
 	background: #EFDCF0;
@@ -78,5 +80,3 @@ td.tr-le, .error-text { color: #E84C4C; }
 	background:         linear-gradient(to bottom, #EFDCF0 0%, #EBCFEC 100%);
 	border-color: #C48CBE;
 }
-
-.header .h-user button:focus {background-color: rgba(0,100,200, 0.15);}
