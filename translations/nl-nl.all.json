@@ -837,7 +837,7 @@
   },
   {
     "id": "no_action_exist",
-    "translation": Die actie %s bestaat niet!"
+    "translation": "Die actie %s bestaat niet!"
   },
   {
     "id": "torrent_not_exist",
