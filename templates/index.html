@@ -13,13 +13,14 @@
 		<link rel="shortcut icon" type="image/png" href="/img/favicon.png">
 		
 		<!-- SMO -->
-		<meta property="og:site_name" content="Nyaa Pantsu">
-		<meta property="og:site_name" content="{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{template "title" .}}{{ call $.T "error_404" }}">
+		<meta property="og:site_name" content="{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{template "title" .}}">
 		<meta property="og:image" content="/img/favicon.png">
 		<meta property="og:description" content="Nyaa Pantsu Homepage">
 		
 			<!-- RSS Feed with Context -->
 		<link rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block "rsstitle" .}}Last torrents{{end}} RSS Feed" href="{{ block "rss_link" . }}{{ genRouteWithQuery "feed" .URL }}{{end}}"  />
+		<link rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{ template "rsstitle"}} Torznab RSS Feed" href="{{ genRouteWithQuery "feed_torznab" .URL }}&t=search{{end}}"  />
+		<link rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{ template "rsstitle"}} EZTV RSS Feed" href="{{ genRouteWithQuery "feed_eztv" .URL }}"  />
 			
 		<!-- do NOT move -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
