@@ -10,6 +10,7 @@ settings:
           - standard
           - lowercase
         char_filter:
+          - underscore_to_space
           - dash_to_underscore
 
       nyaapantsu_index_analyzer:
@@ -19,6 +20,7 @@ settings:
           - lowercase
           - e_ngram_filter
         char_filter:
+          - underscore_to_space
           - dash_to_underscore
 
     filter:
@@ -32,6 +34,11 @@ settings:
         type: pattern_replace
         pattern: "([^\\s]+)-(?=[^\\s]+)"
         replacement: "$1_"
+
+      underscore_to_space:
+        type: mapping
+        mappings:
+          - "_ => \\u0020"
 
   index:
     number_of_shards: 1
