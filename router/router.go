@@ -57,6 +57,8 @@ func init() {
 	Router.HandleFunc("/activities", ActivityListHandler).Name("activity_list")
 	Router.HandleFunc("/feed", RSSHandler).Name("feed")
 	Router.HandleFunc("/feed/{page:[0-9]+}", RSSHandler).Name("feed_page")
+	Router.HandleFunc("/feed/magnet", RSSMagnetHandler).Name("feed_magnet")
+	Router.HandleFunc("/feed/magnet/{page:[0-9]+}", RSSMagnetHandler).Name("feed_magnet_page")
 	Router.HandleFunc("/feed/torznab", RSSTorznabHandler).Name("feed_torznab")
 	Router.HandleFunc("/feed/torznab/api", RSSTorznabHandler).Name("feed_torznab")
 	Router.HandleFunc("/feed/torznab/{page:[0-9]+}", RSSTorznabHandler).Name("feed_torznab_page")
