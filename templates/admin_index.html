@@ -25,6 +25,8 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 		<!-- Base theme -->
 		<link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v={{ .Config.Version }}">
+		<!-- nyaacon, custom icon set -->
+		<link rel="stylesheet" href="{{.URL.Parse "/css/nyacon.css"}}?v={{ .Config.Version}}{{ .Config.Build }}">
 		<!-- User selected theme, if any, defaults to /g/ -->
 		{{if eq $.Theme ""}} 
 			<link rel="stylesheet" id="theme" href="/css/g.css?v={{ .Config.Version }}">
@@ -36,32 +38,33 @@
 		{{ block "additional_header" .}}{{end}}
   </head>
    <body {{if Sukebei}}class="sukebei"{{end}}>
-	   <nav id="header" class="header header-admin">
+	   <nav id="header" class="header">
 			<div class="container">
-				<div>
+				<div class="h-left">
 						<div class="h-logo">
 							<a href="{{ genRoute "mod_index" }}"><img class="hide-md" src="/img/{{if Sukebei}}sukebei_logo.png{{else}}logo.png{{end}}" alt="NyaaPantsu"><img class="visible-md" src="/img/logo_s.png"/></a>
 						</div>
 						<div class="h-nav">
-                        <a href="{{.URL.Parse "/"}}" class="nav-btn">{{call $.T "nyaa_pantsu"}}</a>
-                        <a href="{{ genRoute "mod_tlist"}}" class="nav-btn">{{call $.T "torrents"}}</a>
-                        <a href="{{ genRoute "mod_ulist"}}" class="nav-btn">{{call $.T "users"}}</a>
-                        <a href="{{ genRoute "mod_clist"}}" class="nav-btn">{{call $.T "comments"}}</a>
-                        <a href="{{ genRoute "mod_trlist"}}" class="nav-btn">{{call $.T "torrent_reports"}}</a>
-                        <a href="{{ genRoute "mod_treassign" }}" class="nav-btn">Torrent Reassign</a>
+                        <a href="{{.URL.Parse "/"}}" class="nav-btn"><span class="hide-md">{{call $.T "nyaa_pantsu"}}</span></a>
+                        <a href="{{ genRoute "mod_tlist"}}" class="nav-btn"><div class="visible-md icon-magnet"></div><span class="hide-md">{{call $.T "torrents"}}</span></a>
+                        <a href="{{ genRoute "mod_ulist"}}" class="nav-btn"><div class="visible-md icon-users"></div><span class="hide-md">{{call $.T "users"}}</span></a>
+                        <a href="{{ genRoute "mod_clist"}}" class="nav-btn"><div class="visible-md icon-chat"></div><span class="hide-md">{{call $.T "comments"}}</span></a>
+                        <a href="{{ genRoute "mod_trlist"}}" class="nav-btn"><div class="visible-md icon-attention"></div><span class="hide-md">{{call $.T "torrent_reports"}}</span></a>
+                        <a href="{{ genRoute "mod_treassign" }}" class="nav-btn"><div class="visible-md icon-user-plus"></div><span class="hide-md">Torrent Reassign</span></a>
                        </div>
 				</div>
 				<div class="h-right">
+					<div class="h-user">
 			        {{block "badge_user" .}}{{end}}
-				</div>
-                <div class="float-right">
+					</div>
+					
                     <div class="h-search">
                         <form role="search" action="{{ genRoute "mod_tlist" }}" method="get">
                         {{block "search_common" .}}{{end}}
                         {{block "search_button" .}}{{end}}
                         </form>
                     </div>
-                </div>
+				</div>
 			</div>
 		</nav>
 		<div id="content" class="content-admin">
@@ -88,7 +91,7 @@
                     <div class="footer-opt">
                         <p><a href="/settings">{{ call $.T "change_settings" }}</a></p>
                     </div>
-                    <span><i>Powered by <a href="#">NyaaPantsu</a> v{{ .Config.Version }}{{ .Config.Build }}</i></span>
+                    <span><i>Powered by <a href="#">Nyaa Pantsu</a> v{{ .Config.Version }} - commit <a href="https://github.com/NyaaPantsu/nyaa/commit/{{ .Config.Build }}">{{ .Config.Build }}</a></i></span>
                 </div>
 			</footer>
 		</div>

@@ -13,6 +13,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/crypto"
 	"github.com/NyaaPantsu/nyaa/util/log"
+	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/modelHelper"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -61,10 +62,8 @@ func CheckEmail(email string) bool {
 	}
 	var count int
 	db.ORM.Model(model.User{}).Where("email = ?", email).Count(&count)
-	if count != 0 {
-		return true // error: duplicate
-	}
-	return false
+
+	return count != 0
 }
 
 // CreateUserFromForm creates a user from a registration form.
@@ -286,6 +285,15 @@ func RetrieveUserByAPIToken(apiToken string) (*model.User, string, int, error) {
 	return &user, apiToken, http.StatusOK, nil
 }
 
+// RetrieveUserByAPITokenAndName retrieves a user by an API token and his username
+func RetrieveUserByAPITokenAndName(apiToken string, username string) (*model.User, string, string, int, error) {
+	var user model.User
+	if db.ORM.Unscoped().Where("api_token = ? AND username = ?", apiToken, username).First(&user).RecordNotFound() {
+		return &user, apiToken, username, http.StatusNotFound, errors.New("user not found")
+	}
+	return &user, apiToken, username, http.StatusOK, nil
+}
+
 // RetrieveUsersByEmail retrieves users by an email
 func RetrieveUsersByEmail(email string) []*model.User {
 	var users []*model.User
@@ -314,6 +322,20 @@ func RetrieveOldUploadsByUsername(username string) ([]uint, error) {
 		ret = append(ret, tmp2.TorrentID)
 	}
 	return ret, nil
+}
+
+// RetrieveUserByID retrieves a user by ID.
+func RetrieveUserByID(id string) (model.User, int, error) {
+	var user model.User
+	if db.ORM.Preload("Notifications").Last(&user, id).RecordNotFound() {
+		return user, http.StatusNotFound, errors.New("user not found")
+	}
+	var liked, likings []model.User
+	db.ORM.Joins("JOIN user_follows on user_follows.user_id=?", user.ID).Where("users.user_id = user_follows.following").Group("users.user_id").Find(&likings)
+	db.ORM.Joins("JOIN user_follows on user_follows.following=?", user.ID).Where("users.user_id = user_follows.user_id").Group("users.user_id").Find(&liked)
+	user.Followers = likings
+	user.Likings = liked
+	return user, http.StatusOK, nil
 }
 
 // RetrieveUserForAdmin retrieves a user for an administrator.
@@ -359,10 +381,52 @@ func GetFollowers(user *model.User) *model.User {
 func CreateUserAuthentication(w http.ResponseWriter, r *http.Request) (int, error) {
 	var form formStruct.LoginForm
 	modelHelper.BindValueForm(&form, r)
+	user, status, err := CreateUserAuthenticationAPI(r, &form)
+	if err != nil {
+		return status, err
+	}
+	status, err = SetCookieHandler(w, r, user)
+	return status, err
+}
+
+// CreateUserAuthenticationAPI creates user authentication.
+func CreateUserAuthenticationAPI(r *http.Request, form *formStruct.LoginForm) (model.User, int, error) {
 	username := form.Username
 	pass := form.Password
-	status, err := SetCookieHandler(w, r, username, pass)
-	return status, err
+	user, status, err := checkAuth(r, username, pass)
+	return user, status, err
+}
+
+func checkAuth(r *http.Request, email string, pass string) (model.User, int, error) {
+	var user model.User
+	if email == "" || pass == "" {
+		return user, http.StatusNotFound, errors.New("No username/password entered")
+	}
+
+	messages := msg.GetMessages(r)
+	// search by email or username
+	isValidEmail := formStruct.EmailValidation(email, messages)
+	messages.ClearErrors("email") // We need to clear the error added on messages
+	if isValidEmail {
+		if db.ORM.Where("email = ?", email).First(&user).RecordNotFound() {
+			return user, http.StatusNotFound, errors.New("User not found")
+		}
+	} else {
+		if db.ORM.Where("username = ?", email).First(&user).RecordNotFound() {
+			return user, http.StatusNotFound, errors.New("User not found")
+		}
+	}
+	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(pass))
+	if err != nil {
+		return user, http.StatusUnauthorized, errors.New("Password incorrect")
+	}
+	if user.IsBanned() {
+		return user, http.StatusUnauthorized, errors.New("Account banned")
+	}
+	if user.IsScraped() {
+		return user, http.StatusUnauthorized, errors.New("Account need activation from Moderators, please contact us")
+	}
+	return user, http.StatusOK, nil
 }
 
 // SetFollow : Makes a user follow another

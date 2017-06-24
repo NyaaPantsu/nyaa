@@ -23,9 +23,12 @@ All tested versions of Ubuntu fail to build, use a different OS or docker
 
 Either use:
 * `godep go build`
-
 Or use this to have the build version in index.html:
-* `godep go build -ldflags "-X main.buildversion=$(date -u +.%Y%m%d.%H%M%S)"`
+* `godep go build -ldflags "-X main.buildversion=$(git rev-parse HEAD)"`
+Or you can build using package.sh (Windows & Linux):
+* `./package.sh`
+
+
 * Download the DB and place it in your root folder named as "nyaa.db" (You want the merged.sqlite3 database, see the dev IRC for more info)
 * `./nyaa`
 * You can now access your local site over on [localhost:9999](http://localhost:9999)
@@ -76,36 +79,13 @@ Access the website by going to [localhost:9999](http://localhost:9999).
 > For postgres, place the dump in the toplevel directory and name it to
 > nyaa_psql.backup.
 
-## TODO
-* Scraping of fan subbing RSS feeds similar to metainfo_fetcher and scraper
-  * nyaa.si
-  * anidex.moe
-  * e-hentai
-  * TT
-  * make it to local clients scrape from nyaa.pantsu.cat
-* Remove and replace gravatar
-* Custom trackers for magnet links
-* Theme fixes(WIP)
-  * make new layout fully responsive
-  * Finish themeing of forms and buttons
-* Make Mascots customizable
-* reset api key button(Completely untested)
-* API improvement
-  * torznab api searching (halfish done)
-  * uploading of torrent files
-* Anidb integration
-* Use elastic search or sphinix search
-* Use new db abstraction layer and remove all ORM code
-* Get code up to standard of go lint recommendations
-* Write tests
-* Make sure html and css are fully up to recommendations
-
 # LICENSE
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
 # Contributing
  Use tabs for css and js files.
-
+# Contributing to translation
+Please look at /translations/README.md
 # IRC
 #nyaapant<span>su@irc<span>.rizon.n</span>et</span>
 

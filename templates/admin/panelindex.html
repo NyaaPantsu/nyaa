@@ -6,8 +6,8 @@
     <thead class="torrent-info">
         <tr>
             <th class="tr-name">{{ call $.T "name" }}</th>
-            <th class="tr-size">{{ call $.T "username" }}</th>
-            <th class="tr-size">{{ call $.T "actions" }}</th>
+            <th class="tr-actions">{{ call $.T "username" }}</th>
+            <th class="tr-actions">{{ call $.T "actions" }}</th>
         </tr>
     </thead>
     <tbody>
@@ -15,7 +15,7 @@
     <tr>
         <td class="tr-name home-td"><a href="{{ genViewTorrentRoute .ID }}">{{ .Name }}</a> <a href="{{ genRoute "mod_tedit" }}?id={{.ID}}" class="form-input btn-blue float-right">{{ call $.T "edit" }}</a></td>
         <td class="tr-size home-td"><a href="{{ genRoute "mod_tlist" }}?userID={{.UploaderID}}">{{ .UploaderID }}</a></td>
-        <td class="tr-size home-td"><a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;"><i class="trash-icon"></i> {{ call $.T "delete" }}</a></td>
+        <td class="tr-size home-td"><a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;"><i class="icon-trash"></i> {{ call $.T "delete" }}</a></td>
     </tr>
     {{end}}
     </tbody>
@@ -32,7 +32,7 @@
     <thead class="torrent-info">
         <tr>
             <th class="tr-name">{{ call $.T "name" }}</th>
-            <th class="tr-size">{{ call $.T "username" }}</th>
+            <th class="tr-actions">{{ call $.T "username" }}</th>
             <th class="tr-actions">{{ call $.T "reason" }}</th>
             <th class="tr-actions">{{ call $.T "actions" }}</th>
         </tr>
@@ -43,7 +43,7 @@
         <td class="tr-name home-td"><a href="{{ genRoute "view_torrent" "id" (print .Torrent.ID ) }}">{{ .Torrent.Name }}</a> <a href="{{ genRoute "mod_tedit" }}?id={{ print .Torrent.ID}}" class="form-input btn-blue float-right">{{ call $.T "edit" }}</a></td>
         <td class="tr-size home-td">{{.User.Username}}</td>
         <td class="tr-actions home-td">{{ getReportDescription .Description $.T }}</td>
-        <td class="tr-actions home-td"><a href="{{ genRoute "mod_trdelete" }}?id={{ print .ID }}" class="form-input btn-red"><i class="trash-icon"></i> {{ call $.T "delete" }}</a></td>
+        <td class="tr-actions home-td"><a href="{{ genRoute "mod_trdelete" }}?id={{ print .ID }}" class="form-input btn-red"><i class="icon-trash"></i> {{ call $.T "delete" }}</a></td>
     </tr>
     {{end}}
     </tbody>
@@ -59,15 +59,15 @@
     <thead class="torrent-info">
         <tr>
             <th class="tr-name">{{ call $.T "username" }}</th>
-            <th class="tr-size">{{ call $.T "actions" }}</th>
+            <th class="tr-actions">{{ call $.T "actions" }}</th>
         </tr>
     </thead>
     <tbody>
     {{range .Users}}
     <tr>
-        <td class="tr-name home-td"><a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}?edit">{{ .Username }}</a></td>
+        <td class="tr-name home-td"><a href="{{ genRoute "user_profile_details" "id" (print .ID) "username" .Username }}">{{ .Username }}</a></td>
         <td class="tr-size home-td">{{if gt .ID 0}}
-        <a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}?delete" class="form-input btn-red" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;"><i class="trash-icon"></i> {{ call $.T "delete" }}</a>
+        <a href="{{ genRoute "user_profile" "id" (print .ID) "username" .Username }}?delete" class="form-input btn-red" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;"><i class="icon-trash"></i> {{ call $.T "delete" }}</a>
         {{end}}</td>
     </tr>
     {{end}}
@@ -84,16 +84,16 @@
     <thead class="torrent-info">
         <tr>
             <th class="tr-name">{{ call $.T "comments" }}</th>
-            <th class="tr-size">{{ call $.T "username" }}</th>
-            <th class="tr-size">{{ call $.T "actions" }}</th>
+            <th class="tr-actions">{{ call $.T "username" }}</th>
+            <th class="tr-actions">{{ call $.T "actions" }}</th>
         </tr>
     </thead>
     <tbody>
     {{range .Comments}}
     <tr>
         <td class="tr-name home-td"><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{ .Content }}</a></td>
-        <td class="tr-size home-td"><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{.UserID}}</a></td>
-        <td class="tr-size home-td"><a href="{{ genRoute "mod_cdelete" }}?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;"><i class="trash-icon"></i> {{ call $.T "delete" }}</a></td>
+        <td class="tr-size home-td"><a href="{{ genRoute "mod_cedit" }}?id={{.ID}}">{{if .User }}{{ .User.Username }}{{else}}れんちょん{{end}}</a></td>
+        <td class="tr-size home-td"><a href="{{ genRoute "mod_cdelete" }}?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;"><i class="icon-trash"></i> {{ call $.T "delete" }}</a></td>
     </tr>
     {{end}}
     </tbody>

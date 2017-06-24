@@ -24,9 +24,9 @@ const (
 // User model
 type User struct {
 	ID             uint      `gorm:"column:user_id;primary_key"`
-	Username       string    `gorm:"column:username"`
+	Username       string    `gorm:"column:username;unique"`
 	Password       string    `gorm:"column:password"`
-	Email          string    `gorm:"column:email"`
+	Email          string    `gorm:"column:email;unique"`
 	Status         int       `gorm:"column:status"`
 	CreatedAt      time.Time `gorm:"column:created_at"`
 	UpdatedAt      time.Time `gorm:"column:updated_at"`
@@ -55,6 +55,8 @@ type UserJSON struct {
 	ID          uint   `json:"user_id"`
 	Username    string `json:"username"`
 	Status      int    `json:"status"`
+	APIToken    string `json:"token"`
+	MD5         string `json:"md5"`
 	CreatedAt   string `json:"created_at"`
 	LikingCount int    `json:"liking_count"`
 	LikedCount  int    `json:"liked_count"`
@@ -145,6 +147,8 @@ func (u *User) ToJSON() UserJSON {
 	json := UserJSON{
 		ID:          u.ID,
 		Username:    u.Username,
+		APIToken:    u.APIToken,
+		MD5:         u.MD5,
 		Status:      u.Status,
 		CreatedAt:   u.CreatedAt.Format(time.RFC3339),
 		LikingCount: len(u.Followers),

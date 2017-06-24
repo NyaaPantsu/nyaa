@@ -82,11 +82,11 @@ func GormInit(conf *config.Config, logger Logger) (*gorm.DB, error) {
 		db.SetLogger(logger)
 	}
 
-	db.AutoMigrate(&model.User{}, &model.UserFollows{}, &model.UserUploadsOld{}, &model.Notification{})
+	db.AutoMigrate(&model.User{}, &model.UserFollows{}, &model.UserUploadsOld{}, &model.Notification{}, &model.Activity{})
 	if db.Error != nil {
 		return db, db.Error
 	}
-	db.AutoMigrate(&model.Torrent{}, &model.TorrentReport{})
+	db.AutoMigrate(&model.Torrent{}, &model.TorrentReport{}, &model.Scrape{})
 	if db.Error != nil {
 		return db, db.Error
 	}

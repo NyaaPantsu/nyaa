@@ -10,6 +10,7 @@ settings:
           - standard
           - lowercase
         char_filter:
+          - underscore_to_space
           - dash_to_underscore
 
       nyaapantsu_index_analyzer:
@@ -19,6 +20,7 @@ settings:
           - lowercase
           - e_ngram_filter
         char_filter:
+          - underscore_to_space
           - dash_to_underscore
 
     filter:
@@ -33,10 +35,15 @@ settings:
         pattern: "([^\\s]+)-(?=[^\\s]+)"
         replacement: "$1_"
 
+      underscore_to_space:
+        type: mapping
+        mappings:
+          - "_ => \\u0020"
+
   index:
     number_of_shards: 1
     number_of_replicas: 0
-    max_result_window: 30000
+    max_result_window: 5000000
 
 mappings:
   torrents:
@@ -52,6 +59,8 @@ mappings:
             type: keyword
       category:
         type: text
+      description:
+        type: text
       sub_category:
         type: text
       status:
@@ -66,6 +75,8 @@ mappings:
         type: long
       seeders:
         type: long
+      hidden:
+        type: boolean
       leechers:
         type: long
       completed:

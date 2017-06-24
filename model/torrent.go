@@ -45,7 +45,7 @@ type Feed struct {
 type Torrent struct {
 	ID          uint      `gorm:"column:torrent_id;primary_key"`
 	Name        string    `gorm:"column:torrent_name"`
-	Hash        string    `gorm:"column:torrent_hash"`
+	Hash        string    `gorm:"column:torrent_hash;unique"`
 	Category    int       `gorm:"column:category"`
 	SubCategory int       `gorm:"column:sub_category"`
 	Status      int       `gorm:"column:status"`
@@ -60,19 +60,24 @@ type Torrent struct {
 	AnidbID     string    `gorm:"column:anidb_id"`
 	Trackers    string    `gorm:"column:trackers"`
 	// Indicates the language of the torrent's content (eg. subs, dubs, raws, manga TLs)
-	Language    string    `gorm:"column:language"`
-	DeletedAt   *time.Time
+	Language  string `gorm:"column:language"`
+	DeletedAt *time.Time
 
 	Uploader    *User        `gorm:"AssociationForeignKey:UploaderID;ForeignKey:user_id"`
 	OldUploader string       `gorm:"-"` // ???????
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
+	Scrape      *Scrape      `gorm:"AssociationForeignKey:ID;ForeignKey:torrent_id"`
+	FileList    []File       `gorm:"ForeignKey:torrent_id"`
+}
 
+// Scrape model
+type Scrape struct {
+	TorrentID  uint      `gorm:"column:torrent_id;primary_key"`
 	Seeders    uint32    `gorm:"column:seeders"`
 	Leechers   uint32    `gorm:"column:leechers"`
 	Completed  uint32    `gorm:"column:completed"`
 	LastScrape time.Time `gorm:"column:last_scrape"`
-	FileList   []File    `gorm:"ForeignKey:torrent_id"`
 }
 
 // Size : Returns the total size of memory recursively allocated for this struct
@@ -80,12 +85,14 @@ type Torrent struct {
 func (t Torrent) Size() (s int) {
 	s = int(reflect.TypeOf(t).Size())
 	return
-
 }
 
-// TableName : Return the name of torrents table
 func (t Torrent) TableName() string {
 	return config.Conf.Models.TorrentsTableName
+}
+
+func (t Scrape) TableName() string {
+	return config.Conf.Models.ScrapeTableName
 }
 
 // Identifier : Return the identifier of a torrent
@@ -98,7 +105,7 @@ func (t Torrent) IsNormal() bool {
 	return t.Status == TorrentStatusNormal
 }
 
-// IsRemake : Return if a torrent status is normal
+// IsRemake : Return if a torrent status is remake
 func (t Torrent) IsRemake() bool {
 	return t.Status == TorrentStatusRemake
 }
@@ -262,8 +269,9 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 		UploaderID:  t.UploaderID,
 		Downloads:   t.Downloads,
 		//Stardom: t.Stardom,
-		Filesize: t.Filesize,
-		//Description: t.Description,
+		Filesize:    t.Filesize,
+		Description: string(t.Description),
+		Hidden:      t.Hidden,
 		//WebsiteLink: t.WebsiteLink,
 		//Trackers: t.Trackers,
 		//DeletedAt: t.DeletedAt,
@@ -271,11 +279,9 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 		//OldUploader: t.OldUploader,
 		//OldComments: TODO
 		// Comments: TODO
-		Seeders:    t.Seeders,
-		Leechers:   t.Leechers,
-		Completed:  t.Completed,
-		LastScrape: t.LastScrape,
-		Language:   t.Language,
+		// LastScrape not stored in ES, counts won't show without a value however
+		Scrape:   &Scrape{Seeders: t.Seeders, Leechers: t.Leechers, Completed: t.Completed, LastScrape: time.Now()},
+		Language: t.Language,
 		//FileList: TODO
 	}
 	return torrent
@@ -322,9 +328,11 @@ func (t *Torrent) ToJSON() TorrentJSON {
 
 	uploader := "れんちょん" // by default
 	var uploaderID uint
-	if t.Uploader != nil {
+	if t.UploaderID > 0 && t.Uploader != nil {
 		uploader = t.Uploader.Username
 		uploaderID = t.UploaderID
+	} else if t.OldUploader != "" {
+		uploader = t.OldUploader
 	}
 	torrentlink := ""
 	if t.ID <= config.Conf.Models.LastOldTorrentID && len(config.Conf.Torrents.CacheLink) > 0 {
@@ -335,6 +343,10 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		}
 	} else if t.ID > config.Conf.Models.LastOldTorrentID && len(config.Conf.Torrents.StorageLink) > 0 {
 		torrentlink = fmt.Sprintf(config.Conf.Torrents.StorageLink, t.Hash)
+	}
+	scrape := Scrape{}
+	if t.Scrape != nil {
+		scrape = *t.Scrape
 	}
 	res := TorrentJSON{
 		ID:           t.ID,
@@ -351,15 +363,14 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Downloads:    t.Downloads,
 		UploaderID:   uploaderID,
 		UploaderName: util.SafeText(uploader),
-		OldUploader:  util.SafeText(t.OldUploader),
 		WebsiteLink:  util.Safe(t.WebsiteLink),
 		Language:     t.Language,
 		Magnet:       template.URL(magnet),
 		TorrentLink:  util.Safe(torrentlink),
-		Leechers:     t.Leechers,
-		Seeders:      t.Seeders,
-		Completed:    t.Completed,
-		LastScrape:   t.LastScrape,
+		Leechers:     scrape.Leechers,
+		Seeders:      scrape.Seeders,
+		Completed:    scrape.Completed,
+		LastScrape:   scrape.LastScrape,
 		FileList:     fileListJSON,
 	}
 
@@ -372,6 +383,19 @@ func (t *Torrent) ToJSON() TorrentJSON {
 func TorrentsToJSON(t []Torrent) []TorrentJSON {
 	json := make([]TorrentJSON, len(t))
 	for i := range t {
+		json[i] = t[i].ToJSON()
+	}
+	return json
+}
+
+// APITorrentsToJSON : Map Torrents to TorrentsToJSON for API request without reallocations
+func APITorrentsToJSON(t []Torrent) []TorrentJSON {
+	json := make([]TorrentJSON, len(t))
+	for i := range t {
+		if t[i].Hidden {
+			t[i].UploaderID = 0
+			t[i].Uploader = nil
+		}
 		json[i] = t[i].ToJSON()
 	}
 	return json

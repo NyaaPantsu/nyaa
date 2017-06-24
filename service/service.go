@@ -12,8 +12,7 @@ func CreateWhereParams(conditions string, params ...interface{}) WhereParams {
 		Conditions: conditions,
 		Params:     make([]interface{}, len(params)),
 	}
-	for i := range params {
-		whereParams.Params[i] = params[i]
-	}
+	copy(params, whereParams.Params)
+
 	return whereParams
 }

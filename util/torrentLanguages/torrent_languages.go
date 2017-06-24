@@ -16,9 +16,7 @@ func initTorrentLanguages() {
 	}
 
 	// Also support languages we don't have a translation
-	for _, code := range config.Conf.Torrents.AdditionalLanguages {
-		torrentLanguages = append(torrentLanguages, code)
-	}
+	torrentLanguages = append(torrentLanguages, config.Conf.Torrents.AdditionalLanguages...)
 }
 
 // GetTorrentLanguages returns a list of available torrent languages.

@@ -37,8 +37,8 @@ var HtmlMdRenderer md.Renderer
 // MarkdownToHTML : convert markdown to html
 // TODO: restrict certain types of markdown
 func MarkdownToHTML(markdown string) template.HTML {
-	if len(markdown) >= 3 && markdown[:3] == "&gt;" {
-		markdown = ">" + markdown[3:]
+	if len(markdown) >= 4 && markdown[:4] == "&gt;" {
+		markdown = ">" + markdown[4:]
 	}
 	markdown = strings.Replace(markdown, "\n&gt;", "\n>", -1)
 	unsafe := md.MarkdownOptions([]byte(markdown), HtmlMdRenderer, md.Options{Extensions: mdOptions})

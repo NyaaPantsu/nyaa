@@ -2,6 +2,7 @@
 // @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
 var explosion = document.getElementById("explosion");
 var nyanpassu = document.getElementById("nyanpassu");
+var kawaii    = document.getElementById("kawaii");
 
 // Switches between themes when a new one is selected
 function switchThemes(){
@@ -72,10 +73,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 function playVoice() {
 	if (explosion) {
+		explosion.volume = 0.2;
 		explosion.play();
 	}
+	else if (kawaii) {
+		kawaii.volume = 0.2;
+		kawaii.play();
+	}
 	else {
-		nyanpassu.volume = 0.5;
+		nyanpassu.volume = 0.2;
 		nyanpassu.play();
 	}
 }

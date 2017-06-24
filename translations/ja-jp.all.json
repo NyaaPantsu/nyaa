@@ -589,7 +589,7 @@
   },
   {
     "id": "extensions_and_plugins",
-    "translation": "拡張機能およびプラグイン (サードパーティーの開発者様作成)"
+    "translation": "拡張機能およびプラグイン (サードパーティー製)"
   },
   {
     "id": "qbittorrent_plugin",
@@ -606,6 +606,10 @@
   {
     "id": "firefox_extension",
     "translation": "Firefox 拡張機能"
+  },
+  {
+    "id": "android_app",
+    "translation": "Android アプリ"
   },
   {
     "id": "who_is_renchon",
@@ -673,7 +677,7 @@
   },
   {
     "id": "website_link",
-    "translation": "ウェブサイト"
+    "translation": "Web サイト"
   },
   {
     "id": "files",
@@ -724,6 +728,10 @@
     "translation": "画像認証"
   },
   {
+    "id": "captcha_audio",
+    "translation": "音声認証"
+  },
+  {
     "id": "file_name",
     "translation": "ファイル名"
   },
@@ -766,6 +774,10 @@
   {
     "id": "new_torrent_uploaded",
     "translation": "Torrent がアップロードされました: \"%s\"、 %s さんから"
+  },
+  {
+    "id": "torrent_uploaded",
+    "translation": "Torrent は正常にアップロードされました。"
   },
   {
     "id": "preferences",
@@ -848,6 +860,22 @@
     "translation": "Torrent %s が削除されました。"
   },
   {
+    "id": "torrent_deleted_by",
+    "translation": "Torrent #%s (%s アップロード) は %s によって削除されました。"
+  },
+  {
+    "id": "torrent_edited_by",
+    "translation": "Torrent #%s (%s アップロード) は %s によって編集されました。"
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "Torrent #%s (%s アップロード) は %s によってロックされました。"
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "Torrent #%s (%s アップロード) は %s によってロック解除されました。"
+  },
+  {
     "id": "torrents_deleted",
     "translation": "Torrent が削除されました"
   },
@@ -858,6 +886,14 @@
   {
     "id": "delete_report",
     "translation": "レポートを削除"
+  },
+  {
+    "id": "comment_deleted_by",
+    "translation": "コメント #%s (%s 投稿) は %s によって削除されました。"
+  },
+  {
+    "id": "comment_edited_by",
+    "translation": "コメント #%s (%s 投稿) は %s によって編集されました。"
   },
   {
     "id": "no_action_exist",
@@ -1037,7 +1073,7 @@
   },
   {
     "id": "owner_id_placeholder",
-    "translation": "オーナー ID (例えば、れんちょんは 0)"
+    "translation": "新しいオーナー"
   },
   {
     "id": "try_new_attempt",
@@ -1232,10 +1268,6 @@
     "translation": "-- Torrent の言語を選択 --"
   },
   {
-    "id": "flag",
-    "translation": "gb"
-  },
-  {
     "id": "language_en-us_name",
     "translation": "英語"
   },
@@ -1326,5 +1358,77 @@
   {
     "id": "language_multiple_name",
     "translation": "複数の言語"
+  },
+  {
+    "id": "activity_list",
+    "translation": "アクティビティー一覧"
+  },
+  {
+    "id": "activities",
+    "translation": "アクティビティー"
+  },
+  {
+    "id": "filter",
+    "translation": "フィルター"
+  },
+  {
+    "id": "error_min_length",
+    "translation": "必要な入力値 %s の最小長: %s"
+  },
+  {
+    "id":"error_max_length",
+    "translation": "必要な入力値 %s の最大長: %s"
+  },
+  {
+    "id":"error_same_value",
+    "translation": "同じ %s である必要があります"
+  },
+  {
+    "id": "error_wrong_value",
+    "translation": "誤った入力値: %s"
+  },
+  {
+    "id": "error_field_needed",
+    "translation": "必要なフィールド: %s"
+  },
+  {
+    "id": "refine_search",
+    "translation": "検索の絞り込み"
+  },
+  {
+    "id": "between",
+    "translation": " "
+  },
+  {
+    "id": "and",
+    "translation": "〜"
+  },
+  {
+    "id": "days",
+    "translation": "日"
+  },
+  {
+    "id": "months",
+    "translation": "ヶ月"
+  },
+  {
+    "id": "years",
+    "translation": "年"
+  },
+  {
+    "id": "refine",
+    "translation": "絞り込み"
+  },
+  {
+    "id": "large",
+    "translation": " "
+  },
+  {
+    "id": "old",
+    "translation": "前"
+  },
+  {
+    "id": "optional",
+    "translation": "任意"
   }
 ]

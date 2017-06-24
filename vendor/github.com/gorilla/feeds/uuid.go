@@ -7,10 +7,9 @@ import (
 	"fmt"
 )
 
-// UUID type
 type UUID [16]byte
 
-// NewUUID : create a new uuid v4
+// create a new uuid v4
 func NewUUID() *UUID {
 	u := &UUID{}
 	_, err := rand.Read(u[:16])

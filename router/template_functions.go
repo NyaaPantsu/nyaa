@@ -4,11 +4,14 @@ import (
 	"html/template"
 	"math"
 	"net/url"
+	"sort"
 	"strconv"
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/service/activity"
+	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util"
 	"github.com/NyaaPantsu/nyaa/util/categories"
@@ -158,6 +161,9 @@ var FuncMap = template.FuncMap{
 	"NeedsCaptcha":         userPermission.NeedsCaptcha,
 	"GetRole":              userPermission.GetRole,
 	"IsFollower":           userPermission.IsFollower,
+	"DisplayTorrent": func(t model.Torrent, u model.User) bool {
+		return ((!t.Hidden && t.Status != 0) || userPermission.CurrentOrAdmin(&u, t.UploaderID))
+	},
 	"NoEncode": func(str string) template.HTML {
 		return template.HTML(str)
 	},
@@ -172,8 +178,32 @@ var FuncMap = template.FuncMap{
 		return t.Format(time.RFC3339)
 	},
 	"GetHostname": util.GetHostname,
-	"GetCategories": func(keepParent bool) map[string]string {
-		return categories.GetCategoriesSelect(keepParent)
+	"GetCategories": func(keepParent bool, keepChild bool) map[string]string {
+		return categories.GetCategoriesSelect(keepParent, keepChild)
+	},
+	"GetCategory": func(category string, keepParent bool) (categoryRet map[string]string) {
+		cat := categories.GetCategoriesSelect(true, true)
+		var keys []string
+		for name := range cat {
+			keys = append(keys, name)
+		}
+
+		sort.Strings(keys)
+		found := false
+		categoryRet = make(map[string]string)
+		for _, key := range keys {
+			if cat[key] == category+"_" {
+				found = true
+				if keepParent {
+					categoryRet[key] = cat[key]
+				}
+			} else if len(cat[key]) <= 2 && len(categoryRet) > 0 {
+				break
+			} else if found {
+				categoryRet[key] = cat[key]
+			}
+		}
+		return
 	},
 	"CategoryName": func(category string, sub_category string) string {
 		s := category + "_" + sub_category
@@ -257,18 +287,17 @@ var FuncMap = template.FuncMap{
 		return string(T(d))
 	},
 	"genUploaderLink": func(uploaderID uint, uploaderName template.HTML, torrentHidden bool) template.HTML {
-
-		if torrentHidden {
-			return template.HTML("れんちょん")
-		}
+		uploaderID, username := torrentService.HideTorrentUser(uploaderID, string(uploaderName), torrentHidden)
 		if uploaderID == 0 {
-			return template.HTML("れんちょん")
+			return template.HTML(username)
 		}
-		url, err := Router.Get("user_profile").URL("id", strconv.Itoa(int(uploaderID)), "username", string(uploaderName))
+		url, err := Router.Get("user_profile").URL("id", strconv.Itoa(int(uploaderID)), "username", username)
 		if err != nil {
 			return "error"
 		}
-		return template.HTML("<a href=\"" + url.String() + "\">" + string(uploaderName) + "</a>")
-
+		return template.HTML("<a href=\"" + url.String() + "\">" + username + "</a>")
+	},
+	"genActivityContent": func(a model.Activity, T publicSettings.TemplateTfunc) template.HTML {
+		return activity.ToLocale(&a, T)
 	},
 }

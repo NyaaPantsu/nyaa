@@ -49,15 +49,15 @@ type RegistrationForm struct {
 	Username           string `form:"username" needed:"true" len_min:"3" len_max:"20"`
 	Email              string `form:"email"`
 	Password           string `form:"password" needed:"true" len_min:"6" len_max:"72" equalInput:"ConfirmPassword"`
-	ConfirmPassword    string `form:"password_confirmation" omit:"true" needed:"true"`
+	ConfirmPassword    string `form:"password_confirmation" hum_name:"Password Confirmation" omit:"true" needed:"true"`
 	CaptchaID          string `form:"captchaID" omit:"true" needed:"true"`
 	TermsAndConditions bool   `form:"t_and_c" omit:"true" needed:"true" equal:"true" hum_name:"Terms and Conditions"`
 }
 
 // LoginForm is used when a user logs in.
 type LoginForm struct {
-	Username string `form:"username" needed:"true"`
-	Password string `form:"password" needed:"true"`
+	Username string `form:"username" needed:"true" json:"username"`
+	Password string `form:"password" needed:"true" json:"password"`
 }
 
 // UserForm is used when updating a user.
@@ -67,7 +67,7 @@ type UserForm struct {
 	Language        string `form:"language" default:"en-us"`
 	CurrentPassword string `form:"current_password" len_min:"6" len_max:"72" omit:"true"`
 	Password        string `form:"password" len_min:"6" len_max:"72" equalInput:"ConfirmPassword"`
-	ConfirmPassword string `form:"password_confirmation" omit:"true"`
+	ConfirmPassword string `form:"password_confirmation" hum_name:"Password Confirmation" omit:"true"`
 	Status          int    `form:"status" default:"0"`
 	Theme           string `form:"theme"`
 }

@@ -152,37 +152,21 @@ func (r *TorrentRequest) validateName() error {
 }
 
 func (r *TorrentRequest) validateDescription() error {
-	if len(r.Description) > 500 {
+	if len(r.Description) > config.Conf.DescriptionLength {
 		return errInvalidTorrentDescription
 	}
 	return nil
 }
 
-// TODO Check category is within accepted range
-func validateCategory(r *TorrentRequest) (error, int) {
-	if r.CategoryID == 0 {
-		return ErrCategory, http.StatusNotAcceptable
-	}
-	return nil, http.StatusOK
-}
-
-// TODO Check subCategory is within accepted range
-func validateSubCategory(r *TorrentRequest) (error, int) {
-	if r.SubCategory == 0 {
-		return ErrSubCategory, http.StatusNotAcceptable
-	}
-	return nil, http.StatusOK
-}
-
-func validateWebsiteLink(r *TorrentRequest) (error, int) {
+func (r *TorrentRequest) validateWebsiteLink() error {
 	if r.WebsiteLink != "" {
 		// WebsiteLink
 		urlRegexp, _ := regexp.Compile(`^(https?:\/\/|ircs?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$`)
 		if !urlRegexp.MatchString(r.WebsiteLink) {
-			return ErrWebsiteLink, http.StatusNotAcceptable
+			return errInvalidWebsiteLink
 		}
 	}
-	return nil, http.StatusOK
+	return nil
 }
 
 func (r *TorrentRequest) validateMagnet() error {
@@ -195,7 +179,7 @@ func (r *TorrentRequest) validateMagnet() error {
 		return ErrMagnet
 	}
 	xt = strings.SplitAfter(xt, ":")[2]
-	r.Infohash = strings.ToUpper(strings.Split(xt, "&")[0])
+	r.Infohash = strings.TrimSpace(strings.ToUpper(strings.Split(xt, "&")[0]))
 
 	return nil
 }
@@ -245,36 +229,31 @@ func (r *TorrentRequest) ExtractEditInfo(req *http.Request) error {
 	}
 
 	err = r.ExtractLanguage(req)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return err
 }
 
 // ExtractCategory : takes an http request and computes category field for this form
 func (r *TorrentRequest) ExtractCategory(req *http.Request) error {
 	catsSplit := strings.Split(r.Category, "_")
 	// need this to prevent out of index panics
-	if len(catsSplit) == 2 {
-		CatID, err := strconv.Atoi(catsSplit[0])
-		if err != nil {
-			return errInvalidTorrentCategory
-		}
-		SubCatID, err := strconv.Atoi(catsSplit[1])
-		if err != nil {
-			return errInvalidTorrentCategory
-		}
-
-		if !categories.CategoryExists(r.Category) {
-			return errInvalidTorrentCategory
-		}
-
-		r.CategoryID = CatID
-		r.SubCategoryID = SubCatID
-	} else {
+	if len(catsSplit) != 2 {
 		return errInvalidTorrentCategory
 	}
+	CatID, err := strconv.Atoi(catsSplit[0])
+	if err != nil {
+		return errInvalidTorrentCategory
+	}
+	SubCatID, err := strconv.Atoi(catsSplit[1])
+	if err != nil {
+		return errInvalidTorrentCategory
+	}
+
+	if !categories.CategoryExists(r.Category) {
+		return errInvalidTorrentCategory
+	}
+
+	r.CategoryID = CatID
+	r.SubCategoryID = SubCatID
 	return nil
 }
 
@@ -358,14 +337,8 @@ func (r *TorrentRequest) ExtractBasicValue(req *http.Request) error {
 		return err
 	}
 
-	if r.WebsiteLink != "" {
-		// WebsiteLink
-		urlRegexp, _ := regexp.Compile(`^(https?:\/\/|ircs?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$`)
-		if !urlRegexp.MatchString(r.WebsiteLink) {
-			return errInvalidWebsiteLink
-		}
-	}
-	return nil
+	err = r.validateWebsiteLink()
+	return err
 }
 
 // ExtractInfo : takes an http request and computes all fields for this form

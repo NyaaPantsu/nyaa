@@ -1,5 +1,5 @@
 {{define "title"}}{{.Torrent.Name}}{{end}}
-{{define "contclass"}}cont-view {{if eq .Torrent.Status 2}}remake{{end}} {{if eq .Torrent.Status 3}}trusted{{end}} {{if eq .Torrent.Status 4}}aplus{{end}}{{end}}
+{{define "contclass"}}cont-view{{end}}
 {{define "additional_header"}}
 <link rel="stylesheet" href="/css/flags/flags.min.css">
 <link rel="stylesheet" href="/css/flags/custom_flags.css">
@@ -50,11 +50,11 @@
       <td class="torrent-info-td torrent-info-label">{{ call $.T "date" }}:</td><td class="torrent-info-td date-full">{{.Date}}</td>
       </tr>
       <tr class="torrent-info-row">
-          <td class="torrent-info-td torrent-info-label">{{ call $.T "uploaded_by" }}:</td><td class="torrent-view-td torrent-info-data">{{ genUploaderLink .UploaderID .UploaderName .Hidden }}</td>
+          <td class="torrent-info-td torrent-info-label">{{ call $.T "uploaded_by" }}:</td><td class="torrent-view-td torrent-info-data">{{ if ne .OldUploader ""}}{{.OldUploader}}{{else}}{{ genUploaderLink .UploaderID .UploaderName .Hidden }}{{end}}</td>
           <td class="torrent-info-td torrent-info-label">{{call $.T "seeders"}}:</td><td class="tr-se torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Seeders}}{{end}}</td>
       </tr>
       <tr class="torrent-info-row">
-          <td class="torrent-info-td torrent-info-label">{{ call $.T "website_link" }}:</td><td class="torrent-view-td torrent-info-data">{{if ne .WebsiteLink ""}}<a href="{{.WebsiteLink}}">{{.WebsiteLink}}</a>{{else}}<a href="{{$.Config.WebAddress.Nyaa}}">{{GetHostname $.Config.WebAddress.Nyaa}}{{end}}</td>
+          <td class="torrent-info-td torrent-info-label">{{ call $.T "website_link" }}:</td><td class="torrent-view-td torrent-info-data">{{if ne .WebsiteLink ""}}<a href="{{.WebsiteLink}}">{{.WebsiteLink}}</a>{{else}}N/A{{end}}</td>
           <td class="torrent-info-td torrent-info-label">{{call $.T "leechers"}}:</td><td class="tr-le torrent-info-td">{{if .LastScrape.IsZero}}{{call $.T "unknown"}}{{else}}{{.Leechers}}{{end}}</td>
       </tr>
     <tr class="torrent-info-row">
@@ -72,9 +72,9 @@
     {{end}}
   </table>
 <div class="torrent-buttons">
-  <a href="{{.Magnet}}" class="form-input btn-green"><div class="magnet-icon"></div> {{call $.T "magnet_link"}}</a>
+  <a href="{{.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;margin-right: 0.5em;"><div class="icon-magnet"></div> {{call $.T "magnet_link"}}</a>
   {{ if ne .TorrentLink ""}}
-  <a href="{{.TorrentLink}}" class="form-input"><div class="download-icon"></div> {{call $.T "torrent_file"}}</a>
+  <a href="{{.TorrentLink}}" class="form-input download" style="float:left;height: auto;"><div class="icon-floppy"></div> {{call $.T "torrent_file"}}</a>
   {{end}}
   {{ if gt $.User.ID 0}}
   <a id="reportPopup" href="#" class="form-input">{{ call $.T "report_btn" }}</a>
@@ -86,6 +86,7 @@
     <a href="{{ genRoute "user_torrent_edit" }}?id={{ .ID }}" class="form-input btn-orange">{{ call $.T "edit" }}</a>
     {{end}}
 {{end}}
+    <div style="clear:both;"></div>
   </div>
   <p class="torrent-hr">{{call $.T "description"}}</p>
   {{ if ne .Description ""}}
@@ -131,8 +132,8 @@
                     </div>
                     <div class="comment-captcha">
                 {{block "captcha" (makeCaptchaData .CaptchaID $.T)}}{{end}}
-                <button type="submit" class="form-input up-btn">{{call $.T "submit" }}</button>
                     </div>
+                    <button type="submit" class="form-input up-btn">{{call $.T "submit" }}</button>
                 </div>
   </form>
   </div>
@@ -154,7 +155,9 @@
                         <input type="radio" name="report_type" value="spam_garbage" id="spam" required> <label for="spam">{{ call $.T "spam_garbage" }}</label><br />
                         <input type="radio" name="report_type" value="wrong_category" id="wrongcat" required> <label for="wrongcat">{{ call $.T "wrong_category" }}</label><br />
                         <input type="radio" name="report_type" value="duplicate_deprecated" id="dup" required> <label for="dup">{{ call $.T "duplicate_deprecated" }}</label><br />
+                        <div class="comment-captcha">
                         {{template "captcha" (makeCaptchaData $.CaptchaID $.T)}}
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <span><button id="confirm_changes" type="submit">{{ call $.T "yes"}}</button>

@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/NyaaPantsu/nyaa/common"
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/model"
 )
 
@@ -13,11 +14,16 @@ import (
 func searchParamToTorrentQuery(param *common.TorrentParam) (q sqlQuery) {
 	counter := 1
 	q.query = fmt.Sprintf("SELECT %s FROM %s ", torrentSelectColumnsFull, tableTorrents)
-	if param.Category.IsSet() {
-		q.query += fmt.Sprintf("WHERE category = $%d AND sub_category = $%d ", counter, counter+1)
-		q.params = append(q.params, param.Category.Main, param.Category.Sub)
-		counter += 2
+	if len(param.Category) > 0 {
+		conditionsOr := make([]string, len(param.Category))
+		for key, val := range param.Category {
+			conditionsOr[key] = fmt.Sprintf("(category = $%d AND sub_category = $%d)", counter, counter+1)
+			q.params = append(q.params, val.Main, val.Sub)
+			counter += 2
+		}
+		q.query += "WHERE " + strings.Join(conditionsOr, " OR ")
 	}
+
 	if counter > 1 {
 		q.query += "AND "
 	} else {
@@ -47,9 +53,7 @@ func searchParamToTorrentQuery(param *common.TorrentParam) (q sqlQuery) {
 		case "completed":
 		case "last_scrape":
 			q.query += fmt.Sprintf("AND %s IS NOT NULL ", k)
-			break
 		default:
-			break
 		}
 	}
 
@@ -67,9 +71,7 @@ func searchParamToTorrentQuery(param *common.TorrentParam) (q sqlQuery) {
 		case "completed":
 		case "last_scrape":
 			q.query += fmt.Sprintf("AND %s IS NULL ", k)
-			break
 		default:
-			break
 		}
 	}
 
@@ -84,28 +86,21 @@ func searchParamToTorrentQuery(param *common.TorrentParam) (q sqlQuery) {
 	switch param.Sort {
 	case common.Name:
 		sort = "torrent_name"
-		break
 	case common.Date:
 		sort = "date"
-		break
 	case common.Downloads:
 		sort = "downloads"
-		break
 	case common.Size:
 		sort = "filesize"
-		break
 	case common.Seeders:
 		sort = "seeders"
-		break
 	case common.Leechers:
 		sort = "leechers"
-		break
 	case common.Completed:
 		sort = "completed"
-		break
 	case common.ID:
 	default:
-		sort = "torrent_id"
+		sort = config.Conf.Torrents.Order
 	}
 
 	q.query += fmt.Sprintf("ORDER BY %s ", sort)

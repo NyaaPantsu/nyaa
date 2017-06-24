@@ -32,10 +32,6 @@
     "translation": "Préférences"
   },
   {
-    "id": "change_language",
-    "translation": "Changer la langue"
-  },
-  {
     "id": "language",
     "translation": "Langue"
   },
@@ -46,14 +42,6 @@
   {
     "id": "theme",
     "translation": "Thème"
-  },
-  {
-    "id": "theme_select",
-    "translation": "Choisir un thème"
-  },
-  {
-    "id": "theme_none",
-    "translation": "Classique"
   },
   {
     "id": "mascot",
@@ -144,8 +132,116 @@
     "translation": "Captcha"
   },
   {
+    "id": "captcha_audio",
+    "translation": "Captcha Audio"
+  },
+  {
     "id": "bad_captcha",
     "translation": "Mauvais captcha !"
+  },
+  {
+    "id": "torrent_uploaded",
+    "translation": "Le torrent a été uploadé avec succès !"
+  },
+  {
+    "id": "torrent_language",
+    "translation": "Langue du torrent"
+  },
+  {
+    "id": "select_a_torrent_language",
+    "translation": "Choisissez la langue du torrent"
+  },
+  {
+    "id": "language_en-us_name",
+    "translation": "Anglais"
+  },
+  {
+    "id": "language_ca-es_name",
+    "translation": "Catalan"
+  },
+  {
+    "id": "language_de-de_name",
+    "translation": "Allemand"
+  },
+  {
+    "id": "language_es-es_name",
+    "translation": "Espagnol"
+  },
+  {
+    "id": "language_es-mx_name",
+    "translation": "Espagnol (LATAM)"
+  },
+  {
+    "id": "language_fr-fr_name",
+    "translation": "Français"
+  },
+  {
+    "id": "language_hu-hu_name",
+    "translation": "Hongrois"
+  },
+  {
+    "id": "language_is-is_name",
+    "translation": "Islandais"
+  },
+  {
+    "id": "language_it-it_name",
+    "translation": "Italien"
+  },
+  {
+    "id": "language_ja-jp_name",
+    "translation": "Japonais"
+  },
+  {
+    "id": "language_ko-kr_name",
+    "translation": "Coréen"
+  },
+  {
+    "id": "language_nb-no_name",
+    "translation": "Norvégien"
+  },
+  {
+    "id": "language_nl-nl_name",
+    "translation": "Néerlandais"
+  },
+  {
+    "id": "language_pt-br_name",
+    "translation": "Portugais (Brésil)"
+  },
+  {
+    "id": "language_pt-pt_name",
+    "translation": "Portugais (Portugal)"
+  },
+  {
+    "id": "language_ro-ro_name",
+    "translation": "Roumain"
+  },
+  {
+    "id": "language_ru-ru_name",
+    "translation": "Russe"
+  },
+  {
+    "id": "language_sv-se_name",
+    "translation": "Suédois"
+  },
+  {
+    "id": "language_th-th_name",
+    "translation": "Thaï"
+  },
+  {
+    "id": "language_zh-cn_name",
+    "translation": "Chinois simplifié"
+  },
+  {
+    "id": "language_zh-tw_name",
+    "translation": "Chinois traditionnel"
+  },
+  {
+    "id": "language_other_name",
+    "translation": "Autre"
+  },
+  {
+    "id": "language_multiple_name",
+    "translation": "Langues multiples"
   },
   {
     "id": "faq",
@@ -198,6 +294,10 @@
   {
     "id": "firefox_extension",
     "translation": "Extension Firefox"
+  },
+  {
+    "id": "android_app",
+    "translation": "Application Android"
   },
   {
     "id": "qbittorrent_plugin",
@@ -301,7 +401,7 @@
   },
   {
     "id": "all_categories",
-    "translation": "Toutes les catégories"
+    "translation": "Ttes catégories"
   },
   {
     "id": "show_all",
@@ -322,6 +422,42 @@
   {
     "id": "no_results_found",
     "translation": "Aucun résultat trouvé."
+  },
+  {
+    "id": "refine_search",
+    "translation": "Affiner votre recherche"
+  },
+  {
+    "id": "between",
+    "translation": "Entre"
+  },
+  {
+    "id": "and",
+    "translation": "et"
+  },
+  {
+    "id": "days",
+    "translation": "jours"
+  },
+  {
+    "id": "months",
+    "translation": "mois"
+  },
+  {
+    "id": "years",
+    "translation": "années"
+  },
+  {
+    "id": "refine",
+    "translation": "Affiner"
+  },
+  {
+    "id": "large",
+    "translation": "de taille"
+  },
+  {
+    "id": "old",
+    "translation": "d'ancienneté"
   },
   {
     "id": "anime",
@@ -578,6 +714,10 @@
   {
     "id": "email_address",
     "translation": "Adresse email"
+  },
+  {
+    "id": "optional",
+    "translation": "Facultatif"
   },
   {
     "id": "email_not_valid",
@@ -852,6 +992,22 @@
     "translation": "Le torrent %s a été supprimé."
   },
   {
+    "id": "torrent_deleted_by",
+    "translation": "Le torrent n° %s de %s a été supprimé par %s."
+  },
+  {
+    "id": "torrent_edited_by",
+    "translation": "Le torrent n° %s de %s a été édité par %s."
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "Le torrent n° %s de %s a été bloqué par %s."
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "Le torrent n° %s de %s a été débloqué par %s."
+  },
+  {
     "id": "torrents_deleted",
     "translation": "Torrents supprimés"
   },
@@ -862,6 +1018,14 @@
   {
     "id": "delete_report",
     "translation": "Supprimer le signalement"
+  },
+  {
+    "id": "comment_deleted_by",
+    "translation": "Le commentaire n° %s de %s a été supprimé par %s."
+  },
+  {
+    "id": "comment_edited_by",
+    "translation": "Le commentaire n° %s de %s a été édité par %s."
   },
   {
     "id": "no_action_exist",
@@ -1045,7 +1209,7 @@
   },
   {
     "id": "owner_id_placeholder",
-    "translation": "ID du compte (e.g. Ren-chon = 0)"
+    "translation": "Nouveau propriétaire"
   },
   {
     "id": "no_owner_selected",
@@ -1222,5 +1386,37 @@
   {
     "id": "comments_list",
     "translation": "Liste des commentaires"
+  },
+  {
+    "id": "activity_list",
+    "translation": "Liste des activités"
+  },
+  {
+    "id": "activities",
+    "translation": "Activités"
+  },
+  {
+    "id": "filter",
+    "translation": "Filtrer"
+  },
+  {
+    "id": "error_min_length",
+    "translation": "Longueur minimale de %s requise pour l'entrée : %s"
+  },
+  {
+    "id": "error_max_length",
+    "translation": "Longueur maximale de %s requise pour l'entrée : %s"
+  },
+  {
+    "id": "error_same_value",
+    "translation": "Doit être le même %s"
+  },
+  {
+    "id": "error_wrong_value",
+    "translation": "Mauvaise valeur pour l'entrée : %s"
+  },
+  {
+    "id": "error_field_needed",
+    "translation": "Champ requis : %s"
   }
 ]

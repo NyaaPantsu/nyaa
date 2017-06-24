@@ -25,6 +25,8 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 		<!-- Base theme -->
 		<link rel="stylesheet" id="style" href="{{.URL.Parse "/css/main.css"}}?v={{ .Config.Version }}{{ .Config.Build }}">
+		<!-- nyaacon, custom icon set -->
+		<link rel="stylesheet" href="{{.URL.Parse "/css/nyacon.css"}}?v={{ .Config.Version}}{{ .Config.Build }}">
 		<!-- User selected theme, if any, defaults to /g/ -->
 		{{if eq $.Theme ""}} 
 			<link rel="stylesheet" id="theme" href="/css/g.css?v={{ .Config.Version }}{{ .Config.Build }}">
@@ -40,16 +42,16 @@
 			<div class="container">
 				<div class="h-left">
 						<div class="h-logo">
-							<a href="{{.URL.Parse "/"}}"><img class="hide-md" src="/img/{{if Sukebei}}sukebei_logo.png{{else}}logo.png{{end}}" alt="NyaaPantsu"><img class="visible-md" src="/img/logo_s.png"/></a>
+							<a href="{{.URL.Parse "/"}}"><img class="hide-md" src="/img/{{if Sukebei}}sukebei_logo.png{{else}}logo.png{{end}}" alt="Nyaa Pantsu"><img class="visible-md" src="/img/logo_s.png"/></a>
 						</div>
 						<div class="h-nav">
-							<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><div class="upload-icon visible-md"></div><span class="hide-md">{{ call $.T "upload" }}</span></a>
-							<a href="{{ template "rss_link" . }}" class="nav-btn"><div class="rss-icon visible-md"></div><span class="hide-md">RSS</span></a>
-							<a href="{{.URL.Parse "/faq"}}" class="nav-btn"><div class="faq-icon visible-md"></div><span class="hide-md">{{ call $.T "faq" }}</span></a>
+							<a href="{{.URL.Parse "/upload"}}" class="nav-btn"><div class="icon-upload visible-md"></div><span class="hide-md">{{ call $.T "upload" }}</span></a>
+							<a href="{{ template "rss_link" . }}" class="nav-btn"><div class="icon-rss-squared visible-md"></div><span class="hide-md">RSS</span></a>
+							<a href="{{.URL.Parse "/faq"}}" class="nav-btn"><div class="icon-help-circled visible-md"></div><span class="hide-md">{{ call $.T "faq" }}</span></a>
 							{{if Sukebei}}
-							<a href="{{.Config.WebAddress.Nyaa}}" class="nav-btn"><div class="fun-icon visible-md"></div><span class="hide-md">{{ call $.T "fun" }}</span></a>
+							<a href="{{.Config.WebAddress.Nyaa}}" class="nav-btn"><div class="icon-heart visible-md"></div><span class="hide-md">{{ call $.T "fun" }}</span></a>
 							{{else}}
-							<a href="{{.Config.WebAddress.Sukebei}}" class="nav-btn"><div class="fap-icon visible-md"></div><span class="hide-md">{{ call $.T "fap" }}</span></a>
+							<a href="{{.Config.WebAddress.Sukebei}}" class="nav-btn"><div class="icon-heart visible-md"></div><span class="hide-md">{{ call $.T "fap" }}</span></a>
 							{{end}}
 						</div>
 				</div>
@@ -64,7 +66,7 @@
 				</div>
 			</div>
 		</nav>
-		<div id="content">
+		<div id="content" class="{{ block "contclass" . }}{{end}}">
 			<div class="content container center">
 				{{block "content" .}}{{call $.T "nothing_here"}}{{end}}
 			</div>
@@ -73,14 +75,20 @@
 				<div id="mascot" class="hide-xs{{if ne .MascotURL ""}} custom-mascot{{end}}" onclick="playVoice();" {{if ne .MascotURL ""}}style="background-image: url('{{.MascotURL}}');"{{end}}></div>
 				{{/* Only play the sounds with the default mascot */}}
 				{{ if eq .MascotURL "" }}
+					{{ if Sukebei }}
+					<audio id="kawaii" hidden preload="none">
+						<source src="https://a.doko.moe/spbyif.mp3" type="audio/mpeg">
+					</audio>
+					{{else}}
 					{{ if eq .Theme "tomorrow" }}
 					<audio id="explosion" hidden preload="none">
-						<source src="https://megumin.love/sounds/explosion.mp3" type="audio/mpeg">
+						<source src="https://a.doko.moe/vrlrtw.mp3" type="audio/mpeg">
 					</audio>
 					{{ else }}
 					<audio id="nyanpassu" hidden preload="none">
 						<source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
 					</audio>
+					{{end}}
 					{{end}}
 				{{end}}
 			{{end}}
@@ -93,7 +101,7 @@
 					<div class="footer-opt">
 						<p><a href="/settings">{{ call $.T "change_settings" }}</a></p>
 					</div>
-					<span><i>Powered by <a href="#">NyaaPantsu</a> v{{ .Config.Version }}{{ .Config.Build }}</i></span>
+					<span><i>Powered by <a href="#">Nyaa Pantsu</a> v{{ .Config.Version }} - commit <a href="https://github.com/NyaaPantsu/nyaa/commit/{{ .Config.Build }}">{{ .Config.Build }}</a></i></span>
 				</div>
 			</footer>
 		</div>

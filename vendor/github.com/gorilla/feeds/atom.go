@@ -8,49 +8,44 @@ import (
 	"time"
 )
 
-// ns : Generates Atom feed as XML
+// Generates Atom feed as XML
+
 const ns = "http://www.w3.org/2005/Atom"
 
-// AtomPerson struct
 type AtomPerson struct {
 	Name  string `xml:"name,omitempty"`
-	URI   string `xml:"uri,omitempty"`
+	Uri   string `xml:"uri,omitempty"`
 	Email string `xml:"email,omitempty"`
 }
 
-// AtomSummary struct
 type AtomSummary struct {
 	XMLName xml.Name `xml:"summary"`
 	Content string   `xml:",chardata"`
 	Type    string   `xml:"type,attr"`
 }
 
-// AtomContent struct
 type AtomContent struct {
 	XMLName xml.Name `xml:"content"`
 	Content string   `xml:",chardata"`
 	Type    string   `xml:"type,attr"`
 }
 
-// AtomAuthor struct
 type AtomAuthor struct {
 	XMLName xml.Name `xml:"author"`
 	AtomPerson
 }
 
-// AtomContributor struct
 type AtomContributor struct {
 	XMLName xml.Name `xml:"contributor"`
 	AtomPerson
 }
 
-// AtomEntry struct
 type AtomEntry struct {
 	XMLName     xml.Name `xml:"entry"`
 	Xmlns       string   `xml:"xmlns,attr,omitempty"`
 	Title       string   `xml:"title"`   // required
 	Updated     string   `xml:"updated"` // required
-	ID          string   `xml:"id"`      // required
+	Id          string   `xml:"id"`      // required
 	Category    string   `xml:"category,omitempty"`
 	Content     *AtomContent
 	Rights      string `xml:"rights,omitempty"`
@@ -62,7 +57,6 @@ type AtomEntry struct {
 	Author      *AtomAuthor  // required if feed lacks an author
 }
 
-// AtomLink struct
 type AtomLink struct {
 	//Atom 1.0 <link rel="enclosure" type="audio/mpeg" title="MP3" href="http://www.example.org/myaudiofile.mp3" length="1234" />
 	XMLName xml.Name `xml:"link"`
@@ -72,12 +66,11 @@ type AtomLink struct {
 	Length  string   `xml:"length,attr,omitempty"`
 }
 
-// AtomFeed struct
 type AtomFeed struct {
 	XMLName     xml.Name `xml:"feed"`
 	Xmlns       string   `xml:"xmlns,attr"`
 	Title       string   `xml:"title"`   // required
-	ID          string   `xml:"id"`      // required
+	Id          string   `xml:"id"`      // required
 	Updated     string   `xml:"updated"` // required
 	Category    string   `xml:"category,omitempty"`
 	Icon        string   `xml:"icon,omitempty"`
@@ -90,13 +83,12 @@ type AtomFeed struct {
 	Entries     []*AtomEntry
 }
 
-// Atom struct
 type Atom struct {
 	*Feed
 }
 
 func newAtomEntry(i *Item) *AtomEntry {
-	id := i.ID
+	id := i.Id
 	// assume the description is html
 	c := &AtomContent{Content: i.Description, Type: "html"}
 
@@ -122,7 +114,7 @@ func newAtomEntry(i *Item) *AtomEntry {
 		Title:   i.Title,
 		Link:    &AtomLink{Href: i.Link.Href, Rel: i.Link.Rel, Type: i.Link.Type},
 		Content: c,
-		ID:      id,
+		Id:      id,
 		Updated: anyTimeFormat(time.RFC3339, i.Updated, i.Created),
 	}
 
@@ -139,7 +131,7 @@ func newAtomEntry(i *Item) *AtomEntry {
 	return x
 }
 
-// AtomFeed : create a new AtomFeed with a generic Feed struct's data
+// create a new AtomFeed with a generic Feed struct's data
 func (a *Atom) AtomFeed() *AtomFeed {
 	updated := anyTimeFormat(time.RFC3339, a.Updated, a.Created)
 	feed := &AtomFeed{
@@ -147,7 +139,7 @@ func (a *Atom) AtomFeed() *AtomFeed {
 		Title:    a.Title,
 		Link:     &AtomLink{Href: a.Link.Href, Rel: a.Link.Rel},
 		Subtitle: a.Description,
-		ID:       a.Link.Href,
+		Id:       a.Link.Href,
 		Updated:  updated,
 		Rights:   a.Copyright,
 	}
@@ -160,12 +152,12 @@ func (a *Atom) AtomFeed() *AtomFeed {
 	return feed
 }
 
-// FeedXML : return an XML-Ready object for an Atom object
-func (a *Atom) FeedXML() interface{} {
+// return an XML-Ready object for an Atom object
+func (a *Atom) FeedXml() interface{} {
 	return a.AtomFeed()
 }
 
-// FeedXML : return an XML-ready object for an AtomFeed object
-func (a *AtomFeed) FeedXML() interface{} {
+// return an XML-ready object for an AtomFeed object
+func (a *AtomFeed) FeedXml() interface{} {
 	return a
 }

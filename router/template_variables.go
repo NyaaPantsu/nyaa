@@ -76,12 +76,6 @@ type changeLanguageVariables struct {
 	Languages map[string]string
 }
 
-type publicSettingsVariables struct {
-	commonTemplateVariables
-	Language  string
-	Languages map[string]string
-}
-
 /* MODERATION Variables */
 
 type panelIndexVbs struct {
@@ -121,6 +115,12 @@ type searchForm struct {
 	common.SearchParam
 	Category         string
 	ShowItemsPerPage bool
+	SizeType         string
+	DateType         string
+	MinSize          string
+	MaxSize          string
+	FromDate         string
+	ToDate           string
 }
 
 // Some Default Values to ease things out
@@ -130,10 +130,21 @@ func newNavigation() navigation {
 	}
 }
 
-func newSearchForm() searchForm {
+func newSearchForm(r *http.Request) searchForm {
+	sizeType := r.URL.Query().Get("sizeType")
+	if sizeType == "" {
+		sizeType = "m"
+	}
+
 	return searchForm{
 		Category:         "_",
 		ShowItemsPerPage: true,
+		SizeType:         sizeType,
+		DateType:         r.URL.Query().Get("dateType"),
+		MinSize:          r.URL.Query().Get("minSize"),  // We need to overwrite the value here, since size are formatted
+		MaxSize:          r.URL.Query().Get("maxSize"),  // We need to overwrite the value here, since size are formatted
+		FromDate:         r.URL.Query().Get("fromDate"), // We need to overwrite the value here, since we can have toDate instead and date are formatted
+		ToDate:           r.URL.Query().Get("toDate"),   // We need to overwrite the value here, since date are formatted
 	}
 }
 
@@ -152,7 +163,7 @@ func getUser(r *http.Request) *model.User {
 func newCommonVariables(r *http.Request) commonTemplateVariables {
 	return commonTemplateVariables{
 		Navigation: newNavigation(),
-		Search:     newSearchForm(),
+		Search:     newSearchForm(r),
 		T:          publicSettings.GetTfuncFromRequest(r),
 		Theme:      publicSettings.GetThemeFromRequest(r),
 		Mascot:     publicSettings.GetMascotFromRequest(r),

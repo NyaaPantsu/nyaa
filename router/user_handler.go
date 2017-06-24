@@ -15,6 +15,7 @@ import (
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/modelHelper"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
+	"github.com/NyaaPantsu/nyaa/util/search"
 	"github.com/gorilla/mux"
 )
 
@@ -24,7 +25,7 @@ func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
 	_, errorUser := userService.CurrentUser(r)
 	// User is already connected, redirect to home
 	if errorUser == nil {
-		HomeHandler(w, r)
+		SearchHandler(w, r)
 		return
 	}
 	messages := msg.GetMessages(r)
@@ -48,7 +49,7 @@ func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
 	_, errorUser := userService.CurrentUser(r)
 	// User is already connected, redirect to home
 	if errorUser == nil {
-		HomeHandler(w, r)
+		SearchHandler(w, r)
 		return
 	}
 
@@ -100,9 +101,24 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 				messages.AddInfof("infos", Ts("user_unfollowed_msg"), userProfile.Username)
 			}
 			userProfile.ParseSettings()
+			query := r.URL.Query()
+			query.Set("userID", id)
+			query.Set("max", "16")
+			r.URL.RawQuery = query.Encode()
+			var torrents []model.Torrent
+			var err error
+			if userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
+				_, torrents, _, err = search.SearchByQuery(r, 1)
+			} else {
+				_, torrents, _, err = search.SearchByQueryNoHidden(r, 1)
+			}
+			if err != nil {
+				messages.AddError("errors", "Couldn't retrieve torrents")
+			}
+			userProfile.Torrents = torrents
 			htv := userProfileVariables{newCommonVariables(r), &userProfile, messages.GetAllInfos()}
 
-			err := viewProfileTemplate.ExecuteTemplate(w, "index.html", htv)
+			err = viewProfileTemplate.ExecuteTemplate(w, "index.html", htv)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 			}

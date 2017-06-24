@@ -101,13 +101,13 @@ func (mes *Messages) ClearAllInfos() {
 
 // ClearErrors : Erase all errors in messages
 func (mes *Messages) ClearErrors(name string) {
-	mes.Errors[name] = nil
+	delete(mes.Errors, name)
 	mes.setMessagesInContext()
 }
 
 // ClearInfos : Erase all infos in messages
 func (mes *Messages) ClearInfos(name string) {
-	mes.Infos[name] = nil
+	delete(mes.Infos, name)
 	mes.setMessagesInContext()
 }
 
