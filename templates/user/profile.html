@@ -1,6 +1,7 @@
 {{define "title"}}{{ call $.T "profile_page" .UserProfile.Username }}{{end}}
 {{define "contclass"}}cont-view{{end}}
 {{define "rss_link"}}{{ genRoute "feed_user" "id" ( print .UserProfile.ID ) "username" .UserProfile.Username }}{{end}}
+{{define "rss_moreparam"}}&userID={{print .UserProfile.ID}}{{end}}
 {{define "rsstitle" }}{{ .UserProfile.Username }}{{end}}
 {{define "content"}}
 {{ range (index $.FormInfos "infos")}}
