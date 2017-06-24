@@ -61,7 +61,7 @@
   },
   {
     "id": "terms_conditions_full",
-    "translation": "Wat onzin."
+    "translation": "Van alles en nog wat."
   },
   {
     "id": "remember_me",
@@ -73,7 +73,7 @@
   },
   {
     "id": "sign_in_box_title",
-    "translation": "Meld je aan"
+    "translation": "Aanmelden"
   },
   {
     "id": "sign_in_title",
@@ -485,7 +485,7 @@
   },
   {
     "id": "save_changes",
-    "translation": "Sla wijzigingen op"
+    "translation": "Wijzingen opslaan"
   },
   {
     "id": "profile_updated",
@@ -510,5 +510,473 @@
   {
     "id": "language_code",
     "translation": "nl-nl"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "Kom naar <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> en vraag een moderator of hij je oude torrents kan overzetten. Noem tevens je oude en nieuwe gebruikersnaam."
+  },
+  {
+    "id": "select_a_torrent_category",
+    "translation": "Kies een torrentcategorie"
+  },
+  {
+    "id": "art",
+    "translation": "Kunst"
+  },
+  {
+    "id": "art_anime",
+    "translation": "Kunst - Anime"
+  },
+  {
+    "id": "art_doujinshi",
+    "translation": "Kunst - Doujinshi"
+  },
+  {
+    "id": "art_games",
+    "translation": "Kunst - Games"
+  },
+  {
+    "id": "art_manga",
+    "translation": "Kunst - Manga"
+  },
+  {
+    "id": "art_pictures",
+    "translation": "Kunst - Afbeeldingen"
+  },
+  {
+    "id": "real_life",
+    "translation": "Real Life"
+  },
+  {
+   "id": "real_life_photobooks_and_pictures",
+    "translation": "Real Life - Fotoboeken en Afbeeldingen"
+  },
+  {
+    "id": "real_life_videos",
+    "translation": "Real Life - Video's"
+  },
+  {
+    "id": "scraped_user",
+    "translation": "Gebruiker (scraped)"
+  },
+  {
+    "id": "moderation",
+    "translation": "Toezicht"
+  },
+  {
+    "id": "moderation",
+    "translation": "Toezicht"
+  },
+  {
+    "id": "qbittorrent_plugin",
+    "translation": "qBittorrent-plugin"
+  },
+  {
+    "id": "local_client",
+    "translation": "Lokale Client"
+  },
+  {
+    "id": "chrome_extension",
+    "translation": "Chrome-extensie"
+  },
+  {
+    "id": "firefox_extension",
+    "translation": "Firefox-extensie"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "Wie is <span lang=\"ja\">れんちょん</span>?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "<span lang=\"ja\">れんちょん</span> (Ren-chon) is de gebruikersnaam voor anonieme uploads en reacties.
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Remake"
+  },
+  {
+    "id": "email_changed",
+    "translation": "E-mail met succes gewijzigd! Klik op de link die is verstuurd naar: %s om het te bevestigen."
+  },
+  {
+    "id": "torrent_status",
+    "translation": "Torrentstatus"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "Normaal"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "Remake"
+  },
+  {
+    "id": "torrent_status_blocked",
+    "translation": "Gesloten"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "Bewerk profiel van %s"
+  },
+  {
+    "id": "seeders",
+    "translation": "Seeders"
+  },
+  {
+    "id": "leechers",
+    "translation": "Leechers"
+  },
+  {
+    "id": "completed",
+    "translation": "Voltooid"
+  },
+  {
+    "id": "change_language",
+    "translation": "Taal wijzigen"
+  },
+  {
+    "id": "language_name",
+    "translation": "Nederlands"
+  },
+  {
+    "id": "language_code",
+    "translation": "nl-nl"
+  },
+  {
+    "id": "delete",
+    "translation": "Verwijderen"
+  },
+  {
+    "id": "website_link",
+    "translation": "Websitelink"
+  },
+  {
+    "id": "delete_account",
+    "translation": "Account verwijderen"
+  },
+  {
+    "id": "files",
+    "translation": "Bestanden"
+  },
+  {
+    "id": "no_files",
+    "translation": "Geen bestanden? Dat kan niet kloppen!"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "Geüpload door"
+  },
+  {
+    "id": "report_btn",
+    "translation": "Melden"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "Weet je het zeker?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "Melding Torrent #%s"
+  },
+  {
+    "id": "report_type",
+    "translation": "Reden melding"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "Illegale inhoud"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "Spam / Rotzooi"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "Verkeerde categorie"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "Dubbel / Verouderd"
+  },
+  {
+    "id": "captcha",
+    "translation": "Captcha"
+  },
+  {
+    "id": "file_name",
+    "translation": "Bestandsnaam"
+  },
+  {
+    "id": "cancel",
+    "translation": "Annuleren"
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "Gelieve udp://tracker.doko.moe:6969 toe te voegen bij de trackers."
+  },
+  {
+    "id": "unknown",
+    "translation": "Onbekend"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "Recentste scrape: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "Serverstatus staat hier"
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "Er zijn momenteel geen databasedumps beschikbaar."
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "Notificaties opruimen"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "Notificaties verwijderd!"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "Mijn Notificaties"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "Nieuwe torrent: \"%s\" van %s"
+  },
+  {
+    "id": "preferences",
+    "translation": "Voorkeuren"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "Notificatie bij een nieuwe torrent van gevolgde gebruikers"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "Notificatie per mail bij een nieuwe torrent van gevolgde gebruikers"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "Notificatie per mail bij een nieuwe reactie op je torrents"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "Notificatie bij een antwoord op je reacties"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "Notificatie per mail bij een antwoord op je reacties"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "Notificatie bij een nieuwe volger"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "Notificatie per mail bij een nieuwe volger"
+  },
+  {
+    "id": "followed_settings",
+    "translation": "Notificatie bij het volgen van iemand"
+  },
+  {
+    "id": "followed_email_settings",
+    "translation": "Notificatie per mail bij het volgen van iemand"
+  },
+  {
+    "id": "yes",
+    "translation": "Ja"
+  },
+  {
+    "id": "no",
+    "translation": "Nee"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "Nieuwe reactie op torrent: \"%s\""
+  },
+  {
+    "id": "no_action_selected",
+    "translation": "Geef aan wat je wilt doen met je keuze!"
+  },
+  {
+    "id": "no_move_location_selected",
+    "translation": "Geef aan waar je je keuze naartoe wilt verplaatsen!"
+  },
+  {
+    "id": "select_one_element",
+    "translation": "Kies minstens één element!"
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "Torrent %s verplaatst!"
+  },
+  {
+    "id": "no_status_exist",
+    "translation": "Die status %d bestaat niet!"
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "Torrent %s verwijderd!"
+  },
+  {
+    "id": "torrents_deleted",
+    "translation": "Torrents Verwijderd"
+  },
+  {
+    "id": "delete_torrent",
+    "translation": "Torrent Verwijderen"
+  },
+  {
+    "id": "delete_report",
+    "translation": "Melding verwijderen"
+  },
+  {
+    "id": "no_action_exist",
+    "translation": Die actie %s bestaat niet!"
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "Torrent met ID %s bestaat niet!"
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "Er is iets misgegaan"
+  },
+  {
+    "id": "nb_torrents_updated",
+    "translation": "%d torrents bijgewerkt."
+  },
+  {
+    "id": "torrent_updated",
+    "translation": "Torrentgegevens bijgewerkt."
+  },
+  {
+    "id": "fail_torrent_update",
+    "translation": "Bijwerken torrent mislukt!"
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "Verkeerde captcha!"
+  },
+  {
+    "id": "comment_empty",
+    "translation": "Niks ingevuld!"
+  },
+  {
+    "id": "no_owner_selected",
+    "translation": "Nieuwe torrenteigenaar is benodigd!"
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "Geen categorie gekozen!"
+  },
+  {
+    "id": "no_user_found_id",
+    "translation": "Gebruiker met id %d zit niet in de database!"
+  },
+  {
+    "id": "invalid_torrent_category",
+    "translation": "Torrentcategorie bestaat niet!"
+  },
+  {
+    "id": "torrent_owner_changed",
+    "translation": "Eigenaar van torrent \"%s\" is met succes gewijzigd!"
+  },
+  {
+    "id": "torrent_category_changed",
+    "translation": "Categorie van torrent \"%s\" is met succes gewijzigd!"
+  },
+  {
+    "id": "torrent_reports_deleted",
+    "translation": "Meldingen van torrent \"%s\" zijn verwijderd!"
+  },
+  {
+    "id": "edit",
+    "translation": "Bewerken"
+  },
+  {
+    "id": "lock_delete",
+    "translation": "Sluiten & Verwijderen"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "Het bestand kan niet worden hersteld en kan nog steeds door anderen opnieuw worden geüpload!"
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "Bevestig verwijderen"
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "Openen"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "Sluiten"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "Torrent is verwijderd uit de database!"
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "Torrent is geopend!"
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "Torrent is gesloten!"
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "Torrents niet verwijderd"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "Torrents verwijderd"
+  },
+  {
+    "id": "change_settings",
+    "translation": "Wijzig Uiterlijk/Taal"
+  },
+  {
+    "id": "mascot",
+    "translation": "Mascotte"
+  },
+  {
+    "id": "theme",
+    "translation": "Thema"
+  },
+  {
+    "id": "theme_select",
+    "translation": "Kies een Thema"
+  },
+  {
+    "id": "theme_none",
+    "translation": "Geen"
+  },
+  {
+    "id": "mark_as_hidden",
+    "translation": "Verbergen"
+  },
+  {
+    "id": "cookies",
+    "translation": "Door op te slaan ga je akkoord met ons gebruik van cookies"
+  },
+  {
+    "id": "show",
+    "translation": "Tonen"
+  },
+  {
+    "id": "hide",
+    "translation": "Verbergen"
+  },
+  {
+    "id": "users",
+    "translation": "Gebruikers"
   }
 ]
