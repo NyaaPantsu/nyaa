@@ -85,7 +85,7 @@ func APIHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		b := model.APIResultJSON{
-			Torrents: model.TorrentsToJSON(torrents),
+			Torrents: model.APITorrentsToJSON(torrents),
 		}
 		b.QueryRecordCount = req.MaxPerPage
 		b.TotalRecordCount = nbTorrents
@@ -306,7 +306,7 @@ func APISearchHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	b := model.TorrentsToJSON(torrents)
+	b := model.APITorrentsToJSON(torrents)
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(b)
 

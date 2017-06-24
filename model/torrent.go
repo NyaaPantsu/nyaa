@@ -387,3 +387,16 @@ func TorrentsToJSON(t []Torrent) []TorrentJSON {
 	}
 	return json
 }
+
+// APITorrentsToJSON : Map Torrents to TorrentsToJSON for API request without reallocations
+func APITorrentsToJSON(t []Torrent) []TorrentJSON {
+	json := make([]TorrentJSON, len(t))
+	for i := range t {
+		if t[i].Hidden {
+			t[i].UploaderID = 0
+			t[i].Uploader = nil
+		}
+		json[i] = t[i].ToJSON()
+	}
+	return json
+}
