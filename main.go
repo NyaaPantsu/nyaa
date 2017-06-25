@@ -9,7 +9,6 @@ import (
 	"os"
 	"time"
 
-	"github.com/NyaaPantsu/nyaa/cache"
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/network"
@@ -122,7 +121,6 @@ func main() {
 	processFlags := conf.BindFlags()
 	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
 	mode := flag.String("mode", "webapp", "which mode to run daemon in, either webapp, scraper or metainfo_fetcher")
-	flag.Float64Var(&conf.Cache.Size, "c", config.Conf.Cache.Size, "size of the search cache in MB")
 
 	flag.Parse()
 	if *defaults {
@@ -147,10 +145,6 @@ func main() {
 		}
 		db.ElasticSearchClient, _ = db.ElasticSearchInit()
 		err = publicSettings.InitI18n(conf.I18n, userService.NewCurrentUserRetriever())
-		if err != nil {
-			log.Fatal(err.Error())
-		}
-		err = cache.Configure(&conf.Cache)
 		if err != nil {
 			log.Fatal(err.Error())
 		}

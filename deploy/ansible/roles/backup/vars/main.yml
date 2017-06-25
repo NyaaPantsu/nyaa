@@ -1,8 +1,0 @@
-# INFO Could probably put backup script in nyaapantsu_directory / bin as well
-backup_script: /usr/local/bin/nyaapantsu_backup.sh
-backup_cron_hours: 0
-backup_cron_job: /etc/cron.d/nyaapantsu_backup
-torrent_tracker: udp://tracker.doko.moe:6969
-torrent_downloaded_directory: "{{ nyaapantsu_directory }}/downloaded/"
-torrent_watch_directory: "{{ nyaapantsu_directory }}/watch/"
-torrent_port_range: 49164-49164

@@ -17,7 +17,6 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/NyaaPantsu/nyaa/cache"
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/service"
@@ -348,7 +347,6 @@ func (r *TorrentRequest) ExtractInfo(req *http.Request) error {
 		return err
 	}
 
-	cache.Impl.ClearAll()
 	defer req.Body.Close()
 
 	err = r.ExtractCategory(req)
