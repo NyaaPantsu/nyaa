@@ -68,6 +68,53 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// RSSMagnetHandler : Controller for displaying rss feeds with magnet URL, accepting common search arguments
+func RSSMagnetHandler(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+
+	// We only get the basic variable for rss based on search param
+	torrents, createdAsTime, title, err := getTorrentList(r)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	feed := &nyaafeeds.RssFeed{
+		Title:   title,
+		Link:    config.WebAddress() + "/",
+		PubDate: createdAsTime.String(),
+	}
+	feed.Items = make([]*nyaafeeds.RssItem, len(torrents))
+
+	for i, torrent := range torrents {
+		torrentJSON := torrent.ToJSON()
+		feed.Items[i] = &nyaafeeds.RssItem{
+			Title:       torrentJSON.Name,
+			MagnetLink:  &nyaafeeds.RssMagnetLink{Text: string(torrentJSON.Magnet)},
+			Description: string(torrentJSON.Description),
+			PubDate:     torrent.Date.Format(time.RFC822),
+			GUID:        config.WebAddress() + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
+			Enclosure: &nyaafeeds.RssEnclosure{
+				URL:     config.WebAddress() + "/download/" + strings.TrimSpace(torrentJSON.Hash),
+				Length: strconv.FormatUint(uint64(torrentJSON.Filesize), 10),
+				Type:   "application/x-bittorrent",
+			},
+		}
+	}
+	// allow cross domain AJAX requests
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	rss, rssErr := feeds.ToXML(feed)
+	if rssErr != nil {
+		http.Error(w, rssErr.Error(), http.StatusInternalServerError)
+	}
+
+	_, writeErr := w.Write([]byte(rss))
+	if writeErr != nil {
+		http.Error(w, writeErr.Error(), http.StatusInternalServerError)
+	}
+}
+
 // RSSEztvHandler : Controller for displaying rss feed, accepting common search arguments
 func RSSEztvHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
