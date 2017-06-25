@@ -357,7 +357,7 @@
   },
   {
     "id": "anime_non_english_translated",
-    "translation": "アニメ ‐ 英語以外の翻訳"
+    "translation": "アニメ ‐ 英語以外への翻訳"
   },
   {
     "id": "anime_raw",
@@ -389,7 +389,7 @@
   },
   {
     "id": "literature_non_english_translated",
-    "translation": "書籍 ‐ 英語以外の翻訳"
+    "translation": "書籍 ‐ 英語以外への翻訳"
   },
   {
     "id": "live_action",
@@ -405,7 +405,7 @@
   },
   {
     "id": "live_action_non_english_translated",
-    "translation": "実写 ‐ 英語以外の翻訳"
+    "translation": "実写 ‐ 英語以外への翻訳"
   },
   {
     "id": "live_action_raw",
