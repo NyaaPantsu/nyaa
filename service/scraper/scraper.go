@@ -205,7 +205,7 @@ func (sc *Scraper) Scrape(packets uint) {
 		"date > ? AND "+
 		"torrent_id NOT IN (SELECT torrent_id FROM %[2]s)"+
 
-		") ORDER BY torrent_id DESC LIMIT ?", 
+		") AS x ORDER BY torrent_id DESC LIMIT ?",
 		config.Conf.Models.TorrentsTableName, config.Conf.Models.ScrapeTableName)
 	rows, err := db.ORM.Raw(query, oldest, now, oldest, packets*ScrapesPerPacket).Rows()
 
