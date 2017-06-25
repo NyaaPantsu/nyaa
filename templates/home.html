@@ -56,7 +56,7 @@
 			  {{end}}
                   <a href="{{$.URL.Parse (printf "/search?c=%s_%s" .Category .SubCategory) }}" title="{{ call $.T (CategoryName .Category .SubCategory) }}">
               {{if ne (FlagCode .Language) ""}}
-                  <img src="img/blank.gif" alt="{{ LanguageName .Language $.T }}" class="flag flag-{{FlagCode .Language}}" title="{{ LanguageName .Language $.T }}">
+                  <img src="/img/blank.gif" alt="{{ LanguageName .Language $.T }}" class="flag flag-{{FlagCode .Language}}" title="{{ LanguageName .Language $.T }}">
               {{end}}
                   </a>
               </div>
@@ -241,7 +241,7 @@
               "<div class=\"nyaa-cat nyaa-cat-"+ torrent.sub_category +"\">"+
 			{{end}}
                   "<a href=\"{{$.URL.Parse "/search?c=" }}"+ torrent.category + "_" + torrent.sub_category +"\" title=\""+ torrent.CategoryName +"\">"+
-					((torrent.language != "") ? "<img src=\"img/blank.gif\" class=\"flag flag-"+flagCode(torrent.language)+"\">" : "") +
+					((torrent.language != "") ? "<img src=\"/img/blank.gif\" class=\"flag flag-"+flagCode(torrent.language)+"\">" : "") +
                   "</a>"+
               "</div></td>"+
               "<td class=\"tr-name home-td\"><a href=\"/view/"+torrent.id+"\">"+Templates.EncodeEntities(torrent.name) +"</a></td>"+
