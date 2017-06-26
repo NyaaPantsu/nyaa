@@ -1,12 +1,12 @@
 package modelHelper
 
 import (
-	"net/http"
 	"reflect"
 	"strconv"
 
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
+	"github.com/gin-gonic/gin"
 )
 
 // TODO: Rewrite module
@@ -36,23 +36,22 @@ func AssignValue(model interface{}, form interface{}) {
 }
 
 // BindValueForm assign populate form from a request
-func BindValueForm(form interface{}, r *http.Request) {
-	r.ParseForm()
+func BindValueForm(form interface{}, c *gin.Context) {
 	formElem := reflect.ValueOf(form).Elem()
 	for i := 0; i < formElem.NumField(); i++ {
 		typeField := formElem.Type().Field(i)
 		tag := typeField.Tag
 		switch typeField.Type.Name() {
 		case "string":
-			formElem.Field(i).SetString(r.PostFormValue(tag.Get("form")))
+			formElem.Field(i).SetString(c.PostForm(tag.Get("form")))
 		case "int":
-			nbr, _ := strconv.Atoi(r.PostFormValue(tag.Get("form")))
+			nbr, _ := strconv.Atoi(c.PostForm(tag.Get("form")))
 			formElem.Field(i).SetInt(int64(nbr))
 		case "float":
-			nbr, _ := strconv.Atoi(r.PostFormValue(tag.Get("form")))
+			nbr, _ := strconv.Atoi(c.PostForm(tag.Get("form")))
 			formElem.Field(i).SetFloat(float64(nbr))
 		case "bool":
-			nbr, _ := strconv.ParseBool(r.PostFormValue(tag.Get("form")))
+			nbr, _ := strconv.ParseBool(c.PostForm(tag.Get("form")))
 			formElem.Field(i).SetBool(nbr)
 		}
 	}

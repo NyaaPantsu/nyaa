@@ -22,7 +22,7 @@ func IsValidTorrentReport() bool {
 }
 
 // TODO Only allow moderators for each action in this file
-func CreateTorrentReportHandler(w http.ResponseWriter, r *http.Request) {
+func CreateTorrentReportHandler(c *gin.Context) {
 	var torrentReport model.TorrentReport
 	var err error
 
@@ -39,7 +39,7 @@ func CreateTorrentReportHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func DeleteTorrentReportHandler(w http.ResponseWriter, r *http.Request) {
+func DeleteTorrentReportHandler(c *gin.Context) {
 	// TODO Figure out how to get torrent report id from form
 	var id int
 	var err error
@@ -53,7 +53,7 @@ func DeleteTorrentReportHandler(w http.ResponseWriter, r *http.Request) {
 
 /*
 
-func DeleteTorrentHandler(w http.ResponseWriter, r *http.Request) {
+func DeleteTorrentHandler(c *gin.Context) {
 	// TODO Figure out how to get torrent report id from form
 	var err error
 	var id string
@@ -63,13 +63,13 @@ func DeleteTorrentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }*/
 
-/*func GetTorrentReportHandler(w http.ResponseWriter, r *http.Request) {
-    currentUser := GetUser(r)
+/*func GetTorrentReportHandler(c *gin.Context) {
+    currentUser := getUser(c)
     if userPermission.HasAdmin(currentUser) {
 		vars := mux.Vars(r)
-		page, _ := strconv.Atoi(vars["page"])
+		page, _ := strconv.Atoi(c.Query("page"))
 		offset := 100
-		userid := r.URL.Query().Get("userid")
+		userid := c.Query("userid")
 		var conditions string
 		var values []interface{}
 		if (userid != "") {

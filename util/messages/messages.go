@@ -1,10 +1,10 @@
-package Messages
+package messages
 
 import (
 	"fmt"
-	"net/http"
 
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
+	"github.com/gin-gonic/gin"
 	"github.com/gorilla/context"
 	"github.com/nicksnyder/go-i18n/i18n"
 )
@@ -16,22 +16,22 @@ const MessagesKey = "nyaapantsu.messages"
 type Messages struct {
 	Errors map[string][]string
 	Infos  map[string][]string
-	r      *http.Request
+	c      *gin.Context
 	T      i18n.TranslateFunc
 }
 
 // GetMessages : Initialize or return the messages object from context
-func GetMessages(r *http.Request) *Messages {
-	if rv := context.Get(r, MessagesKey); rv != nil {
+func GetMessages(c *gin.Context) *Messages {
+	if rv := context.Get(c.Request, MessagesKey); rv != nil {
 		mes := rv.(*Messages)
-		T, _ := publicSettings.GetTfuncAndLanguageFromRequest(r)
+		T, _ := publicSettings.GetTfuncAndLanguageFromRequest(c)
 		mes.T = T
-		mes.r = r
+		mes.c = c
 		return mes
 	}
-	context.Set(r, MessagesKey, &Messages{})
-	T, _ := publicSettings.GetTfuncAndLanguageFromRequest(r)
-	return &Messages{make(map[string][]string), make(map[string][]string), r, T}
+	context.Set(c.Request, MessagesKey, &Messages{})
+	T, _ := publicSettings.GetTfuncAndLanguageFromRequest(c)
+	return &Messages{make(map[string][]string), make(map[string][]string), c, T}
 }
 
 // AddError : Add an error in category name with message msg
@@ -61,6 +61,31 @@ func (mes *Messages) AddErrorT(name string, id string) {
 // ImportFromError : Add an error in category name with message msg imported from type error
 func (mes *Messages) ImportFromError(name string, err error) {
 	mes.AddError(name, err.Error())
+}
+
+// ImportFromErrorT : Add an error in category name with message msg imported from type error
+func (mes *Messages) ImportFromErrorT(name string, err error) {
+	mes.AddError(name, mes.T(err.Error()))
+}
+
+// ImportFromErrorTf : Add an error in category name with message msg imported from type error
+func (mes *Messages) ImportFromErrorTf(name string, err error, args ...interface{}) {
+	mes.AddError(name, fmt.Sprintf(mes.T(err.Error()), args...))
+}
+
+// ImportFromError : Aliases to import directly an error in "errors" map index
+func (mes *Messages) Error(err error) {
+	mes.ImportFromError("errors", err)
+}
+
+// ErrorT : Aliases to import directly an error in "errors" map index and translate the error
+func (mes *Messages) ErrorT(err error) {
+	mes.ImportFromErrorT("errors", err)
+}
+
+// ErrorTf : Aliases to import directly an error in "errors" map index and translate the error with args
+func (mes *Messages) ErrorTf(err error, args ...interface{}) {
+	mes.ImportFromErrorTf("errors", err)
 }
 
 // AddInfo : Add an info in category name with message msg
@@ -113,40 +138,40 @@ func (mes *Messages) ClearInfos(name string) {
 
 // GetAllErrors : Get all errors
 func (mes *Messages) GetAllErrors() map[string][]string {
-	mes = GetMessages(mes.r) // We need to look if any new errors from other functions has updated context
+	mes = GetMessages(mes.c) // We need to look if any new errors from other functions has updated context
 	return mes.Errors
 }
 
 // GetErrors : Get all errors in category name
 func (mes *Messages) GetErrors(name string) []string {
-	mes = GetMessages(mes.r) // We need to look if any new errors from other functions has updated context
+	mes = GetMessages(mes.c) // We need to look if any new errors from other functions has updated context
 	return mes.Errors[name]
 }
 
 // GetAllInfos : Get all infos
 func (mes *Messages) GetAllInfos() map[string][]string {
-	mes = GetMessages(mes.r) // We need to look if any new errors from other functions has updated context
+	mes = GetMessages(mes.c) // We need to look if any new errors from other functions has updated context
 	return mes.Infos
 }
 
 // GetInfos : Get all infos in category name
 func (mes *Messages) GetInfos(name string) []string {
-	mes = GetMessages(mes.r) // We need to look if any new errors from other functions has updated context
+	mes = GetMessages(mes.c) // We need to look if any new errors from other functions has updated context
 	return mes.Infos[name]
 }
 
 // HasErrors : Check if there are errors
 func (mes *Messages) HasErrors() bool {
-	mes = GetMessages(mes.r) // We need to look if any new errors from other functions has updated context
+	mes = GetMessages(mes.c) // We need to look if any new errors from other functions has updated context
 	return len(mes.Errors) > 0
 }
 
 // HasInfos : Check if there are infos
 func (mes *Messages) HasInfos() bool {
-	mes = GetMessages(mes.r) // We need to look if any new errors from other functions has updated context
+	mes = GetMessages(mes.c) // We need to look if any new errors from other functions has updated context
 	return len(mes.Infos) > 0
 }
 
 func (mes *Messages) setMessagesInContext() {
-	context.Set(mes.r, MessagesKey, mes)
+	context.Set(mes.c.Request, MessagesKey, mes)
 }

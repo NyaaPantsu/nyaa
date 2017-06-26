@@ -9,27 +9,23 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/activity"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/log"
-	msg "github.com/NyaaPantsu/nyaa/util/messages"
-
-	"github.com/gorilla/mux"
+	"github.com/gin-gonic/gin"
 )
 
 // ActivityListHandler : Show a list of activity
-func ActivityListHandler(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	page := vars["page"]
+func ActivityListHandler(c *gin.Context) {
+	page := c.Query("page")
 	pagenum := 1
 	offset := 100
-	userid := r.URL.Query().Get("userid")
-	filter := r.URL.Query().Get("filter")
-	defer r.Body.Close()
+	userid := c.Query("userid")
+	filter := c.Query("filter")
+
 	var err error
-	messages := msg.GetMessages(r)
-	currentUser := getUser(r)
+	currentUser := getUser(c)
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
 		if !log.CheckError(err) {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			c.AbortWithError(http.StatusInternalServerError, err)
 			return
 		}
 	}
@@ -45,9 +41,7 @@ func ActivityListHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	activities, nbActivities := activity.GetAllActivities(offset, (pagenum-1)*offset, strings.Join(conditions, " AND "), values...)
-	common := newCommonVariables(r)
-	common.Navigation = navigation{nbActivities, offset, pagenum, "activity_list"}
-	htv := modelListVbs{common, activities, messages.GetAllErrors(), messages.GetAllInfos()}
-	err = activityList.ExecuteTemplate(w, "index.html", htv)
-	log.CheckError(err)
+
+	nav := navigation{nbActivities, offset, pagenum, "activity_list"}
+	modelList(c, "activity_list", activities, nav, newSearchForm(c))
 }

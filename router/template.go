@@ -1,8 +1,18 @@
 package router
 
 import (
-	"html/template"
-	"path/filepath"
+	"net/http"
+
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/model"
+	userForms "github.com/NyaaPantsu/nyaa/service/user/form"
+	"github.com/NyaaPantsu/nyaa/util/filelist"
+	"github.com/NyaaPantsu/nyaa/util/messages"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
+	"github.com/gin-gonic/gin"
+	"github.com/justinas/nosurf"
+
+	"github.com/CloudyKit/jet"
 )
 
 // TemplateDir : Variable to the template directory
@@ -11,187 +21,142 @@ var TemplateDir = "templates" // FIXME: Need to be a constant!
 // ModeratorDir : Variable to the admin template sub directory
 const ModeratorDir = "admin"
 
-var homeTemplate,
-	searchTemplate,
-	faqTemplate,
-	activityList,
-	uploadTemplate,
-	viewTemplate,
-	viewRegisterTemplate,
-	viewLoginTemplate,
-	viewRegisterSuccessTemplate,
-	viewVerifySuccessTemplate,
-	viewProfileTemplate,
-	viewProfileNotifTemplate,
-	viewProfileEditTemplate,
-	viewUserDeleteTemplate,
-	userTorrentEd,
-	notFoundTemplate,
-	changePublicSettingsTemplate,
-	databaseDumpTemplate *template.Template
+// View : Jet Template Renderer
+var View = jet.NewHTMLSet("./views")
+var vars = templateFunctions(make(jet.VarMap))
 
-var panelIndex,
-	panelTorrentList,
-	panelUserList,
-	panelCommentList,
-	panelTorrentEd,
-	panelTorrentReportList,
-	panelTorrentReassign *template.Template
-
-type templateLoader struct {
-	templ     **template.Template
-	file      string
-	indexFile string
-	name      string
+func commonVars(c *gin.Context) jet.VarMap {
+	msg := messages.GetMessages(c)
+	vars.Set("Navigation", newNavigation())
+	vars.Set("Search", newSearchForm(c))
+	vars.Set("T", publicSettings.GetTfuncFromRequest(c))
+	vars.Set("Theme", publicSettings.GetThemeFromRequest(c))
+	vars.Set("Mascot", publicSettings.GetMascotFromRequest(c))
+	vars.Set("MascotURL", publicSettings.GetMascotUrlFromRequest(c))
+	vars.Set("User", getUser(c))
+	vars.Set("URL", c.Request.URL)
+	vars.Set("CsrfToken", nosurf.Token(c.Request))
+	vars.Set("Config", config.Conf)
+	vars.Set("Infos", msg.GetAllInfos())
+	vars.Set("Errors", msg.GetAllErrors())
+	return vars
 }
 
-// ReloadTemplates : reloads templates on runtime
-func ReloadTemplates() {
-	pubTempls := []templateLoader{
-		{
-			templ: &databaseDumpTemplate,
-			name:  "dump",
-			file:  "dumps.html",
-		},
-		{
-			templ: &homeTemplate,
-			name:  "home",
-			file:  "home.html",
-		},
-		{
-			templ: &searchTemplate,
-			name:  "search",
-			file:  "home.html",
-		},
-		{
-			templ: &uploadTemplate,
-			name:  "upload",
-			file:  "upload.html",
-		},
-		{
-			templ: &faqTemplate,
-			name:  "FAQ",
-			file:  "FAQ.html",
-		},
-		{
-			templ: &activityList,
-			name:  "activityList",
-			file:  "activity_list.html",
-		},
-		{
-			templ: &viewTemplate,
-			name:  "view",
-			file:  "view.html",
-		},
-		{
-			templ: &viewRegisterTemplate,
-			name:  "user_register",
-			file:  filepath.Join("user", "register.html"),
-		},
-		{
-			templ: &viewRegisterSuccessTemplate,
-			name:  "user_register_success",
-			file:  filepath.Join("user", "signup_success.html"),
-		},
-		{
-			templ: &viewVerifySuccessTemplate,
-			name:  "user_verify_success",
-			file:  filepath.Join("user", "verify_success.html"),
-		},
-		{
-			templ: &viewLoginTemplate,
-			name:  "user_login",
-			file:  filepath.Join("user", "login.html"),
-		},
-		{
-			templ: &viewProfileTemplate,
-			name:  "user_profile",
-			file:  filepath.Join("user", "profile.html"),
-		},
-		{
-			templ: &viewProfileNotifTemplate,
-			name:  "user_profile",
-			file:  filepath.Join("user", "profile_notifications.html"),
-		},
-		{
-			templ: &viewProfileEditTemplate,
-			name:  "user_profile",
-			file:  filepath.Join("user", "profile_edit.html"),
-		},
-		{
-			templ: &viewUserDeleteTemplate,
-			name:  "user_delete",
-			file:  filepath.Join("user", "delete_success.html"),
-		},
-		{
-			templ: &userTorrentEd,
-			name:  "user_torrent_edit",
-			file:  filepath.Join("user", "torrent_edit.html"),
-		},
-		{
-			templ: &notFoundTemplate,
-			name:  "404",
-			file:  "404.html",
-		},
-		{
-			templ: &changePublicSettingsTemplate,
-			name:  "change_settings",
-			file:  "public_settings.html",
-		},
-	}
-	for idx := range pubTempls {
-		pubTempls[idx].indexFile = filepath.Join(TemplateDir, "index.html")
-	}
+// newPanelSearchForm : Helper that creates a search form without items/page field
+// these need to be used when the templateVariables don't include `navigation`
+func newPanelSearchForm(c *gin.Context) searchForm {
+	form := newSearchForm(c)
+	form.ShowItemsPerPage = false
+	return form
+}
 
-	modTempls := []templateLoader{
-		{
-			templ: &panelTorrentList,
-			name:  "torrentlist",
-			file:  filepath.Join(ModeratorDir, "torrentlist.html"),
-		},
-		{
-			templ: &panelUserList,
-			name:  "userlist",
-			file:  filepath.Join(ModeratorDir, "userlist.html"),
-		},
-		{
-			templ: &panelCommentList,
-			name:  "commentlist",
-			file:  filepath.Join(ModeratorDir, "commentlist.html"),
-		},
-		{
-			templ: &panelIndex,
-			name:  "indexPanel",
-			file:  filepath.Join(ModeratorDir, "panelindex.html"),
-		},
-		{
-			templ: &panelTorrentEd,
-			name:  "torrent_ed",
-			file:  filepath.Join(ModeratorDir, "paneltorrentedit.html"),
-		},
-		{
-			templ: &panelTorrentReportList,
-			name:  "torrent_report",
-			file:  filepath.Join(ModeratorDir, "torrent_report.html"),
-		},
-		{
-			templ: &panelTorrentReassign,
-			name:  "torrent_reassign",
-			file:  filepath.Join(ModeratorDir, "reassign.html"),
-		},
-	}
+//
+func newPanelCommonVariables(c *gin.Context) jet.VarMap {
+	common := commonVars(c)
+	common.Set("Search", newPanelSearchForm(c))
+	return common
+}
 
-	for idx := range modTempls {
-		modTempls[idx].indexFile = filepath.Join(TemplateDir, "admin_index.html")
+func renderTemplate(c *gin.Context, templateName string, vars jet.VarMap) {
+	t, err := View.GetTemplate(templateName)
+	if err != nil {
+		httpError(c, 404)
 	}
-
-	templs := make([]templateLoader, 0, len(modTempls)+len(pubTempls))
-	templs = append(templs, pubTempls...)
-	templs = append(templs, modTempls...)
-
-	for _, templ := range templs {
-		t := template.Must(template.New(templ.name).Funcs(FuncMap).ParseFiles(templ.indexFile, filepath.Join(TemplateDir, templ.file)))
-		t = template.Must(t.ParseGlob(filepath.Join(TemplateDir, "_*.html")))
-		*templ.templ = t
+	c.Status(200)
+	if err = t.Execute(c.Writer, vars, nil); err != nil {
+		httpError(c, http.StatusInternalServerError)
 	}
+}
+
+func httpError(c *gin.Context, errorCode int) {
+	if errorCode == http.StatusNotFound {
+		c.Status(http.StatusNotFound)
+		staticTemplate(c, "404")
+		return
+	}
+	c.Status(errorCode)
+}
+
+func staticTemplate(c *gin.Context, templateName string) {
+	var vars jet.VarMap
+	if isAdminTemplate(templateName) {
+		vars = newPanelCommonVariables(c)
+	} else {
+		vars = commonVars(c)
+	}
+	renderTemplate(c, templateName, vars)
+}
+
+func modelList(c *gin.Context, templateName string, models interface{}, nav navigation, search searchForm) {
+	var vars jet.VarMap
+	if isAdminTemplate(templateName) {
+		vars = newPanelCommonVariables(c)
+	} else {
+		vars = commonVars(c)
+	}
+	vars.Set("Models", models)
+	vars.Set("Navigation", nav)
+	vars.Set("Search", search)
+	renderTemplate(c, templateName, vars)
+}
+
+func formTemplate(c *gin.Context, templateName string, form interface{}) {
+	var vars jet.VarMap
+	if isAdminTemplate(templateName) {
+		vars = newPanelCommonVariables(c)
+	} else {
+		vars = commonVars(c)
+	}
+	vars.Set("Form", form)
+	renderTemplate(c, templateName, vars)
+}
+
+func torrentTemplate(c *gin.Context, torrent model.TorrentJSON, rootFolder *filelist.FileListFolder, captchaID string) {
+	vars := commonVars(c)
+	vars.Set("Torrent", torrent)
+	vars.Set("RootFolder", rootFolder)
+	vars.Set("CaptchaID", captchaID)
+	renderTemplate(c, "view", vars)
+}
+
+func userProfileEditTemplate(c *gin.Context, userProfile *model.User, userForm userForms.UserForm, languages map[string]string) {
+	vars := commonVars(c)
+	vars.Set("UserProfile", userProfile)
+	vars.Set("UserForm", userForm)
+	vars.Set("Languages", languages)
+	renderTemplate(c, "user/profile_edit", vars)
+}
+
+func userProfileTemplate(c *gin.Context, userProfile *model.User) {
+	vars := commonVars(c)
+	vars.Set("UserProfile", userProfile)
+	renderTemplate(c, "user/profile", vars)
+}
+func databaseDumpTemplate(c *gin.Context, listDumps []model.DatabaseDumpJSON, GPGLink string) {
+	vars := commonVars(c)
+	vars.Set("ListDumps", listDumps)
+	vars.Set("GPGLink", GPGLink)
+	renderTemplate(c, "dumps", vars)
+}
+func changeLanguageTemplate(c *gin.Context, language string, languages map[string]string) {
+	vars := commonVars(c)
+	vars.Set("Language", language)
+	vars.Set("Languages", languages)
+	renderTemplate(c, "user/public_settings", vars)
+}
+
+func panelAdminTemplate(c *gin.Context, torrent []model.Torrent, reports []model.TorrentReportJSON, users []model.User, comments []model.Comment) {
+	vars := newPanelCommonVariables(c)
+	vars.Set("Torrent", torrent)
+	vars.Set("TorrentReports", reports)
+	vars.Set("Users", users)
+	vars.Set("Comments", comments)
+	renderTemplate(c, "admin/index", vars)
+}
+
+func isAdminTemplate(templateName string) bool {
+	if templateName != "" && len(templateName) > len(ModeratorDir) {
+		return templateName[:5] == ModeratorDir
+	}
+	return false
 }

@@ -4,156 +4,142 @@ import (
 	"net/http"
 
 	"github.com/NyaaPantsu/nyaa/service/captcha"
-	"github.com/gorilla/handlers"
-	"github.com/gorilla/mux"
+	"github.com/gin-contrib/gzip"
+	"github.com/gin-gonic/gin"
 	"github.com/justinas/nosurf"
 )
 
 // Router variable for exporting the route configuration
-var Router *mux.Router
+var Router *gin.Engine
 
 // CSRFRouter : CSRF protection for Router variable for exporting the route configuration
 var CSRFRouter *nosurf.CSRFHandler
 
 func init() {
-	// Static file handlers
-	cssHandler := http.FileServer(http.Dir("./public/css/"))
-	jsHandler := http.FileServer(http.Dir("./public/js/"))
-	imgHandler := http.FileServer(http.Dir("./public/img/"))
-	// TODO Use config from cli
-	// TODO Make sure the directory exists
-	dumpsHandler := http.FileServer(http.Dir(DatabaseDumpPath))
-	// TODO Use config from cli
-	// TODO Make sure the directory exists
-	gpgKeyHandler := http.FileServer(http.Dir(GPGPublicKeyPath))
-	gzipHomeHandler := http.HandlerFunc(SearchHandler)
-	gzipAPIHandler := http.HandlerFunc(APIHandler)
-	gzipAPIViewHandler := http.HandlerFunc(APIViewHandler)
-	gzipViewHandler := http.HandlerFunc(ViewHandler)
-	gzipUserProfileHandler := http.HandlerFunc(UserProfileHandler)
-	gzipUserAPIKeyResetHandler := http.HandlerFunc(UserAPIKeyResetHandler)
-	gzipUserDetailsHandler := http.HandlerFunc(UserDetailsHandler)
-	downloadTorrentHandler := http.HandlerFunc(DownloadTorrent)
-	gzipUserProfileFormHandler := http.HandlerFunc(UserProfileFormHandler)
-	gzipUserNotificationsHandler := http.HandlerFunc(UserNotificationsHandler)
-	gzipDumpsHandler := handlers.CompressHandler(dumpsHandler)
-	gzipGpgKeyHandler := handlers.CompressHandler(gpgKeyHandler)
-	gzipDatabaseDumpHandler := handlers.CompressHandler(http.HandlerFunc(DatabaseDumpHandler))
+	Router = gin.Default()
+	Router.Use(gzip.Gzip(gzip.DefaultCompression))
 
-	Router = mux.NewRouter()
-	http.Handle("/css/", http.StripPrefix("/css/", cssHandler))
-	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
-	http.Handle("/img/", http.StripPrefix("/img/", imgHandler))
-	http.Handle("/dbdumps/", http.StripPrefix("/dbdumps/", wrapHandler(gzipDumpsHandler)))
-	http.Handle("/gpg/", http.StripPrefix("/gpg/", wrapHandler(gzipGpgKeyHandler)))
+	// Static file handlers
+	// TODO Use config from cli
+	// TODO Make sure the directory exists
+	Router.StaticFS("/css/", http.Dir("./public/css/"))
+	Router.StaticFS("/js/", http.Dir("./public/js/"))
+	Router.StaticFS("/img/", http.Dir("./public/img/"))
+	Router.StaticFS("/dbdumps/", http.Dir(DatabaseDumpPath))
+	Router.StaticFS("/gpg/", http.Dir(GPGPublicKeyPath))
 
 	// We don't need CSRF here
-	Router.Handle("/", gzipHomeHandler).Name("home")
-	Router.Handle("/page/{page:[0-9]+}", wrapHandler(gzipHomeHandler)).Name("home_page")
-	Router.HandleFunc("/search", SearchHandler).Name("search")
-	Router.HandleFunc("/search/{page}", SearchHandler).Name("search_page")
-	Router.HandleFunc("/verify/email/{token}", UserVerifyEmailHandler).Name("user_verify").Methods("GET")
-	Router.HandleFunc("/faq", FaqHandler).Name("faq")
-	Router.HandleFunc("/activities", ActivityListHandler).Name("activity_list")
-	Router.HandleFunc("/feed", RSSHandler).Name("feed")
-	Router.HandleFunc("/feed/{page:[0-9]+}", RSSHandler).Name("feed_page")
-	Router.HandleFunc("/feed/magnet", RSSMagnetHandler).Name("feed_magnet")
-	Router.HandleFunc("/feed/magnet/{page:[0-9]+}", RSSMagnetHandler).Name("feed_magnet_page")
-	Router.HandleFunc("/feed/torznab", RSSTorznabHandler).Name("feed_torznab")
-	Router.HandleFunc("/feed/torznab/api", RSSTorznabHandler).Name("feed_torznab")
-	Router.HandleFunc("/feed/torznab/{page:[0-9]+}", RSSTorznabHandler).Name("feed_torznab_page")
-	Router.HandleFunc("/feed/eztv", RSSEztvHandler).Name("feed_eztv")
-	Router.HandleFunc("/feed/eztv/{page:[0-9]+}", RSSEztvHandler).Name("feed_eztv_page")
+	Router.Any("/", SearchHandler).Use(errorMiddleware())
+	Router.Any("/page/:page", SearchHandler).Use(errorMiddleware())
+	Router.Any("/search", SearchHandler).Use(errorMiddleware())
+	Router.Any("/search/:page", SearchHandler).Use(errorMiddleware())
+	Router.Any("/verify/email/:token", UserVerifyEmailHandler).Use(errorMiddleware())
+	Router.Any("/faq", FaqHandler).Use(errorMiddleware())
+	Router.Any("/activities", ActivityListHandler).Use(errorMiddleware())
+	Router.Any("/feed", RSSHandler)
+	Router.Any("/feed/:page", RSSHandler)
+	Router.Any("/feed/magnet", RSSMagnetHandler)
+	Router.Any("/feed/magnet/:page", RSSMagnetHandler)
+	Router.Any("/feed/torznab", RSSTorznabHandler)
+	Router.Any("/feed/torznab/api", RSSTorznabHandler)
+	Router.Any("/feed/torznab/:page", RSSTorznabHandler)
+	Router.Any("/feed/eztv", RSSEztvHandler)
+	Router.Any("/feed/eztv/:page", RSSEztvHandler)
 
 	// !!! This line need to have the same download location as the one define in config.TorrentStorageLink !!!
-	Router.Handle("/download/{hash}", wrapHandler(downloadTorrentHandler)).Name("torrent_download")
+	Router.Any("/download/:hash", DownloadTorrent)
 
 	// For now, no CSRF protection here, as API is not usable for uploads
-	Router.HandleFunc("/upload", UploadHandler).Name("upload")
-	Router.HandleFunc("/user/login", UserLoginPostHandler).Name("user_login").Methods("POST")
+	Router.Any("/upload", UploadHandler)
+	Router.Any("/user/login", UserLoginPostHandler)
 
-	torrentViewRoutes := Router.PathPrefix("/view").Subrouter()
-	torrentViewRoutes.Handle("/{id}", wrapHandler(gzipViewHandler)).Methods("GET").Name("view_torrent")
-	torrentViewRoutes.HandleFunc("/{id}", ViewHeadHandler).Methods("HEAD")
-	torrentViewRoutes.HandleFunc("/{id}", PostCommentHandler).Methods("POST").Name("post_comment")
-
-	torrentRoutes := Router.PathPrefix("/torrent").Subrouter()
-	torrentRoutes.HandleFunc("/", TorrentEditUserPanel).Methods("GET").Name("user_torrent_edit")
-	torrentRoutes.HandleFunc("/", TorrentPostEditUserPanel).Methods("POST").Name("user_torrent_edit")
-	torrentRoutes.HandleFunc("/delete", TorrentDeleteUserPanel).Methods("GET").Name("user_torrent_delete")
-
-	userRoutes := Router.PathPrefix("/user").Subrouter()
-	userRoutes.HandleFunc("/register", UserRegisterFormHandler).Name("user_register").Methods("GET")
-	userRoutes.HandleFunc("/login", UserLoginFormHandler).Name("user_login").Methods("GET")
-	userRoutes.HandleFunc("/register", UserRegisterPostHandler).Name("user_register").Methods("POST")
-	userRoutes.HandleFunc("/logout", UserLogoutHandler).Name("user_logout").Methods("POST")
-	userRoutes.Handle("/{id}/{username}", wrapHandler(gzipUserProfileHandler)).Name("user_profile").Methods("GET")
-	userRoutes.HandleFunc("/{id}/{username}/follow", UserFollowHandler).Name("user_follow").Methods("GET")
-	userRoutes.Handle("/{id}/{username}/edit", wrapHandler(gzipUserDetailsHandler)).Name("user_profile_details").Methods("GET")
-	userRoutes.Handle("/{id}/{username}/edit", wrapHandler(gzipUserProfileFormHandler)).Name("user_profile_edit").Methods("POST")
-	userRoutes.Handle("/{id}/{username}/apireset", wrapHandler(gzipUserAPIKeyResetHandler)).Name("user_profile_apireset").Methods("GET")
-	userRoutes.Handle("/notifications", wrapHandler(gzipUserNotificationsHandler)).Name("user_notifications")
-	userRoutes.HandleFunc("/{id}/{username}/feed", RSSHandler).Name("feed_user")
-	userRoutes.HandleFunc("/{id}/{username}/feed/{page}", RSSHandler).Name("feed_user_page")
-
+	torrentViewRoutes := Router.Group("/view", errorMiddleware())
+	{
+		torrentViewRoutes.GET("/:id", ViewHandler)
+		torrentViewRoutes.HEAD("/:id", ViewHeadHandler)
+		torrentViewRoutes.POST("/:id", PostCommentHandler)
+	}
+	torrentRoutes := Router.Group("/torrent", errorMiddleware())
+	{
+		torrentRoutes.GET("/", TorrentEditUserPanel)
+		torrentRoutes.POST("/", TorrentPostEditUserPanel)
+		torrentRoutes.GET("/delete", TorrentDeleteUserPanel)
+	}
+	userRoutes := Router.Group("/user").Use(errorMiddleware())
+	{
+		userRoutes.GET("/register", UserRegisterFormHandler)
+		userRoutes.GET("/login", UserLoginFormHandler)
+		userRoutes.POST("/register", UserRegisterPostHandler)
+		userRoutes.POST("/logout", UserLogoutHandler)
+		userRoutes.GET("/:id/:username", UserProfileHandler)
+		userRoutes.GET("/:id/:username/follow", UserFollowHandler)
+		userRoutes.GET("/:id/:username/edit", UserDetailsHandler)
+		userRoutes.POST("/:id/:username/edit", UserProfileFormHandler)
+		userRoutes.GET("/:id/:username/apireset", UserAPIKeyResetHandler)
+		userRoutes.GET("/notifications", UserNotificationsHandler)
+		userRoutes.GET("/:id/:username/feed/*page", RSSHandler)
+	}
 	// We don't need CSRF here
-	api := Router.PathPrefix("/api").Subrouter()
-	api.Handle("", wrapHandler(gzipAPIHandler)).Methods("GET")
-	api.Handle("/", wrapHandler(gzipAPIHandler)).Methods("GET")
-	api.Handle("/{page:[0-9]*}", wrapHandler(gzipAPIHandler)).Methods("GET")
-	api.Handle("/view/{id}", wrapHandler(gzipAPIViewHandler)).Methods("GET")
-	api.HandleFunc("/view/{id}", APIViewHeadHandler).Methods("HEAD")
-	api.HandleFunc("/upload", APIUploadHandler).Methods("POST")
-	api.HandleFunc("/login", APILoginHandler).Methods("POST")
-	api.HandleFunc("/token/check", APICheckTokenHandler).Methods("GET")
-	api.HandleFunc("/token/refresh", APIRefreshTokenHandler).Methods("GET")
-	api.HandleFunc("/search", APISearchHandler)
-	api.HandleFunc("/search/{page}", APISearchHandler)
-	api.HandleFunc("/update", APIUpdateHandler).Methods("PUT")
+	api := Router.Group("/api")
+	{
+		api.GET("", APIHandler)
+		api.GET("/", APIHandler)
+		api.GET("/{page:[0-9]*}", APIHandler)
+		api.GET("/view/:id", APIViewHandler)
+		api.HEAD("/view/:id", APIViewHeadHandler)
+		api.POST("/upload", APIUploadHandler)
+		api.POST("/login", APILoginHandler)
+		api.GET("/token/check", APICheckTokenHandler)
+		api.GET("/token/refresh", APIRefreshTokenHandler)
+		api.Any("/search", APISearchHandler)
+		api.Any("/search/{page}", APISearchHandler)
+		api.PUT("/update", APIUpdateHandler)
+	}
 
 	// INFO Everything under /mod should be wrapped by wrapModHandler. This make
 	// sure the page is only accessible by moderators
 	// We don't need CSRF here
 	// TODO Find a native mux way to add a 'prehook' for route /mod
-	Router.HandleFunc("/mod", wrapModHandler(IndexModPanel)).Name("mod_index")
-	Router.HandleFunc("/mod/torrents", wrapModHandler(TorrentsListPanel)).Name("mod_tlist").Methods("GET")
-	Router.HandleFunc("/mod/torrents/{page:[0-9]+}", wrapModHandler(TorrentsListPanel)).Name("mod_tlist_page").Methods("GET")
-	Router.HandleFunc("/mod/torrents", wrapModHandler(TorrentsPostListPanel)).Methods("POST")
-	Router.HandleFunc("/mod/torrents/{page:[0-9]+}", wrapModHandler(TorrentsPostListPanel)).Methods("POST")
-	Router.HandleFunc("/mod/torrents/deleted", wrapModHandler(DeletedTorrentsModPanel)).Name("mod_tlist_deleted").Methods("GET")
-	Router.HandleFunc("/mod/torrents/deleted/{page:[0-9]+}", wrapModHandler(DeletedTorrentsModPanel)).Name("mod_tlist_deleted_page").Methods("GET")
-	Router.HandleFunc("/mod/torrents/deleted", wrapModHandler(DeletedTorrentsPostPanel)).Name("mod_tlist_deleted").Methods("POST")
-	Router.HandleFunc("/mod/torrents/deleted/{page:[0-9]+}", wrapModHandler(DeletedTorrentsPostPanel)).Name("mod_tlist_deleted_page").Methods("POST")
-	Router.HandleFunc("/mod/reports", wrapModHandler(TorrentReportListPanel)).Name("mod_trlist")
-	Router.HandleFunc("/mod/reports/{page}", wrapModHandler(TorrentReportListPanel)).Name("mod_trlist_page")
-	Router.HandleFunc("/mod/users", wrapModHandler(UsersListPanel)).Name("mod_ulist")
-	Router.HandleFunc("/mod/users/{page}", wrapModHandler(UsersListPanel)).Name("mod_ulist_page")
-	Router.HandleFunc("/mod/comments", wrapModHandler(CommentsListPanel)).Name("mod_clist")
-	Router.HandleFunc("/mod/comments/{page}", wrapModHandler(CommentsListPanel)).Name("mod_clist_page")
-	Router.HandleFunc("/mod/comment", wrapModHandler(CommentsListPanel)).Name("mod_cedit") // TODO
-	Router.HandleFunc("/mod/torrent/", wrapModHandler(TorrentEditModPanel)).Name("mod_tedit").Methods("GET")
-	Router.HandleFunc("/mod/torrent/", wrapModHandler(TorrentPostEditModPanel)).Name("mod_ptedit").Methods("POST")
-	Router.HandleFunc("/mod/torrent/delete", wrapModHandler(TorrentDeleteModPanel)).Name("mod_tdelete")
-	Router.HandleFunc("/mod/torrent/block", wrapModHandler(TorrentBlockModPanel)).Name("mod_tblock")
-	Router.HandleFunc("/mod/report/delete", wrapModHandler(TorrentReportDeleteModPanel)).Name("mod_trdelete")
-	Router.HandleFunc("/mod/comment/delete", wrapModHandler(CommentDeleteModPanel)).Name("mod_cdelete")
-	Router.HandleFunc("/mod/reassign", wrapModHandler(TorrentReassignModPanel)).Name("mod_treassign").Methods("GET")
-	Router.HandleFunc("/mod/reassign", wrapModHandler(TorrentPostReassignModPanel)).Name("mod_treassign").Methods("POST")
-
-	apiMod := Router.PathPrefix("/mod/api").Subrouter()
-	apiMod.HandleFunc("/torrents", wrapModHandler(APIMassMod)).Name("mod_tapi").Methods("POST")
-
+	modRoutes := Router.Group("/mod", errorMiddleware(), modMiddleware())
+	{
+		modRoutes.Any("/mod", IndexModPanel)
+		modRoutes.Any("/mod/torrents", TorrentsListPanel)
+		modRoutes.Any("/mod/torrents/:page", TorrentsListPanel)
+		modRoutes.POST("/mod/torrents", TorrentsPostListPanel)
+		modRoutes.POST("/mod/torrents/:page", TorrentsPostListPanel)
+		modRoutes.Any("/mod/torrents/deleted", DeletedTorrentsModPanel)
+		modRoutes.Any("/mod/torrents/deleted/:page", DeletedTorrentsModPanel)
+		modRoutes.Any("/mod/torrents/deleted", DeletedTorrentsPostPanel)
+		modRoutes.Any("/mod/torrents/deleted/:page", DeletedTorrentsPostPanel)
+		modRoutes.Any("/mod/reports", TorrentReportListPanel)
+		modRoutes.Any("/mod/reports/{page}", TorrentReportListPanel)
+		modRoutes.Any("/mod/users", UsersListPanel)
+		modRoutes.Any("/mod/users/{page}", UsersListPanel)
+		modRoutes.Any("/mod/comments", CommentsListPanel)
+		modRoutes.Any("/mod/comments/{page}", CommentsListPanel)
+		modRoutes.Any("/mod/comment", CommentsListPanel) // TODO
+		modRoutes.Any("/mod/torrent/", TorrentEditModPanel)
+		modRoutes.Any("/mod/torrent/", TorrentPostEditModPanel)
+		modRoutes.Any("/mod/torrent/delete", TorrentDeleteModPanel)
+		modRoutes.Any("/mod/torrent/block", TorrentBlockModPanel)
+		modRoutes.Any("/mod/report/delete", TorrentReportDeleteModPanel)
+		modRoutes.Any("/mod/comment/delete", CommentDeleteModPanel)
+		modRoutes.Any("/mod/reassign", TorrentReassignModPanel)
+		modRoutes.Any("/mod/reassign", TorrentPostReassignModPanel)
+		apiMod := modRoutes.Group("/mod/api")
+		apiMod.Any("/torrents", APIMassMod)
+	}
 	//reporting a torrent
-	Router.HandleFunc("/report/{id}", ReportTorrentHandler).Methods("POST").Name("torrent_report")
+	Router.POST("/report/:id", ReportTorrentHandler)
 
-	Router.PathPrefix("/captcha").Methods("GET").HandlerFunc(captcha.ServeFiles)
+	Router.Any("/captcha", captcha.ServeFiles)
 
-	Router.Handle("/dumps", gzipDatabaseDumpHandler).Name("dump").Methods("GET")
+	Router.Any("/dumps", DatabaseDumpHandler)
 
-	Router.HandleFunc("/settings", SeePublicSettingsHandler).Methods("GET").Name("see_languages")
-	Router.HandleFunc("/settings", ChangePublicSettingsHandler).Methods("POST").Name("see_languages")
+	Router.GET("/settings", SeePublicSettingsHandler)
+	Router.POST("/settings", ChangePublicSettingsHandler)
 
-	Router.NotFoundHandler = http.HandlerFunc(NotFoundHandler)
+	Router.Use(errorMiddleware())
 
 	CSRFRouter = nosurf.New(Router)
 	CSRFRouter.ExemptRegexp("/api(?:/.+)*")

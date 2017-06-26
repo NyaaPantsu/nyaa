@@ -18,7 +18,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
-	"github.com/gorilla/mux"
 )
 
 /* Function to interact with Models
@@ -311,11 +310,8 @@ func ExistOrDelete(hash string, user *model.User) error {
 }
 
 // NewTorrentEvent : Should be called when you create a new torrent
-func NewTorrentEvent(router *mux.Router, user *model.User, torrent *model.Torrent) error {
-	url, err := router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
-	if err != nil {
-		return err
-	}
+func NewTorrentEvent(user *model.User, torrent *model.Torrent) error {
+	url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
 	if user.ID > 0 && config.Conf.Users.DefaultUserSettings["new_torrent"] { // If we are a member and notifications for new torrents are enabled
 		userService.GetFollowers(user) // We populate the liked field for users
 		if len(user.Followers) > 0 {   // If we are followed by at least someone
@@ -323,7 +319,7 @@ func NewTorrentEvent(router *mux.Router, user *model.User, torrent *model.Torren
 				follower.ParseSettings() // We need to call it before checking settings
 				if follower.Settings.Get("new_torrent") {
 					T, _, _ := publicSettings.TfuncAndLanguageWithFallback(follower.Language, follower.Language) // We need to send the notification to every user in their language
-					notifierService.NotifyUser(&follower, torrent.Identifier(), fmt.Sprintf(T("new_torrent_uploaded"), torrent.Name, user.Username), url.String(), follower.Settings.Get("new_torrent_email"))
+					notifierService.NotifyUser(&follower, torrent.Identifier(), fmt.Sprintf(T("new_torrent_uploaded"), torrent.Name, user.Username), url, follower.Settings.Get("new_torrent_email"))
 				}
 			}
 		}

@@ -1,7 +1,6 @@
 package router
 
 import (
-	"encoding/json"
 	"fmt"
 	"html"
 	"net/http"
@@ -23,7 +22,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/search"
-	"github.com/gorilla/mux"
+	"github.com/gin-gonic/gin"
 )
 
 // ReassignForm : Structure for reassign Form used by the reassign page
@@ -36,47 +35,54 @@ type ReassignForm struct {
 }
 
 // ExtractInfo : Function to assign values from request to ReassignForm
-func (f *ReassignForm) ExtractInfo(r *http.Request) error {
-	f.By = r.FormValue("by")
-	defer r.Body.Close()
+func (f *ReassignForm) ExtractInfo(c *gin.Context) bool {
+	f.By = c.PostForm("by")
+	messages := msg.GetMessages(c)
 	if f.By != "olduser" && f.By != "torrentid" {
-		return fmt.Errorf("what?")
+		messages.AddErrorTf("errors", "no_action_exist", f.By)
+		return false
 	}
 
-	f.Data = strings.Trim(r.FormValue("data"), " \r\n")
+	f.Data = strings.Trim(c.PostForm("data"), " \r\n")
 	if f.By == "olduser" {
 		if f.Data == "" {
-			return fmt.Errorf("No username given")
+			messages.AddErrorT("errors", "user_not_found")
+			return false
 		} else if strings.Contains(f.Data, "\n") {
-			return fmt.Errorf("More than one username given")
+			messages.AddErrorT("errors", "multiple_username_error")
+			return false
 		}
 	} else if f.By == "torrentid" {
 		if f.Data == "" {
-			return fmt.Errorf("No IDs given")
+			messages.AddErrorT("errors", "no_id_given")
+			return false
 		}
 		splitData := strings.Split(f.Data, "\n")
 		for i, tmp := range splitData {
 			tmp = strings.Trim(tmp, " \r")
 			torrentID, err := strconv.ParseUint(tmp, 10, 0)
 			if err != nil {
-				return fmt.Errorf("Couldn't parse number on line %d", i+1)
+				messages.AddErrorTf("errors", "parse_error_line", i+1)
+				return false // TODO: Shouldn't it continue to parse the rest and display the errored lines?
 			}
 			f.Torrents = append(f.Torrents, uint(torrentID))
 		}
 	}
 
-	tmp := r.FormValue("to")
-	parsed, err := strconv.ParseUint(tmp, 10, 0)
+	tmpID := c.PostForm("to")
+	parsed, err := strconv.ParseUint(tmpID, 10, 0)
 	if err != nil {
-		return err
+		messages.Error(err)
+		return false
 	}
 	f.AssignTo = uint(parsed)
-	_, _, _, _, err = userService.RetrieveUser(r, tmp)
+	_, _, _, _, err = userService.RetrieveUser(c, tmpID)
 	if err != nil {
-		return fmt.Errorf("User to assign to doesn't exist")
+		messages.AddErrorTf("errors", "no_user_found_id", int(parsed))
+		return false
 	}
 
-	return nil
+	return true
 }
 
 // ExecuteAction : Function for applying the changes from ReassignForm
@@ -104,45 +110,24 @@ func (f *ReassignForm) ExecuteAction() (int, error) {
 	return num, nil
 }
 
-// newPanelSearchForm : Helper that creates a search form without items/page field
-// these need to be used when the templateVariables don't include `navigation`
-func newPanelSearchForm(r *http.Request) searchForm {
-	form := newSearchForm(r)
-	form.ShowItemsPerPage = false
-	return form
-}
-
-//
-func newPanelCommonVariables(r *http.Request) commonTemplateVariables {
-	defer r.Body.Close()
-	common := newCommonVariables(r)
-	common.Search = newPanelSearchForm(r)
-	return common
-}
-
 // IndexModPanel : Controller for showing index page of Mod Panel
-func IndexModPanel(w http.ResponseWriter, r *http.Request) {
+func IndexModPanel(c *gin.Context) {
 	offset := 10
-	defer r.Body.Close()
 	torrents, _, _ := torrentService.GetAllTorrents(offset, 0)
 	users, _ := userService.RetrieveUsersForAdmin(offset, 0)
 	comments, _ := commentService.GetAllComments(offset, 0, "", "")
 	torrentReports, _, _ := reportService.GetAllTorrentReports(offset, 0)
 
-	htv := panelIndexVbs{newPanelCommonVariables(r), torrents, model.TorrentReportsToJSON(torrentReports), users, comments}
-	err := panelIndex.ExecuteTemplate(w, "admin_index.html", htv)
-	log.CheckError(err)
+	panelAdminTemplate(c, torrents, model.TorrentReportsToJSON(torrentReports), users, comments)
 }
 
 // TorrentsListPanel : Controller for listing torrents, can accept common search arguments
-func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	page := vars["page"]
-	messages := msg.GetMessages(r)
-	defer r.Body.Close()
-	deleted := r.URL.Query()["deleted"]
-	unblocked := r.URL.Query()["unblocked"]
-	blocked := r.URL.Query()["blocked"]
+func TorrentsListPanel(c *gin.Context) {
+	page := c.Query("page")
+	messages := msg.GetMessages(c)
+	deleted := c.Request.URL.Query()["deleted"]
+	unblocked := c.Request.URL.Query()["unblocked"]
+	blocked := c.Request.URL.Query()["blocked"]
 	if deleted != nil {
 		messages.AddInfoTf("infos", "torrent_deleted", "")
 	}
@@ -158,14 +143,14 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
 		if !log.CheckError(err) {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			c.AbortWithError(http.StatusInternalServerError, err)
 			return
 		}
 	}
 
-	searchParam, torrents, count, err := search.SearchByQueryWithUser(r, pagenum)
+	searchParam, torrents, count, err := search.SearchByQueryWithUser(c, pagenum)
 	if err != nil {
-		messages.ImportFromError("errors", err)
+		messages.Error(err)
 	}
 	category := ""
 	if len(searchParam.Category) > 0 {
@@ -177,28 +162,22 @@ func TorrentsListPanel(w http.ResponseWriter, r *http.Request) {
 		ShowItemsPerPage: true,
 	}
 
-	common := newCommonVariables(r)
-	common.Navigation = navigation{count, int(searchParam.Max), pagenum, "mod_tlist_page"}
-	common.Search = searchForm
-	ptlv := modelListVbs{common, torrents, messages.GetAllErrors(), messages.GetAllInfos()}
-	err = panelTorrentList.ExecuteTemplate(w, "admin_index.html", ptlv)
-	log.CheckError(err)
+	nav := navigation{count, int(searchParam.Max), pagenum, "mod_tlist_page"}
+
+	modelList(c, "admin/torrentlist", torrents, nav, searchForm)
 }
 
 // TorrentReportListPanel : Controller for listing torrent reports, can accept pages
-func TorrentReportListPanel(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	page := vars["page"]
-	messages := msg.GetMessages(r)
+func TorrentReportListPanel(c *gin.Context) {
+	page := c.Query("page")
 	pagenum := 1
 	offset := 100
-	defer r.Body.Close()
 	var err error
 
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
 		if !log.CheckError(err) {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			c.AbortWithError(http.StatusInternalServerError, err)
 			return
 		}
 	}
@@ -206,54 +185,42 @@ func TorrentReportListPanel(w http.ResponseWriter, r *http.Request) {
 	torrentReports, nbReports, _ := reportService.GetAllTorrentReports(offset, (pagenum-1)*offset)
 
 	reportJSON := model.TorrentReportsToJSON(torrentReports)
-	common := newCommonVariables(r)
-	common.Navigation = navigation{nbReports, offset, pagenum, "mod_trlist_page"}
-	ptrlv := modelListVbs{common, reportJSON, messages.GetAllErrors(), messages.GetAllInfos()}
-	err = panelTorrentReportList.ExecuteTemplate(w, "admin_index.html", ptrlv)
-	log.CheckError(err)
+	nav := navigation{nbReports, offset, pagenum, "mod_trlist_page"}
+	modelList(c, "admin/torrent_report", reportJSON, nav, newSearchForm(c))
 }
 
 // UsersListPanel : Controller for listing users, can accept pages
-func UsersListPanel(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	page := vars["page"]
+func UsersListPanel(c *gin.Context) {
+	page := c.Query("page")
 	pagenum := 1
 	offset := 100
-	defer r.Body.Close()
 	var err error
-	messages := msg.GetMessages(r)
 
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
 		if !log.CheckError(err) {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			c.AbortWithError(http.StatusInternalServerError, err)
 			return
 		}
 	}
 
 	users, nbUsers := userService.RetrieveUsersForAdmin(offset, (pagenum-1)*offset)
-	common := newCommonVariables(r)
-	common.Navigation = navigation{nbUsers, offset, pagenum, "mod_ulist_page"}
-	htv := modelListVbs{common, users, messages.GetAllErrors(), messages.GetAllInfos()}
-	err = panelUserList.ExecuteTemplate(w, "admin_index.html", htv)
-	log.CheckError(err)
+	nav := navigation{nbUsers, offset, pagenum, "mod_ulist_page"}
+	modelList(c, "admin/userlist", users, nav, newSearchForm(c))
 }
 
 // CommentsListPanel : Controller for listing comments, can accept pages and userID
-func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	page := vars["page"]
+func CommentsListPanel(c *gin.Context) {
+	page := c.Query("page")
 	pagenum := 1
 	offset := 100
-	userid := r.URL.Query().Get("userid")
-	defer r.Body.Close()
+	userid := c.Query("userid")
 	var err error
-	messages := msg.GetMessages(r)
 
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
 		if !log.CheckError(err) {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			c.AbortWithError(http.StatusInternalServerError, err)
 			return
 		}
 	}
@@ -265,20 +232,15 @@ func CommentsListPanel(w http.ResponseWriter, r *http.Request) {
 	}
 
 	comments, nbComments := commentService.GetAllComments(offset, (pagenum-1)*offset, conditions, values...)
-	common := newCommonVariables(r)
-	common.Navigation = navigation{nbComments, offset, pagenum, "mod_clist_page"}
-	htv := modelListVbs{common, comments, messages.GetAllErrors(), messages.GetAllInfos()}
-	err = panelCommentList.ExecuteTemplate(w, "admin_index.html", htv)
-	log.CheckError(err)
+	nav := navigation{nbComments, offset, pagenum, "mod_clist_page"}
+	modelList(c, "admin/userlist", comments, nav, newSearchForm(c))
 }
 
 // TorrentEditModPanel : Controller for editing a torrent after GET request
-func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
-	id := r.URL.Query().Get("id")
+func TorrentEditModPanel(c *gin.Context) {
+	id := c.Query("id")
 	torrent, _ := torrentService.GetTorrentByID(id)
-	messages := msg.GetMessages(r)
 
-	defer r.Body.Close()
 	torrentJSON := torrent.ToJSON()
 	uploadForm := apiService.NewTorrentRequest()
 	uploadForm.Name = torrentJSON.Name
@@ -288,20 +250,18 @@ func TorrentEditModPanel(w http.ResponseWriter, r *http.Request) {
 	uploadForm.WebsiteLink = string(torrentJSON.WebsiteLink)
 	uploadForm.Description = string(torrentJSON.Description)
 	uploadForm.Language = torrent.Language
-	htv := formTemplateVariables{newPanelCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
-	err := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
-	log.CheckError(err)
+
+	formTemplate(c, "admin/paneltorrentedit", uploadForm)
 }
 
 // TorrentPostEditModPanel : Controller for editing a torrent after POST request
-func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
+func TorrentPostEditModPanel(c *gin.Context) {
 	var uploadForm apiService.TorrentRequest
-	defer r.Body.Close()
-	id := r.URL.Query().Get("id")
-	messages := msg.GetMessages(r)
+	id := c.Query("id")
+	messages := msg.GetMessages(c)
 	torrent, _ := torrentService.GetTorrentByID(id)
 	if torrent.ID > 0 {
-		errUp := uploadForm.ExtractEditInfo(r)
+		errUp := uploadForm.ExtractEditInfo(c)
 		if errUp != nil {
 			messages.AddErrorT("errors", "fail_torrent_update")
 		}
@@ -319,33 +279,30 @@ func TorrentPostEditModPanel(w http.ResponseWriter, r *http.Request) {
 			messages.AddInfoT("infos", "torrent_updated")
 			if err == nil { // We only log edit torrent for admins
 				_, username := torrentService.HideTorrentUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
-				activity.Log(&model.User{}, torrent.Identifier(), "edit", "torrent_edited_by", strconv.Itoa(int(torrent.ID)), username, getUser(r).Username)
+				activity.Log(&model.User{}, torrent.Identifier(), "edit", "torrent_edited_by", strconv.Itoa(int(torrent.ID)), username, getUser(c).Username)
 			}
 		}
 	}
-	htv := formTemplateVariables{newPanelCommonVariables(r), uploadForm, messages.GetAllErrors(), messages.GetAllInfos()}
-	err := panelTorrentEd.ExecuteTemplate(w, "admin_index.html", htv)
-	log.CheckError(err)
+	formTemplate(c, "admin/paneltorrentedit", uploadForm)
 }
 
 // CommentDeleteModPanel : Controller for deleting a comment
-func CommentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
-	id := r.URL.Query().Get("id")
+func CommentDeleteModPanel(c *gin.Context) {
+	id := c.Query("id")
 
-	defer r.Body.Close()
 	comment, _, err := commentService.DeleteComment(id)
 	if err == nil {
-		activity.Log(&model.User{}, comment.Identifier(), "delete", "comment_deleted_by", strconv.Itoa(int(comment.ID)), comment.User.Username, getUser(r).Username)
+		activity.Log(&model.User{}, comment.Identifier(), "delete", "comment_deleted_by", strconv.Itoa(int(comment.ID)), comment.User.Username, getUser(c).Username)
 	}
-	url, _ := Router.Get("mod_clist").URL()
-	http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
+
+	c.Redirect(http.StatusSeeOther, "/mod/comments?deleted")
 }
 
 // TorrentDeleteModPanel : Controller for deleting a torrent
-func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
-	id := r.URL.Query().Get("id")
-	definitely := r.URL.Query()["definitely"]
-	defer r.Body.Close()
+func TorrentDeleteModPanel(c *gin.Context) {
+	id := c.Query("id")
+	definitely := c.Request.URL.Query()["definitely"]
+
 	var returnRoute string
 	var err error
 	var torrent *model.Torrent
@@ -358,7 +315,7 @@ func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 		for _, report := range reports {
 			reportService.DeleteDefinitelyTorrentReport(report.ID)
 		}
-		returnRoute = "mod_tlist_deleted"
+		returnRoute = "/mod/torrents/deleted"
 	} else {
 		torrent, _, err = torrentService.DeleteTorrent(id)
 
@@ -368,51 +325,42 @@ func TorrentDeleteModPanel(w http.ResponseWriter, r *http.Request) {
 		for _, report := range reports {
 			reportService.DeleteTorrentReport(report.ID)
 		}
-		returnRoute = "mod_tlist"
+		returnRoute = "/mod/torrents"
 	}
 	if err == nil {
 		_, username := torrentService.HideTorrentUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
-		activity.Log(&model.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, getUser(r).Username)
+		activity.Log(&model.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, getUser(c).Username)
 	}
-	url, _ := Router.Get(returnRoute).URL()
-	http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
+
+	c.Redirect(http.StatusSeeOther, returnRoute+"?deleted")
 }
 
 // TorrentReportDeleteModPanel : Controller for deleting a torrent report
-func TorrentReportDeleteModPanel(w http.ResponseWriter, r *http.Request) {
-	id := r.URL.Query().Get("id")
-	defer r.Body.Close()
+func TorrentReportDeleteModPanel(c *gin.Context) {
+	id := c.Query("id")
+
 	fmt.Println(id)
 	idNum, _ := strconv.ParseUint(id, 10, 64)
 	_, _, _ = reportService.DeleteTorrentReport(uint(idNum))
 	/* If we need to log report delete activity
 	if err == nil {
-		activity.Log(&model.User{}, torrent.Identifier(), "delete", "torrent_report_deleted_by", strconv.Itoa(int(report.ID)), getUser(r).Username)
+		activity.Log(&model.User{}, torrent.Identifier(), "delete", "torrent_report_deleted_by", strconv.Itoa(int(report.ID)), getUser(c).Username)
 	}
 	*/
-	url, _ := Router.Get("mod_trlist").URL()
-	http.Redirect(w, r, url.String()+"?deleted", http.StatusSeeOther)
+	c.Redirect(http.StatusSeeOther, "/mod/reports?deleted")
 }
 
 // TorrentReassignModPanel : Controller for reassigning a torrent, after GET request
-func TorrentReassignModPanel(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	messages := msg.GetMessages(r)
-	htv := formTemplateVariables{newPanelCommonVariables(r), ReassignForm{}, messages.GetAllErrors(), messages.GetAllInfos()}
-	err := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)
-	log.CheckError(err)
+func TorrentReassignModPanel(c *gin.Context) {
+	formTemplate(c, "admin/reassign", ReassignForm{})
 }
 
 // TorrentPostReassignModPanel : Controller for reassigning a torrent, after POST request
-func TorrentPostReassignModPanel(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
+func TorrentPostReassignModPanel(c *gin.Context) {
 	var rForm ReassignForm
-	messages := msg.GetMessages(r)
+	messages := msg.GetMessages(c)
 
-	err2 := rForm.ExtractInfo(r)
-	if err2 != nil {
-		messages.ImportFromError("errors", err2)
-	} else {
+	if rForm.ExtractInfo(c) {
 		count, err2 := rForm.ExecuteAction()
 		if err2 != nil {
 			messages.AddErrorT("errors", "something_went_wrong")
@@ -420,17 +368,13 @@ func TorrentPostReassignModPanel(w http.ResponseWriter, r *http.Request) {
 			messages.AddInfoTf("infos", "nb_torrents_updated", count)
 		}
 	}
-
-	htv := formTemplateVariables{newPanelCommonVariables(r), rForm, messages.GetAllErrors(), messages.GetAllInfos()}
-	err := panelTorrentReassign.ExecuteTemplate(w, "admin_index.html", htv)
-	log.CheckError(err)
+	formTemplate(c, "admin/reassign", rForm)
 }
 
 // TorrentsPostListPanel : Controller for listing torrents, after POST request when mass update
-func TorrentsPostListPanel(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	torrentManyAction(r)
-	TorrentsListPanel(w, r)
+func TorrentsPostListPanel(c *gin.Context) {
+	torrentManyAction(c)
+	TorrentsListPanel(c)
 }
 
 // APIMassMod : This function is used on the frontend for the mass
@@ -446,33 +390,28 @@ func TorrentsPostListPanel(w http.ResponseWriter, r *http.Request) {
  *
  * In case of action=multiple, torrents can be at the same time changed status, owner and category
  */
-func APIMassMod(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	torrentManyAction(r)
-	messages := msg.GetMessages(r) // new util for errors and infos
-	var apiJSON []byte
-	w.Header().Set("Content-Type", "application/json")
+func APIMassMod(c *gin.Context) {
+	torrentManyAction(c)
+	messages := msg.GetMessages(c) // new util for errors and infos
+	c.Header("Content-Type", "application/json")
 
+	var mapOk map[string]interface{}
 	if !messages.HasErrors() {
-		mapOk := map[string]interface{}{"ok": true, "infos": messages.GetAllInfos()["infos"]}
-		apiJSON, _ = json.Marshal(mapOk)
+		mapOk = map[string]interface{}{"ok": true, "infos": messages.GetAllInfos()["infos"]}
 	} else { // We need to show error messages
-		mapNotOk := map[string]interface{}{"ok": false, "errors": messages.GetAllErrors()["errors"]}
-		apiJSON, _ = json.Marshal(mapNotOk)
+		mapOk = map[string]interface{}{"ok": false, "errors": messages.GetAllErrors()["errors"]}
 	}
 
-	w.Write(apiJSON)
+	c.JSON(http.StatusOK, mapOk)
 }
 
 // DeletedTorrentsModPanel : Controller for viewing deleted torrents, accept common search arguments
-func DeletedTorrentsModPanel(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	vars := mux.Vars(r)
-	page := vars["page"]
-	messages := msg.GetMessages(r) // new util for errors and infos
-	deleted := r.URL.Query()["deleted"]
-	unblocked := r.URL.Query()["unblocked"]
-	blocked := r.URL.Query()["blocked"]
+func DeletedTorrentsModPanel(c *gin.Context) {
+	page := c.Query("page")
+	messages := msg.GetMessages(c) // new util for errors and infos
+	deleted := c.Request.URL.Query()["deleted"]
+	unblocked := c.Request.URL.Query()["unblocked"]
+	blocked := c.Request.URL.Query()["blocked"]
 	if deleted != nil {
 		messages.AddInfoT("infos", "torrent_deleted_definitely")
 	}
@@ -487,14 +426,14 @@ func DeletedTorrentsModPanel(w http.ResponseWriter, r *http.Request) {
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
 		if !log.CheckError(err) {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			c.AbortWithError(http.StatusInternalServerError, err)
 			return
 		}
 	}
 
-	searchParam, torrents, count, err := search.SearchByQueryDeleted(r, pagenum)
+	searchParam, torrents, count, err := search.SearchByQueryDeleted(c, pagenum)
 	if err != nil {
-		messages.ImportFromError("errors", err)
+		messages.Error(err)
 	}
 	category := ""
 	if len(searchParam.Category) > 0 {
@@ -506,31 +445,26 @@ func DeletedTorrentsModPanel(w http.ResponseWriter, r *http.Request) {
 		ShowItemsPerPage: true,
 	}
 
-	common := newCommonVariables(r)
-	common.Navigation = navigation{count, int(searchParam.Max), pagenum, "mod_tlist_page"}
-	common.Search = searchForm
-	ptlv := modelListVbs{common, torrents, messages.GetAllErrors(), messages.GetAllInfos()}
-	err = panelTorrentList.ExecuteTemplate(w, "admin_index.html", ptlv)
-	log.CheckError(err)
+	nav := navigation{count, int(searchParam.Max), pagenum, "mod_tlist_page"}
+	search := searchForm
+	modelList(c, "admin/torrentlist", torrents, nav, search)
 }
 
 // DeletedTorrentsPostPanel : Controller for viewing deleted torrents after a mass update, accept common search arguments
-func DeletedTorrentsPostPanel(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	torrentManyAction(r)
-	DeletedTorrentsModPanel(w, r)
+func DeletedTorrentsPostPanel(c *gin.Context) {
+	torrentManyAction(c)
+	DeletedTorrentsModPanel(c)
 }
 
 // TorrentBlockModPanel : Controller to lock torrents, redirecting to previous page
-func TorrentBlockModPanel(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	id := r.URL.Query().Get("id")
+func TorrentBlockModPanel(c *gin.Context) {
+	id := c.Query("id")
 	torrent, _, err := torrentService.ToggleBlockTorrent(id)
 	var returnRoute, action string
 	if torrent.IsDeleted() {
-		returnRoute = "mod_tlist_deleted"
+		returnRoute = "/mod/torrents/deleted"
 	} else {
-		returnRoute = "mod_tlist"
+		returnRoute = "/mod/torrents"
 	}
 	if torrent.IsBlocked() {
 		action = "blocked"
@@ -539,36 +473,35 @@ func TorrentBlockModPanel(w http.ResponseWriter, r *http.Request) {
 	}
 	if err == nil {
 		_, username := torrentService.HideTorrentUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
-		activity.Log(&model.User{}, torrent.Identifier(), action, "torrent_"+action+"_by", strconv.Itoa(int(torrent.ID)), username, getUser(r).Username)
+		activity.Log(&model.User{}, torrent.Identifier(), action, "torrent_"+action+"_by", strconv.Itoa(int(torrent.ID)), username, getUser(c).Username)
 	}
-	url, _ := Router.Get(returnRoute).URL()
-	http.Redirect(w, r, url.String()+"?"+action, http.StatusSeeOther)
+
+	c.Redirect(http.StatusSeeOther, returnRoute+"?"+action)
 }
 
 /*
  * Controller to modify multiple torrents and can be used by the owner of the torrent or admin
  */
-func torrentManyAction(r *http.Request) {
-	defer r.Body.Close()
-	currentUser := getUser(r)
-	r.ParseForm()
-	torrentsSelected := r.Form["torrent_id"] // should be []string
-	action := r.FormValue("action")
-	status, _ := strconv.Atoi(r.FormValue("status"))
-	owner, _ := strconv.Atoi(r.FormValue("owner"))
-	category := r.FormValue("category")
-	withReport, _ := strconv.ParseBool(r.FormValue("withreport"))
-	messages := msg.GetMessages(r) // new util for errors and infos
+func torrentManyAction(c *gin.Context) {
+	currentUser := getUser(c)
+
+	torrentsSelected := c.PostFormArray("torrent_id") // should be []string
+	action := c.PostForm("action")
+	status, _ := strconv.Atoi(c.PostForm("status"))
+	owner, _ := strconv.Atoi(c.PostForm("owner"))
+	category := c.PostForm("category")
+	withReport, _ := strconv.ParseBool(c.DefaultPostForm("withreport", "false"))
+	messages := msg.GetMessages(c) // new util for errors and infos
 	catID, subCatID := -1, -1
 	var err error
 
 	if action == "" {
 		messages.AddErrorT("errors", "no_action_selected")
 	}
-	if action == "status" && r.FormValue("status") == "" { // We need to check the form value, not the int one because hidden is 0
+	if action == "status" && c.PostForm("status") == "" { // We need to check the form value, not the int one because hidden is 0
 		messages.AddErrorT("errors", "no_move_location_selected")
 	}
-	if action == "owner" && r.FormValue("owner") == "" { // We need to check the form value, not the int one because renchon is 0
+	if action == "owner" && c.PostForm("owner") == "" { // We need to check the form value, not the int one because renchon is 0
 		messages.AddErrorT("errors", "no_owner_selected")
 	}
 	if action == "category" && category == "" {
@@ -578,25 +511,22 @@ func torrentManyAction(r *http.Request) {
 		messages.AddErrorT("errors", "select_one_element")
 	}
 
-	if r.FormValue("withreport") == "" { // Default behavior for withreport
-		withReport = false
-	}
 	if !config.Conf.Torrents.Status[status] { // Check if the status exist
 		messages.AddErrorTf("errors", "no_status_exist", status)
 		status = -1
 	}
 	if !userPermission.HasAdmin(currentUser) {
-		if r.FormValue("status") != "" { // Condition to check if a user try to change torrent status without having the right permission
+		if c.PostForm("status") != "" { // Condition to check if a user try to change torrent status without having the right permission
 			if (status == model.TorrentStatusTrusted && !currentUser.IsTrusted()) || status == model.TorrentStatusAPlus || status == 0 {
 				status = model.TorrentStatusNormal
 			}
 		}
-		if r.FormValue("owner") != "" { // Only admins can change owner of torrents
+		if c.PostForm("owner") != "" { // Only admins can change owner of torrents
 			owner = -1
 		}
 		withReport = false // Users should not be able to remove reports
 	}
-	if r.FormValue("owner") != "" && userPermission.HasAdmin(currentUser) { // We check that the user given exist and if not we return an error
+	if c.PostForm("owner") != "" && userPermission.HasAdmin(currentUser) { // We check that the user given exist and if not we return an error
 		_, _, errorUser := userService.RetrieveUserForAdmin(strconv.Itoa(owner))
 		if errorUser != nil {
 			messages.AddErrorTf("errors", "no_user_found_id", owner)
@@ -629,11 +559,11 @@ func torrentManyAction(r *http.Request) {
 				if action == "status" || action == "multiple" || action == "category" || action == "owner" {
 
 					/* If we don't delete, we make changes according to the form posted and we save at the end */
-					if r.FormValue("status") != "" && status != -1 {
+					if c.PostForm("status") != "" && status != -1 {
 						torrent.Status = status
 						messages.AddInfoTf("infos", "torrent_moved", torrent.Name)
 					}
-					if r.FormValue("owner") != "" && owner != -1 {
+					if c.PostForm("owner") != "" && owner != -1 {
 						torrent.UploaderID = uint(owner)
 						messages.AddInfoTf("infos", "torrent_owner_changed", torrent.Name)
 					}
@@ -647,7 +577,7 @@ func torrentManyAction(r *http.Request) {
 					_, err := torrentService.UpdateUnscopeTorrent(&torrent)
 					if err == nil {
 						_, username := torrentService.HideTorrentUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
-						activity.Log(&model.User{}, torrent.Identifier(), "edited", "torrent_edited_by", strconv.Itoa(int(torrent.ID)), username, getUser(r).Username)
+						activity.Log(&model.User{}, torrent.Identifier(), "edited", "torrent_edited_by", strconv.Itoa(int(torrent.ID)), username, getUser(c).Username)
 					}
 				} else if action == "delete" {
 					if status == model.TorrentStatusBlocked { // Then we should lock torrents before deleting them
@@ -661,7 +591,7 @@ func torrentManyAction(r *http.Request) {
 					} else {
 						messages.AddInfoTf("infos", "torrent_deleted", torrent.Name)
 						_, username := torrentService.HideTorrentUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
-						activity.Log(&model.User{}, torrent.Identifier(), "deleted", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, getUser(r).Username)
+						activity.Log(&model.User{}, torrent.Identifier(), "deleted", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, getUser(c).Username)
 					}
 				} else {
 					messages.AddErrorTf("errors", "no_action_exist", action)

@@ -11,8 +11,8 @@ import (
 	"github.com/NyaaPantsu/nyaa/db"
 	"github.com/NyaaPantsu/nyaa/model"
 	formStruct "github.com/NyaaPantsu/nyaa/service/user/form"
-	"github.com/NyaaPantsu/nyaa/util/modelHelper"
 	"github.com/NyaaPantsu/nyaa/util/timeHelper"
+	"github.com/gin-gonic/gin"
 	"github.com/gorilla/context"
 	"github.com/gorilla/securecookie"
 )
@@ -65,21 +65,12 @@ func EncodeCookie(userID uint, validUntil time.Time) (string, error) {
 }
 
 // ClearCookie : Erase cookie session
-func ClearCookie(w http.ResponseWriter) (int, error) {
-	cookie := &http.Cookie{
-		Name:     CookieName,
-		Domain:   getDomainName(),
-		Value:    "",
-		Path:     "/",
-		HttpOnly: true,
-		MaxAge:   -1,
-	}
-	http.SetCookie(w, cookie)
-	return http.StatusOK, nil
+func ClearCookie(c *gin.Context) {
+	c.SetCookie(CookieName, "", -1, "/", getDomainName(), false, true)
 }
 
 // SetCookieHandler sets the authentication cookie
-func SetCookieHandler(w http.ResponseWriter, r *http.Request, user model.User) (int, error) {
+func SetCookieHandler(c *gin.Context, user model.User) (int, error) {
 	maxAge := getMaxAge()
 	validUntil := timeHelper.FewDurationLater(time.Duration(maxAge) * time.Second)
 	encoded, err := EncodeCookie(user.ID, validUntil)
@@ -87,69 +78,61 @@ func SetCookieHandler(w http.ResponseWriter, r *http.Request, user model.User) (
 		return http.StatusInternalServerError, err
 	}
 
-	cookie := &http.Cookie{
-		Name:     CookieName,
-		Domain:   getDomainName(),
-		Value:    encoded,
-		Path:     "/",
-		HttpOnly: true,
-		MaxAge:   maxAge,
-	}
-	http.SetCookie(w, cookie)
+	c.SetCookie(CookieName, encoded, maxAge, "/", getDomainName(), false, true)
 	// also set response header for convenience
-	w.Header().Set("X-Auth-Token", encoded)
+	c.Header("X-Auth-Token", encoded)
 	return http.StatusOK, nil
 }
 
 // RegisterHanderFromForm sets cookie from a RegistrationForm.
-func RegisterHanderFromForm(w http.ResponseWriter, r *http.Request, registrationForm formStruct.RegistrationForm) (int, error) {
+func RegisterHanderFromForm(c *gin.Context, registrationForm formStruct.RegistrationForm) (int, error) {
 	username := registrationForm.Username // email isn't set at this point
 	pass := registrationForm.Password
-	user, status, err := checkAuth(r, username, pass)
+	user, status, err := checkAuth(c, username, pass)
 	if err != nil {
 		return status, err
 	}
-	return SetCookieHandler(w, r, user)
+	return SetCookieHandler(c, user)
 }
 
 // RegisterHandler sets a cookie when user registered.
-func RegisterHandler(w http.ResponseWriter, r *http.Request) (int, error) {
+func RegisterHandler(c *gin.Context) (int, error) {
 	var registrationForm formStruct.RegistrationForm
-	modelHelper.BindValueForm(&registrationForm, r)
-	return RegisterHanderFromForm(w, r, registrationForm)
+	c.Bind(&registrationForm)
+	return RegisterHanderFromForm(c, registrationForm)
 }
 
 // CurrentUser determines the current user from the request or context
-func CurrentUser(r *http.Request) (model.User, error) {
+func CurrentUser(c *gin.Context) (model.User, error) {
 	var user model.User
-	encoded := r.Header.Get("X-Auth-Token")
+	encoded := c.Request.Header.Get("X-Auth-Token")
 	if len(encoded) == 0 {
 		// check cookie instead
-		cookie, err := r.Cookie(CookieName)
+		cookie, err := c.Cookie(CookieName)
 		if err != nil {
 			return user, err
 		}
-		encoded = cookie.Value
+		encoded = cookie
 	}
 	userID, err := DecodeCookie(encoded)
 	if err != nil {
 		return user, err
 	}
 
-	userFromContext := getUserFromContext(r)
+	userFromContext := getUserFromContext(c)
 
 	if userFromContext.ID > 0 && userID == userFromContext.ID {
 		user = userFromContext
 	} else {
 		if db.ORM.Preload("Notifications").Where("user_id = ?", userID).First(&user).RecordNotFound() { // We only load unread notifications
-			return user, errors.New("User not found")
+			return user, errors.New("user_not_found")
 		}
-		setUserToContext(r, user)
+		setUserToContext(c, user)
 	}
 
 	if user.IsBanned() {
 		// recheck as user might've been banned in the meantime
-		return user, errors.New("Account banned")
+		return user, errors.New("account_banned")
 	}
 	return user, nil
 }
@@ -166,13 +149,13 @@ func getMaxAge() int {
 	return config.Conf.Cookies.MaxAge
 }
 
-func getUserFromContext(r *http.Request) model.User {
-	if rv := context.Get(r, UserContextKey); rv != nil {
+func getUserFromContext(c *gin.Context) model.User {
+	if rv := context.Get(c.Request, UserContextKey); rv != nil {
 		return rv.(model.User)
 	}
 	return model.User{}
 }
 
-func setUserToContext(r *http.Request, val model.User) {
-	context.Set(r, UserContextKey, val)
+func setUserToContext(c *gin.Context, val model.User) {
+	context.Set(c.Request, UserContextKey, val)
 }

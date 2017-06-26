@@ -3,13 +3,11 @@ package apiService
 import (
 	"encoding/base32"
 	"encoding/hex"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
-	"net/http"
 	"net/url"
 	"os"
 	"reflect"
@@ -25,6 +23,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/util/categories"
 	"github.com/NyaaPantsu/nyaa/util/metainfo"
 	"github.com/NyaaPantsu/nyaa/util/torrentLanguages"
+	"github.com/gin-gonic/gin"
 	"github.com/zeebo/bencode"
 )
 
@@ -210,8 +209,8 @@ func (r *TorrentRequest) validateHash() error {
 }
 
 // ExtractEditInfo : takes an http request and computes all fields for this form
-func (r *TorrentRequest) ExtractEditInfo(req *http.Request) error {
-	err := r.ExtractBasicValue(req)
+func (r *TorrentRequest) ExtractEditInfo(c *gin.Context) error {
+	err := r.ExtractBasicValue(c)
 	if err != nil {
 		return err
 	}
@@ -220,19 +219,18 @@ func (r *TorrentRequest) ExtractEditInfo(req *http.Request) error {
 	if err != nil {
 		return err
 	}
-	defer req.Body.Close()
 
-	err = r.ExtractCategory(req)
+	err = r.ExtractCategory()
 	if err != nil {
 		return err
 	}
 
-	err = r.ExtractLanguage(req)
+	err = r.ExtractLanguage()
 	return err
 }
 
 // ExtractCategory : takes an http request and computes category field for this form
-func (r *TorrentRequest) ExtractCategory(req *http.Request) error {
+func (r *TorrentRequest) ExtractCategory() error {
 	catsSplit := strings.Split(r.Category, "_")
 	// need this to prevent out of index panics
 	if len(catsSplit) != 2 {
@@ -257,13 +255,22 @@ func (r *TorrentRequest) ExtractCategory(req *http.Request) error {
 }
 
 // ExtractLanguage : takes a http request, computes the torrent language from the form.
-func (r *TorrentRequest) ExtractLanguage(req *http.Request) error {
+func (r *TorrentRequest) ExtractLanguage() error {
 	isEnglishCategory := false
 	for _, cat := range config.Conf.Torrents.EnglishOnlyCategories {
 		if cat == r.Category {
 			isEnglishCategory = true
 			break
 		}
+	}
+
+	if r.Language == "" {
+		// If no language, but in an English category, set to en-us, else just stop the check.
+		if !isEnglishCategory {
+			return nil
+		}
+		// FIXME Maybe this shouldn't be hard-coded?
+		r.Language = "en-us"
 	}
 
 	if r.Language == "other" || r.Language == "multiple" {
@@ -274,12 +281,7 @@ func (r *TorrentRequest) ExtractLanguage(req *http.Request) error {
 		return nil
 	}
 
-	if r.Language == "" && isEnglishCategory { // If no language, but in an English category, set to en-us.
-		// FIXME Maybe this shouldn't be hard-coded?
-		r.Language = "en-us"
-	}
-
-	if !torrentLanguages.LanguageExists(r.Language) {
+	if r.Language != "" && !torrentLanguages.LanguageExists(r.Language) {
 		return errInvalidTorrentLanguage
 	}
 
@@ -299,30 +301,8 @@ func (r *TorrentRequest) ExtractLanguage(req *http.Request) error {
 }
 
 // ExtractBasicValue : takes an http request and computes all basic fields for this form
-func (r *TorrentRequest) ExtractBasicValue(req *http.Request) error {
-	if strings.HasPrefix(req.Header.Get("Content-type"), "multipart/form-data") || req.Header.Get("Content-Type") == "application/x-www-form-urlencoded" { // Multipart
-		if strings.HasPrefix(req.Header.Get("Content-type"), "multipart/form-data") { // We parse the multipart form
-			err := req.ParseMultipartForm(15485760)
-			if err != nil {
-				return err
-			}
-		}
-		r.Name = req.FormValue(uploadFormName)
-		r.Category = req.FormValue(uploadFormCategory)
-		r.WebsiteLink = req.FormValue(uploadFormWebsiteLink)
-		r.Description = req.FormValue(uploadFormDescription)
-		r.Hidden = req.FormValue(uploadFormHidden) == "on"
-		r.Status, _ = strconv.Atoi(req.FormValue(uploadFormStatus))
-		r.Remake = req.FormValue(uploadFormRemake) == "on"
-		r.Magnet = req.FormValue(uploadFormMagnet)
-		r.Language = req.FormValue(uploadFormLanguage)
-	} else { // JSON (no file upload then)
-		decoder := json.NewDecoder(req.Body)
-		err := decoder.Decode(&r)
-		if err != nil {
-			return err
-		}
-	}
+func (r *TorrentRequest) ExtractBasicValue(c *gin.Context) error {
+	c.Bind(r)
 	// trim whitespace
 	r.Name = strings.TrimSpace(r.Name)
 	r.Description = util.Sanitize(strings.TrimSpace(r.Description), "default")
@@ -341,25 +321,23 @@ func (r *TorrentRequest) ExtractBasicValue(req *http.Request) error {
 }
 
 // ExtractInfo : takes an http request and computes all fields for this form
-func (r *TorrentRequest) ExtractInfo(req *http.Request) error {
-	err := r.ExtractBasicValue(req)
+func (r *TorrentRequest) ExtractInfo(c *gin.Context) error {
+	err := r.ExtractBasicValue(c)
 	if err != nil {
 		return err
 	}
 
-	defer req.Body.Close()
-
-	err = r.ExtractCategory(req)
+	err = r.ExtractCategory()
 	if err != nil {
 		return err
 	}
 
-	err = r.ExtractLanguage(req)
+	err = r.ExtractLanguage()
 	if err != nil {
 		return err
 	}
 
-	tfile, err := r.ValidateMultipartUpload(req)
+	tfile, err := r.ValidateMultipartUpload(c)
 	if err != nil {
 		return err
 	}
@@ -384,9 +362,9 @@ func (r *TorrentRequest) ExtractInfo(req *http.Request) error {
 }
 
 // ValidateMultipartUpload : Check if multipart upload is valid
-func (r *TorrentRequest) ValidateMultipartUpload(req *http.Request) (multipart.File, error) {
+func (r *TorrentRequest) ValidateMultipartUpload(c *gin.Context) (multipart.File, error) {
 	// first: parse torrent file (if any) to fill missing information
-	tfile, _, err := req.FormFile(uploadFormTorrent)
+	tfile, _, err := c.Request.FormFile(uploadFormTorrent)
 	if err == nil {
 		var torrent metainfo.TorrentFile
 

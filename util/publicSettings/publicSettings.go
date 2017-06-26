@@ -4,19 +4,19 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
-	"net/http"
 	"path"
 	"path/filepath"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/gin-gonic/gin"
 	"github.com/nicksnyder/go-i18n/i18n"
 	"github.com/nicksnyder/go-i18n/i18n/language"
 )
 
 // UserRetriever : this interface is required to prevent a cyclic import between the languages and userService package.
 type UserRetriever interface {
-	RetrieveCurrentUser(r *http.Request) (model.User, error)
+	RetrieveCurrentUser(c *gin.Context) (model.User, error)
 }
 
 // TemplateTfunc : T func used in template
@@ -106,78 +106,78 @@ func GetDefaultTfunc() (i18n.TranslateFunc, error) {
 }
 
 // GetTfuncAndLanguageFromRequest : Gets the T func and chosen language from the request
-func GetTfuncAndLanguageFromRequest(r *http.Request) (T i18n.TranslateFunc, Tlang *language.Language) {
+func GetTfuncAndLanguageFromRequest(c *gin.Context) (T i18n.TranslateFunc, Tlang *language.Language) {
 	userLanguage := ""
-	user, _ := getCurrentUser(r)
+	user, _ := getCurrentUser(c)
 	if user.ID > 0 {
 		userLanguage = user.Language
 	}
 
-	cookie, err := r.Cookie("lang")
+	cookie, err := c.Cookie("lang")
 	cookieLanguage := ""
 	if err == nil {
-		cookieLanguage = cookie.Value
+		cookieLanguage = cookie
 	}
 
 	// go-i18n supports the format of the Accept-Language header
-	headerLanguage := r.Header.Get("Accept-Language")
+	headerLanguage := c.Request.Header.Get("Accept-Language")
 	T, Tlang, _ = TfuncAndLanguageWithFallback(userLanguage, cookieLanguage, headerLanguage)
 	return
 }
 
 // GetTfuncFromRequest : Gets the T func from the request
-func GetTfuncFromRequest(r *http.Request) TemplateTfunc {
-	T, _ := GetTfuncAndLanguageFromRequest(r)
+func GetTfuncFromRequest(c *gin.Context) TemplateTfunc {
+	T, _ := GetTfuncAndLanguageFromRequest(c)
 	return func(id string, args ...interface{}) template.HTML {
 		return template.HTML(fmt.Sprintf(T(id), args...))
 	}
 }
 
 // GetThemeFromRequest: Gets the user selected theme from the request
-func GetThemeFromRequest(r *http.Request) string {
-	user, _ := getCurrentUser(r)
+func GetThemeFromRequest(c *gin.Context) string {
+	user, _ := getCurrentUser(c)
 	if user.ID > 0 {
 		return user.Theme
 	}
-	cookie, err := r.Cookie("theme")
+	cookie, err := c.Cookie("theme")
 	if err == nil {
-		return cookie.Value
+		return cookie
 	}
 	return ""
 }
 
 // GetThemeFromRequest: Gets the user selected theme from the request
-func GetMascotFromRequest(r *http.Request) string {
-	user, _ := getCurrentUser(r)
+func GetMascotFromRequest(c *gin.Context) string {
+	user, _ := getCurrentUser(c)
 	if user.ID > 0 {
 		return user.Mascot
 	}
-	cookie, err := r.Cookie("mascot")
+	cookie, err := c.Cookie("mascot")
 	if err == nil {
-		return cookie.Value
+		return cookie
 	}
 	return "show"
 }
 
 // GetMascotUrlFromRequest: Get the user selected mascot url from the request.
 // Returns an empty string if not set.
-func GetMascotUrlFromRequest(r *http.Request) string {
-	user, _ := getCurrentUser(r)
+func GetMascotUrlFromRequest(c *gin.Context) string {
+	user, _ := getCurrentUser(c)
 	if user.ID > 0 {
 		return user.MascotURL
 	}
 
-	cookie, err := r.Cookie("mascot_url")
+	cookie, err := c.Cookie("mascot_url")
 	if err == nil {
-		return cookie.Value
+		return cookie
 	}
 
 	return ""
 }
 
-func getCurrentUser(r *http.Request) (model.User, error) {
+func getCurrentUser(c *gin.Context) (model.User, error) {
 	if userRetriever == nil {
 		return model.User{}, errors.New("failed to get current user: no user retriever set")
 	}
-	return userRetriever.RetrieveCurrentUser(r)
+	return userRetriever.RetrieveCurrentUser(c)
 }

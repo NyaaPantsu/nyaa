@@ -1,15 +1,15 @@
 package signals
 
 import (
-	"github.com/NyaaPantsu/nyaa/router"
-	"github.com/NyaaPantsu/nyaa/util/log"
 	"sync"
+
+	"github.com/NyaaPantsu/nyaa/util/log"
 )
 
 // registered interrupt callbacks.
 // currently only used to gracefully close the server.
 var intEvents struct {
-	lock sync.Mutex
+	lock  sync.Mutex
 	funcs []func()
 }
 
@@ -21,7 +21,7 @@ func OnInterrupt(fn func()) {
 
 func handleReload() {
 	log.Info("Got SIGHUP")
-	router.ReloadTemplates()
+	//router.ReloadTemplates()
 	log.Info("reloaded templates")
 }
 

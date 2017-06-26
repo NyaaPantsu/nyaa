@@ -2,7 +2,6 @@ package router
 
 import (
 	"fmt"
-	"net/http"
 	"os"
 	"path/filepath"
 	"time"
@@ -10,6 +9,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/NyaaPantsu/nyaa/util/metainfo"
+	"github.com/gin-gonic/gin"
 )
 
 const (
@@ -20,12 +20,11 @@ const (
 )
 
 // DatabaseDumpHandler : Controller for getting database dumps
-func DatabaseDumpHandler(w http.ResponseWriter, r *http.Request) {
+func DatabaseDumpHandler(c *gin.Context) {
 	// db params url
-	var err error
 	// TODO Use config from cli
 	files, _ := filepath.Glob(filepath.Join(DatabaseDumpPath, "*.torrent"))
-	defer r.Body.Close()
+
 	var dumpsJSON []model.DatabaseDumpJSON
 	// TODO Filter *.torrent files
 	for _, f := range files {
@@ -49,13 +48,5 @@ func DatabaseDumpHandler(w http.ResponseWriter, r *http.Request) {
 		dumpsJSON = append(dumpsJSON, dump.ToJSON())
 	}
 
-	// TODO Remove ?
-	navigationTorrents := navigation{0, 0, 0, "search_page"}
-	common := newCommonVariables(r)
-	common.Navigation = navigationTorrents
-	dtv := databaseDumpTemplateVariables{common, dumpsJSON, "/gpg/gpg.pub"}
-	err = databaseDumpTemplate.ExecuteTemplate(w, "index.html", dtv)
-	if err != nil {
-		log.Errorf("DatabaseDump(): %s", err)
-	}
+	databaseDumpTemplate(c, dumpsJSON, "/gpg/gpg.pub")
 }

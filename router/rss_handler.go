@@ -17,19 +17,17 @@ import (
 	"github.com/NyaaPantsu/nyaa/util/feeds"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/search"
+	"github.com/gin-gonic/gin"
 	"github.com/gorilla/feeds"
-	"github.com/gorilla/mux"
 )
 
 // RSSHandler : Controller for displaying rss feed, accepting common search arguments
-func RSSHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-
+func RSSHandler(c *gin.Context) {
 	// We only get the basic variable for rss based on search param
-	torrents, createdAsTime, title, err := getTorrentList(r)
+	torrents, createdAsTime, title, err := getTorrentList(c)
 
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
 
@@ -56,27 +54,25 @@ func RSSHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	// allow cross domain AJAX requests
-	w.Header().Set("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control-Allow-Origin", "*")
 	rss, rssErr := feeds.ToXML(feed)
 	if rssErr != nil {
-		http.Error(w, rssErr.Error(), http.StatusInternalServerError)
+		c.AbortWithError(http.StatusInternalServerError, rssErr)
 	}
 
-	_, writeErr := w.Write([]byte(rss))
+	_, writeErr := c.Writer.Write([]byte(rss))
 	if writeErr != nil {
-		http.Error(w, writeErr.Error(), http.StatusInternalServerError)
+		c.AbortWithError(http.StatusInternalServerError, writeErr)
 	}
 }
 
 // RSSMagnetHandler : Controller for displaying rss feeds with magnet URL, accepting common search arguments
-func RSSMagnetHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-
+func RSSMagnetHandler(c *gin.Context) {
 	// We only get the basic variable for rss based on search param
-	torrents, createdAsTime, title, err := getTorrentList(r)
+	torrents, createdAsTime, title, err := getTorrentList(c)
 
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
@@ -96,34 +92,32 @@ func RSSMagnetHandler(w http.ResponseWriter, r *http.Request) {
 			PubDate:     torrent.Date.Format(time.RFC822),
 			GUID:        config.WebAddress() + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
 			Enclosure: &nyaafeeds.RssEnclosure{
-				URL:     config.WebAddress() + "/download/" + strings.TrimSpace(torrentJSON.Hash),
+				URL:    config.WebAddress() + "/download/" + strings.TrimSpace(torrentJSON.Hash),
 				Length: strconv.FormatUint(uint64(torrentJSON.Filesize), 10),
 				Type:   "application/x-bittorrent",
 			},
 		}
 	}
 	// allow cross domain AJAX requests
-	w.Header().Set("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control-Allow-Origin", "*")
 	rss, rssErr := feeds.ToXML(feed)
 	if rssErr != nil {
-		http.Error(w, rssErr.Error(), http.StatusInternalServerError)
+		c.AbortWithError(http.StatusInternalServerError, rssErr)
 	}
 
-	_, writeErr := w.Write([]byte(rss))
+	_, writeErr := c.Writer.Write([]byte(rss))
 	if writeErr != nil {
-		http.Error(w, writeErr.Error(), http.StatusInternalServerError)
+		c.AbortWithError(http.StatusInternalServerError, writeErr)
 	}
 }
 
 // RSSEztvHandler : Controller for displaying rss feed, accepting common search arguments
-func RSSEztvHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-
+func RSSEztvHandler(c *gin.Context) {
 	// We only get the basic variable for rss based on search param
-	torrents, createdAsTime, title, err := getTorrentList(r)
+	torrents, createdAsTime, title, err := getTorrentList(c)
 
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
@@ -161,29 +155,28 @@ func RSSEztvHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	// allow cross domain AJAX requests
-	w.Header().Set("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control-Allow-Origin", "*")
 	rss, rssErr := feeds.ToXML(feed)
 	if rssErr != nil {
-		http.Error(w, rssErr.Error(), http.StatusInternalServerError)
+		c.AbortWithError(http.StatusInternalServerError, rssErr)
 	}
 
-	_, writeErr := w.Write([]byte(rss))
+	_, writeErr := c.Writer.Write([]byte(rss))
 	if writeErr != nil {
-		http.Error(w, writeErr.Error(), http.StatusInternalServerError)
+		c.AbortWithError(http.StatusInternalServerError, writeErr)
 	}
 }
 
 // RSSTorznabHandler : Controller for displaying rss feed, accepting common search arguments
-func RSSTorznabHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	t := r.URL.Query().Get("t")
+func RSSTorznabHandler(c *gin.Context) {
+	t := c.Query("t")
 	rss := ""
 	title := "Nyaa Pantsu"
 	if config.IsSukebei() {
 		title = "Sukebei Pantsu"
 	}
 	if t == "caps" {
-		T := publicSettings.GetTfuncFromRequest(r)
+		T := publicSettings.GetTfuncFromRequest(c)
 		cat := categories.GetCategoriesSelect(true, true)
 		var categories []*nyaafeeds.RssCategoryTorznab
 		categories = append(categories, &nyaafeeds.RssCategoryTorznab{
@@ -247,14 +240,14 @@ func RSSTorznabHandler(w http.ResponseWriter, r *http.Request) {
 		var rssErr error
 		rss, rssErr = feeds.ToXML(feed)
 		if rssErr != nil {
-			http.Error(w, rssErr.Error(), http.StatusInternalServerError)
+			c.AbortWithError(http.StatusInternalServerError, rssErr)
 		}
 	} else {
 		// We only get the basic variable for rss based on search param
-		torrents, createdAsTime, title, err := getTorrentList(r)
+		torrents, createdAsTime, title, err := getTorrentList(c)
 
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
+			c.AbortWithError(http.StatusBadRequest, err)
 			return
 		}
 
@@ -345,26 +338,25 @@ func RSSTorznabHandler(w http.ResponseWriter, r *http.Request) {
 		var rssErr error
 		rss, rssErr = feeds.ToXML(feed)
 		if rssErr != nil {
-			http.Error(w, rssErr.Error(), http.StatusInternalServerError)
+			c.AbortWithError(http.StatusInternalServerError, rssErr)
 		}
 	}
 	// allow cross domain AJAX requests
-	w.Header().Set("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control-Allow-Origin", "*")
 
-	_, writeErr := w.Write([]byte(rss))
+	_, writeErr := c.Writer.Write([]byte(rss))
 	if writeErr != nil {
-		http.Error(w, writeErr.Error(), http.StatusInternalServerError)
+		c.AbortWithError(http.StatusInternalServerError, writeErr)
 	}
 }
 
-func getTorrentList(r *http.Request) (torrents []model.Torrent, createdAsTime time.Time, title string, err error) {
-	vars := mux.Vars(r)
-	page := vars["page"]
-	userID := vars["id"]
-	cat := r.URL.Query().Get("cat")
+func getTorrentList(c *gin.Context) (torrents []model.Torrent, createdAsTime time.Time, title string, err error) {
+	page := c.Query("page")
+	userID := c.Query("id")
+	cat := c.Query("cat")
 	offset := 0
-	if r.URL.Query().Get("offset") != "" {
-		offset, err = strconv.Atoi(html.EscapeString(r.URL.Query().Get("offset")))
+	if c.Query("offset") != "" {
+		offset, err = strconv.Atoi(html.EscapeString(c.Query("offset")))
 		if err != nil {
 			return
 		}
@@ -408,22 +400,22 @@ func getTorrentList(r *http.Request) (torrents []model.Torrent, createdAsTime ti
 			return
 		}
 		// Set the user ID on the request, so that SearchByQuery finds it.
-		query := r.URL.Query()
+		query := c.Request.URL.Query()
 		query.Set("userID", userID)
-		r.URL.RawQuery = query.Encode()
+		c.Request.URL.RawQuery = query.Encode()
 	}
 
 	if cat != "" {
-		query := r.URL.Query()
-		c := nyaafeeds.ConvertToCat(cat)
-		if c == "" {
+		query := c.Request.URL.Query()
+		catConv := nyaafeeds.ConvertToCat(cat)
+		if catConv == "" {
 			return
 		}
-		query.Set("c", c)
-		r.URL.RawQuery = query.Encode()
+		query.Set("c", catConv)
+		c.Request.URL.RawQuery = query.Encode()
 	}
 
-	_, torrents, err = search.SearchByQueryNoCount(r, pagenum)
+	_, torrents, err = search.SearchByQueryNoCount(c, pagenum)
 
 	return
 }

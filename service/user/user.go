@@ -2,7 +2,6 @@ package userService
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -15,6 +14,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/modelHelper"
+	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -27,8 +27,8 @@ func NewCurrentUserRetriever() *CurrentUserRetriever {
 type CurrentUserRetriever struct{}
 
 // RetrieveCurrentUser retrieve current user for languages
-func (*CurrentUserRetriever) RetrieveCurrentUser(r *http.Request) (model.User, error) {
-	user, _, err := RetrieveCurrentUser(r)
+func (*CurrentUserRetriever) RetrieveCurrentUser(c *gin.Context) (model.User, error) {
+	user, _, err := RetrieveCurrentUser(c)
 	return user, err
 }
 
@@ -98,62 +98,69 @@ func CreateUserFromForm(registrationForm formStruct.RegistrationForm) (model.Use
 }
 
 // CreateUser creates a user.
-func CreateUser(w http.ResponseWriter, r *http.Request) (int, error) {
+func CreateUser(c *gin.Context) int {
 	var user model.User
 	var registrationForm formStruct.RegistrationForm
 	var status int
 	var err error
-
-	modelHelper.BindValueForm(&registrationForm, r)
+	messages := msg.GetMessages(c)
+	c.Bind(&registrationForm)
 	usernameCandidate := SuggestUsername(registrationForm.Username)
 	if usernameCandidate != registrationForm.Username {
-		return http.StatusInternalServerError, fmt.Errorf("Username already taken, you can choose: %s", usernameCandidate)
+		messages.AddErrorTf("username", "username_taken", usernameCandidate)
+		return http.StatusInternalServerError
 	}
 	if registrationForm.Email != "" && CheckEmail(registrationForm.Email) {
-		return http.StatusInternalServerError, errors.New("email address already in database")
+		messages.AddErrorT("email", "email_in_db")
+		return http.StatusInternalServerError
 	}
 	password, err := bcrypt.GenerateFromPassword([]byte(registrationForm.Password), 10)
 	if err != nil {
-		return http.StatusInternalServerError, err
+		messages.ImportFromError("errors", err)
+		return http.StatusInternalServerError
 	}
 	registrationForm.Password = string(password)
 	user, err = CreateUserFromForm(registrationForm)
 	if err != nil {
-		return http.StatusInternalServerError, err
+		messages.ImportFromError("errors", err)
+		return http.StatusInternalServerError
 	}
 	if registrationForm.Email != "" {
 		SendVerificationToUser(user, registrationForm.Email)
 	}
-	status, err = RegisterHandler(w, r)
-	return status, err
+	status, err = RegisterHandler(c)
+	if err != nil {
+		messages.ImportFromError("errors", err)
+	}
+	return status
 }
 
 // RetrieveUser retrieves a user.
-func RetrieveUser(r *http.Request, id string) (*model.PublicUser, bool, uint, int, error) {
+func RetrieveUser(c *gin.Context, id string) (*model.User, bool, uint, int, error) {
 	var user model.User
 	var currentUserID uint
 	var isAuthor bool
 
 	if db.ORM.First(&user, id).RecordNotFound() {
-		return nil, isAuthor, currentUserID, http.StatusNotFound, errors.New("user not found")
+		return nil, isAuthor, currentUserID, http.StatusNotFound, errors.New("user_not_found")
 	}
-	currentUser, err := CurrentUser(r)
+	currentUser, err := CurrentUser(c)
 	if err == nil {
 		currentUserID = currentUser.ID
 		isAuthor = currentUser.ID == user.ID
 	}
 
-	return &model.PublicUser{User: &user}, isAuthor, currentUserID, http.StatusOK, nil
+	return &user, isAuthor, currentUserID, http.StatusOK, nil
 }
 
 // RetrieveUsers retrieves users.
-func RetrieveUsers() []*model.PublicUser {
+func RetrieveUsers() ([]*model.User, int, error) {
 	var users []*model.User
-	var userArr []*model.PublicUser
-	for _, user := range users {
-		userArr = append(userArr, &model.PublicUser{User: user})
+	err := db.ORM.Model(&model.User{}).Find(&users).Error
+	if err != nil {
+		return users, http.StatusInternalServerError, err
 	}
-	return userArr
+	return users, 0, nil
 }
 
 // UpdateUserCore updates a user. (Applying the modifed data of user).
@@ -189,21 +196,24 @@ func UpdateRawUser(user *model.User) (int, error) {
 }
 
 // UpdateUser updates a user.
-func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, formSet *formStruct.UserSettingsForm, currentUser *model.User, id string) (model.User, int, error) {
+func UpdateUser(c *gin.Context, form *formStruct.UserForm, formSet *formStruct.UserSettingsForm, currentUser *model.User, id string) (model.User, int) {
 	var user model.User
+	messages := msg.GetMessages(c)
 	if db.ORM.First(&user, id).RecordNotFound() {
-		return user, http.StatusNotFound, errors.New("user not found")
+		messages.AddErrorT("errors", "user_not_found")
+		return user, http.StatusNotFound
 	}
-	log.Infof("updateUser")
+
 	if form.Password != "" {
 		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(form.CurrentPassword))
 		if err != nil && !userPermission.HasAdmin(currentUser) {
-			log.Error("Password Incorrect.")
-			return user, http.StatusInternalServerError, errors.New("password incorrect")
+			messages.AddErrorT("errors", "incorrect_password")
+			return user, http.StatusInternalServerError
 		}
 		newPassword, err := bcrypt.GenerateFromPassword([]byte(form.Password), 10)
 		if err != nil {
-			return user, http.StatusInternalServerError, errors.New("password not generated")
+			messages.AddErrorT("errors", "error_password_generating")
+			return user, http.StatusInternalServerError
 		}
 		form.Password = string(newPassword)
 	} else { // Then no change of password
@@ -236,31 +246,40 @@ func UpdateUser(w http.ResponseWriter, form *formStruct.UserForm, formSet *formS
 	user.SaveSettings()
 
 	status, err := UpdateUserCore(&user)
-	return user, status, err
+	if err != nil {
+		messages.Error(err)
+	}
+	return user, status
 }
 
 // DeleteUser deletes a user.
-func DeleteUser(w http.ResponseWriter, currentUser *model.User, id string) (int, error) {
+func DeleteUser(c *gin.Context, currentUser *model.User, id string) int {
 	var user model.User
+	messages := msg.GetMessages(c)
+
 	if db.ORM.First(&user, id).RecordNotFound() {
-		return http.StatusNotFound, errors.New("user not found")
+		messages.AddErrorT("errors", "user_not_found")
+		return http.StatusNotFound
 	}
 	if user.ID == 0 {
-		return http.StatusInternalServerError, errors.New("You can't delete that")
+		messages.AddErrorT("errors", "permission_delete_error")
+		return http.StatusInternalServerError
 	}
-	if db.ORM.Delete(&user).Error != nil {
-		return http.StatusInternalServerError, errors.New("user not deleted")
+	err := db.ORM.Delete(&user).Error
+	if err != nil {
+		messages.ImportFromError("errors", err)
+		return http.StatusInternalServerError
 	}
 	if userPermission.CurrentUserIdentical(currentUser, user.ID) {
-		return ClearCookie(w)
+		ClearCookie(c)
 	}
 
-	return http.StatusOK, nil
+	return http.StatusOK
 }
 
 // RetrieveCurrentUser retrieves a current user.
-func RetrieveCurrentUser(r *http.Request) (model.User, int, error) {
-	user, err := CurrentUser(r)
+func RetrieveCurrentUser(c *gin.Context) (model.User, int, error) {
+	user, err := CurrentUser(c)
 	if err != nil {
 		return user, http.StatusInternalServerError, err
 	}
@@ -271,7 +290,7 @@ func RetrieveCurrentUser(r *http.Request) (model.User, int, error) {
 func RetrieveUserByEmail(email string) (*model.User, string, int, error) {
 	var user model.User
 	if db.ORM.Unscoped().Where("email = ?", email).First(&user).RecordNotFound() {
-		return &user, email, http.StatusNotFound, errors.New("user not found")
+		return &user, email, http.StatusNotFound, errors.New("user_not_found")
 	}
 	return &user, email, http.StatusOK, nil
 }
@@ -280,7 +299,7 @@ func RetrieveUserByEmail(email string) (*model.User, string, int, error) {
 func RetrieveUserByAPIToken(apiToken string) (*model.User, string, int, error) {
 	var user model.User
 	if db.ORM.Unscoped().Where("api_token = ?", apiToken).First(&user).RecordNotFound() {
-		return &user, apiToken, http.StatusNotFound, errors.New("user not found")
+		return &user, apiToken, http.StatusNotFound, errors.New("user_not_found")
 	}
 	return &user, apiToken, http.StatusOK, nil
 }
@@ -289,7 +308,7 @@ func RetrieveUserByAPIToken(apiToken string) (*model.User, string, int, error) {
 func RetrieveUserByAPITokenAndName(apiToken string, username string) (*model.User, string, string, int, error) {
 	var user model.User
 	if db.ORM.Unscoped().Where("api_token = ? AND username = ?", apiToken, username).First(&user).RecordNotFound() {
-		return &user, apiToken, username, http.StatusNotFound, errors.New("user not found")
+		return &user, apiToken, username, http.StatusNotFound, errors.New("user_not_found")
 	}
 	return &user, apiToken, username, http.StatusOK, nil
 }
@@ -305,7 +324,7 @@ func RetrieveUsersByEmail(email string) []*model.User {
 func RetrieveUserByUsername(username string) (*model.User, string, int, error) {
 	var user model.User
 	if db.ORM.Where("username = ?", username).First(&user).RecordNotFound() {
-		return &user, username, http.StatusNotFound, errors.New("user not found")
+		return &user, username, http.StatusNotFound, errors.New("user_not_found")
 	}
 	return &user, username, http.StatusOK, nil
 }
@@ -328,7 +347,7 @@ func RetrieveOldUploadsByUsername(username string) ([]uint, error) {
 func RetrieveUserByID(id string) (model.User, int, error) {
 	var user model.User
 	if db.ORM.Preload("Notifications").Last(&user, id).RecordNotFound() {
-		return user, http.StatusNotFound, errors.New("user not found")
+		return user, http.StatusNotFound, errors.New("user_not_found")
 	}
 	var liked, likings []model.User
 	db.ORM.Joins("JOIN user_follows on user_follows.user_id=?", user.ID).Where("users.user_id = user_follows.following").Group("users.user_id").Find(&likings)
@@ -342,7 +361,7 @@ func RetrieveUserByID(id string) (model.User, int, error) {
 func RetrieveUserForAdmin(id string) (model.User, int, error) {
 	var user model.User
 	if db.ORM.Preload("Notifications").Preload("Torrents").Last(&user, id).RecordNotFound() {
-		return user, http.StatusNotFound, errors.New("user not found")
+		return user, http.StatusNotFound, errors.New("user_not_found")
 	}
 	var liked, likings []model.User
 	db.ORM.Joins("JOIN user_follows on user_follows.user_id=?", user.ID).Where("users.user_id = user_follows.following").Group("users.user_id").Find(&likings)
@@ -378,53 +397,53 @@ func GetFollowers(user *model.User) *model.User {
 }
 
 // CreateUserAuthentication creates user authentication.
-func CreateUserAuthentication(w http.ResponseWriter, r *http.Request) (int, error) {
+func CreateUserAuthentication(c *gin.Context) (int, error) {
 	var form formStruct.LoginForm
-	modelHelper.BindValueForm(&form, r)
-	user, status, err := CreateUserAuthenticationAPI(r, &form)
+	c.Bind(&form)
+	user, status, err := CreateUserAuthenticationAPI(c, &form)
 	if err != nil {
 		return status, err
 	}
-	status, err = SetCookieHandler(w, r, user)
+	status, err = SetCookieHandler(c, user)
 	return status, err
 }
 
 // CreateUserAuthenticationAPI creates user authentication.
-func CreateUserAuthenticationAPI(r *http.Request, form *formStruct.LoginForm) (model.User, int, error) {
+func CreateUserAuthenticationAPI(c *gin.Context, form *formStruct.LoginForm) (model.User, int, error) {
 	username := form.Username
 	pass := form.Password
-	user, status, err := checkAuth(r, username, pass)
+	user, status, err := checkAuth(c, username, pass)
 	return user, status, err
 }
 
-func checkAuth(r *http.Request, email string, pass string) (model.User, int, error) {
+func checkAuth(c *gin.Context, email string, pass string) (model.User, int, error) {
 	var user model.User
 	if email == "" || pass == "" {
-		return user, http.StatusNotFound, errors.New("No username/password entered")
+		return user, http.StatusNotFound, errors.New("no_username_password")
 	}
 
-	messages := msg.GetMessages(r)
+	messages := msg.GetMessages(c)
 	// search by email or username
 	isValidEmail := formStruct.EmailValidation(email, messages)
 	messages.ClearErrors("email") // We need to clear the error added on messages
 	if isValidEmail {
 		if db.ORM.Where("email = ?", email).First(&user).RecordNotFound() {
-			return user, http.StatusNotFound, errors.New("User not found")
+			return user, http.StatusNotFound, errors.New("user_not_found")
 		}
 	} else {
 		if db.ORM.Where("username = ?", email).First(&user).RecordNotFound() {
-			return user, http.StatusNotFound, errors.New("User not found")
+			return user, http.StatusNotFound, errors.New("user_not_found")
 		}
 	}
 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(pass))
 	if err != nil {
-		return user, http.StatusUnauthorized, errors.New("Password incorrect")
+		return user, http.StatusUnauthorized, errors.New("incorrect_password")
 	}
 	if user.IsBanned() {
-		return user, http.StatusUnauthorized, errors.New("Account banned")
+		return user, http.StatusUnauthorized, errors.New("account_banned")
 	}
 	if user.IsScraped() {
-		return user, http.StatusUnauthorized, errors.New("Account need activation from Moderators, please contact us")
+		return user, http.StatusUnauthorized, errors.New("account_need_activation")
 	}
 	return user, http.StatusOK, nil
 }

@@ -16,83 +16,52 @@ import (
 	"github.com/NyaaPantsu/nyaa/util/modelHelper"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/search"
-	"github.com/gorilla/mux"
+	"github.com/gin-gonic/gin"
 )
 
 // UserRegisterFormHandler : Getting View User Registration
-func UserRegisterFormHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	_, errorUser := userService.CurrentUser(r)
+func UserRegisterFormHandler(c *gin.Context) {
+	_, errorUser := userService.CurrentUser(c)
 	// User is already connected, redirect to home
 	if errorUser == nil {
-		SearchHandler(w, r)
+		SearchHandler(c)
 		return
 	}
-	messages := msg.GetMessages(r)
 	registrationForm := form.RegistrationForm{}
-	modelHelper.BindValueForm(&registrationForm, r)
+	c.Bind(&registrationForm)
 	registrationForm.CaptchaID = captcha.GetID()
-	urtv := formTemplateVariables{
-		commonTemplateVariables: newCommonVariables(r),
-		Form:       registrationForm,
-		FormErrors: messages.GetAllErrors(),
-	}
-	err := viewRegisterTemplate.ExecuteTemplate(w, "index.html", urtv)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	formTemplate(c, "user/register", registrationForm)
 }
 
 // UserLoginFormHandler : Getting View User Login
-func UserLoginFormHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	_, errorUser := userService.CurrentUser(r)
+func UserLoginFormHandler(c *gin.Context) {
+	_, errorUser := userService.CurrentUser(c)
 	// User is already connected, redirect to home
 	if errorUser == nil {
-		SearchHandler(w, r)
+		SearchHandler(c)
 		return
 	}
 
 	loginForm := form.LoginForm{}
-	modelHelper.BindValueForm(&loginForm, r)
-	messages := msg.GetMessages(r)
-	ulfv := formTemplateVariables{
-		commonTemplateVariables: newCommonVariables(r),
-		Form:       loginForm,
-		FormErrors: messages.GetAllErrors(),
-	}
-
-	err := viewLoginTemplate.ExecuteTemplate(w, "index.html", ulfv)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	formTemplate(c, "user/register", loginForm)
 }
 
 // UserProfileHandler :  Getting User Profile
-func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	vars := mux.Vars(r)
-	id := vars["id"]
-	Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(r)
-	messages := msg.GetMessages(r)
+func UserProfileHandler(c *gin.Context) {
+	id := c.Query("id")
+	Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(c)
+	messages := msg.GetMessages(c)
 
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser == nil {
-		currentUser := getUser(r)
-		follow := r.URL.Query()["followed"]
-		unfollow := r.URL.Query()["unfollowed"]
-		deleteVar := r.URL.Query()["delete"]
+		currentUser := getUser(c)
+		follow := c.Request.URL.Query()["followed"]
+		unfollow := c.Request.URL.Query()["unfollowed"]
+		deleteVar := c.Request.URL.Query()["delete"]
 
 		if (deleteVar != nil) && (userPermission.CurrentOrAdmin(currentUser, userProfile.ID)) {
-			_, errUser := userService.DeleteUser(w, currentUser, id)
-			if errUser != nil {
-				messages.ImportFromError("errors", errUser)
-			}
-			htv := userVerifyTemplateVariables{newCommonVariables(r), messages.GetAllErrors()}
-			errorTmpl := viewUserDeleteTemplate.ExecuteTemplate(w, "index.html", htv)
-			if errorTmpl != nil {
-				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
-			}
+			_ = userService.DeleteUser(c, currentUser, id)
+			staticTemplate(c, "user/delete_success")
 		} else {
 			if follow != nil {
 				messages.AddInfof("infos", Ts("user_followed_msg"), userProfile.Username)
@@ -101,231 +70,172 @@ func UserProfileHandler(w http.ResponseWriter, r *http.Request) {
 				messages.AddInfof("infos", Ts("user_unfollowed_msg"), userProfile.Username)
 			}
 			userProfile.ParseSettings()
-			query := r.URL.Query()
+			query := c.Request.URL.Query()
 			query.Set("userID", id)
 			query.Set("max", "16")
-			r.URL.RawQuery = query.Encode()
+			c.Request.URL.RawQuery = query.Encode()
 			var torrents []model.Torrent
 			var err error
 			if userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
-				_, torrents, _, err = search.SearchByQuery(r, 1)
+				_, torrents, _, err = search.SearchByQuery(c, 1)
 			} else {
-				_, torrents, _, err = search.SearchByQueryNoHidden(r, 1)
+				_, torrents, _, err = search.SearchByQueryNoHidden(c, 1)
 			}
 			if err != nil {
-				messages.AddError("errors", "Couldn't retrieve torrents")
+				messages.AddErrorT("errors", "retrieve_torrents_error")
 			}
 			userProfile.Torrents = torrents
-			htv := userProfileVariables{newCommonVariables(r), &userProfile, messages.GetAllInfos()}
-
-			err = viewProfileTemplate.ExecuteTemplate(w, "index.html", htv)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-			}
+			userProfileTemplate(c, &userProfile)
 		}
 	} else {
-		NotFoundHandler(w, r)
+		NotFoundHandler(c)
 	}
 }
 
 // UserDetailsHandler : Getting User Profile Details View
-func UserDetailsHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	vars := mux.Vars(r)
-	id := vars["id"]
-	currentUser := getUser(r)
-	messages := msg.GetMessages(r)
+func UserDetailsHandler(c *gin.Context) {
+	id := c.Query("id")
+	currentUser := getUser(c)
 
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser == nil && userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
 		if userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
 			b := form.UserForm{}
-			modelHelper.BindValueForm(&b, r)
+			c.Bind(&b)
 			availableLanguages := publicSettings.GetAvailableLanguages()
 			userProfile.ParseSettings()
-			htv := userProfileEditVariables{newCommonVariables(r), &userProfile, b, messages.GetAllErrors(), messages.GetAllInfos(), availableLanguages}
-			err := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", htv)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-			}
+			userProfileEditTemplate(c, &userProfile, b, availableLanguages)
 		}
 	} else {
-		NotFoundHandler(w, r)
+		NotFoundHandler(c)
 	}
 }
 
 // UserProfileFormHandler : Getting View User Profile Update
-func UserProfileFormHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	vars := mux.Vars(r)
-	id := vars["id"]
-	currentUser := getUser(r)
+func UserProfileFormHandler(c *gin.Context) {
+	id := c.Query("id")
+	currentUser := getUser(c)
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser != nil || !userPermission.CurrentOrAdmin(currentUser, userProfile.ID) || userProfile.ID == 0 {
-		NotFoundHandler(w, r)
+		NotFoundHandler(c)
 		return
 	}
 	userProfile.ParseSettings()
-	messages := msg.GetMessages(r)
+	messages := msg.GetMessages(c)
 	userForm := form.UserForm{}
 	userSettingsForm := form.UserSettingsForm{}
 
-	Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(r)
-
-	if len(r.PostFormValue("email")) > 0 {
-		form.EmailValidation(r.PostFormValue("email"), messages)
+	if len(c.PostForm("email")) > 0 {
+		form.EmailValidation(c.PostForm("email"), messages)
 	}
-	if len(r.PostFormValue("username")) > 0 {
-		form.ValidateUsername(r.PostFormValue("username"), messages)
+	if len(c.PostForm("username")) > 0 {
+		form.ValidateUsername(c.PostForm("username"), messages)
 	}
 
 	if !messages.HasErrors() {
-		modelHelper.BindValueForm(&userForm, r)
-		modelHelper.BindValueForm(&userSettingsForm, r)
+		c.Bind(&userForm)
+		c.Bind(&userSettingsForm)
 		if !userPermission.HasAdmin(currentUser) {
 			userForm.Username = userProfile.Username
 			userForm.Status = userProfile.Status
 		} else {
 			if userProfile.Status != userForm.Status && userForm.Status == 2 {
-				messages.AddError("errors", "Elevating status to moderator is prohibited")
+				messages.AddErrorT("errors", "elevating_user_error")
 			}
 		}
 		modelHelper.ValidateForm(&userForm, messages)
 		if !messages.HasErrors() {
 			if userForm.Email != userProfile.Email {
 				userService.SendVerificationToUser(*currentUser, userForm.Email)
-				messages.AddInfof("infos", Ts("email_changed"), userForm.Email)
+				messages.AddInfoTf("infos", "email_changed", userForm.Email)
 				userForm.Email = userProfile.Email // reset, it will be set when user clicks verification
 			}
-			userProfile, _, errorUser = userService.UpdateUser(w, &userForm, &userSettingsForm, currentUser, id)
-			if errorUser != nil {
-				messages.ImportFromError("errors", errorUser)
-			} else {
-				messages.AddInfo("infos", Ts("profile_updated"))
+			userProfile, _ = userService.UpdateUser(c, &userForm, &userSettingsForm, currentUser, id)
+			if !messages.HasErrors() {
+				messages.AddInfoT("infos", "profile_updated")
 			}
 		}
 	}
 	availableLanguages := publicSettings.GetAvailableLanguages()
-	upev := userProfileEditVariables{
-		commonTemplateVariables: newCommonVariables(r),
-		UserProfile:             &userProfile,
-		UserForm:                userForm,
-		FormErrors:              messages.GetAllErrors(),
-		FormInfos:               messages.GetAllInfos(),
-		Languages:               availableLanguages,
-	}
-	errorTmpl := viewProfileEditTemplate.ExecuteTemplate(w, "index.html", upev)
-	if errorTmpl != nil {
-		http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
-	}
+	userProfileEditTemplate(c, &userProfile, userForm, availableLanguages)
 }
 
 // UserRegisterPostHandler : Post Registration controller, we do some check on the form here, the rest on user service
-func UserRegisterPostHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
+func UserRegisterPostHandler(c *gin.Context) {
 	b := form.RegistrationForm{}
-	messages := msg.GetMessages(r)
+	messages := msg.GetMessages(c)
 
-	if !captcha.Authenticate(captcha.Extract(r)) {
-		messages.AddError("errors", "Wrong captcha!")
+	if !captcha.Authenticate(captcha.Extract(c)) {
+		messages.AddErrorT("errors", "bad_captcha")
 	}
 	if !messages.HasErrors() {
-		if len(r.PostFormValue("email")) > 0 {
-			form.EmailValidation(r.PostFormValue("email"), messages)
+		if len(c.PostForm("email")) > 0 {
+			form.EmailValidation(c.PostForm("email"), messages)
 		}
-		form.ValidateUsername(r.PostFormValue("username"), messages)
+		form.ValidateUsername(c.PostForm("username"), messages)
 		if !messages.HasErrors() {
-			modelHelper.BindValueForm(&b, r)
+			c.Bind(&b)
 			modelHelper.ValidateForm(&b, messages)
 			if !messages.HasErrors() {
-				_, errorUser := userService.CreateUser(w, r)
-				if errorUser != nil {
-					messages.ImportFromError("errors", errorUser)
-				}
+				_ = userService.CreateUser(c)
 				if !messages.HasErrors() {
-					common := newCommonVariables(r)
-					common.User = &model.User{
-						Email: r.PostFormValue("email"), // indicate whether user had email set
-					}
-					htv := formTemplateVariables{common, b, messages.GetAllErrors(), messages.GetAllInfos()}
-					errorTmpl := viewRegisterSuccessTemplate.ExecuteTemplate(w, "index.html", htv)
-					if errorTmpl != nil {
-						http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
-					}
+					staticTemplate(c, "user/signup_success")
 				}
 			}
 		}
 	}
 	if messages.HasErrors() {
-		UserRegisterFormHandler(w, r)
+		UserRegisterFormHandler(c)
 	}
 }
 
 // UserVerifyEmailHandler : Controller when verifying email, needs a token
-func UserVerifyEmailHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	vars := mux.Vars(r)
-	token := vars["token"]
-	messages := msg.GetMessages(r)
+func UserVerifyEmailHandler(c *gin.Context) {
+	token := c.Query("token")
+	messages := msg.GetMessages(c)
 
-	_, errEmail := userService.EmailVerification(token, w)
+	_, errEmail := userService.EmailVerification(token, c)
 	if errEmail != nil {
 		messages.ImportFromError("errors", errEmail)
 	}
-	htv := userVerifyTemplateVariables{newCommonVariables(r), messages.GetAllErrors()}
-	errorTmpl := viewVerifySuccessTemplate.ExecuteTemplate(w, "index.html", htv)
-	if errorTmpl != nil {
-		http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
-	}
+	staticTemplate(c, "user/verify_success")
 }
 
 // UserLoginPostHandler : Post Login controller
-func UserLoginPostHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
+func UserLoginPostHandler(c *gin.Context) {
 	b := form.LoginForm{}
-	modelHelper.BindValueForm(&b, r)
-	messages := msg.GetMessages(r)
+	c.Bind(&b)
+	messages := msg.GetMessages(c)
 
 	modelHelper.ValidateForm(&b, messages)
 	if !messages.HasErrors() {
-		_, errorUser := userService.CreateUserAuthentication(w, r)
-		if errorUser != nil {
-			messages.ImportFromError("errors", errorUser)
-			htv := formTemplateVariables{newCommonVariables(r), b, messages.GetAllErrors(), messages.GetAllInfos()}
-			errorTmpl := viewLoginTemplate.ExecuteTemplate(w, "index.html", htv)
-			if errorTmpl != nil {
-				http.Error(w, errorTmpl.Error(), http.StatusInternalServerError)
-			}
+		_, errorUser := userService.CreateUserAuthentication(c)
+		if errorUser == nil {
+			c.Redirect(http.StatusSeeOther, "/")
 			return
 		}
-		url, _ := Router.Get("home").URL()
-		http.Redirect(w, r, url.String(), http.StatusSeeOther)
+		messages.ErrorT(errorUser)
 	}
-	if messages.HasErrors() {
-		UserLoginFormHandler(w, r)
-	}
+	UserLoginFormHandler(c)
 }
 
 // UserLogoutHandler : Controller to logout users
-func UserLogoutHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	logout := r.FormValue("logout")
+func UserLogoutHandler(c *gin.Context) {
+	logout := c.PostForm("logout")
 	if logout != "" {
-		_, _ = userService.ClearCookie(w)
-		url, _ := Router.Get("home").URL()
-		http.Redirect(w, r, url.String(), http.StatusSeeOther)
+		userService.ClearCookie(c)
+		url := c.DefaultPostForm("redirectTo", "/")
+		c.Redirect(http.StatusSeeOther, url)
 	} else {
-		NotFoundHandler(w, r)
+		NotFoundHandler(c)
 	}
 }
 
 // UserFollowHandler : Controller to follow/unfollow users, need user id to follow
-func UserFollowHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
+func UserFollowHandler(c *gin.Context) {
 	var followAction string
-	vars := mux.Vars(r)
-	id := vars["id"]
-	currentUser := getUser(r)
+	id := c.Query("id")
+	currentUser := getUser(c)
 	user, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser == nil && user.ID > 0 {
 		if !userPermission.IsFollower(&user, currentUser) {
@@ -336,53 +246,44 @@ func UserFollowHandler(w http.ResponseWriter, r *http.Request) {
 			userService.RemoveFollow(&user, currentUser)
 		}
 	}
-	url, _ := Router.Get("user_profile").URL("id", strconv.Itoa(int(user.ID)), "username", user.Username)
-	http.Redirect(w, r, url.String()+"?"+followAction, http.StatusSeeOther)
+	url := "/user/" + strconv.Itoa(int(user.ID)) + "/" + user.Username + "?" + followAction
+	c.Redirect(http.StatusSeeOther, url)
 }
 
 // UserNotificationsHandler : Controller to show user notifications
-func UserNotificationsHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	currentUser := getUser(r)
+func UserNotificationsHandler(c *gin.Context) {
+	currentUser := getUser(c)
 	if currentUser.ID > 0 {
-		messages := msg.GetMessages(r)
-		Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(r)
-		if r.URL.Query()["clear"] != nil {
+		messages := msg.GetMessages(c)
+		if c.Request.URL.Query()["clear"] != nil {
 			notifierService.DeleteAllNotifications(currentUser.ID)
-			messages.AddInfo("infos", Ts("notifications_cleared"))
+			messages.AddInfoT("infos", "notifications_cleared")
 			currentUser.Notifications = []model.Notification{}
 		}
-		htv := userProfileVariables{newCommonVariables(r), currentUser, messages.GetAllInfos()}
-		err := viewProfileNotifTemplate.ExecuteTemplate(w, "index.html", htv)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
+		userProfileTemplate(c, currentUser)
 	} else {
-		NotFoundHandler(w, r)
+		NotFoundHandler(c)
 	}
 }
 
 // UserAPIKeyResetHandler : Controller to reset user api key
-func UserAPIKeyResetHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	vars := mux.Vars(r)
-	id := vars["id"]
-	currentUser := getUser(r)
+func UserAPIKeyResetHandler(c *gin.Context) {
+	id := c.Query("id")
+	currentUser := getUser(c)
 
-	Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(r)
-	messages := msg.GetMessages(r)
+	messages := msg.GetMessages(c)
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser != nil || !userPermission.CurrentOrAdmin(currentUser, userProfile.ID) || userProfile.ID == 0 {
-		NotFoundHandler(w, r)
+		NotFoundHandler(c)
 		return
 	}
 	userProfile.APIToken, _ = crypto.GenerateRandomToken32()
 	userProfile.APITokenExpiry = time.Unix(0, 0)
 	_, errorUser = userService.UpdateRawUser(&userProfile)
 	if errorUser != nil {
-		messages.ImportFromError("errors", errorUser)
+		messages.Error(errorUser)
 	} else {
-		messages.AddInfo("infos", Ts("profile_updated"))
+		messages.AddInfoT("infos", "profile_updated")
 	}
-	UserProfileHandler(w, r)
+	UserProfileHandler(c)
 }

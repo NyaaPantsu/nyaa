@@ -1,6 +1,7 @@
 package router
 
 import (
+	"errors"
 	"net/http"
 	"strconv"
 	"time"
@@ -14,40 +15,41 @@ import (
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
+	"github.com/NyaaPantsu/nyaa/util/publicSettings"
+	"github.com/gin-gonic/gin"
 )
 
 // UploadHandler : Main Controller for uploading a torrent
-func UploadHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	user := getUser(r)
+func UploadHandler(c *gin.Context) {
+	user := getUser(c)
 	if !uploadService.IsUploadEnabled(user) {
-		http.Error(w, "Error uploads are disabled", http.StatusBadRequest)
+		T := publicSettings.GetTfuncFromRequest(c)
+		c.AbortWithError(http.StatusBadRequest, errors.New(string(T("uploads_disabled"))))
 		return
 	}
 
-	if r.Method == "POST" {
-		UploadPostHandler(w, r)
+	if c.Request.Method == "POST" {
+		UploadPostHandler(c)
 	}
 
-	UploadGetHandler(w, r)
+	UploadGetHandler(c)
 }
 
 // UploadPostHandler : Controller for uploading a torrent, after POST request, redirect or makes error in messages
-func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
+func UploadPostHandler(c *gin.Context) {
 	var uploadForm apiService.TorrentRequest
-	defer r.Body.Close()
-	user := getUser(r)
-	messages := msg.GetMessages(r) // new util for errors and infos
+	user := getUser(c)
+	messages := msg.GetMessages(c) // new util for errors and infos
 
 	if userPermission.NeedsCaptcha(user) {
-		userCaptcha := captcha.Extract(r)
+		userCaptcha := captcha.Extract(c)
 		if !captcha.Authenticate(userCaptcha) {
 			messages.AddError("errors", captcha.ErrInvalidCaptcha.Error())
 		}
 	}
 
 	// validation is done in ExtractInfo()
-	err := uploadForm.ExtractInfo(r)
+	err := uploadForm.ExtractInfo(c)
 	if err != nil {
 		messages.AddError("errors", err.Error())
 	}
@@ -90,7 +92,7 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
-		torrentService.NewTorrentEvent(Router, user, &torrent)
+		torrentService.NewTorrentEvent(user, &torrent)
 
 		// add filelist to files db, if we have one
 		if len(uploadForm.FileList) > 0 {
@@ -104,37 +106,20 @@ func UploadPostHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
-		url, err := Router.Get("view_torrent").URL("id", strconv.FormatUint(uint64(torrent.ID), 10))
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		http.Redirect(w, r, url.String()+"?success", 302)
+		url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10) + "/" + torrent.Name
+		c.Redirect(302, url+"?success")
 	}
 }
 
 // UploadGetHandler : Controller for uploading a torrent, after GET request or Failed Post request
-func UploadGetHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	messages := msg.GetMessages(r) // new util for errors and infos
-
+func UploadGetHandler(c *gin.Context) {
 	var uploadForm apiService.TorrentRequest
-	_ = uploadForm.ExtractInfo(r)
-	user := getUser(r)
+	_ = uploadForm.ExtractInfo(c)
+	user := getUser(c)
 	if userPermission.NeedsCaptcha(user) {
 		uploadForm.CaptchaID = captcha.GetID()
 	} else {
 		uploadForm.CaptchaID = ""
 	}
-
-	utv := formTemplateVariables{
-		commonTemplateVariables: newCommonVariables(r),
-		Form:       uploadForm,
-		FormErrors: messages.GetAllErrors(),
-	}
-	err := uploadTemplate.ExecuteTemplate(w, "index.html", utv)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+	formTemplate(c, "upload", uploadForm)
 }

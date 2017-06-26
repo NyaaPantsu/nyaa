@@ -3,7 +3,6 @@ package common
 import (
 	"context"
 	"encoding/json"
-	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -13,6 +12,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/gin-gonic/gin"
 )
 
 // TorrentParam defines all parameters that can be provided when searching for a torrent
@@ -41,11 +41,11 @@ type TorrentParam struct {
 
 // FromRequest : parse a request in torrent param
 // TODO Should probably return an error ?
-func (p *TorrentParam) FromRequest(r *http.Request) {
+func (p *TorrentParam) FromRequest(c *gin.Context) {
 	var err error
 
-	nameLike := strings.TrimSpace(r.URL.Query().Get("q"))
-	max, err := strconv.ParseUint(r.URL.Query().Get("limit"), 10, 32)
+	nameLike := strings.TrimSpace(c.Query("q"))
+	max, err := strconv.ParseUint(c.Query("limit"), 10, 32)
 	if err != nil {
 		max = uint64(config.Conf.Navigation.TorrentsPerPage)
 	} else if max > uint64(config.Conf.Navigation.MaxTorrentsPerPage) {
@@ -53,51 +53,51 @@ func (p *TorrentParam) FromRequest(r *http.Request) {
 	}
 
 	// FIXME 0 means no userId defined
-	userID, err := strconv.ParseUint(r.URL.Query().Get("userID"), 10, 32)
+	userID, err := strconv.ParseUint(c.Query("userID"), 10, 32)
 	if err != nil {
 		userID = 0
 	}
 
 	// FIXME 0 means no userId defined
-	fromID, err := strconv.ParseUint(r.URL.Query().Get("fromID"), 10, 32)
+	fromID, err := strconv.ParseUint(c.Query("fromID"), 10, 32)
 	if err != nil {
 		fromID = 0
 	}
 
 	var status Status
-	status.Parse(r.URL.Query().Get("s"))
+	status.Parse(c.Query("s"))
 
-	maxage, err := strconv.Atoi(r.URL.Query().Get("maxage"))
+	maxage, err := strconv.Atoi(c.Query("maxage"))
 	fromDate, toDate := DateFilter(""), DateFilter("")
 	if err != nil {
 		// if to xxx is not provided, fromDate is equal to from xxx
-		if r.URL.Query().Get("toDate") != "" {
-			fromDate.Parse(r.URL.Query().Get("toDate"), r.URL.Query().Get("dateType"))
-			toDate.Parse(r.URL.Query().Get("fromDate"), r.URL.Query().Get("dateType"))
+		if c.Query("toDate") != "" {
+			fromDate.Parse(c.Query("toDate"), c.Query("dateType"))
+			toDate.Parse(c.Query("fromDate"), c.Query("dateType"))
 		} else {
-			fromDate.Parse(r.URL.Query().Get("fromDate"), r.URL.Query().Get("dateType"))
+			fromDate.Parse(c.Query("fromDate"), c.Query("dateType"))
 		}
 	} else {
 		fromDate = DateFilter(time.Now().AddDate(0, 0, -maxage).Format("2006-01-02"))
 	}
 
-	categories := ParseCategories(r.URL.Query().Get("c"))
+	categories := ParseCategories(c.Query("c"))
 
 	var sortMode SortMode
-	sortMode.Parse(r.URL.Query().Get("sort"))
+	sortMode.Parse(c.Query("sort"))
 
 	var minSize SizeBytes
 	var maxSize SizeBytes
 
-	minSize.Parse(r.URL.Query().Get("minSize"), r.URL.Query().Get("sizeType"))
-	maxSize.Parse(r.URL.Query().Get("maxSize"), r.URL.Query().Get("sizeType"))
+	minSize.Parse(c.Query("minSize"), c.Query("sizeType"))
+	maxSize.Parse(c.Query("maxSize"), c.Query("sizeType"))
 
 	ascending := false
-	if r.URL.Query().Get("order") == "true" {
+	if c.Query("order") == "true" {
 		ascending = true
 	}
 
-	language := strings.TrimSpace(r.URL.Query().Get("lang"))
+	language := strings.TrimSpace(c.Query("lang"))
 
 	p.NameLike = nameLike
 	p.Max = uint32(max)

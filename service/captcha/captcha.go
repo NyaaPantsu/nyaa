@@ -2,10 +2,10 @@ package captcha
 
 import (
 	"errors"
-	"net/http"
 	"time"
 
 	"github.com/dchest/captcha"
+	"github.com/gin-gonic/gin"
 )
 
 const lifetime = time.Minute * 20
@@ -31,16 +31,16 @@ func GetID() string {
 }
 
 // Extract a Captcha struct from an HTML form
-func Extract(r *http.Request) Captcha {
+func Extract(c *gin.Context) Captcha {
 	return Captcha{
-		CaptchaID: r.FormValue("captchaID"),
-		Solution:  r.FormValue("solution"),
+		CaptchaID: c.PostForm("captchaID"),
+		Solution:  c.PostForm("solution"),
 	}
 }
 
 // ServeFiles serves Captcha images and audio
-func ServeFiles(w http.ResponseWriter, r *http.Request) {
-	server.ServeHTTP(w, r)
+func ServeFiles(c *gin.Context) {
+	server.ServeHTTP(c.Writer, c.Request)
 }
 
 // Authenticate check's if a Captcha solution is valid
