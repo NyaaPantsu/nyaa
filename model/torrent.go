@@ -16,6 +16,7 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/bradfitz/slice"
 )
 
@@ -253,10 +254,13 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 		subCategory = 0
 	}
 	// Need to add +00:00 at the end because ES doesn't store it by default
-	date, err := time.Parse(time.RFC3339, t.Date+"+00:00")
+	dateFixed := t.Date
+	if t.Date[len(t.Date)-1] != 'Z' {
+		dateFixed += "Z"
+	}
+	date, err := time.Parse(time.RFC3339, dateFixed)
 	if err != nil {
-		// TODO: Not sure what I should do here
-		date = time.Now()
+		log.Errorf("Problem parsing date '%s' from ES: %s", dateFixed, err)
 	}
 	torrent := Torrent{
 		ID:          t.ID,
