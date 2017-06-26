@@ -197,7 +197,7 @@ func (sc *Scraper) Scrape(packets uint) {
 			"SELECT %[1]s.torrent_id, torrent_hash FROM %[1]s, %[2]s WHERE "+
 			"date > ? AND "+
 			"%[1]s.torrent_id = %[2]s.torrent_id AND "+
-			"$[2]s.last_scrape < ?"+
+			"%[2]s.last_scrape < ?"+
 
 			// torrents that weren't scraped before:
 			" UNION "+
