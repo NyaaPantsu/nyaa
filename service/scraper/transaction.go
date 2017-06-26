@@ -57,7 +57,8 @@ func (t *Transaction) handleScrapeReply(data []byte) {
 }
 
 
-var pgQuery = "INSERTE INTO " + config.Conf.Models.ScrapeTableName + " (torrent_id, seeders, leechers, completed, last_scrape) VALUES ($1, $2, $3, $4, $5) ON CONFLICT UPDATE"
+var pgQuery = "INSERT INTO " + config.Conf.Models.ScrapeTableName + " (torrent_id, seeders, leechers, completed, last_scrape) VALUES ($1, $2, $3, $4, $5) "+
+	"ON CONFLICT (torrent_id) DO UPDATE SET seeders=EXCLUDED.seeders, leechers=EXCLUDED.leechers, completed=EXCLUDED.completed, last_scrape=EXCLUDED.last_scrape"
 var sqliteQuery = "REPLACE INTO " + config.Conf.Models.ScrapeTableName + " (torrent_id, seeders, leechers, completed, last_scrape) VALUES (?, ?, ?, ?, ?)"
 
 // Sync syncs models with database
