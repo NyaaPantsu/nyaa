@@ -553,7 +553,7 @@ input#show-filelist:checked ~ #filelist {
 .table-filelist {
 	width: 100%;
 }
-tr.torrentinfo { height: 38px; }
+tr.torrentinfo { min-height: 38px; }
 .tr-filelist {
 	--nest-level: 0;
 }
