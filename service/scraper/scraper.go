@@ -193,19 +193,19 @@ func (sc *Scraper) Scrape(packets uint) {
 	query := fmt.Sprintf(
 		"SELECT * FROM ("+
 
-		// previously scraped torrents that will be scraped again:
-		"SELECT %[1]s.torrent_id, torrent_hash FROM %[1]s, %[2]s WHERE "+
-		"date > ? AND "+
-		"%[1]s.torrent_id = %[2]s.torrent_id AND "+
-		"last_scrape < ?"+
+			// previously scraped torrents that will be scraped again:
+			"SELECT %[1]s.torrent_id, torrent_hash FROM %[1]s, %[2]s WHERE "+
+			"date > ? AND "+
+			"%[1]s.torrent_id = %[2]s.torrent_id AND "+
+			"scrape.last_scrape < ?"+
 
-		// torrents that weren't scraped before:
-		" UNION "+
-		"SELECT torrent_id, torrent_hash FROM %[1]s WHERE "+
-		"date > ? AND "+
-		"torrent_id NOT IN (SELECT torrent_id FROM %[2]s)"+
+			// torrents that weren't scraped before:
+			" UNION "+
+			"SELECT torrent_id, torrent_hash FROM %[1]s WHERE "+
+			"date > ? AND "+
+			"torrent_id NOT IN (SELECT torrent_id FROM %[2]s)"+
 
-		") AS x ORDER BY torrent_id DESC LIMIT ?",
+			") AS x ORDER BY torrent_id DESC LIMIT ?",
 		config.Conf.Models.TorrentsTableName, config.Conf.Models.ScrapeTableName)
 	rows, err := db.ORM.Raw(query, oldest, now, oldest, packets*ScrapesPerPacket).Rows()
 
