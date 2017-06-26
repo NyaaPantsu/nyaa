@@ -191,7 +191,7 @@ func (sc *Scraper) Scrape(packets uint) {
 	oldest := now.Add(0 - (time.Hour * 24 * 90))
 
 	query := fmt.Sprintf(
-		"SELECT * FROM ("+
+			"SELECT * FROM ("+
 
 			// previously scraped torrents that will be scraped again:
 			"SELECT %[1]s.torrent_id, torrent_hash FROM %[1]s, %[2]s WHERE "+
