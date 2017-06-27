@@ -7,11 +7,11 @@ import (
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/model"
-	"github.com/NyaaPantsu/nyaa/service/captcha"
 	"github.com/NyaaPantsu/nyaa/service/notifier"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/service/user/form"
 	"github.com/NyaaPantsu/nyaa/service/user/permission"
+	"github.com/NyaaPantsu/nyaa/util/captcha"
 	"github.com/NyaaPantsu/nyaa/util/crypto"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/modelHelper"

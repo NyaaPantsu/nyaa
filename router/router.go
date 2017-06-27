@@ -3,7 +3,7 @@ package router
 import (
 	"net/http"
 
-	"github.com/NyaaPantsu/nyaa/service/captcha"
+	"github.com/NyaaPantsu/nyaa/util/captcha"
 	"github.com/gin-gonic/gin"
 	"github.com/justinas/nosurf"
 )
