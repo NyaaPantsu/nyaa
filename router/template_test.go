@@ -100,6 +100,10 @@ func walkDirTest(dir string, t *testing.T) {
 			vars.Set("Models", []model.User{})
 			return vars
 		},
+		"commentlist.jet.html": func(vars jet.VarMap) jet.VarMap {
+			vars.Set("Models", []model.Comment{})
+			return vars
+		},
 		"torrent_report.jet.html": func(vars jet.VarMap) jet.VarMap {
 			vars.Set("Models", []model.TorrentReportJSON{})
 			return vars
