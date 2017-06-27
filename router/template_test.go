@@ -77,6 +77,33 @@ func walkDirTest(dir string, t *testing.T) {
 			vars.Set("Form", &userForm.RegistrationForm{})
 			return vars
 		},
+		"index.jet.html": func(vars jet.VarMap) jet.VarMap {
+			vars.Set("Torrents", []model.Torrent{})
+			vars.Set("Users", []model.User{})
+			vars.Set("Comments", []model.Comment{})
+			vars.Set("TorrentReports", []model.TorrentReportJSON{})
+			return vars
+		},
+		"paneltorrentedit.jet.html": func(vars jet.VarMap) jet.VarMap {
+			vars.Set("Form", model.Torrent{})
+			return vars
+		},
+		"reassign.jet.html": func(vars jet.VarMap) jet.VarMap {
+			vars.Set("Form", ReassignForm{})
+			return vars
+		},
+		"torrentlist.jet.html": func(vars jet.VarMap) jet.VarMap {
+			vars.Set("Models", []model.Torrent{})
+			return vars
+		},
+		"userlist.jet.html": func(vars jet.VarMap) jet.VarMap {
+			vars.Set("Models", []model.User{})
+			return vars
+		},
+		"torrent_report.jet.html": func(vars jet.VarMap) jet.VarMap {
+			vars.Set("Models", []model.TorrentReportJSON{})
+			return vars
+		},
 	}
 
 	fmt.Printf("\nTesting Folder: %s\n", dir)

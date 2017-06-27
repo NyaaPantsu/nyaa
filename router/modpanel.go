@@ -233,7 +233,7 @@ func CommentsListPanel(c *gin.Context) {
 
 	comments, nbComments := commentService.GetAllComments(offset, (pagenum-1)*offset, conditions, values...)
 	nav := navigation{nbComments, offset, pagenum, "mod_clist_page"}
-	modelList(c, "admin/userlist.jet.html", comments, nav, newSearchForm(c))
+	modelList(c, "admin/commentlist.jet.html", comments, nav, newSearchForm(c))
 }
 
 // TorrentEditModPanel : Controller for editing a torrent after GET request

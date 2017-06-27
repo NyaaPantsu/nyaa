@@ -1,15 +1,9 @@
-{{define "title"}}{{  T("torrents_list") }}{{end}}
-{{define "content"}}
+{{ extends "layouts/index_admin" }}
+{{block title()}}{{  T("torrents_list") }}{{end}}
+{{ block content_body()}}
 <div class="results box">
     <h1>{{  T("torrents_list") }}</h1>
     <form method="post" action="">
-    {{ block "csrf_field" $ }}{{end}}
-    {{ range (index $.Infos "infos")}}
-        <p class="success-text">{{ . }}</p>
-    {{end}}
-    {{ range (index $.Errors "errors")}}
-        <p class="error-text">{{ . }}</p>
-    {{end}}
     <div class="toolbar">
           <select class="cb_action" name="action">
             <option value="">{{  T("action_select") }}</option>
@@ -27,8 +21,8 @@
         <input type="submit" class="form-input" value="Apply">
         <input type="reset" class="form-input" value="Reset">
         <div class="float-right">
-            <a href="{{genRoute "mod_tlist" }}" class="form-input">{{  T("torrents_not_deleted") }}</a>
-            <a href="{{genRoute "mod_tlist_deleted" }}" class="form-input">{{  T("torrents_deleted") }}</a>
+            <a href="/mod/torrents/" class="form-input">{{  T("torrents_not_deleted") }}</a>
+            <a href="/mod/torrents/deleted" class="form-input">{{  T("torrents_deleted") }}</a>
         </div>
     </div>
 <table class="table">
@@ -37,21 +31,21 @@
             <th class="tr-cb"><input type="checkbox" name="checkall" data-selectall="checkbox"></th>
             <th class="tr-name">{{  T("name") }}</th>
             <th class="tr-actions">{{  T("uploaded_by") }}</th>
-            <th class="tr-actions">{{  T("actions") }}</th>
+            <th class="tr-actions" style="width:190px">{{  T("actions") }}</th>
         </tr>
     </thead>
     <tbody>
-    {{ range .Models}}
+    {{ range Models}}
     <tr>
         <td class="tr-cb"><input type="checkbox" class="selectable" name="torrent_id" value="{{.ID }}"></td>
-        <td class="tr-name home-td"><a href="{{ genViewTorrentRoute .ID }}">{{ .Name }}</a> {{ if not .IsDeleted }}<a href="{{ genRoute "mod_tedit" }}?id={{.ID}}" class="form-input btn-blue float-right">{{  T("edit")}}</a>{{end}}</td>
-        <td class="tr-size home-td">{{ if .Uploader }}<a href="{{ if .IsDeleted }}{{ genRoute "mod_tlist_deleted" }}{{else}}{{ genRoute "mod_tlist" }}{{end}}?userID={{.UploaderID}}">{{ .Uploader.Username }}</a>{{ else }}れんちょん{{end}}</td>
+        <td class="tr-name home-td"><a href="/view/{{ .ID }}">{{ .Name }}</a> {{ if !.IsDeleted }}<a href="/mod/torrent?id={{.ID}}" class="form-input btn-blue float-right">{{  T("edit")}}</a>{{end}}</td>
+        <td class="tr-size home-td">{{ if .Uploader }}<a href="/torrents{{ if .IsDeleted }}/deleted{{end}}?userID={{.UploaderID}}">{{ .Uploader.Username }}</a>{{ else }}れんちょん{{end}}</td>
         <td class="tr-actions home-td">
-        <a href="{{ genRoute "mod_tblock" }}?id={{ .ID }}" class="form-input btn-orange" onclick="if (!confirm('{{  T("are_you_sure")}}')) return false;">{{ if .IsBlocked }}{{  T("torrent_unblock") }}{{else}}{{  T("torrent_block") }}{{end}}</a>
+        <a href="/torrent/block?id={{ .ID }}" class="form-input btn-orange" onclick="if (!confirm('{{  T("are_you_sure")}}')) return false;">{{ if .IsBlocked }}{{  T("torrent_unblock") }}{{else}}{{  T("torrent_block") }}{{end}}</a>
         {{ if .IsDeleted }}
-        <br><a href="{{ genRoute "mod_tdelete" }}?definitely&id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure")}} {{  T("delete_definitely_torrent_warning")}}')) return false;"><i class="icon-trash"></i> {{  T("delete_definitely") }}</a>
+        <br><a href="/mod/torrent/delete?definitely&id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure")}} {{  T("delete_definitely_torrent_warning")}}')) return false;"><i class="icon-trash"></i> {{  T("delete_definitely") }}</a>
         {{ else }}
-        <a href="{{ genRoute "mod_tdelete" }}?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure")}}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</a>
+        <a href="/mod/torrent/delete?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure")}}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</a>
         {{ end }}
         </td>
     </tr>
@@ -61,9 +55,9 @@
   </form>
 </div>
 {{end}}
-{{ define "footer_js"}}
+{{ block footer_js()}}
 <!-- JS Function for selecting multiple checkboxes -->
-<script type="text/javascript" src="{{ .URL.Parse "/js/selectAll.js" }}"></script>
+<script type="text/javascript" src="{{URL.Parse("/js/selectAll.js") }}"></script>
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("select[name='action']").addEventListener("change", function(e) {

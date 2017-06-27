@@ -170,7 +170,7 @@ func changeLanguageTemplate(c *gin.Context, language string, languages map[strin
 
 func panelAdminTemplate(c *gin.Context, torrent []model.Torrent, reports []model.TorrentReportJSON, users []model.User, comments []model.Comment) {
 	vars := newPanelCommonVariables(c)
-	vars.Set("Torrent", torrent)
+	vars.Set("Torrents", torrent)
 	vars.Set("TorrentReports", reports)
 	vars.Set("Users", users)
 	vars.Set("Comments", comments)
