@@ -1,14 +1,14 @@
-{{define "title"}}{{ call $.T "comments_list" }}{{end}}
+{{define "title"}}{{  T("comments_list") }}{{end}}
 {{define "content"}}
 <div class="results box">
-    <h1>{{ call $.T "comments_list" }}</h1>
+    <h1>{{  T("comments_list") }}</h1>
     <table class="table">
         <thead class="torrent-info">
             <tr>
-                <th class="tr-name">{{ call $.T "comments" }}</th>
-                <th class="tr-size">{{ call $.T "torrents" }}</th>
-                <th class="tr-actions">{{ call $.T "username" }}</th>
-                <th class="tr-actions">{{ call $.T "actions" }}</th>
+                <th class="tr-name">{{  T("comments") }}</th>
+                <th class="tr-size">{{  T("torrents") }}</th>
+                <th class="tr-actions">{{  T("username") }}</th>
+                <th class="tr-actions">{{  T("actions") }}</th>
             </tr>
         </thead>
         <tbody>
@@ -18,7 +18,7 @@
             <td class="tr-name home-td"><a>{{ .Content }}</a></td>
             <td class="tr-size home-td"><a href="{{ genViewTorrentRoute .TorrentID }}">{{ .TorrentID }}</a></td>
             <td class="tr-size home-td">{{if .User }}{{ .User.Username }}{{else}}れんちょん{{end}}</td>
-            <td class="tr-actions home-td"><a href="{{ genRoute "mod_cdelete" }}?id={{.ID}}" class="form-input btn-red" onclick="if (!confirm('{{ call $.T "are_you_sure" }}')) return false;"><i class="icon-trash"></i> {{ call $.T "delete" }}</a></td>
+            <td class="tr-actions home-td"><a href="{{ genRoute "mod_cdelete" }}?id={{.ID}}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</a></td>
             </tr>
         {{end}}
         </tbody>

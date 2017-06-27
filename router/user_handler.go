@@ -30,7 +30,7 @@ func UserRegisterFormHandler(c *gin.Context) {
 	registrationForm := form.RegistrationForm{}
 	c.Bind(&registrationForm)
 	registrationForm.CaptchaID = captcha.GetID()
-	formTemplate(c, "user/register", registrationForm)
+	formTemplate(c, "user/register.jet.html", registrationForm)
 }
 
 // UserLoginFormHandler : Getting View User Login
@@ -43,7 +43,7 @@ func UserLoginFormHandler(c *gin.Context) {
 	}
 
 	loginForm := form.LoginForm{}
-	formTemplate(c, "user/register", loginForm)
+	formTemplate(c, "user/register.jet.html", loginForm)
 }
 
 // UserProfileHandler :  Getting User Profile
@@ -61,7 +61,7 @@ func UserProfileHandler(c *gin.Context) {
 
 		if (deleteVar != nil) && (userPermission.CurrentOrAdmin(currentUser, userProfile.ID)) {
 			_ = userService.DeleteUser(c, currentUser, id)
-			staticTemplate(c, "user/delete_success")
+			staticTemplate(c, "user/delete_success.jet.html")
 		} else {
 			if follow != nil {
 				messages.AddInfof("infos", Ts("user_followed_msg"), userProfile.Username)
@@ -179,7 +179,7 @@ func UserRegisterPostHandler(c *gin.Context) {
 			if !messages.HasErrors() {
 				_ = userService.CreateUser(c)
 				if !messages.HasErrors() {
-					staticTemplate(c, "user/signup_success")
+					staticTemplate(c, "user/signup_success.jet.html")
 				}
 			}
 		}
@@ -198,7 +198,7 @@ func UserVerifyEmailHandler(c *gin.Context) {
 	if errEmail != nil {
 		messages.ImportFromError("errors", errEmail)
 	}
-	staticTemplate(c, "user/verify_success")
+	staticTemplate(c, "user/verify_success.jet.html")
 }
 
 // UserLoginPostHandler : Post Login controller

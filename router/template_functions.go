@@ -35,7 +35,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("genRoute", func(name string, params ...string) string {
 		return "error"
 	})
-	vars.Set("getRawQuery", func(name string, currentUrl *url.URL, params ...string) string {
+	vars.Set("getRawQuery", func(currentUrl *url.URL) string {
 		return currentUrl.RawQuery
 	})
 	vars.Set("genViewTorrentRoute", func(torrent_id uint) string {
@@ -45,7 +45,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 		url := "/view/" + s
 		return url
 	})
-	vars.Set("genSearchWithOrdering", func(currentUrl url.URL, sortBy string) template.URL {
+	vars.Set("genSearchWithOrdering", func(currentUrl *url.URL, sortBy string) string {
 		values := currentUrl.Query()
 		order := false //Default is DESC
 		sort := "2"    //Default is Date (Actually ID, but Date is the same thing)
@@ -69,9 +69,9 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 		u, _ := url.Parse("/search")
 		u.RawQuery = values.Encode()
 
-		return template.URL(u.String())
+		return u.String()
 	})
-	vars.Set("genSortArrows", func(currentUrl url.URL, sortBy string) template.HTML {
+	vars.Set("genSortArrows", func(currentUrl *url.URL, sortBy string) template.HTML {
 		values := currentUrl.Query()
 		leftclass := "sortarrowdim"
 		rightclass := "sortarrowdim"
@@ -242,7 +242,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 			IdentifierChain string
 		}{f, nestLevel, T, identifierChain}
 	})
-	vars.Set("lastID", func(currentUrl url.URL, torrents []model.TorrentJSON) int {
+	vars.Set("lastID", func(currentUrl *url.URL, torrents []model.TorrentJSON) int {
 		values := currentUrl.Query()
 
 		order := false

@@ -12,6 +12,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/justinas/nosurf"
 
+	"fmt"
+
 	"github.com/CloudyKit/jet"
 )
 
@@ -22,9 +24,15 @@ var TemplateDir = "templates" // FIXME: Need to be a constant!
 const ModeratorDir = "admin"
 
 // View : Jet Template Renderer
-var View = jet.NewHTMLSet("./views")
+var View = jet.NewHTMLSet("./templates")
 var vars = templateFunctions(make(jet.VarMap))
 
+func init() {
+	if config.Conf.Environment == "DEVELOPMENT" {
+		View.SetDevelopmentMode(true)
+		fmt.Println("Template Live Update enabled")
+	}
+}
 func commonVars(c *gin.Context) jet.VarMap {
 	msg := messages.GetMessages(c)
 	vars.Set("Navigation", newNavigation())
@@ -60,18 +68,20 @@ func newPanelCommonVariables(c *gin.Context) jet.VarMap {
 func renderTemplate(c *gin.Context, templateName string, vars jet.VarMap) {
 	t, err := View.GetTemplate(templateName)
 	if err != nil {
-		httpError(c, 404)
+		fmt.Println("404")
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
 	}
-	c.Status(200)
 	if err = t.Execute(c.Writer, vars, nil); err != nil {
-		httpError(c, http.StatusInternalServerError)
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
 	}
 }
 
 func httpError(c *gin.Context, errorCode int) {
 	if errorCode == http.StatusNotFound {
 		c.Status(http.StatusNotFound)
-		staticTemplate(c, "404")
+		staticTemplate(c, "404.jet.html")
 		return
 	}
 	c.Status(errorCode)
@@ -116,7 +126,7 @@ func torrentTemplate(c *gin.Context, torrent model.TorrentJSON, rootFolder *file
 	vars.Set("Torrent", torrent)
 	vars.Set("RootFolder", rootFolder)
 	vars.Set("CaptchaID", captchaID)
-	renderTemplate(c, "view", vars)
+	renderTemplate(c, "view.jet.html", vars)
 }
 
 func userProfileEditTemplate(c *gin.Context, userProfile *model.User, userForm userForms.UserForm, languages map[string]string) {
@@ -124,25 +134,25 @@ func userProfileEditTemplate(c *gin.Context, userProfile *model.User, userForm u
 	vars.Set("UserProfile", userProfile)
 	vars.Set("UserForm", userForm)
 	vars.Set("Languages", languages)
-	renderTemplate(c, "user/profile_edit", vars)
+	renderTemplate(c, "user/profile_edit.jet.html", vars)
 }
 
 func userProfileTemplate(c *gin.Context, userProfile *model.User) {
 	vars := commonVars(c)
 	vars.Set("UserProfile", userProfile)
-	renderTemplate(c, "user/profile", vars)
+	renderTemplate(c, "user/profile.jet.html", vars)
 }
 func databaseDumpTemplate(c *gin.Context, listDumps []model.DatabaseDumpJSON, GPGLink string) {
 	vars := commonVars(c)
 	vars.Set("ListDumps", listDumps)
 	vars.Set("GPGLink", GPGLink)
-	renderTemplate(c, "dumps", vars)
+	renderTemplate(c, "dumps.jet.html", vars)
 }
 func changeLanguageTemplate(c *gin.Context, language string, languages map[string]string) {
 	vars := commonVars(c)
 	vars.Set("Language", language)
 	vars.Set("Languages", languages)
-	renderTemplate(c, "user/public_settings", vars)
+	renderTemplate(c, "user/public_settings.jet.html", vars)
 }
 
 func panelAdminTemplate(c *gin.Context, torrent []model.Torrent, reports []model.TorrentReportJSON, users []model.User, comments []model.Comment) {
@@ -151,7 +161,7 @@ func panelAdminTemplate(c *gin.Context, torrent []model.Torrent, reports []model
 	vars.Set("TorrentReports", reports)
 	vars.Set("Users", users)
 	vars.Set("Comments", comments)
-	renderTemplate(c, "admin/index", vars)
+	renderTemplate(c, "admin/index.jet.html", vars)
 }
 
 func isAdminTemplate(templateName string) bool {

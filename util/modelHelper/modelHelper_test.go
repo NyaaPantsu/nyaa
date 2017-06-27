@@ -28,7 +28,7 @@ func TestValidateForm(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	messages := msg.GetMessages(req)
+	messages := msg.GetMessages(c)
 	testform := TestForm{}
 	ValidateForm(&testform, messages)
 	if !messages.HasErrors() {

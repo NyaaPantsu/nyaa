@@ -1,12 +1,12 @@
-{{define "title"}}{{ call $.T "activity_list" }}{{end}}
+{{define "title"}}{{  T("activity_list") }}{{end}}
 {{define "contclass"}}cont-home{{end}}
 {{define "content"}}
 <div class="results box">
     <table>
         <thead class="torrent-info">
             <tr>
-                <th class="tr-name">{{ call $.T "activities" }}</th>
-                <th class="tr-size">{{ call $.T "filter" }}</th>
+                <th class="tr-name">{{  T("activities") }}</th>
+                <th class="tr-size">{{  T("filter") }}</th>
             </tr>
         </thead>
         <tbody>

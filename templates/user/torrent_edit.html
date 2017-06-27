@@ -1,7 +1,7 @@
 {{define "title"}}Torrent Edit{{end}}
 {{define "content"}}
   <div class="box results">
-  <h3 id="torrents">{{ call $.T "torrent_edit_panel" }}</h3>
+  <h3 id="torrents">{{  T("torrent_edit_panel") }}</h3>
   {{with .Form}}
   <form style="text-align:left;padding-left:10px;padding-right:10px;" enctype="multipart/form-data" role="upload" method="POST">
         {{ block "csrf_field" $ }}{{end}}
@@ -12,24 +12,24 @@
 			<p class="error-text">{{ . }}</p>
 		{{end}}
       <div class="form-group">
-      <label class="input-label" for="name">{{call $.T "name"}}</label>
-          <input type="text" name="name" class="form-input up-input" placeholder="{{call $.T "file_name"}}" value="{{.Name}}" required>
+      <label class="input-label" for="name">{{ T("name")}}</label>
+          <input type="text" name="name" class="form-input up-input" placeholder="{{ T("file_name")}}" value="{{.Name}}" required>
       </div>
       <div class="form-group">
-          <label for="c">{{call $.T "category"}}</label>
+          <label for="c">{{ T("category")}}</label>
           <select name="c" class="form-input up-input">
-              <option value="">{{call $.T "select_a_torrent_category"}}</option>
+              <option value="">{{ T("select_a_torrent_category")}}</option>
               {{ range $name_cat, $id_cat := (GetCategories false true) }}
               <option value="{{ $id_cat }}" {{if eq $.Form.Category $id_cat }}selected{{end}}>{{call $.T $name_cat }}</option>
               {{ end }}
           </select>
       </div>
       <div class="form-group">
-          <label for="language">{{ call $.T "torrent_language" }}</label>
+          <label for="language">{{  T("torrent_language") }}</label>
           <select name="language" id="language" class="form-input up-input" required>
-			<option value="">{{call $.T "select_a_torrent_language"}}</option>
-            <option value="other" {{if eq $.Form.Language "other"}}selected{{end}}>{{call $.T "language_other_name"}}</option>
-			<option value="multiple" {{if eq $.Form.Language "multiple"}}selected{{end}}>{{call $.T "language_multiple_name"}}</option>
+			<option value="">{{ T("select_a_torrent_language")}}</option>
+            <option value="other" {{if eq $.Form.Language "other"}}selected{{end}}>{{ T("language_other_name")}}</option>
+			<option value="multiple" {{if eq $.Form.Language "multiple"}}selected{{end}}>{{ T("language_multiple_name")}}</option>
 			{{ range $_, $language := (GetTorrentLanguages) }}
 			<option value="{{ $language }}" {{if eq $.Form.Language $language}}selected{{end}}>
 				{{LanguageName $language $.T}}
@@ -39,24 +39,24 @@
       </div>
       <div class="form-group">
           <input type="checkbox" name="remake" id="remake" {{ if .Remake }}checked{{end}}>
-          <label for="remake">{{call $.T "mark_as_remake"}}</label>
+          <label for="remake">{{ T("mark_as_remake")}}</label>
       </div>
 		{{ if $.User }}
 		<p>
 			<input type="checkbox" name="hidden" id="hidden" {{ if .Hidden }}checked{{end}}>
-			<label for="hidden">{{call $.T "mark_as_hidden"}}</label>
+			<label for="hidden">{{ T("mark_as_hidden")}}</label>
 		</p>
 		{{ end }}
       <div class="form-group">
-          <label class="input-label" for="website_link">{{call $.T "website_link"}}</label>
+          <label class="input-label" for="website_link">{{ T("website_link")}}</label>
           <input name="website_link" id="website_link" class="form-input up-input" type="text" value="{{.WebsiteLink}}">
       </div>
       <div class="form-group">
-          <label for="desc">{{call $.T "torrent_description"}}</label>
-          <p class="help-block">{{call $.T "description_markdown_notice"}}</p>
+          <label for="desc">{{ T("torrent_description")}}</label>
+          <p class="help-block">{{ T("description_markdown_notice")}}</p>
           <textarea style="height: 10rem;" name="desc" class="form-input up-input" rows="10">{{.Description}}</textarea>
       </div>
-      <button type="submit" class="form-input up-input">{{call $.T "save_changes"}}</button>
+      <button type="submit" class="form-input up-input">{{ T("save_changes")}}</button>
       <br>
       <br>
   </form>

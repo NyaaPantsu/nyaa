@@ -164,7 +164,7 @@ func TorrentsListPanel(c *gin.Context) {
 
 	nav := navigation{count, int(searchParam.Max), pagenum, "mod_tlist_page"}
 
-	modelList(c, "admin/torrentlist", torrents, nav, searchForm)
+	modelList(c, "admin/torrentlist.jet.html", torrents, nav, searchForm)
 }
 
 // TorrentReportListPanel : Controller for listing torrent reports, can accept pages
@@ -186,7 +186,7 @@ func TorrentReportListPanel(c *gin.Context) {
 
 	reportJSON := model.TorrentReportsToJSON(torrentReports)
 	nav := navigation{nbReports, offset, pagenum, "mod_trlist_page"}
-	modelList(c, "admin/torrent_report", reportJSON, nav, newSearchForm(c))
+	modelList(c, "admin/torrent_report.jet.html", reportJSON, nav, newSearchForm(c))
 }
 
 // UsersListPanel : Controller for listing users, can accept pages
@@ -206,7 +206,7 @@ func UsersListPanel(c *gin.Context) {
 
 	users, nbUsers := userService.RetrieveUsersForAdmin(offset, (pagenum-1)*offset)
 	nav := navigation{nbUsers, offset, pagenum, "mod_ulist_page"}
-	modelList(c, "admin/userlist", users, nav, newSearchForm(c))
+	modelList(c, "admin/userlist.jet.html", users, nav, newSearchForm(c))
 }
 
 // CommentsListPanel : Controller for listing comments, can accept pages and userID
@@ -233,7 +233,7 @@ func CommentsListPanel(c *gin.Context) {
 
 	comments, nbComments := commentService.GetAllComments(offset, (pagenum-1)*offset, conditions, values...)
 	nav := navigation{nbComments, offset, pagenum, "mod_clist_page"}
-	modelList(c, "admin/userlist", comments, nav, newSearchForm(c))
+	modelList(c, "admin/userlist.jet.html", comments, nav, newSearchForm(c))
 }
 
 // TorrentEditModPanel : Controller for editing a torrent after GET request
@@ -251,7 +251,7 @@ func TorrentEditModPanel(c *gin.Context) {
 	uploadForm.Description = string(torrentJSON.Description)
 	uploadForm.Language = torrent.Language
 
-	formTemplate(c, "admin/paneltorrentedit", uploadForm)
+	formTemplate(c, "admin/paneltorrentedit.jet.html", uploadForm)
 }
 
 // TorrentPostEditModPanel : Controller for editing a torrent after POST request
@@ -283,7 +283,7 @@ func TorrentPostEditModPanel(c *gin.Context) {
 			}
 		}
 	}
-	formTemplate(c, "admin/paneltorrentedit", uploadForm)
+	formTemplate(c, "admin/paneltorrentedit.jet.html", uploadForm)
 }
 
 // CommentDeleteModPanel : Controller for deleting a comment
@@ -352,7 +352,7 @@ func TorrentReportDeleteModPanel(c *gin.Context) {
 
 // TorrentReassignModPanel : Controller for reassigning a torrent, after GET request
 func TorrentReassignModPanel(c *gin.Context) {
-	formTemplate(c, "admin/reassign", ReassignForm{})
+	formTemplate(c, "admin/reassign.jet.html", ReassignForm{})
 }
 
 // TorrentPostReassignModPanel : Controller for reassigning a torrent, after POST request
@@ -368,7 +368,7 @@ func TorrentPostReassignModPanel(c *gin.Context) {
 			messages.AddInfoTf("infos", "nb_torrents_updated", count)
 		}
 	}
-	formTemplate(c, "admin/reassign", rForm)
+	formTemplate(c, "admin/reassign.jet.html", rForm)
 }
 
 // TorrentsPostListPanel : Controller for listing torrents, after POST request when mass update
@@ -447,7 +447,7 @@ func DeletedTorrentsModPanel(c *gin.Context) {
 
 	nav := navigation{count, int(searchParam.Max), pagenum, "mod_tlist_page"}
 	search := searchForm
-	modelList(c, "admin/torrentlist", torrents, nav, search)
+	modelList(c, "admin/torrentlist.jet.html", torrents, nav, search)
 }
 
 // DeletedTorrentsPostPanel : Controller for viewing deleted torrents after a mass update, accept common search arguments

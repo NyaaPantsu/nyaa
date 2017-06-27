@@ -20,9 +20,9 @@
 						{{if gt $.User.ID 0 }}
 							{{if not (CurrentUserIdentical $.User $.UserProfile.ID) }}
 								{{if not (IsFollower $.UserProfile $.User)}}
-									<a class="form-input" href="{{ genRoute "user_follow" "id" ( print $.UserProfile.ID ) "username" $.UserProfile.Username }}" class="btn btn-success btn-sm">{{ call $.T "follow"}}</a><br>
+									<a class="form-input" href="{{ genRoute "user_follow" "id" ( print $.UserProfile.ID ) "username" $.UserProfile.Username }}" class="btn btn-success btn-sm">{{  T("follow")}}</a><br>
 								{{else}}
-									<a class="form-input" href="{{ genRoute "user_follow" "id" ( print $.UserProfile.ID ) "username" $.UserProfile.Username }}" class="btn btn-danger btn-sm">{{ call $.T "unfollow"}}</a><br> 
+									<a class="form-input" href="{{ genRoute "user_follow" "id" ( print $.UserProfile.ID ) "username" $.UserProfile.Username }}" class="btn btn-danger btn-sm">{{  T("unfollow")}}</a><br> 
 								{{end}}
 							{{end}}
 						{{end}}
@@ -32,13 +32,13 @@
 				<!-- END SIDEBAR BUTTONS -->
 				<!-- SIDEBAR MENU -->
 				<div class="profile-usermenu">
-							<a class="form-input" href="{{ genRoute "user_profile" "id" ( print $.UserProfile.ID ) "username" $.UserProfile.Username }}"><i class="glyphicon glyphicon-home"></i>{{call $.T "torrents"}}</a> <br>
+							<a class="form-input" href="{{ genRoute "user_profile" "id" ( print $.UserProfile.ID ) "username" $.UserProfile.Username }}"><i class="glyphicon glyphicon-home"></i>{{ T("torrents")}}</a> <br>
 						{{if gt $.User.ID 0 }}
 							{{ if CurrentUserIdentical $.User $.UserProfile.ID }}
-									<a class="form-input" href="{{ genRoute "user_notifications" "id" (print $.UserProfile.ID) "username" $.UserProfile.Username }}"><i class="glyphicon glyphicon-bell"></i>{{ call $.T "my_notifications"}}</a> <br>
+									<a class="form-input" href="{{ genRoute "user_notifications" "id" (print $.UserProfile.ID) "username" $.UserProfile.Username }}"><i class="glyphicon glyphicon-bell"></i>{{  T("my_notifications")}}</a> <br>
 							{{end}}	
 						{{if CurrentOrAdmin $.User $.UserProfile.ID }}
-							<a class="form-input" href="{{ genRoute "user_profile_details" "id" ( print $.UserProfile.ID ) "username" $.UserProfile.Username }}"><i class="glyphicon glyphicon-user"></i>{{call $.T "settings"}}</a> <br>
+							<a class="form-input" href="{{ genRoute "user_profile_details" "id" ( print $.UserProfile.ID ) "username" $.UserProfile.Username }}"><i class="glyphicon glyphicon-user"></i>{{ T("settings")}}</a> <br>
 						{{end}}
 						{{end}}
 				</div>

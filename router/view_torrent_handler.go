@@ -171,7 +171,7 @@ func TorrentEditUserPanel(c *gin.Context) {
 		uploadForm.Description = string(torrent.Description)
 		uploadForm.Hidden = torrent.Hidden
 		uploadForm.Language = torrent.Language
-		formTemplate(c, "user/torrent_edit", uploadForm)
+		formTemplate(c, "user/torrent_edit.jet.html", uploadForm)
 	} else {
 		NotFoundHandler(c)
 	}
@@ -208,7 +208,7 @@ func TorrentPostEditUserPanel(c *gin.Context) {
 			db.ORM.Model(&torrent).UpdateColumn(&torrent)
 			messages.AddInfoT("infos", "torrent_updated")
 		}
-		formTemplate(c, "user/torren_edit", uploadForm)
+		formTemplate(c, "user/torren_edit.jet.html", uploadForm)
 	} else {
 		NotFoundHandler(c)
 	}

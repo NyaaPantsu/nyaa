@@ -1,4 +1,4 @@
-{{define "title"}}{{ call $.T "register_title" }}{{end}}
+{{define "title"}}{{  T("register_title") }}{{end}}
 {{define "contclass"}}cont-view{{end}}
 {{define "content"}}
 	    {{ with .Form }}
@@ -6,23 +6,23 @@
 			<div class="user-form">
 			<form role="form" method="POST">
 				{{ block "csrf_field" $ }}{{end}}
-				<h2>{{call $.T "signup_box_title" }}</h2>
+				<h2>{{ T("signup_box_title") }}</h2>
 				{{ range (index $.FormErrors "errors")}}
    					<p class="error-text">{{ . }}</p>
    				{{end}}
-					<input type="text" name="username" id="display_name" class="form-input up-input" placeholder="{{call $.T "username" }}" value="{{ .Username }}" autofocus> <br>
+					<input type="text" name="username" id="display_name" class="form-input up-input" placeholder="{{ T("username") }}" value="{{ .Username }}" autofocus> <br>
    							{{ range (index $.FormErrors "username")}}
    							<p class="error-text">{{ . }}</p>
    							{{end}}
-					<input type="email" name="email" id="email" class="form-input up-input" placeholder="{{call $.T "email_address" }} ({{call $.T "optional"}})" value="{{ .Email }}"> <br>
+					<input type="email" name="email" id="email" class="form-input up-input" placeholder="{{ T("email_address") }} ({{ T("optional")}})" value="{{ .Email }}"> <br>
    							{{ range (index $.FormErrors "email")}}
    							<p class="error-text">{{ . }}</p>
    							{{end}}
-							<input type="password" name="password" id="password" class="form-input up-input" placeholder="{{call $.T "password" }}" value="{{ .Password }}"> <br>
+							<input type="password" name="password" id="password" class="form-input up-input" placeholder="{{ T("password") }}" value="{{ .Password }}"> <br>
    							{{ range (index $.FormErrors "password")}}
    							<p class="error-text">{{ . }}</p>
    							{{end}}
-							<input type="password" name="password_confirmation" id="password_confirmation" class="form-input up-input" placeholder="{{call $.T "confirm_password" }}"> <br>
+							<input type="password" name="password_confirmation" id="password_confirmation" class="form-input up-input" placeholder="{{ T("confirm_password") }}"> <br>
    							{{ range (index $.FormErrors "password_confirmation")}}
    							<p class="error-text">{{ . }}</p>
    							{{end}}
@@ -32,11 +32,11 @@
    							<p class="error-text">{{ . }}</p>
    							{{end}}
 						</span>
-						<p>{{call $.T "terms_conditions_confirm" }}</p>
+						<p>{{ T("terms_conditions_confirm") }}</p>
 						<!--  -->
 				{{block "captcha" (makeCaptchaData .CaptchaID $.T)}}{{end}}
 
-					<input type="submit" value="{{call $.T "register" }}" class="form-input"></input>
+					<input type="submit" value="{{ T("register") }}" class="form-input"></input>
 			</form>
 			</div>
 			</div>
@@ -46,10 +46,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
-                <h2>{{ call $.T "terms_conditions" }}</h2>
+                <h2>{{  T("terms_conditions") }}</h2>
             </div>
             <div class="modal-body">
-                <p>{{ call $.T "terms_conditions_full" }}</p>
+                <p>{{  T("terms_conditions_full") }}</p>
             </div>
             <div class="modal-footer">
             </div>

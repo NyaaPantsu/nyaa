@@ -1,7 +1,7 @@
 {{define "profile_notifications_content"}}
 	{{with .User}}
 	<div>
-	<a href="{{ genRoute "user_notifications" }}?clear" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-trash"></i> {{ call $.T "clear_notifications" }}</a>
+	<a href="{{ genRoute "user_notifications" }}?clear" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-trash"></i> {{  T("clear_notifications") }}</a>
 	<div style="clear: both;"></div>
 	</div>
 	{{ range (index $.FormInfos "infos")}}
@@ -18,7 +18,7 @@
 		{{end}}
 	</table>
 	{{else}}
-	<h2>{{ call $.T "no_notifications" }}</h2>
+	<h2>{{  T("no_notifications") }}</h2>
 	{{end}}
 	{{end}}
 {{end}}

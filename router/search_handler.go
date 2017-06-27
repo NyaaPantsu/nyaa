@@ -49,5 +49,5 @@ func SearchHandler(c *gin.Context) {
 	searchForm := newSearchForm(c)
 	searchForm.SearchParam, searchForm.Category = searchParam, category
 
-	modelList(c, "torrents", model.TorrentsToJSON(torrents), nav, searchForm)
+	modelList(c, "torrents.jet.html", model.TorrentsToJSON(torrents), nav, searchForm)
 }

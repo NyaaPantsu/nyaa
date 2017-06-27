@@ -121,5 +121,5 @@ func UploadGetHandler(c *gin.Context) {
 	} else {
 		uploadForm.CaptchaID = ""
 	}
-	formTemplate(c, "upload", uploadForm)
+	formTemplate(c, "upload.jet.html", uploadForm)
 }
