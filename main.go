@@ -10,9 +10,8 @@ import (
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/controllers"
 	"github.com/NyaaPantsu/nyaa/db"
-	"github.com/NyaaPantsu/nyaa/network"
-	"github.com/NyaaPantsu/nyaa/router"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
@@ -25,18 +24,18 @@ var buildversion string
 // RunServer runs webapp mainloop
 func RunServer(conf *config.Config) {
 	// TODO Use config from cli
-	os.Mkdir(router.DatabaseDumpPath, 0700)
+	os.Mkdir(controllers.DatabaseDumpPath, 0700)
 	// TODO Use config from cli
-	os.Mkdir(router.GPGPublicKeyPath, 0700)
+	os.Mkdir(controllers.GPGPublicKeyPath, 0700)
 
-	http.Handle("/", router.CSRFRouter)
+	http.Handle("/", controllers.CSRFRouter)
 
 	// Set up server,
 	srv := &http.Server{
 		WriteTimeout: 30 * time.Second,
 		ReadTimeout:  10 * time.Second,
 	}
-	l, err := network.CreateHTTPListener(conf)
+	l, err := CreateHTTPListener(conf)
 	log.CheckError(err)
 	if err != nil {
 		return

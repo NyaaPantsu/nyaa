@@ -1,11 +1,12 @@
-package network
+package main
 
 import (
 	"fmt"
+	"net"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/majestrate/i2p-tools/lib/i2p"
-	"net"
 )
 
 // CreateHTTPListener creates a net.Listener for main http webapp given main config

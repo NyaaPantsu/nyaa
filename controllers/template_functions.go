@@ -1,4 +1,4 @@
-package router
+package controllers
 
 import (
 	"html/template"
