@@ -15,7 +15,7 @@
 		<link rel="shortcut icon" type="image/png" href="/img/favicon.png">
 		
 		<!-- SMO -->
-		<meta property="og:site_name" content="{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{yield title()}}">
+		<meta property="og:site_name" content="{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{yield titleBase()}}">
 		<meta property="og:image" content="/img/favicon.png">
 		<meta property="og:description" content="Nyaa Pantsu Homepage">
 		
@@ -48,7 +48,7 @@
 			<div class="content container center">
 				{{ yield infos()}}
 				{{ yield errors()}}
-				{{ yield content_body() }}
+				{{ block content_body() }}{{end}}
 			</div>
 			{{ block mascot() }}
 				{{if Mascot != "hide"}}

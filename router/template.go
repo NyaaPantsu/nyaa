@@ -19,7 +19,7 @@ import (
 )
 
 // TemplateDir : Variable to the template directory
-var TemplateDir = "templates" // FIXME: Need to be a constant!
+const TemplateDir = "./templates" // FIXME: Need to be a constant!
 
 // ModeratorDir : Variable to the admin template sub directory
 const ModeratorDir = "admin"

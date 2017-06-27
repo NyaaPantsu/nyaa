@@ -1,4 +1,5 @@
-{{ block make_treeview(treeviewData) }}
+{{ block make_treeview(treeviewData=nil) }}
+{{ if isset(treeviewData)}}
 {{ range index, folder := treeviewData.Folder.Folders }}
     {{ folderId := IdentifierChain+"_"+index }}
     <tr class="tr-filelist tr-folder" style="--nest-level: {{ treeviewData.NestLevel }}">
@@ -20,5 +21,6 @@
             <td>{{file.Filename}}</td>
         <td>{{fileSize(file.Filesize, T)}}</td>
     </tr>
+{{ end }}
 {{ end }}
 {{ end }}
