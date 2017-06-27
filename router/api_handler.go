@@ -13,7 +13,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/service"
 	"github.com/NyaaPantsu/nyaa/service/api"
 	"github.com/NyaaPantsu/nyaa/service/torrent"
-	"github.com/NyaaPantsu/nyaa/service/upload"
 	"github.com/NyaaPantsu/nyaa/service/user"
 	"github.com/NyaaPantsu/nyaa/service/user/form"
 	"github.com/NyaaPantsu/nyaa/util/crypto"
@@ -21,6 +20,7 @@ import (
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/modelHelper"
 	"github.com/NyaaPantsu/nyaa/util/search"
+	"github.com/NyaaPantsu/nyaa/util/upload"
 	"github.com/gin-gonic/gin"
 )
 
