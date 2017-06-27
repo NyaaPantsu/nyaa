@@ -7,6 +7,7 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
+	"github.com/gin-gonic/gin"
 )
 
 // run before config/parse.go:init()
@@ -28,6 +29,7 @@ func TestValidateForm(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	c := &gin.Context{Request: req}
 	messages := msg.GetMessages(c)
 	testform := TestForm{}
 	ValidateForm(&testform, messages)
