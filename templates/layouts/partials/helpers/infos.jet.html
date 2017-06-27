@@ -1,0 +1,7 @@
+{{ block infos(name="infos")}}
+    {{ if isset(Infos[name])}}
+        {{ range Infos[name]}}
+        <p class="success-text">{{ . }}</p>
+        {{end}}
+    {{end}}
+{{end}}

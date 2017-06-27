@@ -1,6 +1,7 @@
 package router
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -30,7 +31,7 @@ func UserRegisterFormHandler(c *gin.Context) {
 	registrationForm := form.RegistrationForm{}
 	c.Bind(&registrationForm)
 	registrationForm.CaptchaID = captcha.GetID()
-	formTemplate(c, "user/register.jet.html", registrationForm)
+	formTemplate(c, "site/user/register.jet.html", registrationForm)
 }
 
 // UserLoginFormHandler : Getting View User Login
@@ -43,12 +44,13 @@ func UserLoginFormHandler(c *gin.Context) {
 	}
 
 	loginForm := form.LoginForm{}
-	formTemplate(c, "user/register.jet.html", loginForm)
+	formTemplate(c, "site/user/login.jet.html", loginForm)
 }
 
 // UserProfileHandler :  Getting User Profile
 func UserProfileHandler(c *gin.Context) {
-	id := c.Query("id")
+	id := c.Param("id")
+	fmt.Printf("User ID: %s", id)
 	Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(c)
 	messages := msg.GetMessages(c)
 
@@ -61,7 +63,7 @@ func UserProfileHandler(c *gin.Context) {
 
 		if (deleteVar != nil) && (userPermission.CurrentOrAdmin(currentUser, userProfile.ID)) {
 			_ = userService.DeleteUser(c, currentUser, id)
-			staticTemplate(c, "user/delete_success.jet.html")
+			staticTemplate(c, "site/delete_success.jet.html")
 		} else {
 			if follow != nil {
 				messages.AddInfof("infos", Ts("user_followed_msg"), userProfile.Username)
@@ -94,7 +96,7 @@ func UserProfileHandler(c *gin.Context) {
 
 // UserDetailsHandler : Getting User Profile Details View
 func UserDetailsHandler(c *gin.Context) {
-	id := c.Query("id")
+	id := c.Param("id")
 	currentUser := getUser(c)
 
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
@@ -113,7 +115,7 @@ func UserDetailsHandler(c *gin.Context) {
 
 // UserProfileFormHandler : Getting View User Profile Update
 func UserProfileFormHandler(c *gin.Context) {
-	id := c.Query("id")
+	id := c.Param("id")
 	currentUser := getUser(c)
 	userProfile, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser != nil || !userPermission.CurrentOrAdmin(currentUser, userProfile.ID) || userProfile.ID == 0 {
@@ -179,7 +181,7 @@ func UserRegisterPostHandler(c *gin.Context) {
 			if !messages.HasErrors() {
 				_ = userService.CreateUser(c)
 				if !messages.HasErrors() {
-					staticTemplate(c, "user/signup_success.jet.html")
+					staticTemplate(c, "site/static/signup_success.jet.html")
 				}
 			}
 		}
@@ -191,14 +193,14 @@ func UserRegisterPostHandler(c *gin.Context) {
 
 // UserVerifyEmailHandler : Controller when verifying email, needs a token
 func UserVerifyEmailHandler(c *gin.Context) {
-	token := c.Query("token")
+	token := c.Param("token")
 	messages := msg.GetMessages(c)
 
 	_, errEmail := userService.EmailVerification(token, c)
 	if errEmail != nil {
 		messages.ImportFromError("errors", errEmail)
 	}
-	staticTemplate(c, "user/verify_success.jet.html")
+	staticTemplate(c, "site/static/verify_success.jet.html")
 }
 
 // UserLoginPostHandler : Post Login controller
@@ -234,7 +236,7 @@ func UserLogoutHandler(c *gin.Context) {
 // UserFollowHandler : Controller to follow/unfollow users, need user id to follow
 func UserFollowHandler(c *gin.Context) {
 	var followAction string
-	id := c.Query("id")
+	id := c.Param("id")
 	currentUser := getUser(c)
 	user, _, errorUser := userService.RetrieveUserForAdmin(id)
 	if errorUser == nil && user.ID > 0 {
@@ -260,7 +262,7 @@ func UserNotificationsHandler(c *gin.Context) {
 			messages.AddInfoT("infos", "notifications_cleared")
 			currentUser.Notifications = []model.Notification{}
 		}
-		userProfileTemplate(c, currentUser)
+		userProfileNotificationsTemplate(c, currentUser)
 	} else {
 		NotFoundHandler(c)
 	}
@@ -268,7 +270,7 @@ func UserNotificationsHandler(c *gin.Context) {
 
 // UserAPIKeyResetHandler : Controller to reset user api key
 func UserAPIKeyResetHandler(c *gin.Context) {
-	id := c.Query("id")
+	id := c.Param("id")
 	currentUser := getUser(c)
 
 	messages := msg.GetMessages(c)

@@ -42,6 +42,6 @@ func ActivityListHandler(c *gin.Context) {
 
 	activities, nbActivities := activity.GetAllActivities(offset, (pagenum-1)*offset, strings.Join(conditions, " AND "), values...)
 
-	nav := navigation{nbActivities, offset, pagenum, "activity_list"}
-	modelList(c, "activity_list.jet.html", activities, nav, newSearchForm(c))
+	nav := navigation{nbActivities, offset, pagenum, "activities"}
+	modelList(c, "site/torrents/activities.jet.html", activities, nav, newSearchForm(c))
 }

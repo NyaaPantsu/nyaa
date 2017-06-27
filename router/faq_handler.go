@@ -6,5 +6,5 @@ import (
 
 // FaqHandler : Controller for FAQ view page
 func FaqHandler(c *gin.Context) {
-	staticTemplate(c, "faq.jet.html")
+	staticTemplate(c, "site/static/faq.jet.html")
 }

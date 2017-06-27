@@ -17,7 +17,7 @@ func SearchHandler(c *gin.Context) {
 	// TODO Don't create a new client for each request
 	// TODO Fallback to postgres search if es is down
 
-	page := c.Query("page")
+	page := c.Param("page")
 
 	// db params url
 	pagenum := 1
@@ -45,9 +45,9 @@ func SearchHandler(c *gin.Context) {
 	if len(searchParam.Category) > 0 {
 		category = searchParam.Category[0].String()
 	}
-	nav := navigation{int(nbTorrents), int(searchParam.Max), int(searchParam.Page), "search_page"}
+	nav := navigation{int(nbTorrents), int(searchParam.Max), int(searchParam.Page), "search"}
 	searchForm := newSearchForm(c)
 	searchForm.SearchParam, searchForm.Category = searchParam, category
 
-	modelList(c, "torrents.jet.html", model.TorrentsToJSON(torrents), nav, searchForm)
+	modelList(c, "site/torrents/listing.jet.html", model.TorrentsToJSON(torrents), nav, searchForm)
 }

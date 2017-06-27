@@ -1,0 +1,60 @@
+{{ extends "layouts/profile" }}
+{{ import "layouts/partials/menu/profile" }}
+{{ block profile_navigation()}}{{ yield profile_menu(route="profile") }}{{end}}
+{{block profile_content()}}
+{{ if len(UserProfile.Torrents) > 0 }}
+          <table>
+          <tr class="torrent-info">
+            <th class="tr-cat">{{ T("category")}}</th>
+            <th class="tr-name">{{ T("name")}}</th>
+            <th class="tr-dl">{{ T("links")}}</th>
+            <th class="tr-size hide-xs">{{ T("size")}}</th>
+            <th class="tr-date hide-xs">{{ T("date")}}</th>
+          </tr>
+          {{ range i, t := UserProfile.Torrents }}
+          {{ if DisplayTorrent(t, User) }}
+          {{ torrent := t.ToJSON() }}
+          <tr class="torrent-info
+              {{if torrent.Status == 2}}remake{{else if torrent.Status == 3}}trusted{{else if torrent.Status == 4}}aplus{{end}}">
+              <!-- forced width because the <td> gets bigger randomly otherwise -->
+              <td>
+                  <a href="{{URL.Parse ("/search?c="+ torrent.Category + "_" +torrent.SubCategory) }}">
+                      {{ if Sukebei }}
+                      <img src="{{URL.Parse("/img/torrents/sukebei/"+ torrent.Category+ torrent.SubCategory+".png") }}" title="{{ T(CategoryName(torrent.Category, torrent.SubCategory)) }}">
+                      {{ else }}
+                      <img src="{{URL.Parse ("/img/torrents/"+ torrent.SubCategory+".png") }}" title="{{ T(CategoryName(torrent.Category, torrent.SubCategory)) }}">
+                      {{ end}}
+                  </a>
+              </td>
+              <td class="tr-name">
+                  <a href="/view/{{torrent.ID}}">
+                      {{torrent.Name}}
+                  </a>
+              </td>
+              <td class="tr-links">
+                  <a href="{{torrent.Magnet}}" title="{{  T("magnet_link") }}">
+                        <div class="magnet-icon"></div>
+                  </a>
+                  {{if torrent.TorrentLink != ""}}
+                  <a href="{{torrent.TorrentLink}}" title="{{  T("torrent_file") }}">
+                        <div class="download-icon"></div>
+                  </a>
+                  {{end}}
+              </td>
+              <td class="tr-size hide-xs">
+                  {{ fileSize(torrent.Filesize, T) }}
+              </td>
+              <td class="tr-date date-short hide-xs">{{torrent.Date}}</td>
+          </tr>
+          {{end}}
+          {{end}}
+      </table>
+      <nav class="torrentNav" aria-label="Page navigation">
+          <ul class="pagination">
+              <li><a href="/search?userID={{ UserProfile.ID }}" aria-label="Next"><span class="glyphicon glyphicon-add"></span> {{  T("see_more_torrents_from", UserProfile.Username) }}</a></li>
+          </ul>
+      </nav>
+    {{else}}
+     <h2 style="text-align: center;">{{  T("no_torrents_uploaded") }}</h2>
+{{end}}
+{{end}}

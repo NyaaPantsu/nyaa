@@ -1,0 +1,22 @@
+{{ extends "layouts/index_site" }}
+{{block title()}}{{  T("activity_list") }}{{end}}
+{{block content_body()}}
+<div class="results box">
+    <table>
+        <thead class="torrent-info">
+            <tr>
+                <th class="tr-name">{{  T("activities") }}</th>
+                <th class="tr-size">{{  T("filter") }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{ range Models}}
+        <tr>
+            <td class="tr-name home-td"><a>{{ genActivityContent(., T) }}</a></td>
+            <td class="tr-actions home-td"><a href="/activities?filter={{.Filter}}" class="form-input">{{ T(.Filter) }}</a></td>
+            </tr>
+        {{end}}
+        </tbody>
+    </table>
+</div>
+{{end}}

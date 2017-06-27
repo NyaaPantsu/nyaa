@@ -30,7 +30,7 @@ func APIHandler(c *gin.Context) {
 	if t != "" {
 		RSSTorznabHandler(c)
 	} else {
-		page := c.Query("page")
+		page := c.Param("page")
 		whereParams := serviceBase.WhereParams{}
 		req := apiService.TorrentsRequest{}
 
@@ -94,7 +94,7 @@ func APIHandler(c *gin.Context) {
 
 // APIViewHandler : Controller for viewing a torrent by its ID
 func APIViewHandler(c *gin.Context) {
-	id := c.Query("id")
+	id := c.Param("id")
 
 	torrent, err := torrentService.GetTorrentByID(id)
 
@@ -110,7 +110,7 @@ func APIViewHandler(c *gin.Context) {
 
 // APIViewHeadHandler : Controller for checking a torrent by its ID
 func APIViewHeadHandler(c *gin.Context) {
-	id, err := strconv.ParseInt(c.Query("id"), 10, 32)
+	id, err := strconv.ParseInt(c.Param("id"), 10, 32)
 
 	if err != nil {
 		return
@@ -266,7 +266,7 @@ func APIUpdateHandler(c *gin.Context) {
 
 // APISearchHandler : Controller for searching with api
 func APISearchHandler(c *gin.Context) {
-	page := c.Query("page")
+	page := c.Param("page")
 
 	// db params url
 	var err error

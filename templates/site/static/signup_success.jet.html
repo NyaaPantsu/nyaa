@@ -1,0 +1,15 @@
+{{ extends "layouts/index_site" }}
+{{block title()}}{{  T("register_success_title") }}{{end}}
+{{block content_body()}}
+<div class="box">
+	<div class="row" style="margin-top:20px">
+		<h2>{{ T("sign_up_success")}}</h2>
+		<hr class="colorgraph">
+		{{if User.Email != ""}}
+		<p>{{  T("signup_verification_email") }}</p>
+		{{else}}
+		<p>{{  T("signup_verification_noemail") }}</p>
+		{{end}}
+	</div>
+</div>
+{{end}}

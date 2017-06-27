@@ -151,8 +151,8 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("NeedsCaptcha", userPermission.NeedsCaptcha)
 	vars.Set("GetRole", userPermission.GetRole)
 	vars.Set("IsFollower", userPermission.IsFollower)
-	vars.Set("DisplayTorrent", func(t model.Torrent, u model.User) bool {
-		return ((!t.Hidden && t.Status != 0) || userPermission.CurrentOrAdmin(&u, t.UploaderID))
+	vars.Set("DisplayTorrent", func(t model.Torrent, u *model.User) bool {
+		return ((!t.Hidden && t.Status != 0) || userPermission.CurrentOrAdmin(u, t.UploaderID))
 	})
 	vars.Set("NoEncode", func(str string) template.HTML {
 		return template.HTML(str)

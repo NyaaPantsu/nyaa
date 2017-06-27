@@ -1,3 +1,5 @@
+{{import "helpers/errors"}}
+{{import "helpers/infos"}}
 <!DOCTYPE html>
 <html lang="{{  T("language_code") }}">
   	<head>
@@ -7,7 +9,7 @@
 		<meta name="keywords" content="torrents, pantsu, anime, manga, sukebei, nyaapassu, horriblesubs, nyaa, hentai, dlsite">
 		<meta name="description" content='The leading open-source community-based nyaa.se successor, suitable for all anime and manga needs. にゃんぱす~!'>
 			<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-			<title>{{if Sukebei()}}Sukebei{{else}}Nyaa{{end}} Pantsu - {{yield title()}}</title>
+			<title>{{if Sukebei()}}Sukebei{{else}}Nyaa{{end}} Pantsu{{block titleBase()}}{{end}}</title>
 		<!-- Flavicons and icons -->
 		<link rel="icon" type="image/png" href="/img/favicon.png" />
 		<link rel="shortcut icon" type="image/png" href="/img/favicon.png">
@@ -44,6 +46,8 @@
 		</nav>
 		<div id="content" class="{{ block contclass() }}{{end}}">
 			<div class="content container center">
+				{{ yield infos()}}
+				{{ yield errors()}}
 				{{ yield content_body() }}
 			</div>
 			{{ block mascot() }}

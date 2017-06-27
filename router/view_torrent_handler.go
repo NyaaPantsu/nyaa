@@ -60,7 +60,7 @@ func ViewHandler(c *gin.Context) {
 
 // ViewHeadHandler : Controller for checking a torrent
 func ViewHeadHandler(c *gin.Context) {
-	id, err := strconv.ParseInt(c.Query("id"), 10, 32)
+	id, err := strconv.ParseInt(c.Param("id"), 10, 32)
 	if err != nil {
 		return
 	}
@@ -77,7 +77,7 @@ func ViewHeadHandler(c *gin.Context) {
 
 // PostCommentHandler : Controller for posting a comment
 func PostCommentHandler(c *gin.Context) {
-	id := c.Query("id")
+	id := c.Param("id")
 
 	torrent, err := torrentService.GetTorrentByID(id)
 	if err != nil {
@@ -112,7 +112,7 @@ func PostCommentHandler(c *gin.Context) {
 		}
 		comment.Torrent = &torrent
 
-		url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10) + "/" + torrent.Name
+		url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
 		torrent.Uploader.ParseSettings()
 		if torrent.Uploader.Settings.Get("new_comment") {
 			T, _, _ := publicSettings.TfuncAndLanguageWithFallback(torrent.Uploader.Language, torrent.Uploader.Language) // We need to send the notification to every user in their language
@@ -128,7 +128,7 @@ func PostCommentHandler(c *gin.Context) {
 
 // ReportTorrentHandler : Controller for sending a torrent report
 func ReportTorrentHandler(c *gin.Context) {
-	id := c.Query("id")
+	id := c.Param("id")
 	messages := msg.GetMessages(c)
 	currentUser := getUser(c)
 	if userPermission.NeedsCaptcha(currentUser) {
@@ -171,7 +171,7 @@ func TorrentEditUserPanel(c *gin.Context) {
 		uploadForm.Description = string(torrent.Description)
 		uploadForm.Hidden = torrent.Hidden
 		uploadForm.Language = torrent.Language
-		formTemplate(c, "user/torrent_edit.jet.html", uploadForm)
+		formTemplate(c, "site/torrents/edit.jet.html", uploadForm)
 	} else {
 		NotFoundHandler(c)
 	}
@@ -208,7 +208,7 @@ func TorrentPostEditUserPanel(c *gin.Context) {
 			db.ORM.Model(&torrent).UpdateColumn(&torrent)
 			messages.AddInfoT("infos", "torrent_updated")
 		}
-		formTemplate(c, "user/torren_edit.jet.html", uploadForm)
+		formTemplate(c, "site/torrents/edit.jet.html", uploadForm)
 	} else {
 		NotFoundHandler(c)
 	}
@@ -243,7 +243,7 @@ func TorrentDeleteUserPanel(c *gin.Context) {
 
 // DownloadTorrent : Controller for downloading a torrent
 func DownloadTorrent(c *gin.Context) {
-	hash := c.Query("hash")
+	hash := c.Param("hash")
 
 	if hash == "" && len(config.Conf.Torrents.FileStorage) == 0 {
 		//File not found, send 404

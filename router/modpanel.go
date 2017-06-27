@@ -123,7 +123,7 @@ func IndexModPanel(c *gin.Context) {
 
 // TorrentsListPanel : Controller for listing torrents, can accept common search arguments
 func TorrentsListPanel(c *gin.Context) {
-	page := c.Query("page")
+	page := c.Param("page")
 	messages := msg.GetMessages(c)
 	deleted := c.Request.URL.Query()["deleted"]
 	unblocked := c.Request.URL.Query()["unblocked"]
@@ -169,7 +169,7 @@ func TorrentsListPanel(c *gin.Context) {
 
 // TorrentReportListPanel : Controller for listing torrent reports, can accept pages
 func TorrentReportListPanel(c *gin.Context) {
-	page := c.Query("page")
+	page := c.Param("page")
 	pagenum := 1
 	offset := 100
 	var err error
@@ -191,7 +191,7 @@ func TorrentReportListPanel(c *gin.Context) {
 
 // UsersListPanel : Controller for listing users, can accept pages
 func UsersListPanel(c *gin.Context) {
-	page := c.Query("page")
+	page := c.Param("page")
 	pagenum := 1
 	offset := 100
 	var err error
@@ -211,7 +211,7 @@ func UsersListPanel(c *gin.Context) {
 
 // CommentsListPanel : Controller for listing comments, can accept pages and userID
 func CommentsListPanel(c *gin.Context) {
-	page := c.Query("page")
+	page := c.Param("page")
 	pagenum := 1
 	offset := 100
 	userid := c.Query("userid")
@@ -407,7 +407,7 @@ func APIMassMod(c *gin.Context) {
 
 // DeletedTorrentsModPanel : Controller for viewing deleted torrents, accept common search arguments
 func DeletedTorrentsModPanel(c *gin.Context) {
-	page := c.Query("page")
+	page := c.Param("page")
 	messages := msg.GetMessages(c) // new util for errors and infos
 	deleted := c.Request.URL.Query()["deleted"]
 	unblocked := c.Request.URL.Query()["unblocked"]

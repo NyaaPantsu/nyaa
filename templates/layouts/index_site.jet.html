@@ -3,5 +3,7 @@
 
 {* We apply the menu in the base template *}
 {{ block menu()}}
-{{include "partials/menu_site"}}
+{{include "partials/menu/site"}}
 {{end}}
+
+{{block titleBase()}} - {{block title()}}{{end}}{{end}}

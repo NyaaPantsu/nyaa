@@ -106,7 +106,7 @@ func UploadPostHandler(c *gin.Context) {
 			}
 		}
 
-		url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10) + "/" + torrent.Name
+		url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
 		c.Redirect(302, url+"?success")
 	}
 }
@@ -121,5 +121,5 @@ func UploadGetHandler(c *gin.Context) {
 	} else {
 		uploadForm.CaptchaID = ""
 	}
-	formTemplate(c, "upload.jet.html", uploadForm)
+	formTemplate(c, "site/torrents/upload.jet.html", uploadForm)
 }

@@ -2,6 +2,7 @@ package router
 
 import (
 	"net/http"
+	"path"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/model"
@@ -22,6 +23,12 @@ var TemplateDir = "templates" // FIXME: Need to be a constant!
 
 // ModeratorDir : Variable to the admin template sub directory
 const ModeratorDir = "admin"
+
+// SiteDir : Variable pointing to the site page templates
+const SiteDir = "site"
+
+// ErrorsDir : Variable pointing to the errors page templates
+const ErrorsDir = "errors"
 
 // View : Jet Template Renderer
 var View = jet.NewHTMLSet("./templates")
@@ -68,7 +75,6 @@ func newPanelCommonVariables(c *gin.Context) jet.VarMap {
 func renderTemplate(c *gin.Context, templateName string, vars jet.VarMap) {
 	t, err := View.GetTemplate(templateName)
 	if err != nil {
-		fmt.Println("404")
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
@@ -81,10 +87,11 @@ func renderTemplate(c *gin.Context, templateName string, vars jet.VarMap) {
 func httpError(c *gin.Context, errorCode int) {
 	if errorCode == http.StatusNotFound {
 		c.Status(http.StatusNotFound)
-		staticTemplate(c, "404.jet.html")
+		staticTemplate(c, path.Join(ErrorsDir, "404.jet.html"))
 		return
 	}
-	c.Status(errorCode)
+	c.AbortWithStatus(errorCode)
+	return
 }
 
 func staticTemplate(c *gin.Context, templateName string) {
@@ -126,7 +133,7 @@ func torrentTemplate(c *gin.Context, torrent model.TorrentJSON, rootFolder *file
 	vars.Set("Torrent", torrent)
 	vars.Set("RootFolder", rootFolder)
 	vars.Set("CaptchaID", captchaID)
-	renderTemplate(c, "view.jet.html", vars)
+	renderTemplate(c, path.Join(SiteDir, "torrents/view.jet.html"), vars)
 }
 
 func userProfileEditTemplate(c *gin.Context, userProfile *model.User, userForm userForms.UserForm, languages map[string]string) {
@@ -134,25 +141,31 @@ func userProfileEditTemplate(c *gin.Context, userProfile *model.User, userForm u
 	vars.Set("UserProfile", userProfile)
 	vars.Set("UserForm", userForm)
 	vars.Set("Languages", languages)
-	renderTemplate(c, "user/profile_edit.jet.html", vars)
+	renderTemplate(c, path.Join(SiteDir, "user/edit.jet.html"), vars)
 }
 
 func userProfileTemplate(c *gin.Context, userProfile *model.User) {
 	vars := commonVars(c)
 	vars.Set("UserProfile", userProfile)
-	renderTemplate(c, "user/profile.jet.html", vars)
+	renderTemplate(c, path.Join(SiteDir, "user/torrents.jet.html"), vars)
+}
+
+func userProfileNotificationsTemplate(c *gin.Context, userProfile *model.User) {
+	vars := commonVars(c)
+	vars.Set("UserProfile", userProfile)
+	renderTemplate(c, path.Join(SiteDir, "user/notifications.jet.html"), vars)
 }
 func databaseDumpTemplate(c *gin.Context, listDumps []model.DatabaseDumpJSON, GPGLink string) {
 	vars := commonVars(c)
 	vars.Set("ListDumps", listDumps)
 	vars.Set("GPGLink", GPGLink)
-	renderTemplate(c, "dumps.jet.html", vars)
+	renderTemplate(c, path.Join(SiteDir, "database/dumps.jet.html"), vars)
 }
 func changeLanguageTemplate(c *gin.Context, language string, languages map[string]string) {
 	vars := commonVars(c)
 	vars.Set("Language", language)
 	vars.Set("Languages", languages)
-	renderTemplate(c, "user/public_settings.jet.html", vars)
+	renderTemplate(c, path.Join(SiteDir, "user/public/settings.jet.html"), vars)
 }
 
 func panelAdminTemplate(c *gin.Context, torrent []model.Torrent, reports []model.TorrentReportJSON, users []model.User, comments []model.Comment) {
@@ -161,7 +174,7 @@ func panelAdminTemplate(c *gin.Context, torrent []model.Torrent, reports []model
 	vars.Set("TorrentReports", reports)
 	vars.Set("Users", users)
 	vars.Set("Comments", comments)
-	renderTemplate(c, "admin/index.jet.html", vars)
+	renderTemplate(c, path.Join(ModeratorDir, "index.jet.html"), vars)
 }
 
 func isAdminTemplate(templateName string) bool {

@@ -351,8 +351,8 @@ func RSSTorznabHandler(c *gin.Context) {
 }
 
 func getTorrentList(c *gin.Context) (torrents []model.Torrent, createdAsTime time.Time, title string, err error) {
-	page := c.Query("page")
-	userID := c.Query("id")
+	page := c.Param("page")
+	userID := c.Param("id")
 	cat := c.Query("cat")
 	offset := 0
 	if c.Query("offset") != "" {

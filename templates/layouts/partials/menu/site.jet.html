@@ -1,4 +1,4 @@
-{{ import "search" }}
+{{ import "layouts/partials/helpers/search" }}
 {{ block rss_link()}}{{end}}
 <div class="container">
     <div class="h-left">
@@ -17,7 +17,7 @@
             </div>
     </div>
     <div class="h-right">
-        {{ include "badgemenu" }}
+        {{ include "layouts/partials/helpers/badgemenu" }}
         <div class="h-search">
         <form role="search" action="{{URL.Parse("/search")}}" method="get">
             {{ yield search_common() }}

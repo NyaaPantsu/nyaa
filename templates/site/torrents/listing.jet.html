@@ -1,5 +1,5 @@
 {{ extends "layouts/index_site" }}
-{{ import "layouts/partials/search" }}
+{{ import "layouts/partials/helpers/search" }}
 {{block title()}}{{ T("home")}}{{end}}
 {{block contclass()}}{{if HasAdmin(User) }}content-admin{{end}}{{end}}
 {{block additional_header()}}
