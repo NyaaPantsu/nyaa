@@ -91,6 +91,13 @@ type uploadedFile struct {
 	Filesize int64    `json:"filesize"`
 }
 
+// APIResultJSON for torrents in json for api
+type APIResultJSON struct {
+	Torrents         []TorrentJSON `json:"torrents"`
+	QueryRecordCount int           `json:"queryRecordCount"`
+	TotalRecordCount int           `json:"totalRecordCount"`
+}
+
 // TorrentRequest struct
 // Same json name as the constant!
 type TorrentRequest struct {

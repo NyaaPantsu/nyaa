@@ -1508,6 +1508,18 @@
     "translation": "Uploads are disabled"
   },
   {
+    "id": "try_to_delete_report_inexistant",
+    "translation": "Trying to delete a torrent report that does not exists"
+  },
+  {
+    "id": "torrent_report_not_created",
+    "translation": "TorrentReport was not created"
+  },
+  {
+    "id": "user_not_deleted",
+    "translation": "User wasn't deleted"
+  },
+  {
     "id": "error_content_type_post",
     "translation": "Please provide either of Content-Type: application/json header or multipart/form-data"
   }
