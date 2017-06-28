@@ -1430,5 +1430,85 @@
   {
     "id": "optional",
     "translation": "Optional"
+  },
+  {
+    "id": "username_taken",
+    "translation": "Username already taken, you can choose: %s"
+  },
+  {
+    "id": "email_in_db",
+    "translation": "Email address already in database"
+  },
+  {
+    "id": "user_not_found",
+    "translation": "User not found"
+  },
+  {
+    "id": "incorrect_password",
+    "translation": "Password Incorrect"
+  },
+  {
+    "id": "password_error_generating",
+    "translation": "Error when generating your password hash"
+  },
+  {
+    "id": "permission_delete_error",
+    "translation": "You don't have the right to delete this"
+  },
+  {
+    "id": "no_username_password",
+    "translation": "No username/password entered"
+  },
+  {
+    "id":"account_banned",
+    "translation": "Account banned"
+  },
+  {
+    "id": "account_need_activation",
+    "translation": "This account needs activation from Moderators, please contact us"
+  },
+  {
+    "id": "retrieve_torrent_error",
+    "translation": "Couldn't retrieve torrents"
+  },
+  {
+    "id": "multiple_username_error",
+    "translation": "More than one username given"
+  },
+  {
+    "id": "elevating_user_error",
+    "translation": "Elevating status to moderator is prohibited"
+  },
+  {
+    "id": "parse_error_line",
+    "translation": "Couldn't parse on line %d"
+  },
+  {
+    "id": "language_not_available",
+    "translation": "Language not available"
+  },
+  {
+    "id": "mascot_url_too_long",
+    "translation": "Mascot URL is too long (max is 255 chars)"
+  },
+  {
+    "id": "mascor_url_parse_error",
+    "translation": "Error occurred when parsing mascot URL: %s"
+  },
+  {
+    "id": "no_id_given",
+    "translation": "No torrent ID given"
+  },
+  {
+    "id": "error_api_token",
+    "translation": "Error API token doesn't exist"
+  },
+  {
+    "id": "uploads_disabled",
+    "translation": "Uploads are disabled"
+  },
+  {
+    "id": "error_content_type_post",
+    "translation": "Please provide either of Content-Type: application/json header or multipart/form-data"
   }
 ]

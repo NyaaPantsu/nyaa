@@ -644,7 +644,7 @@ input.filelist-checkbox:checked + table.table-filelist {
 	position: fixed;
     top: 65px;
     padding: 5px 10px;
-    max-width: 1360px;
+    max-width: 1060px;
     width: 100%;
     background: #e6eff4;
     border: 1px solid #cbbdd7;

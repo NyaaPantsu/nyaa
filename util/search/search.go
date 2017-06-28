@@ -1,7 +1,6 @@
 package search
 
 import (
-	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -15,6 +14,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/service"
 	"github.com/NyaaPantsu/nyaa/service/torrent"
 	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/gin-gonic/gin"
 )
 
 var searchOperator string
@@ -45,32 +45,32 @@ func stringIsASCII(input string) bool {
 }
 
 // SearchByQuery : search torrents according to request without user
-func SearchByQuery(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
-	search, tor, count, err = searchByQuery(r, pagenum, true, false, false, false)
+func SearchByQuery(c *gin.Context, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
+	search, tor, count, err = searchByQuery(c, pagenum, true, false, false, false)
 	return
 }
 
 // SearchByQueryWithUser : search torrents according to request with user
-func SearchByQueryWithUser(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
-	search, tor, count, err = searchByQuery(r, pagenum, true, true, false, false)
+func SearchByQueryWithUser(c *gin.Context, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
+	search, tor, count, err = searchByQuery(c, pagenum, true, true, false, false)
 	return
 }
 
 // SearchByQueryNoCount : search torrents according to request without user and count
-func SearchByQueryNoCount(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, err error) {
-	search, tor, _, err = searchByQuery(r, pagenum, false, false, false, false)
+func SearchByQueryNoCount(c *gin.Context, pagenum int) (search common.SearchParam, tor []model.Torrent, err error) {
+	search, tor, _, err = searchByQuery(c, pagenum, false, false, false, false)
 	return
 }
 
 // SearchByQueryDeleted : search deleted torrents according to request with user and count
-func SearchByQueryDeleted(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
-	search, tor, count, err = searchByQuery(r, pagenum, true, true, true, false)
+func SearchByQueryDeleted(c *gin.Context, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
+	search, tor, count, err = searchByQuery(c, pagenum, true, true, true, false)
 	return
 }
 
 // SearchByQueryNoHidden : search torrents and filter those hidden
-func SearchByQueryNoHidden(r *http.Request, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
-	search, tor, count, err = searchByQuery(r, pagenum, true, false, false, true)
+func SearchByQueryNoHidden(c *gin.Context, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
+	search, tor, count, err = searchByQuery(c, pagenum, true, false, false, true)
 	return
 }
 
@@ -79,12 +79,12 @@ func SearchByQueryNoHidden(r *http.Request, pagenum int) (search common.SearchPa
 // pagenum is extracted from request in .FromRequest()
 // elasticsearch always provide a count to how many hits
 // deleted is unused because es doesn't index deleted torrents
-func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (
+func searchByQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (
 	search common.SearchParam, tor []model.Torrent, count int, err error,
 ) {
 	if db.ElasticSearchClient != nil {
 		var torrentParam common.TorrentParam
-		torrentParam.FromRequest(r)
+		torrentParam.FromRequest(c)
 		torrentParam.Offset = uint32(pagenum)
 		torrentParam.Hidden = hidden
 		totalHits, torrents, err := torrentParam.Find(db.ElasticSearchClient)
@@ -112,13 +112,13 @@ func searchByQuery(r *http.Request, pagenum int, countAll bool, withUser bool, d
 	}
 	log.Errorf("Unable to create elasticsearch client: %s", err)
 	log.Errorf("Falling back to postgresql query")
-	return searchByQueryPostgres(r, pagenum, countAll, withUser, deleted, hidden)
+	return searchByQueryPostgres(c, pagenum, countAll, withUser, deleted, hidden)
 }
 
-func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (
+func searchByQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (
 	search common.SearchParam, tor []model.Torrent, count int, err error,
 ) {
-	max, err := strconv.ParseUint(r.URL.Query().Get("limit"), 10, 32)
+	max, err := strconv.ParseUint(c.DefaultQuery("limit", "50"), 10, 32)
 	if err != nil {
 		max = 50 // default Value maxPerPage
 	} else if max > 300 {
@@ -128,29 +128,29 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 
 	search.Page = pagenum
 	search.Hidden = hidden
-	search.Query = r.URL.Query().Get("q")
-	search.Language = r.URL.Query().Get("lang")
-	userID, _ := strconv.Atoi(r.URL.Query().Get("userID"))
+	search.Query = c.Query("q")
+	search.Language = c.Query("lang")
+	userID, _ := strconv.Atoi(c.Query("userID"))
 	search.UserID = uint(userID)
-	fromID, _ := strconv.Atoi(r.URL.Query().Get("fromID"))
+	fromID, _ := strconv.Atoi(c.Query("fromID"))
 	search.FromID = uint(fromID)
 
-	maxage, err := strconv.Atoi(r.URL.Query().Get("maxage"))
+	maxage, err := strconv.Atoi(c.Query("maxage"))
 	if err != nil {
-		if r.URL.Query().Get("toDate") != "" {
-			search.FromDate.Parse(r.URL.Query().Get("toDate"), r.URL.Query().Get("dateType"))
-			search.ToDate.Parse(r.URL.Query().Get("fromDate"), r.URL.Query().Get("dateType"))
+		if c.Query("toDate") != "" {
+			search.FromDate.Parse(c.Query("toDate"), c.Query("dateType"))
+			search.ToDate.Parse(c.Query("fromDate"), c.Query("dateType"))
 		} else {
-			search.FromDate.Parse(r.URL.Query().Get("fromDate"), r.URL.Query().Get("dateType"))
+			search.FromDate.Parse(c.Query("fromDate"), c.Query("dateType"))
 		}
 	} else {
 		search.FromDate = common.DateFilter(time.Now().AddDate(0, 0, -maxage).Format("2006-01-02"))
 	}
-	search.Category = common.ParseCategories(r.URL.Query().Get("c"))
-	search.Status.Parse(r.URL.Query().Get("s"))
-	search.Sort.Parse(r.URL.Query().Get("sort"))
-	search.MinSize.Parse(r.URL.Query().Get("minSize"), r.URL.Query().Get("sizeType"))
-	search.MaxSize.Parse(r.URL.Query().Get("maxSize"), r.URL.Query().Get("sizeType"))
+	search.Category = common.ParseCategories(c.Query("c"))
+	search.Status.Parse(c.Query("s"))
+	search.Sort.Parse(c.Query("sort"))
+	search.MinSize.Parse(c.Query("minSize"), c.Query("sizeType"))
+	search.MaxSize.Parse(c.Query("maxSize"), c.Query("sizeType"))
 
 	orderBy := search.Sort.ToDBField()
 	if search.Sort == common.Date {
@@ -159,7 +159,7 @@ func searchByQueryPostgres(r *http.Request, pagenum int, countAll bool, withUser
 
 	orderBy += " "
 
-	switch s := r.URL.Query().Get("order"); s {
+	switch s := c.Query("order"); s {
 	case "true":
 		search.Order = true
 		orderBy += "asc"

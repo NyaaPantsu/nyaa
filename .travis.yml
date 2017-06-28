@@ -11,7 +11,6 @@ before_install:
 before_script:
 - go vet
 - go test -v ./...
-- cd deploy/ansible/ && for playbook in *.yml; do ansible-playbook -i hosts $playbook --syntax-check; done && cd ../..
 install:
   # Add Godeps dependencies to GOPATH and PATH
   - export GOPATH="${TRAVIS_BUILD_DIR}/vendor:$GOPATH"

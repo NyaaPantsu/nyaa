@@ -14,6 +14,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/util/email"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/timeHelper"
+	"github.com/gin-gonic/gin"
 	"github.com/gorilla/securecookie"
 )
 
@@ -50,20 +51,20 @@ func SendVerificationToUser(user model.User, newEmail string) (int, error) {
 }
 
 // EmailVerification verifies the token used for email verification
-func EmailVerification(token string, w http.ResponseWriter) (int, error) {
+func EmailVerification(token string, c *gin.Context) (int, error) {
 	value := make(map[string]string)
 	err := verificationHandler.Decode("", token, &value)
 	if err != nil {
 		fmt.Printf("%+v\n", err)
-		return http.StatusForbidden, errors.New("Token is not valid")
+		return http.StatusForbidden, errors.New("token_valid")
 	}
 	timeInt, _ := strconv.ParseInt(value["t"], 10, 0)
 	if timeHelper.IsExpired(time.Unix(timeInt, 0)) {
-		return http.StatusForbidden, errors.New("Token has expired")
+		return http.StatusForbidden, errors.New("token_expired")
 	}
 	var user model.User
 	if db.ORM.Where("user_id = ?", value["u"]).First(&user).RecordNotFound() {
-		return http.StatusNotFound, errors.New("User is not found")
+		return http.StatusNotFound, errors.New("user_not_found")
 	}
 	user.Email = value["e"]
 	return UpdateUserCore(&user)

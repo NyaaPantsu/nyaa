@@ -5,6 +5,7 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
+	"github.com/asaskevich/govalidator"
 )
 
 // Regex by: Philippe Verdy (in a comment somewhere on a website) - Valid every email RFC valid
@@ -21,22 +22,17 @@ func EmailValidation(email string, mes *msg.Messages) bool {
 		mes.AddErrorT("email", "email_not_valid")
 		return false
 	}
-	mes.AddError("errors", "Regexp couldn't be parsed!")
+	mes.AddErrorT("email", "email_not_valid")
 	return false
 }
 
 // ValidateUsername : Check if a username is valid
 func ValidateUsername(username string, mes *msg.Messages) bool {
-	exp, errorRegex := regexp.Compile(usernameRegex)
-	if regexpCompiled := log.CheckError(errorRegex); regexpCompiled {
-		if exp.MatchString(username) {
-			mes.AddErrorT("username", "username_illegal")
-			return false
-		}
-		return true
+	if govalidator.IsAlpha(username) {
+		mes.AddErrorT("username", "username_illegal")
+		return false
 	}
-	mes.AddError("errors", "Regexp couldn't be parsed!")
-	return false
+	return true
 }
 
 // IsAgreed : Check if terms and conditions are valid
@@ -62,28 +58,28 @@ type LoginForm struct {
 
 // UserForm is used when updating a user.
 type UserForm struct {
-	Username        string `form:"username" needed:"true" len_min:"3" len_max:"20"`
-	Email           string `form:"email"`
-	Language        string `form:"language" default:"en-us"`
-	CurrentPassword string `form:"current_password" len_min:"6" len_max:"72" omit:"true"`
-	Password        string `form:"password" len_min:"6" len_max:"72" equalInput:"ConfirmPassword"`
-	ConfirmPassword string `form:"password_confirmation" hum_name:"Password Confirmation" omit:"true"`
-	Status          int    `form:"status" default:"0"`
-	Theme           string `form:"theme"`
+	Username        string `form:"username" json:"username" needed:"true" len_min:"3" len_max:"20"`
+	Email           string `form:"email" json:"email"`
+	Language        string `form:"language" json:"language" default:"en-us"`
+	CurrentPassword string `form:"current_password" json:"current_password" len_min:"6" len_max:"72" omit:"true"`
+	Password        string `form:"password" json:"password" len_min:"6" len_max:"72" equalInput:"ConfirmPassword"`
+	ConfirmPassword string `form:"password_confirmation" json:"password_confirmation" hum_name:"Password Confirmation" omit:"true"`
+	Status          int    `form:"status" json:"status" default:"0"`
+	Theme           string `form:"theme" json:"theme"`
 }
 
 // UserSettingsForm is used when updating a user.
 type UserSettingsForm struct {
-	NewTorrent        bool `form:"new_torrent" default:"true"`
-	NewTorrentEmail   bool `form:"new_torrent_email" default:"true"`
-	NewComment        bool `form:"new_comment" default:"true"`
-	NewCommentEmail   bool `form:"new_comment_email" default:"false"`
-	NewResponses      bool `form:"new_responses" default:"true"`
-	NewResponsesEmail bool `form:"new_responses_email" default:"false"`
-	NewFollower       bool `form:"new_follower" default:"true"`
-	NewFollowerEmail  bool `form:"new_follower_email" default:"true"`
-	Followed          bool `form:"followed" default:"false"`
-	FollowedEmail     bool `form:"followed_email" default:"false"`
+	NewTorrent        bool `form:"new_torrent" json:"new_torrent" default:"true"`
+	NewTorrentEmail   bool `form:"new_torrent_email" json:"new_torrent_email" default:"true"`
+	NewComment        bool `form:"new_comment" json:"new_comment" default:"true"`
+	NewCommentEmail   bool `form:"new_comment_email" json:"new_comment_email" default:"false"`
+	NewResponses      bool `form:"new_responses" json:"new_responses" default:"true"`
+	NewResponsesEmail bool `form:"new_responses_email" json:"new_responses_email" default:"false"`
+	NewFollower       bool `form:"new_follower" json:"new_follower" default:"true"`
+	NewFollowerEmail  bool `form:"new_follower_email" json:"new_follower_email" default:"true"`
+	Followed          bool `form:"followed" json:"followed" default:"false"`
+	FollowedEmail     bool `form:"followed_email" json:"followed_email" default:"false"`
 }
 
 // PasswordForm is used when updating a user password.
