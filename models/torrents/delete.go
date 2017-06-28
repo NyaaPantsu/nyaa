@@ -1,5 +1,12 @@
 package torrents
 
+import (
+	"errors"
+	"net/http"
+	"nyaa-master/util/log"
+
+	"github.com/NyaaPantsu/nyaa/models"
+)
 
 // DeleteTorrent : delete a torrent based on id
 func DeleteTorrent(id uint) (*models.Torrent, int, error) {
