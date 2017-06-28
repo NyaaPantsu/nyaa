@@ -3,6 +3,9 @@ package users
 import (
 	"errors"
 	"net/http"
+	"nyaa-master/util/log"
+
+	"github.com/NyaaPantsu/nyaa/models"
 )
 
 // FindOrCreateUser creates a user.
@@ -103,9 +106,9 @@ func FindByID(id string) (*models.User, int, error) {
 }
 
 // FindForAdmin retrieves a user for an administrator, preloads torrents.
-func FindForAdmin(id string) (models.User, int, error) {
-	var user models.User
-	if models.ORM.Preload("Notifications").Preload("Torrents").Last(&user, id).RecordNotFound() {
+func FindForAdmin(id string) (*models.User, int, error) {
+	var user = &models.User{}
+	if models.ORM.Preload("Notifications").Preload("Torrents").Last(user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("user_not_found")
 	}
 	var liked, likings []models.User

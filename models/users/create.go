@@ -1,8 +1,21 @@
 package users
 
+import (
+	"errors"
+	"net/http"
+	"nyaa-master/util/log"
+	"time"
+
+	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/util/crypto"
+	"github.com/dorajistyle/goyangi/util/modelHelper"
+	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
+)
+
 // CreateUserFromForm creates a user from a registration form.
 func CreateUserFromRequest(registrationForm *formStruct.RegistrationForm) (*models.User, error) {
-	var user &models.User{}
+	var user = &models.User{}
 	log.Debugf("registrationForm %+v\n", registrationForm)
 	modelHelper.AssignValue(&user, &registrationForm)
 	if user.Email == "" {

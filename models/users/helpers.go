@@ -1,7 +1,15 @@
 package users
 
 import (
+	"errors"
+	"net/http"
+	"nyaa-master/db"
+	"nyaa-master/util/log"
+	"strconv"
+
+	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/util/validator/user"
+	"golang.org/x/crypto/bcrypt"
 )
 
 // CheckEmail : check if email is in database
@@ -15,32 +23,36 @@ func CheckEmail(email string) bool {
 	return count != 0
 }
 
-func Exists(email string, pass string) (user *models.User, int, error) {
+// Exists : check if the users credentials match to a user in db
+func Exists(email string, pass string) (user *models.User, status int, err error) {
 	if email == "" || pass == "" {
 		return user, http.StatusNotFound, errors.New("no_username_password")
 	}
 
-	// search by email or username	
+	// search by email or username
 	if userValidator.EmailValidation(email) {
 		if db.ORM.Where("email = ?", email).First(user).RecordNotFound() {
-			return user, http.StatusNotFound, errors.New("user_not_found")
+			status, err = http.StatusNotFound, errors.New("user_not_found")
+			return
 		}
-	} else {
-		if db.ORM.Where("username = ?", email).First(user).RecordNotFound() {
-			return user, http.StatusNotFound, errors.New("user_not_found")
-		}
+	} else if db.ORM.Where("username = ?", email).First(user).RecordNotFound() {
+		status, err = ttp.StatusNotFound, errors.New("user_not_found")
+		return
 	}
-	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(pass))
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(pass))
 	if err != nil {
-		return user, http.StatusUnauthorized, errors.New("incorrect_password")
+		status, err = http.StatusUnauthorized, errors.New("incorrect_password")
+		return
 	}
 	if user.IsBanned() {
-		return user, http.StatusUnauthorized, errors.New("account_banned")
+		status, err = http.StatusUnauthorized, errors.New("account_banned")
+		return
 	}
 	if user.IsScraped() {
-		return user, http.StatusUnauthorized, errors.New("account_need_activation")
+		status, err = http.StatusUnauthorized, errors.New("account_need_activation")
+		return
 	}
-	return user, http.StatusOK, nil
+	status, err = http.StatusOK, nil
 }
 
 // SuggestUsername suggest user's name if user's name already occupied.
