@@ -1097,7 +1097,7 @@
   },
   {
     "id": "torrent_reports",
-    "translation": "Signalements de torrents"
+    "translation": "Signalements"
   },
   {
     "id": "show_mod_tools",
@@ -1209,7 +1209,7 @@
   },
   {
     "id": "owner_id_placeholder",
-    "translation": "Nouveau propriétaire"
+    "translation": "Nouv. propriétaire"
   },
   {
     "id": "no_owner_selected",
@@ -1345,7 +1345,7 @@
   },
   {
     "id": "torrent_reassign",
-    "translation": "Réassigner le torrent"
+    "translation": "Réassignation"
   },
   {
     "id": "reassign_warning",
