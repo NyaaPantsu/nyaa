@@ -6,7 +6,7 @@ import (
 	"net/url"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/models"
 )
 
 // CheckTrackers : Check if there is good trackers in torrent

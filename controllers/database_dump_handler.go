@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/NyaaPantsu/nyaa/util/metainfo"
 	"github.com/gin-gonic/gin"

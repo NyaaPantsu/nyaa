@@ -3,7 +3,7 @@ package models
 import (
 	"encoding/json"
 	"fmt"
-	"nyaa-master/util/log"
+	"github.com/NyaaPantsu/nyaa/util/log"
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"

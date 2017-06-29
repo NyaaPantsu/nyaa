@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
-	"nyaa-master/util/log"
 	"path/filepath"
 	"reflect"
 	"strconv"
@@ -19,6 +18,7 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/bradfitz/slice"
 )
 

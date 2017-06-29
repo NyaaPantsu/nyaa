@@ -5,8 +5,8 @@ import (
 	"path"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/model"
-	userForms "github.com/NyaaPantsu/nyaa/service/user/form"
+	"github.com/NyaaPantsu/nyaa/models"
+	userForms "github.com/NyaaPantsu/nyaa/util/cookies"
 	"github.com/NyaaPantsu/nyaa/util/filelist"
 	"github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"

@@ -10,7 +10,7 @@ import (
 	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/gin-gonic/gin"
 )

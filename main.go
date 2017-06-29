@@ -11,8 +11,7 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/controllers"
-	"github.com/NyaaPantsu/nyaa/db"
-	"github.com/NyaaPantsu/nyaa/service/user"
+	"github.com/NyaaPantsu/nyaa/util/cookies"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/search"

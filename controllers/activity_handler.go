@@ -6,8 +6,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/NyaaPantsu/nyaa/service/activity"
-	"github.com/NyaaPantsu/nyaa/service/user/permission"
+	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/models/activities"
+	"github.com/NyaaPantsu/nyaa/util/cookies"
 	"github.com/NyaaPantsu/nyaa/util/log"
 	"github.com/gin-gonic/gin"
 )

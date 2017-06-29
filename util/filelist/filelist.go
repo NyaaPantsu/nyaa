@@ -3,7 +3,7 @@ package filelist
 import (
 	"strings"
 
-	"github.com/NyaaPantsu/nyaa/model"
+	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/bradfitz/slice"
 )
 

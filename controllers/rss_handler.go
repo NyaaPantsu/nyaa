@@ -11,9 +11,9 @@ import (
 	"sort"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/model"
-	userService "github.com/NyaaPantsu/nyaa/service/user"
+	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/util/categories"
+	userService "github.com/NyaaPantsu/nyaa/util/cookies"
 	"github.com/NyaaPantsu/nyaa/util/feeds"
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
 	"github.com/NyaaPantsu/nyaa/util/search"

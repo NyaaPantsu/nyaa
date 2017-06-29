@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"github.com/NyaaPantsu/nyaa/common"
-	"github.com/NyaaPantsu/nyaa/model"
-	"github.com/NyaaPantsu/nyaa/service/user"
+	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/util/cookies"
 	"github.com/gin-gonic/gin"
 )
 
