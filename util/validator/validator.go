@@ -12,7 +12,7 @@ import (
 
 // ValidateForm : Check if a form is valid according to its tags
 func ValidateForm(form interface{}, mes *msg.Messages) {
-	result, err := govalidator.ValidateStruct(post)
+	result, err := govalidator.ValidateStruct(form)
 	if err != nil {
 		println("error: " + err.Error())
 	}
