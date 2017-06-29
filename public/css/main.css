@@ -325,7 +325,7 @@ th { border-bottom-width: 2px; }
 .pagination a:nth-last-child(2) li { border-radius: 0 3px 3px 0; border-right-width: 1px !important}
 
 
-#footer { width: 100%; bottom: 0; left: 0; margin-top: 40px; }
+#footer { width: 100%; bottom: 0; left: 0; }
 
 .footer {
 	text-align: center;
