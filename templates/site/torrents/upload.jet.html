@@ -46,7 +46,7 @@
 		<div name="language" class="form-input language">
 			{{ range _, language := GetTorrentLanguages() }}
 			<input type="checkbox" name="lang-{{ language }}" id="lang-{{ language }}">
-			<img src="img/blank.gif" alt="{{LanguageName(language, T)}}" class="flag flag-{{language}}" title="{{LanguageName(language, T)}}>
+			<label for="lang-{{ language }}" class="flag flag-{{ language }}" title="{{LanguageName(language, T)}}"></label>
 			{{ end }}
 		</div>
 		{{ yield errors(name="language")}}
