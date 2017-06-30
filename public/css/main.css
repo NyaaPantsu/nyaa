@@ -141,7 +141,7 @@ select.form-input {
 	height: auto;
 	border-radius: 5px;
 	background: hsl(193, 15%; 97%);
-	padding: 13px 20px 9px 28px;	
+	padding: 13px 20px 8px 28px;	
 }
 
 .language > input {
@@ -150,7 +150,7 @@ select.form-input {
 }
 
 .language > label {
-	margin: 0 10px 2px -1;
+	margin: 0 10px 2px 0;
 }
 
 .header .h-user {
