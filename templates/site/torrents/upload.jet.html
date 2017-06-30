@@ -2,6 +2,10 @@
 {{ import "layouts/partials/helpers/csrf" }}
 {{ import "layouts/partials/helpers/captcha" }}
 {{block title()}}{{ T("upload")}}{{end}}
+{{block additional_header()}}
+<link rel="stylesheet" href="/css/flags/flags.min.css">
+{{end}}
+
 {{block content_body()}}
 <div style="text-align: left;" class="box">
 	<form enctype="multipart/form-data" role="upload" method="POST">
@@ -39,6 +43,12 @@
 			</option>
 			{{ end }}
 		</select>
+		<div name="language" id="language">
+			{{ range _, language := GetTorrentLanguages() }}
+			<input type="checkbox" name="lang-{{ language }}" id="lang-{{ language }}">
+			<img src="img/blank.gif" alt="{{LanguageName(language, T)}}" class="flag flag-{{language}}" title="{{LanguageName(language, T)}}>
+			{{ end }}
+		</div>
 		{{ yield errors(name="language")}}
 
 		<p>
