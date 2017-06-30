@@ -144,6 +144,10 @@ select.form-input {
 	padding: 15px 21px 15px 21px;	
 }
 
+.language > img.flag {
+	margin: 0 10px 1px 0;
+}
+
 .header .h-user {
 	display: inline-block;
 	max-width: 160px;
