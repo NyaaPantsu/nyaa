@@ -137,15 +137,20 @@ select.form-input {
 }
 
 .form-input.language {
-	width: 53%;
+	width: 45%;
 	height: auto;
 	border-radius: 5px;
 	background: hsl(193, 15%; 97%);
-	padding: 15px 21px 15px 21px;	
+	padding: 13px 20px 9px 28px;	
 }
 
-.language > img.flag {
-	margin: 0 10px 1px 0;
+.language > input {
+	margin: 0 0 5px 0;
+	padding: 0;
+}
+
+.language > label {
+	margin: 0 10px 2px -1;
 }
 
 .header .h-user {
