@@ -136,6 +136,14 @@ select.form-input {
 	vertical-align: middle;
 }
 
+.form-input.language {
+	width: 53%;
+	height: auto;
+	border-radius: 5px;
+	background: hsl(193, 15%; 97%);
+	padding: 15px 21px 15px 21px;	
+}
+
 .header .h-user {
 	display: inline-block;
 	max-width: 160px;
