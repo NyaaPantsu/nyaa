@@ -1,6 +1,7 @@
 package messages
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/NyaaPantsu/nyaa/util/publicSettings"
@@ -35,57 +36,58 @@ func GetMessages(c *gin.Context) *Messages {
 }
 
 // AddError : Add an error in category name with message msg
-func (mes *Messages) AddError(name string, msg string) {
+func (mes *Messages) AddError(name string, msg string) error {
 	if mes.Errors == nil {
 		mes.Errors = make(map[string][]string)
 	}
 	mes.Errors[name] = append(mes.Errors[name], msg)
 	mes.setMessagesInContext()
+	return errors.New(msg)
 }
 
 // AddErrorf : Add an error in category name with message msg formatted with args
-func (mes *Messages) AddErrorf(name string, msg string, args ...interface{}) {
-	mes.AddError(name, fmt.Sprintf(msg, args...))
+func (mes *Messages) AddErrorf(name string, msg string, args ...interface{}) error {
+	return mes.AddError(name, fmt.Sprintf(msg, args...))
 }
 
 // AddErrorTf : Add an error in category name with translation string id formatted with args
-func (mes *Messages) AddErrorTf(name string, id string, args ...interface{}) {
-	mes.AddErrorf(name, mes.T(id), args...)
+func (mes *Messages) AddErrorTf(name string, id string, args ...interface{}) error {
+	return mes.AddErrorf(name, mes.T(id), args...)
 }
 
 // AddErrorT : Add an error in category name with translation string id
-func (mes *Messages) AddErrorT(name string, id string) {
-	mes.AddError(name, mes.T(id))
+func (mes *Messages) AddErrorT(name string, id string) error {
+	return mes.AddError(name, mes.T(id))
 }
 
 // ImportFromError : Add an error in category name with message msg imported from type error
-func (mes *Messages) ImportFromError(name string, err error) {
-	mes.AddError(name, err.Error())
+func (mes *Messages) ImportFromError(name string, err error) error {
+	return mes.AddError(name, err.Error())
 }
 
 // ImportFromErrorT : Add an error in category name with message msg imported from type error
-func (mes *Messages) ImportFromErrorT(name string, err error) {
-	mes.AddError(name, mes.T(err.Error()))
+func (mes *Messages) ImportFromErrorT(name string, err error) error {
+	return mes.AddError(name, mes.T(err.Error()))
 }
 
 // ImportFromErrorTf : Add an error in category name with message msg imported from type error
-func (mes *Messages) ImportFromErrorTf(name string, err error, args ...interface{}) {
-	mes.AddError(name, fmt.Sprintf(mes.T(err.Error()), args...))
+func (mes *Messages) ImportFromErrorTf(name string, err error, args ...interface{}) error {
+	return mes.AddError(name, fmt.Sprintf(mes.T(err.Error()), args...))
 }
 
 // ImportFromError : Aliases to import directly an error in "errors" map index
-func (mes *Messages) Error(err error) {
-	mes.ImportFromError("errors", err)
+func (mes *Messages) Error(err error) error {
+	return mes.ImportFromError("errors", err)
 }
 
 // ErrorT : Aliases to import directly an error in "errors" map index and translate the error
-func (mes *Messages) ErrorT(err error) {
-	mes.ImportFromErrorT("errors", err)
+func (mes *Messages) ErrorT(err error) error {
+	return mes.ImportFromErrorT("errors", err)
 }
 
 // ErrorTf : Aliases to import directly an error in "errors" map index and translate the error with args
-func (mes *Messages) ErrorTf(err error, args ...interface{}) {
-	mes.ImportFromErrorTf("errors", err)
+func (mes *Messages) ErrorTf(err error, args ...interface{}) error {
+	return mes.ImportFromErrorTf("errors", err)
 }
 
 // AddInfo : Add an info in category name with message msg

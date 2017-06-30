@@ -25,6 +25,8 @@ type TestForm struct {
 }
 
 func TestValidateForm(t *testing.T) {
+	t.Parallel()
+
 	req, err := http.NewRequest("GET", "/", nil)
 	if err != nil {
 		t.Fatal(err)
@@ -80,4 +82,62 @@ func TestValidateForm(t *testing.T) {
 		t.Errorf("Default value are assigned on int with non null value: %v", testform)
 	}
 	messages.ClearAllErrors()
+}
+func TestIsUTFLetterNumeric(t *testing.T) {
+	t.Parallel()
+
+	var tests = []struct {
+		param    string
+		expected bool
+	}{
+		{"\n", false},
+		{"\r", false},
+		{"Ⅸ", true},
+		{"", true},
+		{"   fooo   ", false},
+		{"abc!!!", false},
+		{"abc1", true},
+		{"abc〩", true},
+		{"abc", true},
+		{"소주", true},
+		{"ABC", true},
+		{"FoObAr", true},
+		{"소aBC", true},
+		{"소", true},
+		{"달기&Co.", false},
+		{"〩Hours", true},
+		{"\ufff0", false},
+		{"\u0070", true},  //UTF-8(ASCII): p
+		{"\u0026", false}, //UTF-8(ASCII): &
+		{"\u0030", true},  //UTF-8(ASCII): 0
+		{"123", true},
+		{"0123", true},
+		{"-00123", false},
+		{"0", true},
+		{"-0", false},
+		{"123.123", false},
+		{" ", false},
+		{".", false},
+		{"-1¾", false},
+		{"1¾", true},
+		{"〥〩", true},
+		{"모자", true},
+		{"ix", true},
+		{"۳۵۶۰", true},
+		{"1--", false},
+		{"1-1", false},
+		{"-", false},
+		{"--", false},
+		{"1++", false},
+		{"1+1", false},
+		{"+", false},
+		{"++", false},
+		{"+1", false},
+	}
+	for _, test := range tests {
+		actual := IsUTFLetterNumeric(test.param)
+		if actual != test.expected {
+			t.Errorf("Expected IsUTFLetterNumeric(%q) to be %v, got %v", test.param, test.expected, actual)
+		}
+	}
 }

@@ -4,7 +4,7 @@ import (
 	"regexp"
 
 	"github.com/NyaaPantsu/nyaa/util/log"
-	"github.com/asaskevich/govalidator"
+	"github.com/NyaaPantsu/nyaa/util/validator"
 )
 
 // Regex by: Philippe Verdy (in a comment somewhere on a website) - Valid every email RFC valid
@@ -25,7 +25,7 @@ func EmailValidation(email string) bool {
 
 // ValidateUsername : Check if a username is valid
 func ValidateUsername(username string) bool {
-	return govalidator.IsUTFLetterNumeric(username)
+	return validator.IsUTFLetterNumeric(username)
 }
 
 // IsAgreed : Check if terms and conditions are valid
