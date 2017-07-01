@@ -137,7 +137,7 @@ select.form-input {
 }
 
 .form-input.language {
-	width: 45.3%;
+	max-width: 469px;
 	height: auto;
 	border-radius: 5px;
 	background: hsl(193, 15%; 97%);
