@@ -34,15 +34,6 @@
 		{{ yield errors(name="c")}}
 
 		<h3>{{  T("torrent_language") }}</h3>
-		<select name="language" id="language" class="form-input up-input">
-			<option value="other" {{if Form.Language == "other"}}selected{{end}}>{{ T("select_a_torrent_language")}}</option>
-			<option value="multiple" {{if Form.Language == "multiple"}}selected{{end}}>{{ T("language_multiple_name")}}</option>
-			{{ range _, language := GetTorrentLanguages() }}
-			<option value="{{ language }}" {{if Form.Language == language}}selected{{end}}>
-				{{LanguageName(language, T)}}
-			</option>
-			{{ end }}
-		</select>
 		<div name="language" class="form-input language">
 			{{ range _, language := GetTorrentLanguages() }}
 			<input type="checkbox" name="lang-{{ language }}" id="lang-{{ language }}">
