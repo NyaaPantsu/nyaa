@@ -22,6 +22,7 @@ type TestForm struct {
 	DefaultVal  int    `validate:"default=3,required"`
 	ConfirmVal  string `validate:"eqfield=ConfirmeVal,min=7,max=8,required"`
 	ConfirmeVal string `validate:"required"`
+	Optional    string
 }
 
 func TestValidateForm(t *testing.T) {
@@ -39,10 +40,16 @@ func TestValidateForm(t *testing.T) {
 		t.Errorf("No errors when parsing empty invalid form: %v", testform)
 	}
 	messages.ClearAllErrors()
-	testform.DefaultVal, testform.ConfirmVal, testform.ConfirmeVal = 1, "testingl", "testingl"
+	testform.DefaultVal, testform.ConfirmVal, testform.ConfirmeVal, testform.Optional = 1, "testingl", "testingl", "test"
 	ValidateForm(&testform, messages)
 	if messages.HasErrors() {
 		t.Errorf("Errors when parsing valid form %v\n with errors %v", testform, messages.GetAllErrors())
+	}
+	messages.ClearAllErrors()
+	testform.Optional = ""
+	ValidateForm(&testform, messages)
+	if messages.HasErrors() {
+		t.Errorf("Errors when testing an empty optional field in form %v\n with errors %v", testform, messages.GetAllErrors())
 	}
 	messages.ClearAllErrors()
 	testform.ConfirmVal = "test"
