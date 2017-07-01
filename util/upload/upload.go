@@ -1,33 +1,20 @@
 package upload
 
 import (
-	"encoding/base32"
-	"encoding/hex"
-	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
-	"net/url"
 	"os"
 	"reflect"
-	"regexp"
-	"strconv"
 	"strings"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/service"
-	"github.com/NyaaPantsu/nyaa/util"
-	"github.com/NyaaPantsu/nyaa/util/categories"
-	"github.com/NyaaPantsu/nyaa/util/metainfo"
 	"github.com/NyaaPantsu/nyaa/util/sanitize"
-	"github.com/NyaaPantsu/nyaa/util/torrentLanguages"
-	"github.com/NyaaPantsu/nyaa/util/upload"
 	"github.com/NyaaPantsu/nyaa/util/validator/torrent"
 	"github.com/gin-gonic/gin"
-	"github.com/zeebo/bencode"
 )
 
 // form names
