@@ -9,6 +9,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/util/log"
 	msg "github.com/NyaaPantsu/nyaa/util/messages"
 	"github.com/go-playground/validator"
+	"strconv"
 )
 
 var validate *validator.Validate
@@ -16,6 +17,7 @@ var validate *validator.Validate
 func init() {
 	validate = validator.New()
 	validate.RegisterValidation("isutf", IsUTFLetterNumericValidator)
+	validate.RegisterValidation("default", DefaultValidator)
 }
 
 // ValidateForm : Check if a form is valid according to its tags
@@ -134,4 +136,32 @@ func IsUTFLetterNumeric(str string) bool {
 func IsUTFLetterNumericValidator(fl validator.FieldLevel) bool {
 	value := fl.Field().String() // value
 	return IsUTFLetterNumeric(value)
+}
+
+func DefaultValidator(fl validator.FieldLevel) bool {
+	switch fl.Field().Kind() {
+	case reflect.String:
+		if len(fl.Field().String()) == 0 {
+			fl.Field().SetString(fl.Param())
+		}
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		if fl.Field().Int() == 0 {
+			number, err := strconv.Atoi(fl.Param())
+			if err != nil {
+				fmt.Printf("Couldn't convert default value for field %s", fl.FieldName())
+				return false
+			}
+			fl.Field().SetInt(int64(number))
+		}
+	case reflect.Float32, reflect.Float64:
+		if fl.Field().Float() == 0 {
+			number, err := strconv.ParseFloat(fl.Param(), 64)
+			if err != nil {
+				fmt.Printf("Couldn't convert default value for field %s", fl.FieldName())
+				return false
+			}
+			fl.Field().SetFloat(number)
+		}
+	}
+	return true
 }

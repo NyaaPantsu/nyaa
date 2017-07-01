@@ -19,9 +19,9 @@ var _ = func() (_ struct{}) {
 }()
 
 type TestForm struct {
-	DefaultVal  int    `form:"default" default:"3" notnull:"true"`
-	ConfirmVal  string `form:"confirm" needed:"true" equalInput:"ConfirmeVal" len_min:"7" len_max:"8"`
-	ConfirmeVal string `form:"confirme" needed:"true"`
+	DefaultVal  int    `validate:"default=3,required"`
+	ConfirmVal  string `validate:"eqfield=ConfirmeVal,min=7,max=8,required"`
+	ConfirmeVal string `validate:"required"`
 }
 
 func TestValidateForm(t *testing.T) {
@@ -48,25 +48,25 @@ func TestValidateForm(t *testing.T) {
 	testform.ConfirmVal = "test"
 	testform.ConfirmeVal = "test"
 	ValidateForm(&testform, messages)
-	if len(messages.GetErrors("confirm")) == 0 {
+	if len(messages.GetErrors("ConfirmVal")) == 0 {
 		t.Errorf("No errors on minimal length test when parsing invalid form: %v", testform)
 	}
 	messages.ClearAllErrors()
 	testform.ConfirmVal, testform.ConfirmeVal = "testing", "testind"
 	ValidateForm(&testform, messages)
-	if len(messages.GetErrors("confirm")) == 0 {
+	if len(messages.GetErrors("ConfirmVal")) == 0 {
 		t.Errorf("No errors on equal test when parsing invalid form: %v", testform)
 	}
 	messages.ClearAllErrors()
 	testform.ConfirmVal, testform.ConfirmeVal = "", "testing"
 	ValidateForm(&testform, messages)
-	if len(messages.GetErrors("confirm")) == 0 {
+	if len(messages.GetErrors("ConfirmVal")) == 0 {
 		t.Errorf("No errors on needed test when parsing invalid form: %v", testform)
 	}
 	messages.ClearAllErrors()
 	testform.ConfirmVal, testform.ConfirmeVal = "azertyuid", "azertyuid"
 	ValidateForm(&testform, messages)
-	if len(messages.GetErrors("confirm")) == 0 {
+	if len(messages.GetErrors("ConfirmVal")) == 0 {
 		t.Errorf("No errors on maximal length test when parsing invalid form %v", testform)
 	}
 	messages.ClearAllErrors()
