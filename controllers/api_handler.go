@@ -75,8 +75,8 @@ func APIHandler(c *gin.Context) {
 			return
 		}
 
-		b := model.APIResultJSON{
-			Torrents: model.APITorrentsToJSON(torrents),
+		b := models.APIResultJSON{
+			Torrents: models.APITorrentsToJSON(torrents),
 		}
 		b.QueryRecordCount = req.MaxPerPage
 		b.TotalRecordCount = nbTorrents
@@ -157,18 +157,18 @@ func APIUploadHandler(c *gin.Context) {
 		}
 
 		if !messages.HasErrors() {
-			status := model.TorrentStatusNormal
+			status := models.TorrentStatusNormal
 			if upload.Remake { // overrides trusted
-				status = model.TorrentStatusRemake
+				status = models.TorrentStatusRemake
 			} else if user.IsTrusted() {
-				status = model.TorrentStatusTrusted
+				status = models.TorrentStatusTrusted
 			}
 			err = torrentService.ExistOrDelete(upload.Infohash, user)
 			if err != nil {
 				messages.Error(err)
 			}
 			if !messages.HasErrors() {
-				torrent := model.Torrent{
+				torrent := models.Torrent{
 					Name:        upload.Name,
 					Category:    upload.CategoryID,
 					SubCategory: upload.SubCategoryID,
@@ -198,7 +198,7 @@ func APIUploadHandler(c *gin.Context) {
 				// add filelist to files db, if we have one
 				if len(upload.FileList) > 0 {
 					for _, uploadedFile := range upload.FileList {
-						file := model.File{TorrentID: torrent.ID, Filesize: upload.Filesize}
+						file := models.File{TorrentID: torrent.ID, Filesize: upload.Filesize}
 						err := file.SetPath(uploadedFile.Path)
 						if err != nil {
 							c.AbortWithError(http.StatusBadRequest, err)
@@ -247,7 +247,7 @@ func APIUpdateHandler(c *gin.Context) {
 		messages.Error(err)
 	}
 	if !messages.HasErrors() {
-		torrent := model.Torrent{}
+		torrent := models.Torrent{}
 		db.ORM.Where("torrent_id = ?", c.PostForm("id")).First(&torrent)
 		if torrent.ID == 0 {
 			messages.Error(apiService.ErrTorrentID)
@@ -286,7 +286,7 @@ func APISearchHandler(c *gin.Context) {
 		return
 	}
 
-	b := model.APITorrentsToJSON(torrents)
+	b := models.APITorrentsToJSON(torrents)
 	c.JSON(http.StatusOK, b)
 }
 

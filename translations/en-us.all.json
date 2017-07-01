@@ -1686,5 +1686,57 @@
   {
     "id": "error_content_type_post",
     "translation": "Please provide either of Content-Type: application/json header or multipart/form-data"
+  },
+  {
+    "id": "torrent_name_invalid",
+    "translation": "Torrent name is invalid"
+  },
+  {
+    "id": "torrent_private",
+    "translation": "Torrent is private"
+  },
+  {
+    "id": "torrent_no_working_trackers",
+    "translation": "Torrent does not have any (working) trackers: <a href=\"/faq#trackers\">Trackers List</a>"
+  },
+  {
+    "id": "torrent_desc_invalid",
+    "translation": "Torrent description is invalid"
+  },
+  {
+    "id": "torrent_cat_invalid",
+    "translation": "Torrent category is invalid"
+  },
+  {
+    "id": "torrent_lang_invalid",
+    "translation": "Language sent is not yet supported! You can help supporting it by contributing in our github page"
+  },
+  {
+    "id": "torrent_cat_is_english",
+    "translation": "Torrent's category is for English translations, but language wasn't English. We changed it to english"
+  },
+  {
+    "id": "torrent_cat_not_english",
+    "translation": "Torrent's category is for non-English translations, but language selected is only English"
+  },
+  {
+    "id": "torrent_magnet_invalid",
+    "translation": "Magnet couldn't be parsed, please check it"
+  },
+  {
+    "id": "torrent_hash_invalid",
+    "translation": "Torrent hash is incorrect"
+  },
+  {
+    "id": "torrent_plus_magnet",
+    "translation": "Upload either a torrent file or magnet link, not both"
+  },
+  {
+    "id": "torrent_file_invalid",
+    "translation": "Torrent File is invalid"
+  },
+  {
+    "id": "torrent_uri_invalid",
+    "translation": "Website url or IRC link is invalid"
   }
 ]

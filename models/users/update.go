@@ -1,7 +1,7 @@
 package users
 
 // UpdateUserCore updates a user. (Applying the modifed data of user).
-func Update(user *model.User) (int, error) {
+func Update(user *models.User) (int, error) {
 	if user.Email == "" {
 		user.MD5 = ""
 	} else {
@@ -22,7 +22,7 @@ func Update(user *model.User) (int, error) {
 }
 
 // UpdateRawUser : Function to update a user without updating his associations model
-func UpdateRawUser(user *model.User) (int, error) {
+func UpdateRawUser(user *models.User) (int, error) {
 	user.UpdatedAt = time.Now()
 	err := db.ORM.Model(&user).UpdateColumn(&user).Error
 	if err != nil {

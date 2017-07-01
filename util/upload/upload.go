@@ -1,62 +1,216 @@
-package uploadService
+package upload
 
 import (
+	"encoding/base32"
+	"encoding/hex"
+	"errors"
+	"fmt"
+	"io"
+	"io/ioutil"
+	"mime/multipart"
+	"net/url"
+	"os"
+	"reflect"
+	"regexp"
+	"strconv"
 	"strings"
 
-	"net/url"
-
 	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/model"
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/service"
+	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/NyaaPantsu/nyaa/util/categories"
+	"github.com/NyaaPantsu/nyaa/util/metainfo"
+	"github.com/NyaaPantsu/nyaa/util/sanitize"
+	"github.com/NyaaPantsu/nyaa/util/torrentLanguages"
+	"github.com/NyaaPantsu/nyaa/util/upload"
+	"github.com/NyaaPantsu/nyaa/util/validator/torrent"
+	"github.com/gin-gonic/gin"
+	"github.com/zeebo/bencode"
 )
 
-// CheckTrackers : Check if there is good trackers in torrent
-func CheckTrackers(trackers []string) []string {
-	// TODO: move to runtime configuration
-	var deadTrackers = []string{ // substring matches!
-		"://open.nyaatorrents.info:6544",
-		"://tracker.openbittorrent.com:80",
-		"://tracker.publicbt.com:80",
-		"://stats.anisource.net:2710",
-		"://exodus.desync.com",
-		"://open.demonii.com:1337",
-		"://tracker.istole.it:80",
-		"://tracker.ccc.de:80",
-		"://bt2.careland.com.cn:6969",
-		"://announce.torrentsmd.com:8080",
-		"://open.demonii.com:1337",
-		"://tracker.btcake.com",
-		"://tracker.prq.to",
-		"://bt.rghost.net"}
+// form names
+const uploadFormTorrent = "torrent"
 
-	var trackerRet []string
-	for _, t := range trackers {
-		urlTracker, err := url.Parse(t)
-		if err == nil {
-			good := true
-			for _, check := range deadTrackers {
-				if strings.Contains(t, check) {
-					good = false
-					break // No need to continue the for loop
-				}
-			}
-			if good {
-				trackerRet = append(trackerRet, urlTracker.String())
-			}
-		}
-	}
-	return trackerRet
+type torrentsQuery struct {
+	Category    int `json:"category"`
+	SubCategory int `json:"sub_category"`
+	Status      int `json:"status"`
+	Uploader    int `json:"uploader"`
+	Downloads   int `json:"downloads"`
 }
 
-// IsUploadEnabled : Check if upload is enabled in config
-func IsUploadEnabled(u *model.User) bool {
-	if config.Conf.Torrents.UploadsDisabled {
-		if config.Conf.Torrents.AdminsAreStillAllowedTo && u.IsModerator() {
-			return true
+// TorrentsRequest struct
+type TorrentsRequest struct {
+	Query      torrentsQuery `json:"search"`
+	Page       int           `json:"page"`
+	MaxPerPage int           `json:"limit"`
+}
+
+// APIResultJSON for torrents in json for api
+type APIResultJSON struct {
+	Torrents         []models.TorrentJSON `json:"torrents"`
+	QueryRecordCount int                  `json:"queryRecordCount"`
+	TotalRecordCount int                  `json:"totalRecordCount"`
+}
+
+// ToParams : Convert a torrentsrequest to searchparams
+func (r *TorrentsRequest) ToParams() serviceBase.WhereParams {
+	res := serviceBase.WhereParams{}
+	conditions := ""
+	v := reflect.ValueOf(r.Query)
+
+	for i := 0; i < v.NumField(); i++ {
+		field := v.Field(i)
+		if field.Interface() != reflect.Zero(field.Type()).Interface() {
+			if i != 0 {
+				conditions += " AND "
+			}
+			conditions += v.Type().Field(i).Tag.Get("json") + " = ?"
+			res.Params = append(res.Params, field.Interface())
 		}
-		if config.Conf.Torrents.TrustedUsersAreStillAllowedTo && u.IsTrusted() {
-			return true
-		}
-		return false
 	}
-	return true
+	res.Conditions = conditions
+	return res
+}
+
+// ExtractEditInfo : takes an http request and computes all fields for this form
+func ExtractEditInfo(c *gin.Context, r *torrentValidator.TorrentRequest) error {
+	err := ExtractBasicValue(c, r)
+	if err != nil {
+		return err
+	}
+
+	err = r.ValidateName()
+	if err != nil {
+		return err
+	}
+
+	err = r.ExtractCategory()
+	if err != nil {
+		return err
+	}
+
+	err = r.ExtractLanguage()
+	return err
+}
+
+// ExtractBasicValue : takes an http request and computes all basic fields for this form
+func ExtractBasicValue(c *gin.Context, r *torrentValidator.TorrentRequest) error {
+	c.Bind(r)
+	// trim whitespace
+	r.Name = strings.TrimSpace(r.Name)
+	r.Description = sanitize.Sanitize(strings.TrimSpace(r.Description), "default")
+	r.WebsiteLink = strings.TrimSpace(r.WebsiteLink)
+	r.Magnet = strings.TrimSpace(r.Magnet)
+
+	// then actually check that we have everything we need
+
+	err := r.ValidateDescription()
+	if err != nil {
+		return err
+	}
+
+	err = r.ValidateWebsiteLink()
+	return err
+}
+
+// ExtractInfo : takes an http request and computes all fields for this form
+func ExtractInfo(c *gin.Context, r *torrentValidator.TorrentRequest) error {
+	err := ExtractBasicValue(c, r)
+	if err != nil {
+		return err
+	}
+
+	err = r.ExtractCategory()
+	if err != nil {
+		return err
+	}
+
+	err = r.ExtractLanguage()
+	if err != nil {
+		return err
+	}
+
+	tfile, err := r.ValidateMultipartUpload(c, uploadFormTorrent)
+	if err != nil {
+		return err
+	}
+
+	// We check name only here, reason: we can try to retrieve them from the torrent file
+	err = r.ValidateName()
+	if err != nil {
+		return err
+	}
+
+	// after data has been checked & extracted, write it to disk
+	if len(config.Conf.Torrents.FileStorage) > 0 {
+		err := writeTorrentToDisk(tfile, r.Infohash+".torrent", &r.Filepath)
+		if err != nil {
+			return err
+		}
+	} else {
+		r.Filepath = ""
+	}
+
+	return nil
+}
+
+// UpdateTorrent : Update torrent model
+//rewrite with reflect ?
+func UpdateTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, currentUser *models.User) {
+	if r.Update.Name != "" {
+		t.Name = r.Update.Name
+	}
+	if r.Update.Infohash != "" {
+		t.Hash = r.Update.Infohash
+	}
+	if r.Update.CategoryID != 0 {
+		t.Category = r.Update.CategoryID
+	}
+	if r.Update.SubCategoryID != 0 {
+		t.SubCategory = r.Update.SubCategoryID
+	}
+	if r.Update.Description != "" {
+		t.Description = r.Update.Description
+	}
+	if r.Update.WebsiteLink != "" {
+		t.WebsiteLink = r.Update.WebsiteLink
+	}
+	status := models.TorrentStatusNormal
+	if r.Update.Remake { // overrides trusted
+		status = models.TorrentStatusRemake
+	} else if currentUser.IsTrusted() {
+		status = models.TorrentStatusTrusted
+	}
+	t.Status = status
+}
+
+func writeTorrentToDisk(file multipart.File, name string, fullpath *string) error {
+	_, seekErr := file.Seek(0, io.SeekStart)
+	if seekErr != nil {
+		return seekErr
+	}
+	b, err := ioutil.ReadAll(file)
+	if err != nil {
+		return err
+	}
+	*fullpath = fmt.Sprintf("%s%c%s", config.Conf.Torrents.FileStorage, os.PathSeparator, name)
+	return ioutil.WriteFile(*fullpath, b, 0644)
+}
+
+// NewTorrentRequest : creates a new torrent request struc with some default value
+func NewTorrentRequest(params ...string) (torrentRequest torrentValidator.TorrentRequest) {
+	if len(params) > 1 {
+		torrentRequest.Category = params[0]
+	} else {
+		torrentRequest.Category = "3_12"
+	}
+	if len(params) > 2 {
+		torrentRequest.Description = params[1]
+	} else {
+		torrentRequest.Description = "Description"
+	}
+	return
 }

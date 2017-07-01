@@ -10,25 +10,25 @@ import (
 // FileListFolder struct
 type FileListFolder struct {
 	Folders    []*FileListFolder
-	Files      []model.File
+	Files      []models.File
 	FolderName string
 }
 
 // FileListToFolder convert a filelist to filelistfolder
-func FileListToFolder(fileList []model.File, folderName string) (out *FileListFolder) {
+func FileListToFolder(fileList []models.File, folderName string) (out *FileListFolder) {
 	out = &FileListFolder{
 		Folders:    make([]*FileListFolder, 0),
-		Files:      make([]model.File, 0),
+		Files:      make([]models.File, 0),
 		FolderName: folderName,
 	}
 
-	pathsToFolders := make(map[string][]model.File)
+	pathsToFolders := make(map[string][]models.File)
 
 	for _, file := range fileList {
 		pathArray := file.Path()
 
 		if len(pathArray) > 1 {
-			pathStrippedFile := model.File{
+			pathStrippedFile := models.File{
 				ID:           file.ID,
 				TorrentID:    file.TorrentID,
 				BencodedPath: "",

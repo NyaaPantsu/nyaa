@@ -30,16 +30,16 @@ type UserForm struct {
 
 // UserSettingsForm is used when updating a user.
 type UserSettingsForm struct {
-	NewTorrent        bool `validate:"default=true" json:"new_torrent"`
-	NewTorrentEmail   bool `validate:"default=true" json:"new_torrent_email"`
-	NewComment        bool `validate:"default=true" json:"new_comment"`
-	NewCommentEmail   bool `validate:"default=false" json:"new_comment_email"`
-	NewResponses      bool `validate:"default=true" json:"new_responses"`
-	NewResponsesEmail bool `validate:"default=false" json:"new_responses_email"`
-	NewFollower       bool `validate:"default=true" json:"new_follower"`
-	NewFollowerEmail  bool `validate:"default=true" json:"new_follower_email"`
-	Followed          bool `validate:"default=false" json:"followed"`
-	FollowedEmail     bool `validate:"default=false" json:"followed_email"`
+	NewTorrent        bool `validate:json:"new_torrent"`
+	NewTorrentEmail   bool `validate:json:"new_torrent_email"`
+	NewComment        bool `validate:json:"new_comment"`
+	NewCommentEmail   bool `validate:json:"new_comment_email"`
+	NewResponses      bool `validate:json:"new_responses"`
+	NewResponsesEmail bool `validate:json:"new_responses_email"`
+	NewFollower       bool `validate:json:"new_follower"`
+	NewFollowerEmail  bool `validate:json:"new_follower_email"`
+	Followed          bool `validate:json:"followed"`
+	FollowedEmail     bool `validate:json:"followed_email"`
 }
 
 // PasswordForm is used when updating a user password.

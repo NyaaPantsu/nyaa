@@ -15,6 +15,9 @@ import (
 	"github.com/NyaaPantsu/nyaa/util/timeHelper"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/securecookie"
+	"github.com/NyaaPantsu/nyaa/models/users"
+	"os/user"
+	"github.com/NyaaPantsu/nyaa/models"
 )
 
 var verificationHandler = securecookie.New(config.EmailTokenHashKey, nil)
@@ -31,7 +34,7 @@ func SendEmailVerification(to string, token string) error {
 }
 
 // SendVerificationToUser sends an email verification token to user.
-func SendVerificationToUser(user model.User, newEmail string) (int, error) {
+func SendVerificationToUser(user models.User, newEmail string) (int, error) {
 	validUntil := timeHelper.TwentyFourHoursLater() // TODO: longer duration?
 	value := map[string]string{
 		"t": strconv.FormatInt(validUntil.Unix(), 10),

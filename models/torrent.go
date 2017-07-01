@@ -248,7 +248,7 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 	return torrent
 }
 
-// ToJSON converts a model.Torrent to its equivalent JSON structure
+// ToJSON converts a models.Torrent to its equivalent JSON structure
 func (t *Torrent) ToJSON() TorrentJSON {
 	var trackers []string
 	if t.Trackers == "" {

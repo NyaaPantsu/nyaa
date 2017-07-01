@@ -25,7 +25,7 @@ func DatabaseDumpHandler(c *gin.Context) {
 	// TODO Use config from cli
 	files, _ := filepath.Glob(filepath.Join(DatabaseDumpPath, "*.torrent"))
 
-	var dumpsJSON []model.DatabaseDumpJSON
+	var dumpsJSON []models.DatabaseDumpJSON
 	// TODO Filter *.torrent files
 	for _, f := range files {
 		// TODO Use config from cli
@@ -40,7 +40,7 @@ func DatabaseDumpHandler(c *gin.Context) {
 			fmt.Println(err)
 			continue
 		}
-		dump := model.DatabaseDump{
+		dump := models.DatabaseDump{
 			Date:        time.Now(),
 			Filesize:    int64(tf.TotalSize()),
 			Name:        tf.TorrentName(),

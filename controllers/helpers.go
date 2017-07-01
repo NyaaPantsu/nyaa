@@ -46,7 +46,7 @@ func newSearchForm(c *gin.Context) searchForm {
 		ToDate:           c.Query("toDate"),   // We need to overwrite the value here, since date are formatted
 	}
 }
-func getUser(c *gin.Context) *model.User {
+func getUser(c *gin.Context) *models.User {
 	user, _, _ := userService.RetrieveCurrentUser(c)
 	return &user
 }

@@ -128,7 +128,7 @@ func formTemplate(c *gin.Context, templateName string, form interface{}) {
 	renderTemplate(c, templateName, vars)
 }
 
-func torrentTemplate(c *gin.Context, torrent model.TorrentJSON, rootFolder *filelist.FileListFolder, captchaID string) {
+func torrentTemplate(c *gin.Context, torrent models.TorrentJSON, rootFolder *filelist.FileListFolder, captchaID string) {
 	vars := commonVars(c)
 	vars.Set("Torrent", torrent)
 	vars.Set("RootFolder", rootFolder)
@@ -136,7 +136,7 @@ func torrentTemplate(c *gin.Context, torrent model.TorrentJSON, rootFolder *file
 	renderTemplate(c, path.Join(SiteDir, "torrents/view.jet.html"), vars)
 }
 
-func userProfileEditTemplate(c *gin.Context, userProfile *model.User, userForm userForms.UserForm, languages map[string]string) {
+func userProfileEditTemplate(c *gin.Context, userProfile *models.User, userForm userForms.UserForm, languages map[string]string) {
 	vars := commonVars(c)
 	vars.Set("UserProfile", userProfile)
 	vars.Set("UserForm", userForm)
@@ -144,18 +144,18 @@ func userProfileEditTemplate(c *gin.Context, userProfile *model.User, userForm u
 	renderTemplate(c, path.Join(SiteDir, "user/edit.jet.html"), vars)
 }
 
-func userProfileTemplate(c *gin.Context, userProfile *model.User) {
+func userProfileTemplate(c *gin.Context, userProfile *models.User) {
 	vars := commonVars(c)
 	vars.Set("UserProfile", userProfile)
 	renderTemplate(c, path.Join(SiteDir, "user/torrents.jet.html"), vars)
 }
 
-func userProfileNotificationsTemplate(c *gin.Context, userProfile *model.User) {
+func userProfileNotificationsTemplate(c *gin.Context, userProfile *models.User) {
 	vars := commonVars(c)
 	vars.Set("UserProfile", userProfile)
 	renderTemplate(c, path.Join(SiteDir, "user/notifications.jet.html"), vars)
 }
-func databaseDumpTemplate(c *gin.Context, listDumps []model.DatabaseDumpJSON, GPGLink string) {
+func databaseDumpTemplate(c *gin.Context, listDumps []models.DatabaseDumpJSON, GPGLink string) {
 	vars := commonVars(c)
 	vars.Set("ListDumps", listDumps)
 	vars.Set("GPGLink", GPGLink)
@@ -168,7 +168,7 @@ func changeLanguageTemplate(c *gin.Context, language string, languages map[strin
 	renderTemplate(c, path.Join(SiteDir, "user/public/settings.jet.html"), vars)
 }
 
-func panelAdminTemplate(c *gin.Context, torrent []model.Torrent, reports []model.TorrentReportJSON, users []model.User, comments []model.Comment) {
+func panelAdminTemplate(c *gin.Context, torrent []models.Torrent, reports []models.TorrentReportJSON, users []models.User, comments []models.Comment) {
 	vars := newPanelCommonVariables(c)
 	vars.Set("Torrents", torrent)
 	vars.Set("TorrentReports", reports)

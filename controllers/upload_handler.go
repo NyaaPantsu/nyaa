@@ -52,11 +52,11 @@ func UploadPostHandler(c *gin.Context) {
 	if err != nil {
 		messages.AddError("errors", err.Error())
 	}
-	status := model.TorrentStatusNormal
+	status := models.TorrentStatusNormal
 	if uploadForm.Remake { // overrides trusted
-		status = model.TorrentStatusRemake
+		status = models.TorrentStatusRemake
 	} else if user.IsTrusted() {
-		status = model.TorrentStatusTrusted
+		status = models.TorrentStatusTrusted
 	}
 
 	err = torrentService.ExistOrDelete(uploadForm.Infohash, user)
@@ -66,7 +66,7 @@ func UploadPostHandler(c *gin.Context) {
 
 	if !messages.HasErrors() {
 		// add to db and redirect
-		torrent := model.Torrent{
+		torrent := models.Torrent{
 			Name:        uploadForm.Name,
 			Category:    uploadForm.CategoryID,
 			SubCategory: uploadForm.SubCategoryID,
@@ -96,7 +96,7 @@ func UploadPostHandler(c *gin.Context) {
 		// add filelist to files db, if we have one
 		if len(uploadForm.FileList) > 0 {
 			for _, uploadedFile := range uploadForm.FileList {
-				file := model.File{TorrentID: torrent.ID, Filesize: uploadedFile.Filesize}
+				file := models.File{TorrentID: torrent.ID, Filesize: uploadedFile.Filesize}
 				err := file.SetPath(uploadedFile.Path)
 				if err != nil {
 					messages.AddError("errors", err.Error())

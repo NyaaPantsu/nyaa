@@ -103,7 +103,7 @@ func PostCommentHandler(c *gin.Context) {
 	if !messages.HasErrors() {
 		userID := currentUser.ID
 
-		comment := model.Comment{TorrentID: torrent.ID, UserID: userID, Content: content, CreatedAt: time.Now()}
+		comment := models.Comment{TorrentID: torrent.ID, UserID: userID, Content: content, CreatedAt: time.Now()}
 		err := db.ORM.Create(&comment).Error
 		if err != nil {
 			messages.Error(err)
@@ -139,7 +139,7 @@ func ReportTorrentHandler(c *gin.Context) {
 		idNum, _ := strconv.Atoi(id)
 		userID := currentUser.ID
 
-		report := model.TorrentReport{
+		report := models.TorrentReport{
 			Description: c.PostForm("report_type"),
 			TorrentID:   uint(idNum),
 			UserID:      userID,
@@ -164,7 +164,7 @@ func TorrentEditUserPanel(c *gin.Context) {
 		uploadForm := apiService.NewTorrentRequest()
 		uploadForm.Name = torrent.Name
 		uploadForm.Category = strconv.Itoa(torrent.Category) + "_" + strconv.Itoa(torrent.SubCategory)
-		uploadForm.Remake = torrent.Status == model.TorrentStatusRemake
+		uploadForm.Remake = torrent.Status == models.TorrentStatusRemake
 		uploadForm.WebsiteLink = string(torrent.WebsiteLink)
 		uploadForm.Description = string(torrent.Description)
 		uploadForm.Hidden = torrent.Hidden
@@ -188,11 +188,11 @@ func TorrentPostEditUserPanel(c *gin.Context) {
 			messages.AddErrorT("errors", "fail_torrent_update")
 		}
 		if !messages.HasErrors() {
-			status := model.TorrentStatusNormal
+			status := models.TorrentStatusNormal
 			if uploadForm.Remake { // overrides trusted
-				status = model.TorrentStatusRemake
+				status = models.TorrentStatusRemake
 			} else if currentUser.IsTrusted() {
-				status = model.TorrentStatusTrusted
+				status = models.TorrentStatusTrusted
 			}
 			// update some (but not all!) values
 			torrent.Name = uploadForm.Name
@@ -222,9 +222,9 @@ func TorrentDeleteUserPanel(c *gin.Context) {
 		if err == nil {
 			_, username := torrentService.HideTorrentUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
 			if userPermission.HasAdmin(currentUser) { // We hide username on log activity if user is not admin and torrent is hidden
-				activity.Log(&model.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, currentUser.Username)
+				activity.Log(&models.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, currentUser.Username)
 			} else {
-				activity.Log(&model.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, username)
+				activity.Log(&models.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, username)
 			}
 			//delete reports of torrent
 			whereParams := serviceBase.CreateWhereParams("torrent_id = ?", id)

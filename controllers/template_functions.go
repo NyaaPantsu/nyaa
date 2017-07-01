@@ -151,7 +151,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("NeedsCaptcha", userPermission.NeedsCaptcha)
 	vars.Set("GetRole", userPermission.GetRole)
 	vars.Set("IsFollower", userPermission.IsFollower)
-	vars.Set("DisplayTorrent", func(t model.Torrent, u *model.User) bool {
+	vars.Set("DisplayTorrent", func(t models.Torrent, u *models.User) bool {
 		return ((!t.Hidden && t.Status != 0) || userPermission.CurrentOrAdmin(u, t.UploaderID))
 	})
 	vars.Set("NoEncode", func(str string) template.HTML {
@@ -242,7 +242,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 			IdentifierChain string
 		}{f, nestLevel, T, identifierChain}
 	})
-	vars.Set("lastID", func(currentUrl *url.URL, torrents []model.TorrentJSON) int {
+	vars.Set("lastID", func(currentUrl *url.URL, torrents []models.TorrentJSON) int {
 		values := currentUrl.Query()
 
 		order := false
@@ -285,7 +285,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 
 		return template.HTML("<a href=\"" + url + "\">" + username + "</a>")
 	})
-	vars.Set("genActivityContent", func(a model.Activity, T publicSettings.TemplateTfunc) template.HTML {
+	vars.Set("genActivityContent", func(a models.Activity, T publicSettings.TemplateTfunc) template.HTML {
 		return activity.ToLocale(&a, T)
 	})
 	return vars

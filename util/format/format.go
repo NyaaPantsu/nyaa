@@ -1,12 +1,12 @@
-package util
+package format
 
 import (
 	"fmt"
 	"net/url"
 )
 
-// FormatFilesize : format file size
-func FormatFilesize(bytes int64) string {
+// FileSize : format file size
+func FileSize(bytes int64) string {
 	var unit string
 	var value float64
 	if bytes >= 1024*1024*1024*1024 {

@@ -9,7 +9,7 @@ import (
 
 // TorrentReport model
 // User can be null (anonymous reports)
-// FIXME  can't preload field Torrents for model.TorrentReport
+// FIXME  can't preload field Torrents for models.TorrentReport
 type TorrentReport struct {
 	ID          uint   `gorm:"column:torrent_report_id;primary_key"`
 	Description string `gorm:"column:type"`

@@ -73,7 +73,7 @@ func UserProfileHandler(c *gin.Context) {
 			query.Set("userID", id)
 			query.Set("max", "16")
 			c.Request.URL.RawQuery = query.Encode()
-			var torrents []model.Torrent
+			var torrents []models.Torrent
 			var err error
 			if userPermission.CurrentOrAdmin(currentUser, userProfile.ID) {
 				_, torrents, _, err = search.SearchByQuery(c, 1)
@@ -257,7 +257,7 @@ func UserNotificationsHandler(c *gin.Context) {
 		if c.Request.URL.Query()["clear"] != nil {
 			notifierService.DeleteAllNotifications(currentUser.ID)
 			messages.AddInfoT("infos", "notifications_cleared")
-			currentUser.Notifications = []model.Notification{}
+			currentUser.Notifications = []models.Notification{}
 		}
 		userProfileNotificationsTemplate(c, currentUser)
 	} else {

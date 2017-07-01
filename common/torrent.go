@@ -192,7 +192,7 @@ func (p *TorrentParam) ToFilterQuery() string {
  * We decided to fetch only the ids from ES and then query these ids to the
  * database
  */
-func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, error) {
+func (p *TorrentParam) Find(client *elastic.Client) (int64, []models.Torrent, error) {
 	// TODO Why is it needed, what does it do ?
 	ctx := context.Background()
 
@@ -231,13 +231,13 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 	log.Infof("Query '%s' took %d milliseconds.", p.NameLike, result.TookInMillis)
 	log.Infof("Amount of results %d.", result.TotalHits())
 
-	torrents := make([]model.Torrent, len(result.Hits.Hits))
+	torrents := make([]models.Torrent, len(result.Hits.Hits))
 	if len(result.Hits.Hits) <= 0 {
 		return 0, nil, nil
 	}
 	for i, hit := range result.Hits.Hits {
 		// Deserialize hit.Source into a Tweet (could also be just a map[string]interface{}).
-		var tJson model.TorrentJSON
+		var tJson models.TorrentJSON
 		err := json.Unmarshal(*hit.Source, &tJson)
 		if err != nil {
 			log.Errorf("Cannot unmarshal elasticsearch torrent: %s", err)

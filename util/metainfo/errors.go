@@ -5,4 +5,4 @@ import (
 )
 
 // ErrInvalidTorrentFile : error for indicating we have an invalid torrent file
-var ErrInvalidTorrentFile = errors.New("invalid bittorrent file")
+var ErrInvalidTorrentFile = errors.New("torrent_file_invalid")

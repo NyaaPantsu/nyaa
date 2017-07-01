@@ -44,31 +44,31 @@ func stringIsASCII(input string) bool {
 }
 
 // SearchByQuery : search torrents according to request without user
-func SearchByQuery(c *gin.Context, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
+func SearchByQuery(c *gin.Context, pagenum int) (search common.SearchParam, tor []models.Torrent, count int, err error) {
 	search, tor, count, err = searchByQuery(c, pagenum, true, false, false, false)
 	return
 }
 
 // SearchByQueryWithUser : search torrents according to request with user
-func SearchByQueryWithUser(c *gin.Context, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
+func SearchByQueryWithUser(c *gin.Context, pagenum int) (search common.SearchParam, tor []models.Torrent, count int, err error) {
 	search, tor, count, err = searchByQuery(c, pagenum, true, true, false, false)
 	return
 }
 
 // SearchByQueryNoCount : search torrents according to request without user and count
-func SearchByQueryNoCount(c *gin.Context, pagenum int) (search common.SearchParam, tor []model.Torrent, err error) {
+func SearchByQueryNoCount(c *gin.Context, pagenum int) (search common.SearchParam, tor []models.Torrent, err error) {
 	search, tor, _, err = searchByQuery(c, pagenum, false, false, false, false)
 	return
 }
 
 // SearchByQueryDeleted : search deleted torrents according to request with user and count
-func SearchByQueryDeleted(c *gin.Context, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
+func SearchByQueryDeleted(c *gin.Context, pagenum int) (search common.SearchParam, tor []models.Torrent, count int, err error) {
 	search, tor, count, err = searchByQuery(c, pagenum, true, true, true, false)
 	return
 }
 
 // SearchByQueryNoHidden : search torrents and filter those hidden
-func SearchByQueryNoHidden(c *gin.Context, pagenum int) (search common.SearchParam, tor []model.Torrent, count int, err error) {
+func SearchByQueryNoHidden(c *gin.Context, pagenum int) (search common.SearchParam, tor []models.Torrent, count int, err error) {
 	search, tor, count, err = searchByQuery(c, pagenum, true, false, false, true)
 	return
 }
@@ -79,7 +79,7 @@ func SearchByQueryNoHidden(c *gin.Context, pagenum int) (search common.SearchPar
 // elasticsearch always provide a count to how many hits
 // deleted is unused because es doesn't index deleted torrents
 func searchByQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (
-	search common.SearchParam, tor []model.Torrent, count int, err error,
+	search common.SearchParam, tor []models.Torrent, count int, err error,
 ) {
 	if db.ElasticSearchClient != nil {
 		var torrentParam common.TorrentParam
@@ -115,7 +115,7 @@ func searchByQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, de
 }
 
 func searchByQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (
-	search common.SearchParam, tor []model.Torrent, count int, err error,
+	search common.SearchParam, tor []models.Torrent, count int, err error,
 ) {
 	max, err := strconv.ParseUint(c.DefaultQuery("limit", "50"), 10, 32)
 	if err != nil {

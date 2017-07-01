@@ -1,8 +1,8 @@
 package users
 
 // DeleteUser deletes a user.
-func DeleteUser(currentUser *model.User, id string) (int, error) {
-	var user model.User
+func DeleteUser(currentUser *models.User, id string) (int, error) {
+	var user models.User
 
 	if db.ORM.First(&user, id).RecordNotFound() {
 		return http.StatusNotFound, errors.New("user_not_found")

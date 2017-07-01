@@ -1,6 +1,15 @@
 package cookies
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"os/user"
+	"github.com/gorilla/securecookie"
+	"fmt"
+	"strconv"
+	"time"
+	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/models/users"
+)
 
 const (
 	// CookieName : Name of cookie
@@ -11,7 +20,9 @@ const (
 )
 // CreateUserAuthentication creates user authentication.
 func CreateUserAuthentication(c *gin.Context, form *formStruct.LoginForm) (int, error) {
-	user, status, err := api.CreateUserAuthentication(form)
+	username := form.Username
+	pass := form.Password
+	user, status, err := users.Exists(username, pass)
 	if err != nil {
 		return status, err
 	}
