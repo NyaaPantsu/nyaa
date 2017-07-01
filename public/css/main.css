@@ -476,6 +476,9 @@ html, body {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
+.torrent-info-data > img {
+	margin-right: 3px;	
+}
 .torrent-info-row {
 	text-align: left;
 }
