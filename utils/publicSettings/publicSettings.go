@@ -109,7 +109,7 @@ func GetDefaultTfunc() (i18n.TranslateFunc, error) {
 func GetTfuncAndLanguageFromRequest(c *gin.Context) (T i18n.TranslateFunc, Tlang *language.Language) {
 	userLanguage := ""
 	user, _ := getCurrentUser(c)
-	if user.ID > 0 {
+	if user != nil {
 		userLanguage = user.Language
 	}
 
@@ -136,7 +136,7 @@ func GetTfuncFromRequest(c *gin.Context) TemplateTfunc {
 // GetThemeFromRequest: Gets the user selected theme from the request
 func GetThemeFromRequest(c *gin.Context) string {
 	user, _ := getCurrentUser(c)
-	if user.ID > 0 {
+	if user != nil {
 		return user.Theme
 	}
 	cookie, err := c.Cookie("theme")
@@ -149,7 +149,7 @@ func GetThemeFromRequest(c *gin.Context) string {
 // GetThemeFromRequest: Gets the user selected theme from the request
 func GetMascotFromRequest(c *gin.Context) string {
 	user, _ := getCurrentUser(c)
-	if user.ID > 0 {
+	if user != nil {
 		return user.Mascot
 	}
 	cookie, err := c.Cookie("mascot")
@@ -163,7 +163,7 @@ func GetMascotFromRequest(c *gin.Context) string {
 // Returns an empty string if not set.
 func GetMascotUrlFromRequest(c *gin.Context) string {
 	user, _ := getCurrentUser(c)
-	if user.ID > 0 {
+	if user != nil {
 		return user.MascotURL
 	}
 
