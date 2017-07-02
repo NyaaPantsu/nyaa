@@ -6,7 +6,6 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
-	userForms "github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/NyaaPantsu/nyaa/utils/filelist"
 	"github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
@@ -16,6 +15,7 @@ import (
 	"fmt"
 
 	"github.com/CloudyKit/jet"
+	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 )
 
 // TemplateDir : Variable to the template directory
@@ -136,7 +136,7 @@ func torrentTemplate(c *gin.Context, torrent models.TorrentJSON, rootFolder *fil
 	renderTemplate(c, path.Join(SiteDir, "torrents/view.jet.html"), vars)
 }
 
-func userProfileEditTemplate(c *gin.Context, userProfile *models.User, userForm userForms.UserForm, languages map[string]string) {
+func userProfileEditTemplate(c *gin.Context, userProfile *models.User, userForm userValidator.UserForm, languages map[string]string) {
 	vars := commonVars(c)
 	vars.Set("UserProfile", userProfile)
 	vars.Set("UserForm", userForm)

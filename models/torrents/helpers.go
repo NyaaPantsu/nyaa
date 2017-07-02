@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"strconv"
 
+	"html/template"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/activities"
@@ -18,7 +20,7 @@ func ExistOrDelete(hash string, user *models.User) error {
 	models.ORM.Unscoped().Model(&models.Torrent{}).Where("torrent_hash = ?", hash).First(&torrentIndb)
 	if torrentIndb.ID > 0 {
 		if user.CurrentUserIdentical(torrentIndb.UploaderID) && torrentIndb.IsDeleted() && !torrentIndb.IsBlocked() { // if torrent is not locked and is deleted and the user is the actual owner
-			torrent, _, err := DefinitelyDelete(torrentIndb.ID)
+			torrent, _, err := torrentIndb.DefinitelyDelete()
 			if err != nil {
 				return err
 			}
@@ -46,4 +48,32 @@ func NewTorrentEvent(user *models.User, torrent *models.Torrent) error {
 		}
 	}
 	return nil
+}
+
+// HideUser : hides a torrent user for hidden torrents
+func HideUser(uploaderID uint, uploaderName string, torrentHidden bool) (uint, string) {
+	if torrentHidden {
+		return 0, "れんちょん"
+	}
+	if uploaderID == 0 {
+		return 0, uploaderName
+	}
+	return uploaderID, uploaderName
+}
+
+// APITorrentsToJSON : Map Torrents to TorrentsToJSON for API request without reallocations
+func APITorrentsToJSON(t []models.Torrent) []models.TorrentJSON {
+	json := make([]models.TorrentJSON, len(t))
+	for i := range t {
+		json[i] = t[i].ToJSON()
+		uploaderID, username := HideUser(json[i].UploaderID, string(json[i].UploaderName), json[i].Hidden)
+		json[i].UploaderName = template.HTML(username)
+		json[i].UploaderID = uploaderID
+	}
+	return json
+}
+
+// TorrentsToAPI : Map Torrents for API usage without reallocations
+func TorrentsToAPI(t []models.Torrent) []models.TorrentJSON {
+	return APITorrentsToJSON(t)
 }

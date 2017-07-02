@@ -984,6 +984,10 @@
     "translation": "Torrent has been erased from the database!"
   },
   {
+    "id": "torrent_not_deleted",
+    "translation": "Torrent was not deleted"
+  },
+  {
     "id": "torrent_unblocked",
     "translation": "Torrent has been unlocked!"
   },

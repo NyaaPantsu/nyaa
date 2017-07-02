@@ -3,9 +3,9 @@ package users
 import (
 	"errors"
 	"net/http"
-	"nyaa-master/util/log"
 
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/utils/log"
 )
 
 // FindOrCreateUser creates a user.
@@ -92,9 +92,9 @@ func FindOldUploadsByUsername(username string) ([]uint, error) {
 }
 
 // FindByID retrieves a user by ID.
-func FindByID(id string) (*models.User, int, error) {
-	var user models.User
-	if models.ORM.Preload("Notifications").Last(&user, id).RecordNotFound() {
+func FindByID(id uint) (*models.User, int, error) {
+	var user = &models.User{}
+	if models.ORM.Preload("Notifications").Last(user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("user_not_found")
 	}
 	var liked, likings []models.User
@@ -102,11 +102,18 @@ func FindByID(id string) (*models.User, int, error) {
 	models.ORM.Joins("JOIN user_follows on user_follows.following=?", user.ID).Where("users.user_id = user_follows.user_id").Group("users.user_id").Find(&liked)
 	user.Followers = likings
 	user.Likings = liked
-	return &user, http.StatusOK, nil
+	return user, http.StatusOK, nil
+}
+
+func SessionByID(id uint) (user *models.User, status int, err error) {
+	if models.ORM.Preload("Notifications").Where("user_id = ?", id).First(user).RecordNotFound() { // We only load unread notifications
+		status, err = http.StatusBadRequest, errors.New("user_not_found")
+	}
+	return
 }
 
 // FindForAdmin retrieves a user for an administrator, preloads torrents.
-func FindForAdmin(id string) (*models.User, int, error) {
+func FindForAdmin(id uint) (*models.User, int, error) {
 	var user = &models.User{}
 	if models.ORM.Preload("Notifications").Preload("Torrents").Last(user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("user_not_found")

@@ -3,21 +3,12 @@ package reports
 import (
 	"errors"
 	"net/http"
-	"nyaa-master/db"
 	"strconv"
 	"strings"
 
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 )
-
-// Create : Return torrentReport in case we did modified it (ie: CreatedAt field)
-func Create(torrentReport models.TorrentReport) error {
-	if models.ORM.Create(&torrentReport).Error != nil {
-		return errors.New("torrent_report_not_created")
-	}
-	return nil
-}
 
 // Delete : Delete a torrent report by id
 func Delete(id uint) (*models.TorrentReport, int, error) {
@@ -57,7 +48,7 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 	}
 	conditions := strings.Join(conditionArray, " AND ")
 	if countAll {
-		err = db.ORM.Model(&torrentReports).Where(conditions, params...).Count(&count).Error
+		err = models.ORM.Model(&torrentReports).Where(conditions, params...).Count(&count).Error
 		if err != nil {
 			return
 		}
@@ -76,7 +67,7 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 	if limit != 0 || offset != 0 { // if limits provided
 		dbQuery = dbQuery + " LIMIT " + strconv.Itoa(limit) + " OFFSET " + strconv.Itoa(offset)
 	}
-	err = db.ORM.Preload("Torrent").Preload("User").Raw(dbQuery, params...).Find(&torrentReports).Error
+	err = models.ORM.Preload("Torrent").Preload("User").Raw(dbQuery, params...).Find(&torrentReports).Error
 	return
 }
 

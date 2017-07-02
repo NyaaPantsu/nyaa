@@ -58,13 +58,13 @@ func ChangePublicSettingsHandler(c *gin.Context) {
 	}
 
 	// If logged in, update user settings.
-	user, _ := userService.CurrentUser(c)
+	user, _, _ := cookies.CurrentUser(c)
 	if user.ID > 0 {
 		user.Language = lang
 		user.Theme = theme
 		user.Mascot = mascot
 		user.MascotURL = mascotURL
-		userService.UpdateRawUser(&user)
+		user.UpdateRaw()
 	}
 	// Set cookie with http and not gin for expires (maxage not supported in <IE8)
 	http.SetCookie(c.Writer, &http.Cookie{Name: "lang", Value: lang, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})

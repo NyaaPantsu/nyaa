@@ -3,21 +3,23 @@ package users
 import (
 	"errors"
 	"net/http"
-	"nyaa-master/util/log"
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/crypto"
-	"github.com/dorajistyle/goyangi/util/modelHelper"
+	"github.com/NyaaPantsu/nyaa/utils/log"
+	msg "github.com/NyaaPantsu/nyaa/utils/messages"
+	"github.com/NyaaPantsu/nyaa/utils/validator"
+	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
 
 // CreateUserFromForm creates a user from a registration form.
-func CreateUserFromRequest(registrationForm *formStruct.RegistrationForm) (*models.User, error) {
+func CreateUserFromRequest(registrationForm *userValidator.RegistrationForm) (*models.User, error) {
 	var user = &models.User{}
 	log.Debugf("registrationForm %+v\n", registrationForm)
-	modelHelper.AssignValue(&user, &registrationForm)
+	validator.Bind(&user, &registrationForm)
 	if user.Email == "" {
 		user.MD5 = ""
 	} else {
@@ -37,7 +39,7 @@ func CreateUserFromRequest(registrationForm *formStruct.RegistrationForm) (*mode
 	user.APIToken, _ = crypto.GenerateRandomToken32()
 	user.APITokenExpiry = time.Unix(0, 0)
 
-	if ORM.Create(&user).Error != nil {
+	if models.ORM.Create(&user).Error != nil {
 		return user, errors.New("user not created")
 	}
 
@@ -45,39 +47,31 @@ func CreateUserFromRequest(registrationForm *formStruct.RegistrationForm) (*mode
 }
 
 // CreateUser creates a user.
-func CreateUser(c *gin.Context) int {
-	var user models.User
-	var registrationForm formStruct.RegistrationForm
-	var status int
+func CreateUser(c *gin.Context) (*models.User, int) {
+	var user *models.User
+	var registrationForm userValidator.RegistrationForm
 	var err error
 	messages := msg.GetMessages(c)
 	c.Bind(&registrationForm)
 	usernameCandidate := SuggestUsername(registrationForm.Username)
 	if usernameCandidate != registrationForm.Username {
 		messages.AddErrorTf("username", "username_taken", usernameCandidate)
-		return http.StatusInternalServerError
+		return user, http.StatusInternalServerError
 	}
 	if registrationForm.Email != "" && CheckEmail(registrationForm.Email) {
 		messages.AddErrorT("email", "email_in_db")
-		return http.StatusInternalServerError
+		return user, http.StatusInternalServerError
 	}
 	password, err := bcrypt.GenerateFromPassword([]byte(registrationForm.Password), 10)
 	if err != nil {
-		messages.ImportFromError("errors", err)
-		return http.StatusInternalServerError
+		messages.Error(err)
+		return user, http.StatusInternalServerError
 	}
 	registrationForm.Password = string(password)
 	user, err = CreateUserFromRequest(&registrationForm)
 	if err != nil {
-		messages.ImportFromError("errors", err)
-		return http.StatusInternalServerError
+		messages.Error(err)
+		return user, http.StatusInternalServerError
 	}
-	if registrationForm.Email != "" {
-		SendVerificationToUser(user, registrationForm.Email)
-	}
-	status, err = cookies.SetLoginCookies(c, user)
-	if err != nil {
-		messages.ImportFromError("errors", err)
-	}
-	return status
+	return user, http.StatusOK
 }

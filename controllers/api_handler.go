@@ -72,14 +72,14 @@ func APIHandler(c *gin.Context) {
 			}
 		}
 
-		torrents, nbTorrents, err := torrents.Find(whereParams, req.MaxPerPage, req.MaxPerPage*(req.Page-1))
+		torrentSearch, nbTorrents, err := torrents.Find(whereParams, req.MaxPerPage, req.MaxPerPage*(req.Page-1))
 		if err != nil {
 			c.AbortWithError(http.StatusInternalServerError, err)
 			return
 		}
 
 		b := upload.APIResultJSON{
-			Torrents: models.APITorrentsToJSON(torrents),
+			Torrents: torrents.APITorrentsToJSON(torrentSearch),
 		}
 		b.QueryRecordCount = req.MaxPerPage
 		b.TotalRecordCount = nbTorrents
@@ -146,7 +146,7 @@ func APIUploadHandler(c *gin.Context) {
 	}
 
 	if !messages.HasErrors() {
-		uploadForm := torrentValidator.TorrentRequest{}
+		uploadForm := upload.NewTorrentRequest()
 		contentType := c.Request.Header.Get("Content-Type")
 		if contentType != "application/json" && !strings.HasPrefix(contentType, "multipart/form-data") && contentType != "application/x-www-form-urlencoded" {
 			// TODO What should we do here ? uploadForm is empty so we shouldn't
@@ -154,7 +154,7 @@ func APIUploadHandler(c *gin.Context) {
 			messages.AddErrorT("errors", "error_content_type_post")
 		}
 		// As long as the right content-type is sent, formValue is smart enough to parse it
-		err = upload.ExtractInfo(c, &uploadForm)
+		err = upload.ExtractInfo(c, uploadForm)
 		if err != nil {
 			messages.Error(err)
 		}
@@ -171,7 +171,7 @@ func APIUploadHandler(c *gin.Context) {
 				messages.Error(err)
 			}
 			if !messages.HasErrors() {
-				torrent, err := torrents.Create(user, &uploadForm)
+				torrent, err := torrents.Create(user, uploadForm)
 				if err != nil {
 					messages.Error(err)
 				}
@@ -249,13 +249,13 @@ func APISearchHandler(c *gin.Context) {
 		}
 	}
 
-	_, torrents, _, err := search.SearchByQueryWithUser(c, pagenum)
+	_, torrentSearch, _, err := search.SearchByQueryWithUser(c, pagenum)
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
-	b := models.APITorrentsToJSON(torrents)
+	b := torrents.APITorrentsToJSON(torrentSearch)
 	c.JSON(http.StatusOK, b)
 }
 

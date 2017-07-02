@@ -11,12 +11,10 @@ import (
 	"github.com/CloudyKit/jet"
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
-	"github.com/NyaaPantsu/nyaa/models/activities"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
-	"github.com/NyaaPantsu/nyaa/utils"
 	"github.com/NyaaPantsu/nyaa/utils/categories"
-	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/NyaaPantsu/nyaa/utils/filelist"
+	"github.com/NyaaPantsu/nyaa/utils/format"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 	"github.com/NyaaPantsu/nyaa/utils/torrentLanguages"
 )
@@ -145,14 +143,9 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("getAvatar", func(hash string, size int) string {
 		return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
 	})
-	vars.Set("CurrentOrAdmin", userPermission.CurrentOrAdmin)
-	vars.Set("CurrentUserIdentical", userPermission.CurrentUserIdentical)
-	vars.Set("HasAdmin", userPermission.HasAdmin)
-	vars.Set("NeedsCaptcha", userPermission.NeedsCaptcha)
-	vars.Set("GetRole", userPermission.GetRole)
-	vars.Set("IsFollower", userPermission.IsFollower)
+
 	vars.Set("DisplayTorrent", func(t models.Torrent, u *models.User) bool {
-		return ((!t.Hidden && t.Status != 0) || userPermission.CurrentOrAdmin(u, t.UploaderID))
+		return (!t.Hidden && t.Status != 0) || u.CurrentOrAdmin(t.UploaderID)
 	})
 	vars.Set("NoEncode", func(str string) template.HTML {
 		return template.HTML(str)
@@ -167,7 +160,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 		// because time.* isn't available in templates...
 		return t.Format(time.RFC3339)
 	})
-	vars.Set("GetHostname", util.GetHostname)
+	vars.Set("GetHostname", format.GetHostname)
 	vars.Set("GetCategories", func(keepParent bool, keepChild bool) map[string]string {
 		return categories.GetCategoriesSelect(keepParent, keepChild)
 	})
@@ -226,7 +219,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 		if filesize == 0 {
 			return T("unknown")
 		}
-		return template.HTML(util.FormatFilesize(filesize))
+		return template.HTML(format.FileSize(filesize))
 	})
 	vars.Set("makeCaptchaData", func(captchaID string, T publicSettings.TemplateTfunc) captchaData {
 		return captchaData{captchaID, T}
@@ -277,7 +270,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 		return string(T(d))
 	})
 	vars.Set("genUploaderLink", func(uploaderID uint, uploaderName template.HTML, torrentHidden bool) template.HTML {
-		uploaderID, username := torrentService.HideTorrentUser(uploaderID, string(uploaderName), torrentHidden)
+		uploaderID, username := torrents.HideUser(uploaderID, string(uploaderName), torrentHidden)
 		if uploaderID == 0 {
 			return template.HTML(username)
 		}
@@ -286,7 +279,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 		return template.HTML("<a href=\"" + url + "\">" + username + "</a>")
 	})
 	vars.Set("genActivityContent", func(a models.Activity, T publicSettings.TemplateTfunc) template.HTML {
-		return activity.ToLocale(&a, T)
+		return a.ToLocale(T)
 	})
 	return vars
 }

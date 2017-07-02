@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/NyaaPantsu/nyaa/models"
-	"github.com/NyaaPantsu/nyaa/models/users"
+	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 	"github.com/gin-gonic/gin"
 )
@@ -47,6 +47,6 @@ func newSearchForm(c *gin.Context) searchForm {
 	}
 }
 func getUser(c *gin.Context) *models.User {
-	user, _, _ := users.CurrentUser(c)
+	user, _, _ := cookies.CurrentUser(c)
 	return user
 }

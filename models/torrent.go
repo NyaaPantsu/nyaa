@@ -64,6 +64,7 @@ type Torrent struct {
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
 	Scrape      *Scrape      `gorm:"AssociationForeignKey:ID;ForeignKey:torrent_id"`
 	FileList    []File       `gorm:"ForeignKey:torrent_id"`
+	Languages   []string     `gorm:"-"` // This is parsed when retrieved from db
 }
 
 /* We need a JSON object instead of a Gorm structure because magnet URLs are
@@ -88,7 +89,7 @@ type TorrentJSON struct {
 	UploaderName template.HTML `json:"uploader_name"`
 	OldUploader  template.HTML `json:"uploader_old"`
 	WebsiteLink  template.URL  `json:"website_link"`
-	Language     string        `json:"language"`
+	Languages    []string      `json:"languages"`
 	Magnet       template.URL  `json:"magnet"`
 	TorrentLink  template.URL  `json:"torrent"`
 	Seeders      uint32        `json:"seeders"`
@@ -160,7 +161,7 @@ func (t Torrent) AddToESIndex(client *elastic.Client) error {
 }
 
 // DeleteFromESIndex : Removes a torrent from Elastic Search
-func (t Torrent) DeleteFromESIndex(client *elastic.Client) error {
+func (t *Torrent) DeleteFromESIndex(client *elastic.Client) error {
 	ctx := context.Background()
 	_, err := client.Delete().
 		Index(config.Conf.Search.ElasticsearchIndex).
@@ -193,6 +194,14 @@ func (t *Torrent) ParseTrackers(trackers []string) {
 	}
 	v["tr"] = trackers
 	t.Trackers = v.Encode()
+}
+
+func (t *Torrent) ParseLanguages() {
+	t.Languages = strings.Split(t.Language, ",")
+}
+
+func (t *Torrent) EncodeLanguages() {
+	t.Language = strings.Join(t.Languages, ",")
 }
 
 // GetTrackersArray : Convert trackers string to Array
@@ -242,10 +251,11 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 		//OldComments: TODO
 		// Comments: TODO
 		// LastScrape not stored in ES, counts won't show without a value however
-		Scrape:   &Scrape{Seeders: t.Seeders, Leechers: t.Leechers, Completed: t.Completed, LastScrape: time.Now()},
-		Language: t.Language,
+		Scrape:    &Scrape{Seeders: t.Seeders, Leechers: t.Leechers, Completed: t.Completed, LastScrape: time.Now()},
+		Languages: t.Languages,
 		//FileList: TODO
 	}
+	torrent.EncodeLanguages()
 	return torrent
 }
 
@@ -310,6 +320,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	if t.Scrape != nil {
 		scrape = *t.Scrape
 	}
+	t.ParseLanguages()
 	res := TorrentJSON{
 		ID:           t.ID,
 		Name:         t.Name,
@@ -326,7 +337,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		UploaderID:   uploaderID,
 		UploaderName: sanitize.SafeText(uploader),
 		WebsiteLink:  sanitize.Safe(t.WebsiteLink),
-		Language:     t.Language,
+		Languages:    t.Languages,
 		Magnet:       template.URL(magnet),
 		TorrentLink:  sanitize.Safe(torrentlink),
 		Leechers:     scrape.Leechers,
@@ -348,23 +359,6 @@ func TorrentsToJSON(t []Torrent) []TorrentJSON {
 		json[i] = t[i].ToJSON()
 	}
 	return json
-}
-
-// APITorrentsToJSON : Map Torrents to TorrentsToJSON for API request without reallocations
-func APITorrentsToJSON(t []Torrent) []TorrentJSON {
-	json := make([]TorrentJSON, len(t))
-	for i := range t {
-		json[i] = t[i].ToJSON()
-		uploaderID, username := HideTorrentUser(json[i].UploaderID, string(json[i].UploaderName), json[i].Hidden)
-		json[i].UploaderName = template.HTML(username)
-		json[i].UploaderID = uploaderID
-	}
-	return json
-}
-
-// TorrentsToAPI : Map Torrents for API usage without reallocations
-func TorrentsToAPI(t []Torrent) []TorrentJSON {
-	return APITorrentsToJSON(t)
 }
 
 // Update : Update a torrent based on model
@@ -395,13 +389,29 @@ func (t *Torrent) UpdateUnscope() (int, error) {
 	return t.Update(true)
 }
 
-// HideTorrentUser : hides a torrent user for hidden torrents
-func HideTorrentUser(uploaderID uint, uploaderName string, torrentHidden bool) (uint, string) {
-	if torrentHidden {
-		return 0, "れんちょん"
+// DeleteTorrent : delete a torrent based on id
+func (t *Torrent) Delete(definitely bool) (*Torrent, int, error) {
+	db := ORM
+	if definitely {
+		db = ORM.Unscoped()
 	}
-	if uploaderID == 0 {
-		return 0, uploaderName
+	if db.Delete(t).Error != nil {
+		return t, http.StatusInternalServerError, errors.New("torrent_not_deleted")
 	}
-	return uploaderID, uploaderName
+
+	if ElasticSearchClient != nil {
+		err := t.DeleteFromESIndex(ElasticSearchClient)
+		if err == nil {
+			log.Infof("Successfully deleted torrent to ES index.")
+		} else {
+			log.Errorf("Unable to delete torrent to ES index: %s", err)
+		}
+	}
+	return t, http.StatusOK, nil
+}
+
+// DefinitelyDelete : deletes definitely a torrent based on id
+func (t *Torrent) DefinitelyDelete() (*Torrent, int, error) {
+	return t.Delete(true)
+
 }

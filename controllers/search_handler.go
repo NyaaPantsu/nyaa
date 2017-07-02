@@ -45,9 +45,9 @@ func SearchHandler(c *gin.Context) {
 	if len(searchParam.Category) > 0 {
 		category = searchParam.Category[0].String()
 	}
-	nav := navigation{int(nbTorrents), int(searchParam.Max), int(searchParam.Page), "search"}
+	nav := navigation{int(nbTorrents), int(searchParam.Max), int(searchParam.Offset), "search"}
 	searchForm := newSearchForm(c)
-	searchForm.SearchParam, searchForm.Category = searchParam, category
+	searchForm.TorrentParam, searchForm.Category = searchParam, category
 
 	modelList(c, "site/torrents/listing.jet.html", models.TorrentsToJSON(torrents), nav, searchForm)
 }

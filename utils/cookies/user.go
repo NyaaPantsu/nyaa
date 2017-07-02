@@ -13,6 +13,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/timeHelper"
 	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"github.com/gin-gonic/gin"
+	"github.com/gorilla/context"
 	"github.com/gorilla/securecookie"
 )
 
@@ -24,6 +25,20 @@ const (
 	UserContextKey = "nyaapantsu.user"
 )
 
+// NewCurrentUserRetriever create CurrentUserRetriever Struct for languages
+func NewCurrentUserRetriever() *CurrentUserRetriever {
+	return &CurrentUserRetriever{}
+}
+
+// CurrentUserRetriever struct for languages
+type CurrentUserRetriever struct{}
+
+// RetrieveCurrentUser retrieve current user for languages
+func (*CurrentUserRetriever) RetrieveCurrentUser(c *gin.Context) (models.User, error) {
+	user, _, err := CurrentUser(c)
+	return *user, err
+}
+
 // CreateUserAuthentication creates user authentication.
 func CreateUserAuthentication(c *gin.Context, form *userValidator.LoginForm) (*models.User, int, error) {
 	username := form.Username
@@ -32,7 +47,7 @@ func CreateUserAuthentication(c *gin.Context, form *userValidator.LoginForm) (*m
 	if err != nil {
 		return user, status, err
 	}
-	status, err = SetLogin(c, *user)
+	status, err = SetLogin(c, user)
 	return user, status, err
 }
 
@@ -81,7 +96,7 @@ func Clear(c *gin.Context) {
 }
 
 // SetLogin sets the authentication cookie
-func SetLogin(c *gin.Context, user models.User) (int, error) {
+func SetLogin(c *gin.Context, user *models.User) (int, error) {
 	maxAge := getMaxAge()
 	validUntil := timeHelper.FewDurationLater(time.Duration(maxAge) * time.Second)
 	encoded, err := Encode(user.ID, validUntil)
@@ -93,4 +108,73 @@ func SetLogin(c *gin.Context, user models.User) (int, error) {
 	// also set response header for convenience
 	c.Header("X-Auth-Token", encoded)
 	return http.StatusOK, nil
+}
+
+// CurrentUser retrieves a current user.
+func CurrentUser(c *gin.Context) (user *models.User, status int, err error) {
+	encoded := c.Request.Header.Get("X-Auth-Token")
+	if len(encoded) == 0 {
+		// check cookie instead
+		cookie, errCookie := c.Cookie(CookieName)
+		if errCookie != nil {
+			err = errCookie
+			status = http.StatusInternalServerError
+			return
+		}
+		encoded = cookie
+	}
+	userID, err := Decode(encoded)
+	if err != nil {
+		status = http.StatusInternalServerError
+		return
+	}
+
+	userFromContext := getUserFromContext(c)
+
+	if userFromContext.ID > 0 && userID == userFromContext.ID {
+		user = &userFromContext
+	} else {
+		users.SessionByID(userID)
+		setUserToContext(c, *user)
+	}
+
+	if user.IsBanned() {
+		// recheck as user might've been banned in the meantime
+		status, err = http.StatusUnauthorized, errors.New("account_banned")
+		return
+	}
+	if err != nil {
+		status = http.StatusInternalServerError
+		return
+	}
+	status = http.StatusOK
+	return
+}
+func getUserFromContext(c *gin.Context) models.User {
+	if rv := context.Get(c.Request, UserContextKey); rv != nil {
+		return rv.(models.User)
+	}
+	return models.User{}
+}
+
+func setUserToContext(c *gin.Context, val models.User) {
+	context.Set(c.Request, UserContextKey, val)
+}
+
+// RetrieveUser retrieves a user.
+func RetrieveUserFromRequest(c *gin.Context, id uint) (*models.User, bool, uint, int, error) {
+	var user models.User
+	var currentUserID uint
+	var isAuthor bool
+
+	if models.ORM.First(&user, id).RecordNotFound() {
+		return nil, isAuthor, currentUserID, http.StatusNotFound, errors.New("user_not_found")
+	}
+	currentUser, _, err := CurrentUser(c)
+	if err == nil {
+		currentUserID = currentUser.ID
+		isAuthor = currentUser.ID == user.ID
+	}
+
+	return &user, isAuthor, currentUserID, http.StatusOK, nil
 }

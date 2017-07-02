@@ -1,4 +1,4 @@
-package userService
+package email
 
 import (
 	"errors"
@@ -8,16 +8,13 @@ import (
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/db"
-	"github.com/NyaaPantsu/nyaa/model"
-	"github.com/NyaaPantsu/nyaa/utils"
+	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/models/users"
+	"github.com/NyaaPantsu/nyaa/utils/format"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 	"github.com/NyaaPantsu/nyaa/utils/timeHelper"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/securecookie"
-	"github.com/NyaaPantsu/nyaa/models/users"
-	"os/user"
-	"github.com/NyaaPantsu/nyaa/models"
 )
 
 var verificationHandler = securecookie.New(config.EmailTokenHashKey, nil)
@@ -29,12 +26,12 @@ func SendEmailVerification(to string, token string) error {
 		return err
 	}
 	content := T("link") + " : " + config.Conf.WebAddress.Nyaa + "/verify/email/" + token
-	contentHTML := T("verify_email_content") + "<br/>" + "<a href=\"" + config.Conf.WebAddress.Nyaa + "/verify/email/" + token + "\" target=\"_blank\">" + util.GetHostname(config.Conf.WebAddress.Nyaa) + "/verify/email/" + token + "</a>"
+	contentHTML := T("verify_email_content") + "<br/>" + "<a href=\"" + config.Conf.WebAddress.Nyaa + "/verify/email/" + token + "\" target=\"_blank\">" + format.GetHostname(config.Conf.WebAddress.Nyaa) + "/verify/email/" + token + "</a>"
 	return SendEmailFromAdmin(to, T("verify_email_title"), content, contentHTML)
 }
 
 // SendVerificationToUser sends an email verification token to user.
-func SendVerificationToUser(user models.User, newEmail string) (int, error) {
+func SendVerificationToUser(user *models.User, newEmail string) (int, error) {
 	validUntil := timeHelper.TwentyFourHoursLater() // TODO: longer duration?
 	value := map[string]string{
 		"t": strconv.FormatInt(validUntil.Unix(), 10),
@@ -65,9 +62,10 @@ func EmailVerification(token string, c *gin.Context) (int, error) {
 		return http.StatusForbidden, errors.New("token_expired")
 	}
 	id, _ := strconv.Atoi(value["u"])
-	if user, _, err := users.FindByID(uint(id)); err != nil {
+	user, _, err := users.FindByID(uint(id))
+	if err != nil {
 		return http.StatusNotFound, errors.New("user_not_found")
 	}
 	user.Email = value["e"]
-	return users.Update(user)
+	return user.Update()
 }

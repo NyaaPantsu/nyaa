@@ -17,9 +17,6 @@ type Activity struct {
 	User       *User
 }
 
-// TemplateTfunc : Used to prevent cyclic import
-type TemplateTfunc func(string, ...interface{}) template.HTML
-
 // NewActivity : Create a new activity log
 func NewActivity(identifier string, filter string, c ...string) Activity {
 	return Activity{Identifier: identifier, Content: strings.Join(c, ","), Filter: filter}
@@ -31,7 +28,7 @@ func (a *Activity) TableName() string {
 }
 
 // ToLocale : Convert list of parameters to message in local language
-func (a *Activity) ToLocale(T TemplateTfunc) template.HTML {
+func (a *Activity) ToLocale(T func(string, ...interface{}) template.HTML) template.HTML {
 	c := strings.Split(a.Content, ",")
 	d := make([]interface{}, len(c)-1)
 	for i, s := range c[1:] {

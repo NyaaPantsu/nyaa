@@ -9,6 +9,8 @@ import (
 
 	"net/http"
 
+	"errors"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/crypto"
 )
@@ -312,19 +314,19 @@ func (u *User) ParseSettings() {
 }
 
 // UpdateUserCore updates a user. (Applying the modifed data of user).
-func (user *User) Update() (int, error) {
-	if user.Email == "" {
-		user.MD5 = ""
+func (u *User) Update() (int, error) {
+	if u.Email == "" {
+		u.MD5 = ""
 	} else {
 		var err error
-		user.MD5, err = crypto.GenerateMD5Hash(user.Email)
+		u.MD5, err = crypto.GenerateMD5Hash(u.Email)
 		if err != nil {
 			return http.StatusInternalServerError, err
 		}
 	}
 
-	user.UpdatedAt = time.Now()
-	err := ORM.Save(user).Error
+	u.UpdatedAt = time.Now()
+	err := ORM.Save(u).Error
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
@@ -333,12 +335,24 @@ func (user *User) Update() (int, error) {
 }
 
 // UpdateRawUser : Function to update a user without updating his associations model
-func (user *User) UpdateRaw() (int, error) {
-	user.UpdatedAt = time.Now()
-	err := ORM.Model(&user).UpdateColumn(&user).Error
+func (u *User) UpdateRaw() (int, error) {
+	u.UpdatedAt = time.Now()
+	err := ORM.Model(u).UpdateColumn(u).Error
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
 
+	return http.StatusOK, nil
+}
+
+// DeleteUser deletes a user.
+func (u *User) Delete(currentUser *User) (int, error) {
+	if u.ID == 0 {
+		return http.StatusInternalServerError, errors.New("permission_delete_error")
+	}
+	err := ORM.Delete(u).Error
+	if err != nil {
+		return http.StatusInternalServerError, errors.New("user_not_deleted")
+	}
 	return http.StatusOK, nil
 }

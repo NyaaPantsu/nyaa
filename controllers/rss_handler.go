@@ -12,8 +12,8 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/models/users"
 	"github.com/NyaaPantsu/nyaa/utils/categories"
-	userService "github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/NyaaPantsu/nyaa/utils/feeds"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 	"github.com/NyaaPantsu/nyaa/utils/search"
@@ -395,7 +395,7 @@ func getTorrentList(c *gin.Context) (torrents []models.Torrent, createdAsTime ti
 			return
 		}
 
-		_, _, err = userService.RetrieveUserForAdmin(userID)
+		_, _, err = users.FindForAdmin(uint(userIDnum))
 		if err != nil {
 			return
 		}

@@ -3,7 +3,6 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,7 +19,7 @@ func errorMiddleware() gin.HandlerFunc {
 func modMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		currentUser := getUser(c)
-		if !userPermission.HasAdmin(currentUser) {
+		if !currentUser.HasAdmin() {
 			NotFoundHandler(c)
 		}
 		c.Next()
