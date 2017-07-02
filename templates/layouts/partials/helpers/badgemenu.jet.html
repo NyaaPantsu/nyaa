@@ -1,7 +1,7 @@
 {{ import "csrf" }}
 {{block badge_user()}}
 <div class="h-user">
-			{{if User.ID > 0}}
+			{{if User }}
 			<button href="#" class="nav-btn">
 			<div class="user-avatar small"><img src="https://www.gravatar.com/avatar/{{ User.MD5 }}?s=50"></div> 
 			<span class="user-info" title="{{ User.Username}}"><span class="hide-md">{{User.Username}}</span></span>
@@ -10,7 +10,7 @@
 					<a class="nav-btn" href="/user/{{ User.ID }}/{{ User.Username }}">{{ T("profile")}}</a>
 					<a class="nav-btn" href="/notifications">{{  T("my_notifications")}} <span class="badge">({{ User.GetUnreadNotifications() }})</span></a>
 					<a class="nav-btn" href="/user/{{ User.ID }}/{{ User.Username }}/edit">{{ T("settings")}}</a>
-					{{if User.HasAdmin()}}<a class="nav-btn" href="/mod">{{ T("moderation")}}</a>{{end}}
+					{{if User && User.HasAdmin}}<a class="nav-btn" href="/mod">{{ T("moderation")}}</a>{{end}}
 					<form action="/logout" method="POST">{{ yield csrf_field() }}<input class="nav-btn" type="submit" name="logout" value="{{  T("sign_out")}}"></form>
 			</div>
 			{{ else }}

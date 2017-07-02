@@ -1,7 +1,7 @@
 {{ extends "layouts/index_site" }}
 {{ import "layouts/partials/helpers/search" }}
 {{block title()}}{{ T("home")}}{{end}}
-{{block contclass()}}{{if User.HasAdmin() }}content-admin{{end}}{{end}}
+{{block contclass()}}{{if User && User.HasAdmin() }}content-admin{{end}}{{end}}
 {{block additional_header()}}
 <link rel="stylesheet" href="/css/flags/flags.min.css">
 <link rel="stylesheet" href="/css/flags/custom_flags.css">
@@ -15,7 +15,7 @@
           <table>
           <thead class="torrent-info">
           <tr>
-              {{ if User.HasAdmin() }}
+              {{ if User && User.HasAdmin }}
               <th class="tr-cb hide"><input type="checkbox" name="select_all" onchange="TorrentsMod.selectAll(this.checked)"></th>
               {{end}}
               <th class="tr-cat">{{ T("category")}}</th>
@@ -42,7 +42,7 @@
           <tbody id="torrentListResults">
           {{ range Models}}
           <tr id="torrent_{{ .ID }}" class="torrent-info {{if .Status == 2}}remake{{else if .Status == 3}}trusted{{else if .Status == 4}}aplus{{end}}" >
-                {{ if User.HasAdmin() }}
+                {{ if User && User.HasAdmin }}
               <td class="tr-cb hide">
                 <input data-name="{{ .Name }}" type="checkbox" id="torrent_cb_{{ .ID }}" name="torrent_id" value="{{ .ID }}">
               </td>
@@ -54,8 +54,8 @@
               <div class="nyaa-cat nyaa-cat-{{ .SubCategory}}">
 			  {{end}}
                   <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}">
-              {{if len(.Languages) == 1 }}
-                  <img src="img/blank.gif" alt="{{ LanguageName(.Languages[0], T) }}" class="flag flag-{{FlagCode(.Language[0])}}" title="{{ LanguageName(.Language[0], T) }}">
+              {{if len(.Languages) == 1 && .Languages[0] != "" }}
+                  <img src="img/blank.gif" alt="{{ LanguageName(.Languages[0], T) }}" class="flag flag-{{FlagCode(.Languages[0])}}" title="{{ LanguageName(.Languages[0], T) }}">
               {{end}}
                   </a>
               </div>
@@ -96,7 +96,7 @@
           </tbody>
       </table>
     </div>
-    {{ if User.HasAdmin() }}
+    {{ if User && User.HasAdmin }}
     <div class="modtools">
         <button id="show_actions" class="form-input" data-toggle-text="{{ T("hide_mod_tools")}}">{{ T("show_mod_tools")}}</button>
         <span class="actions">
@@ -159,7 +159,7 @@
 <script type="text/javascript" src="{{ URL.Parse("/js/query.js") }}"></script>
 <script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>
 <script type="text/javascript" src="{{ URL.Parse("/js/torrents.js") }}"></script>
-{{ if User.HasAdmin() }}
+{{ if User && User.HasAdmin }}
 <script type="text/javascript" src="{{ URL.Parse("/js/translation.js") }}"></script>
 <script type="text/javascript" src="{{ URL.Parse("/js/torrentsMod.js") }}"></script>
     <script type="text/javascript">
@@ -228,7 +228,7 @@
     <script type="text/javascript">
         Templates.Add("torrents.item", function(torrent) {
             return "<tr id=\"torrent_" + torrent.id + "\" class=\"torrent-info"+ ((torrent.status == 2) ? " remake" : ((torrent.status == 3) ? " trusted" : ((torrent.status == 3) ? " aplus" : "" )))+"\">"+
-            {{ if User.HasAdmin() }}
+            {{ if User && User.HasAdmin }}
               "<td class=\"tr-cb\""+ ((TorrentsMod.enabled) ? "style=\"display:table-cell;\"" : "") +">"+
                 "<input data-name=\""+Templates.EncodeEntities(torrent.name)+"\" type=\"checkbox\" id=\"torrent_cb_"+torrent.id+"\" name=\"torrent_id\" value=\""+torrent.id+"\">"+
               "</td>"+
