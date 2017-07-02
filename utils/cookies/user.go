@@ -36,6 +36,9 @@ type CurrentUserRetriever struct{}
 // RetrieveCurrentUser retrieve current user for languages
 func (*CurrentUserRetriever) RetrieveCurrentUser(c *gin.Context) (*models.User, error) {
 	user, _, err := CurrentUser(c)
+	if user == nil {
+		return &models.User{}, err
+	}
 	return user, err
 }
 

@@ -48,5 +48,8 @@ func newSearchForm(c *gin.Context) searchForm {
 }
 func getUser(c *gin.Context) *models.User {
 	user, _, _ := cookies.CurrentUser(c)
+	if user == nil {
+		return &models.User{}
+	}
 	return user
 }
