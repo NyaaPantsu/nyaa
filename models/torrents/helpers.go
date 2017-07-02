@@ -9,7 +9,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/activities"
 	"github.com/NyaaPantsu/nyaa/models/notifications"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 )
 
 // ExistOrDelete : Check if a torrent exist with the same hash and if it can be replaced, it is replaced

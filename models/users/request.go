@@ -4,10 +4,10 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/utils/log"
 
 	"github.com/NyaaPantsu/nyaa/models"
-	"github.com/NyaaPantsu/nyaa/util/validator"
+	"github.com/NyaaPantsu/nyaa/utils/validator"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/context"
 	"golang.org/x/crypto/bcrypt"

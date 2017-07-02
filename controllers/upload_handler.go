@@ -9,12 +9,12 @@ import (
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/service/api"
-	"github.com/NyaaPantsu/nyaa/util/captcha"
-	"github.com/NyaaPantsu/nyaa/util/cookies"
-	"github.com/NyaaPantsu/nyaa/util/log"
-	msg "github.com/NyaaPantsu/nyaa/util/messages"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
-	"github.com/NyaaPantsu/nyaa/util/upload"
+	"github.com/NyaaPantsu/nyaa/utils/captcha"
+	"github.com/NyaaPantsu/nyaa/utils/cookies"
+	"github.com/NyaaPantsu/nyaa/utils/log"
+	msg "github.com/NyaaPantsu/nyaa/utils/messages"
+	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/upload"
 	"github.com/gin-gonic/gin"
 )
 
@@ -38,7 +38,7 @@ func UploadHandler(c *gin.Context) {
 func UploadPostHandler(c *gin.Context) {
 	var uploadForm apiService.TorrentRequest
 	user := getUser(c)
-	messages := msg.GetMessages(c) // new util for errors and infos
+	messages := msg.GetMessages(c) // new utils for errors and infos
 
 	if userPermission.NeedsCaptcha(user) {
 		userCaptcha := captcha.Extract(c)

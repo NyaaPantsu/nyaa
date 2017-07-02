@@ -11,11 +11,11 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/controllers"
-	"github.com/NyaaPantsu/nyaa/util/cookies"
-	"github.com/NyaaPantsu/nyaa/util/log"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
-	"github.com/NyaaPantsu/nyaa/util/search"
-	"github.com/NyaaPantsu/nyaa/util/signals"
+	"github.com/NyaaPantsu/nyaa/utils/cookies"
+	"github.com/NyaaPantsu/nyaa/utils/log"
+	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/search"
+	"github.com/NyaaPantsu/nyaa/utils/signals"
 )
 
 var buildversion string

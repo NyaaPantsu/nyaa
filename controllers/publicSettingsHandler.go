@@ -5,10 +5,10 @@ import (
 	"net/url"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/util/cookies"
-	msg "github.com/NyaaPantsu/nyaa/util/messages"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
-	"github.com/NyaaPantsu/nyaa/util/timeHelper"
+	"github.com/NyaaPantsu/nyaa/utils/cookies"
+	msg "github.com/NyaaPantsu/nyaa/utils/messages"
+	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/timeHelper"
 	"github.com/gin-gonic/gin"
 )
 

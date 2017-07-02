@@ -8,7 +8,7 @@ import (
 	"strconv"
 
 	"github.com/NyaaPantsu/nyaa/models"
-	"github.com/NyaaPantsu/nyaa/util/validator/user"
+	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"golang.org/x/crypto/bcrypt"
 )
 

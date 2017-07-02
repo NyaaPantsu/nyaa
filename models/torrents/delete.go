@@ -2,7 +2,7 @@ package torrents
 
 import (
 	"errors"
-	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/utils/log"
 	"net/http"
 
 	"github.com/NyaaPantsu/nyaa/models"

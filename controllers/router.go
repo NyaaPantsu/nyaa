@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/NyaaPantsu/nyaa/util/captcha"
+	"github.com/NyaaPantsu/nyaa/utils/captcha"
 	"github.com/gin-gonic/gin"
 	"github.com/justinas/nosurf"
 )

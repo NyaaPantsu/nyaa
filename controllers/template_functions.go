@@ -13,12 +13,12 @@ import (
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/activities"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
-	"github.com/NyaaPantsu/nyaa/util"
-	"github.com/NyaaPantsu/nyaa/util/categories"
-	"github.com/NyaaPantsu/nyaa/util/cookies"
-	"github.com/NyaaPantsu/nyaa/util/filelist"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
-	"github.com/NyaaPantsu/nyaa/util/torrentLanguages"
+	"github.com/NyaaPantsu/nyaa/utils"
+	"github.com/NyaaPantsu/nyaa/utils/categories"
+	"github.com/NyaaPantsu/nyaa/utils/cookies"
+	"github.com/NyaaPantsu/nyaa/utils/filelist"
+	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/torrentLanguages"
 )
 
 type captchaData struct {

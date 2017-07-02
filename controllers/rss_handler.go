@@ -12,11 +12,11 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
-	"github.com/NyaaPantsu/nyaa/util/categories"
-	userService "github.com/NyaaPantsu/nyaa/util/cookies"
-	"github.com/NyaaPantsu/nyaa/util/feeds"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
-	"github.com/NyaaPantsu/nyaa/util/search"
+	"github.com/NyaaPantsu/nyaa/utils/categories"
+	userService "github.com/NyaaPantsu/nyaa/utils/cookies"
+	"github.com/NyaaPantsu/nyaa/utils/feeds"
+	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/search"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/feeds"
 )

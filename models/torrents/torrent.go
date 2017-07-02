@@ -8,7 +8,7 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
-	"github.com/NyaaPantsu/nyaa/service"
+	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 )
 
 /* Function to interact with Models
@@ -79,24 +79,24 @@ func FindRawByHash(hash string) (torrent models.Torrent, err error) {
 }
 
 // FindOrderByNoCount : Get torrents based on search without counting and user
-func FindOrderByNoCount(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []models.Torrent, err error) {
+func FindOrderByNoCount(parameters *structs.WhereParams, orderBy string, limit int, offset int) (torrents []models.Torrent, err error) {
 	torrents, _, err = findOrderBy(parameters, orderBy, limit, offset, false, false, false)
 	return
 }
 
 // FindOrderBy : Get torrents based on search without user
-func FindOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []models.Torrent, count int, err error) {
+func FindOrderBy(parameters *structs.WhereParams, orderBy string, limit int, offset int) (torrents []models.Torrent, count int, err error) {
 	torrents, count, err = findOrderBy(parameters, orderBy, limit, offset, true, false, false)
 	return
 }
 
 // FindWithUserOrderBy : Get torrents based on search with user
-func FindWithUserOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []models.Torrent, count int, err error) {
+func FindWithUserOrderBy(parameters *structs.WhereParams, orderBy string, limit int, offset int) (torrents []models.Torrent, count int, err error) {
 	torrents, count, err = findOrderBy(parameters, orderBy, limit, offset, true, true, false)
 	return
 }
 
-func findOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int, countAll bool, withUser bool, deleted bool) (
+func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, offset int, countAll bool, withUser bool, deleted bool) (
 	torrents []models.Torrent, count int, err error,
 ) {
 	var conditionArray []string
@@ -150,12 +150,12 @@ func findOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int,
 // database. The list will be of length 'limit' and in default order.
 // GetTorrents returns the first records found. Later records may be retrieved
 // by providing a positive 'offset'
-func Find(parameters serviceBase.WhereParams, limit int, offset int) ([]models.Torrent, int, error) {
+func Find(parameters structs.WhereParams, limit int, offset int) ([]models.Torrent, int, error) {
 	return FindOrderBy(&parameters, "", limit, offset)
 }
 
 // FindDB : Get Torrents with where parameters but no limit and order by default (get all the torrents corresponding in the db)
-func FindDB(parameters serviceBase.WhereParams) ([]models.Torrent, int, error) {
+func FindDB(parameters structs.WhereParams) ([]models.Torrent, int, error) {
 	return FindOrderBy(&parameters, "", 0, 0)
 }
 
@@ -192,7 +192,7 @@ func ToggleBlock(id uint) (models.Torrent, int, error) {
 }
 
 // FindDeleted : Gets deleted torrents based on search params
-func FindDeleted(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) (torrents []models.Torrent, count int, err error) {
+func FindDeleted(parameters *structs.WhereParams, orderBy string, limit int, offset int) (torrents []models.Torrent, count int, err error) {
 	torrents, count, err = findOrderBy(parameters, orderBy, limit, offset, true, true, true)
 	return
 }

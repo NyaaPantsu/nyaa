@@ -2,7 +2,7 @@ package models
 
 import (
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/azhao12345/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres" // Need for postgres support
 	_ "github.com/jinzhu/gorm/dialects/sqlite"   // Need for sqlite

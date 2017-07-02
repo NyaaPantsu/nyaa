@@ -3,7 +3,7 @@ package controllers
 import (
 	"github.com/NyaaPantsu/nyaa/common"
 	"github.com/NyaaPantsu/nyaa/models"
-	"github.com/NyaaPantsu/nyaa/util/cookies"
+	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/gin-gonic/gin"
 )
 

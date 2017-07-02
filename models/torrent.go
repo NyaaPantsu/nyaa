@@ -17,8 +17,9 @@ import (
 	"net/url"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/util"
-	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/utils/format"
+	"github.com/NyaaPantsu/nyaa/utils/log"
+	"github.com/NyaaPantsu/nyaa/utils/sanitize"
 	"github.com/bradfitz/slice"
 )
 
@@ -256,14 +257,14 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	} else {
 		trackers = t.GetTrackersArray()
 	}
-	magnet := util.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, trackers...)
+	magnet := format.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, trackers...)
 	commentsJSON := make([]CommentJSON, 0, len(t.OldComments)+len(t.Comments))
 	for _, c := range t.OldComments {
 		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, UserID: -1, Content: template.HTML(c.Content), Date: c.Date.UTC()})
 	}
 	for _, c := range t.Comments {
 		if c.User != nil {
-			commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: util.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC(), UserAvatar: c.User.MD5})
+			commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: sanitize.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC(), UserAvatar: c.User.MD5})
 		} else {
 			commentsJSON = append(commentsJSON, CommentJSON{})
 		}
@@ -317,17 +318,17 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Hash:         t.Hash,
 		Date:         t.Date.Format(time.RFC3339),
 		Filesize:     t.Filesize,
-		Description:  util.MarkdownToHTML(t.Description),
+		Description:  sanitize.MarkdownToHTML(t.Description),
 		Comments:     commentsJSON,
 		SubCategory:  strconv.Itoa(t.SubCategory),
 		Category:     strconv.Itoa(t.Category),
 		Downloads:    t.Downloads,
 		UploaderID:   uploaderID,
-		UploaderName: util.SafeText(uploader),
-		WebsiteLink:  util.Safe(t.WebsiteLink),
+		UploaderName: sanitize.SafeText(uploader),
+		WebsiteLink:  sanitize.Safe(t.WebsiteLink),
 		Language:     t.Language,
 		Magnet:       template.URL(magnet),
-		TorrentLink:  util.Safe(torrentlink),
+		TorrentLink:  sanitize.Safe(torrentlink),
 		Leechers:     scrape.Leechers,
 		Seeders:      scrape.Seeders,
 		Completed:    scrape.Completed,

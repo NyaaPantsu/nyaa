@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/models"
-	"github.com/NyaaPantsu/nyaa/util/crypto"
+	"github.com/NyaaPantsu/nyaa/utils/crypto"
 	"github.com/dorajistyle/goyangi/util/modelHelper"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"

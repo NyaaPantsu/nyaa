@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/NyaaPantsu/nyaa/util/cookies"
+	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/gin-gonic/gin"
 )
 

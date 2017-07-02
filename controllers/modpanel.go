@@ -13,11 +13,11 @@ import (
 	"github.com/NyaaPantsu/nyaa/models/comments"
 	"github.com/NyaaPantsu/nyaa/models/reports"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
-	"github.com/NyaaPantsu/nyaa/util/categories"
-	"github.com/NyaaPantsu/nyaa/util/cookies"
-	"github.com/NyaaPantsu/nyaa/util/log"
-	msg "github.com/NyaaPantsu/nyaa/util/messages"
-	"github.com/NyaaPantsu/nyaa/util/search"
+	"github.com/NyaaPantsu/nyaa/utils/categories"
+	"github.com/NyaaPantsu/nyaa/utils/cookies"
+	"github.com/NyaaPantsu/nyaa/utils/log"
+	msg "github.com/NyaaPantsu/nyaa/utils/messages"
+	"github.com/NyaaPantsu/nyaa/utils/search"
 	"github.com/gin-gonic/gin"
 )
 
@@ -388,7 +388,7 @@ func TorrentsPostListPanel(c *gin.Context) {
  */
 func APIMassMod(c *gin.Context) {
 	torrentManyAction(c)
-	messages := msg.GetMessages(c) // new util for errors and infos
+	messages := msg.GetMessages(c) // new utils for errors and infos
 	c.Header("Content-Type", "application/json")
 
 	var mapOk map[string]interface{}
@@ -404,7 +404,7 @@ func APIMassMod(c *gin.Context) {
 // DeletedTorrentsModPanel : Controller for viewing deleted torrents, accept common search arguments
 func DeletedTorrentsModPanel(c *gin.Context) {
 	page := c.Param("page")
-	messages := msg.GetMessages(c) // new util for errors and infos
+	messages := msg.GetMessages(c) // new utils for errors and infos
 	deleted := c.Request.URL.Query()["deleted"]
 	unblocked := c.Request.URL.Query()["unblocked"]
 	blocked := c.Request.URL.Query()["blocked"]
@@ -487,7 +487,7 @@ func torrentManyAction(c *gin.Context) {
 	owner, _ := strconv.Atoi(c.PostForm("owner"))
 	category := c.PostForm("category")
 	withReport, _ := strconv.ParseBool(c.DefaultPostForm("withreport", "false"))
-	messages := msg.GetMessages(c) // new util for errors and infos
+	messages := msg.GetMessages(c) // new utils for errors and infos
 	catID, subCatID := -1, -1
 	var err error
 

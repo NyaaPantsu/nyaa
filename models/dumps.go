@@ -4,7 +4,7 @@ import (
 	"html/template"
 	"time"
 
-	"github.com/NyaaPantsu/nyaa/util"
+	"github.com/NyaaPantsu/nyaa/utils/format"
 )
 
 // DatabaseDump model
@@ -28,7 +28,7 @@ type DatabaseDumpJSON struct {
 func (dump *DatabaseDump) ToJSON() DatabaseDumpJSON {
 	json := DatabaseDumpJSON{
 		Date:        dump.Date.Format(time.RFC3339),
-		Filesize:    util.FormatFilesize(dump.Filesize),
+		Filesize:    format.FileSize(dump.Filesize),
 		Name:        dump.Name,
 		TorrentLink: template.URL(dump.TorrentLink),
 	}

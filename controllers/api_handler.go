@@ -12,12 +12,12 @@ import (
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/service"
 	"github.com/NyaaPantsu/nyaa/service/api"
-	"github.com/NyaaPantsu/nyaa/util/cookies"
-	"github.com/NyaaPantsu/nyaa/util/crypto"
-	"github.com/NyaaPantsu/nyaa/util/log"
-	msg "github.com/NyaaPantsu/nyaa/util/messages"
-	"github.com/NyaaPantsu/nyaa/util/search"
-	"github.com/NyaaPantsu/nyaa/util/upload"
+	"github.com/NyaaPantsu/nyaa/utils/cookies"
+	"github.com/NyaaPantsu/nyaa/utils/crypto"
+	"github.com/NyaaPantsu/nyaa/utils/log"
+	msg "github.com/NyaaPantsu/nyaa/utils/messages"
+	"github.com/NyaaPantsu/nyaa/utils/search"
+	"github.com/NyaaPantsu/nyaa/utils/upload"
 	"github.com/gin-gonic/gin"
 )
 
