@@ -1,7 +1,7 @@
 {{ import "csrf" }}
 {{block badge_user()}}
 <div class="h-user">
-			{{if User }}
+			{{if User.ID > 0 }}
 			<button href="#" class="nav-btn">
 			<div class="user-avatar small"><img src="https://www.gravatar.com/avatar/{{ User.MD5 }}?s=50"></div> 
 			<span class="user-info" title="{{ User.Username}}"><span class="hide-md">{{User.Username}}</span></span>
