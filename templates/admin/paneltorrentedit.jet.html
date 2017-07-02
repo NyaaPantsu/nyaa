@@ -21,6 +21,7 @@
           </select>
       </div>
       <div class="form-group">
+          <label for="language">{{  T("torrent_language") }}</label>
           <div name="language" class="form-input language">
               {{ range _, language := GetTorrentLanguages() }}
               <input type="checkbox" name="lang-{{ language }}" id="lang-{{ language }}">
