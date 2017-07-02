@@ -1,8 +1,6 @@
 package torrentValidator
 
 import (
-	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/models"
 	"net/url"
 	"strings"
 )
@@ -43,18 +41,4 @@ func CheckTrackers(trackers []string) []string {
 		}
 	}
 	return trackerRet
-}
-
-// IsUploadEnabled : Check if upload is enabled in config
-func IsUploadEnabled(u *models.User) bool {
-	if config.Conf.Torrents.UploadsDisabled {
-		if config.Conf.Torrents.AdminsAreStillAllowedTo && u.IsModerator() {
-			return true
-		}
-		if config.Conf.Torrents.TrustedUsersAreStillAllowedTo && u.IsTrusted() {
-			return true
-		}
-		return false
-	}
-	return true
 }

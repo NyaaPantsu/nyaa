@@ -1,14 +1,19 @@
 package cookies
 
 import (
-	"github.com/gin-gonic/gin"
-	"os/user"
-	"github.com/gorilla/securecookie"
+	"errors"
 	"fmt"
+	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/users"
+	"github.com/NyaaPantsu/nyaa/utils/timeHelper"
+	"github.com/NyaaPantsu/nyaa/utils/validator/user"
+	"github.com/gin-gonic/gin"
+	"github.com/gorilla/securecookie"
 )
 
 const (
@@ -18,16 +23,17 @@ const (
 	// UserContextKey : key for user context
 	UserContextKey = "nyaapantsu.user"
 )
+
 // CreateUserAuthentication creates user authentication.
-func CreateUserAuthentication(c *gin.Context, form *formStruct.LoginForm) (int, error) {
+func CreateUserAuthentication(c *gin.Context, form *userValidator.LoginForm) (*models.User, int, error) {
 	username := form.Username
 	pass := form.Password
 	user, status, err := users.Exists(username, pass)
 	if err != nil {
-		return status, err
+		return user, status, err
 	}
-	status, err = SetCookieHandler(c, user)
-	return status, err
+	status, err = SetLogin(c, *user)
+	return user, status, err
 }
 
 // If you want to keep login cookies between restarts you need to make these permanent

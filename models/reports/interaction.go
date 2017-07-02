@@ -3,11 +3,12 @@ package reports
 import (
 	"errors"
 	"net/http"
+	"nyaa-master/db"
 	"strconv"
 	"strings"
 
-	"github.com/NyaaPantsu/nyaa/service"
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 )
 
 // Create : Return torrentReport in case we did modified it (ie: CreatedAt field)
@@ -20,30 +21,30 @@ func Create(torrentReport models.TorrentReport) error {
 
 // Delete : Delete a torrent report by id
 func Delete(id uint) (*models.TorrentReport, int, error) {
-	return deleteTorrent(id, false)
+	return delete(id, false)
 }
 
 // DeleteDefinitely : Delete definitely a torrent report by id
-func DeleteDefinitely(id uint) (int, error) {
-	return deleteTorrent(id, true)
+func DeleteDefinitely(id uint) (*models.TorrentReport, int, error) {
+	return delete(id, true)
 }
 
-func deleteTorrent(id uint, definitely bool) {
+func delete(id uint, definitely bool) (*models.TorrentReport, int, error) {
 	var torrentReport models.TorrentReport
 	db := models.ORM
-	if (definitely) {
+	if definitely {
 		db = models.ORM.Unscoped()
 	}
 	if db.First(&torrentReport, id).RecordNotFound() {
-		return errors.New("try_to_delete_report_inexistant"), http.StatusNotFound
+		return &torrentReport, http.StatusNotFound, errors.New("try_to_delete_report_inexistant")
 	}
 	if _, err := torrentReport.Delete(false); err != nil {
-		return &torrentReport, err, http.StatusInternalServerError
+		return &torrentReport, http.StatusInternalServerError, err
 	}
 	return &torrentReport, http.StatusOK, nil
 }
 
-func findOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int, countAll bool) (
+func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, offset int, countAll bool) (
 	torrentReports []models.TorrentReport, count int, err error,
 ) {
 	var conditionArray []string
@@ -80,11 +81,11 @@ func findOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int,
 }
 
 // GetOrderBy : Get torrents reports based on search parameters with order
-func FindOrderBy(parameters *serviceBase.WhereParams, orderBy string, limit int, offset int) ([]models.TorrentReport, int, error) {
+func FindOrderBy(parameters *structs.WhereParams, orderBy string, limit int, offset int) ([]models.TorrentReport, int, error) {
 	return findOrderBy(parameters, orderBy, limit, offset, true)
 }
 
 // GetAll : Get all torrents report
 func GetAll(limit int, offset int) ([]models.TorrentReport, int, error) {
-	return findOrderBy(nil, "", limit, offset)
+	return FindOrderBy(nil, "", limit, offset)
 }

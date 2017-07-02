@@ -11,8 +11,8 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
-	"github.com/NyaaPantsu/nyaa/service"
 	"github.com/NyaaPantsu/nyaa/utils/sanitize"
+	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
 	"github.com/gin-gonic/gin"
 )
@@ -43,8 +43,8 @@ type APIResultJSON struct {
 }
 
 // ToParams : Convert a torrentsrequest to searchparams
-func (r *TorrentsRequest) ToParams() serviceBase.WhereParams {
-	res := serviceBase.WhereParams{}
+func (r *TorrentsRequest) ToParams() structs.WhereParams {
+	res := structs.WhereParams{}
 	conditions := ""
 	v := reflect.ValueOf(r.Query)
 
@@ -146,7 +146,7 @@ func ExtractInfo(c *gin.Context, r *torrentValidator.TorrentRequest) error {
 
 // UpdateTorrent : Update torrent model
 //rewrite with reflect ?
-func UpdateTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, currentUser *models.User) {
+func UpdateTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, currentUser *models.User) *models.Torrent {
 	if r.Update.Name != "" {
 		t.Name = r.Update.Name
 	}
@@ -172,6 +172,8 @@ func UpdateTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, current
 		status = models.TorrentStatusTrusted
 	}
 	t.Status = status
+
+	return t
 }
 
 func writeTorrentToDisk(file multipart.File, name string, fullpath *string) error {

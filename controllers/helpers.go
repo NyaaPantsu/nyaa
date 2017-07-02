@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"github.com/NyaaPantsu/nyaa/common"
 	"github.com/NyaaPantsu/nyaa/models"
-	"github.com/NyaaPantsu/nyaa/utils/cookies"
+	"github.com/NyaaPantsu/nyaa/models/users"
+	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,7 +15,7 @@ type navigation struct {
 }
 
 type searchForm struct {
-	common.SearchParam
+	structs.TorrentParam
 	Category         string
 	ShowItemsPerPage bool
 	SizeType         string
@@ -47,6 +47,6 @@ func newSearchForm(c *gin.Context) searchForm {
 	}
 }
 func getUser(c *gin.Context) *models.User {
-	user, _, _ := userService.RetrieveCurrentUser(c)
-	return &user
+	user, _, _ := users.CurrentUser(c)
+	return user
 }

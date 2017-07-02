@@ -26,7 +26,7 @@ type TorrentRequest struct {
 
 // UpdateRequest struct
 type UpdateRequest struct {
-	ID     int            `json:"id"`
+	ID     uint           `json:"id"`
 	Update TorrentRequest `json:"update"`
 }
 

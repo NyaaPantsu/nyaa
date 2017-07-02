@@ -10,14 +10,17 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
-	"github.com/NyaaPantsu/nyaa/service"
-	"github.com/NyaaPantsu/nyaa/service/api"
+	"github.com/NyaaPantsu/nyaa/models/users"
 	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/NyaaPantsu/nyaa/utils/crypto"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/search"
+	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 	"github.com/NyaaPantsu/nyaa/utils/upload"
+	"github.com/NyaaPantsu/nyaa/utils/validator"
+	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
+	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"github.com/gin-gonic/gin"
 )
 
@@ -28,8 +31,8 @@ func APIHandler(c *gin.Context) {
 		RSSTorznabHandler(c)
 	} else {
 		page := c.Param("page")
-		whereParams := serviceBase.WhereParams{}
-		req := apiService.TorrentsRequest{}
+		whereParams := structs.WhereParams{}
+		req := upload.TorrentsRequest{}
 
 		contentType := c.Request.Header.Get("Content-Type")
 		if contentType == "application/json" {
@@ -69,13 +72,13 @@ func APIHandler(c *gin.Context) {
 			}
 		}
 
-		torrents, nbTorrents, err := torrentService.GetTorrents(whereParams, req.MaxPerPage, req.MaxPerPage*(req.Page-1))
+		torrents, nbTorrents, err := torrents.Find(whereParams, req.MaxPerPage, req.MaxPerPage*(req.Page-1))
 		if err != nil {
 			c.AbortWithError(http.StatusInternalServerError, err)
 			return
 		}
 
-		b := models.APIResultJSON{
+		b := upload.APIResultJSON{
 			Torrents: models.APITorrentsToJSON(torrents),
 		}
 		b.QueryRecordCount = req.MaxPerPage
@@ -91,9 +94,9 @@ func APIHandler(c *gin.Context) {
 
 // APIViewHandler : Controller for viewing a torrent by its ID
 func APIViewHandler(c *gin.Context) {
-	id := c.Param("id")
+	id, _ := strconv.ParseInt(c.Param("id"), 10, 32)
 
-	torrent, err := torrentService.GetTorrentByID(id)
+	torrent, err := torrents.FindByID(uint(id))
 
 	if err != nil {
 		c.AbortWithError(http.StatusNotFound, err)
@@ -113,7 +116,7 @@ func APIViewHeadHandler(c *gin.Context) {
 		return
 	}
 
-	_, err = torrentService.GetRawTorrentByID(uint(id))
+	_, err = torrents.FindRawByID(uint(id))
 
 	if err != nil {
 		NotFoundHandler(c)
@@ -127,86 +130,53 @@ func APIViewHeadHandler(c *gin.Context) {
 func APIUploadHandler(c *gin.Context) {
 	token := c.Request.Header.Get("Authorization")
 	username := c.PostForm("username")
-	user, _, _, _, err := userService.RetrieveUserByAPITokenAndName(token, username)
+	user, _, _, _, err := users.FindByAPITokenAndName(token, username)
 	messages := msg.GetMessages(c)
 
 	if err != nil {
 		messages.AddErrorT("errors", "error_api_token")
 	}
 
-	if !uploadService.IsUploadEnabled(user) {
+	if !user.CanUpload() {
 		messages.AddErrorT("errors", "uploads_disabled")
 	}
 
 	if user.ID == 0 {
-		messages.Error(apiService.ErrAPIKey)
+		messages.AddErrorT("errors", "error_api_token")
 	}
 
 	if !messages.HasErrors() {
-		upload := apiService.TorrentRequest{}
+		uploadForm := torrentValidator.TorrentRequest{}
 		contentType := c.Request.Header.Get("Content-Type")
 		if contentType != "application/json" && !strings.HasPrefix(contentType, "multipart/form-data") && contentType != "application/x-www-form-urlencoded" {
-			// TODO What should we do here ? upload is empty so we shouldn't
+			// TODO What should we do here ? uploadForm is empty so we shouldn't
 			// create a torrent from it
 			messages.AddErrorT("errors", "error_content_type_post")
 		}
 		// As long as the right content-type is sent, formValue is smart enough to parse it
-		err = upload.ExtractInfo(c)
+		err = upload.ExtractInfo(c, &uploadForm)
 		if err != nil {
 			messages.Error(err)
 		}
 
 		if !messages.HasErrors() {
-			status := models.TorrentStatusNormal
-			if upload.Remake { // overrides trusted
-				status = models.TorrentStatusRemake
+			uploadForm.Status = models.TorrentStatusNormal
+			if uploadForm.Remake { // overrides trusted
+				uploadForm.Status = models.TorrentStatusRemake
 			} else if user.IsTrusted() {
-				status = models.TorrentStatusTrusted
+				uploadForm.Status = models.TorrentStatusTrusted
 			}
-			err = torrentService.ExistOrDelete(upload.Infohash, user)
+			err = torrents.ExistOrDelete(uploadForm.Infohash, user)
 			if err != nil {
 				messages.Error(err)
 			}
 			if !messages.HasErrors() {
-				torrent := models.Torrent{
-					Name:        upload.Name,
-					Category:    upload.CategoryID,
-					SubCategory: upload.SubCategoryID,
-					Status:      status,
-					Hidden:      upload.Hidden,
-					Hash:        upload.Infohash,
-					Date:        time.Now(),
-					Filesize:    upload.Filesize,
-					Description: upload.Description,
-					WebsiteLink: upload.WebsiteLink,
-					UploaderID:  user.ID}
-				torrent.ParseTrackers(upload.Trackers)
-				db.ORM.Create(&torrent)
-
-				if db.ElasticSearchClient != nil {
-					err := torrent.AddToESIndex(db.ElasticSearchClient)
-					if err == nil {
-						log.Infof("Successfully added torrent to ES index.")
-					} else {
-						log.Errorf("Unable to add torrent to ES index: %s", err)
-					}
-				} else {
-					log.Errorf("Unable to create elasticsearch client: %s", err)
+				torrent, err := torrents.Create(user, &uploadForm)
+				if err != nil {
+					messages.Error(err)
 				}
 				messages.AddInfoT("infos", "torrent_uploaded")
-				torrentService.NewTorrentEvent(user, &torrent)
-				// add filelist to files db, if we have one
-				if len(upload.FileList) > 0 {
-					for _, uploadedFile := range upload.FileList {
-						file := models.File{TorrentID: torrent.ID, Filesize: upload.Filesize}
-						err := file.SetPath(uploadedFile.Path)
-						if err != nil {
-							c.AbortWithError(http.StatusBadRequest, err)
-							return
-						}
-						db.ORM.Create(&file)
-					}
-				}
+
 				apiResponseHandler(c, torrent.ToJSON())
 				return
 			}
@@ -220,7 +190,7 @@ func APIUploadHandler(c *gin.Context) {
 func APIUpdateHandler(c *gin.Context) {
 	token := c.Request.Header.Get("Authorization")
 	username := c.PostForm("username")
-	user, _, _, _, err := userService.RetrieveUserByAPITokenAndName(token, username)
+	user, _, _, _, err := users.FindByAPITokenAndName(token, username)
 
 	messages := msg.GetMessages(c)
 
@@ -228,12 +198,12 @@ func APIUpdateHandler(c *gin.Context) {
 		messages.AddErrorT("errors", "error_api_token")
 	}
 
-	if !uploadService.IsUploadEnabled(user) {
+	if !user.CanUpload() {
 		messages.AddErrorT("errors", "uploads_disabled")
 	}
 
 	if user.ID == 0 {
-		messages.Error(apiService.ErrAPIKey)
+		messages.AddErrorT("errors", "error_api_token")
 	}
 	contentType := c.Request.Header.Get("Content-Type")
 	if contentType != "application/json" && !strings.HasPrefix(contentType, "multipart/form-data") && contentType != "application/x-www-form-urlencoded" {
@@ -241,22 +211,21 @@ func APIUpdateHandler(c *gin.Context) {
 		// create a torrent from it
 		messages.AddErrorT("errors", "error_content_type_post")
 	}
-	update := apiService.UpdateRequest{}
-	err = update.Update.ExtractEditInfo(c)
+	update := torrentValidator.UpdateRequest{}
+	err = upload.ExtractEditInfo(c, &update.Update)
 	if err != nil {
 		messages.Error(err)
 	}
 	if !messages.HasErrors() {
-		torrent := models.Torrent{}
-		db.ORM.Where("torrent_id = ?", c.PostForm("id")).First(&torrent)
-		if torrent.ID == 0 {
-			messages.Error(apiService.ErrTorrentID)
+		c.Bind(&update)
+		torrent, err := torrents.FindByID(update.ID)
+		if err != nil {
+			messages.AddErrorTf("errors", "torrent_not_exist", strconv.Itoa(int(update.ID)))
 		}
 		if torrent.UploaderID != 0 && torrent.UploaderID != user.ID { //&& user.Status != mod
-			messages.Error(apiService.ErrRights)
+			messages.AddErrorT("errors", "fail_torrent_update")
 		}
-		update.UpdateTorrent(&torrent, user)
-		torrentService.UpdateTorrent(&torrent)
+		upload.UpdateTorrent(&update, &torrent, user).Update(false)
 	}
 	apiResponseHandler(c)
 }
@@ -293,7 +262,7 @@ func APISearchHandler(c *gin.Context) {
 // APILoginHandler : Login with API
 // This is not an OAuth api like and shouldn't be used for anything except getting the API Token in order to not store a password
 func APILoginHandler(c *gin.Context) {
-	b := form.LoginForm{}
+	b := userValidator.LoginForm{}
 	messages := msg.GetMessages(c)
 	contentType := c.Request.Header.Get("Content-type")
 	if !strings.HasPrefix(contentType, "application/json") && !strings.HasPrefix(contentType, "multipart/form-data") && !strings.HasPrefix(contentType, "application/x-www-form-urlencoded") {
@@ -302,9 +271,9 @@ func APILoginHandler(c *gin.Context) {
 		messages.AddErrorT("errors", "error_content_type_post")
 	}
 	c.Bind(&b)
-	modelHelper.ValidateForm(&b, messages)
+	validator.ValidateForm(&b, messages)
 	if !messages.HasErrors() {
-		user, _, errorUser := userService.CreateUserAuthenticationAPI(c, &b)
+		user, _, errorUser := cookies.CreateUserAuthentication(c, &b)
 		if errorUser == nil {
 			messages.AddInfo("infos", "Logged")
 			apiResponseHandler(c, user.ToJSON())
@@ -319,7 +288,7 @@ func APILoginHandler(c *gin.Context) {
 func APIRefreshTokenHandler(c *gin.Context) {
 	token := c.Request.Header.Get("Authorization")
 	username := c.PostForm("username")
-	user, _, _, _, err := userService.RetrieveUserByAPITokenAndName(token, username)
+	user, _, _, _, err := users.FindByAPITokenAndName(token, username)
 
 	messages := msg.GetMessages(c)
 	if err != nil {
@@ -328,7 +297,7 @@ func APIRefreshTokenHandler(c *gin.Context) {
 	if !messages.HasErrors() {
 		user.APIToken, _ = crypto.GenerateRandomToken32()
 		user.APITokenExpiry = time.Unix(0, 0)
-		_, errorUser := userService.UpdateRawUser(user)
+		_, errorUser := user.UpdateRaw()
 		if errorUser == nil {
 			messages.AddInfoT("infos", "profile_updated")
 			apiResponseHandler(c, user.ToJSON())
@@ -343,7 +312,7 @@ func APIRefreshTokenHandler(c *gin.Context) {
 func APICheckTokenHandler(c *gin.Context) {
 	token := c.Request.Header.Get("Authorization")
 	username := c.PostForm("username")
-	user, _, _, _, err := userService.RetrieveUserByAPITokenAndName(token, username)
+	user, _, _, _, err := users.FindByAPITokenAndName(token, username)
 
 	messages := msg.GetMessages(c)
 	if err != nil {
