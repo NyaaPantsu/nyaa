@@ -16,7 +16,7 @@ import (
 
 // UserRetriever : this interface is required to prevent a cyclic import between the languages and userService package.
 type UserRetriever interface {
-	RetrieveCurrentUser(c *gin.Context) (models.User, error)
+	RetrieveCurrentUser(c *gin.Context) (*models.User, error)
 }
 
 // TemplateTfunc : T func used in template
@@ -175,9 +175,9 @@ func GetMascotUrlFromRequest(c *gin.Context) string {
 	return ""
 }
 
-func getCurrentUser(c *gin.Context) (models.User, error) {
+func getCurrentUser(c *gin.Context) (*models.User, error) {
 	if userRetriever == nil {
-		return models.User{}, errors.New("failed to get current user: no user retriever set")
+		return &models.User{}, errors.New("failed to get current user: no user retriever set")
 	}
 	return userRetriever.RetrieveCurrentUser(c)
 }

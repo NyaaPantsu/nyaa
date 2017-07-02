@@ -34,9 +34,9 @@ func NewCurrentUserRetriever() *CurrentUserRetriever {
 type CurrentUserRetriever struct{}
 
 // RetrieveCurrentUser retrieve current user for languages
-func (*CurrentUserRetriever) RetrieveCurrentUser(c *gin.Context) (models.User, error) {
+func (*CurrentUserRetriever) RetrieveCurrentUser(c *gin.Context) (*models.User, error) {
 	user, _, err := CurrentUser(c)
-	return *user, err
+	return user, err
 }
 
 // CreateUserAuthentication creates user authentication.
