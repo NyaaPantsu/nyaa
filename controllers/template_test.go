@@ -13,10 +13,10 @@ import (
 
 	"github.com/CloudyKit/jet"
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/model"
-	"github.com/NyaaPantsu/nyaa/service/api"
-	userForm "github.com/NyaaPantsu/nyaa/service/user/form"
+	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
+	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"github.com/gin-gonic/gin"
 )
 
@@ -55,12 +55,12 @@ func walkDirTest(dir string, t *testing.T) {
 			return vars
 		},
 		"edit.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", &apiService.TorrentRequest{})
+			vars.Set("Form", &torrentValidator.TorrentRequest{})
 			vars.Set("Languages", make(map[string]string))
 			return vars
 		},
 		"upload.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", &apiService.TorrentRequest{})
+			vars.Set("Form", &torrentValidator.TorrentRequest{})
 			return vars
 		},
 		"view.jet.html": func(vars jet.VarMap) jet.VarMap {
@@ -74,7 +74,7 @@ func walkDirTest(dir string, t *testing.T) {
 			return vars
 		},
 		"register.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", &userForm.RegistrationForm{})
+			vars.Set("Form", &userValidator.RegistrationForm{})
 			return vars
 		},
 		"index.jet.html": func(vars jet.VarMap) jet.VarMap {

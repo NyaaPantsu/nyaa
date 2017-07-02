@@ -3,7 +3,7 @@ package userValidator
 import (
 	"testing"
 
-	"github.com/asaskevich/govalidator"
+	"github.com/NyaaPantsu/nyaa/utils/validator"
 )
 
 func TestValideUsername(t *testing.T) {
@@ -39,7 +39,7 @@ func TestValideUsername(t *testing.T) {
 	}
 
 	for _, val := range tests {
-		testVal := govalidator.IsUTFLetterNumeric(val[0].(string))
+		testVal := validator.IsUTFLetterNumeric(val[0].(string))
 		if testVal != val[1] {
 			t.Errorf("The test returned a result %t instead of %t for %s", testVal, val[1].(bool), val[0].(string))
 		}

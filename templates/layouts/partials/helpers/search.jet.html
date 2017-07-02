@@ -34,7 +34,7 @@
   <input type="hidden" name="userID" value="{{ Search.UserID }}">
 {{end}}
 {{block search_button() }}
-    <input class="form-input search-box" name="q" placeholder="{{ T("search")}}" type="text" value="{{Search.Query}}">
+    <input class="form-input search-box" name="q" placeholder="{{ T("search")}}" type="text" value="{{Search.NameLike}}">
     <button type="submit" class="form-input icon-search"></button>
 {{end}}
 {{block search_refine() }}
@@ -46,7 +46,7 @@
         <input type="hidden" name="c" value="{{Search.Category}}"/>
         <input type="hidden" name="max" value="{{Navigation.MaxItemPerPage}}"/>
         <input type="hidden" name="userID" value="{{Search.UserID}}"/>
-        <input type="hidden" name="q" value="{{Search.Query}}"/>
+        <input type="hidden" name="q" value="{{Search.NameLike}}"/>
     <span style="margin-top: 10px;" class="form-refine">{{ T("between")}} <input class="form-input" size="7" name="minSize" type="text" value="{{Search.MinSize}}"> {{ T("and")}} <input size="7" class="form-input" name="maxSize" type="text" value="{{Search.MaxSize}}"> 
     <select name="sizeType" class="form-input">
         <option value="b"{{if Search.SizeType == "b"}} selected{{end}}>B</option>

@@ -2,6 +2,9 @@
 {{ import "layouts/partials/helpers/csrf" }}
 {{ import "layouts/partials/helpers/captcha" }}
 {{block title()}}{{ T("upload")}}{{end}}
+{{block additional_header()}}
+<link rel="stylesheet" href="/css/flags/flags.min.css">
+{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
 	<form enctype="multipart/form-data" role="upload" method="POST">
@@ -30,16 +33,12 @@
 		{{ yield errors(name="c")}}
 
 		<h3>{{  T("torrent_language") }}</h3>
-		<select name="language" id="language" class="form-input up-input">
-			<option value="">{{ T("select_a_torrent_language")}}</option>
-			<option value="other" {{if Form.Language == "other"}}selected{{end}}>{{ T("language_other_name")}}</option>
-			<option value="multiple" {{if Form.Language == "multiple"}}selected{{end}}>{{ T("language_multiple_name")}}</option>
+		<div name="language" class="form-input language">
 			{{ range _, language := GetTorrentLanguages() }}
-			<option value="{{ language }}" {{if Form.Language == language}}selected{{end}}>
-				{{LanguageName(language, T)}}
-			</option>
+			<input type="checkbox" name="lang-{{ language }}" id="lang-{{ language }}">
+			<label for="lang-{{ language }}" class="flag flag-{{ language }}" title="{{LanguageName(language, T)}}"></label>
 			{{ end }}
-		</select>
+		</div>
 		{{ yield errors(name="language")}}
 
 		<p>

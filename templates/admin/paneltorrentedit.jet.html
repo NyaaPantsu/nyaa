@@ -1,5 +1,8 @@
 {{ extends "layouts/index_admin" }}
 {{block title()}}{{  T("torrent_edit_panel") }}{{end}}
+{{block additional_header()}}
+<link rel="stylesheet" href="/css/flags/flags.min.css">
+{{end}}
 {{ block content_body()}}
 <div class="results box">
 <h3 id="torrents">{{  T("torrent_edit_panel") }}</h3>
@@ -18,17 +21,12 @@
           </select>
       </div>
       <div class="form-group">
-          <label for="language">{{  T("torrent_language") }}</label>
-          <select name="language" id="language" class="form-input up-input" required>
-			<option value="">{{ T("select_a_torrent_language")}}</option>
-            <option value="other" {{if Form.Language == "other"}}selected{{end}}>{{ T("language_other_name")}}</option>
-			<option value="multiple" {{if Form.Language == "multiple"}}selected{{end}}>{{ T("language_multiple_name")}}</option>
-			{{ range _, language := GetTorrentLanguages() }}
-			<option value="{{ language }}" {{if Form.Language == language}}selected{{end}}>
-				{{LanguageName(language, T)}}
-			</option>
-			{{ end }}
-		  </select>
+          <div name="language" class="form-input language">
+              {{ range _, language := GetTorrentLanguages() }}
+              <input type="checkbox" name="lang-{{ language }}" id="lang-{{ language }}">
+              <label for="lang-{{ language }}" class="flag flag-{{ language }}" title="{{LanguageName(language, T)}}"></label>
+              {{ end }}
+          </div>
       </div>
       <div class="form-group">
           <label for="Status">{{ T("torrent_status")}}</label>

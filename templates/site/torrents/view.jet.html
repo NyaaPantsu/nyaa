@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="/css/flags/flags.min.css">
 <link rel="stylesheet" href="/css/flags/custom_flags.css">
 {{end}}
-
 {{block content_body()}}
 <div style="text-align: left;" class="box">
     <div id="torrent-name" class="{{if Torrent.Status == 2}}remake{{else if Torrent.Status == 3}}trusted{{else if Torrent.Status == 4}}aplus{{end}}">
@@ -35,11 +34,16 @@
           <td class="torrent-info-td torrent-info-label">{{ T("size")}}:</td><td class="torrent-view-td torrent-info-data">{{ fileSize(Torrent.Filesize, T) }}</td>
           <td class="torrent-info-td torrent-info-label">{{ T("last_scraped")}}</td><td class="torrent-info-td{{if !Torrent.LastScrape.IsZero}} date-full">{{formatDateRFC(Torrent.LastScrape)}}{{else}}">{{ T("unknown")}}{{end}}</td>
       </tr>
-    {{if FlagCode(Torrent.Language) != ""}}
+      {{ if len(Torrent.Languages) > 0}}
     <tr class="torrent-info-row">
-          <td class="torrent-info-td torrent-info-label">{{ T("torrent_language")}}:</td><td class="tr-flag torrent-view-td torrent-info-data"><img src="/img/blank.gif" alt="{{ LanguageName(Torrent.Language, T) }}" class="flag flag-{{FlagCode(Torrent.Language)}}" title="{{ LanguageName(Torrent.Language, T) }}"></img> {{ LanguageName(Torrent.Language, T) }}</td>
-    </tr>
+        <td class="torrent-info-td torrent-info-label">{{ T("torrent_language")}}:</td>
+        <td class="tr-flag torrent-view-td torrent-info-data">
+    {{ range _, language := Torrent.Languages}}
+        <img src="/img/blank.gif" alt="{{ LanguageName(language, T) }}" class="flag flag-{{FlagCode(language)}}" title="{{ LanguageName(language, T) }}"></img> {{ LanguageName(language, T) }}
     {{end}}
+        </td>
+    </tr>
+      {{end}}
   </table>
 <div class="torrent-buttons">
   <a href="{{Torrent.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;margin-right: 0.5em;"><div class="icon-magnet"></div> {{ T("magnet_link")}}</a>
@@ -48,10 +52,10 @@
   {{end}}
   {{ if User.ID > 0}}
   <a id="reportPopup" href="#" class="form-input">{{  T("report_btn") }}</a>
-    {{ if HasAdmin(User)}}
+    {{ if User.HasAdmin()}}
     <a href="/mod/torrent/delete?id={{ Torrent.ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;">{{  T("delete") }}</a>
     <a href="/mod/torrent?id={{ Torrent.ID }}" class="form-input btn-orange">{{  T("edit") }}</a>
-    {{ else if CurrentUserIdentical(User, Torrent.UploaderID) }}
+    {{ else if User.CurrentUserIdentical(Torrent.UploaderID) }}
     <a href="/torrent/delete?id={{ Torrent.ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;">{{  T("delete") }}</a>
     <a href="/torrent/edit?id={{ Torrent.ID }}" class="form-input btn-orange">{{  T("edit") }}</a>
     {{end}}
