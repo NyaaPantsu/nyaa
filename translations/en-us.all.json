@@ -164,6 +164,14 @@
     "translation": "Error 404"
   },
   {
+    "id": "error_400",
+    "translation": "Error 400"
+  },
+  {
+    "id": "error_500",
+    "translation": "Error 500"
+  },
+  {
     "id": "upload",
     "translation": "Upload"
   },
@@ -186,6 +194,14 @@
   {
     "id": "404_not_found",
     "translation": "404 Not Found"
+  },
+  {
+    "id": "500_internal_server_error",
+    "translation": "500 Internal Server Error"
+  },
+  {
+    "id": "400_bad_request",
+    "translation": "400 Bad Request"
   },
   {
     "id": "no_torrents_uploaded",
@@ -701,7 +717,7 @@
   },
   {
     "id": "report_torrent_number",
-    "translation": "Report Torrent #%s"
+    "translation": "Report Torrent #%d"
   },
   {
     "id": "report_type",
@@ -861,19 +877,19 @@
   },
   {
     "id": "torrent_deleted_by",
-    "translation": "Torrent #%s from %s has been deleted by %s."
+    "translation": "Torrent #%d from %s has been deleted by %s."
   },
   {
     "id": "torrent_edited_by",
-    "translation": "Torrent #%s from %s has been edited by %s."
+    "translation": "Torrent #%d from %s has been edited by %s."
   },
   {
     "id": "torrent_blocked_by",
-    "translation": "Torrent #%s from %s has been locked by %s."
+    "translation": "Torrent #%d from %s has been locked by %s."
   },
   {
     "id": "torrent_blocked_by",
-    "translation": "Torrent #%s from %s has been unlocked by %s."
+    "translation": "Torrent #%d from %s has been unlocked by %s."
   },
   {
     "id": "torrents_deleted",
@@ -889,11 +905,11 @@
   },
   {
     "id": "comment_deleted_by",
-    "translation": "Comment #%s from %s has been deleted by %s."
+    "translation": "Comment #%d from %s has been deleted by %s."
   },
   {
     "id": "comment_edited_by",
-    "translation": "Comment #%s from %s has been edited by %s."
+    "translation": "Comment #%d from %s has been edited by %s."
   },
   {
     "id": "no_action_exist",
@@ -901,7 +917,7 @@
   },
   {
     "id": "torrent_not_exist",
-    "translation": "Torrent with ID %s doesn't exist!"
+    "translation": "Torrent with ID %d doesn't exist!"
   },
   {
     "id": "something_went_wrong",
@@ -1253,7 +1269,7 @@
   },
   {
     "id": "report_msg",
-    "translation": "The torrent #%s has been reported!"
+    "translation": "The torrent #%d has been reported!"
   },
   {
     "id": "email_not_valid",

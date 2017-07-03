@@ -41,6 +41,7 @@ func init() {
 	}
 }
 func commonVars(c *gin.Context) jet.VarMap {
+	token := nosurf.Token(c.Request)
 	msg := messages.GetMessages(c)
 	vars.Set("Navigation", newNavigation())
 	vars.Set("Search", newSearchForm(c))
@@ -50,7 +51,7 @@ func commonVars(c *gin.Context) jet.VarMap {
 	vars.Set("MascotURL", publicSettings.GetMascotUrlFromRequest(c))
 	vars.Set("User", getUser(c))
 	vars.Set("URL", c.Request.URL)
-	vars.Set("CsrfToken", nosurf.Token(c.Request))
+	vars.Set("CsrfToken", token)
 	vars.Set("Config", config.Conf)
 	vars.Set("Infos", msg.GetAllInfos())
 	vars.Set("Errors", msg.GetAllErrors())
@@ -85,13 +86,20 @@ func renderTemplate(c *gin.Context, templateName string, vars jet.VarMap) {
 }
 
 func httpError(c *gin.Context, errorCode int) {
-	if errorCode == http.StatusNotFound {
-		c.Status(http.StatusNotFound)
+	switch errorCode {
+	case http.StatusNotFound:
 		staticTemplate(c, path.Join(ErrorsDir, "404.jet.html"))
+		c.AbortWithStatus(errorCode)
+		return
+	case http.StatusBadRequest:
+		staticTemplate(c, path.Join(ErrorsDir, "400.jet.html"))
+		c.AbortWithStatus(errorCode)
+		return
+	case http.StatusInternalServerError:
+		staticTemplate(c, path.Join(ErrorsDir, "500.jet.html"))
+		c.AbortWithStatus(errorCode)
 		return
 	}
-	c.AbortWithStatus(errorCode)
-	return
 }
 
 func staticTemplate(c *gin.Context, templateName string) {

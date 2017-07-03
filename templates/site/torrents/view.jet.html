@@ -39,7 +39,9 @@
         <td class="torrent-info-td torrent-info-label">{{ T("torrent_language")}}:</td>
         <td class="tr-flag torrent-view-td torrent-info-data">
     {{ range _, language := Torrent.Languages}}
+            {{ if language != "" }}
         <img src="/img/blank.gif" alt="{{ LanguageName(language, T) }}" class="flag flag-{{FlagCode(language)}}" title="{{ LanguageName(language, T) }}"></img> {{ LanguageName(language, T) }}
+            {{end}}
     {{end}}
         </td>
     </tr>
@@ -57,7 +59,7 @@
     <a href="/mod/torrent?id={{ Torrent.ID }}" class="form-input btn-orange">{{  T("edit") }}</a>
     {{ else if User.CurrentUserIdentical(Torrent.UploaderID) }}
     <a href="/torrent/delete?id={{ Torrent.ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;">{{  T("delete") }}</a>
-    <a href="/torrent/edit?id={{ Torrent.ID }}" class="form-input btn-orange">{{  T("edit") }}</a>
+    <a href="/torrent?id={{ Torrent.ID }}" class="form-input btn-orange">{{  T("edit") }}</a>
     {{end}}
 {{end}}
     <div style="clear:both;"></div>

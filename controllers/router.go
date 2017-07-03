@@ -19,6 +19,8 @@ func init() {
 	//Router.Use(gzip.Gzip(gzip.DefaultCompression)) // FIXME I can't make it work :/
 	Router.Use(gin.Logger())
 	Router.Use(gin.Recovery())
+	Router.Use(errorMiddleware())
+
 	// Static file handlers
 	// TODO Use config from cli
 	// TODO Make sure the directory exists
@@ -29,13 +31,13 @@ func init() {
 	Router.StaticFS("/gpg/", http.Dir(GPGPublicKeyPath))
 
 	// We don't need CSRF here
-	Router.Any("/", SearchHandler).Use(errorMiddleware())
-	Router.Any("/p/:page", SearchHandler).Use(errorMiddleware())
-	Router.Any("/search", SearchHandler).Use(errorMiddleware())
-	Router.Any("/search/:page", SearchHandler).Use(errorMiddleware())
-	Router.Any("/verify/email/:token", UserVerifyEmailHandler).Use(errorMiddleware())
-	Router.Any("/faq", FaqHandler).Use(errorMiddleware())
-	Router.Any("/activities", ActivityListHandler).Use(errorMiddleware())
+	Router.Any("/", SearchHandler)
+	Router.Any("/p/:page", SearchHandler)
+	Router.Any("/search", SearchHandler)
+	Router.Any("/search/:page", SearchHandler)
+	Router.Any("/verify/email/:token", UserVerifyEmailHandler)
+	Router.Any("/faq", FaqHandler)
+	Router.Any("/activities", ActivityListHandler)
 	Router.Any("/feed", RSSHandler)
 	Router.Any("/feed/p/:page", RSSHandler)
 	Router.Any("/feed/magnet", RSSMagnetHandler)
@@ -49,7 +51,6 @@ func init() {
 	// !!! This line need to have the same download location as the one define in config.TorrentStorageLink !!!
 	Router.Any("/download/:hash", DownloadTorrent)
 
-	// For now, no CSRF protection here, as API is not usable for uploads
 	Router.Any("/upload", UploadHandler)
 	Router.POST("/login", UserLoginPostHandler)
 	Router.GET("/register", UserRegisterFormHandler)
@@ -58,19 +59,25 @@ func init() {
 	Router.POST("/logout", UserLogoutHandler)
 	Router.GET("/notifications", UserNotificationsHandler)
 
-	torrentViewRoutes := Router.Group("/view", errorMiddleware())
+	reportRoutes := Router.Group("/report")
+	{
+		//reporting a torrent
+		reportRoutes.GET("/:id", ReportViewTorrentHandler)
+		reportRoutes.POST("/:id", ReportTorrentHandler)
+	}
+	torrentViewRoutes := Router.Group("/view")
 	{
 		torrentViewRoutes.GET("/:id", ViewHandler)
 		torrentViewRoutes.HEAD("/:id", ViewHeadHandler)
 		torrentViewRoutes.POST("/:id", PostCommentHandler)
 	}
-	torrentRoutes := Router.Group("/torrent", errorMiddleware())
+	torrentRoutes := Router.Group("/torrent")
 	{
 		torrentRoutes.GET("/", TorrentEditUserPanel)
 		torrentRoutes.POST("/", TorrentPostEditUserPanel)
 		torrentRoutes.GET("/delete", TorrentDeleteUserPanel)
 	}
-	userRoutes := Router.Group("/user").Use(errorMiddleware())
+	userRoutes := Router.Group("/user")
 	{
 		userRoutes.GET("/:id/:username", UserProfileHandler)
 		userRoutes.GET("/:id/:username/follow", UserFollowHandler)
@@ -98,7 +105,7 @@ func init() {
 	// INFO Everything under /mod should be wrapped by wrapModHandler. This make
 	// sure the page is only accessible by moderators
 	// We don't need CSRF here
-	modRoutes := Router.Group("/mod", errorMiddleware(), modMiddleware())
+	modRoutes := Router.Group("/mod", modMiddleware())
 	{
 		modRoutes.Any("/", IndexModPanel)
 		modRoutes.GET("/torrents", TorrentsListPanel)
@@ -127,8 +134,6 @@ func init() {
 		apiMod := modRoutes.Group("/api")
 		apiMod.Any("/torrents", APIMassMod)
 	}
-	//reporting a torrent
-	Router.POST("/report/:id", ReportTorrentHandler)
 
 	Router.Any("/captcha/*hash", captcha.ServeFiles)
 
@@ -137,11 +142,16 @@ func init() {
 	Router.GET("/settings", SeePublicSettingsHandler)
 	Router.POST("/settings", ChangePublicSettingsHandler)
 
-	Router.Use(errorMiddleware())
-
 	CSRFRouter = nosurf.New(Router)
 	CSRFRouter.ExemptRegexp("/api(?:/.+)*")
 	CSRFRouter.ExemptPath("/mod")
 	CSRFRouter.ExemptPath("/upload")
 	CSRFRouter.ExemptPath("/user/login")
+	CSRFRouter.SetFailureHandler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.Error(w, "Invalid CSRF tokens", http.StatusBadRequest)
+	}))
+	CSRFRouter.SetBaseCookie(http.Cookie{
+		Path:   "/",
+		MaxAge: nosurf.MaxAge,
+	})
 }

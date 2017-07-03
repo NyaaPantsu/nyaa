@@ -35,7 +35,13 @@ func ViewHandler(c *gin.Context) {
 	user := getUser(c)
 
 	if c.Request.URL.Query()["success"] != nil {
-		messages.AddInfo("infos", "Torrent uploaded successfully!")
+		messages.AddInfoT("infos", "torrent_uploaded")
+	}
+	if c.Request.URL.Query()["badcaptcha"] != nil {
+		messages.AddErrorT("errors", "bad_captcha")
+	}
+	if c.Request.URL.Query()["reported"] != nil {
+		messages.AddInfoTf("infos", "report_msg", id)
 	}
 
 	torrent, err := torrents.FindByID(uint(id))
@@ -120,12 +126,15 @@ func PostCommentHandler(c *gin.Context) {
 
 // ReportTorrentHandler : Controller for sending a torrent report
 func ReportTorrentHandler(c *gin.Context) {
+	fmt.Println("report")
 	id, _ := strconv.ParseInt(c.Param("id"), 10, 32)
 	messages := msg.GetMessages(c)
+	captchaError := "?reported"
 	currentUser := getUser(c)
 	if currentUser.NeedsCaptcha() {
 		userCaptcha := captcha.Extract(c)
 		if !captcha.Authenticate(userCaptcha) {
+			captchaError = "?badcaptcha"
 			messages.AddErrorT("errors", "bad_captcha")
 		}
 	}
@@ -139,8 +148,36 @@ func ReportTorrentHandler(c *gin.Context) {
 		if err != nil {
 			messages.ImportFromError("errors", err)
 		}
+		c.Redirect(http.StatusSeeOther, "/view/"+strconv.Itoa(int(torrent.ID))+captchaError)
+	} else {
+		ReportViewTorrentHandler(c)
 	}
-	ViewHandler(c)
+}
+
+// ReportTorrentHandler : Controller for sending a torrent report
+func ReportViewTorrentHandler(c *gin.Context) {
+
+	type Report struct {
+		ID        uint
+		CaptchaID string
+	}
+
+	id, _ := strconv.ParseInt(c.Param("id"), 10, 32)
+	messages := msg.GetMessages(c)
+	currentUser := getUser(c)
+	if currentUser.ID > 0 {
+		torrent, err := torrents.FindByID(uint(id))
+		if err != nil {
+			messages.Error(err)
+		}
+		captchaID := ""
+		if currentUser.NeedsCaptcha() {
+			captchaID = captcha.GetID()
+		}
+		formTemplate(c, "site/torrents/report.jet.html", Report{torrent.ID, captchaID})
+	} else {
+		c.Status(404)
+	}
 }
 
 // TorrentEditUserPanel : Controller for editing a user torrent by a user, after GET request

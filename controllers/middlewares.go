@@ -9,8 +9,8 @@ import (
 func errorMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Next()
-		if c.Writer.Status() == http.StatusNotFound && c.Writer.Size() == 0 {
-			NotFoundHandler(c)
+		if c.Writer.Status() != http.StatusOK && c.Writer.Size() <= 0 {
+			httpError(c, c.Writer.Status())
 		}
 	}
 }
