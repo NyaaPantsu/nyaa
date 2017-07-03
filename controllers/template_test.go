@@ -108,6 +108,14 @@ func walkDirTest(dir string, t *testing.T) {
 			vars.Set("Models", []models.TorrentReportJSON{})
 			return vars
 		},
+		"report.jet.html": func(vars jet.VarMap) jet.VarMap {
+			type form struct {
+				ID       int
+				CaptchID string
+			}
+			vars.Set("Form", form{1, ""})
+			return vars
+		},
 	}
 
 	fmt.Printf("\nTesting Folder: %s\n", dir)
