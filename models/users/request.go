@@ -14,36 +14,31 @@ import (
 )
 
 // UpdateFromRequest updates a user.
-func UpdateFromRequest(c *gin.Context, form *userValidator.UserForm, formSet *userValidator.UserSettingsForm, currentUser *models.User, id uint) (user *models.User, status int, err error) {
-	if models.ORM.First(&user, id).RecordNotFound() {
-		err = errors.New("user_not_found")
-		status = http.StatusNotFound
-		return
+func UpdateFromRequest(c *gin.Context, form *userValidator.UserForm, formSet *userValidator.UserSettingsForm, currentUser *models.User, id uint) (*models.User, int, error) {
+	var user = &models.User{}
+	if models.ORM.First(user, id).RecordNotFound() {
+		return user, http.StatusNotFound, errors.New("user_not_found")
 	}
 
+	if !currentUser.IsModerator() { // We don't want users to be able to modify some fields
+		form.Status = user.Status
+		form.Username = user.Username
+	}
 	if form.Password != "" {
 		errBcrypt := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(form.CurrentPassword))
 		if errBcrypt != nil && !currentUser.IsModerator() {
-			err = errors.New("incorrect_password")
-			status = http.StatusInternalServerError
-			return
+			return user, http.StatusInternalServerError, errors.New("incorrect_password")
 		}
 		newPassword, errBcrypt := bcrypt.GenerateFromPassword([]byte(form.Password), 10)
 		if errBcrypt != nil {
-			err = errors.New("error_password_generating")
-			status = http.StatusInternalServerError
-			return
+			return user, http.StatusInternalServerError, errors.New("error_password_generating")
 		}
 		form.Password = string(newPassword)
 	} else { // Then no change of password
 		form.Password = user.Password
 	}
-	if !currentUser.IsModerator() { // We don't want users to be able to modify some fields
-		form.Status = user.Status
-		form.Username = user.Username
-	}
 	log.Debugf("form %+v\n", form)
-	validator.Bind(&user, form)
+	validator.Bind(user, form)
 
 	// We set settings here
 	user.ParseSettings()
@@ -59,6 +54,6 @@ func UpdateFromRequest(c *gin.Context, form *userValidator.UserForm, formSet *us
 	user.Settings.Set("followed_email", formSet.FollowedEmail)
 	user.SaveSettings()
 
-	status, err = user.Update()
-	return
+	status, err := user.Update()
+	return user, status, err
 }
