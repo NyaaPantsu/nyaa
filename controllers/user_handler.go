@@ -171,7 +171,6 @@ func UserProfileFormHandler(c *gin.Context) {
 			}
 		}
 	}
-	fmt.Println(messages.GetAllErrors())
 	availableLanguages := publicSettings.GetAvailableLanguages()
 	userProfileEditTemplate(c, userProfile, userForm, availableLanguages)
 }

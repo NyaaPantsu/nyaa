@@ -21,9 +21,9 @@ type UserForm struct {
 	Username        string `validate:"required" form:"username" json:"username" needed:"true" len_min:"3" len_max:"20"`
 	Email           string `json:"email" form:"email"`
 	Language        string `validate:"default=en-us" form:"language" json:"language"`
-	CurrentPassword string `validate:"required,min=6,max=72" form:"current_password" json:"current_password" omit:"true"`
-	Password        string `validate:"required,min=6,max=72" form:"password" json:"password" len_min:"6" len_max:"72" equalInput:"ConfirmPassword"`
-	ConfirmPassword string `validate:"required" form:"password_confirmation" json:"password_confirmation" omit:"true"`
+	CurrentPassword string `validate:"omitempty,min=6,max=72" form:"current_password" json:"current_password" omit:"true"`
+	Password        string `validate:"omitempty,min=6,max=72" form:"password" json:"password" len_min:"6" len_max:"72" equalInput:"ConfirmPassword"`
+	ConfirmPassword string `validate:"omitempty" form:"password_confirmation" json:"password_confirmation" omit:"true"`
 	Status          int    `validate:"default=0" form:"status" json:"status"`
 	Theme           string `form:"theme" json:"theme"`
 }
