@@ -928,87 +928,28 @@ details[open] summary:after {
 	margin: -4px 5px 0 0;
 }
 
-.nyaa-cat {
-	background-repeat: no-repeat;
-	background-position: center center;
-	width:80px;
-	height: 28px;
-	display: block;
-}
-
-.nyaa-cat-1 {
-	background: url("/img/torrents/1.png")
-}
-.nyaa-cat-2 {
-	background: url("/img/torrents/2.png")
-}
-.nyaa-cat-3 {
-	background: url("/img/torrents/3.png")
-}
-.nyaa-cat-4 {
-	background: url("/img/torrents/4.png")
-}
-.nyaa-cat-5 {
-	background: url("/img/torrents/5.png")
-}
-.nyaa-cat-6 {
-	background: url("/img/torrents/6.png")
-}
-.nyaa-cat-7 {
-	background: url("/img/torrents/7.png")
-}
-.nyaa-cat-8 {
-	background: url("/img/torrents/8.png")
-}
-.nyaa-cat-9 {
-	background: url("/img/torrents/9.png")
-}
-.nyaa-cat-10 {
-	background: url("/img/torrents/10.png")
-}
-.nyaa-cat-11 {
-	background: url("/img/torrents/11.png")
-}
-.nyaa-cat-12 {
-	background: url("/img/torrents/12.png")
-}
-.nyaa-cat-13 {
-	background: url("/img/torrents/13.png")
-}
-.nyaa-cat-14 {
-	background: url("/img/torrents/14.png")
-}
-.nyaa-cat-15 {
-	background: url("/img/torrents/15.png")
-}
-.nyaa-cat-16 {
-	background: url("/img/torrents/16.png")
-}
-.nyaa-cat-17 {
-	background: url("/img/torrents/17.png")
-}
-.nyaa-cat-18 {
-	background: url("/img/torrents/18.png")
-}
-
-.sukebei-cat-11 {
-	background: url("/img/torrents/sukebei/11.png")
-}
-.sukebei-cat-12 {
-	background: url("/img/torrents/sukebei/12.png")
-}
-.sukebei-cat-13 {
-	background: url("/img/torrents/sukebei/13.png")
-}
-.sukebei-cat-14 {
-	background: url("/img/torrents/sukebei/14.png")
-}
-.sukebei-cat-15 {
-	background: url("/img/torrents/sukebei/15.png")
-}
-.sukebei-cat-21 {
-	background: url("/img/torrents/sukebei/21.png")
-}
-.sukebei-cat-22 {
-	background: url("/img/torrents/sukebei/22.png")
-}
+.nyaa-cat { background: url('/img/index.png') no-repeat top left; width: 80px; height: 28px; display: block; } 
+.nyaa-cat-1 { background-position: 0 0; } 
+.nyaa-cat-2 { background-position: 0 -27px; } 
+.nyaa-cat-4 { background-position: 0 -54px; } 
+.nyaa-cat-3 { background-position: 0 -81px; } 
+.nyaa-cat-6 { background-position: 0 -108px; } 
+.nyaa-cat-5 { background-position: 0 -135px; } 
+.nyaa-cat-8 { background-position: 0 -162px; } 
+.nyaa-cat-7 { background-position: 0 -189px; } 
+.nyaa-cat-9 { background-position: 0 -216px; } 
+.nyaa-cat-10 { background-position: 0 -243px; } 
+.nyaa-cat-11 { background-position: 0 -270px; } 
+.nyaa-cat-12 { background-position: 0 -297px; } 
+.nyaa-cat-13 { background-position: 0 -324px; } 
+.nyaa-cat-14 { background-position: 0 -351px; } 
+.nyaa-cat-15 { background-position: 0 -378px; } 
+.nyaa-cat-16 { background-position: 0 -405px; } 
+.nyaa-cat-18 { background-position: 0 -432px; } 
+.sukebei-cat-11 { background-position: 0 -459px; } 
+.sukebei-cat-12 { background-position: 0 -486px; } 
+.sukebei-cat-13 { background-position: 0 -513px; } 
+.sukebei-cat-14 { background-position: 0 -540px; } 
+.sukebei-cat-15 { background-position: 0 -567px; } 
+.sukebei-cat-21 { background-position: 0 -594px; } 
+.sukebei-cat-22 { background-position: 0 -621px; } 
