@@ -71,14 +71,13 @@ type RssFeed struct {
 }
 
 type RssItem struct {
-	XMLName     xml.Name      `xml:"item"`
-	Title       string        `xml:"title"` // required
-	Link        string        `xml:"link,omitempty"`
-	MagnetLink  *RssMagnetLink `xml:"link,omitempty"`
-	Description string        `xml:"description"` // required
-	Author      string        `xml:"author,omitempty"`
-	Category    *RssCategory  `xml:"category,omitempty"`
-	Comments    string        `xml:"comments,omitempty"`
+	XMLName     xml.Name     `xml:"item"`
+	Title       string       `xml:"title"` // required
+	Link        interface{}  `xml:"link,omitempty"`
+	Description string       `xml:"description"` // required
+	Author      string       `xml:"author,omitempty"`
+	Category    *RssCategory `xml:"category,omitempty"`
+	Comments    string       `xml:"comments,omitempty"`
 	Enclosure   *RssEnclosure
 	GUID        string      `xml:"guid,omitempty"`    // Id used
 	PubDate     string      `xml:"pubDate,omitempty"` // created or updated

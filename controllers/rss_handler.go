@@ -87,7 +87,7 @@ func RSSMagnetHandler(c *gin.Context) {
 		torrentJSON := torrent.ToJSON()
 		feed.Items[i] = &nyaafeeds.RssItem{
 			Title:       torrentJSON.Name,
-			MagnetLink:  &nyaafeeds.RssMagnetLink{Text: string(torrentJSON.Magnet)},
+			Link:        &nyaafeeds.RssMagnetLink{Text: string(torrentJSON.Magnet)},
 			Description: string(torrentJSON.Description),
 			PubDate:     torrent.Date.Format(time.RFC822),
 			GUID:        config.WebAddress() + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
