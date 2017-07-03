@@ -110,8 +110,8 @@ func walkDirTest(dir string, t *testing.T) {
 		},
 		"report.jet.html": func(vars jet.VarMap) jet.VarMap {
 			type form struct {
-				ID       int
-				CaptchID string
+				ID        int
+				CaptchaID string
 			}
 			vars.Set("Form", form{1, ""})
 			return vars
