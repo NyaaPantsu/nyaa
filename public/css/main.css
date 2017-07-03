@@ -52,7 +52,7 @@ body {
 
 .header .container {
 	position: relative;
-	max-width: 1400px;
+	width: auto;
 }
 
 .header .container > div {
