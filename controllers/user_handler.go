@@ -130,13 +130,14 @@ func UserProfileFormHandler(c *gin.Context) {
 	userSettingsForm := userValidator.UserSettingsForm{}
 
 	if len(c.PostForm("email")) > 0 {
-		if userValidator.EmailValidation(c.PostForm("email")) {
-			messages.AddErrorf("email", "email_not_valid")
+		if !userValidator.EmailValidation(c.PostForm("email")) {
+			messages.AddErrorT("email", "email_not_valid")
 		}
 	}
 	if len(c.PostForm("username")) > 0 {
-		userValidator.ValidateUsername(c.PostForm("username"))
-		messages.AddErrorf("username", "username_illegal")
+		if !userValidator.ValidateUsername(c.PostForm("username")) {
+			messages.AddErrorT("username", "username_illegal")
+		}
 	}
 
 	if !messages.HasErrors() {
@@ -170,6 +171,7 @@ func UserProfileFormHandler(c *gin.Context) {
 			}
 		}
 	}
+	fmt.Println(messages.GetAllErrors())
 	availableLanguages := publicSettings.GetAvailableLanguages()
 	userProfileEditTemplate(c, userProfile, userForm, availableLanguages)
 }

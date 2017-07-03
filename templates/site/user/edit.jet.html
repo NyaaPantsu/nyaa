@@ -123,7 +123,7 @@
 			</select> <br>
 		{{ yield errors(name="followed_email")}}
 		{{end}}
-		{{ if User && User.HasAdmin}}
+		{{ if User.HasAdmin()}}
 		<h3>{{  T("moderation")}}</h3>
 		<label class="input-label">{{  T("username")}}:</label> <br>
 			<input class="form-input up-input" name="username" id="username" type="text" value="{{UserProfile.Username}}">
