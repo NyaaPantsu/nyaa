@@ -6,8 +6,8 @@ import (
 	"strconv"
 
 	"github.com/NyaaPantsu/nyaa/models"
-	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"github.com/NyaaPantsu/nyaa/utils/log"
+	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -27,27 +27,28 @@ func Exists(email string, pass string) (user *models.User, status int, err error
 	if email == "" || pass == "" {
 		return user, http.StatusNotFound, errors.New("no_username_password")
 	}
-
+	var userExist = &models.User{}
 	// search by email or username
 	if userValidator.EmailValidation(email) {
-		if models.ORM.Where("email = ?", email).First(user).RecordNotFound() {
+		if models.ORM.Where("email = ?", email).First(userExist).RecordNotFound() {
 			status, err = http.StatusNotFound, errors.New("user_not_found")
 			return
 		}
-	} else if models.ORM.Where("username = ?", email).First(user).RecordNotFound() {
+	} else if models.ORM.Where("username = ?", email).First(userExist).RecordNotFound() {
 		status, err = http.StatusNotFound, errors.New("user_not_found")
 		return
 	}
-	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(pass))
+	user = userExist
+	err = bcrypt.CompareHashAndPassword([]byte(userExist.Password), []byte(pass))
 	if err != nil {
 		status, err = http.StatusUnauthorized, errors.New("incorrect_password")
 		return
 	}
-	if user.IsBanned() {
+	if userExist.IsBanned() {
 		status, err = http.StatusUnauthorized, errors.New("account_banned")
 		return
 	}
-	if user.IsScraped() {
+	if userExist.IsScraped() {
 		status, err = http.StatusUnauthorized, errors.New("account_need_activation")
 		return
 	}

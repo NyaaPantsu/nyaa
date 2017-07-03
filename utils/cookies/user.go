@@ -114,53 +114,48 @@ func SetLogin(c *gin.Context, user *models.User) (int, error) {
 }
 
 // CurrentUser retrieves a current user.
-func CurrentUser(c *gin.Context) (user *models.User, status int, err error) {
+func CurrentUser(c *gin.Context) (*models.User, int, error) {
 	encoded := c.Request.Header.Get("X-Auth-Token")
+	var user = &models.User{}
 	if len(encoded) == 0 {
 		// check cookie instead
-		cookie, errCookie := c.Cookie(CookieName)
-		if errCookie != nil {
-			err = errCookie
-			status = http.StatusInternalServerError
-			return
+		cookie, err := c.Cookie(CookieName)
+		if err != nil {
+			return user, http.StatusInternalServerError, err
 		}
 		encoded = cookie
 	}
 	userID, err := Decode(encoded)
 	if err != nil {
-		status = http.StatusInternalServerError
-		return
+		return user, http.StatusInternalServerError, err
 	}
 
 	userFromContext := getUserFromContext(c)
 
 	if userFromContext.ID > 0 && userID == userFromContext.ID {
-		user = &userFromContext
+		user = userFromContext
 	} else {
-		users.SessionByID(userID)
-		setUserToContext(c, *user)
+		user, _, _ = users.SessionByID(userID)
+		setUserToContext(c, user)
 	}
 
 	if user.IsBanned() {
 		// recheck as user might've been banned in the meantime
-		status, err = http.StatusUnauthorized, errors.New("account_banned")
-		return
+		return user, http.StatusUnauthorized, errors.New("account_banned")
 	}
 	if err != nil {
-		status = http.StatusInternalServerError
-		return
+		return user, http.StatusInternalServerError, err
 	}
-	status = http.StatusOK
-	return
+	return user, http.StatusOK, nil
 }
-func getUserFromContext(c *gin.Context) models.User {
+func getUserFromContext(c *gin.Context) *models.User {
 	if rv := context.Get(c.Request, UserContextKey); rv != nil {
-		return rv.(models.User)
+		return rv.(*models.User)
 	}
-	return models.User{}
+	return &models.User{}
 }
 
-func setUserToContext(c *gin.Context, val models.User) {
+func setUserToContext(c *gin.Context, val *models.User) {
 	context.Set(c.Request, UserContextKey, val)
 }
 

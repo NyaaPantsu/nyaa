@@ -105,11 +105,12 @@ func FindByID(id uint) (*models.User, int, error) {
 	return user, http.StatusOK, nil
 }
 
-func SessionByID(id uint) (user *models.User, status int, err error) {
+func SessionByID(id uint) (*models.User, int, error) {
+	var user = &models.User{}
 	if models.ORM.Preload("Notifications").Where("user_id = ?", id).First(user).RecordNotFound() { // We only load unread notifications
-		status, err = http.StatusBadRequest, errors.New("user_not_found")
+		return user, http.StatusBadRequest, errors.New("user_not_found")
 	}
-	return
+	return user, http.StatusOK, nil
 }
 
 // FindForAdmin retrieves a user for an administrator, preloads torrents.
