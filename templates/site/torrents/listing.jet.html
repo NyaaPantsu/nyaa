@@ -53,10 +53,12 @@
 			  {{ else}}
               <div class="nyaa-cat nyaa-cat-{{ .SubCategory}}">
 			  {{end}}
-                  <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}">
-              {{if len(.Languages) == 1 && .Languages[0] != "" }}
-                  <img src="img/blank.gif" alt="{{ LanguageName(.Languages[0], T) }}" class="flag flag-{{FlagCode(.Languages[0])}}" title="{{ LanguageName(.Languages[0], T) }}">
-              {{end}}
+                  <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}" class="category">
+              {{if .Languages[0] != "" }}
+                  	<a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory +"&f=" + FlagCode(.languages[0])) }}">
+				<img src="img/blank.gif" alt="{{ LanguageName(.Languages[0], T) }}" class="flag flag-{{ (len(.Languages) == 1) ?  FlagCode(.Languages[0]) : "multiple" }}" title="{{ range _, language := .Languages }}{{ LanguageName(language, T) }}{{ if len(.Languages) != 1 }},{{ end }}{{ end }}">
+			</a>
+	      {{end}}
                   </a>
               </div>
               </td>
