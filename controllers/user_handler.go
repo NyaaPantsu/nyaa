@@ -69,7 +69,7 @@ func UserProfileHandler(c *gin.Context) {
 			if err == nil && currentUser.CurrentUserIdentical(userProfile.ID) {
 				cookies.Clear(c)
 			}
-			staticTemplate(c, "site/delete_success.jet.html")
+			staticTemplate(c, "site/static/delete_success.jet.html")
 		} else {
 			if follow != nil {
 				messages.AddInfof("infos", Ts("user_followed_msg"), userProfile.Username)
