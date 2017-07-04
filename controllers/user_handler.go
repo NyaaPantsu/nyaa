@@ -44,7 +44,9 @@ func UserLoginFormHandler(c *gin.Context) {
 		return
 	}
 
-	loginForm := userValidator.LoginForm{}
+	loginForm := userValidator.LoginForm{
+		RedirectTo: c.DefaultQuery("redirectTo", ""),
+	}
 	formTemplate(c, "site/user/login.jet.html", loginForm)
 }
 
@@ -238,7 +240,8 @@ func UserLoginPostHandler(c *gin.Context) {
 	if !messages.HasErrors() {
 		_, _, errorUser := cookies.CreateUserAuthentication(c, &b)
 		if errorUser == nil {
-			c.Redirect(http.StatusSeeOther, "/")
+			url := c.DefaultPostForm("redirectTo", "/")
+			c.Redirect(http.StatusSeeOther, url)
 			return
 		}
 		messages.ErrorT(errorUser)

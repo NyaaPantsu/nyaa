@@ -12,8 +12,9 @@ type RegistrationForm struct {
 
 // LoginForm is used when a user logs in.
 type LoginForm struct {
-	Username string `validate:"required" json:"username" form:"username"`
-	Password string `validate:"required" json:"password" form:"password"`
+	Username   string `validate:"required" json:"username" form:"username"`
+	Password   string `validate:"required" json:"password" form:"password"`
+	RedirectTo string `validate:"-" form:"redirectTo" json:"omitempty"`
 }
 
 // UserForm is used when updating a user.

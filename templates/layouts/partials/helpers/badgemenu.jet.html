@@ -11,10 +11,10 @@
 					<a class="nav-btn" href="/notifications">{{  T("my_notifications")}} <span class="badge">({{ User.GetUnreadNotifications() }})</span></a>
 					<a class="nav-btn" href="/user/{{ User.ID }}/{{ User.Username }}/edit">{{ T("settings")}}</a>
 					{{if User.HasAdmin()}}<a class="nav-btn" href="/mod">{{ T("moderation")}}</a>{{end}}
-					<form action="/logout" method="POST">{{ yield csrf_field() }}<input class="nav-btn" type="submit" name="logout" value="{{  T("sign_out")}}"></form>
+					<form action="/logout" method="POST">{{ yield csrf_field() }}<input type="hidden" value="{{ URL.String() }}" name="redirectTo"><input class="nav-btn" type="submit" name="logout" value="{{  T("sign_out")}}"></form>
 			</div>
 			{{ else }}
-			<a href="/login" class="nav-btn">
+			<a href="/login?redirectTo={{ URL.String() }}" class="nav-btn">
 				{{  T("signin") }}<span class="caret"></span>
 			</a>
 	{{end}}
