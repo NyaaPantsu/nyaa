@@ -6,9 +6,9 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/NyaaPantsu/nyaa/model"
-	"github.com/NyaaPantsu/nyaa/util/log"
-	"github.com/NyaaPantsu/nyaa/util/metainfo"
+	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/utils/log"
+	"github.com/NyaaPantsu/nyaa/utils/metainfo"
 	"github.com/gin-gonic/gin"
 )
 
@@ -25,7 +25,7 @@ func DatabaseDumpHandler(c *gin.Context) {
 	// TODO Use config from cli
 	files, _ := filepath.Glob(filepath.Join(DatabaseDumpPath, "*.torrent"))
 
-	var dumpsJSON []model.DatabaseDumpJSON
+	var dumpsJSON []models.DatabaseDumpJSON
 	// TODO Filter *.torrent files
 	for _, f := range files {
 		// TODO Use config from cli
@@ -40,7 +40,7 @@ func DatabaseDumpHandler(c *gin.Context) {
 			fmt.Println(err)
 			continue
 		}
-		dump := model.DatabaseDump{
+		dump := models.DatabaseDump{
 			Date:        time.Now(),
 			Filesize:    int64(tf.TotalSize()),
 			Name:        tf.TorrentName(),

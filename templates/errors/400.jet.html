@@ -1,0 +1,9 @@
+{{ extends "layouts/index_site" }}
+{{block title()}}{{ T("error_400")}}{{end}}
+{{block content_body()}}
+    <div style="text-align: center;">
+        <h1>{{ T("400_bad_request")}}</h1>
+        <img src="/img/400.png" width="500px" />
+    </div>
+{{end}}
+{{block mascot()}}<br>{{end}}

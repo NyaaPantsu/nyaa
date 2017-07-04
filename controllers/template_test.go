@@ -13,10 +13,10 @@ import (
 
 	"github.com/CloudyKit/jet"
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/model"
-	"github.com/NyaaPantsu/nyaa/service/api"
-	userForm "github.com/NyaaPantsu/nyaa/service/user/form"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
+	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
+	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"github.com/gin-gonic/gin"
 )
 
@@ -43,28 +43,28 @@ func walkDirTest(dir string, t *testing.T) {
 	contextVars := ContextTest{
 		"dumps.jet.html": func(vars jet.VarMap) jet.VarMap {
 			vars.Set("GPGLink", "")
-			vars.Set("ListDumps", []model.DatabaseDumpJSON{})
+			vars.Set("ListDumps", []models.DatabaseDumpJSON{})
 			return vars
 		},
 		"activities.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []model.Activity{})
+			vars.Set("Models", []models.Activity{})
 			return vars
 		},
 		"listing.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []model.TorrentJSON{})
+			vars.Set("Models", []models.TorrentJSON{})
 			return vars
 		},
 		"edit.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", &apiService.TorrentRequest{})
+			vars.Set("Form", &torrentValidator.TorrentRequest{})
 			vars.Set("Languages", make(map[string]string))
 			return vars
 		},
 		"upload.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", &apiService.TorrentRequest{})
+			vars.Set("Form", &torrentValidator.TorrentRequest{})
 			return vars
 		},
 		"view.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Torrent", &model.TorrentJSON{})
+			vars.Set("Torrent", &models.TorrentJSON{})
 			vars.Set("CaptchaID", "xxxxxx")
 			return vars
 		},
@@ -73,19 +73,23 @@ func walkDirTest(dir string, t *testing.T) {
 			vars.Set("Languages", make(map[string]string))
 			return vars
 		},
+		"login.jet.html": func(vars jet.VarMap) jet.VarMap {
+			vars.Set("Form", &userValidator.LoginForm{})
+			return vars
+		},
 		"register.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", &userForm.RegistrationForm{})
+			vars.Set("Form", &userValidator.RegistrationForm{})
 			return vars
 		},
 		"index.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Torrents", []model.Torrent{})
-			vars.Set("Users", []model.User{})
-			vars.Set("Comments", []model.Comment{})
-			vars.Set("TorrentReports", []model.TorrentReportJSON{})
+			vars.Set("Torrents", []models.Torrent{})
+			vars.Set("Users", []models.User{})
+			vars.Set("Comments", []models.Comment{})
+			vars.Set("TorrentReports", []models.TorrentReportJSON{})
 			return vars
 		},
 		"paneltorrentedit.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", model.Torrent{})
+			vars.Set("Form", models.Torrent{})
 			return vars
 		},
 		"reassign.jet.html": func(vars jet.VarMap) jet.VarMap {
@@ -93,19 +97,27 @@ func walkDirTest(dir string, t *testing.T) {
 			return vars
 		},
 		"torrentlist.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []model.Torrent{})
+			vars.Set("Models", []models.Torrent{})
 			return vars
 		},
 		"userlist.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []model.User{})
+			vars.Set("Models", []models.User{})
 			return vars
 		},
 		"commentlist.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []model.Comment{})
+			vars.Set("Models", []models.Comment{})
 			return vars
 		},
 		"torrent_report.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []model.TorrentReportJSON{})
+			vars.Set("Models", []models.TorrentReportJSON{})
+			return vars
+		},
+		"report.jet.html": func(vars jet.VarMap) jet.VarMap {
+			type form struct {
+				ID        int
+				CaptchaID string
+			}
+			vars.Set("Form", form{1, ""})
 			return vars
 		},
 	}
@@ -175,13 +187,13 @@ func mockupCommonVars(t *testing.T) jet.VarMap {
 	vars.Set("Theme", "")
 	vars.Set("Mascot", "")
 	vars.Set("MascotURL", "")
-	vars.Set("User", &model.User{})
-	vars.Set("UserProfile", &model.User{})
+	vars.Set("User", &models.User{})
+	vars.Set("UserProfile", &models.User{})
 	vars.Set("URL", &url.URL{})
 	vars.Set("CsrfToken", "xxxxxx")
 	vars.Set("Config", config.Conf)
 	vars.Set("Infos", make(map[string][]string))
 	vars.Set("Errors", make(map[string][]string))
-	vars.Set("UserProfile", &model.User{})
+	vars.Set("UserProfile", &models.User{})
 	return vars
 }

@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/NyaaPantsu/nyaa/model"
-	"github.com/NyaaPantsu/nyaa/util/log"
-	"github.com/NyaaPantsu/nyaa/util/search"
+	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/utils/log"
+	"github.com/NyaaPantsu/nyaa/utils/search"
 	"github.com/gin-gonic/gin"
 )
 
@@ -45,9 +45,9 @@ func SearchHandler(c *gin.Context) {
 	if len(searchParam.Category) > 0 {
 		category = searchParam.Category[0].String()
 	}
-	nav := navigation{int(nbTorrents), int(searchParam.Max), int(searchParam.Page), "search"}
+	nav := navigation{int(nbTorrents), int(searchParam.Max), int(searchParam.Offset), "search"}
 	searchForm := newSearchForm(c)
-	searchForm.SearchParam, searchForm.Category = searchParam, category
+	searchForm.TorrentParam, searchForm.Category = searchParam, category
 
-	modelList(c, "site/torrents/listing.jet.html", model.TorrentsToJSON(torrents), nav, searchForm)
+	modelList(c, "site/torrents/listing.jet.html", models.TorrentsToJSON(torrents), nav, searchForm)
 }

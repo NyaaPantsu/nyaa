@@ -5,17 +5,17 @@ import (
 	"path"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/model"
-	userForms "github.com/NyaaPantsu/nyaa/service/user/form"
-	"github.com/NyaaPantsu/nyaa/util/filelist"
-	"github.com/NyaaPantsu/nyaa/util/messages"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
+	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/utils/filelist"
+	"github.com/NyaaPantsu/nyaa/utils/messages"
+	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 	"github.com/gin-gonic/gin"
 	"github.com/justinas/nosurf"
 
 	"fmt"
 
 	"github.com/CloudyKit/jet"
+	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 )
 
 // TemplateDir : Variable to the template directory
@@ -41,6 +41,7 @@ func init() {
 	}
 }
 func commonVars(c *gin.Context) jet.VarMap {
+	token := nosurf.Token(c.Request)
 	msg := messages.GetMessages(c)
 	vars.Set("Navigation", newNavigation())
 	vars.Set("Search", newSearchForm(c))
@@ -50,7 +51,7 @@ func commonVars(c *gin.Context) jet.VarMap {
 	vars.Set("MascotURL", publicSettings.GetMascotUrlFromRequest(c))
 	vars.Set("User", getUser(c))
 	vars.Set("URL", c.Request.URL)
-	vars.Set("CsrfToken", nosurf.Token(c.Request))
+	vars.Set("CsrfToken", token)
 	vars.Set("Config", config.Conf)
 	vars.Set("Infos", msg.GetAllInfos())
 	vars.Set("Errors", msg.GetAllErrors())
@@ -85,13 +86,20 @@ func renderTemplate(c *gin.Context, templateName string, vars jet.VarMap) {
 }
 
 func httpError(c *gin.Context, errorCode int) {
-	if errorCode == http.StatusNotFound {
-		c.Status(http.StatusNotFound)
+	switch errorCode {
+	case http.StatusNotFound:
 		staticTemplate(c, path.Join(ErrorsDir, "404.jet.html"))
+		c.AbortWithStatus(errorCode)
+		return
+	case http.StatusBadRequest:
+		staticTemplate(c, path.Join(ErrorsDir, "400.jet.html"))
+		c.AbortWithStatus(errorCode)
+		return
+	case http.StatusInternalServerError:
+		staticTemplate(c, path.Join(ErrorsDir, "500.jet.html"))
+		c.AbortWithStatus(errorCode)
 		return
 	}
-	c.AbortWithStatus(errorCode)
-	return
 }
 
 func staticTemplate(c *gin.Context, templateName string) {
@@ -128,7 +136,7 @@ func formTemplate(c *gin.Context, templateName string, form interface{}) {
 	renderTemplate(c, templateName, vars)
 }
 
-func torrentTemplate(c *gin.Context, torrent model.TorrentJSON, rootFolder *filelist.FileListFolder, captchaID string) {
+func torrentTemplate(c *gin.Context, torrent models.TorrentJSON, rootFolder *filelist.FileListFolder, captchaID string) {
 	vars := commonVars(c)
 	vars.Set("Torrent", torrent)
 	vars.Set("RootFolder", rootFolder)
@@ -136,7 +144,7 @@ func torrentTemplate(c *gin.Context, torrent model.TorrentJSON, rootFolder *file
 	renderTemplate(c, path.Join(SiteDir, "torrents/view.jet.html"), vars)
 }
 
-func userProfileEditTemplate(c *gin.Context, userProfile *model.User, userForm userForms.UserForm, languages map[string]string) {
+func userProfileEditTemplate(c *gin.Context, userProfile *models.User, userForm userValidator.UserForm, languages map[string]string) {
 	vars := commonVars(c)
 	vars.Set("UserProfile", userProfile)
 	vars.Set("UserForm", userForm)
@@ -144,18 +152,18 @@ func userProfileEditTemplate(c *gin.Context, userProfile *model.User, userForm u
 	renderTemplate(c, path.Join(SiteDir, "user/edit.jet.html"), vars)
 }
 
-func userProfileTemplate(c *gin.Context, userProfile *model.User) {
+func userProfileTemplate(c *gin.Context, userProfile *models.User) {
 	vars := commonVars(c)
 	vars.Set("UserProfile", userProfile)
 	renderTemplate(c, path.Join(SiteDir, "user/torrents.jet.html"), vars)
 }
 
-func userProfileNotificationsTemplate(c *gin.Context, userProfile *model.User) {
+func userProfileNotificationsTemplate(c *gin.Context, userProfile *models.User) {
 	vars := commonVars(c)
 	vars.Set("UserProfile", userProfile)
 	renderTemplate(c, path.Join(SiteDir, "user/notifications.jet.html"), vars)
 }
-func databaseDumpTemplate(c *gin.Context, listDumps []model.DatabaseDumpJSON, GPGLink string) {
+func databaseDumpTemplate(c *gin.Context, listDumps []models.DatabaseDumpJSON, GPGLink string) {
 	vars := commonVars(c)
 	vars.Set("ListDumps", listDumps)
 	vars.Set("GPGLink", GPGLink)
@@ -168,7 +176,7 @@ func changeLanguageTemplate(c *gin.Context, language string, languages map[strin
 	renderTemplate(c, path.Join(SiteDir, "user/public/settings.jet.html"), vars)
 }
 
-func panelAdminTemplate(c *gin.Context, torrent []model.Torrent, reports []model.TorrentReportJSON, users []model.User, comments []model.Comment) {
+func panelAdminTemplate(c *gin.Context, torrent []models.Torrent, reports []models.TorrentReportJSON, users []models.User, comments []models.Comment) {
 	vars := newPanelCommonVariables(c)
 	vars.Set("Torrents", torrent)
 	vars.Set("TorrentReports", reports)
