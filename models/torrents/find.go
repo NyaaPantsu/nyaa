@@ -36,6 +36,7 @@ func FindByID(id uint) (torrent models.Torrent, err error) {
 		err = errors.New("Article is not found")
 		return
 	}
+	torrent.ParseLanguages()
 	// GORM relly likes not doing its job correctly
 	// (or maybe I'm just retarded)
 	torrent.Uploader = new(models.User)
@@ -65,6 +66,7 @@ func FindRawByID(id uint) (torrent models.Torrent, err error) {
 	if models.ORM.Where("torrent_id = ?", id).Find(&torrent).RecordNotFound() {
 		err = errors.New("Torrent is not found")
 	}
+	torrent.ParseLanguages()
 	return
 }
 
@@ -75,6 +77,7 @@ func FindRawByHash(hash string) (torrent models.Torrent, err error) {
 	if models.ORM.Where("torrent_hash = ?", hash).Find(&torrent).RecordNotFound() {
 		err = errors.New("Torrent is not found")
 	}
+	torrent.ParseLanguages()
 	return
 }
 
@@ -180,6 +183,7 @@ func ToggleBlock(id uint) (models.Torrent, int, error) {
 	if models.ORM.Unscoped().Model(&torrent).First(&torrent, id).RecordNotFound() {
 		return torrent, http.StatusNotFound, errors.New("Torrent is not found")
 	}
+	torrent.ParseLanguages()
 	if torrent.Status == models.TorrentStatusBlocked {
 		torrent.Status = models.TorrentStatusNormal
 	} else {

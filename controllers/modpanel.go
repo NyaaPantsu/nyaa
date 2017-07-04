@@ -382,7 +382,7 @@ func TorrentsPostListPanel(c *gin.Context) {
  * Needed: torrent_id[] Ids of torrents in checkboxes of name torrent_id
  *
  * Needed on context:
- * status=0|1|2|3|4 according to config/torrent.go (can be omitted if action=delete|owner|category|multiple)
+ * status=0|1|2|3|4 according to config/find.go (can be omitted if action=delete|owner|category|multiple)
  * owner is the User ID of the new owner of the torrents (can be omitted if action=delete|status|category|multiple)
  * category is the category string (eg. 1_3) of the new category of the torrents (can be omitted if action=delete|status|owner|multiple)
  *

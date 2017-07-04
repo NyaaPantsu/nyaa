@@ -367,6 +367,7 @@ func (t *Torrent) Update(unscope bool) (int, error) {
 	if unscope {
 		db = ORM.Unscoped()
 	}
+	t.EncodeLanguages() // Need to transform array into single string
 	if db.Model(t).UpdateColumn(t).Error != nil {
 		return http.StatusInternalServerError, errors.New("Torrent was not updated")
 	}

@@ -3,6 +3,8 @@ package torrentLanguages
 import (
 	"strings"
 
+	"sort"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 )
@@ -17,6 +19,7 @@ func initTorrentLanguages() {
 
 	// Also support languages we don't have a translation
 	torrentLanguages = append(torrentLanguages, config.Conf.Torrents.AdditionalLanguages...)
+	sort.Strings(torrentLanguages)
 }
 
 // GetTorrentLanguages returns a list of available torrent languages.

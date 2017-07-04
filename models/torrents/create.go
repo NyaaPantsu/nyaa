@@ -18,9 +18,11 @@ func Create(user *models.User, uploadForm *torrentValidator.TorrentRequest) (*mo
 		Hash:        uploadForm.Infohash,
 		Date:        time.Now(),
 		Filesize:    uploadForm.Filesize,
+		Languages:   uploadForm.Languages,
 		Description: uploadForm.Description,
 		WebsiteLink: uploadForm.WebsiteLink,
 		UploaderID:  user.ID}
+	torrent.EncodeLanguages() // Convert languages array in language string
 	torrent.ParseTrackers(uploadForm.Trackers)
 	models.ORM.Create(&torrent)
 	if models.ElasticSearchClient != nil {
