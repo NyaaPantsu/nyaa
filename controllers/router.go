@@ -144,7 +144,7 @@ func init() {
 
 	CSRFRouter = nosurf.New(Router)
 	CSRFRouter.ExemptRegexp("/api(?:/.+)*")
-	CSRFRouter.ExemptPath("/mod")
+	CSRFRouter.ExemptRegexp("/mod(?:/.+)*")
 	CSRFRouter.ExemptPath("/upload")
 	CSRFRouter.ExemptPath("/user/login")
 	CSRFRouter.SetFailureHandler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
