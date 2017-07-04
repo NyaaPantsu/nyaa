@@ -169,6 +169,7 @@ func UpdateTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, current
 	if r.Update.WebsiteLink != "" {
 		t.WebsiteLink = r.Update.WebsiteLink
 	}
+	t.Languages = r.Update.Languages
 	status := models.TorrentStatusNormal
 	if r.Update.Remake { // overrides trusted
 		status = models.TorrentStatusRemake

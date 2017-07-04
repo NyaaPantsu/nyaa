@@ -182,7 +182,7 @@ func ReportViewTorrentHandler(c *gin.Context) {
 
 // TorrentEditUserPanel : Controller for editing a user torrent by a user, after GET request
 func TorrentEditUserPanel(c *gin.Context) {
-	id, _ := strconv.ParseInt(c.Param("id"), 10, 32)
+	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
 	torrent, _ := torrents.FindByID(uint(id))
 	currentUser := getUser(c)
 	if currentUser.CurrentOrAdmin(torrent.UploaderID) {
@@ -203,7 +203,7 @@ func TorrentEditUserPanel(c *gin.Context) {
 // TorrentPostEditUserPanel : Controller for editing a user torrent by a user, after post request
 func TorrentPostEditUserPanel(c *gin.Context) {
 	var uploadForm torrentValidator.UpdateRequest
-	id, _ := strconv.ParseInt(c.Param("id"), 10, 32)
+	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
 	uploadForm.ID = uint(id)
 	messages := msg.GetMessages(c)
 	torrent, _ := torrents.FindByID(uint(id))
@@ -217,7 +217,7 @@ func TorrentPostEditUserPanel(c *gin.Context) {
 			upload.UpdateTorrent(&uploadForm, &torrent, currentUser).Update(currentUser.HasAdmin())
 			messages.AddInfoT("infos", "torrent_updated")
 		}
-		formTemplate(c, "site/torrents/edit.jet.html", uploadForm)
+		formTemplate(c, "site/torrents/edit.jet.html", uploadForm.Update)
 	} else {
 		NotFoundHandler(c)
 	}
@@ -225,7 +225,7 @@ func TorrentPostEditUserPanel(c *gin.Context) {
 
 // TorrentDeleteUserPanel : Controller for deleting a user torrent by a user
 func TorrentDeleteUserPanel(c *gin.Context) {
-	id, _ := strconv.ParseInt(c.Param("id"), 10, 32)
+	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
 	currentUser := getUser(c)
 	torrent, _ := torrents.FindByID(uint(id))
 	if currentUser.CurrentOrAdmin(torrent.UploaderID) {
