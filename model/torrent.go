@@ -255,7 +255,7 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 	}
 	// Need to add +00:00 at the end because ES doesn't store it by default
 	dateFixed := t.Date
-	if t.Date[len(t.Date)-6] != '+' {
+	if len(dateFixed) > 6 && dateFixed[len(dateFixed)-6] != '+' {
 		dateFixed += "Z"
 	}
 	date, err := time.Parse(time.RFC3339, dateFixed)

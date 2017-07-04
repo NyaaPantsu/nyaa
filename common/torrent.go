@@ -231,21 +231,24 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 	log.Infof("Query '%s' took %d milliseconds.", p.NameLike, result.TookInMillis)
 	log.Infof("Amount of results %d.", result.TotalHits())
 
-	torrents := make([]model.Torrent, len(result.Hits.Hits))
+	var torrents []model.Torrent
+	var torrentCount int64
+	torrentCount = 0
+	//torrents := make([]model.Torrent, len(result.Hits.Hits))
 	if len(result.Hits.Hits) <= 0 {
 		return 0, nil, nil
 	}
-	for i, hit := range result.Hits.Hits {
-		// Deserialize hit.Source into a Tweet (could also be just a map[string]interface{}).
+	for _, hit := range result.Hits.Hits {
 		var tJson model.TorrentJSON
 		err := json.Unmarshal(*hit.Source, &tJson)
-		if err != nil {
-			log.Errorf("Cannot unmarshal elasticsearch torrent: %s", err)
+		if err == nil {
+			torrents = append(torrents, tJson.ToTorrent())
+			torrentCount += 1
+		} else {
+			log.Infof("Cannot unmarshal elasticsearch torrent: %s", err)
 		}
-		torrent := tJson.ToTorrent()
-		torrents[i] = torrent
 	}
-	return result.TotalHits(), torrents, nil
+	return torrentCount, torrents, nil
 
 }
 
