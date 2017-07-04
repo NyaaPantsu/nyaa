@@ -73,6 +73,10 @@ func walkDirTest(dir string, t *testing.T) {
 			vars.Set("Languages", make(map[string]string))
 			return vars
 		},
+		"login.jet.html": func(vars jet.VarMap) jet.VarMap {
+			vars.Set("Form", &userValidator.LoginForm{})
+			return vars
+		},
 		"register.jet.html": func(vars jet.VarMap) jet.VarMap {
 			vars.Set("Form", &userValidator.RegistrationForm{})
 			return vars
