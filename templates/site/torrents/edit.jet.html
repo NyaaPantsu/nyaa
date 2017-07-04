@@ -43,7 +43,7 @@
 		{{ if User.ID > 0 }}
 		<p>
 			<input type="checkbox" name="hidden" id="hidden" {{ if Form.Hidden }}checked{{end}}>
-			<label for="hidden">{{ T("mark_as_hidden")}}</label>
+			<label for="hidden">{{ T("upload_as_anon")}}</label>
         {{ yield errors(name="hidden")}}
 		</p>
 		{{ end }}
