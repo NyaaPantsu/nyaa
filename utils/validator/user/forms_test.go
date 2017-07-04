@@ -1,11 +1,12 @@
 package userValidator
 
 import (
+	"net/http"
+	"testing"
+
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/validator"
 	"github.com/gin-gonic/gin"
-	"net/http"
-	"testing"
 )
 
 func TestForms(t *testing.T) {
@@ -19,7 +20,7 @@ func TestForms(t *testing.T) {
 	registration := &RegistrationForm{
 		"lol", "", "testing", "testing", "xxx", "true",
 	}
-	login := &LoginForm{"lol", "testing"}
+	login := &LoginForm{"lol", "testing", "/"}
 	user := &UserForm{"lol", "", "", "testing", "testing", "testing", 0, ""}
 	userSettings := &UserSettingsForm{}
 	password := &PasswordForm{"testing", "testing"}
