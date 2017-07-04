@@ -195,7 +195,8 @@ func writeTorrentToDisk(file multipart.File, name string, fullpath *string) erro
 }
 
 // NewTorrentRequest : creates a new torrent request struc with some default value
-func NewTorrentRequest(params ...string) (torrentRequest *torrentValidator.TorrentRequest) {
+func NewTorrentRequest(params ...string) *torrentValidator.TorrentRequest {
+	torrentRequest := &torrentValidator.TorrentRequest{}
 	if len(params) > 1 {
 		torrentRequest.Category = params[0]
 	} else {
@@ -206,5 +207,5 @@ func NewTorrentRequest(params ...string) (torrentRequest *torrentValidator.Torre
 	} else {
 		torrentRequest.Description = "Description"
 	}
-	return
+	return torrentRequest
 }
