@@ -248,7 +248,7 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []model.Torrent, err
 			log.Infof("Cannot unmarshal elasticsearch torrent: %s", err)
 		}
 	}
-	return torrentCount, torrents, nil
+	return result.TotalHits(), torrents, nil
 
 }
 
