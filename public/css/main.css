@@ -136,6 +136,23 @@ select.form-input {
 	vertical-align: middle;
 }
 
+.form-input.language {
+	max-width: 469px;
+	height: auto;
+	border-radius: 5px;
+	background: hsl(193, 15%; 97%);
+	padding: 12px 0 7px 14px;	
+}
+
+.language > input {
+	margin: 0 3px 6px 0;
+	padding: 0;
+}
+
+.language > label {
+	margin: 0 9px 2px 0;
+}
+
 .header .h-user {
 	display: inline-block;
 	max-width: 160px;
@@ -456,6 +473,9 @@ html, body {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+.torrent-info-data > img {
+	margin-right: 3px;	
 }
 .torrent-info-row {
 	text-align: left;
