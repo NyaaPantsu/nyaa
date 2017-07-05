@@ -5,7 +5,6 @@
 {{block additional_header()}}
 <link rel="stylesheet" href="/css/flags/flags.min.css">
 {{end}}
-
 {{block content_body()}}
 <div style="text-align: left;" class="box">
 	<form enctype="multipart/form-data" role="upload" method="POST">
@@ -36,8 +35,8 @@
 		<h3>{{  T("torrent_language") }}</h3>
 		<div name="language" class="form-input language">
 			{{ range _, language := GetTorrentLanguages() }}
-			<input type="checkbox" name="lang-{{ language }}" id="lang-{{ language }}">
-			<label for="lang-{{ language }}" class="flag flag-{{ language }}" title="{{LanguageName(language, T)}}"></label>
+			<input type="checkbox" name="languages" id="lang-{{ language }}" value="{{language}}">
+			<label for="lang-{{ language }}" class="flag flag-{{ FlagCode(language) }}" title="{{LanguageName(language, T)}}"></label>
 			{{ end }}
 		</div>
 		{{ yield errors(name="language")}}
@@ -51,7 +50,7 @@
 		{{ if User.ID > 0 }}
 		<p>
 			<input type="checkbox" name="hidden" id="hidden" >
-			<label for="hidden">{{ T("mark_as_hidden")}}</label>
+			<label for="hidden">{{ T("upload_as_anon")}}</label>
 		</p>
 		{{ yield errors(name="hidden")}}
 		{{ end }}
