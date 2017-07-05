@@ -41,33 +41,33 @@ func stringIsASCII(input string) bool {
 	return true
 }
 
-// SearchByQuery : search torrents according to request without user
-func SearchByQuery(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = searchByQuery(c, pagenum, true, false, false, false)
+// ByQuery : search torrents according to request without user
+func ByQuery(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
+	search, tor, count, err = byQuery(c, pagenum, true, false, false, false)
 	return
 }
 
-// SearchByQueryWithUser : search torrents according to request with user
-func SearchByQueryWithUser(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = searchByQuery(c, pagenum, true, true, false, false)
+// ByQueryWithUser : search torrents according to request with user
+func ByQueryWithUser(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
+	search, tor, count, err = byQuery(c, pagenum, true, true, false, false)
 	return
 }
 
-// SearchByQueryNoCount : search torrents according to request without user and count
-func SearchByQueryNoCount(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, err error) {
-	search, tor, _, err = searchByQuery(c, pagenum, false, false, false, false)
+// ByQueryNoCount : search torrents according to request without user and count
+func ByQueryNoCount(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, err error) {
+	search, tor, _, err = byQuery(c, pagenum, false, false, false, false)
 	return
 }
 
-// SearchByQueryDeleted : search deleted torrents according to request with user and count
-func SearchByQueryDeleted(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = searchByQuery(c, pagenum, true, true, true, false)
+// ByQueryDeleted : search deleted torrents according to request with user and count
+func ByQueryDeleted(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
+	search, tor, count, err = byQuery(c, pagenum, true, true, true, false)
 	return
 }
 
-// SearchByQueryNoHidden : search torrents and filter those hidden
-func SearchByQueryNoHidden(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = searchByQuery(c, pagenum, true, false, false, true)
+// ByQueryNoHidden : search torrents and filter those hidden
+func ByQueryNoHidden(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
+	search, tor, count, err = byQuery(c, pagenum, true, false, false, true)
 	return
 }
 
@@ -76,7 +76,7 @@ func SearchByQueryNoHidden(c *gin.Context, pagenum int) (search structs.TorrentP
 // pagenum is extracted from request in .FromRequest()
 // elasticsearch always provide a count to how many hits
 // deleted is unused because es doesn't index deleted torrents
-func searchByQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (
+func byQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (
 	search structs.TorrentParam, tor []models.Torrent, count int, err error,
 ) {
 	if models.ElasticSearchClient != nil {
@@ -90,10 +90,10 @@ func searchByQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, de
 	}
 	log.Errorf("Unable to create elasticsearch client: %s", err)
 	log.Errorf("Falling back to postgresql query")
-	return searchByQueryPostgres(c, pagenum, countAll, withUser, deleted, hidden)
+	return byQueryPostgres(c, pagenum, countAll, withUser, deleted, hidden)
 }
 
-func searchByQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (
+func byQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (
 	search structs.TorrentParam, tor []models.Torrent, count int, err error,
 ) {
 	search.FromRequest(c)

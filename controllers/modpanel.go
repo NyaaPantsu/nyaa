@@ -148,7 +148,7 @@ func TorrentsListPanel(c *gin.Context) {
 		}
 	}
 
-	searchParam, torrents, count, err := search.SearchByQueryWithUser(c, pagenum)
+	searchParam, torrents, count, err := search.ByQueryWithUser(c, pagenum)
 	if err != nil {
 		messages.Error(err)
 	}
@@ -431,7 +431,7 @@ func DeletedTorrentsModPanel(c *gin.Context) {
 		}
 	}
 
-	searchParam, torrents, count, err := search.SearchByQueryDeleted(c, pagenum)
+	searchParam, torrents, count, err := search.ByQueryDeleted(c, pagenum)
 	if err != nil {
 		messages.Error(err)
 	}

@@ -415,7 +415,7 @@ func getTorrentList(c *gin.Context) (torrents []models.Torrent, createdAsTime ti
 		c.Request.URL.RawQuery = query.Encode()
 	}
 
-	_, torrents, err = search.SearchByQueryNoCount(c, pagenum)
+	_, torrents, err = search.ByQueryNoCount(c, pagenum)
 
 	return
 }

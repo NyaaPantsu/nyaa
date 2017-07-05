@@ -33,7 +33,7 @@ func SearchHandler(c *gin.Context) {
 		}
 	}
 
-	searchParam, torrents, nbTorrents, err := search.SearchByQuery(c, pagenum)
+	searchParam, torrents, nbTorrents, err := search.ByQuery(c, pagenum)
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return

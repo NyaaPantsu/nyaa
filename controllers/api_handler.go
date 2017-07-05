@@ -249,7 +249,7 @@ func APISearchHandler(c *gin.Context) {
 		}
 	}
 
-	_, torrentSearch, _, err := search.SearchByQueryWithUser(c, pagenum)
+	_, torrentSearch, _, err := search.ByQueryWithUser(c, pagenum)
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
