@@ -6,9 +6,12 @@ import (
 	"unicode"
 	"unicode/utf8"
 
+	"time"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
+	"github.com/NyaaPantsu/nyaa/utils/cache"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 	"github.com/gin-gonic/gin"
@@ -98,9 +101,14 @@ func byQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, 
 	search structs.TorrentParam, tor []models.Torrent, count int, err error,
 ) {
 	search.FromRequest(c)
-
 	search.Offset = uint32(pagenum)
 	search.Hidden = hidden
+
+	if found, ok := cache.C.Get(search.Identifier()); ok {
+		tor = found.([]models.Torrent)
+		count = len(tor)
+		return
+	}
 
 	orderBy := search.Sort.ToDBField()
 	if search.Sort == structs.Date {
@@ -215,5 +223,6 @@ func byQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, 
 	} else {
 		tor, err = torrents.FindOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max*(search.Offset-1)))
 	}
+	cache.C.Set(search.Identifier(), tor, 5*time.Minute)
 	return
 }
