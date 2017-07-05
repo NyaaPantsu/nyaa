@@ -286,12 +286,15 @@ th, .home-td {
 	height: 100%;
 	display: block; 
 }
-.tr-cat img { margin-top: 2px; }
 .tr-cat .nyaa-cat img {
 	position: absolute;
 	bottom: -2px;
 	display: block;
 	left: 11px;
+}
+.nyaa-cat > a > img.flag:hover { 
+	-webkit-filter: brightness(1.2);
+	filter: brightness(1.2);
 }
 
 
