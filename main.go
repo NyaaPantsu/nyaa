@@ -9,6 +9,8 @@ import (
 	"os"
 	"time"
 
+	_ "net/http/pprof"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/controllers"
 	"github.com/NyaaPantsu/nyaa/models"

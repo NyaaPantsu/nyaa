@@ -78,10 +78,6 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 	p.NameLike = nameLike
 	p.Max = uint32(max)
 	p.UserID = uint32(userID)
-	// TODO Use All
-	p.All = false
-	// TODO Use Full
-	p.Full = false
 	p.Order = ascending
 	p.Status = status
 	p.Sort = sortMode
@@ -101,7 +97,7 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 // ToFilterQuery : Builds a query string with for es query string query defined here
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html
 func (p *TorrentParam) ToFilterQuery() string {
-	// Don't set sub category unless main category is set
+	// Don'p set sub category unless main category is set
 	query := ""
 	if len(p.Category) > 0 {
 		conditionsOr := make([]string, len(p.Category))
@@ -190,7 +186,7 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []models.Torrent, er
 		From(int((p.Offset-1)*p.Max)).
 		Size(int(p.Max)).
 		Sort(p.Sort.ToESField(), p.Order).
-		Sort("_score", false) // Don't put _score before the field sort, it messes with the sorting
+		Sort("_score", false) // Don'p put _score before the field sort, it messes with the sorting
 
 	filterQueryString := p.ToFilterQuery()
 	if filterQueryString != "" {
@@ -240,7 +236,6 @@ func (p *TorrentParam) Clone() TorrentParam {
 		FromDate:  p.FromDate,
 		ToDate:    p.ToDate,
 		NotNull:   p.NotNull,
-		Null:      p.Null,
 		NameLike:  p.NameLike,
 		Language:  p.Language,
 		MinSize:   p.MinSize,

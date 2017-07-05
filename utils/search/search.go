@@ -84,6 +84,7 @@ func byQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted 
 		torrentParam.FromRequest(c)
 		torrentParam.Offset = uint32(pagenum)
 		torrentParam.Hidden = hidden
+		torrentParam.Full = withUser
 		totalHits, torrents, err := torrentParam.Find(models.ElasticSearchClient)
 		// Convert back to non-json torrents
 		return torrentParam, torrents, int(totalHits), err
