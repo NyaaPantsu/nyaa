@@ -79,18 +79,23 @@ func ByQueryNoHidden(c *gin.Context, pagenum int) (search structs.TorrentParam, 
 // pagenum is extracted from request in .FromRequest()
 // elasticsearch always provide a count to how many hits
 // deleted is unused because es doesn't index deleted torrents
-func byQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (
-	search structs.TorrentParam, tor []models.Torrent, count int, err error,
-) {
+func byQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (structs.TorrentParam, []models.Torrent, int, error) {
+	var err error
+	tor := []models.Torrent{}
 	if models.ElasticSearchClient != nil {
 		var torrentParam structs.TorrentParam
 		torrentParam.FromRequest(c)
 		torrentParam.Offset = uint32(pagenum)
 		torrentParam.Hidden = hidden
 		torrentParam.Full = withUser
-		totalHits, torrents, err := torrentParam.Find(models.ElasticSearchClient)
+		if found, ok := cache.C.Get(torrentParam.Identifier()); ok {
+			tor = found.([]models.Torrent)
+			return torrentParam, tor, len(tor), nil
+		}
+		totalHits, tor, err := torrentParam.Find(models.ElasticSearchClient)
+		cache.C.Set(torrentParam.Identifier(), tor, 5*time.Minute)
 		// Convert back to non-json torrents
-		return torrentParam, torrents, int(totalHits), err
+		return torrentParam, tor, int(totalHits), err
 	}
 	log.Errorf("Unable to create elasticsearch client: %s", err)
 	log.Errorf("Falling back to postgresql query")
