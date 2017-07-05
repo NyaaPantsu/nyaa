@@ -3,8 +3,6 @@ package controllers
 import (
 	"net/http"
 
-	"net/http/pprof"
-
 	"github.com/NyaaPantsu/nyaa/utils/captcha"
 	"github.com/gin-gonic/gin"
 	"github.com/justinas/nosurf"
@@ -145,13 +143,16 @@ func init() {
 	Router.POST("/settings", ChangePublicSettingsHandler)
 
 	// Adding pprof support
-	Router.GET("/debug/pprof/block", pprofHandler(pprof.Index))
-	Router.GET("/debug/pprof/heap", pprofHandler(pprof.Index))
-	Router.GET("/debug/pprof/profile", pprofHandler(pprof.Profile))
-	Router.POST("/debug/pprof/symbol", pprofHandler(pprof.Symbol))
-	Router.GET("/debug/pprof/symbol", pprofHandler(pprof.Symbol))
-	Router.GET("/debug/pprof/trace", pprofHandler(pprof.Trace))
-
+	pprofRoutes := Router.Group("/debug/pprof", modMiddleware())
+	{
+		pprofRoutes.GET("/", PprofIndex)
+		pprofRoutes.GET("/block", PprofIndex)
+		pprofRoutes.GET("/heap", PprofIndex)
+		pprofRoutes.GET("/profile", PprofProfile)
+		pprofRoutes.POST("/symbol", PprofSymbol)
+		pprofRoutes.GET("/symbol", PprofSymbol)
+		pprofRoutes.GET("/trace", PprofTrace)
+	}
 	CSRFRouter = nosurf.New(Router)
 	CSRFRouter.ExemptRegexp("/api(?:/.+)*")
 	CSRFRouter.ExemptRegexp("/mod(?:/.+)*")

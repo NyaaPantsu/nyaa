@@ -26,9 +26,13 @@ func modMiddleware() gin.HandlerFunc {
 	}
 }
 
-func pprofHandler(h http.HandlerFunc) gin.HandlerFunc {
-	handler := http.HandlerFunc(h)
+func pprofHandler(handler http.HandlerFunc) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		handler.ServeHTTP(c.Writer, c.Request)
+		currentUser := getUser(c)
+		if currentUser.HasAdmin() {
+			handler.ServeHTTP(c.Writer, c.Request)
+		} else {
+			httpError(c, http.StatusNotFound)
+		}
 	}
 }
