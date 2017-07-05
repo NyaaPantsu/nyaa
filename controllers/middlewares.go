@@ -25,3 +25,10 @@ func modMiddleware() gin.HandlerFunc {
 		c.Next()
 	}
 }
+
+func pprofHandler(h http.HandlerFunc) gin.HandlerFunc {
+	handler := http.HandlerFunc(h)
+	return func(c *gin.Context) {
+		handler.ServeHTTP(c.Writer, c.Request)
+	}
+}

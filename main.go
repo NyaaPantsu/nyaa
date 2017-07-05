@@ -9,8 +9,6 @@ import (
 	"os"
 	"time"
 
-	_ "net/http/pprof"
-
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/controllers"
 	"github.com/NyaaPantsu/nyaa/models"
@@ -29,6 +27,7 @@ func RunServer(conf *config.Config) {
 	os.Mkdir(controllers.DatabaseDumpPath, 0700)
 	// TODO Use config from cli
 	os.Mkdir(controllers.GPGPublicKeyPath, 0700)
+
 
 	http.Handle("/", controllers.CSRFRouter)
 

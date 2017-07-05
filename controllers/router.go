@@ -3,6 +3,8 @@ package controllers
 import (
 	"net/http"
 
+	"net/http/pprof"
+
 	"github.com/NyaaPantsu/nyaa/utils/captcha"
 	"github.com/gin-gonic/gin"
 	"github.com/justinas/nosurf"
@@ -142,6 +144,14 @@ func init() {
 	Router.GET("/settings", SeePublicSettingsHandler)
 	Router.POST("/settings", ChangePublicSettingsHandler)
 
+	// Adding pprof support
+	Router.GET("/debug/pprof/block", pprofHandler(pprof.Index))
+	Router.GET("/debug/pprof/heap", pprofHandler(pprof.Index))
+	Router.GET("/debug/pprof/profile", pprofHandler(pprof.Profile))
+	Router.POST("/debug/pprof/symbol", pprofHandler(pprof.Symbol))
+	Router.GET("/debug/pprof/symbol", pprofHandler(pprof.Symbol))
+	Router.GET("/debug/pprof/trace", pprofHandler(pprof.Trace))
+
 	CSRFRouter = nosurf.New(Router)
 	CSRFRouter.ExemptRegexp("/api(?:/.+)*")
 	CSRFRouter.ExemptRegexp("/mod(?:/.+)*")
@@ -154,4 +164,5 @@ func init() {
 		Path:   "/",
 		MaxAge: nosurf.MaxAge,
 	})
+
 }
