@@ -7,42 +7,47 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
 
 	"os"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/db"
-	"github.com/NyaaPantsu/nyaa/model"
-	"github.com/NyaaPantsu/nyaa/service"
-	"github.com/NyaaPantsu/nyaa/service/activity"
-	"github.com/NyaaPantsu/nyaa/service/api"
-	"github.com/NyaaPantsu/nyaa/service/notifier"
-	"github.com/NyaaPantsu/nyaa/service/report"
-	"github.com/NyaaPantsu/nyaa/service/torrent"
-	"github.com/NyaaPantsu/nyaa/service/user/permission"
-	"github.com/NyaaPantsu/nyaa/util"
-	"github.com/NyaaPantsu/nyaa/util/captcha"
-	"github.com/NyaaPantsu/nyaa/util/filelist"
-	msg "github.com/NyaaPantsu/nyaa/util/messages"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
+	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/models/activities"
+	"github.com/NyaaPantsu/nyaa/models/comments"
+	"github.com/NyaaPantsu/nyaa/models/notifications"
+	"github.com/NyaaPantsu/nyaa/models/reports"
+	"github.com/NyaaPantsu/nyaa/models/torrents"
+	"github.com/NyaaPantsu/nyaa/utils/captcha"
+	"github.com/NyaaPantsu/nyaa/utils/filelist"
+	msg "github.com/NyaaPantsu/nyaa/utils/messages"
+	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/sanitize"
+	"github.com/NyaaPantsu/nyaa/utils/search/structs"
+	"github.com/NyaaPantsu/nyaa/utils/upload"
+	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
 	"github.com/gin-gonic/gin"
 )
 
 // ViewHandler : Controller for displaying a torrent
 func ViewHandler(c *gin.Context) {
-	id := c.Param("id")
+	id, _ := strconv.ParseInt(c.Param("id"), 10, 32)
 	messages := msg.GetMessages(c)
 	user := getUser(c)
 
 	if c.Request.URL.Query()["success"] != nil {
-		messages.AddInfo("infos", "Torrent uploaded successfully!")
+		messages.AddInfoT("infos", "torrent_uploaded")
+	}
+	if c.Request.URL.Query()["badcaptcha"] != nil {
+		messages.AddErrorT("errors", "bad_captcha")
+	}
+	if c.Request.URL.Query()["reported"] != nil {
+		messages.AddInfoTf("infos", "report_msg", id)
 	}
 
-	torrent, err := torrentService.GetTorrentByID(id)
+	torrent, err := torrents.FindByID(uint(id))
 
 	if c.Request.URL.Query()["notif"] != nil {
-		notifierService.ToggleReadNotification(torrent.Identifier(), user.ID)
+		notifications.ToggleReadNotification(torrent.Identifier(), user.ID)
 	}
 
 	if err != nil {
@@ -52,7 +57,7 @@ func ViewHandler(c *gin.Context) {
 	b := torrent.ToJSON()
 	folder := filelist.FileListToFolder(torrent.FileList, "root")
 	captchaID := ""
-	if userPermission.NeedsCaptcha(user) {
+	if user.NeedsCaptcha() {
 		captchaID = captcha.GetID()
 	}
 	torrentTemplate(c, b, folder, captchaID)
@@ -65,7 +70,7 @@ func ViewHeadHandler(c *gin.Context) {
 		return
 	}
 
-	_, err = torrentService.GetRawTorrentByID(uint(id))
+	_, err = torrents.FindRawByID(uint(id))
 
 	if err != nil {
 		NotFoundHandler(c)
@@ -77,9 +82,9 @@ func ViewHeadHandler(c *gin.Context) {
 
 // PostCommentHandler : Controller for posting a comment
 func PostCommentHandler(c *gin.Context) {
-	id := c.Param("id")
+	id, _ := strconv.ParseInt(c.Param("id"), 10, 32)
 
-	torrent, err := torrentService.GetTorrentByID(id)
+	torrent, err := torrents.FindByID(uint(id))
 	if err != nil {
 		NotFoundHandler(c)
 		return
@@ -88,13 +93,13 @@ func PostCommentHandler(c *gin.Context) {
 	currentUser := getUser(c)
 	messages := msg.GetMessages(c)
 
-	if userPermission.NeedsCaptcha(currentUser) {
+	if currentUser.NeedsCaptcha() {
 		userCaptcha := captcha.Extract(c)
 		if !captcha.Authenticate(userCaptcha) {
 			messages.AddErrorT("errors", "bad_captcha")
 		}
 	}
-	content := util.Sanitize(c.PostForm("comment"), "comment")
+	content := sanitize.Sanitize(c.PostForm("comment"), "comment")
 
 	if strings.TrimSpace(content) == "" {
 		messages.AddErrorT("errors", "comment_empty")
@@ -103,20 +108,13 @@ func PostCommentHandler(c *gin.Context) {
 		messages.AddErrorT("errors", "comment_toolong")
 	}
 	if !messages.HasErrors() {
-		userID := currentUser.ID
 
-		comment := model.Comment{TorrentID: torrent.ID, UserID: userID, Content: content, CreatedAt: time.Now()}
-		err := db.ORM.Create(&comment).Error
-		if err != nil {
-			messages.Error(err)
-		}
-		comment.Torrent = &torrent
-
+		comment, err := comments.Create(content, &torrent, currentUser)
 		url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
 		torrent.Uploader.ParseSettings()
 		if torrent.Uploader.Settings.Get("new_comment") {
 			T, _, _ := publicSettings.TfuncAndLanguageWithFallback(torrent.Uploader.Language, torrent.Uploader.Language) // We need to send the notification to every user in their language
-			notifierService.NotifyUser(torrent.Uploader, comment.Identifier(), fmt.Sprintf(T("new_comment_on_torrent"), torrent.Name), url, torrent.Uploader.Settings.Get("new_comment_email"))
+			notifications.NotifyUser(torrent.Uploader, comment.Identifier(), fmt.Sprintf(T("new_comment_on_torrent"), torrent.Name), url, torrent.Uploader.Settings.Get("new_comment_email"))
 		}
 
 		if err != nil {
@@ -128,49 +126,74 @@ func PostCommentHandler(c *gin.Context) {
 
 // ReportTorrentHandler : Controller for sending a torrent report
 func ReportTorrentHandler(c *gin.Context) {
-	id := c.Param("id")
+	fmt.Println("report")
+	id, _ := strconv.ParseInt(c.Param("id"), 10, 32)
 	messages := msg.GetMessages(c)
+	captchaError := "?reported"
 	currentUser := getUser(c)
-	if userPermission.NeedsCaptcha(currentUser) {
+	if currentUser.NeedsCaptcha() {
 		userCaptcha := captcha.Extract(c)
 		if !captcha.Authenticate(userCaptcha) {
+			captchaError = "?badcaptcha"
 			messages.AddErrorT("errors", "bad_captcha")
 		}
 	}
+	torrent, err := torrents.FindByID(uint(id))
+	if err != nil {
+		messages.Error(err)
+	}
 	if !messages.HasErrors() {
-		idNum, _ := strconv.Atoi(id)
-		userID := currentUser.ID
-
-		report := model.TorrentReport{
-			Description: c.PostForm("report_type"),
-			TorrentID:   uint(idNum),
-			UserID:      userID,
-			CreatedAt:   time.Now(),
-		}
-
-		err := db.ORM.Create(&report).Error
+		_, err := reports.Create(c.PostForm("report_type"), &torrent, currentUser)
 		messages.AddInfoTf("infos", "report_msg", id)
 		if err != nil {
 			messages.ImportFromError("errors", err)
 		}
+		c.Redirect(http.StatusSeeOther, "/view/"+strconv.Itoa(int(torrent.ID))+captchaError)
+	} else {
+		ReportViewTorrentHandler(c)
 	}
-	ViewHandler(c)
+}
+
+// ReportTorrentHandler : Controller for sending a torrent report
+func ReportViewTorrentHandler(c *gin.Context) {
+
+	type Report struct {
+		ID        uint
+		CaptchaID string
+	}
+
+	id, _ := strconv.ParseInt(c.Param("id"), 10, 32)
+	messages := msg.GetMessages(c)
+	currentUser := getUser(c)
+	if currentUser.ID > 0 {
+		torrent, err := torrents.FindByID(uint(id))
+		if err != nil {
+			messages.Error(err)
+		}
+		captchaID := ""
+		if currentUser.NeedsCaptcha() {
+			captchaID = captcha.GetID()
+		}
+		formTemplate(c, "site/torrents/report.jet.html", Report{torrent.ID, captchaID})
+	} else {
+		c.Status(404)
+	}
 }
 
 // TorrentEditUserPanel : Controller for editing a user torrent by a user, after GET request
 func TorrentEditUserPanel(c *gin.Context) {
-	id := c.Query("id")
-	torrent, _ := torrentService.GetTorrentByID(id)
+	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
+	torrent, _ := torrents.FindByID(uint(id))
 	currentUser := getUser(c)
-	if userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
-		uploadForm := apiService.NewTorrentRequest()
+	if currentUser.CurrentOrAdmin(torrent.UploaderID) {
+		uploadForm := torrentValidator.TorrentRequest{}
 		uploadForm.Name = torrent.Name
 		uploadForm.Category = strconv.Itoa(torrent.Category) + "_" + strconv.Itoa(torrent.SubCategory)
-		uploadForm.Remake = torrent.Status == model.TorrentStatusRemake
+		uploadForm.Remake = torrent.Status == models.TorrentStatusRemake
 		uploadForm.WebsiteLink = string(torrent.WebsiteLink)
 		uploadForm.Description = string(torrent.Description)
 		uploadForm.Hidden = torrent.Hidden
-		uploadForm.Language = torrent.Language
+		uploadForm.Languages = torrent.Languages
 		formTemplate(c, "site/torrents/edit.jet.html", uploadForm)
 	} else {
 		NotFoundHandler(c)
@@ -179,36 +202,22 @@ func TorrentEditUserPanel(c *gin.Context) {
 
 // TorrentPostEditUserPanel : Controller for editing a user torrent by a user, after post request
 func TorrentPostEditUserPanel(c *gin.Context) {
-	var uploadForm apiService.TorrentRequest
-	id := c.Query("id")
+	var uploadForm torrentValidator.UpdateRequest
+	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
+	uploadForm.ID = uint(id)
 	messages := msg.GetMessages(c)
-	torrent, _ := torrentService.GetTorrentByID(id)
+	torrent, _ := torrents.FindByID(uint(id))
 	currentUser := getUser(c)
-	if torrent.ID > 0 && userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
-		errUp := uploadForm.ExtractEditInfo(c)
+	if torrent.ID > 0 && currentUser.CurrentOrAdmin(torrent.UploaderID) {
+		errUp := upload.ExtractEditInfo(c, &uploadForm.Update)
 		if errUp != nil {
 			messages.AddErrorT("errors", "fail_torrent_update")
 		}
 		if !messages.HasErrors() {
-			status := model.TorrentStatusNormal
-			if uploadForm.Remake { // overrides trusted
-				status = model.TorrentStatusRemake
-			} else if currentUser.IsTrusted() {
-				status = model.TorrentStatusTrusted
-			}
-			// update some (but not all!) values
-			torrent.Name = uploadForm.Name
-			torrent.Category = uploadForm.CategoryID
-			torrent.SubCategory = uploadForm.SubCategoryID
-			torrent.Status = status
-			torrent.Hidden = uploadForm.Hidden
-			torrent.WebsiteLink = uploadForm.WebsiteLink
-			torrent.Description = uploadForm.Description
-			torrent.Language = uploadForm.Language
-			db.ORM.Model(&torrent).UpdateColumn(&torrent)
+			upload.UpdateTorrent(&uploadForm, &torrent, currentUser).Update(currentUser.HasAdmin())
 			messages.AddInfoT("infos", "torrent_updated")
 		}
-		formTemplate(c, "site/torrents/edit.jet.html", uploadForm)
+		formTemplate(c, "site/torrents/edit.jet.html", uploadForm.Update)
 	} else {
 		NotFoundHandler(c)
 	}
@@ -216,23 +225,23 @@ func TorrentPostEditUserPanel(c *gin.Context) {
 
 // TorrentDeleteUserPanel : Controller for deleting a user torrent by a user
 func TorrentDeleteUserPanel(c *gin.Context) {
-	id := c.Query("id")
+	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
 	currentUser := getUser(c)
-	torrent, _ := torrentService.GetTorrentByID(id)
-	if userPermission.CurrentOrAdmin(currentUser, torrent.UploaderID) {
-		_, _, err := torrentService.DeleteTorrent(id)
+	torrent, _ := torrents.FindByID(uint(id))
+	if currentUser.CurrentOrAdmin(torrent.UploaderID) {
+		_, _, err := torrent.Delete(false)
 		if err == nil {
-			_, username := torrentService.HideTorrentUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
-			if userPermission.HasAdmin(currentUser) { // We hide username on log activity if user is not admin and torrent is hidden
-				activity.Log(&model.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, currentUser.Username)
+			_, username := torrents.HideUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
+			if currentUser.HasAdmin() { // We hide username on log activity if user is not admin and torrent is hidden
+				activities.Log(&models.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, currentUser.Username)
 			} else {
-				activity.Log(&model.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, username)
+				activities.Log(&models.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, username)
 			}
 			//delete reports of torrent
-			whereParams := serviceBase.CreateWhereParams("torrent_id = ?", id)
-			reports, _, _ := reportService.GetTorrentReportsOrderBy(&whereParams, "", 0, 0)
-			for _, report := range reports {
-				reportService.DeleteTorrentReport(report.ID)
+			whereParams := structs.CreateWhereParams("torrent_id = ?", id)
+			torrentReports, _, _ := reports.FindOrderBy(&whereParams, "", 0, 0)
+			for _, report := range torrentReports {
+				report.Delete(false)
 			}
 		}
 		c.Redirect(http.StatusSeeOther, "/?deleted")
@@ -264,7 +273,7 @@ func DownloadTorrent(c *gin.Context) {
 	FileStat, _ := Openfile.Stat()                     //Get info from file
 	FileSize := strconv.FormatInt(FileStat.Size(), 10) //Get file size as a string
 
-	torrent, err := torrentService.GetRawTorrentByHash(hash)
+	torrent, err := torrents.FindRawByHash(hash)
 
 	if err != nil {
 		//File not found, send 404

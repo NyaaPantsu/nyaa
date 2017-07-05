@@ -6,9 +6,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/NyaaPantsu/nyaa/service/activity"
-	"github.com/NyaaPantsu/nyaa/service/user/permission"
-	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/models/activities"
+	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/gin-gonic/gin"
 )
 
@@ -31,7 +30,7 @@ func ActivityListHandler(c *gin.Context) {
 	}
 	var conditions []string
 	var values []interface{}
-	if userid != "" && userPermission.HasAdmin(currentUser) {
+	if userid != "" && currentUser.HasAdmin() {
 		conditions = append(conditions, "user_id = ?")
 		values = append(values, userid)
 	}
@@ -40,8 +39,8 @@ func ActivityListHandler(c *gin.Context) {
 		values = append(values, filter)
 	}
 
-	activities, nbActivities := activity.GetAllActivities(offset, (pagenum-1)*offset, strings.Join(conditions, " AND "), values...)
+	activity, nbActivities := activities.FindAll(offset, (pagenum-1)*offset, strings.Join(conditions, " AND "), values...)
 
 	nav := navigation{nbActivities, offset, pagenum, "activities"}
-	modelList(c, "site/torrents/activities.jet.html", activities, nav, newSearchForm(c))
+	modelList(c, "site/torrents/activities.jet.html", activity, nav, newSearchForm(c))
 }

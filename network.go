@@ -5,7 +5,7 @@ import (
 	"net"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/util/log"
+	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/majestrate/i2p-tools/lib/i2p"
 )
 

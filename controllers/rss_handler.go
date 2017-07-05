@@ -11,12 +11,12 @@ import (
 	"sort"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/model"
-	userService "github.com/NyaaPantsu/nyaa/service/user"
-	"github.com/NyaaPantsu/nyaa/util/categories"
-	"github.com/NyaaPantsu/nyaa/util/feeds"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
-	"github.com/NyaaPantsu/nyaa/util/search"
+	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/models/users"
+	"github.com/NyaaPantsu/nyaa/utils/categories"
+	"github.com/NyaaPantsu/nyaa/utils/feeds"
+	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/search"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/feeds"
 )
@@ -87,7 +87,7 @@ func RSSMagnetHandler(c *gin.Context) {
 		torrentJSON := torrent.ToJSON()
 		feed.Items[i] = &nyaafeeds.RssItem{
 			Title:       torrentJSON.Name,
-			MagnetLink:  &nyaafeeds.RssMagnetLink{Text: string(torrentJSON.Magnet)},
+			Link:        &nyaafeeds.RssMagnetLink{Text: string(torrentJSON.Magnet)},
 			Description: string(torrentJSON.Description),
 			PubDate:     torrent.Date.Format(time.RFC822),
 			GUID:        config.WebAddress() + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
@@ -350,7 +350,7 @@ func RSSTorznabHandler(c *gin.Context) {
 	}
 }
 
-func getTorrentList(c *gin.Context) (torrents []model.Torrent, createdAsTime time.Time, title string, err error) {
+func getTorrentList(c *gin.Context) (torrents []models.Torrent, createdAsTime time.Time, title string, err error) {
 	page := c.Param("page")
 	userID := c.Param("id")
 	cat := c.Query("cat")
@@ -395,7 +395,7 @@ func getTorrentList(c *gin.Context) (torrents []model.Torrent, createdAsTime tim
 			return
 		}
 
-		_, _, err = userService.RetrieveUserForAdmin(userID)
+		_, _, err = users.FindForAdmin(uint(userIDnum))
 		if err != nil {
 			return
 		}

@@ -281,19 +281,17 @@ th, .home-td {
 	position: relative;
 	text-align: left;
 }
-.tr-cat a { 
+.tr-cat a.category { 
 	width: 100%;
 	height: 100%;
 	display: block; 
 }
-.tr-cat img {
-	margin-top: 2px;
-}
+.tr-cat img { margin-top: 2px; }
 .tr-cat .nyaa-cat img {
 	position: absolute;
-    bottom: -2px;
-    display: block;
-    left: 11px;
+	bottom: -2px;
+	display: block;
+	left: 11px;
 }
 
 

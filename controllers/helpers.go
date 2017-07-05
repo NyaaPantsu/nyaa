@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"github.com/NyaaPantsu/nyaa/common"
-	"github.com/NyaaPantsu/nyaa/model"
-	"github.com/NyaaPantsu/nyaa/service/user"
+	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/utils/cookies"
+	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,7 +15,7 @@ type navigation struct {
 }
 
 type searchForm struct {
-	common.SearchParam
+	structs.TorrentParam
 	Category         string
 	ShowItemsPerPage bool
 	SizeType         string
@@ -46,7 +46,10 @@ func newSearchForm(c *gin.Context) searchForm {
 		ToDate:           c.Query("toDate"),   // We need to overwrite the value here, since date are formatted
 	}
 }
-func getUser(c *gin.Context) *model.User {
-	user, _, _ := userService.RetrieveCurrentUser(c)
-	return &user
+func getUser(c *gin.Context) *models.User {
+	user, _, _ := cookies.CurrentUser(c)
+	if user == nil {
+		return &models.User{}
+	}
+	return user
 }

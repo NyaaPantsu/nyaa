@@ -18,11 +18,6 @@
 			"Rev": "5b60b3d3ee017ed00bcd0225fcca7acab767844b"
 		},
 		{
-			"ImportPath": "github.com/asaskevich/govalidator",
-			"Comment": "v6-20-gaa5cce4",
-			"Rev": "aa5cce4a76edb1a5acecab1870c17abbffb5419e"
-		},
-		{
 			"ImportPath": "github.com/azhao12345/gorm",
 			"Comment": "v1.0-157-g6369712",
 			"Rev": "6369712e58b64653dd84d26cc3ae54e55ff9c128"
@@ -54,6 +49,26 @@
 			"ImportPath": "github.com/gin-gonic/gin/render",
 			"Comment": "v1.1.4-1-gd5b353c",
 			"Rev": "d5b353c5d5a560322e6d96121c814115562501f7"
+		},
+		{
+			"ImportPath": "github.com/go-playground/locales",
+			"Comment": "v0.11.1-2-g1e5f1161",
+			"Rev": "1e5f1161c6416a5ff48840eb8724a394e48cc534"
+		},
+		{
+			"ImportPath": "github.com/go-playground/locales/currency",
+			"Comment": "v0.11.1-2-g1e5f1161",
+			"Rev": "1e5f1161c6416a5ff48840eb8724a394e48cc534"
+		},
+		{
+			"ImportPath": "github.com/go-playground/universal-translator",
+			"Comment": "v0.16.0-1-g7120149",
+			"Rev": "71201497bace774495daed26a3874fd339e0b538"
+		},
+		{
+			"ImportPath": "github.com/go-playground/validator",
+			"Comment": "v9.4.0",
+			"Rev": "fb68f39656d7ebf8aa339ad4917aa0c260ecc237"
 		},
 		{
 			"ImportPath": "github.com/golang/protobuf/proto",

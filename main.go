@@ -11,12 +11,12 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/controllers"
-	"github.com/NyaaPantsu/nyaa/db"
-	"github.com/NyaaPantsu/nyaa/service/user"
-	"github.com/NyaaPantsu/nyaa/util/log"
-	"github.com/NyaaPantsu/nyaa/util/publicSettings"
-	"github.com/NyaaPantsu/nyaa/util/search"
-	"github.com/NyaaPantsu/nyaa/util/signals"
+	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/utils/cookies"
+	"github.com/NyaaPantsu/nyaa/utils/log"
+	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/search"
+	"github.com/NyaaPantsu/nyaa/utils/signals"
 )
 
 var buildversion string
@@ -84,12 +84,12 @@ func main() {
 		if err != nil {
 			log.CheckError(err)
 		}
-		db.ORM, err = db.GormInit(conf, db.DefaultLogger)
+		models.ORM, err = models.GormInit(conf, models.DefaultLogger)
 		if err != nil {
 			log.Fatal(err.Error())
 		}
-		db.ElasticSearchClient, _ = db.ElasticSearchInit()
-		err = publicSettings.InitI18n(conf.I18n, userService.NewCurrentUserRetriever())
+		models.ElasticSearchClient, _ = models.ElasticSearchInit()
+		err = publicSettings.InitI18n(conf.I18n, cookies.NewCurrentUserRetriever())
 		if err != nil {
 			log.Fatal(err.Error())
 		}

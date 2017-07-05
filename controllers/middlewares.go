@@ -3,15 +3,14 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/NyaaPantsu/nyaa/service/user/permission"
 	"github.com/gin-gonic/gin"
 )
 
 func errorMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Next()
-		if c.Writer.Status() == http.StatusNotFound && c.Writer.Size() == 0 {
-			NotFoundHandler(c)
+		if c.Writer.Status() != http.StatusOK && c.Writer.Size() <= 0 {
+			httpError(c, c.Writer.Status())
 		}
 	}
 }
@@ -20,7 +19,7 @@ func errorMiddleware() gin.HandlerFunc {
 func modMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		currentUser := getUser(c)
-		if !userPermission.HasAdmin(currentUser) {
+		if !currentUser.HasAdmin() {
 			NotFoundHandler(c)
 		}
 		c.Next()
