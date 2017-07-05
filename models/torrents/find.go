@@ -122,8 +122,9 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 
 	conditions := strings.Join(conditionArray, " AND ")
 	if found, ok := cache.C.Get(fmt.Sprintf("%v", parameters)); ok {
-		torrents = found.([]models.Torrent)
-		count = len(torrents)
+		torrentCache := found.(*structs.TorrentCache)
+		torrents = torrentCache.Torrents
+		count = torrentCache.Count
 		return
 	}
 	if countAll {
@@ -154,7 +155,7 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 		dbQ = dbQ.Preload("Comments")
 	}
 	err = dbQ.Preload("FileList").Raw(dbQuery, params...).Find(&torrents).Error
-	cache.C.Set(fmt.Sprintf("%v", parameters), torrents, 5*time.Minute)
+	cache.C.Set(fmt.Sprintf("%v", parameters), &structs.TorrentCache{torrents, count}, 5*time.Minute)
 	return
 }
 
