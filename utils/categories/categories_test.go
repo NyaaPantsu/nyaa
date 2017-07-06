@@ -20,7 +20,7 @@ var _ = func() (_ struct{}) {
 }()
 
 func TestGetCategories(t *testing.T) {
-	cats := GetCategories()
+	cats := All()
 	if len(cats) == 0 {
 		t.Skip("Couldn't load categories to test Categories")
 	}
@@ -30,13 +30,13 @@ func TestGetCategories(t *testing.T) {
 }
 
 func TestCategoryExists(t *testing.T) {
-	if CategoryExists("k") {
+	if Exists("k") {
 		t.Error("Category that shouldn't exist return true")
 	}
 }
 
 func TestGetCategoriesSelect(t *testing.T) {
-	cats := GetCategoriesSelect(true, false)
+	cats := GetSelect(true, false)
 	for _, value := range cats {
 		split := strings.Split(value, "_")
 		if len(split) != 2 {
@@ -46,7 +46,7 @@ func TestGetCategoriesSelect(t *testing.T) {
 			t.Errorf("The function doesn't filter out child categories, expected '', got %s", split[1])
 		}
 	}
-	cats = GetCategoriesSelect(false, true)
+	cats = GetSelect(false, true)
 	for _, value := range cats {
 		split := strings.Split(value, "_")
 		if len(split) != 2 {
@@ -56,8 +56,8 @@ func TestGetCategoriesSelect(t *testing.T) {
 			t.Error("The function doesn't filter out parent categories, expected a string, got nothing")
 		}
 	}
-	cats = GetCategoriesSelect(true, true)
-	if len(cats) != len(GetCategories()) {
+	cats = GetSelect(true, true)
+	if len(cats) != len(All()) {
 		t.Errorf("Same amount of categories isn't return when no filter applied")
 	}
 }
