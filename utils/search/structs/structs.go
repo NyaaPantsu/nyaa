@@ -54,7 +54,11 @@ type TorrentParam struct {
 }
 
 func (p *TorrentParam) Identifier() string {
-	return fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%d%d%v%t%t%t", p.NameLike, p.NotNull, p.Language, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, p.FromDate, p.ToDate, p.UserID, p.TorrentID, p.Category, p.Full, p.Order, p.Hidden)
+	cats := ""
+	for _, v := range p.Category {
+		cats += fmt.Sprintf("%d%d", v.Main, v.Sub)
+	}
+	return fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%d%d%s%t%t%t", p.NameLike, p.NotNull, p.Language, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, p.FromDate, p.ToDate, p.UserID, p.TorrentID, cats, p.Full, p.Order, p.Hidden)
 }
 
 func (st *Status) ToString() string {
