@@ -1,8 +1,8 @@
 {{block search_common()}}
   <select name="c" class="form-input hide-xs">
     <option value="_">{{ T("all_categories")}}</option>
-      {{ range name_cat, id_cat := GetCategories(true, true) }}
-      <option value="{{ id_cat }}" {{if Search.Category == id_cat }}selected{{end}}>{{ T(name_cat) }}</option>
+      {{ range _, cat := GetCategories(true, true) }}
+      <option value="{{ cat.ID }}" {{if Search.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
       {{ end }}
   </select>
   <label><span class="select-icon caret-down-icon"></span></label>

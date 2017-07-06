@@ -8,8 +8,6 @@ import (
 	"strings"
 	"time"
 
-	"sort"
-
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/users"
@@ -177,30 +175,26 @@ func RSSTorznabHandler(c *gin.Context) {
 	}
 	if t == "caps" {
 		T := publicSettings.GetTfuncFromRequest(c)
-		cat := categories.GetSelect(true, true)
+		cats := categories.GetSelect(true, true)
 		var categories []*nyaafeeds.RssCategoryTorznab
 		categories = append(categories, &nyaafeeds.RssCategoryTorznab{
 			ID:          "5070",
 			Name:        "Anime",
 			Description: "Anime",
 		})
-		var keys []string
-		for name := range cat {
-			keys = append(keys, name)
-		}
-		sort.Strings(keys)
+
 		last := 0
-		for _, key := range keys {
-			if len(cat[key]) <= 2 {
+		for _, v := range cats {
+			if len(v.ID) <= 2 {
 				categories = append(categories, &nyaafeeds.RssCategoryTorznab{
-					ID:   nyaafeeds.ConvertFromCat(cat[key]),
-					Name: string(T(key)),
+					ID:   nyaafeeds.ConvertFromCat(v.ID),
+					Name: string(T(v.Name)),
 				})
 				last++
 			} else {
 				categories[last].Subcat = append(categories[last].Subcat, &nyaafeeds.RssSubCat{
-					ID:   nyaafeeds.ConvertFromCat(cat[key]),
-					Name: string(T(key)),
+					ID:   nyaafeeds.ConvertFromCat(v.ID),
+					Name: string(T(v.Name)),
 				})
 			}
 		}

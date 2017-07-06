@@ -4,7 +4,6 @@ import (
 	"html/template"
 	"math"
 	"net/url"
-	"sort"
 	"strconv"
 	"time"
 
@@ -161,29 +160,23 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 		return t.Format(time.RFC3339)
 	})
 	vars.Set("GetHostname", format.GetHostname)
-	vars.Set("GetCategories", func(keepParent bool, keepChild bool) map[string]string {
+	vars.Set("GetCategories", func(keepParent bool, keepChild bool) categories.Categories {
 		return categories.GetSelect(keepParent, keepChild)
 	})
-	vars.Set("GetCategory", func(category string, keepParent bool) (categoryRet map[string]string) {
-		cat := categories.GetSelect(true, true)
-		var keys []string
-		for name := range cat {
-			keys = append(keys, name)
-		}
-
-		sort.Strings(keys)
+	vars.Set("GetCategory", func(category string, keepParent bool) (categoryRet categories.Categories) {
+		cats := categories.GetSelect(true, true)
 		found := false
-		categoryRet = make(map[string]string)
-		for _, key := range keys {
-			if cat[key] == category+"_" {
+		categoryRet = make(categories.Categories, len(cats))
+		for _, v := range cats {
+			if v.ID == category+"_" {
 				found = true
 				if keepParent {
-					categoryRet[key] = cat[key]
+					categoryRet = append(categoryRet, v)
 				}
-			} else if len(cat[key]) <= 2 && len(categoryRet) > 0 {
+			} else if len(v.ID) <= 2 && len(categoryRet) > 0 {
 				break
 			} else if found {
-				categoryRet[key] = cat[key]
+				categoryRet = append(categoryRet, v)
 			}
 		}
 		return

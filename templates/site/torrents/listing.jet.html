@@ -105,8 +105,8 @@
             <span class="btn-group">
                 <select class="cb_action" name="category_id" style="width: 14em;">
                     <option value="">{{ T("category")}}</option>
-                    {{ range name_cat, id_cat := GetCategories(true, true) }}
-                    <option value="{{ id_cat }}">{{ T(name_cat) }}</option>
+                    {{ range _, cat := GetCategories(true, true) }}
+                    <option value="{{ cat.ID }}">{{ T(cat.Name) }}</option>
                     {{ end }}
                 </select>
                 <input class="cb_action" type="number" name="owner_id" style="width: 10em;" placeholder="{{  T("owner_id_placeholder") }}">
