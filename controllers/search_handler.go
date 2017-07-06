@@ -56,5 +56,9 @@ func SearchHandler(c *gin.Context) {
 	searchForm := newSearchForm(c)
 	searchForm.TorrentParam, searchForm.Category = searchParam, category
 
+	if c.Request.URL.Path == "/" {
+		searchForm.ShowRefine = false
+	}
+
 	modelList(c, "site/torrents/listing.jet.html", models.TorrentsToJSON(torrents), nav, searchForm)
 }

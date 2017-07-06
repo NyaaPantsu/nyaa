@@ -8,7 +8,7 @@
 {{end}}
 {{block content_body()}}
       <!-- Contain the table within a grid, as for better sizing -->
-      {{if Search.NameLike != ""}}
+      {{if Search.ShowRefine}}
       {{yield search_refine()}}
       {{end}}
       <div class="results box">
