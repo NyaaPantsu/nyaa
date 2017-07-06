@@ -38,6 +38,7 @@ func init() {
 	Router.Any("/verify/email/:token", UserVerifyEmailHandler)
 	Router.Any("/faq", FaqHandler)
 	Router.Any("/activities", ActivityListHandler)
+	Router.Any("/activities/p/:page", ActivityListHandler)
 	Router.Any("/feed", RSSHandler)
 	Router.Any("/feed/p/:page", RSSHandler)
 	Router.Any("/feed/magnet", RSSMagnetHandler)
