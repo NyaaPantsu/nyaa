@@ -202,7 +202,7 @@ func ParseCategories(s string) []*Category {
 					if err == nil {
 						sub = uint8(tmp)
 					}
-					if catUtil.CategoryExists(partsCat[0] + "_" + partsCat[1]) {
+					if catUtil.Exists(partsCat[0] + "_" + partsCat[1]) {
 						categories = append(categories, &Category{
 							Main: c,
 							Sub:  sub,

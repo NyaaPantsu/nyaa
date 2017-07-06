@@ -8,9 +8,8 @@
 		<div class="form-group">
 			<h3>{{ T("language")}}</h3>
 			<select id="language" name="language" class="form-input">
-			{{ currentLanguage := Language }}
-			{{ range tag, translatedName := Languages }}
-				<option value="{{ tag }}" {{ if currentLanguage == tag }}selected{{end}}>{{ translatedName }}</option>
+			{{ range tag, translatedName := Form.Languages }}
+				<option value="{{ tag }}" {{ if Form.Current == tag }}selected{{end}}>{{ translatedName }}</option>
 			{{ end }}
 			</select>
 			<h3>{{ T("theme")}}</h3>

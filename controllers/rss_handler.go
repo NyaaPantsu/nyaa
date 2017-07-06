@@ -177,7 +177,7 @@ func RSSTorznabHandler(c *gin.Context) {
 	}
 	if t == "caps" {
 		T := publicSettings.GetTfuncFromRequest(c)
-		cat := categories.GetCategoriesSelect(true, true)
+		cat := categories.GetSelect(true, true)
 		var categories []*nyaafeeds.RssCategoryTorznab
 		categories = append(categories, &nyaafeeds.RssCategoryTorznab{
 			ID:          "5070",

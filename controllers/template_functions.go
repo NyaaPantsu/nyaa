@@ -162,10 +162,10 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	})
 	vars.Set("GetHostname", format.GetHostname)
 	vars.Set("GetCategories", func(keepParent bool, keepChild bool) map[string]string {
-		return categories.GetCategoriesSelect(keepParent, keepChild)
+		return categories.GetSelect(keepParent, keepChild)
 	})
 	vars.Set("GetCategory", func(category string, keepParent bool) (categoryRet map[string]string) {
-		cat := categories.GetCategoriesSelect(true, true)
+		cat := categories.GetSelect(true, true)
 		var keys []string
 		for name := range cat {
 			keys = append(keys, name)
@@ -191,8 +191,8 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("CategoryName", func(category string, sub_category string) string {
 		s := category + "_" + sub_category
 
-		if category, ok := categories.GetCategories()[s]; ok {
-			return category
+		if category, ok := categories.GetByID(s); ok {
+			return category.Name
 		}
 		return ""
 	})

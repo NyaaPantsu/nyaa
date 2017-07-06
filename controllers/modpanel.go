@@ -546,7 +546,7 @@ func torrentManyAction(c *gin.Context) {
 				messages.AddErrorT("errors", "invalid_torrent_category")
 			}
 
-			if !categories.CategoryExists(category) {
+			if !categories.Exists(category) {
 				messages.AddErrorT("errors", "invalid_torrent_category")
 			}
 		}
