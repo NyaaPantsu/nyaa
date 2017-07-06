@@ -20,10 +20,15 @@ var _ = func() (_ struct{}) {
 }()
 
 func TestGetCategories(t *testing.T) {
-	cats := All()
+	cats := make(map[string]string)
+
+	for _, v := range All() {
+		cats[v.ID] = v.Name
+	}
 	if len(cats) == 0 {
 		t.Skip("Couldn't load categories to test Categories")
 	}
+
 	if !reflect.DeepEqual(cats, config.Conf.Torrents.CleanCategories) && !reflect.DeepEqual(cats, config.Conf.Torrents.SukebeiCategories) {
 		t.Error("Categories doesn't correspond to the configured ones")
 	}
