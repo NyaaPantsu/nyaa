@@ -118,7 +118,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 			}
 			for i := startValue; i <= endValue; i++ {
 				pageNum := strconv.Itoa(i)
-				url := nav.Route + "/" + pageNum
+				url := "/search/" + pageNum
 				ret = ret + "<a aria-label=\"Page " + strconv.Itoa(i) + "\" href=\"" + url + "?" + currentUrl.RawQuery + "\">" + "<li"
 				if i == nav.CurrentPage {
 					ret = ret + " class=\"active\""
