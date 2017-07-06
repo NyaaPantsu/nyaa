@@ -8,7 +8,6 @@ import (
 	"math"
 
 	"github.com/NyaaPantsu/nyaa/models"
-	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/NyaaPantsu/nyaa/utils/search"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
@@ -26,7 +25,7 @@ func SearchHandler(c *gin.Context) {
 	pagenum := 1
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
-		if !log.CheckError(err) {
+		if err != nil {
 			c.AbortWithError(http.StatusNotFound, err)
 			return
 		}
@@ -49,7 +48,6 @@ func SearchHandler(c *gin.Context) {
 	}
 
 	// Convert back to strings for now.
-	// TODO Deprecate fully SearchParam and only use TorrentParam
 	category := ""
 	if len(searchParam.Category) > 0 {
 		category = searchParam.Category[0].String()

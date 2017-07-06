@@ -59,7 +59,7 @@ func FindByID(id uint) (*models.Torrent, error) {
 		torrent.Comments[i].User = new(models.User)
 		models.ORM.Where("user_id = ?", torrent.Comments[i].UserID).Find(torrent.Comments[i].User)
 	}
-	cache.C.Set(fmt.Sprintf("torren_%d", id), torrent, 5*time.Minute)
+	cache.C.Set(fmt.Sprintf("torrent_%d", id), torrent, 5*time.Minute)
 	return torrent, nil
 }
 
@@ -121,12 +121,12 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 	}
 
 	conditions := strings.Join(conditionArray, " AND ")
-	if found, ok := cache.C.Get(fmt.Sprintf("%v", parameters)); ok {
+	/*if found, ok := cache.C.Get(fmt.Sprintf("%v", parameters)); ok {
 		torrentCache := found.(*structs.TorrentCache)
 		torrents = torrentCache.Torrents
 		count = torrentCache.Count
 		return
-	}
+	}*/
 	if countAll {
 		err = models.ORM.Unscoped().Model(&torrents).Where(conditions, params...).Count(&count).Error
 		if err != nil {
@@ -155,7 +155,7 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 		dbQ = dbQ.Preload("Comments")
 	}
 	err = dbQ.Preload("FileList").Raw(dbQuery, params...).Find(&torrents).Error
-	cache.C.Set(fmt.Sprintf("%v", parameters), &structs.TorrentCache{torrents, count}, 5*time.Minute)
+	// cache.C.Set(fmt.Sprintf("%v", parameters), &structs.TorrentCache{torrents, count}, 5*time.Minute) // Cache shouldn't be done here but in search util
 	return
 }
 

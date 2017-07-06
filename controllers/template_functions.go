@@ -101,7 +101,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 			maxPages := math.Ceil(float64(nav.TotalItem) / float64(nav.MaxItemPerPage))
 
 			if nav.CurrentPage-1 > 0 {
-				url := nav.Route + "/1"
+				url := "/" + nav.Route + "/1"
 				ret = ret + "<a id=\"page-prev\" href=\"" + url + "?" + currentUrl.RawQuery + "\" aria-label=\"Previous\"><li><span aria-hidden=\"true\">&laquo;</span></li></a>"
 			}
 			startValue := 1
@@ -117,7 +117,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 			}
 			for i := startValue; i <= endValue; i++ {
 				pageNum := strconv.Itoa(i)
-				url := nav.Route + "/" + pageNum
+				url := "/" + nav.Route + "/" + pageNum
 				ret = ret + "<a aria-label=\"Page " + strconv.Itoa(i) + "\" href=\"" + url + "?" + currentUrl.RawQuery + "\">" + "<li"
 				if i == nav.CurrentPage {
 					ret = ret + " class=\"active\""
@@ -125,7 +125,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 				ret = ret + ">" + strconv.Itoa(i) + "</li></a>"
 			}
 			if nav.CurrentPage < int(maxPages) {
-				url := nav.Route + "/" + strconv.Itoa(nav.CurrentPage+1)
+				url := "/" + nav.Route + "/" + strconv.Itoa(nav.CurrentPage+1)
 				ret = ret + "<a id=\"page-next\" href=\"" + url + "?" + currentUrl.RawQuery + "\" aria-label=\"Next\"><li><span aria-hidden=\"true\">&raquo;</span></li></a>"
 			}
 			itemsThisPageStart := nav.MaxItemPerPage*(nav.CurrentPage-1) + 1
