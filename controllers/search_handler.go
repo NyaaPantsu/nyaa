@@ -5,10 +5,13 @@ import (
 	"net/http"
 	"strconv"
 
+	"math"
+
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/NyaaPantsu/nyaa/utils/search"
 	"github.com/gin-gonic/gin"
+	"github.com/pkg/errors"
 )
 
 // SearchHandler : Controller for displaying search result page, accepting common search arguments
@@ -24,11 +27,11 @@ func SearchHandler(c *gin.Context) {
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
 		if !log.CheckError(err) {
-			c.AbortWithError(http.StatusInternalServerError, err)
+			c.AbortWithError(http.StatusNotFound, err)
 			return
 		}
 		if pagenum <= 0 {
-			NotFoundHandler(c)
+			c.AbortWithError(http.StatusNotFound, errors.New("Can't find a page with negative value"))
 			return
 		}
 	}
@@ -37,6 +40,11 @@ func SearchHandler(c *gin.Context) {
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
+	}
+
+	maxPages := math.Ceil(float64(nbTorrents) / float64(searchParam.Max))
+	if pagenum > int(maxPages) {
+		c.AbortWithError(http.StatusNotFound, errors.New("Page superior to the maximum number of pages"))
 	}
 
 	// Convert back to strings for now.
