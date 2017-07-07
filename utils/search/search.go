@@ -151,6 +151,17 @@ func byQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, 
 		}
 		conditions = append(conditions, strings.Join(conditionsOr, " OR "))
 	}
+	if len(search.Languages) > 0 {
+		langs := ""
+		for key, val := range search.Languages {
+			langs += val.Code
+			if key+1 < len(search.Languages) {
+				langs += ","
+			}
+		}
+		conditions = append(conditions, "language "+searchOperator)
+		parameters.Params = append(parameters.Params, "%"+langs+"%")
+	}
 
 	if search.UserID != 0 {
 		conditions = append(conditions, "uploader = ?")
@@ -182,10 +193,6 @@ func byQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, 
 	}
 	if len(search.NotNull) > 0 {
 		conditions = append(conditions, search.NotNull)
-	}
-	if search.Language != "" {
-		conditions = append(conditions, "language "+searchOperator)
-		parameters.Params = append(parameters.Params, "%"+search.Language+"%")
 	}
 	if search.MinSize > 0 {
 		conditions = append(conditions, "filesize >= ?")

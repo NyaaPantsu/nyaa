@@ -73,7 +73,7 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 		ascending = true
 	}
 
-	language := strings.TrimSpace(c.Query("lang"))
+	language := ParseLanguages(c.Query("lang"))
 
 	p.NameLike = nameLike
 	p.Max = uint32(max)
@@ -82,7 +82,7 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 	p.Status = status
 	p.Sort = sortMode
 	p.Category = categories
-	p.Language = language
+	p.Languages = language
 	p.FromDate = fromDate
 	p.ToDate = toDate
 	p.MinSize = minSize
@@ -152,8 +152,10 @@ func (p *TorrentParam) ToFilterQuery() string {
 		query += " filesize: [* " + sMaxSize + "]"
 	}
 
-	if p.Language != "" {
-		query += " language:" + p.Language
+	if len(p.Languages) > 0{
+		for _, val := range p.Languages {
+			query += " language: " + val.Code
+		}
 	}
 
 	return query
@@ -237,7 +239,7 @@ func (p *TorrentParam) Clone() TorrentParam {
 		ToDate:    p.ToDate,
 		NotNull:   p.NotNull,
 		NameLike:  p.NameLike,
-		Language:  p.Language,
+		Languages:  p.Languages,
 		MinSize:   p.MinSize,
 		MaxSize:   p.MaxSize,
 	}
