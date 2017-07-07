@@ -66,8 +66,10 @@
     </span>
     <div name="language" class="form-refine form-input language">
 	{{ range _, language := GetTorrentLanguages() }}
-		<input type="checkbox" name="lang" id="lang-{{ FlagCode(language) }}" value="{{FlagCode(language)}}">
-		<label for="lang-{{ FlagCode(language) }}" class="flag flag-{{ FlagCode(language) }}" title="{{LanguageName(language, T)}}"></label>
+        <span class="input-group">
+            <input type="checkbox" name="lang" id="lang-{{ FlagCode(language) }}" value="{{FlagCode(language)}}">
+            <label for="lang-{{ FlagCode(language) }}" class="flag flag-{{ FlagCode(language) }}" title="{{LanguageName(language, T)}}"></label>
+        </span>
 	{{ end }}
     </div>
     <button type="submit" class="form-input refine-btn">{{  T("refine")}}</button>
