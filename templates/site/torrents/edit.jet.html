@@ -19,8 +19,8 @@
           <label class="input-label" for="c">{{ T("category")}}</label>
           <select name="c" class="form-input up-input">
               <option value="">{{ T("select_a_torrent_category")}}</option>
-              {{ range name_cat, id_cat := GetCategories(false, true) }}
-              <option value="{{ id_cat }}" {{if Form.Category == id_cat }}selected{{end}}>{{T(name_cat) }}</option>
+              {{ range _, cat := GetCategories(false, true) }}
+              <option value="{{ cat.ID }}" {{if Form.Category == cat.ID }}selected{{end}}>{{T(cat.Name) }}</option>
               {{ end }}
           </select>
           {{ yield errors(name="c")}}
@@ -29,8 +29,10 @@
           <label class="input-label" for="language">{{  T("torrent_language") }}</label>
           <div name="language" class="form-input language">
 			{{ range _, language := GetTorrentLanguages() }}
-              <input type="checkbox" name="languages" id="lang-{{ language }}" value="{{language}}"{{if contains(Form.Languages, language) }} checked{{end}}>
-              <label for="lang-{{ language }}" class="flag flag-{{ FlagCode(language) }}" title="{{LanguageName(language, T)}}"></label>
+              <span class="input-group">
+                  <input type="checkbox" name="languages" id="lang-{{ language }}" value="{{language}}"{{if contains(Form.Languages, language) }} checked{{end}}>
+                  <label for="lang-{{ language }}" class="flag flag-{{ FlagCode(language) }}" title="{{LanguageName(language, T)}}"></label>
+              </span>
 			{{ end }}
 		  </div>
           {{ yield errors(name="language")}}

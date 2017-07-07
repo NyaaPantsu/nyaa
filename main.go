@@ -28,6 +28,7 @@ func RunServer(conf *config.Config) {
 	// TODO Use config from cli
 	os.Mkdir(controllers.GPGPublicKeyPath, 0700)
 
+
 	http.Handle("/", controllers.CSRFRouter)
 
 	// Set up server,

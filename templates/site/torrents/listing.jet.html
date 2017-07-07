@@ -8,7 +8,7 @@
 {{end}}
 {{block content_body()}}
       <!-- Contain the table within a grid, as for better sizing -->
-      {{if Search.NameLike != ""}}
+      {{if Search.ShowRefine}}
       {{yield search_refine()}}
       {{end}}
       <div class="results box">
@@ -56,7 +56,7 @@
                   <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}" class="category">
               {{if .Languages[0] != "" }}
                   	<a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory +"&lang=") }}{{ range key, language := .Languages }}{{ language }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
-				<img src="img/blank.gif" alt="{{ LanguageName(.Languages[0], T) }}" class="flag flag-{{ (len(.Languages) == 1) ?  FlagCode(.Languages[0]) : "multiple" }}" title=" {{ range key, language := .Languages }}{{ LanguageName(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
+				<img src="/img/blank.gif" alt="{{ LanguageName(.Languages[0], T) }}" class="flag flag-{{ (len(.Languages) == 1) ?  FlagCode(.Languages[0]) : "multiple" }}" title=" {{ range key, language := .Languages }}{{ LanguageName(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
 			</a>
 	      {{end}}
                   </a>
@@ -105,8 +105,8 @@
             <span class="btn-group">
                 <select class="cb_action" name="category_id" style="width: 14em;">
                     <option value="">{{ T("category")}}</option>
-                    {{ range name_cat, id_cat := GetCategories(true, true) }}
-                    <option value="{{ id_cat }}">{{ T(name_cat) }}</option>
+                    {{ range _, cat := GetCategories(true, true) }}
+                    <option value="{{ cat.ID }}">{{ T(cat.Name) }}</option>
                     {{ end }}
                 </select>
                 <input class="cb_action" type="number" name="owner_id" style="width: 10em;" placeholder="{{  T("owner_id_placeholder") }}">

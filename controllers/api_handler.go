@@ -225,7 +225,7 @@ func APIUpdateHandler(c *gin.Context) {
 		if torrent.UploaderID != 0 && torrent.UploaderID != user.ID { //&& user.Status != mod
 			messages.AddErrorT("errors", "fail_torrent_update")
 		}
-		upload.UpdateTorrent(&update, &torrent, user).Update(false)
+		upload.UpdateTorrent(&update, torrent, user).Update(false)
 	}
 	apiResponseHandler(c)
 }
@@ -249,7 +249,7 @@ func APISearchHandler(c *gin.Context) {
 		}
 	}
 
-	_, torrentSearch, _, err := search.SearchByQueryWithUser(c, pagenum)
+	_, torrentSearch, _, err := search.ByQueryWithUser(c, pagenum)
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return

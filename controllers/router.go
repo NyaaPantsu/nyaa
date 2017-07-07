@@ -38,6 +38,7 @@ func init() {
 	Router.Any("/verify/email/:token", UserVerifyEmailHandler)
 	Router.Any("/faq", FaqHandler)
 	Router.Any("/activities", ActivityListHandler)
+	Router.Any("/activities/p/:page", ActivityListHandler)
 	Router.Any("/feed", RSSHandler)
 	Router.Any("/feed/p/:page", RSSHandler)
 	Router.Any("/feed/magnet", RSSMagnetHandler)
@@ -142,6 +143,17 @@ func init() {
 	Router.GET("/settings", SeePublicSettingsHandler)
 	Router.POST("/settings", ChangePublicSettingsHandler)
 
+	// Adding pprof support
+	pprofRoutes := Router.Group("/debug/pprof", modMiddleware())
+	{
+		pprofRoutes.GET("/", PprofIndex)
+		pprofRoutes.GET("/block", PprofIndex)
+		pprofRoutes.GET("/heap", PprofIndex)
+		pprofRoutes.GET("/profile", PprofProfile)
+		pprofRoutes.POST("/symbol", PprofSymbol)
+		pprofRoutes.GET("/symbol", PprofSymbol)
+		pprofRoutes.GET("/trace", PprofTrace)
+	}
 	CSRFRouter = nosurf.New(Router)
 	CSRFRouter.ExemptRegexp("/api(?:/.+)*")
 	CSRFRouter.ExemptRegexp("/mod(?:/.+)*")
@@ -154,4 +166,5 @@ func init() {
 		Path:   "/",
 		MaxAge: nosurf.MaxAge,
 	})
+
 }

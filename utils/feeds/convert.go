@@ -39,7 +39,7 @@ func convertCat(cat string) string {
 	c := strconv.Itoa(cI)
 	sub := strconv.Itoa(subI)
 
-	if categories.CategoryExists(c + "_" + sub) {
+	if categories.Exists(c + "_" + sub) {
 		return c + "_" + sub
 	}
 
