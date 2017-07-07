@@ -378,18 +378,6 @@ html, body {
 	.header .h-search input:focus { width: 150px !important; }
 }
 
-@media (max-width: 810px)  {
-
-	.hide-xs {
-		display: none !important;
-	}
-#description-box img {
-	width: 100%;
-	height: auto;
-}
-
-}
-
 @media (max-width: 810px) {
 	.torrent-info-row > td {
 		display: block;
@@ -407,6 +395,15 @@ html, body {
 		width: 100% !important;
 		margin-bottom: 20px;
 	}
+	.hide-xs {
+		display: none !important;
+	}
+	#description-box img {
+		width: 100%;
+		height: auto;
+	}
+	.tr-cat { width: 77px; }
+	.tr-cat div.nyaa-cat { width: 68px; background-position-x: -12px!important; }
 }
 
 .up-input {
