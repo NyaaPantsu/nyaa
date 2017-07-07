@@ -930,7 +930,7 @@ details[open] summary:after {
 	margin: -4px 5px 0 0;
 }
 
-.nyaa-cat { background: url('/img/categories.png') no-repeat top right; width: 80px; height: 28px; display: block; } 
+.nyaa-cat { background: url('/img/categories.png') no-repeat top right; max-width: 80px; min-width: 68px; height: 28px; display: block; } 
 .nyaa-cat-1 { background-position: 0 0; } 
 .nyaa-cat-2 { background-position: 0 -26px; } 
 .nyaa-cat-4 { background-position: 0 -52px; } 
