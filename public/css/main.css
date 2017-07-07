@@ -149,7 +149,6 @@ select.form-input {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	float: right;
 }
 
 .header .h-user button:focus {outline:none; background-color: rgba(0,0,0, 0.3);}::-moz-focus-inner {border:0;}
