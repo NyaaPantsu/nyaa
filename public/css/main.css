@@ -403,7 +403,6 @@ html, body {
 		height: auto;
 	}
 	.tr-cat { width: 77px; }
-	.tr-cat div.nyaa-cat { width: 68px; background-position-x: -12px!important; }
 }
 
 .up-input {
@@ -927,7 +926,7 @@ details[open] summary:after {
 	margin: -4px 5px 0 0;
 }
 
-.nyaa-cat { background: url('/img/categories.png') no-repeat top right; max-width: 80px; min-width: 68px; height: 28px; display: block; } 
+.nyaa-cat { background: url('/img/categories.png') no-repeat; background-position-x: right!important; max-width: 80px; min-width: 68px; height: 28px; display: block; } 
 .nyaa-cat-1 { background-position: 0 0; } 
 .nyaa-cat-2 { background-position: 0 -26px; } 
 .nyaa-cat-4 { background-position: 0 -52px; } 
