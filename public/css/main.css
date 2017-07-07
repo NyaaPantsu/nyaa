@@ -140,7 +140,7 @@ select.form-input {
 	max-width: 469px;
 	height: auto;
 	border-radius: 5px;
-	background: hsl(193, 15%; 97%);
+	background: hsl(193, 15%, 97%);
 	padding: 12px 0 7px 14px;	
 }
 
