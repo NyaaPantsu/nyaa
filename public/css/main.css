@@ -262,6 +262,8 @@ th, .home-td {
 .tr-cat div.nyaa-cat {
 	position: relative;
 	text-align: left;
+	border: 1px solid #696868!important;
+	border-radius: 4px;
 }
 .tr-cat a { 
 	width: 100%;
@@ -928,28 +930,28 @@ details[open] summary:after {
 	margin: -4px 5px 0 0;
 }
 
-.nyaa-cat { background: url('/img/categories.png') no-repeat top left; width: 80px; height: 28px; display: block; } 
+.nyaa-cat { background: url('/img/categories.png') no-repeat top right; width: 80px; height: 28px; display: block; } 
 .nyaa-cat-1 { background-position: 0 0; } 
-.nyaa-cat-2 { background-position: 0 -27px; } 
-.nyaa-cat-4 { background-position: 0 -54px; } 
-.nyaa-cat-3 { background-position: 0 -81px; } 
-.nyaa-cat-6 { background-position: 0 -108px; } 
-.nyaa-cat-5 { background-position: 0 -135px; } 
-.nyaa-cat-8 { background-position: 0 -162px; } 
-.nyaa-cat-7 { background-position: 0 -189px; } 
-.nyaa-cat-9 { background-position: 0 -216px; } 
-.nyaa-cat-10 { background-position: 0 -243px; } 
-.nyaa-cat-11 { background-position: 0 -270px; } 
-.nyaa-cat-12 { background-position: 0 -297px; } 
-.nyaa-cat-13 { background-position: 0 -324px; } 
-.nyaa-cat-14 { background-position: 0 -351px; } 
-.nyaa-cat-15 { background-position: 0 -378px; } 
-.nyaa-cat-16 { background-position: 0 -405px; } 
-.nyaa-cat-18 { background-position: 0 -432px; } 
-.sukebei-cat-11 { background-position: 0 -459px; } 
-.sukebei-cat-12 { background-position: 0 -486px; } 
-.sukebei-cat-13 { background-position: 0 -513px; } 
-.sukebei-cat-14 { background-position: 0 -540px; } 
-.sukebei-cat-15 { background-position: 0 -567px; } 
-.sukebei-cat-21 { background-position: 0 -594px; } 
-.sukebei-cat-22 { background-position: 0 -621px; } 
+.nyaa-cat-2 { background-position: 0 -26px; } 
+.nyaa-cat-4 { background-position: 0 -52px; } 
+.nyaa-cat-3 { background-position: 0 -78px; } 
+.nyaa-cat-6 { background-position: 0 -104px; } 
+.nyaa-cat-5 { background-position: 0 -130px; } 
+.nyaa-cat-8 { background-position: 0 -156px; } 
+.nyaa-cat-7 { background-position: 0 -182px; } 
+.nyaa-cat-9 { background-position: 0 -208px; } 
+.nyaa-cat-10 { background-position: 0 -234px; } 
+.nyaa-cat-11 { background-position: 0 -260px; } 
+.nyaa-cat-12 { background-position: 0 -286px; } 
+.nyaa-cat-13 { background-position: 0 -312px; } 
+.nyaa-cat-14 { background-position: 0 -338px; } 
+.nyaa-cat-15 { background-position: 0 -364px; } 
+.nyaa-cat-16 { background-position: 0 -390px; } 
+.nyaa-cat-18 { background-position: 0 -416px; } 
+.sukebei-cat-11 { background-position: 0 -442px; } 
+.sukebei-cat-12 { background-position: 0 -468px; } 
+.sukebei-cat-13 { background-position: 0 -494px; } 
+.sukebei-cat-14 { background-position: 0 -520px; } 
+.sukebei-cat-15 { background-position: 0 -546px; } 
+.sukebei-cat-21 { background-position: 0 -572px; } 
+.sukebei-cat-22 { background-position: 0 -598px; } 
