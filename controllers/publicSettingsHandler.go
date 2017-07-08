@@ -14,21 +14,21 @@ import (
 
 // LanguagesJSONResponse : Structure containing all the languages to parse it as a JSON response
 type LanguagesJSONResponse struct {
-	Current   string            `json:"current"`
-	Languages map[string]string `json:"languages"`
+	Current   string                   `json:"current"`
+	Languages publicSettings.Languages `json:"language"`
 }
 
 // SeePublicSettingsHandler : Controller to view the languages and themes
 func SeePublicSettingsHandler(c *gin.Context) {
 	_, Tlang := publicSettings.GetTfuncAndLanguageFromRequest(c)
 	availableLanguages := publicSettings.GetAvailableLanguages()
-
+	languagesJson := LanguagesJSONResponse{Tlang.Tag, availableLanguages}
 	contentType := c.Request.Header.Get("Content-Type")
 	if contentType == "application/json" {
 		c.Header("Content-Type", "application/json")
-		c.JSON(http.StatusOK, LanguagesJSONResponse{Tlang.Tag, availableLanguages})
+		c.JSON(http.StatusOK, languagesJson)
 	} else {
-		changeLanguageTemplate(c, Tlang.Tag, availableLanguages)
+		formTemplate(c, "user/public/settings.jet.html", languagesJson)
 	}
 }
 
@@ -43,7 +43,7 @@ func ChangePublicSettingsHandler(c *gin.Context) {
 
 	availableLanguages := publicSettings.GetAvailableLanguages()
 
-	if _, exists := availableLanguages[lang]; !exists {
+	if !availableLanguages.Exist(lang) {
 		messages.AddErrorT("errors", "language_not_available")
 	}
 	// FIXME Are the settings actually sanitized?

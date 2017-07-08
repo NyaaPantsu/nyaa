@@ -109,7 +109,7 @@ func PostCommentHandler(c *gin.Context) {
 	}
 	if !messages.HasErrors() {
 
-		comment, err := comments.Create(content, &torrent, currentUser)
+		comment, err := comments.Create(content, torrent, currentUser)
 		url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
 		torrent.Uploader.ParseSettings()
 		if torrent.Uploader.Settings.Get("new_comment") {
@@ -143,7 +143,7 @@ func ReportTorrentHandler(c *gin.Context) {
 		messages.Error(err)
 	}
 	if !messages.HasErrors() {
-		_, err := reports.Create(c.PostForm("report_type"), &torrent, currentUser)
+		_, err := reports.Create(c.PostForm("report_type"), torrent, currentUser)
 		messages.AddInfoTf("infos", "report_msg", id)
 		if err != nil {
 			messages.ImportFromError("errors", err)
@@ -214,7 +214,7 @@ func TorrentPostEditUserPanel(c *gin.Context) {
 			messages.AddErrorT("errors", "fail_torrent_update")
 		}
 		if !messages.HasErrors() {
-			upload.UpdateTorrent(&uploadForm, &torrent, currentUser).Update(currentUser.HasAdmin())
+			upload.UpdateTorrent(&uploadForm, torrent, currentUser).Update(currentUser.HasAdmin())
 			messages.AddInfoT("infos", "torrent_updated")
 		}
 		formTemplate(c, "site/torrents/edit.jet.html", uploadForm.Update)
