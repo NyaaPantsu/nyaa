@@ -54,7 +54,7 @@
               <div class="nyaa-cat nyaa-cat-{{ .SubCategory}}">
 			  {{end}}
                   <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}">
-              {{if len(.Languages) == 1 && .Languages[0] != "" }}
+              {{if !Sukebei && len(.Languages) == 1 && .Languages[0] != "" }}
                   <img src="img/blank.gif" alt="{{ LanguageName(.Languages[0], T) }}" class="flag flag-{{FlagCode(.Languages[0])}}" title="{{ LanguageName(.Languages[0], T) }}">
               {{end}}
                   </a>
