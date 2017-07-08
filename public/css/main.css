@@ -137,11 +137,11 @@ select.form-input {
 }
 
 .form-input.language {
-	max-width: 469px;
+	max-width: 459px;
 	height: auto;
 	border-radius: 5px;
 	background: hsl(193, 15%, 97%);
-	padding: 12px 0 7px 14px;	
+	padding: 10px 0 9px 7px;	
 }
 
 .language > input {
@@ -421,6 +421,10 @@ html, body {
 		height: auto;
 	}
 	.tr-cat { width: 77px; }
+}
+
+@media (maw-width: 520px) {
+	.form-input.language { width: 281px; }	
 }
 
 .up-input {
