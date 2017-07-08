@@ -22,7 +22,7 @@ type FileJSON struct {
 
 // TableName : Return the name of files table
 func (f File) TableName() string {
-	return config.Conf.Models.FilesTableName
+	return config.Get().Models.FilesTableName
 }
 
 // Size : Returns the total size of memory allocated for this struct

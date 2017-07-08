@@ -29,7 +29,7 @@ func (r *TorrentRequest) ValidateName() error {
 }
 
 func (r *TorrentRequest) ValidateDescription() error {
-	if len(r.Description) > config.Conf.DescriptionLength {
+	if len(r.Description) > config.Get().DescriptionLength {
 		return errors.New("torrent_desc_invalid")
 	}
 	return nil
@@ -115,7 +115,7 @@ func (r *TorrentRequest) ExtractCategory() error {
 // ExtractLanguage : takes a http request, computes the torrent language from the form.
 func (r *TorrentRequest) ExtractLanguage() error {
 	isEnglishCategory := false
-	for _, cat := range config.Conf.Torrents.EnglishOnlyCategories {
+	for _, cat := range config.Get().Torrents.EnglishOnlyCategories {
 		if cat == r.Category {
 			isEnglishCategory = true
 			break
@@ -154,9 +154,9 @@ func (r *TorrentRequest) ExtractLanguage() error {
 	// We shouldn't return an error if someone has selected only english for languages and missed the right category. Just move the torrent in the right one
 	// Multiple if conditions so we only do this for loop when needed
 	if len(r.Languages) == 1 && strings.HasPrefix(r.Languages[0], "en") && !isEnglishCategory && r.CategoryID > 0 {
-		for key, cat := range config.Conf.Torrents.NonEnglishOnlyCategories {
+		for key, cat := range config.Get().Torrents.NonEnglishOnlyCategories {
 			if cat == r.Category {
-				r.Category = config.Conf.Torrents.EnglishOnlyCategories[key]
+				r.Category = config.Get().Torrents.EnglishOnlyCategories[key]
 				isEnglishCategory = true
 				break
 			}

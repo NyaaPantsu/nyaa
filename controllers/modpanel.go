@@ -511,7 +511,7 @@ func torrentManyAction(c *gin.Context) {
 		messages.AddErrorT("errors", "select_one_element")
 	}
 
-	if !config.Conf.Torrents.Status[status] { // Check if the status exist
+	if !config.Get().Torrents.Status[status] { // Check if the status exist
 		messages.AddErrorTf("errors", "no_status_exist", status)
 		status = -1
 	}

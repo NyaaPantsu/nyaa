@@ -218,7 +218,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 		return captchaData{captchaID, T}
 	})
 	vars.Set("DefaultUserSettings", func(s string) bool {
-		return config.Conf.Users.DefaultUserSettings[s]
+		return config.Get().Users.DefaultUserSettings[s]
 	})
 	vars.Set("makeTreeViewData", func(f *filelist.FileListFolder, nestLevel int, T publicSettings.TemplateTfunc, identifierChain string) interface{} {
 		return struct {

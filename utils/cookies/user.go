@@ -56,8 +56,8 @@ func CreateUserAuthentication(c *gin.Context, form *userValidator.LoginForm) (*m
 
 // If you want to keep login cookies between restarts you need to make these permanent
 var cookieHandler = securecookie.New(
-	getOrGenerateKey(config.Conf.Cookies.HashKey, 64),
-	getOrGenerateKey(config.Conf.Cookies.EncryptionKey, 32))
+	getOrGenerateKey(config.Get().Cookies.HashKey, 64),
+	getOrGenerateKey(config.Get().Cookies.EncryptionKey, 32))
 
 func getOrGenerateKey(key string, requiredLen int) []byte {
 	data := []byte(key)

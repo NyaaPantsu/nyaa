@@ -32,7 +32,7 @@ type Languages []Language
 type TemplateTfunc func(string, ...interface{}) template.HTML
 
 var (
-	defaultLanguage = config.Conf.I18n.DefaultLanguage
+	defaultLanguage = config.Get().I18n.DefaultLanguage
 	userRetriever   UserRetriever
 	languages       Languages
 )

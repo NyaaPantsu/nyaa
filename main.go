@@ -28,7 +28,6 @@ func RunServer(conf *config.Config) {
 	// TODO Use config from cli
 	os.Mkdir(controllers.GPGPublicKeyPath, 0700)
 
-
 	http.Handle("/", controllers.CSRFRouter)
 
 	// Set up server,
@@ -59,15 +58,14 @@ func RunServer(conf *config.Config) {
 }
 
 func main() {
-	conf := config.Conf
+	conf := config.Get()
 	if buildversion != "" {
 		conf.Build = buildversion
 	} else {
 		conf.Build = "unknown"
 	}
-	processFlags := conf.BindFlags()
 	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
-
+	config.BindFlags()
 	flag.Parse()
 	if *defaults {
 		stdout := bufio.NewWriter(os.Stdout)
@@ -81,10 +79,7 @@ func main() {
 		}
 		os.Exit(0)
 	} else {
-		err := processFlags()
-		if err != nil {
-			log.CheckError(err)
-		}
+		var err error
 		models.ORM, err = models.GormInit(conf, models.DefaultLogger)
 		if err != nil {
 			log.Fatal(err.Error())
@@ -99,8 +94,8 @@ func main() {
 			log.Fatal(err.Error())
 		}
 		signals.Handle()
-		if len(config.Conf.Torrents.FileStorage) > 0 {
-			err := os.MkdirAll(config.Conf.Torrents.FileStorage, 0700)
+		if len(config.Get().Torrents.FileStorage) > 0 {
+			err := os.MkdirAll(config.Get().Torrents.FileStorage, 0700)
 			if err != nil {
 				log.Fatal(err.Error())
 			}

@@ -69,7 +69,7 @@ func GormInit(conf *config.Config, logger Logger) (*gorm.DB, error) {
 	db.DB().SetMaxIdleConns(maxIdleConns)
 	db.DB().SetMaxOpenConns(400)
 
-	if config.Conf.Environment == "DEVELOPMENT" {
+	if config.Get().Environment == "DEVELOPMENT" {
 		db.LogMode(true)
 	}
 

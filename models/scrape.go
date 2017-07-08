@@ -17,5 +17,5 @@ type Scrape struct {
 
 // TableName : return the table name of the scrape table
 func (t Scrape) TableName() string {
-	return config.Conf.Models.ScrapeTableName
+	return config.Get().Models.ScrapeTableName
 }

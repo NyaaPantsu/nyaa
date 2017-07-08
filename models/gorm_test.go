@@ -13,7 +13,7 @@ import (
 var _ = func() (_ struct{}) {
 	config.ConfigPath = path.Join("..", config.ConfigPath)
 	config.DefaultConfigPath = path.Join("..", config.DefaultConfigPath)
-	config.Parse()
+	config.Reload()
 	return
 }()
 
@@ -35,11 +35,11 @@ func (logger *errorLogger) Print(values ...interface{}) {
 
 func TestGormInitSqlite(t *testing.T) {
 
-	config.Conf.DBType = SqliteType
-	config.Conf.DBParams = ":memory:?cache=shared&mode=memory"
-	config.Conf.DBLogMode = "detailed"
+	config.Get().DBType = SqliteType
+	config.Get().DBParams = ":memory:?cache=shared&mode=memory"
+	config.Get().DBLogMode = "detailed"
 
-	db, err := GormInit(config.Conf, &errorLogger{t})
+	db, err := GormInit(config.Get(), &errorLogger{t})
 	if err != nil {
 		t.Errorf("failed to initialize database: %v", err)
 		return
@@ -71,18 +71,18 @@ func TestGormInitPostgres(t *testing.T) {
 		t.Skip("skip", testPostgres)
 	}
 
-	config.Conf.DBType = "postgres"
-	config.Conf.DBParams = "host=localhost user=nyaapantsu dbname=nyaapantsu sslmode=disable password=nyaapantsu"
-	config.Conf.DBLogMode = "detailed"
-	config.Conf.Models.CommentsTableName = "comments"
-	config.Conf.Models.FilesTableName = "files"
-	config.Conf.Models.NotificationsTableName = "notifications"
-	config.Conf.Models.ReportsTableName = "torrent_reports"
-	config.Conf.Models.TorrentsTableName = "torrents"
-	config.Conf.Models.UploadsOldTableName = "user_uploads_old"
-	config.Conf.Models.LastOldTorrentID = 90000
+	config.Get().DBType = "postgres"
+	config.Get().DBParams = "host=localhost user=nyaapantsu dbname=nyaapantsu sslmode=disable password=nyaapantsu"
+	config.Get().DBLogMode = "detailed"
+	config.Get().Models.CommentsTableName = "comments"
+	config.Get().Models.FilesTableName = "files"
+	config.Get().Models.NotificationsTableName = "notifications"
+	config.Get().Models.ReportsTableName = "torrent_reports"
+	config.Get().Models.TorrentsTableName = "torrents"
+	config.Get().Models.UploadsOldTableName = "user_uploads_old"
+	config.Get().Models.LastOldTorrentID = 90000
 
-	db, err := GormInit(config.Conf, &errorLogger{t})
+	db, err := GormInit(config.Get(), &errorLogger{t})
 	if err != nil {
 		t.Errorf("failed to initialize database: %v", err)
 	}

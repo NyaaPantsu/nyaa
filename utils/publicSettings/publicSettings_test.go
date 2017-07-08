@@ -11,12 +11,12 @@ import (
 var _ = func() (_ struct{}) {
 	config.ConfigPath = path.Join("..", "..", config.ConfigPath)
 	config.DefaultConfigPath = path.Join("..", "..", config.DefaultConfigPath)
-	config.Parse()
+	config.Reload()
 	return
 }()
 
 func TestInitI18n(t *testing.T) {
-	conf := config.Conf.I18n
+	conf := config.Get().I18n
 	conf.Directory = path.Join("..", "..", conf.Directory)
 	var retriever UserRetriever // not required during initialization
 

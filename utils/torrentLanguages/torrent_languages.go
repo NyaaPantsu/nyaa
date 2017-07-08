@@ -19,7 +19,7 @@ func initTorrentLanguages() {
 	}
 
 	// Also support languages we don't have a translation
-	torrentLanguages = append(torrentLanguages, config.Conf.Torrents.AdditionalLanguages...)
+	torrentLanguages = append(torrentLanguages, config.Get().Torrents.AdditionalLanguages...)
 
 	sort.Strings(torrentLanguages)
 }

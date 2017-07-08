@@ -168,7 +168,7 @@ func (s *SortMode) ToDBField() string {
 	case Completed:
 		return "completed"
 	}
-	return config.Conf.Torrents.Order
+	return config.Get().Torrents.Order
 }
 
 func (c Category) String() (s string) {

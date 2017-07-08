@@ -21,9 +21,9 @@ var Index map[string]int
 func initCategories() {
 	var cats map[string]string
 	if config.IsSukebei() {
-		cats = config.Conf.Torrents.SukebeiCategories
+		cats = config.Get().Torrents.SukebeiCategories
 	} else {
-		cats = config.Conf.Torrents.CleanCategories
+		cats = config.Get().Torrents.CleanCategories
 	}
 
 	// Sorting categories alphabetically

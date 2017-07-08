@@ -25,7 +25,7 @@ var _ = func() (_ struct{}) {
 	gin.SetMode(gin.TestMode)
 	config.ConfigPath = path.Join("..", config.ConfigPath)
 	config.DefaultConfigPath = path.Join("..", config.DefaultConfigPath)
-	config.Parse()
+	config.Reload()
 	return
 }()
 
@@ -166,7 +166,7 @@ func mockupCommonVars(t *testing.T) jet.VarMap {
 		FromDate:         "",
 		ToDate:           "",
 	})
-	conf := config.Conf.I18n
+	conf := config.Get().I18n
 	conf.Directory = path.Join("..", conf.Directory)
 	var retriever publicSettings.UserRetriever // not required during initialization
 
@@ -190,7 +190,7 @@ func mockupCommonVars(t *testing.T) jet.VarMap {
 	vars.Set("UserProfile", &models.User{})
 	vars.Set("URL", &url.URL{})
 	vars.Set("CsrfToken", "xxxxxx")
-	vars.Set("Config", config.Conf)
+	vars.Set("Config", config.Get())
 	vars.Set("Infos", make(map[string][]string))
 	vars.Set("Errors", make(map[string][]string))
 	vars.Set("UserProfile", &models.User{})

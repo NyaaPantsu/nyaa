@@ -17,15 +17,15 @@ var (
 
 // InitGomail : init the gomail dialer
 func InitGomail() *gomail.Dialer {
-	newMailer := gomail.NewDialer(config.Conf.Email.Host, config.Conf.Email.Port, config.Conf.Email.Username, config.Conf.Email.Password)
+	newMailer := gomail.NewDialer(config.Get().Email.Host, config.Get().Email.Port, config.Get().Email.Username, config.Get().Email.Password)
 	return newMailer
 }
 
 // SendEmailFromAdmin : send an email from system with email address in config/email.go
 func SendEmailFromAdmin(to string, subject string, body string, bodyHTML string) error {
 	msg := gomail.NewMessage()
-	msg.SetHeader("From", config.Conf.Email.From)
-	msg.SetHeader("To", to, config.Conf.Email.TestTo)
+	msg.SetHeader("From", config.Get().Email.From)
+	msg.SetHeader("To", to, config.Get().Email.TestTo)
 	msg.SetHeader("Subject", subject)
 	msg.SetBody("text/plain", body)
 	msg.AddAlternative("text/html", bodyHTML)
@@ -33,7 +33,7 @@ func SendEmailFromAdmin(to string, subject string, body string, bodyHTML string)
 	log.Debugf("subject : %s", subject)
 	log.Debugf("body : %s", body)
 	log.Debugf("bodyHTML : %s", bodyHTML)
-	if config.Conf.Email.SendEmail {
+	if config.Get().Email.SendEmail {
 		log.Debug("SendEmail performed.")
 
 		err := mailer.DialAndSend(msg)
@@ -45,9 +45,9 @@ func SendEmailFromAdmin(to string, subject string, body string, bodyHTML string)
 // SendTestEmail : function to send a test email to email address in config/email.go
 func SendTestEmail() error {
 	msg := gomail.NewMessage()
-	msg.SetHeader("From", config.Conf.Email.From)
-	msg.SetHeader("To", config.Conf.Email.TestTo)
-	msg.SetAddressHeader("Cc", config.Conf.Email.TestTo, "NyaaPantsu")
+	msg.SetHeader("From", config.Get().Email.From)
+	msg.SetHeader("To", config.Get().Email.TestTo)
+	msg.SetAddressHeader("Cc", config.Get().Email.TestTo, "NyaaPantsu")
 	msg.SetHeader("Subject", "Hi(안녕하세요)?!")
 	msg.SetBody("text/plain", "Hi(안녕하세요)?!")
 	msg.AddAlternative("text/html", "<p><b>Nowplay(나우플레이)</b> means <i>Let's play</i>!!?</p>")
