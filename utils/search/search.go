@@ -8,8 +8,6 @@ import (
 
 	"time"
 
-	"fmt"
-
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
@@ -94,7 +92,6 @@ func byQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted 
 			return torrentParam, torrentCache.Torrents, torrentCache.Count, nil
 		}
 		totalHits, tor, err := torrentParam.Find(models.ElasticSearchClient)
-		fmt.Println("lol")
 		cache.C.Set(torrentParam.Identifier(), &structs.TorrentCache{tor, int(totalHits)}, 5*time.Minute)
 		// Convert back to non-json torrents
 		return torrentParam, tor, int(totalHits), err
