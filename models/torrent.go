@@ -111,7 +111,7 @@ func (t Torrent) TableName() string {
 
 // Identifier : Return the identifier of a torrent
 func (t *Torrent) Identifier() string {
-	return "torrent_" + strconv.Itoa(int(t.ID))
+	return fmt.Sprintf("torrent_%d", t.ID)
 }
 
 // IsNormal : Return if a torrent status is normal

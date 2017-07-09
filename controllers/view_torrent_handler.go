@@ -20,7 +20,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/captcha"
 	"github.com/NyaaPantsu/nyaa/utils/filelist"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
-	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 	"github.com/NyaaPantsu/nyaa/utils/sanitize"
 	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 	"github.com/NyaaPantsu/nyaa/utils/upload"
@@ -109,14 +108,7 @@ func PostCommentHandler(c *gin.Context) {
 	}
 	if !messages.HasErrors() {
 
-		comment, err := comments.Create(content, torrent, currentUser)
-		url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
-		torrent.Uploader.ParseSettings()
-		if torrent.Uploader.Settings.Get("new_comment") {
-			T, _, _ := publicSettings.TfuncAndLanguageWithFallback(torrent.Uploader.Language, torrent.Uploader.Language) // We need to send the notification to every user in their language
-			notifications.NotifyUser(torrent.Uploader, comment.Identifier(), fmt.Sprintf(T("new_comment_on_torrent"), torrent.Name), url, torrent.Uploader.Settings.Get("new_comment_email"))
-		}
-
+		_, err := comments.Create(content, torrent, currentUser)
 		if err != nil {
 			messages.Error(err)
 		}
