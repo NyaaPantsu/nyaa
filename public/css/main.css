@@ -153,6 +153,12 @@ select.form-input {
 	margin: 0 9px 2px 0;
 }
 
+.not-important {
+	font-size: 9pt;
+	margin: 2px 3px;
+	color: #8a8a8a;
+}
+
 .header .h-user {
 	display: inline-block;
 	max-width: 160px;
