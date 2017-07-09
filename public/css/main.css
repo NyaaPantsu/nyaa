@@ -254,6 +254,12 @@ select.form-input {
 	text-align: center;
 }
 
+.box.refine { text-align: left; }
+.box.refine > h3 {
+	margin-top: 5px;
+	margin-bottom: 7px;
+}
+
 .categories a {
 	display: 	inline-block;
 	width: 	115px;
