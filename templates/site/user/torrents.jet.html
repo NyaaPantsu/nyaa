@@ -19,14 +19,14 @@
               <!-- forced width because the <td> gets bigger randomly otherwise -->
               <td class="tr-cat user-td">
                     {{ if Sukebei }}
-                    <div class="nyaa-cat sukebei-cat-{{ .Category }}{{ .SubCategory }}">
+                    <div class="nyaa-cat sukebei-cat-{{ torrent.Category }}{{ torrent.SubCategory }}">
 		{{ else}}
-                    <div class="nyaa-cat nyaa-cat-{{ .SubCategory}}">
+                    <div class="nyaa-cat nyaa-cat-{{ torrent.SubCategory}}">
 	          {{end}}
-                              <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}" class="category">
-                              {{if .Languages[0] != "" }}
-                                        <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory +"&lang=") }}{{ range key, language := .Languages }}{{ language }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
-                                                  <img src="/img/blank.gif" alt="{{ LanguageName(.Languages[0], T) }}" class="flag flag-{{ (len(.Languages) == 1) ?  FlagCode(.Languages[0]) : "multiple" }}" title=" {{ range key, language := .Languages }}{{ LanguageName(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
+                              <a href="{{ URL.Parse("/search?c="+torrent.Category+"_"+ .torrentSubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}" class="category">
+                              {{if torrent.Languages[0] != "" }}
+                                        <a href="{{ URL.Parse("/search?c="+torrent.Category+"_"+ .SubCategory +"&lang=") }}{{ range key, language := torrent.Languages }}{{ language }}{{ if len(torrent.Languages) > 1 && (key+1) < len(torrent.Languages) }},{{ end }}{{ end }}">
+                                                  <img src="/img/blank.gif" alt="{{ LanguageName(torrent.Languages[0], T) }}" class="flag flag-{{ (len(torrent.Languages) == 1) ?  FlagCode(.Languages[0]) : "multiple" }}" title=" {{ range key, language := torrent.Languages }}{{ LanguageName(language, T) }}{{ if len(torrent.Languages) > 1 && (key+1) < len(torrent.Languages) }},{{ end }}{{ end }}">
                                         </a>
                               {{end}}
                               </a>
