@@ -1,11 +1,11 @@
 {
   "name": "nyaapantsu",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "How to use the Nyaa Pantsu API",
   "title": "Nyaa Pantsu API documentation",
   "url": "https://nyaa.pantsu.cat/api",
   "header": {
-    "title": "Header",
+    "title": "Information",
     "filename": "header_api.md"
   },
   "order": [

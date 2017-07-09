@@ -55,6 +55,7 @@ import (
 
 /**
  * @api {get} / Request Torrents index
+ * @apiVersion 1.0.0
  * @apiName GetTorrents
  * @apiGroup Torrents
  *
@@ -140,6 +141,7 @@ func APIHandler(c *gin.Context) {
 
 /**
  * @api {get} /view/:id Request Torrent information
+ * @apiVersion 1.0.0
  * @apiName GetTorrent
  * @apiGroup Torrents
  *
@@ -229,6 +231,7 @@ func APIViewHandler(c *gin.Context) {
 
 /**
  * @api {get} /head/:id Request Torrent Head
+ * @apiVersion 1.0.0
  * @apiName GetTorrentHead
  * @apiGroup Torrents
  *
@@ -260,6 +263,7 @@ func APIViewHeadHandler(c *gin.Context) {
 
 /**
  * @api {post} /upload Upload a Torrent
+ * @apiVersion 1.0.0
  * @apiName UploadTorrent
  * @apiGroup Torrents
  *
@@ -346,6 +350,7 @@ func APIUploadHandler(c *gin.Context) {
 
 /**
  * @api {post} /update/ Update a Torrent
+ * @apiVersion 1.0.0
  * @apiName UpdateTorrent
  * @apiGroup Torrents
  *
@@ -415,6 +420,7 @@ func APIUpdateHandler(c *gin.Context) {
 
 /**
  * @api {get} /search/ Request Torrents index
+ * @apiVersion 1.0.0
  * @apiName FindTorrents
  * @apiGroup Torrents
  *
@@ -478,6 +484,7 @@ func APISearchHandler(c *gin.Context) {
 
 /**
  * @api {post} /login/ Login a user
+ * @apiVersion 1.0.0
  * @apiName Login
  * @apiGroup Users
  *

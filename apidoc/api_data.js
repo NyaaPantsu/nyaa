@@ -3,6 +3,7 @@ define({ "api": [
     "type": "get",
     "url": "/search/",
     "title": "Request Torrents index",
+    "version": "1.0.0",
     "name": "FindTorrents",
     "group": "Torrents",
     "parameter": {
@@ -150,7 +151,6 @@ define({ "api": [
         }
       ]
     },
-    "version": "0.0.0",
     "filename": "controllers/api_handler.go",
     "groupTitle": "Torrents",
     "error": {
@@ -178,6 +178,7 @@ define({ "api": [
     "type": "get",
     "url": "/view/:id",
     "title": "Request Torrent information",
+    "version": "1.0.0",
     "name": "GetTorrent",
     "group": "Torrents",
     "parameter": {
@@ -367,7 +368,6 @@ define({ "api": [
         }
       ]
     },
-    "version": "0.0.0",
     "filename": "controllers/api_handler.go",
     "groupTitle": "Torrents",
     "error": {
@@ -395,6 +395,7 @@ define({ "api": [
     "type": "get",
     "url": "/head/:id",
     "title": "Request Torrent Head",
+    "version": "1.0.0",
     "name": "GetTorrentHead",
     "group": "Torrents",
     "parameter": {
@@ -419,7 +420,6 @@ define({ "api": [
         }
       ]
     },
-    "version": "0.0.0",
     "filename": "controllers/api_handler.go",
     "groupTitle": "Torrents",
     "error": {
@@ -447,6 +447,7 @@ define({ "api": [
     "type": "get",
     "url": "/",
     "title": "Request Torrents index",
+    "version": "1.0.0",
     "name": "GetTorrents",
     "group": "Torrents",
     "parameter": {
@@ -496,7 +497,6 @@ define({ "api": [
         }
       ]
     },
-    "version": "0.0.0",
     "filename": "controllers/api_handler.go",
     "groupTitle": "Torrents",
     "error": {
@@ -524,6 +524,7 @@ define({ "api": [
     "type": "post",
     "url": "/update/",
     "title": "Update a Torrent",
+    "version": "1.0.0",
     "name": "UpdateTorrent",
     "group": "Torrents",
     "parameter": {
@@ -636,7 +637,6 @@ define({ "api": [
         }
       ]
     },
-    "version": "0.0.0",
     "filename": "controllers/api_handler.go",
     "groupTitle": "Torrents",
     "error": {
@@ -678,6 +678,7 @@ define({ "api": [
     "type": "post",
     "url": "/upload",
     "title": "Upload a Torrent",
+    "version": "1.0.0",
     "name": "UploadTorrent",
     "group": "Torrents",
     "parameter": {
@@ -797,7 +798,6 @@ define({ "api": [
         }
       ]
     },
-    "version": "0.0.0",
     "filename": "controllers/api_handler.go",
     "groupTitle": "Torrents",
     "error": {
@@ -839,6 +839,7 @@ define({ "api": [
     "type": "post",
     "url": "/login/",
     "title": "Login a user",
+    "version": "1.0.0",
     "name": "Login",
     "group": "Users",
     "parameter": {
@@ -895,7 +896,6 @@ define({ "api": [
         }
       ]
     },
-    "version": "0.0.0",
     "filename": "controllers/api_handler.go",
     "groupTitle": "Users",
     "error": {
