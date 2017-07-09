@@ -6,8 +6,11 @@ import (
 	"strconv"
 	"strings"
 
+	"time"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/utils/cache"
 	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 )
 
@@ -18,9 +21,14 @@ import (
  */
 
 // FindByID : get a torrent with its id
-func FindByID(id uint) (torrent models.Torrent, err error) {
-
-	tmp := models.ORM.Where("torrent_id = ?", id).Preload("Scrape").Preload("Comments")
+func FindByID(id uint) (*models.Torrent, error) {
+	torrent := &models.Torrent{ID: id}
+	var err error
+	if found, ok := cache.C.Get(torrent.Identifier()); ok {
+		return found.(*models.Torrent), nil
+	}
+	torrent = &models.Torrent{}
+	tmp := models.ORM.Where("torrent_id = ?", id).Preload("Scrape").Preload("Uploader").Preload("Comments")
 	if id > config.Conf.Models.LastOldTorrentID {
 		tmp = tmp.Preload("FileList")
 	}
@@ -30,17 +38,15 @@ func FindByID(id uint) (torrent models.Torrent, err error) {
 	}
 	err = tmp.Error
 	if err != nil {
-		return
+		return torrent, err
 	}
-	if tmp.Find(&torrent).RecordNotFound() {
+	if tmp.Find(torrent).RecordNotFound() {
 		err = errors.New("Article is not found")
-		return
+		return torrent, err
 	}
 	torrent.ParseLanguages()
 	// GORM relly likes not doing its job correctly
 	// (or maybe I'm just retarded)
-	torrent.Uploader = new(models.User)
-	models.ORM.Where("user_id = ?", torrent.UploaderID).Find(torrent.Uploader)
 	torrent.OldUploader = ""
 	if torrent.ID <= config.Conf.Models.LastOldTorrentID && torrent.UploaderID == 0 {
 		var tmp models.UserUploadsOld
@@ -50,13 +56,10 @@ func FindByID(id uint) (torrent models.Torrent, err error) {
 	}
 	for i := range torrent.Comments {
 		torrent.Comments[i].User = new(models.User)
-		err = models.ORM.Where("user_id = ?", torrent.Comments[i].UserID).Find(torrent.Comments[i].User).Error
-		if err != nil {
-			return
-		}
+		models.ORM.Where("user_id = ?", torrent.Comments[i].UserID).Find(torrent.Comments[i].User)
 	}
-
-	return
+	cache.C.Set(torrent.Identifier(), torrent, 5*time.Minute)
+	return torrent, nil
 }
 
 // FindRawByID : Get torrent with id without user or comments
@@ -117,7 +120,12 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 	}
 
 	conditions := strings.Join(conditionArray, " AND ")
-
+	/*if found, ok := cache.C.Get(fmt.Sprintf("%v", parameters)); ok {
+		torrentCache := found.(*structs.TorrentCache)
+		torrents = torrentCache.Torrents
+		count = torrentCache.Count
+		return
+	}*/
 	if countAll {
 		err = models.ORM.Unscoped().Model(&torrents).Where(conditions, params...).Count(&count).Error
 		if err != nil {
@@ -146,6 +154,7 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 		dbQ = dbQ.Preload("Comments")
 	}
 	err = dbQ.Preload("FileList").Raw(dbQuery, params...).Find(&torrents).Error
+	// cache.C.Set(fmt.Sprintf("%v", parameters), &structs.TorrentCache{torrents, count}, 5*time.Minute) // Cache shouldn't be done here but in search util
 	return
 }
 

@@ -85,9 +85,9 @@ func UserProfileHandler(c *gin.Context) {
 			var torrents []models.Torrent
 			var err error
 			if currentUser.CurrentOrAdmin(userProfile.ID) {
-				_, torrents, _, err = search.SearchByQuery(c, 1)
+				_, torrents, _, err = search.ByQuery(c, 1)
 			} else {
-				_, torrents, _, err = search.SearchByQueryNoHidden(c, 1)
+				_, torrents, _, err = search.ByQueryNoHidden(c, 1)
 			}
 			if err != nil {
 				messages.AddErrorT("errors", "retrieve_torrents_error")

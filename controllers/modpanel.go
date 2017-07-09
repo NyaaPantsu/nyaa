@@ -148,7 +148,7 @@ func TorrentsListPanel(c *gin.Context) {
 		}
 	}
 
-	searchParam, torrents, count, err := search.SearchByQueryWithUser(c, pagenum)
+	searchParam, torrents, count, err := search.ByQueryWithUser(c, pagenum)
 	if err != nil {
 		messages.Error(err)
 	}
@@ -162,7 +162,7 @@ func TorrentsListPanel(c *gin.Context) {
 		ShowItemsPerPage: true,
 	}
 
-	nav := navigation{count, int(searchParam.Max), pagenum, "mod_tlist_page"}
+	nav := navigation{count, int(searchParam.Max), pagenum, "mod/torrents/p"}
 
 	modelList(c, "admin/torrentlist.jet.html", torrents, nav, searchForm)
 }
@@ -185,7 +185,7 @@ func TorrentReportListPanel(c *gin.Context) {
 	torrentReports, nbReports, _ := reports.GetAll(offset, (pagenum-1)*offset)
 
 	reportJSON := models.TorrentReportsToJSON(torrentReports)
-	nav := navigation{nbReports, offset, pagenum, "mod_trlist_page"}
+	nav := navigation{nbReports, offset, pagenum, "mod/reports/p"}
 	modelList(c, "admin/torrent_report.jet.html", reportJSON, nav, newSearchForm(c))
 }
 
@@ -205,7 +205,7 @@ func UsersListPanel(c *gin.Context) {
 	}
 
 	users, nbUsers := users.FindUsersForAdmin(offset, (pagenum-1)*offset)
-	nav := navigation{nbUsers, offset, pagenum, "mod_ulist_page"}
+	nav := navigation{nbUsers, offset, pagenum, "mod/users/p"}
 	modelList(c, "admin/userlist.jet.html", users, nav, newSearchForm(c))
 }
 
@@ -232,7 +232,7 @@ func CommentsListPanel(c *gin.Context) {
 	}
 
 	comments, nbComments := comments.FindAll(offset, (pagenum-1)*offset, conditions, values...)
-	nav := navigation{nbComments, offset, pagenum, "mod_clist_page"}
+	nav := navigation{nbComments, offset, pagenum, "mod/comments/p"}
 	modelList(c, "admin/commentlist.jet.html", comments, nav, newSearchForm(c))
 }
 
@@ -431,7 +431,7 @@ func DeletedTorrentsModPanel(c *gin.Context) {
 		}
 	}
 
-	searchParam, torrents, count, err := search.SearchByQueryDeleted(c, pagenum)
+	searchParam, torrents, count, err := search.ByQueryDeleted(c, pagenum)
 	if err != nil {
 		messages.Error(err)
 	}
@@ -445,7 +445,7 @@ func DeletedTorrentsModPanel(c *gin.Context) {
 		ShowItemsPerPage: true,
 	}
 
-	nav := navigation{count, int(searchParam.Max), pagenum, "mod_tlist_page"}
+	nav := navigation{count, int(searchParam.Max), pagenum, "mod/torrents/deleted/p"}
 	search := searchForm
 	modelList(c, "admin/torrentlist.jet.html", torrents, nav, search)
 }
@@ -546,7 +546,7 @@ func torrentManyAction(c *gin.Context) {
 				messages.AddErrorT("errors", "invalid_torrent_category")
 			}
 
-			if !categories.CategoryExists(category) {
+			if !categories.Exists(category) {
 				messages.AddErrorT("errors", "invalid_torrent_category")
 			}
 		}

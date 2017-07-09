@@ -26,8 +26,8 @@
 		<h3>{{ T("category")}}</h3>
 		<select name="c" id="c" class="form-input up-input" required>
 			<option value="">{{ T("select_a_torrent_category")}}</option>
-			{{ range name_cat, id_cat := GetCategories(false, true) }}
-			<option value="{{ id_cat }}" {{if Form.Category == id_cat }}selected{{end}}>{{ T(name_cat) }}</option>
+			{{ range _, cat := GetCategories(false, true) }}
+			<option value="{{ cat.ID }}" {{if Form.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
 			{{ end }}
 		</select>
 		{{ yield errors(name="c")}}
@@ -35,10 +35,13 @@
 		<h3>{{  T("torrent_language") }}</h3>
 		<div name="language" class="form-input language">
 			{{ range _, language := GetTorrentLanguages() }}
-			<input type="checkbox" name="languages" id="lang-{{ language }}" value="{{language}}">
-			<label for="lang-{{ language }}" class="flag flag-{{ FlagCode(language) }}" title="{{LanguageName(language, T)}}"></label>
+			<span class="input-group">
+				<input type="checkbox" name="languages" id="lang-{{ language }}" value="{{language}}">
+				<label for="lang-{{ language }}" class="flag flag-{{ FlagCode(language) }}" title="{{LanguageName(language, T)}}"></label>
+			</span>
 			{{ end }}
 		</div>
+		<p class="not-important"> T("language_not_mandatory")</p>
 		{{ yield errors(name="language")}}
 
 		<p>

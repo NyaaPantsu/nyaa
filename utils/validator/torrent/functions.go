@@ -4,6 +4,13 @@ import (
 	"encoding/base32"
 	"encoding/hex"
 	"errors"
+	"io"
+	"mime/multipart"
+	"net/url"
+	"regexp"
+	"strconv"
+	"strings"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/categories"
 	"github.com/NyaaPantsu/nyaa/utils/format"
@@ -11,12 +18,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/torrentLanguages"
 	"github.com/gin-gonic/gin"
 	"github.com/zeebo/bencode"
-	"io"
-	"mime/multipart"
-	"net/url"
-	"regexp"
-	"strconv"
-	"strings"
 )
 
 func (r *TorrentRequest) ValidateName() error {
@@ -102,7 +103,7 @@ func (r *TorrentRequest) ExtractCategory() error {
 		return errors.New("torrent_cat_invalid")
 	}
 
-	if !categories.CategoryExists(r.Category) {
+	if !categories.Exists(r.Category) {
 		return errors.New("torrent_cat_invalid")
 	}
 

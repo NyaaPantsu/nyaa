@@ -13,7 +13,7 @@ import (
 
 // ActivityListHandler : Show a list of activity
 func ActivityListHandler(c *gin.Context) {
-	page := c.Query("page")
+	page := c.Param("page")
 	pagenum := 1
 	offset := 100
 	userid := c.Query("userid")
@@ -41,6 +41,6 @@ func ActivityListHandler(c *gin.Context) {
 
 	activity, nbActivities := activities.FindAll(offset, (pagenum-1)*offset, strings.Join(conditions, " AND "), values...)
 
-	nav := navigation{nbActivities, offset, pagenum, "activities"}
+	nav := navigation{nbActivities, offset, pagenum, "activities/p"}
 	modelList(c, "site/torrents/activities.jet.html", activity, nav, newSearchForm(c))
 }

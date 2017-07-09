@@ -144,7 +144,7 @@ func torrentTemplate(c *gin.Context, torrent models.TorrentJSON, rootFolder *fil
 	renderTemplate(c, path.Join(SiteDir, "torrents/view.jet.html"), vars)
 }
 
-func userProfileEditTemplate(c *gin.Context, userProfile *models.User, userForm userValidator.UserForm, languages map[string]string) {
+func userProfileEditTemplate(c *gin.Context, userProfile *models.User, userForm userValidator.UserForm, languages publicSettings.Languages) {
 	vars := commonVars(c)
 	vars.Set("UserProfile", userProfile)
 	vars.Set("UserForm", userForm)
@@ -169,13 +169,6 @@ func databaseDumpTemplate(c *gin.Context, listDumps []models.DatabaseDumpJSON, G
 	vars.Set("GPGLink", GPGLink)
 	renderTemplate(c, path.Join(SiteDir, "database/dumps.jet.html"), vars)
 }
-func changeLanguageTemplate(c *gin.Context, language string, languages map[string]string) {
-	vars := commonVars(c)
-	vars.Set("Language", language)
-	vars.Set("Languages", languages)
-	renderTemplate(c, path.Join(SiteDir, "user/public/settings.jet.html"), vars)
-}
-
 func panelAdminTemplate(c *gin.Context, torrent []models.Torrent, reports []models.TorrentReportJSON, users []models.User, comments []models.Comment) {
 	vars := newPanelCommonVariables(c)
 	vars.Set("Torrents", torrent)

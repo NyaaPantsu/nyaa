@@ -1,8 +1,8 @@
 {{block search_common()}}
   <select name="c" class="form-input hide-xs">
     <option value="_">{{ T("all_categories")}}</option>
-      {{ range name_cat, id_cat := GetCategories(true, true) }}
-      <option value="{{ id_cat }}" {{if Search.Category == id_cat }}selected{{end}}>{{ T(name_cat) }}</option>
+      {{ range _, cat := GetCategories(true, true) }}
+      <option value="{{ cat.ID }}" {{if Search.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
       {{ end }}
   </select>
   <label><span class="select-icon caret-down-icon"></span></label>
@@ -47,7 +47,7 @@
         <input type="hidden" name="max" value="{{Navigation.MaxItemPerPage}}"/>
         <input type="hidden" name="userID" value="{{Search.UserID}}"/>
         <input type="hidden" name="q" value="{{Search.NameLike}}"/>
-    <span style="margin-top: 10px;" class="form-refine">{{ T("between")}} <input class="form-input" size="7" name="minSize" type="text" value="{{Search.MinSize}}"> {{ T("and")}} <input size="7" class="form-input" name="maxSize" type="text" value="{{Search.MaxSize}}"> 
+    <span style="margin-top: 10px;" class="form-refine">{{ T("between")}} <input class="form-input" size="7" name="minSize" type="text" value="{{Search.MinSize}}"> {{ T("and")}} <input size="7" class="form-input" name="maxSize" type="text" value="{{Search.MaxSize}}">
     <select name="sizeType" class="form-input">
         <option value="b"{{if Search.SizeType == "b"}} selected{{end}}>B</option>
         <option value="k"{{if Search.SizeType == "k"}} selected{{end}}>KiB</option>
@@ -56,7 +56,7 @@
     </select>
      {{  T("large")}}
     </span>
-    <span class="form-refine">{{ T("between")}} <input class="form-input" size="7" name="fromDate" type="text" value="{{Search.FromDate}}"> {{ T("and")}} <input class="form-input" size="7" name="toDate" type="text" value="{{Search.ToDate}}"> 
+    <span class="form-refine">{{ T("between")}} <input class="form-input" size="7" name="fromDate" type="text" value="{{Search.FromDate}}"> {{ T("and")}} <input class="form-input" size="7" name="toDate" type="text" value="{{Search.ToDate}}">
     <select name="dateType" class="form-input">
         <option value="d"{{if Search.DateType == "d"}} selected{{end}}>{{  T("days")}}</option>
         <option value="m"{{if Search.DateType == "m"}} selected{{end}}>{{  T("months")}}</option>
@@ -64,6 +64,14 @@
     </select>
      {{ T("old")}}.
     </span>
+    <div name="language" class="form-refine form-input language">
+	{{ range _, language := GetTorrentLanguages() }}
+        <span class="input-group">
+            <input type="checkbox" name="lang" id="lang-{{ language }}" value="{{language}}"{{ range _, v := Search.Languages}}{{ if v.Code == language }} checked{{end}}{{end}}>
+            <label for="lang-{{ language }}" class="flag flag-{{ FlagCode(language) }}" title="{{LanguageName(language, T)}}"></label>
+        </span>
+	{{ end }}
+    </div>
     <button type="submit" class="form-input refine-btn">{{  T("refine")}}</button>
     </form>
     </details>

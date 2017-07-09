@@ -55,13 +55,12 @@
 				{{if Mascot != "hide"}}
 					<div id="mascot" class="hide-xs{{if MascotURL != ""}} custom-mascot{{end}}" onclick="playVoice();" {{if MascotURL != ""}}style="background-image: url('{{MascotURL}}');"{{end}}></div>
 					{* Only play the sounds with the default mascot *}
-					{{ if MascotURL != "" }}
+					{{ if MascotURL == "" }}
 						{{ if Sukebei() }}
 						<audio id="kawaii" hidden preload="none">
 							<source src="https://a.doko.moe/spbyif.mp3" type="audio/mpeg">
 						</audio>
-						{{else}}
-						{{ if Theme == "tomorrow" }}
+						{{else if Theme == "tomorrow" }}
 						<audio id="explosion" hidden preload="none">
 							<source src="https://a.doko.moe/vrlrtw.mp3" type="audio/mpeg">
 						</audio>
@@ -69,7 +68,6 @@
 						<audio id="nyanpassu" hidden preload="none">
 							<source src="https://a.doko.moe/sewang.mp3" type="audio/mpeg">
 						</audio>
-						{{end}}
 						{{end}}
 					{{end}}
 				{{end}}

@@ -18,6 +18,7 @@ type searchForm struct {
 	structs.TorrentParam
 	Category         string
 	ShowItemsPerPage bool
+	ShowRefine       bool
 	SizeType         string
 	DateType         string
 	MinSize          string
@@ -38,6 +39,7 @@ func newSearchForm(c *gin.Context) searchForm {
 	return searchForm{
 		Category:         "_",
 		ShowItemsPerPage: true,
+		ShowRefine:       true,
 		SizeType:         sizeType,
 		DateType:         c.Query("dateType"),
 		MinSize:          c.Query("minSize"),  // We need to overwrite the value here, since size are formatted

@@ -13,12 +13,14 @@ var torrentLanguages []string
 
 func initTorrentLanguages() {
 	languages := publicSettings.GetAvailableLanguages()
-	for code := range languages {
-		torrentLanguages = append(torrentLanguages, code)
+
+	for _, lang := range languages {
+		torrentLanguages = append(torrentLanguages, lang.Code)
 	}
 
 	// Also support languages we don't have a translation
 	torrentLanguages = append(torrentLanguages, config.Conf.Torrents.AdditionalLanguages...)
+
 	sort.Strings(torrentLanguages)
 }
 

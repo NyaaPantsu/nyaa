@@ -3,10 +3,13 @@
 function Translations() {
     var translations = {};
     this.Add =  function(tr, val) {
+        trans = {}
         if (val != undefined) {
-            tr[tr] = val;
+            trans[tr] = val;
+        } else {
+            trans = tr
         }
-        Object.assign(translations, tr);
+        Object.assign(translations, trans);
     };
     this.r = function(string, ...args) {
         if ((string != undefined) && (translations[string] != undefined)) {

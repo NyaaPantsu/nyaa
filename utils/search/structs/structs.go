@@ -9,15 +9,18 @@ import (
 	"strconv"
 	"strings"
 
+	"fmt"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	catUtil "github.com/NyaaPantsu/nyaa/utils/categories"
+	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 )
 
 const (
-	ShowAll Status = 0
-	FilterRemakes = 2
-	Trusted = 3
-	APlus = 4
+	ShowAll       Status = 0
+	FilterRemakes        = 2
+	Trusted              = 3
+	APlus                = 4
 )
 
 type Status uint8
@@ -31,7 +34,6 @@ type Categories []*Category
 
 // TorrentParam defines all parameters that can be provided when searching for a torrent
 type TorrentParam struct {
-	All       bool // True means ignore everything but Max and Offset
 	Full      bool // True means load all members
 	Order     bool // True means ascending
 	Hidden    bool // True means filter hidden torrents
@@ -46,11 +48,22 @@ type TorrentParam struct {
 	FromDate  DateFilter
 	ToDate    DateFilter
 	NotNull   string // csv
-	Null      string // csv
 	NameLike  string // csv
-	Language  string
+	Languages publicSettings.Languages
 	MinSize   SizeBytes
 	MaxSize   SizeBytes
+}
+
+func (p *TorrentParam) Identifier() string {
+	cats := ""
+	for _, v := range p.Category {
+		cats += fmt.Sprintf("%d%d", v.Main, v.Sub)
+	}
+	languages := ""
+	for _, v := range p.Languages {
+		languages += fmt.Sprintf("%s%s", v.Code, v.Name)
+	}
+	return fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%d%d%s%t%t%t", p.NameLike, p.NotNull, languages, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, p.FromDate, p.ToDate, p.UserID, p.TorrentID, cats, p.Full, p.Order, p.Hidden)
 }
 
 func (st *Status) ToString() string {
@@ -77,7 +90,6 @@ func (st *Status) Parse(s string) {
 		*st = ShowAll
 	}
 }
-
 
 const (
 	ID SortMode = iota
@@ -159,7 +171,6 @@ func (s *SortMode) ToDBField() string {
 	return config.Conf.Torrents.Order
 }
 
-
 func (c Category) String() (s string) {
 	if c.Main != 0 {
 		s += strconv.Itoa(int(c.Main))
@@ -183,8 +194,7 @@ func (c Category) IsSubSet() bool {
 	return c.Sub != 0
 }
 
-// Parse sets category by string
-// returns true if string is valid otherwise returns false
+// ParseCategories sets category by string
 func ParseCategories(s string) []*Category {
 	if s != "" {
 		parts := strings.Split(s, ",")
@@ -200,7 +210,7 @@ func ParseCategories(s string) []*Category {
 					if err == nil {
 						sub = uint8(tmp)
 					}
-					if catUtil.CategoryExists(partsCat[0] + "_" + partsCat[1]) {
+					if catUtil.Exists(partsCat[0] + "_" + partsCat[1]) {
 						categories = append(categories, &Category{
 							Main: c,
 							Sub:  sub,
@@ -214,6 +224,17 @@ func ParseCategories(s string) []*Category {
 	return Categories{}
 }
 
+// ParseLanguages sets languages by string
+func ParseLanguages(s string) publicSettings.Languages {
+	var languages publicSettings.Languages
+	if s != "" {
+		parts := strings.Split(s, ",")
+		for _, lang := range parts {
+			languages = append(languages, publicSettings.Language{Name: "", Code: lang}) // We just need the code
+		}
+	}
+	return languages
+}
 
 func (sz *SizeBytes) Parse(s string, sizeType string) bool {
 	if s == "" {
@@ -240,7 +261,6 @@ func (sz *SizeBytes) Parse(s string, sizeType string) bool {
 	return true
 }
 
-
 func (d *DateFilter) Parse(s string, dateType string) bool {
 	if s == "" {
 		*d = ""
@@ -261,4 +281,3 @@ func (d *DateFilter) Parse(s string, dateType string) bool {
 	}
 	return true
 }
-

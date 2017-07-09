@@ -92,11 +92,10 @@ func ExtractBasicValue(c *gin.Context, r *torrentValidator.TorrentRequest) error
 	r.WebsiteLink = strings.TrimSpace(r.WebsiteLink)
 	r.Magnet = strings.TrimSpace(r.Magnet)
 
-	fmt.Println("Languages:")
-	fmt.Println(r.Languages)
-	r.Languages = c.PostFormArray("languages")
+	if len(r.Languages) == 0 { // Shouldn't have to do that since c.Bind actually bind arrays, but better off adding it in case gin doesn't do his work
+		r.Languages = c.PostFormArray("languages")
+	}
 	// then actually check that we have everything we need
-	fmt.Println(r.Languages)
 
 	err := r.ValidateDescription()
 	if err != nil {

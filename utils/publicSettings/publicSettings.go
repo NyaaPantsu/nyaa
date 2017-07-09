@@ -7,6 +7,8 @@ import (
 	"path"
 	"path/filepath"
 
+	"sort"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/gin-gonic/gin"
@@ -19,12 +21,20 @@ type UserRetriever interface {
 	RetrieveCurrentUser(c *gin.Context) (*models.User, error)
 }
 
+type Language struct {
+	Name string
+	Code string
+}
+
+type Languages []Language
+
 // TemplateTfunc : T func used in template
 type TemplateTfunc func(string, ...interface{}) template.HTML
 
 var (
 	defaultLanguage = config.Conf.I18n.DefaultLanguage
 	userRetriever   UserRetriever
+	languages       Languages
 )
 
 // InitI18n : Initialize the languages translation
@@ -83,21 +93,32 @@ func TfuncAndLanguageWithFallback(language string, languages ...string) (i18n.Tr
 	return translateFunction, tLang, err1
 }
 
-// GetAvailableLanguages : Get languages available on the website
-func GetAvailableLanguages() (languages map[string]string) {
-	languages = make(map[string]string)
+// GetAvailableLanguages : Get languages available on the website, languages are parsed once at runtime
+func GetAvailableLanguages() Languages {
+	if len(languages) > 0 {
+		return languages
+	}
 	var T i18n.TranslateFunc
+
+	// Need this to sort out languages alphabetically by language tag
+	var codes []string
 	for _, languageTag := range i18n.LanguageTags() {
+		codes = append(codes, languageTag)
+	}
+	sort.Strings(codes)
+
+	// Now build languages array
+	for _, languageTag := range codes {
 		T, _ = i18n.Tfunc(languageTag)
 		/* Translation files should have an ID with the translated language name.
 		   If they don't, just use the languageTag */
 		if languageName := T("language_name"); languageName != "language_name" {
-			languages[languageTag] = languageName
+			languages = append(languages, Language{languageName, languageTag})
 		} else {
-			languages[languageTag] = languageTag
+			languages = append(languages, Language{languageName, languageTag})
 		}
 	}
-	return
+	return languages
 }
 
 // GetDefaultTfunc : Gets T func from default language
@@ -180,4 +201,15 @@ func getCurrentUser(c *gin.Context) (*models.User, error) {
 		return &models.User{}, errors.New("failed to get current user: no user retriever set")
 	}
 	return userRetriever.RetrieveCurrentUser(c)
+}
+
+func (langs Languages) Exist(name string) bool {
+
+	for _, language := range langs {
+		if language.Code == name || language.Name == name {
+			return true
+		}
+	}
+
+	return false
 }

@@ -165,6 +165,11 @@
 			"Rev": "f373441d6d54a32891b2d8b1dbf99bc518f3d60d"
 		},
 		{
+			"ImportPath": "github.com/patrickmn/go-cache",
+			"Comment": "v2.0.0-9-g7ac1518",
+			"Rev": "7ac151875ffb48b9f3ccce9ea20f020b0c1596c8"
+		},
+		{
 			"ImportPath": "github.com/pelletier/go-buffruneio",
 			"Comment": "v0.2.0",
 			"Rev": "c37440a7cf42ac63b919c752ca73a85067e05992"

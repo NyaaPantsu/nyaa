@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/utils/cache"
 )
 
 func Create(content string, torrent *models.Torrent, user *models.User) (*models.Comment, error) {
@@ -12,6 +13,10 @@ func Create(content string, torrent *models.Torrent, user *models.User) (*models
 	if err != nil {
 		return comment, err
 	}
+	NewCommentEvent(comment, torrent)
+
 	comment.Torrent = torrent
+	cache.C.Delete(torrent.Identifier())
+
 	return comment, nil
 }
