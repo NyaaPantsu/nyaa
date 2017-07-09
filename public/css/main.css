@@ -312,8 +312,9 @@ th, .home-td {
 
 th { border-bottom-width: 2px; }
 
-.tr-cat { width: 90px; min-width: 78px; text-align: center; }
-.tr-lang { width: 32px; margin: 0; padding: 0; }
+.tr-cat { width: 90px; text-align: center; }
+.tr-flag { white-space: initial; }
+
 .tr-name { width: auto; text-align: left; white-space: normal; word-break: break-word; font-weight: bold; }
 .tr-links { width: 66px; }
 .tr-cs { width: 5px; overflow: initial; text-overflow: initial; }
