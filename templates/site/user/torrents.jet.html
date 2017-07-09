@@ -17,14 +17,20 @@
           <tr class="torrent-info
               {{if torrent.Status == 2}}remake{{else if torrent.Status == 3}}trusted{{else if torrent.Status == 4}}aplus{{end}}">
               <!-- forced width because the <td> gets bigger randomly otherwise -->
-              <td>
-                  <a href="{{URL.Parse ("/search?c="+ torrent.Category + "_" +torrent.SubCategory) }}">
-                      {{ if Sukebei }}
-                      <img src="{{URL.Parse("/img/torrents/sukebei/"+ torrent.Category+ torrent.SubCategory+".png") }}" title="{{ T(CategoryName(torrent.Category, torrent.SubCategory)) }}">
-                      {{ else }}
-                      <img src="{{URL.Parse ("/img/torrents/"+ torrent.SubCategory+".png") }}" title="{{ T(CategoryName(torrent.Category, torrent.SubCategory)) }}">
-                      {{ end}}
-                  </a>
+              <td class="tr-cat user-td">
+                    {{ if Sukebei }}
+                    <div class="nyaa-cat sukebei-cat-{{ .Category }}{{ .SubCategory }}">
+		{{ else}}
+                    <div class="nyaa-cat nyaa-cat-{{ .SubCategory}}">
+	          {{end}}
+                              <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}" class="category">
+                              {{if .Languages[0] != "" }}
+                                        <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory +"&lang=") }}{{ range key, language := .Languages }}{{ language }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
+                                                  <img src="/img/blank.gif" alt="{{ LanguageName(.Languages[0], T) }}" class="flag flag-{{ (len(.Languages) == 1) ?  FlagCode(.Languages[0]) : "multiple" }}" title=" {{ range key, language := .Languages }}{{ LanguageName(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
+                                        </a>
+                              {{end}}
+                              </a>
+                    </div>
               </td>
               <td class="tr-name">
                   <a href="/view/{{torrent.ID}}">
