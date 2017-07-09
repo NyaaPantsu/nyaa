@@ -299,7 +299,7 @@ func RSSTorznabHandler(c *gin.Context) {
 			}
 			torznab = append(torznab, &nyaafeeds.RssTorznab{
 				Name:  "grabs",
-				Value: strconv.Itoa(torrentJSON.Downloads),
+				Value: strconv.Itoa(int(torrentJSON.Completed)),
 			})
 			if seeders != "" {
 				torznab = append(torznab, &nyaafeeds.RssTorznab{
