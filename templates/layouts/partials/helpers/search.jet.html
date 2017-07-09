@@ -13,8 +13,7 @@
     <button type="submit" class="form-input refine" name="refine" onclick="">Refine</button>
 {{end}}
 {{block search_refine() }}
-    <details>
-        <summary class="form-input refine-drop">{{ T("refine_search") }}</summary>
+        <h3>{{ T("refine_search") }}</h3>
     <form style="display: grid;" method="GET" action="">
         <input type="hidden" name="s" value="{{Search.Status}}"/>
         <input type="hidden" name="c" value="{{Search.Category}}"/>
@@ -48,5 +47,4 @@
     </div>
     <button type="submit" class="form-input refine-btn">{{  T("refine")}}</button>
     </form>
-    </details>
 {{end}}
