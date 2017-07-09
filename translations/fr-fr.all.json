@@ -148,8 +148,8 @@
     "translation": "Langue du torrent"
   },
   {
-    "id": "select_a_torrent_language",
-    "translation": "Choisissez la langue du torrent"
+    "id": "language_not_mandatory",
+    "translation": "Les Languages ne sont plus obligatoires"
   },
   {
     "id": "language_en-us_name",
