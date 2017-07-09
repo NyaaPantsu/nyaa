@@ -85,4 +85,9 @@ function playVoice() {
 		nyanpassu.play();
 	}
 }
+
+function toggleRefine() {
+	document.getElementsByClassName("box refine")[0].style.display = document.getElementsByClassName("box refine")[0].style.display == "none" ? "block" : "none";
+	return 0;	
+}
 // @license-end
