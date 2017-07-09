@@ -276,7 +276,7 @@ th { height: 40px;}
 	padding: 4px 5px 4px 1px;
 	min-width: 74px!important;
 }
-.user-torrent .tr-name a { margin-left: 4px; }
+.user-torrent .tr-name a { margin-left: 5px; }
 
 th, .home-td {
 	border-bottom:  1px solid;
