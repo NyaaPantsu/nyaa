@@ -271,7 +271,11 @@ table {
 
 
 th { height: 40px;}
-.home-td { height: 37px; }
+.home-td,.user-td { height: 37px; }
+.user-td { 
+	padding: 4px 5px 4px 1px;
+	min-width: 74px!important;
+}
 
 th, .home-td {
 	border-bottom:  1px solid;
