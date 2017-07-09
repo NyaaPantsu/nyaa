@@ -14,17 +14,23 @@
           {{ range i, t := UserProfile.Torrents }}
           {{ if DisplayTorrent(t, User) }}
           {{ torrent := t.ToJSON() }}
-          <tr class="torrent-info
+          <tr class="torrent-info user-torrent
               {{if torrent.Status == 2}}remake{{else if torrent.Status == 3}}trusted{{else if torrent.Status == 4}}aplus{{end}}">
               <!-- forced width because the <td> gets bigger randomly otherwise -->
-              <td>
-                  <a href="{{URL.Parse ("/search?c="+ torrent.Category + "_" +torrent.SubCategory) }}">
-                      {{ if Sukebei }}
-                      <img src="{{URL.Parse("/img/torrents/sukebei/"+ torrent.Category+ torrent.SubCategory+".png") }}" title="{{ T(CategoryName(torrent.Category, torrent.SubCategory)) }}">
-                      {{ else }}
-                      <img src="{{URL.Parse ("/img/torrents/"+ torrent.SubCategory+".png") }}" title="{{ T(CategoryName(torrent.Category, torrent.SubCategory)) }}">
-                      {{ end}}
-                  </a>
+              <td class="tr-cat user-td">
+                    {{ if Sukebei }}
+                    <div class="nyaa-cat sukebei-cat-{{ torrent.Category }}{{ torrent.SubCategory }}">
+		{{ else}}
+                    <div class="nyaa-cat nyaa-cat-{{ torrent.SubCategory}}">
+	          {{end}}
+                              <a href="{{ URL.Parse("/search?c="+torrent.Category+"_"+ .torrentSubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}" class="category">
+                              {{if torrent.Languages[0] != "" }}
+                                        <a href="{{ URL.Parse("/search?c="+torrent.Category+"_"+ .SubCategory +"&lang=") }}{{ range key, language := torrent.Languages }}{{ language }}{{ if len(torrent.Languages) > 1 && (key+1) < len(torrent.Languages) }},{{ end }}{{ end }}">
+                                                  <img src="/img/blank.gif" alt="{{ LanguageName(torrent.Languages[0], T) }}" class="flag flag-{{ (len(torrent.Languages) == 1) ?  FlagCode(.Languages[0]) : "multiple" }}" title=" {{ range key, language := torrent.Languages }}{{ LanguageName(language, T) }}{{ if len(torrent.Languages) > 1 && (key+1) < len(torrent.Languages) }},{{ end }}{{ end }}">
+                                        </a>
+                              {{end}}
+                              </a>
+                    </div>
               </td>
               <td class="tr-name">
                   <a href="/view/{{torrent.ID}}">
