@@ -160,7 +160,7 @@ select.form-input {
 
 .header .h-user {
 	display: inline-block;
-	max-width: 160px;
+	width: 155px;
 }
 
 .header .h-user .nav-btn {
@@ -259,6 +259,7 @@ select.form-input {
 	margin-top: 5px;
 	margin-bottom: 7px;
 }
+.box.refine input[type="number"] { width: 49px; } 
 
 .categories a {
 	display: 	inline-block;
