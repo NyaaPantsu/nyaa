@@ -1,0 +1,33 @@
+{
+  "name": "nyaapantsu",
+  "version": "1.0",
+  "description": "How to use the Nyaa Pantsu API",
+  "title": "Nyaa Pantsu API documentation",
+  "url": "https://nyaa.pantsu.cat/api",
+  "header": {
+    "title": "Header",
+    "content": "<h1>Information</h1>\n<p>You can use this API without being logged or any token API</p>\n<h2>Except for Upload</h2>\n<p>When you upload, you have to provide your username and api token!</p>\n"
+  },
+  "order": [
+    "GetTorrents",
+    "FindTorrents",
+    "GetTorrent",
+    "GetTorrentHead",
+    "UploadTorrent",
+    "UpdateTorrent",
+    "Login"
+  ],
+  "template": {
+    "withCompare": true,
+    "withGenerator": true
+  },
+  "sampleUrl": false,
+  "defaultVersion": "0.0.0",
+  "apidoc": "0.3.0",
+  "generator": {
+    "name": "apidoc",
+    "time": "2017-07-09T12:17:52.852Z",
+    "url": "http://apidocjs.com",
+    "version": "0.17.6"
+  }
+}
