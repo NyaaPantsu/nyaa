@@ -28,7 +28,7 @@ func FindByID(id uint) (*models.Torrent, error) {
 		return found.(*models.Torrent), nil
 	}
 	torrent = &models.Torrent{}
-	tmp := models.ORM.Where("torrent_id = ?", id).Preload("Scrape").Preload("Comments")
+	tmp := models.ORM.Where("torrent_id = ?", id).Preload("Scrape").Preload("Uploader").Preload("Comments")
 	if id > config.Conf.Models.LastOldTorrentID {
 		tmp = tmp.Preload("FileList")
 	}
