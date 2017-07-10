@@ -136,6 +136,11 @@ select.form-input {
 	vertical-align: middle;
 }
 
+.form-input.refine { 
+	border-radius: 0 3px 3px 0;
+	border-left: none;
+}
+
 .form-input.language {
 	max-width: 459px;
 	height: auto;
@@ -161,7 +166,7 @@ select.form-input {
 
 .header .h-user {
 	display: inline-block;
-	max-width: 160px;
+	width: 155px;
 }
 
 .header .h-user .nav-btn {
@@ -254,6 +259,13 @@ select.form-input {
 	padding:  10px;
 	text-align: center;
 }
+
+.box.refine { text-align: left; }
+.box.refine > h3 {
+	margin-top: 5px;
+	margin-bottom: 7px;
+}
+.box.refine input[type="number"] { width: 49px; } 
 
 .categories a {
 	display: 	inline-block;
@@ -432,6 +444,7 @@ html, body {
 		height: auto;
 	}
 	.tr-cat { width: 77px; }
+	.form-input.refine { display: none;}
 }
 
 @media (maw-width: 520px) {
