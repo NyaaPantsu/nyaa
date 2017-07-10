@@ -10,7 +10,7 @@
 {{block search_button() }}
     <input class="form-input search-box" name="q" placeholder="{{ T("search")}}" type="text" value="{{Search.NameLike}}">
     <button type="submit" class="form-input icon-search"></button>
-    <button type="submit" class="form-input refine" name="refine" onclick="toggleRefine();" onload="this.type='button';">{{  T("refine")}}</button>
+    <button type="submit" class="form-input refine" name="refine" onclick="toggleRefine();">{{  T("refine")}}</button>
 {{end}}
 {{block search_refine() }}
         <h3>{{ T("refine_search") }}</h3>
