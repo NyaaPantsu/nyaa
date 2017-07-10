@@ -166,7 +166,7 @@ select.form-input {
 
 .header .h-user {
 	display: inline-block;
-	width: 155px;
+	width: 156px;
 }
 
 .header .h-user .nav-btn {
@@ -191,7 +191,7 @@ select.form-input {
 
 .header .h-user .user-menu {
 	display: none;
-	margin-left: 5px;
+	margin-left: 6px;
 	border: 1px solid;
 	border-top: none;
 	border-radius: 0 0 5px 5px;
