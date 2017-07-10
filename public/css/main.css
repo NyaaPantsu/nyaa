@@ -283,7 +283,13 @@ table {
 
 
 th { height: 40px;}
-.home-td,.user-td { height: 37px; text-align: center; }
+
+th,.home-td,.user-td { 
+	height: 37px; 
+	text-align: center;
+	padding: 2px 5px;
+}
+
 .user-td.tr-cat { 
 	padding: 4px 5px 4px 1px;
 	min-width: 74px!important;
@@ -291,7 +297,6 @@ th { height: 40px;}
 
 th, .home-td {
 	border-bottom:  1px solid;
-	padding: 2px 5px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
