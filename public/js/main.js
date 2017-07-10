@@ -86,10 +86,12 @@ function playVoice() {
 	}
 }
 
+
+var refine_button = document.getElementsByClassName("box refine")[0];
+refine_button.type = "button";
 function toggleRefine() {
-	var refine = document.getElementsByClassName("box refine")[0];
-	if(refine != "undefined") {
-		refine.style.display = refine.style.display == "none" ? "block" : "none";
+	if(refine_button != "undefined") {
+		refine_button.style.display = refine_button.style.display == "none" ? "block" : "none";
 		if(document.getElementsByClassName("form-input refine-searchbox")[0].value == "")
 			document.getElementsByClassName("form-input refine-searchbox")[0].value = document.getElementsByClassName("form-input search-box")[0].value;
 	}
