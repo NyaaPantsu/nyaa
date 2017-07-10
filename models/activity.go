@@ -24,7 +24,7 @@ func NewActivity(identifier string, filter string, c ...string) Activity {
 
 // TableName : Return the name of activity table
 func (a *Activity) TableName() string {
-	return config.Conf.Models.ActivityTableName
+	return config.Get().Models.ActivityTableName
 }
 
 // ToLocale : Convert list of parameters to message in local language

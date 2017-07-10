@@ -25,8 +25,8 @@ func SendEmailVerification(to string, token string) error {
 	if err != nil {
 		return err
 	}
-	content := T("link") + " : " + config.Conf.WebAddress.Nyaa + "/verify/email/" + token
-	contentHTML := T("verify_email_content") + "<br/>" + "<a href=\"" + config.Conf.WebAddress.Nyaa + "/verify/email/" + token + "\" target=\"_blank\">" + format.GetHostname(config.Conf.WebAddress.Nyaa) + "/verify/email/" + token + "</a>"
+	content := T("link") + " : " + config.Get().WebAddress.Nyaa + "/verify/email/" + token
+	contentHTML := T("verify_email_content") + "<br/>" + "<a href=\"" + config.Get().WebAddress.Nyaa + "/verify/email/" + token + "\" target=\"_blank\">" + format.GetHostname(config.Get().WebAddress.Nyaa) + "/verify/email/" + token + "</a>"
 	return SendEmailFromAdmin(to, T("verify_email_title"), content, contentHTML)
 }
 

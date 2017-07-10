@@ -91,7 +91,7 @@ func APIHandler(c *gin.Context) {
 			c.Bind(&req)
 
 			if req.MaxPerPage == 0 {
-				req.MaxPerPage = config.Conf.Navigation.TorrentsPerPage
+				req.MaxPerPage = config.Get().Navigation.TorrentsPerPage
 			}
 			if req.Page <= 0 {
 				req.Page = 1
@@ -104,10 +104,10 @@ func APIHandler(c *gin.Context) {
 			if maxString != "" {
 				req.MaxPerPage, err = strconv.Atoi(maxString)
 				if !log.CheckError(err) {
-					req.MaxPerPage = config.Conf.Navigation.TorrentsPerPage
+					req.MaxPerPage = config.Get().Navigation.TorrentsPerPage
 				}
 			} else {
-				req.MaxPerPage = config.Conf.Navigation.TorrentsPerPage
+				req.MaxPerPage = config.Get().Navigation.TorrentsPerPage
 			}
 
 			req.Page = 1

@@ -26,13 +26,14 @@ func FindByID(id uint) (*models.Torrent, error) {
 	var err error
 	if found, ok := cache.C.Get(torrent.Identifier()); ok {
 		return found.(*models.Torrent), nil
+
 	}
-	torrent = &models.Torrent{}
-	tmp := models.ORM.Where("torrent_id = ?", id).Preload("Scrape").Preload("Uploader").Preload("Comments")
-	if id > config.Conf.Models.LastOldTorrentID {
+
+	tmp := models.ORM.Where("torrent_id = ?", id).Preload("Scrape").Preload("Comments")
+	if id > config.Get().Models.LastOldTorrentID {
 		tmp = tmp.Preload("FileList")
 	}
-	if id <= config.Conf.Models.LastOldTorrentID && !config.IsSukebei() {
+	if id <= config.Get().Models.LastOldTorrentID && !config.IsSukebei() {
 		// only preload old comments if they could actually exist
 		tmp = tmp.Preload("OldComments")
 	}
@@ -48,7 +49,7 @@ func FindByID(id uint) (*models.Torrent, error) {
 	// GORM relly likes not doing its job correctly
 	// (or maybe I'm just retarded)
 	torrent.OldUploader = ""
-	if torrent.ID <= config.Conf.Models.LastOldTorrentID && torrent.UploaderID == 0 {
+	if torrent.ID <= config.Get().Models.LastOldTorrentID && torrent.UploaderID == 0 {
 		var tmp models.UserUploadsOld
 		if !models.ORM.Where("torrent_id = ?", torrent.ID).Find(&tmp).RecordNotFound() {
 			torrent.OldUploader = tmp.Username
@@ -134,7 +135,7 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 	}
 
 	// build custom db query for performance reasons
-	dbQuery := "SELECT * FROM " + config.Conf.Models.TorrentsTableName
+	dbQuery := "SELECT * FROM " + config.Get().Models.TorrentsTableName
 	if conditions != "" {
 		dbQuery = dbQuery + " WHERE " + conditions
 	}

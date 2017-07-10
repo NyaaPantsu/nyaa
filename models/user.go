@@ -167,11 +167,11 @@ func (u *User) NeedsCaptcha() bool {
 
 // CanUpload :  Check if a user can upload  or if upload is enabled in config
 func (u *User) CanUpload() bool {
-	if config.Conf.Torrents.UploadsDisabled {
-		if config.Conf.Torrents.AdminsAreStillAllowedTo && u.IsModerator() {
+	if config.Get().Torrents.UploadsDisabled {
+		if config.Get().Torrents.AdminsAreStillAllowedTo && u.IsModerator() {
 			return true
 		}
-		if config.Conf.Torrents.TrustedUsersAreStillAllowedTo && u.IsTrusted() {
+		if config.Get().Torrents.TrustedUsersAreStillAllowedTo && u.IsTrusted() {
 			return true
 		}
 		return false
@@ -255,7 +255,7 @@ func (u *User) RemoveFollow(follower *User) {
 // TableName : Return the name of OldComment table
 func (c UserUploadsOld) TableName() string {
 	// is this needed here?
-	return config.Conf.Models.UploadsOldTableName
+	return config.Get().Models.UploadsOldTableName
 }
 
 /*
@@ -267,7 +267,7 @@ func (s *UserSettings) Get(key string) bool {
 	if val, ok := s.Settings[key]; ok {
 		return val
 	}
-	return config.Conf.Users.DefaultUserSettings[key]
+	return config.Get().Users.DefaultUserSettings[key]
 }
 
 // GetSettings : get all user settings
@@ -285,7 +285,7 @@ func (s *UserSettings) Set(key string, val bool) {
 
 // ToDefault : Set user settings to default
 func (s *UserSettings) ToDefault() {
-	s.Settings = config.Conf.Users.DefaultUserSettings
+	s.Settings = config.Get().Users.DefaultUserSettings
 }
 
 func (s *UserSettings) initialize() {

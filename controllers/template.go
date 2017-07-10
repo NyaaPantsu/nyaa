@@ -35,7 +35,7 @@ var View = jet.NewHTMLSet("./templates")
 var vars = templateFunctions(make(jet.VarMap))
 
 func init() {
-	if config.Conf.Environment == "DEVELOPMENT" {
+	if config.Get().Environment == "DEVELOPMENT" {
 		View.SetDevelopmentMode(true)
 		fmt.Println("Template Live Update enabled")
 	}
@@ -52,7 +52,7 @@ func commonVars(c *gin.Context) jet.VarMap {
 	vars.Set("User", getUser(c))
 	vars.Set("URL", c.Request.URL)
 	vars.Set("CsrfToken", token)
-	vars.Set("Config", config.Conf)
+	vars.Set("Config", config.Get())
 	vars.Set("Infos", msg.GetAllInfos())
 	vars.Set("Errors", msg.GetAllErrors())
 	return vars

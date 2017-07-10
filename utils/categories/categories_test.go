@@ -15,7 +15,7 @@ import (
 var _ = func() (_ struct{}) {
 	config.ConfigPath = path.Join("..", "..", config.ConfigPath)
 	config.DefaultConfigPath = path.Join("..", "..", config.DefaultConfigPath)
-	config.Parse()
+	config.Reload()
 	return
 }()
 
@@ -29,7 +29,7 @@ func TestGetCategories(t *testing.T) {
 		t.Skip("Couldn't load categories to test Categories")
 	}
 
-	if !reflect.DeepEqual(cats, config.Conf.Torrents.CleanCategories) && !reflect.DeepEqual(cats, config.Conf.Torrents.SukebeiCategories) {
+	if !reflect.DeepEqual(cats, config.Get().Torrents.CleanCategories) && !reflect.DeepEqual(cats, config.Get().Torrents.SukebeiCategories) {
 		t.Error("Categories doesn't correspond to the configured ones")
 	}
 }

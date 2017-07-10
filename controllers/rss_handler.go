@@ -203,7 +203,7 @@ func RSSTorznabHandler(c *gin.Context) {
 				Version:   "1.0",
 				Title:     title,
 				Strapline: "...",
-				Email:     config.Conf.Email.From,
+				Email:     config.Get().Email.From,
 				URL:       config.WebAddress(),
 				Image:     config.WebAddress() + "/img/logo.png",
 			},

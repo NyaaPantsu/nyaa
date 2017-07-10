@@ -14,7 +14,7 @@ import (
 var _ = func() (_ struct{}) {
 	config.ConfigPath = path.Join("..", "..", config.ConfigPath)
 	config.DefaultConfigPath = path.Join("..", "..", config.DefaultConfigPath)
-	config.Parse()
+	config.Reload()
 	return
 }()
 

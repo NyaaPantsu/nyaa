@@ -106,7 +106,7 @@ func (t Torrent) Size() (s int) {
 
 // TableName : Return the table name of torrents table
 func (t Torrent) TableName() string {
-	return config.Conf.Models.TorrentsTableName
+	return config.Get().Models.TorrentsTableName
 }
 
 // Identifier : Return the identifier of a torrent
@@ -149,8 +149,8 @@ func (t Torrent) AddToESIndex(client *elastic.Client) error {
 	ctx := context.Background()
 	torrentJSON := t.ToJSON()
 	_, err := client.Index().
-		Index(config.Conf.Search.ElasticsearchIndex).
-		Type(config.Conf.Search.ElasticsearchType).
+		Index(config.Get().Search.ElasticsearchIndex).
+		Type(config.Get().Search.ElasticsearchType).
 		Id(strconv.FormatUint(uint64(torrentJSON.ID), 10)).
 		BodyJson(torrentJSON).
 		Refresh("true").
@@ -162,8 +162,8 @@ func (t Torrent) AddToESIndex(client *elastic.Client) error {
 func (t *Torrent) DeleteFromESIndex(client *elastic.Client) error {
 	ctx := context.Background()
 	_, err := client.Delete().
-		Index(config.Conf.Search.ElasticsearchIndex).
-		Type(config.Conf.Search.ElasticsearchType).
+		Index(config.Get().Search.ElasticsearchIndex).
+		Type(config.Get().Search.ElasticsearchType).
 		Id(strconv.FormatInt(int64(t.ID), 10)).
 		Do(ctx)
 	return err
@@ -172,20 +172,20 @@ func (t *Torrent) DeleteFromESIndex(client *elastic.Client) error {
 // ParseTrackers : Takes an array of trackers, adds needed trackers and parse it to url string
 func (t *Torrent) ParseTrackers(trackers []string) {
 	v := url.Values{}
-	if len(config.Conf.Torrents.Trackers.NeededTrackers) > 0 { // if we have some needed trackers configured
+	if len(config.Get().Torrents.Trackers.NeededTrackers) > 0 { // if we have some needed trackers configured
 		if len(trackers) == 0 {
-			trackers = config.Conf.Torrents.Trackers.Default
+			trackers = config.Get().Torrents.Trackers.Default
 		} else {
-			for _, id := range config.Conf.Torrents.Trackers.NeededTrackers {
+			for _, id := range config.Get().Torrents.Trackers.NeededTrackers {
 				found := false
 				for _, tracker := range trackers {
-					if tracker == config.Conf.Torrents.Trackers.Default[id] {
+					if tracker == config.Get().Torrents.Trackers.Default[id] {
 						found = true
 						break
 					}
 				}
 				if !found {
-					trackers = append(trackers, config.Conf.Torrents.Trackers.Default[id])
+					trackers = append(trackers, config.Get().Torrents.Trackers.Default[id])
 				}
 			}
 		}
@@ -260,7 +260,7 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 func (t *Torrent) ToJSON() TorrentJSON {
 	var trackers []string
 	if t.Trackers == "" {
-		trackers = config.Conf.Torrents.Trackers.Default
+		trackers = config.Get().Torrents.Trackers.Default
 	} else {
 		trackers = t.GetTrackersArray()
 	}
@@ -304,14 +304,14 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		uploader = t.OldUploader
 	}
 	torrentlink := ""
-	if t.ID <= config.Conf.Models.LastOldTorrentID && len(config.Conf.Torrents.CacheLink) > 0 {
+	if t.ID <= config.Get().Models.LastOldTorrentID && len(config.Get().Torrents.CacheLink) > 0 {
 		if config.IsSukebei() {
 			torrentlink = "" // torrent cache doesn't have sukebei torrents
 		} else {
-			torrentlink = fmt.Sprintf(config.Conf.Torrents.CacheLink, t.Hash)
+			torrentlink = fmt.Sprintf(config.Get().Torrents.CacheLink, t.Hash)
 		}
-	} else if t.ID > config.Conf.Models.LastOldTorrentID && len(config.Conf.Torrents.StorageLink) > 0 {
-		torrentlink = fmt.Sprintf(config.Conf.Torrents.StorageLink, t.Hash)
+	} else if t.ID > config.Get().Models.LastOldTorrentID && len(config.Get().Torrents.StorageLink) > 0 {
+		torrentlink = fmt.Sprintf(config.Get().Torrents.StorageLink, t.Hash)
 	}
 	scrape := Scrape{}
 	if t.Scrape != nil {

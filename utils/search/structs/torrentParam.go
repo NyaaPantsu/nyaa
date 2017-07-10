@@ -21,11 +21,11 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 	var err error
 
 	nameLike := strings.TrimSpace(c.Query("q"))
-	max, err := strconv.ParseUint(c.DefaultQuery("limit", strconv.Itoa(config.Conf.Navigation.TorrentsPerPage)), 10, 32)
+	max, err := strconv.ParseUint(c.DefaultQuery("limit", strconv.Itoa(config.Get().Navigation.TorrentsPerPage)), 10, 32)
 	if err != nil {
-		max = uint64(config.Conf.Navigation.TorrentsPerPage)
-	} else if max > uint64(config.Conf.Navigation.MaxTorrentsPerPage) {
-		max = uint64(config.Conf.Navigation.MaxTorrentsPerPage)
+		max = uint64(config.Get().Navigation.TorrentsPerPage)
+	} else if max > uint64(config.Get().Navigation.MaxTorrentsPerPage) {
+		max = uint64(config.Get().Navigation.MaxTorrentsPerPage)
 	}
 
 	// FIXME 0 means no userId defined
@@ -177,15 +177,15 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []models.Torrent, er
 	} else {
 		query = elastic.NewSimpleQueryStringQuery(p.NameLike).
 			Field("name").
-			Analyzer(config.Conf.Search.ElasticsearchAnalyzer).
+			Analyzer(config.Get().Search.ElasticsearchAnalyzer).
 			DefaultOperator("AND")
 	}
 
 	// TODO Find a better way to keep in sync with mapping in ansible
 	search := client.Search().
-		Index(config.Conf.Search.ElasticsearchIndex).
+		Index(config.Get().Search.ElasticsearchIndex).
 		Query(query).
-		Type(config.Conf.Search.ElasticsearchType).
+		Type(config.Get().Search.ElasticsearchType).
 		From(int((p.Offset-1)*p.Max)).
 		Size(int(p.Max)).
 		Sort(p.Sort.ToESField(), p.Order).

@@ -4,6 +4,11 @@
 	"GodepVersion": "v79",
 	"Deps": [
 		{
+			"ImportPath": "github.com/BurntSushi/toml",
+			"Comment": "v0.3.0-7-ga368813",
+			"Rev": "a368813c5e648fee92e5f6c30e3944ff9d5e8895"
+		},
+		{
 			"ImportPath": "github.com/CloudyKit/fastprinter",
 			"Rev": "74b38d55f37af5d6c05ca11147d616b613a3420e"
 		},
@@ -87,6 +92,10 @@
 			"ImportPath": "github.com/gorilla/securecookie",
 			"Comment": "v1.1-6-ge59506c",
 			"Rev": "e59506cc896acb7f7bf732d4fdf5e25f7ccd8983"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/configor",
+			"Rev": "ff2ac2b1ce3d687c3a1da0d2847fbce42524a7f3"
 		},
 		{
 			"ImportPath": "github.com/jinzhu/gorm/dialects/postgres",
@@ -245,6 +254,10 @@
 			"ImportPath": "gopkg.in/olivere/elastic.v5/uritemplates",
 			"Comment": "v5.0.38",
 			"Rev": "3f49414dc29d45ba96fde19ba72bc646077dbffd"
+		},
+		{
+			"ImportPath": "gopkg.in/yaml.v1",
+			"Rev": "9f9df34309c04878acc86042b16630b0f696e1de"
 		},
 		{
 			"ImportPath": "gopkg.in/yaml.v2",

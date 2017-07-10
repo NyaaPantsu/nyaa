@@ -75,8 +75,8 @@ func ChangePublicSettingsHandler(c *gin.Context) {
 	c.Redirect(http.StatusSeeOther, "/")
 }
 func getDomainName() string {
-	domain := config.Conf.Cookies.DomainName
-	if config.Conf.Environment == "DEVELOPMENT" {
+	domain := config.Get().Cookies.DomainName
+	if config.Get().Environment == "DEVELOPMENT" {
 		domain = ""
 	}
 	return domain

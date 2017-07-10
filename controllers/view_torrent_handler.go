@@ -103,7 +103,7 @@ func PostCommentHandler(c *gin.Context) {
 	if strings.TrimSpace(content) == "" {
 		messages.AddErrorT("errors", "comment_empty")
 	}
-	if len(content) > config.Conf.CommentLength {
+	if len(content) > config.Get().CommentLength {
 		messages.AddErrorT("errors", "comment_toolong")
 	}
 	if !messages.HasErrors() {
@@ -246,14 +246,14 @@ func TorrentDeleteUserPanel(c *gin.Context) {
 func DownloadTorrent(c *gin.Context) {
 	hash := c.Param("hash")
 
-	if hash == "" && len(config.Conf.Torrents.FileStorage) == 0 {
+	if hash == "" && len(config.Get().Torrents.FileStorage) == 0 {
 		//File not found, send 404
 		c.AbortWithError(http.StatusNotFound, errors.New("File not found"))
 		return
 	}
 
 	//Check if file exists and open
-	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Conf.Torrents.FileStorage, os.PathSeparator, hash))
+	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
 	if err != nil {
 		//File not found, send 404
 		c.AbortWithError(http.StatusNotFound, errors.New("File not found"))
