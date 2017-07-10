@@ -17,13 +17,13 @@
     <form style="display: grid;" method="GET" action="">
         <input type="hidden" name="c" value="{{Search.Category}}"/>
         <input type="hidden" name="userID" value="{{Search.UserID}}"/>
-        <input type="hidden" name="q" value="{{Search.NameLike}}"/
+        <input type="hidden" name="q" value="{{Search.NameLike}}"/>
 	       <span class="form-refine">Show <select name="s" class="form-input" style="margin-right: 8px;">
 -    <option value="0">{{ T("show_all")}}</option>
 -    <option value="2" {{if Search.Status == 2}}selected{{end}}>{{ T("filter_remakes")}}</option>
 -    <option value="3" {{if Search.Status == 3}}selected{{end}}>{{ T("trusted")}}</option>
 -    <option value="4" {{if Search.Status == 4}}selected{{end}}>A+</option>
--  </select>Limit: <input type="number" name="max" value="{{ Navigation.MaxItemPerPage }}" class="form-input" min="1" max="300"></span>
+-  </select>Limit: <input type="number" name="limit" value="{{ Navigation.MaxItemPerPage }}" class="form-input" min="1" max="300"></span>
     <span class="form-refine">{{ T("between")}} <input class="form-input" size="7" name="minSize" type="text" value="{{Search.MinSize}}"> {{ T("and")}} <input size="7" class="form-input" name="maxSize" type="text" value="{{Search.MaxSize}}">
     <select name="sizeType" class="form-input">
         <option value="b"{{if Search.SizeType == "b"}} selected{{end}}>B</option>
