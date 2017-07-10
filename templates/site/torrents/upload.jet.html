@@ -2,9 +2,6 @@
 {{ import "layouts/partials/helpers/csrf" }}
 {{ import "layouts/partials/helpers/captcha" }}
 {{block title()}}{{ T("upload")}}{{end}}
-{{block additional_header()}}
-<link rel="stylesheet" href="/css/flags/flags.min.css">
-{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
 	<form enctype="multipart/form-data" role="upload" method="POST">

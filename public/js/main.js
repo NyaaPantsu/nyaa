@@ -1,8 +1,5 @@
 // @source https://github.com/NyaaPantsu/nyaa/tree/dev/public/js
 // @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
-var explosion = document.getElementById("explosion");
-var nyanpassu = document.getElementById("nyanpassu");
-var kawaii    = document.getElementById("kawaii");
 
 // Switches between themes when a new one is selected
 function switchThemes(){
@@ -69,35 +66,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		document.getElementsByClassName("search-box")[0].style.width = "";
 		document.getElementsByClassName("h-user")[0].style.display = "inline-block";
 	});
+
 });
 
 function playVoice() {
-	if (explosion) {
-		explosion.volume = 0.2;
-		explosion.play();
-	}
-	else if (kawaii) {
-		kawaii.volume = 0.2;
-		kawaii.play();
-	}
-	else {
-		nyanpassu.volume = 0.2;
-		nyanpassu.play();
-	}
+    var mascotAudio = document.getElementById("explosion") || document.getElementById("nyanpassu") || document.getElementById("kawaii");
+    if (mascotAudio !== undefined) {
+        mascotAudio.volume = 0.2;
+        mascotAudio.play();
+    } else {
+        console.log("Your mascot doesn't support yet audio files!")
+    }
 }
 
-var refine_button = document.getElementsByClassName("box refine")[0];
-refine_button.click(function( event ) {
-  event.preventDefault();
-  toggleRefine();
+document.getElementsByClassName("form-input refine")[0].addEventListener("click", function (e) {
+    document.getElementsByClassName("box refine")[0].style.display = document.getElementsByClassName("box refine")[0].style.display == "none" ? "block" : "none";
+    if(document.getElementsByClassName("form-input refine-searchbox")[0].value != document.getElementsByClassName("form-input search-box")[0].value)
+        document.getElementsByClassName("form-input refine-searchbox")[0].value = document.getElementsByClassName("form-input search-box")[0].value;
+    e.preventDefault();
 });
-
-function toggleRefine() {
-	if(refine_button != "undefined") {
-		refine_button.style.display = refine_button.style.display == "none" ? "block" : "none";
-		if(document.getElementsByClassName("form-input refine-searchbox")[0].value == "")
-			document.getElementsByClassName("form-input refine-searchbox")[0].value = document.getElementsByClassName("form-input search-box")[0].value;
-	}
-	else document.getElementById("header-form").submit();
-}
 // @license-end

@@ -39,7 +39,7 @@ func newSearchForm(c *gin.Context) searchForm {
 	return searchForm{
 		Category:         "_",
 		ShowItemsPerPage: true,
-		ShowRefine:       true,
+		ShowRefine:       false,
 		SizeType:         sizeType,
 		DateType:         c.Query("dateType"),
 		MinSize:          c.Query("minSize"),  // We need to overwrite the value here, since size are formatted

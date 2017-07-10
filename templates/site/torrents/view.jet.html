@@ -3,10 +3,6 @@
 {{ import "layouts/partials/helpers/captcha" }}
 {{ import "layouts/partials/helpers/treeview" }}
 {{block title()}}{{Torrent.Name}}{{end}}
-{{block additional_header()}}
-<link rel="stylesheet" href="/css/flags/flags.min.css">
-<link rel="stylesheet" href="/css/flags/custom_flags.css">
-{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
     <div id="torrent-name" class="{{if Torrent.Status == 2}}remake{{else if Torrent.Status == 3}}trusted{{else if Torrent.Status == 4}}aplus{{end}}">

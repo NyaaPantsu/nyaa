@@ -1,6 +1,5 @@
 {{ extends "layouts/profile" }}
 {{ import "layouts/partials/menu/profile" }}
-{{block additional_header()}}<link rel="stylesheet" href="/css/flags/flags.min.css">{{end}}
 {{ block profile_navigation()}}{{ yield profile_menu(route="profile") }}{{end}}
 {{block profile_content()}}
 {{ if len(UserProfile.Torrents) > 0 }}

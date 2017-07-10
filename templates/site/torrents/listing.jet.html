@@ -2,13 +2,8 @@
 {{ import "layouts/partials/helpers/search" }}
 {{block title()}}{{ T("home")}}{{end}}
 {{block contclass()}}{{if User.HasAdmin() }}content-admin{{end}}{{end}}
-{{block additional_header()}}
-<link rel="stylesheet" href="/css/flags/flags.min.css">
-<link rel="stylesheet" href="/css/flags/custom_flags.css">
-{{end}}
 {{block content_body()}}
       <!-- Contain the table within a grid, as for better sizing -->
-      <div style="text-align:left;{{ if !Search.ShowRefine }}display:none;{{ end }}" class="box refine">{{ yield search_refine() }}</div>
       <div class="results box">
           <table>
           <thead class="torrent-info">

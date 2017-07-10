@@ -2,9 +2,6 @@
 {{ import "layouts/partials/helpers/csrf" }}
 {{ import "layouts/partials/helpers/errors" }}
 {{block title()}}T("torrent_edit_panel"){{end}}
-{{block additional_header()}}
-<link rel="stylesheet" href="/css/flags/flags.min.css">
-{{end}}
 {{block content_body()}}
   <div class="box results">
   <h3 id="torrents">{{  T("torrent_edit_panel") }}</h3>

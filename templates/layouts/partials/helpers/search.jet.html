@@ -10,45 +10,59 @@
 {{block search_button() }}
     <input class="form-input search-box" name="q" placeholder="{{ T("search")}}" type="text" value="{{Search.NameLike}}">
     <button type="submit" class="form-input icon-search"></button>
-    <button type="submit" class="form-input refine" name="refine" value="1" onclick="toggleRefine();">{{  T("refine")}}</button>
+    <button type="submit" class="form-input refine" name="refine" value="1">{{  T("refine")}}</button>
 {{end}}
-{{block search_refine() }}
-        <h3>{{ T("refine_search") }}</h3>
-    <form style="display: grid;" method="GET" action="">
+{{block search_refine(url="") }}
+<div style="text-align:left;{{ if !Search.ShowRefine }}display:none;{{ end }}" class="box refine">
+    <h3>{{ T("refine_search") }}</h3>
+    <form style="display: grid;" method="GET" action="{{ url }}">
         <input type="hidden" name="c" value="{{Search.Category}}"/>
         <input type="hidden" name="userID" value="{{Search.UserID}}"/>
-	    <span class="form-refine">Search for: <input type="text" class="form-input refine-searchbox" size="30" name="q" value="{{Search.NameLike}}"/></span>
-	       <span class="form-refine">Show: <select name="s" class="form-input" style="margin-right: 8px;">
--    <option value="0">{{ T("show_all")}}</option>
--    <option value="2" {{if Search.Status == 2}}selected{{end}}>{{ T("filter_remakes")}}</option>
--    <option value="3" {{if Search.Status == 3}}selected{{end}}>{{ T("trusted")}}</option>
--    <option value="4" {{if Search.Status == 4}}selected{{end}}>A+</option>
--  </select>Limit: <input type="number" name="limit" value="{{ Navigation.MaxItemPerPage }}" class="form-input" min="1" max="300"></span>
-    <span class="form-refine">{{ T("between")}} <input class="form-input" size="7" name="minSize" type="text" value="{{Search.MinSize}}"> {{ T("and")}} <input size="7" class="form-input" name="maxSize" type="text" value="{{Search.MaxSize}}">
-    <select name="sizeType" class="form-input">
-        <option value="b"{{if Search.SizeType == "b"}} selected{{end}}>B</option>
-        <option value="k"{{if Search.SizeType == "k"}} selected{{end}}>KiB</option>
-        <option value="m"{{if Search.SizeType == "m"}} selected{{end}}>MiB</option>
-        <option value="g"{{if Search.SizeType == "g"}} selected{{end}}>GiB</option>
-    </select>
-     {{  T("large")}}
-    </span>
-    <span class="form-refine">{{ T("between")}} <input class="form-input" size="7" name="fromDate" type="text" value="{{Search.FromDate}}"> {{ T("and")}} <input class="form-input" size="7" name="toDate" type="text" value="{{Search.ToDate}}">
-    <select name="dateType" class="form-input">
-        <option value="d"{{if Search.DateType == "d"}} selected{{end}}>{{  T("days")}}</option>
-        <option value="m"{{if Search.DateType == "m"}} selected{{end}}>{{  T("months")}}</option>
-        <option value="y"{{if Search.DateType == "y"}} selected{{end}}>{{  T("years")}}</option>
-    </select>
-     {{ T("old")}}.
-    </span>
-    <div name="language" class="form-refine form-input language">
-	{{ range _, language := GetTorrentLanguages() }}
-        <span class="input-group">
-            <input type="checkbox" name="lang" id="lang-{{ language }}" value="{{language}}"{{ range _, v := Search.Languages}}{{ if v.Code == language }} checked{{end}}{{end}}>
-            <label for="lang-{{ language }}" class="flag flag-{{ FlagCode(language) }}" title="{{LanguageName(language, T)}}"></label>
+	    <span class="form-refine">Search for:
+            <input type="text" class="form-input refine-searchbox" size="30" name="q" value="{{Search.NameLike}}"/>
         </span>
-	{{ end }}
-    </div>
-    <button type="submit" class="form-input refine-btn" name="refine" value="1">{{  T("refine")}}</button>
+        <span class="form-refine">Show:
+            <select name="s" class="form-input" style="margin-right: 8px;">
+                <option value="0">{{ T("show_all")}}</option>
+                <option value="2" {{if Search.Status == 2}}selected{{end}}>{{ T("filter_remakes")}}</option>
+                <option value="3" {{if Search.Status == 3}}selected{{end}}>{{ T("trusted")}}</option>
+                <option value="4" {{if Search.Status == 4}}selected{{end}}>A+</option>
+            </select>
+            Limit: <input type="number" name="limit" value="{{ Navigation.MaxItemPerPage }}" class="form-input" min="1" max="300">
+        </span>
+        <span class="form-refine">{{ T("between")}}
+            <input class="form-input" size="7" name="minSize" type="text" value="{{Search.MinSize}}">
+            {{ T("and")}}
+            <input size="7" class="form-input" name="maxSize" type="text" value="{{Search.MaxSize}}">
+            <select name="sizeType" class="form-input">
+                <option value="b"{{if Search.SizeType == "b"}} selected{{end}}>B</option>
+                <option value="k"{{if Search.SizeType == "k"}} selected{{end}}>KiB</option>
+                <option value="m"{{if Search.SizeType == "m"}} selected{{end}}>MiB</option>
+                <option value="g"{{if Search.SizeType == "g"}} selected{{end}}>GiB</option>
+            </select>
+            {{  T("large")}}
+        </span>
+        <span class="form-refine">
+            {{ T("between")}}
+            <input class="form-input" size="7" name="fromDate" type="text" value="{{Search.FromDate}}">
+            {{ T("and")}}
+            <input class="form-input" size="7" name="toDate" type="text" value="{{Search.ToDate}}">
+            <select name="dateType" class="form-input">
+                <option value="d"{{if Search.DateType == "d"}} selected{{end}}>{{  T("days")}}</option>
+                <option value="m"{{if Search.DateType == "m"}} selected{{end}}>{{  T("months")}}</option>
+                <option value="y"{{if Search.DateType == "y"}} selected{{end}}>{{  T("years")}}</option>
+            </select>
+            {{ T("old")}}.
+        </span>
+        <div name="language" class="form-refine form-input language">
+        {{ range _, language := GetTorrentLanguages() }}
+            <span class="input-group">
+                <input type="checkbox" name="lang" id="lang-{{ language }}" value="{{language}}"{{ range _, v := Search.Languages}}{{ if v.Code == language }} checked{{end}}{{end}}>
+                <label for="lang-{{ language }}" class="flag flag-{{ FlagCode(language) }}" title="{{LanguageName(language, T)}}"></label>
+            </span>
+        {{ end }}
+        </div>
+        <button type="submit" class="form-input refine-btn" name="refine" value="1">{{  T("refine")}}</button>
     </form>
+</div>
 {{end}}
