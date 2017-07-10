@@ -96,7 +96,7 @@ float:  right; }
 
 
 .header .h-search { margin-right: 10px; }
-.header .h-search .form-input { font-size: 80%; margin-left: -2px; }
+.header .h-search .form-input { font-size: 80%; }
 
 .header .h-search select.form-input { max-width: 110px !important; }
 
@@ -139,6 +139,7 @@ select.form-input {
 .form-input.refine { 
 	border-radius: 0 3px 3px 0;
 	border-left: none;
+	margin-left:-4px;
 }
 
 .form-input.language {
