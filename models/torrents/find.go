@@ -27,6 +27,7 @@ func FindByID(id uint) (*models.Torrent, error) {
 	if found, ok := cache.C.Get(torrent.Identifier()); ok {
 		return found.(*models.Torrent), nil
 
+	}
 
 	tmp := models.ORM.Where("torrent_id = ?", id).Preload("Scrape").Preload("Comments")
 	if id > config.Get().Models.LastOldTorrentID {
