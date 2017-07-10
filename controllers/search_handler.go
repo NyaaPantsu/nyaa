@@ -58,6 +58,7 @@ func SearchHandler(c *gin.Context) {
 
 	if c.Request.URL.Path == "/" {
 		searchForm.ShowRefine = false
+		//pls change that condition to check if url has REFINE get parameter
 	}
 
 	modelList(c, "site/torrents/listing.jet.html", models.TorrentsToJSON(torrents), nav, searchForm)
