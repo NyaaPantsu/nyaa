@@ -40,7 +40,7 @@
         <td class="tr-flag torrent-view-td torrent-info-data">
     {{ range _, language := Torrent.Languages}}
             {{ if language != "" }}
-        <img src="/img/blank.gif" alt="{{ LanguageName(language, T) }}" class="flag flag-{{FlagCode(language)}}" title="{{ LanguageName(language, T) }}"></img> {{ LanguageName(language, T) }}
+        <span><img src="/img/blank.gif" alt="{{ LanguageName(language, T) }}" class="flag flag-{{FlagCode(language)}}" title="{{ LanguageName(language, T) }}"></img> {{ LanguageName(language, T) }}</span>
             {{end}}
     {{end}}
         </td>

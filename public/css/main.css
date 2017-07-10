@@ -489,7 +489,10 @@ html, body {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-.torrent-info-data > img {
+.torrent-info-data > span { 
+	margin-right: 5px; 
+}
+.torrent-info-data > span > img {
 	margin-right: 3px;	
 }
 .torrent-info-row {
