@@ -32,12 +32,12 @@
                                </a>
                      </div>
                 </td>
-              <td class="tr-name">
+              <td class="tr-name user-td">
                   <a href="/view/{{torrent.ID}}">
                       {{torrent.Name}}
                   </a>
               </td>
-              <td class="tr-links">
+              <td class="tr-links user-td">
                   <a href="{{torrent.Magnet}}" title="{{  T("magnet_link") }}">
                         <div class="magnet-icon"></div>
                   </a>
@@ -47,10 +47,10 @@
                   </a>
                   {{end}}
               </td>
-              <td class="tr-size hide-xs">
+              <td class="tr-size user-td hide-xs">
                   {{ fileSize(torrent.Filesize, T) }}
               </td>
-              <td class="tr-date date-short hide-xs">{{torrent.Date}}</td>
+              <td class="tr-date user-td date-short hide-xs">{{torrent.Date}}</td>
           </tr>
           {{end}}
           {{end}}
