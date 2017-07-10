@@ -88,7 +88,10 @@ function playVoice() {
 
 function toggleRefine() {
 	var refine = document.getElementsByClassName("box refine")[0];
-	if(refine != "undefined") refine.style.display = refine.style.display == "none" ? "block" : "none";
+	if(refine != "undefined") {
+		refine.style.display = refine.style.display == "none" ? "block" : "none";
+		document.getElementsByClassName("form-input refine-searchbox")[0].value = document.getElementsByClassName("form-input search-box")[0].value;
+	}
 	else document.getElementById("header-form").submit();
 }
 // @license-end
