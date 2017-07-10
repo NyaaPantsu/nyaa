@@ -271,17 +271,15 @@ table {
 
 
 th { height: 40px;}
-.home-td,.user-td { height: 37px; }
-.user-td { 
+.home-td,.user-td { height: 37px; text-align: center; }
+.user-td.tr-cat { 
 	padding: 4px 5px 4px 1px;
 	min-width: 74px!important;
 }
-.user-td.tr-date, .user-td.tr-size { text-align: center; }
 .user-torrent .tr-name a { margin-left: 5px; }
 
 th, .home-td {
 	border-bottom:  1px solid;
-	text-align: center;
 	padding: 2px 5px;
 	white-space: nowrap;
 	overflow: hidden;
