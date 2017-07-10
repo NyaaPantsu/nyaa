@@ -88,7 +88,6 @@ function playVoice() {
 
 function toggleRefine() {
 	var refine = document.getElementsByClassName("box refine")[0];
-	refine.type = "button";
 	if(refine != "undefined") refine.style.display = refine.style.display == "none" ? "block" : "none";
 	else document.getElementById("header-form").submit();
 }
