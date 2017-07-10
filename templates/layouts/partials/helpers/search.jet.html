@@ -17,8 +17,8 @@
     <form style="display: grid;" method="GET" action="">
         <input type="hidden" name="c" value="{{Search.Category}}"/>
         <input type="hidden" name="userID" value="{{Search.UserID}}"/>
-        <input type="hidden" name="q" value="{{Search.NameLike}}"/>
-	       <span class="form-refine">Show <select name="s" class="form-input" style="margin-right: 8px;">
+	    <span class="form-refine">Search for: <input type="text" class="form-input refine-searchbox" size="30" name="q" value="{{Search.NameLike}}"/></span>
+	       <span class="form-refine">Show: <select name="s" class="form-input" style="margin-right: 8px;">
 -    <option value="0">{{ T("show_all")}}</option>
 -    <option value="2" {{if Search.Status == 2}}selected{{end}}>{{ T("filter_remakes")}}</option>
 -    <option value="3" {{if Search.Status == 3}}selected{{end}}>{{ T("trusted")}}</option>
