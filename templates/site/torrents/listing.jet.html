@@ -8,9 +8,7 @@
 {{end}}
 {{block content_body()}}
       <!-- Contain the table within a grid, as for better sizing -->
-      {{if Search.ShowRefine}}
-      {{yield search_refine()}}
-      {{end}}
+      <div style="text-align:left;{{ if !Search.ShowRefine }}display:none;{{ end }}" class="box refine">{{ yield search_refine() }}</div>
       <div class="results box">
           <table>
           <thead class="torrent-info">

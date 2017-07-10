@@ -40,7 +40,7 @@
         <td class="tr-flag torrent-view-td torrent-info-data">
     {{ range _, language := Torrent.Languages}}
             {{ if language != "" }}
-        <img src="/img/blank.gif" alt="{{ LanguageName(language, T) }}" class="flag flag-{{FlagCode(language)}}" title="{{ LanguageName(language, T) }}"></img> {{ LanguageName(language, T) }}
+        <span><img src="/img/blank.gif" alt="{{ LanguageName(language, T) }}" class="flag flag-{{FlagCode(language)}}" title="{{ LanguageName(language, T) }}"></img> {{ LanguageName(language, T) }}</span>
             {{end}}
     {{end}}
         </td>
@@ -92,9 +92,9 @@
   <p class="torrent-hr">{{ T("comments")}}</p>
   {{range index, element := Torrent.Comments}}
   <div class="torrent-info-box comment-box">
- <span class="comment-index"><a href="#comment_{{index}}">#{{index}}</a><small style="padding-left: 4px;" class="date-short">{{formatDateRFC(.Date)}}</small></span>
-  <p>{{.Username}}</p>
-  <p>{{.Content}}</p>
+ <span class="comment-index"><a href="#comment_{{index}}">#{{index}}</a><small style="padding-left: 4px;" class="date-short">{{formatDateRFC(element.Date)}}</small></span>
+  <p>{{element.Username}}</p>
+  <p>{{element.Content|raw}}</p>
   </div>
   {{end}}
   <div style="margin-top: 10px" class="torrent-info-box">

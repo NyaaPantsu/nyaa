@@ -6,7 +6,6 @@ import (
 	"strconv"
 	"strings"
 
-	"fmt"
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
@@ -23,11 +22,11 @@ import (
 
 // FindByID : get a torrent with its id
 func FindByID(id uint) (*models.Torrent, error) {
-	torrent := &models.Torrent{}
+	torrent := &models.Torrent{ID: id}
 	var err error
-	if found, ok := cache.C.Get(fmt.Sprintf("torrent_%d", id)); ok {
+	if found, ok := cache.C.Get(torrent.Identifier()); ok {
 		return found.(*models.Torrent), nil
-	}
+
 
 	tmp := models.ORM.Where("torrent_id = ?", id).Preload("Scrape").Preload("Comments")
 	if id > config.Get().Models.LastOldTorrentID {
@@ -59,7 +58,7 @@ func FindByID(id uint) (*models.Torrent, error) {
 		torrent.Comments[i].User = new(models.User)
 		models.ORM.Where("user_id = ?", torrent.Comments[i].UserID).Find(torrent.Comments[i].User)
 	}
-	cache.C.Set(fmt.Sprintf("torrent_%d", id), torrent, 5*time.Minute)
+	cache.C.Set(torrent.Identifier(), torrent, 5*time.Minute)
 	return torrent, nil
 }
 

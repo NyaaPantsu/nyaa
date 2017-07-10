@@ -27,6 +27,7 @@ func init() {
 	Router.StaticFS("/css/", http.Dir("./public/css/"))
 	Router.StaticFS("/js/", http.Dir("./public/js/"))
 	Router.StaticFS("/img/", http.Dir("./public/img/"))
+	Router.StaticFS("/apidoc/", http.Dir("./apidoc/"))
 	Router.StaticFS("/dbdumps/", http.Dir(DatabaseDumpPath))
 	Router.StaticFS("/gpg/", http.Dir(GPGPublicKeyPath))
 

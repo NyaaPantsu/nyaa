@@ -47,7 +47,6 @@ type Torrent struct {
 	Hidden      bool      `gorm:"column:hidden"`
 	Date        time.Time `gorm:"column:date"`
 	UploaderID  uint      `gorm:"column:uploader"`
-	Downloads   int       `gorm:"column:downloads"`
 	Stardom     int       `gorm:"column:stardom"`
 	Filesize    int64     `gorm:"column:filesize"`
 	Description string    `gorm:"column:description"`
@@ -84,7 +83,6 @@ type TorrentJSON struct {
 	SubCategory  string        `json:"sub_category"`
 	Category     string        `json:"category"`
 	AnidbID      string        `json:"anidb_id"`
-	Downloads    int           `json:"downloads"`
 	UploaderID   uint          `json:"uploader_id"`
 	UploaderName template.HTML `json:"uploader_name"`
 	OldUploader  template.HTML `json:"uploader_old"`
@@ -113,7 +111,7 @@ func (t Torrent) TableName() string {
 
 // Identifier : Return the identifier of a torrent
 func (t *Torrent) Identifier() string {
-	return "torrent_" + strconv.Itoa(int(t.ID))
+	return fmt.Sprintf("torrent_%d", t.ID)
 }
 
 // IsNormal : Return if a torrent status is normal
@@ -238,7 +236,6 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 		Status:      t.Status,
 		Date:        date,
 		UploaderID:  t.UploaderID,
-		Downloads:   t.Downloads,
 		//Stardom: t.Stardom,
 		Filesize:    t.Filesize,
 		Description: string(t.Description),
@@ -333,7 +330,6 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Comments:     commentsJSON,
 		SubCategory:  strconv.Itoa(t.SubCategory),
 		Category:     strconv.Itoa(t.Category),
-		Downloads:    t.Downloads,
 		UploaderID:   uploaderID,
 		UploaderName: sanitize.SafeText(uploader),
 		WebsiteLink:  sanitize.Safe(t.WebsiteLink),

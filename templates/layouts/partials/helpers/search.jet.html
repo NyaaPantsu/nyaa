@@ -5,49 +5,26 @@
       <option value="{{ cat.ID }}" {{if Search.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
       {{ end }}
   </select>
-  <label><span class="select-icon caret-down-icon"></span></label>
-  <select name="s" class="form-input hide-xs">
-    <option value="0">{{ T("show_all")}}</option>
-    <option value="2" {{if Search.Status == 2}}selected{{end}}>{{ T("filter_remakes")}}</option>
-    <option value="3" {{if Search.Status == 3}}selected{{end}}>{{ T("trusted")}}</option>
-    <option value="4" {{if Search.Status == 4}}selected{{end}}>A+</option>
-  </select>
-  {{ if Search.ShowItemsPerPage }}
-  <select name="limit" class="form-input hide-xs">
-    <option value="5" {{if Navigation.MaxItemPerPage  == 5}}selected{{end}}>5</option>
-    <option value="10" {{if Navigation.MaxItemPerPage  == 10}}selected{{end}}>10</option>
-    <option value="15" {{if Navigation.MaxItemPerPage  == 15}}selected{{end}}>15</option>
-    <option value="20" {{if Navigation.MaxItemPerPage  == 20}}selected{{end}}>20</option>
-    <option value="25" {{if Navigation.MaxItemPerPage  == 25}}selected{{end}}>25</option>
-    <option value="30" {{if Navigation.MaxItemPerPage  == 30}}selected{{end}}>30</option>
-    <option value="35" {{if Navigation.MaxItemPerPage  == 35}}selected{{end}}>35</option>
-    <option value="40" {{if Navigation.MaxItemPerPage  == 40}}selected{{end}}>40</option>
-    <option value="45" {{if Navigation.MaxItemPerPage  == 45}}selected{{end}}>45</option>
-    <option value="50" {{if Navigation.MaxItemPerPage  == 50}}selected{{end}}>50</option>
-    <option value="70" {{if Navigation.MaxItemPerPage  == 70}}selected{{end}}>70</option>
-    <option value="100" {{if Navigation.MaxItemPerPage  == 100}}selected{{end}}>100</option>
-    <option value="150" {{if Navigation.MaxItemPerPage  == 150}}selected{{end}}>150</option>
-    <option value="200" {{if Navigation.MaxItemPerPage  == 200}}selected{{end}}>200</option>
-    <option value="300" {{if Navigation.MaxItemPerPage  == 300}}selected{{end}}>300</option>
-  </select>
-  {{ end }}
   <input type="hidden" name="userID" value="{{ Search.UserID }}">
 {{end}}
 {{block search_button() }}
     <input class="form-input search-box" name="q" placeholder="{{ T("search")}}" type="text" value="{{Search.NameLike}}">
     <button type="submit" class="form-input icon-search"></button>
+    <button type="submit" class="form-input refine" name="refine" onclick="toggleRefine();">{{  T("refine")}}</button>
 {{end}}
 {{block search_refine() }}
-<div style="text-align:left;" class="box">
-    <details>
-        <summary class="form-input refine-drop">{{ T("refine_search") }}</summary>
+        <h3>{{ T("refine_search") }}</h3>
     <form style="display: grid;" method="GET" action="">
-        <input type="hidden" name="s" value="{{Search.Status}}"/>
         <input type="hidden" name="c" value="{{Search.Category}}"/>
-        <input type="hidden" name="max" value="{{Navigation.MaxItemPerPage}}"/>
         <input type="hidden" name="userID" value="{{Search.UserID}}"/>
-        <input type="hidden" name="q" value="{{Search.NameLike}}"/>
-    <span style="margin-top: 10px;" class="form-refine">{{ T("between")}} <input class="form-input" size="7" name="minSize" type="text" value="{{Search.MinSize}}"> {{ T("and")}} <input size="7" class="form-input" name="maxSize" type="text" value="{{Search.MaxSize}}">
+	    <span class="form-refine">Search for: <input type="text" class="form-input refine-searchbox" size="30" name="q" value="{{Search.NameLike}}"/></span>
+	       <span class="form-refine">Show: <select name="s" class="form-input" style="margin-right: 8px;">
+-    <option value="0">{{ T("show_all")}}</option>
+-    <option value="2" {{if Search.Status == 2}}selected{{end}}>{{ T("filter_remakes")}}</option>
+-    <option value="3" {{if Search.Status == 3}}selected{{end}}>{{ T("trusted")}}</option>
+-    <option value="4" {{if Search.Status == 4}}selected{{end}}>A+</option>
+-  </select>Limit: <input type="number" name="limit" value="{{ Navigation.MaxItemPerPage }}" class="form-input" min="1" max="300"></span>
+    <span class="form-refine">{{ T("between")}} <input class="form-input" size="7" name="minSize" type="text" value="{{Search.MinSize}}"> {{ T("and")}} <input size="7" class="form-input" name="maxSize" type="text" value="{{Search.MaxSize}}">
     <select name="sizeType" class="form-input">
         <option value="b"{{if Search.SizeType == "b"}} selected{{end}}>B</option>
         <option value="k"{{if Search.SizeType == "k"}} selected{{end}}>KiB</option>
@@ -67,13 +44,11 @@
     <div name="language" class="form-refine form-input language">
 	{{ range _, language := GetTorrentLanguages() }}
         <span class="input-group">
-            <input type="checkbox" name="lang" id="lang-{{ FlagCode(language) }}" value="{{FlagCode(language)}}"{{ range _, v := Search.Languages}}{{ if v.Code == language }} checked{{end}}{{end}}>
-            <label for="lang-{{ FlagCode(language) }}" class="flag flag-{{ FlagCode(language) }}" title="{{LanguageName(language, T)}}"></label>
+            <input type="checkbox" name="lang" id="lang-{{ language }}" value="{{language}}"{{ range _, v := Search.Languages}}{{ if v.Code == language }} checked{{end}}{{end}}>
+            <label for="lang-{{ language }}" class="flag flag-{{ FlagCode(language) }}" title="{{LanguageName(language, T)}}"></label>
         </span>
 	{{ end }}
     </div>
     <button type="submit" class="form-input refine-btn">{{  T("refine")}}</button>
     </form>
-    </details>
-</div>
 {{end}}

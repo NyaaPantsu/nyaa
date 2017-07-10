@@ -1284,8 +1284,8 @@
     "translation": "Torrent language"
   },
   {
-    "id": "select_a_torrent_language",
-    "translation": "Select a Torrent Language"
+    "id": "language_not_mandatory",
+    "translation": "Language is not mandatory anymore"
   },
   {
     "id": "language_en-us_name",

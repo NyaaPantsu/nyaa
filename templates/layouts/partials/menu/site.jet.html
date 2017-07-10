@@ -19,7 +19,7 @@
     <div class="h-right">
         {{ include "layouts/partials/helpers/badgemenu" }}
         <div class="h-search">
-        <form role="search" action="{{URL.Parse("/search")}}" method="get">
+        <form role="search" action="{{URL.Parse("/search")}}" id="header-form" method="get">
             {{ yield search_common() }}
             {{ yield search_button() }}
         </form>

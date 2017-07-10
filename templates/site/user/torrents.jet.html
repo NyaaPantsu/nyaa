@@ -1,50 +1,57 @@
 {{ extends "layouts/profile" }}
 {{ import "layouts/partials/menu/profile" }}
+{{block additional_header()}}<link rel="stylesheet" href="/css/flags/flags.min.css">{{end}}
 {{ block profile_navigation()}}{{ yield profile_menu(route="profile") }}{{end}}
 {{block profile_content()}}
 {{ if len(UserProfile.Torrents) > 0 }}
           <table>
           <tr class="torrent-info">
-            <th class="tr-cat">{{ T("category")}}</th>
-            <th class="tr-name">{{ T("name")}}</th>
-            <th class="tr-dl">{{ T("links")}}</th>
-            <th class="tr-size hide-xs">{{ T("size")}}</th>
-            <th class="tr-date hide-xs">{{ T("date")}}</th>
+            <th class="tr-cat user-td">{{ T("category")}}</th>
+            <th class="tr-name user-td">{{ T("name")}}</th>
+            <th class="tr-dl user-td">{{ T("links")}}</th>
+            <th class="tr-size user-td hide-xs">{{ T("size")}}</th>
+            <th class="tr-date user-td hide-xs">{{ T("date")}}</th>
           </tr>
           {{ range i, t := UserProfile.Torrents }}
           {{ if DisplayTorrent(t, User) }}
           {{ torrent := t.ToJSON() }}
-          <tr class="torrent-info
+          <tr class="torrent-info 
               {{if torrent.Status == 2}}remake{{else if torrent.Status == 3}}trusted{{else if torrent.Status == 4}}aplus{{end}}">
               <!-- forced width because the <td> gets bigger randomly otherwise -->
-              <td>
-                  <a href="{{URL.Parse ("/search?c="+ torrent.Category + "_" +torrent.SubCategory) }}">
-                      {{ if Sukebei }}
-                      <img src="{{URL.Parse("/img/torrents/sukebei/"+ torrent.Category+ torrent.SubCategory+".png") }}" title="{{ T(CategoryName(torrent.Category, torrent.SubCategory)) }}">
-                      {{ else }}
-                      <img src="{{URL.Parse ("/img/torrents/"+ torrent.SubCategory+".png") }}" title="{{ T(CategoryName(torrent.Category, torrent.SubCategory)) }}">
-                      {{ end}}
-                  </a>
-              </td>
-              <td class="tr-name">
+		<td class="tr-cat user-td">
+		{{ if Sukebei }}
+			<div class="nyaa-cat sukebei-cat-{{ torrent.Category }}{{ torrent.SubCategory}}">
+		{{ else }}
+			<div class="nyaa-cat nyaa-cat-{{ torrent.SubCategory }}">
+		{{ end }}
+                   		<a href="{{URL.Parse ("/search?c="+ torrent.Category + "_" +torrent.SubCategory) }}" title="{{T(CategoryName(torrent.Category, torrent.SubCategory))}}" class="category">
+                      		{{ if torrent.Languages[0] != "" }}
+					<a href="{{ URL.Parse("/search?c="+torrent.Category+"_"+ torrent.SubCategory +"&lang=") }}{{ range key, language := torrent.Languages }}{{ language }}{{ if len(torrent.Languages) > 1 && (key+1) < len(torrent.Languages) }},{{ end }}{{ end }}">
+						<img src="/img/blank.gif" alt="{{ LanguageName(torrent.Languages[0], T) }}" class="flag flag-{{ (len(torrent.Languages) == 1) ?  FlagCode(torrent.Languages[0]) : "multiple" }}" title=" {{ range key, language := torrent.Languages }}{{ LanguageName(language, T) }}{{ if len(torrent.Languages) > 1 && (key+1) < len(torrent.Languages) }},{{ end }}{{ end }}">
+                                         </a>
+                               {{end}}
+                               </a>
+                     </div>
+                </td>
+              <td class="tr-name user-td">
                   <a href="/view/{{torrent.ID}}">
                       {{torrent.Name}}
                   </a>
               </td>
-              <td class="tr-links">
+              <td class="tr-links home-td">
                   <a href="{{torrent.Magnet}}" title="{{  T("magnet_link") }}">
-                        <div class="magnet-icon"></div>
+                        <div class="icon-magnet"></div>
                   </a>
                   {{if torrent.TorrentLink != ""}}
                   <a href="{{torrent.TorrentLink}}" title="{{  T("torrent_file") }}">
-                        <div class="download-icon"></div>
+                        <div class="icon-floppy"></div>
                   </a>
                   {{end}}
               </td>
-              <td class="tr-size hide-xs">
+              <td class="tr-size user-td hide-xs">
                   {{ fileSize(torrent.Filesize, T) }}
               </td>
-              <td class="tr-date date-short hide-xs">{{torrent.Date}}</td>
+              <td class="tr-date user-td date-short hide-xs">{{torrent.Date}}</td>
           </tr>
           {{end}}
           {{end}}

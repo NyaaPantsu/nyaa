@@ -56,7 +56,7 @@ func SearchHandler(c *gin.Context) {
 	searchForm := newSearchForm(c)
 	searchForm.TorrentParam, searchForm.Category = searchParam, category
 
-	if c.Request.URL.Path == "/" {
+	if c.Query("refine") == "" {
 		searchForm.ShowRefine = false
 	}
 
