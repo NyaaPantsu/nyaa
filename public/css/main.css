@@ -288,6 +288,9 @@ th,.home-td,.user-td {
 	height: 37px; 
 	text-align: center;
 	padding: 2px 5px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .user-td.tr-cat { 
@@ -295,13 +298,8 @@ th,.home-td,.user-td {
 	min-width: 74px!important;
 }
 
-th, .home-td {
-	border-bottom:  1px solid;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+th, .home-td { border-bottom:  1px solid; }
 
-}
 .tr-cat div.nyaa-cat {
 	position: relative;
 	text-align: left;
