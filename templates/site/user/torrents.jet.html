@@ -15,7 +15,7 @@
           {{ range i, t := UserProfile.Torrents }}
           {{ if DisplayTorrent(t, User) }}
           {{ torrent := t.ToJSON() }}
-          <tr class="user-torrent torrent-info 
+          <tr class="torrent-info 
               {{if torrent.Status == 2}}remake{{else if torrent.Status == 3}}trusted{{else if torrent.Status == 4}}aplus{{end}}">
               <!-- forced width because the <td> gets bigger randomly otherwise -->
 		<td class="tr-cat user-td">
