@@ -2,6 +2,10 @@
     background: none;
 }
 
+.flag-ca-es {
+    background: url('flag_catalan.png') no-repeat;   
+}
+
 .flag-multiple {
     background: url('flag_multiple.png') no-repeat;
 }
