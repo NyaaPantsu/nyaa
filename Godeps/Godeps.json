@@ -231,6 +231,18 @@
 			"Rev": "a55a76086885b80f79961eacb876ebd8caf3868d"
 		},
 		{
+			"ImportPath": "golang.org/x/text/internal/tag",
+			"Rev": "cfdf022e86b4ecfb646e1efbd7db175dd623a8fa"
+		},
+		{
+			"ImportPath": "golang.org/x/text/language",
+			"Rev": "cfdf022e86b4ecfb646e1efbd7db175dd623a8fa"
+		},
+		{
+			"ImportPath": "golang.org/x/text/language/display",
+			"Rev": "cfdf022e86b4ecfb646e1efbd7db175dd623a8fa"
+		},
+		{
 			"ImportPath": "gopkg.in/go-playground/validator.v8",
 			"Comment": "v8.18.1",
 			"Rev": "5f57d2222ad794d0dffb07e664ea05e2ee07d60c"
