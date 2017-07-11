@@ -56,7 +56,7 @@ func walkDirTest(dir string, t *testing.T) {
 		},
 		"edit.jet.html": func(vars jet.VarMap) jet.VarMap {
 			vars.Set("Form", &torrentValidator.TorrentRequest{})
-			vars.Set("Languages", publicSettings.Languages{{"", ""}})
+			vars.Set("Languages", publicSettings.Languages{{"", "", ""}})
 			return vars
 		},
 		"upload.jet.html": func(vars jet.VarMap) jet.VarMap {
@@ -69,7 +69,7 @@ func walkDirTest(dir string, t *testing.T) {
 			return vars
 		},
 		"settings.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", &LanguagesJSONResponse{"", publicSettings.Languages{{"", ""}}})
+			vars.Set("Form", &LanguagesJSONResponse{"", publicSettings.Languages{{"", "", ""}}})
 			return vars
 		},
 		"login.jet.html": func(vars jet.VarMap) jet.VarMap {

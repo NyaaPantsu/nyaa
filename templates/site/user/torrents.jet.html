@@ -26,7 +26,7 @@
                    		<a href="{{URL.Parse ("/search?c="+ torrent.Category + "_" +torrent.SubCategory) }}" title="{{T(CategoryName(torrent.Category, torrent.SubCategory))}}" class="category">
                       		{{ if torrent.Languages[0] != "" }}
 					<a href="{{ URL.Parse("/search?c="+torrent.Category+"_"+ torrent.SubCategory +"&lang=") }}{{ range key, language := torrent.Languages }}{{ language }}{{ if len(torrent.Languages) > 1 && (key+1) < len(torrent.Languages) }},{{ end }}{{ end }}">
-						<img src="/img/blank.gif" alt="{{ LanguageName(torrent.Languages[0], T) }}" class="flag flag-{{ (len(torrent.Languages) == 1) ?  torrent.Languages[0].Flag() : "multiple" }}" title=" {{ range key, language := torrent.Languages }}{{ LanguageName(language, T) }}{{ if len(torrent.Languages) > 1 && (key+1) < len(torrent.Languages) }},{{ end }}{{ end }}">
+						<img src="/img/blank.gif" alt="{{ LanguageName(torrent.Languages[0], T) }}" class="flag flag-{{ (len(torrent.Languages) == 1) ?  torrent.Languages[0].Flag(false) : "multiple" }}" title=" {{ range key, language := torrent.Languages }}{{ LanguageName(language, T) }}{{ if len(torrent.Languages) > 1 && (key+1) < len(torrent.Languages) }},{{ end }}{{ end }}">
                                          </a>
                                {{end}}
                                </a>
