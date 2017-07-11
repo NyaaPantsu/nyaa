@@ -3,29 +3,38 @@ package torrentLanguages
 import (
 	"strings"
 
-	"sort"
-
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 )
 
-var torrentLanguages []string
+var torrentLanguages publicSettings.Languages
 
 func initTorrentLanguages() {
 	languages := publicSettings.GetAvailableLanguages()
-
+	var langSort []string
 	for _, lang := range languages {
-		torrentLanguages = append(torrentLanguages, lang.Code)
+		langSort = append(langSort, lang.Code)
 	}
 
 	// Also support languages we don't have a translation
-	torrentLanguages = append(torrentLanguages, config.Get().Torrents.AdditionalLanguages...)
+	langSorted := publicSettings.ParseLanguages(append(langSort, config.Get().Torrents.AdditionalLanguages...))
 
-	sort.Strings(torrentLanguages)
+	prevLang := ""
+	for _, lang := range langSorted {
+		if prevLang == lang.Code {
+			last := len(torrentLanguages) - 1
+			if last > 0 && !strings.Contains(torrentLanguages[last].Name, lang.Name) {
+				torrentLanguages[last].Name += ", " + lang.Name
+			}
+		} else {
+			prevLang = lang.Code
+			torrentLanguages = append(torrentLanguages, lang)
+		}
+	}
 }
 
 // GetTorrentLanguages returns a list of available torrent languages.
-func GetTorrentLanguages() []string {
+func GetTorrentLanguages() publicSettings.Languages {
 	if torrentLanguages == nil {
 		initTorrentLanguages()
 	}
@@ -34,23 +43,13 @@ func GetTorrentLanguages() []string {
 }
 
 // LanguageExists check if said language is available for torrents
-func LanguageExists(lang string) bool {
+func LanguageExists(languageCode string) bool {
 	langs := GetTorrentLanguages()
-	for _, code := range langs {
-		if code == lang {
+	for _, lang := range langs {
+		if lang.Tag == languageCode {
 			return true
 		}
 	}
 
 	return false
-}
-
-// FlagFromLanguage reads the language's country code.
-func FlagFromLanguage(lang string) string {
-	languageSplit := strings.Split(lang, "-")
-	if len(languageSplit) > 1 {
-		return languageSplit[1]
-	}
-
-	return ""
 }
