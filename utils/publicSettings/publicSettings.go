@@ -233,17 +233,26 @@ func (lang *Language) Translate(languageCode template.HTML) string {
 // Translate accepts a languageCode in string and translate the language to the language from the language code in to
 func Translate(languageCode string, to string) string {
 	langTranslate := display.Tags(getParentTag(to))
-	return langTranslate.Name(languageCode)
+	translated := langTranslate.Name(glang.Make(languageCode))
+	if translated == "Root" {
+		return ""
+	}
+	return translated
 }
 
 // Flag reads the language's country code and return the country's flag if national true or the international flag for the language
 func (lang *Language) Flag(national bool) string {
 	if national {
-		languageSplit := strings.Split(lang.Tag, "-")
-		if len(languageSplit) > 1 {
-			return languageSplit[1]
-		}
-		return lang.Tag
+		return Flag(lang.Tag)
 	}
 	return lang.Code
+}
+
+// Flag reads the language's country code and return the country's flag if national true or the international flag for the language
+func Flag(languageCode string) string {
+	languageSplit := strings.Split(languageCode, "-")
+	if len(languageSplit) > 1 {
+		return languageSplit[1]
+	}
+	return languageCode
 }
