@@ -685,7 +685,9 @@ input.filelist-checkbox:checked + table.table-filelist {
 #description-box {
 	padding-right: 14px;
 	padding-left: 14px;
+	margin-bottom: 10px;
 }
+
 #description-box div {
 	margin-top: 14px;
 	margin-bottom: 14px;
