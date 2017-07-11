@@ -686,6 +686,10 @@ input.filelist-checkbox:checked + table.table-filelist {
 	padding-right: 14px;
 	padding-left: 14px;
 }
+#description-box div {
+	margin-top: 14px;
+	margin-bottom: 14px;
+}
 
 /* Markdown editor fixes */
 .editor-toolbar.fullscreen {
