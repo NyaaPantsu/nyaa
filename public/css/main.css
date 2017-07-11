@@ -238,6 +238,8 @@ select.form-input {
 	text-overflow: ellipsis;
 	padding-right: 0;
 }
+.h-user .nav-btn.notif > .badge { font-weight: bold; }
+
 .user-avatar {
 	border-radius: 3px;
 	overflow:  hidden;
