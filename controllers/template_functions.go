@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"time"
 
+	"strings"
+
 	"github.com/CloudyKit/jet"
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
@@ -190,23 +192,16 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 		return ""
 	})
 	vars.Set("GetTorrentLanguages", torrentLanguages.GetTorrentLanguages)
-	vars.Set("LanguageName", func(code string, T publicSettings.TemplateTfunc) template.HTML {
-		if code == "other" || code == "multiple" {
-			return T("language_" + code + "_name")
+	vars.Set("LanguageName", func(lang publicSettings.Language, T publicSettings.TemplateTfunc) string {
+		if strings.Contains(lang.Name, ",") {
+			langs := strings.Split(lang.Name, ", ")
+			tags := strings.Split(lang.Tag, ", ")
+			for k := range langs {
+				langs[k] = publicSettings.Translate(tags[k], string(T("language_code")))
+			}
+			return strings.Join(langs, ", ")
 		}
-
-		if !torrentLanguages.LanguageExists(code) {
-			return T("unknown")
-		}
-
-		return T("language_" + code + "_name")
-	})
-	vars.Set("FlagCode", func(languageCode string) string {
-		if languageCode == "other" || languageCode == "multiple" {
-			return languageCode
-		}
-
-		return torrentLanguages.FlagFromLanguage(languageCode)
+		return lang.Translate(T("language_code"))
 	})
 	vars.Set("fileSize", func(filesize int64, T publicSettings.TemplateTfunc) template.HTML {
 		if filesize == 0 {
