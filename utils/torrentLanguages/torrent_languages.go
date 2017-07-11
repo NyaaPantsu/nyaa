@@ -25,6 +25,7 @@ func initTorrentLanguages() {
 			last := len(torrentLanguages) - 1
 			if last > 0 && !strings.Contains(torrentLanguages[last].Name, lang.Name) {
 				torrentLanguages[last].Name += ", " + lang.Name
+				torrentLanguages[last].Tag += ", " + lang.Tag
 			}
 		} else {
 			prevLang = lang.Code

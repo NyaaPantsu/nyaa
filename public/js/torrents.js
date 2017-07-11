@@ -49,7 +49,7 @@ function humanFileSize(bytes, si) {
 function flagCode(language) {
     split = language.split("-");
     if (split.length > 1) {
-        return split[1];
+        return split[0];
     }
     return language;
 }
