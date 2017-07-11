@@ -49,7 +49,7 @@
                   <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}" class="category">
               {{if .Languages[0] != "" }}
                   	<a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory +"&lang=") }}{{ range key, language := .Languages }}{{ language }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
-				<img src="/img/blank.gif" alt="{{ LanguageName(.Languages[0], T) }}" class="flag flag-{{ (len(.Languages) == 1) ?  FlagCode(.Languages[0]) : "multiple" }}" title=" {{ range key, language := .Languages }}{{ LanguageName(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
+				<img src="/img/blank.gif" alt="{{ LanguageName(.Languages[0], T) }}" class="flag flag-{{ (len(.Languages) == 1) ?  .Languages[0] : "multiple" }}" title=" {{ range key, language := .Languages }}{{ LanguageName(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
 			</a>
 	      {{end}}
                   </a>
@@ -241,7 +241,7 @@
               "<div class=\"nyaa-cat nyaa-cat-"+ torrent.sub_category +"\">"+
 			{{end}}
                   "<a href=\"{{URL.Parse("/search?c=") }}"+ torrent.category + "_" + torrent.sub_category +"\" title=\""+ T.r(torrent.category+"_"+torrent.sub_category)+"\">"+
-                      ((torrent.languages[0] != "") ? "<a href=\"{{URL.Parse("/search?c=") }}"+ torrent.category + "_" + torrent.sub_category +"&lang=" + torrent.languages.join(",") +"\"><img src=\"img/blank.gif\" class=\"flag flag-"+ ((torrent.languages.length == 1) ? flagCode(torrent.languages[0]) : "multiple") +"\" title=\""+torrent.languages.map(function (el, i) { return T.r(el)}).join(",")+"\"></a>" : "") +
+                      ((torrent.languages[0] != "") ? "<a href=\"{{URL.Parse("/search?c=") }}"+ torrent.category + "_" + torrent.sub_category +"&lang=" + torrent.languages.join(",") +"\"><img src=\"img/blank.gif\" class=\"flag flag-"+ ((torrent.languages.length == 1) ? torrent.languages[0] : "multiple") +"\" title=\""+torrent.languages.map(function (el, i) { return T.r(el)}).join(",")+"\"></a>" : "") +
                   "</a>"+
               "</div></td>"+
               "<td class=\"tr-name home-td\"><a href=\"/view/"+torrent.id+"\">"+Templates.EncodeEntities(torrent.name) +"</a></td>"+
