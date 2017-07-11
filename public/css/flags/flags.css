@@ -13,15 +13,15 @@
 }
 
 
-.flag.flag-zh-cn {
+.flag.flag-zh {
     background-position: -16px 0;
 }
 
-.flag.flag-sv-se {
+.flag.flag-sv {
     background-position: -16px -33px;
 }
 
-.flag.flag-th-th {
+.flag.flag-th {
     background-position: -32px -33px;
 }
 
@@ -29,66 +29,70 @@
     background-position: 0 -22px;
 }
 
-.flag.flag-pt-pt {
+.flag.flag-pt {
     background-position: -48px -22px;
 }
 
-.flag.flag-ro-ro {
+.flag.flag-ro {
     background-position: -64px -22px;
 }
 
-.flag.flag-nb-no {
+.flag.flag-nb {
     background-position: -32px -22px;
 }
 
-.flag.flag-es-es {
+.flag.flag-es {
     background-position: -48px 0;
 }
 
-.flag.flag-zh-tw {
+.flag.flag-zh-Hant {
     background-position: -48px -33px;
 }
 
-.flag.flag-ru-ru {
+.flag.flag-ru {
     background-position: 0 -33px;
 }
 
-.flag.flag-ko-kr {
+.flag.flag-ko {
     background-position: -64px -11px;
 }
 
-.flag.flag-pt-br {
+.flag.flag-br {
     background-position: 0 0;
 }
 
-.flag.flag-it-it {
+.flag.flag-it {
     background-position: -32px -11px;
 }
 
-.flag.flag-nl-nl {
+.flag.flag-nl {
     background-position: -16px -22px;
 }
 
-.flag.flag-fr-fr {
+.flag.flag-fr {
     background-position: -64px 0;
 }
 
-.flag.flag-de-de {
+.flag.flag-de {
     background-position: -32px 0;
 }
 
-.flag.flag-ja-jp {
+.flag.flag-ja {
     background-position: -48px -11px;
 }
 
-.flag.flag-hu-hu {
+.flag.flag-hu {
     background-position: 0 -11px;
 }
 
-.flag.flag-en-us {
+.flag.flag-en {
     background-position: -64px -33px;
 }
 
-.flag.flag-is-is {
+.flag.flag-is {
     background-position: -16px -11px;
+}
+
+.flag.flag-ca {
+    background: url('flag_catalan.png') no-repeat;   
 }
