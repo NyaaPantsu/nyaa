@@ -141,6 +141,9 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	})
 	vars.Set("Sukebei", config.IsSukebei)
 	vars.Set("getDefaultLanguage", publicSettings.GetDefaultLanguage)
+	vars.Set("FlagCode", func(languageCode string) string {
+		return publicSettings.Flag(languageCode)
+	})
 	vars.Set("getAvatar", func(hash string, size int) string {
 		return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
 	})
@@ -197,11 +200,22 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 			langs := strings.Split(lang.Name, ", ")
 			tags := strings.Split(lang.Tag, ", ")
 			for k := range langs {
-				langs[k] = publicSettings.Translate(tags[k], string(T("language_code")))
+				langs[k] = strings.Title(publicSettings.Translate(tags[k], string(T("language_code"))))
 			}
 			return strings.Join(langs, ", ")
 		}
-		return lang.Translate(T("language_code"))
+		return strings.Title(lang.Translate(T("language_code")))
+	})
+	vars.Set("LanguageNameFromCode", func(languageCode string, T publicSettings.TemplateTfunc) string {
+		if strings.Contains(languageCode, ",") {
+			tags := strings.Split(languageCode, ", ")
+			var langs []string
+			for k := range langs {
+				langs = append(langs, strings.Title(publicSettings.Translate(tags[k], string(T("language_code")))))
+			}
+			return strings.Join(langs, ", ")
+		}
+		return strings.Title(publicSettings.Translate(languageCode, string(T("language_code"))))
 	})
 	vars.Set("fileSize", func(filesize int64, T publicSettings.TemplateTfunc) template.HTML {
 		if filesize == 0 {

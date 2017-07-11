@@ -59,3 +59,39 @@ func TestLanguages(t *testing.T) {
 		fmt.Printf("Name of the language in %s: %s\n", displayLang.String(), n.Name(lang))
 	}
 }
+
+func TestTranslate(t *testing.T) {
+	conf := config.Get().I18n
+	conf.Directory = path.Join("..", "..", conf.Directory)
+	var retriever UserRetriever // not required during initialization
+	err := InitI18n(conf, retriever)
+	if err != nil {
+		t.Errorf("failed to initialize language translations: %v", err)
+	}
+
+	T, _ := GetDefaultTfunc()
+	test := []map[string]string{
+		{
+			"test":   "",
+			"result": "",
+		},
+		{
+			"test":   "fr-fr",
+			"result": "French (France)",
+		},
+		{
+			"test":   "fr",
+			"result": "French",
+		},
+		{
+			"test":   "fredfef",
+			"result": "",
+		},
+	}
+	for _, langTest := range test {
+		result := Translate(langTest["test"], T("language_code"))
+		if result != langTest["result"] {
+			t.Errorf("Result from Translate function different from the expected: have '%s', wants '%s'", result, langTest["result"])
+		}
+	}
+}
