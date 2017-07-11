@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"path"
 	"path/filepath"
+	"strings"
 
 	"sort"
 
@@ -14,6 +15,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/nicksnyder/go-i18n/i18n"
 	"github.com/nicksnyder/go-i18n/i18n/language"
+
+	glang "golang.org/x/text/language"
+	"golang.org/x/text/language/display"
 )
 
 // UserRetriever : this interface is required to prevent a cyclic import between the languages and userService package.
@@ -24,6 +28,7 @@ type UserRetriever interface {
 type Language struct {
 	Name string
 	Code string
+	Tag  string
 }
 
 type Languages []Language
@@ -98,27 +103,33 @@ func GetAvailableLanguages() Languages {
 	if len(languages) > 0 {
 		return languages
 	}
-	var T i18n.TranslateFunc
-
 	// Need this to sort out languages alphabetically by language tag
 	var codes []string
 	for _, languageTag := range i18n.LanguageTags() {
 		codes = append(codes, languageTag)
 	}
-	sort.Strings(codes)
+	languages = ParseLanguages(codes)
+	return languages
+}
 
+func getParentTag(languageTag string) glang.Tag {
+	lang := glang.Make(languageTag)
+	for !lang.Parent().IsRoot() {
+		lang = lang.Parent()
+	}
+	return lang
+}
+
+// ParseLanguages takes a list of language codes and convert them in languages object
+func ParseLanguages(codes []string) Languages {
+	var langs Languages
+	sort.Strings(codes)
 	// Now build languages array
 	for _, languageTag := range codes {
-		T, _ = i18n.Tfunc(languageTag)
-		/* Translation files should have an ID with the translated language name.
-		   If they don't, just use the languageTag */
-		if languageName := T("language_name"); languageName != "language_name" {
-			languages = append(languages, Language{languageName, languageTag})
-		} else {
-			languages = append(languages, Language{languageName, languageTag})
-		}
+		lang := getParentTag(languageTag)
+		langs = append(langs, Language{strings.Title(display.Self.Name(glang.Make(languageTag))), lang.String(), languageTag})
 	}
-	return languages
+	return langs
 }
 
 // GetDefaultTfunc : Gets T func from default language
@@ -154,7 +165,7 @@ func GetTfuncFromRequest(c *gin.Context) TemplateTfunc {
 	}
 }
 
-// GetThemeFromRequest: Gets the user selected theme from the request
+// GetThemeFromRequest : Gets the user selected theme from the request
 func GetThemeFromRequest(c *gin.Context) string {
 	user, _ := getCurrentUser(c)
 	if user.ID > 0 {
@@ -167,7 +178,7 @@ func GetThemeFromRequest(c *gin.Context) string {
 	return ""
 }
 
-// GetThemeFromRequest: Gets the user selected theme from the request
+// GetMascotFromRequest : Gets the user selected theme from the request
 func GetMascotFromRequest(c *gin.Context) string {
 	user, _ := getCurrentUser(c)
 	if user.ID > 0 {
@@ -180,7 +191,7 @@ func GetMascotFromRequest(c *gin.Context) string {
 	return "show"
 }
 
-// GetMascotUrlFromRequest: Get the user selected mascot url from the request.
+// GetMascotUrlFromRequest : Get the user selected mascot url from the request.
 // Returns an empty string if not set.
 func GetMascotUrlFromRequest(c *gin.Context) string {
 	user, _ := getCurrentUser(c)
@@ -203,8 +214,8 @@ func getCurrentUser(c *gin.Context) (*models.User, error) {
 	return userRetriever.RetrieveCurrentUser(c)
 }
 
+// Exist evaluate if a language exists or not (language code or language name)
 func (langs Languages) Exist(name string) bool {
-
 	for _, language := range langs {
 		if language.Code == name || language.Name == name {
 			return true
@@ -212,4 +223,22 @@ func (langs Languages) Exist(name string) bool {
 	}
 
 	return false
+}
+
+// Translate accepts a languageCode in string and translate the language to the language from the language code
+func (lang *Language) Translate(languageCode template.HTML) string {
+	langTranslate := display.Tags(getParentTag(string(languageCode)))
+	return langTranslate.Name(lang)
+}
+
+// Flag reads the language's country code and return the country's flag if national true or the international flag for the language
+func (lang *Language) Flag(national bool) string {
+	if national {
+		languageSplit := strings.Split(lang.Tag, "-")
+		if len(languageSplit) > 1 {
+			return languageSplit[1]
+		}
+		return lang.Tag
+	}
+	return lang.Code
 }
