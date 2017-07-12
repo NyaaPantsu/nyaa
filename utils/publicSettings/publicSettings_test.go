@@ -51,7 +51,7 @@ func TestLanguages(t *testing.T) {
 	tags := i18n.LanguageTags()
 	for _, languageTag := range tags {
 		// The matcher will match Swiss German to German.
-		lang := getParentTag(languageTag)
+		lang := GetParentTag(languageTag)
 		if lang.String() == "und" {
 			t.Errorf("Couldn't find the language root for the language %s", languageTag)
 		}

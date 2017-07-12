@@ -47,7 +47,7 @@ func GetTorrentLanguages() publicSettings.Languages {
 func LanguageExists(languageCode string) bool {
 	langs := GetTorrentLanguages()
 	for _, lang := range langs {
-		if lang.Tag == languageCode {
+		if lang.Code == publicSettings.GetParentTag(languageCode).String() {
 			return true
 		}
 	}

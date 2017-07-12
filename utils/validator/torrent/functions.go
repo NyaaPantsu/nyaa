@@ -3,7 +3,6 @@ package torrentValidator
 import (
 	"encoding/base32"
 	"encoding/hex"
-	"errors"
 	"io"
 	"mime/multipart"
 	"net/url"
@@ -23,14 +22,14 @@ import (
 func (r *TorrentRequest) ValidateName() error {
 	// then actually check that we have everything we need
 	if len(r.Name) == 0 {
-		return errors.New("torrent_name_invalid")
+		return errTorrentNameInvalid
 	}
 	return nil
 }
 
 func (r *TorrentRequest) ValidateDescription() error {
 	if len(r.Description) > config.Get().DescriptionLength {
-		return errors.New("torrent_desc_invalid")
+		return errTorrentDescInvalid
 	}
 	return nil
 }
@@ -42,7 +41,7 @@ func (r *TorrentRequest) ValidateMagnet() error {
 	}
 	xt := magnetURL.Query().Get("xt")
 	if !strings.HasPrefix(xt, "urn:btih:") {
-		return errors.New("torrent_magnet_invalid")
+		return errTorrentMagnetInvalid
 	}
 	xt = strings.SplitAfter(xt, ":")[2]
 	r.Infohash = strings.TrimSpace(strings.ToUpper(strings.Split(xt, "&")[0]))
@@ -53,9 +52,9 @@ func (r *TorrentRequest) ValidateMagnet() error {
 func (r *TorrentRequest) ValidateWebsiteLink() error {
 	if r.WebsiteLink != "" {
 		// WebsiteLink
-		urlRegexp, _ := regexp.Compile(`^(https?:\/\/|ircs?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$`)
+		urlRegexp, _ := regexp.Compile(`^(https?:\/\/|ircs?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*(\/.*)?$`)
 		if !urlRegexp.MatchString(r.WebsiteLink) {
-			return errors.New("torrent_uri_invalid")
+			return errTorrentURIInvalid
 		}
 	}
 	return nil
@@ -72,7 +71,7 @@ func (r *TorrentRequest) ValidateHash() error {
 			return err
 		}
 		if !isBase16 {
-			return errors.New("torrent_hash_invalid")
+			return errTorrentHashInvalid
 		}
 	} else {
 		//convert to base16
@@ -92,19 +91,19 @@ func (r *TorrentRequest) ExtractCategory() error {
 	catsSplit := strings.Split(r.Category, "_")
 	// need this to prevent out of index panics
 	if len(catsSplit) != 2 {
-		return errors.New("torrent_cat_invalid")
+		return errTorrentCatInvalid
 	}
 	CatID, err := strconv.Atoi(catsSplit[0])
 	if err != nil {
-		return errors.New("torrent_cat_invalid")
+		return errTorrentCatInvalid
 	}
 	SubCatID, err := strconv.Atoi(catsSplit[1])
 	if err != nil {
-		return errors.New("torrent_cat_invalid")
+		return errTorrentCatInvalid
 	}
 
 	if !categories.Exists(r.Category) {
-		return errors.New("torrent_cat_invalid")
+		return errTorrentCatInvalid
 	}
 
 	r.CategoryID = CatID
@@ -137,7 +136,7 @@ func (r *TorrentRequest) ExtractLanguage() error {
 		}
 
 		if language != "" && !torrentLanguages.LanguageExists(language) {
-			return errors.New("torrent_lang_invalid")
+			return errTorrentLangInvalid
 		}
 
 		if strings.HasPrefix(language, "en") && isEnglishCategory {
@@ -185,12 +184,12 @@ func (r *TorrentRequest) ValidateMultipartUpload(c *gin.Context, uploadFormTorre
 
 		// check a few things
 		if torrent.IsPrivate() {
-			return tfile, errors.New("torrent_private")
+			return tfile, errTorrentPrivate
 		}
 		trackers := torrent.GetAllAnnounceURLS()
 		r.Trackers = CheckTrackers(trackers)
 		if len(r.Trackers) == 0 {
-			return tfile, errors.New("torrent_no_working_trackers")
+			return tfile, errTorrentNoTrackers
 		}
 
 		// Name
@@ -200,7 +199,7 @@ func (r *TorrentRequest) ValidateMultipartUpload(c *gin.Context, uploadFormTorre
 
 		// Magnet link: if a file is provided it should be empty
 		if len(r.Magnet) != 0 {
-			return tfile, errors.New("torrent_plus_magnet")
+			return tfile, errTorrentAndMagnet
 		}
 
 		_, seekErr = tfile.Seek(0, io.SeekStart)

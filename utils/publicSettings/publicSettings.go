@@ -112,7 +112,8 @@ func GetAvailableLanguages() Languages {
 	return languages
 }
 
-func getParentTag(languageTag string) glang.Tag {
+// GetParentTag returns the highest parent of a language (e.g. fr-fr -> fr)
+func GetParentTag(languageTag string) glang.Tag {
 	lang := glang.Make(languageTag)
 	for !lang.Parent().IsRoot() {
 		lang = lang.Parent()
@@ -126,7 +127,7 @@ func ParseLanguages(codes []string) Languages {
 	sort.Strings(codes)
 	// Now build languages array
 	for _, languageTag := range codes {
-		lang := getParentTag(languageTag)
+		lang := GetParentTag(languageTag)
 		langs = append(langs, Language{strings.Title(display.Self.Name(glang.Make(languageTag))), lang.String(), languageTag})
 	}
 	return langs
@@ -232,7 +233,7 @@ func (lang *Language) Translate(languageCode template.HTML) string {
 
 // Translate accepts a languageCode in string and translate the language to the language from the language code in to
 func Translate(languageCode string, to string) string {
-	langTranslate := display.Tags(getParentTag(to))
+	langTranslate := display.Tags(GetParentTag(to))
 	translated := langTranslate.Name(glang.Make(languageCode))
 	if translated == "Root" {
 		return ""
