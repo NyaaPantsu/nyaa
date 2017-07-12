@@ -57,7 +57,7 @@
       </table>
       <nav class="torrentNav" aria-label="Page navigation">
           <ul class="pagination">
-              <li><a href="/search?userID={{ UserProfile.ID }}" aria-label="Next"><span class="glyphicon glyphicon-add"></span> {{  T("see_more_torrents_from", UserProfile.Username) }}</a></li>
+              <a href="/search?userID={{ UserProfile.ID }}" aria-label="Next"><li><span class="glyphicon glyphicon-add"></span> {{  T("see_more_torrents_from", UserProfile.Username) }}</li></a>
           </ul>
       </nav>
     {{else}}
