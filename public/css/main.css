@@ -510,6 +510,9 @@ html, body {
 }
 .torrent-info-data > span { 
 	margin-right: 5px; 
+	display: inline-block;
+	width: 31%;
+	min-width: 160px;
 }
 .torrent-info-data > span > img {
 	margin-right: 3px;	
