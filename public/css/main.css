@@ -150,14 +150,8 @@ select.form-input {
 	padding: 10px 0 9px 7px;	
 }
 
-.language > input {
-	margin: 0 3px 6px 0;
-	padding: 0;
-}
-
-.language > label {
-	margin: 0 9px 2px 0;
-}
+.language .input-group label { margin-bottom: 1px; }
+.language span.input-group { display: inline-block; }
 
 .not-important {
 	font-size: 9pt;
