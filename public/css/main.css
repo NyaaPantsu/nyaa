@@ -509,13 +509,16 @@ html, body {
 	text-overflow: ellipsis;
 }
 .torrent-info-data > span { 
-	margin-right: 5px; 
+	margin-right: 3px; 
 	display: inline-block;
+	min-width: 80px;
+}
+.torrent-info-data > span.big { 
 	width: 31%;
 	min-width: 160px;
 }
 .torrent-info-data > span > img {
-	margin-right: 3px;	
+	margin-right: 2px;	
 }
 .torrent-info-row {
 	text-align: left;
