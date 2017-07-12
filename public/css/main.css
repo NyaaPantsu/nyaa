@@ -473,11 +473,8 @@ html, body {
 }
 
 .profile-usertitle-name { margin-bottom: 2px; }
-.profile-usertitle-uploadcount span { font-weight: bold; }
-.profile-usertitle-job {
-	font-style: italic;
-	margin: 0;
-}
+.profile-usertitle-uploadcount span { font-weight: bold; margin-left: 2px;}
+.profile-usertitle-job { font-style: italic; margin: 0; }
 
 .profile-userpic img {
 	border-radius: 6px;
