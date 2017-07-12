@@ -472,9 +472,13 @@ html, body {
 	border-radius: 3px;
 }
 
+.profile-usertitle-name { margin-bottom: 2px; }
+.profile-usertitle-uploadcount span { font-weight: bold; }
 .profile-usertitle-job {
 	font-style: italic;
+	margin: 0;
 }
+
 .profile-userpic img {
 	border-radius: 6px;
 }
@@ -582,6 +586,7 @@ html, body {
 }
 .profile-content h3 { margin-bottom: 6px; margin-top: 4px;}
 .profile-content .pagination { margin-bottom: 9px;}
+.div.profile-content.box > nav > ul > li { width: 100%; }
 div.profile-content.box > nav > ul > li, nav.adminNav > ul > li {
 	border-right-width: 1px;
 }
