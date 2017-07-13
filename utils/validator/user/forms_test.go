@@ -18,7 +18,7 @@ func TestForms(t *testing.T) {
 	c := &gin.Context{Request: req}
 	messages := msg.GetMessages(c)
 	registration := &RegistrationForm{
-		"lol", "", "testing", "testing", "xxx", "true",
+		"lol", "", "testing", "testing", "xxx", "1",
 	}
 	login := &LoginForm{"lol", "testing", "/"}
 	user := &UserForm{"lol", "", "", "testing", "testing", "testing", 0, ""}
