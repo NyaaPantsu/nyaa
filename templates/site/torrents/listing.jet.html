@@ -225,7 +225,8 @@
         T.Add("{{ cat.ID }}", "{{ T(cat.Name) }}")
         {{end}}
         {{ range _, language := GetTorrentLanguages() }}
-        T.Add("{{ language }}", "{{ LanguageName(language, T) }}")
+        T.Add("{{ language.Code }}", "{{ LanguageName(language, T) }}")
+        T.Add("{{ language.Tag }}", "{{ LanguageName(language, T) }}")
         {{end}}
         Templates.Add("torrents.item", function(torrent) {
             return "<tr id=\"torrent_" + torrent.id + "\" class=\"torrent-info"+ ((torrent.status == 2) ? " remake" : ((torrent.status == 3) ? " trusted" : ((torrent.status == 3) ? " aplus" : "" )))+"\">"+
