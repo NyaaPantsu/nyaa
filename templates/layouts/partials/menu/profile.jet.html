@@ -33,6 +33,11 @@
 	<!-- END SIDEBAR BUTTONS -->
 	<!-- SIDEBAR MENU -->
 	<div class="profile-usermenu">
+		{{ if User.ID > 0 && (User.CurrentUserIdentical(UserProfile.ID) || User.CurrentOrAdmin(UserProfile.ID)) }}
+			<a class="form-input btn-green" href="/user/{{ UserProfile.ID }}/{{ UserProfile.Username }}"><div class="icon-floppy"></div>{{ T("torrents")}}</a> <br>
+		{{ else }}
+			<a class="form-input btn-green" href="/search?userID={{ UserProfile.ID }}"><div class="icon-floppy"></div>{{ T("torrents")}}</a> <br>
+		{{ end }}
 		<a class="form-input btn-green" href="{{ (User.CurrentUserIdentical(UserProfile.ID) || User.CurrentOrAdmin(UserProfile.ID)) ? ("/user/" + UserProfile.ID} + "/" + UserProfile.Username) : ("/search?userID=" + UserProfile.ID) }}"><div class="icon-floppy"></div>{{ T("torrents")}}</a> <br>
 		{{if User.ID > 0 }}
 			{{ if User.CurrentUserIdentical(UserProfile.ID) }}
