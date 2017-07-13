@@ -60,10 +60,8 @@
                       {{.Name}}
                   </a>
               </td>
-              <td class="tr-cs home-td">
-              {{ if len(.Comments) > 0 }}
-                  <span>{{len(.Comments)}}</span>
-              {{end}}
+              <td class="tr-cs home-td" {{ if len(.Comments) > 0 }}>
+		      <span>{{len(.Comments)}}</span>{{ else }}style="display: none;">{{ end }}
               </td>
               <td class="tr-links home-td">
                   <a href="{{.Magnet}}" title="{{  T("magnet_link") }}">
