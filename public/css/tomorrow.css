@@ -96,3 +96,5 @@ td.tr-le, .error-text { color: #cc6666; }
 .CodeMirror-line::-moz-selection, .CodeMirror-line>span::-moz-selection, .CodeMirror-line>span>span::-moz-selection {
 	background: #454545;
 }
+
+.form-input.language { background-color: #35363c; }
