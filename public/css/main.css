@@ -143,15 +143,16 @@ select.form-input {
 }
 
 .form-input.language {
-	max-width: 459px;
+	max-width: 426px;
 	height: auto;
 	border-radius: 5px;
 	background: hsl(193, 15%, 97%);
-	padding: 10px 0 9px 7px;	
+	padding: 10px 4px 9px 7px;	
 }
 
-.language .input-group label { margin-bottom: 1px; }
 .language span.input-group { display: inline-block; }
+.language .input-group label { margin-bottom: 1px; }
+.language .input-group input { margin-right: 0; }
 
 .not-important {
 	font-size: 9pt;
