@@ -11,9 +11,12 @@ import (
 
 	"strings"
 
+	"time"
+
 	"github.com/CloudyKit/jet"
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/utils/filelist"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
 	"github.com/NyaaPantsu/nyaa/utils/validator/user"
@@ -40,75 +43,89 @@ func TestTemplates(t *testing.T) {
 type ContextTest map[string]func(jet.VarMap) jet.VarMap
 
 func walkDirTest(dir string, t *testing.T) {
+	fakeUser := &models.User{1, "test", "test", "test", 1, time.Now(), time.Now(), "test", time.Now(), "en", "test", "test", "test", "test", []models.User{}, []models.User{}, "test", []models.Torrent{}, []models.Notification{}, 1, models.UserSettings{}}
+	fakeComment := &models.Comment{1, 1, 1, "test", time.Now(), time.Now(), nil, &models.Torrent{}, fakeUser}
+	fakeScrapeData := &models.Scrape{1, 0, 0, 10, time.Now()}
+	fakeFile := &models.File{1, 1, "l12:somefile.mp4e", 3}
+	fakeLanguages := []string{"fr", "en"}
+	fakeTorrent := &models.Torrent{1, "test", "test", 3, 12, 1, false, time.Now(), 1, 0, 3, "test", "test", "test", "test", "test", nil, fakeUser, "test", []models.OldComment{}, []models.Comment{*fakeComment, *fakeComment}, fakeScrapeData, []models.File{*fakeFile}, fakeLanguages}
+	fakeActivity := &models.Activity{1, "t", "e", "s", 1, fakeUser}
+	fakeDB := &models.DatabaseDump{time.Now(), 3, "test", "test"}
+	fakeLanguage := &publicSettings.Language{"English", "en", "en-us"}
+	fakeTorrentRequest := &torrentValidator.TorrentRequest{Name: "test", Magnet: "", Category: "", Remake: false, Description: "", Status: 1, Hidden: false, CaptchaID: "", WebsiteLink: "", SubCategory: 0, Languages: nil, Infohash: "", SubCategoryID: 0, CategoryID: 0, Filesize: 0, Filepath: "", FileList: nil, Trackers: nil}
+	fakeLogin := &userValidator.LoginForm{"test", "test", "/"}
+	fakeRegistration := &userValidator.RegistrationForm{"test", "", "test", "test", "xxxx", "1"}
+	fakeReport := &models.TorrentReport{1, "test", 1, 1, time.Now(), fakeTorrent, fakeUser}
 	contextVars := ContextTest{
 		"dumps.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("GPGLink", "")
-			vars.Set("ListDumps", []models.DatabaseDumpJSON{})
+			vars.Set("GPGLink", "test")
+			vars.Set("ListDumps", []models.DatabaseDumpJSON{fakeDB.ToJSON(), fakeDB.ToJSON()})
 			return vars
 		},
 		"activities.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []models.Activity{})
+			vars.Set("Models", []models.Activity{*fakeActivity})
 			return vars
 		},
 		"listing.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []models.TorrentJSON{})
+			vars.Set("Models", []models.TorrentJSON{fakeTorrent.ToJSON(), fakeTorrent.ToJSON()})
 			return vars
 		},
 		"edit.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", &torrentValidator.TorrentRequest{})
-			vars.Set("Languages", publicSettings.Languages{{"", "", ""}})
+			vars.Set("Form", fakeTorrentRequest)
+			vars.Set("Languages", publicSettings.Languages{*fakeLanguage, *fakeLanguage})
 			return vars
 		},
 		"upload.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", &torrentValidator.TorrentRequest{})
+			vars.Set("Form", fakeTorrentRequest)
 			return vars
 		},
 		"view.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Torrent", &models.TorrentJSON{})
+			vars.Set("Torrent", fakeTorrent.ToJSON())
 			vars.Set("CaptchaID", "xxxxxx")
+			vars.Set("RootFolder", filelist.FileListToFolder(fakeTorrent.FileList, "root"))
 			return vars
 		},
 		"settings.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", &LanguagesJSONResponse{"", publicSettings.Languages{{"", "", ""}}})
+			vars.Set("Form", &LanguagesJSONResponse{"test", publicSettings.Languages{*fakeLanguage, *fakeLanguage}})
 			return vars
 		},
 		"login.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", &userValidator.LoginForm{})
+			vars.Set("Form", fakeLogin)
 			return vars
 		},
 		"register.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", &userValidator.RegistrationForm{})
+			vars.Set("Form", fakeRegistration)
 			return vars
 		},
 		"index.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Torrents", []models.Torrent{})
-			vars.Set("Users", []models.User{})
-			vars.Set("Comments", []models.Comment{})
-			vars.Set("TorrentReports", []models.TorrentReportJSON{})
+			vars.Set("Torrents", []models.Torrent{*fakeTorrent, *fakeTorrent})
+			vars.Set("Users", []models.User{*fakeUser, *fakeUser})
+			vars.Set("Comments", []models.Comment{*fakeComment, *fakeComment})
+			vars.Set("TorrentReports", []models.TorrentReportJSON{fakeReport.ToJSON(), fakeReport.ToJSON()})
 			return vars
 		},
 		"paneltorrentedit.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", models.Torrent{})
+			vars.Set("Form", *fakeTorrent)
 			return vars
 		},
 		"reassign.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", ReassignForm{})
+			vars.Set("Form", ReassignForm{1, "", "", []uint{1, 1}})
 			return vars
 		},
 		"torrentlist.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []models.Torrent{})
+			vars.Set("Models", []models.Torrent{*fakeTorrent, *fakeTorrent})
 			return vars
 		},
 		"userlist.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []models.User{})
+			vars.Set("Models", []models.User{*fakeUser, *fakeUser})
 			return vars
 		},
 		"commentlist.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []models.Comment{})
+			vars.Set("Models", []models.Comment{*fakeComment, *fakeComment})
 			return vars
 		},
 		"torrent_report.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []models.TorrentReportJSON{})
+			vars.Set("Models", []models.TorrentReportJSON{fakeReport.ToJSON(), fakeReport.ToJSON()})
 			return vars
 		},
 		"report.jet.html": func(vars jet.VarMap) jet.VarMap {
@@ -116,7 +133,7 @@ func walkDirTest(dir string, t *testing.T) {
 				ID        int
 				CaptchaID string
 			}
-			vars.Set("Form", form{1, ""})
+			vars.Set("Form", form{1, "test"})
 			return vars
 		},
 	}
@@ -160,11 +177,11 @@ func mockupCommonVars(t *testing.T) jet.VarMap {
 		Category:         "_",
 		ShowItemsPerPage: true,
 		SizeType:         "b",
-		DateType:         "",
-		MinSize:          "",
-		MaxSize:          "",
-		FromDate:         "",
-		ToDate:           "",
+		DateType:         "test",
+		MinSize:          "test",
+		MaxSize:          "test",
+		FromDate:         "test",
+		ToDate:           "test",
 	})
 	conf := config.Get().I18n
 	conf.Directory = path.Join("..", conf.Directory)
@@ -174,7 +191,7 @@ func mockupCommonVars(t *testing.T) jet.VarMap {
 	if err != nil {
 		t.Errorf("failed to initialize language translations: %v", err)
 	}
-	Ts, _, err := publicSettings.TfuncAndLanguageWithFallback("en-us", "", "")
+	Ts, _, err := publicSettings.TfuncAndLanguageWithFallback("en-us", "test", "test")
 	if err != nil {
 		t.Error("Couldn't load language files!")
 	}
@@ -183,9 +200,9 @@ func mockupCommonVars(t *testing.T) jet.VarMap {
 		return template.HTML(fmt.Sprintf(Ts(id), args...))
 	}
 	vars.Set("T", T)
-	vars.Set("Theme", "")
-	vars.Set("Mascot", "")
-	vars.Set("MascotURL", "")
+	vars.Set("Theme", "test")
+	vars.Set("Mascot", "test")
+	vars.Set("MascotURL", "test")
 	vars.Set("User", &models.User{})
 	vars.Set("UserProfile", &models.User{})
 	vars.Set("URL", &url.URL{})
