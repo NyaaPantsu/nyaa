@@ -142,7 +142,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("Sukebei", config.IsSukebei)
 	vars.Set("getDefaultLanguage", publicSettings.GetDefaultLanguage)
 	vars.Set("FlagCode", func(languageCode string) string {
-		return publicSettings.Flag(languageCode)
+		return publicSettings.Flag(languageCode, true)
 	})
 	vars.Set("getAvatar", func(hash string, size int) string {
 		return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)

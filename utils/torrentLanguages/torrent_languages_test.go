@@ -37,7 +37,7 @@ func TestCSSFlags(t *testing.T) {
 
 	contents := string(file)
 	for _, language := range languages {
-		flag := language.Flag(false)
+		flag := publicSettings.Flag(language.Code, true)
 		fmt.Printf("Finding css class for: %s (%s)\n", flag, language.Name)
 		if !strings.Contains(contents, ".flag-"+flag) {
 			t.Errorf("flags.css does not contains class .flag-%s. You probably need to update it.", flag)

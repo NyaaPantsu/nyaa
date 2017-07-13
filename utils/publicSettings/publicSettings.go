@@ -244,16 +244,21 @@ func Translate(languageCode string, to string) string {
 // Flag reads the language's country code and return the country's flag if national true or the international flag for the language
 func (lang *Language) Flag(national bool) string {
 	if national {
-		return Flag(lang.Tag)
+		return Flag(lang.Tag, false)
 	}
 	return lang.Code
 }
 
 // Flag reads the language's country code and return the country's flag if national true or the international flag for the language
-func Flag(languageCode string) string {
-	languageSplit := strings.Split(languageCode, "-")
+func Flag(languageCode string, parent bool) string {
+	lang := glang.Make(languageCode)
+	if parent {
+		lang = GetParentTag(languageCode)
+	}
+
+	languageSplit := strings.Split(lang.String(), "-")
 	if len(languageSplit) > 1 {
 		return languageSplit[1]
 	}
-	return languageCode
+	return lang.String()
 }
