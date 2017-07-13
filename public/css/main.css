@@ -260,9 +260,10 @@ select.form-input {
 .box.refine { text-align: left; }
 .box.refine > h3 {
 	margin-top: 5px;
-	margin-bottom: 7px;
+	margin-bottom: 11px;
 }
 .box.refine input[type="number"] { width: 49px; } 
+.box-refine .form-refine .spacing { min-width: 100px; display: inline-block; }
 
 .categories a {
 	display: 	inline-block;
@@ -494,9 +495,10 @@ html, body {
 
 .torrent-info-label {
 	width: 15%;
-	vertical-align: middle;
+	vertical-align: top;
 	font-weight: bold;
 }
+
 .torrent-info-data {
 	width: 50%;
 	overflow: hidden;
