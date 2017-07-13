@@ -240,7 +240,7 @@
 			{{else}}
               "<div class=\"nyaa-cat nyaa-cat-"+ torrent.sub_category +"\">"+
 			{{end}}
-                  "<a href=\"{{URL.Parse("/search?c=") }}"+ torrent.category + "_" + torrent.sub_category +"\" title=\""+ T.r(torrent.category+"_"+torrent.sub_category)+"\">"+
+                  "<a href=\"{{URL.Parse("/search?c=") }}"+ torrent.category + "_" + torrent.sub_category +"\" title=\""+ T.r(torrent.category+"_"+torrent.sub_category)+"\" class=\"category\">"+
                       ((torrent.languages[0] != "") ? "<a href=\"{{URL.Parse("/search?c=") }}"+ torrent.category + "_" + torrent.sub_category +"&lang=" + torrent.languages.join(",") +"\"><img src=\"img/blank.gif\" class=\"flag flag-"+ ((torrent.languages.length == 1) ? flagCode(torrent.languages[0]) : "multiple") +"\" title=\""+torrent.languages.map(function (el, i) { return T.r(el)}).join(",")+"\"></a>" : "") +
                   "</a>"+
               "</div></td>"+
