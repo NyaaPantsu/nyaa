@@ -76,3 +76,5 @@ td.tr-le, .error-text { color: #E84C4C; }
 .sukebei th { color: #9C7575; }
 .sukebei th a { color: #893636; }
 .sukebei #mascot { background-image: url('/img/mafuyu.svg'); background-size: 100%; }
+
+.form-input.language { background-color: #f5f5f5; }
