@@ -1616,6 +1616,14 @@
     "translation": "Optional"
   },
   {
+    "id": "search_for",
+    "translation": "Search for"
+  },
+  {
+    "id": "show",
+    "translation": "Show"
+  },
+  {
     "id": "username_taken",
     "translation": "Username already taken, you can choose: %s"
   },
