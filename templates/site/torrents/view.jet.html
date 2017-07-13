@@ -36,7 +36,7 @@
         <td class="tr-flag torrent-view-td torrent-info-data">
     {{ range _, language := Torrent.Languages}}
             {{ if language != "" }}
-        <span {{ if len(Torrent.Languages) > 3 }}class="big"{{ end }}><img src="/img/blank.gif" alt="{{ LanguageNameFromCode(language, T) }}" class="flag flag-{{ FlagCode(language) }}" title="{{ LanguageNameFromCode(language, T) }}"></img> {{ LanguageNameFromCode(language, T) }}</span>
+        <span {{ if len(Torrent.Languages) > 5 }}class="big"{{ end }}><img src="/img/blank.gif" alt="{{ LanguageNameFromCode(language, T) }}" class="flag flag-{{ FlagCode(language) }}" title="{{ LanguageNameFromCode(language, T) }}"></img> {{ LanguageNameFromCode(language, T) }}</span>
             {{end}}
     {{end}}
         </td>
