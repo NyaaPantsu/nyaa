@@ -59,15 +59,13 @@ func GormInit(conf *config.Config, logger Logger) (*gorm.DB, error) {
 		return nil, connectionErr
 	}
 
-	// Negative MaxIdleConns means don't retain any idle connection
-	maxIdleConns := -1
-	if IsSqlite {
-		// sqlite doesn't like having a negative maxIdleConns
-		maxIdleConns = 10
-	}
-
-	db.DB().SetMaxIdleConns(maxIdleConns)
-	db.DB().SetMaxOpenConns(400)
+	db.DB().SetMaxIdleConns(1)
+	// This should be about the number of cores the machine has (and should
+	// be lower than the max_connection specified by postgresql.conf)
+	// Since we have two applications running, this should really be 
+	// number of cores / 2
+	// TODO Make configurable
+	db.DB().SetMaxOpenConns(4)
 
 	if config.Get().Environment == "DEVELOPMENT" {
 		db.LogMode(true)

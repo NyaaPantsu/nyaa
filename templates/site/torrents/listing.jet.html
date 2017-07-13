@@ -241,8 +241,13 @@
 			{{else}}
               "<div class=\"nyaa-cat nyaa-cat-"+ torrent.sub_category +"\">"+
 			{{end}}
+<<<<<<< HEAD:templates/site/torrents/listing.jet.html
                   "<a href=\"{{URL.Parse("/search?c=") }}"+ torrent.category + "_" + torrent.sub_category +"\" title=\""+ T.r(torrent.category+"_"+torrent.sub_category)+"\">"+
                       ((torrent.languages[0] != "") ? "<a href=\"{{URL.Parse("/search?c=") }}"+ torrent.category + "_" + torrent.sub_category +"&lang=" + torrent.languages.join(",") +"\"><img src=\"img/blank.gif\" class=\"flag flag-"+ ((torrent.languages.length == 1) ? flagCode(torrent.languages[0]) : "multiple") +"\" title=\""+torrent.languages.map(function (el, i) { return T.r(el)}).join(",")+"\"></a>" : "") +
+=======
+                  "<a href=\"{{$.URL.Parse "/search?c=" }}"+ torrent.category + "_" + torrent.sub_category +"\" title=\""+ torrent.CategoryName +"\">"+
+					((torrent.language != "") ? "<img src=\"/img/blank.gif\" class=\"flag flag-"+flagCode(torrent.language)+"\">" : "") +
+>>>>>>> dev:templates/home.html
                   "</a>"+
               "</div></td>"+
               "<td class=\"tr-name home-td\"><a href=\"/view/"+torrent.id+"\">"+Templates.EncodeEntities(torrent.name) +"</a></td>"+

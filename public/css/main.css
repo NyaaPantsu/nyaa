@@ -199,8 +199,7 @@ select.form-input {
 	background: -webkit-linear-gradient(bottom, #333 0%, #222 100%);
 	background:         linear-gradient(to top, #333 0%, #222 100%);
 	border-color: #444;
-	position: absolute;
-	top: 60px
+	position: relative;
 }
 
 .header .h-user .user-menu .nav-btn {
@@ -214,7 +213,7 @@ select.form-input {
 
 .header .h-user .nav-btn:focus + .user-menu,
 .header .h-user .user-menu:hover {
-	display: block;
+	display: inline-block;
 }
 
 .header .h-user .user-info {
@@ -401,7 +400,7 @@ html, body {
 /* hide the username */
 @media (max-width: 1100px)  {
 	.header .h-user { width: 58px; padding-left: 0px; }
-	.header .h-user .user-menu { right: 15px; }
+	.header .h-user .user-menu { right: 100px; }
 	.header .h-user .user-info { display: none; }
 	.header .h-user .nav-btn { padding: 0px; }
 }
@@ -618,7 +617,7 @@ input#show-filelist:checked ~ #filelist {
 .table-filelist {
 	width: 100%;
 }
-tr.torrentinfo { height: 38px; }
+tr.torrentinfo { min-height: 38px; }
 .tr-filelist {
 	--nest-level: 0;
 }
