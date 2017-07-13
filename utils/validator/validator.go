@@ -6,10 +6,11 @@ import (
 	"time"
 	"unicode"
 
+	"strconv"
+
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/go-playground/validator"
-	"strconv"
 )
 
 var validate *validator.Validate
@@ -27,7 +28,7 @@ func ValidateForm(form interface{}, mes *msg.Messages) {
 		for _, fieldError := range err.(validator.ValidationErrors) {
 			switch fieldError.Tag() {
 			case "required":
-				mes.AddErrorTf(fieldError.Field(), "error_field_needed", fieldError.Field(), fieldError.Param())
+				mes.AddErrorTf(fieldError.Field(), "error_field_needed", fieldError.Field())
 			case "eq":
 				mes.AddErrorTf(fieldError.Field(), "error_equal", fieldError.Field(), fieldError.Param())
 			case "ne", "nefield", "necsfield":

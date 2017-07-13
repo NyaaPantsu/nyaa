@@ -7,7 +7,7 @@ type RegistrationForm struct {
 	Password           string `validate:"required,min=6,max=72,eqfield=ConfirmPassword" form:"password" json:"password"`
 	ConfirmPassword    string `validate:"required" omit:"true" form:"password_confirmation" json:"password_confirmation"` // Omit when binding to user model since user model doesn't have those field
 	CaptchaID          string `validate:"required" omit:"true" form:"captchaID" json:"captchaID"`
-	TermsAndConditions string `validate:"eq=true" omit:"true" form:"t_and_c" json:"t_and_c"`
+	TermsAndConditions string `validate:"eq=1" omit:"true" form:"t_and_c" json:"t_and_c"`
 }
 
 // LoginForm is used when a user logs in.

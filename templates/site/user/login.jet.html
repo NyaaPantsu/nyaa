@@ -9,10 +9,10 @@
 					{{ yield csrf_field()}}
 					<h2>{{ T("sign_in_box_title")}}</h2>
 						<input type="text" name="username" id="username" class="form-input up-input" autofocus placeholder="{{  T("email_address_or_username")}}"><br>
-						{{ yield errors(name="username")}}
+						{{ yield errors(name="Username")}}
 						<input type="password" name="password" id="password" class="form-input up-input" placeholder="{{  T("password")}}"><br>
 						<input type="hidden" name="redirectTo" value="{{ Form.RedirectTo }}">
-						{{ yield errors(name="password")}}
+						{{ yield errors(name="Password")}}
 					<!-- <span class="button-checkbox">
 						<button type="button" class="btn hidden" data-color="info">{{  T("remember_me")}}</button>
 						<input type="checkbox" name="remember_me" id="remember_me" checked="checked">

@@ -25,7 +25,7 @@ func EmailValidation(email string) bool {
 
 // ValidateUsername : Check if a username is valid
 func ValidateUsername(username string) bool {
-	return validator.IsUTFLetterNumeric(username)
+	return validator.IsUTFLetterNumeric(username) && len(username) > 0
 }
 
 // IsAgreed : Check if terms and conditions are valid

@@ -3,18 +3,26 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/NyaaPantsu/nyaa/utils/messages"
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/utils/log"
+	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/gin-gonic/gin"
 )
 
 func errorMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Next()
+		if config.Get().Environment == "DEVELOPMENT" {
+			messages := msg.GetMessages(c)
+			if messages.HasErrors() {
+				log.Errorf("Request has errors: %v", messages.GetAllErrors())
+			}
+		}
 		if c.Writer.Status() != http.StatusOK && c.Writer.Size() <= 0 {
 			if c.ContentType() == "application/json" {
-				msg := messages.GetMessages(c)
-				msg.AddErrorT("errors", "404_not_found")
-				c.JSON(c.Writer.Status(), msg.GetAllErrors())
+				messages := msg.GetMessages(c)
+				messages.AddErrorT("errors", "404_not_found")
+				c.JSON(c.Writer.Status(), messages.GetAllErrors())
 				return
 			}
 			httpError(c, c.Writer.Status())

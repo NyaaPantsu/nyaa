@@ -2,12 +2,13 @@ package userValidator
 
 import (
 	"testing"
-
-	"github.com/NyaaPantsu/nyaa/utils/validator"
 )
 
 func TestValideUsername(t *testing.T) {
-	tests := [][]interface{}{
+	tests := []struct {
+		Username string
+		Expected bool
+	}{
 		{
 			"lol",
 			true,
@@ -36,12 +37,16 @@ func TestValideUsername(t *testing.T) {
 			"れんちょん",
 			true,
 		},
+		{
+			"",
+			false,
+		},
 	}
 
 	for _, val := range tests {
-		testVal := validator.IsUTFLetterNumeric(val[0].(string))
-		if testVal != val[1] {
-			t.Errorf("The test returned a result %t instead of %t for %s", testVal, val[1].(bool), val[0].(string))
+		testVal := ValidateUsername(val.Username)
+		if testVal != val.Expected {
+			t.Errorf("The test returned a result %t instead of %t for '%s'", testVal, val.Expected, val.Username)
 		}
 	}
 }

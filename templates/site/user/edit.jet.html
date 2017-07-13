@@ -13,7 +13,7 @@
 			<a class="form-input up-input" href="/user/{{ UserProfile.ID}}/{{UserProfile.Username }}/apireset">Reset API key</a> <br> <br>
 		<label class="input-label">{{  T("email_address") }}:</label> <br>
 			<input class="form-input up-input" placeholder="{{  T("email_placeholder")}}" type="text" name="email" id="email" value="{{UserProfile.Email}}"> <br>
-		{{ yield errors(name="email")}}
+		{{ yield errors(name="Email")}}
 		<label class="input-label">{{  T("language")}}:</label> <br>
 			<select id="language" name="language" class="form-input up-input">
 				{{ userLanguage := UserProfile.Language }}
@@ -21,18 +21,18 @@
 					<option value="{{ language.Code }}" {{ if userLanguage == language.Code || ((userLanguage == "") && (language.Code == getDefaultLanguage())) }}selected{{end}}>{{ language.Name }} {{if language.Code == getDefaultLanguage()}}({{  T("default") }}){{end}}</option>
 				{{ end }}
 			</select> <br>
-		{{ yield errors(name="language")}}
+		{{ yield errors(name="Language")}}
 		{{ if !User.HasAdmin()}}
 		<label class="input-label">{{  T("current_password")}}:</label> <br>
 			<input class="form-input up-input up-input" name="current_password" id="current_password" type="password"> <br>
-		{{ yield errors(name="current_password")}}
+		{{ yield errors(name="CurrentPassword")}}
 		{{end}}
 		<label class="input-label">{{  T("password")}}:</label> <br>
 			<input class="form-input up-input up-input" name="password" id="password" type="password"> <br>
-		{{ yield errors(name="password")}}
+		{{ yield errors(name="Password")}}
 		<label class="input-label">{{  T("confirm_password")}}:</label> <br>
 			<input class="form-input up-input up-input" name="password_confirmation" id="password_confirmation" type="password"> <br>
-		{{ yield errors(name="password_confirmation")}}
+		{{ yield errors(name="ConfirmPassword")}}
 
 		<h3>{{  T("preferences")}}</h3>
 		<label class="input-label" for="theme">{{ T("theme")}}</label> <br>
@@ -42,14 +42,14 @@
 		<option value="tomorrow"{{ if Theme == "tomorrow" }} selected{{end}}>Tomorrow</option>
 		<option value=""{{ if Theme == "" }} selected{{end}}>{{ T("theme_none")}}</option>
 		</select><br>
-		{{ yield errors(name="theme")}}
+		{{ yield errors(name="Theme")}}
 		{{ if DefaultUserSettings("new_torrent")}}
 		<label class="input-label">{{  T("new_torrent_settings") }}:</label> <br>
 			<select id="new_torrent" name="new_torrent" class="form-input up-input">
 				<option value="0" {{ if !UserProfile.Settings.Get("new_torrent") }}selected{{end}}>{{  T("no")}}</option>
 				<option value="1" {{ if UserProfile.Settings.Get("new_torrent") }}selected{{end}}>{{  T("yes")}}</option>
 			</select> <br>
-		{{ yield errors(name="new_torrent")}}
+		{{ yield errors(name="NewTorrent")}}
 		{{end}}
 		{{ if DefaultUserSettings("new_torrent_email")}}
 		<label class="input-label">{{  T("new_torrent_email_settings") }}:</label> <br>
@@ -57,7 +57,7 @@
 				<option value="0" {{ if !UserProfile.Settings.Get("new_torrent_email") }}selected{{end}}>{{  T("no")}}</option>
 				<option value="1" {{ if UserProfile.Settings.Get("new_torrent_email")}}selected{{end}}>{{  T("yes")}}</option>
 			</select> <br>
-		{{ yield errors(name="new_torrent_email")}}
+		{{ yield errors(name="NewTorrentEmail")}}
 		{{end}}
 		{{ if DefaultUserSettings("new_comment")}}
 		<label class="input-label">{{  T("new_comment_settings") }}:</label> <br>
@@ -65,7 +65,7 @@
 				<option value="0" {{ if !UserProfile.Settings.Get("new_comment") }}selected{{end}}>{{  T("no")}}</option>
 				<option value="1" {{ if UserProfile.Settings.Get("new_comment") }}selected{{end}}>{{  T("yes")}}</option>
 			</select> <br>
-		{{ yield errors(name="new_comment")}}
+		{{ yield errors(name="NewComment")}}
 		{{end}}
 		{{ if DefaultUserSettings("new_comment_email")}}
 		<label class="input-label">{{  T("new_comment_email_settings") }}:</label> <br>
@@ -73,7 +73,7 @@
 				<option value="0" {{ if !UserProfile.Settings.Get("new_comment_email") }}selected{{end}}>{{  T("no")}}</option>
 				<option value="1" {{ if UserProfile.Settings.Get("new_comment_email") }}selected{{end}}>{{  T("yes")}}</option>
 			</select> <br>
-		{{ yield errors(name="new_comment_email")}}
+		{{ yield errors(name="NewCommentEmail")}}
 		{{end}}
 		{{ if DefaultUserSettings("new_responses")}}
 		<label class="input-label">{{  T("new_responses_settings") }}:</label> <br>
@@ -81,7 +81,7 @@
 				<option value="0" {{ if !UserProfile.Settings.Get("new_responses") }}selected{{end}}>{{  T("no")}}</option>
 				<option value="1" {{ if UserProfile.Settings.Get("new_responses")}}selected{{end}}>{{  T("yes")}}</option>
 			</select> <br>
-		{{ yield errors(name="new_responses")}}
+		{{ yield errors(name="NewResponses")}}
 		{{end}}
 		{{ if DefaultUserSettings("new_responses_email")}}
 		<label class="input-label">{{  T("new_responses_email_settings") }}:</label> <br>
@@ -89,7 +89,7 @@
 				<option value="0" {{ if UserProfile.Settings.Get("new_responses_email") }}selected{{end}}>{{  T("no")}}</option>
 				<option value="1" {{ if UserProfile.Settings.Get("new_responses_email")}}selected{{end}}>{{  T("yes")}}</option>
 			</select> <br>
-		{{ yield errors(name="new_responses_email")}}
+		{{ yield errors(name="NewResponsesEmail")}}
 		{{end}}
 		{{ if DefaultUserSettings("new_follower")}}
 		<label class="input-label">{{  T("new_follower_settings") }}:</label> <br>
@@ -97,7 +97,7 @@
 				<option value="0" {{ if UserProfile.Settings.Get("new_follower") }}selected{{end}}>{{  T("no")}}</option>
 				<option value="1" {{ if UserProfile.Settings.Get("new_follower")}}selected{{end}}>{{  T("yes")}}</option>
 			</select> <br>
-		{{ yield errors(name="new_follower")}}
+		{{ yield errors(name="NewFollower")}}
 		{{end}}
 		{{ if DefaultUserSettings("new_follower_email")}}
 		<label class="input-label">{{  T("new_follower_email_settings") }}:</label> <br>
@@ -105,7 +105,7 @@
 				<option value="0" {{ if UserProfile.Settings.Get("new_follower_email") }}selected{{end}}>{{  T("no")}}</option>
 				<option value="1" {{ if UserProfile.Settings.Get("new_follower_email")}}selected{{end}}>{{  T("yes")}}</option>
 			</select> <br>
-		{{ yield errors(name="new_follower_email")}}
+		{{ yield errors(name="NewFollowerEmail")}}
 		{{end}}
 		{{ if DefaultUserSettings("followed")}}
 		<label class="input-label">{{  T("followed_settings") }}:</label> <br>
@@ -113,7 +113,7 @@
 				<option value="0" {{ if UserProfile.Settings.Get("followed") }}selected{{end}}>{{  T("no")}}</option>
 				<option value="1" {{ if UserProfile.Settings.Get("followed")}}selected{{end}}>{{  T("yes")}}</option>
 			</select><br>
-		{{ yield errors(name="followed")}}
+		{{ yield errors(name="Followed")}}
 		{{end}}
 		{{ if DefaultUserSettings("followed_email")}}
 		<label class="input-label">{{  T("followed_email_settings") }}:</label> <br>
@@ -121,13 +121,13 @@
 				<option value="0" {{ if UserProfile.Settings.Get("followed_email") }}selected{{end}}>{{  T("no")}}</option>
 				<option value="1" {{ if UserProfile.Settings.Get("followed_email")}}selected{{end}}>{{  T("yes")}}</option>
 			</select> <br>
-		{{ yield errors(name="followed_email")}}
+		{{ yield errors(name="FollowedEmail")}}
 		{{end}}
 		{{ if User.HasAdmin()}}
 		<h3>{{  T("moderation")}}</h3>
 		<label class="input-label">{{  T("username")}}:</label> <br>
 			<input class="form-input up-input" name="username" id="username" type="text" value="{{UserProfile.Username}}">
-		{{ yield errors(name="username")}}
+		{{ yield errors(name="Username")}}
 
 		<label class="input-label">{{  T("role") }}:</label>
 			<select id="status" name="status" class="form-input up-input">
@@ -139,7 +139,7 @@
 				{{end}}
 				<option value="3" {{ if UserProfile.Status == 3 }}selected{{end}}>{{  T("scraped_user")}}</option>
 			</select>
-		{{ yield errors(name="status")}}
+		{{ yield errors(name="Status")}}
 		{{end}}
 		<label class="input-label"></label>
 			<input type="submit" class="form-input btn-green" name="save" value="{{  T("save_changes")}}">
