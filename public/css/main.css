@@ -143,16 +143,15 @@ select.form-input {
 }
 
 .form-input.language {
-	max-width: 426px;
+	max-width: 459px;
 	height: auto;
 	border-radius: 5px;
 	background: hsl(193, 15%, 97%);
-	padding: 10px 4px 9px 7px;	
+	padding: 10px 0 9px 7px;	
 }
 
-.language span.input-group { display: inline-block; }
 .language .input-group label { margin-bottom: 1px; }
-.language .input-group input { margin-right: 0; }
+.language span.input-group { display: inline-block; }
 
 .not-important {
 	font-size: 9pt;
@@ -261,9 +260,10 @@ select.form-input {
 .box.refine { text-align: left; }
 .box.refine > h3 {
 	margin-top: 5px;
-	margin-bottom: 7px;
+	margin-bottom: 11px;
 }
 .box.refine input[type="number"] { width: 49px; } 
+.box-refine .form-refine .spacing { min-width: 100px; display: inline-block; }
 
 .categories a {
 	display: 	inline-block;
@@ -495,9 +495,10 @@ html, body {
 
 .torrent-info-label {
 	width: 15%;
-	vertical-align: middle;
+	vertical-align: top;
 	font-weight: bold;
 }
+
 .torrent-info-data {
 	width: 50%;
 	overflow: hidden;
