@@ -243,8 +243,11 @@ func Translate(languageCode string, to string) string {
 
 // Flag reads the language's country code and return the country's flag if national true or the international flag for the language
 func (lang *Language) Flag(national bool) string {
-	if national {
-		return Flag(lang.Tag, false)
+	if !national {
+		if !strings.Contains(lang.Tag, ",") {
+			return Flag(lang.Tag, false)
+		}
+		return Flag(lang.Code, false)
 	}
 	return lang.Code
 }
