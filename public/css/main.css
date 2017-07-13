@@ -263,7 +263,9 @@ select.form-input {
 	margin-bottom: 11px;
 }
 .box.refine input[type="number"] { width: 49px; } 
-.box-refine .form-refine .spacing { min-width: 100px; display: inline-block; }
+.box.refine input[type="number"].refine-userid { width: 59px; } 
+.form-refine input.spacing, .form-refine select.spacing { margin-right: 8px; }
+.form-refine span.spacing { min-width: 100px; display: inline-block; }
 
 .categories a {
 	display: 	inline-block;
