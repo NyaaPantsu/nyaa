@@ -54,7 +54,7 @@
           <label class="input-label" for="desc">{{ T("torrent_description")}}</label>
         {{ yield errors(name="desc")}}
           <p class="help-block">{{ T("description_markdown_notice")}}</p>
-          <textarea style="height: 10rem;" name="desc" class="form-input up-input" rows="10">{{Form.Description}}</textarea>
+          <textarea style="height: 10rem;" id="desc" name="desc" class="form-input up-input" rows="10">{{Form.Description}}</textarea>
       </div>
       <button type="submit" class="form-input up-input">{{ T("save_changes")}}</button>
       <br>
@@ -62,12 +62,7 @@
   </form>
 </div>
 {{end}}
-{{block js_footer()}}
-  <script type="text/javascript" charset="utf-8" src="{{URL.Parse("/js/uploadPage.js")}}"></script>
-  <script type="text/javascript" charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/markdown.js/0.5.0/markdown.min.js"></script>
-  <script type="text/javascript" charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/to-markdown/3.0.4/to-markdown.js"></script>
-  <script type="text/javascript" charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-markdown/2.10.0/js/bootstrap-markdown.js"></script>
-  <script>
-    $(".torrent-desc").markdown({resize: "both"})
-  </script>
+{{ block footer_js()}}
+<script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
+<script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc"), spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
 {{end}}
