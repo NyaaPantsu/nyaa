@@ -8,8 +8,46 @@
 	<form enctype="multipart/form-data" role="upload" method="POST">
 		{{ yield csrf_field() }}
 		<h3>{{ T("name")}}</h3>
-		<input type="text" name="name" id="name" class="form-input up-input" placeholder="{{ T("file_name")}}" value="{{Form.Name}}" autofocus>
+		<input type="text" name="name" id="name" class="form-input up-input form-torrent-name" placeholder="{{ T("file_name")}}" value="{{Form.Name}}" onkeyup="UpdateTable(0);" autofocus>
 		{{ yield errors(name="name")}}
+		
+		<center><h3 style="margin-bottom: 3px;">Preview your torrent</h3></center>
+		<table style="border: 3px solid #dfdeeb;">
+          <thead class="torrent-info">
+          <tr>
+              <th class="tr-cat">Category</th>
+              <th class="tr-name">Name<span class="sort-arrows"><span class="sortarrowleft sortarrowdim">▼</span><span class="sortarrowdim">▲</span></span></th>
+              <th class="tr-cs"></th>
+              <th class="tr-links"></th>
+              <th class="tr-size hide-xs">Size<span class="sort-arrows"><span class="sortarrowleft sortarrowdim">▼</span><span class="sortarrowdim">▲</span></span></th>
+              <th class="tr-se hide-xs">S<span class="sort-arrows"><span class="sortarrowleft sortarrowdim">▼</span><span class="sortarrowdim">▲</span></span></th>
+              <th class="tr-le hide-xs">L<span class="sort-arrows"><span class="sortarrowleft sortarrowdim">▼</span><span class="sortarrowdim">▲</span></span></th>
+              <th class="tr-dl hide-xs">D<span class="sort-arrows"><span class="sortarrowleft sortarrowdim">▼</span><span class="sortarrowdim">▲</span></span></th>
+              <th class="tr-date hide-xs">Date<span class="sort-arrows"><span class="sortarrowleft ">▼</span><span class="sortarrowdim">▲</span></span></th>
+          </tr>
+          </thead>
+          <tbody id="torrentListResults">
+        	<tr class="torrent-info">
+              		<td class="tr-cat home-td">
+				<div class="nyaa-cat nyaa-cat-5">
+				<a title="Literature - English-translated" class="category table-torrent-category"></a>
+				<a><img src="/img/blank.gif" class="flag flag-other"></a>
+             			 </div>
+             		 </td>
+              		<td class="tr-name home-td" colspan="2"><a class="table-torrent-name">Example text</a></td>
+		  
+              <td class="tr-links home-td">
+                  <a title="Magnet Link"><div class="icon-magnet"></div></a>
+                  <a title="Torrent file"><div class="icon-floppy"></div></a>
+              </td>
+              <td class="tr-size home-td hide-xs">2.6 GiB</td>
+              <td class="tr-se home-td hide-xs">0</td>
+              <td class="tr-le home-td hide-xs">0</td>
+              <td class="tr-dl home-td hide-xs">0</td>
+              <td class="tr-date home-td date-short hide-xs table-torrent-category" title="2017-07-12T16:58:29Z">Jul 12, 2017</td>
+          </tr>
+          </tbody>
+      </table>
 
 		<h3>{{ T("torrent_file")}}</h3>
 		<input type="file" name="torrent" id="torrent" class="up-input" accept=".torrent">
