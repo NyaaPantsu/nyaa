@@ -12,11 +12,10 @@
             <th class="tr-date user-td hide-xs">{{ T("date")}}</th>
           </tr>
           {{ range i, t := UserProfile.Torrents }}
-          {{ if DisplayTorrent(t, User) }}
           {{ torrent := t.ToJSON() }}
           <tr class="torrent-info 
-              {{if torrent.Status == 2}}remake{{else if torrent.Status == 3}}trusted{{else if torrent.Status == 4}}aplus{{end}}">
-              <!-- forced width because the <td> gets bigger randomly otherwise -->
+              {{if torrent.Status == 2}}remake{{else if torrent.Status == 3}}trusted{{else if torrent.Status == 4}}aplus{{end}}{{ if torrent.hidden }} hidden{{end}}"
+	      {{if torrent.hidden }}title="{{T("upload_as_anon")}}: {{T("yes")}}"{{end}}>
 		<td class="tr-cat user-td">
 		{{ if Sukebei }}
 			<div class="nyaa-cat sukebei-cat-{{ torrent.Category }}{{ torrent.SubCategory}}">
@@ -52,7 +51,6 @@
               </td>
               <td class="tr-date user-td date-short hide-xs">{{torrent.Date}}</td>
           </tr>
-          {{end}}
           {{end}}
       </table>
       <nav class="torrentNav" aria-label="Page navigation">
