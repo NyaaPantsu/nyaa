@@ -13,7 +13,7 @@
 		
 		<div class="torrent-preview-table" style="display: none;"><center><h3 style="margin-bottom: 3px;">Preview your torrent</h3></center>
 		<table style="border: 3px solid #dfdeeb;">
-          <thead class="torrent-info">
+          <thead class="torrent-info{{ if User.Trusted }} trusted{{end}}">
           <tr>
               <th class="tr-cat">Category</th>
               <th class="tr-name">Name<span class="sort-arrows"><span class="sortarrowleft sortarrowdim">▼</span><span class="sortarrowdim">▲</span></span></th>
