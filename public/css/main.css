@@ -264,6 +264,8 @@ select.form-input {
 }
 .box.refine input[type="number"] { width: 49px; } 
 .box.refine input[type="number"].refine-userid { width: 65px; } 
+
+.form-refine { margin-bottom: 10px; width: 100%; display:inline-block; }
 .form-refine input.spacing, .form-refine select.spacing { margin-right: 8px; }
 .form-refine span.spacing { min-width: 100px; display: inline-block; }
 .form-refine .refine-searchbox { border-radius: 3px 0 0 3px; }
@@ -984,9 +986,6 @@ input.nav-btn {
 }
 .refine-btn {
 	width: 10%;
-}
-.form-refine {
-	margin-bottom: 10px;
 }
 summary::-webkit-details-marker {
 	display: none
