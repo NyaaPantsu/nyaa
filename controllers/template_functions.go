@@ -283,11 +283,18 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("genActivityContent", func(a models.Activity, T publicSettings.TemplateTfunc) template.HTML {
 		return a.ToLocale(T)
 	})
-	vars.Set("contains", func(arr []string, comp string) bool {
-		for _, str := range arr {
+	vars.Set("contains", func(arr interface{}, comp string) bool {
+		switch str := arr.(type) {
+		case string:
 			if str == comp {
 				return true
 			}
+		case publicSettings.Language:
+			if str.Code == comp {
+				return true
+			}
+		default:
+			return false
 		}
 		return false
 	})

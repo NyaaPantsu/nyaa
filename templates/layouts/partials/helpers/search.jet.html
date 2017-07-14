@@ -1,3 +1,4 @@
+{{ import "flags" }}
 {{block search_common()}}
   <select name="c" class="form-input hide-xs form-category">
     <option value="_">{{ T("all_categories")}}</option>
@@ -58,12 +59,7 @@
             {{ T("old")}}.
         </span>
         <div name="language" class="form-refine form-input language">
-        {{ range _, language := GetTorrentLanguages() }}
-            <span class="input-group">
-                <input type="checkbox" name="lang" id="lang{{ language.Code }}" value="{{language.Code}}"{{ range _, v := Search.Languages}}{{ if v.Code == language.Code }} checked{{end}}{{end}}>
-                <label for="lang{{ language.Code }}" class="flag flag-{{ language.Flag(false) }}" title="{{LanguageName(language, T)}}"></label>
-            </span>
-        {{ end }}
+            {{ yield flagList(languages=GetTorrentLanguages(), selected=Search.Languages, inputname="lang")}}
         </div>
         <button type="submit" class="form-input refine-btn" name="refine" value="1">{{  T("refine")}}</button>
     </form>
