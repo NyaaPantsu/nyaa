@@ -177,7 +177,6 @@ select.form-input {
 
 .header .h-user button:focus {outline:none; background-color: rgba(0,0,0, 0.3);}::-moz-focus-inner {border:0;}
 
-
 .header .h-user .user-avatar {
 	float: right;
 	height: 40px; width: 40px;
@@ -285,9 +284,6 @@ table {
 	table-layout: fixed;
 }
 
-
-th { height: 40px;}
-
 th,.home-td,.user-td { 
 	height: 37px; 
 	text-align: center;
@@ -329,6 +325,7 @@ th, .home-td { border-bottom:  1px solid; }
 
 th { border-bottom-width: 2px; }
 
+.hidden { opacity: 0.5; filter: grayscale(20%);}
 .tr-cat { width: 90px; text-align: center; }
 .tr-flag { white-space: initial!important; }
 .tr-name { width: auto; text-align: left; white-space: normal; word-break: break-word; font-weight: bold; }
