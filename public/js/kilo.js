@@ -6,6 +6,8 @@ document.getElementsByClassName("form-torrent-category")[0].onchange = function(
     document.getElementsByClassName("table-torrent-category")[0].className = "table-torrent-category nyaa-cat nyaa-cat-" + Categorylist[document.getElementsByClassName("form-torrent-category")[0].selectedIndex];
 };
 
+document.getElementsByClassName("torrent-preview-table")[0].display = "block";
+
 var CategoryList = [
     5
     12,
