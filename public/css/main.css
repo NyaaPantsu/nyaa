@@ -268,7 +268,7 @@ select.form-input {
 .form-refine { margin-bottom: 10px; width: 100%; display:inline-block; }
 .form-refine input.spacing, .form-refine select.spacing { margin-right: 8px; }
 .form-refine span.spacing { min-width: 100px; display: inline-block; }
-.form-refine .refine-searchbox { border-radius: 3px 0 0 3px; width: 21px; }
+.form-refine .refine-searchbox { border-radius: 3px 0 0 3px; width: 21%; }
 .form-refine .refine-category { border-left: none; border-radius: 0 3px 3px 0; }
 
 .categories a {
