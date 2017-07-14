@@ -55,7 +55,7 @@
 }
 
 .flag.flag-br {
-    background-position: 0 0;
+    background-position: -80px 0;
 }
 
 .flag.flag-it {
@@ -91,5 +91,13 @@
 }
 
 .flag.flag-ca {
-    background: url('flag_catalan.png') no-repeat;   
+    background-position: -80px -11px;
+}
+
+.flag.flag-multiple {
+    background-position: -80px -22px;
+}
+
+.flag.flag-other {
+    background: none;
 }
