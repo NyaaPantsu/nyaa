@@ -105,7 +105,10 @@
 </div>
 {{end}}
 {{ block footer_js()}}
-<script type="text/javascript">var Sukebei = {{ Sukebei }}; var UserTrusted = {{ User.Trusted }};document.getElementsByClassName("torrent-preview-table")[0].display = "block";</script>
+<script type="text/javascript">var Sukebei = {{ Sukebei }}; var UserTrusted = {{ User.IsTrusted() }};
+	document.getElementsByClassName("torrent-preview-table")[0].display = "block";
+	document.getElementsByClassName("table-torrent-date")[0].innerText = new Date(Date.now()).toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), { year: "numeric", month: "short", day: "numeric" });
+</script>
 <script type="text/javascript" src="/js/kilo.js"></script>
 <script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
 <script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc"), spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
