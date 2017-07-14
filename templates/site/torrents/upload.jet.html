@@ -11,7 +11,7 @@
 		<input type="text" name="name" id="name" class="form-input up-input form-torrent-name" placeholder="{{ T("file_name")}}" value="{{Form.Name}}" autofocus>
 		{{ yield errors(name="name")}}
 		
-		<center><h3 style="margin-bottom: 3px;">Preview your torrent</h3></center>
+		<div class="torrent-preview-table"><center><h3 style="margin-bottom: 3px;">Preview your torrent</h3></center>
 		<table style="border: 3px solid #dfdeeb;">
           <thead class="torrent-info">
           <tr>
@@ -47,7 +47,7 @@
               <td class="tr-date home-td date-short hide-xs table-torrent-category" title="2017-07-12T16:58:29Z">Jul 12, 2017</td>
           </tr>
           </tbody>
-      </table>
+		</table></div>
 
 		<h3>{{ T("torrent_file")}}</h3>
 		<input type="file" name="torrent" id="torrent" class="up-input" accept=".torrent">
