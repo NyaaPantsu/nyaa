@@ -33,7 +33,7 @@
                 <option value="4" {{if Search.Status == 4}}selected{{end}}>A+</option>
             </select>
             Limit: <input type="number" name="limit" value="{{ Navigation.MaxItemPerPage }}" class="form-input spacing" min="1" max="300">
-		    From: <input type="number" name="userID" placeholder="UserID" value="{{Search.UserID}}" class="form-input refine-userid">
+		    From: <input type="number" name="userID" placeholder="UserID" value="{{ Search.UserID > 0 ? Search.UserID : ""}}" class="form-input refine-userid">
         </span>
 	    <span class="form-refine"><span class="spacing">{{ T("between")}}</span>
             <input class="form-input" size="7" name="minSize" type="text" value="{{Search.MinSize}}">
