@@ -28,7 +28,7 @@
 			{{ range _, language := GetTorrentLanguages() }}
               <span class="input-group">
                   <input type="checkbox" name="languages" id="lang-{{ language.Code }}" value="{{language.Code}}"{{if contains(Form.Languages, language.Code) }} checked{{end}}>
-                  <label for="lang-{{ language.Code }}" class="flag flag-{{ language.Flag(false) }}" title="{{LanguageName(language, T)}}"></label>
+                  <label for="lang-{{ language.Code }}" class="flag flag-{{ language.Flag(false) }}" title="{{LanguageName(language, T)}}">{{Form.Languages[0]}},{{Form.Languages[1]}}</label>
               </span>
 			{{ end }}
 		  </div>
