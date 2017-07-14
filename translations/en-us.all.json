@@ -136,6 +136,10 @@
     "translation": "See more torrents from %s "
   },
   {
+    "id": "torrents_uploaded",
+    "translation": "Torrents uploaded"
+  },
+  {
     "id": "category",
     "translation": "Category"
   },
