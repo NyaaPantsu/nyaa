@@ -15,7 +15,7 @@
           {{ torrent := t.ToJSON() }}
           <tr class="torrent-info 
               {{if torrent.Status == 2}}remake{{else if torrent.Status == 3}}trusted{{else if torrent.Status == 4}}aplus{{end}}{{ if torrent.hidden }} hidden{{end}}"
-	      {{if torrent.hidden }}title="Uploaded as Anonymous"{{end}}>
+	      {{if torrent.hidden }}title="{{T("upload_as_anon")}}: {{T("yes")}}"{{end}}>
 		<td class="tr-cat user-td">
 		{{ if Sukebei }}
 			<div class="nyaa-cat sukebei-cat-{{ torrent.Category }}{{ torrent.SubCategory}}">
