@@ -142,9 +142,15 @@ func byQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, 
 	if len(search.Category) > 0 {
 		conditionsOr := make([]string, len(search.Category))
 		for key, val := range search.Category {
-			conditionsOr[key] = "(category = ? AND sub_category = ?)"
-			parameters.Params = append(parameters.Params, val.Main)
-			parameters.Params = append(parameters.Params, val.Sub)
+			if val.Main > 0 {
+				conditionsOr[key] = "(category = ?"
+				parameters.Params = append(parameters.Params, val.Main)
+				if val.Sub > 0 {
+					conditionsOr[key] += " AND sub_category = ?"
+					parameters.Params = append(parameters.Params, val.Sub)
+				}
+				conditionsOr[key] += ")"
+			}
 		}
 		conditions = append(conditions, strings.Join(conditionsOr, " OR "))
 	}
