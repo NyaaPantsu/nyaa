@@ -152,7 +152,7 @@ select.form-input {
 
 .language span.input-group { display: inline-block; }
 .language .input-group label { margin-bottom: 1px; }
-.language .input-group input { margin-right: 0; }
+.language .input-group input { margin-right: 4px; }
 
 .not-important {
 	font-size: 9pt;
