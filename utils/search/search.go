@@ -107,6 +107,7 @@ func byQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, 
 	search.FromRequest(c)
 	search.Offset = uint32(pagenum)
 	search.Hidden = hidden
+	search.Deleted = deleted
 	search.Full = withUser
 
 	orderBy := search.Sort.ToDBField()

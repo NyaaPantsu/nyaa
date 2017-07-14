@@ -37,6 +37,7 @@ type TorrentParam struct {
 	Full      bool // True means load all members
 	Order     bool // True means ascending
 	Hidden    bool // True means filter hidden torrents
+	Deleted   bool // False means filter deleted torrents
 	Status    Status
 	Sort      SortMode
 	Category  Categories
@@ -63,7 +64,7 @@ func (p *TorrentParam) Identifier() string {
 	for _, v := range p.Languages {
 		languages += fmt.Sprintf("%s%s", v.Code, v.Name)
 	}
-	return fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%d%d%s%t%t%t", p.NameLike, p.NotNull, languages, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, p.FromDate, p.ToDate, p.UserID, p.TorrentID, cats, p.Full, p.Order, p.Hidden)
+	return fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%d%d%s%t%t%t%t", p.NameLike, p.NotNull, languages, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, p.FromDate, p.ToDate, p.UserID, p.TorrentID, cats, p.Full, p.Order, p.Hidden, p.Deleted)
 }
 
 func (st *Status) ToString() string {

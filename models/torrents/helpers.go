@@ -52,7 +52,7 @@ func NewTorrentEvent(user *models.User, torrent *models.Torrent) error {
 
 // HideUser : hides a torrent user for hidden torrents
 func HideUser(uploaderID uint, uploaderName string, torrentHidden bool) (uint, string) {
-	if torrentHidden {
+	if uploaderName == "" || torrentHidden {
 		return 0, "れんちょん"
 	}
 	if uploaderID == 0 {

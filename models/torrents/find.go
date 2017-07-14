@@ -74,6 +74,16 @@ func FindRawByID(id uint) (torrent models.Torrent, err error) {
 	return
 }
 
+// FindUnscopeByID : Get torrent with ID deleted or not
+func FindUnscopeByID(id uint) (torrent models.Torrent, err error) {
+	err = nil
+	if models.ORM.Unscoped().Where("torrent_id = ?", id).Preload("Uploader").Find(&torrent).RecordNotFound() {
+		err = errors.New("Torrent is not found")
+	}
+	torrent.ParseLanguages()
+	return
+}
+
 // FindRawByHash : Get torrent with id without user or comments
 // won't fetch user or comments
 func FindRawByHash(hash string) (torrent models.Torrent, err error) {

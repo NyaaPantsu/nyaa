@@ -239,7 +239,7 @@ func CommentsListPanel(c *gin.Context) {
 // TorrentEditModPanel : Controller for editing a torrent after GET request
 func TorrentEditModPanel(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
-	torrent, _ := torrents.FindByID(uint(id))
+	torrent, _ := torrents.FindUnscopeByID(uint(id))
 
 	torrentJSON := torrent.ToJSON()
 	uploadForm := upload.NewTorrentRequest()
@@ -259,7 +259,7 @@ func TorrentPostEditModPanel(c *gin.Context) {
 	var uploadForm torrentValidator.TorrentRequest
 	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
 	messages := msg.GetMessages(c)
-	torrent, _ := torrents.FindByID(uint(id))
+	torrent, _ := torrents.FindUnscopeByID(uint(id))
 	if torrent.ID > 0 {
 		errUp := upload.ExtractEditInfo(c, &uploadForm)
 		if errUp != nil {
@@ -278,6 +278,9 @@ func TorrentPostEditModPanel(c *gin.Context) {
 			_, err := torrent.UpdateUnscope()
 			messages.AddInfoT("infos", "torrent_updated")
 			if err == nil { // We only log edit torrent for admins
+				if torrent.Uploader == nil {
+					torrent.Uploader = &models.User{}
+				}
 				_, username := torrents.HideUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
 				activities.Log(&models.User{}, torrent.Identifier(), "edit", "torrent_edited_by", strconv.Itoa(int(torrent.ID)), username, getUser(c).Username)
 			}
@@ -327,6 +330,9 @@ func TorrentDeleteModPanel(c *gin.Context) {
 			}
 		}
 		if err == nil {
+			if torrent.Uploader == nil {
+				torrent.Uploader = &models.User{}
+			}
 			_, username := torrents.HideUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
 			activities.Log(&models.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, getUser(c).Username)
 		}
@@ -472,6 +478,9 @@ func TorrentBlockModPanel(c *gin.Context) {
 		action = "unblocked"
 	}
 	if err == nil {
+		if torrent.Uploader == nil {
+			torrent.Uploader = &models.User{}
+		}
 		_, username := torrents.HideUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
 		activities.Log(&models.User{}, torrent.Identifier(), action, "torrent_"+action+"_by", strconv.Itoa(int(torrent.ID)), username, getUser(c).Username)
 	}
@@ -577,6 +586,9 @@ func torrentManyAction(c *gin.Context) {
 					/* Changes are done, we save */
 					_, err := torrent.UpdateUnscope()
 					if err == nil {
+						if torrent.Uploader == nil {
+							torrent.Uploader = &models.User{}
+						}
 						_, username := torrents.HideUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
 						activities.Log(&models.User{}, torrent.Identifier(), "edited", "torrent_edited_by", strconv.Itoa(int(torrent.ID)), username, getUser(c).Username)
 					}
@@ -591,6 +603,9 @@ func torrentManyAction(c *gin.Context) {
 						messages.ImportFromError("errors", err)
 					} else {
 						messages.AddInfoTf("infos", "torrent_deleted", torrent.Name)
+						if torrent.Uploader == nil {
+							torrent.Uploader = &models.User{}
+						}
 						_, username := torrents.HideUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
 						activities.Log(&models.User{}, torrent.Identifier(), "deleted", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, getUser(c).Username)
 					}
