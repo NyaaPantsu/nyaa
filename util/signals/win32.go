@@ -12,7 +12,7 @@ func Handle() {
 	chnl := make(chan os.Signal)
 	signal.Notify(chnl, os.Interrupt)
 	go func(chnl chan os.Signal) {
-		for sig := chnl {
+		for sig := range chnl {
 			switch sig {
 			case os.Interrupt:
 				// this also closes listeners
