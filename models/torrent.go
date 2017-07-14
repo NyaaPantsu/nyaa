@@ -393,7 +393,7 @@ func (t *Torrent) UpdateUnscope() (int, error) {
 
 // DeleteTorrent : delete a torrent based on id
 func (t *Torrent) Delete(definitely bool) (*Torrent, int, error) {
-	cache.C.Delete(t.Identifier())
+	cache.C.Flush()
 	db := ORM
 	if definitely {
 		db = ORM.Unscoped()
