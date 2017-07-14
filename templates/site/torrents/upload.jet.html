@@ -121,7 +121,8 @@
 				lang_value = document.getElementsByClassName["form-language-checkbox"][lang_index].value;
 			}
 		}
-		lang_value = document.getElementsByClassName["table-torrent-flag"][0].className = "flag table-torrent-flag flag-" + lang_value.substring(3, 5);
+		var lang_cat = lang_value != "other" ? lang_value > 1 ? "multiple" : lang_value.substring(3, 5) : "other";
+		document.getElementsByClassName["table-torrent-flag"][0].className = "flag table-torrent-flag flag-" + lang_cat;
 	}
 	
 	for(var lang_index = 0; lang_index < {{ len(languages) }}; lang_index++) 
