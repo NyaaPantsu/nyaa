@@ -31,7 +31,7 @@
               		<td class="tr-cat home-td">
 				<div class="nyaa-cat nyaa-cat-5">
 				<a title="Literature - English-translated" class="category table-torrent-category"></a>
-				<a><img src="/img/blank.gif" class="flag flag-other"></a>
+				<a><img src="/img/blank.gif" class="flag flag-other table-torrent-flag"></a>
              			 </div>
              		 </td>
               		<td class="tr-name home-td" colspan="2"><a class="table-torrent-name">Example text</a></td>
@@ -108,6 +108,24 @@
 <script type="text/javascript">var Sukebei = {{ Sukebei }}; var UserTrusted = {{ User.IsTrusted() }};
 	document.getElementsByClassName("torrent-preview-table")[0].display = "block";
 	document.getElementsByClassName("table-torrent-date")[0].innerText = new Date(Date.now()).toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), { year: "numeric", month: "short", day: "numeric" });
+	
+	function UpdateTorrentLang() {
+		var lang_count = 0,
+		    lang_value = "other";
+		for(var lang_index = 0; lang_index < {{ len(languages) }}; lang_index++) {
+			if(document.getElementsByClassName["form-language-checkbox"][lang_index].checked) 
+				if(++lang_count > 1){
+					lang_value = "other";
+					break;
+				}
+				lang_value = document.getElementsByClassName["form-language-checkbox"][lang_index].value;
+			}
+		}
+		lang_value = document.getElementsByClassName["table-torrent-flag"][0].className = "flag table-torrent-flag flag-" + lang_value.substring(3, 5);
+	}
+	
+	for(var lang_index = 0; lang_index < {{ len(languages) }}; lang_index++) 
+		document.getElementsByClassName["form-language-checkbox"][lang_index].addEventListener("change", UpdateTorrentLang);
 </script>
 <script type="text/javascript" src="/js/kilo.js"></script>
 <script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
