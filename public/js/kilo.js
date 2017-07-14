@@ -16,8 +16,6 @@ document.getElementsByClassName("form-torrent-hidden")[0].onchange = function(){
         document.getElementsByClassName("table-torrent-thead")[0].className = document.getElementsByClassName("table-torrent-thead")[0].className + " trusted";
 };                                                                                                            
 
-document.getElementsByClassName("torrent-preview-table")[0].display = "block";
-
 var CategoryList = [
     5
     12,
