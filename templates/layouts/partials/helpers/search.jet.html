@@ -1,5 +1,5 @@
 {{block search_common()}}
-  <select name="c" class="form-input hide-xs">
+  <select name="c" class="form-input hide-xs form-category">
     <option value="_">{{ T("all_categories")}}</option>
       {{ range _, cat := GetCategories(true, true) }}
       <option value="{{ cat.ID }}" {{if Search.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
