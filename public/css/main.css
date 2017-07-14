@@ -331,6 +331,7 @@ th { border-bottom-width: 2px; }
 .tr-links { width: 66px; }
 .tr-cs { width: 5px; overflow: initial; text-overflow: initial; }
 .tr-cs .comment-icon { margin-bottom: 4px; }
+.tr-cs.invisible { width: 0px!important; }
 .tr-size { width: 90px; }
 .tr-se, .tr-le { font-weight: bold; }
 .tr-se, .tr-le, .tr-dl { width: 50px; }
