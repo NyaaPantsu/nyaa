@@ -19,7 +19,7 @@ import (
 func CreateUserFromRequest(registrationForm *userValidator.RegistrationForm) (*models.User, error) {
 	var user = &models.User{}
 	log.Debugf("registrationForm %+v\n", registrationForm)
-	validator.Bind(&user, &registrationForm)
+	validator.Bind(user, registrationForm)
 	if user.Email == "" {
 		user.MD5 = ""
 	} else {
@@ -39,7 +39,7 @@ func CreateUserFromRequest(registrationForm *userValidator.RegistrationForm) (*m
 	user.APIToken, _ = crypto.GenerateRandomToken32()
 	user.APITokenExpiry = time.Unix(0, 0)
 
-	if models.ORM.Create(&user).Error != nil {
+	if models.ORM.Create(user).Error != nil {
 		return user, errors.New("user not created")
 	}
 
@@ -48,7 +48,7 @@ func CreateUserFromRequest(registrationForm *userValidator.RegistrationForm) (*m
 
 // CreateUser creates a user.
 func CreateUser(c *gin.Context) (*models.User, int) {
-	var user *models.User
+	var user = &models.User{}
 	var registrationForm userValidator.RegistrationForm
 	var err error
 	messages := msg.GetMessages(c)

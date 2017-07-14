@@ -200,15 +200,17 @@ func UserRegisterPostHandler(c *gin.Context) {
 			validator.ValidateForm(&b, messages)
 			if !messages.HasErrors() {
 				user, _ := users.CreateUser(c)
-				_, err := cookies.SetLogin(c, user)
-				if err != nil {
-					messages.Error(err)
-				}
-				if b.Email != "" {
-					email.SendVerificationToUser(user, b.Email)
-				}
 				if !messages.HasErrors() {
-					staticTemplate(c, "site/static/signup_success.jet.html")
+					_, err := cookies.SetLogin(c, user)
+					if err != nil {
+						messages.Error(err)
+					}
+					if b.Email != "" {
+						email.SendVerificationToUser(user, b.Email)
+					}
+					if !messages.HasErrors() {
+						staticTemplate(c, "site/static/signup_success.jet.html")
+					}
 				}
 			}
 		}
