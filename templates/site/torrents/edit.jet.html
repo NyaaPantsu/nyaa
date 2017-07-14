@@ -1,6 +1,7 @@
 {{ extends "layouts/index_site" }}
 {{ import "layouts/partials/helpers/csrf" }}
 {{ import "layouts/partials/helpers/errors" }}
+{{ import "layouts/partials/helpers/flags" }}
 {{block title()}}{{T("torrent_edit_panel")}}{{end}}
 {{block content_body()}}
   <div class="box results">
@@ -25,23 +26,18 @@
       <div class="form-group">
           <label class="input-label" for="language">{{  T("torrent_language") }}</label>
           <div name="language" class="form-input language">
-			{{ range _, language := GetTorrentLanguages() }}
-              <span class="input-group">
-                  <input type="checkbox" name="languages" id="lang-{{ language.Code }}" value="{{language.Code}}"{{if contains(Form.Languages, language.Code) }} checked{{end}}>
- -                  <label for="lang-{{ language.Code }}" class="flag flag-{{ language.Flag(false) }}" title="{{LanguageName(language, T)}}"></label>
-              </span>
-			{{ end }}
+            {{ yield flagList(languages=GetTorrentLanguages(), selected=Form.Languages) }}
 		  </div>
           {{ yield errors(name="language")}}
       </div>
       <div class="form-group">
-          <input type="checkbox" name="remake" id="remake" {{ if Form.Remake }}checked{{end}}>
+          <input type="checkbox" value="true" name="remake" id="remake" {{ if Form.Remake }}checked{{end}}>
           <label for="remake">{{ T("mark_as_remake")}}</label>
         {{ yield errors(name="remake")}}
       </div>
 		{{ if User.ID > 0 }}
 		<p>
-			<input type="checkbox" name="hidden" id="hidden" {{ if Form.Hidden }}checked{{end}}>
+			<input type="checkbox" name="hidden" id="hidden" value="true" {{ if Form.Hidden }}checked{{end}}>
 			<label for="hidden">{{ T("upload_as_anon")}}</label>
         {{ yield errors(name="hidden")}}
 		</p>

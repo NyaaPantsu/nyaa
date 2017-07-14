@@ -17,6 +17,7 @@ import (
 	"net/url"
 
 	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/utils/cache"
 	"github.com/NyaaPantsu/nyaa/utils/format"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/NyaaPantsu/nyaa/utils/sanitize"
@@ -362,6 +363,7 @@ func TorrentsToJSON(t []Torrent) []TorrentJSON {
 
 // Update : Update a torrent based on model
 func (t *Torrent) Update(unscope bool) (int, error) {
+	cache.C.Delete(t.Identifier())
 	db := ORM
 	if unscope {
 		db = ORM.Unscoped()
@@ -391,6 +393,7 @@ func (t *Torrent) UpdateUnscope() (int, error) {
 
 // DeleteTorrent : delete a torrent based on id
 func (t *Torrent) Delete(definitely bool) (*Torrent, int, error) {
+	cache.C.Delete(t.Identifier())
 	db := ORM
 	if definitely {
 		db = ORM.Unscoped()

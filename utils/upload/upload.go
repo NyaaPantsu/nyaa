@@ -177,6 +177,8 @@ func UpdateTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, current
 	}
 	t.Status = status
 
+	t.Hidden = r.Update.Hidden
+
 	return t
 }
 

@@ -1,6 +1,7 @@
 {{ extends "layouts/index_site" }}
 {{ import "layouts/partials/helpers/csrf" }}
 {{ import "layouts/partials/helpers/captcha" }}
+{{ import "layouts/partials/helpers/flags" }}
 {{block title()}}{{ T("upload")}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
@@ -31,25 +32,20 @@
 
 		<h3>{{  T("torrent_language") }}</h3>
 		<div name="language" class="form-input language">
-			{{ range _, language := GetTorrentLanguages() }}
-			<span class="input-group">
-				<input type="checkbox" name="languages" id="lang-{{ language.Code }}" value="{{language.Code}}">
-				<label for="lang-{{ language.Code }}" class="flag flag-{{ language.Flag(false) }}" title="{{LanguageName(language, T)}}"></label>
-			</span>
-			{{ end }}
+            {{ yield flagList(languages=GetTorrentLanguages(), selected=Form.Languages) }}
 		</div>
 		<p class="not-important">{{ T("language_not_mandatory") }}</p>
 		{{ yield errors(name="language")}}
 
 		<p>
-			<input type="checkbox" name="remake" id="remake" >
+			<input type="checkbox" value="true" name="remake" id="remake" >
 			<label for="remake">{{ T("mark_as_remake")}}</label>
 		</p>
 		{{ yield errors(name="remake")}}
 
 		{{ if User.ID > 0 }}
 		<p>
-			<input type="checkbox" name="hidden" id="hidden" >
+			<input type="checkbox" value="true" name="hidden" id="hidden" >
 			<label for="hidden">{{ T("upload_as_anon")}}</label>
 		</p>
 		{{ yield errors(name="hidden")}}
