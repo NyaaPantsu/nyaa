@@ -30,7 +30,7 @@
           <td class="torrent-info-td torrent-info-label">{{ T("size")}}:</td><td class="torrent-view-td torrent-info-data">{{ fileSize(Torrent.Filesize, T) }}</td>
           <td class="torrent-info-td torrent-info-label">{{ T("last_scraped")}}</td><td class="torrent-info-td{{if !Torrent.LastScrape.IsZero}} date-full">{{formatDateRFC(Torrent.LastScrape)}}{{else}}">{{ T("unknown")}}{{end}}</td>
       </tr>
-      {{ if len(Torrent.Languages) > 0}}
+      {{ if len(Torrent.Languages) > 0 && Torrent.Languages[0] != "" }}
     <tr class="torrent-info-row">
         <td class="torrent-info-td torrent-info-label">{{ T("torrent_language")}}:</td>
         <td class="tr-flag torrent-view-td torrent-info-data">
