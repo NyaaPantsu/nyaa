@@ -55,14 +55,16 @@
                   </a>
               </div>
               </td>
-              <td class="tr-name home-td">
+              <td class="tr-name home-td"{{ if len(.Comments) > 0 }}colspan="2"{{ end }}>
                   <a href="/view/{{ .ID }}">
                       {{.Name}}
                   </a>
               </td>
-              <td class="tr-cs home-td {{ if len(.Comments) == 0 }}invisible{{ end }}">
-		      <span>{{len(.Comments)}}</span>
-              </td>
+		  {{ if len(.Comments) > 0 }}
+		      <td class="tr-cs home-td">
+			      <span>{{len(.Comments)}}</span>
+		      </td>
+		  {{ end }}
               <td class="tr-links home-td">
                   <a href="{{.Magnet}}" title="{{  T("magnet_link") }}">
                       <div class="icon-magnet"></div>
