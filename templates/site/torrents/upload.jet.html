@@ -11,7 +11,7 @@
 		<input type="text" name="name" id="name" class="form-input up-input form-torrent-name" placeholder="{{ T("file_name")}}" value="{{Form.Name}}" autofocus>
 		{{ yield errors(name="name")}}
 		
-		<div class="torrent-preview-table"><center><h3 style="margin-bottom: 3px;">Preview your torrent</h3></center>
+		<div class="torrent-preview-table" style="display: none;"><center><h3 style="margin-bottom: 3px;">Preview your torrent</h3></center>
 		<table style="border: 3px solid #dfdeeb;">
           <thead class="torrent-info">
           <tr>
