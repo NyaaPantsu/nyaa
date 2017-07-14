@@ -148,9 +148,6 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 		return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
 	})
 
-	vars.Set("DisplayTorrent", func(t models.Torrent, u *models.User) bool {
-		return (!t.Hidden && t.Status != 0) || u.CurrentOrAdmin(t.UploaderID)
-	})
 	vars.Set("NoEncode", func(str string) template.HTML {
 		return template.HTML(str)
 	})

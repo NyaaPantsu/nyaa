@@ -2,8 +2,7 @@
 {{ if isset(languages) }}
     {{ range _, language := languages }}
         <span class="input-group">
-        <input type="checkbox" name="{{inputname}}" id="lang-{{ language.Code }}" value="{{language.Code}}"{{ range _, v := selected}}{{ if contains(v, language.Code) }} checked{{end}}{{end}}>
-        <label for="lang-{{ language.Code }}" class="flag flag-{{ language.Flag(false) }}" title="{{LanguageName(language, T)}}"></label>
+        <input type="checkbox" name="{{inputname}}" id="lang-{{ language.Code }}" value="{{language.Code}}"{{ range _, v := selected}}{{ if contains(v, language.Code) }} checked{{end}}{{end}}><label for="lang-{{ language.Code }}" class="flag flag-{{ language.Flag(false) }}" title="{{LanguageName(language, T)}}"></label>
         </span>
     {{ end }}
 {{ end }}
