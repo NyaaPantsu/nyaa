@@ -267,7 +267,7 @@ select.form-input {
 .form-refine input.spacing, .form-refine select.spacing { margin-right: 8px; }
 .form-refine span.spacing { min-width: 100px; display: inline-block; }
 .form-refine .refine-searchbox { border-radius: 3px 0 0 3px; }
-.form-refine .refine-category { border-left: none; border-radius: 0 3px 3px 0; margin-left: -5px;  }
+.form-refine .refine-category { border-left: none; border-radius: 0 3px 3px 0; }
 
 .categories a {
 	display: 	inline-block;
