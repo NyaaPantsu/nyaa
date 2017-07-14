@@ -60,7 +60,7 @@
 		{{ yield errors(name="magnet")}}
 
 		<h3>{{ T("category")}}</h3>
-		<select name="c" id="c" class="form-input up-input" required>
+		<select name="c" id="c" class="form-input up-input form-torrent-category" onchange="UpdateTable(1);" required>
 			<option value="">{{ T("select_a_torrent_category")}}</option>
 			{{ range _, cat := GetCategories(false, true) }}
 			<option value="{{ cat.ID }}" {{if Form.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
