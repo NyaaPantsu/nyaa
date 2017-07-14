@@ -76,14 +76,14 @@
 		{{ yield errors(name="language")}}
 
 		<p>
-			<input type="checkbox" value="true" name="remake" id="remake" >
+			<input type="checkbox" value="true" name="remake" id="remake" class="form-torrent-remake">
 			<label for="remake">{{ T("mark_as_remake")}}</label>
 		</p>
 		{{ yield errors(name="remake")}}
 
 		{{ if User.ID > 0 }}
 		<p>
-			<input type="checkbox" value="true" name="hidden" id="hidden" >
+			<input type="checkbox" value="true" name="hidden" id="hidden" class="form-torrent-hidden">
 			<label for="hidden">{{ T("upload_as_anon")}}</label>
 		</p>
 		{{ yield errors(name="hidden")}}
