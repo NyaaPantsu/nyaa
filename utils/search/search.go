@@ -81,7 +81,7 @@ func ByQueryNoHidden(c *gin.Context, pagenum int) (search structs.TorrentParam, 
 // deleted is unused because es doesn't index deleted torrents
 func byQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (structs.TorrentParam, []models.Torrent, int, error) {
 	var err error
-	if models.ElasticSearchClient != nil {
+	if models.ElasticSearchClient != nil && !deleted {
 		var torrentParam structs.TorrentParam
 		torrentParam.FromRequest(c)
 		torrentParam.Offset = uint32(pagenum)
