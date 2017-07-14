@@ -27,8 +27,8 @@
           <div name="language" class="form-input language">
 			{{ range _, language := GetTorrentLanguages() }}
               <span class="input-group">
-                  <input type="checkbox" name="languages" id="lang-{{ language.Code }}" value="{{language.Code}}"{{if contains(Form.Languages, language.Code) }} checked{{end}}>
-                  <label for="lang-{{ language.Code }}" class="flag flag-{{ language.Flag(false) }}" title="{{LanguageName(language, T)}}" title="{{Form.Languages}},{{language.code}}"></label>
+                  <input type="checkbox" name="languages" id="lang-{{ language.Code }}" value="{{language.Code}}"{{if contains(Form.Languages, language) }} checked{{end}}>
+                  <label for="lang-{{ language.Code }}" class="flag flag-{{ language.Flag(false) }}" title="{{LanguageName(language, T)}}"></label>
               </span>
 			{{ end }}
 		  </div>
@@ -66,3 +66,4 @@
 <script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
 <script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc"), spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
 {{end}}
+	
