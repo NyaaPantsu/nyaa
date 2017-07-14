@@ -8,7 +8,7 @@
 	<form enctype="multipart/form-data" role="upload" method="POST">
 		{{ yield csrf_field() }}
 		<h3>{{ T("name")}}</h3>
-		<input type="text" name="name" id="name" class="form-input up-input form-torrent-name" placeholder="{{ T("file_name")}}" value="{{Form.Name}}" onkeyup="UpdateTable(0);" autofocus>
+		<input type="text" name="name" id="name" class="form-input up-input form-torrent-name" placeholder="{{ T("file_name")}}" value="{{Form.Name}}" autofocus>
 		{{ yield errors(name="name")}}
 		
 		<center><h3 style="margin-bottom: 3px;">Preview your torrent</h3></center>
@@ -60,7 +60,7 @@
 		{{ yield errors(name="magnet")}}
 
 		<h3>{{ T("category")}}</h3>
-		<select name="c" id="c" class="form-input up-input form-torrent-category" onchange="UpdateTable(1);" required>
+		<select name="c" id="c" class="form-input up-input form-torrent-category" required>
 			<option value="">{{ T("select_a_torrent_category")}}</option>
 			{{ range _, cat := GetCategories(false, true) }}
 			<option value="{{ cat.ID }}" {{if Form.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
