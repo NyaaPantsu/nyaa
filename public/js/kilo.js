@@ -7,7 +7,7 @@ document.getElementsByClassName("form-torrent-category")[0].onchange = function(
 };
 
 document.getElementsByClassName("form-torrent-remake")[0].onchange = function(){
-    document.getElementsByClassName("table-torrent-category")[0].className = "table-torrent-category nyaa-cat nyaa-cat-" + Categorylist[document.getElementsByClassName("form-torrent-category")[0].selectedIndex] + (document.getElementsByClassName("table-torrent-category")[0] == on) ? "remake" : "");
+    document.getElementsByClassName("table-torrent-category")[0].className = "table-torrent-category nyaa-cat nyaa-cat-" + Categorylist[document.getElementsByClassName("form-torrent-category")[0].selectedIndex] + (document.getElementsByClassName("torrent-form-remake")[0].value == "on" ? "remake" : "");
 };
 
 document.getElementsByClassName("torrent-preview-table")[0].display = "block";
