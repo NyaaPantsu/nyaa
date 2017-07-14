@@ -397,6 +397,9 @@ html, body {
 	display: inline-block;
 	vertical-align: middle;
 }
+.torrent-buttons a [class^="icon-"], .torrent-buttons a [class*=" icon-"] {
+	vertical-align: initial;
+}
 
 
 #mascotKeepHide { pointer-events: auto; }
