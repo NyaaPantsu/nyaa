@@ -14,7 +14,8 @@
           {{ range i, t := UserProfile.Torrents }}
           {{ torrent := t.ToJSON() }}
           <tr class="torrent-info 
-              {{if torrent.Status == 2}}remake{{else if torrent.Status == 3}}trusted{{else if torrent.Status == 4}}aplus{{end}}">
+              {{if torrent.Status == 2}}remake{{else if torrent.Status == 3}}trusted{{else if torrent.Status == 4}}aplus{{end}}
+		{{if t.Hidden }} hidden{{end}}">
 		<td class="tr-cat user-td">
 		{{ if Sukebei }}
 			<div class="nyaa-cat sukebei-cat-{{ torrent.Category }}{{ torrent.SubCategory}}">
@@ -35,7 +36,7 @@
                       {{torrent.Name}}
                   </a>
               </td>
-              <td class="tr-links home-td">
+              <td class="tr-links user-td">
                   <a href="{{torrent.Magnet}}" title="{{  T("magnet_link") }}">
                         <div class="icon-magnet"></div>
                   </a>

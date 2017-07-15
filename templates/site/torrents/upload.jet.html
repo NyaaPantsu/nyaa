@@ -13,7 +13,7 @@
 		
 		<div class="torrent-preview-table" style="display: none;"><center><h3 style="margin-bottom: 3px;">Preview your torrent</h3></center>
 		<table style="border: 3px solid #dfdeeb;">
-          <thead class="torrent-info table-torrent-thead{{ if User.IsTrusted() }} trusted{{end}}">
+          <thead  class="torrent-info table-torrent-thead">
           <tr>
               <th class="tr-cat">Category</th>
               <th class="tr-name">Name<span class="sort-arrows"><span class="sortarrowleft sortarrowdim">▼</span><span class="sortarrowdim">▲</span></span></th>
@@ -27,10 +27,10 @@
           </tr>
           </thead>
           <tbody id="torrentListResults">
-        	<tr class="torrent-info">
+        	<tr name="torrent-info tr" class="torrent-info{{ if User.IsTrusted() }} trusted{{end}}">
               		<td class="tr-cat home-td">
-				<div class="nyaa-cat {{ if Sukebei }}sukebei-cat-11{{else}}nyaa-cat-5{{end}}">
-				<a class="category table-torrent-category"></a>
+				<div class="nyaa-cat table-torrent-category">
+				<a class="category"></a>
 				<a><img src="/img/blank.gif" class="flag flag-other table-torrent-flag"></a>
              			 </div>
              		 </td>
@@ -70,7 +70,7 @@
 
 		<h3>{{  T("torrent_language") }}</h3>
 		<div name="language" class="form-input language">
-            {{ yield flagList(languages=GetTorrentLanguages(), selected=Form.Languages) }}
+            {{ yield flagList(languages=GetTorrentLanguages(), selected=Form.Languages, inputname="languages", id="upload-lang")}}
 		</div>
 		<p class="not-important">{{ T("language_not_mandatory") }}</p>
 		{{ yield errors(name="language")}}
@@ -99,6 +99,7 @@
 		<div style="width: 240px">
 		{{yield captcha(captchaid=Form.CaptchaID)}}
 		</div>
+		<input type="hidden" id="IsUploadingToSukebei" value="{{ if Sukebei}}yes{{end}}">
 		{{ yield errors(name="captchaID")}}
 		<button type="submit" class="form-input up-btn">{{ T("upload")}}</button>
 	</form>
@@ -106,32 +107,20 @@
 {{end}}
 {{ block footer_js()}}
 <script type="text/javascript" src="/js/kilo.js"></script>
-<script type="text/javascript">var Sukebei = {{Sukebei ? "1" : "0"}}; var UserTrusted = {{User.IsTrusted()}};
-	document.getElementsByClassName("torrent-preview-table")[0].style.display = "block";
-	document.getElementsByClassName("table-torrent-date")[0].innerText = new Date(Date.now()).toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), { year: "numeric", month: "short", day: "numeric" });
-	document.getElementsByClassName("form-torrent-category")[0].addEventListener("change", UpdatePreviewCategory);
-	
-	function UpdateTorrentLang() {
-		var lang_count = 0,
-		    lang_value = "other";
-		for(var lang_index = 0; lang_index < document.getElementsByClassName["form-language-checkbox"].length; lang_index++) {
-			if(document.getElementsByClassName["form-language-checkbox"][lang_index].checked) {
-				if(++lang_count > 1){
-					lang_value = "multiple";
-					break;
-				}
-				lang_value = document.getElementsByClassName["form-language-checkbox"][lang_index].value;
-			}
-		}
-		var lang_cat = lang_value != "other" ? lang_value > 1 ? "multiple" : lang_value.substring(3, 5) : "other";
-		document.getElementsByClassName["table-torrent-flag"][0].className = "table-torrent-flag flag flag-" + lang_cat;
-	}
-	
-	for(var lang_index = 0; lang_index < document.getElementsByClassName["form-language-checkbox"].length; lang_index++) 
-		document.getElementsByClassName["form-language-checkbox"][lang_index].addEventListener("change", UpdateTorrentLang);
-	
-	UpdateTorrentLang();
+<script type="text/javascript">var UserTrusted = {{User.IsTrusted()}};
+	UpdatePreviewTorrentName();
 	UpdatePreviewCategory();
+	UpdateTorrentLang();
+                                                                                                                
+	{{ if User.ID > 0 }}
+		document.getElementsByClassName("form-torrent-hidden")[0].onchange = function(){
+			document.getElementsByName("torrent-info tr")[0].className = "";
+		    if(UserTrusted&& !document.getElementsByClassName("form-torrent-hidden")[0].checked)
+			document.getElementsByName("torrent-info tr")[0].className = "trusted ";
+			document.getElementsByName("torrent-info tr")[0].className = document.getElementsByName("torrent-info tr")[0].className + "torrent-info " + (document.getElementsByClassName("form-torrent-remake")[0].checked ? " remake" : "");
+		};
+	{{end }}
+
 </script>
 <script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
 <script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc"), spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>

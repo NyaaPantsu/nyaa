@@ -1,23 +1,50 @@
-document.getElementsByClassName("form-torrent-name")[0].onkeyup = function(){
-    document.getElementsByClassName("table-torrent-name")[0].innerText = document.getElementsByClassName("form-torrent-name")[0].value;
+var Sukebei = document.getElementById("IsUploadingToSukebei").value == "yes" ? 1 : 0;
+
+
+document.getElementsByClassName("torrent-preview-table")[0].style.display = "block";
+document.getElementsByClassName("table-torrent-date")[0].innerText = new Date(Date.now()).toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), { year: "numeric", month: "short", day: "numeric" });
+
+for(var lang_index = 0; lang_index < document.getElementsByName("languages").length; lang_index++) 
+	document.getElementsByName("languages")[lang_index].addEventListener("change", UpdateTorrentLang);
+document.getElementsByClassName("form-torrent-category")[0].addEventListener("change", UpdatePreviewCategory);
+document.getElementsByClassName("form-torrent-name")[0].addEventListener("keyup", UpdatePreviewTorrentName);
+document.getElementsByClassName("form-torrent-remake")[0].onchange = function(){
+	document.getElementsByName("torrent-info tr")[0].className = "torrent-info" + (UserTrusted ? " trusted" : "") + (document.getElementsByClassName("form-torrent-remake")[0].checked ? " remake" : "");
 };
 
-function UpdatePreviewCategory(){
-    document.getElementsByClassName("table-torrent-category")[0].className = "nyaa-cat table-torrent-category "+ Sukebei ? "sukebei" : "nyaa" + "-cat-" + Categorylist[Sukebei][document.getElementsByClassName("form-torrent-category")[0].selectedIndex];
+
+function UpdatePreviewTorrentName(){
+    document.getElementsByClassName("table-torrent-name")[0].innerText = document.getElementsByClassName("form-torrent-name")[0].value;
 }
 
-document.getElementsByClassName("form-torrent-remake")[0].onchange = function(){
-    document.getElementsByClassName("table-torrent-thead")[0].className = "torrent-info table-torrent-thead" + (UserTrusted ? " trusted" : "") + (document.getElementsByClassName("form-torrent-remake")[0].checked ? " remake" : "");
-};
-                                                                                                                
-document.getElementsByClassName("form-torrent-hidden")[0].onchange = function(){
-    document.getElementsByClassName("table-torrent-thead")[0].className = "torrent-info table-torrent-thead" + (document.getElementsByClassName("form-torrent-remake")[0].checked ? " remake" : "");
-    if(UserTrusted && !document.getElementsByClassName("form-torrent-hidden")[0].checked)
-        document.getElementsByClassName("table-torrent-thead")[0].className = document.getElementsByClassName("table-torrent-thead")[0].className + " trusted";
-};                                                                                                            '
-                                                                                       
+function UpdatePreviewCategory(){
+    document.getElementsByClassName("table-torrent-category")[0].className = "nyaa-cat table-torrent-category "+ (Sukebei ? "sukebei" : "nyaa") + "-cat-" + CategoryList[Sukebei][document.getElementsByClassName("form-torrent-category")[0].selectedIndex];
+}
+
+function UpdateTorrentLang() {
+	var lang_count,
+		lang_value = "other",
+		lang_title = "";
+	
+	lang_count = 0;
+		
+	for(var lang_index = 0, title_index = 0; lang_index < document.getElementsByName("languages").length; lang_index++) {
+		if(document.getElementsByName("languages")[lang_index].checked) {
+			lang_title= lang_title + document.getElementsByName("upload-lang-languagename")[lang_index].innerText + ",";
+			if(++lang_count > 1){
+				lang_value = "multiple";
+				continue;
+			}
+			lang_value = document.getElementsByName("languages")[lang_index].value;
+		}
+	}
+		var lang_cat = lang_value != "other" ? (lang_value > 1 ? "multiple" : lang_value) : "other";
+	document.getElementsByClassName("table-torrent-flag")[0].className = "table-torrent-flag flag flag-" + lang_cat;
+	document.getElementsByClassName("table-torrent-flag")[0].title = lang_title;
+}
+
 var CategoryList = [
-    [5
+    [0,
     12,
     5,
     13,
