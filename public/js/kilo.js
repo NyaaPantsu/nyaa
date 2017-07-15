@@ -2,9 +2,10 @@ document.getElementsByClassName("form-torrent-name")[0].onkeyup = function(){
     document.getElementsByClassName("table-torrent-name")[0].innerText = document.getElementsByClassName("form-torrent-name")[0].value;
 };
 
-document.getElementsByClassName("form-torrent-category")[0].onchange = function(){
+function UpdatePreviewCategory(){
     document.getElementsByClassName("table-torrent-category")[0].className = "nyaa-cat table-torrent-category "+ Sukebei ? "sukebei" : "nyaa" + "-cat-" + Categorylist[Sukebei][document.getElementsByClassName("form-torrent-category")[0].selectedIndex];
-};
+}
+document.getElementsByClassName("form-torrent-category")[0].addEventListener("change", UpdatePreviewCategory);
 
 document.getElementsByClassName("form-torrent-remake")[0].onchange = function(){
     document.getElementsByClassName("table-torrent-thead")[0].className = "torrent-info table-torrent-thead" + (UserTrusted ? " trusted : "") + (document.getElementsByClassName("form-torrent-remake")[0].checked ? " remake" : "");
@@ -14,8 +15,8 @@ document.getElementsByClassName("form-torrent-hidden")[0].onchange = function(){
     document.getElementsByClassName("table-torrent-thead")[0].className = "torrent-info table-torrent-thead" + (document.getElementsByClassName("form-torrent-remake")[0].checked ? " remake" : "");
     if(UserTrusted && !document.getElementsByClassName("form-torrent-hidden")[0].checked)
         document.getElementsByClassName("table-torrent-thead")[0].className = document.getElementsByClassName("table-torrent-thead")[0].className + " trusted";
-};                                                                                                            
-
+};                                                                                                            '
+                                                                                       
 var CategoryList = [
     [5
     12,
