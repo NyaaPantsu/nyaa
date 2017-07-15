@@ -30,11 +30,11 @@
         	<tr class="torrent-info">
               		<td class="tr-cat home-td">
 				<div class="nyaa-cat {{ if Sukebei }}sukebei-cat-11{{else}}nyaa-cat-5{{end}}">
-				<a title="Literature - English-translated" class="category table-torrent-category"></a>
+				<a class="category table-torrent-category"></a>
 				<a><img src="/img/blank.gif" class="flag flag-other table-torrent-flag"></a>
              			 </div>
              		 </td>
-              		<td class="tr-name home-td" colspan="2"><a class="table-torrent-name">Example text</a></td>
+              		<td class="tr-name home-td" colspan="2"><a class="table-torrent-name">{{Form.Name}}</a></td>
 		  
               <td class="tr-links home-td">
                   <a title="Magnet Link"><div class="icon-magnet"></div></a>
@@ -122,11 +122,13 @@
 			}
 		}
 		var lang_cat = lang_value != "other" ? lang_value > 1 ? "multiple" : lang_value.substring(3, 5) : "other";
-		document.getElementsByClassName["table-torrent-flag"][0].className = "flag table-torrent-flag flag-" + lang_cat;
+		document.getElementsByClassName["table-torrent-flag"][0].className = "table-torrent-flag flag flag-" + lang_cat;
 	}
 	
 	for(var lang_index = 0; lang_index < {{ len(languages) }}; lang_index++) 
 		document.getElementsByClassName["form-language-checkbox"][lang_index].addEventListener("change", UpdateTorrentLang);
+	
+	UpdateTorrentLang();
 </script>
 <script type="text/javascript" src="/js/kilo.js"></script>
 <script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
