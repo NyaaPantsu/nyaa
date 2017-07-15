@@ -27,6 +27,46 @@
           </tr>
           </thead>
           <tbody id="torrentListResults">
+				{{if len(Models) > 0}}
+				  <tr id="torrent_{{ Models[0].ID }}" class="torrent-info hidden {{if Models[0].Status == 2}}remake{{else if Models[0].Status == 3}}trusted{{else if Models[0].Status == 4}}aplus{{end}}" >
+					  <td class="tr-cat home-td">
+					  {{ if Sukebei }}
+					  <div class="nyaa-cat sukebei-cat-{{ Models[0].Category }}{{ Models[0].SubCategory }}">
+					  {{ else}}
+					  <div class="nyaa-cat nyaa-cat-{{ Models[0].SubCategory}}">
+					  {{end}}
+					  {{if Models[0].Languages[0] != "" }}
+						<img src="/img/blank.gif" alt="{{ LanguageNameFromCode(Models[0].Languages[0], T) }}" class="flag flag-{{ (len(Models[0].Languages) == 1) ?  FlagCode(Models[0].Languages[0]) : "multiple" }}" title="{{ range key, language := Models[0].Languages }}{{ LanguageNameFromCode(language, T) }}{{ if len(Models[0].Languages) > 1 && (key+1) < len(Models[0].Languages) }},{{ end }}{{ end }}">
+					{{end}}
+					  </div>
+					  </td>
+					  <td class="tr-name home-td"{{ if len(Models[0].Comments) == 0 }}colspan="2"{{ end }}>
+							  {{Models[0].Name}}
+					  </td>
+				  {{ if len(Models[0].Comments) > 0 }}
+					  <td class="tr-cs home-td">
+						  <span>{{len(Models[0].Comments)}}</span>
+					  </td>
+				  {{ end }}
+					  <td class="tr-links home-td">
+							  <div class="icon-magnet"></div>
+						  {{if Models[0].TorrentLink != ""}}
+							  <div class="icon-floppy"></div>
+						  {{end}}
+					  </td>
+					  <td class="tr-size home-td hide-xs">
+						  {{ fileSize(Models[0].Filesize, T) }}
+					  </td>
+					  {{if Models[0].LastScrape.IsZero}}
+					  <td class="home-td hide-xs" colspan="3">{{ T("unknown")}}</td>
+					  {{else}}
+					  <td class="tr-se home-td hide-xs">{{Models[0].Seeders}}</td>
+					  <td class="tr-le home-td hide-xs">{{Models[0].Leechers}}</td>
+					  <td class="tr-dl home-td hide-xs">{{Models[0].Completed}}</td>
+					  {{end}}
+					  <td class="tr-date home-td date-short hide-xs">{{Models[0].Date}}</td>
+				  </tr>
+				  {{ end }}
         	<tr name="torrent-info tr" class="torrent-info{{ if User.IsTrusted() }} trusted{{end}}">
               		<td class="tr-cat home-td">
 				<div class="nyaa-cat table-torrent-category">
@@ -46,6 +86,46 @@
               <td class="tr-dl home-td hide-xs">0</td>
               <td class="tr-date home-td date-short hide-xs table-torrent-date" title="2017-07-12T16:58:29Z">Jul 12, 2017</td>
           </tr>
+		  {{if len(Models) > 1}}
+				  <tr id="torrent_{{ Models[1].ID }}" class="torrent-info hidden {{if Models[1].Status == 2}}remake{{else if Models[1].Status == 3}}trusted{{else if Models[1].Status == 4}}aplus{{end}}" >
+					  <td class="tr-cat home-td">
+					  {{ if Sukebei }}
+					  <div class="nyaa-cat sukebei-cat-{{ Models[1].Category }}{{ Models[1].SubCategory }}">
+					  {{ else}}
+					  <div class="nyaa-cat nyaa-cat-{{ Models[1].SubCategory}}">
+					  {{end}}
+					  {{if Models[1].Languages[0] != "" }}
+						<img src="/img/blank.gif" alt="{{ LanguageNameFromCode(Models[1].Languages[0], T) }}" class="flag flag-{{ (len(Models[1].Languages) == 1) ?  FlagCode(Models[1].Languages[0]) : "multiple" }}" title="{{ range key, language := Models[1].Languages }}{{ LanguageNameFromCode(language, T) }}{{ if len(Models[1].Languages) > 1 && (key+1) < len(Models[1].Languages) }},{{ end }}{{ end }}">
+					{{end}}
+					  </div>
+					  </td>
+					  <td class="tr-name home-td"{{ if len(Models[1].Comments) == 0 }}colspan="2"{{ end }}>
+							  {{Models[1].Name}}
+					  </td>
+				  {{ if len(Models[1].Comments) > 0 }}
+					  <td class="tr-cs home-td">
+						  <span>{{len(Models[1].Comments)}}</span>
+					  </td>
+				  {{ end }}
+					  <td class="tr-links home-td">
+							  <div class="icon-magnet"></div>
+						  {{if Models[1].TorrentLink != ""}}
+							  <div class="icon-floppy"></div>
+						  {{end}}
+					  </td>
+					  <td class="tr-size home-td hide-xs">
+						  {{ fileSize(Models[1].Filesize, T) }}
+					  </td>
+					  {{if Models[1].LastScrape.IsZero}}
+					  <td class="home-td hide-xs" colspan="3">{{ T("unknown")}}</td>
+					  {{else}}
+					  <td class="tr-se home-td hide-xs">{{Models[1].Seeders}}</td>
+					  <td class="tr-le home-td hide-xs">{{Models[1].Leechers}}</td>
+					  <td class="tr-dl home-td hide-xs">{{Models[1].Completed}}</td>
+					  {{end}}
+					  <td class="tr-date home-td date-short hide-xs">{{Models[1].Date}}</td>
+				  </tr>
+				  {{end}}
           </tbody>
 		</table></div>
 
@@ -70,7 +150,7 @@
 
 		<h3>{{  T("torrent_language") }}</h3>
 		<div name="language" class="form-input language">
-            {{ yield flagList(languages=GetTorrentLanguages(), selected=Form.Languages, inputname="languages", id="upload-lang")}}
+            {{ yield flagList(languages=GetTorrentLanguages(), selected=Search.Languages, inputname="languages", id="upload-lang")}}
 		</div>
 		<p class="not-important">{{ T("language_not_mandatory") }}</p>
 		{{ yield errors(name="language")}}
