@@ -115,7 +115,7 @@
 		var lang_count = 0,
 		    lang_value = "other";
 		for(var lang_index = 0; lang_index < document.getElementsByClassName["form-language-checkbox"].length; lang_index++) {
-			if(document.getElementsByClassName["form-language-checkbox"][lang_index].checked) 
+			if(document.getElementsByClassName["form-language-checkbox"][lang_index].checked) {
 				if(++lang_count > 1){
 					lang_value = "multiple";
 					break;
