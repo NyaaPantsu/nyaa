@@ -105,7 +105,8 @@
 </div>
 {{end}}
 {{ block footer_js()}}
-<script type="text/javascript">var Sukebei = {{ Sukebei }}; var UserTrusted = {{ User.IsTrusted() }};
+<script type="text/javascript" src="/js/kilo.js"></script>
+<script type="text/javascript">var Sukebei = {{Sukebei ? "1" : "0"}}; var UserTrusted = {{User.IsTrusted()}};
 	document.getElementsByClassName("torrent-preview-table")[0].style.display = "block";
 	document.getElementsByClassName("table-torrent-date")[0].innerText = new Date(Date.now()).toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), { year: "numeric", month: "short", day: "numeric" });
 	document.getElementsByClassName("form-torrent-category")[0].addEventListener("change", UpdatePreviewCategory);
@@ -113,7 +114,7 @@
 	function UpdateTorrentLang() {
 		var lang_count = 0,
 		    lang_value = "other";
-		for(var lang_index = 0; lang_index < {{ len(languages) }}; lang_index++) {
+		for(var lang_index = 0; lang_index < document.getElementsByClassName["form-language-checkbox"].length; lang_index++) {
 			if(document.getElementsByClassName["form-language-checkbox"][lang_index].checked) 
 				if(++lang_count > 1){
 					lang_value = "multiple";
@@ -132,7 +133,6 @@
 	UpdateTorrentLang();
 	UpdatePreviewCategory();
 </script>
-<script type="text/javascript" src="/js/kilo.js"></script>
 <script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
 <script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc"), spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
 {{end}}
