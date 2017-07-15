@@ -99,6 +99,7 @@
 		<div style="width: 240px">
 		{{yield captcha(captchaid=Form.CaptchaID)}}
 		</div>
+		<input type="hidden" id="IsUploadingToSukebei" value="{{ if Sukebei}}yes{{end}}">
 		{{ yield errors(name="captchaID")}}
 		<button type="submit" class="form-input up-btn">{{ T("upload")}}</button>
 	</form>
@@ -106,7 +107,7 @@
 {{end}}
 {{ block footer_js()}}
 <script type="text/javascript" src="/js/kilo.js"></script>
-<script type="text/javascript">var Sukebei = {{Sukebei ? "true" : "false"}}; var UserTrusted = {{User.IsTrusted()}};
+<script type="text/javascript">var UserTrusted = {{User.IsTrusted()}};
 	document.getElementsByClassName("torrent-preview-table")[0].style.display = "block";
 	document.getElementsByClassName("table-torrent-date")[0].innerText = new Date(Date.now()).toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), { year: "numeric", month: "short", day: "numeric" });
 	document.getElementsByClassName("form-torrent-category")[0].addEventListener("change", UpdatePreviewCategory);
