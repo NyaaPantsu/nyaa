@@ -29,7 +29,7 @@
           <tbody id="torrentListResults">
         	<tr name="torrent-info tr" class="torrent-info{{ if User.IsTrusted() }} trusted{{end}}">
               		<td class="tr-cat home-td">
-				<div class="nyaa-cat {{ if Sukebei }}sukebei-cat-11{{else}}nyaa-cat-5{{end}} table-torrent-category">
+				<div class="nyaa-cat table-torrent-category">
 				<a class="category"></a>
 				<a><img src="/img/blank.gif" class="flag flag-other table-torrent-flag"></a>
              			 </div>
@@ -108,11 +108,9 @@
 {{ block footer_js()}}
 <script type="text/javascript" src="/js/kilo.js"></script>
 <script type="text/javascript">var UserTrusted = {{User.IsTrusted()}};
-	document.getElementsByClassName("torrent-preview-table")[0].style.display = "block";
-	document.getElementsByClassName("table-torrent-date")[0].innerText = new Date(Date.now()).toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), { year: "numeric", month: "short", day: "numeric" });
-	document.getElementsByClassName("form-torrent-category")[0].addEventListener("change", UpdatePreviewCategory);
-	
-
+	UpdatePreviewTorrentName();
+	UpdatePreviewCategory();
+	UpdateTorrentLang();
                                                                                                                 
 	{{ if User.ID > 0 }}
 		document.getElementsByClassName("form-torrent-hidden")[0].onchange = function(){
@@ -122,30 +120,8 @@
 		};
 	{{end }}
 	
-	function UpdateTorrentLang() {
-		var lang_count,
-		    lang_value = "other";
-			
-		lang_count = 0;
-		
-		for(var lang_index = 0; lang_index < document.getElementsByClassName("form-language-checkbox").length; lang_index++) {
-			if(document.getElementsByClassName("form-language-checkbox")[lang_index].checked) {
-				if(++lang_count > 1){
-					lang_value = "multiple";
-					break;
-				}
-				lang_value = document.getElementsByClassName("form-language-checkbox")[lang_index].value;
-			}
-		}
-		var lang_cat = lang_value != "other" ? (lang_value > 1 ? "multiple" : lang_value) : "other";
-		document.getElementsByClassName("table-torrent-flag")[0].className = "table-torrent-flag flag flag-" + lang_cat;
-	}
-	
-	for(var lang_index = 0; lang_index < document.getElementsByClassName("form-language-checkbox").length; lang_index++) 
-		document.getElementsByClassName("form-language-checkbox")[lang_index].addEventListener("change", UpdateTorrentLang);
-	
-	UpdateTorrentLang();
-	UpdatePreviewCategory();
+	for(var lang_index = 0; lang_index < document.getElementsByName("languages").length; lang_index++) 
+		document.getElementsByName("languages")[lang_index].addEventListener("change", UpdateTorrentLang);
 </script>
 <script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
 <script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc"), spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
