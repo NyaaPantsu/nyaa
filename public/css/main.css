@@ -456,6 +456,7 @@ html, body {
 @media (maw-width: 520px) {
 	.form-input.language { width: 281px; }	
 	.form-input.refine { display: none; }
+	th, .home-td, .user-td { padding: 2px 3px; }
 }
 
 .up-input {
