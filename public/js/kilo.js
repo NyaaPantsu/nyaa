@@ -1,3 +1,5 @@
+var Sukebei = document.getElementById("IsUploadingToSukebei").value == "yes" ? 1 : 0;
+
 document.getElementsByClassName("form-torrent-name")[0].onkeyup = function(){
     document.getElementsByClassName("table-torrent-name")[0].innerText = document.getElementsByClassName("form-torrent-name")[0].value;
 };
