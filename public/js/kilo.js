@@ -41,7 +41,7 @@ function UpdateTorrentLang() {
 }
                                                                                        
 var CategoryList = [
-    [5,
+    [0,
     12,
     5,
     13,
