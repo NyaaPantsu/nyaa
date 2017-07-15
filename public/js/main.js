@@ -86,5 +86,7 @@ document.getElementsByClassName("form-input refine")[0].addEventListener("click"
     if(document.getElementsByClassName("form-input refine-category")[0].selectedIndex != document.getElementsByClassName("form-input form-category")[0].selectedIndex)
         document.getElementsByClassName("form-input refine-category")[0].selectedIndex = document.getElementsByClassName("form-input form-category")[0].selectedIndex;
 	e.preventDefault();
+	if(document.getElementsByClassName("box refine")[0].style.display == "block")
+		scrollTo(0, 0);
 });
 // @license-end
