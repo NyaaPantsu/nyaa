@@ -29,8 +29,8 @@
           <tbody id="torrentListResults">
         	<tr class="torrent-info">
               		<td class="tr-cat home-td">
-				<div class="nyaa-cat {{ if Sukebei }}sukebei-cat-11{{else}}nyaa-cat-5{{end}}">
-				<a class="category table-torrent-category"></a>
+				<div class="nyaa-cat {{ if Sukebei }}sukebei-cat-11{{else}}nyaa-cat-5{{end}} table-torrent-category">
+				<a class="category"></a>
 				<a><img src="/img/blank.gif" class="flag flag-other table-torrent-flag"></a>
              			 </div>
              		 </td>
@@ -106,7 +106,7 @@
 {{end}}
 {{ block footer_js()}}
 <script type="text/javascript" src="/js/kilo.js"></script>
-<script type="text/javascript">var Sukebei = {{Sukebei ? "1" : "0"}}; var UserTrusted = {{User.IsTrusted()}};
+<script type="text/javascript">var Sukebei = {{Sukebei ? "true" : "false"}}; var UserTrusted = {{User.IsTrusted()}};
 	document.getElementsByClassName("torrent-preview-table")[0].style.display = "block";
 	document.getElementsByClassName("table-torrent-date")[0].innerText = new Date(Date.now()).toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), { year: "numeric", month: "short", day: "numeric" });
 	document.getElementsByClassName("form-torrent-category")[0].addEventListener("change", UpdatePreviewCategory);
