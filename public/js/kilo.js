@@ -5,7 +5,6 @@ document.getElementsByClassName("form-torrent-name")[0].onkeyup = function(){
 function UpdatePreviewCategory(){
     document.getElementsByClassName("table-torrent-category")[0].className = "nyaa-cat table-torrent-category "+ Sukebei ? "sukebei" : "nyaa" + "-cat-" + Categorylist[Sukebei][document.getElementsByClassName("form-torrent-category")[0].selectedIndex];
 }
-document.getElementsByClassName("form-torrent-category")[0].addEventListener("change", UpdatePreviewCategory);
 
 document.getElementsByClassName("form-torrent-remake")[0].onchange = function(){
     document.getElementsByClassName("table-torrent-thead")[0].className = "torrent-info table-torrent-thead" + (UserTrusted ? " trusted : "") + (document.getElementsByClassName("form-torrent-remake")[0].checked ? " remake" : "");
