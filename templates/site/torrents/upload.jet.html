@@ -106,7 +106,7 @@
 {{end}}
 {{ block footer_js()}}
 <script type="text/javascript">var Sukebei = {{ Sukebei }}; var UserTrusted = {{ User.IsTrusted() }};
-	document.getElementsByClassName("torrent-preview-table")[0].display = "block";
+	document.getElementsByClassName("torrent-preview-table")[0].style.display = "block";
 	document.getElementsByClassName("table-torrent-date")[0].innerText = new Date(Date.now()).toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), { year: "numeric", month: "short", day: "numeric" });
 	document.getElementsByClassName("form-torrent-category")[0].addEventListener("change", UpdatePreviewCategory);
 	
@@ -126,7 +126,7 @@
 		document.getElementsByClassName["table-torrent-flag"][0].className = "table-torrent-flag flag flag-" + lang_cat;
 	}
 	
-	for(var lang_index = 0; lang_index < {{ len(languages) }}; lang_index++) 
+	for(var lang_index = 0; lang_index < document.getElementsByClassName["form-language-checkbox"].length; lang_index++) 
 		document.getElementsByClassName["form-language-checkbox"][lang_index].addEventListener("change", UpdateTorrentLang);
 	
 	UpdateTorrentLang();
