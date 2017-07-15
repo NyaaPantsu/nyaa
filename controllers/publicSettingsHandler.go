@@ -28,7 +28,7 @@ func SeePublicSettingsHandler(c *gin.Context) {
 		c.Header("Content-Type", "application/json")
 		c.JSON(http.StatusOK, languagesJson)
 	} else {
-		formTemplate(c, "user/public/settings.jet.html", languagesJson)
+		formTemplate(c, "site/user/public/settings.jet.html", languagesJson)
 	}
 }
 
