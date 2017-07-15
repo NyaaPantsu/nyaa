@@ -515,7 +515,6 @@ html, body {
 .torrent-info-data > span { 
 	margin-right: 3px; 
 	display: inline-block;
-	min-width: 80px;
 }
 .torrent-info-data > span.big { 
 	width: 31%;
