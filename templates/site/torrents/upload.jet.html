@@ -29,7 +29,7 @@
           <tbody id="torrentListResults">
         	<tr class="torrent-info">
               		<td class="tr-cat home-td">
-				<div class="nyaa-cat nyaa-cat-5">
+				<div class="nyaa-cat {{ if Sukebei }}sukebei-cat-11{{else}}nyaa-cat-5{{end}}">
 				<a title="Literature - English-translated" class="category table-torrent-category"></a>
 				<a><img src="/img/blank.gif" class="flag flag-other table-torrent-flag"></a>
              			 </div>
@@ -105,7 +105,7 @@
 </div>
 {{end}}
 {{ block footer_js()}}
-<script type="text/javascript">var Sukebei = 0; var UserTrusted = 1;
+<script type="text/javascript">var Sukebei = {{ Sukebei }}; var UserTrusted = {{ User.IsTrusted() }};
 	document.getElementsByClassName("torrent-preview-table")[0].display = "block";
 	document.getElementsByClassName("table-torrent-date")[0].innerText = new Date(Date.now()).toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), { year: "numeric", month: "short", day: "numeric" });
 	
