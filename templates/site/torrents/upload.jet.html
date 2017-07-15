@@ -111,6 +111,16 @@
 	document.getElementsByClassName("table-torrent-date")[0].innerText = new Date(Date.now()).toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), { year: "numeric", month: "short", day: "numeric" });
 	document.getElementsByClassName("form-torrent-category")[0].addEventListener("change", UpdatePreviewCategory);
 	
+
+                                                                                                                
+	{{ if User.ID > 0 }}
+		document.getElementsByClassName("form-torrent-hidden")[0].onchange = function(){
+		    document.getElementsByClassName("table-torrent-thead")[0].className = "torrent-info table-torrent-thead" + (document.getElementsByClassName("form-torrent-remake")[0].checked ? " remake" : "");
+		    if(UserTrusted && !document.getElementsByClassName("form-torrent-hidden")[0].checked)
+			document.getElementsByClassName("table-torrent-thead")[0].className = document.getElementsByClassName("table-torrent-thead")[0].className + " trusted";
+		};
+	{{end }}
+	
 	function UpdateTorrentLang() {
 		var lang_count = 0,
 		    lang_value = "other";
