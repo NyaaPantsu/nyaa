@@ -419,9 +419,6 @@ html, body {
 		display: none;
 	}
 	.visible-md { display: block }
-	.header .h-search { margin-right: 10px; }
-	.header .h-search input { width: 90px !important; }
-	.header .h-search input:focus { width: 150px !important; }
 }
 
 @media (max-width: 810px) {
@@ -451,12 +448,15 @@ html, body {
 		height: auto;
 	}
 	.tr-cat { width: 73px; }
-	.form-input.refine { display: none; }
 	.tr-links { width: 50px; }
+	.header .h-search input { width: 90px !important; }
+	.header .h-search input:focus { width: 150px !important; }
 }
 
 @media (maw-width: 520px) {
 	.form-input.language { width: 281px; }	
+	.form-input.refine { display: none; }
+	th, .home-td, .user-td { padding: 2px 3px; }
 }
 
 .up-input {
@@ -515,7 +515,6 @@ html, body {
 .torrent-info-data > span { 
 	margin-right: 3px; 
 	display: inline-block;
-	min-width: 80px;
 }
 .torrent-info-data > span.big { 
 	width: 31%;
