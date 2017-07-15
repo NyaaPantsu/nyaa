@@ -13,7 +13,7 @@
 		
 		<div class="torrent-preview-table" style="display: none;"><center><h3 style="margin-bottom: 3px;">Preview your torrent</h3></center>
 		<table style="border: 3px solid #dfdeeb;">
-          <thead class="torrent-info table-torrent-thead">
+          <thead class="torrent-info table-torrent-thead{{ if User.IsTrusted() }} trusted{{end}}">
           <tr>
               <th class="tr-cat">Category</th>
               <th class="tr-name">Name<span class="sort-arrows"><span class="sortarrowleft sortarrowdim">▼</span><span class="sortarrowdim">▲</span></span></th>
@@ -29,12 +29,12 @@
           <tbody id="torrentListResults">
         	<tr class="torrent-info">
               		<td class="tr-cat home-td">
-				<div class="nyaa-cat nyaa-cat-5">
-				<a title="Literature - English-translated" class="category table-torrent-category"></a>
+				<div class="nyaa-cat {{ if Sukebei }}sukebei-cat-11{{else}}nyaa-cat-5{{end}}">
+				<a class="category table-torrent-category"></a>
 				<a><img src="/img/blank.gif" class="flag flag-other table-torrent-flag"></a>
              			 </div>
              		 </td>
-              		<td class="tr-name home-td" colspan="2"><a class="table-torrent-name">Example text</a></td>
+              		<td class="tr-name home-td" colspan="2"><a class="table-torrent-name">{{Form.Name}}</a></td>
 		  
               <td class="tr-links home-td">
                   <a title="Magnet Link"><div class="icon-magnet"></div></a>
@@ -105,9 +105,10 @@
 </div>
 {{end}}
 {{ block footer_js()}}
-<script type="text/javascript">var Sukebei = 0; var UserTrusted = 1;
+<script type="text/javascript">var Sukebei = {{ Sukebei }}; var UserTrusted = {{ User.IsTrusted() }};
 	document.getElementsByClassName("torrent-preview-table")[0].display = "block";
 	document.getElementsByClassName("table-torrent-date")[0].innerText = new Date(Date.now()).toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), { year: "numeric", month: "short", day: "numeric" });
+	document.getElementsByClassName("form-torrent-category")[0].addEventListener("change", UpdatePreviewCategory);
 	
 	function UpdateTorrentLang() {
 		var lang_count = 0,
@@ -122,11 +123,14 @@
 			}
 		}
 		var lang_cat = lang_value != "other" ? lang_value > 1 ? "multiple" : lang_value.substring(3, 5) : "other";
-		document.getElementsByClassName["table-torrent-flag"][0].className = "flag table-torrent-flag flag-" + lang_cat;
+		document.getElementsByClassName["table-torrent-flag"][0].className = "table-torrent-flag flag flag-" + lang_cat;
 	}
 	
 	for(var lang_index = 0; lang_index < {{ len(languages) }}; lang_index++) 
 		document.getElementsByClassName["form-language-checkbox"][lang_index].addEventListener("change", UpdateTorrentLang);
+	
+	UpdateTorrentLang();
+	UpdatePreviewCategory();
 </script>
 <script type="text/javascript" src="/js/kilo.js"></script>
 <script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
