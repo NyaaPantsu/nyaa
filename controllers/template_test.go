@@ -140,7 +140,6 @@ func walkDirTest(dir string, t *testing.T) {
 
 	fmt.Printf("\nTesting Folder: %s\n", dir)
 	view := jet.NewHTMLSet(path.Join("..", TemplateDir))
-	vars := mockupCommonVars(t)
 	files, err := ioutil.ReadDir(path.Join("..", TemplateDir) + dir)
 	if err != nil {
 		t.Errorf("Couldn't find the folder %s", path.Join("..", TemplateDir)+dir)
@@ -149,6 +148,7 @@ func walkDirTest(dir string, t *testing.T) {
 		t.Errorf("Couldn't find any files in folder %s", path.Join("..", TemplateDir)+dir)
 	}
 	for _, f := range files {
+		vars := mockupCommonVars(t)
 		if f.IsDir() {
 			walkDirTest(dir+f.Name()+"/", t)
 			continue
