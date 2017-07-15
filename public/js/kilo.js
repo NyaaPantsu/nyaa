@@ -9,7 +9,7 @@ function UpdatePreviewCategory(){
 }
 
 document.getElementsByClassName("form-torrent-remake")[0].onchange = function(){
-    document.getElementsByClassName("table-torrent-thead")[0].className = "torrent-info table-torrent-thead" + (UserTrusted ? " trusted" : "") + (document.getElementsByClassName("form-torrent-remake")[0].checked ? " remake" : "");
+	document.getElementsByName("torrent-info tr")[0].className = "torrent-info" + (UserTrusted ? " trusted" : "") + (document.getElementsByClassName("form-torrent-remake")[0].checked ? " remake" : "");
 };
                                                                                        
 var CategoryList = [
