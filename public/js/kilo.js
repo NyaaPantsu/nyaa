@@ -30,12 +30,12 @@ function UpdateTorrentLang() {
 		
 	for(var lang_index = 0, title_index = 0; lang_index < document.getElementsByName("languages").length; lang_index++) {
 		if(document.getElementsByName("languages")[lang_index].checked) {
+			lang_title= lang_title + document.getElementsByName("upload-lang-languagename")[lang_index].innerText + ",";
 			if(++lang_count > 1){
 				lang_value = "multiple";
-				break;
+				continue;
 			}
 			lang_value = document.getElementsByName("languages")[lang_index].value;
-			lang_title= lang_title + document.getElementsByName("upload-lang-languagename")[lang_index].innerText + ",";
 		}
 	}
 		var lang_cat = lang_value != "other" ? (lang_value > 1 ? "multiple" : lang_value) : "other";
