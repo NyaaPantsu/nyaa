@@ -114,9 +114,10 @@
                                                                                                                 
 	{{ if User.ID > 0 }}
 		document.getElementsByClassName("form-torrent-hidden")[0].onchange = function(){
-		    document.getElementsByClassName("table-torrent-thead")[0].className = "torrent-info table-torrent-thead" + (document.getElementsByClassName("form-torrent-remake")[0].checked ? " remake" : "");
-		    if(UserTrusted && !document.getElementsByClassName("form-torrent-hidden")[0].checked)
-			document.getElementsByClassName("table-torrent-thead")[0].className = document.getElementsByClassName("table-torrent-thead")[0].className + " trusted";
+			document.getElementsByName("torrent-info tr")[0].className = "";
+		    if(UserTrusted&& !document.getElementsByClassName("form-torrent-hidden")[0].checked)
+			document.getElementsByName("torrent-info tr")[0].className = "trusted ";
+			document.getElementsByName("torrent-info tr")[0].className = document.getElementsByName("torrent-info tr")[0].className + "torrent-info " + (document.getElementsByClassName("form-torrent-remake")[0].checked ? " remake" : "");
 		};
 	{{end }}
 	
