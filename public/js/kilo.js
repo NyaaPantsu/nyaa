@@ -17,7 +17,7 @@ document.getElementsByClassName("form-torrent-hidden")[0].onchange = function(){
 };
                                                                                        
 var CategoryList = [
-    [5
+    [5,
     12,
     5,
     13,
