@@ -3,7 +3,7 @@ document.getElementsByClassName("form-torrent-name")[0].onkeyup = function(){
 };
 
 function UpdatePreviewCategory(){
-    document.getElementsByClassName("table-torrent-category")[0].className = "nyaa-cat table-torrent-category "+ Sukebei ? "sukebei" : "nyaa" + "-cat-" + Categorylist[Sukebei][document.getElementsByClassName("form-torrent-category")[0].selectedIndex];
+    document.getElementsByClassName("table-torrent-category")[0].className = "nyaa-cat table-torrent-category "+ (Sukebei ? "sukebei" : "nyaa") + "-cat-" + CategoryList[Sukebei][document.getElementsByClassName("form-torrent-category")[0].selectedIndex];
 }
 
 document.getElementsByClassName("form-torrent-remake")[0].onchange = function(){
