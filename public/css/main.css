@@ -151,6 +151,7 @@ select.form-input {
 }
 
 .language span.input-group { display: inline-block; }
+.language span.input-group span { display: none; }
 .language .input-group label { margin-bottom: 1px; }
 .language .input-group input { margin-right: 4px; }
 
