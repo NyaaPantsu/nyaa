@@ -123,23 +123,26 @@
 	{{end }}
 	
 	function UpdateTorrentLang() {
-		var lang_count = 0,
+		var lang_count,
 		    lang_value = "other";
-		for(var lang_index = 0; lang_index < document.getElementsByClassName["form-language-checkbox"].length; lang_index++) {
-			if(document.getElementsByClassName["form-language-checkbox"][lang_index].checked) {
+			
+		lang_count = 0;
+		
+		for(var lang_index = 0; lang_index < document.getElementsByClassName("form-language-checkbox").length; lang_index++) {
+			if(document.getElementsByClassName("form-language-checkbox")[lang_index].checked) {
 				if(++lang_count > 1){
 					lang_value = "multiple";
 					break;
 				}
-				lang_value = document.getElementsByClassName["form-language-checkbox"][lang_index].value;
+				lang_value = document.getElementsByClassName("form-language-checkbox")[lang_index].value;
 			}
 		}
-		var lang_cat = lang_value != "other" ? lang_value > 1 ? "multiple" : lang_value.substring(3, 5) : "other";
-		document.getElementsByClassName["table-torrent-flag"][0].className = "table-torrent-flag flag flag-" + lang_cat;
+		var lang_cat = lang_value != "other" ? (lang_value > 1 ? "multiple" : lang_value) : "other";
+		document.getElementsByClassName("table-torrent-flag")[0].className = "table-torrent-flag flag flag-" + lang_cat;
 	}
 	
-	for(var lang_index = 0; lang_index < document.getElementsByClassName["form-language-checkbox"].length; lang_index++) 
-		document.getElementsByClassName["form-language-checkbox"][lang_index].addEventListener("change", UpdateTorrentLang);
+	for(var lang_index = 0; lang_index < document.getElementsByClassName("form-language-checkbox").length; lang_index++) 
+		document.getElementsByClassName("form-language-checkbox")[lang_index].addEventListener("change", UpdateTorrentLang);
 	
 	UpdateTorrentLang();
 	UpdatePreviewCategory();
