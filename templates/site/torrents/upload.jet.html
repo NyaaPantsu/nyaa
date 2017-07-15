@@ -126,7 +126,7 @@
 		document.getElementsByClassName["table-torrent-flag"][0].className = "table-torrent-flag flag flag-" + lang_cat;
 	}
 	
-	for(var lang_index = 0; lang_index < {{ len(languages) }}; lang_index++) 
+	for(var lang_index = 0; lang_index < document.getElementsByClassName["form-language-checkbox"].length; lang_index++) 
 		document.getElementsByClassName["form-language-checkbox"][lang_index].addEventListener("change", UpdateTorrentLang);
 	
 	UpdateTorrentLang();
