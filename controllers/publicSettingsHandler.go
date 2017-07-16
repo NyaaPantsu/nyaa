@@ -5,30 +5,24 @@ import (
 	"net/url"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/utils/cookies"
+	"github.com/NyaaPantsu/nyaa/templates"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 	"github.com/NyaaPantsu/nyaa/utils/timeHelper"
 	"github.com/gin-gonic/gin"
 )
 
-// LanguagesJSONResponse : Structure containing all the languages to parse it as a JSON response
-type LanguagesJSONResponse struct {
-	Current   string                   `json:"current"`
-	Languages publicSettings.Languages `json:"language"`
-}
-
 // SeePublicSettingsHandler : Controller to view the languages and themes
 func SeePublicSettingsHandler(c *gin.Context) {
 	_, Tlang := publicSettings.GetTfuncAndLanguageFromRequest(c)
 	availableLanguages := publicSettings.GetAvailableLanguages()
-	languagesJson := LanguagesJSONResponse{Tlang.Tag, availableLanguages}
+	languagesJson := templates.LanguagesJSONResponse{Tlang.Tag, availableLanguages}
 	contentType := c.Request.Header.Get("Content-Type")
 	if contentType == "application/json" {
 		c.Header("Content-Type", "application/json")
 		c.JSON(http.StatusOK, languagesJson)
 	} else {
-		formTemplate(c, "site/user/public/settings.jet.html", languagesJson)
+		templates.Form(c, "site/user/public/settings.jet.html", languagesJson)
 	}
 }
 
@@ -58,7 +52,7 @@ func ChangePublicSettingsHandler(c *gin.Context) {
 	}
 
 	// If logged in, update user settings.
-	user, _, _ := cookies.CurrentUser(c)
+	user := getUser(c)
 	if user.ID > 0 {
 		user.Language = lang
 		user.Theme = theme

@@ -1,4 +1,4 @@
-package controllers
+package templates
 
 import (
 	"bytes"
@@ -109,7 +109,7 @@ func walkDirTest(dir string, t *testing.T) {
 			return variables
 		},
 		"reassign.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("Form", ReassignForm{1, "", "", []uint{1, 1}})
+			variables.Set("Form", torrentValidator.ReassignForm{1, "", "", []uint{1, 1}})
 			return variables
 		},
 		"torrentlist.jet.html": func(variables jet.VarMap) jet.VarMap {
@@ -173,8 +173,8 @@ func walkDirTest(dir string, t *testing.T) {
 
 func mockupCommonvariables(t *testing.T) jet.VarMap {
 	variables := jet.VarMap{}
-	variables.Set("Navigation", newNavigation())
-	variables.Set("Search", searchForm{
+	variables.Set("Navigation", NewNavigation())
+	variables.Set("Search", SearchForm{
 		Category:         "_",
 		ShowItemsPerPage: true,
 		SizeType:         "b",

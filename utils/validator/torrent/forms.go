@@ -36,3 +36,12 @@ type uploadedFile struct {
 	Path     []string `json:"path"`
 	Filesize int64    `json:"filesize"`
 }
+
+// ReassignForm : Structure for reassign Form used by the reassign page
+type ReassignForm struct {
+	AssignTo uint
+	By       string
+	Data     string
+
+	Torrents []uint
+}

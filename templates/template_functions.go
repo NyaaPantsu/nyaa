@@ -1,4 +1,4 @@
-package controllers
+package templates
 
 import (
 	"html/template"
@@ -97,7 +97,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 
 		return template.HTML(arrows)
 	})
-	vars.Set("genNav", func(nav navigation, currentUrl *url.URL, pagesSelectable int) template.HTML {
+	vars.Set("genNav", func(nav Navigation, currentUrl *url.URL, pagesSelectable int) template.HTML {
 		var ret = ""
 		if nav.TotalItem > 0 {
 			maxPages := math.Ceil(float64(nav.TotalItem) / float64(nav.MaxItemPerPage))

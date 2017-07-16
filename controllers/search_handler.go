@@ -8,6 +8,7 @@ import (
 	"math"
 
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/search"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
@@ -52,13 +53,13 @@ func SearchHandler(c *gin.Context) {
 	if len(searchParam.Category) > 0 {
 		category = searchParam.Category[0].String()
 	}
-	nav := navigation{int(nbTorrents), int(searchParam.Max), int(searchParam.Offset), "search"}
-	searchForm := newSearchForm(c)
+	nav := templates.Navigation{int(nbTorrents), int(searchParam.Max), int(searchParam.Offset), "search"}
+	searchForm := templates.NewSearchForm(c)
 	searchForm.TorrentParam, searchForm.Category = searchParam, category
 
 	if c.Query("refine") == "1" {
 		searchForm.ShowRefine = true
 	}
 
-	modelList(c, "site/torrents/listing.jet.html", models.TorrentsToJSON(torrents), nav, searchForm)
+	templates.ModelList(c, "site/torrents/listing.jet.html", models.TorrentsToJSON(torrents), nav, searchForm)
 }

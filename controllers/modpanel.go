@@ -14,8 +14,8 @@ import (
 	"github.com/NyaaPantsu/nyaa/models/reports"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/models/users"
+	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/categories"
-	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/search"
@@ -25,91 +25,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// ReassignForm : Structure for reassign Form used by the reassign page
-type ReassignForm struct {
-	AssignTo uint
-	By       string
-	Data     string
-
-	Torrents []uint
-}
-
-// ExtractInfo : Function to assign values from request to ReassignForm
-func (f *ReassignForm) ExtractInfo(c *gin.Context) bool {
-	f.By = c.PostForm("by")
-	messages := msg.GetMessages(c)
-	if f.By != "olduser" && f.By != "torrentid" {
-		messages.AddErrorTf("errors", "no_action_exist", f.By)
-		return false
-	}
-
-	f.Data = strings.Trim(c.PostForm("data"), " \r\n")
-	if f.By == "olduser" {
-		if f.Data == "" {
-			messages.AddErrorT("errors", "user_not_found")
-			return false
-		} else if strings.Contains(f.Data, "\n") {
-			messages.AddErrorT("errors", "multiple_username_error")
-			return false
-		}
-	} else if f.By == "torrentid" {
-		if f.Data == "" {
-			messages.AddErrorT("errors", "no_id_given")
-			return false
-		}
-		splitData := strings.Split(f.Data, "\n")
-		for i, tmp := range splitData {
-			tmp = strings.Trim(tmp, " \r")
-			torrentID, err := strconv.ParseUint(tmp, 10, 0)
-			if err != nil {
-				messages.AddErrorTf("errors", "parse_error_line", i+1)
-				return false // TODO: Shouldn't it continue to parse the rest and display the errored lines?
-			}
-			f.Torrents = append(f.Torrents, uint(torrentID))
-		}
-	}
-
-	tmpID := c.PostForm("to")
-	parsed, err := strconv.ParseUint(tmpID, 10, 32)
-	if err != nil {
-		messages.Error(err)
-		return false
-	}
-	f.AssignTo = uint(parsed)
-	_, _, _, _, err = cookies.RetrieveUserFromRequest(c, uint(parsed))
-	if err != nil {
-		messages.AddErrorTf("errors", "no_user_found_id", int(parsed))
-		return false
-	}
-
-	return true
-}
-
-// ExecuteAction : Function for applying the changes from ReassignForm
-func (f *ReassignForm) ExecuteAction() (int, error) {
-	var toBeChanged []uint
-	var err error
-	if f.By == "olduser" {
-		toBeChanged, err = users.FindOldUploadsByUsername(f.Data)
-		if err != nil {
-			return 0, err
-		}
-	} else if f.By == "torrentid" {
-		toBeChanged = f.Torrents
-	}
-
-	num := 0
-	for _, torrentID := range toBeChanged {
-		torrent, err2 := torrents.FindRawByID(torrentID)
-		if err2 == nil {
-			torrent.UploaderID = f.AssignTo
-			torrent.Update(true)
-			num++
-		}
-	}
-	return num, nil
-}
-
 // IndexModPanel : Controller for showing index page of Mod Panel
 func IndexModPanel(c *gin.Context) {
 	offset := 10
@@ -118,7 +33,7 @@ func IndexModPanel(c *gin.Context) {
 	comments, _ := comments.FindAll(offset, 0, "", "")
 	torrentReports, _, _ := reports.GetAll(offset, 0)
 
-	panelAdminTemplate(c, torrents, models.TorrentReportsToJSON(torrentReports), users, comments)
+	templates.PanelAdmin(c, torrents, models.TorrentReportsToJSON(torrentReports), users, comments)
 }
 
 // TorrentsListPanel : Controller for listing torrents, can accept common search arguments
@@ -156,15 +71,15 @@ func TorrentsListPanel(c *gin.Context) {
 	if len(searchParam.Category) > 0 {
 		category = searchParam.Category[0].String()
 	}
-	searchForm := searchForm{
+	searchForm := templates.SearchForm{
 		TorrentParam:     searchParam,
 		Category:         category,
 		ShowItemsPerPage: true,
 	}
 
-	nav := navigation{count, int(searchParam.Max), pagenum, "mod/torrents/p"}
+	nav := templates.Navigation{count, int(searchParam.Max), pagenum, "mod/torrents/p"}
 
-	modelList(c, "admin/torrentlist.jet.html", torrents, nav, searchForm)
+	templates.ModelList(c, "admin/torrentlist.jet.html", torrents, nav, searchForm)
 }
 
 // TorrentReportListPanel : Controller for listing torrent reports, can accept pages
@@ -185,8 +100,8 @@ func TorrentReportListPanel(c *gin.Context) {
 	torrentReports, nbReports, _ := reports.GetAll(offset, (pagenum-1)*offset)
 
 	reportJSON := models.TorrentReportsToJSON(torrentReports)
-	nav := navigation{nbReports, offset, pagenum, "mod/reports/p"}
-	modelList(c, "admin/torrent_report.jet.html", reportJSON, nav, newSearchForm(c))
+	nav := templates.Navigation{nbReports, offset, pagenum, "mod/reports/p"}
+	templates.ModelList(c, "admin/torrent_report.jet.html", reportJSON, nav, templates.NewSearchForm(c))
 }
 
 // UsersListPanel : Controller for listing users, can accept pages
@@ -205,8 +120,8 @@ func UsersListPanel(c *gin.Context) {
 	}
 
 	users, nbUsers := users.FindUsersForAdmin(offset, (pagenum-1)*offset)
-	nav := navigation{nbUsers, offset, pagenum, "mod/users/p"}
-	modelList(c, "admin/userlist.jet.html", users, nav, newSearchForm(c))
+	nav := templates.Navigation{nbUsers, offset, pagenum, "mod/users/p"}
+	templates.ModelList(c, "admin/userlist.jet.html", users, nav, templates.NewSearchForm(c))
 }
 
 // CommentsListPanel : Controller for listing comments, can accept pages and userID
@@ -232,8 +147,8 @@ func CommentsListPanel(c *gin.Context) {
 	}
 
 	comments, nbComments := comments.FindAll(offset, (pagenum-1)*offset, conditions, values...)
-	nav := navigation{nbComments, offset, pagenum, "mod/comments/p"}
-	modelList(c, "admin/commentlist.jet.html", comments, nav, newSearchForm(c))
+	nav := templates.Navigation{nbComments, offset, pagenum, "mod/comments/p"}
+	templates.ModelList(c, "admin/commentlist.jet.html", comments, nav, templates.NewSearchForm(c))
 }
 
 // TorrentEditModPanel : Controller for editing a torrent after GET request
@@ -251,7 +166,7 @@ func TorrentEditModPanel(c *gin.Context) {
 	uploadForm.Description = string(torrentJSON.Description)
 	uploadForm.Languages = torrent.Languages
 
-	formTemplate(c, "admin/paneltorrentedit.jet.html", uploadForm)
+	templates.Form(c, "admin/paneltorrentedit.jet.html", uploadForm)
 }
 
 // TorrentPostEditModPanel : Controller for editing a torrent after POST request
@@ -286,7 +201,7 @@ func TorrentPostEditModPanel(c *gin.Context) {
 			}
 		}
 	}
-	formTemplate(c, "admin/paneltorrentedit.jet.html", uploadForm)
+	templates.Form(c, "admin/paneltorrentedit.jet.html", uploadForm)
 }
 
 // CommentDeleteModPanel : Controller for deleting a comment
@@ -358,23 +273,48 @@ func TorrentReportDeleteModPanel(c *gin.Context) {
 
 // TorrentReassignModPanel : Controller for reassigning a torrent, after GET request
 func TorrentReassignModPanel(c *gin.Context) {
-	formTemplate(c, "admin/reassign.jet.html", ReassignForm{})
+	templates.Form(c, "admin/reassign.jet.html", torrentValidator.ReassignForm{})
+}
+
+// ExecuteAction : Function for applying the changes from ReassignForm
+func ExecuteReassign(f *torrentValidator.ReassignForm) (int, error) {
+	var toBeChanged []uint
+	var err error
+	if f.By == "olduser" {
+		toBeChanged, err = users.FindOldUploadsByUsername(f.Data)
+		if err != nil {
+			return 0, err
+		}
+	} else if f.By == "torrentid" {
+		toBeChanged = f.Torrents
+	}
+
+	num := 0
+	for _, torrentID := range toBeChanged {
+		torrent, err2 := torrents.FindRawByID(torrentID)
+		if err2 == nil {
+			torrent.UploaderID = f.AssignTo
+			torrent.Update(true)
+			num++
+		}
+	}
+	return num, nil
 }
 
 // TorrentPostReassignModPanel : Controller for reassigning a torrent, after POST request
 func TorrentPostReassignModPanel(c *gin.Context) {
-	var rForm ReassignForm
+	var rForm torrentValidator.ReassignForm
 	messages := msg.GetMessages(c)
 
 	if rForm.ExtractInfo(c) {
-		count, err2 := rForm.ExecuteAction()
+		count, err2 := ExecuteReassign(&rForm)
 		if err2 != nil {
 			messages.AddErrorT("errors", "something_went_wrong")
 		} else {
 			messages.AddInfoTf("infos", "nb_torrents_updated", count)
 		}
 	}
-	formTemplate(c, "admin/reassign.jet.html", rForm)
+	templates.Form(c, "admin/reassign.jet.html", rForm)
 }
 
 // TorrentsPostListPanel : Controller for listing torrents, after POST request when mass update
@@ -445,15 +385,15 @@ func DeletedTorrentsModPanel(c *gin.Context) {
 	if len(searchParam.Category) > 0 {
 		category = searchParam.Category[0].String()
 	}
-	searchForm := searchForm{
+	searchForm := templates.SearchForm{
 		TorrentParam:     searchParam,
 		Category:         category,
 		ShowItemsPerPage: true,
 	}
 
-	nav := navigation{count, int(searchParam.Max), pagenum, "mod/torrents/deleted/p"}
+	nav := templates.Navigation{count, int(searchParam.Max), pagenum, "mod/torrents/deleted/p"}
 	search := searchForm
-	modelList(c, "admin/torrentlist.jet.html", torrents, nav, search)
+	templates.ModelList(c, "admin/torrentlist.jet.html", torrents, nav, search)
 }
 
 // DeletedTorrentsPostPanel : Controller for viewing deleted torrents after a mass update, accept common search arguments

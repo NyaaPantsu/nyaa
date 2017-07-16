@@ -17,6 +17,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/models/notifications"
 	"github.com/NyaaPantsu/nyaa/models/reports"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
+	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/captcha"
 	"github.com/NyaaPantsu/nyaa/utils/filelist"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
@@ -59,7 +60,7 @@ func ViewHandler(c *gin.Context) {
 	if user.NeedsCaptcha() {
 		captchaID = captcha.GetID()
 	}
-	torrentTemplate(c, b, folder, captchaID)
+	templates.Torrent(c, b, folder, captchaID)
 }
 
 // ViewHeadHandler : Controller for checking a torrent
@@ -167,7 +168,7 @@ func ReportViewTorrentHandler(c *gin.Context) {
 		if currentUser.NeedsCaptcha() {
 			captchaID = captcha.GetID()
 		}
-		formTemplate(c, "site/torrents/report.jet.html", Report{torrent.ID, captchaID})
+		templates.Form(c, "site/torrents/report.jet.html", Report{torrent.ID, captchaID})
 	} else {
 		c.Status(404)
 	}
@@ -187,7 +188,7 @@ func TorrentEditUserPanel(c *gin.Context) {
 		uploadForm.Description = string(torrent.Description)
 		uploadForm.Hidden = torrent.Hidden
 		uploadForm.Languages = torrent.Languages
-		formTemplate(c, "site/torrents/edit.jet.html", uploadForm)
+		templates.Form(c, "site/torrents/edit.jet.html", uploadForm)
 	} else {
 		NotFoundHandler(c)
 	}
@@ -210,7 +211,7 @@ func TorrentPostEditUserPanel(c *gin.Context) {
 			upload.UpdateTorrent(&uploadForm, torrent, currentUser).Update(currentUser.HasAdmin())
 			messages.AddInfoT("infos", "torrent_updated")
 		}
-		formTemplate(c, "site/torrents/edit.jet.html", uploadForm.Update)
+		templates.Form(c, "site/torrents/edit.jet.html", uploadForm.Update)
 	} else {
 		NotFoundHandler(c)
 	}

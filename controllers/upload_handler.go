@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/NyaaPantsu/nyaa/models/torrents"
+	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/captcha"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
@@ -73,5 +74,5 @@ func UploadGetHandler(c *gin.Context) {
 	} else {
 		uploadForm.CaptchaID = ""
 	}
-	formTemplate(c, "site/torrents/upload.jet.html", uploadForm)
+	templates.Form(c, "site/torrents/upload.jet.html", uploadForm)
 }
