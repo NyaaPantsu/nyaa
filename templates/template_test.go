@@ -109,7 +109,7 @@ func walkDirTest(dir string, t *testing.T) {
 			return variables
 		},
 		"reassign.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("Form", ReassignForm{1, "", "", []uint{1, 1}})
+			variables.Set("Form", torrentValidator.ReassignForm{1, "", "", []uint{1, 1}})
 			return variables
 		},
 		"torrentlist.jet.html": func(variables jet.VarMap) jet.VarMap {
