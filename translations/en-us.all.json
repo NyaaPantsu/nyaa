@@ -232,6 +232,11 @@
     "translation": "NOTICE: KEEP SEEDING AND ENABLE DHT YOU GIT"
   },
   {
+    "id": "torrent_colors",
+    "translation": "Torrent colors"
+    
+  },
+  {
     "id": "official_nyaapocalipse_faq",
     "translation": "Official Nyaapocalypse FAQ"
   },
