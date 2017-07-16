@@ -114,7 +114,7 @@ func PostCommentHandler(c *gin.Context) {
 		}
 	}
 	url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
-	c.Redirect(302, url+"?success")
+	c.Redirect(302, url)
 }
 
 // ReportTorrentHandler : Controller for sending a torrent report
