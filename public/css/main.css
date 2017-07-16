@@ -96,7 +96,7 @@ float:  right; }
 
 
 .header .h-search { margin-right: 10px; }
-.header .h-search .form-input { font-size: 80%; }
+.header .h-search .form-input { font-size: 80%; height: 28px; }
 
 .header .h-search select.form-input { max-width: 110px !important; }
 
@@ -396,7 +396,7 @@ html, body {
 	display: inline-block;
 	vertical-align: middle;
 }
-.torrent-buttons a [class^="icon-"], .torrent-buttons a [class*=" icon-"] {
+.torrent-buttons a [class^="icon-"], .torrent-buttons a [class*=" icon-"],a.form-input.btn-green > div[class^="icon-"], a.form-input.btn-green > div[class*="icon-"] {
 	vertical-align: initial;
 }
 
