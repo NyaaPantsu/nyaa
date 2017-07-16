@@ -10,7 +10,9 @@
 		{{ yield csrf_field()}}
 		<label class="input-label">{{ T("api_token") }}:</label>
 			<p style="font-family: monospace;">{{UserProfile.APIToken}}</p>
-			<a class="form-input up-input" href="/user/{{ UserProfile.ID}}/{{UserProfile.Username }}/apireset">Reset API key</a> <br> <br>
+			<a class="form-input up-input" href="/user/{{ UserProfile.ID}}/{{UserProfile.Username }}/apireset">Reset API key</a> <br>
+			<a href="/apidoc">{{ T("api_documentation")}}</a>
+			<br>
 		<label class="input-label">{{  T("email_address") }}:</label> <br>
 			<input class="form-input up-input" placeholder="{{  T("email_placeholder")}}" type="text" name="email" id="email" value="{{UserProfile.Email}}"> <br>
 		{{ yield errors(name="Email")}}
