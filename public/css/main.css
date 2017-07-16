@@ -96,7 +96,7 @@ float:  right; }
 
 
 .header .h-search { margin-right: 10px; }
-.header .h-search .form-input { font-size: 80%; }
+.header .h-search .form-input { font-size: 80%; height: 28px; }
 
 .header .h-search select.form-input { max-width: 110px !important; }
 
