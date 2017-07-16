@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/gin-gonic/gin"
@@ -25,7 +26,7 @@ func errorMiddleware() gin.HandlerFunc {
 				c.JSON(c.Writer.Status(), messages.GetAllErrors())
 				return
 			}
-			httpError(c, c.Writer.Status())
+			templates.HttpError(c, c.Writer.Status())
 		}
 	}
 }
@@ -47,7 +48,7 @@ func pprofHandler(handler http.HandlerFunc) gin.HandlerFunc {
 		if currentUser.HasAdmin() {
 			handler.ServeHTTP(c.Writer, c.Request)
 		} else {
-			httpError(c, http.StatusNotFound)
+			templates.HttpError(c, http.StatusNotFound)
 		}
 	}
 }

@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/NyaaPantsu/nyaa/models/activities"
+	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/gin-gonic/gin"
 )
@@ -41,6 +42,6 @@ func ActivityListHandler(c *gin.Context) {
 
 	activity, nbActivities := activities.FindAll(offset, (pagenum-1)*offset, strings.Join(conditions, " AND "), values...)
 
-	nav := navigation{nbActivities, offset, pagenum, "activities/p"}
-	modelList(c, "site/torrents/activities.jet.html", activity, nav, newSearchForm(c))
+	nav := templates.Navigation{nbActivities, offset, pagenum, "activities/p"}
+	templates.ModelList(c, "site/torrents/activities.jet.html", activity, nav, templates.NewSearchForm(c))
 }

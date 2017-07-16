@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -9,6 +8,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/notifications"
 	"github.com/NyaaPantsu/nyaa/models/users"
+	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/captcha"
 	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/NyaaPantsu/nyaa/utils/crypto"
@@ -32,7 +32,7 @@ func UserRegisterFormHandler(c *gin.Context) {
 	registrationForm := userValidator.RegistrationForm{}
 	c.Bind(&registrationForm)
 	registrationForm.CaptchaID = captcha.GetID()
-	formTemplate(c, "site/user/register.jet.html", registrationForm)
+	templates.Form(c, "site/user/register.jet.html", registrationForm)
 }
 
 // UserLoginFormHandler : Getting View User Login
@@ -47,13 +47,12 @@ func UserLoginFormHandler(c *gin.Context) {
 	loginForm := userValidator.LoginForm{
 		RedirectTo: c.DefaultQuery("redirectTo", ""),
 	}
-	formTemplate(c, "site/user/login.jet.html", loginForm)
+	templates.Form(c, "site/user/login.jet.html", loginForm)
 }
 
 // UserProfileHandler :  Getting User Profile
 func UserProfileHandler(c *gin.Context) {
 	id, _ := strconv.ParseUint(c.Param("id"), 10, 32)
-	fmt.Printf("User ID: %s", id)
 	Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(c)
 	messages := msg.GetMessages(c)
 
@@ -69,7 +68,7 @@ func UserProfileHandler(c *gin.Context) {
 			if err == nil && currentUser.CurrentUserIdentical(userProfile.ID) {
 				cookies.Clear(c)
 			}
-			staticTemplate(c, "site/static/delete_success.jet.html")
+			templates.Static(c, "site/static/delete_success.jet.html")
 		} else {
 			if follow != nil {
 				messages.AddInfof("infos", Ts("user_followed_msg"), userProfile.Username)
@@ -93,7 +92,7 @@ func UserProfileHandler(c *gin.Context) {
 				messages.AddErrorT("errors", "retrieve_torrents_error")
 			}
 			userProfile.Torrents = torrents
-			userProfileTemplate(c, userProfile)
+			templates.UserProfile(c, userProfile)
 		}
 	} else {
 		NotFoundHandler(c)
@@ -111,7 +110,7 @@ func UserDetailsHandler(c *gin.Context) {
 		c.Bind(&b)
 		availableLanguages := publicSettings.GetAvailableLanguages()
 		userProfile.ParseSettings()
-		userProfileEditTemplate(c, userProfile, b, availableLanguages)
+		templates.UserProfileEdit(c, userProfile, b, availableLanguages)
 	} else {
 		NotFoundHandler(c)
 	}
@@ -174,7 +173,7 @@ func UserProfileFormHandler(c *gin.Context) {
 		}
 	}
 	availableLanguages := publicSettings.GetAvailableLanguages()
-	userProfileEditTemplate(c, userProfile, userForm, availableLanguages)
+	templates.UserProfileEdit(c, userProfile, userForm, availableLanguages)
 }
 
 // UserRegisterPostHandler : Post Registration controller, we do some check on the form here, the rest on user service
@@ -209,7 +208,7 @@ func UserRegisterPostHandler(c *gin.Context) {
 						email.SendVerificationToUser(user, b.Email)
 					}
 					if !messages.HasErrors() {
-						staticTemplate(c, "site/static/signup_success.jet.html")
+						templates.Static(c, "site/static/signup_success.jet.html")
 					}
 				}
 			}
@@ -229,7 +228,7 @@ func UserVerifyEmailHandler(c *gin.Context) {
 	if errEmail != nil {
 		messages.ImportFromError("errors", errEmail)
 	}
-	staticTemplate(c, "site/static/verify_success.jet.html")
+	templates.Static(c, "site/static/verify_success.jet.html")
 }
 
 // UserLoginPostHandler : Post Login controller
@@ -292,7 +291,7 @@ func UserNotificationsHandler(c *gin.Context) {
 			messages.AddInfoT("infos", "notifications_cleared")
 			currentUser.Notifications = []models.Notification{}
 		}
-		userProfileNotificationsTemplate(c, currentUser)
+		templates.UserProfileNotifications(c, currentUser)
 	} else {
 		NotFoundHandler(c)
 	}

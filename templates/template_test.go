@@ -1,4 +1,4 @@
-package controllers
+package templates
 
 import (
 	"bytes"
@@ -173,8 +173,8 @@ func walkDirTest(dir string, t *testing.T) {
 
 func mockupCommonvariables(t *testing.T) jet.VarMap {
 	variables := jet.VarMap{}
-	variables.Set("Navigation", newNavigation())
-	variables.Set("Search", searchForm{
+	variables.Set("Navigation", NewNavigation())
+	variables.Set("Search", SearchForm{
 		Category:         "_",
 		ShowItemsPerPage: true,
 		SizeType:         "b",

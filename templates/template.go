@@ -1,4 +1,4 @@
-package controllers
+package templates
 
 import (
 	"net/http"
@@ -15,6 +15,7 @@ import (
 	"fmt"
 
 	"github.com/CloudyKit/jet"
+	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 )
 
@@ -39,17 +40,18 @@ func init() {
 		fmt.Println("Template Live Update enabled")
 	}
 }
-func commonvariables(c *gin.Context) jet.VarMap {
+func Commonvariables(c *gin.Context) jet.VarMap {
 	token := nosurf.Token(c.Request)
 	msg := messages.GetMessages(c)
+	user, _, _ := cookies.CurrentUser(c)
 	variables := templateFunctions(make(jet.VarMap))
-	variables.Set("Navigation", newNavigation())
-	variables.Set("Search", newSearchForm(c))
+	variables.Set("Navigation", NewNavigation())
+	variables.Set("Search", NewSearchForm(c))
 	variables.Set("T", publicSettings.GetTfuncFromRequest(c))
 	variables.Set("Theme", publicSettings.GetThemeFromRequest(c))
 	variables.Set("Mascot", publicSettings.GetMascotFromRequest(c))
 	variables.Set("MascotURL", publicSettings.GetMascotUrlFromRequest(c))
-	variables.Set("User", getUser(c))
+	variables.Set("User", user)
 	variables.Set("URL", c.Request.URL)
 	variables.Set("CsrfToken", token)
 	variables.Set("Config", config.Get())
@@ -60,20 +62,20 @@ func commonvariables(c *gin.Context) jet.VarMap {
 
 // newPanelSearchForm : Helper that creates a search form without items/page field
 // these need to be used when the templateVariables don't include `navigation`
-func newPanelSearchForm(c *gin.Context) searchForm {
-	form := newSearchForm(c)
+func NewPanelSearchForm(c *gin.Context) SearchForm {
+	form := NewSearchForm(c)
 	form.ShowItemsPerPage = false
 	return form
 }
 
 //
-func newPanelCommonVariables(c *gin.Context) jet.VarMap {
-	common := commonvariables(c)
-	common.Set("Search", newPanelSearchForm(c))
+func NewPanelCommonvariables(c *gin.Context) jet.VarMap {
+	common := Commonvariables(c)
+	common.Set("Search", NewPanelSearchForm(c))
 	return common
 }
 
-func renderTemplate(c *gin.Context, templateName string, variables jet.VarMap) {
+func Render(c *gin.Context, templateName string, variables jet.VarMap) {
 	t, err := View.GetTemplate(templateName)
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
@@ -85,97 +87,97 @@ func renderTemplate(c *gin.Context, templateName string, variables jet.VarMap) {
 	}
 }
 
-func httpError(c *gin.Context, errorCode int) {
+func HttpError(c *gin.Context, errorCode int) {
 	switch errorCode {
 	case http.StatusNotFound:
-		staticTemplate(c, path.Join(ErrorsDir, "404.jet.html"))
+		Static(c, path.Join(ErrorsDir, "404.jet.html"))
 		c.AbortWithStatus(errorCode)
 		return
 	case http.StatusBadRequest:
-		staticTemplate(c, path.Join(ErrorsDir, "400.jet.html"))
+		Static(c, path.Join(ErrorsDir, "400.jet.html"))
 		c.AbortWithStatus(errorCode)
 		return
 	case http.StatusInternalServerError:
-		staticTemplate(c, path.Join(ErrorsDir, "500.jet.html"))
+		Static(c, path.Join(ErrorsDir, "500.jet.html"))
 		c.AbortWithStatus(errorCode)
 		return
 	}
 }
 
-func staticTemplate(c *gin.Context, templateName string) {
+func Static(c *gin.Context, templateName string) {
 	var variables jet.VarMap
 	if isAdminTemplate(templateName) {
-		variables = newPanelCommonVariables(c)
+		variables = NewPanelCommonvariables(c)
 	} else {
-		variables = commonvariables(c)
+		variables = Commonvariables(c)
 	}
-	renderTemplate(c, templateName, variables)
+	Render(c, templateName, variables)
 }
 
-func modelList(c *gin.Context, templateName string, models interface{}, nav navigation, search searchForm) {
+func ModelList(c *gin.Context, templateName string, models interface{}, nav Navigation, search SearchForm) {
 	var variables jet.VarMap
 	if isAdminTemplate(templateName) {
-		variables = newPanelCommonVariables(c)
+		variables = NewPanelCommonvariables(c)
 	} else {
-		variables = commonvariables(c)
+		variables = Commonvariables(c)
 	}
 	variables.Set("Models", models)
 	variables.Set("Navigation", nav)
 	variables.Set("Search", search)
-	renderTemplate(c, templateName, variables)
+	Render(c, templateName, variables)
 }
 
-func formTemplate(c *gin.Context, templateName string, form interface{}) {
+func Form(c *gin.Context, templateName string, form interface{}) {
 	var variables jet.VarMap
 	if isAdminTemplate(templateName) {
-		variables = newPanelCommonVariables(c)
+		variables = NewPanelCommonvariables(c)
 	} else {
-		variables = commonvariables(c)
+		variables = Commonvariables(c)
 	}
 	variables.Set("Form", form)
-	renderTemplate(c, templateName, variables)
+	Render(c, templateName, variables)
 }
 
-func torrentTemplate(c *gin.Context, torrent models.TorrentJSON, rootFolder *filelist.FileListFolder, captchaID string) {
-	variables := commonvariables(c)
+func Torrent(c *gin.Context, torrent models.TorrentJSON, rootFolder *filelist.FileListFolder, captchaID string) {
+	variables := Commonvariables(c)
 	variables.Set("Torrent", torrent)
 	variables.Set("RootFolder", rootFolder)
 	variables.Set("CaptchaID", captchaID)
-	renderTemplate(c, path.Join(SiteDir, "torrents/view.jet.html"), variables)
+	Render(c, path.Join(SiteDir, "torrents/view.jet.html"), variables)
 }
 
-func userProfileEditTemplate(c *gin.Context, userProfile *models.User, userForm userValidator.UserForm, languages publicSettings.Languages) {
-	variables := commonvariables(c)
+func UserProfileEdit(c *gin.Context, userProfile *models.User, userForm userValidator.UserForm, languages publicSettings.Languages) {
+	variables := Commonvariables(c)
 	variables.Set("UserProfile", userProfile)
 	variables.Set("UserForm", userForm)
 	variables.Set("Languages", languages)
-	renderTemplate(c, path.Join(SiteDir, "user/edit.jet.html"), variables)
+	Render(c, path.Join(SiteDir, "user/edit.jet.html"), variables)
 }
 
-func userProfileTemplate(c *gin.Context, userProfile *models.User) {
-	variables := commonvariables(c)
+func UserProfile(c *gin.Context, userProfile *models.User) {
+	variables := Commonvariables(c)
 	variables.Set("UserProfile", userProfile)
-	renderTemplate(c, path.Join(SiteDir, "user/torrents.jet.html"), variables)
+	Render(c, path.Join(SiteDir, "user/torrents.jet.html"), variables)
 }
 
-func userProfileNotificationsTemplate(c *gin.Context, userProfile *models.User) {
-	variables := commonvariables(c)
+func UserProfileNotifications(c *gin.Context, userProfile *models.User) {
+	variables := Commonvariables(c)
 	variables.Set("UserProfile", userProfile)
-	renderTemplate(c, path.Join(SiteDir, "user/notifications.jet.html"), variables)
+	Render(c, path.Join(SiteDir, "user/notifications.jet.html"), variables)
 }
-func databaseDumpTemplate(c *gin.Context, listDumps []models.DatabaseDumpJSON, GPGLink string) {
-	variables := commonvariables(c)
+func DatabaseDump(c *gin.Context, listDumps []models.DatabaseDumpJSON, GPGLink string) {
+	variables := Commonvariables(c)
 	variables.Set("ListDumps", listDumps)
 	variables.Set("GPGLink", GPGLink)
-	renderTemplate(c, path.Join(SiteDir, "database/dumps.jet.html"), variables)
+	Render(c, path.Join(SiteDir, "database/dumps.jet.html"), variables)
 }
-func panelAdminTemplate(c *gin.Context, torrent []models.Torrent, reports []models.TorrentReportJSON, users []models.User, comments []models.Comment) {
-	variables := newPanelCommonVariables(c)
+func PanelAdmin(c *gin.Context, torrent []models.Torrent, reports []models.TorrentReportJSON, users []models.User, comments []models.Comment) {
+	variables := NewPanelCommonvariables(c)
 	variables.Set("Torrents", torrent)
 	variables.Set("TorrentReports", reports)
 	variables.Set("Users", users)
 	variables.Set("Comments", comments)
-	renderTemplate(c, path.Join(ModeratorDir, "index.jet.html"), variables)
+	Render(c, path.Join(ModeratorDir, "index.jet.html"), variables)
 }
 
 func isAdminTemplate(templateName string) bool {

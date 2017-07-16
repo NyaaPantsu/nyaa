@@ -12,7 +12,9 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/categories"
+	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/NyaaPantsu/nyaa/utils/format"
+	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/metainfo"
 	"github.com/NyaaPantsu/nyaa/utils/torrentLanguages"
 	"github.com/gin-gonic/gin"
@@ -240,4 +242,55 @@ func (r *TorrentRequest) ValidateMultipartUpload(c *gin.Context, uploadFormTorre
 		return tfile, nil
 	}
 	return tfile, err
+}
+
+// ExtractInfo : Function to assign values from request to ReassignForm
+func (f *ReassignForm) ExtractInfo(c *gin.Context) bool {
+	f.By = c.PostForm("by")
+	messages := msg.GetMessages(c)
+	if f.By != "olduser" && f.By != "torrentid" {
+		messages.AddErrorTf("errors", "no_action_exist", f.By)
+		return false
+	}
+
+	f.Data = strings.Trim(c.PostForm("data"), " \r\n")
+	if f.By == "olduser" {
+		if f.Data == "" {
+			messages.AddErrorT("errors", "user_not_found")
+			return false
+		} else if strings.Contains(f.Data, "\n") {
+			messages.AddErrorT("errors", "multiple_username_error")
+			return false
+		}
+	} else if f.By == "torrentid" {
+		if f.Data == "" {
+			messages.AddErrorT("errors", "no_id_given")
+			return false
+		}
+		splitData := strings.Split(f.Data, "\n")
+		for i, tmp := range splitData {
+			tmp = strings.Trim(tmp, " \r")
+			torrentID, err := strconv.ParseUint(tmp, 10, 0)
+			if err != nil {
+				messages.AddErrorTf("errors", "parse_error_line", i+1)
+				return false // TODO: Shouldn't it continue to parse the rest and display the errored lines?
+			}
+			f.Torrents = append(f.Torrents, uint(torrentID))
+		}
+	}
+
+	tmpID := c.PostForm("to")
+	parsed, err := strconv.ParseUint(tmpID, 10, 32)
+	if err != nil {
+		messages.Error(err)
+		return false
+	}
+	f.AssignTo = uint(parsed)
+	_, _, _, _, err = cookies.RetrieveUserFromRequest(c, uint(parsed))
+	if err != nil {
+		messages.AddErrorTf("errors", "no_user_found_id", int(parsed))
+		return false
+	}
+
+	return true
 }
