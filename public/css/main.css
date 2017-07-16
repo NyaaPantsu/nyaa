@@ -370,6 +370,7 @@ th { border-bottom-width: 2px; }
 .pagination a:first-child li { border-radius: 3px 0 0 3px; }
 .pagination a:nth-last-child(2) li { border-radius: 0 3px 3px 0; border-right-width: 1px !important}
 
+textarea { max-width: 100%; }
 
 #footer { width: 100%; bottom: 0; left: 0; }
 
@@ -626,8 +627,7 @@ input#show-filelist:checked ~ #filelist {
 .table-filelist {
 	width: 100%;
 }
-tr.torrentinfo { min-height: 38px; }
-thead.torrentinfo { min-height: 40px; }
+thead.torrentinfo tr { min-height: 40px; }
 .tr-filelist {
 	--nest-level: 0;
 }

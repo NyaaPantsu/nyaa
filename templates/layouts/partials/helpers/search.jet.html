@@ -26,7 +26,7 @@
 		  </select>
         </span>
 	    <span class="form-refine"><span class="spacing">{{ T("show") }}:</span>
-		<select name="s" class="form-input spacing">
+		<select name="s" class="form-input spacing" style="max-width: 21%;">
                 <option value="0">{{ T("show_all")}}</option>
                 <option value="2" {{if Search.Status == 2}}selected{{end}}>{{ T("filter_remakes")}}</option>
                 <option value="3" {{if Search.Status == 3}}selected{{end}}>{{ T("trusted")}}</option>

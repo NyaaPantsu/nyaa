@@ -1813,6 +1813,10 @@
   },
   {
     "id": "asia",
-    "translation": "Asian only contentb"
+    "translation": "Asian only content"
+  },
+  {
+    "id": "torrent_colors",
+    "translation": "Torrent colors"
   }
 ]
