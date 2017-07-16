@@ -232,11 +232,6 @@
     "translation": "NOTICE: KEEP SEEDING AND ENABLE DHT YOU GIT"
   },
   {
-    "id": "torrent_colors",
-    "translation": "Torrent colors"
-    
-  },
-  {
     "id": "official_nyaapocalipse_faq",
     "translation": "Official Nyaapocalypse FAQ"
   },
@@ -1775,5 +1770,54 @@
   {
     "id": "torrent_uri_invalid",
     "translation": "Website url or IRC link is invalid"
+  },
+  {
+    "id": "api_documentation",
+    "translation": "API documentation"
+  },
+  {
+    "id": "api_help",
+    "translation": "Do you have an api?"
+  },
+  {
+    "id": "trusted",
+    "translation": "Torrents uploaded by trusted users."
+  },
+  {
+    "id": "reencodes",
+    "translation": "Re-encodes"
+  },
+  {
+    "id": "remux",
+    "translation": "Remux of another uploader's original release"
+  },
+  {
+    "id": "reupload",
+    "translation": "Reupload of another users torrent with missing and/or unrelated additional files."
+  },
+  {
+    "id": "red",
+    "translation": "Red entries are: "
+  },
+  {
+    "id": "green",
+    "translation": "Green entries are:"
+  },
+  {
+    "id": "rules",
+    "translation": "Rules"
+  },
+  {
+    "id": "no_cp",
+    "translation": "No child pornography"
+  },
+  {
+    "id": "asia",
+    "translation": "Asian only content"
+  },
+  {
+    "id": "torrent_colors",
+    "translation": "Torrent colors"
+    
   }
 ]
