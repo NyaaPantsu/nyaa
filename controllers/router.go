@@ -16,6 +16,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/controllers/router"
 	_ "github.com/NyaaPantsu/nyaa/controllers/search"   // search controller
 	_ "github.com/NyaaPantsu/nyaa/controllers/settings" // settings controller
+	_ "github.com/NyaaPantsu/nyaa/controllers/static"   // static files
 	_ "github.com/NyaaPantsu/nyaa/controllers/torrent"  // torrent controller
 	_ "github.com/NyaaPantsu/nyaa/controllers/upload"   // upload controller
 	_ "github.com/NyaaPantsu/nyaa/controllers/user"     // user controller
