@@ -61,6 +61,8 @@ var Kilo = function (params) {
     }
     this.setName(formName.value)
     this.setCategory(formCategory.selectedIndex)
+    updateTorrentLang()
+	
   }
   // Helpers function for events and render
   this.setRemake = function (b) {
