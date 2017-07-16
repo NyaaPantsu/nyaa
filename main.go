@@ -11,6 +11,7 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/controllers"
+	"github.com/NyaaPantsu/nyaa/controllers/databasedumps"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/NyaaPantsu/nyaa/utils/log"
@@ -24,9 +25,9 @@ var buildversion string
 // RunServer runs webapp mainloop
 func RunServer(conf *config.Config) {
 	// TODO Use config from cli
-	os.Mkdir(controllers.DatabaseDumpPath, 0700)
+	os.Mkdir(databasedumpsController.DatabaseDumpPath, 0700)
 	// TODO Use config from cli
-	os.Mkdir(controllers.GPGPublicKeyPath, 0700)
+	os.Mkdir(databasedumpsController.GPGPublicKeyPath, 0700)
 
 	http.Handle("/", controllers.CSRFRouter)
 
