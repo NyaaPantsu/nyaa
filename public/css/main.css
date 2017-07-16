@@ -227,7 +227,7 @@ select.form-input {
 	/* Property is ignored due to the display. With 'display: block', vertical-align should not be used. */
 	vertical-align: middle;
 	/* Hardcoded so the div always fills up all available space while floating right */
-	max-width: 87px;
+	max-width: 91px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
