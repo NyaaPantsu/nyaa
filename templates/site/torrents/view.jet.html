@@ -99,7 +99,7 @@
                 <div class="comment-form">
                     <div class="comment-text">
                     <h3>{{ if User.ID > 0}} {{ T("submit_a_comment_as_username", User.Username) }} {{else}} {{ T("submit_a_comment_as_anonymous")|raw}} {{end}}</h3>
-                    <textarea style="height: 10rem;max-width:1016px" placeholder="サンキュー" name="comment" class="form-input up-input"></textarea>
+                    <textarea style="height: 10rem;" placeholder="サンキュー" name="comment" class="form-input up-input"></textarea>
                     </div>
                     <div class="comment-captcha">
                 {{ yield captcha(captchaid=CaptchaID)}}
