@@ -96,7 +96,7 @@ float:  right; }
 
 
 .header .h-search { margin-right: 10px; }
-.header .h-search .form-input { font-size: 80%; height: 28px; }
+.header .h-search .form-input { font-size: 80%; line-height: 18px; }
 
 .header .h-search select.form-input { max-width: 110px !important; }
 
@@ -127,10 +127,11 @@ select.form-input {
 .form-input.search-box { margin-right: -20px;  padding-right: 20px;  }
 .form-input.search-box + .icon-search {
 	left: -5px;
+	top: -2px;
 	position: relative;
  	padding: 0;
  	width: 16px;
-    height: 16px;
+    	height: 26px;
 	box-shadow: none;
 	border: none;
 	vertical-align: middle;
