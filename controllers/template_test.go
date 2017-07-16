@@ -56,91 +56,90 @@ func walkDirTest(dir string, t *testing.T) {
 	fakeLogin := &userValidator.LoginForm{"test", "test", "/"}
 	fakeRegistration := &userValidator.RegistrationForm{"test", "", "test", "test", "xxxx", "1"}
 	fakeReport := &models.TorrentReport{1, "test", 1, 1, time.Now(), fakeTorrent, fakeUser}
-	contextVars := ContextTest{
-		"dumps.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("GPGLink", "test")
-			vars.Set("ListDumps", []models.DatabaseDumpJSON{fakeDB.ToJSON(), fakeDB.ToJSON()})
-			return vars
+	contextvariables := ContextTest{
+		"dumps.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("GPGLink", "test")
+			variables.Set("ListDumps", []models.DatabaseDumpJSON{fakeDB.ToJSON(), fakeDB.ToJSON()})
+			return variables
 		},
-		"activities.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []models.Activity{*fakeActivity})
-			return vars
+		"activities.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Models", []models.Activity{*fakeActivity})
+			return variables
 		},
-		"listing.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []models.TorrentJSON{fakeTorrent.ToJSON(), fakeTorrent.ToJSON()})
-			return vars
+		"listing.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Models", []models.TorrentJSON{fakeTorrent.ToJSON(), fakeTorrent.ToJSON()})
+			return variables
 		},
-		"edit.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", fakeTorrentRequest)
-			vars.Set("Languages", publicSettings.Languages{*fakeLanguage, *fakeLanguage})
-			return vars
+		"edit.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Form", fakeTorrentRequest)
+			variables.Set("Languages", publicSettings.Languages{*fakeLanguage, *fakeLanguage})
+			return variables
 		},
-		"upload.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", fakeTorrentRequest)
-			return vars
+		"upload.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Form", fakeTorrentRequest)
+			return variables
 		},
-		"view.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Torrent", fakeTorrent.ToJSON())
-			vars.Set("CaptchaID", "xxxxxx")
-			vars.Set("RootFolder", filelist.FileListToFolder(fakeTorrent.FileList, "root"))
-			return vars
+		"view.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Torrent", fakeTorrent.ToJSON())
+			variables.Set("CaptchaID", "xxxxxx")
+			variables.Set("RootFolder", filelist.FileListToFolder(fakeTorrent.FileList, "root"))
+			return variables
 		},
-		"settings.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", &LanguagesJSONResponse{"test", publicSettings.Languages{*fakeLanguage, *fakeLanguage}})
-			return vars
+		"settings.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Form", &LanguagesJSONResponse{"test", publicSettings.Languages{*fakeLanguage, *fakeLanguage}})
+			return variables
 		},
-		"login.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", fakeLogin)
-			return vars
+		"login.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Form", fakeLogin)
+			return variables
 		},
-		"register.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", fakeRegistration)
-			return vars
+		"register.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Form", fakeRegistration)
+			return variables
 		},
-		"index.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Torrents", []models.Torrent{*fakeTorrent, *fakeTorrent})
-			vars.Set("Users", []models.User{*fakeUser, *fakeUser})
-			vars.Set("Comments", []models.Comment{*fakeComment, *fakeComment})
-			vars.Set("TorrentReports", []models.TorrentReportJSON{fakeReport.ToJSON(), fakeReport.ToJSON()})
-			return vars
+		"index.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Torrents", []models.Torrent{*fakeTorrent, *fakeTorrent})
+			variables.Set("Users", []models.User{*fakeUser, *fakeUser})
+			variables.Set("Comments", []models.Comment{*fakeComment, *fakeComment})
+			variables.Set("TorrentReports", []models.TorrentReportJSON{fakeReport.ToJSON(), fakeReport.ToJSON()})
+			return variables
 		},
-		"paneltorrentedit.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", *fakeTorrent)
-			return vars
+		"paneltorrentedit.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Form", *fakeTorrent)
+			return variables
 		},
-		"reassign.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Form", ReassignForm{1, "", "", []uint{1, 1}})
-			return vars
+		"reassign.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Form", ReassignForm{1, "", "", []uint{1, 1}})
+			return variables
 		},
-		"torrentlist.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []models.Torrent{*fakeTorrent, *fakeTorrent})
-			return vars
+		"torrentlist.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Models", []models.Torrent{*fakeTorrent, *fakeTorrent})
+			return variables
 		},
-		"userlist.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []models.User{*fakeUser, *fakeUser})
-			return vars
+		"userlist.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Models", []models.User{*fakeUser, *fakeUser})
+			return variables
 		},
-		"commentlist.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []models.Comment{*fakeComment, *fakeComment})
-			return vars
+		"commentlist.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Models", []models.Comment{*fakeComment, *fakeComment})
+			return variables
 		},
-		"torrent_report.jet.html": func(vars jet.VarMap) jet.VarMap {
-			vars.Set("Models", []models.TorrentReportJSON{fakeReport.ToJSON(), fakeReport.ToJSON()})
-			return vars
+		"torrent_report.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Models", []models.TorrentReportJSON{fakeReport.ToJSON(), fakeReport.ToJSON()})
+			return variables
 		},
-		"report.jet.html": func(vars jet.VarMap) jet.VarMap {
+		"report.jet.html": func(variables jet.VarMap) jet.VarMap {
 			type form struct {
 				ID        int
 				CaptchaID string
 			}
-			vars.Set("Form", form{1, "test"})
-			return vars
+			variables.Set("Form", form{1, "test"})
+			return variables
 		},
 	}
 
 	fmt.Printf("\nTesting Folder: %s\n", dir)
 	view := jet.NewHTMLSet(path.Join("..", TemplateDir))
-	vars := mockupCommonVars(t)
 	files, err := ioutil.ReadDir(path.Join("..", TemplateDir) + dir)
 	if err != nil {
 		t.Errorf("Couldn't find the folder %s", path.Join("..", TemplateDir)+dir)
@@ -149,6 +148,7 @@ func walkDirTest(dir string, t *testing.T) {
 		t.Errorf("Couldn't find any files in folder %s", path.Join("..", TemplateDir)+dir)
 	}
 	for _, f := range files {
+		variables := mockupCommonvariables(t)
 		if f.IsDir() {
 			walkDirTest(dir+f.Name()+"/", t)
 			continue
@@ -160,10 +160,10 @@ func walkDirTest(dir string, t *testing.T) {
 				t.Errorf("\nParsing error: %s %s", err.Error(), dir+f.Name())
 			}
 			buff := bytes.NewBuffer(nil)
-			if contextVars[f.Name()] != nil {
-				vars = contextVars[f.Name()](vars)
+			if contextvariables[f.Name()] != nil {
+				variables = contextvariables[f.Name()](variables)
 			}
-			if err = template.Execute(buff, vars, nil); err != nil {
+			if err = template.Execute(buff, variables, nil); err != nil {
 				t.Errorf("\nEval error: %q executing %s", err.Error(), template.Name)
 			}
 			fmt.Print("\tOK\n")
@@ -171,9 +171,10 @@ func walkDirTest(dir string, t *testing.T) {
 	}
 }
 
-func mockupCommonVars(t *testing.T) jet.VarMap {
-	vars.Set("Navigation", newNavigation())
-	vars.Set("Search", searchForm{
+func mockupCommonvariables(t *testing.T) jet.VarMap {
+	variables := jet.VarMap{}
+	variables.Set("Navigation", newNavigation())
+	variables.Set("Search", searchForm{
 		Category:         "_",
 		ShowItemsPerPage: true,
 		SizeType:         "b",
@@ -199,17 +200,18 @@ func mockupCommonVars(t *testing.T) jet.VarMap {
 	T = func(id string, args ...interface{}) template.HTML {
 		return template.HTML(fmt.Sprintf(Ts(id), args...))
 	}
-	vars.Set("T", T)
-	vars.Set("Theme", "test")
-	vars.Set("Mascot", "test")
-	vars.Set("MascotURL", "test")
-	vars.Set("User", &models.User{})
-	vars.Set("UserProfile", &models.User{})
-	vars.Set("URL", &url.URL{})
-	vars.Set("CsrfToken", "xxxxxx")
-	vars.Set("Config", config.Get())
-	vars.Set("Infos", make(map[string][]string))
-	vars.Set("Errors", make(map[string][]string))
-	vars.Set("UserProfile", &models.User{})
-	return vars
+	variables.Set("T", T)
+	variables.Set("Theme", "test")
+	variables.Set("Mascot", "test")
+	variables.Set("MascotURL", "test")
+	variables.Set("User", &models.User{})
+	variables.Set("UserProfile", &models.User{})
+	variables.Set("URL", &url.URL{})
+	variables.Set("CsrfToken", "xxxxxx")
+	variables.Set("Config", config.Get())
+	variables.Set("Infos", make(map[string][]string))
+	variables.Set("Errors", make(map[string][]string))
+	variables.Set("UserProfile", &models.User{})
+	variables = templateFunctions(variables)
+	return variables
 }

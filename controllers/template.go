@@ -32,7 +32,6 @@ const ErrorsDir = "errors"
 
 // View : Jet Template Renderer
 var View = jet.NewHTMLSet("./templates")
-var vars = templateFunctions(make(jet.VarMap))
 
 func init() {
 	if config.Get().Environment == "DEVELOPMENT" {
@@ -40,22 +39,23 @@ func init() {
 		fmt.Println("Template Live Update enabled")
 	}
 }
-func commonVars(c *gin.Context) jet.VarMap {
+func commonvariables(c *gin.Context) jet.VarMap {
 	token := nosurf.Token(c.Request)
 	msg := messages.GetMessages(c)
-	vars.Set("Navigation", newNavigation())
-	vars.Set("Search", newSearchForm(c))
-	vars.Set("T", publicSettings.GetTfuncFromRequest(c))
-	vars.Set("Theme", publicSettings.GetThemeFromRequest(c))
-	vars.Set("Mascot", publicSettings.GetMascotFromRequest(c))
-	vars.Set("MascotURL", publicSettings.GetMascotUrlFromRequest(c))
-	vars.Set("User", getUser(c))
-	vars.Set("URL", c.Request.URL)
-	vars.Set("CsrfToken", token)
-	vars.Set("Config", config.Get())
-	vars.Set("Infos", msg.GetAllInfos())
-	vars.Set("Errors", msg.GetAllErrors())
-	return vars
+	variables := templateFunctions(make(jet.VarMap))
+	variables.Set("Navigation", newNavigation())
+	variables.Set("Search", newSearchForm(c))
+	variables.Set("T", publicSettings.GetTfuncFromRequest(c))
+	variables.Set("Theme", publicSettings.GetThemeFromRequest(c))
+	variables.Set("Mascot", publicSettings.GetMascotFromRequest(c))
+	variables.Set("MascotURL", publicSettings.GetMascotUrlFromRequest(c))
+	variables.Set("User", getUser(c))
+	variables.Set("URL", c.Request.URL)
+	variables.Set("CsrfToken", token)
+	variables.Set("Config", config.Get())
+	variables.Set("Infos", msg.GetAllInfos())
+	variables.Set("Errors", msg.GetAllErrors())
+	return variables
 }
 
 // newPanelSearchForm : Helper that creates a search form without items/page field
@@ -68,18 +68,18 @@ func newPanelSearchForm(c *gin.Context) searchForm {
 
 //
 func newPanelCommonVariables(c *gin.Context) jet.VarMap {
-	common := commonVars(c)
+	common := commonvariables(c)
 	common.Set("Search", newPanelSearchForm(c))
 	return common
 }
 
-func renderTemplate(c *gin.Context, templateName string, vars jet.VarMap) {
+func renderTemplate(c *gin.Context, templateName string, variables jet.VarMap) {
 	t, err := View.GetTemplate(templateName)
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
-	if err = t.Execute(c.Writer, vars, nil); err != nil {
+	if err = t.Execute(c.Writer, variables, nil); err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
@@ -103,79 +103,79 @@ func httpError(c *gin.Context, errorCode int) {
 }
 
 func staticTemplate(c *gin.Context, templateName string) {
-	var vars jet.VarMap
+	var variables jet.VarMap
 	if isAdminTemplate(templateName) {
-		vars = newPanelCommonVariables(c)
+		variables = newPanelCommonVariables(c)
 	} else {
-		vars = commonVars(c)
+		variables = commonvariables(c)
 	}
-	renderTemplate(c, templateName, vars)
+	renderTemplate(c, templateName, variables)
 }
 
 func modelList(c *gin.Context, templateName string, models interface{}, nav navigation, search searchForm) {
-	var vars jet.VarMap
+	var variables jet.VarMap
 	if isAdminTemplate(templateName) {
-		vars = newPanelCommonVariables(c)
+		variables = newPanelCommonVariables(c)
 	} else {
-		vars = commonVars(c)
+		variables = commonvariables(c)
 	}
-	vars.Set("Models", models)
-	vars.Set("Navigation", nav)
-	vars.Set("Search", search)
-	renderTemplate(c, templateName, vars)
+	variables.Set("Models", models)
+	variables.Set("Navigation", nav)
+	variables.Set("Search", search)
+	renderTemplate(c, templateName, variables)
 }
 
 func formTemplate(c *gin.Context, templateName string, form interface{}) {
-	var vars jet.VarMap
+	var variables jet.VarMap
 	if isAdminTemplate(templateName) {
-		vars = newPanelCommonVariables(c)
+		variables = newPanelCommonVariables(c)
 	} else {
-		vars = commonVars(c)
+		variables = commonvariables(c)
 	}
-	vars.Set("Form", form)
-	renderTemplate(c, templateName, vars)
+	variables.Set("Form", form)
+	renderTemplate(c, templateName, variables)
 }
 
 func torrentTemplate(c *gin.Context, torrent models.TorrentJSON, rootFolder *filelist.FileListFolder, captchaID string) {
-	vars := commonVars(c)
-	vars.Set("Torrent", torrent)
-	vars.Set("RootFolder", rootFolder)
-	vars.Set("CaptchaID", captchaID)
-	renderTemplate(c, path.Join(SiteDir, "torrents/view.jet.html"), vars)
+	variables := commonvariables(c)
+	variables.Set("Torrent", torrent)
+	variables.Set("RootFolder", rootFolder)
+	variables.Set("CaptchaID", captchaID)
+	renderTemplate(c, path.Join(SiteDir, "torrents/view.jet.html"), variables)
 }
 
 func userProfileEditTemplate(c *gin.Context, userProfile *models.User, userForm userValidator.UserForm, languages publicSettings.Languages) {
-	vars := commonVars(c)
-	vars.Set("UserProfile", userProfile)
-	vars.Set("UserForm", userForm)
-	vars.Set("Languages", languages)
-	renderTemplate(c, path.Join(SiteDir, "user/edit.jet.html"), vars)
+	variables := commonvariables(c)
+	variables.Set("UserProfile", userProfile)
+	variables.Set("UserForm", userForm)
+	variables.Set("Languages", languages)
+	renderTemplate(c, path.Join(SiteDir, "user/edit.jet.html"), variables)
 }
 
 func userProfileTemplate(c *gin.Context, userProfile *models.User) {
-	vars := commonVars(c)
-	vars.Set("UserProfile", userProfile)
-	renderTemplate(c, path.Join(SiteDir, "user/torrents.jet.html"), vars)
+	variables := commonvariables(c)
+	variables.Set("UserProfile", userProfile)
+	renderTemplate(c, path.Join(SiteDir, "user/torrents.jet.html"), variables)
 }
 
 func userProfileNotificationsTemplate(c *gin.Context, userProfile *models.User) {
-	vars := commonVars(c)
-	vars.Set("UserProfile", userProfile)
-	renderTemplate(c, path.Join(SiteDir, "user/notifications.jet.html"), vars)
+	variables := commonvariables(c)
+	variables.Set("UserProfile", userProfile)
+	renderTemplate(c, path.Join(SiteDir, "user/notifications.jet.html"), variables)
 }
 func databaseDumpTemplate(c *gin.Context, listDumps []models.DatabaseDumpJSON, GPGLink string) {
-	vars := commonVars(c)
-	vars.Set("ListDumps", listDumps)
-	vars.Set("GPGLink", GPGLink)
-	renderTemplate(c, path.Join(SiteDir, "database/dumps.jet.html"), vars)
+	variables := commonvariables(c)
+	variables.Set("ListDumps", listDumps)
+	variables.Set("GPGLink", GPGLink)
+	renderTemplate(c, path.Join(SiteDir, "database/dumps.jet.html"), variables)
 }
 func panelAdminTemplate(c *gin.Context, torrent []models.Torrent, reports []models.TorrentReportJSON, users []models.User, comments []models.Comment) {
-	vars := newPanelCommonVariables(c)
-	vars.Set("Torrents", torrent)
-	vars.Set("TorrentReports", reports)
-	vars.Set("Users", users)
-	vars.Set("Comments", comments)
-	renderTemplate(c, path.Join(ModeratorDir, "index.jet.html"), vars)
+	variables := newPanelCommonVariables(c)
+	variables.Set("Torrents", torrent)
+	variables.Set("TorrentReports", reports)
+	variables.Set("Users", users)
+	variables.Set("Comments", comments)
+	renderTemplate(c, path.Join(ModeratorDir, "index.jet.html"), variables)
 }
 
 func isAdminTemplate(templateName string) bool {

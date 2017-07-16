@@ -1,72 +1,121 @@
-var Sukebei = document.getElementById("IsUploadingToSukebei").value == "yes" ? 1 : 0;
+var Kilo = function (params) {
+  // self reference
+  var self = this
+  // variables
+  this.sukebei = (params.sukebei !== undefined) ? params.sukebei : 0
+  this.userTrusted = (params.userTrusted !== undefined) ? params.userTrusted : false
+  this.isMember = (params.isMember !== undefined) ? params.isMember : false
+  this.langSelect = (params.langSelect !== undefined) ? params.langSelect : 'languages'
+  this.locale = (params.locale !== undefined) ? params.locale : ''
+  this.formatDate = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  }
+  this.categories = []
+  if (this.locale == '' && document.getElementsByTagName('html')[0].getAttribute('lang') !== null) {
+    this.locale = document.getElementsByTagName('html')[0].getAttribute('lang')
+  }
 
+  // Parsing categories
+  document.querySelectorAll(".form-torrent-category option").forEach(function(el) {
+    var subcat
+    if (self.sukebei) {
+      subcat = el.value.replace("_", "")
+    } else {
+      subcat = el.value.split("_")[1]
+    }
+    subcat = (subcat === undefined) ? 0 : subcat
+    self.categories.push(subcat)
+  })
 
-document.getElementsByClassName("torrent-preview-table")[0].style.display = "block";
-document.getElementsByClassName("table-torrent-date")[0].innerText = new Date(Date.now()).toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), { year: "numeric", month: "short", day: "numeric" });
+  this.render = function () {
+    console.log(this.locale)
+    // Displaying the block and set the locale timestamp
+    document.getElementsByClassName('torrent-preview-table')[0].style.display = 'block'
+    document.getElementsByClassName('table-torrent-date')[0].innerText = new Date(Date.now()).toISOString()
 
-for(var lang_index = 0; lang_index < document.getElementsByName("languages").length; lang_index++) 
-	document.getElementsByName("languages")[lang_index].addEventListener("change", UpdateTorrentLang);
-document.getElementsByClassName("form-torrent-category")[0].addEventListener("change", UpdatePreviewCategory);
-document.getElementsByClassName("form-torrent-name")[0].addEventListener("keyup", UpdatePreviewTorrentName);
-document.getElementsByClassName("form-torrent-remake")[0].onchange = function(){
-	document.getElementsByName("torrent-info tr")[0].className = "torrent-info" + (UserTrusted ? " trusted" : "") + (document.getElementsByClassName("form-torrent-remake")[0].checked ? " remake" : "");
-};
+    // Adding listener events
+    for (var langIndex = 0; langIndex < document.getElementsByName(this.langSelect).length; langIndex++) {
+      document.getElementsByName(this.langSelect)[langIndex].addEventListener('change', updateTorrentLang)
+    }
+    var formCategory = document.getElementsByClassName('form-torrent-category')[0]
+    formCategory.addEventListener('change', updatePreviewCategory)
+    var formName = document.getElementsByClassName('form-torrent-name')[0]
+    formName.addEventListener('keyup', updatePreviewTorrentName)
+    var formRemake = document.getElementsByClassName('form-torrent-remake')[0]
+    formRemake.addEventListener('change', updatePreviewRemake)
+    var formHidden = document.getElementsByClassName('form-torrent-hidden')[0]
+    if (this.isMember) {
+      formHidden.addEventListener('change', updateHidden)
+    }
 
+    // Setting default values
+    this.setRemake(formRemake.checked)
+    if (this.isMember) {
+      this.setHidden(formHidden.checked)
+    }
+    this.setName(formName.value)
+    this.setCategory(formCategory.selectedIndex)
+  }
+  // Helpers function for events and render
+  this.setRemake = function (b) {
+    if (b) {
+      document.getElementsByName('torrent-info tr')[0].classList.add('remake')
+    } else {
+      document.getElementsByName('torrent-info tr')[0].classList.remove('remake')
+    }
+  }
+  this.setHidden = function (b) {
+    if (!b) {
+      document.getElementsByName('torrent-info tr')[0].classList.remove('trusted')
+    } else if (this.userTrusted) {
+      document.getElementsByName('torrent-info tr')[0].classList.add('trusted')
+    }
+  }
+  this.setName = function (value) {
+    document.getElementsByClassName('table-torrent-name')[0].innerText = value
+  }
+  this.setCategory = function (index) {
+    var tableCategory = document.getElementsByClassName('table-torrent-category')[0]
+    tableCategory.className = 'nyaa-cat table-torrent-category ' + (this.sukebei ? 'sukebei' : 'nyaa') + '-cat-' + this.categories[index]
+    tableCategory.title = document.getElementsByClassName('form-torrent-category')[0].querySelectorAll("option")[index].textContent
+  }
 
-function UpdatePreviewTorrentName(){
-    document.getElementsByClassName("table-torrent-name")[0].innerText = document.getElementsByClassName("form-torrent-name")[0].value;
+  // Event handlers
+  var updatePreviewRemake = function (e) {
+    var el = e.target
+    self.setRemake(el.checked)
+  }
+  var updatePreviewTorrentName = function (e) {
+    var el = e.target
+    self.setName(el.value)
+  }
+  var updateHidden = function (e) {
+    var el = e.target
+    self.setHidden(el.checked)
+  }
+  var updatePreviewCategory = function (e) {
+    var el = e.target
+    self.setCategory(el.selectedIndex)
+  }
+  var updateTorrentLang = function () {
+    var langCount = 0
+    var langValue = 'other'
+    var langTitle = ''
+
+    for (var langIndex = 0; langIndex < document.getElementsByName('languages').length; langIndex++) {
+      if (document.getElementsByName('languages')[langIndex].checked) {
+        langTitle = langTitle + document.getElementsByName('upload-lang-languagename')[langIndex].innerText + ','
+        if (++langCount > 1) {
+          langValue = 'multiple'
+          continue
+        }
+        langValue = document.getElementsByName('languages')[langIndex].value
+      }
+    }
+    var langCat = langValue !== 'other' ? (langValue > 1 ? 'multiple' : langValue) : 'other'
+    document.getElementsByClassName('table-torrent-flag')[0].className = 'table-torrent-flag flag flag-' + langCat
+    document.getElementsByClassName('table-torrent-flag')[0].title = langTitle
+  }
 }
-
-function UpdatePreviewCategory(){
-    document.getElementsByClassName("table-torrent-category")[0].className = "nyaa-cat table-torrent-category "+ (Sukebei ? "sukebei" : "nyaa") + "-cat-" + CategoryList[Sukebei][document.getElementsByClassName("form-torrent-category")[0].selectedIndex];
-}
-
-function UpdateTorrentLang() {
-	var lang_count,
-		lang_value = "other",
-		lang_title = "";
-	
-	lang_count = 0;
-		
-	for(var lang_index = 0, title_index = 0; lang_index < document.getElementsByName("languages").length; lang_index++) {
-		if(document.getElementsByName("languages")[lang_index].checked) {
-			lang_title= lang_title + document.getElementsByName("upload-lang-languagename")[lang_index].innerText + ",";
-			if(++lang_count > 1){
-				lang_value = "multiple";
-				continue;
-			}
-			lang_value = document.getElementsByName("languages")[lang_index].value;
-		}
-	}
-		var lang_cat = lang_value != "other" ? (lang_value > 1 ? "multiple" : lang_value) : "other";
-	document.getElementsByClassName("table-torrent-flag")[0].className = "table-torrent-flag flag flag-" + lang_cat;
-	document.getElementsByClassName("table-torrent-flag")[0].title = lang_title;
-}
-
-var CategoryList = [
-    [0,
-    12,
-    5,
-    13,
-    6,
-    3,
-    4,
-    7,
-    14,
-    8,
-    9,
-    10,
-    18,
-    11,
-    15,
-    16,
-    1,
-    2],
-    [11,
-    12,
-    13,
-    14,
-    15,
-    21,
-    22]
-];
