@@ -96,7 +96,7 @@ float:  right; }
 
 
 .header .h-search { margin-right: 10px; }
-.header .h-search .form-input { font-size: 80%; }
+.header .h-search .form-input { font-size: 80%; line-height: 18px; }
 
 .header .h-search select.form-input { max-width: 110px !important; }
 
@@ -127,10 +127,11 @@ select.form-input {
 .form-input.search-box { margin-right: -20px;  padding-right: 20px;  }
 .form-input.search-box + .icon-search {
 	left: -5px;
+	top: -2px;
 	position: relative;
  	padding: 0;
  	width: 16px;
-    height: 16px;
+    	height: 26px;
 	box-shadow: none;
 	border: none;
 	vertical-align: middle;
@@ -326,7 +327,7 @@ th, .home-td { border-bottom:  1px solid; }
 
 th { border-bottom-width: 2px; }
 
-.hidden { opacity: 0.5; filter: grayscale(20%);}
+.hidden { opacity: 0.5; }
 .tr-cat { width: 90px; text-align: center; }
 .tr-flag { white-space: initial!important; }
 .tr-name { width: auto; text-align: left; white-space: normal; word-break: break-word; font-weight: bold; }
@@ -370,6 +371,7 @@ th { border-bottom-width: 2px; }
 .pagination a:first-child li { border-radius: 3px 0 0 3px; }
 .pagination a:nth-last-child(2) li { border-radius: 0 3px 3px 0; border-right-width: 1px !important}
 
+textarea { max-width: 100%; }
 
 #footer { width: 100%; bottom: 0; left: 0; }
 
@@ -395,7 +397,7 @@ html, body {
 	display: inline-block;
 	vertical-align: middle;
 }
-.torrent-buttons a [class^="icon-"], .torrent-buttons a [class*=" icon-"] {
+.torrent-buttons a [class^="icon-"], .torrent-buttons a [class*=" icon-"],a.form-input.btn-green > div[class^="icon-"], a.form-input.btn-green > div[class*="icon-"] {
 	vertical-align: initial;
 }
 
@@ -626,8 +628,7 @@ input#show-filelist:checked ~ #filelist {
 .table-filelist {
 	width: 100%;
 }
-tr.torrentinfo { min-height: 38px; }
-thead.torrentinfo { min-height: 40px; }
+thead.torrentinfo tr { min-height: 40px; }
 .tr-filelist {
 	--nest-level: 0;
 }

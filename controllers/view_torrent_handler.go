@@ -114,7 +114,8 @@ func PostCommentHandler(c *gin.Context) {
 			messages.Error(err)
 		}
 	}
-	ViewHandler(c)
+	url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
+	c.Redirect(302, url)
 }
 
 // ReportTorrentHandler : Controller for sending a torrent report
@@ -147,7 +148,7 @@ func ReportTorrentHandler(c *gin.Context) {
 	}
 }
 
-// ReportTorrentHandler : Controller for sending a torrent report
+// ReportTorrentHandler: Controller for sending a torrent report
 func ReportViewTorrentHandler(c *gin.Context) {
 
 	type Report struct {

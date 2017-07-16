@@ -34,6 +34,10 @@ var Kilo = function (params) {
     // Displaying the block and set the locale timestamp
     document.getElementsByClassName('torrent-preview-table')[0].style.display = 'block'
     document.getElementsByClassName('table-torrent-date')[0].innerText = new Date(Date.now()).toISOString()
+	
+	//Adding the torrent under and above the previewed one. Akuma, you do this
+	var torrentHTML = ["", ""];
+	document.getElementById("torrentListResults").innerHTML = torrentHTML[0] + document.getElementById("torrentListResults").innerHTML + torrentHTML[1];
 
     // Adding listener events
     for (var langIndex = 0; langIndex < document.getElementsByName(this.langSelect).length; langIndex++) {
@@ -57,8 +61,10 @@ var Kilo = function (params) {
     }
     this.setName(formName.value)
     this.setCategory(formCategory.selectedIndex)
+    updateTorrentLang()
+	
   }
-    // Helpers function for events and render
+  // Helpers function for events and render
   this.setRemake = function (b) {
     if (b) {
       document.getElementsByName('torrent-info tr')[0].classList.add('remake')
@@ -82,7 +88,7 @@ var Kilo = function (params) {
     tableCategory.title = document.getElementsByClassName('form-torrent-category')[0].querySelectorAll("option")[index].textContent
   }
 
-    // Event handlers
+  // Event handlers
   var updatePreviewRemake = function (e) {
     var el = e.target
     self.setRemake(el.checked)
