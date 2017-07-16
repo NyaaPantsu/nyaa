@@ -396,7 +396,7 @@ html, body {
 	display: inline-block;
 	vertical-align: middle;
 }
-.torrent-buttons a [class^="icon-"], .torrent-buttons a [class*=" icon-"] {
+.torrent-buttons a [class^="icon-"], .torrent-buttons a [class*=" icon-"],a.form-input.btn-green > div[class^="icon-"], a.form-input.btn-green > div[class*="icon-"] {
 	vertical-align: initial;
 }
 
