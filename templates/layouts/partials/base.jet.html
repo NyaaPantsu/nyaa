@@ -15,8 +15,8 @@
 		<link rel="shortcut icon" type="image/png" href="/img/favicon.png">
 		
 		<!-- SMO -->
-		<meta property="og:site_name" content="{{if Sukebei()}}Sukebei{{else}}Nyaa{{end}} Pantsu">
-		<meta property="og:title" content="{{yield titleBase()}} - {{if Sukebei()}}Sukebei{{else}}Nyaa{{end}} Pantsu">
+		<meta property="og:site_name" content="{{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu">
+		<meta property="og:title" content="{{yield titleBase()}} - {{if Sukebei}}Sukebei{{else}}Nyaa{{end}} Pantsu">
 		<meta property="og:image" content="/img/favicon.png">
 		<meta property="og:description" content="Nyaa Pantsu Homepage">
 		
@@ -65,6 +65,10 @@
 						{{else if Theme == "tomorrow" }}
 						<audio id="explosion" hidden preload="none">
 							<source src="https://a.doko.moe/vrlrtw.mp3" type="audio/mpeg">
+						</audio>
+						{{ else if User.ID > 0}}
+						<audio id="nyanpassu2" hidden preload="none">
+							<source src="https://a.doko.moe/znadfr.mp3" type="audio/mpeg">
 						</audio>
 						{{ else }}
 						<audio id="nyanpassu" hidden preload="none">
