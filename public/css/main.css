@@ -626,8 +626,7 @@ input#show-filelist:checked ~ #filelist {
 .table-filelist {
 	width: 100%;
 }
-tr.torrentinfo { min-height: 38px; }
-thead.torrentinfo { min-height: 40px; }
+thead.torrentinfo tr { min-height: 40px; }
 .tr-filelist {
 	--nest-level: 0;
 }
