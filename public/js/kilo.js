@@ -58,7 +58,7 @@ var Kilo = function (params) {
     this.setName(formName.value)
     this.setCategory(formCategory.selectedIndex)
   }
-    // Helpers function for events and render
+  // Helpers function for events and render
   this.setRemake = function (b) {
     if (b) {
       document.getElementsByName('torrent-info tr')[0].classList.add('remake')
@@ -82,7 +82,7 @@ var Kilo = function (params) {
     tableCategory.title = document.getElementsByClassName('form-torrent-category')[0].querySelectorAll("option")[index].textContent
   }
 
-    // Event handlers
+  // Event handlers
   var updatePreviewRemake = function (e) {
     var el = e.target
     self.setRemake(el.checked)
