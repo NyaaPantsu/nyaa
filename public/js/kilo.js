@@ -96,12 +96,25 @@ var Kilo = function (params) {
   var updatePreviewTorrentName = function (e) {
     var el = e.target
     self.setName(el.value)
+
+    var Keywords_flags= [
+	    ["vostfr","[ita]"],
+	    ["fr", "it"] ];
 	  
-    if(el.value.toLowerCase().includes("vostfr")) {
-		document.getElementById("upload-lang-fr").checked = true;
-		updateTorrentLang();
+    var torrentLowerCaseName = el.value.toLowerCase(),
+	updateLang = false;  
+	//we don't want to be running the updateLang function for every time the loop loops
+	//same for lower case
+	  
+    for(var KeywordIndex = 0; KeywordIndex < Keywords_flags[0].length; KeywordIndex++)
+	if(torrentLowerCaseName.includes(Keywords_flags[0][KeywordIndex])) {
+	   document.getElementById("upload-lang-" + Keywords_flags[1][KeywordIndex]).checked = true;
+	   updateLang = true;
 	}
+  
+     if(updateLang) updateTorrentLang();
   }
+
   var updateHidden = function (e) {
     var el = e.target
     self.setHidden(el.checked)
