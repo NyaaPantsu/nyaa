@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 function playVoice() {
-  var mascotAudio = document.getElementById("explosion") || document.getElementById("nyanpassu") || document.getElementById("kawaii");
+  var mascotAudio = document.getElementById("explosion") || document.getElementById("nyanpassu")|| document.getElementById("nyanpassu2") || document.getElementById("kawaii");
   if (mascotAudio !== undefined) {
     mascotAudio.volume = 0.2;
     mascotAudio.play();
