@@ -112,7 +112,7 @@
 <script type="text/javascript" src="/js/kilo.js?v={{ Config.Version}}{{ Config.Build }}"></script>
 <script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
 <script type="text/javascript">
-{{ include "layouts/partials/torrent_item" }}
+{{ include "layouts/partials/torrent_item_upload" }}
 var preview = new Kilo({
 	userTrusted: {{User.IsTrusted()}},
 	listContext: true,
