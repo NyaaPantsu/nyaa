@@ -25,18 +25,18 @@ var Torrents = {
             parseAllDates();
             Torrents.Refresh()
           });
-        }, this.Seconds*1000);
-      }
-    },
-    StartRefresh: function() {
-      this.CanRefresh = true;
-      this.Refresh()
+      }, this.Seconds*1000);
     }
+  },
+  StartRefresh: function() {
+    this.CanRefresh = true;
+    this.Refresh()
   }
+}
 
-  document.addEventListener("DOMContentLoaded", function() { // if Torrents.CanRefresh is enabled, refresh is automatically done (no need to start it anually)
-    if (Torrents.CanRefresh) {
-      Torrents.StartRefresh()
-    }
-  })
+document.addEventListener("DOMContentLoaded", function() { // if Torrents.CanRefresh is enabled, refresh is automatically done (no need to start it anually)
+  if (Torrents.CanRefresh) {
+    Torrents.StartRefresh()
+  }
+})
   // @license-end
