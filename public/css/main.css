@@ -452,7 +452,7 @@ html, body {
 	}
 	.tr-cat { width: 73px; }
 	.torrent-preview-table .tr-cat { width: 74px; }
-	.tr-links { width: 50px; }
+	.tr-links { width: 48px; }
 	.header .h-search input { width: 90px !important; }
 	.header .h-search input:focus { width: 150px !important; }
 	.box { padding: 9px; }
