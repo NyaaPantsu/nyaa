@@ -550,7 +550,7 @@ html, body {
     color: #1fa4d0;
     text-decoration: underline;
 }
-.torrent-info-box > p > a:hover, .torrent-info-box > div > a:hover  { color: #55b2d0; }
+.torrent-info-box > p > a:hover, .torrent-info-box > div > a:hover  { color: #1fa4d0; }
 
 #filelist > p {
 	padding-right: 14px;
