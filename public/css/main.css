@@ -455,6 +455,7 @@ html, body {
 	.tr-links { width: 50px; }
 	.header .h-search input { width: 90px !important; }
 	.header .h-search input:focus { width: 150px !important; }
+	.box { padding: 9px; }
 }
 
 @media (maw-width: 520px) {
@@ -1006,6 +1007,7 @@ details[open] summary:after {
 	content: "-";
 	margin: -4px 5px 0 0;
 }
+.torrent-preview-table > table { border: 3px solid #dfdeeb; }
 
 .nyaa-cat { background: url('/img/categories.png') no-repeat; background-position-x: right!important; max-width: 80px; min-width: 67px; height: 28px; display: block; }
 .nyaa-cat-1 { background-position: 0 -26px; } 
