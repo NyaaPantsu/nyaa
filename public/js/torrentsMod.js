@@ -32,21 +32,21 @@ var TorrentsMod = {
     for (var i=0; i < btn_actions.length; i++) {
       btn_actions[i].disabled = true;
       switch (btn_actions[i].id) {
-        case this.delete_btn:
+      case this.delete_btn:
         btn_actions[i].addEventListener("click", this.Delete)
         break;
-        case this.lock_delete_btn:
+      case this.lock_delete_btn:
         btn_actions[i].addEventListener("click", this.LockDelete)
         break;
-        case this.edit_btn:
+      case this.edit_btn:
         btn_actions[i].addEventListener("click", this.Edit)
         break;
-        default:
+      default:
         break;
       }
     }
     for (var i=0; i < this.checkboxes.length; i++) {
-      checkbox = this.checkboxes[i];
+      var checkbox = this.checkboxes[i];
       checkbox.addEventListener("change", this.checkboxEventHandler)
     }
     sh_btn.addEventListener("click", function(e) {
@@ -118,7 +118,7 @@ var TorrentsMod = {
     parentDiv.removeChild(el);
   },
   generatingModal: function() {
-    listLength = this.queued.length;
+    var listLength = this.queued.length;
     var div = {"edit": "", "delete": ""};
     for (var i=0; i < listLength; i++) {
       var listHTML = "";
@@ -171,7 +171,7 @@ var TorrentsMod = {
   },
   removeFromSelection: function(torrent) {
     delete this.selected[torrent.id];
-    for (t in this.selected) {
+    for (var t in this.selected) {
       return
     }
     this.selected = [];
@@ -207,7 +207,7 @@ var TorrentsMod = {
   },
   formatSelectionToQuery: function(selection) {
     var format = "";
-    for (s in selection) {
+    for (var s in selection) {
       format += "&torrent_id="+selection[s].id
     }
     return (format != "") ? format.substr(1) : ""
@@ -306,63 +306,63 @@ var TorrentsMod = {
     var withReport = confirm(T.r("delete_reports_with_torrents"))
     var selection = TorrentsMod.selected;
     if (locked)
-    TorrentsMod.AddToQueue({ action: "delete",
-    withReport: withReport,
-    selection: selection,
-    queryPost: "",
-    infos: T.r("with_lock")+ ((withReport) ? T.r("and_reports") : ""),
-    status: "5" });
+      TorrentsMod.AddToQueue({ action: "delete",
+        withReport: withReport,
+        selection: selection,
+        queryPost: "",
+        infos: T.r("with_st", T.r("lock")) + ((withReport) ? T.r("and_reports") : ""),
+        status: "5" });
     else TorrentsMod.AddToQueue({
       action: "delete",
       withReport: withReport,
       selection: selection,
-      infos: (withReport) ? T.r("with_reports") : "",
+      infos: (withReport) ? T.r("with_st", T.r("reports")) : "",
       queryPost: ""});
-      for (i in selection) document.getElementById("torrent_"+i).style.display="none";
-      TorrentsMod.selected = []
-      TorrentsMod.disableBtnActions();
-    },
-    Delete: function(e) {
-      TorrentsMod.DeleteHandler(false);
-      e.preventDefault();
-    },
-    LockDelete: function(e) {
-      TorrentsMod.DeleteHandler(true);
-      e.preventDefault();
-    },
-    Edit: function(e) {
-      var selection = TorrentsMod.selected;
-      var status = document.querySelector(".modtools *[name='"+TorrentsMod.status_input_name+"']").value;
-      var owner_id = document.querySelector(".modtools *[name='"+TorrentsMod.owner_input_name+"']").value;
-      var category = document.querySelector(".modtools *[name='"+TorrentsMod.category_input_name+"']").value;
-      var infos = "";
-      infos += (status != "") ? T.r("status_js", status) : "";
-      infos += (owner_id != "") ? T.r("owner_id_js", owner_id) : "";
-      infos += (category != "") ? T.r("category_js", category) : "";
-      TorrentsMod.AddToQueue({
-        action: "edit",
-        selection: selection,
-        queryPost: "", // We don't format now, we wait until the query is sent
-        infos: (infos != "" ) ? T.r("with_st", infos) : T.r("no_changes"),
-        status: status,
-        category: category,
-        owner: owner_id });
-        if (status != "") {
-          for (i in selection) document.getElementById("torrent_"+i).className="torrent-info "+TorrentsMod.statusToClassName(status);
-        }
-        TorrentsMod.selected = []
-        TorrentsMod.disableBtnActions();
-        e.preventDefault();
-      },
-      ApplyChanges: function() {
-        this.pause = false;
-        this.QueryLoop();
-      }
-    };
+    for (i in selection) document.getElementById("torrent_"+i).style.display="none";
+    TorrentsMod.selected = []
+    TorrentsMod.disableBtnActions();
+  },
+  Delete: function(e) {
+    TorrentsMod.DeleteHandler(false);
+    e.preventDefault();
+  },
+  LockDelete: function(e) {
+    TorrentsMod.DeleteHandler(true);
+    e.preventDefault();
+  },
+  Edit: function(e) {
+    var selection = TorrentsMod.selected;
+    var status = document.querySelector(".modtools *[name='"+TorrentsMod.status_input_name+"']").value;
+    var owner_id = document.querySelector(".modtools *[name='"+TorrentsMod.owner_input_name+"']").value;
+    var category = document.querySelector(".modtools *[name='"+TorrentsMod.category_input_name+"']").value;
+    var infos = "";
+    infos += (status != "") ? T.r("status_js", status) : "";
+    infos += (owner_id != "") ? T.r("owner_id_js", owner_id) : "";
+    infos += (category != "") ? T.r("category_js", category) : "";
+    TorrentsMod.AddToQueue({
+      action: "edit",
+      selection: selection,
+      queryPost: "", // We don't format now, we wait until the query is sent
+      infos: (infos != "" ) ? T.r("with_st", infos) : T.r("no_changes"),
+      status: status,
+      category: category,
+      owner: owner_id });
+    if (status != "") {
+      for (i in selection) document.getElementById("torrent_"+i).className="torrent-info "+TorrentsMod.statusToClassName(status);
+    }
+    TorrentsMod.selected = []
+    TorrentsMod.disableBtnActions();
+    e.preventDefault();
+  },
+  ApplyChanges: function() {
+    this.pause = false;
+    this.QueryLoop();
+  }
+};
 
     // Load torrentMods when DOM is ready
-    document.addEventListener("DOMContentLoaded", function() {
-      TorrentsMod.checkboxes =  document.querySelectorAll("input[name='torrent_id']");
-      TorrentsMod.Create();
-    });
+document.addEventListener("DOMContentLoaded", function() {
+  TorrentsMod.checkboxes =  document.querySelectorAll("input[name='torrent_id']");
+  TorrentsMod.Create();
+});
     // @license-end
