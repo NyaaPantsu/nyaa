@@ -62,6 +62,11 @@ td.tr-le, .error-text { color: #E84C4C; }
 	color: #E8E8E8;
 }
 
+.torrent-info-box > p > a, .torrent-info-box > div > a, #description-box a {
+    color: #1fa4d0;
+}
+.torrent-info-box > p > a:hover, .torrent-info-box > div > a:hover, #description-box a:hover  { color: #1fa4d0; }
+
 /* Original Nyaa colors, do NOT change! */
 .aplus, .btn-blue { background: #60B0F0; }
 .trusted, .btn-green { background: #98D9A8; }
