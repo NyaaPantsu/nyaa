@@ -9,7 +9,9 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 )
 
+// When a new comment is added this is called
 func NewCommentEvent(comment *models.Comment, torrent *models.Torrent) {
+	comment.Torrent = torrent
 	url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
 	if torrent.UploaderID > 0 {
 		torrent.Uploader.ParseSettings()
