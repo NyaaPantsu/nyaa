@@ -337,7 +337,7 @@ th { border-bottom-width: 2px; }
 .tr-size { width: 90px; }
 .tr-se, .tr-le { font-weight: bold; }
 .tr-se, .tr-le, .tr-dl { width: 50px; }
-.tr-date { width: 130px; }
+.tr-date { width: 124px; }
 
 .tr-se > a > .sort-arrows,
 .tr-le > a > .sort-arrows,
