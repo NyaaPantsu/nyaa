@@ -331,7 +331,7 @@ th { border-bottom-width: 2px; }
 .tr-cat { width: 90px; text-align: center; }
 .tr-flag { white-space: initial!important; }
 .tr-name { width: auto; text-align: left; white-space: normal; word-break: break-word; font-weight: bold; }
-.tr-links { width: 55px; overflow:initial; text-align: left; padding-left: 2px; }
+.tr-links { width: 50px; overflow:initial; text-align: left; padding: 0 2px!important; }
 .tr-cs { width: 15px; overflow: initial; text-overflow: initial; padding: 0; }
 .tr-cs .comment-icon { margin-bottom: 4px; }
 .tr-size { width: 90px; }
@@ -339,6 +339,7 @@ th { border-bottom-width: 2px; }
 .tr-se, .tr-le, .tr-dl { width: 50px; }
 .tr-date { width: 124px; }
 
+.tr-links >a > div { width: 17.63px; }
 .tr-se > a > .sort-arrows,
 .tr-le > a > .sort-arrows,
 .tr-dl > a > .sort-arrows { margin-left: 0; }
