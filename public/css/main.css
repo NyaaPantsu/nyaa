@@ -424,6 +424,8 @@ html, body {
 	.visible-md { display: block }
 }
 
+.results.box > table > thead.torrent-info > tr  { height: 40px; }
+
 @media (max-width: 810px) {
 	.torrent-info-row > td {
 		display: block;
