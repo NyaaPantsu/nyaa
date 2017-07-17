@@ -7,6 +7,10 @@ var Templates = {
     this.tmpl[templateName] = template
   },
   Render: function(templateName, model) {
+    if (this.tmpl[templateName] === undefined) {
+      console.log("The template with name '%s' doesn't exist", templateName)
+      return
+    }
     return this.tmpl[templateName](model)
   },
   ApplyItemListRenderer: function(params) {
