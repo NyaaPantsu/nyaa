@@ -25,32 +25,18 @@ var Torrents = {
             parseAllDates();
             Torrents.Refresh()
           });
-        }, this.Seconds*1000);
-      }
-    },
-    StartRefresh: function() {
-      this.CanRefresh = true;
-      this.Refresh()
+      }, this.Seconds*1000);
     }
+  },
+  StartRefresh: function() {
+    this.CanRefresh = true;
+    this.Refresh()
   }
+}
 
-  document.addEventListener("DOMContentLoaded", function() { // if Torrents.CanRefresh is enabled, refresh is automatically done (no need to start it anually)
-    if (Torrents.CanRefresh) {
-      Torrents.StartRefresh()
-    }
-  })
-
-  function humanFileSize(bytes, si) {
-    var k = si ? 1000 : 1024;
-    var i = ~~(Math.log(bytes) / Math.log(k));
-    return i == 0 ? bytes + " B" : (bytes / Math.pow(k, i)).toFixed(1) + " " + "KMGTPEZY"[i - 1] + (si ? "" : "i") + "B";
+document.addEventListener("DOMContentLoaded", function() { // if Torrents.CanRefresh is enabled, refresh is automatically done (no need to start it anually)
+  if (Torrents.CanRefresh) {
+    Torrents.StartRefresh()
   }
-
-  function flagCode(language) {
-    split = language.split("-");
-    if (split.length > 1) {
-      return split[0];
-    }
-    return language;
-  }
+})
   // @license-end

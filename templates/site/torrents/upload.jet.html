@@ -12,7 +12,7 @@
 		{{ yield errors(name="name")}}
 		
 		<div class="torrent-preview-table" style="display: none;"><center><h3 style="margin-bottom: 3px;">Preview your torrent</h3></center>
-		<table style="border: 3px solid #dfdeeb;">
+		<table>
           <thead  class="torrent-info table-torrent-thead">
           <tr>
               <th class="tr-cat">Category</th>
@@ -106,14 +106,19 @@
 </div>
 {{end}}
 {{ block footer_js()}}
-<script type="text/javascript" src="/js/kilo.js"></script>
+<script type="text/javascript" src="/js/query.js?v={{ Config.Version}}{{ Config.Build }}"></script>
+<script type="text/javascript" src="/js/translation.js?v={{ Config.Version}}{{ Config.Build }}"></script>
+<script type="text/javascript" src="/js/template.js?v={{ Config.Version}}{{ Config.Build }}"></script>
+<script type="text/javascript" src="/js/kilo.js?v={{ Config.Version}}{{ Config.Build }}"></script>
+<script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
 <script type="text/javascript">
+{{ include "layouts/partials/torrent_item" }}
 var preview = new Kilo({
 	userTrusted: {{User.IsTrusted()}},
+	listContext: true,
 	sukebei: {{ if Sukebei }}true{{else}}0{{end}}
 	{{ if User.ID > 0 }}, isMember: true{{end}} })
 preview.render()
 </script>
-<script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
 <script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc"), spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
 {{end}}

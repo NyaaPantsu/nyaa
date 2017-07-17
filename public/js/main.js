@@ -90,4 +90,17 @@ document.getElementsByClassName("form-input refine")[0].addEventListener("click"
   if(document.getElementsByClassName("box refine")[0].style.display == "block")
   scrollTo(0, 0);
 });
+  function humanFileSize(bytes, si) {
+    var k = si ? 1000 : 1024;
+    var i = ~~(Math.log(bytes) / Math.log(k));
+    return i == 0 ? bytes + " B" : (bytes / Math.pow(k, i)).toFixed(1) + " " + "KMGTPEZY"[i - 1] + (si ? "" : "i") + "B";
+  }
+
+  function flagCode(language) {
+    split = language.split("-");
+    if (split.length > 1) {
+      return split[0];
+    }
+    return language;
+  }
 // @license-end
