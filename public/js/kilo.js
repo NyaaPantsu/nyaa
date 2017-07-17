@@ -35,9 +35,10 @@ var Kilo = function (params) {
     document.getElementsByClassName('torrent-preview-table')[0].style.display = 'block'
     document.getElementsByClassName('table-torrent-date')[0].innerText = new Date(Date.now()).toISOString()
 	
-	//Adding the torrent under and above the previewed one. Akuma, you do this
-	var torrentHTML = ["", ""];
-	document.getElementById("torrentListResults").innerHTML = torrentHTML[0] + document.getElementById("torrentListResults").innerHTML + torrentHTML[1];
+    //Adding the torrent under and above the previewed one. Akuma, you do this
+    //do this
+    var torrentHTML = ["", ""];
+    document.getElementById("torrentListResults").innerHTML = torrentHTML[0] + document.getElementById("torrentListResults").innerHTML + torrentHTML[1];
 
     // Adding listener events
     for (var langIndex = 0; langIndex < document.getElementsByName(this.langSelect).length; langIndex++) {
