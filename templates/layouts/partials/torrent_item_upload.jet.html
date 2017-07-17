@@ -10,7 +10,7 @@ T.Add("{{ language.Tag }}", "{{ LanguageName(language, T) }}")
 Templates.Add("torrents.item", function(torrent) {
     return "<tr id=\"torrent_" + torrent.id + "\" class=\"torrent-info hidden"+ ((torrent.status == 2) ? " remake" : ((torrent.status == 3) ? " trusted" : ((torrent.status == 3) ? " aplus" : "" )))+"\">"+
     {{ if User.HasAdmin() }}
-        "<td class=\"tr-cb\""+ ((TorrentsMod.enabled) ? "style=\"display:table-cell;\"" : "") +">"+
+		(( TorrentsMod.enabled ) ? "<td class=\"tr-cb\">" :  "<td class=\"tr-cb hide\"" + ((TorrentsMod.enabled) ? "style=\"display:table-cell;\"" : "") +">")+
         "<input data-name=\""+Templates.EncodeEntities(torrent.name)+"\" type=\"checkbox\" id=\"torrent_cb_"+torrent.id+"\" name=\"torrent_id\" value=\""+torrent.id+"\">"+
         "</td>"+
     {{ end }}
@@ -25,9 +25,7 @@ Templates.Add("torrents.item", function(torrent) {
             "</a>"+
         "</div></td>"+
         "<td class=\"tr-name home-td\"><a>"+Templates.EncodeEntities(torrent.name) +"</a></td>"+
-        "<td class=\"tr-cs home-td hide-xs\">"+
-        ((torrent.comments.length > 0) ? "<i class=\"comment-icon\" title=\"{{ T("comments") }}\">" + torrent.comments.length + "</i>" : "")+
-        "</td>"+
+        ((torrent.comments.length > 0) ? "<td class=\"tr-cs home-td\"><span>"+ torrent.comments.length + "</span></td>" : "")+
         "<td class=\"tr-links home-td\">"+
             "<a  title=\"{{ T("magnet_link") }}\">"+
                 "<div class=\"icon-magnet\"></div>"+
