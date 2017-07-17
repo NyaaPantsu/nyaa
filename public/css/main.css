@@ -331,8 +331,8 @@ th { border-bottom-width: 2px; }
 .tr-cat { width: 90px; text-align: center; }
 .tr-flag { white-space: initial!important; }
 .tr-name { width: auto; text-align: left; white-space: normal; word-break: break-word; font-weight: bold; }
-.tr-links { width: 66px; overflow:initial; }
-.tr-cs { width: 5px; overflow: initial; text-overflow: initial; }
+.tr-links { width: 55px; overflow:initial; text-align: left; padding-left: 2px; }
+.tr-cs { width: 15px; overflow: initial; text-overflow: initial; padding: 0; }
 .tr-cs .comment-icon { margin-bottom: 4px; }
 .tr-size { width: 90px; }
 .tr-se, .tr-le { font-weight: bold; }
