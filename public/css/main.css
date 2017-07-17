@@ -12,6 +12,7 @@ a { text-decoration: none; }
 body {
 	font-size: 14px;
 	font-family: 'Noto Sans', Arial, sans-serif;
+	-webkit-text-size-adjust: 100%;
 }
 #mascot { background: url('/img/renchon.svg') no-repeat right bottom transparent; }
 .sukebei #mascot { background-image: url('/img/mafuyu.svg'); background-size: 100%; }
