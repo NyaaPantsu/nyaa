@@ -108,6 +108,7 @@
 {{ block footer_js()}}
 <script type="text/javascript" src="/js/kilo.js"></script>
 <script type="text/javascript">
+{{ include "layouts/partials/torrent_item" }}
 var preview = new Kilo({
 	userTrusted: {{User.IsTrusted()}},
 	sukebei: {{ if Sukebei }}true{{else}}0{{end}}
