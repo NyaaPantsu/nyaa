@@ -5,6 +5,20 @@
 {{block title()}}{{ T("upload")}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
+		<details open="">
+		<summary class="form-input refine-drop" style="
+	    vertical-align: bottom;
+	    width: 429px;
+	">Rules</summary>
+	    <div class="form-input" style="
+	    display: inline-block;
+	    min-height: 74px;
+	    min-width: 429px;
+	    border: 1px solid black;
+	    padding: 0;
+	    border-top: none;
+	    "><ul style="margin-top: 11px;margin-right: 9px;"><li>No child pornography</li><li>Asian related content only (no Western Movies, no Cartoon)</li><li>No spam</li></ul></div>
+	    </details>
 	<form enctype="multipart/form-data" role="upload" method="POST">
 		{{ yield csrf_field() }}
 		<h3>{{ T("name")}}</h3>
