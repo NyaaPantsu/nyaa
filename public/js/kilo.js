@@ -96,6 +96,11 @@ var Kilo = function (params) {
   var updatePreviewTorrentName = function (e) {
     var el = e.target
     self.setName(el.value)
+	  
+    if(el.value.toLowerCase().includes("vostfr")) {
+		document.getElementById("upload-lang-fr").checked = true;
+		updateTorrentLang();
+	}
   }
   var updateHidden = function (e) {
     var el = e.target
