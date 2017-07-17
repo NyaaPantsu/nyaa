@@ -746,7 +746,7 @@ input.filelist-checkbox:checked + table.table-filelist {
 .modtools .cb_action, .toolbar .cb_action {
 	height: 100%;
 }
-.modtools button { margin-top: 4px; }
+.modtools #show_actions { margin-top: 4px; }
 .mod-open .tr-cat { width: 73px; }
 .mod-open .th, .mod-open .home-td, .mod-open .user-td { padding: 2px 2px; }
 
