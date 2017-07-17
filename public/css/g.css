@@ -62,6 +62,11 @@ td.tr-le, .error-text { color: #E84C4C; }
 
 .pagination .disabled { color: #cbbdd7; cursor: unset; }
 
+.torrent-info-box > p > a, .torrent-info-box > div > a, #description-box a {
+    color: #1fa4d0;
+}
+.torrent-info-box > p > a:hover, .torrent-info-box > div > a:hover, #description-box a:hover  { color: #1fa4d0; }
+
 .sukebei { color: #373737; }
 .sukebei .header { background-image: url('theme_g_anon/s_bg-header-tile.png'); border-color: #C48CBE; }
 .sukebei .header .nav-btn { color: #C48CBE; }
