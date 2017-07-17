@@ -101,10 +101,30 @@ var Kilo = function (params) {
     var el = e.target
     self.setRemake(el.checked)
   }
+  
   var updatePreviewTorrentName = function (e) {
     var el = e.target
     self.setName(el.value)
+	addKeywordFlags(el.value);
   }
+  
+  var addKeywordFlags = debounce(function(e) {
+	 var Keywords_flags= [
+	    ["vostfr","vosfr", "[ita]", "[eng]", " eng ", "[english]", "[jp]", "[jpn]"],
+	    ["fr","fr", "it", "en", "en", "en", "ja", "ja"];
+	  
+    var torrentLowerCaseName = e.toLowerCase(),
+	updateLang = false;  
+
+    for(var KeywordIndex = 0; KeywordIndex < Keywords_flags[0].length; KeywordIndex++)
+		if(torrentLowerCaseName.includes(Keywords_flags[0][KeywordIndex])) {
+		   document.getElementById("upload-lang-" + Keywords_flags[1][KeywordIndex]).checked = true;
+		   updateLang = true;
+		}
+  
+     if(updateLang) updateTorrentLang();
+  }, 300);
+  
   var updateHidden = function (e) {
     var el = e.target
     self.setHidden(el.checked)
@@ -133,3 +153,18 @@ var Kilo = function (params) {
     document.getElementsByClassName('table-torrent-flag')[0].title = langTitle
   }
 }
+
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
