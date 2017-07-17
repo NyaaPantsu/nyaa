@@ -9,11 +9,6 @@ T.Add("{{ language.Tag }}", "{{ LanguageName(language, T) }}")
 {{end}}
 Templates.Add("torrents.item", function(torrent) {
     return "<tr id=\"torrent_" + torrent.id + "\" class=\"torrent-info hidden"+ ((torrent.status == 2) ? " remake" : ((torrent.status == 3) ? " trusted" : ((torrent.status == 3) ? " aplus" : "" )))+"\">"+
-    {{ if User.HasAdmin() }}
-		(( TorrentsMod.enabled ) ? "<td class=\"tr-cb\">" :  "<td class=\"tr-cb hide\"" + ((TorrentsMod.enabled) ? "style=\"display:table-cell;\"" : "") +">")+
-        "<input data-name=\""+Templates.EncodeEntities(torrent.name)+"\" type=\"checkbox\" id=\"torrent_cb_"+torrent.id+"\" name=\"torrent_id\" value=\""+torrent.id+"\">"+
-        "</td>"+
-    {{ end }}
     "<td class=\"tr-cat home-td\">"+
     {{ if Sukebei() }}
         "<div class=\"nyaa-cat sukebei-cat-"+ torrent.category + torrent.sub_category +"\">"+
