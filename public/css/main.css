@@ -728,7 +728,7 @@ input.filelist-checkbox:checked + table.table-filelist {
     padding: 5px 10px;
     max-width: 1060px;
     width: 100%;
-    background: #e6eff4;
+    background-color: #F7F8F9;
     border: 1px solid #cbbdd7;
     height: 50px;
     border-radius: 5px;
@@ -746,6 +746,10 @@ input.filelist-checkbox:checked + table.table-filelist {
 .modtools .cb_action, .toolbar .cb_action {
 	height: 100%;
 }
+.modtools #show_actions { margin-top: 4px; }
+.mod-open .tr-cat { width: 73px; }
+.mod-open .th, .mod-open .home-td, .mod-open .user-td { padding: 2px 2px; }
+
 /* Modal box */
 /* The Modal (background) */
 .modal {
