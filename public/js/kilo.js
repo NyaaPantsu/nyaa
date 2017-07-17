@@ -5,6 +5,7 @@ var Kilo = function (params) {
   this.sukebei = (params.sukebei !== undefined) ? params.sukebei : 0
   this.userTrusted = (params.userTrusted !== undefined) ? params.userTrusted : false
   this.isMember = (params.isMember !== undefined) ? params.isMember : false
+  this.listContext = (params.listContext !== undefined) ? params.listContext : false
   this.langSelect = (params.langSelect !== undefined) ? params.langSelect : 'languages'
   this.locale = (params.locale !== undefined) ? params.locale : ''
   this.formatDate = {
@@ -35,11 +36,6 @@ var Kilo = function (params) {
     document.getElementsByClassName('torrent-preview-table')[0].style.display = 'block'
     document.getElementsByClassName('table-torrent-date')[0].innerText = new Date(Date.now()).toISOString()
 	
-    //Adding the torrent under and above the previewed one. Akuma, you do this
-    //do this
-    var torrentHTML = ["", ""];
-    document.getElementById("torrentListResults").innerHTML = torrentHTML[0] + document.getElementById("torrentListResults").innerHTML + torrentHTML[1];
-
     // Adding listener events
     for (var langIndex = 0; langIndex < document.getElementsByName(this.langSelect).length; langIndex++) {
       document.getElementsByName(this.langSelect)[langIndex].addEventListener('change', updateTorrentLang)
@@ -63,7 +59,18 @@ var Kilo = function (params) {
     this.setName(formName.value)
     this.setCategory(formCategory.selectedIndex)
     updateTorrentLang()
-	
+
+    //Adding the torrent under and above the previewed one. 
+    if (this.listContext) {
+      Query.Get('/api/search?limit=2', function (torrents) {
+        var torrentHTML = []
+        var l = torrents.length
+        for (var i = 0; i < l; i++) {
+          torrentHTML.push(Templates.Render('torrents.item', torrents[i]))
+        }
+        document.getElementById("torrentListResults").innerHTML = torrentHTML[0] + document.getElementById("torrentListResults").innerHTML + torrentHTML[1];
+      })
+    }
   }
   // Helpers function for events and render
   this.setRemake = function (b) {
