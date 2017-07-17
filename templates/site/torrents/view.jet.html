@@ -66,7 +66,7 @@
   {{else}}
   <p>{{  T("no_description") }}</p>
   {{end}}
-  <input type="checkbox" id="show-filelist">
+  <input type="checkbox{{if len(Torrent.FileList) == 0}} hidden{{end}}" id="show-filelist" {{if len(Torrent.FileList) < 4 && len(Torrent.FileList) != 0}}checked{{end}}>
   <label class="torrent-hr filelist-control" for="show-filelist">{{ T("files")}}</label>
   <div class="torrent-info-box" id="filelist">
     {{ if len(Torrent.FileList) > 0 }}
