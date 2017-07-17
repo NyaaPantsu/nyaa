@@ -53,8 +53,10 @@ var TorrentsMod = {
       var divActions = this.nextElementSibling;
       if (divActions.style.display == "inline") {
         TorrentsMod.enabled = false;
-      } else {
-        TorrentsMod.enabled = true;
+        document.getElementsByClassName("results box mod-open")[0].className = "results box";
+       } else {
+         TorrentsMod.enabled = true;
+         document.getElementsByClassName("results box")[0].className = "results box mod-open";
       }
       divActions.style.display = (TorrentsMod.enabled) ? "inline" : "none";
       var td_cbs = document.getElementsByClassName("tr-cb")
