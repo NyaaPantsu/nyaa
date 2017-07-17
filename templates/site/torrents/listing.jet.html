@@ -189,25 +189,25 @@
     // Templates initialization
         Templates.Add("torrents.delete.item", function(torrent) {
             return '<div class="delete_item" id="list_item_'+torrent.id+'"><span>'+Templates.EncodeEntities(torrent.name)+'</span>'+
-            '<a href="#" onclick="return TorrentsMod.RemoveItemFromQueue('+torrent.key+', '+torrent.id+')"><i class="trash-icon"></i></a></div>'
+            '<a href="#" onclick="return TorrentsMod.RemoveItemFromQueue('+torrent.key+', '+torrent.id+')"><i class="icon-trash"></i></a></div>'
         });
         Templates.Add("torrents.delete.block", function(torrentQuery){
             return '<div class="delete_list" id="list_'+torrentQuery.unique_id+'"><div class="title">'+
             '<h3 style="display:inline-block;" onclick="TorrentsMod.toggleList(this);">'+T.r("query_nb", torrentQuery.unique_id)+
             '</h3>'+
-            '<span class="infos">'+torrentQuery.infos+'<a href="#" class="icon" onclick="return TorrentsMod.RemoveFromQueue('+torrentQuery.key+')"><div class="trash-icon"></div></a>'+
+            '<span class="infos">'+torrentQuery.infos+'<a href="#" class="icon" onclick="return TorrentsMod.RemoveFromQueue('+torrentQuery.key+')"><div class="icon-trash"></div></a>'+
             '</span></div>'+
             '<div class="list">'+torrentQuery.list+'</div></div>';
         });
         Templates.Add("torrents.edit.item", function(torrent) {
             return '<div class="edit_item" id="list_item_'+torrent.id+'"><span>'+Templates.EncodeEntities(torrent.name)+'</span>'+
-            '<a href="#" onclick="return TorrentsMod.RemoveItemFromQueue('+torrent.key+', '+torrent.id+')"><i class="trash-icon"></i></a></div>'
+            '<a href="#" onclick="return TorrentsMod.RemoveItemFromQueue('+torrent.key+', '+torrent.id+')"><i class="icon-trash"></i></a></div>'
         });
         Templates.Add("torrents.edit.block", function(torrentQuery){
             return '<div class="edit_list" id="list_'+torrentQuery.unique_id+'"><div class="title">'+
             '<h3 style="display:inline-block;" onclick="TorrentsMod.toggleList(this);">'+T.r("query_nb", torrentQuery.unique_id)+
             '</h3>'+
-            '<span class="infos">'+torrentQuery.infos+'<a href="#" class="icon" onclick="return TorrentsMod.RemoveFromQueue('+torrentQuery.key+')"><div class="trash-icon"></div></a>'+
+            '<span class="infos">'+torrentQuery.infos+'<a href="#" class="icon" onclick="return TorrentsMod.RemoveFromQueue('+torrentQuery.key+')"><div class="icon-trash"></div></a>'+
             '</span></div>'+
             '<div class="list">'+torrentQuery.list+'</div></div>';
         });
