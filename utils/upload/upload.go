@@ -182,6 +182,13 @@ func UpdateTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, current
 	return t
 }
 
+// UpdateUnscopeTorrent : Update a torrent model without scoping
+func UpdateUnscopeTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, currentUser *models.User) *models.Torrent {
+	t = UpdateTorrent(r, t, currentUser)
+	t.Status = r.Update.Status
+	return t
+}
+
 func writeTorrentToDisk(file multipart.File, name string, fullpath *string) error {
 	_, seekErr := file.Seek(0, io.SeekStart)
 	if seekErr != nil {

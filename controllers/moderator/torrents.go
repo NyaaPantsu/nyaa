@@ -86,37 +86,30 @@ func TorrentEditModPanel(c *gin.Context) {
 
 // TorrentPostEditModPanel : Controller for editing a torrent after POST request
 func TorrentPostEditModPanel(c *gin.Context) {
-	var uploadForm torrentValidator.TorrentRequest
+	var uploadForm torrentValidator.UpdateRequest
 	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
 	messages := msg.GetMessages(c)
 	torrent, _ := torrents.FindUnscopeByID(uint(id))
+	currentUser := router.GetUser(c)
 	if torrent.ID > 0 {
-		errUp := upload.ExtractEditInfo(c, &uploadForm)
+		errUp := upload.ExtractEditInfo(c, &uploadForm.Update)
+		uploadForm.ID = uint(id)
 		if errUp != nil {
 			messages.AddErrorT("errors", "fail_torrent_update")
 		}
 		if !messages.HasErrors() {
-			// update some (but not all!) values
-			torrent.Name = uploadForm.Name
-			torrent.Category = uploadForm.CategoryID
-			torrent.SubCategory = uploadForm.SubCategoryID
-			torrent.Status = uploadForm.Status
-			torrent.Hidden = uploadForm.Hidden
-			torrent.WebsiteLink = uploadForm.WebsiteLink
-			torrent.Description = uploadForm.Description
-			torrent.Languages = uploadForm.Languages
-			_, err := torrent.UpdateUnscope()
+			_, err := upload.UpdateUnscopeTorrent(&uploadForm, &torrent, currentUser).UpdateUnscope()
 			messages.AddInfoT("infos", "torrent_updated")
 			if err == nil { // We only log edit torrent for admins
 				if torrent.Uploader == nil {
 					torrent.Uploader = &models.User{}
 				}
 				_, username := torrents.HideUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
-				activities.Log(&models.User{}, torrent.Identifier(), "edit", "torrent_edited_by", strconv.Itoa(int(torrent.ID)), username, router.GetUser(c).Username)
+				activities.Log(&models.User{}, torrent.Identifier(), "edit", "torrent_edited_by", strconv.Itoa(int(torrent.ID)), username, currentUser.Username)
 			}
 		}
 	}
-	templates.Form(c, "admin/paneltorrentedit.jet.html", uploadForm)
+	templates.Form(c, "admin/paneltorrentedit.jet.html", uploadForm.Update)
 }
 
 // TorrentDeleteModPanel : Controller for deleting a torrent

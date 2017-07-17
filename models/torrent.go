@@ -22,6 +22,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/NyaaPantsu/nyaa/utils/sanitize"
 	"github.com/bradfitz/slice"
+	"github.com/fatih/structs"
 )
 
 const (
@@ -369,7 +370,8 @@ func (t *Torrent) Update(unscope bool) (int, error) {
 		db = ORM.Unscoped()
 	}
 	t.EncodeLanguages() // Need to transform array into single string
-	if db.Model(t).UpdateColumn(t).Error != nil {
+
+	if db.Model(t).UpdateColumn(t.toMap()).Error != nil {
 		return http.StatusInternalServerError, errors.New("Torrent was not updated")
 	}
 
@@ -417,4 +419,9 @@ func (t *Torrent) Delete(definitely bool) (*Torrent, int, error) {
 func (t *Torrent) DefinitelyDelete() (*Torrent, int, error) {
 	return t.Delete(true)
 
+}
+
+// toMap : convert the model to a map of interface
+func (t *Torrent) toMap() map[string]interface{} {
+	return structs.Map(t)
 }

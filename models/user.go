@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/utils/log"
+	"github.com/fatih/structs"
 
 	"net/http"
 
@@ -313,7 +314,7 @@ func (u *User) ParseSettings() {
 	}
 }
 
-// UpdateUserCore updates a user. (Applying the modifed data of user).
+// Update updates a user. (Applying the modifed data of user).
 func (u *User) Update() (int, error) {
 	if u.Email == "" {
 		u.MD5 = ""
@@ -334,10 +335,10 @@ func (u *User) Update() (int, error) {
 	return http.StatusOK, nil
 }
 
-// UpdateRawUser : Function to update a user without updating his associations model
+// UpdateRaw : Function to update a user without updating his associations model
 func (u *User) UpdateRaw() (int, error) {
 	u.UpdatedAt = time.Now()
-	err := ORM.Model(u).UpdateColumn(u).Error
+	err := ORM.Model(u).UpdateColumn(u.toMap()).Error
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
@@ -345,7 +346,7 @@ func (u *User) UpdateRaw() (int, error) {
 	return http.StatusOK, nil
 }
 
-// DeleteUser deletes a user.
+// Delete deletes a user.
 func (u *User) Delete(currentUser *User) (int, error) {
 	if u.ID == 0 {
 		return http.StatusInternalServerError, errors.New("permission_delete_error")
@@ -355,4 +356,9 @@ func (u *User) Delete(currentUser *User) (int, error) {
 		return http.StatusInternalServerError, errors.New("user_not_deleted")
 	}
 	return http.StatusOK, nil
+}
+
+// toMap : convert the model to a map of interface
+func (u *User) toMap() map[string]interface{} {
+	return structs.Map(u)
 }

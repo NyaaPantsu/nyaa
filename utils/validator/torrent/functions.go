@@ -122,18 +122,17 @@ func (r *TorrentRequest) ExtractLanguage() error {
 			break
 		}
 	}
-
 	if len(r.Languages) == 0 {
 		// If no language, but in an English category, set to en-us, else just stop the check.
 		if !isEnglishCategory {
 			return nil
 		}
-		r.Languages = append(r.Languages, "en-us")
+		r.Languages = append(r.Languages, "en")
 		return nil
 	}
 	englishSelected := false
 	for _, language := range r.Languages {
-		if language == "en-us" {
+		if language == "en" {
 			englishSelected = true
 		}
 
@@ -148,7 +147,7 @@ func (r *TorrentRequest) ExtractLanguage() error {
 
 	// We shouldn't return an error for languages, just adding the right language is enough
 	if !englishSelected && isEnglishCategory {
-		r.Languages = append(r.Languages, "en-us")
+		r.Languages = append(r.Languages, "en")
 		return nil
 	}
 

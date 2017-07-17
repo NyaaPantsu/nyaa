@@ -41,6 +41,11 @@
 			"Rev": "259d2a102b871d17f30e3cd9881a642961a1e486"
 		},
 		{
+			"ImportPath": "github.com/fatih/structs",
+			"Comment": "v1.0-4-g7e5a8ee",
+			"Rev": "7e5a8eef611ee84dd359503f3969f80df4c50723"
+		},
+		{
 			"ImportPath": "github.com/gin-gonic/gin",
 			"Comment": "v1.1.4-1-gd5b353c",
 			"Rev": "d5b353c5d5a560322e6d96121c814115562501f7"
