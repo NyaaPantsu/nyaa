@@ -542,15 +542,19 @@ html, body {
 	border: 1px solid #ccc;
 	border-radius: 4px;
 }
+.torrent-info-box img {
+	max-width: 100%;
+	max-height: 100%;
+}
+.torrent-info-box > p > a, .torrent-info-box > div > a {
+    color: #1fa4d0;
+    text-decoration: underline;
+}
+.torrent-info-box > p > a:hover, .torrent-info-box > div > a:hover  { color: #55b2d0; }
 
 #filelist > p {
 	padding-right: 14px;
     padding-left: 14px;
-}
-
-.torrent-info-box img {
-	max-width: 100%;
-	max-height: 100%;
 }
 
 .comment-box {
