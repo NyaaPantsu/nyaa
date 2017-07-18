@@ -993,11 +993,22 @@ input.nav-btn {
 .download {
 	padding: 0.3em;
 }
-.refine-drop {
+.rules-drop {
 	display: inline-block;
 	user-select: none;
 	cursor: pointer;
+	vertical-align: bottom;
+	width: 429px;
 }
+.rules-drop > div {
+	display: inline-block;
+	min-height: 74px;
+	min-width: 429px;
+	border: 1px solid black;
+	padding: 0;
+	border-top: none;
+}
+.rules-drop > div > ul { margin-top: 11px;margin-right: 9px; }
 .refine-btn {
 	width: 10%;
 }
