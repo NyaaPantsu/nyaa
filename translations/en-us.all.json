@@ -16,6 +16,10 @@
     "translation": "No spam"
   },
   {
+    "id": "rules_sukebei",
+    "translation": "NSFW content belongs in sukebei.pantsu.cat"
+  },
+  {
     "id": "verify_email_title",
     "translation": "Verify your email address for Nyaapantsu."
   },
