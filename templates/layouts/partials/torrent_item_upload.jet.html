@@ -19,7 +19,7 @@ Templates.Add("torrents.item", function(torrent) {
                 ((torrent.languages[0] != "") ? "<a><img src=\"img/blank.gif\" class=\"flag flag-"+ ((torrent.languages.length == 1) ? flagCode(torrent.languages[0]) : "multiple") +"\" title=\""+torrent.languages.map(function (el, i) { return T.r(el)}).join(",")+"\"></a>" : "") +
             "</a>"+
         "</div></td>"+
-        "<td class=\"tr-name home-td\"><a>"+Templates.EncodeEntities(torrent.name) +"</a></td>"+
+        "<td class=\"tr-name home-td\""+  (torrent.comments.length  == 0 ? "colspan=\"2\"" : "" ) +"><a>"+Templates.EncodeEntities(torrent.name) +"</a></td>"+
         ((torrent.comments.length > 0) ? "<td class=\"tr-cs home-td\"><span>"+ torrent.comments.length + "</span></td>" : "")+
         "<td class=\"tr-links home-td\">"+
             "<a  title=\"{{ T("magnet_link") }}\">"+
