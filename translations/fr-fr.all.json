@@ -1,4 +1,20 @@
-[
+[  
+  {
+    "id": "rules",
+    "translation": "Règlement"
+  },
+  {
+    "id": "no_cp",
+    "translation": "Aucune pédopornographie"
+  },
+  {
+    "id": "asia",
+    "translation": "Contenu uniquement d'origine asiatique (films et dessins animés occidentaux non autorisés)"
+  },
+  {
+    "id": "rules_spam",
+    "translation": "Spam interdit"
+  },
   {
     "id": "verify_email_title",
     "translation": "Vérifiez votre adresse email pour Pantsu."
@@ -53,7 +69,7 @@
   },
   {
     "id": "register",
-    "translation": "S'enregistrer"
+    "translation": "S'inscrire"
   },
   {
     "id": "terms_conditions",
@@ -501,7 +517,7 @@
   },
   {
     "id": "show_all",
-    "translation": "Afficher tout"
+    "translation": "Tous les torrents"
   },
   {
     "id": "filter_remakes",
@@ -1416,7 +1432,7 @@
     "translation": "%s doit être inférieur à la date et l'heure actuelles"
   },
   {
-    "id":"error_less_array",
+    "id": "error_less_array",
     "translation":"%s doit contenir moins de %s items"
   },
   {
@@ -1424,7 +1440,7 @@
     "translation": "%s doit être inférieur à %s en longueur"
   },
   {
-    "id":"error_less_number",
+    "id": "error_less_number",
     "translation":"%s doit être inférieur à %s"
   },
   {
@@ -1609,7 +1625,7 @@
   },
   {
     "id": "large",
-    "translation": "de taille"
+    "translation": "de taille."
   },
   {
     "id": "old",
@@ -1617,7 +1633,7 @@
   },
   {
     "id": "optional",
-    "translation": "Facultatif"
+    "translation": "facultatif"
   },
   {
     "id": "search_for",
@@ -1781,7 +1797,7 @@
   },
   {
     "id": "trusted",
-    "translation": "Torrents uploadés par les membres de confiance"
+    "translation": "Torrents approuvés"
   },
   {
     "id": "reencodes",
@@ -1797,26 +1813,18 @@
   },
   {
     "id": "red",
-    "translation": "Les entrées rouges sont : "
+    "translation": "Les entrées rouges correspondent aux : "
   },
   {
     "id": "green",
-    "translation": "Les entrées vertes sont : "
-  },
-  {
-    "id": "rules",
-    "translation": "Règlement"
-  },
-  {
-    "id": "no_cp",
-    "translation": "Aucune pédopornographie"
-  },
-  {
-    "id": "asia",
-    "translation": "Contenu uniquement d'origine asiatique"
+    "translation": "Les entrées vertes correspondent aux : "
   },
   {
     "id": "torrent_colors",
-    "translation": "Couleurs de torrent"
+    "translation": "Code couleur des torrents"
+  },
+  {
+    "id": "torrent_preview",
+    "translation": "Prévisualisez votre torrent"
   }
 ]
