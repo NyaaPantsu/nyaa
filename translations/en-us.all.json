@@ -1,5 +1,9 @@
 [
   {
+    "id": "rules_spam",
+    "translation": "No spam"
+  },
+  {
     "id": "verify_email_title",
     "translation": "Verify your email address for Nyaapantsu."
   },
