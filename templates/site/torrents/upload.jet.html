@@ -135,7 +135,7 @@
 var preview = new Kilo({
 	userTrusted: {{User.IsTrusted()}},
 	listContext: true,
-	sukebei: {{ if Sukebei }}true{{else}}0{{end}}
+	sukebei: {{ if Sukebei() }}true{{else}}0{{end}}
 	{{ if User.ID > 0 }}, isMember: true{{end}} })
 preview.render()
 </script>
