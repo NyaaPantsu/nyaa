@@ -951,7 +951,7 @@ input.filelist-checkbox:checked + table.table-filelist {
 }
 
 #content.content-admin {
-	top:130px;
+	top:110px;
 }
 
 .tr-actions .form-input{
@@ -1038,8 +1038,8 @@ details[open] summary:after {
 .nyaa-cat-18 { background-position: 0 -442px; } 
 .sukebei-cat-11 { background-position: 0 -468px; } 
 .sukebei-cat-12 { background-position: 0 -494px; } 
-.sukebei-cat-13 { background-position: 0 -420px; } 
+.sukebei-cat-13 { background-position: 0 -520px; } 
 .sukebei-cat-14 { background-position: 0 -546px; } 
 .sukebei-cat-15 { background-position: 0 -572px; } 
 .sukebei-cat-21 { background-position: 0 -598px; } 
-.sukebei-cat-22 { background-position: 0 -598px; } 
+.sukebei-cat-22 { background-position: 0 -624px; } 

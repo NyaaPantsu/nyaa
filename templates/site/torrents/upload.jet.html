@@ -5,13 +5,32 @@
 {{block title()}}{{ T("upload")}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
+		<details>
+		<summary class="form-input refine-drop" style="
+	    vertical-align: bottom;
+	    width: 429px;
+	">Rules</summary>
+	    <div class="form-input" style="
+	    display: inline-block;
+	    min-height: 74px;
+	    min-width: 429px;
+	    border: 1px solid black;
+	    padding: 0;
+	    border-top: none;
+	    ">
+		    <ul style="margin-top: 11px;margin-right: 9px;">
+		    	<li>{{ T("no_cp")}}</li>
+			<li>{{ T("asia")}}</li>
+			<li>{{ T("rules_spam")}}</li>
+		    </ul></div>
+	    </details>
 	<form enctype="multipart/form-data" role="upload" method="POST">
 		{{ yield csrf_field() }}
 		<h3>{{ T("name")}}</h3>
 		<input type="text" name="name" id="name" class="form-input up-input form-torrent-name" placeholder="{{ T("file_name")}}" value="{{Form.Name}}" autofocus>
 		{{ yield errors(name="name")}}
 		
-		<div class="torrent-preview-table" style="display: none;"><center><h3 style="margin-bottom: 3px;">Preview your torrent</h3></center>
+		<div class="torrent-preview-table" style="display: none;"><center><h3 style="margin-bottom: 3px;">{{ T("torrent_preview")}}</h3></center>
 		<table>
           <thead  class="torrent-info table-torrent-thead">
           <tr>
@@ -116,7 +135,7 @@
 var preview = new Kilo({
 	userTrusted: {{User.IsTrusted()}},
 	listContext: true,
-	sukebei: {{ if Sukebei }}true{{else}}0{{end}}
+	sukebei: {{ if Sukebei() }}true{{else}}0{{end}}
 	{{ if User.ID > 0 }}, isMember: true{{end}} })
 preview.render()
 </script>

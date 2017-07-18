@@ -1,5 +1,21 @@
 [
   {
+    "id": "rules",
+    "translation": "Rules"
+  },
+  {
+    "id": "no_cp",
+    "translation": "No child pornography"
+  },
+  {
+    "id": "asia",
+    "translation": "Asian related content only (no Western Movies, no Cartoon)"
+  },
+  {
+    "id": "rules_spam",
+    "translation": "No spam"
+  },
+  {
     "id": "verify_email_title",
     "translation": "Verify your email address for Nyaapantsu."
   },
@@ -1804,19 +1820,11 @@
     "translation": "Green entries are:"
   },
   {
-    "id": "rules",
-    "translation": "Rules"
-  },
-  {
-    "id": "no_cp",
-    "translation": "No child pornography"
-  },
-  {
-    "id": "asia",
-    "translation": "Asian only content"
-  },
-  {
     "id": "torrent_colors",
     "translation": "Torrent colors"
+  },
+  {
+    "id": "torrent_preview",
+    "translation": "Preview your torrent"
   }
 ]
