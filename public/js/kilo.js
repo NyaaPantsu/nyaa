@@ -106,13 +106,14 @@ var Kilo = function (params) {
     var el = e.target
     self.setName(el.value)
 	addKeywordFlags(el.value);
+	addKeywordCategories(el.value);
   }
   
 var Keywords_flags= [
 	["vostfr","vosfr", "[ita]", "[eng]", " eng ","[english]","[english sub]", "[jp]","[jpn]","[japanese]"],
 	["fr","fr", "it", "en","en","en","en", "ja","ja","ja"]		];
   
-var addKeywordFlags = debounce(function(e) {  
+var addKeywordFlags = debounce(function(e) {
 	  
     var torrentLowerCaseName = e.toLowerCase(),
 	updateLang = false;  
@@ -126,10 +127,31 @@ var addKeywordFlags = debounce(function(e) {
      if(updateLang) updateTorrentLang();
   }, 300);
   
+var Keywords_categories = [
+		[ ["[jav]"], [7] ], 
+		[ [""], [0] ]
+		];
+  
+ var addKeywordCategories = debounce(function(e) {
+	if(document.getElementsByClassName('form-torrent-category')[0].selectedIndex != 0)
+			return;
+		
+    var torrentLowerCaseName = e.toLowerCase(),
+		IsOnSukebei = params.sukebei ? 0 : 1;
+
+    for(var KeywordIndex = 0; KeywordIndex < Keywords_categories[IsOnSukebei][0].length; KeywordIndex++)
+		if(torrentLowerCaseName.includes(Keywords_categories[IsOnSukebei][0][KeywordIndex])) {
+			document.getElementsByClassName('form-torrent-category')[0].selectedIndex = Keywords_categories[IsOnSukebei][1][KeywordIndex];
+			break;
+		}	
+
+  }, 300);
+  
   var updateHidden = function (e) {
     var el = e.target
     self.setHidden(el.checked)
   }
+  
   var updatePreviewCategory = function (e) {
     var el = e.target
     self.setCategory(el.selectedIndex)
