@@ -3,18 +3,28 @@ var Kilo = function (params) {
   var self = this
 
   // public variables
+  // Boolean defining if we are in sukebei
   this.sukebei = (params.sukebei !== undefined) ? params.sukebei : 0
+  // Boolean defining if a user is trusted
   this.userTrusted = (params.userTrusted !== undefined) ? params.userTrusted : false
+  // Boolean defining if a user is logged
   this.isMember = (params.isMember !== undefined) ? params.isMember : false
+  // Boolean enabling the AJAX load of torrents
   this.listContext = (params.listContext !== undefined) ? params.listContext : false
+  // Variable defining the <select> of languages
   this.langSelect = (params.langSelect !== undefined) ? params.langSelect : 'languages'
+  // Variable defining the language of the user
   this.locale = (params.locale !== undefined) ? params.locale : ''
+  // Format of the date in the torrent listing
   this.formatDate = {
     year: 'numeric',
     month: 'short',
     day: 'numeric'
   }
+  // Array of categories (loaded from the select html tag categories)
   this.categories = []
+
+  // if no locale provided as a parameter, fallback to the language set by html tag
   if (this.locale == '' && document.getElementsByTagName('html')[0].getAttribute('lang') !== null) {
     this.locale = document.getElementsByTagName('html')[0].getAttribute('lang')
   }
@@ -27,7 +37,7 @@ var Kilo = function (params) {
   var Keywords_categories = [
 		[ ["[jav]"], [7] ], 
 		[ [""], [0] ]
-  ];
+  ]
 
   // Parsing categories
   document.querySelectorAll(".form-torrent-category option").forEach(function(el) {
@@ -79,12 +89,13 @@ var Kilo = function (params) {
         for (var i = 0; i < l; i++) {
           torrentHTML.push(Templates.Render('torrents.item', torrents[i]))
         }
-        document.getElementById("torrentListResults").innerHTML = torrentHTML[0] + document.getElementById("torrentListResults").innerHTML + torrentHTML[1];
+        document.getElementById("torrentListResults").innerHTML = torrentHTML[0] + document.getElementById("torrentListResults").innerHTML + torrentHTML[1]
       })
     }
   }
 
   // Helpers function for events and render
+  // set the class remake with b a boolean
   this.setRemake = function (b) {
     if (b) {
       document.getElementsByName('torrent-info tr')[0].classList.add('remake')
@@ -92,6 +103,7 @@ var Kilo = function (params) {
       document.getElementsByName('torrent-info tr')[0].classList.remove('remake')
     }
   }
+  // set the class hidden with b a boolean
   this.setHidden = function (b) {
     if (!b) {
       document.getElementsByName('torrent-info tr')[0].classList.remove('trusted')
@@ -99,14 +111,17 @@ var Kilo = function (params) {
       document.getElementsByName('torrent-info tr')[0].classList.add('trusted')
     }
   }
+  // set the name of the torrent according to value string
   this.setName = function (value) {
     document.getElementsByClassName('table-torrent-name')[0].innerText = value
   }
+  // set the category of the torrent according to index int
   this.setCategory = function (index) {
     var tableCategory = document.getElementsByClassName('table-torrent-category')[0]
     tableCategory.className = 'nyaa-cat table-torrent-category ' + (this.sukebei ? 'sukebei' : 'nyaa') + '-cat-' + this.categories[index]
     tableCategory.title = document.getElementsByClassName('form-torrent-category')[0].querySelectorAll("option")[index].textContent
   }
+  // 
   this.addKeywordFlags = function(value) {
     var torrentLowerCaseName = value.toLowerCase()
     var updateLang = false
@@ -119,9 +134,10 @@ var Kilo = function (params) {
   
     if(updateLang) updateTorrentLang()
   }
+  //
   this.addKeywordCategories = function(value) {
     if(document.getElementsByClassName('form-torrent-category')[0].selectedIndex != 0)
-      return;
+      return
 		
     var torrentLowerCaseName = value.toLowerCase(),
       IsOnSukebei = params.sukebei ? 0 : 1;
@@ -130,15 +146,16 @@ var Kilo = function (params) {
       if(torrentLowerCaseName.includes(Keywords_categories[IsOnSukebei][0][KeywordIndex])) {
         document.getElementsByClassName('form-torrent-category')[0].selectedIndex = Keywords_categories[IsOnSukebei][1][KeywordIndex];
         this.setCategory(document.getElementsByClassName('form-torrent-category')[0].selectedIndex)
-        break;
+        break
       }	
   }
+  // Helper to prevent the functions on keyup/keydown to slow the user typing
   this.debounce = function (func, wait, immediate) {
     var timeout
     return function() {
       var context = this, args = arguments
       var later = function() {
-        timeout = null;
+        timeout = null
         if (!immediate) func.apply(context, args)
       }
       var callNow = immediate && !timeout
@@ -149,11 +166,12 @@ var Kilo = function (params) {
   }
 
   // Event handlers
+  // Event on remake checkbox
   var updatePreviewRemake = function (e) {
     var el = e.target
     self.setRemake(el.checked)
   }
-  
+  // Event on torrent name keyup
   var updatePreviewTorrentName = function (e) {
     var el = e.target
     self.setName(el.value)
@@ -162,16 +180,17 @@ var Kilo = function (params) {
       self.addKeywordCategories(value)
     }, 300)(el.value)
   }
-  
+  // Event on hidden checkbox
   var updateHidden = function (e) {
     var el = e.target
     self.setHidden(el.checked)
   }
-  
+  // Event on cateogry change
   var updatePreviewCategory = function (e) {
     var el = e.target
     self.setCategory(el.selectedIndex)
   }
+  // Event on languages checkbox
   var updateTorrentLang = function () {
     var langCount = 0
     var langValue = 'other'
