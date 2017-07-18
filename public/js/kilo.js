@@ -111,7 +111,7 @@ var Kilo = function (params) {
   var addKeywordFlags = debounce(function(e) {
 	 var Keywords_flags= [
 	    ["vostfr","vosfr", "[ita]", "[eng]", " eng ", "[english]", "[jp]", "[jpn]"],
-	    ["fr","fr", "it", "en", "en", "en", "ja", "ja"];
+	    ["fr","fr", "it", "en", "en", "en", "ja", "ja"]		];
 	  
     var torrentLowerCaseName = e.toLowerCase(),
 	updateLang = false;  
