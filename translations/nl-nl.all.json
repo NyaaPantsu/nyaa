@@ -101,7 +101,7 @@
   },
   {
     "id": "settings",
-    "translation": "Accountinstellingen"
+    "translation": "Instellingen"
   },
   {
     "id": "torrents",
@@ -205,7 +205,7 @@
   },
   {
     "id": "nyaa_se_went_offline",
-    "translation": "nyaa.se and bijbehorende domeinen (zoals nyaatorrents.info) zijn op 1 mei 2017 uit de lucht gehaald."
+    "translation": "nyaa.se en bijbehorende domeinen (zoals nyaatorrents.info) zijn op 1 mei 2017 uit de lucht gehaald."
   },
   {
     "id": "its_not_a_ddos",
@@ -409,7 +409,7 @@
   },
   {
     "id": "description_markdown_notice",
-    "translation": "Gebruik van Markdown is mogelijk in beschrijvingen."
+    "translation": "Markdown wordt ondersteund in beschrijvingen."
   },
   {
     "id": "show_all",
@@ -485,7 +485,7 @@
   },
   {
     "id": "save_changes",
-    "translation": "Wijzingen opslaan"
+    "translation": "Wijzigingen opslaan"
   },
   {
     "id": "profile_updated",
@@ -733,15 +733,15 @@
   },
   {
     "id": "clear_notifications",
-    "translation": "Notificaties opruimen"
+    "translation": "Meldingen opruimen"
   },
   {
     "id": "notifications_cleared",
-    "translation": "Notificaties verwijderd!"
+    "translation": "Meldingen verwijderd!"
   },
   {
     "id": "my_notifications",
-    "translation": "Mijn Notificaties"
+    "translation": "Mijn Meldingen"
   },
   {
     "id": "new_torrent_uploaded",
@@ -753,39 +753,43 @@
   },
   {
     "id": "new_torrent_settings",
-    "translation": "Notificatie bij een nieuwe torrent van gevolgde gebruikers"
+    "translation": "Melding bij een nieuwe torrent van gevolgde gebruikers"
   },
   {
     "id": "new_torrent_email_settings",
-    "translation": "Notificatie per mail bij een nieuwe torrent van gevolgde gebruikers"
+    "translation": "Melding per mail bij een nieuwe torrent van gevolgde gebruikers"
   },
   {
     "id": "new_comment_email_settings",
-    "translation": "Notificatie per mail bij een nieuwe reactie op je torrents"
+    "translation": "Melding per mail bij een nieuwe reactie op je torrents"
   },
   {
     "id": "new_responses_settings",
-    "translation": "Notificatie bij een antwoord op je reacties"
+    "translation": "Melding bij een antwoord op je reacties"
   },
   {
     "id": "new_responses_email_settings",
-    "translation": "Notificatie per mail bij een antwoord op je reacties"
+    "translation": "Melding per mail bij een antwoord op je reacties"
   },
   {
     "id": "new_follower_settings",
-    "translation": "Notificatie bij een nieuwe volger"
+    "translation": "Melding bij een nieuwe volger"
   },
   {
     "id": "new_follower_email_settings",
-    "translation": "Notificatie per mail bij een nieuwe volger"
+    "translation": "Melding per mail bij een nieuwe volger"
   },
   {
     "id": "followed_settings",
-    "translation": "Notificatie bij het volgen van iemand"
+    "translation": "Melding bij het volgen van iemand"
   },
   {
     "id": "followed_email_settings",
-    "translation": "Notificatie per mail bij het volgen van iemand"
+    "translation": "Melding per mail bij het volgen van iemand"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "Melding bij een nieuwe reactie op je torrents"
   },
   {
     "id": "yes",
@@ -861,7 +865,7 @@
   },
   {
     "id": "bad_captcha",
-    "translation": "Verkeerde captcha!"
+    "translation": "Captcha onjuist!"
   },
   {
     "id": "comment_empty",
@@ -941,7 +945,7 @@
   },
   {
     "id": "change_settings",
-    "translation": "Wijzig Uiterlijk/Taal"
+    "translation": "Uiterlijk/Taal wijzigen"
   },
   {
     "id": "mascot",
@@ -978,5 +982,25 @@
   {
     "id": "users",
     "translation": "Gebruikers"
+  },
+  {
+    "id": "mascot_url",
+    "translation": "Mascotte-URL"
+  },
+  {
+    "id": "extensions_and_plugins",
+    "translation": "Extensies en Plugins (ontwikkeld door derden)"
+  },
+  {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "Hoe link ik mijn oude uploads met mijn account?"
+  },
+  {
+    "id": "torrent_language",
+    "translation": "Torrent-taal"
+  },
+  {
+    "id": "member",
+    "translation": "Lid"
   }
 ]
