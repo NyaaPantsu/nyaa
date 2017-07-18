@@ -108,10 +108,11 @@ var Kilo = function (params) {
 	addKeywordFlags(el.value);
   }
   
-  var addKeywordFlags = debounce(function(e) {
-	 var Keywords_flags= [
-	    ["vostfr","vosfr", "[ita]", "[eng]", " eng ","[english]","[english sub]", "[jp]","[jpn]","[japanese]"],
-	    ["fr","fr", "it", "en","en","en","en", "ja","ja","ja"]		];
+var Keywords_flags= [
+	["vostfr","vosfr", "[ita]", "[eng]", " eng ","[english]","[english sub]", "[jp]","[jpn]","[japanese]"],
+	["fr","fr", "it", "en","en","en","en", "ja","ja","ja"]		];
+  
+var addKeywordFlags = debounce(function(e) {  
 	  
     var torrentLowerCaseName = e.toLowerCase(),
 	updateLang = false;  
