@@ -5,25 +5,16 @@
 {{block title()}}{{ T("upload")}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
-		<details>
-		<summary class="form-input refine-drop" style="
-	    vertical-align: bottom;
-	    width: 429px;
-	">Rules</summary>
-	    <div class="form-input" style="
-	    display: inline-block;
-	    min-height: 74px;
-	    min-width: 429px;
-	    border: 1px solid black;
-	    padding: 0;
-	    border-top: none;
-	    ">
-		    <ul style="margin-top: 11px;margin-right: 9px;">
+	<details>
+		<summary class="form-input rules-drop">Rules</summary>
+	    	<div class="form-input">
+		    <ul>
 		    	<li>{{ T("no_cp")}}</li>
 			<li>{{ T("asia")}}</li>
 			<li>{{ T("rules_spam")}}</li>
 			<li>{{ T("rules_sukebei")}}</li>
-		    </ul></div>
+		    </ul>
+		</div>
 	    </details>
 	<form enctype="multipart/form-data" role="upload" method="POST">
 		{{ yield csrf_field() }}
