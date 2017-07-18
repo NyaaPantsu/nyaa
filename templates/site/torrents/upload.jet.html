@@ -17,7 +17,12 @@
 	    border: 1px solid black;
 	    padding: 0;
 	    border-top: none;
-	    "><ul style="margin-top: 11px;margin-right: 9px;"><li>No child pornography</li><li>Asian related content only (no Western Movies, no Cartoon)</li><li>No spam</li></ul></div>
+	    ">
+		    <ul style="margin-top: 11px;margin-right: 9px;">
+		    	<li>{{ T("no_cp")}}</li>
+			<li>{{ T("asia")}}</li>
+			<li>{{ T("rules_spam")}}</li>
+		    </ul></div>
 	    </details>
 	<form enctype="multipart/form-data" role="upload" method="POST">
 		{{ yield csrf_field() }}
