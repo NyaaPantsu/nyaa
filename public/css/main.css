@@ -1003,7 +1003,7 @@ input.nav-btn {
 .rules-drop > div {
 	display: inline-block;
 	min-height: 74px;
-	min-width: 429px;
+	width: 429px;
 	border: 1px solid black;
 	padding: 0;
 	border-top: none;
