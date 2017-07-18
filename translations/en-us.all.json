@@ -1,5 +1,17 @@
 [
   {
+    "id": "rules",
+    "translation": "Rules"
+  },
+  {
+    "id": "no_cp",
+    "translation": "No child pornography"
+  },
+  {
+    "id": "asia",
+    "translation": "Asian related content only (no Western Movies, no Cartoon)"
+  },
+  {
     "id": "rules_spam",
     "translation": "No spam"
   },
@@ -1808,19 +1820,10 @@
     "translation": "Green entries are:"
   },
   {
-    "id": "rules",
-    "translation": "Rules"
-  },
-  {
-    "id": "no_cp",
-    "translation": "No child pornography"
-  },
-  {
-    "id": "asia",
-    "translation": "Asian only content"
-  },
-  {
     "id": "torrent_colors",
     "translation": "Torrent colors"
-  }
+  },
+  {
+    "id": "torrent_preview",
+    "translation": "Preview your torrent"
 ]
