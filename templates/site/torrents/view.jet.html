@@ -66,9 +66,9 @@
   {{else}}
   <p>{{  T("no_description") }}</p>
   {{end}}
-  <input type="checkbox" id="show-filelist">
-  <label class="torrent-hr filelist-control" for="show-filelist">{{ T("files")}}</label>
-  <div class="torrent-info-box" id="filelist">
+  <input type="checkbox" id="show-filelist" {{if len(Torrent.FileList) < 4 && len(Torrent.FileList) != 0}}checked{{end}}>
+  <label class="torrent-hr filelist-control{{if len(Torrent.FileList) == 0}} hidden{{end}}" for="show-filelist">{{ T("files")}}</label>
+  <div class="torrent-info-box{{if len(Torrent.FileList) == 0}} hidden{{end}}" id="filelist">
     {{ if len(Torrent.FileList) > 0 }}
     {* how do i concat lol *}
     <table class="table-filelist">
