@@ -998,17 +998,17 @@ input.nav-btn {
 	user-select: none;
 	cursor: pointer;
 	vertical-align: bottom;
-	width: 429px;
+	width: 432px;
 }
 .rules-drop > div {
 	display: inline-block;
-	min-height: 74px;
+	height: auto;
 	width: 429px;
 	border: 1px solid black;
 	padding: 0;
 	border-top: none;
 }
-.rules-drop > div > ul { margin-top: 11px;margin-right: 9px; }
+.rules-drop > div > ul { margin-top: 11px; margin-right: 13px; }
 .refine-btn {
 	width: 10%;
 }
