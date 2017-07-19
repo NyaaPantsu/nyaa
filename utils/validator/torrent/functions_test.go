@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/utils/categories"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 )
 
@@ -16,6 +17,7 @@ var _ = func() (_ struct{}) {
 	config.DefaultConfigPath = path.Join("..", "..", "..", config.DefaultConfigPath)
 	config.Reload()
 	config.Get().I18n.Directory = path.Join("..", "..", "..", config.Get().I18n.Directory)
+	categories.InitCategories()
 	return
 }()
 

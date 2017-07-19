@@ -7,6 +7,7 @@ import (
 	"reflect"
 
 	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/utils/categories"
 )
 
 // run before config/parse.go:init()
@@ -14,6 +15,7 @@ var _ = func() (_ struct{}) {
 	config.ConfigPath = path.Join("..", "..", "..", config.ConfigPath)
 	config.DefaultConfigPath = path.Join("..", "..", "..", config.DefaultConfigPath)
 	config.Reload()
+	categories.InitCategories()
 	return
 }()
 
