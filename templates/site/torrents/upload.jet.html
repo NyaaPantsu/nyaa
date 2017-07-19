@@ -5,8 +5,8 @@
 {{block title()}}{{ T("upload")}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
-	<details>
-		<summary class="form-input rules-drop">{{ T("rules")}}</summary>
+	<details class="rules-drop">
+		<summary class="form-input">{{ T("rules")}}</summary>
 	    	<div class="form-input">
 		    <ul>
 		    	<li>{{ T("no_cp")}}</li>
@@ -46,7 +46,7 @@
 						  <td class="tr-se home-td hide-xs"></td>
 						  <td class="tr-le home-td hide-xs"></td>
 						  <td class="tr-dl home-td hide-xs"></td>
-						  <td></td>
+						  <td class="hide-xs"></td>
 			</tr>
         	<tr name="torrent-info tr" class="torrent-info{{ if User.IsTrusted() }} trusted{{end}}">
               		<td class="tr-cat home-td">
