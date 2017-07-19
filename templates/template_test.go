@@ -205,13 +205,13 @@ func mockupCommonvariables(t *testing.T) jet.VarMap {
 	variables.Set("Mascot", "test")
 	variables.Set("MascotURL", "test")
 	variables.Set("User", &models.User{})
-	variables.Set("UserProfile", &models.User{})
 	variables.Set("URL", &url.URL{})
 	variables.Set("CsrfToken", "xxxxxx")
 	variables.Set("Config", config.Get())
 	variables.Set("Infos", make(map[string][]string))
 	variables.Set("Errors", make(map[string][]string))
 	variables.Set("UserProfile", &models.User{})
+	variables.Set("NbTorrents", 0)
 	variables = templateFunctions(variables)
 	return variables
 }
