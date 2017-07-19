@@ -46,10 +46,10 @@
 			  {{ else}}
               <div class="nyaa-cat nyaa-cat-{{ .SubCategory}}">
 			  {{end}}
-                  <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}" class="category">
+                  <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}" alt="{{ T(CategoryName(.Category, .SubCategory)) }}" class="category">
               {{if .Languages[0] != "" }}
                   	<a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory +"&lang=") }}{{ range key, language := .Languages }}{{ language }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
-				<img src="/img/blank.gif" alt="{{ LanguageNameFromCode(.Languages[0], T) }}" class="flag flag-{{ (len(.Languages) == 1) ?  FlagCode(.Languages[0]) : "multiple" }}" title="{{ range key, language := .Languages }}{{ LanguageNameFromCode(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
+				<img src="/img/blank.gif" alt="{{ range key, language := .Languages }}{{ LanguageNameFromCode(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}" class="flag flag-{{ (len(.Languages) == 1) ?  FlagCode(.Languages[0]) : "multiple" }}" title="{{ range key, language := .Languages }}{{ LanguageNameFromCode(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
 			</a>
 	      {{end}}
                   </a>
