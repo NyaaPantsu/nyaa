@@ -100,3 +100,9 @@ td.tr-le, .error-text { color: #cc6666; }
 .form-input.language { background-color: #35363c; }
 
 .torrent-info-box > p > a, .torrent-info-box > div > a, #description-box a { text-decoration: none; }
+
+#announce {
+	color: #3a4249;
+	background-color: #F4E0C9;
+	border-color: #ae875b;
+}
