@@ -152,6 +152,12 @@ select.form-input {
 }
 
 .language span.input-group { display: inline-block; padding-right: 4px; }
+.language span.input-group.highlighted { 
+	border: 1px solid #c4c4c4;
+	background-color: hsla(30, 100%, 50%, 0.2) !important;
+	padding-right: 2px;
+	border-radius: 5px;
+}
 .language span.input-group span { display: none; }
 .language .input-group label { margin-bottom: 1px; }
 .language .input-group input { margin-right: 4px; }
