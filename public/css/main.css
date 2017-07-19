@@ -999,7 +999,7 @@ input.nav-btn {
 	display: flex;
 	user-select: none;
 	vertical-align: bottom;
-	width: 429px
+	width: 429px;
 	max-width: 100%;
 }
 .rules-drop > summary {
