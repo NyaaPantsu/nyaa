@@ -221,13 +221,12 @@ func defaultUserSettings(s string) bool {
 	return config.Get().Users.DefaultUserSettings[s]
 }
 
-func makeTreeViewData(f *filelist.FileListFolder, nestLevel int, T publicSettings.TemplateTfunc, identifierChain string) interface{} {
+func makeTreeViewData(f *filelist.FileListFolder, nestLevel int, identifierChain string) interface{} {
 	return struct {
 		Folder          *filelist.FileListFolder
 		NestLevel       int
-		T               publicSettings.TemplateTfunc
 		IdentifierChain string
-	}{f, nestLevel, T, identifierChain}
+	}{f, nestLevel, identifierChain}
 }
 func lastID(currentURL *url.URL, torrents []models.TorrentJSON) int {
 	if len(torrents) == 0 {

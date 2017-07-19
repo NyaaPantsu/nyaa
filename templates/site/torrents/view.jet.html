@@ -77,7 +77,7 @@
         <th>{{ T("size")}}</th>
       </thead>
       <tbody>
-        {{ yield make_treeview(treeviewData=makeTreeViewData(RootFolder, 0, T, "root")) }}
+        {{ yield make_treeview(treeviewData=makeTreeViewData(RootFolder, 0, "root")) }}
       </tbody>
     </table>
     {{ else }}

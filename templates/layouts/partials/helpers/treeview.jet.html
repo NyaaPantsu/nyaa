@@ -1,7 +1,7 @@
 {{ block make_treeview(treeviewData=nil) }}
 {{ if isset(treeviewData)}}
 {{ range index, folder := treeviewData.Folder.Folders }}
-    {{ folderId := IdentifierChain+"_"+index }}
+    {{ folderId := treeviewData.IdentifierChain+"_"+index }}
     <tr class="tr-filelist tr-folder" style="--nest-level: {{ treeviewData.NestLevel }}">
         <td><label for="contents_{{folderId}}">{{folder.FolderName}}</label></td>
         <td>{{ fileSize(folder.TotalSize, T) }}</td>
@@ -10,7 +10,7 @@
         <td colspan="2">
         <input id="contents_{{folderId}}" type="checkbox" class="filelist-checkbox">
         <table class="table-filelist">
-        {{ yield make_treeview(treeviewData=makeTreeViewData(folder, treeviewData.NestLevel, T, folderId)) }}
+        {{ yield make_treeview(treeviewData=makeTreeViewData(folder, treeviewData.NestLevel, folderId)) }}
         </table>
         </td>
     </tr>
