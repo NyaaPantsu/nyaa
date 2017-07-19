@@ -453,12 +453,13 @@ html, body {
 		width: 100%;
 		height: auto;
 	}
-	.tr-cat { width: 73px; }
+	.tr-cat { width: 71px; }
 	.torrent-preview-table .tr-cat { width: 74px; }
 	.tr-links { width: 48px; }
 	.header .h-search input { width: 90px !important; }
 	.header .h-search input:focus { width: 150px !important; }
 	.box { padding: 9px; }
+	th, .home-td, .user-td { padding: 2px 2px; }
 }
 
 @media (maw-width: 520px) {
