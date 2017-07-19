@@ -459,7 +459,7 @@ html, body {
 	.tr-links { width: 48px; }
 	.header .h-search input { width: 90px !important; }
 	.header .h-search input:focus { width: 150px !important; }
-	.box { padding: 9px; }
+	.box { padding: 8px; }
 	th, .home-td, .user-td { padding: 2px 2px; }
 }
 
@@ -1030,7 +1030,7 @@ summary:after {
 }
 details[open] summary:after {
 	content: "-";
-	margin: -4px 5px 0 0;
+	margin: -5px 5px 0 0;
 }
 .torrent-preview-table > table { border: 3px solid #dfdeeb; }
 
