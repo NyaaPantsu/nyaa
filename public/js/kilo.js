@@ -89,7 +89,7 @@ var Kilo = function (params) {
         for (var i = 0; i < l; i++) {
           torrentHTML.push(Templates.Render('torrents.item', torrents[i]))
         }
-        document.getElementById("torrentListResults").innerHTML = torrentHTML[0] + document.getElementById("torrentListResults").innerHTML + torrentHTML[1]
+        document.getElementById("torrentListResults").innerHTML = torrentHTML[0] + document.getElementsByName("torrent-info tr")[0].outerHTML + torrentHTML[1]
       })
     }
   }
