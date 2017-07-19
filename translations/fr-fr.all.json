@@ -16,6 +16,10 @@
     "translation": "Spam interdit"
   },
   {
+    "id": "rules_sukebei",
+    "translation": "Contenu NSFW strictement réservé à sukebei.pantsu.cat"
+  },
+  {
     "id": "verify_email_title",
     "translation": "Vérifiez votre adresse email pour Pantsu."
   },
