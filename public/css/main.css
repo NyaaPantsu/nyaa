@@ -998,16 +998,16 @@ input.nav-btn {
 .rules-drop {
 	display: flex;
 	user-select: none;
-	cursor: pointer;
 	vertical-align: bottom;
-	width: 432px;
-	max-width:100%;
+	width: 429px
+	max-width: 100%;
+}
+.rules-drop > summary {
+	cursor: pointer;
 }
 .rules-drop > div {
 	display: inline-block;
 	height: auto;
-	width: 429px;
-	max-width: 100%;
 	border: 1px solid black;
 	padding: 0;
 	border-top: none;
