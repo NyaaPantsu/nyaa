@@ -278,7 +278,7 @@ select.form-input {
 	padding: 10px 5px;
 }
 
-.results { padding: 0 }
+.results { padding: 0!important; }
 
 table {
 	border-collapse:collapse;
@@ -327,11 +327,11 @@ th, .home-td { border-bottom:  1px solid; }
 
 th { border-bottom-width: 2px; }
 
-.hidden { opacity: 0.5; }
+.hidden { opacity: 0.475; }
 .tr-cat { width: 90px; text-align: center; }
 .tr-flag { white-space: initial!important; }
 .tr-name { width: auto; text-align: left; white-space: normal; word-break: break-word; font-weight: bold; }
-.tr-links { width: 51px; overflow:initial; text-align: left; padding: 0 2px!important; }
+.tr-links { width: 48px; overflow:initial; text-align: left; padding: 0 2px!important; }
 .tr-cs { width: 15px; overflow: initial; text-overflow: initial; padding: 0; }
 .tr-cs .comment-icon { margin-bottom: 4px; }
 .tr-size { width: 90px; }
@@ -339,7 +339,7 @@ th { border-bottom-width: 2px; }
 .tr-se, .tr-le, .tr-dl { width: 50px; }
 .tr-date { width: 124px; }
 
-.tr-links >a > div { width: 17.63px; }
+.tr-links >a > div { width: 18px; }
 .tr-se > a > .sort-arrows,
 .tr-le > a > .sort-arrows,
 .tr-dl > a > .sort-arrows { margin-left: 0; }
@@ -410,18 +410,16 @@ html, body {
 
 /* hide the username */
 @media (max-width: 1100px)  {
-	.header .h-user { width: 58px; padding-left: 0px; }
+	.header .h-user { width: 58px; }
 	.header .h-user .user-menu { right: 100px; }
 	.header .h-user .user-info { display: none; }
-	.header .h-user .nav-btn { padding: 0px; }
+	.header .h-user .nav-btn { padding: 0px; width: 46px; }
 }
 
 @media (min-width: 960px)  { .visible-md { display: none } }
 
 @media (max-width: 960px)  {
-	.hide-md {
-		display: none;
-	}
+	.hide-md { display: none; }
 	.visible-md { display: block }
 }
 
@@ -453,18 +451,21 @@ html, body {
 		width: 100%;
 		height: auto;
 	}
-	.tr-cat { width: 73px; }
+	.header .h-user { width: 46px; }
+	.box { padding: 7px; }
+	.tr-cat { width: 71px; }
 	.torrent-preview-table .tr-cat { width: 74px; }
 	.tr-links { width: 48px; }
 	.header .h-search input { width: 90px !important; }
 	.header .h-search input:focus { width: 150px !important; }
-	.box { padding: 9px; }
+	.box { padding: 8px; }
+	th, .home-td, .user-td { padding: 2px 2px; }
 }
 
-@media (maw-width: 520px) {
+@media (max-width: 520px) {
 	.form-input.language { width: 281px; }	
 	.form-input.refine { display: none; }
-	th, .home-td, .user-td { padding: 2px 3px; }
+	.tr-links { width: 44px; }
 }
 
 .up-input {
@@ -754,6 +755,7 @@ input.filelist-checkbox:checked + table.table-filelist {
 .modtools #show_actions { margin-top: 4px; }
 .mod-open .tr-cat { width: 73px; }
 .mod-open .th, .mod-open .home-td, .mod-open .user-td { padding: 2px 2px; }
+.mod-open .tr-cat .nyaa-cat img { left: 4px; }
 
 /* Modal box */
 /* The Modal (background) */
@@ -996,14 +998,16 @@ input.nav-btn {
 .rules-drop {
 	display: flex;
 	user-select: none;
-	cursor: pointer;
 	vertical-align: bottom;
-	width: 432px;
+	width: 429px;
+	max-width: 100%;
+}
+.rules-drop > summary {
+	cursor: pointer;
 }
 .rules-drop > div {
 	display: inline-block;
 	height: auto;
-	width: 429px;
 	border: 1px solid black;
 	padding: 0;
 	border-top: none;
@@ -1025,7 +1029,7 @@ summary:after {
 }
 details[open] summary:after {
 	content: "-";
-	margin: -4px 5px 0 0;
+	margin: -5px 5px 0 0;
 }
 .torrent-preview-table > table { border: 3px solid #dfdeeb; }
 

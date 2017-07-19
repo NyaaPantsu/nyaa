@@ -5,8 +5,8 @@
 {{block title()}}{{ T("upload")}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
-	<details>
-		<summary class="form-input rules-drop">{{ T("rules")}}</summary>
+	<details class="rules-drop">
+		<summary class="form-input">{{ T("rules")}}</summary>
 	    	<div class="form-input">
 		    <ul>
 		    	<li>{{ T("no_cp")}}</li>
@@ -38,6 +38,16 @@
           </tr>
           </thead>
           <tbody id="torrentListResults">
+			<tr class="torrent-info hidden">
+				<td class="tr-cat home-td"></td>
+				<td class="tr-name home-td" colspan="2"><a></a></td>
+				<td class="tr-links home-td"></td>
+						  <td class="tr-size home-td hide-xs"></td>
+						  <td class="tr-se home-td hide-xs"></td>
+						  <td class="tr-le home-td hide-xs"></td>
+						  <td class="tr-dl home-td hide-xs"></td>
+						  <td class="hide-xs"></td>
+			</tr>
         	<tr name="torrent-info tr" class="torrent-info{{ if User.IsTrusted() }} trusted{{end}}">
               		<td class="tr-cat home-td">
 				<div class="nyaa-cat table-torrent-category">
@@ -57,6 +67,16 @@
 		      <td class="tr-dl home-td hide-xs">0</td>
 		      <td class="tr-date home-td date-short hide-xs table-torrent-date" title="2017-07-12T16:58:29Z">Jul 12, 2017</td>
 		  </tr>
+			<tr class="torrent-info hidden">
+				<td class="tr-cat home-td"></td>
+				<td class="tr-name home-td" colspan="2"><a></a></td>
+				<td class="tr-links home-td"></td>
+						  <td class="tr-size home-td hide-xs"></td>
+						  <td class="tr-se home-td hide-xs"></td>
+						  <td class="tr-le home-td hide-xs"></td>
+						  <td class="tr-dl home-td hide-xs"></td>
+						  <td></td>
+			</tr>
           </tbody>
 		</table></div>
 
