@@ -278,7 +278,7 @@ select.form-input {
 	padding: 10px 5px;
 }
 
-.results { padding: 0 }
+.results { padding: 0!important; }
 
 table {
 	border-collapse:collapse;
@@ -453,6 +453,7 @@ html, body {
 		width: 100%;
 		height: auto;
 	}
+	.box { padding: 7px; }
 	.tr-cat { width: 71px; }
 	.torrent-preview-table .tr-cat { width: 74px; }
 	.tr-links { width: 48px; }
@@ -465,6 +466,7 @@ html, body {
 @media (max-width: 520px) {
 	.form-input.language { width: 281px; }	
 	.form-input.refine { display: none; }
+	.tr-links { width: 44px; }
 }
 
 .up-input {
@@ -1000,11 +1002,13 @@ input.nav-btn {
 	cursor: pointer;
 	vertical-align: bottom;
 	width: 432px;
+	max-width:100%;
 }
 .rules-drop > div {
 	display: inline-block;
 	height: auto;
 	width: 429px;
+	max-width: 100%;
 	border: 1px solid black;
 	padding: 0;
 	border-top: none;
