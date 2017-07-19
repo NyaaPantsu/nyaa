@@ -18,7 +18,8 @@ type Categories []Category
 var categories Categories
 var Index map[string]int
 
-func initCategories() {
+// InitCategories init the categories and index variables. Exported for tests
+func InitCategories() {
 	var cats map[string]string
 	if config.IsSukebei() {
 		cats = config.Get().Torrents.SukebeiCategories
@@ -43,11 +44,14 @@ func initCategories() {
 	}
 }
 
+func init() {
+	if len(categories) == 0 {
+		InitCategories()
+	}
+}
+
 // All : function to get all categories depending on the actual website from config/categories.go
 func All() Categories {
-	if len(categories) == 0 {
-		initCategories()
-	}
 	return categories
 }
 
@@ -56,7 +60,7 @@ func Get(key int) Category {
 	return All()[key]
 }
 
-// Get : function to get a category by the id of the category from the database
+// GetByID : function to get a category by the id of the category from the database
 func GetByID(id string) (Category, bool) {
 	if key, ok := Index[id]; ok {
 		return All()[key], true
