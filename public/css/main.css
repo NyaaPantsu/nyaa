@@ -1005,16 +1005,14 @@ input.nav-btn {
 	display: flex;
 	user-select: none;
 	vertical-align: bottom;
-	width: 429px;
+	width: 435px;
 	max-width: 100%;
 }
 .rules-drop > summary {
 	cursor: pointer;
 }
 .rules-drop > div {
-	display: inline-block;
 	height: auto;
-	border: 1px solid black;
 	padding: 0;
 	border-top: none;
 }
