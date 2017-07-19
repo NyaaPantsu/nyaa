@@ -754,6 +754,7 @@ input.filelist-checkbox:checked + table.table-filelist {
 .modtools #show_actions { margin-top: 4px; }
 .mod-open .tr-cat { width: 73px; }
 .mod-open .th, .mod-open .home-td, .mod-open .user-td { padding: 2px 2px; }
+.mod-open .tr-cat .nyaa-cat img { left: 4px; }
 
 /* Modal box */
 /* The Modal (background) */
