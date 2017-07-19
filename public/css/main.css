@@ -278,6 +278,23 @@ select.form-input {
 	padding: 10px 5px;
 }
 
+#announce { 
+	margin-bottom: 15px;
+	padding: 7px 10px;
+	background-color: #D9EDF7;
+	border: 1px solid #c4e1e8;
+	border-radius: 7px;
+}
+
+#announce:before { 
+	content: "!";
+	vertical-align: middle;
+    float: left;
+    margin: -2px 8px 0 0;
+    font-size: 2.2em;
+    font-weight: bold;
+}
+
 .results { padding: 0!important; }
 
 table {
