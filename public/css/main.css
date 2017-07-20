@@ -598,7 +598,6 @@ html, body {
 }
 .profile-main {
 	display: flex;
-	justify-content: space-between;
 }
 .profile-content {
 	width: 77%;
@@ -1013,16 +1012,12 @@ input.nav-btn {
 }
 .rules-drop > div {
 	height: auto;
-	padding: 0;
+	padding: 10px 0;
 	border-top: none;
 }
-.rules-drop > div > ul { margin-top: 11px; margin-right: 13px; }
-.refine-btn {
-	width: 10%;
-}
-summary::-webkit-details-marker {
-	display: none
-}
+.rules-drop > div > ul { margin: 0; margin-right: 15px; }
+summary { display: block; }
+summary::-webkit-details-marker { display: none }
 summary:after {
 	vertical-align: middle;
 	float: left;
@@ -1035,6 +1030,7 @@ details[open] summary:after {
 	content: "-";
 	margin: -5px 5px 0 0;
 }
+.refine-btn { width: 30%; }
 .torrent-preview-table > table { border: 3px solid #dfdeeb; }
 
 .nyaa-cat { background: url('/img/categories.png') no-repeat; background-position-x: right!important; max-width: 80px; min-width: 67px; height: 28px; display: block; }

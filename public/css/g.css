@@ -20,7 +20,7 @@ a:hover { color:  #444; }
 
 .header .h-user .user-avatar {
 	background: #99BFD0;
-	border-color: #1d6d90;
+	border-color: #a3c7d3;
 }
 .header .h-user .user-menu {
 	background: #BDE0EF;
@@ -49,7 +49,7 @@ td.tr-le, .error-text { color: #E84C4C; }
 
 .btn-red {
 	background-color: #E84C4C;
-	color: #E8E8E8;
+	color: #E8E8E8!important;
 }
 
 .btn-red:hover { color: #E8E8E8; }
