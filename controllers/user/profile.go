@@ -53,7 +53,6 @@ func UserProfileHandler(c *gin.Context) {
 			query.Set("userID", strconv.Itoa(int(id)))
 			query.Set("limit", "20")
 			c.Request.URL.RawQuery = query.Encode()
-			var torrents []models.Torrent
 			var err error
 			_, userProfile.Torrents, _, err = search.ByQuery(c, 1)
 			if currentUser.CurrentOrAdmin(userProfile.ID) {
