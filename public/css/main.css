@@ -12,6 +12,7 @@ a { text-decoration: none; }
 body {
 	font-size: 14px;
 	font-family: 'Noto Sans', Arial, sans-serif;
+	-webkit-text-size-adjust: 100%;
 }
 #mascot { background: url('/img/renchon.svg') no-repeat right bottom transparent; }
 .sukebei #mascot { background-image: url('/img/mafuyu.svg'); background-size: 100%; }
@@ -131,7 +132,7 @@ select.form-input {
 	position: relative;
  	padding: 0;
  	width: 16px;
-    	height: 26px;
+    	height: 24px;
 	box-shadow: none;
 	border: none;
 	vertical-align: middle;
