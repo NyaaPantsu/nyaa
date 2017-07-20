@@ -598,7 +598,6 @@ html, body {
 }
 .profile-main {
 	display: flex;
-	justify-content: space-between;
 }
 .profile-content {
 	width: 77%;
