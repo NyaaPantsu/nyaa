@@ -27,7 +27,7 @@ import (
 
 /**
  * @apiDefine NotFoundError
- *
+ * @apiVersion 1.1.0
  * @apiError {String[]} errors List of errors messages with a 404 error message in it.
  *
  * @apiErrorExample Error-Response:
@@ -38,7 +38,7 @@ import (
  */
 /**
  * @apiDefine RequestError
- *
+ * @apiVersion 1.1.0
  * @apiError {Boolean} ok The request couldn't be done due to some errors.
  * @apiError {String[]} errors List of errors messages.
  * @apiError {Object[]} all_errors List of errors object messages for each wrong field
@@ -367,7 +367,7 @@ func APIUpdateHandler(c *gin.Context) {
 }
 
 /**
- * @api {get} /search/ Request Torrents index
+ * @api {get} /search/ Search Torrents
  * @apiVersion 1.1.0
  * @apiName FindTorrents
  * @apiGroup Torrents
