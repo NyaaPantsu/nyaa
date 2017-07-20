@@ -208,7 +208,7 @@ var Kilo = function (params) {
       }
     }
     var langCat = langValue !== 'other' ? (langValue > 1 ? 'multiple' : langValue) : 'other'
-    document.getElementsByClassName('table-torrent-flag')[0].className = 'table-torrent-flag flag flag-' + langCat
+    document.getElementsByClassName('table-torrent-flag')[0].className = 'table-torrent-flag flag flag-' + flagCode(langCat)
     document.getElementsByClassName('table-torrent-flag')[0].title = langTitle
   }
 }
