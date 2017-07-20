@@ -9,16 +9,9 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
-var (
-	// DefaultConfigPath : path to the default config file (please do not change it)
-	DefaultConfigPath = "config/default_config.yml"
-	// ConfigPath : path to the user specific config file (please do not change it)
-	ConfigPath = "config/config.yml"
-)
-
 var config *Config
 var once sync.Once
-var configpaths = []string{DefaultConfigPath, ConfigPath}
+var Configpaths = []string{"config/default_config.yml", "config/config.yml"}
 
 func Get() *Config {
 	once.Do(func() {
@@ -60,13 +53,13 @@ func init() {
 
 // Reload the configuration from the files provided in the config variables
 func Reload() {
-	configor.Load(Get(), configpaths...)
+	configor.Load(Get(), Configpaths...)
 }
 
 // BindFlags returns a function which is to be used after
 // flag.Parse to check and copy the flags' values to the Config instance.
 func BindFlags() func() {
-	confFile := flag.String("conf", ConfigPath, "path to the configuration file")
+	confFile := flag.String("conf", Configpaths[1], "path to the configuration file")
 	flag.StringVar(&Get().DBType, "dbtype", Get().DBType, "database backend")
 	flag.StringVar(&Get().Host, "host", Get().Host, "binding address of the server")
 	flag.IntVar(&Get().Port, "port", Get().Port, "port of the server")
@@ -74,7 +67,7 @@ func BindFlags() func() {
 	flag.StringVar(&Get().DBLogMode, "dblogmode", Get().DBLogMode, "database log verbosity (errors only by default)")
 	return func() {
 		if *confFile != "" {
-			configpaths = append(configpaths, *confFile)
+			Configpaths = append(Configpaths, *confFile)
 			Reload()
 		}
 	}

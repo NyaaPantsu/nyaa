@@ -21,8 +21,8 @@ import (
 // run before router/init.go:init()
 var _ = func() (_ struct{}) {
 	gin.SetMode(gin.TestMode)
-	config.ConfigPath = path.Join("..", config.ConfigPath)
-	config.DefaultConfigPath = path.Join("..", config.DefaultConfigPath)
+	config.Configpaths[1] = path.Join("..", config.Configpaths[1])
+	config.Configpaths[0] = path.Join("..", config.Configpaths[0])
 	config.Reload()
 	categories.InitCategories()
 	return
