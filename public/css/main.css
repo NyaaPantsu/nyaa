@@ -1013,12 +1013,12 @@ input.nav-btn {
 }
 .rules-drop > div {
 	height: auto;
-	padding: 0;
+	padding: 10px 0;
 	border-top: none;
 }
-.rules-drop > div > ul { margin-top: 11px; margin-right: 13px; }
+.rules-drop > div > ul { margin: 0; margin-right: 15px; }
 .refine-btn {
-	width: 10%;
+	width: 30%;
 }
 summary::-webkit-details-marker {
 	display: none
