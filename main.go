@@ -66,7 +66,7 @@ func main() {
 		conf.Build = "unknown"
 	}
 	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
-	config.BindFlags()
+	callback := config.BindFlags()
 	flag.Parse()
 	if *defaults {
 		stdout := bufio.NewWriter(os.Stdout)
@@ -80,6 +80,7 @@ func main() {
 		}
 		os.Exit(0)
 	} else {
+		callback()
 		var err error
 		models.ORM, err = models.GormInit(conf, models.DefaultLogger)
 		if err != nil {

@@ -18,6 +18,7 @@ var (
 
 var config *Config
 var once sync.Once
+var configpaths = []string{DefaultConfigPath, ConfigPath}
 
 func Get() *Config {
 	once.Do(func() {
@@ -59,19 +60,24 @@ func init() {
 
 // Reload the configuration from the files provided in the config variables
 func Reload() {
-	configor.Load(Get(), DefaultConfigPath, ConfigPath)
+	configor.Load(Get(), configpaths...)
 }
 
 // BindFlags returns a function which is to be used after
 // flag.Parse to check and copy the flags' values to the Config instance.
-func BindFlags() {
+func BindFlags() func() {
 	confFile := flag.String("conf", ConfigPath, "path to the configuration file")
 	flag.StringVar(&Get().DBType, "dbtype", Get().DBType, "database backend")
 	flag.StringVar(&Get().Host, "host", Get().Host, "binding address of the server")
 	flag.IntVar(&Get().Port, "port", Get().Port, "port of the server")
 	flag.StringVar(&Get().DBParams, "dbparams", Get().DBParams, "parameters to open the database (see Gorm's doc)")
 	flag.StringVar(&Get().DBLogMode, "dblogmode", Get().DBLogMode, "database log verbosity (errors only by default)")
-	configor.Load(Get(), DefaultConfigPath, ConfigPath, *confFile)
+	return func() {
+		if *confFile != "" {
+			configpaths = append(configpaths, *confFile)
+			Reload()
+		}
+	}
 }
 
 // Pretty : Write config json in a file
