@@ -1029,7 +1029,7 @@ summary:after {
 }
 details[open] summary:after {
 	content: "-";
-	margin: -5px 5px 0 0;
+	margin: -1% 5px 0 0;
 }
 .refine-btn { width: 30%; }
 .torrent-preview-table > table { border: 3px solid #dfdeeb; }
