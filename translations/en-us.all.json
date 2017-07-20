@@ -1830,5 +1830,9 @@
   {
     "id": "torrent_preview",
     "translation": "Preview your torrent"
+  },
+  {
+    "id": "no_language_selected",
+    "translation": "No language selected"
   }
 ]
