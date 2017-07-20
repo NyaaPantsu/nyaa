@@ -20,7 +20,7 @@
 			<select id="language" name="language" class="form-input up-input">
 				{{ userLanguage := UserProfile.Language }}
 				{{ range _, language := Languages }}
-					<option value="{{ language.Code }}" {{ if userLanguage == language.Code || ((userLanguage == "") && (language.Code == getDefaultLanguage())) }}selected{{end}}>{{ language.Name }} {{if language.Code == getDefaultLanguage()}}({{  T("default") }}){{end}}</option>
+					<option value="{{ language.Tag }}" {{ if userLanguage == language.Tag || userLanguage == language.Code || ((userLanguage == "") && (language.Tag == getDefaultLanguage())) }}selected{{end}}>{{ language.Name }} {{if language.Tag == getDefaultLanguage()}}({{  T("default") }}){{end}}</option>
 				{{ end }}
 			</select> <br>
 		{{ yield errors(name="Language")}}
