@@ -83,7 +83,8 @@ var Kilo = function (params) {
 
     //Adding the torrent under and above the previewed one. 
     if (this.listContext) {
-      Query.Get('/api/search?limit=2', function (torrents) {
+      Query.Get('/api/search?limit=2', function (data) {
+        torrents = data.torrents
         var torrentHTML = []
         var l = torrents.length
         for (var i = 0; i < l; i++) {

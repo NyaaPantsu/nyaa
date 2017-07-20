@@ -18,18 +18,20 @@ var Torrents = {
         var searchArgs = (window.location.search != "") ? window.location.search.substr(1) : ""
         searchArgs = (Torrents.LastID > 0) ? "?fromID="+Torrents.LastID+"&"+searchArgs : "?"+searchArgs
         Query.Get(Torrents.SearchURL+searchArgs,
-          Templates.ApplyItemListRenderer({
-            templateName: "torrents.item", method: "prepend", element: document.getElementById("torrentListResults")
-          }), function(torrents) {
+          function(data) {
+            var torrents = data.torrents
+            Templates.ApplyItemListRenderer({
+              templateName: "torrents.item", method: "prepend", element: document.getElementById("torrentListResults")
+            })(torrents)
             for (var i =0; i < torrents.length; i++) { if (Torrents.LastID < torrents[i].id) Torrents.LastID = torrents[i].id; }
-            parseAllDates();
+            parseAllDates()
             Torrents.Refresh()
           });
       }, this.Seconds*1000);
     }
   },
   StartRefresh: function() {
-    this.CanRefresh = true;
+    this.CanRefresh = true
     this.Refresh()
   }
 }
