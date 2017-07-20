@@ -217,7 +217,7 @@
   },
   {
     "id": "recovery_effort",
-    "translation": "Men is bezig de boel te herstellen."
+    "translation": "We zijn bezig de boel te herstellen."
   },
   {
     "id": "is_everything_lost",
@@ -449,7 +449,7 @@
   },
   {
     "id": "submit",
-    "translation": "Verstuur"
+    "translation": "Verzenden"
   },
   {
     "id": "personal_info",
@@ -493,7 +493,7 @@
   },
   {
     "id": "delete_account",
-    "translation": "Verwijder Account"
+    "translation": "Account verwijderen"
   },
   {
     "id": "delete_account_confirm",
@@ -617,7 +617,7 @@
   },
   {
     "id": "profile_edit_page",
-    "translation": "Bewerk profiel van %s"
+    "translation": "Profiel van %s bewerken"
   },
   {
     "id": "seeders",
@@ -1002,5 +1002,9 @@
   {
     "id": "member",
     "translation": "Lid"
+  },
+  {
+    "id": "no_description",
+    "translation": "Geen beschrijving toegevoegd!"
   }
 ]
