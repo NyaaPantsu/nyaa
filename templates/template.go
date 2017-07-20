@@ -164,7 +164,7 @@ func UserProfileEdit(c *gin.Context, userProfile *models.User, userForm userVali
 }
 
 // UserProfile render a user profile
-func UserProfile(c *gin.Context, userProfile *models.User, nbTorrents int) {
+func UserProfile(c *gin.Context, userProfile *models.User) {
 	variables := Commonvariables(c)
 	variables.Set("UserProfile", userProfile)
 	Render(c, path.Join(SiteDir, "user/torrents.jet.html"), variables)
