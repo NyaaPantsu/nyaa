@@ -25,6 +25,13 @@ define({ "api": [
           },
           {
             "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "page",
+            "description": "<p>Page of the search results.</p>"
+          },
+          {
+            "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "limit",
@@ -120,13 +127,6 @@ define({ "api": [
             "optional": false,
             "field": "lang",
             "description": "<p>Filter the languages.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "page",
-            "description": "<p>Search page.</p>"
           }
         ]
       }

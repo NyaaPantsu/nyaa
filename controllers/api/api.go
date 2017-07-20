@@ -374,6 +374,7 @@ func APIUpdateHandler(c *gin.Context) {
  *
  * @apiParam {String[]} c In which categories to search.
  * @apiParam {String} q Query to search (torrent name).
+ * @apiParam {Number} page Page of the search results.
  * @apiParam {String} limit Number of results per page.
  * @apiParam {String} userID Uploader ID owning the torrents.
  * @apiParam {String} fromID Show results with torrents ID superior to this.
@@ -405,7 +406,7 @@ func APIUpdateHandler(c *gin.Context) {
 // APISearchHandler : Controller for searching with api
 func APISearchHandler(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
-	page := c.Param("page")
+	page := c.DefaultQuery("page", c.Param("page"))
 	currentUser := router.GetUser(c)
 
 	// db params url
