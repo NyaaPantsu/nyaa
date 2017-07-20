@@ -178,7 +178,7 @@ select.form-input {
 	float: right;
 	padding: 0;
 	height: 60px;
-	max-width: 151px;
+	max-width: 150px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -195,7 +195,6 @@ select.form-input {
 
 .header .h-user .user-menu {
 	display: none;
-	margin-left: 6px;
 	border: 1px solid;
 	border-top: none;
 	border-radius: 0 0 5px 5px;
@@ -228,7 +227,7 @@ select.form-input {
 	font-size: 10pt;
 	font-weight: bold;
 	display: block;
-	float: left;
+	float: right;
 	height: 60px;
 	line-height: 60px;
 	/* Property is ignored due to the display. With 'display: block', vertical-align should not be used. */
@@ -420,7 +419,7 @@ html, body {
 	.header .h-user { width: 58px; }
 	.header .h-user .user-menu { right: 100px; }
 	.header .h-user .user-info { display: none; }
-	.header .h-user .nav-btn { padding: 0px; }
+	.header .h-user > .nav-btn { padding: 0px; width: 50px; }
 }
 
 @media (min-width: 960px)  { .visible-md { display: none } }
