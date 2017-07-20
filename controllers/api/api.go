@@ -9,6 +9,7 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/controllers/feed"
+	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/models/users"
@@ -17,7 +18,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/search"
-	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 	"github.com/NyaaPantsu/nyaa/utils/upload"
 	"github.com/NyaaPantsu/nyaa/utils/validator"
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
@@ -56,7 +56,7 @@ import (
 
 /**
  * @api {get} / Request Torrents index
- * @apiVersion 1.0.0
+ * @apiVersion 1.1.0
  * @apiName GetTorrents
  * @apiGroup Torrents
  *
@@ -83,66 +83,13 @@ func APIHandler(c *gin.Context) {
 	if t != "" {
 		feedController.RSSTorznabHandler(c)
 	} else {
-		page := c.Param("page")
-		whereParams := structs.WhereParams{}
-		req := upload.TorrentsRequest{}
-
-		contentType := c.Request.Header.Get("Content-Type")
-		if contentType == "application/json" {
-			c.Bind(&req)
-
-			if req.MaxPerPage == 0 {
-				req.MaxPerPage = config.Get().Navigation.TorrentsPerPage
-			}
-			if req.Page <= 0 {
-				req.Page = 1
-			}
-
-			whereParams = req.ToParams()
-		} else {
-			var err error
-			maxString := c.Query("max")
-			if maxString != "" {
-				req.MaxPerPage, err = strconv.Atoi(maxString)
-				if !log.CheckError(err) {
-					req.MaxPerPage = config.Get().Navigation.TorrentsPerPage
-				}
-			} else {
-				req.MaxPerPage = config.Get().Navigation.TorrentsPerPage
-			}
-
-			req.Page = 1
-			if page != "" {
-				req.Page, err = strconv.Atoi(html.EscapeString(page))
-				if err != nil || req.Page <= 0 {
-					c.AbortWithError(http.StatusNotFound, err)
-					return
-				}
-			}
-		}
-
-		torrentSearch, nbTorrents, err := torrents.Find(whereParams, req.MaxPerPage, req.MaxPerPage*(req.Page-1))
-		if err != nil {
-			c.AbortWithError(http.StatusInternalServerError, err)
-			return
-		}
-
-		b := upload.APIResultJSON{
-			Torrents: torrents.APITorrentsToJSON(torrentSearch),
-		}
-		b.QueryRecordCount = req.MaxPerPage
-		b.TotalRecordCount = nbTorrents
-		c.JSON(http.StatusOK, b)
-		if err != nil {
-			c.AbortWithError(http.StatusInternalServerError, err)
-			return
-		}
+		APISearchHandler(c)
 	}
 }
 
 /**
  * @api {get} /view/:id Request Torrent information
- * @apiVersion 1.0.0
+ * @apiVersion 1.1.0
  * @apiName GetTorrent
  * @apiGroup Torrents
  *
@@ -232,7 +179,7 @@ func APIViewHandler(c *gin.Context) {
 
 /**
  * @api {get} /head/:id Request Torrent Head
- * @apiVersion 1.0.0
+ * @apiVersion 1.1.0
  * @apiName GetTorrentHead
  * @apiGroup Torrents
  *
@@ -264,7 +211,7 @@ func APIViewHeadHandler(c *gin.Context) {
 
 /**
  * @api {post} /upload Upload a Torrent
- * @apiVersion 1.0.0
+ * @apiVersion 1.1.0
  * @apiName UploadTorrent
  * @apiGroup Torrents
  *
@@ -351,7 +298,7 @@ func APIUploadHandler(c *gin.Context) {
 
 /**
  * @api {post} /update/ Update a Torrent
- * @apiVersion 1.0.0
+ * @apiVersion 1.1.0
  * @apiName UpdateTorrent
  * @apiGroup Torrents
  *
@@ -421,7 +368,7 @@ func APIUpdateHandler(c *gin.Context) {
 
 /**
  * @api {get} /search/ Request Torrents index
- * @apiVersion 1.0.0
+ * @apiVersion 1.1.0
  * @apiName FindTorrents
  * @apiGroup Torrents
  *
@@ -448,7 +395,9 @@ func APIUpdateHandler(c *gin.Context) {
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *			[...]
+ *			"torrents": [...],
+ *			"queryRecordCount": 50,
+ *			"totalRecordCount": 798414
  *		}
  *
  * @apiUse NotFoundError
@@ -457,6 +406,7 @@ func APIUpdateHandler(c *gin.Context) {
 func APISearchHandler(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 	page := c.Param("page")
+	currentUser := router.GetUser(c)
 
 	// db params url
 	var err error
@@ -473,19 +423,36 @@ func APISearchHandler(c *gin.Context) {
 		}
 	}
 
-	_, torrentSearch, _, err := search.ByQueryWithUser(c, pagenum)
+	userID, err := strconv.ParseUint(c.Query("userID"), 10, 32)
+	if err != nil {
+		userID = 0
+	}
+
+	_, torrentSearch, nbTorrents, err := search.AuthorizedQuery(c, pagenum, currentUser.CurrentOrAdmin(uint(userID)))
+
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
-	b := torrents.APITorrentsToJSON(torrentSearch)
+	maxQuery, err := strconv.Atoi(c.DefaultQuery("limit", strconv.Itoa(config.Get().Navigation.TorrentsPerPage)))
+	if err != nil {
+		maxQuery = config.Get().Navigation.TorrentsPerPage
+	} else if maxQuery > config.Get().Navigation.MaxTorrentsPerPage {
+		maxQuery = config.Get().Navigation.MaxTorrentsPerPage
+	}
+
+	b := upload.APIResultJSON{
+		TotalRecordCount: nbTorrents,
+		Torrents:         torrents.APITorrentsToJSON(torrentSearch),
+		QueryRecordCount: maxQuery,
+	}
 	c.JSON(http.StatusOK, b)
 }
 
 /**
  * @api {post} /login/ Login a user
- * @apiVersion 1.0.0
+ * @apiVersion 1.1.0
  * @apiName Login
  * @apiGroup Users
  *

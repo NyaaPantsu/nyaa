@@ -44,42 +44,42 @@ func stringIsASCII(input string) bool {
 	return true
 }
 
-// ByQuery : search torrents according to request without user
-func ByQuery(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = byQuery(c, pagenum, true, false, false, false)
+// ByQueryNoUser : search torrents according to request without user
+func ByQueryNoUser(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
+	search, tor, count, err = ByQuery(c, pagenum, true, false, false, false)
 	return
 }
 
 // ByQueryWithUser : search torrents according to request with user
 func ByQueryWithUser(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = byQuery(c, pagenum, true, true, false, false)
+	search, tor, count, err = ByQuery(c, pagenum, true, true, false, false)
 	return
 }
 
 // ByQueryNoCount : search torrents according to request without user and count
 func ByQueryNoCount(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, err error) {
-	search, tor, _, err = byQuery(c, pagenum, false, false, false, false)
+	search, tor, _, err = ByQuery(c, pagenum, false, false, false, false)
 	return
 }
 
 // ByQueryDeleted : search deleted torrents according to request with user and count
 func ByQueryDeleted(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = byQuery(c, pagenum, true, true, true, false)
+	search, tor, count, err = ByQuery(c, pagenum, true, true, true, false)
 	return
 }
 
 // ByQueryNoHidden : search torrents and filter those hidden
 func ByQueryNoHidden(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = byQuery(c, pagenum, true, false, false, true)
+	search, tor, count, err = ByQuery(c, pagenum, true, false, false, true)
 	return
 }
 
 // TODO Clean this up
-// FIXME Some fields are not used by elasticsearch (pagenum, countAll, deleted, withUser)
-// pagenum is extracted from request in .FromRequest()
+// Some fields are postgres specific (countAll, withUser)
 // elasticsearch always provide a count to how many hits
+// ES doesn't store users
 // deleted is unused because es doesn't index deleted torrents
-func byQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (structs.TorrentParam, []models.Torrent, int, error) {
+func ByQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (structs.TorrentParam, []models.Torrent, int, error) {
 	var err error
 	if models.ElasticSearchClient != nil && !deleted {
 		var torrentParam structs.TorrentParam
@@ -170,10 +170,10 @@ func byQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, 
 	if search.UserID != 0 {
 		conditions = append(conditions, "uploader = ?")
 		parameters.Params = append(parameters.Params, search.UserID)
-	}
-	if search.Hidden {
-		conditions = append(conditions, "hidden = ?")
-		parameters.Params = append(parameters.Params, false)
+		if search.Hidden {
+			conditions = append(conditions, "hidden = ?")
+			parameters.Params = append(parameters.Params, false)
+		}
 	}
 	if search.FromID != 0 {
 		conditions = append(conditions, "torrent_id > ?")
@@ -237,11 +237,19 @@ func byQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, 
 		tor, count, err = torrents.FindDeleted(&parameters, orderBy, int(search.Max), int(search.Max*(search.Offset-1)))
 	} else if countAll && !withUser {
 		tor, count, err = torrents.FindOrderBy(&parameters, orderBy, int(search.Max), int(search.Max*(search.Offset-1)))
-	} else if withUser {
+	} else if countAll && withUser {
 		tor, count, err = torrents.FindWithUserOrderBy(&parameters, orderBy, int(search.Max), int(search.Max*(search.Offset-1)))
 	} else {
 		tor, err = torrents.FindOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max*(search.Offset-1)))
 	}
 	cache.C.Set(search.Identifier(), &structs.TorrentCache{tor, count}, 5*time.Minute)
 	return
+}
+
+// AuthorizedQuery return a seach byquery according to the bool. If false, it doesn't look for hidden torrents, else it looks for every torrents
+func AuthorizedQuery(c *gin.Context, pagenum int, authorized bool) (structs.TorrentParam, []models.Torrent, int, error) {
+	if !authorized {
+		return ByQuery(c, pagenum, true, true, false, true)
+	}
+	return ByQuery(c, pagenum, true, true, false, false)
 }

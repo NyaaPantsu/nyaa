@@ -7,6 +7,7 @@ import (
 
 	"math"
 
+	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/search"
@@ -21,7 +22,7 @@ func SearchHandler(c *gin.Context) {
 	// TODO Fallback to postgres search if es is down
 
 	page := c.Param("page")
-
+	currentUser := router.GetUser(c)
 	// db params url
 	pagenum := 1
 	if page != "" {
@@ -36,7 +37,12 @@ func SearchHandler(c *gin.Context) {
 		}
 	}
 
-	searchParam, torrents, nbTorrents, err := search.ByQuery(c, pagenum)
+	userID, err := strconv.ParseUint(c.Query("userID"), 10, 32)
+	if err != nil {
+		userID = 0
+	}
+
+	searchParam, torrents, nbTorrents, err := search.AuthorizedQuery(c, pagenum, currentUser.CurrentOrAdmin(uint(userID)))
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
