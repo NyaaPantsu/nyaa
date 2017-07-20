@@ -16,15 +16,15 @@ import (
 
 // ExistOrDelete : Check if a torrent exist with the same hash and if it can be replaced, it is replaced
 func ExistOrDelete(hash string, user *models.User) error {
-	torrentIndb := models.Torrent{}
-	models.ORM.Unscoped().Model(&models.Torrent{}).Where("torrent_hash = ?", hash).First(&torrentIndb)
+	torrentIndb := &models.Torrent{}
+	models.ORM.Unscoped().Model(&models.Torrent{}).Where("torrent_hash = ?", hash).Preload("Uploader").First(torrentIndb)
 	if torrentIndb.ID > 0 {
 		if user.CurrentUserIdentical(torrentIndb.UploaderID) && torrentIndb.IsDeleted() && !torrentIndb.IsBlocked() { // if torrent is not locked and is deleted and the user is the actual owner
-			torrent, _, err := torrentIndb.DefinitelyDelete()
+			_, _, err := torrentIndb.DefinitelyDelete()
 			if err != nil {
 				return err
 			}
-			activities.Log(&models.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), torrent.Uploader.Username, user.Username)
+			activities.Log(&models.User{}, torrentIndb.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrentIndb.ID)), torrentIndb.Uploader.Username, user.Username)
 		} else {
 			return errors.New("Torrent already in database")
 		}
