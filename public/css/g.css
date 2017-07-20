@@ -49,7 +49,7 @@ td.tr-le, .error-text { color: #E84C4C; }
 
 .btn-red {
 	background-color: #E84C4C;
-	color: #E8E8E8;
+	color: #E8E8E8!important;
 }
 
 .btn-red:hover { color: #E8E8E8; }
