@@ -362,3 +362,31 @@ func (u *User) Delete(currentUser *User) (int, error) {
 func (u *User) toMap() map[string]interface{} {
 	return structs.Map(u)
 }
+
+// Splice : get a subset of torrents
+func (u *User) Splice(start int, length int) *User {
+	if (len(u.Torrents) <= length && start == 0) || len(u.Torrents) == 0 {
+		return u
+	}
+	if start > len(u.Torrents) {
+		u.Torrents = []Torrent{}
+		return u
+	}
+	if len(u.Torrents) < length {
+		length = len(u.Torrents)
+	}
+	u.Torrents = u.Torrents[start:length]
+	return u
+}
+
+// Filter : filter the hidden torrents
+func (u *User) Filter() *User {
+	torrents := []Torrent{}
+	for _, t := range u.Torrents {
+		if !t.Hidden {
+			torrents = append(torrents, t)
+		}
+	}
+	u.Torrents = torrents
+	return u
+}

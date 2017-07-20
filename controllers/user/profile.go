@@ -55,17 +55,16 @@ func UserProfileHandler(c *gin.Context) {
 			c.Request.URL.RawQuery = query.Encode()
 			var torrents []models.Torrent
 			var err error
-			nbTorrents := 0
+			_, userProfile.Torrents, _, err = search.ByQuery(c, 1)
 			if currentUser.CurrentOrAdmin(userProfile.ID) {
-				_, torrents, nbTorrents, err = search.ByQuery(c, 1)
+				userProfile.Splice(1, 20)
 			} else {
-				_, torrents, nbTorrents, err = search.ByQueryNoHidden(c, 1)
+				userProfile.Splice(1, 20).Filter()
 			}
 			if err != nil {
 				messages.AddErrorT("errors", "retrieve_torrents_error")
 			}
-			userProfile.Torrents = torrents
-			templates.UserProfile(c, userProfile, nbTorrents)
+			templates.UserProfile(c, userProfile)
 		}
 	} else {
 		c.Status(http.StatusNotFound)

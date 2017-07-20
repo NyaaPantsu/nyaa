@@ -13,7 +13,7 @@
 		<p class="profile-usertitle-job">
 			{{UserProfile.GetRole()}}
 		</p>
-		<p class="profile-usertitle-uploadcount">{{ T("torrents_uploaded") }}:<span>{{ NbTorrents }}</span></p>
+		<p class="profile-usertitle-uploadcount">{{ T("torrents_uploaded") }}:<span>{{ len(UserProfile.Torrents) }}</span></p>
 	</div>
 	<!-- END SIDEBAR USER TITLE -->
 	<!-- SIDEBAR BUTTONS -->
