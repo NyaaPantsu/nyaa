@@ -27,8 +27,8 @@ Templates.Add("torrents.item", function(torrent) {
             "</a>"+(torrent.torrent != "" ? " <a><div class=\"icon-floppy\"></div></a>" : "") +
         "</td>"+
         "<td class=\"tr-size home-td hide-xs\">"+humanFileSize(torrent.filesize)+"</td>"+
-        "<td class=\"tr-se home-td hide-xs\">"+torrent.seeders+"</td>"+
-        "<td class=\"tr-le home-td hide-xs\">"+torrent.leechers+"</td>"+
+        "<td class=\"tr-se home-td hide-smol\">"+torrent.seeders+"</td>"+
+        "<td class=\"tr-le home-td hide-smol\">"+torrent.leechers+"</td>"+
         "<td class=\"tr-dl home-td hide-xs\">"+torrent.completed+"</td>"+
         "<td class=\"tr-date home-td date-short hide-xs\">"+torrent.date+"</td>"+
     "</tr>";
