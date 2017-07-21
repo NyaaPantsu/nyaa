@@ -1,0 +1,23 @@
+{{ extends "layouts/index_admin" }}
+{{block title()}}{{  T("users_list") }}{{end}}
+{{ block content_body()}}
+<div class="results box">
+    <h1>{{  T("users_list") }}</h1>
+    <table class="table">
+        <thead class="torrent-info">
+            <tr>
+                <th class="tr-name">{{  T("username") }}</th>
+                <th class="tr-actions">{{  T("actions") }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{ range Models}}
+        <tr>
+            <td class="tr-name home-td"><a href="/user/{{.ID}}/{{.Username }}">{{ .Username }}</a></td>
+            <td class="tr-actions home-td">{{if .ID > 0}}<a href="/user/{{.ID}}/{{.Username }}?delete" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</a>{{end}}</td>
+        </tr>
+        {{end}}
+        </tbody>
+    </table>
+</div>
+{{end}}

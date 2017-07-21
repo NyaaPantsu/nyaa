@@ -1,0 +1,9 @@
+{{ extends "layouts/index_site" }}
+{{block title()}}{{ T("error_500")}}{{end}}
+{{block content_body()}}
+    <div style="text-align: center;">
+        <h1>{{ T("500_internal_server_error")}}</h1>
+        <img src="/img/500.png" width="500px" />
+    </div>
+{{end}}
+{{block mascot()}}<br>{{end}}

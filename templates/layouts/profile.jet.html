@@ -1,0 +1,14 @@
+{{ extends "index_site" }}
+{{block title()}}{{  T("profile_page", UserProfile.Username) }}{{end}}
+{{block rss_link()}}/user/{{UserProfile.ID}}/{{UserProfile.Username}}/feed{{end}}
+{{block rsstitle() }}{{ UserProfile.Username }}{{end}}
+{{block content_body()}}
+	<div class="profile-main">
+		<div class="box profile-panel">
+			{{ block profile_navigation() }}{{end}}
+		</div>
+		<div class="profile-content box">
+			{{ block profile_content() }}{{end}}
+		</div>
+	</div>
+{{end}}

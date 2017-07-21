@@ -1,0 +1,24 @@
+{
+  "name": "nyaapantsu",
+  "version": "1.1.0",
+  "description": "How to use the Nyaa Pantsu API",
+  "title": "Nyaa Pantsu API documentation",
+  "url": "https://nyaa.pantsu.cat/api",
+  "header": {
+    "title": "Information",
+    "filename": "header_api.md"
+  },
+  "order": [
+    "GetTorrents",
+    "FindTorrents",
+    "GetTorrent",
+    "GetTorrentHead",
+    "UploadTorrent",
+    "UpdateTorrent",
+    "Login"
+  ],
+  "template": {
+    "withCompare": true,
+    "withGenerator": true
+  }
+}

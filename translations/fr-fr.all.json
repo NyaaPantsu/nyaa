@@ -1,251 +1,251 @@
-[
+[  
   {
-    "id": "home",
-    "translation": "Accueil"
+    "id": "rules",
+    "translation": "Règlement"
   },
   {
-    "id": "404_not_found",
-    "translation": "404 Page Introuvable"
+    "id": "no_cp",
+    "translation": "Aucune pédopornographie"
   },
   {
-    "id": "language_code",
-    "translation": "fr-fr"
+    "id": "asia",
+    "translation": "Contenu uniquement d'origine asiatique (films et dessins animés occidentaux non autorisés)"
   },
   {
-    "id": "error_404",
-    "translation": "Erreur 404"
+    "id": "rules_spam",
+    "translation": "Spam interdit"
   },
   {
-    "id": "fun",
-    "translation": "Fun"
+    "id": "rules_sukebei",
+    "translation": "Contenu NSFW strictement réservé à sukebei.pantsu.cat"
   },
   {
-    "id": "fap",
-    "translation": "Fap"
+    "id": "verify_email_title",
+    "translation": "Vérifiez votre adresse email pour Pantsu."
   },
   {
-    "id": "nothing_here",
-    "translation": "RAS"
+    "id": "verify_email_content",
+    "translation": "Veuillez cliquer sur le lien ci-dessous pour vérifier votre adresse email."
   },
   {
-    "id": "change_settings",
-    "translation": "Préférences"
+    "id": "reset_password_title",
+    "translation": "Réinitialisez votre mot de passe pour Pantsu."
   },
   {
-    "id": "language",
-    "translation": "Langue"
+    "id": "reset_password_content",
+    "translation": "Veuillez cliquer sur le lien ci-dessous pour réinitialiser votre mot de passe."
   },
   {
-    "id": "language_name",
-    "translation": "Français"
+    "id": "register_title",
+    "translation": "Créer un nouveau compte"
   },
   {
-    "id": "theme",
-    "translation": "Thème"
+    "id": "signup_box_title",
+    "translation": "Inscription"
   },
   {
-    "id": "mascot",
-    "translation": "Mascotte"
+    "id": "username",
+    "translation": "Nom d'utilisateur"
   },
   {
-    "id": "show",
-    "translation": "Afficher"
+    "id": "email_address_or_username",
+    "translation": "Adresse email ou nom d'utilisateur"
   },
   {
-    "id": "hide",
-    "translation": "Masquer"
+    "id": "email_address",
+    "translation": "Adresse email"
   },
   {
-    "id": "mascot_url",
-    "translation": "URL de la mascotte"
+    "id": "password",
+    "translation": "Mot de passe"
   },
   {
-    "id": "cookies",
-    "translation": "En cliquant sur Sauvegarder, vous acceptez notre utilisation des cookies."
+    "id": "confirm_password",
+    "translation": "Confirmer le mot de passe"
   },
   {
-    "id": "save_changes",
-    "translation": "Sauvegarder"
+    "id": "terms_conditions_confirm",
+    "translation": "En cliquant sur <b>S'inscrire</b>, vous acceptez les <a id=\"modal_active\" href=\"#\">Termes et Conditions</a> et l'usage des cookies établis par le site."
   },
   {
-    "id": "links",
-    "translation": "Liens"
+    "id": "signin",
+    "translation": "Se connecter"
   },
   {
-    "id": "no_database_dumps_available",
-    "translation": "Aucune sauvegarde de base de données n'est disponible en ce moment."
+    "id": "register",
+    "translation": "S'inscrire"
   },
   {
-    "id": "upload",
-    "translation": "Uploader"
+    "id": "terms_conditions",
+    "translation": "Termes et Conditions"
+  },
+  {
+    "id": "terms_conditions_full",
+    "translation": "À définir"
+  },
+  {
+    "id": "remember_me",
+    "translation": "Se souvenir de moi"
+  },
+  {
+    "id": "forgot_password",
+    "translation": "Mot de passe oublié ?"
+  },
+  {
+    "id": "sign_in_box_title",
+    "translation": "Connexion"
+  },
+  {
+    "id": "sign_in_title",
+    "translation": "Se connecter"
+  },
+  {
+    "id": "register_success_title",
+    "translation": "Inscription réussie"
+  },
+  {
+    "id": "sign_up_success",
+    "translation": "Merci pour votre inscription !"
+  },
+  {
+    "id": "verify_success",
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Votre compte est à présent activé !"
+  },
+  {
+    "id": "signup_verification_email",
+    "translation": "Veuillez vérifier votre boîte mail (et vos spams !) pour le mail de vérification. (désactivé pour l'instant)"
+  },
+  {
+    "id": "signup_verification_noemail",
+    "translation": "L'inscription est réussie, vous pouvez dès à présent utiliser votre compte."
+  },
+  {
+    "id": "email_placeholder",
+    "translation": "Peut être laissé vide."
+  },
+  {
+    "id": "settings",
+    "translation": "Paramètres"
+  },
+  {
+    "id": "torrents",
+    "translation": "Torrents"
+  },
+  {
+    "id": "follow",
+    "translation": "S'abonner"
+  },
+  {
+    "id": "unfollow",
+    "translation": "Se désabonner"
+  },
+  {
+    "id": "user_followed_msg",
+    "translation": "Vous vous êtes abonné à %s!"
+  },
+  {
+    "id": "user_unfollowed_msg",
+    "translation": "Vous vous êtes désabonné de %s!"
+  },
+  {
+    "id": "profile_page",
+    "translation": "%s Profil"
+  },
+  {
+    "id": "see_more_torrents_from",
+    "translation": "Voir plus de torrents de %s"
+  },
+  {
+    "id": "torrents_uploaded",
+    "translation": "Torrents uploadés"
+  },
+  {
+    "id": "category",
+    "translation": "Catégorie"
   },
   {
     "id": "name",
     "translation": "Nom"
   },
   {
-    "id": "file_name",
-    "translation": "Nom du fichier"
+    "id": "date",
+    "translation": "Date"
   },
   {
-    "id": "torrent_file",
-    "translation": "Fichier torrent"
+    "id": "size",
+    "translation": "Taille"
   },
   {
-    "id": "uploading_file_prefills_fields",
-    "translation": "Il est recommandé d'uploader un fichier torrent afin de préremplir certains champs."
+    "id": "links",
+    "translation": "Liens"
   },
   {
-    "id": "magnet_link",
-    "translation": "Lien magnet"
+    "id": "home",
+    "translation": "Accueil"
   },
   {
-    "id": "please_include_our_tracker",
-    "translation": "Veuillez inclure udp://tracker.doko.moe:6969 parmi les trackers."
+    "id": "error_404",
+    "translation": "Erreur 404"
   },
   {
-    "id": "select_a_torrent_category",
-    "translation": "Choisir une catégorie de torrent"
+    "id": "error_400",
+    "translation": "Erreur 400"
   },
   {
-    "id": "mark_as_remake",
-    "translation": "Marquer comme remake"
+    "id": "error_500",
+    "translation": "Erreur 500"
   },
   {
-    "id": "mark_as_hidden",
-    "translation": "Marquer comme invisible"
-  },
-  {
-    "id": "website_link",
-    "translation": "Site web"
-  },
-  {
-    "id": "torrent_description",
-    "translation": "Description du torrent"
-  },
-  {
-    "id": "description_markdown_notice",
-    "translation": "Les descriptions peuvent faire l'usage de Markdown."
-  },
-  {
-    "id": "captcha",
-    "translation": "Captcha"
-  },
-  {
-    "id": "captcha_audio",
-    "translation": "Captcha Audio"
-  },
-  {
-    "id": "bad_captcha",
-    "translation": "Mauvais captcha !"
-  },
-  {
-    "id": "torrent_uploaded",
-    "translation": "Le torrent a été uploadé avec succès !"
-  },
-  {
-    "id": "torrent_language",
-    "translation": "Langue du torrent"
-  },
-  {
-    "id": "select_a_torrent_language",
-    "translation": "Choisissez la langue du torrent"
-  },
-  {
-    "id": "language_en-us_name",
-    "translation": "Anglais"
-  },
-  {
-    "id": "language_ca-es_name",
-    "translation": "Catalan"
-  },
-  {
-    "id": "language_de-de_name",
-    "translation": "Allemand"
-  },
-  {
-    "id": "language_es-es_name",
-    "translation": "Espagnol"
-  },
-  {
-    "id": "language_es-mx_name",
-    "translation": "Espagnol (LATAM)"
-  },
-  {
-    "id": "language_fr-fr_name",
-    "translation": "Français"
-  },
-  {
-    "id": "language_hu-hu_name",
-    "translation": "Hongrois"
-  },
-  {
-    "id": "language_is-is_name",
-    "translation": "Islandais"
-  },
-  {
-    "id": "language_it-it_name",
-    "translation": "Italien"
-  },
-  {
-    "id": "language_ja-jp_name",
-    "translation": "Japonais"
-  },
-  {
-    "id": "language_ko-kr_name",
-    "translation": "Coréen"
-  },
-  {
-    "id": "language_nb-no_name",
-    "translation": "Norvégien"
-  },
-  {
-    "id": "language_nl-nl_name",
-    "translation": "Néerlandais"
-  },
-  {
-    "id": "language_pt-br_name",
-    "translation": "Portugais (Brésil)"
-  },
-  {
-    "id": "language_pt-pt_name",
-    "translation": "Portugais (Portugal)"
-  },
-  {
-    "id": "language_ro-ro_name",
-    "translation": "Roumain"
-  },
-  {
-    "id": "language_ru-ru_name",
-    "translation": "Russe"
-  },
-  {
-    "id": "language_sv-se_name",
-    "translation": "Suédois"
-  },
-  {
-    "id": "language_th-th_name",
-    "translation": "Thaï"
-  },
-  {
-    "id": "language_zh-cn_name",
-    "translation": "Chinois simplifié"
-  },
-  {
-    "id": "language_zh-tw_name",
-    "translation": "Chinois traditionnel"
-  },
-  {
-    "id": "language_other_name",
-    "translation": "Autre"
-  },
-  {
-    "id": "language_multiple_name",
-    "translation": "Langues multiples"
+    "id": "upload",
+    "translation": "Uploader"
   },
   {
     "id": "faq",
     "translation": "FAQ"
+  },
+  {
+    "id": "fap",
+    "translation": "Fap"
+  },
+  {
+    "id": "fun",
+    "translation": "Fun"
+  },
+  {
+    "id": "nothing_here",
+    "translation": "RAS"
+  },
+  {
+    "id": "404_not_found",
+    "translation": "404 Page introuvable"
+  },
+  {
+    "id": "500_internal_server_error",
+    "translation": "500 Erreur interne du serveur"
+  },
+  {
+    "id": "400_bad_request",
+    "translation": "400 Requête incorrecte"
+  },
+  {
+    "id": "no_torrents_uploaded",
+    "translation": "Pas encore de torrent uploadé !"
+  },
+  {
+    "id": "profile",
+    "translation": "Profil"
+  },
+  {
+    "id": "sign_out",
+    "translation": "Se déconnecter"
+  },
+  {
+    "id": "member",
+    "translation": "Membre"
+  },
+  {
+    "id": "no_results_found",
+    "translation": "Aucun résultat trouvé."
   },
   {
     "id": "notice_keep_seeding",
@@ -258,10 +258,6 @@
   {
     "id": "links_replacement_mirror",
     "translation": "Liens miroir"
-  },
-  {
-    "id": "server_status_link",
-    "translation": "Statut du serveur"
   },
   {
     "id": "what_happened",
@@ -282,30 +278,6 @@
   {
     "id": "recovery_effort",
     "translation": "Un travail de récupération est en cours."
-  },
-  {
-    "id": "extensions_and_plugins",
-    "translation": "Extensions et Plugins (réalisés par des développeurs tiers)"
-  },
-  {
-    "id": "chrome_extension",
-    "translation": "Extension Chrome"
-  },
-  {
-    "id": "firefox_extension",
-    "translation": "Extension Firefox"
-  },
-  {
-    "id": "android_app",
-    "translation": "Application Android"
-  },
-  {
-    "id": "qbittorrent_plugin",
-    "translation": "Plugin qBittorrent"
-  },
-  {
-    "id": "local_client",
-    "translation": "Client local"
   },
   {
     "id": "is_everything_lost",
@@ -336,6 +308,14 @@
     "translation": "Les bases de données mentionnées sont hébergées sur nyaa.pantsu.cat et sukebei.pantsu.cat. Les fonctions de recherche et de tri sont disponibles, et (presque) toutes les fonctionnalités de Nyaa devraient arriver."
   },
   {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "Comment puis-je lier mes anciens uploads à mon nouveau compte ?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "Rejoignez le canal IRC <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> et demandez à un modérateur de migrer vos anciens torrents en indiquant vos ancien et nouveau noms d'utilisateur."
+  },
+  {
     "id": "are_the_trackers_working",
     "translation": "Les torrents fonctionnent-ils toujours ?"
   },
@@ -354,14 +334,6 @@
   {
     "id": "magnet_link_should_look_like",
     "translation": "Le lien magnet devrait ressembler à ceci :"
-  },
-  {
-    "id": "how_do_i_link_my_old_account",
-    "translation": "Comment puis-je lier mes anciens uploads à mon nouveau compte ?"
-  },
-  {
-    "id": "answer_how_do_i_link_my_old_account",
-    "translation": "Rejoignez le canal IRC <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> et demandez à un modérateur de migrer vos anciens torrents en indiquant vos ancien et nouveau noms d'utilisateur."
   },
   {
     "id": "which_trackers_do_you_recommend",
@@ -392,72 +364,24 @@
     "translation": "C'est le langage de programmation favori du développeur."
   },
   {
-    "id": "who_is_renchon",
-    "translation": "Qui est <span lang=\"ja\">れんちょん</span> ?"
+    "id": "torrent_file",
+    "translation": "Fichier torrent"
   },
   {
-    "id": "renchon_anon_explanation",
-    "translation": "<span lang=\"ja\">れんちょん</span> (Ren-chon) est le nom d'utilisateur par défaut assigné aux uploads et commentaires anonymes. Il est utilisé pour les torrents importés du Nyaa original, bien que l'auteur d'origine puisse parfois être affiché."
+    "id": "uploading_file_prefills_fields",
+    "translation": "Il est recommandé d'uploader un fichier torrent afin de préremplir certains champs."
+  },
+  {
+    "id": "magnet_link",
+    "translation": "Lien magnet"
   },
   {
     "id": "all_categories",
     "translation": "Ttes catégories"
   },
   {
-    "id": "show_all",
-    "translation": "Afficher tout"
-  },
-  {
-    "id": "filter_remakes",
-    "translation": "Filtrer les remakes"
-  },
-  {
-    "id": "trusted",
-    "translation": "Approuvé"
-  },
-  {
-    "id": "search",
-    "translation": "Recherche"
-  },
-  {
-    "id": "no_results_found",
-    "translation": "Aucun résultat trouvé."
-  },
-  {
-    "id": "refine_search",
-    "translation": "Affiner votre recherche"
-  },
-  {
-    "id": "between",
-    "translation": "Entre"
-  },
-  {
-    "id": "and",
-    "translation": "et"
-  },
-  {
-    "id": "days",
-    "translation": "jours"
-  },
-  {
-    "id": "months",
-    "translation": "mois"
-  },
-  {
-    "id": "years",
-    "translation": "années"
-  },
-  {
-    "id": "refine",
-    "translation": "Affiner"
-  },
-  {
-    "id": "large",
-    "translation": "de taille"
-  },
-  {
-    "id": "old",
-    "translation": "d'ancienneté"
+    "id": "select_a_torrent_category",
+    "translation": "Choisir une catégorie de torrent"
   },
   {
     "id": "anime",
@@ -588,44 +512,32 @@
     "translation": "Vie Réelle - Vidéos"
   },
   {
-    "id": "category",
-    "translation": "Catégorie"
+    "id": "torrent_description",
+    "translation": "Description du torrent"
   },
   {
-    "id": "uploaded_by",
-    "translation": "Uploadé par"
+    "id": "description_markdown_notice",
+    "translation": "Les descriptions peuvent faire l'usage de Markdown."
+  },
+  {
+    "id": "show_all",
+    "translation": "Tous les torrents"
+  },
+  {
+    "id": "filter_remakes",
+    "translation": "Filtrer les remakes"
+  },
+  {
+    "id": "trusted",
+    "translation": "Approuvé"
+  },
+  {
+    "id": "search",
+    "translation": "Recherche"
   },
   {
     "id": "hash",
     "translation": "Info Hash"
-  },
-  {
-    "id": "size",
-    "translation": "Taille"
-  },
-  {
-    "id": "date",
-    "translation": "Date"
-  },
-  {
-    "id": "seeders",
-    "translation": "Seeders"
-  },
-  {
-    "id": "leechers",
-    "translation": "Leechers"
-  },
-  {
-    "id": "completed",
-    "translation": "Téléchargements"
-  },
-  {
-    "id": "last_scraped",
-    "translation": "Dernier scrape"
-  },
-  {
-    "id": "unknown",
-    "translation": "Inconnu"
   },
   {
     "id": "description",
@@ -634,14 +546,6 @@
   {
     "id": "no_description",
     "translation": "Aucune description disponible."
-  },
-  {
-    "id": "files",
-    "translation": "Liste des fichiers"
-  },
-  {
-    "id": "no_files",
-    "translation": "Aucun fichier trouvé."
   },
   {
     "id": "comments",
@@ -656,20 +560,188 @@
     "translation": "Envoyer un commentaire sous <span lang=\"ja\">れんちょん</span>"
   },
   {
-    "id": "comment_empty",
-    "translation": "Commentaire vide !"
-  },
-  {
     "id": "submit",
     "translation": "Envoyer"
   },
   {
-    "id": "report_torrent_number",
-    "translation": "Signaler le torrent n° %s"
+    "id": "personal_info",
+    "translation": "Informations personnelles"
   },
   {
-    "id": "report_msg",
-    "translation": "Le torrent n° %s a été signalé."
+    "id": "language",
+    "translation": "Langue"
+  },
+  {
+    "id": "current_password",
+    "translation": "Mot de passe actuel"
+  },
+  {
+    "id": "role",
+    "translation": "Rôle"
+  },
+  {
+    "id": "banned",
+    "translation": "Banni"
+  },
+  {
+    "id": "default",
+    "translation": "Par défaut"
+  },
+  {
+    "id": "trusted_member",
+    "translation": "Membre de confiance"
+  },
+  {
+    "id": "scraped_user",
+    "translation": "Utilisateur scrapé"
+  },
+  {
+    "id": "moderator",
+    "translation": "Modérateur"
+  },
+  {
+    "id": "api_token",
+    "translation": "Authentifieur d'API"
+  },
+  {
+    "id": "save_changes",
+    "translation": "Sauvegarder"
+  },
+  {
+    "id": "profile_updated",
+    "translation": "Votre profil a été correctement mis à jour !"
+  },
+  {
+    "id": "delete_account",
+    "translation": "Supprimer compte"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "Êtes-vous sûr de vouloir supprimer ce compte ?"
+  },
+  {
+    "id": "delete_success",
+    "translation": "Le compte a été supprimé avec succès !"
+  },
+  {
+    "id": "moderation",
+    "translation": "Modération"
+  },
+  {
+    "id": "extensions_and_plugins",
+    "translation": "Extensions et Plugins (réalisés par des développeurs tiers)"
+  },
+  {
+    "id": "qbittorrent_plugin",
+    "translation": "Plugin qBittorrent"
+  },
+  {
+    "id": "local_client",
+    "translation": "Client local"
+  },
+  {
+    "id": "chrome_extension",
+    "translation": "Extension Chrome"
+  },
+  {
+    "id": "firefox_extension",
+    "translation": "Extension Firefox"
+  },
+  {
+    "id": "android_app",
+    "translation": "Application Android"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "Qui est <span lang=\"ja\">れんちょん</span> ?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "<span lang=\"ja\">れんちょん</span> (Ren-chon) est le nom d'utilisateur par défaut assigné aux uploads et commentaires anonymes. Il est utilisé pour les torrents importés du Nyaa original, bien que l'auteur d'origine puisse parfois être affiché."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Marquer comme remake"
+  },
+  {
+    "id": "email_changed",
+    "translation": "L'adresse email a été modifiée avec succès ! Confirmez le changement en cliquant sur le lien envoyé à : %s"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "Statut du torrent"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "Normal"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "Remake"
+  },
+  {
+    "id": "torrent_status_blocked",
+    "translation": "Bloqué"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "Éditer le profil de %s"
+  },
+  {
+    "id": "seeders",
+    "translation": "Seeders"
+  },
+  {
+    "id": "leechers",
+    "translation": "Leechers"
+  },
+  {
+    "id": "completed",
+    "translation": "Téléchargements"
+  },
+  {
+    "id": "change_language",
+    "translation": "Changer la langue"
+  },
+  {
+    "id": "language_name",
+    "translation": "Français"
+  },
+  {
+    "id": "language_code",
+    "translation": "fr-fr"
+  },
+  {
+    "id": "delete",
+    "translation": "Supprimer"
+  },
+  {
+    "id": "website_link",
+    "translation": "Site web"
+  },
+  {
+    "id": "files",
+    "translation": "Liste des fichiers"
+  },
+  {
+    "id": "no_files",
+    "translation": "Aucun fichier trouvé."
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "Uploadé par"
+  },
+  {
+    "id": "report_btn",
+    "translation": "Signaler"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "Êtes-vous sûr ?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "Signaler le torrent n° %s"
   },
   {
     "id": "report_type",
@@ -692,180 +764,40 @@
     "translation": "Doublon / Obsolète"
   },
   {
-    "id": "report_btn",
-    "translation": "Signaler"
+    "id": "captcha",
+    "translation": "Captcha"
   },
   {
-    "id": "register_title",
-    "translation": "Créer un nouveau compte"
+    "id": "captcha_audio",
+    "translation": "Captcha Audio"
   },
   {
-    "id": "signup_box_title",
-    "translation": "Inscription"
+    "id": "file_name",
+    "translation": "Nom du fichier"
   },
   {
-    "id": "username",
-    "translation": "Nom d'utilisateur"
+    "id": "cancel",
+    "translation": "Annuler"
   },
   {
-    "id": "username_illegal",
-    "translation": "Le nom d'utilisateur contient des caractères interdits !"
+    "id": "please_include_our_tracker",
+    "translation": "Veuillez inclure udp://tracker.doko.moe:6969 parmi les trackers."
   },
   {
-    "id": "email_address",
-    "translation": "Adresse email"
+    "id": "unknown",
+    "translation": "Inconnu"
   },
   {
-    "id": "optional",
-    "translation": "Facultatif"
+    "id": "last_scraped",
+    "translation": "Dernier scrape :"
   },
   {
-    "id": "email_not_valid",
-    "translation": "L'adresse email est invalide !"
+    "id": "server_status_link",
+    "translation": "Statut du serveur"
   },
   {
-    "id": "password",
-    "translation": "Mot de passe"
-  },
-  {
-    "id": "confirm_password",
-    "translation": "Confirmer le mot de passe"
-  },
-  {
-    "id": "terms_conditions_confirm",
-    "translation": "En cliquant sur <b>S'inscrire</b>, vous acceptez les <a id=\"modal_active\" href=\"#\">Termes et Conditions</a> et l'usage des cookies établis par le site."
-  },
-  {
-    "id": "register",
-    "translation": "S'inscrire"
-  },
-  {
-    "id": "terms_conditions",
-    "translation": "Termes et Conditions"
-  },
-  {
-    "id": "terms_conditions_full",
-    "translation": "Ne faites pas le con."
-  },
-  {
-    "id": "register_success_title",
-    "translation": "Inscription réussie"
-  },
-  {
-    "id": "sign_up_success",
-    "translation": "Merci pour votre inscription !"
-  },
-  {
-    "id": "verify_email_title",
-    "translation": "Vérifiez votre adresse email pour Pantsu."
-  },
-  {
-    "id": "verify_email_content",
-    "translation": "Veuillez cliquer sur le lien ci-dessous pour vérifier votre adresse email."
-  },
-  {
-    "id": "signup_verification_email",
-    "translation": "Veuillez vérifier votre boîte mail (et vos spams !) pour le mail de vérification. (désactivé pour l'instant)"
-  },
-  {
-    "id": "signup_verification_noemail",
-    "translation": "L'inscription est réussie, vous pouvez dès à présent utiliser votre compte."
-  },
-  {
-    "id": "verify_success",
-    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Votre compte est à présent activé !"
-  },
-  {
-    "id": "sign_in_title",
-    "translation": "Se connecter"
-  },
-  {
-    "id": "sign_in_box_title",
-    "translation": "Connexion"
-  },
-  {
-    "id": "email_address_or_username",
-    "translation": "Adresse email ou nom d'utilisateur"
-  },
-  {
-    "id": "remember_me",
-    "translation": "Se souvenir de moi"
-  },
-  {
-    "id": "forgot_password",
-    "translation": "Mot de passe oublié ?"
-  },
-  {
-    "id": "reset_password_title",
-    "translation": "Réinitialisez votre mot de passe pour Pantsu."
-  },
-  {
-    "id": "reset_password_content",
-    "translation": "Veuillez cliquer sur le lien ci-dessous pour réinitialiser votre mot de passe."
-  },
-  {
-    "id": "signin",
-    "translation": "Se connecter"
-  },
-  {
-    "id": "profile",
-    "translation": "Profil"
-  },
-  {
-    "id": "sign_out",
-    "translation": "Se déconnecter"
-  },
-  {
-    "id": "profile_page",
-    "translation": "%s Profil"
-  },
-  {
-    "id": "profile_edit_page",
-    "translation": "Éditer le profil de %s"
-  },
-  {
-    "id": "follow",
-    "translation": "S'abonner"
-  },
-  {
-    "id": "user_followed_msg",
-    "translation": "Vous vous êtes abonné à %s!"
-  },
-  {
-    "id": "unfollow",
-    "translation": "Se désabonner"
-  },
-  {
-    "id": "user_unfollowed_msg",
-    "translation": "Vous vous êtes désabonné de %s!"
-  },
-  {
-    "id": "torrents",
-    "translation": "Torrents"
-  },
-  {
-    "id": "see_more_torrents_from",
-    "translation": "Voir plus de torrents de %s"
-  },
-  {
-    "id": "no_torrents_uploaded",
-    "translation": "Pas encore de torrent uploadé !"
-  },
-  {
-    "id": "my_notifications",
-    "translation": "Notifications"
-  },
-  {
-    "id": "no_notifications",
-    "translation": "Aucune notification"
-  },
-  {
-    "id": "new_torrent_uploaded",
-    "translation": "Nouveau torrent : \"%s\" de %s"
-  },
-  {
-    "id": "new_comment_on_torrent",
-    "translation": "Nouveau commentaire sur le torrent : \"%s\""
+    "id": "no_database_dumps_available",
+    "translation": "Aucune sauvegarde de base de données n'est disponible en ce moment."
   },
   {
     "id": "clear_notifications",
@@ -876,36 +808,20 @@
     "translation": "Notifications supprimées !"
   },
   {
-    "id": "settings",
-    "translation": "Paramètres"
+    "id": "my_notifications",
+    "translation": "Notifications"
   },
   {
-    "id": "personal_info",
-    "translation": "Informations personnelles"
+    "id": "new_torrent_uploaded",
+    "translation": "Nouveau torrent : \"%s\" de %s"
   },
   {
-    "id": "api_token",
-    "translation": "Authentifieur d'API"
-  },
-  {
-    "id": "email_placeholder",
-    "translation": "Peut être laissé vide."
-  },
-  {
-    "id": "current_password",
-    "translation": "Mot de passe actuel"
+    "id": "torrent_uploaded",
+    "translation": "Le torrent a été uploadé avec succès !"
   },
   {
     "id": "preferences",
     "translation": "Préférences"
-  },
-  {
-    "id": "no",
-    "translation": "Non"
-  },
-  {
-    "id": "yes",
-    "translation": "Oui"
   },
   {
     "id": "new_torrent_settings",
@@ -948,24 +864,16 @@
     "translation": "Être notifié par email de vos nouveaux abonnements"
   },
   {
-    "id": "profile_updated",
-    "translation": "Votre profil a été correctement mis à jour !"
+    "id": "yes",
+    "translation": "Oui"
   },
   {
-    "id": "email_changed",
-    "translation": "L'adresse email a été modifiée avec succès ! Confirmez le changement en cliquant sur le lien envoyé à : %s"
+    "id": "no",
+    "translation": "Non"
   },
   {
-    "id": "delete_account",
-    "translation": "Supprimer compte"
-  },
-  {
-    "id": "delete_account_confirm",
-    "translation": "Êtes-vous sûr de vouloir supprimer ce compte ?"
-  },
-  {
-    "id": "delete_success",
-    "translation": "Le compte a été supprimé avec succès !"
+    "id": "new_comment_on_torrent",
+    "translation": "Nouveau commentaire sur le torrent : \"%s\""
   },
   {
     "id": "no_action_selected",
@@ -1052,164 +960,12 @@
     "translation": "La mise à jour du torrent a échoué."
   },
   {
-    "id": "moderation",
-    "translation": "Modération"
+    "id": "bad_captcha",
+    "translation": "Mauvais captcha !"
   },
   {
-    "id": "role",
-    "translation": "Rôle"
-  },
-  {
-    "id": "banned",
-    "translation": "Banni"
-  },
-  {
-    "id": "default",
-    "translation": "Par défaut"
-  },
-  {
-    "id": "member",
-    "translation": "Membre"
-  },
-  {
-    "id": "trusted_member",
-    "translation": "Membre de confiance"
-  },
-  {
-    "id": "scraped_user",
-    "translation": "Utilisateur scrapé"
-  },
-  {
-    "id": "moderator",
-    "translation": "Modérateur"
-  },
-  {
-    "id": "cancel",
-    "translation": "Annuler"
-  },
-  {
-    "id": "nyaa_pantsu",
-    "translation": "Pantsu"
-  },
-  {
-    "id": "users",
-    "translation": "Utilisateurs"
-  },
-  {
-    "id": "torrent_reports",
-    "translation": "Signalements"
-  },
-  {
-    "id": "show_mod_tools",
-    "translation": "Afficher les outils de modération"
-  },
-  {
-    "id": "hide_mod_tools",
-    "translation": "Maquer les outils de modération"
-  },
-  {
-    "id": "torrent_status",
-    "translation": "Statut du torrent"
-  },
-  {
-    "id": "torrent_status_blocked",
-    "translation": "Bloqué"
-  },
-  {
-    "id": "torrent_status_normal",
-    "translation": "Normal"
-  },
-  {
-    "id": "torrent_status_remake",
-    "translation": "Remake"
-  },
-  {
-    "id": "following_changes_applied",
-    "translation": "Les modifications suivantes seront appliquées :"
-  },
-  {
-    "id": "changes_in_following_order",
-    "translation": "Les modifications seront effectuées dans l'ordre suivant :"
-  },
-  {
-    "id": "edit_changes",
-    "translation": "Éditer les modifications"
-  },
-  {
-    "id": "delete_changes",
-    "translation": "Supprimer les modifications"
-  },
-  {
-    "id": "are_you_sure",
-    "translation": "Êtes-vous sûr ?"
-  },
-  {
-    "id": "delete",
-    "translation": "Supprimer"
-  },
-  {
-    "id": "try_new_attempt",
-    "translation": "Nouvel essai..."
-  },
-  {
-    "id": "query_is_broken",
-    "translation": "La requête ({0}?{1}) semble interrompue."
-  },
-  {
-    "id": "query_executed_success",
-    "translation": "Requête exécutée avec succès."
-  },
-  {
-    "id": "all_operations_done",
-    "translation": "Toutes les opérations sont réalisées."
-  },
-  {
-    "id": "refreshing_in",
-    "translation": "Rafraîchissement de la page dans {0} secondes..."
-  },
-  {
-    "id": "delete_reports_with_torrents",
-    "translation": "Souhaitez-vous supprimer les signalements en même temps que les torrents sélectionnés ?"
-  },
-  {
-    "id": "with_st",
-    "translation": "avec {0}"
-  },
-  {
-    "id": "and_reports",
-    "translation": " et signalements"
-  },
-  {
-    "id": "reports",
-    "translation": "Signalements"
-  },
-  {
-    "id": "lock",
-    "translation": "Bloquer"
-  },
-  {
-    "id": "status_js",
-    "translation": "Statut : {0}"
-  },
-  {
-    "id": "owner_id_js",
-    "translation": "ID compte : {0}"
-  },
-  {
-    "id": "category_js",
-    "translation": "Catégorie : {0}"
-  },
-  {
-    "id": "no_changes",
-    "translation": "Aucune modification"
-  },
-  {
-    "id": "query_nb",
-    "translation": "Requête n° {0}"
-  },
-  {
-    "id": "owner_id_placeholder",
-    "translation": "Nouv. propriétaire"
+    "id": "comment_empty",
+    "translation": "Commentaire vide !"
   },
   {
     "id": "no_owner_selected",
@@ -1248,22 +1004,6 @@
     "translation": "Bloquer et Supprimer"
   },
   {
-    "id": "torrent_unblock",
-    "translation": "Débloquer"
-  },
-  {
-    "id": "torrent_unblocked",
-    "translation": "Le torrent a été débloqué."
-  },
-  {
-    "id": "torrent_block",
-    "translation": "Bloquer"
-  },
-  {
-    "id": "torrent_blocked",
-    "translation": "Le torrent a été bloqué."
-  },
-  {
     "id": "delete_definitely_torrent_warning",
     "translation": "Vous ne pourrez pas récupérer ce fichier, ni empêcher quelqu'un de le réuploader."
   },
@@ -1272,8 +1012,28 @@
     "translation": "Supprimer définitivement"
   },
   {
+    "id": "torrent_unblock",
+    "translation": "Débloquer"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "Bloquer"
+  },
+  {
     "id": "torrent_deleted_definitely",
     "translation": "Le torrent a été effacé de la base de données."
+  },
+  {
+    "id": "torrent_not_deleted",
+    "translation": "Le torrent n'a pas été supprimé."
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "Le torrent a été débloqué."
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "Le torrent a été bloqué."
   },
   {
     "id": "torrent_nav_notdeleted",
@@ -1284,40 +1044,148 @@
     "translation": "Torrents supprimés"
   },
   {
-    "id": "moderation_overview",
-    "translation": "Aperçu de la modération"
+    "id": "change_settings",
+    "translation": "Préférences"
   },
   {
-    "id": "last_torrents",
-    "translation": "Derniers torrents"
+    "id": "mascot",
+    "translation": "Mascotte"
   },
   {
-    "id": "last_reports",
-    "translation": "Derniers signalements"
+    "id": "theme",
+    "translation": "Thème"
   },
   {
-    "id": "last_users",
-    "translation": "Derniers utilisateurs"
+    "id": "theme_select",
+    "translation": "Choisir un thème"
   },
   {
-    "id": "last_comments",
-    "translation": "Derniers commentaires"
+    "id": "theme_none",
+    "translation": "Classique"
+  },
+  {
+    "id": "upload_as_anon",
+    "translation": "Uploader anonymement"
+  },
+  {
+    "id": "cookies",
+    "translation": "En cliquant sur Sauvegarder, vous acceptez notre utilisation des cookies."
+  },
+  {
+    "id": "show",
+    "translation": "Afficher"
+  },
+  {
+    "id": "hide",
+    "translation": "Masquer"
+  },
+  {
+    "id": "nyaa_pantsu",
+    "translation": "Pantsu"
+  },
+  {
+    "id": "users",
+    "translation": "Utilisateurs"
+  },
+  {
+    "id": "torrent_reports",
+    "translation": "Signalements de torrents"
+  },
+  {
+    "id": "show_mod_tools",
+    "translation": "Afficher les outils de modération"
+  },
+  {
+    "id": "hide_mod_tools",
+    "translation": "Maquer les outils de modération"
+  },
+  {
+    "id": "following_changes_applied",
+    "translation": "Les modifications suivantes seront appliquées :"
+  },
+  {
+    "id": "changes_in_following_order",
+    "translation": "Les modifications seront effectuées dans l'ordre suivant :"
+  },
+  {
+    "id": "edit_changes",
+    "translation": "Éditer les modifications"
+  },
+  {
+    "id": "delete_changes",
+    "translation": "Supprimer les modifications"
+  },
+  {
+    "id": "owner_id_placeholder",
+    "translation": "Nouveau propriétaire"
+  },
+  {
+    "id": "try_new_attempt",
+    "translation": "Nouvel essai..."
+  },
+  {
+    "id": "query_is_broken",
+    "translation": "La requête ({0}?{1}) semble interrompue."
+  },
+  {
+    "id": "query_executed_success",
+    "translation": "Requête exécutée avec succès."
+  },
+  {
+    "id": "all_operations_done",
+    "translation": "Toutes les opérations sont réalisées."
+  },
+  {
+    "id": "refreshing_in",
+    "translation": "Rafraîchissement de la page dans {0} secondes..."
+  },
+  {
+    "id": "delete_reports_with_torrents",
+    "translation": "Souhaitez-vous supprimer les signalements en même temps que les torrents sélectionnés ?"
+  },
+  {
+    "id": "with_st",
+    "translation": "avec {0}"
+  },
+  {
+    "id": "and_reports",
+    "translation": " et signalements"
+  },
+  {
+    "id": "reports",
+    "translation": "signalements"
+  },
+  {
+    "id": "lock",
+    "translation": "bloquer"
+  },
+  {
+    "id": "status_js",
+    "translation": "statut : {0}"
+  },
+  {
+    "id": "owner_id_js",
+    "translation": "id_compte : {0}"
+  },
+  {
+    "id": "category_js",
+    "translation": "catégorie : {0}"
+  },
+  {
+    "id": "no_changes",
+    "translation": "Aucune modification"
+  },
+  {
+    "id": "query_nb",
+    "translation": "Requête n° {0}"
+  },
+  {
+    "id": "reason",
+    "translation": "Raison"
   },
   {
     "id": "actions",
     "translation": "Actions"
-  },
-  {
-    "id": "more",
-    "translation": "Plus"
-  },
-  {
-    "id": "torrents_list",
-    "translation": "Liste des torrents"
-  },
-  {
-    "id": "torrent_edit_panel",
-    "translation": "Panneau d'édition du torrent"
   },
   {
     "id": "action_select",
@@ -1336,32 +1204,56 @@
     "translation": "Torrents non supprimés"
   },
   {
+    "id": "more",
+    "translation": "Plus"
+  },
+  {
+    "id": "last_comments",
+    "translation": "Derniers commentaires"
+  },
+  {
+    "id": "last_reports",
+    "translation": "Derniers signalements"
+  },
+  {
+    "id": "last_torrents",
+    "translation": "Derniers torrents"
+  },
+  {
+    "id": "last_users",
+    "translation": "Derniers utilisateurs"
+  },
+  {
+    "id": "moderation_overview",
+    "translation": "Aperçu de la modération"
+  },
+  {
+    "id": "users_list",
+    "translation": "Liste des utilisateurs"
+  },
+  {
+    "id": "comments_list",
+    "translation": "Liste des commentaires"
+  },
+  {
     "id": "reports_list",
     "translation": "Liste des signalements"
   },
   {
-    "id": "reason",
-    "translation": "Raison"
+    "id": "torrents_list",
+    "translation": "Liste des torrents"
+  },
+  {
+    "id": "torrent_edit_panel",
+    "translation": "Panneau d'édition du torrent"
   },
   {
     "id": "torrent_reassign",
-    "translation": "Réassignation"
+    "translation": "Réassigner le torrent"
   },
   {
     "id": "reassign_warning",
     "translation": "La réassignation de torrents à un nouvel utilisateur est difficilement réversible et doit être effectuée avec attention."
-  },
-  {
-    "id": "reassign_to",
-    "translation": "Réassigner à :"
-  },
-  {
-    "id": "user_id",
-    "translation": "ID d'utilisateur"
-  },
-  {
-    "id": "reassign_based_on",
-    "translation": "Réassigner en fonction de :"
   },
   {
     "id": "previous_username",
@@ -1380,12 +1272,136 @@
     "translation": "Cela peut prendre un certain temps, veuillez ne pas interrompre la requête."
   },
   {
-    "id": "users_list",
-    "translation": "Liste des utilisateurs"
+    "id": "reassign_to",
+    "translation": "Réassigner à :"
   },
   {
-    "id": "comments_list",
-    "translation": "Liste des commentaires"
+    "id": "reassign_based_on",
+    "translation": "Réassigner en fonction de :"
+  },
+  {
+    "id": "user_id",
+    "translation": "ID d'utilisateur"
+  },
+  {
+    "id": "mascot_url",
+    "translation": "URL de la mascotte"
+  },
+  {
+    "id": "no_notifications",
+    "translation": "Aucune notification"
+  },
+  {
+    "id": "report_msg",
+    "translation": "Le torrent n° %s a été signalé."
+  },
+  {
+    "id": "email_not_valid",
+    "translation": "L'adresse email est invalide !"
+  },
+  {
+    "id": "username_illegal",
+    "translation": "Le nom d'utilisateur contient des caractères interdits !"
+  },
+  {
+    "id": "torrent_language",
+    "translation": "Langue du torrent"
+  },
+  {
+    "id": "language_not_mandatory",
+    "translation": "La langue du torrent n'est pas obligatoire."
+  },
+  {
+    "id": "language_en-us_name",
+    "translation": "Anglais"
+  },
+  {
+    "id": "language_ca-es_name",
+    "translation": "Catalan"
+  },
+  {
+    "id": "language_de-de_name",
+    "translation": "Allemand"
+  },
+  {
+    "id": "language_es-es_name",
+    "translation": "Espagnol"
+  },
+  {
+    "id": "language_es-mx_name",
+    "translation": "Espagnol (LATAM)"
+  },
+  {
+    "id": "language_fr-fr_name",
+    "translation": "Français"
+  },
+  {
+    "id": "language_hu-hu_name",
+    "translation": "Hongrois"
+  },
+  {
+    "id": "language_is-is_name",
+    "translation": "Islandais"
+  },
+  {
+    "id": "language_it-it_name",
+    "translation": "Italien"
+  },
+  {
+    "id": "language_ja-jp_name",
+    "translation": "Japonais"
+  },
+  {
+    "id": "language_ko-kr_name",
+    "translation": "Coréen"
+  },
+  {
+    "id": "language_nb-no_name",
+    "translation": "Norvégien"
+  },
+  {
+    "id": "language_nl-nl_name",
+    "translation": "Néerlandais"
+  },
+  {
+    "id": "language_pt-br_name",
+    "translation": "Portugais (Brésil)"
+  },
+  {
+    "id": "language_pt-pt_name",
+    "translation": "Portugais (Portugal)"
+  },
+  {
+    "id": "language_ro-ro_name",
+    "translation": "Roumain"
+  },
+  {
+    "id": "language_ru-ru_name",
+    "translation": "Russe"
+  },
+  {
+    "id": "language_sv-se_name",
+    "translation": "Suédois"
+  },
+  {
+    "id": "language_th-th_name",
+    "translation": "Thaï"
+  },
+  {
+    "id": "language_zh-cn_name",
+    "translation": "Chinois simplifié"
+  },
+  {
+    "id": "language_zh-tw_name",
+    "translation": "Chinois traditionnel"
+  },
+  {
+    "id": "language_other_name",
+    "translation": "Autre"
+  },
+  {
+    "id": "language_multiple_name",
+    "translation": "Langues multiples"
   },
   {
     "id": "activity_list",
@@ -1404,12 +1420,88 @@
     "translation": "Longueur minimale de %s requise pour l'entrée : %s"
   },
   {
+    "id": "error_min_number",
+    "translation": "%s doit être %s ou plus grand"
+  },
+  {
+    "id": "error_min_field",
+    "translation": "%s doit être égal ou supérieur à %s"
+  },
+  {
+    "id": "error_min_array",
+    "translation": "%s doit contenir au moins %s items"
+  },
+  {
+    "id": "error_less_date",
+    "translation": "%s doit être inférieur à la date et l'heure actuelles"
+  },
+  {
+    "id": "error_less_array",
+    "translation":"%s doit contenir moins de %s items"
+  },
+  {
+    "id": "error_less_length",
+    "translation": "%s doit être inférieur à %s en longueur"
+  },
+  {
+    "id": "error_less_number",
+    "translation":"%s doit être inférieur à %s"
+  },
+  {
+    "id": "error_less_equal_date",
+    "translation": "%s doit être inférieur ou égale à la date et l'heure actuelles"
+  },
+  {
+    "id": "error_greater_date",
+    "translation": "%s doit être supérieur à la date et l'heure actuelles"
+  },
+  {
+    "id": "error_greater_length",
+    "translation": "%s doit être supérieur à %s en longueur"
+  },
+  {
+    "id": "error_greater_number",
+    "translation": "%s doit être supérieur à %s"
+  },
+  {
+    "id": "error_greater_equal_date",
+    "translation": "%s doit être supérieur ou égal à la date et l'heure actuelles"
+  },
+  {
+    "id": "error_max_field",
+    "translation": "%s doit être égal ou inférieur à %s"
+  },
+  {
     "id": "error_max_length",
     "translation": "Longueur maximale de %s requise pour l'entrée : %s"
   },
   {
+    "id": "error_max_number",
+    "translation": "%s doit être %s ou plus petit"
+  },
+  {
+    "id": "error_max_array",
+    "translation": "%s doit contenir au plus %s items"
+  },
+  {
+    "id": "error_length",
+    "translation": "La longueur de %s est requise pour l'entrée : %s"
+  },
+  {
+    "id": "error_equal",
+    "translation": "%s n'est pas égal à %s"
+  },
+  {
     "id": "error_same_value",
-    "translation": "Doit être le même %s"
+    "translation": "Le champ '%s' doit avoir la même valeur que le champ '%s'"
+  },
+  {
+    "id": "error_field",
+    "translation": "Erreur inattendue sur le champ : %s"
+  },
+  {
+    "id": "error_not_equal",
+    "translation": "%s ne doit pas être égal à %s"
   },
   {
     "id": "error_wrong_value",
@@ -1418,5 +1510,325 @@
   {
     "id": "error_field_needed",
     "translation": "Champ requis : %s"
+  },
+  {
+    "id": "error_len_array",
+    "translation": "%s doit contenir %s items"
+  },
+  {
+    "id": "error_alpha",
+    "translation": "%s peut uniquement contenir des caractères alphabétiques"
+  },
+  {
+    "id": "error_alphanum",
+    "translation": "%s peut uniquement contenir des caractères alphanumériques"
+  },
+  {
+    "id": "error_numeric_valid",
+    "translation": "%s doit être une valeur numérique valide"
+  },
+  {
+    "id": "error_number_valid",
+    "translation": "%s doit être un nombre valide"
+  },
+  {
+    "id": "error_hexadecimal_valid",
+    "translation": "%s doit être une valeur hexadécimale valide"
+  },
+  {
+    "id": "error_hex_valid",
+    "translation": "%s doit être une couleur HEX valide"
+  },
+  {
+    "id": "error_rgb_valid",
+    "translation": "%s doit être une couleur RGB valide"
+  },
+  {
+    "id": "error_rgba_valid",
+    "translation": "%s doit être une couleur RGBA valide"
+  },
+  {
+    "id": "error_hsl_valid",
+    "translation": "%s doit être une couleur HSL valide"
+  },
+  {
+    "id": "error_hsla_valid",
+    "translation": "%s doit être une couleur HSLA valide"
+  },
+  {
+    "id": "error_url_valid",
+    "translation": "%s doit être une URL valide"
+  },
+  {
+    "id": "error_uri_valid",
+    "translation": "%s doit être une URI valide"
+  },
+  {
+    "id": "error_base64_valid",
+    "translation": "%s doit être un Base64 string valide"
+  },
+  {
+    "id": "error_contains",
+    "translation": "%s doit contenir le texte '%s'"
+  },
+  {
+    "id": "error_contains_any",
+    "translation": "%s doit contenir au moins l'un des caractères suivants '%s'"
+  },
+  {
+    "id": "error_excludes",
+    "translation": "%s ne peut pas contenir le texte '%s'"
+  },
+  {
+    "id": "error_excludes_all",
+    "translation": "%s ne peut pas contenir les caractères suivants '%s'"
+  },
+  {
+    "id": "error_excludes_rune",
+    "translation": "%s ne peut pas contenir '%s'"
+  },
+  {
+    "id": "error_color_valid",
+    "translation": "%s doit être une couleur valide"
+  },
+  {
+    "id": "error_",
+    "translation": "%s doit contenir %s items"
+  },
+  {
+    "id": "error_len_array",
+    "translation": "%s doit contenir %s items"
+  },
+  {
+    "id": "refine_search",
+    "translation": "Affiner votre recherche"
+  },
+  {
+    "id": "between",
+    "translation": "Entre"
+  },
+  {
+    "id": "and",
+    "translation": "et"
+  },
+  {
+    "id": "days",
+    "translation": "jours"
+  },
+  {
+    "id": "months",
+    "translation": "mois"
+  },
+  {
+    "id": "years",
+    "translation": "années"
+  },
+  {
+    "id": "refine",
+    "translation": "Affiner"
+  },
+  {
+    "id": "large",
+    "translation": "de taille."
+  },
+  {
+    "id": "old",
+    "translation": "d'ancienneté"
+  },
+  {
+    "id": "optional",
+    "translation": "facultatif"
+  },
+  {
+    "id": "search_for",
+    "translation": "Rechercher"
+  },
+  {
+    "id": "show",
+    "translation": "Afficher"
+  },
+  {
+    "id": "username_taken",
+    "translation": "Ce nom d'utilisateur est déjà pris, vous pouvez choisir : %s"
+  },
+  {
+    "id": "email_in_db",
+    "translation": "Cette adresse email se trouve déjà dans la base de données."
+  },
+  {
+    "id": "user_not_found",
+    "translation": "Utilisateur non trouvé"
+  },
+  {
+    "id": "incorrect_password",
+    "translation": "Mot de passe incorrect"
+  },
+  {
+    "id": "password_error_generating",
+    "translation": "Une erreur est survenue lors de la génération de votre mot de passe hash."
+  },
+  {
+    "id": "permission_delete_error",
+    "translation": "Vous n'avez pas le droit de supprimer ceci."
+  },
+  {
+    "id": "no_username_password",
+    "translation": "Aucun nom d'utilisateur/mot de passe saisi"
+  },
+  {
+    "id": "account_banned",
+    "translation": "Compte banni"
+  },
+  {
+    "id": "account_need_activation",
+    "translation": "Ce compte nécessite d'être activé par des modérateurs, veuillez nous contacter."
+  },
+  {
+    "id": "retrieve_torrent_error",
+    "translation": "Impossible de récupérer les torrents"
+  },
+  {
+    "id": "multiple_username_error",
+    "translation": "Plus d'un nom d'utilisateur donné"
+  },
+  {
+    "id": "elevating_user_error",
+    "translation": "Élever au statut de modérateur est interdit"
+  },
+  {
+    "id": "parse_error_line",
+    "translation": "Impossible de parser à la ligne %d"
+  },
+  {
+    "id": "language_not_available",
+    "translation": "Langue indisponible"
+  },
+  {
+    "id": "mascot_url_too_long",
+    "translation": "L'URL de la mascotte est trop long (255 caract. max)"
+  },
+  {
+    "id": "mascor_url_parse_error",
+    "translation": "Une erreur est survenue lors du parsage de l'URL de la mascotte : %s"
+  },
+  {
+    "id": "no_id_given",
+    "translation": "Aucune ID de torrent donnée"
+  },
+  {
+    "id": "error_api_token",
+    "translation": "Erreur : l'authentifieur d'API n'existe pas"
+  },
+  {
+    "id": "uploads_disabled",
+    "translation": "Les uploads sont désactivés"
+  },
+  {
+    "id": "try_to_delete_report_inexistant",
+    "translation": "Tentative de suppression d'un signalement de torrent inexistant"
+  },
+  {
+    "id": "torrent_report_not_created",
+    "translation": "Le signalement du torrent n'a pas été créé"
+  },
+  {
+    "id": "user_not_deleted",
+    "translation": "L'utilisateur n'a pas été supprimé"
+  },
+  {
+    "id": "error_content_type_post",
+    "translation": "Veuillez fournir l'un de ces Content-Type : application/json header ou multipart/form-data"
+  },
+  {
+    "id": "torrent_name_invalid",
+    "translation": "Le nom du torrent est invalide"
+  },
+  {
+    "id": "torrent_private",
+    "translation": "Le torrent est privé"
+  },
+  {
+    "id": "torrent_no_working_trackers",
+    "translation": "Le torrent n'a aucun tracker (fonctionnel) : <a href=\"/faq#trackers\">Liste des trackers</a>"
+  },
+  {
+    "id": "torrent_desc_invalid",
+    "translation": "La description du torrent est invalide"
+  },
+  {
+    "id": "torrent_cat_invalid",
+    "translation": "La catégorie du torrent est invalide"
+  },
+  {
+    "id": "torrent_lang_invalid",
+    "translation": "La langue indiquée n'est pas encore prise en charge. Vous pouvez aider à la supporter en contribuant sur notre page GitHub."
+  },
+  {
+    "id": "torrent_cat_is_english",
+    "translation": "La catégorie du torrent est réservée aux traductions en anglais, la langue a donc été changée conformément."
+  },
+  {
+    "id": "torrent_cat_not_english",
+    "translation": "La catégorie du torrent concerne les traductions autres que l'anglais mais la langue choisie est cette dernière."
+  },
+  {
+    "id": "torrent_magnet_invalid",
+    "translation": "Le lien magnet n'a pas pu être parsé, veuillez le vérifier."
+  },
+  {
+    "id": "torrent_hash_invalid",
+    "translation": "L'info hash du torrent est invalide."
+  },
+  {
+    "id": "torrent_plus_magnet",
+    "translation": "Vous pouvez uploader un fichier torrent ou un lien magnet mais pas les deux simultanément."
+  },
+  {
+    "id": "torrent_file_invalid",
+    "translation": "Le fichier torrent est invalide."
+  },
+  {
+    "id": "torrent_uri_invalid",
+    "translation": "L'URL du site ou le lien IRC est invalide."
+  },
+  {
+    "id": "api_documentation",
+    "translation": "Documentation de l'API"
+  },
+  {
+    "id": "api_help",
+    "translation": "Avez-vous une API ?"
+  },
+  {
+    "id": "trusted",
+    "translation": "Torrents approuvés"
+  },
+  {
+    "id": "reencodes",
+    "translation": "Réencodages"
+  },
+  {
+    "id": "remux",
+    "translation": "Remux de la version originale d'un autre uploader"
+  },
+  {
+    "id": "reupload",
+    "translation": "Réupload du torrent d'autres utilisateurs avec des fichiers manquanets et/ou supplémentaires sans rapport"
+  },
+  {
+    "id": "red",
+    "translation": "Les entrées rouges correspondent aux : "
+  },
+  {
+    "id": "green",
+    "translation": "Les entrées vertes correspondent aux : "
+  },
+  {
+    "id": "torrent_colors",
+    "translation": "Code couleur des torrents"
+  },
+  {
+    "id": "torrent_preview",
+    "translation": "Prévisualisez votre torrent"
   }
 ]

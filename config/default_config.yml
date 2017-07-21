@@ -4,7 +4,7 @@
 # Host of server
 host: localhost
 # Version of the app
-version: "1.0"
+version: "1.0.1"
 # port of server
 port: 9999
 # database type

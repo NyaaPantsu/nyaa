@@ -1,0 +1,7 @@
+{{ block errors(name="errors")}}
+    {{ if isset(Errors[name])}}
+        {{ range Errors[name]}}
+        <p class="error-text">{{ . }}</p>
+        {{end}}
+    {{end}}
+{{end}}

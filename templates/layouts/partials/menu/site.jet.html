@@ -1,0 +1,28 @@
+{{ import "layouts/partials/helpers/search" }}
+{{ block rss_link()}}{{end}}
+<div class="container">
+    <div class="h-left">
+            <div class="h-logo">
+                <a href="{{URL.Parse("/")}}"><img class="hide-md" src="/img/{{if Sukebei()}}sukebei_logo.png{{else}}logo.png{{end}}" alt="Nyaa Pantsu"><img class="visible-md" src="/img/logo_s.png"/></a>
+            </div>
+            <div class="h-nav">
+                <a href="{{URL.Parse("/upload")}}" class="nav-btn"><div class="icon-upload visible-md"></div><span class="hide-md">{{ T("upload") }}</span></a>
+                <a href="/feed{{ yield rss_link() }}" class="nav-btn"><div class="icon-rss-squared visible-md"></div><span class="hide-md">RSS</span></a>
+                <a href="{{URL.Parse("/faq")}}" class="nav-btn"><div class="icon-help-circled visible-md"></div><span class="hide-md">{{ T("faq") }}</span></a>
+                {{if Sukebei()}}
+                <a href="{{Config.WebAddress.Nyaa}}" class="nav-btn"><div class="icon-heart visible-md"></div><span class="hide-md">{{ T("fun") }}</span></a>
+                {{else}}
+                <a href="{{Config.WebAddress.Sukebei}}" class="nav-btn"><div class="icon-heart visible-md"></div><span class="hide-md">{{ T("fap") }}</span></a>
+                {{end}}
+            </div>
+    </div>
+    <div class="h-right">
+        {{ include "layouts/partials/helpers/badgemenu" }}
+        <div class="h-search">
+        <form role="search" action="{{URL.Parse("/search")}}" id="header-form" method="get">
+            {{ yield search_common() }}
+            {{ yield search_button() }}
+        </form>
+        </div>
+    </div>
+</div>

@@ -55,12 +55,17 @@ td.tr-le, .error-text { color: #E84C4C; }
 
 .btn-red {
 	background-color: #E84C4C;
-	color: #E8E8E8;
+	color: #E8E8E8!important;
 }
 
 .btn-red:hover {
 	color: #E8E8E8;
 }
+
+.torrent-info-box > p > a, .torrent-info-box > div > a, #description-box a {
+    color: #1fa4d0;
+}
+.torrent-info-box > p > a:hover, .torrent-info-box > div > a:hover, #description-box a:hover  { color: #1fa4d0; }
 
 /* Original Nyaa colors, do NOT change! */
 .aplus, .btn-blue { background: #60B0F0; }
@@ -76,3 +81,5 @@ td.tr-le, .error-text { color: #E84C4C; }
 .sukebei th { color: #9C7575; }
 .sukebei th a { color: #893636; }
 .sukebei #mascot { background-image: url('/img/mafuyu.svg'); background-size: 100%; }
+
+.form-input.language { background-color: #f5f5f5; }

@@ -14,7 +14,7 @@ a:hover { color:  #5F89AC; }
 .header .nav-btn { color: #c5c8c6; }
 .header .nav-btn:hover { color: #eee; }
 
-.box, .pagination li { background: hsla(222, 8%, 20%, 0.8); border-color: #141517 !important; }
+.box, .pagination li { background: hsla(222, 8%, 20%, 0.85); border-color: #141517 !important; }
 
 .form-input { border-color: #0C0D0E !important; background: #141517; color: #c5c8c6; }
 
@@ -96,3 +96,8 @@ td.tr-le, .error-text { color: #cc6666; }
 .CodeMirror-line::-moz-selection, .CodeMirror-line>span::-moz-selection, .CodeMirror-line>span>span::-moz-selection {
 	background: #454545;
 }
+
+.form-input.language { background-color: #35363c; }
+
+.torrent-info-box > p > a, .torrent-info-box > div > a, #description-box a { text-decoration: none; }
+.torrent-info-box { border-color: #53565e; }
