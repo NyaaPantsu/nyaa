@@ -53,7 +53,7 @@ type Torrent struct {
 	Filesize    int64     `gorm:"column:filesize"`
 	Description string    `gorm:"column:description"`
 	WebsiteLink string    `gorm:"column:website_link"`
-	AnidbID     string    `gorm:"column:anidb_id"`
+	DbID        string    `gorm:"column:db_id"`
 	Trackers    string    `gorm:"column:trackers"`
 	// Indicates the language of the torrent's content (eg. subs, dubs, raws, manga TLs)
 	Language  string `gorm:"column:language"`
@@ -63,6 +63,7 @@ type Torrent struct {
 	OldUploader string       `gorm:"-"` // ???????
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
+	Tags        []Tag        `gorm:"-"`
 	Scrape      *Scrape      `gorm:"AssociationForeignKey:ID;ForeignKey:torrent_id"`
 	FileList    []File       `gorm:"ForeignKey:torrent_id"`
 	Languages   []string     `gorm:"-"` // This is parsed when retrieved from db
@@ -84,7 +85,7 @@ type TorrentJSON struct {
 	Comments     []CommentJSON `json:"comments"`
 	SubCategory  string        `json:"sub_category"`
 	Category     string        `json:"category"`
-	AnidbID      string        `json:"anidb_id"`
+	DbID         string        `json:"db_id"`
 	UploaderID   uint          `json:"uploader_id"`
 	UploaderName template.HTML `json:"uploader_name"`
 	OldUploader  template.HTML `json:"uploader_old"`
