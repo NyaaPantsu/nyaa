@@ -19,10 +19,10 @@
               <th class="tr-links"></th>
               <th class="tr-size hide-xs"><a href="{{ genSearchWithOrdering(URL, "4") }}">{{ T("size")}}<span class="sort-arrows">{{ genSortArrows(URL, "4")|raw }}</span></a></th>
 
-              <th class="tr-se hide-xs">
+              <th class="tr-se hide-smol">
                 <a href="{{ genSearchWithOrdering(URL, "5") }}">{{ T("S")}}<span class="sort-arrows">{{ genSortArrows(URL, "5")|raw }}</span></a>
               </th>
-              <th class="tr-le hide-xs">
+              <th class="tr-le hide-smol">
                 <a href="{{ genSearchWithOrdering(URL, "6") }}">{{ T("L")}}<span class="sort-arrows">{{ genSortArrows(URL, "6")|raw }}</span></a>
               </th>
               <th class="tr-dl hide-xs">
@@ -81,8 +81,8 @@
               {{if .LastScrape.IsZero}}
               <td class="home-td hide-xs" colspan="3">{{ T("unknown")}}</td>
               {{else}}
-              <td class="tr-se home-td hide-xs">{{.Seeders}}</td>
-              <td class="tr-le home-td hide-xs">{{.Leechers}}</td>
+              <td class="tr-se home-td hide-smol">{{.Seeders}}</td>
+              <td class="tr-le home-td hide-smol">{{.Leechers}}</td>
               <td class="tr-dl home-td hide-xs">{{.Completed}}</td>
               {{end}}
               <td class="tr-date home-td date-short hide-xs">{{.Date}}</td>
