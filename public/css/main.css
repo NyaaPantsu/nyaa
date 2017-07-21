@@ -461,6 +461,7 @@ html, body {
 	.box { padding: 7px; }
 	.tr-cat { width: 71px; }
 	.torrent-preview-table .tr-cat { width: 74px; }
+	.tr-se, .tr-le { width: 36px; }
 	.tr-links { width: 48px; }
 	.header .h-search input { width: 90px !important; }
 	.header .h-search input:focus { width: 150px !important; }
@@ -472,6 +473,7 @@ html, body {
 	.form-input.language { width: 281px; }	
 	.form-input.refine { display: none; }
 	.tr-links { width: 44px; }
+	.hide-smol { display: none!important; }
 }
 
 .up-input {
