@@ -178,7 +178,7 @@ select.form-input {
 	float: right;
 	padding: 0;
 	height: 60px;
-	max-width: 150px;
+	width: 150px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
