@@ -43,7 +43,7 @@ func TestTemplates(t *testing.T) {
 type ContextTest map[string]func(jet.VarMap) jet.VarMap
 
 func walkDirTest(dir string, t *testing.T) {
-	fakeUser := &models.User{1, "test", "test", "test", 1, time.Now(), time.Now(), "test", time.Now(), "en", "test", "test", "test", "test", []models.User{}, []models.User{}, "test", []models.Torrent{}, []models.Notification{}, 1, models.UserSettings{}}
+	fakeUser := &models.User{1, "test", "test", "test", 1, time.Now(), time.Now(), "test", time.Now(), "en", "test", "test", "test", "test", 0, []models.User{}, []models.User{}, "test", []models.Torrent{}, []models.Notification{}, 1, models.UserSettings{}}
 	fakeComment := &models.Comment{1, 1, 1, "test", time.Now(), time.Now(), nil, &models.Torrent{}, fakeUser}
 	fakeScrapeData := &models.Scrape{1, 0, 0, 10, time.Now()}
 	fakeFile := &models.File{1, 1, "l12:somefile.mp4e", 3}

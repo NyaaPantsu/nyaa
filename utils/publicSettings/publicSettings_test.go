@@ -6,7 +6,6 @@ import (
 
 	"github.com/nicksnyder/go-i18n/i18n"
 	"golang.org/x/text/language"
-	"golang.org/x/text/language/display"
 
 	"fmt"
 
@@ -46,7 +45,7 @@ func TestLanguages(t *testing.T) {
 	if displayLang.String() == "und" {
 		t.Errorf("Couldn't find the language display for the language %s", displayLang.String())
 	}
-	n := display.Tags(displayLang)
+	//n := display.Tags(displayLang)
 
 	tags := i18n.LanguageTags()
 	for _, languageTag := range tags {
@@ -55,8 +54,11 @@ func TestLanguages(t *testing.T) {
 		if lang.String() == "und" {
 			t.Errorf("Couldn't find the language root for the language %s", languageTag)
 		}
-		fmt.Printf("Name of the language natively: %s\n", strings.Title(display.Self.Name(lang)))
-		fmt.Printf("Name of the language in %s: %s\n", displayLang.String(), n.Name(lang))
+		for _, t := range strings.Split(languageTag, ", ") {
+			fmt.Printf("UPDATE torrents SET language='%s' WHERE language='%s';\n", lang, t)
+		}
+		//fmt.Printf("Name of the language natively: %s\n", strings.Title(display.Self.Name(lang)))
+		//fmt.Printf("Name of the language in %s: %s\n", displayLang.String(), n.Name(lang))
 	}
 }
 

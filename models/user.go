@@ -12,6 +12,8 @@ import (
 
 	"errors"
 
+	"math"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/crypto"
 )
@@ -45,6 +47,7 @@ type User struct {
 	Mascot         string    `gorm:"column:mascot"`
 	MascotURL      string    `gorm:"column:mascot_url"`
 	UserSettings   string    `gorm:"column:settings"`
+	Pantsu         float64   `gorm:"column:pantsu"`
 
 	// TODO: move this to PublicUser
 	Followers []User // Don't work `gorm:"foreignkey:user_id;associationforeignkey:follower_id;many2many:user_follows"`
@@ -389,4 +392,17 @@ func (u *User) Filter() *User {
 	}
 	u.Torrents = torrents
 	return u
+}
+
+// IncreasePantsu is a function that uses the formula to increase the Pantsu points of a user
+func (u *User) IncreasePantsu() {
+	if u.Pantsu <= 0 {
+		u.Pantsu = 1 // Pantsu points should never be less or equal to 0. This would trigger a division by 0
+	}
+	u.Pantsu = u.Pantsu * (1 + 1/(math.Pow(math.Log(u.Pantsu+1), 5))) // First votes substancially increases the vote, further it increase slowly
+}
+
+// DecreasePantsu is a function that uses the formula to decrease the Pantsu points of a user
+func (u *User) DecreasePantsu() {
+	u.Pantsu = 0.8 * u.Pantsu // You lose 20% of your pantsu points each wrong vote
 }
