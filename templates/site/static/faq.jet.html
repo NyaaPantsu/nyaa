@@ -10,7 +10,7 @@
         <h1>{{ T("faq")}}</h1>
         <br />
 
-        {{ yield ruleList(true) }}
+        {{ yield ruleList(open=true) }}
 
         <h2 id="links">{{ T("links_replacement_mirror")}}</h2>
         <a href="{{Config.WebAddress.Nyaa}}">Nyaa - {{GetHostname(Config.WebAddress.Nyaa)}}</a><br />
