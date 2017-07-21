@@ -6,17 +6,6 @@
 {{block title()}}{{ T("upload")}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
-	<details class="rules-drop">
-		<summary class="form-input">{{ T("rules")}}</summary>
-	    	<div class="form-input">
-		    <ul>
-		    	<li>{{ T("no_cp")}}</li>
-			<li>{{ T("asia")}}</li>
-			<li>{{ T("rules_spam")}}</li>
-			<li>{{ T("rules_sukebei")}}</li>
-		    </ul>
-		</div>
-	    </details>
 	{{ yield ruleList() }}
 	<form enctype="multipart/form-data" role="upload" method="POST">
 		{{ yield csrf_field() }}
