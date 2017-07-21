@@ -2,6 +2,7 @@
 {{ import "layouts/partials/helpers/csrf" }}
 {{ import "layouts/partials/helpers/captcha" }}
 {{ import "layouts/partials/helpers/flags" }}
+{{ import "layouts/partials/helpers/rules" }}
 {{block title()}}{{ T("upload")}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
@@ -16,6 +17,7 @@
 		    </ul>
 		</div>
 	    </details>
+	{{ yield ruleList() }}
 	<form enctype="multipart/form-data" role="upload" method="POST">
 		{{ yield csrf_field() }}
 		<h3>{{ T("name")}}</h3>
