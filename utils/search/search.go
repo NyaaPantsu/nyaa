@@ -167,12 +167,18 @@ func byQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, 
 		parameters.Params = append(parameters.Params, "%"+langs+"%")
 	}
 
-	if search.UserID != 0 {
-		conditions = append(conditions, "uploader = ?")
-		parameters.Params = append(parameters.Params, search.UserID)
-		if search.Hidden {
-			conditions = append(conditions, "hidden = ?")
-			parameters.Params = append(parameters.Params, false)
+	if c.Query("userID") != "" {
+		if search.UserID > 0 {
+			conditions = append(conditions, "uploader = ?")
+			parameters.Params = append(parameters.Params, search.UserID)
+			if search.Hidden {
+				conditions = append(conditions, "hidden = ?")
+				parameters.Params = append(parameters.Params, false)
+			}
+		} else if search.UserID == 0 {
+			conditions = append(conditions, "(uploader = ? OR hidden = ?)")
+			parameters.Params = append(parameters.Params, search.UserID)
+			parameters.Params = append(parameters.Params, true)
 		}
 	}
 	if search.FromID != 0 {
