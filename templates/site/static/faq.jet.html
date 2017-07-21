@@ -1,17 +1,16 @@
 {{ extends "layouts/index_site" }}
+{{ import "layouts/partials/helpers/rules" }}
 {{block title()}}{{ T("faq")}}{{end}}
 {{block content_body()}}
 <!--email_off-->
-    <div style="text-align: left;" class="box">
+    <div style="text-align: left;" class="box" id="faq">
         <!-- marquees are the true purpose of HTML -->
         <marquee scrollamount="5"><h2>{{ T("notice_keep_seeding")}}</h2></marquee>
 
         <h1>{{ T("faq")}}</h1>
         <br />
 
-        <h2 id="rules">{{ T("rules")}}</h2>
-	<h3>{{ T("no_cp")}}</h3>
-        <h3>{{ T("asia")}}</h3'>
+        {{ yield ruleList(true) }}
 
         <h2 id="links">{{ T("links_replacement_mirror")}}</h2>
         <a href="{{Config.WebAddress.Nyaa}}">Nyaa - {{GetHostname(Config.WebAddress.Nyaa)}}</a><br />
