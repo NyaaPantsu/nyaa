@@ -3,8 +3,6 @@ package categories
 import (
 	"sort"
 
-	"fmt"
-
 	"github.com/NyaaPantsu/nyaa/config"
 )
 
@@ -23,10 +21,7 @@ var Index map[string]int
 // InitCategories init the categories and index variables. Exported for tests
 func InitCategories() {
 	var cats map[string]string
-	fmt.Println(config.Get().Models.TorrentsTableName)
-	fmt.Println(config.IsSukebei())
 	if config.IsSukebei() {
-		fmt.Println("works")
 		cats = config.Get().Torrents.SukebeiCategories
 	} else {
 		cats = config.Get().Torrents.CleanCategories
