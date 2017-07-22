@@ -2,6 +2,7 @@
 // @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
 
 // Switches between themes when a new one is selected
+
 function switchThemes(){
   themeName = document.getElementById("theme-selector").value
   var head = document.getElementsByTagName("head")[0]
@@ -51,6 +52,18 @@ function parseAllDates() {
 }
 
 parseAllDates()
+
+
+//if no version cookie set or non-equal version
+  if(!document.cookie.includes("version") || (document.cookie.substring(document.cookie.indexOf("version") + 8).substring(0, document.cookie.substring(document.cookie.indexOf("version") + 8).indexOf(";") == "-1" ? document.cookie.substring(document.cookie.indexOf("version") + 8).length : document.cookie.substring(document.cookie.indexOf("version") + 8).indexOf(";"))) != Version) {
+		//Remove all cookies
+		var cookies = document.cookie.split(";");
+		for (var i = 0; i < cookies.length; i++)
+			document.cookie = cookies[i].split("=")[0] + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+		//set new version in cookie
+		document.cookie = "version=" + Version;
+  }
+		
 
 /*Fixed-Navbar offset fix*/
 document.addEventListener("DOMContentLoaded", function(event) {
