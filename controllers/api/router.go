@@ -11,6 +11,7 @@ func init() {
 		api.HEAD("/view/:id", APIViewHeadHandler)
 		api.POST("/upload", APIUploadHandler)
 		api.POST("/login", APILoginHandler)
+		api.GET("/profile", APIProfileHandler)
 		api.GET("/token/check", APICheckTokenHandler)
 		api.GET("/token/refresh", APIRefreshTokenHandler)
 		api.Any("/search", APISearchHandler)

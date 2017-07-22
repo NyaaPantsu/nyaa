@@ -63,7 +63,7 @@ type UserJSON struct {
 	ID          uint   `json:"user_id"`
 	Username    string `json:"username"`
 	Status      int    `json:"status"`
-	APIToken    string `json:"token"`
+	APIToken    string `json:"token,omitempty"`
 	MD5         string `json:"md5"`
 	CreatedAt   string `json:"created_at"`
 	LikingCount int    `json:"liking_count"`
