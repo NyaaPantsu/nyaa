@@ -568,7 +568,7 @@ func apiResponseHandler(c *gin.Context, obj ...interface{}) {
 			}
 		}
 	} else { // We need to show error messages
-		mapOk := map[string]interface{}{"ok": false, "errors": messages.GetErrors("errors"), "all_errors": messages.GetAllErrors()}
+		mapOk = map[string]interface{}{"ok": false, "errors": messages.GetErrors("errors"), "all_errors": messages.GetAllErrors()}
 		if len(obj) > 0 {
 			mapOk["data"] = obj
 			if len(obj) == 1 {
