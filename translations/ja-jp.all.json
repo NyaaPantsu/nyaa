@@ -1,5 +1,25 @@
 [
   {
+    "id": "rules",
+    "translation": "ルール"
+  },
+  {
+    "id": "no_cp",
+    "translation": "児童ポルノ禁止 (ロリはこれに含まれません)"
+  },
+  {
+    "id": "asia",
+    "translation": "アジア関連のコンテンツのみ (洋画やカートゥーン禁止)"
+  },
+  {
+    "id": "rules_spam",
+    "translation": "スパム禁止"
+  },
+  {
+    "id": "rules_sukebei",
+    "translation": "えっちいのは sukebei.pantsu.cat へ"
+  },
+  {
     "id": "verify_email_title",
     "translation": "【Nyaa Pantsu】メールアドレスの認証"
   },
@@ -136,6 +156,10 @@
     "translation": "%s さんの Torrent をもっと表示"
   },
   {
+    "id": "torrents_uploaded",
+    "translation": "Torrent はアップロードされました"
+  },
+  {
     "id": "category",
     "translation": "カテゴリー"
   },
@@ -164,6 +188,18 @@
     "translation": "404 エラー"
   },
   {
+    "id": "error_400",
+    "translation": "400 エラー"
+  },
+  {
+    "id": "error_500",
+    "translation": "500 エラー"
+  },
+  {
+    "id": "err_no_results",
+    "translation": "結果が見つかりません"
+  },
+  {
     "id": "upload",
     "translation": "アップロード"
   },
@@ -185,7 +221,15 @@
   },
   {
     "id": "404_not_found",
-    "translation": "404 - ページが見つかりません"
+    "translation": "404 ページが見つかりません"
+  },
+  {
+    "id": "500_internal_server_error",
+    "translation": "500 内部サーバーエラー"
+  },
+  {
+    "id": "400_bad_request",
+    "translation": "400 不正なリクエスト"
   },
   {
     "id": "no_torrents_uploaded",
@@ -485,7 +529,7 @@
   },
   {
     "id": "filter_remakes",
-    "translation": "再加工を非表示"
+    "translation": "再頒布を非表示"
   },
   {
     "id": "trusted",
@@ -621,7 +665,7 @@
   },
   {
     "id": "mark_as_remake",
-    "translation": "再加工としてマークする"
+    "translation": "再頒布としてマークする"
   },
   {
     "id": "email_changed",
@@ -637,7 +681,7 @@
   },
   {
     "id": "torrent_status_remake",
-    "translation": "再加工"
+    "translation": "再頒布"
   },
   {
     "id": "torrent_status_blocked",
@@ -984,6 +1028,10 @@
     "translation": "Torrent がデータベースから削除されました。"
   },
   {
+    "id": "torrent_not_deleted",
+    "translation": "Torrent は削除されていません"
+  },
+  {
     "id": "torrent_unblocked",
     "translation": "Torrent のロックが解除されました。"
   },
@@ -1221,7 +1269,7 @@
   },
   {
     "id": "reassign_indication",
-    "translation": "1 行につき 1 つの ID <b>もしくは</b> 1 つのユーザー名"
+    "translation": "1 ラインにつき 1 つの ID <b>もしくは</b> 1 つのユーザー名"
   },
   {
     "id": "reassign_warning_2",
@@ -1376,12 +1424,88 @@
     "translation": "必要な入力値 %s の最小長: %s"
   },
   {
+    "id": "error_min_number",
+    "translation": "%s は %s 以上でなければなりません"
+  },
+  {
+    "id": "error_min_field",
+    "translation": "%s は %s 以上でなければなりません"
+  },
+  {
+    "id": "error_min_array",
+    "translation": "%s には少なくとも %s 個のアイテムが必要です"
+  },
+  {
+    "id": "error_less_date",
+    "translation": "%s は現在の日付および時刻より小さくなければなりません"
+  },
+  {
+    "id":"error_less_array",
+    "translation": "%s は %s 個未満のアイテムを含む必要があります"
+  },
+  {
+    "id": "error_less_length",
+    "translation": "%s は長さが %s 未満でなければなりません"
+  },
+  {
+    "id":"error_less_number",
+    "translation": "%s は %s 未満でなければなりません"
+  },
+  {
+    "id": "error_less_equal_date",
+    "translation": "%s は現在の日付および時刻以下でなければなりません"
+  },
+  {
+    "id": "error_greater_date",
+    "translation": "%s は現在の日付および時刻より大きくなければなりません"
+  },
+  {
+    "id": "error_greater_length",
+    "translation": "%s は長さが %s より大きくなければなりません"
+  },
+  {
+    "id": "error_greater_number",
+    "translation": "%s は %s より大きくなければなりません"
+  },
+  {
+    "id": "error_greater_equal_date",
+    "translation": "%s は現在の日付および時刻以上でなければなりません"
+  },
+  {
+    "id": "error_max_field",
+    "translation": "%s は %s 以下でなければなりません"
+  },
+  {
     "id":"error_max_length",
     "translation": "必要な入力値 %s の最大長: %s"
   },
   {
+    "id":"error_max_number",
+    "translation": "%s は %s 以下でなければなりません"
+  },
+  {
+    "id":"error_max_array",
+    "translation": "%s にはアイテム %s 個まで含める必要があります"
+  },
+  {
+    "id":"error_length",
+    "translation": "必要な入力値 %s の長さ: %s"
+  },
+  {
+    "id":"error_equal",
+    "translation": "%s は %s と等しくありません"
+  },
+  {
     "id":"error_same_value",
     "translation": "同じ %s である必要があります"
+  },
+  {
+    "id":"error_field",
+    "translation": "フィールドで予期せぬエラーが発生しました: %s"
+  },
+  {
+    "id":"error_not_equal",
+    "translation": "%s は %s と同じであってはなりません"
   },
   {
     "id": "error_wrong_value",
@@ -1390,6 +1514,94 @@
   {
     "id": "error_field_needed",
     "translation": "必要なフィールド: %s"
+  },
+  {
+    "id": "error_len_array",
+    "translation": "%s には %s 個のアイテムが含まれている必要があります"
+  },
+  {
+    "id": "error_alpha",
+    "translation": "%s には英字のみを使用できます"
+  },
+  {
+    "id": "error_alphanum",
+    "translation": "%s には英数字のみを使用できます"
+  },
+  {
+    "id": "error_numeric_valid",
+    "translation": "%s は有効な数値でなければなりません"
+  },
+  {
+    "id": "error_number_valid",
+    "translation": "%s は有効な数字でなければなりません"
+  },
+  {
+    "id": "error_hexadecimal_valid",
+    "translation": "%s は有効な 16 進数でなければなりません"
+  },
+  {
+    "id": "error_hex_valid",
+    "translation": "%s は有効な 16 進数カラーでなければなりません"
+  },
+  {
+    "id": "error_rgb_valid",
+    "translation": "%s は有効な RGB カラーでなければなりません"
+  },
+  {
+    "id": "error_rgba_valid",
+    "translation": "%s は有効な RGBA カラーでなければなりません"
+  },
+  {
+    "id": "error_hsl_valid",
+    "translation": "%s は有効な HSL カラーでなければなりません"
+  },
+  {
+    "id": "error_hsla_valid",
+    "translation": "%s は有効な HSLA カラーでなければなりません"
+  },
+  {
+    "id": "error_url_valid",
+    "translation": "%s は有効な URL でなければなりません"
+  },
+  {
+    "id": "error_uri_valid",
+    "translation": "%s は有効な URI でなければなりません"
+  },
+  {
+    "id": "error_base64_valid",
+    "translation": "%s は有効な Base64 文字列でなければなりません"
+  },
+  {
+    "id": "error_contains",
+    "translation": "%s にはテキスト '%s' が含まれている必要があります"
+  },
+  {
+    "id": "error_contains_any",
+    "translation": "%s には次の文字 '%s' のうち少なくとも 1 つを含める必要があります"
+  },
+  {
+    "id": "error_excludes",
+    "translation": "%s にはテキスト '%s' を含めることはできません"
+  },
+  {
+    "id": "error_excludes_all",
+    "translation": "%s には次の文字 '%s' を含めることはできません"
+  },
+  {
+    "id": "error_excludes_rune",
+    "translation": "%s には次の '%s' を含めることはできません"
+  },
+  {
+    "id": "error_color_valid",
+    "translation": "%s は有効なカラーでなければなりません"
+  },
+  {
+    "id": "error_",
+    "translation": "%s には %s 個のアイテムが含まれている必要があります"
+  },
+  {
+    "id": "error_len_array",
+    "translation": "%s には %s 個のアイテムが含まれている必要があります"
   },
   {
     "id": "refine_search",
@@ -1430,5 +1642,197 @@
   {
     "id": "optional",
     "translation": "任意"
+  },
+  {
+    "id": "search_for",
+    "translation": "以下を検索:"
+  },
+  {
+    "id": "show",
+    "translation": "表示"
+  },
+  {
+    "id": "username_taken",
+    "translation": "ユーザー名は既に取得されています。以下から選ぶことができます: %s"
+  },
+  {
+    "id": "email_in_db",
+    "translation": "メールアドレスが既にデータベース上に存在します"
+  },
+  {
+    "id": "user_not_found",
+    "translation": "ユーザーが見つかりません"
+  },
+  {
+    "id": "incorrect_password",
+    "translation": "パスワードが不正です"
+  },
+  {
+    "id": "password_error_generating",
+    "translation": "パスワードハッシュの生成中にエラーが発生しました"
+  },
+  {
+    "id": "permission_delete_error",
+    "translation": "これを削除する権限がありません"
+  },
+  {
+    "id": "no_username_password",
+    "translation": "ユーザー名またはパスワードが入力されていません"
+  },
+  {
+    "id":"account_banned",
+    "translation": "アカウントは BAN されています"
+  },
+  {
+    "id": "account_need_activation",
+    "translation": "このアカウントはモデレーターによるアクティベーションが必要です。ご連絡ください"
+  },
+  {
+    "id": "retrieve_torrent_error",
+    "translation": "Torrent を検索できませんでした"
+  },
+  {
+    "id": "multiple_username_error",
+    "translation": "複数のユーザー名が指定されています"
+  },
+  {
+    "id": "elevating_user_error",
+    "translation": "モデレーターへのステータス降格は禁止されています"
+  },
+  {
+    "id": "parse_error_line",
+    "translation": "ライン %d をパースできませんでした"
+  },
+  {
+    "id": "language_not_available",
+    "translation": "言語は利用できません"
+  },
+  {
+    "id": "mascot_url_too_long",
+    "translation": "マスコット URL が長すぎます (最大 255 文字)"
+  },
+  {
+    "id": "mascor_url_parse_error",
+    "translation": "マスコット URL のパース中にエラーが発生しました: %s"
+  },
+  {
+    "id": "no_id_given",
+    "translation": "Torrent ID が指定されていません"
+  },
+  {
+    "id": "error_api_token",
+    "translation": "エラー API トークンが存在しません"
+  },
+  {
+    "id": "uploads_disabled",
+    "translation": "アップロードは無効です"
+  },
+  {
+    "id": "try_to_delete_report_inexistant",
+    "translation": "存在しない Torrent 報告を削除しようとしています"
+  },
+  {
+    "id": "torrent_report_not_created",
+    "translation": "Torrent 報告は作成されていません"
+  },
+  {
+    "id": "user_not_deleted",
+    "translation": "ユーザーは削除されていません"
+  },
+  {
+    "id": "error_content_type_post",
+    "translation": "ヘッダーに Content-Type: application/json または multipart/form-data を入力してください"
+  },
+  {
+    "id": "torrent_name_invalid",
+    "translation": "Torrent 名が無効です"
+  },
+  {
+    "id": "torrent_private",
+    "translation": "Torrent はプライベートです"
+  },
+  {
+    "id": "torrent_no_working_trackers",
+    "translation": "Torrent に (稼働中の) トラッカーが含まれていません: <a href=\"/faq#trackers\">トラッカーリスト</a>"
+  },
+  {
+    "id": "torrent_desc_invalid",
+    "translation": "Torrent 説明文が無効です"
+  },
+  {
+    "id": "torrent_cat_invalid",
+    "translation": "Torrent カテゴリーが無効です"
+  },
+  {
+    "id": "torrent_lang_invalid",
+    "translation": "送信された言語はまだサポートされていません。私たちの Github ページへの貢献で支援できます"
+  },
+  {
+    "id": "torrent_cat_is_english",
+    "translation": "Torrent カテゴリーは英語への翻訳となっていますが、言語が英語になっていません。英語に変更しました"
+  },
+  {
+    "id": "torrent_cat_not_english",
+    "translation": "Torrent カテゴリーは英語以外への翻訳となっていますが、言語は英語しか選択されていません"
+  },
+  {
+    "id": "torrent_magnet_invalid",
+    "translation": "magnet リンクをパースできません。お確かめください"
+  },
+  {
+    "id": "torrent_hash_invalid",
+    "translation": "Torrent ハッシュが不正です"
+  },
+  {
+    "id": "torrent_plus_magnet",
+    "translation": "Torrent ファイルもしくは magnet リンクのどちらかをアップロードしてください。両方はできません"
+  },
+  {
+    "id": "torrent_file_invalid",
+    "translation": "Torrent ファイルが不正です"
+  },
+  {
+    "id": "torrent_uri_invalid",
+    "translation": "Web サイトもしくは IRC リンクが不正です"
+  },
+  {
+    "id": "api_documentation",
+    "translation": "API ドキュメント"
+  },
+  {
+    "id": "api_help",
+    "translation": "API はあるの？"
+  },
+  {
+    "id": "trusted",
+    "translation": "高信頼ユーザーによるアップロード"
+  },
+  {
+    "id": "reencodes",
+    "translation": "再エンコード"
+  },
+  {
+    "id": "remux",
+    "translation": "他のアップロード者のオリジナルリリースのリミックス"
+  },
+  {
+    "id": "reupload",
+    "translation": "欠落した、もしくは関係のない追加ファイルを含む他のユーザーの Torrent を再アップロード"
+  },
+  {
+    "id": "red",
+    "translation": "赤色の場合、"
+  },
+  {
+    "id": "green",
+    "translation": "緑色の場合、"
+  },
+  {
+    "id": "torrent_colors",
+    "translation": "Torrent の色について"
+  },
+  {
+    "id": "torrent_preview",
+    "translation": "Torrent のプレビュー"
   }
 ]
