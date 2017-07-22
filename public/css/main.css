@@ -1002,6 +1002,7 @@ input.nav-btn {
 .download {
 	padding: 0.3em;
 }
+#faq .rules-drop {margin-bottom: 20px; width: 500px; }
 .rules-drop {
 	display: flex;
 	user-select: none;
