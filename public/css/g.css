@@ -22,6 +22,11 @@ a:hover { color:  #444; }
 	background: #99BFD0;
 	border-color: #a3c7d3;
 }
+.sukebei .header .h-user .user-avatar {
+	background: #bf99d0;
+	border-color: #d3a3d1;
+}
+
 .header .h-user .user-menu {
 	background: #BDE0EF;
 	background:    -moz-linear-gradient(top, #BDE0EF 0%, #ABCFDF 100%);
