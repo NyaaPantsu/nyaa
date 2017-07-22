@@ -514,7 +514,7 @@ func APILoginHandler(c *gin.Context) {
 func APIRefreshTokenHandler(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 	token := c.Request.Header.Get("Authorization")
-	username := c.PostForm("username")
+	username := c.Query("username")
 	user, _, _, _, err := users.FindByAPITokenAndName(token, username)
 
 	messages := msg.GetMessages(c)
@@ -539,7 +539,7 @@ func APIRefreshTokenHandler(c *gin.Context) {
 func APICheckTokenHandler(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 	token := c.Request.Header.Get("Authorization")
-	username := c.PostForm("username")
+	username := c.Query("username")
 	user, _, _, _, err := users.FindByAPITokenAndName(token, username)
 
 	messages := msg.GetMessages(c)
