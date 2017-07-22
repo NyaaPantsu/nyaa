@@ -66,22 +66,27 @@ parseAllDates()
 		
 
 /*Fixed-Navbar offset fix*/
-document.addEventListener("DOMContentLoaded", function(event) {
-  var shiftWindow = function() { scrollBy(0, -70) }
-  if (location.hash) shiftWindow()
-  window.addEventListener("hashchange", shiftWindow)
+if(document.getElementsByClassName("search-box")[0] !== undefined) 
+	startupCode() 
+else 
+	document.addEventListener("DOMContentLoaded", function(event) { startupCode() })
 
-  document.getElementsByClassName("search-box")[0].addEventListener("focus", function (e) {
-    var w = document.getElementsByClassName("h-user")[0].offsetWidth
-    document.getElementsByClassName("h-user")[0].style.display = "none"
-    document.getElementsByClassName("search-box")[0].style.width = document.getElementsByClassName("search-box")[0].offsetWidth + w + "px"
-  })
-  document.getElementsByClassName("search-box")[0].addEventListener("blur", function (e) {
-    document.getElementsByClassName("search-box")[0].style.width = ""
-    document.getElementsByClassName("h-user")[0].style.display = "inline-block"
-  })
 
-})
+function startupCode() {
+	  var shiftWindow = function() { scrollBy(0, -70) }
+	  if (location.hash) shiftWindow()
+	  window.addEventListener("hashchange", shiftWindow)
+
+	  document.getElementsByClassName("search-box")[0].addEventListener("focus", function (e) {
+		var w = document.getElementsByClassName("h-user")[0].offsetWidth
+		document.getElementsByClassName("h-user")[0].style.display = "none"
+		document.getElementsByClassName("search-box")[0].style.width = document.getElementsByClassName("search-box")[0].offsetWidth + w + "px"
+	  })
+	  document.getElementsByClassName("search-box")[0].addEventListener("blur", function (e) {
+		document.getElementsByClassName("search-box")[0].style.width = ""
+		document.getElementsByClassName("h-user")[0].style.display = "inline-block"
+	  })
+}
 
 function playVoice() {
   var mascotAudio = document.getElementById("explosion") || document.getElementById("nyanpassu")|| document.getElementById("nyanpassu2") || document.getElementById("kawaii")
