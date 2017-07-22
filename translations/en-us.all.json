@@ -196,6 +196,10 @@
     "translation": "Error 500"
   },
   {
+    "id": "err_no_results",
+    "translation": "No results found"
+  },
+  {
     "id": "upload",
     "translation": "Upload"
   },
