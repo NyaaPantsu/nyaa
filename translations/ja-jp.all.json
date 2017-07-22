@@ -1765,7 +1765,7 @@
   },
   {
     "id": "torrent_lang_invalid",
-    "translation": "送信された言語はまだサポートされていません。私たちの Github ページへの貢献で支援できます"
+    "translation": "送信された言語はまだサポートされていません。私たちの GitHub ページへの貢献で支援できます"
   },
   {
     "id": "torrent_cat_is_english",
@@ -1817,7 +1817,7 @@
   },
   {
     "id": "reupload",
-    "translation": "欠落した、もしくは関係のない追加ファイルを含む他のユーザーの Torrent を再アップロード"
+    "translation": "欠落した、もしくは関係のない追加ファイルを含む他のユーザーの Torrent の再アップロード"
   },
   {
     "id": "red",
