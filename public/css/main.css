@@ -567,6 +567,8 @@ html, body {
     padding-left: 14px;
 }
 
+.comment-box blockquote > p { opacity: 0.5; }
+.comment-box blockquote > p:before { content: ">"; }
 .comment-box {
 	margin-top: 10px;
 	padding-left: 7px;
