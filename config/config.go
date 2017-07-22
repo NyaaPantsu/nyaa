@@ -5,13 +5,15 @@ import (
 	"io"
 	"sync"
 
+	"fmt"
+
 	"github.com/jinzhu/configor"
 	yaml "gopkg.in/yaml.v2"
 )
 
 var config *Config
 var once sync.Once
-var Configpaths = []string{"config/default_config.yml", "config/config.yml"}
+var Configpaths = []string{"config/config.yml", "config/default_config.yml"}
 
 func Get() *Config {
 	once.Do(func() {
@@ -53,6 +55,8 @@ func init() {
 
 // Reload the configuration from the files provided in the config variables
 func Reload() {
+	fmt.Println("Config reload")
+	fmt.Println(Configpaths)
 	configor.Load(Get(), Configpaths...)
 }
 
@@ -67,7 +71,7 @@ func BindFlags() func() {
 	flag.StringVar(&Get().DBLogMode, "dblogmode", Get().DBLogMode, "database log verbosity (errors only by default)")
 	return func() {
 		if *confFile != "" {
-			Configpaths = append(Configpaths, *confFile)
+			Configpaths = append([]string{*confFile}, Configpaths...)
 			Reload()
 		}
 	}

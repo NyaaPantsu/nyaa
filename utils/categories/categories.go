@@ -44,24 +44,27 @@ func InitCategories() {
 	}
 }
 
-func init() {
+// All : function to get all categories depending on the actual website from config/categories.go
+func All() Categories {
 	if len(categories) == 0 {
 		InitCategories()
 	}
-}
-
-// All : function to get all categories depending on the actual website from config/categories.go
-func All() Categories {
 	return categories
 }
 
 // Get : function to get a category by the key in the index array
 func Get(key int) Category {
+	if len(categories) == 0 {
+		InitCategories()
+	}
 	return All()[key]
 }
 
 // GetByID : function to get a category by the id of the category from the database
 func GetByID(id string) (Category, bool) {
+	if len(categories) == 0 {
+		InitCategories()
+	}
 	if key, ok := Index[id]; ok {
 		return All()[key], true
 	}
