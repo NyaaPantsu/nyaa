@@ -50,7 +50,7 @@ func SearchHandler(c *gin.Context) {
 
 	maxPages := math.Ceil(float64(nbTorrents) / float64(searchParam.Max))
 	if pagenum > int(maxPages) {
-		c.AbortWithError(http.StatusNotFound, errors.New("Page superior to the maximum number of pages"))
+		templates.Static(c, "errors/no_results.jet.html")
 		return
 	}
 
