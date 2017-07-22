@@ -58,17 +58,8 @@ parseAllDates()
   if(!document.cookie.includes("version") || (document.cookie.substring(document.cookie.indexOf("version") + 8).substring(0, document.cookie.substring(document.cookie.indexOf("version") + 8).indexOf(";") == "-1" ? document.cookie.substring(document.cookie.indexOf("version") + 8).length : document.cookie.substring(document.cookie.indexOf("version") + 8).indexOf(";"))) != Version)
   {
 	  	//Get current lang, mascot & theme cookies
-	  	var 	lang 		= null,
-		    	mascot		= null,
-				theme		= null;
+		//TODO
 	  
-	  	if(document.cookie.includes("lang"))
-	  		lang = (document.cookie.substring(document.cookie.indexOf("lang") + 5).substring(0, document.cookie.substring(document.cookie.indexOf("lang") + 5).indexOf(";") == "-1" ? document.cookie.substring(document.cookie.indexOf("lang") + 5).length : document.cookie.substring(document.cookie.indexOf("lang") + 5).indexOf(";")));
-	  	if(document.cookie.includes("mascot"))
-			mascot = (document.cookie.substring(document.cookie.indexOf("mascot") + 7).substring(0, document.cookie.substring(document.cookie.indexOf("mascot") + 7).indexOf(";") == "-1" ? document.cookie.substring(document.cookie.indexOf("mascot") + 7).length : document.cookie.substring(document.cookie.indexOf("mascot") + 7).indexOf(";")));
-	  	if(document.cookie.includes("theme"))
-			theme = (document.cookie.substring(document.cookie.indexOf("theme") + 6).substring(0, document.cookie.substring(document.cookie.indexOf("theme") + 6).indexOf(";") == "-1" ? document.cookie.substring(document.cookie.indexOf("theme") + 6).length : document.cookie.substring(document.cookie.indexOf("theme") + 6).indexOf(";")));
-
 	 	 //Remove all cookies
 		var cookies = document.cookie.split(";");
 		for (var i = 0; i < cookies.length; i++)
@@ -78,9 +69,7 @@ parseAllDates()
 		document.cookie = "version=" + Version;
 	  
 	  	//Apply back lang, mascot & theme cookie
-	  	if(lang != null)	document.cookie = "lang="+ lang;
-	  	if(mascot != null)	document.cookie = "mascot="+ mascot;
-	  	if(theme != null)	document.cookie = "theme="+ theme;
+	  	//TODO
   }
 		
 
