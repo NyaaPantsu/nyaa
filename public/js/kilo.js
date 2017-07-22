@@ -31,8 +31,8 @@ var Kilo = function (params) {
 
   // Private variables
   var Keywords_flags= [
-	["vostfr","vosfr", "[ita]", "[eng]", " eng ","[english]","[english sub]", "[jp]","[jpn]","[japanese]", "[jav]",
-  ["fr","fr", "it", "en","en","en","en", "ja","ja","ja","ja"]
+	["vostfr","vosfr", "[ita]", "[eng]", " eng ","[english]","[english sub]", "engsub", "[jp]","[jpn]","[japanese]", "[jav]",
+  ["fr","fr", "it", "en","en","en","en","en", "ja","ja","ja","ja"]
   ]
   var Keywords_categories = [
 		[ ["[jav]"], [7] ], 
