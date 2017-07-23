@@ -74,7 +74,7 @@ parseAllDates()
     //add fancy "new" text at bottom of page which will expire in one hour and a half
     var now = new Date();
     now.setTime(now.getTime() + 1 * 3600 * 1500);
-    document.cookie = "newCommit=true; expires=" + now.toUTCString();
+    document.cookie = "newVersion=true; expires=" + now.toUTCString();
   }
 		
 
@@ -103,7 +103,7 @@ function startupCode() {
 	  resetCookies()
   }
 
- if(document.cookie.includes("newCommit"))
+ if(document.cookie.includes("newVersion"))
    document.getElementById("commit").className = "new";
 	
   document.getElementsByClassName("search-box")[0].addEventListener("focus", function (e) {
