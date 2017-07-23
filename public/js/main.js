@@ -59,33 +59,33 @@ parseAllDates()
   {
 	  	//Get current lang, mascot & theme cookies
 		//TODO
-	  
+
 	 	 //Remove all cookies:
 		var cookies = document.cookie.split(";");
 	  	var excludedCookies = ["mascot", "theme", "mascot_url", "lang"];
-	  
+
 		for (var i = 0; i < cookies.length; i++) {
 		   var cookieName = (cookies[i].split("=")[0]).trim();
 		   //Remove spaces because some cookie names have it
 		   if(excludedCookies.includes(cookieName)) continue;
 		   document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
 		}
-	  
+
 		//Set new version in cookie
 		document.cookie = "version=" + Version;
-	  
+
 	  	//Apply back lang, mascot & theme cookie
 	  	//TODO
 	  
 	  	//Add fancy "new" text at bottom of page
 	  	document.getElementById("commit").className = "new";
   }
-		
+
 
 /*Fixed-Navbar offset fix*/
-if(document.getElementsByClassName("search-box")[0] !== undefined) 
-  startupCode() 
-else 
+if(document.getElementsByClassName("search-box")[0] !== undefined)
+  startupCode()
+else
   document.addEventListener("DOMContentLoaded", function(event) { startupCode() })
 
 
