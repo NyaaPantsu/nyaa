@@ -54,31 +54,27 @@ function parseAllDates() {
 parseAllDates()
 
 
-  //if no version cookie set or non-equal version
-  if(!document.cookie.includes("version") || (document.cookie.substring(document.cookie.indexOf("version") + 8).substring(0, document.cookie.substring(document.cookie.indexOf("version") + 8).indexOf(";") == "-1" ? document.cookie.substring(document.cookie.indexOf("version") + 8).length : document.cookie.substring(document.cookie.indexOf("version") + 8).indexOf(";"))) != Version)
+  //called if no Commit cookie is set or if the website has a newer commit than the one in cookie
+  function resetCookies()
   {
-	  	//Get current lang, mascot & theme cookies
-		//TODO
+    var cookies = document.cookie.split(";");
+    var excludedCookies = ["mascot", "theme", "mascot_url", "lang"];
 	  
-	 	 //Remove all cookies:
-		var cookies = document.cookie.split(";");
-	  	var excludedCookies = ["mascot", "theme", "mascot_url", "lang"];
+    //Remove all cookies but exclude those in the above array
+    for (var i = 0; i < cookies.length; i++) {
+      var cookieName = (cookies[i].split("=")[0]).trim();
+      //Remove spaces because some cookie names have it
+      if(excludedCookies.includes(cookieName))  continue;
+      document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
 	  
-		for (var i = 0; i < cookies.length; i++) {
-		   var cookieName = (cookies[i].split("=")[0]).trim();
-		   //Remove spaces because some cookie names have it
-		   if(excludedCookies.includes(cookieName)) continue;
-		   document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-		}
+    //Set new version in cookie
+    document.cookie = "commit=" + commitVersion;
 	  
-		//Set new version in cookie
-		document.cookie = "version=" + Version;
-	  
-	  	//Apply back lang, mascot & theme cookie
-	  	//TODO
-	  
-	  	//Add fancy "new" text at bottom of page
-	  	document.getElementById("commit").className = "new";
+    //add fancy "new" text at bottom of page which will expire in one hour and a half
+    var now = new Date();
+    now.setTime(now.getTime() + 1 * 3600 * 1500);
+    document.cookie = "newCommit=true; expires=" + now.toUTCString();
   }
 		
 
@@ -94,6 +90,22 @@ function startupCode() {
   if (location.hash) shiftWindow()
   window.addEventListener("hashchange", shiftWindow)
 
+  if(!document.cookie.includes("version"))
+    resetCookies()
+  else {
+    var startPos           = document.cookie.indexOf("commit") + 8,
+	endPos             = document.cookie.substring(startPos).indexOf(";"),
+	userCommitVersion  = endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos);
+	//Get start and end position of Commit string, need to start searching endPos from version cookie in case it's not the first cookie in the string
+	//If endPos is equal to -1, aka if the version cookie is at the very end of the string and doesn't have an ";", the endPos is not used
+
+	if(userCommitVersion != commitVersion)
+	  resetCookies()
+  }
+
+ if(document.cookie.includes("newCommit"))
+   document.getElementById("commit").className = "new";
+	
   document.getElementsByClassName("search-box")[0].addEventListener("focus", function (e) {
     var w = document.getElementsByClassName("h-user")[0].offsetWidth
     document.getElementsByClassName("h-user")[0].style.display = "none"
