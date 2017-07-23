@@ -63,7 +63,7 @@ parseAllDates()
 	 	 //Remove all cookies
 		var cookies = document.cookie.split(";");
 		for (var i = 0; i < cookies.length; i++)
-			document.cookie = cookies[i].split("=")[0] + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+		   document.cookie = cookies[i].split("=")[0] + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
 	  
 		//Set new version in cookie
 		document.cookie = "version=" + Version;
@@ -75,25 +75,25 @@ parseAllDates()
 
 /*Fixed-Navbar offset fix*/
 if(document.getElementsByClassName("search-box")[0] !== undefined) 
-	startupCode() 
+  startupCode() 
 else 
-	document.addEventListener("DOMContentLoaded", function(event) { startupCode() })
+  document.addEventListener("DOMContentLoaded", function(event) { startupCode() })
 
 
 function startupCode() {
-	  var shiftWindow = function() { scrollBy(0, -70) }
-	  if (location.hash) shiftWindow()
-	  window.addEventListener("hashchange", shiftWindow)
+  var shiftWindow = function() { scrollBy(0, -70) }
+  if (location.hash) shiftWindow()
+  window.addEventListener("hashchange", shiftWindow)
 
-	  document.getElementsByClassName("search-box")[0].addEventListener("focus", function (e) {
-		var w = document.getElementsByClassName("h-user")[0].offsetWidth
-		document.getElementsByClassName("h-user")[0].style.display = "none"
-		document.getElementsByClassName("search-box")[0].style.width = document.getElementsByClassName("search-box")[0].offsetWidth + w + "px"
-	  })
-	  document.getElementsByClassName("search-box")[0].addEventListener("blur", function (e) {
-		document.getElementsByClassName("search-box")[0].style.width = ""
-		document.getElementsByClassName("h-user")[0].style.display = "inline-block"
-	  })
+  document.getElementsByClassName("search-box")[0].addEventListener("focus", function (e) {
+    var w = document.getElementsByClassName("h-user")[0].offsetWidth
+    document.getElementsByClassName("h-user")[0].style.display = "none"
+    document.getElementsByClassName("search-box")[0].style.width = document.getElementsByClassName("search-box")[0].offsetWidth + w + "px"
+  })
+  document.getElementsByClassName("search-box")[0].addEventListener("blur", function (e) {
+    document.getElementsByClassName("search-box")[0].style.width = ""
+    document.getElementsByClassName("h-user")[0].style.display = "inline-block"
+  })
 }
 
 function playVoice() {
