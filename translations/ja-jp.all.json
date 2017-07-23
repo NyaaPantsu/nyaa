@@ -157,7 +157,7 @@
   },
   {
     "id": "torrents_uploaded",
-    "translation": "Torrent はアップロードされました"
+    "translation": "Torrent アップロード数"
   },
   {
     "id": "category",
@@ -1645,7 +1645,7 @@
   },
   {
     "id": "search_for",
-    "translation": "以下を検索:"
+    "translation": "以下を検索"
   },
   {
     "id": "show",
