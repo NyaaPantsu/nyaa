@@ -60,10 +60,16 @@ parseAllDates()
 	  	//Get current lang, mascot & theme cookies
 		//TODO
 	  
-	 	 //Remove all cookies
+	 	 //Remove all cookies:
 		var cookies = document.cookie.split(";");
-		for (var i = 0; i < cookies.length; i++)
-		   document.cookie = cookies[i].split("=")[0] + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+	  	var excludedCookies = ["mascot", "theme", "mascot_url", "lang"];
+	  
+		for (var i = 0; i < cookies.length; i++) {
+		   var cookieName = (cookies[i].split("=")[0]).trim();
+		   //Remove spaces because some cookie names have it
+		   if(excludedCookies.includes(cookieName)) continue;
+		   document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+		}
 	  
 		//Set new version in cookie
 		document.cookie = "version=" + Version;
