@@ -13,7 +13,8 @@ If you are looking for a feature that is not listed just make a GitHub Issue and
 You can view the public trello board [here](https://trello.com/b/gMJBwoRq/nyaa-pantsu-cat-roadmap) or click on the "Roadmap".
 
 # Requirements
-* Golang
+
+* Golang ![golang](http://i.imgur.com/UEdZpr4.png)
 
 # Installation
 All tested versions of Ubuntu fail to build, use a different OS or docker
