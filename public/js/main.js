@@ -90,7 +90,7 @@ function startupCode() {
   if (location.hash) shiftWindow()
   window.addEventListener("hashchange", shiftWindow)
 
-  if(!document.cookie.includes("version"))
+  if(!document.cookie.includes("commit"))
     resetCookies()
   else {
     var startPos           = document.cookie.indexOf("commit") + 8,
