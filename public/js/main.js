@@ -93,7 +93,7 @@ function startupCode() {
   if(!document.cookie.includes("commit"))
     resetCookies()
   else {
-    var startPos           = document.cookie.indexOf("commit") + 8,
+    var startPos           = document.cookie.indexOf("commit") + 7,
 	endPos             = document.cookie.substring(startPos).indexOf(";"),
 	userCommitVersion  = endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos);
 	//Get start and end position of Commit string, need to start searching endPos from version cookie in case it's not the first cookie in the string
