@@ -159,7 +159,7 @@ func setUserToContext(c *gin.Context, val *models.User) {
 	context.Set(c.Request, UserContextKey, val)
 }
 
-// RetrieveUser retrieves a user.
+// RetrieveUserFromRequest retrieves a user.
 func RetrieveUserFromRequest(c *gin.Context, id uint) (*models.User, bool, uint, int, error) {
 	var user models.User
 	var currentUserID uint

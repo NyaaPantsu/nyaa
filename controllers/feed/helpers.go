@@ -54,7 +54,7 @@ func getTorrentList(c *gin.Context) (torrents []models.Torrent, createdAsTime ti
 	}
 
 	if userID != "" {
-		userIDnum := 0
+		var userIDnum int
 		userIDnum, err = strconv.Atoi(html.EscapeString(userID))
 		// Should we have a feed for anonymous uploads?
 		if err != nil || userIDnum == 0 {

@@ -1440,7 +1440,7 @@
     "translation": "%s は現在の日付および時刻より小さくなければなりません"
   },
   {
-    "id":"error_less_array",
+    "id": "error_less_array",
     "translation": "%s は %s 個未満のアイテムを含む必要があります"
   },
   {
@@ -1448,7 +1448,7 @@
     "translation": "%s は長さが %s 未満でなければなりません"
   },
   {
-    "id":"error_less_number",
+    "id": "error_less_number",
     "translation": "%s は %s 未満でなければなりません"
   },
   {
@@ -1476,35 +1476,35 @@
     "translation": "%s は %s 以下でなければなりません"
   },
   {
-    "id":"error_max_length",
+    "id": "error_max_length",
     "translation": "必要な入力値 %s の最大長: %s"
   },
   {
-    "id":"error_max_number",
+    "id": "error_max_number",
     "translation": "%s は %s 以下でなければなりません"
   },
   {
-    "id":"error_max_array",
+    "id": "error_max_array",
     "translation": "%s にはアイテム %s 個まで含める必要があります"
   },
   {
-    "id":"error_length",
+    "id": "error_length",
     "translation": "必要な入力値 %s の長さ: %s"
   },
   {
-    "id":"error_equal",
+    "id": "error_equal",
     "translation": "%s は %s と等しくありません"
   },
   {
-    "id":"error_same_value",
+    "id": "error_same_value",
     "translation": "同じ %s である必要があります"
   },
   {
-    "id":"error_field",
+    "id": "error_field",
     "translation": "フィールドで予期せぬエラーが発生しました: %s"
   },
   {
-    "id":"error_not_equal",
+    "id": "error_not_equal",
     "translation": "%s は %s と同じであってはなりません"
   },
   {
@@ -1680,7 +1680,7 @@
     "translation": "ユーザー名またはパスワードが入力されていません"
   },
   {
-    "id":"account_banned",
+    "id": "account_banned",
     "translation": "アカウントは BAN されています"
   },
   {

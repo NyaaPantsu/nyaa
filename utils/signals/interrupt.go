@@ -13,6 +13,7 @@ var intEvents struct {
 	funcs []func()
 }
 
+// OnInterrupt handles signal interupts
 func OnInterrupt(fn func()) {
 	intEvents.lock.Lock()
 	intEvents.funcs = append(intEvents.funcs, fn)

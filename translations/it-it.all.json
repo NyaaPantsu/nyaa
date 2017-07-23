@@ -1364,11 +1364,11 @@
     "translation": "Minimal length of %s required for the input: %s"
   },
   {
-    "id":"error_max_length",
-    "translation":"Maximal length of %s required for the input: %s"
+    "id": "error_max_length",
+    "translation": "Maximal length of %s required for the input: %s"
   },
   {
-    "id":"error_same_value",
+    "id": "error_same_value",
     "translation": "Must be same %s"
   },
   {

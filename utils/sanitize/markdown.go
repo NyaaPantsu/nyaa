@@ -29,10 +29,11 @@ var htmlFlags = 0 |
 	md.HTML_HREF_TARGET_BLANK
 
 func init() {
-	HtmlMdRenderer = md.HtmlRenderer(htmlFlags, "", "")
+	HTMLMdRenderer = md.HtmlRenderer(htmlFlags, "", "")
 }
 
-var HtmlMdRenderer md.Renderer
+// HTMLMdRenderer render for markdown to html
+var HTMLMdRenderer md.Renderer
 
 // MarkdownToHTML : convert markdown to html
 // TODO: restrict certain types of markdown
@@ -41,7 +42,7 @@ func MarkdownToHTML(markdown string) template.HTML {
 		markdown = ">" + markdown[4:]
 	}
 	markdown = strings.Replace(markdown, "\n&gt;", "\n>", -1)
-	unsafe := md.MarkdownOptions([]byte(markdown), HtmlMdRenderer, md.Options{Extensions: mdOptions})
+	unsafe := md.MarkdownOptions([]byte(markdown), HTMLMdRenderer, md.Options{Extensions: mdOptions})
 	html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
 	return template.HTML(html)
 }

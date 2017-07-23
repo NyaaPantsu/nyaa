@@ -1440,16 +1440,16 @@
     "translation": "%s must be less than the current Date & Time"
   },
   {
-    "id":"error_less_array",
-    "translation":"%s must contain less than %s items"
+    "id": "error_less_array",
+    "translation": "%s must contain less than %s items"
   },
   {
     "id": "error_less_length",
     "translation": "%s must be less than %s in length"
   },
   {
-    "id":"error_less_number",
-    "translation":"%s must be less than %s"
+    "id": "error_less_number",
+    "translation": "%s must be less than %s"
   },
   {
     "id": "error_less_equal_date",
@@ -1476,35 +1476,35 @@
     "translation": "%s must be equal or less to %s"
   },
   {
-    "id":"error_max_length",
-    "translation":"Maximal length of %s required for the input: %s"
+    "id": "error_max_length",
+    "translation": "Maximal length of %s required for the input: %s"
   },
   {
-    "id":"error_max_number",
-    "translation":"%s must be %s or less"
+    "id": "error_max_number",
+    "translation": "%s must be %s or less"
   },
   {
-    "id":"error_max_array",
-    "translation":"%s must contain at maximum %s items"
+    "id": "error_max_array",
+    "translation": "%s must contain at maximum %s items"
   },
   {
-    "id":"error_length",
-    "translation":"Length of %s required for the input: %s"
+    "id": "error_length",
+    "translation": "Length of %s required for the input: %s"
   },
   {
-    "id":"error_equal",
+    "id": "error_equal",
     "translation": "%s is not equal to %s"
   },
   {
-    "id":"error_same_value",
+    "id": "error_same_value",
     "translation": "Field '%s' must have the same value as the field '%s'"
   },
   {
-    "id":"error_field",
+    "id": "error_field",
     "translation": "Unexpected error on field: %s"
   },
   {
-    "id":"error_not_equal",
+    "id": "error_not_equal",
     "translation": "%s should not be equal to %s"
   },
   {
@@ -1680,7 +1680,7 @@
     "translation": "No username/password entered"
   },
   {
-    "id":"account_banned",
+    "id": "account_banned",
     "translation": "Account banned"
   },
   {

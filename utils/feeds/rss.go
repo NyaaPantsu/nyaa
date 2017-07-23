@@ -13,7 +13,7 @@ import (
 	"github.com/gorilla/feeds"
 )
 
-// private wrapper around the RssFeed which gives us the <rss>..</rss> xml
+// rssFeedXML private wrapper around the RssFeed which gives us the <rss>..</rss> xml
 type rssFeedXML struct {
 	XMLName  xml.Name `xml:"rss"`
 	Xmlns    string   `xml:"xmlns:torznab,attr,omitempty"`
@@ -23,6 +23,7 @@ type rssFeedXML struct {
 	Caps     *RssCaps `xml:"caps,omitempty"`
 }
 
+// RssImage RSS image struct
 type RssImage struct {
 	XMLName xml.Name `xml:"image"`
 	URL     string   `xml:"url"`
@@ -32,6 +33,7 @@ type RssImage struct {
 	Height  int      `xml:"height,omitempty"`
 }
 
+// RssTextInput RSS text struct
 type RssTextInput struct {
 	XMLName     xml.Name `xml:"textInput"`
 	Title       string   `xml:"title"`
@@ -40,11 +42,13 @@ type RssTextInput struct {
 	Link        string   `xml:"link"`
 }
 
+// RssMagnetLink RSS struct for magnet links
 type RssMagnetLink struct {
 	XMLName xml.Name `xml:"link"`
 	Text    string   `xml:",cdata"`
 }
 
+// RssFeed  RSS feed struct
 type RssFeed struct {
 	XMLName        xml.Name `xml:"channel"`
 	Xmlns          string   `xml:"-"`
@@ -70,6 +74,7 @@ type RssFeed struct {
 	Items          []*RssItem
 }
 
+// RssItem struct for rss feed items
 type RssItem struct {
 	XMLName     xml.Name     `xml:"item"`
 	Title       string       `xml:"title"` // required
@@ -86,6 +91,7 @@ type RssItem struct {
 	Torznab     []*RssTorznab
 }
 
+// RssCaps xml struct for torznab caps
 type RssCaps struct {
 	XMLName      xml.Name         `xml:"caps"`
 	Server       *RssServer       `xml:"server,omitempty"`
@@ -95,6 +101,7 @@ type RssCaps struct {
 	Categories   *RssCategories   `xml:"categories,omitempty"`
 }
 
+// RssServer basic server information
 type RssServer struct {
 	XMLName   xml.Name `xml:"server"`
 	Xmlns     string   `xml:"xmlns,attr"`
@@ -106,18 +113,21 @@ type RssServer struct {
 	Image     string   `xml:"image,attr"`
 }
 
+// RssLimits struct for max results
 type RssLimits struct {
 	XMLName xml.Name `xml:"limits"`
 	Max     string   `xml:"max,attr"`
 	Default string   `xml:"default,attr"`
 }
 
+// RssRegistration torznab registration information
 type RssRegistration struct {
 	XMLName   xml.Name `xml:"registration"`
 	Available string   `xml:"available,attr"`
 	Open      string   `xml:"open,attr"`
 }
 
+// RssSearching struct for supported search types
 type RssSearching struct {
 	XMLName     xml.Name   `xml:"searching"`
 	Search      *RssSearch `xml:"search,omitempty"`
@@ -125,16 +135,19 @@ type RssSearching struct {
 	MovieSearch *RssSearch `xml:"movie-search,omitempty"`
 }
 
+// RssSearch struct for supported searching params
 type RssSearch struct {
 	Available       string `xml:"available,attr"`
 	SupportedParams string `xml:"supportedParams,attr,omitempty"`
 }
 
+// RssCategories categories for rss
 type RssCategories struct {
 	XMLName  xml.Name `xml:"categories"`
 	Category []*RssCategoryTorznab
 }
 
+// RssCategoryTorznab categories for torznab
 type RssCategoryTorznab struct {
 	XMLName     xml.Name `xml:"category"`
 	ID          string   `xml:"id,attr"`
@@ -143,6 +156,7 @@ type RssCategoryTorznab struct {
 	Description string `xml:"description,attr,omitempty"`
 }
 
+// RssSubCat sub category
 type RssSubCat struct {
 	XMLName     xml.Name `xml:"subcat"`
 	ID          string   `xml:"id,attr"`
@@ -150,6 +164,7 @@ type RssSubCat struct {
 	Description string   `xml:"description,attr,omitempty"`
 }
 
+// RssTorrent item for torrents
 type RssTorrent struct {
 	XMLName       xml.Name `xml:"torrent"`
 	Xmlns         string   `xml:"xmlns,attr"`
@@ -159,6 +174,7 @@ type RssTorrent struct {
 	MagnetURI     string   `xml:"magnetUri,omitempty"`
 }
 
+// RssTorznab feed for torznab
 type RssTorznab struct {
 	XMLName xml.Name `xml:"torznab:attr,omitempty"`
 	Name    string   `xml:"name,attr,omitempty"`
@@ -171,6 +187,7 @@ type RssCategory struct {
 	Domain  string   `xml:"domain"`
 }
 
+// RssEnclosure enclosure for downloads
 type RssEnclosure struct {
 	//RSS 2.0 <enclosure url="http://example.com/file.mp3" length="123456789" type="audio/mpeg" />
 	XMLName xml.Name `xml:"enclosure"`
@@ -179,6 +196,7 @@ type RssEnclosure struct {
 	Type    string   `xml:"type,attr"`
 }
 
+// Rss struct
 type Rss struct {
 	*feeds.Feed
 }
@@ -241,22 +259,22 @@ func (r *Rss) RssFeed() *RssFeed {
 	return channel
 }
 
-// FeedXml : return an XML-Ready object for an Rss object
-func (r *Rss) FeedXml() interface{} {
+// FeedXML : return an XML-Ready object for an Rss object
+func (r *Rss) FeedXML() interface{} {
 	// only generate version 2.0 feeds for now
-	return r.RssFeed().FeedXml()
+	return r.RssFeed().FeedXML()
 
 }
 
-// FeedXml : return an XML-ready object for an RssFeed object
-func (r *RssFeed) FeedXml() interface{} {
+// FeedXML : return an XML-ready object for an RssFeed object
+func (r *RssFeed) FeedXML() interface{} {
 	if r.Xmlns != "" {
 		return &rssFeedXML{Version: "2.0", Encoding: "UTF-8", Channel: r, Xmlns: r.Xmlns}
 	}
 	return &rssFeedXML{Version: "2.0", Encoding: "UTF-8", Channel: r}
 }
 
-// FeedXml : return an XML-ready object for an RssFeed object
-func (r *RssCaps) FeedXml() interface{} {
+// FeedXML : return an XML-ready object for an RssFeed object
+func (r *RssCaps) FeedXML() interface{} {
 	return r
 }
