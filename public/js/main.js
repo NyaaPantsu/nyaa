@@ -54,7 +54,7 @@ function parseAllDates() {
 parseAllDates()
 
 
-//if no version cookie set or non-equal version
+  //if no version cookie set or non-equal version
   if(!document.cookie.includes("version") || (document.cookie.substring(document.cookie.indexOf("version") + 8).substring(0, document.cookie.substring(document.cookie.indexOf("version") + 8).indexOf(";") == "-1" ? document.cookie.substring(document.cookie.indexOf("version") + 8).length : document.cookie.substring(document.cookie.indexOf("version") + 8).indexOf(";"))) != Version)
   {
 	  	//Get current lang, mascot & theme cookies
