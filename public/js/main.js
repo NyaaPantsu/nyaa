@@ -76,6 +76,9 @@ parseAllDates()
 	  
 	  	//Apply back lang, mascot & theme cookie
 	  	//TODO
+	  
+	  	//Add fancy "new" text at bottom of page
+	  	document.getElementById("commit").className = "new";
   }
 		
 
