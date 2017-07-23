@@ -395,6 +395,15 @@ textarea { max-width: 100%; }
 	margin-bottom: 1.2rem;
 }
 
+.commit.new:after {
+    content: "new";
+    color: red;
+    font-size: 10pt;
+    vertical-align: top;
+    line-height: 5px;
+    margin-left: 1px;
+}
+
 html, body {
   height: 100%;
 }
