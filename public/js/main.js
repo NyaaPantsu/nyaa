@@ -64,12 +64,12 @@ parseAllDates()
     for (var i = 0; i < cookies.length; i++) {
       var cookieName = (cookies[i].split("=")[0]).trim();
       //Remove spaces because some cookie names have it
-      if(excludedCookies.includes(cookieName)) continue;
+      if(excludedCookies.includes(cookieName))  continue;
       document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
 	  
-	//Set new version in cookie and add fancy "new" text at bottom of pag
-    document.cookie = "version=" + Version;
+    //Set new version in cookie and add fancy "new" text at bottom of pag
+    document.cookie = "commit=" + commitVersion;
     document.getElementById("commit").className = "new";
   }
 		
@@ -89,11 +89,12 @@ function startupCode() {
   if(!document.cookie.includes("version"))
     resetCookies()
   else {
-    var startPos           = document.cookie.indexOf("version") + 8,
+    var startPos           = document.cookie.indexOf("commit") + 8,
 	endPos             = document.cookie.substring(startPos).indexOf(";"),
 	userCommitVersion  = endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos);
 	//Get start and end position of Commit string, need to start searching endPos from version cookie in case it's not the first cookie in the string
 	//If endPos is equal to -1, aka if the version cookie is at the very end of the string and doesn't have an ";", the endPos is not used
+
 	if(userCommitVersion != commitVersion)
 	  resetCookies()
   }
