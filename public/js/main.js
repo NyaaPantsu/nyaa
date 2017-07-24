@@ -74,7 +74,7 @@ parseAllDates()
     //add fancy "new" text at bottom of page which will expire in one hour and a half
     var now = new Date();
     now.setTime(now.getTime() + 1 * 3600 * 1500);
-    document.cookie = "newCommit=true; expires=" + now.toUTCString();
+    document.cookie = "newVersion=true; expires=" + now.toUTCString();
   }
 		
 
@@ -90,10 +90,10 @@ function startupCode() {
   if (location.hash) shiftWindow()
   window.addEventListener("hashchange", shiftWindow)
 
-  if(!document.cookie.includes("version"))
+  if(!document.cookie.includes("commit"))
     resetCookies()
   else {
-    var startPos           = document.cookie.indexOf("commit") + 8,
+    var startPos           = document.cookie.indexOf("commit") + 7,
 	endPos             = document.cookie.substring(startPos).indexOf(";"),
 	userCommitVersion  = endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos);
 	//Get start and end position of Commit string, need to start searching endPos from version cookie in case it's not the first cookie in the string
@@ -103,7 +103,7 @@ function startupCode() {
 	  resetCookies()
   }
 
- if(document.cookie.includes("newCommit"))
+ if(document.cookie.includes("newVersion"))
    document.getElementById("commit").className = "new";
 	
   document.getElementsByClassName("search-box")[0].addEventListener("focus", function (e) {
