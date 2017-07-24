@@ -2,13 +2,13 @@
 <div class="container">
   <div class="h-left">
     <div class="h-logo">
-      <a href="{{URL.Parse(" / ")}}">
+      <a href="{{URL.Parse("/")}}">
         <img class="hide-md" src="/img/{{if Sukebei()}}sukebei_logo.png{{else}}logo.png{{end}}" alt="Nyaa Pantsu"/>
         <img class="visible-md" src="/img/logo_s.png" alt="Nyaa Pantsu"/>
       </a>
     </div>
     <div class="h-nav">
-      <a href="{{URL.Parse(" /upload ")}}" class="nav-btn">
+      <a href="{{URL.Parse("/upload")}}" class="nav-btn">
         <div class="icon-upload visible-md"></div>
         <span class="hide-md">{{ T("upload") }}</span>
       </a>
@@ -16,7 +16,7 @@
         <div class="icon-rss-squared visible-md"></div>
         <span class="hide-md">RSS</span>
       </a>
-      <a href="{{URL.Parse(" /faq ")}}" class="nav-btn">
+      <a href="{{URL.Parse("/faq")}}" class="nav-btn">
         <div class="icon-help-circled visible-md"></div>
         <span class="hide-md">{{ T("faq") }}</span>
       </a>
@@ -36,7 +36,7 @@
   <div class="h-right">
     {{ include "layouts/partials/helpers/badgemenu" }}
     <div class="h-search">
-      <form role="search" action="{{URL.Parse(" /search ")}}" id="header-form" method="get">
+      <form role="search" action="{{URL.Parse("/search")}}" id="header-form" method="get">
         {{ yield search_common() }} {{ yield search_button() }}
       </form>
     </div>
