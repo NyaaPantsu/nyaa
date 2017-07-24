@@ -4,7 +4,7 @@
 // Switches between themes when a new one is selected
 
 function switchThemes() {
-  themeName = document.getElementById("theme-selector").value
+  var themeName = document.getElementById("theme-selector").value
   var head = document.getElementsByTagName("head")[0]
   // Remove the theme in place, it fails if one isn't set
   try {

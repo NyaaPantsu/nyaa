@@ -260,14 +260,14 @@ func (r *Rss) RssFeed() *RssFeed {
 }
 
 // FeedXML : return an XML-Ready object for an Rss object
-func (r *Rss) FeedXML() interface{} {
+func (r *Rss) FeedXml() interface{} {
 	// only generate version 2.0 feeds for now
-	return r.RssFeed().FeedXML()
+	return r.RssFeed().FeedXml()
 
 }
 
 // FeedXML : return an XML-ready object for an RssFeed object
-func (r *RssFeed) FeedXML() interface{} {
+func (r *RssFeed) FeedXml() interface{} {
 	if r.Xmlns != "" {
 		return &rssFeedXML{Version: "2.0", Encoding: "UTF-8", Channel: r, Xmlns: r.Xmlns}
 	}
@@ -275,6 +275,6 @@ func (r *RssFeed) FeedXML() interface{} {
 }
 
 // FeedXML : return an XML-ready object for an RssFeed object
-func (r *RssCaps) FeedXML() interface{} {
+func (r *RssCaps) FeedXml() interface{} {
 	return r
 }

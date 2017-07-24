@@ -5,8 +5,8 @@
   "attr-unsafe-chars": true,
   "attr-value-double-quotes": false,
   "attr-value-not-empty": false,
-  "doctype-first": true,
-  "doctype-html5": true,
+  "doctype-first": false,
+  "doctype-html5": false,
   "head-script-disabled": true,
   "href-abs-or-rel": false,
   "id-class-ad-disabled": true,
@@ -19,7 +19,7 @@
   "src-not-empty": true,
   "style-disabled": true,
   "tag-pair": true,
-  "tag-self-close": false,
+  "tag-self-close": true,
   "tagname-lowercase": true,
   "title-require": true
 }

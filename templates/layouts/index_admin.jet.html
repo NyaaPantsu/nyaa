@@ -1,20 +1,3 @@
-{* We extend the base template *}
-{{ extends "partials/base" }}
-{{import "partials/helpers/search"}}
-
-{* We apply the menu in the base template *}
-{{ block menu()}}
-{{include "partials/menu/admin"}}
-{{end}}
-
-{* We add the class content for admin *}
-{{ block contclass()}}content-admin{{end}}
-
-{* We add the mod panel title and the title block *}
-{{block titleBase()}}Moderation Panel - {{block title()}}{{end}}{{end}}
-
-{* We add the mod panel search refine and the body block *}
-{{ block content_body_base()}}
-{{ yield search_refine(url=URL.Parse("/mod/torrents")) }}
-{{ block content_body()}}{{end}}
-{{end}}
+{* We extend the base template *} {{ extends "partials/base" }} {{import "partials/helpers/search"}} {* We apply the menu in the base template *} {{ block menu()}} {{include "partials/menu/admin"}} {{end}} {* We add the class content for admin *} {{ block
+contclass()}}content-admin{{end}} {* We add the mod panel title and the title block *} {{block titleBase()}}Moderation Panel - {{block title()}}{{end}}{{end}} {* We add the mod panel search refine and the body block *} {{ block content_body_base()}} {{
+yield search_refine(url=URL.Parse("/mod/torrents")) }} {{ block content_body()}}{{end}} {{end}}

@@ -1,73 +1,96 @@
-{{ extends "layouts/index_admin" }}
-{{block title()}}{{  T("torrents_list") }}{{end}}
-{{ block content_body()}}
+{{ extends "layouts/index_admin" }} {{block title()}}{{ T("torrents_list") }}{{end}} {{ block content_body()}}
 <div class="results box">
-    <h1>{{  T("torrents_list") }}</h1>
-    <form method="post" action="">
+  <h1>{{  T("torrents_list") }}</h1>
+  <form method="post" action="">
     <div class="toolbar">
-          <select class="cb_action" name="action">
-            <option value="">{{  T("action_select") }}</option>
-            <option value="status">{{  T("change_status") }}</option>
-            <option value="delete">{{  T("delete") }}</option>
-          </select>
-          <select class="cb_action" style="display: none;" name="status">
-            <option value="">{{  T("to_status") }}</option>
-            <option value="5">{{ T("torrent_status_blocked")}}</option>
-            <option value="1">{{ T("torrent_status_normal")}}</option>
-            <option value="2">{{ T("torrent_status_remake")}}</option>
-            <option value="3">{{ T("trusted")}}</option>
-            <option value="4">A+</option>
-          </select>
-        <input type="submit" class="form-input" value="Apply">
-        <input type="reset" class="form-input" value="Reset">
-        <div class="float-right">
-            <a href="/mod/torrents" class="form-input">{{  T("torrents_not_deleted") }}</a>
-            <a href="/mod/torrents/deleted" class="form-input">{{  T("torrents_deleted") }}</a>
-        </div>
+      <select class="cb_action" name="action">
+        <option value="">{{  T("action_select") }}</option>
+        <option value="status">{{  T("change_status") }}</option>
+        <option value="delete">{{  T("delete") }}</option>
+      </select>
+      <select class="cb_action" style="display: none;" name="status">
+        <option value="">{{  T("to_status") }}</option>
+        <option value="5">{{ T("torrent_status_blocked")}}</option>
+        <option value="1">{{ T("torrent_status_normal")}}</option>
+        <option value="2">{{ T("torrent_status_remake")}}</option>
+        <option value="3">{{ T("trusted")}}</option>
+        <option value="4">A+</option>
+      </select>
+      <input type="submit" class="form-input" value="Apply" />
+      <input type="reset" class="form-input" value="Reset" />
+      <div class="float-right">
+        <a href="/mod/torrents" class="form-input">{{  T("torrents_not_deleted") }}</a>
+        <a href="/mod/torrents/deleted" class="form-input">{{  T("torrents_deleted") }}</a>
+      </div>
     </div>
-<table class="table">
-    <thead class="torrent-info">
+    <table class="table">
+      <thead class="torrent-info">
         <tr>
-            <th class="tr-cb"><input type="checkbox" name="checkall" data-selectall="checkbox"></th>
-            <th class="tr-name">{{  T("name") }}</th>
-            <th class="tr-actions">{{  T("uploaded_by") }}</th>
-            <th class="tr-actions" style="width:190px">{{  T("actions") }}</th>
+          <th class="tr-cb">
+            <input type="checkbox" name="checkall" data-selectall="checkbox" />
+          </th>
+          <th class="tr-name">{{ T("name") }}</th>
+          <th class="tr-actions">{{ T("uploaded_by") }}</th>
+          <th class="tr-actions" style="width:190px">{{ T("actions") }}</th>
         </tr>
-    </thead>
-    <tbody>
-    {{ range Models}}
-    <tr>
-        <td class="tr-cb"><input type="checkbox" class="selectable" name="torrent_id" value="{{.ID }}"></td>
-        <td class="tr-name home-td"><a href="/view/{{ .ID }}">{{ .Name }}</a> {{ if !.IsDeleted }}<a href="/mod/torrent?id={{.ID}}" class="form-input btn-blue float-right">{{  T("edit")}}</a>{{end}}</td>
-        <td class="tr-size home-td">{{ if .Uploader }}<a href="/torrents{{ if .IsDeleted }}/deleted{{end}}?userID={{.UploaderID}}">{{ .Uploader.Username }}</a>{{ else }}れんちょん{{end}}</td>
-        <td class="tr-actions home-td">
-        <a href="/torrent/block?id={{ .ID }}" class="form-input btn-orange" onclick="if (!confirm('{{  T("are_you_sure")}}')) return false;">{{ if .IsBlocked }}{{  T("torrent_unblock") }}{{else}}{{  T("torrent_block") }}{{end}}</a>
-        {{ if .IsDeleted }}
-        <br><a href="/mod/torrent/delete?definitely&id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure")}} {{  T("delete_definitely_torrent_warning")}}')) return false;"><i class="icon-trash"></i> {{  T("delete_definitely") }}</a>
-        {{ else }}
-        <a href="/mod/torrent/delete?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure")}}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</a>
-        {{ end }}
-        </td>
-    </tr>
-    {{end}}
-    </tbody>
-</table> 
+      </thead>
+      <tbody>
+        {{ range Models}}
+        <tr>
+          <td class="tr-cb">
+            <input type="checkbox" class="selectable" name="torrent_id" value="{{.ID }}" />
+          </td>
+          <td class="tr-name home-td">
+            <a href="/view/{{ .ID }}">{{ .Name }}</a> {{ if !.IsDeleted }}
+            <a href="/mod/torrent?id={{.ID}}" class="form-input btn-blue float-right">
+              {{  T("edit")}}
+            </a> {{end}}
+          </td>
+          <td class="tr-size home-td">
+            {{ if .Uploader }}
+            <a href="/torrents{{ if .IsDeleted }}/deleted{{end}}?userID={{.UploaderID}}">
+              {{ .Uploader.Username }}
+            </a> {{ else }}れんちょん{{end}}
+          </td>
+          <td class="tr-actions home-td">
+            <a href="/torrent/block?id={{ .ID }}" class="form-input btn-orange" onclick="if (!confirm('{{  T(" are_you_sure ")}}')) return false;">
+              {{ if .IsBlocked }}
+              {{  T("torrent_unblock") }}
+              {{else}}
+              {{  T("torrent_block") }}
+              {{end}}
+            </a>
+            {{ if .IsDeleted }}
+            <br/>
+            <a href="/mod/torrent/delete?definitely&id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ")}} {{  T("delete_definitely_torrent_warning ")}}')) return false;">
+              <i class="icon-trash"></i>
+               {{  T("delete_definitely") }}
+             </a>
+             {{ else }}
+            <a href="/mod/torrent/delete?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ")}}')) return false;">
+              <i class="icon-trash"></i> {{  T("delete") }}
+            </a>
+            {{ end }}
+          </td>
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
   </form>
 </div>
-{{end}}
-{{ block footer_js()}}
+{{end}} {{ block footer_js()}}
 <!-- JS Function for selecting multiple checkboxes -->
-<script type="text/javascript" src="{{URL.Parse("/js/selectAll.js") }}"></script>
+<script type="text/javascript" src="{{URL.Parse(" /js/selectAll.js ") }}"></script>
 <script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("select[name='action']").addEventListener("change", function(e) {
-        var el = e.target;
-        if (el.value == "status")
-            document.querySelector("select[name='status']").style.display = "inline"
-        else 
-            document.querySelector("select[name='status']").style.display = "none"
-            console.log(el.value);
+      var el = e.target;
+      if (el.value == "status")
+        document.querySelector("select[name='status']").style.display = "inline"
+      else
+        document.querySelector("select[name='status']").style.display = "none"
+      console.log(el.value);
     });
-});
+  });
 </script>
 {{end}}
