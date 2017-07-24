@@ -18,7 +18,7 @@ const oauth_prefix = "hydra_oauth2_"
 type OauthAbstract struct {
 	Signature    string    `gorm:"column:signature;primary_key;not null"`
 	RequestID    string    `gorm:"column:request_id;not null"`
-	RequestedAt  time.Time `gorm:"column:requested_at;not null;type:timestamp;default:NOW()"`
+	RequestedAt  time.Time `gorm:"column:requested_at;not null;type:timestamp;default:CURRENT_TIMESTAMP"`
 	ClientID     string    `gorm:"column:client_id;not null"`
 	Scope        string    `gorm:"column:scope;not null"`
 	GrantedScope string    `gorm:"column:granted_scope;not null"`
