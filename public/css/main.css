@@ -125,6 +125,10 @@ body {
     margin-right: 8px;
 }
 
+.header .h-search {
+    margin-right: 2px;
+}
+
 .header .h-search .form-input {
     font-size: 80%;
     line-height: 18px;
