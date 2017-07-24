@@ -1,0 +1,20 @@
+{{import "layouts/partials/helpers/errors"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page - Nyaa Pantsu Authentification API</title>
+</head>
+<body>
+<div>
+    <h1>Page authentification</h1>
+    <p>Please provide your login credentials before continuing</p>
+    {{ yield errors() }}
+    <form action="">
+        <input type="text" name="username" /><br>
+        <input type="password" name="password" /><br>
+        <input type="submit">
+    </form>
+</div>
+</body>
+</html>

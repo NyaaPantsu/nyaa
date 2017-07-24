@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grant Access - Nyaa Pantsu API</title>
+</head>
+<body>
+<div>
+    <h1>Grant Access to your account</h1>
+    <h2>To the app {{ Client.GetID() }} </h2>
+    <form action="">
+        <p>This app requests the following access:
+            <ul>
+                {{ range Scopes }}
+                <li><input type="hidden" name="scopes" value="{{ . }}">{{ . }}</li>
+                {{ end }}
+            </ul>
+        </p>
+        <p>
+            <input type="submit" value="Accept">
+        </p>
+    </form>
+</div>
+</body>
+</html>
