@@ -21,6 +21,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
 	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"github.com/gin-gonic/gin"
+	"github.com/ory/fosite"
 )
 
 // run before router/init.go:init()
@@ -148,6 +149,32 @@ func walkDirTest(dir string, t *testing.T) {
 				CaptchaID string
 			}
 			variables.Set("Form", form{1, "test"})
+			return variables
+		},
+		"callback.jet.html": func(variables jet.VarMap) jet.VarMap {
+
+			variables.Set("Callback", true)
+			variables.Set("AccessToken", "")
+			variables.Set("RefreshToken", "")
+			variables.Set("Code", "")
+			return variables
+		},
+		"grant.jet.html": func(variables jet.VarMap) jet.VarMap {
+			cli := &fosite.DefaultClient{}
+			variables.Set("Client", cli)
+			variables.Set("Scopes", []string{})
+			return variables
+		},
+		"refresh.jet.html": func(variables jet.VarMap) jet.VarMap {
+
+			variables.Set("Refresh", true)
+			variables.Set("Response", "")
+			return variables
+		},
+		"revoke.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Revoke", true)
+			variables.Set("ResponseCode", "")
+			variables.Set("Response", "")
 			return variables
 		},
 	}
