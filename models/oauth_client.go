@@ -1,5 +1,12 @@
 package models
 
+import (
+	"errors"
+	"net/http"
+
+	"github.com/fatih/structs"
+)
+
 type OauthClient struct {
 	ID                string `gorm:"column:id;primary_key;not null"`
 	Name              string `gorm:"column:client_name;not null"`
@@ -19,4 +26,16 @@ type OauthClient struct {
 
 func (d OauthClient) TableName() string {
 	return "hydra_client"
+}
+
+func (d *OauthClient) Update() (int, error) {
+	if ORM.Model(d).UpdateColumn(d.toMap()).Error != nil {
+		return http.StatusInternalServerError, errors.New("Torrent was not updated")
+	}
+	return http.StatusOK, nil
+}
+
+// toMap : convert the model to a map of interface
+func (d *OauthClient) toMap() map[string]interface{} {
+	return structs.Map(d)
 }

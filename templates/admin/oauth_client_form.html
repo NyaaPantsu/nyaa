@@ -1,0 +1,102 @@
+{{ extends "layouts/index_admin" }}
+{{block title()}}{{ if Form.ID != "" }}{{  T("client_edit_panel") }}{{ else }}{{  T("client_create_panel") }}{{ end }}{{end}}
+{{ block content_body()}}
+<div class="results box">
+    <h3 id="clients">{{ if Form.ID != "" }}{{  T("client_edit_panel") }}{{ else }}{{  T("client_create_panel") }}{{ end }}</h3>
+    <form style="text-align:left;padding-left:10px;padding-right:10px;" method="POST" action="{{ if Form.ID != ""}}?id={{ Form.ID }}{{end}}">
+        <div class="form-group">
+            <label for="name">{{ T("name")}}</label>
+            <input type="text" name="name" id="name" class="form-input up-input" placeholder="{{ T("name")}}" value="{{Form.Name}}" required>
+        </div>
+        <div class="form-group">
+            <label for="owner">{{ T("owner")}}</label>
+            <input type="text" name="owner" id="owner" class="form-input up-input" placeholder="{{ T("owner")}}" value="{{Form.Owner}}" required>
+        </div>
+        <div class="form-group">
+            <label for="secret">{{ T("secret")}}</label>
+            <input type="text" name="secret" id="secret" class="form-input up-input" placeholder="{{ T("secret")}}" value="{{Form.Secret}}" required>
+        </div>
+        <div class="form-group">
+            <label for="contacts">{{ T("contacts")}}</label>
+            <div class="input-ui-list">
+                {{ range Form.Contacts }}
+                <input type="text" name="contacts" id="contacts" class="form-input up-input" placeholder="{{ T("contacts")}}" value="{{.}}">
+                {{ end }}
+            </div>
+            <button onclick="addInput(this)">T("Add")</button>
+        </div>
+        <div class="form-group">
+            <label for="redirect_uri">{{ T("redirect_uri")}}</label>
+            <div class="input-ui-list">
+                {{ range Form.RedirectURI }}
+                <div class="element">
+                    <input type="text" name="redirect_uri" id="redirect_uri" class="form-input up-input" placeholder="{{ T("redirect_uri")}}" value="{{.}}">
+                    <button onclick="removeInput(this)">T("remove")</button>
+                </div>
+                {{ end }}
+            </div>
+            <button onclick="addInput(this)">T("add")</button>
+        </div>
+        <div class="form-group">
+            <label for="grant_types">{{ T("grant_types")}}</label>
+            <div class="input-ui-list">
+                {{ range Form.GrantTypes }}
+                <input type="text" name="grant_types" id="grant_types" class="form-input up-input" placeholder="{{ T("grant_types")}}" value="{{.}}">
+                {{ end }}
+            </div>
+            <button onclick="addInput(this)">T("Add")</button>
+        </div>
+        <div class="form-group">
+            <label for="response_types">{{ T("response_types")}}</label>
+            <div class="input-ui-list">
+                {{ range Form.ResponseTypes }}
+                <input type="text" name="response_types" id="response_types" class="form-input up-input" placeholder="{{ T("response_types")}}" value="{{.}}">
+                {{ end }}
+            </div>
+            <button onclick="addInput(this)">T("Add")</button>
+        </div>
+        <div class="form-group">
+            <label for="client_uri">{{ T("website_link")}}</label>
+            <input name="client_uri" id="client_uri" class="form-input up-input" type="text" value="{{Form.ClientURI}}">
+        </div>
+        <div class="form-group">
+            <label for="scope">{{ T("scope")}}</label>
+            <input type="text" name="scope" id="scope" class="form-input up-input" placeholder="{{ T("scope")}}" value="{{Form.Scope}}">
+        </div>
+        <div class="form-group">
+            <label for="policy_uri">{{ T("policy_uri")}}</label>
+            <input type="text" name="policy_uri" id="policy_uri" class="form-input up-input" placeholder="{{ T("policy_uri")}}" value="{{Form.PolicyURI}}">
+        </div>
+        <div class="form-group">
+            <label for="tos_uri">{{ T("tos_uri")}}</label>
+            <input type="text" name="tos_uri" id="tos_uri" class="form-input up-input" placeholder="{{ T("tos_uri")}}" value="{{Form.TermsOfServiceURI}}">
+        </div>
+        <div class="form-group">
+            <label for="logo_uri">{{ T("logo_uri")}}</label>
+            <input type="text" name="logo_uri" id="logo_uri" class="form-input up-input" placeholder="{{ T("logo_uri")}}" value="{{Form.LogoURI}}">
+        </div>
+        <button type="submit" class="form-input up-input btn-green">{{ T("save_changes")}}</button>
+    </form>
+</div>
+{{end}}
+{{ block footer_js()}}
+<script type="text/javascript">
+    function addInput(el) {
+      var parentDiv = el.parentElement
+      var inputs = parentDiv.querySelectorAll("input")
+      var divInputList = parentDiv.querySelector("input-ui-list")
+      var input = document.createElement("input")
+      input.type="text"
+      input.name=inputs[0].name
+      input.id = inputs[0].id
+      input.className = inputs[0].className
+      input.placeholder = inputs[0].placeholder
+      input.required = inputs[0].required
+      divInputList.appendChild()
+    }
+    function removeInput(el) {
+      var parentDiv = el.parentElement
+      parentDiv.parentNode.removeChild(parentDiv)
+    }
+</script>
+{{end}}

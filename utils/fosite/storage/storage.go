@@ -7,23 +7,12 @@ import (
 	"strings"
 
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/models/oauth_server"
 	"github.com/NyaaPantsu/nyaa/models/users"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/ory/fosite"
 	"github.com/pkg/errors"
 )
-
-const (
-	sqlTableOpenID  = "oidc"
-	sqlTableAccess  = "access"
-	sqlTableRefresh = "refresh"
-	sqlTableCode    = "code"
-)
-
-type modelAbstract interface {
-	TableName() string
-	ToRequest(session fosite.Session, cm models.Manager) (*fosite.Request, error)
-}
 
 type FositeSQLStore struct {
 	models.Manager
@@ -52,28 +41,13 @@ func sqlSchemaFromRequest(signature string, r fosite.Requester) (*models.OauthAb
 
 }
 
-func selectModel(table string, data models.OauthAbstract) modelAbstract {
-
-	switch table {
-	case "oidc":
-		return &models.OpenID{data}
-	case "access":
-		return &models.Access{data}
-	case "refresh":
-		return &models.Refresh{data}
-	case "code":
-		return &models.Code{data}
-	}
-	return nil
-}
-
 func (s *FositeSQLStore) createSession(signature string, requester fosite.Requester, table string) error {
 	data, err := sqlSchemaFromRequest(signature, requester)
 	if err != nil {
 		return err
 	}
 
-	model := selectModel(table, *data)
+	model := oauth_server.SelectModel(table, *data)
 	err = models.ORM.Create(model).Error
 
 	if err != nil {
@@ -83,71 +57,64 @@ func (s *FositeSQLStore) createSession(signature string, requester fosite.Reques
 }
 
 func (s *FositeSQLStore) findSessionBySignature(signature string, session fosite.Session, table string) (fosite.Requester, error) {
-	d := selectModel(table, models.OauthAbstract{})
-	err := models.ORM.Where("signature = ?", signature).Find(d).Error
+	d, err := oauth_server.FindBySignature(signature, table)
 	if err != nil {
-		return nil, errors.Wrap(fosite.ErrNotFound, "")
+		return nil, err
 	}
 
 	return d.ToRequest(session, s.Manager)
 }
 
 func (s *FositeSQLStore) deleteSession(signature string, table string) error {
-	d := selectModel(table, models.OauthAbstract{})
-	err := models.ORM.Where("signature = ?", signature).Delete(d).Error
-
-	if err != nil {
-		return errors.WithStack(err)
-	}
-	return nil
+	return oauth_server.DeleteBySession(signature, table)
 }
 
 func (s *FositeSQLStore) CreateOpenIDConnectSession(_ context.Context, signature string, requester fosite.Requester) error {
-	return s.createSession(signature, requester, sqlTableOpenID)
+	return s.createSession(signature, requester, models.TableOpenID)
 }
 
 func (s *FositeSQLStore) GetOpenIDConnectSession(_ context.Context, signature string, requester fosite.Requester) (fosite.Requester, error) {
-	return s.findSessionBySignature(signature, requester.GetSession(), sqlTableOpenID)
+	return s.findSessionBySignature(signature, requester.GetSession(), models.TableOpenID)
 }
 
 func (s *FositeSQLStore) DeleteOpenIDConnectSession(_ context.Context, signature string) error {
-	return s.deleteSession(signature, sqlTableOpenID)
+	return s.deleteSession(signature, models.TableOpenID)
 }
 
 func (s *FositeSQLStore) CreateAuthorizeCodeSession(_ context.Context, signature string, requester fosite.Requester) error {
-	return s.createSession(signature, requester, sqlTableCode)
+	return s.createSession(signature, requester, models.TableCode)
 }
 
 func (s *FositeSQLStore) GetAuthorizeCodeSession(_ context.Context, signature string, session fosite.Session) (fosite.Requester, error) {
-	return s.findSessionBySignature(signature, session, sqlTableCode)
+	return s.findSessionBySignature(signature, session, models.TableCode)
 }
 
 func (s *FositeSQLStore) DeleteAuthorizeCodeSession(_ context.Context, signature string) error {
-	return s.deleteSession(signature, sqlTableCode)
+	return s.deleteSession(signature, models.TableCode)
 }
 
 func (s *FositeSQLStore) CreateAccessTokenSession(_ context.Context, signature string, requester fosite.Requester) error {
-	return s.createSession(signature, requester, sqlTableAccess)
+	return s.createSession(signature, requester, models.TableAccess)
 }
 
 func (s *FositeSQLStore) GetAccessTokenSession(_ context.Context, signature string, session fosite.Session) (fosite.Requester, error) {
-	return s.findSessionBySignature(signature, session, sqlTableAccess)
+	return s.findSessionBySignature(signature, session, models.TableAccess)
 }
 
 func (s *FositeSQLStore) DeleteAccessTokenSession(_ context.Context, signature string) error {
-	return s.deleteSession(signature, sqlTableAccess)
+	return s.deleteSession(signature, models.TableAccess)
 }
 
 func (s *FositeSQLStore) CreateRefreshTokenSession(_ context.Context, signature string, requester fosite.Requester) error {
-	return s.createSession(signature, requester, sqlTableRefresh)
+	return s.createSession(signature, requester, models.TableRefresh)
 }
 
 func (s *FositeSQLStore) GetRefreshTokenSession(_ context.Context, signature string, session fosite.Session) (fosite.Requester, error) {
-	return s.findSessionBySignature(signature, session, sqlTableRefresh)
+	return s.findSessionBySignature(signature, session, models.TableRefresh)
 }
 
 func (s *FositeSQLStore) DeleteRefreshTokenSession(_ context.Context, signature string) error {
-	return s.deleteSession(signature, sqlTableRefresh)
+	return s.deleteSession(signature, models.TableRefresh)
 }
 
 func (s *FositeSQLStore) CreateImplicitAccessTokenSession(ctx context.Context, signature string, requester fosite.Requester) error {
@@ -185,20 +152,15 @@ func (s *FositeSQLStore) PersistRefreshTokenGrantSession(ctx context.Context, or
 }
 
 func (s *FositeSQLStore) RevokeRefreshToken(ctx context.Context, id string) error {
-	return s.revokeSession(id, sqlTableRefresh)
+	return s.revokeSession(id, models.TableRefresh)
 }
 
 func (s *FositeSQLStore) RevokeAccessToken(ctx context.Context, id string) error {
-	return s.revokeSession(id, sqlTableAccess)
+	return s.revokeSession(id, models.TableAccess)
 }
 
 func (s *FositeSQLStore) revokeSession(id string, table string) error {
-	err := models.ORM.Where("request_id", id).Delete(selectModel(table, models.OauthAbstract{})).Error
-	if err != nil {
-		return errors.Wrap(fosite.ErrNotFound, "")
-	}
-
-	return nil
+	return oauth_server.DeleteByID(id, table)
 }
 
 func (s *FositeSQLStore) Authenticate(_ context.Context, name string, secret string) error {

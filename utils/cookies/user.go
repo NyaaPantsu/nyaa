@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"time"
 
+	"nyaa-master/util/log"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/users"
@@ -62,6 +64,7 @@ var cookieHandler = securecookie.New(
 func getOrGenerateKey(key string, requiredLen int) []byte {
 	data := []byte(key)
 	if len(data) == 0 {
+		log.Infof("No cookie key '%s' is set in config files. The users won't be kept logged in during restart and accross websites.", key)
 		data = securecookie.GenerateRandomKey(requiredLen)
 	} else if len(data) != requiredLen {
 		panic(fmt.Sprintf("failed to load cookie key. required key length is %d bytes and the provided key length is %d bytes.", requiredLen, len(data)))

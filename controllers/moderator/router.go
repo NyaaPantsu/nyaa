@@ -32,6 +32,8 @@ func init() {
 		modRoutes.Any("/comment/delete", CommentDeleteModPanel)
 		modRoutes.GET("/reassign", TorrentReassignModPanel)
 		modRoutes.POST("/reassign", TorrentPostReassignModPanel)
+		modRoutes.GET("/oauth_client", formClientController)
+		modRoutes.POST("/oauth_client", formPostClientController)
 		apiMod := modRoutes.Group("/api")
 		apiMod.Any("/torrents", APIMassMod)
 	}

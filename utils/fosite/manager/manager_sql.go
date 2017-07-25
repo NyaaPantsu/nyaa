@@ -7,9 +7,9 @@ import (
 	"net/http"
 
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/models/oauth_client"
 	"github.com/NyaaPantsu/nyaa/utils/format"
 	"github.com/NyaaPantsu/nyaa/utils/fosite/client"
-	"github.com/jmoiron/sqlx"
 	"github.com/ory/fosite"
 	"github.com/pborman/uuid"
 	"github.com/pkg/errors"
@@ -24,7 +24,6 @@ var (
 
 type SQLManager struct {
 	Hasher fosite.Hasher
-	DB     *sqlx.DB
 }
 
 type RichError struct {
@@ -52,12 +51,10 @@ func sqlDataFromClient(d *client.Client) *models.OauthClient {
 }
 
 func (m *SQLManager) GetConcreteClient(id string) (*client.Client, error) {
-	d := &models.OauthClient{}
-	err := models.ORM.Where("id = ?", id).Find(d).Error
+	d, err := oauth_client.FindByID(id)
 	if err != nil {
-		return nil, errors.Wrap(ErrNotFound, "")
+		return nil, err
 	}
-
 	return ToClient(d), nil
 }
 
@@ -83,8 +80,7 @@ func (m *SQLManager) UpdateClient(c *client.Client) error {
 
 	s := sqlDataFromClient(c)
 
-	err = models.ORM.Model(s).UpdateColumn(s).Error
-
+	_, err = s.Update()
 	if err != nil {
 		return errors.WithStack(err)
 	}
@@ -124,11 +120,7 @@ func (m *SQLManager) CreateClient(c *client.Client) error {
 }
 
 func (m *SQLManager) DeleteClient(id string) error {
-	err := models.ORM.Where("id = ?", id).Delete(&models.OauthClient{}).Error
-	if err != nil {
-		return errors.WithStack(err)
-	}
-	return nil
+	return oauth_client.Delete(id)
 }
 
 func (m *SQLManager) GetClients() (map[string]client.Client, error) {

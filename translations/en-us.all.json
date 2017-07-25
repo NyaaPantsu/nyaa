@@ -1834,5 +1834,57 @@
   {
     "id": "torrent_preview",
     "translation": "Preview your torrent"
+  },
+  {
+    "id": "update_client_failed",
+    "translation": "Update of the client has failed!"
+  },
+  {
+    "id": "update_client_success",
+    "translation": "You have successfully updated the client!"
+  },
+  {
+    "id": "create_client_success",
+    "translation": "You have successfully created the client!"
+  },
+  {
+    "id": "create_client_failed",
+    "translation": "Client creation has failed!"
+  },
+  {
+    "id": "redirect_uri",
+    "translation": "Redirect URI"
+  },
+  {
+    "id": "grant_types",
+    "translation": "Grant Types"
+  },
+  {
+    "id": "response_types",
+    "translation": "Response Types"
+  },
+  {
+    "id": "scope",
+    "translation": "Scopes"
+  },
+  {
+    "id": "owner",
+    "translation": "Owner"
+  },
+  {
+    "id": "policy_uri",
+    "translation": "Policy URI"
+  },
+  {
+    "id": "tos_uri",
+    "translation": "Terms Of Service URI"
+  },
+  {
+    "id": "logo_uri",
+    "translation": "Logo URI"
+  },
+  {
+    "id": "contacts",
+    "translation": "Owner Emails"
   }
 ]

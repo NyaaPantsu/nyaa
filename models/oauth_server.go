@@ -12,6 +12,12 @@ import (
 	"github.com/ory/fosite"
 	"github.com/pkg/errors"
 )
+const (
+	TableOpenID  = "oidc"
+	TableAccess  = "access"
+	TableRefresh = "refresh"
+	TableCode    = "code"
+)
 
 const oauth_prefix = "hydra_oauth2_"
 
@@ -43,19 +49,19 @@ type Refresh struct {
 }
 
 func (o OpenID) TableName() string {
-	return oauth_prefix + "oidc"
+	return oauth_prefix + TableOpenID
 }
 
 func (a Access) TableName() string {
-	return oauth_prefix + "access"
+	return oauth_prefix + TableAccess
 }
 
 func (r Refresh) TableName() string {
-	return oauth_prefix + "refresh"
+	return oauth_prefix + TableRefresh
 }
 
 func (c Code) TableName() string {
-	return oauth_prefix + "code"
+	return oauth_prefix + TableCode
 }
 
 func (s *OauthAbstract) ToRequest(session fosite.Session, cm Manager) (*fosite.Request, error) {
