@@ -7,11 +7,10 @@ import (
 	"strconv"
 	"time"
 
-	"nyaa-master/util/log"
-
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/users"
+	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/NyaaPantsu/nyaa/utils/timeHelper"
 	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"github.com/gin-gonic/gin"
