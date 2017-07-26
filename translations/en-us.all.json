@@ -932,12 +932,24 @@
     "translation": "Delete Report"
   },
   {
+    "id": "comment_deleted",
+    "translation": "Comment has been deleted!"
+  },
+  {
     "id": "comment_deleted_by",
     "translation": "Comment #%d from %s has been deleted by %s."
   },
   {
     "id": "comment_edited_by",
     "translation": "Comment #%d from %s has been edited by %s."
+  },
+  {
+    "id": "oauth_client_deleted",
+    "translation": "Oauth API Client has been deleted!"
+  },
+  {
+    "id": "oauth_client_deleted_by",
+    "translation": "Oauth API Client #%s from %s has been deleted by %s."
   },
   {
     "id": "no_action_exist",
@@ -1886,5 +1898,17 @@
   {
     "id": "contacts",
     "translation": "Owner Emails"
+  },
+  {
+    "id": "clients_list",
+    "translation": "OAuth API Clients"
+  },
+  {
+    "id": "add",
+    "translation": "Add"
+  },
+  {
+    "id": "remove",
+    "translation": "Remove"
   }
 ]

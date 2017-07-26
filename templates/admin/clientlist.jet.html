@@ -1,0 +1,32 @@
+{{ extends "layouts/index_admin" }}
+{{block title()}}{{ T("clients_list") }}{{end}}
+{{ block content_body()}}
+<div class="results box">
+    <h1>{{  T("clients_list") }}</h1>
+    <table class="table">
+        <thead class="torrent-info">
+        <tr>
+            <th class="tr-name">{{ T("owner") }}</th>
+            <th class="tr-actions">{{ T("actions") }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{ range Models}}
+        <tr>
+            <td class="tr-name home-td">
+                <a href="/mod/oauth_client/form?id={{ .ID }}">{{ .Owner }}</a>
+            </td>
+            <td class="tr-actions home-td">
+                {{if .ID > 0}}
+                <a href="/mod/oauth_client/delete?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;">
+                <i class="icon-trash"></i> {{  T("delete") }}
+                </a>
+                {{end}}
+            </td>
+        </tr>
+        {{end}}
+        </tbody>
+    </table>
+    <a href="/mod/oauth_client/form" class="form-input btn-green">{{ T("add") }}</a>
+</div>
+{{end}}

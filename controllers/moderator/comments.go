@@ -11,6 +11,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/models/comments"
 	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/log"
+	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,7 +22,11 @@ func CommentsListPanel(c *gin.Context) {
 	offset := 100
 	userid := c.Query("userid")
 	var err error
-
+	messages := msg.GetMessages(c)
+	deleted := c.Request.URL.Query()["deleted"]
+	if deleted != nil {
+		messages.AddInfoTf("infos", "comment_deleted")
+	}
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
 		if !log.CheckError(err) {

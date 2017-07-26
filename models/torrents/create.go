@@ -3,6 +3,7 @@ package torrents
 import (
 	"time"
 
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
@@ -25,7 +26,7 @@ func Create(user *models.User, uploadForm *torrentValidator.TorrentRequest) (*mo
 	torrent.EncodeLanguages() // Convert languages array in language string
 	torrent.ParseTrackers(uploadForm.Trackers)
 	models.ORM.Create(&torrent)
-	if models.ElasticSearchClient != nil {
+	if config.Get().Search.EnableElasticSearch && models.ElasticSearchClient != nil {
 		err := torrent.AddToESIndex(models.ElasticSearchClient)
 		if err == nil {
 			log.Infof("Successfully added torrent to ES index.")

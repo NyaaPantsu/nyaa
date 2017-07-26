@@ -4,10 +4,18 @@ import (
 	"net/http"
 	"strings"
 
+	"html"
+	"strconv"
+
+	"fmt"
+
+	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/models/activities"
 	"github.com/NyaaPantsu/nyaa/models/oauth_client"
 	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/fosite/manager"
+	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/validator"
 	"github.com/NyaaPantsu/nyaa/utils/validator/api"
@@ -16,6 +24,11 @@ import (
 
 func formClientController(c *gin.Context) {
 	client := &models.OauthClient{}
+	messages := msg.GetMessages(c)
+	deleted := c.Request.URL.Query()["deleted"]
+	if deleted != nil {
+		messages.AddInfoTf("infos", "oauth_client_deleted")
+	}
 	id := c.Query("id")
 	if id != "" {
 		var err error
@@ -41,7 +54,7 @@ func formClientController(c *gin.Context) {
 	}
 	c.Bind(form)
 
-	templates.Form(c, "admin/clientapi.jet.html", form)
+	templates.Form(c, "admin/oauth_client_form.jet.html", form)
 }
 
 func formPostClientController(c *gin.Context) {
@@ -87,4 +100,50 @@ func formPostClientController(c *gin.Context) {
 	}
 	// If we are still here, we show the form
 	formClientController(c)
+}
+
+// clientsListPanel : Controller for listing oauth clients, can accept pages
+func clientsListPanel(c *gin.Context) {
+	page := c.Param("page")
+	pagenum := 1
+	offset := 100
+	var err error
+	owner := c.Query("q")
+
+	if page != "" {
+		pagenum, err = strconv.Atoi(html.EscapeString(page))
+		if !log.CheckError(err) {
+			c.AbortWithError(http.StatusInternalServerError, err)
+			return
+		}
+	}
+	var conditions string
+	var values []interface{}
+	if owner != "" {
+		conditions = "owner = ?"
+		values = append(values, owner)
+	}
+
+	clients, nbClients, err := oauth_client.FindAll(offset, (pagenum-1)*offset, conditions, values)
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+	}
+	nav := templates.Navigation{nbClients, offset, pagenum, "mod/oauth_client/p"}
+	templates.ModelList(c, "admin/clientlist.jet.html", clients, nav, templates.NewSearchForm(c))
+}
+
+// clientsDeleteModPanel : Controller for deleting a comment
+func clientsDeleteModPanel(c *gin.Context) {
+	id := c.Query("id")
+	sqlManager := manager.SQLManager{}
+	client, err := oauth_client.FindByID(id)
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+	}
+	err = sqlManager.DeleteClient(id)
+	if err == nil {
+		activities.Log(&models.User{}, fmt.Sprintf("oauth_client_%s", client.ID), "delete", "oauth_client_deleted_by", client.ID, client.Owner, router.GetUser(c).Username)
+	}
+
+	c.Redirect(http.StatusSeeOther, "/mod/oauth_client?deleted")
 }

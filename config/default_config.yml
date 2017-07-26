@@ -52,6 +52,7 @@ cache:
 # Size by default for the cache
   size: 1024
 search:
+  enable_es: true
 # default search analyzer for ES
   es_analyze: nyaapantsu_search_analyzer
 # default search index for ES
