@@ -1856,12 +1856,20 @@
     "translation": "You have successfully updated the client!"
   },
   {
+    "id": "update_client_panel",
+    "translation": "Update a Client"
+  },
+  {
     "id": "create_client_success",
     "translation": "You have successfully created the client!"
   },
   {
     "id": "create_client_failed",
     "translation": "Client creation has failed!"
+  },
+  {
+    "id": "create_client_panel",
+    "translation": "Create a new Client"
   },
   {
     "id": "redirect_uri",
@@ -1910,5 +1918,9 @@
   {
     "id": "remove",
     "translation": "Remove"
+  },
+  {
+    "id": "secret",
+    "translation": "Client Secret"
   }
 ]

@@ -20,10 +20,13 @@
             <label for="contacts">{{ T("contacts")}}</label>
             <div class="input-ui-list">
                 {{ range Form.Contacts }}
-                <input type="text" name="contacts" id="contacts" class="form-input up-input" placeholder="{{ T("contacts")}}" value="{{.}}">
+                <div class="element">
+                    <input type="text" name="contacts" id="contacts" class="form-input up-input" placeholder="{{ T("contacts")}}" value="{{.}}">
+                    <button class="remove-input form-input btn-red">{{ T("remove") }}</button>
+                </div>
                 {{ end }}
             </div>
-            <button onclick="addInput(this)">T("Add")</button>
+            <button class="add-input form-input btn-green">{{ T("add") }}</button>
         </div>
         <div class="form-group">
             <label for="redirect_uri">{{ T("redirect_uri")}}</label>
@@ -31,29 +34,35 @@
                 {{ range Form.RedirectURI }}
                 <div class="element">
                     <input type="text" name="redirect_uri" id="redirect_uri" class="form-input up-input" placeholder="{{ T("redirect_uri")}}" value="{{.}}">
-                    <button onclick="removeInput(this)">T("remove")</button>
+                    <button class="remove-input form-input btn-red">{{ T("remove") }}</button>
                 </div>
                 {{ end }}
             </div>
-            <button onclick="addInput(this)">T("add")</button>
+            <button class="add-input form-input btn-green">{{ T("add") }}</button>
         </div>
         <div class="form-group">
             <label for="grant_types">{{ T("grant_types")}}</label>
             <div class="input-ui-list">
                 {{ range Form.GrantTypes }}
-                <input type="text" name="grant_types" id="grant_types" class="form-input up-input" placeholder="{{ T("grant_types")}}" value="{{.}}">
+                <div class="element">
+                    <input type="text" name="grant_types" id="grant_types" class="form-input up-input" placeholder="{{ T("grant_types")}}" value="{{.}}">
+                   <button class="remove-input form-input btn-red">{{ T("remove") }}</button>
+                </div>
                 {{ end }}
             </div>
-            <button onclick="addInput(this)">T("Add")</button>
+            <button class="add-input form-input btn-green">{{ T("add") }}</button>
         </div>
         <div class="form-group">
             <label for="response_types">{{ T("response_types")}}</label>
             <div class="input-ui-list">
                 {{ range Form.ResponseTypes }}
-                <input type="text" name="response_types" id="response_types" class="form-input up-input" placeholder="{{ T("response_types")}}" value="{{.}}">
+                <div class="element">
+                    <input type="text" name="response_types" id="response_types" class="form-input up-input" placeholder="{{ T("response_types")}}" value="{{.}}">
+                    <button class="remove-input form-input btn-red">{{ T("remove") }}</button>
+                </div>
                 {{ end }}
             </div>
-            <button onclick="addInput(this)">T("Add")</button>
+            <button class="add-input form-input btn-green">{{ T("add") }}</button>
         </div>
         <div class="form-group">
             <label for="client_uri">{{ T("website_link")}}</label>
@@ -80,11 +89,29 @@
 </div>
 {{end}}
 {{ block footer_js()}}
+<script type="text/javascript" src="/js/translation.js"></script>
 <script type="text/javascript">
+    T.Add("remove", "{{ T("remove") }}")
+    var rminputs = document.querySelectorAll(".remove-input")
+    for (var i=0; i<rminputs.length;i++) {
+      rminputs[i].addEventListener("click", function(e) {
+        removeInput(this)
+        e.preventDefault()
+      });
+    }
+    var addinputs = document.querySelectorAll(".add-input")
+    for (var i=0; i<addinputs.length;i++) {
+      addinputs[i].addEventListener("click", function(e) {
+        addInput(this)
+        e.preventDefault()
+      });
+    }
     function addInput(el) {
       var parentDiv = el.parentElement
       var inputs = parentDiv.querySelectorAll("input")
-      var divInputList = parentDiv.querySelector("input-ui-list")
+      var divInputList = parentDiv.querySelector(".input-ui-list")
+      var divElement = document.createElement("div")
+      divElement.className = "element"
       var input = document.createElement("input")
       input.type="text"
       input.name=inputs[0].name
@@ -92,11 +119,23 @@
       input.className = inputs[0].className
       input.placeholder = inputs[0].placeholder
       input.required = inputs[0].required
-      divInputList.appendChild()
+      divElement.appendChild(input)
+      var buttonRemove = document.createElement("button")
+      buttonRemove.innerText = T.r("remove")
+      buttonRemove.addEventListener("click", function (e) {
+        removeInput(this)
+        e.preventDefault()
+      })
+      buttonRemove.className = "form-input remove-input btn-red"
+      divElement.appendChild(buttonRemove)
+      divInputList.appendChild(divElement)
     }
     function removeInput(el) {
       var parentDiv = el.parentElement
-      parentDiv.parentNode.removeChild(parentDiv)
+      var inputs = parentDiv.parentElement.querySelectorAll("input")
+      if (inputs.length > 1) {
+        parentDiv.parentNode.removeChild(parentDiv)
+      }
     }
 </script>
 {{end}}
