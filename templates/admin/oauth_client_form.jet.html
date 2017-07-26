@@ -17,7 +17,7 @@
         </div>
         <div class="form-group">
             <label for="secret">{{ T("secret")}}</label>
-            <input type="text" name="secret" id="secret" class="form-input up-input" placeholder="{{ T("secret")}}" value="{{Form.Secret}}" required>
+            <input type="text" name="secret" id="secret" class="form-input up-input" placeholder="{{ T("secret")}}" value="{{Form.Secret}}"{{ if Form.ID == "" }} required{{end}}>
             {{ yield errors(name="Secret")}}
         </div>
         <div class="form-group">
