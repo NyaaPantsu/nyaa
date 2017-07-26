@@ -11,11 +11,12 @@ import (
 	"github.com/ory/fosite/compose"
 	"github.com/ory/fosite/handler/openid"
 	"github.com/ory/fosite/token/jwt"
+	"github.com/ory/fosite"
 )
 
 // This is a storage instance. We will add a client and a user to it so we can use these later on.
 var store = &storage.FositeSQLStore{
-	&manager.SQLManager{},
+	&manager.SQLManager{&fosite.BCrypt{WorkFactor: 12}},
 }
 
 var config = new(compose.Config)

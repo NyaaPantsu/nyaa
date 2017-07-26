@@ -22,17 +22,17 @@ func TestForms(t *testing.T) {
 		Form     CreateForm
 		Expected bool
 	}{
-		{CreateForm{}, false},
-		{CreateForm{"", "f", []string{fu}, []string{}, []string{}, "", "fedr", fu, fu, fu, fu, []string{em}, ""}, false},
-		{CreateForm{"", "fed", []string{fu}, []string{}, []string{}, "", "fedr", fu, fu, fu, fu, []string{em}, ""}, true},
-		{CreateForm{"", "fed", []string{em}, []string{}, []string{}, "", "fedr", fu, fu, fu, fu, []string{em}, ""}, false},
+		{CreateForm{}, true},
+		{CreateForm{"", "f", []string{fu}, []string{}, []string{}, "", "fedr", fu, fu, fu, fu, []string{em}, ""}, true},
+		{CreateForm{"", "fed", []string{fu}, []string{}, []string{}, "", "fedr", "", "", fu, "", []string{em}, ""}, false},
+		{CreateForm{"", "fed", []string{em}, []string{}, []string{}, "", "fedr", "", "", fu, "", []string{em}, ""}, true},
 	}
 	for _, test := range tests {
 		messages.ClearAllErrors()
 		validator.ValidateForm(test.Form, messages)
 		b := messages.HasErrors()
-		if b != !test.Expected {
-			t.Errorf("Error when validating CreateForm struct, want '%t', got '%t', please check validation arguments: %v\nand errors returned: %v", !test.Expected, b, test.Form, messages.GetAllErrors())
+		if b != test.Expected {
+			t.Errorf("Error when validating CreateForm struct, want '%t', got '%t', please check validation arguments: %v\nand errors returned: %v", test.Expected, b, test.Form, messages.GetAllErrors())
 		}
 	}
 }

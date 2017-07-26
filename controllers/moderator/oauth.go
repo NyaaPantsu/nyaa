@@ -20,16 +20,17 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/validator"
 	"github.com/NyaaPantsu/nyaa/utils/validator/api"
 	"github.com/gin-gonic/gin"
+	"github.com/ory/fosite"
 )
 
 func formClientController(c *gin.Context) {
 	client := &models.OauthClient{}
 	messages := msg.GetMessages(c)
-	deleted := c.Request.URL.Query()["deleted"]
-	if deleted != nil {
-		messages.AddInfoTf("infos", "oauth_client_deleted")
-	}
+
 	id := c.Query("id")
+	if id == "" && len(messages.GetInfos("ID_TORRENT")) > 0 {
+		id = messages.GetInfos("ID_TORRENT")[0]
+	}
 	if id != "" {
 		var err error
 		client, err = oauth_client.FindByID(id)
@@ -59,7 +60,7 @@ func formClientController(c *gin.Context) {
 
 func formPostClientController(c *gin.Context) {
 	messages := msg.GetMessages(c)
-	sqlManager := &manager.SQLManager{}
+	sqlManager := &manager.SQLManager{&fosite.BCrypt{WorkFactor: 12}}
 	client := &models.OauthClient{}
 	id := c.Query("id")
 	if id != "" {
@@ -88,13 +89,15 @@ func formPostClientController(c *gin.Context) {
 			}
 		} else { // Client doesn't exist, we create it
 			var err error
-			err = sqlManager.CreateClient(manager.ToClient(form.Bind(client))) // Making the create query through the oauth manager
+			client := manager.ToClient(form.Bind(client))
+			err = sqlManager.CreateClient(client) // Making the create query through the oauth manager
 			if err != nil {
 				// Error, we add it as a message
 				messages.AddErrorT("errors", "create_client_failed")
 			} else {
 				// Success, we redirect to the edit form
 				messages.AddInfoT("infos", "create_client_success")
+				messages.AddInfo("ID_TORRENT", client.GetID())
 			}
 		}
 	}
@@ -109,7 +112,12 @@ func clientsListPanel(c *gin.Context) {
 	offset := 100
 	var err error
 	owner := c.Query("q")
+	messages := msg.GetMessages(c)
+	deleted := c.Request.URL.Query()["deleted"]
 
+	if deleted != nil {
+		messages.AddInfoTf("infos", "oauth_client_deleted")
+	}
 	if page != "" {
 		pagenum, err = strconv.Atoi(html.EscapeString(page))
 		if !log.CheckError(err) {
@@ -135,7 +143,7 @@ func clientsListPanel(c *gin.Context) {
 // clientsDeleteModPanel : Controller for deleting a comment
 func clientsDeleteModPanel(c *gin.Context) {
 	id := c.Query("id")
-	sqlManager := manager.SQLManager{}
+	sqlManager := manager.SQLManager{&fosite.BCrypt{WorkFactor: 12}}
 	client, err := oauth_client.FindByID(id)
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
