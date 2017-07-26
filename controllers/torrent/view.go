@@ -3,59 +3,68 @@ package torrentController
 import (
 	"net/http"
 	"strconv"
-	"fmt"
 
 	"github.com/NyaaPantsu/nyaa/controllers/router"
-	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/models/notifications"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/templates"
+	"github.com/NyaaPantsu/nyaa/utils/captcha"
+	"github.com/NyaaPantsu/nyaa/utils/filelist"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
-	"github.com/NyaaPantsu/nyaa/utils/upload"
-	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
 	"github.com/gin-gonic/gin"
 )
 
-// TorrentEditUserPanel : Controller for editing a user torrent by a user, after GET request
-func TorrentEditUserPanel(c *gin.Context) {
-	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
-	torrent, _ := torrents.FindByID(uint(id))
-	currentUser := router.GetUser(c)
-	if currentUser.CurrentOrAdmin(torrent.UploaderID) {
-		uploadForm := torrentValidator.TorrentRequest{}
-		uploadForm.Name = torrent.Name
-		uploadForm.Category = strconv.Itoa(torrent.Category) + "_" + strconv.Itoa(torrent.SubCategory)
-		uploadForm.Remake = torrent.Status == models.TorrentStatusRemake
-		uploadForm.WebsiteLink = string(torrent.WebsiteLink)
-		uploadForm.Description = string(torrent.Description)
-		uploadForm.Hidden = torrent.Hidden
-		uploadForm.Languages = torrent.Languages
-		templates.Form(c, "site/torrents/edit.jet.html", uploadForm)
-	} else {
-		c.AbortWithStatus(http.StatusNotFound)
+// ViewHandler : Controller for displaying a torrent
+func ViewHandler(c *gin.Context) {
+	id, _ := strconv.ParseInt(c.Param("id"), 10, 32)
+	messages := msg.GetMessages(c)
+	user := router.GetUser(c)
+
+	if c.Request.URL.Query()["success"] != nil {
+		messages.AddInfoT("infos", "torrent_uploaded")
 	}
+	if c.Request.URL.Query()["success_edit"] != nil {
+		messages.AddInfoT("infos", "torrent_updated")
+	}
+	if c.Request.URL.Query()["badcaptcha"] != nil {
+		messages.AddErrorT("errors", "bad_captcha")
+	}
+	if c.Request.URL.Query()["reported"] != nil {
+		messages.AddInfoTf("infos", "report_msg", id)
+	}
+
+	torrent, err := torrents.FindByID(uint(id))
+
+	if c.Request.URL.Query()["notif"] != nil {
+		notifications.ToggleReadNotification(torrent.Identifier(), user.ID)
+	}
+
+	if err != nil {
+		c.Status(http.StatusNotFound)
+		return
+	}
+	b := torrent.ToJSON()
+	folder := filelist.FileListToFolder(torrent.FileList, "root")
+	captchaID := ""
+	if user.NeedsCaptcha() {
+		captchaID = captcha.GetID()
+	}
+	templates.Torrent(c, b, folder, captchaID)
 }
 
-// TorrentPostEditUserPanel : Controller for editing a user torrent by a user, after post request
-func TorrentPostEditUserPanel(c *gin.Context) {
-	var uploadForm torrentValidator.UpdateRequest
-	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
-	uploadForm.ID = uint(id)
-	messages := msg.GetMessages(c)
-	torrent, _ := torrents.FindByID(uint(id))
-	currentUser := router.GetUser(c)
-	if torrent.ID > 0 && currentUser.CurrentOrAdmin(torrent.UploaderID) {
-		errUp := upload.ExtractEditInfo(c, &uploadForm.Update)
-		if errUp != nil {
-			messages.AddErrorT("errors", "fail_torrent_update")
-		}
-		if !messages.HasErrors() {
-			upload.UpdateTorrent(&uploadForm, torrent, currentUser).Update(currentUser.HasAdmin())
-			messages.AddInfoT("infos", "torrent_updated")
-			c.Redirect(http.StatusSeeOther, fmt.Sprintf("/view/%d?success", id))
-			return
-		}
-		templates.Form(c, "site/torrents/edit.jet.html", uploadForm.Update)
-	} else {
-		c.AbortWithStatus(http.StatusNotFound)
+// ViewHeadHandler : Controller for checking a torrent
+func ViewHeadHandler(c *gin.Context) {
+	id, err := strconv.ParseInt(c.Param("id"), 10, 32)
+	if err != nil {
+		return
 	}
+
+	_, err = torrents.FindRawByID(uint(id))
+
+	if err != nil {
+		c.Status(http.StatusNotFound)
+		return
+	}
+
+	c.AbortWithStatus(http.StatusOK)
 }
