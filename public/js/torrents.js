@@ -7,38 +7,42 @@ var Torrents = {
   SearchURL: "/api/search",
   Method: "prepend",
   LastID: 0,
-  StopRefresh: function() {
+  StopRefresh: function () {
     clearTimeout(this.timeout)
     this.timeout = undefined
     this.CanRefresh = false
   },
-  Refresh: function() {
+  Refresh: function () {
     if (this.CanRefresh) {
-      this.timeout = setTimeout(function() {
+      this.timeout = setTimeout(function () {
         var searchArgs = (window.location.search != "") ? window.location.search.substr(1) : ""
-        searchArgs = (Torrents.LastID > 0) ? "?fromID="+Torrents.LastID+"&"+searchArgs : "?"+searchArgs
-        Query.Get(Torrents.SearchURL+searchArgs,
-          function(data) {
+        searchArgs = (Torrents.LastID > 0) ? "?fromID=" + Torrents.LastID + "&" + searchArgs : "?" + searchArgs
+        Query.Get(Torrents.SearchURL + searchArgs,
+          function (data) {
             var torrents = data.torrents
             Templates.ApplyItemListRenderer({
-              templateName: "torrents.item", method: "prepend", element: document.getElementById("torrentListResults")
+              templateName: "torrents.item",
+              method: "prepend",
+              element: document.getElementById("torrentListResults")
             })(torrents)
-            for (var i =0; i < torrents.length; i++) { if (Torrents.LastID < torrents[i].id) Torrents.LastID = torrents[i].id; }
+            for (var i = 0; i < torrents.length; i++) {
+              if (Torrents.LastID < torrents[i].id) Torrents.LastID = torrents[i].id;
+            }
             parseAllDates()
             Torrents.Refresh()
           });
-      }, this.Seconds*1000);
+      }, this.Seconds * 1000);
     }
   },
-  StartRefresh: function() {
+  StartRefresh: function () {
     this.CanRefresh = true
     this.Refresh()
   }
 }
 
-document.addEventListener("DOMContentLoaded", function() { // if Torrents.CanRefresh is enabled, refresh is automatically done (no need to start it anually)
+document.addEventListener("DOMContentLoaded", function () { // if Torrents.CanRefresh is enabled, refresh is automatically done (no need to start it anually)
   if (Torrents.CanRefresh) {
     Torrents.StartRefresh()
   }
 })
-  // @license-end
+// @license-end

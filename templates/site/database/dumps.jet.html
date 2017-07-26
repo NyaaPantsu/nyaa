@@ -2,39 +2,39 @@
 {{block title()}}{{ T("home")}}{{end}}
 {{block content_body()}}
 <div class="results box">
-    <a href="{{ GPGLink }}">Gpg key</a>
+  <a href="{{ GPGLink }}">Gpg key</a>
 
-    <div class="table-responsive">
-        {{ if len(ListDumps) > 0 }}
-            <table>
-                <thead class="torrent-info">
-                    <tr>
-                        <th class="tr-name">{{ T("name")}}</th>
-                        <th class="tr-date">{{ T("date")}}</th>
-                        <th class="tr-size">{{ T("size")}}</th>
-                        <th class="tr-actions">{{ T("links")}}</th>
-                    </tr>
-                {{ range ListDumps}}
-                    <tr class="torrent-info">
-                        <!-- forced width because the <td> gets bigger randomly otherwise -->
-                        <td class="tr-name home-td">
-                            {{.Name}}
-                        </td>
-                        <td class="tr-date home-td">{{.Date}}</td>
-                        <td class="tr-size home-td">{{.Filesize}}</td>
-                        <td class="tr-actions home-td">
-                            {{if .TorrentLink != ""}}
-                                <a href="{{.TorrentLink}}" title="{{  T("torrent_file") }}">
-                                    <div class="icon-floppy"></div> 
-                                </a>
-                            {{end}}
-                        </td>
-                    </tr>
-                {{end}}
-            </table>
-            {{else}}
-            <h1>{{ T("no_database_dumps_available")}}</h1>
+  <div class="table-responsive">
+    {{ if len(ListDumps) > 0 }}
+    <table>
+      <thead class="torrent-info">
+        <tr>
+          <th class="tr-name">{{ T("name")}}</th>
+          <th class="tr-date">{{ T("date")}}</th>
+          <th class="tr-size">{{ T("size")}}</th>
+          <th class="tr-actions">{{ T("links")}}</th>
+        </tr>
+        {{ range ListDumps}}
+        <tr class="torrent-info">
+          <!-- forced width because the <td> gets bigger randomly otherwise -->
+          <td class="tr-name home-td">
+            {{.Name}}
+          </td>
+          <td class="tr-date home-td">{{.Date}}</td>
+          <td class="tr-size home-td">{{.Filesize}}</td>
+          <td class="tr-actions home-td">
+            {{if .TorrentLink != ""}}
+            <a href="{{.TorrentLink}}" title="{{  T("torrent_file") }}">
+              <div class="icon-floppy"></div>
+            </a>
+            {{end}}
+          </td>
+        </tr>
         {{end}}
+      </table>
+      {{else}}
+      <h1>{{ T("no_database_dumps_available")}}</h1>
+      {{end}}
     </div>
 </div>
 {{end}}

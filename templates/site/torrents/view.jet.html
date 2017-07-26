@@ -5,51 +5,77 @@
 {{block title()}}{{Torrent.Name}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
-    <div id="torrent-name" class="{{if Torrent.Status == 2}}remake{{else if Torrent.Status == 3}}trusted{{else if Torrent.Status == 4}}aplus{{end}}">
-  <h1 style="text-align: center;" class="torrent-hr">{{Torrent.Name}}</h1>
-   </div>
-  <br>
+  <div id="torrent-name" class="{{if Torrent.Status == 2}}remake{{else if Torrent.Status == 3}}trusted{{else if Torrent.Status == 4}}aplus{{end}}">
+    <h1 style="text-align: center;" class="torrent-hr">{{Torrent.Name}}</h1>
+  </div>
+  <br/>
   <table>
-      <tr class="torrent-info-row">
-      <td class="torrent-info-td torrent-info-label">{{  T("category") }}:</td><td class="torrent-info-td torrent-info-data" style="padding:0"><a href="{{URL.Parse("/search?c="+Torrent.Category+"_"+Torrent.SubCategory) }}">{{ T(CategoryName(Torrent.Category, Torrent.SubCategory)) }}</a> <br></td>
-      <td class="torrent-info-td torrent-info-label">{{  T("date") }}:</td><td class="torrent-info-td date-full">{{Torrent.Date}}</td>
-      </tr>
-      <tr class="torrent-info-row">
-          <td class="torrent-info-td torrent-info-label">{{  T("uploaded_by") }}:</td><td class="torrent-view-td torrent-info-data">{{ genUploaderLink(Torrent.UploaderID, Torrent.UploaderName, Torrent.Hidden)|raw }}</td>
-          <td class="torrent-info-td torrent-info-label">{{ T("seeders")}}:</td><td class="tr-se torrent-info-td">{{if Torrent.LastScrape.IsZero}}{{ T("unknown")}}{{else}}{{Torrent.Seeders}}{{end}}</td>
-      </tr>
-      <tr class="torrent-info-row">
-          <td class="torrent-info-td torrent-info-label">{{  T("website_link") }}:</td><td class="torrent-view-td torrent-info-data">{{if Torrent.WebsiteLink != ""}}<a href="{{Torrent.WebsiteLink}}">{{Torrent.WebsiteLink}}</a>{{else}}N/A{{end}}</td>
-          <td class="torrent-info-td torrent-info-label">{{ T("leechers")}}:</td><td class="tr-le torrent-info-td">{{if Torrent.LastScrape.IsZero}}{{ T("unknown")}}{{else}}{{Torrent.Leechers}}{{end}}</td>
-      </tr>
     <tr class="torrent-info-row">
-          <td class="torrent-info-td torrent-info-label">{{ T("hash")}}:</td><td style="font-family: monospace;" class="torrent-view-td torrent-info-data">{{Torrent.Hash}}</td>
-          <td class="torrent-info-td torrent-info-label">{{ T("completed")}}:</td><td class="torrent-info-td"><b>{{if Torrent.LastScrape.IsZero}}{{ T("unknown")}}{{else}}{{Torrent.Completed}}{{end}}</b></td>
-      </tr>
-    <tr class="torrent-info-row">
-          <td class="torrent-info-td torrent-info-label">{{ T("size")}}:</td><td class="torrent-view-td torrent-info-data">{{ fileSize(Torrent.Filesize, T) }}</td>
-          <td class="torrent-info-td torrent-info-label">{{ T("last_scraped")}}</td><td class="torrent-info-td{{if !Torrent.LastScrape.IsZero}} date-full">{{formatDateRFC(Torrent.LastScrape)}}{{else}}">{{ T("unknown")}}{{end}}</td>
-      </tr>
-      {{ if len(Torrent.Languages) > 0 && Torrent.Languages[0] != "" }}
-    <tr class="torrent-info-row">
-        <td class="torrent-info-td torrent-info-label">{{ T("torrent_language")}}:</td>
-        <td class="tr-flag torrent-view-td torrent-info-data">
-    {{ range _, language := Torrent.Languages}}
-            {{ if language != "" }}
-        <span {{ if len(Torrent.Languages) > 5 }}class="big"{{ end }}><img src="/img/blank.gif" alt="{{ LanguageNameFromCode(language, T) }}" class="flag flag-{{ FlagCode(language) }}" title="{{ LanguageNameFromCode(language, T) }}"></img> {{ LanguageNameFromCode(language, T) }}</span>
-            {{end}}
-    {{end}}
-        </td>
+      <td class="torrent-info-td torrent-info-label">{{  T("category") }}:</td>
+      <td class="torrent-info-td torrent-info-data" style="padding:0">
+        <a href="{{URL.Parse("/search?c="+Torrent.Category+"_"+Torrent.SubCategory) }}">{{ T(CategoryName(Torrent.Category, Torrent.SubCategory)) }}</a>
+        <br/>
+      </td>
+      <td class="torrent-info-td torrent-info-label">{{  T("date") }}:</td>
+      <td class="torrent-info-td date-full">{{Torrent.Date}}</td>
     </tr>
-      {{end}}
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{  T("uploaded_by") }}:</td>
+      <td class="torrent-view-td torrent-info-data">{{ genUploaderLink(Torrent.UploaderID, Torrent.UploaderName, Torrent.Hidden)|raw }}</td>
+      <td class="torrent-info-td torrent-info-label">{{ T("seeders")}}:</td>
+      <td class="tr-se torrent-info-td">{{if Torrent.LastScrape.IsZero}}{{ T("unknown")}}{{else}}{{Torrent.Seeders}}{{end}}</td>
+    </tr>
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{  T("website_link") }}:</td>
+      <td class="torrent-view-td torrent-info-data">
+        {{if Torrent.WebsiteLink != ""}}
+        <a href="{{Torrent.WebsiteLink}}">{{Torrent.WebsiteLink}}</a>
+        {{else}}N/A{{end}}
+      </td>
+      <td class="torrent-info-td torrent-info-label">{{ T("leechers")}}:</td>
+      <td class="tr-le torrent-info-td">{{if Torrent.LastScrape.IsZero}}{{ T("unknown")}}{{else}}{{Torrent.Leechers}}{{end}}</td>
+    </tr>
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("hash")}}:</td>
+      <td style="font-family: monospace;" class="torrent-view-td torrent-info-data">{{Torrent.Hash}}</td>
+      <td class="torrent-info-td torrent-info-label">{{ T("completed")}}:</td>
+      <td class="torrent-info-td">
+        <b>{{if Torrent.LastScrape.IsZero}}{{ T("unknown")}}{{else}}{{Torrent.Completed}}{{end}}</b>
+      </td>
+    </tr>
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("size")}}:</td>
+      <td class="torrent-view-td torrent-info-data">{{ fileSize(Torrent.Filesize, T) }}</td>
+      <td class="torrent-info-td torrent-info-label">{{ T("last_scraped")}}</td>
+      <td class="torrent-info-td{{if !Torrent.LastScrape.IsZero}} date-full">{{formatDateRFC(Torrent.LastScrape)}}{{else}}">{{ T("unknown")}}{{end}}</td>
+    </tr>
+    {{ if len(Torrent.Languages) > 0 && Torrent.Languages[0] != "" }}
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("torrent_language")}}:</td>
+      <td class="tr-flag torrent-view-td torrent-info-data">
+        {{ range _, language := Torrent.Languages}}
+        {{ if language != "" }}
+        <span {{ if len(Torrent.Languages) > 5 }}class="big"{{ end }}>
+          <img src="/img/blank.gif" alt="{{ LanguageNameFromCode(language, T) }}" class="flag flag-{{ FlagCode(language) }}" title="{{ LanguageNameFromCode(language, T) }}"></img>
+          {{ LanguageNameFromCode(language, T) }}
+        </span>
+        {{end}}
+        {{end}}
+      </td>
+    </tr>
+    {{end}}
   </table>
-<div class="torrent-buttons">
-  <a href="{{Torrent.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;margin-right: 0.5em;"><div class="icon-magnet"></div> {{ T("magnet_link")}}</a>
-  {{ if Torrent.TorrentLink != ""}}
-  <a href="{{Torrent.TorrentLink}}" class="form-input download" style="float:left;height: auto;"><div class="icon-floppy"></div> {{ T("torrent_file")}}</a>
-  {{end}}
-  {{ if User.ID > 0}}
-  <a id="reportPopup" href="#" class="form-input">{{  T("report_btn") }}</a>
+  <div class="torrent-buttons">
+    <a href="{{Torrent.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;margin-right: 0.5em;">
+      <div class="icon-magnet"></div> {{ T("magnet_link")}}
+    </a>
+    {{ if Torrent.TorrentLink != ""}}
+    <a href="{{Torrent.TorrentLink}}" class="form-input download" style="float:left;height: auto;">
+      <div class="icon-floppy"></div> {{ T("torrent_file")}}
+    </a>
+    {{end}}
+    {{ if User.ID > 0}}
+    <a id="reportPopup" href="#" class="form-input">{{  T("report_btn") }}</a>
     {{ if User.HasAdmin()}}
     <a href="/mod/torrent/delete?id={{ Torrent.ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;">{{  T("delete") }}</a>
     <a href="/mod/torrent?id={{ Torrent.ID }}" class="form-input btn-orange">{{  T("edit") }}</a>
@@ -57,7 +83,7 @@
     <a href="/torrent/delete?id={{ Torrent.ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;">{{  T("delete") }}</a>
     <a href="/torrent?id={{ Torrent.ID }}" class="form-input btn-orange">{{  T("edit") }}</a>
     {{end}}
-{{end}}
+    {{end}}
     <div style="clear:both;"></div>
   </div>
   <p class="torrent-hr">{{ T("description")}}</p>
@@ -66,8 +92,10 @@
   {{else}}
   <p>{{  T("no_description") }}</p>
   {{end}}
-  <input type="checkbox" id="show-filelist" {{if len(Torrent.FileList) < 4 && len(Torrent.FileList) > 1}}checked{{end}}>
-  <label class="torrent-hr filelist-control{{if len(Torrent.FileList) == 0}} hidden{{end}}" for="show-filelist">{{ T("files")}}</label>
+  <input type="checkbox" id="show-filelist" {{if len(Torrent.FileList) < 4 && len(Torrent.FileList) > 1}}checked{{end}}/>
+  <label class="torrent-hr filelist-control{{if len(Torrent.FileList) == 0}} hidden{{end}}" for="show-filelist">
+    {{ T("files")}}
+  </label>
   <div class="torrent-info-box{{if len(Torrent.FileList) == 0}} hidden{{end}}" id="filelist">
     {{ if len(Torrent.FileList) > 0 }}
     {* how do i concat lol *}
@@ -81,72 +109,81 @@
       </tbody>
     </table>
     {{ else }}
-      <p>{{  T("no_files") }}</p>
+    <p>{{  T("no_files") }}</p>
     {{ end }}
   </div>
 
   <p class="torrent-hr">{{ T("comments")}}</p>
   {{range index, element := Torrent.Comments}}
   <div class="torrent-info-box comment-box">
- <span class="comment-index"><a href="#comment_{{index}}">#{{index}}</a><small style="padding-left: 4px;" class="date-short">{{formatDateRFC(element.Date)}}</small></span>
-  <p>{{element.Username}}</p>
-  <p>{{element.Content|raw}}</p>
+    <span class="comment-index">
+      <a href="#comment_{{index}}">#{{index}}</a>
+      <small style="padding-left: 4px;" class="date-short">{{formatDateRFC(element.Date)}}</small>
+    </span>
+    <p>{{element.Username}}</p>
+    <p>{{element.Content|raw}}</p>
   </div>
   {{end}}
   <div style="margin-top: 10px" class="torrent-info-box">
     <form method="post">
-                {{ yield csrf_field()}}
-                <div class="comment-form">
-                    <div class="comment-text">
-                    <h3>{{ if User.ID > 0}} {{ T("submit_a_comment_as_username", User.Username) }} {{else}} {{ T("submit_a_comment_as_anonymous")|raw}} {{end}}</h3>
-                    <textarea style="height: 10rem;" placeholder="サンキュー" name="comment" class="form-input up-input"></textarea>
-                    </div>
-                    <div class="comment-captcha">
-                {{ yield captcha(captchaid=CaptchaID)}}
-                    </div>
-                    <button type="submit" class="form-input up-btn">{{ T("submit") }}</button>
-                </div>
-  </form>
-  </div>
- </div>
- {{ if User.ID > 0 }}
-     <!-- Modal -->
-    <div id="modal_mod_tools" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <form method="post" action="/report/{{Torrent.ID}}">
-                <div class="modal-header">
-                    <span class="close">&times;</span>
-                    <h2>{{  T("report_torrent_number", Torrent.ID) }}</h2>
-                </div>
-                <div class="modal-body">
-                    <h4>{{  T("report_type") }}</h4>
-                        {{ yield csrf_field() }}
-                        <input type="radio" name="report_type" value="illegal_content" id="illegal" required> <label for="illegal">{{  T("illegal_content") }}</label><br />
-                        <input type="radio" name="report_type" value="spam_garbage" id="spam" required> <label for="spam">{{  T("spam_garbage") }}</label><br />
-                        <input type="radio" name="report_type" value="wrong_category" id="wrongcat" required> <label for="wrongcat">{{  T("wrong_category") }}</label><br />
-                        <input type="radio" name="report_type" value="duplicate_deprecated" id="dup" required> <label for="dup">{{  T("duplicate_deprecated") }}</label><br />
-                        <div class="comment-captcha">
-                        {{yield captcha(captchaid=CaptchaID)}}
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <span><button id="confirm_changes" type="submit">{{  T("yes")}}</button>
-                    <button class="close" onclick="Modal.CloseActive();">{{  T("no")}}</button></span>
-                    <h3>{{  T("are_you_sure") }} </h3>
-                </div>
-            </form>
+      {{ yield csrf_field()}}
+      <div class="comment-form">
+        <div class="comment-text">
+          <h3>{{ if User.ID > 0}} {{ T("submit_a_comment_as_username", User.Username) }} {{else}} {{ T("submit_a_comment_as_anonymous")|raw}} {{end}}</h3>
+          <textarea style="height: 10rem;" placeholder="サンキュー" name="comment" class="form-input up-input"></textarea>
         </div>
-    </div>
- {{end}}
+        <div class="comment-captcha">
+          {{ yield captcha(captchaid=CaptchaID)}}
+        </div>
+        <button type="submit" class="form-input up-btn">{{ T("submit") }}</button>
+      </div>
+    </form>
+  </div>
+</div>
+{{ if User.ID > 0 }}
+<!-- Modal -->
+<div id="modal_mod_tools" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <form method="post" action="/report/{{Torrent.ID}}">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>{{  T("report_torrent_number", Torrent.ID) }}</h2>
+      </div>
+      <div class="modal-body">
+        <h4>{{  T("report_type") }}</h4>
+        {{ yield csrf_field() }}
+        <input type="radio" name="report_type" value="illegal_content" id="illegal" required/>
+        <label for="illegal">{{  T("illegal_content") }}</label><br />
+        <input type="radio" name="report_type" value="spam_garbage" id="spam" required/>
+        <label for="spam">{{  T("spam_garbage") }}</label><br />
+        <input type="radio" name="report_type" value="wrong_category" id="wrongcat" required/>
+        <label for="wrongcat">{{  T("wrong_category") }}</label><br />
+        <input type="radio" name="report_type" value="duplicate_deprecated" id="dup" required/>
+        <label for="dup">{{  T("duplicate_deprecated") }}</label><br />
+        <div class="comment-captcha">
+          {{yield captcha(captchaid=CaptchaID)}}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span>
+          <button id="confirm_changes" type="submit">{{  T("yes")}}</button>
+          <button class="close" onclick="Modal.CloseActive();">{{  T("no")}}</button>
+        </span>
+        <h3>{{  T("are_you_sure") }} </h3>
+      </div>
+    </form>
+  </div>
+</div>
+{{end}}
 {{end}}
 {{ block footer_js()}}
 <script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>
 <script type="text/javascript">
-    // Modal initialization
-    Modal.Init({
-        elements: document.getElementsByClassName("modal"),
-        button: "#reportPopup"
-    });
+// Modal initialization
+Modal.Init({
+  elements: document.getElementsByClassName("modal"),
+  button: "#reportPopup"
+});
 </script>
 {{end}}

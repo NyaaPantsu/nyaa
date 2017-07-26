@@ -1,28 +1,42 @@
 {{ extends "layouts/index_admin" }}
-{{block title()}}{{  T("comments_list") }}{{end}}
+{{block title()}}{{ T("comments_list") }}{{end}}
 {{block content_body()}}
 <div class="results box">
-    <h1>{{  T("comments_list") }}</h1>
-    <table class="table">
-        <thead class="torrent-info">
-            <tr>
-                <th class="tr-name">{{ T("comments") }}</th>
-                <th class="tr-size">{{ T("torrents") }}</th>
-                <th class="tr-actions">{{ T("username") }}</th>
-                <th class="tr-actions">{{ T("actions") }}</th>
-            </tr>
-        </thead>
-        <tbody>
-        {{ range Models}}
-        <tr>
-            <!-- TODO: add href="/mod/comment?id={{.ID}}" for comment editing -->
-            <td class="tr-name home-td"><a>{{ .Content }}</a></td>
-            <td class="tr-size home-td"><a href="/view/{{.TorrentID }}">{{ .TorrentID }}</a></td>
-            <td class="tr-size home-td">{{if .User }}{{ .User.Username }}{{else}}れんちょん{{end}}</td>
-            <td class="tr-actions home-td"><a href="/mod/comment/delete?id={{.ID}}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</a></td>
-            </tr>
-        {{end}}
-        </tbody>
-    </table>
+  <h1>{{  T("comments_list") }}</h1>
+  <table class="table">
+    <thead class="torrent-info">
+      <tr>
+        <th class="tr-name">{{ T("comments") }}</th>
+        <th class="tr-size">{{ T("torrents") }}</th>
+        <th class="tr-actions">{{ T("username") }}</th>
+        <th class="tr-actions">{{ T("actions") }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range Models}}
+      <tr>
+        <!-- TODO: add href="/mod/comment?id={{.ID}}" for comment editing -->
+        <td class="tr-name home-td">
+          <a>{{ .Content }}</a>
+        </td>
+        <td class="tr-size home-td">
+          <a href="/view/{{.TorrentID }}">{{ .TorrentID }}</a>
+        </td>
+        <td class="tr-size home-td">
+          {{if .User }}
+          {{ .User.Username }}
+          {{else}}
+          れんちょん
+          {{end}}
+        </td>
+        <td class="tr-actions home-td">
+          <a href="/mod/comment/delete?id={{.ID}}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;">
+            <i class="icon-trash"></i> {{  T("delete") }}
+          </a>
+        </td>
+      </tr>
+      {{end}}
+    </tbody>
+  </table>
 </div>
 {{end}}

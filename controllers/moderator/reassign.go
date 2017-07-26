@@ -14,7 +14,7 @@ func TorrentReassignModPanel(c *gin.Context) {
 	templates.Form(c, "admin/reassign.jet.html", torrentValidator.ReassignForm{})
 }
 
-// ExecuteAction : Function for applying the changes from ReassignForm
+// ExecuteReassign : Function for applying the changes from ReassignForm
 func ExecuteReassign(f *torrentValidator.ReassignForm) (int, error) {
 	var toBeChanged []uint
 	var err error

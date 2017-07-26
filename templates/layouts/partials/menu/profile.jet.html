@@ -1,52 +1,64 @@
 {{ block profile_menu(route="profile") }}
 <div class="profile-sidebar">
-	<!-- SIDEBAR USERPIC -->
-	<div class="profile-userpic">
-		<img src="{{ getAvatar(UserProfile.MD5, 130) }}" alt="{{ UserProfile.Username }}">
-	</div>
-	<!-- END SIDEBAR USERPIC -->
-	<!-- SIDEBAR USER TITLE -->
-	<div class="profile-usertitle">
-		<p class="profile-usertitle-name">
-			{{ UserProfile.Username}}
-		</p>
-		<p class="profile-usertitle-job">
-			{{UserProfile.GetRole()}}
-		</p>
-		<p class="profile-usertitle-uploadcount">{{ T("torrents_uploaded") }}:<span>{{ NbTorrents }}</span></p>
-	</div>
-	<!-- END SIDEBAR USER TITLE -->
-	<!-- SIDEBAR BUTTONS -->
-	<div class="profile-userbuttons">
-			{{if User.ID > 0 }}
-				{{if !User.CurrentUserIdentical(UserProfile.ID) }}
-					{{if !User.IsFollower(UserProfile)}}
-						<a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-green">{{ T("follow")}}</a><br>
-					{{else}}
-						<a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-orange">{{ T("unfollow")}}</a><br> 
-					{{end}}
-				{{end}}
-			{{end}}
-		<!-- <button type="button" class="btn btn-danger btn-sm">Message</button> -->
-	</div>
-	<br>
-	<!-- END SIDEBAR BUTTONS -->
-	<!-- SIDEBAR MENU -->
-	<div class="profile-usermenu">
-		{{ if User.ID > 0 && (User.CurrentUserIdentical(UserProfile.ID) || User.CurrentOrAdmin(UserProfile.ID)) }}
-			<a class="form-input btn-green" href="/user/{{ UserProfile.ID }}/{{ UserProfile.Username }}"><div class="icon-floppy"></div>{{ T("torrents")}}</a> <br>
-		{{ else }}
-			<a class="form-input btn-green" href="/search?userID={{ UserProfile.ID }}"><div class="icon-floppy"></div>{{ T("torrents")}}</a> <br>
-		{{ end }}
-		{{if User.ID > 0 }}
-			{{ if User.CurrentUserIdentical(UserProfile.ID) }}
-				<a class="form-input" href="/notifications">{{  T("my_notifications")}}</a> <br>
-			{{end}}	
-			{{if User.CurrentOrAdmin(UserProfile.ID) }}
-				<a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/edit">{{ T("settings")}}</a> <br>
-			{{end}}
-		{{end}}
-	</div>
-	<!-- END MENU -->
+  <!-- SIDEBAR USERPIC -->
+  <div class="profile-userpic">
+    <img src="{{ getAvatar(UserProfile.MD5, 130) }}" alt="{{ UserProfile.Username }}"/>
+  </div>
+  <!-- END SIDEBAR USERPIC -->
+  <!-- SIDEBAR USER TITLE -->
+  <div class="profile-usertitle">
+    <p class="profile-usertitle-name">
+      {{ UserProfile.Username}}
+    </p>
+    <p class="profile-usertitle-job">
+      {{UserProfile.GetRole()}}
+    </p>
+    <p class="profile-usertitle-uploadcount">{{ T("torrents_uploaded") }}:<span>{{ NbTorrents }}</span></p>
+  </div>
+  <!-- END SIDEBAR USER TITLE -->
+  <!-- SIDEBAR BUTTONS -->
+  <div class="profile-userbuttons">
+    {{if User.ID > 0 }}
+    {{if !User.CurrentUserIdentical(UserProfile.ID) }}
+    {{if !User.IsFollower(UserProfile)}}
+    <a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-green">{{ T("follow")}}</a>
+    <br />
+    {{else}}
+    <a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-orange">{{ T("unfollow")}}</a>
+    <br/>
+    {{end}}
+    {{end}}
+    {{end}}
+    <!-- <button type="button" class="btn btn-danger btn-sm">Message</button> -->
+  </div>
+  <br/>
+  <!-- END SIDEBAR BUTTONS -->
+  <!-- SIDEBAR MENU -->
+  <div class="profile-usermenu">
+    {{ if User.ID > 0 && (User.CurrentUserIdentical(UserProfile.ID) || User.CurrentOrAdmin(UserProfile.ID)) }}
+    <a class="form-input btn-green" href="/user/{{ UserProfile.ID }}/{{ UserProfile.Username }}">
+      <div class="icon-floppy"></div>{{ T("torrents")}}
+    </a>
+    <br/>
+    {{ else }}
+    <a class="form-input btn-green" href="/search?userID={{ UserProfile.ID }}">
+      <div class="icon-floppy"></div>{{ T("torrents")}}
+    </a>
+    <br/>
+    {{ end }}
+    {{if User.ID > 0 }}
+    {{ if User.CurrentUserIdentical(UserProfile.ID) }}
+    <a class="form-input" href="/notifications">{{  T("my_notifications")}}</a>
+    <br/>
+    {{end}}
+    {{if User.CurrentOrAdmin(UserProfile.ID) }}
+    <a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/edit">
+      {{ T("settings")}}
+    </a> 
+    <br/>
+    {{end}}
+    {{end}}
+  </div>
+  <!-- END MENU -->
 </div>
 {{end}}

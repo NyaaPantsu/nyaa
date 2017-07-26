@@ -12,10 +12,12 @@ type Category struct {
 	Name string
 }
 
-// Cateogories is a struct defining an array of categories
+// Categories is a struct defining an array of categories
 type Categories []Category
 
 var categories Categories
+
+// Index variable
 var Index map[string]int
 
 // InitCategories init the categories and index variables. Exported for tests

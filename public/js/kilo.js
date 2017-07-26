@@ -30,17 +30,23 @@ var Kilo = function (params) {
   }
 
   // Private variables
-  var Keywords_flags= [
-	["vostfr","vosfr", "[ita]", "[eng]", " eng ","[english]","[english sub]", "engsub", "[jp]","[jpn]","[japanese]", "[jav]"],
-  ["fr","fr", "it", "en","en","en","en","en", "ja","ja","ja","ja"]
+  var Keywords_flags = [
+    ["vostfr", "vosfr", "[ita]", "[eng]", " eng ", "[english]", "[english sub]", "engsub", "[jp]", "[jpn]", "[japanese]", "[jav]"],
+    ["fr", "fr", "it", "en", "en", "en", "en", "en", "ja", "ja", "ja", "ja"]
   ]
   var Keywords_categories = [
-		[["[jav]","[h-games]"], [7,3]],
-		[[""], [0]]
+    [
+      ["[jav]", "[h-games]"],
+      [7, 3]
+    ],
+    [
+      [""],
+      [0]
+    ]
   ]
 
   // Parsing categories
-  document.querySelectorAll(".form-torrent-category option").forEach(function(el) {
+  document.querySelectorAll(".form-torrent-category option").forEach(function (el) {
     var subcat
     if (self.sukebei) {
       subcat = el.value.replace("_", "")
@@ -56,7 +62,7 @@ var Kilo = function (params) {
     // Displaying the block and set the locale timestamp
     document.getElementsByClassName('torrent-preview-table')[0].style.display = 'block'
     document.getElementsByClassName('table-torrent-date')[0].innerText = new Date(Date.now()).toISOString()
-	
+
     // Adding listener events
     for (var langIndex = 0; langIndex < document.getElementsByName(this.langSelect).length; langIndex++) {
       document.getElementsByName(this.langSelect)[langIndex].addEventListener('change', updateTorrentLang)
@@ -81,7 +87,7 @@ var Kilo = function (params) {
     this.setCategory(formCategory.selectedIndex)
     updateTorrentLang()
 
-    //Adding the torrent under and above the previewed one. 
+    //Adding the torrent under and above the previewed one.
     if (this.listContext) {
       Query.Get('/api/search?limit=2', function (data) {
         torrents = data.torrents
@@ -122,40 +128,41 @@ var Kilo = function (params) {
     tableCategory.className = 'nyaa-cat table-torrent-category ' + (this.sukebei ? 'sukebei' : 'nyaa') + '-cat-' + this.categories[index]
     tableCategory.title = document.getElementsByClassName('form-torrent-category')[0].querySelectorAll("option")[index].textContent
   }
-  // 
-  this.addKeywordFlags = function(value) {
+  //
+  this.addKeywordFlags = function (value) {
     var torrentLowerCaseName = value.toLowerCase()
     var updateLang = false
-    
-    for(var KeywordIndex = 0; KeywordIndex < Keywords_flags[0].length; KeywordIndex++)
-      if(torrentLowerCaseName.includes(Keywords_flags[0][KeywordIndex])) {
-		   document.getElementById("upload-lang-" + Keywords_flags[1][KeywordIndex]).checked = true
-		   updateLang = true
+
+    for (var KeywordIndex = 0; KeywordIndex < Keywords_flags[0].length; KeywordIndex++)
+      if (torrentLowerCaseName.includes(Keywords_flags[0][KeywordIndex])) {
+        document.getElementById("upload-lang-" + Keywords_flags[1][KeywordIndex]).checked = true
+        updateLang = true
       }
-  
-    if(updateLang) updateTorrentLang()
+
+    if (updateLang) updateTorrentLang()
   }
   //
-  this.addKeywordCategories = function(value) {
-    if(document.getElementsByClassName('form-torrent-category')[0].selectedIndex != 0)
+  this.addKeywordCategories = function (value) {
+    if (document.getElementsByClassName('form-torrent-category')[0].selectedIndex != 0)
       return
-		
+
     var torrentLowerCaseName = value.toLowerCase(),
       IsOnSukebei = params.sukebei ? 0 : 1;
 
-    for(var KeywordIndex = 0; KeywordIndex < Keywords_categories[IsOnSukebei][0].length; KeywordIndex++)
-      if(torrentLowerCaseName.includes(Keywords_categories[IsOnSukebei][0][KeywordIndex])) {
+    for (var KeywordIndex = 0; KeywordIndex < Keywords_categories[IsOnSukebei][0].length; KeywordIndex++)
+      if (torrentLowerCaseName.includes(Keywords_categories[IsOnSukebei][0][KeywordIndex])) {
         document.getElementsByClassName('form-torrent-category')[0].selectedIndex = Keywords_categories[IsOnSukebei][1][KeywordIndex];
         this.setCategory(document.getElementsByClassName('form-torrent-category')[0].selectedIndex)
         break
-      }	
+      }
   }
   // Helper to prevent the functions on keyup/keydown to slow the user typing
   this.debounce = function (func, wait, immediate) {
     var timeout
-    return function() {
-      var context = this, args = arguments
-      var later = function() {
+    return function () {
+      var context = this,
+        args = arguments
+      var later = function () {
         timeout = null
         if (!immediate) func.apply(context, args)
       }
@@ -176,7 +183,7 @@ var Kilo = function (params) {
   var updatePreviewTorrentName = function (e) {
     var el = e.target
     self.setName(el.value)
-    self.debounce(function(value) {
+    self.debounce(function (value) {
       self.addKeywordFlags(value)
       self.addKeywordCategories(value)
     }, 300)(el.value)

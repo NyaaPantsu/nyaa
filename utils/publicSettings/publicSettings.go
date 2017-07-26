@@ -25,12 +25,14 @@ type UserRetriever interface {
 	RetrieveCurrentUser(c *gin.Context) (*models.User, error)
 }
 
+// Language localization language struct
 type Language struct {
 	Name string
 	Code string
 	Tag  string
 }
 
+// Languages Array of Language
 type Languages []Language
 
 // TemplateTfunc : T func used in template
@@ -128,8 +130,7 @@ func ParseLanguages(codes []string) Languages {
 	// Now build languages array
 	for _, languageTag := range codes {
 		lang := GetParentTag(languageTag)
-		n := display.Tags(lang)
-		langs = append(langs, Language{strings.Title(n.Name(glang.Make(languageTag))), lang.String(), languageTag})
+		langs = append(langs, Language{strings.Title(display.Self.Name(glang.Make(languageTag))), lang.String(), languageTag})
 	}
 	return langs
 }
@@ -193,9 +194,9 @@ func GetMascotFromRequest(c *gin.Context) string {
 	return "show"
 }
 
-// GetMascotUrlFromRequest : Get the user selected mascot url from the request.
+// GetMascotURLFromRequest : Get the user selected mascot url from the request.
 // Returns an empty string if not set.
-func GetMascotUrlFromRequest(c *gin.Context) string {
+func GetMascotURLFromRequest(c *gin.Context) string {
 	user, _ := getCurrentUser(c)
 	if user.ID > 0 {
 		return user.MascotURL

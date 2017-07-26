@@ -1,11 +1,11 @@
-[  
+[
   {
     "id": "rules",
     "translation": "Règlement"
   },
   {
     "id": "no_cp",
-    "translation": "Aucune pédopornographie tolérée"
+    "translation": "Aucune pédopornographie"
   },
   {
     "id": "asia",
@@ -194,10 +194,6 @@
   {
     "id": "error_500",
     "translation": "Erreur 500"
-  },
-  {
-    "id": "err_no_results",
-    "translation": "Aucun résultat trouvé"
   },
   {
     "id": "upload",
@@ -1441,7 +1437,7 @@
   },
   {
     "id": "error_less_array",
-    "translation":"%s doit contenir moins de %s items"
+    "translation": "%s doit contenir moins de %s items"
   },
   {
     "id": "error_less_length",
@@ -1449,7 +1445,7 @@
   },
   {
     "id": "error_less_number",
-    "translation":"%s doit être inférieur à %s"
+    "translation": "%s doit être inférieur à %s"
   },
   {
     "id": "error_less_equal_date",

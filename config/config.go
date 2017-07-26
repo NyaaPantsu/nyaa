@@ -13,8 +13,11 @@ import (
 
 var config *Config
 var once sync.Once
+
+// Configpaths default configuration file paths
 var Configpaths = []string{"config/config.yml", "config/default_config.yml"}
 
+// Get config variable
 func Get() *Config {
 	once.Do(func() {
 		config = &Config{}
