@@ -1,4 +1,6 @@
-{{ extends "layouts/index_admin" }} {{block title()}}{{ T("torrents_list") }}{{end}} {{ block content_body()}}
+{{ extends "layouts/index_admin" }}
+{{block title()}}{{ T("torrents_list") }}{{end}}
+{{ block content_body()}}
 <div class="results box">
   <h1>{{  T("torrents_list") }}</h1>
   <form method="post" action="">
@@ -78,7 +80,8 @@
     </table>
   </form>
 </div>
-{{end}} {{ block footer_js()}}
+{{end}}
+{{ block footer_js()}}
 <!-- JS Function for selecting multiple checkboxes -->
 <script type="text/javascript" src="{{URL.Parse("/js/selectAll.js") }}"></script>
 <script type="text/javascript">
