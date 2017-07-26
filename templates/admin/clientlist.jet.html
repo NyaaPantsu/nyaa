@@ -17,11 +17,9 @@
                 <a href="/mod/oauth_client/form?id={{ .ID }}">{{ .Owner }}</a>
             </td>
             <td class="tr-actions home-td">
-                {{if .ID > 0}}
                 <a href="/mod/oauth_client/delete?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;">
                 <i class="icon-trash"></i> {{  T("delete") }}
                 </a>
-                {{end}}
             </td>
         </tr>
         {{end}}

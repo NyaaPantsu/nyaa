@@ -42,16 +42,16 @@ func formClientController(c *gin.Context) {
 	form := &apiValidator.CreateForm{
 		ID:                client.ID,
 		Name:              client.Name,
-		RedirectURI:       strings.Split(client.RedirectURIs, "$!$"),
-		GrantTypes:        strings.Split(client.GrantTypes, "$!$"),
-		ResponseTypes:     strings.Split(client.ResponseTypes, "$!$"),
+		RedirectURI:       strings.Split(client.RedirectURIs, "|"),
+		GrantTypes:        strings.Split(client.GrantTypes, "|"),
+		ResponseTypes:     strings.Split(client.ResponseTypes, "|"),
 		Scope:             client.Scope,
 		Owner:             client.Owner,
 		PolicyURI:         client.PolicyURI,
 		TermsOfServiceURI: client.TermsOfServiceURI,
 		ClientURI:         client.ClientURI,
 		LogoURI:           client.LogoURI,
-		Contacts:          strings.Split(client.Contacts, "$!$"),
+		Contacts:          strings.Split(client.Contacts, "|"),
 	}
 	c.Bind(form)
 
