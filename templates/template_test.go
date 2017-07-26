@@ -18,6 +18,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/filelist"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/validator/api"
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
 	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"github.com/gin-gonic/gin"
@@ -44,6 +45,8 @@ func TestTemplates(t *testing.T) {
 type ContextTest map[string]func(jet.VarMap) jet.VarMap
 
 func walkDirTest(dir string, t *testing.T) {
+	fu := "http://nyaa.cat"
+	em := "cop@cat.fe"
 	fakeUser := &models.User{1, "test", "test", "test", 1, time.Now(), time.Now(), "test", time.Now(), "en", "test", "test", "test", "test", []models.User{}, []models.User{}, "test", []models.Torrent{}, []models.Notification{}, 1, models.UserSettings{}}
 	fakeComment := &models.Comment{1, 1, 1, "test", time.Now(), time.Now(), nil, &models.Torrent{}, fakeUser}
 	fakeScrapeData := &models.Scrape{1, 0, 0, 10, time.Now()}
@@ -57,6 +60,9 @@ func walkDirTest(dir string, t *testing.T) {
 	fakeLogin := &userValidator.LoginForm{"test", "test", "/"}
 	fakeRegistration := &userValidator.RegistrationForm{"test", "", "test", "test", "xxxx", "1"}
 	fakeReport := &models.TorrentReport{1, "test", 1, 1, time.Now(), fakeTorrent, fakeUser}
+	fakeOauthForm := apiValidator.CreateForm{"", "f", []string{fu}, []string{}, []string{}, "", "fedr", fu, fu, fu, fu, []string{em}, ""}
+	fakeOauthModel := fakeOauthForm.Bind(&models.OauthClient{})
+
 	contextvariables := ContextTest{
 		"dumps.jet.html": func(variables jet.VarMap) jet.VarMap {
 			variables.Set("GPGLink", "test")
@@ -175,6 +181,14 @@ func walkDirTest(dir string, t *testing.T) {
 			variables.Set("Revoke", true)
 			variables.Set("ResponseCode", "")
 			variables.Set("Response", "")
+			return variables
+		},
+		"clientlist.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Models", []models.OauthClient{*fakeOauthModel, *fakeOauthModel, *fakeOauthModel})
+			return variables
+		},
+		"oauth_client_form.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Form", fakeOauthForm)
 			return variables
 		},
 	}
