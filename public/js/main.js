@@ -47,8 +47,7 @@ function parseAllDates() {
   var list = document.getElementsByClassName("date-short")
   for (var i in list) {
     var e = list[i]
-    var dateDifference = dateDiff(new Date(e.innerText), new Date())
-    e.title = T.r("torrent_age", dateDifference.d, dateDifference.h)
+    e.title = new Date(e.innerText).toLocaleString(lang)
     e.innerText = new Date(e.innerText).toLocaleString(lang, ymdOpt)
   }
 
