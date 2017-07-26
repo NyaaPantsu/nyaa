@@ -1834,5 +1834,9 @@
   {
     "id": "torrent_preview",
     "translation": "Preview your torrent"
+  },
+  {
+    "id": "torrent_age",
+    "translation": "{1} days {2} hours ago"
   }
 ]
