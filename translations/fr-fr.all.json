@@ -5,7 +5,7 @@
   },
   {
     "id": "no_cp",
-    "translation": "Aucune pédopornographie"
+    "translation": "Aucune pédopornographie tolérée"
   },
   {
     "id": "asia",
@@ -194,6 +194,10 @@
   {
     "id": "error_500",
     "translation": "Erreur 500"
+  },
+  {
+    "id": "err_no_results",
+    "translation": "Aucun résultat trouvé"
   },
   {
     "id": "upload",
@@ -1830,5 +1834,9 @@
   {
     "id": "torrent_preview",
     "translation": "Prévisualisez votre torrent"
+  },
+  {
+    "id": "torrent_age",
+    "translation": "Il y a {1} jour(s) et {2} heure(s)"
   }
 ]
