@@ -65,7 +65,7 @@ parseAllDates()
 //called if no Commit cookie is set or if the website has a newer commit than the one in cookie
 function resetCookies() {
   var cookies = document.cookie.split(";");
-  var excludedCookies = ["mascot", "theme", "mascot_url", "lang"];
+  var excludedCookies = ["mascot", "theme", "mascot_url", "lang", "csrf_token"];
 
   //Remove all cookies but exclude those in the above array
   for (var i = 0; i < cookies.length; i++) {
