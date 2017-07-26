@@ -54,13 +54,20 @@ function parseAllDates() {
   var list = document.getElementsByClassName("date-full")
   for (var i in list) {
     var e = list[i]
-    e.title = e.innerText
+    var dateDifference = dateDiff(new Date(e.innerText), new Date());
+    e.title = T.r("torrent_age", dateDifference.d, dateDifference.h)
     e.innerText = new Date(e.innerText).toLocaleString(lang)
   }
 }
-
+function dateDiff( str1, str2 ) {
+    var diff = Date.parse( str2 ) - Date.parse( str1 ); 
+    return isNaN( diff ) ? NaN : {
+        diff : diff,
+        h  : Math.floor( diff /  3600000 %   24 ),
+        d  : Math.floor( diff / 86400000        )
+    };
+}
 parseAllDates()
-
 
 //called if no Commit cookie is set or if the website has a newer commit than the one in cookie
 function resetCookies() {

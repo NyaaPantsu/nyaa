@@ -1922,5 +1922,9 @@
   {
     "id": "secret",
     "translation": "Client Secret"
+  },
+  {
+    "id": "torrent_age",
+    "translation": "{1} days {2} hours ago"
   }
 ]
