@@ -50,8 +50,7 @@ func TorrentPostEditUserPanel(c *gin.Context) {
 		}
 		if !messages.HasErrors() {
 			upload.UpdateTorrent(&uploadForm, torrent, currentUser).Update(currentUser.HasAdmin())
-			messages.AddInfoT("infos", "torrent_updated")
-			c.Redirect(http.StatusSeeOther, fmt.Sprintf("/view/%d?success", id))
+			c.Redirect(http.StatusSeeOther, fmt.Sprintf("/view/%d?success_edit", id))
 			return
 		}
 		templates.Form(c, "site/torrents/edit.jet.html", uploadForm.Update)
