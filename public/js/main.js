@@ -67,7 +67,6 @@ function dateDiff( str1, str2 ) {
         d  : Math.floor( diff / 86400000        )
     };
 }
-parseAllDates()
 
 
 //called if no Commit cookie is set or if the website has a newer commit than the one in cookie
