@@ -3,6 +3,7 @@ package torrentController
 import (
 	"net/http"
 	"strconv"
+	"fmt"
 
 	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models"
@@ -50,6 +51,8 @@ func TorrentPostEditUserPanel(c *gin.Context) {
 		if !messages.HasErrors() {
 			upload.UpdateTorrent(&uploadForm, torrent, currentUser).Update(currentUser.HasAdmin())
 			messages.AddInfoT("infos", "torrent_updated")
+			c.Redirect(http.StatusSeeOther, fmt.Sprintf("/view/%d?success", id))
+			return
 		}
 		templates.Form(c, "site/torrents/edit.jet.html", uploadForm.Update)
 	} else {
