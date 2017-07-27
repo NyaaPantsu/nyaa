@@ -1,3 +1,4 @@
+{{ import "layouts/partials/helpers/csrf" }}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +8,9 @@
 <body>
 <div>
     <h1>Grant Access to your account</h1>
-    <h2>To the app {{ Client.GetID() }} </h2>
-    <form action="">
+    <h2>To the app {{ Client.Name }} </h2>
+    <form action="" method="POST">
+        {{ yield csrf_field()}}
         <p>This app requests the following access:
             <ul>
                 {{ range Scopes }}
@@ -17,7 +19,7 @@
             </ul>
         </p>
         <p>
-            <input type="submit" value="Accept">
+            <input type="submit" name="grant" value="Accept">
         </p>
     </form>
 </div>

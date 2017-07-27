@@ -25,12 +25,16 @@ func authEndpoint(c *gin.Context) {
 		oauth2.WriteAuthorizeError(c.Writer, ar, err)
 		return
 	}
-
+	// We add needed template variables
 	templateVariables := templates.Commonvariables(c)
-	templateVariables.Set("RequestScopes", ar.GetRequestedScopes())
+	templateVariables.Set("Scopes", ar.GetRequestedScopes())
 	templateVariables.Set("Client", ar.GetClient())
+
+	// Get the current user
 	user := router.GetUser(c)
+	// If not already logged in
 	if user.ID == 0 {
+		// We display the login form and log him in
 		b := userValidator.LoginForm{}
 		messages := msg.GetMessages(c)
 		c.Bind(&b)
@@ -39,6 +43,7 @@ func authEndpoint(c *gin.Context) {
 			templates.Render(c, "site/api/login.jet.html", templateVariables)
 			return
 		}
+
 		_, _, errorUser := cookies.CreateUserAuthentication(c, &b)
 		if errorUser != nil {
 			templates.Render(c, "site/api/login.jet.html", templateVariables)
@@ -46,11 +51,13 @@ func authEndpoint(c *gin.Context) {
 		}
 	}
 
+	// if logged in but grant form wasn't sent, we show grant form and stop the request
 	if c.PostForm("grant") == "" {
 		templates.Render(c, "site/api/grant.jet.html", templateVariables)
 		return
 	}
 
+	// if logged in and grant form sent
 	// let's see what scopes the user gave consent to
 	for _, scope := range c.PostFormArray("scopes") {
 		ar.GrantScope(scope)

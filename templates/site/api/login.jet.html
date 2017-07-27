@@ -1,4 +1,5 @@
 {{import "layouts/partials/helpers/errors"}}
+{{import "layouts/partials/helpers/csrf"}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +11,10 @@
     <h1>Page authentification</h1>
     <p>Please provide your login credentials before continuing</p>
     {{ yield errors() }}
-    <form action="">
+    <form action="" method="POST">
         <input type="text" name="username" /><br>
         <input type="password" name="password" /><br>
+        {{ yield csrf_field()}}
         <input type="submit">
     </form>
 </div>
