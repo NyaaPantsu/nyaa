@@ -163,17 +163,17 @@ select.form-input {
 }
 
 .form-input.search-box {
-    margin-right: -20px;
+    margin-right: -26px;
     padding-right: 20px;
 }
 
 .form-input.search-box+.icon-search {
-    left: -5px;
+    left: -1px;
     top: -1px;
     position: relative;
     padding: 0;
-    width: 16px;
-    height: 24px;
+    width: 22px;
+    height: 25px;
     box-shadow: none;
     border: none;
     vertical-align: middle;
