@@ -71,24 +71,25 @@ parseAllDates()
 
 //called if no Commit cookie is set or if the website has a newer commit than the one in cookie
 function resetCookies() {
-  var cookies = document.cookie.split(";");
-  var excludedCookies = ["mascot", "theme", "mascot_url", "lang", "csrf_token"];
+  var cookies = document.cookie.split(";")
+  var excludedCookies = ["mascot", "theme", "mascot_url", "lang", "csrf_token"]
 
   //Remove all cookies but exclude those in the above array
   for (var i = 0; i < cookies.length; i++) {
-    var cookieName = (cookies[i].split("=")[0]).trim();
+    var cookieName = (cookies[i].split("=")[0]).trim()
     //Remove spaces because some cookie names have it
-    if (excludedCookies.includes(cookieName)) continue;
-    document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    if (excludedCookies.includes(cookieName)) continue
+    document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
   }
 
   //Set new version in cookie
-  document.cookie = "commit=" + commitVersion;
+  var farFuture = new Date()
+  farFuture.setTime(now.getTime() + 100 * 36000 * 15000)
+  document.cookie = "commit=" + commitVersion + ";expires=" + farFuture.toUTCString()
 
-  //add fancy "new" text at bottom of page which will expire in one hour and a half
-  var now = new Date();
-  now.setTime(now.getTime() + 1 * 3600 * 1500);
-  document.cookie = "newVersion=true; expires=" + now.toUTCString();
+  var oneHour = new Date()
+  oneHour.setTime(now.getTime() + 1 * 3600 * 1500)
+  document.cookie = "newVersion=true; expires=" + now.toUTCString()
 }
 
 
