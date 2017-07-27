@@ -84,12 +84,12 @@ function resetCookies() {
 
   //Set new version in cookie
   var farFuture = new Date()
-  farFuture.setTime(now.getTime() + 100 * 36000 * 15000)
+  farFuture.setTime(farFuture.getTime() + 50 * 36000 * 15000)
   document.cookie = "commit=" + commitVersion + ";expires=" + farFuture.toUTCString()
 
   var oneHour = new Date()
-  oneHour.setTime(now.getTime() + 1 * 3600 * 1500)
-  document.cookie = "newVersion=true; expires=" + now.toUTCString()
+  oneHour.setTime(oneHour.getTime() + 1 * 3600 * 1500)
+  document.cookie = "newVersion=true; expires=" + oneHour.toUTCString()
 }
 
 
