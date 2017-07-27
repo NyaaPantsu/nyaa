@@ -113,7 +113,7 @@ func torrentManyAction(c *gin.Context) {
 					}
 
 					/* Changes are done, we save */
-					_, err := torrent.UpdateUnscope()
+					_, err = torrent.UpdateUnscope()
 					if err == nil {
 						if torrent.Uploader == nil {
 							torrent.Uploader = &models.User{}

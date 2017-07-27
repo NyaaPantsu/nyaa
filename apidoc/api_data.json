@@ -3,7 +3,7 @@
     "type": "get",
     "url": "/search/",
     "title": "Search Torrents",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "name": "FindTorrents",
     "group": "Torrents",
     "parameter": {
@@ -353,7 +353,7 @@
     "type": "get",
     "url": "/view/:id",
     "title": "Request Torrent information",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "name": "GetTorrent",
     "group": "Torrents",
     "parameter": {
@@ -570,7 +570,7 @@
     "type": "get",
     "url": "/head/:id",
     "title": "Request Torrent Head",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "name": "GetTorrentHead",
     "group": "Torrents",
     "parameter": {
@@ -622,7 +622,7 @@
     "type": "get",
     "url": "/",
     "title": "Request Torrents index",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "name": "GetTorrents",
     "group": "Torrents",
     "parameter": {
@@ -699,7 +699,7 @@
     "type": "post",
     "url": "/update/",
     "title": "Update a Torrent",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "name": "UpdateTorrent",
     "group": "Torrents",
     "parameter": {
@@ -853,7 +853,7 @@
     "type": "post",
     "url": "/upload",
     "title": "Upload a Torrent",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "name": "UploadTorrent",
     "group": "Torrents",
     "parameter": {
@@ -1014,7 +1014,7 @@
     "type": "post",
     "url": "/login/",
     "title": "Login a user",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "name": "Login",
     "group": "Users",
     "parameter": {
@@ -1067,6 +1067,97 @@
         {
           "title": "Success-Response:",
           "content": "    HTTP/1.1 200 OK\n\t\t{\n\t\t\tdata:\n      \t\t[{\n\t\t\t\t\tuser_id:1,\n\t\t\t\t\tusername:\"username\",\n\t\t\t\t\tstatus:1,\n\t\t\t\t\ttoken:\"token\",\n\t\t\t\t\tmd5:\"\",\n\t\t\t\t\tcreated_at:\"date\",\n\t\t\t\t\tliking_count:0,\n\t\t\t\t\tliked_count:0\n\t\t\t\t}],\n\t\t\tinfos: [\"Logged\", ... ],\n\t\t\tok:true\n\t\t}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "controllers/api/api.go",
+    "groupTitle": "Users",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "Boolean",
+            "optional": false,
+            "field": "ok",
+            "description": "<p>The request couldn't be done due to some errors.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "String[]",
+            "optional": false,
+            "field": "errors",
+            "description": "<p>List of errors messages.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object[]",
+            "optional": false,
+            "field": "all_errors",
+            "description": "<p>List of errors object messages for each wrong field</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 200 OK\n    {\n      \"ok\": false,\n      \"errors\": [ ... ]\n      \"all_errors\": {\n\t\t \t\"username\": [ ... ],\n       }\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "/profile/",
+    "title": "Get a user profile",
+    "version": "1.1.1",
+    "name": "Profile",
+    "group": "Users",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>User ID.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "ok",
+            "description": "<p>The request is done without failing</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "infos",
+            "description": "<p>Messages information relative to the request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>The user object</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n\t\t{\n\t\t\tdata:\n      \t\t[{\n\t\t\t\t\tuser_id:1,\n\t\t\t\t\tusername:\"username\",\n\t\t\t\t\tstatus:1,\n\t\t\t\t\tmd5:\"\",\n\t\t\t\t\tcreated_at:\"date\",\n\t\t\t\t\tliking_count:0,\n\t\t\t\t\tliked_count:0\n\t\t\t\t}],\n\t\t\tinfos: [\"Logged\", ... ],\n\t\t\tok:true\n\t\t}",
           "type": "json"
         }
       ]

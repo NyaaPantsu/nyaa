@@ -135,7 +135,7 @@ func ExtractInfo(c *gin.Context, r *torrentValidator.TorrentRequest) error {
 	}
 
 	// after data has been checked & extracted, write it to disk
-	if len(config.Get().Torrents.FileStorage) > 0 {
+	if len(config.Get().Torrents.FileStorage) > 0 && r.Filesize > 0 {
 		err := writeTorrentToDisk(tfile, r.Infohash+".torrent", &r.Filepath)
 		if err != nil {
 			return err

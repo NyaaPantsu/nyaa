@@ -1,8 +1,8 @@
 {{ extends "layouts/index_site" }}
-{{block title()}}{{ T("error_400")}}{{end}}
+{{block title()}}{{ T("err_no_results")}}{{end}}
 {{block content_body()}}
 <div style="text-align: center;">
-  <h1>{{ T("400_bad_request")}}</h1>
-  <img src="/img/400.png" width="500px" alt="400"/>
+  <h1>{{ T("err_no_results")}}</h1>
+  <img src="/img/no_results.jpg" alt="no results"/>
 </div>
 {{end}} {{block mascot()}}<br />{{end}}

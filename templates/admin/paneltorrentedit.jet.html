@@ -1,57 +1,59 @@
-{{ extends "layouts/index_admin" }}
-{{ import "layouts/partials/helpers/flags" }}
-{{block title()}}{{  T("torrent_edit_panel") }}{{end}}
-{{ block content_body()}}
+{{ extends "layouts/index_admin" }} {{ import "layouts/partials/helpers/flags" }} {{block title()}}{{ T("torrent_edit_panel") }}{{end}} {{ block content_body()}}
 <div class="results box">
-<h3 id="torrents">{{  T("torrent_edit_panel") }}</h3>
+  <h3 id="torrents">{{  T("torrent_edit_panel") }}</h3>
   <form style="text-align:left;padding-left:10px;padding-right:10px;" enctype="multipart/form-data" role="upload" method="POST">
-      <div class="form-group">
+    <div class="form-group">
       <label for="name">{{ T("name")}}</label>
-          <input type="text" name="name" class="form-input up-input" placeholder="{{ T("file_name")}}" value="{{Form.Name}}" required>
+      <input type="text" name="name" class="form-input up-input" placeholder="{{ T(" file_name ")}}" value="{{Form.Name}}" required/>
+    </div>
+    <div class="form-group">
+      <label for="c">{{ T("category")}}</label>
+      <select name="c" class="form-input up-input">
+        <option value="">{{ T("select_a_torrent_category")}}</option>
+        {{ range _, cat := GetCategories(false, true) }}
+        <option value="{{ cat.ID }}" {{if Form.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
+        {{ end }}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="language">{{  T("torrent_language") }}</label>
+      <div name="language" class="form-input language">
+        {{ yield flagList(languages=GetTorrentLanguages(), selected=Form.Languages) }}
       </div>
-      <div class="form-group">
-          <label for="c">{{ T("category")}}</label>
-          <select name="c" class="form-input up-input">
-              <option value="">{{ T("select_a_torrent_category")}}</option>
-              {{ range _, cat := GetCategories(false, true) }}
-              <option value="{{ cat.ID }}" {{if Form.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
-              {{ end }}
-          </select>
-      </div>
-      <div class="form-group">
-          <label for="language">{{  T("torrent_language") }}</label>
-          <div name="language" class="form-input language">
-            {{ yield flagList(languages=GetTorrentLanguages(), selected=Form.Languages) }}
-          </div>
-      </div>
-      <div class="form-group">
-          <label for="Status">{{ T("torrent_status")}}</label>
-          <select name="status" class="form-input up-input">
-              <option value="5" {{if Form.Status == 5}}selected{{end}}>{{  T("torrent_status_blocked") }}</option>
-              <option value="1" {{if Form.Status == 1}}selected{{end}}>{{ T("torrent_status_normal")}}</option>
-              <option value="2" {{if Form.Status == 2}}selected{{end}}>{{ T("torrent_status_remake")}}</option>
-              <option value="3" {{if Form.Status == 3}}selected{{end}}>{{ T("trusted")}}</option>
-              <option value="4" {{if Form.Status == 4}}selected{{end}}>A+</option>
-      	 </select>
-      </div>
-		<p>
-			<input type="checkbox" value="true" name="hidden" id="hidden" {{ if Form.Hidden }}checked{{end}}>
-			<label for="hidden">{{ T("upload_as_anon")}}</label>
-		</p>
-      <div class="form-group">
-          <label for="website_link">{{ T("website_link")}}</label>
-          <input name="website_link" id="website_link" class="form-input up-input" type="text" value="{{Form.WebsiteLink}}">
-      </div>
-      <div class="form-group">
-          <label for="desc">{{ T("torrent_description")}}</label>
-          <p class="help-block">{{ T("description_markdown_notice")}}</p>
-          <textarea name="desc" id="desc" class="form-input up-input" rows="10">{{Form.Description}}</textarea>
-      </div>
-      <button type="submit" class="form-input up-input btn-green">{{ T("save_changes")}}</button>
+    </div>
+    <div class="form-group">
+      <label for="Status">{{ T("torrent_status")}}</label>
+      <select name="status" class="form-input up-input">
+        <option value="5" {{if Form.Status == 5}}selected{{end}}>{{  T("torrent_status_blocked") }}</option>
+        <option value="1" {{if Form.Status == 1}}selected{{end}}>{{ T("torrent_status_normal")}}</option>
+        <option value="2" {{if Form.Status == 2}}selected{{end}}>{{ T("torrent_status_remake")}}</option>
+        <option value="3" {{if Form.Status == 3}}selected{{end}}>{{ T("trusted")}}</option>
+        <option value="4" {{if Form.Status == 4}}selected{{end}}>A+</option>
+      </select>
+    </div>
+    <p>
+      <input type="checkbox" value="true" name="hidden" id="hidden" {{ if Form.Hidden }}checked{{end}}/>
+      <label for="hidden">{{ T("upload_as_anon")}}</label>
+    </p>
+    <div class="form-group">
+      <label for="website_link">{{ T("website_link")}}</label>
+      <input name="website_link" id="website_link" class="form-input up-input" type="text" value="{{Form.WebsiteLink}}">
+    </div>
+    <div class="form-group">
+      <label for="desc">{{ T("torrent_description")}}</label>
+      <p class="help-block">{{ T("description_markdown_notice")}}</p>
+      <textarea name="desc" id="desc" class="form-input up-input" rows="10">{{Form.Description}}</textarea>
+    </div>
+    <button type="submit" class="form-input up-input btn-green">{{ T("save_changes")}}</button>
   </form>
 </div>
-{{end}}
-{{ block footer_js()}}
+{{end}} {{ block footer_js()}}
 <script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
-<script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc"), spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
+<script type="text/javascript">
+  new SimpleMDE({
+    element: document.getElementById("desc"),
+    spellChecker: false,
+    showIcons: ["strikethrough", "code", "table", "horizontal-rule"]
+  });
+</script>
 {{end}}

@@ -139,6 +139,7 @@ func IsUTFLetterNumericValidator(fl validator.FieldLevel) bool {
 	return IsUTFLetterNumeric(value)
 }
 
+// DefaultValidator default validator
 func DefaultValidator(fl validator.FieldLevel) bool {
 	switch fl.Field().Kind() {
 	case reflect.String:

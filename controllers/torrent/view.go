@@ -23,6 +23,9 @@ func ViewHandler(c *gin.Context) {
 	if c.Request.URL.Query()["success"] != nil {
 		messages.AddInfoT("infos", "torrent_uploaded")
 	}
+	if c.Request.URL.Query()["success_edit"] != nil {
+		messages.AddInfoT("infos", "torrent_updated")
+	}
 	if c.Request.URL.Query()["badcaptcha"] != nil {
 		messages.AddErrorT("errors", "bad_captcha")
 	}

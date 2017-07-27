@@ -27,7 +27,7 @@ import (
 
 /**
  * @apiDefine NotFoundError
- * @apiVersion 1.1.0
+ * @apiVersion 1.1.1
  * @apiError {String[]} errors List of errors messages with a 404 error message in it.
  *
  * @apiErrorExample Error-Response:
@@ -38,7 +38,7 @@ import (
  */
 /**
  * @apiDefine RequestError
- * @apiVersion 1.1.0
+ * @apiVersion 1.1.1
  * @apiError {Boolean} ok The request couldn't be done due to some errors.
  * @apiError {String[]} errors List of errors messages.
  * @apiError {Object[]} all_errors List of errors object messages for each wrong field
@@ -56,7 +56,7 @@ import (
 
 /**
  * @api {get} / Request Torrents index
- * @apiVersion 1.1.0
+ * @apiVersion 1.1.1
  * @apiName GetTorrents
  * @apiGroup Torrents
  *
@@ -89,7 +89,7 @@ func APIHandler(c *gin.Context) {
 
 /**
  * @api {get} /view/:id Request Torrent information
- * @apiVersion 1.1.0
+ * @apiVersion 1.1.1
  * @apiName GetTorrent
  * @apiGroup Torrents
  *
@@ -179,7 +179,7 @@ func APIViewHandler(c *gin.Context) {
 
 /**
  * @api {get} /head/:id Request Torrent Head
- * @apiVersion 1.1.0
+ * @apiVersion 1.1.1
  * @apiName GetTorrentHead
  * @apiGroup Torrents
  *
@@ -211,7 +211,7 @@ func APIViewHeadHandler(c *gin.Context) {
 
 /**
  * @api {post} /upload Upload a Torrent
- * @apiVersion 1.1.0
+ * @apiVersion 1.1.1
  * @apiName UploadTorrent
  * @apiGroup Torrents
  *
@@ -298,7 +298,7 @@ func APIUploadHandler(c *gin.Context) {
 
 /**
  * @api {post} /update/ Update a Torrent
- * @apiVersion 1.1.0
+ * @apiVersion 1.1.1
  * @apiName UpdateTorrent
  * @apiGroup Torrents
  *
@@ -368,7 +368,7 @@ func APIUpdateHandler(c *gin.Context) {
 
 /**
  * @api {get} /search/ Search Torrents
- * @apiVersion 1.1.0
+ * @apiVersion 1.1.1
  * @apiName FindTorrents
  * @apiGroup Torrents
  *
@@ -453,7 +453,7 @@ func APISearchHandler(c *gin.Context) {
 
 /**
  * @api {post} /login/ Login a user
- * @apiVersion 1.1.0
+ * @apiVersion 1.1.1
  * @apiName Login
  * @apiGroup Users
  *
@@ -510,11 +510,60 @@ func APILoginHandler(c *gin.Context) {
 	apiResponseHandler(c)
 }
 
+/**
+ * @api {post} /profile/ Get a user profile
+ * @apiVersion 1.1.1
+ * @apiName Profile
+ * @apiGroup Users
+ *
+ * @apiParam {Number} id User ID.
+ *
+ * @apiSuccess {Boolean} ok The request is done without failing
+ * @apiSuccess {String[]} infos Messages information relative to the request
+ * @apiSuccess {Object} data The user object
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ * 		{
+ * 			data:
+ *       		[{
+ * 					user_id:1,
+ *					username:"username",
+ *					status:1,
+ *					md5:"",
+ *					created_at:"date",
+ *					liking_count:0,
+ *					liked_count:0
+ *				}],
+ *			infos: ["Logged", ... ],
+ *			ok:true
+ * 		}
+ *
+ * @apiUse RequestError
+ */
+// APIProfileHandler : Get a public profile with API
+func APIProfileHandler(c *gin.Context) {
+	c.Header("Content-Type", "application/json")
+	messages := msg.GetMessages(c)
+	id, err := strconv.ParseUint(c.Query("id"), 10, 32)
+	if err != nil {
+		id = 0
+	}
+	user, _, errorUser := users.FindByID(uint(id))
+	if errorUser == nil {
+		user.APIToken = "" // We erase apitoken from public profile
+		apiResponseHandler(c, user.ToJSON())
+		return
+	}
+	messages.Error(errorUser)
+	apiResponseHandler(c)
+}
+
 // APIRefreshTokenHandler : Refresh Token with API
 func APIRefreshTokenHandler(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 	token := c.Request.Header.Get("Authorization")
-	username := c.PostForm("username")
+	username := c.Query("username")
 	user, _, _, _, err := users.FindByAPITokenAndName(token, username)
 
 	messages := msg.GetMessages(c)
@@ -539,7 +588,7 @@ func APIRefreshTokenHandler(c *gin.Context) {
 func APICheckTokenHandler(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 	token := c.Request.Header.Get("Authorization")
-	username := c.PostForm("username")
+	username := c.Query("username")
 	user, _, _, _, err := users.FindByAPITokenAndName(token, username)
 
 	messages := msg.GetMessages(c)
@@ -568,7 +617,7 @@ func apiResponseHandler(c *gin.Context, obj ...interface{}) {
 			}
 		}
 	} else { // We need to show error messages
-		mapOk := map[string]interface{}{"ok": false, "errors": messages.GetErrors("errors"), "all_errors": messages.GetAllErrors()}
+		mapOk = map[string]interface{}{"ok": false, "errors": messages.GetErrors("errors"), "all_errors": messages.GetAllErrors()}
 		if len(obj) > 0 {
 			mapOk["data"] = obj
 			if len(obj) == 1 {

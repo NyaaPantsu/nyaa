@@ -17,13 +17,13 @@ import (
 func SeePublicSettingsHandler(c *gin.Context) {
 	_, Tlang := publicSettings.GetTfuncAndLanguageFromRequest(c)
 	availableLanguages := publicSettings.GetAvailableLanguages()
-	languagesJson := templates.LanguagesJSONResponse{Tlang.Tag, availableLanguages}
+	languagesJSON := templates.LanguagesJSONResponse{Tlang.Tag, availableLanguages}
 	contentType := c.Request.Header.Get("Content-Type")
 	if contentType == "application/json" {
 		c.Header("Content-Type", "application/json")
-		c.JSON(http.StatusOK, languagesJson)
+		c.JSON(http.StatusOK, languagesJSON)
 	} else {
-		templates.Form(c, "site/user/public/settings.jet.html", languagesJson)
+		templates.Form(c, "site/user/public/settings.jet.html", languagesJSON)
 	}
 }
 

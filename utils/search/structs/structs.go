@@ -17,19 +17,34 @@ import (
 )
 
 const (
-	ShowAll       Status = 0
-	FilterRemakes        = 2
-	Trusted              = 3
-	APlus                = 4
+	// ShowAll by default show all torrents
+	ShowAll Status = 0
+	// FilterRemakes filter torrent remakes
+	FilterRemakes = 2
+	// Trusted trusted torrents
+	Trusted = 3
+	// APlus torrents not used anymore
+	APlus = 4
 )
 
+// Status torrent status
 type Status uint8
+
+// SortMode selected sort mode
 type SortMode uint8
+
+// Category torrent categories
 type Category struct {
 	Main, Sub uint8
 }
+
+// SizeBytes size in bytes
 type SizeBytes uint64
+
+// DateFilter date to filter for
 type DateFilter string
+
+// Categories multiple torrent categories
 type Categories []*Category
 
 // TorrentParam defines all parameters that can be provided when searching for a torrent

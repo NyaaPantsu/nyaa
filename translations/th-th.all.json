@@ -339,7 +339,7 @@
     "id": "all_categories",
     "translation": "ทุกหมวดหมู่"
   },
-    {
+  {
     "id": "select_a_torrent_category",
     "translation": "เลือกหมวดหมู่ทอร์เรนท์"
   },
@@ -651,7 +651,7 @@
     "id": "delete",
     "translation": "ลบ"
   },
-   {
+  {
     "id": "website_link",
     "translation": "ลิงค์เว็บ"
   },
@@ -726,7 +726,7 @@
   {
     "id": "server_status_link",
     "translation": "สามารถดูสถานะของเซิร์ฟเวอร์ได้ที่นี่"
-  }, 
+  },
   {
     "id": "no_database_dumps_available",
     "translation": "ยังไม่มีไฟล์ดัมพ์ฐานข้อมูลในขณะนี้"

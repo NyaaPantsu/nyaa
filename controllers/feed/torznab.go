@@ -17,7 +17,7 @@ import (
 // RSSTorznabHandler : Controller for displaying rss feed, accepting common search arguments
 func RSSTorznabHandler(c *gin.Context) {
 	t := c.Query("t")
-	rss := ""
+	var rss string
 	title := "Nyaa Pantsu"
 	if config.IsSukebei() {
 		title = "Sukebei Pantsu"
