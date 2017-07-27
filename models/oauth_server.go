@@ -7,11 +7,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/NyaaPantsu/nyaa/utils/fosite/client"
 	"github.com/NyaaPantsu/nyaa/utils/log"
+	"github.com/NyaaPantsu/nyaa/utils/oauth2/client"
 	"github.com/ory/fosite"
 	"github.com/pkg/errors"
 )
+
 const (
 	TableOpenID  = "oidc"
 	TableAccess  = "access"

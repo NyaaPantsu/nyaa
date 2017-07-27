@@ -8,7 +8,9 @@ import (
 	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
+	"github.com/NyaaPantsu/nyaa/utils/oauth2"
 	"github.com/gin-gonic/gin"
+	"github.com/ory/fosite"
 )
 
 // ErrorMiddleware for managing errors on status
@@ -40,6 +42,21 @@ func ModMiddleware() gin.HandlerFunc {
 		if !currentUser.HasAdmin() {
 			NotFoundHandler(c)
 		}
+		c.Next()
+	}
+}
+
+func ScopesRequired(scopes ...string) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		mySessionData := oauth2.NewSession("", "")
+		ctx, err := oauth2.Oauth2.IntrospectToken(c, fosite.AccessTokenFromRequest(c.Request), fosite.AccessToken, mySessionData, scopes...)
+		if err != nil {
+			c.Error(err)
+			c.Abort()
+			return
+		}
+		// All required scopes are found
+		c.Set("fosite", ctx)
 		c.Next()
 	}
 }
