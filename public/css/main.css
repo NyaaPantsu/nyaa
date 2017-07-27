@@ -1435,22 +1435,21 @@ summary {
     display: block;
 }
 
-summary::-webkit-details-marker {
-    display: none
-}
+summary::-webkit-details-marker { display: none }
 
 summary:after {
     vertical-align: middle;
     float: left;
-    margin: -3px 5px 0 0;
+    margin: -1px 5px 0 0;
     content: "+";
+    width: 12px;
     font-size: 1.5em;
     font-weight: bold;
 }
 
 details[open] summary:after {
     content: "-";
-    margin: -1% 5px 0 0;
+    margin: -1% 3px 0px 2px;
 }
 
 .refine-btn {
