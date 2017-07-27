@@ -34,7 +34,6 @@ func init() {
 	CSRFRouter.ExemptPath("/upload")
 	CSRFRouter.ExemptPath("/user/login")
 	CSRFRouter.ExemptPath("/oauth2/token")
-	CSRFRouter.ExemptPath("/oauth2/auth")
 	CSRFRouter.SetFailureHandler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid CSRF tokens", http.StatusBadRequest)
 	}))
