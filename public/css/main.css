@@ -612,8 +612,11 @@ html, body {
 /* holy fucking shit fuck responsive design */
 
 
-/* hide the username */
+@media (min-width: 2560px) { 
+    .container { max-width: 60%!important; }
+}
 
+/* hide the username */
 @media (max-width: 1100px) {
     .header .h-user {
         width: 58px;
