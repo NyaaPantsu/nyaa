@@ -190,3 +190,4 @@ td.tr-le, .error-text {
     border-color: #53565e;
 }
 .tr-cat div.nyaa-cat { border-color: #232324!important; }
+.torrent-preview-table > table { border: 2px solid #1a1a1d; }
