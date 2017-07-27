@@ -43,8 +43,8 @@ a:hover {
     color: #c5c8c6;
 }
 .form-input.refine {
-    border-color: #151514!important;
-    background: #2d2f34;
+    border-color: #1c1c1c!important
+    background: #343434;
     color: #bbbbbb;
 }
 .header .h-user .user-avatar {
