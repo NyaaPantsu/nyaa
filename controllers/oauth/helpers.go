@@ -7,11 +7,12 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/utils/fosite/storage"
 
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/fosite/manager"
+	"github.com/ory/fosite"
 	"github.com/ory/fosite/compose"
 	"github.com/ory/fosite/handler/openid"
 	"github.com/ory/fosite/token/jwt"
-	"github.com/ory/fosite"
 )
 
 // This is a storage instance. We will add a client and a user to it so we can use these later on.
@@ -19,21 +20,21 @@ var store = &storage.FositeSQLStore{
 	&manager.SQLManager{&fosite.BCrypt{WorkFactor: 12}},
 }
 
-var config = new(compose.Config)
+var oauthConfig = new(compose.Config)
 
 // Because we are using oauth2 and open connect id, we use this little helper to combine the two in one
 // variable.
 var strat = compose.CommonStrategy{
 	// alternatively you could use:
 	//  OAuth2Strategy: compose.NewOAuth2JWTStrategy(mustRSAKey())
-	CoreStrategy: compose.NewOAuth2HMACStrategy(config, []byte("some-super-cool-secret-that-nobody-knows")),
+	CoreStrategy: compose.NewOAuth2HMACStrategy(oauthConfig, config.OAuthHash),
 
 	// open id connect strategy
 	OpenIDConnectTokenStrategy: compose.NewOpenIDConnectStrategy(mustRSAKey()),
 }
 
 var oauth2 = compose.Compose(
-	config,
+	oauthConfig,
 	store,
 	strat,
 	nil,
