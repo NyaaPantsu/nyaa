@@ -17,12 +17,12 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/filelist"
+	"github.com/NyaaPantsu/nyaa/utils/fosite/client"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 	"github.com/NyaaPantsu/nyaa/utils/validator/api"
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
 	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"github.com/gin-gonic/gin"
-	"github.com/ory/fosite"
 )
 
 // run before router/init.go:init()
@@ -62,7 +62,7 @@ func walkDirTest(dir string, t *testing.T) {
 	fakeReport := &models.TorrentReport{1, "test", 1, 1, time.Now(), fakeTorrent, fakeUser}
 	fakeOauthForm := apiValidator.CreateForm{"", "f", []string{fu}, []string{}, []string{}, "", "fedr", fu, fu, fu, fu, []string{em}, ""}
 	fakeOauthModel := fakeOauthForm.Bind(&models.OauthClient{})
-
+	fakeClient := client.Client{"", "", "", []string{""}, []string{""}, []string{""}, "", "", "", "", "", "", []string{""}, false}
 	contextvariables := ContextTest{
 		"dumps.jet.html": func(variables jet.VarMap) jet.VarMap {
 			variables.Set("GPGLink", "test")
@@ -166,8 +166,7 @@ func walkDirTest(dir string, t *testing.T) {
 			return variables
 		},
 		"grant.jet.html": func(variables jet.VarMap) jet.VarMap {
-			cli := &fosite.DefaultClient{}
-			variables.Set("Client", cli)
+			variables.Set("Client", fakeClient)
 			variables.Set("Scopes", []string{})
 			return variables
 		},
