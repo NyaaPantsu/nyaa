@@ -123,16 +123,6 @@ function startupCode() {
 
   if (document.cookie.includes("newVersion"))
     document.getElementById("commit").className = "new";
-
-  document.getElementsByClassName("search-box")[0].addEventListener("focus", function (e) {
-    var w = document.getElementsByClassName("h-user")[0].offsetWidth
-    document.getElementsByClassName("h-user")[0].style.display = "none"
-    document.getElementsByClassName("search-box")[0].style.width = document.getElementsByClassName("search-box")[0].offsetWidth + w + "px"
-  })
-  document.getElementsByClassName("search-box")[0].addEventListener("blur", function (e) {
-    document.getElementsByClassName("search-box")[0].style.width = ""
-    document.getElementsByClassName("h-user")[0].style.display = "inline-block"
-  })
 }
 
 function playVoice() {
@@ -144,17 +134,6 @@ function playVoice() {
     console.log("Your mascot doesn't support yet audio files!")
   }
 }
-
-document.getElementsByClassName("form-input refine")[0].addEventListener("click", function (e) {
-  document.getElementsByClassName("box refine")[0].style.display = document.getElementsByClassName("box refine")[0].style.display == "none" ? "block" : "none"
-  if (document.getElementsByClassName("form-input refine-searchbox")[0].value != document.getElementsByClassName("form-input search-box")[0].value)
-    document.getElementsByClassName("form-input refine-searchbox")[0].value = document.getElementsByClassName("form-input search-box")[0].value
-  if (document.getElementsByClassName("form-input refine-category")[0].selectedIndex != document.getElementsByClassName("form-input form-category")[0].selectedIndex)
-    document.getElementsByClassName("form-input refine-category")[0].selectedIndex = document.getElementsByClassName("form-input form-category")[0].selectedIndex
-  e.preventDefault()
-  if (document.getElementsByClassName("box refine")[0].style.display == "block")
-    scrollTo(0, 0)
-})
 
 function humanFileSize(bytes, si) {
   var k = si ? 1000 : 1024
