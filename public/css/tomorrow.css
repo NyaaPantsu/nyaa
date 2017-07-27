@@ -42,7 +42,11 @@ a:hover {
     background: #141517;
     color: #c5c8c6;
 }
-
+.form-input.refine {
+    border-color: #151514!important;
+    background: #2d2f34;
+    color: #bbbbbb;
+}
 .header .h-user .user-avatar {
     background: #99BFD0;
     border-color: #282A2E;
