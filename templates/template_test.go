@@ -17,7 +17,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/filelist"
-	"github.com/NyaaPantsu/nyaa/utils/fosite/client"
+	"github.com/NyaaPantsu/nyaa/utils/oauth2/client"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 	"github.com/NyaaPantsu/nyaa/utils/validator/api"
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
