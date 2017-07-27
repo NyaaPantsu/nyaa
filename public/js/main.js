@@ -55,7 +55,8 @@ function parseAllDates() {
   for (var i in list) {
     var e = list[i]
     var dateDifference = dateDiff(new Date(e.innerText), new Date())
-    e.title = T.r("torrent_age", dateDifference.d, dateDifference.h)
+	  e.title = dateDifference.d + " days " + dateDifference.h + " hours ago"
+    //e.title = T.r("torrent_age", dateDifference.d, dateDifference.h)
     e.innerText = new Date(e.innerText).toLocaleString(lang)
   }
 }
