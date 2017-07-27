@@ -2,9 +2,6 @@
 	"ImportPath": "github.com/NyaaPantsu/nyaa",
 	"GoVersion": "go1.8",
 	"GodepVersion": "v79",
-	"Packages": [
-		"./..."
-	],
 	"Deps": [
 		{
 			"ImportPath": "github.com/BurntSushi/toml",
@@ -31,18 +28,8 @@
 			"Rev": "aa5cce4a76edb1a5acecab1870c17abbffb5419e"
 		},
 		{
-			"ImportPath": "github.com/azhao12345/gorm",
-			"Comment": "v1.0-157-g6369712",
-			"Rev": "6369712e58b64653dd84d26cc3ae54e55ff9c128"
-		},
-		{
 			"ImportPath": "github.com/bradfitz/slice",
 			"Rev": "d9036e2120b5ddfa53f3ebccd618c4af275f47da"
-		},
-		{
-			"ImportPath": "github.com/davecgh/go-spew/spew",
-			"Comment": "v1.1.0-6-gadab964",
-			"Rev": "adab96458c51a58dc1783b3335dcce5461522e75"
 		},
 		{
 			"ImportPath": "github.com/dchest/captcha",
@@ -121,28 +108,23 @@
 			"Rev": "ff2ac2b1ce3d687c3a1da0d2847fbce42524a7f3"
 		},
 		{
+			"ImportPath": "github.com/jinzhu/gorm",
+			"Comment": "v1.0-162-g5b8c0dd",
+			"Rev": "5b8c0dd6b92d9caa8036c31dcb117f2df7cceefa"
+		},
+		{
 			"ImportPath": "github.com/jinzhu/gorm/dialects/postgres",
-			"Comment": "v1.0-154-g717654b",
-			"Rev": "717654b31c3d51348cb305684369c20a8387154b"
+			"Comment": "v1.0-162-g5b8c0dd",
+			"Rev": "5b8c0dd6b92d9caa8036c31dcb117f2df7cceefa"
 		},
 		{
 			"ImportPath": "github.com/jinzhu/gorm/dialects/sqlite",
-			"Comment": "v1.0-154-g717654b",
-			"Rev": "717654b31c3d51348cb305684369c20a8387154b"
+			"Comment": "v1.0-162-g5b8c0dd",
+			"Rev": "5b8c0dd6b92d9caa8036c31dcb117f2df7cceefa"
 		},
 		{
 			"ImportPath": "github.com/jinzhu/inflection",
 			"Rev": "1c35d901db3da928c72a72d8458480cc9ade058f"
-		},
-		{
-			"ImportPath": "github.com/jmoiron/sqlx",
-			"Comment": "sqlx-v1.1-123-gd9bd385",
-			"Rev": "d9bd385d68c068f1fabb5057e3dedcbcbb039d0f"
-		},
-		{
-			"ImportPath": "github.com/jmoiron/sqlx/reflectx",
-			"Comment": "sqlx-v1.1-123-gd9bd385",
-			"Rev": "d9bd385d68c068f1fabb5057e3dedcbcbb039d0f"
 		},
 		{
 			"ImportPath": "github.com/justinas/nosurf",
@@ -275,19 +257,9 @@
 			"Rev": "c605e284fe17294bda444b34710735b29d1a9d90"
 		},
 		{
-			"ImportPath": "github.com/pmezard/go-difflib/difflib",
-			"Comment": "v1.0.0",
-			"Rev": "792786c7400a136282c1664665ae0a8db921c6c2"
-		},
-		{
 			"ImportPath": "github.com/russross/blackfriday",
 			"Comment": "v1.4-45-g0ba0f2b",
 			"Rev": "0ba0f2b6ed7c475a92e4df8641825cb7a11d1fa3"
-		},
-		{
-			"ImportPath": "github.com/stretchr/testify/assert",
-			"Comment": "v1.1.4-70-g05e8a0e",
-			"Rev": "05e8a0eda380579888eb53c394909df027f06991"
 		},
 		{
 			"ImportPath": "github.com/zeebo/bencode",
