@@ -14,6 +14,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/models/activities"
 	"github.com/NyaaPantsu/nyaa/models/oauth_client"
 	"github.com/NyaaPantsu/nyaa/templates"
+	"github.com/NyaaPantsu/nyaa/utils/format"
 	"github.com/NyaaPantsu/nyaa/utils/fosite/manager"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
@@ -54,7 +55,12 @@ func formClientController(c *gin.Context) {
 		Contacts:          strings.Split(client.Contacts, "|"),
 	}
 	c.Bind(form)
-
+	if form.ID == "" && form.Secret == "" {
+		token, err := format.GenerateRandomString(32)
+		if err == nil {
+			form.Secret = token
+		}
+	}
 	templates.Form(c, "admin/oauth_client_form.jet.html", form)
 }
 

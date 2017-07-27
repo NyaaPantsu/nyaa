@@ -11,8 +11,8 @@ import (
 
 // run before config/parse.go:init()
 var _ = func() (_ struct{}) {
-	config.Configpaths[1] = path.Join("..", config.Configpaths[1])
-	config.Configpaths[0] = path.Join("..", config.Configpaths[0])
+	config.Configpaths[1] = path.Join("..", "..", config.Configpaths[1])
+	config.Configpaths[0] = path.Join("..", "..", config.Configpaths[0])
 	config.Reload()
 	return
 }()
