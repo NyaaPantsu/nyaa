@@ -932,12 +932,24 @@
     "translation": "Delete Report"
   },
   {
+    "id": "comment_deleted",
+    "translation": "Comment has been deleted!"
+  },
+  {
     "id": "comment_deleted_by",
     "translation": "Comment #%d from %s has been deleted by %s."
   },
   {
     "id": "comment_edited_by",
     "translation": "Comment #%d from %s has been edited by %s."
+  },
+  {
+    "id": "oauth_client_deleted",
+    "translation": "Oauth API Client has been deleted!"
+  },
+  {
+    "id": "oauth_client_deleted_by",
+    "translation": "Oauth API Client #%s from %s has been deleted by %s."
   },
   {
     "id": "no_action_exist",
@@ -1834,6 +1846,82 @@
   {
     "id": "torrent_preview",
     "translation": "Preview your torrent"
+  },
+  {
+    "id": "update_client_failed",
+    "translation": "Update of the client has failed!"
+  },
+  {
+    "id": "update_client_success",
+    "translation": "You have successfully updated the client!"
+  },
+  {
+    "id": "update_client_panel",
+    "translation": "Update a Client"
+  },
+  {
+    "id": "create_client_success",
+    "translation": "You have successfully created the client!"
+  },
+  {
+    "id": "create_client_failed",
+    "translation": "Client creation has failed!"
+  },
+  {
+    "id": "create_client_panel",
+    "translation": "Create a new Client"
+  },
+  {
+    "id": "redirect_uri",
+    "translation": "Redirect URI"
+  },
+  {
+    "id": "grant_types",
+    "translation": "Grant Types"
+  },
+  {
+    "id": "response_types",
+    "translation": "Response Types"
+  },
+  {
+    "id": "scope",
+    "translation": "Scopes"
+  },
+  {
+    "id": "owner",
+    "translation": "Owner"
+  },
+  {
+    "id": "policy_uri",
+    "translation": "Policy URI"
+  },
+  {
+    "id": "tos_uri",
+    "translation": "Terms Of Service URI"
+  },
+  {
+    "id": "logo_uri",
+    "translation": "Logo URI"
+  },
+  {
+    "id": "contacts",
+    "translation": "Owner Emails"
+  },
+  {
+    "id": "clients_list",
+    "translation": "OAuth API Clients"
+  },
+  {
+    "id": "add",
+    "translation": "Add"
+  },
+  {
+    "id": "remove",
+    "translation": "Remove"
+  },
+  {
+    "id": "secret",
+    "translation": "Client Secret"
   },
   {
     "id": "torrent_age",

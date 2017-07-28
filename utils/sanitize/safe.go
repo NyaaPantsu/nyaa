@@ -14,3 +14,17 @@ func Safe(s string) template.URL {
 func SafeText(s string) template.HTML {
 	return template.HTML(html.EscapeString(s))
 }
+
+// ClearEmpty removes empty string entries from a map
+func ClearEmpty(s []string) []string {
+	var r []string
+	for _, str := range s {
+		if str != "" {
+			r = append(r, str)
+		}
+	}
+	if len(r) == 0 {
+		r = append(r, "")
+	}
+	return r
+}

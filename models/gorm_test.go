@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/azhao12345/gorm"
+	"github.com/jinzhu/gorm"
 )
 
 // run before config/parse.go:init()

@@ -1,4 +1,8 @@
-{{ extends "layouts/index_admin" }} {{ import "layouts/partials/helpers/flags" }} {{block title()}}{{ T("torrent_edit_panel") }}{{end}} {{ block content_body()}}
+{{ extends "layouts/index_admin" }}
+{{ import "layouts/partials/helpers/errors" }}
+{{ import "layouts/partials/helpers/flags" }}
+{{block title()}}{{  T("torrent_edit_panel") }}{{end}}
+{{ block content_body()}}
 <div class="results box">
   <h3 id="torrents">{{  T("torrent_edit_panel") }}</h3>
   <form style="text-align:left;padding-left:10px;padding-right:10px;" enctype="multipart/form-data" role="upload" method="POST">

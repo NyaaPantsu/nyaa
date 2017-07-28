@@ -86,7 +86,9 @@ func main() {
 		if err != nil {
 			log.Fatal(err.Error())
 		}
-		models.ElasticSearchClient, _ = models.ElasticSearchInit()
+		if config.Get().Search.EnableElasticSearch {
+			models.ElasticSearchClient, _ = models.ElasticSearchInit()
+		}
 		err = publicSettings.InitI18n(conf.I18n, cookies.NewCurrentUserRetriever())
 		if err != nil {
 			log.Fatal(err.Error())

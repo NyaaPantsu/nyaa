@@ -188,6 +188,7 @@ type ModelsConfig struct {
 
 // SearchConfig : Config struct for search
 type SearchConfig struct {
+	EnableElasticSearch   bool   `yaml:"enable_es,omitempty"`
 	ElasticsearchAnalyzer string `yaml:"es_analyze,omitempty"`
 	ElasticsearchIndex    string `yaml:"es_index,omitempty"`
 	ElasticsearchType     string `yaml:"es_type,omitempty"`

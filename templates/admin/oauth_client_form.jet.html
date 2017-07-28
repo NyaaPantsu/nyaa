@@ -1,0 +1,154 @@
+{{ extends "layouts/index_admin" }}
+{{ import "layouts/partials/helpers/errors" }}
+{{block title()}}{{ if Form.ID != "" }}{{  T("update_client_panel") }}{{ else }}{{  T("create_client_panel") }}{{ end }}{{end}}
+{{ block content_body()}}
+<div class="results box">
+    <h3 id="clients">{{ if Form.ID != "" }}{{  T("update_client_panel") }}{{ else }}{{  T("create_client_panel") }}{{ end }}</h3>
+    <form style="text-align:left;padding-left:10px;padding-right:10px;" method="POST" action="{{ if Form.ID != ""}}?id={{ Form.ID }}{{end}}">
+        <div class="form-group">
+            <label for="name">{{ T("name")}}</label>
+            <input type="text" name="name" id="name" class="form-input up-input" placeholder="{{ T("name")}}" value="{{Form.Name}}" required>
+            {{ yield errors(name="Name")}}
+        </div>
+        <div class="form-group">
+            <label for="owner">{{ T("owner")}}</label>
+            <input type="text" name="owner" id="owner" class="form-input up-input" placeholder="{{ T("owner")}}" value="{{Form.Owner}}" required>
+            {{ yield errors(name="Owner")}}
+        </div>
+        <div class="form-group">
+            <label for="secret">{{ T("secret")}}</label>
+            <input type="text" name="secret" id="secret" class="form-input up-input" placeholder="{{ T("secret")}}" value="{{Form.Secret}}"{{ if Form.ID == "" }} required{{end}}>
+            {{ yield errors(name="Secret")}}
+        </div>
+        <div class="form-group">
+            <label for="contacts">{{ T("contacts")}}</label>
+            <div class="input-ui-list">
+                {{ range Form.Contacts }}
+                <div class="element">
+                    <input type="text" name="contacts" id="contacts" class="form-input up-input" placeholder="{{ T("contacts")}}" value="{{.}}">
+                    <button class="remove-input form-input btn-red">{{ T("remove") }}</button>
+                </div>
+                {{ end }}
+            </div>
+            <button class="add-input form-input btn-green">{{ T("add") }}</button>
+            {{ yield errors(name="Contacts")}}
+        </div>
+        <div class="form-group">
+            <label for="redirect_uri">{{ T("redirect_uri")}}</label>
+            <div class="input-ui-list">
+                {{ range Form.RedirectURI }}
+                <div class="element">
+                    <input type="text" name="redirect_uri" id="redirect_uri" class="form-input up-input" placeholder="{{ T("redirect_uri")}}" value="{{.}}">
+                    <button class="remove-input form-input btn-red">{{ T("remove") }}</button>
+                </div>
+                {{ end }}
+            </div>
+            <button class="add-input form-input btn-green">{{ T("add") }}</button>
+            {{ yield errors(name="RedirectURI")}}
+        </div>
+        <div class="form-group">
+            <label for="grant_types">{{ T("grant_types")}}</label>
+            <div class="input-ui-list">
+                {{ range Form.GrantTypes }}
+                <div class="element">
+                    <input type="text" name="grant_types" id="grant_types" class="form-input up-input" placeholder="{{ T("grant_types")}}" value="{{.}}">
+                   <button class="remove-input form-input btn-red">{{ T("remove") }}</button>
+                </div>
+                {{ end }}
+            </div>
+            <button class="add-input form-input btn-green">{{ T("add") }}</button>
+            {{ yield errors(name="GrantTypes")}}
+        </div>
+        <div class="form-group">
+            <label for="response_types">{{ T("response_types")}}</label>
+            <div class="input-ui-list">
+                {{ range Form.ResponseTypes }}
+                <div class="element">
+                    <input type="text" name="response_types" id="response_types" class="form-input up-input" placeholder="{{ T("response_types")}}" value="{{.}}">
+                    <button class="remove-input form-input btn-red">{{ T("remove") }}</button>
+                </div>
+                {{ end }}
+            </div>
+            <button class="add-input form-input btn-green">{{ T("add") }}</button>
+            {{ yield errors(name="ResponseTypes")}}
+        </div>
+        <div class="form-group">
+            <label for="client_uri">{{ T("website_link")}}</label>
+            <input name="client_uri" id="client_uri" class="form-input up-input" type="text" value="{{Form.ClientURI}}">
+            {{ yield errors(name="ClientURI")}}
+        </div>
+        <div class="form-group">
+            <label for="scope">{{ T("scope")}}</label>
+            <input type="text" name="scope" id="scope" class="form-input up-input" placeholder="{{ T("scope")}}" value="{{Form.Scope}}">
+            {{ yield errors(name="Scope")}}
+        </div>
+        <div class="form-group">
+            <label for="policy_uri">{{ T("policy_uri")}}</label>
+            <input type="text" name="policy_uri" id="policy_uri" class="form-input up-input" placeholder="{{ T("policy_uri")}}" value="{{Form.PolicyURI}}">
+            {{ yield errors(name="PolicyURI")}}
+        </div>
+        <div class="form-group">
+            <label for="tos_uri">{{ T("tos_uri")}}</label>
+            <input type="text" name="tos_uri" id="tos_uri" class="form-input up-input" placeholder="{{ T("tos_uri")}}" value="{{Form.TermsOfServiceURI}}">
+            {{ yield errors(name="TermsOfServiceURI")}}
+        </div>
+        <div class="form-group">
+            <label for="logo_uri">{{ T("logo_uri")}}</label>
+            <input type="text" name="logo_uri" id="logo_uri" class="form-input up-input" placeholder="{{ T("logo_uri")}}" value="{{Form.LogoURI}}">
+            {{ yield errors(name="LogoURI")}}
+        </div>
+        <button type="submit" class="form-input up-input btn-green">{{ T("save_changes")}}</button>
+    </form>
+</div>
+{{end}}
+{{ block footer_js()}}
+<script type="text/javascript" src="/js/translation.js"></script>
+<script type="text/javascript">
+    T.Add("remove", "{{ T("remove") }}")
+    var rminputs = document.querySelectorAll(".remove-input")
+    for (var i=0; i<rminputs.length;i++) {
+      rminputs[i].addEventListener("click", function(e) {
+        removeInput(this)
+        e.preventDefault()
+      });
+    }
+    var addinputs = document.querySelectorAll(".add-input")
+    for (var i=0; i<addinputs.length;i++) {
+      addinputs[i].addEventListener("click", function(e) {
+        addInput(this)
+        e.preventDefault()
+      });
+    }
+    function addInput(el) {
+      var parentDiv = el.parentElement
+      var inputs = parentDiv.querySelectorAll("input")
+      var divInputList = parentDiv.querySelector(".input-ui-list")
+      var divElement = document.createElement("div")
+      divElement.className = "element"
+      var input = document.createElement("input")
+      input.type="text"
+      input.name=inputs[0].name
+      input.id = inputs[0].id
+      input.className = inputs[0].className
+      input.placeholder = inputs[0].placeholder
+      input.required = inputs[0].required
+      divElement.appendChild(input)
+      var buttonRemove = document.createElement("button")
+      buttonRemove.innerText = T.r("remove")
+      buttonRemove.addEventListener("click", function (e) {
+        removeInput(this)
+        e.preventDefault()
+      })
+      buttonRemove.className = "form-input remove-input btn-red"
+      divElement.appendChild(buttonRemove)
+      divInputList.appendChild(divElement)
+    }
+    function removeInput(el) {
+      var parentDiv = el.parentElement
+      var inputs = parentDiv.parentElement.querySelectorAll("input")
+      if (inputs.length > 1) {
+        parentDiv.parentNode.removeChild(parentDiv)
+      }
+    }
+</script>
+{{end}}

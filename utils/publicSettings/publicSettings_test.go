@@ -42,7 +42,7 @@ func TestLanguages(t *testing.T) {
 	if err != nil {
 		t.Errorf("failed to initialize language translations: %v", err)
 	}
-	displayLang := language.Make(conf.DefaultLanguage)
+	displayLang := language.Make("pt")
 	if displayLang.String() == "und" {
 		t.Errorf("Couldn't find the language display for the language %s", displayLang.String())
 	}
@@ -51,12 +51,12 @@ func TestLanguages(t *testing.T) {
 	tags := i18n.LanguageTags()
 	for _, languageTag := range tags {
 		// The matcher will match Swiss German to German.
-		lang := GetParentTag(languageTag)
+		lang := language.Make(languageTag)
 		if lang.String() == "und" {
 			t.Errorf("Couldn't find the language root for the language %s", languageTag)
 		}
-		fmt.Printf("Name of the language natively: %s\n", strings.Title(display.Self.Name(lang)))
-		fmt.Printf("Name of the language in %s: %s\n", displayLang.String(), n.Name(lang))
+		fmt.Printf("Name of the language '%s' natively: %s\n", languageTag, strings.Title(display.Self.Name(lang)))
+		fmt.Printf("Name of the language '%s' in %s: %s\n\n", languageTag, displayLang.String(), n.Name(lang))
 	}
 }
 

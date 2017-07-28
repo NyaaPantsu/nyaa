@@ -3,7 +3,7 @@ package models
 import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/log"
-	"github.com/azhao12345/gorm"
+	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres" // Need for postgres support
 	_ "github.com/jinzhu/gorm/dialects/sqlite"   // Need for sqlite
 	elastic "gopkg.in/olivere/elastic.v5"
@@ -62,7 +62,7 @@ func GormInit(conf *config.Config, logger Logger) (*gorm.DB, error) {
 	db.DB().SetMaxIdleConns(1)
 	// This should be about the number of cores the machine has (and should
 	// be lower than the max_connection specified by postgresql.conf)
-	// Since we have two applications running, this should really be 
+	// Since we have two applications running, this should really be
 	// number of cores / 2
 	// TODO Make configurable
 	db.DB().SetMaxOpenConns(4)
@@ -98,6 +98,13 @@ func GormInit(conf *config.Config, logger Logger) (*gorm.DB, error) {
 	if db.Error != nil {
 		return db, db.Error
 	}
-
+	db.AutoMigrate(&OpenID{}, &Access{}, &Refresh{}, &Code{})
+	if db.Error != nil {
+		return db, db.Error
+	}
+	db.AutoMigrate(&OauthClient{})
+	if db.Error != nil {
+		return db, db.Error
+	}
 	return db, nil
 }

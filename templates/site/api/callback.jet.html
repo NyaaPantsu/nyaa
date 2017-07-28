@@ -1,0 +1,32 @@
+{{import "layouts/partials/helpers/errors"}}
+{{import "layouts/partials/helpers/infos"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Callback - Nyaa Pantsu API</title>
+</head>
+<body>
+    {{ if Callback }}
+    <p>Amazing! You just got an authorize code!:<br><code>{{ Code }}</code></p>
+    <p>Click <a href="/">here to return</a> to the front page</p>
+    <p>Cool! You are now a proud token owner.<br>
+    <ul>
+        <li>
+            Access token:<br>
+            <code>{{ AccessToken }}</code>
+        </li>
+        <li>
+            Refresh token:<br>
+            <code>{{ RefreshToken }}</code>
+        </li>
+        <li>
+            Extra info: <br>
+            <code>{{ yield infos() }}</code>
+        </li>
+    </ul>
+    {{ else }}
+    {{ yield errors() }}
+    {{ end }}
+</body>
+</html>
