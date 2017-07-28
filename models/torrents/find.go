@@ -145,26 +145,27 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 	}
 
 	// build custom db query for performance reasons
-	dbQuery := "SELECT * FROM " + config.Get().Models.TorrentsTableName
+	dbQuery := models.ORM.Unscoped().Preload("Scrape").Preload("FileList")
+	if withUser {
+		dbQuery = dbQuery.Preload("Uploader")
+	}
+	if countAll {
+		dbQuery = dbQuery.Preload("Comments")
+	}
+
 	if conditions != "" {
-		dbQuery = dbQuery + " WHERE " + conditions
+		dbQuery = dbQuery.Where(conditions, params...)
 	}
 
 	if orderBy == "" { // default OrderBy
-		orderBy = "torrent_id DESC"
+		orderBy = "torrent_date DESC"
 	}
-	dbQuery = dbQuery + " ORDER BY " + orderBy
+	dbQuery = dbQuery.Order(orderBy)
 	if limit != 0 || offset != 0 { // if limits provided
-		dbQuery = dbQuery + " LIMIT " + strconv.Itoa(limit) + " OFFSET " + strconv.Itoa(offset)
+		dbQuery = dbQuery.Limit(strconv.Itoa(limit)).Offset(strconv.Itoa(offset))
 	}
-	dbQ := models.ORM.Preload("Scrape")
-	if withUser {
-		dbQ = dbQ.Preload("Uploader")
-	}
-	if countAll {
-		dbQ = dbQ.Preload("Comments")
-	}
-	err = dbQ.Preload("FileList").Raw(dbQuery, params...).Find(&torrents).Error
+
+	err = dbQuery.Find(&torrents).Error
 	// cache.C.Set(fmt.Sprintf("%v", parameters), &structs.TorrentCache{torrents, count}, 5*time.Minute) // Cache shouldn't be done here but in search util
 	return
 }
