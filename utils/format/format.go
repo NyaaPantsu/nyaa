@@ -3,6 +3,7 @@ package format
 import (
 	"fmt"
 	"net/url"
+	"strings"
 )
 
 // FileSize : format file size
@@ -35,4 +36,14 @@ func GetHostname(rawurl string) string {
 		return rawurl
 	}
 	return u.Hostname()
+}
+
+// SplitNonEmpty is a special case of strings.Split
+// which returns an empty slice if string is empty
+func SplitNonEmpty(s, sep string) []string {
+	if s == "" {
+		return nil
+	}
+
+	return strings.Split(s, sep)
 }

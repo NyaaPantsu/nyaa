@@ -42,7 +42,11 @@ a:hover {
     background: #141517;
     color: #c5c8c6;
 }
-
+.form-input.refine {
+    border-color: #1c1c1c!important
+    background: #343434;
+    color: #bbbbbb;
+}
 .header .h-user .user-avatar {
     background: #99BFD0;
     border-color: #282A2E;
@@ -185,3 +189,5 @@ td.tr-le, .error-text {
 .torrent-info-box {
     border-color: #53565e;
 }
+.tr-cat div.nyaa-cat { border-color: #232324!important; }
+.torrent-preview-table > table { border: 2px solid #1a1a1d; }

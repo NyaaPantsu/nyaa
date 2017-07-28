@@ -17,7 +17,9 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/filelist"
+	"github.com/NyaaPantsu/nyaa/utils/oauth2/client"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/validator/api"
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
 	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"github.com/gin-gonic/gin"
@@ -44,11 +46,15 @@ type ContextTest map[string]func(jet.VarMap) jet.VarMap
 
 func walkDirTest(dir string, t *testing.T) {
 	fakeUser := &models.User{1, "test", "test", "test", 1, time.Now(), time.Now(), "test", time.Now(), "en", "test", "test", "test", "test", 0, []models.User{}, []models.User{}, "test", []models.Torrent{}, []models.Notification{}, 1, models.UserSettings{}}
+	fu := "http://nyaa.cat"
+	em := "cop@cat.fe"
+
+	fakeTag := &models.Tag{1, 1, "12345", "anidbid", 1, false}
 	fakeComment := &models.Comment{1, 1, 1, "test", time.Now(), time.Now(), nil, &models.Torrent{}, fakeUser}
 	fakeScrapeData := &models.Scrape{1, 0, 0, 10, time.Now()}
 	fakeFile := &models.File{1, 1, "l12:somefile.mp4e", 3}
 	fakeLanguages := []string{"fr", "en"}
-	fakeTorrent := &models.Torrent{1, "test", "test", 3, 12, 1, false, time.Now(), 1, 0, 3, "test", "test", "test", "test", "test", nil, fakeUser, "test", []models.OldComment{}, []models.Comment{*fakeComment, *fakeComment}, fakeScrapeData, []models.File{*fakeFile}, fakeLanguages}
+	fakeTorrent := &models.Torrent{1, "test", "test", 3, 12, 1, false, time.Now(), 1, 0, 3, "test", "test", "test", "test", "test", nil, fakeUser, "test", []models.OldComment{}, []models.Comment{*fakeComment, *fakeComment}, []models.Tag{*fakeTag, *fakeTag}, fakeScrapeData, []models.File{*fakeFile}, fakeLanguages}
 	fakeActivity := &models.Activity{1, "t", "e", "s", 1, fakeUser}
 	fakeDB := &models.DatabaseDump{time.Now(), 3, "test", "test"}
 	fakeLanguage := &publicSettings.Language{"English", "en", "en-us"}
@@ -56,6 +62,9 @@ func walkDirTest(dir string, t *testing.T) {
 	fakeLogin := &userValidator.LoginForm{"test", "test", "/"}
 	fakeRegistration := &userValidator.RegistrationForm{"test", "", "test", "test", "xxxx", "1"}
 	fakeReport := &models.TorrentReport{1, "test", 1, 1, time.Now(), fakeTorrent, fakeUser}
+	fakeOauthForm := apiValidator.CreateForm{"", "f", []string{fu}, []string{}, []string{}, "", "fedr", fu, fu, fu, fu, []string{em}, ""}
+	fakeOauthModel := fakeOauthForm.Bind(&models.OauthClient{})
+	fakeClient := client.Client{"", "", "", []string{""}, []string{""}, []string{""}, "", "", "", "", "", "", []string{""}, false}
 	contextvariables := ContextTest{
 		"dumps.jet.html": func(variables jet.VarMap) jet.VarMap {
 			variables.Set("GPGLink", "test")
@@ -148,6 +157,39 @@ func walkDirTest(dir string, t *testing.T) {
 				CaptchaID string
 			}
 			variables.Set("Form", form{1, "test"})
+			return variables
+		},
+		"callback.jet.html": func(variables jet.VarMap) jet.VarMap {
+
+			variables.Set("Callback", true)
+			variables.Set("AccessToken", "")
+			variables.Set("RefreshToken", "")
+			variables.Set("Code", "")
+			return variables
+		},
+		"grant.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Client", fakeClient)
+			variables.Set("Scopes", []string{})
+			return variables
+		},
+		"refresh.jet.html": func(variables jet.VarMap) jet.VarMap {
+
+			variables.Set("Refresh", true)
+			variables.Set("Response", "")
+			return variables
+		},
+		"revoke.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Revoke", true)
+			variables.Set("ResponseCode", "")
+			variables.Set("Response", "")
+			return variables
+		},
+		"clientlist.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Models", []models.OauthClient{*fakeOauthModel, *fakeOauthModel, *fakeOauthModel})
+			return variables
+		},
+		"oauth_client_form.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Form", fakeOauthForm)
 			return variables
 		},
 	}

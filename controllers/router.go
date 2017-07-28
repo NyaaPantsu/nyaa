@@ -11,6 +11,7 @@ import (
 	_ "github.com/NyaaPantsu/nyaa/controllers/feed"          // feed controller
 	_ "github.com/NyaaPantsu/nyaa/controllers/middlewares"   // middlewares
 	_ "github.com/NyaaPantsu/nyaa/controllers/moderator"     // moderator controller
+	_ "github.com/NyaaPantsu/nyaa/controllers/oauth"         // oauth2 controller
 	_ "github.com/NyaaPantsu/nyaa/controllers/pprof"         // pprof controller
 	_ "github.com/NyaaPantsu/nyaa/controllers/report"        // report controller
 	"github.com/NyaaPantsu/nyaa/controllers/router"
@@ -32,6 +33,7 @@ func init() {
 	CSRFRouter.ExemptRegexp("/mod(?:/.+)*")
 	CSRFRouter.ExemptPath("/upload")
 	CSRFRouter.ExemptPath("/user/login")
+	CSRFRouter.ExemptPath("/oauth2/token")
 	CSRFRouter.SetFailureHandler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid CSRF tokens", http.StatusBadRequest)
 	}))

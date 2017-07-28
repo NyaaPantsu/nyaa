@@ -73,7 +73,7 @@ func BindFlags() func() {
 	flag.StringVar(&Get().DBParams, "dbparams", Get().DBParams, "parameters to open the database (see Gorm's doc)")
 	flag.StringVar(&Get().DBLogMode, "dblogmode", Get().DBLogMode, "database log verbosity (errors only by default)")
 	return func() {
-		if *confFile != "" {
+		if *confFile != "" && *confFile != Configpaths[1] {
 			Configpaths = append([]string{*confFile}, Configpaths...)
 			Reload()
 		}

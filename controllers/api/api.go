@@ -23,6 +23,8 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
 	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"github.com/gin-gonic/gin"
+	"github.com/ory/fosite"
+	"github.com/pkg/errors"
 )
 
 /**
@@ -557,6 +559,59 @@ func APIProfileHandler(c *gin.Context) {
 	}
 	messages.Error(errorUser)
 	apiResponseHandler(c)
+}
+
+/**
+ * @api {post} /user/ Get a private user profile
+ * @apiVersion 1.1.1
+ * @apiName Private Profile
+ * @apiGroup Users
+ *
+ * @apiParam {String} access_token Token sent by the OAuth API
+ *
+ * @apiSuccess {Boolean} ok The request is done without failing
+ * @apiSuccess {String[]} infos Messages information relative to the request
+ * @apiSuccess {Object} data The connected user object
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ * 		{
+ * 			data:
+ *       		[{
+ * 					user_id:1,
+ *					username:"username",
+ *					status:1,
+ *					token:"token",
+ *					md5:"",
+ *					created_at:"date",
+ *					liking_count:0,
+ *					liked_count:0
+ *				}],
+ *			infos: ["Logged", ... ],
+ *			ok:true
+ * 		}
+ *
+ * @apiUse RequestError
+ */
+// APIOwnProfile : Get your own profile data. You need to be logged in through the OAuth API
+func APIOwnProfile(c *gin.Context) {
+	c.Header("Content-Type", "application/json")
+	messages := msg.GetMessages(c)
+	ctx, exist := c.Get("fosite")
+
+	if exist {
+		oauthCtx := ctx.(*fosite.AccessRequest)
+		client := oauthCtx.GetSession()
+		user, _, _, errorUser := users.FindByUsername(client.GetSubject())
+		if errorUser == nil {
+			apiResponseHandler(c, user.ToJSON())
+			return
+		}
+		messages.Error(errorUser)
+		apiResponseHandler(c)
+		return
+	}
+	c.AbortWithError(http.StatusBadRequest, errors.New("Can't get your tokens"))
 }
 
 // APIRefreshTokenHandler : Refresh Token with API

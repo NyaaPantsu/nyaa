@@ -1,6 +1,9 @@
 package apiController
 
-import "github.com/NyaaPantsu/nyaa/controllers/router"
+import (
+	"github.com/NyaaPantsu/nyaa/controllers/middlewares"
+	"github.com/NyaaPantsu/nyaa/controllers/router"
+)
 
 func init() {
 	api := router.Get().Group("/api")
@@ -12,6 +15,7 @@ func init() {
 		api.POST("/upload", APIUploadHandler)
 		api.POST("/login", APILoginHandler)
 		api.GET("/profile", APIProfileHandler)
+		api.GET("/user", middlewares.ScopesRequired("user"), APIOwnProfile)
 		api.GET("/token/check", APICheckTokenHandler)
 		api.GET("/token/refresh", APIRefreshTokenHandler)
 		api.Any("/search", APISearchHandler)

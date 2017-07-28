@@ -25,7 +25,7 @@
     <form action="/logout" method="POST">
       {{ yield csrf_field() }}
       <input type="hidden" value="{{ URL.String() }}" name="redirectTo"/>
-      <input class="nav-btn" type="submit" name="logout" value="{{  T(" sign_out ")}}"/>
+      <input class="nav-btn" type="submit" name="logout" value="{{  T("sign_out")}}"/>
     </form>
   </div>
   {{ else }}
