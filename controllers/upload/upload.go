@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/NyaaPantsu/nyaa/controllers/router"
+	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/captcha"
@@ -49,6 +50,13 @@ func UploadPostHandler(c *gin.Context) {
 	err := upload.ExtractInfo(c, &uploadForm)
 	if err != nil {
 		messages.AddError("errors", err.Error())
+	}
+
+	uploadForm.Status = models.TorrentStatusNormal
+	if uploadForm.Remake { // overrides trusted
+		uploadForm.Status = models.TorrentStatusRemake
+	} else if user.IsTrusted() {
+		uploadForm.Status = models.TorrentStatusTrusted
 	}
 
 	err = torrents.ExistOrDelete(uploadForm.Infohash, user)
