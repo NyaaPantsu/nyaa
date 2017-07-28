@@ -125,16 +125,6 @@ function startupCode() {
 
   if (document.cookie.includes("newVersion"))
     document.getElementById("commit").className = "new";
-
-  document.getElementsByClassName("search-box")[0].addEventListener("focus", function (e) {
-    var w = document.getElementsByClassName("h-user")[0].offsetWidth
-    document.getElementsByClassName("h-user")[0].style.display = "none"
-    document.getElementsByClassName("search-box")[0].style.width = document.getElementsByClassName("search-box")[0].offsetWidth + w + "px"
-  })
-  document.getElementsByClassName("search-box")[0].addEventListener("blur", function (e) {
-    document.getElementsByClassName("search-box")[0].style.width = ""
-    document.getElementsByClassName("h-user")[0].style.display = "inline-block"
-  })
 }
 
 function playVoice() {
