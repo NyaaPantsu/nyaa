@@ -9,6 +9,8 @@ func init() {
 	{
 		torrentRoutes.GET("/", TorrentEditUserPanel)
 		torrentRoutes.POST("/", TorrentPostEditUserPanel)
+		torrentRoutes.GET("/tag", ViewFormTag)
+		torrentRoutes.POST("/tag", ViewFormTag)
 		torrentRoutes.GET("/delete", TorrentDeleteUserPanel)
 	}
 	torrentViewRoutes := router.Get().Group("/view")

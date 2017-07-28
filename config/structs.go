@@ -47,7 +47,8 @@ type Config struct {
 }
 
 type Tags struct {
-	MaxWeight float64 `yaml:"max_weight,omitempty"`
+	MaxWeight float64     `yaml:"max_weight,omitempty"`
+	Types     ArrayString `yaml:"types,omitempty"`
 }
 
 // WebAddressConfig : Config struct for web addresses
@@ -102,8 +103,8 @@ type ScraperConfig struct {
 
 // TrackersConfig ; Config struct for Trackers
 type TrackersConfig struct {
-	Default        []string `yaml:"default,flow,omitempty"`
-	NeededTrackers []int    `yaml:"needed,flow,omitempty"`
+	Default        ArrayString `yaml:"default,flow,omitempty"`
+	NeededTrackers []int       `yaml:"needed,flow,omitempty"`
 }
 
 // TorrentsConfig : Config struct for Torrents
@@ -111,9 +112,9 @@ type TorrentsConfig struct {
 	Status                        []bool            `yaml:"status,omitempty,omitempty"`
 	SukebeiCategories             map[string]string `yaml:"sukebei_categories,omitempty"`
 	CleanCategories               map[string]string `yaml:"clean_categories,omitempty"`
-	EnglishOnlyCategories         []string          `yaml:"english_only_categories,omitempty"`
-	NonEnglishOnlyCategories      []string          `yaml:"non_english_only_categories,omitempty"`
-	AdditionalLanguages           []string          `yaml:"additional_languages,omitempty"`
+	EnglishOnlyCategories         ArrayString       `yaml:"english_only_categories,omitempty"`
+	NonEnglishOnlyCategories      ArrayString       `yaml:"non_english_only_categories,omitempty"`
+	AdditionalLanguages           ArrayString       `yaml:"additional_languages,omitempty"`
 	FileStorage                   string            `yaml:"filestorage,omitempty"`
 	StorageLink                   string            `yaml:"storage_link,omitempty"`
 	CacheLink                     string            `yaml:"cache_link,omitempty"`
@@ -197,4 +198,15 @@ type SearchConfig struct {
 	ElasticsearchAnalyzer string `yaml:"es_analyze,omitempty"`
 	ElasticsearchIndex    string `yaml:"es_index,omitempty"`
 	ElasticsearchType     string `yaml:"es_type,omitempty"`
+}
+
+type ArrayString []string
+
+func (ar ArrayString) Contains(str string) bool {
+	for _, s := range ar {
+		if s == str {
+			return true
+		}
+	}
+	return false
 }

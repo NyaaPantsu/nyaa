@@ -10,12 +10,12 @@
     {{ yield csrf_field() }}
     <div class="form-group">
       <label class="input-label" for="name">{{ T("name")}}</label>
-      <input type="text" name="name" class="form-input up-input" placeholder="{{ T("file_name")}}" value="{{Form.Name}}" required/>
+      <input type="text" name="name" id="name" class="form-input up-input" placeholder="{{ T("file_name")}}" value="{{Form.Name}}" required/>
       {{ yield errors(name="name")}}
     </div>
     <div class="form-group">
       <label class="input-label" for="c">{{ T("category")}}</label>
-      <select name="c" class="form-input up-input">
+      <select name="c" id="c" class="form-input up-input">
         <option value="">{{ T("select_a_torrent_category")}}</option>
         {{ range _, cat := GetCategories(false, true) }}
         <option value="{{ cat.ID }}" {{if Form.Category == cat.ID }}selected{{end}}>{{T(cat.Name) }}</option>
@@ -25,7 +25,7 @@
     </div>
     <div class="form-group">
       <label class="input-label" for="language">{{  T("torrent_language") }}</label>
-      <div name="language" class="form-input language">
+      <div name="language" id="language" class="form-input language">
         {{ yield flagList(languages=GetTorrentLanguages(), selected=Form.Languages) }}
       </div>
       {{ yield errors(name="language")}}
