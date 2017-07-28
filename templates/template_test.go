@@ -45,11 +45,11 @@ func TestTemplates(t *testing.T) {
 type ContextTest map[string]func(jet.VarMap) jet.VarMap
 
 func walkDirTest(dir string, t *testing.T) {
-	fakeUser := &models.User{1, "test", "test", "test", 1, time.Now(), time.Now(), "test", time.Now(), "en", "test", "test", "test", "test", 0, []models.User{}, []models.User{}, "test", []models.Torrent{}, []models.Notification{}, 1, models.UserSettings{}}
 	fu := "http://nyaa.cat"
 	em := "cop@cat.fe"
 
-	fakeTag := &models.Tag{1, 1, "12345", "anidbid", 1, false}
+	fakeTag := &models.Tag{1, 1, "12345", "anidbid", 1, false, 0}
+	fakeUser := &models.User{1, "test", "test", "test", 1, time.Now(), time.Now(), "test", time.Now(), "en", "test", "test", "test", "test", 0, []models.User{}, []models.User{}, "test", []models.Torrent{}, []models.Notification{}, 1, models.UserSettings{}, []models.Tag{*fakeTag}}
 	fakeComment := &models.Comment{1, 1, 1, "test", time.Now(), time.Now(), nil, &models.Torrent{}, fakeUser}
 	fakeScrapeData := &models.Scrape{1, 0, 0, 10, time.Now()}
 	fakeFile := &models.File{1, 1, "l12:somefile.mp4e", 3}
@@ -65,6 +65,7 @@ func walkDirTest(dir string, t *testing.T) {
 	fakeOauthForm := apiValidator.CreateForm{"", "f", []string{fu}, []string{}, []string{}, "", "fedr", fu, fu, fu, fu, []string{em}, ""}
 	fakeOauthModel := fakeOauthForm.Bind(&models.OauthClient{})
 	fakeClient := client.Client{"", "", "", []string{""}, []string{""}, []string{""}, "", "", "", "", "", "", []string{""}, false}
+
 	contextvariables := ContextTest{
 		"dumps.jet.html": func(variables jet.VarMap) jet.VarMap {
 			variables.Set("GPGLink", "test")
@@ -160,7 +161,6 @@ func walkDirTest(dir string, t *testing.T) {
 			return variables
 		},
 		"callback.jet.html": func(variables jet.VarMap) jet.VarMap {
-
 			variables.Set("Callback", true)
 			variables.Set("AccessToken", "")
 			variables.Set("RefreshToken", "")
@@ -190,6 +190,10 @@ func walkDirTest(dir string, t *testing.T) {
 		},
 		"oauth_client_form.jet.html": func(variables jet.VarMap) jet.VarMap {
 			variables.Set("Form", fakeOauthForm)
+			return variables
+		},
+		"tag.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Form", fakeTag)
 			return variables
 		},
 	}
