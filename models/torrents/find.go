@@ -127,7 +127,7 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 	if !deleted {
 		conditionArray = append(conditionArray, "deleted_at IS NULL")
 	} else {
-		conditionArray = append(conditionArray, "deleted_at NOT NULL")
+		conditionArray = append(conditionArray, "deleted_at IS NOT NULL")
 	}
 
 	conditions := strings.Join(conditionArray, " AND ")
