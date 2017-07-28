@@ -59,6 +59,7 @@ type User struct {
 
 	UnreadNotifications int          `gorm:"-"` // We don't want to loop every notifications when accessing user unread notif
 	Settings            UserSettings `gorm:"-"` // We don't want to load settings everytime, stock it as a string, parse it when needed
+	Tags                []Tag        `gorm:"-"` // We load tags only when viewing a torrent
 }
 
 // UserJSON : User model conversion in JSON
@@ -405,4 +406,14 @@ func (u *User) IncreasePantsu() {
 // DecreasePantsu is a function that uses the formula to decrease the Pantsu points of a user
 func (u *User) DecreasePantsu() {
 	u.Pantsu = 0.8 * u.Pantsu // You lose 20% of your pantsu points each wrong vote
+}
+
+func (u *User) LoadTags(torrent *Torrent) {
+	if u.ID == 0 {
+		return
+	}
+	if err := ORM.Where("torrent_id = ? AND user_id = ?", torrent.ID, u.ID).Find(&u.Tags).Error; err != nil {
+		log.CheckErrorWithMessage(err, "LOAD_TAGS_ERROR: Couldn't load tags!")
+		return
+	}
 }

@@ -106,5 +106,9 @@ func GormInit(conf *config.Config, logger Logger) (*gorm.DB, error) {
 	if db.Error != nil {
 		return db, db.Error
 	}
+	db.AutoMigrate(&Tag{})
+	if db.Error != nil {
+		return db, db.Error
+	}
 	return db, nil
 }

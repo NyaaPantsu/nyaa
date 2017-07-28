@@ -46,6 +46,10 @@ type Config struct {
 	Models ModelsConfig `yaml:"models,flow,omitempty"`
 }
 
+type Tags struct {
+	MaxWeight float64 `yaml:"max_weight,omitempty"`
+}
+
 // WebAddressConfig : Config struct for web addresses
 type WebAddressConfig struct {
 	Nyaa    string `yaml:"nyaa,omitempty"`
@@ -119,6 +123,7 @@ type TorrentsConfig struct {
 	Trackers                      TrackersConfig    `yaml:"trackers,flow,omitempty"`
 	Order                         string            `yaml:"order,omitempty"`
 	Sort                          string            `yaml:"sort,omitempty"`
+	Tags                          Tags              `yaml:"tags,omitempty"`
 }
 
 // UsersConfig : Config struct for Users

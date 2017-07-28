@@ -98,6 +98,7 @@ type TorrentJSON struct {
 	Completed    uint32        `json:"completed"`
 	LastScrape   time.Time     `json:"last_scrape"`
 	FileList     []FileJSON    `json:"file_list"`
+	Tags         []Tag         `json:"-"` // not needed in json to reduce db calls
 }
 
 // Size : Returns the total size of memory recursively allocated for this struct
@@ -347,6 +348,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Completed:    scrape.Completed,
 		LastScrape:   scrape.LastScrape,
 		FileList:     fileListJSON,
+		Tags:         t.Tags,
 	}
 
 	return res
@@ -365,7 +367,6 @@ func TorrentsToJSON(t []Torrent) []TorrentJSON {
 
 // Update : Update a torrent based on model
 func (t *Torrent) Update(unscope bool) (int, error) {
-	cache.C.Delete(t.Identifier())
 	db := ORM
 	if unscope {
 		db = ORM.Unscoped()
@@ -385,6 +386,8 @@ func (t *Torrent) Update(unscope bool) (int, error) {
 			log.Errorf("Unable to update torrent to ES index: %s", err)
 		}
 	}
+	// We only flush cache after update
+	cache.C.Delete(t.Identifier())
 
 	return http.StatusOK, nil
 }
@@ -394,9 +397,8 @@ func (t *Torrent) UpdateUnscope() (int, error) {
 	return t.Update(true)
 }
 
-// DeleteTorrent : delete a torrent based on id
+// Delete : delete a torrent based on id
 func (t *Torrent) Delete(definitely bool) (*Torrent, int, error) {
-	cache.C.Flush()
 	db := ORM
 	if definitely {
 		db = ORM.Unscoped()
@@ -413,6 +415,8 @@ func (t *Torrent) Delete(definitely bool) (*Torrent, int, error) {
 			log.Errorf("Unable to delete torrent to ES index: %s", err)
 		}
 	}
+	// We flush cache only after delete
+	cache.C.Flush()
 	return t, http.StatusOK, nil
 }
 
@@ -425,4 +429,14 @@ func (t *Torrent) DefinitelyDelete() (*Torrent, int, error) {
 // toMap : convert the model to a map of interface
 func (t *Torrent) toMap() map[string]interface{} {
 	return structs.Map(t)
+}
+
+// LoadTags : load all the unique tags with summed up weight from the database in torrent
+func (t *Torrent) LoadTags() {
+	// Only load if necessary
+	if len(t.Tags) == 0 {
+		// Should output a query like this: SELECT tag, type, accepted, SUM(weight) as total FROM tags WHERE torrent_id=923000 GROUP BY type, tag ORDER BY type, total DESC
+		err := ORM.Select("tag, type, accepted, SUM(weight) as total").Where("torrent_id = ?", t.ID).Group("type, tag").Order("type ASC, total DESC").Find(&t.Tags).Error
+		log.CheckErrorWithMessage(err, "LOAD_TAGS_ERROR: Couldn't load tags!")
+	}
 }
