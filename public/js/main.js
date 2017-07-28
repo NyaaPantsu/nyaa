@@ -138,14 +138,17 @@ function playVoice() {
 }
 
 document.getElementsByClassName("form-input refine")[0].addEventListener("click", function (e) {
-  document.getElementsByClassName("box refine")[0].style.display = document.getElementsByClassName("box refine")[0].style.display == "none" ? "block" : "none"
-  if (document.getElementsByClassName("form-input refine-searchbox")[0].value != document.getElementsByClassName("form-input search-box")[0].value)
-    document.getElementsByClassName("form-input refine-searchbox")[0].value = document.getElementsByClassName("form-input search-box")[0].value
-  if (document.getElementsByClassName("form-input refine-category")[0].selectedIndex != document.getElementsByClassName("form-input form-category")[0].selectedIndex)
-    document.getElementsByClassName("form-input refine-category")[0].selectedIndex = document.getElementsByClassName("form-input form-category")[0].selectedIndex
-  e.preventDefault()
-  if (document.getElementsByClassName("box refine")[0].style.display == "block")
-    scrollTo(0, 0)
+  if(document.getElementsByClassName("form-input search-box")[0].value == "" || location.pathname != "/")
+  {
+    document.getElementsByClassName("box refine")[0].style.display = document.getElementsByClassName("box refine")[0].style.display == "none" ? "block" : "none"
+    if (document.getElementsByClassName("form-input refine-searchbox")[0].value != document.getElementsByClassName("form-input search-box")[0].value)
+      document.getElementsByClassName("form-input refine-searchbox")[0].value = document.getElementsByClassName("form-input search-box")[0].value
+    if (document.getElementsByClassName("form-input refine-category")[0].selectedIndex != document.getElementsByClassName("form-input form-category")[0].selectedIndex)
+      document.getElementsByClassName("form-input refine-category")[0].selectedIndex = document.getElementsByClassName("form-input form-category")[0].selectedIndex
+    if (document.getElementsByClassName("box refine")[0].style.display == "block")
+      scrollTo(0, 0)
+    e.preventDefault()
+  }
 })
 
 function humanFileSize(bytes, si) {
