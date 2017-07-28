@@ -47,15 +47,16 @@ function parseAllDates() {
   var list = document.getElementsByClassName("date-short")
   for (var i in list) {
     var e = list[i]
-    e.title = e.innerText
+    e.title = new Date(e.innerText).toLocaleString(lang)
     e.innerText = new Date(e.innerText).toLocaleString(lang, ymdOpt)
   }
 
   var list = document.getElementsByClassName("date-full")
   for (var i in list) {
     var e = list[i]
-    var dateDifference = dateDiff(new Date(e.innerText), new Date());
-    e.title = T.r("torrent_age", dateDifference.d, dateDifference.h)
+    var dateDifference = dateDiff(new Date(e.innerText), new Date())
+	  e.title = dateDifference.d + " days " + dateDifference.h + " hours ago"
+    //e.title = T.r("torrent_age", dateDifference.d, dateDifference.h)
     e.innerText = new Date(e.innerText).toLocaleString(lang)
   }
 }
@@ -71,24 +72,25 @@ parseAllDates()
 
 //called if no Commit cookie is set or if the website has a newer commit than the one in cookie
 function resetCookies() {
-  var cookies = document.cookie.split(";");
-  var excludedCookies = ["mascot", "theme", "mascot_url", "lang", "csrf_token"];
+  var cookies = document.cookie.split(";")
+  var excludedCookies = ["mascot", "theme", "mascot_url", "lang", "csrf_token"]
 
   //Remove all cookies but exclude those in the above array
   for (var i = 0; i < cookies.length; i++) {
-    var cookieName = (cookies[i].split("=")[0]).trim();
+    var cookieName = (cookies[i].split("=")[0]).trim()
     //Remove spaces because some cookie names have it
-    if (excludedCookies.includes(cookieName)) continue;
-    document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    if (excludedCookies.includes(cookieName)) continue
+    document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
   }
 
   //Set new version in cookie
-  document.cookie = "commit=" + commitVersion;
+  var farFuture = new Date()
+  farFuture.setTime(farFuture.getTime() + 50 * 36000 * 15000)
+  document.cookie = "commit=" + commitVersion + ";expires=" + farFuture.toUTCString()
 
-  //add fancy "new" text at bottom of page which will expire in one hour and a half
-  var now = new Date();
-  now.setTime(now.getTime() + 1 * 3600 * 1500);
-  document.cookie = "newVersion=true; expires=" + now.toUTCString();
+  var oneHour = new Date()
+  oneHour.setTime(oneHour.getTime() + 1 * 3600 * 1500)
+  document.cookie = "newVersion=true; expires=" + oneHour.toUTCString()
 }
 
 
