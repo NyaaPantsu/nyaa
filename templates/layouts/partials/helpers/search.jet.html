@@ -14,7 +14,7 @@
 <button type="submit" class="form-input refine" name="refine" value="1">{{  T("refine")}}</button>
 {{end}}
 {{block search_refine(url="") }}
-<div style="text-align:left;{{ if !Search.ShowRefine }}display:none;{{ end }}" class="box refine">
+<div style="text-align:left;" class="box refine">
   <h3>{{ T("refine_search") }}</h3>
   <form style="display: grid;" method="GET" action="{{ url }}">
     <span class="form-refine">
