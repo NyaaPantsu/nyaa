@@ -48,6 +48,12 @@ a:hover {
     background: #fafafa;
     color: #666;
 }
+.form-input.refine {
+    border-color: rgb(74, 92, 193)!important;
+    background: rgb(74, 92, 193);
+    color: white;
+}
+
 
 .btn:hover, .up-btn:hover {
     background: rgba(192, 192, 192, 0.2);
@@ -160,3 +166,4 @@ td.tr-le, .error-text {
 .form-input.language {
     background-color: #f5f5f5;
 }
+.torrent-preview-table>table { border: 3px solid #ededed; }
