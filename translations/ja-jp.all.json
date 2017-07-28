@@ -1821,11 +1821,11 @@
   },
   {
     "id": "red",
-    "translation": "赤色の場合、"
+    "translation": "赤色の場合"
   },
   {
     "id": "green",
-    "translation": "緑色の場合、"
+    "translation": "緑色の場合"
   },
   {
     "id": "torrent_colors",
@@ -1834,5 +1834,9 @@
   {
     "id": "torrent_preview",
     "translation": "Torrent のプレビュー"
+  },
+  {
+    "id": "torrent_age",
+    "translation": "{1} 日 {2} 時間前"
   }
 ]
