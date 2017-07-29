@@ -1080,6 +1080,10 @@
     "translation": "なし"
   },
   {
+    "id": "upload_as_anon",
+    "translation": "匿名でアップロードする"
+  },
+  {
     "id": "mark_as_hidden",
     "translation": "非表示としてマークする"
   },
@@ -1324,8 +1328,8 @@
     "translation": "Torrent の言語"
   },
   {
-    "id": "select_a_torrent_language",
-    "translation": "-- Torrent の言語を選択 --"
+    "id": "language_not_mandatory",
+    "translation": "言語は必須ではなくなりました"
   },
   {
     "id": "language_en-us_name",
