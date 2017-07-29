@@ -46,7 +46,7 @@ func TestLanguages(t *testing.T) {
 	if displayLang.String() == "und" {
 		t.Errorf("Couldn't find the language display for the language %s", displayLang.String())
 	}
-	//n := display.Tags(displayLang)
+	n := display.Tags(displayLang)
 
 	tags := i18n.LanguageTags()
 	for _, languageTag := range tags {
