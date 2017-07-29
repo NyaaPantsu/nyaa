@@ -932,12 +932,24 @@
     "translation": "レポートを削除"
   },
   {
+    "id": "comment_deleted",
+    "translation": "コメントが削除されました。"
+  },
+  {
     "id": "comment_deleted_by",
     "translation": "コメント #%s (%s 投稿) は %s によって削除されました。"
   },
   {
     "id": "comment_edited_by",
     "translation": "コメント #%s (%s 投稿) は %s によって編集されました。"
+  },
+  {
+    "id": "oauth_client_deleted",
+    "translation": "OAuth API クライアントが削除されました。"
+  },
+  {
+    "id": "oauth_client_deleted_by",
+    "translation": "OAuth API クライアント #%s (%s 作成) は %s によって削除されました。"
   },
   {
     "id": "no_action_exist",
