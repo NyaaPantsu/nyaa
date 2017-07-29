@@ -1665,7 +1665,7 @@
   },
   {
     "id": "username_taken",
-    "translation": "ユーザー名は既に取得されています。以下から選ぶことができます: %s"
+    "translation": "ユーザー名は既に取得されています。以下は利用可能です: %s"
   },
   {
     "id": "email_in_db",
