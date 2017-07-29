@@ -51,7 +51,7 @@
     <a class="form-input" href="/notifications">{{  T("my_notifications")}}</a>
     <br/>
     {{end}}
-    {{if User.CurrentOrAdmin(UserProfile.ID) }}
+    {{if UserProfile.ID > 0 && User.CurrentOrAdmin(UserProfile.ID) }}
     <a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/edit">
       {{ T("settings")}}
     </a> 
