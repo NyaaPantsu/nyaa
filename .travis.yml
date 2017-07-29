@@ -12,8 +12,12 @@ before_script:
 - go vet
 - go test -v ./...
 script:
-- go test -v ./... -covermode=count -coverprofile=coverage.out
-- $HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
+- touch ./coverage.tmp
+- |
+  echo 'mode: atomic' > coverage.txt
+- |
+  go list ./... | grep -v /vendor | xargs -n1 -I{} sh -c 'go test -race -covermode=atomic -coverprofile=coverage.tmp -coverpkg $(go list ./... | grep -v /vendor | tr "\n" ",") {} && tail -n +2 coverage.tmp >> coverage.txt || exit 255' && rm coverage.tmp
+- goveralls -coverprofile="coverage.txt" -service=travis-ci -repotoken $COVERALLS_TOKEN
 install:
 - export GOPATH="${TRAVIS_BUILD_DIR}/vendor:$GOPATH"
 - export PATH="${TRAVIS_BUILD_DIR}/Godeps/_workspace/bin:$PATH"
