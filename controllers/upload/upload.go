@@ -15,6 +15,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/upload"
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
 	"github.com/gin-gonic/gin"
+	"github.com/NyaaPantsu/nyaa/utils/log"
 )
 
 // UploadHandler : Main Controller for uploading a torrent
@@ -66,8 +67,8 @@ func UploadPostHandler(c *gin.Context) {
 
 	if !messages.HasErrors() {
 		// add to db and redirect
-		torrent, _ := torrents.Create(user, &uploadForm)
-
+		torrent, err := torrents.Create(user, &uploadForm)
+		log.CheckErrorWithMessage(err, "ERROR_TORRENT_CREATED: Error while creating entry in db")
 		url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
 		c.Redirect(302, url+"?success")
 	}
