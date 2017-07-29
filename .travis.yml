@@ -1,6 +1,5 @@
 language: go
 go:
-- 1.x
 - tip
 gobuild_args: -x -ldflags "-X main.buildversion=$(git rev-parse HEAD)"
 before_install:
