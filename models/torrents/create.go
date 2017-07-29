@@ -25,7 +25,11 @@ func Create(user *models.User, uploadForm *torrentValidator.TorrentRequest) (*mo
 		UploaderID:  user.ID}
 	torrent.EncodeLanguages() // Convert languages array in language string
 	torrent.ParseTrackers(uploadForm.Trackers)
-	models.ORM.Create(&torrent)
+	err := models.ORM.Create(&torrent).Error
+	log.Infof("Torrent ID %d created!\n", torrent.ID)
+	if err != nil {
+		log.CheckErrorWithMessage(err, "ERROR_TORRENT_CREATE: Cannot create a torrent")
+	}
 	if config.Get().Search.EnableElasticSearch && models.ElasticSearchClient != nil {
 		err := torrent.AddToESIndex(models.ElasticSearchClient)
 		if err == nil {
@@ -39,7 +43,7 @@ func Create(user *models.User, uploadForm *torrentValidator.TorrentRequest) (*mo
 	NewTorrentEvent(user, &torrent)
 	if len(uploadForm.FileList) > 0 {
 		for _, uploadedFile := range uploadForm.FileList {
-			file := models.File{TorrentID: torrent.ID, Filesize: uploadForm.Filesize}
+			file := models.File{TorrentID: torrent.ID, Filesize: uploadedFile.Filesize}
 			err := file.SetPath(uploadedFile.Path)
 			if err != nil {
 				return &torrent, err
