@@ -13,7 +13,7 @@ before_script:
 - go vet
 - go test -v ./...
 script:
-- overalls -project=github.com/NyaaPantsu/nyaa -covermode=count -debug  -- -race
+- overalls -project=github.com/NyaaPantsu/nyaa -covermode=count -debug
 - goveralls -coverprofile="overalls.coverprofile" -service=travis-ci -repotoken $COVERALLS_TOKEN
 install:
 - export GOPATH="${TRAVIS_BUILD_DIR}/vendor:$GOPATH"
