@@ -9,13 +9,13 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models"
-	"github.com/NyaaPantsu/nyaa/models/tags"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/templates"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/validator"
 	"github.com/NyaaPantsu/nyaa/utils/validator/tags"
 	"github.com/gin-gonic/gin"
+	"github.com/NyaaPantsu/nyaa/models/tag"
 )
 
 func postTag(c *gin.Context, torrent *models.Torrent, user *models.User) {
