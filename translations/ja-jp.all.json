@@ -41,7 +41,7 @@
   },
   {
     "id": "signup_box_title",
-    "translation": "アカウント登録 <small>ずっと無料です</small>"
+    "translation": "アカウント登録をしましょう。ずっと無料です"
   },
   {
     "id": "username",
@@ -932,12 +932,24 @@
     "translation": "レポートを削除"
   },
   {
+    "id": "comment_deleted",
+    "translation": "コメントが削除されました。"
+  },
+  {
     "id": "comment_deleted_by",
     "translation": "コメント #%s (%s 投稿) は %s によって削除されました。"
   },
   {
     "id": "comment_edited_by",
     "translation": "コメント #%s (%s 投稿) は %s によって編集されました。"
+  },
+  {
+    "id": "oauth_client_deleted",
+    "translation": "OAuth API クライアントが削除されました。"
+  },
+  {
+    "id": "oauth_client_deleted_by",
+    "translation": "OAuth API クライアント #%s (%s 作成) は %s によって削除されました。"
   },
   {
     "id": "no_action_exist",
@@ -1068,8 +1080,8 @@
     "translation": "なし"
   },
   {
-    "id": "mark_as_hidden",
-    "translation": "非表示としてマークする"
+    "id": "upload_as_anon",
+    "translation": "匿名でアップロードする"
   },
   {
     "id": "cookies",
@@ -1312,8 +1324,8 @@
     "translation": "Torrent の言語"
   },
   {
-    "id": "select_a_torrent_language",
-    "translation": "-- Torrent の言語を選択 --"
+    "id": "language_not_mandatory",
+    "translation": "言語は必須ではなくなりました"
   },
   {
     "id": "language_en-us_name",
@@ -1653,7 +1665,7 @@
   },
   {
     "id": "username_taken",
-    "translation": "ユーザー名は既に取得されています。以下から選ぶことができます: %s"
+    "translation": "ユーザー名は既に取得されています。以下は利用可能です: %s"
   },
   {
     "id": "email_in_db",
@@ -1813,7 +1825,7 @@
   },
   {
     "id": "remux",
-    "translation": "他のアップロード者のオリジナルリリースのリミックス"
+    "translation": "他のアップロード者のオリジナルリリースの詰め合わせ"
   },
   {
     "id": "reupload",
@@ -1834,6 +1846,82 @@
   {
     "id": "torrent_preview",
     "translation": "Torrent のプレビュー"
+  },
+  {
+    "id": "update_client_failed",
+    "translation": "クライアントの更新に失敗しました。"
+  },
+  {
+    "id": "update_client_success",
+    "translation": "正常にクライアントが更新されました。"
+  },
+  {
+    "id": "update_client_panel",
+    "translation": "クライアントの更新"
+  },
+  {
+    "id": "create_client_success",
+    "translation": "正常にクライアントが作成されました。"
+  },
+  {
+    "id": "create_client_failed",
+    "translation": "クライアントの作成に失敗しました。"
+  },
+  {
+    "id": "create_client_panel",
+    "translation": "新規クライアントの作成"
+  },
+  {
+    "id": "redirect_uri",
+    "translation": "リダイレクト URI"
+  },
+  {
+    "id": "grant_types",
+    "translation": "グラント種別"
+  },
+  {
+    "id": "response_types",
+    "translation": "レスポンスタイプ"
+  },
+  {
+    "id": "scope",
+    "translation": "スコープ"
+  },
+  {
+    "id": "owner",
+    "translation": "オーナー"
+  },
+  {
+    "id": "policy_uri",
+    "translation": "ポリシー URI"
+  },
+  {
+    "id": "tos_uri",
+    "translation": "利用規約 URI"
+  },
+  {
+    "id": "logo_uri",
+    "translation": "ロゴ URI"
+  },
+  {
+    "id": "contacts",
+    "translation": "オーナーのメールアドレス"
+  },
+  {
+    "id": "clients_list",
+    "translation": "OAuth API クライアント"
+  },
+  {
+    "id": "add",
+    "translation": "追加"
+  },
+  {
+    "id": "remove",
+    "translation": "削除"
+  },
+  {
+    "id": "secret",
+    "translation": "クライアント シークレット"
   },
   {
     "id": "torrent_age",
