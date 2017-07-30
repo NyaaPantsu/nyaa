@@ -12,6 +12,8 @@ a {
     text-decoration: none;
 }
 
+body, .container { min-width: 400px;}
+
 .header, .pagination {
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -711,7 +713,7 @@ html, body {
     }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 565px) {
     .form-input.language {
         width: 281px;
     }
@@ -724,6 +726,11 @@ html, body {
     .hide-smol {
         display: none!important;
     }
+	.header .nav-btn { padding: 0px 6px!important;}
+	.form-input.form-category { width: 50px; margin-right: -5px;}
+}
+@media (max-width: 440px) {
+	.header .nav-btn { padding: 0px 3px!important;}
 }
 
 .up-input {
