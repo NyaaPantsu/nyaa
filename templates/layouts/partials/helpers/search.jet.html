@@ -1,6 +1,6 @@
 {{ import "flags" }}
 {{block search_common()}}
-<select name="c" class="form-input hide-xs form-category">
+<select name="c" class="form-input form-category">
   <option value="_">{{ T("all_categories")}}</option>
   {{ range _, cat := GetCategories(true, true) }}
   <option value="{{ cat.ID }}" {{if Search.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
