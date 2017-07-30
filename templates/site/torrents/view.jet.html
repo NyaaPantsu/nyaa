@@ -64,6 +64,24 @@
       </td>
     </tr>
     {{end}}
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("torrent_tags")}}:</td>
+      <td class="tr-flag torrent-view-td torrent-info-data">
+        {{ range Torrent.Tags}}
+        <span class="tag{{ if len(Torrent.Tags) > 5 }} big{{ end }}" title="{{ .Tag }}">
+          {{ T("tagtype_" + .Type) }}: {{ .Tag }}
+          {{ if .Accepted == false }}
+          <form action="{{ if User.Tags.Contains(.) }}/torrent/tag/delete?id={{Torrent.ID}}{{end}}" class="tag-form">
+            <input type="hidden" name="tag" value="{{ .Tag }}">
+            <input type="hidden" name="type" value="{{ .Type }}">
+            <button type="submit">{{ if User.Tags.Contains(.) }}-{{else}}+{{end}}</button>
+          </form>
+          {{ end }}
+        </span>
+        {{end}}
+        <a href="/torrent/tag?id={{ Torrent.ID }}" class="add-tag">{{ T("add") }}</a>
+      </td>
+    </tr>
   </table>
   <div class="torrent-buttons">
     <a href="{{Torrent.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;margin-right: 0.5em;">

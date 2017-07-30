@@ -59,7 +59,7 @@ type User struct {
 
 	UnreadNotifications int          `gorm:"-"` // We don't want to loop every notifications when accessing user unread notif
 	Settings            UserSettings `gorm:"-"` // We don't want to load settings everytime, stock it as a string, parse it when needed
-	Tags                []Tag        `gorm:"-"` // We load tags only when viewing a torrent
+	Tags                Tags         `gorm:"-"` // We load tags only when viewing a torrent
 }
 
 // UserJSON : User model conversion in JSON
@@ -101,7 +101,7 @@ func (u User) Size() (s int) {
 		6*2 + // string pointers
 		4*3 + //time.Time
 		3*2 + // arrays
-	// string arrays
+		// string arrays
 		len(u.Username) + len(u.Password) + len(u.Email) + len(u.APIToken) + len(u.MD5) + len(u.Language) + len(u.Theme)
 	s *= 8
 

@@ -1950,5 +1950,9 @@
   {
     "id": "tagtype_quality",
     "translation": "Quality tag"
+  },
+  {
+    "id": "torrent_tags",
+    "translation": "Torrent tags"
   }
 ]

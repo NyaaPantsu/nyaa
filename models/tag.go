@@ -39,3 +39,14 @@ func (ta *Tag) Delete() (int, error) {
 func (ta *Tag) toMap() map[string]interface{} {
 	return structs.Map(ta)
 }
+
+type Tags []Tag
+
+func (ts *Tags) Contains(tag Tag) bool {
+	for _, ta := range *ts {
+		if ta.Tag == tag.Tag && ta.Type == tag.Type {
+			return true
+		}
+	}
+	return false
+}

@@ -399,6 +399,11 @@ func (t *Torrent) UpdateUnscope() (int, error) {
 
 // Delete : delete a torrent based on id
 func (t *Torrent) Delete(definitely bool) (*Torrent, int, error) {
+	if t.ID == 0 {
+		err := errors.New("ERROR: Tried to delete a torrent with ID 0")
+		log.CheckErrorWithMessage(err, "ERROR_IMPORTANT: ")
+		return t, http.StatusBadRequest, err
+	}
 	db := ORM
 	if definitely {
 		db = ORM.Unscoped()

@@ -8,6 +8,9 @@ import (
 )
 
 func Filter(tag string, tagType string, torrentID uint) bool {
+	if torrentID == 0 || tagType == "" || tag == "" {
+		return false
+	}
 	tagSum := models.Tag{}
 	if err := models.ORM.Select("tag, type, accepted, SUM(weight) as total").Where("torrent_id = ? AND tag = ? AND type = ?", torrentID, tag, tagType).Group("type, tag").Find(&tagSum).Error; err == nil {
 		if tagSum.Total > config.Get().Torrents.Tags.MaxWeight {

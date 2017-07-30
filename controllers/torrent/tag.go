@@ -9,13 +9,14 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/models/tag"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/templates"
+	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/validator"
 	"github.com/NyaaPantsu/nyaa/utils/validator/tags"
 	"github.com/gin-gonic/gin"
-	"github.com/NyaaPantsu/nyaa/models/tag"
 )
 
 func postTag(c *gin.Context, torrent *models.Torrent, user *models.User) {
@@ -31,10 +32,9 @@ func postTag(c *gin.Context, torrent *models.Torrent, user *models.User) {
 		return
 	}
 
-	for _, tag := range user.Tags {
-		if tag.Tag == tagForm.Tag {
-			return // already a tag by the user, don't add one more
-		}
+	if user.Tags.Contains(models.Tag{Tag: tagForm.Tag, Type: tagForm.Type}) {
+		log.Info("User has already tagged the type for the torrent")
+		return
 	}
 
 	tags.Create(tagForm.Tag, tagForm.Type, torrent, user) // Add a tag to the db
@@ -81,4 +81,55 @@ func ViewFormTag(c *gin.Context) {
 	c.Bind(tagForm)
 
 	templates.Form(c, "/site/torrents/tag.jet.html", tagForm)
+}
+
+func DeleteTag(c *gin.Context) {
+	messages := msg.GetMessages(c)
+	user := router.GetUser(c)
+	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
+	// Retrieve the torrent
+	torrent, err := torrents.FindByID(uint(id))
+
+	// If torrent not found, display 404
+	if err != nil {
+		c.Status(http.StatusNotFound)
+		return
+	}
+
+	// We load tags for user and torrents
+	user.LoadTags(torrent)
+	torrent.LoadTags()
+
+	if c.PostForm("tag") != "" && user.ID > 0 {
+		tagForm := &tagsValidator.CreateForm{}
+
+		c.Bind(tagForm)
+		validator.ValidateForm(tagForm, messages)
+
+		if !messages.HasErrors() {
+			for _, tag := range user.Tags {
+				if tag.Tag == tagForm.Tag && tag.Type == tagForm.Type {
+					_, err := tag.Delete()
+					if err != nil {
+						log.CheckError(err)
+						break
+					}
+					if _, ok := c.GetQuery("json"); ok {
+						c.JSON(http.StatusOK, struct {
+							Ok bool
+						}{true})
+						return
+					}
+					break
+				}
+			}
+		}
+	}
+	if _, ok := c.GetQuery("json"); ok {
+		c.JSON(http.StatusOK, struct {
+			Ok bool
+		}{false})
+		return
+	}
+	c.Redirect(http.StatusSeeOther, fmt.Sprintf("/view/%d", id))
 }
