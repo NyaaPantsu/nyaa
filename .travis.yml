@@ -6,14 +6,15 @@ before_install:
 - sudo apt-get install gcc-mingw-w64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 binutils-mingw-w64-i686
   binutils-mingw-w64-x86-64 ansible
 - go get -u github.com/tools/godep
+- go get github.com/go-playground/overalls
 - go get golang.org/x/tools/cmd/cover
 - go get github.com/mattn/goveralls
 before_script:
 - go vet
 - go test -v ./...
 script:
-- go test -v ./... -covermode=count -coverprofile=coverage.out
-- $HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
+- overalls -project=github.com/NyaaPantsu/nyaa -covermode=count -debug
+- goveralls -coverprofile="overalls.coverprofile" -service=travis-ci -repotoken $COVERALLS_TOKEN
 install:
 - export GOPATH="${TRAVIS_BUILD_DIR}/vendor:$GOPATH"
 - export PATH="${TRAVIS_BUILD_DIR}/Godeps/_workspace/bin:$PATH"

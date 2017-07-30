@@ -101,7 +101,7 @@ func (u User) Size() (s int) {
 		6*2 + // string pointers
 		4*3 + //time.Time
 		3*2 + // arrays
-		// string arrays
+	// string arrays
 		len(u.Username) + len(u.Password) + len(u.Email) + len(u.APIToken) + len(u.MD5) + len(u.Language) + len(u.Theme)
 	s *= 8
 
@@ -154,6 +154,9 @@ func (u *User) HasAdmin() bool {
 
 // CurrentOrAdmin check that user has admin permission or user is the current user.
 func (u *User) CurrentOrAdmin(userID uint) bool {
+	if userID == 0 {
+		return false
+	}
 	log.Debugf("user.ID == userID %d %d %s", u.ID, userID, u.ID == userID)
 	return (u.IsModerator() || u.ID == userID)
 }

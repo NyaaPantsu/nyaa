@@ -18,7 +18,7 @@ func TorrentDeleteUserPanel(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
 	currentUser := router.GetUser(c)
 	torrent, _ := torrents.FindByID(uint(id))
-	if currentUser.CurrentOrAdmin(torrent.UploaderID) {
+	if currentUser.CurrentOrAdmin(torrent.UploaderID) && torrent.ID > 0 {
 		_, _, err := torrent.Delete(false)
 		if err == nil {
 			if torrent.Uploader == nil {

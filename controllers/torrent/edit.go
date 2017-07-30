@@ -20,7 +20,7 @@ func TorrentEditUserPanel(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
 	torrent, _ := torrents.FindByID(uint(id))
 	currentUser := router.GetUser(c)
-	if currentUser.CurrentOrAdmin(torrent.UploaderID) {
+	if currentUser.CurrentOrAdmin(torrent.UploaderID) && torrent.ID > 0  {
 		uploadForm := torrentValidator.TorrentRequest{}
 		uploadForm.Name = torrent.Name
 		uploadForm.Category = strconv.Itoa(torrent.Category) + "_" + strconv.Itoa(torrent.SubCategory)
