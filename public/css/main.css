@@ -625,7 +625,7 @@ html, body {
         width: 58px;
     }
     .header .h-user .user-menu {
-        right: 101px;
+        right: 92px;
     }
     .header .h-user .user-info {
         display: none;
@@ -684,7 +684,7 @@ html, body {
     .header .h-user {
         width: 46px;
     }
-    .header .h-user .user-menu { right: 113px;}
+    .header .h-user .user-menu { right: 104px;}
     .box {
         padding: 7px;
     }
