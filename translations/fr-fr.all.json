@@ -932,12 +932,24 @@
     "translation": "Supprimer le signalement"
   },
   {
+    "id": "comment_deleted",
+    "translation": "Le commentaire a été supprimé."
+  },
+  {
     "id": "comment_deleted_by",
     "translation": "Le commentaire n° %s de %s a été supprimé par %s."
   },
   {
     "id": "comment_edited_by",
     "translation": "Le commentaire n° %s de %s a été édité par %s."
+  },
+  {
+    "id": "oauth_client_deleted",
+    "translation": "Le client OAuth de l'API a été supprimé."
+  },
+  {
+    "id": "oauth_client_deleted_by",
+    "translation": "Le client OAuth de l'API n° %s de %s a été supprimé par %s."
   },
   {
     "id": "no_action_exist",
@@ -1834,6 +1846,82 @@
   {
     "id": "torrent_preview",
     "translation": "Prévisualisez votre torrent"
+  },
+  {
+    "id": "update_client_failed",
+    "translation": "La mise à jour du client a échoué."
+  },
+  {
+    "id": "update_client_success",
+    "translation": "Le client a été mis à jour avec succès !"
+  },
+  {
+    "id": "update_client_panel",
+    "translation": "Mettre un jour un client"
+  },
+  {
+    "id": "create_client_success",
+    "translation": "Vous avez crée le client avec succès !"
+  },
+  {
+    "id": "create_client_failed",
+    "translation": "La création du client a échoué."
+  },
+  {
+    "id": "create_client_panel",
+    "translation": "Créer un nouveau client"
+  },
+  {
+    "id": "redirect_uri",
+    "translation": "URI de redirection"
+  },
+  {
+    "id": "grant_types",
+    "translation": "Grant Types"
+  },
+  {
+    "id": "response_types",
+    "translation": "Response Types"
+  },
+  {
+    "id": "scope",
+    "translation": "Scopes"
+  },
+  {
+    "id": "owner",
+    "translation": "Propriétaire"
+  },
+  {
+    "id": "policy_uri",
+    "translation": "Politique de l'URI"
+  },
+  {
+    "id": "tos_uri",
+    "translation": "Conditions d'utilisation de l'URI"
+  },
+  {
+    "id": "logo_uri",
+    "translation": "Logo de l'URI"
+  },
+  {
+    "id": "contacts",
+    "translation": "Adresses email du propriétaire"
+  },
+  {
+    "id": "clients_list",
+    "translation": "Clients OAuth de l'API"
+  },
+  {
+    "id": "add",
+    "translation": "Ajouter"
+  },
+  {
+    "id": "remove",
+    "translation": "Supprimer"
+  },
+  {
+    "id": "secret",
+    "translation": "Secret client"
   },
   {
     "id": "torrent_age",
