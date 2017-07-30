@@ -47,7 +47,8 @@ a:hover {
     color: #676767;
 }
 .form-input.refine {
-    background: #FFE2B8;
+    background: #dff6ff;
+    border-color: #c4d9e1!important;
 }
 
 .header .h-user .user-avatar {
