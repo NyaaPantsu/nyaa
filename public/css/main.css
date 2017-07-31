@@ -979,8 +979,7 @@ thead.torrentinfo tr {
 /* The margin that gives the tree-like effect, based on the nest-level */
 
 .tr-filelist td:first-child::before {
-    margin-left: calc(var(--nest-level) * 2rem);
-    margin-right: 0.5rem;
+    margin-right: 0.4rem;
 }
 
 
