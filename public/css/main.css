@@ -725,7 +725,11 @@ html, body {
     }
     .header .nav-btn { padding: 0px 6px!important;}
     .form-input.form-category { width: 50px; margin-right: -5px;}
+    .spacing { display: none; }
+    .form-refine .refine-category { width: 50%; }
+	.form-refine .refine-searchbox { width: 48%; }
 }
+
 @media (max-width: 440px) {
     .header .nav-btn { padding: 0px 3px!important;}
 }
