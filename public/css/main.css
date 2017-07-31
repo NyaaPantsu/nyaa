@@ -407,6 +407,7 @@ th, .home-td, .user-td {
     text-overflow: ellipsis;
 }
 
+.user-td { padding: 2px 0; }
 .user-td.tr-cat {
     padding: 4px 5px 4px 1px;
     min-width: 74px!important;
