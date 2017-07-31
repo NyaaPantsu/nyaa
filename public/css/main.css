@@ -582,7 +582,7 @@ textarea {
     margin-bottom: 1.2rem;
 }
 
-#commit.new:after,#commit.invalid:after {
+#commit.new:after,#commit.wew:after {
     content: "new";
     color: red;
     font-size: 10pt;
@@ -590,7 +590,7 @@ textarea {
     line-height: 5px;
     margin-left: 1px;
 }
-#commit.invalid:after { content: "wew"; }
+#commit.wew:after { content: "wew"; }
 
 html, body {
     height: 100%;
