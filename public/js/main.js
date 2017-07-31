@@ -132,20 +132,21 @@ function startupCode() {
 	
 	
   var CurrentTheme = document.getElementById("theme").href;
-  UserTheme = [CurrentTheme.substring(CurrentTheme.indexOf("/css/") + 5, CurrentTheme.indexOf("?v")), "tomorrow.css"]
+  UserTheme = [CurrentTheme.substring(CurrentTheme.indexOf("/css/") + 5, CurrentTheme.indexOf(".css")), "tomorrow"]
   if(UserTheme[0] == UserTheme[1])
-	UserTheme[1] = "g.css"
+	UserTheme[1] = "g"
 }
 
 function toggleTheme() {
-  var CurrentTheme = document.getElementById("theme").href, versionIndex = CurrentTheme.indexOf("?v")
-  
-  if(versionIndex == -1)
-	CurrentTheme = CurrentTheme.substring(CurrentTheme.indexOf("/css/") + 5)
-  else 
-	CurrentTheme = CurrentTheme.substring(CurrentTheme.indexOf("/css/") + 5, versionIndex)
+  var CurrentTheme = document.getElementById("theme").href
+  CurrentTheme = CurrentTheme.substring(CurrentTheme.indexOf("/css/") + 5, CurrentTheme.indexOf(".css"))
+  CurrentTheme = (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0])
 
-  document.getElementById("theme").href = "/css/" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]);
+  document.getElementById("theme").href = "/css/" + CurrentTheme + ".css";
+  
+  var farFuture = new Date()
+  farFuture.setTime(farFuture.getTime() + 50 * 36000 * 15000)
+  document.cookie = "theme=" + CurrentTheme + ";path=/;expires=" + farFuture.toUTCString()
 }
 
 function playVoice() {
