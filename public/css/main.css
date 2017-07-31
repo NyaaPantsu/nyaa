@@ -372,6 +372,7 @@ select.form-input {
     display: inline-block;
 }
 
+.form-refine .refine-searchbox::placeholder { opacity: 0; }*
 .form-refine .refine-searchbox {
     border-radius: 3px 0 0 3px;
     width: 21%;
@@ -383,8 +384,6 @@ select.form-input {
     border-radius: 0 3px 3px 0;
 	max-width: 50%;
 }
-.form-refine .refine-category::placeholder { opacity: 0; }
-.form-refine .refine-searchbox::placeholder { opacity: 0; }
 
 .categories a {
     display: inline-block;
@@ -736,7 +735,6 @@ html, body {
     span.spacing { display: none!important; }
     .form-refine .refine-category { width: 50%; }
     .form-refine .refine-searchbox { width: 48%; }
-    .form-refine .refine-category::placeholder { opacity: 1; }
     .form-refine .refine-searchbox::placeholder { opacity: 1; }
     .language { width: 350px; }
 }
