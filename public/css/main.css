@@ -719,7 +719,11 @@ html, body {
     .header .h-search { margin-right: 0; }
     .header .h-search input { width: 90px !important; }
     .form-input.refine {
-        display: none;
+	position: fixed;
+	border: 1px solid black;
+	bottom: 0;
+	width: 50%;
+	left: 25%;
     }
     .tr-links {
         width: 44px;
@@ -731,10 +735,10 @@ html, body {
     .form-input.form-category { width: 50px; margin-right: -5px;}
     span.spacing { display: none!important; }
     .form-refine .refine-category { width: 50%; }
-	.form-refine .refine-searchbox { width: 48%; }
+    .form-refine .refine-searchbox { width: 48%; }
     .form-refine .refine-category::placeholder { opacity: 1; }
-	.form-refine .refine-searchbox::placeholder { opacity: 1; }
-	.language { width: 350px; }
+    .form-refine .refine-searchbox::placeholder { opacity: 1; }
+    .language { width: 350px; }
 }
 
 @media (max-width: 440px) {
