@@ -19,7 +19,7 @@
   <form style="display: grid;" method="GET" action="{{ url }}">
     <span class="form-refine">
       <span class="spacing">{{ T("search_for") }}:</span>
-      <input type="text" class="form-input refine-searchbox" size="30" name="q" value="{{Search.NameLike}}"/><select name="c" class="form-input refine-category"/>
+      <input type="text" class="form-input refine-searchbox" size="30" name="q" value="{{Search.NameLike}}" placeholder="{{ T("search_for") }}"/><select name="c" class="form-input refine-category"/>
       <option value="_">{{ T("all_categories")}}</option>
       {{ range _, cat := GetCategories(true, true) }}
       <option value="{{ cat.ID }}" {{if Search.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
