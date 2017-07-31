@@ -17,8 +17,8 @@
 {{ end }}
 
 {{ range _, file := treeviewData.Folder.Files }}
-<tr class="tr-filelist tr-file" style="--nest-level: {{ treeviewData.NestLevel }}">
-  <td>{{file.Filename()}}</td>
+<tr class="tr-filelist tr-file">
+  <td style="padding-left: {{ treeviewData.NestLevel * 8 }}%;">{{file.Filename()}}</td>
   <td>{{fileSize(file.Filesize, T)}}</td>
 </tr>
 {{ end }}
