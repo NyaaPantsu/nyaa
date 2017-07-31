@@ -590,6 +590,7 @@ textarea {
     line-height: 5px;
     margin-left: 1px;
 }
+#commit.invalid:after { content: "wew"; }
 
 html, body {
     height: 100%;
