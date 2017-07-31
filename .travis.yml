@@ -14,7 +14,7 @@ before_script:
 - go test -v ./...
 script:
 - overalls -project=github.com/NyaaPantsu/nyaa -covermode=count -debug
-- goveralls -coverprofile="overalls.coverprofile" -service=travis-ci -repotoken=$COVERALLS_TOKEN
+- goveralls -coverprofile="overalls.coverprofile" -service=travis-ci
 install:
 - export GOPATH="${TRAVIS_BUILD_DIR}/vendor:$GOPATH"
 - export PATH="${TRAVIS_BUILD_DIR}/Godeps/_workspace/bin:$PATH"
@@ -31,6 +31,3 @@ deploy:
   overwrite: true
   on:
     tags: true
-env:
-  global:
-    secure: JHYFZn9q7kO+c0uN31AUxL2OqMe6wDbRVjLzH4/kcXv5pV9hrA/2lZaplN3hFIsLWz6Y0ZoFqvlGtq1gVj+E5TvrRQtEzHwM2O9sPB5VD5iVMNaHDmtOQTkNWg5Dn/tQtgNq9gagE7Kvl7MeNVuai7eAs79OB5j+Wl/JcrCRUliPqBRVZDBqh/pg7jfvdAkRABg7/zSl7uVZJ0jrcM8M8QfLt9/JFg62vYnT+hDqlqLYAZeQw9LUESi4zW68rFsFXNjHC4xq1EnZeqKK4OadkCGImhwa69Z1H+ZcbCoeC/RgUWEO/8bcBmXU1us4HXw5ouPWPW9rLRjJ2cwTgLBVSiHX6Y3oeLCtSepOCWTr4t9GnzcaI26G9tuphI7nXbqzlPu7PZm3XEEwP8YW0qg6yk/f77blJX5tbTr/NdHXATuqwzZWaHdlAtXfPQfbt5kGUBAxSWIBthNbrykPi3uJL9sbT25+nZt8hHRfrZ9hEcZO0WSXSLvUdbib7/Cv2e0Uks97cctzNbfiNwMQIQcegQ+y1GDA/BB6N+31RVMBSp8mcv+udEnm8ED6Kr8luJajOxsdWISpNp2GVoFJ/hn4W6+ENA3US4TOAXZLqOSOeOfeyuhAy9+sRjbbiDp5YHjyO+kE7FeQutuEbTwp9a1W7U3zb8bPW0Xvx8eDdZ6cgqg=
