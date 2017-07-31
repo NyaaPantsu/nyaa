@@ -124,11 +124,7 @@ body {
 }
 
 .header .h-search {
-    margin-right: 8px;
-}
-
-.header .h-search {
-    margin-right: 2px;
+    margin-right: 6px;
 }
 
 .header .h-search .form-input {
@@ -279,7 +275,7 @@ select.form-input {
 .header .h-user .user-menu .nav-btn {
     float: none;
     display: block;
-    padding: 0px 10px;
+    padding: 0px 10px!important;
     height: 43px;
     line-height: 40px;
     text-align: left;
@@ -376,14 +372,17 @@ select.form-input {
     display: inline-block;
 }
 
+.form-refine .refine-searchbox::placeholder { opacity: 0; }
 .form-refine .refine-searchbox {
     border-radius: 3px 0 0 3px;
     width: 21%;
+    min-width: 170px;
 }
 
 .form-refine .refine-category {
     border-left: none;
     border-radius: 0 3px 3px 0;
+	max-width: 50%;
 }
 
 .categories a {
@@ -411,6 +410,7 @@ th, .home-td, .user-td {
     text-overflow: ellipsis;
 }
 
+.user-td { padding: 2px 0; }
 .user-td.tr-cat {
     padding: 4px 5px 4px 1px;
     min-width: 74px!important;
@@ -582,7 +582,7 @@ textarea {
     margin-bottom: 1.2rem;
 }
 
-#commit.new:after {
+#commit.new:after,#commit.wew:after {
     content: "new";
     color: red;
     font-size: 10pt;
@@ -590,6 +590,7 @@ textarea {
     line-height: 5px;
     margin-left: 1px;
 }
+#commit.wew:after { content: "wew"; }
 
 html, body {
     height: 100%;
@@ -611,6 +612,9 @@ html, body {
     pointer-events: auto;
 }
 
+.results.box>table>thead.torrent-info>tr {
+    height: 40px;
+}
 
 /* holy fucking shit fuck responsive design */
 
@@ -651,10 +655,8 @@ html, body {
     .visible-md {
         display: block
     }
-}
-
-.results.box>table>thead.torrent-info>tr {
-    height: 40px;
+	.user-td.tr-date { width: 100px; }
+	.user-td.tr-size { width: 77px; }
 }
 
 @media (max-width: 810px) {
@@ -680,10 +682,6 @@ html, body {
     }
     .hide-xs {
         display: none !important;
-    }
-    #description-box img {
-        width: 100%;
-        height: auto;
     }
     .header .h-user {
         width: 46px;
@@ -714,12 +712,14 @@ html, body {
 }
 
 @media (max-width: 565px) {
+    .header .h-search { margin-right: 0; }
     .header .h-search input { width: 90px !important; }
-    .form-input.language {
-        width: 281px;
-    }
     .form-input.refine {
-        display: none;
+	position: fixed;
+	border: 1px solid black;
+	bottom: 0;
+	width: 50%;
+	left: 25%;
     }
     .tr-links {
         width: 44px;
@@ -729,7 +729,14 @@ html, body {
     }
     .header .nav-btn { padding: 0px 6px!important;}
     .form-input.form-category { width: 50px; margin-right: -5px;}
+    span.spacing { display: none!important; }
+    .form-refine .refine-category { width: 50%; }
+    .form-refine .refine-searchbox { width: 48%; }
+    .form-refine .refine-searchbox::placeholder { opacity: 1; }
+    .language { width: 350px; }
+    #footer { margin-bottom: 25px; }
 }
+
 @media (max-width: 440px) {
     .header .nav-btn { padding: 0px 3px!important;}
 }
@@ -831,11 +838,6 @@ html, body {
 .torrent-info-box {
     border: 1px solid #ccc;
     border-radius: 4px;
-}
-
-.torrent-info-box img {
-    max-width: 100%;
-    max-height: 100%;
 }
 
 .torrent-info-box>p>a, .torrent-info-box>div>a, #description-box a {
@@ -979,8 +981,7 @@ thead.torrentinfo tr {
 /* The margin that gives the tree-like effect, based on the nest-level */
 
 .tr-filelist td:first-child::before {
-    margin-left: calc(var(--nest-level) * 2rem);
-    margin-right: 0.5rem;
+    margin-right: 0.4rem;
 }
 
 
@@ -1048,9 +1049,14 @@ input.filelist-checkbox:checked+table.table-filelist {
     margin-bottom: 10px;
 }
 
-#description-box div {
+#description-box div, #description-box p {
     margin-top: 14px;
     margin-bottom: 14px;
+}
+
+#description-box img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 

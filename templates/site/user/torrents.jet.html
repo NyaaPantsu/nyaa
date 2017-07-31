@@ -9,7 +9,7 @@
     <th class="tr-name user-td">{{ T("name")}}</th>
     <th class="tr-links user-td">{{ T("links")}}</th>
     <th class="tr-size user-td hide-xs">{{ T("size")}}</th>
-    <th class="tr-date user-td hide-xs">{{ T("date")}}</th>
+    <th class="tr-date user-td hide-smol">{{ T("date")}}</th>
   </tr>
   {{ range i, t := UserProfile.Torrents }}
   {{ torrent := t.ToJSON() }}
@@ -49,7 +49,7 @@
     <td class="tr-size user-td hide-xs">
       {{ fileSize(torrent.Filesize, T) }}
     </td>
-    <td class="tr-date user-td date-short hide-xs">{{torrent.Date}}</td>
+    <td class="tr-date user-td date-short hide-smol">{{torrent.Date}}</td>
   </tr>
   {{end}}
 </table>
