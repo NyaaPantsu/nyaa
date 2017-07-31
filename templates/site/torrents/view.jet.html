@@ -64,6 +64,7 @@
       </td>
     </tr>
     {{end}}
+	{{ if len(Torrent.Tags) != 0 || User.ID > 0 }}
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("torrent_tags")}}:</td>
       <td class="tr-flag torrent-view-td torrent-info-data">
@@ -77,9 +78,10 @@
           {{ end }}
         </span>
         {{end}}
-        <a href="/torrent/tag?id={{ Torrent.ID }}" class="add-tag">{{ T("add") }}</a>
+        {{ if User.ID > 0 }}<a href="/torrent/tag?id={{ Torrent.ID }}" class="add-tag">{{ T("add") }}</a>{{ end }}
       </td>
     </tr>
+	{{ end }}
   </table>
   <div class="torrent-buttons">
     <a href="{{Torrent.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;margin-right: 0.5em;">
