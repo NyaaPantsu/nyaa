@@ -582,7 +582,7 @@ textarea {
     margin-bottom: 1.2rem;
 }
 
-#commit.new:after {
+#commit.new:after,#commit.invalid:after {
     content: "new";
     color: red;
     font-size: 10pt;
