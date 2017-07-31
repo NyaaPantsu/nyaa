@@ -9,7 +9,7 @@
     {{ yield csrf_field() }}
     <div class="form-group">
       <label class="input-label" for="tag">{{ T("tag")}}</label>
-      <input type="text" id="tag" name="tag" class="form-input up-input" placeholder="{{ T("file_name")}}" value="{{Form.Tag}}" required/>
+      <input type="text" id="tag" name="tag" class="form-input up-input" value="{{Form.Tag}}" required/>
       {{ yield errors(name="Tag")}}
     </div>
     <div class="form-group">
