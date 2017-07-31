@@ -656,7 +656,8 @@ html, body {
 }
 
 @media (max-width: 810px) {
-	.header .h-user .user-avatar { margin: 0;} 
+    body { margin: 2px; }
+    .header .h-user .user-avatar { margin: 0;} 
     .torrent-info-row>td {
         display: block;
     }
@@ -701,12 +702,7 @@ html, body {
     .tr-links {
         width: 48px;
     }
-    .header .h-search input {
-        width: 90px !important;
-    }
-    .header .h-search input:focus {
-        width: 150px !important;
-    }
+    .header .h-search input { width: 153px !important; }
     .box {
         padding: 8px;
     }
@@ -716,6 +712,7 @@ html, body {
 }
 
 @media (max-width: 565px) {
+    .header .h-search input { width: 90px !important; }
     .form-input.language {
         width: 281px;
     }
@@ -728,11 +725,11 @@ html, body {
     .hide-smol {
         display: none!important;
     }
-	.header .nav-btn { padding: 0px 6px!important;}
-	.form-input.form-category { width: 50px; margin-right: -5px;}
+    .header .nav-btn { padding: 0px 6px!important;}
+    .form-input.form-category { width: 50px; margin-right: -5px;}
 }
 @media (max-width: 440px) {
-	.header .nav-btn { padding: 0px 3px!important;}
+    .header .nav-btn { padding: 0px 3px!important;}
 }
 
 .up-input {
