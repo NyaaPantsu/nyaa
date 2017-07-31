@@ -124,7 +124,7 @@ function startupCode() {
   }
 
   if (document.cookie.includes("newVersion"))
-    document.getElementById("commit").className = document.getElementById("commit") != "unknown" ? "new" : "wew";
+    document.getElementById("commit").className = document.getElementById("commit").innerHTML != "unknown" ? "new" : "invalid";
 }
 
 function playVoice() {
