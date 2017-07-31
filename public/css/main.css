@@ -1580,3 +1580,25 @@ html[lang="ja-jp"] .header .nav-btn { padding: 0 8px;}
 .input-ui-list + .add-input {
     margin-bottom:1rem;
 }
+
+span.tag {
+    padding: 2px 0.5rem;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 1px 0px black;
+}
+
+.tag.accepted {
+    background: hsla(100, 100%, 50%, 0.3);
+}
+
+.tag.pending {
+    background: #1d6d90;
+}
+
+.tag a.tag-form.plus {
+    content: '+';
+}
+
+.tag a.tag-form.minus {
+    content: '-';
+}
