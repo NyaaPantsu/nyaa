@@ -1607,7 +1607,7 @@ span.tag {
     color: white;
 }
 
-.tag.pending .tag-text {
+.tag.pending .tag-text.votable {
     margin-right: 0;
 }
 
