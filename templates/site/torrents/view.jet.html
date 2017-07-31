@@ -68,8 +68,10 @@
       <td class="torrent-info-td torrent-info-label">{{ T("torrent_tags")}}:</td>
       <td class="tr-flag torrent-view-td torrent-info-data">
         {{ range Torrent.Tags}}
-        <span class="tag{{ if len(Torrent.Tags) > 5 }} big{{ end }}{{ if !.Accepted }} pending{{else}} accepted{{end}}" title="Tag: {{ .Type }}">
+        <span class="tag{{ if len(Torrent.Tags) > 5 }} big{{ end }}{{ if !.Accepted }} pending{{else}} accepted{{end}}" title="Tag: {{ .Type }} {{ if !.Accepted }}Weight: {{ .Total }}{{else}}({{ T("accepted") }}){{end}}">
+          <span class="tag-text">
           {{ T("tagtype_" + .Type) }}: {{ .Tag }}
+          </span>
           {{ if .Accepted == false }}
           <a href="/torrent/tag/{{ if User.Tags.Contains(.) }}remove{{else}}add{{end}}?id={{Torrent.ID}}&tag={{ .Tag }}&type={{ .Type }}" class="tag-form {{ if User.Tags.Contains(.) }}minus{{else}}plus{{end}}"></a>
           {{ end }}

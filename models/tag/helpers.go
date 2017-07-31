@@ -26,12 +26,14 @@ func Filter(tag string, tagType string, torrentID uint) bool {
 				if err != nil {
 					log.CheckErrorWithMessage(err, "USER_NOT_FOUND: Couldn't update pantsu points!")
 				}
-				if toDelete.Tag == tag {
-					user.IncreasePantsu()
-				} else {
-					user.DecreasePantsu()
+				if user.ID > 0 {
+					if toDelete.Tag == tag {
+						user.IncreasePantsu()
+					} else {
+						user.DecreasePantsu()
+					}
+					user.Update()
 				}
-				user.Update()
 				toDelete.Delete()
 			}
 			/* err := DeleteAllType(tagType, torrentID) // We can also delete them in batch

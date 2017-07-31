@@ -1588,8 +1588,12 @@ details[open] summary:after {
     margin-bottom:1rem;
 }
 
+span.tag-text {
+    margin: 2px 0.5rem;
+    display: inline-block;
+}
+
 span.tag {
-    padding: 2px 0.5rem;
     border-radius: 1rem;
     box-shadow: 0px 0px 1px 0px black;
 }
@@ -1600,14 +1604,26 @@ span.tag {
 
 .tag.pending {
     background: #1d6d90;
+    color: white;
 }
 
-.tag a.tag-form.plus {
+.tag.pending .tag-text {
+    margin-right: 0;
+}
+
+.tag a.tag-form.plus:after {
     content: '+';
 }
 
-.tag a.tag-form.minus {
+.tag a.tag-form.minus:after {
     content: '-';
+}
+.tag.pending a.tag-form {
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding: 2px 0.5rem;
+    display: inline-block;
+    background: white;
 }
 
 /* Language specific CSS */
