@@ -608,6 +608,9 @@ html, body {
     pointer-events: auto;
 }
 
+.results.box>table>thead.torrent-info>tr {
+    height: 40px;
+}
 
 /* holy fucking shit fuck responsive design */
 
@@ -648,10 +651,8 @@ html, body {
     .visible-md {
         display: block
     }
-}
-
-.results.box>table>thead.torrent-info>tr {
-    height: 40px;
+	.user-td.tr-date { width: 100px; }
+	.user-td.tr-size { width: 77px; }
 }
 
 @media (max-width: 810px) {
