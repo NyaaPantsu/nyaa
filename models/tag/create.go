@@ -2,6 +2,7 @@ package tags
 
 import (
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/utils/cache"
 	"github.com/pkg/errors"
 )
 
@@ -21,5 +22,6 @@ func Create(tag string, tagType string, torrent *models.Torrent, user *models.Us
 	if err := models.ORM.Create(newTag).Error; err != nil {
 		return newTag, err
 	}
+	cache.C.Delete(torrent.Identifier())
 	return newTag, nil
 }

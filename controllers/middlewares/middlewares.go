@@ -17,7 +17,7 @@ import (
 func ErrorMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Next()
-		if config.Get().Environment == "DEVELOPMENT" {
+		if c.Writer.Status() >= 300 && config.Get().Environment == "DEVELOPMENT" {
 			messages := msg.GetMessages(c)
 			if messages.HasErrors() {
 				log.Errorf("Request has errors: %v", messages.GetAllErrors())
@@ -58,16 +58,5 @@ func ScopesRequired(scopes ...string) gin.HandlerFunc {
 		// All required scopes are found
 		c.Set("fosite", ctx)
 		c.Next()
-	}
-}
-
-func pprofHandler(handler http.HandlerFunc) gin.HandlerFunc {
-	return func(c *gin.Context) {
-		currentUser := router.GetUser(c)
-		if currentUser.HasAdmin() {
-			handler.ServeHTTP(c.Writer, c.Request)
-		} else {
-			templates.HttpError(c, http.StatusNotFound)
-		}
 	}
 }

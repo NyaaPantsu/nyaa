@@ -55,11 +55,6 @@ func ViewHandler(c *gin.Context) {
 	user.LoadTags(torrent)
 	torrent.LoadTags()
 
-	// We add a tag if posted
-	if c.PostForm("tag") != "" && user.ID > 0 {
-		postTag(c, torrent, user)
-	}
-
 	// Convert torrent to the JSON Model used to display a torrent
 	// Since many datas need to be parsed from a simple torrent model to the actual display
 	b := torrent.ToJSON()

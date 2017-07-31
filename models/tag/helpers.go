@@ -1,6 +1,8 @@
 package tags
 
 import (
+	"fmt"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/users"
@@ -12,7 +14,8 @@ func Filter(tag string, tagType string, torrentID uint) bool {
 		return false
 	}
 	tagSum := models.Tag{}
-	if err := models.ORM.Select("tag, type, accepted, SUM(weight) as total").Where("torrent_id = ? AND tag = ? AND type = ?", torrentID, tag, tagType).Group("type, tag").Find(&tagSum).Error; err == nil {
+	if err := models.ORM.Select("torrent_id, tag, type, accepted, SUM(weight) as total").Where("torrent_id = ? AND tag = ? AND type = ?", torrentID, tag, tagType).Group("type, tag").Find(&tagSum).Error; err == nil {
+		fmt.Println(tagSum)
 		if tagSum.Total > config.Get().Torrents.Tags.MaxWeight {
 			tags, err := FindAll(tagType, torrentID)
 			if err != nil {

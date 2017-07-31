@@ -28,7 +28,7 @@ func (ta *Tag) Update() (int, error) {
 
 // Delete : delete a tag based on id
 func (ta *Tag) Delete() (int, error) {
-	if ORM.Delete(ta).Error != nil {
+	if ORM.Where("tag = ? AND type = ? AND torrent_id = ? AND user_id = ?", ta.Tag, ta.Type, ta.TorrentID, ta.UserID).Delete(ta).Error != nil {
 		return http.StatusInternalServerError, errors.New("tag_not_deleted")
 	}
 

@@ -71,11 +71,7 @@
         <span class="tag{{ if len(Torrent.Tags) > 5 }} big{{ end }}" title="{{ .Tag }}">
           {{ T("tagtype_" + .Type) }}: {{ .Tag }}
           {{ if .Accepted == false }}
-          <form action="{{ if User.Tags.Contains(.) }}/torrent/tag/delete?id={{Torrent.ID}}{{end}}" class="tag-form">
-            <input type="hidden" name="tag" value="{{ .Tag }}">
-            <input type="hidden" name="type" value="{{ .Type }}">
-            <button type="submit">{{ if User.Tags.Contains(.) }}-{{else}}+{{end}}</button>
-          </form>
+          <a href="/torrent/tag/{{ if User.Tags.Contains(.) }}remove{{else}}add{{end}}?id={{Torrent.ID}}&tag={{ .Tag }}&type={{ .Type }}" class="tag-form">{{ if User.Tags.Contains(.) }}-{{else}}+{{end}}</a>
           {{ end }}
         </span>
         {{end}}

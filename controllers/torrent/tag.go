@@ -19,6 +19,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// postTag is a function used by controllers to post a tag
 func postTag(c *gin.Context, torrent *models.Torrent, user *models.User) {
 	messages := msg.GetMessages(c)
 	tagForm := &tagsValidator.CreateForm{}
@@ -41,6 +42,7 @@ func postTag(c *gin.Context, torrent *models.Torrent, user *models.User) {
 	tags.Filter(tagForm.Tag, tagForm.Type, torrent.ID)    // Check if we have a tag reaching the maximum weight, if yes, deletes every tag and add only the one accepted
 }
 
+// ViewFormTag is a controller displaying a form to add a tag to a torrent
 func ViewFormTag(c *gin.Context) {
 	messages := msg.GetMessages(c)
 	user := router.GetUser(c)
@@ -83,6 +85,51 @@ func ViewFormTag(c *gin.Context) {
 	templates.Form(c, "/site/torrents/tag.jet.html", tagForm)
 }
 
+// AddTag is a controller to add a
+func AddTag(c *gin.Context) {
+	messages := msg.GetMessages(c)
+	user := router.GetUser(c)
+	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
+	// Retrieve the torrent
+	torrent, err := torrents.FindByID(uint(id))
+
+	// If torrent not found, display 404
+	if err != nil {
+		c.Status(http.StatusNotFound)
+		return
+	}
+
+	// We load tags for user and torrents
+	user.LoadTags(torrent)
+	torrent.LoadTags()
+
+	if c.Query("tag") != "" && user.ID > 0 {
+		tagForm := &tagsValidator.CreateForm{c.Query("tag"), c.Query("type")}
+
+		validator.ValidateForm(tagForm, messages)
+
+		if !messages.HasErrors() {
+			postTag(c, torrent, user)
+			if !messages.HasErrors() {
+				if _, ok := c.GetQuery("json"); ok {
+					c.JSON(http.StatusOK, struct {
+						Ok bool
+					}{true})
+					return
+				}
+			}
+		}
+	}
+	if _, ok := c.GetQuery("json"); ok {
+		c.JSON(http.StatusOK, struct {
+			Ok bool
+		}{false})
+		return
+	}
+	c.Redirect(http.StatusSeeOther, fmt.Sprintf("/view/%d", id))
+}
+
+// DeleteTag is a controller to delete a user tag
 func DeleteTag(c *gin.Context) {
 	messages := msg.GetMessages(c)
 	user := router.GetUser(c)
@@ -100,10 +147,9 @@ func DeleteTag(c *gin.Context) {
 	user.LoadTags(torrent)
 	torrent.LoadTags()
 
-	if c.PostForm("tag") != "" && user.ID > 0 {
-		tagForm := &tagsValidator.CreateForm{}
+	if c.Query("tag") != "" && user.ID > 0 {
+		tagForm := &tagsValidator.CreateForm{c.Query("tag"), c.Query("type")}
 
-		c.Bind(tagForm)
 		validator.ValidateForm(tagForm, messages)
 
 		if !messages.HasErrors() {
