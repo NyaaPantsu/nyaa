@@ -15,7 +15,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/validator"
-	"github.com/NyaaPantsu/nyaa/utils/validator/tags"
+	"github.com/NyaaPantsu/nyaa/utils/validator/tag"
 	"github.com/gin-gonic/gin"
 )
 
