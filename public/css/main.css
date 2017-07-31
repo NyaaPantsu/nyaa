@@ -714,9 +714,6 @@ html, body {
 @media (max-width: 565px) {
     .header .h-search { margin-right: 0; }
     .header .h-search input { width: 90px !important; }
-    .form-input.language {
-        width: 281px;
-    }
     .form-input.refine {
         display: none;
     }
