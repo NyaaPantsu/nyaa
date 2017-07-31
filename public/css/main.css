@@ -656,7 +656,7 @@ html, body {
 }
 
 @media (max-width: 810px) {
-    body { margin: 2px; }
+    body { margin: 8px 0; }
     .header .h-user .user-avatar { margin: 0;} 
     .torrent-info-row>td {
         display: block;
