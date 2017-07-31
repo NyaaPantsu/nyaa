@@ -102,6 +102,7 @@ else
     startupCode()
   })
 
+ var UserTheme
 
 function startupCode() {
   var shiftWindow = function () {
@@ -125,6 +126,26 @@ function startupCode() {
 
   if (document.cookie.includes("newVersion"))
     document.getElementById("commit").className = document.getElementById("commit").innerHTML != "unknown" ? "new" : "wew";
+
+  document.getElementById("dark-toggle").style.display = "inline-block";
+  document.getElementById("dark-toggle").addEventListener("click", toggleTheme);
+	
+	
+  var CurrentTheme = document.getElementById("theme").href;
+  UserTheme = [CurrentTheme.substring(CurrentTheme.indexOf("/css/") + 5, CurrentTheme.indexOf("?v")), "tomorrow.css"]
+  if(UserTheme[0] == UserTheme[1])
+	UserTheme[1] = "g.css"
+}
+
+function toggleTheme() {
+  var CurrentTheme = document.getElementById("theme").href, versionIndex = CurrentTheme.indexOf("?v")
+  
+  if(versionIndex == -1)
+	CurrentTheme = CurrentTheme.substring(CurrentTheme.indexOf("/css/") + 5)
+  else 
+	CurrentTheme = CurrentTheme.substring(CurrentTheme.indexOf("/css/") + 5, versionIndex)
+
+  document.getElementById("theme").href = "/css/" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]);
 }
 
 function playVoice() {
