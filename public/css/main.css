@@ -383,6 +383,8 @@ select.form-input {
     border-radius: 0 3px 3px 0;
 	max-width: 50%;
 }
+.form-refine .refine-category::placeholder { opacity: 0; }
+.form-refine .refine-searchbox::placeholder { opacity: 0; }
 
 .categories a {
     display: inline-block;
@@ -712,8 +714,6 @@ html, body {
         padding: 2px 2px;
     }
 }
-    .form-refine .refine-category::placeholder { opacity: 0; }
-	.form-refine .refine-searchbox::placeholder { opacity: 0; }
 
 @media (max-width: 565px) {
     .header .h-search { margin-right: 0; }
