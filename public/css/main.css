@@ -124,11 +124,7 @@ body {
 }
 
 .header .h-search {
-    margin-right: 8px;
-}
-
-.header .h-search {
-    margin-right: 2px;
+    margin-right: 6px;
 }
 
 .header .h-search .form-input {
@@ -714,6 +710,7 @@ html, body {
 }
 
 @media (max-width: 565px) {
+    .header .h-search { margin-right: 0; }
     .header .h-search input { width: 90px !important; }
     .form-input.language {
         width: 281px;
