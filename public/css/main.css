@@ -683,10 +683,6 @@ html, body {
     .hide-xs {
         display: none !important;
     }
-    #description-box img {
-        width: 100%;
-        height: auto;
-    }
     .header .h-user {
         width: 46px;
     }
@@ -842,11 +838,6 @@ html, body {
 .torrent-info-box {
     border: 1px solid #ccc;
     border-radius: 4px;
-}
-
-.torrent-info-box img {
-    max-width: 100%;
-    max-height: 100%;
 }
 
 .torrent-info-box>p>a, .torrent-info-box>div>a, #description-box a {
@@ -1058,9 +1049,14 @@ input.filelist-checkbox:checked+table.table-filelist {
     margin-bottom: 10px;
 }
 
-#description-box div {
+#description-box div, #description-box p {
     margin-top: 14px;
     margin-bottom: 14px;
+}
+
+#description-box img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 
