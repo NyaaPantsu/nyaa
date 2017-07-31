@@ -12,6 +12,8 @@ a {
     text-decoration: none;
 }
 
+body, .container { min-width: 400px;}
+
 .header, .pagination {
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -61,7 +63,7 @@ body {
 }
 
 .container {
-    max-width: 1080px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
@@ -623,15 +625,17 @@ html, body {
         width: 58px;
     }
     .header .h-user .user-menu {
-        right: 100px;
+        right: 92px;
     }
     .header .h-user .user-info {
         display: none;
     }
     .header .h-user>.nav-btn {
-        padding: 0px;
-        width: 50px;
+        padding: 0 3px!important;
+		font-size: 85%;
+		width: 100%;
     }
+	.header .h-user>a.nav-btn { padding: 0!important; }
 }
 
 @media (min-width: 960px) {
@@ -654,6 +658,8 @@ html, body {
 }
 
 @media (max-width: 810px) {
+    body { margin: 8px 0; }
+    .header .h-user .user-avatar { margin: 0;} 
     .torrent-info-row>td {
         display: block;
     }
@@ -682,6 +688,7 @@ html, body {
     .header .h-user {
         width: 46px;
     }
+    .header .h-user .user-menu { right: 104px;}
     .box {
         padding: 7px;
     }
@@ -697,12 +704,7 @@ html, body {
     .tr-links {
         width: 48px;
     }
-    .header .h-search input {
-        width: 90px !important;
-    }
-    .header .h-search input:focus {
-        width: 150px !important;
-    }
+    .header .h-search input { width: 84px !important; }
     .box {
         padding: 8px;
     }
@@ -711,7 +713,8 @@ html, body {
     }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 565px) {
+    .header .h-search input { width: 90px !important; }
     .form-input.language {
         width: 281px;
     }
@@ -724,6 +727,11 @@ html, body {
     .hide-smol {
         display: none!important;
     }
+    .header .nav-btn { padding: 0px 6px!important;}
+    .form-input.form-category { width: 50px; margin-right: -5px;}
+}
+@media (max-width: 440px) {
+    .header .nav-btn { padding: 0px 3px!important;}
 }
 
 .up-input {
@@ -1571,7 +1579,6 @@ details[open] summary:after {
     background-position: 0 -624px;
 }
 
-html[lang="ja-jp"] .header .nav-btn { padding: 0 8px;}
 
 .input-ui-list > .element {
     display: flex;
@@ -1579,4 +1586,13 @@ html[lang="ja-jp"] .header .nav-btn { padding: 0 8px;}
 
 .input-ui-list + .add-input {
     margin-bottom:1rem;
+}
+
+/* Language specific CSS */
+
+html[lang="ja-jp"] .header .nav-btn { padding: 0 8px;}
+@media (max-width: 1100px) {
+    html[lang="ja-jp"] .header .h-user>.nav-btn {
+		font-size: 75%;
+    }
 }
