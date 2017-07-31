@@ -372,7 +372,7 @@ select.form-input {
     display: inline-block;
 }
 
-.form-refine .refine-searchbox::placeholder { opacity: 0; }*
+.form-refine .refine-searchbox::placeholder { opacity: 0; }
 .form-refine .refine-searchbox {
     border-radius: 3px 0 0 3px;
     width: 21%;
