@@ -22,6 +22,7 @@ type TorrentRequest struct {
 	Filepath      string         `json:"-"`
 	FileList      []uploadedFile `json:"filelist,omitempty"`
 	Trackers      []string       `json:"trackers,omitempty"`
+	Tags          string         `json:"tags,omitempty" form:"tags"`
 }
 
 // UpdateRequest struct

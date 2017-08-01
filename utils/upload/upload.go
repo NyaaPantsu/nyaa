@@ -1,6 +1,7 @@
 package upload
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -8,6 +9,8 @@ import (
 	"os"
 	"reflect"
 	"strings"
+
+	"github.com/NyaaPantsu/nyaa/models/tag"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
@@ -86,6 +89,8 @@ func ExtractEditInfo(c *gin.Context, r *torrentValidator.TorrentRequest) error {
 // ExtractBasicValue : takes an http request and computes all basic fields for this form
 func ExtractBasicValue(c *gin.Context, r *torrentValidator.TorrentRequest) error {
 	c.Bind(r)
+	r.Tags = c.PostForm("tags")
+
 	// trim whitespace
 	r.Name = strings.TrimSpace(r.Name)
 	r.Description = sanitize.Sanitize(strings.TrimSpace(r.Description), "default")
@@ -101,6 +106,8 @@ func ExtractBasicValue(c *gin.Context, r *torrentValidator.TorrentRequest) error
 	if err != nil {
 		return err
 	}
+
+	r.ValidateTags() // Tags should only be filtered, don't stop the errors from uploading
 
 	err = r.ValidateWebsiteLink()
 	return err
@@ -178,6 +185,20 @@ func UpdateTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, current
 	t.Status = status
 
 	t.Hidden = r.Update.Hidden
+
+	// This part of the code check that we have only one tag of the same type
+	var tagsReq models.Tags
+	json.Unmarshal([]byte(r.Update.Tags), &tagsReq)
+	for _, tag := range tagsReq {
+		tag.Accepted = true
+		tag.TorrentID = t.ID
+		tag.UserID = 0 // 0 so we don't increase pantsu points for every tag for the actual user (would be too much increase)
+		tag.Weight = config.Get().Torrents.Tags.MaxWeight + 1
+		tags.New(&tag, t)                 // We create new tags with the user id
+		tags.Filter(tag.Tag, tag.Type, t) // We filter out every tags and increase/decrease pantsu for already sent tags
+		t.Tags.DeleteType(tag.Type)       // We cleanup the map from the other tags
+		t.Tags = append(t.Tags)           // Finally we append ours to the torrent
+	}
 
 	return t
 }

@@ -40,7 +40,7 @@ func postTag(c *gin.Context, torrent *models.Torrent, user *models.User) *models
 	}
 
 	tag, _ := tags.Create(tagForm.Tag, tagForm.Type, torrent, user) // Add a tag to the db
-	tags.Filter(tagForm.Tag, tagForm.Type, torrent.ID)              // Check if we have a tag reaching the maximum weight, if yes, deletes every tag and add only the one accepted
+	tags.Filter(tagForm.Tag, tagForm.Type, torrent)                 // Check if we have a tag reaching the maximum weight, if yes, deletes every tag and add only the one accepted
 	return tag
 }
 

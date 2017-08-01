@@ -358,6 +358,7 @@ func APIUpdateHandler(c *gin.Context) {
 	if !messages.HasErrors() {
 		c.Bind(&update)
 		torrent, err := torrents.FindByID(update.ID)
+		torrent.LoadTags()
 		if err != nil {
 			messages.AddErrorTf("errors", "torrent_not_exist", strconv.Itoa(int(update.ID)))
 		}

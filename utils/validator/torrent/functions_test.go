@@ -172,3 +172,25 @@ func TestExtractLanguage(t *testing.T) {
 		}
 	}
 }
+
+func TestValidateTags(t *testing.T) {
+	r := TorrentRequest{}
+	tests := []struct {
+		Test     string
+		Expected error
+	}{
+		{"", errTorrentTagsInvalid},
+		{`{"":"","":""}`, errTorrentTagsInvalid},
+		{`{"tag":"xD","type":"lol"}`, errTorrentTagsInvalid},
+		{`[{"tag":"xD","type":"lol"}]`, nil},
+		{`[{"tag":"xD","type":"lol"},{"tag":"xD","type":"lol"}]`, nil},
+	}
+	for _, test := range tests {
+		r.Tags = test.Test
+		err := r.ValidateTags()
+		if err != test.Expected {
+			t.Errorf("Validation of torrent hash for '%s' doesn't give the expected result, have '%v', wants '%v'", test.Test, err, test.Expected)
+		}
+	}
+
+}
