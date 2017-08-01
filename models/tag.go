@@ -50,3 +50,12 @@ func (ts *Tags) Contains(tag Tag) bool {
 	}
 	return false
 }
+
+func (ts Tags) HasAccepted() bool  {
+	for _, tag := range ts {
+		if tag.Accepted {
+			return true
+		}
+	}
+	return false
+}
