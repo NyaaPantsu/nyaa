@@ -19,9 +19,9 @@ Templates.Add("torrents.item", function(torrent) {
     }
     var catClass = "nyaa-cat"
     // {{ if Sukebei() }}
-    catClass += "sukebei-cat-"+ torrent.category + torrent.sub_category
+    catClass += " sukebei-cat-"+ torrent.category + torrent.sub_category
     // {{else}}
-    catClass += "nyaa-cat-"+ torrent.sub_category
+    catClass += " nyaa-cat-"+ torrent.sub_category
     // {{end}}
     var languages = ""
     var colspan = (torrent.comments.length  == 0 ? ` colspan="2"` : "" )
