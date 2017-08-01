@@ -42,9 +42,20 @@ func (ta *Tag) toMap() map[string]interface{} {
 
 type Tags []Tag
 
-func (ts *Tags) Contains(tag Tag) bool {
-	for _, ta := range *ts {
+// Contains check if the tag map has the same tag in it (tag value + tag type)
+func (ts Tags) Contains(tag Tag) bool {
+	for _, ta := range ts {
 		if ta.Tag == tag.Tag && ta.Type == tag.Type {
+			return true
+		}
+	}
+	return false
+}
+
+// HasAccepted check if a tag has been accepted in the tags map
+func (ts Tags) HasAccepted() bool {
+	for _, tag := range ts {
+		if tag.Accepted {
 			return true
 		}
 	}

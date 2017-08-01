@@ -63,7 +63,7 @@ type Torrent struct {
 	OldUploader string       `gorm:"-"` // ???????
 	OldComments []OldComment `gorm:"ForeignKey:torrent_id"`
 	Comments    []Comment    `gorm:"ForeignKey:torrent_id"`
-	Tags        []Tag        `gorm:"-"`
+	Tags        Tags         `gorm:"-"`
 	Scrape      *Scrape      `gorm:"AssociationForeignKey:ID;ForeignKey:torrent_id"`
 	FileList    []File       `gorm:"ForeignKey:torrent_id"`
 	Languages   []string     `gorm:"-"` // This is parsed when retrieved from db
@@ -98,7 +98,7 @@ type TorrentJSON struct {
 	Completed    uint32        `json:"completed"`
 	LastScrape   time.Time     `json:"last_scrape"`
 	FileList     []FileJSON    `json:"file_list"`
-	Tags         []Tag         `json:"-"` // not needed in json to reduce db calls
+	Tags         Tags          `json:"-"` // not needed in json to reduce db calls
 }
 
 // Size : Returns the total size of memory recursively allocated for this struct
