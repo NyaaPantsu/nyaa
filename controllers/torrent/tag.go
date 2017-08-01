@@ -149,13 +149,14 @@ func DeleteTag(c *gin.Context) {
 		if !messages.HasErrors() {
 			for _, tag := range user.Tags {
 				if tag.Tag == tagForm.Tag && tag.Type == tagForm.Type {
+					tagRef := &models.Tag{tag.TorrentID, tag.UserID, tag.Tag, tag.Type, tag.Weight, tag.Accepted, tag.Total}
 					_, err := tag.Delete()
 					if err != nil {
 						log.CheckError(err)
 						break
 					}
 					if _, ok := c.GetQuery("json"); ok {
-						apiUtils.ResponseHandler(c, tag)
+						apiUtils.ResponseHandler(c, tagRef)
 						return
 					}
 					break
