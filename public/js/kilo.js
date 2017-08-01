@@ -4,7 +4,7 @@ var Kilo = function (params) {
 
   // public variables
   // Boolean defining if we are in sukebei
-  this.sukebei = (params.sukebei !== undefined) ? params.sukebei : 0
+  this.sukebei = (params.sukebei !== undefined) ? params.sukebei : false
   // Boolean defining if a user is trusted
   this.userTrusted = (params.userTrusted !== undefined) ? params.userTrusted : false
   // Boolean defining if a user is logged

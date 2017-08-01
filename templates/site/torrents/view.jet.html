@@ -1,6 +1,7 @@
 {{ extends "layouts/index_site" }}
 {{ import "layouts/partials/helpers/csrf" }}
 {{ import "layouts/partials/helpers/captcha" }}
+{{ import "layouts/partials/helpers/errors" }}
 {{ import "layouts/partials/helpers/treeview" }}
 {{block title()}}{{Torrent.Name}}{{end}}
 {{block content_body()}}
@@ -65,7 +66,7 @@
     </tr>
     {{end}}
 	{{ if len(Torrent.Tags) != 0 || User.ID > 0 }}
-    <tr class="torrent-info-row">
+    <tr class="torrent-info-row" id="tags-torrent">
       <td class="torrent-info-td torrent-info-label">{{ T("torrent_tags")}}:</td>
       <td class="tr-flag torrent-view-td torrent-info-data">
         {{ range Torrent.Tags}}
@@ -78,7 +79,7 @@
           {{ end }}
         </span>
         {{end}}
-        {{ if User.ID > 0 }}<a href="/torrent/tag?id={{ Torrent.ID }}" class="add-tag">{{ T("add") }}</a>{{ end }}
+        {{ if User.ID > 0 }}<a id="tagPopup" href="/torrent/tag?id={{ Torrent.ID }}" class="add-tag">{{ T("add") }}</a>{{ end }}
       </td>
     </tr>
 	{{ end }}
@@ -159,7 +160,7 @@
   </div>
 </div>
 {{ if User.ID > 0 }}
-<!-- Modal -->
+<!-- Modal to report a torrent -->
 <div id="modal_mod_tools" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
@@ -193,15 +194,89 @@
     </form>
   </div>
 </div>
+<!-- Modal to add a tag -->
+<div id="modal_tag_form" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <form method="post" action="/torrent/tag?id={{Torrent.ID}}">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>{{  T("add_tag") }}</h2>
+      </div>
+      <div class="modal-body">
+        <h4>{{  T("add_tag") }}</h4>
+        {{ yield csrf_field() }}
+        <div class="form-group">
+          <label class="input-label" for="tag">{{ T("tag")}}</label>
+          <input type="text" id="tag" name="tag" class="form-input up-input" value="{{Form.Tag}}" required/>
+          {{ yield errors(name="Tag")}}
+        </div>
+        <div class="form-group">
+          <label class="input-label" for="type">{{ T("tagtype")}}</label>
+          <select name="type" id="type" class="form-input up-input">
+            {{ range _, type := Config.Torrents.Tags.Types }}
+            <option value="{{ type }}" {{if Form.Type == type }}selected{{end}}>{{T("tagtype_" + type) }}</option>
+            {{ end }}
+          </select>
+          {{ yield errors(name="Type")}}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span>
+          <button id="confirm_changes" type="submit">{{  T("add")}}</button>
+          <button class="close" onclick="Modal.CloseActive();">{{  T("close")}}</button>
+        </span>
+        <h3>{{  T("are_you_sure") }} </h3>
+      </div>
+    </form>
+  </div>
+</div>
 {{end}}
 {{end}}
 {{ block footer_js()}}
 <script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>
+<script type="text/javascript" src="{{ URL.Parse("/js/query.js") }}"></script>
+<script type="text/javascript" src="{{ URL.Parse("/js/templates.js") }}"></script>
 <script type="text/javascript">
+// {{ range _, type := Config.Torrents.Tags.Types }}
+  T.Add("tagtype_{{ type }}", '{{ T("tagtype_" + type) }}')
+// {{ end }}
+
+Templates.Add("tag", function(tag) {
+  var tagClass = (tag.accepted) ? "tag" : "tag pending"
+  var tagTitle = (tag.accepted) ? 'Tag: ' + tag.type + '({{ T("accepted") }} )' : tag.type + "(" + tag.total + ")"
+
+  return `<span class="`+ tagClass +`" title="`+ tagTitle +`">
+          <span class="tag-text votable">
+          `.T.r("tagtype_" + tag.type)+`: ` + tag.tag + `
+          </span>
+          <a href="/torrent/tag/remove?id={{Torrent.ID}}&tag=` + tag.tag + `&type=` + tag.type + `" class="tag-form minus"></a>
+        </span>`
+})
+
 // Modal initialization
 Modal.Init({
   elements: document.getElementsByClassName("modal"),
-  button: "#reportPopup"
+  // order of apparition of the modals
+  button: ["#reportPopup", "#tagPopup"]
 });
+
+document.querySelector("#modal_tag_form form").addEventListener("submit", function(e) {
+  var form = e.target
+  var tag = form.querySelector("input#tag").value
+  var tagtype = form.querySelector("select#type").value
+
+  Query.Post(form.action+"&json", "tag="+tag+"&type="+tagtype, function(data) {
+    if (data.ok) {
+      Modal.CloseActive()
+      var tagHTml = Templates.render("tag", data.data)
+      document.getElementById("tags-torrent").innerHTML = tagHTml + document.getElementById("tags-torrent").innerHTML
+    } else {
+      alert("Couldn't add a tag, please check your internet connexion and that all fields are filled.")
+    }
+  })
+
+  e.preventDefault()
+})
 </script>
 {{end}}
