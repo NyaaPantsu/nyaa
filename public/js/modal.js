@@ -31,9 +31,9 @@ var Modal = {
     // Get the button that opens the modal
     if (!btn) {
       btn = document.getElementById("modal_btn_" + modal.id)
-    } else if (btn.match(/^#/)) {
+    } else if (btn instanceof String && btn.match(/^#/)) {
       btn = document.getElementById(btn.substr(1));
-    } else if (btn.match(/^\./)) {
+    } else if (btn instanceof String && btn.match(/^\./)) {
       btn = document.getElementsByClassName(btn.substr(1));
       isBtnArray = true;
     } else if (btn instanceof Array) {
