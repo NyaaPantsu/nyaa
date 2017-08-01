@@ -9,13 +9,13 @@ import (
 
 // Tag model for a torrent vote system
 type Tag struct {
-	TorrentID uint    `gorm:"column:torrent_id"`
-	UserID    uint    `gorm:"column:user_id"`
-	Tag       string  `gorm:"column:tag"`
-	Type      string  `gorm:"column:type"`
-	Weight    float64 `gorm:"column:weight"`
-	Accepted  bool    `gorm:"column:accepted"`
-	Total     float64 `gorm:"-"`
+	TorrentID uint    `gorm:"column:torrent_id" json:"torrent_id"`
+	UserID    uint    `gorm:"column:user_id" json:"user_id"`
+	Tag       string  `gorm:"column:tag" json:"tag"`
+	Type      string  `gorm:"column:type" json:"type"`
+	Weight    float64 `gorm:"column:weight" json:"weight"`
+	Accepted  bool    `gorm:"column:accepted" json:"accepted"`
+	Total     float64 `gorm:"-" json:"total"`
 }
 
 // Update a tag

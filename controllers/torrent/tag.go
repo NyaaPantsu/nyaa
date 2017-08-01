@@ -12,6 +12,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/models/tag"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/templates"
+	"github.com/NyaaPantsu/nyaa/utils/api"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/validator"
@@ -20,7 +21,7 @@ import (
 )
 
 // postTag is a function used by controllers to post a tag
-func postTag(c *gin.Context, torrent *models.Torrent, user *models.User) {
+func postTag(c *gin.Context, torrent *models.Torrent, user *models.User) *models.Tag {
 	messages := msg.GetMessages(c)
 	tagForm := &tagsValidator.CreateForm{}
 
@@ -30,16 +31,17 @@ func postTag(c *gin.Context, torrent *models.Torrent, user *models.User) {
 	// We check that the tag type sent is one enabled in config.yml
 	if !tagsValidator.CheckTagType(tagForm.Type) {
 		messages.ErrorT(errors.New("wrong_tag_type"))
-		return
+		return nil
 	}
 
 	if user.Tags.Contains(models.Tag{Tag: tagForm.Tag, Type: tagForm.Type}) {
 		log.Info("User has already tagged the type for the torrent")
-		return
+		return nil
 	}
 
-	tags.Create(tagForm.Tag, tagForm.Type, torrent, user) // Add a tag to the db
-	tags.Filter(tagForm.Tag, tagForm.Type, torrent.ID)    // Check if we have a tag reaching the maximum weight, if yes, deletes every tag and add only the one accepted
+	tag, _ := tags.Create(tagForm.Tag, tagForm.Type, torrent, user) // Add a tag to the db
+	tags.Filter(tagForm.Tag, tagForm.Type, torrent.ID)              // Check if we have a tag reaching the maximum weight, if yes, deletes every tag and add only the one accepted
+	return tag
 }
 
 // ViewFormTag is a controller displaying a form to add a tag to a torrent
@@ -62,20 +64,16 @@ func ViewFormTag(c *gin.Context) {
 
 	// We add a tag if posted
 	if c.PostForm("tag") != "" && user.ID > 0 {
-		postTag(c, torrent, user)
+		tag := postTag(c, torrent, user)
 		if !messages.HasErrors() {
 			if _, ok := c.GetQuery("json"); ok {
-				c.JSON(http.StatusOK, struct {
-					Ok bool
-				}{true})
+				apiUtils.ResponseHandler(c, tag)
 				return
 			}
 			c.Redirect(http.StatusSeeOther, fmt.Sprintf("/view/%d", id))
 		}
 		if _, ok := c.GetQuery("json"); ok {
-			c.JSON(http.StatusOK, struct {
-				Ok bool
-			}{false})
+			apiUtils.ResponseHandler(c)
 			return
 		}
 	}
@@ -109,21 +107,17 @@ func AddTag(c *gin.Context) {
 		validator.ValidateForm(tagForm, messages)
 
 		if !messages.HasErrors() {
-			postTag(c, torrent, user)
+			tag := postTag(c, torrent, user)
 			if !messages.HasErrors() {
 				if _, ok := c.GetQuery("json"); ok {
-					c.JSON(http.StatusOK, struct {
-						Ok bool
-					}{true})
+					apiUtils.ResponseHandler(c, tag)
 					return
 				}
 			}
 		}
 	}
 	if _, ok := c.GetQuery("json"); ok {
-		c.JSON(http.StatusOK, struct {
-			Ok bool
-		}{false})
+		apiUtils.ResponseHandler(c)
 		return
 	}
 	c.Redirect(http.StatusSeeOther, fmt.Sprintf("/view/%d", id))
@@ -161,9 +155,7 @@ func DeleteTag(c *gin.Context) {
 						break
 					}
 					if _, ok := c.GetQuery("json"); ok {
-						c.JSON(http.StatusOK, struct {
-							Ok bool
-						}{true})
+						apiUtils.ResponseHandler(c, tag)
 						return
 					}
 					break
@@ -172,9 +164,7 @@ func DeleteTag(c *gin.Context) {
 		}
 	}
 	if _, ok := c.GetQuery("json"); ok {
-		c.JSON(http.StatusOK, struct {
-			Ok bool
-		}{false})
+		apiUtils.ResponseHandler(c)
 		return
 	}
 	c.Redirect(http.StatusSeeOther, fmt.Sprintf("/view/%d", id))

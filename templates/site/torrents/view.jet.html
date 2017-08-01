@@ -66,9 +66,9 @@
     </tr>
     {{end}}
 	 {{ if Torrent.Tags.HasAccepted() || User.ID > 0 }}
-    <tr class="torrent-info-row" id="tags-torrent">
+    <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("torrent_tags")}}:</td>
-      <td class="tr-flag torrent-view-td torrent-info-data">
+      <td class="tr-flag torrent-view-td torrent-info-data" id="tags-torrent">
         {{ range Torrent.Tags }}
 		    {{if .Accepted || User.ID > 0 }}
         <span class="tag{{ if len(Torrent.Tags) > 5 }} big{{ end }}{{ if !.Accepted }} pending{{else}} accepted{{end}}" title="Tag: {{ .Type }} ({{ if !.Accepted }}{{ .Total }}{{else}}{{ T("accepted") }}{{end}})">
@@ -248,11 +248,11 @@
 
 Templates.Add("tag", function(tag) {
   var tagClass = (tag.accepted) ? "tag" : "tag pending"
-  var tagTitle = (tag.accepted) ? 'Tag: ' + tag.type + '({{ T("accepted") }} )' : tag.type + "(" + tag.total + ")"
+  var tagTitle = (tag.accepted) ? 'Tag: ' + tag.type + '({{ T("accepted") }} )' : tag.type + "(" + tag.weight + ")"
 
   return `<span class="`+ tagClass +`" title="`+ tagTitle +`">
           <span class="tag-text votable">
-          `.T.r("tagtype_" + tag.type)+`: ` + tag.tag + `
+          ` + T.r("tagtype_" + tag.type) + `: ` + tag.tag + `
           </span>
           <a href="/torrent/tag/remove?id={{Torrent.ID}}&tag=` + tag.tag + `&type=` + tag.type + `" class="tag-form minus"></a>
         </span>`
@@ -269,11 +269,12 @@ document.querySelector("#modal_tag_form form").addEventListener("submit", functi
   var form = e.target
   var tag = form.querySelector("input#tag").value
   var tagtype = form.querySelector("select#type").value
+  var csrf = form.querySelector("input[name='csrf_token']").value
 
-  Query.Post(form.action+"&json", "tag="+tag+"&type="+tagtype, function(data) {
+  Query.Post(form.action+"&json", "tag="+tag+"&type="+encodeURIComponent(tagtype)+"&csrf_token="+encodeURIComponent(csrf), function(data) {
     if (data.ok) {
       Modal.CloseActive()
-      var tagHTml = Templates.render("tag", data.data)
+      var tagHTml = Templates.Render("tag", data.data)
       document.getElementById("tags-torrent").innerHTML = tagHTml + document.getElementById("tags-torrent").innerHTML
     } else {
       alert("Couldn't add a tag, please check your internet connexion and that all fields are filled.")
