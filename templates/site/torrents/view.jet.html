@@ -64,24 +64,24 @@
       </td>
     </tr>
     {{end}}
-	{{ if len(Torrent.Tags) != 0 || User.ID > 0 }}
+	 {{ if Torrent.Tags.HasAccepted() || User.ID > 0 }}
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("torrent_tags")}}:</td>
       <td class="tr-flag torrent-view-td torrent-info-data">
-        {{ range Torrent.Tags}}
+        {{ range Torrent.Tags }}
+		{{if !.Accepted || User.ID > 0 }}
         <span class="tag{{ if len(Torrent.Tags) > 5 }} big{{ end }}{{ if !.Accepted }} pending{{else}} accepted{{end}}" title="Tag: {{ .Type }} ({{ if !.Accepted }}{{ .Total }}{{else}}{{ T("accepted") }}{{end}})">
           <span class="tag-text{{ if User.ID > 0 }} votable{{end}}">
           {{ T("tagtype_" + .Type) }}: {{ .Tag }}
           </span>
-          {{ if !.Accepted && User.ID > 0 }}
-          <a href="/torrent/tag/{{ if User.Tags.Contains(.) }}remove{{else}}add{{end}}?id={{Torrent.ID}}&tag={{ .Tag }}&type={{ .Type }}" class="tag-form {{ if User.Tags.Contains(.) }}minus{{else}}plus{{end}}"></a>
-          {{ end }}
+          <a href="/torrent/tag/{{ if User.Tags.Contains(.) }}remove{{else}}add{{end}}?id={{Torrent.ID}}&tag={{ .Tag }}&type={{ .Type }}" class="tag-form {{ if User.Tags.Contains(.) }}minus{{else}}plus{{end}}{{if .Accepted}} accepted{{end}}"></a>
         </span>
+		{{end}}
         {{end}}
         {{ if User.ID > 0 }}<a href="/torrent/tag?id={{ Torrent.ID }}" class="add-tag">{{ T("add") }}</a>{{ end }}
       </td>
     </tr>
-	{{ end }}
+	{{end}}
   </table>
   <div class="torrent-buttons">
     <a href="{{Torrent.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;margin-right: 0.5em;">
