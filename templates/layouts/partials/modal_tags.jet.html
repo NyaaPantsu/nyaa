@@ -12,7 +12,6 @@
         <div class="form-group">
           <label class="input-label" for="tag">{{ T("tag")}}</label>
           <input type="text" id="tag" name="tag" class="form-input up-input" value="" required/>
-          {{ yield errors(name="Tag")}}
         </div>
         <div class="form-group">
           <label class="input-label" for="type">{{ T("tagtype")}}</label>
@@ -21,7 +20,6 @@
             <option value="{{ type }}">{{T("tagtype_" + type) }}</option>
             {{ end }}
           </select>
-          {{ yield errors(name="Type")}}
         </div>
       </div>
       <div class="modal-footer">
