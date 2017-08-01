@@ -191,3 +191,9 @@ td.tr-le, .error-text {
 }
 .tr-cat div.nyaa-cat { border-color: #232324!important; }
 .torrent-preview-table > table { border: 2px solid #1a1a1d; }
+
+.tag.pending { background: #1d6d90; color: #dadada; }
+.tag.pending a.tag-form { color: white; border-left: none; }
+.tag.pending a.tag-form.plus { background-color: #3f7137; }
+.tag.pending a.tag-form.minus { background-color: #9e3131; font-weight: bold;}
+span.tag { box-shadow: 0px 0px 1px 0px #373c42; }

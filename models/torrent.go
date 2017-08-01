@@ -98,7 +98,11 @@ type TorrentJSON struct {
 	Completed    uint32        `json:"completed"`
 	LastScrape   time.Time     `json:"last_scrape"`
 	FileList     []FileJSON    `json:"file_list"`
+<<<<<<< HEAD
 	Tags         Tags          `json:"-"` // not needed in json to reduce db calls
+=======
+	Tags         Tags           `json:"-"` // not needed in json to reduce db calls
+>>>>>>> 7508bc24f19bdc381654f009ba98b5ad225f2317
 }
 
 // Size : Returns the total size of memory recursively allocated for this struct
