@@ -127,14 +127,16 @@ function startupCode() {
   if (document.cookie.includes("newVersion"))
     document.getElementById("commit").className = document.getElementById("commit").innerHTML != "unknown" ? "new" : "wew";
 
-  document.getElementById("dark-toggle").style.display = "inline-block";
+  document.getElementById("dark-toggle").style.display = "initial";
   document.getElementById("dark-toggle").addEventListener("click", toggleTheme);
 	
 	
   var CurrentTheme = document.getElementById("theme").href;
   UserTheme = [CurrentTheme.substring(CurrentTheme.indexOf("/css/") + 5, CurrentTheme.indexOf(".css")), "tomorrow"]
+  //Get current used theme by looking at what's between "/css/" and ".css", aka the filename
   if(UserTheme[0] == UserTheme[1])
 	UserTheme[1] = "g"
+  //If the UserTheme already is tomorrow, then it'll switch to g.css instead of trying to apply tomorrow.css again
 }
 
 function toggleTheme() {
