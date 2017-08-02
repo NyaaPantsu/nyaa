@@ -218,6 +218,8 @@ Modal.Init({
   // order of apparition of the modals
   button: "#tagPopup"
 });
+document.getElementById("tags_list").style.display = "initial";
+document.getElementById("tag-j3").style.display = "initial";
 var tags = []
 document.querySelector("#modal_tag_form form").addEventListener("submit", function(e) {
   var form = e.target
