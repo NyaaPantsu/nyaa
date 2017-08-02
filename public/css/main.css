@@ -747,8 +747,8 @@ html, body {
     .header .nav-btn { padding: 0px 6px!important;}
     .form-input.form-category { width: 50px; margin-right: -5px;}
     span.spacing { display: none!important; }
-    .form-refine .refine-category { width: 50%; }
-    .form-refine .refine-searchbox { width: 48%; }
+    .form-refine .refine-category { width: 45%; }
+    .form-refine .refine-searchbox { width: 55%; }
     .form-refine .refine-searchbox::placeholder { opacity: 1; }
     .language { width: 350px; }
     #footer { margin-bottom: 25px; }
