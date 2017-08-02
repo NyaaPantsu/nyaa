@@ -528,6 +528,10 @@
     "translation": "すべて表示"
   },
   {
+    "id": "delete_all",
+    "translation": "すべて削除"
+  },
+  {
     "id": "filter_remakes",
     "translation": "再頒布を非表示"
   },
@@ -1926,5 +1930,33 @@
   {
     "id": "torrent_age",
     "translation": "{1} 日 {2} 時間前"
+  },
+  {
+    "id": "wrong_tag_type",
+    "translation": "選択されたタグの種類は存在しません"
+  },
+  {
+    "id": "add_tag",
+    "translation": "タグを追加"
+  },
+  {
+    "id": "tagtype",
+    "translation": "タグの種類"
+  },
+  {
+    "id": "tagtype_anidbid",
+    "translation": "AniDB ID"
+  },
+  {
+    "id": "tagtype_vndbid",
+    "translation": "VNDB ID"
+  },
+  {
+    "id": "tagtype_quality",
+    "translation": "画質タグ"
+  },
+  {
+    "id": "torrent_tags",
+    "translation": "Torrent タグ"
   }
 ]
