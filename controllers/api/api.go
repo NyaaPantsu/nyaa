@@ -13,6 +13,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/models/users"
+	"github.com/NyaaPantsu/nyaa/utils/api"
 	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/NyaaPantsu/nyaa/utils/crypto"
 	"github.com/NyaaPantsu/nyaa/utils/log"
@@ -290,12 +291,12 @@ func APIUploadHandler(c *gin.Context) {
 				}
 				messages.AddInfoT("infos", "torrent_uploaded")
 
-				apiResponseHandler(c, torrent.ToJSON())
+				apiUtils.ResponseHandler(c, torrent.ToJSON())
 				return
 			}
 		}
 	}
-	apiResponseHandler(c)
+	apiUtils.ResponseHandler(c)
 }
 
 /**
@@ -357,6 +358,7 @@ func APIUpdateHandler(c *gin.Context) {
 	if !messages.HasErrors() {
 		c.Bind(&update)
 		torrent, err := torrents.FindByID(update.ID)
+		torrent.LoadTags()
 		if err != nil {
 			messages.AddErrorTf("errors", "torrent_not_exist", strconv.Itoa(int(update.ID)))
 		}
@@ -365,7 +367,7 @@ func APIUpdateHandler(c *gin.Context) {
 		}
 		upload.UpdateTorrent(&update, torrent, user).Update(false)
 	}
-	apiResponseHandler(c)
+	apiUtils.ResponseHandler(c)
 }
 
 /**
@@ -504,12 +506,12 @@ func APILoginHandler(c *gin.Context) {
 		user, _, errorUser := cookies.CreateUserAuthentication(c, &b)
 		if errorUser == nil {
 			messages.AddInfo("infos", "Logged")
-			apiResponseHandler(c, user.ToJSON())
+			apiUtils.ResponseHandler(c, user.ToJSON())
 			return
 		}
 		messages.Error(errorUser)
 	}
-	apiResponseHandler(c)
+	apiUtils.ResponseHandler(c)
 }
 
 /**
@@ -554,11 +556,11 @@ func APIProfileHandler(c *gin.Context) {
 	user, _, errorUser := users.FindByID(uint(id))
 	if errorUser == nil {
 		user.APIToken = "" // We erase apitoken from public profile
-		apiResponseHandler(c, user.ToJSON())
+		apiUtils.ResponseHandler(c, user.ToJSON())
 		return
 	}
 	messages.Error(errorUser)
-	apiResponseHandler(c)
+	apiUtils.ResponseHandler(c)
 }
 
 /**
@@ -604,11 +606,11 @@ func APIOwnProfile(c *gin.Context) {
 		client := oauthCtx.GetSession()
 		user, _, _, errorUser := users.FindByUsername(client.GetSubject())
 		if errorUser == nil {
-			apiResponseHandler(c, user.ToJSON())
+			apiUtils.ResponseHandler(c, user.ToJSON())
 			return
 		}
 		messages.Error(errorUser)
-		apiResponseHandler(c)
+		apiUtils.ResponseHandler(c)
 		return
 	}
 	c.AbortWithError(http.StatusBadRequest, errors.New("Can't get your tokens"))
@@ -631,12 +633,12 @@ func APIRefreshTokenHandler(c *gin.Context) {
 		_, errorUser := user.UpdateRaw()
 		if errorUser == nil {
 			messages.AddInfoT("infos", "profile_updated")
-			apiResponseHandler(c, user.ToJSON())
+			apiUtils.ResponseHandler(c, user.ToJSON())
 			return
 		}
 		messages.Error(errorUser)
 	}
-	apiResponseHandler(c)
+	apiUtils.ResponseHandler(c)
 }
 
 // APICheckTokenHandler : Check Token with API
@@ -652,37 +654,5 @@ func APICheckTokenHandler(c *gin.Context) {
 	} else {
 		messages.AddInfo("infos", "Logged")
 	}
-	apiResponseHandler(c, user.ToJSON())
-}
-
-// This function is the global response for every simple Post Request API
-// Please use it. Responses are of the type:
-// {ok: bool, [errors | infos]: ArrayOfString [, data: ArrayOfObjects, all_errors: ArrayOfObjects]}
-// To send errors or infos, you just need to use the Messages Util
-func apiResponseHandler(c *gin.Context, obj ...interface{}) {
-	messages := msg.GetMessages(c)
-
-	var mapOk map[string]interface{}
-	if !messages.HasErrors() {
-		mapOk = map[string]interface{}{"ok": true, "infos": messages.GetInfos("infos")}
-		if len(obj) > 0 {
-			mapOk["data"] = obj
-			if len(obj) == 1 {
-				mapOk["data"] = obj[0]
-			}
-		}
-	} else { // We need to show error messages
-		mapOk = map[string]interface{}{"ok": false, "errors": messages.GetErrors("errors"), "all_errors": messages.GetAllErrors()}
-		if len(obj) > 0 {
-			mapOk["data"] = obj
-			if len(obj) == 1 {
-				mapOk["data"] = obj[0]
-			}
-		}
-		if len(messages.GetAllErrors()) > 0 && len(messages.GetErrors("errors")) == 0 {
-			mapOk["errors"] = "errors"
-		}
-	}
-
-	c.JSON(http.StatusOK, mapOk)
+	apiUtils.ResponseHandler(c, user.ToJSON())
 }

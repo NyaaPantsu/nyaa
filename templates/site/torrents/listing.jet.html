@@ -244,8 +244,8 @@ Templates.Add("torrents.logs.success", function(msg) {
 </script>
 {{end}}
 <!-- JS Template for torrents ajax -->
-<script type="text/javascript">
 {{ include "layouts/partials/torrent_item" }}
+<script type="text/javascript">
 Torrents.LastID = {{ lastID(URL, Models) }};
 if (Torrents.LastID > 0) Torrents.CanRefresh = true;
 </script>

@@ -3,31 +3,51 @@
 // Get the modal
 var Modal = {
   active: 0,
+  // Initialise a modal or multiple ones
+  // takes as parameter an object params:
+  // @param params Object{ elements: NodeList|Node, button: ID(eg. #something)|Class(eg. .something), before: callback, after: callback, close: callback }
   Init: function (params) {
     var elements = params.elements
     var button = (params.button != undefined) ? params.button : false
-    if (elements.innerHTML != undefined) {
-
-    } else {
+    if (elements.innerHTML == undefined) {
       var nbEl = elements.length
       for (var i = 0; i < nbEl; i++) {
         var modal = elements[i];
         this.addModal(modal, button, i, params.before, params.after, params.close)
       }
+    } else {
+      this.addModal(modal, button, i, params.before, params.after, params.close)
     }
   },
+  // addModal prepare a modal (called by Init so you don't have use it)
+  // @param modal Node
+  // @param btn  ID(eg. #something)|Class(eg. .something)
+  // @param i If multiple btn, points out to which btn in the array apply the event
+  // @param before_callback callback called before opening a modal
+  // @param after_callback callback called after opening a modal
+  // @param close_callback callback called after closing a modal
   addModal: function (modal, btn, i, before_callback, after_callback, close_callback) {
     var isBtnArray = false;
     // Get the button that opens the modal
     if (!btn) {
       btn = document.getElementById("modal_btn_" + modal.id)
-    } else if (btn.match(/^#/)) {
+    } else if (typeof(btn) == "string" && btn.match(/^#/)) {
       btn = document.getElementById(btn.substr(1));
-    } else if (btn.match(/^\./)) {
+    } else if (typeof(btn) == "string" && btn.match(/^\./)) {
       btn = document.getElementsByClassName(btn.substr(1));
       isBtnArray = true;
+    } else if (btn instanceof Array) {
+      btn = btn.map(function(val, index) {
+        if (val.match(/^#/)) {
+          return document.getElementById(val.substr(1));
+        } else if (val.match(/^\./)) {
+          return document.getElementsByClassName(val.substr(1))[index];
+        }
+        return document.querySelector(val)
+      })
+      isBtnArray = true;
     } else {
-      console.error("Couldn't find the button")
+      console.error("Couldn't find the button, please provide either a #id, a .classname or an array of #id")
       return
     }
     if ((isBtnArray) && (i > 0) && (btn.length > 0) && (btn.length > i)) {
@@ -67,16 +87,23 @@ var Modal = {
       }
     });
   },
+  // CloseActive closes the opened modal, if any
   CloseActive: function () {
     if (this.active != 0) {
       this.active.style.display = "none";
       this.active = 0;
     }
   },
+  // GetActive return the opened modal div
   GetActive: function () {
     return this.active;
   },
+  // Open opens a modal and closes the active one if any
   Open: function (q) {
+    var activeModal = this.GetActive()
+    if (activeModal != 0) {
+      this.CloseActive()
+    }
     var modal = document.querySelector(q);
     if (modal != undefined) {
       modal.style.display = "none";

@@ -1926,5 +1926,33 @@
   {
     "id": "torrent_age",
     "translation": "{1} days {2} hours ago"
+  },
+  {
+    "id": "wrong_tag_type",
+    "translation": "The tag type selected doesn't exist"
+  },
+  {
+    "id": "add_tag",
+    "translation": "Add a Tag"
+  },
+  {
+    "id": "tagtype",
+    "translation": "Tag Type"
+  },
+  {
+    "id": "tagtype_anidbid",
+    "translation": "Anidb ID"
+  },
+  {
+    "id": "tagtype_vndbid",
+    "translation": "VNdb ID"
+  },
+  {
+    "id": "tagtype_quality",
+    "translation": "Quality tag"
+  },
+  {
+    "id": "torrent_tags",
+    "translation": "Torrent tags"
   }
 ]

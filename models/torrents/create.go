@@ -1,7 +1,10 @@
 package torrents
 
 import (
+	"encoding/json"
 	"time"
+
+	"github.com/NyaaPantsu/nyaa/models/tag"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
@@ -9,6 +12,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
 )
 
+// Create a new torrent based on the uploadform request struct
 func Create(user *models.User, uploadForm *torrentValidator.TorrentRequest) (*models.Torrent, error) {
 	torrent := models.Torrent{
 		Name:        uploadForm.Name,
@@ -51,5 +55,17 @@ func Create(user *models.User, uploadForm *torrentValidator.TorrentRequest) (*mo
 			models.ORM.Create(&file)
 		}
 	}
+
+	var tagsReq models.Tags
+	json.Unmarshal([]byte(uploadForm.Tags), &tagsReq)
+	for _, tag := range tagsReq {
+		tag.Accepted = true
+		tag.TorrentID = torrent.ID
+		tag.Weight = config.Get().Torrents.Tags.MaxWeight
+		tags.New(&tag, &torrent)            // We create new tags
+		torrent.Tags = append(torrent.Tags) // Finally we append it to the torrent
+	}
+	user.IncreasePantsu()
+
 	return &torrent, nil
 }

@@ -92,7 +92,9 @@ func ByQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted 
 			return torrentParam, torrentCache.Torrents, torrentCache.Count, nil
 		}
 		totalHits, tor, err := torrentParam.Find(models.ElasticSearchClient)
-		cache.C.Set(torrentParam.Identifier(), &structs.TorrentCache{tor, int(totalHits)}, 5*time.Minute)
+		if totalHits > 0 {
+			cache.C.Set(torrentParam.Identifier(), &structs.TorrentCache{tor, int(totalHits)}, 5*time.Minute)
+		}
 		// Convert back to non-json torrents
 		return torrentParam, tor, int(totalHits), err
 	}
@@ -248,7 +250,9 @@ func byQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, 
 	} else {
 		tor, err = torrents.FindOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max*(search.Offset-1)))
 	}
-	cache.C.Set(search.Identifier(), &structs.TorrentCache{tor, count}, 5*time.Minute)
+	if len(tor) > 0 {
+		cache.C.Set(search.Identifier(), &structs.TorrentCache{tor, count}, 5*time.Minute)
+	}
 	return
 }
 

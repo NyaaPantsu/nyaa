@@ -1,0 +1,34 @@
+<!-- Modal to add a tag -->
+<div id="modal_tag_form" class="modal"> 
+<!-- Modal content -->
+  <div class="modal-content">
+    <form method="post" action="#">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>{{  T("add_tag") }}</h2>
+      </div>
+      <div class="modal-body">
+        <h4>{{  T("add_tag") }}</h4>
+        <div class="form-group">
+          <label class="input-label" for="tag">{{ T("tag")}}</label>
+          <input type="text" id="tag" name="tag" class="form-input up-input" value="" required/>
+        </div>
+        <div class="form-group">
+          <label class="input-label" for="type">{{ T("tagtype")}}</label>
+          <select name="type" id="type" class="form-input up-input">
+            {{ range _, type := Config.Torrents.Tags.Types }}
+            <option value="{{ type }}">{{T("tagtype_" + type) }}</option>
+            {{ end }}
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span>
+          <button id="confirm_changes" type="submit">{{  T("add")}}</button>
+          <button class="close" onclick="Modal.CloseActive();">{{  T("close")}}</button>
+        </span>
+        <h3>{{  T("are_you_sure") }} </h3>
+      </div>
+    </form>
+  </div>
+</div>

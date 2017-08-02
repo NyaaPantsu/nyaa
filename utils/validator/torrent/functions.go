@@ -3,6 +3,7 @@ package torrentValidator
 import (
 	"encoding/base32"
 	"encoding/hex"
+	"encoding/json"
 	"io"
 	"mime/multipart"
 	"net/url"
@@ -14,9 +15,11 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/categories"
 	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/NyaaPantsu/nyaa/utils/format"
+	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/metainfo"
 	"github.com/NyaaPantsu/nyaa/utils/torrentLanguages"
+	"github.com/NyaaPantsu/nyaa/utils/validator/tag"
 	"github.com/gin-gonic/gin"
 	"github.com/zeebo/bencode"
 )
@@ -26,6 +29,34 @@ func (r *TorrentRequest) ValidateName() error {
 	if len(r.Name) == 0 {
 		return errTorrentNameInvalid
 	}
+	return nil
+}
+
+func (r *TorrentRequest) ValidateTags() error {
+	// We need to parse it to json
+	var tags []tagsValidator.CreateForm
+	err := json.Unmarshal([]byte(r.Tags), &tags)
+	if err != nil {
+		r.Tags = ""
+		return errTorrentTagsInvalid
+	}
+	// and filter out multiple tags with the same type (only keep the first one)
+	var index config.ArrayString
+	var filteredTags []tagsValidator.CreateForm
+	for _, tag := range tags {
+		if index.Contains(tag.Type) {
+			continue
+		}
+		filteredTags = append(filteredTags, tag)
+		index = append(index, tag.Type)
+	}
+	b, err := json.Marshal(filteredTags)
+	if err != nil {
+		r.Tags = ""
+		log.Infof("Couldn't parse to json the tags %v", filteredTags)
+		return errTorrentTagsInvalid
+	}
+	r.Tags = string(b)
 	return nil
 }
 

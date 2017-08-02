@@ -70,6 +70,7 @@ func TorrentsListPanel(c *gin.Context) {
 func TorrentEditModPanel(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
 	torrent, _ := torrents.FindUnscopeByID(uint(id))
+	torrent.LoadTags()
 
 	torrentJSON := torrent.ToJSON()
 	uploadForm := upload.NewTorrentRequest()
@@ -80,6 +81,7 @@ func TorrentEditModPanel(c *gin.Context) {
 	uploadForm.WebsiteLink = string(torrentJSON.WebsiteLink)
 	uploadForm.Description = string(torrentJSON.Description)
 	uploadForm.Languages = torrent.Languages
+	uploadForm.Tags = torrent.Tags.ToJSON(true)
 
 	templates.Form(c, "admin/paneltorrentedit.jet.html", uploadForm)
 }
@@ -90,6 +92,7 @@ func TorrentPostEditModPanel(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
 	messages := msg.GetMessages(c)
 	torrent, _ := torrents.FindUnscopeByID(uint(id))
+	torrent.LoadTags()
 	currentUser := router.GetUser(c)
 	if torrent.ID > 0 {
 		errUp := upload.ExtractEditInfo(c, &uploadForm.Update)
