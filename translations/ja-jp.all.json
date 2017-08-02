@@ -1930,5 +1930,33 @@
   {
     "id": "torrent_age",
     "translation": "{1} 日 {2} 時間前"
+  },
+  {
+    "id": "wrong_tag_type",
+    "translation": "選択されたタグタイプは存在しません"
+  },
+  {
+    "id": "add_tag",
+    "translation": "タグを追加"
+  },
+  {
+    "id": "tagtype",
+    "translation": "タグタイプ"
+  },
+  {
+    "id": "tagtype_anidbid",
+    "translation": "Anidb ID"
+  },
+  {
+    "id": "tagtype_vndbid",
+    "translation": "VNdb ID"
+  },
+  {
+    "id": "tagtype_quality",
+    "translation": "クオリティータグ"
+  },
+  {
+    "id": "torrent_tags",
+    "translation": "Torrent タグ"
   }
 ]
