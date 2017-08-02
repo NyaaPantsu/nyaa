@@ -528,6 +528,10 @@
     "translation": "すべて表示"
   },
   {
+    "id": "delete_all",
+    "translation": "すべて削除"
+  },
+  {
     "id": "filter_remakes",
     "translation": "再頒布を非表示"
   },
