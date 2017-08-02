@@ -9,7 +9,7 @@ T.Add("{{ language.Tag }}", "{{ LanguageName(language, T) }}")
 // {{end}}
 // {{end}}
 Templates.Add("torrents.item", function(torrent) {
-    var tr_class = "torrent-info hidden"
+    var tr_class = "torrent-info"
     if (torrent.status == 2) {
             tr_class += " remake"
     } else if (torrent.status == 3) {
