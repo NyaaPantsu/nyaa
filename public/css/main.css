@@ -660,11 +660,14 @@ html, body {
     .visible-md {
         display: block
     }
-	.user-td.tr-date { width: 100px; }
-	.user-td.tr-size { width: 77px; }
-	.box.refine > form > div { display: inline-grid !important; }
-	.box.refine > form > div > div { width: 100%!important; }
-	.refine-btn { width: 426px!important; }
+    .user-td.tr-date { width: 100px; }
+    .user-td.tr-size { width: 77px; }
+    .box.refine > form > div { display: inline-grid !important; }
+    .box.refine > form > div > div { width: 100%!important; }
+    .refine-btn { width: 426px!important; }
+    .hide-xs {
+        display: none !important;
+    }
 }
 
 @media (max-width: 810px) {
@@ -687,9 +690,6 @@ html, body {
         border-right: 1px solid;
         width: 100% !important;
         margin-bottom: 20px;
-    }
-    .hide-xs {
-        display: none !important;
     }
     .header .h-user {
         width: 46px;
