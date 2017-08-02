@@ -1941,7 +1941,7 @@
   },
   {
     "id": "tagtype",
-    "translation": "タグタイプ"
+    "translation": "タグの種類"
   },
   {
     "id": "tagtype_anidbid",
@@ -1953,7 +1953,7 @@
   },
   {
     "id": "tagtype_quality",
-    "translation": "品質表示タグ"
+    "translation": "画質タグ"
   },
   {
     "id": "torrent_tags",
