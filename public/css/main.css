@@ -726,6 +726,7 @@ html, body {
     th, .home-td, .user-td {
         padding: 2px 2px;
     }
+    .torrent-hr { margin-bottom: 0; }
 }
 
 @media (max-width: 565px) {
