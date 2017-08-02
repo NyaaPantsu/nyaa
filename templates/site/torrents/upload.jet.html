@@ -161,7 +161,7 @@
       <p>{{ T("description_markdown_notice")}}</p>
       <textarea name="desc" id="desc" class="form-input up-input" style="height: 10rem;">{{Form.Description}}</textarea>
 
-      <h3>{{ T("torrent_tags")}}</h3>
+      <h3 id="tah-h3">{{ T("torrent_tags")}}</h3>
       <span id="tags_list"></span>
       <a id="tagPopup" href="#" class="add-tag">{{ T("add") }}</a>
       <input type="hidden" name="tags" id="tags" value="{{ Form.Tags }}">
@@ -219,7 +219,7 @@ Modal.Init({
   button: "#tagPopup"
 });
 document.getElementById("tags_list").style.display = "initial";
-document.getElementById("tag-j3").style.display = "initial";
+document.getElementById("tag-h3").style.display = "initial";
 var tags = []
 document.querySelector("#modal_tag_form form").addEventListener("submit", function(e) {
   var form = e.target
