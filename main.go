@@ -23,7 +23,8 @@ import (
 var buildversion string
 
 // RunServer runs webapp mainloop
-func RunServer(conf *config.Config) {
+func RunServer() {
+	conf := config.Get()
 	// TODO Use config from cli
 	os.Mkdir(databasedumpsController.DatabaseDumpPath, 0700)
 	// TODO Use config from cli
@@ -59,18 +60,17 @@ func RunServer(conf *config.Config) {
 }
 
 func main() {
-	conf := config.Get()
 	if buildversion != "" {
-		conf.Build = buildversion
+		config.Get().Build = buildversion
 	} else {
-		conf.Build = "unknown"
+		config.Get().Build = "unknown"
 	}
 	defaults := flag.Bool("print-defaults", false, "print the default configuration file on stdout")
 	callback := config.BindFlags()
 	flag.Parse()
 	if *defaults {
 		stdout := bufio.NewWriter(os.Stdout)
-		err := conf.Pretty(stdout)
+		err := config.Get().Pretty(stdout)
 		if err != nil {
 			log.Fatal(err.Error())
 		}
@@ -82,18 +82,18 @@ func main() {
 	} else {
 		callback()
 		var err error
-		models.ORM, err = models.GormInit(conf, models.DefaultLogger)
+		models.ORM, err = models.GormInit(models.DefaultLogger)
 		if err != nil {
 			log.Fatal(err.Error())
 		}
 		if config.Get().Search.EnableElasticSearch {
 			models.ElasticSearchClient, _ = models.ElasticSearchInit()
 		}
-		err = publicSettings.InitI18n(conf.I18n, cookies.NewCurrentUserRetriever())
+		err = publicSettings.InitI18n(config.Get().I18n, cookies.NewCurrentUserRetriever())
 		if err != nil {
 			log.Fatal(err.Error())
 		}
-		err = search.Configure(&conf.Search)
+		err = search.Configure(&config.Get().Search)
 		if err != nil {
 			log.Fatal(err.Error())
 		}
@@ -104,6 +104,6 @@ func main() {
 				log.Fatal(err.Error())
 			}
 		}
-		RunServer(conf)
+		RunServer()
 	}
 }

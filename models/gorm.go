@@ -43,8 +43,8 @@ func ElasticSearchInit() (*elastic.Client, error) {
 }
 
 // GormInit init gorm ORM.
-func GormInit(conf *config.Config, logger Logger) (*gorm.DB, error) {
-
+func GormInit(logger Logger) (*gorm.DB, error) {
+	conf := config.Get()
 	db, openErr := gorm.Open(conf.DBType, conf.DBParams)
 	if openErr != nil {
 		log.CheckError(openErr)

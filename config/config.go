@@ -60,7 +60,16 @@ func init() {
 func Reload() {
 	fmt.Println("Config reload")
 	fmt.Println(Configpaths)
-	configor.Load(Get(), Configpaths...)
+	newConf := &Config{
+		DBType:    Get().DBType,
+		Host:      Get().Host,
+		Port:      Get().Port,
+		DBParams:  Get().DBParams,
+		DBLogMode: Get().DBLogMode,
+	}
+	config = newConf
+	configor.Load(config, Configpaths...)
+	fmt.Printf("Port: %d", Get().Port)
 }
 
 // BindFlags returns a function which is to be used after
