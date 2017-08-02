@@ -528,6 +528,10 @@
     "translation": "Tous les torrents"
   },
   {
+    "id": "delete_all",
+    "translation": "Supprimer tout"
+  },
+  {
     "id": "filter_remakes",
     "translation": "Filtrer les remakes"
   },
@@ -1926,5 +1930,33 @@
   {
     "id": "torrent_age",
     "translation": "Il y a {1} jour(s) et {2} heure(s)"
+  },
+  {
+    "id": "wrong_tag_type",
+    "translation": "Le type de tag sélectionné n'existe pas."
+  },
+  {
+    "id": "add_tag",
+    "translation": "Ajouter un tag"
+  },
+  {
+    "id": "tagtype",
+    "translation": "Type de tag"
+  },
+  {
+    "id": "tagtype_anidbid",
+    "translation": "ID AniDB"
+  },
+  {
+    "id": "tagtype_vndbid",
+    "translation": "ID VNDB"
+  },
+  {
+    "id": "tagtype_quality",
+    "translation": "Tag de qualité"
+  },
+  {
+    "id": "torrent_tags",
+    "translation": "Tags du torrent"
   }
 ]
