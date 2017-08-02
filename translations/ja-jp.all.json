@@ -1945,15 +1945,15 @@
   },
   {
     "id": "tagtype_anidbid",
-    "translation": "Anidb ID"
+    "translation": "AniDB ID"
   },
   {
     "id": "tagtype_vndbid",
-    "translation": "VNdb ID"
+    "translation": "VNDB ID"
   },
   {
     "id": "tagtype_quality",
-    "translation": "クオリティータグ"
+    "translation": "品質表示タグ"
   },
   {
     "id": "torrent_tags",
