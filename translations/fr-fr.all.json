@@ -1,11 +1,11 @@
-[  
+[
   {
     "id": "rules",
     "translation": "Règlement"
   },
   {
     "id": "no_cp",
-    "translation": "Aucune pédopornographie"
+    "translation": "Aucune pédopornographie tolérée"
   },
   {
     "id": "asia",
@@ -194,6 +194,10 @@
   {
     "id": "error_500",
     "translation": "Erreur 500"
+  },
+  {
+    "id": "err_no_results",
+    "translation": "Aucun résultat trouvé"
   },
   {
     "id": "upload",
@@ -522,6 +526,10 @@
   {
     "id": "show_all",
     "translation": "Tous les torrents"
+  },
+  {
+    "id": "delete_all",
+    "translation": "Supprimer tout"
   },
   {
     "id": "filter_remakes",
@@ -928,12 +936,24 @@
     "translation": "Supprimer le signalement"
   },
   {
+    "id": "comment_deleted",
+    "translation": "Le commentaire a été supprimé."
+  },
+  {
     "id": "comment_deleted_by",
     "translation": "Le commentaire n° %s de %s a été supprimé par %s."
   },
   {
     "id": "comment_edited_by",
     "translation": "Le commentaire n° %s de %s a été édité par %s."
+  },
+  {
+    "id": "oauth_client_deleted",
+    "translation": "Le client OAuth de l'API a été supprimé."
+  },
+  {
+    "id": "oauth_client_deleted_by",
+    "translation": "Le client OAuth de l'API n° %s de %s a été supprimé par %s."
   },
   {
     "id": "no_action_exist",
@@ -1437,7 +1457,7 @@
   },
   {
     "id": "error_less_array",
-    "translation":"%s doit contenir moins de %s items"
+    "translation": "%s doit contenir moins de %s items"
   },
   {
     "id": "error_less_length",
@@ -1445,7 +1465,7 @@
   },
   {
     "id": "error_less_number",
-    "translation":"%s doit être inférieur à %s"
+    "translation": "%s doit être inférieur à %s"
   },
   {
     "id": "error_less_equal_date",
@@ -1830,5 +1850,113 @@
   {
     "id": "torrent_preview",
     "translation": "Prévisualisez votre torrent"
+  },
+  {
+    "id": "update_client_failed",
+    "translation": "La mise à jour du client a échoué."
+  },
+  {
+    "id": "update_client_success",
+    "translation": "Le client a été mis à jour avec succès !"
+  },
+  {
+    "id": "update_client_panel",
+    "translation": "Mettre un jour un client"
+  },
+  {
+    "id": "create_client_success",
+    "translation": "Vous avez crée le client avec succès !"
+  },
+  {
+    "id": "create_client_failed",
+    "translation": "La création du client a échoué."
+  },
+  {
+    "id": "create_client_panel",
+    "translation": "Créer un nouveau client"
+  },
+  {
+    "id": "redirect_uri",
+    "translation": "URI de redirection"
+  },
+  {
+    "id": "grant_types",
+    "translation": "Grant Types"
+  },
+  {
+    "id": "response_types",
+    "translation": "Response Types"
+  },
+  {
+    "id": "scope",
+    "translation": "Scopes"
+  },
+  {
+    "id": "owner",
+    "translation": "Propriétaire"
+  },
+  {
+    "id": "policy_uri",
+    "translation": "Politique de l'URI"
+  },
+  {
+    "id": "tos_uri",
+    "translation": "Conditions d'utilisation de l'URI"
+  },
+  {
+    "id": "logo_uri",
+    "translation": "Logo de l'URI"
+  },
+  {
+    "id": "contacts",
+    "translation": "Adresses email du propriétaire"
+  },
+  {
+    "id": "clients_list",
+    "translation": "Clients OAuth de l'API"
+  },
+  {
+    "id": "add",
+    "translation": "Ajouter"
+  },
+  {
+    "id": "remove",
+    "translation": "Supprimer"
+  },
+  {
+    "id": "secret",
+    "translation": "Secret client"
+  },
+  {
+    "id": "torrent_age",
+    "translation": "Il y a {1} jour(s) et {2} heure(s)"
+  },
+  {
+    "id": "wrong_tag_type",
+    "translation": "Le type de tag sélectionné n'existe pas."
+  },
+  {
+    "id": "add_tag",
+    "translation": "Ajouter un tag"
+  },
+  {
+    "id": "tagtype",
+    "translation": "Type de tag"
+  },
+  {
+    "id": "tagtype_anidbid",
+    "translation": "ID AniDB"
+  },
+  {
+    "id": "tagtype_vndbid",
+    "translation": "ID VNDB"
+  },
+  {
+    "id": "tagtype_quality",
+    "translation": "Tag de qualité"
+  },
+  {
+    "id": "torrent_tags",
+    "translation": "Tags du torrent"
   }
 ]

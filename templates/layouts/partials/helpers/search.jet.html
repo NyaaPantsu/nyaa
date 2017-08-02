@@ -1,67 +1,77 @@
 {{ import "flags" }}
 {{block search_common()}}
-  <select name="c" class="form-input hide-xs form-category">
-    <option value="_">{{ T("all_categories")}}</option>
-      {{ range _, cat := GetCategories(true, true) }}
-      <option value="{{ cat.ID }}" {{if Search.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
-      {{ end }}
-  </select>
-  <input type="hidden" name="userID" value="{{ Search.UserID }}">
+<select name="c" class="form-input form-category">
+  <option value="_">{{ T("all_categories")}}</option>
+  {{ range _, cat := GetCategories(true, true) }}
+  <option value="{{ cat.ID }}" {{if Search.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
+  {{ end }}
+</select>
+<input type="hidden" name="userID" value="{{ Search.UserID }}"/>
 {{end}}
 {{block search_button() }}
-    <input class="form-input search-box" name="q" placeholder="{{ T("search")}}" type="text" value="{{Search.NameLike}}">
-    <button type="submit" class="form-input icon-search"></button>
-    <button type="submit" class="form-input refine" name="refine" value="1">{{  T("refine")}}</button>
+<input class="form-input search-box" name="q" placeholder="{{ T("search")}}" type="text" value="{{Search.NameLike}}"/>
+<button type="submit" class="form-input icon-search"></button>
+<button type="submit" class="form-input refine" name="refine" value="1">{{  T("refine")}}</button>
 {{end}}
 {{block search_refine(url="") }}
 <div style="text-align:left;{{ if !Search.ShowRefine }}display:none;{{ end }}" class="box refine">
-    <h3>{{ T("refine_search") }}</h3>
-    <form style="display: grid;" method="GET" action="{{ url }}">
-	    <span class="form-refine"><span class="spacing">{{ T("search_for") }}:</span>
-            <input type="text" class="form-input refine-searchbox" size="30" name="q" value="{{Search.NameLike}}"/><select name="c" class="form-input refine-category">
-		    <option value="_">{{ T("all_categories")}}</option>
-		      {{ range _, cat := GetCategories(true, true) }}
-		      <option value="{{ cat.ID }}" {{if Search.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
-		      {{ end }}
-		  </select>
-        </span>
-	    <span class="form-refine"><span class="spacing">{{ T("show") }}:</span>
-		<select name="s" class="form-input spacing" style="max-width: 21%;">
-                <option value="0">{{ T("show_all")}}</option>
-                <option value="2" {{if Search.Status == 2}}selected{{end}}>{{ T("filter_remakes")}}</option>
-                <option value="3" {{if Search.Status == 3}}selected{{end}}>{{ T("trusted")}}</option>
-                <option value="4" {{if Search.Status == 4}}selected{{end}}>A+</option>
-            </select>
-            Limit: <input type="number" name="limit" value="{{ Navigation.MaxItemPerPage }}" class="form-input spacing" min="1" max="300">
-		    From: <input type="number" name="userID" placeholder="UserID" value="{{ Search.UserID > 0 ? Search.UserID : ""}}" class="form-input refine-userid">
-        </span>
-	    <span class="form-refine"><span class="spacing">{{ T("between")}}</span>
-            <input class="form-input" size="7" name="minSize" type="text" value="{{Search.MinSize}}">
-            {{ T("and")}}
-            <input size="7" class="form-input" name="maxSize" type="text" value="{{Search.MaxSize}}">
-            <select name="sizeType" class="form-input">
-                <option value="b"{{if Search.SizeType == "b"}} selected{{end}}>B</option>
-                <option value="k"{{if Search.SizeType == "k"}} selected{{end}}>KiB</option>
-                <option value="m"{{if Search.SizeType == "m"}} selected{{end}}>MiB</option>
-                <option value="g"{{if Search.SizeType == "g"}} selected{{end}}>GiB</option>
-            </select>
-            {{  T("large")}}
-        </span>
-	    <span class="form-refine"><span class="spacing">{{ T("between")}}</span>
-            <input class="form-input" size="7" name="fromDate" type="text" value="{{Search.FromDate}}">
-            {{ T("and")}}
-            <input class="form-input" size="7" name="toDate" type="text" value="{{Search.ToDate}}">
-            <select name="dateType" class="form-input">
-                <option value="d"{{if Search.DateType == "d"}} selected{{end}}>{{  T("days")}}</option>
-                <option value="m"{{if Search.DateType == "m"}} selected{{end}}>{{  T("months")}}</option>
-                <option value="y"{{if Search.DateType == "y"}} selected{{end}}>{{  T("years")}}</option>
-            </select>
-            {{ T("old")}}.
-        </span>
-        <div name="language" class="form-refine form-input language">
-            {{ yield flagList(languages=GetTorrentLanguages(), selected=Search.Languages, inputname="lang")}}
-        </div>
-        <button type="submit" class="form-input refine-btn" name="refine" value="1">{{  T("refine")}}</button>
-    </form>
+  </span>
+  <form style="display: grid;" method="GET" action="{{ url }}">
+    <h3 style="margin-top: 2px;">{{ T("refine_search") }}</h3>
+	<div>
+	  <div class="refine-container-1">
+    <span class="form-refine">
+      <span class="spacing">{{ T("search_for") }}:</span>
+      <input type="text" class="form-input refine-searchbox" size="30" name="q" value="{{Search.NameLike}}" placeholder="{{ T("search_for") }}"/><select name="c" class="form-input refine-category"/>
+      <option value="_">{{ T("all_categories")}}</option>
+      {{ range _, cat := GetCategories(true, true) }}
+      <option value="{{ cat.ID }}" {{if Search.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
+      {{ end }}
+    </select>
+  </span>
+  <span class="form-refine">
+    <span class="spacing">{{ T("show") }}:</span>
+    <select name="s" class="form-input spacing" style="max-width: 21%;min-width: 100px;">
+      <option value="0">{{ T("show_all")}}</option>
+      <option value="2" {{if Search.Status == 2}}selected{{end}}>{{ T("filter_remakes")}}</option>
+      <option value="3" {{if Search.Status == 3}}selected{{end}}>{{ T("trusted")}}</option>
+      <option value="4" {{if Search.Status == 4}}selected{{end}}>A+</option>
+    </select>
+    Limit: <input type="number" name="limit" value="{{ Navigation.MaxItemPerPage }}" class="form-input spacing" min="1" max="300"/>
+    From: <input type="number" name="userID" placeholder="UserID" value="{{ Search.UserID > 0 ? Search.UserID : ""}}" class="form-input refine-userid"/>
+  </span>
+  <span class="form-refine">
+    <span class="spacing">{{ T("between")}}</span>
+    <input class="form-input" size="7" name="minSize" type="text" value="{{Search.MinSize}}"/>
+    {{ T("and")}}
+    <input size="7" class="form-input" name="maxSize" type="text" value="{{Search.MaxSize}}"/>
+    <select name="sizeType" class="form-input">
+      <option value="b"{{if Search.SizeType == "b"}} selected{{end}}>B</option>
+      <option value="k"{{if Search.SizeType == "k"}} selected{{end}}>KiB</option>
+      <option value="m"{{if Search.SizeType == "m"}} selected{{end}}>MiB</option>
+      <option value="g"{{if Search.SizeType == "g"}} selected{{end}}>GiB</option>
+    </select>
+    {{  T("large")}}
+  </span>
+  <span class="form-refine" style="margin-bottom: 2px;">
+    <span class="spacing">{{ T("between")}}</span>
+    <input class="form-input" size="7" name="fromDate" type="text" value="{{Search.FromDate}}"/>
+    {{ T("and")}}
+    <input class="form-input" size="7" name="toDate" type="text" value="{{Search.ToDate}}"/>
+    <select name="dateType" class="form-input">
+      <option value="d"{{if Search.DateType == "d"}} selected{{end}}>{{  T("days")}}</option>
+      <option value="m"{{if Search.DateType == "m"}} selected{{end}}>{{  T("months")}}</option>
+      <option value="y"{{if Search.DateType == "y"}} selected{{end}}>{{  T("years")}}</option>
+    </select>
+    {{ T("old")}}.
+	  </div>
+	  <div class="refine-container-2">
+		  <div name="language" class="form-refine form-input language">
+			{{ yield flagList(languages=GetTorrentLanguages(), selected=Search.Languages, inputname="lang", id="refine-search")}}
+		  </div>
+		  <button type="submit" class="form-input refine-btn" name="refine" value="1">{{  T("refine")}}</button>
+	  </div>
+	</div>
+</form>
 </div>
 {{end}}

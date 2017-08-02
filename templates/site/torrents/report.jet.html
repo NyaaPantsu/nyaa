@@ -4,22 +4,30 @@
 {{block title()}}{{  T("report_torrent_number", Form.ID) }}{{end}}
 {{block content_body()}}
 <div class="box">
-    <div class="user-form">
-        <h1>{{  T("report_torrent_number", Form.ID) }}</h1>
-        <form role="form" method="POST">
-            {{ yield csrf_field() }}
-            <div style="text-align:left">
-                <h3>{{  T("report_type") }}</h3>
-                <input type="radio" name="report_type" value="illegal_content" id="illegal" required> <label for="illegal">{{  T("illegal_content") }}</label><br />
-                <input type="radio" name="report_type" value="spam_garbage" id="spam" required> <label for="spam">{{  T("spam_garbage") }}</label><br />
-                <input type="radio" name="report_type" value="wrong_category" id="wrongcat" required> <label for="wrongcat">{{  T("wrong_category") }}</label><br />
-                <input type="radio" name="report_type" value="duplicate_deprecated" id="dup" required> <label for="dup">{{  T("duplicate_deprecated") }}</label><br />
-            </div>
-            <div class="comment-captcha">
-                {{yield captcha(captchaid=Form.CaptchaID)}}
-            </div>
-            <input id="confirm_changes"  class="form-input up-input btn-green" name="submit_report" type="submit" value="{{  T("yes")}}">
-        </form>
-    </div>
+  <div class="user-form">
+    <h1>{{  T("report_torrent_number", Form.ID) }}</h1>
+    <form role="form" method="POST">
+      {{ yield csrf_field() }}
+      <div style="text-align:left">
+        <h3>{{  T("report_type") }}</h3>
+        <input type="radio" name="report_type" value="illegal_content" id="illegal" required/>
+        <label for="illegal">{{  T("illegal_content") }}</label>
+        <br />
+        <input type="radio" name="report_type" value="spam_garbage" id="spam" required/>
+        <label for="spam">{{  T("spam_garbage") }}</label>
+        <br />
+        <input type="radio" name="report_type" value="wrong_category" id="wrongcat" required/>
+        <label for="wrongcat">{{  T("wrong_category") }}</label>
+        <br />
+        <input type="radio" name="report_type" value="duplicate_deprecated" id="dup" required/>
+        <label for="dup">{{  T("duplicate_deprecated") }}</label>
+        <br />
+      </div>
+      <div class="comment-captcha">
+        {{yield captcha(captchaid=Form.CaptchaID)}}
+      </div>
+      <input id="confirm_changes"  class="form-input up-input btn-green" name="submit_report" type="submit" value="{{  T("yes")}}"/>
+    </form>
+  </div>
 </div>
 {{end}}

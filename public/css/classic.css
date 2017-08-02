@@ -1,91 +1,175 @@
 /* This is a placeholder so the classic theme can be used */
+
+
 /* Ideally, the decorative parts of main.css would be here instead of there. This will have to do for now though */
-body { color: #333; background: #ededed; }
 
-.header, .box, .pagination li, .user-menu { box-shadow: 1px 3px 4px rgba(0,0,0,0.1) }
+body {
+    color: #333;
+    background: #ededed;
+}
 
+.header, .box, .pagination li, .user-menu {
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.1)
+}
 
 a {
-	color: #196759;
-	pointer-events: auto;
+    color: #196759;
+    pointer-events: auto;
 }
-a:hover { color:  #238BC7; }
+
+a:hover {
+    color: #238BC7;
+}
 
 .header {
-	background: #111; /* Old browsers */
-	background:    -moz-linear-gradient(bottom, #222 0%, #111 100%);
-	background: -webkit-linear-gradient(bottom, #222 0%, #111 100%);
-	background:         linear-gradient(to top, #222 0%, #111 100%);
-	border-color: #444;
+    background: #111;
+    /* Old browsers */
+    background: -moz-linear-gradient(bottom, #222 0%, #111 100%);
+    background: -webkit-linear-gradient(bottom, #222 0%, #111 100%);
+    background: linear-gradient(to top, #222 0%, #111 100%);
+    border-color: #444;
 }
-.header .nav-btn { color: #ccc; }
-.header .nav-btn:hover { color: #d5d5d5; }
+
+.header .nav-btn {
+    color: #ccc;
+}
+
+.header .nav-btn:hover {
+    color: #d5d5d5;
+}
 
 .box, .pagination li {
-	background: rgba(255,255,255, 0.8);
-	border-color: #BBC9CF !important;
+    background: rgba(255, 255, 255, 0.8);
+    border-color: #BBC9CF !important;
+}
+
+.form-input {
+    border-color: #BBC9CF !important;
+    background: #fafafa;
+    color: #666;
+}
+.form-input.refine {
+    border-color: rgb(74, 92, 193)!important;
+    background: rgb(74, 92, 193);
+    color: white;
 }
 
 
-.form-input { border-color: #BBC9CF !important; background: #fafafa; color: #666; }
+.btn:hover, .up-btn:hover {
+    background: rgba(192, 192, 192, 0.2);
+}
 
-.btn:hover, .up-btn:hover { background: rgba(192,192,192,0.2); }
-
-.form-input:focus { box-shadow: 0 0 5px #fff; }
-
+.form-input:focus {
+    box-shadow: 0 0 5px #fff;
+}
 
 select:after {
-	content: "AAAAA";
+    content: "AAAAA";
 }
 
 .header .h-user .user-avatar {
-	background: #111;
-	border-color: #444;
+    background: #111;
+    border-color: #444;
 }
 
-table thead { background: #fff; }
+table thead {
+    background: #fff;
+}
 
+th a {
+    color: #6E96AA;
+}
 
-th a { color: #6E96AA; }
-th { border-color:  #ddd !important; }
-td { border-color:  #ccc !important; }
+th {
+    border-color: #ddd !important;
+}
 
-td.tr-se, .success-text { color: #22A243; }
-td.tr-le, .error-text { color: #E84C4C; }
+td {
+    border-color: #ccc !important;
+}
+
+td.tr-se, .success-text {
+    color: #22A243;
+}
+
+td.tr-le, .error-text {
+    color: #E84C4C;
+}
 
 .btn-red {
-	background-color: #E84C4C;
-	color: #E8E8E8;
+    background-color: #E84C4C;
+    color: #E8E8E8!important;
 }
 
 .btn-red:hover {
-	color: #E8E8E8;
+    color: #E8E8E8;
 }
 
-.torrent-info-box > p > a, .torrent-info-box > div > a, #description-box a {
+.torrent-info-box>p>a, .torrent-info-box>div>a, #description-box a {
     color: #1fa4d0;
 }
-.torrent-info-box > p > a:hover, .torrent-info-box > div > a:hover, #description-box a:hover  { color: #1fa4d0; }
+
+.torrent-info-box>p>a:hover, .torrent-info-box>div>a:hover, #description-box a:hover {
+    color: #1fa4d0;
+}
+
 
 /* Original Nyaa colors, do NOT change! */
-.aplus, .btn-blue { background: #60B0F0; }
-.trusted, .btn-green { background: #98D9A8; }
-.remake, .btn-orange { background: #F0B080; }
 
-.pagination .active { background: #d5d5d5; color: #222; }
-.pagination .disabled { color: #d5d5d5; cursor: unset; }
+.aplus, .btn-blue {
+    background: #60B0F0;
+}
 
-.sukebei { color: #9C7575; }
-.sukebei a { color: #893636; }
-.sukebei a:hover { color:  #C7235D; }
-.sukebei th { color: #9C7575; }
-.sukebei th a { color: #893636; }
-.sukebei #mascot { background-image: url('/img/mafuyu.svg'); background-size: 100%; }
+.trusted, .btn-green {
+    background: #98D9A8;
+}
 
-.form-input.language { background-color: #f5f5f5; }
+.remake, .btn-orange {
+    background: #F0B080;
+}
+
+.pagination .active {
+    background: #d5d5d5;
+    color: #222;
+}
+
+.pagination .disabled {
+    color: #d5d5d5;
+    cursor: unset;
+}
+
+.sukebei {
+    color: #9C7575;
+}
+
+.sukebei a {
+    color: #893636;
+}
+
+.sukebei a:hover {
+    color: #C7235D;
+}
+
+.sukebei th {
+    color: #9C7575;
+}
+
+.sukebei th a {
+    color: #893636;
+}
+
+.sukebei #mascot {
+    background-image: url('/img/mafuyu.svg');
+    background-size: 100%;
+}
 
 #announce {
 	color: #3a4249;
 	background-color: #fff5e7;
 	border-color: #ecd2ae;
 }
+
+.form-input.language {
+    background-color: #f5f5f5;
+}
+.torrent-preview-table>table { border: 3px solid #ededed; }

@@ -1,108 +1,138 @@
 {{ extends "layouts/index_admin" }}
-{{ block title()}}{{  T("moderation_overview") }}{{end}}
-{{ block content_body()}}
+{{ block title()}}{{ T("moderation_overview") }}{{end}}
+ {{ block content_body()}}
 <div class="results box">
-<h3 id="torrents">{{  T("last_torrents") }}</h3>
-<table class="table">
+  <h3 id="torrents">{{  T("last_torrents") }}</h3>
+  <table class="table">
     <thead class="torrent-info">
-        <tr>
-            <th class="tr-name">{{  T("name") }}</th>
-            <th class="tr-actions">{{  T("username") }}</th>
-            <th class="tr-actions">{{  T("actions") }}</th>
-        </tr>
+      <tr>
+        <th class="tr-name">{{ T("name") }}</th>
+        <th class="tr-actions">{{ T("username") }}</th>
+        <th class="tr-actions">{{ T("actions") }}</th>
+      </tr>
     </thead>
     <tbody>
-    {{range Torrents}}
-    <tr>
-        <td class="tr-name home-td"><a href="/view/{{.ID }}">{{ .Name }}</a> <a href="/mod/torrent?id={{.ID}}" class="form-input btn-blue float-right">{{  T("edit") }}</a></td>
-        <td class="tr-size home-td"><a href="/mod/torrents?userID={{.UploaderID}}">{{ .UploaderID }}</a></td>
-        <td class="tr-size home-td"><a href="/mod/torrent/delete?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</a></td>
-    </tr>
-    {{end}}
+      {{range Torrents}}
+      <tr>
+        <td class="tr-name home-td">
+          <a href="/view/{{.ID }}">{{ .Name }}</a>
+          <a href="/mod/torrent?id={{.ID}}" class="form-input btn-blue float-right">{{  T("edit") }}</a>
+        </td>
+        <td class="tr-size home-td">
+          <a href="/mod/torrents?userID={{.UploaderID}}">{{ .UploaderID }}</a>
+        </td>
+        <td class="tr-size home-td">
+          <a href="/mod/torrent/delete?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;">
+            <i class="icon-trash"></i> {{  T("delete") }}
+          </a>
+        </td>
+      </tr>
+      {{end}}
     </tbody>
-</table>
-      <nav class="adminNav" aria-label="Page navigation">
-          <ul class="pagination">
-          	<li><a href="/mod/torrents">More</a></li>
-          </ul>
-      </nav>
-<hr />
+  </table>
+  <nav class="adminNav" aria-label="Page navigation">
+    <ul class="pagination">
+      <li><a href="/mod/torrents">{{T("more")}}</a></li>
+    </ul>
+  </nav>
+  <hr />
 
-<h3 id="torrents">{{ T("last_reports") }}</h3>
-<table class="table">
+  <h3 id="torrents">{{ T("last_reports") }}</h3>
+  <table class="table">
     <thead class="torrent-info">
-        <tr>
-            <th class="tr-name">{{ T("name") }}</th>
-            <th class="tr-actions">{{ T("username") }}</th>
-            <th class="tr-actions">{{ T("reason") }}</th>
-            <th class="tr-actions">{{ T("actions") }}</th>
-        </tr>
+      <tr>
+        <th class="tr-name">{{ T("name") }}</th>
+        <th class="tr-actions">{{ T("username") }}</th>
+        <th class="tr-actions">{{ T("reason") }}</th>
+        <th class="tr-actions">{{ T("actions") }}</th>
+      </tr>
     </thead>
     <tbody>
-    {{range TorrentReports}}
-    <tr>
-        <td class="tr-name home-td"><a href="/view/{{.Torrent.ID }}">{{ .Torrent.Name }}</a> <a href="/mod/torrent?id={{.Torrent.ID}}" class="form-input btn-blue float-right">{{  T("edit") }}</a></td>
+      {{range TorrentReports}}
+      <tr>
+        <td class="tr-name home-td">
+          <a href="/view/{{.Torrent.ID }}">{{ .Torrent.Name }}</a>
+          <a href="/mod/torrent?id={{.Torrent.ID}}" class="form-input btn-blue float-right">{{  T("edit") }}</a>
+        </td>
         <td class="tr-size home-td">{{.User.Username}}</td>
         <td class="tr-actions home-td">{{ getReportDescription(.Description,T) }}</td>
-        <td class="tr-actions home-td"><a href="/mod/torrent/delete?id={{ .ID }}" class="form-input btn-red"><i class="icon-trash"></i> {{  T("delete") }}</a></td>
-    </tr>
-    {{end}}
+        <td class="tr-actions home-td">
+          <a href="/mod/torrent/delete?id={{ .ID }}" class="form-input btn-red">
+            <i class="icon-trash"></i> {{  T("delete") }}</a>
+        </td>
+      </tr>
+      {{end}}
     </tbody>
-</table>
-      <nav class="adminNav" aria-label="Page navigation">
-          <ul class="pagination">
-              <li><a href="/mod/reports">{{ T("more") }}</a></li>
-          </ul>
-      </nav>
-<hr />
-<h3 id="users">{{  T("last_users") }}</h3>
-<table class="table">
+  </table>
+  <nav class="adminNav" aria-label="Page navigation">
+    <ul class="pagination">
+      <li><a href="/mod/reports">{{ T("more") }}</a></li>
+    </ul>
+  </nav>
+  <hr />
+  <h3 id="users">{{  T("last_users") }}</h3>
+  <table class="table">
     <thead class="torrent-info">
-        <tr>
-            <th class="tr-name">{{ T("username") }}</th>
-            <th class="tr-actions">{{ T("actions") }}</th>
-        </tr>
+      <tr>
+        <th class="tr-name">{{ T("username") }}</th>
+        <th class="tr-actions">{{ T("actions") }}</th>
+      </tr>
     </thead>
     <tbody>
-    {{range Users}}
-    <tr>
-        <td class="tr-name home-td"><a href="/user/{{.ID}}/{{.Username }}">{{ .Username }}</a></td>
+      {{range Users}}
+      <tr>
+        <td class="tr-name home-td">
+          <a href="/user/{{.ID}}/{{.Username }}">{{ .Username }}</a>
+        </td>
         <td class="tr-size home-td">{{if .ID > 0}}
-        <a href="/user/{{.ID}}/{{.Username }}?delete" class="form-input btn-red" onclick="if (!confirm('{{ T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</a>
-        {{end}}</td>
-    </tr>
-    {{end}}
+          <a href="/user/{{.ID}}/{{.Username }}?delete" class="form-input btn-red" onclick="if (!confirm('{{ T(" are_you_sure ") }}')) return false;">
+            <i class="icon-trash"></i> {{  T("delete") }}
+          </a>
+          {{end}}
+        </td>
+      </tr>
+      {{end}}
     </tbody>
-</table>
-      <nav class="adminNav" aria-label="Page navigation">
-          <ul class="pagination">
-<li><a href="/mod/users">{{  T("more") }} </a></li>
-          </ul>
-      </nav>
-<hr />
-<h3 id="comments">{{  T("last_comments") }}</h3>
-<table class="table">
+  </table>
+  <nav class="adminNav" aria-label="Page navigation">
+    <ul class="pagination">
+      <li><a href="/mod/users">{{  T("more") }} </a></li>
+    </ul>
+  </nav>
+  <hr />
+  <h3 id="comments">{{  T("last_comments") }}</h3>
+  <table class="table">
     <thead class="torrent-info">
-        <tr>
-            <th class="tr-name">{{  T("comments") }}</th>
-            <th class="tr-actions">{{  T("username") }}</th>
-            <th class="tr-actions">{{  T("actions") }}</th>
-        </tr>
+      <tr>
+        <th class="tr-name">{{ T("comments") }}</th>
+        <th class="tr-actions">{{ T("username") }}</th>
+        <th class="tr-actions">{{ T("actions") }}</th>
+      </tr>
     </thead>
     <tbody>
-    {{range Comments}}
-    <tr>
-        <td class="tr-name home-td"><a href="/mod/comment?id={{.ID}}">{{ .Content }}</a></td>
-        <td class="tr-size home-td"><a href="/mod/comment?id={{.ID}}">{{if .User }}{{ .User.Username }}{{else}}れんちょん{{end}}</a></td>
-        <td class="tr-size home-td"><a href="/mod/comment/delete?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</a></td>
-    </tr>
-    {{end}}
+      {{range Comments}}
+      <tr>
+        <td class="tr-name home-td">
+          <a href="/mod/comment?id={{.ID}}">{{ .Content }}</a>
+        </td>
+        <td class="tr-size home-td">
+          <a href="/mod/comment?id={{.ID}}">
+            {{if .User }}{{ .User.Username }}{{else}}れんちょん{{end}}
+          </a>
+        </td>
+        <td class="tr-size home-td">
+          <a href="/mod/comment/delete?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;">
+            <i class="icon-trash"></i> {{  T("delete") }}
+          </a>
+        </td>
+      </tr>
+      {{end}}
     </tbody>
-</table>
-      <nav class="adminNav" aria-label="Page navigation">
-          <ul class="pagination">
-              <li><a href="/mod/comments">{{  T("more") }}</a></li>
-          </ul>
-      </nav>
+  </table>
+  <nav class="adminNav" aria-label="Page navigation">
+    <ul class="pagination">
+      <li><a href="/mod/comments">{{  T("more") }}</a></li>
+    </ul>
+  </nav>
 </div>
 {{end}}

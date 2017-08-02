@@ -105,6 +105,15 @@ func FindByID(id uint) (*models.User, int, error) {
 	return user, http.StatusOK, nil
 }
 
+// FindRawByID retrieves a user by ID without anything.
+func FindRawByID(id uint) (*models.User, int, error) {
+	var user = &models.User{}
+	if models.ORM.Last(user, id).RecordNotFound() {
+		return user, http.StatusNotFound, errors.New("user_not_found")
+	}
+	return user, http.StatusOK, nil
+}
+
 func SessionByID(id uint) (*models.User, int, error) {
 	var user = &models.User{}
 	if models.ORM.Preload("Notifications").Where("user_id = ?", id).First(user).RecordNotFound() { // We only load unread notifications

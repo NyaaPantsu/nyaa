@@ -13,8 +13,8 @@ import (
 
 // run before config/parse.go:init()
 var _ = func() (_ struct{}) {
-	config.ConfigPath = path.Join("..", "..", "..", config.ConfigPath)
-	config.DefaultConfigPath = path.Join("..", "..", "..", config.DefaultConfigPath)
+	config.Configpaths[1] = path.Join("..", "..", "..", config.Configpaths[1])
+	config.Configpaths[0] = path.Join("..", "..", "..", config.Configpaths[0])
 	config.Reload()
 	config.Get().I18n.Directory = path.Join("..", "..", "..", config.Get().I18n.Directory)
 	categories.InitCategories()
@@ -171,4 +171,26 @@ func TestExtractLanguage(t *testing.T) {
 			t.Errorf("Validation of torrent language for '%s' doesn't give the expected result, have '%v', wants '%v'", test.Test, err, test.Expected)
 		}
 	}
+}
+
+func TestValidateTags(t *testing.T) {
+	r := TorrentRequest{}
+	tests := []struct {
+		Test     string
+		Expected error
+	}{
+		{"", errTorrentTagsInvalid},
+		{`{"":"","":""}`, errTorrentTagsInvalid},
+		{`{"tag":"xD","type":"lol"}`, errTorrentTagsInvalid},
+		{`[{"tag":"xD","type":"lol"}]`, nil},
+		{`[{"tag":"xD","type":"lol"},{"tag":"xD","type":"lol"}]`, nil},
+	}
+	for _, test := range tests {
+		r.Tags = test.Test
+		err := r.ValidateTags()
+		if err != test.Expected {
+			t.Errorf("Validation of torrent hash for '%s' doesn't give the expected result, have '%v', wants '%v'", test.Test, err, test.Expected)
+		}
+	}
+
 }

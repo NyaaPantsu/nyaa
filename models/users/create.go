@@ -38,6 +38,8 @@ func CreateUserFromRequest(registrationForm *userValidator.RegistrationForm) (*m
 	// currently unused but needs to be set:
 	user.APIToken, _ = crypto.GenerateRandomToken32()
 	user.APITokenExpiry = time.Unix(0, 0)
+	// set default number of PP
+	user.Pantsu = 1
 
 	if models.ORM.Create(user).Error != nil {
 		return user, errors.New("user not created")

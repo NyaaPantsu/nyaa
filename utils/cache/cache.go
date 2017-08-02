@@ -6,6 +6,7 @@ import (
 	"github.com/patrickmn/go-cache"
 )
 
+// C global cache variable
 var C *cache.Cache
 
 func init() {

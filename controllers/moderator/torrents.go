@@ -1,6 +1,7 @@
 package moderatorController
 
 import (
+	"fmt"
 	"html"
 	"net/http"
 	"strconv"
@@ -70,9 +71,11 @@ func TorrentsListPanel(c *gin.Context) {
 func TorrentEditModPanel(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
 	torrent, _ := torrents.FindUnscopeByID(uint(id))
+	torrent.LoadTags()
 
 	torrentJSON := torrent.ToJSON()
 	uploadForm := upload.NewTorrentRequest()
+	uploadForm.ID = torrentJSON.ID
 	uploadForm.Name = torrentJSON.Name
 	uploadForm.Category = torrentJSON.Category + "_" + torrentJSON.SubCategory
 	uploadForm.Status = torrentJSON.Status
@@ -80,6 +83,7 @@ func TorrentEditModPanel(c *gin.Context) {
 	uploadForm.WebsiteLink = string(torrentJSON.WebsiteLink)
 	uploadForm.Description = string(torrentJSON.Description)
 	uploadForm.Languages = torrent.Languages
+	uploadForm.Tags = torrent.Tags.ToJSON(true)
 
 	templates.Form(c, "admin/paneltorrentedit.jet.html", uploadForm)
 }
@@ -90,10 +94,13 @@ func TorrentPostEditModPanel(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
 	messages := msg.GetMessages(c)
 	torrent, _ := torrents.FindUnscopeByID(uint(id))
+	torrent.LoadTags()
 	currentUser := router.GetUser(c)
 	if torrent.ID > 0 {
 		errUp := upload.ExtractEditInfo(c, &uploadForm.Update)
-		uploadForm.ID = uint(id)
+		uploadForm.ID = torrent.ID
+		uploadForm.Update.ID = torrent.ID
+
 		if errUp != nil {
 			messages.AddErrorT("errors", "fail_torrent_update")
 		}
@@ -151,6 +158,19 @@ func TorrentDeleteModPanel(c *gin.Context) {
 	}
 
 	c.Redirect(http.StatusSeeOther, returnRoute+"?deleted")
+}
+
+// DeleteTagsModPanel : Controller for deleting all torrent tags
+func DeleteTagsModPanel(c *gin.Context) {
+	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
+
+	torrent, errFind := torrents.FindByID(uint(id))
+	if errFind == nil {
+		// delete all tags
+		torrent.DeleteTags()
+	}
+	// redirect to edit form
+	c.Redirect(http.StatusSeeOther, fmt.Sprintf("/mod/torrent?id=%d", id))
 }
 
 // TorrentBlockModPanel : Controller to lock torrents, redirecting to previous page

@@ -2,15 +2,15 @@
 // @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
 function loadLanguages() {
   var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
+  xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 199) {
       var selector = document.getElementById("bottom_language_selector");
       selector.hidden = false
       /* Response format is
-      * { "current": "(user current language)",
-      *   "languages": {
-      *   "(language_code)": "(language_name"),
-      *   }} */
+       * { "current": "(user current language)",
+       *   "languages": {
+       *   "(language_code)": "(language_name"),
+       *   }} */
       var response = JSON.parse(xhr.responseText);
       for (var language in response.languages) {
         if (!response.languages.hasOwnProperty(language)) continue;

@@ -1,87 +1,195 @@
-body { color: #373737; background: url('theme_g_anon/bg-body.png'); }
+body {
+    color: #373737;
+    background: url('theme_g_anon/bg-body.png');
+}
 
-.header, .user-menu { box-shadow: 1px 3px 4px hsla(200,20%,20%,0.15) }
-.box, .pagination li { box-shadow: 1px 3px 4px hsla(270,20%,20%,0.15) }
+.header, .user-menu {
+    box-shadow: 1px 3px 4px hsla(200, 20%, 20%, 0.15)
+}
 
-#mascot { background-image: url('/img/renchon.svg'); }
-a { color: #676767; }
-a:hover { color:  #444; }
+.box, .pagination li {
+    box-shadow: 1px 3px 4px hsla(270, 20%, 20%, 0.15)
+}
+
+#mascot {
+    background-image: url('/img/renchon.svg');
+}
+
+a {
+    color: #676767;
+}
+
+a:hover {
+    color: #444;
+}
 
 .header {
-	background: #bfe3f3 url('theme_g_anon/bg-header-tile.png') repeat-x;
-	border-color: #1d6d90;
+    background: #bfe3f3 url('theme_g_anon/bg-header-tile.png') repeat-x;
+    border-color: #1d6d90;
 }
-.header .nav-btn { color: #1d6d90; }
-.header .nav-btn:hover { color: #2586B0; }
 
-.box, .pagination li { background: hsla(198, 63%, 97%, 0.85); border-color: #cbbdd7 !important; }
+.header .nav-btn {
+    color: #1d6d90;
+}
 
-.form-input { border-color: #c4c4c4 !important; background: #fff; color: #676767; }
+.header .nav-btn:hover {
+    color: #2586B0;
+}
+
+.box, .pagination li {
+    background: hsla(198, 63%, 97%, 0.85);
+    border-color: #cbbdd7 !important;
+}
+
+.form-input {
+    border-color: #c4c4c4 !important;
+    background: #fff;
+    color: #676767;
+}
+.form-input.refine {
+    background: #73afe2;
+    border-color: #6eb9d6!important;
+    color: white;
+}
 
 .header .h-user .user-avatar {
-	background: #99BFD0;
-	border-color: #1d6d90;
+    background: #99BFD0;
+    border-color: #a3c7d3;
 }
+
+.sukebei .header .h-user .user-avatar {
+    background: #bf99d0;
+    border-color: #d3a3d1;
+}
+
 .header .h-user .user-menu {
-	background: #BDE0EF;
-	background:    -moz-linear-gradient(top, #BDE0EF 0%, #ABCFDF 100%);
-	background: -webkit-linear-gradient(top, #BDE0EF 0%, #ABCFDF 100%);
-	background:         linear-gradient(to bottom, #BDE0EF 0%, #ABCFDF 100%);
-	border-color: #1d6d90;
+    background: #BDE0EF;
+    background: -moz-linear-gradient(top, #BDE0EF 0%, #ABCFDF 100%);
+    background: -webkit-linear-gradient(top, #BDE0EF 0%, #ABCFDF 100%);
+    background: linear-gradient(to bottom, #BDE0EF 0%, #ABCFDF 100%);
+    border-color: #1d6d90;
 }
-.header .h-user button:focus {background-color: rgba(0,100,200, 0.15);}
+
+.header .h-user button:focus {
+    background-color: rgba(0, 100, 200, 0.15);
+}
 
 table thead {
-	background: #dcccea !important; /* Old browsers */
-	background: -moz-linear-gradient(top, #dcccea 0%, #d7c6e7 100%) !important;
-	background: -webkit-linear-gradient(top, #dcccea 0%,#d7c6e7 100%) !important;
-	background: linear-gradient(to bottom, #dcccea 0%,#d7c6e7 100%) !important;
+    background: #dcccea !important;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #dcccea 0%, #d7c6e7 100%) !important;
+    background: -webkit-linear-gradient(top, #dcccea 0%, #d7c6e7 100%) !important;
+    background: linear-gradient(to bottom, #dcccea 0%, #d7c6e7 100%) !important;
 }
 
-th { color: #9b85ae; }
-th a { color: #7A5C94; }
+th {
+    color: #9b85ae;
+}
 
-th { border-color: #cbbdd7 !important; }
-td { border-color: #e6eff4 !important; }
+th a {
+    color: #7A5C94;
+}
 
-td.tr-se, .success-text { color: #22A243; }
-td.tr-le, .error-text { color: #E84C4C; }
+th {
+    border-color: #cbbdd7 !important;
+}
+
+td {
+    border-color: #e6eff4 !important;
+}
+
+td.tr-se, .success-text {
+    color: #22A243;
+}
+
+td.tr-le, .error-text {
+    color: #E84C4C;
+}
 
 .btn-red {
-	background-color: #E84C4C;
-	color: #E8E8E8;
+    background-color: #E84C4C;
+    color: #E8E8E8!important;
 }
 
-.btn-red:hover { color: #E8E8E8; }
+.btn-red:hover {
+    color: #E8E8E8;
+}
 
-.aplus, .btn-blue { background: hsla(200, 100%, 50%, 0.2) !important; }
-.trusted, .btn-green { background: hsla(100, 100%, 50%, 0.2) !important; }
-.remake, .btn-orange { background: hsla(30, 100%, 50%, 0.2) !important; }
+.aplus, .btn-blue {
+    background: hsla(200, 100%, 50%, 0.2) !important;
+}
 
-.pagination .active { background: #cbbdd7; color: #444; }
+.trusted, .btn-green {
+    background: hsla(100, 100%, 50%, 0.2) !important;
+}
 
-.pagination .disabled { color: #cbbdd7; cursor: unset; }
+.remake, .btn-orange {
+    background: hsla(30, 100%, 50%, 0.2) !important;
+}
 
-.torrent-info-box > p > a, .torrent-info-box > div > a, #description-box a {
+.pagination .active {
+    background: #cbbdd7;
+    color: #444;
+}
+
+.pagination .disabled {
+    color: #cbbdd7;
+    cursor: unset;
+}
+
+.torrent-info-box>p>a, .torrent-info-box>div>a, #description-box a {
     color: #1fa4d0;
 }
-.torrent-info-box > p > a:hover, .torrent-info-box > div > a:hover, #description-box a:hover  { color: #1fa4d0; }
 
-.sukebei { color: #373737; }
-.sukebei .header { background-image: url('theme_g_anon/s_bg-header-tile.png'); border-color: #C48CBE; }
-.sukebei .header .nav-btn { color: #C48CBE; }
-.sukebei .header .nav-btn:hover { color: #AD6CA6; }
-.sukebei a { color: #676767; }
-.sukebei a:hover { color:  #444; }
-.sukebei th { color: #9b85ae; }
-.sukebei th a { color: #7A5C94; }
-.sukebei tr:nth-child(2n+1) { background: hsla(330, 100%, 91%, 0.2); }
-.sukebei .header .h-user button:focus {background-color: rgba(150,100,255, 0.16);}
+.torrent-info-box>p>a:hover, .torrent-info-box>div>a:hover, #description-box a:hover {
+    color: #1fa4d0;
+}
+
+.sukebei {
+    color: #373737;
+}
+
+.sukebei .header {
+    background-image: url('theme_g_anon/s_bg-header-tile.png');
+    border-color: #C48CBE;
+}
+
+.sukebei .header .nav-btn {
+    color: #C48CBE;
+}
+
+.sukebei .header .nav-btn:hover {
+    color: #AD6CA6;
+}
+
+.sukebei a {
+    color: #676767;
+}
+
+.sukebei a:hover {
+    color: #444;
+}
+
+.sukebei th {
+    color: #9b85ae;
+}
+
+.sukebei th a {
+    color: #7A5C94;
+}
+
+.sukebei tr:nth-child(2n+1) {
+    background: hsla(330, 100%, 91%, 0.2);
+}
+
+.sukebei .header .h-user button:focus {
+    background-color: rgba(150, 100, 255, 0.16);
+}
 
 .sukebei .header .h-user .user-menu {
-	background: #EFDCF0;
-	background:    -moz-linear-gradient(top, #EFDCF0 0%, #EBCFEC 100%);
-	background: -webkit-linear-gradient(top, #EFDCF0 0%, #EBCFEC 100%);
-	background:         linear-gradient(to bottom, #EFDCF0 0%, #EBCFEC 100%);
-	border-color: #C48CBE;
+    background: #EFDCF0;
+    background: -moz-linear-gradient(top, #EFDCF0 0%, #EBCFEC 100%);
+    background: -webkit-linear-gradient(top, #EFDCF0 0%, #EBCFEC 100%);
+    background: linear-gradient(to bottom, #EFDCF0 0%, #EBCFEC 100%);
+    border-color: #C48CBE;
 }

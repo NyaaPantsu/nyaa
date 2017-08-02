@@ -1,6 +1,6 @@
 define({
   "name": "nyaapantsu",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "How to use the Nyaa Pantsu API",
   "title": "Nyaa Pantsu API documentation",
   "url": "https://nyaa.pantsu.cat/api",
@@ -26,7 +26,7 @@ define({
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2017-07-09T12:38:21.771Z",
+    "time": "2017-07-22T15:20:08.679Z",
     "url": "http://apidocjs.com",
     "version": "0.17.6"
   }

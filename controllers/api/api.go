@@ -9,25 +9,28 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/controllers/feed"
+	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/models/users"
+	"github.com/NyaaPantsu/nyaa/utils/api"
 	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/NyaaPantsu/nyaa/utils/crypto"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/search"
-	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 	"github.com/NyaaPantsu/nyaa/utils/upload"
 	"github.com/NyaaPantsu/nyaa/utils/validator"
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
 	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"github.com/gin-gonic/gin"
+	"github.com/ory/fosite"
+	"github.com/pkg/errors"
 )
 
 /**
  * @apiDefine NotFoundError
- *
+ * @apiVersion 1.1.1
  * @apiError {String[]} errors List of errors messages with a 404 error message in it.
  *
  * @apiErrorExample Error-Response:
@@ -38,7 +41,7 @@ import (
  */
 /**
  * @apiDefine RequestError
- *
+ * @apiVersion 1.1.1
  * @apiError {Boolean} ok The request couldn't be done due to some errors.
  * @apiError {String[]} errors List of errors messages.
  * @apiError {Object[]} all_errors List of errors object messages for each wrong field
@@ -56,7 +59,7 @@ import (
 
 /**
  * @api {get} / Request Torrents index
- * @apiVersion 1.0.0
+ * @apiVersion 1.1.1
  * @apiName GetTorrents
  * @apiGroup Torrents
  *
@@ -83,66 +86,13 @@ func APIHandler(c *gin.Context) {
 	if t != "" {
 		feedController.RSSTorznabHandler(c)
 	} else {
-		page := c.Param("page")
-		whereParams := structs.WhereParams{}
-		req := upload.TorrentsRequest{}
-
-		contentType := c.Request.Header.Get("Content-Type")
-		if contentType == "application/json" {
-			c.Bind(&req)
-
-			if req.MaxPerPage == 0 {
-				req.MaxPerPage = config.Get().Navigation.TorrentsPerPage
-			}
-			if req.Page <= 0 {
-				req.Page = 1
-			}
-
-			whereParams = req.ToParams()
-		} else {
-			var err error
-			maxString := c.Query("max")
-			if maxString != "" {
-				req.MaxPerPage, err = strconv.Atoi(maxString)
-				if !log.CheckError(err) {
-					req.MaxPerPage = config.Get().Navigation.TorrentsPerPage
-				}
-			} else {
-				req.MaxPerPage = config.Get().Navigation.TorrentsPerPage
-			}
-
-			req.Page = 1
-			if page != "" {
-				req.Page, err = strconv.Atoi(html.EscapeString(page))
-				if err != nil || req.Page <= 0 {
-					c.AbortWithError(http.StatusNotFound, err)
-					return
-				}
-			}
-		}
-
-		torrentSearch, nbTorrents, err := torrents.Find(whereParams, req.MaxPerPage, req.MaxPerPage*(req.Page-1))
-		if err != nil {
-			c.AbortWithError(http.StatusInternalServerError, err)
-			return
-		}
-
-		b := upload.APIResultJSON{
-			Torrents: torrents.APITorrentsToJSON(torrentSearch),
-		}
-		b.QueryRecordCount = req.MaxPerPage
-		b.TotalRecordCount = nbTorrents
-		c.JSON(http.StatusOK, b)
-		if err != nil {
-			c.AbortWithError(http.StatusInternalServerError, err)
-			return
-		}
+		APISearchHandler(c)
 	}
 }
 
 /**
  * @api {get} /view/:id Request Torrent information
- * @apiVersion 1.0.0
+ * @apiVersion 1.1.1
  * @apiName GetTorrent
  * @apiGroup Torrents
  *
@@ -232,7 +182,7 @@ func APIViewHandler(c *gin.Context) {
 
 /**
  * @api {get} /head/:id Request Torrent Head
- * @apiVersion 1.0.0
+ * @apiVersion 1.1.1
  * @apiName GetTorrentHead
  * @apiGroup Torrents
  *
@@ -264,7 +214,7 @@ func APIViewHeadHandler(c *gin.Context) {
 
 /**
  * @api {post} /upload Upload a Torrent
- * @apiVersion 1.0.0
+ * @apiVersion 1.1.1
  * @apiName UploadTorrent
  * @apiGroup Torrents
  *
@@ -341,17 +291,17 @@ func APIUploadHandler(c *gin.Context) {
 				}
 				messages.AddInfoT("infos", "torrent_uploaded")
 
-				apiResponseHandler(c, torrent.ToJSON())
+				apiUtils.ResponseHandler(c, torrent.ToJSON())
 				return
 			}
 		}
 	}
-	apiResponseHandler(c)
+	apiUtils.ResponseHandler(c)
 }
 
 /**
  * @api {post} /update/ Update a Torrent
- * @apiVersion 1.0.0
+ * @apiVersion 1.1.1
  * @apiName UpdateTorrent
  * @apiGroup Torrents
  *
@@ -408,6 +358,7 @@ func APIUpdateHandler(c *gin.Context) {
 	if !messages.HasErrors() {
 		c.Bind(&update)
 		torrent, err := torrents.FindByID(update.ID)
+		torrent.LoadTags()
 		if err != nil {
 			messages.AddErrorTf("errors", "torrent_not_exist", strconv.Itoa(int(update.ID)))
 		}
@@ -416,17 +367,18 @@ func APIUpdateHandler(c *gin.Context) {
 		}
 		upload.UpdateTorrent(&update, torrent, user).Update(false)
 	}
-	apiResponseHandler(c)
+	apiUtils.ResponseHandler(c)
 }
 
 /**
- * @api {get} /search/ Request Torrents index
- * @apiVersion 1.0.0
+ * @api {get} /search/ Search Torrents
+ * @apiVersion 1.1.1
  * @apiName FindTorrents
  * @apiGroup Torrents
  *
  * @apiParam {String[]} c In which categories to search.
  * @apiParam {String} q Query to search (torrent name).
+ * @apiParam {Number} page Page of the search results.
  * @apiParam {String} limit Number of results per page.
  * @apiParam {String} userID Uploader ID owning the torrents.
  * @apiParam {String} fromID Show results with torrents ID superior to this.
@@ -448,7 +400,9 @@ func APIUpdateHandler(c *gin.Context) {
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *			[...]
+ *			"torrents": [...],
+ *			"queryRecordCount": 50,
+ *			"totalRecordCount": 798414
  *		}
  *
  * @apiUse NotFoundError
@@ -456,7 +410,8 @@ func APIUpdateHandler(c *gin.Context) {
 // APISearchHandler : Controller for searching with api
 func APISearchHandler(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
-	page := c.Param("page")
+	page := c.DefaultQuery("page", c.Param("page"))
+	currentUser := router.GetUser(c)
 
 	// db params url
 	var err error
@@ -473,19 +428,36 @@ func APISearchHandler(c *gin.Context) {
 		}
 	}
 
-	_, torrentSearch, _, err := search.ByQueryWithUser(c, pagenum)
+	userID, err := strconv.ParseUint(c.Query("userID"), 10, 32)
+	if err != nil {
+		userID = 0
+	}
+
+	_, torrentSearch, nbTorrents, err := search.AuthorizedQuery(c, pagenum, currentUser.CurrentOrAdmin(uint(userID)))
+
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
-	b := torrents.APITorrentsToJSON(torrentSearch)
+	maxQuery, err := strconv.Atoi(c.DefaultQuery("limit", strconv.Itoa(config.Get().Navigation.TorrentsPerPage)))
+	if err != nil {
+		maxQuery = config.Get().Navigation.TorrentsPerPage
+	} else if maxQuery > config.Get().Navigation.MaxTorrentsPerPage {
+		maxQuery = config.Get().Navigation.MaxTorrentsPerPage
+	}
+
+	b := upload.APIResultJSON{
+		TotalRecordCount: nbTorrents,
+		Torrents:         torrents.APITorrentsToJSON(torrentSearch),
+		QueryRecordCount: maxQuery,
+	}
 	c.JSON(http.StatusOK, b)
 }
 
 /**
  * @api {post} /login/ Login a user
- * @apiVersion 1.0.0
+ * @apiVersion 1.1.1
  * @apiName Login
  * @apiGroup Users
  *
@@ -534,19 +506,121 @@ func APILoginHandler(c *gin.Context) {
 		user, _, errorUser := cookies.CreateUserAuthentication(c, &b)
 		if errorUser == nil {
 			messages.AddInfo("infos", "Logged")
-			apiResponseHandler(c, user.ToJSON())
+			apiUtils.ResponseHandler(c, user.ToJSON())
 			return
 		}
 		messages.Error(errorUser)
 	}
-	apiResponseHandler(c)
+	apiUtils.ResponseHandler(c)
+}
+
+/**
+ * @api {post} /profile/ Get a user profile
+ * @apiVersion 1.1.1
+ * @apiName Profile
+ * @apiGroup Users
+ *
+ * @apiParam {Number} id User ID.
+ *
+ * @apiSuccess {Boolean} ok The request is done without failing
+ * @apiSuccess {String[]} infos Messages information relative to the request
+ * @apiSuccess {Object} data The user object
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ * 		{
+ * 			data:
+ *       		[{
+ * 					user_id:1,
+ *					username:"username",
+ *					status:1,
+ *					md5:"",
+ *					created_at:"date",
+ *					liking_count:0,
+ *					liked_count:0
+ *				}],
+ *			infos: ["Logged", ... ],
+ *			ok:true
+ * 		}
+ *
+ * @apiUse RequestError
+ */
+// APIProfileHandler : Get a public profile with API
+func APIProfileHandler(c *gin.Context) {
+	c.Header("Content-Type", "application/json")
+	messages := msg.GetMessages(c)
+	id, err := strconv.ParseUint(c.Query("id"), 10, 32)
+	if err != nil {
+		id = 0
+	}
+	user, _, errorUser := users.FindByID(uint(id))
+	if errorUser == nil {
+		user.APIToken = "" // We erase apitoken from public profile
+		apiUtils.ResponseHandler(c, user.ToJSON())
+		return
+	}
+	messages.Error(errorUser)
+	apiUtils.ResponseHandler(c)
+}
+
+/**
+ * @api {post} /user/ Get a private user profile
+ * @apiVersion 1.1.1
+ * @apiName Private Profile
+ * @apiGroup Users
+ *
+ * @apiParam {String} access_token Token sent by the OAuth API
+ *
+ * @apiSuccess {Boolean} ok The request is done without failing
+ * @apiSuccess {String[]} infos Messages information relative to the request
+ * @apiSuccess {Object} data The connected user object
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ * 		{
+ * 			data:
+ *       		[{
+ * 					user_id:1,
+ *					username:"username",
+ *					status:1,
+ *					token:"token",
+ *					md5:"",
+ *					created_at:"date",
+ *					liking_count:0,
+ *					liked_count:0
+ *				}],
+ *			infos: ["Logged", ... ],
+ *			ok:true
+ * 		}
+ *
+ * @apiUse RequestError
+ */
+// APIOwnProfile : Get your own profile data. You need to be logged in through the OAuth API
+func APIOwnProfile(c *gin.Context) {
+	c.Header("Content-Type", "application/json")
+	messages := msg.GetMessages(c)
+	ctx, exist := c.Get("fosite")
+
+	if exist {
+		oauthCtx := ctx.(*fosite.AccessRequest)
+		client := oauthCtx.GetSession()
+		user, _, _, errorUser := users.FindByUsername(client.GetSubject())
+		if errorUser == nil {
+			apiUtils.ResponseHandler(c, user.ToJSON())
+			return
+		}
+		messages.Error(errorUser)
+		apiUtils.ResponseHandler(c)
+		return
+	}
+	c.AbortWithError(http.StatusBadRequest, errors.New("Can't get your tokens"))
 }
 
 // APIRefreshTokenHandler : Refresh Token with API
 func APIRefreshTokenHandler(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 	token := c.Request.Header.Get("Authorization")
-	username := c.PostForm("username")
+	username := c.Query("username")
 	user, _, _, _, err := users.FindByAPITokenAndName(token, username)
 
 	messages := msg.GetMessages(c)
@@ -559,19 +633,19 @@ func APIRefreshTokenHandler(c *gin.Context) {
 		_, errorUser := user.UpdateRaw()
 		if errorUser == nil {
 			messages.AddInfoT("infos", "profile_updated")
-			apiResponseHandler(c, user.ToJSON())
+			apiUtils.ResponseHandler(c, user.ToJSON())
 			return
 		}
 		messages.Error(errorUser)
 	}
-	apiResponseHandler(c)
+	apiUtils.ResponseHandler(c)
 }
 
 // APICheckTokenHandler : Check Token with API
 func APICheckTokenHandler(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 	token := c.Request.Header.Get("Authorization")
-	username := c.PostForm("username")
+	username := c.Query("username")
 	user, _, _, _, err := users.FindByAPITokenAndName(token, username)
 
 	messages := msg.GetMessages(c)
@@ -580,37 +654,5 @@ func APICheckTokenHandler(c *gin.Context) {
 	} else {
 		messages.AddInfo("infos", "Logged")
 	}
-	apiResponseHandler(c, user.ToJSON())
-}
-
-// This function is the global response for every simple Post Request API
-// Please use it. Responses are of the type:
-// {ok: bool, [errors | infos]: ArrayOfString [, data: ArrayOfObjects, all_errors: ArrayOfObjects]}
-// To send errors or infos, you just need to use the Messages Util
-func apiResponseHandler(c *gin.Context, obj ...interface{}) {
-	messages := msg.GetMessages(c)
-
-	var mapOk map[string]interface{}
-	if !messages.HasErrors() {
-		mapOk = map[string]interface{}{"ok": true, "infos": messages.GetInfos("infos")}
-		if len(obj) > 0 {
-			mapOk["data"] = obj
-			if len(obj) == 1 {
-				mapOk["data"] = obj[0]
-			}
-		}
-	} else { // We need to show error messages
-		mapOk := map[string]interface{}{"ok": false, "errors": messages.GetErrors("errors"), "all_errors": messages.GetAllErrors()}
-		if len(obj) > 0 {
-			mapOk["data"] = obj
-			if len(obj) == 1 {
-				mapOk["data"] = obj[0]
-			}
-		}
-		if len(messages.GetAllErrors()) > 0 && len(messages.GetErrors("errors")) == 0 {
-			mapOk["errors"] = "errors"
-		}
-	}
-
-	c.JSON(http.StatusOK, mapOk)
+	apiUtils.ResponseHandler(c, user.ToJSON())
 }

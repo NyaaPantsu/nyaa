@@ -10,8 +10,7 @@ import (
 )
 
 var _ = func() (_ struct{}) {
-	ConfigPath = "config.yml"
-	DefaultConfigPath = "default_config.yml"
+	Configpaths = []string{"config.yml", "default_config.yml"}
 	Reload()
 	return
 }()

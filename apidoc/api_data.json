@@ -2,7 +2,182 @@
   {
     "type": "get",
     "url": "/search/",
-    "title": "Request Torrents index",
+    "title": "Search Torrents",
+    "version": "1.1.1",
+    "name": "FindTorrents",
+    "group": "Torrents",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String[]",
+            "optional": false,
+            "field": "c",
+            "description": "<p>In which categories to search.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "q",
+            "description": "<p>Query to search (torrent name).</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "page",
+            "description": "<p>Page of the search results.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "limit",
+            "description": "<p>Number of results per page.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userID",
+            "description": "<p>Uploader ID owning the torrents.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "fromID",
+            "description": "<p>Show results with torrents ID superior to this.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "s",
+            "description": "<p>Torrent status.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "maxage",
+            "description": "<p>Torrents which have been uploaded the last x days.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "toDate",
+            "description": "<p>Torrents which have been uploaded since x <code>dateType</code>.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "fromDate",
+            "description": "<p>Torrents which have been uploaded the last x <code>dateType</code>.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "dateType",
+            "description": "<p>Which type of date (<code>d</code> for days, <code>m</code> for months, <code>y</code> for years).</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "minSize",
+            "description": "<p>Filter by minimal size in <code>sizeType</code>.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "maxSize",
+            "description": "<p>Filter by maximal size in <code>sizeType</code>.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "sizeType",
+            "description": "<p>Which type of size (<code>b</code> for bytes, <code>k</code> for kilobytes, <code>m</code> for megabytes, <code>g</code> for gigabytes).</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "sort",
+            "description": "<p>Torrent sorting type (0 = id, 1 = name, 2 = date, 3 = downloads, 4 = size, 5 = seeders, 6 = leechers, 7 = completed).</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "order",
+            "description": "<p>Order ascending or descending (true = ascending).</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String[]",
+            "optional": false,
+            "field": "lang",
+            "description": "<p>Filter the languages.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "torrents",
+            "description": "<p>List of torrent object (see view for the properties).</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n    {\n\t\t\t\"torrents\": [...],\n\t\t\t\"queryRecordCount\": 50,\n\t\t\t\"totalRecordCount\": 798414\n\t\t}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "controllers/api/api.go",
+    "groupTitle": "Torrents",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String[]",
+            "optional": false,
+            "field": "errors",
+            "description": "<p>List of errors messages with a 404 error message in it.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"errors\": [ \"404_not_found\", ... ]\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/search/",
+    "title": "Search Torrents",
     "version": "1.0.0",
     "name": "FindTorrents",
     "group": "Torrents",
@@ -151,7 +326,7 @@
         }
       ]
     },
-    "filename": "controllers/api_handler.go",
+    "filename": "controllers/api/_apidoc.js",
     "groupTitle": "Torrents",
     "error": {
       "fields": {
@@ -178,7 +353,7 @@
     "type": "get",
     "url": "/view/:id",
     "title": "Request Torrent information",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "name": "GetTorrent",
     "group": "Torrents",
     "parameter": {
@@ -368,7 +543,7 @@
         }
       ]
     },
-    "filename": "controllers/api_handler.go",
+    "filename": "controllers/api/api.go",
     "groupTitle": "Torrents",
     "error": {
       "fields": {
@@ -395,7 +570,7 @@
     "type": "get",
     "url": "/head/:id",
     "title": "Request Torrent Head",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "name": "GetTorrentHead",
     "group": "Torrents",
     "parameter": {
@@ -420,7 +595,7 @@
         }
       ]
     },
-    "filename": "controllers/api_handler.go",
+    "filename": "controllers/api/api.go",
     "groupTitle": "Torrents",
     "error": {
       "fields": {
@@ -447,7 +622,7 @@
     "type": "get",
     "url": "/",
     "title": "Request Torrents index",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "name": "GetTorrents",
     "group": "Torrents",
     "parameter": {
@@ -497,7 +672,7 @@
         }
       ]
     },
-    "filename": "controllers/api_handler.go",
+    "filename": "controllers/api/api.go",
     "groupTitle": "Torrents",
     "error": {
       "fields": {
@@ -524,7 +699,7 @@
     "type": "post",
     "url": "/update/",
     "title": "Update a Torrent",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "name": "UpdateTorrent",
     "group": "Torrents",
     "parameter": {
@@ -637,7 +812,7 @@
         }
       ]
     },
-    "filename": "controllers/api_handler.go",
+    "filename": "controllers/api/api.go",
     "groupTitle": "Torrents",
     "error": {
       "fields": {
@@ -678,7 +853,7 @@
     "type": "post",
     "url": "/upload",
     "title": "Upload a Torrent",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "name": "UploadTorrent",
     "group": "Torrents",
     "parameter": {
@@ -798,7 +973,7 @@
         }
       ]
     },
-    "filename": "controllers/api_handler.go",
+    "filename": "controllers/api/api.go",
     "groupTitle": "Torrents",
     "error": {
       "fields": {
@@ -839,7 +1014,7 @@
     "type": "post",
     "url": "/login/",
     "title": "Login a user",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "name": "Login",
     "group": "Users",
     "parameter": {
@@ -896,7 +1071,98 @@
         }
       ]
     },
-    "filename": "controllers/api_handler.go",
+    "filename": "controllers/api/api.go",
+    "groupTitle": "Users",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "Boolean",
+            "optional": false,
+            "field": "ok",
+            "description": "<p>The request couldn't be done due to some errors.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "String[]",
+            "optional": false,
+            "field": "errors",
+            "description": "<p>List of errors messages.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object[]",
+            "optional": false,
+            "field": "all_errors",
+            "description": "<p>List of errors object messages for each wrong field</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 200 OK\n    {\n      \"ok\": false,\n      \"errors\": [ ... ]\n      \"all_errors\": {\n\t\t \t\"username\": [ ... ],\n       }\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "/profile/",
+    "title": "Get a user profile",
+    "version": "1.1.1",
+    "name": "Profile",
+    "group": "Users",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>User ID.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "ok",
+            "description": "<p>The request is done without failing</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "infos",
+            "description": "<p>Messages information relative to the request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>The user object</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n\t\t{\n\t\t\tdata:\n      \t\t[{\n\t\t\t\t\tuser_id:1,\n\t\t\t\t\tusername:\"username\",\n\t\t\t\t\tstatus:1,\n\t\t\t\t\tmd5:\"\",\n\t\t\t\t\tcreated_at:\"date\",\n\t\t\t\t\tliking_count:0,\n\t\t\t\t\tliked_count:0\n\t\t\t\t}],\n\t\t\tinfos: [\"Logged\", ... ],\n\t\t\tok:true\n\t\t}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "controllers/api/api.go",
     "groupTitle": "Users",
     "error": {
       "fields": {

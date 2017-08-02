@@ -1,29 +1,38 @@
 {{ extends "layouts/index_admin" }}
-{{block title()}}{{  T("reports_list") }}{{end}}
+{{block title()}}{{ T("reports_list") }}{{end}}
 {{ block content_body()}}
 <div class="results box">
-    <h1>{{  T("reports_list") }}</h1>
-    <table class="table">
-        <thead class="torrent-info">
-            <tr>
-              <th class="tr-name">{{  T("name") }}</th>
-              <th class="tr-actions">{{  T("username") }}</th>
-              <th class="tr-actions">{{  T("reason") }}</th>
-              <th class="tr-actions">{{  T("actions") }}</th>
-            </tr>
-        </thead>
-        <tbody>
-        {{range Models}}
-          <tr>
-            <td class="tr-name home-td"><a href="/view/{{ .Torrent.ID }}">{{ .Torrent.Name }}</a> <a href="/mod/torrent?id={{ .Torrent.ID}}" class="form-input btn-blue float-right">{{  T("edit")}}</a></td>
-            <td class="tr-size home-td">{{.User.Username}}</td>
-            <td class="tr-actions home-td">{{ getReportDescription(.Description, T) }}</td>
-            <td class="tr-actions home-td">
-            <a href="/mod/torrent/delete?id={{ .Torrent.ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i>{{  T("delete_torrent") }}</a><br>
-            <a href="/mod/report/delete?id={{ .ID }}" class="form-input btn-red"><i class="icon-trash"></i>{{  T("delete_report") }}</a></td>
-          </tr>
-        {{end}}
-        </tbody>
-    </table>
+  <h1>{{  T("reports_list") }}</h1>
+  <table class="table">
+    <thead class="torrent-info">
+      <tr>
+        <th class="tr-name">{{ T("name") }}</th>
+        <th class="tr-actions">{{ T("username") }}</th>
+        <th class="tr-actions">{{ T("reason") }}</th>
+        <th class="tr-actions">{{ T("actions") }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{range Models}}
+      <tr>
+        <td class="tr-name home-td">
+          <a href="/view/{{ .Torrent.ID }}">{{ .Torrent.Name }}</a>
+          <a href="/mod/torrent?id={{ .Torrent.ID}}" class="form-input btn-blue float-right">{{  T("edit")}}</a>
+        </td>
+        <td class="tr-size home-td">{{.User.Username}}</td>
+        <td class="tr-actions home-td">{{ getReportDescription(.Description, T) }}</td>
+        <td class="tr-actions home-td">
+          <a href="/mod/torrent/delete?id={{ .Torrent.ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;">
+            <i class="icon-trash"></i>{{  T("delete_torrent") }}
+          </a>
+          <br/>
+          <a href="/mod/report/delete?id={{ .ID }}" class="form-input btn-red">
+            <i class="icon-trash"></i>{{  T("delete_report") }}
+          </a>
+        </td>
+      </tr>
+      {{end}}
+    </tbody>
+  </table>
 </div>
 {{end}}

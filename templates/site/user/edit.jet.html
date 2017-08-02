@@ -4,153 +4,180 @@
 {{block title()}}{{  T("profile_edit_page", UserProfile.Username) }}{{end}}
 {{ block profile_navigation()}}{{ yield profile_menu(route="profile_edit") }}{{end}}
 {{block profile_content()}}
-	<h3>{{  T("personal_info")}}</h3>
-	<div class="user-edit">
-	<form role="form" method="POST">
-		{{ yield csrf_field()}}
-		<label class="input-label">{{ T("api_token") }}:</label>
-			<p style="font-family: monospace;">{{UserProfile.APIToken}}</p>
-			<a class="form-input up-input" href="/user/{{ UserProfile.ID}}/{{UserProfile.Username }}/apireset">Reset API key</a><br><br>
-			<a href="/apidoc">{{ T("api_documentation")}}</a>
-			<br>
-		<label class="input-label">{{  T("email_address") }}:</label> <br>
-			<input class="form-input up-input" placeholder="{{  T("email_placeholder")}}" type="text" name="email" id="email" value="{{UserProfile.Email}}"> <br>
-		{{ yield errors(name="Email")}}
-		<label class="input-label">{{  T("language")}}:</label> <br>
-			<select id="language" name="language" class="form-input up-input">
-				{{ userLanguage := UserProfile.Language }}
-				{{ range _, language := Languages }}
-					<option value="{{ language.Code }}" {{ if userLanguage == language.Code || ((userLanguage == "") && (language.Code == getDefaultLanguage())) }}selected{{end}}>{{ language.Name }} {{if language.Code == getDefaultLanguage()}}({{  T("default") }}){{end}}</option>
-				{{ end }}
-			</select> <br>
-		{{ yield errors(name="Language")}}
-		{{ if !User.HasAdmin()}}
-		<label class="input-label">{{  T("current_password")}}:</label> <br>
-			<input class="form-input up-input up-input" name="current_password" id="current_password" type="password"> <br>
-		{{ yield errors(name="CurrentPassword")}}
-		{{end}}
-		<label class="input-label">{{  T("password")}}:</label> <br>
-			<input class="form-input up-input up-input" name="password" id="password" type="password"> <br>
-		{{ yield errors(name="Password")}}
-		<label class="input-label">{{  T("confirm_password")}}:</label> <br>
-			<input class="form-input up-input up-input" name="password_confirmation" id="password_confirmation" type="password"> <br>
-		{{ yield errors(name="ConfirmPassword")}}
+<h3>{{  T("personal_info")}}</h3>
+<div class="user-edit">
+  <form role="form" method="POST">
+    {{ yield csrf_field()}}
+    <label class="input-label">{{ T("api_token") }}:</label>
+    <p style="font-family: monospace;">{{UserProfile.APIToken}}</p>
+    <a class="form-input up-input" href="/user/{{ UserProfile.ID}}/{{UserProfile.Username }}/apireset">Reset API key</a>
+    <br/>
+    <br/>
+    <a href="/apidoc">{{ T("api_documentation")}}</a>
+    <br/>
+    <label class="input-label">{{  T("email_address") }}:</label>
+    <br/>
+    <input class="form-input up-input" placeholder="{{  T("email_placeholder")}}" type="text" name="email" id="email" value="{{UserProfile.Email}}"/>
+    <br/>
+    {{ yield errors(name="Email")}}
+    <label class="input-label">{{  T("language")}}:</label>
+    <br/>
+    <select id="language" name="language" class="form-input up-input">
+      {{ userLanguage := UserProfile.Language }}
+      {{ range _, language := Languages }}
+      <option value="{{ language.Tag }}" {{ if userLanguage == language.Tag || userLanguage == language.Code || ((userLanguage == "") && (language.Tag == getDefaultLanguage())) }}selected{{end}}>{{ language.Name }} {{if language.Tag == getDefaultLanguage()}}({{  T("default") }}){{end}}</option>
+      {{ end }}
+    </select>
+    <br/>
+    {{ yield errors(name="Language")}}
+    {{ if !User.HasAdmin()}}
+    <label class="input-label">{{  T("current_password")}}:</label>
+    <br/>
+    <input class="form-input up-input up-input" name="current_password" id="current_password" type="password"/>
+    <br/>
+    {{ yield errors(name="CurrentPassword")}}
+    {{end}}
+    <label class="input-label">{{  T("password")}}:</label>
+    <br/>
+    <input class="form-input up-input up-input" name="password" id="password" type="password"/>
+    <br/>
+    {{ yield errors(name="Password")}}
+    <label class="input-label">{{  T("confirm_password")}}:</label>
+    <br/>
+    <input class="form-input up-input up-input" name="password_confirmation" id="password_confirmation" type="password"/>
+    <br/>
+    {{ yield errors(name="ConfirmPassword")}}
 
-		<h3>{{  T("preferences")}}</h3>
-		<label class="input-label" for="theme">{{ T("theme")}}</label> <br>
-		<select id="theme-selector" name="theme" class="form-input up-input" onchange="switchThemes()">
-		<option value="">{{ T("theme_select")}}</option>
-		<option value="g"{{ if Theme == "g" }} selected{{end}}>/g/</option>
-		<option value="tomorrow"{{ if Theme == "tomorrow" }} selected{{end}}>Tomorrow</option>
-		<option value=""{{ if Theme == "" }} selected{{end}}>{{ T("theme_none")}}</option>
-		</select><br>
-		{{ yield errors(name="Theme")}}
-		{{ if DefaultUserSettings("new_torrent")}}
-		<label class="input-label">{{  T("new_torrent_settings") }}:</label> <br>
-			<select id="new_torrent" name="new_torrent" class="form-input up-input">
-				<option value="0" {{ if !UserProfile.Settings.Get("new_torrent") }}selected{{end}}>{{  T("no")}}</option>
-				<option value="1" {{ if UserProfile.Settings.Get("new_torrent") }}selected{{end}}>{{  T("yes")}}</option>
-			</select> <br>
-		{{ yield errors(name="NewTorrent")}}
-		{{end}}
-		{{ if DefaultUserSettings("new_torrent_email")}}
-		<label class="input-label">{{  T("new_torrent_email_settings") }}:</label> <br>
-			<select id="new_torrent_email" name="new_torrent_email" class="form-input up-input">
-				<option value="0" {{ if !UserProfile.Settings.Get("new_torrent_email") }}selected{{end}}>{{  T("no")}}</option>
-				<option value="1" {{ if UserProfile.Settings.Get("new_torrent_email")}}selected{{end}}>{{  T("yes")}}</option>
-			</select> <br>
-		{{ yield errors(name="NewTorrentEmail")}}
-		{{end}}
-		{{ if DefaultUserSettings("new_comment")}}
-		<label class="input-label">{{  T("new_comment_settings") }}:</label> <br>
-			<select id="new_comment" name="new_comment" class="form-input up-input">
-				<option value="0" {{ if !UserProfile.Settings.Get("new_comment") }}selected{{end}}>{{  T("no")}}</option>
-				<option value="1" {{ if UserProfile.Settings.Get("new_comment") }}selected{{end}}>{{  T("yes")}}</option>
-			</select> <br>
-		{{ yield errors(name="NewComment")}}
-		{{end}}
-		{{ if DefaultUserSettings("new_comment_email")}}
-		<label class="input-label">{{  T("new_comment_email_settings") }}:</label> <br>
-			<select id="new_comment_email" name="new_comment_email" class="form-input up-input">
-				<option value="0" {{ if !UserProfile.Settings.Get("new_comment_email") }}selected{{end}}>{{  T("no")}}</option>
-				<option value="1" {{ if UserProfile.Settings.Get("new_comment_email") }}selected{{end}}>{{  T("yes")}}</option>
-			</select> <br>
-		{{ yield errors(name="NewCommentEmail")}}
-		{{end}}
-		{{ if DefaultUserSettings("new_responses")}}
-		<label class="input-label">{{  T("new_responses_settings") }}:</label> <br>
-			<select id="new_responses" name="new_responses" class="form-input up-input">
-				<option value="0" {{ if !UserProfile.Settings.Get("new_responses") }}selected{{end}}>{{  T("no")}}</option>
-				<option value="1" {{ if UserProfile.Settings.Get("new_responses")}}selected{{end}}>{{  T("yes")}}</option>
-			</select> <br>
-		{{ yield errors(name="NewResponses")}}
-		{{end}}
-		{{ if DefaultUserSettings("new_responses_email")}}
-		<label class="input-label">{{  T("new_responses_email_settings") }}:</label> <br>
-			<select id="new_responses_email" name="new_responses_email" class="form-input up-input">
-				<option value="0" {{ if UserProfile.Settings.Get("new_responses_email") }}selected{{end}}>{{  T("no")}}</option>
-				<option value="1" {{ if UserProfile.Settings.Get("new_responses_email")}}selected{{end}}>{{  T("yes")}}</option>
-			</select> <br>
-		{{ yield errors(name="NewResponsesEmail")}}
-		{{end}}
-		{{ if DefaultUserSettings("new_follower")}}
-		<label class="input-label">{{  T("new_follower_settings") }}:</label> <br>
-			<select id="new_follower" name="new_follower" class="form-input up-input">
-				<option value="0" {{ if UserProfile.Settings.Get("new_follower") }}selected{{end}}>{{  T("no")}}</option>
-				<option value="1" {{ if UserProfile.Settings.Get("new_follower")}}selected{{end}}>{{  T("yes")}}</option>
-			</select> <br>
-		{{ yield errors(name="NewFollower")}}
-		{{end}}
-		{{ if DefaultUserSettings("new_follower_email")}}
-		<label class="input-label">{{  T("new_follower_email_settings") }}:</label> <br>
-			<select id="new_follower_email" name="new_follower_email" class="form-input up-input">
-				<option value="0" {{ if UserProfile.Settings.Get("new_follower_email") }}selected{{end}}>{{  T("no")}}</option>
-				<option value="1" {{ if UserProfile.Settings.Get("new_follower_email")}}selected{{end}}>{{  T("yes")}}</option>
-			</select> <br>
-		{{ yield errors(name="NewFollowerEmail")}}
-		{{end}}
-		{{ if DefaultUserSettings("followed")}}
-		<label class="input-label">{{  T("followed_settings") }}:</label> <br>
-			<select id="followed" name="followed" class="form-input up-input">
-				<option value="0" {{ if UserProfile.Settings.Get("followed") }}selected{{end}}>{{  T("no")}}</option>
-				<option value="1" {{ if UserProfile.Settings.Get("followed")}}selected{{end}}>{{  T("yes")}}</option>
-			</select><br>
-		{{ yield errors(name="Followed")}}
-		{{end}}
-		{{ if DefaultUserSettings("followed_email")}}
-		<label class="input-label">{{  T("followed_email_settings") }}:</label> <br>
-			<select id="followed_email" name="followed_email" class="form-input up-input">
-				<option value="0" {{ if UserProfile.Settings.Get("followed_email") }}selected{{end}}>{{  T("no")}}</option>
-				<option value="1" {{ if UserProfile.Settings.Get("followed_email")}}selected{{end}}>{{  T("yes")}}</option>
-			</select> <br>
-		{{ yield errors(name="FollowedEmail")}}
-		{{end}}
-		{{ if User.HasAdmin()}}
-		<h3>{{  T("moderation")}}</h3>
-		<label class="input-label">{{  T("username")}}:</label> <br>
-			<input class="form-input up-input" name="username" id="username" type="text" value="{{UserProfile.Username}}">
-		{{ yield errors(name="Username")}}
+    <h3>{{  T("preferences")}}</h3>
+    <label class="input-label" for="theme">{{ T("theme")}}</label>
+    <br/>
+    <select id="theme-selector" name="theme" class="form-input up-input" onchange="switchThemes()">
+      <option value="">{{ T("theme_select")}}</option>
+      <option value="g"{{ if Theme == "g" }} selected{{end}}>/g/</option>
+      <option value="tomorrow"{{ if Theme == "tomorrow" }} selected{{end}}>Tomorrow</option>
+      <option value=""{{ if Theme == "" }} selected{{end}}>{{ T("theme_none")}}</option>
+    </select>
+    <br/>
+    {{ yield errors(name="Theme")}}
+    {{ if DefaultUserSettings("new_torrent")}}
+    <label class="input-label">{{  T("new_torrent_settings") }}:</label>
+    <br/>
+    <select id="new_torrent" name="new_torrent" class="form-input up-input">
+      <option value="0" {{ if !UserProfile.Settings.Get("new_torrent") }}selected{{end}}>{{  T("no")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("new_torrent") }}selected{{end}}>{{  T("yes")}}</option>
+    </select>
+    <br/>
+    {{ yield errors(name="NewTorrent")}}
+    {{end}}
+    {{ if DefaultUserSettings("new_torrent_email")}}
+    <label class="input-label">{{  T("new_torrent_email_settings") }}:</label>
+    <br/>
+    <select id="new_torrent_email" name="new_torrent_email" class="form-input up-input">
+      <option value="0" {{ if !UserProfile.Settings.Get("new_torrent_email") }}selected{{end}}>{{  T("no")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("new_torrent_email")}}selected{{end}}>{{  T("yes")}}</option>
+    </select> <br>
+    {{ yield errors(name="NewTorrentEmail")}}
+    {{end}}
+    {{ if DefaultUserSettings("new_comment")}}
+    <label class="input-label">{{  T("new_comment_settings") }}:</label> <br>
+    <select id="new_comment" name="new_comment" class="form-input up-input">
+      <option value="0" {{ if !UserProfile.Settings.Get("new_comment") }}selected{{end}}>{{  T("no")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("new_comment") }}selected{{end}}>{{  T("yes")}}</option>
+    </select> <br>
+    {{ yield errors(name="NewComment")}}
+    {{end}}
+    {{ if DefaultUserSettings("new_comment_email")}}
+    <label class="input-label">{{  T("new_comment_email_settings") }}:</label>
+    <br/>
+    <select id="new_comment_email" name="new_comment_email" class="form-input up-input">
+      <option value="0" {{ if !UserProfile.Settings.Get("new_comment_email") }}selected{{end}}>{{  T("no")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("new_comment_email") }}selected{{end}}>{{  T("yes")}}</option>
+    </select>
+    <br/>
+    {{ yield errors(name="NewCommentEmail")}}
+    {{end}}
+    {{ if DefaultUserSettings("new_responses")}}
+    <label class="input-label">{{  T("new_responses_settings") }}:</label>
+    <br/>
+    <select id="new_responses" name="new_responses" class="form-input up-input">
+      <option value="0" {{ if !UserProfile.Settings.Get("new_responses") }}selected{{end}}>{{  T("no")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("new_responses")}}selected{{end}}>{{  T("yes")}}</option>
+    </select>
+    <br/>
+    {{ yield errors(name="NewResponses")}}
+    {{end}}
+    {{ if DefaultUserSettings("new_responses_email")}}
+    <label class="input-label">{{  T("new_responses_email_settings") }}:</label> <br>
+    <select id="new_responses_email" name="new_responses_email" class="form-input up-input">
+      <option value="0" {{ if UserProfile.Settings.Get("new_responses_email") }}selected{{end}}>{{  T("no")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("new_responses_email")}}selected{{end}}>{{  T("yes")}}</option>
+    </select>
+    <br/>
+    {{ yield errors(name="NewResponsesEmail")}}
+    {{end}}
+    {{ if DefaultUserSettings("new_follower")}}
+    <label class="input-label">{{  T("new_follower_settings") }}:</label> <br>
+    <select id="new_follower" name="new_follower" class="form-input up-input">
+      <option value="0" {{ if UserProfile.Settings.Get("new_follower") }}selected{{end}}>{{  T("no")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("new_follower")}}selected{{end}}>{{  T("yes")}}</option>
+    </select>
+    <br/>
+    {{ yield errors(name="NewFollower")}}
+    {{end}}
+    {{ if DefaultUserSettings("new_follower_email")}}
+    <label class="input-label">{{  T("new_follower_email_settings") }}:</label> <br>
+    <select id="new_follower_email" name="new_follower_email" class="form-input up-input">
+      <option value="0" {{ if UserProfile.Settings.Get("new_follower_email") }}selected{{end}}>{{  T("no")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("new_follower_email")}}selected{{end}}>{{  T("yes")}}</option>
+    </select>
+    <br/>
+    {{ yield errors(name="NewFollowerEmail")}}
+    {{end}}
+    {{ if DefaultUserSettings("followed")}}
+    <label class="input-label">{{  T("followed_settings") }}:</label> <br>
+    <select id="followed" name="followed" class="form-input up-input">
+      <option value="0" {{ if UserProfile.Settings.Get("followed") }}selected{{end}}>{{  T("no")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("followed")}}selected{{end}}>{{  T("yes")}}</option>
+    </select>
+    <br/>
+    {{ yield errors(name="Followed")}}
+    {{end}}
+    {{ if DefaultUserSettings("followed_email")}}
+    <label class="input-label">{{  T("followed_email_settings") }}:</label>
+    <br/>
+    <select id="followed_email" name="followed_email" class="form-input up-input">
+      <option value="0" {{ if UserProfile.Settings.Get("followed_email") }}selected{{end}}>{{  T("no")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("followed_email")}}selected{{end}}>{{  T("yes")}}</option>
+    </select>
+    <br/>
+    {{ yield errors(name="FollowedEmail")}}
+    {{end}}
+    {{ if User.HasAdmin()}}
+    <h3>{{  T("moderation")}}</h3>
+    <label class="input-label">{{  T("username")}}:</label> <br>
+    <input class="form-input up-input" name="username" id="username" type="text" value="{{UserProfile.Username}}">
+    {{ yield errors(name="Username")}}
 
-		<label class="input-label">{{  T("role") }}:</label>
-			<select id="status" name="status" class="form-input up-input">
-				<option value="-1" {{ if UserProfile.Status == -1 }}selected{{end}}>{{  T("banned")}}</option>
-				<option value="0" {{ if UserProfile.Status == 0 }}selected{{end}}>{{  T("member")}} ({{  T("default") }})</option>
-				<option value="1" {{ if UserProfile.Status == 1 }}selected{{end}}>{{  T("trusted_member")}}</option>
-				{{ if UserProfile.Status == 2 }} <!-- just so that it shows correctly -->
-					<option value="2" selected>{{  T("moderator")}}</option>
-				{{end}}
-				<option value="3" {{ if UserProfile.Status == 3 }}selected{{end}}>{{  T("scraped_user")}}</option>
-			</select>
-		{{ yield errors(name="Status")}}
-		{{end}}
-		<label class="input-label"></label>
-			<input type="submit" class="form-input btn-green" name="save" value="{{  T("save_changes")}}">
-			<span></span>
-			<input type="reset" class="form-input" value="{{  T("cancel")}}">
-	</form>
-	</div>
-	{{ if User.CurrentOrAdmin(UserProfile.ID) }}
-	<hr>
-	<a href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}?delete" onclick="if (!confirm('{{  T("delete_account_confirm") }}')) return false;" class="form-input btn-red">{{  T("delete_account")}}</a>
-	{{end}}
+    <label class="input-label">{{  T("role") }}:</label>
+    <select id="status" name="status" class="form-input up-input">
+      <option value="-1" {{ if UserProfile.Status == -1 }}selected{{end}}>{{  T("banned")}}</option>
+      <option value="0" {{ if UserProfile.Status == 0 }}selected{{end}}>{{  T("member")}} ({{  T("default") }})</option>
+      <option value="1" {{ if UserProfile.Status == 1 }}selected{{end}}>{{  T("trusted_member")}}</option>
+      {{ if UserProfile.Status == 2 }} <!-- just so that it shows correctly -->
+      <option value="2" selected>{{  T("moderator")}}</option>
+      {{end}}
+      <option value="3" {{ if UserProfile.Status == 3 }}selected{{end}}>{{  T("scraped_user")}}</option>
+    </select>
+    {{ yield errors(name="Status")}}
+    {{end}}
+    <label class="input-label"></label>
+    <input type="submit" class="form-input btn-green" name="save" value="{{  T("save_changes")}}">
+    <span></span>
+    <input type="reset" class="form-input" value="{{  T("cancel")}}">
+  </form>
+</div>
+{{ if User.CurrentOrAdmin(UserProfile.ID) }}
+<hr/>
+<a href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}?delete" onclick="if (!confirm('{{  T("delete_account_confirm") }}')) return false;" class="form-input btn-red">{{  T("delete_account")}}</a>
+{{end}}
 {{end}}

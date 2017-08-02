@@ -1,6 +1,7 @@
 package torrentController
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -18,8 +19,9 @@ import (
 func TorrentEditUserPanel(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
 	torrent, _ := torrents.FindByID(uint(id))
+	torrent.LoadTags()
 	currentUser := router.GetUser(c)
-	if currentUser.CurrentOrAdmin(torrent.UploaderID) {
+	if currentUser.CurrentOrAdmin(torrent.UploaderID) && torrent.ID > 0 {
 		uploadForm := torrentValidator.TorrentRequest{}
 		uploadForm.Name = torrent.Name
 		uploadForm.Category = strconv.Itoa(torrent.Category) + "_" + strconv.Itoa(torrent.SubCategory)
@@ -28,6 +30,7 @@ func TorrentEditUserPanel(c *gin.Context) {
 		uploadForm.Description = string(torrent.Description)
 		uploadForm.Hidden = torrent.Hidden
 		uploadForm.Languages = torrent.Languages
+		uploadForm.Tags = torrent.Tags.ToJSON(true)
 		templates.Form(c, "site/torrents/edit.jet.html", uploadForm)
 	} else {
 		c.AbortWithStatus(http.StatusNotFound)
@@ -41,6 +44,7 @@ func TorrentPostEditUserPanel(c *gin.Context) {
 	uploadForm.ID = uint(id)
 	messages := msg.GetMessages(c)
 	torrent, _ := torrents.FindByID(uint(id))
+	torrent.LoadTags()
 	currentUser := router.GetUser(c)
 	if torrent.ID > 0 && currentUser.CurrentOrAdmin(torrent.UploaderID) {
 		errUp := upload.ExtractEditInfo(c, &uploadForm.Update)
@@ -49,7 +53,8 @@ func TorrentPostEditUserPanel(c *gin.Context) {
 		}
 		if !messages.HasErrors() {
 			upload.UpdateTorrent(&uploadForm, torrent, currentUser).Update(currentUser.HasAdmin())
-			messages.AddInfoT("infos", "torrent_updated")
+			c.Redirect(http.StatusSeeOther, fmt.Sprintf("/view/%d?success_edit", id))
+			return
 		}
 		templates.Form(c, "site/torrents/edit.jet.html", uploadForm.Update)
 	} else {

@@ -6,13 +6,13 @@ import (
 	"testing"
 
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/azhao12345/gorm"
+	"github.com/jinzhu/gorm"
 )
 
 // run before config/parse.go:init()
 var _ = func() (_ struct{}) {
-	config.ConfigPath = path.Join("..", config.ConfigPath)
-	config.DefaultConfigPath = path.Join("..", config.DefaultConfigPath)
+	config.Configpaths[1] = path.Join("..", config.Configpaths[1])
+	config.Configpaths[0] = path.Join("..", config.Configpaths[0])
 	config.Reload()
 	return
 }()
@@ -39,7 +39,7 @@ func TestGormInitSqlite(t *testing.T) {
 	config.Get().DBParams = ":memory:?cache=shared&mode=memory"
 	config.Get().DBLogMode = "detailed"
 
-	db, err := GormInit(config.Get(), &errorLogger{t})
+	db, err := GormInit(&errorLogger{t})
 	if err != nil {
 		t.Errorf("failed to initialize database: %v", err)
 		return
@@ -82,7 +82,7 @@ func TestGormInitPostgres(t *testing.T) {
 	config.Get().Models.UploadsOldTableName = "user_uploads_old"
 	config.Get().Models.LastOldTorrentID = 90000
 
-	db, err := GormInit(config.Get(), &errorLogger{t})
+	db, err := GormInit(&errorLogger{t})
 	if err != nil {
 		t.Errorf("failed to initialize database: %v", err)
 	}

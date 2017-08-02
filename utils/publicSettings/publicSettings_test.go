@@ -17,8 +17,8 @@ import (
 
 // run before config/parse.go:init()
 var _ = func() (_ struct{}) {
-	config.ConfigPath = path.Join("..", "..", config.ConfigPath)
-	config.DefaultConfigPath = path.Join("..", "..", config.DefaultConfigPath)
+	config.Configpaths[1] = path.Join("..", "..", config.Configpaths[1])
+	config.Configpaths[0] = path.Join("..", "..", config.Configpaths[0])
 	config.Reload()
 	return
 }()
@@ -55,8 +55,8 @@ func TestLanguages(t *testing.T) {
 		if lang.String() == "und" {
 			t.Errorf("Couldn't find the language root for the language %s", languageTag)
 		}
-		fmt.Printf("Name of the language natively: %s\n", strings.Title(display.Self.Name(lang)))
-		fmt.Printf("Name of the language in %s: %s\n", displayLang.String(), n.Name(lang))
+		fmt.Printf("Name of the language '%s' natively: %s\n", languageTag, strings.Title(display.Self.Name(lang)))
+		fmt.Printf("Name of the language '%s' in %s: %s\n\n", languageTag, displayLang.String(), n.Name(lang))
 	}
 }
 

@@ -3,12 +3,14 @@ package templates
 import (
 	"net/http"
 	"path"
+	"strconv"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/filelist"
-	"github.com/NyaaPantsu/nyaa/utils/messages"
+	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/search"
 	"github.com/gin-gonic/gin"
 	"github.com/justinas/nosurf"
 
@@ -44,7 +46,7 @@ func init() {
 // Commonvariables return a jet.VarMap variable containing the necessary variables to run index layouts
 func Commonvariables(c *gin.Context) jet.VarMap {
 	token := nosurf.Token(c.Request)
-	msg := messages.GetMessages(c)
+	messages := msg.GetMessages(c)
 	user, _, _ := cookies.CurrentUser(c)
 	variables := templateFunctions(make(jet.VarMap))
 	variables.Set("Navigation", NewNavigation())
@@ -52,13 +54,13 @@ func Commonvariables(c *gin.Context) jet.VarMap {
 	variables.Set("T", publicSettings.GetTfuncFromRequest(c))
 	variables.Set("Theme", publicSettings.GetThemeFromRequest(c))
 	variables.Set("Mascot", publicSettings.GetMascotFromRequest(c))
-	variables.Set("MascotURL", publicSettings.GetMascotUrlFromRequest(c))
+	variables.Set("MascotURL", publicSettings.GetMascotURLFromRequest(c))
 	variables.Set("User", user)
 	variables.Set("URL", c.Request.URL)
 	variables.Set("CsrfToken", token)
 	variables.Set("Config", config.Get())
-	variables.Set("Infos", msg.GetAllInfos())
-	variables.Set("Errors", msg.GetAllErrors())
+	variables.Set("Infos", messages.GetAllInfos())
+	variables.Set("Errors", messages.GetAllErrors())
 	return variables
 }
 
@@ -151,30 +153,44 @@ func Torrent(c *gin.Context, torrent models.TorrentJSON, rootFolder *filelist.Fi
 	variables.Set("Torrent", torrent)
 	variables.Set("RootFolder", rootFolder)
 	variables.Set("CaptchaID", captchaID)
-	Render(c, path.Join(SiteDir, "torrents/view.jet.html"), variables)
+	Render(c, path.Join(SiteDir, "torrents", "view.jet.html"), variables)
+}
+
+// userProfilBase render the base for user profile
+func userProfileBase(c *gin.Context, templateName string, userProfile *models.User, variables jet.VarMap) {
+	currentUser, _, _ := cookies.CurrentUser(c)
+	query := c.Request.URL.Query()
+	query.Set("userID", strconv.Itoa(int(userProfile.ID)))
+	query.Set("limit", "20")
+	c.Request.URL.RawQuery = query.Encode()
+	nbTorrents := 0
+	if userProfile.ID > 0 && currentUser.CurrentOrAdmin(userProfile.ID) {
+		_, userProfile.Torrents, nbTorrents, _ = search.ByQuery(c, 1, true, true, false, false)
+	} else {
+		_, userProfile.Torrents, nbTorrents, _ = search.ByQuery(c, 1, true, true, false, true)
+	}
+
+	variables.Set("UserProfile", userProfile)
+	variables.Set("NbTorrents", nbTorrents)
+	Render(c, path.Join(SiteDir, "user", templateName), variables)
 }
 
 // UserProfileEdit render a form to edit a profile
 func UserProfileEdit(c *gin.Context, userProfile *models.User, userForm userValidator.UserForm, languages publicSettings.Languages) {
 	variables := Commonvariables(c)
-	variables.Set("UserProfile", userProfile)
 	variables.Set("UserForm", userForm)
 	variables.Set("Languages", languages)
-	Render(c, path.Join(SiteDir, "user/edit.jet.html"), variables)
+	userProfileBase(c, "edit.jet.html", userProfile, variables)
 }
 
 // UserProfile render a user profile
 func UserProfile(c *gin.Context, userProfile *models.User) {
-	variables := Commonvariables(c)
-	variables.Set("UserProfile", userProfile)
-	Render(c, path.Join(SiteDir, "user/torrents.jet.html"), variables)
+	userProfileBase(c, "torrents.jet.html", userProfile, Commonvariables(c))
 }
 
 // UserProfileNotifications render a user profile notifications
 func UserProfileNotifications(c *gin.Context, userProfile *models.User) {
-	variables := Commonvariables(c)
-	variables.Set("UserProfile", userProfile)
-	Render(c, path.Join(SiteDir, "user/notifications.jet.html"), variables)
+	userProfileBase(c, "notifications.jet.html", userProfile, Commonvariables(c))
 }
 
 // DatabaseDump render the list of database dumps template
@@ -182,7 +198,7 @@ func DatabaseDump(c *gin.Context, listDumps []models.DatabaseDumpJSON, GPGLink s
 	variables := Commonvariables(c)
 	variables.Set("ListDumps", listDumps)
 	variables.Set("GPGLink", GPGLink)
-	Render(c, path.Join(SiteDir, "database/dumps.jet.html"), variables)
+	Render(c, path.Join(SiteDir, "database", "dumps.jet.html"), variables)
 }
 
 // PanelAdmin render the panel admin template index

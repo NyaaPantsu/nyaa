@@ -8,6 +8,7 @@ import (
 	"syscall"
 )
 
+// Handle handles unix interupts
 func Handle() {
 	chnl := make(chan os.Signal)
 	signal.Notify(chnl, syscall.SIGHUP, os.Interrupt)

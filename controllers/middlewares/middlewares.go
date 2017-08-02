@@ -8,14 +8,16 @@ import (
 	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
+	"github.com/NyaaPantsu/nyaa/utils/oauth2"
 	"github.com/gin-gonic/gin"
+	"github.com/ory/fosite"
 )
 
-// Middleware for managing errors on status
+// ErrorMiddleware for managing errors on status
 func ErrorMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Next()
-		if config.Get().Environment == "DEVELOPMENT" {
+		if c.Writer.Status() >= 300 && config.Get().Environment == "DEVELOPMENT" {
 			messages := msg.GetMessages(c)
 			if messages.HasErrors() {
 				log.Errorf("Request has errors: %v", messages.GetAllErrors())
@@ -44,13 +46,17 @@ func ModMiddleware() gin.HandlerFunc {
 	}
 }
 
-func pprofHandler(handler http.HandlerFunc) gin.HandlerFunc {
+func ScopesRequired(scopes ...string) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		currentUser := router.GetUser(c)
-		if currentUser.HasAdmin() {
-			handler.ServeHTTP(c.Writer, c.Request)
-		} else {
-			templates.HttpError(c, http.StatusNotFound)
+		mySessionData := oauth2.NewSession("", "")
+		ctx, err := oauth2.Oauth2.IntrospectToken(c, fosite.AccessTokenFromRequest(c.Request), fosite.AccessToken, mySessionData, scopes...)
+		if err != nil {
+			c.Error(err)
+			c.Abort()
+			return
 		}
+		// All required scopes are found
+		c.Set("fosite", ctx)
+		c.Next()
 	}
 }

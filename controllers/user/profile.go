@@ -16,7 +16,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/email"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
-	"github.com/NyaaPantsu/nyaa/utils/search"
 	"github.com/NyaaPantsu/nyaa/utils/validator"
 	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"github.com/gin-gonic/gin"
@@ -49,21 +48,7 @@ func UserProfileHandler(c *gin.Context) {
 				messages.AddInfof("infos", Ts("user_unfollowed_msg"), userProfile.Username)
 			}
 			userProfile.ParseSettings()
-			query := c.Request.URL.Query()
-			query.Set("userID", strconv.Itoa(int(id)))
-			query.Set("max", "16")
-			c.Request.URL.RawQuery = query.Encode()
-			var torrents []models.Torrent
-			var err error
-			if currentUser.CurrentOrAdmin(userProfile.ID) {
-				_, torrents, _, err = search.ByQuery(c, 1)
-			} else {
-				_, torrents, _, err = search.ByQueryNoHidden(c, 1)
-			}
-			if err != nil {
-				messages.AddErrorT("errors", "retrieve_torrents_error")
-			}
-			userProfile.Torrents = torrents
+
 			templates.UserProfile(c, userProfile)
 		}
 	} else {

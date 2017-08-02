@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/users"
 	"github.com/NyaaPantsu/nyaa/utils/feeds"
@@ -19,6 +20,7 @@ func getTorrentList(c *gin.Context) (torrents []models.Torrent, createdAsTime ti
 	userID := c.Param("id")
 	cat := c.Query("cat")
 	offset := 0
+	currentUser := router.GetUser(c)
 	if c.Query("offset") != "" {
 		offset, err = strconv.Atoi(html.EscapeString(c.Query("offset")))
 		if err != nil {
@@ -52,7 +54,7 @@ func getTorrentList(c *gin.Context) (torrents []models.Torrent, createdAsTime ti
 	}
 
 	if userID != "" {
-		userIDnum := 0
+		var userIDnum int
 		userIDnum, err = strconv.Atoi(html.EscapeString(userID))
 		// Should we have a feed for anonymous uploads?
 		if err != nil || userIDnum == 0 {
@@ -79,7 +81,12 @@ func getTorrentList(c *gin.Context) (torrents []models.Torrent, createdAsTime ti
 		c.Request.URL.RawQuery = query.Encode()
 	}
 
-	_, torrents, err = search.ByQueryNoCount(c, pagenum)
+	user, err := strconv.ParseUint(c.Param("id"), 10, 32)
+	if err != nil {
+		user = 0
+	}
+
+	_, torrents, _, err = search.AuthorizedQuery(c, pagenum, currentUser.CurrentOrAdmin(uint(user)))
 
 	return
 }

@@ -12,6 +12,8 @@ import (
 
 	"errors"
 
+	"math"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/crypto"
 )
@@ -45,6 +47,7 @@ type User struct {
 	Mascot         string    `gorm:"column:mascot"`
 	MascotURL      string    `gorm:"column:mascot_url"`
 	UserSettings   string    `gorm:"column:settings"`
+	Pantsu         float64   `gorm:"column:pantsu"`
 
 	// TODO: move this to PublicUser
 	Followers []User // Don't work `gorm:"foreignkey:user_id;associationforeignkey:follower_id;many2many:user_follows"`
@@ -56,6 +59,7 @@ type User struct {
 
 	UnreadNotifications int          `gorm:"-"` // We don't want to loop every notifications when accessing user unread notif
 	Settings            UserSettings `gorm:"-"` // We don't want to load settings everytime, stock it as a string, parse it when needed
+	Tags                Tags         `gorm:"-"` // We load tags only when viewing a torrent
 }
 
 // UserJSON : User model conversion in JSON
@@ -63,7 +67,7 @@ type UserJSON struct {
 	ID          uint   `json:"user_id"`
 	Username    string `json:"username"`
 	Status      int    `json:"status"`
-	APIToken    string `json:"token"`
+	APIToken    string `json:"token,omitempty"`
 	MD5         string `json:"md5"`
 	CreatedAt   string `json:"created_at"`
 	LikingCount int    `json:"liking_count"`
@@ -150,6 +154,9 @@ func (u *User) HasAdmin() bool {
 
 // CurrentOrAdmin check that user has admin permission or user is the current user.
 func (u *User) CurrentOrAdmin(userID uint) bool {
+	if userID == 0 {
+		return false
+	}
 	log.Debugf("user.ID == userID %d %d %s", u.ID, userID, u.ID == userID)
 	return (u.IsModerator() || u.ID == userID)
 }
@@ -361,4 +368,55 @@ func (u *User) Delete(currentUser *User) (int, error) {
 // toMap : convert the model to a map of interface
 func (u *User) toMap() map[string]interface{} {
 	return structs.Map(u)
+}
+
+// Splice : get a subset of torrents
+func (u *User) Splice(start int, length int) *User {
+	if (len(u.Torrents) <= length && start == 0) || len(u.Torrents) == 0 {
+		return u
+	}
+	if start > len(u.Torrents) {
+		u.Torrents = []Torrent{}
+		return u
+	}
+	if len(u.Torrents) < length {
+		length = len(u.Torrents)
+	}
+	u.Torrents = u.Torrents[start:length]
+	return u
+}
+
+// Filter : filter the hidden torrents
+func (u *User) Filter() *User {
+	torrents := []Torrent{}
+	for _, t := range u.Torrents {
+		if !t.Hidden {
+			torrents = append(torrents, t)
+		}
+	}
+	u.Torrents = torrents
+	return u
+}
+
+// IncreasePantsu is a function that uses the formula to increase the Pantsu points of a user
+func (u *User) IncreasePantsu() {
+	if u.Pantsu <= 0 {
+		u.Pantsu = 1 // Pantsu points should never be less or equal to 0. This would trigger a division by 0
+	}
+	u.Pantsu = u.Pantsu * (1 + 1/(math.Pow(math.Log(u.Pantsu+1), 5))) // First votes substancially increases the vote, further it increase slowly
+}
+
+// DecreasePantsu is a function that uses the formula to decrease the Pantsu points of a user
+func (u *User) DecreasePantsu() {
+	u.Pantsu = 0.8 * u.Pantsu // You lose 20% of your pantsu points each wrong vote
+}
+
+func (u *User) LoadTags(torrent *Torrent) {
+	if u.ID == 0 {
+		return
+	}
+	if err := ORM.Where("torrent_id = ? AND user_id = ?", torrent.ID, u.ID).Find(&u.Tags).Error; err != nil {
+		log.CheckErrorWithMessage(err, "LOAD_TAGS_ERROR: Couldn't load tags!")
+		return
+	}
 }
