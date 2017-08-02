@@ -664,7 +664,7 @@ html, body {
 	.user-td.tr-size { width: 77px; }
 	.box.refine > form > div { display: inline-grid !important; }
 	.box.refine > form > div > div { width: 100%!important; }
-	.refine-btn { width: 100%; }
+	.refine-btn { width: 426px!important; }
 }
 
 @media (max-width: 810px) {
@@ -742,6 +742,7 @@ html, body {
     .form-refine .refine-searchbox { width: 48%; }
     .form-refine .refine-searchbox::placeholder { opacity: 1; }
     .language { width: 350px; }
+    .refine-btn { width: 350px!important; }
     #footer { margin-bottom: 25px; }
 }
 
