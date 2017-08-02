@@ -182,6 +182,7 @@ select.form-input {
     border-left: none;
     margin-left: -4px;
     margin-top: 1px;
+    outline: none;
 }
 
 .form-input.language {
