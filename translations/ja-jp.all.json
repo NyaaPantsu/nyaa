@@ -1933,7 +1933,7 @@
   },
   {
     "id": "wrong_tag_type",
-    "translation": "選択されたタグタイプは存在しません"
+    "translation": "選択されたタグの種類は存在しません"
   },
   {
     "id": "add_tag",
