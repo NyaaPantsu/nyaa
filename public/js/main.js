@@ -166,8 +166,8 @@ function toggleTheme() {
   document.getElementById("theme").href = "/css/" + CurrentTheme + ".css";
   
   var farFuture = farFutureString()
-  document.cookie = "theme=" + CurrentTheme + ";path=/;expires=" + farFuture
-  document.cookie = "theme2=" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]) + ";path=/;expires=" + farFuture
+  document.cookie = "theme=" + CurrentTheme + ";path=/;domain=pantsu.cat;expires=" + farFuture
+  document.cookie = "theme2=" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]) + ";path=/;domain=pantsu.cat;expires=" + farFuture
 }
 
 function playVoice() {
