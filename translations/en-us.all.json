@@ -528,6 +528,10 @@
     "translation": "Show all"
   },
   {
+    "id": "delete_all",
+    "translation": "Delete all"
+  },
+  {
     "id": "filter_remakes",
     "translation": "Filter Remakes"
   },

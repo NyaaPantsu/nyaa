@@ -445,3 +445,12 @@ func (t *Torrent) LoadTags() {
 		log.CheckErrorWithMessage(err, "LOAD_TAGS_ERROR: Couldn't load tags!")
 	}
 }
+
+// DeleteTags cipes out all the tags from the torrent. Doesn't decrease pantsu on users!
+func (t *Torrent) DeleteTags() {
+	if t.ID > 0 {
+		// Should output a query like this: DELETE FROM tags WHERE torrent_id=923000
+		err := ORM.Where("torrent_id = ?", t.ID).Delete(&t.Tags).Error
+		log.CheckErrorWithMessage(err, "LOAD_TAGS_ERROR: Couldn't delete tags!")
+	}
+}
