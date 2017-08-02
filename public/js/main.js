@@ -125,7 +125,7 @@ function startupCode() {
   if (document.cookie.includes("newVersion"))
     document.getElementById("commit").className = document.getElementById("commit").innerHTML != "unknown" ? "new" : "wew";
 
-  document.getElementById("dark-toggle").style.display = "initial";
+  document.getElementById("dark-toggle").style.display = "initial"
   document.getElementById("dark-toggle").addEventListener("click", toggleTheme);
 
   if(document.cookie.includes("theme")) {
@@ -158,7 +158,7 @@ function startupCode() {
   
 }
 
-function toggleTheme() {
+function toggleTheme(e) {
   var CurrentTheme = document.getElementById("theme").href
   CurrentTheme = CurrentTheme.substring(CurrentTheme.indexOf("/css/") + 5, CurrentTheme.indexOf(".css"))
   CurrentTheme = (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0])
@@ -166,8 +166,9 @@ function toggleTheme() {
   document.getElementById("theme").href = "/css/" + CurrentTheme + ".css";
   
   var farFuture = farFutureString()
-  document.cookie = "theme=" + CurrentTheme + ";path=/;expires=" + farFuture
-  document.cookie = "theme2=" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]) + ";path=/;expires=" + farFuture
+  document.cookie = "theme=" + CurrentTheme + ";path=/;domain=pantsu.cat;expires=" + farFuture
+  document.cookie = "theme2=" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]) + ";path=/;domain=pantsu.cat;expires=" + farFuture
+  e.preventDefault()
 }
 
 function playVoice() {
