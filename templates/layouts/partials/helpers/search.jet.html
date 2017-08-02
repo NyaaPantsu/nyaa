@@ -15,8 +15,11 @@
 {{end}}
 {{block search_refine(url="") }}
 <div style="text-align:left;{{ if !Search.ShowRefine }}display:none;{{ end }}" class="box refine">
-  <h3>{{ T("refine_search") }}</h3>
+  </span>
   <form style="display: grid;" method="GET" action="{{ url }}">
+    <h3 style="margin-top: 2px;">{{ T("refine_search") }}</h3>
+	<div>
+	  <div class="refine-container-1">
     <span class="form-refine">
       <span class="spacing">{{ T("search_for") }}:</span>
       <input type="text" class="form-input refine-searchbox" size="30" name="q" value="{{Search.NameLike}}" placeholder="{{ T("search_for") }}"/><select name="c" class="form-input refine-category"/>
@@ -50,7 +53,7 @@
     </select>
     {{  T("large")}}
   </span>
-  <span class="form-refine">
+  <span class="form-refine" style="margin-bottom: 2px;">
     <span class="spacing">{{ T("between")}}</span>
     <input class="form-input" size="7" name="fromDate" type="text" value="{{Search.FromDate}}"/>
     {{ T("and")}}
@@ -61,11 +64,14 @@
       <option value="y"{{if Search.DateType == "y"}} selected{{end}}>{{  T("years")}}</option>
     </select>
     {{ T("old")}}.
-  </span>
-  <div name="language" class="form-refine form-input language">
-    {{ yield flagList(languages=GetTorrentLanguages(), selected=Search.Languages, inputname="lang", id="refine-search")}}
-  </div>
-  <button type="submit" class="form-input refine-btn" name="refine" value="1">{{  T("refine")}}</button>
+	  </div>
+	  <div class="refine-container-2">
+		  <div name="language" class="form-refine form-input language">
+			{{ yield flagList(languages=GetTorrentLanguages(), selected=Search.Languages, inputname="lang", id="refine-search")}}
+		  </div>
+		  <button type="submit" class="form-input refine-btn" name="refine" value="1">{{  T("refine")}}</button>
+	  </div>
+	</div>
 </form>
 </div>
 {{end}}

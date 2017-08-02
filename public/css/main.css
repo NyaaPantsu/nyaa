@@ -356,6 +356,10 @@ select.form-input {
 .box.refine input[type="number"].refine-userid {
     width: 65px;
 }
+.box.refine .language {
+	position: absolute; 
+	right: 0;
+}
 
 .form-refine {
     margin-bottom: 10px;
@@ -382,8 +386,14 @@ select.form-input {
 .form-refine .refine-category {
     border-left: none;
     border-radius: 0 3px 3px 0;
-	max-width: 50%;
+	max-width: 40%;
 }
+
+.box.refine > form > div {
+	display: flex;
+}
+.box.refine .refine-container-1 { width: 57%; }
+.box.refine .refine-container-2 { width: 43%; position: relative; }
 
 .categories a {
     display: inline-block;
@@ -657,6 +667,16 @@ html, body {
     }
 	.user-td.tr-date { width: 100px; }
 	.user-td.tr-size { width: 77px; }
+	.box.refine > form > div { display: inline-grid !important; }
+	.box.refine > form > div > div { width: 100%!important; }
+	.refine-btn,.language { 
+		position: initial!important;
+		bottom: initial!important; 
+		width: 100%!important;
+	}
+	.language { width: initial!important; }
+	.refine-container-2 { margin-top: 5px; }
+	.hide-xs { display: none !important; }
 }
 
 @media (max-width: 810px) {
@@ -679,9 +699,6 @@ html, body {
         border-right: 1px solid;
         width: 100% !important;
         margin-bottom: 20px;
-    }
-    .hide-xs {
-        display: none !important;
     }
     .header .h-user {
         width: 46px;
@@ -1472,7 +1489,11 @@ details[open] summary:after {
 }
 
 .refine-btn {
-    width: 30%;
+    width: 426px;
+	max-width: 100%;
+	position:absolute;
+	bottom: 2px;
+	right: 0;
 }
 
 .torrent-preview-table>table {
