@@ -1481,7 +1481,8 @@ details[open] summary:after {
 }
 
 .refine-btn {
-    width: 100%;
+    width: 426px;
+	max-width: 100%;
 	position:absolute;
 	bottom: 2px;
 }
