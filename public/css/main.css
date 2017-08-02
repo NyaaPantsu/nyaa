@@ -668,6 +668,7 @@ html, body {
 	.refine-btn { 
 		position: initial!important;
 		bottom: initial!important; 
+		width: 100%!important;
 	}
 	.hide-xs { display: none !important; }
 }
