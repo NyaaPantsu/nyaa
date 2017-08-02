@@ -1,6 +1,8 @@
 package models
 
 import (
+	"time"
+
 	"github.com/NyaaPantsu/nyaa/config"
 )
 
@@ -11,6 +13,7 @@ type Notification struct {
 	Read       bool
 	Identifier string
 	URL        string
+	Expire     time.Time
 	UserID     uint
 	//	User *User `gorm:"AssociationForeignKey:UserID;ForeignKey:user_id"` // Don't think that we need it here
 }

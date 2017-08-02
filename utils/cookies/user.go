@@ -14,7 +14,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/timeHelper"
 	"github.com/NyaaPantsu/nyaa/utils/validator/user"
 	"github.com/gin-gonic/gin"
-	"github.com/gorilla/context"
 	"github.com/gorilla/securecookie"
 )
 
@@ -151,14 +150,14 @@ func CurrentUser(c *gin.Context) (*models.User, int, error) {
 	return user, http.StatusOK, nil
 }
 func getUserFromContext(c *gin.Context) *models.User {
-	if rv := context.Get(c.Request, UserContextKey); rv != nil {
+	if rv, ok := c.Get(UserContextKey); ok {
 		return rv.(*models.User)
 	}
 	return &models.User{}
 }
 
 func setUserToContext(c *gin.Context, val *models.User) {
-	context.Set(c.Request, UserContextKey, val)
+	c.Set(UserContextKey, val)
 }
 
 // RetrieveUserFromRequest retrieves a user.
