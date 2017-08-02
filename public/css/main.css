@@ -753,7 +753,7 @@ html, body {
     .form-refine .refine-searchbox { width: 55%; }
     .form-refine .refine-searchbox::placeholder { opacity: 1; }
     .language { width: 350px; }
-    #footer { margin-bottom: 25px; }
+    #footer { padding-bottom: 25px; }
 }
 
 @media (max-width: 440px) {
