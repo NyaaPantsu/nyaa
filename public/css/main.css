@@ -674,7 +674,7 @@ html, body {
 		bottom: initial!important; 
 		width: 100%!important;
 	}
-	.language { width: initial!important; 
+	.language { width: initial!important; }
 	.refine-container-2 { margin-top: 5px; }
 	.hide-xs { display: none !important; }
 }
