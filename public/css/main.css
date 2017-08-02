@@ -1483,7 +1483,7 @@ details[open] summary:after {
 .refine-btn {
     width: 100%;
 	position:absolute;
-	bottom:0;
+	bottom: 2px;
 }
 
 .torrent-preview-table>table {
