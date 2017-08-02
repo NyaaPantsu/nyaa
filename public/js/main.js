@@ -73,7 +73,7 @@ parseAllDates()
 //called if no Commit cookie is set or if the website has a newer commit than the one in cookie
 function resetCookies() {
   var cookies = document.cookie.split(";")
-  var excludedCookies = ["mascot", "theme", "mascot_url", "lang", "csrf_token"]
+  var excludedCookies = ["mascot", "theme", "theme2", "mascot_url", "lang", "csrf_token"]
 
   //Remove all cookies but exclude those in the above array
   for (var i = 0; i < cookies.length; i++) {
@@ -84,9 +84,7 @@ function resetCookies() {
   }
 
   //Set new version in cookie
-  var farFuture = new Date()
-  farFuture.setTime(farFuture.getTime() + 50 * 36000 * 15000)
-  document.cookie = "commit=" + commitVersion + ";expires=" + farFuture.toUTCString()
+  document.cookie = "commit=" + commitVersion + ";expires=" + farFutureString()
 
   var oneHour = new Date()
   oneHour.setTime(oneHour.getTime() + 1 * 3600 * 1500)
@@ -102,6 +100,7 @@ else
     startupCode()
   })
 
+ var UserTheme
 
 function startupCode() {
   var shiftWindow = function () {
@@ -124,7 +123,51 @@ function startupCode() {
   }
 
   if (document.cookie.includes("newVersion"))
-    document.getElementById("commit").className = "new";
+    document.getElementById("commit").className = document.getElementById("commit").innerHTML != "unknown" ? "new" : "wew";
+
+  document.getElementById("dark-toggle").style.display = "initial";
+  document.getElementById("dark-toggle").addEventListener("click", toggleTheme);
+
+  if(document.cookie.includes("theme")) {
+    var startPos = document.cookie.indexOf("theme=") + 6
+    var endPos = document.cookie.substring(startPos).indexOf(";")
+    UserTheme = [endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos), "tomorrow"]
+	//Get user's default theme and set the alternative one as tomorrow
+  }
+  else 
+	UserTheme = ["g", "tomorrow"]
+   //If user has no default theme, set these by default
+  
+  
+  if(document.cookie.includes("theme2")) {
+    var startPos = document.cookie.indexOf("theme2=") + 7
+    var endPos = document.cookie.substring(startPos).indexOf(";")
+    UserTheme[1] = endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos)
+	//If user already has ran the ToggleTheme() function in the past, we get the value of the second theme (the one the script switches to)
+	if(!UserTheme.includes("tomorrow"))
+		UserTheme[1] = "tomorrow"
+	//If none of the theme are tomorrow, which happens if the user is on dark mode (with theme2 on g.css) and that he switches to classic or g.css in settings, we set the second one as tomorrow
+  }
+  else {
+    if(UserTheme[0] == UserTheme[1])
+	  UserTheme[1] = "g"
+    //If tomorrow is twice in UserTheme, which happens when the user already has tomorrow as his default theme and toggle the dark mode for the first time, we set the second theme as g.css
+    document.cookie = "theme2=" + UserTheme[1] + ";path=/;expires=" + farFutureString()
+	//Set cookie for future theme2 uses
+  }
+  
+}
+
+function toggleTheme() {
+  var CurrentTheme = document.getElementById("theme").href
+  CurrentTheme = CurrentTheme.substring(CurrentTheme.indexOf("/css/") + 5, CurrentTheme.indexOf(".css"))
+  CurrentTheme = (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0])
+
+  document.getElementById("theme").href = "/css/" + CurrentTheme + ".css";
+  
+  var farFuture = farFutureString()
+  document.cookie = "theme=" + CurrentTheme + ";path=/;expires=" + farFuture
+  document.cookie = "theme2=" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]) + ";path=/;expires=" + farFuture
 }
 
 function playVoice() {
@@ -155,5 +198,11 @@ function humanFileSize(bytes, si) {
   var k = si ? 1000 : 1024
   var i = ~~(Math.log(bytes) / Math.log(k))
   return i == 0 ? bytes + " B" : (bytes / Math.pow(k, i)).toFixed(1) + " " + "KMGTPEZY" [i - 1] + (si ? "" : "i") + "B"
+}
+
+function farFutureString() {
+  var farFuture = new Date()
+  farFuture.setTime(farFuture.getTime() + 50 * 36000 * 15000)
+  return farFuture.toUTCString()
 }
 // @license-end
