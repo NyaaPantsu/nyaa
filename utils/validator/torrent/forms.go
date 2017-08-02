@@ -3,6 +3,7 @@ package torrentValidator
 // TorrentRequest struct
 // Same json name as the constant!
 type TorrentRequest struct {
+	ID          uint     `validate:"-" form:"-" json:"-"`
 	Name        string   `validate:"required" form:"name" json:"name,omitempty"`
 	Magnet      string   `json:"magnet,omitempty" form:"magnet"`
 	Category    string   `validate:"required" form:"c" json:"c"`

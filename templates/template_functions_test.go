@@ -15,15 +15,10 @@ import (
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/categories"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
-	"github.com/gin-gonic/gin"
 )
 
 // run before router/init.go:init()
 var _ = func() (_ struct{}) {
-	gin.SetMode(gin.TestMode)
-	config.Configpaths[1] = path.Join("..", config.Configpaths[1])
-	config.Configpaths[0] = path.Join("..", config.Configpaths[0])
-	config.Reload()
 	categories.InitCategories()
 	return
 }()

@@ -50,7 +50,7 @@
     </div>
       <h3>{{ T("torrent_tags")}}</h3>
       <span id="tags_list"></span>
-      <a id="tagPopup" href="#" class="add-tag">{{ T("add") }}</a>
+      <a id="tagPopup" href="#" class="add-tag">{{ T("add") }}</a> <a id="tagPopup" href="/mod/tags/delete?id={{ Form.ID }}" class="form-input btn-red">{{ T("delete_all") }}</a>
       <input type="hidden" name="tags" id="tags" value="{{ Form.Tags }}">
       {{ yield errors(name="tags")}}
     <button type="submit" class="form-input up-input btn-green">{{ T("save_changes")}}</button>

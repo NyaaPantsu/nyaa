@@ -75,6 +75,7 @@ func TorrentEditModPanel(c *gin.Context) {
 
 	torrentJSON := torrent.ToJSON()
 	uploadForm := upload.NewTorrentRequest()
+	uploadForm.ID = torrentJSON.ID
 	uploadForm.Name = torrentJSON.Name
 	uploadForm.Category = torrentJSON.Category + "_" + torrentJSON.SubCategory
 	uploadForm.Status = torrentJSON.Status
@@ -97,7 +98,9 @@ func TorrentPostEditModPanel(c *gin.Context) {
 	currentUser := router.GetUser(c)
 	if torrent.ID > 0 {
 		errUp := upload.ExtractEditInfo(c, &uploadForm.Update)
-		uploadForm.ID = uint(id)
+		uploadForm.ID = torrent.ID
+		uploadForm.Update.ID = torrent.ID
+
 		if errUp != nil {
 			messages.AddErrorT("errors", "fail_torrent_update")
 		}
