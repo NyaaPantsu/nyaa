@@ -125,7 +125,7 @@ function startupCode() {
   if (document.cookie.includes("newVersion"))
     document.getElementById("commit").className = document.getElementById("commit").innerHTML != "unknown" ? "new" : "wew";
 
-  document.getElementById("dark-toggle").style.display = "initial";
+  document.getElementById("dark-toggle").style = "display: initial; cursor: pointer;"
   document.getElementById("dark-toggle").addEventListener("click", toggleTheme);
 
   if(document.cookie.includes("theme")) {
