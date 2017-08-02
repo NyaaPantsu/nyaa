@@ -13,8 +13,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/search"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
-	
-	"github.com/CloudyKit/jet"
 )
 
 // SearchHandler : Controller for displaying search result page, accepting common search arguments
@@ -65,8 +63,7 @@ func SearchHandler(c *gin.Context) {
 
 	maxPages := math.Ceil(float64(nbTorrents) / float64(searchParam.Max))
 	if pagenum > int(maxPages) {
-		var variables jet.VarMap
-		variables = templates.Commonvariables(c)
+		variables := templates.Commonvariables(c)
 		variables.Set("Search", searchForm)
 		templates.Render(c, "errors/no_results.jet.html", variables)
 		return
