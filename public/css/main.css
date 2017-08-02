@@ -392,8 +392,8 @@ select.form-input {
 .box.refine > form > div {
 	display: flex;
 }
-.box.refine .refine-container-1 { width: 57%; }
-.box.refine .refine-container-2 { width: 43%; position: relative; }
+.box.refine .refine-container-1 { width: 53%; }
+.box.refine .refine-container-2 { width: 47%; position: relative; }
 
 .categories a {
     display: inline-block;
