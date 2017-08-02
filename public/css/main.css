@@ -382,8 +382,13 @@ select.form-input {
 .form-refine .refine-category {
     border-left: none;
     border-radius: 0 3px 3px 0;
-	max-width: 50%;
+	max-width: 40%;
 }
+
+.box.refine > form > div {
+	display: flex;
+}
+.box.refine .refine-container-1 { width: 57%; }
 
 .categories a {
     display: inline-block;
@@ -657,6 +662,9 @@ html, body {
     }
 	.user-td.tr-date { width: 100px; }
 	.user-td.tr-size { width: 77px; }
+	.box.refine > form > div { display: inline-grid !important; }
+	.box.refine > form > div > div { width: 100%!important; }
+	.refine-btn { width: 100%; }
 }
 
 @media (max-width: 810px) {
