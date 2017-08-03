@@ -57,8 +57,8 @@ function parseAllDates() {
     var dateDifference = dateDiff(new Date(e.innerText), new Date())
     
     if(e.className.includes("scrape-date"))
-      e.title = dateDifference.d + " days " + dateDifference.h + " hours " + dateDifference.m + " minutes ago" + 
-    //e.title = T.r("torrent_age", dateDifference.d, dateDifference.h, dateDifference.m)
+      e.title = ((dateDifference.d * 24) + dateDifference.h) + " hours " + dateDifference.m + " minutes ago" + 
+    //e.title = T.r("torrent_age2", dateDifference.h, dateDifference.m)
     else
       e.title = dateDifference.d + " days " + dateDifference.h + " hours ago"
 	  
