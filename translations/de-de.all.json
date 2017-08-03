@@ -9,7 +9,7 @@
   },
   {
     "id": "asia",
-    "translation": "Nur Asiennahe Inhalte (keine westlichen Filme, keine Cartoons)"
+    "translation": "Nur Asiatische Inhalte (keine westlichen Filme, keine Cartoons)"
   },
   {
     "id": "rules_spam",
@@ -526,6 +526,10 @@
   {
     "id": "show_all",
     "translation": "Alle anzeigen"
+  },
+  {
+    "id": "delete_all",
+    "translation": "Alle löschen"
   },
   {
     "id": "filter_remakes",
@@ -1777,11 +1781,11 @@
     },
     {
       "id": "torrent_lang_invalid",
-      "translation": "Die abgesendete Sprache wird nicht unterstüzt! Du kannst helfen sie hinzuzufügen indem du dich per Github and der Übersetzung beteiligst"
+      "translation": "Die abgesendete Sprache wird nicht unterstüzt! Du kannst helfen sie hinzuzufügen indem du dich per Github an der Übersetzung beteiligst"
     },
     {
       "id": "torrent_cat_is_english",
-      "translation": "Die Torrentkategorie ist auf 'Englisch-übersetzt' gewesen obwohl er nicht in englisch war. Wir haben ihn auf Englisch geändert."
+      "translation": "Die Torrentkategorie ist auf 'Englisch-übersetzt' gestellt gewesen obwohl er nicht in Englisch war. Wir haben ihn auf Englisch geändert."
     },
     {
       "id": "torrent_cat_not_english",
@@ -1789,7 +1793,7 @@
     },
     {
       "id": "torrent_magnet_invalid",
-      "translation": "Der Magnet konnte nicht geparsed werden, bitte kontrolliere Ihn auf Richtigkeit."
+      "translation": "Der Magnet konnte nicht geparsed werden, bitte kontrolliere ihn auf Richtigkeit."
     },
     {
       "id": "torrent_hash_invalid",
@@ -1797,7 +1801,7 @@
     },
     {
       "id": "torrent_plus_magnet",
-      "translation": "Lad entweder eine Torrent-Datei oder einen Magnet-Link hoch, nicht beides."
+      "translation": "Lade entweder eine Torrent-Datei oder einen Magnet-Link hoch, nicht beides."
     },
     {
       "id": "torrent_file_invalid",
@@ -1841,7 +1845,7 @@
     },
     {
       "id": "torrent_colors",
-      "translation": "Torrent Farben"
+      "translation": "Torrent-Farben"
     },
     {
       "id": "torrent_preview",
@@ -1878,6 +1882,10 @@
     {
       "id": "grant_types",
       "translation": "Grant Types"
+    },
+    {
+      "id": "response_types",
+      "translation": "Response Types"
     },
     {
       "id": "response_types",
@@ -1926,6 +1934,57 @@
     {
       "id": "torrent_age",
       "translation": "{1} Tage {2} Stunden alt"
+    },
+	{
+      "id": "wrong_tag_type",
+      "translation": "Das ausgewählt Schlagwort existiert nicht"
+	},
+  	{
+      "id": "add_tag",
+      "translation": "Schlagwort hinzufügen"
+  	},
+  	{
+      "id": "tagtype",
+      "translation": "Schlagwort-Typ"
+  	},
+  	{
+      "id": "tagtype_anidbid",
+      "translation": "Anidb ID"
+  	},
+  	{
+      "id": "tagtype_vndbid",
+      "translation": "VNdb ID"
+  	},
+  	{
+      "id": "tagtype_quality",
+      "translation": "Qualität"
+  	},
+  	{
+      "id": "torrent_tags",
+      "translation": "Torrent Schlagwort"
+  	},
+    {
+      "id": "announcements",
+      "translation": "Ankündigungen"
+    },
+    {
+      "id": "message",
+      "translation": "Nachricht"
+    },
+    {
+      "id": "delay",
+      "translation": "Verzögerung"
+    },
+    {
+      "id": "update_annoucement_panel",
+      "translation": "Ankündigungen aktualisieren"
+    },
+    {
+      "id": "create_annoucement_panel",
+      "translation": "Neue Ankündigung erstellen"
+    },
+    {
+      "id": "expire",
+      "translation": "Auslaufzeit"
     }
-  ]
-  
+]
