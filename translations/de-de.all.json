@@ -1908,7 +1908,7 @@
       "translation": "Emails des Besitzers"
     },
     {
-      "id": "clients_list",
+      "id": "oauth_clients_list",
       "translation": "OAuth API Clients"
     },
     {

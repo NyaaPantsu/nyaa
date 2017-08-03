@@ -38,12 +38,23 @@ func init() {
 		modRoutes.Any("/comments/p/:page", CommentsListPanel)
 		modRoutes.Any("/comment", CommentsListPanel) // TODO Edit comment view
 
+		/* Announcement listing routes */
+		modRoutes.Any("/announcement", listAnnouncements)
+		modRoutes.Any("/announcement/p/:page", listAnnouncements)
+
 		/* Torrent edit view */
 		modRoutes.GET("/torrent", TorrentEditModPanel)
 		modRoutes.POST("/torrent", TorrentPostEditModPanel)
 
 		/* Torrent delete routes */
 		modRoutes.Any("/torrent/delete", TorrentDeleteModPanel)
+
+		/* Announcement edit view */
+		modRoutes.GET("/announcement/form", addAnnouncement)
+		modRoutes.POST("/announcement/form", postAnnouncement)
+
+		/* Announcement delete routes */
+		modRoutes.Any("/announcement/delete", deleteAnnouncement)
 
 		/* Torrent lock/unlock route */
 		modRoutes.Any("/torrent/block", TorrentBlockModPanel)

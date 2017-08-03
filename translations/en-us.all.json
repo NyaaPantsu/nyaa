@@ -1852,6 +1852,10 @@
     "translation": "Preview your torrent"
   },
   {
+    "id": "announcement",
+    "translation": "Announcement"
+  },
+  {
     "id": "update_client_failed",
     "translation": "Update of the client has failed!"
   },
@@ -1912,7 +1916,7 @@
     "translation": "Owner Emails"
   },
   {
-    "id": "clients_list",
+    "id": "oauth_clients_list",
     "translation": "OAuth API Clients"
   },
   {
@@ -1953,10 +1957,34 @@
   },
   {
     "id": "tagtype_quality",
-    "translation": "Quality tag"
+    "translation": "Video Quality"
   },
   {
     "id": "torrent_tags",
     "translation": "Torrent tags"
+  },
+  {
+    "id": "announcements",
+    "translation": "Announcements"
+  },
+  {
+    "id": "message",
+    "translation": "Message"
+  },
+  {
+    "id": "delay",
+    "translation": "Delay"
+  },
+  {
+    "id": "update_annoucement_panel",
+    "translation": "Update Announcement"
+  },
+  {
+    "id": "create_annoucement_panel",
+    "translation": "Create Announcement"
+  },
+  {
+    "id": "expire",
+    "translation": "Expire"
   }
 ]

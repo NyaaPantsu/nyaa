@@ -1912,7 +1912,7 @@
     "translation": "Adresses email du propriétaire"
   },
   {
-    "id": "clients_list",
+    "id": "oauth_clients_list",
     "translation": "Clients OAuth de l'API"
   },
   {

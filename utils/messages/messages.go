@@ -4,9 +4,9 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/NyaaPantsu/nyaa/models/notifications"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 	"github.com/gin-gonic/gin"
-	"github.com/gorilla/context"
 	"github.com/nicksnyder/go-i18n/i18n"
 )
 
@@ -23,16 +23,21 @@ type Messages struct {
 
 // GetMessages : Initialize or return the messages object from context
 func GetMessages(c *gin.Context) *Messages {
-	if rv := context.Get(c.Request, MessagesKey); rv != nil {
+	if rv, ok := c.Get(MessagesKey); ok {
 		mes := rv.(*Messages)
 		T, _ := publicSettings.GetTfuncAndLanguageFromRequest(c)
 		mes.T = T
 		mes.c = c
 		return mes
 	}
-	context.Set(c.Request, MessagesKey, &Messages{})
 	T, _ := publicSettings.GetTfuncAndLanguageFromRequest(c)
-	return &Messages{make(map[string][]string), make(map[string][]string), c, T}
+	mes := &Messages{make(map[string][]string), make(map[string][]string), c, T}
+	announcements, _ := notifications.CheckAnnouncement()
+	for _, announcement := range announcements {
+		mes.AddInfo("system", announcement.Content)
+	}
+	c.Set(MessagesKey, mes)
+	return mes
 }
 
 // AddError : Add an error in category name with message msg
@@ -175,5 +180,5 @@ func (mes *Messages) HasInfos() bool {
 }
 
 func (mes *Messages) setMessagesInContext() {
-	context.Set(mes.c.Request, MessagesKey, mes)
+	mes.c.Set(MessagesKey, mes)
 }
