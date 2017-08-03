@@ -757,6 +757,15 @@ html, body {
     .torrent-hr { margin-bottom: 0; }
 }
 
+@media (max-height: 650px) {
+	.header { height: 56px; }
+	.header .container>div { line-height: 58px; padding: 0 0.6rem; }
+	.header .h-logo img { height: 57px; padding: 5px 8px 5px 2px; }
+	.header .h-user .nav-btn { height: 57px; }
+	#content { top: 58px; }
+	#content.content-admin { top: 108px; }
+}
+
 @media (max-width: 565px) {
     .header .h-search { margin-right: 0; }
     .header .h-search input { width: 90px !important; }
