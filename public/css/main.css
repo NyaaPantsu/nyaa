@@ -627,7 +627,7 @@ html, body {
     height: 40px;
 }
 
-/* holy fucking shit fuck responsive design */
+/* responsive design */
 
 
 @media (min-width: 2560px) { 
@@ -652,6 +652,18 @@ html, body {
     }
 	.header .h-user>a.nav-btn { padding: 0!important; }
 }
+
+/* Image category shrinking & padding lowering between 1050 & 860px, do not modify any of these values */
+@media (max-width: 1050px) { 
+	.tr-cat { width: 8.7%; }
+	th, .home-td, .user-td { padding: 2px 0.25%; }
+}
+
+@media (max-width: 860px) { 
+	.tr-cat { width: 71px; }
+	th, .home-td, .user-td { padding: 2px 2px; }
+}
+/* end of category shrinking */
 
 @media (min-width: 960px) {
     .visible-md {
@@ -708,9 +720,6 @@ html, body {
     .box {
         padding: 7px;
     }
-    .tr-cat {
-        width: 71px;
-    }
     .torrent-preview-table .tr-cat {
         width: 74px;
     }
@@ -723,9 +732,6 @@ html, body {
     .header .h-search input { width: 84px !important; }
     .box {
         padding: 8px;
-    }
-    th, .home-td, .user-td {
-        padding: 2px 2px;
     }
     .torrent-hr { margin-bottom: 0; }
 }
