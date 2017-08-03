@@ -131,5 +131,5 @@ func deleteAnnouncement(c *gin.Context) {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
-	c.Redirect(http.StatusSeeOther, "/mod/comments?deleted")
+	c.Redirect(http.StatusSeeOther, "/mod/announcement?deleted")
 }
