@@ -757,7 +757,7 @@ html, body {
     .torrent-hr { margin-bottom: 0; }
 }
 
-@media (max-height: 650px) {
+@media (max-height: 750px) {
 	.header { height: 56px; }
 	.header .container>div { line-height: 58px; padding: 0 0.6rem; }
 	.header .h-logo img { height: 57px; padding: 5px 8px 5px 2px; }
