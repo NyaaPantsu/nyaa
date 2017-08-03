@@ -50,86 +50,67 @@
     /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
-.icon-heart:before {
+.icon-magnet:before {
     content: '\e800';
 }
-
-
 /* '' */
 
-.icon-help-circled:before {
+.icon-floppy:before {
     content: '\e801';
 }
-
-
 /* '' */
 
-.icon-magnet:before {
+.icon-heart:before {
     content: '\e802';
 }
-
-
 /* '' */
 
-.icon-upload:before {
+.icon-help-circled:before {
     content: '\e803';
 }
-
-
 /* '' */
 
-.icon-search:before {
+.icon-upload:before {
     content: '\e804';
 }
-
-
 /* '' */
 
-.icon-floppy:before {
+.icon-search:before {
     content: '\e805';
 }
-
-
 /* '' */
 
 .icon-users:before {
     content: '\e806';
 }
-
-
 /* '' */
 
 .icon-chat:before {
     content: '\e807';
 }
-
-
 /* '' */
 
 .icon-attention:before {
     content: '\e808';
 }
-
-
 /* '' */
+
+.icon-user:before {
+    content: '\e80a';
+}
+/* '' */
 
 .icon-rss-squared:before {
     content: '\f143';
 }
-
-
 /* '' */
 
 .icon-trash:before {
     content: '\f1f8';
 }
-
-
 /* '' */
 
 .icon-user-plus:before {
     content: '\f234';
 }
-
-
 /* '' */
