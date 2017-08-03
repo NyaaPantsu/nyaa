@@ -1,0 +1,34 @@
+{{ extends "layouts/index_admin" }}
+{{block title()}}{{ T("announcements") }}{{end}}
+{{ block content_body()}}
+<div class="results box">
+    <h1>{{  T("announcements") }}</h1>
+    <table class="table">
+        <thead class="torrent-info">
+        <tr>
+            <th class="tr-name">{{ T("message") }}</th>
+            <th class="tr-links">{{ T("expire") }}</th>
+            <th class="tr-actions">{{ T("actions") }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{ range Models}}
+        <tr>
+            <td class="tr-name home-td">
+                <a href="/mod/announcement/form?id={{ .ID }}">{{ .Content }}</a>
+            </td>
+            <td class="tr-name home-td">
+                <a href="/mod/announcement/form?id={{ .ID }}">{{ .Expire }}</a>
+            </td>
+            <td class="tr-actions home-td">
+                <a href="/mod/announcement/delete?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;">
+                <i class="icon-trash"></i> {{  T("delete") }}
+                </a>
+            </td>
+        </tr>
+        {{end}}
+        </tbody>
+    </table>
+    <a href="/mod/announcement/form" class="form-input btn-green">{{ T("add") }}</a>
+</div>
+{{end}}

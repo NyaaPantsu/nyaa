@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
@@ -26,4 +27,13 @@ func NewNotification(identifier string, c string, url string) Notification {
 // TableName : Return the name of notification table
 func (n *Notification) TableName() string {
 	return config.Get().Models.NotificationsTableName
+}
+
+// Delete a notification
+func (n *Notification) Delete() error {
+	if n.ID == 0 {
+		return errors.New("Can't delete a non existent notification")
+	}
+	ORM.Where("id = ?", n.ID).Delete(n)
+	return nil
 }

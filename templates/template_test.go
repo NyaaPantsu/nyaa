@@ -9,6 +9,8 @@ import (
 	"path"
 	"testing"
 
+	"github.com/NyaaPantsu/nyaa/utils/validator/announcement"
+
 	"strings"
 
 	"time"
@@ -65,6 +67,8 @@ func walkDirTest(dir string, t *testing.T) {
 	fakeOauthForm := apiValidator.CreateForm{"", "f", []string{fu}, []string{}, []string{}, "", "fedr", fu, fu, fu, fu, []string{em}, ""}
 	fakeOauthModel := fakeOauthForm.Bind(&models.OauthClient{})
 	fakeClient := client.Client{"", "", "", []string{""}, []string{""}, []string{""}, "", "", "", "", "", "", []string{""}, false}
+	fakeAnnouncement := announcementValidator.CreateForm{1, "", 2}
+	fakeNotification := &models.Notification{1, "test", true, "test", "test", time.Now(), 1}
 
 	contextvariables := ContextTest{
 		"dumps.jet.html": func(variables jet.VarMap) jet.VarMap {
@@ -190,6 +194,14 @@ func walkDirTest(dir string, t *testing.T) {
 		},
 		"oauth_client_form.jet.html": func(variables jet.VarMap) jet.VarMap {
 			variables.Set("Form", fakeOauthForm)
+			return variables
+		},
+		"announcement_form.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Form", fakeAnnouncement)
+			return variables
+		},
+		"announcements.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Models", []models.Notification{*fakeNotification, *fakeNotification})
 			return variables
 		},
 		"tag.jet.html": func(variables jet.VarMap) jet.VarMap {

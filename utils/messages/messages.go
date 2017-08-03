@@ -32,9 +32,9 @@ func GetMessages(c *gin.Context) *Messages {
 	}
 	T, _ := publicSettings.GetTfuncAndLanguageFromRequest(c)
 	mes := &Messages{make(map[string][]string), make(map[string][]string), c, T}
-	anouncements, _ := notifications.CheckAnouncement()
-	for _, anouncement := range anouncements {
-		mes.AddInfo("system", anouncement.Content)
+	announcements, _ := notifications.CheckAnnouncement()
+	for _, announcement := range announcements {
+		mes.AddInfo("system", announcement.Content)
 	}
 	c.Set(MessagesKey, mes)
 	return mes

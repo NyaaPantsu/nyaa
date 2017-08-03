@@ -2,12 +2,27 @@ package userValidator
 
 import (
 	"net/http"
+	"path"
 	"testing"
 
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/models"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/validator"
 	"github.com/gin-gonic/gin"
 )
+
+// run before config/parse.go:init()
+var _ = func() (_ struct{}) {
+	config.Configpaths[1] = path.Join("..", "..", "..", config.Configpaths[1])
+	config.Configpaths[0] = path.Join("..", "..", "..", config.Configpaths[0])
+	config.Reload()
+	config.Get().DBType = models.SqliteType
+	config.Get().DBParams = ":memory:?cache=shared&mode=memory"
+
+	models.ORM, _ = models.GormInit(models.DefaultLogger)
+	return
+}()
 
 func TestForms(t *testing.T) {
 	t.Parallel()
