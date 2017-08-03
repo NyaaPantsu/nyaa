@@ -121,6 +121,7 @@ body {
     text-decoration: none;
     background: none;
     border: none;
+    max-width: 100%;
 }
 
 .header .h-search {
