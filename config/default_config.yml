@@ -134,6 +134,8 @@ torrents:
       - anidbid
       - vndbid
       - quality
+      - dlsite
+      - vgmdbid
 users:
   default_notifications_settings: {"new_torrent": true, "new_torrent_email": false, "new_comment": true, "new_comment_email": false, "new_responses": false, "new_responses_email": false, "new_follower": false, "new_follower_email": false, "followed": false, "followed_email": false}
 navigation:
