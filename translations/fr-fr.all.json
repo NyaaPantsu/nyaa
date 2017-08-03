@@ -1852,6 +1852,10 @@
     "translation": "Prévisualisez votre torrent"
   },
   {
+    "id": "announcement",
+    "translation": "Annonce"
+  },
+  {
     "id": "update_client_failed",
     "translation": "La mise à jour du client a échoué."
   },
@@ -1958,5 +1962,29 @@
   {
     "id": "torrent_tags",
     "translation": "Tags du torrent"
+  },
+  {
+    "id": "announcements",
+    "translation": "Annonces"
+  },
+  {
+    "id": "message",
+    "translation": "Message"
+  },
+  {
+    "id": "delay",
+    "translation": "Délai"
+  },
+  {
+    "id": "update_annoucement_panel",
+    "translation": "Annonce de mise à jour"
+  },
+  {
+    "id": "create_annoucement_panel",
+    "translation": "Créer une annonce"
+  },
+  {
+    "id": "expire",
+    "translation": "Expiration"
   }
 ]
