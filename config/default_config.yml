@@ -119,6 +119,10 @@ torrents:
       - udp://tracker.internetwarriors.net:1337/announce
       - http://mgtracker.org:6969/announce
       - udp://ipv6.leechers-paradise.org:6969/announce
+      - http://nyaa.tracker.wf:7777/announce
+      - http://sukebei.tracker.wf:7777/announce
+      - http://tracker.anirena.com:80/announce
+      - http://anidex.moe:6969/announce
 # NeededTrackers : Array indexes of Trackers for needed tracker in a torrent file
     needed:
       - 0
