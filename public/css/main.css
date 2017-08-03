@@ -123,7 +123,6 @@ body {
     border: none;
 }
 .nav-btn.log-in div { display: none; font-size: 16px; }
-
 .header .h-search {
     margin-right: 6px;
 }
@@ -401,6 +400,23 @@ select.form-input {
     display: inline-block;
     width: 115px;
     padding: 10px 5px;
+}
+
+#announce { 
+	margin-bottom: 15px;
+	padding: 7px 10px;
+	background-color: #D9EDF7;
+	border: 1px solid #c4e1e8;
+	border-radius: 7px;
+}
+
+#announce:before { 
+	content: "!";
+	vertical-align: middle;
+    float: left;
+    margin: -2px 8px 0 0;
+    font-size: 2.2em;
+    font-weight: bold;
 }
 
 .results {
@@ -715,6 +731,9 @@ html, body {
         width: 100% !important;
         margin-bottom: 20px;
     }
+    .header .h-user {
+        width: 46px;
+    }
     .header .h-user .user-avatar { margin: 0;} 
     .header .h-user { max-width: 46px; width: auto; }
     .header .h-user .user-menu { right: 104px;}
@@ -741,16 +760,18 @@ html, body {
     .header .h-search { margin-right: 0; }
     .header .h-search input { width: 90px !important; }
     .form-input.refine {
-		position: fixed;
-		border: 1px solid black;
-		bottom: 0;
-		width: 50%;
-		left: 25%;
+	position: fixed;
+	border: 1px solid black;
+	bottom: 0;
+	width: 50%;
+	left: 25%;
     }
     .tr-links {
         width: 44px;
     }
-    .hide-smol { display: none!important; }
+    .hide-smol {
+        display: none!important;
+    }
     .header .nav-btn { padding: 0px 6px!important;}
     .form-input.form-category { width: 72px; margin-right: -5px; border-right: none; }
     span.spacing { display: none!important; }
