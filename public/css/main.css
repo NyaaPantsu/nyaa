@@ -121,8 +121,9 @@ body {
     text-decoration: none;
     background: none;
     border: none;
+    max-width: 100%;
 }
-
+.nav-btn.log-in div { display: none; font-size: 16px; }
 .header .h-search {
     margin-right: 6px;
 }
@@ -668,6 +669,8 @@ html, body {
 		width: 100%;
     }
 	.header .h-user>a.nav-btn { padding: 0!important; }
+	.nav-btn.log-in span { display: none; }
+	.nav-btn.log-in div { display: block; }
 }
 
 /* Image category shrinking & padding lowering between 1050 & 860px, do not modify any of these values */
@@ -711,7 +714,6 @@ html, body {
 
 @media (max-width: 810px) {
     body { margin: 8px 0; }
-    .header .h-user .user-avatar { margin: 0;} 
     .torrent-info-row>td {
         display: block;
     }
@@ -733,6 +735,8 @@ html, body {
     .header .h-user {
         width: 46px;
     }
+    .header .h-user .user-avatar { margin: 0;} 
+    .header .h-user { max-width: 46px; width: auto; }
     .header .h-user .user-menu { right: 104px;}
     .box {
         padding: 7px;
@@ -770,7 +774,7 @@ html, body {
         display: none!important;
     }
     .header .nav-btn { padding: 0px 6px!important;}
-    .form-input.form-category { width: 50px; margin-right: -5px;}
+    .form-input.form-category { width: 72px; margin-right: -5px; border-right: none; }
     span.spacing { display: none!important; }
     .form-refine .refine-category { width: 45%; }
     .form-refine .refine-searchbox { width: 55%; }

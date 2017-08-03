@@ -55,7 +55,13 @@ function parseAllDates() {
   for (var i in list) {
     var e = list[i]
     var dateDifference = dateDiff(new Date(e.innerText), new Date())
-	  e.title = dateDifference.d + " days " + dateDifference.h + " hours ago"
+    
+    if(e.className.includes("scrape-date"))
+      e.title = ((dateDifference.d * 24) + dateDifference.h) + " hours " + dateDifference.m + " minutes ago" + 
+    //e.title = T.r("torrent_age2", dateDifference.h, dateDifference.m)
+    else
+      e.title = dateDifference.d + " days " + dateDifference.h + " hours ago"
+	  
     //e.title = T.r("torrent_age", dateDifference.d, dateDifference.h)
     e.innerText = new Date(e.innerText).toLocaleString(lang)
   }
@@ -64,6 +70,7 @@ function dateDiff( str1, str2 ) {
     var diff = Date.parse( str2 ) - Date.parse( str1 ); 
     return isNaN( diff ) ? NaN : {
         diff : diff,
+	m  : Math.floor( diff /     60000 %   60 ),
         h  : -Math.floor( diff /  3600000 %   24 ),
         d  : -Math.floor( diff / 86400000        )
     };
