@@ -64,8 +64,8 @@ function dateDiff( str1, str2 ) {
     var diff = Date.parse( str2 ) - Date.parse( str1 ); 
     return isNaN( diff ) ? NaN : {
         diff : diff,
-        h  : Math.floor( diff /  3600000 %   24 ),
-        d  : Math.floor( diff / 86400000        )
+        h  : -Math.floor( diff /  3600000 %   24 ),
+        d  : -Math.floor( diff / 86400000        )
     };
 }
 parseAllDates()
