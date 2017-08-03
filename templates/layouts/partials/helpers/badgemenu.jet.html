@@ -29,8 +29,9 @@
     </form>
   </div>
   {{ else }}
-  <a href="/login?redirectTo={{ URL.String() }}" class="nav-btn" style="width:auto;">
-    {{  T("signin") }}<span class="caret"></span>
+  <a href="/login?redirectTo={{ URL.String() }}" class="nav-btn log-in" style="width:auto;">
+	<div class="icon-user"></div>
+    <span>{{  T("signin") }}</span>
   </a> {{end}}
 </div>
 {{end}}
