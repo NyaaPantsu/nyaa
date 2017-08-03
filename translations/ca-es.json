@@ -1,5 +1,25 @@
 [
   {
+    "id": "rules",
+    "translation": "Normes"
+  },
+  {
+    "id": "no_cp",
+    "translation": "Res de pornografia infantil (el lolicon no compta)"
+  },
+  {
+    "id": "asia",
+    "translation": "Només contingut relacionat amb Àsia (res de pel·lícules ni dibuixos animats occidentals)"
+  },
+  {
+    "id": "rules_spam",
+    "translation": "Res de contingut brossa"
+  },
+  {
+    "id": "rules_sukebei",
+    "translation": "El contingut per a adults correspon a sukebei.pantsu.cat"
+  },
+  {
     "id": "verify_email_title",
     "translation": "Verifiqueu la vostra adreça electrònica de Nyaapantsu."
   },
@@ -21,7 +41,7 @@
   },
   {
     "id": "signup_box_title",
-    "translation": "Registreu-vos <small>És de franc i sempre ho serà.</small>"
+    "translation": "Registreu-vos, és de franc i sempre ho serà."
   },
   {
     "id": "username",
@@ -136,6 +156,10 @@
     "translation": "Mostra més torrents de %s"
   },
   {
+    "id": "torrents_uploaded",
+    "translation": "Torrents carregats"
+  },
+  {
     "id": "category",
     "translation": "Categoria"
   },
@@ -164,6 +188,18 @@
     "translation": "Error 404"
   },
   {
+    "id": "error_400",
+    "translation": "Error 400"
+  },
+  {
+    "id": "error_500",
+    "translation": "Error 500"
+  },
+  {
+    "id": "err_no_results",
+    "translation": "No s'han trobat resultats"
+  },
+  {
     "id": "upload",
     "translation": "Carrega"
   },
@@ -186,6 +222,14 @@
   {
     "id": "404_not_found",
     "translation": "404 No s'ha trobat"
+  },
+  {
+    "id": "500_internal_server_error",
+    "translation": "500 Error intern del servidor"
+  },
+  {
+    "id": "400_bad_request",
+    "translation": "400 Petició errònia"
   },
   {
     "id": "no_torrents_uploaded",
@@ -484,6 +528,10 @@
     "translation": "Mostra-ho tot"
   },
   {
+    "id": "delete_all",
+    "translation": "Suprimeix-ho tot"
+  },
+  {
     "id": "filter_remakes",
     "translation": "Filtra les reedicions"
   },
@@ -581,7 +629,7 @@
   },
   {
     "id": "delete_success",
-    "translation": "S'ha suprimit el compte!"
+    "translation": "S'ha suprimit correctament el compte!"
   },
   {
     "id": "moderation",
@@ -606,6 +654,10 @@
   {
     "id": "firefox_extension",
     "translation": "Extensió per al Firefox"
+  },
+  {
+    "id": "android_app",
+    "translation": "Aplicació d'Android"
   },
   {
     "id": "who_is_renchon",
@@ -724,6 +776,10 @@
     "translation": "Captcha"
   },
   {
+    "id": "captcha_audio",
+    "translation": "Captcha d'àudio"
+  },
+  {
     "id": "file_name",
     "translation": "Nom del fitxer"
   },
@@ -766,6 +822,10 @@
   {
     "id": "new_torrent_uploaded",
     "translation": "Torrent nou: \"%s\" de %s"
+  },
+  {
+    "id": "torrent_uploaded",
+    "translation": "Torrent carregat correctament!"
   },
   {
     "id": "preferences",
@@ -848,6 +908,22 @@
     "translation": "S'ha suprimit el torrent %s!"
   },
   {
+    "id": "torrent_deleted_by",
+    "translation": "El torrent número %d de %s ha estat suprimit pr %s."
+  },
+  {
+    "id": "torrent_edited_by",
+    "translation": "El torrent número %d de %s ha estat editat per %s."
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "El torrent número %d de %s ha estat blocat per %s."
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "El torrent número %d de %s ha estat desblocat per %s."
+  },
+  {
     "id": "torrents_deleted",
     "translation": "Torrents suprimits"
   },
@@ -858,6 +934,26 @@
   {
     "id": "delete_report",
     "translation": "Suprimeix l'informe"
+  },
+  {
+    "id": "comment_deleted",
+    "translation": "S'ha suprimit el comentari!"
+  },
+  {
+    "id": "comment_deleted_by",
+    "translation": "El comentari número %d de %s ha estat suprimit per %s."
+  },
+  {
+    "id": "comment_edited_by",
+    "translation": "El comentari número %d de %s ha estat editat per %s."
+  },
+  {
+    "id": "oauth_client_deleted",
+    "translation": "S'ha suprimit el client de l'API Oauth!"
+  },
+  {
+    "id": "oauth_client_deleted_by",
+    "translation": "El client de l'API Oauth número %s de %s ha estat suprimit per %s."
   },
   {
     "id": "no_action_exist",
@@ -945,7 +1041,11 @@
   },
   {
     "id": "torrent_deleted_definitely",
-    "translation": "S'ha esborrat el torrent de la base de dades!"
+    "translation": "S'ha suprimit el torrent de la base de dades!"
+  },
+  {
+    "id": "torrent_not_deleted",
+    "translation": "No s'ha suprimit el torrent"
   },
   {
     "id": "torrent_unblocked",
@@ -984,8 +1084,8 @@
     "translation": "Cap"
   },
   {
-    "id": "mark_as_hidden",
-    "translation": "Marca com a ocult"
+    "id": "upload_as_anon",
+    "translation": "Carrega'l anònimament"
   },
   {
     "id": "cookies",
@@ -1037,7 +1137,7 @@
   },
   {
     "id": "owner_id_placeholder",
-    "translation": "Identificador del propietari (p. ex. Renchon = 0)"
+    "translation": "Nou propietari"
   },
   {
     "id": "try_new_attempt",
@@ -1145,7 +1245,7 @@
   },
   {
     "id": "moderation_overview",
-    "translation": "Visualització de moderació"
+    "translation": "Visió general de moderació"
   },
   {
     "id": "users_list",
@@ -1222,5 +1322,641 @@
   {
     "id": "username_illegal",
     "translation": "El nom d'usuari conté caràcters no permesos!"
+  },
+  {
+    "id": "torrent_language",
+    "translation": "Idioma del torrent"
+  },
+  {
+    "id": "language_not_mandatory",
+    "translation": "L'idioma ja no és obligatori"
+  },
+  {
+    "id": "language_en-us_name",
+    "translation": "Anglès"
+  },
+  {
+    "id": "language_ca-es_name",
+    "translation": "Català"
+  },
+  {
+    "id": "language_de-de_name",
+    "translation": "Alemany"
+  },
+  {
+    "id": "language_es-es_name",
+    "translation": "Castellà"
+  },
+  {
+    "id": "language_es-mx_name",
+    "translation": "Castellà (Amèrica Llatina)"
+  },
+  {
+    "id": "language_fr-fr_name",
+    "translation": "Francès"
+  },
+  {
+    "id": "language_hu-hu_name",
+    "translation": "Hongarès"
+  },
+  {
+    "id": "language_is-is_name",
+    "translation": "Islandès"
+  },
+  {
+    "id": "language_it-it_name",
+    "translation": "Italià"
+  },
+  {
+    "id": "language_ja-jp_name",
+    "translation": "Japonès"
+  },
+  {
+    "id": "language_ko-kr_name",
+    "translation": "Coreà"
+  },
+  {
+    "id": "language_nb-no_name",
+    "translation": "Noruec"
+  },
+  {
+    "id": "language_nl-nl_name",
+    "translation": "Neerlandès"
+  },
+  {
+    "id": "language_pt-br_name",
+    "translation": "Portuguès (Brasil)"
+  },
+  {
+    "id": "language_pt-pt_name",
+    "translation": "Portuguès (Portugal)"
+  },
+  {
+    "id": "language_ro-ro_name",
+    "translation": "Romanès"
+  },
+  {
+    "id": "language_ru-ru_name",
+    "translation": "Rus"
+  },
+  {
+    "id": "language_sv-se_name",
+    "translation": "Suec"
+  },
+  {
+    "id": "language_th-th_name",
+    "translation": "Tailandès"
+  },
+  {
+    "id": "language_zh-cn_name",
+    "translation": "Xinès simplificat"
+  },
+  {
+    "id": "language_zh-tw_name",
+    "translation": "Xinès tradicional"
+  },
+  {
+    "id": "language_other_name",
+    "translation": "Un altre"
+  },
+  {
+    "id": "language_multiple_name",
+    "translation": "Múltiples idiomes"
+  },
+  {
+    "id": "activity_list",
+    "translation": "Llista d'activitats"
+  },
+  {
+    "id": "activities",
+    "translation": "Activitats"
+  },
+  {
+    "id": "filter",
+    "translation": "Filtre"
+  },
+  {
+    "id": "error_min_length",
+    "translation": "Cal una llargada mínima de %s per a l'entrada: %s"
+  },
+  {
+    "id": "error_min_number",
+    "translation": "%s ha de ser %s o més"
+  },
+  {
+    "id": "error_min_field",
+    "translation": "%s ha de ser igual o més gran que %s"
+  },
+  {
+    "id": "error_min_array",
+    "translation": "%s ha de contenir almenys %s elements"
+  },
+  {
+    "id": "error_less_date",
+    "translation": "%s ha de ser menor que la data i hora actuals"
+  },
+  {
+    "id": "error_less_array",
+    "translation": "%s ha de contenir menys de %s elements"
+  },
+  {
+    "id": "error_less_length",
+    "translation": "%s ha de tenir menys de %s de llargada"
+  },
+  {
+    "id": "error_less_number",
+    "translation": "%s ha de ser menor de %s"
+  },
+  {
+    "id": "error_less_equal_date",
+    "translation": "%s ha de ser menor que o igual a la data i hora actuals"
+  },
+  {
+    "id": "error_greater_date",
+    "translation": "%s ha de ser més gran que la data i hora actuals"
+  },
+  {
+    "id": "error_greater_length",
+    "translation": "%s ha de tenir més de %s de llargada"
+  },
+  {
+    "id": "error_greater_number",
+    "translation": "%s ha de ser més gran que %s"
+  },
+  {
+    "id": "error_greater_equal_date",
+    "translation": "%s ha de ser més gran que o igual a la data i hora actuals"
+  },
+  {
+    "id": "error_max_field",
+    "translation": "%s ha de ser igual o menor que %s"
+  },
+  {
+    "id": "error_max_length",
+    "translation": "Cal una mida màxima de %s per a l'entrada: %s"
+  },
+  {
+    "id": "error_max_number",
+    "translation": "%s ha de ser %s o menys"
+  },
+  {
+    "id": "error_max_array",
+    "translation": "%s ha de contenir un màxim de %s elements"
+  },
+  {
+    "id": "error_length",
+    "translation": "Cal una mida de %s per a l'entrada: %s"
+  },
+  {
+    "id": "error_equal",
+    "translation": "%s no és igual que %s"
+  },
+  {
+    "id": "error_same_value",
+    "translation": "El camp '%s' ha de tenir el mateix valor que el camp '%s'"
+  },
+  {
+    "id": "error_field",
+    "translation": "Error inesperat al camp: %s"
+  },
+  {
+    "id": "error_not_equal",
+    "translation": "%s no ha de ser igual que %s"
+  },
+  {
+    "id": "error_wrong_value",
+    "translation": "Valor erroni a l'entrada: %s"
+  },
+  {
+    "id": "error_field_needed",
+    "translation": "Camp necessari: %s"
+  },
+  {
+    "id": "error_len_array",
+    "translation": "%s ha de contenir %s elements"
+  },
+  {
+    "id": "error_alpha",
+    "translation": "%s només pot contenir caràcters alfabètics"
+  },
+  {
+    "id": "error_alphanum",
+    "translation": "%s només pot contenir caràcters alfanumèrics"
+  },
+  {
+    "id": "error_numeric_valid",
+    "translation": "%s ha se ser un valor numèric vàlid"
+  },
+  {
+    "id": "error_number_valid",
+    "translation": "%s ha de ser un número vàlid"
+  },
+  {
+    "id": "error_hexadecimal_valid",
+    "translation": "%s ha de ser un hexadecimal vàlid"
+  },
+  {
+    "id": "error_hex_valid",
+    "translation": "%s ha de ser un color HEX vàlid"
+  },
+  {
+    "id": "error_rgb_valid",
+    "translation": "%s ha de ser un color RGB vàlid"
+  },
+  {
+    "id": "error_rgba_valid",
+    "translation": "%s ha de ser un color RGAB vàlid"
+  },
+  {
+    "id": "error_hsl_valid",
+    "translation": "%s ha de ser un color HSL vàlid"
+  },
+  {
+    "id": "error_hsla_valid",
+    "translation": "%s ha de ser un color HSLA vàlid"
+  },
+  {
+    "id": "error_url_valid",
+    "translation": "%s ha de ser una URL vàlida"
+  },
+  {
+    "id": "error_uri_valid",
+    "translation": "%s ha de ser una URI vàlida"
+  },
+  {
+    "id": "error_base64_valid",
+    "translation": "%s ha de ser una cadena Base64 vàlida"
+  },
+  {
+    "id": "error_contains",
+    "translation": "%s ha de contenir el text '%s'"
+  },
+  {
+    "id": "error_contains_any",
+    "translation": "%s ha de contenir almenys un dels següents caràcters '%s'"
+  },
+  {
+    "id": "error_excludes",
+    "translation": "%s no pot contenir el text '%s'"
+  },
+  {
+    "id": "error_excludes_all",
+    "translation": "%s no pot contenir cap dels següents caràcters '%s'"
+  },
+  {
+    "id": "error_excludes_rune",
+    "translation": "%s no pot contenir el següent '%s'"
+  },
+  {
+    "id": "error_color_valid",
+    "translation": "%s ha de ser un color vàlid"
+  },
+  {
+    "id": "error_",
+    "translation": "%s ha de contenir %s elements"
+  },
+  {
+    "id": "error_len_array",
+    "translation": "%s ha de contenir %s elements"
+  },
+  {
+    "id": "refine_search",
+    "translation": "Refina la cerca"
+  },
+  {
+    "id": "between",
+    "translation": "Entre"
+  },
+  {
+    "id": "and",
+    "translation": "i"
+  },
+  {
+    "id": "days",
+    "translation": "Dies"
+  },
+  {
+    "id": "months",
+    "translation": "Mesos"
+  },
+  {
+    "id": "years",
+    "translation": "Anys"
+  },
+  {
+    "id": "refine",
+    "translation": "Refina"
+  },
+  {
+    "id": "large",
+    "translation": "gran."
+  },
+  {
+    "id": "old",
+    "translation": "antic"
+  },
+  {
+    "id": "optional",
+    "translation": "Opcional"
+  },
+  {
+    "id": "search_for",
+    "translation": "Cerca"
+  },
+  {
+    "id": "show",
+    "translation": "Mostra"
+  },
+  {
+    "id": "username_taken",
+    "translation": "El nom d'usuari ja està ocupat, podeu escollir: %s"
+  },
+  {
+    "id": "email_in_db",
+    "translation": "L'adreça de correu electrònic ja és a la base de dades"
+  },
+  {
+    "id": "user_not_found",
+    "translation": "No s'ha trobat l'usuari"
+  },
+  {
+    "id": "incorrect_password",
+    "translation": "La contrasenya és incorrecta"
+  },
+  {
+    "id": "password_error_generating",
+    "translation": "S'ha produït un error en generar el resum de la vostra contrasenya"
+  },
+  {
+    "id": "permission_delete_error",
+    "translation": "No tenim permís per suprimir això"
+  },
+  {
+    "id": "no_username_password",
+    "translation": "No heu introduït cap usuari ni contrasenya"
+  },
+  {
+    "id": "account_banned",
+    "translation": "Compte bandejat"
+  },
+  {
+    "id": "account_need_activation",
+    "translation": "Aquest compte necessita activació per part dels moderadors, si us plau, contacteu-nos"
+  },
+  {
+    "id": "retrieve_torrent_error",
+    "translation": "No s'han pogut obtenir els torrents"
+  },
+  {
+    "id": "multiple_username_error",
+    "translation": "S'ha proporcionat més d'un nom d'usuari"
+  },
+  {
+    "id": "elevating_user_error",
+    "translation": "Elevar l'estat a moderador no és permès"
+  },
+  {
+    "id": "parse_error_line",
+    "translation": "No s'ha pogut tractar la línia %d"
+  },
+  {
+    "id": "language_not_available",
+    "translation": "Idioma no disponible"
+  },
+  {
+    "id": "mascot_url_too_long",
+    "translation": "La URL de la mascota és massa llarga (el màxim són 255 caràcters)"
+  },
+  {
+    "id": "mascor_url_parse_error",
+    "translation": "S'ha produït un error en tractar la URL de la mascota: %s"
+  },
+  {
+    "id": "no_id_given",
+    "translation": "No heu proporcionat cap identificador de torrent"
+  },
+  {
+    "id": "error_api_token",
+    "translation": "Error: el token de l'API no existeix"
+  },
+  {
+    "id": "uploads_disabled",
+    "translation": "Les càrregues estan deshabilitades"
+  },
+  {
+    "id": "try_to_delete_report_inexistant",
+    "translation": "Intenteu suprimir un informe de torrent que no existeix"
+  },
+  {
+    "id": "torrent_report_not_created",
+    "translation": "No s'ha creat l'informe del torrent"
+  },
+  {
+    "id": "user_not_deleted",
+    "translation": "No s'ha suprimit l'usuari"
+  },
+  {
+    "id": "error_content_type_post",
+    "translation": "Proporcioneu una capçalera Content-Type: application/json o multipart/form-data"
+  },
+  {
+    "id": "torrent_name_invalid",
+    "translation": "El nom del torrent és invàlid"
+  },
+  {
+    "id": "torrent_private",
+    "translation": "El torrent és privat"
+  },
+  {
+    "id": "torrent_no_working_trackers",
+    "translation": "El torrent no té cap rastrejador (que funcioni): <a href=\"/faq#trackers\">Llista de rastrejadors</a>"
+  },
+  {
+    "id": "torrent_desc_invalid",
+    "translation": "La descripció del torrent és invàlida"
+  },
+  {
+    "id": "torrent_cat_invalid",
+    "translation": "La categoria del torrent és invàlida"
+  },
+  {
+    "id": "torrent_lang_invalid",
+    "translation": "L'idioma que heu enviat encara no té suport! Podeu ajudar a suportar-lo contribuint a la nostra pàgina de GitHub"
+  },
+  {
+    "id": "torrent_cat_is_english",
+    "translation": "La categoria del torrent és per a traduccions a l'anglès, però l'idioma no era anglès. L'hem canviat a anglès"
+  },
+  {
+    "id": "torrent_cat_not_english",
+    "translation": "La categoria del torrent és per a traduccions a altres idiomes, però l'idioma seleccionat és només anglès"
+  },
+  {
+    "id": "torrent_magnet_invalid",
+    "translation": "No s'ha pogut tractar l'enllaç magnètic, comproveu-lo"
+  },
+  {
+    "id": "torrent_hash_invalid",
+    "translation": "El resum del torrent és incorrecte"
+  },
+  {
+    "id": "torrent_plus_magnet",
+    "translation": "Carregueu un fitxer torrent o un enllaç magnètic, però no tots dos"
+  },
+  {
+    "id": "torrent_file_invalid",
+    "translation": "El fitxer torrent és invàlid"
+  },
+  {
+    "id": "torrent_uri_invalid",
+    "translation": "La URL del lloc web o l'enllaç a l'IRC és invàlid"
+  },
+  {
+    "id": "api_documentation",
+    "translation": "Documentació de l'API"
+  },
+  {
+    "id": "api_help",
+    "translation": "Teniu una API?"
+  },
+  {
+    "id": "trusted",
+    "translation": "Torrents carregats per usuaris de confiança."
+  },
+  {
+    "id": "reencodes",
+    "translation": "Recodificacions"
+  },
+  {
+    "id": "remux",
+    "translation": "Readaptació del llançament original d'un altre autor"
+  },
+  {
+    "id": "reupload",
+    "translation": "Recàrrega d'un torrent d'un altre usuari amb fitxers que hi mancaven i/o fitxers addicionals no relacionats."
+  },
+  {
+    "id": "red",
+    "translation": "Les entrades vermelles són: "
+  },
+  {
+    "id": "green",
+    "translation": "Les entrades verdes són:"
+  },
+  {
+    "id": "torrent_colors",
+    "translation": "Colors dels torrents"
+  },
+  {
+    "id": "torrent_preview",
+    "translation": "Previsualitza el torrent"
+  },
+  {
+    "id": "update_client_failed",
+    "translation": "L'actualització del client ha fallat!"
+  },
+  {
+    "id": "update_client_success",
+    "translation": "Heu actualitzat el client correctament!"
+  },
+  {
+    "id": "update_client_panel",
+    "translation": "Actualitza el client"
+  },
+  {
+    "id": "create_client_success",
+    "translation": "Heu creat el client correctament!"
+  },
+  {
+    "id": "create_client_failed",
+    "translation": "La creació del client ha fallat!"
+  },
+  {
+    "id": "create_client_panel",
+    "translation": "Crea un client nou"
+  },
+  {
+    "id": "redirect_uri",
+    "translation": "URI de redirecció"
+  },
+  {
+    "id": "grant_types",
+    "translation": "Tipus de concessió (grant)"
+  },
+  {
+    "id": "response_types",
+    "translation": "Tipus de resposta"
+  },
+  {
+    "id": "scope",
+    "translation": "Abast (scope)"
+  },
+  {
+    "id": "owner",
+    "translation": "Propietari"
+  },
+  {
+    "id": "policy_uri",
+    "translation": "URI de la política"
+  },
+  {
+    "id": "tos_uri",
+    "translation": "URI dels termes del servei"
+  },
+  {
+    "id": "logo_uri",
+    "translation": "URI del logotip"
+  },
+  {
+    "id": "contacts",
+    "translation": "Correus electrònics del propietari"
+  },
+  {
+    "id": "clients_list",
+    "translation": "Clients de l'API Oauth"
+  },
+  {
+    "id": "add",
+    "translation": "Afegeix"
+  },
+  {
+    "id": "remove",
+    "translation": "Suprimeix"
+  },
+  {
+    "id": "secret",
+    "translation": "Secret del client"
+  },
+  {
+    "id": "torrent_age",
+    "translation": "fa {1} dies i {2} hores"
+  },
+  {
+    "id": "wrong_tag_type",
+    "translation": "El tipus d'etiqueta escollit no existeix"
+  },
+  {
+    "id": "add_tag",
+    "translation": "Afegeix una etiqueta"
+  },
+  {
+    "id": "tagtype",
+    "translation": "Tipus d'etiqueta"
+  },
+  {
+    "id": "tagtype_anidbid",
+    "translation": "Identificador d'AniDB"
+  },
+  {
+    "id": "tagtype_vndbid",
+    "translation": "Identificador de VNDB"
+  },
+  {
+    "id": "tagtype_quality",
+    "translation": "Etiqueta de qualitat"
+  },
+  {
+    "id": "torrent_tags",
+    "translation": "Etiquetes del torrent"
   }
 ]
