@@ -66,6 +66,9 @@ func addAnnouncement(c *gin.Context) {
 		Delay:   delay,
 	}
 	c.Bind(form)
+	if form.Delay == 0 {
+		form.Delay = delay
+	}
 	templates.Form(c, "admin/announcement_form.jet.html", form)
 }
 
@@ -106,7 +109,8 @@ func postAnnouncement(c *gin.Context) {
 			} else {
 				// Success, we redirect to the edit form
 				messages.AddInfoT("infos", "create_anouncement_success")
-				messages.AddInfo("ID_ANNOUNCEMENT", fmt.Sprint(announcement.ID))
+				id := fmt.Sprintf("%d", announcement.ID)
+				messages.AddInfo("ID_ANNOUNCEMENT", id)
 			}
 		}
 	}
