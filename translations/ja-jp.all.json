@@ -1852,6 +1852,10 @@
     "translation": "Torrent のプレビュー"
   },
   {
+    "id": "announcement",
+    "translation": "告知"
+  },
+  {
     "id": "update_client_failed",
     "translation": "クライアントの更新に失敗しました。"
   },
@@ -1953,10 +1957,34 @@
   },
   {
     "id": "tagtype_quality",
-    "translation": "画質タグ"
+    "translation": "画質"
   },
   {
     "id": "torrent_tags",
     "translation": "Torrent タグ"
+  },
+  {
+    "id": "announcements",
+    "translation": "告知"
+  },
+  {
+    "id": "message",
+    "translation": "メッセージ"
+  },
+  {
+    "id": "delay",
+    "translation": "遅延"
+  },
+  {
+    "id": "update_annoucement_panel",
+    "translation": "告知の更新"
+  },
+  {
+    "id": "create_annoucement_panel",
+    "translation": "告知の作成"
+  },
+  {
+    "id": "expire",
+    "translation": "期間"
   }
 ]
