@@ -121,6 +121,7 @@ body {
     text-decoration: none;
     background: none;
     border: none;
+    max-width: 100%;
 }
 .nav-btn.log-in div { display: none; font-size: 16px; }
 .header .h-search {
