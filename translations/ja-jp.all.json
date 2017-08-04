@@ -1928,12 +1928,20 @@
     "translation": "削除"
   },
   {
+    "id": "close",
+    "translation": "閉じる"
+  },
+  {
     "id": "secret",
     "translation": "クライアント シークレット"
   },
   {
     "id": "torrent_age",
     "translation": "{1} 日 {2} 時間前"
+  },
+  {
+     "id": "tag",
+     "translation": "タグ"
   },
   {
     "id": "wrong_tag_type",
@@ -1958,6 +1966,14 @@
   {
     "id": "tagtype_quality",
     "translation": "画質"
+  },
+  {
+    "id": "tagtype_dlsite",
+    "translation": "DLsite"
+  },
+  {
+    "id": "tagtype_vgmdbid",
+    "translation": "VGMdb ID"
   },
   {
     "id": "torrent_tags",
