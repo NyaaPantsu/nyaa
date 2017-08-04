@@ -221,3 +221,10 @@ func FindDeleted(parameters *structs.WhereParams, orderBy string, limit int, off
 	torrents, count, err = findOrderBy(parameters, orderBy, limit, offset, true, true, true)
 	return
 }
+
+// GetIDs : returns an array of id
+func GetIDs(parameters *structs.WhereParams) ([]uint, error) {
+	var ids []uint
+	err := models.ORM.Select("torrent_id").Where(parameters.Conditions, parameters.Params...).Find(&ids).Error
+	return ids, err
+}

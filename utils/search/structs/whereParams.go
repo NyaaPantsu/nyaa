@@ -1,5 +1,9 @@
 package structs
 
+import (
+	"fmt"
+)
+
 // WhereParams struct for search
 type WhereParams struct {
 	Conditions string // Ex : name LIKE ? AND category_id LIKE ?
@@ -15,4 +19,13 @@ func CreateWhereParams(conditions string, params ...interface{}) WhereParams {
 	copy(params, whereParams.Params)
 
 	return whereParams
+}
+
+// Identifier returns an unique identifier for whereparams
+func (w *WhereParams) Identifier() string {
+	params := ""
+	for _, param := range w.Params {
+		params += fmt.Sprintf("%v", param)
+	}
+	return params
 }

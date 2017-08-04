@@ -3,94 +3,146 @@ package structs
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"strconv"
 	"strings"
-	"time"
 
 	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/log"
+	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 	"github.com/gin-gonic/gin"
 )
+
+// TorrentParam defines all parameters that can be provided when searching for a torrent
+type TorrentParam struct {
+	Full      bool // True means load all members
+	Order     bool // True means ascending
+	Hidden    bool // True means filter hidden torrents
+	Deleted   bool // False means filter deleted torrents
+	Status    Status
+	Sort      SortMode
+	Category  Categories
+	Max       maxType
+	Offset    uint32
+	UserID    uint32
+	TorrentID []uint32
+	FromID    uint32
+	FromDate  DateFilter
+	ToDate    DateFilter
+	NotNull   string // csv
+	NameLike  string // csv
+	Languages publicSettings.Languages
+	MinSize   SizeBytes
+	MaxSize   SizeBytes
+}
+
+// Identifier returns a unique identifier for the struct
+func (p *TorrentParam) Identifier() string {
+	cats := ""
+	for _, v := range p.Category {
+		cats += fmt.Sprintf("%d%d", v.Main, v.Sub)
+	}
+	languages := ""
+	for _, v := range p.Languages {
+		languages += fmt.Sprintf("%s%s", v.Code, v.Name)
+	}
+	ids := ""
+	for _, v := range p.TorrentID {
+		ids += fmt.Sprintf("%d", v)
+	}
+	return fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%d%s%s%t%t%t%t", p.NameLike, p.NotNull, languages, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, p.FromDate, p.ToDate, p.UserID, ids, cats, p.Full, p.Order, p.Hidden, p.Deleted)
+}
 
 // FromRequest : parse a request in torrent param
 // TODO Should probably return an error ?
 func (p *TorrentParam) FromRequest(c *gin.Context) {
 	var err error
 
+	// We take the search arguments from "q" in url
 	nameLike := strings.TrimSpace(c.Query("q"))
-	max, err := strconv.ParseUint(c.DefaultQuery("limit", strconv.Itoa(config.Get().Navigation.TorrentsPerPage)), 10, 32)
-	if err != nil {
-		max = uint64(config.Get().Navigation.TorrentsPerPage)
-	} else if max > uint64(config.Get().Navigation.MaxTorrentsPerPage) {
-		max = uint64(config.Get().Navigation.MaxTorrentsPerPage)
-	}
+	var max maxType
+	// We take the maxximum results to display from "limit" in url
+	max.Parse(c.Query("limit"))
 
-	// FIXME 0 means no userId defined
+	// Get the user id from the url
 	userID, err := strconv.ParseUint(c.Query("userID"), 10, 32)
 	if err != nil {
+		// if you can't convert it, you set it to 0
 		userID = 0
 	}
 
-	// FIXME 0 means no userId defined
+	// Get the torrent ID to limit the results to the ones after this torrent
 	fromID, err := strconv.ParseUint(c.Query("fromID"), 10, 32)
 	if err != nil {
+		// if you can't convert it, you set it to 0
 		fromID = 0
 	}
 
 	var status Status
+	// helper to parse status from the "s" argument in url
 	status.Parse(c.Query("s"))
 
-	maxage, err := strconv.Atoi(c.Query("maxage"))
-	fromDate, toDate := DateFilter(""), DateFilter("")
-	if err != nil {
-		// if to xxx is not provided, fromDate is equal to from xxx
-		if c.Query("toDate") != "" {
-			fromDate.Parse(c.Query("toDate"), c.Query("dateType"))
-			toDate.Parse(c.Query("fromDate"), c.Query("dateType"))
-		} else {
-			fromDate.Parse(c.Query("fromDate"), c.Query("dateType"))
-		}
-	} else {
-		fromDate = DateFilter(time.Now().AddDate(0, 0, -maxage).Format("2006-01-02"))
-	}
+	// maxage is an int parameter limiting the results to the last "x" days (old nyaa behavior)
+	fromDate, toDate := backwardCompatibility(c.Query("maxage"), c.Query("fromDate"), c.Query("toDate"), c.Query("dateType"))
 
+	// Parse the categories from the "c" argument in url
 	categories := ParseCategories(c.Query("c"))
 
 	var sortMode SortMode
+	// Parse the sorting mode of the result from the "sort" argument in url
 	sortMode.Parse(c.Query("sort"))
 
 	var minSize SizeBytes
 	var maxSize SizeBytes
 
+	// Parsing minimum and maximum size from the sizeType given (minSize & maxSize & sizeType in url)
 	minSize.Parse(c.Query("minSize"), c.Query("sizeType"))
 	maxSize.Parse(c.Query("maxSize"), c.Query("sizeType"))
 
+	// Getting the order from the "order" argument in url, we default to descending order
 	ascending := false
 	if c.Query("order") == "true" {
 		ascending = true
 	}
-	langs := c.QueryArray("lang")
 
-	language := ParseLanguages(strings.Join(langs, ","))
+	// We get the languages filtering the results from the "lang" argument in url
+	language := ParseLanguages(c.QueryArray("lang"))
 
+	ids := c.QueryArray("id")
+
+	for _, id := range ids {
+		idInt, err := strconv.Atoi(id)
+		if err == nil {
+			p.TorrentID = append(p.TorrentID, uint32(idInt))
+		}
+	}
+	// Search by name
 	p.NameLike = nameLike
-	p.Max = uint32(max)
+	// Maximum results returned
+	p.Max = max
+	// Limit search to one user
 	p.UserID = uint32(userID)
+	// Order to return the results
 	p.Order = ascending
+	// Limit to some status the results
 	p.Status = status
+	// Sort the results
 	p.Sort = sortMode
+	// Category in which you have to search
 	p.Category = categories
+	// Languages filter of the torrents
 	p.Languages = language
+	// From which date you need to search
 	p.FromDate = fromDate
+	// To which date you need to search
 	p.ToDate = toDate
+	// Minimum size to search
 	p.MinSize = minSize
+	// Maximum size to search
 	p.MaxSize = maxSize
-	// FIXME 0 means no TorrentId defined
-	// Do we even need that ?
-	p.TorrentID = 0
 	// Needed to display result after a certain torrentID
 	p.FromID = uint32(fromID)
 }
@@ -124,17 +176,23 @@ func (p *TorrentParam) ToFilterQuery() string {
 
 	if p.Status != ShowAll {
 		if p.Status != FilterRemakes {
-			query += " status:" + p.Status.ToString()
+			query += " status:" + p.Status.String()
 		} else {
 			/* From the old nyaa behavior, FilterRemake means everything BUT
 			 * remakes
 			 */
-			query += " !status:" + p.Status.ToString()
+			query += " !status:" + p.Status.String()
 		}
 	}
 
 	if p.FromID != 0 {
 		query += " id:>" + strconv.FormatInt(int64(p.FromID), 10)
+	}
+
+	if len(p.TorrentID) > 0 {
+		for _, id := range p.TorrentID {
+			query += fmt.Sprintf(" id:%d", id)
+		}
 	}
 
 	if p.FromDate != "" && p.ToDate != "" {
@@ -188,7 +246,7 @@ func (p *TorrentParam) Find(client *elastic.Client) (int64, []models.Torrent, er
 		Index(config.Get().Search.ElasticsearchIndex).
 		Query(query).
 		Type(config.Get().Search.ElasticsearchType).
-		From(int((p.Offset-1)*p.Max)).
+		From(int((p.Offset-1)*uint32(p.Max))).
 		Size(int(p.Max)).
 		Sort(p.Sort.ToESField(), p.Order).
 		Sort("_score", false) // Don'p put _score before the field sort, it messes with the sorting

@@ -187,6 +187,12 @@ func byQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, 
 		conditions = append(conditions, "torrent_id > ?")
 		parameters.Params = append(parameters.Params, search.FromID)
 	}
+	if len(search.TorrentID) > 0 {
+		for _, id := range search.TorrentID {
+			conditions = append(conditions, "torrent_id = ?")
+			parameters.Params = append(parameters.Params, id)
+		}
+	}
 	if search.FromDate != "" {
 		conditions = append(conditions, "date >= ?")
 		parameters.Params = append(parameters.Params, search.FromDate)
@@ -242,13 +248,13 @@ func byQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, 
 	log.Infof("SQL query is :: %s\n", parameters.Conditions)
 
 	if deleted {
-		tor, count, err = torrents.FindDeleted(&parameters, orderBy, int(search.Max), int(search.Max*(search.Offset-1)))
+		tor, count, err = torrents.FindDeleted(&parameters, orderBy, int(search.Max), int(uint32(search.Max)*(search.Offset-1)))
 	} else if countAll && !withUser {
-		tor, count, err = torrents.FindOrderBy(&parameters, orderBy, int(search.Max), int(search.Max*(search.Offset-1)))
+		tor, count, err = torrents.FindOrderBy(&parameters, orderBy, int(search.Max), int(uint32(search.Max)*(search.Offset-1)))
 	} else if countAll && withUser {
-		tor, count, err = torrents.FindWithUserOrderBy(&parameters, orderBy, int(search.Max), int(search.Max*(search.Offset-1)))
+		tor, count, err = torrents.FindWithUserOrderBy(&parameters, orderBy, int(search.Max), int(uint32(search.Max)*(search.Offset-1)))
 	} else {
-		tor, err = torrents.FindOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max*(search.Offset-1)))
+		tor, err = torrents.FindOrderByNoCount(&parameters, orderBy, int(search.Max), int(uint32(search.Max)*(search.Offset-1)))
 	}
 	if len(tor) > 0 {
 		cache.C.Set(search.Identifier(), &structs.TorrentCache{tor, count}, 5*time.Minute)
