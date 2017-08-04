@@ -1928,12 +1928,20 @@
     "translation": "Remove"
   },
   {
+    "id": "close",
+    "translation": "Close"
+  },
+  {
     "id": "secret",
     "translation": "Client Secret"
   },
   {
     "id": "torrent_age",
     "translation": "{1} days {2} hours ago"
+  },
+  {
+    "id": "tag",
+    "translation": "Tag"
   },
   {
     "id": "wrong_tag_type",
@@ -1958,6 +1966,14 @@
   {
     "id": "tagtype_quality",
     "translation": "Video Quality"
+  },
+  {
+    "id": "tagtype_dlsite",
+    "translation": "DLsite"
+  },
+  {
+    "id": "tagtype_vgmdbid",
+    "translation": "VGMdb ID"
   },
   {
     "id": "torrent_tags",
