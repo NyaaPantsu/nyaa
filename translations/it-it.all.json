@@ -1,5 +1,25 @@
 [
   {
+    "id": "rules",
+    "translation": "Rules"
+  },
+  {
+    "id": "no_cp",
+    "translation": "No child pornography (lolicon doesn't count)"
+  },
+  {
+    "id": "asia",
+    "translation": "Asian related content only (no Western Movies, no Cartoon)"
+  },
+  {
+    "id": "rules_spam",
+    "translation": "No spam"
+  },
+  {
+    "id": "rules_sukebei",
+    "translation": "NSFW content belongs in sukebei.pantsu.cat"
+  },
+  {
     "id": "verify_email_title",
     "translation": "Verifica il tuo indirizzo email per Nyaapantsu."
   },
@@ -136,6 +156,10 @@
     "translation": "Guarda altri torrent di %s "
   },
   {
+    "id": "torrents_uploaded",
+    "translation": "Torrents uploaded"
+  },
+  {
     "id": "category",
     "translation": "Categoria"
   },
@@ -164,6 +188,18 @@
     "translation": "Errore 404"
   },
   {
+    "id": "error_400",
+    "translation": "Error 400"
+  },
+  {
+    "id": "error_500",
+    "translation": "Error 500"
+  },
+  {
+    "id": "err_no_results",
+    "translation": "No results found"
+  },
+  {
     "id": "upload",
     "translation": "Upload"
   },
@@ -186,6 +222,14 @@
   {
     "id": "404_not_found",
     "translation": "404 Non Trovato"
+  },
+  {
+    "id": "500_internal_server_error",
+    "translation": "500 Internal Server Error"
+  },
+  {
+    "id": "400_bad_request",
+    "translation": "400 Bad Request"
   },
   {
     "id": "no_torrents_uploaded",
@@ -412,6 +456,18 @@
     "translation": "Live Action - Raw"
   },
   {
+    "id": "pictures",
+    "translation": "Pictures"
+  },
+  {
+    "id": "pictures_graphics",
+    "translation": "Pictures - Graphics"
+  },
+  {
+    "id": "pictures_photos",
+    "translation": "Pictures - Photos"
+  },
+  {
     "id": "software",
     "translation": "Software"
   },
@@ -470,6 +526,10 @@
   {
     "id": "show_all",
     "translation": "Mostra Tutto"
+  },
+  {
+    "id": "delete_all",
+    "translation": "Delete all"
   },
   {
     "id": "filter_remakes",
@@ -888,6 +948,18 @@
     "translation": "L'azione %s non esiste!"
   },
   {
+    "id": "oauth_client_deleted",
+    "translation": "Oauth API Client has been deleted!"
+  },
+  {
+    "id": "oauth_client_deleted_by",
+    "translation": "Oauth API Client #%s from %s has been deleted by %s."
+  },
+  {
+    "id": "no_action_exist",
+    "translation": "No such action %s exist!"
+  },
+  {
     "id": "torrent_not_exist",
     "translation": "Il torrent con l'ID %s non esiste!"
   },
@@ -970,6 +1042,10 @@
   {
     "id": "torrent_deleted_definitely",
     "translation": "Il torrent è stato cancellato dal database!"
+  },
+  {
+    "id": "torrent_not_deleted",
+    "translation": "Torrent was not deleted"
   },
   {
     "id": "torrent_unblocked",
@@ -1364,12 +1440,88 @@
     "translation": "Minimal length of %s required for the input: %s"
   },
   {
+    "id": "error_min_number",
+    "translation": "%s must be %s or greater"
+  },
+  {
+    "id": "error_min_field",
+    "translation": "%s must be equal or greater to %s"
+  },
+  {
+    "id": "error_min_array",
+    "translation": "%s must contain at least %s items"
+  },
+  {
+    "id": "error_less_date",
+    "translation": "%s must be less than the current Date & Time"
+  },
+  {
+    "id": "error_less_array",
+    "translation": "%s must contain less than %s items"
+  },
+  {
+    "id": "error_less_length",
+    "translation": "%s must be less than %s in length"
+  },
+  {
+    "id": "error_less_number",
+    "translation": "%s must be less than %s"
+  },
+  {
+    "id": "error_less_equal_date",
+    "translation": "%s must be less than or equal to the current Date & Time"
+  },
+  {
+    "id": "error_greater_date",
+    "translation": "%s must be greater than the current Date & Time"
+  },
+  {
+    "id": "error_greater_length",
+    "translation": "%s must be greater than %s in length"
+  },
+  {
+    "id": "error_greater_number",
+    "translation": "%s must be greater than %s"
+  },
+  {
+    "id": "error_greater_equal_date",
+    "translation": "%s must be greater than or equal to the current Date & Time"
+  },
+  {
+    "id": "error_max_field",
+    "translation": "%s must be equal or less to %s"
+  },
+  {
     "id": "error_max_length",
     "translation": "Maximal length of %s required for the input: %s"
   },
   {
+    "id": "error_max_number",
+    "translation": "%s must be %s or less"
+  },
+  {
+    "id": "error_max_array",
+    "translation": "%s must contain at maximum %s items"
+  },
+  {
+    "id": "error_length",
+    "translation": "Length of %s required for the input: %s"
+  },
+  {
+    "id": "error_equal",
+    "translation": "%s is not equal to %s"
+  },
+  {
     "id": "error_same_value",
     "translation": "Must be same %s"
+  },
+  {
+    "id": "error_field",
+    "translation": "Unexpected error on field: %s"
+  },
+  {
+    "id": "error_not_equal",
+    "translation": "%s should not be equal to %s"
   },
   {
     "id": "error_wrong_value",
@@ -1378,6 +1530,94 @@
   {
     "id": "error_field_needed",
     "translation": "Campo Necessario: %s"
+  },
+  {
+    "id": "error_len_array",
+    "translation": "%s must contain %s items"
+  },
+  {
+    "id": "error_alpha",
+    "translation": "%s can only contain alphabetic characters"
+  },
+  {
+    "id": "error_alphanum",
+    "translation": "%s can only contain alphanumeric characters"
+  },
+  {
+    "id": "error_numeric_valid",
+    "translation": "%s must be a valid numeric value"
+  },
+  {
+    "id": "error_number_valid",
+    "translation": "%s must be a valid number"
+  },
+  {
+    "id": "error_hexadecimal_valid",
+    "translation": "%s must be a valid hexadecimal"
+  },
+  {
+    "id": "error_hex_valid",
+    "translation": "%s must be a valid HEX color"
+  },
+  {
+    "id": "error_rgb_valid",
+    "translation": "%s must be a valid RGB color"
+  },
+  {
+    "id": "error_rgba_valid",
+    "translation": "%s must be a valid RGBA color"
+  },
+  {
+    "id": "error_hsl_valid",
+    "translation": "%s must be a valid HSL color"
+  },
+  {
+    "id": "error_hsla_valid",
+    "translation": "%s must be a valid HSLA color"
+  },
+  {
+    "id": "error_url_valid",
+    "translation": "%s must be a valid URL"
+  },
+  {
+    "id": "error_uri_valid",
+    "translation": "%s must be a valid URI"
+  },
+  {
+    "id": "error_base64_valid",
+    "translation": "%s must be a valid Base64 string"
+  },
+  {
+    "id": "error_contains",
+    "translation": "%s must contain the text '%s'"
+  },
+  {
+    "id": "error_contains_any",
+    "translation": "%s must contain at least one of the following characters '%s'"
+  },
+  {
+    "id": "error_excludes",
+    "translation": "%s cannot contain the text '%s'"
+  },
+  {
+    "id": "error_excludes_all",
+    "translation": "%s cannot contain any of the following characters '%s'"
+  },
+  {
+    "id": "error_excludes_rune",
+    "translation": "%s cannot contain the following '%s'"
+  },
+  {
+    "id": "error_color_valid",
+    "translation": "%s must be a valid color"
+  },
+  {
+    "id": "error_",
+    "translation": "%s must contain %s items"
+  },
+  {
+    "id": "error_len_array",
+    "translation": "%s must contain %s items"
   },
   {
     "id": "refine_search",
@@ -1418,5 +1658,333 @@
   {
     "id": "optional",
     "translation": "Opzionale"
+  },
+  {
+    "id": "search_for",
+    "translation": "Search for"
+  },
+  {
+    "id": "show",
+    "translation": "Show"
+  },
+  {
+    "id": "username_taken",
+    "translation": "Username already taken, you can choose: %s"
+  },
+  {
+    "id": "email_in_db",
+    "translation": "Email address already in database"
+  },
+  {
+    "id": "user_not_found",
+    "translation": "User not found"
+  },
+  {
+    "id": "incorrect_password",
+    "translation": "Password Incorrect"
+  },
+  {
+    "id": "password_error_generating",
+    "translation": "Error when generating your password hash"
+  },
+  {
+    "id": "permission_delete_error",
+    "translation": "You don't have the right to delete this"
+  },
+  {
+    "id": "no_username_password",
+    "translation": "No username/password entered"
+  },
+  {
+    "id": "account_banned",
+    "translation": "Account banned"
+  },
+  {
+    "id": "account_need_activation",
+    "translation": "This account needs activation from Moderators, please contact us"
+  },
+  {
+    "id": "retrieve_torrent_error",
+    "translation": "Couldn't retrieve torrents"
+  },
+  {
+    "id": "multiple_username_error",
+    "translation": "More than one username given"
+  },
+  {
+    "id": "elevating_user_error",
+    "translation": "Elevating status to moderator is prohibited"
+  },
+  {
+    "id": "parse_error_line",
+    "translation": "Couldn't parse on line %d"
+  },
+  {
+    "id": "language_not_available",
+    "translation": "Language not available"
+  },
+  {
+    "id": "mascot_url_too_long",
+    "translation": "Mascot URL is too long (max is 255 chars)"
+  },
+  {
+    "id": "mascor_url_parse_error",
+    "translation": "Error occurred when parsing mascot URL: %s"
+  },
+  {
+    "id": "no_id_given",
+    "translation": "No torrent ID given"
+  },
+  {
+    "id": "error_api_token",
+    "translation": "Error API token doesn't exist"
+  },
+  {
+    "id": "uploads_disabled",
+    "translation": "Uploads are disabled"
+  },
+  {
+    "id": "try_to_delete_report_inexistant",
+    "translation": "Trying to delete a torrent report that does not exists"
+  },
+  {
+    "id": "torrent_report_not_created",
+    "translation": "TorrentReport was not created"
+  },
+  {
+    "id": "user_not_deleted",
+    "translation": "User wasn't deleted"
+  },
+  {
+    "id": "error_content_type_post",
+    "translation": "Please provide either of Content-Type: application/json header or multipart/form-data"
+  },
+  {
+    "id": "torrent_name_invalid",
+    "translation": "Torrent name is invalid"
+  },
+  {
+    "id": "torrent_private",
+    "translation": "Torrent is private"
+  },
+  {
+    "id": "torrent_no_working_trackers",
+    "translation": "Torrent does not have any (working) trackers: <a href=\"/faq#trackers\">Trackers List</a>"
+  },
+  {
+    "id": "torrent_desc_invalid",
+    "translation": "Torrent description is invalid"
+  },
+  {
+    "id": "torrent_cat_invalid",
+    "translation": "Torrent category is invalid"
+  },
+  {
+    "id": "torrent_lang_invalid",
+    "translation": "Language sent is not yet supported! You can help supporting it by contributing in our github page"
+  },
+  {
+    "id": "torrent_cat_is_english",
+    "translation": "Torrent's category is for English translations, but language wasn't English. We changed it to english"
+  },
+  {
+    "id": "torrent_cat_not_english",
+    "translation": "Torrent's category is for non-English translations, but language selected is only English"
+  },
+  {
+    "id": "torrent_magnet_invalid",
+    "translation": "Magnet couldn't be parsed, please check it"
+  },
+  {
+    "id": "torrent_hash_invalid",
+    "translation": "Torrent hash is incorrect"
+  },
+  {
+    "id": "torrent_plus_magnet",
+    "translation": "Upload either a torrent file or magnet link, not both"
+  },
+  {
+    "id": "torrent_file_invalid",
+    "translation": "Torrent File is invalid"
+  },
+  {
+    "id": "torrent_uri_invalid",
+    "translation": "Website url or IRC link is invalid"
+  },
+  {
+    "id": "api_documentation",
+    "translation": "API documentation"
+  },
+  {
+    "id": "api_help",
+    "translation": "Do you have an api?"
+  },
+  {
+    "id": "trusted",
+    "translation": "Torrents uploaded by trusted users."
+  },
+  {
+    "id": "reencodes",
+    "translation": "Re-encodes"
+  },
+  {
+    "id": "remux",
+    "translation": "Remux of another uploader's original release"
+  },
+  {
+    "id": "reupload",
+    "translation": "Reupload of another users torrent with missing and/or unrelated additional files."
+  },
+  {
+    "id": "red",
+    "translation": "Red entries are: "
+  },
+  {
+    "id": "green",
+    "translation": "Green entries are:"
+  },
+  {
+    "id": "torrent_colors",
+    "translation": "Torrent colors"
+  },
+  {
+    "id": "torrent_preview",
+    "translation": "Preview your torrent"
+  },
+  {
+    "id": "announcement",
+    "translation": "Announcement"
+  },
+  {
+    "id": "update_client_failed",
+    "translation": "Update of the client has failed!"
+  },
+  {
+    "id": "update_client_success",
+    "translation": "You have successfully updated the client!"
+  },
+  {
+    "id": "update_client_panel",
+    "translation": "Update a Client"
+  },
+  {
+    "id": "create_client_success",
+    "translation": "You have successfully created the client!"
+  },
+  {
+    "id": "create_client_failed",
+    "translation": "Client creation has failed!"
+  },
+  {
+    "id": "create_client_panel",
+    "translation": "Create a new Client"
+  },
+  {
+    "id": "redirect_uri",
+    "translation": "Redirect URI"
+  },
+  {
+    "id": "grant_types",
+    "translation": "Grant Types"
+  },
+  {
+    "id": "response_types",
+    "translation": "Response Types"
+  },
+  {
+    "id": "scope",
+    "translation": "Scopes"
+  },
+  {
+    "id": "owner",
+    "translation": "Owner"
+  },
+  {
+    "id": "policy_uri",
+    "translation": "Policy URI"
+  },
+  {
+    "id": "tos_uri",
+    "translation": "Terms Of Service URI"
+  },
+  {
+    "id": "logo_uri",
+    "translation": "Logo URI"
+  },
+  {
+    "id": "contacts",
+    "translation": "Owner Emails"
+  },
+  {
+    "id": "oauth_clients_list",
+    "translation": "OAuth API Clients"
+  },
+  {
+    "id": "add",
+    "translation": "Add"
+  },
+  {
+    "id": "remove",
+    "translation": "Remove"
+  },
+  {
+    "id": "secret",
+    "translation": "Client Secret"
+  },
+  {
+    "id": "torrent_age",
+    "translation": "{1} days {2} hours ago"
+  },
+  {
+    "id": "wrong_tag_type",
+    "translation": "The tag type selected doesn't exist"
+  },
+  {
+    "id": "add_tag",
+    "translation": "Add a Tag"
+  },
+  {
+    "id": "tagtype",
+    "translation": "Tag Type"
+  },
+  {
+    "id": "tagtype_anidbid",
+    "translation": "Anidb ID"
+  },
+  {
+    "id": "tagtype_vndbid",
+    "translation": "VNdb ID"
+  },
+  {
+    "id": "tagtype_quality",
+    "translation": "Video Quality"
+  },
+  {
+    "id": "torrent_tags",
+    "translation": "Torrent tags"
+  },
+  {
+    "id": "announcements",
+    "translation": "Announcements"
+  },
+  {
+    "id": "message",
+    "translation": "Message"
+  },
+  {
+    "id": "delay",
+    "translation": "Delay"
+  },
+  {
+    "id": "update_annoucement_panel",
+    "translation": "Update Announcement"
+  },
+  {
+    "id": "create_annoucement_panel",
+    "translation": "Create Announcement"
+  },
+  {
+    "id": "expire",
+    "translation": "Expire"
   }
 ]
