@@ -1,0 +1,1990 @@
+[
+  {
+    "id": "rules",
+    "translation": "Peraturan"
+  },
+  {
+    "id": "no_cp",
+    "translation": "Dilarang pornografi anak kecil (lolicon tidak termasuk)"
+  },
+  {
+    "id": "asia",
+    "translation": "Hanya konten yang berhubungan dengan Asia (tidak ada Film Barat, tidak ada Kartun)"
+  },
+  {
+    "id": "rules_spam",
+    "translation": "Dilarang melakukan spam"
+  },
+  {
+    "id": "rules_sukebei",
+    "translation": "Konten yang 'tidak aman' berada di sukebei.pantsu.cat"
+  },
+  {
+    "id": "verify_email_title",
+    "translation": "Verifikasi alamat email Anda untuk Nyaapantsu."
+  },
+  {
+    "id": "verify_email_content",
+    "translation": "Silahkan klik link di bawah ini untuk memverifikasi email anda."
+  },
+  {
+    "id": "reset_password_title",
+    "translation": "Atur ulang kata sandi anda untuk Nyaapantsu."
+  },
+  {
+    "id": "reset_password_content",
+    "translation": "Silahkan klik link di bawah ini untuk mengatur ulang kata sandi anda."
+  },
+  {
+    "id": "register_title",
+    "translation": "Membuat akun baru"
+  },
+  {
+    "id": "signup_box_title",
+    "translation": "Silahkan Daftar, gratis dan akan selalu gratis."
+  },
+  {
+    "id": "username",
+    "translation": "Nama pengguna"
+  },
+  {
+    "id": "email_address_or_username",
+    "translation": "Alamat email atau Nama pengguna"
+  },
+  {
+    "id": "email_address",
+    "translation": "Alamat email"
+  },
+  {
+    "id": "password",
+    "translation": "Kata sandi"
+  },
+  {
+    "id": "confirm_password",
+    "translation": "Konfirmasi kata sandi"
+  },
+  {
+    "id": "terms_conditions_confirm",
+    "translation": "Dengan mengklik <b>Daftar</b>, anda setuju dengan <a id=\"modal_active\" href=\"#\">Syarat dan Ketentuan</a> yang ditetapkan oleh situs ini, termasuk penggunaan Cookie kami."
+  },
+  {
+    "id": "signin",
+    "translation": "Masuk"
+  },
+  {
+    "id": "register",
+    "translation": "Daftar"
+  },
+  {
+    "id": "terms_conditions",
+    "translation": "Syarat dan Ketentuan"
+  },
+  {
+    "id": "terms_conditions_full",
+    "translation": "Beberapa omong kosong."
+  },
+  {
+    "id": "remember_me",
+    "translation": "Ingat saya"
+  },
+  {
+    "id": "forgot_password",
+    "translation": "Lupa kata sandi?"
+  },
+  {
+    "id": "sign_in_box_title",
+    "translation": "Silahkan masuk"
+  },
+  {
+    "id": "sign_in_title",
+    "translation": "Masuk"
+  },
+  {
+    "id": "register_success_title",
+    "translation": "Berhasil masuk"
+  },
+  {
+    "id": "sign_up_success",
+    "translation": "Terima kasih telah mendaftar!"
+  },
+  {
+    "id": "verify_success",
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>Akun anda sekarang telah aktif!"
+  },
+  {
+    "id": "signup_verification_email",
+    "translation": "Verifikasi email dinonaktifkan pada saat ini, jadi anda bisa langsung menggunakan akun anda. Di masa mendatang, periksa kotak masuk surat anda (dan juga folder spam!) untuk email verifikasi."
+  },
+  {
+    "id": "signup_verification_noemail",
+    "translation": "Pendaftaran telah berhasil, anda bisa langsung menggunakan akun anda."
+  },
+  {
+    "id": "email_placeholder",
+    "translation": "Tidak boleh kosong."
+  },
+  {
+    "id": "settings",
+    "translation": "Pengaturan Akun"
+  },
+  {
+    "id": "torrents",
+    "translation": "Torrents"
+  },
+  {
+    "id": "follow",
+    "translation": "Ikuti"
+  },
+  {
+    "id": "unfollow",
+    "translation": "Berhenti mengikuti"
+  },
+  {
+    "id": "user_followed_msg",
+    "translation": "Anda telah mengikuti %s!"
+  },
+  {
+    "id": "user_unfollowed_msg",
+    "translation": "Anda telah berhenti mengikuti %s!"
+  },
+  {
+    "id": "profile_page",
+    "translation": "%s Halaman Profil"
+  },
+  {
+    "id": "see_more_torrents_from",
+    "translation": "Lihat lebih banyak torrent dari %s "
+  },
+  {
+    "id": "torrents_uploaded",
+    "translation": "Torrent telah diunggah"
+  },
+  {
+    "id": "category",
+    "translation": "Kategori"
+  },
+  {
+    "id": "name",
+    "translation": "Nama"
+  },
+  {
+    "id": "date",
+    "translation": "Tanggal"
+  },
+  {
+    "id": "size",
+    "translation": "Ukuran"
+  },
+  {
+    "id": "links",
+    "translation": "Link"
+  },
+  {
+    "id": "home",
+    "translation": "Rumah"
+  },
+  {
+    "id": "error_404",
+    "translation": "Error 404"
+  },
+  {
+    "id": "error_400",
+    "translation": "Error 400"
+  },
+  {
+    "id": "error_500",
+    "translation": "Error 500"
+  },
+  {
+    "id": "err_no_results",
+    "translation": "No results foundTidak ada hasil yang ditemukan"
+  },
+  {
+    "id": "upload",
+    "translation": "Unggah"
+  },
+  {
+    "id": "faq",
+    "translation": "FAQ"
+  },
+  {
+    "id": "fap",
+    "translation": "Fap"
+  },
+  {
+    "id": "fun",
+    "translation": "Menyenangkan"
+  },
+  {
+    "id": "nothing_here",
+    "translation": "Tidak ada apa-apa di sini."
+  },
+  {
+    "id": "404_not_found",
+    "translation": "404 Tidak ditemukan"
+  },
+  {
+    "id": "500_internal_server_error",
+    "translation": "500 Kesalahan server dari dalam"
+  },
+  {
+    "id": "400_bad_request",
+    "translation": "400 Permintaan yang buruk"
+  },
+  {
+    "id": "no_torrents_uploaded",
+    "translation": "Belum ada torrent yang terunggah!"
+  },
+  {
+    "id": "profile",
+    "translation": "Profil"
+  },
+  {
+    "id": "sign_out",
+    "translation": "Keluar"
+  },
+  {
+    "id": "member",
+    "translation": "Anggota"
+  },
+  {
+    "id": "no_results_found",
+    "translation": "Tidak ada hasil yang ditemukan"
+  },
+  {
+    "id": "notice_keep_seeding",
+    "translation": "PEMBERITAHUAN: TETAP SEEDING DAN AKTIFKAN DHT"
+  },
+  {
+    "id": "official_nyaapocalipse_faq",
+    "translation": "Nyaapocalypse FAQ Resmi"
+  },
+  {
+    "id": "links_replacement_mirror",
+    "translation": "Link untuk pengganti/mirror"
+  },
+  {
+    "id": "what_happened",
+    "translation": "Apa yang telah terjadi?"
+  },
+  {
+    "id": "nyaa_se_went_offline",
+    "translation": "nyaa.se dan domain yang terkait (seperti nyaatorrents.info) telah offline pada May 01, 2017."
+  },
+  {
+    "id": "its_not_a_ddos",
+    "translation": "Mereka telah dinonaktifkan, jadi itu bukan serangan DDoS seperti biasanya."
+  },
+  {
+    "id": "future_not_looking_good",
+    "translation": "Prospek masa depan untuk nyaa tidak terlihat bagus. (Itu sudah mati, Jim)"
+  },
+  {
+    "id": "recovery_effort",
+    "translation": "Ada upaya pemulihan yang terjadi."
+  },
+  {
+    "id": "is_everything_lost",
+    "translation": "Apa semuanya hilang?"
+  },
+  {
+    "id": "in_short_no",
+    "translation": "Singkatnya, tidak."
+  },
+  {
+    "id": "are_some_things_lost",
+    "translation": "Apa ada sesuatu yang hilang?"
+  },
+  {
+    "id": "answer_is_nyaa_db_lost",
+    "translation": "Kami memiliki database torrents di nyaa sampai <s>5 April</s> 1 Mei. Itu artinya hampir tidak ada yang hilang."
+  },
+  {
+    "id": "answer_is_sukebei_db_lost",
+    "translation": "Sukebei juga aman, dan hampir tidak ada yang hilang juga."
+  },
+  {
+    "id": "how_are_we_recovering",
+    "translation": "Bagaimana kami memulihkannya?"
+  },
+  {
+    "id": "answer_how_are_we_recovering",
+    "translation": "Database tersebut di-host-kan di nyaa.pantsu.cat dan sukebei.pantsu.cat. Ada fungsi pencarian, dan (hampir) fungsionalitas penuh Nyaa akan segera hadir."
+  },
+  {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "Bagaimana saya menghubungkan akun lama ke akun yang baru?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "Bergabunglah di <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> dan mintalah seorang moderator untuk memindahkan torrents lama anda dengan mencantumkan nama pengguna lama dan baru Anda."
+  },
+  {
+    "id": "are_the_trackers_working",
+    "translation": "Apa torrent masih tetap bekerja?"
+  },
+  {
+    "id": "answer_are_the_trackers_working",
+    "translation": "Meskipun jika pelacaknya sudah dinonaktifkan, seeder masih tetap terhubung ke jaringan DHT yang terdesentralisasi. Selama file-nya masih tercatat di jaringan DHT, bisnis tetap berjalan seperti biasanya."
+  },
+  {
+    "id": "how_do_i_download_the_torrents",
+    "translation": "Bagaimana saya mengunduh torrent?"
+  },
+  {
+    "id": "answer_how_do_i_download_the_torrents",
+    "translation": "Gunakan saja <b>magnet link</b>. Link magnet akan digunakan oleh klien BitTorrent anda untuk mencari file di jaringan DHT dan seharusnya mengunduh dengan baik."
+  },
+  {
+    "id": "magnet_link_should_look_like",
+    "translation": "Link magnet-nya seperti ini:"
+  },
+  {
+    "id": "which_trackers_do_you_recommend",
+    "translation": "Pelacak mana yang direkomendasikan untuk digunakan?"
+  },
+  {
+    "id": "answer_which_trackers_do_you_recommend",
+    "translation": "Kami sekarang memiliki Pelacak kami sendiri yang disebut doko.moe, tambahkan ke bagian atas daftar sebelum mengunggah. Anda harus menambahkan semua pelacak ini agar torrent tetap tahan lama."
+  },
+  {
+    "id": "how_can_i_help",
+    "translation": "Bagaimana saya bisa membantu?"
+  },
+  {
+    "id": "answer_how_can_i_help",
+    "translation": "Jika anda memiliki keahlian di bidang Web Development, anda dapat bergabung di saluran IRC #nyaapantsu di irc.rizon.net. Jika anda memiliki database saat ini, terlebih lagi untuk sukebei, tolong unggah itu."
+  },
+  {
+    "id": "your_design_sucks_found_a_bug",
+    "translation": "Design anda menyebalkan / Saya menemukan bug"
+  },
+  {
+    "id": "why_written_in_go",
+    "translation": "Mengapa Nyaa Pantsu ditulis menggunakan bahasa Go?"
+  },
+  {
+    "id": "authors_favorite_language",
+    "translation": "Ini adalah bahasa pemrograman favorit penulis."
+  },
+  {
+    "id": "torrent_file",
+    "translation": "File torrent"
+  },
+  {
+    "id": "uploading_file_prefills_fields",
+    "translation": "Mengunggah file torrent memperbolehkan pra-mengisi di beberapa bidang. Ini dianjurkan."
+  },
+  {
+    "id": "magnet_link",
+    "translation": "Link Magnet"
+  },
+  {
+    "id": "all_categories",
+    "translation": "Semua kategori"
+  },
+  {
+    "id": "select_a_torrent_category",
+    "translation": "Pilih kategori torrent"
+  },
+  {
+    "id": "anime",
+    "translation": "Anime"
+  },
+  {
+    "id": "anime_amv",
+    "translation": "Anime - Anime Music Video"
+  },
+  {
+    "id": "anime_english_translated",
+    "translation": "Anime - Terjemahan bahasa inggris"
+  },
+  {
+    "id": "anime_non_english_translated",
+    "translation": "Anime - Terjemahan bukan bahasa inggris"
+  },
+  {
+    "id": "anime_raw",
+    "translation": "Anime - Raw"
+  },
+  {
+    "id": "audio",
+    "translation": "Audio"
+  },
+  {
+    "id": "audio_lossless",
+    "translation": "Audio - Lossless"
+  },
+  {
+    "id": "audio_lossy",
+    "translation": "Audio - Lossy"
+  },
+  {
+    "id": "literature",
+    "translation": "Literatur"
+  },
+  {
+    "id": "literature_english_translated",
+    "translation": "Literatur - Terjemahan bahasa inggris"
+  },
+  {
+    "id": "literature_raw",
+    "translation": "Literatur - Raw"
+  },
+  {
+    "id": "literature_non_english_translated",
+    "translation": "Literatur - Terjemahan bukan bahasa inggris"
+  },
+  {
+    "id": "live_action",
+    "translation": "Live Action"
+  },
+  {
+    "id": "live_action_english_translated",
+    "translation": "Live Action - Terjemahan bahasa inggris"
+  },
+  {
+    "id": "live_action_idol_pv",
+    "translation": "Live Action - Idol/Promotional Video"
+  },
+  {
+    "id": "live_action_non_english_translated",
+    "translation": "Live Action - Terjemahan bukan bahasa inggris"
+  },
+  {
+    "id": "live_action_raw",
+    "translation": "Live Action - Raw"
+  },
+  {
+    "id": "pictures",
+    "translation": "Gambar"
+  },
+  {
+    "id": "pictures_graphics",
+    "translation": "Gambar - Grafis"
+  },
+  {
+    "id": "pictures_photos",
+    "translation": "Gambar - Foto"
+  },
+  {
+    "id": "software",
+    "translation": "Perangkat Lunak"
+  },
+  {
+    "id": "software_applications",
+    "translation": "Perangkat Lunak - Aplikasi"
+  },
+  {
+    "id": "software_games",
+    "translation": "Perangkat Lunak - Permainan"
+  },
+  {
+    "id": "art",
+    "translation": "Seni"
+  },
+  {
+    "id": "art_anime",
+    "translation": "Seni - Anime"
+  },
+  {
+    "id": "art_doujinshi",
+    "translation": "Seni - Doujinshi"
+  },
+  {
+    "id": "art_games",
+    "translation": "Seni - Permainan"
+  },
+  {
+    "id": "art_manga",
+    "translation": "Seni - Manga"
+  },
+  {
+    "id": "art_pictures",
+    "translation": "Seni - Gambar"
+  },
+  {
+    "id": "real_life",
+    "translation": "Kehidupan Nyata"
+  },
+  {
+    "id": "real_life_photobooks_and_pictures",
+    "translation": "Kehidupan Nyata - Photobook dan Gambar"
+  },
+  {
+    "id": "real_life_videos",
+    "translation": "Kehidupan Nyata - Video"
+  },
+  {
+    "id": "torrent_description",
+    "translation": "Deskripsi Torrent"
+  },
+  {
+    "id": "description_markdown_notice",
+    "translation": "Markdown dapat digunakan dalam deskripsi."
+  },
+  {
+    "id": "show_all",
+    "translation": "Tampilkan semua"
+  },
+  {
+    "id": "delete_all",
+    "translation": "Hapus semua"
+  },
+  {
+    "id": "filter_remakes",
+    "translation": "Saring Dibuat ulang"
+  },
+  {
+    "id": "trusted",
+    "translation": "Terpercaya"
+  },
+  {
+    "id": "search",
+    "translation": "Cari"
+  },
+  {
+    "id": "hash",
+    "translation": "Hash"
+  },
+  {
+    "id": "description",
+    "translation": "Deskripsi"
+  },
+  {
+    "id": "no_description",
+    "translation": "Tidak ada deskripsi yang diberikan!"
+  },
+  {
+    "id": "comments",
+    "translation": "Komentar"
+  },
+  {
+    "id": "submit_a_comment_as_username",
+    "translation": "Kirim komentar sebagai %s"
+  },
+  {
+    "id": "submit_a_comment_as_anonymous",
+    "translation": "Kirim komentar sebagai Anonymous"
+  },
+  {
+    "id": "submit",
+    "translation": "Kirim"
+  },
+  {
+    "id": "personal_info",
+    "translation": "Informasi Pribadi"
+  },
+  {
+    "id": "language",
+    "translation": "Bahasa"
+  },
+  {
+    "id": "current_password",
+    "translation": "Password yang sekarang"
+  },
+  {
+    "id": "role",
+    "translation": "Peran"
+  },
+  {
+    "id": "banned",
+    "translation": "Dilarang"
+  },
+  {
+    "id": "default",
+    "translation": "Semula"
+  },
+  {
+    "id": "trusted_member",
+    "translation": "Anggota terpercaya"
+  },
+  {
+    "id": "scraped_user",
+    "translation": "Pengguna tergores"
+  },
+  {
+    "id": "moderator",
+    "translation": "Moderator"
+  },
+  {
+    "id": "api_token",
+    "translation": "Token API"
+  },
+  {
+    "id": "save_changes",
+    "translation": "Simpan perubahan"
+  },
+  {
+    "id": "profile_updated",
+    "translation": "Profil anda telah diperbarui dengan benar!"
+  },
+  {
+    "id": "delete_account",
+    "translation": "Hapus account"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "Apa anda yakin ingin menghapus akun ini?"
+  },
+  {
+    "id": "delete_success",
+    "translation": "Akun telah berhasil dihapus!"
+  },
+  {
+    "id": "moderation",
+    "translation": "Moderasi"
+  },
+  {
+    "id": "extensions_and_plugins",
+    "translation": "Ekstensi dan Plugin (dibuat oleh pengembang pihak ketiga)"
+  },
+  {
+    "id": "qbittorrent_plugin",
+    "translation": "qBittorrent Plugin"
+  },
+  {
+    "id": "local_client",
+    "translation": "Klien Lokal"
+  },
+  {
+    "id": "chrome_extension",
+    "translation": "Ekstensi Chrome"
+  },
+  {
+    "id": "firefox_extension",
+    "translation": "Ekstensi Firefox"
+  },
+  {
+    "id": "android_app",
+    "translation": "Aplikasi Android"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "Siapa sih <span lang=\"ja\">れんちょん</span> itu?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "<span lang=\"ja\">れんちょん</span> (Ren-chon) adalah nama pengguna yang digunakan untuk mengunggah torrent dan menulis komentar secara anonim. Ini juga digunakan untuk torrent yang diimpor dari Nyaa yang asli, meski terkadang uploader asli bisa ditampilkan disamping."
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "Tandai sebagai dibuat ulang"
+  },
+  {
+    "id": "email_changed",
+    "translation": "Email berhasil diubah! Anda harus, bagaimanapun, melakukan konfirmasi dengan mengklik link yang dikirim ke: %s"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "Status torrent"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "Biasa"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "Dibuat ulang"
+  },
+  {
+    "id": "torrent_status_blocked",
+    "translation": "Terkunci"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": "Ubah profil %s"
+  },
+  {
+    "id": "seeders",
+    "translation": "Seeders"
+  },
+  {
+    "id": "leechers",
+    "translation": "Leechers"
+  },
+  {
+    "id": "completed",
+    "translation": "Terselesaikan"
+  },
+  {
+    "id": "change_language",
+    "translation": "Ubah Bahasa"
+  },
+  {
+    "id": "language_name",
+    "translation": "Bahasa Indonesia"
+  },
+  {
+    "id": "language_code",
+    "translation": "in-ID"
+  },
+  {
+    "id": "delete",
+    "translation": "Hapus"
+  },
+  {
+    "id": "website_link",
+    "translation": "Link situs web"
+  },
+  {
+    "id": "files",
+    "translation": "File"
+  },
+  {
+    "id": "no_files",
+    "translation": "Tidak ada file ditemukan? Itu tidak masuk akal!"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "Diunggah oleh"
+  },
+  {
+    "id": "report_btn",
+    "translation": "Laporkan"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "Apa anda yakin?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "Laporkan Torrent #%d"
+  },
+  {
+    "id": "report_type",
+    "translation": "Laporkan tipe"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "Konten liar"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "Spam / Sampah"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "Kategori salah"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "Duplikat / tidak berlaku lagi"
+  },
+  {
+    "id": "captcha",
+    "translation": "Captcha"
+  },
+  {
+    "id": "captcha_audio",
+    "translation": "Captcha Audio"
+  },
+  {
+    "id": "file_name",
+    "translation": "Nama File"
+  },
+  {
+    "id": "cancel",
+    "translation": "Batal"
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "Harap sertakan udp://tracker.doko.moe:6969 di pelacak anda."
+  },
+  {
+    "id": "unknown",
+    "translation": "Tidak diketahui"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "Terakhir digores: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "Status server dapat ditemukan di sini"
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "Tidak ada dump database yang tersedia saat ini."
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "Hapus Pemberitahuan"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "Pemberitahuan dihapus!"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "Pemberitahuan Saya"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "Torrent baru: \"%s\" dari %s"
+  },
+  {
+    "id": "torrent_uploaded",
+    "translation": "Torrent berhasil diunggah!"
+  },
+  {
+    "id": "preferences",
+    "translation": "Preferensi"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "Diberitahu saat pengguna yang diikuti menambahkan torrent baru"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "Diberitahu melalui email saat pengguna yang diikuti menambahkan torrent baru"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "Diberitahu saat ada komentar baru di torrent anda"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "Diberitahu melalui email saat ada komentar baru di torrent anda"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "Diberitahu saat ada tanggapan baru pada komentar anda"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "Diberitahu melalui email saat ada tanggap baru paa komentar anda"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "Diberitahu saat anda memiliki pengikut baru"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "Diberitahu melalui email saat anda memiliki pengikut baru"
+  },
+  {
+    "id": "followed_settings",
+    "translation": "Diberitahu saat anda mengikuti seseorang"
+  },
+  {
+    "id": "followed_email_settings",
+    "translation": "Diberitahu melalui email saat anda mengikuti seseorang"
+  },
+  {
+    "id": "yes",
+    "translation": "Ya"
+  },
+  {
+    "id": "no",
+    "translation": "Tidak"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "Komentar baru pada torrent: \"%s\""
+  },
+  {
+    "id": "no_action_selected",
+    "translation": "Anda harus memberitahu apa yang ingin anda lakukan dengan pilihan anda!"
+  },
+  {
+    "id": "no_move_location_selected",
+    "translation": "Anda belum memberitahu dimana anda ingin memindahkan pilihan!"
+  },
+  {
+    "id": "select_one_element",
+    "translation": "Anda harus memilih setidaknya 1 elemen!"
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "Torrent %s dipindahkan!"
+  },
+  {
+    "id": "no_status_exist",
+    "translation": "Tidak ada status %d seperti itu!"
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "Torrent %s dihapus!"
+  },
+  {
+    "id": "torrent_deleted_by",
+    "translation": "Torrent #%d dari %s telah dihapus oleh %s."
+  },
+  {
+    "id": "torrent_edited_by",
+    "translation": "Torrent #%d dari %s telah diedit oleh %s."
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "Torrent #%d dari %s telah dikunci oleh %s."
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "Torrent #%d dari %s telah dibuka oleh %s."
+  },
+  {
+    "id": "torrents_deleted",
+    "translation": "Torrent Dihapus"
+  },
+  {
+    "id": "delete_torrent",
+    "translation": "Hapus Torrent"
+  },
+  {
+    "id": "delete_report",
+    "translation": "Hapus Laporan"
+  },
+  {
+    "id": "comment_deleted",
+    "translation": "Komentar telah dihapus!"
+  },
+  {
+    "id": "comment_deleted_by",
+    "translation": "Komentar #%d dari %s telah dihapus oleh %s."
+  },
+  {
+    "id": "comment_edited_by",
+    "translation": "Komentar #%d dari %s telah diedit oleh %s."
+  },
+  {
+    "id": "oauth_client_deleted",
+    "translation": "Oauth Klien API telah dihapus!"
+  },
+  {
+    "id": "oauth_client_deleted_by",
+    "translation": "Oauth Klien API #%s dari %s telah dihapus oleh %s."
+  },
+  {
+    "id": "no_action_exist",
+    "translation": "Tidak ada aksi %s seperti itu!"
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "Torrent dengan ID %d tidak ada!"
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "Ada sesuatu yang salah"
+  },
+  {
+    "id": "nb_torrents_updated",
+    "translation": "%d torrent diperbarui."
+  },
+  {
+    "id": "torrent_updated",
+    "translation": "Keterangan torrent diperbarui."
+  },
+  {
+    "id": "fail_torrent_update",
+    "translation": "Gagal memperbarui torrent!"
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "Captcha buruk!"
+  },
+  {
+    "id": "comment_empty",
+    "translation": "Komentar kosong!"
+  },
+  {
+    "id": "no_owner_selected",
+    "translation": "Pemilik torrent baru dibutuhkan!"
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "Tidak ada kategori yang dipilih!"
+  },
+  {
+    "id": "no_user_found_id",
+    "translation": "pengguna dengan ID %d tidak ada dalam database!"
+  },
+  {
+    "id": "invalid_torrent_category",
+    "translation": "Kategori torrent tidak ada!"
+  },
+  {
+    "id": "torrent_owner_changed",
+    "translation": "Pemilik torrent \"%s\" telah berhasil diganti!"
+  },
+  {
+    "id": "torrent_category_changed",
+    "translation": "Kategori untuk torrent \"%s\" telah diganti!"
+  },
+  {
+    "id": "torrent_reports_deleted",
+    "translation": "Laporan untuk torrent \"%s\" telah dihapus!"
+  },
+  {
+    "id": "edit",
+    "translation": "Edit"
+  },
+  {
+    "id": "lock_delete",
+    "translation": "Kunci & Hapus"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "Anda tidak akan dapat memulihkan file-nya, ataupun menghentikan seseorang untuk mengunggah ulang itu!"
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "Hapus pasti"
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "Buka kunci"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "Kunci"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "Torrent telah dihapus dari database!"
+  },
+  {
+    "id": "torrent_not_deleted",
+    "translation": "Torrent tidak dihapus"
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "Torrent telah dibuka!"
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "Torrent telah dikunci!"
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "Torrent tidak dihapus"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "Torrent dihapus"
+  },
+  {
+    "id": "change_settings",
+    "translation": "Ubah Tampilan/Bahasa"
+  },
+  {
+    "id": "mascot",
+    "translation": "Maskot"
+  },
+  {
+    "id": "theme",
+    "translation": "Tema"
+  },
+  {
+    "id": "theme_select",
+    "translation": "Pilih Tema"
+  },
+  {
+    "id": "theme_none",
+    "translation": "Tidak ada"
+  },
+  {
+    "id": "upload_as_anon",
+    "translation": "Unggah secara Anonim"
+  },
+  {
+    "id": "cookies",
+    "translation": "Dengan mengklik simpan, Anda menyetujui penggunaan cookie kami"
+  },
+  {
+    "id": "show",
+    "translation": "Tampilkan"
+  },
+  {
+    "id": "hide",
+    "translation": "Sembunyikan"
+  },
+  {
+    "id": "nyaa_pantsu",
+    "translation": "Nyaa Pantsu"
+  },
+  {
+    "id": "users",
+    "translation": "Pengguna"
+  },
+  {
+    "id": "torrent_reports",
+    "translation": "Laporan Torrent"
+  },
+  {
+    "id": "show_mod_tools",
+    "translation": "Tampilkan alat Mod"
+  },
+  {
+    "id": "hide_mod_tools",
+    "translation": "Sembunyikan alat Mod"
+  },
+  {
+    "id": "following_changes_applied",
+    "translation": "Perubahan sebagai berikut akan diterapkan"
+  },
+  {
+    "id": "changes_in_following_order",
+    "translation": "Perubahan akan diterapkan berdasarkan urutan:"
+  },
+  {
+    "id": "edit_changes",
+    "translation": "Edit Perubahan"
+  },
+  {
+    "id": "delete_changes",
+    "translation": "Hapus Perubahan"
+  },
+  {
+    "id": "owner_id_placeholder",
+    "translation": "Pemilik Baru"
+  },
+  {
+    "id": "try_new_attempt",
+    "translation": "Mencoba usaha baru..."
+  },
+  {
+    "id": "query_is_broken",
+    "translation": "Kueri ({0}?{1}) sepertinya rusak!"
+  },
+  {
+    "id": "query_executed_success",
+    "translation": "Kueri berhasil dieksekusi!"
+  },
+  {
+    "id": "all_operations_done",
+    "translation": "Semua operasi telah selesai!"
+  },
+  {
+    "id": "refreshing_in",
+    "translation": "Memuat ulang halaman dalam {0} detik..."
+  },
+  {
+    "id": "delete_reports_with_torrents",
+    "translation": "Apa anda ingin menghapus laporan bersama dengan torrent yang dipilih?"
+  },
+  {
+    "id": "with_st",
+    "translation": "dengan {0}"
+  },
+  {
+    "id": "and_reports",
+    "translation": " dan laporan"
+  },
+  {
+    "id": "reports",
+    "translation": "laporan"
+  },
+  {
+    "id": "lock",
+    "translation": "kunci"
+  },
+  {
+    "id": "status_js",
+    "translation": "statis: {0}"
+  },
+  {
+    "id": "owner_id_js",
+    "translation": "id_pemilik: {0}"
+  },
+  {
+    "id": "category_js",
+    "translation": "kategori: {0}"
+  },
+  {
+    "id": "no_changes",
+    "translation": "Tidak ada perubahan"
+  },
+  {
+    "id": "query_nb",
+    "translation": "Kueri #{0}"
+  },
+  {
+    "id": "reason",
+    "translation": "Alasan"
+  },
+  {
+    "id": "actions",
+    "translation": "Tindakan"
+  },
+  {
+    "id": "action_select",
+    "translation": "Tindakan..."
+  },
+  {
+    "id": "change_status",
+    "translation": "Ubah Status"
+  },
+  {
+    "id": "to_status",
+    "translation": "Kepada..."
+  },
+  {
+    "id": "torrents_not_deleted",
+    "translation": "torrent Tidak Dihapus"
+  },
+  {
+    "id": "more",
+    "translation": "Lebih"
+  },
+  {
+    "id": "last_comments",
+    "translation": "Komentar terakhir"
+  },
+  {
+    "id": "last_reports",
+    "translation": "Laporan terakhir"
+  },
+  {
+    "id": "last_torrents",
+    "translation": "Torrent terakhir"
+  },
+  {
+    "id": "last_users",
+    "translation": "Pengguna terakhir"
+  },
+  {
+    "id": "moderation_overview",
+    "translation": "Gambaran Moderasi"
+  },
+  {
+    "id": "users_list",
+    "translation": "Daftar Pengguna"
+  },
+  {
+    "id": "comments_list",
+    "translation": "Daftar Komentar"
+  },
+  {
+    "id": "reports_list",
+    "translation": "Daftar Laporan"
+  },
+  {
+    "id": "torrents_list",
+    "translation": "Daftar Torrent"
+  },
+  {
+    "id": "torrent_edit_panel",
+    "translation": "Panel Edit Torrent"
+  },
+  {
+    "id": "torrent_reassign",
+    "translation": "Menetapkan Ulang Torrent"
+  },
+  {
+    "id": "reassign_warning",
+    "translation": "Menetapkan ulang torrent ke pengguna baru tidak dapat dikembalikan dengan mudah dan harus dilakukan dengan hati-hati."
+  },
+  {
+    "id": "previous_username",
+    "translation": "Nama pengguna Sebelumnya"
+  },
+  {
+    "id": "torrent_id",
+    "translation": "ID Torrent"
+  },
+  {
+    "id": "reassign_indication",
+    "translation": "Satu ID per baris <b>atau</b> per Nama pengguna"
+  },
+  {
+    "id": "reassign_warning_2",
+    "translation": "Mungkin membutuhkan waktu yang lama, <b>JANGAN</b> membatalkan permintaan."
+  },
+  {
+    "id": "reassign_to",
+    "translation": "Mengatur ulang ke:"
+  },
+  {
+    "id": "reassign_based_on",
+    "translation": "Mengatur ulang berdasakan:"
+  },
+  {
+    "id": "user_id",
+    "translation": "ID Pengguna"
+  },
+  {
+    "id": "mascot_url",
+    "translation": "URL Maskot"
+  },
+  {
+    "id": "no_notifications",
+    "translation": "Tidak ada Pemberitahuan"
+  },
+  {
+    "id": "report_msg",
+    "translation": "Torrent #%d telah dilaporkan!"
+  },
+  {
+    "id": "email_not_valid",
+    "translation": "Alamat email tidak sah!"
+  },
+  {
+    "id": "username_illegal",
+    "translation": "Nama pengguna mengandung karakter yang tidak diperbolehkan!"
+  },
+  {
+    "id": "torrent_language",
+    "translation": "Bahasa Torrent"
+  },
+  {
+    "id": "language_not_mandatory",
+    "translation": "Bahasa tidak lagi wajib"
+  },
+  {
+    "id": "language_en-us_name",
+    "translation": "Inggris"
+  },
+  {
+    "id": "language_ca-es_name",
+    "translation": "Catalan"
+  },
+  {
+    "id": "language_de-de_name",
+    "translation": "Jerman"
+  },
+  {
+    "id": "language_es-es_name",
+    "translation": "Spanyol"
+  },
+  {
+    "id": "language_es-mx_name",
+    "translation": "Spanyol (LATAM)"
+  },
+  {
+    "id": "language_fr-fr_name",
+    "translation": "Perancis"
+  },
+  {
+    "id": "language_hu-hu_name",
+    "translation": "Hongaria"
+  },
+  {
+    "id": "language_is-is_name",
+    "translation": "Icelandic"
+  },
+  {
+    "id": "language_it-it_name",
+    "translation": "Italia"
+  },
+  {
+    "id": "language_ja-jp_name",
+    "translation": "Jepang"
+  },
+  {
+    "id": "language_ko-kr_name",
+    "translation": "Korea"
+  },
+  {
+    "id": "language_nb-no_name",
+    "translation": "Norwegia"
+  },
+  {
+    "id": "language_nl-nl_name",
+    "translation": "Belanda"
+  },
+  {
+    "id": "language_pt-br_name",
+    "translation": "Portugis (Brazil)"
+  },
+  {
+    "id": "language_pt-pt_name",
+    "translation": "Portugis (Portugal)"
+  },
+  {
+    "id": "language_ro-ro_name",
+    "translation": "Rumania"
+  },
+  {
+    "id": "language_ru-ru_name",
+    "translation": "Rusia"
+  },
+  {
+    "id": "language_sv-se_name",
+    "translation": "Swedia"
+  },
+  {
+    "id": "language_th-th_name",
+    "translation": "Thaiand"
+  },
+  {
+    "id": "language_zh-cn_name",
+    "translation": "China Disederhanakan"
+  },
+  {
+    "id": "language_zh-tw_name",
+    "translation": "China Tradisional"
+  },
+  {
+    "id": "language_other_name",
+    "translation": "Lainnya"
+  },
+  {
+    "id": "language_multiple_name",
+    "translation": "Beberapa Bahasa"
+  },
+  {
+    "id": "activity_list",
+    "translation": "Daftar Aktivitas"
+  },
+  {
+    "id": "activities",
+    "translation": "Aktivitas"
+  },
+  {
+    "id": "filter",
+    "translation": "Saring"
+  },
+  {
+    "id": "error_min_length",
+    "translation": "Panjang minimal dari %s dibutuhkan untuk masukan: %s"
+  },
+  {
+    "id": "error_min_number",
+    "translation": "%s harus %s atau lebih besar"
+  },
+  {
+    "id": "error_min_field",
+    "translation": "%s harus sama dengan atau lebih besar dari %s"
+  },
+  {
+    "id": "error_min_array",
+    "translation": "%s harus berisi setidaknya %s item"
+  },
+  {
+    "id": "error_less_date",
+    "translation": "%s harus kurang dari Tanggal & Waktu saat ini"
+  },
+  {
+    "id": "error_less_array",
+    "translation": "%s harus berisi kurang dari %s item"
+  },
+  {
+    "id": "error_less_length",
+    "translation": "%s harus kurang dari %s dalam panjang"
+  },
+  {
+    "id": "error_less_number",
+    "translation": "%s harus kurang dari %s"
+  },
+  {
+    "id": "error_less_equal_date",
+    "translation": "%s harus kurang dari atau sama dengan Tanggal & Waktu saat ini"
+  },
+  {
+    "id": "error_greater_date",
+    "translation": "%s harus lebih besar dari Tanggal & Waktu saat ini"
+  },
+  {
+    "id": "error_greater_length",
+    "translation": "%s harus lebih besar dari %s dalam panjang"
+  },
+  {
+    "id": "error_greater_number",
+    "translation": "%s harus lebih besar dari %s"
+  },
+  {
+    "id": "error_greater_equal_date",
+    "translation": "%s harus lebih besar dari atau sama dengan Tanggal & Waktu saat ini"
+  },
+  {
+    "id": "error_max_field",
+    "translation": "%s harus sama dengan atau kurang dari %s"
+  },
+  {
+    "id": "error_max_length",
+    "translation": "Panjang maksimal dari %s dibutuhkan untuk masukan: %s"
+  },
+  {
+    "id": "error_max_number",
+    "translation": "%s harus %s atau kurang"
+  },
+  {
+    "id": "error_max_array",
+    "translation": "%s harus berisi maksimal %s item"
+  },
+  {
+    "id": "error_length",
+    "translation": "Panjang dari %s dibutuhkan untuk masukan: %s"
+  },
+  {
+    "id": "error_equal",
+    "translation": "%s tidak sama dengan %s"
+  },
+  {
+    "id": "error_same_value",
+    "translation": "Bidan '%s' harus memiliki nilang yang sama dengan bidang '%s'"
+  },
+  {
+    "id": "error_field",
+    "translation": "Kesalahan tak terduga di bidang: %s"
+  },
+  {
+    "id": "error_not_equal",
+    "translation": "%s harus tidak sama dengan %s"
+  },
+  {
+    "id": "error_wrong_value",
+    "translation": "Nilai yang salah untuk masukan: %s"
+  },
+  {
+    "id": "error_field_needed",
+    "translation": "Bidang dibutuhkan: %s"
+  },
+  {
+    "id": "error_len_array",
+    "translation": "%s harus berisi %s item"
+  },
+  {
+    "id": "error_alpha",
+    "translation": "%s hanya dapat berisi karakter alfabet"
+  },
+  {
+    "id": "error_alphanum",
+    "translation": "%s hanya dapat berisi karakter alfanumerik"
+  },
+  {
+    "id": "error_numeric_valid",
+    "translation": "%s harus berupa nilai numerik yang sah"
+  },
+  {
+    "id": "error_number_valid",
+    "translation": "%s harus berupa angka yang sah"
+  },
+  {
+    "id": "error_hexadecimal_valid",
+    "translation": "%s harus berupa heksadesimal yang sah"
+  },
+  {
+    "id": "error_hex_valid",
+    "translation": "%s harus berupa warna HEX yang sah"
+  },
+  {
+    "id": "error_rgb_valid",
+    "translation": "%s harus berupa warna RGB yang sah"
+  },
+  {
+    "id": "error_rgba_valid",
+    "translation": "%s harus berupa warna RGBA yang sah"
+  },
+  {
+    "id": "error_hsl_valid",
+    "translation": "%s harus berupa warna HSL yang sah"
+  },
+  {
+    "id": "error_hsla_valid",
+    "translation": "%s harus berupa warna HSLA yang sah"
+  },
+  {
+    "id": "error_url_valid",
+    "translation": "%s harus berupa URL yang sah"
+  },
+  {
+    "id": "error_uri_valid",
+    "translation": "%s harus berupa URI yang sah"
+  },
+  {
+    "id": "error_base64_valid",
+    "translation": "%s Harus berupa string Base64 yang valid"
+  },
+  {
+    "id": "error_contains",
+    "translation": "%s harus berisi tulisan '%s'"
+  },
+  {
+    "id": "error_contains_any",
+    "translation": "%s harus berisi setidaknya satu karakter berikut '%s'"
+  },
+  {
+    "id": "error_excludes",
+    "translation": "%s tidak boleh berisi tulisan '%s'"
+  },
+  {
+    "id": "error_excludes_all",
+    "translation": "%s tidak boleh berisi karakter berikut '%s'"
+  },
+  {
+    "id": "error_excludes_rune",
+    "translation": "%s tidak boleh berisi yang berikut '%s'"
+  },
+  {
+    "id": "error_color_valid",
+    "translation": "%s harus berupa warna yang sah"
+  },
+  {
+    "id": "error_",
+    "translation": "%s harus berisi %s item"
+  },
+  {
+    "id": "error_len_array",
+    "translation": "%s harus berisi %s item"
+  },
+  {
+    "id": "refine_search",
+    "translation": "Perbaiki pencarian anda"
+  },
+  {
+    "id": "between",
+    "translation": "antara"
+  },
+  {
+    "id": "and",
+    "translation": "dan"
+  },
+  {
+    "id": "days",
+    "translation": "Hari"
+  },
+  {
+    "id": "months",
+    "translation": "Bulan"
+  },
+  {
+    "id": "years",
+    "translation": "Tahun"
+  },
+  {
+    "id": "refine",
+    "translation": "Perbaiki"
+  },
+  {
+    "id": "large",
+    "translation": "besar."
+  },
+  {
+    "id": "old",
+    "translation": "lama"
+  },
+  {
+    "id": "optional",
+    "translation": "Opsional"
+  },
+  {
+    "id": "search_for",
+    "translation": "Cari untuk"
+  },
+  {
+    "id": "show",
+    "translation": "Tampilkan"
+  },
+  {
+    "id": "username_taken",
+    "translation": "Nama pengguna telah digunakan, anda dapat memilih: %s"
+  },
+  {
+    "id": "email_in_db",
+    "translation": "Alamat email telah berada di database"
+  },
+  {
+    "id": "user_not_found",
+    "translation": "Pengguna tidak ditemukan"
+  },
+  {
+    "id": "incorrect_password",
+    "translation": "Kata sandi Salah"
+  },
+  {
+    "id": "password_error_generating",
+    "translation": "Error saat menghasilkan hash kata sandi anda"
+  },
+  {
+    "id": "permission_delete_error",
+    "translation": "Anda tidak memiliki hak untuk menghapus ini"
+  },
+  {
+    "id": "no_username_password",
+    "translation": "Tidak ada nama pengguna/kata sandi yang dimasukan"
+  },
+  {
+    "id": "account_banned",
+    "translation": "Akun diblokir"
+  },
+  {
+    "id": "account_need_activation",
+    "translation": "Akun ini membutuhkan aktivasi dari Moderator, silahkan hubungi kami"
+  },
+  {
+    "id": "retrieve_torrent_error",
+    "translation": "Tidak dapat mengambil torrent"
+  },
+  {
+    "id": "multiple_username_error",
+    "translation": "Lebih dari satu username diberikan"
+  },
+  {
+    "id": "elevating_user_error",
+    "translation": "Mengangkat status ke moderator dilarang"
+  },
+  {
+    "id": "parse_error_line",
+    "translation": "Tidak dapat mengurai pada baris %d"
+  },
+  {
+    "id": "language_not_available",
+    "translation": "Bahasa tidak tersedia"
+  },
+  {
+    "id": "mascot_url_too_long",
+    "translation": "URL Maskot terlalu panjang (maksimal adalah 255 karakter)"
+  },
+  {
+    "id": "mascor_url_parse_error",
+    "translation": "Terdapat kesalahan saat menguraikan URL maskot: %s"
+  },
+  {
+    "id": "no_id_given",
+    "translation": "Tidak ada torrent ID yang diberikan"
+  },
+  {
+    "id": "error_api_token",
+    "translation": "Error API token tidak ada"
+  },
+  {
+    "id": "uploads_disabled",
+    "translation": "Unggah dinonaktifkan"
+  },
+  {
+    "id": "try_to_delete_report_inexistant",
+    "translation": "Mencoba menghapus laporan torrent yang tidak ada"
+  },
+  {
+    "id": "torrent_report_not_created",
+    "translation": "Laporan Torrent tidak dibuat"
+  },
+  {
+    "id": "user_not_deleted",
+    "translation": "Pengguna tidak dihapus"
+  },
+  {
+    "id": "error_content_type_post",
+    "translation": "Berikan salah satu Tipe-Konten: application/json header atau multipart/form-data"
+  },
+  {
+    "id": "torrent_name_invalid",
+    "translation": "Nama torrent tidak sah"
+  },
+  {
+    "id": "torrent_private",
+    "translation": "Torrent bersifat pribadi"
+  },
+  {
+    "id": "torrent_no_working_trackers",
+    "translation": "Torrent tidak memiliki pelacak (yang bekerja): <a href=\"/faq#trackers\">Daftar Pelacak</a>"
+  },
+  {
+    "id": "torrent_desc_invalid",
+    "translation": "Deskripsi torrent tidak sah"
+  },
+  {
+    "id": "torrent_cat_invalid",
+    "translation": "Kategori torrent tidak sah"
+  },
+  {
+    "id": "torrent_lang_invalid",
+    "translation": "Bahasa yang dikirim belum didukung! Anda dapat membantu mendukungnya dengan berkontribusi di halaman github kami"
+  },
+  {
+    "id": "torrent_cat_is_english",
+    "translation": "Kategori torrent adalah untuk terjemahan bahasa Inggris, tapi bahasa bukan bahasa Inggris. Kami mengubahnya menjadi bahasa inggris"
+  },
+  {
+    "id": "torrent_cat_not_english",
+    "translation": "Kategori torrent adalah untuk terjemahan non-Inggris, namun bahasa yang dipilih hanya bahasa Inggris"
+  },
+  {
+    "id": "torrent_magnet_invalid",
+    "translation": "Magnet tidak dapat diuraikan, tolong periksa itu"
+  },
+  {
+    "id": "torrent_hash_invalid",
+    "translation": "Hash torrent salah"
+  },
+  {
+    "id": "torrent_plus_magnet",
+    "translation": "Unggah file torrent atau link magnet, tidak keduanya"
+  },
+  {
+    "id": "torrent_file_invalid",
+    "translation": "File Torrent tidak sah"
+  },
+  {
+    "id": "torrent_uri_invalid",
+    "translation": "Alamat situs web atau link IRC tidak sah"
+  },
+  {
+    "id": "api_documentation",
+    "translation": "Dokumentasi API"
+  },
+  {
+    "id": "api_help",
+    "translation": "Apa anda memiliki API?"
+  },
+  {
+    "id": "trusted",
+    "translation": "Torrent diunggah oleh pengguna terpercaya."
+  },
+  {
+    "id": "reencodes",
+    "translation": "Encode ulang"
+  },
+  {
+    "id": "remux",
+    "translation": "Remux dari rilis asli pengunggah lainnya"
+  },
+  {
+    "id": "reupload",
+    "translation": "Unggah ulang torrent pengguna lain dengan file tambahan yang hilang dan / atau tidak terkait."
+  },
+  {
+    "id": "red",
+    "translation": "Entri merah adalah: "
+  },
+  {
+    "id": "green",
+    "translation": "Entri hijau adalah:"
+  },
+  {
+    "id": "torrent_colors",
+    "translation": "Warna torrent"
+  },
+  {
+    "id": "torrent_preview",
+    "translation": "Pratinjau torrent anda"
+  },
+  {
+    "id": "announcement",
+    "translation": "Pengumuman"
+  },
+  {
+    "id": "update_client_failed",
+    "translation": "Pembaruan klien telah gagal!"
+  },
+  {
+    "id": "update_client_success",
+    "translation": "Anda telah berhasil memperbarui klien!"
+  },
+  {
+    "id": "update_client_panel",
+    "translation": "Perbarui Klien"
+  },
+  {
+    "id": "create_client_success",
+    "translation": "Anda telah berhasil membuat klien!"
+  },
+  {
+    "id": "create_client_failed",
+    "translation": "Membuatan klien telah gagal!"
+  },
+  {
+    "id": "create_client_panel",
+    "translation": "Buat Klien baru"
+  },
+  {
+    "id": "redirect_uri",
+    "translation": "Arahkan ulang URI"
+  },
+  {
+    "id": "grant_types",
+    "translation": "Tipe Izin"
+  },
+  {
+    "id": "response_types",
+    "translation": "Tipe Tanggapan"
+  },
+  {
+    "id": "scope",
+    "translation": "Cakupan"
+  },
+  {
+    "id": "owner",
+    "translation": "Pemilik"
+  },
+  {
+    "id": "policy_uri",
+    "translation": "Kebijakan URI"
+  },
+  {
+    "id": "tos_uri",
+    "translation": "Ketentuan Layanan URI"
+  },
+  {
+    "id": "logo_uri",
+    "translation": "Logo URI"
+  },
+  {
+    "id": "contacts",
+    "translation": "Alamat email pemilik"
+  },
+  {
+    "id": "oauth_clients_list",
+    "translation": "OAuth Klien API"
+  },
+  {
+    "id": "add",
+    "translation": "Tambah"
+  },
+  {
+    "id": "remove",
+    "translation": "Hapus"
+  },
+  {
+    "id": "secret",
+    "translation": "Klien Rahasia"
+  },
+  {
+    "id": "torrent_age",
+    "translation": "{1} hari {2} jam yang lalu"
+  },
+  {
+    "id": "wrong_tag_type",
+    "translation": "Jenis tag yang dipilih tidak ada"
+  },
+  {
+    "id": "add_tag",
+    "translation": "Tambah sebuah Tag"
+  },
+  {
+    "id": "tagtype",
+    "translation": "Tipe Tag"
+  },
+  {
+    "id": "tagtype_anidbid",
+    "translation": "ID Anidb"
+  },
+  {
+    "id": "tagtype_vndbid",
+    "translation": "ID VNdb"
+  },
+  {
+    "id": "tagtype_quality",
+    "translation": "Kualitas Video"
+  },
+  {
+    "id": "torrent_tags",
+    "translation": "Tag Torrent"
+  },
+  {
+    "id": "announcements",
+    "translation": "Pengumuman"
+  },
+  {
+    "id": "message",
+    "translation": "Pesan"
+  },
+  {
+    "id": "delay",
+    "translation": "Tunda"
+  },
+  {
+    "id": "update_annoucement_panel",
+    "translation": "Perbarui Pengumuman"
+  },
+  {
+    "id": "create_annoucement_panel",
+    "translation": "Buat Pengumuman"
+  },
+  {
+    "id": "expire",
+    "translation": "Berakhir"
+  }
+]
