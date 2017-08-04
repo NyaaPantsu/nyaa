@@ -7,17 +7,13 @@
     width: 16px;
     height: 11px;
     background: url('flags.png') no-repeat;
-	position: relative;
-	left: -22px;
-	bottom: -22px;
 }
 
-
-.flag.flag-cn {
+.flag.flag-zh {
     background-position: -16px 0;
 }
 
-.flag.flag-se {
+.flag.flag-sv {
     background-position: -16px -33px;
 }
 
@@ -37,7 +33,7 @@
     background-position: -64px -22px;
 }
 
-.flag.flag-no {
+.flag.flag-nb {
     background-position: -32px -22px;
 }
 
@@ -45,7 +41,7 @@
     background-position: -48px 0;
 }
 
-.flag.flag-tw {
+.flag.flag-Hant {
     background-position: -48px -33px;
 }
 
@@ -53,12 +49,12 @@
     background-position: 0 -33px;
 }
 
-.flag.flag-kr {
+.flag.flag-ko {
     background-position: -64px -11px;
 }
 
 .flag.flag-br {
-    background-position: 0 0;
+    background-position: -80px 0;
 }
 
 .flag.flag-it {
@@ -77,7 +73,7 @@
     background-position: -32px 0;
 }
 
-.flag.flag-jp {
+.flag.flag-ja {
     background-position: -48px -11px;
 }
 
@@ -85,10 +81,22 @@
     background-position: 0 -11px;
 }
 
-.flag.flag-us {
+.flag.flag-en {
     background-position: -64px -33px;
 }
 
 .flag.flag-is {
     background-position: -16px -11px;
+}
+
+.flag.flag-ca {
+    background-position: -80px -11px;
+}
+
+.flag.flag-multiple {
+    background-position: -80px -22px;
+}
+
+.flag.flag-other {
+    background: none;
 }

@@ -4,7 +4,7 @@
 # Host of server
 host: localhost
 # Version of the app
-version: "1.0"
+version: "1.0.1"
 # port of server
 port: 9999
 # database type
@@ -52,6 +52,7 @@ cache:
 # Size by default for the cache
   size: 1024
 search:
+  enable_es: true
 # default search analyzer for ES
   es_analyze: nyaapantsu_search_analyzer
 # default search index for ES
@@ -118,6 +119,10 @@ torrents:
       - udp://tracker.internetwarriors.net:1337/announce
       - http://mgtracker.org:6969/announce
       - udp://ipv6.leechers-paradise.org:6969/announce
+      - http://nyaa.tracker.wf:7777/announce
+      - http://sukebei.tracker.wf:7777/announce
+      - http://tracker.anirena.com:80/announce
+      - http://anidex.moe:6969/announce
 # NeededTrackers : Array indexes of Trackers for needed tracker in a torrent file
     needed:
       - 0
@@ -125,6 +130,16 @@ torrents:
   order: torrent_id
 # TorrentSort : Default sorting order for torrents
   sort: DESC
+  tags:
+# Torrent Tag Max weight for automatic system approval
+    max_weight: 100.00
+# Array of tag types allowed for now
+    types:
+      - anidbid
+      - vndbid
+      - quality
+      - dlsite
+      - vgmdbid
 users:
   default_notifications_settings: {"new_torrent": true, "new_torrent_email": false, "new_comment": true, "new_comment_email": false, "new_responses": false, "new_responses_email": false, "new_follower": false, "new_follower_email": false, "followed": false, "followed_email": false}
 navigation:

@@ -1,0 +1,129 @@
+{{ extends "layouts/index_site" }}
+{{ import "layouts/partials/helpers/csrf" }}
+{{ import "layouts/partials/helpers/errors" }}
+{{ import "layouts/partials/helpers/flags" }}
+{{block title()}}{{T("torrent_edit_panel")}}{{end}}
+{{block content_body()}}
+<div class="box results">
+  <h3 id="torrents">{{  T("torrent_edit_panel") }}</h3>
+  <form style="text-align:left;padding-left:10px;padding-right:10px;" enctype="multipart/form-data" role="upload" method="POST">
+    {{ yield csrf_field() }}
+    <div class="form-group">
+      <label class="input-label" for="name">{{ T("name")}}</label>
+      <input type="text" name="name" id="name" class="form-input up-input" placeholder="{{ T("file_name")}}" value="{{Form.Name}}" required/>
+      {{ yield errors(name="name")}}
+    </div>
+    <div class="form-group">
+      <label class="input-label" for="c">{{ T("category")}}</label>
+      <select name="c" id="c" class="form-input up-input">
+        <option value="">{{ T("select_a_torrent_category")}}</option>
+        {{ range _, cat := GetCategories(false, true) }}
+        <option value="{{ cat.ID }}" {{if Form.Category == cat.ID }}selected{{end}}>{{T(cat.Name) }}</option>
+        {{ end }}
+      </select>
+      {{ yield errors(name="c")}}
+    </div>
+    <div class="form-group">
+      <label class="input-label" for="language">{{  T("torrent_language") }}</label>
+      <div name="language" id="language" class="form-input language">
+        {{ yield flagList(languages=GetTorrentLanguages(), selected=Form.Languages) }}
+      </div>
+      {{ yield errors(name="language")}}
+    </div>
+    <div class="form-group">
+      <input type="checkbox" value="true" name="remake" id="remake" {{ if Form.Remake }}checked{{end}}/>
+      <label for="remake">{{ T("mark_as_remake")}}</label>
+      {{ yield errors(name="remake")}}
+    </div>
+    {{ if User.ID > 0 }}
+    <p>
+      <input type="checkbox" name="hidden" id="hidden" value="true" {{ if Form.Hidden }}checked{{end}}/>
+      <label for="hidden">{{ T("upload_as_anon")}}</label>
+      {{ yield errors(name="hidden")}}
+    </p>
+    {{ end }}
+    <div class="form-group">
+      <label class="input-label" for="website_link">{{ T("website_link")}}</label>
+      <input name="website_link" id="website_link" class="form-input up-input" type="text" value="{{Form.WebsiteLink}}"/>
+    </div>
+    <div class="form-group">
+      <label class="input-label" for="desc">{{ T("torrent_description")}}</label>
+      {{ yield errors(name="desc")}}
+      <p class="help-block">{{ T("description_markdown_notice")}}</p>
+      <textarea style="height: 10rem;" id="desc" name="desc" class="form-input up-input" rows="10">{{Form.Description}}</textarea>
+    </div>
+    <h3>{{ T("torrent_tags")}}</h3>
+    <span id="tags_list"></span>
+    <a id="tagPopup" href="#" class="add-tag">{{ T("add") }}</a>
+    <input type="hidden" name="tags" id="tags" value="{{ Form.Tags }}">
+    {{ yield errors(name="tags")}}
+    <button type="submit" class="form-input up-input">{{ T("save_changes")}}</button>
+    <br/>
+    <br/>
+  </form>
+</div>
+{{ include "layouts/partials/modal_tags" }}
+{{end}}
+{{ block footer_js()}}
+<script type="text/javascript" src="/js/translation.js?v={{ Config.Version}}{{ Config.Build }}"></script>
+<script type="text/javascript" src="/js/template.js?v={{ Config.Version}}{{ Config.Build }}"></script>
+<script type="text/javascript" src="/js/modal.js?v={{ Config.Version}}{{ Config.Build }}"></script>
+<script type="text/javascript">
+// {{ range _, type := Config.Torrents.Tags.Types }}
+  T.Add("tagtype_{{ type }}", '{{ T("tagtype_" + type) }}')
+// {{ end }}
+
+Templates.Add("tag", function(tag) {
+  return `<span data-name="` + tag.type + `_` + tag.tag + `" class="tag accepted" title="Tag: ` + tag.type  + `({{ T("accepted") }} )">
+          <span class="tag-text votable">
+          ` + T.r("tagtype_" + tag.type) + `: ` + tag.tag + `
+          </span>
+        </span>`
+})
+
+// Modal initialization
+Modal.Init({
+  elements: document.getElementsByClassName("modal"),
+  // order of apparition of the modals
+  button: "#tagPopup"
+});
+var tags = []
+document.querySelector("#modal_tag_form form").addEventListener("submit", function(e) {
+  var form = e.target
+  var newTag = {type: form.querySelector("select#type").value, tag: form.querySelector("input#tag").value}
+
+  var replaced = false
+  var len = tags.length
+  for(var i = 0; i < len; i++) {
+    if (tags[i].type == newTag.type) {
+      var oldTag = document.querySelector("span[data-name='"+ tags[i].type + "_" + tags[i].tag + "']")
+      oldTag.parentElement.removeChild(oldTag)
+      tags[i] = newTag
+      replaced = true
+      break
+    }
+  }
+  if (!replaced) tags.push(newTag)
+  var tagHTml = Templates.Render("tag", newTag)
+  document.getElementById("tags_list").innerHTML += tagHTml
+  document.getElementById("tags").value = JSON.stringify(tags)
+  Modal.CloseActive()
+  e.preventDefault()
+})
+function renderTagsJSON() {
+  tagsIn = document.getElementById("tags").value
+  if (tagsIn == "") return
+  var jsonFromTags = JSON.parse(tagsIn)
+  if (jsonFromTags instanceof Array) {
+    for (var i = 0; i < jsonFromTags.length; i++) {
+      tags.push(jsonFromTags[i])
+      var tagHTml = Templates.Render("tag", jsonFromTags[i])
+      document.getElementById("tags_list").innerHTML += tagHTml
+    }
+  }
+}
+renderTagsJSON()
+</script>
+<script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
+<script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc"), spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
+{{end}}

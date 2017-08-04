@@ -1,0 +1,56 @@
+{{ import "layouts/partials/helpers/search" }}
+<div class="container">
+  <div class="h-left">
+    <div class="h-logo">
+      <a href="{{URL.Parse("/mod/")}}">
+        <img class="hide-md" src="/img/{{if Sukebei()}}sukebei_logo.png{{else}}logo.png{{end}}" alt="NyaaPantsu">
+        <img class="visible-md" src="/img/logo_s.png"/>
+      </a>
+    </div>
+    <div class="h-nav">
+      <a href="{{URL.Parse("/")}}" class="nav-btn">
+        <span class="hide-md">{{ T("nyaa_pantsu")}}</span>
+      </a>
+      <a href="{{URL.Parse("/mod/torrents")}}" class="nav-btn">
+        <div class="visible-md icon-magnet"></div>
+        <span class="hide-md">{{ T("torrents")}}</span>
+      </a>
+      <a href="{{URL.Parse("/mod/users")}}" class="nav-btn">
+        <div class="visible-md icon-users"></div>
+        <span class="hide-md">{{ T("users")}}</span>
+      </a>
+      <a href="{{URL.Parse("/mod/comments")}}" class="nav-btn">
+        <div class="visible-md icon-chat"></div>
+        <span class="hide-md">{{ T("comments")}}</span>
+      </a>
+      <a href="{{URL.Parse("/mod/oauth_client")}}" class="nav-btn">
+        <div class="visible-md icon-chat"></div>
+        <span class="hide-md">{{ T("oauth_clients_list")}}</span>
+      </a>
+      <a href="{{URL.Parse("/mod/announcement")}}" class="nav-btn">
+        <div class="visible-md icon-chat"></div>
+        <span class="hide-md">{{ T("announcements")}}</span>
+      </a>
+      <a href="{{URL.Parse("/mod/reports")}}" class="nav-btn">
+        <div class="visible-md icon-attention"></div>
+        <span class="hide-md">{{ T("torrent_reports")}}</span>
+      </a>
+      <a href="{{URL.Parse("/mod/reassign")}}" class="nav-btn">
+        <div class="visible-md icon-user-plus"></div>
+        <span class="hide-md">{{ T("torrent_reassign")}}</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-right">
+    <div class="h-user">
+      {{ include "layouts/partials/helpers/badgemenu" }}
+    </div>
+
+    <div class="h-search">
+      <form role="search" action="{{URL.Parse("/mod/torrents")}}" method="get">
+        {{ yield search_common() }}
+        {{ yield search_button() }}
+      </form>
+    </div>
+  </div>
+</div>

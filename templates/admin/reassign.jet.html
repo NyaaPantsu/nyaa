@@ -1,0 +1,29 @@
+{{ extends "layouts/index_admin" }}
+{{block title()}}{{ T("torrent_reassign") }}{{end}}
+{{ block content_body()}}
+<div class="results box form-box">
+  <h1>{{  T("torrent_reassign") }}</h1>
+  <form enctype="multipart/form-data" method="POST">
+    <p>{{ T("reassign_warning") }}</p>
+
+    <div class="form-group">
+      <label for="to">{{  T("reassign_to") }}</label>
+      <input class="form-input" type="text" name="to" class="form-control" placeholder="{{  T(" user_id ") }}" {{if Form.AssignTo !=0 }}value="{{Form.AssignTo}}" {{end}} required/>
+    </div>
+    <div class="form-group">
+      <label for="by">{{  T("reassign_based_on") }}</label><br />
+      <input type="radio" name="by" value="olduser" {{if Form.By=="olduser" }}checked{{end}} required> {{ T("previous_username") }}
+      <br />
+      <input type="radio" name="by" value="torrentid" {{if Form.By=="torrentid" }}checked{{end}} required> {{ T("torrent_id") }}
+    </div>
+
+    <div class="form-group">
+      <p>{{ T("reassign_indication")|raw}}</p>
+      <textarea rows="20" cols="40" name="data">{{Form.Data}}</textarea>
+    </div>
+
+    <p>{{ T("reassign_warning_2") }}</p>
+    <button type="submit" class="form-input btn-green">{{ T("save_changes")}}</button>
+  </form>
+</div>
+{{end}}

@@ -1,0 +1,27 @@
+{{ extends "layouts/profile" }}
+{{ import "layouts/partials/menu/profile" }}
+{{block title()}}{{  T("profile_edit_page", User.Username) }}{{end}}
+{{ block profile_navigation()}}{{ yield profile_menu(route="profile") }}{{end}}
+{{block profile_content()}}
+{{ if len(User.Notifications) > 0}}
+<div>
+  <a href="/notifications?clear" class="btn btn-red pull-right"> {{  T("clear_notifications") }}</a>
+  <div style="clear: both;"></div>
+</div>
+<table>
+  {{ range User.Notifications }}
+  <tr>
+    <td{{ if !.Read }} class="btn-orange"{{end}}>
+    <div style="padding: 0 1rem 1rem;">
+      <a href="{{ .URL }}?notif">
+        <h3>{{ .Content }}</h3>
+      </a>
+    </div>
+  </td>
+</tr>
+{{end}}
+</table>
+{{else}}
+<h2>{{  T("no_notifications") }}</h2>
+{{end}}
+{{end}}

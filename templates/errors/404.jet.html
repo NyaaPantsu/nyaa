@@ -1,0 +1,9 @@
+{{ extends "layouts/index_site" }}
+{{block title()}}{{ T("404_not_found")}}{{end}}
+{{block content_body()}}
+<div style="text-align: center;">
+  <h1>{{ T("404_not_found")}}</h1>
+  <img src="/img/404.png" alt="404"/>
+</div>
+{{end}}
+{{block mascot()}}<br />{{end}}

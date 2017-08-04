@@ -1,6 +1,6 @@
 ![nyanpasu~](https://my.mixtape.moe/aglaxe.png)
 
-# Nyaa replacement [![Build Status](https://travis-ci.org/NyaaPantsu/nyaa.svg?branch=master)](https://travis-ci.org/NyaaPantsu/nyaa) [![Go Report Card](https://goreportcard.com/badge/github.com/NyaaPantsu/nyaa)](https://goreportcard.com/report/github.com/NyaaPantsu/nyaa) [![GoDoc](https://godoc.org/github.com/NyaaPantsu/nyaa?status.svg)](https://godoc.org/github.com/NyaaPantsu/nyaa)
+# Nyaa replacement [![Build Status](https://travis-ci.org/NyaaPantsu/nyaa.svg?branch=master)](https://travis-ci.org/NyaaPantsu/nyaa) [![Go Report Card](https://goreportcard.com/badge/github.com/NyaaPantsu/nyaa)](https://goreportcard.com/report/github.com/NyaaPantsu/nyaa) [![GoDoc](https://godoc.org/github.com/NyaaPantsu/nyaa?status.svg)](https://godoc.org/github.com/NyaaPantsu/nyaa)[![Coverage Status](https://coveralls.io/repos/github/NyaaPantsu/nyaa/badge.svg?branch=dev)](https://coveralls.io/github/NyaaPantsu/nyaa?branch=dev)
 
 ## Motivation
 The aim of this project is to write a fully featured nyaa replacement in golang
@@ -13,7 +13,8 @@ If you are looking for a feature that is not listed just make a GitHub Issue and
 You can view the public trello board [here](https://trello.com/b/gMJBwoRq/nyaa-pantsu-cat-roadmap) or click on the "Roadmap".
 
 # Requirements
-* Golang
+
+* Golang ![golang](http://i.imgur.com/UEdZpr4.png)
 
 # Installation
 All tested versions of Ubuntu fail to build, use a different OS or docker
