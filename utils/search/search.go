@@ -80,7 +80,6 @@ func ByQueryNoHidden(c *gin.Context, pagenum int) (search structs.TorrentParam, 
 // ES doesn't store users
 // deleted is unused because es doesn't index deleted torrents
 func ByQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (structs.TorrentParam, []models.Torrent, int, error) {
-	var err error
 	if config.Get().Search.EnableElasticSearch && models.ElasticSearchClient != nil && !deleted {
 		var torrentParam structs.TorrentParam
 		torrentParam.FromRequest(c)
@@ -92,15 +91,18 @@ func ByQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted 
 			return torrentParam, torrentCache.Torrents, torrentCache.Count, nil
 		}
 		totalHits, tor, err := torrentParam.Find(models.ElasticSearchClient)
-		if totalHits > 0 {
+		// If there are results no errors from ES search we use the ES client results
+		if totalHits > 0 && err == nil {
+			// Since we have results, we cache them so we don't ask everytime ES for the same results
 			cache.C.Set(torrentParam.Identifier(), &structs.TorrentCache{tor, int(totalHits)}, 5*time.Minute)
-			if err == nil {
-				// Convert back to non-json torrents
-				return torrentParam, tor, int(totalHits), err
-			}
+			// we return the results
+			// Convert back to non-json torrents
+			return torrentParam, tor, int(totalHits), nil
 		}
+		// Errors from ES should be managed in the if condition. Log is triggered only if err != nil (checkError behaviour)
+		log.CheckErrorWithMessage(err, "ES_ERROR_MSG: Seems like ES was not reachable whereas it was when starting the app. Error: '%s'")
 	}
-	log.Errorf("Unable to create elasticsearch client: %s", err)
+	// We fallback to PG, if ES gives error or no results or if ES is disabled in config or if deleted search is enabled
 	log.Errorf("Falling back to postgresql query")
 	return byQueryPostgres(c, pagenum, countAll, withUser, deleted, hidden)
 }
