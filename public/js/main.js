@@ -60,11 +60,9 @@ function parseAllDates() {
     
     if(e.className != undefined && e.className.includes("scrape-date"))
       e.title = ((dateDifference.d * 24) + dateDifference.h) + " hours " + dateDifference.m + " minutes ago"
-    //e.title = T.r("torrent_age2", dateDifference.h, dateDifference.m)
     else
       e.title = dateDifference.d + " days " + dateDifference.h + " hours ago"
 	  
-    //e.title = T.r("torrent_age", dateDifference.d, dateDifference.h)
     e.innerText = new Date(e.innerText).toLocaleString(lang)
   }
 }
