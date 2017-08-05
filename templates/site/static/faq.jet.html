@@ -37,6 +37,14 @@
         <a href="https://nyanner.net" target="_blank" rel="noopener noreferrer">{{  T("local_client")}}</a></p>
         <h2 id="api_documentation">{{ T("api_help")}}</h2>
         <a href="/apidoc">{{ T("api_documentation")}}</a>
+	<h2 id="feed_information">RSS Feed Information</h2>
+	<a href="https://github.com/NyaaPantsu/nyaa/blob/master/controllers/feed/router.go">Feed Routes</a>
+	<p>Base URL: {{GetHostname(Config.WebAddress.Nyaa)}}/feed/(Feed Type)/p/(Page Number)
+		<b>"/p/(Page Number)" is optional</b></p>
+	<p>EX: {{GetHostname(Config.WebAddress.Nyaa)}}/feed/magnet/p/2?c=1_1&amp;userID=0&amp;limit=100
+		(Limit max is 300 items per page)</p>
+	<p>Feed Types: RSS(feed), RSS With Magnet Links(manget), Torznab Spec(torznab), EZTV Spec(eztv)</p>
+	<p>You can append your search query to the end of the feed URL.</p>
         <h2 id="how_to_download">{{ T("how_do_i_download_the_torrents")}}</h2>
         <p>{{ T("answer_how_do_i_download_the_torrents")|raw}}</p>
         <p>{{ T("magnet_link_should_look_like")}} <span style="font-family:monospace">
