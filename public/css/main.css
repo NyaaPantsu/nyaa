@@ -1119,6 +1119,9 @@ input.filelist-checkbox:checked+table.table-filelist {
     max-height: 100%;
 }
 
+#description-box code { 
+	white-space: normal; 
+}
 
 /* Markdown editor fixes */
 
