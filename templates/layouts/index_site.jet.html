@@ -1,0 +1,20 @@
+{* We extend the base template *}
+{{ extends "partials/base" }}
+{{import "partials/helpers/search"}}
+
+{* We apply the menu in the base template *}
+{{ block menu()}}
+{{include "partials/menu/site"}}
+{{end}}
+
+{{block titleBase()}} - {{block title()}}{{end}}{{end}}
+
+{{ block content_body_base()}}
+    {{ if isset(Infos["system"])}}
+        {{ range Infos["system"]}}
+            <div id="announce"><span style="font-weight:bold;">{{T("announcement")}}</span><br>{{ .|raw }}</div>
+        {{ end }}
+    {{ end }}
+{{ yield search_refine(url=URL.Parse("/search")) }}
+{{ block content_body()}}{{end}}
+{{end}}

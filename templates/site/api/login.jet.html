@@ -1,0 +1,22 @@
+{{import "layouts/partials/helpers/errors"}}
+{{import "layouts/partials/helpers/csrf"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page - Nyaa Pantsu Authentification API</title>
+</head>
+<body>
+<div>
+    <h1>Page authentification</h1>
+    <p>Please provide your login credentials before continuing</p>
+    {{ yield errors() }}
+    <form action="" method="POST">
+        <input type="text" name="username" /><br>
+        <input type="password" name="password" /><br>
+        {{ yield csrf_field()}}
+        <input type="submit">
+    </form>
+</div>
+</body>
+</html>

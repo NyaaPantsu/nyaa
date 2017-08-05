@@ -1,0 +1,62 @@
+{{ extends "layouts/index_site" }}
+{{ import "layouts/partials/helpers/csrf" }}
+{{ import "layouts/partials/helpers/captcha" }}
+{{ import "layouts/partials/helpers/errors" }}
+{{block title()}}{{  T("register_title") }}{{end}}
+{{block content_body()}}
+<div class="box">
+  <div class="user-form">
+    <form role="form" method="POST">
+      {{ yield csrf_field() }}
+      <h2>{{ T("signup_box_title") }}</h2>
+      <input type="text" name="username" id="display_name" class="form-input up-input" placeholder="{{ T("username") }}" value="{{ Form.Username }}" autofocus/>
+      <br/>
+      {{ yield errors(name="username") }}
+      <input type="email" name="email" id="email" class="form-input up-input" placeholder="{{ T("email_address") }} ({{ T("optional")}})" value="{{ Form.Email }}"/>
+      <br/>
+      {{ yield errors(name="email") }}
+      <input type="password" name="password" id="password" class="form-input up-input" placeholder="{{ T("password") }}" value="{{ Form.Password }}"/>
+      <br/>
+      {{ yield errors(name="Password") }}
+      <input type="password" name="password_confirmation" id="password_confirmation" class="form-input up-input" placeholder="{{ T("confirm_password") }}"/>
+      <br/>
+      {{ yield errors(name="ConfirmPassword") }}
+      <p>
+        <span class="button-checkbox">
+          <input type="checkbox" name="t_and_c" id="t_and_c" value="1"/>
+        </span>
+        {{ T("terms_conditions_confirm")|raw }}
+      </p>
+      {{ yield errors(name="TermsAndConditions") }}
+      <!--  -->
+      {{ yield captcha(captchaid=Form.CaptchaID)}}
+
+      <input type="submit" value="{{ T("register") }}" class="form-input"></input>
+    </form>
+  </div>
+</div>
+<!-- Modal -->
+<div id="modal_mod_tools" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>{{  T("terms_conditions") }}</h2>
+    </div>
+    <div class="modal-body">
+      <p>{{  T("terms_conditions_full")|raw }}</p>
+    </div>
+    <div class="modal-footer">
+    </div>
+  </div>
+</div>
+{{end}}
+{{ block footer_js() }}
+<script type="text/javascript" src="{{URL.Parse("/js/modal.js") }}"></script>
+<script type="text/javascript" charset="utf-8">
+  // Modal initialization
+  Modal.Init({elements: document.getElementsByClassName("modal"),
+    button: "#modal_active"
+  });
+</script>
+{{end}}

@@ -2,4 +2,4 @@
 # Please, do not change default_config, create your own config.yml
 # You do not have to change every values, just set here what you want to edit
 # For example, if you just want to change the port, just write:
-#port: 9998
+port: 9998

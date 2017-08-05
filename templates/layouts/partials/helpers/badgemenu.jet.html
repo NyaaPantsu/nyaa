@@ -1,0 +1,37 @@
+{{ import "csrf" }}
+{{block badge_user()}}
+<div class="h-user">
+  {{if User.ID > 0 }}
+  <button href="#" class="nav-btn">
+    <div class="user-avatar small">
+      <img src="https://www.gravatar.com/avatar/{{ User.MD5 }}?s=50"/>
+    </div>
+    <span class="user-info" title="{{ User.Username}}">
+      <span class="hide-md">{{User.Username}}</span>
+    </span>
+  </button>
+  <div class="user-menu">
+    <a class="nav-btn" href="/user/{{ User.ID }}/{{ User.Username }}">{{ T("profile")}}</a>
+    <a class="nav-btn{{ User.GetUnreadNotifications() > 0 ? " notif " : " " }}" href="/notifications">
+      {{  T("my_notifications")}}
+      <span class="badge">({{ User.GetUnreadNotifications() }})</span>
+    </a>
+    <a class="nav-btn" href="/user/{{ User.ID }}/{{ User.Username }}/edit">
+      {{ T("settings")}}
+    </a>
+    {{if User.HasAdmin()}}
+    <a class="nav-btn" href="/mod">{{ T("moderation")}}</a>
+    {{end}}
+    <form action="/logout" method="POST">
+      {{ yield csrf_field() }}
+      <input type="hidden" value="{{ URL.String() }}" name="redirectTo"/>
+      <input class="nav-btn" type="submit" name="logout" value="{{  T("sign_out")}}"/>
+    </form>
+  </div>
+  {{ else }}
+  <a href="/login?redirectTo={{ URL.String() }}" class="nav-btn log-in" style="width:auto;">
+	<div class="icon-user"></div>
+    <span>{{  T("signin") }}</span>
+  </a> {{end}}
+</div>
+{{end}}

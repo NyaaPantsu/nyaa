@@ -1,0 +1,17 @@
+{{block captcha(captchaid="")}}
+{* unset if user doesn't need captcha *}
+{{if captchaid != ""}}
+<div class="form-group captcha-container" style="width: 240px;margin: auto;">
+  <h3>{{ T("captcha")}}</h3>
+  <input type="text" name="captchaID" value="{{captchaid}}" hidden/>
+  <img src="/captcha/{{captchaid}}.png" alt="captcha">
+  <br/>
+  <audio src="/captcha/{{captchaid}}.wav" controls style="width: 240px;">
+    <a href="/captcha/{{captchaid}}.wav?lang={{ T("language_code") }}">
+      {{ T("captcha_audio") }}
+    </a>
+  </audio>
+  <input class="form-input up-input" type="text" name="solution" id="solution" class="form-control" style="display:block;" placeholder="{{ T("captcha")}}" autocomplete="off" required />
+</div>
+{{end}}
+{{end}}

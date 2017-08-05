@@ -1,0 +1,8 @@
+{{ block flagList(languages=nil, selected="", inputname="languages", id="lang")}}
+{{ if isset(languages) }}
+{{ range _, language := languages }}<span class="input-group">
+<span name="{{id}}-languagename">{{LanguageName(language, T)}}</span>
+<input type="checkbox" name="{{inputname}}" class="form-language-checkbox" id="{{id}}-{{ language.Code }}" value="{{language.Code}}"{{ range _, v := selected}}{{ if contains(v, language.Code) }} checked{{end}}{{end}}><label for="{{id}}-{{ language.Code }}" class="flag flag-{{ language.Flag(false) }}" title="{{LanguageName(language, T)}}"></label>
+</span>{{ end }}
+{{ end }}
+{{ end }}

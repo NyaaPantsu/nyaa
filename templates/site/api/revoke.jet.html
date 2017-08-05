@@ -1,0 +1,17 @@
+{{import "layouts/partials/helpers/errors"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Revoke Token - Nyaa Pantsu API</title>
+</head>
+<body>
+    {{ if Revoke }}
+    <p>The token has been succesfully revoked!</p>
+    <p>Received status code from the revoke endpoint:<br><code>{{ ResponseCode }}</code></p>
+    <p>{{ Response }}</p>
+    {{ else }}
+    {{ yield errors() }}
+    {{ end }}
+</body>
+</html>

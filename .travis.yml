@@ -1,30 +1,33 @@
 language: go
 go:
-- 1.x
-gobuild_args: -x -ldflags "-X main.buildversion=$(date -u +.%Y%m%d.%H%M%S)"
+- tip
+gobuild_args: -x -ldflags "-X main.buildversion=$(git rev-parse HEAD)"
 before_install:
-- sudo apt-add-repository ppa:ansible/ansible -y
-- sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
-- sudo apt-get update
-- sudo apt-get install gcc-mingw-w64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 binutils-mingw-w64-i686 binutils-mingw-w64-x86-64 ansible
+- sudo apt-get install gcc-mingw-w64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 binutils-mingw-w64-i686
+  binutils-mingw-w64-x86-64 ansible
 - go get -u github.com/tools/godep
+- go get github.com/go-playground/overalls
+- go get golang.org/x/tools/cmd/cover
+- go get github.com/mattn/goveralls
 before_script:
 - go vet
 - go test -v ./...
+script:
+- overalls -project=github.com/NyaaPantsu/nyaa -covermode=count -debug
+- goveralls -coverprofile="overalls.coverprofile" -service=travis-ci
 install:
-  # Add Godeps dependencies to GOPATH and PATH
-  - export GOPATH="${TRAVIS_BUILD_DIR}/vendor:$GOPATH"
-  - export PATH="${TRAVIS_BUILD_DIR}/Godeps/_workspace/bin:$PATH"
+- export GOPATH="${TRAVIS_BUILD_DIR}/vendor:$GOPATH"
+- export PATH="${TRAVIS_BUILD_DIR}/Godeps/_workspace/bin:$PATH"
 before_deploy:
-- ./package.sh
+- "./package.sh"
 deploy:
-    provider: releases
-    api_key:
-        secure: Nz2M3ZbQumKGVga/nnZnz1VXikRkGoLXk5FoH4uOl6GF6rlUNmtvJYs34LWF0/CMswBXNhjCggEaMMtZC+j66ZjoAdHBXRfrOb6jisNJRF6FNk7Kob6W3itCEOTvEL/8a+k2fI95cLqOXDLR2tIX03nchb8rDmVALs7P4gQgy2Y7UAo/aa/0G+OhsSJrlQWt0MT9OKGoIXpeKZjOG3wO/YwqfDwRTItuA9DLFoMQ0gwQfgT58t1ullbpM+jISni7rwfK+jUnZHjUH/VHLguVFmL4A1DxWriJXNOrZR+i/eUJ94mWvfI08WR8Qh3UCr58FrKoWvPsu7HnCq0bn6RvQtCKqx5zgv+R+kxKIP+79SVjKZUi1ghswAuwx9+AT6vHgPLXjJLpZj9Ap/KhfnQR6VT3jBT+kEpmv3J+57JcJCyD4ZslT+LGW2ul0uWoGCVVMBdHqMzuC8OSxpKCw6bFNWnLq+JAU08zlJkAAllBKev+LZWiF8GBICKfynRgViy+MKNaMfzIUNlL9UDskaiWP+BL9RXGLJ2FVdeKkzqdAYdYlgdJChQ56KTtRukR7FlOqDXhszIPxJhU9wn9lNXmGvq1FJyo1LRY3HX+5o9lWw+enaswNxFxdLBMXPhF5jehMkImiR4/YS4WdlmHcEfsli9sBOjBQh1iIpCfme77PPU=
-    script: 
-        - ./package.sh
-    file: dist/*.zip
-    skip_cleanup: true
-    overwrite: true
-    on:
-        tags: true
+  provider: releases
+  api_key:
+    secure: Nz2M3ZbQumKGVga/nnZnz1VXikRkGoLXk5FoH4uOl6GF6rlUNmtvJYs34LWF0/CMswBXNhjCggEaMMtZC+j66ZjoAdHBXRfrOb6jisNJRF6FNk7Kob6W3itCEOTvEL/8a+k2fI95cLqOXDLR2tIX03nchb8rDmVALs7P4gQgy2Y7UAo/aa/0G+OhsSJrlQWt0MT9OKGoIXpeKZjOG3wO/YwqfDwRTItuA9DLFoMQ0gwQfgT58t1ullbpM+jISni7rwfK+jUnZHjUH/VHLguVFmL4A1DxWriJXNOrZR+i/eUJ94mWvfI08WR8Qh3UCr58FrKoWvPsu7HnCq0bn6RvQtCKqx5zgv+R+kxKIP+79SVjKZUi1ghswAuwx9+AT6vHgPLXjJLpZj9Ap/KhfnQR6VT3jBT+kEpmv3J+57JcJCyD4ZslT+LGW2ul0uWoGCVVMBdHqMzuC8OSxpKCw6bFNWnLq+JAU08zlJkAAllBKev+LZWiF8GBICKfynRgViy+MKNaMfzIUNlL9UDskaiWP+BL9RXGLJ2FVdeKkzqdAYdYlgdJChQ56KTtRukR7FlOqDXhszIPxJhU9wn9lNXmGvq1FJyo1LRY3HX+5o9lWw+enaswNxFxdLBMXPhF5jehMkImiR4/YS4WdlmHcEfsli9sBOjBQh1iIpCfme77PPU=
+  script:
+  - "./package.sh"
+  file: dist/*.zip
+  skip_cleanup: true
+  overwrite: true
+  on:
+    tags: true

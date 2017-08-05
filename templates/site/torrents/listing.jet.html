@@ -1,0 +1,252 @@
+{{ extends "layouts/index_site" }}
+{{ import "layouts/partials/helpers/search" }}
+{{block title()}}{{ T("home")}}{{end}}
+{{block contclass()}}{{if User.HasAdmin() }}content-admin{{end}}{{end}}
+{{block content_body()}}
+<!-- Contain the table within a grid, as for better sizing -->
+<div class="results box">
+  <table>
+    <thead class="torrent-info">
+      <tr>
+        {{ if User.HasAdmin() }}
+        <th class="tr-cb hide">
+          <input type="checkbox" name="select_all" onchange="TorrentsMod.selectAll(this.checked)"/>
+        </th>
+        {{end}}
+        <th class="tr-cat">{{ T("category")}}</th>
+        <th class="tr-name">
+          <a href="{{ genSearchWithOrdering(URL, "1") }}">
+            {{ T("name")}}
+            <span class="sort-arrows">{{ genSortArrows(URL, "1")|raw }}</span>
+          </a>
+        </th>
+        <th class="tr-cs"></th>
+        <th class="tr-links"></th>
+        <th class="tr-size hide-xs"><a href="{{ genSearchWithOrdering(URL, "4") }}">{{ T("size")}}<span class="sort-arrows">{{ genSortArrows(URL, "4")|raw }}</span></a></th>
+
+        <th class="tr-se hide-smol">
+          <a href="{{ genSearchWithOrdering(URL, "5") }}">
+            {{ T("S")}}
+            <span class="sort-arrows">{{ genSortArrows(URL, "5")|raw }}</span>
+          </a>
+        </th>
+        <th class="tr-le hide-smol">
+          <a href="{{ genSearchWithOrdering(URL, "6") }}">
+            {{ T("L")}}
+            <span class="sort-arrows">{{ genSortArrows(URL, "6")|raw }}</span>
+          </a>
+        </th>
+        <th class="tr-dl hide-xs">
+          <a href="{{ genSearchWithOrdering(URL, "7") }}">
+            {{ T("D")}}
+            <span class="sort-arrows">{{ genSortArrows(URL, "7")|raw }}</span>
+          </a>
+        </th>
+        <!-- <th><span class="glyphicon glyphicon-comment"></span></th> -->
+        <th class="tr-date hide-xs"><a href="{{ genSearchWithOrdering(URL, "2") }}">
+          {{ T("date")}}
+          <span class="sort-arrows">{{ genSortArrows(URL, "2")|raw }}</span>
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody id="torrentListResults">
+    {{ range Models}}
+	{{ if CategoryName(.Category, .SubCategory) != ""}}
+    <tr id="torrent_{{ .ID }}" class="torrent-info {{if .Status == 2}}remake{{else if .Status == 3}}trusted{{else if .Status == 4}}aplus{{end}}" >
+      {{ if User.HasAdmin() }}
+      <td class="tr-cb hide">
+        <input data-name="{{ .Name }}" type="checkbox" id="torrent_cb_{{ .ID }}" name="torrent_id" value="{{ .ID }}"/>
+      </td>
+      {{ end }}
+      <td class="tr-cat home-td">
+        {{ if Sukebei() }}
+        <div class="nyaa-cat sukebei-cat-{{ .Category }}{{ .SubCategory }}">
+          {{ else}}
+          <div class="nyaa-cat nyaa-cat-{{ .SubCategory}}">
+            {{end}}
+            <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}" class="category">
+              {{if .Languages[0] != "" }}
+              <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory +"&lang=") }}{{ range key, language := .Languages }}{{ language }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
+                <img src="/img/blank.gif" alt="{{ range key, language := .Languages }}{{ LanguageNameFromCode(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}" class="flag flag-{{ (len(.Languages) == 1) ?  FlagCode(.Languages[0]) : "multiple" }}" title="{{ range key, language := .Languages }}{{ LanguageNameFromCode(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}"/>
+              </a>
+              {{end}}
+            </a>
+          </div>
+        </td>
+        <td class="tr-name home-td"{{ if len(.Comments) == 0 }}colspan="2"{{ end }}>
+          <a href="/view/{{ .ID }}">
+            {{.Name}}
+          </a>
+        </td>
+        {{ if len(.Comments) > 0 }}
+        <td class="tr-cs home-td">
+          <span>{{len(.Comments)}}</span>
+        </td>
+        {{ end }}
+        <td class="tr-links home-td">
+          <a href="{{.Magnet}}" title="{{  T("magnet_link") }}">
+            <div class="icon-magnet"></div>
+          </a>
+          {{if .TorrentLink != ""}}
+          <a href="{{.TorrentLink}}" title="{{  T("torrent_file") }}">
+            <div class="icon-floppy"></div>
+          </a>
+          {{end}}
+        </td>
+        <td class="tr-size home-td hide-xs">
+          {{ fileSize(.Filesize, T) }}
+        </td>
+        {{if .LastScrape.IsZero}}
+        <td class="home-td hide-xs" colspan="3">{{ T("unknown")}}</td>
+        {{else}}
+        <td class="tr-se home-td hide-smol">{{.Seeders}}</td>
+        <td class="tr-le home-td hide-smol">{{.Leechers}}</td>
+        <td class="tr-dl home-td hide-xs">{{.Completed}}</td>
+        {{end}}
+        <td class="tr-date home-td date-short hide-xs">{{.Date}}</td>
+      </tr>
+	  {{end}}
+      {{end}}
+    </tbody>
+  </table>
+</div>
+{{ if User.HasAdmin() }}
+<div class="modtools">
+  <button id="show_actions" class="form-input" data-toggle-text="{{ T("hide_mod_tools")}}">{{ T("show_mod_tools")}}</button>
+  <span class="actions">
+    <span class="btn-group">
+      <select class="cb_action" name="category_id" style="width: 14em;">
+        <option value="">{{ T("category")}}</option>
+        {{ range _, cat := GetCategories(true, true) }}
+        <option value="{{ cat.ID }}">{{ T(cat.Name) }}</option>
+        {{ end }}
+      </select>
+      <input class="cb_action" type="number" name="owner_id" style="width: 10em;" placeholder="{{  T("owner_id_placeholder") }}"/>
+      <select class="cb_action" name="status_id">
+        <option value="">{{ T("torrent_status")}}</option>
+        <option value="5">{{  T("torrent_status_blocked") }}</option>
+        <option value="1">{{ T("torrent_status_normal")}}</option>
+        <option value="2" >{{ T("torrent_status_remake")}}</option>
+        <option value="3">{{ T("trusted")}}</option>
+        <option value="4">A+</option>
+      </select>
+      <button class="cb_action form-input btn-orange" id="edit">{{ T("edit") }}</button>
+    </span>
+    <span class="btn-group">
+      <button class="cb_action form-input btn-red" id="lock_delete">{{ T("lock_delete") }}</button>
+      <button class="cb_action form-input btn-red" id="delete">{{ T("delete") }}</button>
+    </span>
+    <span class="btn-group">
+      <button class="cb_submit form-input btn-green" id="modal_active">{{ T("save_changes") }}</button>
+    </span>
+  </span>
+</div>
+<!-- Modal -->
+<div id="modal_mod_tools" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>{{ T("following_changes_applied") }}</h2>
+    </div>
+    <div class="modal-body">
+      <h3>{{ T("changes_in_following_order") }}</h3>
+      <div class="progress-bar" id="progress_modtool" style="display: none;">
+        <div class="progress-green"></div>
+      </div>
+      <hr>
+      <div class="logs_mess" style="display: none;"></div>
+      <h2>{{ T("edit_changes") }}</h2>
+      <div class="edit_changes"></div>
+      <h2>{{ T("delete_changes") }}</h2>
+      <div class="delete_changes"></div>
+    </div>
+    <div class="modal-footer">
+      <span>
+        <button id="confirm_changes" onclick="TorrentsMod.ApplyChanges();">{{ T("yes")}}</button>
+        <button class="close" onclick="Modal.CloseActive();">{{ T("no")}}</button>
+      </span>
+      <h3>{{ T("are_you_sure") }} </h3>
+    </div>
+  </div>
+</div>
+{{end}}
+{{end}}
+{{ block footer_js()}}
+<script type="text/javascript" src="{{ URL.Parse("/js/template.js") }}"></script>
+<script type="text/javascript" src="{{ URL.Parse("/js/query.js") }}"></script>
+<script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>
+<script type="text/javascript" src="{{ URL.Parse("/js/torrents.js") }}"></script>
+<script type="text/javascript" src="{{ URL.Parse("/js/translation.js") }}"></script>
+{{ if User.HasAdmin() }}
+<script type="text/javascript" src="{{ URL.Parse("/js/torrentsMod.js") }}"></script>
+<script type="text/javascript">
+// We add translations string
+T.Add({
+  try_new_attempt: "{{ T("try_new_attempt") }}",
+  query_is_broken: "{{ T("query_is_broken") }}",
+  query_executed_success: "{{ T("query_executed_success") }}",
+  all_operations_done: "{{ T("all_operations_done") }}",
+  refreshing_in: "{{ T("refreshing_in") }}",
+  delete_reports_with_torrents: "{{ T("delete_reports_with_torrents") }}",
+  with_st: "{{  T("with_st") }}",
+  and_reports: "{{ T("and_reports") }}",
+  reports: "{{ T("reports") }}",
+  lock: "{{ T("lock") }}",
+  status_js: "{{ T("status_js") }}",
+  owner_id_js: "{{ T("owner_id_js") }}",
+  category_js: "{{ T("category_js") }}",
+  no_changes: "{{ T("no_changes") }}",
+  query_nb: "{{ T("query_nb") }}"
+});
+// Modal initialization
+Modal.Init({elements: document.getElementsByClassName("modal"),
+button: "#modal_active",
+before: function() {
+  TorrentsMod.generatingModal();
+},
+close: function() {
+  TorrentsMod.resetModal();
+}
+});
+// Templates initialization
+Templates.Add("torrents.delete.item", function(torrent) {
+  return '<div class="delete_item" id="list_item_'+torrent.id+'"><span>'+Templates.EncodeEntities(torrent.name)+'</span>'+
+  '<a href="#" onclick="return TorrentsMod.RemoveItemFromQueue('+torrent.key+', '+torrent.id+')"><i class="icon-trash"></i></a></div>'
+});
+Templates.Add("torrents.delete.block", function(torrentQuery){
+  return '<div class="delete_list" id="list_'+torrentQuery.unique_id+'"><div class="title">'+
+  '<h3 style="display:inline-block;" onclick="TorrentsMod.toggleList(this);">'+T.r("query_nb", torrentQuery.unique_id)+
+  '</h3>'+
+  '<span class="infos">'+torrentQuery.infos+'<a href="#" class="icon" onclick="return TorrentsMod.RemoveFromQueue('+torrentQuery.key+')"><div class="icon-trash"></div></a>'+
+  '</span></div>'+
+  '<div class="list">'+torrentQuery.list+'</div></div>';
+});
+Templates.Add("torrents.edit.item", function(torrent) {
+  return '<div class="edit_item" id="list_item_'+torrent.id+'"><span>'+Templates.EncodeEntities(torrent.name)+'</span>'+
+  '<a href="#" onclick="return TorrentsMod.RemoveItemFromQueue('+torrent.key+', '+torrent.id+')"><i class="icon-trash"></i></a></div>'
+});
+Templates.Add("torrents.edit.block", function(torrentQuery){
+  return '<div class="edit_list" id="list_'+torrentQuery.unique_id+'"><div class="title">'+
+  '<h3 style="display:inline-block;" onclick="TorrentsMod.toggleList(this);">'+T.r("query_nb", torrentQuery.unique_id)+
+  '</h3>'+
+  '<span class="infos">'+torrentQuery.infos+'<a href="#" class="icon" onclick="return TorrentsMod.RemoveFromQueue('+torrentQuery.key+')"><div class="icon-trash"></div></a>'+
+  '</span></div>'+
+  '<div class="list">'+torrentQuery.list+'</div></div>';
+});
+Templates.Add("torrents.logs.error", function(msg) {
+  return '<div class="error">'+msg+'</div>';
+});
+Templates.Add("torrents.logs.success", function(msg) {
+  return '<div class="success">'+msg+'</div>';
+});
+</script>
+{{end}}
+<!-- JS Template for torrents ajax -->
+{{ include "layouts/partials/torrent_item" }}
+<script type="text/javascript">
+Torrents.LastID = {{ lastID(URL, Models) }};
+if (Torrents.LastID > 0) Torrents.CanRefresh = true;
+</script>
+{{end}}
