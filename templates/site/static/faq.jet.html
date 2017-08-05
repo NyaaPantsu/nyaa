@@ -39,9 +39,9 @@
         <a href="/apidoc">{{ T("api_documentation")}}</a>
 	<h2 id="feed_information">RSS Feed Information</h2>
 	<a href="https://github.com/NyaaPantsu/nyaa/blob/master/controllers/feed/router.go">Feed Routes</a>
-	<p>Base URL: {{GetHostname(Config.WebAddress.Nyaa)}}/feed/(Feed Type)/p/(Page Number)
+	<p>Base URL: {{if Sukebei()}}{{GetHostname(Config.WebAddress.Sukebei)}}{{else}}{{GetHostname(Config.WebAddress.Nyaa)}}{{end}}/feed/(Feed Type)/p/(Page Number)
 		<b>"/p/(Page Number)" is optional</b></p>
-	<p>EX: {{GetHostname(Config.WebAddress.Nyaa)}}/feed/magnet/p/2?c=1_1&amp;userID=0&amp;limit=100
+	<p>EX: {{if Sukebei()}}{{GetHostname(Config.WebAddress.Sukebei)}}{{else}}{{GetHostname(Config.WebAddress.Nyaa)}}{{end}}/feed/magnet/p/2?c=1_1&amp;userID=0&amp;limit=100
 		(Limit max is 300 items per page)</p>
 	<p>Feed Types: RSS(feed), RSS With Magnet Links(manget), Torznab Spec(torznab), EZTV Spec(eztv)</p>
 	<p>You can append your search query to the end of the feed URL.</p>
