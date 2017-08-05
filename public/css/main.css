@@ -677,6 +677,7 @@ html, body {
 /* Image category shrinking & padding lowering between 1050 & 860px, do not modify any of these values */
 @media (max-width: 1050px) { 
 	.tr-cat { width: 8.7%; }
+	.torrent-preview-table .tr-cat { width: 9.1%; }
 	th, .home-td, .user-td { padding: 2px 0.25%; }
 }
 
@@ -756,6 +757,18 @@ html, body {
         padding: 8px;
     }
     .torrent-hr { margin-bottom: 0; }
+}
+
+@media (max-height: 750px) {
+	.header { height: 56px; }
+	.header .container>div { line-height: 58px; padding: 0 0.6rem; }
+	.header .h-logo img { height: 57px; padding: 5px 8px 5px 2px; }
+	.header .h-user .nav-btn { height: 57px; }
+	#content { top: 58px; }
+	#content.content-admin { top: 108px; }
+	
+	h3 { margin-bottom: 5px; }
+	.form-refine { margin-bottom: 8px; }
 }
 
 @media (max-width: 565px) {
@@ -1106,6 +1119,9 @@ input.filelist-checkbox:checked+table.table-filelist {
     max-height: 100%;
 }
 
+#description-box code { 
+	white-space: normal; 
+}
 
 /* Markdown editor fixes */
 

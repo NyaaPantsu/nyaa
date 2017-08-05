@@ -6,7 +6,6 @@
   <option value="{{ cat.ID }}" {{if Search.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
   {{ end }}
 </select>
-<input type="hidden" name="userID" value="{{ Search.UserID }}"/>
 {{end}}
 {{block search_button() }}
 <input class="form-input search-box" name="q" placeholder="{{ T("search")}}" type="text" value="{{Search.NameLike}}"/>
@@ -14,7 +13,7 @@
 <button type="submit" class="form-input refine" name="refine" value="1">{{  T("refine")}}</button>
 {{end}}
 {{block search_refine(url="") }}
-<div style="text-align:left;{{ if !Search.ShowRefine }}display:none;{{ end }}" class="box refine">
+<div style="{{ if !Search.ShowRefine }}display:none;{{ end }}" class="box refine">
   </span>
   <form style="display: grid;" method="GET" action="{{ url }}">
     <h3 style="margin-top: 2px;">{{ T("refine_search") }}</h3>
