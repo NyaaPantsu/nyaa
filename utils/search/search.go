@@ -94,9 +94,11 @@ func ByQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted 
 		totalHits, tor, err := torrentParam.Find(models.ElasticSearchClient)
 		if totalHits > 0 {
 			cache.C.Set(torrentParam.Identifier(), &structs.TorrentCache{tor, int(totalHits)}, 5*time.Minute)
+			if err == nil {
+				// Convert back to non-json torrents
+				return torrentParam, tor, int(totalHits), err
+			}
 		}
-		// Convert back to non-json torrents
-		return torrentParam, tor, int(totalHits), err
 	}
 	log.Errorf("Unable to create elasticsearch client: %s", err)
 	log.Errorf("Falling back to postgresql query")
