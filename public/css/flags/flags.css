@@ -93,8 +93,12 @@
     background-position: -80px -11px;
 }
 
-.flag.flag-multiple {
+.flag.flag-in {
     background-position: -80px -22px;
+}
+
+.flag.flag-multiple {
+    background-position: -80px -33px;
 }
 
 .flag.flag-other {
