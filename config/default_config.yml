@@ -127,7 +127,7 @@ torrents:
     needed:
       - 0
 # TorrentOrder : Default sorting field for torrents
-  order: torrent_id
+  order: date
 # TorrentSort : Default sorting order for torrents
   sort: DESC
   tags:

@@ -1,4 +1,4 @@
-package structs
+package search
 
 import "github.com/NyaaPantsu/nyaa/config"
 
@@ -11,7 +11,25 @@ const (
 	Seeders
 	Leechers
 	Completed
+	MaxIota
 )
+
+// SortField is a database column in ES/DB
+type SortField struct {
+	ES string
+	DB string
+}
+
+var sortFields = []SortField{
+	{"id", "torrent_id"},
+	{"name.raw", "torrent_name"},
+	{"date", "date"},
+	{"downloads", "downloads"},
+	{"filesize", "filesize"},
+	{"seeders", "seeders"},
+	{"leechers", "leechers"},
+	{"completed", "completed"},
+}
 
 // SortMode selected sort mode
 type SortMode uint8
@@ -44,46 +62,19 @@ func (s *SortMode) Parse(str string) {
  * TODO Verify the field in postgres database
  */
 func (s *SortMode) ToESField() string {
-	switch *s {
-	case ID:
-		return "id"
-	case Name:
-		return "name.raw"
-	case Date:
-		return "date"
-	case Downloads:
-		return "downloads"
-	case Size:
-		return "filesize"
-	case Seeders:
-		return "seeders"
-	case Leechers:
-		return "leechers"
-	case Completed:
-		return "completed"
-	}
-	return "id"
+	return s.toField().ES
 }
 
 // ToDBField convert a sortmode to use with database
 func (s *SortMode) ToDBField() string {
-	switch *s {
-	case ID:
-		return "torrent_id"
-	case Name:
-		return "torrent_name"
-	case Date:
-		return "date"
-	case Downloads:
-		return "downloads"
-	case Size:
-		return "filesize"
-	case Seeders:
-		return "seeders"
-	case Leechers:
-		return "leechers"
-	case Completed:
-		return "completed"
+	return s.toField().DB
+}
+
+// Private function to convert sormode to a field struct
+func (s *SortMode) toField() SortField {
+	// if sortmode is within range
+	if *s >= MaxIota || *s < 1 {
+		s.Parse(config.Get().Torrents.Order)
 	}
-	return config.Get().Torrents.Order
+	return sortFields[int(*s)]
 }

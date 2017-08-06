@@ -9,26 +9,23 @@ import (
 
 func tagsToID(tags string) []string {
 	var ids []string
-	where := WhereParams{}
-	for i, tag := range strings.Split(tags, ",") {
+	query := &Query{}
+	for _, tag := range strings.Split(tags, ",") {
 		if tag != "" {
 			ta := strings.Split(tag, ":")
 			if len(ta) == 2 {
-				if i > 0 {
-					where.Conditions += " AND "
-				}
-				where.Conditions += "type = ? AND tag = ?"
-				where.Params = append(where.Params, ta[0])
-				where.Params = append(where.Params, ta[1])
+				query.Append("type = ? AND tag = ?", ta[0], ta[1])
 			}
 		}
 	}
-	if len(where.Params) > 0 {
-		tID, err := torrents.GetIDs(&where)
+	_, params := query.ToDBQuery()
+	if len(params) > 0 {
+		tID, err := torrents.GetIDs(query)
 		if err == nil && len(tID) > 0 {
 			for _, id := range tID {
 				ids = append(ids, fmt.Sprintf("%d", id))
 			}
 		}
 	}
+	return ids
 }

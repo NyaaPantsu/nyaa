@@ -165,9 +165,9 @@ func userProfileBase(c *gin.Context, templateName string, userProfile *models.Us
 	c.Request.URL.RawQuery = query.Encode()
 	nbTorrents := 0
 	if userProfile.ID > 0 && currentUser.CurrentOrAdmin(userProfile.ID) {
-		_, userProfile.Torrents, nbTorrents, _ = search.ByQuery(c, 1, true, true, false, false)
+		_, userProfile.Torrents, nbTorrents, _ = search.ByQuery(c, 1, true, false, false)
 	} else {
-		_, userProfile.Torrents, nbTorrents, _ = search.ByQuery(c, 1, true, true, false, true)
+		_, userProfile.Torrents, nbTorrents, _ = search.ByQuery(c, 1, true, false, true)
 	}
 
 	variables.Set("UserProfile", userProfile)

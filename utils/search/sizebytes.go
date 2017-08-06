@@ -1,7 +1,8 @@
-package structs
+package search
 
 import (
 	"math"
+	"strconv"
 
 	humanize "github.com/dustin/go-humanize"
 )
@@ -32,4 +33,20 @@ func (sz *SizeBytes) Parse(s string, sizeType string) bool {
 	}
 	*sz = SizeBytes(size64 * multiplier)
 	return true
+}
+
+// ToESQuery convert DateFilter type to ES query format
+func (sz SizeBytes) ToESQuery() string {
+	if sz > 0 {
+		return strconv.FormatUint(uint64(sz), 10)
+	}
+	return "*"
+}
+
+// ToDBQuery convert DateFilter type to ES query format
+func (sz SizeBytes) ToDBQuery() string {
+	if sz > 0 {
+		return strconv.FormatUint(uint64(sz), 10)
+	}
+	return ""
 }

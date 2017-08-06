@@ -15,7 +15,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/search"
-	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 	"github.com/NyaaPantsu/nyaa/utils/upload"
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
 	"github.com/gin-gonic/gin"
@@ -132,8 +131,9 @@ func TorrentDeleteModPanel(c *gin.Context) {
 			_, _, err = torrent.DefinitelyDelete()
 
 			//delete reports of torrent
-			whereParams := structs.CreateWhereParams("torrent_id = ?", id)
-			reports, _, _ := reports.FindOrderBy(&whereParams, "", 0, 0)
+			query := &search.Query{}
+			query.Append("torrent_id", id)
+			reports, _, _ := reports.FindOrderBy(query, "", 0, 0)
 			for _, report := range reports {
 				report.Delete(true)
 			}
@@ -142,8 +142,9 @@ func TorrentDeleteModPanel(c *gin.Context) {
 			_, _, err = torrent.Delete(false)
 
 			//delete reports of torrent
-			whereParams := structs.CreateWhereParams("torrent_id = ?", id)
-			reports, _, _ := reports.FindOrderBy(&whereParams, "", 0, 0)
+			query := &search.Query{}
+			query.Append("torrent_id", id)
+			reports, _, _ := reports.FindOrderBy(query, "", 0, 0)
 			for _, report := range reports {
 				report.Delete(false)
 			}

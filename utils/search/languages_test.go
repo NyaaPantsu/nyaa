@@ -1,4 +1,4 @@
-package structs
+package search
 
 import (
 	"reflect"
@@ -49,7 +49,7 @@ func TestParseLanguages(t *testing.T) {
 	}
 }
 
-func TestSplitsLanguagess(t *testing.T) {
+func TestSplitsLanguages(t *testing.T) {
 	assert := assert.New(t)
 	expect := publicSettings.Languages{{Code: "fr"}}
 

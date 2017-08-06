@@ -1,4 +1,4 @@
-package structs
+package search
 
 import (
 	"testing"
@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestParse(t *testing.T) {
+func TestMaxType_Parse(t *testing.T) {
 	var max maxType
 	defMax := maxType(config.Get().Navigation.TorrentsPerPage)
 	max.Parse("")

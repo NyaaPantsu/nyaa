@@ -1,4 +1,4 @@
-package structs
+package search
 
 import (
 	"strconv"
@@ -45,6 +45,22 @@ func (d *DateFilter) Parse(s string) bool {
 	}
 	*d = DateFilter(date.Format("2006-01-02"))
 	return true
+}
+
+// ToESQuery convert DateFilter type to ES query format
+func (d DateFilter) ToESQuery() string {
+	if d != "" {
+		return string(d)
+	}
+	return "*"
+}
+
+// ToDBQuery convert DateFilter type to ES query format
+func (d DateFilter) ToDBQuery() string {
+	if d != "" {
+		return string(d)
+	}
+	return ""
 }
 
 func backwardCompatibility(max string, from string, to string, dtype string) (DateFilter, DateFilter) {

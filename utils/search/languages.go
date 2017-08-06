@@ -1,4 +1,4 @@
-package structs
+package search
 
 import (
 	"strings"
@@ -29,4 +29,26 @@ func splitsLanguages(s string) publicSettings.Languages {
 		}
 	}
 	return languages
+}
+
+func langsToESQuery(q *Query, langs publicSettings.Languages) {
+	if len(langs) > 0 {
+		for _, val := range langs {
+			q.Append("language:" + val.Code)
+		}
+	}
+}
+
+func langsToDBQuery(languages publicSettings.Languages) string {
+	if len(languages) > 0 {
+		langs := ""
+		for key, val := range languages {
+			langs += val.Code
+			if key+1 < len(languages) {
+				langs += ","
+			}
+		}
+		return langs
+	}
+	return ""
 }

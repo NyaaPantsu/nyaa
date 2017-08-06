@@ -15,7 +15,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/sanitize"
-	"github.com/NyaaPantsu/nyaa/utils/search/structs"
+	"github.com/NyaaPantsu/nyaa/utils/search"
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
 	"github.com/gin-gonic/gin"
 )
@@ -46,22 +46,16 @@ type APIResultJSON struct {
 }
 
 // ToParams : Convert a torrentsrequest to searchparams
-func (r *TorrentsRequest) ToParams() structs.WhereParams {
-	res := structs.WhereParams{}
-	conditions := ""
+func (r *TorrentsRequest) ToParams() *search.Query {
+	res := &search.Query{}
 	v := reflect.ValueOf(r.Query)
 
 	for i := 0; i < v.NumField(); i++ {
 		field := v.Field(i)
 		if field.Interface() != reflect.Zero(field.Type()).Interface() {
-			if i != 0 {
-				conditions += " AND "
-			}
-			conditions += v.Type().Field(i).Tag.Get("json") + " = ?"
-			res.Params = append(res.Params, field.Interface())
+			res.Append(v.Type().Field(i).Tag.Get("json"), field.Interface())
 		}
 	}
-	res.Conditions = conditions
 	return res
 }
 
