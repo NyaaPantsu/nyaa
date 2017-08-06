@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'nyacon';
-    src: url('./font/nyacon.eot?1588873');
-    src: url('./font/nyacon.eot?1588873#iefix') format('embedded-opentype'), url('./font/nyacon.woff2?1588873') format('woff2'), url('./font/nyacon.woff?1588873') format('woff'), url('./font/nyacon.ttf?1588873') format('truetype'), url('./font/nyacon.svg?1588873#nyacon') format('svg');
+    src: url('./font/nyacon.eot?61155854');
+    src: url('./font/nyacon.eot?61155854#iefix') format('embedded-opentype'), url('./font/nyacon.woff2?61155854') format('woff2'), url('./font/nyacon.woff?61155854') format('woff'), url('./font/nyacon.ttf?61155854') format('truetype'), url('./font/nyacon.svg?61155854#nyacon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -17,7 +17,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'nyacon';
-    src: url('../font/nyacon.svg?1588873#nyacon') format('svg');
+    src: url('../font/nyacon.svg?61155854#nyacon') format('svg');
   }
 }
 */
