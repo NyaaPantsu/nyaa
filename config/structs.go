@@ -46,9 +46,11 @@ type Config struct {
 	Models ModelsConfig `yaml:"models,flow,omitempty"`
 }
 
+// Tags Config struct for tags in torrent
 type Tags struct {
-	MaxWeight float64     `yaml:"max_weight,omitempty"`
-	Types     ArrayString `yaml:"types,omitempty"`
+	MaxWeight float64                `yaml:"max_weight,omitempty"`
+	Default   string                 `yaml:"default,omitempty"`
+	Types     map[string]ArrayString `yaml:"types,omitempty"`
 }
 
 // WebAddressConfig : Config struct for web addresses

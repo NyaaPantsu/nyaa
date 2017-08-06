@@ -40,21 +40,22 @@ const (
 
 // Torrent model
 type Torrent struct {
-	ID          uint      `gorm:"column:torrent_id;primary_key"`
-	Name        string    `gorm:"column:torrent_name"`
-	Hash        string    `gorm:"column:torrent_hash;unique"`
-	Category    int       `gorm:"column:category"`
-	SubCategory int       `gorm:"column:sub_category"`
-	Status      int       `gorm:"column:status"`
-	Hidden      bool      `gorm:"column:hidden"`
-	Date        time.Time `gorm:"column:date"`
-	UploaderID  uint      `gorm:"column:uploader"`
-	Stardom     int       `gorm:"column:stardom"`
-	Filesize    int64     `gorm:"column:filesize"`
-	Description string    `gorm:"column:description"`
-	WebsiteLink string    `gorm:"column:website_link"`
-	DbID        string    `gorm:"column:db_id"`
-	Trackers    string    `gorm:"column:trackers"`
+	ID           uint      `gorm:"column:torrent_id;primary_key"`
+	Name         string    `gorm:"column:torrent_name"`
+	Hash         string    `gorm:"column:torrent_hash;unique"`
+	Category     int       `gorm:"column:category"`
+	SubCategory  int       `gorm:"column:sub_category"`
+	Status       int       `gorm:"column:status"`
+	Hidden       bool      `gorm:"column:hidden"`
+	Date         time.Time `gorm:"column:date"`
+	UploaderID   uint      `gorm:"column:uploader"`
+	Stardom      int       `gorm:"column:stardom"`
+	Filesize     int64     `gorm:"column:filesize"`
+	Description  string    `gorm:"column:description"`
+	WebsiteLink  string    `gorm:"column:website_link"`
+	DbID         string    `gorm:"column:db_id"`
+	Trackers     string    `gorm:"column:trackers"`
+	AcceptedTags string    `gorm:"column:tags"`
 	// Indicates the language of the torrent's content (eg. subs, dubs, raws, manga TLs)
 	Language  string `gorm:"column:language"`
 	DeletedAt *time.Time

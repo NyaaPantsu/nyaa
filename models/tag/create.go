@@ -14,7 +14,6 @@ func Create(tag string, tagType string, torrent *models.Torrent, user *models.Us
 		TorrentID: torrent.ID,
 		UserID:    user.ID,
 		Weight:    user.Pantsu,
-		Accepted:  false,
 	}
 	return New(newTag, torrent)
 }

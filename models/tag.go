@@ -16,7 +16,6 @@ type Tag struct {
 	Tag       string  `gorm:"column:tag" json:"tag"`
 	Type      string  `gorm:"column:type" json:"type"`
 	Weight    float64 `gorm:"column:weight" json:"weight"`
-	Accepted  bool    `gorm:"column:accepted" json:"accepted"`
 	Total     float64 `gorm:"-" json:"total"`
 }
 
@@ -76,16 +75,6 @@ func (ts *Tags) DeleteType(tagtype string) {
 	ts = &newTs
 }
 
-// HasAccepted check if a tag has been accepted in the tags map
-func (ts Tags) HasAccepted() bool {
-	for _, tag := range ts {
-		if tag.Accepted {
-			return true
-		}
-	}
-	return false
-}
-
 // Replace a tag in map of tags
 func (ts Tags) Replace(index int, tag *Tag) {
 	if index >= 0 && index < len(ts) {
@@ -96,17 +85,9 @@ func (ts Tags) Replace(index int, tag *Tag) {
 }
 
 // ToJSON convert tags map to a json map and can exclud non accepted tags
-func (ts Tags) ToJSON(onlyAccepted bool) string {
-	var toParse Tags
-	if onlyAccepted {
-		for _, tag := range ts {
-			if tag.Accepted {
-				toParse = append(toParse, tag)
-			}
-		}
-	} else {
-		toParse = ts
-	}
+func (ts Tags) ToJSON() string {
+	toParse := ts
+
 	b, err := json.Marshal(toParse)
 	if err != nil {
 		log.Infof("Couldn't parse to json the tags %v", toParse)
