@@ -748,6 +748,9 @@ html, body {
     .refine-container-2 {
 	margin-top: 5px;
     }
+    .form-refine .refine-category {
+	max-width: 44%;
+    }
     .hide-xs {
 	display: none !important;
     }
