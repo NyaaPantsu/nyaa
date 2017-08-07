@@ -813,8 +813,12 @@ html, body {
 }
 
 @media (max-width: 565px) {
-    .header .h-search { margin-right: 0; }
-    .header .h-search input { width: 90px !important; }
+    .header .h-search {
+	margin-right: 0;
+    }
+    .header .h-search input {
+	width: 90px !important;
+   }
     .form-input.refine {
 	position: fixed;
 	border: 1px solid black;
@@ -828,14 +832,35 @@ html, body {
     .hide-smol {
         display: none!important;
     }
-    .header .nav-btn { padding: 0px 6px!important;}
-    .form-input.form-category { width: 72px; margin-right: -5px; border-right: none; }
-    span.spacing { display: none!important; }
-    .form-refine .refine-category { width: 45%; }
-    .form-refine .refine-searchbox { width: 55%; }
-    .form-refine .refine-searchbox::placeholder { opacity: 1; }
-    .language { width: 350px; }
-    #footer { padding-bottom: 25px; }
+    .header .nav-btn {
+	padding: 0px 6px!important;
+    }
+    .form-input.form-category {
+	width: 72px;
+	margin-right: -5px;
+	border-right: none;
+    }
+    span.spacing {
+	display: none!important;
+    }
+    .form-refine input.form-input {
+	width: 80px;
+    }
+    .form-refine .refine-category {
+	width: 45%;
+    }
+    .form-refine .refine-searchbox {
+	width: 55%!important;
+    }
+    .form-refine .refine-searchbox::placeholder {
+	opacity: 1;
+    }
+    .language {
+	width: 350px;
+    }
+    #footer {
+	padding-bottom: 25px;
+    }
 }
 
 @media (max-width: 440px) {
