@@ -669,24 +669,34 @@ html, body {
     }
     .header .h-user>.nav-btn {
         padding: 0 3px!important;
-		font-size: 85%;
-		width: 100%;
+	font-size: 85%;
+	width: 100%;
     }
-	.header .h-user>a.nav-btn { padding: 0!important; }
-	.nav-btn.log-in span { display: none; }
-	.nav-btn.log-in div { display: block; }
+    .header .h-user>a.nav-btn { padding: 0!important; }
+    .nav-btn.log-in span { display: none; }
+    .nav-btn.log-in div { display: block; }
 }
 
 /* Image category shrinking & padding lowering between 1050 & 860px, do not modify any of these values */
 @media (max-width: 1050px) { 
-	.tr-cat { width: 8.7%; }
-	.torrent-preview-table .tr-cat { width: 9.1%; }
-	th, .home-td, .user-td { padding: 2px 0.25%; }
+    .tr-cat {
+	width: 8.7%;
+    }
+    .torrent-preview-table .tr-cat {
+	width: 9.1%;
+     }
+     th, .home-td, .user-td {
+	 padding: 2px 0.25%!important;
+    }
 }
 
 @media (max-width: 860px) { 
-	.tr-cat { width: 71px; }
-	th, .home-td, .user-td { padding: 2px 2px; }
+    .tr-cat {
+	width: 71px;
+    }
+    th, .home-td, .user-td {
+	padding: 2px 2px!important;
+    }
 }
 /* end of category shrinking */
 
@@ -703,22 +713,24 @@ html, body {
     .visible-md {
         display: block
     }
-	.user-td.tr-date { width: 100px; }
-	.user-td.tr-size { width: 77px; }
-	.box.refine > form > div { display: inline-grid !important; }
-	.box.refine > form > div > div { width: 100%!important; }
-	.refine-btn,.language { 
-		position: initial!important;
-		bottom: initial!important; 
-		width: 100%!important;
-	}
-	.language { width: initial!important; }
-	.refine-container-2 { margin-top: 5px; }
-	.hide-xs { display: none !important; }
+    .user-td.tr-date { width: 100px; }
+    .user-td.tr-size { width: 77px; }
+    .box.refine > form > div { display: inline-grid !important; }
+    .box.refine > form > div > div { width: 100%!important; }
+    .refine-btn,.language { 
+	position: initial!important;
+	bottom: initial!important; 
+	width: 100%!important;
+    }
+     .language { width: initial!important; }
+    .refine-container-2 { margin-top: 5px; }
+    .hide-xs { display: none !important; }
 }
 
 @media (max-width: 810px) {
-    body { margin: 8px 0; }
+    body {
+	margin: 8px 0;
+    }
     .torrent-info-row>td {
         display: block;
     }
@@ -782,7 +794,7 @@ html, body {
 	left: 25%;
     }
     .tr-links {
-        width: 44px!important;
+        width: 44px;
     }
     .hide-smol {
         display: none!important;
