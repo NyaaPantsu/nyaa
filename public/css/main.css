@@ -124,7 +124,10 @@ body {
     border: none;
     max-width: 100%;
 }
-.nav-btn.log-in div { display: none; font-size: 16px; }
+.nav-btn.log-in div {
+    display: none;
+    font-size: 17px;
+}
 .header .h-search {
     margin-right: 6px;
 }
