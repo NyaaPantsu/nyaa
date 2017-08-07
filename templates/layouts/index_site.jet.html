@@ -12,7 +12,7 @@
 {{ block content_body_base()}}
     {{ if isset(Infos["system"])}}
         {{ range Infos["system"]}}
-            <div id="announce"><span style="font-weight:bold;">{{T("announcement")}}</span><br>{{ . }}</div>
+            <div id="announce"><span style="font-weight:bold;">{{T("announcement")}}</span><br>{{ .|raw }}</div>
         {{ end }}
     {{ end }}
 {{ yield search_refine(url=URL.Parse("/search")) }}
