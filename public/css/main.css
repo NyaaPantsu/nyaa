@@ -392,7 +392,7 @@ select.form-input {
 .form-refine .refine-category {
     border-left: none;
     border-radius: 0 3px 3px 0;
-    max-width: 43%;
+    max-width: 42%;
 }
 
 .box.refine > form > div {
