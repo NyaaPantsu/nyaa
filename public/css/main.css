@@ -506,6 +506,9 @@ th {
     text-align: left;
     padding: 0 2px!important;
 }
+.tr-links.no-torrent {
+    width: 27px!important;
+}
 
 .tr-cs {
     width: 15px;
@@ -749,9 +752,6 @@ html, body {
     .tr-se, .tr-le {
         width: 36px;
     }
-    .tr-links {
-        width: 48px;
-    }
     .header .h-search input { width: 84px !important; }
     .box {
         padding: 8px;
@@ -782,7 +782,7 @@ html, body {
 	left: 25%;
     }
     .tr-links {
-        width: 44px;
+        width: 44px!important;
     }
     .hide-smol {
         display: none!important;
