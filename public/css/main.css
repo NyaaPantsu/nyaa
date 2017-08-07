@@ -732,7 +732,7 @@ html, body {
 	width: 77px;
     }
     .box.refine > form > div {
-	display: inline-grid !important;
+	display: block;
     }
     .box.refine > form > div > div {
 	width: 100%!important;
