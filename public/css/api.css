@@ -1,0 +1,88 @@
+body {
+    background-color: #EFF5F7;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    margin: 0;
+    color: #666;
+}
+.logo {
+    max-width: 50%;
+    display: block;
+    margin: 0 auto;
+    padding-top: 7%
+}
+/* Typography */
+
+h2 {
+    color: white;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size: 1.4em;
+    line-height: 2.8em;
+}
+/* Layout */
+
+.container {
+    margin: 0;
+}
+.login-box {
+    background-color: white;
+    max-width: 340px;
+    margin: 0 auto;
+    position: relative;
+    top: 50px;
+    padding-bottom: 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 50px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+.login-box .box-header {
+    background-color: #9E87B1;
+    margin-top: 0;
+    border-radius: 5px 5px 0 0;
+}
+.login-box label {
+    font-weight: 700;
+    font-size: .8em;
+    color: #888;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 2em;
+}
+.textarea {
+    margin-bottom: 20px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    font-size: .9em;
+    color: #888;
+}
+.textarea:focus {
+    outline: none;
+    border-color: #9E87B1;
+    transition: 0.5s;
+    color: #9E87B1;
+}
+.submit {
+    margin-top: 0px;
+    border: 0;
+    border-radius: 2px;
+    color: white;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 0.7em;
+    letter-spacing: 1px;
+    background-color: #9E87B1;
+    cursor: pointer;
+    outline: none;
+}
+.submit:hover {
+    opacity: 0.7;
+    transition: 0.5s;
+}
+.submit:hover {
+    opacity: 0.7;
+    transition: 0.5s;
+}

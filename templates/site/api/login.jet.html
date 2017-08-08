@@ -2,21 +2,31 @@
 {{import "layouts/partials/helpers/csrf"}}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login Page - Nyaa Pantsu Authentification API</title>
-</head>
-<body>
-<div>
-    <h1>Page authentification</h1>
-    <p>Please provide your login credentials before continuing</p>
-    {{ yield errors() }}
-    <form action="" method="POST">
-        <input type="text" name="username" /><br>
-        <input type="password" name="password" /><br>
-        {{ yield csrf_field()}}
-        <input type="submit">
-    </form>
-</div>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Login Page - Nyaa Pantsu Authentification API</title>
+        <link rel="stylesheet" type="text/css" href="/css/api.css">
+    </head>
+    <body>
+        <div class="container">
+            <img src="/img/logo.png" class="logo">
+            <div class="login-box">
+                <div class="box-header">
+                    <h2>Page Authentification</h2>
+                </div>
+                <p>Please provide your login credentials before continuing</p>
+                {{ yield errors() }}
+                <label for="username">Username</label>
+                <br/>
+                <input class="textarea" type="text" name="username" placeholder="Username" />
+                <br/>
+                <label for="password">Password</label>
+                <br/>
+                <input class="textarea" type="password" name="password" placeholder="Password" /><br>
+                <br/>
+                {{ yield csrf_field() }}
+                <input class="submit" type="submit" />
+            </div>
+        </div>
+    </body>
 </html>
