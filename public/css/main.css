@@ -794,6 +794,9 @@ html, body {
         width: 36px;
     }
     .header .h-search input { width: 84px !important; }
+    .tr-links {
+        width: 48px;
+    }
     .box {
         padding: 8px;
     }
@@ -865,8 +868,12 @@ html, body {
 }
 
 @media (max-width: 440px) {
-    .header .nav-btn { padding: 0px 3px!important;}
-    .form-input.form-category { width: 55px; }
+    .header .nav-btn { 
+        padding: 0px 3px!important;
+    }
+    .form-input.form-category { 
+	      width: 55px;
+    }
 }
 
 .up-input {
