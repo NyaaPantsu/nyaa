@@ -839,6 +839,7 @@ html, body {
 	width: 72px;
 	margin-right: -5px;
 	border-right: none;
+	border-radius: 3px 0 0 3px;
     }
     span.spacing {
 	display: none!important;
@@ -865,6 +866,7 @@ html, body {
 
 @media (max-width: 440px) {
     .header .nav-btn { padding: 0px 3px!important;}
+    .form-input.form-category { width: 55px; }
 }
 
 .up-input {
