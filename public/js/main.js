@@ -159,8 +159,8 @@ function startupCode() {
     if(UserTheme[0] == UserTheme[1])
 	  UserTheme[1] = "g"
     //If tomorrow is twice in UserTheme, which happens when the user already has tomorrow as his default theme and toggle the dark mode for the first time, we set the second theme as g.css
-    document.cookie = "theme2=" + UserTheme[1] + ";path=/;expires=" + farFutureString()
-	//Set cookie for future theme2 uses
+    document.cookie = "theme2=" + UserTheme[1] + ";path=/;domain=pantsu.cat;expires=" + farFutureString()
+    //Set cookie for future theme2 uses
   }
   
 }
