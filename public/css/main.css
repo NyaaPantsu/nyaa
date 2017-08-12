@@ -127,6 +127,7 @@ body {
 .nav-btn.log-in div {
     display: none;
     font-size: 17px;
+    line-height: 65px;
 }
 .header .h-search {
     margin-right: 6px;
