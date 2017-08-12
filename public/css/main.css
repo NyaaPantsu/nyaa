@@ -350,9 +350,9 @@ select.form-input {
     text-align: left;
 }
 
-.box.refine>h3 {
-    margin-top: 5px;
-    margin-bottom: 11px;
+.box.refine h3 {
+    margin-top: 1px;
+    margin-bottom: 10px;
 }
 
 .box.refine input[type="number"] {
@@ -363,8 +363,8 @@ select.form-input {
     width: 65px;
 }
 .box.refine .language {
-	position: absolute; 
-	right: 0;
+    position: absolute; 
+    right: 0;
 }
 
 .form-refine {
