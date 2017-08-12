@@ -52,7 +52,7 @@ Templates.Add("torrents.item", function(torrent) {
         </div></td>
         <td class="tr-name home-td"` +  colspan + `><a href="/view/` + torrent.id + `">` + Templates.EncodeEntities(torrent.name) + `</a></td>
         `+ commentTd +`
-        <td class="tr-links home-td` + (dlLink == "" ? " no-torrent" : "") + `">
+        <td class="tr-links home-td">
             <a href="` + torrent.magnet + `" title="{{ T("magnet_link") }}">
                 <div class="icon-magnet"></div>
             </a>`+ dlLink +`
