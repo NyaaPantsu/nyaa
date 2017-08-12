@@ -382,11 +382,13 @@ select.form-input {
     display: inline-block;
 }
 
-.form-refine .refine-searchbox::placeholder { opacity: 0; }
+.form-refine .refine-searchbox::placeholder {
+    opacity: 0;
+}
 .form-refine .refine-searchbox {
     border-radius: 3px 0 0 3px;
     width: 21%;
-    min-width: 190px;
+    min-width: 170px;
 }
 
 .form-refine .refine-category {
@@ -399,8 +401,13 @@ select.form-input {
 .box.refine > form > div {
 	display: flex;
 }
-.box.refine .refine-container-1 { width: 53%; }
-.box.refine .refine-container-2 { width: 47%; position: relative; }
+.box.refine .refine-container-1 {
+    width: 53%;
+}
+.box.refine .refine-container-2 {
+    width: 47%;
+    position: relative;
+}
 
 .categories a {
     display: inline-block;
@@ -409,16 +416,16 @@ select.form-input {
 }
 
 #announce { 
-	margin-bottom: 15px;
-	padding: 7px 10px;
-	background-color: #D9EDF7;
-	border: 1px solid #c4e1e8;
-	border-radius: 7px;
+    margin-bottom: 15px;
+    padding: 7px 10px;
+    background-color: #D9EDF7;
+    border: 1px solid #c4e1e8;
+    border-radius: 7px;
 }
 
 #announce:before { 
-	content: "!";
-	vertical-align: middle;
+    content: "!";
+    vertical-align: middle;
     float: left;
     margin: -2px 8px 0 0;
     font-size: 2.2em;
@@ -751,6 +758,9 @@ html, body {
     }
     .form-refine .refine-category {
 	max-width: 30%;
+    }
+    .form-refine .refine-searchbox {
+	min-width: 190px;
     }
     .hide-xs {
 	display: none !important;
