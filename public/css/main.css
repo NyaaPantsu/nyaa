@@ -386,13 +386,14 @@ select.form-input {
 .form-refine .refine-searchbox {
     border-radius: 3px 0 0 3px;
     width: 21%;
-    min-width: 170px;
+    min-width: 190px;
 }
 
 .form-refine .refine-category {
     border-left: none;
     border-radius: 0 3px 3px 0;
-    max-width: 42%;
+    max-width: 41%;
+    min-width: 162px;
 }
 
 .box.refine > form > div {
@@ -749,7 +750,7 @@ html, body {
 	margin-top: 5px;
     }
     .form-refine .refine-category {
-	max-width: 44%;
+	max-width: 30%;
     }
     .hide-xs {
 	display: none !important;
