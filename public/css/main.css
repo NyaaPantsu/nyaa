@@ -379,8 +379,10 @@ select.form-input {
 }
 
 .form-refine span.spacing {
-    min-width: 100px;
     display: inline-block;
+    width: 100px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .form-refine .refine-searchbox::placeholder {
