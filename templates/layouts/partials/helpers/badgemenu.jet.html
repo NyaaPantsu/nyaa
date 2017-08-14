@@ -12,9 +12,9 @@
   </button>
   <div class="user-menu">
     <a class="nav-btn" href="/user/{{ User.ID }}/{{ User.Username }}">{{ T("profile")}}</a>
-    <a class="nav-btn{{ User.GetUnreadNotifications() > 0 ? " notif " : " " }}" href="/notifications">
+    <a class="nav-btn notif" href="/notifications">
       {{  T("my_notifications")}}
-      <span class="badge">({{ User.GetUnreadNotifications() }})</span>
+      {{if User.GetUnreadNotifications() > 0}}<span class="badge">({{ User.GetUnreadNotifications() }})</span>{{end}}
     </a>
     <a class="nav-btn" href="/user/{{ User.ID }}/{{ User.Username }}/edit">
       {{ T("settings")}}
