@@ -68,12 +68,12 @@
 		<span class="spacing">{{T("sort_by")}}</span>
 		<select name="sort" class="form-input">
 			<option value="0">None</option>
-			<option value="1"{{if Search.SortType == "1"}}selected{{end}}>{{T("name")}}</option>
-			<option value="4"{{if Search.SortType == "4"}}selected{{end}}>{{T("size")}}</option>
-			<option value="5"{{if Search.SortType == "5"}}selected{{end}}>{{T("seeders")}}</option>
-			<option value="6"{{if Search.SortType == "6"}}selected{{end}}>{{T("leechers")}}</option>
-			<option value="7"{{if Search.SortType == "7"}}selected{{end}}>{{T("completed")}}</option>
-			<option value="2"{{if Search.SortType == "2"}}selected{{end}}>{{T("date")}}</option>
+			<option value="1"{{if Search.SortType == 1}}selected{{end}}>{{T("name")}}</option>
+			<option value="4"{{if Search.SortType == 4}}selected{{end}}>{{T("size")}}</option>
+			<option value="5"{{if Search.SortType == 5}}selected{{end}}>{{T("seeders")}}</option>
+			<option value="6"{{if Search.SortType == 6}}selected{{end}}>{{T("leechers")}}</option>
+			<option value="7"{{if Search.SortType == 7}}selected{{end}}>{{T("completed")}}</option>
+			<option value="2"{{if Search.SortType == 2}}selected{{end}}>{{T("date")}}</option>
 		</select>
 		<select name="order" class="form-input">
 			<option value="true">{{T("ascending")}}</option>
