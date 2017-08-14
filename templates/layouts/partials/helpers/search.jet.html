@@ -65,7 +65,7 @@
     {{ T("old")}}.
     </span>
 	<span class="form-refine show-xs" style="margin-bottom: 2px;">
-		<span class="spacing">{T("sort_by")}}</span>
+		<span class="spacing">{{T("sort_by")}}</span>
 		<select name="sort" class="form-input">
 			<option value="0">None</option>
 			<option value="1"{{if Search.SortType == "1"}}selected{{end}}>{{T("name")}}</option>
@@ -76,8 +76,8 @@
 			<option value="2"{{if Search.SortType == "2"}}selected{{end}}>{{T("date")}}</option>
 		</select>
 		<select name="order" class="form-input">
-			<option value="false">{{T("ascending")}}</option>
-			<option value="true"{{if Search.SortOrder}}selected{{end}}>{{T("descending")}}</option>
+			<option value="true">{{T("ascending")}}</option>
+			<option value="false"{{if !Search.SortOrder}}selected{{end}}>{{T("descending")}}</option>
 		</select>
 	</span>
     </div>
