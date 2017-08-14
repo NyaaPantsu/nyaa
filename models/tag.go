@@ -17,6 +17,7 @@ type Tag struct {
 	Type      string  `gorm:"column:type" json:"type"`
 	Weight    float64 `gorm:"column:weight" json:"weight"`
 	Total     float64 `gorm:"-" json:"total"`
+	Accepted  bool    `gorm:"-" json:"accepted"`
 }
 
 // Update a tag
@@ -73,6 +74,16 @@ func (ts *Tags) DeleteType(tagtype string) {
 		newTs = append(newTs, ta)
 	}
 	ts = &newTs
+}
+
+// HasAccepted check if a tag has been accepted in the tags map
+func (ts Tags) HasAccepted() bool {
+	for _, tag := range ts {
+		if tag.Accepted {
+			return true
+		}
+	}
+	return false
 }
 
 // Replace a tag in map of tags

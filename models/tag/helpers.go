@@ -29,43 +29,41 @@ func FilterOrCreate(tag *models.Tag, torrent *models.Torrent, currentUser *model
 		}
 		// if the total sum is greater than the maximum set in config
 		// and the tag is not a simple tag without defined type
-		if tag.Type != config.Get().Torrents.Tags.Default {
-			// we can select all the tags of the same type
-			tags, err := FindAll(tag.Type, torrent.ID)
-			if err != nil {
-				return false
-			}
-			// delete them and decrease/increase pantsu of the users who have voted wrongly/rightly
-			for _, toDelete := range tags {
-				// find the user who has voted for the tag
-				user, _, err := users.FindRawByID(toDelete.UserID)
-				if err != nil {
-					log.CheckErrorWithMessage(err, "USER_NOT_FOUND: Couldn't update pantsu points!")
-				}
-				// if the user exist
-				if user.ID > 0 {
-					// and if he has voted for the right tag value
-					if toDelete.Tag == tag.Tag {
-						// we increase his pantsu
-						user.IncreasePantsu()
-					} else {
-						// else we decrease them
-						user.DecreasePantsu()
-					}
-					// and finally we update the user so the changes take effect
-					user.Update()
-				}
-				// Not forget to delete the tag
-				toDelete.Delete()
-			}
-
-			// Same as for the other users, we increase his pantsus and update
-			currentUser.IncreasePantsu()
-			currentUser.Update() // we do it here since we didn't save the tag previously and didn't increase his pantsu
-
-			callbackOnType(&tagSum, torrent) // This callback will make different action depending on the tag type
-			return true
+		// we can select all the tags of the same type
+		tags, err := FindAll(tag.Type, torrent.ID)
+		if err != nil {
+			return false
 		}
+		// delete them and decrease/increase pantsu of the users who have voted wrongly/rightly
+		for _, toDelete := range tags {
+			// find the user who has voted for the tag
+			user, _, err := users.FindRawByID(toDelete.UserID)
+			if err != nil {
+				log.CheckErrorWithMessage(err, "USER_NOT_FOUND: Couldn't update pantsu points!")
+			}
+			// if the user exist
+			if user.ID > 0 {
+				// and if he has voted for the right tag value
+				if toDelete.Tag == tag.Tag {
+					// we increase his pantsu
+					user.IncreasePantsu()
+				} else {
+					// else we decrease them
+					user.DecreasePantsu()
+				}
+				// and finally we update the user so the changes take effect
+				user.Update()
+			}
+			// Not forget to delete the tag
+			toDelete.Delete()
+		}
+
+		// Same as for the other users, we increase his pantsus and update
+		currentUser.IncreasePantsu()
+		currentUser.Update() // we do it here since we didn't save the tag previously and didn't increase his pantsu
+
+		callbackOnType(&tagSum, torrent) // This callback will make different action depending on the tag type
+		return true
 	}
 	return false
 }
@@ -73,18 +71,7 @@ func FilterOrCreate(tag *models.Tag, torrent *models.Torrent, currentUser *model
 /// callbackOnType is a function which will perform different action depending on the tag type
 func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 	switch tag.Type {
-	case "anidbid":
-		// TODO: Perform a check that anidbid is in anidb database
-		if tag.TorrentID > 0 && torrent.ID > 0 {
-			torrent.DbID = tag.Tag
-			torrent.Update(false)
-		}
-	case "vndbid", "vgmdbid", "dlsite":
-		if tag.TorrentID > 0 && torrent.ID > 0 {
-			torrent.DbID = tag.Tag
-			torrent.Update(false)
-		}
-	default:
+	case config.Get().Torrents.Tags.Default:
 		if tag.TorrentID > 0 && torrent.ID > 0 {
 			// Some tag type can have default values that you have to choose from
 			// We, here, check that the tag is one of them
@@ -110,5 +97,14 @@ func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 			// and update the torrent
 			torrent.Update(false)
 		}
+	case "anidbid":
+		// TODO: Perform a check that anidbid is in anidb database
+		if tag.TorrentID > 0 && torrent.ID > 0 {
+			torrent.AnidbID = tag.Tag
+			// and update the torrent
+			torrent.Update(false)
+		}
+	default:
+		models.ORM.Set(fmt.Sprintf("%s = ?", tag.Type), tag.Tag).Where("torrent_id = ?", torrent.ID).Update(&models.Torrent{})
 	}
 }

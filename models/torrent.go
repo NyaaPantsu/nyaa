@@ -40,22 +40,27 @@ const (
 
 // Torrent model
 type Torrent struct {
-	ID           uint      `gorm:"column:torrent_id;primary_key"`
-	Name         string    `gorm:"column:torrent_name"`
-	Hash         string    `gorm:"column:torrent_hash;unique"`
-	Category     int       `gorm:"column:category"`
-	SubCategory  int       `gorm:"column:sub_category"`
-	Status       int       `gorm:"column:status"`
-	Hidden       bool      `gorm:"column:hidden"`
-	Date         time.Time `gorm:"column:date"`
-	UploaderID   uint      `gorm:"column:uploader"`
-	Stardom      int       `gorm:"column:stardom"`
-	Filesize     int64     `gorm:"column:filesize"`
-	Description  string    `gorm:"column:description"`
-	WebsiteLink  string    `gorm:"column:website_link"`
-	DbID         string    `gorm:"column:db_id"`
-	Trackers     string    `gorm:"column:trackers"`
-	AcceptedTags string    `gorm:"column:tags"`
+	ID          uint      `gorm:"column:torrent_id;primary_key"`
+	Name        string    `gorm:"column:torrent_name"`
+	Hash        string    `gorm:"column:torrent_hash;unique"`
+	Category    int       `gorm:"column:category"`
+	SubCategory int       `gorm:"column:sub_category"`
+	Status      int       `gorm:"column:status"`
+	Hidden      bool      `gorm:"column:hidden"`
+	Date        time.Time `gorm:"column:date"`
+	UploaderID  uint      `gorm:"column:uploader"`
+	Stardom     int       `gorm:"column:stardom"`
+	Filesize    int64     `gorm:"column:filesize"`
+	Description string    `gorm:"column:description"`
+	WebsiteLink string    `gorm:"column:website_link"`
+	Trackers    string    `gorm:"column:trackers"`
+
+	// Torrent Details
+	AnidbID      string `gorm:"column:anidbid"`
+	VndbID       string `gorm:"column:vndbid"`
+	VgmdbID      string `gorm:"column:vgmdbid"`
+	Dlsite       string `gorm:"column:dlsite"`
+	AcceptedTags string `gorm:"column:tags"`
 	// Indicates the language of the torrent's content (eg. subs, dubs, raws, manga TLs)
 	Language  string `gorm:"column:language"`
 	DeletedAt *time.Time
@@ -99,7 +104,8 @@ type TorrentJSON struct {
 	Completed    uint32        `json:"completed"`
 	LastScrape   time.Time     `json:"last_scrape"`
 	FileList     []FileJSON    `json:"file_list"`
-	Tags         Tags          `json:"-"` // not needed in json to reduce db calls
+	Tags         Tags          `json:"-"`    // not needed in json to reduce db calls
+	AcceptedTags Tags          `json:"tags"` // not needed in json to reduce db calls
 }
 
 // Size : Returns the total size of memory recursively allocated for this struct
@@ -441,9 +447,19 @@ func (t *Torrent) toMap() map[string]interface{} {
 func (t *Torrent) LoadTags() {
 	// Only load if necessary
 	if len(t.Tags) == 0 {
+		var acceptedTags Tags
+		// Split accepted tags
+		tags := strings.Split(t.AcceptedTags, ",")
+		for _, tag := range tags {
+			if tag != "" {
+				acceptedTags = append(acceptedTags, Tag{Tag: tag, Type: config.Get().Torrents.Tags.Default, Total: config.Get().Torrents.Tags.MaxWeight, Accepted: true})
+			}
+		}
 		// Should output a query like this: SELECT tag, type, accepted, SUM(weight) as total FROM tags WHERE torrent_id=923000 GROUP BY type, tag ORDER BY type, total DESC
-		err := ORM.Select("tag, type, accepted, SUM(weight) as total").Where("torrent_id = ?", t.ID).Group("type, tag").Order("type ASC, total DESC").Find(&t.Tags).Error
-		log.CheckErrorWithMessage(err, "LOAD_TAGS_ERROR: Couldn't load tags!")
+		err := ORM.Select("tag, type, SUM(weight) as total").Where("torrent_id = ?", t.ID).Group("type, tag").Order("type ASC, total DESC").Find(&t.Tags).Error
+		log.CheckErrorWithMessage(err, "LOAD_TAGS_ERROR: Couldn't load tags from DB!")
+		// In order, the first ones are always accepted tags
+		t.Tags = append(acceptedTags, t.Tags...)
 	}
 }
 

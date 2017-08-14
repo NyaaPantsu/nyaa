@@ -2,6 +2,7 @@
 {{ import "layouts/partials/helpers/csrf" }}
 {{ import "layouts/partials/helpers/captcha" }}
 {{ import "layouts/partials/helpers/errors" }}
+{{ import "layouts/partials/helpers/tags" }}
 {{ import "layouts/partials/helpers/treeview" }}
 {{block title()}}{{Torrent.Name}}{{end}}
 {{block content_body()}}
@@ -65,21 +66,26 @@
       </td>
     </tr>
     {{end}}
+    {{ if Torrent.AnidbID != "" || Torrent.VndbID != "" || Torrent.VgmdbID != "" || Torrent.Dlsite != "" }}
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("related_to") }}</td>
+      <td class="tr-flag torrent-view-td torrent-info-data">
+        {{ if Torrent.AnidbID != "" }}<span>{{ T("tagtype_anidbid") }}: {{ Torrent.AnidbID }}</span>{{end}}
+        {{ if Torrent.VndbID != "" }}<span>{{ T("tagtype_vndbid") }}: {{ Torrent.VndbID }}</span>{{end}}
+        {{ if Torrent.VgmdbID != "" }}<span>{{ T("tagtype_vgmdbid") }}: {{ Torrent.VgmdbID }}</span>{{end}}
+        {{ if Torrent.Dlsite != "" }}<span>{{ T("tagtype_dlsite") }}: {{ Torrent.Dlsite }}</span>{{end}}
+      </td>
+    </tr>
+    {{ end }}
 	 {{ if Torrent.Tags.HasAccepted() || User.ID > 0 }}
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("torrent_tags")}}:</td>
       <td class="tr-flag torrent-view-td torrent-info-data" id="tags-torrent">
-        {{ range Torrent.Tags }}
-		    {{if .Accepted || User.ID > 0 }}
-        <span class="tag{{ if len(Torrent.Tags) > 5 }} big{{ end }}{{ if !.Accepted }} pending{{else}} accepted{{end}}" title="Tag: {{ .Type }} ({{ if !.Accepted }}{{ .Total }}{{else}}{{ T("accepted") }}{{end}})"{{ if !.Accepted }} data-weight="{{ .Total }}"{{end}}>
-          <span class="tag-text{{ if User.ID > 0 }} votable{{end}}">
-          {{ T("tagtype_" + .Type) }}: {{ .Tag }}
-          </span>
-        {{ if !.Accepted }}
-          <a href="/torrent/tag/{{ if User.Tags.Contains(.) }}remove{{else}}add{{end}}?id={{Torrent.ID}}&tag={{ .Tag }}&type={{ .Type }}" class="tag-form {{ if User.Tags.Contains(.) }}minus{{else}}plus{{end}}{{if .Accepted}} accepted{{end}}"></a>
-        {{ end }}
-        </span>
+        {{ range Torrent.AcceptedTags }}
+          {{ yield tag(tag=., accepted=true, user=User, torrent=Torrent) }}
         {{end}}
+        {{ range Torrent.Tags }}
+          {{ yield tag(tag=., accepted=false, user=User, torrent=Torrent) }}
         {{end}}
         {{ if User.ID > 0 }}<a id="tagPopup" href="/torrent/tag?id={{ Torrent.ID }}" class="add-tag">{{ T("add") }}</a>{{ end }}
       </td>
