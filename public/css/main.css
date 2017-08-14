@@ -379,8 +379,10 @@ select.form-input {
 }
 
 .form-refine span.spacing {
-    min-width: 100px;
     display: inline-block;
+    width: 100px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .form-refine .refine-searchbox::placeholder {
@@ -793,9 +795,16 @@ html, body {
     .header .h-user {
         width: 46px;
     }
-    .header .h-user .user-avatar { margin: 0;} 
-    .header .h-user { max-width: 46px; width: auto; }
-    .header .h-user .user-menu { right: 104px;}
+    .header .h-user .user-avatar {
+	margin: 0;
+    } 
+    .header .h-user {
+	max-width: 46px;
+	width: auto;
+    }
+    .header .h-user .user-menu {
+        right: 104px;
+    }
     .box {
         padding: 7px;
     }
@@ -805,26 +814,44 @@ html, body {
     .tr-se, .tr-le {
         width: 36px;
     }
-    .header .h-search input { width: 84px !important; }
-    .tr-links {
-        width: 48px;
+    .header .h-search input {
+	width: 84px !important;
     }
     .box {
         padding: 8px;
     }
-    .torrent-hr { margin-bottom: 0; }
+    .torrent-hr {
+	margin-bottom: 0;
+    }
 }
 
-@media (max-height: 750px) {
-	.header { height: 56px; }
-	.header .container>div { line-height: 58px; padding: 0 0.6rem; }
-	.header .h-logo img { height: 57px; padding: 5px 8px 5px 2px; }
-	.header .h-user .nav-btn { height: 57px; }
-	#content { top: 58px; }
-	#content.content-admin { top: 108px; }
+@media (max-height: 750px),(max-width: 500px) {
+    .header {
+	height: 56px;
+    }
+    .header .container > div {
+	line-height: 58px; padding: 0 0.6rem;
+    }
+    .header .h-logo img {
+	height: 57px; padding: 5px 8px 5px 2px;
+    }
+    .header .h-user .nav-btn {
+	height: 57px;
+    }
 	
-	h3 { margin-bottom: 5px; }
-	.form-refine { margin-bottom: 8px; }
+    #content {
+	top: 58px;
+    }
+    #content.content-admin {
+	top: 108px;
+    }
+	
+    h3 {
+	margin-bottom: 5px;
+    }
+    .form-refine {
+	margin-bottom: 8px;
+    }
 }
 
 @media (max-width: 565px) {
