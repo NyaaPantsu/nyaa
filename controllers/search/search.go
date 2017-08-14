@@ -64,6 +64,10 @@ func SearchHandler(c *gin.Context) {
 	if c.Query("order") == "true" {
 		searchForm.SortOrder = true
 	}
+	searchForm.SortType, err = strconv.Atoi(c.Query("sort"))
+	if err != nil {
+		searchForm.SortType = 0
+	}
 	
 	maxPages := math.Ceil(float64(nbTorrents) / float64(searchParam.Max))
 	if pagenum > int(maxPages) {
