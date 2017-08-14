@@ -765,6 +765,9 @@ html, body {
     .hide-xs {
 	display: none !important;
     }
+    .show-xs {
+	display: inline-block!important;
+    }
 }
 
 @media (max-width: 810px) {
@@ -1808,10 +1811,16 @@ span.tag {
     border-bottom-right-radius: 1rem;
     padding: 2px 0.5rem 2px 0.4rem;
     display: inline-block;
-	color: black;
-	background: #e8f3f7;
+    color: black;
+    background: #e8f3f7;
 }
-.tag.pending a.tag-form { border-left: 1px solid #d8d8d8; }
+.tag.pending a.tag-form {
+    border-left: 1px solid #d8d8d8;
+}
+
+.show-xs {
+    display: none;
+}
 
 /* Language specific CSS */
 
