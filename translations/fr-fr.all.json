@@ -1624,6 +1624,10 @@
     "translation": "Affiner votre recherche"
   },
   {
+    "id": "refine",
+    "translation": "Affiner"
+  },
+  {
     "id": "between",
     "translation": "Entre"
   },
@@ -1644,10 +1648,6 @@
     "translation": "années"
   },
   {
-    "id": "refine",
-    "translation": "Affiner"
-  },
-  {
     "id": "large",
     "translation": "de taille."
   },
@@ -1666,6 +1666,18 @@
   {
     "id": "show",
     "translation": "Afficher"
+  },
+  {
+    "id": "sort_by",
+    "translation": "Trier par"
+  },
+  {
+    "id": "ascending",
+    "translation": "Ascendant"
+  },
+  {
+    "id": "descending",
+    "translation": "Descendant"
   },
   {
     "id": "username_taken",
