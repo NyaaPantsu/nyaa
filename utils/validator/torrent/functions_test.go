@@ -7,8 +7,10 @@ import (
 	"strings"
 
 	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/categories"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/validator/tag"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -192,4 +194,24 @@ func TestValidateTags(t *testing.T) {
 		assert.Equal(test.Expected, r.Tags, "Validation of torrent tags for '%v' doesn't give the expected result, have '%v', wants '%v'", test.Test, r.Tags, test.Expected)
 	}
 
+}
+
+func TestTagsRequest_Bind(t *testing.T) {
+	r := TorrentRequest{}
+	assert := assert.New(t)
+	tests := []struct {
+		Test     *models.Torrent
+		Expected TagsRequest
+		Error    error
+	}{
+		{&models.Torrent{}, nil, nil},
+		{&models.Torrent{AnidbID: "x"}, TagsRequest{tagsValidator.CreateForm{Tag: "x", Type: "anidbid"}}, nil},
+		{&models.Torrent{AnidbID: "x", VndbID: "l"}, TagsRequest{tagsValidator.CreateForm{Tag: "x", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "x", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "l", Type: "vndbid"}}, nil},
+		{&models.Torrent{AnidbID: "x", VndbID: "l", VgmdbID: "m", Dlsite: "d", AcceptedTags: "ddd,ddd,ddd", VideoQuality: "full_hd"}, TagsRequest{tagsValidator.CreateForm{Tag: "x", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "x", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "l", Type: "vndbid"}, tagsValidator.CreateForm{Tag: "x", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "l", Type: "vndbid"}, tagsValidator.CreateForm{Tag: "d", Type: "dlsite"}, tagsValidator.CreateForm{Tag: "m", Type: "vgmdbid"}, tagsValidator.CreateForm{Tag: "full_hd", Type: "videoquality"}}, nil},
+	}
+	for _, test := range tests {
+		err := r.Tags.Bind(test.Test)
+		assert.Equal(test.Error, err, "Validation of torrent tags for '%v' doesn't give the expected error, have '%v', wants '%v'", test.Test, err, test.Error)
+		assert.Equal(test.Expected, r.Tags, "Validation of torrent tags for '%v' doesn't give the expected result, have '%v', wants '%v'", test.Test, r.Tags, test.Expected)
+	}
 }

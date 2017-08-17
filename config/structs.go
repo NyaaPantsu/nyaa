@@ -48,9 +48,16 @@ type Config struct {
 
 // Tags Config struct for tags in torrent
 type Tags struct {
-	MaxWeight float64                `yaml:"max_weight,omitempty"`
-	Default   string                 `yaml:"default,omitempty"`
-	Types     map[string]ArrayString `yaml:"types,omitempty"`
+	MaxWeight float64   `yaml:"max_weight,omitempty"`
+	Default   string    `yaml:"default,omitempty"`
+	Types     []TagType `yaml:"types,flow,omitempty"`
+}
+
+// TagType Config struct for tag type in torrent
+type TagType struct {
+	Name     string      `yaml:"name"`
+	Defaults ArrayString `yaml:"defaults"`
+	Field    string      `yaml:"field"`
 }
 
 // WebAddressConfig : Config struct for web addresses
@@ -126,7 +133,7 @@ type TorrentsConfig struct {
 	Trackers                      TrackersConfig    `yaml:"trackers,flow,omitempty"`
 	Order                         string            `yaml:"order,omitempty"`
 	Sort                          string            `yaml:"sort,omitempty"`
-	Tags                          Tags              `yaml:"tags,omitempty"`
+	Tags                          Tags              `yaml:"tags,flow,omitempty"`
 }
 
 // UsersConfig : Config struct for Users

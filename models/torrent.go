@@ -60,6 +60,7 @@ type Torrent struct {
 	VndbID       string `gorm:"column:vndbid"`
 	VgmdbID      string `gorm:"column:vgmdbid"`
 	Dlsite       string `gorm:"column:dlsite"`
+	VideoQuality string `gorm:"column:videoquality"`
 	AcceptedTags string `gorm:"column:tags"`
 	// Indicates the language of the torrent's content (eg. subs, dubs, raws, manga TLs)
 	Language  string `gorm:"column:language"`
@@ -80,18 +81,26 @@ type Torrent struct {
 
 // TorrentJSON for torrent model in json for api
 type TorrentJSON struct {
-	ID           uint          `json:"id"`
-	Name         string        `json:"name"`
-	Status       int           `json:"status"`
-	Hidden       bool          `json:"-"`
-	Hash         string        `json:"hash"`
-	Date         string        `json:"date"`
-	Filesize     int64         `json:"filesize"`
-	Description  template.HTML `json:"description"`
-	Comments     []CommentJSON `json:"comments"`
-	SubCategory  string        `json:"sub_category"`
-	Category     string        `json:"category"`
-	DbID         string        `json:"db_id"`
+	ID          uint          `json:"id"`
+	Name        string        `json:"name"`
+	Status      int           `json:"status"`
+	Hidden      bool          `json:"-"`
+	Hash        string        `json:"hash"`
+	Date        string        `json:"date"`
+	Filesize    int64         `json:"filesize"`
+	Description template.HTML `json:"description"`
+	Comments    []CommentJSON `json:"comments"`
+	SubCategory string        `json:"sub_category"`
+	Category    string        `json:"category"`
+
+	// Torrent DBID
+	AnidbID      string `json:"anidbid"`
+	VndbID       string `json:"vndbid"`
+	VgmdbID      string `json:"vgmdbid"`
+	Dlsite       string `json:"dlsite"`
+	VideoQuality string `json:"videoquality"`
+	AcceptedTags Tags   `json:"tags"`
+
 	UploaderID   uint          `json:"uploader_id"`
 	UploaderName template.HTML `json:"uploader_name"`
 	OldUploader  template.HTML `json:"uploader_old"`
@@ -104,8 +113,7 @@ type TorrentJSON struct {
 	Completed    uint32        `json:"completed"`
 	LastScrape   time.Time     `json:"last_scrape"`
 	FileList     []FileJSON    `json:"file_list"`
-	Tags         Tags          `json:"-"`    // not needed in json to reduce db calls
-	AcceptedTags Tags          `json:"tags"` // not needed in json to reduce db calls
+	Tags         Tags          `json:"-"` // not needed in json to reduce db calls
 }
 
 // Size : Returns the total size of memory recursively allocated for this struct
@@ -250,6 +258,10 @@ func (t *TorrentJSON) ToTorrent() Torrent {
 		Status:      t.Status,
 		Date:        date,
 		UploaderID:  t.UploaderID,
+		AnidbID:     t.AnidbID,
+		VndbID:      t.VndbID,
+		VgmdbID:     t.VgmdbID,
+		Dlsite:      t.Dlsite,
 		//Stardom: t.Stardom,
 		Filesize:    t.Filesize,
 		Description: string(t.Description),
@@ -356,6 +368,19 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		LastScrape:   scrape.LastScrape,
 		FileList:     fileListJSON,
 		Tags:         t.Tags,
+		AnidbID:      t.AnidbID,
+		VndbID:       t.VndbID,
+		VgmdbID:      t.VgmdbID,
+		Dlsite:       t.Dlsite,
+		VideoQuality: t.VideoQuality,
+	}
+
+	// Split accepted tags
+	tags := strings.Split(t.AcceptedTags, ",")
+	for _, tag := range tags {
+		if tag != "" {
+			res.AcceptedTags = append(res.AcceptedTags, Tag{Tag: tag, Type: config.Get().Torrents.Tags.Default, Total: config.Get().Torrents.Tags.MaxWeight, Accepted: true})
+		}
 	}
 
 	return res
@@ -447,19 +472,9 @@ func (t *Torrent) toMap() map[string]interface{} {
 func (t *Torrent) LoadTags() {
 	// Only load if necessary
 	if len(t.Tags) == 0 {
-		var acceptedTags Tags
-		// Split accepted tags
-		tags := strings.Split(t.AcceptedTags, ",")
-		for _, tag := range tags {
-			if tag != "" {
-				acceptedTags = append(acceptedTags, Tag{Tag: tag, Type: config.Get().Torrents.Tags.Default, Total: config.Get().Torrents.Tags.MaxWeight, Accepted: true})
-			}
-		}
 		// Should output a query like this: SELECT tag, type, accepted, SUM(weight) as total FROM tags WHERE torrent_id=923000 GROUP BY type, tag ORDER BY type, total DESC
 		err := ORM.Select("tag, type, SUM(weight) as total").Where("torrent_id = ?", t.ID).Group("type, tag").Order("type ASC, total DESC").Find(&t.Tags).Error
 		log.CheckErrorWithMessage(err, "LOAD_TAGS_ERROR: Couldn't load tags from DB!")
-		// In order, the first ones are always accepted tags
-		t.Tags = append(acceptedTags, t.Tags...)
 	}
 }
 

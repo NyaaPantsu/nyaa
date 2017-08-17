@@ -6,6 +6,7 @@ import (
 	"io"
 	"mime/multipart"
 	"net/url"
+	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
@@ -314,4 +315,31 @@ func (f *ReassignForm) ExtractInfo(c *gin.Context) bool {
 	}
 
 	return true
+}
+
+// Get check if the tag map has the same tag in it (tag value + tag type)
+func (ts TagsRequest) Get(tagType string) tagsValidator.CreateForm {
+	for _, ta := range ts {
+		if ta.Type == tagType {
+			return ta
+		}
+	}
+	return tagsValidator.CreateForm{}
+}
+
+// Bind a torrent model with its tags to the tags request
+func (ts *TagsRequest) Bind(torrent interface{}) error {
+	for _, tagConf := range config.Get().Torrents.Tags.Types {
+		if tagConf.Field == "" {
+			return errMissingFieldConfig
+		}
+		tagField := reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field)
+		if !tagField.IsValid() {
+			return errWrongFieldConfig
+		}
+		if tagField.String() != "" {
+			*ts = append(*ts, tagsValidator.CreateForm{Type: tagConf.Name, Tag: tagField.String()})
+		}
+	}
+	return nil
 }

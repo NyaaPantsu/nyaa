@@ -54,13 +54,3 @@ type ReassignForm struct {
 
 // TagsRequest is a map of Tag
 type TagsRequest []tagsValidator.CreateForm
-
-// Get check if the tag map has the same tag in it (tag value + tag type)
-func (ts TagsRequest) Get(tagType string) tagsValidator.CreateForm {
-	for _, ta := range ts {
-		if ta.Type == tagType {
-			return ta
-		}
-	}
-	return tagsValidator.CreateForm{}
-}

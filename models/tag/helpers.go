@@ -1,7 +1,7 @@
 package tags
 
 import (
-	"fmt"
+	"reflect"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
@@ -83,20 +83,6 @@ func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 	switch tag.Type {
 	case config.Get().Torrents.Tags.Default:
 		if tag.TorrentID > 0 && torrent.ID > 0 {
-			// Some tag type can have default values that you have to choose from
-			// We, here, check that the tag is one of them
-			for key, defaults := range config.Get().Torrents.Tags.Types {
-				// We look for the tag type in config
-				if key == tag.Type {
-					// and then check that the value is in his defaults if defaults are set
-					if len(defaults) > 0 && !defaults.Contains(tag.Tag) {
-						// if not we return the function
-						return
-					}
-					// if it's good, we break of the loop
-					break
-				}
-			}
 			// We check if the torrent has already accepted tags
 			if torrent.AcceptedTags != "" {
 				// if yes we append to it a comma before inserting the tag
@@ -115,6 +101,22 @@ func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 			torrent.Update(false)
 		}
 	default:
-		models.ORM.Set(fmt.Sprintf("%s = ?", tag.Type), tag.Tag).Where("torrent_id = ?", torrent.ID).Update(&models.Torrent{})
+		// Some tag type can have default values that you have to choose from
+		// We, here, check that the tag is one of them
+		for _, tagConf := range config.Get().Torrents.Tags.Types {
+			// We look for the tag type in config
+			if tagConf.Name == tag.Type {
+				// and then check that the value is in his defaults if defaults are set
+				if len(tagConf.Defaults) > 0 && tagConf.Defaults[0] != "db" && !tagConf.Defaults.Contains(tag.Tag) {
+					// if not we return the function
+					return
+				}
+				// We overwrite the tag type in the torrent model
+				reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).SetString(tag.Tag)
+				// if it's good, we break of the loop
+				break
+			}
+		}
+		torrent.Update(false)
 	}
 }

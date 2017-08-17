@@ -15,20 +15,21 @@ var _ = func() (_ struct{}) {
 	return
 }()
 
-func TestCheckTagType(t *testing.T) {
+func TestCheck(t *testing.T) {
 	tests := []struct {
-		Type     string
+		Tag      []string
 		Expected bool
 	}{
-		{"", false},
-		{"akuma06", false},
-		{"quality", true},
-		{"anidb", false},
+		{[]string{"", ""}, false},
+		{[]string{"akuma06", ""}, false},
+		{[]string{"videoquality", "full_hd"}, true},
+		{[]string{"anidbid", ""}, false},
+		{[]string{"anidbid", "20"}, true},
 	}
 	for _, test := range tests {
-		b := CheckTagType(test.Type)
+		b := Check(test.Tag[0], test.Tag[1])
 		if b != test.Expected {
-			t.Errorf("Error when checking tag type '%s', want '%t', got '%t'", test.Type, test.Expected, b)
+			t.Errorf("Error when checking tag type '%v', want '%t', got '%t'", test.Tag, test.Expected, b)
 		}
 	}
 }
