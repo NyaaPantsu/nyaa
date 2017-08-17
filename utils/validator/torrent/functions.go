@@ -3,7 +3,6 @@ package torrentValidator
 import (
 	"encoding/base32"
 	"encoding/hex"
-	"encoding/json"
 	"io"
 	"mime/multipart"
 	"net/url"
@@ -15,7 +14,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/categories"
 	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/NyaaPantsu/nyaa/utils/format"
-	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/metainfo"
 	"github.com/NyaaPantsu/nyaa/utils/torrentLanguages"
@@ -24,6 +22,7 @@ import (
 	"github.com/zeebo/bencode"
 )
 
+// ValidateName is a function validating the torrent name
 func (r *TorrentRequest) ValidateName() error {
 	// then actually check that we have everything we need
 	if len(r.Name) == 0 {
@@ -32,34 +31,23 @@ func (r *TorrentRequest) ValidateName() error {
 	return nil
 }
 
-func (r *TorrentRequest) ValidateTags() error {
-	// We need to parse it to json
-	var tags []tagsValidator.CreateForm
-	err := json.Unmarshal([]byte(r.Tags), &tags)
-	if err != nil {
-		r.Tags = ""
-		return errTorrentTagsInvalid
-	}
+// ValidateTags is a function validating tags by removing duplicate entries
+func (r *TorrentRequest) ValidateTags() {
 	// and filter out multiple tags with the same type (only keep the first one)
 	var index config.ArrayString
-	var filteredTags []tagsValidator.CreateForm
-	for _, tag := range tags {
-		if index.Contains(tag.Type) {
+	filteredTags := []tagsValidator.CreateForm{}
+	for _, tag := range r.Tags {
+		if index.Contains(tag.Type) || tag.Type == "" || tag.Tag == "" {
 			continue
 		}
 		filteredTags = append(filteredTags, tag)
 		index = append(index, tag.Type)
 	}
-	b, err := json.Marshal(filteredTags)
-	if err != nil {
-		r.Tags = ""
-		log.Infof("Couldn't parse to json the tags %v", filteredTags)
-		return errTorrentTagsInvalid
-	}
-	r.Tags = string(b)
-	return nil
+
+	r.Tags = filteredTags
 }
 
+// ValidateDescription is a function validating description length
 func (r *TorrentRequest) ValidateDescription() error {
 	if len(r.Description) > config.Get().DescriptionLength {
 		return errTorrentDescInvalid
@@ -67,6 +55,7 @@ func (r *TorrentRequest) ValidateDescription() error {
 	return nil
 }
 
+// ValidateMagnet is a function validating a magnet uri format
 func (r *TorrentRequest) ValidateMagnet() error {
 	magnetURL, err := url.Parse(string(r.Magnet)) //?
 	if err != nil {
@@ -82,6 +71,7 @@ func (r *TorrentRequest) ValidateMagnet() error {
 	return nil
 }
 
+// ValidateWebsiteLink is a function validating a website link
 func (r *TorrentRequest) ValidateWebsiteLink() error {
 	if r.WebsiteLink != "" {
 		// WebsiteLink
@@ -93,6 +83,7 @@ func (r *TorrentRequest) ValidateWebsiteLink() error {
 	return nil
 }
 
+// ValidateHash is a function validating a torrent hash
 func (r *TorrentRequest) ValidateHash() error {
 	isBase32, err := regexp.MatchString("^[2-7A-Z]{32}$", r.Infohash)
 	if err != nil {

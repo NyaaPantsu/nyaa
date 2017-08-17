@@ -20,30 +20,45 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// postTag is a function used by controllers to post a tag
-func postTag(c *gin.Context, torrent *models.Torrent, user *models.User) *models.Tag {
+// postTags is a function used by controllers to post tags
+func postTags(c *gin.Context, torrent *models.Torrent, user *models.User) []models.Tag {
+	var newTags []models.Tag
 	messages := msg.GetMessages(c)
-	tagForm := &tagsValidator.CreateForm{}
-
-	c.Bind(tagForm)
-	validator.ValidateForm(tagForm, messages)
-
-	// We check that the tag type sent is one enabled in config.yml
-	if !tagsValidator.Check(tagForm.Type, tagForm.Tag) {
+	// Bind already check if a tag is valid or not
+	tagsForm := tagsValidator.Bind(c)
+	if len(tagsForm) == 0 {
 		messages.ErrorT(errors.New("wrong_tag_type"))
 		return nil
 	}
-	if len(user.Tags) == 0 { // In case we didn't call userLoadTags before calling this function
-		user.LoadTags(torrent)
-	}
-	newTag := models.Tag{Tag: tagForm.Tag, Type: tagForm.Type, UserID: user.ID, TorrentID: torrent.ID, Weight: user.Pantsu}
-	if user.Tags.Contains(newTag) {
-		log.Info("User has already tagged the type for the torrent")
-		return nil
-	}
+	for _, tagForm := range tagsForm {
+		// We validate the tag CreateForm
+		validator.ValidateForm(tagForm, messages)
+		if messages.HasErrors() { // if there are errors while validating the form, we skip it
+			continue
+		}
 
-	tags.FilterOrCreate(&newTag, torrent, user) // Add a tag to the db and filter them if needed
-	return &newTag
+		if len(user.Tags) == 0 { // In case we didn't call userLoadTags before calling this function
+			user.LoadTags(torrent)
+		}
+
+		newTag := models.Tag{Tag: tagForm.Tag, Type: tagForm.Type, UserID: user.ID, TorrentID: torrent.ID, Weight: user.Pantsu}
+		if user.Tags.Contains(newTag) {
+			// We check if the user has already submitted this tag, if he has, we prevent him to vote twice for it
+			log.Info("User has already tagged the type for the torrent")
+			return nil
+		}
+
+		// Add a tag to the db and filter them if needed
+		// Filtering means that we sum up all the tag with the same type/value
+		// and compare the sum with the maximum value (of votes) a tag can have
+		// if the value is greater than the maximum, we don't add the tag as a simple vote
+		// we add it directly in torrent model as an accepted tag and remove other tags with the same type
+		if tags.FilterOrCreate(&newTag, torrent, user) {
+			newTags = append(newTags, newTag)
+		}
+
+	}
+	return newTags
 }
 
 // ViewFormTag is a controller displaying a form to add a tag to a torrent
@@ -61,7 +76,8 @@ func ViewFormTag(c *gin.Context) {
 	}
 
 	// We add a tag if posted
-	if c.PostForm("tag") != "" && user.ID > 0 {
+	if user.ID > 0 {
+
 		// We load tags for user so we can check if they have them
 		user.LoadTags(torrent)
 		tag := postTag(c, torrent, user)

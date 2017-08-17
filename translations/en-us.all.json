@@ -2002,5 +2002,9 @@
   {
     "id": "expire",
     "translation": "Expire"
+  },
+  {
+    "id": "complement",
+    "translation": "Complement"
   }
 ]

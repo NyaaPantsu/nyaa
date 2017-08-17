@@ -1,6 +1,9 @@
 package tagsValidator
 
-import "github.com/NyaaPantsu/nyaa/config"
+import (
+	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/gin-gonic/gin"
+)
 
 // Check if a tag type exist and if it does, if the tag value is part of the defaults
 func Check(tagType string, tag string) bool {
@@ -15,4 +18,18 @@ func Check(tagType string, tag string) bool {
 		}
 	}
 	return false
+}
+
+// Bind a post request to tags
+func Bind(c *gin.Context) []CreateForm {
+	var tags []CreateForm
+	for key, defaults := range config.Get().Torrents.Tags.Types {
+		if value := c.PostForm("tag_" + key); value != "" {
+			if len(defaults) > 0 && defaults[0] != "db" && !defaults.Contains(value) {
+				continue
+			}
+			tags = append(tags, CreateForm{Tag: value, Type: key})
+		}
+	}
+	return tags
 }

@@ -9,6 +9,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/categories"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/stretchr/testify/assert"
 )
 
 // run before config/parse.go:init()
@@ -175,22 +176,20 @@ func TestExtractLanguage(t *testing.T) {
 
 func TestValidateTags(t *testing.T) {
 	r := TorrentRequest{}
+	assert := assert.New(t)
 	tests := []struct {
-		Test     string
-		Expected error
+		Test     TagsRequest
+		Expected TagsRequest
 	}{
-		{"", errTorrentTagsInvalid},
-		{`{"":"","":""}`, errTorrentTagsInvalid},
-		{`{"tag":"xD","type":"lol"}`, errTorrentTagsInvalid},
-		{`[{"tag":"xD","type":"lol"}]`, nil},
-		{`[{"tag":"xD","type":"lol"},{"tag":"xD","type":"lol"}]`, nil},
+		{TagsRequest{}, TagsRequest{}},
+		{TagsRequest{{Tag: "", Type: ""}}, TagsRequest{}},
+		{TagsRequest{{Tag: "xx", Type: "lol"}}, TagsRequest{{Tag: "xx", Type: "lol"}}},
+		{TagsRequest{{Tag: "xx", Type: "lol"}, {Tag: "xxs", Type: "lol"}}, TagsRequest{{Tag: "xx", Type: "lol"}}},
 	}
 	for _, test := range tests {
 		r.Tags = test.Test
-		err := r.ValidateTags()
-		if err != test.Expected {
-			t.Errorf("Validation of torrent hash for '%s' doesn't give the expected result, have '%v', wants '%v'", test.Test, err, test.Expected)
-		}
+		r.ValidateTags()
+		assert.Equal(test.Expected, r.Tags, "Validation of torrent tags for '%v' doesn't give the expected result, have '%v', wants '%v'", test.Test, r.Tags, test.Expected)
 	}
 
 }

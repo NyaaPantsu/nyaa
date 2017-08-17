@@ -4,6 +4,7 @@
 {{ import "layouts/partials/helpers/errors" }}
 {{ import "layouts/partials/helpers/tags" }}
 {{ import "layouts/partials/helpers/treeview" }}
+{{ import "layouts/partials/helpers/tag_form" }}
 {{block title()}}{{Torrent.Name}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
@@ -87,7 +88,7 @@
         {{ range Torrent.Tags }}
           {{ yield tag(tag=., accepted=false, user=User, torrent=Torrent) }}
         {{end}}
-        {{ if User.ID > 0 }}<a id="tagPopup" href="/torrent/tag?id={{ Torrent.ID }}" class="add-tag">{{ T("add") }}</a>{{ end }}
+        {{ if User.ID > 0 }}<a id="tagPopup" href="/torrent/tag?id={{ Torrent.ID }}" class="add-tag">{{ T("complement") }}</a>{{ end }}
       </td>
     </tr>
 	{{end}}
@@ -214,20 +215,9 @@
       <div class="modal-body">
         <h4>{{  T("add_tag") }}</h4>
         {{ yield csrf_field() }}
-        <div class="form-group">
-          <label class="input-label" for="tag">{{ T("tag")}}</label>
-          <input type="text" id="tag" name="tag" class="form-input up-input" value="" required/>
-          {{ yield errors(name="Tag")}}
-        </div>
-        <div class="form-group">
-          <label class="input-label" for="type">{{ T("tagtype")}}</label>
-          <select name="type" id="type" class="form-input up-input">
-            {{ range _, type := Config.Torrents.Tags.Types }}
-            <option value="{{ type }}">{{T("tagtype_" + type) }}</option>
-            {{ end }}
-          </select>
-          {{ yield errors(name="Type")}}
-        </div>
+        {{ range type, defaults := Config.Torrents.Tags.Types }}
+        {{ yield tagInput(type=type, defaults=defaults) }}
+        {{ end }}
       </div>
       <div class="modal-footer">
         <span>

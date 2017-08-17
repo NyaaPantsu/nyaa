@@ -1,7 +1,6 @@
 package torrents
 
 import (
-	"encoding/json"
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/models/tag"
@@ -56,14 +55,18 @@ func Create(user *models.User, uploadForm *torrentValidator.TorrentRequest) (*mo
 		}
 	}
 
-	var tagsReq models.Tags
-	json.Unmarshal([]byte(uploadForm.Tags), &tagsReq)
-	for _, tag := range tagsReq {
-		tag.Accepted = true
-		tag.TorrentID = torrent.ID
-		tag.Weight = config.Get().Torrents.Tags.MaxWeight
-		tags.New(&tag, &torrent)            // We create new tags
-		torrent.Tags = append(torrent.Tags) // Finally we append it to the torrent
+	for _, tagForm := range uploadForm.Tags {
+		tag := &models.Tag{
+			Tag:       tagForm.Tag,
+			Type:      tagForm.Type,
+			Accepted:  true,
+			TorrentID: torrent.ID,
+			UserID:    0, // 0 so we don't increase pantsu points for every tag for the actual user (would be too much increase)
+			Weight:    config.Get().Torrents.Tags.MaxWeight + 1,
+		}
+		if tags.FilterOrCreate(tag, &torrent, user) { // We create a tag (filter doesn't apply since new torrent)
+			torrent.Tags = append(torrent.Tags, *tag) // Finally we append it to the torrent
+		}
 	}
 	user.IncreasePantsu()
 

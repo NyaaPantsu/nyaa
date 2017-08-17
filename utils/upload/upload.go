@@ -1,7 +1,6 @@
 package upload
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -9,6 +8,8 @@ import (
 	"os"
 	"reflect"
 	"strings"
+
+	"github.com/NyaaPantsu/nyaa/utils/validator/tag"
 
 	"github.com/NyaaPantsu/nyaa/models/tag"
 
@@ -83,7 +84,7 @@ func ExtractEditInfo(c *gin.Context, r *torrentValidator.TorrentRequest) error {
 // ExtractBasicValue : takes an http request and computes all basic fields for this form
 func ExtractBasicValue(c *gin.Context, r *torrentValidator.TorrentRequest) error {
 	c.Bind(r)
-	r.Tags = c.PostForm("tags")
+	r.Tags = tagsValidator.Bind(c)
 
 	// trim whitespace
 	r.Name = strings.TrimSpace(r.Name)
@@ -101,7 +102,7 @@ func ExtractBasicValue(c *gin.Context, r *torrentValidator.TorrentRequest) error
 		return err
 	}
 
-	r.ValidateTags() // Tags should only be filtered, don't stop the errors from uploading
+	r.ValidateTags() // Tags should only be filtered, no errors are generated
 
 	err = r.ValidateWebsiteLink()
 	return err
@@ -149,7 +150,6 @@ func ExtractInfo(c *gin.Context, r *torrentValidator.TorrentRequest) error {
 }
 
 // UpdateTorrent : Update torrent model
-//rewrite with reflect ?
 func UpdateTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, currentUser *models.User) *models.Torrent {
 	if r.Update.Name != "" {
 		t.Name = r.Update.Name
@@ -182,18 +182,21 @@ func UpdateTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, current
 
 	// This part of the code check that we have only one tag of the same type
 	var tagsReq models.Tags
-	json.Unmarshal([]byte(r.Update.Tags), &tagsReq)
-	for _, tag := range tagsReq {
-		tag.Accepted = true
-		tag.TorrentID = t.ID
-		tag.UserID = 0 // 0 so we don't increase pantsu points for every tag for the actual user (would be too much increase)
-		tag.Weight = config.Get().Torrents.Tags.MaxWeight + 1
-		tags.New(&tag, t)                 // We create new tags with the user id
-		tags.Filter(tag.Tag, tag.Type, t) // We filter out every tags and increase/decrease pantsu for already sent tags
-		t.Tags.DeleteType(tag.Type)       // We cleanup the map from the other tags
-		t.Tags = append(t.Tags)           // Finally we append ours to the torrent
+	for _, tagForm := range r.Update.Tags {
+		tag := &models.Tag{
+			Tag:       tagForm.Tag,
+			Type:      tagForm.Type,
+			Accepted:  true,
+			TorrentID: t.ID,
+			UserID:    0, // 0 so we don't increase pantsu points for every tag for the actual user (would be too much increase)
+			Weight:    config.Get().Torrents.Tags.MaxWeight + 1,
+		}
+		if !t.Tags.Contains(*tag) { // If the tag is not already accepted
+			tags.FilterOrCreate(tag, t, currentUser) // We create a tag or we filter out every tags and increase/decrease pantsu for already sent tags of the same type
+		}
+		tagsReq = append(tagsReq, *tag) // Finally we append the tag to the tag list
 	}
-
+	t.Tags = tagsReq // and overwrite the torrent tags
 	return t
 }
 
