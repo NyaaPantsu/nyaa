@@ -13,7 +13,7 @@
   <table>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{  T("category") }}:</td>
-      <td class="torrent-info-td torrent-info-data" style="padding:0">
+      <td class="torrent-view-td torrent-info-data">
         <a href="{{URL.Parse("/search?c="+Torrent.Category+"_"+Torrent.SubCategory) }}">{{ CategoryName(Torrent.Category, Torrent.SubCategory) == "" ? T("unknown") : T(CategoryName(Torrent.Category, Torrent.SubCategory)) }}</a>
         <br/>
       </td>
