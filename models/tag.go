@@ -64,6 +64,15 @@ func (ts Tags) HasType(tagtype string) int {
 	return -1
 }
 
+// Get in the tag map the same tag type
+func (ts Tags) Get(tagtype string) Tag {
+	i := ts.HasType(tagtype)
+	if i == -1 {
+		return Tag{}
+	}
+	return ts[i]
+}
+
 // DeleteType remove all tags from the map that have the same tag type in it
 func (ts *Tags) DeleteType(tagtype string) {
 	var newTs Tags

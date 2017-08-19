@@ -56,7 +56,7 @@ func walkDirTest(dir string, t *testing.T) {
 	fakeScrapeData := &models.Scrape{1, 0, 0, 10, time.Now()}
 	fakeFile := &models.File{1, 1, "l12:somefile.mp4e", 3}
 	fakeLanguages := []string{"fr", "en"}
-	fakeTorrent := &models.Torrent{1, "test", "test", 3, 12, 1, false, time.Now(), 1, 0, 3, "test", "test", "test", "test", "test", "", "", "", "", nil, fakeUser, "test", []models.OldComment{}, []models.Comment{*fakeComment, *fakeComment}, []models.Tag{*fakeTag, *fakeTag}, fakeScrapeData, []models.File{*fakeFile}, fakeLanguages}
+	fakeTorrent := &models.Torrent{1, "test", "test", 3, 12, 1, false, time.Now(), 1, 0, 3, "test", "test", "test", "test", "test", "", "", "", "", "", nil, fakeUser, "test", []models.OldComment{}, []models.Comment{*fakeComment, *fakeComment}, []models.Tag{*fakeTag, *fakeTag}, fakeScrapeData, []models.File{*fakeFile}, fakeLanguages}
 	fakeActivity := &models.Activity{1, "t", "e", "s", 1, fakeUser}
 	fakeDB := &models.DatabaseDump{time.Now(), 3, "test", "test"}
 	fakeLanguage := &publicSettings.Language{"English", "en", "en-us"}
@@ -230,6 +230,8 @@ func walkDirTest(dir string, t *testing.T) {
 			fmt.Printf("\tJetTest Template of: %s", dir+f.Name())
 			if err != nil {
 				t.Errorf("\nParsing error: %s %s", err.Error(), dir+f.Name())
+				fmt.Print("\tFAIL\n")
+				continue
 			}
 			buff := bytes.NewBuffer(nil)
 			if contextvariables[f.Name()] != nil {
@@ -237,6 +239,8 @@ func walkDirTest(dir string, t *testing.T) {
 			}
 			if err = template.Execute(buff, variables, nil); err != nil {
 				t.Errorf("\nEval error: %q executing %s", err.Error(), template.Name)
+				fmt.Print("\tFAIL\n")
+				continue
 			}
 			fmt.Print("\tOK\n")
 		}

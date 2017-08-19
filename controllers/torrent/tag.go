@@ -80,7 +80,7 @@ func ViewFormTag(c *gin.Context) {
 
 		// We load tags for user so we can check if they have them
 		user.LoadTags(torrent)
-		tag := postTag(c, torrent, user)
+		tag := postTags(c, torrent, user)
 		if _, ok := c.GetQuery("json"); ok {
 			apiUtils.ResponseHandler(c, tag)
 			return
@@ -115,7 +115,7 @@ func AddTag(c *gin.Context) {
 		if !messages.HasErrors() {
 			// We load tags for user and torrents
 			user.LoadTags(torrent)
-			tag := postTag(c, torrent, user)
+			postTags(c, torrent, user)
 		}
 	}
 	if _, ok := c.GetQuery("json"); ok {
@@ -150,7 +150,6 @@ func DeleteTag(c *gin.Context) {
 		if !messages.HasErrors() {
 			for _, tag := range user.Tags {
 				if tag.Tag == tagForm.Tag && tag.Type == tagForm.Type {
-					tagRef := &models.Tag{tag.TorrentID, tag.UserID, tag.Tag, tag.Type, tag.Weight, tag.Total}
 					_, err := tag.Delete()
 					log.CheckError(err)
 					break

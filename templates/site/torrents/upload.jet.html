@@ -163,8 +163,8 @@
       <textarea name="desc" id="desc" class="form-input up-input" style="height: 10rem;">{{Form.Description}}</textarea>
 
       <h3 id="tag-h3" style="display:none;">{{ T("torrent_tags")}}</h3>
-        {{ range type, defaults := Config.Torrents.Tags.Types }}
-        {{ yield tagInput(type=type, defaults=defaults, acceptedTag=Form.Tags.Get(type)) }}
+        {{ range Config.Torrents.Tags.Types }}
+        {{ yield tagForm(tagType=., acceptedTag=Form.Tags.Get(.Name)) }}
         {{ end }}
         {{ yield errors(name="tags")}}
       <div style="width: 240px">

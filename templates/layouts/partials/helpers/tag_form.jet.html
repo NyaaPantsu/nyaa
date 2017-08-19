@@ -1,15 +1,15 @@
-{{ block tagForm(type="",defaults=nil,acceptedTag=nil) }}
-  {{ if type != "" }}
+{{ block tagForm(tagType=nil,acceptedTag=nil) }}
+  {{ if isset(tag) }}
     <div class="form-group">
-      <label class="input-label" for="tag_{{ type }}">{{T("tagtype_" + type) }}</label>
-      {{ if len(defaults) > 0 && defaults[0] != "db" }}
-      <select id="tag_{{ type }}" name="tag_{{ type }}">
-      {{ range _, option := defaults }}
+      <label class="input-label" for="tag_{{ tagType.Name }}">{{T("tagtype_" + tagType.Name) }}</label>
+      {{ if len(tagType.Defaults) > 0 && tagType.Defaults[0] != "db" }}
+      <select id="tag_{{ tagType.Name }}" name="tag_{{ tagType.Name }}">
+      {{ range _, option := tag.Defaults }}
         <option value="{{ option }}"{{ if acceptedTag != nil }}{{ if acceptedTag.Tag == option }} selected{{end}}{{end}}>{{ T("tagvalue_" + option) }}</option>
       {{ end }}
       </select>
       {{ else }}
-      <input id="tag_{{ type }}" name="tag_{{ type }}"{{ if acceptedTag != nil}} value="{{ acceptedTag.Tag }}"{{ end }}>
+      <input id="tag_{{ tagType.Name }}" name="tag_{{ tagType.Name }}"{{ if acceptedTag != nil}} value="{{ acceptedTag.Tag }}"{{ end }}>
       {{ end }}
     </div>
   {{ end }}

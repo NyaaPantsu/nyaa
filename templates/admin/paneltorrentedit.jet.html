@@ -50,8 +50,8 @@
       <textarea name="desc" id="desc" class="form-input up-input" rows="10">{{Form.Description}}</textarea>
     </div>
       <h3>{{ T("torrent_tags")}}</h3>
-      {{ range type, defaults := Config.Torrents.Tags.Types }}
-      {{ yield tagInput(type=type, defaults=defaults, acceptedTag=Form.Tags.Get(type)) }}
+      {{ range Config.Torrents.Tags.Types }}
+      {{ yield tagForm(tagType=., acceptedTag=Form.Tags.Get(.Name)) }}
       {{ end }}
       {{ yield errors(name="tags")}}
     <button type="submit" class="form-input up-input btn-green">{{ T("save_changes")}}</button>
