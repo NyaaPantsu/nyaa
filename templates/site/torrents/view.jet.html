@@ -78,6 +78,14 @@
       </td>
     </tr>
     {{ end }}
+    {{ if Torrent.VideoQuality != "" }}
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("tagtype_videoquality") }}:</td>
+      <td class="tr-flag torrent-view-td torrent-info-data">
+        {{ T("tagvalue_"+Torrent.VideoQuality) }}
+      </td>
+    </tr>
+    {{ end }}
 	 {{ if Torrent.Tags.HasAccepted() || User.ID > 0 }}
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("torrent_tags")}}:</td>

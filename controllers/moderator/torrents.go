@@ -82,7 +82,7 @@ func TorrentEditModPanel(c *gin.Context) {
 	uploadForm.WebsiteLink = string(torrentJSON.WebsiteLink)
 	uploadForm.Description = string(torrentJSON.Description)
 	uploadForm.Languages = torrent.Languages
-	uploadForm.Tags.Bind(torrent)
+	uploadForm.Tags.Bind(&torrent)
 
 	templates.Form(c, "admin/paneltorrentedit.jet.html", uploadForm)
 }
