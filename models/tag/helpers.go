@@ -21,9 +21,8 @@ func FilterOrCreate(tag *models.Tag, torrent *models.Torrent, currentUser *model
 	}
 	tagSum := models.Tag{}
 	if !tag.Accepted {
-		if models.ORM.Select("torrent_id, tag, type, SUM(weight) as total").Where("torrent_id = ? AND tag = ? AND type = ?", torrent.ID, tag.Tag, tag.Type).Group("type, tag").Find(&tagSum).Error != nil {
-			return false
-		}
+		// Here we only sum the tags of the same type, same value for the torrent specified, we don't handle errors since if no tags found, it returns an error
+		models.ORM.Select("torrent_id, tag, type, SUM(weight) as total").Where("torrent_id = ? AND tag = ? AND type = ?", torrent.ID, tag.Tag, tag.Type).Group("type, tag").Find(&tagSum)
 	} else {
 		// if the tag given is an accepted one, tagSum is the tag given
 		tagSum = *tag
@@ -103,19 +102,16 @@ func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 	default:
 		// Some tag type can have default values that you have to choose from
 		// We, here, check that the tag is one of them
-		for _, tagConf := range config.Get().Torrents.Tags.Types {
-			// We look for the tag type in config
-			if tagConf.Name == tag.Type {
-				// and then check that the value is in his defaults if defaults are set
-				if len(tagConf.Defaults) > 0 && tagConf.Defaults[0] != "db" && !tagConf.Defaults.Contains(tag.Tag) {
-					// if not we return the function
-					return
-				}
-				// We overwrite the tag type in the torrent model
-				reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).SetString(tag.Tag)
-				// if it's good, we break of the loop
-				break
+		tagConf := config.Get().Torrents.Tags.Types.Get(tag.Type)
+		// We look for the tag type in config
+		if tagConf.Name != "" {
+			// and then check that the value is in his defaults if defaults are set
+			if len(tagConf.Defaults) > 0 && tagConf.Defaults[0] != "db" && !tagConf.Defaults.Contains(tag.Tag) {
+				// if not we return the function
+				return
 			}
+			// We overwrite the tag type in the torrent model
+			reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).SetString(tag.Tag)
 		}
 		torrent.Update(false)
 	}

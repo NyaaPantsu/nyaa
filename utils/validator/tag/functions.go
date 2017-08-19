@@ -10,15 +10,13 @@ func Check(tagType string, tag string) bool {
 	if tagType == "" || tag == "" {
 		return false
 	}
-	for _, tagConf := range config.Get().Torrents.Tags.Types {
-		// We look for the tag type in config
-		if tagConf.Name == tagType {
-			// and then check that the value is in his defaults if defaults are set
-			if len(tagConf.Defaults) > 0 && tagConf.Defaults[0] != "db" && !tagConf.Defaults.Contains(tag) {
-				return false
-			}
-			return true
+	// We look for the tag type in config
+	if tagConf := config.Get().Torrents.Tags.Types.Get(tagType); tagConf.Name != "" {
+		// and then check that the value is in his defaults if defaults are set
+		if len(tagConf.Defaults) > 0 && tagConf.Defaults[0] != "db" && !tagConf.Defaults.Contains(tag) {
+			return false
 		}
+		return true
 	}
 	return false
 }

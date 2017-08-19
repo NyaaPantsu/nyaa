@@ -215,8 +215,8 @@
       <div class="modal-body">
         <h4>{{  T("add_tag") }}</h4>
         {{ yield csrf_field() }}
-        {{ range type, defaults := Config.Torrents.Tags.Types }}
-        {{ yield tagInput(type=type, defaults=defaults) }}
+        {{ range Config.Torrents.Tags.Types }}
+        {{ yield tagForm(tagType=.) }}
         {{ end }}
       </div>
       <div class="modal-footer">
@@ -236,10 +236,16 @@
 {{ if User.ID > 0 }}
 <script type="text/javascript" src="{{ URL.Parse("/js/query.js") }}"></script>
 <script type="text/javascript" src="{{ URL.Parse("/js/template.js") }}"></script>
+<script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>
 <script type="text/javascript" src="{{ URL.Parse("/js/translation.js") }}"></script>
 <script type="text/javascript">
-// {{ range _, type := Config.Torrents.Tags.Types }}
-  T.Add("tagtype_{{ type }}", '{{ T("tagtype_" + type) }}')
+// {{ range Config.Torrents.Tags.Types }}
+  T.Add("tagtype_{{ .Name }}", '{{ T("tagtype_" + .Name) }}')
+// {{ if len(.Defaults) > 0 }}
+//    {{ range key, value := .Defaults }}
+  T.Add("{{ .Name }}", '{{ T("tagvalue_" + .Name) }}')
+//    {{ end }}
+// {{ end }} 
 // {{ end }}
 
 Templates.Add("tag", function(tag) {
@@ -248,7 +254,7 @@ Templates.Add("tag", function(tag) {
 
   return `<span class="`+ tagClass +`" title="`+ tagTitle +`" data-weight="` + tag.weight + `">
           <span class="tag-text votable">
-          ` + T.r("tagtype_" + tag.type) + `: ` + tag.tag + `
+          ` + T.r("tagtype_" + tag.type) + `: ` + T.R(tag.tag) + `
           </span>
           <a href="/torrent/tag/remove?id={{Torrent.ID}}&tag=` + tag.tag + `&type=` + tag.type + `" class="tag-form minus" onclick="handleVotes(event)"></a>
         </span>`
@@ -263,15 +269,24 @@ Modal.Init({
 
 document.querySelector("#modal_tag_form form").addEventListener("submit", function(e) {
   var form = e.target
-  var tag = form.querySelector("input#tag").value
-  var tagtype = form.querySelector("select#type").value
+  var tags = form.querySelectorAll(".tagtype")
   var csrf = form.querySelector("input[name='csrf_token']").value
-
-  Query.Post(form.action+"&json", "tag="+tag+"&type="+encodeURIComponent(tagtype)+"&csrf_token="+encodeURIComponent(csrf), function(data) {
+  // Build query
+  var len = tags.length
+  var query = "csrf_token="+encodeURIComponent(csrf)
+  for (var i=0; i < len; i++) {
+    query += "&"+tags[i].name+"="+tags[i].value
+  }
+  // Make query
+  Query.Post(form.action+"&json", query, function(data) {
     if (data.ok) {
       Modal.CloseActive()
-      var tagHTml = Templates.Render("tag", data.data)
-      document.getElementById("tags-torrent").innerHTML = tagHTml + document.getElementById("tags-torrent").innerHTML
+      if (data.data === null) return 
+      var len = data.data.length
+      for (var i = 0; i < len; i++) {
+        var tagHTml = Templates.Render("tag", data.data[i])
+        document.getElementById("tags-torrent").innerHTML = tagHTml + document.getElementById("tags-torrent").innerHTML
+      }
     } else {
       alert("Couldn't add a tag, please check your internet connexion and that all fields are filled.")
     }

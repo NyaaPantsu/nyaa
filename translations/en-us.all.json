@@ -1964,7 +1964,7 @@
     "translation": "VNdb ID"
   },
   {
-    "id": "tagtype_quality",
+    "id": "tagtype_videoquality",
     "translation": "Video Quality"
   },
   {
@@ -1976,8 +1976,24 @@
     "translation": "VGMdb ID"
   },
   {
-    "id": "torrent_tags",
-    "translation": "Torrent tags"
+    "id": "tagvalue_select",
+    "translation": "Select..."
+  },
+  {
+    "id": "tagvalue_full_hd",
+    "translation": "1080p"
+  },
+  {
+    "id": "tagvalue_hd",
+    "translation": "720p"
+  },
+  {
+    "id": "tagvalue_sd",
+    "translation": "480p"
+  },
+  {
+    "id": "tagvalue_bluray",
+    "translation": "Bluray"
   },
   {
     "id": "announcements",

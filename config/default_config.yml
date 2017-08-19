@@ -150,6 +150,7 @@ torrents:
       - name: videoquality
         field: VideoQuality
         defaults:
+          - bluray
           - full_hd
           - hd
           - sd

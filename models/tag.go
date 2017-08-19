@@ -5,6 +5,7 @@ import (
 	"errors"
 	"net/http"
 
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/fatih/structs"
 )
@@ -40,6 +41,15 @@ func (ta *Tag) Delete() (int, error) {
 // toMap : convert the model to a map of interface
 func (ta *Tag) toMap() map[string]interface{} {
 	return structs.Map(ta)
+}
+
+// GetName : get the translated name
+func (ta *Tag) GetName() string {
+	tagtype := config.Get().Torrents.Tags.Types.Get(ta.Type)
+	if len(tagtype.Defaults) > 0 && tagtype.Defaults[0] != "db" {
+		return "tagvalue_" + ta.Tag
+	}
+	return ta.Tag
 }
 
 type Tags []Tag
