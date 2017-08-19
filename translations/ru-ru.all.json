@@ -1,31 +1,31 @@
 [
   {
     "id": "rules",
-    "translation": "Rules"
+    "translation": "Правила"
   },
   {
     "id": "no_cp",
-    "translation": "No child pornography (lolicon doesn't count)"
+    "translation": "Детская порнография запрещена (лоликон не считается)"
   },
   {
     "id": "asia",
-    "translation": "Asian related content only (no Western Movies, no Cartoon)"
+    "translation": "Только азиатский контент (ни западные фильмы, ни мультфильмы)"
   },
   {
     "id": "rules_spam",
-    "translation": "No spam"
+    "translation": "Не спамить"
   },
   {
     "id": "rules_sukebei",
-    "translation": "NSFW content belongs in sukebei.pantsu.cat"
+    "translation": "NSFW контенту место на sukebei.pantsu.cat"
   },
   {
     "id": "verify_email_title",
-    "translation": "Подтвердите свой Email адрес для Nyaapantsu."
+    "translation": "Подтвердите свой адрес эл. почты для Nyaapantsu."
   },
   {
     "id": "verify_email_content",
-    "translation": "Нажмите на ссылку ниже, чтобы подтвердить свой Email адрес."
+    "translation": "Нажмите на ссылку ниже, чтобы подтвердить свой адрес эл. почты."
   },
   {
     "id": "reset_password_title",
@@ -49,11 +49,11 @@
   },
   {
     "id": "email_address_or_username",
-    "translation": "Email адрес или Имя пользователя"
+    "translation": "Адрес эл. почты или имя пользователя"
   },
   {
     "id": "email_address",
-    "translation": "Email адрес"
+    "translation": "Адрес эл. почты"
   },
   {
     "id": "password",
@@ -65,7 +65,7 @@
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "Нажимая <b>Регистрация</b>, вы соглашаетесь с <a id=\"modal_active\" href=\"#\">Правилами и условиями</a>, указанными на этом сайте, включая использование файлов Cookie."
+    "translation": "Нажимая <b>Регистрация</b>, вы соглашаетесь с <a id=\"modal_active\" href=\"#\">Правилами и условиями</a>, указанными на этом сайте, включая использование файлов cookie."
   },
   {
     "id": "signin",
@@ -93,7 +93,7 @@
   },
   {
     "id": "sign_in_box_title",
-    "translation": "Пожалуйста войдите"
+    "translation": "Пожалуйста, войдите"
   },
   {
     "id": "sign_in_title",
@@ -113,7 +113,7 @@
   },
   {
     "id": "signup_verification_email",
-    "translation": "Подтверждение Email адреса в данный момент не работает, так что вы можете использовать свой аккаунт уже сейчас. В будущем, пожалуйста, проверьте свои входящие (или папку спам) на письмо с подтверждение Email адреса."
+    "translation": "Подтверждение адреса электронной почты в данный момент не работает, так что вы можете использовать свой аккаунт уже сейчас. В будущем, пожалуйста, проверьте свои входящие (или папку Спам) на письмо с подтверждением адреса."
   },
   {
     "id": "signup_verification_noemail",
@@ -121,7 +121,7 @@
   },
   {
     "id": "email_placeholder",
-    "translation": "Can be left blank."
+    "translation": "Поле может быть пустым."
   },
   {
     "id": "settings",
@@ -145,7 +145,7 @@
   },
   {
     "id": "user_unfollowed_msg",
-    "translation": "Вы отписаны от %s!"
+    "translation": "Вы отписались от %s!"
   },
   {
     "id": "profile_page",
@@ -157,7 +157,7 @@
   },
   {
     "id": "torrents_uploaded",
-    "translation": "Torrents uploaded"
+    "translation": "Торрентов загружено"
   },
   {
     "id": "category",
@@ -189,15 +189,15 @@
   },
   {
     "id": "error_400",
-    "translation": "Error 400"
+    "translation": "Ошибка 400"
   },
   {
     "id": "error_500",
-    "translation": "Error 500"
+    "translation": "Ошибка 500"
   },
   {
     "id": "err_no_results",
-    "translation": "No results found"
+    "translation": "Ничего не найдено"
   },
   {
     "id": "upload",
@@ -225,11 +225,11 @@
   },
   {
     "id": "500_internal_server_error",
-    "translation": "500 Internal Server Error"
+    "translation": "500 Внутренняя ошибка сервера"
   },
   {
     "id": "400_bad_request",
-    "translation": "400 Bad Request"
+    "translation": "400 Неверный запрос"
   },
   {
     "id": "no_torrents_uploaded",
@@ -261,7 +261,7 @@
   },
   {
     "id": "links_replacement_mirror",
-    "translation": "Ссылки на замены/зеркала"
+    "translation": "Ссылки на альтернативы/зеркала"
   },
   {
     "id": "what_happened",
@@ -333,11 +333,11 @@
   },
   {
     "id": "answer_how_do_i_download_the_torrents",
-    "translation": "Просто используйте <b>магнитную ссылку</b>. Магнит ссылка будет использоваться вашим клиентом BitTorrent для поиска файла в сети DHT, и они должены загружаться просто отлично."
+    "translation": "Просто используйте <b>магнитную ссылку</b>. Magnet-ссылка будет использоваться вашим клиентом BitTorrent для поиска файла в сети DHT, и они должены загружаться просто отлично."
   },
   {
     "id": "magnet_link_should_look_like",
-    "translation": "Магнит ссылка должна выглядеть так:"
+    "translation": "Magnet-ссылка должна выглядеть так:"
   },
   {
     "id": "which_trackers_do_you_recommend",
@@ -377,7 +377,7 @@
   },
   {
     "id": "magnet_link",
-    "translation": "Магнит ссылка"
+    "translation": "Magnet-ссылка"
   },
   {
     "id": "all_categories",
@@ -393,19 +393,19 @@
   },
   {
     "id": "anime_amv",
-    "translation": "Аниме - Аниме Музыка Видео"
+    "translation": "Аниме - AMV"
   },
   {
     "id": "anime_english_translated",
-    "translation": "Аниме - Английский-перевод"
+    "translation": "Аниме - Английский перевод"
   },
   {
     "id": "anime_non_english_translated",
-    "translation": "Аниме - Не-английский-перевод"
+    "translation": "Аниме - Не-английский перевод"
   },
   {
     "id": "anime_raw",
-    "translation": "Аниме - Raw"
+    "translation": "Аниме - Raw (необработанное)"
   },
   {
     "id": "audio",
@@ -413,11 +413,11 @@
   },
   {
     "id": "audio_lossless",
-    "translation": "Аудио - Lossless"
+    "translation": "Аудио - без потерь"
   },
   {
     "id": "audio_lossy",
-    "translation": "Аудио - Lossy"
+    "translation": "Аудио - с потерями"
   },
   {
     "id": "literature",
@@ -425,7 +425,7 @@
   },
   {
     "id": "literature_english_translated",
-    "translation": "Литература - Английский-перевод"
+    "translation": "Литература - Английский перевод"
   },
   {
     "id": "literature_raw",
@@ -433,7 +433,7 @@
   },
   {
     "id": "literature_non_english_translated",
-    "translation": "Литература - Не-английский-перевод"
+    "translation": "Литература - Не-английский перевод"
   },
   {
     "id": "live_action",
@@ -441,15 +441,15 @@
   },
   {
     "id": "live_action_english_translated",
-    "translation": "Игровое кино - Английский-перевод"
+    "translation": "Игровое кино - Английский перевод"
   },
   {
     "id": "live_action_idol_pv",
-    "translation": "Игровое кино - Идол / Рекламное видео"
+    "translation": "Игровое кино - Идолы / Рекламное видео"
   },
   {
     "id": "live_action_non_english_translated",
-    "translation": "Игровое кино - Не-английский-перевод"
+    "translation": "Игровое кино - Не-английский перевод"
   },
   {
     "id": "live_action_raw",
@@ -521,7 +521,7 @@
   },
   {
     "id": "description_markdown_notice",
-    "translation": "В описании может быть использован Markdown синтаксис."
+    "translation": "В описании может быть использован синтаксис Markdown."
   },
   {
     "id": "show_all",
@@ -529,7 +529,7 @@
   },
   {
     "id": "delete_all",
-    "translation": "Delete all"
+    "translation": "Удалить всё"
   },
   {
     "id": "filter_remakes",
@@ -545,7 +545,7 @@
   },
   {
     "id": "hash",
-    "translation": "Хеш"
+    "translation": "Хэш"
   },
   {
     "id": "description",
@@ -553,7 +553,7 @@
   },
   {
     "id": "no_description",
-    "translation": "No description provided!"
+    "translation": "Нет описания!"
   },
   {
     "id": "comments",
@@ -609,7 +609,7 @@
   },
   {
     "id": "api_token",
-    "translation": "API Токен"
+    "translation": "API токен"
   },
   {
     "id": "save_changes",
@@ -637,27 +637,27 @@
   },
   {
     "id": "extensions_and_plugins",
-    "translation": "Extensions and Plugins (made by third-party developers)"
+    "translation": "Расширения и плагины (от сторонних разработчиков)"
   },
   {
     "id": "qbittorrent_plugin",
-    "translation": "qBittorrent Plugin"
+    "translation": "Плагин для qBittorrent"
   },
   {
     "id": "local_client",
-    "translation": "Local Client"
+    "translation": "Локальный клиент"
   },
   {
     "id": "chrome_extension",
-    "translation": "Chrome Extension"
+    "translation": "Расширение Chrome"
   },
   {
     "id": "firefox_extension",
-    "translation": "Firefox Extension"
+    "translation": "Расширение Firefox"
   },
   {
     "id": "android_app",
-    "translation": "Android App"
+    "translation": "Приложение для Android"
   },
   {
     "id": "who_is_renchon",
@@ -673,7 +673,7 @@
   },
   {
     "id": "email_changed",
-    "translation": "Email адрес успешно изменен! Однако вам нужно будет подтвердить это, нажав на ссылку, присланную на Email адрес: %s"
+    "translation": "Электронная почта успешно изменена! Однако вам нужно будет подтвердить это, нажав на ссылку, присланную на адрес: %s"
   },
   {
     "id": "torrent_status",
@@ -689,7 +689,7 @@
   },
   {
     "id": "torrent_status_blocked",
-    "translation": "Locked"
+    "translation": "Заблокирован"
   },
   {
     "id": "profile_edit_page",
@@ -725,7 +725,7 @@
   },
   {
     "id": "website_link",
-    "translation": "Website Link"
+    "translation": "Веб-сайт"
   },
   {
     "id": "files",
@@ -733,7 +733,7 @@
   },
   {
     "id": "no_files",
-    "translation": "No files found? That doesn't even make sense!"
+    "translation": "Файлы не найдены? Это даже не имеет никакого смысла!"
   },
   {
     "id": "uploaded_by",
@@ -769,7 +769,7 @@
   },
   {
     "id": "duplicate_deprecated",
-    "translation": "Повтор / Устаревшее"
+    "translation": "Повтор / Устарело"
   },
   {
     "id": "captcha",
@@ -777,7 +777,7 @@
   },
   {
     "id": "captcha_audio",
-    "translation": "Captcha Audio"
+    "translation": "Аудио-капча"
   },
   {
     "id": "file_name",
@@ -789,7 +789,7 @@
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "Пожалуйста добавьте udp://tracker.doko.moe:6969 в список трекеров."
+    "translation": "Пожалуйста, добавьте udp://tracker.doko.moe:6969 в список трекеров."
   },
   {
     "id": "unknown",
@@ -809,83 +809,83 @@
   },
   {
     "id": "clear_notifications",
-    "translation": "Clear Notifications"
+    "translation": "Очистить уведомления"
   },
   {
     "id": "notifications_cleared",
-    "translation": "Notifications erased!"
+    "translation": "Уведомления очищены!"
   },
   {
     "id": "my_notifications",
-    "translation": "My Notifications"
+    "translation": "Уведомления"
   },
   {
     "id": "new_torrent_uploaded",
-    "translation": "New torrent: \"%s\" from %s"
+    "translation": "Новый торрент: \"%s\" от %s"
   },
   {
     "id": "torrent_uploaded",
-    "translation": "torrent uploaded successfully!"
+    "translation": "Торрент загружен успешно!"
   },
   {
     "id": "preferences",
-    "translation": "Preferences"
+    "translation": "Параметры"
   },
   {
     "id": "new_torrent_settings",
-    "translation": "Be notified when a new torrent is added from a user followed"
+    "translation": "Получать уведомление, когда новый торрент загружен пользователем, на которого вы подписаны"
   },
   {
     "id": "new_torrent_email_settings",
-    "translation": "Be notified by e-mail when a new torrent is added from a user followed"
+    "translation": "Получать уведомление на эл. почту, когда новый торрент загружен пользователем, на которого вы подписаны"
   },
   {
     "id": "new_comment_settings",
-    "translation": "Be notified when there is a new comment on your torrents"
+    "translation": "Получать уведомление, когда ваши торренты комментируют"
   },
   {
     "id": "new_comment_email_settings",
-    "translation": "Be notified by e-mail when there is a new comment on your torrents"
+    "translation": "Получать уведомление на эл. почту, когда ваши торренты комментируют"
   },
   {
     "id": "new_responses_settings",
-    "translation": "Be notified when there is a new response to your comment"
+    "translation": "Получать уведомление, когда вам отвечают на комментарий"
   },
   {
     "id": "new_responses_email_settings",
-    "translation": "Be notified by e-mail when there is a new response to your comment"
+    "translation": "Получать уведомление на эл. почту, когда вам отвечают на комментарий"
   },
   {
     "id": "new_follower_settings",
-    "translation": "Be notified when you have a new follower"
+    "translation": "Получать уведомление, когда на вас подписываются"
   },
   {
     "id": "new_follower_email_settings",
-    "translation": "Be notified by e-mail when you have a new follower"
+    "translation": "Получать уведомление на эл. почту, когда на вас подписываются"
   },
   {
     "id": "followed_settings",
-    "translation": "Be notified when you have followed someone"
+    "translation": "Получать уведомление, когда вы подписываетесь на кого-то"
   },
   {
     "id": "followed_email_settings",
-    "translation": "Be notified by e-mail when you have followed someone"
+    "translation": "Получать уведомление на эл. почту, когда вы подписываетесь на кого-то"
   },
   {
     "id": "yes",
-    "translation": "Yes"
+    "translation": "Да"
   },
   {
     "id": "no",
-    "translation": "No"
+    "translation": "Нет"
   },
   {
     "id": "new_comment_on_torrent",
-    "translation": "New comment on torrent: \"%s\""
+    "translation": "Новый комментарий к торренту: \"%s\""
   },
   {
     "id": "no_action_selected",
-    "translation": "You have to tell what you want to do with your selection!"
+    "translation": "Вы должны сказать, что вы хотите сделать с вашим выбором!"
   },
   {
     "id": "no_move_location_selected",
@@ -893,211 +893,211 @@
   },
   {
     "id": "select_one_element",
-    "translation": "You need to select at least 1 element!"
+    "translation": "Вам нужно выбрать как минимум 1 элемент!"
   },
   {
     "id": "torrent_moved",
-    "translation": "Torrent %s moved!"
+    "translation": "Торрент %s перемещён!"
   },
   {
     "id": "no_status_exist",
-    "translation": "No such status %d exist!"
+    "translation": "Статус %d не существует!"
   },
   {
     "id": "torrent_deleted",
-    "translation": "Torrent %s deleted!"
+    "translation": "Торрент %s удалён!"
   },
   {
     "id": "torrent_deleted_by",
-    "translation": "Torrent #%d from %s has been deleted by %s."
+    "translation": "Торрент #%d из %s был удалён %s."
   },
   {
     "id": "torrent_edited_by",
-    "translation": "Torrent #%d from %s has been edited by %s."
+    "translation": "Торрент #%d из %s был отредактирован %s."
   },
   {
     "id": "torrent_blocked_by",
-    "translation": "Torrent #%d from %s has been locked by %s."
+    "translation": "Торрент #%d из %s был заблокирован %s."
   },
   {
     "id": "torrent_blocked_by",
-    "translation": "Torrent #%d from %s has been unlocked by %s."
+    "translation": "Торрент #%d из %s был разблокирован %s."
   },
   {
     "id": "torrents_deleted",
-    "translation": "Torrents Deleted"
+    "translation": "Удалённые торренты"
   },
   {
     "id": "delete_torrent",
-    "translation": "Delete Torrent"
+    "translation": "Удалить торрент"
   },
   {
     "id": "delete_report",
-    "translation": "Delete Report"
+    "translation": "Удалить жалобу"
   },
   {
     "id": "comment_deleted",
-    "translation": "Comment has been deleted!"
+    "translation": "Комментарий был удалён!"
   },
   {
     "id": "comment_deleted_by",
-    "translation": "Comment #%d from %s has been deleted by %s."
+    "translation": "Комментарий #%d из %s был удалён %s."
   },
   {
     "id": "comment_edited_by",
-    "translation": "Comment #%d from %s has been edited by %s."
+    "translation": "Комментарий #%d из %s был отредактирован %s."
   },
   {
     "id": "oauth_client_deleted",
-    "translation": "Oauth API Client has been deleted!"
+    "translation": "Клиент Oauth API был удалён!"
   },
   {
     "id": "oauth_client_deleted_by",
-    "translation": "Oauth API Client #%s from %s has been deleted by %s."
+    "translation": "Клиент Oauth API #%s из %s был удалён %s."
   },
   {
     "id": "no_action_exist",
-    "translation": "No such action %s exist!"
+    "translation": "Действие %s не существует!"
   },
   {
     "id": "torrent_not_exist",
-    "translation": "Torrent with ID %d doesn't exist!"
+    "translation": "Торрент с ID %d не существует!"
   },
   {
     "id": "something_went_wrong",
-    "translation": "Something went wrong"
+    "translation": "Что-то пошло не так"
   },
   {
     "id": "nb_torrents_updated",
-    "translation": "%d torrents updated."
+    "translation": "%d торрентов обновились."
   },
   {
     "id": "torrent_updated",
-    "translation": "Torrent details updated."
+    "translation": "Описание торрента обновлено."
   },
   {
     "id": "fail_torrent_update",
-    "translation": "Failed to update torrent!"
+    "translation": "Не удалось обновить торрент!"
   },
   {
     "id": "bad_captcha",
-    "translation": "Bad captcha!"
+    "translation": "Неправильная капча!"
   },
   {
     "id": "comment_empty",
-    "translation": "Comment empty!"
+    "translation": "Пустой комментарий!"
   },
   {
     "id": "no_owner_selected",
-    "translation": "New torrent owner is needed!"
+    "translation": "Нужен новый владелец торрента!"
   },
   {
     "id": "no_category_selected",
-    "translation": "No category selected!"
+    "translation": "Категории не выбраны!"
   },
   {
     "id": "no_user_found_id",
-    "translation": "User with id %d isn't in the database!"
+    "translation": "Пользователь с id %d не найден в базе!"
   },
   {
     "id": "invalid_torrent_category",
-    "translation": "Torrent category doesn't exist!"
+    "translation": "Этой категории не существует!"
   },
   {
     "id": "torrent_owner_changed",
-    "translation": "Owner of torrent \"%s\" has been successfully changed!"
+    "translation": "Владелец торрента \"%s\" был успешно изменён!"
   },
   {
     "id": "torrent_category_changed",
-    "translation": "Category of torrent \"%s\" has been changed!"
+    "translation": "Категория торрента \"%s\" была успешно изменена!"
   },
   {
     "id": "torrent_reports_deleted",
-    "translation": "Reports of torrent \"%s\" were deleted!"
+    "translation": "Жалобы на торрент \"%s\" были удалены!"
   },
   {
     "id": "edit",
-    "translation": "Edit"
+    "translation": "Редактировать"
   },
   {
     "id": "lock_delete",
-    "translation": "Lock & Delete"
+    "translation": "Заблокировать и удалить"
   },
   {
     "id": "delete_definitely_torrent_warning",
-    "translation": "You will not be able to recover the file, neither stop someone to reupload it!"
+    "translation": "Вы не сможете ни восстановить файл, ни остановить его повторную загрузку кем-либо!"
   },
   {
     "id": "delete_definitely",
-    "translation": "Delete definitely"
+    "translation": "Точно удалить"
   },
   {
     "id": "torrent_unblock",
-    "translation": "Unlock"
+    "translation": "Разблокировать"
   },
   {
     "id": "torrent_block",
-    "translation": "Lock"
+    "translation": "Заблокировать"
   },
   {
     "id": "torrent_deleted_definitely",
-    "translation": "Torrent has been erased from the database!"
+    "translation": "Торрент был удалён из базы!"
   },
   {
     "id": "torrent_not_deleted",
-    "translation": "Torrent was not deleted"
+    "translation": "Торрент не был удалён"
   },
   {
     "id": "torrent_unblocked",
-    "translation": "Torrent has been unlocked!"
+    "translation": "Торрент был разблокирован!"
   },
   {
     "id": "torrent_blocked",
-    "translation": "Torrent has been locked!"
+    "translation": "Торрент был заблокирован!"
   },
   {
     "id": "torrent_nav_notdeleted",
-    "translation": "Torrents not deleted"
+    "translation": "Неудалённые торренты"
   },
   {
     "id": "torrent_nav_deleted",
-    "translation": "Torrents deleted"
+    "translation": "Удалённые торренты"
   },
   {
     "id": "change_settings",
-    "translation": "Change Appearance/Language"
+    "translation": "Изменить внешний вид/язык"
   },
   {
     "id": "mascot",
-    "translation": "Mascot"
+    "translation": "Маскот"
   },
   {
     "id": "theme",
-    "translation": "Theme"
+    "translation": "Тема"
   },
   {
     "id": "theme_select",
-    "translation": "Select a Theme"
+    "translation": "Выбрать тему"
   },
   {
     "id": "theme_none",
-    "translation": "None"
+    "translation": "Обычная"
   },
   {
     "id": "upload_as_anon",
-    "translation": "Upload Anonymously"
+    "translation": "Загрузить анонимно"
   },
   {
     "id": "cookies",
-    "translation": "By clicking save, you consent to our use of cookies"
+    "translation": "Нажимая сохранить, вы соглашаетесь с использованием cookie"
   },
   {
     "id": "show",
-    "translation": "Show"
+    "translation": "Показывать"
   },
   {
     "id": "hide",
-    "translation": "Hide"
+    "translation": "Скрывать"
   },
   {
     "id": "nyaa_pantsu",
@@ -1105,67 +1105,67 @@
   },
   {
     "id": "users",
-    "translation": "Users"
+    "translation": "Пользователи"
   },
   {
     "id": "torrent_reports",
-    "translation": "Torrent Reports"
+    "translation": "Жалобы на торренты"
   },
   {
     "id": "show_mod_tools",
-    "translation": "Show Mod Tools"
+    "translation": "Показать инструменты модератора"
   },
   {
     "id": "hide_mod_tools",
-    "translation": "Hide Mod Tools"
+    "translation": "Скрыть инструменты модератора"
   },
   {
     "id": "following_changes_applied",
-    "translation": "Following changes will be applied"
+    "translation": "Следующие изменения вступят в силу"
   },
   {
     "id": "changes_in_following_order",
-    "translation": "Changes will be made in the following order:"
+    "translation": "Изменения будут сделаны в таком порядке:"
   },
   {
     "id": "edit_changes",
-    "translation": "Edit Changes"
+    "translation": "Редактировать изменения"
   },
   {
     "id": "delete_changes",
-    "translation": "Delete Changes"
+    "translation": "Удалить изменения"
   },
   {
     "id": "owner_id_placeholder",
-    "translation": "New Owner"
+    "translation": "Новый владелец"
   },
   {
     "id": "try_new_attempt",
-    "translation": "Trying a new attempt..."
+    "translation": "Новая попытка..."
   },
   {
     "id": "query_is_broken",
-    "translation": "The query ({0}?{1}) seems broken!"
+    "translation": "Запрос ({0}?{1}), кажется, сломан!"
   },
   {
     "id": "query_executed_success",
-    "translation": "Query executed with success!"
+    "translation": "Запрос успешно выполнен!"
   },
   {
     "id": "all_operations_done",
-    "translation": "All operations are done!"
+    "translation": "Все операции выполнены!"
   },
   {
     "id": "refreshing_in",
-    "translation": "Refreshing the page in {0} seconds..."
+    "translation": "Обновляем страницу через {0} секунд..."
   },
   {
     "id": "delete_reports_with_torrents",
-    "translation": "Do you want to delete the reports along the selected torrents?"
+    "translation": "Вы хотите удалить отчеты по выбранным торрентам?"
   },
   {
     "id": "with_st",
-    "translation": "with {0}"
+    "translation": "с {0}"
   },
   {
     "id": "and_reports",
@@ -1193,459 +1193,459 @@
   },
   {
     "id": "no_changes",
-    "translation": "No changes"
+    "translation": "Без изменений"
   },
   {
     "id": "query_nb",
-    "translation": "Query #{0}"
+    "translation": "Запрос #{0}"
   },
   {
     "id": "reason",
-    "translation": "Reason"
+    "translation": "Причина"
   },
   {
     "id": "actions",
-    "translation": "Actions"
+    "translation": "Действия"
   },
   {
     "id": "action_select",
-    "translation": "Action..."
+    "translation": "Действие..."
   },
   {
     "id": "change_status",
-    "translation": "Change Status"
+    "translation": "Изменить статус"
   },
   {
     "id": "to_status",
-    "translation": "To..."
+    "translation": "К..."
   },
   {
     "id": "torrents_not_deleted",
-    "translation": "Torrents Not Deleted"
+    "translation": "Торренты не удалены"
   },
   {
     "id": "more",
-    "translation": "More"
+    "translation": "Больше"
   },
   {
     "id": "last_comments",
-    "translation": "Last Comments"
+    "translation": "Последние комментарии"
   },
   {
     "id": "last_reports",
-    "translation": "Last Reports"
+    "translation": "Последние жалобы"
   },
   {
     "id": "last_torrents",
-    "translation": "Last Torrents"
+    "translation": "Последние торренты"
   },
   {
     "id": "last_users",
-    "translation": "Last Users"
+    "translation": "Последние пользователи"
   },
   {
     "id": "moderation_overview",
-    "translation": "Moderation Overview"
+    "translation": "Обзор модерации"
   },
   {
     "id": "users_list",
-    "translation": "Users List"
+    "translation": "Список пользователей"
   },
   {
     "id": "comments_list",
-    "translation": "Comments List"
+    "translation": "Список комментариев"
   },
   {
     "id": "reports_list",
-    "translation": "Reports List"
+    "translation": "Список жалоб"
   },
   {
     "id": "torrents_list",
-    "translation": "Torrents List"
+    "translation": "Список торрентов"
   },
   {
     "id": "torrent_edit_panel",
-    "translation": "Torrent Edit Panel"
+    "translation": "Панель редактирования торрента"
   },
   {
     "id": "torrent_reassign",
-    "translation": "Torrent Reassign"
+    "translation": "Передача торрента"
   },
   {
     "id": "reassign_warning",
-    "translation": "Reassigning torrents to a new user is not easily reverted and should be done with care."
+    "translation": "Передача торрента новому пользователю нелегко обратима и должна быть выполнена с осторожностью."
   },
   {
     "id": "previous_username",
-    "translation": "Previous Username"
+    "translation": "Прошлое имя пользователя"
   },
   {
     "id": "torrent_id",
-    "translation": "Torrent ID"
+    "translation": "ID торрента"
   },
   {
     "id": "reassign_indication",
-    "translation": "One ID per line <b>or</b> a single username"
+    "translation": "Один ID на линию <b>или</b> единственное имя пользователя"
   },
   {
     "id": "reassign_warning_2",
-    "translation": "Might take a long time, do <b>NOT</b> abort the request."
+    "translation": "Может занять много времени,<b>НЕ</b> прерывайте запрос."
   },
   {
     "id": "reassign_to",
-    "translation": "Reassign to:"
+    "translation": "Передача к:"
   },
   {
     "id": "reassign_based_on",
-    "translation": "Reassign based on:"
+    "translation": "Передача по случаю:"
   },
   {
     "id": "user_id",
-    "translation": "User ID"
+    "translation": "ID пользователя"
   },
   {
     "id": "mascot_url",
-    "translation": "Mascot URL"
+    "translation": "URL маскота"
   },
   {
     "id": "no_notifications",
-    "translation": "No Notifications"
+    "translation": "Уведомлений нет"
   },
   {
     "id": "report_msg",
-    "translation": "The torrent #%d has been reported!"
+    "translation": "На торрент #%d была отправлена жалоба!"
   },
   {
     "id": "email_not_valid",
-    "translation": "Email Address is not valid!"
+    "translation": "Недействительный адрес электронной почты!"
   },
   {
     "id": "username_illegal",
-    "translation": "Username contains illegal characters!"
+    "translation": "Имя пользователя содержит недопустимые символы!"
   },
   {
     "id": "torrent_language",
-    "translation": "Torrent language"
+    "translation": "Язык торрента"
   },
   {
     "id": "language_not_mandatory",
-    "translation": "Language is not mandatory anymore"
+    "translation": "Язык уже не обязательно указывать"
   },
   {
     "id": "language_en-us_name",
-    "translation": "English"
+    "translation": "Английский"
   },
   {
     "id": "language_ca-es_name",
-    "translation": "Catalan"
+    "translation": "Каталонский"
   },
   {
     "id": "language_de-de_name",
-    "translation": "German"
+    "translation": "Немецкий"
   },
   {
     "id": "language_es-es_name",
-    "translation": "Spanish"
+    "translation": "Испанский"
   },
   {
     "id": "language_es-mx_name",
-    "translation": "Spanish (LATAM)"
+    "translation": "Испанский (лат.Ам.)"
   },
   {
     "id": "language_fr-fr_name",
-    "translation": "French"
+    "translation": "Французский"
   },
   {
     "id": "language_hu-hu_name",
-    "translation": "Hungarian"
+    "translation": "Венгерский"
   },
   {
     "id": "language_is-is_name",
-    "translation": "Icelandic"
+    "translation": "Исландский"
   },
   {
     "id": "language_it-it_name",
-    "translation": "Italian"
+    "translation": "Итальянский"
   },
   {
     "id": "language_ja-jp_name",
-    "translation": "Japanese"
+    "translation": "Японский"
   },
   {
     "id": "language_ko-kr_name",
-    "translation": "Korean"
+    "translation": "Корейский"
   },
   {
     "id": "language_nb-no_name",
-    "translation": "Norwegian"
+    "translation": "Норвежский"
   },
   {
     "id": "language_nl-nl_name",
-    "translation": "Dutch"
+    "translation": "Датский"
   },
   {
     "id": "language_pt-br_name",
-    "translation": "Portuguese (Brazil)"
+    "translation": "Португальский (Бразилия)"
   },
   {
     "id": "language_pt-pt_name",
-    "translation": "Portuguese (Portugal)"
+    "translation": "Португальский (Португалия)"
   },
   {
     "id": "language_ro-ro_name",
-    "translation": "Romanian"
+    "translation": "Румынский"
   },
   {
     "id": "language_ru-ru_name",
-    "translation": "Russian"
+    "translation": "Русский"
   },
   {
     "id": "language_sv-se_name",
-    "translation": "Swedish"
+    "translation": "Шведский"
   },
   {
     "id": "language_th-th_name",
-    "translation": "Thai"
+    "translation": "Тайский"
   },
   {
     "id": "language_zh-cn_name",
-    "translation": "Simplified Chinese"
+    "translation": "Китайский упрощённый"
   },
   {
     "id": "language_zh-tw_name",
-    "translation": "Traditional Chinese"
+    "translation": "Китайский традиционный"
   },
   {
     "id": "language_other_name",
-    "translation": "Other"
+    "translation": "Другой"
   },
   {
     "id": "language_multiple_name",
-    "translation": "Multiple Languages"
+    "translation": "Несколько языков"
   },
   {
     "id": "activity_list",
-    "translation": "Activity List"
+    "translation": "Список действий"
   },
   {
     "id": "activities",
-    "translation": "Activities"
+    "translation": "Действия"
   },
   {
     "id": "filter",
-    "translation": "Filter"
+    "translation": "Фильтр"
   },
   {
     "id": "error_min_length",
-    "translation": "Minimal length of %s required for the input: %s"
+    "translation": "Минимальный длина %s требуемая для ввода: %s"
   },
   {
     "id": "error_min_number",
-    "translation": "%s must be %s or greater"
+    "translation": "%s должно быть %s или больше"
   },
   {
     "id": "error_min_field",
-    "translation": "%s must be equal or greater to %s"
+    "translation": "%s должно быть равно или больше чем %s"
   },
   {
     "id": "error_min_array",
-    "translation": "%s must contain at least %s items"
+    "translation": "%s должен содержать как минимум %s элементов"
   },
   {
     "id": "error_less_date",
-    "translation": "%s must be less than the current Date & Time"
+    "translation": "%s должна быть раньше чем текущие дата и время"
   },
   {
     "id": "error_less_array",
-    "translation": "%s must contain less than %s items"
+    "translation": "%s должен содержать меньше чем %s элементов"
   },
   {
     "id": "error_less_length",
-    "translation": "%s must be less than %s in length"
+    "translation": "%s должен быть меньше чем %s по длине"
   },
   {
     "id": "error_less_number",
-    "translation": "%s must be less than %s"
+    "translation": "%s должна быть меньше чем %s"
   },
   {
     "id": "error_less_equal_date",
-    "translation": "%s must be less than or equal to the current Date & Time"
+    "translation": "%s должна быть раньше или равна текущим дате и времени"
   },
   {
     "id": "error_greater_date",
-    "translation": "%s must be greater than the current Date & Time"
+    "translation": "%s должна быть позже чем текущие дата и время"
   },
   {
     "id": "error_greater_length",
-    "translation": "%s must be greater than %s in length"
+    "translation": "%s должна быть больше чем %s по длине"
   },
   {
     "id": "error_greater_number",
-    "translation": "%s must be greater than %s"
+    "translation": "%s должно быть выше чем %s"
   },
   {
     "id": "error_greater_equal_date",
-    "translation": "%s must be greater than or equal to the current Date & Time"
+    "translation": "%s должна быть позже или равна текущим дате и времени"
   },
   {
     "id": "error_max_field",
-    "translation": "%s must be equal or less to %s"
+    "translation": "%s должно быть равно или меньше чем %s"
   },
   {
     "id": "error_max_length",
-    "translation": "Maximal length of %s required for the input: %s"
+    "translation": "Максимальная длина %s требуемая для ввода: %s"
   },
   {
     "id": "error_max_number",
-    "translation": "%s must be %s or less"
+    "translation": "%s должно быть %s или меньше"
   },
   {
     "id": "error_max_array",
-    "translation": "%s must contain at maximum %s items"
+    "translation": "%s должен содержать максимум %s элементов"
   },
   {
     "id": "error_length",
-    "translation": "Length of %s required for the input: %s"
+    "translation": "Длина %s требуемая для ввода: %s"
   },
   {
     "id": "error_equal",
-    "translation": "%s is not equal to %s"
+    "translation": "%s не равно %s"
   },
   {
     "id": "error_same_value",
-    "translation": "Field '%s' must have the same value as the field '%s'"
+    "translation": "Поле '%s' должно иметь то же значение, что и '%s'"
   },
   {
     "id": "error_field",
-    "translation": "Unexpected error on field: %s"
+    "translation": "Неожиданная ошибка в поле: %s"
   },
   {
     "id": "error_not_equal",
-    "translation": "%s should not be equal to %s"
+    "translation": "%s не должно быть равно %s"
   },
   {
     "id": "error_wrong_value",
-    "translation": "Wrong value for the input: %s"
+    "translation": "Неправильное значение для ввода: %s"
   },
   {
     "id": "error_field_needed",
-    "translation": "Field needed: %s"
+    "translation": "Нужно поле: %s"
   },
   {
     "id": "error_len_array",
-    "translation": "%s must contain %s items"
+    "translation": "%s должен содержать %s элементов"
   },
   {
     "id": "error_alpha",
-    "translation": "%s can only contain alphabetic characters"
+    "translation": "%s может содержать только буквенные символы"
   },
   {
     "id": "error_alphanum",
-    "translation": "%s can only contain alphanumeric characters"
+    "translation": "%s может содержать только буквенно-цифровые символы"
   },
   {
     "id": "error_numeric_valid",
-    "translation": "%s must be a valid numeric value"
+    "translation": "%s должно быть действительным числовым значением"
   },
   {
     "id": "error_number_valid",
-    "translation": "%s must be a valid number"
+    "translation": "%s должно быть дейстивительным числом"
   },
   {
     "id": "error_hexadecimal_valid",
-    "translation": "%s must be a valid hexadecimal"
+    "translation": "%s должен быть действительным шестнадцатеричным"
   },
   {
     "id": "error_hex_valid",
-    "translation": "%s must be a valid HEX color"
+    "translation": "%s должен быть действительным цветом HEX"
   },
   {
     "id": "error_rgb_valid",
-    "translation": "%s must be a valid RGB color"
+    "translation": "%s должен быть действительным цветом RGB"
   },
   {
     "id": "error_rgba_valid",
-    "translation": "%s must be a valid RGBA color"
+    "translation": "%s должен быть действительным цветом RGBA "
   },
   {
     "id": "error_hsl_valid",
-    "translation": "%s must be a valid HSL color"
+    "translation": "%s должен быть действительным цветом HSL"
   },
   {
     "id": "error_hsla_valid",
-    "translation": "%s must be a valid HSLA color"
+    "translation": "%s должен быть действительным цветом HSLA"
   },
   {
     "id": "error_url_valid",
-    "translation": "%s must be a valid URL"
+    "translation": "%s должен быть действительным URL"
   },
   {
     "id": "error_uri_valid",
-    "translation": "%s must be a valid URI"
+    "translation": "%s должен быть действительным URI"
   },
   {
     "id": "error_base64_valid",
-    "translation": "%s must be a valid Base64 string"
+    "translation": "%s должна быть действительной строкой Base64"
   },
   {
     "id": "error_contains",
-    "translation": "%s must contain the text '%s'"
+    "translation": "%s должна содержать текст '%s'"
   },
   {
     "id": "error_contains_any",
-    "translation": "%s must contain at least one of the following characters '%s'"
+    "translation": "%s должна содержать хотя бы один из следующих символов '%s'"
   },
   {
     "id": "error_excludes",
-    "translation": "%s cannot contain the text '%s'"
+    "translation": "%s не может содержать текст '%s'"
   },
   {
     "id": "error_excludes_all",
-    "translation": "%s cannot contain any of the following characters '%s'"
+    "translation": "%s не может содержать ни один из следующих символов '%s'"
   },
   {
     "id": "error_excludes_rune",
-    "translation": "%s cannot contain the following '%s'"
+    "translation": "%s не может содержать '%s'"
   },
   {
     "id": "error_color_valid",
-    "translation": "%s must be a valid color"
+    "translation": "%s должен быть действительным цветом"
   },
   {
     "id": "error_",
-    "translation": "%s must contain %s items"
+    "translation": "%s должен содержать %s элементов"
   },
   {
     "id": "error_len_array",
-    "translation": "%s must contain %s items"
+    "translation": "%s должен содержать %s элементов"
   },
   {
     "id": "refine_search",
-    "translation": "Refine your search"
+    "translation": "Точный поиск"
   },
   {
     "id": "between",
-    "translation": "Between"
+    "translation": "Между"
   },
   {
     "id": "and",
-    "translation": "and"
+    "translation": "и"
   },
   {
     "id": "days",
-    "translation": "Days"
+    "translation": "Дней"
   },
   {
     "id": "months",
-    "translation": "Months"
+    "translation": "Месяцев"
   },
   {
     "id": "years",
-    "translation": "Years"
+    "translation": "Лет"
   },
   {
     "id": "refine",
-    "translation": "Refine"
+    "translation": "Фильтр"
   },
   {
     "id": "large",
@@ -1657,231 +1657,231 @@
   },
   {
     "id": "optional",
-    "translation": "Optional"
+    "translation": "Дополнительно"
   },
   {
     "id": "search_for",
-    "translation": "Search for"
+    "translation": "Искать"
   },
   {
     "id": "show",
-    "translation": "Show"
+    "translation": "Показать"
   },
   {
     "id": "username_taken",
-    "translation": "Username already taken, you can choose: %s"
+    "translation": "Имя пользователя занято, вы можете выбрать: %s"
   },
   {
     "id": "email_in_db",
-    "translation": "Email address already in database"
+    "translation": "Адрес эл. почты уже в базе"
   },
   {
     "id": "user_not_found",
-    "translation": "User not found"
+    "translation": "Пользователь не найден"
   },
   {
     "id": "incorrect_password",
-    "translation": "Password Incorrect"
+    "translation": "Пароль неверен"
   },
   {
     "id": "password_error_generating",
-    "translation": "Error when generating your password hash"
+    "translation": "Ошибка генерации хэша для вашего пароля"
   },
   {
     "id": "permission_delete_error",
-    "translation": "You don't have the right to delete this"
+    "translation": "У вас нет прав на удаление"
   },
   {
     "id": "no_username_password",
-    "translation": "No username/password entered"
+    "translation": "Имя/пароль не введены"
   },
   {
     "id": "account_banned",
-    "translation": "Account banned"
+    "translation": "Аккаунт в бане!"
   },
   {
     "id": "account_need_activation",
-    "translation": "This account needs activation from Moderators, please contact us"
+    "translation": "Этот аккаунт требует активацию Модераторами, пожалуйста свяжитесь с нами"
   },
   {
     "id": "retrieve_torrent_error",
-    "translation": "Couldn't retrieve torrents"
+    "translation": "Не могу получить торренты"
   },
   {
     "id": "multiple_username_error",
-    "translation": "More than one username given"
+    "translation": "Указано не одно имя пользователя"
   },
   {
     "id": "elevating_user_error",
-    "translation": "Elevating status to moderator is prohibited"
+    "translation": "Запрещено повышать статус модератору"
   },
   {
     "id": "parse_error_line",
-    "translation": "Couldn't parse on line %d"
+    "translation": "Не могу парсить на строке %d"
   },
   {
     "id": "language_not_available",
-    "translation": "Language not available"
+    "translation": "Язык недоступен"
   },
   {
     "id": "mascot_url_too_long",
-    "translation": "Mascot URL is too long (max is 255 chars)"
+    "translation": "URL маскота слишком длинный (макс. 255 символов)"
   },
   {
     "id": "mascor_url_parse_error",
-    "translation": "Error occurred when parsing mascot URL: %s"
+    "translation": "Произошла ошибка при парсинге URL маскота: %s"
   },
   {
     "id": "no_id_given",
-    "translation": "No torrent ID given"
+    "translation": "ID торрента не указан"
   },
   {
     "id": "error_api_token",
-    "translation": "Error API token doesn't exist"
+    "translation": "Error API токен не существует"
   },
   {
     "id": "uploads_disabled",
-    "translation": "Uploads are disabled"
+    "translation": "Загрузки отключены"
   },
   {
     "id": "try_to_delete_report_inexistant",
-    "translation": "Trying to delete a torrent report that does not exists"
+    "translation": "Нельзя удалить несуществующую жалобу"
   },
   {
     "id": "torrent_report_not_created",
-    "translation": "TorrentReport was not created"
+    "translation": "Жалоба не была создана"
   },
   {
     "id": "user_not_deleted",
-    "translation": "User wasn't deleted"
+    "translation": "Пользователь не был удалён"
   },
   {
     "id": "error_content_type_post",
-    "translation": "Please provide either of Content-Type: application/json header or multipart/form-data"
+    "translation": "Предоставьте один из MIME-типов: заголовок application/json, либо multipart/form-data"
   },
   {
     "id": "torrent_name_invalid",
-    "translation": "Torrent name is invalid"
+    "translation": "Недопустимое название торрента"
   },
   {
     "id": "torrent_private",
-    "translation": "Torrent is private"
+    "translation": "Торрент является личным"
   },
   {
     "id": "torrent_no_working_trackers",
-    "translation": "Torrent does not have any (working) trackers: <a href=\"/faq#trackers\">Trackers List</a>"
+    "translation": "У торрента нет ни одного (рабочего) трекера: <a href=\"/faq#trackers\">Список трекеров</a>"
   },
   {
     "id": "torrent_desc_invalid",
-    "translation": "Torrent description is invalid"
+    "translation": "Недопустимое описание торрента"
   },
   {
     "id": "torrent_cat_invalid",
-    "translation": "Torrent category is invalid"
+    "translation": "Недопустимая категория торрента"
   },
   {
     "id": "torrent_lang_invalid",
-    "translation": "Language sent is not yet supported! You can help supporting it by contributing in our github page"
+    "translation": "Высланный язык ещё не поддерживается! Вы можете помочь, сделав вклад на нашей странице GitHub"
   },
   {
     "id": "torrent_cat_is_english",
-    "translation": "Torrent's category is for English translations, but language wasn't English. We changed it to english"
+    "translation": "Категория торрента - английские переводы, но указан не английский язык. Мы сменили его на английский"
   },
   {
     "id": "torrent_cat_not_english",
-    "translation": "Torrent's category is for non-English translations, but language selected is only English"
+    "translation": "Категория торрента - не-английские переводы, но выбран только английский язык"
   },
   {
     "id": "torrent_magnet_invalid",
-    "translation": "Magnet couldn't be parsed, please check it"
+    "translation": "Magnet-ссылка не может быть спарсена, пожалуйста, проверьте её"
   },
   {
     "id": "torrent_hash_invalid",
-    "translation": "Torrent hash is incorrect"
+    "translation": "Неверный хэш торрента"
   },
   {
     "id": "torrent_plus_magnet",
-    "translation": "Upload either a torrent file or magnet link, not both"
+    "translation": "Загрузите либо файл торрента, либо магнет-ссылку, не обе"
   },
   {
     "id": "torrent_file_invalid",
-    "translation": "Torrent File is invalid"
+    "translation": "Неверный torrent-файл"
   },
   {
     "id": "torrent_uri_invalid",
-    "translation": "Website url or IRC link is invalid"
+    "translation": "Недействительный адрес сайта или ссылка IRC"
   },
   {
     "id": "api_documentation",
-    "translation": "API documentation"
+    "translation": "Документация API"
   },
   {
     "id": "api_help",
-    "translation": "Do you have an api?"
+    "translation": "У вас есть api?"
   },
   {
     "id": "trusted",
-    "translation": "Torrents uploaded by trusted users."
+    "translation": "Торренты загружаются доверенными пользователями."
   },
   {
     "id": "reencodes",
-    "translation": "Re-encodes"
+    "translation": "Перекодирует"
   },
   {
     "id": "remux",
-    "translation": "Remux of another uploader's original release"
+    "translation": "Remux оригинального релиза от другого пользователя"
   },
   {
     "id": "reupload",
-    "translation": "Reupload of another users torrent with missing and/or unrelated additional files."
+    "translation": "Перезалив торрента других пользователей с отсутствующими/дополнительными несвязанными файлами."
   },
   {
     "id": "red",
-    "translation": "Red entries are: "
+    "translation": "Красные торренты:"
   },
   {
     "id": "green",
-    "translation": "Green entries are:"
+    "translation": "Зелёные торренты:"
   },
   {
     "id": "torrent_colors",
-    "translation": "Torrent colors"
+    "translation": "Цвета торрентов"
   },
   {
     "id": "torrent_preview",
-    "translation": "Preview your torrent"
+    "translation": "Предпросмотр торрента"
   },
   {
     "id": "announcement",
-    "translation": "Announcement"
+    "translation": "Объявление"
   },
   {
     "id": "update_client_failed",
-    "translation": "Update of the client has failed!"
+    "translation": "Ошибка обновления клиента!"
   },
   {
     "id": "update_client_success",
-    "translation": "You have successfully updated the client!"
+    "translation": "Вы успешно обновили клиент!"
   },
   {
     "id": "update_client_panel",
-    "translation": "Update a Client"
+    "translation": "Обновить клиент"
   },
   {
     "id": "create_client_success",
-    "translation": "You have successfully created the client!"
+    "translation": "Вы успешно создали клиент!"
   },
   {
     "id": "create_client_failed",
-    "translation": "Client creation has failed!"
+    "translation": "Ошибка создания клиента!"
   },
   {
     "id": "create_client_panel",
-    "translation": "Create a new Client"
+    "translation": "Создать новый клиент"
   },
   {
     "id": "redirect_uri",
-    "translation": "Redirect URI"
+    "translation": "Перенаправление URI"
   },
   {
     "id": "grant_types",
@@ -1897,19 +1897,19 @@
   },
   {
     "id": "owner",
-    "translation": "Owner"
+    "translation": "Владелец"
   },
   {
     "id": "policy_uri",
-    "translation": "Policy URI"
+    "translation": "Политика URI"
   },
   {
     "id": "tos_uri",
-    "translation": "Terms Of Service URI"
+    "translation": "Условия использования URI"
   },
   {
     "id": "logo_uri",
-    "translation": "Logo URI"
+    "translation": "Логотип URI"
   },
   {
     "id": "contacts",
@@ -1917,35 +1917,35 @@
   },
   {
     "id": "oauth_clients_list",
-    "translation": "OAuth API Clients"
+    "translation": "Клиенты OAuth API"
   },
   {
     "id": "add",
-    "translation": "Add"
+    "translation": "Добавить"
   },
   {
     "id": "remove",
-    "translation": "Remove"
+    "translation": "Удалить"
   },
   {
     "id": "secret",
-    "translation": "Client Secret"
+    "translation": "Секрет клиента"
   },
   {
     "id": "torrent_age",
-    "translation": "{1} days {2} hours ago"
+    "translation": "{1} дня {2} часа назад"
   },
   {
     "id": "wrong_tag_type",
-    "translation": "The tag type selected doesn't exist"
+    "translation": "Выбранный тип тега не существует"
   },
   {
     "id": "add_tag",
-    "translation": "Add a Tag"
+    "translation": "Добавить тег"
   },
   {
     "id": "tagtype",
-    "translation": "Tag Type"
+    "translation": "Тип тега"
   },
   {
     "id": "tagtype_anidbid",
@@ -1957,34 +1957,34 @@
   },
   {
     "id": "tagtype_quality",
-    "translation": "Video Quality"
+    "translation": "Качество видео"
   },
   {
     "id": "torrent_tags",
-    "translation": "Torrent tags"
+    "translation": "Теги торрента"
   },
   {
     "id": "announcements",
-    "translation": "Announcements"
+    "translation": "Объявления"
   },
   {
     "id": "message",
-    "translation": "Message"
+    "translation": "Сообщение"
   },
   {
     "id": "delay",
-    "translation": "Delay"
+    "translation": "Задержка"
   },
   {
     "id": "update_annoucement_panel",
-    "translation": "Update Announcement"
+    "translation": "Обновить объявление"
   },
   {
     "id": "create_annoucement_panel",
-    "translation": "Create Announcement"
+    "translation": "Создать объявление"
   },
   {
     "id": "expire",
-    "translation": "Expire"
+    "translation": "Истекает"
   }
 ]
