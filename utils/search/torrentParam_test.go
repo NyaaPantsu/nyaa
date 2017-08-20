@@ -12,13 +12,13 @@ import (
 func TestTorrentParam_Identifier(t *testing.T) {
 	torrentParam := &TorrentParam{}
 	assert := assert.New(t)
-	assert.Equal("MDAwMDAwMDBmYWxzZWZhbHNlZmFsc2VmYWxzZQ==", torrentParam.Identifier(), "It should be empty")
+	assert.Equal("MDAwMDAwMDAwMDAwZmFsc2VmYWxzZWZhbHNlZmFsc2U=", torrentParam.Identifier(), "It should be empty")
 	torrentParam = &TorrentParam{
 		NameLike: "test",
 		NotNull:  "IS NULL",
 		Hidden:   false,
 	}
-	assert.Equal("dGVzdElTIE5VTEwwMDAwMDAwMGZhbHNlZmFsc2VmYWxzZWZhbHNl", torrentParam.Identifier(), "It should be empty")
+	assert.Equal("dGVzdElTIE5VTEwwMDAwMDAwMDAwMDBmYWxzZWZhbHNlZmFsc2VmYWxzZQ==", torrentParam.Identifier(), "It should be empty")
 }
 
 func TestTorrentParam_FromRequest(t *testing.T) {
@@ -72,19 +72,19 @@ func TestTorrentParam_ToESQuery(t *testing.T) {
 	}
 }
 
-func TestParseUser(t *testing.T) {
+func TestParseUInt(t *testing.T) {
 	assert := assert.New(t)
 
 	c := mockRequest(t, "/?userID=3")
-	userID := parseUser(c)
+	userID := parseUInt(c, "userID")
 	assert.Equal(uint32(3), userID, "Should be equal to 3")
 
 	c = mockRequest(t, "/?userID=")
-	userID = parseUser(c)
+	userID = parseUInt(c, "userID")
 	assert.Empty(userID, "Should be empty")
 
 	c = mockRequest(t, "/?userID=lol")
-	userID = parseUser(c)
+	userID = parseUInt(c, "userID")
 	assert.Empty(userID, "Should be empty")
 }
 

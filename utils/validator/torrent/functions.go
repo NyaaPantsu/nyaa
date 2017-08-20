@@ -3,6 +3,7 @@ package torrentValidator
 import (
 	"encoding/base32"
 	"encoding/hex"
+	"fmt"
 	"io"
 	"mime/multipart"
 	"net/url"
@@ -337,8 +338,9 @@ func (ts *TagsRequest) Bind(torrent interface{}) error {
 		if !tagField.IsValid() {
 			return errWrongFieldConfig
 		}
-		if tagField.String() != "" {
-			*ts = append(*ts, tagsValidator.CreateForm{Type: tagConf.Name, Tag: tagField.String()})
+
+		if fmt.Sprint(tagField.Interface()) != "" && fmt.Sprint(tagField.Interface()) != "0" {
+			*ts = append(*ts, tagsValidator.CreateForm{Type: tagConf.Name, Tag: fmt.Sprint(tagField.Interface())})
 		}
 	}
 	return nil

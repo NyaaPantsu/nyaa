@@ -56,10 +56,10 @@ type Torrent struct {
 	Trackers    string    `gorm:"column:trackers"`
 
 	// Torrent Details
-	AnidbID      string `gorm:"column:anidbid"`
-	VndbID       string `gorm:"column:vndbid"`
-	VgmdbID      string `gorm:"column:vgmdbid"`
-	Dlsite       string `gorm:"column:dlsite"`
+	AnidbID      uint   `gorm:"column:anidbid"`
+	VndbID       uint   `gorm:"column:vndbid"`
+	VgmdbID      uint   `gorm:"column:vgmdbid"`
+	Dlsite       uint   `gorm:"column:dlsite"`
 	VideoQuality string `gorm:"column:videoquality"`
 	AcceptedTags string `gorm:"column:tags"`
 	// Indicates the language of the torrent's content (eg. subs, dubs, raws, manga TLs)
@@ -94,10 +94,10 @@ type TorrentJSON struct {
 	Category    string        `json:"category"`
 
 	// Torrent DBID
-	AnidbID      string `json:"anidbid"`
-	VndbID       string `json:"vndbid"`
-	VgmdbID      string `json:"vgmdbid"`
-	Dlsite       string `json:"dlsite"`
+	AnidbID      uint   `json:"anidbid"`
+	VndbID       uint   `json:"vndbid"`
+	VgmdbID      uint   `json:"vgmdbid"`
+	Dlsite       uint   `json:"dlsite"`
 	VideoQuality string `json:"videoquality"`
 	AcceptedTags Tags   `json:"tags"`
 

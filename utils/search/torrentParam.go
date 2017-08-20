@@ -39,6 +39,13 @@ type TorrentParam struct {
 	Languages publicSettings.Languages
 	MinSize   SizeBytes
 	MaxSize   SizeBytes
+	// Tags search
+	AnidbID      uint32
+	VndbID       uint32
+	VgmdbID      uint32
+	Dlsite       uint32
+	VideoQuality string
+	Tags         Tags
 }
 
 // Identifier returns a unique identifier for the struct
@@ -55,18 +62,23 @@ func (p *TorrentParam) Identifier() string {
 	for _, v := range p.TorrentID {
 		ids += fmt.Sprintf("%d", v)
 	}
-	identifier := fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%d%s%s%t%t%t%t", p.NameLike, p.NotNull, languages, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, p.FromDate, p.ToDate, p.UserID, ids, cats, p.Full, p.Order, p.Hidden, p.Deleted)
+	// Tags identifier
+	tags := strings.Join(p.Tags, ",")
+	tags += p.VideoQuality
+	dbids := fmt.Sprintf("%d%d%d%d", p.AnidbID, p.VndbID, p.VgmdbID, p.Dlsite)
+
+	identifier := fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%s%d%s%s%s%t%t%t%t", p.NameLike, p.NotNull, languages, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, dbids, p.FromDate, p.ToDate, p.UserID, ids, cats, tags, p.Full, p.Order, p.Hidden, p.Deleted)
 	return base64.URLEncoding.EncodeToString([]byte(identifier))
 }
 
-func parseUser(c *gin.Context) uint32 {
+func parseUInt(c *gin.Context, key string) uint32 {
 	// Get the user id from the url
-	userID, err := strconv.ParseUint(c.Query("userID"), 10, 32)
+	u64, err := strconv.ParseUint(c.Query(key), 10, 32)
 	if err != nil {
 		// if you can't convert it, you set it to 0
-		userID = 0
+		u64 = 0
 	}
-	return uint32(userID)
+	return uint32(u64)
 }
 func parseTorrentID(c *gin.Context) (uint32, []uint32) {
 	// Get the torrent ID to limit the results to the ones after this torrent
@@ -107,7 +119,22 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 
 	// Limit search to one user
 	// Get the user id from the url
-	p.UserID = parseUser(c)
+	p.UserID = parseUInt(c, "userID")
+
+	// Limit search to DbID
+	// Get the id from the url
+	p.AnidbID = parseUInt(c, "anidb")
+	p.VndbID = parseUInt(c, "vndb")
+	p.VgmdbID = parseUInt(c, "vgm")
+	p.Dlsite = parseUInt(c, "dlsite")
+
+	// Limit search to video quality
+	// Get the video quality from url
+	p.VideoQuality = c.Query("vq")
+
+	// Limit search to some accepted tags
+	// Get the tags from the url
+	p.Tags.Parse(c.Query("tags"))
 
 	// Order to return the results
 	// Getting the order from the "order" argument in url, we default to descending order
@@ -189,6 +216,32 @@ func (p *TorrentParam) toESQuery(c *gin.Context) *Query {
 
 	if len(p.Languages) > 0 {
 		langsToESQuery(query, p.Languages)
+	}
+
+	// Tags search
+	// Anidb
+	if p.AnidbID != 0 {
+		query.Append("anidbid:" + strconv.FormatInt(int64(p.FromID), 10))
+	}
+	// Vndb
+	if p.VndbID != 0 {
+		query.Append("vndbid:" + strconv.FormatInt(int64(p.FromID), 10))
+	}
+	// Vgmdb
+	if p.VgmdbID != 0 {
+		query.Append("vgmdbid:" + strconv.FormatInt(int64(p.FromID), 10))
+	}
+	// Dlsite
+	if p.Dlsite != 0 {
+		query.Append("dlsite:" + strconv.FormatInt(int64(p.FromID), 10))
+	}
+	// Video quality
+	if p.VideoQuality != "" {
+		query.Append("videoquality:" + p.VideoQuality)
+	}
+	// Other tags
+	if len(p.Tags) > 0 {
+		query.Append(p.Tags.ToESQuery())
 	}
 
 	return query
@@ -276,6 +329,32 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 	}
 	if p.MaxSize > 0 {
 		query.Append("filesize <= ?", p.MaxSize.ToDBQuery())
+	}
+
+	// Tags search
+	// Anidb
+	if p.AnidbID > 0 {
+		query.Append("anidbid = ?", p.AnidbID)
+	}
+	// Vndb
+	if p.VndbID > 0 {
+		query.Append("vndbid = ?", p.VndbID)
+	}
+	// Vgmdb
+	if p.VgmdbID > 0 {
+		query.Append("vgmdbid = ?", p.VgmdbID)
+	}
+	// Dlsite
+	if p.Dlsite > 0 {
+		query.Append("dlsite = ?", p.Dlsite)
+	}
+	// Video quality
+	if p.VideoQuality != "" {
+		query.Append("videoquality = ?", p.VideoQuality)
+	}
+	// Other tags
+	if len(p.Tags) > 0 {
+		query.Append(p.Tags.ToDBQuery())
 	}
 
 	querySplit := strings.Fields(p.NameLike)

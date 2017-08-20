@@ -1,7 +1,9 @@
 package tags
 
 import (
+	"fmt"
 	"reflect"
+	"strconv"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
@@ -20,8 +22,9 @@ func FilterOrCreate(tag *models.Tag, torrent *models.Torrent, currentUser *model
 	if tagConf.Name == "" {
 		return false
 	}
+	var oldValue = fmt.Sprint(reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).Interface())
 	// If the tag is already accepted in torrent, don't need to create it again or modify it
-	if reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).String() == tag.Tag {
+	if oldValue == tag.Tag || (oldValue == "0" && tag.Tag == "") || tag.Tag == "0" {
 		return true
 	}
 	if torrent.ID == 0 { // FilterOrCreate should be called after Bind to filter empty tags, so no need to check if tags are empty again
@@ -87,9 +90,9 @@ func FilterOrCreate(tag *models.Tag, torrent *models.Torrent, currentUser *model
 
 /// callbackOnType is a function which will perform different action depending on the tag type
 func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
-	switch tag.Type {
-	case config.Get().Torrents.Tags.Default:
-		if torrent.ID > 0 {
+	if torrent.ID > 0 {
+		switch tag.Type {
+		case config.Get().Torrents.Tags.Default:
 			// We check if the torrent has already accepted tags
 			if torrent.AcceptedTags != "" {
 				// if yes we append to it a comma before inserting the tag
@@ -97,25 +100,31 @@ func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 			}
 			// We finally add the tag to the column
 			torrent.AcceptedTags += tag.Tag
-		}
-	case "anidbid":
-		// TODO: Perform a check that anidbid is in anidb database
-		if torrent.ID > 0 {
-			torrent.AnidbID = tag.Tag
-		}
-	default:
-		// Some tag type can have default values that you have to choose from
-		// We, here, check that the tag is one of them
-		tagConf := config.Get().Torrents.Tags.Types.Get(tag.Type)
-		// We look for the tag type in config
-		if tagConf.Name != "" {
-			// and then check that the value is in his defaults if defaults are set
-			if len(tagConf.Defaults) > 0 && tagConf.Defaults[0] != "db" && tag.Tag != "" && !tagConf.Defaults.Contains(tag.Tag) {
-				// if not we return the function
+		case "anidbid", "vndbid", "vgmdbid", "dlsite":
+			u64, err := strconv.ParseUint(tag.Tag, 10, 32)
+			if err != nil {
+				log.CheckErrorWithMessage(err, "CONVERT_TYPE: Can't convert tag '%s' to uint", tag.Tag)
 				return
 			}
-			// We overwrite the tag type in the torrent model
-			reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).SetString(tag.Tag)
+			// TODO: Perform a check that anidbid is in anidb database
+			tagConf := config.Get().Torrents.Tags.Types.Get(tag.Type)
+			if u64 > 0 {
+				reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).SetUint(u64)
+			}
+		default:
+			// Some tag type can have default values that you have to choose from
+			// We, here, check that the tag is one of them
+			tagConf := config.Get().Torrents.Tags.Types.Get(tag.Type)
+			// We look for the tag type in config
+			if tagConf.Name != "" {
+				// and then check that the value is in his defaults if defaults are set
+				if len(tagConf.Defaults) > 0 && tagConf.Defaults[0] != "db" && tag.Tag != "" && !tagConf.Defaults.Contains(tag.Tag) {
+					// if not we return the function
+					return
+				}
+				// We overwrite the tag type in the torrent model
+				reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).SetString(tag.Tag)
+			}
 		}
 	}
 }
