@@ -188,15 +188,13 @@ func UpdateTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, current
 			UserID:    0, // 0 so we don't increase pantsu points for every tag for the actual user (would be too much increase)
 			Weight:    config.Get().Torrents.Tags.MaxWeight + 1,
 		}
-		if !t.Tags.Contains(*tag) { // If the tag is not already accepted
-			if currentUser.CurrentUserIdentical(t.UploaderID) {
-				// We do not pass the current user so we don't increase/decrease pantsu for owner torrents
-				tags.FilterOrCreate(tag, t, &models.User{}) // We create a tag or we filter out every tags and increase/decrease pantsu for already sent tags of the same type
-			} else {
-				// If we are not the owner, we increase/decrease pantsus for each successfull edit
-				// So it increases pantsu of moderator when they edit torrents
-				tags.FilterOrCreate(tag, t, currentUser)
-			}
+		if currentUser.CurrentUserIdentical(t.UploaderID) {
+			// We do not pass the current user so we don't increase/decrease pantsu for owner torrents
+			tags.FilterOrCreate(tag, t, &models.User{}) // We create a tag or we filter out every tags and increase/decrease pantsu for already sent tags of the same type
+		} else {
+			// If we are not the owner, we increase/decrease pantsus for each successfull edit
+			// So it increases pantsu of moderator when they edit torrents
+			tags.FilterOrCreate(tag, t, currentUser)
 		}
 		tagsReq = append(tagsReq, *tag) // Finally we append the tag to the tag list
 	}

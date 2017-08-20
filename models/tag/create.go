@@ -23,6 +23,7 @@ func New(tag *models.Tag, torrent *models.Torrent) (*models.Tag, error) {
 	if torrent.ID == 0 {
 		return tag, errors.New("Can't add a tag to no torrents")
 	}
+	tag.TorrentID = torrent.ID
 	if err := models.ORM.Create(tag).Error; err != nil {
 		return tag, err
 	}

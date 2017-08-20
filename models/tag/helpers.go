@@ -16,6 +16,14 @@ import (
 // we add it directly in torrent model as an accepted tag and remove other tags with the same type
 // This function return true if it has added/filtered the tags and false if errors were encountered
 func FilterOrCreate(tag *models.Tag, torrent *models.Torrent, currentUser *models.User) bool {
+	tagConf := config.Get().Torrents.Tags.Types.Get(tag.Type)
+	if tagConf.Name == "" {
+		return false
+	}
+	// If the tag is already accepted in torrent, don't need to create it again or modify it
+	if reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).String() == tag.Tag {
+		return true
+	}
 	if torrent.ID == 0 { // FilterOrCreate should be called after Bind to filter empty tags, so no need to check if tags are empty again
 		return false
 	}
@@ -81,7 +89,7 @@ func FilterOrCreate(tag *models.Tag, torrent *models.Torrent, currentUser *model
 func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 	switch tag.Type {
 	case config.Get().Torrents.Tags.Default:
-		if tag.TorrentID > 0 && torrent.ID > 0 {
+		if torrent.ID > 0 {
 			// We check if the torrent has already accepted tags
 			if torrent.AcceptedTags != "" {
 				// if yes we append to it a comma before inserting the tag
@@ -92,7 +100,7 @@ func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 		}
 	case "anidbid":
 		// TODO: Perform a check that anidbid is in anidb database
-		if tag.TorrentID > 0 && torrent.ID > 0 {
+		if torrent.ID > 0 {
 			torrent.AnidbID = tag.Tag
 		}
 	default:
