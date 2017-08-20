@@ -67,14 +67,14 @@
       </td>
     </tr>
     {{end}}
-    {{ if Torrent.AnidbID != "" || Torrent.VndbID != "" || Torrent.VgmdbID != "" || Torrent.Dlsite != "" }}
+    {{ if Torrent.AnidbID > 0 || Torrent.VndbID > 0 || Torrent.VgmdbID > 0 || Torrent.Dlsite > 0 }}
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("related_to") }}</td>
       <td class="tr-flag torrent-view-td torrent-info-data">
-        {{ if Torrent.AnidbID != "" }}<span>{{ T("tagtype_anidbid") }}: {{ Torrent.AnidbID }}</span>{{end}}
-        {{ if Torrent.VndbID != "" }}<span>{{ T("tagtype_vndbid") }}: {{ Torrent.VndbID }}</span>{{end}}
-        {{ if Torrent.VgmdbID != "" }}<span>{{ T("tagtype_vgmdbid") }}: {{ Torrent.VgmdbID }}</span>{{end}}
-        {{ if Torrent.Dlsite != "" }}<span>{{ T("tagtype_dlsite") }}: {{ Torrent.Dlsite }}</span>{{end}}
+        {{ if Torrent.AnidbID > 0 }}<span>{{ T("tagtype_anidbid") }}: {{ Torrent.AnidbID }}</span>{{end}}
+        {{ if Torrent.VndbID > 0 }}<span>{{ T("tagtype_vndbid") }}: {{ Torrent.VndbID }}</span>{{end}}
+        {{ if Torrent.VgmdbID > 0 }}<span>{{ T("tagtype_vgmdbid") }}: {{ Torrent.VgmdbID }}</span>{{end}}
+        {{ if Torrent.Dlsite > 0 }}<span>{{ T("tagtype_dlsite") }}: {{ Torrent.Dlsite }}</span>{{end}}
       </td>
     </tr>
     {{ end }}
@@ -313,12 +313,12 @@ function handleVotes(e) {
       if (hasplus) {
         el.classList.remove("plus")
         el.classList.add("minus")
-        el.href = el.href.replace("/add?", "/remove?")
+        el.href = "/torrent/tag/remove?id={{Torrent.ID}}&tag="+tag.tag+"&type="+tag.type
         el.parentElement.title = 'Tag: ' + tag.type + "(" + (tag.weight+weight) + ")"
       } else {
         el.classList.remove("minus")
         el.classList.add("plus")
-        el.href = el.href.replace("/remove?", "/add?")
+        el.href = "/torrent/tag/add?id={{Torrent.ID}}&tag_"+ tag.type +"="+tag.tag
         el.parentElement.title = 'Tag: ' + tag.type + "(" + (weight-tag.weight) + ")"
       }
     }

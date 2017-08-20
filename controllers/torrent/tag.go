@@ -110,8 +110,8 @@ func AddTag(c *gin.Context) {
 		return
 	}
 
+	tagForm := &tagsValidator.CreateForm{c.Query("tag"), c.Query("type")}
 	if c.Query("tag") != "" && user.ID > 0 {
-		tagForm := &tagsValidator.CreateForm{c.Query("tag"), c.Query("type")}
 		validator.ValidateForm(tagForm, messages)
 		if !messages.HasErrors() {
 			// We load tags for user and torrents
@@ -120,7 +120,7 @@ func AddTag(c *gin.Context) {
 		}
 	}
 	if _, ok := c.GetQuery("json"); ok {
-		apiUtils.ResponseHandler(c)
+		apiUtils.ResponseHandler(c, tagForm)
 		return
 	}
 	c.Redirect(http.StatusSeeOther, fmt.Sprintf("/view/%d", id))
@@ -143,9 +143,8 @@ func DeleteTag(c *gin.Context) {
 	// We load tags for user and torrents
 	user.LoadTags(torrent)
 
+	tagForm := &tagsValidator.CreateForm{c.Query("tag"), c.Query("type")}
 	if c.Query("tag") != "" && user.ID > 0 {
-		tagForm := &tagsValidator.CreateForm{c.Query("tag"), c.Query("type")}
-
 		validator.ValidateForm(tagForm, messages)
 
 		if !messages.HasErrors() {
@@ -159,7 +158,7 @@ func DeleteTag(c *gin.Context) {
 		}
 	}
 	if _, ok := c.GetQuery("json"); ok {
-		apiUtils.ResponseHandler(c)
+		apiUtils.ResponseHandler(c, tagForm)
 		return
 	}
 	c.Redirect(http.StatusSeeOther, fmt.Sprintf("/view/%d", id))
