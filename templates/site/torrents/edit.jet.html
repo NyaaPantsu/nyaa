@@ -57,6 +57,10 @@
     {{ range Config.Torrents.Tags.Types }}
     {{ yield tagForm(tagType=., acceptedTag=Form.Tags.Get(.Name)) }}
     {{ end }}
+    <div class="form-group">
+      <label for="tag_tags">{{ T("tagtype_tags") }}</label>
+      <input type="text" name="tag_tags" id="tag_tags" value="{{ Form.AcceptedTags }}" />
+    </div>
     {{ yield errors(name="tags")}}
     <button type="submit" class="form-input up-input">{{ T("save_changes")}}</button>
     <br/>

@@ -1988,6 +1988,10 @@
     "translation": "VGMdb ID"
   },
   {
+    "id": "tagtype_tags",
+    "translation": "Descriptive Tags"
+  },
+  {
     "id": "tagvalue_select",
     "translation": "Select..."
   },

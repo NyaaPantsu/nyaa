@@ -9,3 +9,4 @@
 * + tagvalue_hd
 * + tagvalue_sd
 * + tagvalue_bluray
+* + tagtype_tags
