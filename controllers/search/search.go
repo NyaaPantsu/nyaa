@@ -61,6 +61,10 @@ func SearchHandler(c *gin.Context) {
 		searchForm.ShowRefine = true
 	}
 
+	if c.Query("order") == "true" {
+		searchForm.SortOrder = true
+	}
+	
 	maxPages := math.Ceil(float64(nbTorrents) / float64(searchParam.Max))
 	if pagenum > int(maxPages) {
 		variables := templates.Commonvariables(c)
