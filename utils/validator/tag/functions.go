@@ -22,11 +22,11 @@ func Check(tagType string, tag string) bool {
 }
 
 // Bind a post request to tags
-func Bind(c *gin.Context) []CreateForm {
+func Bind(c *gin.Context, keepEmpty bool) []CreateForm {
 	var tags []CreateForm
 	for _, tagConf := range config.Get().Torrents.Tags.Types {
-		if value := c.PostForm("tag_" + tagConf.Name); value != "" {
-			if len(tagConf.Defaults) > 0 && tagConf.Defaults[0] != "db" && !tagConf.Defaults.Contains(value) {
+		if value, ok := c.GetPostForm("tag_" + tagConf.Name); ok && (value != "" || keepEmpty) {
+			if len(tagConf.Defaults) > 0 && tagConf.Defaults[0] != "db" && !tagConf.Defaults.Contains(value) && value != "" {
 				continue
 			}
 			tags = append(tags, CreateForm{Tag: value, Type: tagConf.Name})

@@ -25,7 +25,7 @@ func postTags(c *gin.Context, torrent *models.Torrent, user *models.User) []mode
 	var newTags []models.Tag
 	messages := msg.GetMessages(c)
 	// Bind already check if a tag is valid or not
-	tagsForm := tagsValidator.Bind(c)
+	tagsForm := tagsValidator.Bind(c, false)
 	if len(tagsForm) == 0 {
 		messages.ErrorT(errors.New("wrong_tag_type"))
 		return nil
@@ -58,6 +58,7 @@ func postTags(c *gin.Context, torrent *models.Torrent, user *models.User) []mode
 		}
 
 	}
+	torrent.Update(false)
 	return newTags
 }
 

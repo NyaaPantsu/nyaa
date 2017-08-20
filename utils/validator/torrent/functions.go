@@ -38,7 +38,7 @@ func (r *TorrentRequest) ValidateTags() {
 	var index config.ArrayString
 	filteredTags := []tagsValidator.CreateForm{}
 	for _, tag := range r.Tags {
-		if index.Contains(tag.Type) || tag.Type == "" || tag.Tag == "" {
+		if index.Contains(tag.Type) || tag.Type == "" {
 			continue
 		}
 		filteredTags = append(filteredTags, tag)

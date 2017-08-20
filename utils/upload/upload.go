@@ -84,7 +84,7 @@ func ExtractEditInfo(c *gin.Context, r *torrentValidator.TorrentRequest) error {
 // ExtractBasicValue : takes an http request and computes all basic fields for this form
 func ExtractBasicValue(c *gin.Context, r *torrentValidator.TorrentRequest) error {
 	c.Bind(r)
-	r.Tags = tagsValidator.Bind(c)
+	r.Tags = tagsValidator.Bind(c, true) // This function already delete duplicated tags (only use one of the PostForm)
 
 	// trim whitespace
 	r.Name = strings.TrimSpace(r.Name)
@@ -101,8 +101,6 @@ func ExtractBasicValue(c *gin.Context, r *torrentValidator.TorrentRequest) error
 	if err != nil {
 		return err
 	}
-
-	r.ValidateTags() // Tags should only be filtered, no errors are generated
 
 	err = r.ValidateWebsiteLink()
 	return err
@@ -179,7 +177,6 @@ func UpdateTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, current
 	t.Status = status
 
 	t.Hidden = r.Update.Hidden
-
 	// This part of the code check that we have only one tag of the same type
 	var tagsReq models.Tags
 	for _, tagForm := range r.Update.Tags {
@@ -192,7 +189,14 @@ func UpdateTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, current
 			Weight:    config.Get().Torrents.Tags.MaxWeight + 1,
 		}
 		if !t.Tags.Contains(*tag) { // If the tag is not already accepted
-			tags.FilterOrCreate(tag, t, currentUser) // We create a tag or we filter out every tags and increase/decrease pantsu for already sent tags of the same type
+			if currentUser.CurrentUserIdentical(t.UploaderID) {
+				// We do not pass the current user so we don't increase/decrease pantsu for owner torrents
+				tags.FilterOrCreate(tag, t, &models.User{}) // We create a tag or we filter out every tags and increase/decrease pantsu for already sent tags of the same type
+			} else {
+				// If we are not the owner, we increase/decrease pantsus for each successfull edit
+				// So it increases pantsu of moderator when they edit torrents
+				tags.FilterOrCreate(tag, t, currentUser)
+			}
 		}
 		tagsReq = append(tagsReq, *tag) // Finally we append the tag to the tag list
 	}

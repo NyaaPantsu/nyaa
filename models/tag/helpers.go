@@ -16,7 +16,7 @@ import (
 // we add it directly in torrent model as an accepted tag and remove other tags with the same type
 // This function return true if it has added/filtered the tags and false if errors were encountered
 func FilterOrCreate(tag *models.Tag, torrent *models.Torrent, currentUser *models.User) bool {
-	if torrent.ID == 0 || tag.Type == "" || tag.Tag == "" {
+	if torrent.ID == 0 { // FilterOrCreate should be called after Bind to filter empty tags, so no need to check if tags are empty again
 		return false
 	}
 	tagSum := models.Tag{}
@@ -89,15 +89,11 @@ func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 			}
 			// We finally add the tag to the column
 			torrent.AcceptedTags += tag.Tag
-			// and update the torrent
-			torrent.Update(false)
 		}
 	case "anidbid":
 		// TODO: Perform a check that anidbid is in anidb database
 		if tag.TorrentID > 0 && torrent.ID > 0 {
 			torrent.AnidbID = tag.Tag
-			// and update the torrent
-			torrent.Update(false)
 		}
 	default:
 		// Some tag type can have default values that you have to choose from
@@ -106,13 +102,12 @@ func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 		// We look for the tag type in config
 		if tagConf.Name != "" {
 			// and then check that the value is in his defaults if defaults are set
-			if len(tagConf.Defaults) > 0 && tagConf.Defaults[0] != "db" && !tagConf.Defaults.Contains(tag.Tag) {
+			if len(tagConf.Defaults) > 0 && tagConf.Defaults[0] != "db" && tag.Tag != "" && !tagConf.Defaults.Contains(tag.Tag) {
 				// if not we return the function
 				return
 			}
 			// We overwrite the tag type in the torrent model
 			reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).SetString(tag.Tag)
 		}
-		torrent.Update(false)
 	}
 }

@@ -28,6 +28,20 @@ func Create(user *models.User, uploadForm *torrentValidator.TorrentRequest) (*mo
 		UploaderID:  user.ID}
 	torrent.EncodeLanguages() // Convert languages array in language string
 	torrent.ParseTrackers(uploadForm.Trackers)
+	for _, tagForm := range uploadForm.Tags {
+		tag := &models.Tag{
+			Tag:       tagForm.Tag,
+			Type:      tagForm.Type,
+			Accepted:  true,
+			TorrentID: torrent.ID,
+			UserID:    0, // 0 so we don't increase pantsu points for every tag for the actual user (would be too much increase)
+			Weight:    config.Get().Torrents.Tags.MaxWeight + 1,
+		}
+		if tags.FilterOrCreate(tag, &torrent, user) { // We create a tag (filter doesn't apply since new torrent), only callbackOnType is called
+			torrent.Tags = append(torrent.Tags, *tag) // Finally we append it to the torrent
+		}
+	}
+
 	err := models.ORM.Create(&torrent).Error
 	log.Infof("Torrent ID %d created!\n", torrent.ID)
 	if err != nil {
@@ -55,19 +69,7 @@ func Create(user *models.User, uploadForm *torrentValidator.TorrentRequest) (*mo
 		}
 	}
 
-	for _, tagForm := range uploadForm.Tags {
-		tag := &models.Tag{
-			Tag:       tagForm.Tag,
-			Type:      tagForm.Type,
-			Accepted:  true,
-			TorrentID: torrent.ID,
-			UserID:    0, // 0 so we don't increase pantsu points for every tag for the actual user (would be too much increase)
-			Weight:    config.Get().Torrents.Tags.MaxWeight + 1,
-		}
-		if tags.FilterOrCreate(tag, &torrent, user) { // We create a tag (filter doesn't apply since new torrent)
-			torrent.Tags = append(torrent.Tags, *tag) // Finally we append it to the torrent
-		}
-	}
+	torrent.Update(false)
 	user.IncreasePantsu()
 
 	return &torrent, nil
