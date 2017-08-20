@@ -2,7 +2,6 @@ package themeToggleController
 
 import (
 	"net/http"
-	"log"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/timeHelper"
@@ -23,12 +22,16 @@ func toggleThemeHandler(c *gin.Context) {
 	}
 	//Get theme1 & theme2 value, set g.css & tomorrow.css by default
 
+	//redirectUrl = "https://nyaa.pantsu.cat/"
+	//fmt.Sprintf(redirectUrl, "%s#footer", c.Param("redirect"))
+	
 	//Switch theme & theme2 value
 	http.SetCookie(c.Writer, &http.Cookie{Name: "theme", Value: theme2, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})
 	http.SetCookie(c.Writer, &http.Cookie{Name: "theme2", Value: theme, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})	
 	
 	//redirect user to page he was beforehand
 	c.Redirect(http.StatusSeeOther, c.Param("redirect"))
+	//c.Redirect(http.StatusSeeOther, redirectUrl)
 	return
 }
 
