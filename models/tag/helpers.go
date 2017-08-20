@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"reflect"
 	"strconv"
+	"strings"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
@@ -18,6 +19,16 @@ import (
 // we add it directly in torrent model as an accepted tag and remove other tags with the same type
 // This function return true if it has added/filtered the tags and false if errors were encountered
 func FilterOrCreate(tag *models.Tag, torrent *models.Torrent, currentUser *models.User) bool {
+	// In case we are adding a default tag, we need to split the tag. Since the input form ask for comma separated tags
+	if tag.Type == config.Get().Torrents.Tags.Default && strings.Contains(tag.Tag, ",") {
+		tagsToAdd := strings.Split(tag.Tag, ",")
+		for _, tagToAdd := range tagsToAdd {
+			tagCopy := *tag
+			tagCopy.Tag = strings.TrimSpace(tagToAdd)
+			FilterOrCreate(&tagCopy, torrent, currentUser)
+		}
+		return true
+	}
 	if tag.Type != config.Get().Torrents.Tags.Default {
 		tagConf := config.Get().Torrents.Tags.Types.Get(tag.Type)
 		if tagConf.Name == "" {
@@ -95,8 +106,17 @@ func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 	if torrent.ID > 0 {
 		switch tag.Type {
 		case config.Get().Torrents.Tags.Default:
-			// We check if the torrent has already accepted tags
-			if torrent.AcceptedTags != "" {
+			// We need to check that the tag doesn't actually exist
+			tags := strings.Split(torrent.AcceptedTags, ",")
+			for _, tagComp := range tags {
+				// if it exists, we return
+				if tag.Tag == tagComp {
+					return
+				}
+			}
+			// if it doesn't exist
+			// We check if the torrent has already accepted tags and that the tag is not empty
+			if torrent.AcceptedTags != "" && tag.Tag != "" {
 				// if yes we append to it a comma before inserting the tag
 				torrent.AcceptedTags += ","
 			}
