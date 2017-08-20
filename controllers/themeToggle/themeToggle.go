@@ -3,7 +3,6 @@ package themeToggleController
 import (
 	"net/http"
 	"fmt"
-	"github.com/NyaaPantsu/nyaa/utils/log"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/timeHelper"
