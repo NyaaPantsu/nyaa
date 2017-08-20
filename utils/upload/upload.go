@@ -179,6 +179,7 @@ func UpdateTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, current
 	t.Hidden = r.Update.Hidden
 	// This part of the code check that we have only one tag of the same type
 	var tagsReq models.Tags
+
 	for _, tagForm := range r.Update.Tags {
 		tag := &models.Tag{
 			Tag:       tagForm.Tag,

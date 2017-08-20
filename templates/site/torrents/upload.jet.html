@@ -167,8 +167,8 @@
         {{ yield tagForm(tagType=., acceptedTag=Form.Tags.Get(.Name)) }}
         {{ end }}
       <div class="form-group">
-        <label for="tag_tags">{{ T("tagtype_tags") }}</label>
-        <input type="text" name="tag_tags" id="tag_tags" value="{{ Form.AcceptedTags }}" />
+        <label for="tag_{{Config.Torrents.Tags.Default}}">{{ T("tagtype_tags") }}</label>
+        <input type="text" name="tag_{{Config.Torrents.Tags.Default}}" id="tag_{{Config.Torrents.Tags.Default}}" value="{{ Form.Tags.Get(Config.Torrents.Tags.Default).Tag }}" />
       </div>
         {{ yield errors(name="tags")}}
       <div style="width: 240px">

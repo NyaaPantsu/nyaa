@@ -328,8 +328,12 @@ func (ts TagsRequest) Get(tagType string) tagsValidator.CreateForm {
 	return tagsValidator.CreateForm{}
 }
 
+type torrentInt interface {
+	GetDescriptiveTags() string
+}
+
 // Bind a torrent model with its tags to the tags request
-func (ts *TagsRequest) Bind(torrent interface{}) error {
+func (ts *TagsRequest) Bind(torrent torrentInt) error {
 	for _, tagConf := range config.Get().Torrents.Tags.Types {
 		if tagConf.Field == "" {
 			return errMissingFieldConfig
@@ -343,5 +347,7 @@ func (ts *TagsRequest) Bind(torrent interface{}) error {
 			*ts = append(*ts, tagsValidator.CreateForm{Type: tagConf.Name, Tag: fmt.Sprint(tagField.Interface())})
 		}
 	}
+	*ts = append(*ts, tagsValidator.CreateForm{Type: config.Get().Torrents.Tags.Default, Tag: torrent.GetDescriptiveTags()})
+
 	return nil
 }

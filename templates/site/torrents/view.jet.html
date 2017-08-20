@@ -227,8 +227,8 @@
         {{ yield tagForm(tagType=.) }}
         {{ end }}
         <div class="form-input">
-          <label for="tag_tags">{{ T("tagtype_tags") }}</label>
-          <input type="text" name="tag_tags" id="tag_tags" value="" />
+        <label for="tag_{{Config.Torrents.Tags.Default}}">{{ T("tagtype_tags") }}</label>
+        <input type="text" name="tag_{{Config.Torrents.Tags.Default}}" id="tag_{{Config.Torrents.Tags.Default}}" value="" />
         </div>
       </div>
       <div class="modal-footer">

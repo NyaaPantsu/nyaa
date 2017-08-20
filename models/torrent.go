@@ -163,6 +163,11 @@ func (t *Torrent) IsDeleted() bool {
 	return t.DeletedAt != nil
 }
 
+// GetDescriptiveTags : Return the descriptive tags
+func (t *Torrent) GetDescriptiveTags() string {
+	return t.AcceptedTags
+}
+
 // AddToESIndex : Adds a torrent to Elastic Search
 func (t Torrent) AddToESIndex(client *elastic.Client) error {
 	ctx := context.Background()

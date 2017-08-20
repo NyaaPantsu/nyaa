@@ -32,5 +32,8 @@ func Bind(c *gin.Context, keepEmpty bool) []CreateForm {
 			tags = append(tags, CreateForm{Tag: value, Type: tagConf.Name})
 		}
 	}
+	if value := c.PostForm("tag_" + config.Get().Torrents.Tags.Default); value != "" {
+		tags = append(tags, CreateForm{Tag: value, Type: config.Get().Torrents.Tags.Default})
+	}
 	return tags
 }
