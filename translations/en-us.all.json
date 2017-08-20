@@ -2016,6 +2016,10 @@
     "translation": "Create Announcement"
   },
   {
+    "id": "related_to",
+    "translation": "Related to"
+  },
+  {
     "id": "expire",
     "translation": "Expire"
   },
