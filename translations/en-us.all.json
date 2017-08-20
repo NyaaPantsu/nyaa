@@ -1624,6 +1624,10 @@
     "translation": "Refine your search"
   },
   {
+    "id": "refine",
+    "translation": "Refine"
+  },
+  {
     "id": "between",
     "translation": "Between"
   },
@@ -1644,10 +1648,6 @@
     "translation": "Years"
   },
   {
-    "id": "refine",
-    "translation": "Refine"
-  },
-  {
     "id": "large",
     "translation": "large."
   },
@@ -1666,6 +1666,18 @@
   {
     "id": "show",
     "translation": "Show"
+  },
+  {
+    "id": "sort_by",
+    "translation": "Sort by"
+  },
+  {
+    "id": "ascending",
+    "translation": "Ascending"
+  },
+  {
+    "id": "descending",
+    "translation": "Descending"
   },
   {
     "id": "username_taken",

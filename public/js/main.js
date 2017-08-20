@@ -6,14 +6,17 @@
 function switchThemes() {
   var themeName = document.getElementById("theme-selector").value
   var head = document.getElementsByTagName("head")[0]
+  
+  if (themeName === "") {
+    return
+  }
+  
   // Remove the theme in place, it fails if one isn't set
   try {
     head.removeChild(document.getElementById("theme"))
   } catch (err) {}
   // Don't add a node if we don't want extra styling
-  if (themeName === "") {
-    return
-  }
+	
   // Create the new one and put it back
   var newTheme = document.createElement("link")
   newTheme.setAttribute("rel", "stylesheet")
@@ -53,16 +56,16 @@ function parseAllDates() {
 
   var list = document.getElementsByClassName("date-full")
   for (var i in list) {
+	if(list.length == 0)
+	  break;
     var e = list[i]
     var dateDifference = dateDiff(new Date(e.innerText), new Date())
     
-    if(e.className.includes("scrape-date"))
-      e.title = ((dateDifference.d * 24) + dateDifference.h) + " hours " + dateDifference.m + " minutes ago" + 
-    //e.title = T.r("torrent_age2", dateDifference.h, dateDifference.m)
+    if(e.className != undefined && e.className.includes("scrape-date"))
+      e.title = ((dateDifference.d * 24) + dateDifference.h) + " hours " + dateDifference.m + " minutes ago"
     else
       e.title = dateDifference.d + " days " + dateDifference.h + " hours ago"
 	  
-    //e.title = T.r("torrent_age", dateDifference.d, dateDifference.h)
     e.innerText = new Date(e.innerText).toLocaleString(lang)
   }
 }
@@ -139,10 +142,10 @@ function startupCode() {
     var startPos = document.cookie.indexOf("theme=") + 6
     var endPos = document.cookie.substring(startPos).indexOf(";")
     UserTheme = [endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos), "tomorrow"]
-	//Get user's default theme and set the alternative one as tomorrow
+    //Get user's default theme and set the alternative one as tomorrow
   }
   else 
-	UserTheme = ["g", "tomorrow"]
+    UserTheme = ["g", "tomorrow"]
    //If user has no default theme, set these by default
   
   
@@ -150,17 +153,20 @@ function startupCode() {
     var startPos = document.cookie.indexOf("theme2=") + 7
     var endPos = document.cookie.substring(startPos).indexOf(";")
     UserTheme[1] = endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos)
-	//If user already has ran the ToggleTheme() function in the past, we get the value of the second theme (the one the script switches to)
-	if(!UserTheme.includes("tomorrow"))
-		UserTheme[1] = "tomorrow"
-	//If none of the theme are tomorrow, which happens if the user is on dark mode (with theme2 on g.css) and that he switches to classic or g.css in settings, we set the second one as tomorrow
+    //If user already has ran the ToggleTheme() function in the past, we get the value of the second theme (the one the script switches to)
+    if(!UserTheme.includes("tomorrow"))
+      UserTheme[1] = "tomorrow"
+    //If none of the theme are tomorrow, which happens if the user is on dark mode (with theme2 on g.css) and that he switches to classic or g.css in settings, we set the second one as tomorrow
+    else if(UserTheme[0] == UserTheme[1])
+      UserTheme[1] = "g"
+    //If both theme are tomorrow, which happens if theme2 is on tomorrow (always is by default) and that the user sets tomorrow as his theme through settings page, we set secondary theme to g.css
   }
   else {
     if(UserTheme[0] == UserTheme[1])
-	  UserTheme[1] = "g"
+      UserTheme[1] = "g"
     //If tomorrow is twice in UserTheme, which happens when the user already has tomorrow as his default theme and toggle the dark mode for the first time, we set the second theme as g.css
-    document.cookie = "theme2=" + UserTheme[1] + ";path=/;expires=" + farFutureString()
-	//Set cookie for future theme2 uses
+    document.cookie = "theme2=" + UserTheme[1] + ";path=/;domain=pantsu.cat;expires=" + farFutureString()
+    //Set cookie for future theme2 uses
   }
   
 }
