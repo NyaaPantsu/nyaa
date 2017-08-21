@@ -347,7 +347,8 @@ func (ts *TagsRequest) Bind(torrent torrentInt) error {
 			*ts = append(*ts, tagsValidator.CreateForm{Type: tagConf.Name, Tag: fmt.Sprint(tagField.Interface())})
 		}
 	}
-	*ts = append(*ts, tagsValidator.CreateForm{Type: config.Get().Torrents.Tags.Default, Tag: torrent.GetDescriptiveTags()})
-
+	if torrent.GetDescriptiveTags() != "" {
+		*ts = append(*ts, tagsValidator.CreateForm{Type: config.Get().Torrents.Tags.Default, Tag: torrent.GetDescriptiveTags()})
+	}
 	return nil
 }
