@@ -12,7 +12,6 @@ import (
 // toggleThemeHandler : Controller to switch between theme1 & theme2
 func toggleThemeHandler(c *gin.Context) {
 
-	//Get theme1 & theme2 value, set g.css & tomorrow.css by default
 	theme, err := c.Cookie("theme")
 	if err != nil {
 		theme = "g"
@@ -21,6 +20,16 @@ func toggleThemeHandler(c *gin.Context) {
 	if err != nil {
 		theme2 = "tomorrow"
 	}
+	if theme == theme2 {
+		if theme == "tomorrow" {
+			theme2 = "g"
+		}
+		if theme != "tomorrow" {
+			theme2 = "tomorrow"
+		}
+	}
+	//Get theme1 & theme2 value, set g.css & tomorrow.css by default
+	//Also check if both theme are identical which can happen at time
 	
 	//Switch theme & theme2 value
 	http.SetCookie(c.Writer, &http.Cookie{Name: "theme", Value: theme2, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})
