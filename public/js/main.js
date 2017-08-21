@@ -1,8 +1,12 @@
 // @source https://github.com/NyaaPantsu/nyaa/tree/dev/public/js
 // @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
 
-// Switches between themes when a new one is selected
+//String that will contain a far future date, used multiple times throughout multiple functions
+var farFutureString 
+//Array that will contain the themes that the user will switch between when triggering the function a few lines under
+var UserTheme
 
+// Switches between themes when a new one is selected
 function switchThemes() {
   var themeName = document.getElementById("theme-selector").value
   var head = document.getElementsByTagName("head")[0]
@@ -94,7 +98,7 @@ function resetCookies() {
   }
 
   //Set new version in cookie
-  document.cookie = "commit=" + commitVersion + ";expires=" + farFutureString()
+  document.cookie = "commit=" + commitVersion + ";expires=" + farFutureString
 
   var oneHour = new Date()
   oneHour.setTime(oneHour.getTime() + 1 * 3600 * 1500)
@@ -110,9 +114,11 @@ else
     startupCode()
   })
 
- var UserTheme
-
 function startupCode() {
+  farFutureString = new Date()
+  farFutureString.setTime(farFutureString.getTime() + 50 * 36000 * 15000)
+  farFutureString = farFutureString.toUTCString()
+  
   var shiftWindow = function () {
     scrollBy(0, -70)
   }
@@ -164,7 +170,7 @@ function startupCode() {
     if(UserTheme[0] == UserTheme[1])
       UserTheme[1] = "g"
     //If tomorrow is twice in UserTheme, which happens when the user already has tomorrow as his default theme and toggle the dark mode for the first time, we set the second theme as g.css
-    document.cookie = "theme2=" + UserTheme[1] + ";path=/;domain=pantsu.cat;expires=" + farFutureString()
+    document.cookie = "theme2=" + UserTheme[1] + ";path=/;domain=pantsu.cat;expires=" + farFutureString
     //Set cookie for future theme2 uses
   }
   
@@ -177,9 +183,8 @@ function toggleTheme(e) {
 
   document.getElementById("theme").href = "/css/" + CurrentTheme + ".css";
   
-  var farFuture = farFutureString()
-  document.cookie = "theme=" + CurrentTheme + ";path=/;domain=pantsu.cat;expires=" + farFuture
-  document.cookie = "theme2=" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]) + ";path=/;domain=pantsu.cat;expires=" + farFuture
+  document.cookie = "theme=" + CurrentTheme + ";path=/;domain=pantsu.cat;expires=" + farFutureString
+  document.cookie = "theme2=" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]) + ";path=/;domain=pantsu.cat;expires=" + farFutureString
   e.preventDefault()
 }
 
@@ -211,11 +216,5 @@ function humanFileSize(bytes, si) {
   var k = si ? 1000 : 1024
   var i = ~~(Math.log(bytes) / Math.log(k))
   return i == 0 ? bytes + " B" : (bytes / Math.pow(k, i)).toFixed(1) + " " + "KMGTPEZY" [i - 1] + (si ? "" : "i") + "B"
-}
-
-function farFutureString() {
-  var farFuture = new Date()
-  farFuture.setTime(farFuture.getTime() + 50 * 36000 * 15000)
-  return farFuture.toUTCString()
 }
 // @license-end
