@@ -151,7 +151,7 @@ func findOrderBy(parameters Query, orderBy string, limit int, offset int, countA
 	}
 
 	// build custom db query for performance reasons
-	dbQuery := models.ORM.Unscoped().Preload("Scrape").Preload("FileList")
+	dbQuery := models.ORM.Unscoped().Joins("LEFT JOIN scrape ON torrents.torrent_id = scrape.torrent_id").Preload("Scrape").Preload("FileList")
 	if withUser {
 		dbQuery = dbQuery.Preload("Uploader")
 	}
