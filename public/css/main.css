@@ -397,7 +397,7 @@ select.form-input {
 .form-refine .refine-category {
     border-left: none;
     border-radius: 0 3px 3px 0;
-    max-width: 41%;
+    max-width: 40%;
     min-width: 162px;
 }
 
@@ -405,10 +405,10 @@ select.form-input {
 	display: flex;
 }
 .box.refine .refine-container-1 {
-    width: 53%;
+    width: 52%;
 }
 .box.refine .refine-container-2 {
-    width: 47%;
+    width: 48%;
     position: relative;
 }
 
