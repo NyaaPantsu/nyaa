@@ -2,7 +2,7 @@ package templates
 
 import (
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
-	"github.com/NyaaPantsu/nyaa/utils/search/structs"
+	"github.com/NyaaPantsu/nyaa/utils/search"
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,7 +22,7 @@ type Navigation struct {
 
 // SearchForm struct used to display the search form
 type SearchForm struct {
-	structs.TorrentParam
+	search.TorrentParam
 	Category         string
 	ShowItemsPerPage bool
 	ShowRefine       bool

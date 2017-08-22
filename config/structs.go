@@ -46,10 +46,21 @@ type Config struct {
 	Models ModelsConfig `yaml:"models,flow,omitempty"`
 }
 
+// Tags Config struct for tags in torrent
 type Tags struct {
-	MaxWeight float64     `yaml:"max_weight,omitempty"`
-	Types     ArrayString `yaml:"types,omitempty"`
+	MaxWeight float64  `yaml:"max_weight,omitempty"`
+	Default   string   `yaml:"default,omitempty"`
+	Types     TagTypes `yaml:"types,flow,omitempty"`
 }
+
+// TagType Config struct for tag type in torrent
+type TagType struct {
+	Name     string      `yaml:"name"`
+	Defaults ArrayString `yaml:"defaults"`
+	Field    string      `yaml:"field"`
+}
+
+type TagTypes []TagType
 
 // WebAddressConfig : Config struct for web addresses
 type WebAddressConfig struct {
@@ -124,7 +135,7 @@ type TorrentsConfig struct {
 	Trackers                      TrackersConfig    `yaml:"trackers,flow,omitempty"`
 	Order                         string            `yaml:"order,omitempty"`
 	Sort                          string            `yaml:"sort,omitempty"`
-	Tags                          Tags              `yaml:"tags,omitempty"`
+	Tags                          Tags              `yaml:"tags,flow,omitempty"`
 }
 
 // UsersConfig : Config struct for Users
@@ -209,4 +220,24 @@ func (ar ArrayString) Contains(str string) bool {
 		}
 	}
 	return false
+}
+
+var tagtypes map[string]int
+
+func initTagTypes() {
+	tagtypes = make(map[string]int)
+	for key, tagtype := range Get().Torrents.Tags.Types {
+		tagtypes[tagtype.Name] = key
+	}
+}
+
+// Get return the tag type
+func (ty TagTypes) Get(tagType string) TagType {
+	if len(tagtypes) == 0 {
+		initTagTypes()
+	}
+	if tagID, ok := tagtypes[tagType]; ok {
+		return ty[tagID]
+	}
+	return TagType{}
 }

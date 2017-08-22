@@ -154,7 +154,7 @@ func (u *User) HasAdmin() bool {
 
 // CurrentOrAdmin check that user has admin permission or user is the current user.
 func (u *User) CurrentOrAdmin(userID uint) bool {
-	if userID == 0 {
+	if userID == 0 && !u.IsModerator() {
 		return false
 	}
 	log.Debugf("user.ID == userID %d %d %s", u.ID, userID, u.ID == userID)

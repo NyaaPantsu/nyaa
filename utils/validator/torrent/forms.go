@@ -1,5 +1,9 @@
 package torrentValidator
 
+import (
+	"github.com/NyaaPantsu/nyaa/utils/validator/tag"
+)
+
 // TorrentRequest struct
 // Same json name as the constant!
 type TorrentRequest struct {
@@ -23,7 +27,7 @@ type TorrentRequest struct {
 	Filepath      string         `json:"-"`
 	FileList      []uploadedFile `json:"filelist,omitempty"`
 	Trackers      []string       `json:"trackers,omitempty"`
-	Tags          string         `json:"tags,omitempty" form:"tags"`
+	Tags          TagsRequest    `json:"tags,omitempty"`
 }
 
 // UpdateRequest struct
@@ -47,3 +51,6 @@ type ReassignForm struct {
 
 	Torrents []uint
 }
+
+// TagsRequest is a map of Tag
+type TagsRequest []tagsValidator.CreateForm

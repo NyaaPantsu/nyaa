@@ -13,7 +13,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/models/users"
 	"github.com/NyaaPantsu/nyaa/utils/categories"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
-	"github.com/NyaaPantsu/nyaa/utils/search/structs"
+	"github.com/NyaaPantsu/nyaa/utils/search"
 	"github.com/gin-gonic/gin"
 )
 
@@ -142,8 +142,9 @@ func torrentManyAction(c *gin.Context) {
 					messages.AddErrorTf("errors", "no_action_exist", action)
 				}
 				if withReport {
-					whereParams := structs.CreateWhereParams("torrent_id = ?", torrentID)
-					reports, _, _ := reports.FindOrderBy(&whereParams, "", 0, 0)
+					query := &search.Query{}
+					query.Append("torrent_id", torrentID)
+					reports, _, _ := reports.FindOrderBy(query, "", 0, 0)
 					for _, report := range reports {
 						report.Delete(false)
 					}

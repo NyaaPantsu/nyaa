@@ -1,4 +1,4 @@
-package structs
+package search
 
 import "github.com/NyaaPantsu/nyaa/models"
 
