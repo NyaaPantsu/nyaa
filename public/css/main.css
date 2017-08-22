@@ -366,6 +366,7 @@ select.form-input {
 .box.refine .language {
     position: absolute; 
     right: 0;
+	top: 0;
 }
 
 .form-refine {
@@ -384,6 +385,7 @@ select.form-input {
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
 
 .form-refine .refine-searchbox::placeholder {
     opacity: 0;
@@ -410,6 +412,20 @@ select.form-input {
 .box.refine .refine-container-2 {
     width: 48%;
     position: relative;
+	padding-top: 71px;
+}
+
+.refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
+	float: right;
+	margin-left: 8px;
+	margin-bottom: 5px;
+	width: 100px!important;
+}
+.refine-container-2 input[type="text"] {
+	width: 70px;
+}
+.refine-container-2 .form-refine  span.spacing {
+	display: none;
 }
 
 .categories a {
@@ -755,6 +771,7 @@ html, body {
     }
     .refine-container-2 {
 	margin-top: 5px;
+	padding-top: 0!important;
     }
     .form-refine .refine-category {
 	max-width: 30%;
@@ -762,6 +779,17 @@ html, body {
     .form-refine .refine-searchbox {
 	min-width: 190px;
     }
+	.refine-container-2 .refine-tag {
+	display:inline-block;
+	}
+	.refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
+	float: initial;
+	margin-left: auto;
+	margin-right: 0;
+	}
+	.refine-container-2 .form-refine  span.spacing {
+		display:inline-block;
+	}
     .hide-xs {
 	display: none !important;
     }
@@ -904,6 +932,9 @@ html, body {
     #footer {
 	padding-bottom: 25px;
     }
+	.refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
+    width: 87px!important;
+	}
 }
 
 @media (max-width: 440px) {
