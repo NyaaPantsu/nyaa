@@ -1988,8 +1988,28 @@
     "translation": "ID VGMdb"
   },
   {
-    "id": "torrent_tags",
-    "translation": "Tags du torrent"
+    "id": "tagtype_tags",
+    "translation": "Tags descriptifs"
+  },
+  {
+    "id": "tagvalue_select",
+    "translation": "Choisir..."
+  },
+  {
+    "id": "tagvalue_full_hd",
+    "translation": "1080p"
+  },
+  {
+    "id": "tagvalue_hd",
+    "translation": "720p"
+  },
+  {
+    "id": "tagvalue_sd",
+    "translation": "480p"
+  },
+  {
+    "id": "tagvalue_bluray",
+    "translation": "Blu-ray"
   },
   {
     "id": "announcements",
@@ -2012,7 +2032,15 @@
     "translation": "Créer une annonce"
   },
   {
+    "id": "related_to",
+    "translation": "Relatif à"
+  },
+  {
     "id": "expire",
     "translation": "Expiration"
+  },
+  {
+    "id": "complement",
+    "translation": "Complément"
   }
 ]
