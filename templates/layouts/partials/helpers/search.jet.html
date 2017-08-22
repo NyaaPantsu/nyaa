@@ -82,6 +82,13 @@
 	</span>
     </div>
 	  <div class="refine-container-2">
+		  <span class="form-refine refine-tag">
+			<span class="spacing">Tags:</span>
+			  <input type="text" name="vq" placeholder="Quality" value="" class="form-input"/>
+			  <input type="number" name="vgmdb" placeholder="VGMdb" value="" class="form-input"/>
+			  <input type="number" name="vndb" placeholder="VnDB" value="" class="form-input"/>
+			  <input type="number" name="anidb" placeholder="AniDB" value="" class="form-input"/>
+		  </span>
 		  <div name="language" class="form-refine form-input language">
 			{{ yield flagList(languages=GetTorrentLanguages(), selected=Search.Languages, inputname="lang", id="refine-search")}}
 		  </div>
