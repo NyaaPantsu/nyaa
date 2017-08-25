@@ -12,7 +12,7 @@ a {
     text-decoration: none;
 }
 
-body, .container { min-width: 400px;}
+body, .container, .modtools { min-width: 400px;}
 
 .header, .pagination {
     -webkit-user-select: none;
@@ -65,7 +65,7 @@ body {
     height: auto;
 }
 
-.container {
+.container, .modtools {
     max-width: 1100px;
     margin: 0 auto;
 }
@@ -678,7 +678,7 @@ html, body {
 
 
 @media (min-width: 2560px) { 
-    .container { max-width: 60%!important; }
+    .container, .modtools { max-width: 60%!important; }
 }
 
 /* hide the username */
@@ -1275,10 +1275,9 @@ input.filelist-checkbox:checked+table.table-filelist {
     position: fixed;
     top: 65px;
     padding: 5px 10px;
-    max-width: 1060px;
     width: 100%;
-    background-color: #F7F8F9;
-    border: 1px solid #cbbdd7;
+    border-width: 1px;
+    border-style: solid; 
     height: 50px;
     border-radius: 5px;
 }

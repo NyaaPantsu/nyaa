@@ -143,7 +143,7 @@ function startupCode() {
 
   document.getElementById("dark-toggle").addEventListener("click", toggleTheme);
 
-  if(document.cookie.includes("theme")) {
+  if(document.cookie.includes("theme=")) {
     var startPos = document.cookie.indexOf("theme=") + 6
     var endPos = document.cookie.substring(startPos).indexOf(";")
     UserTheme = [endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos), "tomorrow"]
@@ -154,7 +154,7 @@ function startupCode() {
    //If user has no default theme, set these by default
   
   
-  if(document.cookie.includes("theme2")) {
+  if(document.cookie.includes("theme2=")) {
     var startPos = document.cookie.indexOf("theme2=") + 7
     var endPos = document.cookie.substring(startPos).indexOf(";")
     UserTheme[1] = endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos)
