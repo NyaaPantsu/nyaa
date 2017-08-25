@@ -33,7 +33,7 @@ type SearchForm struct {
 	FromDate         string
 	ToDate           string
 	SortOrder        bool
-	SortType         string
+	SortType         int
 }
 
 // NewNavigation return a navigation struct with
@@ -59,6 +59,6 @@ func NewSearchForm(c *gin.Context) SearchForm {
 		FromDate:         c.Query("fromDate"), // We need to overwrite the value here, since we can have toDate instead and date are formatted
 		ToDate:           c.Query("toDate"),   // We need to overwrite the value here, since date are formatted
 		SortOrder:        false,
-		SortType:         c.Query("sort"), 
+		SortType:         0, 
 	}
 }
