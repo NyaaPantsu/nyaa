@@ -106,20 +106,28 @@
       </td>
     </tr>
     {{ end }}
-	 {{ if Torrent.Tags.HasAccepted() || User.ID > 0 }}
+	 {{ if len(Torrent.AcceptedTags) > 0 }}
     <tr class="torrent-info-row">
-      <td class="torrent-info-td torrent-info-label">{{ T("torrent_tags")}}:</td>
+      <td class="torrent-info-td torrent-info-label">{{ T("accepted_tags")}}:</td>
       <td class="tr-flag torrent-view-td torrent-info-data" id="tags-torrent">
         {{ range Torrent.AcceptedTags }}
           {{ yield tag(tag=., accepted=true, user=User, torrent=Torrent) }}
         {{end}}
+      </td>
+    </tr>
+	  {{end}}
+    {* if tags are not accepted and user is not logged, we don't display them *}
+    {{ if User.ID > 0 }}
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("recommended_tags")}}:</td>
+      <td class="tr-flag torrent-view-td torrent-info-data" id="tags-torrent">
         {{ range Torrent.Tags }}
           {{ yield tag(tag=., accepted=false, user=User, torrent=Torrent) }}
         {{end}}
-        {{ if User.ID > 0 }}<a id="tagPopup" href="/torrent/tag?id={{ Torrent.ID }}" class="add-tag">{{ T("complement") }}</a>{{ end }}
+        <a id="tagPopup" href="/torrent/tag?id={{ Torrent.ID }}" class="add-tag">{{ T("complement") }}</a>
       </td>
     </tr>
-	{{end}}
+    {{ end }}
   </table>
   <div class="torrent-buttons">
     <a href="{{Torrent.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;margin-right: 0.5em;">
@@ -247,7 +255,7 @@
         {{ yield tagForm(tagType=.) }}
         {{ end }}
         <div class="form-input">
-        <label for="tag_{{Config.Torrents.Tags.Default}}">{{ T("tagtype_tags") }}</label>
+        <label class="input-label" for="tag_{{Config.Torrents.Tags.Default}}">{{ T("tagtype_tags") }}</label>
         <input type="text" name="tag_{{Config.Torrents.Tags.Default}}" id="tag_{{Config.Torrents.Tags.Default}}" value="" />
         </div>
       </div>
