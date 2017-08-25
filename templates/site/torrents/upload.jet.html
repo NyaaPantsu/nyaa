@@ -115,7 +115,7 @@
       </table></div>
 
       <h3>{{ T("torrent_file")}}</h3>
-      <input type="file" name="torrent" id="torrent" class="up-input" accept=".torrent"/>
+      <input type="file" name="torrent" id="torrent" class="up-input" accept=".torrent" {{ if Form.Magnet != "" }}disabled{{end}}/>
       <p>{{ T("uploading_file_prefills_fields")}}</p>
       {{ yield errors(name="torrent")}}
 
@@ -201,6 +201,7 @@
     listContext: true
   })
     preview.render()
+  document.querySelector("input[name='magnet']").addEventListener("keyup", (e) => { document.querySelector("input[name='torrent']").disabled = e.target.value != "" })
 </script>
   <script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc"), spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
 {{end}}
