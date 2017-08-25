@@ -71,10 +71,10 @@
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("related_to") }}</td>
       <td class="tr-flag torrent-view-td torrent-info-data">
-        {{ if Torrent.AnidbID > 0 }}<span>{{ T("tagtype_anidbid") }}: {{ Torrent.AnidbID }}</span>{{end}}
-        {{ if Torrent.VndbID > 0 }}<span>{{ T("tagtype_vndbid") }}: {{ Torrent.VndbID }}</span>{{end}}
-        {{ if Torrent.VgmdbID > 0 }}<span>{{ T("tagtype_vgmdbid") }}: {{ Torrent.VgmdbID }}</span>{{end}}
-        {{ if Torrent.Dlsite > 0 }}<span>{{ T("tagtype_dlsite") }}: {{ Torrent.Dlsite }}</span>{{end}}
+        {{ if Torrent.AnidbID > 0 }}<span class="tag accepted"><span class="tag-text">{{ T("tagtype_anidbid") }}: <a href="http://anidb.net/perl-bin/animedb.pl?show=anime&aid={{Torrent.AnidbID}}">{{ Torrent.AnidbID }}</a></span></span>{{end}}
+        {{ if Torrent.VndbID > 0 }}<span class="tag accepted"><span class="tag-text">{{ T("tagtype_vndbid") }}: <a href="https://vndb.org/v{{ Torrent.VndbID }}">{{ Torrent.VndbID }}</a></span></span>{{end}}
+        {{ if Torrent.VgmdbID > 0 }}<span class="tag accepted"><span class="tag-text">{{ T("tagtype_vgmdbid") }}: <a href="http://vgmdb.net/album/{{ Torrent.VgmdbID }}">{{ Torrent.VgmdbID }}</a></span></span>{{end}}
+        {{ if Torrent.Dlsite > 0 }}<span class="tag accepted"><span class="tag-text">{{ T("tagtype_dlsite") }}: <a href="#waitingforyiit">{{ Torrent.Dlsite }}</a></span></span>{{end}}
       </td>
     </tr>
     {{ end }}
