@@ -9,7 +9,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/models/activities"
 	"github.com/NyaaPantsu/nyaa/models/reports"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
-	"github.com/NyaaPantsu/nyaa/utils/search/structs"
+	"github.com/NyaaPantsu/nyaa/utils/search"
 	"github.com/gin-gonic/gin"
 )
 
@@ -31,8 +31,9 @@ func TorrentDeleteUserPanel(c *gin.Context) {
 				activities.Log(&models.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, username)
 			}
 			//delete reports of torrent
-			whereParams := structs.CreateWhereParams("torrent_id = ?", id)
-			torrentReports, _, _ := reports.FindOrderBy(&whereParams, "", 0, 0)
+			query := &search.Query{}
+			query.Append("torrent_id", id)
+			torrentReports, _, _ := reports.FindOrderBy(query, "", 0, 0)
 			for _, report := range torrentReports {
 				report.Delete(false)
 			}

@@ -52,7 +52,6 @@
   </thead>
   <tbody id="torrentListResults">
     {{ range Models}}
-	{{ if CategoryName(.Category, .SubCategory) != ""}}
     <tr id="torrent_{{ .ID }}" class="torrent-info {{if .Status == 2}}remake{{else if .Status == 3}}trusted{{else if .Status == 4}}aplus{{end}}" >
       {{ if User.HasAdmin() }}
       <td class="tr-cb hide">
@@ -106,7 +105,6 @@
         {{end}}
         <td class="tr-date home-td date-short hide-xs">{{.Date}}</td>
       </tr>
-	  {{end}}
       {{end}}
     </tbody>
   </table>

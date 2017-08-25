@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="keywords" content="torrents, pantsu, anime, manga, sukebei, nyaapassu, horriblesubs, nyaa, hentai, dlsite"/>
+  <meta name="keywords" content="torrents, pantsu, anime, manga, sukebei, nyaapassu, horriblesubs, nyaa{{if Sukebei()}}, hentai{{end}}, dlsite"/>
   <meta name="description" content='The leading open-source community-based nyaa.se successor, suitable for all anime and manga needs. にゃんぱす~!'/>
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <title>{{if Sukebei()}}Sukebei{{else}}Nyaa{{end}} Pantsu{{block titleBase()}}{{end}}</title>
@@ -84,7 +84,7 @@
     <footer id="footer">
       <div class="container footer center">
         <div class="footer-opt">
-          <p><a href="/settings">{{ T("change_settings") }}</a><a id="dark-toggle" style="display: none" href="#"> - Toggle Dark Mode</a></p>
+          <p><a href="/settings">{{ T("change_settings") }}</a><a id="dark-toggle" href="/dark{{ URL.String()}}"> - Toggle Dark Mode</a></p>
         </div>
         <span><i>Powered by <a href="#">Nyaa Pantsu</a> v{{ Config.Version }} - commit <a id="commit" href="https://github.com/NyaaPantsu/nyaa/commit/{{ Config.Build }}">{{ Config.Build }}</a></i></span>
       </div>
