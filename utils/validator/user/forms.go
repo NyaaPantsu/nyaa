@@ -14,7 +14,8 @@ type RegistrationForm struct {
 type LoginForm struct {
 	Username   string `validate:"required" json:"username" form:"username"`
 	Password   string `validate:"required" json:"password" form:"password"`
-	RedirectTo string `validate:"-" form:"redirectTo" json:"omitempty"`
+	RedirectTo string `validate:"-" form:"redirectTo" json:"-"`
+	RememberMe string `validate:"-" form:"remember_me" json:"-"`
 }
 
 // UserForm is used when updating a user.

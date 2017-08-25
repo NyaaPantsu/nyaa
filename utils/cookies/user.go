@@ -101,7 +101,10 @@ func Clear(c *gin.Context) {
 
 // SetLogin sets the authentication cookie
 func SetLogin(c *gin.Context, user *models.User) (int, error) {
-	maxAge := getMaxAge()
+	maxAge := getMaxAge(false)
+	if c.PostForm("remember_me") == "remember" {
+		maxAge = getMaxAge(true)
+	}
 	validUntil := timeHelper.FewDurationLater(time.Duration(maxAge) * time.Second)
 	encoded, err := Encode(user.ID, validUntil)
 	if err != nil {
