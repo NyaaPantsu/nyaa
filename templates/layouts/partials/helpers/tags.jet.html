@@ -3,7 +3,7 @@
         {{if accepted || user.ID > 0 }}
             <span class="tag{{ if !accepted }} pending{{else}} accepted{{end}}" title="Tag: {{ tag.Type }} ({{ if !accepted }}{{ tag.Total }}{{else}}{{ T("accepted") }}{{end}})"{{ if !accepted }} data-weight="{{ tag.Total }}"{{end}}>
             <span class="tag-text{{ if user.ID > 0 }} votable{{end}}">
-                {{ T("tagtype_" + tag.Type) }}: {{ T(tag.GetName()) }}
+                {{ if tag.Type != Config.Torrents.Tags.Default }}{{ T("tagtype_" + tag.Type) }}: {{end}}{{ T(tag.GetName()) }}
             </span>
                 {{ if !accepted }}
                     <a href="/torrent/tag/{{ if user.Tags.Contains(tag) }}remove?id={{torrent.ID}}&tag={{ tag.Tag }}&type={{ tag.Type }}{{else}}add?id={{torrent.ID}}&tag_{{ tag.Type }}={{ tag.Tag }}{{end}}" class="tag-form {{ if user.Tags.Contains(tag) }}minus{{else}}plus{{end}}{{if accepted}} accepted{{end}}"></a>
