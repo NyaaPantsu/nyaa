@@ -1562,9 +1562,10 @@ input.filelist-checkbox:checked+table.table-filelist {
     float: right;
 }
 
-.header-admin .user-menu {
-    width: 155px!important;
-    z-index: 10;
+.header.content-admin .user-menu {
+    position: absolute;
+    top: 57px;
+    z-index: 5;
 }
 
 #content.content-admin {

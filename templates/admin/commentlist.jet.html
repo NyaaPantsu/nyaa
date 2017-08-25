@@ -24,7 +24,7 @@
         </td>
         <td class="tr-size home-td">
           {{if .User }}
-          {{ .User.Username }}
+          <a href="/user/{{ .User.ID }}/{{ .User.Username }}" title="{{ .User.Username }}">{{ .User.Username }}</a>
           {{else}}
           れんちょん
           {{end}}
