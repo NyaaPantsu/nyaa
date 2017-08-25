@@ -42,15 +42,14 @@
     </div>
   </div>
   <div class="h-right">
-    <div class="h-user">
-      {{ include "layouts/partials/helpers/badgemenu" }}
-    </div>
+    {{ include "layouts/partials/helpers/badgemenu" }}
 
+  </div>
+  <div style="clear:both;"></div>
     <div class="h-search">
       <form role="search" action="{{URL.Parse("/mod/torrents")}}" method="get">
         {{ yield search_common() }}
         {{ yield search_button() }}
       </form>
     </div>
-  </div>
 </div>

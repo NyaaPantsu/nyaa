@@ -61,6 +61,9 @@ body {
     height: 60px;
     border-bottom: 1px solid;
 }
+.header.content-admin {
+    height: auto;
+}
 
 .container {
     max-width: 1100px;
@@ -93,11 +96,19 @@ body {
     left: 0;
     text-align: left;
 }
+.header.content-admin .h-left {
+    position: initial;
+    float: left;
+}
 
 .h-right {
     position: absolute;
     right: 0;
     text-align: right;
+}
+.header.content-admin .h-right {
+    position: initial;
+    float: right;
 }
 
 .h-logo {
@@ -107,7 +118,6 @@ body {
 .h-logo, .h-nav {
     display: inline-block;
     float: left;
-    /* Property is ignored due to the display. With 'display: inline-block', float properties have no effect. */
 }
 
 .header .h-logo img {
@@ -131,6 +141,10 @@ body {
 }
 .header .h-search {
     margin-right: 6px;
+}
+.header.content-admin .h-search {
+    height: auto;
+    float: right;
 }
 
 .header .h-search .form-input {
@@ -828,6 +842,9 @@ html, body {
 @media (max-height: 750px),(max-width: 500px) {
     .header {
 	height: 56px;
+    }
+    .header.content-admin{
+        height: auto;
     }
     .header .container > div {
 	line-height: 58px; padding: 0 0.6rem;
