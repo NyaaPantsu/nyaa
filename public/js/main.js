@@ -213,6 +213,8 @@ document.getElementsByClassName("form-input refine")[0].addEventListener("click"
 })
 
 function humanFileSize(bytes, si) {
+  if (bytes == 0) 
+    return "Unknown"
   var k = si ? 1000 : 1024
   var i = ~~(Math.log(bytes) / Math.log(k))
   return i == 0 ? bytes + " B" : (bytes / Math.pow(k, i)).toFixed(1) + " " + "KMGTPEZY" [i - 1] + (si ? "" : "i") + "B"
