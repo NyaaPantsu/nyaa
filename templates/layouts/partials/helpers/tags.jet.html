@@ -7,6 +7,8 @@
             </span>
                 {{ if !accepted }}
                     <a href="/torrent/tag/{{ if user.Tags.Contains(tag) }}remove?id={{torrent.ID}}&tag={{ tag.Tag }}&type={{ tag.Type }}{{else}}add?id={{torrent.ID}}&tag_{{ tag.Type }}={{ tag.Tag }}{{end}}" class="tag-form {{ if user.Tags.Contains(tag) }}minus{{else}}plus{{end}}{{if accepted}} accepted{{end}}"></a>
+                {{ else }}
+                    <a href="/search?tags={{ tag.Tag }}" title="{{ T("Filter") }}"><i style="padding: 0px 0px 2px;" class="icon-search"></i></a>
                 {{ end }}
             </span>
         {{ end }}
