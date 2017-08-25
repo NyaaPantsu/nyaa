@@ -89,7 +89,7 @@
   },
   {
     "id": "forgot_password",
-    "translation": "パスワードをお忘れですか？"
+    "translation": "パスワードをお忘れの場合"
   },
   {
     "id": "sign_in_box_title",
@@ -1624,6 +1624,10 @@
     "translation": "検索の絞り込み"
   },
   {
+    "id": "refine",
+    "translation": "絞り込み"
+  },
+  {
     "id": "between",
     "translation": " "
   },
@@ -1644,10 +1648,6 @@
     "translation": "年"
   },
   {
-    "id": "refine",
-    "translation": "絞り込み"
-  },
-  {
     "id": "large",
     "translation": " "
   },
@@ -1661,11 +1661,23 @@
   },
   {
     "id": "search_for",
-    "translation": "以下を検索"
+    "translation": "検索キーワード"
   },
   {
     "id": "show",
     "translation": "表示"
+  },
+  {
+    "id": "sort_by",
+    "translation": "ソート"
+  },
+  {
+    "id": "ascending",
+    "translation": "昇順"
+  },
+  {
+    "id": "descending",
+    "translation": "降順"
   },
   {
     "id": "username_taken",
@@ -1964,7 +1976,7 @@
     "translation": "VNDB ID"
   },
   {
-    "id": "tagtype_quality",
+    "id": "tagtype_videoquality",
     "translation": "画質"
   },
   {

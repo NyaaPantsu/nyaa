@@ -1624,6 +1624,10 @@
     "translation": "Affiner votre recherche"
   },
   {
+    "id": "refine",
+    "translation": "Affiner"
+  },
+  {
     "id": "between",
     "translation": "Entre"
   },
@@ -1644,10 +1648,6 @@
     "translation": "années"
   },
   {
-    "id": "refine",
-    "translation": "Affiner"
-  },
-  {
     "id": "large",
     "translation": "de taille."
   },
@@ -1666,6 +1666,18 @@
   {
     "id": "show",
     "translation": "Afficher"
+  },
+  {
+    "id": "sort_by",
+    "translation": "Trier par"
+  },
+  {
+    "id": "ascending",
+    "translation": "Ascendant"
+  },
+  {
+    "id": "descending",
+    "translation": "Descendant"
   },
   {
     "id": "username_taken",
@@ -1964,7 +1976,7 @@
     "translation": "ID VNDB"
   },
   {
-    "id": "tagtype_quality",
+    "id": "tagtype_videoquality",
     "translation": "Tag de qualité"
   },
   {
@@ -1976,8 +1988,28 @@
     "translation": "ID VGMdb"
   },
   {
-    "id": "torrent_tags",
-    "translation": "Tags du torrent"
+    "id": "tagtype_tags",
+    "translation": "Tags descriptifs"
+  },
+  {
+    "id": "tagvalue_select",
+    "translation": "Choisir..."
+  },
+  {
+    "id": "tagvalue_full_hd",
+    "translation": "1080p"
+  },
+  {
+    "id": "tagvalue_hd",
+    "translation": "720p"
+  },
+  {
+    "id": "tagvalue_sd",
+    "translation": "480p"
+  },
+  {
+    "id": "tagvalue_bluray",
+    "translation": "Blu-ray"
   },
   {
     "id": "announcements",
@@ -2000,7 +2032,15 @@
     "translation": "Créer une annonce"
   },
   {
+    "id": "related_to",
+    "translation": "Relatif à"
+  },
+  {
     "id": "expire",
     "translation": "Expiration"
+  },
+  {
+    "id": "complement",
+    "translation": "Complément"
   }
 ]
