@@ -201,7 +201,17 @@
     listContext: true
   })
     preview.render()
-  document.querySelector("input[name='magnet']").addEventListener("keyup", (e) => { document.querySelector("input[name='torrent']").disabled = e.target.value != "" })
+  document.querySelector("input[name='magnet']").addEventListener("keyup", (e) => {
+    var torrentInput = document.querySelector("input[name='torrent']")
+    torrentInput.disabled = e.target.value != ""
+    try{
+      torrentInput.value = '';
+      if (torrentInput.value) {
+          torrentInput.type = "text";
+          torrentInput.type = "file";
+      }
+    }catch(e){}
+  })
 </script>
   <script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc"), spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
 {{end}}
