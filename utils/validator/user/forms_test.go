@@ -35,7 +35,7 @@ func TestForms(t *testing.T) {
 	registration := &RegistrationForm{
 		"lol", "", "testing", "testing", "xxx", "1",
 	}
-	login := &LoginForm{"lol", "testing", "/"}
+	login := &LoginForm{"lol", "testing", "/", "false"}
 	user := &UserForm{"lol", "", "", "testing", "testing", "testing", 0, ""}
 	userSettings := &UserSettingsForm{}
 	password := &PasswordForm{"testing", "testing"}
