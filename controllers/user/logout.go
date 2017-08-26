@@ -2,6 +2,7 @@ package userController
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/gin-gonic/gin"
@@ -13,6 +14,9 @@ func UserLogoutHandler(c *gin.Context) {
 	if logout != "" {
 		cookies.Clear(c)
 		url := c.DefaultPostForm("redirectTo", "/")
+		if strings.Contains(url, "/mod/") {
+			url = "/"
+		}
 		c.Redirect(http.StatusSeeOther, url)
 	} else {
 		c.Status(http.StatusNotFound)

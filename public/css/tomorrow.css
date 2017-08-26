@@ -32,7 +32,7 @@ a:hover {
     color: #eee;
 }
 
-.box, .pagination li {
+.box, .pagination li, .modtools {
     background: hsla(222, 8%, 20%, 0.85);
     border-color: #141517 !important;
 }

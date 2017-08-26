@@ -193,3 +193,8 @@ td.tr-le, .error-text {
     background: linear-gradient(to bottom, #EFDCF0 0%, #EBCFEC 100%);
     border-color: #C48CBE;
 }
+
+.modtools {
+    background-color: #F7F8F9;
+    border-color: #cbbdd7;
+}
