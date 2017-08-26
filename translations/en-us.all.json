@@ -2050,5 +2050,13 @@
   {
     "id": "complement",
     "translation": "Complement"
+  },
+  {
+    "id": "from",
+    "translation": "From"
+  },
+  {
+    "id": "to",
+    "translation": "to"
   }
 ]
