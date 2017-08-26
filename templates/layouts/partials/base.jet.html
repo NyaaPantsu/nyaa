@@ -44,7 +44,7 @@
   {{block additional_header()}}{{end}}
 </head>
 <body {{if Sukebei()}}class="sukebei"{{end}}>
-  <nav id="header" class="header">
+  <nav id="header" class="header {{ block contclass() }}{{end}}">
     {{block menu()}}{{end}}
   </nav>
   <div id="content" class="{{ block contclass() }}{{end}}{{if isset(Infos["system"])}} no-center{{end}}">
