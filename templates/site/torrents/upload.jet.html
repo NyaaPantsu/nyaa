@@ -114,8 +114,8 @@
         </tbody>
       </table></div>
 
-      <h3>{{ T("torrent_file")}}</h3>
-      <input type="file" name="torrent" id="torrent" class="up-input" accept=".torrent"/>
+      <h3 {{ if Form.Magnet != "" }}class="hidden"{{end}}>{{ T("torrent_file")}}</h3>
+      <input type="file" name="torrent" id="torrent" class="up-input" accept=".torrent" {{ if Form.Magnet != "" }}disabled{{end}}/>
       <p>{{ T("uploading_file_prefills_fields")}}</p>
       {{ yield errors(name="torrent")}}
 
@@ -201,6 +201,19 @@
     listContext: true
   })
     preview.render()
+  document.querySelector("input[name='magnet']").addEventListener("keyup", (e) => {
+    var torrentInput = document.querySelector("input[name='torrent']")
+    torrentInput.disabled = e.target.value != ""
+    if (e.target.value == "") torrentInput.previousElementSibling.classList.remove("hidden")
+    else torrentInput.previousElementSibling.classList.add("hidden")
+    try{
+      torrentInput.value = '';
+      if (torrentInput.value) {
+          torrentInput.type = "text";
+          torrentInput.type = "file";
+      }
+    }catch(e){}
+  })
 </script>
   <script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc"), spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
 {{end}}

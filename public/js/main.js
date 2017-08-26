@@ -143,7 +143,7 @@ function startupCode() {
 
   document.getElementById("dark-toggle").addEventListener("click", toggleTheme);
 
-  if(document.cookie.includes("theme")) {
+  if(document.cookie.includes("theme=")) {
     var startPos = document.cookie.indexOf("theme=") + 6
     var endPos = document.cookie.substring(startPos).indexOf(";")
     UserTheme = [endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos), "tomorrow"]
@@ -154,7 +154,7 @@ function startupCode() {
    //If user has no default theme, set these by default
   
   
-  if(document.cookie.includes("theme2")) {
+  if(document.cookie.includes("theme2=")) {
     var startPos = document.cookie.indexOf("theme2=") + 7
     var endPos = document.cookie.substring(startPos).indexOf(";")
     UserTheme[1] = endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos)
@@ -213,6 +213,8 @@ document.getElementsByClassName("form-input refine")[0].addEventListener("click"
 })
 
 function humanFileSize(bytes, si) {
+  if (bytes == 0) 
+    return "Unknown"
   var k = si ? 1000 : 1024
   var i = ~~(Math.log(bytes) / Math.log(k))
   return i == 0 ? bytes + " B" : (bytes / Math.pow(k, i)).toFixed(1) + " " + "KMGTPEZY" [i - 1] + (si ? "" : "i") + "B"

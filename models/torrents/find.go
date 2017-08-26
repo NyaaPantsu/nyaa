@@ -164,7 +164,7 @@ func findOrderBy(parameters Query, orderBy string, limit int, offset int, countA
 	}
 
 	if orderBy == "" { // default OrderBy
-		orderBy = "torrent_date DESC"
+		orderBy = "date DESC"
 	}
 	dbQuery = dbQuery.Order(orderBy)
 	if limit != 0 || offset != 0 { // if limits provided
