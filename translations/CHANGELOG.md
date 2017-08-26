@@ -10,6 +10,6 @@
 * + tagvalue_sd
 * + tagvalue_bluray
 * + tagtype_tags
-##2017/08/25
-* + from
-* + to
+## 2017/08/25
+* + accepted_tags
+* + recommended_tags

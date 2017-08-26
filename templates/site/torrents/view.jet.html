@@ -71,10 +71,30 @@
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("related_to") }}</td>
       <td class="tr-flag torrent-view-td torrent-info-data">
-        {{ if Torrent.AnidbID > 0 }}<span>{{ T("tagtype_anidbid") }}: {{ Torrent.AnidbID }}</span>{{end}}
-        {{ if Torrent.VndbID > 0 }}<span>{{ T("tagtype_vndbid") }}: {{ Torrent.VndbID }}</span>{{end}}
-        {{ if Torrent.VgmdbID > 0 }}<span>{{ T("tagtype_vgmdbid") }}: {{ Torrent.VgmdbID }}</span>{{end}}
-        {{ if Torrent.Dlsite > 0 }}<span>{{ T("tagtype_dlsite") }}: {{ Torrent.Dlsite }}</span>{{end}}
+        {{ if Torrent.AnidbID > 0 }}
+        <span class="tag accepted">
+          <span class="tag-text votable">{{ T("tagtype_anidbid") }}: <a href="http://anidb.net/perl-bin/animedb.pl?show=anime&aid={{Torrent.AnidbID}}">{{ Torrent.AnidbID }}</a></span>
+          <a href="/search?anidb={{ Torrent.AnidbID }}" title="{{ T("filter") }}"><i style="padding: 0px 0px 2px;" class="icon-search"></i></a>
+        </span>
+        {{end}}
+        {{ if Torrent.VndbID > 0 }}
+        <span class="tag accepted">
+          <span class="tag-text votable">{{ T("tagtype_vndbid") }}: <a href="https://vndb.org/v{{ Torrent.VndbID }}">{{ Torrent.VndbID }}</a></span>
+          <a href="/search?vndb={{ Torrent.VndbID }}" title="{{ T("filter") }}"><i style="padding: 0px 0px 2px;" class="icon-search"></i></a>
+        </span>
+        {{end}}
+        {{ if Torrent.VgmdbID > 0 }}
+        <span class="tag accepted">
+          <span class="tag-text votable">{{ T("tagtype_vgmdbid") }}: <a href="http://vgmdb.net/album/{{ Torrent.VgmdbID }}">{{ Torrent.VgmdbID }}</a></span>
+          <a href="/search?vgmdb={{ Torrent.VgmdbID }}" title="{{ T("filter") }}"><i style="padding: 0px 0px 2px;" class="icon-search"></i></a>
+        </span>
+        {{end}}
+        {{ if Torrent.Dlsite > 0 }}
+        <span class="tag accepted">
+          <span class="tag-text votable">{{ T("tagtype_dlsite") }}: <a href="www.dlsite.com/home/work/=/product_id/{{ Torrent.Dlsite }}.html">{{ Torrent.Dlsite }}</a></span>
+          <a href="/search?dlsite={{ Torrent.Dlsite }}" title="{{ T("filter") }}"><i style="padding: 0px 0px 2px;" class="icon-search"></i></a>
+        </span>
+        {{end}}
       </td>
     </tr>
     {{ end }}
@@ -86,20 +106,28 @@
       </td>
     </tr>
     {{ end }}
-	 {{ if Torrent.Tags.HasAccepted() || User.ID > 0 }}
+	 {{ if len(Torrent.AcceptedTags) > 0 }}
     <tr class="torrent-info-row">
-      <td class="torrent-info-td torrent-info-label">{{ T("torrent_tags")}}:</td>
+      <td class="torrent-info-td torrent-info-label">{{ T("accepted_tags")}}:</td>
       <td class="tr-flag torrent-view-td torrent-info-data" id="tags-torrent">
         {{ range Torrent.AcceptedTags }}
           {{ yield tag(tag=., accepted=true, user=User, torrent=Torrent) }}
         {{end}}
+      </td>
+    </tr>
+	  {{end}}
+    {* if tags are not accepted and user is not logged, we don't display them *}
+    {{ if User.ID > 0 }}
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("recommended_tags")}}:</td>
+      <td class="tr-flag torrent-view-td torrent-info-data" id="tags-torrent">
         {{ range Torrent.Tags }}
           {{ yield tag(tag=., accepted=false, user=User, torrent=Torrent) }}
         {{end}}
-        {{ if User.ID > 0 }}<a id="tagPopup" href="/torrent/tag?id={{ Torrent.ID }}" class="add-tag">{{ T("complement") }}</a>{{ end }}
+        <a id="tagPopup" href="/torrent/tag?id={{ Torrent.ID }}" class="add-tag">{{ T("complement") }}</a>
       </td>
     </tr>
-	{{end}}
+    {{ end }}
   </table>
   <div class="torrent-buttons">
     <a href="{{Torrent.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;margin-right: 0.5em;">
@@ -227,7 +255,7 @@
         {{ yield tagForm(tagType=.) }}
         {{ end }}
         <div class="form-input">
-        <label for="tag_{{Config.Torrents.Tags.Default}}">{{ T("tagtype_tags") }}</label>
+        <label class="input-label" for="tag_{{Config.Torrents.Tags.Default}}">{{ T("tagtype_tags") }}</label>
         <input type="text" name="tag_{{Config.Torrents.Tags.Default}}" id="tag_{{Config.Torrents.Tags.Default}}" value="" />
         </div>
       </div>
