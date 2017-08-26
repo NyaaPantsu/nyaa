@@ -1968,6 +1968,14 @@
     "translation": "Type de tag"
   },
   {
+    "id": "accepted_tags",
+    "translation": "Tags acceptés"
+  },
+  {
+    "id": "recommended_tags",
+    "translation": "Tags recommandés"
+  },
+  {
     "id": "tagtype_anidbid",
     "translation": "ID AniDB"
   },
@@ -2042,5 +2050,13 @@
   {
     "id": "complement",
     "translation": "Complément"
+  },
+  {
+    "id": "from",
+    "translation": "De"
+  },
+  {
+    "id": "to",
+    "translation": "à"
   }
 ]
