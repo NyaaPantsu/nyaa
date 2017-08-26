@@ -38,7 +38,7 @@ a:hover {
     color: #d5d5d5;
 }
 
-.box, .pagination li {
+.box, .pagination li, .modtools {
     background: rgba(255, 255, 255, 0.8);
     border-color: #BBC9CF !important;
 }

@@ -12,7 +12,7 @@ a {
     text-decoration: none;
 }
 
-body, .container { min-width: 400px;}
+body, .container, .modtools { min-width: 400px;}
 
 .header, .pagination {
     -webkit-user-select: none;
@@ -61,8 +61,11 @@ body {
     height: 60px;
     border-bottom: 1px solid;
 }
+.header.content-admin {
+    height: auto;
+}
 
-.container {
+.container, .modtools {
     max-width: 1100px;
     margin: 0 auto;
 }
@@ -93,11 +96,19 @@ body {
     left: 0;
     text-align: left;
 }
+.header.content-admin .h-left {
+    position: initial;
+    float: left;
+}
 
 .h-right {
     position: absolute;
     right: 0;
     text-align: right;
+}
+.header.content-admin .h-right {
+    position: initial;
+    float: right;
 }
 
 .h-logo {
@@ -107,7 +118,6 @@ body {
 .h-logo, .h-nav {
     display: inline-block;
     float: left;
-    /* Property is ignored due to the display. With 'display: inline-block', float properties have no effect. */
 }
 
 .header .h-logo img {
@@ -131,6 +141,10 @@ body {
 }
 .header .h-search {
     margin-right: 6px;
+}
+.header.content-admin .h-search {
+    height: auto;
+    float: right;
 }
 
 .header .h-search .form-input {
@@ -680,7 +694,7 @@ html, body {
 
 
 @media (min-width: 2560px) { 
-    .container { max-width: 60%!important; }
+    .container, .modtools { max-width: 60%!important; }
 }
 
 /* hide the username */
@@ -856,6 +870,9 @@ html, body {
 @media (max-height: 750px),(max-width: 500px) {
     .header {
 	height: 56px;
+    }
+    .header.content-admin{
+        height: auto;
     }
     .header .container > div {
 	line-height: 58px; padding: 0 0.6rem;
@@ -1289,10 +1306,9 @@ input.filelist-checkbox:checked+table.table-filelist {
     position: fixed;
     top: 65px;
     padding: 5px 10px;
-    max-width: 1060px;
     width: 100%;
-    background-color: #F7F8F9;
-    border: 1px solid #cbbdd7;
+    border-width: 1px;
+    border-style: solid; 
     height: 50px;
     border-radius: 5px;
 }
@@ -1576,9 +1592,10 @@ input.filelist-checkbox:checked+table.table-filelist {
     float: right;
 }
 
-.header-admin .user-menu {
-    width: 155px!important;
-    z-index: 10;
+.header.content-admin .user-menu {
+    position: absolute;
+    top: 57px;
+    z-index: 5;
 }
 
 #content.content-admin {

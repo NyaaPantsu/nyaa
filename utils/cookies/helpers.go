@@ -1,6 +1,8 @@
 package cookies
 
-import "github.com/NyaaPantsu/nyaa/config"
+import (
+	"github.com/NyaaPantsu/nyaa/config"
+)
 
 func getDomainName() string {
 	domain := config.Get().Cookies.DomainName
@@ -10,6 +12,9 @@ func getDomainName() string {
 	return domain
 }
 
-func getMaxAge() int {
+func getMaxAge(rememberMe bool) int {
+	if rememberMe {
+		return 365 * 24 * 3600
+	}
 	return config.Get().Cookies.MaxAge
 }

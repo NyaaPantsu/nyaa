@@ -61,7 +61,7 @@ func walkDirTest(dir string, t *testing.T) {
 	fakeDB := &models.DatabaseDump{time.Now(), 3, "test", "test"}
 	fakeLanguage := &publicSettings.Language{"English", "en", "en-us"}
 	fakeTorrentRequest := &torrentValidator.TorrentRequest{Name: "test", Magnet: "", Category: "", Remake: false, Description: "", Status: 1, Hidden: false, CaptchaID: "", WebsiteLink: "", SubCategory: 0, Languages: nil, Infohash: "", SubCategoryID: 0, CategoryID: 0, Filesize: 0, Filepath: "", FileList: nil, Trackers: nil, Tags: torrentValidator.TagsRequest{}}
-	fakeLogin := &userValidator.LoginForm{"test", "test", "/"}
+	fakeLogin := &userValidator.LoginForm{"test", "test", "/", "false"}
 	fakeRegistration := &userValidator.RegistrationForm{"test", "", "test", "test", "xxxx", "1"}
 	fakeReport := &models.TorrentReport{1, "test", 1, 1, time.Now(), fakeTorrent, fakeUser}
 	fakeOauthForm := apiValidator.CreateForm{"", "f", []string{fu}, []string{}, []string{}, "", "fedr", fu, fu, fu, fu, []string{em}, ""}
