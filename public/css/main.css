@@ -426,7 +426,7 @@ select.form-input {
     position: relative;
 }
 .refine-date {
-    width: 98px;	
+    width: 98px!important;	
 }
 
 .categories a {
