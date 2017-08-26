@@ -182,13 +182,39 @@ func (p *TorrentParam) toESQuery(c *gin.Context) *Query {
 	}
 
 	if c.Query("userID") != "" {
-		if p.UserID > 0 {
-			query.Append("uploader_id:" + strconv.FormatInt(int64(p.UserID), 10))
-			if p.Hidden {
-				query.Append("hidden:false")
+		if !strings.Contains(c.Query("userID"), ",") {
+			if p.UserID > 0 {
+				query.Append("uploader_id:" + strconv.FormatInt(int64(p.UserID), 10))
+				if p.Hidden {
+					query.Append("hidden:false")
+				}
+			} else if p.UserID == 0 {
+				query.Append(fmt.Sprintf("(uploader_id: %d OR hidden:%t)", p.UserID, true))
 			}
-		} else if p.UserID == 0 {
-			query.Append(fmt.Sprintf("(uploader_id: %d OR hidden:%t)", p.UserID, true))
+		} else {
+			userIDs := strings.Split(c.Query("userID"), ",")
+			for _, str := range userIDs {
+				if userID, err := strconv.Atoi(str); err == nil && userID >= 0 {
+					if userID > 0 {
+						query.Append(fmt.Sprintf("(uploader_id:%d AND hidden:false)", userID))
+					} else {
+						query.Append(fmt.Sprintf("(uploader_id:%d OR hidden:%t)", userID, true))
+					}
+				}
+			}
+		}
+	}
+
+	if c.Query("nuserID") != "" {
+		nuserID := strings.Split(c.Query("nuserID"), ",")
+		for _, str := range nuserID {
+			if userID, err := strconv.Atoi(str); err == nil && userID >= 0 {
+				if userID > 0 {
+					query.Append(fmt.Sprintf("NOT(uploader_id:%d AND hidden:false)", userID))
+				} else {
+					query.Append(fmt.Sprintf("NOT(uploader_id:%d AND hidden:false) !hidden:true", userID))
+				}
+			}
 		}
 	}
 
@@ -295,15 +321,42 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 	}
 
 	if c.Query("userID") != "" {
-		if p.UserID > 0 {
-			query.Append("uploader", p.UserID)
-			if p.Hidden {
-				query.Append("hidden", false)
+		if !strings.Contains(c.Query("userID"), ",") {
+			if p.UserID > 0 {
+				query.Append("uploader", p.UserID)
+				if p.Hidden {
+					query.Append("hidden", false)
+				}
+			} else if p.UserID == 0 {
+				query.Append("(uploader = ? OR hidden = ?)", p.UserID, true)
 			}
-		} else if p.UserID == 0 {
-			query.Append("(uploader = ? OR hidden = ?)", p.UserID, true)
+		} else {
+			userIDs := strings.Split(c.Query("userID"), ",")
+			for _, str := range userIDs {
+				if userID, err := strconv.Atoi(str); err == nil && userID >= 0 {
+					if userID > 0 {
+						query.Append("(uploader = ? AND hidden = ?)", userID, false)
+					} else {
+						query.Append("(uploader = ? OR hidden = ?)", userID, true)
+					}
+				}
+			}
 		}
 	}
+
+	if c.Query("nuserID") != "" {
+		nuserID := strings.Split(c.Query("nuserID"), ",")
+		for _, str := range nuserID {
+			if userID, err := strconv.Atoi(str); err == nil && userID >= 0 {
+				if userID > 0 {
+					query.Append("NOT(uploader = ? AND hidden = ?)", userID, false)
+				} else {
+					query.Append("uploader <> ? AND hidden != ?", userID, true)
+				}
+			}
+		}
+	}
+
 	if p.FromID != 0 {
 		query.Append("torrent_id > ?", p.FromID)
 	}
