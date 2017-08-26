@@ -425,6 +425,10 @@ select.form-input {
     width: 47%;
     position: relative;
 }
+#refine-filter {
+    max-width: 21%;
+    min-width: 100px;
+}
 
 .categories a {
     display: inline-block;
