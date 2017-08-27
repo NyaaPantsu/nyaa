@@ -159,7 +159,7 @@ body {
 .form-input {
     border-radius: 3px;
     padding: 5px 5px;
-    height: 30px;
+    height: 31px;
     border: 1px solid;
 }
 
@@ -167,6 +167,7 @@ select.form-input {
     -webkit-appearance: none;
     -moz-appearance: none;
     padding-right: 1.5rem;
+	padding: 4px 1.5rem 4px 5px;
     background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48"><path fill="%23676767" d="M24 34l18-20H6"/></svg>');
     background-position: right center;
     background-repeat: no-repeat;
@@ -426,20 +427,23 @@ select.form-input {
 .box.refine .refine-container-2 {
     width: 48%;
     position: relative;
-	padding-top: 71px;
+	padding-top: 67px;
 }
 
-.refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
+.refine-container-2 span.form-refine {
 	float: right;
-	margin-left: 8px;
+	max-width: 426px;
+}
+.refine-container-2 span.spacing {
+	width: 75px;
+}
+.refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
+	margin-right: 4px;
 	margin-bottom: 5px;
 	width: 100px!important;
 }
 .refine-container-2 input[type="text"] {
 	width: 70px;
-}
-.refine-container-2 .form-refine  span.spacing {
-	display: none;
 }
 .refine-date {
     width: 98px!important;	
@@ -796,16 +800,12 @@ html, body {
     .form-refine .refine-searchbox {
 	min-width: 190px;
     }
-	.refine-container-2 .refine-tag {
-	display:inline-block;
+	.refine-container-2 span.spacing {
+		width: 100px;
 	}
-	.refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
-	float: initial;
-	margin-left: auto;
-	margin-right: 0;
-	}
-	.refine-container-2 .form-refine  span.spacing {
-		display:inline-block;
+	.refine-container-2 span.form-refine {
+		float: initial!important;
+		max-width: none;
 	}
     .hide-xs {
 	display: none !important;
@@ -1702,9 +1702,7 @@ details[open] summary:after {
 .refine-btn {
     width: 426px;
 	max-width: 100%;
-	position:absolute;
-	bottom: 2px;
-	right: 0;
+	float:right;
 }
 
 .torrent-preview-table>table {
