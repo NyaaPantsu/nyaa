@@ -64,7 +64,7 @@ func ScopesRequired(scopes ...string) gin.HandlerFunc {
 // CSP set Content Security Policy http header
 func CSP() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.Header("Content-Security-Policy", "default-src 'self'; img-src *; media-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'")
+		c.Header("Content-Security-Policy", "default-src 'self'; img-src * data:; media-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'")
 		c.Next()
 	}
 }
