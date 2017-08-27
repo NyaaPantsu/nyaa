@@ -38,7 +38,6 @@
     </select>
     Limit: <input type="number" name="limit" value="{{ Navigation.MaxItemPerPage }}" class="form-input spacing" min="1" max="300"/>
     From: <input type="number" name="userID" placeholder="UserID" value="{{ Search.UserID > 0 ? Search.UserID : ""}}" class="form-input refine-userid"/>
-    Exclude: <input type="number" name="nuserID" placeholder="UserID" value="" class="form-input refine-userid"/>
   </span>
   <span class="form-refine">
     <span class="spacing">{{ T("between")}}</span>
@@ -57,7 +56,8 @@
     <span class="spacing">{{ T("from")}}</span>
     <input class="form-input refine-date" name="fromDate" type="text" value="{{Search.FromDate}}" placeholder="YYYY/MM/DD"/>
     {{ T("to")}}
-    <input class="form-input refine-date" name="toDate" type="text" value="{{Search.ToDate}}" placeholder="YYYY/MM/DD"/>
+    <input class="form-input spacing" size="7" name="toDate" type="text" value="{{Search.ToDate}}" placeholder="YYYY/MM/DD"/>
+    Exclude: <input type="number" name="nuserID" placeholder="UserID" value="" class="form-input refine-userid"/>
     </span>
 	<span class="form-refine show-xs" style="margin-bottom: 2px;">
 		<span class="spacing">{{T("sort_by")}}</span>
