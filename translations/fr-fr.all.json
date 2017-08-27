@@ -2058,5 +2058,13 @@
   {
     "id": "to",
     "translation": "à"
+  },
+  {
+    "id": "feed_types",
+    "translation": "Types de flux : RSS (flux), RSS avec lien magnet (magnet), Torznab Spec (torznab), EZTV Spec (eztv)"
+  },
+  {
+    "id": "append_query",
+    "translation": "Vous pouvez ajouter votre requête de recherche à la fin de l'URL du flux."
   }
 ]
