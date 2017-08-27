@@ -12,7 +12,7 @@ before_install:
 before_script:
 - go vet
 - go test -v ./...
-script:
+after_success:
 - overalls -project=github.com/NyaaPantsu/nyaa -covermode=count -debug
 - goveralls -coverprofile="overalls.coverprofile" -service=travis-ci
 install:

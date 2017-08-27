@@ -56,7 +56,7 @@
     <span class="spacing">{{ T("from")}}</span>
     <input class="form-input refine-date" name="fromDate" type="text" value="{{Search.FromDate}}" placeholder="YYYY/MM/DD"/>
     {{ T("to")}}
-    <input class="form-input spacing" size="7" name="toDate" type="text" value="{{Search.ToDate}}" placeholder="YYYY/MM/DD"/>
+    <input class="form-input refine-date spacing" size="7" name="toDate" type="text" value="{{Search.ToDate}}" placeholder="YYYY/MM/DD"/>
     Exclude: <input type="number" name="nuserID" placeholder="UserID" value="" class="form-input refine-userid"/>
     </span>
 	<span class="form-refine show-xs" style="margin-bottom: 2px;">
@@ -76,9 +76,14 @@
 	</span>
     </div>
 	  <div class="refine-container-2">
-		  <span class="form-refine refine-tag">
+		  <span class="form-refine">
+			<span class="spacing">Quality:</span>
+			<select name="vq" class="form-input">
+			  <option value="1080">1080p</option>
+			</select>
+		  </span>
+		  <span class="form-refine">
 			<span class="spacing">Tags:</span>
-			  <input type="text" name="vq" placeholder="Quality" value="" class="form-input"/>
 			  <input type="number" name="vgmdb" placeholder="VGMdb" value="" class="form-input"/>
 			  <input type="number" name="vndb" placeholder="VnDB" value="" class="form-input"/>
 			  <input type="number" name="anidb" placeholder="AniDB" value="" class="form-input"/>
