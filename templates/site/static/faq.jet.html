@@ -10,9 +10,13 @@
 
     {{ yield ruleList(open=true) }}
 
-    <h2 id="links">{{ T("links_replacement_mirror")}}</h2>
-    <a href="{{Config.WebAddress.Nyaa}}">Nyaa - {{GetHostname(Config.WebAddress.Nyaa)}}</a><br />
-    <a href="{{Config.WebAddress.Sukebei}}">Sukebei - {{GetHostname(Config.WebAddress.Sukebei)}}</a>
+
+        <h2 id="links">{{ T("links_replacement_mirror")}}</h2>
+        <a href="{{Config.WebAddress.Nyaa}}">Nyaa - {{GetHostname(Config.WebAddress.Nyaa)}}</a><br />
+        <a href="{{Config.WebAddress.Sukebei}}">Sukebei - {{GetHostname(Config.WebAddress.Sukebei)}}</a><br />
+        <a href="https://nyoo.moe/">Nyaa - {{GetHostname("https://nyoo.moe/")}} (Mirror)</a><br />
+        <a href="https://sukebei.nyoo.moe/">Sukebei - {{GetHostname("https://sukebei.nyoo.moe/")}} (Mirror)</a>
+
 
     <h2 id="server_status">{{ T("server_status_link")}}</h2>
     <a href="{{Config.WebAddress.Status}}">Status - {{GetHostname(Config.WebAddress.Status)}}</a><br />

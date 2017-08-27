@@ -68,6 +68,6 @@ func SearchHandler(c *gin.Context) {
 		templates.Render(c, "errors/no_results.jet.html", variables)
 		return
 	}
-	
+
 	templates.ModelList(c, "site/torrents/listing.jet.html", models.TorrentsToJSON(torrents), nav, searchForm)
 }

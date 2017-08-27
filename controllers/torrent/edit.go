@@ -19,7 +19,7 @@ import (
 func TorrentEditUserPanel(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
 	torrent, _ := torrents.FindByID(uint(id))
-	torrent.LoadTags()
+
 	currentUser := router.GetUser(c)
 	if currentUser.CurrentOrAdmin(torrent.UploaderID) && torrent.ID > 0 {
 		uploadForm := torrentValidator.TorrentRequest{}
@@ -30,7 +30,7 @@ func TorrentEditUserPanel(c *gin.Context) {
 		uploadForm.Description = string(torrent.Description)
 		uploadForm.Hidden = torrent.Hidden
 		uploadForm.Languages = torrent.Languages
-		uploadForm.Tags = torrent.Tags.ToJSON(true)
+		uploadForm.Tags.Bind(torrent)
 		templates.Form(c, "site/torrents/edit.jet.html", uploadForm)
 	} else {
 		c.AbortWithStatus(http.StatusNotFound)

@@ -1,19 +1,26 @@
 // @source https://github.com/NyaaPantsu/nyaa/tree/dev/public/js
 // @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
 
-// Switches between themes when a new one is selected
+//String that will contain a far future date, used multiple times throughout multiple functions
+var farFutureString 
+//Array that will contain the themes that the user will switch between when triggering the function a few lines under
+var UserTheme
 
+// Switches between themes when a new one is selected
 function switchThemes() {
   var themeName = document.getElementById("theme-selector").value
   var head = document.getElementsByTagName("head")[0]
+  
+  if (themeName === "") {
+    return
+  }
+  
   // Remove the theme in place, it fails if one isn't set
   try {
     head.removeChild(document.getElementById("theme"))
   } catch (err) {}
   // Don't add a node if we don't want extra styling
-  if (themeName === "") {
-    return
-  }
+	
   // Create the new one and put it back
   var newTheme = document.createElement("link")
   newTheme.setAttribute("rel", "stylesheet")
@@ -53,16 +60,16 @@ function parseAllDates() {
 
   var list = document.getElementsByClassName("date-full")
   for (var i in list) {
+	if(list.length == 0)
+	  break;
     var e = list[i]
     var dateDifference = dateDiff(new Date(e.innerText), new Date())
     
-    if(e.className.includes("scrape-date"))
-      e.title = ((dateDifference.d * 24) + dateDifference.h) + " hours " + dateDifference.m + " minutes ago" + 
-    //e.title = T.r("torrent_age2", dateDifference.h, dateDifference.m)
+    if(e.className != undefined && e.className.includes("scrape-date"))
+      e.title = ((dateDifference.d * 24) + dateDifference.h) + " hours " + dateDifference.m + " minutes ago"
     else
       e.title = dateDifference.d + " days " + dateDifference.h + " hours ago"
 	  
-    //e.title = T.r("torrent_age", dateDifference.d, dateDifference.h)
     e.innerText = new Date(e.innerText).toLocaleString(lang)
   }
 }
@@ -71,8 +78,8 @@ function dateDiff( str1, str2 ) {
     return isNaN( diff ) ? NaN : {
         diff : diff,
 	m  : Math.floor( diff /     60000 %   60 ),
-        h  : -Math.floor( diff /  3600000 %   24 ),
-        d  : -Math.floor( diff / 86400000        )
+        h  : Math.floor( diff /  3600000 %   24 ),
+        d  : Math.floor( diff / 86400000        )
     };
 }
 parseAllDates()
@@ -91,7 +98,7 @@ function resetCookies() {
   }
 
   //Set new version in cookie
-  document.cookie = "commit=" + commitVersion + ";expires=" + farFutureString()
+  document.cookie = "commit=" + commitVersion + ";expires=" + farFutureString
 
   var oneHour = new Date()
   oneHour.setTime(oneHour.getTime() + 1 * 3600 * 1500)
@@ -107,9 +114,11 @@ else
     startupCode()
   })
 
- var UserTheme
-
 function startupCode() {
+  farFutureString = new Date()
+  farFutureString.setTime(farFutureString.getTime() + 50 * 36000 * 15000)
+  farFutureString = farFutureString.toUTCString()
+  
   var shiftWindow = function () {
     scrollBy(0, -70)
   }
@@ -132,35 +141,37 @@ function startupCode() {
   if (document.cookie.includes("newVersion"))
     document.getElementById("commit").className = document.getElementById("commit").innerHTML != "unknown" ? "new" : "wew";
 
-  document.getElementById("dark-toggle").style.display = "initial"
   document.getElementById("dark-toggle").addEventListener("click", toggleTheme);
 
-  if(document.cookie.includes("theme")) {
+  if(document.cookie.includes("theme=")) {
     var startPos = document.cookie.indexOf("theme=") + 6
     var endPos = document.cookie.substring(startPos).indexOf(";")
     UserTheme = [endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos), "tomorrow"]
-	//Get user's default theme and set the alternative one as tomorrow
+    //Get user's default theme and set the alternative one as tomorrow
   }
   else 
-	UserTheme = ["g", "tomorrow"]
+    UserTheme = ["g", "tomorrow"]
    //If user has no default theme, set these by default
   
   
-  if(document.cookie.includes("theme2")) {
+  if(document.cookie.includes("theme2=")) {
     var startPos = document.cookie.indexOf("theme2=") + 7
     var endPos = document.cookie.substring(startPos).indexOf(";")
     UserTheme[1] = endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos)
-	//If user already has ran the ToggleTheme() function in the past, we get the value of the second theme (the one the script switches to)
-	if(!UserTheme.includes("tomorrow"))
-		UserTheme[1] = "tomorrow"
-	//If none of the theme are tomorrow, which happens if the user is on dark mode (with theme2 on g.css) and that he switches to classic or g.css in settings, we set the second one as tomorrow
+    //If user already has ran the ToggleTheme() function in the past, we get the value of the second theme (the one the script switches to)
+    if(!UserTheme.includes("tomorrow"))
+      UserTheme[1] = "tomorrow"
+    //If none of the theme are tomorrow, which happens if the user is on dark mode (with theme2 on g.css) and that he switches to classic or g.css in settings, we set the second one as tomorrow
+    else if(UserTheme[0] == UserTheme[1])
+      UserTheme[1] = "g"
+    //If both theme are tomorrow, which happens if theme2 is on tomorrow (always is by default) and that the user sets tomorrow as his theme through settings page, we set secondary theme to g.css
   }
   else {
     if(UserTheme[0] == UserTheme[1])
-	  UserTheme[1] = "g"
+      UserTheme[1] = "g"
     //If tomorrow is twice in UserTheme, which happens when the user already has tomorrow as his default theme and toggle the dark mode for the first time, we set the second theme as g.css
-    document.cookie = "theme2=" + UserTheme[1] + ";path=/;expires=" + farFutureString()
-	//Set cookie for future theme2 uses
+    document.cookie = "theme2=" + UserTheme[1] + ";path=/;domain=pantsu.cat;expires=" + farFutureString
+    //Set cookie for future theme2 uses
   }
   
 }
@@ -172,9 +183,8 @@ function toggleTheme(e) {
 
   document.getElementById("theme").href = "/css/" + CurrentTheme + ".css";
   
-  var farFuture = farFutureString()
-  document.cookie = "theme=" + CurrentTheme + ";path=/;domain=pantsu.cat;expires=" + farFuture
-  document.cookie = "theme2=" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]) + ";path=/;domain=pantsu.cat;expires=" + farFuture
+  document.cookie = "theme=" + CurrentTheme + ";path=/;domain=pantsu.cat;expires=" + farFutureString
+  document.cookie = "theme2=" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]) + ";path=/;domain=pantsu.cat;expires=" + farFutureString
   e.preventDefault()
 }
 
@@ -192,9 +202,9 @@ document.getElementsByClassName("form-input refine")[0].addEventListener("click"
   if(document.getElementsByClassName("form-input search-box")[0].value == "" || location.pathname != "/")
   {
     document.getElementsByClassName("box refine")[0].style.display = document.getElementsByClassName("box refine")[0].style.display == "none" ? "block" : "none"
-    if (document.getElementsByClassName("form-input refine-searchbox")[0].value != document.getElementsByClassName("form-input search-box")[0].value)
+    if (document.getElementsByClassName("form-input refine-searchbox")[0].value == "")
       document.getElementsByClassName("form-input refine-searchbox")[0].value = document.getElementsByClassName("form-input search-box")[0].value
-    if (document.getElementsByClassName("form-input refine-category")[0].selectedIndex != document.getElementsByClassName("form-input form-category")[0].selectedIndex)
+    if (document.getElementsByClassName("form-input refine-category")[0].selectedIndex == 0)
       document.getElementsByClassName("form-input refine-category")[0].selectedIndex = document.getElementsByClassName("form-input form-category")[0].selectedIndex
     if (document.getElementsByClassName("box refine")[0].style.display == "block")
       scrollTo(0, 0)
@@ -203,14 +213,10 @@ document.getElementsByClassName("form-input refine")[0].addEventListener("click"
 })
 
 function humanFileSize(bytes, si) {
+  if (bytes == 0) 
+    return "Unknown"
   var k = si ? 1000 : 1024
   var i = ~~(Math.log(bytes) / Math.log(k))
   return i == 0 ? bytes + " B" : (bytes / Math.pow(k, i)).toFixed(1) + " " + "KMGTPEZY" [i - 1] + (si ? "" : "i") + "B"
-}
-
-function farFutureString() {
-  var farFuture = new Date()
-  farFuture.setTime(farFuture.getTime() + 50 * 36000 * 15000)
-  return farFuture.toUTCString()
 }
 // @license-end

@@ -1,19 +1,12 @@
 package search
 
 import (
-	"strconv"
-	"strings"
-	"unicode"
-	"unicode/utf8"
-
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
-	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/utils/cache"
 	"github.com/NyaaPantsu/nyaa/utils/log"
-	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 	"github.com/gin-gonic/gin"
 )
 
@@ -45,32 +38,26 @@ func stringIsASCII(input string) bool {
 }
 
 // ByQueryNoUser : search torrents according to request without user
-func ByQueryNoUser(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = ByQuery(c, pagenum, true, false, false, false)
+func ByQueryNoUser(c *gin.Context, pagenum int) (search TorrentParam, tor []models.Torrent, count int, err error) {
+	search, tor, count, err = ByQuery(c, pagenum, false, false, false)
 	return
 }
 
 // ByQueryWithUser : search torrents according to request with user
-func ByQueryWithUser(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = ByQuery(c, pagenum, true, true, false, false)
-	return
-}
-
-// ByQueryNoCount : search torrents according to request without user and count
-func ByQueryNoCount(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, err error) {
-	search, tor, _, err = ByQuery(c, pagenum, false, false, false, false)
+func ByQueryWithUser(c *gin.Context, pagenum int) (search TorrentParam, tor []models.Torrent, count int, err error) {
+	search, tor, count, err = ByQuery(c, pagenum, true, false, false)
 	return
 }
 
 // ByQueryDeleted : search deleted torrents according to request with user and count
-func ByQueryDeleted(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = ByQuery(c, pagenum, true, true, true, false)
+func ByQueryDeleted(c *gin.Context, pagenum int) (search TorrentParam, tor []models.Torrent, count int, err error) {
+	search, tor, count, err = ByQuery(c, pagenum, true, true, false)
 	return
 }
 
 // ByQueryNoHidden : search torrents and filter those hidden
-func ByQueryNoHidden(c *gin.Context, pagenum int) (search structs.TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = ByQuery(c, pagenum, true, false, false, true)
+func ByQueryNoHidden(c *gin.Context, pagenum int) (search TorrentParam, tor []models.Torrent, count int, err error) {
+	search, tor, count, err = ByQuery(c, pagenum, false, false, true)
 	return
 }
 
@@ -79,187 +66,40 @@ func ByQueryNoHidden(c *gin.Context, pagenum int) (search structs.TorrentParam, 
 // elasticsearch always provide a count to how many hits
 // ES doesn't store users
 // deleted is unused because es doesn't index deleted torrents
-func ByQuery(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (structs.TorrentParam, []models.Torrent, int, error) {
-	var err error
+func ByQuery(c *gin.Context, pagenum int, withUser bool, deleted bool, hidden bool) (TorrentParam, []models.Torrent, int, error) {
+	var torrentParam TorrentParam
+	torrentParam.FromRequest(c)
+	torrentParam.Offset = uint32(pagenum)
+	torrentParam.Hidden = hidden
+	torrentParam.Full = withUser
+	torrentParam.Deleted = deleted
 	if config.Get().Search.EnableElasticSearch && models.ElasticSearchClient != nil && !deleted {
-		var torrentParam structs.TorrentParam
-		torrentParam.FromRequest(c)
-		torrentParam.Offset = uint32(pagenum)
-		torrentParam.Hidden = hidden
-		torrentParam.Full = withUser
 		if found, ok := cache.C.Get(torrentParam.Identifier()); ok {
-			torrentCache := found.(*structs.TorrentCache)
+			torrentCache := found.(*TorrentCache)
 			return torrentParam, torrentCache.Torrents, torrentCache.Count, nil
 		}
-		totalHits, tor, err := torrentParam.Find(models.ElasticSearchClient)
-		if totalHits > 0 {
-			cache.C.Set(torrentParam.Identifier(), &structs.TorrentCache{tor, int(totalHits)}, 5*time.Minute)
+		tor, totalHits, err := torrentParam.FindES(c, models.ElasticSearchClient)
+		// If there are results no errors from ES search we use the ES client results
+		if totalHits > 0 && err == nil {
+			// Since we have results, we cache them so we don't ask everytime ES for the same results
+			cache.C.Set(torrentParam.Identifier(), &TorrentCache{tor, int(totalHits)}, 5*time.Minute)
+			// we return the results
+			// Convert back to non-json torrents
+			return torrentParam, tor, int(totalHits), nil
 		}
-		// Convert back to non-json torrents
-		return torrentParam, tor, int(totalHits), err
+		// Errors from ES should be managed in the if condition. Log is triggered only if err != nil (checkError behaviour)
+		log.CheckErrorWithMessage(err, "ES_ERROR_MSG: Seems like ES was not reachable whereas it was when starting the app. Error: '%s'")
 	}
-	log.Errorf("Unable to create elasticsearch client: %s", err)
+	// We fallback to PG, if ES gives error or no results or if ES is disabled in config or if deleted search is enabled
 	log.Errorf("Falling back to postgresql query")
-	return byQueryPostgres(c, pagenum, countAll, withUser, deleted, hidden)
-}
-
-func byQueryPostgres(c *gin.Context, pagenum int, countAll bool, withUser bool, deleted bool, hidden bool) (
-	search structs.TorrentParam, tor []models.Torrent, count int, err error,
-) {
-	search.FromRequest(c)
-	search.Offset = uint32(pagenum)
-	search.Hidden = hidden
-	search.Deleted = deleted
-	search.Full = withUser
-
-	orderBy := search.Sort.ToDBField()
-	if search.Sort == structs.Date {
-		search.NotNull = search.Sort.ToDBField() + " IS NOT NULL"
-	}
-	if found, ok := cache.C.Get(search.Identifier()); ok {
-		torrentCache := found.(*structs.TorrentCache)
-		tor = torrentCache.Torrents
-		count = torrentCache.Count
-		return
-	}
-
-	orderBy += " "
-
-	switch search.Order {
-	case true:
-		orderBy += "asc"
-		if models.ORM.Dialect().GetName() == "postgres" {
-			orderBy += " NULLS FIRST"
-		}
-	case false:
-		orderBy += "desc"
-		if models.ORM.Dialect().GetName() == "postgres" {
-			orderBy += " NULLS LAST"
-		}
-	}
-
-	parameters := structs.WhereParams{
-		Params: make([]interface{}, 0, 64),
-	}
-	conditions := make([]string, 0, 64)
-	if len(search.Category) > 0 {
-		conditionsOr := make([]string, len(search.Category))
-		for key, val := range search.Category {
-			if val.Main > 0 {
-				conditionsOr[key] = "(category = ?"
-				parameters.Params = append(parameters.Params, val.Main)
-				if val.Sub > 0 {
-					conditionsOr[key] += " AND sub_category = ?"
-					parameters.Params = append(parameters.Params, val.Sub)
-				}
-				conditionsOr[key] += ")"
-			}
-		}
-		conditions = append(conditions, strings.Join(conditionsOr, " OR "))
-	}
-	if len(search.Languages) > 0 {
-		langs := ""
-		for key, val := range search.Languages {
-			langs += val.Code
-			if key+1 < len(search.Languages) {
-				langs += ","
-			}
-		}
-		conditions = append(conditions, "language "+searchOperator)
-		parameters.Params = append(parameters.Params, "%"+langs+"%")
-	}
-
-	if c.Query("userID") != "" {
-		if search.UserID > 0 {
-			conditions = append(conditions, "uploader = ?")
-			parameters.Params = append(parameters.Params, search.UserID)
-			if search.Hidden {
-				conditions = append(conditions, "hidden = ?")
-				parameters.Params = append(parameters.Params, false)
-			}
-		} else if search.UserID == 0 {
-			conditions = append(conditions, "(uploader = ? OR hidden = ?)")
-			parameters.Params = append(parameters.Params, search.UserID)
-			parameters.Params = append(parameters.Params, true)
-		}
-	}
-	if search.FromID != 0 {
-		conditions = append(conditions, "torrent_id > ?")
-		parameters.Params = append(parameters.Params, search.FromID)
-	}
-	if search.FromDate != "" {
-		conditions = append(conditions, "date >= ?")
-		parameters.Params = append(parameters.Params, search.FromDate)
-	}
-	if search.ToDate != "" {
-		conditions = append(conditions, "date <= ?")
-		parameters.Params = append(parameters.Params, search.ToDate)
-	}
-	if search.Status != 0 {
-		if search.Status == structs.FilterRemakes {
-			conditions = append(conditions, "status <> ?")
-		} else {
-			conditions = append(conditions, "status >= ?")
-		}
-		parameters.Params = append(parameters.Params, strconv.Itoa(int(search.Status)+1))
-	}
-	if len(search.NotNull) > 0 {
-		conditions = append(conditions, search.NotNull)
-	}
-	if search.MinSize > 0 {
-		conditions = append(conditions, "filesize >= ?")
-		parameters.Params = append(parameters.Params, uint64(search.MinSize))
-	}
-	if search.MaxSize > 0 {
-		conditions = append(conditions, "filesize <= ?")
-		parameters.Params = append(parameters.Params, uint64(search.MaxSize))
-	}
-
-	querySplit := strings.Fields(search.NameLike)
-	for _, word := range querySplit {
-		firstRune, _ := utf8.DecodeRuneInString(word)
-		if len(word) == 1 && unicode.IsPunct(firstRune) {
-			// some queries have a single punctuation character
-			// which causes a full scan instead of using the index
-			// and yields no meaningful results.
-			// due to len() == 1 we're just looking at 1-byte/ascii
-			// punctuation characters.
-			continue
-		}
-
-		if useTSQuery && stringIsASCII(word) {
-			conditions = append(conditions, "torrent_name @@ plainto_tsquery(?)")
-			parameters.Params = append(parameters.Params, word)
-		} else {
-			// TODO: possible to make this faster?
-			conditions = append(conditions, "torrent_name "+searchOperator)
-			parameters.Params = append(parameters.Params, "%"+word+"%")
-		}
-	}
-
-	parameters.Conditions = strings.Join(conditions[:], " AND ")
-
-	log.Infof("SQL query is :: %s\n", parameters.Conditions)
-
-	if deleted {
-		tor, count, err = torrents.FindDeleted(&parameters, orderBy, int(search.Max), int(search.Max*(search.Offset-1)))
-	} else if countAll && !withUser {
-		tor, count, err = torrents.FindOrderBy(&parameters, orderBy, int(search.Max), int(search.Max*(search.Offset-1)))
-	} else if countAll && withUser {
-		tor, count, err = torrents.FindWithUserOrderBy(&parameters, orderBy, int(search.Max), int(search.Max*(search.Offset-1)))
-	} else {
-		tor, err = torrents.FindOrderByNoCount(&parameters, orderBy, int(search.Max), int(search.Max*(search.Offset-1)))
-	}
-	if len(tor) > 0 {
-		cache.C.Set(search.Identifier(), &structs.TorrentCache{tor, count}, 5*time.Minute)
-	}
-	return
+	tor, totalHits, err := torrentParam.FindDB(c)
+	return torrentParam, tor, int(totalHits), err
 }
 
 // AuthorizedQuery return a seach byquery according to the bool. If false, it doesn't look for hidden torrents, else it looks for every torrents
-func AuthorizedQuery(c *gin.Context, pagenum int, authorized bool) (structs.TorrentParam, []models.Torrent, int, error) {
+func AuthorizedQuery(c *gin.Context, pagenum int, authorized bool) (TorrentParam, []models.Torrent, int, error) {
 	if !authorized {
-		return ByQuery(c, pagenum, true, true, false, true)
+		return ByQuery(c, pagenum, true, false, true)
 	}
-	return ByQuery(c, pagenum, true, true, false, false)
+	return ByQuery(c, pagenum, true, false, false)
 }

@@ -2,7 +2,9 @@
 {{ import "layouts/partials/helpers/csrf" }}
 {{ import "layouts/partials/helpers/captcha" }}
 {{ import "layouts/partials/helpers/errors" }}
+{{ import "layouts/partials/helpers/tags" }}
 {{ import "layouts/partials/helpers/treeview" }}
+{{ import "layouts/partials/helpers/tag_form" }}
 {{block title()}}{{Torrent.Name}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
@@ -13,7 +15,7 @@
   <table>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{  T("category") }}:</td>
-      <td class="torrent-info-td torrent-info-data" style="padding:0">
+      <td class="torrent-view-td torrent-info-data">
         <a href="{{URL.Parse("/search?c="+Torrent.Category+"_"+Torrent.SubCategory) }}">{{ CategoryName(Torrent.Category, Torrent.SubCategory) == "" ? T("unknown") : T(CategoryName(Torrent.Category, Torrent.SubCategory)) }}</a>
         <br/>
       </td>
@@ -65,26 +67,67 @@
       </td>
     </tr>
     {{end}}
-	 {{ if Torrent.Tags.HasAccepted() || User.ID > 0 }}
+    {{ if Torrent.AnidbID > 0 || Torrent.VndbID > 0 || Torrent.VgmdbID > 0 || Torrent.Dlsite > 0 }}
     <tr class="torrent-info-row">
-      <td class="torrent-info-td torrent-info-label">{{ T("torrent_tags")}}:</td>
-      <td class="tr-flag torrent-view-td torrent-info-data" id="tags-torrent">
-        {{ range Torrent.Tags }}
-		    {{if .Accepted || User.ID > 0 }}
-        <span class="tag{{ if len(Torrent.Tags) > 5 }} big{{ end }}{{ if !.Accepted }} pending{{else}} accepted{{end}}" title="Tag: {{ .Type }} ({{ if !.Accepted }}{{ .Total }}{{else}}{{ T("accepted") }}{{end}})"{{ if !.Accepted }} data-weight="{{ .Total }}"{{end}}>
-          <span class="tag-text{{ if User.ID > 0 }} votable{{end}}">
-          {{ T("tagtype_" + .Type) }}: {{ .Tag }}
-          </span>
-        {{ if !.Accepted }}
-          <a href="/torrent/tag/{{ if User.Tags.Contains(.) }}remove{{else}}add{{end}}?id={{Torrent.ID}}&tag={{ .Tag }}&type={{ .Type }}" class="tag-form {{ if User.Tags.Contains(.) }}minus{{else}}plus{{end}}{{if .Accepted}} accepted{{end}}"></a>
-        {{ end }}
+      <td class="torrent-info-td torrent-info-label">{{ T("related_to") }}</td>
+      <td class="tr-flag torrent-view-td torrent-info-data">
+        {{ if Torrent.AnidbID > 0 }}
+        <span class="tag accepted">
+          <span class="tag-text votable">{{ T("tagtype_anidbid") }}: <a href="http://anidb.net/perl-bin/animedb.pl?show=anime&aid={{Torrent.AnidbID}}">{{ Torrent.AnidbID }}</a></span>
+          <a href="/search?anidb={{ Torrent.AnidbID }}" title="{{ T("filter") }}"><i style="padding: 0px 0px 2px;" class="icon-search"></i></a>
         </span>
         {{end}}
+        {{ if Torrent.VndbID > 0 }}
+        <span class="tag accepted">
+          <span class="tag-text votable">{{ T("tagtype_vndbid") }}: <a href="https://vndb.org/v{{ Torrent.VndbID }}">{{ Torrent.VndbID }}</a></span>
+          <a href="/search?vndb={{ Torrent.VndbID }}" title="{{ T("filter") }}"><i style="padding: 0px 0px 2px;" class="icon-search"></i></a>
+        </span>
         {{end}}
-        {{ if User.ID > 0 }}<a id="tagPopup" href="/torrent/tag?id={{ Torrent.ID }}" class="add-tag">{{ T("add") }}</a>{{ end }}
+        {{ if Torrent.VgmdbID > 0 }}
+        <span class="tag accepted">
+          <span class="tag-text votable">{{ T("tagtype_vgmdbid") }}: <a href="http://vgmdb.net/album/{{ Torrent.VgmdbID }}">{{ Torrent.VgmdbID }}</a></span>
+          <a href="/search?vgmdb={{ Torrent.VgmdbID }}" title="{{ T("filter") }}"><i style="padding: 0px 0px 2px;" class="icon-search"></i></a>
+        </span>
+        {{end}}
+        {{ if Torrent.Dlsite > 0 }}
+        <span class="tag accepted">
+          <span class="tag-text votable">{{ T("tagtype_dlsite") }}: <a href="www.dlsite.com/home/work/=/product_id/{{ Torrent.Dlsite }}.html">{{ Torrent.Dlsite }}</a></span>
+          <a href="/search?dlsite={{ Torrent.Dlsite }}" title="{{ T("filter") }}"><i style="padding: 0px 0px 2px;" class="icon-search"></i></a>
+        </span>
+        {{end}}
       </td>
     </tr>
-	{{end}}
+    {{ end }}
+    {{ if Torrent.VideoQuality != "" }}
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("tagtype_videoquality") }}:</td>
+      <td class="tr-flag torrent-view-td torrent-info-data">
+        {{ T("tagvalue_"+Torrent.VideoQuality) }}
+      </td>
+    </tr>
+    {{ end }}
+	 {{ if len(Torrent.AcceptedTags) > 0 }}
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("accepted_tags")}}:</td>
+      <td class="tr-flag torrent-view-td torrent-info-data" id="tags-torrent">
+        {{ range Torrent.AcceptedTags }}
+          {{ yield tag(tag=., accepted=true, user=User, torrent=Torrent) }}
+        {{end}}
+      </td>
+    </tr>
+	  {{end}}
+    {* if tags are not accepted and user is not logged, we don't display them *}
+    {{ if User.ID > 0 }}
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("recommended_tags")}}:</td>
+      <td class="tr-flag torrent-view-td torrent-info-data" id="tags-torrent">
+        {{ range Torrent.Tags }}
+          {{ yield tag(tag=., accepted=false, user=User, torrent=Torrent) }}
+        {{end}}
+        <a id="tagPopup" href="/torrent/tag?id={{ Torrent.ID }}" class="add-tag">{{ T("complement") }}</a>
+      </td>
+    </tr>
+    {{ end }}
   </table>
   <div class="torrent-buttons">
     <a href="{{Torrent.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;margin-right: 0.5em;">
@@ -208,19 +251,12 @@
       <div class="modal-body">
         <h4>{{  T("add_tag") }}</h4>
         {{ yield csrf_field() }}
-        <div class="form-group">
-          <label class="input-label" for="tag">{{ T("tag")}}</label>
-          <input type="text" id="tag" name="tag" class="form-input up-input" value="" required/>
-          {{ yield errors(name="Tag")}}
-        </div>
-        <div class="form-group">
-          <label class="input-label" for="type">{{ T("tagtype")}}</label>
-          <select name="type" id="type" class="form-input up-input">
-            {{ range _, type := Config.Torrents.Tags.Types }}
-            <option value="{{ type }}">{{T("tagtype_" + type) }}</option>
-            {{ end }}
-          </select>
-          {{ yield errors(name="Type")}}
+        {{ range Config.Torrents.Tags.Types }}
+        {{ yield tagForm(tagType=.) }}
+        {{ end }}
+        <div class="form-input">
+        <label class="input-label" for="tag_{{Config.Torrents.Tags.Default}}">{{ T("tagtype_tags") }}</label>
+        <input type="text" name="tag_{{Config.Torrents.Tags.Default}}" id="tag_{{Config.Torrents.Tags.Default}}" value="" />
         </div>
       </div>
       <div class="modal-footer">
@@ -240,10 +276,16 @@
 {{ if User.ID > 0 }}
 <script type="text/javascript" src="{{ URL.Parse("/js/query.js") }}"></script>
 <script type="text/javascript" src="{{ URL.Parse("/js/template.js") }}"></script>
+<script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>
 <script type="text/javascript" src="{{ URL.Parse("/js/translation.js") }}"></script>
 <script type="text/javascript">
-// {{ range _, type := Config.Torrents.Tags.Types }}
-  T.Add("tagtype_{{ type }}", '{{ T("tagtype_" + type) }}')
+// {{ range Config.Torrents.Tags.Types }}
+  T.Add("tagtype_{{ .Name }}", '{{ T("tagtype_" + .Name) }}')
+// {{ if len(.Defaults) > 0 }}
+//    {{ range key, value := .Defaults }}
+  T.Add("{{ .Name }}", '{{ T("tagvalue_" + .Name) }}')
+//    {{ end }}
+// {{ end }} 
 // {{ end }}
 
 Templates.Add("tag", function(tag) {
@@ -252,7 +294,7 @@ Templates.Add("tag", function(tag) {
 
   return `<span class="`+ tagClass +`" title="`+ tagTitle +`" data-weight="` + tag.weight + `">
           <span class="tag-text votable">
-          ` + T.r("tagtype_" + tag.type) + `: ` + tag.tag + `
+          ` + T.r("tagtype_" + tag.type) + `: ` + T.R(tag.tag) + `
           </span>
           <a href="/torrent/tag/remove?id={{Torrent.ID}}&tag=` + tag.tag + `&type=` + tag.type + `" class="tag-form minus" onclick="handleVotes(event)"></a>
         </span>`
@@ -267,15 +309,24 @@ Modal.Init({
 
 document.querySelector("#modal_tag_form form").addEventListener("submit", function(e) {
   var form = e.target
-  var tag = form.querySelector("input#tag").value
-  var tagtype = form.querySelector("select#type").value
+  var tags = form.querySelectorAll(".tagtype")
   var csrf = form.querySelector("input[name='csrf_token']").value
-
-  Query.Post(form.action+"&json", "tag="+tag+"&type="+encodeURIComponent(tagtype)+"&csrf_token="+encodeURIComponent(csrf), function(data) {
+  // Build query
+  var len = tags.length
+  var query = "csrf_token="+encodeURIComponent(csrf)
+  for (var i=0; i < len; i++) {
+    query += "&"+tags[i].name+"="+tags[i].value
+  }
+  // Make query
+  Query.Post(form.action+"&json", query, function(data) {
     if (data.ok) {
       Modal.CloseActive()
-      var tagHTml = Templates.Render("tag", data.data)
-      document.getElementById("tags-torrent").innerHTML = tagHTml + document.getElementById("tags-torrent").innerHTML
+      if (data.data === null) return 
+      var len = data.data.length
+      for (var i = 0; i < len; i++) {
+        var tagHTml = Templates.Render("tag", data.data[i])
+        document.getElementById("tags-torrent").innerHTML = tagHTml + document.getElementById("tags-torrent").innerHTML
+      }
     } else {
       alert("Couldn't add a tag, please check your internet connexion and that all fields are filled.")
     }
@@ -294,12 +345,12 @@ function handleVotes(e) {
       if (hasplus) {
         el.classList.remove("plus")
         el.classList.add("minus")
-        el.href = el.href.replace("/add?", "/remove?")
+        el.href = "/torrent/tag/remove?id={{Torrent.ID}}&tag="+tag.tag+"&type="+tag.type
         el.parentElement.title = 'Tag: ' + tag.type + "(" + (tag.weight+weight) + ")"
       } else {
         el.classList.remove("minus")
         el.classList.add("plus")
-        el.href = el.href.replace("/remove?", "/add?")
+        el.href = "/torrent/tag/add?id={{Torrent.ID}}&tag_"+ tag.type +"="+tag.tag
         el.parentElement.title = 'Tag: ' + tag.type + "(" + (weight-tag.weight) + ")"
       }
     }

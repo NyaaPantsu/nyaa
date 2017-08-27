@@ -50,18 +50,18 @@ func walkDirTest(dir string, t *testing.T) {
 	fu := "http://nyaa.cat"
 	em := "cop@cat.fe"
 
-	fakeTag := &models.Tag{1, 1, "12345", "anidbid", 1, false, 0}
+	fakeTag := &models.Tag{1, 1, "12345", "anidbid", 1, 0, true}
 	fakeUser := &models.User{1, "test", "test", "test", 1, time.Now(), time.Now(), "test", time.Now(), "en", "test", "test", "test", "test", 0, []models.User{}, []models.User{}, "test", []models.Torrent{}, []models.Notification{}, 1, models.UserSettings{}, []models.Tag{*fakeTag}}
 	fakeComment := &models.Comment{1, 1, 1, "test", time.Now(), time.Now(), nil, &models.Torrent{}, fakeUser}
 	fakeScrapeData := &models.Scrape{1, 0, 0, 10, time.Now()}
 	fakeFile := &models.File{1, 1, "l12:somefile.mp4e", 3}
 	fakeLanguages := []string{"fr", "en"}
-	fakeTorrent := &models.Torrent{1, "test", "test", 3, 12, 1, false, time.Now(), 1, 0, 3, "test", "test", "test", "test", "test", nil, fakeUser, "test", []models.OldComment{}, []models.Comment{*fakeComment, *fakeComment}, []models.Tag{*fakeTag, *fakeTag}, fakeScrapeData, []models.File{*fakeFile}, fakeLanguages}
+	fakeTorrent := &models.Torrent{1, "test", "test", 3, 12, 1, false, time.Now(), 1, 0, 3, "test", "test", "test", 12, 12, 12, 12, "", "", "", nil, fakeUser, "test", []models.OldComment{}, []models.Comment{*fakeComment, *fakeComment}, []models.Tag{*fakeTag, *fakeTag}, fakeScrapeData, []models.File{*fakeFile}, fakeLanguages}
 	fakeActivity := &models.Activity{1, "t", "e", "s", 1, fakeUser}
 	fakeDB := &models.DatabaseDump{time.Now(), 3, "test", "test"}
 	fakeLanguage := &publicSettings.Language{"English", "en", "en-us"}
-	fakeTorrentRequest := &torrentValidator.TorrentRequest{Name: "test", Magnet: "", Category: "", Remake: false, Description: "", Status: 1, Hidden: false, CaptchaID: "", WebsiteLink: "", SubCategory: 0, Languages: nil, Infohash: "", SubCategoryID: 0, CategoryID: 0, Filesize: 0, Filepath: "", FileList: nil, Trackers: nil, Tags: ""}
-	fakeLogin := &userValidator.LoginForm{"test", "test", "/"}
+	fakeTorrentRequest := &torrentValidator.TorrentRequest{Name: "test", Magnet: "", Category: "", Remake: false, Description: "", Status: 1, Hidden: false, CaptchaID: "", WebsiteLink: "", SubCategory: 0, Languages: nil, Infohash: "", SubCategoryID: 0, CategoryID: 0, Filesize: 0, Filepath: "", FileList: nil, Trackers: nil, Tags: torrentValidator.TagsRequest{}}
+	fakeLogin := &userValidator.LoginForm{"test", "test", "/", "false"}
 	fakeRegistration := &userValidator.RegistrationForm{"test", "", "test", "test", "xxxx", "1"}
 	fakeReport := &models.TorrentReport{1, "test", 1, 1, time.Now(), fakeTorrent, fakeUser}
 	fakeOauthForm := apiValidator.CreateForm{"", "f", []string{fu}, []string{}, []string{}, "", "fedr", fu, fu, fu, fu, []string{em}, ""}
@@ -230,6 +230,8 @@ func walkDirTest(dir string, t *testing.T) {
 			fmt.Printf("\tJetTest Template of: %s", dir+f.Name())
 			if err != nil {
 				t.Errorf("\nParsing error: %s %s", err.Error(), dir+f.Name())
+				fmt.Print("\tFAIL\n")
+				continue
 			}
 			buff := bytes.NewBuffer(nil)
 			if contextvariables[f.Name()] != nil {
@@ -237,6 +239,8 @@ func walkDirTest(dir string, t *testing.T) {
 			}
 			if err = template.Execute(buff, variables, nil); err != nil {
 				t.Errorf("\nEval error: %q executing %s", err.Error(), template.Name)
+				fmt.Print("\tFAIL\n")
+				continue
 			}
 			fmt.Print("\tOK\n")
 		}
