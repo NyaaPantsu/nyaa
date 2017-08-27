@@ -435,7 +435,7 @@ select.form-input {
 }
 .refine-container-2 span.spacing {
 	width: 75px;
-	padding-left: 2px;
+	padding-left: 1px;
 }
 .refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
 	margin-right: 4px;
