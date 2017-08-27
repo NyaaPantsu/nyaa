@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/feeds"
@@ -38,7 +39,7 @@ func RSSEztvHandler(c *gin.Context) {
 			},
 			Description: string(torrentJSON.Description),
 			Comments:    config.WebAddress() + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
-			PubDate:     torrent.Date.Format("Mon Jan 02 15:04:05 -0700 2006"),
+			PubDate:     torrent.Date.Format(time.RFC1123Z),
 			GUID:        config.WebAddress() + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
 			Enclosure: &nyaafeeds.RssEnclosure{
 				URL:    config.WebAddress() + "/download/" + strings.TrimSpace(torrentJSON.Hash),
