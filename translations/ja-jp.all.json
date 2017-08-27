@@ -2014,5 +2014,25 @@
   {
     "id": "expire",
     "translation": "期間"
+  },
+  {
+    "id": "complement",
+    "translation": "補足"
+  },
+  {
+    "id": "from",
+    "translation": " "
+  },
+  {
+    "id": "to",
+    "translation": "〜"
+  },
+  {
+    "id": "feed_types",
+    "translation": "フィードタイプ: RSS (feed)、magnet リンク付き RSS (manget), Torznab 仕様 (torznab), EZTV 仕様 (eztv)"
+  },
+  {
+    "id": "append_query",
+    "translation": "フィード URL の末尾に検索クエリーを追加することができます。"
   }
 ]
