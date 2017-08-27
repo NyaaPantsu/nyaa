@@ -425,6 +425,9 @@ select.form-input {
     width: 47%;
     position: relative;
 }
+.refine-date {
+    width: 98px!important;	
+}
 
 .categories a {
     display: inline-block;
