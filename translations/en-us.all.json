@@ -2058,5 +2058,13 @@
   {
     "id": "to",
     "translation": "to"
+  },
+  {
+    "id": "feed_types",
+    "translation": "Feed Types: RSS(feed), RSS With Magnet Links(manget), Torznab Spec(torznab), EZTV Spec(eztv)"
+  },
+  {
+    "id": "append_query",
+    "translation": "You can append your search query to the end of the feed URL."
   }
 ]
