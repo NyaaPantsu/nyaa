@@ -162,15 +162,17 @@
       <p>{{ T("description_markdown_notice")}}</p>
       <textarea name="desc" id="desc" class="form-input up-input" style="height: 10rem;">{{Form.Description}}</textarea>
 
-      <h3 id="tag-h3" style="display:none;">{{ T("torrent_tags")}}</h3>
+      <div class="upload-tag-form">
+        <h3 id="tag-h3">{{ T("torrent_tags")}}</h3>
         {{ range Config.Torrents.Tags.Types }}
         {{ yield tagForm(tagType=., acceptedTag=Form.Tags.Get(.Name)) }}
         {{ end }}
-      <div class="form-group">
+        <div class="form-group">
         <label class="input-label" for="tag_{{Config.Torrents.Tags.Default}}">{{ T("tagtype_tags") }}</label>
-        <input type="text" name="tag_{{Config.Torrents.Tags.Default}}" id="tag_{{Config.Torrents.Tags.Default}}" value="{{ Form.Tags.Get(Config.Torrents.Tags.Default).Tag }}" />
-      </div>
+        <input type="text" name="tag_{{Config.Torrents.Tags.Default}}" class="form-input" id="tag_{{Config.Torrents.Tags.Default}}" value="{{ Form.Tags.Get(Config.Torrents.Tags.Default).Tag }}" />
+        </div>
         {{ yield errors(name="tags")}}
+      </div>
       <div style="width: 240px">
         {{yield captcha(captchaid=Form.CaptchaID)}}
       </div>
