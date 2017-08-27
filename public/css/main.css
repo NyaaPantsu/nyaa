@@ -441,6 +441,9 @@ select.form-input {
 .refine-container-2 .form-refine  span.spacing {
 	display: none;
 }
+.refine-date {
+    width: 98px!important;	
+}
 
 .categories a {
     display: inline-block;
