@@ -167,6 +167,7 @@ select.form-input {
     -webkit-appearance: none;
     -moz-appearance: none;
     padding-right: 1.5rem;
+	padding: 4px 1.5rem 4px 5px;
     background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48"><path fill="%23676767" d="M24 34l18-20H6"/></svg>');
     background-position: right center;
     background-repeat: no-repeat;
@@ -435,7 +436,6 @@ select.form-input {
 }
 .refine-container-2 span.spacing {
 	width: 75px;
-	padding-left: 1px;
 }
 .refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
 	margin-right: 4px;
@@ -791,7 +791,7 @@ html, body {
 	width: initial!important;
     }
     .refine-container-2 {
-	margin-top: 6px;
+	margin-top: 5px;
 	padding-top: 0!important;
     }
     .form-refine .refine-category {
