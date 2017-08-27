@@ -74,6 +74,7 @@ func ByQuery(c *gin.Context, pagenum int, withUser bool, deleted bool, hidden bo
 	torrentParam.Full = withUser
 	torrentParam.Deleted = deleted
 	if found, ok := cache.C.Get(torrentParam.Identifier()); ok {
+		log.Infof("Retrieve results from Cache in %s", torrentParam.Identifier())
 		torrentCache := found.(*TorrentCache)
 		return torrentParam, torrentCache.Torrents, torrentCache.Count, nil
 	}
