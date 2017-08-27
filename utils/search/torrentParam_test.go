@@ -24,7 +24,7 @@ func TestTorrentParam_Identifier(t *testing.T) {
 func TestTorrentParam_FromRequest(t *testing.T) {
 	torrentParam := &TorrentParam{}
 	assert := assert.New(t)
-	defTorrent := &TorrentParam{Sort: 2, Max: maxType(config.Get().Navigation.TorrentsPerPage)}
+	defTorrent := &TorrentParam{Sort: 2, Max: maxType(config.Get().Navigation.TorrentsPerPage), NotNull: "date IS NOT NULL"}
 
 	c := mockRequest(t, "/?")
 	torrentParam.FromRequest(c)
