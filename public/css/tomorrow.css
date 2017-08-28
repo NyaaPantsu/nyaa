@@ -88,6 +88,9 @@ td.tr-le, .error-text {
     background-color: #cc6666;
 }
 
+.alt-colors tr:nth-child(odd) {
+	background: hsla(269, 87%, 3%, 0.2);
+} 
 .aplus, .btn-blue {
     background: hsla(180, 50%, 50%, 0.2) !important;
 }
