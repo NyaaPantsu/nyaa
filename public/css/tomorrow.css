@@ -188,9 +188,13 @@ td.tr-le, .error-text {
 
 
 #announce {
-	color: #3a4249;
-	background-color: #F4E0C9;
-	border-color: #ae875b;
+    color: #3a4249;
+    background-color: #F4E0C9;
+   border-color: #ae875b;
+}
+
+.torrent-preview-table>table {
+    border-color: #141115;	
 }
 
 .torrent-info-box {

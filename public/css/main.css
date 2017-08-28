@@ -207,23 +207,16 @@ select.form-input {
 }
 
 .form-input.language {
-    max-width: 426px;
+    max-width: 424px;
     height: auto;
     border-radius: 5px;
     background-color: #F7F8F9;
-    padding: 10px 4px 9px 6px;
+    padding: 9px 5px;
 }
 
 .language span.input-group {
     display: inline-block;
     padding-right: 4px;
-}
-
-.language span.input-group.highlighted {
-    border: 1px solid #c4c4c4;
-    background-color: hsla(30, 100%, 50%, 0.2) !important;
-    padding-right: 2px;
-    border-radius: 5px;
 }
 
 .language span.input-group span {
