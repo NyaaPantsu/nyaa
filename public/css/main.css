@@ -745,7 +745,6 @@ html, body {
     }
     .refine-btn,.language { 
 	position: relative!important;
-	bottom: initial!important; 
 	width: 100%!important;
     }
     .language {
@@ -1558,7 +1557,7 @@ input.filelist-checkbox:checked+table.table-filelist {
 
 .header.content-admin .user-menu {
     position: absolute;
-    top: 63px;
+    top: 6px;
     z-index: 5;
 }
 
