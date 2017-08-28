@@ -672,6 +672,9 @@ html, body {
     .header .h-user .user-menu {
         right: 92px;
     }
+	.header.content-admin .user-menu {
+		right: 16px!important;
+	}
     .header .h-user .user-info {
         display: none;
     }
@@ -1555,7 +1558,7 @@ input.filelist-checkbox:checked+table.table-filelist {
 
 .header.content-admin .user-menu {
     position: absolute;
-    top: 57px;
+    top: 63px;
     z-index: 5;
 }
 
