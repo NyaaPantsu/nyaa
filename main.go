@@ -87,7 +87,10 @@ func main() {
 			log.Fatal(err.Error())
 		}
 		if config.Get().Search.EnableElasticSearch {
+			log.Info("ES Enabled in Config")
 			models.ElasticSearchClient, _ = models.ElasticSearchInit()
+		} else {
+			log.Info("ES is disabled in Config")
 		}
 		err = publicSettings.InitI18n(config.Get().I18n, cookies.NewCurrentUserRetriever())
 		if err != nil {
