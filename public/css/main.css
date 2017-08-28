@@ -149,7 +149,6 @@ body {
 
 .header .h-search .form-input {
     font-size: 80%;
-    line-height: 18px;
 }
 
 .header .h-search select.form-input {
@@ -161,6 +160,9 @@ body {
     padding: 5px 5px;
     height: 30px;
     border: 1px solid;
+}
+input::placeholder {
+    font-size: 12px;
 }
 
 select.form-input {
@@ -183,7 +185,7 @@ select.form-input {
 
 .form-input.search-box {
     margin-right: -26px;
-    padding-right: 20px;
+    padding-right: 23px;
 }
 
 .form-input.search-box+.icon-search {
@@ -196,14 +198,12 @@ select.form-input {
     box-shadow: none;
     border: none;
     vertical-align: middle;
+    cursor: pointer;
 }
 
 .form-input.refine {
     border-radius: 0 3px 3px 0;
     border-left: none;
-    margin-left: -4px;
-    margin-top: 1px;
-    outline: none;
 }
 
 .form-input.language {
@@ -772,7 +772,7 @@ html, body {
 	width: 100%!important;
     }
     .refine-btn,.language { 
-	position: initial!important;
+	position: relative!important;
 	bottom: initial!important; 
 	width: 100%!important;
     }

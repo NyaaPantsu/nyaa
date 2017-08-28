@@ -9,8 +9,7 @@
 {{end}}
 {{block search_button() }}
 <input class="form-input search-box" name="q" placeholder="{{ T("search")}}" type="text" value="{{Search.NameLike}}"/>
-<button type="submit" class="form-input icon-search"></button>
-<button type="submit" class="form-input refine" name="refine" value="1">{{  T("refine")}}</button>
+<button type="submit" class="form-input icon-search"></button><button type="submit" class="form-input refine" name="refine" value="1">{{  T("refine")}}</button>
 {{end}}
 {{block search_refine(url="") }}
 <div style="{{ if !Search.ShowRefine }}display:none;{{ end }}" class="box refine">
@@ -87,10 +86,10 @@
 		  </span>
 		  <span class="form-refine">
 			<span class="spacing">Tags:</span>
-			  <input type="number" name="vgmdb" placeholder="VGMdb" value="" class="form-input"/>
-			  <input type="number" name="vndb" placeholder="VnDB" value="" class="form-input"/>
-			  <input type="number" name="anidb" placeholder="AniDB" value="" class="form-input"/>
-			  <input type="number" name="dlsite" placeholder="DLsite" value="" class="form-input"/>
+			  <input type="number" name="anidb" placeholder="AniDB" title="AniDB" value="" class="form-input"/>
+			  <input type="number" name="vgmdb" placeholder="VGMdb" title="VGMdb" value="" class="form-input"/>
+			  <input type="number" name="vndb" placeholder="VnDB" title="VnDB" value="" class="form-input"/>
+			  <input type="number" name="dlsite" placeholder="DLsite" title="DLsite" value="" class="form-input"/>
 		  </span>
 		  <div name="language" class="form-refine form-input language">
 			{{ yield flagList(languages=GetTorrentLanguages(), selected=Search.Languages, inputname="lang", id="refine-search")}}
