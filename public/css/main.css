@@ -221,7 +221,7 @@ select.form-input {
 
 .language span.input-group.highlighted {
     border: 1px solid #c4c4c4;
-    background-color: hsla(30, 100%, 50%, 0.2) !important;
+    background-color: hsla(30, 100%, 50%, 0.2);
     padding-right: 2px;
     border-radius: 5px;
 }
