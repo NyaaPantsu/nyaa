@@ -116,6 +116,9 @@ td.tr-le, .error-text {
 
 /* Original Nyaa colors, do NOT change! */
 
+.alt-colors tr:nth-child(odd) {
+	background: hsla(231, 7%, 84%, 0.2);
+} 
 .aplus, .btn-blue {
     background: #60B0F0;
 }
