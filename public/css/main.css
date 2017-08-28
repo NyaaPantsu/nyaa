@@ -161,6 +161,9 @@ body {
     height: 30px;
     border: 1px solid;
 }
+input::placeholder {
+    font-size: 12px;
+}
 
 select.form-input {
     -webkit-appearance: none;
