@@ -100,6 +100,11 @@ body {
 .h-right {
     right: 0;
 }
+
+.h-logo {
+    height: 60px;
+}
+
 .header.content-admin .h-right {
     position: initial;
     float: right;
@@ -233,6 +238,8 @@ select.form-input {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    border: none;
+	background: none;
 }
 
 .header .h-user button:focus {
