@@ -79,7 +79,7 @@
 		  <span class="form-refine">
 			<span class="spacing">Quality:</span>
 			<select name="vq" class="form-input">
-			  <option value="">All</option>
+			  <option value="">{{ T("show_all")}}</option>
 			  {{ range _, vq :=  Config.Torrents.Tags.Types.Get("videoquality").Defaults }}
 			  <option value="{{vq}}">{{T("tagvalue_" + vq)}}</option>
 			  {{end}}
