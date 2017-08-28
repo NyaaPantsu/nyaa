@@ -30,6 +30,7 @@ Same as global variables, there are also global functions. They are all defined 
 * `genUploaderLink(uploaderID, uploaderName, hidden)` return a `<a href="">Username</a>` for the user provided based on the elements provided. For example, if you provide a username and no userID or a hidden bool to true. Then it won't return a link but will return "renchon" username.
 * `getCategory(MainCategory, keepParent)` return an array of `Category` (struct set in utils/categories/categories.go) based on the MainCategory string provided and the bool keepParent. If keepParent is true, the MainCategory is included.
 * `categoryName(maincat, subcat)` returns the category name
+* `Sukebei()` returns a boolean, true if the website is sukebei, false if not
 And many more...
 ### How to use them?
 Same as global variables, just do `{{ function() }}`. For example, `flagCode("fr-fr")` returns the flag code "fr".
