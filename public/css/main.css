@@ -207,23 +207,16 @@ select.form-input {
 }
 
 .form-input.language {
-    max-width: 426px;
+    max-width: 424px;
     height: auto;
     border-radius: 5px;
     background-color: #F7F8F9;
-    padding: 10px 4px 9px 6px;
+    padding: 9px 5px;
 }
 
 .language span.input-group {
     display: inline-block;
     padding-right: 4px;
-}
-
-.language span.input-group.highlighted {
-    border: 1px solid #c4c4c4;
-    background-color: hsla(30, 100%, 50%, 0.2) !important;
-    padding-right: 2px;
-    border-radius: 5px;
 }
 
 .language span.input-group span {
@@ -427,7 +420,7 @@ select.form-input {
 .box.refine .refine-container-2 {
     width: 48%;
     position: relative;
-	padding-top: 67px;
+    padding-top: 67px;
 }
 
 .refine-container-2 span.form-refine {
@@ -435,15 +428,11 @@ select.form-input {
 	max-width: 426px;
 }
 .refine-container-2 span.spacing {
-	width: 75px;
+	width: 69px;
 }
 .refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
-	margin-right: 4px;
 	margin-bottom: 5px;
-	width: 100px!important;
-}
-.refine-container-2 input[type="text"] {
-	width: 70px;
+	width: 85px!important;
 }
 .refine-date {
     width: 98px!important;	
@@ -1866,6 +1855,31 @@ span.tag {
 .tag.pending a.tag-form {
     border-left: 1px solid #d8d8d8;
 }
+
+.upload-tag-form h3 {
+	margin: 10px 0;
+}
+
+.upload-tag-form .form-group {
+	width: 167px;
+	display:inline-block;
+	margin-bottom: 5px;
+	margin-right: 5px;
+}
+
+.upload-tag-form label {
+	display:inline-block;
+	width: 100%;
+	font-size: unset;
+	margin-bottom: 1px;
+}
+
+.upload-tag-form input,.upload-tag-form select {
+	height: 25px;
+	padding: 3px 3px;
+	width: 100%;
+}
+
 
 .show-xs {
     display: none;

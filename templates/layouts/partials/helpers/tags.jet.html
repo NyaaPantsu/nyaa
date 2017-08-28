@@ -1,16 +1,17 @@
-{{ block tag(tag=nil,accepted=false,torrent=nil,user=nil) }}
-    {{ if isset(user) && isset(tag) }}
-        {{if accepted || user.ID > 0 }}
-            <span class="tag{{ if !accepted }} pending{{else}} accepted{{end}}" title="Tag: {{ tag.Type }} ({{ if !accepted }}{{ tag.Total }}{{else}}{{ T("accepted") }}{{end}})"{{ if !accepted }} data-weight="{{ tag.Total }}"{{end}}>
-            <span class="tag-text{{ if user.ID > 0 }} votable{{end}}">
-                {{ if tag.Type != Config.Torrents.Tags.Default }}{{ T("tagtype_" + tag.Type) }}: {{end}}{{ T(tag.GetName()) }}
-            </span>
-                {{ if !accepted }}
-                    <a href="/torrent/tag/{{ if user.Tags.Contains(tag) }}remove?id={{torrent.ID}}&tag={{ tag.Tag }}&type={{ tag.Type }}{{else}}add?id={{torrent.ID}}&tag_{{ tag.Type }}={{ tag.Tag }}{{end}}" class="tag-form {{ if user.Tags.Contains(tag) }}minus{{else}}plus{{end}}{{if accepted}} accepted{{end}}"></a>
-                {{ else }}
-                    <a href="/search?tags={{ tag.Tag }}" title="{{ T("filter") }}"><i style="padding: 0px 0px 2px;" class="icon-search"></i></a>
-                {{ end }}
-            </span>
-        {{ end }}
-    {{ end }}
+{{ block tagForm(tagType=nil,acceptedTag=nil) }}
+  {{ if isset(tagType) }}
+    <div class="form-group">
+      <label class="input-label" for="tag_{{ tagType.Name }}">{{T("tagtype_" + tagType.Name) }}</label>
+      {{ if len(tagType.Defaults) > 0 && tagType.Defaults[0] != "db" }}
+      <select id="tag_{{ tagType.Name }}" class="tagtype form-input" name="tag_{{ tagType.Name }}">
+        <option value="">{{ T("tagvalue_select") }}</option>
+      {{ range _, option := tagType.Defaults }}
+        <option value="{{ option }}"{{ if isset(acceptedTag) && acceptedTag.Tag == option }} selected{{end}}>{{ T("tagvalue_" + option) }}</option>
+      {{ end }}
+      </select>
+      {{ else }}
+      <input id="tag_{{ tagType.Name }}" class="tagtype form-input" name="tag_{{ tagType.Name }}"{{ if isset(acceptedTag) }} value="{{ acceptedTag.Tag }}"{{ end }}>
+      {{ end }}
+    </div>
+  {{ end }}
 {{ end }}
