@@ -196,6 +196,7 @@ select.form-input {
     box-shadow: none;
     border: none;
     vertical-align: middle;
+    cursor: pointer;
 }
 
 .form-input.refine {
