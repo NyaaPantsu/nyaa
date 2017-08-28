@@ -234,12 +234,12 @@ select.form-input {
     float: right;
     padding: 0;
     height: 60px;
-    width: 150px;
+    width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     border: none;
-	background: none;
+    background: none;
 }
 
 .header .h-user button:focus {
