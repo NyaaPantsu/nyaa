@@ -135,6 +135,7 @@ body {
 
 .header .h-search .form-input {
     font-size: 80%;
+    line-height: 18px;
 }
 
 .header .h-search select.form-input {
