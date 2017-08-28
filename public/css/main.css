@@ -149,7 +149,6 @@ body {
 
 .header .h-search .form-input {
     font-size: 80%;
-    line-height: 18px;
 }
 
 .header .h-search select.form-input {
@@ -202,9 +201,6 @@ select.form-input {
 .form-input.refine {
     border-radius: 0 3px 3px 0;
     border-left: none;
-    margin-left: -4px;
-    margin-top: 1px;
-    outline: none;
 }
 
 .form-input.language {
