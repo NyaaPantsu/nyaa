@@ -41,8 +41,10 @@
   <link rel="stylesheet" href="/css/flags/flags.min.css"/>
   <!-- Search Box for Google -->
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"{{Config.WebAddress.Nyaa}}/","potentialAction":{"@type":"SearchAction","target":"{{Config.WebAddress.Nyaa}}/search?q={search_term_string}","query-input":"required name=search_term_string"} }</script>
+  <!-- Markdown icons -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   {{block additional_header()}}{{end}}
-</head>
+  </head>
 <body {{if Sukebei()}}class="sukebei"{{end}}>
   <nav id="header" class="header {{ block contclass() }}{{end}}">
     {{block menu()}}{{end}}
