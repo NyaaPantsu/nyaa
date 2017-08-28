@@ -1668,6 +1668,18 @@
       "translation": "Show"
     },
     {
+      "id": "sort_by",
+      "translation": "Sortieren nach"
+    },
+    {
+      "id": "ascending",
+      "translation": "Aufsteigend"
+    },
+    {
+      "id": "descending",
+      "translation": "Absteigend"
+    },
+    {
       "id": "username_taken",
       "translation": "Benutzername schon verwendet, du kannst aus diesen wählen: %s"
     },
@@ -1785,7 +1797,7 @@
     },
     {
       "id": "torrent_cat_is_english",
-      "translation": "Die Torrentkategorie ist auf 'Englisch-übersetzt' gestellt gewesen obwohl er nicht in Englisch war. Wir haben ihn auf Englisch geändert."
+      "translation": "Die Torrentkategorie ist auf 'Englisch-übersetzt' gestellt gewesen obwohl der Torrent nicht in Englisch war. Wir haben ihn auf Englisch geändert."
     },
     {
       "id": "torrent_cat_not_english",
@@ -1928,6 +1940,10 @@
       "translation": "Entfernen"
     },
     {
+      "id": "close",
+      "translation": "Schließen"
+    },
+    {
       "id": "secret",
       "translation": "Client Geheimnis"
     },
@@ -1935,9 +1951,17 @@
       "id": "torrent_age",
       "translation": "{1} Tage {2} Stunden alt"
     },
+    {
+      "id": "tag",
+      "translation": "Schlagwort"
+    },
+    {
+      "id": "torrent_tags",
+      "translation": "Schlagwörter"
+    },
 	{
       "id": "wrong_tag_type",
-      "translation": "Das ausgewählt Schlagwort existiert nicht"
+      "translation": "Das ausgewählte Schlagwort existiert nicht"
 	},
   	{
       "id": "add_tag",
@@ -1947,6 +1971,14 @@
       "id": "tagtype",
       "translation": "Schlagwort-Typ"
   	},
+    {
+      "id": "accepted_tags",
+      "translation": "Akzeptierte Schlagwörter"
+    },
+    {
+      "id": "recommended_tags",
+      "translation": "Vorgeschlagene Schlagwörter"
+    },
   	{
       "id": "tagtype_anidbid",
       "translation": "Anidb ID"
@@ -1957,12 +1989,40 @@
   	},
   	{
       "id": "tagtype_videoquality",
-      "translation": "Qualität"
+      "translation": "Video-Qualität"
   	},
-  	{
-      "id": "torrent_tags",
-      "translation": "Torrent Schlagwort"
-  	},
+    {
+      "id": "tagtype_dlsite",
+      "translation": "DLsite"
+    },
+    {
+      "id": "tagtype_vgmdbid",
+      "translation": "VGMdb ID"
+    },
+    {
+      "id": "tagtype_tags",
+      "translation": "Beschreibende Schlagwörter"
+    },
+    {
+      "id": "tagvalue_select",
+      "translation": "Auswählen..."
+    },
+    {
+      "id": "tagvalue_full_hd",
+      "translation": "1080p"
+    },
+    {
+      "id": "tagvalue_hd",
+      "translation": "720p"
+    },
+    {
+      "id": "tagvalue_sd",
+      "translation": "480p"
+    },
+    {
+      "id": "tagvalue_bluray",
+      "translation": "Bluray"
+    },
     {
       "id": "announcements",
       "translation": "Ankündigungen"
@@ -1984,7 +2044,31 @@
       "translation": "Neue Ankündigung erstellen"
     },
     {
+      "id": "related_to",
+      "translation": "Ähnlich wie"
+    },
+    {
       "id": "expire",
       "translation": "Auslaufzeit"
+    },
+    {
+      "id": "complement",
+      "translation": "Ergänzung"
+    },
+    {
+      "id": "from",
+      "translation": "Von"
+    },
+    {
+      "id": "to",
+      "translation": "zu"
+    },
+    {
+      "id": "feed_types",
+      "translation": "Feed Types: RSS(feed), RSS mit Magnet-Links(magnet), Torznab Spec(torznab), EZTV Spec(eztv)"
+    },
+    {
+      "id": "append_query",
+      "translation": "Du kannst deine Suchanfrage an das Ende der Feed-URL anhängen."
     }
 ]
