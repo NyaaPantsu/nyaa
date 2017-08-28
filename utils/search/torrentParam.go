@@ -148,6 +148,10 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 	// Parse the sorting mode of the result from the "sort" argument in url
 	p.Sort.Parse(c.Query("sort"))
 
+	// Set NoNull to improve pg query
+	if p.Sort == Date {
+		p.NotNull = p.Sort.ToDBField() + " IS NOT NULL"
+	}
 	// Category in which you have to search
 	// Parse the categories from the "c" argument in url
 	p.Category = ParseCategories(c.Query("c"))
@@ -437,9 +441,6 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
  */
 func (p *TorrentParam) FindDB(c *gin.Context) ([]models.Torrent, int64, error) {
 	orderBy := p.Sort.ToDBField()
-	if p.Sort == Date {
-		p.NotNull = p.Sort.ToDBField() + " IS NOT NULL"
-	}
 	query := p.toDBQuery(c)
 	orderBy += " "
 
