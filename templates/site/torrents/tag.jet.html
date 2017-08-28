@@ -16,7 +16,7 @@
       <label class="input-label" for="type">{{ T("tagtype")}}</label>
       <select name="type" id="type" class="form-input up-input">
         {{ range _, type := Config.Torrents.Tags.Types }}
-        <option value="{{ type }}" {{if Form.Type == type }}selected{{end}}>{{T("tagtype_" + type) }}</option>
+        <option value="{{ type[0] }}" {{if Form.Type == type[0] }}selected{{end}}>{{T("tagtype_" + type[0]) }}</option>
         {{ end }}
       </select>
       {{ yield errors(name="Type")}}
