@@ -9,6 +9,8 @@ import (
 	"unicode"
 	"unicode/utf8"
 
+	"github.com/NyaaPantsu/nyaa/models/users"
+
 	elastic "gopkg.in/olivere/elastic.v5"
 
 	"github.com/NyaaPantsu/nyaa/models"
@@ -120,6 +122,18 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 	// Limit search to one user
 	// Get the user id from the url
 	p.UserID = parseUInt(c, "userID")
+
+	// if userID is not provided and username is, we try to find the user ID with the username
+	if username := c.Query("user"); username != "" && p.UserID == 0 {
+		user, _, _, err := users.FindByUsername(username)
+		if err == nil {
+			p.UserID = uint32(user.ID)
+			// For other functions, we need to set userID in the request query
+			q := c.Request.URL.Query()
+			q.Set("userID", fmt.Sprintf("%d", p.UserID))
+			c.Request.URL.RawQuery = q.Encode()
+		}
+	}
 
 	// Limit search to DbID
 	// Get the id from the url
