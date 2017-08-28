@@ -49,17 +49,16 @@
       <p class="help-block">{{ T("description_markdown_notice")}}</p>
       <textarea name="desc" id="desc" class="form-input up-input" rows="10">{{Form.Description}}</textarea>
     </div>
-		<div class="upload-tag-form" style="margin-bottom: 10px;">
-		  <h3 id="tag-h3">{{ T("torrent_tags")}}</h3>
-			{{ range Config.Torrents.Tags.Types }}
-			{{ yield tagForm(tagType=., acceptedTag=Form.Tags.Get(.Name)) }}
-			{{ end }}
-		  <div class="form-group">
-			<label class="input-label" for="tag_{{Config.Torrents.Tags.Default}}">{{ T("tagtype_tags") }}</label>
-			<input type="text" name="tag_{{Config.Torrents.Tags.Default}}" class="form-input" id="tag_{{Config.Torrents.Tags.Default}}" value="{{ Form.Tags.Get(Config.Torrents.Tags.Default).Tag }}" />
-		  </div>
-			{{ yield errors(name="tags")}}
-		</div>
+    <div class="upload-tag-form" style="margin-bottom: 10px;">
+      <h3>{{ T("torrent_tags")}}</h3>
+      {{ range Config.Torrents.Tags.Types }}
+        {{ yield tagForm(tagType=., acceptedTag=Form.Tags.Get(.Name)) }}
+      {{ end }}
+      <div class="form-group">
+         <label class="input-label" for="tag_{{Config.Torrents.Tags.Default}}">{{ T("tagtype_tags") }}</label>
+         <input type="text" name="tag_{{Config.Torrents.Tags.Default}}" class="form-input" id="tag_{{Config.Torrents.Tags.Default}}" value="{{ Form.Tags.Get(Config.Torrents.Tags.Default).Tag }}" />
+      </div>
+    </div>
     <button type="submit" class="form-input up-input btn-green">{{ T("save_changes")}}</button>
   </form>
 </div>
