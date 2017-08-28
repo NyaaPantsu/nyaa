@@ -539,6 +539,9 @@ th {
     word-break: break-word;
     font-weight: bold;
 }
+.alt-colors .tr-name {
+    font-weight: normal;
+}
 
 .tr-links {
     width: 48px;
