@@ -438,12 +438,8 @@ select.form-input {
 	width: 69px;
 }
 .refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
-	margin-right: 4px;
 	margin-bottom: 5px;
-	width: 100px!important;
-}
-.refine-container-2 input[type="text"] {
-	width: 70px;
+	width: 85px!important;
 }
 .refine-date {
     width: 98px!important;	
