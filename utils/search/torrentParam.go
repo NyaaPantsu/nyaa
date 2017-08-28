@@ -125,14 +125,23 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 
 	// if userID is not provided and username is, we try to find the user ID with the username
 	if username := c.Query("user"); username != "" && p.UserID == 0 {
-		user, _, _, err := users.FindByUsername(username)
-		if err == nil {
-			p.UserID = uint32(user.ID)
-			// For other functions, we need to set userID in the request query
-			q := c.Request.URL.Query()
-			q.Set("userID", fmt.Sprintf("%d", p.UserID))
-			c.Request.URL.RawQuery = q.Encode()
+		log.Info(fmt.Sprint(username[0]))
+		if username[0] == '#' {
+			log.Info(username[1:])
+			u64, err := strconv.ParseUint(username[1:], 10, 32)
+			if err == nil {
+				p.UserID = uint32(u64)
+			}
+		} else {
+			user, _, _, err := users.FindByUsername(username)
+			if err == nil {
+				p.UserID = uint32(user.ID)
+			}
 		}
+		// For other functions, we need to set userID in the request query
+		q := c.Request.URL.Query()
+		q.Set("userID", fmt.Sprintf("%d", p.UserID))
+		c.Request.URL.RawQuery = q.Encode()
 	}
 
 	// Limit search to DbID
