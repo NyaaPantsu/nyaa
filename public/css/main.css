@@ -78,12 +78,10 @@ body {
 
 .header .container {
     position: relative;
-    width: auto;
 }
 
 .header .container>div {
     line-height: 60px;
-    vertical-align: middle;
     padding: 0 1rem;
 }
 
@@ -93,8 +91,6 @@ body {
 
 .h-left {
     position: absolute;
-    left: 0;
-    text-align: left;
 }
 .header.content-admin .h-left {
     position: initial;
@@ -102,21 +98,14 @@ body {
 }
 
 .h-right {
-    position: absolute;
     right: 0;
-    text-align: right;
 }
 .header.content-admin .h-right {
     position: initial;
     float: right;
 }
 
-.h-logo {
-    height: 60px;
-}
-
 .h-logo, .h-nav {
-    display: inline-block;
     float: left;
 }
 
@@ -130,9 +119,6 @@ body {
     vertical-align: middle;
     padding: 0 10px;
     text-decoration: none;
-    background: none;
-    border: none;
-    max-width: 100%;
 }
 .nav-btn.log-in div {
     display: none;
@@ -168,8 +154,7 @@ input::placeholder {
 select.form-input {
     -webkit-appearance: none;
     -moz-appearance: none;
-    padding-right: 1.5rem;
-	padding: 4px 1.5rem 4px 5px;
+    padding: 4px 1.5rem 4px 5px;
     background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48"><path fill="%23676767" d="M24 34l18-20H6"/></svg>');
     background-position: right center;
     background-repeat: no-repeat;
@@ -195,9 +180,7 @@ select.form-input {
     padding: 0;
     width: 22px;
     height: 25px;
-    box-shadow: none;
     border: none;
-    vertical-align: middle;
     cursor: pointer;
 }
 
@@ -238,7 +221,6 @@ select.form-input {
 }
 
 .header .h-user {
-    display: inline-block;
     width: 150px;
 }
 
@@ -288,8 +270,6 @@ select.form-input {
 }
 
 .header .h-user .user-menu .nav-btn {
-    float: none;
-    display: block;
     padding: 0px 10px!important;
     height: 43px;
     line-height: 40px;
@@ -301,20 +281,12 @@ select.form-input {
 }
 
 .header .h-user .user-info {
-    font-size: 10pt;
     font-weight: bold;
-    display: block;
     float: right;
-    height: 60px;
     line-height: 60px;
-    /* Property is ignored due to the display. With 'display: block', vertical-align should not be used. */
-    vertical-align: middle;
-    /* Hardcoded so the div always fills up all available space while floating right */
     max-width: 91px;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding-right: 0;
 }
 
 .h-user .nav-btn.notif>.badge {
@@ -329,8 +301,6 @@ select.form-input {
 .user-avatar img {
     max-width: 100%;
     max-height: 100%;
-    width: auto;
-    height: auto;
 }
 
 #content {
@@ -342,7 +312,6 @@ select.form-input {
 /* #content { padding-top: 70px;  } */
 
 .content {
-    border-radius: 3px;
     padding: 5px 10px;
     pointer-events: auto;
 }
@@ -633,12 +602,6 @@ textarea {
     max-width: 100%;
 }
 
-#footer {
-    width: 100%;
-    bottom: 0;
-    left: 0;
-}
-
 .footer {
     text-align: center;
     padding: 1rem 0 1.2rem 0;
@@ -706,8 +669,6 @@ html, body {
     }
     .header .h-user>.nav-btn {
         padding: 0 3px!important;
-	font-size: 85%;
-	width: 100%;
     }
     .header .h-user>a.nav-btn {
 	padding: 0!important;
@@ -1274,7 +1235,7 @@ input.filelist-checkbox:checked+table.table-filelist {
 }
 
 #description-box code { 
-	white-space: normal; 
+    white-space: normal; 
 }
 
 /* Markdown editor fixes */
@@ -1857,27 +1818,27 @@ span.tag {
 }
 
 .upload-tag-form h3 {
-	margin: 10px 0;
+    margin: 10px 0;
 }
 
 .upload-tag-form .form-group {
-	width: 167px;
-	display:inline-block;
-	margin-bottom: 5px;
-	margin-right: 5px;
+    width: 167px;
+    display:inline-block;
+    margin-bottom: 5px;
+    margin-right: 5px;
 }
 
 .upload-tag-form label {
-	display:inline-block;
-	width: 100%;
-	font-size: unset;
-	margin-bottom: 1px;
+    display:inline-block;
+    width: 100%;
+    font-size: unset;
+    margin-bottom: 1px;
 }
 
 .upload-tag-form input,.upload-tag-form select {
-	height: 25px;
-	padding: 3px 3px;
-	width: 100%;
+    height: 25px;
+    padding: 3px 3px;
+    width: 100%;
 }
 
 
@@ -1890,6 +1851,6 @@ span.tag {
 html[lang="ja-jp"] .header .nav-btn { padding: 0 8px;}
 @media (max-width: 1100px) {
     html[lang="ja-jp"] .header .h-user>.nav-btn {
-		font-size: 75%;
+	font-size: 75%;
     }
 }
