@@ -427,7 +427,7 @@ select.form-input {
 .box.refine .refine-container-2 {
     width: 48%;
     position: relative;
-	padding-top: 67px;
+    padding-top: 67px;
 }
 
 .refine-container-2 span.form-refine {
@@ -1862,6 +1862,31 @@ span.tag {
 .tag.pending a.tag-form {
     border-left: 1px solid #d8d8d8;
 }
+
+.upload-tag-form h3 {
+	margin: 10px 0;
+}
+
+.upload-tag-form .form-group {
+	width: 167px;
+	display:inline-block;
+	margin-bottom: 5px;
+	margin-right: 5px;
+}
+
+.upload-tag-form label {
+	display:inline-block;
+	width: 100%;
+	font-size: unset;
+	margin-bottom: 1px;
+}
+
+.upload-tag-form input,.upload-tag-form select {
+	height: 25px;
+	padding: 3px 3px;
+	width: 100%;
+}
+
 
 .show-xs {
     display: none;

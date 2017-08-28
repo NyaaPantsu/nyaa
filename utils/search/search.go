@@ -73,11 +73,12 @@ func ByQuery(c *gin.Context, pagenum int, withUser bool, deleted bool, hidden bo
 	torrentParam.Hidden = hidden
 	torrentParam.Full = withUser
 	torrentParam.Deleted = deleted
+	if found, ok := cache.C.Get(torrentParam.Identifier()); ok {
+		log.Infof("Retrieve results from Cache in %s", torrentParam.Identifier())
+		torrentCache := found.(*TorrentCache)
+		return torrentParam, torrentCache.Torrents, torrentCache.Count, nil
+	}
 	if config.Get().Search.EnableElasticSearch && models.ElasticSearchClient != nil && !deleted {
-		if found, ok := cache.C.Get(torrentParam.Identifier()); ok {
-			torrentCache := found.(*TorrentCache)
-			return torrentParam, torrentCache.Torrents, torrentCache.Count, nil
-		}
 		tor, totalHits, err := torrentParam.FindES(c, models.ElasticSearchClient)
 		// If there are results no errors from ES search we use the ES client results
 		if totalHits > 0 && err == nil {
@@ -93,6 +94,9 @@ func ByQuery(c *gin.Context, pagenum int, withUser bool, deleted bool, hidden bo
 	// We fallback to PG, if ES gives error or no results or if ES is disabled in config or if deleted search is enabled
 	log.Errorf("Falling back to postgresql query")
 	tor, totalHits, err := torrentParam.FindDB(c)
+	if totalHits > 0 && err == nil {
+		cache.C.Set(torrentParam.Identifier(), &TorrentCache{tor, int(totalHits)}, 5*time.Minute)
+	}
 	return torrentParam, tor, int(totalHits), err
 }
 
