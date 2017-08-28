@@ -182,6 +182,11 @@ td.tr-le, .error-text {
     background-color: #35363c;
 }
 
+.language span.input-group.highlighted {
+    border-color: #1f1f1f;
+    background-color: hsla(28, 46%, 44%, 0.82);
+}
+
 .torrent-info-box>p>a, .torrent-info-box>div>a, #description-box a {
     text-decoration: none;
 }
