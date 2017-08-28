@@ -1956,6 +1956,10 @@
     "translation": "Tag"
   },
   {
+    "id": "torrent_tags",
+    "translation": "Tags"
+  },
+  {
     "id": "wrong_tag_type",
     "translation": "The tag type selected doesn't exist"
   },

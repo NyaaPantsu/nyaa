@@ -254,7 +254,7 @@
         {{ range Config.Torrents.Tags.Types }}
         {{ yield tagForm(tagType=.) }}
         {{ end }}
-        <div class="form-input">
+        <div class="form-group">
         <label class="input-label" for="tag_{{Config.Torrents.Tags.Default}}">{{ T("tagtype_tags") }}</label>
         <input type="text" name="tag_{{Config.Torrents.Tags.Default}}" id="tag_{{Config.Torrents.Tags.Default}}" value="" />
         </div>

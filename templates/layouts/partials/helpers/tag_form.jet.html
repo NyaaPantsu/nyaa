@@ -3,14 +3,14 @@
     <div class="form-group">
       <label class="input-label" for="tag_{{ tagType.Name }}">{{T("tagtype_" + tagType.Name) }}</label>
       {{ if len(tagType.Defaults) > 0 && tagType.Defaults[0] != "db" }}
-      <select id="tag_{{ tagType.Name }}" class="tagtype" name="tag_{{ tagType.Name }}">
+      <select id="tag_{{ tagType.Name }}" class="tagtype form-input" name="tag_{{ tagType.Name }}">
         <option value="">{{ T("tagvalue_select") }}</option>
       {{ range _, option := tagType.Defaults }}
         <option value="{{ option }}"{{ if isset(acceptedTag) && acceptedTag.Tag == option }} selected{{end}}>{{ T("tagvalue_" + option) }}</option>
       {{ end }}
       </select>
       {{ else }}
-      <input id="tag_{{ tagType.Name }}" class="tagtype" name="tag_{{ tagType.Name }}"{{ if isset(acceptedTag) }} value="{{ acceptedTag.Tag }}"{{ end }}>
+      <input id="tag_{{ tagType.Name }}" class="tagtype form-input" name="tag_{{ tagType.Name }}"{{ if isset(acceptedTag) }} value="{{ acceptedTag.Tag }}"{{ end }}>
       {{ end }}
     </div>
   {{ end }}
