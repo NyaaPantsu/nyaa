@@ -1557,7 +1557,7 @@ input.filelist-checkbox:checked+table.table-filelist {
 
 .header.content-admin .user-menu {
     position: absolute;
-    top: 6px;
+    top: 63px;
     z-index: 5;
 }
 
