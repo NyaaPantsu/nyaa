@@ -769,7 +769,7 @@ html, body {
 	width: 100%!important;
     }
     .refine-btn,.language { 
-	position: initial!important;
+	position: relative!important;
 	bottom: initial!important; 
 	width: 100%!important;
     }
