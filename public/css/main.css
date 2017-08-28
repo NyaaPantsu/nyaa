@@ -207,11 +207,11 @@ select.form-input {
 }
 
 .form-input.language {
-    max-width: 426px;
+    max-width: 424px;
     height: auto;
     border-radius: 5px;
     background-color: #F7F8F9;
-    padding: 10px 4px 9px 6px;
+    padding: 9px 5px;
 }
 
 .language span.input-group {
