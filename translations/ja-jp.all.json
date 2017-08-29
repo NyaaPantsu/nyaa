@@ -1956,6 +1956,10 @@
      "translation": "タグ"
   },
   {
+    "id": "torrent_tags",
+    "translation": "タグ"
+  },
+  {
     "id": "wrong_tag_type",
     "translation": "選択されたタグの種類は存在しません"
   },
@@ -2018,10 +2022,6 @@
   {
     "id": "tagvalue_bluray",
     "translation": "Blu-ray"
-  },
-  {
-    "id": "torrent_tags",
-    "translation": "Torrent タグ"
   },
   {
     "id": "announcements",
