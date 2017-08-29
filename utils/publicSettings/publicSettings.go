@@ -181,6 +181,18 @@ func GetThemeFromRequest(c *gin.Context) string {
 	return ""
 }
 
+func GetAltColorsFromRequest(c *gin.Context) string {
+	user, _ := getCurrentUser(c)
+	if user.ID > 0 {
+		return user.Theme
+	}
+	cookie, err := c.Cookie("altColors")
+	if err == nil {
+		return cookie
+	}
+	return "false"
+}
+
 // GetMascotFromRequest : Gets the user selected theme from the request
 func GetMascotFromRequest(c *gin.Context) string {
 	user, _ := getCurrentUser(c)
