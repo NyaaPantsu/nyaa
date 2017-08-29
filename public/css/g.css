@@ -116,7 +116,7 @@ td.tr-le, .error-text {
 }
 
 .alt-colors tr:nth-child(odd) {
-    backgroubd: hsla(291, 41%, 85%, 0.2);
+    backgroubd: hsla(291, 31%, 86%, 0.2);
 }
 .aplus, .btn-blue {
     background: hsla(200, 100%, 50%, 0.2) !important;
