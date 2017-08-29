@@ -74,7 +74,6 @@ body {
     position: relative;
     z-index: 2;
 }
-.no-center > center { display: none; }
 
 .header .container {
     position: relative;

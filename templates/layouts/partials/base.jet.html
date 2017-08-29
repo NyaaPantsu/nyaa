@@ -49,7 +49,7 @@
   <nav id="header" class="header {{ block contclass() }}{{end}}">
     {{block menu()}}{{end}}
   </nav>
-  <div id="content" class="{{ block contclass() }}{{end}}{{if isset(Infos["system"])}} no-center{{end}}">
+  <div id="content" class="{{ block contclass() }}{{end}}">
     <div class="content container center">
       {{ yield infos()}}
       {{ yield errors()}}
