@@ -1,5 +1,9 @@
 package config
 
+import (
+	"strings"
+)
+
 // Config : Configuration for DB, I2P, Fetcher, Go Server and Translation
 type Config struct {
 	Host                   string `json:"host" yaml:"host,omitempty"`
@@ -211,8 +215,10 @@ type SearchConfig struct {
 	ElasticsearchType     string `yaml:"es_type,omitempty"`
 }
 
+// ArrayString is an array of string with some easy functions
 type ArrayString []string
 
+// Contains check if there is a string in the array of string
 func (ar ArrayString) Contains(str string) bool {
 	for _, s := range ar {
 		if s == str {
@@ -220,6 +226,11 @@ func (ar ArrayString) Contains(str string) bool {
 		}
 	}
 	return false
+}
+
+// Join regroup the array of string in one string separated by commas
+func (ar ArrayString) Join() string {
+	return strings.Join(ar, ",")
 }
 
 var tagtypes map[string]int
