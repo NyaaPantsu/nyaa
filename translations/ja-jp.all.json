@@ -1968,6 +1968,14 @@
     "translation": "タグの種類"
   },
   {
+    "id": "accepted_tags",
+    "translation": "許容タグ"
+  },
+  {
+    "id": "recommended_tags",
+    "translation": "推奨タグ"
+  },
+  {
     "id": "tagtype_anidbid",
     "translation": "AniDB ID"
   },
@@ -1986,6 +1994,30 @@
   {
     "id": "tagtype_vgmdbid",
     "translation": "VGMdb ID"
+  },
+  {
+    "id": "tagtype_tags",
+    "translation": "通常タグ"
+  },
+  {
+    "id": "tagvalue_select",
+    "translation": "選択..."
+  },
+  {
+    "id": "tagvalue_full_hd",
+    "translation": "1080p"
+  },
+  {
+    "id": "tagvalue_hd",
+    "translation": "720p"
+  },
+  {
+    "id": "tagvalue_sd",
+    "translation": "480p"
+  },
+  {
+    "id": "tagvalue_bluray",
+    "translation": "Blu-ray"
   },
   {
     "id": "torrent_tags",
@@ -2012,6 +2044,10 @@
     "translation": "告知の作成"
   },
   {
+    "id": "related_to",
+    "translation": "以下に関連:"
+  },
+  {
     "id": "expire",
     "translation": "期間"
   },
@@ -2029,7 +2065,7 @@
   },
   {
     "id": "feed_types",
-    "translation": "フィードタイプ: RSS (feed)、magnet リンク付き RSS (manget), Torznab 仕様 (torznab), EZTV 仕様 (eztv)"
+    "translation": "フィードタイプ: RSS (feed)、magnet リンク付き RSS (magnet), Torznab 仕様 (torznab), EZTV 仕様 (eztv)"
   },
   {
     "id": "append_query",
