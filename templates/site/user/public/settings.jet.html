@@ -31,10 +31,10 @@
     <input type="text" name="mascot_url" class="form-input" value="{{ MascotURL }}"/>
     <br/>
 
-	  <h3>Alternating Colors</h3>
+    <h3>Alternating Colors</h3>
     <select id="altColors-selector" name="altColors" class="form-input">
       <option value="false">Disabled</option>
-      <option value="true" {{ if AltColors == "true" }} selected{{end}}>Enabled</option>
+      <option value="true" {{if AltColors}}selected{{end}}>Enabled</option>
     </select>
     <br/>
     
