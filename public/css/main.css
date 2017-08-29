@@ -704,6 +704,9 @@ html, body {
     .tr-cat {
 	width: 8.7%;
     }
+    .user-td.tr-cat {
+	width: 11.7%;
+    }
     .torrent-preview-table .tr-cat {
 	width: 9.1%;
      }
@@ -796,10 +799,10 @@ html, body {
         display: block!important;
     }
     .profile-panel, .profile-content {
-        border-radius: 4px;
-        border-right: 1px solid;
+        border-radius: 4pximportant;
+        border-right: 1px solid!important;
         width: 100% !important;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
     .header .h-user {
         width: 46px;
@@ -813,9 +816,6 @@ html, body {
     }
     .header .h-user .user-menu {
         right: 104px;
-    }
-    .box {
-        padding: 7px;
     }
     .torrent-preview-table .tr-cat {
         width: 74px;
