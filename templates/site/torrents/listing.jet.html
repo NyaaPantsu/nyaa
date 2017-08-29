@@ -50,7 +50,7 @@
       </th>
     </tr>
   </thead>
-  <tbody id="torrentListResults">
+  <tbody id="torrentListResults" {{if AltColors == "true"}}class="alt-colors"{{end}}>
     {{ range Models}}
     <tr id="torrent_{{ .ID }}" class="torrent-info {{if .Status == 2}}remake{{else if .Status == 3}}trusted{{else if .Status == 4}}aplus{{end}}" >
       {{ if User.HasAdmin() }}
