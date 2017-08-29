@@ -192,6 +192,7 @@ select.form-input {
 .form-input.refine {
     border-radius: 0 3px 3px 0;
     border-left: none;
+    outline: none;
 }
 
 .form-input.language {
