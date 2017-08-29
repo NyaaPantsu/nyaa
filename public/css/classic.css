@@ -114,7 +114,7 @@ td.tr-le, .error-text {
 }
 
 .alt-colors tr:nth-child(odd) {
-	background: hsla(231, 7%, 84%, 0.2);
+	background: hsla(231, 8%, 73%, 0.2);
 } 
 /* Original Nyaa colors, do NOT change! */
 
