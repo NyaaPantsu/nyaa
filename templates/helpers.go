@@ -32,6 +32,7 @@ type SearchForm struct {
 	MaxSize          string
 	FromDate         string
 	ToDate           string
+	User             string
 }
 
 // NewNavigation return a navigation struct with
@@ -51,6 +52,7 @@ func NewSearchForm(c *gin.Context) SearchForm {
 		ShowItemsPerPage: true,
 		ShowRefine:       false,
 		SizeType:         sizeType,
+		User:             c.Query("user"),
 		DateType:         c.Query("dateType"),
 		MinSize:          c.Query("minSize"),  // We need to overwrite the value here, since size are formatted
 		MaxSize:          c.Query("maxSize"),  // We need to overwrite the value here, since size are formatted
