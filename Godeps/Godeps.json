@@ -59,6 +59,10 @@
 			"Rev": "7e5a8eef611ee84dd359503f3969f80df4c50723"
 		},
 		{
+			"ImportPath": "github.com/frustra/bbcode",
+			"Rev": "e3d2906cb2697dd3b846aa433cc6bb03df33b086"
+		},
+		{
 			"ImportPath": "github.com/gin-gonic/gin",
 			"Comment": "v1.1.4-1-gd5b353c",
 			"Rev": "d5b353c5d5a560322e6d96121c814115562501f7"
@@ -96,11 +100,6 @@
 		{
 			"ImportPath": "github.com/golang/protobuf/proto",
 			"Rev": "6a1fa9404c0aebf36c879bc50152edcc953910d2"
-		},
-		{
-			"ImportPath": "github.com/gorilla/context",
-			"Comment": "v1.1-7-g08b5f42",
-			"Rev": "08b5f424b9271eedf6f9f0ce86cb9396ed337a42"
 		},
 		{
 			"ImportPath": "github.com/gorilla/feeds",

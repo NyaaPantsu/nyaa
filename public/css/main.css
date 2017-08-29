@@ -367,8 +367,8 @@ select.form-input {
     width: 49px;
 }
 
-.box.refine input[type="number"].refine-userid {
-    width: 65px;
+.refine-user {
+    width: 103px;
 }
 .box.refine .language {
     position: absolute; 
