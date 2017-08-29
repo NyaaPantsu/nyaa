@@ -184,7 +184,7 @@ function toggleTheme(e) {
   document.getElementById("theme").href = "/css/" + CurrentTheme + ".css";
   
   if(UserID > 0 ){
-    Query.Get("https://dev.pantsu.cat/dark?noRedirect=true")
+    Query.Get("https://dev.pantsu.cat/dark")
     //If user logged in, we're forced to go through this page in order to save the new user theme
   }
   else {
