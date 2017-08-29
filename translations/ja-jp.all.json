@@ -1952,8 +1952,8 @@
     "translation": "{1} 日 {2} 時間前"
   },
   {
-     "id": "tag",
-     "translation": "タグ"
+    "id": "tag",
+    "translation": "タグ"
   },
   {
     "id": "torrent_tags",
