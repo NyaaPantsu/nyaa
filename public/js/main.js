@@ -183,8 +183,16 @@ function toggleTheme(e) {
 
   document.getElementById("theme").href = "/css/" + CurrentTheme + ".css";
   
-  document.cookie = "theme=" + CurrentTheme + ";path=/;domain=pantsu.cat;expires=" + farFutureString
-  document.cookie = "theme2=" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]) + ";path=/;domain=pantsu.cat;expires=" + farFutureString
+  if(UserID > 0 ){
+    Query.Get("https://dev.pantsu.cat/dark?noRedirect=true")
+    //If user logged in, we're forced to go through this page in order to save the new user theme
+  }
+  else {
+    document.cookie = "theme=" + CurrentTheme + ";path=/;domain=pantsu.cat;expires=" + farFutureString
+    document.cookie = "theme2=" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]) + ";path=/;domain=pantsu.cat;expires=" + farFutureString
+    //Otherwise, we can just set the theme through cookies
+  }
+  
   e.preventDefault()
 }
 
