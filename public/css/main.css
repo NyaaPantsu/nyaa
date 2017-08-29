@@ -186,6 +186,7 @@ select.form-input {
     width: 22px;
     height: 25px;
     border: none;
+    outline: none;
     cursor: pointer;
 }
 
