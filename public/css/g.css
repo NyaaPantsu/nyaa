@@ -126,6 +126,7 @@ td.tr-le, .error-text {
 }
 .alt-colors tr:nth-child(even).remake {
     background: hsla(30, 100%, 62%, 0.2) !important;
+}
 .aplus, .btn-blue {
     background: hsla(200, 100%, 50%, 0.2) !important;
 }
