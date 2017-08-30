@@ -1666,7 +1666,9 @@ details[open] summary:after {
 .refine-btn {
     width: 426px;
 	max-width: 100%;
-	float:right;
+	position:absolute;
+	right: 0;
+	bottom: 0;
 }
 
 .torrent-preview-table>table {
