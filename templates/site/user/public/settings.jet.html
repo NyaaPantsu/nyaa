@@ -3,7 +3,7 @@
 {{block title()}}{{ T("change_settings")}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
-  <form role="form" method="POST">
+  <form role="form" method="POST"> 
     {{ yield csrf_field() }}
     <div class="form-group">
       <h3>{{ T("language")}}</h3>
@@ -34,7 +34,7 @@
     <h3>Alternating Colors</h3>
     <select id="altColors-selector" name="altColors" class="form-input">
       <option value="false">Disabled</option>
-      <option value="true">Enabled</option>
+      <option value="true" {{if AltColors}}selected{{end}}>Enabled</option>
     </select>
     <br/>
     
