@@ -44,6 +44,7 @@ type User struct {
 	APITokenExpiry time.Time `gorm:"column:api_token_expiry"`
 	Language       string    `gorm:"column:language"`
 	Theme          string    `gorm:"column:theme"`
+	AltColors      string    `gorm:"column:alt_colors"`
 	Mascot         string    `gorm:"column:mascot"`
 	MascotURL      string    `gorm:"column:mascot_url"`
 	UserSettings   string    `gorm:"column:settings"`

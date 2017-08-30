@@ -115,6 +115,17 @@ td.tr-le, .error-text {
     color: #E8E8E8;
 }
 
+.alt-colors tr:nth-child(odd) {
+    background: hsla(288, 39%, 83%, 0.2);
+}
+.alt-colors tr:nth-child(even).aplus {
+    background: hsla(200, 90%, 56%, 0.2) !important;
+}
+.alt-colors tr:nth-child(even).trusted {
+    background: hsla(100, 100%, 63%, 0.2) !important;
+}
+.alt-colors tr:nth-child(even).remake {
+    background: hsla(30, 100%, 62%, 0.2) !important;
 .aplus, .btn-blue {
     background: hsla(200, 100%, 50%, 0.2) !important;
 }

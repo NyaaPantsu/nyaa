@@ -186,12 +186,14 @@ select.form-input {
     width: 22px;
     height: 25px;
     border: none;
+    outline: none;
     cursor: pointer;
 }
 
 .form-input.refine {
     border-radius: 0 3px 3px 0;
     border-left: none;
+    outline: none;
 }
 
 .form-input.language {
@@ -515,6 +517,9 @@ th {
     word-break: break-word;
     font-weight: bold;
 }
+.alt-colors .tr-name {
+    font-weight: normal;
+}
 
 .tr-links {
     width: 48px;
@@ -699,6 +704,9 @@ html, body {
     .tr-cat {
 	width: 8.7%;
     }
+    .user-td.tr-cat {
+	width: 11.7%;
+    }
     .torrent-preview-table .tr-cat {
 	width: 9.1%;
      }
@@ -791,10 +799,10 @@ html, body {
         display: block!important;
     }
     .profile-panel, .profile-content {
-        border-radius: 4px;
-        border-right: 1px solid;
+        border-radius: 4pximportant;
+        border-right: 1px solid!important;
         width: 100% !important;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
     .header .h-user {
         width: 46px;
@@ -808,9 +816,6 @@ html, body {
     }
     .header .h-user .user-menu {
         right: 104px;
-    }
-    .box {
-        padding: 7px;
     }
     .torrent-preview-table .tr-cat {
         width: 74px;
@@ -1661,7 +1666,9 @@ details[open] summary:after {
 .refine-btn {
     width: 426px;
 	max-width: 100%;
-	float:right;
+	position:absolute;
+	right: 0;
+	bottom: 0;
 }
 
 .torrent-preview-table>table {
