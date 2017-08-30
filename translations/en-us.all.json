@@ -1956,6 +1956,10 @@
     "translation": "Tag"
   },
   {
+    "id": "torrent_tags",
+    "translation": "Tags"
+  },
+  {
     "id": "wrong_tag_type",
     "translation": "The tag type selected doesn't exist"
   },
@@ -2061,7 +2065,7 @@
   },
   {
     "id": "feed_types",
-    "translation": "Feed Types: RSS(feed), RSS With Magnet Links(manget), Torznab Spec(torznab), EZTV Spec(eztv)"
+    "translation": "Feed Types: RSS(feed), RSS With Magnet Links(magnet), Torznab Spec(torznab), EZTV Spec(eztv)"
   },
   {
     "id": "append_query",

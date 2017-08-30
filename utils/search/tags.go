@@ -2,10 +2,12 @@ package search
 
 import (
 	"strings"
+
+	"github.com/NyaaPantsu/nyaa/config"
 )
 
 // Tags struct for search
-type Tags []string
+type Tags config.ArrayString
 
 // Parse a tag list separated by commas to Tags struct
 func (ta *Tags) Parse(str string) bool {

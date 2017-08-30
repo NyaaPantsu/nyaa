@@ -3,7 +3,7 @@
 {{block title()}}{{ T("change_settings")}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
-  <form role="form" method="POST">
+  <form role="form" method="POST"> 
     {{ yield csrf_field() }}
     <div class="form-group">
       <h3>{{ T("language")}}</h3>
@@ -31,6 +31,13 @@
     <input type="text" name="mascot_url" class="form-input" value="{{ MascotURL }}"/>
     <br/>
 
+    <h3>Alternating Colors</h3>
+    <select id="altColors-selector" name="altColors" class="form-input">
+      <option value="false">Disabled</option>
+      <option value="true" {{if AltColors}}selected{{end}}>Enabled</option>
+    </select>
+    <br/>
+    
     <p>{{ T("cookies")}}</p>
     <button type="submit" class="form-input btn">{{ T("save_changes")}}</button>
   </div>

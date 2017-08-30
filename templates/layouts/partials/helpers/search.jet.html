@@ -9,13 +9,12 @@
 {{end}}
 {{block search_button() }}
 <input class="form-input search-box" name="q" placeholder="{{ T("search")}}" type="text" value="{{Search.NameLike}}"/>
-<button type="submit" class="form-input icon-search"></button>
-<button type="submit" class="form-input refine" name="refine" value="1">{{  T("refine")}}</button>
+<button type="submit" class="form-input icon-search"></button><button type="submit" class="form-input refine" name="refine" value="1">{{  T("refine")}}</button>
 {{end}}
 {{block search_refine(url="") }}
 <div style="{{ if !Search.ShowRefine }}display:none;{{ end }}" class="box refine">
   </span>
-  <form style="display: grid;" method="GET" action="{{ url }}">
+  <form method="GET" action="{{ url }}">
     <h3>{{ T("refine_search") }}</h3>
 	<div>
 	  <div class="refine-container-1">
@@ -37,7 +36,7 @@
       <option value="4" {{if Search.Status == 4}}selected{{end}}>A+</option>
     </select>
     Limit: <input type="number" name="limit" value="{{ Navigation.MaxItemPerPage }}" class="form-input spacing" min="1" max="300"/>
-    From: <input type="number" name="userID" placeholder="UserID" value="{{ Search.UserID > 0 ? Search.UserID : ""}}" class="form-input refine-userid"/>
+    From: <input type="text" name="user" placeholder="Username/#ID" value="{{ Search.User }}" class="form-input refine-user"/>
   </span>
   <span class="form-refine">
     <span class="spacing">{{ T("between")}}</span>
@@ -57,9 +56,9 @@
     <input class="form-input refine-date" name="fromDate" type="text" value="{{Search.FromDate}}" placeholder="YYYY/MM/DD"/>
     {{ T("to")}}
     <input class="form-input refine-date spacing" size="7" name="toDate" type="text" value="{{Search.ToDate}}" placeholder="YYYY/MM/DD"/>
-    Exclude: <input type="number" name="nuserID" placeholder="UserID" value="" class="form-input refine-userid"/>
+    Exclude: <input type="text" name="nuserID" placeholder="UserID" value="" class="form-input refine-userid" style="width: 62px;">
     </span>
-	<span class="form-refine show-xs" style="margin-bottom: 2px;">
+	<span class="form-refine" style="margin-bottom: 2px;">
 		<span class="spacing">{{T("sort_by")}}</span>
 		<select name="sort" class="form-input">
 			<option value="1"{{if Search.Sort == 1}}selected{{end}}>{{T("name")}}</option>
@@ -87,10 +86,10 @@
 		  </span>
 		  <span class="form-refine">
 			<span class="spacing">Tags:</span>
-			  <input type="number" name="vgmdb" placeholder="VGMdb" value="" class="form-input"/>
-			  <input type="number" name="vndb" placeholder="VnDB" value="" class="form-input"/>
-			  <input type="number" name="anidb" placeholder="AniDB" value="" class="form-input"/>
-			  <input type="number" name="dlsite" placeholder="DLsite" value="" class="form-input"/>
+			  <input type="number" name="anidb" placeholder="AniDB" title="AniDB" value="" class="form-input"/>
+			  <input type="number" name="vgmdb" placeholder="VGMdb" title="VGMdb" value="" class="form-input"/>
+			  <input type="number" name="vndb" placeholder="VnDB" title="VnDB" value="" class="form-input"/>
+			  <input type="number" name="dlsite" placeholder="DLsite" title="DLsite" value="" class="form-input"/>
 		  </span>
 		  <div name="language" class="form-refine form-input language">
 			{{ yield flagList(languages=GetTorrentLanguages(), selected=Search.Languages, inputname="lang", id="refine-search")}}
