@@ -3,7 +3,7 @@
 {{ block profile_navigation()}}{{ yield profile_menu(route="profile") }}{{end}}
 {{block profile_content()}}
 {{ if len(UserProfile.Torrents) > 0 }}
-<table {{if AltColors}}class="alt-colors"{{end}}>
+<table>
   <tr class="torrent-info">
     <th class="tr-cat user-td">{{ T("category")}}</th>
     <th class="tr-name user-td">{{ T("name")}}</th>
