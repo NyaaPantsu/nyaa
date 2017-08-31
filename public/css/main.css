@@ -887,7 +887,7 @@ html, body {
         display: none!important;
     }
     .header .nav-btn {
-    padding: 0px 6px!important;
+        padding: 0px 6px;
     }
     .form-input.form-category {
     width: 72px;
@@ -1864,9 +1864,16 @@ span.tag {
 
 /* Language specific CSS */
 
-html[lang="ja-jp"] .header .nav-btn { padding: 0 8px;}
+
 @media (max-width: 1100px) {
     html[lang="ja-jp"] .header .h-user>.nav-btn {
     font-size: 75%;
+
+    }
+}
+@media (min-width: 961px) {
+    html[lang="ja-jp"] .header .nav-btn {
+	padding: 0 8px;
+
     }
 }
