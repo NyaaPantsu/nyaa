@@ -588,7 +588,7 @@ th {
     text-align: center;
     padding: 1rem 1rem 0 1rem;
     position: relative;
-    z-index: 2;
+    z-index: 4;
 }
 
 .pagination li {
@@ -887,7 +887,7 @@ html, body {
         display: none!important;
     }
     .header .nav-btn {
-    padding: 0px 6px;
+        padding: 0px 6px!important;
     }
     .form-input.form-category {
     width: 72px;
@@ -1324,7 +1324,7 @@ input.filelist-checkbox:checked+table.table-filelist {
     /* Hidden by default */
     position: fixed;
     /* Stay in place */
-    z-index: 4;
+    z-index: 6;
     /* Sit on top */
     left: 0;
     top: 0;
@@ -1562,7 +1562,7 @@ input.filelist-checkbox:checked+table.table-filelist {
 .header.content-admin .user-menu {
     position: absolute;
     top: 63px;
-    z-index: 5;
+    z-index: 7;
 }
 
 #content.content-admin {
@@ -1868,10 +1868,12 @@ span.tag {
 @media (max-width: 1100px) {
     html[lang="ja-jp"] .header .h-user>.nav-btn {
     font-size: 75%;
+
     }
 }
 @media (min-width: 961px) {
     html[lang="ja-jp"] .header .nav-btn {
 	padding: 0 8px;
+
     }
 }
