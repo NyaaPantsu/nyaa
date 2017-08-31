@@ -8,6 +8,7 @@ that anyone will be able to deploy locally or remotely.
 
 ## [Roadmap](https://github.com/NyaaPantsu/nyaa/projects/2)
 As of August 17th the [trello board](https://trello.com/b/gMJBwoRq/nyaa-pantsu-cat-roadmap) has been moved to [GitHub Projects](https://github.com/NyaaPantsu/nyaa/projects/2)
+
 The Roadmap will give you an overview of the features and tasks that the project are currently discussing, working on and have completed.
 If you are looking for a feature that is not listed just make a GitHub Issue and it will get added to the trello board.
 
