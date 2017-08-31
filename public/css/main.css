@@ -887,7 +887,7 @@ html, body {
         display: none!important;
     }
     .header .nav-btn {
-        padding: 0px 6px!important;
+        padding: 0px 6px;
     }
     .form-input.form-category {
     width: 72px;
