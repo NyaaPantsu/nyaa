@@ -126,6 +126,7 @@ td.tr-le, .error-text {
 }
 .alt-colors tr:nth-child(even).remake {
     background: hsla(30, 100%, 62%, 0.2) !important;
+}
 .aplus, .btn-blue {
     background: hsla(200, 100%, 50%, 0.2) !important;
 }
@@ -189,8 +190,11 @@ td.tr-le, .error-text {
     color: #7A5C94;
 }
 
-.sukebei tr:nth-child(2n+1) {
+.sukebei tr:nth-child(odd) {
     background: hsla(330, 100%, 91%, 0.2);
+}
+.sukebei .alt-colors tr:nth-child(odd) {
+    background: hsla(324, 60%, 85%, 0.2);
 }
 
 .sukebei .header .h-user button:focus {
