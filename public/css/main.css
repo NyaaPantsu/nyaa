@@ -37,7 +37,7 @@ body {
 
 #mascot {
     position: fixed;
-    z-index: 1;
+    z-index: 3;
     bottom: 0;
     right: 0;
     width: 60vh;
@@ -53,7 +53,7 @@ body {
 }
 
 .header {
-    z-index: 3;
+    z-index: 5;
     position: fixed;
     width: 100%;
     top: 0;
@@ -72,7 +72,7 @@ body {
 
 .content {
     position: relative;
-    z-index: 2;
+    z-index: 4;
 }
 
 .header .container {
@@ -350,9 +350,9 @@ select.form-input {
     width: 103px;
 }
 .box.refine .language {
-    position: absolute; 
+    position: absolute;
     right: 0;
-	top: 0;
+    top: 0;
 }
 
 .form-refine {
@@ -390,7 +390,7 @@ select.form-input {
 }
 
 .box.refine > form > div {
-	display: flex;
+    display: flex;
 }
 .box.refine .refine-container-1 {
     width: 52%;
@@ -402,18 +402,18 @@ select.form-input {
 }
 
 .refine-container-2 span.form-refine {
-	float: right;
-	max-width: 426px;
+    float: right;
+    max-width: 426px;
 }
 .refine-container-2 span.spacing {
-	width: 69px;
+    width: 69px;
 }
 .refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
-	margin-bottom: 5px;
-	width: 85px!important;
+    margin-bottom: 5px;
+    width: 85px!important;
 }
 .refine-date {
-    width: 98px!important;	
+    width: 98px!important;
 }
 
 .categories a {
@@ -422,7 +422,7 @@ select.form-input {
     padding: 10px 5px;
 }
 
-#announce { 
+#announce {
     margin-bottom: 15px;
     padding: 7px 10px;
     background-color: #D9EDF7;
@@ -430,7 +430,7 @@ select.form-input {
     border-radius: 7px;
 }
 
-#announce:before { 
+#announce:before {
     content: "!";
     vertical-align: middle;
     float: left;
@@ -588,7 +588,7 @@ th {
     text-align: center;
     padding: 1rem 1rem 0 1rem;
     position: relative;
-    z-index: 2;
+    z-index: 4;
 }
 
 .pagination li {
@@ -664,7 +664,7 @@ html, body {
 /* responsive design */
 
 
-@media (min-width: 2560px) { 
+@media (min-width: 2560px) {
     .container, .modtools { max-width: 60%!important; }
 }
 
@@ -676,9 +676,9 @@ html, body {
     .header .h-user .user-menu {
         right: 92px;
     }
-	.header.content-admin .user-menu {
-		right: 16px!important;
-	}
+    .header.content-admin .user-menu {
+        right: 16px!important;
+    }
     .header .h-user .user-info {
         display: none;
     }
@@ -686,41 +686,41 @@ html, body {
         padding: 0 3px!important;
     }
     .header .h-user>a.nav-btn {
-	padding: 0!important;
+    padding: 0!important;
     }
     .nav-btn.log-in span {
-	display: none;
+    display: none;
     }
     .nav-btn.log-in div {
-	display: block;
+    display: block;
     }
     .tr-se, .tr-le, .tr-dl {
-	width: 46px;
+    width: 46px;
     }
 }
 
 /* Image category shrinking & padding lowering between 1050 & 860px, do not modify any of these values */
-@media (max-width: 1050px) { 
+@media (max-width: 1050px) {
     .tr-cat {
-	width: 8.7%;
+    width: 8.7%;
     }
     .user-td.tr-cat {
-	width: 11.7%;
+    width: 11.7%;
     }
     .torrent-preview-table .tr-cat {
-	width: 9.1%;
+    width: 9.1%;
      }
      th, .home-td, .user-td {
-	 padding: 2px 0.3%!important;
+     padding: 2px 0.3%!important;
     }
 }
 
-@media (max-width: 860px) { 
+@media (max-width: 860px) {
     .tr-cat {
-	width: 71px;
+    width: 71px;
     }
     th, .home-td, .user-td {
-	padding: 2px 2px!important;
+    padding: 2px 2px!important;
     }
 }
 /* end of category shrinking */
@@ -739,52 +739,52 @@ html, body {
         display: block
     }
     .user-td.tr-date {
-	width: 100px;
+    width: 100px;
     }
     .user-td.tr-size {
-	width: 77px;
+    width: 77px;
     }
     .box.refine > form > div {
-	display: block;
+    display: block;
     }
     .box.refine > form > div > div {
-	width: 100%!important;
+    width: 100%!important;
     }
-    .refine-btn,.language { 
-	position: relative!important;
-	width: 100%!important;
+    .refine-btn,.language {
+    position: relative!important;
+    width: 100%!important;
     }
     .language {
-	width: initial!important;
+    width: initial!important;
     }
     .refine-container-2 {
-	margin-top: 5px;
-	padding-top: 0!important;
+    margin-top: 5px;
+    padding-top: 0!important;
     }
     .form-refine .refine-category {
-	max-width: 30%;
+    max-width: 30%;
     }
     .form-refine .refine-searchbox {
-	min-width: 190px;
+    min-width: 190px;
     }
-	.refine-container-2 span.spacing {
-		width: 100px;
-	}
-	.refine-container-2 span.form-refine {
-		float: initial!important;
-		max-width: none;
-	}
+    .refine-container-2 span.spacing {
+        width: 100px;
+    }
+    .refine-container-2 span.form-refine {
+        float: initial!important;
+        max-width: none;
+    }
     .hide-xs {
-	display: none !important;
+    display: none !important;
     }
     .show-xs {
-	display: inline-block!important;
+    display: inline-block!important;
     }
 }
 
 @media (max-width: 810px) {
     body {
-	margin: 8px 0;
+    margin: 8px 0;
     }
     .torrent-info-row>td {
         display: block;
@@ -808,11 +808,11 @@ html, body {
         width: 46px;
     }
     .header .h-user .user-avatar {
-	margin: 0;
-    } 
+    margin: 0;
+    }
     .header .h-user {
-	max-width: 46px;
-	width: auto;
+    max-width: 46px;
+    width: auto;
     }
     .header .h-user .user-menu {
         right: 104px;
@@ -824,61 +824,61 @@ html, body {
         width: 36px;
     }
     .header .h-search input {
-	width: 84px !important;
+    width: 84px !important;
     }
     .box {
         padding: 8px;
     }
     .torrent-hr {
-	margin-bottom: 0;
+    margin-bottom: 0;
     }
 }
 
 @media (max-height: 750px),(max-width: 500px) {
     .header {
-	height: 56px;
+    height: 56px;
     }
     .header.content-admin{
         height: auto;
     }
     .header .container > div {
-	line-height: 58px; padding: 0 0.6rem;
+    line-height: 58px; padding: 0 0.6rem;
     }
     .header .h-logo img {
-	height: 57px; padding: 5px 8px 5px 2px;
+    height: 57px; padding: 5px 8px 5px 2px;
     }
     .header .h-user .nav-btn {
-	height: 57px;
+    height: 57px;
     }
-	
+
     #content {
-	top: 58px;
+    top: 58px;
     }
     #content.content-admin {
-	top: 108px;
+    top: 108px;
     }
-	
+
     h3 {
-	margin-bottom: 5px;
+    margin-bottom: 5px;
     }
     .form-refine {
-	margin-bottom: 8px;
+    margin-bottom: 8px;
     }
 }
 
 @media (max-width: 565px) {
     .header .h-search {
-	margin-right: 0;
+    margin-right: 0;
     }
     .header .h-search input {
-	width: 90px !important;
+    width: 90px !important;
    }
     .form-input.refine {
-	position: fixed;
-	border: 1px solid black;
-	bottom: 0;
-	width: 50%;
-	left: 25%;
+    position: fixed;
+    border: 1px solid black;
+    bottom: 0;
+    width: 50%;
+    left: 25%;
     }
     .tr-links {
         width: 44px;
@@ -887,46 +887,46 @@ html, body {
         display: none!important;
     }
     .header .nav-btn {
-	padding: 0px 6px!important;
+    padding: 0px 6px!important;
     }
     .form-input.form-category {
-	width: 72px;
-	margin-right: -5px;
-	border-right: none;
-	border-radius: 3px 0 0 3px;
+    width: 72px;
+    margin-right: -5px;
+    border-right: none;
+    border-radius: 3px 0 0 3px;
     }
     span.spacing {
-	display: none!important;
+    display: none!important;
     }
     .form-refine input.form-input {
-	width: 80px;
+    width: 80px;
     }
     .form-refine .refine-category {
-	width: 45%;
+    width: 45%;
     }
     .form-refine .refine-searchbox {
-	width: 55%!important;
+    width: 55%!important;
     }
     .form-refine .refine-searchbox::placeholder {
-	opacity: 1;
+    opacity: 1;
     }
     .language {
-	width: 350px;
+    width: 350px;
     }
     #footer {
-	padding-bottom: 25px;
+    padding-bottom: 25px;
     }
-	.refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
+    .refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
     width: 87px!important;
-	}
+    }
 }
 
 @media (max-width: 440px) {
-    .header .nav-btn { 
+    .header .nav-btn {
         padding: 0px 3px!important;
     }
-    .form-input.form-category { 
-	      width: 55px;
+    .form-input.form-category {
+          width: 55px;
     }
 }
 
@@ -1248,8 +1248,8 @@ input.filelist-checkbox:checked+table.table-filelist {
     max-height: 100%;
 }
 
-#description-box code { 
-    white-space: normal; 
+#description-box code {
+    white-space: normal;
 }
 
 /* Markdown editor fixes */
@@ -1275,7 +1275,7 @@ input.filelist-checkbox:checked+table.table-filelist {
     padding: 5px 10px;
     width: 100%;
     border-width: 1px;
-    border-style: solid; 
+    border-style: solid;
     height: 50px;
     border-radius: 5px;
 }
@@ -1324,7 +1324,7 @@ input.filelist-checkbox:checked+table.table-filelist {
     /* Hidden by default */
     position: fixed;
     /* Stay in place */
-    z-index: 4;
+    z-index: 6;
     /* Sit on top */
     left: 0;
     top: 0;
@@ -1562,7 +1562,7 @@ input.filelist-checkbox:checked+table.table-filelist {
 .header.content-admin .user-menu {
     position: absolute;
     top: 63px;
-    z-index: 5;
+    z-index: 7;
 }
 
 #content.content-admin {
@@ -1665,10 +1665,10 @@ details[open] summary:after {
 
 .refine-btn {
     width: 426px;
-	max-width: 100%;
-	position:absolute;
-	right: 0;
-	bottom: 0;
+    max-width: 100%;
+    position:absolute;
+    right: 0;
+    bottom: 0;
 }
 
 .torrent-preview-table>table {
@@ -1867,6 +1867,6 @@ span.tag {
 html[lang="ja-jp"] .header .nav-btn { padding: 0 8px;}
 @media (max-width: 1100px) {
     html[lang="ja-jp"] .header .h-user>.nav-btn {
-	font-size: 75%;
+    font-size: 75%;
     }
 }
