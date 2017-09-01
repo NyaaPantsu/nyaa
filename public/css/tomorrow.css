@@ -89,10 +89,10 @@ td.tr-le, .error-text {
 }
 
 .alt-colors tr:nth-child(even) {
-	background: hsla(244, 20%, 28%, 0.2)
+	background: hsla(244, 11%, 21%, 0.2);
 } 
 .alt-colors tr:nth-child(odd) {
-	background: hsla(255, 31%, 6%, 0.2)
+	background: hsla(255, 31%, 6%, 0.2);
 } 
 .aplus, .btn-blue {
     background: hsla(180, 50%, 50%, 0.2) !important;
