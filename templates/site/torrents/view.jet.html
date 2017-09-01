@@ -98,15 +98,7 @@
       </td>
     </tr>
     {{ end }}
-    {{ if Torrent.VideoQuality != "" }}
-    <tr class="torrent-info-row">
-      <td class="torrent-info-td torrent-info-label">{{ T("tagtype_videoquality") }}:</td>
-      <td class="tr-flag torrent-view-td torrent-info-data">
-        {{ T("tagvalue_"+Torrent.VideoQuality) }}
-      </td>
-    </tr>
-    {{ end }}
-	 {{ if len(Torrent.AcceptedTags) > 0 }}
+    {{ if len(Torrent.AcceptedTags) > 0 }}
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("accepted_tags")}}:</td>
       <td class="tr-flag torrent-view-td torrent-info-data" id="tags-torrent">
@@ -125,6 +117,14 @@
           {{ yield tag(tag=., accepted=false, torrentID=Torrent.ID) }}
         {{end}}
         <a id="tagPopup" href="/torrent/tag?id={{ Torrent.ID }}" class="add-tag">{{ T("complement") }}</a>
+      </td>
+    </tr>
+    {{ end }}
+    {{ if Torrent.VideoQuality != "" }}
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("tagtype_videoquality") }}:</td>
+      <td class="tr-flag torrent-view-td torrent-info-data">
+        {{ T("tagvalue_"+Torrent.VideoQuality) }}
       </td>
     </tr>
     {{ end }}
