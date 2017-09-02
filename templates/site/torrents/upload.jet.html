@@ -162,7 +162,7 @@
       <p>{{ T("description_markdown_notice")}}</p>
       <textarea name="desc" id="desc" class="form-input up-input" style="height: 10rem;">{{Form.Description}}</textarea>
 
-      <div class="upload-tag-form">
+      <div class="upload-tag-form" style="display: none;">
         <h3 id="tag-h3">{{ T("torrent_tags")}}</h3>
         {{ range Config.Torrents.Tags.Types }}
         {{ yield tagForm(tagType=., acceptedTag=Form.Tags.Get(.Name)) }}
