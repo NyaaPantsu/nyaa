@@ -46,6 +46,17 @@ func ModMiddleware() gin.HandlerFunc {
 	}
 }
 
+// LoggedInMiddleware make sure that the user is logged in
+func LoggedInMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		currentUser := router.GetUser(c)
+		if currentUser.ID == 0 {
+			NotFoundHandler(c)
+		}
+		c.Next()
+	}
+}
+
 func ScopesRequired(scopes ...string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		mySessionData := oauth2.NewSession("", "")

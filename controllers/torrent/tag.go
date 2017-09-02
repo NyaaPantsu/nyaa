@@ -64,36 +64,36 @@ func postTags(c *gin.Context, torrent *models.Torrent, user *models.User) []mode
 
 // ViewFormTag is a controller displaying a form to add a tag to a torrent
 func ViewFormTag(c *gin.Context) {
-	messages := msg.GetMessages(c)
 	user := router.GetUser(c)
-	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
-	// Retrieve the torrent
-	torrent, err := torrents.FindByID(uint(id))
-
-	// If torrent not found, display 404
-	if err != nil {
-		c.Status(http.StatusNotFound)
-		return
-	}
-
-	// We add a tag if posted
+	// We add a tag only if user logged
 	if user.ID > 0 {
+		messages := msg.GetMessages(c)
+		id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
+		// Retrieve the torrent
+		torrent, err := torrents.FindByID(uint(id))
+
+		var tagsForm models.Tags
+		// If torrent not found, display 404
+		if err != nil {
+			c.Status(http.StatusNotFound)
+			return
+		}
 
 		// We load tags for user so we can check if they have them
 		user.LoadTags(torrent)
-		tag := postTags(c, torrent, user)
-		if _, ok := c.GetQuery("json"); ok {
-			apiUtils.ResponseHandler(c, tag)
-			return
+		if c.Request.Method == "POST" {
+			tagsForm = postTags(c, torrent, user)
+			if _, ok := c.GetQuery("json"); ok {
+				apiUtils.ResponseHandler(c, tagsForm)
+				return
+			}
+			if !messages.HasErrors() {
+				c.Redirect(http.StatusSeeOther, fmt.Sprintf("/view/%d", id))
+			}
 		}
-		if !messages.HasErrors() {
-			c.Redirect(http.StatusSeeOther, fmt.Sprintf("/view/%d", id))
-		}
-	}
-	tagForm := &tagsValidator.CreateForm{}
-	c.Bind(tagForm)
 
-	templates.Form(c, "/site/torrents/tag.jet.html", tagForm)
+		templates.Form(c, "/site/torrents/tag.jet.html", tagsForm)
+	}
 }
 
 // AddTag is a controller to add a tag
