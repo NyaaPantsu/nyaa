@@ -342,7 +342,9 @@ func (p *TorrentParam) FindES(c *gin.Context, client *elastic.Client) ([]models.
 func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 	query := &Query{}
 
-	query.Append(p.Category.ToDBQuery())
+	sql, cats := p.Category.ToDBQuery()
+	query.Append(sql, cats...)
+	
 	if len(p.Languages) > 0 {
 		query.Append("language "+searchOperator, "%"+langsToDBQuery(p.Languages)+"%")
 	}
