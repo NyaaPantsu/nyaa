@@ -1802,6 +1802,9 @@ span.tag {
     box-shadow: 0px 0px 1px 0px #636363;
     margin-bottom: 1px;
 }
+.tag.accepted {
+    margin-right: 2px;
+}
 
 .tag.accepted a{
     margin-right: 3px;
