@@ -344,7 +344,7 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 
 	sql, cats := p.Category.ToDBQuery()
 	query.Append(sql, cats...)
-	
+
 	if len(p.Languages) > 0 {
 		query.Append("language "+searchOperator, "%"+langsToDBQuery(p.Languages)+"%")
 	}
@@ -401,7 +401,7 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 		query.Append("date <= ?", p.ToDate.ToDBQuery())
 	}
 	if p.Status != 0 {
-		query.Append(p.Status.ToDBQuery(), strconv.Itoa(int(p.Status)+1))
+		query.Append(p.Status.ToDBQuery())
 	}
 	if len(p.NotNull) > 0 {
 		query.Append(p.NotNull)
