@@ -1796,9 +1796,6 @@ span.tag-text {
     padding: 0 3px;
     display: inline-block;
 }
-.accepted span.tag-text {
-    margin-right: 3px;
-}
 
 span.tag {
     border-radius: 1rem;
@@ -1806,7 +1803,10 @@ span.tag {
 }
 
 .tag.accepted a{
-    margin-right: 1px;
+    margin-right: 3px;
+}
+.tag.accepted span a {
+    margin-right: 0;
 }
 .tag.accepted i{
     padding: 0px 0px 3px 0px;
