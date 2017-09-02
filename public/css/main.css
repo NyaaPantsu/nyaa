@@ -1796,17 +1796,21 @@ span.tag-text {
     padding: 0 3px;
     display: inline-block;
 }
-.accepted span.tag-text {
-    margin-right: 3px;
-}
 
 span.tag {
     border-radius: 1rem;
     box-shadow: 0px 0px 1px 0px #636363;
+    margin-bottom: 1px;
+}
+.tag.accepted {
+    margin-right: 2px;
 }
 
 .tag.accepted a{
-    margin-right: 1px;
+    margin-right: 3px;
+}
+.tag.accepted span a {
+    margin-right: 0;
 }
 .tag.accepted i{
     padding: 0px 0px 3px 0px;
