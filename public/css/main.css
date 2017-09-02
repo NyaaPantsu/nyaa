@@ -1800,6 +1800,7 @@ span.tag-text {
 span.tag {
     border-radius: 1rem;
     box-shadow: 0px 0px 1px 0px #636363;
+    margin-bottom: 1px;
 }
 
 .tag.accepted a{
