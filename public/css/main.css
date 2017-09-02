@@ -37,7 +37,7 @@ body {
 
 #mascot {
     position: fixed;
-    z-index: 3;
+    z-index: 1;
     bottom: 0;
     right: 0;
     width: 60vh;
@@ -53,7 +53,7 @@ body {
 }
 
 .header {
-    z-index: 5;
+    z-index: 3;
     position: fixed;
     width: 100%;
     top: 0;
@@ -72,7 +72,7 @@ body {
 
 .content {
     position: relative;
-    z-index: 4;
+    z-index: 2;
 }
 
 .header .container {
@@ -1796,13 +1796,23 @@ span.tag-text {
     padding: 0 3px;
     display: inline-block;
 }
+.accepted span.tag-text {
+    margin-right: 3px;
+}
 
 span.tag {
     border-radius: 1rem;
     box-shadow: 0px 0px 1px 0px #636363;
 }
 
-.tag.accepted {
+.tag.accepted a{
+    margin-right: 1px;
+}
+.tag.accepted i{
+    padding: 0px 0px 3px 0px;
+}
+.tag.accepted .icon-search:before {
+    margin-left: 0;
 }
 
 .tag.pending {
