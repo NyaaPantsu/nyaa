@@ -190,7 +190,7 @@ func GetAltColorsFromRequest(c *gin.Context) bool {
 	if err == nil {
 		return cookie == "true"
 	}
-	return false
+	return true
 }
 
 // GetMascotFromRequest : Gets the user selected theme from the request
