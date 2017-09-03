@@ -184,7 +184,8 @@ func GetThemeFromRequest(c *gin.Context) string {
 func GetAltColorsFromRequest(c *gin.Context) bool {
 	user, _ := getCurrentUser(c)
 	if user.ID > 0 {
-		return user.AltColors == "true"
+		return user.AltColors != "false"
+		//Doing this in order to make it return true should the field be empty
 	}
 	cookie, err := c.Cookie("altColors")
 	if err == nil {
