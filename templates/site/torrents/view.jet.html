@@ -248,7 +248,7 @@
         <span class="close">&times;</span>
         <h2>{{  T("add_tag") }}</h2>
       </div>
-      <div class="modal-body" id="tag-modal-form">
+      <div class="modal-body upload-tag-form">
         {{ yield csrf_field() }}
         {{ range Config.Torrents.Tags.Types }}
         {{ yield tagForm(tagType=.) }}
