@@ -86,7 +86,7 @@
         {{ if Torrent.VgmdbID > 0 }}
         <span class="tag accepted">
           <span class="tag-text votable"><a href="http://vgmdb.net/album/{{ Torrent.VgmdbID }}">{{ T("tagtype_vgmdbid") }}: {{ Torrent.VgmdbID }}</a></span>
-          <a href="/search?vgmdb={{ Torrent.VgmdbID }}" title="{{ T("filter") }}"><i class="icon-search"></i></a>
+          <a href="/search?vgm={{ Torrent.VgmdbID }}" title="{{ T("filter") }}"><i class="icon-search"></i></a>
         </span>
         {{end}}
         {{ if Torrent.Dlsite > 0 }}
