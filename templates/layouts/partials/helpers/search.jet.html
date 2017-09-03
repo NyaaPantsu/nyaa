@@ -35,8 +35,8 @@
       <option value="3" {{if Search.Status == 3}}selected{{end}}>{{ T("trusted")}}</option>
       <option value="4" {{if Search.Status == 4}}selected{{end}}>A+</option>
     </select>
-    Limit: <input type="number" name="limit" value="{{ Navigation.MaxItemPerPage }}" class="form-input spacing" min="1" max="300"/>
-    From: <input type="text" name="user" placeholder="Username/#ID" value="{{ Search.User }}" class="form-input refine-user"/>
+    {{ T("limit_torrent_count")}}: <input type="number" name="limit" value="{{ Navigation.MaxItemPerPage }}" class="form-input spacing" min="1" max="300"/>
+    {{ T("from_user") }}: <input type="text" name="user" placeholder="Username/#ID" value="{{ Search.User }}" class="form-input refine-user"/>
   </span>
   <span class="form-refine">
     <span class="spacing">{{ T("between")}}</span>
@@ -56,7 +56,7 @@
     <input class="form-input refine-date" name="fromDate" type="text" value="{{Search.FromDate}}" placeholder="YYYY/MM/DD"/>
     {{ T("to")}}
     <input class="form-input refine-date spacing" size="7" name="toDate" type="text" value="{{Search.ToDate}}" placeholder="YYYY/MM/DD"/>
-    Exclude: <input type="text" name="nuserID" placeholder="UserID" value="" class="form-input refine-userid" style="width: 62px;">
+    {{ T("exclude_user") }}: <input type="text" name="nuserID" placeholder="UserID" value="" class="form-input refine-userid" style="width: 62px;">
     </span>
 	<span class="form-refine" style="margin-bottom: 2px;">
 		<span class="spacing">{{T("sort_by")}}</span>
@@ -76,7 +76,7 @@
     </div>
 	  <div class="refine-container-2">
 		  <span class="form-refine">
-			<span class="spacing">Quality:</span>
+			<span class="spacing">{{ T("quality")}}:</span>
 			<select name="vq" class="form-input">
 			  <option value="">{{ T("show_all")}}</option>
 			  {{ range _, vq :=  Config.Torrents.Tags.Types.Get("videoquality").Defaults }}
