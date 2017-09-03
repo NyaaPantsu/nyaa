@@ -1,5 +1,4 @@
 {{ import "layouts/partials/helpers/search" }}
-{{ block rss_link()}}{{end}}
 <div class="container">
   <div class="h-left">
     <div class="h-logo">
@@ -13,7 +12,7 @@
         <div class="icon-upload visible-md"></div>
         <span class="hide-md">{{ T("upload") }}</span>
       </a>
-      <a href="/feed{{ yield rss_link() }}" class="nav-btn">
+      <a href="{{ yield rss_link() }}" class="nav-btn">
         <div class="icon-rss-squared visible-md"></div>
         <span class="hide-md">RSS</span>
       </a>
