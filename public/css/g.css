@@ -205,7 +205,7 @@ td.tr-le, .error-text {
 }
 
 .sukebei .header .h-user button:focus {
-    background-color: rgba(150, 100, 255, 0.16);
+    background-color: #edc9ef;
 }
 
 .sukebei .header .h-user .user-menu {
