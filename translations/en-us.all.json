@@ -1308,6 +1308,10 @@
     "translation": "Mascot URL"
   },
   {
+    "id": "alternating_color",
+    "translation": "Alternating Color (and non-bold fonts)"
+  },
+  {
     "id": "no_notifications",
     "translation": "No Notifications"
   },
