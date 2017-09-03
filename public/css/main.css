@@ -1879,6 +1879,19 @@ span.tag {
     display: none;
 }
 
+#ad-container {
+    z-index: 4;
+    position: relative;
+    padding: 0 18%;
+}
+#ad-container > iframe {
+    width: 728px;
+    max-width: 100%;
+    height: 90px;
+    border: none;
+    overflow: hidden;
+}
+
 /* Language specific CSS */
 
 
