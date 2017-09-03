@@ -63,16 +63,16 @@ func (st *Status) ToESQuery() string {
 }
 
 // ToDBQuery prepare a DB statement for status
-func (st *Status) ToDBQuery() string {
+func (st *Status) ToDBQuery() (string, string) {
 	if *st != ShowAll {
 		if *st != FilterRemakes {
 			// Only show torrents with status over the one specified
-			return "status >= " + st.String()
+			return "status >= ?", st.String()
 		}
 		/* From the old nyaa behavior, FilterRemake means everything BUT
 		* remakes
 		 */
-		return "status <> " + st.String()
+		return "status <> ?", st.String()
 	}
-	return ""
+	return "", ""
 }
