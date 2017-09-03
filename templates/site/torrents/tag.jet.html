@@ -14,7 +14,7 @@
       {{ end }}
       <div class="form-group">
         <label class="input-label" for="tag_{{Config.Torrents.Tags.Default}}">{{ T("tagtype_tags") }}</label>
-        <input type="text" name="tag_{{Config.Torrents.Tags.Default}}" id="tag_{{Config.Torrents.Tags.Default}}" value="{{ Form.Get(Config.Torrents.Tags.Default).Tag}}" />
+        <input type="text" class="form-input" name="tag_{{Config.Torrents.Tags.Default}}" id="tag_{{Config.Torrents.Tags.Default}}" value="{{ Form.Get(Config.Torrents.Tags.Default).Tag}}" />
       </div>
     </div>
     <button type="submit" class="form-input up-input btn-green">{{ T("add")}}</button>
