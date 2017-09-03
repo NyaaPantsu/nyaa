@@ -51,6 +51,10 @@ a:hover {
     border-color: #6eb9d6!important;
     color: white;
 }
+.sukebei .form-input.refine {
+    background: #e2b2e2;
+    border-color: #f1bef1!important;
+}
 
 .header .h-user .user-avatar {
     background: #99BFD0;
@@ -122,7 +126,10 @@ td.tr-le, .error-text {
     background: hsla(200, 90%, 56%, 0.2) !important;
 }
 .alt-colors tr:nth-child(even).trusted {
-    background: hsla(100, 100%, 63%, 0.2) !important;
+    background: hsla(100,100%,63%,0.2)!important;
+}
+.alt-colors .trusted td {
+    border-color: #d1f3c8!important;
 }
 .alt-colors tr:nth-child(even).remake {
     background: hsla(30, 100%, 62%, 0.2) !important;
