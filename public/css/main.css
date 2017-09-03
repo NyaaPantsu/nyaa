@@ -1620,7 +1620,7 @@ input.nav-btn {
 }
 
 .rules-drop {
-    display: flex;
+    display: inline-block;
     user-select: none;
     vertical-align: bottom;
     width: 435px;
