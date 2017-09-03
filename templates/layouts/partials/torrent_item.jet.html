@@ -29,7 +29,7 @@ Templates.Add("torrents.item", function(torrent) {
     // {{end}}
     var languages = ""
     var colspan = (torrent.comments.length  == 0 ? ` colspan="2"` : "" )
-    var commentTd = ((torrent.comments.length > 0) ? `<td class="tr-cs home-td" title="`+torrent.comments.length + ` ` + {{T("comments")}} +`"><span>` + torrent.comments.length + `</span></td>` : "")
+    var commentTd = ((torrent.comments.length > 0) ? `<td class="tr-cs home-td" title="`+torrent.comments.length + ` {{T("comments")}}` +`"><span>` + torrent.comments.length + `</span></td>` : "")
     var dlLink = (torrent.torrent != "" ? ` <a href="` + torrent.torrent + `" title="{{ T("torrent_file") }}"><div class="icon-floppy"></div></a>` : "")
 
     if (torrent.languages[0] != "") {
