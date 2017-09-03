@@ -1680,6 +1680,22 @@
     "translation": "Descending"
   },
   {
+    "id": "quality",
+    "translation": "Quality"
+  },
+  {
+    "id": "exclude_user",
+    "translation": "Exclude"
+  },
+  {
+    "id": "from_user",
+    "translation": "From"
+  },
+  {
+    "id": "limit_torrent_count",
+    "translation": "Limit"
+  },
+  {
     "id": "username_taken",
     "translation": "Username already taken, you can choose: %s"
   },
