@@ -51,6 +51,10 @@ a:hover {
     border-color: #6eb9d6!important;
     color: white;
 }
+.sukebei .form-input.refine {
+    background: #e2b2e2;
+    border-color: #f1bef1!important;
+}
 
 .header .h-user .user-avatar {
     background: #99BFD0;
