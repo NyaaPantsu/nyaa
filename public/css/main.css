@@ -12,7 +12,7 @@ a {
     text-decoration: none;
 }
 
-body, .container, .modtools { min-width: 400px;}
+body, .container, .modtools { min-width: 400px; }
 
 .header, .pagination {
     -webkit-user-select: none;
@@ -66,7 +66,7 @@ body {
 }
 
 .container, .modtools {
-    max-width: 1100px;
+    max-width: 1111px;
     margin: 0 auto;
 }
 
