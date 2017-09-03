@@ -41,7 +41,7 @@
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("hash")}}:</td>
       <td style="font-family: monospace;" class="torrent-view-td torrent-info-data">{{Torrent.Hash}}</td>
-      <td class="torrent-info-td torrent-info-label">{{ T("completed")}}:</td>
+      <td class="torrent-info-td torrent-info-label">{{ T("completed")}}:</td>sdqsdqs
       <td class="torrent-info-td">
         <b>{{if Torrent.LastScrape.IsZero}}{{ T("unknown")}}{{else}}{{Torrent.Completed}}{{end}}</b>
       </td>
@@ -86,12 +86,12 @@
         {{ if Torrent.VgmdbID > 0 }}
         <span class="tag accepted">
           <span class="tag-text votable"><a href="http://vgmdb.net/product/{{ Torrent.VgmdbID }}">{{ T("tagtype_vgmdbid") }}: {{ Torrent.VgmdbID }}</a></span>
-          <a href="/search?vgmdb={{ Torrent.VgmdbID }}" title="{{ T("filter") }}"><i class="icon-search"></i></a>
+          <a href="/search?vgm={{ Torrent.VgmdbID }}" title="{{ T("filter") }}"><i class="icon-search"></i></a>
         </span>
         {{end}}
         {{ if Torrent.Dlsite > 0 }}
         <span class="tag accepted">
-          <span class="tag-text votable"><a href="www.dlsite.com/home/work/=/product_id/{{ Torrent.Dlsite }}.html">{{ T("tagtype_dlsite") }}: {{ Torrent.Dlsite }}</a></span>
+          <span class="tag-text votable"><a href="https://www.dlsite.com/home/work/=/product_id/{{ Torrent.Dlsite }}.html">{{ T("tagtype_dlsite") }}: {{ Torrent.Dlsite }}</a></span>
           <a href="/search?dlsite={{ Torrent.Dlsite }}" title="{{ T("filter") }}"><i class="icon-search"></i></a>
         </span>
         {{end}}
