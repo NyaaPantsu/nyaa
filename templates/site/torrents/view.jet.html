@@ -248,15 +248,14 @@
         <span class="close">&times;</span>
         <h2>{{  T("add_tag") }}</h2>
       </div>
-      <div class="modal-body">
-        <h4>{{  T("add_tag") }}</h4>
+      <div class="modal-body upload-tag-form">
         {{ yield csrf_field() }}
         {{ range Config.Torrents.Tags.Types }}
         {{ yield tagForm(tagType=.) }}
         {{ end }}
         <div class="form-group">
         <label class="input-label" for="tag_{{Config.Torrents.Tags.Default}}">{{ T("tagtype_tags") }}</label>
-        <input type="text" name="tag_{{Config.Torrents.Tags.Default}}" id="tag_{{Config.Torrents.Tags.Default}}" value="" />
+        <input type="text" class="form-input" name="tag_{{Config.Torrents.Tags.Default}}" id="tag_{{Config.Torrents.Tags.Default}}" value="" />
         </div>
       </div>
       <div class="modal-footer">
