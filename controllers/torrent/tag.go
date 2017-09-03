@@ -109,14 +109,18 @@ func AddTag(c *gin.Context) {
 		c.Status(http.StatusNotFound)
 		return
 	}
-
 	tagForm := &tagsValidator.CreateForm{c.Query("tag"), c.Query("type")}
 	if c.Query("tag") != "" && user.ID > 0 {
 		validator.ValidateForm(tagForm, messages)
 		if !messages.HasErrors() {
 			// We load tags for user and torrents
 			user.LoadTags(torrent)
-			postTags(c, torrent, user)
+			newTag := models.Tag{Tag: tagForm.Tag, Type: tagForm.Type, UserID: user.ID, TorrentID: torrent.ID, Weight: user.Pantsu}
+			if !user.Tags.Contains(newTag) {
+				// We check if the user has already submitted this tag, if he has, we prevent him to vote twice for it
+				tags.FilterOrCreate(&newTag, torrent, user)
+				torrent.Update(false)
+			}
 		}
 	}
 	if _, ok := c.GetQuery("json"); ok {
