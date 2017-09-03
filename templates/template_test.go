@@ -223,6 +223,9 @@ func walkDirTest(dir string, t *testing.T) {
 	}
 	for _, f := range files {
 		variables := mockupCommonvariables(t)
+		if f.Name() == "menu" {
+			continue
+		}
 		if f.IsDir() {
 			walkDirTest(dir+f.Name()+"/", t)
 			continue
