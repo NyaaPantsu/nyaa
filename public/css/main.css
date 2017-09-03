@@ -1809,7 +1809,10 @@ span.tag {
 .tag.accepted a{
     margin-right: 3px;
 }
-.tag.accepted span a {
+.tag.accepted .tag-text {
+    margin-right: 3px;
+}
+.tag.accepted .tag-text a {
     margin-right: 0;
 }
 .tag.accepted i{
