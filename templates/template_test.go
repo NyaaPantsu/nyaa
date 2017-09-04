@@ -53,7 +53,7 @@ func walkDirTest(dir string, t *testing.T) {
 	fakeTag := &models.Tag{1, 1, "12345", "anidbid", 1, 0, true}
 	//fakeUser := &models.User{1, "test", "test", "test", 1, time.Now(), time.Now(), "test", time.Now(), "en", "test", "test", "test", "test", 0, []models.User{}, []models.User{}, "test", []models.Torrent{}, []models.Notification{}, 1, models.UserSettings{}, []models.Tag{*fakeTag}}
 	//The first fakeUser is the real line, had to modify it without knowing what the fuck i did to fix travis
-	fakeUser := &models.User{1, "test", "test", "test", 1, time.Now(), time.Now(), "test", time.Now(), "en", "test", "test", "test", "test", "test", 0.0, []models.User{}, []models.User{}, "test", []models.Torrent{}, []models.Notification{}, 1, models.UserSettings{}, []models.Tag{*fakeTag}}
+	fakeUser := &models.User{1, "test", "test", "test", 1, time.Now(), time.Now(), "test", time.Now(), "en", "test", "test", "test", "test", "test", "test", 0.0, []models.User{}, []models.User{}, "test", []models.Torrent{}, []models.Notification{}, 1, models.UserSettings{}, []models.Tag{*fakeTag}}
 	fakeComment := &models.Comment{1, 1, 1, "test", time.Now(), time.Now(), nil, &models.Torrent{}, fakeUser}
 	fakeScrapeData := &models.Scrape{1, 0, 0, 10, time.Now()}
 	fakeFile := &models.File{1, 1, "l12:somefile.mp4e", 3}
@@ -207,7 +207,7 @@ func walkDirTest(dir string, t *testing.T) {
 			return variables
 		},
 		"tag.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("Form", models.Tags{*fakeTag, *fakeTag, *fakeTag})
+			variables.Set("Form", fakeTag)
 			return variables
 		},
 	}
@@ -223,9 +223,6 @@ func walkDirTest(dir string, t *testing.T) {
 	}
 	for _, f := range files {
 		variables := mockupCommonvariables(t)
-		if f.Name() == "menu" {
-			continue
-		}
 		if f.IsDir() {
 			walkDirTest(dir+f.Name()+"/", t)
 			continue
@@ -284,7 +281,6 @@ func mockupCommonvariables(t *testing.T) jet.VarMap {
 	variables.Set("T", T)
 	variables.Set("Theme", "test")
 	variables.Set("AltColors", "test")
-	variables.Set("HideAds", "test")
 	variables.Set("Mascot", "test")
 	variables.Set("MascotURL", "test")
 	variables.Set("User", &models.User{})
