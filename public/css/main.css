@@ -1882,7 +1882,7 @@ span.tag {
 #ad-container {
     z-index: 4;
     position: relative;
-    padding: 0 18%;
+    padding: 0 5%;
 }
 #ad-container > iframe {
     width: 728px;
