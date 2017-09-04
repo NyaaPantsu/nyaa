@@ -22,3 +22,7 @@
 * + limit_torrent_count
 ## 2017/09/04
 * + alternating_color
+* + hide_ads
+* + hide_ads_setting_explanation
+* + faq_ads
+* + faq_ads_explanation
