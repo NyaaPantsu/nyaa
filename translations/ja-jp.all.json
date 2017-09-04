@@ -1088,6 +1088,14 @@
     "translation": "匿名でアップロードする"
   },
   {
+    "id": "hide_ads",
+    "translation": "広告を非表示にする"
+  },
+  {
+    "id": "hide_ads_setting_explanation",
+    "translation": "この設定を有効にすると広告が読み込まれなくなります。pantsu に広告がある理由"
+  },
+  {
     "id": "cookies",
     "translation": "保存をクリックすることで、Cookie の使用に同意したことになります"
   },
@@ -1878,6 +1886,14 @@
   {
     "id": "torrent_colors",
     "translation": "Torrent の色について"
+  },
+  {
+    "id": "faq_ads",
+    "translation": "なぜ pantsu には広告があるの？"
+  },
+  {
+    "id": "faq_ads_explanation",
+    "translation": "[広告がある理由に関する長い説明"
   },
   {
     "id": "torrent_preview",
