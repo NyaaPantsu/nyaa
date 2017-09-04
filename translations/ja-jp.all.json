@@ -1684,6 +1684,22 @@
     "translation": "降順"
   },
   {
+    "id": "quality",
+    "translation": "画質"
+  },
+  {
+    "id": "exclude_user",
+    "translation": "除外"
+  },
+  {
+    "id": "from_user",
+    "translation": "ユーザー"
+  },
+  {
+    "id": "limit_torrent_count",
+    "translation": "最大表示数"
+  },
+  {
     "id": "username_taken",
     "translation": "ユーザー名は既に取得されています。以下は利用可能です: %s"
   },
