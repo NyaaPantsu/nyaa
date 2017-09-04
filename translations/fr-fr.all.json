@@ -1308,6 +1308,10 @@
     "translation": "URL de la mascotte"
   },
   {
+    "id": "alternating_color",
+    "translation": "Couleur alternative (et polices non grasses)"
+  },
+  {
     "id": "no_notifications",
     "translation": "Aucune notification"
   },
@@ -1678,6 +1682,22 @@
   {
     "id": "descending",
     "translation": "Descendant"
+  },
+  {
+    "id": "quality",
+    "translation": "Qualité"
+  },
+  {
+    "id": "exclude_user",
+    "translation": "Exclure"
+  },
+  {
+    "id": "from_user",
+    "translation": "De"
+  },
+  {
+    "id": "limit_torrent_count",
+    "translation": "Limite"
   },
   {
     "id": "username_taken",
