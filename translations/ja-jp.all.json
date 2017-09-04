@@ -1088,6 +1088,14 @@
     "translation": "匿名でアップロードする"
   },
   {
+    "id": "hide_ads",
+    "translation": "広告を非表示にする"
+  },
+  {
+    "id": "hide_ads_setting_explanation",
+    "translation": "この設定を有効にすると広告が読み込まれなくなります。"
+  },
+  {
     "id": "cookies",
     "translation": "保存をクリックすることで、Cookie の使用に同意したことになります"
   },
@@ -1306,6 +1314,10 @@
   {
     "id": "mascot_url",
     "translation": "マスコット URL"
+  },
+  {
+    "id": "alternating_color",
+    "translation": "表の背景色を交互にする (ならびに太字にしない)"
   },
   {
     "id": "no_notifications",
@@ -1661,7 +1673,7 @@
   },
   {
     "id": "search_for",
-    "translation": "検索キーワード"
+    "translation": "検索"
   },
   {
     "id": "show",
@@ -1669,7 +1681,7 @@
   },
   {
     "id": "sort_by",
-    "translation": "ソート"
+    "translation": "ソート:"
   },
   {
     "id": "ascending",
@@ -1678,6 +1690,22 @@
   {
     "id": "descending",
     "translation": "降順"
+  },
+  {
+    "id": "quality",
+    "translation": "画質"
+  },
+  {
+    "id": "exclude_user",
+    "translation": "除外"
+  },
+  {
+    "id": "from_user",
+    "translation": "ユーザー"
+  },
+  {
+    "id": "limit_torrent_count",
+    "translation": "最大表示数"
   },
   {
     "id": "username_taken",
@@ -1757,11 +1785,11 @@
   },
   {
     "id": "try_to_delete_report_inexistant",
-    "translation": "存在しない Torrent 報告を削除しようとしています"
+    "translation": "存在しない Torrent レポートを削除しようとしています"
   },
   {
     "id": "torrent_report_not_created",
-    "translation": "Torrent 報告は作成されていません"
+    "translation": "Torrent レポートは作成されていません"
   },
   {
     "id": "user_not_deleted",
@@ -1860,12 +1888,20 @@
     "translation": "Torrent の色について"
   },
   {
+    "id": "faq_ads",
+    "translation": "なんで pantsu には広告があるの？"
+  },
+  {
+    "id": "faq_ads_explanation",
+    "translation": "[広告がある理由に関する長い説明]"
+  },
+  {
     "id": "torrent_preview",
     "translation": "Torrent のプレビュー"
   },
   {
     "id": "announcement",
-    "translation": "告知"
+    "translation": "お知らせ"
   },
   {
     "id": "update_client_failed",
@@ -2025,7 +2061,7 @@
   },
   {
     "id": "announcements",
-    "translation": "告知"
+    "translation": "お知らせ"
   },
   {
     "id": "message",
@@ -2037,11 +2073,11 @@
   },
   {
     "id": "update_annoucement_panel",
-    "translation": "告知の更新"
+    "translation": "お知らせの更新"
   },
   {
     "id": "create_annoucement_panel",
-    "translation": "告知の作成"
+    "translation": "お知らせの作成"
   },
   {
     "id": "related_to",

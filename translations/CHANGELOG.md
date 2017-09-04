@@ -13,3 +13,12 @@
 ## 2017/08/25
 * + accepted_tags
 * + recommended_tags
+## 2017/08/28
+* + torrent_tags
+## 2017/09/03
+* + quality
+* + exclude_user
+* + from_user
+* + limit_torrent_count
+## 2017/09/04
+* + alternating_color
