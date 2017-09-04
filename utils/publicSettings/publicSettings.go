@@ -195,18 +195,17 @@ func GetAltColorsFromRequest(c *gin.Context) bool {
 	return true
 }
 
-// GetAltColorsFromRequest : Return whether user has enabled alt colors or not
+// GetAltColorsFromRequest : Return whether user wants to Hide ads (false by default)
 func GetAdsEnabledFromRequest(c *gin.Context) bool {
 	user, _ := getCurrentUser(c)
 	if user.ID > 0 {
-		return user.AdsEnabled != "false"
-		//Doing this in order to make it return true should the field be empty
+		return user.HideAds == "true"
 	}
-	cookie, err := c.Cookie("adsEnabled")
+	cookie, err := c.Cookie("hideAds")
 	if err == nil {
 		return cookie == "true"
 	}
-	return true
+	return false
 }
 
 // GetMascotFromRequest : Return whether user has enabled mascot or not
