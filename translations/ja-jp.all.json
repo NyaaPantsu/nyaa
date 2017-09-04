@@ -1093,7 +1093,7 @@
   },
   {
     "id": "hide_ads_setting_explanation",
-    "translation": "この設定を有効にすると広告が読み込まれなくなります。pantsu に広告がある理由"
+    "translation": "この設定を有効にすると広告が読み込まれなくなります。"
   },
   {
     "id": "cookies",
@@ -1893,7 +1893,7 @@
   },
   {
     "id": "faq_ads_explanation",
-    "translation": "[広告がある理由に関する長い説明"
+    "translation": "[広告がある理由に関する長い説明]"
   },
   {
     "id": "torrent_preview",
