@@ -348,7 +348,7 @@ function handleVotes(e) {
       } else {
         el.classList.remove("minus")
         el.classList.add("plus")
-        el.href = "/torrent/tag/add?id={{Torrent.ID}}&tag_"+ tag.type +"="+tag.tag
+        el.href = "/torrent/tag/add?id={{Torrent.ID}}&tag="+tag.tag+"&type="+tag.type
         el.parentElement.title = 'Tag: ' + tag.type + "(" + (weight-tag.weight) + ")"
       }
     }

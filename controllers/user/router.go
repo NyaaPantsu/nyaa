@@ -30,6 +30,7 @@ func init() {
 		userRoutes.GET("/:id/:username/edit", UserDetailsHandler)
 		userRoutes.POST("/:id/:username/edit", UserProfileFormHandler)
 		userRoutes.GET("/:id/:username/apireset", UserAPIKeyResetHandler)
-		userRoutes.GET("/:id/:username/feed/*page", feedController.RSSHandler)
+		userRoutes.GET("/:id/:username/feed", feedController.RSSHandler)
+		userRoutes.GET("/:id/:username/feed/:page", feedController.RSSHandler)
 	}
 }

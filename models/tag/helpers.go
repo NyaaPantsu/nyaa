@@ -124,16 +124,10 @@ func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 		// We finally add the tag to the column
 		torrent.AcceptedTags += tag.Tag
 	case "anidbid", "vndbid", "vgmdbid", "dlsite":
-		u64, err := strconv.ParseUint(tag.Tag, 10, 32)
-		if err != nil {
-			log.CheckErrorWithMessage(err, "CONVERT_TYPE: Can't convert tag '%s' to uint", tag.Tag)
-			return
-		}
+		u64, _ := strconv.ParseUint(tag.Tag, 10, 32)
 		// TODO: Perform a check that anidbid is in anidb database
 		tagConf := config.Get().Torrents.Tags.Types.Get(tag.Type)
-		if u64 > 0 {
-			reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).SetUint(u64)
-		}
+		reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).SetUint(u64)
 	default:
 		// Some tag type can have default values that you have to choose from
 		// We, here, check that the tag is one of them
