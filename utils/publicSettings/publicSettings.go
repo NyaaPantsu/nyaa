@@ -181,6 +181,7 @@ func GetThemeFromRequest(c *gin.Context) string {
 	return ""
 }
 
+// GetAltColorsFromRequest : Return whether user has enabled alt colors or not
 func GetAltColorsFromRequest(c *gin.Context) bool {
 	user, _ := getCurrentUser(c)
 	if user.ID > 0 {
@@ -194,7 +195,21 @@ func GetAltColorsFromRequest(c *gin.Context) bool {
 	return true
 }
 
-// GetMascotFromRequest : Gets the user selected theme from the request
+// GetAltColorsFromRequest : Return whether user has enabled alt colors or not
+func GetAdsEnabledFromRequest(c *gin.Context) bool {
+	user, _ := getCurrentUser(c)
+	if user.ID > 0 {
+		return user.AdsEnabled != "false"
+		//Doing this in order to make it return true should the field be empty
+	}
+	cookie, err := c.Cookie("adsEnabled")
+	if err == nil {
+		return cookie == "true"
+	}
+	return true
+}
+
+// GetMascotFromRequest : Return whether user has enabled mascot or not
 func GetMascotFromRequest(c *gin.Context) string {
 	user, _ := getCurrentUser(c)
 	if user.ID > 0 {
