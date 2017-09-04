@@ -1088,6 +1088,22 @@
     "translation": "Uploader anonymement"
   },
   {
+    "id": "hide_ads",
+    "translation": "Masquer les publicités"
+  },
+  {
+    "id": "hide_ads_setting_explanation",
+    "translation": "Ce paramètre empêchera l'affichage des publicités si activé."
+  },
+  {
+    "id": "faq_ads",
+    "translation": "Pourquoi y a-t-il des publicités sur Pantsu ?"
+  },
+  {
+    "id": "faq_ads_explanation",
+    "translation": "[insérer longue explication ici]"
+  },
+  {
     "id": "cookies",
     "translation": "En cliquant sur Sauvegarder, vous acceptez notre utilisation des cookies."
   },
