@@ -5,38 +5,58 @@
 <div style="text-align: left;" class="box">
   <form role="form" method="POST"> 
     {{ yield csrf_field() }}
-    <div class="form-group">
+    <div id="settings-container">
+      <span class="form-group">
       <h3>{{ T("language")}}</h3>
       <select id="language" name="language" class="form-input">
         {{ range translatedName := Form.Languages }}
         <option value="{{ translatedName[2] }}" {{ if Form.Current == translatedName[2] }}selected{{end}}>{{ translatedName[0] }}</option>
         {{ end }}
       </select>
+      </span>
+      
+      <span class="form-group">
       <h3>{{ T("theme")}}</h3>
       <select id="theme-selector" name="theme" class="form-input" onchange="switchThemes()">
         <option value="g"{{ if Theme == "g" || Theme == "" }} selected{{end}}>/g/</option>
         <option value="tomorrow"{{ if Theme == "tomorrow" }} selected{{end}}>Tomorrow</option>
         <option value="classic"{{ if Theme == "classic" }} selected{{end}}>Classic</option>
       </select>
-    </br>
+      </span>
+
+    <span class="form-group">
     <h3>{{ T("mascot")}}</h3>
     <select id="mascot-selector" name="mascot" class="form-input">
       {{ T("mascot")}}
       <option value="show" {{ if Mascot == "show" }} selected{{end}}>{{ T("show")}}</option>
       <option value="hide" {{ if Mascot == "hide" }} selected{{end}}>{{ T("hide")}}</option>
     </select>
-    <br/>
+    </span>
 
+    <span class="form-group">
     <h3>{{ T("mascot_url")}}</h3>
     <input type="text" name="mascot_url" class="form-input" value="{{ MascotURL }}"/>
     <br/>
+    </span>
 
+    <span class="form-group">
     <h3>{{ T("alternating_color") }}</h3>
     <select id="altColors-selector" name="altColors" class="form-input">
       <option value="false">Disabled</option>
       <option value="true" {{if AltColors}}selected{{end}}>Enabled</option>
     </select>
     <br/>
+    </span>
+    
+    <span class="form-group">
+    <h3>{{ T("hide_ads") }}</h3>
+    <p>{{ T("hide_ads_setting_explanation") }}</p>
+    <select id="hideAds-selector" name="hideAds" class="form-input">
+      <option value="false">Disabled</option>
+      <option value="true" {{if HideAds}}selected{{end}}>Enabled</option>
+    </select>
+    <br/>
+    </span>
     
     <p>{{ T("cookies")}}</p>
     <button type="submit" class="form-input btn">{{ T("save_changes")}}</button>
