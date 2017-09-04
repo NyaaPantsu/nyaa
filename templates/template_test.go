@@ -205,7 +205,7 @@ func walkDirTest(dir string, t *testing.T) {
 			return variables
 		},
 		"tag.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("Form", fakeTag)
+			variables.Set("Form", models.Tags{*fakeTag, *fakeTag, *fakeTag})
 			return variables
 		},
 	}
@@ -279,6 +279,7 @@ func mockupCommonvariables(t *testing.T) jet.VarMap {
 	variables.Set("T", T)
 	variables.Set("Theme", "test")
 	variables.Set("AltColors", "test")
+	variables.Set("HideAds", "test")
 	variables.Set("Mascot", "test")
 	variables.Set("MascotURL", "test")
 	variables.Set("User", &models.User{})
