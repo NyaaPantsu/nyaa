@@ -591,20 +591,19 @@ func TestContains(t *testing.T) {
 func testTorrentFileExists(t *testing.T) {
 	var tests = []struct {
 		hash 	     string
-		Expected     int
+		Expected     bool
 	}{
 		{
-			TestSize: "98C5B0FC5FC996A565D5DFE2312C467213BCC2EB",
+			hash: "98C5B0FC5FC996A565D5DFE2312C467213BCC2EB",
 			Expected: true,
 		},
 		{
-			TestSize: "38C5B0FS5FC996B565D5EFE7312C4673BCX9MS",
+			hash: "38C5B0FS5FC996B565D5EFE7312C4673BCX9MS",
 			Expected: false,
 		},
 	}
-	T := mockupTemplateT(t)
 	for _, test := range tests {
-		value := torrentFileExists(test.hash, T)
+		value := torrentFileExists(test.hash)
 		if value != test.Expected {
 			t.Errorf("Unexpected value from the function TorrentFileExists, got '%s', wanted '%s' for '%d'", value, test.hash, test.Expected)
 		}
