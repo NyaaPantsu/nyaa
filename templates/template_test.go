@@ -288,7 +288,7 @@ func mockupCommonvariables(t *testing.T) jet.VarMap {
 	variables.Set("User", &models.User{})
 	variables.Set("URL", &url.URL{})
 	variables.Set("CsrfToken", "xxxxxx")
-	variables.Set("EUCookieLaw", "test")
+	variables.Set("EUCookieLaw", "false")
 	variables.Set("Config", config.Get())
 	variables.Set("Infos", make(map[string][]string))
 	variables.Set("Errors", make(map[string][]string))
