@@ -12,7 +12,9 @@ a {
     text-decoration: none;
 }
 
-body, .container, .modtools { min-width: 400px; }
+body, .container, .modtools {
+    min-width: 400px;
+}
 
 .header, .pagination {
     -webkit-user-select: none;
@@ -52,7 +54,7 @@ body {
     background-size: contain;
 }
 
-.header {
+.header, #cookie-warning {
     z-index: 3;
     position: fixed;
     width: 100%;
@@ -63,6 +65,12 @@ body {
 }
 .header.content-admin {
     height: auto;
+}
+#cookie-warning {
+    top: initial;
+    bottom: 0;
+    background: hsla(200,90%,56%,0.2);
+    height: 40px;
 }
 
 .container, .modtools {
