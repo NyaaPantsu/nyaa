@@ -238,7 +238,7 @@ func GetMascotURLFromRequest(c *gin.Context) string {
 	return ""
 }
 
-func GetEUCookieFromRequest(c *gin.Context) string {
+func GetEUCookieFromRequest(c *gin.Context) bool {
 	cookie, err := c.Cookie("EU_Cookie")
 	if err == nil {
 		return true
