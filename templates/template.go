@@ -60,6 +60,7 @@ func Commonvariables(c *gin.Context) jet.VarMap {
 	variables.Set("User", user)
 	variables.Set("URL", c.Request.URL)
 	variables.Set("CsrfToken", token)
+	variables.Set("EUCookieLaw", publicSettings.GetEUCookieFromRequest(c))
 	variables.Set("Config", config.Get())
 	variables.Set("Infos", messages.GetAllInfos())
 	variables.Set("Errors", messages.GetAllErrors())
