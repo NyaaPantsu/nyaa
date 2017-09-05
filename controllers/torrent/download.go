@@ -1,14 +1,13 @@
 package torrentController
 
 import (
-	"errors"
 	"fmt"
 	"io"
-	"net/http"
 	"os"
 	"strconv"
 
 	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/gin-gonic/gin"
 )
