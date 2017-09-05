@@ -32,7 +32,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("getDefaultLanguage", publicSettings.GetDefaultLanguage)
 	vars.Set("FlagCode", flagCode)
 	vars.Set("getAvatar", getAvatar)
-
+	vars.set("torrentFileExists", torrentFileExists)
 	vars.Set("formatDateRFC", formatDateRFC)
 	vars.Set("GetHostname", format.GetHostname)
 	vars.Set("GetCategories", categories.GetSelect)
