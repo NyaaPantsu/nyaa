@@ -1355,12 +1355,15 @@ input.filelist-checkbox:checked+table.table-filelist {
     background: linear-gradient(to top, #222 0%, #111 100%);
     color: white;
 }
+.modal-header h2 {
+    margin-bottom: 7px;
+}
 
 
 /* Modal Body */
 
 .modal-body {
-    padding: 2px 16px;
+    padding: 16px;
 }
 
 
@@ -1378,12 +1381,13 @@ input.filelist-checkbox:checked+table.table-filelist {
 
 .modal-footer span {
     float: right;
-    margin-right: 20px;
+    margin-right: 14px;
 }
 
 .modal-footer span button {
-    margin-right: 5px;
-    padding: 1em 2em;
+    margin-right: 2px;
+    margin-top: 7px;
+    padding: 0.7em 1.5em;
     background: none;
     border: 1px solid white;
     border-radius: 3px;
