@@ -237,6 +237,15 @@ func GetMascotURLFromRequest(c *gin.Context) string {
 	return ""
 }
 
+func GetEUCookieFromRequest(c *gin.Context) string {
+	cookie, err := c.Cookie("EU_Cookie")
+	if err == nil {
+		return true
+	}
+
+	return false
+}
+
 func getCurrentUser(c *gin.Context) (*models.User, error) {
 	if userRetriever == nil {
 		return &models.User{}, errors.New("failed to get current user: no user retriever set")
