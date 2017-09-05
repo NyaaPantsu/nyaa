@@ -1356,7 +1356,8 @@ input.filelist-checkbox:checked+table.table-filelist {
     color: white;
 }
 .modal-header h2 {
-    margin-bottom: 7px;
+    margin: 9px 0;
+    font-size: 1.3em;
 }
 
 
