@@ -159,7 +159,7 @@ input::placeholder {
 select.form-input {
     -webkit-appearance: none;
     -moz-appearance: none;
-    padding: 4px 1.5rem 4px 5px;
+    padding: 5px 1.5rem 5px 5px;
     background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48"><path fill="%23676767" d="M24 34l18-20H6"/></svg>');
     background-position: right center;
     background-repeat: no-repeat;
