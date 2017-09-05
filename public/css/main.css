@@ -1892,6 +1892,27 @@ span.tag {
     overflow: hidden;
 }
 
+#admin-header {
+	width: 100%;
+	display: inline-block;
+	background: hsla(222, 5%, 16%, 0.85);
+    border: 1px solid #141517;
+	border-bottom:none;
+	border-radius: 3px 3px 0 0;
+}
+#admin-header .nav-btn {
+	display: inline-block;
+    vertical-align: middle;
+	height: 36px;
+    padding: 10px 14px 10px 12px;
+    text-decoration: initial;
+	color: #c5c8c6;
+	border-right: 1px solid #141517;
+}
+#admin-header .nav-btn.active {
+	background: #363a3e;
+}
+
 /* Language specific CSS */
 
 
