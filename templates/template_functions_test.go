@@ -594,18 +594,14 @@ func testTorrentFileExists(t *testing.T) {
 		Expected     bool
 	}{
 		{
-			hash: "98C5B0FC5FC996A565D5DFE2312C467213BCC2EB",
-			Expected: true,
-		},
-		{
-			hash: "38C5B0FS5FC996B565D5EFE7312C4673BCX9MS",
+			hash: "",
 			Expected: false,
 		},
 	}
 	for _, test := range tests {
 		value := torrentFileExists(test.hash)
 		if value != test.Expected {
-			t.Errorf("Unexpected value from the function TorrentFileExists, got '%s', wanted '%s' for '%d'", value, test.hash, test.Expected)
+			t.Errorf("Unexpected value from the function TorrentFileExists, got  '%t', wanted '%t' for '%s'", value, test.Expected, test.hash)
 		}
 	}	
 }
