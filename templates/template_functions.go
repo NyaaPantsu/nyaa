@@ -6,6 +6,8 @@ import (
 	"net/url"
 	"strconv"
 	"time"
+	"os"
+	"fmt"
 
 	"strings"
 
@@ -291,4 +293,14 @@ func contains(arr interface{}, comp string) bool {
 		return false
 	}
 	return false
+}
+
+func torrentFileExists(hash string) bool {
+ 
+	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
+	if err != nil {
+		return false
+	}
+	defer Openfile.Close()
+	return true
 }
