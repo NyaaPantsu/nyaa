@@ -7,6 +7,7 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+	"net/http"
 
 	"sort"
 
@@ -241,9 +242,12 @@ func GetEUCookieFromRequest(c *gin.Context) string {
 	cookie, err := c.Cookie("EU_Cookie")
 	if err == nil {
 		return true
+		//Cookie exists, everything good
 	}
 
+	http.SetCookie(c.Writer, &http.Cookie{Name: "EU_Cookie", Value: "true", Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})	
 	return false
+	//Cookie doesn't exist, we create it to prevent the message from popping up anymore after that and return false
 }
 
 func getCurrentUser(c *gin.Context) (*models.User, error) {
@@ -302,4 +306,12 @@ func Flag(languageCode string, parent bool) string {
 		return languageSplit[1]
 	}
 	return lang.String()
+}
+
+func getDomainName() string {
+	domain := config.Get().Cookies.DomainName
+	if config.Get().Environment == "DEVELOPMENT" {
+		domain = ""
+	}
+	return domain
 }
