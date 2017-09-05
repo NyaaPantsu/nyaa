@@ -19,6 +19,7 @@ func DownloadTorrent(c *gin.Context) {
 
 	if hash == "" && len(config.Get().Torrents.FileStorage) == 0 {
 		//File not found, send 404
+		variables := templates.Commonvariables(c)
 		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
 	}
@@ -27,6 +28,7 @@ func DownloadTorrent(c *gin.Context) {
 	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
 	if err != nil {
 		//File not found, send 404
+		variables := templates.Commonvariables(c)
 		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
 	}
@@ -40,6 +42,7 @@ func DownloadTorrent(c *gin.Context) {
 
 	if err != nil {
 		//File not found, send 404
+		variables := templates.Commonvariables(c)
 		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
 	}
