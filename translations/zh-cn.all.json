@@ -345,7 +345,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "现在我们有自己的 tracker 啦！其名曰：doko.moe。在上传之前把他放在 tracker 列表的顶部吧！不过你最好把所有的 tracker 都加进列表，免得他们抽风。"
+    "translation": "现在我们有自己的 tracker 啦！其名曰：uw0.xyz。在上传之前把他放在 tracker 列表的顶部吧！不过你最好把所有的 tracker 都加进列表，免得他们抽风。"
   },
   {
     "id": "how_can_i_help",
@@ -789,7 +789,7 @@
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "请把我们的tracker： udp://tracker.doko.moe:6969 添加到你的tracker列表里."
+    "translation": "请把我们的tracker： udp://tracker.uw0.xyz:6969 添加到你的tracker列表里."
   },
   {
     "id": "unknown",
