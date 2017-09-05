@@ -192,6 +192,25 @@ td.tr-le, .error-text {
     text-decoration: none;
 }
 
+.modal-content {
+    background: hsla(222, 8%, 20%, 1);
+    border-color: #5a5a5a;
+}
+.modal-header {
+    background: #8149bf;
+}
+.modal-footer {
+    background: #191919;
+}
+.modal-footer span button {
+    border-color: black;
+}
+.modal-footer span #confirm_changes {
+    background: #5c966a;
+}
+.modal-footer span .close {
+    background: #cc4f4f;
+}
 
 #announce {
     color: #3a4249;
