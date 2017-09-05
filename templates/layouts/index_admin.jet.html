@@ -4,7 +4,7 @@
 
 {* We apply the menu in the base template *}
 {{ block menu()}}
-{{include "partials/menu/admin"}}
+{{include "partials/menu/site"}}
 {{end}}
 
 {* We add the class content for admin *}
@@ -16,6 +16,7 @@
 
 {* We add the mod panel search refine and the body block *}
 {{ block content_body_base()}}
+{{include "partials/menu/admin"}}
 {{ block content_body()}}
 {{end}}
 {{end}}
