@@ -61,9 +61,6 @@ body {
     height: 60px;
     border-bottom: 1px solid;
 }
-.header.content-admin {
-    height: auto;
-}
 
 .container, .modtools {
     max-width: 1111px;
