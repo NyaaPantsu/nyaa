@@ -232,4 +232,13 @@ td.tr-le, .error-text {
 .tag.pending a.tag-form { color: white; border-left: none; }
 .tag.pending a.tag-form.plus { background-color: #3f7137; }
 .tag.pending a.tag-form.minus { background-color: #9e3131; font-weight: bold;}
-span.tag { box-shadow: 0px 0px 1px 0px #373c42; }
+span.tag {
+    box-shadow: none;
+}
+.tag.accepted {
+    border: 1px solid #000000;
+    background: #272523;
+}
+.tag.accepted .tag-text a {
+    color: #7a8494;
+}
