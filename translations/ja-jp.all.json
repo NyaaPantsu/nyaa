@@ -345,7 +345,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "doko.moe という独自のトラッカーをご用意しました。アップロードする前にリストの一番上に追加してください。また、Torrent の安定性を維持するために、以下のトラッカーをすべて追加する必要があります。"
+    "translation": "uw0.xyz という独自のトラッカーをご用意しました。アップロードする前にリストの一番上に追加してください。また、Torrent の安定性を維持するために、以下のトラッカーをすべて追加する必要があります。"
   },
   {
     "id": "how_can_i_help",
@@ -789,7 +789,7 @@
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "トラッカーに udp://tracker.doko.moe:6969 を含めてください。"
+    "translation": "トラッカーに udp://tracker.uw0.xyz:6969 を含めてください。"
   },
   {
     "id": "unknown",
