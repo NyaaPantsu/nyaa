@@ -48,7 +48,7 @@
     {{block menu()}}{{end}}
   </nav>
   <div id="content" class="{{ block contclass() }}{{end}}">
-    <div class="content container center">
+    <div class="content container center {{ if User.HasAdmin() }}content-admin{{end}}">
       {{ yield infos()}}
       {{ yield errors()}}
       {{ block content_body_base() }}{{end}}
