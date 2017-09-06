@@ -588,6 +588,24 @@ func TestContains(t *testing.T) {
 	}
 }
 
+func testTorrentFileExists(t *testing.T) {
+	var tests = []struct {
+		hash 	     string
+		Expected     bool
+	}{
+		{
+			hash: "",
+			Expected: false,
+		},
+	}
+	for _, test := range tests {
+		value := torrentFileExists(test.hash)
+		if value != test.Expected {
+			t.Errorf("Unexpected value from the function TorrentFileExists, got  '%t', wanted '%t' for '%s'", value, test.Expected, test.hash)
+		}
+	}	
+}
+
 func mockupTemplateT(t *testing.T) publicSettings.TemplateTfunc {
 	conf := config.Get().I18n
 	conf.Directory = path.Join("..", conf.Directory)
