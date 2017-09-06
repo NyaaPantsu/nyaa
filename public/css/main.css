@@ -1910,16 +1910,16 @@ span.tag {
 
 /* Language specific CSS */
 
-
+html[lang="ja-jp"] .form-refine span.spacing {
+    vertical-align: middle;
+}
 @media (max-width: 1100px) {
     html[lang="ja-jp"] .header .h-user>.nav-btn {
-    font-size: 75%;
-
+        font-size: 75%;
     }
 }
 @media (min-width: 961px) {
     html[lang="ja-jp"] .header .nav-btn {
 	padding: 0 8px;
-
     }
 }
