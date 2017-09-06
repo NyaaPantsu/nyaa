@@ -12,7 +12,9 @@ a {
     text-decoration: none;
 }
 
-body, .container, .modtools { min-width: 400px; }
+body, .container, .modtools {
+    min-width: 400px;
+}
 
 .header, .pagination {
     -webkit-user-select: none;
@@ -52,7 +54,7 @@ body {
     background-size: contain;
 }
 
-.header {
+.header, #cookie-warning {
     z-index: 3;
     position: fixed;
     width: 100%;
@@ -63,6 +65,12 @@ body {
 }
 .header.content-admin {
     height: auto;
+}
+#cookie-warning {
+    top: initial;
+    bottom: 0;
+    background: hsla(200,90%,56%,0.2);
+    height: 40px;
 }
 
 .container, .modtools {
@@ -91,10 +99,6 @@ body {
 .h-left {
     position: absolute;
 }
-.header.content-admin .h-left {
-    position: initial;
-    float: left;
-}
 
 .h-right {
     right: 0;
@@ -102,11 +106,6 @@ body {
 
 .h-logo {
     height: 60px;
-}
-
-.header.content-admin .h-right {
-    position: initial;
-    float: right;
 }
 
 .h-logo, .h-nav {
@@ -132,10 +131,6 @@ body {
 .header .h-search {
     margin-right: 6px;
 }
-.header.content-admin .h-search {
-    height: auto;
-    float: right;
-}
 
 .header .h-search .form-input {
     font-size: 80%;
@@ -159,7 +154,7 @@ input::placeholder {
 select.form-input {
     -webkit-appearance: none;
     -moz-appearance: none;
-    padding: 4px 1.5rem 4px 5px;
+    padding: 5px 1.5rem 5px 5px;
     background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48"><path fill="%23676767" d="M24 34l18-20H6"/></svg>');
     background-position: right center;
     background-repeat: no-repeat;
@@ -676,9 +671,6 @@ html, body {
     .header .h-user .user-menu {
         right: 92px;
     }
-    .header.content-admin .user-menu {
-        right: 16px!important;
-    }
     .header .h-user .user-info {
         display: none;
     }
@@ -838,9 +830,6 @@ html, body {
     .header {
     height: 56px;
     }
-    .header.content-admin{
-        height: auto;
-    }
     .header .container > div {
     line-height: 58px; padding: 0 0.6rem;
     }
@@ -853,9 +842,6 @@ html, body {
 
     #content {
     top: 58px;
-    }
-    #content.content-admin {
-    top: 108px;
     }
 
     h3 {
@@ -1355,12 +1341,16 @@ input.filelist-checkbox:checked+table.table-filelist {
     background: linear-gradient(to top, #222 0%, #111 100%);
     color: white;
 }
+.modal-header h2 {
+    margin: 9px 0;
+    font-size: 1.3em;
+}
 
 
 /* Modal Body */
 
 .modal-body {
-    padding: 2px 16px;
+    padding: 22px 16px;
 }
 
 
@@ -1378,12 +1368,13 @@ input.filelist-checkbox:checked+table.table-filelist {
 
 .modal-footer span {
     float: right;
-    margin-right: 20px;
+    margin-right: 14px;
 }
 
 .modal-footer span button {
-    margin-right: 5px;
-    padding: 1em 2em;
+    margin-right: 2px;
+    margin-top: 7px;
+    padding: 0.7em 1.5em;
     background: none;
     border: 1px solid white;
     border-radius: 3px;
@@ -1557,16 +1548,6 @@ input.filelist-checkbox:checked+table.table-filelist {
 
 .float-right {
     float: right;
-}
-
-.header.content-admin .user-menu {
-    position: absolute;
-    top: 63px;
-    z-index: 7;
-}
-
-#content.content-admin {
-    top: 110px;
 }
 
 .tr-actions .form-input {
@@ -1890,6 +1871,25 @@ span.tag {
     height: 90px;
     border: none;
     overflow: hidden;
+}
+#admin-header {
+	width: 100%;
+	display: inline-block;
+	border-bottom:none;
+	border-radius: 3px 3px 0 0;
+	word-spacing: -0.26em;
+    border: 1px solid #b3b3b3;
+}
+#admin-header .nav-btn {
+	display: inline-block;
+    vertical-align: middle;
+	height: 36px;
+    padding: 10px 14px;
+    text-decoration: initial;
+	border-right: 1px solid #b3b3b3;
+}
+#admin-header .nav-btn.active {
+	background: #e2e2e2;
 }
 
 /* Language specific CSS */

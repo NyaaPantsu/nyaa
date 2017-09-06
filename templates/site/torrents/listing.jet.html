@@ -1,7 +1,7 @@
 {{ extends "layouts/index_site" }}
 {{ import "layouts/partials/helpers/search" }}
 {{block title()}}{{ T("home")}}{{end}}
-{{block contclass()}}{{if User.HasAdmin() }}content-admin{{end}}{{end}}
+{{block contclass()}}{{end}}
 {{block content_body()}}
 <!-- Contain the table within a grid, as for better sizing  -->
 <div class="results box">
@@ -87,11 +87,9 @@
           <a href="{{.Magnet}}" title="{{  T("magnet_link") }}">
             <div class="icon-magnet"></div>
           </a>
-          {{if .TorrentLink != ""}}
-          <a href="{{.TorrentLink}}" title="{{  T("torrent_file") }}">
+          <a href="{{.TorrentLink}}" title="{{  T("torrent_file") }}" {{if !torrentFileExists(.Hash)}}class="hidden"{{end}}>
             <div class="icon-floppy"></div>
           </a>
-          {{end}}
         </td>
         <td class="tr-size home-td hide-xs">
           {{ fileSize(.Filesize, T) }}
