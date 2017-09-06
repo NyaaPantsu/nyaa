@@ -450,6 +450,9 @@ select.form-input {
 .results {
     padding: 0!important;
 }
+.admin-content .results {
+	border-top: none;
+}
 
 table {
     border-collapse: collapse;
@@ -1889,11 +1892,11 @@ span.tag {
 #admin-header {
     width: 100%;
     display: inline-block;
-    border-bottom:none;
-    border-radius: 3px 3px 0 0;
-    word-spacing: -0.26em;
+    word-spacing: -0.265em;
+	margin-bottom: -2px;
     border: 1px solid #b3b3b3;
-    background: white;
+    border-radius: 3px 3px 0 0;
+    background: #e2e2e2;
 }
 #admin-header .nav-btn {
     display: inline-block;
@@ -1903,8 +1906,16 @@ span.tag {
     text-decoration: initial;
     border-right: 1px solid #b3b3b3;
 }
-#admin-header .nav-btn.active {
-    background: #ffebc7;
+#admin-header .nav-btn.active, #admin-header .nav-btn:hover, #admin-header:hover .nav-btn.active:hover {
+    background: hsl(198, 100%, 100%);
+	height: 37px;
+	margin-bottom: -1px;
+}
+
+#admin-header:hover .nav-btn.active{
+    background: none;
+	height: 36px;
+	margin-bottom: 0;
 }
 
 /* Language specific CSS */
