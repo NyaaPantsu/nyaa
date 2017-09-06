@@ -41,7 +41,7 @@
   },
   {
     "id": "signup_box_title",
-    "translation": "Пожалуйста, зарегистрируйтесь <small>Это бесплатно и всегда будет.</small>"
+    "translation": "Пожалуйста, зарегистрируйтесь. Это бесплатно и всегда будет."
   },
   {
     "id": "username",
@@ -125,7 +125,7 @@
   },
   {
     "id": "settings",
-    "translation": "Настройки аккаунта"
+    "translation": "Настройки"
   },
   {
     "id": "torrents",
@@ -200,6 +200,10 @@
     "translation": "Ничего не найдено"
   },
   {
+    "id": "err_no_torrent_file",
+    "translation": "Торрент-файл не найден"
+  },
+  {
     "id": "upload",
     "translation": "Загрузить"
   },
@@ -257,7 +261,7 @@
   },
   {
     "id": "official_nyaapocalipse_faq",
-    "translation": "Официальное Няпокалипсис FAQ"
+    "translation": "Официальное FAQ Няпокалипсиса"
   },
   {
     "id": "links_replacement_mirror",
@@ -437,23 +441,23 @@
   },
   {
     "id": "live_action",
-    "translation": "Игровое кино"
+    "translation": "Live Action"
   },
   {
     "id": "live_action_english_translated",
-    "translation": "Игровое кино - Английский перевод"
+    "translation": "Live Action - Английский перевод"
   },
   {
     "id": "live_action_idol_pv",
-    "translation": "Игровое кино - Идолы / Рекламное видео"
+    "translation": "Live Action - Идолы / Рекламное видео"
   },
   {
     "id": "live_action_non_english_translated",
-    "translation": "Игровое кино - Не-английский перевод"
+    "translation": "Live Action - Не-английский перевод"
   },
   {
     "id": "live_action_raw",
-    "translation": "Игровое кино - Raw"
+    "translation": "Live Action - Raw"
   },
   {
     "id": "pictures",
@@ -525,7 +529,7 @@
   },
   {
     "id": "show_all",
-    "translation": "Показать все"
+    "translation": "Все"
   },
   {
     "id": "delete_all",
@@ -601,7 +605,7 @@
   },
   {
     "id": "scraped_user",
-    "translation": "Scraped user"
+    "translation": "Удалённый пользователь"
   },
   {
     "id": "moderator",
@@ -693,7 +697,7 @@
   },
   {
     "id": "profile_edit_page",
-    "translation": "Изменение профиля %s's"
+    "translation": "Изменение профиля %s"
   },
   {
     "id": "seeders",
@@ -733,7 +737,7 @@
   },
   {
     "id": "no_files",
-    "translation": "Файлы не найдены? Это даже не имеет никакого смысла!"
+    "translation": "Файлы не найдены? Это даже не имеет смысла!"
   },
   {
     "id": "uploaded_by",
@@ -1088,6 +1092,14 @@
     "translation": "Загрузить анонимно"
   },
   {
+    "id": "hide_ads",
+    "translation": "Скрыть рекламу"
+  },
+  {
+    "id": "hide_ads_setting_explanation",
+    "translation": "Этот параметр предотвратит появление рекламы. Почему на pantsu есть реклама?"
+  },  
+  {
     "id": "cookies",
     "translation": "Нажимая сохранить, вы соглашаетесь с использованием cookie"
   },
@@ -1306,6 +1318,10 @@
   {
     "id": "mascot_url",
     "translation": "URL маскота"
+  },
+  {
+    "id": "alternating_color",
+    "translation": "Переменный цвет (и не-жирный шрифт)"
   },
   {
     "id": "no_notifications",
@@ -1624,6 +1640,10 @@
     "translation": "Точный поиск"
   },
   {
+    "id": "refine",
+    "translation": "Фильтр"
+  },
+  {
     "id": "between",
     "translation": "Между"
   },
@@ -1644,12 +1664,8 @@
     "translation": "Лет"
   },
   {
-    "id": "refine",
-    "translation": "Фильтр"
-  },
-  {
     "id": "large",
-    "translation": "large."
+    "translation": "размер файла."
   },
   {
     "id": "old",
@@ -1666,6 +1682,34 @@
   {
     "id": "show",
     "translation": "Показать"
+  },
+  {
+    "id": "sort_by",
+    "translation": "Сортировать"
+  },
+  {
+    "id": "ascending",
+    "translation": "По возрастанию"
+  },
+  {
+    "id": "descending",
+    "translation": "По убыванию"
+  },
+  {
+    "id": "quality",
+    "translation": "Качество"
+  },
+  {
+    "id": "exclude_user",
+    "translation": "Исключать"
+  },
+  {
+    "id": "from_user",
+    "translation": "От"
+  },
+  {
+    "id": "limit_torrent_count",
+    "translation": "Лимит"
   },
   {
     "id": "username_taken",
@@ -1821,7 +1865,7 @@
   },
   {
     "id": "trusted",
-    "translation": "Торренты загружаются доверенными пользователями."
+    "translation": "Доверенные"
   },
   {
     "id": "reencodes",
@@ -1846,6 +1890,14 @@
   {
     "id": "torrent_colors",
     "translation": "Цвета торрентов"
+  },
+    {
+    "id": "faq_ads",
+    "translation": "Почему на pantsu есть реклама?"
+  },
+  {
+    "id": "faq_ads_explanation",
+    "translation": "Это было непростым решением, и мы тщательно рассмотрели возражения, сделанные всеми вами, но всё же это единственное решение, способное продержать Pantsu и обеспечить его продолжение работы.<br/>Мы рассуждали над возможными источниками финансирования, и ни одного из возможных вариантов не было бы достаточно для финансирования Pantsu.<br>После долгих размышлений, мы решили, что реклама от a-ads это лучший вариант для нас и наших пользователей. Эти рекламные баннеры просты и ненавязчивы, никак не мешают пользованию сайтом, и не содержат какой-либо формы отслеживания."
   },
   {
     "id": "torrent_preview",
@@ -1913,7 +1965,7 @@
   },
   {
     "id": "contacts",
-    "translation": "Owner Emails"
+    "translation": "Почта владельца"
   },
   {
     "id": "oauth_clients_list",
@@ -1928,12 +1980,24 @@
     "translation": "Удалить"
   },
   {
+    "id": "close",
+    "translation": "Закрыть"
+  },
+  {
     "id": "secret",
     "translation": "Секрет клиента"
   },
   {
     "id": "torrent_age",
     "translation": "{1} дня {2} часа назад"
+  },
+  {
+    "id": "tag",
+    "translation": "Тег"
+  },
+  {
+    "id": "torrent_tags",
+    "translation": "Теги"
   },
   {
     "id": "wrong_tag_type",
@@ -1948,6 +2012,14 @@
     "translation": "Тип тега"
   },
   {
+    "id": "accepted_tags",
+    "translation": "Принимаемые теги"
+  },
+  {
+    "id": "recommended_tags",
+    "translation": "Рекомендуемые теги"
+  },
+  {
     "id": "tagtype_anidbid",
     "translation": "Anidb ID"
   },
@@ -1960,8 +2032,36 @@
     "translation": "Качество видео"
   },
   {
-    "id": "torrent_tags",
-    "translation": "Теги торрента"
+    "id": "tagtype_dlsite",
+    "translation": "DLsite"
+  },
+  {
+    "id": "tagtype_vgmdbid",
+    "translation": "VGMdb ID"
+  },
+  {
+    "id": "tagtype_tags",
+    "translation": "Теги, описывающие файл"
+  },
+  {
+    "id": "tagvalue_select",
+    "translation": "Выбрать..."
+  },
+  {
+    "id": "tagvalue_full_hd",
+    "translation": "1080p"
+  },
+  {
+    "id": "tagvalue_hd",
+    "translation": "720p"
+  },
+  {
+    "id": "tagvalue_sd",
+    "translation": "480p"
+  },
+  {
+    "id": "tagvalue_bluray",
+    "translation": "Blu-ray"
   },
   {
     "id": "announcements",
@@ -1984,7 +2084,35 @@
     "translation": "Создать объявление"
   },
   {
+    "id": "related_to",
+    "translation": "Относится к"
+  },
+  {
     "id": "expire",
     "translation": "Истекает"
+  }
+  {
+    "id": "complement",
+    "translation": "Дополнение"
+  },
+  {
+    "id": "from",
+    "translation": "От"
+  },
+  {
+    "id": "to",
+    "translation": "до"
+  },
+  {
+    "id": "feed_types",
+    "translation": "Типы фидов: RSS(feed), RSS с Magnet-ссылками(magnet), Torznab Spec(torznab), EZTV Spec(eztv)"
+  },
+  {
+    "id": "append_query",
+    "translation": "Вы можете добавить свой поисковый запрос в конец URL-адреса фида."
+  },
+  {
+    "id": "cookie_warning",
+    "translation": "Используя этот сайт, вы соглашаетесь на использование файлов cookie для таких целей, как персонализация контента.<br/>Это сообщение будет скрыто при следующей загрузке страницы."
   }
 ]
