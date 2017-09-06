@@ -7,7 +7,8 @@
 {{include "partials/menu/site"}}
 {{end}}
 
-{{ block contclass()}}content-admin{{end}}
+{* We used to add the class content for admin *}
+{{ block contclass()}}{{end}}
 
 {* We add the mod panel title and the title block *}
 {{block titleBase()}} Moderation Panel - {{block title()}}{{end}}
