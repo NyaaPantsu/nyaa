@@ -143,7 +143,7 @@ input::placeholder {
 select.form-input {
     -webkit-appearance: none;
     -moz-appearance: none;
-    padding: 4px 1.5rem 4px 5px;
+    padding: 5px 1.5rem 5px 5px;
     background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48"><path fill="%23676767" d="M24 34l18-20H6"/></svg>');
     background-position: right center;
     background-repeat: no-repeat;
@@ -1330,12 +1330,16 @@ input.filelist-checkbox:checked+table.table-filelist {
     background: linear-gradient(to top, #222 0%, #111 100%);
     color: white;
 }
+.modal-header h2 {
+    margin: 9px 0;
+    font-size: 1.3em;
+}
 
 
 /* Modal Body */
 
 .modal-body {
-    padding: 2px 16px;
+    padding: 22px 16px;
 }
 
 
@@ -1353,12 +1357,13 @@ input.filelist-checkbox:checked+table.table-filelist {
 
 .modal-footer span {
     float: right;
-    margin-right: 20px;
+    margin-right: 14px;
 }
 
 .modal-footer span button {
-    margin-right: 5px;
-    padding: 1em 2em;
+    margin-right: 2px;
+    margin-top: 7px;
+    padding: 0.7em 1.5em;
     background: none;
     border: 1px solid white;
     border-radius: 3px;
