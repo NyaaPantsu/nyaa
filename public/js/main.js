@@ -220,7 +220,7 @@ document.getElementsByClassName("form-input refine")[0].addEventListener("click"
   }
 })
 
-document.getElementById("cookie-warning-close")[0].addEventListener("click", function (e) {
+document.getElementById("cookie-warning-close").addEventListener("click", function (e) {
   document.getElementById("cookie-warning").outerHTML = "";
 })
 
