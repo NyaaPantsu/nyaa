@@ -199,6 +199,18 @@ td.tr-le, .error-text {
    border-color: #ae875b;
 }
 
+#admin-header {
+    background: hsla(222, 5%, 16%, 0.85);
+    border-color: #141517;
+}
+#admin-header .nav-btn {
+    border-color: #141517;
+    color: #c5c8c6;
+}
+#admin-header .nav-btn.active {
+    border-color: #363a3e;
+}
+
 .torrent-preview-table>table {
     border-color: #141115;	
 }
