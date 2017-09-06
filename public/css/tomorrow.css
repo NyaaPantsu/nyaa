@@ -224,7 +224,7 @@ td.tr-le, .error-text {
 #announce {
     color: #3a4249;
     background-color: #F4E0C9;
-   border-color: #ae875b;
+    border-color: #ae875b;
 }
 
 #admin-header {
@@ -233,10 +233,11 @@ td.tr-le, .error-text {
 }
 #admin-header .nav-btn {
     border-color: #141517;
-    color: #c5c8c6;
+	color: #a2a7a4;
 }
-#admin-header .nav-btn.active {
-    background-color: #3d4144;
+#admin-header .nav-btn.active, #admin-header .nav-btn:hover, #admin-header:hover .nav-btn.active:hover {
+    background-color: #2c2f34;
+    color: #c5c8c6;
 }
 
 .torrent-preview-table>table {
