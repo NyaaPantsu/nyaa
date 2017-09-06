@@ -48,7 +48,7 @@
     {{block menu()}}{{end}}
   </nav>
   <div id="content" class="{{ block contclass() }}{{end}}">
-    <div class="content container center">
+    <div class="content container center {{ if User.HasAdmin() }}content-admin{{end}}">
       {{ yield infos()}}
       {{ yield errors()}}
       {{ block content_body_base() }}{{end}}
@@ -96,7 +96,7 @@
       </div>
     </footer>
   </div>
-  {{ if !EUCookieLaw }}<div id="cookie-warning">{{ T("cookie_warning") }}</div>{{ end }}
+  {{ if !EUCookieLaw }}<div id="cookie-warning">{{ T("cookie_warning")|raw }}<span id="cookie-warning-close" class="close">×</span></div>{{ end }}
   <script type="text/javascript" charset="utf-8">var commitVersion = "{{ Config.Build }}", UserID = {{User.ID}};</script>
   <script type="text/javascript" src="/js/query.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   <script type="text/javascript" charset="utf-8" src="/js/main.js?v={{ Config.Version }}{{ Config.Build }}" async></script>
