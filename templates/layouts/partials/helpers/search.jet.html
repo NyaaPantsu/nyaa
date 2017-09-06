@@ -36,7 +36,7 @@
       <option value="4" {{if Search.Status == 4}}selected{{end}}>A+</option>
     </select>
     {{ T("limit_torrent_count")}}: <input type="number" name="limit" value="{{ Navigation.MaxItemPerPage }}" class="form-input spacing" min="1" max="300"/>
-    {{ T("from_user") }}: <input type="text" name="user" placeholder="Username/#ID" value="{{ Search.User }}" class="form-input refine-user"/>
+    {{ T("from_user") }}: <input type="text" name="user" placeholder="Username/#ID" value="{{ Search.User == "" ? (Search.UserID == 0 ? "" : ("#" + Search.UserID)) : Search.User  }}" class="form-input refine-user"/>
   </span>
   <span class="form-refine">
     <span class="spacing">{{ T("between")}}</span>
