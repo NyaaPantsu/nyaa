@@ -345,7 +345,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Wir haben jetzt unseren eigenen Tracker!<small>(doko.moe)</small> Jedoch solltest du der Zuverlässigkeit wegen alle Tracker aus dieser Liste hinzufügen."
+    "translation": "Wir haben jetzt unseren eigenen Tracker!<small>(uw0.xyz)</small> Jedoch solltest du der Zuverlässigkeit wegen alle Tracker aus dieser Liste hinzufügen."
   },
   {
     "id": "how_can_i_help",
@@ -789,7 +789,7 @@
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "Bitte füge udp://tracker.doko.moe:6969 deinen Trackern hinzu."
+    "translation": "Bitte füge udp://tracker.uw0.xyz:6969 deinen Trackern hinzu."
   },
   {
     "id": "unknown",

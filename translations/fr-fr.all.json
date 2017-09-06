@@ -345,7 +345,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Nous avons maintenant notre propre tracker appelé doko.moe, placez-le en haut de la liste avant d'uploader. Vous devriez également ajouter plusieurs autres trackers pour assurer la pérennité du torrent :"
+    "translation": "Nous avons maintenant notre propre tracker appelé uw0.xyz, placez-le en haut de la liste avant d'uploader. Vous devriez également ajouter plusieurs autres trackers pour assurer la pérennité du torrent :"
   },
   {
     "id": "how_can_i_help",
@@ -789,7 +789,7 @@
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "Veuillez inclure udp://tracker.doko.moe:6969 parmi les trackers."
+    "translation": "Veuillez inclure udp://tracker.uw0.xyz:6969 parmi les trackers."
   },
   {
     "id": "unknown",

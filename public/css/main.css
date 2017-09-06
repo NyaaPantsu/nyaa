@@ -61,9 +61,6 @@ body {
     height: 60px;
     border-bottom: 1px solid;
 }
-.header.content-admin {
-    height: auto;
-}
 
 .container, .modtools {
     max-width: 1111px;
@@ -91,10 +88,6 @@ body {
 .h-left {
     position: absolute;
 }
-.header.content-admin .h-left {
-    position: initial;
-    float: left;
-}
 
 .h-right {
     right: 0;
@@ -102,11 +95,6 @@ body {
 
 .h-logo {
     height: 60px;
-}
-
-.header.content-admin .h-right {
-    position: initial;
-    float: right;
 }
 
 .h-logo, .h-nav {
@@ -131,10 +119,6 @@ body {
 }
 .header .h-search {
     margin-right: 6px;
-}
-.header.content-admin .h-search {
-    height: auto;
-    float: right;
 }
 
 .header .h-search .form-input {
@@ -676,9 +660,6 @@ html, body {
     .header .h-user .user-menu {
         right: 92px;
     }
-    .header.content-admin .user-menu {
-        right: 16px!important;
-    }
     .header .h-user .user-info {
         display: none;
     }
@@ -838,9 +819,6 @@ html, body {
     .header {
     height: 56px;
     }
-    .header.content-admin{
-        height: auto;
-    }
     .header .container > div {
     line-height: 58px; padding: 0 0.6rem;
     }
@@ -853,9 +831,6 @@ html, body {
 
     #content {
     top: 58px;
-    }
-    #content.content-admin {
-    top: 108px;
     }
 
     h3 {
@@ -1564,16 +1539,6 @@ input.filelist-checkbox:checked+table.table-filelist {
     float: right;
 }
 
-.header.content-admin .user-menu {
-    position: absolute;
-    top: 63px;
-    z-index: 7;
-}
-
-#content.content-admin {
-    top: 110px;
-}
-
 .tr-actions .form-input {
     display: inline-block;
 }
@@ -1895,6 +1860,25 @@ span.tag {
     height: 90px;
     border: none;
     overflow: hidden;
+}
+#admin-header {
+	width: 100%;
+	display: inline-block;
+	border-bottom:none;
+	border-radius: 3px 3px 0 0;
+	word-spacing: -0.26em;
+    border: 1px solid #b3b3b3;
+}
+#admin-header .nav-btn {
+	display: inline-block;
+    vertical-align: middle;
+	height: 36px;
+    padding: 10px 14px;
+    text-decoration: initial;
+	border-right: 1px solid #b3b3b3;
+}
+#admin-header .nav-btn.active {
+	background: #e2e2e2;
 }
 
 /* Language specific CSS */
