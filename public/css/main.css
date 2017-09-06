@@ -327,9 +327,9 @@ select.form-input {
     position: relative;
     top: 70px;
 }
-
-
-/* #content { padding-top: 70px;  } */
+#content.content-admin  {
+    top: 108px!important;
+}
 
 .content {
     padding: 5px 10px;
