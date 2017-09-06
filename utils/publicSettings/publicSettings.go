@@ -7,11 +7,13 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+	"net/http"
 
 	"sort"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/utils/timeHelper"
 	"github.com/gin-gonic/gin"
 	"github.com/nicksnyder/go-i18n/i18n"
 	"github.com/nicksnyder/go-i18n/i18n/language"
@@ -237,6 +239,18 @@ func GetMascotURLFromRequest(c *gin.Context) string {
 	return ""
 }
 
+func GetEUCookieFromRequest(c *gin.Context) bool {
+	_, err := c.Cookie("EU_Cookie")
+	if err == nil {
+		return true
+		//Cookie exists, everything good
+	}
+
+	http.SetCookie(c.Writer, &http.Cookie{Name: "EU_Cookie", Value: "true", Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})	
+	return false
+	//Cookie doesn't exist, we create it to prevent the message from popping up anymore after that and return false
+}
+
 func getCurrentUser(c *gin.Context) (*models.User, error) {
 	if userRetriever == nil {
 		return &models.User{}, errors.New("failed to get current user: no user retriever set")
@@ -293,4 +307,12 @@ func Flag(languageCode string, parent bool) string {
 		return languageSplit[1]
 	}
 	return lang.String()
+}
+
+func getDomainName() string {
+	domain := config.Get().Cookies.DomainName
+	if config.Get().Environment == "DEVELOPMENT" {
+		domain = ""
+	}
+	return domain
 }
