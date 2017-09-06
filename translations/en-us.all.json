@@ -2113,6 +2113,6 @@
   },
   {
     "id": "cookie_warning",
-    "translation": "By using this website, you agree to the usage of cookies for purposes such as customizing content."
+    "translation": "By using this website, you agree to the usage of cookies for purposes such as customizing content.<br/>This message will be hidden at the next page load."
   }
 ]
