@@ -66,11 +66,23 @@ body {
 .header.content-admin {
     height: auto;
 }
+
 #cookie-warning {
     top: initial;
     bottom: 0;
-    background: hsla(200,90%,56%,0.2);
-    height: 40px;
+    height: 57px;
+    padding: 5px 10px;
+    text-align: center;
+    background: hsla(200, 100%, 88%, 0.9);
+    border: 1px solid #c7c7c7;
+}
+#cookie-warning .close {
+    float: right;
+    font-size: 2em;
+    cursor: pointer;
+    margin-top: -7px;
+    margin-right: -3px;
+    color: #585858;
 }
 
 .container, .modtools {
@@ -1873,23 +1885,24 @@ span.tag {
     overflow: hidden;
 }
 #admin-header {
-	width: 100%;
-	display: inline-block;
-	border-bottom:none;
-	border-radius: 3px 3px 0 0;
-	word-spacing: -0.26em;
+    width: 100%;
+    display: inline-block;
+    border-bottom:none;
+    border-radius: 3px 3px 0 0;
+    word-spacing: -0.26em;
     border: 1px solid #b3b3b3;
+    background: white;
 }
 #admin-header .nav-btn {
-	display: inline-block;
+    display: inline-block;
     vertical-align: middle;
-	height: 36px;
+    height: 36px;
     padding: 10px 14px;
     text-decoration: initial;
-	border-right: 1px solid #b3b3b3;
+    border-right: 1px solid #b3b3b3;
 }
 #admin-header .nav-btn.active {
-	background: #e2e2e2;
+    background: #ffebc7;
 }
 
 /* Language specific CSS */
