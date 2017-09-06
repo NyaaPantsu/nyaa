@@ -28,3 +28,5 @@
 * + faq_ads_explanation
 ## 2017/09/05
 * + err_no_torrent_file
+## 2017/09/06
+* + cookie_warning

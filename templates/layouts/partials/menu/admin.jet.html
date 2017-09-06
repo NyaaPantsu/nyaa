@@ -1,5 +1,4 @@
     <div id="admin-header">
-      <a href="{{URL.Parse("/")}}" class="nav-btn">{{ T("nyaa_pantsu")}}</a>
       <a href="{{URL.Parse("/mod/")}}" class="nav-btn{{if URL.String() == "/mod/"}} active{{end}}">{{ T("moderation")}}</a>
       <a href="{{URL.Parse("/mod/torrents")}}" class="nav-btn{{if URL.String() == "/mod/torrents"}} active{{end}}">{{ T("torrents")}}</a>
       <a href="{{URL.Parse("/mod/users")}}" class="nav-btn{{if URL.String() == "/mod/users"}} active{{end}}">{{ T("users")}}</a>

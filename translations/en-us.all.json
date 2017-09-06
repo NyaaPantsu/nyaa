@@ -2110,5 +2110,9 @@
   {
     "id": "append_query",
     "translation": "You can append your search query to the end of the feed URL."
+  },
+  {
+    "id": "cookie_warning",
+    "translation": "By using this website, you agree to the usage of cookies for purposes such as customizing content.<br/>This message will be hidden at the next page load."
   }
 ]
