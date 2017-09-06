@@ -1881,13 +1881,17 @@ span.tag {
     position: relative;
     padding: 0 5%;
 }
-#ad-container > iframe {
+#ad-container * {
     width: 728px;
     max-width: 100%;
     height: 90px;
     border: none;
     overflow: hidden;
 }
+#ad-container #ad-blocked {
+    position:absolute;	
+}
+
 #admin-header {
     width: 100%;
     display: inline-block;
