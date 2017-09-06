@@ -1,14 +1,13 @@
 package torrentController
 
 import (
-	"errors"
 	"fmt"
 	"io"
-	"net/http"
 	"os"
 	"strconv"
 
 	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/gin-gonic/gin"
 )
@@ -19,7 +18,8 @@ func DownloadTorrent(c *gin.Context) {
 
 	if hash == "" && len(config.Get().Torrents.FileStorage) == 0 {
 		//File not found, send 404
-		c.AbortWithError(http.StatusNotFound, errors.New("File not found"))
+		variables := templates.Commonvariables(c)
+		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
 	}
 
@@ -27,7 +27,8 @@ func DownloadTorrent(c *gin.Context) {
 	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
 	if err != nil {
 		//File not found, send 404
-		c.AbortWithError(http.StatusNotFound, errors.New("File not found"))
+		variables := templates.Commonvariables(c)
+		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
 	}
 	defer Openfile.Close() //Close after function return
@@ -40,7 +41,8 @@ func DownloadTorrent(c *gin.Context) {
 
 	if err != nil {
 		//File not found, send 404
-		c.AbortWithError(http.StatusNotFound, errors.New("File not found"))
+		variables := templates.Commonvariables(c)
+		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
 	}
 
