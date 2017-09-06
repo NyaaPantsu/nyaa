@@ -235,7 +235,7 @@ td.tr-le, .error-text {
     border-color: #141517;
 	color: #a2a7a4;
 }
-#admin-header .nav-btn.active, #admin-header .nav-btn:hover, #admin-header:hover .nav-btn.active:hover {
+#admin-header .nav-btn.active, #admin-header .nav-btn:hover, #admin-header:hover .nav-btn.active:hover, #admin-header .nav-btn:focus {
     background-color: #2c2f34;
     color: #c5c8c6;
 }
