@@ -200,6 +200,10 @@
     "translation": "No results found"
   },
   {
+    "id": "err_no_torrent_file",
+    "translation": "Torrent file not found"
+  },
+  {
     "id": "upload",
     "translation": "Upload"
   },

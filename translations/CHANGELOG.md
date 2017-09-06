@@ -26,3 +26,5 @@
 * + hide_ads_setting_explanation
 * + faq_ads
 * + faq_ads_explanation
+## 2017/09/05
+* + err_no_torrent_file
