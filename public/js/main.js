@@ -137,6 +137,13 @@ function startupCode() {
     if (userCommitVersion != commitVersion)
       resetCookies()
   }
+  
+  if(document.getElementById("cookie-warning-close") != null) {
+	document.getElementById("cookie-warning-close").addEventListener("click", function (e) {
+      document.getElementById("cookie-warning").outerHTML = "";
+    })
+  }
+	  
 
   if (document.cookie.includes("newVersion"))
     document.getElementById("commit").className = document.getElementById("commit").innerHTML != "unknown" ? "new" : "wew";
@@ -218,10 +225,6 @@ document.getElementsByClassName("form-input refine")[0].addEventListener("click"
       scrollTo(0, 0)
     e.preventDefault()
   }
-})
-
-document.getElementById("cookie-warning-close").addEventListener("click", function (e) {
-  document.getElementById("cookie-warning").outerHTML = "";
 })
 
 function humanFileSize(bytes, si) {
