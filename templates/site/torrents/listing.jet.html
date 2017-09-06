@@ -1,7 +1,7 @@
 {{ extends "layouts/index_site" }}
 {{ import "layouts/partials/helpers/search" }}
 {{block title()}}{{ T("home")}}{{end}}
-{{block contclass()}}{{end}}
+{{block contclass()}}{{if User.HasAdmin() }}content-admin{{end}}{{end}}
 {{block content_body()}}
 <!-- Contain the table within a grid, as for better sizing  -->
 <div class="results box">

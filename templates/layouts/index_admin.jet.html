@@ -7,13 +7,14 @@
 {{include "partials/menu/site"}}
 {{end}}
 
+{* We used to add the class content for admin *}
 {{ block contclass()}}{{end}}
 
 {* We add the mod panel title and the title block *}
 {{block titleBase()}} Moderation Panel - {{block title()}}{{end}}
 {{end}}
 
-{* We add the mod panel search refine and the body block *}
+{* We add the mod nav and the body block *}
 {{ block content_body_base()}}
 {{include "partials/menu/admin"}}
 {{ block content_body()}}
