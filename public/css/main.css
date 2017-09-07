@@ -1361,9 +1361,7 @@ input.filelist-checkbox:checked+table.table-filelist {
     padding: 2px 16px;
     background: #111;
     /* Old browsers */
-    background: -moz-linear-gradient(bottom, #222 0%, #111 100%);
-    background: -webkit-linear-gradient(bottom, #222 0%, #111 100%);
-    background: linear-gradient(to top, #222 0%, #111 100%);
+    background: #497ebf;
     color: white;
 }
 .modal-header h2 {
@@ -1385,9 +1383,7 @@ input.filelist-checkbox:checked+table.table-filelist {
     padding: 2px 16px;
     background: #222;
     /* Old browsers */
-    background: -moz-linear-gradient(bottom, #111 0%, #222 100%);
-    background: -webkit-linear-gradient(bottom, #111 0%, #222 100%);
-    background: linear-gradient(to top, #111 0%, #222 100%);
+    background: #262c33;
     color: white;
 }
 
