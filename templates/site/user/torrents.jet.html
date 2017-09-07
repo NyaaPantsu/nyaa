@@ -40,11 +40,9 @@
       <a href="{{torrent.Magnet}}" title="{{  T("magnet_link") }}">
         <div class="icon-magnet"></div>
       </a>
-      {{if torrent.TorrentLink != ""}}
-      <a href="{{torrent.TorrentLink}}" title="{{  T("torrent_file") }}">
+      <a href="{{torrent.TorrentLink}}" title="{{  T("torrent_file") }}" {{if !torrentFileExists(torrent.Hash)}}class="hidden"{{end}>
         <div class="icon-floppy"></div>
       </a>
-      {{end}}
     </td>
     <td class="tr-size user-td hide-xs">
       {{ fileSize(torrent.Filesize, T) }}
