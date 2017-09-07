@@ -1917,7 +1917,7 @@ span.tag {
     vertical-align: middle;
     height: 36px;
     padding: 10px 14px;
-    text-decoration: initial;
+    word-spacing: 0;
     border-right: 1px solid #b3b3b3;
 }
 #admin-header .nav-btn.active, #admin-header .nav-btn:hover, #admin-header:hover .nav-btn.active:hover,  #admin-header .nav-btn:focus {
