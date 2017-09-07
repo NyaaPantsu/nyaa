@@ -59,7 +59,7 @@
       </td>
       {{ end }}
       <td class="tr-cat home-td">
-        <div class="nyaa-cat {{ if Sukebei() }}sukebei-cat-{{ torrent.Category }}{{else}}nyaa-cat-{{end}}{{ torrent.SubCategory}}">
+        <div class="nyaa-cat {{ if Sukebei() }}sukebei-cat-{{ .Category }}{{else}}nyaa-cat-{{end}}{{ .SubCategory}}">
           <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}" class="category">
           {{if .Languages[0] != "" }}
             <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory +"&lang=") }}{{ range key, language := .Languages }}{{ language }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
