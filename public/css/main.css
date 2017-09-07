@@ -746,6 +746,9 @@ html, body {
     .visible-md {
         display: block
     }
+    .user-td.tr-cat {
+	width: 70px;   
+    }
     .user-td.tr-date {
     width: 100px;
     }
