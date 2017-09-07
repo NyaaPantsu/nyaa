@@ -59,20 +59,16 @@
       </td>
       {{ end }}
       <td class="tr-cat home-td">
-        {{ if Sukebei() }}
-        <div class="nyaa-cat sukebei-cat-{{ .Category }}{{ .SubCategory }}">
-          {{ else}}
-          <div class="nyaa-cat nyaa-cat-{{ .SubCategory}}">
-            {{end}}
-            <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}" class="category">
-              {{if .Languages[0] != "" }}
-              <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory +"&lang=") }}{{ range key, language := .Languages }}{{ language }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
-                <img src="/img/blank.gif" alt="{{ range key, language := .Languages }}{{ LanguageNameFromCode(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}" class="flag flag-{{ (len(.Languages) == 1) ?  FlagCode(.Languages[0]) : "multiple" }}" title="{{ range key, language := .Languages }}{{ LanguageNameFromCode(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}"/>
-              </a>
-              {{end}}
+        <div class="nyaa-cat {{ if Sukebei() }}sukebei-cat-{{ .Category }}{{else}}nyaa-cat-{{end}}{{ .SubCategory}}">
+          <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}" class="category">
+          {{if .Languages[0] != "" }}
+            <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory +"&lang=") }}{{ range key, language := .Languages }}{{ language }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
+              <img src="/img/blank.gif" alt="{{ range key, language := .Languages }}{{ LanguageNameFromCode(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}" class="flag flag-{{ (len(.Languages) == 1) ?  FlagCode(.Languages[0]) : "multiple" }}" title="{{ range key, language := .Languages }}{{ LanguageNameFromCode(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}"/>
             </a>
-          </div>
-        </td>
+          {{end}}
+          </a>
+        </div>
+      </td>
         <td class="tr-name home-td"{{ if len(.Comments) == 0 }}colspan="2"{{ end }}>
           <a href="/view/{{ .ID }}">
             {{.Name}}
