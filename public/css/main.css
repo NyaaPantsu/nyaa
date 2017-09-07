@@ -469,9 +469,11 @@ th, .home-td, .user-td {
     text-overflow: ellipsis;
 }
 
-.user-td { padding: 2px 0; }
+.user-td {
+    padding: 2px 0;
+}
 .user-td.tr-cat {
-    padding: 4px 5px 4px 1px;
+    padding: 4px 5px 4px 1px!important;
     min-width: 74px!important;
 }
 
@@ -727,8 +729,11 @@ html, body {
     .tr-cat {
     width: 71px;
     }
-    th, .home-td, .user-td {
+    th, .home-td, {
     padding: 2px 2px!important;
+    }
+    .user-td {
+    padding: 2px 1px!important;
     }
 }
 /* end of category shrinking */
@@ -815,6 +820,7 @@ html, body {
         width: 100% !important;
         margin-bottom: 15px;
     }
+    .profile-content box
     .header .h-user {
         width: 46px;
     }
