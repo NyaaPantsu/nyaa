@@ -109,7 +109,7 @@ body {
     float: right;
 }
 
-.h-left {
+.h-left, .h-right {
     position: absolute;
 }
 
@@ -1882,6 +1882,7 @@ span.tag {
     padding: 0 5%;
     max-height: 93px;
     overflow: hidden;
+    display: block!important;
 }
 #ad-container * {
     width: 728px;
