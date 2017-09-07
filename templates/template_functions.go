@@ -49,6 +49,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("genUploaderLink", genUploaderLink)
 	vars.Set("genActivityContent", genActivityContent)
 	vars.Set("contains", contains)
+	vars.Set("kilo_strcmp", kilo_strcmp)
 	return vars
 }
 func getRawQuery(currentURL *url.URL) string {
@@ -303,4 +304,24 @@ func torrentFileExists(hash string) bool {
 	}
 	defer Openfile.Close()
 	return true
+}
+
+func kilo_strcmp(str1 string, str2 string, end int, start int) bool {
+	//Compare two strings but has length arguments
+	
+	len1 := len(str1)
+	len2 := len(str2)
+	
+	if end > len1 {
+		end = len1
+	}
+	if end > len2 {
+		end = len2
+	}
+	
+	if start >= end || (end == -1 && len1 != len2) {
+		return false
+	}
+	
+	return strings.Compare(str1[start:end], str2[start:end]) == 0
 }
