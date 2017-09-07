@@ -109,7 +109,7 @@ body {
     float: right;
 }
 
-.h-left {
+.h-left, .h-right {
     position: absolute;
 }
 
@@ -469,9 +469,11 @@ th, .home-td, .user-td {
     text-overflow: ellipsis;
 }
 
-.user-td { padding: 2px 0; }
+.user-td {
+    padding: 2px 0;
+}
 .user-td.tr-cat {
-    padding: 4px 5px 4px 1px;
+    padding: 4px 5px 4px 1px!important;
     min-width: 74px!important;
 }
 
@@ -727,8 +729,11 @@ html, body {
     .tr-cat {
     width: 71px;
     }
-    th, .home-td, .user-td {
+    th, .home-td, {
     padding: 2px 2px!important;
+    }
+    .user-td {
+    padding: 2px 1px!important;
     }
 }
 /* end of category shrinking */
@@ -745,6 +750,9 @@ html, body {
     }
     .visible-md {
         display: block
+    }
+    .user-td.tr-cat {
+	width: 70px;   
     }
     .user-td.tr-date {
     width: 100px;
@@ -1352,9 +1360,7 @@ input.filelist-checkbox:checked+table.table-filelist {
     padding: 2px 16px;
     background: #111;
     /* Old browsers */
-    background: -moz-linear-gradient(bottom, #222 0%, #111 100%);
-    background: -webkit-linear-gradient(bottom, #222 0%, #111 100%);
-    background: linear-gradient(to top, #222 0%, #111 100%);
+    background: #497ebf;
     color: white;
 }
 .modal-header h2 {
@@ -1376,9 +1382,7 @@ input.filelist-checkbox:checked+table.table-filelist {
     padding: 2px 16px;
     background: #222;
     /* Old browsers */
-    background: -moz-linear-gradient(bottom, #111 0%, #222 100%);
-    background: -webkit-linear-gradient(bottom, #111 0%, #222 100%);
-    background: linear-gradient(to top, #111 0%, #222 100%);
+    background: #262c33;
     color: white;
 }
 
@@ -1417,7 +1421,7 @@ input.filelist-checkbox:checked+table.table-filelist {
     background-color: #fefefe;
     margin: auto;
     padding: 0;
-    border: 1px solid #888;
+    border: 1px solid #7d7e82;
     width: 80%;
     margin-top: 20%;
     max-width: 1000px;
@@ -1882,6 +1886,7 @@ span.tag {
     padding: 0 5%;
     max-height: 93px;
     overflow: hidden;
+    display: block!important;
 }
 #ad-container * {
     width: 728px;
@@ -1911,7 +1916,7 @@ span.tag {
     vertical-align: middle;
     height: 36px;
     padding: 10px 14px;
-    text-decoration: initial;
+    word-spacing: 0;
     border-right: 1px solid #b3b3b3;
 }
 #admin-header .nav-btn.active, #admin-header .nav-btn:hover, #admin-header:hover .nav-btn.active:hover,  #admin-header .nav-btn:focus {
