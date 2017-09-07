@@ -1880,6 +1880,8 @@ span.tag {
     z-index: 4;
     position: relative;
     padding: 0 5%;
+    max-height: 93px;
+    overflow: hidden;
 }
 #ad-container * {
     width: 728px;
@@ -1887,6 +1889,12 @@ span.tag {
     height: 90px;
     border: none;
     overflow: hidden;
+    display: block;
+}
+#ad-blocked {
+    height: 62px;
+    border: 1px solid;
+    border-radius: 10px;
 }
 
 #admin-header {

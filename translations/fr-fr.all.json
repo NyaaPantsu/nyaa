@@ -200,6 +200,10 @@
     "translation": "Aucun résultat trouvé"
   },
   {
+    "id": "err_no_torrent_file",
+    "translation": "Fichier torrent non trouvé"
+  },
+  {
     "id": "upload",
     "translation": "Uploader"
   },
@@ -1096,14 +1100,6 @@
     "translation": "Ce paramètre empêchera l'affichage des publicités si activé."
   },
   {
-    "id": "faq_ads",
-    "translation": "Pourquoi y a-t-il des publicités sur Pantsu ?"
-  },
-  {
-    "id": "faq_ads_explanation",
-    "translation": "[insérer longue explication ici]"
-  },
-  {
     "id": "cookies",
     "translation": "En cliquant sur Sauvegarder, vous acceptez notre utilisation des cookies."
   },
@@ -1896,6 +1892,14 @@
     "translation": "Code couleur des torrents"
   },
   {
+    "id": "faq_ads",
+    "translation": "Pourquoi y a-t-il des publicités sur Pantsu ?"
+  },
+  {
+    "id": "faq_ads_explanation",
+    "translation": "Ce n'est pas une décision à prendre à la légère, nous avons considéré toutes les objections soulevées par les utilisateurs, mais en fin de compte nous estimons qu'il s'agit de la seule solution pérenne pour financer Pantsu et assurer son fonctionnement continu.<br/>Nous avons longtemps réfléchi à d'autres sources de financement potentielles, mais aucune des options examinées n'étaient suffisantes.<br>Après délibération, nous avons opté pour les publicités de a-ads qui restent le meilleur choix pour nous et pour les utilisateurs. Elles sont simples et discrètes, ne gênent en aucun cas l'utilisation du site, et ne contiennent aucune forme de tracking."
+  },
+  {
     "id": "torrent_preview",
     "translation": "Prévisualisez votre torrent"
   },
@@ -2106,5 +2110,9 @@
   {
     "id": "append_query",
     "translation": "Vous pouvez ajouter votre requête de recherche à la fin de l'URL du flux."
+  },
+  {
+    "id": "cookie_warning",
+    "translation": "En utilisant ce site, vous acceptez l'usage des cookies à des fins telles que la personnalisation du contenu.<br/>Ce message sera masqué au prochain rechargement de la page."
   }
 ]
