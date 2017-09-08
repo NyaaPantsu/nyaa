@@ -535,7 +535,7 @@ th {
 }
 
 .tr-links {
-    width: 48px;
+    width: 43px;
     overflow: initial;
     text-align: left;
     padding: 0 2px!important;
@@ -562,10 +562,6 @@ th {
 
 .tr-date {
     width: 124px;
-}
-
-.tr-links>a>div {
-    width: 18px;
 }
 
 .tr-se>a>.sort-arrows, .tr-le>a>.sort-arrows, .tr-dl>a>.sort-arrows {
@@ -885,9 +881,6 @@ html, body {
     bottom: 0;
     width: 50%;
     left: 25%;
-    }
-    .tr-links {
-        width: 44px;
     }
     .hide-smol {
         display: none!important;
