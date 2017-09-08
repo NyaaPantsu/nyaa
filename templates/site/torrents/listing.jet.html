@@ -42,7 +42,6 @@
             <span class="sort-arrows">{{ genSortArrows(URL, "7")|raw }}</span>
           </a>
         </th>
-        <!-- <th><span class="glyphicon glyphicon-comment"></span></th> -->
         <th class="tr-date hide-xs"><a href="{{ genSearchWithOrdering(URL, "2") }}">
           {{ T("date")}}
           <span class="sort-arrows">{{ genSortArrows(URL, "2")|raw }}</span>
@@ -76,7 +75,7 @@
         </td>
         {{ if len(.Comments) > 0 }}
         <td class="tr-cs home-td" title="{{len(.Comments)}} {{T("comments")}}">
-          <span>{{len(.Comments)}}</span>
+          <a href="/view/{{ .ID }}#comments">{{len(.Comments)}}</a>
         </td>
         {{ end }}
         <td class="tr-links home-td">
