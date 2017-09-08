@@ -31,5 +31,5 @@
 ## 2017/09/06
 * + cookie_warning
 ## 2017/09/08
-* - hide_ads
-* - hide_ads_setting_explanation
+* - removed: hide_ads
+* - removed: hide_ads_setting_explanation
