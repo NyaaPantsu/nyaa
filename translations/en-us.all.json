@@ -1092,14 +1092,6 @@
     "translation": "Upload Anonymously"
   },
   {
-    "id": "hide_ads",
-    "translation": "Hide Ads"
-  },
-  {
-    "id": "hide_ads_setting_explanation",
-    "translation": "This setting will prevent ads from loading if enabled. Why does pantsu has ads?"
-  },
-  {
     "id": "cookies",
     "translation": "By clicking save, you consent to our use of cookies"
   },
