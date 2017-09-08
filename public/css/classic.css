@@ -47,8 +47,8 @@ th.tr-name a {
     font-size: 0.9em;
 }
 .tr-links {
-    width: 24px;
-    text-align: center;
+    width: 29px;
+    text-align: right;
 }
 .tr-links a {
     display: block;
@@ -58,7 +58,8 @@ th.tr-name a {
 }
 
 .comment-count {
-    display: inline;
+    display: inline!important;
+	font-weight: bold;
 }
 .tr-cs a{
     display: none;
