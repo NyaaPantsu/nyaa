@@ -176,7 +176,7 @@ select.form-input {
 .results.box {
 	padding: 1px!important;
 }
-.box, #description-box, .comment-box,input#show-filelist:checked~#filelist {
+.box, #description-box, .comment-box, .comment-submit,input#show-filelist:checked~#filelist {
 	background-color: #FBFBFB;
     border: 2px solid #666666;
 }
@@ -226,6 +226,7 @@ select.form-input {
 	font-size: 16px!important;
 	font-weight: bold;
 	border: none;
+	padding: 2px 7px;
 }
 .torrent-buttons a.hidden {
 	opacity: 0.7!important;
@@ -337,7 +338,7 @@ a.nav-btn.log-in {
     border-radius: 4px 4px 0 0;
     margin-bottom: -2px;
 }
-.box.refine.refine-no-display {
+.box.refine.refine-not-search {
 	display: none!important;
 }
 
