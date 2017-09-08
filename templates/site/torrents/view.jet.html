@@ -24,7 +24,7 @@
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{  T("uploaded_by") }}:</td>
-      <td class="torrent-view-td torrent-info-data">{{ genUploaderLink(Torrent.UploaderID, Torrent.UploaderName, Torrent.Hidden)|raw }}</td>
+      <td class="torrent-view-td torrent-info-data {{if Torrent.UploaderID == 0}}uploader-anon{{else}}uploader-link{{end}}">{{ genUploaderLink(Torrent.UploaderID, Torrent.UploaderName, Torrent.Hidden)|raw }}</td>
       <td class="torrent-info-td torrent-info-label">{{ T("seeders")}}:</td>
       <td class="tr-se torrent-info-td">{{if Torrent.LastScrape.IsZero}}{{ T("unknown")}}{{else}}{{Torrent.Seeders}}{{end}}</td>
     </tr>
