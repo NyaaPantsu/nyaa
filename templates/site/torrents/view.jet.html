@@ -12,7 +12,7 @@
     <h1 style="text-align: center;" class="torrent-hr">{{Torrent.Name}}</h1>
   </div>
   <br/>
-  <table id="torrent-view-data">
+  <table>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{  T("category") }}:</td>
       <td class="torrent-view-td torrent-info-data">
@@ -148,16 +148,14 @@
     {{end}}
     <div style="clear:both;"></div>
   </div>
-  <p class="torrent-hr">{{ T("description")}}</p>
+  <p class="torrent-hr" id="torrent-description-hr">{{ T("description")}}</p>
   {{ if Torrent.Description != ""}}
   <div id="description-box" class="torrent-info-box">{{Torrent.Description|raw}}</div>
   {{else}}
   <p>{{  T("no_description") }}</p>
   {{end}}
   <input type="checkbox" id="show-filelist" {{if len(Torrent.FileList) < 4 && len(Torrent.FileList) > 0}}checked{{end}}/>
-  <label class="torrent-hr filelist-control{{if len(Torrent.FileList) == 0}} hidden{{end}}" for="show-filelist">
-    {{ T("files")}}
-  </label>
+  <label class="torrent-hr filelist-control{{if len(Torrent.FileList) == 0}} hidden{{end}}" for="show-filelist">{{ T("files")}}</label>
   <div class="torrent-info-box{{if len(Torrent.FileList) == 0}} hidden{{end}}" id="filelist">
     {{ if len(Torrent.FileList) > 0 }}
     {* how do i concat lol *}
