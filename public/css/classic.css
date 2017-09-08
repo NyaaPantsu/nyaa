@@ -11,9 +11,6 @@ body {
 .torrent-info-data {
     width: 59%;
 }
-#torrent-view-data {
-    margin-left: 10px;    
-}
 
 .container, .modtools {
     max-width: 1328px;
@@ -185,9 +182,6 @@ select.form-input {
     background-color: #FBFBFB;
     border: 2px solid #666666;
 }
-.comment-submit {
-    margin: 10px;
-}
 #description-box {
     font-size: 0.8em;
 }
@@ -204,13 +198,31 @@ select.form-input {
     margin-top: 8px;
 }
 
-.torrent-info-data .uploader-link {
+.torrent-info-data.uploader-link {
     font-weight: bold;
 }
-.torrent-info-data .uploader-anon {
+.torrent-info-data.uploader-anon {
     font-style: italic;
 }
+.torrent-info-data.uploader-link a, .torrent-info-data.uploader-anon a{
+	color: green;
+}
 
+#torrent-description-hr {
+	margin-top: 40px;
+}
+.torrent-hr {
+    font-size: 1em;
+}
+.torrent-hr::after {
+	content: ':';
+}
+#torrent-name::after {
+	content: '';
+}
+#torrent-name {
+    font-size: 2em;
+}
 
 .header .h-user .user-menu {
 
@@ -237,7 +249,8 @@ select.form-input {
     padding: 2px 7px;
 }
 .torrent-buttons a.hidden {
-    opacity: 0.7!important;
+	opacity: 0.6!important;
+    filter: grayscale(0.7);
 }
 .torrent-buttons a:hover {
     text-decoration: none;
@@ -298,7 +311,7 @@ td.tr-size {
 }
 
 .torrent-aplus, .aplus, .btn-blue {
-    background: #60B0F0;
+    background: #6fc6f1;
 }
 
 .trusted, .btn-green, .torrent-trusted {
@@ -374,4 +387,10 @@ a.nav-btn.log-in {
 
 .torrent-preview-table{
     display: none!important;
+}
+table {
+	margin-left: 10px;
+}
+.results table {
+	
 }
