@@ -5,6 +5,13 @@ body {
 	font-size: 0.9em;
 	min-width: 1200px;
 }
+.torrent-info-data {
+	font-family: Arial, sans-serif!important;
+}
+.torrent-info-data {
+	width: 59%;
+}
+
 .container, .modtools {
 	max-width: 1328px;
 	width: 87%;
@@ -169,9 +176,12 @@ select.form-input {
 .results.box {
 	padding: 1px!important;
 }
-.box, #description-box, .comment-box {
+.box, #description-box, .comment-box,input#show-filelist:checked~#filelist {
 	background-color: #FBFBFB;
     border: 2px solid #666666;
+}
+#description-box {
+	font-size: 0.8em;
 }
 .form-input {
     border-color: #c4c4c4 !important;
@@ -185,6 +195,14 @@ select.form-input {
     width: 24px;
 	margin-top: 8px;
 }
+
+.torrent-info-data .uploader-link {
+	font-weight: bold;
+}
+.torrent-info-data .uploader-anon {
+	font-style: italic;
+}
+
 
 .header .h-user .user-menu {
 
@@ -207,6 +225,7 @@ select.form-input {
 	line-height: 23px;
 	font-size: 16px!important;
 	font-weight: bold;
+	border: none;
 }
 .torrent-buttons a.hidden {
 	opacity: 0.7!important;
@@ -273,15 +292,15 @@ td.tr-size {
     color: #E8E8E8;
 }
 
-.aplus, .btn-blue {
+.torrent-aplus, .aplus, .btn-blue {
     background: #6fc6f1;
 }
 
-.trusted, .btn-green {
+.trusted, .btn-green, .torrent-trusted {
     background: #98d9a8;
 }
 
-.remake, .btn-orange {
+.torrent-remake, .remake, .btn-orange {
     background: #f0b080;
 }
 
@@ -317,6 +336,9 @@ a.nav-btn.log-in {
 	padding: 8px;
     border-radius: 4px 4px 0 0;
     margin-bottom: -2px;
+}
+.box.refine.refine-no-display {
+	display: none!important;
 }
 
 .refine h3 {
