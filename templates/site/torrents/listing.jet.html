@@ -20,7 +20,7 @@
             <span class="sort-arrows">{{ genSortArrows(URL, "1")|raw }}</span>
           </a>
         </th>
-        <th class="tr-cs"></th>
+        <th class="tr-cs" style="font-size: 0px;">Msg</th>
         <th class="tr-links"></th>
         <th class="tr-size hide-xs"><a href="{{ genSearchWithOrdering(URL, "4") }}">{{ T("size")}}<span class="sort-arrows">{{ genSortArrows(URL, "4")|raw }}</span></a></th>
 
@@ -42,7 +42,6 @@
             <span class="sort-arrows">{{ genSortArrows(URL, "7")|raw }}</span>
           </a>
         </th>
-        <!-- <th><span class="glyphicon glyphicon-comment"></span></th> -->
         <th class="tr-date hide-xs"><a href="{{ genSearchWithOrdering(URL, "2") }}">
           {{ T("date")}}
           <span class="sort-arrows">{{ genSortArrows(URL, "2")|raw }}</span>
@@ -76,7 +75,8 @@
         </td>
         {{ if len(.Comments) > 0 }}
         <td class="tr-cs home-td" title="{{len(.Comments)}} {{T("comments")}}">
-          <span>{{len(.Comments)}}</span>
+          <span class="comment-count" style="display:none">{{len(.Comments)}}</span>
+          <a href="/view/{{ .ID }}#comments" class="icon-chat"></a>
         </td>
         {{ end }}
         <td class="tr-links home-td">
