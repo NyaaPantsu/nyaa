@@ -628,6 +628,7 @@ func Testkilo_strcmp(t *testing.T) {
  		if value != test.Expected {
  			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t'", value, test.Expected, test.TestString, test.TestString)
  		}
+	}
  }
 
 func mockupTemplateT(t *testing.T) publicSettings.TemplateTfunc {
