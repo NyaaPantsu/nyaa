@@ -1,64 +1,64 @@
 body {
     color: black;
     background: white;
-	font-family: Arial, sans-serif;
-	font-size: 0.9em;
-	min-width: 1200px;
+    font-family: Arial, sans-serif;
+    font-size: 0.9em;
+    min-width: 1200px;
 }
 .torrent-info-data {
-	font-family: Arial, sans-serif!important;
+    font-family: Arial, sans-serif!important;
 }
 .torrent-info-data {
-	width: 59%;
+    width: 59%;
 }
 
 .container, .modtools {
-	max-width: 1328px;
-	width: 87%;
+    max-width: 1328px;
+    width: 87%;
 }
 
 a {
-	color: #106655;
+    color: #106655;
 }
 a:hover {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 #content {
-	top: 36px!important;
+    top: 36px!important;
 }
 
 .tr-cat {
-	width: 87px!important;
-	padding: 0 2px!important;
+    width: 87px!important;
+    padding: 0 2px!important;
 }
 th.tr-cat {
-	text-align: left;
+    text-align: left;
 }
 th.tr-name a {
-	display: none;
+    display: none;
 }
 .tr-name {
-	padding: 3px 0!important;
-	font-weight: bold!important;
-	font-size: 0.9em;
+    padding: 3px 0!important;
+    font-weight: bold!important;
+    font-size: 0.9em;
 }
 .tr-links {
-	width: 26px;
-	text-align: right;
+    width: 26px;
+    text-align: right;
 }
 .tr-links a {
-	display: block;
+    display: block;
 }
 .tr-size {
-	width: 114px;
+    width: 114px;
 }
 
 .comment-count {
-	display: inline;
+    display: inline;
 }
 .tr-cs a{
-	display: none;
+    display: none;
 }
 
 #mascot {
@@ -66,36 +66,36 @@ th.tr-name a {
 }
 
 .tr-cat div.nyaa-cat {
-	border-color: #666!important;
+    border-color: #666!important;
 }
 
 .icon-magnet:before {
-	font-size: 14px;
+    font-size: 14px;
 }
 .icon-floppy::before {
-	content: '';
+    content: '';
 }
 .icon-floppy {
-	background: url("/img/dl-link.png") no-repeat center;
+    background: url("/img/dl-link.png") no-repeat center;
 }
 
 .header {
     background: url("/img/topbar.png") repeat-x black;
     background: linear-gradient(to bottom, #6d6d6d 0%, #000000 72%);
     border-color: black;
-	height: 40px;
-	font-size: 12px;
+    height: 40px;
+    font-size: 12px;
 }
 .header .container>div {
-	line-height: 40px;
-	padding: 0 0.2rem;
+    line-height: 40px;
+    padding: 0 0.2rem;
 }
 .header .container {
-	width: 1090px;
+    width: 1090px;
 }
 
 .h-right {
-	margin-right: 2px;
+    margin-right: 2px;
 }
 
 .header .nav-btn {
@@ -109,30 +109,30 @@ th.tr-name a {
 }
 
 .header .form-input {
-	margin-right: 2px;
+    margin-right: 2px;
 }
 
 .form-input {
-	border-radius: 0;
-	height: 22px;
-	color: black!important;
-	font-size: 13px!important;
-	border-color: grey!important;
-	padding: 0 5px;
+    border-radius: 0;
+    height: 22px;
+    color: black!important;
+    font-size: 13px!important;
+    border-color: grey!important;
+    padding: 0 5px;
 }
 .form-input.search-box {
-	margin-right: auto;
+    margin-right: auto;
     padding: 2px;
 }
 .form-input.search-box+.icon-search {
-	margin-top: -4px;
-	width: 67px;
-	height: 22px;
-	padding: 1px 6px;
-	left: auto;
-	top: auto;
-	position: initial;
-	border: 1px solid grey;
+    margin-top: -4px;
+    width: 67px;
+    height: 22px;
+    padding: 1px 6px;
+    left: auto;
+    top: auto;
+    position: initial;
+    border: 1px solid grey;
     background: linear-gradient(to bottom, #fff 0%, #d8d8d8 72%);
 }
 .form-input.search-box+.icon-search:active {
@@ -141,32 +141,32 @@ th.tr-name a {
 }
 
 .form-input.search-box+.icon-search::before {
-	content: "Search";
+    content: "Search";
     width: 100%;
     height: 100%;
     font-family: Arial, sans-serif;
-	margin: 0;
-	cursor: auto;
+    margin: 0;
+    cursor: auto;
 }
 .form-input.refine {
-	display: none;
+    display: none;
 }
 select.form-input {
-	padding: 0 4px;
+    padding: 0 4px;
     padding-right: 10px;
-	height: 20px;
+    height: 20px;
 }
 
 .header .h-search .form-input {
-	font-size: 100%;
+    font-size: 100%;
 }
 .pagination li {
-	border: 1px solid #666666;
-	border-radius: 0!important;
+    border: 1px solid #666666;
+    border-radius: 0!important;
     padding: 0.25em;
-	min-width: auto;
-	color: #106655;
-	margin-right: 4px;
+    min-width: auto;
+    color: #106655;
+    margin-right: 4px;
 }
 .pagination li:hover {
     background-color: #339999;
@@ -174,14 +174,14 @@ select.form-input {
     color: #FBFBFB;
 }
 .results.box {
-	padding: 1px!important;
+    padding: 1px!important;
 }
 .box, #description-box, .comment-box, .comment-submit,input#show-filelist:checked~#filelist {
-	background-color: #FBFBFB;
+    background-color: #FBFBFB;
     border: 2px solid #666666;
 }
 #description-box {
-	font-size: 0.8em;
+    font-size: 0.8em;
 }
 .form-input {
     border-color: #c4c4c4 !important;
@@ -191,65 +191,64 @@ select.form-input {
 .header .h-user .user-avatar {
     background: black;
     border-color: #3c3c3c;
-	height: 24px;
+    height: 24px;
     width: 24px;
-	margin-top: 8px;
+    margin-top: 8px;
 }
 
 .torrent-info-data .uploader-link {
-	font-weight: bold;
+    font-weight: bold;
 }
 .torrent-info-data .uploader-anon {
-	font-style: italic;
+    font-style: italic;
 }
 
 
 .header .h-user .user-menu {
-
     background: linear-gradient(to bottom, #000000 0%, #2b2b2b 72%);
 }
 
 .torrent-info-label {
-	width: 10%;
+    width: 10%;
 }
 
 .torrent-buttons {
-	float: right;
-	margin-top: 0;
+    float: right;
+    margin-top: 0;
 }
 .torrent-buttons a{
-	height: 26px!important;
-	background: linear-gradient(to bottom, #33ca98 0%, #336867 72%);
-	color: white!important;
-	opacity: 1!important;
-	line-height: 23px;
-	font-size: 16px!important;
-	font-weight: bold;
-	border: none;
-	padding: 2px 7px;
+    height: 26px!important;
+    background: linear-gradient(to bottom, #33ca98 0%, #336867 72%);
+    color: white!important;
+    opacity: 1!important;
+    line-height: 23px;
+    font-size: 16px!important;
+    font-weight: bold;
+    border: none;
+    padding: 2px 7px;
 }
 .torrent-buttons a.hidden {
-	opacity: 0.7!important;
+    opacity: 0.7!important;
 }
 .torrent-buttons a:hover {
-	text-decoration: none;
+    text-decoration: none;
 }
 .torrent-buttons [class*="icon-"]::before {
-	display: none;
+    display: none;
 }
 th, th a {
     color: black;
 }
 th {
     border-bottom-width: 1px;
-	font-size: 0.9em;
-	vertical-align: bottom;
-	padding-bottom: 0!important;
+    font-size: 0.9em;
+    vertical-align: bottom;
+    padding-bottom: 0!important;
 }
 
 td {
-	font-size: 0.9em;
-	padding: 2px 0!important;
+    font-size: 0.9em;
+    padding: 2px 0!important;
 	
 }
 .results td {
@@ -257,31 +256,31 @@ td {
     border-top: 1px solid #666666!important;
 }
 td a {
-	color: #106655;
+    color: #106655;
 }
 td.tr-se, .success-text {
     color: green;
 }
 .results.box td.tr-se {
-	border-left: 1px solid #666666;
+    border-left: 1px solid #666666;
 }
 
 td.tr-le, .error-text {
     color: red;
 }
 td.tr-size {
-	border-left: 1px solid #666666;
+    border-left: 1px solid #666666;
     border-right: 1px solid #666666;
 }
 .tr-se,.tr-le,.tr-dl {
-	text-align: left;
-	width: 60px;
+    text-align: left;
+     width: 60px;
 }
 .results.box .tr-se {
-	padding-left: 4px!important;
+    padding-left: 4px!important;
 }
 .tr-links .hidden {
-	display: none;
+     display: none;
 }
 
 .btn-red {
@@ -306,20 +305,20 @@ td.tr-size {
 }
 
 .header .h-search select.form-input, .form-input.search-box {
-	max-width: 140px!important;
-	width: 140px;
+    max-width: 140px!important;
+    width: 140px;
 }
 .header .h-user .user-info {
-	line-height: 40px;
+    line-height: 40px;
 }
 .header .h-user .nav-btn {
-	height: 40px;
+    height: 40px;
 }
 
 .pagination .active, .pagination .active:hover {
-	background: white;
+    background: white;
     font-weight: bold;
-	border: none;
+    border: none;
 }
 
 .pagination .disabled {
@@ -332,42 +331,39 @@ a.nav-btn.log-in {
 }
 
 .box.refine {
-	border-bottom: none;
-	display:block!important;
-	padding: 8px;
+    border-bottom: none;
+    display:block!important;
+    padding: 8px;
     border-radius: 4px 4px 0 0;
     margin-bottom: -2px;
 }
 .box.refine.refine-not-search {
-	display: none!important;
+    display: none!important;
 }
 
 .refine h3 {
-	display: none;
+    display: none;
 }
 
 .tr-cs {
-	width: 30px;
-	text-align: right;
+    width: 30px;
+    text-align: right;
+    font-size: 0.9em!important;
 }
 .tr-date {
-	width: 96px;
+    width: 96px;
 }
-th.tr-cs {
-	font-size: 0.9em;
-}
-
 .modtools {
     background-color: #F7F8F9;
     border-color: #cbbdd7;
 }
 
 .h-logo {
-	display: none;
+    display: none;
 }
 
 #browse-link {
-	display: inline-block!important;
+    display: inline-block!important;
 }
 
 .torrent-preview-table{
