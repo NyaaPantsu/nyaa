@@ -1038,6 +1038,14 @@ html, body {
 .torrent-info-box>p>a, .torrent-info-box>div>a, #description-box a {
     text-decoration: underline;
 }
+#description-box table {
+    width: auto;
+    margin-top: 5px;
+}
+#description-box td, #description-box tr  {
+    padding: 5px 23px;
+    text-align: center;
+}
 
 #filelist>p {
     padding: 0 14px;
