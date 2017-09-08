@@ -341,6 +341,9 @@ select.form-input {
     text-align: center;
 }
 
+.box.refine.refine-no-display {
+    display: none;
+}
 .box.refine {
     text-align: left;
 }
