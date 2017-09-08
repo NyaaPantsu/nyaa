@@ -11,6 +11,9 @@ body {
 .torrent-info-data {
     width: 59%;
 }
+#torrent-view-data {
+    margin-left: 10px;    
+}
 
 .container, .modtools {
     max-width: 1328px;
