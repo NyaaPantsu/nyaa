@@ -542,14 +542,10 @@ th {
 }
 
 .tr-cs {
-    width: 15px;
+    width: 18px;
     overflow: initial;
     text-overflow: initial;
     padding: 0;
-}
-
-.tr-cs .comment-icon {
-    margin-bottom: 4px;
 }
 
 .tr-size {
