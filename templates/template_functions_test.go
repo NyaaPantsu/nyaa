@@ -624,7 +624,7 @@ func Testkilo_strcmp(t *testing.T) {
  		},
  	}
  	for _, test := range tests {
- 		value := kilo_strcmp(test.TestString, test.TestString2)
+ 		value := kilo_strcmp(test.TestString, test.TestString2, -1, 0)
  		if value != test.Expected {
  			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t'", value, test.Expected, test.TestString, test.TestString)
  		}
