@@ -20,6 +20,10 @@
     "translation": "NSFW content belongs in sukebei.pantsu.cat"
   },
   {
+    "id": "rule_tracker_url",
+    "translation": "<span style='font-weight: bold;'>https://uw0.xyz/</span> is the official announce URL"
+  },
+  {
     "id": "verify_email_title",
     "translation": "Verify your email address for Nyaapantsu."
   },

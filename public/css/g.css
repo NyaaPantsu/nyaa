@@ -164,6 +164,10 @@ td.tr-le, .error-text {
     color: #1fa4d0;
 }
 
+#description-box td {
+    border-color: #b9b9b9!important
+}
+
 .sukebei {
     color: #373737;
 }

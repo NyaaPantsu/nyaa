@@ -30,3 +30,8 @@
 * + err_no_torrent_file
 ## 2017/09/06
 * + cookie_warning
+## 2017/09/08
+* - removed: hide_ads
+* - removed: hide_ads_setting_explanation
+## 2017/09/08
+* + rule_tracker_url

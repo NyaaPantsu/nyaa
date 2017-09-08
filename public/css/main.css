@@ -87,7 +87,7 @@ body {
 }
 
 .container, .modtools {
-    max-width: 1111px;
+    max-width: 1130px;
     margin: 0 auto;
 }
 
@@ -535,21 +535,17 @@ th {
 }
 
 .tr-links {
-    width: 48px;
+    width: 43px;
     overflow: initial;
     text-align: left;
     padding: 0 2px!important;
 }
 
 .tr-cs {
-    width: 15px;
+    width: 18px;
     overflow: initial;
     text-overflow: initial;
     padding: 0;
-}
-
-.tr-cs .comment-icon {
-    margin-bottom: 4px;
 }
 
 .tr-size {
@@ -566,10 +562,6 @@ th {
 
 .tr-date {
     width: 124px;
-}
-
-.tr-links>a>div {
-    width: 18px;
 }
 
 .tr-se>a>.sort-arrows, .tr-le>a>.sort-arrows, .tr-dl>a>.sort-arrows {
@@ -890,9 +882,6 @@ html, body {
     width: 50%;
     left: 25%;
     }
-    .tr-links {
-        width: 44px;
-    }
     .hide-smol {
         display: none!important;
     }
@@ -1042,10 +1031,17 @@ html, body {
 .torrent-info-box>p>a, .torrent-info-box>div>a, #description-box a {
     text-decoration: underline;
 }
+#description-box table {
+    width: auto;
+    margin-top: 5px;
+}
+#description-box td, #description-box tr  {
+    padding: 5px 23px;
+    text-align: center;
+}
 
 #filelist>p {
-    padding-right: 14px;
-    padding-left: 14px;
+    padding: 0 14px;
 }
 
 .comment-box blockquote>p {
@@ -1243,14 +1239,12 @@ input.filelist-checkbox:checked+table.table-filelist {
 }
 
 #description-box {
-    padding-right: 14px;
-    padding-left: 14px;
+    padding: 0 14px;
     margin-bottom: 10px;
 }
 
 #description-box div, #description-box p {
-    margin-top: 14px;
-    margin-bottom: 14px;
+    margin: 14px 0;
 }
 
 #description-box img {
