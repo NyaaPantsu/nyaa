@@ -48,15 +48,6 @@
     <br/>
     </span>
     
-    <span class="form-group">
-    <h3>{{ T("hide_ads") }}</h3>
-      <p><a href="/faq#why_ads">{{ T("hide_ads_setting_explanation")|raw }}</a></p>
-      <select id="hideAds-selector" name="hideAds" class="form-input">
-        <option value="false">Disabled</option>
-        <option value="true" {{if HideAds}}selected{{end}}>Enabled</option>
-      </select>
-    </span>
-    
     <p>{{ T("cookies")}}</p>
     <button type="submit" class="form-input btn">{{ T("save_changes")}}</button>
   </div>
