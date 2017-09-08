@@ -1040,8 +1040,7 @@ html, body {
 }
 
 #filelist>p {
-    padding-right: 14px;
-    padding-left: 14px;
+    padding: 0 14px;
 }
 
 .comment-box blockquote>p {
@@ -1239,14 +1238,12 @@ input.filelist-checkbox:checked+table.table-filelist {
 }
 
 #description-box {
-    padding-right: 14px;
-    padding-left: 14px;
+    padding: 0 14px;
     margin-bottom: 10px;
 }
 
 #description-box div, #description-box p {
-    margin-top: 14px;
-    margin-bottom: 14px;
+    margin: 14px 0;
 }
 
 #description-box img {
