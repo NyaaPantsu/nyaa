@@ -175,7 +175,7 @@
     {{ end }}
   </div>
 
-  <p class="torrent-hr">{{ T("comments")}}</p>
+  <p class="torrent-hr" id="comments">{{ T("comments")}}</p>
   {{range index, element := Torrent.Comments}}
   <div class="torrent-info-box comment-box">
     <span class="comment-index">
