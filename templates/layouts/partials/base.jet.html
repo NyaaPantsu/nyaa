@@ -81,6 +81,10 @@
     <div class="container pagination">
       {{ genNav(Navigation, URL, 15)|raw }}
     </div>
+    <center class="container" id="ad-container">
+      {{ adId = Sukebei() ? 634159 : 634157 }}
+      <iframe data-aa='{{adId}}' src='//ad.a-ads.com/{{adId}}?size=728x90' scrolling='no' allowtransparency='true'></iframe>
+    </center>
     <footer id="footer">
       <div class="container footer center">
         <div class="footer-opt">
