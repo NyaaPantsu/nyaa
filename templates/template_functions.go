@@ -312,6 +312,10 @@ func kilo_strcmp(str1 string, str2 string, end int, start int) bool {
 	len1 := len(str1)
 	len2 := len(str2)
 	
+	if end == -1 && len1 != len2 {
+		return false
+	}
+	
 	if end == -1 || end > len1 {
 		end = len1
 	}
@@ -319,7 +323,7 @@ func kilo_strcmp(str1 string, str2 string, end int, start int) bool {
 		end = len2
 	}
 	
-	if start >= end || (end == -1 && len1 != len2) {
+	if start >= end {
 		return false
 	}
 	
