@@ -54,7 +54,6 @@ func Commonvariables(c *gin.Context) jet.VarMap {
 	variables.Set("T", publicSettings.GetTfuncFromRequest(c))
 	variables.Set("Theme", publicSettings.GetThemeFromRequest(c))
 	variables.Set("AltColors", publicSettings.GetAltColorsFromRequest(c))
-	variables.Set("HideAds", publicSettings.GetAdsEnabledFromRequest(c))
 	variables.Set("Mascot", publicSettings.GetMascotFromRequest(c))
 	variables.Set("MascotURL", publicSettings.GetMascotURLFromRequest(c))
 	variables.Set("User", user)
