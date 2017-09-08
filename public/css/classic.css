@@ -350,7 +350,7 @@ a.nav-btn.log-in {
 .tr-cs {
     width: 30px;
     text-align: right;
-    font-size: 0.9em;
+    font-size: 0.9em!important;
 }
 }
 .tr-date {
