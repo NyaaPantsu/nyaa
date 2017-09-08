@@ -350,12 +350,11 @@ a.nav-btn.log-in {
 .tr-cs {
     width: 30px;
     text-align: right;
+    font-size: 0.9em;
+}
 }
 .tr-date {
     width: 96px;
-}
-th.tr-cs {
-    font-size: 0.9em;
 }
 
 .modtools {
