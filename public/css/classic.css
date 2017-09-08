@@ -282,10 +282,6 @@ td.tr-size {
 .results.box .tr-se {
     padding-left: 4px!important;
 }
-.tr-links .hidden {
-    display: none;
-}
-
 .btn-red {
     background-color: #E84C4C;
     color: #E8E8E8!important;
