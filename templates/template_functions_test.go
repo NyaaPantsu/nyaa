@@ -630,6 +630,31 @@ func Testkilo_strcmp(t *testing.T) {
  		}
 	}
  }
+ 
+ func Testkilo_strfind(t *testing.T) {
+ 	var tests = []struct {
+ 		TestString  string
+ 		TestString2 string
+ 		Expected bool
+ 	}{
+ 		{
+ 			TestString:  "kilo",
+ 			TestString2: "kilo",
+			Expected: true,
+ 		},
+ 		{
+ 		TestString:  "kilo",
+ 			TestString2: "loki", // Clearly not the same level
+ 			Expected: false,
+ 		},
+ 	}
+ 	for _, test := range tests {
+ 		value := kilo_strfind(test.TestString, test.TestString2, 0)
+ 		if value != test.Expected {
+ 			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t'", value, test.Expected, test.TestString, test.TestString)
+ 		}
+	}
+ }
 
 func mockupTemplateT(t *testing.T) publicSettings.TemplateTfunc {
 	conf := config.Get().I18n
