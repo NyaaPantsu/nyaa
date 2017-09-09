@@ -12,7 +12,7 @@ body {
     width: 59%;
 }
 #torrent-view-data {
-	margin-left: 10px;
+    margin-left: 10px;
 }
 
 .container, .modtools {
@@ -234,7 +234,7 @@ select.form-input {
 }
 
 .torrent-info-label {
-    width: 10%;
+    width: 11%;
 }
 
 .torrent-buttons {
