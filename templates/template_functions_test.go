@@ -599,7 +599,7 @@ func testTorrentFileExists(t *testing.T) {
 		},
 	}
 	for _, test := range tests {
-		value := torrentFileExists(test.hash)
+		value := torrentFileExists(test.hash, "")
 		if value != test.Expected {
 			t.Errorf("Unexpected value from the function TorrentFileExists, got  '%t', wanted '%t' for '%s'", value, test.Expected, test.hash)
 		}
@@ -625,6 +625,31 @@ func Testkilo_strcmp(t *testing.T) {
  	}
  	for _, test := range tests {
  		value := kilo_strcmp(test.TestString, test.TestString2, -1, 0)
+ 		if value != test.Expected {
+ 			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t'", value, test.Expected, test.TestString, test.TestString)
+ 		}
+	}
+ }
+ 
+ func Testkilo_strfind(t *testing.T) {
+ 	var tests = []struct {
+ 		TestString  string
+ 		TestString2 string
+ 		Expected bool
+ 	}{
+ 		{
+ 			TestString:  "kilo",
+ 			TestString2: "kilo",
+			Expected: true,
+ 		},
+ 		{
+ 		TestString:  "kilo",
+ 			TestString2: "loki", // Clearly not the same level
+ 			Expected: false,
+ 		},
+ 	}
+ 	for _, test := range tests {
+ 		value := kilo_strfind(test.TestString, test.TestString2, 0)
  		if value != test.Expected {
  			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t'", value, test.Expected, test.TestString, test.TestString)
  		}

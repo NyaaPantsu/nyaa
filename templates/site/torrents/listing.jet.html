@@ -84,7 +84,7 @@
           <a href="{{.Magnet}}" title="{{  T("magnet_link") }}">
             <div class="icon-magnet"></div>
           </a>
-          <a href="{{.TorrentLink}}" title="{{  T("torrent_file") }}" {{if !torrentFileExists(.Hash)}}class="hidden"{{end}}>
+          <a href="{{.TorrentLink}}" title="{{  T("torrent_file") }}" {{if !torrentFileExists(.Hash, .TorrentLink)}}class="hidden"{{end}}>
             <div class="icon-floppy"></div>
           </a>
         </td>
