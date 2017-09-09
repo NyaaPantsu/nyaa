@@ -343,11 +343,7 @@ td.tr-size {
     background: white;
     font-weight: bold;
     border: none;
-}
-
-.pagination .disabled {
-    color: #cbbdd7;
-    cursor: unset;
+    color: #106655;
 }
 
 a.nav-btn.log-in {
