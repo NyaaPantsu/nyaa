@@ -133,7 +133,7 @@
     <a href="{{Torrent.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;margin-right: 0.5em;">
       <div class="icon-magnet"></div> {{ T("magnet_link")}}
     </a>
-    <a href="{{Torrent.TorrentLink}}" class="form-input download{{ if !torrentFileExists(Torrent.Hash)}} hidden{{end}}" style="float:left;height: auto;">
+    <a href="{{Torrent.TorrentLink}}" class="form-input download{{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}} hidden{{end}}" style="float:left;height: auto;">
       <div class="icon-floppy"></div> {{ T("torrent_file")}}
     </a>
     {{ if User.ID > 0}}
