@@ -221,7 +221,7 @@ select.form-input {
 .torrent-hr::after {
 	content: ':';
 }
-#torrent-name::after {
+#torrent-name h1::after {
 	content: '';
 }
 #torrent-name {
