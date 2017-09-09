@@ -20,6 +20,10 @@
     "translation": "Contenu NSFW strictement réservé à sukebei.pantsu.cat"
   },
   {
+    "id": "rule_tracker_url",
+    "translation": "<span style='font-weight: bold;'>https://uw0.xyz/</span> est l'URL d'annonce officielle."
+  },
+  {
     "id": "verify_email_title",
     "translation": "Vérifiez votre adresse email pour Pantsu."
   },
@@ -1090,14 +1094,6 @@
   {
     "id": "upload_as_anon",
     "translation": "Uploader anonymement"
-  },
-  {
-    "id": "hide_ads",
-    "translation": "Masquer les publicités"
-  },
-  {
-    "id": "hide_ads_setting_explanation",
-    "translation": "Ce paramètre empêchera l'affichage des publicités si activé."
   },
   {
     "id": "cookies",
