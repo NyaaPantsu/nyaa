@@ -251,9 +251,11 @@ select.form-input {
     font-weight: bold;
     border: none;
     padding: 2px 7px;
+    margin-right: 6px;
+    float: left;
 }
 .torrent-buttons a.hidden {
-	opacity: 0.6!important;
+    opacity: 0.6!important;
     filter: grayscale(0.7);
 }
 .torrent-buttons a:hover {
