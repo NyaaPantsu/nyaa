@@ -261,9 +261,13 @@ select.form-input {
 .torrent-buttons a:hover {
     text-decoration: none;
 }
+.torrent-buttons div {
+    margin-right: 0!important;	
+}
 .torrent-buttons [class*="icon-"]::before {
     display: none;
 }
+
 th, th a {
     color: black;
 }
