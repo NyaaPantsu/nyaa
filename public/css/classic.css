@@ -239,7 +239,7 @@ select.form-input {
 
 .torrent-buttons {
     float: right;
-    margin-top: 0;
+    margin-top: 7px;
 }
 .torrent-buttons a{
     height: 26px!important;
