@@ -207,13 +207,24 @@ select.form-input {
 	font-size: .9em;
     border-radius: 5px;
     margin: 0 0 4px 0;
-    padding: 0 4px;
+    padding: 4px;
+	min-height: 70px;
 }
 
 span.comment-index+p {
+	margin-top: 0;
+}
+
+span.comment-index+p a {
 	font-weight: bold;
-    margin-top: 4px;
+    padding-top: 2px;
     font-size: .9em;
+	color: black;
+	text-decoration: none;
+    line-height: 22px;
+}
+span.comment-index+p a:hover {
+	text-decoration: underline;
 }
 
 .comment-index {
