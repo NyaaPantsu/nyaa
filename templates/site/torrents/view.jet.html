@@ -185,7 +185,7 @@
   </div>
   {{end}}
   {{ if len(Torrent.Comments) == 0 }}
-    <p>{{ T("torrent_no_comments") }}</p>
+    <p id="no-comment-message">{{ T("torrent_no_comments") }}</p>
   {{ end }}
   <div style="margin-top: 10px" class="torrent-info-box comment-submit">
     <form method="post">
