@@ -200,6 +200,12 @@ select.form-input {
 	height: 50px;
 }
 
+.comment-box {
+	font-size: .9em;
+    border-radius: 5px;
+    margin: 0 0 4px 0;
+}
+
 span.comment-index+p {
 	font-weight: bold;
     margin-top: 4px;
@@ -218,9 +224,6 @@ span.comment-index+p {
 	color: black;
 }
 
-.comment-box {
-	font-size: .9em;
-}
 
 .comment-submit {
 	border: none;
@@ -230,6 +233,10 @@ span.comment-index+p {
 .comment-submit .comment-form {
 	margin: 0;
 }
+.comment-form h3 {
+	margin-top: 20px;
+}
+
 .comment-submit textarea{
     height: auto!important;
     width: auto!important;
@@ -319,7 +326,7 @@ span.comment-index+p {
 }
 
 #comments {
-	margin-bottom: 0;
+	margin-bottom: 15px;
 }
 
 #no-comment-message {
@@ -457,4 +464,7 @@ a.nav-btn.log-in {
 
 .torrent-preview-table{
     display: none!important;
+}
+.results table {
+	
 }
