@@ -576,6 +576,10 @@
     "translation": "Submit a comment as Anonymous"
   },
   {
+    "id": "torrent_no_comments",
+    "translation": "No user comments have been posted."
+  }
+  {
     "id": "submit",
     "translation": "Submit"
   },
