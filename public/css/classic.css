@@ -145,6 +145,7 @@ th.tr-name a {
     top: auto;
     position: initial;
     border: 1px solid grey;
+    cursor: auto;
     background: linear-gradient(to bottom, #fff 0%, #d8d8d8 72%);
 }
 .form-input.search-box+.icon-search:active {
@@ -198,18 +199,25 @@ select.form-input {
 .comment-box img {
 	width: 50px;
 	height: 50px;
+    float: left;
+    margin-right: 8px;
 }
 
 .comment-box {
 	font-size: .9em;
     border-radius: 5px;
     margin: 0 0 4px 0;
+    padding: 0 4px;
 }
 
 span.comment-index+p {
 	font-weight: bold;
     margin-top: 4px;
     font-size: .9em;
+}
+
+.comment-index {
+	margin: 3px 0 0 0;
 }
 
 #solution {
@@ -222,6 +230,11 @@ span.comment-index+p {
 .comment-index a {
 	font-weight: bold;
 	color: black;
+    float: right;
+    margin-left: 9px;
+}
+.comment-index a:hover {
+	color: #44A0A0;
 }
 
 
