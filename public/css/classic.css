@@ -55,6 +55,9 @@ th.tr-name a {
     width: 29px;
     text-align: right;
 }
+.tr-links .icon-magnet::before {
+	margin-right: 2px;
+}
 .tr-links a {
     display: block;
 }
@@ -187,10 +190,53 @@ select.form-input {
     border-top: none;
     border-radius: 0 0 4px 4px;
 }
-.box, #description-box, .comment-box, .comment-submit,input#show-filelist:checked~#filelist {
+.box, #description-box, .comment-box,input#show-filelist:checked~#filelist {
     background-color: #FBFBFB;
     border: 2px solid #666666;
 }
+
+.comment-box img {
+	width: 50px;
+	height: 50px;
+}
+
+span.comment-index+p {
+	font-weight: bold;
+    margin-top: 4px;
+    font-size: .9em;
+}
+
+#solution {
+    margin-top: -3px;
+}
+
+.comment-index a::before {
+	content: '';
+}
+.comment-index a {
+	font-weight: bold;
+	color: black;
+}
+
+.comment-box {
+	font-size: .9em;
+}
+
+.comment-submit {
+	border: none;
+	background: none;
+    margin-top: 15px!important;
+}
+.comment-submit .comment-form {
+	margin: 0;
+}
+.comment-submit textarea{
+    height: auto!important;
+    width: auto!important;
+    min-width: 310px;
+    min-height: 50px!important;
+}
+
 #description-box {
     font-size: 0.8em;
 }
@@ -220,7 +266,7 @@ select.form-input {
 #torrent-description-hr {
 	margin-top: 40px;
 }
-.torrent-hr {
+.torrent-hr, .comment-submit h3 {
     font-size: 1em;
 }
 .torrent-hr::after {
@@ -234,7 +280,6 @@ select.form-input {
 }
 
 .header .h-user .user-menu {
-
     background: linear-gradient(to bottom, #000000 0%, #2b2b2b 72%);
 }
 
@@ -271,6 +316,14 @@ select.form-input {
 }
 .torrent-buttons [class*="icon-"]::before {
     display: none;
+}
+
+#comments {
+	margin-bottom: 0;
+}
+
+#no-comment-message {
+	font-size: .9em;
 }
 
 th, th a {
@@ -404,7 +457,4 @@ a.nav-btn.log-in {
 
 .torrent-preview-table{
     display: none!important;
-}
-.results table {
-	
 }
