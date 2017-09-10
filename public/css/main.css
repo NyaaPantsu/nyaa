@@ -1063,6 +1063,13 @@ html, body {
     text-align: justify;
 }
 
+.comment-box img {
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin-right: 8px;
+}
+
 .comment-form {
     margin-left: 10px;
     margin-top: 10px;
