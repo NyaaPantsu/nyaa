@@ -196,13 +196,6 @@ select.form-input {
     border: 2px solid #666666;
 }
 
-.comment-box img {
-	width: 50px;
-	height: 50px;
-    float: left;
-    margin-right: 8px;
-}
-
 .comment-box {
 	font-size: .9em;
     border-radius: 5px;
@@ -489,6 +482,10 @@ a.nav-btn.log-in {
 .torrent-preview-table{
     display: none!important;
 }
-.results table {
-	
+.box.profile-panel {
+	border-right: none;
+}
+.profile-panel .btn-green {
+    min-height: 22px;
+    padding: 1px 0;
 }
