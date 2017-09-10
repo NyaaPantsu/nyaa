@@ -381,7 +381,7 @@
   },
   {
     "id": "uploading_file_prefills_fields",
-    "translation": "Il est recommandé d'uploader un fichier torrent afin de préremplir certains champs."
+    "translation": "Il est recommandé d'uploader un fichier torrent afin de préremplir le champ du lien magnet."
   },
   {
     "id": "magnet_link",
