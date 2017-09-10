@@ -656,6 +656,7 @@ html, body {
 
 .torrent-buttons a [class^="icon-"], .torrent-buttons a [class*=" icon-"], a.form-input.btn-green>div[class^="icon-"], a.form-input.btn-green>div[class*="icon-"] {
     vertical-align: initial;
+    margin-right: 5px;
 }
 
 #mascotKeepHide {
