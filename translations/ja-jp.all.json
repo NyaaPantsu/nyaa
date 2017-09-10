@@ -20,6 +20,10 @@
     "translation": "えっちいのは sukebei.pantsu.cat へ"
   },
   {
+    "id": "rule_tracker_url",
+    "translation": "公式 announce URL は <span style='font-weight: bold;'>https://uw0.xyz/</span>"
+  },
+  {
     "id": "verify_email_title",
     "translation": "【Nyaa Pantsu】メールアドレスの認証"
   },
@@ -1090,14 +1094,6 @@
   {
     "id": "upload_as_anon",
     "translation": "匿名でアップロードする"
-  },
-  {
-    "id": "hide_ads",
-    "translation": "広告を非表示にする"
-  },
-  {
-    "id": "hide_ads_setting_explanation",
-    "translation": "この設定を有効にすると広告が読み込まれなくなります。"
   },
   {
     "id": "cookies",
