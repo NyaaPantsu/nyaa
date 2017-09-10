@@ -20,6 +20,10 @@ body {
     width: 87%;
 }
 
+.form-refine span.spacing {
+    font-size: 0.9em;
+}
+
 a {
     color: #106655;
 }
@@ -276,6 +280,7 @@ th {
     font-size: 0.9em;
     vertical-align: bottom;
     padding-bottom: 0!important;
+    height: auto;
 }
 
 td {
@@ -354,11 +359,16 @@ a.nav-btn.log-in {
     margin-right: 5px;
 }
 
+.results.box>table>thead.torrent-info>tr {
+    height: auto;
+}
+
 .box.refine {
+    border-radius: 4px 4px 0 0;
     border-bottom: none;
     display:block!important;
     padding: 8px;
-    border-radius: 4px 4px 0 0;
+    padding-bottom: 11px;
 }
 .box.refine.refine-not-search {
     display: none!important;
