@@ -1075,6 +1075,9 @@ html, body {
     margin-top: 5px;
     float: right;
 }
+.comment-index::before {
+    content: '#';
+}
 
 .torrent-buttons {
     margin-top: 20px;
