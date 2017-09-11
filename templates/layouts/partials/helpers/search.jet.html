@@ -93,7 +93,7 @@
 			  <input type="text" name="vndb" placeholder="VnDB" title="VnDB" value="" class="form-input"/>
 			  <input type="text" name="dlsite" placeholder="DLsite" title="DLsite" value="" class="form-input"/>
 		  </span>
-		  <div name="language" class="form-refine form-input language">
+		  <div class="form-refine form-input language">
 			{{ yield flagList(languages=GetTorrentLanguages(), selected=Search.Languages, inputname="lang", id="refine-search")}}
 		  </div>
 		  <button type="submit" class="form-input refine-btn" name="refine" value="1">{{  T("refine")}}</button>
