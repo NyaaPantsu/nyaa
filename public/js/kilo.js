@@ -96,7 +96,7 @@ var Kilo = function (params) {
         for (var i = 0; i < l; i++) {
           torrentHTML.push(Templates.Render('torrents.item', torrents[i]))
         }
-        document.getElementById("torrentListResults").innerHTML = torrentHTML[0] + document.getElementsByName("torrent-info tr")[0].outerHTML + torrentHTML[1]
+        document.getElementById("torrentListResults").innerHTML = torrentHTML[0] + document.getElementById("torrent-info-tr").outerHTML + torrentHTML[1]
       })
     }
   }
@@ -105,17 +105,17 @@ var Kilo = function (params) {
   // set the class remake with b a boolean
   this.setRemake = function (b) {
     if (b) {
-      document.getElementsByName('torrent-info tr')[0].classList.add('remake')
+      document.getElementById("torrent-info-tr").classList.add('remake')
     } else {
-      document.getElementsByName('torrent-info tr')[0].classList.remove('remake')
+      document.getElementById("torrent-info-tr").classList.remove('remake')
     }
   }
   // set the class hidden with b a boolean
   this.setHidden = function (b) {
     if (!b) {
-      document.getElementsByName('torrent-info tr')[0].classList.remove('trusted')
+      document.getElementById("torrent-info-tr").classList.remove('trusted')
     } else if (this.userTrusted) {
-      document.getElementsByName('torrent-info tr')[0].classList.add('trusted')
+      document.getElementById("torrent-info-tr").classList.add('trusted')
     }
   }
   // set the name of the torrent according to value string
