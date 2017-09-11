@@ -634,11 +634,11 @@ func Testkilo_strcmp(t *testing.T) {
  func TestToString(t *testing.T) {
  	var tests = []struct {
  		TestInt  int
- 		Expected bool
+ 		Expected string
  	}{
  		{
  			TestInt:  0,
-			Expected: true,
+			Expected: "0",
  		},
  	}
  	for _, test := range tests {
