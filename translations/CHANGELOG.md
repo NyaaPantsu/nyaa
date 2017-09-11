@@ -38,3 +38,5 @@
 ## 2017/09/10
 * + torrent_no_comments
 * ~ edited: change_settings
+## 2017/09/12
+* + terms_conditions_full
