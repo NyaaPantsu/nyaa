@@ -12,7 +12,7 @@
 <button type="submit" class="form-input icon-search"></button><button type="submit" class="form-input refine" name="refine" value="1">{{  T("refine")}}</button>
 {{end}}
 {{block search_refine(url="") }}
-{{ if NyaaNav && (URL.String() == "/" || kilo_strcmp(URL.String(), "/search", 7, 1) )}}
+{{ if OldNav && (URL.String() == "/" || kilo_strcmp(URL.String(), "/search", 7, 1) )}}
   {{ include "layouts/partials/helpers/oldNav" }}
 {{ else }}
 <div {{ if !Search.ShowRefine }}style="display: none;"{{end}} class="box refine{{if URL.String() != "/" && !kilo_strcmp(URL.String(), "/search", 7, 1) }} refine-not-search{{end}}">
