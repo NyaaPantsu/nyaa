@@ -25,10 +25,6 @@ body {
     width: 90px;
 }
 
-.form-refine span.spacing {
-    width: 70px;
-}
-
 a {
     color: #106655;
 }
@@ -190,6 +186,28 @@ select.form-input {
     border: 1px solid #333333;
     color: #FBFBFB;
 }
+.website-nav .pagination p {
+	display: none;
+}
+.website-nav {
+	padding-bottom: 2px!important;
+}
+.website-nav .pagination a {
+	display: inline!important;
+}
+.website-nav #page-prev li{
+	float: left;
+}
+.website-nav #page-next li{
+	float: right;
+}
+.website-nav .pagination a[href=""] li:hover {
+    border: 1px solid #666666;
+    color: #106655;
+	background: white;
+	
+}
+
 .results.box {
     padding: 1px!important;
     border-top: none;
