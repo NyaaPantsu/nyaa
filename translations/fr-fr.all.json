@@ -576,6 +576,10 @@
     "translation": "Envoyer un commentaire sous <span lang=\"ja\">れんちょん</span>"
   },
   {
+    "id": "torrent_no_comments",
+    "translation": "Aucun commentaire d'utilisateur n'a été posté."
+  },
+  {
     "id": "submit",
     "translation": "Envoyer"
   },
@@ -1318,6 +1322,14 @@
   {
     "id": "alternating_color",
     "translation": "Couleur alternative (et polices non grasses)"
+  },
+  {
+    "id": "old_nav",
+    "translation": "Ancienne navigation"
+  },
+  {
+    "id": "old_nav_explanation",
+    "translation": "Affiche les catégories principales et les numéros de page au-dessus de la liste des torrents durant une recherche comme sur nyaa.se."
   },
   {
     "id": "no_notifications",
