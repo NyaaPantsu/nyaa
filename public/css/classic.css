@@ -319,13 +319,13 @@ span.comment-index+p a:hover {
     font-size: 1em;
 }
 .torrent-hr::after {
-	content: ':';
+    content: ':';
 }
 #torrent-name h1::after {
-	content: '';
+    content: '';
 }
 #torrent-name h1 {
-	font-size: .7em;
+    font-size: .75em;
     text-align: left!important;
     margin-bottom: 0;
 }
