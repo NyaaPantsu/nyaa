@@ -628,6 +628,9 @@ th {
 .website-nav table#sort-list-order {
     width: auto;
 }
+.website-nav .pagination a {
+	display: inline!important;
+}
 
 textarea {
     max-width: 100%;
