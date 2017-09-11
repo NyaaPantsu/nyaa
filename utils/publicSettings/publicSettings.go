@@ -201,14 +201,13 @@ func GetAltColorsFromRequest(c *gin.Context) bool {
 func GetOldNavFromRequest(c *gin.Context) bool {
 	user, _ := getCurrentUser(c)
 	if user.ID > 0 {
-		return user.OldNav != "false"
-		//Doing this in order to make it return true should the field be empty
+		return user.OldNav == "true"
 	}
 	cookie, err := c.Cookie("oldNav")
 	if err == nil {
 		return cookie == "true"
 	}
-	return true
+	return false
 }
 
 // GetMascotFromRequest : Return whether user has enabled mascot or not
