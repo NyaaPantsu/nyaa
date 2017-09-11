@@ -614,6 +614,20 @@ th {
     border-radius: 0 3px 3px 0;
     border-right-width: 1px !important
 }
+.website-nav .pagination {
+    font-size: .8em;
+    padding: .5rem 0;
+	    
+}
+.website-nav .pagination span {
+    min-width: 31px;	
+}
+.website-nav .pagination p {
+    display: none;
+}
+.website-nav table#sort-list-order {
+    width: auto;
+}
 
 textarea {
     max-width: 100%;
