@@ -644,7 +644,7 @@ textarea {
     text-align: center;
     padding: 1rem 0 1.2rem 0;
     position: relative;
-    z-index: 2;
+    z-index: 1;
 }
 
 .footer-opt {
@@ -1907,7 +1907,7 @@ span.tag {
 }
 
 #ad-container {
-    z-index: 4;
+    z-index: 1;
     position: relative;
     padding: 0 5%;
     max-height: 93px;
