@@ -25,6 +25,10 @@ body {
     width: 90px;
 }
 
+#sort-list-order {
+	width: auto;
+}
+
 a {
     color: #106655;
 }
