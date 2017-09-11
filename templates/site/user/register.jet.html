@@ -44,6 +44,7 @@
       <h2>{{  T("terms_conditions") }}</h2>
     </div>
     <div class="modal-body">
+      {{ yield ruleList() }}
       <p>{{  T("terms_conditions_full")|raw }}</p>
     </div>
     <div class="modal-footer">
