@@ -3,6 +3,9 @@
 {{block title()}}{{ T("home")}}{{end}}
 {{block contclass()}}{{if User.HasAdmin() }}content-admin{{end}}{{end}}
 {{block content_body()}}
+{{ if OldNav }}
+  {{ include "layouts/partials/helpers/oldNav" }}
+{{ end }}
 <!-- Contain the table within a grid, as for better sizing  -->
 <div class="results box">
   <table>
