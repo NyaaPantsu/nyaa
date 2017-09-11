@@ -25,6 +25,10 @@ body {
     width: 90px;
 }
 
+.form-refine span.spacing {
+    width: 70px;
+}
+
 a {
     color: #106655;
 }
