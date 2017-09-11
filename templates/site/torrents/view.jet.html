@@ -180,7 +180,7 @@
       <a href="#comment_{{index}}">{{index}}</a>
       <small style="padding-left: 4px;" class="date-short">{{formatDateRFC(element.Date)}}</small>
     </span>
-    <p><img src="https://www.gravatar.com/avatar/{{ element.UserAvatar }}"/><a href="/user/{{element.UserID}}/{{element.Username}}" class="comment-user">{{element.Username}}</a></p>
+    <p><img src="https://www.gravatar.com/avatar/{{ element.UserAvatar }}"/><a {{if UserID > 0}}href="/user/{{element.UserID}}/{{element.Username}}"{{end}} class="comment-user">{{element.Username}}</a></p>
     <p class="comment-content">{{element.Content|raw}}</p>
   </div>
   {{end}}
