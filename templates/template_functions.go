@@ -120,10 +120,10 @@ func genNav(nav Navigation, currentURL *url.URL, pagesSelectable int) template.H
 		maxPages := math.Ceil(float64(nav.TotalItem) / float64(nav.MaxItemPerPage))
 
 		href :=  ""
-		display := "style=\"display:none;\""
+		display := " style=\"display:none;\""
 		if nav.CurrentPage-1 > 0 {
 			display = ""
-			href = "href=\"" + "/" + nav.Route + "/1" + "?" + currentURL.RawQuery + "\""
+			href = " href=\"" + "/" + nav.Route + "/1" + "?" + currentURL.RawQuery + "\""
 		}
 		ret = ret + "<a id=\"page-prev\"" + display + href + " aria-label=\"Previous\"><li><span aria-hidden=\"true\">&laquo;</span></li></a>"
 		
@@ -149,10 +149,10 @@ func genNav(nav Navigation, currentURL *url.URL, pagesSelectable int) template.H
 		}
 		
 		href = ""
-		display = "style=\"display:none;\""
+		display = " style=\"display:none;\""
 		if nav.CurrentPage < int(maxPages) {
 			display = ""
-			href = "href=\"" + "/" + nav.Route + "/" + strconv.Itoa(nav.CurrentPage+1) + "?" + currentURL.RawQuery + "\""
+			href = " href=\"" + "/" + nav.Route + "/" + strconv.Itoa(nav.CurrentPage+1) + "?" + currentURL.RawQuery + "\""
 		}
 		ret = ret + "<a id=\"page-next\"" + display + href +" aria-label=\"Next\"><li><span aria-hidden=\"true\">&raquo;</span></li></a>"
 			
