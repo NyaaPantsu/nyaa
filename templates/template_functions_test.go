@@ -108,6 +108,24 @@ func TestGenSearchWithOrdering(t *testing.T) {
 	}
 }
 
+func TestgenSearchWithCategory(t *testing.T) {
+	var tests = []map[string]string{
+		{
+			"test":     "",
+			"mode":     "1_",
+			"expected": "/search?c=1_",
+		},
+	}
+
+	for _, test := range tests {
+		url, _ := url.Parse(test["test"])
+		value := genSearchWithCategory(url, test["mode"])
+		if value != test["expected"] {
+			t.Errorf("Unexpected value from the function genSearchWithCategory, got '%s', wanted '%s' for '%s' and '%s'", value, test["expected"], test["test"], test["mode"])
+		}
+	}
+}
+
 func TestFlagCode(t *testing.T) {
 	var tests = []map[string]string{
 		{

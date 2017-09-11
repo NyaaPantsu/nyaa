@@ -7,7 +7,7 @@
 {{block content_body()}}
 <div class="box">
   <div class="user-form">
-    <form role="form" method="POST">
+    <form method="POST">
       {{ yield csrf_field() }}
       <h2>{{ T("signup_box_title") }}</h2>
       <input type="text" name="username" id="display_name" class="form-input up-input" placeholder="{{ T("username") }}" value="{{ Form.Username }}" autofocus/>
