@@ -41,7 +41,7 @@ a:hover {
     color: #9a9a9a;
 }
 
-.box, .pagination li, .modtools {
+.box, .pagination span, .modtools {
     background: hsla(222, 8%, 20%, 0.85);
     border-color: #141517 !important;
 }
