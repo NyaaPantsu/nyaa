@@ -24,6 +24,9 @@ body {
     font-size: 0.9em;
     width: 90px;
 }
+.refine-container-2 span.spacing {
+    width: 69px;
+}
 
 #sort-list-order {
 	width: auto;
@@ -194,7 +197,7 @@ select.form-input {
 	display: none;
 }
 .website-nav {
-	padding-bottom: 2px!important;
+	padding-bottom: 4px!important;
 }
 .website-nav .pagination a {
 	display: inline!important;
@@ -208,6 +211,20 @@ select.form-input {
 
 #description-box code {
 	font-size: 1.3em;
+}
+
+.user-form input[type="text"],.user-form input[type="email"],.user-form input[type="password"] {
+	width: 173px;
+
+}
+.user-form input.form-control {
+	width: 100%;
+}
+.user-form h2 {
+	font-size: 0.9em;
+}
+.user-form .input-label {
+	font-size: 1em;
 }
 
 .results.box {
