@@ -49,6 +49,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("genUploaderLink", genUploaderLink)
 	vars.Set("genActivityContent", genActivityContent)
 	vars.Set("contains", contains)
+	vars.Set("toString", toString)
 	vars.Set("kilo_strcmp", kilo_strcmp)
 	vars.Set("kilo_strfind", kilo_strfind)
 	return vars
@@ -82,6 +83,8 @@ func genSearchWithOrdering(currentURL *url.URL, sortBy string) string {
 
 	return u.String()
 }
+
+
 
 func genSortArrows(currentURL *url.URL, sortBy string) template.HTML {
 	values := currentURL.Query()
@@ -316,6 +319,10 @@ func torrentFileExists(hash string, TorrentLink string) bool {
 	}
 	defer Openfile.Close()
 	return true
+}
+
+func toString(number int) string {
+	return strconv.Itoa(number)
 }
 
 func kilo_strcmp(str1 string, str2 string, end int, start int) bool {
