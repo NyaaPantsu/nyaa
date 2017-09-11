@@ -637,7 +637,7 @@ func Testkilo_strcmp(t *testing.T) {
  		Expected bool
  	}{
  		{
- 			TestString:  0,
+ 			TestInt:  0,
 			Expected: true,
  		},
  	}
