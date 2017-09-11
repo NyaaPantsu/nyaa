@@ -114,6 +114,7 @@ func TestgenSearchWithCategory(t *testing.T) {
 			"test":     "",
 			"mode":     "1_",
 			"expected": "/search?c=1_",
+		},
 	}
 
 	for _, test := range tests {
