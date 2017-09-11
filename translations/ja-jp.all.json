@@ -569,11 +569,15 @@
   },
   {
     "id": "submit_a_comment_as_username",
-    "translation": "%s でコメントを残す"
+    "translation": "%s としてコメントを残す"
   },
   {
     "id": "submit_a_comment_as_anonymous",
-    "translation": "匿名ユーザーでコメントを残す"
+    "translation": "匿名ユーザーとしてコメントを残す"
+  },
+  {
+    "id": "torrent_no_comments",
+    "translation": "ユーザーコメントは投稿されていません。"
   },
   {
     "id": "submit",
