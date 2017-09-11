@@ -26,6 +26,7 @@ import (
 func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("getRawQuery", getRawQuery)
 	vars.Set("genSearchWithOrdering", genSearchWithOrdering)
+	vars.Set("genSearchWithCategory", genSearchWithCategory)
 	vars.Set("genSortArrows", genSortArrows)
 	vars.Set("genNav", genNav)
 	vars.Set("Sukebei", config.IsSukebei)
@@ -49,9 +50,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("genUploaderLink", genUploaderLink)
 	vars.Set("genActivityContent", genActivityContent)
 	vars.Set("contains", contains)
-	vars.Set("toString", toString)
 	vars.Set("kilo_strcmp", kilo_strcmp)
-	vars.Set("kilo_strfind", kilo_strfind)
 	return vars
 }
 func getRawQuery(currentURL *url.URL) string {
@@ -84,7 +83,23 @@ func genSearchWithOrdering(currentURL *url.URL, sortBy string) string {
 	return u.String()
 }
 
+func genSearchWithCategory(currentURL *url.URL, category string) string {
+	values := currentURL.Query()
+	cat := "_" //Default
 
+	if _, ok := values["c"]; ok {
+		cat = values["c"][0]
+	}
+	
+	cat = category
+
+	values.Set("c", cat)
+
+	u, _ := url.Parse("/search")
+	u.RawQuery = values.Encode()
+
+	return u.String()
+}
 
 func genSortArrows(currentURL *url.URL, sortBy string) template.HTML {
 	values := currentURL.Query()
@@ -119,14 +134,10 @@ func genNav(nav Navigation, currentURL *url.URL, pagesSelectable int) template.H
 	if nav.TotalItem > 0 {
 		maxPages := math.Ceil(float64(nav.TotalItem) / float64(nav.MaxItemPerPage))
 
-		href :=  ""
-		display := " style=\"display:none;\""
 		if nav.CurrentPage-1 > 0 {
-			display = ""
-			href = " href=\"" + "/" + nav.Route + "/1" + "?" + currentURL.RawQuery + "\""
+			url := "/" + nav.Route + "/1"
+			ret = ret + "<a id=\"page-prev\" href=\"" + url + "?" + currentURL.RawQuery + "\" aria-label=\"Previous\"><li><span aria-hidden=\"true\">&laquo;</span></li></a>"
 		}
-		ret = ret + "<a id=\"page-prev\"" + display + href + " aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a>"
-		
 		startValue := 1
 		if nav.CurrentPage > pagesSelectable/2 {
 			startValue = (int(math.Min((float64(nav.CurrentPage)+math.Floor(float64(pagesSelectable)/2)), maxPages)) - pagesSelectable + 1)
@@ -141,21 +152,16 @@ func genNav(nav Navigation, currentURL *url.URL, pagesSelectable int) template.H
 		for i := startValue; i <= endValue; i++ {
 			pageNum := strconv.Itoa(i)
 			url := "/" + nav.Route + "/" + pageNum
-			ret = ret + "<a aria-label=\"Page " + strconv.Itoa(i) + "\" href=\"" + url + "?" + currentURL.RawQuery + "\">" + "<span"
+			ret = ret + "<a aria-label=\"Page " + strconv.Itoa(i) + "\" href=\"" + url + "?" + currentURL.RawQuery + "\">" + "<li"
 			if i == nav.CurrentPage {
 				ret = ret + " class=\"active\""
 			}
-			ret = ret + ">" + strconv.Itoa(i) + "</span></a>"
+			ret = ret + ">" + strconv.Itoa(i) + "</li></a>"
 		}
-		
-		href = ""
-		display = " style=\"display:none;\""
 		if nav.CurrentPage < int(maxPages) {
-			display = ""
-			href = " href=\"" + "/" + nav.Route + "/" + strconv.Itoa(nav.CurrentPage+1) + "?" + currentURL.RawQuery + "\""
+			url := "/" + nav.Route + "/" + strconv.Itoa(nav.CurrentPage+1)
+			ret = ret + "<a id=\"page-next\" href=\"" + url + "?" + currentURL.RawQuery + "\" aria-label=\"Next\"><li><span aria-hidden=\"true\">&raquo;</span></li></a>"
 		}
-		ret = ret + "<a id=\"page-next\"" + display + href +" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a>"
-			
 		itemsThisPageStart := nav.MaxItemPerPage*(nav.CurrentPage-1) + 1
 		itemsThisPageEnd := nav.MaxItemPerPage * nav.CurrentPage
 		if nav.TotalItem < itemsThisPageEnd {
@@ -309,20 +315,14 @@ func contains(arr interface{}, comp string) bool {
 	return false
 }
 
-func torrentFileExists(hash string, TorrentLink string) bool {
-	if(len(TorrentLink) > 30 && !kilo_strfind(TorrentLink, ".pantsu.cat", 8)) {
-		return true
-	}
+func torrentFileExists(hash string) bool {
+ 
 	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
 	if err != nil {
 		return false
 	}
 	defer Openfile.Close()
 	return true
-}
-
-func toString(number int) string {
-	return strconv.Itoa(number)
 }
 
 func kilo_strcmp(str1 string, str2 string, end int, start int) bool {
@@ -347,18 +347,4 @@ func kilo_strcmp(str1 string, str2 string, end int, start int) bool {
 	}
 	
 	return strings.Compare(str1[start:end], str2[start:end]) == 0
-}
-
-func kilo_strfind(str1 string, searchfor string, start int) bool {
-	//Search a string inside another with start parameter
-	//start parameter indicates where we start searching
-	
-	len1 := len(str1)
-	
-	if start >= len1 {
-		return false
-	}
-	
-	
-	return strings.Contains(str1[start:len1], searchfor)
 }
