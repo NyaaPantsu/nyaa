@@ -3,7 +3,7 @@ body {
     background: #ededed;
 }
 
-.header, .box, .pagination li, .user-menu {
+.header, .box, .pagination span, .user-menu {
     box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.1)
 }
 

@@ -177,7 +177,7 @@ select.form-input {
 .header .h-search .form-input {
     font-size: 100%;
 }
-.pagination li {
+.pagination span {
     border: 1px solid #666666;
     border-radius: 0!important;
     padding: 0.25em;
@@ -185,7 +185,7 @@ select.form-input {
     color: #106655;
     margin-right: 4px;
 }
-.pagination li:hover {
+.pagination span:hover {
     background-color: #339999;
     border: 1px solid #333333;
     color: #FBFBFB;
@@ -199,10 +199,10 @@ select.form-input {
 .website-nav .pagination a {
 	display: inline!important;
 }
-.website-nav #page-prev li{
+.website-nav #page-prev{
 	float: left;
 }
-.website-nav #page-next li{
+.website-nav #page-next{
 	float: right;
 }
 
@@ -221,11 +221,11 @@ select.form-input {
 }
 
 .comment-box {
-	font-size: .9em;
+    font-size: .9em;
     border-radius: 5px;
     margin: 0 0 4px 0;
     padding: 4px;
-	min-height: 70px;
+    min-height: 70px;
 }
 
 span.comment-index+p {
@@ -319,13 +319,13 @@ span.comment-index+p a:hover {
     font-size: 1em;
 }
 .torrent-hr::after {
-	content: ':';
+    content: ':';
 }
 #torrent-name h1::after {
-	content: '';
+    content: '';
 }
 #torrent-name h1 {
-	font-size: .7em;
+    font-size: .75em;
     text-align: left!important;
     margin-bottom: 0;
 }
