@@ -206,7 +206,7 @@ var Kilo = function (params) {
 
     for (var langIndex = 0; langIndex < document.getElementsByName('languages').length; langIndex++) {
       if (document.getElementsByName('languages')[langIndex].checked) {
-        langTitle = langTitle + document.getElementsByName('upload-lang-languagename')[langIndex].innerText + ','
+        langTitle = langTitle + document.getElementsByClassName('upload-lang-languagename')[langIndex].innerText + ','
         if (++langCount > 1) {
           langValue = 'multiple'
           continue
