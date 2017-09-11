@@ -576,6 +576,10 @@
     "translation": "Submit a comment as Anonymous"
   },
   {
+    "id": "torrent_no_comments",
+    "translation": "No user comments have been posted."
+  },
+  {
     "id": "submit",
     "translation": "Submit"
   },
@@ -1073,7 +1077,7 @@
   },
   {
     "id": "change_settings",
-    "translation": "Change Appearance/Language"
+    "translation": "Change Appearance/Settings"
   },
   {
     "id": "mascot",
@@ -1318,6 +1322,14 @@
   {
     "id": "alternating_color",
     "translation": "Alternating Color (and non-bold fonts)"
+  },
+  {
+    "id": "old_nav",
+    "translation": "Old Navigation"
+  },
+  {
+    "id": "old_nav_explanation",
+    "translation": "Shows main categories and page numbers at the top of the page during a search, just like nyaa.se. Replaces refine."
   },
   {
     "id": "no_notifications",

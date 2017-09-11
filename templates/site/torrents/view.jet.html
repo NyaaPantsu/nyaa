@@ -177,13 +177,16 @@
   {{range index, element := Torrent.Comments}}
   <div class="torrent-info-box comment-box">
     <span class="comment-index">
-      <a href="#comment_{{index}}">#{{index}}</a>
+      <a href="#comment_{{index}}">{{index}}</a>
       <small style="padding-left: 4px;" class="date-short">{{formatDateRFC(element.Date)}}</small>
     </span>
-    <p>{{element.Username}}</p>
-    <p>{{element.Content|raw}}</p>
+    <p><img src="https://www.gravatar.com/avatar/{{ element.UserAvatar }}"/><a href="/user/{{element.UserID}}/{{element.Username}}" class="comment-user">{{element.Username}}</a></p>
+    <p class="comment-content">{{element.Content|raw}}</p>
   </div>
   {{end}}
+  {{ if len(Torrent.Comments) == 0 }}
+    <p id="no-comment-message">{{ T("torrent_no_comments") }}</p>
+  {{ end }}
   <div style="margin-top: 10px" class="torrent-info-box comment-submit">
     <form method="post">
       {{ yield csrf_field()}}

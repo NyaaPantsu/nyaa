@@ -35,3 +35,6 @@
 * - removed: hide_ads_setting_explanation
 ## 2017/09/08
 * + rule_tracker_url
+## 2017/09/10
+* + torrent_no_comments
+* ~ edited: change_settings

@@ -630,6 +630,24 @@ func Testkilo_strcmp(t *testing.T) {
  		}
 	}
  }
+
+ func TestToString(t *testing.T) {
+ 	var tests = []struct {
+ 		TestInt  int
+ 		Expected string
+ 	}{
+ 		{
+ 			TestInt:  0,
+			Expected: "0",
+ 		},
+ 	}
+ 	for _, test := range tests {
+		value := toString(test.TestInt)
+ 		if value != test.Expected {
+ 			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t'", value, test.Expected)
+ 		}
+	}
+ }
  
  func Testkilo_strfind(t *testing.T) {
  	var tests = []struct {

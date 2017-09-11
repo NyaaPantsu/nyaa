@@ -2,6 +2,7 @@
 {{ import "layouts/partials/helpers/csrf" }}
 {{ import "layouts/partials/helpers/captcha" }}
 {{ import "layouts/partials/helpers/errors" }}
+{{ import "layouts/partials/helpers/rules" }}
 {{block title()}}{{  T("register_title") }}{{end}}
 {{block content_body()}}
 <div class="box">
@@ -44,6 +45,7 @@
       <h2>{{  T("terms_conditions") }}</h2>
     </div>
     <div class="modal-body">
+      {{ yield ruleList() }}
       <p>{{  T("terms_conditions_full")|raw }}</p>
     </div>
     <div class="modal-footer">

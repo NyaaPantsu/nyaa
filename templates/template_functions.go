@@ -49,6 +49,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("genUploaderLink", genUploaderLink)
 	vars.Set("genActivityContent", genActivityContent)
 	vars.Set("contains", contains)
+	vars.Set("toString", toString)
 	vars.Set("kilo_strcmp", kilo_strcmp)
 	vars.Set("kilo_strfind", kilo_strfind)
 	return vars
@@ -83,6 +84,8 @@ func genSearchWithOrdering(currentURL *url.URL, sortBy string) string {
 	return u.String()
 }
 
+
+
 func genSortArrows(currentURL *url.URL, sortBy string) template.HTML {
 	values := currentURL.Query()
 	leftclass := "sortarrowdim"
@@ -116,10 +119,14 @@ func genNav(nav Navigation, currentURL *url.URL, pagesSelectable int) template.H
 	if nav.TotalItem > 0 {
 		maxPages := math.Ceil(float64(nav.TotalItem) / float64(nav.MaxItemPerPage))
 
+		href :=  ""
+		display := " style=\"display:none;\""
 		if nav.CurrentPage-1 > 0 {
-			url := "/" + nav.Route + "/1"
-			ret = ret + "<a id=\"page-prev\" href=\"" + url + "?" + currentURL.RawQuery + "\" aria-label=\"Previous\"><li><span aria-hidden=\"true\">&laquo;</span></li></a>"
+			display = ""
+			href = " href=\"" + "/" + nav.Route + "/1" + "?" + currentURL.RawQuery + "\""
 		}
+		ret = ret + "<a id=\"page-prev\"" + display + href + " aria-label=\"Previous\"><li><span aria-hidden=\"true\">&laquo;</span></li></a>"
+		
 		startValue := 1
 		if nav.CurrentPage > pagesSelectable/2 {
 			startValue = (int(math.Min((float64(nav.CurrentPage)+math.Floor(float64(pagesSelectable)/2)), maxPages)) - pagesSelectable + 1)
@@ -140,10 +147,15 @@ func genNav(nav Navigation, currentURL *url.URL, pagesSelectable int) template.H
 			}
 			ret = ret + ">" + strconv.Itoa(i) + "</li></a>"
 		}
+		
+		href = ""
+		display = " style=\"display:none;\""
 		if nav.CurrentPage < int(maxPages) {
-			url := "/" + nav.Route + "/" + strconv.Itoa(nav.CurrentPage+1)
-			ret = ret + "<a id=\"page-next\" href=\"" + url + "?" + currentURL.RawQuery + "\" aria-label=\"Next\"><li><span aria-hidden=\"true\">&raquo;</span></li></a>"
+			display = ""
+			href = " href=\"" + "/" + nav.Route + "/" + strconv.Itoa(nav.CurrentPage+1) + "?" + currentURL.RawQuery + "\""
 		}
+		ret = ret + "<a id=\"page-next\"" + display + href +" aria-label=\"Next\"><li><span aria-hidden=\"true\">&raquo;</span></li></a>"
+			
 		itemsThisPageStart := nav.MaxItemPerPage*(nav.CurrentPage-1) + 1
 		itemsThisPageEnd := nav.MaxItemPerPage * nav.CurrentPage
 		if nav.TotalItem < itemsThisPageEnd {
@@ -307,6 +319,10 @@ func torrentFileExists(hash string, TorrentLink string) bool {
 	}
 	defer Openfile.Close()
 	return true
+}
+
+func toString(number int) string {
+	return strconv.Itoa(number)
 }
 
 func kilo_strcmp(str1 string, str2 string, end int, start int) bool {

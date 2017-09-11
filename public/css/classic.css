@@ -25,6 +25,10 @@ body {
     width: 90px;
 }
 
+#sort-list-order {
+	width: auto;
+}
+
 a {
     color: #106655;
 }
@@ -54,6 +58,9 @@ th.tr-name a {
 .tr-links {
     width: 29px;
     text-align: right;
+}
+.tr-links .icon-magnet::before {
+	margin-right: 2px;
 }
 .tr-links a {
     display: block;
@@ -142,6 +149,7 @@ th.tr-name a {
     top: auto;
     position: initial;
     border: 1px solid grey;
+    cursor: auto;
     background: linear-gradient(to bottom, #fff 0%, #d8d8d8 72%);
 }
 .form-input.search-box+.icon-search:active {
@@ -182,15 +190,101 @@ select.form-input {
     border: 1px solid #333333;
     color: #FBFBFB;
 }
+.website-nav .pagination p {
+	display: none;
+}
+.website-nav {
+	padding-bottom: 2px!important;
+}
+.website-nav .pagination a {
+	display: inline!important;
+}
+.website-nav #page-prev li{
+	float: left;
+}
+.website-nav #page-next li{
+	float: right;
+}
+
+#description-box code {
+	font-size: 1.3em;
+}
+
 .results.box {
     padding: 1px!important;
     border-top: none;
     border-radius: 0 0 4px 4px;
 }
-.box, #description-box, .comment-box, .comment-submit,input#show-filelist:checked~#filelist {
+.box, #description-box, .comment-box,input#show-filelist:checked~#filelist {
     background-color: #FBFBFB;
     border: 2px solid #666666;
 }
+
+.comment-box {
+	font-size: .9em;
+    border-radius: 5px;
+    margin: 0 0 4px 0;
+    padding: 4px;
+	min-height: 70px;
+}
+
+span.comment-index+p {
+	margin-top: 0;
+}
+
+span.comment-index+p a {
+	font-weight: bold;
+    padding-top: 2px;
+    font-size: .9em;
+	color: black;
+	text-decoration: none;
+    line-height: 22px;
+}
+span.comment-index+p a:hover {
+	text-decoration: underline;
+}
+
+.comment-index {
+	margin: 3px 0 0 0;
+}
+
+#solution {
+    margin-top: -3px;
+}
+
+.comment-index a::before {
+	content: '';
+}
+.comment-index a {
+	font-weight: bold;
+	color: black;
+    float: right;
+    margin-left: 9px;
+}
+.comment-index a:hover {
+	color: #44A0A0;
+}
+
+
+.comment-submit {
+	border: none;
+	background: none;
+    margin-top: 15px!important;
+}
+.comment-submit .comment-form {
+	margin: 0;
+}
+.comment-form h3 {
+	margin-top: 20px;
+}
+
+.comment-submit textarea{
+    height: auto!important;
+    width: auto!important;
+    min-width: 310px;
+    min-height: 50px!important;
+}
+
 #description-box {
     font-size: 0.8em;
 }
@@ -220,7 +314,8 @@ select.form-input {
 #torrent-description-hr {
 	margin-top: 40px;
 }
-.torrent-hr {
+
+.comment-submit h3 {
     font-size: 1em;
 }
 .torrent-hr::after {
@@ -229,12 +324,13 @@ select.form-input {
 #torrent-name h1::after {
 	content: '';
 }
-#torrent-name {
-    font-size: 1.26em;
+#torrent-name h1 {
+	font-size: .7em;
+    text-align: left!important;
+    margin-bottom: 0;
 }
 
 .header .h-user .user-menu {
-
     background: linear-gradient(to bottom, #000000 0%, #2b2b2b 72%);
 }
 
@@ -271,6 +367,14 @@ select.form-input {
 }
 .torrent-buttons [class*="icon-"]::before {
     display: none;
+}
+
+#comments {
+	margin-bottom: 15px;
+}
+
+#no-comment-message {
+	font-size: .9em;
 }
 
 th, th a {
@@ -405,6 +509,10 @@ a.nav-btn.log-in {
 .torrent-preview-table{
     display: none!important;
 }
-.results table {
-	
+.box.profile-panel {
+	border-right: none;
+}
+.profile-panel .btn-green {
+    min-height: 22px;
+    padding: 1px 0;
 }

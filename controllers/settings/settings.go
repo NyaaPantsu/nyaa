@@ -34,6 +34,7 @@ func ChangePublicSettingsHandler(c *gin.Context) {
 	mascot := c.PostForm("mascot")
 	mascotURL := c.PostForm("mascot_url")
 	altColors := c.PostForm("altColors")
+	oldNav := c.PostForm("oldNav")
 
 	messages := msg.GetMessages(c)
 
@@ -61,6 +62,7 @@ func ChangePublicSettingsHandler(c *gin.Context) {
 		user.Mascot = mascot
 		user.MascotURL = mascotURL
 		user.AltColors = altColors
+		user.OldNav = oldNav
 		user.UpdateRaw()
 	}
 	// Set cookie with http and not gin for expires (maxage not supported in <IE8)
@@ -68,7 +70,7 @@ func ChangePublicSettingsHandler(c *gin.Context) {
 	http.SetCookie(c.Writer, &http.Cookie{Name: "theme", Value: theme, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})
 	http.SetCookie(c.Writer, &http.Cookie{Name: "mascot", Value: mascot, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})
 	http.SetCookie(c.Writer, &http.Cookie{Name: "mascot_url", Value: mascotURL, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})
-	http.SetCookie(c.Writer, &http.Cookie{Name: "altColors", Value: altColors, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})
+	http.SetCookie(c.Writer, &http.Cookie{Name: "oldNav", Value: oldNav, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})
 
 	c.Redirect(http.StatusSeeOther, "/")
 }

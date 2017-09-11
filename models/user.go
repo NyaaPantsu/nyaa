@@ -45,6 +45,7 @@ type User struct {
 	Language       string    `gorm:"column:language"`
 	Theme          string    `gorm:"column:theme"`
 	AltColors      string    `gorm:"column:alt_colors"`
+	OldNav      string    `gorm:"column:old_nav"`
 	Mascot         string    `gorm:"column:mascot"`
 	MascotURL      string    `gorm:"column:mascot_url"`
 	UserSettings   string    `gorm:"column:settings"`

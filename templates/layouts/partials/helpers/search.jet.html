@@ -12,8 +12,10 @@
 <button type="submit" class="form-input icon-search"></button><button type="submit" class="form-input refine" name="refine" value="1">{{  T("refine")}}</button>
 {{end}}
 {{block search_refine(url="") }}
+{{ if OldNav && (URL.String() == "/" || kilo_strcmp(URL.String(), "/search", 7, 1) )}}
+  {{ include "layouts/partials/helpers/oldNav" }}
+{{ else }}
 <div {{ if !Search.ShowRefine }}style="display: none;"{{end}} class="box refine{{if URL.String() != "/" && !kilo_strcmp(URL.String(), "/search", 7, 1) }} refine-not-search{{end}}">
-  </span>
   <form method="GET" action="{{ url }}">
     <h3>{{ T("refine_search") }}</h3>
 	<div>
@@ -44,10 +46,10 @@
     {{ T("and")}}
     <input size="7" class="form-input" name="maxSize" type="text" value="{{Search.MaxSize}}"/>
     <select name="sizeType" class="form-input">
-      <option value="b"{{if Search.SizeType == "b"}} selected{{end}}>B</option>
-      <option value="k"{{if Search.SizeType == "k"}} selected{{end}}>KiB</option>
-      <option value="m"{{if Search.SizeType == "m"}} selected{{end}}>MiB</option>
-      <option value="g"{{if Search.SizeType == "g"}} selected{{end}}>GiB</option>
+      <option value="b" {{if Search.SizeType == "b"}} selected{{end}}>B</option>
+      <option value="k" {{if Search.SizeType == "k"}} selected{{end}}>KiB</option>
+      <option value="m" {{if Search.SizeType == "m"}} selected{{end}}>MiB</option>
+      <option value="g" {{if Search.SizeType == "g"}} selected{{end}}>GiB</option>
     </select>
     {{  T("large")}}
   </span>
@@ -61,16 +63,16 @@
 	<span class="form-refine" style="margin-bottom: 2px;">
 		<span class="spacing">{{T("sort_by")}}</span>
 		<select name="sort" class="form-input">
-			<option value="1"{{if Search.Sort == 1}}selected{{end}}>{{T("name")}}</option>
-			<option value="4"{{if Search.Sort == 4}}selected{{end}}>{{T("size")}}</option>
-			<option value="5"{{if Search.Sort == 5}}selected{{end}}>{{T("seeders")}}</option>
-			<option value="6"{{if Search.Sort == 6}}selected{{end}}>{{T("leechers")}}</option>
-			<option value="7"{{if Search.Sort == 7}}selected{{end}}>{{T("completed")}}</option>
-			<option value="2"{{if Search.Sort == 2 || Search.Sort == 0}}selected{{end}}>{{T("date")}}</option>
+			<option value="1" {{if Search.Sort == 1}}selected{{end}}>{{T("name")}}</option>
+			<option value="4" {{if Search.Sort == 4}}selected{{end}}>{{T("size")}}</option>
+			<option value="5" {{if Search.Sort == 5}}selected{{end}}>{{T("seeders")}}</option>
+			<option value="6" {{if Search.Sort == 6}}selected{{end}}>{{T("leechers")}}</option>
+			<option value="7" {{if Search.Sort == 7}}selected{{end}}>{{T("completed")}}</option>
+			<option value="2" {{if Search.Sort == 2 || Search.Sort == 0}}selected{{end}}>{{T("date")}}</option>
 		</select>
 		<select name="order" class="form-input">
 			<option value="true">{{T("ascending")}}</option>
-			<option value="false"{{if !Search.Order}}selected{{end}}>{{T("descending")}}</option>
+			<option value="false" {{if !Search.Order}}selected{{end}}>{{T("descending")}}</option>
 		</select>
 	</span>
     </div>
@@ -99,4 +101,5 @@
 	</div>
 </form>
 </div>
+{{end}}
 {{end}}

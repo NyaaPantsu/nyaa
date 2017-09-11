@@ -83,7 +83,7 @@
     </div>
     <center class="container" id="ad-container">
       {{ adId = Sukebei() ? 634159 : 634157 }}
-      <iframe data-aa='{{adId}}' src='//ad.a-ads.com/{{adId}}?size=728x90' scrolling='no' allowtransparency='true'></iframe>
+      <iframe data-aa='{{adId}}' src='//ad.a-ads.com/{{adId}}?size=728x90'></iframe>
     </center>
     <footer id="footer">
       <div class="container footer center">
@@ -94,8 +94,8 @@
       </div>
     </footer>
   </div>
-  {{ if !EUCookieLaw }}<div id="cookie-warning"><span id="cookie-warning-close" class="close">×</span>{{ T("cookie_warning")|raw }}</div>{{ end }}
-  <script type="text/javascript" charset="utf-8">var commitVersion = "{{ Config.Build }}", UserID = {{User.ID}};</script>
+  {{ if !EUCookieLaw && URL.String() == ""}}<div id="cookie-warning"><span id="cookie-warning-close" class="close">×</span>{{ T("cookie_warning")|raw }}</div>{{ end }}
+  <script type="text/javascript">var commitVersion = "{{ Config.Build }}", UserID = {{User.ID}};</script>
   <script type="text/javascript" src="/js/query.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   <script type="text/javascript" charset="utf-8" src="/js/main.js?v={{ Config.Version }}{{ Config.Build }}" async></script>
   {{block footer_js()}}{{end}}
