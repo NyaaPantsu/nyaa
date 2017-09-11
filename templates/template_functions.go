@@ -51,6 +51,8 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("genActivityContent", genActivityContent)
 	vars.Set("contains", contains)
 	vars.Set("kilo_strcmp", kilo_strcmp)
+ -	vars.Set("kilo_strfind", kilo_strfind)
+ -	vars.Set("toString", toString)
 	return vars
 }
 func getRawQuery(currentURL *url.URL) string {
@@ -325,6 +327,10 @@ func torrentFileExists(hash string) bool {
 	return true
 }
 
+func toString(number int) string {
+ 	return strconv.Itoa(number)
+}
+
 func kilo_strcmp(str1 string, str2 string, end int, start int) bool {
 	//Compare two strings but has length arguments
 	
@@ -348,3 +354,17 @@ func kilo_strcmp(str1 string, str2 string, end int, start int) bool {
 	
 	return strings.Compare(str1[start:end], str2[start:end]) == 0
 }
+
+func kilo_strfind(str1 string, searchfor string, start int) bool {
+ 	//Search a string inside another with start parameter
+ 	//start parameter indicates where we start searching
+ 
+ 	len1 := len(str1)
+ 	
+ 	if start >= len1 {
+ 		return false
+ 	}
+ 	
+ 	
+ 	return strings.Contains(str1[start:len1], searchfor)
+ }
