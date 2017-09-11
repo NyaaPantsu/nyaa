@@ -625,8 +625,11 @@ th {
 .website-nav .pagination p {
     display: none;
 }
-.website-nav table#sort-list-order {
+.website-nav table {
     width: auto;
+}
+.website-nav #nav-category-list td {
+	padding-right: 30px;
 }
 .website-nav .pagination a {
 	display: inline!important;
