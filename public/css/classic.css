@@ -497,12 +497,8 @@ a.nav-btn.log-in {
 .box.refine {
     border-radius: 4px 4px 0 0;
     border-bottom: none;
-    display:block!important;
     padding: 8px;
     padding-bottom: 11px;
-}
-.box.refine.refine-not-search {
-    display: none!important;
 }
 
 .refine h3 {
