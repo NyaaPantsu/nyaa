@@ -125,7 +125,7 @@ func genNav(nav Navigation, currentURL *url.URL, pagesSelectable int) template.H
 			display = ""
 			href = " href=\"" + "/" + nav.Route + "/1" + "?" + currentURL.RawQuery + "\""
 		}
-		ret = ret + "<a id=\"page-prev\"" + display + href + " aria-label=\"Previous\"><li><span aria-hidden=\"true\">&laquo;</span></li></a>"
+		ret = ret + "<a id=\"page-prev\"" + display + href + " aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a>"
 		
 		startValue := 1
 		if nav.CurrentPage > pagesSelectable/2 {
@@ -141,11 +141,11 @@ func genNav(nav Navigation, currentURL *url.URL, pagesSelectable int) template.H
 		for i := startValue; i <= endValue; i++ {
 			pageNum := strconv.Itoa(i)
 			url := "/" + nav.Route + "/" + pageNum
-			ret = ret + "<a aria-label=\"Page " + strconv.Itoa(i) + "\" href=\"" + url + "?" + currentURL.RawQuery + "\">" + "<li"
+			ret = ret + "<a aria-label=\"Page " + strconv.Itoa(i) + "\" href=\"" + url + "?" + currentURL.RawQuery + "\">" + "<span"
 			if i == nav.CurrentPage {
 				ret = ret + " class=\"active\""
 			}
-			ret = ret + ">" + strconv.Itoa(i) + "</li></a>"
+			ret = ret + ">" + strconv.Itoa(i) + "</span></a>"
 		}
 		
 		href = ""
@@ -154,7 +154,7 @@ func genNav(nav Navigation, currentURL *url.URL, pagesSelectable int) template.H
 			display = ""
 			href = " href=\"" + "/" + nav.Route + "/" + strconv.Itoa(nav.CurrentPage+1) + "?" + currentURL.RawQuery + "\""
 		}
-		ret = ret + "<a id=\"page-next\"" + display + href +" aria-label=\"Next\"><li><span aria-hidden=\"true\">&raquo;</span></li></a>"
+		ret = ret + "<a id=\"page-next\"" + display + href +" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a>"
 			
 		itemsThisPageStart := nav.MaxItemPerPage*(nav.CurrentPage-1) + 1
 		itemsThisPageEnd := nav.MaxItemPerPage * nav.CurrentPage
