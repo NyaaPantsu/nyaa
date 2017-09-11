@@ -596,7 +596,7 @@ th {
     z-index: 4;
 }
 
-.pagination li {
+.pagination span {
     border: 1px solid;
     display: inline-block;
     padding: 0.4rem;
@@ -606,11 +606,11 @@ th {
     min-width: 35px;
 }
 
-.pagination a:first-child li {
+.pagination a:first-child span {
     border-radius: 3px 0 0 3px;
 }
 
-.pagination a:nth-last-child(2) li {
+.pagination a:nth-last-child(2) span {
     border-radius: 0 3px 3px 0;
     border-right-width: 1px !important
 }
