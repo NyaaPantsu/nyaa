@@ -7,7 +7,7 @@ body {
     box-shadow: 1px 3px 4px hsla(200, 20%, 20%, 0.15)
 }
 
-.box, .pagination li {
+.box, .pagination span {
     box-shadow: 1px 3px 4px hsla(270, 20%, 20%, 0.15)
 }
 
@@ -36,7 +36,7 @@ a:hover {
     color: #2586B0;
 }
 
-.box, .pagination li {
+.box, .pagination span {
     background: hsla(198, 63%, 97%, 0.85);
     border-color: #cbbdd7 !important;
 }
