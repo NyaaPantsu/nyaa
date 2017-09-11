@@ -29,7 +29,8 @@ body {
 }
 
 #sort-list-order {
-	width: auto;
+    width: auto;
+    margin-left: 4px;
 }
 
 a {
