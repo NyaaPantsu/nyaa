@@ -47,8 +47,7 @@ Templates.Add("torrents.item", function(torrent) {
     <td class="tr-cat home-td">
         <div class="` + catClass +`">
             <a href="{{ URL.Parse("/search?c=") }}` + torrent.category + `_` + torrent.sub_category + `" class="category">
-                ` + languages + `
-            </a>
+            </a> ` + languages + `
         </div></td>
         <td class="tr-name home-td"` +  colspan + `><a href="/view/` + torrent.id + `">` + Templates.EncodeEntities(torrent.name) + `</a></td>
         `+ commentTd +`
