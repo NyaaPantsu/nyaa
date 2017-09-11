@@ -193,8 +193,22 @@ select.form-input {
     border: 1px solid #333333;
     color: #FBFBFB;
 }
+.website-nav .pagination p {
+	display: none;
+}
 .website-nav {
 	padding-bottom: 4px!important;
+    padding-top: 4px!important;
+}
+.website-nav .pagination {
+	padding: .5rem;
+	font-size: 1em;
+}
+.website-nav .pagination a {
+	display: inline!important;
+}
+.website-nav .pagination span {
+	min-width: auto;
 }
 .website-nav #page-prev{
 	float: left;
