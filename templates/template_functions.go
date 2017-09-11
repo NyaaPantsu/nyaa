@@ -9,7 +9,7 @@ import (
 	"os"
 	"fmt"
 
-	"strings"n
+	"strings"
 
 	"github.com/CloudyKit/jet"
 	"github.com/NyaaPantsu/nyaa/config"
