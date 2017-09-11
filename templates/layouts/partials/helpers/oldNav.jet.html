@@ -1,0 +1,24 @@
+<div class="box refine website-nav{{if URL.String() != "/" && !kilo_strcmp(URL.String(), "/search", 7, 1) }} refine-not-search{{end}}">
+<table id="sort-list-order">
+	<tbody>
+		<tr>
+			<td>
+				{{ if Search.Sort != 2 && Search.Sort != 0}}<a href="{{ genSearchWithOrdering(URL, "2") }}">Date</a>{{else}}<b>Date</b>{{end}} / 
+				{{ if Search.Sort != 5}}<a href="{{ genSearchWithOrdering(URL, "5") }}">Seeders</a>{{else}}<b>Seeders</b>{{end}} / 
+				{{ if Search.Sort != 6}}<a href="{{ genSearchWithOrdering(URL, "6") }}">Leechers</a>{{else}}<b>Leechers</b>{{end}} / 
+				{{ if Search.Sort != 7}}<a href="{{ genSearchWithOrdering(URL, "7") }}">Downloads</a>{{else}}<b>Downloads</b>{{end}}  / 
+				{{ if Search.Sort != 4}}<a href="{{ genSearchWithOrdering(URL, "4") }}">Size</a>{{else}}<b>Size</b>{{end}}  / 
+				{{ if Search.Sort != 1}}<a href="{{ genSearchWithOrdering(URL, "1") }}">Name</a>{{else}}<b>Name</b>{{end}}  
+			</td>
+			<td style="padding: 0 0.35em!important;"> | </td>
+			<td>
+				{{ if Search.Order}}<a href="{{ genSearchWithOrdering(URL, toString(Search.Sort)) }}">Ascending</a>{{else}}<b>Ascending</b>{{end}} / 
+				{{ if !Search.Order}}<a href="{{ genSearchWithOrdering(URL, toString(Search.Sort)) }}">Descending</a>{{else}}<b>Descending</b>{{end}}
+			</td>
+		</tr>
+	</tbody>
+</table>
+    <div class="pagination">
+      {{ genNav(Navigation, URL, 33)|raw }}
+    </div>
+</div>
