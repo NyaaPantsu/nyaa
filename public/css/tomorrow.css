@@ -3,7 +3,7 @@ body {
     background: #1d1f21;
 }
 
-.header, .box, .pagination li, .user-menu {
+.header, .box, .pagination span, .user-menu {
     box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.2)
 }
 
@@ -41,7 +41,7 @@ a:hover {
     color: #9a9a9a;
 }
 
-.box, .pagination li, .modtools {
+.box, .pagination span, .modtools {
     background: hsla(222, 8%, 20%, 0.85);
     border-color: #141517 !important;
 }
