@@ -1324,6 +1324,14 @@
     "translation": "Alternating Color (and non-bold fonts)"
   },
   {
+    "id": "old_nav",
+    "translation": "Old Navigation"
+  },
+  {
+    "id": "old_nav_explanation",
+    "translation": "Shows main categories and page numbers at the top of the page during a search, just like nyaa.se. Replaces refine."
+  },
+  {
     "id": "no_notifications",
     "translation": "No Notifications"
   },
