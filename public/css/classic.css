@@ -201,11 +201,9 @@ select.form-input {
 .website-nav #page-next li{
 	float: right;
 }
-.website-nav .pagination a[href=""] li:hover {
-    border: 1px solid #666666;
-    color: #106655;
-	background: white;
-	
+
+#description-box code {
+	font-size: 1.3em;
 }
 
 .results.box {
@@ -312,7 +310,8 @@ span.comment-index+p a:hover {
 #torrent-description-hr {
 	margin-top: 40px;
 }
-.torrent-hr, .comment-submit h3 {
+
+.comment-submit h3 {
     font-size: 1em;
 }
 .torrent-hr::after {
@@ -321,8 +320,10 @@ span.comment-index+p a:hover {
 #torrent-name h1::after {
 	content: '';
 }
-#torrent-name {
-    font-size: 1.26em;
+#torrent-name h1 {
+	font-size: .7em;
+    text-align: left!important;
+    margin-bottom: 0;
 }
 
 .header .h-user .user-menu {
