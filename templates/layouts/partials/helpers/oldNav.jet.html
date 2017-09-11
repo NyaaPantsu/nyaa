@@ -1,4 +1,19 @@
 <div class="box refine website-nav{{if URL.String() != "/" && !kilo_strcmp(URL.String(), "/search", 7, 1) }} refine-not-search{{end}}">
+<table id="nav-category-list">
+	<tbody>
+		<tr><td>{{if Search.Category == ""}}<b>{{ T("all_categories")}}</b>{{else}}<a href="{{genSearchWithCategory(URL, "_")}}">{{ T("all_categories")}}</a>{{end}}</td></tr>
+		<tr>
+		{{ range _, cat := GetCategories(true, false) }}
+			<td>{{if Search.Category == cat.ID }}<b>{{ T(cat.Name) }}</b>{{else}}<a href="{{genSearchWithCategory(URL, cat.ID)}}">{{ T(cat.Name) }}</a>{{end}}</td>
+			{{ if _ % 3 == 2}}
+			</tr><tr>
+			{{end}}
+			{{if _ + 1 == len(GetCategories(true, false)) }}
+			</tr>{{end}}
+		{{ end }}
+		</tr>
+	</tbody>
+</table>
 <table id="sort-list-order">
 	<tbody>
 		<tr>

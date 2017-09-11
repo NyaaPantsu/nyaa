@@ -5,7 +5,7 @@
 {{block content_body()}}
 <div class="box">
   <div class="user-form">
-    <form role="form" method="POST">
+    <form method="POST">
       {{ yield csrf_field()}}
       <h2>{{ T("sign_in_box_title")}}</h2>
       <input type="text" name="username" id="username" class="form-input up-input" autofocus placeholder="{{  T("email_address_or_username")}}"/>
@@ -22,6 +22,6 @@
   </form>
 </div>
 </div>
-<br />
-<br />
+<br/>
+<br/>
 {{end}}
