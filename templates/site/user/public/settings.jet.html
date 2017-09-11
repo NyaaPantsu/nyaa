@@ -49,6 +49,15 @@
     <br/>
     </span>
     
+    <span class="form-group">
+    <h3>{{ T("old_nav") }}</h3>
+    <select id="oldNav-selector" name="oldNav" class="form-input">
+      <option value="false">Disabled</option>
+      <option value="true" {{if oldNav}}selected{{end}}>Enabled</option>
+    </select>
+    <br/>
+    </span>
+      
     <p>{{ T("cookies")}}</p>
     <button type="submit" class="form-input btn">{{ T("save_changes")}}</button>
   </div>
