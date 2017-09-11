@@ -630,7 +630,7 @@ func Testkilo_strcmp(t *testing.T) {
  		}
 	}
  }
- 
+
  func TestToString(t *testing.T) {
   	var tests = []struct {
  		TestInt  0
