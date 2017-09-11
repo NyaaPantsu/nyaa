@@ -1082,7 +1082,7 @@ html, body {
     margin-top: 5px;
     float: right;
 }
-.comment-index::before {
+.comment-index a::before {
     content: '#';
 }
 
