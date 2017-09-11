@@ -317,8 +317,10 @@ func contains(arr interface{}, comp string) bool {
 	return false
 }
 
-func torrentFileExists(hash string) bool {
- 
+func torrentFileExists(hash string, TorrentLink string) bool {
+ 	if(len(TorrentLink) > 30 && !kilo_strfind(TorrentLink, ".pantsu.cat", 8)) {
+ 		return true
+ 	}
 	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
 	if err != nil {
 		return false
