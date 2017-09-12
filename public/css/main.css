@@ -593,7 +593,7 @@ th {
     text-align: center;
     padding: 1rem 1rem 0 1rem;
     position: relative;
-    z-index: 4;
+    z-index: 1;
 }
 
 .pagination span {
@@ -1399,6 +1399,9 @@ input.filelist-checkbox:checked+table.table-filelist {
 
 .modal-body {
     padding: 22px 16px;
+    max-height: 56vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 
@@ -1449,7 +1452,7 @@ input.filelist-checkbox:checked+table.table-filelist {
     padding: 0;
     border: 1px solid #7d7e82;
     width: 80%;
-    margin-top: 20%;
+    margin-top: 15vh;
     max-width: 1000px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -webkit-animation-name: animatetop;
