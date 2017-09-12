@@ -1399,7 +1399,7 @@ input.filelist-checkbox:checked+table.table-filelist {
 
 .modal-body {
     padding: 22px 16px;
-    height: 50vh;
+    max-height: 50vh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
