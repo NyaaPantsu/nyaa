@@ -593,7 +593,7 @@ th {
     text-align: center;
     padding: 1rem 1rem 0 1rem;
     position: relative;
-    z-index: 4;
+    z-index: 1;
 }
 
 .pagination span {
@@ -1399,7 +1399,7 @@ input.filelist-checkbox:checked+table.table-filelist {
 
 .modal-body {
     padding: 22px 16px;
-    max-height: 50vh;
+    max-height: 56vh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
