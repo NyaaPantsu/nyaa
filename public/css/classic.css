@@ -64,7 +64,7 @@ th.tr-name a {
     text-align: right;
 }
 .tr-links .icon-magnet::before {
-	margin-right: 2px;
+    margin-right: 2px;
 }
 .tr-links a {
     display: block;
@@ -75,7 +75,7 @@ th.tr-name a {
 
 .comment-count {
     display: inline!important;
-	font-weight: bold;
+    font-weight: bold;
 }
 .tr-cs a{
     display: none;
@@ -195,45 +195,45 @@ select.form-input {
     color: #FBFBFB;
 }
 .website-nav .pagination p {
-	display: none;
+    display: none;
 }
 .website-nav {
-	padding-bottom: 4px!important;
+    padding-bottom: 4px!important;
     padding-top: 4px!important;
 }
 .website-nav .pagination {
-	padding: .5rem;
-	font-size: 1em;
+    padding: .5rem;
+    font-size: 1em;
 }
 .website-nav .pagination a {
-	display: inline!important;
+    display: inline!important;
 }
 .website-nav .pagination span {
-	min-width: auto;
+    min-width: auto;
 }
 .website-nav #page-prev{
-	float: left;
+    float: left;
 }
 .website-nav #page-next{
-	float: right;
+    float: right;
 }
 
 #description-box code {
-	font-size: 1.3em;
+    font-size: 1.3em;
 }
 
 .user-form input[type="text"],.user-form input[type="email"],.user-form input[type="password"] {
-	width: 173px;
+    width: 173px;
 
 }
 .user-form input.form-control {
-	width: 100%;
+    width: 100%;
 }
 .user-form h2 {
-	font-size: 0.9em;
+    font-size: 0.9em;
 }
 .user-form .input-label {
-	font-size: 1em;
+    font-size: 1em;
 }
 
 .results.box {
@@ -255,23 +255,23 @@ select.form-input {
 }
 
 span.comment-index+p {
-	margin-top: 0;
+    margin-top: 0;
 }
 
 span.comment-index+p a {
-	font-weight: bold;
+    font-weight: bold;
     padding-top: 2px;
     font-size: .9em;
-	color: black;
-	text-decoration: none;
+    color: black;
+    text-decoration: none;
     line-height: 22px;
 }
 span.comment-index+p a:hover {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 .comment-index {
-	margin: 3px 0 0 0;
+    margin: 3px 0 0 0;
 }
 
 #solution {
@@ -279,29 +279,29 @@ span.comment-index+p a:hover {
 }
 
 .comment-index a::before {
-	content: '';
+    content: '';
 }
 .comment-index a {
-	font-weight: bold;
-	color: black;
+    font-weight: bold;
+    color: black;
     float: right;
     margin-left: 9px;
 }
 .comment-index a:hover {
-	color: #44A0A0;
+    color: #44A0A0;
 }
 
 
 .comment-submit {
-	border: none;
-	background: none;
+    border: none;
+    background: none;
     margin-top: 15px!important;
 }
 .comment-submit .comment-form {
-	margin: 0;
+    margin: 0;
 }
 .comment-form h3 {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 .comment-submit textarea{
@@ -334,11 +334,11 @@ span.comment-index+p a:hover {
     font-style: italic;
 }
 .torrent-info-data.uploader-link a, .torrent-info-data.uploader-anon a{
-	color: green;
+    color: green;
 }
 
 #torrent-description-hr {
-	margin-top: 40px;
+    margin-top: 40px;
 }
 
 .comment-submit h3 {
@@ -389,18 +389,18 @@ span.comment-index+p a:hover {
     text-decoration: none;
 }
 .torrent-buttons div {
-    margin-right: 0!important;	
+    margin-right: 0!important;    
 }
 .torrent-buttons [class*="icon-"]::before {
     display: none;
 }
 
 #comments {
-	margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 #no-comment-message {
-	font-size: .9em;
+    font-size: .9em;
 }
 
 th, th a {
@@ -497,12 +497,8 @@ a.nav-btn.log-in {
 .box.refine {
     border-radius: 4px 4px 0 0;
     border-bottom: none;
-    display:block!important;
     padding: 8px;
     padding-bottom: 11px;
-}
-.box.refine.refine-not-search {
-    display: none!important;
 }
 
 .refine h3 {
@@ -536,7 +532,7 @@ a.nav-btn.log-in {
     display: none!important;
 }
 .box.profile-panel {
-	border-right: none;
+    border-right: none;
 }
 .profile-panel .btn-green {
     min-height: 22px;

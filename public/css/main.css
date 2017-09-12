@@ -644,7 +644,7 @@ textarea {
     text-align: center;
     padding: 1rem 0 1.2rem 0;
     position: relative;
-    z-index: 2;
+    z-index: 1;
 }
 
 .footer-opt {
@@ -1906,26 +1906,12 @@ span.tag {
     display: none;
 }
 
-#ad-container {
-    z-index: 4;
-    position: relative;
-    padding: 0 5%;
-    max-height: 93px;
-    overflow: hidden;
-    display: block!important;
-}
-#ad-container * {
-    width: 728px;
+iframe {
     max-width: 100%;
+    width: 728px;
     height: 90px;
     border: none;
     overflow: hidden;
-    display: block;
-}
-#ad-blocked {
-    height: 62px;
-    border: 1px solid;
-    border-radius: 10px;
 }
 
 #admin-header {
