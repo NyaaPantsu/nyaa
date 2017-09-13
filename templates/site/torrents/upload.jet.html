@@ -18,9 +18,9 @@
       <table>
         <thead  class="torrent-info table-torrent-thead">
           <tr>
-            <th class="tr-cat">Category</th>
+            <th class="tr-cat">{{ T("category")}}</th>
             <th class="tr-name">
-              Name
+              {{ T("name")}}
               <span class="sort-arrows">
                 <span class="sortarrowleft sortarrowdim">▼</span>
                 <span class="sortarrowdim">▲</span>
@@ -29,7 +29,7 @@
             <th class="tr-cs"></th>
             <th class="tr-links"></th>
             <th class="tr-size hide-xs">
-              Size
+              {{ T("size")}}
               <span class="sort-arrows">
                 <span class="sortarrowleft sortarrowdim">▼</span>
                 <span class="sortarrowdim">▲</span>
@@ -57,7 +57,7 @@
               </span>
             </th>
             <th class="tr-date hide-xs">
-              Date
+              {{ T("date")}}
               <span class="sort-arrows">
                 <span class="sortarrowleft ">▼</span>
                 <span class="sortarrowdim">▲</span>
@@ -200,7 +200,8 @@
     // {{end}}
     listContext: true
   })
-    preview.render()
+  preview.render()
+  parseAllDates()
   document.querySelector("input[name='magnet']").addEventListener("keyup", (e) => {
     var torrentInput = document.querySelector("input[name='torrent']")
     torrentInput.disabled = e.target.value != ""
