@@ -32,7 +32,7 @@
       <!--  -->
       {{ yield captcha(captchaid=Form.CaptchaID)}}
 
-      <input type="submit" value="{{ T("register") }}" class="form-input"></input>
+      <input type="submit" value="{{ T("register") }}" class="form-input">
     </form>
   </div>
 </div>
@@ -46,7 +46,7 @@
     </div>
     <div class="modal-body">
       {{ yield ruleList() }}
-      <p>{{  T("terms_conditions_full")|raw }}</p>
+      {{  T("terms_conditions_full")|raw }}
     </div>
     <div class="modal-footer">
     </div>
@@ -55,7 +55,7 @@
 {{end}}
 {{ block footer_js() }}
 <script type="text/javascript" src="{{URL.Parse("/js/modal.js") }}"></script>
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   // Modal initialization
   Modal.Init({elements: document.getElementsByClassName("modal"),
     button: "#modal_active"
