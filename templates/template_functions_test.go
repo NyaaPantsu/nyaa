@@ -692,6 +692,24 @@ func Testkilo_strcmp(t *testing.T) {
 	}
  }
 
+func TestRand(t *testing.T) {
+ 	var tests = []struct {
+ 		TestInt  int
+ 		Expected int
+ 	}{
+ 		{
+ 			TestInt:  0,
+			Expected: 0,
+ 		},
+ 	}
+ 	for _, test := range tests {
+		value := kilo_rand(0, 5)
+ 		if value != test.Expected {
+ 			t.Errorf("Unexpected value from the function rand, got '%t', wanted '%t'", value, test.Expected)
+ 		}
+	}
+ }
+
 func mockupTemplateT(t *testing.T) publicSettings.TemplateTfunc {
 	conf := config.Get().I18n
 	conf.Directory = path.Join("..", conf.Directory)
