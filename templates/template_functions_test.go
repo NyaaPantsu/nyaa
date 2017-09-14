@@ -700,7 +700,7 @@ func TestRand(t *testing.T) {
  	}{
  		{
  			TestInt:  0,
- 			TestInt:  1,
+ 			TestInt2:  1,
 			Expected: 1,
  		},
  	}
