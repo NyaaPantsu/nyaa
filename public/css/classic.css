@@ -236,11 +236,13 @@ select.form-input {
 }
 
 .results.box {
-    padding: 1px!important
+    padding: 1px!important;
+    padding-top: 8px!important;
     border-radius: 4px;
     border-bottom: none;
 }
 .results.box.old-nav {
+    padding-top: 1px!important;
     border-top: none;
     border-radius: 0 0 4px 4px;
 }
