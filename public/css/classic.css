@@ -239,13 +239,14 @@ select.form-input {
 .results.box {
     padding: 1px!important
     border-radius: 4px;
+    border-bottom: none;
 }
 .results.box.old-nav {
     border-top: none;
     border-radius: 0 0 4px 4px;
 }
     
-.box, #description-box, .comment-box,input#show-filelist:checked~#filelist {
+.box, #description-box, .comment-box,input#show-filelist:checked~#filelist, .container.bottom .pagination {
     background-color: #FBFBFB;
     border: 2px solid #666666;
 }
@@ -481,6 +482,19 @@ td.tr-size {
 }
 .header .h-user .nav-btn {
     height: 40px;
+}
+
+.container.bottom {
+    padding: 5px 10px;
+    padding-top: 0;
+    margin-top: -8px;
+}
+.container.bottom .pagination {
+    border-top: none;
+    padding: 5px;
+}
+.container.bottom .pagination p {
+    margin: 4px 0 2px 0px;
 }
 
 .pagination .active, .pagination .active:hover {
