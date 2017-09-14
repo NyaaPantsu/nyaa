@@ -35,6 +35,11 @@ img[class$="-w"] {
     max-height: 90px;
     padding: 0 2px;
 }
+.container.bottom .center {
+    margin: 0 auto;
+    display: block;
+    width: 700px;
+}
 
 #mascot {
     background: url('/img/renchon.svg') no-repeat right bottom transparent;
