@@ -3,7 +3,6 @@ body {
     background: white;
     font-family: Arial, sans-serif;
     font-size: 0.9em;
-    min-width: 1200px;
 }
 .torrent-info-data {
     font-family: Arial, sans-serif!important;
@@ -106,16 +105,12 @@ th.tr-name a {
     height: 40px;
     font-size: 12px;
 }
+.header .container {
+    max-width: 1090px;
+}
 .header .container>div {
     line-height: 40px;
     padding: 0 0.2rem;
-}
-.header .container {
-    width: 1090px;
-}
-
-.h-right {
-    margin-right: 2px;
 }
 
 .header .nav-btn {
@@ -126,6 +121,10 @@ th.tr-name a {
 }
 .nav-btn .visible-md, .nav-btn.log-in div  {
     display: none!important;
+}
+
+.h-right {
+    margin-right: 2px;
 }
 
 .header .form-input {
