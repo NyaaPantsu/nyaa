@@ -497,7 +497,7 @@ td.tr-size {
     margin: 4px 0 2px 0px;
 }
 .bottom.center {
-    margin: 0;
+    width: 87%;
 }
 
 .pagination .active, .pagination .active:hover {
