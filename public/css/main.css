@@ -33,6 +33,7 @@ img[class^="jl-"], img[class^="wb-"] {
 }
 img[class$="-w"] {
     max-height: 90px;
+    padding: 0 2px;
 }
 
 #mascot {
