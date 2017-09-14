@@ -157,7 +157,6 @@ th.tr-name a {
 }
 .form-input.search-box+.icon-search:active {
     background: linear-gradient(to bottom, #d8d8d8 0%, #fff 72%);
-    
 }
 
 .form-input.search-box+.icon-search::before {
@@ -179,6 +178,9 @@ select.form-input {
 
 .header .h-search .form-input {
     font-size: 100%;
+}
+.container.bottom .pagination span {
+    margin-top: 9px;
 }
 .pagination span {
     border: 1px solid #666666;
@@ -495,7 +497,7 @@ td.tr-size {
     padding: 10px 2px 3px 2px;
 }
 .container.bottom .pagination p {
-    margin: 4px 0 2px 0px;
+    margin: 4px 0 6px 0px;
 }
 .bottom.center {
     width: 87%;
@@ -504,7 +506,7 @@ td.tr-size {
 }
 
 .pagination .active, .pagination .active:hover {
-    background: white;
+    background: #fbfbfb;
     font-weight: bold;
     border: none;
     color: #106655;
