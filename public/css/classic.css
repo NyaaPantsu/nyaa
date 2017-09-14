@@ -491,7 +491,7 @@ td.tr-size {
 }
 .container.bottom .pagination {
     border-top: none;
-    padding: 5px;
+    padding: 10px 2px 3px 2px;
 }
 .container.bottom .pagination p {
     margin: 4px 0 2px 0px;
