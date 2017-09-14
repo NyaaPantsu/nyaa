@@ -498,6 +498,7 @@ td.tr-size {
 }
 .bottom.center {
     width: 87%;
+    max-width: 1328px;
     padding: 0 8px;
 }
 
