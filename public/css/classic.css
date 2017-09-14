@@ -496,6 +496,9 @@ td.tr-size {
 .container.bottom .pagination p {
     margin: 4px 0 2px 0px;
 }
+.bottom.center {
+    margin: 0;
+}
 
 .pagination .active, .pagination .active:hover {
     background: white;
