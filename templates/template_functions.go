@@ -3,6 +3,7 @@ package templates
 import (
 	"html/template"
 	"math"
+	"math/rand"
 	"net/url"
 	"strconv"
 	"time"
