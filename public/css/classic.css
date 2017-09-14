@@ -237,10 +237,14 @@ select.form-input {
 }
 
 .results.box {
-    padding: 1px!important;
+    padding: 1px!important
+    border-radius: 4px;
+}
+.results.box.old-nav {
     border-top: none;
     border-radius: 0 0 4px 4px;
-}
+}}
+    
 .box, #description-box, .comment-box,input#show-filelist:checked~#filelist {
     background-color: #FBFBFB;
     border: 2px solid #666666;
