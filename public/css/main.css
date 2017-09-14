@@ -39,6 +39,8 @@ img[class$="-w"] {
     margin: 0 auto;
     display: block;
     width: 700px;
+    position: relative;
+    z-index: 1;
 }
 
 #mascot {
