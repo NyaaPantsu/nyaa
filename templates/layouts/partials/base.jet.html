@@ -82,9 +82,11 @@
     {{end}}
     {{end}}
     {{end}}
-    <div class="container pagination">
-      {{ genNav(Navigation, URL, 15)|raw }}
-	    {{ yield ad_wide(Type=AdType, ID=AdID) }}
+    <div class="container bottom">
+	<div class="pagination">
+	  {{ genNav(Navigation, URL, 15)|raw }}
+	</div>
+	{{ yield ad_wide(Type=AdType, ID=AdID) }}
     </div>
     <footer id="footer">
       <div class="container footer center">
