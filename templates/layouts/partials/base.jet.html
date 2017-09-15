@@ -1,5 +1,6 @@
 {{import "helpers/errors"}}
 {{import "helpers/infos"}}
+{{import "layouts/partials/helpers/ad"}}
 <!DOCTYPE html>
 <html lang="{{  T("language_code") }}">
 <head>
@@ -47,10 +48,13 @@
   <nav id="header" class="header">
     {{block menu()}}{{end}}
   </nav>
+  {{ AdType := kilo_rand(0, 5) }}
+  {{ AdID := kilo_rand(0, 2)}}
   <div id="content" class="{{ block contclass()}}{{end}}">
     <div class="content container center">
       {{ yield infos()}}
       {{ yield errors()}}
+	    {{ yield ad_wide(Type=AdType, ID=AdID) }}
       {{ block content_body_base() }}{{end}}
     </div>
     {{ block mascot() }}
@@ -78,11 +82,12 @@
     {{end}}
     {{end}}
     {{end}}
-    <div class="container pagination">
-      {{ genNav(Navigation, URL, 15)|raw }}
-      {{ adId = Sukebei() ? 634159 : 634157 }}
-      <iframe data-aa='{{adId}}' src='//ad.a-ads.com/{{adId}}?size=728x90'></iframe>
+    <div class="container bottom">
+	<div class="pagination">
+	  {{ genNav(Navigation, URL, 15)|raw }}
+	</div>
     </div>
+    <div class="bottom center">{{ yield ad_wide(Type=AdType, ID=AdID) }}</div>
     <footer id="footer">
       <div class="container footer center">
         <div class="footer-opt">

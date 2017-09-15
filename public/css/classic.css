@@ -3,7 +3,6 @@ body {
     background: white;
     font-family: Arial, sans-serif;
     font-size: 0.9em;
-    min-width: 1200px;
 }
 .torrent-info-data {
     font-family: Arial, sans-serif!important;
@@ -106,16 +105,12 @@ th.tr-name a {
     height: 40px;
     font-size: 12px;
 }
+.header .container {
+    max-width: 1090px;
+}
 .header .container>div {
     line-height: 40px;
     padding: 0 0.2rem;
-}
-.header .container {
-    width: 1090px;
-}
-
-.h-right {
-    margin-right: 2px;
 }
 
 .header .nav-btn {
@@ -126,6 +121,10 @@ th.tr-name a {
 }
 .nav-btn .visible-md, .nav-btn.log-in div  {
     display: none!important;
+}
+
+.h-right {
+    margin-right: 2px;
 }
 
 .header .form-input {
@@ -158,7 +157,6 @@ th.tr-name a {
 }
 .form-input.search-box+.icon-search:active {
     background: linear-gradient(to bottom, #d8d8d8 0%, #fff 72%);
-    
 }
 
 .form-input.search-box+.icon-search::before {
@@ -180,6 +178,9 @@ select.form-input {
 
 .header .h-search .form-input {
     font-size: 100%;
+}
+.container.bottom .pagination span {
+    margin-top: 9px;
 }
 .pagination span {
     border: 1px solid #666666;
@@ -238,10 +239,17 @@ select.form-input {
 
 .results.box {
     padding: 1px!important;
+    padding-top: 8px!important;
+    border-radius: 4px;
+    border-bottom: none;
+}
+.results.box.old-nav {
+    padding-top: 1px!important;
     border-top: none;
     border-radius: 0 0 4px 4px;
 }
-.box, #description-box, .comment-box,input#show-filelist:checked~#filelist {
+    
+.box, #description-box, .comment-box,input#show-filelist:checked~#filelist, .container.bottom .pagination {
     background-color: #FBFBFB;
     border: 2px solid #666666;
 }
@@ -479,8 +487,26 @@ td.tr-size {
     height: 40px;
 }
 
+.container.bottom {
+    padding: 5px 10px;
+    padding-top: 0;
+    margin-top: -8px;
+}
+.container.bottom .pagination {
+    border-top: none;
+    padding: 10px 2px 3px 2px;
+}
+.container.bottom .pagination p {
+    margin: 4px 0 6px 0px;
+}
+.bottom.center {
+    width: 87%;
+    max-width: 1328px;
+    padding: 0 8px;
+}
+
 .pagination .active, .pagination .active:hover {
-    background: white;
+    background: #fbfbfb;
     font-weight: bold;
     border: none;
     color: #106655;

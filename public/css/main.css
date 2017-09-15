@@ -28,6 +28,21 @@ body {
     -webkit-text-size-adjust: 100%;
 }
 
+img[class^="jl-"], img[class^="wb-"] {
+    max-width: 100%;
+}
+img[class$="-w"] {
+    max-height: 90px;
+    padding: 0 2px;
+}
+.center.bottom {
+    margin: 0 auto;
+    display: block;
+    width: 700px;
+    position: relative;
+    z-index: 1;
+}
+
 #mascot {
     background: url('/img/renchon.svg') no-repeat right bottom transparent;
 }

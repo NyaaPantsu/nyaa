@@ -3,6 +3,7 @@ package templates
 import (
 	"html/template"
 	"math"
+	"math/rand"
 	"net/url"
 	"strconv"
 	"time"
@@ -53,6 +54,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("toString", toString)
 	vars.Set("kilo_strcmp", kilo_strcmp)
 	vars.Set("kilo_strfind", kilo_strfind)
+	vars.Set("kilo_rand", kilo_rand)
 	return vars
 }
 func getRawQuery(currentURL *url.URL) string {
@@ -379,4 +381,8 @@ func kilo_strfind(str1 string, searchfor string, start int) bool {
 	
 	
 	return strings.Contains(str1[start:len1], searchfor)
+}
+
+func kilo_rand(min int, max int) int {
+	return min + rand.Intn(max - min)
 }
