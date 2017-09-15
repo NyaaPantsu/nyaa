@@ -26,6 +26,9 @@ body {
 .refine-container-2 span.spacing {
     width: 69px;
 }
+.header .h-user .user-avatar {
+    border-radius: 0;
+}
 
 #sort-list-order {
     width: auto;
