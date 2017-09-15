@@ -4,6 +4,18 @@ body {
     font-family: Arial, sans-serif;
     font-size: 0.9em;
 }
+
+body, .header {
+    min-width: 700px;
+}
+@media (max-width: 700px) {
+    .header {
+        position: relative;
+    }
+    body {
+        margin-top: 0!important;
+    }
+}
 .torrent-info-data {
     font-family: Arial, sans-serif!important;
 }
