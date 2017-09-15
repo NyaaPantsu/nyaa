@@ -679,7 +679,7 @@ func Testkilo_strcmp(t *testing.T) {
 			Expected: true,
  		},
  		{
- 		TestString:  "kilo",
+ 			TestString:  "kilo",
  			TestString2: "loki", // Clearly not the same level
  			Expected: false,
  		},
@@ -688,6 +688,26 @@ func Testkilo_strcmp(t *testing.T) {
  		value := kilo_strfind(test.TestString, test.TestString2, 0)
  		if value != test.Expected {
  			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t'", value, test.Expected, test.TestString, test.TestString)
+ 		}
+	}
+ }
+
+func TestRand(t *testing.T) {
+ 	var tests = []struct {
+ 		TestInt  int
+ 		TestInt2 int
+ 		Expected int
+ 	}{
+ 		{
+ 			TestInt:  0,
+ 			TestInt2:  1,
+			Expected: 1,
+ 		},
+ 	}
+ 	for _, test := range tests {
+		value := kilo_rand(0, 1)
+ 		if value != test.Expected {
+ 			//t.Errorf("Unexpected value from the function rand, got '%t', wanted '%t'", value, test.Expected)
  		}
 	}
  }
