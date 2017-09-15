@@ -337,7 +337,7 @@ select.form-input {
 
 #content {
     position: relative;
-    top: 70px;
+    top: 57px;
 }
 #content.content-admin  {
     top: 108px!important;
@@ -446,7 +446,7 @@ select.form-input {
 }
 
 #announce {
-    margin-bottom: 15px;
+    margin-bottom: 3px;
     padding: 7px 10px;
     background-color: #D9EDF7;
     border: 1px solid #c4e1e8;

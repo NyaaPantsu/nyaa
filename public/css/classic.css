@@ -4,6 +4,18 @@ body {
     font-family: Arial, sans-serif;
     font-size: 0.9em;
 }
+
+body, .header {
+    min-width: 700px;
+}
+@media (max-width: 700px) {
+    .header {
+        position: relative;
+    }
+    body {
+        margin-top: 0!important;
+    }
+}
 .torrent-info-data {
     font-family: Arial, sans-serif!important;
 }
@@ -26,6 +38,9 @@ body {
 .refine-container-2 span.spacing {
     width: 69px;
 }
+.header .h-user .user-avatar {
+    border-radius: 0;
+}
 
 #sort-list-order {
     width: auto;
@@ -40,7 +55,7 @@ a:hover {
 }
 
 #content {
-    top: 36px!important;
+    top: 32px!important;
 }
 
 .tr-cat {
@@ -494,7 +509,7 @@ td.tr-size {
 }
 .container.bottom .pagination {
     border-top: none;
-    padding: 10px 2px 3px 2px;
+    padding: 0;
 }
 .container.bottom .pagination p {
     margin: 4px 0 6px 0px;
