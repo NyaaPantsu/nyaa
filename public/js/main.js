@@ -98,11 +98,11 @@ function resetCookies() {
   }
 
   //Set new version in cookie
-  document.cookie = "commit=" + commitVersion + ";expires=" + farFutureString
+  document.cookie = "commit=" + commitVersion + ";expires=" + farFutureString + ";domain=" + domain
 
   var oneHour = new Date()
   oneHour.setTime(oneHour.getTime() + 1 * 3600 * 1500)
-  document.cookie = "newVersion=true; expires=" + oneHour.toUTCString()
+  document.cookie = "newVersion=true; expires=" + oneHour.toUTCString() + ";domain=" + domain
 }
 
 
@@ -177,7 +177,7 @@ function startupCode() {
     if(UserTheme[0] == UserTheme[1])
       UserTheme[1] = "g"
     //If tomorrow is twice in UserTheme, which happens when the user already has tomorrow as his default theme and toggle the dark mode for the first time, we set the second theme as g.css
-    document.cookie = "theme2=" + UserTheme[1] + ";path=/;domain=pantsu.cat;expires=" + farFutureString
+    document.cookie = "theme2=" + UserTheme[1] + ";path=/;expires=" + farFutureString + ";domain=" + domain
     //Set cookie for future theme2 uses
   }
   
@@ -195,8 +195,8 @@ function toggleTheme(e) {
     //If user logged in, we're forced to go through this page in order to save the new user theme
   }
   else {
-    document.cookie = "theme=" + CurrentTheme + ";path=/;domain=pantsu.cat;expires=" + farFutureString
-    document.cookie = "theme2=" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]) + ";path=/;domain=pantsu.cat;expires=" + farFutureString
+    document.cookie = "theme=" + CurrentTheme + ";path=/;expires=" + farFutureString + ";domain=" + domain
+    document.cookie = "theme2=" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]) + ";path=/;expires=" + farFutureString + ";domain=" + domain
     //Otherwise, we can just set the theme through cookies
   }
   
