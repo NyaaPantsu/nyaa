@@ -54,7 +54,7 @@
     <div class="content container center">
       {{ yield infos()}}
       {{ yield errors()}}
-	    <div>{{ yield ad_wide(Type=AdType, ID=AdID) }}</div>
+      {{ if !isset(Infos["system"])}}<div>{{ yield ad_wide(Type=AdType, ID=AdID) }}</div>{{end}}
       {{ block content_body_base() }}{{end}}
     </div>
     {{ block mascot() }}
