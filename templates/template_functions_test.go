@@ -711,6 +711,22 @@ func TestRand(t *testing.T) {
  		}
 	}
  }
+ 
+ func TestGetDomain(t *testing.T) {
+ 	var tests = []struct {
+ 		Expected true
+ 	}{
+ 		{
+ 			TestInt:  true,
+ 		},
+ 	}
+ 	for _, test := range tests {
+		value := getDomainName()
+ 		if value != test.Expected {
+ 			//t.Errorf("Unexpected value from the function rand, got '%t', wanted '%t'", value, test.Expected)
+ 		}
+	}
+ }
 
 func mockupTemplateT(t *testing.T) publicSettings.TemplateTfunc {
 	conf := config.Get().I18n
