@@ -34,6 +34,7 @@ img[class^="jl-"], img[class^="wb-"] {
 img[class$="-w"] {
     max-height: 90px;
     padding: 0 2px;
+    margin-bottom: 1px;
 }
 .center.bottom {
     margin: 0 auto;
@@ -337,7 +338,7 @@ select.form-input {
 
 #content {
     position: relative;
-    top: 57px;
+    top: 53px;
 }
 #content.content-admin  {
     top: 108px!important;
