@@ -55,6 +55,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("kilo_strcmp", kilo_strcmp)
 	vars.Set("kilo_strfind", kilo_strfind)
 	vars.Set("kilo_rand", kilo_rand)
+	vars.Set("getDomainName", getDomainName)
 	return vars
 }
 func getRawQuery(currentURL *url.URL) string {
@@ -385,4 +386,12 @@ func kilo_strfind(str1 string, searchfor string, start int) bool {
 
 func kilo_rand(min int, max int) int {
 	return min + rand.Intn(max - min)
+}
+
+func getDomainName() string {
+	domain := config.Get().Cookies.DomainName
+	if config.Get().Environment == "DEVELOPMENT" {
+		domain = ""
+	}
+	return domain
 }
