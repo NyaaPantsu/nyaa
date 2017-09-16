@@ -65,7 +65,7 @@ func TestRepairHTMLTags(t *testing.T) {
 }
 
 func TestSanitize(t *testing.T) {
-	assert := assert.New(t)
+	//assert := assert.New(t)
 	tests := []struct {
 		Test   string
 		Result string
@@ -84,7 +84,7 @@ func TestSanitize(t *testing.T) {
 		{"<img src=\"data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA=\">", ""},                                                                                                                                   // But not allow datauri img by default
 		{"<objet></object><embed></embed><base><iframe />", ""},                                                                                                                                                                             // Not allowed elements by default
 	}
-	for _, test := range tests {
+	//for _, test := range tests {
 		//assert.Equal(test.Result, Sanitize(test.Test, "default"), "Should be equal")
-	}
+	//}
 }
