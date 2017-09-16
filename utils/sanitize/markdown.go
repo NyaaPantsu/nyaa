@@ -74,7 +74,7 @@ func MarkdownToHTML(markdown string) template.HTML {
  */
 func Sanitize(msg string, elements ...string) string {
 	// Convert BBCodes to HTML
-	msg = ParseBBCodes(msg)
+	//msg = ParseBBCodes(msg)
 	// Repair HTML
 	msg = repairHTMLTags(msg) // We repair possible broken html tags
 	// HTML Sanitize
