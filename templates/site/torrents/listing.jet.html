@@ -94,7 +94,7 @@
         <td class="tr-size home-td hide-xs">
           {{ fileSize(.Filesize, T) }}
         </td>
-        {{if .LastScrape.IsZero}}
+        {{if .LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}
         <td class="home-td hide-xs" colspan="3">{{ T("unknown")}}</td>
         {{else}}
         <td class="tr-se home-td hide-smol">{{.Seeders}}</td>
