@@ -714,16 +714,16 @@ func TestRand(t *testing.T) {
  
  func TestGetDomain(t *testing.T) {
  	var tests = []struct {
- 		Expected true
+ 		domainName string
  	}{
  		{
- 			TestInt:  true,
+ 			domainName:  "wubwub",
  		},
  	}
  	for _, test := range tests {
 		value := getDomainName()
- 		if value != test.Expected {
- 			//t.Errorf("Unexpected value from the function rand, got '%t', wanted '%t'", value, test.Expected)
+ 		if value != test.domainName {
+ 			//t.Errorf("Unexpected value from the function rand, got '%t', wanted '%t'", value, test.domainName)
  		}
 	}
  }
