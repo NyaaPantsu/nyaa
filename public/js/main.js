@@ -92,8 +92,14 @@ function resetCookies() {
   //Remove all cookies but exclude those in the above array
   for (var i = 0; i < cookies.length; i++) {
     var cookieName = (cookies[i].split("=")[0]).trim()
-    //Remove spaces because some cookie names have it
-    if (excludedCookies.includes(cookieName)) continue
+    //Trim spaces because some cookie names have them at times
+    if (excludedCookies.includes(cookieName)) {
+      var cookieValue = getCookieValue(cookieName)
+      document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
+      document.cookie = cookieName + "=" + cookieValue + ";expires=" + farFutureString + ";domain=" + domain
+      //Remove cookie and re-create it to ensure domain is correct
+      continue
+    }
     document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
   }
 
@@ -128,9 +134,7 @@ function startupCode() {
   if (!document.cookie.includes("commit"))
     resetCookies()
   else {
-    var startPos = document.cookie.indexOf("commit") + 7,
-      endPos = document.cookie.substring(startPos).indexOf(";"),
-      userCommitVersion = endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos);
+    var userCommitVersion = getCookieValue("commit");
     //Get start and end position of Commit string, need to start searching endPos from version cookie in case it's not the first cookie in the string
     //If endPos is equal to -1, aka if the version cookie is at the very end of the string and doesn't have an ";", the endPos is not used
 
@@ -151,9 +155,7 @@ function startupCode() {
   document.getElementById("dark-toggle").addEventListener("click", toggleTheme);
 
   if(document.cookie.includes("theme=")) {
-    var startPos = document.cookie.indexOf("theme=") + 6
-    var endPos = document.cookie.substring(startPos).indexOf(";")
-    UserTheme = [endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos), "tomorrow"]
+    UserTheme = [getCookieValue("theme"), "tomorrow"]
     //Get user's default theme and set the alternative one as tomorrow
   }
   else 
@@ -162,9 +164,7 @@ function startupCode() {
   
   
   if(document.cookie.includes("theme2=")) {
-    var startPos = document.cookie.indexOf("theme2=") + 7
-    var endPos = document.cookie.substring(startPos).indexOf(";")
-    UserTheme[1] = endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos)
+    UserTheme[1] = getCookieValue("theme2")
     //If user already has ran the ToggleTheme() function in the past, we get the value of the second theme (the one the script switches to)
     if(!UserTheme.includes("tomorrow"))
       UserTheme[1] = "tomorrow"
@@ -234,4 +234,11 @@ function humanFileSize(bytes, si) {
   var i = ~~(Math.log(bytes) / Math.log(k))
   return i == 0 ? bytes + " B" : (bytes / Math.pow(k, i)).toFixed(1) + " " + "KMGTPEZY" [i - 1] + (si ? "" : "i") + "B"
 }
+
+function getCookieValue(cookieName) {
+    var startPos = document.cookie.indexOf(cookieName + "=") + cookieName.length + 1
+    var endPos = document.cookie.substring(startPos).indexOf(";")
+    return endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos)
+}
+
 // @license-end
