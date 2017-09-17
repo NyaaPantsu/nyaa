@@ -12,13 +12,13 @@ import (
 func TestTorrentParam_Identifier(t *testing.T) {
 	torrentParam := &TorrentParam{}
 	assert := assert.New(t)
-	assert.Equal("MDAwMDAwMDAwMDAwZmFsc2VmYWxzZWZhbHNlZmFsc2U=", torrentParam.Identifier(), "It should be empty")
+	assert.Equal("MDAwMDAwMDAwMDBmYWxzZWZhbHNlZmFsc2VmYWxzZQ==", torrentParam.Identifier(), "It should be empty")
 	torrentParam = &TorrentParam{
 		NameLike: "test",
 		NotNull:  "IS NULL",
 		Hidden:   false,
 	}
-	assert.Equal("dGVzdElTIE5VTEwwMDAwMDAwMDAwMDBmYWxzZWZhbHNlZmFsc2VmYWxzZQ==", torrentParam.Identifier(), "It should be empty")
+	assert.Equal("dGVzdElTIE5VTEwwMDAwMDAwMDAwMGZhbHNlZmFsc2VmYWxzZWZhbHNl", torrentParam.Identifier(), "It should be empty")
 }
 
 func TestTorrentParam_FromRequest(t *testing.T) {

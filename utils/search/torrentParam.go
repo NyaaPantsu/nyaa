@@ -45,7 +45,7 @@ type TorrentParam struct {
 	AnidbID      uint32
 	VndbID       uint32
 	VgmdbID      uint32
-	Dlsite       uint32
+	Dlsite       string
 	VideoQuality string
 	Tags         Tags
 }
@@ -67,7 +67,7 @@ func (p *TorrentParam) Identifier() string {
 	// Tags identifier
 	tags := strings.Join(p.Tags, ",")
 	tags += p.VideoQuality
-	dbids := fmt.Sprintf("%d%d%d%d", p.AnidbID, p.VndbID, p.VgmdbID, p.Dlsite)
+	dbids := fmt.Sprintf("%d%d%d%s", p.AnidbID, p.VndbID, p.VgmdbID, p.Dlsite)
 
 	identifier := fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%s%d%s%s%s%t%t%t%t", p.NameLike, p.NotNull, languages, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, dbids, p.FromDate, p.ToDate, p.UserID, ids, cats, tags, p.Full, p.Order, p.Hidden, p.Deleted)
 	return base64.URLEncoding.EncodeToString([]byte(identifier))
@@ -149,7 +149,7 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 	p.AnidbID = parseUInt(c, "anidb")
 	p.VndbID = parseUInt(c, "vndb")
 	p.VgmdbID = parseUInt(c, "vgm")
-	p.Dlsite = parseUInt(c, "dlsite")
+	p.Dlsite = c.Query("dlsite")
 
 	// Limit search to video quality
 	// Get the video quality from url
@@ -274,19 +274,19 @@ func (p *TorrentParam) toESQuery(c *gin.Context) *Query {
 	// Tags search
 	// Anidb
 	if p.AnidbID != 0 {
-		query.Append("anidbid:" + strconv.FormatInt(int64(p.FromID), 10))
+		query.Append("anidbid:" + strconv.FormatInt(int64(p.AnidbID), 10))
 	}
 	// Vndb
 	if p.VndbID != 0 {
-		query.Append("vndbid:" + strconv.FormatInt(int64(p.FromID), 10))
+		query.Append("vndbid:" + strconv.FormatInt(int64(p.VndbID), 10))
 	}
 	// Vgmdb
 	if p.VgmdbID != 0 {
-		query.Append("vgmdbid:" + strconv.FormatInt(int64(p.FromID), 10))
+		query.Append("vgmdbid:" + strconv.FormatInt(int64(p.VgmdbID), 10))
 	}
 	// Dlsite
-	if p.Dlsite != 0 {
-		query.Append("dlsite:" + strconv.FormatInt(int64(p.FromID), 10))
+	if p.Dlsite != "" {
+		query.Append("dlsite:" + p.Dlsite)
 	}
 	// Video quality
 	if p.VideoQuality != "" {
@@ -427,7 +427,7 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 		query.Append("vgmdbid = ?", p.VgmdbID)
 	}
 	// Dlsite
-	if p.Dlsite > 0 {
+	if p.Dlsite != "" {
 		query.Append("dlsite = ?", p.Dlsite)
 	}
 	// Video quality

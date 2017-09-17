@@ -3,6 +3,7 @@ package tags
 import (
 	"fmt"
 	"reflect"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -123,11 +124,21 @@ func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 		}
 		// We finally add the tag to the column
 		torrent.AcceptedTags += tag.Tag
-	case "anidbid", "vndbid", "vgmdbid", "dlsite":
+	case "anidbid", "vndbid", "vgmdbid":
 		u64, _ := strconv.ParseUint(tag.Tag, 10, 32)
 		// TODO: Perform a check that anidbid is in anidb database
 		tagConf := config.Get().Torrents.Tags.Types.Get(tag.Type)
 		reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).SetUint(u64)
+	case "dlsite":
+		// Since DLSite has a particular format, we don't use the default behavior but we check the format
+		tagConf := config.Get().Torrents.Tags.Types.Get(tag.Type)
+		if len(tag.Tag) != 8 { // eg RJ001001
+			return
+		}
+		var validID = regexp.MustCompile(`^[A-Za-z]{2}[0-9]{6}$`)
+		if validID.MatchString(tag.Tag) {
+			reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).SetString(tag.Tag)
+		}
 	default:
 		// Some tag type can have default values that you have to choose from
 		// We, here, check that the tag is one of them
