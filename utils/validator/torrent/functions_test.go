@@ -207,7 +207,7 @@ func TestTagsRequest_Bind(t *testing.T) {
 		{&models.Torrent{}, nil, nil},
 		{&models.Torrent{AnidbID: 1}, TagsRequest{tagsValidator.CreateForm{Tag: "1", Type: "anidbid"}}, nil},
 		{&models.Torrent{AnidbID: 1, VndbID: 2}, TagsRequest{tagsValidator.CreateForm{Tag: "1", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "1", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "2", Type: "vndbid"}}, nil},
-		{&models.Torrent{AnidbID: 1, VndbID: 2, VgmdbID: 3, Dlsite: 4, AcceptedTags: "ddd,ddd,ddd", VideoQuality: "full_hd"}, TagsRequest{tagsValidator.CreateForm{Tag: "1", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "1", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "2", Type: "vndbid"}, tagsValidator.CreateForm{Tag: "1", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "2", Type: "vndbid"}, tagsValidator.CreateForm{Tag: "4", Type: "dlsite"}, tagsValidator.CreateForm{Tag: "3", Type: "vgmdbid"}, tagsValidator.CreateForm{Tag: "full_hd", Type: "videoquality"}, tagsValidator.CreateForm{Tag: "ddd,ddd,ddd", Type: "tags"}}, nil},
+		{&models.Torrent{AnidbID: 1, VndbID: 2, VgmdbID: 3, Dlsite: "RJ001001", AcceptedTags: "ddd,ddd,ddd", VideoQuality: "full_hd"}, TagsRequest{tagsValidator.CreateForm{Tag: "1", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "1", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "2", Type: "vndbid"}, tagsValidator.CreateForm{Tag: "1", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "2", Type: "vndbid"}, tagsValidator.CreateForm{Tag: "RJ001001", Type: "dlsite"}, tagsValidator.CreateForm{Tag: "3", Type: "vgmdbid"}, tagsValidator.CreateForm{Tag: "full_hd", Type: "videoquality"}, tagsValidator.CreateForm{Tag: "ddd,ddd,ddd", Type: "tags"}}, nil},
 	}
 	for _, test := range tests {
 		err := r.Tags.Bind(test.Test)
