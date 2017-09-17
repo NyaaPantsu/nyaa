@@ -52,7 +52,7 @@
 		  </tr>
 		  <tr class="table-checkboxes">
 		     <td class="table-input-label"></td>
-		     <td class="table-input" style="font-weight: normal;"><label for="remake">{{ T("mark_as_remake")}}:</label> <input type="checkbox" value="true" name="remake" id="remake" class="form-torrent-remake"/>{{ if User.ID > 0 }}<label for="hidden">{{ T("upload_as_anon")}}:</label> <input type="checkbox" value="true" name="hidden" id="hidden" class="form-torrent-hidden">{{ end }}</td>
+		     <td class="table-input" style="font-weight: normal;"><label for="remake">{{ T("mark_as_remake")}}:</label> <input type="checkbox" value="true" name="remake" id="remake" class="form-torrent-remake"/><label for="hidden" {{ if User.ID == 0 }}class="hidden"{{end}}>{{ T("upload_as_anon")}}:</label> <input type="checkbox" value="true" name="hidden" id="hidden" class="form-torrent-hidden {{ if User.ID == 0 }}hidden{{end}}" {{ if User.ID == 0 }}disabled{{end}}></td>
 		  </tr>
 		  <tr>
 		  <tr>
@@ -92,7 +92,6 @@
   <script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   {{ include "layouts/partials/torrent_item_upload" }}
   <script type="text/javascript">
-  preview.render()
   parseAllDates()
   document.querySelector("input[name='magnet']").addEventListener("keyup", (e) => {
     var torrentInput = document.querySelector("input[name='torrent']")
