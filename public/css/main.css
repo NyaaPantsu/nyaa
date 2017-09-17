@@ -1911,12 +1911,13 @@ span.tag {
 .upload-form-table .table-input-label {
     width: 185px;
     font-weight: bold; 
+    padding-top: 3px!important;
+}
+.upload-form-table .table-input-label, .upload-form-table td label{
+    vertical-align: top;
 }
 .upload-form-table .upload-form-table .CodeMirror {
     font-weight: normal;
-}
-.upload-form-table label{
-    vertical-align: top;
 }
 .upload-form-table .table-input {
     font-weight: bold;
@@ -1930,7 +1931,6 @@ span.tag {
 .upload-form-table .table-torrent-link input[type="text"] {
     width: 65%;
 }
-
 
 .upload-tag-form h3 {
     margin: 10px 0;
