@@ -1931,31 +1931,26 @@ span.tag {
 .upload-form-table .table-torrent-link input[type="text"] {
     width: 65%;
 }
-
-.upload-tag-form h3 {
-    margin: 10px 0;
+.upload-tag-table {
+	width: auto;
 }
-
-.upload-tag-form .form-group {
-    width: 167px;
-    display:inline-block;
-    margin-bottom: 5px;
-    margin-right: 5px;
-}
-
-.upload-tag-form label {
-    display:inline-block;
-    width: 100%;
+.upload-tag-table .input-label {
+	display: block;
     font-size: unset;
     margin-bottom: 1px;
 }
-
-.upload-tag-form input,.upload-tag-form select {
+.upload-tag-table input, .upload-tag-table select {
     height: 25px;
     padding: 3px 3px;
     width: 100%;
 }
+.upload-tag-table td {
+    padding-right: 7px;
+}
 
+.upload-tag-form h3 {
+    margin: 10px 0;
+}
 
 .show-xs {
     display: none;
