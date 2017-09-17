@@ -588,31 +588,36 @@ span.tag {
 
 
 .upload-form-table {
-	width: auto;
+    width: auto;
 }
 .upload-form-table .table-input-label label::after {
-	content: ':';
+    content: ':';
 }
 
 .upload-form-table .table-input-label {
-	width: 136px;
+    width: 136px;
 }
 
 .upload-form-table input, .upload-form-table select, .upload-form-table textarea, .upload-form-table div {
-	max-width: 406px!important;
+    max-width: 406px!important;
 }
 .upload-form-table .table-torrent-link input {
-	width: 100%!important;
-}	
+    width: 100%!important;
+}    
 .upload-form-table .editor-toolbar {
-	padding: 0 2px;
+    padding: 0 2px;
     font-size: 10px;
 }
+.upload-form-table .editor-toolbar, .upload-form-table .CodeMirror {
+    border-radius: 0;
+    border-color: #c4c4c4;
+    opacity: 1;
+}
 .upload-form-table .editor-toolbar::before {
-	margin-bottom: 2px;
+    margin-bottom: 2px;
 }
 .upload-form-table .editor-toolbar::after {
-	margin-top: 4px;
+    margin-top: 4px;
 }
 .upload-form-table .editor-toolbar a {
     width: 26px;
@@ -622,6 +627,11 @@ span.tag {
     line-height: 25px;
 }
 .upload-form-table .CodeMirror-scroll, .upload-form-table .CodeMirror {
-	min-height: 120px;
-	font-weight: normal;
+    min-height: 120px;
+    font-weight: normal;
+}
+
+.form-input.language {
+    border-radius: 0;
+    padding: 7px 3px;
 }
