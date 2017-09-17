@@ -36,6 +36,7 @@ func TestParseBBCodes(t *testing.T) {
 		{"", ""},
 		{"&gt;", "&gt;"},                       // keep escaped html
 		{"<b>lol</b>", "<b>lol</b>"},           // keep html tags
+		{"ddd\nddd", "ddd\nddd"},               // keep html tags
 		{"[b]lol[/b]", "<b>lol</b>"},           // Convert bbcodes
 		{"[u][b]lol[/u]", "<u><b>lol</b></u>"}, // Close unclosed tags
 	}
@@ -71,7 +72,8 @@ func TestSanitize(t *testing.T) {
 		Result string
 	}{
 		{"", ""},
-		{"[b]lol[/b]", "<b>lol</b>"},                                                                                                                                                                                                        // Should convert bbcodes
+		{"[b]lol[/b]", "<b>lol</b>"}, // Should convert bbcodes
+		{"ddd\nddd", "ddd\nddd"},
 		{"&gt;", "&gt;"},                                                                                                                                                                                                                    // keep escaped html
 		{"<b>lol</b>", "<b>lol</b>"},                                                                                                                                                                                                        // keep html tags
 		{"<b><u>lol</b>", "<b><u>lol</u></b>"},                                                                                                                                                                                              // close unclosed tags encapsulated

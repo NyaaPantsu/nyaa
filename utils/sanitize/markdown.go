@@ -310,6 +310,7 @@ func repairHTMLTags(brokenHTML string) string {
 // ParseBBCodes returns the bbcode compiler with the bbcode tags to parse
 func ParseBBCodes(msg string) string {
 	msg = BBCodesRenderer.Compile(msg)
+	msg = strings.Replace(msg, "<br>", "\n", -1)
 	// For some reason, BBCodes compiler return escaped html
 	// We need to unescape it
 	return html.UnescapeString(msg)
