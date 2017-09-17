@@ -1932,7 +1932,7 @@ span.tag {
 .upload-form-table .table-torrent-link input[type="text"] {
     width: 65%;
 }
-.tag-h3 {
+#tag-h3 {
     margin-top: 0;
 }
 .upload-tag-table {
