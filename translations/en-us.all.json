@@ -1,4 +1,7 @@
-[
+[{
+    "id": "upload_rules",
+    "translation": "Please read <a href=\"/faq#rules\">the rules</a> before uploading."
+  },
   {
     "id": "rules",
     "translation": "Rules"
