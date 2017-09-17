@@ -7,7 +7,7 @@
 {{block title()}}{{ T("upload")}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
-  <p class="upload-rules">{{ T("read_rules") }}</p>
+  <p class="upload-rules">{{ T("read_rules")|raw }}</p>
   <form enctype="multipart/form-data" method="POST">
     {{ yield csrf_field() }}
 	
