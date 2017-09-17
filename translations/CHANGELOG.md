@@ -42,3 +42,4 @@
 * + terms_conditions_full
 ## 2017/09/17
 * + torrent_name
+* + upload_rules
