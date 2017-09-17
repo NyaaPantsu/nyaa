@@ -66,9 +66,9 @@
 		</tbody>
 	  </table>
 
-      <h3 id="tag-h3">{{ T("torrent_tags")}}</h3>
 	  <table class="upload-tag-table">
 		<tbody>
+			<tr><td colspan="3"><h3 id="tag-h3">{{ T("torrent_tags")}}</h3></td></tr>
 			<tr>
 			{{ range _, tag := Config.Torrents.Tags.Types}}
 				<td>
