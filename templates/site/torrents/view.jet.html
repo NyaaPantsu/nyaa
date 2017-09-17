@@ -67,7 +67,7 @@
       </td>
     </tr>
     {{end}}
-    {{ if Torrent.AnidbID > 0 || Torrent.VndbID > 0 || Torrent.VgmdbID > 0 || Torrent.Dlsite > 0 }}
+    {{ if Torrent.AnidbID > 0 || Torrent.VndbID > 0 || Torrent.VgmdbID > 0 || Torrent.Dlsite != "" }}
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("related_to") }}</td>
       <td class="tr-flag torrent-view-td torrent-info-data">
@@ -89,7 +89,7 @@
           <a href="/search?vgm={{ Torrent.VgmdbID }}" title="{{ T("filter") }}"><i class="icon-search"></i></a>
         </span>
         {{end}}
-        {{ if Torrent.Dlsite > 0 }}
+        {{ if Torrent.Dlsite != "" }}
         <span class="tag accepted">
           <span class="tag-text votable"><a href="http://www.dlsite.com/home/work/=/product_id/{{ Torrent.Dlsite }}.html">{{ T("tagtype_dlsite") }}: {{ Torrent.Dlsite }}</a></span>
           <a href="/search?dlsite={{ Torrent.Dlsite }}" title="{{ T("filter") }}"><i class="icon-search"></i></a>
