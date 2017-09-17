@@ -732,12 +732,12 @@ func TestRand(t *testing.T) {
  	var tests = []struct {
  		TestInt  int
  		TestInt2 int
- 		Expected int
+ 		Expected string
  	}{
  		{
  			TestInt:  0,
  			TestInt2:  1,
-			Expected: 1,
+			Expected: "owo",
  		},
  	}
  	for _, test := range tests {
