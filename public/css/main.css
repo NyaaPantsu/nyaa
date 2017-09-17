@@ -1905,6 +1905,12 @@ span.tag {
     border-left: 1px solid #d8d8d8;
 }
 
+p.upload-rules {
+    margin-top: 0;
+}
+#upload-button {
+    width: 120px;
+}
 .upload-form-table {
     max-width: 950px;
     margin: 15px 0;
