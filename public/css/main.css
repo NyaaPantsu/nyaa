@@ -877,10 +877,9 @@ html, body {
     .torrent-hr {
     margin-bottom: 0;
     }
-	
-	.upload-form-table .table-torrent-link input {
-		width: 100%!important;
-	}
+    .upload-form-table .table-torrent-link input {
+        width: 100%!important;
+    }
 }
 
 @media (max-height: 750px),(max-width: 500px) {
@@ -1900,25 +1899,27 @@ span.tag {
 }
 
 .upload-form-table {
-	max-width: 950px;
-	margin: 15px 0;
+    max-width: 950px;
+    margin: 15px 0;
 }
 .upload-form-table .table-input-label {
-	width: 185px;
-	font-weight: bold;
+    width: 185px;
+    font-weight: bold; 
+}
+.upload-form-table label{
     vertical-align: top;
 }
 .upload-form-table .table-input {
-	font-weight: bold;
+    font-weight: bold;
 }
 .upload-form-table .table-checkboxes td {
-	padding: 3px 0;
+    padding: 3px 0;
 }
 .upload-form-table .table-torrent-link input[type="file"] {
-	width: 35%;
+    width: 35%;
 }
 .upload-form-table .table-torrent-link input[type="text"] {
-	width: 65%;
+    width: 65%;
 }
 
 
