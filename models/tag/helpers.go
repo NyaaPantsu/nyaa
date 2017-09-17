@@ -135,7 +135,7 @@ func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 		if len(tag.Tag) != 8 { // eg RJ001001
 			return
 		}
-		var validID = regexp.MustCompile(`^[a-z]{2}[0-9]{6}$`)
+		var validID = regexp.MustCompile(`^[A-Za-z]{2}[0-9]{6}$`)
 		if validID.MatchString(tag.Tag) {
 			reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).SetString(tag.Tag)
 		}
