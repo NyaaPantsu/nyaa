@@ -728,6 +728,26 @@ func TestRand(t *testing.T) {
 	}
  }
 
+ func TestFill(t *testing.T) {
+ 	var tests = []struct {
+ 		TestInt  int
+ 		TestInt2 int
+ 		Expected int
+ 	}{
+ 		{
+ 			TestInt:  0,
+ 			TestInt2:  1,
+			Expected: 1,
+ 		},
+ 	}
+ 	for _, test := range tests {
+		value := fillZero(0, 1)
+ 		if value != test.Expected {
+ 			//t.Errorf("Unexpected value from the function rand, got '%t', wanted '%t'", value, test.Expected)
+ 		}
+	}
+ }
+
 func mockupTemplateT(t *testing.T) publicSettings.TemplateTfunc {
 	conf := config.Get().I18n
 	conf.Directory = path.Join("..", conf.Directory)
