@@ -1933,13 +1933,13 @@ span.tag {
     width: 65%;
 }
 #tag-h3 {
-    margin-top: 0;
+    margin: 0 0 7px;
 }
 .upload-tag-table {
-	width: auto;
+    width: auto;
 }
 .upload-tag-table .input-label {
-	display: block;
+    display: block;
     font-size: unset;
     margin-bottom: 1px;
 }
