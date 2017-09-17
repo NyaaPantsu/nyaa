@@ -635,6 +635,6 @@ span.tag {
     border-radius: 0;
     padding: 7px 3px;
 }
-.upload-tag-table td {
-    padding-right: 5px!important;
+.upload-tag-table .form-group input, .upload-tag-table .form-group select {
+    width: 118px!important;   
 }
