@@ -55,7 +55,7 @@ a:hover {
 }
 
 #content {
-    top: 32px!important;
+    top: 31px!important;
 }
 
 .tr-cat {
@@ -578,4 +578,63 @@ a.nav-btn.log-in {
 .profile-panel .btn-green {
     min-height: 22px;
     padding: 1px 0;
+}
+
+span.tag {
+    border-radius: 0;
+    box-shadow: none;
+    border: 1px solid #c5c5c5;
+}
+
+
+.upload-form-table {
+    width: auto;
+}
+.upload-form-table .table-input-label label::after {
+    content: ':';
+}
+
+.upload-form-table .table-input-label {
+    width: 136px!important;
+    display: table-cell!important;
+}
+
+.upload-form-table input, .upload-form-table select, .upload-form-table textarea, .upload-form-table div {
+    max-width: 406px!important;
+}
+.upload-form-table .table-torrent-link input {
+    width: 100%!important;
+}    
+.upload-form-table .editor-toolbar {
+    padding: 0 2px;
+    font-size: 10px;
+}
+.upload-form-table .editor-toolbar, .upload-form-table .CodeMirror {
+    border-radius: 0;
+    border-color: #c4c4c4;
+    opacity: 1;
+}
+.upload-form-table .editor-toolbar::before {
+    margin-bottom: 2px;
+}
+.upload-form-table .editor-toolbar::after {
+    margin-top: 4px;
+}
+.upload-form-table .editor-toolbar a {
+    width: 26px;
+    height: 24px;
+}
+.upload-form-table .editor-toolbar a:before {
+    line-height: 25px;
+}
+.upload-form-table .CodeMirror-scroll, .upload-form-table .CodeMirror {
+    min-height: 120px;
+}
+
+.form-input.language {
+    border-radius: 0;
+    padding: 7px 3px;
+}
+.upload-tag-table td {
+    padding-right: 5px!important;
 }

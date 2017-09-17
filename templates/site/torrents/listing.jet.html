@@ -3,11 +3,11 @@
 {{block title()}}{{ T("home")}}{{end}}
 {{block contclass()}}{{if User.HasAdmin() }}content-admin{{end}}{{end}}
 {{block content_body()}}
-{{ if OldNav }}
+{{ if OldNav || Theme == "classic"}}
   {{ include "layouts/partials/helpers/oldNav" }}
 {{ end }}
 <!-- Contain the table within a grid, as for better sizing  -->
-<div class="results box {{ if OldNav }}old-nav{{end}}" >
+<div class="results box {{ if OldNav || Theme == "classic" }}old-nav{{end}}" >
   <table>
     <thead class="torrent-info">
       <tr>
@@ -94,7 +94,7 @@
         <td class="tr-size home-td hide-xs">
           {{ fileSize(.Filesize, T) }}
         </td>
-        {{if .LastScrape.IsZero}}
+        {{if .LastScrape.IsZero || formatDateRFC(.LastScrape) == "0001-01-01T00:00:00Z"}}
         <td class="home-td hide-xs" colspan="3">{{ T("unknown")}}</td>
         {{else}}
         <td class="tr-se home-td hide-smol">{{.Seeders}}</td>
@@ -138,6 +138,7 @@
     </span>
   </span>
 </div>
+{{ if !EUCookieLaw }}<div id="cookie-warning"><span id="cookie-warning-close" class="close">×</span>{{ T("cookie_warning")|raw }}</div>{{ end }}
 <!-- Modal -->
 <div id="modal_mod_tools" class="modal">
   <!-- Modal content -->
