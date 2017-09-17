@@ -238,6 +238,7 @@ select.form-input {
 
 .language .input-group label {
     margin-bottom: 1px;
+    vertical-align: unset;
 }
 
 .language .input-group input {
