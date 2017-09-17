@@ -65,26 +65,26 @@ func TestRepairHTMLTags(t *testing.T) {
 }
 
 func TestSanitize(t *testing.T) {
-	//assert := assert.New(t)
-	//tests := []struct {
-		//Test   string
-		//Result string
-	//}{
-	//	{"", ""},
-	//	{"[b]lol[/b]", "<b>lol</b>"},                                                                                                                                                                                                        // Should convert bbcodes
-	//	{"&gt;", "&gt;"},                                                                                                                                                                                                                    // keep escaped html
-	//	{"<b>lol</b>", "<b>lol</b>"},                                                                                                                                                                                                        // keep html tags
-	//	{"<b><u>lol</b>", "<b><u>lol</u></b>"},                                                                                                                                                                                              // close unclosed tags encapsulated
-	//	{"<b><u>lol", "<b><u>lol</u></b>"},                                                                                                                                                                                                  // close unclosed tags non encapsulated
-	//	{"<b><u>lol</em>", "<b><u>lol</u></b>"},                                                                                                                                                                                             // close unclosed tags non encaptsulated + remove useless end tags
-	//	{"<div><b><u>lol</em></div>", "<b><u>lol</u></b>"},                                                                                                                                                                                  // close unclosed tags + remove useless end tags encaptsulated and remove div tag
-	//	{"Hello <STYLE>.XSS{background-image:url(\"javascript:alert('XSS')\");}</STYLE><A CLASS=XSS></A>World", "Hello World"},                                                                                                              // Remove css XSS
-	//	{"<a href=\"javascript:alert('XSS1')\" onmouseover=\"alert('XSS2')\">XSS<a>", "XSS"},                                                                                                                                                // Remove javascript xss
-	//	//{"<a href=\"http://www.google.com/\"><img src=\"https://ssl.gstatic.com/accounts/ui/logo_2x.png\"/></a>", "<a href=\"http://www.google.com/\" rel=\"nofollow\"><img src=\"https://ssl.gstatic.com/accounts/ui/logo_2x.png\"/></a>"}, // We allow img and linl
-	//	{"<img src=\"data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA=\">", ""},                                                                                                                                   // But not allow datauri img by default
-	//	{"<objet></object><embed></embed><base><iframe />", ""},                                                                                                                                                                             // Not allowed elements by default
-	//}
-	//for _, test := range tests {
-		//assert.Equal(test.Result, Sanitize(test.Test, "default"), "Should be equal")
-	//}
+	assert := assert.New(t)
+	tests := []struct {
+		Test   string
+		Result string
+	}{
+		{"", ""},
+		{"[b]lol[/b]", "<b>lol</b>"},                                                                                                                                                                                                        // Should convert bbcodes
+		{"&gt;", "&gt;"},                                                                                                                                                                                                                    // keep escaped html
+		{"<b>lol</b>", "<b>lol</b>"},                                                                                                                                                                                                        // keep html tags
+		{"<b><u>lol</b>", "<b><u>lol</u></b>"},                                                                                                                                                                                              // close unclosed tags encapsulated
+		{"<b><u>lol", "<b><u>lol</u></b>"},                                                                                                                                                                                                  // close unclosed tags non encapsulated
+		{"<b><u>lol</em>", "<b><u>lol</u></b>"},                                                                                                                                                                                             // close unclosed tags non encaptsulated + remove useless end tags
+		{"<div><b><u>lol</em></div>", "<b><u>lol</u></b>"},                                                                                                                                                                                  // close unclosed tags + remove useless end tags encaptsulated and remove div tag
+		{"Hello <STYLE>.XSS{background-image:url(\"javascript:alert('XSS')\");}</STYLE><A CLASS=XSS></A>World", "Hello World"},                                                                                                              // Remove css XSS
+		{"<a href=\"javascript:alert('XSS1')\" onmouseover=\"alert('XSS2')\">XSS<a>", "XSS"},                                                                                                                                                // Remove javascript xss
+		{"<a href=\"http://www.google.com/\"><img src=\"https://ssl.gstatic.com/accounts/ui/logo_2x.png\"/></a>", "<a href=\"http://www.google.com/\" rel=\"nofollow\"><img src=\"https://ssl.gstatic.com/accounts/ui/logo_2x.png\"/></a>"}, // We allow img and linl
+		{"<img src=\"data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA=\">", ""},                                                                                                                                   // But not allow datauri img by default
+		{"<objet></object><embed></embed><base><iframe />", ""},                                                                                                                                                                             // Not allowed elements by default
+	}
+	for _, test := range tests {
+		assert.Equal(test.Result, Sanitize(test.Test, "default"), "Should be equal")
+	}
 }
