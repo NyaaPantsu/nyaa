@@ -3,6 +3,10 @@
 {{block content_body()}}
 <div style="text-align: center;">
   <h1>{{ T("err_no_torrent_file")}}</h1>
+    <a href="" class="form-input btn-green download" style="height: auto;">
+      <div class="icon-magnet"></div>{{ T("magnet_link")}}
+    </a>
+	<br/><br/>
   <img src="/img/no_torrent_file.jpg" alt="No torrent file"/>
 </div>
 {{end}} {{block mascot()}}<br />{{end}}
