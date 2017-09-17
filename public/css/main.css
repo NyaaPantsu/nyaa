@@ -1912,6 +1912,9 @@ span.tag {
     width: 185px;
     font-weight: bold; 
 }
+.upload-form-table .upload-form-table .CodeMirror {
+    font-weight: normal;
+}
 .upload-form-table label{
     vertical-align: top;
 }
