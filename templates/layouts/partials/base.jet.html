@@ -22,7 +22,7 @@
   <meta property="og:description" content="Nyaa Pantsu Homepage"/>
 
   <!-- RSS Feed with Context -->
-  <link rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block rsstitle()}}Latest torrents{{end}} RSS Feed" href="{{ block rss_link() }}/feed/?{{ getRawQuery(URL)|raw }}{{end}}"  />
+  <link rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block rsstitle()}}Latest torrents{{end}} RSS Feed" href="{{ block rss_link() }}/feed?{{ getRawQuery(URL)|raw }}{{end}}"  />
   <link rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{ yield rsstitle()}} Torznab RSS Feed" href="/feed/torznab?{{ getRawQuery(URL)|raw }}&t=search"  />
   <link rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{ yield rsstitle()}} EZTV RSS Feed" href="/feed/eztv?{{ getRawQuery(URL)|raw }}"  />
 
@@ -54,7 +54,7 @@
     <div class="content container center">
       {{ yield infos()}}
       {{ yield errors()}}
-	    <div>{{ yield ad_wide(Type=AdType, ID=AdID) }}</div>
+      {{ if !isset(Infos["system"])}}<div>{{ yield ad_wide(Type=AdType, ID=AdID) }}</div>{{end}}
       {{ block content_body_base() }}{{end}}
     </div>
     {{ block mascot() }}
@@ -97,8 +97,7 @@
       </div>
     </footer>
   </div>
-  {{ if !EUCookieLaw && URL.String() == ""}}<div id="cookie-warning"><span id="cookie-warning-close" class="close">×</span>{{ T("cookie_warning")|raw }}</div>{{ end }}
-  <script type="text/javascript">var commitVersion = "{{ Config.Build }}", UserID = {{User.ID}};</script>
+  <script type="text/javascript">var commitVersion = "{{ Config.Build }}", UserID = {{User.ID}}, domain = "{{getDomainName()}}";</script>
   <script type="text/javascript" src="/js/query.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   <script type="text/javascript" charset="utf-8" src="/js/main.js?v={{ Config.Version }}{{ Config.Build }}" async></script>
   {{block footer_js()}}{{end}}

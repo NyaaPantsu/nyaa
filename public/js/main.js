@@ -92,17 +92,26 @@ function resetCookies() {
   //Remove all cookies but exclude those in the above array
   for (var i = 0; i < cookies.length; i++) {
     var cookieName = (cookies[i].split("=")[0]).trim()
-    //Remove spaces because some cookie names have it
-    if (excludedCookies.includes(cookieName)) continue
+    //Trim spaces because some cookie names have them at times
+    if (excludedCookies.includes(cookieName)) {
+      if(domain == "pantsu.cat") {
+	//only execute if cookie are supposed to be shared between nyaa & sukebei
+        var cookieValue = getCookieValue(cookieName)
+        document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
+        document.cookie = cookieName + "=" + cookieValue + ";expires=" + farFutureString + ";domain=" + domain
+        //Remove cookie and re-create it to ensure domain is correct
+        }
+      continue
+    }
     document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
   }
 
   //Set new version in cookie
-  document.cookie = "commit=" + commitVersion + ";expires=" + farFutureString
+  document.cookie = "commit=" + commitVersion + ";expires=" + farFutureString + ";domain=" + domain
 
   var oneHour = new Date()
   oneHour.setTime(oneHour.getTime() + 1 * 3600 * 1500)
-  document.cookie = "newVersion=true; expires=" + oneHour.toUTCString()
+  document.cookie = "newVersion=true; expires=" + oneHour.toUTCString() + ";domain=" + domain
 }
 
 
@@ -128,9 +137,7 @@ function startupCode() {
   if (!document.cookie.includes("commit"))
     resetCookies()
   else {
-    var startPos = document.cookie.indexOf("commit") + 7,
-      endPos = document.cookie.substring(startPos).indexOf(";"),
-      userCommitVersion = endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos);
+    var userCommitVersion = getCookieValue("commit");
     //Get start and end position of Commit string, need to start searching endPos from version cookie in case it's not the first cookie in the string
     //If endPos is equal to -1, aka if the version cookie is at the very end of the string and doesn't have an ";", the endPos is not used
 
@@ -151,9 +158,7 @@ function startupCode() {
   document.getElementById("dark-toggle").addEventListener("click", toggleTheme);
 
   if(document.cookie.includes("theme=")) {
-    var startPos = document.cookie.indexOf("theme=") + 6
-    var endPos = document.cookie.substring(startPos).indexOf(";")
-    UserTheme = [endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos), "tomorrow"]
+    UserTheme = [getCookieValue("theme"), "tomorrow"]
     //Get user's default theme and set the alternative one as tomorrow
   }
   else 
@@ -162,9 +167,7 @@ function startupCode() {
   
   
   if(document.cookie.includes("theme2=")) {
-    var startPos = document.cookie.indexOf("theme2=") + 7
-    var endPos = document.cookie.substring(startPos).indexOf(";")
-    UserTheme[1] = endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos)
+    UserTheme[1] = getCookieValue("theme2")
     //If user already has ran the ToggleTheme() function in the past, we get the value of the second theme (the one the script switches to)
     if(!UserTheme.includes("tomorrow"))
       UserTheme[1] = "tomorrow"
@@ -177,7 +180,7 @@ function startupCode() {
     if(UserTheme[0] == UserTheme[1])
       UserTheme[1] = "g"
     //If tomorrow is twice in UserTheme, which happens when the user already has tomorrow as his default theme and toggle the dark mode for the first time, we set the second theme as g.css
-    document.cookie = "theme2=" + UserTheme[1] + ";path=/;domain=pantsu.cat;expires=" + farFutureString
+    document.cookie = "theme2=" + UserTheme[1] + ";path=/;expires=" + farFutureString + ";domain=" + domain
     //Set cookie for future theme2 uses
   }
   
@@ -195,8 +198,8 @@ function toggleTheme(e) {
     //If user logged in, we're forced to go through this page in order to save the new user theme
   }
   else {
-    document.cookie = "theme=" + CurrentTheme + ";path=/;domain=pantsu.cat;expires=" + farFutureString
-    document.cookie = "theme2=" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]) + ";path=/;domain=pantsu.cat;expires=" + farFutureString
+    document.cookie = "theme=" + CurrentTheme + ";path=/;expires=" + farFutureString + ";domain=" + domain
+    document.cookie = "theme2=" + (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0]) + ";path=/;expires=" + farFutureString + ";domain=" + domain
     //Otherwise, we can just set the theme through cookies
   }
   
@@ -234,4 +237,11 @@ function humanFileSize(bytes, si) {
   var i = ~~(Math.log(bytes) / Math.log(k))
   return i == 0 ? bytes + " B" : (bytes / Math.pow(k, i)).toFixed(1) + " " + "KMGTPEZY" [i - 1] + (si ? "" : "i") + "B"
 }
+
+function getCookieValue(cookieName) {
+    var startPos = document.cookie.indexOf(cookieName + "=") + cookieName.length + 1
+    var endPos = document.cookie.substring(startPos).indexOf(";")
+    return endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos)
+}
+
 // @license-end
