@@ -741,7 +741,7 @@ func TestRand(t *testing.T) {
  		},
  	}
  	for _, test := range tests {
-		value := fillZero(0, 1)
+		value := fillZero(666, "0", 6)
  		if value != test.Expected {
  			//t.Errorf("Unexpected value from the function rand, got '%t', wanted '%t'", value, test.Expected)
  		}
