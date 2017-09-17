@@ -1,4 +1,7 @@
-[
+[{
+    "id": "upload_rules",
+    "translation": "Please read <a href=\"/faq#rules\">the rules</a> before uploading."
+  },
   {
     "id": "rules",
     "translation": "Rules"
@@ -1810,6 +1813,10 @@
   {
     "id": "error_content_type_post",
     "translation": "Please provide either of Content-Type: application/json header or multipart/form-data"
+  },
+  {
+    "id": "torrent_name",
+    "translation": "Torrent name"
   },
   {
     "id": "torrent_name_invalid",
