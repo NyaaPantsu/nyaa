@@ -1812,6 +1812,10 @@
     "translation": "Please provide either of Content-Type: application/json header or multipart/form-data"
   },
   {
+    "id": "torrent_name",
+    "translation": "Torrent name"
+  },
+  {
     "id": "torrent_name_invalid",
     "translation": "Torrent name is invalid"
   },
