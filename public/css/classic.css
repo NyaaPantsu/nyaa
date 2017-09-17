@@ -630,6 +630,9 @@ span.tag {
 .upload-form-table .CodeMirror-scroll, .upload-form-table .CodeMirror {
     min-height: 120px;
 }
+.upload-form-table .CodeMirror-scroll {
+    max-width: unset!important;
+}
 
 .form-input.language {
     border-radius: 0;
