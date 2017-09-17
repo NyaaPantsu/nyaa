@@ -91,7 +91,7 @@
         {{end}}
         {{ if Torrent.Dlsite > 0 }}
         <span class="tag accepted">
-          <span class="tag-text votable"><a href="http://www.dlsite.com/home/work/=/product_id/RJ{{ fillZero(Torrent.Dlsite, "0", 6) }}.html">{{ T("tagtype_dlsite") }}: RJ{{ Torrent.Dlsite }}</a></span>
+          <span class="tag-text votable"><a href="http://www.dlsite.com/home/work/=/product_id/{{ Torrent.Dlsite }}.html">{{ T("tagtype_dlsite") }}: RJ{{ Torrent.Dlsite }}</a></span>
           <a href="/search?dlsite={{ Torrent.Dlsite }}" title="{{ T("filter") }}"><i class="icon-search"></i></a>
         </span>
         {{end}}
