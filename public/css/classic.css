@@ -584,8 +584,8 @@ span.tag {
     border-radius: 0;
     box-shadow: none;
     border: 1px solid #c5c5c5;
+    background: white;
 }
-
 
 .upload-form-table {
     width: auto;
