@@ -906,6 +906,9 @@ html, body {
     .form-refine {
     margin-bottom: 8px;
     }
+    .upload-form-table .table-input-label {
+        width: 23%;
+    }
 }
 
 @media (max-width: 565px) {
@@ -957,6 +960,9 @@ html, body {
     }
     .refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
     width: 87px!important;
+    }
+    .upload-form-table .table-input-label {
+        display: none;
     }
 }
 
