@@ -585,3 +585,33 @@ span.tag {
     box-shadow: none;
     border: 1px solid #c5c5c5;
 }
+
+
+.upload-form-table {
+	width: auto;
+}
+.upload-form-table .table-input-label label::after {
+	content: ':';
+}
+
+.upload-form-table .table-input-label {
+	width: 136px;
+}
+
+.upload-form-table input, .upload-form-table select, .upload-form-table textarea, .upload-form-table div {
+	max-width: 406px!important;
+}
+.upload-form-table .table-torrent-link input {
+	width: 100%!important;
+}	
+.upload-form-table .editor-toolbar {
+	padding: 0 2px;
+}
+.upload-form-table .editor-toolbar a {
+    width: 26px;
+    height: 26px;
+}
+.upload-form-table .CodeMirror-scroll, .upload-form-table .CodeMirror {
+	min-height: 120px;
+	font-weight: normal;
+}
