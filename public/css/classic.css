@@ -579,3 +579,9 @@ a.nav-btn.log-in {
     min-height: 22px;
     padding: 1px 0;
 }
+
+span.tag {
+    border-radius: 0;
+    box-shadow: none;
+    border: 1px solid #c5c5c5;
+}
