@@ -56,7 +56,6 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("kilo_strfind", kilo_strfind)
 	vars.Set("kilo_rand", kilo_rand)
 	vars.Set("getDomainName", getDomainName)
-	vars.Set("fillZero", fillZero)
 	return vars
 }
 func getRawQuery(currentURL *url.URL) string {
@@ -395,9 +394,4 @@ func getDomainName() string {
 		domain = ""
 	}
 	return domain
-}
-
-
-func fillZero(i int, padding string, length int) string {
-	return strings.Repeat(padding, length - len(strconv.Itoa(i))) + strconv.Itoa(i)
 }
