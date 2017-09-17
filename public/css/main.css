@@ -1940,6 +1940,12 @@ p.upload-rules {
 .upload-form-table .table-torrent-link input[type="text"] {
     width: 65%;
 }
+.upload-form-table .editor-statusbar {
+    position: relative;
+    margin-top: -27px;
+    margin-bottom: 2px;
+    z-index: 1;
+}
 #tag-h3 {
     margin: 0 0 7px;
 }
