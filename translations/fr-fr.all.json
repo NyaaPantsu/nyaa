@@ -1,5 +1,9 @@
 [
   {
+    "id": "upload_rules",
+    "translation": "Veuillez lire <a href=\"/faq#rules\">le règlement</a> avant d'uploader."
+  },
+  {
     "id": "rules",
     "translation": "Règlement"
   },
@@ -1329,7 +1333,7 @@
   },
   {
     "id": "old_nav_explanation",
-    "translation": "Affiche les catégories principales et les numéros de page au-dessus de la liste des torrents durant une recherche comme sur nyaa.se."
+    "translation": "Afficher les catégories principales et les numéros de page au-dessus de la liste des torrents durant une recherche comme sur nyaa.se."
   },
   {
     "id": "no_notifications",
@@ -1810,6 +1814,10 @@
   {
     "id": "error_content_type_post",
     "translation": "Veuillez fournir l'un de ces Content-Type : application/json header ou multipart/form-data"
+  },
+  {
+    "id": "torrent_name",
+    "translation": "Nom du torrent"
   },
   {
     "id": "torrent_name_invalid",
