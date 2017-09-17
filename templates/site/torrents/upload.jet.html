@@ -92,7 +92,6 @@
   <script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   {{ include "layouts/partials/torrent_item_upload" }}
   <script type="text/javascript">
-  parseAllDates()
   document.querySelector("input[name='magnet']").addEventListener("keyup", (e) => {
     var torrentInput = document.querySelector("input[name='torrent']")
     torrentInput.disabled = e.target.value != ""
