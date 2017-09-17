@@ -7,7 +7,7 @@
 {{block title()}}{{ T("upload")}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
-  {{ yield ruleList() }}
+  <p class="upload-rules">{{ T("read_rules") }}</p>
   <form enctype="multipart/form-data" method="POST">
     {{ yield csrf_field() }}
 	
@@ -106,9 +106,8 @@
       <div style="width: 240px">
         {{yield captcha(captchaid=Form.CaptchaID)}}
       </div>
-      <input type="hidden" id="IsUploadingToSukebei" value="{{ if Sukebei}}yes{{end}}"/>
       {{ yield errors(name="captchaID")}}
-      <button type="submit" class="form-input up-btn">{{ T("upload")}}</button>
+      <button type="submit" class="form-input up-btn" id="upload-button">{{ T("upload")}}</button>
     </form>
   </div>
   {{end}}
