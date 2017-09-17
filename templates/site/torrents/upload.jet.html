@@ -10,156 +10,61 @@
   {{ yield ruleList() }}
   <form enctype="multipart/form-data" method="POST">
     {{ yield csrf_field() }}
-    <h3>{{ T("name")}}</h3>
-    <input type="text" name="name" id="name" class="form-input up-input form-torrent-name" placeholder="{{ T("file_name")}}" value="{{Form.Name}}" autofocus>
-    {{ yield errors(name="name")}}
+	
+    <div class="upload-errors">
+	{{ yield errors(name="name")}}
+    {{ yield errors(name="torrent")}}
+    {{ yield errors(name="magnet")}}
+    {{ yield errors(name="c")}}
+    {{ yield errors(name="remake")}}
+    {{ yield errors(name="hidden")}}
+    {{ yield errors(name="website_link")}}
+    {{ yield errors(name="tags")}}
+	</div>
     
-    <div class="torrent-preview-table" style="display: none;"><h3 style="text-align: center;margin-bottom: 3px;">{{ T("torrent_preview")}}</h3>
-      <table>
-        <thead  class="torrent-info table-torrent-thead">
-          <tr>
-            <th class="tr-cat">{{ T("category")}}</th>
-            <th class="tr-name">
-              {{ T("name")}}
-              <span class="sort-arrows">
-                <span class="sortarrowleft sortarrowdim">▼</span>
-                <span class="sortarrowdim">▲</span>
-              </span>
-            </th>
-            <th class="tr-cs"></th>
-            <th class="tr-links"></th>
-            <th class="tr-size hide-xs">
-              {{ T("size")}}
-              <span class="sort-arrows">
-                <span class="sortarrowleft sortarrowdim">▼</span>
-                <span class="sortarrowdim">▲</span>
-              </span>
-            </th>
-            <th class="tr-se hide-smol">
-              S
-              <span class="sort-arrows">
-                <span class="sortarrowleft sortarrowdim">▼</span>
-                <span class="sortarrowdim">▲</span>
-              </span>
-            </th>
-            <th class="tr-le hide-smol">
-              L
-              <span class="sort-arrows">
-                <span class="sortarrowleft sortarrowdim">▼</span>
-                <span class="sortarrowdim">▲</span>
-              </span>
-            </th>
-            <th class="tr-dl hide-xs">
-              D
-              <span class="sort-arrows">
-                <span class="sortarrowleft sortarrowdim">▼</span>
-                <span class="sortarrowdim">▲</span>
-              </span>
-            </th>
-            <th class="tr-date hide-xs">
-              {{ T("date")}}
-              <span class="sort-arrows">
-                <span class="sortarrowleft ">▼</span>
-                <span class="sortarrowdim">▲</span>
-              </span>
-            </th>
-          </tr>
-        </thead>
-        <tbody id="torrentListResults" {{if AltColors}}class="alt-colors"{{end}}>
-          <tr class="torrent-info hidden">
-            <td class="tr-cat home-td"></td>
-            <td class="tr-name home-td" colspan="2"><a></a></td>
-            <td class="tr-links home-td"></td>
-            <td class="tr-size home-td hide-xs"></td>
-            <td class="tr-se home-td hide-smol"></td>
-            <td class="tr-le home-td hide-smol"></td>
-            <td class="tr-dl home-td hide-xs"></td>
-            <td class="hide-xs"></td>
-          </tr>
-          <tr id="torrent-info-tr" class="torrent-info{{ if User.IsTrusted() }} trusted{{end}}">
-            <td class="tr-cat home-td">
-              <div class="nyaa-cat table-torrent-category">
-                <a class="category"></a>
-                <a><img src="/img/blank.gif" class="flag flag-other table-torrent-flag" alt="blank"></a>
-              </div>
-            </td>
-            <td class="tr-name home-td" colspan="2">
-              <a class="table-torrent-name">{{Form.Name}}</a>
-            </td>
-
-            <td class="tr-links home-td">
-              <a title="Magnet Link">
-                <div class="icon-magnet"></div>
-              </a>
-              <a title="Torrent file">
-                <div class="icon-floppy"></div>
-              </a>
-            </td>
-            <td class="tr-size home-td hide-xs">570.4 MiB</td>
-            <td class="tr-se home-td hide-smol">0</td>
-            <td class="tr-le home-td hide-smol">0</td>
-            <td class="tr-dl home-td hide-xs">0</td>
-            <td class="tr-date home-td date-short hide-xs table-torrent-date" title="2017-07-12T16:58:29Z">Jul 12, 2017</td>
-          </tr>
-          <tr class="torrent-info hidden">
-            <td class="tr-cat home-td"></td>
-            <td class="tr-name home-td" colspan="2"><a></a></td>
-            <td class="tr-links home-td"></td>
-            <td class="tr-size home-td hide-xs"></td>
-            <td class="tr-se home-td hide-smol"></td>
-            <td class="tr-le home-td hide-smol"></td>
-            <td class="tr-dl home-td hide-xs"></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table></div>
-
-      <h3 {{ if Form.Magnet != "" }}class="hidden"{{end}}>{{ T("torrent_file")}}</h3>
-      <input type="file" name="torrent" id="torrent" class="up-input" accept=".torrent" {{ if Form.Magnet != "" }}disabled{{end}}/>
-      <p>{{ T("uploading_file_prefills_fields")}}</p>
-      {{ yield errors(name="torrent")}}
-
-      <h3>{{ T("magnet_link")}}</h3>
-      <input type="text" name="magnet" id="magnet" class="form-input up-input" placeholder="{{ T("magnet_link")}}" value="{{Form.Magnet}}"/>
-      <p>{{  T("please_include_our_tracker") }}</p>
-      {{ yield errors(name="magnet")}}
-
-      <h3>{{ T("category")}}</h3>
-      <select name="c" id="c" class="form-input up-input form-torrent-category" required>
-        <option value="">{{ T("select_a_torrent_category")}}</option>
-        {{ range _, cat := GetCategories(false, true) }}
-        <option value="{{ cat.ID }}" {{if Form.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
-        {{ end }}
-      </select>
-      {{ yield errors(name="c")}}
-
-      <h3>{{  T("torrent_language") }}</h3>
-      <div class="form-input language">
-        {{ yield flagList(languages=GetTorrentLanguages(), selected=Form.Languages, inputname="languages", id="upload-lang")}}
-      </div>
-      <p class="not-important">{{ T("language_not_mandatory") }}</p>
-
-      <p>
-        <input type="checkbox" value="true" name="remake" id="remake" class="form-torrent-remake"/>
-        <label for="remake">{{ T("mark_as_remake")}}</label>
-      </p>
-      {{ yield errors(name="remake")}}
-
-      {{ if User.ID > 0 }}
-      <p>
-        <input type="checkbox" value="true" name="hidden" id="hidden" class="form-torrent-hidden"/>
-        <label for="hidden">{{ T("upload_as_anon")}}</label>
-      </p>
-      {{ yield errors(name="hidden")}}
-      {{ end }}
-
-      <h3>{{ T("website_link")}}</h3>
-      <input name="website_link" id="website_link" class="form-input up-input" type="text" value="{{Form.WebsiteLink}}"/>
-      {{ yield errors(name="website_link")}}
-
-      <h3>{{ T("torrent_description")}}</h3>
-      <p>{{ T("description_markdown_notice")}}</p>
-      <textarea name="desc" id="desc" class="form-input up-input" style="height: 10rem;">{{Form.Description}}</textarea>
+	  <table class="upload-form-table">
+	    <tbody>
+		  <tr>
+		     <td class="table-input-label"><label for="name">{{ T("name")}}</label></td>
+		     <td class="table-input"><input type="text" name="name" id="name" class="form-input up-input form-torrent-name" placeholder="{{ T("file_name")}}" value="{{Form.Name}}" autofocus></td>
+		  </tr>
+		  <tr class="table-torrent-link">
+		     <td class="table-input-label"><label for="torrent">{{ T("torrent_file")}} / {{ T("magnet_link")}}</label></td>
+		     <td class="table-input"><input type="file" name="torrent" id="torrent" class="up-input" accept=".torrent" {{ if Form.Magnet != "" }}disabled{{end}}/><input type="text" name="magnet" id="magnet" class="form-input up-input" placeholder="{{ T("magnet_link")}}" value="{{Form.Magnet}}"/></td>
+		  </tr>
+		  <tr>
+		     <td class="table-input-label"><label for="c">{{ T("category")}}</label></td>
+		     <td class="table-input">
+			  <select name="c" id="c" class="form-input up-input form-torrent-category" required>
+				<option value="">{{ T("select_a_torrent_category")}}</option>
+				{{ range _, cat := GetCategories(false, true) }}
+				<option value="{{ cat.ID }}" {{if Form.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
+				{{ end }}
+			  </select>
+			 </td>
+		  </tr>
+		     <td class="table-input-label">{{ T("torrent_language")}}</td>
+		     <td class="table-input">
+			   <div class="form-input language">
+                 {{ yield flagList(languages=GetTorrentLanguages(), selected=Form.Languages, inputname="languages", id="upload-lang")}}
+               </div>
+	         </td>
+		  </tr>
+		  <tr class="table-checkboxes">
+		     <td class="table-input-label"></td>
+		     <td class="table-input" style="font-weight: normal;"><label for="remake">{{ T("mark_as_remake")}}:</label> <input type="checkbox" value="true" name="remake" id="remake" class="form-torrent-remake"/>{{ if User.ID > 0 }}<label for="hidden">{{ T("upload_as_anon")}}:</label> <input type="checkbox" value="true" name="hidden" id="hidden" class="form-torrent-hidden">{{ end }}</td>
+		  </tr>
+		  <tr>
+		  <tr>
+		     <td class="table-input-label"><label for="website_link">{{ T("website_link")}}</label></td>
+		     <td class="table-input"><input name="website_link" id="website_link" class="form-input up-input" type="text" value="{{Form.WebsiteLink}}"/></td>
+		  </tr>
+		  <tr>
+		     <td class="table-input-label"><label for="desc">{{ T("torrent_description")}}</label></td>
+		     <td class="table-input"><textarea name="desc" id="desc" class="form-input up-input" style="height: 10rem;">{{Form.Description}}</textarea></td>
+		  </tr>
+		</tbody>
+	  </table>
 
       <div class="upload-tag-form">
         <h3 id="tag-h3">{{ T("torrent_tags")}}</h3>
@@ -184,22 +89,9 @@
   {{ block footer_js()}}
   <script type="text/javascript" src="/js/translation.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   <script type="text/javascript" src="/js/template.js?v={{ Config.Version}}{{ Config.Build }}"></script>
-  <script type="text/javascript" src="/js/kilo.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   <script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   {{ include "layouts/partials/torrent_item_upload" }}
   <script type="text/javascript">
-  var preview = new Kilo({
-    // {{ if User.IsTrusted()}}
-    userTrusted: true,
-    // {{ end }}
-    // {{ if Sukebei() }}
-    sukebei: true,
-    // {{end}}
-    // {{ if User.ID > 0 }}
-    isMember: true,
-    // {{end}}
-    listContext: true
-  })
   preview.render()
   parseAllDates()
   document.querySelector("input[name='magnet']").addEventListener("keyup", (e) => {
