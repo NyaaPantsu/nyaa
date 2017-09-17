@@ -595,7 +595,8 @@ span.tag {
 }
 
 .upload-form-table .table-input-label {
-    width: 136px;
+    width: 136px!important;
+    display: table-cell!important;
 }
 
 .upload-form-table input, .upload-form-table select, .upload-form-table textarea, .upload-form-table div {
