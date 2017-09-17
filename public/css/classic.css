@@ -606,10 +606,20 @@ span.tag {
 }	
 .upload-form-table .editor-toolbar {
 	padding: 0 2px;
+    font-size: 10px;
+}
+.upload-form-table .editor-toolbar::before {
+	margin-bottom: 2px;
+}
+.upload-form-table .editor-toolbar::after {
+	margin-top: 4px;
 }
 .upload-form-table .editor-toolbar a {
     width: 26px;
-    height: 26px;
+    height: 24px;
+}
+.upload-form-table .editor-toolbar a:before {
+    line-height: 25px;
 }
 .upload-form-table .CodeMirror-scroll, .upload-form-table .CodeMirror {
 	min-height: 120px;
