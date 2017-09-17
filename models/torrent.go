@@ -59,7 +59,7 @@ type Torrent struct {
 	AnidbID      uint   `gorm:"column:anidbid"`
 	VndbID       uint   `gorm:"column:vndbid"`
 	VgmdbID      uint   `gorm:"column:vgmdbid"`
-	Dlsite       uint   `gorm:"column:dlsite"`
+	Dlsite       string `gorm:"column:dlsite"`
 	VideoQuality string `gorm:"column:videoquality"`
 	AcceptedTags string `gorm:"column:tags"`
 	// Indicates the language of the torrent's content (eg. subs, dubs, raws, manga TLs)
@@ -97,7 +97,7 @@ type TorrentJSON struct {
 	AnidbID      uint   `json:"anidbid"`
 	VndbID       uint   `json:"vndbid"`
 	VgmdbID      uint   `json:"vgmdbid"`
-	Dlsite       uint   `json:"dlsite"`
+	Dlsite       string `json:"dlsite"`
 	VideoQuality string `json:"videoquality"`
 	AcceptedTags Tags   `json:"tags"`
 
