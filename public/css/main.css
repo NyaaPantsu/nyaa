@@ -239,6 +239,7 @@ select.form-input {
 
 .language .input-group label {
     margin-bottom: 1px;
+    vertical-align: unset;
 }
 
 .language .input-group input {
@@ -878,6 +879,9 @@ html, body {
     .torrent-hr {
     margin-bottom: 0;
     }
+    .upload-form-table .table-torrent-link input {
+        width: 100%!important;
+    }
 }
 
 @media (max-height: 750px),(max-width: 500px) {
@@ -903,6 +907,9 @@ html, body {
     }
     .form-refine {
     margin-bottom: 8px;
+    }
+    .upload-form-table .table-input-label {
+        width: 23%;
     }
 }
 
@@ -955,6 +962,9 @@ html, body {
     }
     .refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
     width: 87px!important;
+    }
+    .upload-form-table .table-input-label {
+        display: none;
     }
 }
 
@@ -1896,30 +1906,63 @@ span.tag {
     border-left: 1px solid #d8d8d8;
 }
 
-.upload-tag-form h3 {
-    margin: 10px 0;
+p.upload-rules {
+    margin-top: 0;
 }
-
-.upload-tag-form .form-group {
-    width: 167px;
-    display:inline-block;
-    margin-bottom: 5px;
-    margin-right: 5px;
+#upload-button {
+    width: 120px;
 }
-
-.upload-tag-form label {
-    display:inline-block;
-    width: 100%;
+.upload-form-table {
+    max-width: 950px;
+    margin: 15px 0;
+    margin-bottom: 0;
+}
+.upload-form-table .table-input-label {
+    width: 185px;
+    font-weight: bold; 
+    padding-top: 3px!important;
+}
+.upload-form-table .table-input-label, .upload-form-table td label{
+    vertical-align: top;
+}
+.upload-form-table .upload-form-table .CodeMirror {
+    font-weight: normal;
+}
+.upload-form-table .table-input {
+    font-weight: bold;
+}
+.upload-form-table .table-checkboxes td {
+    padding: 3px 0;
+}
+.upload-form-table .table-torrent-link input[type="file"] {
+    width: 35%;
+}
+.upload-form-table .table-torrent-link input[type="text"] {
+    width: 65%;
+}
+#tag-h3 {
+    margin: 0 0 7px;
+}
+.upload-tag-table {
+    width: auto;
+}
+.upload-tag-table .input-label {
+    display: block;
     font-size: unset;
     margin-bottom: 1px;
 }
-
-.upload-tag-form input,.upload-tag-form select {
+.upload-tag-table input, .upload-tag-table select {
     height: 25px;
     padding: 3px 3px;
     width: 100%;
 }
+.upload-tag-table td {
+    padding-right: 7px;
+}
 
+.upload-tag-form h3 {
+    margin: 10px 0;
+}
 
 .show-xs {
     display: none;
