@@ -1907,6 +1907,7 @@ span.tag {
 .upload-form-table {
     max-width: 950px;
     margin: 15px 0;
+    margin-bottom: 0;
 }
 .upload-form-table .table-input-label {
     width: 185px;
@@ -1930,6 +1931,9 @@ span.tag {
 }
 .upload-form-table .table-torrent-link input[type="text"] {
     width: 65%;
+}
+.tag-h3 {
+    margin-top: 0;
 }
 .upload-tag-table {
 	width: auto;
