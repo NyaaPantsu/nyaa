@@ -55,7 +55,6 @@
 		     <td class="table-input" style="font-weight: normal;"><input type="checkbox" value="true" name="remake" id="remake" class="form-torrent-remake"/><label for="remake">{{ T("mark_as_remake")}}</label> <input type="checkbox" value="true" name="hidden" id="hidden" class="form-torrent-hidden {{ if User.ID == 0 }}hidden{{end}}" {{ if User.ID == 0 }}disabled{{end}}><label for="hidden" {{ if User.ID == 0 }}class="hidden"{{end}}>{{ T("upload_as_anon")}}</label></td>
 		  </tr>
 		  <tr>
-		  <tr>
 		     <td class="table-input-label"><label for="website_link">{{ T("website_link")}}</label></td>
 		     <td class="table-input"><input name="website_link" id="website_link" placeholder="http://" class="form-input up-input" type="text" value="{{Form.WebsiteLink}}"/></td>
 		  </tr>
