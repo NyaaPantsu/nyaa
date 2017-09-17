@@ -97,7 +97,6 @@
       </div>
     </footer>
   </div>
-  {{ if !EUCookieLaw && URL.String() == ""}}<div id="cookie-warning"><span id="cookie-warning-close" class="close">×</span>{{ T("cookie_warning")|raw }}</div>{{ end }}
   <script type="text/javascript">var commitVersion = "{{ Config.Build }}", UserID = {{User.ID}}, domain = "{{getDomainName()}}";</script>
   <script type="text/javascript" src="/js/query.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   <script type="text/javascript" charset="utf-8" src="/js/main.js?v={{ Config.Version }}{{ Config.Build }}" async></script>
