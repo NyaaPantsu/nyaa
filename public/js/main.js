@@ -87,9 +87,9 @@ parseAllDates()
 //called if no Commit cookie is set or if the website has a newer commit than the one in cookie
 function resetCookies() {
   var cookies = document.cookie.split(";")
-  var excludedCookies = ["mascot", "theme", "theme2", "mascot_url", "lang", "csrf_token", "altColors", "EU_Cookie", "oldNav"]
+  var excludedCookies = ["mascot", "version", "theme", "theme2", "mascot_url", "lang", "csrf_token", "altColors", "EU_Cookie", "oldNav"]
 
-  //Remove all cookies but exclude those in the above array
+  //Remove all cookies but re-create those in the above array
   for (var i = 0; i < cookies.length; i++) {
     var cookieName = (cookies[i].split("=")[0]).trim()
     //Trim spaces because some cookie names have them at times
@@ -108,6 +108,7 @@ function resetCookies() {
 
   //Set new version in cookie
   document.cookie = "commit=" + commitVersion + ";expires=" + farFutureString + ";domain=" + domain
+  document.cookie = "version=" + websiteVersion + ";expires=" + farFutureString + ";domain=" + domain
 
   var oneHour = new Date()
   oneHour.setTime(oneHour.getTime() + 1 * 3600 * 1500)
@@ -134,14 +135,11 @@ function startupCode() {
   if (location.hash) shiftWindow()
   window.addEventListener("hashchange", shiftWindow)
 
-  if (!document.cookie.includes("commit"))
+  if (!document.cookie.includes("commit") && !document.cookie.includes("version"))
     resetCookies()
   else {
-    var userCommitVersion = getCookieValue("commit");
-    //Get start and end position of Commit string, need to start searching endPos from version cookie in case it's not the first cookie in the string
-    //If endPos is equal to -1, aka if the version cookie is at the very end of the string and doesn't have an ";", the endPos is not used
-
-    if (userCommitVersion != commitVersion)
+    var userCommitVersion = getCookieValue("commit"), userWebsiteVersion = getCookieValue("version");
+    if (userCommitVersion != commitVersion || userWebsiteVersion != websiteVersion)
       resetCookies()
   }
   
