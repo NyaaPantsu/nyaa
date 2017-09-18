@@ -1355,10 +1355,6 @@
     "translation": "Torrent language"
   },
   {
-    "id": "language_not_mandatory",
-    "translation": "Language is not mandatory anymore"
-  },
-  {
     "id": "language_en-us_name",
     "translation": "English"
   },
@@ -1816,7 +1812,7 @@
   },
   {
     "id": "torrent_name",
-    "translation": "Torrent name"
+    "translation": "Torrent Name"
   },
   {
     "id": "torrent_name_invalid",
