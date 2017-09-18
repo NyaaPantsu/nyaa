@@ -584,8 +584,8 @@ span.tag {
     border-radius: 0;
     box-shadow: none;
     border: 1px solid #c5c5c5;
+    background: white;
 }
-
 
 .upload-form-table {
     width: auto;
@@ -630,11 +630,14 @@ span.tag {
 .upload-form-table .CodeMirror-scroll, .upload-form-table .CodeMirror {
     min-height: 120px;
 }
+.upload-form-table .CodeMirror-scroll {
+    max-width: unset!important;
+}
 
 .form-input.language {
     border-radius: 0;
     padding: 7px 3px;
 }
-.upload-tag-table td {
-    padding-right: 5px!important;
+.upload-tag-table .form-group input, .upload-tag-table .form-group select {
+    width: 118px!important;   
 }

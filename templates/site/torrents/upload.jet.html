@@ -43,6 +43,7 @@
 			  </select>
 			 </td>
 		  </tr>
+		  <tr>
 		     <td class="table-input-label">{{ T("torrent_language")}}</td>
 		     <td class="table-input">
 			   <div class="form-input language">
@@ -55,7 +56,6 @@
 		     <td class="table-input" style="font-weight: normal;"><input type="checkbox" value="true" name="remake" id="remake" class="form-torrent-remake"/><label for="remake">{{ T("mark_as_remake")}}</label> <input type="checkbox" value="true" name="hidden" id="hidden" class="form-torrent-hidden {{ if User.ID == 0 }}hidden{{end}}" {{ if User.ID == 0 }}disabled{{end}}><label for="hidden" {{ if User.ID == 0 }}class="hidden"{{end}}>{{ T("upload_as_anon")}}</label></td>
 		  </tr>
 		  <tr>
-		  <tr>
 		     <td class="table-input-label"><label for="website_link">{{ T("website_link")}}</label></td>
 		     <td class="table-input"><input name="website_link" id="website_link" placeholder="http://" class="form-input up-input" type="text" value="{{Form.WebsiteLink}}"/></td>
 		  </tr>
@@ -63,12 +63,12 @@
 		     <td class="table-input-label"><label for="desc">{{ T("torrent_description")}}</label></td>
 		     <td class="table-input"><textarea name="desc" id="desc" class="form-input up-input" style="height: 10rem;">{{Form.Description}}</textarea></td>
 		  </tr>
-		</tbody>
-	  </table>
+		  <tr>
+		     <td class="table-input-label">{{ T("torrent_tags")}}:</td>
+		     <td class="table-input">
 
 	  <table class="upload-tag-table">
 		<tbody>
-			<tr><td colspan="3"><h3 id="tag-h3">{{ T("torrent_tags")}}</h3></td></tr>
 			<tr>
 			{{ range _, tag := Config.Torrents.Tags.Types}}
 				<td>
@@ -100,6 +100,10 @@
 				{{end}}
 			{{ end }}
 			</tr>
+		</tbody>
+	  </table>
+			 </td>
+		  </tr>
 		</tbody>
 	  </table>
 
