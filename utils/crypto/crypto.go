@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"crypto/rand"
 	"fmt"
+	"io"
 	"strings"
 )
 
@@ -31,7 +32,7 @@ func GenerateRandomToken32() (string, error) {
 // GenerateRandomToken : Generates a random token int n long
 func GenerateRandomToken(n int) (string, error) {
 	token := make([]byte, n)
-	_, err := rand.Read(token)
+	_, err := io.ReadFull(rand.Reader, token)
 	// %x	base 16, lower-case, two characters per byte
 	return fmt.Sprintf("%x", token), err
 
