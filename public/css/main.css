@@ -1903,6 +1903,9 @@ span.tag {
 p.upload-rules {
     margin-top: 0;
 }
+p.upload-rules a {
+    text-decoration: underline;
+}
 #upload-button {
     width: 120px;
 }
