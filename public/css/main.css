@@ -912,6 +912,15 @@ html, body {
     .upload-form-table .table-input-label {
         width: 23%;
     }
+    .editor-toolbar.fullscreen {
+        top: 57px;
+    }
+    .CodeMirror-fullscreen {
+        top: 107px;
+    }
+    .editor-preview-side {
+        top: 107px;
+    }
 }
 
 @media (max-width: 565px) {
@@ -1918,12 +1927,6 @@ p.upload-rules {
 }
 .upload-form-table .table-input-label, .upload-form-table td label{
     vertical-align: top;
-}
-.upload-form-table .CodeMirror {
-    font-weight: normal;
-}
-.upload-form-table .table-input {
-    font-weight: bold;
 }
 .upload-form-table .table-checkboxes td {
     padding: 3px 0;
