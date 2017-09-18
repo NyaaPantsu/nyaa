@@ -1213,10 +1213,6 @@ thead.torrentinfo tr {
     min-height: 40px;
 }
 
-.tr-filelist {
-    --nest-level: 0;
-}
-
 .caret-down-icon {
     background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%232196F3" d="M24 34l18-20H6"/></svg>') no-repeat center center;
     background-size: 24px;
@@ -1229,9 +1225,6 @@ thead.torrentinfo tr {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
-
-/* The margin that gives the tree-like effect, based on the nest-level */
 
 .tr-filelist td:first-child::before {
     margin-right: 0.4rem;
