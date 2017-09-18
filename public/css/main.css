@@ -36,12 +36,13 @@ img[class$="-w"] {
     padding: 0 2px;
     margin-bottom: 1px;
 }
-.center.bottom {
+.centered {
     margin: 0 auto;
     display: block;
-    width: 700px;
+    width: 732px;
     position: relative;
     z-index: 1;
+    max-width: 100%;
 }
 
 #mascot {
