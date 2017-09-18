@@ -42,6 +42,7 @@ img[class$="-w"] {
     width: 728px;
     position: relative;
     z-index: 1;
+    max-width: 100%;
 }
 
 #mascot {
@@ -339,7 +340,7 @@ select.form-input {
 
 #content {
     position: relative;
-    top: 53px;
+    top: 54px;
 }
 #content.content-admin  {
     top: 108px!important;
@@ -448,7 +449,7 @@ select.form-input {
 }
 
 #announce {
-    margin-bottom: 3px;
+    margin-bottom: 4px;
     padding: 7px 10px;
     background-color: #D9EDF7;
     border: 1px solid #c4e1e8;
@@ -1213,10 +1214,6 @@ thead.torrentinfo tr {
     min-height: 40px;
 }
 
-.tr-filelist {
-    --nest-level: 0;
-}
-
 .caret-down-icon {
     background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%232196F3" d="M24 34l18-20H6"/></svg>') no-repeat center center;
     background-size: 24px;
@@ -1229,9 +1226,6 @@ thead.torrentinfo tr {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
-
-/* The margin that gives the tree-like effect, based on the nest-level */
 
 .tr-filelist td:first-child::before {
     margin-right: 0.4rem;
