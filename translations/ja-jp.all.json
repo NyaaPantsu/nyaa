@@ -1,5 +1,9 @@
 [
   {
+    "id": "read_rules",
+    "translation": "アップロードする前に <a href=\"/faq#rules\">ルール</a> をお読みください。"
+  },
+  {
     "id": "rules",
     "translation": "ルール"
   },
@@ -1810,6 +1814,10 @@
   {
     "id": "error_content_type_post",
     "translation": "ヘッダーに Content-Type: application/json または multipart/form-data を入力してください"
+  },
+  {
+    "id": "torrent_name",
+    "translation": "Torrent 名"
   },
   {
     "id": "torrent_name_invalid",
