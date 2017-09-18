@@ -21,7 +21,7 @@ type SortField struct {
 }
 
 var sortFields = []SortField{
-	{"id", "torrent_id"},
+	{"id", "torrents.torrent_id"},
 	{"name.raw", "torrent_name"},
 	{"date", "date"},
 	{"downloads", "downloads"},
