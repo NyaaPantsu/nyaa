@@ -94,7 +94,7 @@ function resetCookies() {
     var cookieName = (cookies[i].split("=")[0]).trim()
     //Trim spaces because some cookie names have them at times
     if (excludedCookies.includes(cookieName)) {
-      if(domain == "pantsu.cat") {
+      if(domain == ".pantsu.cat") {
 	//only execute if cookie are supposed to be shared between nyaa & sukebei
         var cookieValue = getCookieValue(cookieName)
         document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
