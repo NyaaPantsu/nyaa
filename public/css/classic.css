@@ -514,8 +514,17 @@ td.tr-size {
 .container.bottom .pagination p {
     margin: 4px 0 6px 0px;
 }
-.centered {
+.bottom.center {
     width: 87%;
+    max-width: 1328px;
+    padding: 0 8px;
+}	
+.content > .centered {
+	padding: 0;
+	margin: 0;
+}
+#content > .centered {
+	width: 87%;
     max-width: 1328px;
     padding: 0 8px;
 }
