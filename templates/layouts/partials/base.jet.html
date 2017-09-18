@@ -54,7 +54,7 @@
     <div class="content container center">
       {{ yield infos()}}
       {{ yield errors()}}
-      {{ if !isset(Infos["system"])}}<div>{{ yield ad_wide(Type=AdType, ID=AdID) }}</div>{{end}}
+      {{ if !isset(Infos["system"])}}<div class="centered">{{ yield ad_wide(Type=AdType, ID=AdID) }}</div>{{end}}
       {{ block content_body_base() }}{{end}}
     </div>
     {{ block mascot() }}
@@ -87,7 +87,7 @@
 	  {{ genNav(Navigation, URL, 15)|raw }}
 	</div>
     </div>
-    <div class="bottom center">{{ yield ad_wide(Type=AdType, ID=AdID) }}</div>
+    <div class="centered">{{ yield ad_wide(Type=AdType, ID=AdID) }}</div>
     <footer id="footer">
       <div class="container footer center">
         <div class="footer-opt">

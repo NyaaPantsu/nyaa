@@ -518,6 +518,15 @@ td.tr-size {
     width: 87%;
     max-width: 1328px;
     padding: 0 8px;
+}	
+.content > .centered {
+	padding: 0;
+	margin: 0;
+}
+#content > .centered {
+	width: 87%;
+    max-width: 1328px;
+    padding: 0 8px;
 }
 
 .pagination .active, .pagination .active:hover {
