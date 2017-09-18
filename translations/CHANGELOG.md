@@ -43,3 +43,5 @@
 ## 2017/09/17
 * + torrent_name
 * + read_rules
+## 2017/09/18
+* - language_not_mandatory
