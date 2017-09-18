@@ -387,11 +387,11 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 	}
 
 	if p.FromID != 0 {
-		query.Append("torrent_id > ?", p.FromID)
+		query.Append("torrents.torrent_id > ?", p.FromID)
 	}
 	if len(p.TorrentID) > 0 {
 		for _, id := range p.TorrentID {
-			query.Append("torrent_id = ?", id)
+			query.Append("torrents.torrent_id = ?", id)
 		}
 	}
 	if p.FromDate != "" {
