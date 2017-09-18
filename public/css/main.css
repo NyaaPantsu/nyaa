@@ -42,6 +42,7 @@ img[class$="-w"] {
     width: 728px;
     position: relative;
     z-index: 1;
+    max-width: 100%;
 }
 
 #mascot {
