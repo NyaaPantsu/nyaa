@@ -384,8 +384,8 @@ func kilo_strfind(str1 string, searchfor string, start int) bool {
 	return strings.Contains(str1[start:len1], searchfor)
 }
 
-func kilo_rand(min int, max int) int {
-	return min + rand.Intn(max - min)
+func kilo_rand(max int) int {
+	return rand.Intn(max)
 }
 
 func getDomainName() string {
