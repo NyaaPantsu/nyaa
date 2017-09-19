@@ -28,12 +28,12 @@ func GenerateTorrent(magnet string) error {
 	queue = append(queue, magnet)
 	cl, err := torrent.NewClient(nil)
 	if err != nil {
-		log.Fatalf("error creating client: %s", err)
+		log.Errorf("error creating client: %s", err)
 		return err
 	}
 	t, err := cl.AddMagnet(magnet)
 	if err != nil {
-		log.Fatalf("error adding magnet to client: %s", err)
+		log.Errorf("error adding magnet to client: %s", err)
 		return err
 	}
 	go func() {
