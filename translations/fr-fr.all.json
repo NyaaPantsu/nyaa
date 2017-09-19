@@ -1356,10 +1356,6 @@
     "translation": "Langue du torrent"
   },
   {
-    "id": "language_not_mandatory",
-    "translation": "La langue du torrent n'est pas obligatoire."
-  },
-  {
     "id": "language_en-us_name",
     "translation": "Anglais"
   },
