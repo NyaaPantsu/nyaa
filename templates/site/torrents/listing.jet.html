@@ -138,7 +138,6 @@
     </span>
   </span>
 </div>
-{{ if !EUCookieLaw }}<div id="cookie-warning"><span id="cookie-warning-close" class="close">×</span>{{ T("cookie_warning")|raw }}</div>{{ end }}
 <!-- Modal -->
 <div id="modal_mod_tools" class="modal">
   <!-- Modal content -->
@@ -169,6 +168,7 @@
   </div>
 </div>
 {{end}}
+{{ if !EUCookieLaw }}<div id="cookie-warning"><span id="cookie-warning-close" class="close">×</span>{{ T("cookie_warning")|raw }}</div>{{ end }}
 {{end}}
 {{ block footer_js()}}
 <script type="text/javascript" src="{{ URL.Parse("/js/template.js") }}"></script>

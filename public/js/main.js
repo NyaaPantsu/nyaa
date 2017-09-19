@@ -228,6 +228,39 @@ document.getElementsByClassName("form-input refine")[0].addEventListener("click"
   }
 })
 
+document.getElementsByClassName("form-input refine-btn")[0].addEventListener("click", function (e) {
+  var inputs = document.querySelectorAll(".box.refine form input")
+  var select = document.querySelectorAll(".box.refine form select")
+	
+  for(var i = 0; i < inputs.length; i++) 
+    if(inputs[i].value == "") inputs[i].disabled = true;
+	
+  for(var i = 0; i < select.length; i++) 
+    if(select[i].selectedIndex == 0) select[i].disabled = true;
+	
+	
+  if(document.querySelector(".box.refine form input[name='limit']").value == "50")
+    document.querySelector(".box.refine form input[name='limit']").disabled = true
+
+  if(document.querySelector(".box.refine form select[name='sort']").selectedIndex == 5)
+    document.querySelector(".box.refine form select[name='sort']"). disabled = true;
+  else  document.querySelector(".box.refine form select[name='sort']"). disabled = false;
+	
+  if(document.querySelector(".box.refine form select[name='order']").selectedIndex == 1)
+    document.querySelector(".box.refine form select[name='order']"). disabled = true;
+  else  document.querySelector(".box.refine form select[name='order']"). disabled = false;
+	
+  if(document.querySelector(".box.refine form select[name='sizeType']").selectedIndex == 2 &&
+    document.querySelector(".box.refine form input[name='minSize']").value == "" &&
+	document.querySelector(".box.refine form input[name='maxSize']").value == "")
+	document.querySelector(".box.refine form select[name='sizeType']"). disabled = true
+  else document.querySelector(".box.refine form select[name='sizeType']"). disabled = false
+  
+  if(document.querySelector(".box.refine form select[name='order']").selectedIndex == 1)
+    document.querySelector(".box.refine form select[name='order']"). disabled = true;
+  else  document.querySelector(".box.refine form select[name='order']"). disabled = false;
+})
+
 function humanFileSize(bytes, si) {
   if (bytes == 0) 
     return "Unknown"
