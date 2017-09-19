@@ -1356,10 +1356,6 @@
     "translation": "Torrent の言語"
   },
   {
-    "id": "language_not_mandatory",
-    "translation": "言語は必須ではなくなりました"
-  },
-  {
     "id": "language_en-us_name",
     "translation": "英語"
   },
