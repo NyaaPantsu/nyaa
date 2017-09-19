@@ -7,9 +7,11 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/NyaaPantsu/nyaa/utils/upload"
+
 	"github.com/NyaaPantsu/nyaa/config"
-	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
+	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/format"
 	"github.com/gin-gonic/gin"
 )
@@ -17,6 +19,13 @@ import (
 // DownloadTorrent : Controller for downloading a torrent
 func DownloadTorrent(c *gin.Context) {
 	hash := c.Param("hash")
+
+	if hash == "" { // if no hash provided, you can't find a torrent in db neither the torrent file
+		//File not found, send 404
+		variables := templates.Commonvariables(c)
+		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
+		return
+	}
 
 	torrent, err := torrents.FindRawByHash(hash)
 
@@ -26,8 +35,8 @@ func DownloadTorrent(c *gin.Context) {
 		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
 	}
-	
-	if hash == "" && len(config.Get().Torrents.FileStorage) == 0 {
+
+	if len(config.Get().Torrents.FileStorage) == 0 { // if no FileStorage configured, you still can display the magnet link
 		//File not found, send 404
 		variables := templates.Commonvariables(c)
 		var trackers []string
@@ -41,7 +50,7 @@ func DownloadTorrent(c *gin.Context) {
 		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
 	}
- 
+
 	//Check if file exists and open
 	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
 	if err != nil {
@@ -55,6 +64,7 @@ func DownloadTorrent(c *gin.Context) {
 		}
 		magnet := format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, trackers...)
 		variables.Set("magnet", magnet)
+		upload.GenerateTorrent(magnet)
 		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
 	}
@@ -63,8 +73,6 @@ func DownloadTorrent(c *gin.Context) {
 	//Get the file size
 	FileStat, _ := Openfile.Stat()                     //Get info from file
 	FileSize := strconv.FormatInt(FileStat.Size(), 10) //Get file size as a string
-
-	
 
 	c.Header("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s.torrent\"", torrent.Name))
 	c.Header("Content-Type", "application/x-bittorrent")
