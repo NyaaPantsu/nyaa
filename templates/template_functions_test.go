@@ -705,7 +705,7 @@ func TestRand(t *testing.T) {
  		},
  	}
  	for _, test := range tests {
-		value := kilo_rand(0, 1)
+		value := kilo_rand(1)
  		if value != test.Expected {
  			//t.Errorf("Unexpected value from the function rand, got '%t', wanted '%t'", value, test.Expected)
  		}
