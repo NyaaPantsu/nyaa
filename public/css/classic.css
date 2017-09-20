@@ -241,6 +241,16 @@ select.form-input {
     font-size: 1.3em;
 }
 
+.CodeMirror {
+    padding: 0;
+}
+
+.upload-form-table .checkbox-container {
+    height: 22px;
+    padding: 1px 0;
+    border-radius: 0;
+}
+
 .user-form input[type="text"],.user-form input[type="email"],.user-form input[type="password"] {
     width: 173px;
 
