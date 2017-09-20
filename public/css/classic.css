@@ -57,6 +57,9 @@ a:hover {
 #content {
     top: 31px!important;
 }
+.upload-form-table #anidex_api, .upload-form-table #nyaasi_api {
+    width: calc(100% - 48px);
+}
 
 .tr-cat {
     width: 87px!important;
