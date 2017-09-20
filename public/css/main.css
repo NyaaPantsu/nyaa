@@ -1971,7 +1971,7 @@ p.upload-rules a {
 }
 .upload-tag-table .input-label {
     display: block;
-    font-size: unset;
+    font-size: 14px;
     margin-bottom: 1px;
 }
 .upload-tag-table input, .upload-tag-table select {
