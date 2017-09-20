@@ -564,6 +564,10 @@ th {
     overflow: visible;
     text-overflow: visible;
     padding: 0;
+    font-size: 0px;
+}
+.tr-cs a::before {
+    font-size: 14px;	
 }
 
 .tr-size {
