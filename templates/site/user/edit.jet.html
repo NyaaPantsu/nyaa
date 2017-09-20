@@ -5,8 +5,9 @@
 {{ block profile_navigation()}}{{ yield profile_menu(route="profile_edit") }}{{end}}
 {{block profile_content()}}
 <h2 style="margin-top: 4px;">{{  T("personal_info")}}</h2>
- {{ yield csrf_field()}}
+
  <form role="form" method="POST">
+ {{ yield csrf_field()}}
 <table class="user-edit-table">
 	<tbody>
 		<tr>
