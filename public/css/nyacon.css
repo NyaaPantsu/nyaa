@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'nyacon';
-  src: url('../font/nyacon.eot?11572056');
-  src: url('../font/nyacon.eot?11572056#iefix') format('embedded-opentype'),
-       url('../font/nyacon.woff2?11572056') format('woff2'),
-       url('../font/nyacon.woff?11572056') format('woff'),
-       url('../font/nyacon.ttf?11572056') format('truetype'),
-       url('../font/nyacon.svg?11572056#nyacon') format('svg');
+  src: url('./font/nyacon.eot?11572056');
+  src: url('./font/nyacon.eot?11572056#iefix') format('embedded-opentype'),
+       url('./font/nyacon.woff2?11572056') format('woff2'),
+       url('./font/nyacon.woff?11572056') format('woff'),
+       url('./font/nyacon.ttf?11572056') format('truetype'),
+       url('./font/nyacon.svg?11572056#nyacon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
