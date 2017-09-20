@@ -538,7 +538,7 @@ th {
 }
 
 .tr-flag {
-    white-space: initial!important;
+    white-space: normal!important;
 }
 
 .tr-name {
