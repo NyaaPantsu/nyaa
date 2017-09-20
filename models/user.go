@@ -48,6 +48,8 @@ type User struct {
 	OldNav      string    `gorm:"column:old_nav"`
 	Mascot         string    `gorm:"column:mascot"`
 	MascotURL      string    `gorm:"column:mascot_url"`
+	AnidexAPIToken string    `gorm:"column:anidex_api_token"`
+	NyaasiAPIToken string    `gorm:"column:nyaasi_api_token"`
 	UserSettings   string    `gorm:"column:settings"`
 	Pantsu         float64   `gorm:"column:pantsu"`
 
