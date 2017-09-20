@@ -1948,7 +1948,7 @@ p.upload-rules a {
 }
 .upload-form-table #anidex_api, .upload-form-table #nyaasi_api {
     width: 90%;
-    width: calc(100% - 21    px);
+    width: calc(100% - 21px);
 }
 .upload-form-table .checkbox-container {
     display: inline-block;
