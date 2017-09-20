@@ -570,11 +570,11 @@ th {
     width: 90px;
 }
 
-.tr-se, .tr-le {
+.tr-se, .tr-le, .tr-st {
     font-weight: bold;
 }
 
-.tr-se, .tr-le, .tr-dl {
+.tr-se, .tr-le, .tr-dl, .tr-st  {
     width: 50px;
 }
 
@@ -736,7 +736,7 @@ html, body {
     .nav-btn.log-in div {
     display: block;
     }
-    .tr-se, .tr-le, .tr-dl {
+    .tr-se, .tr-le, .tr-dl, .tr-st  {
     width: 46px;
     }
 }
@@ -868,7 +868,7 @@ html, body {
     .torrent-preview-table .tr-cat {
         width: 74px;
     }
-    .tr-se, .tr-le {
+    .tr-se, .tr-le, .tr-st  {
         width: 36px;
     }
     .header .h-search input {
