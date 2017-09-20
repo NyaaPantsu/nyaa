@@ -65,11 +65,17 @@
 		  </tr>
 		  <tr>
 		     <td class="table-input-label"><label for="website_link">Upload to Anidex:</label></td>
-		     <td class="table-input"><input name="anidex_api" id="anidex_api" placeholder="Anidex API key" class="form-input up-input" type="text" value=""/></td>
+		     <td class="table-input">
+				<div class="checkbox-container"><input type="checkbox" value="" name="anidex_upload" id="anidex_upload" class="form-torrent"/></div>
+				<input name="anidex_api" id="anidex_api" placeholder="Anidex API key" class="form-input up-input" type="text" value=""/>
+			 </td>
 		  </tr>
 		  <tr>
 		     <td class="table-input-label"><label for="website_link">Upload to Nyaa.si:</label></td>
-		     <td class="table-input"><input name="nyaasi_api" id="nyaasi_api" placeholder="Nyaa.si API key" class="form-input up-input" type="text" value=""/></td>
+		     <td class="table-input">
+				<div class="checkbox-container"><input type="checkbox" value="" name="nyaasi_upload" id="nyaasi_upload" class="form-torrent"/></div>
+				<input name="nyaasi_api" id="nyaasi_api" placeholder="Nyaa.si API key" class="form-input up-input" type="text" value=""/>
+			</td>
 		  </tr>
 		  <tr>
 		     <td class="table-input-label">{{ T("torrent_tags")}}:</td>
