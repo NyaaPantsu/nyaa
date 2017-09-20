@@ -87,12 +87,15 @@ th.tr-name a {
     width: 114px;
 }
 
-.comment-count {
-    display: inline!important;
+.tr-cs a::before {
+    display: none;
+}
+.tr-cs a {
+    font-size: 1em;
     font-weight: bold;
 }
-.tr-cs a{
-    display: none;
+.tr-cs a {
+    text-decoration: none;
 }
 
 #mascot {
