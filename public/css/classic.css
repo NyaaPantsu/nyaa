@@ -94,7 +94,7 @@ th.tr-name a {
     font-size: 1em;
     font-weight: bold;
 }
-.tr-cs a {
+.tr-cs a:hover {
     text-decoration: none;
 }
 
