@@ -79,8 +79,7 @@
         </td>
         {{ if len(.Comments) > 0 }}
         <td class="tr-cs home-td" title="{{len(.Comments)}} {{T("comments")}}">
-          <span class="comment-count" style="display:none">{{len(.Comments)}}</span>
-          <a href="/view/{{ .ID }}#comments" class="icon-chat"></a>
+          <a href="/view/{{ .ID }}#comments" class="icon-chat">{{len(.Comments)}}</a>
         </td>
         {{ end }}
         <td class="tr-links home-td">
