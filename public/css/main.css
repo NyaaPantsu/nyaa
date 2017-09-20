@@ -554,15 +554,15 @@ th {
 
 .tr-links {
     width: 43px;
-    overflow: initial;
+    overflow: visible;
     text-align: left;
     padding: 0 2px!important;
 }
 
 .tr-cs {
     width: 18px;
-    overflow: initial;
-    text-overflow: initial;
+    overflow: visible;
+    text-overflow: visible;
     padding: 0;
 }
 
