@@ -1029,8 +1029,9 @@ html, body {
     border-radius: 6px;
 }
 
-.profile-usermenu {
-    display: inline-grid;
+.profile-usermenu a {
+    display: block;
+    margin-bottom: 11px;
 }
 
 .profile-userbuttons {
