@@ -2107,6 +2107,17 @@ table.multiple-upload {
     background-color: #ff7a7a;
 }
 
+.user-edit-table td {
+	padding: 3px 0;
+	vertical-align: top;
+}
+.user-edit-table td:nth-child(1){
+	width: 150px;
+	font-weight: bold;
+	font-size: 14px!important;
+    padding: 5px 0;
+}
+
 /* Language specific CSS */
 
 html[lang="ja-jp"] .form-refine span.spacing {
