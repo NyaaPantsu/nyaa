@@ -96,7 +96,7 @@ func Encode(userID uint, validUntil time.Time) (string, error) {
 
 // Clear : Erase cookie session
 func Clear(c *gin.Context) {
-	c.SetCookie(CookieName, "", -1, "/", getDomainName(), false, true)
+	c.SetCookie(CookieName, "", -1, "/", "", false, true)
 }
 
 // SetLogin sets the authentication cookie
