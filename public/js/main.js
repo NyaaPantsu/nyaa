@@ -173,28 +173,28 @@ function startupCode() {
   document.getElementById("dark-toggle").addEventListener("click", toggleTheme);
 
   if(document.cookie.includes("theme=")) {
-    UserTheme = [getCookieValue("theme"), "tomorrow"]
-    //Get user's default theme and set the alternative one as tomorrow
+    UserTheme = [getCookieValue("theme"), darkTheme]
+    //Get user's default theme and set the alternative one as dark theme
   }
   else 
-    UserTheme = ["g", "tomorrow"]
+    UserTheme = ["g", darkTheme]
    //If user has no default theme, set these by default
   
   
   if(document.cookie.includes("theme2=")) {
     UserTheme[1] = getCookieValue("theme2")
     //If user already has ran the ToggleTheme() function in the past, we get the value of the second theme (the one the script switches to)
-    if(!UserTheme.includes("tomorrow"))
-      UserTheme[1] = "tomorrow"
-    //If none of the theme are tomorrow, which happens if the user is on dark mode (with theme2 on g.css) and that he switches to classic or g.css in settings, we set the second one as tomorrow
+    if(!UserTheme.includes(darkTheme))
+      UserTheme[1] = darkTheme
+    //If none of the theme are darkTheme, which happens if the user is on dark mode (with theme2 on g.css) and that he switches to classic or g.css in settings, we set the second one as darkTheme
     else if(UserTheme[0] == UserTheme[1])
       UserTheme[1] = "g"
-    //If both theme are tomorrow, which happens if theme2 is on tomorrow (always is by default) and that the user sets tomorrow as his theme through settings page, we set secondary theme to g.css
+    //If both theme are darkTheme, which happens if theme2 is on darkTheme (always is by default) and that the user sets darkTheme as his theme through settings page, we set secondary theme to g.css
   }
   else {
     if(UserTheme[0] == UserTheme[1])
       UserTheme[1] = "g"
-    //If tomorrow is twice in UserTheme, which happens when the user already has tomorrow as his default theme and toggle the dark mode for the first time, we set the second theme as g.css
+    //If darkTheme is twice in UserTheme, which happens when the user already has darkTheme as his default theme and toggle the dark mode for the first time, we set the second theme as g.css
     document.cookie = "theme2=" + UserTheme[1] + ";path=/;expires=" + farFutureString + ";domain=" + domain
     //Set cookie for future theme2 uses
   }
