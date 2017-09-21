@@ -67,7 +67,7 @@
 .icon-finished:before { content: '\e809'; } /* '' */
 .icon-pending:before { content: '\e80a'; } /* '' */
 .icon-error:before { content: '\e80b'; } /* '' */
-.icon-search-1:before { content: '\e80c'; } /* '' */
+.icon-search:before { content: '\e80c'; } /* '' */
 .icon-rss-squared:before { content: '\f143'; } /* '' */
 .icon-trash:before { content: '\f1f8'; } /* '' */
 .icon-user-plus:before { content: '\f234'; } /* '' */
