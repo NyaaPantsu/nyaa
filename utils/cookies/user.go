@@ -111,7 +111,7 @@ func SetLogin(c *gin.Context, user *models.User) (int, error) {
 		return http.StatusInternalServerError, err
 	}
 
-	c.SetCookie(CookieName, encoded, maxAge, "/", getDomainName(), false, true)
+	c.SetCookie(CookieName, encoded, maxAge, "/", "", false, true)
 	// also set response header for convenience
 	c.Header("X-Auth-Token", encoded)
 	return http.StatusOK, nil
