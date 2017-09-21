@@ -88,7 +88,10 @@ parseAllDates()
 function resetCookies() {
   var cookies = document.cookie.split(";")
   var excludedCookies = ["mascot", "version", "theme", "theme2", "mascot_url", "lang", "csrf_token", "altColors", "EU_Cookie", "oldNav"]
-
+  var ignoredCookies = ["session"]
+  //Excluded cookies are either left untouched or deleted then re-created
+  //Ignored Cookies are constantly left untouched
+  
   //Get HostName without subDomain
   var hostName = window.location.host
   var lastDotIndex = hostName.lastIndexOf(".")
@@ -100,7 +103,7 @@ function resetCookies() {
   }
   hostName = hostName.substr(secondLast)
   
-  //Remove all cookies but re-create those in the above array
+
   for (var i = 0; i < cookies.length; i++) {
     var cookieName = (cookies[i].split("=")[0]).trim()
     //Trim spaces because some cookie names have them at times
@@ -112,6 +115,9 @@ function resetCookies() {
         document.cookie = cookieName + "=" + cookieValue + ";path=/;expires=" + farFutureString + ";domain=" + domain
         //Remove cookie and re-create it to ensure domain is correct
         }
+      continue
+    }
+    if (ignoredCookies.includes(cookieName)) {
       continue
     }
     document.cookie = cookieName + "=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
