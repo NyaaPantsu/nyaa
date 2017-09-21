@@ -89,13 +89,24 @@ function resetCookies() {
   var cookies = document.cookie.split(";")
   var excludedCookies = ["mascot", "version", "theme", "theme2", "mascot_url", "lang", "csrf_token", "altColors", "EU_Cookie", "oldNav"]
 
+  //Get HostName without subDomain
+  var hostName = window.location.host
+  var lastDotIndex = hostName.lastIndexOf(".")
+  var secondLast
+  
+  for(var index = 0; index < lastDotIndex; index++) {
+    if(hostName[index] == '.' && index != lastDotIndex)
+      secondLast = index
+  }
+  hostName = hostName.substr(secondLast)
+  
   //Remove all cookies but re-create those in the above array
   for (var i = 0; i < cookies.length; i++) {
     var cookieName = (cookies[i].split("=")[0]).trim()
     //Trim spaces because some cookie names have them at times
     if (excludedCookies.includes(cookieName)) {
-      if(domain == ".pantsu.cat") {
-	//only execute if cookie are supposed to be shared between nyaa & sukebei
+      if(domain == hostName) {
+	//only execute if cookie are supposed to be shared between nyaa & sukebei, aka on host name without subdomain
         var cookieValue = getCookieValue(cookieName)
         document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
         document.cookie = cookieName + "=" + cookieValue + ";path=/;expires=" + farFutureString + ";domain=" + domain
