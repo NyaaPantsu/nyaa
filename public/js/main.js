@@ -95,7 +95,7 @@ function resetCookies() {
   var secondLast
   
   for(var index = 0; index < lastDotIndex; index++) {
-    if(hostName[index] == '.' && index != lastDotIndex)
+    if(hostName[index] == '.')
       secondLast = index
   }
   hostName = hostName.substr(secondLast)
