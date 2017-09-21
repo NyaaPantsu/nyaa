@@ -95,13 +95,13 @@ function resetCookies() {
   //Get HostName without subDomain
   var hostName = window.location.host
   var lastDotIndex = hostName.lastIndexOf(".")
-  var secondLast
+  var secondLast = -1
   
   for(var index = 0; index < lastDotIndex; index++) {
     if(hostName[index] == '.')
       secondLast = index
   }
-  hostName = hostName.substr(secondLast)
+  hostName = hostName.substr(secondLast == -1 ? 0 : secondLast)
   
 
   for (var i = 0; i < cookies.length; i++) {
