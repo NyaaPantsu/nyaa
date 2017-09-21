@@ -96,7 +96,7 @@ func Encode(userID uint, validUntil time.Time) (string, error) {
 
 // Clear : Erase cookie session
 func Clear(c *gin.Context) {
-	c.SetCookie(CookieName, "", -1, "/", getDomainName(), false, true)
+	c.SetCookie(CookieName, "", -1, "/", "", false, true)
 }
 
 // SetLogin sets the authentication cookie
@@ -111,7 +111,7 @@ func SetLogin(c *gin.Context, user *models.User) (int, error) {
 		return http.StatusInternalServerError, err
 	}
 
-	c.SetCookie(CookieName, encoded, maxAge, "/", getDomainName(), false, true)
+	c.SetCookie(CookieName, encoded, maxAge, "/", "", false, true)
 	// also set response header for convenience
 	c.Header("X-Auth-Token", encoded)
 	return http.StatusOK, nil
