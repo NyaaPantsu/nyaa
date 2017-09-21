@@ -32,10 +32,7 @@
   <link rel="stylesheet" id="style" href="/css/main.css?v={{ Config.Version }}{{ Config.Build }}"/>
   <!-- nyaacon, custom icon set -->
   <link rel="stylesheet" href="/css/nyacon.css?v={{ Config.Version}}{{ Config.Build }}"/>
-  <!-- User selected theme, if any, defaults to /g/ -->
-  {{if Theme == ""}}
-  <link rel="stylesheet" id="theme" href="/css/g.css?v={{ Config.Version }}{{ Config.Build }}"/>
-  {{else}}
+  <!-- User selected theme, if empty defaults to theme in nyaa.yml -->
   <link rel="stylesheet" id="theme" href="/css/{{Theme}}.css?v={{ Config.Version }}{{ Config.Build }}"/>
   {{end}}
   <!-- Flags css -->
