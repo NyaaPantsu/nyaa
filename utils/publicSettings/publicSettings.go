@@ -180,7 +180,7 @@ func GetThemeFromRequest(c *gin.Context) string {
 	if err == nil {
 		return cookie
 	}
-	return ""
+	return config.DefaultTheme(false)
 }
 
 // GetAltColorsFromRequest : Return whether user has enabled alt colors or not
