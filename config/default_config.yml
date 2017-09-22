@@ -216,3 +216,7 @@ models:
   activities_table_name: activities
 # NotificationTableName : Name of scrape table in DB
   scrape_table_name: scrape
+#Default themes
+default_theme:
+  theme: g
+  dark: tomorrow

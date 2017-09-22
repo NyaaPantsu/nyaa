@@ -25,6 +25,7 @@ func init() {
 	// User Profile specific routes
 	userRoutes := router.Get().Group("/user")
 	{
+		userRoutes.GET("/:id", UserProfileHandler)
 		userRoutes.GET("/:id/:username", UserProfileHandler)
 		userRoutes.GET("/:id/:username/follow", UserFollowHandler)
 		userRoutes.GET("/:id/:username/edit", UserDetailsHandler)
@@ -33,4 +34,6 @@ func init() {
 		userRoutes.GET("/:id/:username/feed", feedController.RSSHandler)
 		userRoutes.GET("/:id/:username/feed/:page", feedController.RSSHandler)
 	}
+	
+	router.Get().Any("/username/:username", UserGetFromName)
 }
