@@ -240,7 +240,7 @@ select.form-input {
 
 .language .input-group label {
     margin-bottom: 1px;
-    vertical-align: unset;
+    vertical-align: inherit;
 }
 
 .language .input-group input {
@@ -1953,9 +1953,11 @@ p.upload-rules a {
 }
 .upload-form-table .table-torrent-link input[type="file"] {
     width: 35%;
+    height: 25px;
+    margin-right: 3%;
 }
 .upload-form-table .table-torrent-link input[type="text"] {
-    width: 65%;
+    width: 62%;
 }
 .upload-form-table .editor-statusbar {
     position: relative;
