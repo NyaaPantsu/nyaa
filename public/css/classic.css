@@ -57,7 +57,7 @@ a:hover {
 #content {
     top: 31px!important;
 }
-.upload-form-table #anidex_api, .upload-form-table #nyaasi_api {
+.upload-form-table .checkbox-container+input {
     width: calc(100% - 48px);
 }
 
