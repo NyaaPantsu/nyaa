@@ -165,6 +165,12 @@
     Checkbox.disabled = e.target.value != ""
     Checkbox.checked = e.target.value != ""
   }) 
+	  
+  document.querySelector("input[name='tokyot_api']").addEventListener("keyup", (e) => {
+    var Checkbox = document.querySelector("input[name='tokyot_upload']")
+    Checkbox.disabled = e.target.value != ""
+    Checkbox.checked = e.target.value != ""
+  }) 
 </script>
   <script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc"), spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
 {{end}}
