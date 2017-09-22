@@ -48,6 +48,8 @@ type Config struct {
 	Email EmailConfig `yaml:"email,flow,omitempty"`
 	// models config
 	Models ModelsConfig `yaml:"models,flow,omitempty"`
+	// Default Theme config
+	DefaultTheme DefaultThemeConfig `yaml:"default_theme,flow,omitempty"`
 }
 
 // Tags Config struct for tags in torrent
@@ -205,6 +207,11 @@ type ModelsConfig struct {
 	NotificationsTableName string `yaml:"notifications_table_name,omitempty"`
 	ActivityTableName      string `yaml:"activities_table_name,omitempty"`
 	ScrapeTableName        string `yaml:"scrape_table_name,omitempty"`
+}
+
+type DefaultThemeConfig struct {
+	Theme    string `yaml:"theme,omitempty"`
+	Dark     string `yaml:"dark,omitempty"`
 }
 
 // SearchConfig : Config struct for search

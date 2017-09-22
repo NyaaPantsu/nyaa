@@ -3,6 +3,7 @@ package userController
 import (
 	"strconv"
 	"time"
+	"fmt"
 
 	"net/http"
 
@@ -54,6 +55,19 @@ func UserProfileHandler(c *gin.Context) {
 	} else {
 		c.Status(http.StatusNotFound)
 	}
+}
+
+func UserGetFromName(c *gin.Context) {
+	username := c.Param("username")
+	
+	if(username != "") {
+		user, _, _, err := users.FindByUsername(username)
+ 		if err == nil {
+			c.Redirect(http.StatusSeeOther, fmt.Sprintf("/user/%d/%s", uint32(user.ID), username))
+			return
+ 		}
+	} 
+	c.Status(http.StatusNotFound)
 }
 
 // UserDetailsHandler : Getting User Profile Details View

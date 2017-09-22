@@ -32,12 +32,8 @@
   <link rel="stylesheet" id="style" href="/css/main.css?v={{ Config.Version }}{{ Config.Build }}"/>
   <!-- nyaacon, custom icon set -->
   <link rel="stylesheet" href="/css/nyacon.css?v={{ Config.Version}}{{ Config.Build }}"/>
-  <!-- User selected theme, if any, defaults to /g/ -->
-  {{if Theme == ""}}
-  <link rel="stylesheet" id="theme" href="/css/g.css?v={{ Config.Version }}{{ Config.Build }}"/>
-  {{else}}
+  <!-- User selected theme, if empty defaults to theme in nyaa.yml -->
   <link rel="stylesheet" id="theme" href="/css/{{Theme}}.css?v={{ Config.Version }}{{ Config.Build }}"/>
-  {{end}}
   <!-- Flags css -->
   <link rel="stylesheet" href="/css/flags/flags.min.css"/>
   <!-- Search Box for Google -->
@@ -98,7 +94,13 @@
       </div>
     </footer>
   </div>
-  <script type="text/javascript">var commitVersion = "{{ Config.Build }}", websiteVersion = "{{ Config.Version }}", UserID = {{User.ID}}, domain = "{{getDomainName()}}";</script>
+  <script type="text/javascript">
+	  var commitVersion = "{{ Config.Build }}",
+	      websiteVersion = "{{ Config.Version }}",
+	      UserID = {{User.ID}},
+	      domain = "{{getDomainName()}}",
+	      darkTheme = "{{DarkTheme}}";
+	</script>
   <script type="text/javascript" src="/js/query.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   <script type="text/javascript" charset="utf-8" src="/js/main.js?v={{ Config.Version }}{{ Config.Build }}" async></script>
   {{block footer_js()}}{{end}}

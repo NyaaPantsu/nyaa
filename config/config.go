@@ -39,6 +39,15 @@ func WebAddress() string {
 	}
 }
 
+// DefaultTheme : Return the default theme or default dark theme
+func DefaultTheme(dark bool) string {
+	if !dark {
+		return Get().DefaultTheme.Theme
+	} else {
+		return Get().DefaultTheme.Dark
+	}
+}
+
 var allowedDatabaseTypes = map[string]bool{
 	"sqlite3":  true,
 	"postgres": true,
