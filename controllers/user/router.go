@@ -34,4 +34,6 @@ func init() {
 		userRoutes.GET("/:id/:username/feed", feedController.RSSHandler)
 		userRoutes.GET("/:id/:username/feed/:page", feedController.RSSHandler)
 	}
+	
+	router.Get().Any("/username/:username", UserGetFromName)
 }
