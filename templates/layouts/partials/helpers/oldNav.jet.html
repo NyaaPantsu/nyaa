@@ -1,4 +1,4 @@
-<div class="box refine website-nav{{if URL.String() != "/" && !kilo_strcmp(URL.String(), "/search", 7, 1) }} refine-not-search{{end}}">
+<div class="box refine website-nav">
 <table id="nav-category-list">
 	<tbody>
 		<tr><td>{{if Search.Category == ""}}<b>{{ T("all_categories")}}</b>{{else}}<a href="{{genSearchWithCategory(URL, "_")}}">{{ T("all_categories")}}</a>{{end}}</td></tr>
