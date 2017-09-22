@@ -826,6 +826,14 @@ html, body {
         float: initial!important;
         max-width: none;
     }
+    .upload-form-table .table-checkboxes {
+        padding: 3px 0;
+        width: 100%;
+    }
+    .upload-form-table .table-checkboxes .form-group {
+        display: inline-block;
+        margin-right: 6px;
+    }
     .hide-xs {
     display: none !important;
     }
@@ -1936,8 +1944,12 @@ p.upload-rules a {
 .upload-form-table .table-input-label, .upload-form-table td label{
     vertical-align: top;
 }
-.upload-form-table .table-checkboxes td {
-    padding: 3px 0;
+.upload-form-table .form-input.language {
+    float: left;
+}
+.upload-form-table .table-checkboxes {
+    display: inline-block;
+    padding: 10px 4px;
 }
 .upload-form-table .table-torrent-link input[type="file"] {
     width: 35%;
