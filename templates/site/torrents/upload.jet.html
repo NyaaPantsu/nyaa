@@ -77,6 +77,13 @@
 			</td>
 		  </tr>
 		  <tr>
+		     <td class="table-input-label"><label for="tokyot_api">Upload to TokyoTosho:</label></td>
+		     <td class="table-input">
+				<div class="checkbox-container"><input type="checkbox" value="" name="tokyot_upload" id="tokyot_upload" {{if User.TokyoTAPIToken  != ""}}checked disabled{{end}} class="form-torrent"/></div>
+				<input name="tokyot_api" id="tokyot_api" placeholder="TokyoTosho API key (can be prefilled in user settings)" class="form-input up-input" type="text" value="{{User.TokyoTAPIToken }}"/>
+			</td>
+		  </tr>
+		  <tr>
 		     <td class="table-input-label">{{ T("torrent_tags")}}:</td>
 		     <td class="table-input">
 
