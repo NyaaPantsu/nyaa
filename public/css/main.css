@@ -1951,7 +1951,7 @@ p.upload-rules a {
     margin-bottom: 2px;
     z-index: 1;
 }
-.upload-form-table #anidex_api, .upload-form-table #nyaasi_api {
+.upload-form-table .checkbox-container+input {
     width: 90%;
     width: calc(100% - 21px);
 }
