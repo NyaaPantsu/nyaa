@@ -103,7 +103,7 @@ function resetCookies() {
       secondLast = index
   }
   hostName = hostName.substr(secondLast == -1 ? 0 : secondLast)
-  if(!hostName.includes(domain)) domain = hostName
+  if(!hostName.includes(domain)) domain = window.location.host
 
   for (var i = 0; i < cookies.length; i++) {
     var cookieName = (cookies[i].split("=")[0]).trim()
