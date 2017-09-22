@@ -58,7 +58,7 @@ a:hover {
     top: 31px!important;
 }
 .upload-form-table .checkbox-container+input {
-    width: calc(100% - 48px);
+    width: 385px;
 }
 
 .tr-cat {
