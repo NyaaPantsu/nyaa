@@ -827,7 +827,7 @@ html, body {
         max-width: none;
     }
     .upload-form-table .table-checkboxes {
-        padding: 3px 0;
+        padding: 3px 0!important;
         width: 100%;
     }
     .upload-form-table .table-checkboxes .form-group {
