@@ -60,6 +60,14 @@ a:hover {
 .upload-form-table .checkbox-container+input {
     width: 385px;
 }
+.upload-form-table .table-checkboxes {
+    padding: 3px 0!important;
+    width: 100%!important;
+}
+.upload-form-table .table-checkboxes .form-group {
+    display: inline-block!important;
+    margin-right: 6px!important;
+}
 
 .tr-cat {
     width: 87px!important;
