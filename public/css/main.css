@@ -895,6 +895,9 @@ html, body {
     .upload-form-table .table-torrent-link input {
         width: 100%!important;
     }
+    .upload-form-table .table-input-label {
+        width: 25%;
+    }
 }
 
 @media (max-height: 750px),(max-width: 500px) {
