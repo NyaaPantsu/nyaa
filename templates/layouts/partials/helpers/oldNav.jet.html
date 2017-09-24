@@ -21,7 +21,7 @@
 				{{ if Search.Sort != 2 && Search.Sort != 0}}<a href="{{ genSearchWithOrdering(URL, "2") }}">{{ T("date") }}</a>{{else}}<b>{{ T("date") }}</b>{{end}} / 
 				{{ if Search.Sort != 5}}<a href="{{ genSearchWithOrdering(URL, "5") }}">{{ T("seeders") }}</a>{{else}}<b>{{ T("seeders") }}</b>{{end}} / 
 				{{ if Search.Sort != 6}}<a href="{{ genSearchWithOrdering(URL, "6") }}">{{ T("leechers") }}</a>{{else}}<b>{{ T("leechers") }}</b>{{end}} / 
-				{{ if Search.Sort != 7}}<a href="{{ genSearchWithOrdering(URL, "7") }}">{{ T("downloads") }}</a>{{else}}<b>{{ T("downloads") }}</b>{{end}}  / 
+				{{ if Search.Sort != 7}}<a href="{{ genSearchWithOrdering(URL, "7") }}">{{ T("completed") }}</a>{{else}}<b>{{ T("completed") }}</b>{{end}}  / 
 				{{ if Search.Sort != 4}}<a href="{{ genSearchWithOrdering(URL, "4") }}">{{ T("size") }}</a>{{else}}<b>{{ T("size") }}</b>{{end}}  / 
 				{{ if Search.Sort != 1}}<a href="{{ genSearchWithOrdering(URL, "1") }}">{{ T("name") }}</a>{{else}}<b>{{ T("name") }}</b>{{end}}  
 			</td>
