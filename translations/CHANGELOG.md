@@ -45,3 +45,8 @@
 * + read_rules
 ## 2017/09/18
 * - language_not_mandatory
+## 2017/09/24
+* + enabled
+* + disabled
+* + reset_api_key
+* + tag_error

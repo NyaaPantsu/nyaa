@@ -325,7 +325,7 @@ document.querySelector("#modal_tag_form form").addEventListener("submit", functi
         document.getElementById("tags-torrent").innerHTML = tagHTml + document.getElementById("tags-torrent").innerHTML
       }
     } else {
-      alert("Couldn't add a tag, please check your internet connexion and that all fields are filled.")
+      alert("{{ T("tag_error") }}")
     }
   })
 
