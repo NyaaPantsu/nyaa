@@ -10,7 +10,7 @@
     {{ yield csrf_field()}}
     <label class="input-label">{{ T("api_token") }}:</label>
     <p style="font-family: monospace;">{{UserProfile.APIToken}}</p>
-    <a class="form-input up-input" href="/user/{{ UserProfile.ID}}/{{UserProfile.Username }}/apireset">Reset API key</a>
+    <a class="form-input up-input" href="/user/{{ UserProfile.ID}}/{{UserProfile.Username }}/apireset">{{ T("reset_api_key") }}</a>
     <br/>
     <br/>
     <a href="/apidoc">{{ T("api_documentation")}}</a>
