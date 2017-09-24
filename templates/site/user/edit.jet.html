@@ -65,8 +65,8 @@
     <label class="input-label">{{  T("new_torrent_settings") }}:</label>
     <br/>
     <select id="new_torrent" name="new_torrent" class="form-input up-input">
-      <option value="0" {{ if !UserProfile.Settings.Get("new_torrent") }}selected{{end}}>{{  T("no")}}</option>
-      <option value="1" {{ if UserProfile.Settings.Get("new_torrent") }}selected{{end}}>{{  T("yes")}}</option>
+      <option value="0" {{ if !UserProfile.Settings.Get("new_torrent") }}selected{{end}}>{{  T("disabled")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("new_torrent") }}selected{{end}}>{{  T("enabled")}}</option>
     </select>
     <br/>
     {{ yield errors(name="NewTorrent")}}
@@ -75,16 +75,16 @@
     <label class="input-label">{{  T("new_torrent_email_settings") }}:</label>
     <br/>
     <select id="new_torrent_email" name="new_torrent_email" class="form-input up-input">
-      <option value="0" {{ if !UserProfile.Settings.Get("new_torrent_email") }}selected{{end}}>{{  T("no")}}</option>
-      <option value="1" {{ if UserProfile.Settings.Get("new_torrent_email")}}selected{{end}}>{{  T("yes")}}</option>
+      <option value="0" {{ if !UserProfile.Settings.Get("new_torrent_email") }}selected{{end}}>{{  T("disabled")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("new_torrent_email")}}selected{{end}}>{{  T("enabled")}}</option>
     </select> <br>
     {{ yield errors(name="NewTorrentEmail")}}
     {{end}}
     {{ if DefaultUserSettings("new_comment")}}
     <label class="input-label">{{  T("new_comment_settings") }}:</label> <br>
     <select id="new_comment" name="new_comment" class="form-input up-input">
-      <option value="0" {{ if !UserProfile.Settings.Get("new_comment") }}selected{{end}}>{{  T("no")}}</option>
-      <option value="1" {{ if UserProfile.Settings.Get("new_comment") }}selected{{end}}>{{  T("yes")}}</option>
+      <option value="0" {{ if !UserProfile.Settings.Get("new_comment") }}selected{{end}}>{{  T("disabled")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("new_comment") }}selected{{end}}>{{  T("enabled")}}</option>
     </select> <br>
     {{ yield errors(name="NewComment")}}
     {{end}}
@@ -92,8 +92,8 @@
     <label class="input-label">{{  T("new_comment_email_settings") }}:</label>
     <br/>
     <select id="new_comment_email" name="new_comment_email" class="form-input up-input">
-      <option value="0" {{ if !UserProfile.Settings.Get("new_comment_email") }}selected{{end}}>{{  T("no")}}</option>
-      <option value="1" {{ if UserProfile.Settings.Get("new_comment_email") }}selected{{end}}>{{  T("yes")}}</option>
+      <option value="0" {{ if !UserProfile.Settings.Get("new_comment_email") }}selected{{end}}>{{  T("disabled")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("new_comment_email") }}selected{{end}}>{{  T("enabled")}}</option>
     </select>
     <br/>
     {{ yield errors(name="NewCommentEmail")}}
@@ -102,8 +102,8 @@
     <label class="input-label">{{  T("new_responses_settings") }}:</label>
     <br/>
     <select id="new_responses" name="new_responses" class="form-input up-input">
-      <option value="0" {{ if !UserProfile.Settings.Get("new_responses") }}selected{{end}}>{{  T("no")}}</option>
-      <option value="1" {{ if UserProfile.Settings.Get("new_responses")}}selected{{end}}>{{  T("yes")}}</option>
+      <option value="0" {{ if !UserProfile.Settings.Get("new_responses") }}selected{{end}}>{{  T("disabled")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("new_responses")}}selected{{end}}>{{  T("enabled")}}</option>
     </select>
     <br/>
     {{ yield errors(name="NewResponses")}}
@@ -111,8 +111,8 @@
     {{ if DefaultUserSettings("new_responses_email")}}
     <label class="input-label">{{  T("new_responses_email_settings") }}:</label> <br>
     <select id="new_responses_email" name="new_responses_email" class="form-input up-input">
-      <option value="0" {{ if UserProfile.Settings.Get("new_responses_email") }}selected{{end}}>{{  T("no")}}</option>
-      <option value="1" {{ if UserProfile.Settings.Get("new_responses_email")}}selected{{end}}>{{  T("yes")}}</option>
+      <option value="0" {{ if UserProfile.Settings.Get("new_responses_email") }}selected{{end}}>{{  T("disabled")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("new_responses_email")}}selected{{end}}>{{  T("enabled")}}</option>
     </select>
     <br/>
     {{ yield errors(name="NewResponsesEmail")}}
@@ -120,8 +120,8 @@
     {{ if DefaultUserSettings("new_follower")}}
     <label class="input-label">{{  T("new_follower_settings") }}:</label> <br>
     <select id="new_follower" name="new_follower" class="form-input up-input">
-      <option value="0" {{ if UserProfile.Settings.Get("new_follower") }}selected{{end}}>{{  T("no")}}</option>
-      <option value="1" {{ if UserProfile.Settings.Get("new_follower")}}selected{{end}}>{{  T("yes")}}</option>
+      <option value="0" {{ if UserProfile.Settings.Get("new_follower") }}selected{{end}}>{{  T("disabled")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("new_follower")}}selected{{end}}>{{  T("enabled")}}</option>
     </select>
     <br/>
     {{ yield errors(name="NewFollower")}}
@@ -129,8 +129,8 @@
     {{ if DefaultUserSettings("new_follower_email")}}
     <label class="input-label">{{  T("new_follower_email_settings") }}:</label> <br>
     <select id="new_follower_email" name="new_follower_email" class="form-input up-input">
-      <option value="0" {{ if UserProfile.Settings.Get("new_follower_email") }}selected{{end}}>{{  T("no")}}</option>
-      <option value="1" {{ if UserProfile.Settings.Get("new_follower_email")}}selected{{end}}>{{  T("yes")}}</option>
+      <option value="0" {{ if UserProfile.Settings.Get("new_follower_email") }}selected{{end}}>{{  T("disabled")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("new_follower_email")}}selected{{end}}>{{  T("enabled")}}</option>
     </select>
     <br/>
     {{ yield errors(name="NewFollowerEmail")}}
@@ -138,8 +138,8 @@
     {{ if DefaultUserSettings("followed")}}
     <label class="input-label">{{  T("followed_settings") }}:</label> <br>
     <select id="followed" name="followed" class="form-input up-input">
-      <option value="0" {{ if UserProfile.Settings.Get("followed") }}selected{{end}}>{{  T("no")}}</option>
-      <option value="1" {{ if UserProfile.Settings.Get("followed")}}selected{{end}}>{{  T("yes")}}</option>
+      <option value="0" {{ if UserProfile.Settings.Get("followed") }}selected{{end}}>{{  T("disabled")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("followed")}}selected{{end}}>{{  T("enabled")}}</option>
     </select>
     <br/>
     {{ yield errors(name="Followed")}}
@@ -148,8 +148,8 @@
     <label class="input-label">{{  T("followed_email_settings") }}:</label>
     <br/>
     <select id="followed_email" name="followed_email" class="form-input up-input">
-      <option value="0" {{ if UserProfile.Settings.Get("followed_email") }}selected{{end}}>{{  T("no")}}</option>
-      <option value="1" {{ if UserProfile.Settings.Get("followed_email")}}selected{{end}}>{{  T("yes")}}</option>
+      <option value="0" {{ if UserProfile.Settings.Get("followed_email") }}selected{{end}}>{{  T("disabled")}}</option>
+      <option value="1" {{ if UserProfile.Settings.Get("followed_email")}}selected{{end}}>{{  T("enabled")}}</option>
     </select>
     <br/>
     {{ yield errors(name="FollowedEmail")}}
