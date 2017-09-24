@@ -2125,5 +2125,21 @@
   {
     "id": "cookie_warning",
     "translation": "By using this website, you agree to the usage of cookies for purposes such as customizing content.<br/>This message will be hidden at the next page load."
+  },
+  {
+    "id": "enabled",
+    "translation": "Enabled"
+  },
+  {
+    "id": "disabled",
+    "translation": "Disabled"
+  },
+  {
+    "id": "reset_api_key",
+    "translation": "Reset API key"
+  },
+  {
+    "id": "tag_error",
+    "translation": "Couldn't add a tag, please check your internet connection and that all fields are filled."
   }
 ]
