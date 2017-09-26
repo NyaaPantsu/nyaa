@@ -1289,7 +1289,7 @@
   },
   {
     "id": "reassign_warning",
-    "translation": "Torrent の新しいユーザーへの再割り当ては容易に元に戻すことができないため、注意して行うようにしてください。"
+    "translation": "Torrent の新しいユーザーへの再割り当ては容易に元に戻すことができないため、注意を払って行うようにください。"
   },
   {
     "id": "previous_username",
@@ -1333,7 +1333,7 @@
   },
   {
     "id": "old_nav_explanation",
-    "translation": "nyaa.se のように、検索中にページの上部にメインカテゴリとページ番号を表示します。絞り込みを置き換えます。"
+    "translation": "nyaa.se のように、検索中にページの上部に主要カテゴリーとページ番号を表示します。絞り込み部分を置き換えます。"
   },
   {
     "id": "no_notifications",
@@ -1837,7 +1837,7 @@
   },
   {
     "id": "torrent_lang_invalid",
-    "translation": "送信された言語はまだサポートされていません。私たちの GitHub ページへの貢献で支援できます"
+    "translation": "送信された言語はまだサポートされていません。私たちの GitHub ページで是非ご支援ください"
   },
   {
     "id": "torrent_cat_is_english",
@@ -2105,7 +2105,7 @@
   },
   {
     "id": "complement",
-    "translation": "補足"
+    "translation": "補充"
   },
   {
     "id": "from",
@@ -2126,5 +2126,21 @@
   {
     "id": "cookie_warning",
     "translation": "この Web サイトを使用することにより、Cookie がコンテンツのカスタマイズなどの目的で使用されることに同意したものとみなします。<br/>このメッセージは、次回から表示されなくなります。"
+  },
+  {
+    "id": "enabled",
+    "translation": "有効"
+  },
+  {
+    "id": "disabled",
+    "translation": "無効"
+  },
+  {
+    "id": "reset_api_key",
+    "translation": "API キーをリセット"
+  },
+  {
+    "id": "tag_error",
+    "translation": "タグを追加できませんでした。インターネットに接続されているか、すべてのフィールドが入力されているかを確認してください。"
   }
 ]
