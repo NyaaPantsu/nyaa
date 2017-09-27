@@ -497,6 +497,7 @@ td.tr-size {
 }
 .header .h-user .user-info {
     line-height: 40px;
+    font-weight: normal;
 }
 .header .h-user .nav-btn {
     height: 40px;
