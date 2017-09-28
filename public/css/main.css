@@ -843,6 +843,9 @@ html, body {
     td.torrent-view-td.torrent-info-data {
         padding-left: 5px;
     }
+    .torrent-info-data {
+        width: 100%;
+    }
     .profile-main {
         display: block!important;
     }
