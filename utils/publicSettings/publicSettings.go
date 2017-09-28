@@ -183,12 +183,8 @@ func GetThemeFromRequest(c *gin.Context) string {
 	return config.DefaultTheme(false)
 }
 
-// GetDarkThemeFromRequest : Gets the user selected or default dark theme
+// GetDarkThemeFromRequest : Gets the default dark theme
 func GetDarkThemeFromRequest(c *gin.Context) string {
-	cookie, err := c.Cookie("theme2")
-	if err == nil {
-		return cookie
-	}
 	return config.DefaultTheme(true)
 }
 
