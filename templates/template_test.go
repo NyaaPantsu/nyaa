@@ -281,7 +281,7 @@ func mockupCommonvariables(t *testing.T) jet.VarMap {
 	}
 	variables.Set("T", T)
 	variables.Set("Theme", "test")
-	variables.Set("DarkTheme", "test")
+	variables.Set("OwO", "test")
 	variables.Set("AltColors", "test")
 	variables.Set("OldNav", "test")
 	variables.Set("Mascot", "test")
