@@ -53,7 +53,7 @@ func Commonvariables(c *gin.Context) jet.VarMap {
 	variables.Set("Search", NewSearchForm(c))
 	variables.Set("T", publicSettings.GetTfuncFromRequest(c))
 	variables.Set("Theme", publicSettings.GetThemeFromRequest(c))
-	variables.Set("OwO", publicSettings.GetDarkThemeFromRequest(c))
+	variables.Set("DarkTheme", publicSettings.GetDarkThemeFromRequest(c))
 	variables.Set("AltColors", publicSettings.GetAltColorsFromRequest(c))
 	variables.Set("OldNav", publicSettings.GetOldNavFromRequest(c))
 	variables.Set("Mascot", publicSettings.GetMascotFromRequest(c))
