@@ -279,7 +279,7 @@
       torrentID = window.location.pathname.substr(6)
 
   Query.Get('/stats/' + torrentID, function (data) {
-    if(typeof data.seeders != "undefined") {
+    if(typeof data.seeders != "undefined" && data.seeders != -1) {
       seeders.innerText = data.seeders
       leechers.innerText = data.leechers
       downloads.innerText = data.downloads
