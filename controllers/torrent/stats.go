@@ -28,7 +28,7 @@ func GetStatsHandler(c *gin.Context) {
 	leechers := -1
 	downloads := -1
   	//TODO: fetch torrent stats and store it in the above variables 
-	//if unknown put all three on -1
+	//if unknown let all three on -1
 	
 	t, err := template.New("foo").Parse(fmt.Sprintf(`{{define "stats"}}{ "seeders":[%d], "leechers": [%d], "downloads": [%d] }{{end}}`, seeders, leechers, downloads))
 	err = t.ExecuteTemplate(c.Writer, "stats", "")
