@@ -24,9 +24,9 @@ func GetStatsHandler(c *gin.Context) {
 		return
 	}
 	
-	seeders := 3
-	leechers := 3
-	downloads := 3
+	seeders := -1
+	leechers := -1
+	downloads := -1
   	//TODO: fetch torrent stats and store it in the above variables 
 	//if unknown put all three on -1
 	
