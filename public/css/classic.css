@@ -57,6 +57,17 @@ a:hover {
 #content {
     top: 31px!important;
 }
+.upload-form-table .checkbox-container+input {
+    width: 385px;
+}
+.upload-form-table .table-checkboxes {
+    padding: 3px 0!important;
+    width: 100%!important;
+}
+.upload-form-table .table-checkboxes .form-group {
+    display: inline-block!important;
+    margin-right: 6px!important;
+}
 
 .tr-cat {
     width: 87px!important;
@@ -87,12 +98,15 @@ th.tr-name a {
     width: 114px;
 }
 
-.comment-count {
-    display: inline!important;
+.tr-cs a::before {
+    display: none;
+}
+.tr-cs a {
+    font-size: 1em;
     font-weight: bold;
 }
-.tr-cs a{
-    display: none;
+.tr-cs a:hover {
+    text-decoration: none;
 }
 
 #mascot {
@@ -236,6 +250,16 @@ select.form-input {
 
 #description-box code {
     font-size: 1.3em;
+}
+
+.CodeMirror {
+    padding: 0;
+}
+
+.upload-form-table .checkbox-container {
+    height: 22px;
+    padding: 1px 0;
+    border-radius: 0;
 }
 
 .user-form input[type="text"],.user-form input[type="email"],.user-form input[type="password"] {

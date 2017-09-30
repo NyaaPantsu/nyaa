@@ -98,10 +98,10 @@ td.tr-le, .error-text {
 }
 
 .alt-colors tr:nth-child(even) {
-	background: hsla(244, 11%, 21%, 0.2);
+    background: hsla(244, 11%, 21%, 0.2);
 } 
 .alt-colors tr:nth-child(odd) {
-	background: hsla(255, 31%, 6%, 0.2);
+    background: hsla(255, 31%, 6%, 0.2);
 } 
 .aplus, .btn-blue {
     background: hsla(180, 50%, 50%, 0.2) !important;
@@ -233,7 +233,7 @@ td.tr-le, .error-text {
 }
 #admin-header .nav-btn {
     border-color: #141517;
-	color: #a2a7a4;
+    color: #a2a7a4;
 }
 #admin-header .nav-btn.active, #admin-header .nav-btn:hover, #admin-header:hover .nav-btn.active:hover, #admin-header .nav-btn:focus {
     background-color: #2c2f34;
@@ -241,7 +241,7 @@ td.tr-le, .error-text {
 }
 
 .torrent-preview-table>table {
-    border-color: #141115;	
+    border-color: #141115;    
 }
 
 .torrent-info-box {
@@ -249,7 +249,7 @@ td.tr-le, .error-text {
 }
 .tr-cat div.nyaa-cat { border-color: #232324!important; }
 .torrent-preview-table > table { border: 2px solid #1a1a1d; }
-
+ 
 .tag.pending {
     background: #3c3c3c;
     color: #c1c1c1;
@@ -275,4 +275,46 @@ span.tag {
 }
 .tag.accepted .tag-text a {
     color: #7a8494;
+}
+
+.upload-status {
+    background-color: #1f2329;
+    border-color:#1f2329;
+    color: white;
+}
+.upload-status .upload-site-name  {
+    border-right-color: black!important;
+}
+.upload-status  .icon-finished {
+    border-right-color: #9ea749!important
+}
+.upload-status  .icon-pending {
+    border-right-color: #906718!important;
+}
+.upload-status  .icon-error {
+    border-right-color: #b34d4d!important;
+}
+
+.upload-status .upload-progress {
+    background-color: #717171;
+}
+.multiple-upload input {
+    border-color: #7c8084;
+    color: #b3b3b3;
+}
+
+.multiple-upload .finished {
+    background-color: #b5bd68;
+}
+.multiple-upload .pending {
+    background-color: #b1893b;
+
+}
+.multiple-upload .error {
+    background-color: #cc6666;
+}
+
+.upload-form-table .checkbox-container {
+    border-color: #0c0d0e;
+    background: #333438;
 }
