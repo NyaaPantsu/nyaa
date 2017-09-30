@@ -28,6 +28,9 @@ type UserForm struct {
 	ConfirmPassword string `validate:"omitempty" form:"password_confirmation" json:"password_confirmation" omit:"true"`
 	Status          int    `validate:"default=0" form:"status" json:"status"`
 	Theme           string `form:"theme" json:"theme"`
+	AnidexAPIToken  string `validate:"-" form:"anidex_api" json:"anidex_api"`
+	NyaasiAPIToken  string `validate:"-" form:"nyaasi_api" json:"nyaasi_api"`
+	TokyoTAPIToken  string `validate:"-" form:"tokyot_api" json:"tokyot_api"`
 }
 
 // UserSettingsForm is used when updating a user.

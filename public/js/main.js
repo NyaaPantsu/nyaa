@@ -125,12 +125,12 @@ function resetCookies() {
   }
 
   //Set new version in cookie
-  document.cookie = "commit=" + commitVersion + ";expires=" + farFutureString + ";domain=" + domain
-  document.cookie = "version=" + websiteVersion + ";expires=" + farFutureString + ";domain=" + domain
+  document.cookie = "commit=" + commitVersion + ";path=/;expires=" + farFutureString + ";domain=" + domain
+  document.cookie = "version=" + websiteVersion + ";path=/;expires=" + farFutureString + ";domain=" + domain
 
   var oneHour = new Date()
   oneHour.setTime(oneHour.getTime() + 1 * 3600 * 1500)
-  document.cookie = "newVersion=true; expires=" + oneHour.toUTCString() + ";domain=" + domain
+  document.cookie = "newVersion=true;path=/;expires=" + oneHour.toUTCString() + ";domain=" + domain
 }
 
 
@@ -192,13 +192,9 @@ function startupCode() {
       UserTheme[1] = "g"
     //If both theme are darkTheme, which happens if theme2 is on darkTheme (always is by default) and that the user sets darkTheme as his theme through settings page, we set secondary theme to g.css
   }
-  else {
-    if(UserTheme[0] == UserTheme[1])
-      UserTheme[1] = "g"
+  else if(UserTheme[0] == UserTheme[1])
+    UserTheme[1] = "g"
     //If darkTheme is twice in UserTheme, which happens when the user already has darkTheme as his default theme and toggle the dark mode for the first time, we set the second theme as g.css
-    document.cookie = "theme2=" + UserTheme[1] + ";path=/;expires=" + farFutureString + ";domain=" + domain
-    //Set cookie for future theme2 uses
-  }
   
 }
 

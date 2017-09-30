@@ -240,7 +240,7 @@ select.form-input {
 
 .language .input-group label {
     margin-bottom: 1px;
-    vertical-align: unset;
+    vertical-align: inherit;
 }
 
 .language .input-group input {
@@ -469,7 +469,7 @@ select.form-input {
     padding: 0!important;
 }
 .admin-content .results {
-	border-top: none;
+    border-top: none;
 }
 
 table {
@@ -538,7 +538,7 @@ th {
 }
 
 .tr-flag {
-    white-space: initial!important;
+    white-space: normal!important;
 }
 
 .tr-name {
@@ -554,27 +554,31 @@ th {
 
 .tr-links {
     width: 43px;
-    overflow: initial;
+    overflow: visible;
     text-align: left;
     padding: 0 2px!important;
 }
 
 .tr-cs {
     width: 18px;
-    overflow: initial;
+    overflow: visible;
     text-overflow: initial;
     padding: 0;
+    font-size: 0px;
+}
+.tr-cs a::before {
+    font-size: 14px;	
 }
 
 .tr-size {
     width: 90px;
 }
 
-.tr-se, .tr-le {
+.tr-se, .tr-le, .tr-st {
     font-weight: bold;
 }
 
-.tr-se, .tr-le, .tr-dl {
+.tr-se, .tr-le, .tr-dl, .tr-st  {
     width: 50px;
 }
 
@@ -635,10 +639,10 @@ th {
 .website-nav .pagination {
     font-size: .8em;
     padding: .5rem 0;
-	    
+        
 }
 .website-nav .pagination span {
-    min-width: 31px;	
+    min-width: 31px;    
 }
 .website-nav .pagination p {
     display: none;
@@ -736,7 +740,7 @@ html, body {
     .nav-btn.log-in div {
     display: block;
     }
-    .tr-se, .tr-le, .tr-dl {
+    .tr-se, .tr-le, .tr-dl, .tr-st  {
     width: 46px;
     }
 }
@@ -784,7 +788,7 @@ html, body {
         display: block
     }
     .user-td.tr-cat {
-	width: 70px;   
+    width: 70px;   
     }
     .user-td.tr-date {
     width: 100px;
@@ -822,6 +826,14 @@ html, body {
         float: initial!important;
         max-width: none;
     }
+    .upload-form-table .table-checkboxes {
+        padding: 3px 0!important;
+        width: 100%;
+    }
+    .upload-form-table .table-checkboxes .form-group {
+        display: inline-block;
+        margin-right: 6px;
+    }
     .hide-xs {
     display: none !important;
     }
@@ -842,6 +854,9 @@ html, body {
     }
     td.torrent-view-td.torrent-info-data {
         padding-left: 5px;
+    }
+    .torrent-info-data {
+        width: 100%;
     }
     .profile-main {
         display: block!important;
@@ -868,7 +883,7 @@ html, body {
     .torrent-preview-table .tr-cat {
         width: 74px;
     }
-    .tr-se, .tr-le {
+    .tr-se, .tr-le, .tr-st  {
         width: 36px;
     }
     .header .h-search input {
@@ -882,6 +897,9 @@ html, body {
     }
     .upload-form-table .table-torrent-link input {
         width: 100%!important;
+    }
+    .upload-form-table .table-input-label {
+        width: 25%;
     }
 }
 
@@ -1029,8 +1047,9 @@ html, body {
     border-radius: 6px;
 }
 
-.profile-usermenu {
-    display: inline-grid;
+.profile-usermenu a {
+    display: block;
+    margin-bottom: 11px;
 }
 
 .profile-userbuttons {
@@ -1931,14 +1950,20 @@ p.upload-rules a {
 .upload-form-table .table-input-label, .upload-form-table td label{
     vertical-align: top;
 }
-.upload-form-table .table-checkboxes td {
-    padding: 3px 0;
+.upload-form-table .form-input.language {
+    float: left;
+}
+.upload-form-table .table-checkboxes {
+    display: inline-block;
+    padding: 10px 4px;
 }
 .upload-form-table .table-torrent-link input[type="file"] {
     width: 35%;
+    height: 25px;
+    margin-right: 3%;
 }
 .upload-form-table .table-torrent-link input[type="text"] {
-    width: 65%;
+    width: 62%;
 }
 .upload-form-table .editor-statusbar {
     position: relative;
@@ -1946,6 +1971,23 @@ p.upload-rules a {
     margin-bottom: 2px;
     z-index: 1;
 }
+.upload-form-table .checkbox-container+input {
+    width: 90%;
+    width: calc(100% - 21px);
+}
+.upload-form-table .checkbox-container {
+    display: inline-block;
+    border: 1px solid #c4c4c4;
+    background-color: #ececec;
+    border-radius: 4px 0 0 4px;
+    border-right: none;
+    height: 30px;
+    float: left;
+    padding: 5px 0;
+    border-color: #c4c4c4;
+    background: #dadada;
+}
+
 #tag-h3 {
     margin: 0 0 7px;
 }
@@ -1954,7 +1996,7 @@ p.upload-rules a {
 }
 .upload-tag-table .input-label {
     display: block;
-    font-size: unset;
+    font-size: 14px;
     margin-bottom: 1px;
 }
 .upload-tag-table input, .upload-tag-table select {
@@ -2001,6 +2043,7 @@ iframe {
     height: 90px;
     border: none;
     overflow: hidden;
+    outline: 1px solid #d2d2d2;
 }
 
 #admin-header {
@@ -2032,6 +2075,75 @@ iframe {
     margin-bottom: 0;
 }
 
+
+table.multiple-upload {
+    width: auto;
+    margin: 5px;
+}
+.upload-status {
+    border-radius: 4px;
+    border: 1px solid;
+    word-spacing: 0;
+}
+.upload-status td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 6px 12px;
+}
+.upload-status .upload-site-name {
+    min-width: 110px;
+    border: 1px solid #e4e4e4;
+    background-color: #eee;
+}
+
+.upload-status .upload-progress {
+    min-width: 95px;
+    font-weight: bold;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 1px;
+    padding: 6px;
+}
+.upload-status [class^="icon-"], .upload-status [class*=" icon-"] {
+    padding: 6px;
+    display: block;
+    border-right: 1px solid;
+}
+.multiple-upload td.uploaded-url {
+    padding: 0;
+}
+.multiple-upload input {
+    height: 100%;
+    width: 100%;
+    border: 1px solid;
+    margin-bottom: 2px;
+}
+.multiple-upload h3 {
+    margin-bottom: 3px;
+}
+.upload-status td:nth-child(3)::before {
+    margin-right: 3px;
+}
+.finished {
+    background-color: #4ae882;
+}
+.pending {
+    background-color: #ffbf7d;
+}
+.error {
+    background-color: #ff7a7a;
+}
+
+.user-edit-table td {
+	padding: 3px 0;
+	vertical-align: top;
+}
+.user-edit-table td:nth-child(1){
+	width: 150px;
+	font-weight: bold;
+	font-size: 14px!important;
+    padding: 5px 0;
+}
+
 /* Language specific CSS */
 
 html[lang="ja-jp"] .form-refine span.spacing {
@@ -2044,6 +2156,6 @@ html[lang="ja-jp"] .form-refine span.spacing {
 }
 @media (min-width: 961px) {
     html[lang="ja-jp"] .header .nav-btn {
-	padding: 0 8px;
+    padding: 0 8px;
     }
 }

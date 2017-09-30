@@ -79,8 +79,7 @@
         </td>
         {{ if len(.Comments) > 0 }}
         <td class="tr-cs home-td" title="{{len(.Comments)}} {{T("comments")}}">
-          <span class="comment-count" style="display:none">{{len(.Comments)}}</span>
-          <a href="/view/{{ .ID }}#comments" class="icon-chat"></a>
+          <a href="/view/{{ .ID }}#comments" class="icon-chat">{{len(.Comments)}}</a>
         </td>
         {{ end }}
         <td class="tr-links home-td">
@@ -95,7 +94,9 @@
           {{ fileSize(.Filesize, T) }}
         </td>
         {{if .LastScrape.IsZero || formatDateRFC(.LastScrape) == "0001-01-01T00:00:00Z"}}
-        <td class="home-td hide-xs" colspan="3">{{ T("unknown")}}</td>
+        <td class="tr-se home-td hide-smol">-</td>
+        <td class="tr-le home-td hide-smol">-</td>
+        <td class="tr-dl home-td hide-xs">-</td>
         {{else}}
         <td class="tr-se home-td hide-smol">{{.Seeders}}</td>
         <td class="tr-le home-td hide-smol">{{.Leechers}}</td>
@@ -107,6 +108,7 @@
     </tbody>
   </table>
 </div>
+{{ if !EUCookieLaw }}<div id="cookie-warning"><span id="cookie-warning-close" class="close">×</span>{{ T("cookie_warning")|raw }}</div>{{ end }}
 {{ if User.HasAdmin() }}
 <div class="modtools">
   <button id="show_actions" class="form-input" data-toggle-text="{{ T("hide_mod_tools")}}">{{ T("show_mod_tools")}}</button>
@@ -168,7 +170,6 @@
   </div>
 </div>
 {{end}}
-{{ if !EUCookieLaw }}<div id="cookie-warning"><span id="cookie-warning-close" class="close">×</span>{{ T("cookie_warning")|raw }}</div>{{ end }}
 {{end}}
 {{ block footer_js()}}
 <script type="text/javascript" src="{{ URL.Parse("/js/template.js") }}"></script>

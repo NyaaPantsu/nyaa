@@ -29,9 +29,8 @@ Templates.Add("torrents.item", function(torrent) {
     // {{end}}
     var languages = ""
     var colspan = (torrent.comments.length  == 0 ? ` colspan="2"` : "" )
-    var commentTd = ((torrent.comments.length > 0) ? `<td class="tr-cs home-td" title="`+torrent.comments.length + ` {{T("comments")}}` +`"><span>` + torrent.comments.length + `</span></td>` : "")
-    var dlLink = (torrent.torrent != "" ? ` <a href="` + torrent.torrent + `" title="{{ T("torrent_file") }}"><div class="icon-floppy"></div></a>` : "")
-
+    var commentTd = ((torrent.comments.length > 0) ? `<td class="tr-cs home-td" title="`+torrent.comments.length + ` {{T("comments")}}` +`"><a href="/view/` + torrent.id + `#comments">` + torrent.comments.length + `</a></td>` : "")
+    
     if (torrent.languages[0] != "") {
         var flagClass = (torrent.languages.length == 1) ? Templates.FlagCode(torrent.languages[0]) : "multiple"
         var langs = torrent.languages.map(function (el, i) { return T.r(el)}).join(",") 
@@ -54,12 +53,12 @@ Templates.Add("torrents.item", function(torrent) {
         <td class="tr-links home-td">
             <a href="` + torrent.magnet + `" title="{{ T("magnet_link") }}">
                 <div class="icon-magnet"></div>
-            </a>`+ dlLink +`
+            </a>`+ ` <a href="` + torrent.torrent + `" title="{{ T("torrent_file") }}"><div class="icon-floppy"></div></a>` +`
         </td>
         <td class="tr-size home-td hide-xs">` + humanFileSize(torrent.filesize) + `</td>
-        <td class="tr-se home-td hide-smol">` + torrent.seeders + `</td>
-        <td class="tr-le home-td hide-smol">` + torrent.leechers + `</td>
-        <td class="tr-dl home-td hide-xs">` + torrent.completed + `</td>
+        <td class="tr-se home-td hide-smol">` + torrent.seeders == 0 ? `-` : torrent.seeders + `</td>
+        <td class="tr-le home-td hide-smol">` + torrent.leechers == 0 ? `-` : torrent.leechers + `</td>
+        <td class="tr-dl home-td hide-xs">` + torrent.completed == 0 ? `-` : torrent.completed + `</td>
         <td class="tr-date home-td date-short hide-xs">` + torrent.date + `</td>
     </tr>`;
 });

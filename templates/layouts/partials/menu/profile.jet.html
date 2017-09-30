@@ -14,12 +14,6 @@
       {{UserProfile.GetRole()}}
     </p>
     <p class="profile-usertitle-uploadcount">{{ T("torrents_uploaded") }}:<span>{{ NbTorrents }}</span></p>
-	{{ TorrentUploadedSize := 0}}
-	{{ range i, t := UserProfile.Torrents }}
-		{{ torrent := t.ToJSON() }}
-		{{ TorrentUploadedSize = TorrentUploadedSize + torrent.Filesize}}
-	{{ end }}
-	<p>{{ fileSize(TorrentUploadedSize, T)}} uploaded</p>
   </div>
   <!-- END SIDEBAR USER TITLE -->
   <!-- SIDEBAR BUTTONS -->

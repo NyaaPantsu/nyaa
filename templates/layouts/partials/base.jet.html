@@ -44,7 +44,7 @@
   <nav id="header" class="header">
     {{block menu()}}{{end}}
   </nav>
-  {{ AdType := kilo_rand(5) }}
+  {{ AdType := kilo_rand(3) }}
   <div id="content" class="{{ block contclass()}}{{end}}">
     <div class="content container center">
       {{ yield infos()}}
@@ -77,11 +77,13 @@
     {{end}}
     {{end}}
     {{end}}
+    {{ if genNav(Navigation, URL, 15) != ""}}
     <div class="container bottom">
 	<div class="pagination">
 	  {{ genNav(Navigation, URL, 15)|raw }}
 	</div>
     </div>
+    {{end}}
     <div class="centered">{{ yield ad_wide(Type=AdType) }}</div>
     <footer id="footer">
       <div class="container footer center">
