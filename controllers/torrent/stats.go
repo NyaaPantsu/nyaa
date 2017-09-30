@@ -6,6 +6,8 @@ import (
 	"fmt"
 
 	"github.com/NyaaPantsu/nyaa/models/torrents"
+	"github.com/Stephen304/goscrape"
+	"github.com/anacrolix/torrent"
 	"github.com/gin-gonic/gin"
 	"text/template"
 )
