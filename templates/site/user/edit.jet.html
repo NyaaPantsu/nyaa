@@ -18,18 +18,6 @@
 			<td></td>
 			<td style="padding-bottom: 6px;"><a href="/apidoc">{{ T("api_documentation")}}</a> / <a class="form-input up-input" href="/user/{{ UserProfile.ID}}/{{UserProfile.Username }}/apireset">Reset API key</a></td>
 		</tr>
-		<tr class="hidden">
-			<td><label for="anidex_api">Anidex API Token:</label></td>
-			<td><input disabled class="form-input up-input" placeholder="Coming soon..." type="text" name="anidex_api" id="anidex_api" value="{{UserProfile.AnidexAPIToken}}"/></td>
-		</tr>
-		<tr class="hidden">
-			<td><label for="nyaasi_api">Nyaa.si API Token:</label></td>
-			<td><input disabled class="form-input up-input" placeholder="Coming soon..." type="text" name="nyaasi_api" id="nyaasi_api" value="{{UserProfile.NyaasiAPIToken}}"/></td>
-		</tr>
-		<tr class="hidden">
-			<td><label for="tokyot_api">TokyoTosho API Token:</label></td>
-			<td><input disabled class="form-input up-input" placeholder="Coming soon..." type="text" name="tokyot_api" id="tokyot_api" value="{{UserProfile.TokyoTAPIToken }}"/></td>
-		</tr>
 		<tr>
 			<td><label for="email">{{  T("email_address") }}</label></td>
 			<td><input class="form-input up-input" placeholder="{{  T("email_placeholder")}}" type="text" name="email" id="email" value="{{UserProfile.Email}}"/></td>
@@ -84,6 +72,18 @@
 				  <option value=""{{ if Theme == "" }} selected{{end}}>{{ T("theme_none")}}</option>
 				</select>
 			</td>
+		</tr>
+		<tr class="hidden">
+			<td><label for="anidex_api">Anidex API Token:</label></td>
+			<td><input disabled class="form-input up-input" placeholder="Coming soon..." type="text" name="anidex_api" id="anidex_api" value="{{UserProfile.AnidexAPIToken}}"/></td>
+		</tr>
+		<tr class="hidden">
+			<td><label for="nyaasi_api">Nyaa.si API Token:</label></td>
+			<td><input disabled class="form-input up-input" placeholder="Coming soon..." type="text" name="nyaasi_api" id="nyaasi_api" value="{{UserProfile.NyaasiAPIToken}}"/></td>
+		</tr>
+		<tr class="hidden">
+			<td><label for="tokyot_api">TokyoTosho API Token:</label></td>
+			<td><input disabled class="form-input up-input" placeholder="Coming soon..." type="text" name="tokyot_api" id="tokyot_api" value="{{UserProfile.TokyoTAPIToken }}"/></td>
 		</tr>
 		{{ if DefaultUserSettings("new_torrent")}}
 		<tr><td colspan="2"  style="padding:0"><label for="new_torrent">{{  T("new_torrent_settings") }}</label></td></tr>
