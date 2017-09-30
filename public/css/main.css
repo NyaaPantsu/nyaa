@@ -538,7 +538,7 @@ th {
 }
 
 .tr-flag {
-    white-space: initial!important;
+    white-space: normal!important;
 }
 
 .tr-name {
@@ -554,14 +554,14 @@ th {
 
 .tr-links {
     width: 43px;
-    overflow: initial;
+    overflow: visible;
     text-align: left;
     padding: 0 2px!important;
 }
 
 .tr-cs {
     width: 18px;
-    overflow: initial;
+    overflow: visible;
     text-overflow: initial;
     padding: 0;
 }
@@ -843,6 +843,9 @@ html, body {
     td.torrent-view-td.torrent-info-data {
         padding-left: 5px;
     }
+    .torrent-info-data {
+        width: 100%;
+    }
     .profile-main {
         display: block!important;
     }
@@ -1030,7 +1033,8 @@ html, body {
 }
 
 .profile-usermenu {
-    display: inline-grid;
+    display: block;
+    margin-bottom: 11px;
 }
 
 .profile-userbuttons {
@@ -2001,6 +2005,7 @@ iframe {
     height: 90px;
     border: none;
     overflow: hidden;
+    outline: 1px solid #d2d2d2;
 }
 
 #admin-header {
