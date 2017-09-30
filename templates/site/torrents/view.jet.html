@@ -42,7 +42,7 @@
       <td class="torrent-info-td torrent-info-label">{{ T("hash")}}:</td>
       <td style="font-family: monospace;" class="torrent-view-td torrent-info-data">{{Torrent.Hash}}</td>
       <td class="torrent-info-td torrent-info-label">{{ T("completed")}}:</td>
-      <td class="torrent-info-td">
+      <td class="torrent-info-td tr-dl">
         <b>{{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}{{ T("unknown")}}{{else}}{{Torrent.Completed}}{{end}}</b>
       </td>
     </tr>
@@ -231,7 +231,7 @@
       <div class="modal-footer">
         <span>
           <button id="confirm_changes" type="submit">{{  T("yes")}}</button>
-          <button class="close" onclick="Modal.CloseActive();">{{  T("no")}}</button>
+          <button class="close" type="button" onclick="Modal.CloseActive();">{{  T("no")}}</button>
         </span>
         <h3>{{  T("are_you_sure") }} </h3>
       </div>
@@ -325,7 +325,7 @@ document.querySelector("#modal_tag_form form").addEventListener("submit", functi
         document.getElementById("tags-torrent").innerHTML = tagHTml + document.getElementById("tags-torrent").innerHTML
       }
     } else {
-      alert("Couldn't add a tag, please check your internet connexion and that all fields are filled.")
+      alert("{{ T("tag_error") }}")
     }
   })
 

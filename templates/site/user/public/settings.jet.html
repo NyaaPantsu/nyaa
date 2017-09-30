@@ -29,8 +29,8 @@
     <h3>{{ T("old_nav") }}</h3>
       <p>{{ T("old_nav_explanation") }}</p>
     <select id="oldNav-selector" name="oldNav" class="form-input">
-      <option value="false">Disabled</option>
-      <option value="true" {{if OldNav}}selected{{end}}>Enabled</option>
+      <option value="false">{{ T("disabled") }}</option>
+      <option value="true" {{if OldNav}}selected{{end}}>{{ T("enabled") }}</option>
     </select>
     <br/>
     </span>
@@ -53,8 +53,8 @@
     <span class="form-group">
     <h3>{{ T("alternating_color") }}</h3>
     <select id="altColors-selector" name="altColors" class="form-input">
-      <option value="false">Disabled</option>
-      <option value="true" {{if AltColors}}selected{{end}}>Enabled</option>
+      <option value="false">{{ T("disabled") }}</option>
+      <option value="true" {{if AltColors}}selected{{end}}>{{ T("enabled") }}</option>
     </select>
     <br/>
     </span>
