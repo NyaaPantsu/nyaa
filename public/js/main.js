@@ -125,12 +125,12 @@ function resetCookies() {
   }
 
   //Set new version in cookie
-  document.cookie = "commit=" + commitVersion + ";expires=" + farFutureString + ";domain=" + domain
-  document.cookie = "version=" + websiteVersion + ";expires=" + farFutureString + ";domain=" + domain
+  document.cookie = "commit=" + commitVersion + ";path=/;expires=" + farFutureString + ";domain=" + domain
+  document.cookie = "version=" + websiteVersion + ";path=/;expires=" + farFutureString + ";domain=" + domain
 
   var oneHour = new Date()
   oneHour.setTime(oneHour.getTime() + 1 * 3600 * 1500)
-  document.cookie = "newVersion=true; expires=" + oneHour.toUTCString() + ";domain=" + domain
+  document.cookie = "newVersion=true;path=/;expires=" + oneHour.toUTCString() + ";domain=" + domain
 }
 
 
