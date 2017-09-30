@@ -18,17 +18,17 @@
 			<td></td>
 			<td style="padding-bottom: 6px;"><a href="/apidoc">{{ T("api_documentation")}}</a> / <a class="form-input up-input" href="/user/{{ UserProfile.ID}}/{{UserProfile.Username }}/apireset">Reset API key</a></td>
 		</tr>
-		<tr>
+		<tr class="hidden">
 			<td><label for="anidex_api">Anidex API Token:</label></td>
-			<td><input class="form-input up-input" placeholder="Prefill the option 'Upload to anidex' in upload" type="text" name="anidex_api" id="anidex_api" value="{{UserProfile.AnidexAPIToken}}"/></td>
+			<td><input disabled class="form-input up-input" placeholder="Coming soon..." type="text" name="anidex_api" id="anidex_api" value="{{UserProfile.AnidexAPIToken}}"/></td>
 		</tr>
-		<tr>
+		<tr class="hidden">
 			<td><label for="nyaasi_api">Nyaa.si API Token:</label></td>
-			<td><input class="form-input up-input" placeholder="Prefill the option 'Upload to nyaa.si' in upload" type="text" name="nyaasi_api" id="nyaasi_api" value="{{UserProfile.NyaasiAPIToken}}"/></td>
+			<td><input disabled class="form-input up-input" placeholder="Coming soon..." type="text" name="nyaasi_api" id="nyaasi_api" value="{{UserProfile.NyaasiAPIToken}}"/></td>
 		</tr>
-		<tr>
+		<tr class="hidden">
 			<td><label for="tokyot_api">TokyoTosho API Token:</label></td>
-			<td><input class="form-input up-input" placeholder="Prefill the option 'Upload to TokyoTosho' in upload" type="text" name="tokyot_api" id="tokyot_api" value="{{UserProfile.TokyoTAPIToken }}"/></td>
+			<td><input disabled class="form-input up-input" placeholder="Coming soon..." type="text" name="tokyot_api" id="tokyot_api" value="{{UserProfile.TokyoTAPIToken }}"/></td>
 		</tr>
 		<tr>
 			<td><label for="email">{{  T("email_address") }}</label></td>
