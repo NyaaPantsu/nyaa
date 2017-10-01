@@ -34,19 +34,7 @@ func GetStatsHandler(c *gin.Context) {
   	//TODO: fetch torrent stats and store it in the above variables 
 	//if unknown let all three on -1
 	
-	scraper := NewBulk([]string{
-	  "udp://tracker.doko.moe:6969",
-	  "udp://tracker.leechers-paradise.org:6969"})
-	
-	result := scraper.ScrapeBulk([]string{
-	  "d791154b92068ee15dd0fd1f71686a0fc79b0aef",
-	  "d7cef3aa4a5f71963eee4c481f8d48490febee18",
-	})
-	
-	
-	
 	t, err := template.New("foo").Parse(fmt.Sprintf(`{{define "stats"}}{ "seeders":[%d], "leechers": [%d], "downloads": [%d] }{{end}}`, seeders, leechers, downloads))
-	t, err := template.New("foo").Parse(fmt.Sprintf(`{{define "stats"}}{ "seeders":[%s], "leechers": [%d], "downloads": [%d] }{{end}}`, result[0] , leechers, downloads))
 	err = t.ExecuteTemplate(c.Writer, "stats", "")
 	
 	return
