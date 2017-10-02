@@ -2,6 +2,7 @@ package userController
 
 import "github.com/NyaaPantsu/nyaa/controllers/router"
 import "github.com/NyaaPantsu/nyaa/controllers/feed"
+import "github.com/NyaaPantsu/nyaa/controllers/search"
 
 func init() {
 
@@ -31,6 +32,8 @@ func init() {
 		userRoutes.GET("/:id/:username/edit", UserDetailsHandler)
 		userRoutes.POST("/:id/:username/edit", UserProfileFormHandler)
 		userRoutes.GET("/:id/:username/apireset", UserAPIKeyResetHandler)
+		userRoutes.GET("/:id/:username/search", searchController.SearchHandler)
+		userRoutes.GET("/:id/:username/search/:page", searchController.SearchHandler)
 		userRoutes.GET("/:id/:username/feed", feedController.RSSHandler)
 		userRoutes.GET("/:id/:username/feed/:page", feedController.RSSHandler)
 	}
