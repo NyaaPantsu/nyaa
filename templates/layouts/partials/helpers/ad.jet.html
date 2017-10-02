@@ -8,12 +8,3 @@
     {{end}}
 {{end}}
 {{end}}
-{{block ad_cube()}}
-{{ if !kilo_strcmp(URL.String(), "/mod", 4, 1) }}
-    {{ ID := kilo_rand(2) + (Sukebei())  }}
-    {{ if ID == 0}} <a href="https://jlist.com/category/games-computers?utm_source=NS&utm_medium=Nyaa&utm_campaign=sep17"><img alt="JList Games" class="jl-c" src="/img/Jlist/Games_300x250.jpg"></a> {{ end }}
-    {{ if ID == 1}} <a href="https://jlist.com/category/snacks-food?utm_source=NS&utm_medium=Nyaa&utm_campaign=sep17"><img alt="JList Snacks" class="jl-c" src="/img/Jlist/Snacks_300x250.jpg"></a> {{ end }}
-    {{ if ID == 2}} <a href="https://jlist.com/series/touhou-project?utm_source=NS&utm_medium=Nyaa&utm_campaign=sep17"><img alt="JList Touhou" class="jl-c" src="/img/Jlist/Touhou_300x250.jpg"></a> {{ end }}
-    {{ if ID == 3}} <a href="https://jlist.com/category/adult-corner?utm_source=NS&utm_medium=Nyaa&utm_campaign=sep17"><img alt="JList Onaholes" class="jl-w" src="/img/Jlist/Onahole_300x250.jpg"></a> {{ end }}
-{{end}}
-{{end}}
