@@ -30,6 +30,11 @@ Templates.Add("torrents.item", function(torrent) {
     var languages = ""
     var colspan = (torrent.comments.length  == 0 ? ` colspan="2"` : "" )
     var commentTd = ((torrent.comments.length > 0) ? `<td class="tr-cs home-td" title="`+torrent.comments.length + ` {{T("comments")}}` +`"><a href="/view/` + torrent.id + `#comments">` + torrent.comments.length + `</a></td>` : "")
+	
+	var stats = ["-", "-", "-"]
+	if(torrent.seeders != 0 || torrent.leechers != 0 || torrent.completed != 0)
+		stats = [torrent.seeders, torrent.leechers, torrent.completed]
+	
     
     if (torrent.languages[0] != "") {
         var flagClass = (torrent.languages.length == 1) ? Templates.FlagCode(torrent.languages[0]) : "multiple"
@@ -56,9 +61,9 @@ Templates.Add("torrents.item", function(torrent) {
             </a>`+ ` <a href="` + torrent.torrent + `" title="{{ T("torrent_file") }}"><div class="icon-floppy"></div></a>` +`
         </td>
         <td class="tr-size home-td hide-xs">` + humanFileSize(torrent.filesize) + `</td>
-        <td class="tr-se home-td hide-smol">` + torrent.seeders == 0 ? `-` : torrent.seeders + `</td>
-        <td class="tr-le home-td hide-smol">` + torrent.leechers == 0 ? `-` : torrent.leechers + `</td>
-        <td class="tr-dl home-td hide-xs">` + torrent.completed == 0 ? `-` : torrent.completed + `</td>
+        <td class="tr-se home-td hide-smol">` + stats[0] + `</td>
+        <td class="tr-le home-td hide-smol">` + stats[1] + `</td>
+        <td class="tr-dl home-td hide-xs">` + stats[2] + `</td>
         <td class="tr-date home-td date-short hide-xs">` + torrent.date + `</td>
     </tr>`;
 });
