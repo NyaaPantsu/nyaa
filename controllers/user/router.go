@@ -39,4 +39,6 @@ func init() {
 	}
 	
 	router.Get().Any("/username/:username", UserGetFromName)
+	router.Get().Any("/username/:username/search", searchController.SearchHandler)
+	router.Get().Any("/username/:username/search:page", searchController.SearchHandler)
 }
