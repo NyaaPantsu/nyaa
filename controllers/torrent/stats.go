@@ -2,15 +2,12 @@ package torrentController
 
 import (
 	"text/template"
-	"encoding/hex"
 	"net/http"
 	"strconv"
-	"strings"
 	"fmt"
 
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/Stephen304/goscrape"
-	"github.com/anacrolix/torrent"
 	"github.com/gin-gonic/gin"
 )
 
@@ -33,6 +30,10 @@ func GetStatsHandler(c *gin.Context) {
 	downloads := -1
   	//TODO: fetch torrent stats and store it in the above variables 
 	//if unknown let all three on -1
+	
+	scraper := NewBulk([]string{
+	  "udp://tracker.example.com:80",
+	  "udp://tracker.example2.com:80"})
 	
 	t, err := template.New("foo").Parse(fmt.Sprintf(`{{define "stats"}}{ "seeders":[%d], "leechers": [%d], "downloads": [%d] }{{end}}`, seeders, leechers, downloads))
 	err = t.ExecuteTemplate(c.Writer, "stats", "")
