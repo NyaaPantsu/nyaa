@@ -113,14 +113,15 @@ function resetCookies() {
 	//only execute if cookie are supposed to be shared between nyaa & sukebei, aka on host name without subdomain
         var cookieValue = getCookieValue(cookieName)
         document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
+        document.cookie = cookieName + "=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
         document.cookie = cookieName + "=" + cookieValue + ";path=/;expires=" + farFutureString + ";domain=" + domain
-        //Remove cookie and re-create it to ensure domain is correct
+        //Remove cookie from both current & general path, then re-create it to ensure domain is correct
         }
       continue
     }
-    if (ignoredCookies.includes(cookieName)) {
+    if (ignoredCookies.includes(cookieName)) 
       continue
-    }
+    document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
     document.cookie = cookieName + "=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
   }
 
