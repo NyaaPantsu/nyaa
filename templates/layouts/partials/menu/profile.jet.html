@@ -37,25 +37,22 @@
   <div class="profile-usermenu">
     {{ if User.ID > 0 && (User.CurrentUserIdentical(UserProfile.ID) || User.CurrentOrAdmin(UserProfile.ID)) }}
     <a class="form-input btn-green" href="/user/{{ UserProfile.ID }}/{{ UserProfile.Username }}">
-      <div class="icon-floppy"></div>{{ T("torrents")}}
-    </a>
-    <br/>
     {{ else }}
     <a class="form-input btn-green" href="/search?userID={{ UserProfile.ID }}">
+	{{end}}
       <div class="icon-floppy"></div>{{ T("torrents")}}
     </a>
-    <br/>
-    {{ end }}
+    <a class="form-input btn-orange" href="/feed?userID={{ UserProfile.ID }}">
+      <div class="icon-rss-squared"></div>RSS
+    </a>
     {{if User.ID > 0 }}
     {{ if User.CurrentUserIdentical(UserProfile.ID) }}
     <a class="form-input" href="/notifications">{{  T("my_notifications")}}</a>
-    <br/>
     {{end}}
     {{if UserProfile.ID > 0 && User.CurrentOrAdmin(UserProfile.ID) }}
     <a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/edit">
       {{ T("settings")}}
     </a> 
-    <br/>
     {{end}}
     {{end}}
   </div>

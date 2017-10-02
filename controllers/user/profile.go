@@ -3,7 +3,6 @@ package userController
 import (
 	"strconv"
 	"time"
-	"fmt"
 
 	"net/http"
 
@@ -60,14 +59,36 @@ func UserProfileHandler(c *gin.Context) {
 func UserGetFromName(c *gin.Context) {
 	username := c.Param("username")
 	
-	if(username != "") {
-		user, _, _, err := users.FindByUsername(username)
- 		if err == nil {
-			c.Redirect(http.StatusSeeOther, fmt.Sprintf("/user/%d/%s", uint32(user.ID), username))
-			return
- 		}
-	} 
-	c.Status(http.StatusNotFound)
+	Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(c)
+	messages := msg.GetMessages(c)
+
+	userProfile, _, _, err := users.FindByUsername(username)
+	if err == nil {
+		currentUser := router.GetUser(c)
+		follow := c.Request.URL.Query()["followed"]
+		unfollow := c.Request.URL.Query()["unfollowed"]
+		deleteVar := c.Request.URL.Query()["delete"]
+
+		if (deleteVar != nil) && (currentUser.CurrentOrAdmin(userProfile.ID)) {
+			_, err := userProfile.Delete(currentUser)
+			if err == nil && currentUser.CurrentUserIdentical(userProfile.ID) {
+				cookies.Clear(c)
+			}
+			templates.Static(c, "site/static/delete_success.jet.html")
+		} else {
+			if follow != nil {
+				messages.AddInfof("infos", Ts("user_followed_msg"), userProfile.Username)
+			}
+			if unfollow != nil {
+				messages.AddInfof("infos", Ts("user_unfollowed_msg"), userProfile.Username)
+			}
+			userProfile.ParseSettings()
+
+			templates.UserProfile(c, userProfile)
+		}
+	} else {
+		c.Status(http.StatusNotFound)
+	}
 }
 
 // UserDetailsHandler : Getting User Profile Details View

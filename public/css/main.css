@@ -699,7 +699,6 @@ html, body {
 
 .torrent-buttons a [class^="icon-"], .torrent-buttons a [class*=" icon-"], a.form-input.btn-green>div[class^="icon-"], a.form-input.btn-green>div[class*="icon-"] {
     vertical-align: initial;
-    margin-right: 5px;
 }
 
 #mascotKeepHide {
@@ -1051,7 +1050,9 @@ html, body {
     display: block;
     margin-bottom: 11px;
 }
-
+.profile-usermenu .icon-rss-squared {
+    vertical-align: top;
+}
 .profile-userbuttons {
     display: inline-flex;
     margin-bottom: 5px;
@@ -2144,10 +2145,23 @@ table.multiple-upload {
     padding: 5px 0;
 }
 
+.user-search {
+	word-spacing: -7px;
+	display:block;
+	padding: 0 1rem;
+}
+.user-search [type="text"] {
+    vertical-align: top;
+	width: calc(100% - 30px);
+}
+
 /* Language specific CSS */
 
 html[lang="ja-jp"] .form-refine span.spacing {
     vertical-align: middle;
+}
+html[lang="ja-jp"] .form-input.refine-category {
+    vertical-align: top;	
 }
 @media (max-width: 1100px) {
     html[lang="ja-jp"] .header .h-user>.nav-btn {
