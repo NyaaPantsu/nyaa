@@ -263,6 +263,5 @@
 {{ if User.CurrentOrAdmin(UserProfile.ID) }}
 <hr/>
 <a href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}?delete" onclick="if (!confirm('{{  T("delete_account_confirm") }}')) return false;" class="form-input btn-red">{{  T("delete_account")}}</a>
-</div>
 {{end}}
 {{end}}
