@@ -1051,7 +1051,9 @@ html, body {
     display: block;
     margin-bottom: 11px;
 }
-
+.profile-usermenu .icon-rss-squared {
+    vertical-align: top;
+}
 .profile-userbuttons {
     display: inline-flex;
     margin-bottom: 5px;
