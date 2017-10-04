@@ -35,6 +35,16 @@ type SearchForm struct {
 	User             string
 }
 
+type uploadMultipleForm struct {
+	PantsuID		 uint
+	AniDBStatus      int
+	AniDBMessage     string
+	NyaasiStatus     int
+	NyaasiMessage    string
+	TToshoStatus     int
+	TToshoMessage    string
+}
+
 // NewNavigation return a navigation struct with
 // Some Default Values to ease things out
 func NewNavigation() Navigation {
@@ -42,6 +52,19 @@ func NewNavigation() Navigation {
 		MaxItemPerPage: 50,
 	}
 }
+
+func NewUploadMultipleForm() uploadMultipleForm {
+	return uploadMultipleForm{
+		PantsuID:         0,
+		AniDBStatus:      0,
+		AniDBMessage:     "",
+		NyaasiStatus:     0,
+		NyaasiMessage:    "",
+		TToshoStatus:     0,
+		TToshoMessage:    "",
+	}
+}
+
 
 // NewSearchForm return a searchForm struct with
 // Some Default Values to ease things out
