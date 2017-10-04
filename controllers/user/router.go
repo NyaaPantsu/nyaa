@@ -32,12 +32,13 @@ func init() {
 		userRoutes.GET("/:id/:username/edit", UserDetailsHandler)
 		userRoutes.POST("/:id/:username/edit", UserProfileFormHandler)
 		userRoutes.GET("/:id/:username/apireset", UserAPIKeyResetHandler)
-		userRoutes.GET("/:id/:username/search", searchController.SearchHandler)
-		userRoutes.GET("/:id/:username/search/:page", searchController.SearchHandler)
+		userRoutes.GET("/:id/:username/search", searchController.UserSearchHandler)
+		userRoutes.GET("/:id/:username/search/:page", searchController.UserSearchHandler)
 		userRoutes.GET("/:id/:username/feed", feedController.RSSHandler)
 		userRoutes.GET("/:id/:username/feed/:page", feedController.RSSHandler)
 	}
 	
+	router.Get().Any("/username", RedirectToUserSearch)
 	router.Get().Any("/username/:username", UserGetFromName)
 	router.Get().Any("/username/:username/search", searchController.SearchHandler)
 	router.Get().Any("/username/:username/search:page", searchController.SearchHandler)
