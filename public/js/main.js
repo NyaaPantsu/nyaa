@@ -24,7 +24,7 @@ function switchThemes() {
   // Create the new one and put it back
   var newTheme = document.createElement("link")
   newTheme.setAttribute("rel", "stylesheet")
-  newTheme.setAttribute("href", "/css/" + themeName + ".css")
+  newTheme.setAttribute("href", "/css/themes/" + themeName + ".css")
   newTheme.setAttribute("id", "theme")
   head.appendChild(newTheme)
 }
@@ -204,7 +204,7 @@ function toggleTheme(e) {
   CurrentTheme = CurrentTheme.substring(CurrentTheme.indexOf("/css/") + 5, CurrentTheme.indexOf(".css"))
   CurrentTheme = (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0])
 
-  document.getElementById("theme").href = "/css/" + CurrentTheme + ".css";
+  document.getElementById("theme").href = "/css/themes/" + CurrentTheme + ".css";
   
   if(UserID > 0 ){
     Query.Get("/dark", function(data) {})
