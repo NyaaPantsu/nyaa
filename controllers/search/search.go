@@ -44,10 +44,11 @@ func SearchHandler(c *gin.Context) {
 		}
 	}
 
-	userID, err := strconv.ParseUint(c.Query("id"), 10, 32)
+	userID, err := strconv.ParseUint(c.Query("userID"), 10, 32)
 	if err != nil {
 		userID = 0
 	}
+	
 	searchParam, torrents, nbTorrents, err := search.AuthorizedQuery(c, pagenum, currentUser.CurrentOrAdmin(uint(userID)))
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
