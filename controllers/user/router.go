@@ -38,6 +38,7 @@ func init() {
 		userRoutes.GET("/:id/:username/feed/:page", feedController.RSSHandler)
 	}
 	
+	router.Get().Any("/username", RedirectToUserSearch)
 	router.Get().Any("/username/:username", UserGetFromName)
 	router.Get().Any("/username/:username/search", searchController.SearchHandler)
 	router.Get().Any("/username/:username/search:page", searchController.SearchHandler)
