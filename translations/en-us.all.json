@@ -2153,7 +2153,7 @@
   },
   {
     "id": "usersearch_user_not_found",
-    "translation": "The user \"%s\" has not been found"
+    "translation": "The user %s has not been found"
   },
   {
     "id": "user_search_explanation",
