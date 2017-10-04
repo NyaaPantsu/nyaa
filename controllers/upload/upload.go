@@ -69,8 +69,32 @@ func UploadPostHandler(c *gin.Context) {
 		// add to db and redirect
 		torrent, err := torrents.Create(user, &uploadForm)
 		log.CheckErrorWithMessage(err, "ERROR_TORRENT_CREATED: Error while creating entry in db")
-		url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
-		c.Redirect(302, url+"?success")
+		
+		if c.PostForm("anidex_api") != "" || c.PostForm("nyaasi_api") != "" || c.PostForm("tokyot_api") != "" {
+			//User wants to upload to other websites too
+			uploadMultiple := templates.NewUploadMultipleForm()
+			uploadMultiple.PantsuID = torrent.ID
+			
+			if c.PostForm("anidex_api") != ""  {
+				uploadMultiple.AniDBStatus = 1
+			}
+			
+			if c.PostForm("nyaasi_api") != ""  {
+				uploadMultiple.NyaasiStatus = 1
+				uploadMultiple.NyaasiMessage = "Sorry u are not allowed"
+			}
+			
+			if c.PostForm("tokyot_api") != ""  {
+				uploadMultiple.TToshoStatus = 1
+			}
+			
+			variables := templates.Commonvariables(c)
+			variables.Set("UploadMultiple", uploadMultiple)
+			templates.Render(c, "site/torrents/upload_multiple.jet.html", variables)
+		} else {
+			url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
+			c.Redirect(302, url+"?success")
+		}
 	}
 }
 
