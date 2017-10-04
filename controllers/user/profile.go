@@ -3,6 +3,7 @@ package userController
 import (
 	"strconv"
 	"time"
+	"fmt"
 
 	"net/http"
 
@@ -52,7 +53,8 @@ func UserProfileHandler(c *gin.Context) {
 			templates.UserProfile(c, userProfile)
 		}
 	} else {
-		c.Status(http.StatusNotFound)
+		variables := templates.Commonvariables(c)
+		templates.Render(c, "errors/user_not_found.jet.html", variables)
 	}
 }
 
@@ -87,7 +89,22 @@ func UserGetFromName(c *gin.Context) {
 			templates.UserProfile(c, userProfile)
 		}
 	} else {
-		c.Status(http.StatusNotFound)
+		variables := templates.Commonvariables(c)
+		searchForm := templates.NewSearchForm(c)
+		searchForm.User = username
+		variables.Set("Search", searchForm)
+		templates.Render(c, "errors/user_not_found.jet.html", variables)
+	}
+}
+
+func RedirectToUserSearch(c *gin.Context) {
+	username := c.Query("username")
+	
+	if username == "" {
+		variables := templates.Commonvariables(c)
+		templates.Render(c, "errors/user_not_found.jet.html", variables)
+	} else {
+		c.Redirect(http.StatusSeeOther, fmt.Sprintf("/username/%s", username))
 	}
 }
 
@@ -104,7 +121,8 @@ func UserDetailsHandler(c *gin.Context) {
 		userProfile.ParseSettings()
 		templates.UserProfileEdit(c, userProfile, b, availableLanguages)
 	} else {
-		c.Status(http.StatusNotFound)
+		variables := templates.Commonvariables(c)
+		templates.Render(c, "errors/user_not_found.jet.html", variables)
 	}
 }
 
