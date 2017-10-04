@@ -29,11 +29,7 @@ func UserProfileHandler(c *gin.Context) {
 	messages := msg.GetMessages(c)
 
 	if id == 0 && ContainsNonNumbersChars(c.Param("id")) {
-		variables := templates.Commonvariables(c)
-		searchForm := templates.NewSearchForm(c)
-		searchForm.User = c.Param("id")
-		variables.Set("Search", searchForm)
-		templates.Render(c, "errors/user_not_found.jet.html", variables)
+		c.Redirect(http.StatusSeeOther, fmt.Sprintf("/username/%s", c.Param("id")))
 		return
 	}
 	
