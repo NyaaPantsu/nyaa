@@ -2148,10 +2148,6 @@
     "translation": "Search from this user..."
   },
   {
-    "id": "user_not_found",
-    "translation": "User not found"
-  },
-  {
     "id": "usersearch_user_not_found",
     "translation": "The user \"%s\" has not been found"
   },
