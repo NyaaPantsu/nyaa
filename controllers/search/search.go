@@ -15,6 +15,7 @@ import (
 	"github.com/pkg/errors"
 )
 
+// UserSearchHandler : Controller called when search done through user profile URL, userID parameters are accessed differently so we need this
 func UserSearchHandler(c *gin.Context) {
 	query := c.Request.URL.Query()
 	query.Set("userID", c.Param("id"))
