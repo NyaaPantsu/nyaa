@@ -201,7 +201,7 @@ function startupCode() {
 
 function toggleTheme(e) {
   var CurrentTheme = document.getElementById("theme").href
-  CurrentTheme = CurrentTheme.substring(CurrentTheme.indexOf("/css/") + 5, CurrentTheme.indexOf(".css"))
+  CurrentTheme = CurrentTheme.substring(CurrentTheme.indexOf("/themes/") + 8, CurrentTheme.indexOf(".css"))
   CurrentTheme = (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0])
 
   document.getElementById("theme").href = "/css/themes/" + CurrentTheme + ".css";
