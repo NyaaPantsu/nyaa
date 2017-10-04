@@ -28,6 +28,15 @@ func UserProfileHandler(c *gin.Context) {
 	Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(c)
 	messages := msg.GetMessages(c)
 
+	if id == 0 && ContainsNonNumbersChars(c.Param("id")) {
+		variables := templates.Commonvariables(c)
+		searchForm := templates.NewSearchForm(c)
+		searchForm.User = c.Param("id")
+		variables.Set("Search", searchForm)
+		templates.Render(c, "errors/user_not_found.jet.html", variables)
+		return
+	}
+	
 	userProfile, _, errorUser := users.FindForAdmin(uint(id))
 	if errorUser == nil {
 		currentUser := router.GetUser(c)
@@ -56,6 +65,15 @@ func UserProfileHandler(c *gin.Context) {
 		variables := templates.Commonvariables(c)
 		templates.Render(c, "errors/user_not_found.jet.html", variables)
 	}
+}
+
+func ContainsNonNumbersChars(source string) bool {
+	for char := range source {
+		if char < 30 || char > 39 {
+			return true
+		}
+	}
+	return false
 }
 
 func UserGetFromName(c *gin.Context) {
