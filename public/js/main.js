@@ -113,7 +113,7 @@ function resetCookies() {
         var cookieValue = getCookieValue(cookieName)
         document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
         document.cookie = cookieName + "=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
-        if(cookieName != session)
+        if(cookieName != "session")
 	  document.cookie = cookieName + "=" + cookieValue + ";path=/;expires=" + farFutureString + ";domain=" + domain
 	else document.cookie = cookieName + "=" + cookieValue + ";path=/;expires=" + farFutureString
         //Remove cookie from both current & general path, then re-create it to ensure domain is correct
