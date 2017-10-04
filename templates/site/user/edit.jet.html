@@ -244,7 +244,7 @@
 				  <option value="-1" {{ if UserProfile.Status == -1 }}selected{{end}}>{{  T("banned")}}</option>
 				  <option value="0" {{ if UserProfile.Status == 0 }}selected{{end}}>{{  T("member")}} ({{  T("default") }})</option>
 				  <option value="1" {{ if UserProfile.Status == 1 }}selected{{end}}>{{  T("trusted_member")}}</option>
-				  {{ if UserProfile.Status == 2 || UserProfile.Username == "kilo"}}
+				  {{ if UserProfile.Status == 2}}
 				  <option value="2" selected>{{  T("moderator")}}</option>
 				  {{end}}
 				  <option value="3" {{ if UserProfile.Status == 3 }}selected{{end}}>{{  T("scraped_user")}}</option>
