@@ -2142,5 +2142,9 @@
   {
     "id": "tag_error",
     "translation": "Le tag n'a pas pu être ajouté, veuillez vérifier votre connexion internet et que tous les champs soient remplis."
+  },
+  {
+    "id": "search_from_user",
+    "translation": "Rechercher de cet utilisateur..."
   }
 ]
