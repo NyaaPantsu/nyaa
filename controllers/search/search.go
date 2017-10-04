@@ -15,6 +15,14 @@ import (
 	"github.com/pkg/errors"
 )
 
+// UserSearchHandler : Controller called when search done through user profile URL, userID parameters are accessed differently so we need this
+func UserSearchHandler(c *gin.Context) {
+	query := c.Request.URL.Query()
+	query.Set("userID", c.Param("id"))
+	c.Request.URL.RawQuery = query.Encode()
+	SearchHandler(c)
+}
+
 // SearchHandler : Controller for displaying search result page, accepting common search arguments
 func SearchHandler(c *gin.Context) {
 	var err error
@@ -41,7 +49,7 @@ func SearchHandler(c *gin.Context) {
 	if err != nil {
 		userID = 0
 	}
-
+	
 	searchParam, torrents, nbTorrents, err := search.AuthorizedQuery(c, pagenum, currentUser.CurrentOrAdmin(uint(userID)))
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
