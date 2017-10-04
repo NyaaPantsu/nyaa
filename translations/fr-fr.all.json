@@ -2146,5 +2146,13 @@
   {
     "id": "search_from_user",
     "translation": "Rechercher de cet utilisateur..."
+  },
+  {
+    "id": "usersearch_user_not_found",
+    "translation": "L'utilisateur \"%s\" n'a pas été trouvé."
+  },
+  {
+    "id": "user_search_explanation",
+    "translation": "Rechercher un utilisateur en inscrivant son nom dans l'entrée ci-dessous."
   }
 ]
