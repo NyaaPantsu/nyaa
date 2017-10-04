@@ -52,3 +52,7 @@
 * + tag_error
 ## 2017/10/02
 * + search_from_user
+## 2017/10/04
+* + user_not_found
+* + usersearch_user_not_found
+* + user_search_explanation
