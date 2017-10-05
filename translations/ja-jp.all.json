@@ -2142,5 +2142,17 @@
   {
     "id": "tag_error",
     "translation": "タグを追加できませんでした。インターネットに接続されているか、すべてのフィールドが入力されているかを確認してください。"
+  },
+  {
+    "id": "search_from_user",
+    "translation": "このユーザーからのアップロードを検索..."
+  },
+  {
+    "id": "usersearch_user_not_found",
+    "translation": "ユーザー \"%s\" が見つかりません"
+  },
+  {
+    "id": "user_search_explanation",
+    "translation": "以下にユーザー名を入力してユーザーを検索します"
   }
 ]
