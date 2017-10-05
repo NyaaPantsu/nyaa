@@ -1,5 +1,9 @@
 [
   {
+      "id": "read_rules",
+      "translation": "Bitte lies <a href=\"/faq#rules\">die Regeln</a> bevor du etwas Hochladen möchtest."
+  },
+  {
     "id": "rules",
     "translation": "Regeln"
   },
@@ -22,6 +26,10 @@
   {
     "id": "verify_email_title",
     "translation": "Bestätigung der E-Mail-Adresse für NyaaPantsu."
+  },
+  {
+    "id": "rule_tracker_url",
+    "translation": "<span style='font-weight: bold;'>https://uw0.xyz/</span> ist die offizielle Announce URL"
   },
   {
     "id": "verify_email_content",
@@ -81,7 +89,7 @@
   },
   {
     "id": "terms_conditions_full",
-    "translation": "Coming sooner than you might expect..."
+    "translation": "<h2>NyaaPantsu Terms and Conditions</h2><h3>1. Terms</h3><p>By accessing the website at <a href='https://pantsu.cat'>https://pantsu.cat</a>, you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.</p><h3>2. Disclaimer</h3><ol type='a'><li>The materials on NyaaPantsu Lda's website are provided on an 'as is' basis. NyaaPantsu Lda makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</li><li>Further, NyaaPantsu Lda does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its website or otherwise relating to such materials or on any sites linked to this site.</li></ol><h3>3. Limitations</h3><p>In no event shall NyaaPantsu Lda or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on NyaaPantsu Lda's website, even if NyaaPantsu Lda or a NyaaPantsu Lda authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.</p><h3>4. Accuracy of materials</h3><p>The materials appearing on NyaaPantsu Lda website could include technical, typographical, or photographic errors. NyaaPantsu Lda does not warrant that any of the materials on its website are accurate, complete or current. NyaaPantsu Lda may make changes to the materials contained on its website at any time without notice. However NyaaPantsu Lda does not make any commitment to update the materials.</p><h3>5. Links</h3><p>NyaaPantsu Lda has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by NyaaPantsu Lda of the site. Use of any such linked website is at the user's own risk.</p><h3>6. Modifications</h3><p>NyaaPantsu Lda may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.</p><h3>7. Governing Law</h3><p>These terms and conditions are governed by and construed in accordance with the laws of Portugal and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.</p>"
   },
   {
     "id": "remember_me",
@@ -198,6 +206,10 @@
   {
     "id": "err_no_results",
     "translation": "Kein Suchtreffer gefunden"
+  },
+  {
+    "id": "err_no_torrent_file",
+    "translation": "Torrentdatei konnte nicht gefunden werden."
   },
   {
     "id": "upload",
@@ -566,6 +578,10 @@
   {
     "id": "submit_a_comment_as_anonymous",
     "translation": "Anonymen Kommentar verfassen"
+  },
+  {
+    "id": "torrent_no_comments",
+    "translation": "Es hat noch kein Nutzer einen Kommentar hinterlassen."
   },
   {
     "id": "submit",
@@ -1157,7 +1173,7 @@
     },
     {
       "id": "refreshing_in",
-      "translation": "Neuladen der Seite in {0} Sekunden..."
+      "translation": "Seite wird neugeladen in {0} Sekunden..."
     },
     {
       "id": "delete_reports_with_torrents",
@@ -1308,6 +1324,18 @@
       "translation": "Maskottchen URL"
     },
     {
+      "id": "alternating_color",
+      "translation": "Abwechselnde Farben (und keine Fetten Schriften)"
+    },
+    {
+      "id": "old_nav",
+      "translation": "Alte Navigation"
+    },
+    {
+      "id": "old_nav_explanation",
+      "translation": "Bei einer Suche werden Kategorien und Seitenzahlen am Anfang der Seite angezeigt, wie in Nyaa.se"
+    },
+    {
       "id": "no_notifications",
       "translation": "Keine Benachrichtigungen"
     },
@@ -1326,10 +1354,6 @@
     {
       "id": "torrent_language",
       "translation": "Torrent Sprache"
-    },
-    {
-      "id": "language_not_mandatory",
-      "translation": "Sprachangabe ist nicht mehr verpflichtend"
     },
     {
       "id": "language_en-us_name",
@@ -1624,6 +1648,10 @@
       "translation": "Schränke deine Suche ein"
     },
     {
+      "id": "refine",
+      "translation": "Einschränken"
+    },
+    {
       "id": "between",
       "translation": "Zwischen"
     },
@@ -1642,10 +1670,6 @@
     {
       "id": "years",
       "translation": "Jahren"
-    },
-    {
-      "id": "refine",
-      "translation": "Einschränken"
     },
     {
       "id": "large",
@@ -1678,6 +1702,22 @@
     {
       "id": "descending",
       "translation": "Absteigend"
+    },
+    {
+      "id": "quality",
+      "translation": "Qualität"
+    },
+    {
+      "id": "exclude_user",
+      "translation": "Ausschließen"
+    },
+    {
+      "id": "from_user",
+      "translation": "von"
+    },
+    {
+      "id": "limit_torrent_count",
+      "translation": "Limit"
     },
     {
       "id": "username_taken",
@@ -1772,6 +1812,10 @@
       "translation": "Please provide either of Content-Type: application/json header or multipart/form-data"
     },
     {
+      "id": "torrent_name",
+      "translation": "Torrentname"
+    },
+    {
       "id": "torrent_name_invalid",
       "translation": "Der Name des Torrents ist ungültig"
     },
@@ -1858,6 +1902,14 @@
     {
       "id": "torrent_colors",
       "translation": "Torrent-Farben"
+    },
+    {
+      "id": "faq_ads",
+      "translation": "Warum hat Pantsu jetzt Werbung?"
+    },
+    {
+      "id": "faq_ads_explanation",
+      "translation": "Die Entscheidung für Werbeanzeigen ist uns nicht leichtgefallen und wir haben uns viele Gedanken zu euren Bedenken gemacht. Schlussendlich aber glauben wir, das es die einzige dauerhafte Lösung ist, um Pantsu zu finanzieren und die zukünfige Funktionalität zu gewährleisten.<br/>Wir haben uns viele Gedanken um alternative Finanzierungsmöglichkeiten gemacht aber wir sahen keine andere Möglichkeit, um Pantsu in dem Maße zu finanzieren.<br/>Nach vielen Bedenken haben wir uns dann für Werbeanzeigen von a-ads entschieden. Das ist die beste Option für uns und unsere Nutzer. Diese Anzeigen sind einfach und unaufdränglich, stören das Nutzererlebnis unserer Seite nicht und verfolgen unsere Nutzer nicht."
     },
     {
       "id": "torrent_preview",
@@ -2070,5 +2122,37 @@
     {
       "id": "append_query",
       "translation": "Du kannst deine Suchanfrage an das Ende der Feed-URL anhängen."
+    }
+    {
+      "id": "cookie_warning",
+      "translation": "Durch Nutzung unserer Webseite stimmst du unserer Nutzung von Cookies zu Zwecken der individuellen Anpassung der Webseite für unsere Nutzer zu.<br/>Diese Nachricht wird dir beim nächsten Mal nicht mehr angezeigt."
+    },
+    {
+      "id": "enabled",
+      "translation": "Aktiviert"
+    },
+    {
+      "id": "disabled",
+      "translation": "Deaktiviert"
+    },
+    {
+      "id": "reset_api_key",
+      "translation": "API-Schlüssel zurücksetzen"
+    },
+    {
+      "id": "tag_error",
+      "translation": "Schlagwort konnte nicht hinzugefügt werden, bitte überprüfe deine Internetverbindung und das alle Felder ausgefüllt sind."
+    },
+    {
+      "id": "search_from_user",
+      "translation": "Suche von diesem Benutzer..."
+    },
+    {
+      "id": "usersearch_user_not_found",
+      "translation": "Der Benutzer \"%s\" konnte nicht gefunden werden"
+    },
+    {
+      "id": "user_search_explanation",
+      "translation": "Suche nach einem Benutzer indem du seinen Nutzernamen unten eingibst."
     }
 ]
