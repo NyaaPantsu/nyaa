@@ -44,7 +44,7 @@
   <nav id="header" class="header">
     {{block menu()}}{{end}}
   </nav>
-  {{ AdType := kilo_rand(1) }}
+  {{ AdType := kilo_rand(2) }}
   <div id="content" class="{{ block contclass()}}{{end}}">
     <div class="content container center">
       {{ yield infos()}}
