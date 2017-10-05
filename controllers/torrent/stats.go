@@ -4,9 +4,11 @@ import (
 	"text/template"
 	"strconv"
 	"strings"
+	"time"
 	"fmt"
 
 	"github.com/NyaaPantsu/nyaa/models/torrents"
+	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/Stephen304/goscrape"
 	"github.com/gin-gonic/gin"
 )
@@ -40,6 +42,9 @@ func GetStatsHandler(c *gin.Context) {
 	
 	t, err := template.New("foo").Parse(fmt.Sprintf(`{{define "stats"}}{ "seeders": [%d], "leechers": [%d], "downloads": [%d] }{{end}}`, stats[0].Seeders, stats[0].Leechers, stats[0].Completed))
 	err = t.ExecuteTemplate(c.Writer, "stats", "")
+	
+	torrent.Scrape = &models.Scrape{uint(id), uint32(stats[0].Seeders), uint32(stats[0].Leechers), uint32(stats[0].Completed), time.Now()}
+	torrent.Update(true)
 	
 	return
 }
