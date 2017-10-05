@@ -161,10 +161,12 @@ function startupCode() {
     if (userCommitVersion != commitVersion || userWebsiteVersion != websiteVersion)
       resetCookies()
   }
+  if(!window.location.host.includes(domain)) domain = window.location.host
   
   if(document.getElementById("cookie-warning-close") != null) {
 	document.getElementById("cookie-warning-close").addEventListener("click", function (e) {
       document.getElementById("cookie-warning").outerHTML = "";
+      document.cookie = "EU_Cookie=true;path=/;expires=" + farFutureString + ";domain=" + domain
     })
   }
 	  
