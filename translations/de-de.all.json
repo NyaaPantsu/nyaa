@@ -1,7 +1,7 @@
 [
   {
       "id": "read_rules",
-      "translation": "Bitte lies <a href=\"/faq#rules\">die Regeln</a> bevor du etwas Hochladen möchtest."
+      "translation": "Bitte lies <a href=\"/faq#rules\">die Regeln</a> bevor du etwas hochladen möchtest."
   },
   {
     "id": "rules",
@@ -13,7 +13,7 @@
   },
   {
     "id": "asia",
-    "translation": "Nur Asiatische Inhalte (keine westlichen Filme, keine Cartoons)"
+    "translation": "Nur asiatische Inhalte (keine westlichen Filme und keine Cartoons)"
   },
   {
     "id": "rules_spam",
@@ -145,7 +145,7 @@
   },
   {
     "id": "unfollow",
-    "translation": "Nicht mehr Folgen"
+    "translation": "Nicht mehr folgen"
   },
   {
     "id": "user_followed_msg",
@@ -849,43 +849,43 @@
   },
   {
     "id": "new_torrent_settings",
-    "translation": "Benachrichtigt werden wenn ein gefolgter Benutzer einen neuen Torrent hinzufügt"
+    "translation": "Benachrichtigt werden, wenn ein gefolgter Benutzer einen neuen Torrent hinzufügt"
   },
   {
     "id": "new_torrent_email_settings",
-    "translation": "Per E-Mail benachrichtigt werden wenn ein gefolgter Benutzer einen neuen Torrent hinzufügt"
+    "translation": "Per E-Mail benachrichtigt werden, wenn ein gefolgter Benutzer einen neuen Torrent hinzufügt"
   },
   {
     "id": "new_comment_settings",
-    "translation": "Benachrichtigt werden wenn deine Torrents kommentiert werden"
+    "translation": "Benachrichtigt werden, wenn deine Torrents kommentiert werden"
   },
   {
     "id": "new_comment_email_settings",
-    "translation": "Per E-Mail benachrichtigt werden wenn deine Torrents kommentiert werden"
+    "translation": "Per E-Mail benachrichtigt werden, wenn deine Torrents kommentiert werden"
   },
   {
     "id": "new_responses_settings",
-    "translation": "Benachrichtigt werden wenn auf deine Kommentare geantwortet wird"
+    "translation": "Benachrichtigt werden, wenn auf deine Kommentare geantwortet wird"
   },
   {
     "id": "new_responses_email_settings",
-    "translation": "Per E-Mail benachrichtigt werden wenn auf deine Kommentare geantwortet wird"
+    "translation": "Per E-Mail benachrichtigt werden, wenn auf deine Kommentare geantwortet wird"
   },
   {
     "id": "new_follower_settings",
-    "translation": "Benachrichtigt werden wenn du einen neuen Follower hast"
+    "translation": "Benachrichtigt werden, wenn du einen neuen Follower hast"
   },
   {
     "id": "new_follower_email_settings",
-    "translation": "Per E-Mail benachrichtigt werden wenn du einen neuen Follower hast"
+    "translation": "Per E-Mail benachrichtigt werden, wenn du einen neuen Follower hast"
   },
   {
     "id": "followed_settings",
-    "translation": "Benachrichtigt werden wenn du jemandem folgst"
+    "translation": "Benachrichtigt werden, wenn du jemandem folgst"
   },
   {
     "id": "followed_email_settings",
-    "translation": "Per E-Mail benachrichtigt werden wenn du jemandem folgst."
+    "translation": "Per E-Mail benachrichtigt werden, wenn du jemandem folgst."
   },
   {
     "id": "yes",
@@ -905,7 +905,7 @@
   },
   {
     "id": "no_move_location_selected",
-    "translation": "Du hast keine Angaben gemacht ob du die Auswahl bewegen möchtest!"
+    "translation": "Du hast keine Angaben gemacht, ob du die Auswahl bewegen möchtest!"
   },
   {
     "id": "select_one_element",
@@ -965,11 +965,11 @@
   },
   {
     "id": "oauth_client_deleted",
-    "translation": "Oauth API Client wurde gelöscht!"
+    "translation": "OAuth API Client wurde gelöscht!"
   },
   {
     "id": "oauth_client_deleted_by",
-    "translation": "Oauth API Client #%s von %s wurde von %s gelöscht."
+    "translation": "OAuth API Client #%s von %s wurde von %s gelöscht."
   },
   {
     "id": "no_action_exist",
@@ -1045,7 +1045,7 @@
   },
   {
     "id": "delete_definitely",
-    "translation": "Wirklich Löschen"
+    "translation": "Wirklich löschen"
   },
   {
     "id": "torrent_unblock",
@@ -1173,7 +1173,7 @@
     },
     {
       "id": "refreshing_in",
-      "translation": "Seite wird neugeladen in {0} Sekunden..."
+      "translation": "Seite wird {0} Sekunden neu geladen..."
     },
     {
       "id": "delete_reports_with_torrents",
@@ -1289,7 +1289,7 @@
     },
     {
       "id": "reassign_warning",
-      "translation": "Die Funktion Torrents einem neuen Benutzer zuzuweisen ist nahezu unumkehrbar und sollte nur mit Besonderer Achtsamkeit benutzt werden."
+      "translation": "Die Funktion Torrents einem neuen Benutzer zuzuweisen ist nahezu unumkehrbar und sollte nur mit besonderer Achtsamkeit benutzt werden."
     },
     {
       "id": "previous_username",
@@ -1325,7 +1325,7 @@
     },
     {
       "id": "alternating_color",
-      "translation": "Abwechselnde Farben (und keine Fetten Schriften)"
+      "translation": "Abwechselnde Farben (und keine fetten Schriften)"
     },
     {
       "id": "old_nav",
@@ -1837,19 +1837,19 @@
     },
     {
       "id": "torrent_lang_invalid",
-      "translation": "Die abgesendete Sprache wird nicht unterstüzt! Du kannst helfen sie hinzuzufügen indem du dich per Github an der Übersetzung beteiligst"
+      "translation": "Die abgesendete Sprache wird nicht unterstüzt! Du kannst helfen sie hinzuzufügen, indem du dich per Github an der Übersetzung beteiligst"
     },
     {
       "id": "torrent_cat_is_english",
-      "translation": "Die Torrentkategorie ist auf 'Englisch-übersetzt' gestellt gewesen obwohl der Torrent nicht in Englisch war. Wir haben ihn auf Englisch geändert."
+      "translation": "Die Torrentkategorie ist auf 'Englisch-übersetzt' gestellt gewesen, obwohl der Torrent nicht in Englisch war. Wir haben ihn auf Englisch geändert."
     },
     {
       "id": "torrent_cat_not_english",
-      "translation": "Die Torrentkategorie ist auf 'andere-Übersetzungen' gestellt obwohl die Sprache Englisch ist."
+      "translation": "Die Torrentkategorie ist auf 'andere-Übersetzungen' gestellt, obwohl die Sprache Englisch ist."
     },
     {
       "id": "torrent_magnet_invalid",
-      "translation": "Der Magnet konnte nicht geparsed werden, bitte kontrolliere ihn auf Richtigkeit."
+      "translation": "Der Magnet konnte nicht geparsed werden. Bitte kontrolliere ihn auf Richtigkeit."
     },
     {
       "id": "torrent_hash_invalid",
@@ -1909,7 +1909,7 @@
     },
     {
       "id": "faq_ads_explanation",
-      "translation": "Die Entscheidung für Werbeanzeigen ist uns nicht leichtgefallen und wir haben uns viele Gedanken zu euren Bedenken gemacht. Schlussendlich aber glauben wir, das es die einzige dauerhafte Lösung ist, um Pantsu zu finanzieren und die zukünfige Funktionalität zu gewährleisten.<br/>Wir haben uns viele Gedanken um alternative Finanzierungsmöglichkeiten gemacht aber wir sahen keine andere Möglichkeit, um Pantsu in dem Maße zu finanzieren.<br/>Nach vielen Bedenken haben wir uns dann für Werbeanzeigen von a-ads entschieden. Das ist die beste Option für uns und unsere Nutzer. Diese Anzeigen sind einfach und unaufdränglich, stören das Nutzererlebnis unserer Seite nicht und verfolgen unsere Nutzer nicht."
+      "translation": "Die Entscheidung für Werbeanzeigen ist uns nicht leichtgefallen und wir haben uns viele Gedanken zu euren Bedenken gemacht. Schlussendlich aber glauben wir, dass es die einzige dauerhafte Lösung ist, um Pantsu zu finanzieren und die zukünfige Funktionalität zu gewährleisten.<br/>Wir haben uns viele Gedanken um alternative Finanzierungsmöglichkeiten gemacht, aber wir sahen keine andere Möglichkeit, um Pantsu in dem Maße zu finanzieren.<br/>Nach vielen Bedenken haben wir uns dann für Werbeanzeigen von a-ads entschieden. Das ist die beste Option für uns und unsere Nutzer. Diese Anzeigen sind einfach und unaufdränglich, stören das Nutzererlebnis unserer Seite nicht und verfolgen unsere Nutzer nicht."
     },
     {
       "id": "torrent_preview",
@@ -2153,6 +2153,6 @@
     },
     {
       "id": "user_search_explanation",
-      "translation": "Suche nach einem Benutzer indem du seinen Nutzernamen unten eingibst."
+      "translation": "Suche nach einem Benutzer, indem du seinen Nutzernamen unten eingibst."
     }
 ]
