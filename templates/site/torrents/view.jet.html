@@ -280,9 +280,9 @@
 
   Query.Get('/stats/' + torrentID, function (data) {
     if(typeof data.seeders != "undefined" && data.seeders != -1) {
-      seeders.innerText = data.seeders
-      leechers.innerText = data.leechers
-      downloads.innerText = data.downloads
+      seeders.innerHTML = "<span>" + data.seeders + "</span>"
+      leechers.innerHTML = "<span>" + data.leechers + "</span>"
+      downloads.innerHTML = "<span>" + data.downloads + "</span>"
     }
   })
 </script>
