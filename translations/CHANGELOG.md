@@ -44,7 +44,7 @@
 * + torrent_name
 * + read_rules
 ## 2017/09/18
-* - language_not_mandatory
+* - removed: language_not_mandatory
 ## 2017/09/24
 * + enabled
 * + disabled
