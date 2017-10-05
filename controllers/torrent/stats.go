@@ -2,8 +2,8 @@ package torrentController
 
 import (
 	"text/template"
-	"net/http"
 	"strconv"
+	"strings"
 	"fmt"
 
 	"github.com/NyaaPantsu/nyaa/models/torrents"
@@ -18,25 +18,35 @@ func GetStatsHandler(c *gin.Context) {
 		return
 	}
 
-	_, err = torrents.FindRawByID(uint(id))
+	torrent, err := torrents.FindRawByID(uint(id))
 
 	if err != nil {
-		c.Status(http.StatusNotFound)
 		return
 	}
 	
-	seeders := -1
-	leechers := -1
-	downloads := -1
-  	//TODO: fetch torrent stats and store it in the above variables 
-	//if unknown let all three on -1
+	var Trackers []string
+	for _, line := range strings.Split(torrent.Trackers[3:], "&tr=") {
+		tracker := UnescapeString(line)
+		if tracker[:6] == "udp://" {
+			Trackers = append(Trackers, tracker)
+		}
+	}	
+
+	scraper := goscrape.NewBulk(Trackers)
 	
-	scraper := NewBulk([]string{
-	  "udp://tracker.example.com:80",
-	  "udp://tracker.example2.com:80"})
+	stats := scraper.ScrapeBulk([]string{
+	  torrent.Hash,
+	})
 	
-	t, err := template.New("foo").Parse(fmt.Sprintf(`{{define "stats"}}{ "seeders":[%d], "leechers": [%d], "downloads": [%d] }{{end}}`, seeders, leechers, downloads))
+	t, err := template.New("foo").Parse(fmt.Sprintf(`{{define "stats"}}{ "seeders": [%d], "leechers": [%d], "downloads": [%d] }{{end}}`, stats[0].Seeders, stats[0].Leechers, stats[0].Completed))
 	err = t.ExecuteTemplate(c.Writer, "stats", "")
 	
 	return
+}
+
+func UnescapeString(s string) string {
+	//Special characters are escaped using their hexa code and i have no idea what function unescapes this so i replace the characters
+	newstr := strings.Replace(s, "%3A", ":", -1)
+	newstr = strings.Replace(newstr, "%2F", "/", -1)
+	return newstr
 }
