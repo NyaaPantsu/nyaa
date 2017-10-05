@@ -278,6 +278,10 @@
       downloads = document.querySelector(".tr-dl b"),
       torrentID = window.location.pathname.substr(6)
 
+      seeders.innerHTML = "Loading..."
+      leechers.innerHTML = "Loading..."
+      downloads.innerHTML = "Loading..."  
+	
   Query.Get('/stats/' + torrentID, function (data) {
     if(typeof data.seeders != "undefined" && data.seeders != -1) {
       seeders.innerHTML = "<span>" + data.seeders + "</span>"
