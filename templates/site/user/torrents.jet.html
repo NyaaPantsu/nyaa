@@ -47,15 +47,19 @@
   </tr>
   {{end}}
 </table>
-<nav class="torrentNav" aria-label="Page navigation">
   <div class="pagination">
     <a href="/search?userID={{ UserProfile.ID }}" aria-label="Next">
-      <span>
+      <span style="display:block;border-right:1px solid;">
         {{  T("see_more_torrents_from", UserProfile.Username) }}
       </span>
     </a>
   </div>
-</nav>
+  <div class="user-search">
+	  <form role="search" action="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/search" id="header-form" method="get">'
+		<input class="form-input" name="q" type="text" placeholder="{{T("search_from_user")}}">
+		<button type="submit" class="form-input icon-search"></button>
+	  </form>
+  </div>
 {{else}}
 <h2 style="text-align: center;">{{  T("no_torrents_uploaded") }}</h2>
 {{end}}

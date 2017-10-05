@@ -24,7 +24,7 @@ function switchThemes() {
   // Create the new one and put it back
   var newTheme = document.createElement("link")
   newTheme.setAttribute("rel", "stylesheet")
-  newTheme.setAttribute("href", "/css/" + themeName + ".css")
+  newTheme.setAttribute("href", "/css/themes/" + themeName + ".css")
   newTheme.setAttribute("id", "theme")
   head.appendChild(newTheme)
 }
@@ -87,8 +87,7 @@ parseAllDates()
 //called if no Commit cookie is set or if the website has a newer commit than the one in cookie
 function resetCookies() {
   var cookies = document.cookie.split(";")
-  var excludedCookies = ["mascot", "version", "theme", "theme2", "mascot_url", "lang", "csrf_token", "altColors", "EU_Cookie", "oldNav"]
-  var ignoredCookies = ["session"]
+  var excludedCookies = ["session", "mascot", "version", "theme", "theme2", "mascot_url", "lang", "csrf_token", "altColors", "EU_Cookie", "oldNav"]
   //Excluded cookies are either left untouched or deleted then re-created
   //Ignored Cookies are constantly left untouched
   
@@ -114,13 +113,14 @@ function resetCookies() {
         var cookieValue = getCookieValue(cookieName)
         document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
         document.cookie = cookieName + "=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
-        document.cookie = cookieName + "=" + cookieValue + ";path=/;expires=" + farFutureString + ";domain=" + domain
+        if(cookieName != "session")
+	  document.cookie = cookieName + "=" + cookieValue + ";path=/;expires=" + farFutureString + ";domain=" + domain
+	else document.cookie = cookieName + "=" + cookieValue + ";path=/;expires=" + farFutureString
         //Remove cookie from both current & general path, then re-create it to ensure domain is correct
+	//Force current domain for session cookie
         }
       continue
     }
-    if (ignoredCookies.includes(cookieName)) 
-      continue
     document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
     document.cookie = cookieName + "=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
   }
@@ -201,10 +201,10 @@ function startupCode() {
 
 function toggleTheme(e) {
   var CurrentTheme = document.getElementById("theme").href
-  CurrentTheme = CurrentTheme.substring(CurrentTheme.indexOf("/css/") + 5, CurrentTheme.indexOf(".css"))
+  CurrentTheme = CurrentTheme.substring(CurrentTheme.indexOf("/themes/") + 8, CurrentTheme.indexOf(".css"))
   CurrentTheme = (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0])
 
-  document.getElementById("theme").href = "/css/" + CurrentTheme + ".css";
+  document.getElementById("theme").href = "/css/themes/" + CurrentTheme + ".css";
   
   if(UserID > 0 ){
     Query.Get("/dark", function(data) {})

@@ -44,9 +44,14 @@
 * + torrent_name
 * + read_rules
 ## 2017/09/18
-* - language_not_mandatory
+* - removed: language_not_mandatory
 ## 2017/09/24
 * + enabled
 * + disabled
 * + reset_api_key
 * + tag_error
+## 2017/10/02
+* + search_from_user
+## 2017/10/04
+* + usersearch_user_not_found
+* + user_search_explanation
