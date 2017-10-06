@@ -27,8 +27,6 @@
     {{end}}
     {{end}}
     {{end}}
-  </div>
-  <div class="profile-usermenu">
     {{ if User.ID > 0 && (User.CurrentUserIdentical(UserProfile.ID) || User.CurrentOrAdmin(UserProfile.ID)) }}
     <a class="form-input btn-green" href="/user/{{ UserProfile.ID }}/{{ UserProfile.Username }}">
     {{ else }}
