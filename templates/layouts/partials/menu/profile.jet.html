@@ -17,23 +17,17 @@
   </div>
   <!-- END SIDEBAR USER TITLE -->
   <!-- SIDEBAR BUTTONS -->
-  <div class="profile-userbuttons">
+  <div class="profile-usermenu">
     {{if User.ID > 0 }}
     {{if !User.CurrentUserIdentical(UserProfile.ID) }}
     {{if !User.IsFollower(UserProfile)}}
     <a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-green">{{ T("follow")}}</a>
-    <br />
     {{else}}
     <a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-orange">{{ T("unfollow")}}</a>
-    <br/>
     {{end}}
     {{end}}
     {{end}}
-    <!-- <button type="button" class="btn btn-danger btn-sm">Message</button> -->
   </div>
-  <br/>
-  <!-- END SIDEBAR BUTTONS -->
-  <!-- SIDEBAR MENU -->
   <div class="profile-usermenu">
     {{ if User.ID > 0 && (User.CurrentUserIdentical(UserProfile.ID) || User.CurrentOrAdmin(UserProfile.ID)) }}
     <a class="form-input btn-green" href="/user/{{ UserProfile.ID }}/{{ UserProfile.Username }}">
@@ -56,6 +50,11 @@
     {{end}}
     {{end}}
   </div>
-  <!-- END MENU -->
+  <div class="user-search">
+    <form role="search" action="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/search" id="header-form" method="get">'
+      <input class="form-input" name="q" type="text" placeholder="{{T("search_from_user")}}">
+      <button type="submit" class="form-input icon-search"></button>
+    </form>
+  </div>
 </div>
 {{end}}
