@@ -8,6 +8,7 @@ import (
 	"fmt"
 
 	"github.com/NyaaPantsu/nyaa/models/torrents"
+	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/Stephen304/goscrape"
 	"github.com/gin-gonic/gin"
 )
@@ -50,10 +51,11 @@ func GetStatsHandler(c *gin.Context) {
 	t.ExecuteTemplate(c.Writer, "stats", "")
 	
 	if stats.Seeders != -1 {
-		if true {
-			//Todo: check if there already is an entry in the DB, if not then torrent.Scrape.create
+		var tmp models.Scrape
+		if models.ORM.Where("torrent_id = ?", id).Find(&tmp).RecordNotFound() {
 			torrent.Scrape = torrent.Scrape.Create(uint(id), uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now())
 		} else {
+			torrent.Scrape = &models.Scrape{uint(id), uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now()}
 			torrent.Scrape.Update(false)
 		}
 	}
