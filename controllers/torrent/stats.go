@@ -50,7 +50,8 @@ func GetStatsHandler(c *gin.Context) {
 	t.ExecuteTemplate(c.Writer, "stats", "")
 	
 	if stats.Seeders != -1 {
-		if 1 {
+		if true {
+			//Todo: check if there already is an entry in the DB, if not then torrent.Scrape.create
 			torrent.Scrape = torrent.Scrape.Create(uint(id), uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now())
 		} else {
 			torrent.Scrape.Update(false)
