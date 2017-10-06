@@ -31,6 +31,10 @@ body, .header {
     width: 87%;
 }
 
+.comment-box p:nth-child(2) {
+    margin-top: auto;
+}
+
 .form-refine span.spacing {
     font-size: 0.9em;
     width: 90px;
