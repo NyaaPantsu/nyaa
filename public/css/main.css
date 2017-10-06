@@ -1132,11 +1132,9 @@ html, body {
 }
 
 .comment-box {
-    margin-top: 10px;
-    padding-left: 7px;
-    padding-right: 7px;
-    margin-right: 30px;
-    margin-left: 30px;
+    padding: 0 7px;
+    margin: 10px 30px 0 30px;
+    min-height: 70px;
     word-break: break-word;
     text-align: justify;
 }
