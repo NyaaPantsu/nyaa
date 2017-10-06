@@ -866,6 +866,9 @@ html, body {
         width: 100% !important;
         margin-bottom: 15px;
     }
+    .profile-panel .user-search {
+        max-width: none;
+    }
     .header .h-user {
         width: 46px;
     }
