@@ -1053,10 +1053,6 @@ html, body {
 .profile-usermenu .icon-rss-squared {
     vertical-align: top;
 }
-.profile-userbuttons {
-    display: inline-flex;
-    margin-bottom: 5px;
-}
 
 .torrent-hr {
     font-size: large;
@@ -2150,13 +2146,15 @@ table.multiple-upload {
 }
 
 .user-search {
-	word-spacing: -7px;
-	display:block;
-	padding: 0 1rem;
+    word-spacing: -7px;;
+    padding: 0 1rem;
+}
+.profile-panel .user-search {
+    padding: 0;
 }
 .user-search [type="text"] {
     vertical-align: top;
-	width: calc(100% - 30px);
+    width: calc(100% - 30px);
 }
 
 .torrent-info-row .tr-se span, .torrent-info-row .tr-le span, .torrent-info-row .tr-dl span {
