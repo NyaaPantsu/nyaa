@@ -212,6 +212,7 @@ type ModelsConfig struct {
 type DefaultThemeConfig struct {
 	Theme    string `yaml:"theme,omitempty"`
 	Dark     string `yaml:"dark,omitempty"`
+	Forced   string `yaml:"forced,omitempty"`
 }
 
 // SearchConfig : Config struct for search
