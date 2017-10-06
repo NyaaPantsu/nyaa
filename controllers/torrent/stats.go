@@ -29,8 +29,8 @@ func GetStatsHandler(c *gin.Context) {
 	
 	var Trackers []string
 	for _, line := range strings.Split(torrent.Trackers[3:], "&tr=") {
-		tracker, err := url.QueryUnescape(line)
-		if tracker[:6] == "udp://" {
+		tracker, _ := url.QueryUnescape(line)
+		if _ == nil && tracker[:6] == "udp://" {
 			Trackers = append(Trackers, tracker)
 		}
 	}	
