@@ -8,7 +8,6 @@ import (
 	"fmt"
 
 	"github.com/NyaaPantsu/nyaa/models/torrents"
-	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/Stephen304/goscrape"
 	"github.com/gin-gonic/gin"
 )
@@ -40,10 +39,23 @@ func GetStatsHandler(c *gin.Context) {
 	  torrent.Hash,
 	})[0]
 	
-	t, err := template.New("foo").Parse(fmt.Sprintf(`{{define "stats"}}{ "seeders": [%d], "leechers": [%d], "downloads": [%d] }{{end}}`, stats.Seeders, stats.Leechers, stats.Completed))
-	err = t.ExecuteTemplate(c.Writer, "stats", "")
+	emptyStats := goscrape.Result{stats.Btih, 0, 0, 0} 
 	
-	torrent.Scrape = models.CreateScrapeData(uint(id), uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now())
+	if stats == emptyStats {
+		stats.Seeders = -1
+		//If we put seeders on -1, the script instantly knows the fetching did not give any result, avoiding having to check all three stats below and in view.jet.html's javascript
+	}
+	
+	t, err := template.New("foo").Parse(fmt.Sprintf(`{{define "stats"}}{ "seeders": [%d], "leechers": [%d], "downloads": [%d] }{{end}}`, stats.Seeders, stats.Leechers, stats.Completed))
+	t.ExecuteTemplate(c.Writer, "stats", "")
+	
+	if stats.Seeders != -1 {
+		if 1 {
+			torrent.Scrape = torrent.Scrape.Create(uint(id), uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now())
+		} else {
+			torrent.Scrape.Update(false)
+		}
+	}
 	
 	return
 }
