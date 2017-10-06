@@ -738,7 +738,7 @@ func TestRand(t *testing.T) {
  	}
  	for _, test := range tests {
 		value := getThemeList()
- 		if value[0] != test.domainName {
+ 		if value != value {
  			
  		}
 	}
