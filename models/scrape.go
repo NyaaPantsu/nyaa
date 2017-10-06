@@ -62,8 +62,7 @@ func (s *Scrape) Create(torrentid uint, seeders uint32, leechers uint32, complet
 		Seeders:    	seeders,
 		Leechers: 	leechers,
 		Completed:      completed,
-		LastScrape:     lastscrape
-	}
+		LastScrape:     lastscrape}
 
 	err := ORM.Create(&ScrapeData).Error
 	log.Infof("Scrape data ID %d created!\n", ScrapeData.TorrentID)
