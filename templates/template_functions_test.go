@@ -730,17 +730,14 @@ func TestRand(t *testing.T) {
  
  func TestGetTheme(t *testing.T) {
  	var tests = []struct {
- 		domainName string
+ 		domainName []string
  	}{
  		{
- 			domainName:  "test",
+ 			domainName:  []string{"test", "test", "test"},
  		},
  	}
  	for _, test := range tests {
-		value := getThemeList()
- 		if value != nil {
- 			
- 		}
+		test.domainName = getThemeList()
 	}
  }
  
@@ -776,7 +773,7 @@ func mockupTemplateT(t *testing.T) publicSettings.TemplateTfunc {
 		t.Error("Couldn't load language files!")
 	}
 	var T publicSettings.TemplateTfunc
-	T = func(id string, args ...interface{}) template.HTML {
+	T = func(id string, args ...interface{}) template.HTML {	
 		return template.HTML(fmt.Sprintf(Ts(id), args...))
 	}
 	return T
