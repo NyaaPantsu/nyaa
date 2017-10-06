@@ -40,6 +40,7 @@ func GetStatsHandler(c *gin.Context) {
 	stats := goscrape.Single(Trackers, []string{
 	  torrent.Hash,
 	})[0]
+	//Single() returns an array which contain results for each torrent Hash it is fed, since we only feed him one we want to directly access the results
 	
 	//If we put seeders on -1, the script instantly knows the fetching did not give any result, avoiding having to check all three stats below and in view.jet.html's javascript
 	if stats.Seeders == 0 && stats.Leechers == 0 && stats.Completed == 0  {
