@@ -1046,6 +1046,9 @@ html, body {
     border-radius: 6px;
 }
 
+.profile-usermenu {
+    min-width: 170px;
+}
 .profile-usermenu a {
     display: block;
     margin-bottom: 11px;
@@ -2151,6 +2154,7 @@ table.multiple-upload {
 }
 .profile-panel .user-search {
     padding: 0;
+    max-width: 170px;
 }
 .user-search [type="text"] {
     vertical-align: top;
