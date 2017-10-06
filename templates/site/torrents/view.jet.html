@@ -174,7 +174,9 @@
   </div>
 
   <p class="torrent-hr" id="comments">{{ T("comments")}}</p>
+  {{previousComment := ""}}
   {{range index, element := Torrent.Comments}}
+  {{if element.Content != previousComment}}
   <div class="torrent-info-box comment-box">
     <span class="comment-index">
       <a href="#comment_{{index+1}}">{{index}}</a>
@@ -182,6 +184,8 @@
     </span>
     <p><img src="https://www.gravatar.com/avatar/{{ element.UserAvatar }}"/><a {{if element.UserID > 0}}href="/user/{{element.UserID}}/{{element.Username}}"{{end}} class="comment-user">{{element.Username}}</a></p>
     <p class="comment-content">{{element.Content|raw}}</p>
+  {{end}}
+  {{ previousComment = element.Content }}
   </div>
   {{end}}
   {{ if len(Torrent.Comments) == 0 }}
