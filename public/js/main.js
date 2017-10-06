@@ -24,7 +24,7 @@ function switchThemes() {
   // Create the new one and put it back
   var newTheme = document.createElement("link")
   newTheme.setAttribute("rel", "stylesheet")
-  newTheme.setAttribute("href", "/css/" + themeName + ".css")
+  newTheme.setAttribute("href", "/css/themes/" + themeName + ".css")
   newTheme.setAttribute("id", "theme")
   head.appendChild(newTheme)
 }
@@ -87,32 +87,51 @@ parseAllDates()
 //called if no Commit cookie is set or if the website has a newer commit than the one in cookie
 function resetCookies() {
   var cookies = document.cookie.split(";")
-  var excludedCookies = ["mascot", "version", "theme", "theme2", "mascot_url", "lang", "csrf_token", "altColors", "EU_Cookie", "oldNav"]
+  var excludedCookies = ["session", "mascot", "version", "theme", "theme2", "mascot_url", "lang", "csrf_token", "altColors", "EU_Cookie", "oldNav"]
+  //Excluded cookies are either left untouched or deleted then re-created
+  //Ignored Cookies are constantly left untouched
+  
+  //Get HostName without subDomain
+  var hostName = window.location.host
 
-  //Remove all cookies but re-create those in the above array
+  var lastDotIndex = hostName.lastIndexOf(".")
+  var secondLast = -1
+  
+  for(var index = 0; index < lastDotIndex; index++) {
+    if(hostName[index] == '.')
+      secondLast = index
+  }
+  hostName = hostName.substr(secondLast == -1 ? 0 : secondLast)
+  if(!hostName.includes(domain)) domain = window.location.host
+
   for (var i = 0; i < cookies.length; i++) {
     var cookieName = (cookies[i].split("=")[0]).trim()
     //Trim spaces because some cookie names have them at times
     if (excludedCookies.includes(cookieName)) {
-      if(domain == ".pantsu.cat") {
-	//only execute if cookie are supposed to be shared between nyaa & sukebei
+      if(domain == hostName) {
+	//only execute if cookie are supposed to be shared between nyaa & sukebei, aka on host name without subdomain
         var cookieValue = getCookieValue(cookieName)
         document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
-        document.cookie = cookieName + "=" + cookieValue + ";path=/;expires=" + farFutureString + ";domain=" + domain
-        //Remove cookie and re-create it to ensure domain is correct
+        document.cookie = cookieName + "=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
+        if(cookieName != "session")
+	  document.cookie = cookieName + "=" + cookieValue + ";path=/;expires=" + farFutureString + ";domain=" + domain
+	else document.cookie = cookieName + "=" + cookieValue + ";path=/;expires=" + farFutureString
+        //Remove cookie from both current & general path, then re-create it to ensure domain is correct
+	//Force current domain for session cookie
         }
       continue
     }
+    document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
     document.cookie = cookieName + "=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
   }
 
   //Set new version in cookie
-  document.cookie = "commit=" + commitVersion + ";expires=" + farFutureString + ";domain=" + domain
-  document.cookie = "version=" + websiteVersion + ";expires=" + farFutureString + ";domain=" + domain
+  document.cookie = "commit=" + commitVersion + ";path=/;expires=" + farFutureString + ";domain=" + domain
+  document.cookie = "version=" + websiteVersion + ";path=/;expires=" + farFutureString + ";domain=" + domain
 
   var oneHour = new Date()
   oneHour.setTime(oneHour.getTime() + 1 * 3600 * 1500)
-  document.cookie = "newVersion=true; expires=" + oneHour.toUTCString() + ";domain=" + domain
+  document.cookie = "newVersion=true;path=/;expires=" + oneHour.toUTCString() + ";domain=" + domain
 }
 
 
@@ -156,40 +175,36 @@ function startupCode() {
   document.getElementById("dark-toggle").addEventListener("click", toggleTheme);
 
   if(document.cookie.includes("theme=")) {
-    UserTheme = [getCookieValue("theme"), "tomorrow"]
-    //Get user's default theme and set the alternative one as tomorrow
+    UserTheme = [getCookieValue("theme"), darkTheme]
+    //Get user's default theme and set the alternative one as dark theme
   }
   else 
-    UserTheme = ["g", "tomorrow"]
+    UserTheme = ["g", darkTheme]
    //If user has no default theme, set these by default
   
   
   if(document.cookie.includes("theme2=")) {
     UserTheme[1] = getCookieValue("theme2")
     //If user already has ran the ToggleTheme() function in the past, we get the value of the second theme (the one the script switches to)
-    if(!UserTheme.includes("tomorrow"))
-      UserTheme[1] = "tomorrow"
-    //If none of the theme are tomorrow, which happens if the user is on dark mode (with theme2 on g.css) and that he switches to classic or g.css in settings, we set the second one as tomorrow
+    if(!UserTheme.includes(darkTheme))
+      UserTheme[1] = darkTheme
+    //If none of the theme are darkTheme, which happens if the user is on dark mode (with theme2 on g.css) and that he switches to classic or g.css in settings, we set the second one as darkTheme
     else if(UserTheme[0] == UserTheme[1])
       UserTheme[1] = "g"
-    //If both theme are tomorrow, which happens if theme2 is on tomorrow (always is by default) and that the user sets tomorrow as his theme through settings page, we set secondary theme to g.css
+    //If both theme are darkTheme, which happens if theme2 is on darkTheme (always is by default) and that the user sets darkTheme as his theme through settings page, we set secondary theme to g.css
   }
-  else {
-    if(UserTheme[0] == UserTheme[1])
-      UserTheme[1] = "g"
-    //If tomorrow is twice in UserTheme, which happens when the user already has tomorrow as his default theme and toggle the dark mode for the first time, we set the second theme as g.css
-    document.cookie = "theme2=" + UserTheme[1] + ";path=/;expires=" + farFutureString + ";domain=" + domain
-    //Set cookie for future theme2 uses
-  }
+  else if(UserTheme[0] == UserTheme[1])
+    UserTheme[1] = "g"
+    //If darkTheme is twice in UserTheme, which happens when the user already has darkTheme as his default theme and toggle the dark mode for the first time, we set the second theme as g.css
   
 }
 
 function toggleTheme(e) {
   var CurrentTheme = document.getElementById("theme").href
-  CurrentTheme = CurrentTheme.substring(CurrentTheme.indexOf("/css/") + 5, CurrentTheme.indexOf(".css"))
+  CurrentTheme = CurrentTheme.substring(CurrentTheme.indexOf("/themes/") + 8, CurrentTheme.indexOf(".css"))
   CurrentTheme = (CurrentTheme == UserTheme[0] ? UserTheme[1] : UserTheme[0])
 
-  document.getElementById("theme").href = "/css/" + CurrentTheme + ".css";
+  document.getElementById("theme").href = "/css/themes/" + CurrentTheme + ".css";
   
   if(UserID > 0 ){
     Query.Get("/dark", function(data) {})

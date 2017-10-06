@@ -1,4 +1,5 @@
-[{
+[
+  {
     "id": "read_rules",
     "translation": "Please read <a href=\"/faq#rules\">the rules</a> before uploading."
   },
@@ -2129,5 +2130,33 @@
   {
     "id": "pending_torrent",
     "translation": "Be patient, the torrent file is being generated. Try again in a few seconds."
+  },
+  {
+    "id": "enabled",
+    "translation": "Enabled"
+  },
+  {
+    "id": "disabled",
+    "translation": "Disabled"
+  },
+  {
+    "id": "reset_api_key",
+    "translation": "Reset API key"
+  },
+  {
+    "id": "tag_error",
+    "translation": "Couldn't add a tag, please check your internet connection and that all fields are filled."
+  },
+  {
+    "id": "search_from_user",
+    "translation": "Search from this user..."
+  },
+  {
+    "id": "usersearch_user_not_found",
+    "translation": "The user \"%s\" has not been found"
+  },
+  {
+    "id": "user_search_explanation",
+    "translation": "Search for an user by writing down his username in the below input"
   }
 ]

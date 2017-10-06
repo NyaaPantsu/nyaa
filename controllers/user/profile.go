@@ -3,6 +3,7 @@ package userController
 import (
 	"strconv"
 	"time"
+	"fmt"
 
 	"net/http"
 
@@ -27,6 +28,11 @@ func UserProfileHandler(c *gin.Context) {
 	Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(c)
 	messages := msg.GetMessages(c)
 
+	if id == 0 && ContainsNonNumbersChars(c.Param("id")) {
+		c.Redirect(http.StatusSeeOther, fmt.Sprintf("/username/%s", c.Param("id")))
+		return
+	}
+	
 	userProfile, _, errorUser := users.FindForAdmin(uint(id))
 	if errorUser == nil {
 		currentUser := router.GetUser(c)
@@ -52,7 +58,67 @@ func UserProfileHandler(c *gin.Context) {
 			templates.UserProfile(c, userProfile)
 		}
 	} else {
-		c.Status(http.StatusNotFound)
+		variables := templates.Commonvariables(c)
+		templates.Render(c, "errors/user_not_found.jet.html", variables)
+	}
+}
+
+func ContainsNonNumbersChars(source string) bool {
+	for char := range source {
+		if char < 30 || char > 39 {
+			return true
+		}
+	}
+	return false
+}
+
+func UserGetFromName(c *gin.Context) {
+	username := c.Param("username")
+	
+	Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(c)
+	messages := msg.GetMessages(c)
+
+	userProfile, _, _, err := users.FindByUsername(username)
+	if err == nil {
+		currentUser := router.GetUser(c)
+		follow := c.Request.URL.Query()["followed"]
+		unfollow := c.Request.URL.Query()["unfollowed"]
+		deleteVar := c.Request.URL.Query()["delete"]
+
+		if (deleteVar != nil) && (currentUser.CurrentOrAdmin(userProfile.ID)) {
+			_, err := userProfile.Delete(currentUser)
+			if err == nil && currentUser.CurrentUserIdentical(userProfile.ID) {
+				cookies.Clear(c)
+			}
+			templates.Static(c, "site/static/delete_success.jet.html")
+		} else {
+			if follow != nil {
+				messages.AddInfof("infos", Ts("user_followed_msg"), userProfile.Username)
+			}
+			if unfollow != nil {
+				messages.AddInfof("infos", Ts("user_unfollowed_msg"), userProfile.Username)
+			}
+			userProfile.ParseSettings()
+
+			templates.UserProfile(c, userProfile)
+		}
+	} else {
+		variables := templates.Commonvariables(c)
+		searchForm := templates.NewSearchForm(c)
+		searchForm.User = username
+		variables.Set("Search", searchForm)
+		templates.Render(c, "errors/user_not_found.jet.html", variables)
+	}
+}
+
+func RedirectToUserSearch(c *gin.Context) {
+	username := c.Query("username")
+	
+	if username == "" {
+		variables := templates.Commonvariables(c)
+		templates.Render(c, "errors/user_not_found.jet.html", variables)
+	} else {
+		c.Redirect(http.StatusSeeOther, fmt.Sprintf("/username/%s", username))
 	}
 }
 
@@ -69,7 +135,8 @@ func UserDetailsHandler(c *gin.Context) {
 		userProfile.ParseSettings()
 		templates.UserProfileEdit(c, userProfile, b, availableLanguages)
 	} else {
-		c.Status(http.StatusNotFound)
+		variables := templates.Commonvariables(c)
+		templates.Render(c, "errors/user_not_found.jet.html", variables)
 	}
 }
 

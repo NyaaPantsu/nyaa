@@ -32,12 +32,8 @@
   <link rel="stylesheet" id="style" href="/css/main.css?v={{ Config.Version }}{{ Config.Build }}"/>
   <!-- nyaacon, custom icon set -->
   <link rel="stylesheet" href="/css/nyacon.css?v={{ Config.Version}}{{ Config.Build }}"/>
-  <!-- User selected theme, if any, defaults to /g/ -->
-  {{if Theme == ""}}
-  <link rel="stylesheet" id="theme" href="/css/g.css?v={{ Config.Version }}{{ Config.Build }}"/>
-  {{else}}
-  <link rel="stylesheet" id="theme" href="/css/{{Theme}}.css?v={{ Config.Version }}{{ Config.Build }}"/>
-  {{end}}
+  <!-- User selected theme, if empty defaults to theme in nyaa.yml -->
+  <link rel="stylesheet" id="theme" href="/css/themes/{{Theme}}.css?v={{ Config.Version }}{{ Config.Build }}"/>
   <!-- Flags css -->
   <link rel="stylesheet" href="/css/flags/flags.min.css"/>
   <!-- Search Box for Google -->
@@ -48,13 +44,12 @@
   <nav id="header" class="header">
     {{block menu()}}{{end}}
   </nav>
-  {{ AdType := kilo_rand(0, 5) }}
-  {{ AdID := kilo_rand(0, 2)}}
+  {{ AdType := kilo_rand(1) }}
   <div id="content" class="{{ block contclass()}}{{end}}">
     <div class="content container center">
       {{ yield infos()}}
       {{ yield errors()}}
-      {{ if !isset(Infos["system"])}}<div class="centered">{{ yield ad_wide(Type=AdType, ID=AdID) }}</div>{{end}}
+      {{ if !isset(Infos["system"])}}<div class="centered">{{ yield ad_wide(Type=AdType) }}</div>{{end}}
       {{ block content_body_base() }}{{end}}
     </div>
     {{ block mascot() }}
@@ -82,12 +77,14 @@
     {{end}}
     {{end}}
     {{end}}
+    {{ if genNav(Navigation, URL, 15) != ""}}
     <div class="container bottom">
 	<div class="pagination">
 	  {{ genNav(Navigation, URL, 15)|raw }}
 	</div>
     </div>
-    <div class="centered">{{ yield ad_wide(Type=AdType, ID=AdID) }}</div>
+    {{end}}
+    <div class="centered">{{ yield ad_wide(Type=AdType) }}</div>
     <footer id="footer">
       <div class="container footer center">
         <div class="footer-opt">
@@ -97,7 +94,13 @@
       </div>
     </footer>
   </div>
-  <script type="text/javascript">var commitVersion = "{{ Config.Build }}", websiteVersion = "{{ Config.Version }}", UserID = {{User.ID}}, domain = "{{getDomainName()}}";</script>
+  <script type="text/javascript">
+	  var commitVersion = "{{ Config.Build }}",
+	      websiteVersion = "{{ Config.Version }}",
+	      UserID = {{User.ID}},
+	      domain = "{{getDomainName()}}",
+	      darkTheme = "{{DarkTheme}}";
+	</script>
   <script type="text/javascript" src="/js/query.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   <script type="text/javascript" charset="utf-8" src="/js/main.js?v={{ Config.Version }}{{ Config.Build }}" async></script>
   {{block footer_js()}}{{end}}

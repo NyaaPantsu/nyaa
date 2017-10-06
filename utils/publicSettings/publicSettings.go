@@ -173,14 +173,19 @@ func GetTfuncFromRequest(c *gin.Context) TemplateTfunc {
 // GetThemeFromRequest : Gets the user selected theme from the request
 func GetThemeFromRequest(c *gin.Context) string {
 	user, _ := getCurrentUser(c)
-	if user.ID > 0 {
+	if user.ID > 0 && user.Theme != "" {
 		return user.Theme
 	}
 	cookie, err := c.Cookie("theme")
 	if err == nil {
 		return cookie
 	}
-	return ""
+	return config.DefaultTheme(false)
+}
+
+// GetDarkThemeFromRequest : Gets the default dark theme
+func GetDarkThemeFromRequest(c *gin.Context) string {
+	return config.DefaultTheme(true)
 }
 
 // GetAltColorsFromRequest : Return whether user has enabled alt colors or not

@@ -1356,10 +1356,6 @@
     "translation": "Langue du torrent"
   },
   {
-    "id": "language_not_mandatory",
-    "translation": "La langue du torrent n'est pas obligatoire."
-  },
-  {
     "id": "language_en-us_name",
     "translation": "Anglais"
   },
@@ -2130,5 +2126,33 @@
   {
     "id": "cookie_warning",
     "translation": "En utilisant ce site, vous acceptez l'usage des cookies à des fins telles que la personnalisation du contenu.<br/>Ce message sera masqué au prochain rechargement de la page."
+  },
+  {
+    "id": "enabled",
+    "translation": "Activé"
+  },
+  {
+    "id": "disabled",
+    "translation": "Désactivé"
+  },
+  {
+    "id": "reset_api_key",
+    "translation": "Réinitialiser la clé API"
+  },
+  {
+    "id": "tag_error",
+    "translation": "Le tag n'a pas pu être ajouté, veuillez vérifier votre connexion internet et que tous les champs soient remplis."
+  },
+  {
+    "id": "search_from_user",
+    "translation": "Rechercher de cet utilisateur..."
+  },
+  {
+    "id": "usersearch_user_not_found",
+    "translation": "L'utilisateur \"%s\" n'a pas été trouvé."
+  },
+  {
+    "id": "user_search_explanation",
+    "translation": "Rechercher un utilisateur en inscrivant son nom dans l'entrée ci-dessous."
   }
 ]

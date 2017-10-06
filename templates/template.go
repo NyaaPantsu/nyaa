@@ -53,6 +53,7 @@ func Commonvariables(c *gin.Context) jet.VarMap {
 	variables.Set("Search", NewSearchForm(c))
 	variables.Set("T", publicSettings.GetTfuncFromRequest(c))
 	variables.Set("Theme", publicSettings.GetThemeFromRequest(c))
+	variables.Set("DarkTheme", publicSettings.GetDarkThemeFromRequest(c))
 	variables.Set("AltColors", publicSettings.GetAltColorsFromRequest(c))
 	variables.Set("OldNav", publicSettings.GetOldNavFromRequest(c))
 	variables.Set("Mascot", publicSettings.GetMascotFromRequest(c))
@@ -164,7 +165,7 @@ func userProfileBase(c *gin.Context, templateName string, userProfile *models.Us
 	currentUser, _, _ := cookies.CurrentUser(c)
 	query := c.Request.URL.Query()
 	query.Set("userID", strconv.Itoa(int(userProfile.ID)))
-	query.Set("limit", "20")
+	query.Set("limit", "15")
 	c.Request.URL.RawQuery = query.Encode()
 	nbTorrents := 0
 	if userProfile.ID > 0 && currentUser.CurrentOrAdmin(userProfile.ID) {

@@ -1,0 +1,14 @@
+{{ extends "layouts/index_site" }}
+{{block title()}}{{ T("err_no_torrent_file")}}{{end}}
+{{block content_body()}}
+<div style="text-align: center;" class="box">
+  <h1>{{T("user_not_found")}}</h1>
+  <p>{{if isset(Search.User) && Search.User != ""}}{{T("usersearch_user_not_found", Search.User)}}{{else}}{{T("user_search_explanation")}}{{end}}</p>
+  <div class="user-search">
+	  <form role="search" action="/username" id="header-form" method="get">'
+		<input class="form-input" name="username" type="text" value="{{if isset(Search.User) && Search.User != ""}}{{Search.User}}{{end}}" placeholder="Search username..." style="width: calc(50% - 30px)">
+		<button type="submit" class="form-input icon-search"></button>
+	  </form>
+  </div>
+</div>
+{{end}} {{block mascot()}}<br />{{end}}
