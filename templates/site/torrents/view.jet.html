@@ -174,11 +174,11 @@
   </div>
 
   <p class="torrent-hr" id="comments">{{ T("comments")}}</p>
+  {{idx := 1}}
   {{previousComment := ""}}
   {{previousUser := 0}}
-  {{idx := 0}}
   {{range index, element := Torrent.Comments}}
-  {{if element.Content != previousComment || previousUser != element.UserID }}
+  {{if previousComment != element.Content || previousUser != element.UserID}}
   <div class="torrent-info-box comment-box">
     <span class="comment-index">
       <a href="#comment_{{idx}}">{{idx}}</a>
@@ -186,11 +186,11 @@
     </span>
     <p><img src="https://www.gravatar.com/avatar/{{ element.UserAvatar }}"/><a {{if element.UserID > 0}}href="/user/{{element.UserID}}/{{element.Username}}"{{end}} class="comment-user">{{element.Username}}</a></p>
     <p class="comment-content">{{element.Content|raw}}</p>
-    {{idx = idx + 1}}
-  {{end}}
-  {{ previousComment = element.Content }}
-  {{ previousUser = element.UserID }}
   </div>
+  {{idx = idx + 1}}
+  {{end}}
+  {{previousComment = element.Content}}
+  {{previousUser = element.UserID}}
   {{end}}
   {{ if len(Torrent.Comments) == 0 }}
     <p id="no-comment-message">{{ T("torrent_no_comments") }}</p>
