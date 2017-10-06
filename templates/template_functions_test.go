@@ -737,7 +737,7 @@ func TestRand(t *testing.T) {
  		},
  	}
  	for _, test := range tests {
-		value := getThemeList("path")
+		value := getThemeList()
  		if value[0] != test.domainName {
  			
  		}
