@@ -733,7 +733,7 @@ func TestRand(t *testing.T) {
  		domainName string
  	}{
  		{
- 			domainName:  "test"
+ 			domainName:  "test",
  		},
  	}
  	for _, test := range tests {
@@ -749,7 +749,7 @@ func TestRand(t *testing.T) {
  		domainName string
  	}{
  		{
- 			domainName:  "test"
+ 			domainName:  "test",
  		},
  	}
  	for _, test := range tests {
