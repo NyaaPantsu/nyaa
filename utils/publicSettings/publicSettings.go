@@ -172,6 +172,9 @@ func GetTfuncFromRequest(c *gin.Context) TemplateTfunc {
 
 // GetThemeFromRequest : Gets the user selected theme from the request
 func GetThemeFromRequest(c *gin.Context) string {
+	if config.Get().DefaultTheme.Forced != "" {
+		return config.Get().DefaultTheme.Forced
+	}
 	user, _ := getCurrentUser(c)
 	if user.ID > 0 && user.Theme != "" {
 		return user.Theme
