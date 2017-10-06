@@ -188,6 +188,9 @@ func GetThemeFromRequest(c *gin.Context) string {
 
 // GetDarkThemeFromRequest : Gets the default dark theme
 func GetDarkThemeFromRequest(c *gin.Context) string {
+	if config.Get().DefaultTheme.Forced != "" {
+		return config.Get().DefaultTheme.Forced
+	}
 	return config.DefaultTheme(true)
 }
 
