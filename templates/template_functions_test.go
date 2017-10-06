@@ -727,7 +727,40 @@ func TestRand(t *testing.T) {
  		}
 	}
  }
+ 
+ func TestGetTheme(t *testing.T) {
+ 	var tests = []struct {
+ 		domainName string
+ 	}{
+ 		{
+ 			domainName:  "test"
+ 		},
+ 	}
+ 	for _, test := range tests {
+		value := getThemeList("path")
+ 		if value[0] != test.domainName {
+ 			
+ 		}
+	}
+ }
+ 
+  func testformatThemeName(t *testing.T) {
+ 	var tests = []struct {
+ 		domainName string
+ 	}{
+ 		{
+ 			domainName:  "test"
+ 		},
+ 	}
+ 	for _, test := range tests {
+		value := formatThemeName("path")
+ 		if value != test.domainName {
+ 			
+ 		}
+	}
+ }
 
+ 
 func mockupTemplateT(t *testing.T) publicSettings.TemplateTfunc {
 	conf := config.Get().I18n
 	conf.Directory = path.Join("..", conf.Directory)
