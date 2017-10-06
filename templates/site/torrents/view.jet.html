@@ -175,9 +175,10 @@
 
   <p class="torrent-hr" id="comments">{{ T("comments")}}</p>
   {{previousComment := ""}}
+  {{previousUser := 0}}
   {{idx := 0}}
   {{range index, element := Torrent.Comments}}
-  {{if element.Content != previousComment}}
+  {{if element.Content != previousComment || previousUser != element.UserID }}
   <div class="torrent-info-box comment-box">
     <span class="comment-index">
       <a href="#comment_{{idx}}">{{idx}}</a>
@@ -188,6 +189,7 @@
     {{idx = idx + 1}}
   {{end}}
   {{ previousComment = element.Content }}
+  {{ previousUser = element.UserID }}
   </div>
   {{end}}
   {{ if len(Torrent.Comments) == 0 }}
