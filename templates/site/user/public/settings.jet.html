@@ -18,10 +18,9 @@
       <span class="form-group">
       <h3>{{ T("theme")}}</h3>
       <select id="theme-selector" name="theme" class="form-input" onchange="switchThemes()">
-        <option value="g"{{ if Theme == "g" || Theme == "" }} selected{{end}}>/g/</option>
-        <option value="tomorrow"{{ if Theme == "tomorrow" }} selected{{end}}>Tomorrow</option>
-        <option value="classic"{{ if Theme == "classic" }} selected{{end}}>nyaa.se (Beta)</option>
-        <option value="classic_colors"{{ if Theme == "classic_colors" }} selected{{end}}>Classic Colors</option>
+		{{ range theme := getThemeList()}}
+			<option value="{{theme}}"{{ if Theme == theme}} selected{{end}}>{{formatThemeName(theme)}}</option>
+		{{end}}
       </select>
       </span>
       

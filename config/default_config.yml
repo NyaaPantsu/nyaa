@@ -220,3 +220,5 @@ models:
 default_theme:
   theme: g
   dark: tomorrow
+  forced:
+  #Put a theme name in forced to force it for everyone

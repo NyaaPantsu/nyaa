@@ -65,10 +65,9 @@
 			<td>
 				<select id="theme-selector" name="theme" class="form-input up-input" onchange="switchThemes()">
 				  <option value="">{{ T("theme_select")}}</option>
-				  <option value="g"{{ if Theme == "g" }} selected{{end}}>/g/</option>
-				  <option value="tomorrow"{{ if Theme == "tomorrow" }} selected{{end}}>Tomorrow</option>
-				  <option value="classic"{{ if Theme == "classic" }} selected{{end}}>nyaa.se (beta)</option>
-				  <option value="classic_colors"{{ if Theme == "classic_colors" }} selected{{end}}>Classic Colors</option>
+				  {{ range theme := getThemeList()}}
+					  <option value="{{theme}}"{{ if Theme == theme}} selected{{end}}>{{formatThemeName(theme)}}</option>
+				  {{end}}
 				  <option value=""{{ if Theme == "" }} selected{{end}}>{{ T("theme_none")}}</option>
 				</select>
 			</td>
