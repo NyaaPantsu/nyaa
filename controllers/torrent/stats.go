@@ -13,7 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// ViewHeadHandler : Controller for getting torrent stats
+// GetStatsHandler : Controller for getting torrent stats
 func GetStatsHandler(c *gin.Context) {
 	id, err := strconv.ParseInt(c.Param("id"), 10, 32)
 	if err != nil {
