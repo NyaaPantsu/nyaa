@@ -56,13 +56,14 @@ func (s *Scrape) Identifier() string {
 }
 
 //Create a Scrape entry in the DB
-func CreateScrapeData(torrentid uint, seeders uint32, leechers uint32, completed uint32, lastscrape time.Time) (*Scrape) {
+func (s *Scrape) Create(torrentid uint, seeders uint32, leechers uint32, completed uint32, lastscrape time.Time) (*Scrape) {
 	ScrapeData := Scrape{
 		TorrentID:      torrentid,
 		Seeders:    	seeders,
-		Leechers: 		leechers,
+		Leechers: 	leechers,
 		Completed:      completed,
-		LastScrape:     lastscrape}
+		LastScrape:     lastscrape
+	}
 
 	err := ORM.Create(&ScrapeData).Error
 	log.Infof("Scrape data ID %d created!\n", ScrapeData.TorrentID)
