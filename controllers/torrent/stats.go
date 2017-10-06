@@ -4,6 +4,7 @@ import (
 	"text/template"
 	"strconv"
 	"strings"
+	"net/url"
 	"time"
 	"fmt"
 
@@ -28,7 +29,7 @@ func GetStatsHandler(c *gin.Context) {
 	
 	var Trackers []string
 	for _, line := range strings.Split(torrent.Trackers[3:], "&tr=") {
-		tracker := UnescapeString(line)
+		tracker, err := QueryUnescape(line)
 		if tracker[:6] == "udp://" {
 			Trackers = append(Trackers, tracker)
 		}
@@ -61,11 +62,4 @@ func GetStatsHandler(c *gin.Context) {
 	}
 	
 	return
-}
-
-func UnescapeString(s string) string {
-	//Special characters are escaped using their hexa code and i have no idea what function unescapes this so i replace the characters
-	newstr := strings.Replace(s, "%3A", ":", -1)
-	newstr = strings.Replace(newstr, "%2F", "/", -1)
-	return newstr
 }
