@@ -13,7 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetStatsHandler : Controller for getting torrent stats
+// ViewHeadHandler : Controller for getting torrent stats
 func GetStatsHandler(c *gin.Context) {
 	id, err := strconv.ParseInt(c.Param("id"), 10, 32)
 	if err != nil {
@@ -38,13 +38,12 @@ func GetStatsHandler(c *gin.Context) {
 	
 	stats := scraper.ScrapeBulk([]string{
 	  torrent.Hash,
-	})
+	})[0]
 	
-	t, err := template.New("foo").Parse(fmt.Sprintf(`{{define "stats"}}{ "seeders": [%d], "leechers": [%d], "downloads": [%d] }{{end}}`, stats[0].Seeders, stats[0].Leechers, stats[0].Completed))
+	t, err := template.New("foo").Parse(fmt.Sprintf(`{{define "stats"}}{ "seeders": [%d], "leechers": [%d], "downloads": [%d] }{{end}}`, stats.Seeders, stats.Leechers, stats.Completed))
 	err = t.ExecuteTemplate(c.Writer, "stats", "")
 	
-	torrent.Scrape = &models.Scrape{uint(id), uint32(stats[0].Seeders), uint32(stats[0].Leechers), uint32(stats[0].Completed), time.Now()}
-	torrent.Update(true)
+	torrent.Scrape = models.CreateScrapeData(uint(id), uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now())
 	
 	return
 }
