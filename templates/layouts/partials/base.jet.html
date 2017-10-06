@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="keywords" content="torrents, pantsu, anime, manga, sukebei, nyaapassu, horriblesubs, nyaa{{if Sukebei()}}, hentai{{end}}, dlsite"/>
+  <meta name="keywords" content="nyaa, torrents, pantsu, anime, manga, sukebei, nyaapassu, horriblesubs{{if Sukebei()}}, hentai{{end}}, dlsite"/>
   <meta name="description" content='The leading open-source community-based nyaa.se successor, suitable for all anime and manga needs. にゃんぱす~!'/>
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <title>{{if Sukebei()}}Sukebei{{else}}Nyaa{{end}} Pantsu{{block titleBase()}}{{end}}</title>
@@ -44,7 +44,7 @@
   <nav id="header" class="header">
     {{block menu()}}{{end}}
   </nav>
-  {{ AdType := kilo_rand(1) }}
+  {{ AdType := kilo_rand(2) }}
   <div id="content" class="{{ block contclass()}}{{end}}">
     <div class="content container center">
       {{ yield infos()}}
