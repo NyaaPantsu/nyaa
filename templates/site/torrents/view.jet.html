@@ -271,6 +271,34 @@
 {{end}}
 {{ block footer_js()}}
 <script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>
+{{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}
+<script type="text/javascript">
+  var seeders   = document.querySelector(".tr-se"),
+      leechers  = document.querySelector(".tr-le"),
+      downloads = document.querySelector(".tr-dl b"),
+      torrentID = window.location.pathname.substr(6),
+	  scrapeDate= document.querySelector(".scrape-date")
+	  
+  var oldStats = [seeders.innerHTML, leechers.innerHTML, downloads.innerHTML]
+	  
+      seeders.innerHTML = "Loading..."
+      leechers.innerHTML = "Loading..."
+      downloads.innerHTML = "Loading..."
+
+  Query.Get('/stats/' + torrentID, function (data) {
+    if(typeof data.seeders != "undefined" && data.seeders != -1) {
+      seeders.innerHTML = "<span>" + data.seeders + "</span>"
+      leechers.innerHTML = "<span>" +data.leechers + "</span>"
+      downloads.innerHTML = "<span>" +data.downloads + "</span>"
+	  scrapeDate.innerText = new Date().toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), "ymdOpt")
+    } else {
+      seeders.innerHTML = oldStats[0]
+      leechers.innerHTML = oldStats[1]
+      downloads.innerHTML = oldStats[2]
+    }
+  })
+</script>
+{{end}}
 {{ if User.ID > 0 }}
 <script type="text/javascript" src="{{ URL.Parse("/js/template.js") }}"></script>
 <script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>

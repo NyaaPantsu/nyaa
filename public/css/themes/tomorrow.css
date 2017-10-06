@@ -319,3 +319,7 @@ span.tag {
     border-color: #0c0d0e;
     background: #333438;
 }
+
+.torrent-info-row .tr-se span, .torrent-info-row .tr-le span, .torrent-info-row .tr-dl span {
+    background-color: #544433;
+}

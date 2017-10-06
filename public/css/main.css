@@ -2155,6 +2155,11 @@ table.multiple-upload {
 	width: calc(100% - 30px);
 }
 
+.torrent-info-row .tr-se span, .torrent-info-row .tr-le span, .torrent-info-row .tr-dl span {
+    font-weight: bold;
+    background-color: #ffe0bf;
+}
+
 /* Language specific CSS */
 
 html[lang="ja-jp"] .form-refine span.spacing {
