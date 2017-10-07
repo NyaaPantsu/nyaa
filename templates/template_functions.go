@@ -2,6 +2,7 @@ package templates
 
 import (
 	"html/template"
+    "path/filepath"
 	"math"
 	"math/rand"
 	"net/url"
@@ -56,6 +57,8 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("kilo_strfind", kilo_strfind)
 	vars.Set("kilo_rand", kilo_rand)
 	vars.Set("getDomainName", getDomainName)
+	vars.Set("getThemeList", getThemeList)
+	vars.Set("formatThemeName", formatThemeName)
 	return vars
 }
 func getRawQuery(currentURL *url.URL) string {
@@ -395,4 +398,39 @@ func getDomainName() string {
 		domain = ""
 	}
 	return domain
+}
+
+func getThemeList() ([]string) {
+    searchDir := "public/css/themes/"
+
+    themeList := []string{}
+	
+    filepath.Walk(searchDir, func(path string, f os.FileInfo, err error) error {
+        if kilo_strfind(path, ".css", len(searchDir)) {
+			//we only want .css file
+			
+			fileName := path[len(searchDir):strings.Index(path, ".css")]
+			//Remove file extension and path, keep only file name
+			
+			themeList = append(themeList, fileName)
+		}
+		return nil
+    })
+
+    return themeList
+}
+
+func formatThemeName(name string) string {
+	Name := name
+			
+	if len(Name) == 1 {
+		Name = fmt.Sprintf("/%c/", Name[0])
+	} else if name == "classic" {
+		Name = "nyaa.se (Beta)"
+	} else {
+		Name = strings.Replace(Name, "_", " ", -1)
+		Name = strings.Title(Name)
+		//Upper case at each start of word
+	}
+	return Name
 }
