@@ -97,7 +97,7 @@ torrents:
   additional_languages: ["es-mx"]
 # TorrentFileStorage : Path to default torrent storage location (eg /var/www/wherever/you/want)
   filestorage:
-# TorrentStorageLink : Url of torrent file download location (eg https://your.site/somewhere/%s.torrent)
+# TorrentStorageLink : Url of torrent file download location (eg https://your.site/somewhere/%s)
   storage_link:
 # TorrentCacheLink : Url of torrent site cache
   cache_link: http://anicache.com/torrent/%s.torrent
