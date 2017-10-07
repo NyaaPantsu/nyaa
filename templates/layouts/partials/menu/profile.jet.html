@@ -49,7 +49,7 @@
     {{end}}
   </div>
   {{ if User.ID != UserProfile.ID }}
-  <div class="user-search" style="max-width: 160px;">
+  <div class="user-search">
     <form role="search" action="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/search" id="header-form" method="get">
       <input class="form-input" name="q" type="text" placeholder="{{T("search_from_user")}}">
       <button type="submit" class="form-input icon-search"></button>
