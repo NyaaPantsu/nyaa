@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 
+	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/upload"
 
 	"github.com/NyaaPantsu/nyaa/config"
@@ -19,9 +20,11 @@ import (
 // DownloadTorrent : Controller for downloading a torrent
 func DownloadTorrent(c *gin.Context) {
 	hash := c.Param("hash")
+	messages := msg.GetMessages(c)
 
 	if hash == "" { // if no hash provided, you can't find a torrent in db neither the torrent file
 		//File not found, send 404
+		messages.AddError("errors", "No hash given")
 		variables := templates.Commonvariables(c)
 		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
@@ -30,6 +33,7 @@ func DownloadTorrent(c *gin.Context) {
 	torrent, err := torrents.FindRawByHash(hash)
 
 	if err != nil {
+		messages.AddError("errors", "No torrent with such hash")
 		//File not found, send 404
 		variables := templates.Commonvariables(c)
 		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
@@ -37,6 +41,7 @@ func DownloadTorrent(c *gin.Context) {
 	}
 
 	if len(config.Get().Torrents.FileStorage) == 0 { // if no FileStorage configured, you still can display the magnet link
+		messages.AddError("errors", "We do not store torrents file")
 		//File not found, send 404
 		variables := templates.Commonvariables(c)
 		var trackers []string
