@@ -8,7 +8,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/anacrolix/torrent"
-	"github.com/zeebo/bencode"
+	"github.com/anacrolix/torrent/bencode"
 )
 
 var queue []string
