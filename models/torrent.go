@@ -335,13 +335,13 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		uploader = t.OldUploader
 	}
 	torrentlink := ""
-	if t.ID <= config.Get().Models.LastOldTorrentID && len(config.Get().Torrents.CacheLink) > 0 {
+	if len(config.Get().Torrents.CacheLink) > 0 { // Only use torrent cache if set, don't check id since better to have all .torrent
 		if config.IsSukebei() {
 			torrentlink = "" // torrent cache doesn't have sukebei torrents
 		} else {
 			torrentlink = fmt.Sprintf(config.Get().Torrents.CacheLink, t.Hash)
 		}
-	} else if t.ID > config.Get().Models.LastOldTorrentID && len(config.Get().Torrents.StorageLink) > 0 {
+	} else if len(config.Get().Torrents.StorageLink) > 0 { // Only use own .torrent if storage set
 		torrentlink = fmt.Sprintf(config.Get().Torrents.StorageLink, t.Hash)
 	}
 	scrape := Scrape{}
