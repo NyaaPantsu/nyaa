@@ -54,9 +54,10 @@ func DownloadTorrent(c *gin.Context) {
 			magnet := format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, trackers...)
 			upload.GenerateTorrent(magnet)
 		}
-		
-		t, _ := template.New("foo").Parse(fmt.Sprintf(`{{define "json"}}{ "exists": "%s", "generating": "%s" }{{end}}`, exists, generating))
-		t.ExecuteTemplate(c.Writer, "json", "")
+		c.JSON(200, gin.H{ // Better to use gin for that, less code
+			"exists": exists,
+			"generating": generating,
+		})
 		return
 	}
 
