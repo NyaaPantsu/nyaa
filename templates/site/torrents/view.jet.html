@@ -297,7 +297,7 @@
 					torrentLink.click();
 				}
 			})
-			 e.preventDefault()
+			 e.preventDefault()	
 		}
 	})
 	
@@ -305,8 +305,9 @@
 		Query.Get('/download/{{Torrent.Hash}}?js_query=true', function (data) {
 			if(typeof data.exists != "undefined" && data.exists == true) {
 				torrentLink.innerHTML = oldDownloadHtml
-				torrentLink.removeEventListener("click", function (e) {});
 				torrentLink.style.opacity = 1
+				torrentLink.removeEventListener("click", function (e) {});
+				torrentLink.click();
 			} else {
 				setTimeout(fileCreated, 3000)
 			}
