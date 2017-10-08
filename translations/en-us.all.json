@@ -2154,5 +2154,9 @@
   {
     "id": "user_search_explanation",
     "translation": "Search for an user by writing down his username in the below input"
+  },
+  {
+    "id": "no_api_token",
+    "translation": "No API token"
   }
 ]
