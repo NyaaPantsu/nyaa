@@ -12,7 +12,7 @@
 	<tbody>
 		<tr>
 			<td>{{ T("api_token") }}:</td>
-			<td><span style="font-family: monospace;">{{UserProfile.APIToken}}</span></td>
+			<td><span style="font-family: monospace;">{{if UserProfile.APIToken == ""}}{{T("no_api_token")}}{{else}}{{UserProfile.APIToken}}{{end}}</span></td>
 		</tr>
 		<tr>
 			<td></td>
