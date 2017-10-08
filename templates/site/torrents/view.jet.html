@@ -282,19 +282,23 @@
 {{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}}
 <script type="text/javascript">
 	var torrentLink = document.getElementById("torrent-download-link"),
-		oldDownloadHtml = torrentLink.innerHTML,
-		downloadIconHtml = torrentLink.innerHTML.substring(0, torrentLink.innerHTML.indexOf("</div>") + 6)
+	    oldDownloadHtml = torrentLink.innerHTML,
+	    downloadIconHtml = torrentLink.innerHTML.substring(0, torrentLink.innerHTML.indexOf("</div>") + 6),
+	    disabledLink = true
 		
 	torrentLink.addEventListener("click", function (e) {
-		
 		Query.Get('/download/{{Torrent.Hash}}?js_query=true', function (data) {
 			if(typeof data.generating != "undefined" && data.generating == "true") {
 				torrentLink.innerHTML = downloadIconHtml + "{{T("generating_torrent")}}"
 				setTimeout(fileCreated, 3000)
+			} else {
+				disabledLink = false
+				torrentLink.click();
 			}
 		})
-		e.preventDefault()
+		if(disabledLink) e.preventDefault()
 	})
+	
 	
 	function fileCreated() {
 		Query.Get('/download/{{Torrent.Hash}}?js_query=true', function (data) {
