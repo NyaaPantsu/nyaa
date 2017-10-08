@@ -33,17 +33,17 @@ func DownloadTorrent(c *gin.Context) {
 	}
 	
 	if c.Query("js_query") != "" {
-		exists := "true"
-		generating := "false"
+		exists := true
+		generating := false
 		
 		if len(config.Get().Torrents.FileStorage) == 0 {
-			exists = "false"
+			exists = false
 		}
 		Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
 		defer Openfile.Close() 
 		if err != nil {
-			exists = "false"
-			generating = "true"
+			exists = false
+			generating = true
 			
 			var trackers []string
 			if torrent.Trackers == "" {
@@ -52,7 +52,10 @@ func DownloadTorrent(c *gin.Context) {
 				trackers = torrent.GetTrackersArray()
 			}
 			magnet := format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, trackers...)
-			upload.GenerateTorrent(magnet)
+			if upload.GenerateTorrent(magnet) != nil {
+				//Error during the generation
+				generating = false
+			}
 		}
 		c.JSON(200, gin.H{ // Better to use gin for that, less code
 			"exists": exists,
@@ -90,7 +93,9 @@ func DownloadTorrent(c *gin.Context) {
 		}
 		magnet := format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, trackers...)
 		variables.Set("magnet", magnet)
-		upload.GenerateTorrent(magnet)
+		if upload.GenerateTorrent(magnet) != nil {
+			messages.AddError("errors", "Could not generate torrent file")	
+		}
 		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
 	}
