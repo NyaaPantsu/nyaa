@@ -31,6 +31,34 @@ func DownloadTorrent(c *gin.Context) {
 		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
 	}
+	
+	if c.Query("js_query") != "" {
+		exists := "true"
+		generating := "false"
+		
+		if len(config.Get().Torrents.FileStorage) == 0 {
+			exists = "false"
+		}
+		Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
+		defer Openfile.Close() 
+		if err != nil {
+			exists = "false"
+			generating = "true"
+			
+			var trackers []string
+			if torrent.Trackers == "" {
+				trackers = config.Get().Torrents.Trackers.Default
+			} else {
+				trackers = torrent.GetTrackersArray()
+			}
+			magnet := format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, trackers...)
+			upload.GenerateTorrent(magnet)
+		}
+		
+		t, _ := template.New("foo").Parse(fmt.Sprintf(`{{define "json"}}{ "exists": "%s", "generating": "%s" }{{end}}`, exists, generating))
+		t.ExecuteTemplate(c.Writer, "json", "")
+		return
+	}
 
 	if len(config.Get().Torrents.FileStorage) == 0 { // if no FileStorage configured, you still can display the magnet link
 		messages.AddError("errors", "We do not store torrents file")
