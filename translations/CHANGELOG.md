@@ -55,3 +55,5 @@
 ## 2017/10/04
 * + usersearch_user_not_found
 * + user_search_explanation
+## 2017/10/09
+* + no_api_token
