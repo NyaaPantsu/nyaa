@@ -1100,6 +1100,10 @@
     "translation": "None"
   },
   {
+    "id": "themes_classic",
+    "translation": "nyaa.se (Beta)"
+  },
+  {
     "id": "upload_as_anon",
     "translation": "Upload Anonymously"
   },
