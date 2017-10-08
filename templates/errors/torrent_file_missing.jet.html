@@ -7,7 +7,7 @@
     <a href="{{magnet}}" class="form-input btn-green download" style="height: auto;">
       <div class="icon-magnet"></div>{{ T("magnet_link")}}
     </a>
-    {{ if isset(Errors[name])}}<br/><p>{{ T("pending_torrent") }}</p>{{end}}<br/><br/>
+    {{ if !isset(Errors[name])}}<br/><p>{{ T("pending_torrent") }}</p>{{end}}<br/><br/>
     {{ end }}
   <img src="/img/no_torrent_file.jpg" alt="No torrent file"/>
 </div>
