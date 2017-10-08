@@ -22,14 +22,6 @@ func DownloadTorrent(c *gin.Context) {
 	hash := c.Param("hash")
 	messages := msg.GetMessages(c)
 
-	if hash == "" { // if no hash provided, you can't find a torrent in db neither the torrent file
-		//File not found, send 404
-		messages.AddError("errors", "No hash given")
-		variables := templates.Commonvariables(c)
-		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
-		return
-	}
-
 	torrent, err := torrents.FindRawByHash(hash)
 
 	if err != nil {
