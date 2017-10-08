@@ -287,18 +287,19 @@
 	    disabledLink = true
 		
 	torrentLink.addEventListener("click", function (e) {
-		Query.Get('/download/{{Torrent.Hash}}?js_query=true', function (data) {
-			if(typeof data.generating != "undefined" && data.generating == "true") {
-				torrentLink.innerHTML = downloadIconHtml + "{{T("generating_torrent")}}"
-				setTimeout(fileCreated, 3000)
-			} else {
-				disabledLink = false
-				torrentLink.click();
-			}
-		})
-		if(disabledLink) e.preventDefault()
+		if(disabledLink) {
+			Query.Get('/download/{{Torrent.Hash}}?js_query=true', function (data) {
+				if(typeof data.generating != "undefined" && data.generating == "true") {
+					torrentLink.innerHTML = downloadIconHtml + "{{T("generating_torrent")}}"
+					setTimeout(fileCreated, 3000)
+				} else {
+					disabledLink = false
+					torrentLink.click();
+				}
+			})
+			 e.preventDefault()
+		}
 	})
-	
 	
 	function fileCreated() {
 		Query.Get('/download/{{Torrent.Hash}}?js_query=true', function (data) {
