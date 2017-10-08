@@ -2132,6 +2132,10 @@
     "translation": "Be patient, the torrent file is being generated. Try again in a few seconds."
   },
   {
+    "id": "generating_torrent",
+    "translation": "Generating torrent file..."
+  },
+  {
     "id": "enabled",
     "translation": "Enabled"
   },
