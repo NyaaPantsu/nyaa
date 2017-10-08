@@ -1,12 +1,10 @@
 package torrentController
 
 import (
-	"text/template"
 	"strconv"
 	"strings"
 	"net/url"
 	"time"
-	"fmt"
 
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/models"
@@ -47,9 +45,11 @@ func GetStatsHandler(c *gin.Context) {
 		stats.Seeders = -1
 	}
 	
-	t, err := template.New("foo").Parse(fmt.Sprintf(`{{define "stats"}}{ "seeders": [%d], "leechers": [%d], "downloads": [%d] }{{end}}`, stats.Seeders, stats.Leechers, stats.Completed))
-	t.ExecuteTemplate(c.Writer, "stats", "")
-	//No idea how to output JSON properly
+	c.JSON(200, gin.H{
+ 		"seeders": stats.Seeders,
+ 		"leechers": stats.Leechers,
+ 		"downloads": stats.Completed,
+ 	})
 	
 	//We don't want to do useless DB queries if the stats are empty, and we don't want to overwrite good stats with empty ones
 	if stats.Seeders != -1 {
