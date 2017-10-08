@@ -133,7 +133,7 @@
     <a href="{{Torrent.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;margin-right: 0.5em;">
       <div class="icon-magnet"></div>{{ T("magnet_link")}}
     </a>
-    <a href="{{if Torrent.TorrentLink == ""}}/download/{{Torrent.Hash}}{{else}}{{Torrent.TorrentLink}}{{end}}" class="form-input download{{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}} hidden{{end}}" style="float:left;height: auto;">
+    <a id="torrent-download-link" href="{{if Torrent.TorrentLink == ""}}/download/{{Torrent.Hash}}{{else}}{{Torrent.TorrentLink}}{{end}}" class="form-input download{{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}} hidden{{end}}" style="float:left;height: auto;">
       <div class="icon-floppy"></div>{{ T("torrent_file")}}
     </a>
     {{ if User.ID > 0}}
@@ -279,12 +279,42 @@
 {{end}}
 {{ block footer_js()}}
 <script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>
+{{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}}
+<script type="text/javascript">
+	var torrentLink = document.getElementById("torrent-download-link"),
+		oldDownloadHtml = torrentLink.innerHTML,
+		downloadIconHtml = torrentLink.innerHTML.substring(0, torrentLink.innerHTML.indexOf("</div>") + 6)
+		
+	torrentLink.addEventListener("click", function (e) {
+		
+		Query.Get('/download/{{Torrent.Hash}}?js_query=true', function (data) {
+			if(typeof data.generating != "undefined" && data.generating == "true") {
+				torrentLink.innerHTML = downloadIconHtml + "{{T("generating_torrent")}}"
+				setTimeout(fileCreated, 3000)
+			}
+		})
+		e.preventDefault()
+	})
+	
+	function fileCreated() {
+		Query.Get('/download/{{Torrent.Hash}}?js_query=true', function (data) {
+			if(typeof data.exists != "undefined" && data.exists == "true") {
+				torrentLink.innerHTML = oldDownloadHtml
+				torrentLink.removeEventListener("click", function (e) {});
+				torrentLink.style.opacity = 1
+			} else {
+				setTimeout(fileCreated, 5000)
+			}
+		});
+	}
+	
+</script>
+{{end}}
 {{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}
 <script type="text/javascript">
   var seeders   = document.querySelector(".tr-se"),
       leechers  = document.querySelector(".tr-le"),
       downloads = document.querySelector(".tr-dl b"),
-      torrentID = window.location.pathname.substr(6),
 	  scrapeDate= document.querySelector(".scrape-date")
 	  
   var oldStats = [seeders.innerHTML, leechers.innerHTML, downloads.innerHTML]
@@ -293,7 +323,7 @@
       leechers.innerHTML = "Loading..."
       downloads.innerHTML = "Loading..."
 
-  Query.Get('/stats/' + torrentID, function (data) {
+  Query.Get('/stats/{{Torrent.ID}}', function (data) {
     if(typeof data.seeders != "undefined" && data.seeders != -1) {
       seeders.innerHTML = "<span>" + data.seeders + "</span>"
       leechers.innerHTML = "<span>" +data.leechers + "</span>"
