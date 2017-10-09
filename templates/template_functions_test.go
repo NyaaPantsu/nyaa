@@ -750,7 +750,11 @@ func TestRand(t *testing.T) {
  		},
  	}
  	for _, test := range tests {
-		value := formatThemeName("path")
+		var T publicSettings.TemplateTfunc
+		T = func(id string, args ...interface{}) template.HTML {	
+			return template.HTML(fmt.Sprintf(Ts(id), args...))
+		}
+		value := formatThemeName("path", T)
  		if value != test.domainName {
  			
  		}
