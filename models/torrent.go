@@ -112,6 +112,7 @@ type TorrentJSON struct {
 	Leechers     uint32        `json:"leechers"`
 	Completed    uint32        `json:"completed"`
 	LastScrape   time.Time     `json:"last_scrape"`
+	ScrapeAge    int32         `json:"-"` // not needed in json to reduce db calls
 	FileList     []FileJSON    `json:"file_list"`
 	Tags         Tags          `json:"-"` // not needed in json to reduce db calls
 }
@@ -348,6 +349,10 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	if t.Scrape != nil {
 		scrape = *t.Scrape
 	}
+	scrapeAge := int32(time.Since(scrape.LastScrape).Hours())
+	if scrape.LastScrape.IsZero() {
+		scrapeAge = -1
+	}
 	t.ParseLanguages()
 	res := TorrentJSON{
 		ID:           t.ID,
@@ -371,6 +376,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Seeders:      scrape.Seeders,
 		Completed:    scrape.Completed,
 		LastScrape:   scrape.LastScrape,
+		ScrapeAge:    scrapeAge,
 		FileList:     fileListJSON,
 		Tags:         t.Tags,
 		AnidbID:      t.AnidbID,
