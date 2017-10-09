@@ -125,21 +125,19 @@
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("seeders")}}:</td>
-      <td class="tr-se torrent-info-td">{{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}{{ T("unknown")}}{{else}}{{Torrent.Seeders}}{{end}}</td>
+      <td class="tr-se torrent-info-td">{{if Torrent.StatsObsolete[0] }}{{ T("unknown")}}{{else}}{{Torrent.Seeders}}{{end}}</td>
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("leechers")}}:</td>
-      <td class="tr-le torrent-info-td">{{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}{{ T("unknown")}}{{else}}{{Torrent.Leechers}}{{end}}</td>
+      <td class="tr-le torrent-info-td">{{if Torrent.StatsObsolete[0] }}{{ T("unknown")}}{{else}}{{Torrent.Leechers}}{{end}}</td>
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("completed")}}:</td>
-      <td class="torrent-info-td tr-dl">
-        {{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}{{ T("unknown")}}{{else}}{{Torrent.Completed}}{{end}}
-      </td>
+      <td class="torrent-info-td tr-dl">{{if Torrent.StatsObsolete[0] }}{{ T("unknown")}}{{else}}{{Torrent.Completed}}{{end}} </td>
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("last_scraped")}}</td>
-      <td class="torrent-info-td scrape-date{{if !Torrent.LastScrape.IsZero && formatDateRFC(Torrent.LastScrape) != "0001-01-01T00:00:00Z"}} date-full">{{formatDateRFC(Torrent.LastScrape)}}{{else}}">{{ T("unknown")}}{{end}}</td>
+      <td class="torrent-info-td scrape-date{{if formatDateRFC(Torrent.LastScrape) != "0001-01-01T00:00:00Z"}} date-full">{{formatDateRFC(Torrent.LastScrape)}}{{else}}">{{ T("unknown")}}{{end}}</td>
     </tr>
   </table>
   </div>
@@ -330,7 +328,7 @@
 	
 </script>
 {{end}}
-{{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}
+{{if Torrent.StatsObsolete[1] }}
 <script type="text/javascript">
   var seeders   = document.querySelector(".tr-se"),
       leechers  = document.querySelector(".tr-le"),
