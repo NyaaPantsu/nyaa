@@ -574,7 +574,7 @@ th {
     width: 90px;
 }
 
-.tr-se, .tr-le, .tr-st {
+.tr-se, .tr-le, .tr-st, .torrent-view-data .tr-dl {
     font-weight: bold;
 }
 
