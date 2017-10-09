@@ -12,45 +12,34 @@
     <h1 style="text-align: center;" class="torrent-hr">{{Torrent.Name}}</h1>
   </div>
   <br/>
-  <table id="torrent-view-data">
+  <div class="torrent-view-data">
+  <table>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{  T("category") }}:</td>
       <td class="torrent-view-td torrent-info-data">
         <a href="{{URL.Parse("/search?c="+Torrent.Category+"_"+Torrent.SubCategory) }}">{{ CategoryName(Torrent.Category, Torrent.SubCategory) == "" ? T("unknown") : T(CategoryName(Torrent.Category, Torrent.SubCategory)) }}</a>
         <br/>
       </td>
-      <td class="torrent-info-td torrent-info-label">{{  T("date") }}:</td>
-      <td class="torrent-info-td date-full">{{Torrent.Date}}</td>
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{  T("uploaded_by") }}:</td>
       <td class="torrent-view-td torrent-info-data {{if Torrent.UploaderID == 0}}uploader-anon{{else}}uploader-link{{end}}">{{ genUploaderLink(Torrent.UploaderID, Torrent.UploaderName, Torrent.Hidden)|raw }}</td>
-      <td class="torrent-info-td torrent-info-label">{{ T("seeders")}}:</td>
-      <td class="tr-se torrent-info-td">{{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}{{ T("unknown")}}{{else}}{{Torrent.Seeders}}{{end}}</td>
     </tr>
-    <tr class="torrent-info-row">
+     
+	 <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{  T("website_link") }}:</td>
       <td class="torrent-view-td torrent-info-data">
-        {{if Torrent.WebsiteLink != ""}}
-        <a href="{{Torrent.WebsiteLink}}">{{Torrent.WebsiteLink}}</a>
-        {{else}}N/A{{end}}
+        {{if Torrent.WebsiteLink != ""}}<a href="{{Torrent.WebsiteLink}}">{{Torrent.WebsiteLink}}</a>
+		{{else}}N/A{{end}}
       </td>
-      <td class="torrent-info-td torrent-info-label">{{ T("leechers")}}:</td>
-      <td class="tr-le torrent-info-td">{{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}{{ T("unknown")}}{{else}}{{Torrent.Leechers}}{{end}}</td>
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("hash")}}:</td>
       <td style="font-family: monospace;" class="torrent-view-td torrent-info-data">{{Torrent.Hash}}</td>
-      <td class="torrent-info-td torrent-info-label">{{ T("completed")}}:</td>
-      <td class="torrent-info-td tr-dl">
-        <b>{{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}{{ T("unknown")}}{{else}}{{Torrent.Completed}}{{end}}</b>
-      </td>
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("size")}}:</td>
       <td class="torrent-view-td torrent-info-data">{{ fileSize(Torrent.Filesize, T) }}</td>
-      <td class="torrent-info-td torrent-info-label">{{ T("last_scraped")}}</td>
-      <td class="torrent-info-td scrape-date{{if !Torrent.LastScrape.IsZero && formatDateRFC(Torrent.LastScrape) != "0001-01-01T00:00:00Z"}} date-full">{{formatDateRFC(Torrent.LastScrape)}}{{else}}">{{ T("unknown")}}{{end}}</td>
     </tr>
     {{ if len(Torrent.Languages) > 0 && Torrent.Languages[0] != "" }}
     <tr class="torrent-info-row">
@@ -129,6 +118,31 @@
     </tr>
     {{ end }}
   </table>
+   <table>
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{  T("date") }}:</td>
+      <td class="torrent-info-td date-full">{{Torrent.Date}}</td>
+    </tr>
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("seeders")}}:</td>
+      <td class="tr-se torrent-info-td">{{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}{{ T("unknown")}}{{else}}{{Torrent.Seeders}}{{end}}</td>
+    </tr>
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("leechers")}}:</td>
+      <td class="tr-le torrent-info-td">{{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}{{ T("unknown")}}{{else}}{{Torrent.Leechers}}{{end}}</td>
+    </tr>
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("completed")}}:</td>
+      <td class="torrent-info-td tr-dl">
+        <b>{{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}{{ T("unknown")}}{{else}}{{Torrent.Completed}}{{end}}</b>
+      </td>
+    </tr>
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("last_scraped")}}</td>
+      <td class="torrent-info-td scrape-date{{if !Torrent.LastScrape.IsZero && formatDateRFC(Torrent.LastScrape) != "0001-01-01T00:00:00Z"}} date-full">{{formatDateRFC(Torrent.LastScrape)}}{{else}}">{{ T("unknown")}}{{end}}</td>
+    </tr>
+  </table>
+  </div>
   <div class="torrent-buttons">
     <a href="{{Torrent.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;margin-right: 0.5em;">
       <div class="icon-magnet"></div>{{ T("magnet_link")}}
