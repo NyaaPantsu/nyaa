@@ -422,22 +422,20 @@ func getThemeList() ([]string) {
 
 func formatThemeName(name string, T publicSettings.TemplateTfunc) string {
 	translationString := fmt.Sprintf("themes_%s", name)
-	translatedName := T(translationString)
+	translatedName := string(T(translationString))
 	
-	if translatedName != template.HTML(translationString) {
+	if translatedName != translationString {
 		//Translation string exists
-		return string(translatedName)
+		return translatedName
 	}
-	
-	Name := name
 			
-	if len(Name) == 1 {
-		Name = fmt.Sprintf("/%c/", Name[0])
+	if len(name) == 1 {
+		name = fmt.Sprintf("/%c/", Name[0])
 	} else {
-		Name = strings.Replace(Name, "_", " ", -1)
-		Name = strings.Title(Name)
+		name = strings.Replace(name, "_", " ", -1)
+		name = strings.Title(name)
 		//Upper case at each start of word
 	}
-	return Name
+	return name
 }
 
