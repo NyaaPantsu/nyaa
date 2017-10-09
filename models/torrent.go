@@ -101,20 +101,20 @@ type TorrentJSON struct {
 	VideoQuality string `json:"videoquality"`
 	AcceptedTags Tags   `json:"tags"`
 
-	UploaderID   uint          `json:"uploader_id"`
-	UploaderName template.HTML `json:"uploader_name"`
-	OldUploader  template.HTML `json:"uploader_old"`
-	WebsiteLink  template.URL  `json:"website_link"`
-	Languages    []string      `json:"languages"`
-	Magnet       template.URL  `json:"magnet"`
-	TorrentLink  template.URL  `json:"torrent"`
-	Seeders      uint32        `json:"seeders"`
-	Leechers     uint32        `json:"leechers"`
-	Completed    uint32        `json:"completed"`
-	LastScrape   time.Time     `json:"last_scrape"`
-	ScrapeAge    int32         `json:"-"` // not needed in json to reduce db calls
-	FileList     []FileJSON    `json:"file_list"`
-	Tags         Tags          `json:"-"` // not needed in json to reduce db calls
+	UploaderID    uint          `json:"uploader_id"`
+	UploaderName  template.HTML `json:"uploader_name"`
+	OldUploader   template.HTML `json:"uploader_old"`
+	WebsiteLink   template.URL  `json:"website_link"`
+	Languages     []string      `json:"languages"`
+	Magnet        template.URL  `json:"magnet"`
+	TorrentLink   template.URL  `json:"torrent"`
+	Seeders       uint32        `json:"seeders"`
+	Leechers      uint32        `json:"leechers"`
+	Completed     uint32        `json:"completed"`
+	LastScrape    time.Time     `json:"last_scrape"`
+	StatsObsolete []bool        `json:"-"` //First cell determines whether the stats are valid, second determines whether the stats need a refresh regardless of first cell (too old stats?)
+	FileList      []FileJSON    `json:"file_list"`
+	Tags          Tags          `json:"-"` // not needed in json to reduce db calls
 }
 
 // Size : Returns the total size of memory recursively allocated for this struct
@@ -349,41 +349,49 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	if t.Scrape != nil {
 		scrape = *t.Scrape
 	}
-	scrapeAge := int32(time.Since(scrape.LastScrape).Hours())
-	if scrape.LastScrape.IsZero() {
-		scrapeAge = -1
+	
+	statsObsolete := []bool{false, false}
+	
+	if scrape.LastScrape.IsZero() || (scrape.Seeders == 0 && scrape.Leechers == 0 && scrape.Completed == 0) {
+		statsObsolete[0] = true
+		//The displayed stats are obsolete, S/D/L will show "Unknown"
 	}
+	if time.Since(scrape.LastScrape).Hours() > 1460 || (scrape.Seeders == 0 && scrape.Leechers == 0 && scrape.Completed == 0 && time.Since(scrape.LastScrape).Hours() > 24) {
+		statsObsolete[1] = true
+		//The stats need to be refreshed, either because they are valid and older than two months (not as reliable) OR if they are unknown but have been scraped more than 24h ago
+	}
+	
 	t.ParseLanguages()
 	res := TorrentJSON{
-		ID:           t.ID,
-		Name:         t.Name,
-		Status:       t.Status,
-		Hidden:       t.Hidden,
-		Hash:         t.Hash,
-		Date:         t.Date.Format(time.RFC3339),
-		Filesize:     t.Filesize,
-		Description:  sanitize.MarkdownToHTML(t.Description),
-		Comments:     commentsJSON,
-		SubCategory:  strconv.Itoa(t.SubCategory),
-		Category:     strconv.Itoa(t.Category),
-		UploaderID:   uploaderID,
-		UploaderName: sanitize.SafeText(uploader),
-		WebsiteLink:  sanitize.Safe(t.WebsiteLink),
-		Languages:    t.Languages,
-		Magnet:       template.URL(magnet),
-		TorrentLink:  sanitize.Safe(torrentlink),
-		Leechers:     scrape.Leechers,
-		Seeders:      scrape.Seeders,
-		Completed:    scrape.Completed,
-		LastScrape:   scrape.LastScrape,
-		ScrapeAge:    scrapeAge,
-		FileList:     fileListJSON,
-		Tags:         t.Tags,
-		AnidbID:      t.AnidbID,
-		VndbID:       t.VndbID,
-		VgmdbID:      t.VgmdbID,
-		Dlsite:       t.Dlsite,
-		VideoQuality: t.VideoQuality,
+		ID:            t.ID,
+		Name:          t.Name,
+		Status:        t.Status,
+		Hidden:        t.Hidden,
+		Hash:          t.Hash,
+		Date:          t.Date.Format(time.RFC3339),
+		Filesize:      t.Filesize,
+		Description:   sanitize.MarkdownToHTML(t.Description),
+		Comments:      commentsJSON,
+		SubCategory:   strconv.Itoa(t.SubCategory),
+		Category:      strconv.Itoa(t.Category),
+		UploaderID:    uploaderID,
+		UploaderName:  sanitize.SafeText(uploader),
+		WebsiteLink:   sanitize.Safe(t.WebsiteLink),
+		Languages:     t.Languages,
+		Magnet:        template.URL(magnet),
+		TorrentLink:   sanitize.Safe(torrentlink),
+		Leechers:      scrape.Leechers,
+		Seeders:       scrape.Seeders,
+		Completed:     scrape.Completed,
+		LastScrape:    scrape.LastScrape,
+		StatsObsolete: statsObsolete,
+		FileList:      fileListJSON,
+		Tags:          t.Tags,
+		AnidbID:       t.AnidbID,
+		VndbID:        t.VndbID,
+		VgmdbID:       t.VgmdbID,
+		Dlsite:        t.Dlsite,
+		VideoQuality:  t.VideoQuality,
 	}
 
 	// Split accepted tags
