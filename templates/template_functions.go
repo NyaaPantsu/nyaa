@@ -420,13 +420,19 @@ func getThemeList() ([]string) {
     return themeList
 }
 
-func formatThemeName(name string) string {
+func formatThemeName(name string, T publicSettings.TemplateTfunc) string {
+	translationString := fmt.Sprintf("themes_%s", name)
+	translatedName := T(translationString)
+	
+	if translatedName != template.HTML(translationString) {
+		//Translation string exists
+		return string(translatedName)
+	}
+	
 	Name := name
 			
 	if len(Name) == 1 {
 		Name = fmt.Sprintf("/%c/", Name[0])
-	} else if name == "classic" {
-		Name = "nyaa.se (Beta)"
 	} else {
 		Name = strings.Replace(Name, "_", " ", -1)
 		Name = strings.Title(Name)
@@ -434,3 +440,4 @@ func formatThemeName(name string) string {
 	}
 	return Name
 }
+
