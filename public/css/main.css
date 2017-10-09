@@ -853,6 +853,7 @@ html, body {
     }
     td.torrent-view-td.torrent-info-data {
         padding-left: 5px;
+		width: auto;
     }
     .torrent-info-data {
         width: 100%;
@@ -996,6 +997,12 @@ html, body {
     .upload-form-table .table-input-label {
         display: none;
     }
+	.torrent-view-data {
+		display: table!important;
+	}
+	.torrent-view-data td, .torrent-view-data table {
+		width: 100%!important;
+	}
 }
 
 @media (max-width: 440px) {
@@ -2164,6 +2171,19 @@ table.multiple-upload {
 .torrent-info-row .tr-se span, .torrent-info-row .tr-le span, .torrent-info-row .tr-dl span {
     font-weight: bold;
     background-color: #ffe0bf;
+}
+
+.torrent-view-data {
+	display: flex;
+}
+.torrent-view-data table:first-child {
+	width: 65%;
+}
+.torrent-view-data table:last-child {
+	width: 35%;
+}
+.torrent-view-data table:last-child .torrent-info-label {
+	width: 42%;
 }
 
 /* Language specific CSS */
