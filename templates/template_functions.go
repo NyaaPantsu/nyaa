@@ -430,7 +430,7 @@ func formatThemeName(name string, T publicSettings.TemplateTfunc) string {
 	}
 			
 	if len(name) == 1 {
-		name = fmt.Sprintf("/%c/", Name[0])
+		name = fmt.Sprintf("/%c/", name[0])
 	} else {
 		name = strings.Replace(name, "_", " ", -1)
 		name = strings.Title(name)
