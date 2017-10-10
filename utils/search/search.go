@@ -102,8 +102,5 @@ func ByQuery(c *gin.Context, pagenum int, withUser bool, deleted bool, hidden bo
 
 // AuthorizedQuery return a seach byquery according to the bool. If false, it doesn't look for hidden torrents, else it looks for every torrents
 func AuthorizedQuery(c *gin.Context, pagenum int, authorized bool) (TorrentParam, []models.Torrent, int, error) {
-	if !authorized {
-		return ByQuery(c, pagenum, true, false, true)
-	}
-	return ByQuery(c, pagenum, true, false, false)
+	return ByQuery(c, pagenum, true, false, !authorized)
 }

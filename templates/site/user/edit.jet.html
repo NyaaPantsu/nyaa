@@ -12,7 +12,7 @@
 	<tbody>
 		<tr>
 			<td>{{ T("api_token") }}:</td>
-			<td><span style="font-family: monospace;">{{UserProfile.APIToken}}</span></td>
+			<td><span style="font-family: monospace;">{{if UserProfile.APIToken == ""}}{{T("no_api_token")}}{{else}}{{UserProfile.APIToken}}{{end}}</span></td>
 		</tr>
 		<tr>
 			<td></td>
@@ -66,7 +66,7 @@
 				<select id="theme-selector" name="theme" class="form-input up-input" onchange="switchThemes()">
 				  <option value="">{{ T("theme_select")}}</option>
 				  {{ range theme := getThemeList()}}
-					  <option value="{{theme}}"{{ if Theme == theme}} selected{{end}}>{{formatThemeName(theme)}}</option>
+					  <option value="{{theme}}"{{ if Theme == theme}} selected{{end}}>{{formatThemeName(theme, T)}}</option>
 				  {{end}}
 				  <option value=""{{ if Theme == "" }} selected{{end}}>{{ T("theme_none")}}</option>
 				</select>
@@ -261,6 +261,6 @@
   </form>
 {{ if User.CurrentOrAdmin(UserProfile.ID) }}
 <hr/>
-<a href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}?delete" onclick="if (!confirm('{{  T("delete_account_confirm") }}')) return false;" class="form-input btn-red">{{  T("delete_account")}}</a>
+<a href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}?delete" onclick="if (!confirm('{{  T("delete_account_confirm") }}')) return false;" class="form-input btn-red" style="float:right">{{  T("delete_account")}}</a>
 {{end}}
 {{end}}

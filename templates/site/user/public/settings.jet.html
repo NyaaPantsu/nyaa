@@ -19,7 +19,7 @@
       <h3>{{ T("theme")}}</h3>
       <select id="theme-selector" name="theme" class="form-input" onchange="switchThemes()">
 		{{ range theme := getThemeList()}}
-			<option value="{{theme}}"{{ if Theme == theme}} selected{{end}}>{{formatThemeName(theme)}}</option>
+			<option value="{{theme}}"{{ if Theme == theme}} selected{{end}}>{{formatThemeName(theme, T)}}</option>
 		{{end}}
       </select>
       </span>
