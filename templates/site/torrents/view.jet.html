@@ -296,7 +296,8 @@
 	var torrentLink = document.getElementById("torrent-download-link"),
 	    oldDownloadHtml = torrentLink.innerHTML,
 	    downloadIconHtml = torrentLink.innerHTML.substring(0, torrentLink.innerHTML.indexOf("</div>") + 6),
-	    disabledLink = true
+	    disabledLink = true,
+		firstQueryDate = new Date()
 		
 	torrentLink.addEventListener("click", function (e) {
 		if(disabledLink) {
@@ -321,11 +322,16 @@
 				torrentLink.removeEventListener("click", function (e) {});
 				torrentLink.click();
 			} else {
-				setTimeout(fileCreated, 3000)
+				if(new Date() - firstQueryDate < 20000)
+					setTimeout(fileCreated, 3000)
+				else {
+					torrentLink.innerHTML = downloadIconHtml + "Could not generate torrent file"
+					torrentLink.removeEventListener("click", function (e) {});
+					disabledLink = true
+				}
 			}
 		});
 	}
-	
 </script>
 {{end}}
 {{if Torrent.StatsObsolete[1] }}
