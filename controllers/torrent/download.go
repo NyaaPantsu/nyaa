@@ -38,23 +38,24 @@ func DownloadTorrent(c *gin.Context) {
 		
 		if len(config.Get().Torrents.FileStorage) == 0 {
 			exists = false
-		}
-		Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
-		defer Openfile.Close() 
-		if err != nil {
-			exists = false
-			generating = true
-			
-			var trackers []string
-			if torrent.Trackers == "" {
-				trackers = config.Get().Torrents.Trackers.Default
-			} else {
-				trackers = torrent.GetTrackersArray()
-			}
-			magnet := format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, trackers...)
-			if upload.GenerateTorrent(magnet) != nil {
-				//Error during the generation
-				generating = false
+		} else {
+			Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
+			defer Openfile.Close() 
+			if err != nil {
+				exists = false
+				generating = true
+
+				var trackers []string
+				if torrent.Trackers == "" {
+					trackers = config.Get().Torrents.Trackers.Default
+				} else {
+					trackers = torrent.GetTrackersArray()
+				}
+				magnet := format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, trackers...)
+				if upload.GenerateTorrent(magnet) != nil {
+					//Error during the generation
+					generating = false
+				}
 			}
 		}
 		c.JSON(200, gin.H{ // Better to use gin for that, less code
