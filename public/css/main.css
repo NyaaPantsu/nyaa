@@ -26,6 +26,7 @@ body {
     font-size: 14px;
     font-family: 'Noto Sans', Arial, sans-serif;
     -webkit-text-size-adjust: 100%;
+    margin-top: 0;
 }
 
 img[class^="jl-"], img[class^="wb-"] {
