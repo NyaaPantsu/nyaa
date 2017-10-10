@@ -1148,6 +1148,7 @@ html, body {
     height: 50px;
     float: left;
     margin-right: 8px;
+    margin-bottom: 8px;
 }
 
 .comment-form {
