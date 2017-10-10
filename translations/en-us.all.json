@@ -1100,6 +1100,10 @@
     "translation": "None"
   },
   {
+    "id": "themes_classic",
+    "translation": "nyaa.se (Beta)"
+  },
+  {
     "id": "upload_as_anon",
     "translation": "Upload Anonymously"
   },
@@ -2162,5 +2166,9 @@
   {
     "id": "user_search_explanation",
     "translation": "Search for an user by writing down his username in the below input"
+  },
+  {
+    "id": "no_api_token",
+    "translation": "No API token"
   }
 ]

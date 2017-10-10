@@ -58,3 +58,5 @@
 ## 2017/10/08
 * + pending_torrent
 * + generating_torrent
+## 2017/10/09
+* + no_api_token
