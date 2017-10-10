@@ -161,8 +161,10 @@
     {* how do i concat lol *}
     <table class="table-filelist">
       <thead>
-        <th style="width: 80%">{{ T("file_name")}}</th>
-        <th>{{ T("size")}}</th>
+        <tr>
+	  <th style="width: 80%">{{ T("file_name")}}</th>
+          <th>{{ T("size")}}</th>
+	</tr>
       </thead>
       <tbody>
         {{ yield make_treeview(treeviewData=makeTreeViewData(RootFolder, 0, "root")) }}
