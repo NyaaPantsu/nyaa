@@ -96,11 +96,12 @@ torrents:
 # the ones we have translations.
   additional_languages: ["es-mx"]
 # TorrentFileStorage : Path to default torrent storage location (eg /var/www/wherever/you/want)
-  filestorage:
+torrents:
+  filestorage: ./downloads
 # TorrentStorageLink : Url of torrent file download location (eg https://your.site/somewhere/%s)
-  storage_link:
+  storage_link: /download/%s
 # TorrentCacheLink : Url of torrent site cache
-  cache_link: http://anicache.com/torrent/%s.torrent
+  cache_link: #http://anicache.com/torrent/%s.torrent
 # UploadsDisabled : Disable uploads for everyone except below
   uploads_disabled: false
 # AdminsAreStillAllowedTo : Enable admin torrent upload even if UploadsDisabled is true
