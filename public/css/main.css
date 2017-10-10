@@ -569,7 +569,7 @@ th {
     font-size: 0px;
 }
 .tr-cs a::before {
-    font-size: 14px;	
+    font-size: 14px;    
 }
 
 .tr-size {
@@ -1142,7 +1142,7 @@ html, body {
 }
 
 .comment-box p:nth-child(2) {
-    margin-top: 9px;	
+    margin-top: 9px;    
 }
 
 .comment-box img {
@@ -2141,13 +2141,13 @@ table.multiple-upload {
 }
 
 .user-edit-table td {
-	padding: 3px 0;
-	vertical-align: top;
+    padding: 3px 0;
+    vertical-align: top;
 }
 .user-edit-table td:nth-child(1){
-	width: 150px;
-	font-weight: bold;
-	font-size: 14px!important;
+    width: 150px;
+    font-weight: bold;
+    font-size: 14px!important;
     padding: 5px 0;
 }
 
@@ -2161,7 +2161,7 @@ table.multiple-upload {
 }
 .user-search [type="text"] {
     vertical-align: top;
-    width: calc(100% - 30px);
+    width: calc(100% - 28px);
 }
 
 .torrent-info-row .tr-se span, .torrent-info-row .tr-le span, .torrent-info-row .tr-dl span {
@@ -2175,7 +2175,7 @@ html[lang="ja-jp"] .form-refine span.spacing {
     vertical-align: middle;
 }
 html[lang="ja-jp"] .form-input.refine-category {
-    vertical-align: top;	
+    vertical-align: top;    
 }
 @media (max-width: 1100px) {
     html[lang="ja-jp"] .header .h-user>.nav-btn {
