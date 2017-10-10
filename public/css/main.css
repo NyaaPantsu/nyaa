@@ -77,8 +77,10 @@ img[class$="-w"] {
     width: 100%;
     top: 0;
     left: 0;
-    height: 60px;
     border-bottom: 1px solid;
+}
+.header, #header-height-offset {
+    height: 60px;
 }
 
 #cookie-warning {
@@ -340,10 +342,9 @@ select.form-input {
 
 #content {
     position: relative;
-    top: 54px;
 }
 #content.content-admin  {
-    top: 108px!important;
+    top: 54px;
 }
 
 .content {
