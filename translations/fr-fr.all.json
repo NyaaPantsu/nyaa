@@ -1097,7 +1097,11 @@
   },
   {
     "id": "theme_none",
-    "translation": "Classique"
+    "translation": "Aucun"
+  },
+  {
+    "id": "themes_classic",
+    "translation": "nyaa.se (Bêta)"
   },
   {
     "id": "upload_as_anon",
@@ -2154,5 +2158,9 @@
   {
     "id": "user_search_explanation",
     "translation": "Rechercher un utilisateur en inscrivant son nom dans l'entrée ci-dessous."
+  },
+  {
+    "id": "no_api_token",
+    "translation": "Aucun authentifieur d'API"
   }
 ]
