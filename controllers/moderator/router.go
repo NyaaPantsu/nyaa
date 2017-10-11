@@ -60,7 +60,7 @@ func init() {
 		modRoutes.Any("/torrent/block", TorrentBlockModPanel)
 
 		/* Tags delete route */
-		modRoutes.Any("/tags/delete", DeleteTagsModPanel)
+		modRoutes.POST("/tags/delete", DeleteTagsModPanel)
 
 		/* Report delete route */
 		modRoutes.POST("/report/delete", TorrentReportDeleteModPanel)
