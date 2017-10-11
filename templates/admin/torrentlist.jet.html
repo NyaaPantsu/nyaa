@@ -64,14 +64,16 @@
             </a>
             {{ if .IsDeleted }}
             <br/>
-            <a href="/mod/torrent/delete?definitely&id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ")}} {{  T("delete_definitely_torrent_warning ")}}')) return false;">
-              <i class="icon-trash"></i>
-               {{  T("delete_definitely") }}
-             </a>
+			  <form method="POST" action="/mod/torrent/delete">
+				<input type="hidden" name="id" value="{{ .ID }}">
+				<input type="hidden" name="definitely" value="true">
+				<button type="submit" class="form-input btn-red"onclick="if (!confirm('{{  T(" are_you_sure ") }} {{  T("delete_definitely_torrent_warning ")}}')) return false;"><i class="icon-trash"></i> {{  T("delete_definitely") }}</button>
+			  </form>
              {{ else }}
-            <a href="/mod/torrent/delete?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ")}}')) return false;">
-              <i class="icon-trash"></i> {{  T("delete") }}
-            </a>
+			  <form method="POST" action="/mod/torrent/delete">
+				<input type="hidden" name="id" value="{{ .ID }}">
+				<button type="submit" class="form-input btn-red"onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
+			  </form>
             {{ end }}
           </td>
         </tr>
