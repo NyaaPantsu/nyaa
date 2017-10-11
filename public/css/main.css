@@ -1741,6 +1741,7 @@ summary:after {
     width: 12px;
     font-size: 1.5em;
     font-weight: bold;
+	outline: none;
 }
 
 details[open] summary:after {
@@ -1989,6 +1990,9 @@ p.upload-rules a {
 }
 #anidex-upload-info p {
 	margin-bottom: 4px;
+}
+#anidex-upload-info p:first-child {
+	margin-top: 0;
 }
 #anidex-upload-info > div > div {
 	margin-left: 9px;
