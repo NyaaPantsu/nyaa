@@ -6,6 +6,7 @@ import (
 	"net/url"
 	"strconv"
 	"io/ioutil"
+	"bytes"
 
 	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models"
@@ -88,11 +89,11 @@ func UploadPostHandler(c *gin.Context) {
 				uploadMultiple.AnidexStatus = 1
 				categoryId := "10"
 				langId := "0"
-				anonymous := "0"
+				anonymous := false
 				apiKey := c.PostForm("anidex_api")
 				
 				if c.PostForm("anidex_api") == "" {
-					anonymous = "1"
+					anonymous = true
 				}
 				
 				postForm := url.Values{}
@@ -106,15 +107,20 @@ func UploadPostHandler(c *gin.Context) {
 				
 				//Optional
 				postForm.Set("description", "")
-				postForm.Set("hentai", strconv.Itoa(int(config.IsSukebei)))
-				postForm.Set("reencode", strconv.Itoa(int(uploadForm.Remake)))
-				postForm.Set("private", anonymous)
+				if config.IsSukebei() {
+					postForm.Set("hentai", "1")
+				}
+				if uploadForm.Remake {
+					postForm.Set("reencode", "1")
+				}
+				if anonymous {
+					postForm.Set("private", "1")
+				}
 				
 				
 				postForm.Set("debug", "1")
 				
-				body := bytes.NewBufferString(form.Encode())
-				rsp, err := http.Post("https://anidex.info/api/", "application/x-www-form-urlencoded", body)
+				rsp, err := http.Post("https://anidex.info/api/", "application/x-www-form-urlencoded", bytes.NewBufferString(postForm.Encode()))
 				
 				if err != nil {
 					uploadMultiple.AnidexStatus = 2
