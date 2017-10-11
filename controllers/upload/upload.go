@@ -103,7 +103,7 @@ func UploadPostHandler(c *gin.Context) {
 				
 				if c.PostForm("anidex_api") == "" {
 					anonymous = true
-					apiKey = "XXX"
+					apiKey = config.Get().Upload.DefaultAnidexToken
 				}
 				
 				postForm := url.Values{}
