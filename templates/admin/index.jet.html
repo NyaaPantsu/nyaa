@@ -57,7 +57,7 @@
         <td class="tr-size home-td">{{.User.Username}}</td>
         <td class="tr-actions home-td">{{ getReportDescription(.Description,T) }}</td>
         <td class="tr-actions home-td">
-          <a href="/mod/torrent/delete?id={{ .ID }}" class="form-input btn-red">
+          <a href="/mod/report/delete?id={{ .ID }}" class="form-input btn-red">
             <i class="icon-trash"></i> {{  T("delete") }}</a>
         </td>
       </tr>
@@ -121,7 +121,7 @@
           </a>
         </td>
         <td class="tr-size home-td">
-          <a href="/mod/comment/delete?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;">
+          <a href="/mod/comment/delete?id={{ .ID }}" class="form-input delete-btn btn-red">
             <i class="icon-trash"></i> {{  T("delete") }}
           </a>
         </td>
@@ -135,4 +135,17 @@
     </ul>
   </nav>
 </div>
+{{end}}
+{{block footer_js()}}
+<script type="text/javascript">
+ var deleteButtons = document.getElementsByClassName("delete-btn")
+ for(var i = 0; i < deleteButtons.length; i++) {
+   deleteButtons[i].addEventListener("click", function (e) {
+	    e.preventDefault()
+     Query.Get(this.href, function(data) {})
+     this.parentNode.parentNode.className = this.parentNode.parentNode.className + " hidden"
+     this.innerText = "Deleted"
+    })
+ }
+</script>
 {{end}}
