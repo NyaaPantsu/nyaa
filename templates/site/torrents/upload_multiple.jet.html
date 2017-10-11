@@ -15,10 +15,10 @@
 			<tr><td colspan="4" class="uploaded-url"><input type="text" class="form-input" value="{{UploadMultiple.NyaasiMessage}}" disabled></td></tr>
 			{{end}}
 			
-			{{ if UploadMultiple.AniDBStatus != 0 }}
+			{{ if UploadMultiple.AnidexStatus != 0 }}
 			<tr><td colspan="4"><h3>Anidex upload status</h3></td></tr>
-			<tr class="upload-status"><td class="upload-site-name">Anidex</td><td>Status:</td><td class="icon-{{ if UploadMultiple.AniDBStatus == 1}}pending pending{{else if UploadMultiple.AniDBStatus == 2}}error error{{else}}finished finished{{end}}"></td><td class="upload-progress {{ if UploadMultiple.AniDBStatus == 1}}pending{{else if UploadMultiple.AniDBStatus == 2}}error{{else}}finished{{end}}">{{ if UploadMultiple.AniDBStatus == 1}}Pending{{else if UploadMultiple.AniDBStatus == 2}}Error{{else}}Finished{{end}}</td></tr>
-			<tr><td colspan="4" class="uploaded-url"><input type="text" class="form-input" value="{{UploadMultiple.AniDBMessage}}" disabled></td></tr>
+			<tr class="upload-status"><td class="upload-site-name">Anidex</td><td>Status:</td><td class="icon-{{ if UploadMultiple.AnidexStatus == 1}}pending pending{{else if UploadMultiple.AnidexStatus == 2}}error error{{else}}finished finished{{end}}"></td><td class="upload-progress {{ if UploadMultiple.AnidexStatus == 1}}pending{{else if UploadMultiple.AnidexStatus == 2}}error{{else}}finished{{end}}">{{ if UploadMultiple.AnidexStatus == 1}}Pending{{else if UploadMultiple.AnidexStatus == 2}}Error{{else}}Finished{{end}}</td></tr>
+			<tr><td colspan="4" class="uploaded-url"><input type="text" class="form-input" value="{{UploadMultiple.AnidexMessage}}" disabled></td></tr>
 			{{end}}
 			
 			{{ if UploadMultiple.TToshoStatus != 0 }}
