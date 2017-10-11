@@ -52,16 +52,14 @@ function parseAllDates() {
   }
 
   var list = document.getElementsByClassName("date-short")
-  for (var i in list) {
+  for(var i = 0; i < list.length; i++) {
     var e = list[i]
     e.innerText = new Date(e.title).toLocaleString(lang, ymdOpt)
     e.title = new Date(e.title).toLocaleString(lang)
   }
 
   var list = document.getElementsByClassName("date-full")
-  for (var i in list) {
-	if(list.length == 0)
-	  break;
+  for(var i = 0; i < list.length; i++) {
     var e = list[i]
     var dateDifference = dateDiff(new Date(e.innerText), new Date())
     
