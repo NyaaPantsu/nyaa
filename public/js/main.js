@@ -54,8 +54,8 @@ function parseAllDates() {
   var list = document.getElementsByClassName("date-short")
   for (var i in list) {
     var e = list[i]
-    e.title = new Date(e.innerText).toLocaleString(lang)
-    e.innerText = new Date(e.innerText).toLocaleString(lang, ymdOpt)
+    e.innerText = new Date(e.title).toLocaleString(lang, ymdOpt)
+    e.title = new Date(e.title).toLocaleString(lang)
   }
 
   var list = document.getElementsByClassName("date-full")
