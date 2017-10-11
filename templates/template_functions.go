@@ -444,5 +444,11 @@ func formatDate(Date time.Time, short bool) string {
 	if short {
 		return fmt.Sprintf("%.3s %d, %d", Date.Month(), Date.Day(), Date.Year())
 	}
-	return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d", Date.Month(), Date.Day(), Date.Year(), Date.Hour(), Date.Minute(), Date.Second())
+	
+	if Date.Hour() >= 12 {
+		return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d PM", Date.Month(), Date.Day(), Date.Year(), Date.Hour() - 12, Date.Minute(), Date.Second())
+	} else {
+		return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d AM", Date.Month(), Date.Day(), Date.Year(), Date.Hour(), Date.Minute(), Date.Second())
+	}
 }
+
