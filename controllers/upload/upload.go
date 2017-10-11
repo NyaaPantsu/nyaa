@@ -87,7 +87,7 @@ func UploadPostHandler(c *gin.Context) {
 			
 			if c.PostForm("anidex_api") != "" || user.AnidexAPIToken != "" {
 				uploadMultiple.AnidexStatus = 1
-				categoryId := "10"
+	
 				langId := "0"
 				anonymous := false
 				apiKey := c.PostForm("anidex_api")
@@ -99,7 +99,7 @@ func UploadPostHandler(c *gin.Context) {
 				postForm := url.Values{}
 				//Required
 				postForm.Set("api_key", apiKey)
-				postForm.Set("subcat_id", categoryId)
+				postForm.Set("subcat_id", c.PostForm("anidex_form_category"))
 				postForm.Set("file", "")
 				postForm.Set("torrent_name", uploadForm.Name)
 				postForm.Set("group_id", "0")
