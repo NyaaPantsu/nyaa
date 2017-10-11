@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"strings"
 	"io/ioutil"
 	"bytes"
 
@@ -108,9 +109,9 @@ func UploadPostHandler(c *gin.Context) {
 				postForm := url.Values{}
 				//Required
 				postForm.Set("api_key", apiKey)
+				postForm.Set("torrent_name", c.PostForm("name"))
 				postForm.Set("subcat_id", c.PostForm("anidex_form_category"))
 				postForm.Set("file", "")
-				postForm.Set("torrent_name", uploadForm.Name)
 				postForm.Set("group_id", "0")
 				postForm.Set("lang_id", langId)
 				
@@ -143,7 +144,11 @@ func UploadPostHandler(c *gin.Context) {
 				}
 				if uploadMultiple.AnidexStatus == 1 {
 					uploadMultiple.AnidexMessage = string(body_byte)
-					uploadMultiple.AnidexStatus = 3
+					if strings.Contains(uploadMultiple.AnidexMessage, "http://") {
+						uploadMultiple.AnidexStatus = 3
+					} else if strings.Contains(uploadMultiple.AnidexMessage, "error") {
+						uploadMultiple.AnidexStatus = 2
+					}
 				}
 			}
 			
