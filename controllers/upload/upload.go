@@ -70,9 +70,17 @@ func UploadPostHandler(c *gin.Context) {
 	}
 	
 	AnidexUpload := false
+	NyaaSiUpload := false
+	TokyoToshoUpload := false
 	
 	if c.PostForm("anidex_api") != "" || c.PostForm("anidex_upload") != "" {
 		AnidexUpload = true
+	}
+	if c.PostForm("nyaasi_api") != "" || c.PostForm("nyaasi_upload") != "" {
+		NyaaSiUpload = true
+	}
+	if c.PostForm("tokyot_api") != "" || c.PostForm("tokyot_upload") != "" {
+		TokyoToshoUpload = true
 	}
 
 	if !messages.HasErrors() {
@@ -80,12 +88,12 @@ func UploadPostHandler(c *gin.Context) {
 		torrent, err := torrents.Create(user, &uploadForm)
 		log.CheckErrorWithMessage(err, "ERROR_TORRENT_CREATED: Error while creating entry in db")
 		
-		if AnidexUpload || c.PostForm("nyaasi_api") != "" || c.PostForm("tokyot_api") != "" {
+		if AnidexUpload || NyaaSiUpload || TokyoToshoUpload {
 			//User wants to upload to other websites too
 			uploadMultiple := templates.NewUploadMultipleForm()
 			uploadMultiple.PantsuID = torrent.ID
 			
-			if c.PostForm("anidex_api") != "" || user.AnidexAPIToken != "" {
+			if AnidexUpload {
 				uploadMultiple.AnidexStatus = 1
 	
 				langId := "0"
@@ -94,6 +102,7 @@ func UploadPostHandler(c *gin.Context) {
 				
 				if c.PostForm("anidex_api") == "" {
 					anonymous = true
+					apiKey = "XXX"
 				}
 				
 				postForm := url.Values{}
@@ -130,7 +139,7 @@ func UploadPostHandler(c *gin.Context) {
 				body_byte, err := ioutil.ReadAll(rsp.Body)
 				if err != nil {
 					uploadMultiple.AnidexStatus = 2
-					uploadMultiple.AnidexMessage = "Error"
+					uploadMultiple.AnidexMessage = "Unknown error"
 				}
 				if uploadMultiple.AnidexStatus == 1 {
 					uploadMultiple.AnidexMessage = string(body_byte)
@@ -138,12 +147,12 @@ func UploadPostHandler(c *gin.Context) {
 				}
 			}
 			
-			if c.PostForm("nyaasi_api") != ""  {
+			if NyaaSiUpload {
 				uploadMultiple.NyaasiStatus = 1
 				uploadMultiple.NyaasiMessage = "Sorry u are not allowed"
 			}
 			
-			if c.PostForm("tokyot_api") != ""  {
+			if TokyoToshoUpload  {
 				uploadMultiple.TToshoStatus = 1
 			}
 			
