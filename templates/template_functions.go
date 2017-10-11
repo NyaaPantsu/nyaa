@@ -439,3 +439,9 @@ func formatThemeName(name string, T publicSettings.TemplateTfunc) string {
 	return name
 }
 
+func formatDate(Date time.Time, short bool) string {
+	if short {
+		return fmt.Sprintf("%.3s %d, %d", Date.Month(), Date.Day(), Date.Year())
+	}
+	return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d", Date.Month(), Date.Day(), Date.Year(), Date.Hour(), Date.Minute(), Date.Second())
+}
