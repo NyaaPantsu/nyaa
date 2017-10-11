@@ -87,6 +87,7 @@ type TorrentJSON struct {
 	Hidden      bool          `json:"-"`
 	Hash        string        `json:"hash"`
 	Date        string        `json:"date"`
+	FullDate    time.Time     `json:"-"` //Used to convert the date to full OR short format depending on the situation
 	Filesize    int64         `json:"filesize"`
 	Description template.HTML `json:"description"`
 	Comments    []CommentJSON `json:"comments"`
@@ -363,35 +364,37 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	
 	t.ParseLanguages()
 	res := TorrentJSON{
-		ID:            t.ID,
-		Name:          t.Name,
-		Status:        t.Status,
-		Hidden:        t.Hidden,
-		Hash:          t.Hash,
-		Date:          t.Date.Format(time.RFC3339),
-		Filesize:      t.Filesize,
-		Description:   sanitize.MarkdownToHTML(t.Description),
-		Comments:      commentsJSON,
-		SubCategory:   strconv.Itoa(t.SubCategory),
-		Category:      strconv.Itoa(t.Category),
-		UploaderID:    uploaderID,
-		UploaderName:  sanitize.SafeText(uploader),
-		WebsiteLink:   sanitize.Safe(t.WebsiteLink),
-		Languages:     t.Languages,
-		Magnet:        template.URL(magnet),
-		TorrentLink:   sanitize.Safe(torrentlink),
-		Leechers:      scrape.Leechers,
-		Seeders:       scrape.Seeders,
-		Completed:     scrape.Completed,
-		LastScrape:    scrape.LastScrape,
+
+		ID:           t.ID,
+		Name:         t.Name,
+		Status:       t.Status,
+		Hidden:       t.Hidden,
+		Hash:         t.Hash,
+		Date:         t.Date.Format(time.RFC3339),
+		FullDate:     t.Date,
+		Filesize:     t.Filesize,
+		Description:  sanitize.MarkdownToHTML(t.Description),
+		Comments:     commentsJSON,
+		SubCategory:  strconv.Itoa(t.SubCategory),
+		Category:     strconv.Itoa(t.Category),
+		UploaderID:   uploaderID,
+		UploaderName: sanitize.SafeText(uploader),
+		WebsiteLink:  sanitize.Safe(t.WebsiteLink),
+		Languages:    t.Languages,
+		Magnet:       template.URL(magnet),
+		TorrentLink:  sanitize.Safe(torrentlink),
+		Leechers:     scrape.Leechers,
+		Seeders:      scrape.Seeders,
+		Completed:    scrape.Completed,
+		LastScrape:   scrape.LastScrape,
 		StatsObsolete: statsObsolete,
-		FileList:      fileListJSON,
-		Tags:          t.Tags,
-		AnidbID:       t.AnidbID,
-		VndbID:        t.VndbID,
-		VgmdbID:       t.VgmdbID,
-		Dlsite:        t.Dlsite,
-		VideoQuality:  t.VideoQuality,
+		FileList:     fileListJSON,
+		Tags:         t.Tags,
+		AnidbID:      t.AnidbID,
+		VndbID:       t.VndbID,
+		VgmdbID:      t.VgmdbID,
+		Dlsite:       t.Dlsite,
+		VideoQuality: t.VideoQuality,
 	}
 
 	// Split accepted tags
