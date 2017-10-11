@@ -19,7 +19,6 @@
         <td class="tr-actions home-td">
           {{if .ID > 0}}
 			  <form method="POST" action="/user/{{.ID}}/{{.Username }}?delete">
-				  <input type="hidden" name="delete" value="true">
 				  <input type="hidden" name="id" value="{{ .ID }}">
 				  <button type="submit" class="form-input btn-red"onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
 			  </form>
