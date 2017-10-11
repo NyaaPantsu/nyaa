@@ -1736,7 +1736,7 @@ summary::-webkit-details-marker { display: none }
 summary:after {
     vertical-align: middle;
     float: left;
-    margin: -1px 5px 0 0;
+    margin: -3px 5px 0 0;
     content: "+";
     width: 12px;
     font-size: 1.5em;
