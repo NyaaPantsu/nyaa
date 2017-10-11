@@ -1985,10 +1985,21 @@ p.upload-rules a {
 #anidex-upload-info > div {
 	height: auto;
 	padding: 10px 6px;
+	border-top: none;
+}
+#anidex-upload-info p {
+	margin-bottom: 4px;
+}
+#anidex-upload-info > div > div {
+	margin-left: 9px;
 }
 
 #anidex-upload-info > div input[type="text"], #anidex-upload-info > div select {
 	margin-bottom: 6px;
+	
+}
+#anidex-upload-info > div select {
+	width: calc(100% - 8px);
 }
 #anidex-upload-info > div select[name="anidex_form_category"] option{
 	color: #000;
