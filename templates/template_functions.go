@@ -2,6 +2,7 @@ package templates
 
 import (
 	"html/template"
+    "path/filepath"
 	"math"
 	"math/rand"
 	"net/url"
@@ -56,6 +57,9 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("kilo_strfind", kilo_strfind)
 	vars.Set("kilo_rand", kilo_rand)
 	vars.Set("getDomainName", getDomainName)
+	vars.Set("getThemeList", getThemeList)
+	vars.Set("formatThemeName", formatThemeName)
+	vars.Set("formatDate", formatDate)
 	return vars
 }
 func getRawQuery(currentURL *url.URL) string {
@@ -395,4 +399,56 @@ func getDomainName() string {
 		domain = ""
 	}
 	return domain
+}
+
+func getThemeList() ([]string) {
+    searchDir := "public/css/themes/"
+
+    themeList := []string{}
+	
+    filepath.Walk(searchDir, func(path string, f os.FileInfo, err error) error {
+        if kilo_strfind(path, ".css", len(searchDir)) {
+			//we only want .css file
+			
+			fileName := path[len(searchDir):strings.Index(path, ".css")]
+			//Remove file extension and path, keep only file name
+			
+			themeList = append(themeList, fileName)
+		}
+		return nil
+    })
+
+    return themeList
+}
+
+func formatThemeName(name string, T publicSettings.TemplateTfunc) string {
+	translationString := fmt.Sprintf("themes_%s", name)
+	translatedName := string(T(translationString))
+	
+	if translatedName != translationString {
+		//Translation string exists
+		return translatedName
+	}
+			
+	if len(name) == 1 {
+		name = fmt.Sprintf("/%c/", name[0])
+	} else {
+		name = strings.Replace(name, "_", " ", -1)
+		name = strings.Title(name)
+		//Upper case at each start of word
+	}
+	return name
+}
+
+func formatDate(Date time.Time, short bool) string {
+	Date = Date.UTC()
+	if short {
+		return fmt.Sprintf("%.3s %d, %d", Date.Month(), Date.Day(), Date.Year())
+	}
+	
+	if Date.Hour() >= 12 {
+		return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d PM UTC+0", Date.Month(), Date.Day(), Date.Year(), Date.Hour() - 12, Date.Minute(), Date.Second())
+	} else {
+		return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d AM UTC+0", Date.Month(), Date.Day(), Date.Year(), Date.Hour(), Date.Minute(), Date.Second())
+	}
 }

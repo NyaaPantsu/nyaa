@@ -235,5 +235,5 @@ func UserAPIKeyResetHandler(c *gin.Context) {
 	} else {
 		messages.AddInfoT("infos", "profile_updated")
 	}
-	UserProfileHandler(c)
+	UserDetailsHandler(c)
 }

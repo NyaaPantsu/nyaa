@@ -52,16 +52,14 @@ function parseAllDates() {
   }
 
   var list = document.getElementsByClassName("date-short")
-  for (var i in list) {
+  for(var i = 0; i < list.length; i++) {
     var e = list[i]
-    e.title = new Date(e.innerText).toLocaleString(lang)
-    e.innerText = new Date(e.innerText).toLocaleString(lang, ymdOpt)
+    e.innerText = new Date(e.title).toLocaleString(lang, ymdOpt)
+    e.title = new Date(e.title).toLocaleString(lang)
   }
 
   var list = document.getElementsByClassName("date-full")
-  for (var i in list) {
-	if(list.length == 0)
-	  break;
+  for(var i = 0; i < list.length; i++) {
     var e = list[i]
     var dateDifference = dateDiff(new Date(e.innerText), new Date())
     
@@ -161,10 +159,12 @@ function startupCode() {
     if (userCommitVersion != commitVersion || userWebsiteVersion != websiteVersion)
       resetCookies()
   }
+  if(!window.location.host.includes(domain)) domain = window.location.host
   
   if(document.getElementById("cookie-warning-close") != null) {
 	document.getElementById("cookie-warning-close").addEventListener("click", function (e) {
       document.getElementById("cookie-warning").outerHTML = "";
+      document.cookie = "EU_Cookie=true;path=/;expires=" + farFutureString + ";domain=" + domain
     })
   }
 	  

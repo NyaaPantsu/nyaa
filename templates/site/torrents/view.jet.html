@@ -20,7 +20,7 @@
         <br/>
       </td>
       <td class="torrent-info-td torrent-info-label">{{  T("date") }}:</td>
-      <td class="torrent-info-td date-full">{{Torrent.Date}}</td>
+      <td class="torrent-info-td date-full">{{formatDate(Torrent.FullDate, false)}}</td>
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{  T("uploaded_by") }}:</td>
@@ -50,7 +50,7 @@
       <td class="torrent-info-td torrent-info-label">{{ T("size")}}:</td>
       <td class="torrent-view-td torrent-info-data">{{ fileSize(Torrent.Filesize, T) }}</td>
       <td class="torrent-info-td torrent-info-label">{{ T("last_scraped")}}</td>
-      <td class="torrent-info-td scrape-date{{if !Torrent.LastScrape.IsZero && formatDateRFC(Torrent.LastScrape) != "0001-01-01T00:00:00Z"}} date-full">{{formatDateRFC(Torrent.LastScrape)}}{{else}}">{{ T("unknown")}}{{end}}</td>
+      <td class="torrent-info-td scrape-date{{if !Torrent.LastScrape.IsZero && formatDateRFC(Torrent.LastScrape) != "0001-01-01T00:00:00Z"}} date-full">{{formatDate(Torrent.LastScrape, false)}}{{else}}">{{ T("unknown")}}{{end}}</td>
     </tr>
     {{ if len(Torrent.Languages) > 0 && Torrent.Languages[0] != "" }}
     <tr class="torrent-info-row">
@@ -161,8 +161,10 @@
     {* how do i concat lol *}
     <table class="table-filelist">
       <thead>
-        <th style="width: 80%">{{ T("file_name")}}</th>
-        <th>{{ T("size")}}</th>
+        <tr>
+	  <th style="width: 80%">{{ T("file_name")}}</th>
+          <th>{{ T("size")}}</th>
+	</tr>
       </thead>
       <tbody>
         {{ yield make_treeview(treeviewData=makeTreeViewData(RootFolder, 0, "root")) }}
@@ -174,15 +176,23 @@
   </div>
 
   <p class="torrent-hr" id="comments">{{ T("comments")}}</p>
+  {{idx := 1}}
+  {{previousComment := ""}}
+  {{previousUser := 0}}
   {{range index, element := Torrent.Comments}}
+  {{if previousComment != element.Content || previousUser != element.UserID}}
   <div class="torrent-info-box comment-box">
     <span class="comment-index">
-      <a href="#comment_{{index+1}}">{{index}}</a>
+      <a href="#comment_{{idx}}">{{idx}}</a>
       <small style="padding-left: 4px;" class="date-short">{{formatDateRFC(element.Date)}}</small>
     </span>
     <p><img src="https://www.gravatar.com/avatar/{{ element.UserAvatar }}"/><a {{if element.UserID > 0}}href="/user/{{element.UserID}}/{{element.Username}}"{{end}} class="comment-user">{{element.Username}}</a></p>
     <p class="comment-content">{{element.Content|raw}}</p>
   </div>
+  {{idx = idx + 1}}
+  {{end}}
+  {{previousComment = element.Content}}
+  {{previousUser = element.UserID}}
   {{end}}
   {{ if len(Torrent.Comments) == 0 }}
     <p id="no-comment-message">{{ T("torrent_no_comments") }}</p>
@@ -271,6 +281,34 @@
 {{end}}
 {{ block footer_js()}}
 <script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>
+{{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}
+<script type="text/javascript">
+  var seeders   = document.querySelector(".tr-se"),
+      leechers  = document.querySelector(".tr-le"),
+      downloads = document.querySelector(".tr-dl b"),
+      torrentID = window.location.pathname.substr(6),
+	  scrapeDate= document.querySelector(".scrape-date")
+	  
+  var oldStats = [seeders.innerHTML, leechers.innerHTML, downloads.innerHTML]
+	  
+      seeders.innerHTML = "Loading..."
+      leechers.innerHTML = "Loading..."
+      downloads.innerHTML = "Loading..."
+
+  Query.Get('/stats/' + torrentID, function (data) {
+    if(typeof data.seeders != "undefined" && data.seeders != -1) {
+      seeders.innerHTML = "<span>" + data.seeders + "</span>"
+      leechers.innerHTML = "<span>" +data.leechers + "</span>"
+      downloads.innerHTML = "<span>" +data.downloads + "</span>"
+	  scrapeDate.innerText = new Date().toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), "ymdOpt")
+    } else {
+      seeders.innerHTML = oldStats[0]
+      leechers.innerHTML = oldStats[1]
+      downloads.innerHTML = oldStats[2]
+    }
+  })
+</script>
+{{end}}
 {{ if User.ID > 0 }}
 <script type="text/javascript" src="{{ URL.Parse("/js/template.js") }}"></script>
 <script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>

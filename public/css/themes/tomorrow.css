@@ -115,6 +115,10 @@ td.tr-le, .error-text {
     background: hsla(40, 50%, 50%, 0.2) !important;
 }
 
+a.form-input[class*="btn"]:hover {
+    color: #dedede;
+}
+
 .pagination .active {
     background: #141517;
     color: #c5c8c6;
@@ -318,4 +322,8 @@ span.tag {
 .upload-form-table .checkbox-container {
     border-color: #0c0d0e;
     background: #333438;
+}
+
+.torrent-info-row .tr-se span, .torrent-info-row .tr-le span, .torrent-info-row .tr-dl span {
+    background-color: #544433;
 }

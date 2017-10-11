@@ -727,7 +727,60 @@ func TestRand(t *testing.T) {
  		}
 	}
  }
+ 
+ func TestGetTheme(t *testing.T) {
+ 	var tests = []struct {
+ 		domainName []string
+ 	}{
+ 		{
+ 			domainName:  []string{"test", "test", "test"},
+ 		},
+ 	}
+ 	for _, test := range tests {
+		test.domainName = getThemeList()
+	}
+ }
+ 
+  func testformatThemeName(t *testing.T) {
+ 	var tests = []struct {
+ 		domainName string
+ 	}{
+ 		{
+ 			domainName:  "test",
+ 		},
+ 	}
+ 	for _, test := range tests {
+		Ts, _, err := publicSettings.TfuncAndLanguageWithFallback("en-us")
+		if err != nil {
+			t.Error("Couldn't load language files!")
+		}
+		var T publicSettings.TemplateTfunc
+		T = func(id string, args ...interface{}) template.HTML {	
+			return template.HTML(fmt.Sprintf(Ts(id), args...))
+		}
+		value := formatThemeName("path", T)
+ 		if value != test.domainName {
+ 			
+ 		}
+	}
+ }
 
+func testFormatDate(t *testing.T) {
+ 	var tests = []struct {
+ 		domainName string
+ 	}{
+ 		{
+ 			domainName:  "test",
+ 		},
+ 	}
+ 	for _, test := range tests {
+		value := formatDate(time.Now(), false)
+ 		if value != test.domainName {
+ 			
+ 		}
+	}
+ }
+ 
 func mockupTemplateT(t *testing.T) publicSettings.TemplateTfunc {
 	conf := config.Get().I18n
 	conf.Directory = path.Join("..", conf.Directory)
@@ -743,7 +796,7 @@ func mockupTemplateT(t *testing.T) publicSettings.TemplateTfunc {
 		t.Error("Couldn't load language files!")
 	}
 	var T publicSettings.TemplateTfunc
-	T = func(id string, args ...interface{}) template.HTML {
+	T = func(id string, args ...interface{}) template.HTML {	
 		return template.HTML(fmt.Sprintf(Ts(id), args...))
 	}
 	return T

@@ -102,7 +102,7 @@
         <td class="tr-le home-td hide-smol">{{.Leechers}}</td>
         <td class="tr-dl home-td hide-xs">{{.Completed}}</td>
         {{end}}
-        <td class="tr-date home-td date-short hide-xs">{{.Date}}</td>
+        <td class="tr-date home-td date-short hide-xs" title="{{.Date}}">{{formatDate(.FullDate, true)}}</td>
       </tr>
       {{end}}
     </tbody>
