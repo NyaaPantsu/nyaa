@@ -1712,7 +1712,7 @@ input.nav-btn {
     max-width: 100%;
 }
 
-.rules-drop>summary {
+details>summary {
     cursor: pointer;
 }
 
@@ -1978,9 +1978,32 @@ p.upload-rules a {
     margin-bottom: 2px;
     z-index: 1;
 }
+
+.upload-form-table details {
+	margin-bottom: 4px;
+}
+#anidex-upload-info > div {
+	height: auto;
+	padding: 10px 6px;
+}
+
+#anidex-upload-info > div input[type="text"], #anidex-upload-info > div select {
+	margin-bottom: 6px;
+}
+#anidex-upload-info > div select[name="anidex_form_category"] option{
+	color: #000;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    font-weight: bold;
+}
+#anidex-upload-info > div select[name="anidex_form_category"] {
+	font-size: 14px;
+    font-weight: bold;
+}
+
 .upload-form-table .checkbox-container+input {
     width: 90%;
-    width: calc(100% - 21px);
+    width: calc(100% - 29px);
 }
 .upload-form-table .checkbox-container {
     display: inline-block;
@@ -1994,6 +2017,7 @@ p.upload-rules a {
     border-color: #c4c4c4;
     background: #dadada;
 }
+
 
 #tag-h3 {
     margin: 0 0 7px;
