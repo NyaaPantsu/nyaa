@@ -2007,10 +2007,6 @@ p.upload-rules a {
     font-size: 14px;
     font-weight: bold;
 }
-#anidex-upload-info > div select[name="anidex_form_category"] {
-	font-size: 14px;
-    font-weight: bold;
-}
 
 .upload-form-table .checkbox-container+input {
     width: 90%;
