@@ -22,9 +22,10 @@
           <a href="/mod/torrents?userID={{.UploaderID}}">{{ .UploaderID }}</a>
         </td>
         <td class="tr-size home-td">
-          <a href="/mod/torrent/delete?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;">
-            <i class="icon-trash"></i> {{  T("delete") }}
-          </a>
+		  <form method="POST" action="/mod/torrent/delete">
+			<input type="hidden" name="id" value="{{ .ID }}">
+		    <button type="submit" class="form-input btn-red"onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
+		  </form>
         </td>
       </tr>
       {{end}}
@@ -57,8 +58,10 @@
         <td class="tr-size home-td">{{.User.Username}}</td>
         <td class="tr-actions home-td">{{ getReportDescription(.Description,T) }}</td>
         <td class="tr-actions home-td">
-          <a href="/mod/report/delete?id={{ .ID }}" class="form-input btn-red">
-            <i class="icon-trash"></i> {{  T("delete") }}</a>
+		  <form method="POST" action="/mod/report/delete" >
+			<input type="hidden" name="id" value="{{ .ID }}">
+		    <button type="submit" class="form-input btn-red"><i class="icon-trash"></i> {{  T("delete") }}</button>
+		  </form>
         </td>
       </tr>
       {{end}}
@@ -85,9 +88,10 @@
           <a href="/user/{{.ID}}/{{.Username }}">{{ .Username }}</a>
         </td>
         <td class="tr-size home-td">{{if .ID > 0}}
-          <a href="/user/{{.ID}}/{{.Username }}?delete" class="form-input btn-red" onclick="if (!confirm('{{ T(" are_you_sure ") }}')) return false;">
-            <i class="icon-trash"></i> {{  T("delete") }}
-          </a>
+		  <form method="POST" action="/user/{{.ID}}/{{.Username }}?delete" >
+			<input type="hidden" name="id" value="{{ .ID }}">
+		    <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{ T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
+		  </form>
           {{end}}
         </td>
       </tr>
@@ -121,9 +125,10 @@
           </a>
         </td>
         <td class="tr-size home-td">
-          <a href="/mod/comment/delete?id={{ .ID }}" class="form-input delete-btn btn-red">
-            <i class="icon-trash"></i> {{  T("delete") }}
-          </a>
+		 <form method="POST" href="/mod/comment/delete" >
+			<input type="hidden" name="id" value="{{ .ID }}">
+		    <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{ T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
+		 </form>
         </td>
       </tr>
       {{end}}
@@ -140,6 +145,7 @@
 <script type="text/javascript">
  var deleteButtons = document.getElementsByClassName("delete-btn")
  for(var i = 0; i < deleteButtons.length; i++) {
+	break;
    deleteButtons[i].addEventListener("click", function (e) {
 	    e.preventDefault()
      Query.Get(this.href, function(data) {})
