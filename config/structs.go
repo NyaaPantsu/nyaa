@@ -38,6 +38,8 @@ type Config struct {
 	I18n I18nConfig `json:"i18n" yaml:"i18n,flow,omitempty"`
 	// torrents config
 	Torrents TorrentsConfig `yaml:"torrents,flow,omitempty"`
+	// upload config
+	Upload UploadConfig `json:"scraper" yaml:"upload,flow,omitempty"`
 	// user config
 	Users UsersConfig `yaml:"users,flow,omitempty"`
 	// navigation config
@@ -135,13 +137,20 @@ type TorrentsConfig struct {
 	FileStorage                   string            `yaml:"filestorage,omitempty"`
 	StorageLink                   string            `yaml:"storage_link,omitempty"`
 	CacheLink                     string            `yaml:"cache_link,omitempty"`
-	UploadsDisabled               bool              `yaml:"uploads_disabled,omitempty"`
-	AdminsAreStillAllowedTo       bool              `yaml:"admins_are_still_allowed_to,omitempty"`
-	TrustedUsersAreStillAllowedTo bool              `yaml:"trusted_users_are_still_allowed_to,omitempty"`
 	Trackers                      TrackersConfig    `yaml:"trackers,flow,omitempty"`
 	Order                         string            `yaml:"order,omitempty"`
 	Sort                          string            `yaml:"sort,omitempty"`
 	Tags                          Tags              `yaml:"tags,flow,omitempty"`
+}
+
+// UploadConfig : Config struct for uploading torrents
+type UploadConfig struct {
+	DefaultAnidexToken            string            `yaml:"anidex_api_token,omitempty"`
+	DefaultNyaasiToken            string            `yaml:"nyaasi_api_token,omitempty"`
+	DefaultTokyoTToken            string            `yaml:"tokyot_api_token,omitempty"`
+	UploadsDisabled               bool              `yaml:"uploads_disabled,omitempty"`
+	AdminsAreStillAllowedTo       bool              `yaml:"admins_are_still_allowed_to,omitempty"`
+	TrustedUsersAreStillAllowedTo bool              `yaml:"trusted_users_are_still_allowed_to,omitempty"`
 }
 
 // UsersConfig : Config struct for Users
