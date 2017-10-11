@@ -28,7 +28,7 @@ func UserProfileHandler(c *gin.Context) {
 	Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(c)
 	messages := msg.GetMessages(c)
 
-	if id == 0 && ContainsNonNumbersChars(c.Param("id")) {
+	if c.Param("id") != "0" && id == 0 && ContainsNonNumbersChars(c.Param("id")) {
 		c.Redirect(http.StatusSeeOther, fmt.Sprintf("/username/%s", c.Param("id")))
 		return
 	}
