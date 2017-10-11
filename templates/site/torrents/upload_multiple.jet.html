@@ -7,7 +7,7 @@
 		<tbody>
 			<tr><td colspan="4"><h3>Nyaa Pantsu upload status</h3></td></tr>
 			<tr class="upload-status"><td class="upload-site-name">Nyaa Pantsu</td><td>Status:</td><td class="icon-finished finished"></td><td class="upload-progress finished">Finished</td></tr>
-			<tr><td colspan="4" class="uploaded-url"><input type="text" class="form-input" value="{{if Sukebei()}}{{Config.WebAddress.Sukebei}}{{else}}{{Config.WebAddress.Nyaa}}{{end}}/view/{{UploadMultiple.PantsuID}}" disabled></td></tr>
+			<tr><td colspan="4" class="uploaded-url"><a href="{{if Sukebei()}}{{Config.WebAddress.Sukebei}}{{else}}{{Config.WebAddress.Nyaa}}{{end}}/view/{{UploadMultiple.PantsuID}}" target="_blank"><input type="text" class="form-input" value="{{if Sukebei()}}{{Config.WebAddress.Sukebei}}{{else}}{{Config.WebAddress.Nyaa}}{{end}}/view/{{UploadMultiple.PantsuID}}" disabled></a></td></tr>
 			
 			{{ if UploadMultiple.NyaasiStatus != 0 }}
 			<tr><td colspan="4"><h3>Nyaa.si upload status</h3></td></tr>
