@@ -324,7 +324,11 @@ span.tag {
 
 .upload-form-table .checkbox-container {
     border-color: #0c0d0e;
-    background: #333438;
+    background: #28282b;
+}
+
+#anidex-upload-info > div input[type="text"], #anidex-upload-info > div select {
+    background-color: #28282b;
 }
 
 .torrent-info-row .tr-se span, .torrent-info-row .tr-le span, .torrent-info-row .tr-dl span {
