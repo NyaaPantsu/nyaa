@@ -37,8 +37,8 @@ type SearchForm struct {
 
 type uploadMultipleForm struct {
 	PantsuID		 uint
-	AniDBStatus      int
-	AniDBMessage     string
+	AnidexStatus      int
+	AnidexMessage     string
 	NyaasiStatus     int
 	NyaasiMessage    string
 	TToshoStatus     int
@@ -56,8 +56,8 @@ func NewNavigation() Navigation {
 func NewUploadMultipleForm() uploadMultipleForm {
 	return uploadMultipleForm{
 		PantsuID:         0,
-		AniDBStatus:      0,
-		AniDBMessage:     "",
+		AnidexStatus:      0,
+		AnidexMessage:     "",
 		NyaasiStatus:     0,
 		NyaasiMessage:    "",
 		TToshoStatus:     0,
