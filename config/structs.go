@@ -39,7 +39,7 @@ type Config struct {
 	// torrents config
 	Torrents TorrentsConfig `yaml:"torrents,flow,omitempty"`
 	// upload config
-	Upload UploadConfig `json:"scraper" yaml:"upload,flow,omitempty"`
+	Upload UploadConfig `json:"upload" yaml:"upload,flow,omitempty"`
 	// user config
 	Users UsersConfig `yaml:"users,flow,omitempty"`
 	// navigation config
