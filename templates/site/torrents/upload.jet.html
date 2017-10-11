@@ -72,7 +72,7 @@
 				 <details id="anidex-upload-info">
 				  <summary class="form-input">Upload to other websites</summary>
 				  <div class="form-input">
-					<p>Upload to Anidex:</p>
+					<p>Upload to <b>Anidex</b>:</p>
 					<div>
 						<div class="checkbox-container"><input type="checkbox" value="" name="anidex_upload" id="anidex_upload" {{if User.AnidexAPIToken != ""}}checked disabled{{end}} class="form-torrent"/></div>
 						<input name="anidex_api" id="anidex_api" placeholder="Anidex API token (Check the case if none)" class="form-input" type="text" value="{{User.AnidexAPIToken}}"/>
@@ -98,13 +98,13 @@
 						</select>
 					</div>
 					
-					<p>Upload to Nyaa.si:</p>
+					<p>Upload to <b>Nyaa.si</b>:</p>
 					<div>
 						<div class="checkbox-container"><input type="checkbox" value="" name="nyaasi_upload" id="nyaasi_upload" {{if User.NyaasiAPIToken != ""}}checked disabled{{end}} class="form-torrent"/></div>
 					<input name="nyaasi_api" id="nyaasi_api" placeholder="Nyaa.si API token (Check the case if none)" class="form-input up-input" type="text" value="{{User.NyaasiAPIToken}}"/>
 					</div>
 					
-					<p>Upload to TokyoTosho:</p>
+					<p>Upload to <b>TokyoTosho</b>:</p>
 					<div>
 						<div class="checkbox-container"><input type="checkbox" value="" name="tokyot_upload" id="tokyot_upload" {{if User.TokyoTAPIToken  != ""}}checked disabled{{end}} class="form-torrent"/></div>
 						<input name="tokyot_api" id="tokyot_api" placeholder="TokyoTosho API token (Check the case if none)" class="form-input up-input" type="text" value="{{User.TokyoTAPIToken }}"/>
