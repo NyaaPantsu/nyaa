@@ -20,7 +20,7 @@
         <br/>
       </td>
       <td class="torrent-info-td torrent-info-label">{{  T("date") }}:</td>
-      <td class="torrent-info-td date-full">{{Torrent.Date}}</td>
+      <td class="torrent-info-td date-full" title="{{Torrent.Date}}">{{formatDate(Torrent.FullDate, false)}}</td>
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{  T("uploaded_by") }}:</td>
@@ -50,7 +50,7 @@
       <td class="torrent-info-td torrent-info-label">{{ T("size")}}:</td>
       <td class="torrent-view-td torrent-info-data">{{ fileSize(Torrent.Filesize, T) }}</td>
       <td class="torrent-info-td torrent-info-label">{{ T("last_scraped")}}</td>
-      <td class="torrent-info-td scrape-date{{if !Torrent.LastScrape.IsZero && formatDateRFC(Torrent.LastScrape) != "0001-01-01T00:00:00Z"}} date-full">{{formatDateRFC(Torrent.LastScrape)}}{{else}}">{{ T("unknown")}}{{end}}</td>
+      <td class="torrent-info-td scrape-date{{if !Torrent.LastScrape.IsZero && formatDateRFC(Torrent.LastScrape) != "0001-01-01T00:00:00Z"}} date-full">{{formatDate(Torrent.LastScrape, false)}}{{else}}">{{ T("unknown")}}{{end}}</td>
     </tr>
     {{ if len(Torrent.Languages) > 0 && Torrent.Languages[0] != "" }}
     <tr class="torrent-info-row">
