@@ -441,14 +441,14 @@ func formatThemeName(name string, T publicSettings.TemplateTfunc) string {
 }
 
 func formatDate(Date time.Time, short bool) string {
+	Date = Date.UTC()
 	if short {
 		return fmt.Sprintf("%.3s %d, %d", Date.Month(), Date.Day(), Date.Year())
 	}
 	
 	if Date.Hour() >= 12 {
-		return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d PM", Date.Month(), Date.Day(), Date.Year(), Date.Hour() - 12, Date.Minute(), Date.Second())
+		return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d PM UTC+0", Date.Month(), Date.Day(), Date.Year(), Date.Hour() - 12, Date.Minute(), Date.Second())
 	} else {
-		return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d AM", Date.Month(), Date.Day(), Date.Year(), Date.Hour(), Date.Minute(), Date.Second())
+		return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d AM UTC+0", Date.Month(), Date.Day(), Date.Year(), Date.Hour(), Date.Minute(), Date.Second())
 	}
 }
-
