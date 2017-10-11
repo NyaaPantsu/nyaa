@@ -11,16 +11,31 @@
     {{ yield ruleList(open=true) }}
 
 
-        <h2 id="links">{{ T("links_replacement_mirror")}}</h2>
-        <a href="{{Config.WebAddress.Nyaa}}">Nyaa - {{GetHostname(Config.WebAddress.Nyaa)}}</a><br />
-        <a href="{{Config.WebAddress.Sukebei}}">Sukebei - {{GetHostname(Config.WebAddress.Sukebei)}}</a><br /><br />
-        <a href="https://nyoo.moe/">Nyaa - https://nyoo.moe/ (Mirror)</a><br />
-        <a href="https://sukebei.nyoo.moe/">Sukebei - https://sukebei.nyoo.moe/ (Mirror)</a><br /><br />
-        <a href="https://nyaa.pt/">Nyaa - https://nyaa.pt/ (Mirror)</a><br />
-        <a href="https://sukebei.nyaa.pt/">Sukebei - https://sukebei.nyaa.pt/ (Mirror)</a><br /><br />
-        <a href="https://dpzz6tjaqbl3ttba.onion/">Nyaa - dpzz6tjaqbl3ttba.onion (Mirror)</a><br />
-        <a href="https://34knbgrnvicofdgz.onion/">Sukebei - 34knbgrnvicofdgz.onion (Mirror)</a><br />
+    <h2 id="links">{{ T("links_replacement_mirror")}}</h2>
+    <a href="{{Config.WebAddress.Nyaa}}">Nyaa - {{GetHostname(Config.WebAddress.Nyaa)}}</a><br />
+    <a href="{{Config.WebAddress.Sukebei}}">Sukebei - {{GetHostname(Config.WebAddress.Sukebei)}}</a><br /><br />
+    <a href="https://nyoo.moe/">Nyaa - https://nyoo.moe/ (Mirror)</a><br />
+    <a href="https://sukebei.nyoo.moe/">Sukebei - https://sukebei.nyoo.moe/ (Mirror)</a><br /><br />
+    <a href="https://nyaa.pt/">Nyaa - https://nyaa.pt/ (Mirror)</a><br />
+    <a href="https://sukebei.nyaa.pt/">Sukebei - https://sukebei.nyaa.pt/ (Mirror)</a><br /><br />
+    <a href="https://dpzz6tjaqbl3ttba.onion/">Nyaa - dpzz6tjaqbl3ttba.onion (Mirror)</a><br />
+    <a href="https://34knbgrnvicofdgz.onion/">Sukebei - 34knbgrnvicofdgz.onion (Mirror)</a><br />
 
+    <h2 id="torrent_colors">{{ T("torrent_colors")}}</h2>
+    <p>{{ T("green")}}</p>
+    <ul>
+        <li>{{ T("trusted")}}</li>
+    </ul>
+    <p>{{ T("red")}}</p>
+    <ul>
+        <li>{{ T("reencodes")}}</li>
+        <li>{{ T("remux")}}</li>
+        <li>{{ T("reupload")}}</li>
+    </ul>
+    
+    <h2 id="how_get_old_account">{{ T("how_do_i_link_my_old_account")}}</h2>
+    <p>{{ T("answer_how_do_i_link_my_old_account")|raw}}</p>
+    
     <h2 id="server_status">{{ T("server_status_link")}}</h2>
     <a href="{{Config.WebAddress.Status}}">Status - {{GetHostname(Config.WebAddress.Status)}}</a><br />
 
@@ -58,21 +73,7 @@
 
     <h2 id="why_ads">{{ T("faq_ads")}}</h2>
     <p>{{ T("faq_ads_explanation")|raw}}</p>
-    
-    <h2 id="how_get_old_account">{{ T("how_do_i_link_my_old_account")}}</h2>
-    <p>{{ T("answer_how_do_i_link_my_old_account")|raw}}</p>
 
-    <h2 id="torrent_colors">{{ T("torrent_colors")}}</h2>
-    <p>{{ T("green")}}</p>
-    <ul>
-        <li>{{ T("trusted")}}</li>
-    </ul>
-    <p>{{ T("red")}}</p>
-    <ul>
-        <li>{{ T("reencodes")}}</li>
-        <li>{{ T("remux")}}</li>
-        <li>{{ T("reupload")}}</li>
-    </ul>
     <h2 id="trackers">{{ T("which_trackers_do_you_recommend")}}</h2>
     <p>{{ T("answer_which_trackers_do_you_recommend")}}</p>
     <pre>udp://tracker.uw0.xyz:6969

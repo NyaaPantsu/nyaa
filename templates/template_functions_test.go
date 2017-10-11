@@ -765,6 +765,21 @@ func TestRand(t *testing.T) {
 	}
  }
 
+func testFormatDate(t *testing.T) {
+ 	var tests = []struct {
+ 		domainName string
+ 	}{
+ 		{
+ 			domainName:  "test",
+ 		},
+ 	}
+ 	for _, test := range tests {
+		value := formatDate(time.Now(), false)
+ 		if value != test.domainName {
+ 			
+ 		}
+	}
+ }
  
 func mockupTemplateT(t *testing.T) publicSettings.TemplateTfunc {
 	conf := config.Get().I18n

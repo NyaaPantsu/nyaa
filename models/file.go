@@ -1,6 +1,8 @@
 package models
 
 import (
+	"strings"
+	
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/zeebo/bencode"
 )
@@ -51,4 +53,30 @@ func (f *File) SetPath(path []string) error {
 func (f *File) Filename() string {
 	path := f.Path()
 	return path[len(path)-1]
+}
+
+// FilenameWithoutExtension : Returns the filename of the file without the extension
+func (f *File) FilenameWithoutExtension() string {
+	path := f.Path()
+	fileName := path[len(path)-1]
+	index := strings.LastIndex(fileName, ".")
+	
+	if index == -1 {
+		return fileName
+	}
+	
+	return fileName[:index]
+}
+
+// FilenameExtension : Returns the extension of a filename, or an empty string
+func (f *File) FilenameExtension() string {
+	path := f.Path()
+	fileName := path[len(path)-1]
+	index := strings.LastIndex(fileName, ".")
+	
+	if index == -1 {
+		return ""
+	}
+	
+	return fileName[index:]
 }

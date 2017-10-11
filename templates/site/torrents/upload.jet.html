@@ -144,11 +144,16 @@
   <script type="text/javascript" src="/js/template.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   <script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   <script type="text/javascript">
+   document.querySelector('#upload-button').addEventListener("click", (e) => {
+	if(document.querySelector('.upload-form-table select[name="c"]').selectedIndex == 0)
+		setTimeout(function(){ window.scrollBy(0, -70) }, 1);
+   })
+	  
   document.querySelector("input[name='magnet']").addEventListener("keyup", (e) => {
     var torrentInput = document.querySelector("input[name='torrent']")
     torrentInput.disabled = e.target.value != ""
-    if (e.target.value == "") torrentInput.previousElementSibling.classList.remove("hidden")
-    else torrentInput.previousElementSibling.classList.add("hidden")
+    if (e.target.value == "") torrentInput.classList.remove("hidden")
+    else torrentInput.classList.add("hidden")
     try{
       torrentInput.value = '';
       if (torrentInput.value) {
