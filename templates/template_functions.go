@@ -59,6 +59,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("getDomainName", getDomainName)
 	vars.Set("getThemeList", getThemeList)
 	vars.Set("formatThemeName", formatThemeName)
+	vars.Set("formatDate", formatDate)
 	return vars
 }
 func getRawQuery(currentURL *url.URL) string {
