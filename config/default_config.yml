@@ -52,6 +52,12 @@ upload:
   anidex_api_token:
   nyaasi_api_token:
   tokyot_api_token:
+# UploadsDisabled : Disable uploads for everyone except below
+  uploads_disabled: false
+# AdminsAreStillAllowedTo : Enable admin torrent upload even if UploadsDisabled is true
+  admins_are_still_allowed_to: true
+# TrustedUsersAreStillAllowedTo : Enable trusted users torrent upload even if UploadsDisabled is true
+  trusted_users_are_still_allowed_to: true
 # Config by default for the cache
 cache:
   dialect: nop
@@ -107,12 +113,6 @@ torrents:
   storage_link:
 # TorrentCacheLink : Url of torrent site cache
   cache_link: http://anicache.com/torrent/%s.torrent
-# UploadsDisabled : Disable uploads for everyone except below
-  uploads_disabled: false
-# AdminsAreStillAllowedTo : Enable admin torrent upload even if UploadsDisabled is true
-  admins_are_still_allowed_to: true
-# TrustedUsersAreStillAllowedTo : Enable trusted users torrent upload even if UploadsDisabled is true
-  trusted_users_are_still_allowed_to: true
   trackers:
 # Trackers : Default trackers supported
     default:
