@@ -87,6 +87,7 @@ type TorrentJSON struct {
 	Hidden      bool          `json:"-"`
 	Hash        string        `json:"hash"`
 	Date        string        `json:"date"`
+	FullDate    time.Time     `json:"-"` //Used to convert the date to full OR short format depending on the situation
 	Filesize    int64         `json:"filesize"`
 	Description template.HTML `json:"description"`
 	Comments    []CommentJSON `json:"comments"`
@@ -356,6 +357,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Hidden:       t.Hidden,
 		Hash:         t.Hash,
 		Date:         t.Date.Format(time.RFC3339),
+		FullDate:     t.Date,
 		Filesize:     t.Filesize,
 		Description:  sanitize.MarkdownToHTML(t.Description),
 		Comments:     commentsJSON,
