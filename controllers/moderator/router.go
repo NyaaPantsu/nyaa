@@ -47,14 +47,14 @@ func init() {
 		modRoutes.POST("/torrent", TorrentPostEditModPanel)
 
 		/* Torrent delete routes */
-		modRoutes.Any("/torrent/delete", TorrentDeleteModPanel)
+		modRoutes.POST("/torrent/delete", TorrentDeleteModPanel)
 
 		/* Announcement edit view */
 		modRoutes.GET("/announcement/form", addAnnouncement)
 		modRoutes.POST("/announcement/form", postAnnouncement)
 
 		/* Announcement delete routes */
-		modRoutes.Any("/announcement/delete", deleteAnnouncement)
+		modRoutes.POST("/announcement/delete", deleteAnnouncement)
 
 		/* Torrent lock/unlock route */
 		modRoutes.Any("/torrent/block", TorrentBlockModPanel)
@@ -63,10 +63,10 @@ func init() {
 		modRoutes.Any("/tags/delete", DeleteTagsModPanel)
 
 		/* Report delete route */
-		modRoutes.Any("/report/delete", TorrentReportDeleteModPanel)
+		modRoutes.POST("/report/delete", TorrentReportDeleteModPanel)
 
 		/* Comment delete route */
-		modRoutes.Any("/comment/delete", CommentDeleteModPanel)
+		modRoutes.POST("/comment/delete", CommentDeleteModPanel)
 
 		/* Reassign form routes */
 		modRoutes.GET("/reassign", TorrentReassignModPanel)
@@ -77,7 +77,7 @@ func init() {
 		modRoutes.GET("/oauth_client/p/:page", clientsListPanel)
 
 		/* Oauth client delete route */
-		modRoutes.GET("/oauth_client/delete", clientsDeleteModPanel)
+		modRoutes.POST("/oauth_client/delete", clientsDeleteModPanel)
 
 		/* Oauth client edit routes */
 		modRoutes.GET("/oauth_client/form", formClientController)
