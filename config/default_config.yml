@@ -46,9 +46,9 @@ scraper:
   interval: 3600
   trackers:
     - {url: "udp://tracker.coppersurfer.tk:6969/", name: coppersurfer.tk}
-# 
+#  Default config for upload
 upload:
-  # xxx_api_token : used when an user wants to upload to anidex but doesn't have his own API token
+  # xxx_api_token : used when an user wants to upload to another website but doesn't have his own API token
   anidex_api_token:
   nyaasi_api_token:
   tokyot_api_token:
