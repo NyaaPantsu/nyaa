@@ -261,8 +261,7 @@
   </form>
 {{ if User.CurrentOrAdmin(UserProfile.ID) }}
 <hr/>
-<form method="POST" action="/user/{{UserProfile.ID}}/{{UserProfile.Username}}?delete" >
-  <input type="hidden" name="id" value="{{ UserProfile.ID }}">
+<form method="POST" action="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/delete" >
   <button type="submit" class="form-input btn-red"onclick="if (!confirm('{{  T(" delete_account_confirm ") }}')) return false;" style="float:right">{{  T("delete_account") }}</button>
 </form>
 {{end}}
