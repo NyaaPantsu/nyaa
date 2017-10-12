@@ -5,6 +5,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"fmt"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/feeds"
@@ -26,7 +27,7 @@ func RSSHandler(c *gin.Context) {
 	feed := &nyaafeeds.RssFeed{
 		Title:   title,
 		Link:    config.WebAddress() + "/",
-		PubDate: createdAsTime.String(),
+		PubDate: formatDate(createdAsTime),
 	}
 	feed.Items = make([]*nyaafeeds.RssItem, len(torrents))
 
@@ -36,7 +37,7 @@ func RSSHandler(c *gin.Context) {
 			Title:       torrentJSON.Name,
 			Link:        config.WebAddress() + "/download/" + torrentJSON.Hash,
 			Description: string(torrentJSON.Description),
-			PubDate:     torrent.Date.Format(time.RFC1123Z),
+			PubDate:     formatDate(torrent.Date),
 			GUID:        config.WebAddress() + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
 			Enclosure: &nyaafeeds.RssEnclosure{
 				URL:    config.WebAddress() + "/download/" + strings.TrimSpace(torrentJSON.Hash),
@@ -56,4 +57,9 @@ func RSSHandler(c *gin.Context) {
 	if writeErr != nil {
 		c.AbortWithError(http.StatusInternalServerError, writeErr)
 	}
+}
+
+func formatDate(Date time.Time) string {
+	Date = Date.UTC()
+	return fmt.Sprintf("%.3s, %.2d %.3s %d %.2d:%.2d:%.2d +0000", Date.Weekday(), Date.Day(), Date.Month(), Date.Year(), Date.Hour(), Date.Minute(), Date.Second())
 }
