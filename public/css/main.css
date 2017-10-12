@@ -2071,7 +2071,7 @@ iframe {
     border-right: 1px solid #b3b3b3;
 }
 #admin-header .nav-btn.active, #admin-header .nav-btn:hover, #admin-header:hover .nav-btn.active:hover,  #admin-header .nav-btn:focus {
-    background: hsl(198, 100%, 100%);
+    background: hsl(193, 60%, 97%);
     height: 37px;
     margin-bottom: -1px;
 }
