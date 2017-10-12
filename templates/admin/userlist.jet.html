@@ -19,7 +19,7 @@
         <td class="tr-actions home-td">
           {{if .ID > 0}}
 			  <form method="POST" action="/user/{{.ID}}/{{.Username }}/delete">
-				  <button type="submit" class="form-input btn-red"onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
+				  <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
 			  </form>
           {{end}}
         </td>
