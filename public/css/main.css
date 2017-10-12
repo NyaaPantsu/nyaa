@@ -2169,6 +2169,13 @@ table.multiple-upload {
     background-color: #ffe0bf;
 }
 
+.admin-content tr:hover a {
+    color: #d45a5a;
+}
+.admin-content tr:hover {
+    background: #d0d0d0;
+}
+
 /* Language specific CSS */
 
 html[lang="ja-jp"] .form-refine span.spacing {
