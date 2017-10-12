@@ -125,10 +125,10 @@
           </a>
         </td>
         <td class="tr-size home-td">
-		 <form method="POST" href="/mod/comment/delete" >
-			<input type="hidden" name="id" value="{{ .ID }}">
-		    <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{ T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
-		 </form>
+ 			<form method="POST" action="/mod/comment/delete">
+			     <input type="hidden" name="id" value="{{ .ID }}">
+				<button type="submit" class="form-input btn-red"><i class="icon-trash"></i> {{  T("delete") }}</button>
+			</form>
         </td>
       </tr>
       {{end}}
