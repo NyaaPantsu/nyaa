@@ -62,19 +62,12 @@
               {{  T("torrent_block") }}
               {{end}}
             </a>
-            {{ if .IsDeleted }}
-            <br/>
-			  <form method="POST" action="/mod/torrent/delete">
-				<input type="hidden" name="id" value="{{ .ID }}">
-				<input type="hidden" name="definitely" value="true">
-				<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }} {{  T("delete_definitely_torrent_warning ")}}')) return false;"><i class="icon-trash"></i> {{  T("delete_definitely") }}</button>
-			  </form>
-             {{ else }}
-			  <form method="POST" action="/mod/torrent/delete">
-				<input type="hidden" name="id" value="{{ .ID }}">
-				<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
-			  </form>
-            {{ end }}
+	    <form method="POST" action="/mod/torrent/delete" class="delete-form">
+		<input type="hidden" name="id" value="{{ .ID }}">
+		 {{ if .IsDeleted }}<input type="hidden" name="definitely" value="true">{{ end }}
+		<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }} {{ if !.IsDeleted }}{{  T("delete") }}{{else}}{{  T("delete_definitely_torrent_warning ")}}{{end}}')) return false;"><i class="icon-trash"></i>{{ if .IsDeleted }}{{  T("delete_definitely") }}{{else}}{{  T("delete") }}{{end}}</button>
+	    </form>
+            
           </td>
         </tr>
         {{end}}
