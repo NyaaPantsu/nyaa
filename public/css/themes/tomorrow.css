@@ -340,3 +340,6 @@ span.tag {
 .admin-content tr:hover a {
     color: #bbd2e6;
 }
+.sukebei .admin-content tr:hover a {
+    color: #ea8c8c;
+}
