@@ -330,3 +330,10 @@ span.tag {
 .torrent-info-row .tr-se span, .torrent-info-row .tr-le span, .torrent-info-row .tr-dl span {
     background-color: #544433;
 }
+
+.admin-content tr:hover {
+    background: #201f23;
+}
+.admin-content tr:hover a {
+    color: #bbd2e6;
+}

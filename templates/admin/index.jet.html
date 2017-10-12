@@ -140,17 +140,3 @@
   </nav>
 </div>
 {{end}}
-{{block footer_js()}}
-<script type="text/javascript">
- var deleteButtons = document.getElementsByClassName("delete-btn")
- for(var i = 0; i < deleteButtons.length; i++) {
-	break;
-   deleteButtons[i].addEventListener("click", function (e) {
-	    e.preventDefault()
-     Query.Get(this.href, function(data) {})
-     this.parentNode.parentNode.className = this.parentNode.parentNode.className + " hidden"
-     this.innerText = "Deleted"
-    })
- }
-</script>
-{{end}}
