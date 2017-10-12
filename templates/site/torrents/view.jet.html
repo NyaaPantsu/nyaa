@@ -184,7 +184,7 @@
   <div class="torrent-info-box comment-box">
     <span class="comment-index">
       <a href="#comment_{{idx}}">{{idx}}</a>
-      <small style="padding-left: 4px;" class="date-full" title="{{element.Date"}}>{{formatDate(element.Date, false)}}</small>
+      <small style="padding-left: 4px;" class="date-full" title="{{element.Date}}">{{formatDate(element.Date, false)}}</small>
     </span>
     <p><img src="https://www.gravatar.com/avatar/{{ element.UserAvatar }}"/><a {{if element.UserID > 0}}href="/user/{{element.UserID}}/{{element.Username}}"{{end}} class="comment-user">{{if element.Username == ""}}れんちょん{{else}}{{element.Username}}{{end}}</a></p>
     <p class="comment-content">{{element.Content|raw}}</p>
