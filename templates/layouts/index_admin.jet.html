@@ -35,7 +35,6 @@ var deleteButtons = document.querySelectorAll("button.form-input.btn-red")
          if(query != "") query = query + "&"
          query = query + formInputs[x].name + "=" + formInputs[x].value
      }
-     alert(query)
 
      Query.Post(form.action, query, function(data) {})
 
