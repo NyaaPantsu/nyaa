@@ -36,6 +36,7 @@ func init() {
 		userRoutes.GET("/:id/:username/search/:page", searchController.UserSearchHandler)
 		userRoutes.GET("/:id/:username/feed", feedController.RSSHandler)
 		userRoutes.GET("/:id/:username/feed/:page", feedController.RSSHandler)
+		userRoutes.POST("/:id/:username/delete", UserProfileDelete)
 	}
 	
 	router.Get().Any("/username", RedirectToUserSearch)
