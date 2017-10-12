@@ -2176,6 +2176,14 @@ table.multiple-upload {
     background: #d0d0d0;
 }
 
+button [class^="icon-"], button [class*=" icon-"] {
+    vertical-align: top;
+}
+
+form.delete-form {
+    display: inline;
+}
+
 /* Language specific CSS */
 
 html[lang="ja-jp"] .form-refine span.spacing {
