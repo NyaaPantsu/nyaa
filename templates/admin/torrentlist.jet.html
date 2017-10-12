@@ -50,7 +50,7 @@
           </td>
           <td class="tr-size home-td">
             {{ if .Uploader }}
-            <a href="/torrents{{ if .IsDeleted }}/deleted{{end}}?userID={{.UploaderID}}">
+            <a href="/user/{{.UploaderID}}/{{.Uploader.Username}}">
               {{ .Uploader.Username }}
             </a> {{ else }}れんちょん{{end}}
           </td>
