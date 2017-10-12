@@ -67,12 +67,12 @@
 			  <form method="POST" action="/mod/torrent/delete">
 				<input type="hidden" name="id" value="{{ .ID }}">
 				<input type="hidden" name="definitely" value="true">
-				<button type="submit" class="form-input btn-red"onclick="if (!confirm('{{  T(" are_you_sure ") }} {{  T("delete_definitely_torrent_warning ")}}')) return false;"><i class="icon-trash"></i> {{  T("delete_definitely") }}</button>
+				<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }} {{  T("delete_definitely_torrent_warning ")}}')) return false;"><i class="icon-trash"></i> {{  T("delete_definitely") }}</button>
 			  </form>
              {{ else }}
 			  <form method="POST" action="/mod/torrent/delete">
 				<input type="hidden" name="id" value="{{ .ID }}">
-				<button type="submit" class="form-input btn-red"onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
+				<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
 			  </form>
             {{ end }}
           </td>
