@@ -96,6 +96,9 @@ td.tr-le, .error-text {
 .btn-red {
     background-color: #cc6666;
 }
+.sukebei .btn-red {
+    color: #c5c8c6;
+}
 
 .alt-colors tr:nth-child(even) {
     background: hsla(244, 11%, 21%, 0.2);
@@ -326,4 +329,11 @@ span.tag {
 
 .torrent-info-row .tr-se span, .torrent-info-row .tr-le span, .torrent-info-row .tr-dl span {
     background-color: #544433;
+}
+
+.admin-content tr:hover {
+    background: #201f23;
+}
+.admin-content tr:hover a {
+    color: #bbd2e6;
 }

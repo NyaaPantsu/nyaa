@@ -1148,11 +1148,11 @@ html, body {
     text-align: justify;
 }
 
-.comment-box p:nth-child(2) {
+.comment-box span+p {
     margin-top: 9px;    
 }
 
-.comment-box img {
+.comment-box span+p img {
     width: 50px;
     height: 50px;
     float: left;
@@ -2078,7 +2078,7 @@ iframe {
     border-right: 1px solid #b3b3b3;
 }
 #admin-header .nav-btn.active, #admin-header .nav-btn:hover, #admin-header:hover .nav-btn.active:hover,  #admin-header .nav-btn:focus {
-    background: hsl(198, 100%, 100%);
+    background: hsl(193, 60%, 97%);
     height: 37px;
     margin-bottom: -1px;
 }
@@ -2187,6 +2187,13 @@ table.multiple-upload {
 }
 .torrent-view-data table:last-child .torrent-info-label {
 	width: 42%;
+}
+
+.admin-content tr:hover a {
+    color: #d45a5a;
+}
+.admin-content tr:hover {
+    background: #d0d0d0;
 }
 
 /* Language specific CSS */

@@ -37,7 +37,7 @@ func TorrentReportListPanel(c *gin.Context) {
 
 // TorrentReportDeleteModPanel : Controller for deleting a torrent report
 func TorrentReportDeleteModPanel(c *gin.Context) {
-	id := c.Query("id")
+	id := c.PostForm("id")
 
 	fmt.Println(id)
 	idNum, _ := strconv.ParseUint(id, 10, 64)

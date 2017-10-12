@@ -198,7 +198,7 @@
       <a href="#comment_{{idx}}">{{idx}}</a>
       <small style="padding-left: 4px;" class="date-short">{{formatDateRFC(element.Date)}}</small>
     </span>
-    <p><img src="https://www.gravatar.com/avatar/{{ element.UserAvatar }}"/><a {{if element.UserID > 0}}href="/user/{{element.UserID}}/{{element.Username}}"{{end}} class="comment-user">{{element.Username}}</a></p>
+    <p><img src="https://www.gravatar.com/avatar/{{ element.UserAvatar }}"/><a {{if element.UserID > 0}}href="/user/{{element.UserID}}/{{element.Username}}"{{end}} class="comment-user">{{if element.Username == ""}}れんちょん{{else}}{{element.Username}}{{end}}</a></p>
     <p class="comment-content">{{element.Content|raw}}</p>
   </div>
   {{idx = idx + 1}}

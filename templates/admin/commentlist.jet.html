@@ -30,9 +30,10 @@
           {{end}}
         </td>
         <td class="tr-actions home-td">
-          <a href="/mod/comment/delete?id={{.ID}}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;">
-            <i class="icon-trash"></i> {{  T("delete") }}
-          </a>
+ 			  <form method="POST" action="/mod/comment/delete">
+				  <input type="hidden" name="id" value="{{ .ID }}">
+				  <button type="submit" class="form-input btn-red"><i class="icon-trash"></i> {{  T("delete") }}</button>
+			  </form>
         </td>
       </tr>
       {{end}}

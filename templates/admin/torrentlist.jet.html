@@ -64,14 +64,16 @@
             </a>
             {{ if .IsDeleted }}
             <br/>
-            <a href="/mod/torrent/delete?definitely&id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ")}} {{  T("delete_definitely_torrent_warning ")}}')) return false;">
-              <i class="icon-trash"></i>
-               {{  T("delete_definitely") }}
-             </a>
+			  <form method="POST" action="/mod/torrent/delete">
+				<input type="hidden" name="id" value="{{ .ID }}">
+				<input type="hidden" name="definitely" value="true">
+				<button type="submit" class="form-input btn-red"onclick="if (!confirm('{{  T(" are_you_sure ") }} {{  T("delete_definitely_torrent_warning ")}}')) return false;"><i class="icon-trash"></i> {{  T("delete_definitely") }}</button>
+			  </form>
              {{ else }}
-            <a href="/mod/torrent/delete?id={{ .ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ")}}')) return false;">
-              <i class="icon-trash"></i> {{  T("delete") }}
-            </a>
+			  <form method="POST" action="/mod/torrent/delete">
+				<input type="hidden" name="id" value="{{ .ID }}">
+				<button type="submit" class="form-input btn-red"onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
+			  </form>
             {{ end }}
           </td>
         </tr>
@@ -95,5 +97,28 @@
       console.log(el.value);
     });
   });
+
+var deleteButtons = document.querySelectorAll("button.form-input.btn-red")
+
+ for(var i = 0; i < deleteButtons.length; i++) {
+   deleteButtons[i].addEventListener("click", function (e) {
+     e.preventDefault()
+     var form = this.parentNode
+     var formInputs = form.querySelectorAll('input')
+     var query = ""
+     
+     for(var x = 0; x < formInputs.length; x ++) {
+         if(query != "") query = query + "&"
+         query = query + formInputs[x].name + "=" + formInputs[x].value
+     }
+
+     Query.Post(form.action, query, function(data) {})
+
+     this.parentNode.parentNode.parentNode.className = this.parentNode.parentNode.className + " hidden"
+     this.innerText = "Deleted"
+     this.disabled = true
+   })
+ }
+ 
 </script>
 {{end}}

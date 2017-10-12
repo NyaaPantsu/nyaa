@@ -17,7 +17,7 @@ func init() {
 		torrentRoutes.POST("/tag", ViewFormTag)
 		torrentRoutes.GET("/tag/add", AddTag)
 		torrentRoutes.GET("/tag/remove", DeleteTag)
-		torrentRoutes.GET("/delete", TorrentDeleteUserPanel)
+		torrentRoutes.POST("/delete", TorrentDeleteUserPanel)
 	}
 	torrentViewRoutes := router.Get().Group("/view")
 	{
