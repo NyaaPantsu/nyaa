@@ -142,15 +142,20 @@
 {{end}}
 {{block footer_js()}}
 <script type="text/javascript">
- var deleteButtons = document.getElementsByClassName("delete-btn")
+var deleteButtons = document.querySelectorAll("button.form-input.btn-red")
+
  for(var i = 0; i < deleteButtons.length; i++) {
-	break;
    deleteButtons[i].addEventListener("click", function (e) {
-	    e.preventDefault()
-     Query.Get(this.href, function(data) {})
-     this.parentNode.parentNode.className = this.parentNode.parentNode.className + " hidden"
+     e.preventDefault()
+     var form = this.parentNode
+     var query = "id=" + form.querySelector('input[name="id"]').value
+
+     Query.Post(form.action, query, function(data) {})
+
+     this.parentNode.parentNode.parentNode.className = this.parentNode.parentNode.className + " hidden"
      this.innerText = "Deleted"
-    })
+     this.disabled = true
+   })
  }
 </script>
 {{end}}
