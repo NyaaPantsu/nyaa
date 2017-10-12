@@ -97,5 +97,29 @@
       console.log(el.value);
     });
   });
+
+ var deleteButtons = document.getElementsByClassName("delete-btn")
+ for(var i = 0; i < deleteButtons.length; i++) {
+   deleteButtons[i].addEventListener("click", function (e) {
+	 e.preventDefault()
+     Query.Get(this.href, function(data) {})
+  // Make query
+  Query.Post(form.action+"&json", query, function(data) {
+    if (data.ok) {
+      Modal.CloseActive()
+      if (data.data === null) return 
+      var len = data.data.length
+      for (var i = 0; i < len; i++) {
+        var tagHTml = Templates.Render("tag", data.data[i])
+        document.getElementById("tags-torrent").innerHTML = tagHTml + document.getElementById("tags-torrent").innerHTML
+      }
+    } else {
+      alert("{{ T("tag_error") }}")
+    }
+  })
+     this.parentNode.parentNode.className = this.parentNode.parentNode.className + " hidden"
+     this.innerText = "Deleted"
+    })
+ 
 </script>
 {{end}}
