@@ -149,11 +149,11 @@
   },
   {
     "id": "user_followed_msg",
-    "translation": "Vous vous êtes abonné à %s!"
+    "translation": "Vous vous êtes abonné à %s !"
   },
   {
     "id": "user_unfollowed_msg",
-    "translation": "Vous vous êtes désabonné de %s!"
+    "translation": "Vous vous êtes désabonné de %s !"
   },
   {
     "id": "profile_page",
@@ -553,7 +553,7 @@
   },
   {
     "id": "search",
-    "translation": "Recherche"
+    "translation": "Rechercher"
   },
   {
     "id": "hash",
@@ -569,7 +569,7 @@
   },
   {
     "id": "comments",
-    "translation": "Commentaires"
+    "translation": "commentaires"
   },
   {
     "id": "submit_a_comment_as_username",
@@ -813,7 +813,7 @@
   },
   {
     "id": "last_scraped",
-    "translation": "Dernier scrape :"
+    "translation": "Dernier scrape:"
   },
   {
     "id": "server_status_link",
@@ -2109,7 +2109,7 @@
   },
   {
     "id": "complement",
-    "translation": "Complément"
+    "translation": "Compléter"
   },
   {
     "id": "from",
@@ -2149,7 +2149,7 @@
   },
   {
     "id": "search_from_user",
-    "translation": "Rechercher de cet utilisateur..."
+    "translation": "Rechercher de cet usager"
   },
   {
     "id": "usersearch_user_not_found",
