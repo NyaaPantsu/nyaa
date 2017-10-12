@@ -126,6 +126,9 @@ a.form-input[class*="btn"]:hover {
     background: #141517;
     color: #c5c8c6;
 }
+.sukebei .pagination .active {
+    color: #ff5252;
+}
 
 .pagination .disabled {
     color: #141517;
