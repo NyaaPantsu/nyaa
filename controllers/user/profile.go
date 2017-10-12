@@ -22,13 +22,30 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// UserProfileDelete :  Deleting User Profile
+func UserProfileDelete(c *gin.Context) {
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 32)
+	
+	userProfile, _, errorUser := users.FindForAdmin(uint(id))
+	if errorUser == nil{
+		currentUser := router.GetUser(c)
+		if (currentUser.CurrentOrAdmin(userProfile.ID)) {
+			_, err := userProfile.Delete(currentUser)
+			if err == nil && currentUser.CurrentUserIdentical(userProfile.ID) {
+				cookies.Clear(c)
+			}
+		}
+		templates.Static(c, "site/static/delete_success.jet.html")
+	}
+}
+
 // UserProfileHandler :  Getting User Profile
 func UserProfileHandler(c *gin.Context) {
 	id, _ := strconv.ParseUint(c.Param("id"), 10, 32)
 	Ts, _ := publicSettings.GetTfuncAndLanguageFromRequest(c)
 	messages := msg.GetMessages(c)
 
-	if c.Param("id") != "0" && id == 0 {
+	if c.Param("id") != "0" && id == 0 && ContainsNonNumbersChars(c.Param("id")) {
 		c.Redirect(http.StatusSeeOther, fmt.Sprintf("/username/%s", c.Param("id")))
 		return
 	}
@@ -40,13 +57,7 @@ func UserProfileHandler(c *gin.Context) {
 		unfollow := c.Request.URL.Query()["unfollowed"]
 		deleteVar := c.Request.URL.Query()["delete"]
 
-		if (deleteVar != nil) && (currentUser.CurrentOrAdmin(userProfile.ID)) {
-			_, err := userProfile.Delete(currentUser)
-			if err == nil && currentUser.CurrentUserIdentical(userProfile.ID) {
-				cookies.Clear(c)
-			}
-			templates.Static(c, "site/static/delete_success.jet.html")
-		} else {
+		if !((deleteVar != nil) && (currentUser.CurrentOrAdmin(userProfile.ID))) {
 			if follow != nil {
 				messages.AddInfof("infos", Ts("user_followed_msg"), userProfile.Username)
 			}
@@ -61,6 +72,15 @@ func UserProfileHandler(c *gin.Context) {
 		variables := templates.Commonvariables(c)
 		templates.Render(c, "errors/user_not_found.jet.html", variables)
 	}
+}
+
+func ContainsNonNumbersChars(source string) bool {
+	for char := range source {
+		if char < 30 || char > 39 {
+			return true
+		}
+	}
+	return false
 }
 
 func UserGetFromName(c *gin.Context) {
