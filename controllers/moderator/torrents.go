@@ -120,7 +120,7 @@ func TorrentPostEditModPanel(c *gin.Context) {
 
 // TorrentDeleteModPanel : Controller for deleting a torrent
 func TorrentDeleteModPanel(c *gin.Context) {
-	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
+	id, _ := strconv.ParseInt(c.PostForm("id"), 10, 32)
 	definitely := c.Request.URL.Query()["definitely"]
 
 	var returnRoute = "/mod/torrents"

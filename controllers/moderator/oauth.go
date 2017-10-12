@@ -148,7 +148,7 @@ func clientsListPanel(c *gin.Context) {
 
 // clientsDeleteModPanel : Controller for deleting a comment
 func clientsDeleteModPanel(c *gin.Context) {
-	id := c.Query("id")
+	id := c.PostForm("id")
 	sqlManager := manager.SQLManager{&fosite.BCrypt{WorkFactor: 12}}
 	client, err := oauth_client.FindByID(id)
 	if err != nil {

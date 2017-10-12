@@ -34,9 +34,6 @@ func PostCommentHandler(c *gin.Context) {
 			messages.AddErrorT("errors", "bad_captcha")
 		}
 	}
-	if strings.Contains(c.PostForm("comment"), "mod") && strings.Contains(c.PostForm("comment"), "delete")  {
-		messages.AddError("errors", "xxx")
-	}
 	content := sanitize.Sanitize(c.PostForm("comment"), "comment")
 
 	if strings.TrimSpace(content) == "" {

@@ -75,7 +75,7 @@ func addAnnouncement(c *gin.Context) {
 func postAnnouncement(c *gin.Context) {
 	messages := msg.GetMessages(c)
 	announcement := &models.Notification{}
-	id, _ := strconv.Atoi(c.Query("id"))
+	id, _ := strconv.Atoi(c.PostForm("id"))
 	if id > 0 {
 		var err error
 		announcement, err = notifications.FindByID(uint(id))
