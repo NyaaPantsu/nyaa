@@ -2180,12 +2180,12 @@ button [class^="icon-"], button [class*=" icon-"] {
     vertical-align: top;
 }
 
-button.form-input.btn-red {
-    height: 28px;
-}
-
 form.delete-form {
     display: inline;
+}
+
+form.delete-form button.form-input.btn-red {
+    height: 28px;
 }
 
 /* Language specific CSS */
