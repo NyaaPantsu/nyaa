@@ -27,7 +27,7 @@ func RSSHandler(c *gin.Context) {
 	feed := &nyaafeeds.RssFeed{
 		Title:   title,
 		Link:    config.WebAddress() + "/",
-		PubDate: formatDate(createdAsTime),
+		PubDate: formatRSSDate(createdAsTime),
 	}
 	feed.Items = make([]*nyaafeeds.RssItem, len(torrents))
 
@@ -37,7 +37,7 @@ func RSSHandler(c *gin.Context) {
 			Title:       torrentJSON.Name,
 			Link:        config.WebAddress() + "/download/" + torrentJSON.Hash,
 			Description: string(torrentJSON.Description),
-			PubDate:     formatDate(torrent.Date),
+			PubDate:     formatRSSDate(torrent.Date),
 			GUID:        config.WebAddress() + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
 			Enclosure: &nyaafeeds.RssEnclosure{
 				URL:    config.WebAddress() + "/download/" + strings.TrimSpace(torrentJSON.Hash),
@@ -59,7 +59,8 @@ func RSSHandler(c *gin.Context) {
 	}
 }
 
-func formatDate(Date time.Time) string {
+//Return date in an RFC 2822 format, the official one for RSS2
+func formatRSSDate(Date time.Time) string {
 	Date = Date.UTC()
 	return fmt.Sprintf("%.3s, %.2d %.3s %d %.2d:%.2d:%.2d +0000", Date.Weekday(), Date.Day(), Date.Month(), Date.Year(), Date.Hour(), Date.Minute(), Date.Second())
 }
