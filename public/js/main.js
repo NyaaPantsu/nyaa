@@ -285,9 +285,11 @@ function humanFileSize(bytes, si) {
 }
 
 function getCookieValue(cookieName) {
-    var startPos = document.cookie.indexOf(cookieName + "=") + cookieName.length + 1
+    var startPos = document.cookie.indexOf(cookieName + "=") 
+    if(startPos == -1) return ""
+    startPos +=  cookieName.length + 1
     var endPos = document.cookie.substring(startPos).indexOf(";")
-    return endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos)
+    return endPos == -1 ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos)
 }
 
 // @license-end
