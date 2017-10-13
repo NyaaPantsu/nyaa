@@ -16,6 +16,9 @@ body, .header {
         margin-top: 0!important;
     }
 }
+.modtools {
+    top: 43px;
+}
 .torrent-info-data {
     font-family: Arial, sans-serif!important;
 }
