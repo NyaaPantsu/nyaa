@@ -1,12 +1,10 @@
 package torrentController
 
 import (
-	"text/template"
 	"strconv"
 	"strings"
 	"net/url"
 	"time"
-	"fmt"
 
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/models"
@@ -47,21 +45,30 @@ func GetStatsHandler(c *gin.Context) {
 		stats.Seeders = -1
 	}
 	
-	t, err := template.New("foo").Parse(fmt.Sprintf(`{{define "stats"}}{ "seeders": [%d], "leechers": [%d], "downloads": [%d] }{{end}}`, stats.Seeders, stats.Leechers, stats.Completed))
-	t.ExecuteTemplate(c.Writer, "stats", "")
-	//No idea how to output JSON properly
+	c.JSON(200, gin.H{
+ 		"seeders": stats.Seeders,
+ 		"leechers": stats.Leechers,
+ 		"downloads": stats.Completed,
+ 	})
 	
-	//We don't want to do useless DB queries if the stats are empty, and we don't want to overwrite good stats with empty ones
-	if stats.Seeders != -1 {
-		var tmp models.Scrape
-		if models.ORM.Where("torrent_id = ?", id).Find(&tmp).RecordNotFound() {
-			torrent.Scrape = torrent.Scrape.Create(uint(id), uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now())
-			//Create entry in the DB because none exist
-		} else {
+	if stats.Seeders == -1 {
+		stats.Seeders = 0
+	}
+	
+	var CurrentData models.Scrape
+	if models.ORM.Where("torrent_id = ?", id).Find(&CurrentData).RecordNotFound() {
+		torrent.Scrape = torrent.Scrape.Create(uint(id), uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now())
+		//Create entry in the DB because none exist
+	} else {
+		//Entry in the DB already exists, simply update it
+		if (CurrentData.Seeders == 0 && CurrentData.Leechers == 0 && CurrentData.Completed == 0) || (stats.Seeders != 0 && stats.Leechers != 0 && stats.Completed != 0 ) {
 			torrent.Scrape = &models.Scrape{uint(id), uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now()}
-			torrent.Scrape.Update(false)
-			//Entry in the DB already exists, simply update it
+		} else {
+			torrent.Scrape = &models.Scrape{uint(id), uint32(CurrentData.Seeders), uint32(CurrentData.Leechers), uint32(CurrentData.Completed), time.Now()}
 		}
+		//Only overwrite stats if the old one are Unknown OR if the current ones are not unknown, preventing good stats from being turned into unknown own but allowing good stats to be updated to more reliable ones
+		torrent.Scrape.Update(false)
+		
 	}
 	
 	return
