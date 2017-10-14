@@ -1131,6 +1131,9 @@ html, body {
     padding: 0 14px;
 }
 
+.comment-box blockquote {
+    margin: 0;
+}
 .comment-box blockquote>p {
     opacity: 0.5;
 }
