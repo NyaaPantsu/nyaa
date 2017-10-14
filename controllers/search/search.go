@@ -52,7 +52,7 @@ func SearchHandler(c *gin.Context) {
 		userID = 0
 	}
 	
-	if userID == 0 && c.Param("id") != "" {
+	if userID == 0 && c.Param("id") != "" && c.Param("id") != "0" {
 		c.Redirect(http.StatusSeeOther, fmt.Sprintf("/user/%s/%s", c.Param("id"), c.Param("username")))
 		//User is trying to use the user search route with an inexisting user
 		//Must redirect him to user search instead of simply showing "no torrents found!"
