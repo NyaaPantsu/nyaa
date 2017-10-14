@@ -12,45 +12,34 @@
     <h1 style="text-align: center;" class="torrent-hr">{{Torrent.Name}}</h1>
   </div>
   <br/>
-  <table id="torrent-view-data">
+  <div class="torrent-view-data">
+  <table>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{  T("category") }}:</td>
       <td class="torrent-view-td torrent-info-data">
         <a href="{{URL.Parse("/search?c="+Torrent.Category+"_"+Torrent.SubCategory) }}">{{ CategoryName(Torrent.Category, Torrent.SubCategory) == "" ? T("unknown") : T(CategoryName(Torrent.Category, Torrent.SubCategory)) }}</a>
         <br/>
       </td>
-      <td class="torrent-info-td torrent-info-label">{{  T("date") }}:</td>
-      <td class="torrent-info-td date-full">{{formatDate(Torrent.FullDate, false)}}</td>
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{  T("uploaded_by") }}:</td>
       <td class="torrent-view-td torrent-info-data {{if Torrent.UploaderID == 0}}uploader-anon{{else}}uploader-link{{end}}">{{ genUploaderLink(Torrent.UploaderID, Torrent.UploaderName, Torrent.Hidden)|raw }}</td>
-      <td class="torrent-info-td torrent-info-label">{{ T("seeders")}}:</td>
-      <td class="tr-se torrent-info-td">{{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}{{ T("unknown")}}{{else}}{{Torrent.Seeders}}{{end}}</td>
     </tr>
-    <tr class="torrent-info-row">
+     
+	 <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{  T("website_link") }}:</td>
       <td class="torrent-view-td torrent-info-data">
-        {{if Torrent.WebsiteLink != ""}}
-        <a href="{{Torrent.WebsiteLink}}">{{Torrent.WebsiteLink}}</a>
-        {{else}}N/A{{end}}
+        {{if Torrent.WebsiteLink != ""}}<a href="{{Torrent.WebsiteLink}}">{{Torrent.WebsiteLink}}</a>
+		{{else}}N/A{{end}}
       </td>
-      <td class="torrent-info-td torrent-info-label">{{ T("leechers")}}:</td>
-      <td class="tr-le torrent-info-td">{{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}{{ T("unknown")}}{{else}}{{Torrent.Leechers}}{{end}}</td>
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("hash")}}:</td>
       <td style="font-family: monospace;" class="torrent-view-td torrent-info-data">{{Torrent.Hash}}</td>
-      <td class="torrent-info-td torrent-info-label">{{ T("completed")}}:</td>
-      <td class="torrent-info-td tr-dl">
-        <b>{{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}{{ T("unknown")}}{{else}}{{Torrent.Completed}}{{end}}</b>
-      </td>
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("size")}}:</td>
       <td class="torrent-view-td torrent-info-data">{{ fileSize(Torrent.Filesize, T) }}</td>
-      <td class="torrent-info-td torrent-info-label">{{ T("last_scraped")}}</td>
-      <td class="torrent-info-td scrape-date{{if !Torrent.LastScrape.IsZero && formatDateRFC(Torrent.LastScrape) != "0001-01-01T00:00:00Z"}} date-full">{{formatDate(Torrent.LastScrape, false)}}{{else}}">{{ T("unknown")}}{{end}}</td>
     </tr>
     {{ if len(Torrent.Languages) > 0 && Torrent.Languages[0] != "" }}
     <tr class="torrent-info-row">
@@ -129,26 +118,43 @@
     </tr>
     {{ end }}
   </table>
+   <table>
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{  T("date") }}:</td>
+      <td class="torrent-info-td date-full">{{formatDate(Torrent.FullDate, false)}}</td>
+    </tr>
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("seeders")}}:</td>
+      <td class="tr-se torrent-info-td">{{if Torrent.StatsObsolete[0] }}{{ T("unknown")}}{{else}}{{Torrent.Seeders}}{{end}}</td>
+    </tr>
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("leechers")}}:</td>
+      <td class="tr-le torrent-info-td">{{if Torrent.StatsObsolete[0] }}{{ T("unknown")}}{{else}}{{Torrent.Leechers}}{{end}}</td>
+    </tr>
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("completed")}}:</td>
+      <td class="torrent-info-td tr-dl">{{if Torrent.StatsObsolete[0] }}{{ T("unknown")}}{{else}}{{Torrent.Completed}}{{end}} </td>
+    </tr>
+    <tr class="torrent-info-row">
+      <td class="torrent-info-td torrent-info-label">{{ T("last_scraped")}}</td>
+      <td class="torrent-info-td scrape-date{{if !Torrent.LastScrape.IsZero() }} date-full">{{formatDate(Torrent.LastScrape, false)}}{{else}}">{{ T("unknown")}}{{end}}</td>
+    </tr>
+  </table>
+  </div>
   <div class="torrent-buttons">
     <a href="{{Torrent.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;margin-right: 0.5em;">
       <div class="icon-magnet"></div>{{ T("magnet_link")}}
     </a>
-    <a href="{{Torrent.TorrentLink}}" class="form-input download{{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}} hidden{{end}}" style="float:left;height: auto;">
+    <a id="torrent-download-link" href="{{if Torrent.TorrentLink == ""}}/download/{{Torrent.Hash}}{{else}}{{Torrent.TorrentLink}}{{end}}" class="form-input download{{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}} hidden{{end}}" style="float:left;height: auto;">
       <div class="icon-floppy"></div>{{ T("torrent_file")}}
     </a>
     {{ if User.ID > 0}}
     <a id="reportPopup" href="#" class="form-input">{{  T("report_btn") }}</a>
     {{ if User.HasAdmin()}}
-    <form method="POST" action="/mod/torrent/delete" class="delete-form">
-      <input type="hidden" name="id" value="{{ Torrent.ID }}">
-      <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
-    </form>
+    <a href="/mod/torrent/delete?id={{ Torrent.ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;">{{  T("delete") }}</a>
     <a href="/mod/torrent?id={{ Torrent.ID }}" class="form-input btn-orange">{{  T("edit") }}</a>
     {{ else if User.CurrentUserIdentical(Torrent.UploaderID) }}
-    <form method="POST" action="/torrent/delete" class="delete-form">
-      <input type="hidden" name="id" value="{{ Torrent.ID }}">
-      <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
-    </form> 
+    <a href="/torrent/delete?id={{ Torrent.ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;">{{  T("delete") }}</a>
     <a href="/torrent?id={{ Torrent.ID }}" class="form-input btn-orange">{{  T("edit") }}</a>
     {{end}}
     {{end}}
@@ -190,7 +196,7 @@
   <div class="torrent-info-box comment-box">
     <span class="comment-index">
       <a href="#comment_{{idx}}">{{idx}}</a>
-      <small style="padding-left: 4px;" class="date-full" title="{{element.Date}}">{{formatDate(element.Date, false)}}</small>
+      <small style="padding-left: 4px;" class="date-short" title="{{formatDateRFC(element.Date)}}">{{formatDate(element.Date, false)}}</small>
     </span>
     <p><img src="https://www.gravatar.com/avatar/{{ element.UserAvatar }}"/><a {{if element.UserID > 0}}href="/user/{{element.UserID}}/{{element.Username}}"{{end}} class="comment-user">{{if element.Username == ""}}れんちょん{{else}}{{element.Username}}{{end}}</a></p>
     <p class="comment-content">{{element.Content|raw}}</p>
@@ -287,13 +293,12 @@
 {{end}}
 {{ block footer_js()}}
 <script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>
-{{if Torrent.LastScrape.IsZero || formatDateRFC(Torrent.LastScrape) == "0001-01-01T00:00:00Z"}}
+{{if Torrent.StatsObsolete[1] }}
 <script type="text/javascript">
   var seeders   = document.querySelector(".tr-se"),
       leechers  = document.querySelector(".tr-le"),
-      downloads = document.querySelector(".tr-dl b"),
-      torrentID = window.location.pathname.substr(6),
-	  scrapeDate= document.querySelector(".scrape-date")
+      downloads = document.querySelector(".tr-dl"),
+      scrapeDate= document.querySelector(".scrape-date")
 	  
   var oldStats = [seeders.innerHTML, leechers.innerHTML, downloads.innerHTML]
 	  
@@ -301,7 +306,7 @@
       leechers.innerHTML = "Loading..."
       downloads.innerHTML = "Loading..."
 
-  Query.Get('/stats/' + torrentID, function (data) {
+  Query.Get('/stats/{{Torrent.ID}}', function (data) {
     if(typeof data.seeders != "undefined" && data.seeders != -1) {
       seeders.innerHTML = "<span>" + data.seeders + "</span>"
       leechers.innerHTML = "<span>" +data.leechers + "</span>"
