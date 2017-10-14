@@ -106,15 +106,13 @@ func SetLogin(c *gin.Context, user *models.User) (int, error) {
 		maxAge = getMaxAge(true)
 	}
 	validUntil := timeHelper.FewDurationLater(time.Duration(maxAge) * time.Second)
-	InstantDeletion := timeHelper.FewDurationLater(time.Second)
 	encoded, err := Encode(user.ID, validUntil)
-	encodedDeletion, err := Encode(user.ID, InstantDeletion)
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
 
-	//Delete session cookie shared between nyaa & sukebei because it should not exist and used to for some users
-	c.SetCookie(CookieName, encodedDeletion, 0, "/", getDomainName(), false, true)
+	//Delete session cookie shared between nyaa & sukebei (or current session cookie if no domain name in config) because it should not exist and used to for some users
+	http.SetCookie(c.Writer, &http.Cookie{Name: "session", Value: "", Domain: getDomainName(), Path: "/", Expires: time.Now().AddDate(-1, -1, -1)})
 	c.SetCookie(CookieName, encoded, maxAge, "/", "", false, true)
 	// also set response header for convenience
 	c.Header("X-Auth-Token", encoded)
