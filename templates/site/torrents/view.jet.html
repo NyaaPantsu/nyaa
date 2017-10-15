@@ -151,7 +151,6 @@
     {{ if User.ID > 0}}
     <a id="reportPopup" href="#" class="form-input">{{  T("report_btn") }}</a>
     {{ if User.HasAdmin()}}
-    <a href="/mod/torrent/delete?id={{ Torrent.ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;">{{  T("delete") }}</a>
     <form method="POST" action="/mod/torrent/delete" class="delete-form">
 		{{ yield csrf_field()}}
 		<input type="hidden" name="id" value="{{ Torrent.ID }}">
