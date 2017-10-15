@@ -69,6 +69,7 @@
 <script type="text/javascript">
   var SaveButton = document.querySelector('button[type="submit"')
   
+  //Golang settings.go controller set cookies for the domain variable in config, if we are currently on a mirror this will mean that the cookie will not be set for the right website
   if(UserID == 0 && Mirror)
 	SaveButton.addEventListener("click", function(e) {
 		var OptionSelected = document.getElementById("theme-selector").selectedIndex
@@ -79,6 +80,9 @@
 		document.cookie = "lang=" + document.querySelector("#language :nth-child(" + OptionSelected + ")").value + ";path=/;expires=" + farFutureString + ";domain=" + domain
 		//Set language cookie
 		
+		//Will have to do the rest
+		
+		window.location.replace("/")
 		e.preventDefault()
 	})
 </script>
