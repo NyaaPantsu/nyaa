@@ -2216,6 +2216,19 @@ form.delete-form button.form-input.btn-red {
     height: 28px;
 }
 
+.user-torrent-table {
+	margin-bottom: 80px
+}
+
+.user-torrent-search {
+    width: 100%;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 9px;
+}
+
+
 /* Language specific CSS */
 
 html[lang="ja-jp"] .form-refine span.spacing {
