@@ -64,3 +64,22 @@
 </form>
 </div>
 {{end}}
+{{ block footer_js()}}
+<!-- JS Function for selecting multiple checkboxes -->
+<script type="text/javascript">
+  var SaveButton = document.querySelector('button[type="submit"')
+  
+  if(UserID == 0 && Mirror)
+	SaveButton.addEventListener("click", function(e) {
+		var OptionSelected = document.getElementById("theme-selector").selectedIndex
+		document.cookie = "theme=" + document.querySelector("#theme-selector :nth-child(" + OptionSelected + ")").value + ";path=/;expires=" + farFutureString + ";domain=" + domain
+		//Set theme cookie
+		
+		OptionSelected = document.getElementById("language").selectedIndex
+		document.cookie = "lang=" + document.querySelector("#language :nth-child(" + OptionSelected + ")").value + ";path=/;expires=" + farFutureString + ";domain=" + domain
+		//Set language cookie
+		
+		e.preventDefault()
+	})
+</script>
+{{end}}
