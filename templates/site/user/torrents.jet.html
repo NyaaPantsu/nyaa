@@ -3,7 +3,7 @@
 {{ block profile_navigation()}}{{ yield profile_menu(route="profile") }}{{end}}
 {{block profile_content()}}
 {{ if len(UserProfile.Torrents) > 0 }}
-<table {{if AltColors}}class="alt-colors"{{end}}>
+<table class="user-torrent-table{{if AltColors}} alt-colors{{end}}">
   <tr class="torrent-info">
     <th class="tr-cat user-td">{{ T("category")}}</th>
     <th class="tr-name user-td">{{ T("name")}}</th>
@@ -47,6 +47,7 @@
   </tr>
   {{end}}
 </table>
+  <div class="user-torrent-search">
   <div class="pagination">
     <a href="/search?userID={{ UserProfile.ID }}" aria-label="Next">
       <span style="display:block;border-right:1px solid;">
@@ -59,6 +60,7 @@
 		<input class="form-input" name="q" type="text" placeholder="{{T("search_from_user")}}">
 		<button type="submit" class="form-input icon-search"></button>
 	  </form>
+  </div>
   </div>
 {{else}}
 <h2 style="text-align: center;">{{  T("no_torrents_uploaded") }}</h2>
