@@ -224,3 +224,8 @@ td.tr-le, .error-text {
     background-color: #F7F8F9;
     border-color: #cbbdd7;
 }
+
+.sukebei #cookie-warning {
+    background: hsla(297, 40%, 90%, 0.89);
+    border-top: 1px solid #c48cbe;
+}

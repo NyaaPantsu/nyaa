@@ -564,7 +564,6 @@ th {
 .tr-cs {
     width: 18px;
     overflow: visible;
-    text-overflow: initial;
     padding: 0;
     font-size: 0px;
 }
@@ -576,7 +575,7 @@ th {
     width: 90px;
 }
 
-.tr-se, .tr-le, .tr-st {
+.tr-se, .tr-le, .tr-st, .torrent-view-data .tr-dl  {
     font-weight: bold;
 }
 
@@ -700,7 +699,7 @@ html, body {
 }
 
 .torrent-buttons a [class^="icon-"], .torrent-buttons a [class*=" icon-"], a.form-input.btn-green>div[class^="icon-"], a.form-input.btn-green>div[class*="icon-"] {
-    vertical-align: initial;
+    vertical-align: top;
 }
 
 #mascotKeepHide {
@@ -808,7 +807,7 @@ html, body {
     width: 100%!important;
     }
     .language {
-    width: initial!important;
+    width: auto!important;
     }
     .refine-container-2 {
     margin-top: 5px;
@@ -855,6 +854,7 @@ html, body {
     }
     td.torrent-view-td.torrent-info-data {
         padding-left: 5px;
+        width: auto;
     }
     .torrent-info-data {
         width: 100%;
@@ -998,6 +998,12 @@ html, body {
     .upload-form-table .table-input-label {
         display: none;
     }
+	.torrent-view-data {
+ 		display: table!important;
+ 	}
+ 	.torrent-view-data td, .torrent-view-data table {
+ 		width: 100%!important;
+ 	}
 }
 
 @media (max-width: 440px) {
@@ -1125,6 +1131,9 @@ html, body {
     padding: 0 14px;
 }
 
+.comment-box blockquote {
+    margin: 0;
+}
 .comment-box blockquote>p {
     opacity: 0.5;
 }
@@ -2035,7 +2044,7 @@ p.upload-rules a {
 .upload-tag-form label {
     display:inline-block;
     width: 100%;
-    font-size: unset;
+    font-size: 14px;
     margin-bottom: 1px;
 }
 
@@ -2175,6 +2184,19 @@ table.multiple-upload {
     background-color: #ffe0bf;
 }
 
+.torrent-view-data {
+    display: flex;
+}
+ .torrent-view-data table:first-child {
+    width: 65%;
+}
+ .torrent-view-data table:last-child {
+    width: 35%;
+}
+ .torrent-view-data table:last-child .torrent-info-label {
+    width: 42%;
+}
+ 
 .admin-content tr:hover a {
     color: #d45a5a;
 }
@@ -2183,7 +2205,7 @@ table.multiple-upload {
 }
 
 button [class^="icon-"], button [class*=" icon-"] {
-    vertical-align: top;
+     vertical-align: top;
 }
 
 form.delete-form {
