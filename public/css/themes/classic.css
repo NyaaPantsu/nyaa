@@ -425,7 +425,7 @@ span.comment-index+p a:hover {
     float: right;
     margin-top: 7px;
 }
-.torrent-buttons a{
+.torrent-buttons a, .torrent-buttons button{
     height: 26px!important;
     background: linear-gradient(to bottom, #33ca98 0%, #336867 72%);
     color: white!important;
