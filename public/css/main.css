@@ -2181,7 +2181,7 @@ table.multiple-upload {
     width: calc(100% - 30px);
     border-radius: 3px 0 0 3px;
 }
-.profile-panel .user-search  [type="text"] {
+.profile-panel .user-search [type="text"] {
     margin-right: 28px;
 }
 .user-search button {
@@ -2190,6 +2190,10 @@ table.multiple-upload {
     float: right;
     position: absolute;
     right: 0;
+}
+.box > .user-search button {
+    float: none;
+    position: relative;
 }
 .profile-content .user-search button {
     right: 16px;
