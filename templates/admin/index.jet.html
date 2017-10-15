@@ -1,4 +1,5 @@
 {{ extends "layouts/index_admin" }}
+{{ import "layouts/partials/helpers/csrf" }}
 {{ block title()}}{{ T("moderation_overview") }}{{end}}
  {{ block content_body()}}
 <div class="results box">
@@ -89,6 +90,7 @@
         </td>
         <td class="tr-size home-td">{{if .ID > 0}}
 		  <form method="POST" action="/user/{{.ID}}/{{.Username }}/delete" >
+		    {{ yield csrf_field()}}
 		    <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{ T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
 		  </form>
           {{end}}
