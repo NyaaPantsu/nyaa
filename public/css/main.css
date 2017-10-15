@@ -2167,16 +2167,32 @@ table.multiple-upload {
 }
 
 .user-search {
-    word-spacing: -7px;;
+    word-spacing: -7px;
     padding: 0 1rem;
+    position: relative;
 }
 .profile-panel .user-search {
     padding: 0;
     max-width: 170px;
 }
+
 .user-search [type="text"] {
     vertical-align: top;
-    width: calc(100% - 28px);
+    width: calc(100% - 30px);
+    border-radius: 3px 0 0 3px;
+}
+.profile-panel .user-search  [type="text"] {
+    margin-right: 28px;
+}
+.user-search button {
+    border-left: none;
+    border-radius: 0 3px 3px 0;
+    float: right;
+    position: absolute;
+    right: 0;
+}
+.profile-content .user-search button {
+    right: 16px;
 }
 
 .torrent-info-row .tr-se span, .torrent-info-row .tr-le span, .torrent-info-row .tr-dl span {
