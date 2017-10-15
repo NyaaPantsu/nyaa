@@ -29,7 +29,7 @@ func GetStatsHandler(c *gin.Context) {
 	for _, line := range strings.Split(torrent.Trackers[3:], "&tr=") {
 		//Starts at character 3 because the three first characters are always "tr=" so we need to dismiss them
 		tracker, error := url.QueryUnescape(line)
-		if error == nil && tracker[:6] == "udp://" {
+		if error == nil && strigns.Contains(tracker[], "udp://") {
 			Trackers = append(Trackers, tracker)
 		}
 		//Cannot scrape from http trackers so don't put them in the array
