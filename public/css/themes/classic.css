@@ -123,9 +123,9 @@ th.tr-name a {
 
 .icon-magnet:before {
     font-size: 14px;
-}.upload-tag-table
+}
 
-.icon-floppy::before {
+.icon-floppy:before {
     content: '';
 }
 .icon-floppy {
