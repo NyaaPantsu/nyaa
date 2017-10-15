@@ -2170,5 +2170,9 @@
   {
     "id": "no_api_token",
     "translation": "No API token"
+  },
+  {
+    "id": "search_from_specific_user",
+    "translation": "Search from %s"
   }
 ]

@@ -1366,6 +1366,10 @@ input.filelist-checkbox:checked+table.table-filelist {
 
 /* Mod Tools */
 
+.content-admin .modtools {
+    display: block;
+}
+
 .modtools {
     position: fixed;
     top: 65px;
@@ -1375,6 +1379,8 @@ input.filelist-checkbox:checked+table.table-filelist {
     border-style: solid;
     height: 50px;
     border-radius: 5px;
+    z-index: 1;
+    display: none;
 }
 
 .tr-cb {
@@ -2154,7 +2160,7 @@ table.multiple-upload {
     width: 150px;
     font-weight: bold;
     font-size: 14px!important;
-    padding: 5px 0;
+    padding: 5px 0;    
 }
 
 .user-search {
@@ -2198,6 +2204,15 @@ table.multiple-upload {
 button [class^="icon-"], button [class*=" icon-"] {
     vertical-align: top;
 }
+
+form.delete-form {
+    display: inline;
+}
+
+form.delete-form button.form-input.btn-red {
+    height: 28px;
+}
+
 
 /* Language specific CSS */
 

@@ -111,6 +111,8 @@ func SetLogin(c *gin.Context, user *models.User) (int, error) {
 		return http.StatusInternalServerError, err
 	}
 
+	//Delete session cookie shared between nyaa & sukebei (or current session cookie if no domain name in config) because it should not exist and used to for some users
+	http.SetCookie(c.Writer, &http.Cookie{Name: "session", Value: "", Domain: getDomainName(), Path: "/", Expires: time.Now().AddDate(-1, -1, -1)})
 	c.SetCookie(CookieName, encoded, maxAge, "/", "", false, true)
 	// also set response header for convenience
 	c.Header("X-Auth-Token", encoded)

@@ -7,7 +7,7 @@
         <thead class="torrent-info">
         <tr>
             <th class="tr-name">{{ T("message") }}</th>
-            <th class="tr-links">{{ T("expire") }}</th>
+            <th class="tr-links" style="width: 120px;">{{ T("expire") }}</th>
             <th class="tr-actions">{{ T("actions") }}</th>
         </tr>
         </thead>
@@ -18,7 +18,7 @@
                 <a href="/mod/announcement/form?id={{ .ID }}">{{ .Content }}</a>
             </td>
             <td class="tr-name home-td">
-                <a href="/mod/announcement/form?id={{ .ID }}">{{ .Expire }}</a>
+                <a href="/mod/announcement/form?id={{ .ID }}" class="date-full">{{ formatDate(.Expire, false) }}</a>
             </td>
             <td class="tr-actions home-td">
  			  <form method="POST" action="/mod/announcement/delete">
@@ -30,6 +30,6 @@
         {{end}}
         </tbody>
     </table>
-    <a href="/mod/announcement/form" class="form-input btn-green">{{ T("add") }}</a>
+    <div style="margin: 10px 0;"><a href="/mod/announcement/form" class="form-input btn-green">{{ T("add") }}</a></div>
 </div>
 {{end}}
