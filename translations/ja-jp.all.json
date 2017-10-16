@@ -1100,6 +1100,10 @@
     "translation": "なし"
   },
   {
+    "id": "themes_classic",
+    "translation": "nyaa.se (Beta)"
+  },
+  {
     "id": "upload_as_anon",
     "translation": "匿名でアップロードする"
   },
@@ -2145,7 +2149,7 @@
   },
   {
     "id": "search_from_user",
-    "translation": "このユーザーからのアップロードを検索..."
+    "translation": "このユーザーのアップロードを検索..."
   },
   {
     "id": "usersearch_user_not_found",
@@ -2154,5 +2158,13 @@
   {
     "id": "user_search_explanation",
     "translation": "以下にユーザー名を入力してユーザーを検索します"
+  },
+  {
+    "id": "no_api_token",
+    "translation": "API トークンなし"
+  },
+  {
+    "id": "search_from_specific_user",
+    "translation": "%s のアップロードを検索"
   }
 ]
