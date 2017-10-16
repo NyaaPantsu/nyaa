@@ -18,7 +18,7 @@
 {{ if Search.Category != ""}}
 <div class="sub-category-list">
 	{{ Categories := GetCategory(Search.Category[:1], true)}}
-	{{offset := len(Categories[0].Name) + 3 }}
+	{{offset := len(T(Categories[0].Name)) + 3 }}
 	{{ range _, cat := Categories}}
 		<span>
 		{{ if _ > 0}}
