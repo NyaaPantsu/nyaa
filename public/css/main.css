@@ -1212,6 +1212,7 @@ html, body {
     border-radius: 0 4px 4px 0;
     text-align: left;
     padding: 10px 10px 15px 10px;
+    position: relative;
 }
 
 .profile-content h3 {
