@@ -101,7 +101,7 @@ func TestGenSearchWithOrdering(t *testing.T) {
 
 	for _, test := range tests {
 		url, _ := url.Parse(test["test"])
-		value := genSearchWithOrdering(url, test["mode"])
+		value := genSearchWithOrdering(url, test["mode"], "")
 		if value != test["expected"] {
 			t.Errorf("Unexpected value from the function genSearchWithOrdering, got '%s', wanted '%s' for '%s' and '%s'", value, test["expected"], test["test"], test["mode"])
 		}
@@ -119,7 +119,7 @@ func TestgenSearchWithCategory(t *testing.T) {
 
 	for _, test := range tests {
 		url, _ := url.Parse(test["test"])
-		value := genSearchWithCategory(url, test["mode"])
+		value := genSearchWithCategory(url, test["mode"], "")
 		if value != test["expected"] {
 			t.Errorf("Unexpected value from the function genSearchWithCategory, got '%s', wanted '%s' for '%s' and '%s'", value, test["expected"], test["test"], test["mode"])
 		}
