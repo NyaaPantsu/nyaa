@@ -152,15 +152,17 @@
     <a id="reportPopup" href="#" class="form-input">{{  T("report_btn") }}</a>
     {{ if User.HasAdmin()}}
     <form method="POST" action="/mod/torrent/delete" class="delete-form">
-      <input type="hidden" name="id" value="{{ Torrent.ID }}">
-      <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
-    </form>
+		{{ yield csrf_field()}}
+		<input type="hidden" name="id" value="{{ Torrent.ID }}">
+		<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}{{  T("delete") }}')) return false;"><i class="icon-trash"></i>{{  T("delete") }}</button>
+	</form>
     <a href="/mod/torrent?id={{ Torrent.ID }}" class="form-input btn-orange">{{  T("edit") }}</a>
     {{ else if User.CurrentUserIdentical(Torrent.UploaderID) }}
     <form method="POST" action="/torrent/delete" class="delete-form">
-      <input type="hidden" name="id" value="{{ Torrent.ID }}">
-      <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
-    </form> 
+		{{ yield csrf_field()}}
+		<input type="hidden" name="id" value="{{ Torrent.ID }}">
+		<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}{{  T("delete") }}')) return false;"><i class="icon-trash"></i>{{  T("delete") }}</button>
+	</form>
     <a href="/torrent?id={{ Torrent.ID }}" class="form-input btn-orange">{{  T("edit") }}</a>
     {{end}}
     {{end}}
@@ -202,7 +204,7 @@
   <div class="torrent-info-box comment-box">
     <span class="comment-index">
       <a href="#comment_{{idx}}">{{idx}}</a>
-      <small style="padding-left: 4px;" class="date-full" title="{{element.Date}}">{{formatDate(element.Date, false)}}</small>
+      <small style="padding-left: 4px;" class="date-short" title="{{formatDateRFC(element.Date)}}">{{formatDate(element.Date, false)}}</small>
     </span>
     <p><img src="https://www.gravatar.com/avatar/{{ element.UserAvatar }}"/><a {{if element.UserID > 0}}href="/user/{{element.UserID}}/{{element.Username}}"{{end}} class="comment-user">{{if element.Username == ""}}れんちょん{{else}}{{element.Username}}{{end}}</a></p>
     <p class="comment-content">{{element.Content|raw}}</p>

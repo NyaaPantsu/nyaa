@@ -8,6 +8,7 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/Stephen304/goscrape"
 	"github.com/gin-gonic/gin"
 )
@@ -26,14 +27,21 @@ func GetStatsHandler(c *gin.Context) {
 	}
 	
 	var Trackers []string
-	for _, line := range strings.Split(torrent.Trackers[3:], "&tr=") {
-		//Starts at character 3 because the three first characters are always "tr=" so we need to dismiss them
-		tracker, error := url.QueryUnescape(line)
-		if error == nil && tracker[:6] == "udp://" {
-			Trackers = append(Trackers, tracker)
+	if len(Trackers) > 3 {
+		for _, line := range strings.Split(torrent.Trackers[3:], "&tr=") {
+			tracker, error := url.QueryUnescape(line)
+			if error == nil && strings.Contains(tracker, "udp://") {
+				Trackers = append(Trackers, tracker)
+			}
+			//Cannot scrape from http trackers so don't put them in the array
 		}
-		//Cannot scrape from http trackers so don't put them in the array
-	}	
+	}
+	
+	for _, line := range config.Get().Torrents.Trackers.Default {
+		if !contains(Trackers, line) {
+			Trackers = append(Trackers, line)
+		}
+	}
 
 	stats := goscrape.Single(Trackers, []string{
 	  torrent.Hash,
@@ -72,4 +80,13 @@ func GetStatsHandler(c *gin.Context) {
 	}
 	
 	return
+}
+
+func contains(s []string, e string) bool {
+    for _, a := range s {
+        if a == e {
+            return true
+        }
+    }
+    return false
 }

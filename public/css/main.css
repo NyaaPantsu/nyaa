@@ -575,7 +575,7 @@ th {
     width: 90px;
 }
 
-.tr-se, .tr-le, .tr-st, .torrent-view-data .tr-dl {
+.tr-se, .tr-le, .tr-st, .torrent-view-data .tr-dl  {
     font-weight: bold;
 }
 
@@ -854,7 +854,7 @@ html, body {
     }
     td.torrent-view-td.torrent-info-data {
         padding-left: 5px;
-		width: auto;
+        width: auto;
     }
     .torrent-info-data {
         width: 100%;
@@ -999,11 +999,11 @@ html, body {
         display: none;
     }
 	.torrent-view-data {
-		display: table!important;
-	}
-	.torrent-view-data td, .torrent-view-data table {
-		width: 100%!important;
-	}
+ 		display: table!important;
+ 	}
+ 	.torrent-view-data td, .torrent-view-data table {
+ 		width: 100%!important;
+ 	}
 }
 
 @media (max-width: 440px) {
@@ -1131,6 +1131,9 @@ html, body {
     padding: 0 14px;
 }
 
+.comment-box blockquote {
+    margin: 0;
+}
 .comment-box blockquote>p {
     opacity: 0.5;
 }
@@ -2164,16 +2167,36 @@ table.multiple-upload {
 }
 
 .user-search {
-    word-spacing: -7px;;
+    word-spacing: -7px;
     padding: 0 1rem;
+    position: relative;
 }
 .profile-panel .user-search {
     padding: 0;
     max-width: 170px;
 }
+
 .user-search [type="text"] {
     vertical-align: top;
-    width: calc(100% - 28px);
+    width: calc(100% - 30px);
+    border-radius: 3px 0 0 3px;
+}
+.profile-panel .user-search [type="text"] {
+    margin-right: 28px;
+}
+.user-search button {
+    border-left: none;
+    border-radius: 0 3px 3px 0;
+    float: right;
+    position: absolute;
+    right: 0;
+}
+.box > .user-search button {
+    float: none;
+    position: relative;
+}
+.profile-content .user-search button {
+    right: 16px;
 }
 
 .torrent-info-row .tr-se span, .torrent-info-row .tr-le span, .torrent-info-row .tr-dl span {
@@ -2182,18 +2205,18 @@ table.multiple-upload {
 }
 
 .torrent-view-data {
-	display: flex;
+    display: flex;
 }
-.torrent-view-data table:first-child {
-	width: 65%;
+ .torrent-view-data table:first-child {
+    width: 65%;
 }
-.torrent-view-data table:last-child {
-	width: 35%;
+ .torrent-view-data table:last-child {
+    width: 35%;
 }
-.torrent-view-data table:last-child .torrent-info-label {
-	width: 42%;
+ .torrent-view-data table:last-child .torrent-info-label {
+    width: 42%;
 }
-
+ 
 .admin-content tr:hover a {
     color: #d45a5a;
 }
@@ -2202,7 +2225,7 @@ table.multiple-upload {
 }
 
 button [class^="icon-"], button [class*=" icon-"] {
-    vertical-align: top;
+     vertical-align: top;
 }
 
 form.delete-form {
@@ -2213,6 +2236,17 @@ form.delete-form button.form-input.btn-red {
     height: 28px;
 }
 
+.user-torrent-table {
+	margin-bottom: 80px
+}
+
+.user-torrent-search {
+    width: 100%;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 9px;
+}
 
 /* Language specific CSS */
 

@@ -177,7 +177,7 @@ func genNav(nav Navigation, currentURL *url.URL, pagesSelectable int) template.H
 		display = " style=\"display:none;\""
 		if nav.CurrentPage < int(maxPages) {
 			display = ""
-			href = " href=\"" + "/" + nav.Route + "/" + strconv.Itoa(nav.CurrentPage+1) + "?" + currentURL.RawQuery + "\""
+			href = " href=\"" + "/" + nav.Route + "/" + strconv.Itoa(int(maxPages)) + "?" + currentURL.RawQuery + "\""
 		}
 		ret = ret + "<a id=\"page-next\"" + display + href +" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a>"
 			
