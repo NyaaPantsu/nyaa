@@ -49,7 +49,7 @@
 </table>
   <div class="user-torrent-search">
   <div class="pagination">
-    <a href="/search?userID={{ UserProfile.ID }}" aria-label="Next">
+    <a href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/search" aria-label="Next">
       <span style="display:block;border-right:1px solid;">
         {{  T("see_more_torrents_from", UserProfile.Username) }}
       </span>

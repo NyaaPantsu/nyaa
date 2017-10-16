@@ -4,9 +4,10 @@
 		<tr><td>{{if Search.Category == ""}}<b>{{ T("all_categories")}}</b>{{else}}<a href="{{genSearchWithCategory(URL, "_")}}">{{ T("all_categories")}}</a>{{end}}</td></tr>
 		<tr>
 		{{ range _, cat := GetCategories(true, false) }}
-			<td>{{if Search.Category == cat.ID }}<b>{{ T(cat.Name) }}</b>{{else}}<a href="{{genSearchWithCategory(URL, cat.ID)}}">{{ T(cat.Name) }}</a>{{end}}</td>
+			<td>{{if Search.Category == cat.ID ||(len(Search.Category) > 2 && Search.Category[:2] == cat.ID)}}<b>{{ T(cat.Name) }}</b>{{else}}<a href="{{genSearchWithCategory(URL, cat.ID)}}">{{ T(cat.Name) }}</a>{{end}}</td>
 			{{ if _ % 3 == 2}}
-			</tr><tr>
+			</tr>
+			<tr>
 			{{end}}
 			{{if _ + 1 == len(GetCategories(true, false)) }}
 			</tr>{{end}}
@@ -14,6 +15,16 @@
 		</tr>
 	</tbody>
 </table>
+{{ if Search.Category != ""}}
+<div class="sub-category-list">
+	{{ range _, cat := GetCategory(Search.Category[:1], true)}}
+		<span>
+		{{if Search.Category == cat.ID}}<b>{{ T(cat.Name) }}</b>{{else}}
+		<a href="{{genSearchWithCategory(URL, cat.ID)}}">{{ T(cat.Name)}}</a>{{end}}
+		</span>
+	{{end}}
+</div>
+{{end}}
 <table id="sort-list-order">
 	<tbody>
 		<tr>
