@@ -653,12 +653,25 @@ th {
 }
 .website-nav #nav-category-list {
     width: 70%;
-    margin-bottom: 13px;
+    margin-bottom: 7px;
 }
 .website-nav .pagination a {
     display: inline!important;
 }
-
+.sub-category-list {
+    padding-left: 16px;
+	font-size: 12px;
+	margin-bottom: 9px;
+}
+.sub-category-list span{
+	display: block;
+}
+.sub-category-list span:before {
+	content: '-» ';
+}
+.sub-category-list span:first-child:before {
+	content: '';
+}
 textarea {
     max-width: 100%;
 }
