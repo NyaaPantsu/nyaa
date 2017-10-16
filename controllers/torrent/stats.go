@@ -27,12 +27,14 @@ func GetStatsHandler(c *gin.Context) {
 	}
 	
 	var Trackers []string
-	for _, line := range strings.Split(torrent.Trackers[3:], "&tr=") {
-		tracker, error := url.QueryUnescape(line)
-		if error == nil && strings.Contains(tracker, "udp://") {
-			Trackers = append(Trackers, tracker)
+	if len(Trackers) > 3 {
+		for _, line := range strings.Split(torrent.Trackers[3:], "&tr=") {
+			tracker, error := url.QueryUnescape(line)
+			if error == nil && strings.Contains(tracker, "udp://") {
+				Trackers = append(Trackers, tracker)
+			}
+			//Cannot scrape from http trackers so don't put them in the array
 		}
-		//Cannot scrape from http trackers so don't put them in the array
 	}
 	
 	for _, line := range config.Get().Torrents.Trackers.Default {
