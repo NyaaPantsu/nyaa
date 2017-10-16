@@ -18,16 +18,10 @@
 {{ if Search.Category != ""}}
 <div class="sub-category-list">
 	{{ Categories := GetCategory(Search.Category[:1], true)}}
-	{{offset := len(T(Categories[0].Name)) + 3 }}
 	{{ range _, cat := Categories}}
 		<span>
-		{{ if _ > 0}}
-		{{if Search.Category == cat.ID}}<b>{{ T(cat.Name)[offset:] }}</b>{{else}}
-		<a href="{{genSearchWithCategory(URL, cat.ID)}}">{{ T(cat.Name)[offset:] }}</a>{{end}}
-		{{else}}
 		{{if Search.Category == cat.ID}}<b>{{ T(cat.Name) }}</b>{{else}}
-		<a href="{{genSearchWithCategory(URL, cat.ID)}}">{{ T(cat.Name) }}</a>{{end}}
-		{{end}}
+		<a href="{{genSearchWithCategory(URL, cat.ID)}}">{{ T(cat.Name)}}</a>{{end}}
 		</span>
 	{{end}}
 </div>
