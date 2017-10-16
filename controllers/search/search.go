@@ -75,7 +75,7 @@ func SearchHandler(c *gin.Context) {
 	
 	searchForm.TorrentParam, searchForm.Category = searchParam, category
 
-	if c.Query("refine") == "1" {
+	if c.Query("refine") == "1" || nbTorrents == 0 {
 		searchForm.ShowRefine = true
 	}
 
