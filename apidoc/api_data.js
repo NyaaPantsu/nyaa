@@ -1044,7 +1044,7 @@ define({
       }
     },
     {
-      "type": "post",
+      "type": "get",
       "url": "/profile/",
       "title": "Get a user profile",
       "version": "1.1.1",
