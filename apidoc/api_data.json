@@ -1109,6 +1109,97 @@
     }
   },
   {
+    "type": "post",
+    "url": "/user/",
+    "title": "Get a private user profile",
+    "version": "1.1.1",
+    "name": "Private_Profile",
+    "group": "Users",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "access_token",
+            "description": "<p>Token sent by the OAuth API</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "ok",
+            "description": "<p>The request is done without failing</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "infos",
+            "description": "<p>Messages information relative to the request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>The connected user object</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n\t\t{\n\t\t\tdata:\n      \t\t[{\n\t\t\t\t\tuser_id:1,\n\t\t\t\t\tusername:\"username\",\n\t\t\t\t\tstatus:1,\n\t\t\t\t\ttoken:\"token\",\n\t\t\t\t\tmd5:\"\",\n\t\t\t\t\tcreated_at:\"date\",\n\t\t\t\t\tliking_count:0,\n\t\t\t\t\tliked_count:0\n\t\t\t\t}],\n\t\t\tinfos: [\"Logged\", ... ],\n\t\t\tok:true\n\t\t}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "controllers/api/api.go",
+    "groupTitle": "Users",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "Boolean",
+            "optional": false,
+            "field": "ok",
+            "description": "<p>The request couldn't be done due to some errors.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "String[]",
+            "optional": false,
+            "field": "errors",
+            "description": "<p>List of errors messages.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "Object[]",
+            "optional": false,
+            "field": "all_errors",
+            "description": "<p>List of errors object messages for each wrong field</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 200 OK\n    {\n      \"ok\": false,\n      \"errors\": [ ... ]\n      \"all_errors\": {\n\t\t \t\"username\": [ ... ],\n       }\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
     "type": "get",
     "url": "/profile/",
     "title": "Get a user profile",
