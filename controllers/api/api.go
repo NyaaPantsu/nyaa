@@ -515,7 +515,7 @@ func APILoginHandler(c *gin.Context) {
 }
 
 /**
- * @api {post} /profile/ Get a user profile
+ * @api {get} /profile/ Get a user profile
  * @apiVersion 1.1.1
  * @apiName Profile
  * @apiGroup Users
