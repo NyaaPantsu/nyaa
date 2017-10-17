@@ -696,7 +696,7 @@ define({ "api": [
     }
   },
   {
-    "type": "post",
+    "type": "put",
     "url": "/update/",
     "title": "Update a Torrent",
     "version": "1.1.1",
