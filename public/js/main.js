@@ -6,6 +6,8 @@ var farFutureString
 //Array that will contain the themes that the user will switch between when triggering the function a few lines under
 var UserTheme
 
+var Mirror = false
+
 // Switches between themes when a new one is selected
 function switchThemes() {
   var themeName = document.getElementById("theme-selector").value
@@ -92,15 +94,16 @@ function resetCookies() {
   //Get HostName without subDomain
   var hostName = window.location.host
 
-  var lastDotIndex = hostName.lastIndexOf(".")
-  var secondLast = -1
-  
-  for(var index = 0; index < lastDotIndex; index++) {
-    if(hostName[index] == '.')
-      secondLast = index
+  if(!Mirror) {
+	  var lastDotIndex = hostName.lastIndexOf(".")
+	  var secondLast = -1
+	  
+	  for(var index = 0; index < lastDotIndex; index++) {
+		if(hostName[index] == '.')
+		  secondLast = index
+	  }
+	  hostName = hostName.substr(secondLast == -1 ? 0 : secondLast)
   }
-  hostName = hostName.substr(secondLast == -1 ? 0 : secondLast)
-  if(!hostName.includes(domain)) domain = window.location.host
 
   for (var i = 0; i < cookies.length; i++) {
     var cookieName = (cookies[i].split("=")[0]).trim()
@@ -152,6 +155,12 @@ function startupCode() {
   if (location.hash) shiftWindow()
   window.addEventListener("hashchange", shiftWindow)
 
+
+  if(!window.location.host.includes(domain)) {
+	  domain = window.location.host
+	  Mirror = true
+  }
+
   if (!document.cookie.includes("commit") && !document.cookie.includes("version"))
     resetCookies()
   else {
@@ -159,7 +168,6 @@ function startupCode() {
     if (userCommitVersion != commitVersion || userWebsiteVersion != websiteVersion)
       resetCookies()
   }
-  if(!window.location.host.includes(domain)) domain = window.location.host
   
   if(document.getElementById("cookie-warning-close") != null) {
 	document.getElementById("cookie-warning-close").addEventListener("click", function (e) {
@@ -285,9 +293,11 @@ function humanFileSize(bytes, si) {
 }
 
 function getCookieValue(cookieName) {
-    var startPos = document.cookie.indexOf(cookieName + "=") + cookieName.length + 1
+    var startPos = document.cookie.indexOf(cookieName + "=") 
+    if(startPos == -1) return ""
+    startPos +=  cookieName.length + 1
     var endPos = document.cookie.substring(startPos).indexOf(";")
-    return endPos == "-1" ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos)
+    return endPos == -1 ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos)
 }
 
 // @license-end

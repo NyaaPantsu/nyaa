@@ -65,7 +65,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 func getRawQuery(currentURL *url.URL) string {
 	return currentURL.RawQuery
 }
-func genSearchWithOrdering(currentURL *url.URL, sortBy string) string {
+func genSearchWithOrdering(currentURL *url.URL, sortBy string, searchRoute string) string {
 	values := currentURL.Query()
 	order := false //Default is DESC
 	sort := "2"    //Default is Date (Actually ID, but Date is the same thing)
@@ -86,13 +86,13 @@ func genSearchWithOrdering(currentURL *url.URL, sortBy string) string {
 	values.Set("sort", sortBy)
 	values.Set("order", strconv.FormatBool(order))
 
-	u, _ := url.Parse("/search")
+	u, _ := url.Parse(searchRoute)
 	u.RawQuery = values.Encode()
 
 	return u.String()
 }
 
-func genSearchWithCategory(currentURL *url.URL, category string) string {
+func genSearchWithCategory(currentURL *url.URL, category string, searchRoute string) string {
 	values := currentURL.Query()
 	cat := "_" //Default
 
@@ -104,7 +104,7 @@ func genSearchWithCategory(currentURL *url.URL, category string) string {
 
 	values.Set("c", cat)
 
-	u, _ := url.Parse("/search")
+	u, _ := url.Parse(searchRoute)
 	u.RawQuery = values.Encode()
 
 	return u.String()
@@ -177,7 +177,7 @@ func genNav(nav Navigation, currentURL *url.URL, pagesSelectable int) template.H
 		display = " style=\"display:none;\""
 		if nav.CurrentPage < int(maxPages) {
 			display = ""
-			href = " href=\"" + "/" + nav.Route + "/" + strconv.Itoa(nav.CurrentPage+1) + "?" + currentURL.RawQuery + "\""
+			href = " href=\"" + "/" + nav.Route + "/" + strconv.Itoa(int(maxPages)) + "?" + currentURL.RawQuery + "\""
 		}
 		ret = ret + "<a id=\"page-next\"" + display + href +" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a>"
 			

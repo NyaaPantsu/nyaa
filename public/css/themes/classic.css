@@ -16,6 +16,9 @@ body, .header {
         margin-top: 0!important;
     }
 }
+.modtools {
+    top: 43px;
+}
 .torrent-info-data {
     font-family: Arial, sans-serif!important;
 }
@@ -58,9 +61,6 @@ a:hover {
     text-decoration: underline;
 }
 
-#content {
-    top: 31px!important;
-}
 .upload-form-table .checkbox-container+input {
     width: 385px;
 }
@@ -124,13 +124,19 @@ th.tr-name a {
 .icon-magnet:before {
     font-size: 14px;
 }
-.icon-floppy::before {
+
+.icon-floppy:before {
     content: '';
 }
 .icon-floppy {
     background: url("/img/dl-link.png") no-repeat center;
 }
-
+.upload-tag-table .input-label {
+    font-size: 12px;
+}
+.header, #header-height-offset {
+    height: 40px;
+}
 .header {
     background: url("/img/topbar.png") repeat-x black;
     background: linear-gradient(to bottom, #6d6d6d 0%, #000000 72%);
@@ -419,7 +425,7 @@ span.comment-index+p a:hover {
     float: right;
     margin-top: 7px;
 }
-.torrent-buttons a{
+.torrent-buttons a, .torrent-buttons button {
     height: 26px!important;
     background: linear-gradient(to bottom, #33ca98 0%, #336867 72%);
     color: white!important;
@@ -677,9 +683,9 @@ span.tag {
     padding: 7px 3px;
 }
 .upload-tag-table .form-group {
-    margin-right: 8px;
+    margin-right: 11px;
 }
 .upload-tag-table .form-group input, .upload-tag-table .form-group select {
-    width: 118px!important;
+    width: 128px!important;
     height: 20px;
 }

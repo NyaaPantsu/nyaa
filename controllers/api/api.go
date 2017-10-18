@@ -300,7 +300,7 @@ func APIUploadHandler(c *gin.Context) {
 }
 
 /**
- * @api {post} /update/ Update a Torrent
+ * @api {put} /update/ Update a Torrent
  * @apiVersion 1.1.1
  * @apiName UpdateTorrent
  * @apiGroup Torrents
@@ -515,7 +515,7 @@ func APILoginHandler(c *gin.Context) {
 }
 
 /**
- * @api {post} /profile/ Get a user profile
+ * @api {get} /profile/ Get a user profile
  * @apiVersion 1.1.1
  * @apiName Profile
  * @apiGroup Users
@@ -564,7 +564,7 @@ func APIProfileHandler(c *gin.Context) {
 }
 
 /**
- * @api {post} /user/ Get a private user profile
+ * @api {get} /user/ Get a private user profile
  * @apiVersion 1.1.1
  * @apiName Private Profile
  * @apiGroup Users

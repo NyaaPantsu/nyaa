@@ -22,13 +22,14 @@
         <td class="tr-size home-td">{{.User.Username}}</td>
         <td class="tr-actions home-td">{{ getReportDescription(.Description, T) }}</td>
         <td class="tr-actions home-td">
-          <a href="/mod/torrent/delete?id={{ .Torrent.ID }}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;">
-            <i class="icon-trash"></i>{{  T("delete_torrent") }}
-          </a>
-          <br/>
-          <a href="/mod/report/delete?id={{ .ID }}" class="form-input btn-red">
-            <i class="icon-trash"></i>{{  T("delete_report") }}
-          </a>
+ 	<form method="POST" action="/mod/torrent/delete">
+	  <input type="hidden" name="id" value="{{ .Torrent }}">
+	  <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete_torrent") }}</button>
+	</form>
+ 	<form method="POST" action="/mod/report/delete">
+	  <input type="hidden" name="id" value="{{ .ID }}">
+	  <button type="submit" class="form-input btn-red"><i class="icon-attention"></i> {{  T("delete_report") }}</button>
+	</form>
         </td>
       </tr>
       {{end}}

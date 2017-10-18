@@ -126,6 +126,9 @@ a.form-input[class*="btn"]:hover {
     background: #141517;
     color: #c5c8c6;
 }
+.sukebei .pagination .active {
+    color: #ff5252;
+}
 
 .pagination .disabled {
     color: #141517;
@@ -333,4 +336,14 @@ span.tag {
 
 .torrent-info-row .tr-se span, .torrent-info-row .tr-le span, .torrent-info-row .tr-dl span {
     background-color: #544433;
+}
+
+.admin-content tr:hover {
+    background: #201f23;
+}
+.admin-content tr:hover a {
+    color: #bbd2e6;
+}
+.sukebei .admin-content tr:hover a {
+    color: #ea8c8c;
 }

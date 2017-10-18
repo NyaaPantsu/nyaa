@@ -15,7 +15,7 @@ import (
 
 // TorrentDeleteUserPanel : Controller for deleting a user torrent by a user
 func TorrentDeleteUserPanel(c *gin.Context) {
-	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
+	id, _ := strconv.ParseInt(c.PostForm("id"), 10, 32)
 	currentUser := router.GetUser(c)
 	torrent, _ := torrents.FindByID(uint(id))
 	if currentUser.CurrentOrAdmin(torrent.UploaderID) && torrent.ID > 0 {

@@ -8,11 +8,11 @@
 </select>
 {{end}}
 {{block search_button() }}
-<input class="form-input search-box" name="q" placeholder="{{ T("search")}}" type="text" value="{{Search.NameLike}}"/>
+<input class="form-input search-box" name="q" placeholder="{{ if Search.UserName == ""}}{{ T("search")}}{{else}}{{ T("search_from_specific_user", Search.UserName)}}{{end}}" type="text" value="{{Search.NameLike}}"/>
 <button type="submit" class="form-input icon-search"></button><button type="submit" class="form-input refine" name="refine" value="1">{{  T("refine")}}</button>
 {{end}}
 {{block search_refine(url="") }}
-<div {{ if !Search.ShowRefine }}style="display: none;"{{end}} class="box refine">
+<div class="box refine" {{ if !Search.ShowRefine }}style="display: none;"{{end}}>
   <form method="GET" action="{{ url }}">
     <h3>{{ T("refine_search") }}</h3>
 	<div>

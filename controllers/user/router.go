@@ -26,16 +26,18 @@ func init() {
 	// User Profile specific routes
 	userRoutes := router.Get().Group("/user")
 	{
+		userRoutes.GET("", RedirectToUserSearch)
 		userRoutes.GET("/:id", UserProfileHandler)
 		userRoutes.GET("/:id/:username", UserProfileHandler)
 		userRoutes.GET("/:id/:username/follow", UserFollowHandler)
 		userRoutes.GET("/:id/:username/edit", UserDetailsHandler)
 		userRoutes.POST("/:id/:username/edit", UserProfileFormHandler)
 		userRoutes.GET("/:id/:username/apireset", UserAPIKeyResetHandler)
-		userRoutes.GET("/:id/:username/search", searchController.UserSearchHandler)
-		userRoutes.GET("/:id/:username/search/:page", searchController.UserSearchHandler)
+		userRoutes.GET("/:id/:username/search", searchController.SearchHandler)
+		userRoutes.GET("/:id/:username/search/:page", searchController.SearchHandler)
 		userRoutes.GET("/:id/:username/feed", feedController.RSSHandler)
 		userRoutes.GET("/:id/:username/feed/:page", feedController.RSSHandler)
+		userRoutes.POST("/:id/:username/delete", UserProfileDelete)
 	}
 	
 	router.Get().Any("/username", RedirectToUserSearch)

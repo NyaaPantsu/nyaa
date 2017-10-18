@@ -1,15 +1,14 @@
 package torrentController
 
 import (
-	"text/template"
 	"strconv"
 	"strings"
 	"net/url"
 	"time"
-	"fmt"
 
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/Stephen304/goscrape"
 	"github.com/gin-gonic/gin"
 )
@@ -28,14 +27,21 @@ func GetStatsHandler(c *gin.Context) {
 	}
 	
 	var Trackers []string
-	for _, line := range strings.Split(torrent.Trackers[3:], "&tr=") {
-		//Starts at character 3 because the three first characters are always "tr=" so we need to dismiss them
-		tracker, error := url.QueryUnescape(line)
-		if error == nil && tracker[:6] == "udp://" {
-			Trackers = append(Trackers, tracker)
+	if len(Trackers) > 3 {
+		for _, line := range strings.Split(torrent.Trackers[3:], "&tr=") {
+			tracker, error := url.QueryUnescape(line)
+			if error == nil && strings.Contains(tracker, "udp://") {
+				Trackers = append(Trackers, tracker)
+			}
+			//Cannot scrape from http trackers so don't put them in the array
 		}
-		//Cannot scrape from http trackers so don't put them in the array
-	}	
+	}
+	
+	for _, line := range config.Get().Torrents.Trackers.Default {
+		if !contains(Trackers, line) {
+			Trackers = append(Trackers, line)
+		}
+	}
 
 	stats := goscrape.Single(Trackers, []string{
 	  torrent.Hash,
@@ -47,22 +53,40 @@ func GetStatsHandler(c *gin.Context) {
 		stats.Seeders = -1
 	}
 	
-	t, err := template.New("foo").Parse(fmt.Sprintf(`{{define "stats"}}{ "seeders": [%d], "leechers": [%d], "downloads": [%d] }{{end}}`, stats.Seeders, stats.Leechers, stats.Completed))
-	t.ExecuteTemplate(c.Writer, "stats", "")
-	//No idea how to output JSON properly
+	c.JSON(200, gin.H{
+ 		"seeders": stats.Seeders,
+ 		"leechers": stats.Leechers,
+ 		"downloads": stats.Completed,
+ 	})
 	
-	//We don't want to do useless DB queries if the stats are empty, and we don't want to overwrite good stats with empty ones
-	if stats.Seeders != -1 {
-		var tmp models.Scrape
-		if models.ORM.Where("torrent_id = ?", id).Find(&tmp).RecordNotFound() {
-			torrent.Scrape = torrent.Scrape.Create(uint(id), uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now())
-			//Create entry in the DB because none exist
-		} else {
+	if stats.Seeders == -1 {
+		stats.Seeders = 0
+	}
+	
+	var CurrentData models.Scrape
+	if models.ORM.Where("torrent_id = ?", id).Find(&CurrentData).RecordNotFound() {
+		torrent.Scrape = torrent.Scrape.Create(uint(id), uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now())
+		//Create entry in the DB because none exist
+	} else {
+		//Entry in the DB already exists, simply update it
+		if (CurrentData.Seeders == 0 && CurrentData.Leechers == 0 && CurrentData.Completed == 0) || (stats.Seeders != 0 && stats.Leechers != 0 && stats.Completed != 0 ) {
 			torrent.Scrape = &models.Scrape{uint(id), uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now()}
-			torrent.Scrape.Update(false)
-			//Entry in the DB already exists, simply update it
+		} else {
+			torrent.Scrape = &models.Scrape{uint(id), uint32(CurrentData.Seeders), uint32(CurrentData.Leechers), uint32(CurrentData.Completed), time.Now()}
 		}
+		//Only overwrite stats if the old one are Unknown OR if the current ones are not unknown, preventing good stats from being turned into unknown own but allowing good stats to be updated to more reliable ones
+		torrent.Scrape.Update(false)
+		
 	}
 	
 	return
+}
+
+func contains(s []string, e string) bool {
+    for _, a := range s {
+        if a == e {
+            return true
+        }
+    }
+    return false
 }
