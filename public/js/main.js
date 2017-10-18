@@ -56,8 +56,10 @@ function parseAllDates() {
   var list = document.getElementsByClassName("date-short")
   for(var i = 0; i < list.length; i++) {
     var e = list[i]
+    if(e.className.includes("date-converted")) continue
     e.innerText = new Date(e.title).toLocaleString(lang, ymdOpt)
     e.title = new Date(e.title).toLocaleString(lang)
+    e.className = e.className + " date-converted"
   }
 
   var list = document.getElementsByClassName("date-full")
