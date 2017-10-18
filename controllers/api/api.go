@@ -221,7 +221,7 @@ func APIViewHeadHandler(c *gin.Context) {
  * @apiParam {String} username Torrent uploader name.
  * @apiParam {String} name Torrent name.
  * @apiParam {String} magnet Torrent magnet URI.
- * @apiParam {String} category Torrent category.
+ * @apiParam {String} c Torrent category.
  * @apiParam {Boolean} remake Torrent is a remake.
  * @apiParam {String} description Torrent description.
  * @apiParam {Number} status Torrent status.
@@ -308,7 +308,7 @@ func APIUploadHandler(c *gin.Context) {
  * @apiParam {String} username Torrent uploader name.
  * @apiParam {Number} id Torrent ID.
  * @apiParam {String} name Torrent name.
- * @apiParam {String} category Torrent category.
+ * @apiParam {String} c Torrent category.
  * @apiParam {Boolean} remake Torrent is a remake.
  * @apiParam {String} description Torrent description.
  * @apiParam {Number} status Torrent status.
