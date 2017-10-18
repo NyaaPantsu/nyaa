@@ -730,7 +730,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "category",
+            "field": "c",
             "description": "<p>Torrent category.</p>"
           },
           {
@@ -884,7 +884,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "category",
+            "field": "c",
             "description": "<p>Torrent category.</p>"
           },
           {
@@ -1109,7 +1109,7 @@ define({ "api": [
     }
   },
   {
-    "type": "post",
+    "type": "get",
     "url": "/user/",
     "title": "Get a private user profile",
     "version": "1.1.1",
