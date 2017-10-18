@@ -357,9 +357,9 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		statsObsolete[0] = true
 		//The displayed stats are obsolete, S/D/L will show "Unknown"
 	}
-	if time.Since(scrape.LastScrape).Hours() > 730 || (scrape.Seeders == 0 && scrape.Leechers == 0 && scrape.Completed == 0 && time.Since(scrape.LastScrape).Hours() > 12) {
+	if time.Since(scrape.LastScrape).Hours() > 730 || (scrape.Seeders == 0 && scrape.Leechers == 0 && scrape.Completed == 0 && time.Since(scrape.LastScrape).Hours() >= 1) {
 		statsObsolete[1] = true
-		//The stats need to be refreshed, either because they are valid and older than one months (not as reliable) OR if they are unknown but have been scraped more than 12h ago
+		//The stats need to be refreshed, either because they are valid and older than one month (not that reliable) OR if they are unknown but have been scraped 1h (or more) ago
 	}
 	
 	t.ParseLanguages()
