@@ -57,3 +57,5 @@
 * + user_search_explanation
 ## 2017/10/09
 * + no_api_token
+## 2017/10/19
+* + userstatus_uploader
