@@ -196,17 +196,17 @@ func (u *User) CanUpload() bool {
 func (u *User) GetRole() string {
 	switch u.Status {
 	case UserStatusBanned:
-		return "Banned"
+		return "banned"
 	case UserStatusMember:
-		return "Member"
+		return "member"
 	case UserStatusScraped:
-		return "Member"
+		return "scraped"
 	case UserStatusTrusted:
-		return "Trusted Member"
+		return "trusted"
 	case UserStatusModerator:
-		return "Moderator"
+		return "moderator"
 	}
-	return "Member"
+	return "member"
 }
 
 // IsFollower : Check if a user is following another
