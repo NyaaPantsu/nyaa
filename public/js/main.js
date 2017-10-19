@@ -48,10 +48,6 @@ function parseAllDates() {
     month: "short",
     day: "numeric"
   }
-  var hmOpt = {
-    hour: "numeric",
-    minute: "numeric"
-  }
 
   var list = document.getElementsByClassName("date-short")
   for(var i = 0; i < list.length; i++) {
