@@ -67,10 +67,19 @@ function parseAllDates() {
     var e = list[i]
     var dateDifference = dateDiff(new Date(e.innerText), new Date())
     
+    e.
+    
     if(e.className != undefined && e.className.includes("scrape-date"))
-      e.title = ((dateDifference.d * 24) + dateDifference.h) + " hours " + dateDifference.m + " minutes ago"
-    else
-      e.title = dateDifference.d + " days " + dateDifference.h + " hours ago"
+      var H = (dateDifference.d * 24) + dateDifference.h)
+      e.title = e.title + (H == 0 ? "" : H+" hours")
+      e.title = e.title + (dateDifference.m == 0 ? "" : dateDifference.m+" minutes")
+      e.title = e.title + " ago"
+    else {
+      e.title = (dateDifference.d == 0 ? "" : dateDifference.d+" days")
+      e.title = e.title + (dateDifference.h == 0 ? "" : dateDifference.h+" hours")
+      e.title = e.title + (dateDifference.m == 0 ? "" : dateDifference.m+" minutes")
+      e.title = e.title + " ago"
+    }
 	  
     e.innerText = new Date(e.innerText).toLocaleString(lang)
   }
