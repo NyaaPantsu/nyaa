@@ -209,7 +209,7 @@
     <p><img src="https://www.gravatar.com/avatar/{{ element.UserAvatar }}"/>
 	{{if element.UserID > 0}}<a href="/user/{{element.UserID}}/{{element.Username}}" class="comment-user">{{element.Username}}</a>{{getUserStatus(element.UserID, Torrent.UploaderID, true, T)|raw}}{{else}}
 	<span>れんちょん</span>{{end}}
-    <p class="comment-content">{{element.Content|raw}}</p>
+    <div class="comment-content">{{element.Content|raw}}</div>
   </div>
   {{idx = idx + 1}}
   {{end}}
