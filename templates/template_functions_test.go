@@ -783,10 +783,10 @@ func testFormatDate(t *testing.T) {
  
  func testUserStatus(t *testing.T) {
  	var tests = []struct {
- 		domainName string
+ 		domainName template.HTML
  	}{
  		{
- 			domainName:  "test",
+			domainName:  template.HTML("test"),
  		},
  	}
  	for _, test := range tests {
