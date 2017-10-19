@@ -256,8 +256,8 @@
     "translation": "Sign-out"
   },
   {
-    "id": "member",
-    "translation": "Member"
+    "id": "userstatus_member",
+    "translation": "userstatus_member"
   },
   {
     "id": "no_results_found",
@@ -605,7 +605,7 @@
   },
   {
     "id": "userstatus_banned",
-    "translation": "userstatus_banned"
+    "translation": "Banned"
   },
   {
     "id": "default",
@@ -621,7 +621,7 @@
   },
   {
     "id": "userstatus_moderator",
-    "translation": "userstatus_moderator"
+    "translation": "Moderator"
   },
   {
     "id": "userstatus_uploader",
