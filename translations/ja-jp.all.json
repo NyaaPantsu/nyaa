@@ -765,7 +765,7 @@
   },
   {
     "id": "report_torrent_number",
-    "translation": "Torrent #%s を通報"
+    "translation": "Torrent #%d を通報"
   },
   {
     "id": "report_type",
