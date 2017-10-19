@@ -588,7 +588,7 @@
     "translation": "角色"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "帳號已被停用"
   },
   {
@@ -596,15 +596,15 @@
     "translation": "預設值"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "受信任會員"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Scraped user"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "管理員"
   },
   {

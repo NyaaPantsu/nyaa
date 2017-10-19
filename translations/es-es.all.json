@@ -588,7 +588,7 @@
     "translation": "Rol"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "Suspendido"
   },
   {
@@ -596,15 +596,15 @@
     "translation": "Por defecto"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Miembro Confiable"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Scraped user"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "Moderador"
   },
   {

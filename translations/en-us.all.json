@@ -605,7 +605,7 @@
   },
   {
     "id": "userstatus_banned",
-    "translation": "Banned"
+    "translation": "userstatus_banned"
   },
   {
     "id": "default",
@@ -621,7 +621,7 @@
   },
   {
     "id": "userstatus_moderator",
-    "translation": "Moderator"
+    "translation": "userstatus_moderator"
   },
   {
     "id": "userstatus_uploader",

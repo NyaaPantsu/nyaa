@@ -604,7 +604,7 @@
     "translation": "役割"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "BAN"
   },
   {
@@ -612,15 +612,15 @@
     "translation": "デフォルト"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "高信頼アカウント"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "保留ユーザー"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "モデレーター"
   },
   {

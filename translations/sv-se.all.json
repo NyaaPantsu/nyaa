@@ -588,7 +588,7 @@
     "translation": "Roll"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "Bannad"
   },
   {
@@ -596,16 +596,16 @@
     "translation": "Standard"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Pålitlig medlem"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Scraped user"
   },
   {
-    "id": "moderator",
-    "translation": "Moderator"
+    "id": "userstatus_moderator",
+    "translation": "userstatus_moderator"
   },
   {
     "id": "api_token",

@@ -588,7 +588,7 @@
     "translation": "Szerep"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "Bannolt"
   },
   {
@@ -596,15 +596,15 @@
     "translation": "Alapértelmezett"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Megbízható Tag"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Scraped user"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "Moderátor"
   },
   {

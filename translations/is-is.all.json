@@ -588,7 +588,7 @@
     "translation": "Hlutverk"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "Bannaður"
   },
   {
@@ -596,15 +596,15 @@
     "translation": "Sjálfgefið"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Heiðursmeðlimur"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Scraped user"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "Stjórnandi"
   },
   {
