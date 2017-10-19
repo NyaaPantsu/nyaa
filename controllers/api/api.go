@@ -221,7 +221,7 @@ func APIViewHeadHandler(c *gin.Context) {
  * @apiParam {String} username Torrent uploader name.
  * @apiParam {String} name Torrent name.
  * @apiParam {String} magnet Torrent magnet URI.
- * @apiParam {String} category Torrent category.
+ * @apiParam {String} c Torrent category.
  * @apiParam {Boolean} remake Torrent is a remake.
  * @apiParam {String} description Torrent description.
  * @apiParam {Number} status Torrent status.
@@ -300,7 +300,7 @@ func APIUploadHandler(c *gin.Context) {
 }
 
 /**
- * @api {post} /update/ Update a Torrent
+ * @api {put} /update/ Update a Torrent
  * @apiVersion 1.1.1
  * @apiName UpdateTorrent
  * @apiGroup Torrents
@@ -308,7 +308,7 @@ func APIUploadHandler(c *gin.Context) {
  * @apiParam {String} username Torrent uploader name.
  * @apiParam {Number} id Torrent ID.
  * @apiParam {String} name Torrent name.
- * @apiParam {String} category Torrent category.
+ * @apiParam {String} c Torrent category.
  * @apiParam {Boolean} remake Torrent is a remake.
  * @apiParam {String} description Torrent description.
  * @apiParam {Number} status Torrent status.
@@ -515,7 +515,7 @@ func APILoginHandler(c *gin.Context) {
 }
 
 /**
- * @api {post} /profile/ Get a user profile
+ * @api {get} /profile/ Get a user profile
  * @apiVersion 1.1.1
  * @apiName Profile
  * @apiGroup Users
@@ -564,7 +564,7 @@ func APIProfileHandler(c *gin.Context) {
 }
 
 /**
- * @api {post} /user/ Get a private user profile
+ * @api {get} /user/ Get a private user profile
  * @apiVersion 1.1.1
  * @apiName Private Profile
  * @apiGroup Users

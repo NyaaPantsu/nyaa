@@ -18,35 +18,35 @@
         {{end}}
         <th class="tr-cat">{{ T("category")}}</th>
         <th class="tr-name">
-          <a href="{{ genSearchWithOrdering(URL, "1") }}">
+          <a href="{{ genSearchWithOrdering(URL, "1", Search.SearchURL) }}">
             {{ T("name")}}
             <span class="sort-arrows">{{ genSortArrows(URL, "1")|raw }}</span>
           </a>
         </th>
         <th class="tr-cs" style="font-size: 0px;">Msg</th>
         <th class="tr-links"></th>
-        <th class="tr-size hide-xs"><a href="{{ genSearchWithOrdering(URL, "4") }}">{{ T("size")}}<span class="sort-arrows">{{ genSortArrows(URL, "4")|raw }}</span></a></th>
+        <th class="tr-size hide-xs"><a href="{{ genSearchWithOrdering(URL, "4", Search.SearchURL) }}">{{ T("size")}}<span class="sort-arrows">{{ genSortArrows(URL, "4")|raw }}</span></a></th>
 
         <th class="tr-se hide-smol">
-          <a href="{{ genSearchWithOrdering(URL, "5") }}">
+          <a href="{{ genSearchWithOrdering(URL, "5", Search.SearchURL) }}">
             {{ T("S")}}
             <span class="sort-arrows">{{ genSortArrows(URL, "5")|raw }}</span>
           </a>
         </th>
         <th class="tr-le hide-smol">
-          <a href="{{ genSearchWithOrdering(URL, "6") }}">
+          <a href="{{ genSearchWithOrdering(URL, "6", Search.SearchURL) }}">
             {{ T("L")}}
             <span class="sort-arrows">{{ genSortArrows(URL, "6")|raw }}</span>
           </a>
         </th>
         <th class="tr-dl hide-xs">
-          <a href="{{ genSearchWithOrdering(URL, "7") }}">
+          <a href="{{ genSearchWithOrdering(URL, "7", Search.SearchURL) }}">
             {{ T("D")}}
             <span class="sort-arrows">{{ genSortArrows(URL, "7")|raw }}</span>
           </a>
         </th>
         <!-- <th><span class="glyphicon glyphicon-comment"></span></th> -->
-        <th class="tr-date hide-xs"><a href="{{ genSearchWithOrdering(URL, "2") }}">
+        <th class="tr-date hide-xs"><a href="{{ genSearchWithOrdering(URL, "2", Search.SearchURL) }}">
           {{ T("date")}}
           <span class="sort-arrows">{{ genSortArrows(URL, "2")|raw }}</span>
         </a>
@@ -93,7 +93,7 @@
         <td class="tr-size home-td hide-xs">
           {{ fileSize(.Filesize, T) }}
         </td>
-        {{if .LastScrape.IsZero || formatDateRFC(.LastScrape) == "0001-01-01T00:00:00Z"}}
+        {{if .StatsObsolete[0] }}
         <td class="tr-se home-td hide-smol">-</td>
         <td class="tr-le home-td hide-smol">-</td>
         <td class="tr-dl home-td hide-xs">-</td>
