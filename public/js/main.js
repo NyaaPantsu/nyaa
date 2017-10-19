@@ -71,6 +71,8 @@ function parseAllDates() {
     e.title = (dateDifference.d == 0 ? "" : dateDifference.d+" days ")
     e.title = e.title + (dateDifference.h == 0 ? "" : dateDifference.h+" hours ")
     e.title = e.title + (dateDifference.m == 0 ? "" : dateDifference.m+" minutes ")
+	if(e.title == "") 
+		e.title = dateDifference.s + " seconds "
     e.title = e.title + "ago"
 	  
     e.innerText = new Date(e.innerText).toLocaleString(lang)
@@ -80,9 +82,10 @@ function dateDiff( str1, str2 ) {
     var diff = Date.parse( str2 ) - Date.parse( str1 ); 
     return isNaN( diff ) ? NaN : {
         diff : diff,
-	m  : Math.floor( diff /     60000 %   60 ),
-        h  : Math.floor( diff /  3600000 %   24 ),
-        d  : Math.floor( diff / 86400000        )
+		s  : Math.floor( diff /     1000          ),
+		m  : Math.floor( diff /    60000 %     60 ),
+        h  : Math.floor( diff /  3600000 %     24 ),
+        d  : Math.floor( diff / 86400000          )
     };
 }
 parseAllDates()
