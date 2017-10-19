@@ -1493,6 +1493,9 @@ input.filelist-checkbox:checked+table.table-filelist {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
+.modal-body :first-child {
+    margin-top: 0;
+}
 
 
 /* Modal Footer */
