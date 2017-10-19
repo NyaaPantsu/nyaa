@@ -475,7 +475,7 @@ func getUserStatus(userid uint, uploaderID uint, commentList bool, T publicSetti
 			}
 			return template.HTML("")
 		}
-		return T("userstatus_" + user.GetRole())
+		return template.HTML(T("userstatus_" + user.GetRole()))
 	}
 	return template.HTML("")
 }
