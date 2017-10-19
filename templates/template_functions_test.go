@@ -1,481 +1,828 @@
 package templates
 
 import (
-	"html/template"
-    "path/filepath"
-	"math"
-	"math/rand"
-	"net/url"
-	"strconv"
-	"time"
-	"os"
 	"fmt"
+	"html/template"
+	"net/url"
+	"path"
+	"testing"
 
-	"strings"
+	"time"
 
-	"github.com/CloudyKit/jet"
+	"reflect"
+
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
-	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/utils/categories"
-	"github.com/NyaaPantsu/nyaa/utils/filelist"
-	"github.com/NyaaPantsu/nyaa/utils/format"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
-	"github.com/NyaaPantsu/nyaa/utils/torrentLanguages"
-	"github.com/NyaaPantsu/nyaa/models/users"
 )
 
-// FuncMap : Functions accessible in templates by {{ $.Function }}
-func templateFunctions(vars jet.VarMap) jet.VarMap {
-	vars.Set("getRawQuery", getRawQuery)
-	vars.Set("genSearchWithOrdering", genSearchWithOrdering)
-	vars.Set("genSearchWithCategory", genSearchWithCategory)
-	vars.Set("genSortArrows", genSortArrows)
-	vars.Set("genNav", genNav)
-	vars.Set("Sukebei", config.IsSukebei)
-	vars.Set("getDefaultLanguage", publicSettings.GetDefaultLanguage)
-	vars.Set("FlagCode", flagCode)
-	vars.Set("getAvatar", getAvatar)
-	vars.Set("torrentFileExists", torrentFileExists)
-	vars.Set("formatDateRFC", formatDateRFC)
-	vars.Set("GetHostname", format.GetHostname)
-	vars.Set("GetCategories", categories.GetSelect)
-	vars.Set("GetCategory", getCategory)
-	vars.Set("CategoryName", categoryName)
-	vars.Set("GetTorrentLanguages", torrentLanguages.GetTorrentLanguages)
-	vars.Set("LanguageName", languageName)
-	vars.Set("LanguageNameFromCode", languageNameFromCode)
-	vars.Set("fileSize", fileSize)
-	vars.Set("DefaultUserSettings", defaultUserSettings)
-	vars.Set("makeTreeViewData", makeTreeViewData)
-	vars.Set("lastID", lastID)
-	vars.Set("getReportDescription", getReportDescription)
-	vars.Set("genUploaderLink", genUploaderLink)
-	vars.Set("genActivityContent", genActivityContent)
-	vars.Set("contains", contains)
-	vars.Set("toString", toString)
-	vars.Set("kilo_strcmp", kilo_strcmp)
-	vars.Set("kilo_strfind", kilo_strfind)
-	vars.Set("kilo_rand", kilo_rand)
-	vars.Set("getDomainName", getDomainName)
-	vars.Set("getThemeList", getThemeList)
-	vars.Set("formatThemeName", formatThemeName)
-	vars.Set("formatDate", formatDate)
-	vars.Set("getUserStatus", getUserStatus)
-	return vars
-}
-func getRawQuery(currentURL *url.URL) string {
-	return currentURL.RawQuery
-}
-func genSearchWithOrdering(currentURL *url.URL, sortBy string, searchRoute string) string {
-	values := currentURL.Query()
-	order := false //Default is DESC
-	sort := "2"    //Default is Date (Actually ID, but Date is the same thing)
+// run before router/init.go:init()
+var _ = func() (_ struct{}) {
+	categories.InitCategories()
+	return
+}()
 
-	if _, ok := values["order"]; ok {
-		order, _ = strconv.ParseBool(values["order"][0])
-	}
-	if _, ok := values["sort"]; ok {
-		sort = values["sort"][0]
+func TestGetRawQuery(t *testing.T) {
+	var tests = []map[string]string{
+		{
+			"test":     "",
+			"expected": "",
+		},
+		{
+			"test":     "http://lol.co/",
+			"expected": "",
+		},
+		{
+			"test":     "lol.co",
+			"expected": "",
+		},
+		{
+			"test":     "lol.co?",
+			"expected": "",
+		},
+		{
+			"test":     "lol.co?why",
+			"expected": "why",
+		},
+		{
+			"test":     "https://lol.co?why",
+			"expected": "why",
+		},
 	}
 
-	if sort == sortBy {
-		order = !order //Flip order by repeat-clicking
-	} else {
-		order = false //Default to descending when sorting by something new
-	}
-
-	values.Set("sort", sortBy)
-	values.Set("order", strconv.FormatBool(order))
-
-	u, _ := url.Parse(searchRoute)
-	u.RawQuery = values.Encode()
-
-	return u.String()
-}
-
-func genSearchWithCategory(currentURL *url.URL, category string, searchRoute string) string {
-	values := currentURL.Query()
-	cat := "_" //Default
-
-	if _, ok := values["c"]; ok {
-		cat = values["c"][0]
-	}
-	
-	cat = category
-
-	values.Set("c", cat)
-
-	u, _ := url.Parse(searchRoute)
-	u.RawQuery = values.Encode()
-
-	return u.String()
-}
-
-func genSortArrows(currentURL *url.URL, sortBy string) template.HTML {
-	values := currentURL.Query()
-	leftclass := "sortarrowdim"
-	rightclass := "sortarrowdim"
-
-	order := false
-	sort := "2"
-
-	if _, ok := values["order"]; ok {
-		order, _ = strconv.ParseBool(values["order"][0])
-	}
-	if _, ok := values["sort"]; ok {
-		sort = values["sort"][0]
-	}
-
-	if sort == sortBy {
-		if order {
-			rightclass = ""
-		} else {
-			leftclass = ""
+	for _, test := range tests {
+		url, _ := url.Parse(test["test"])
+		value := getRawQuery(url)
+		if value != test["expected"] {
+			t.Errorf("Unexpected value from the function getRawQuery, got '%s', wanted '%s' for '%s'", value, test["expected"], test["test"])
 		}
 	}
-
-	arrows := "<span class=\"sortarrowleft " + leftclass + "\">▼</span><span class=\"" + rightclass + "\">▲</span>"
-
-	return template.HTML(arrows)
 }
 
-
-func genNav(nav Navigation, currentURL *url.URL, pagesSelectable int) template.HTML {
-	var ret = ""
-	if nav.TotalItem > 0 {
-		maxPages := math.Ceil(float64(nav.TotalItem) / float64(nav.MaxItemPerPage))
-
-		href :=  ""
-		display := " style=\"display:none;\""
-		if nav.CurrentPage-1 > 0 {
-			display = ""
-			href = " href=\"" + "/" + nav.Route + "/1" + "?" + currentURL.RawQuery + "\""
-		}
-		ret = ret + "<a id=\"page-prev\"" + display + href + " aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a>"
-		
-		startValue := 1
-		if nav.CurrentPage > pagesSelectable/2 {
-			startValue = (int(math.Min((float64(nav.CurrentPage)+math.Floor(float64(pagesSelectable)/2)), maxPages)) - pagesSelectable + 1)
-		}
-		if startValue < 1 {
-			startValue = 1
-		}
-		endValue := (startValue + pagesSelectable - 1)
-		if endValue > int(maxPages) {
-			endValue = int(maxPages)
-		}
-		for i := startValue; i <= endValue; i++ {
-			pageNum := strconv.Itoa(i)
-			url := "/" + nav.Route + "/" + pageNum
-			ret = ret + "<a aria-label=\"Page " + strconv.Itoa(i) + "\" href=\"" + url + "?" + currentURL.RawQuery + "\">" + "<span"
-			if i == nav.CurrentPage {
-				ret = ret + " class=\"active\""
-			}
-			ret = ret + ">" + strconv.Itoa(i) + "</span></a>"
-		}
-		
-		href = ""
-		display = " style=\"display:none;\""
-		if nav.CurrentPage < int(maxPages) {
-			display = ""
-			href = " href=\"" + "/" + nav.Route + "/" + strconv.Itoa(int(maxPages)) + "?" + currentURL.RawQuery + "\""
-		}
-		ret = ret + "<a id=\"page-next\"" + display + href +" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a>"
-			
-		itemsThisPageStart := nav.MaxItemPerPage*(nav.CurrentPage-1) + 1
-		itemsThisPageEnd := nav.MaxItemPerPage * nav.CurrentPage
-		if nav.TotalItem < itemsThisPageEnd {
-			itemsThisPageEnd = nav.TotalItem
-		}
-		ret = ret + "<p>" + strconv.Itoa(itemsThisPageStart) + "-" + strconv.Itoa(itemsThisPageEnd) + "/" + strconv.Itoa(nav.TotalItem) + "</p>"
+func TestGenSearchWithOrdering(t *testing.T) {
+	var tests = []map[string]string{
+		{
+			"test":     "",
+			"mode":     "2",
+			"expected": "/search?order=true&sort=2",
+		},
+		{
+			"test":     "http://lol.co/?s=why&sort=1",
+			"mode":     "2",
+			"expected": "/search?order=false&s=why&sort=2",
+		},
+		{
+			"test":     "http://lol.co/?s=why&sort=1",
+			"mode":     "1",
+			"expected": "/search?order=true&s=why&sort=1",
+		},
+		{
+			"test":     "http://lol.co/?s=why&sort=1&order=true",
+			"mode":     "1",
+			"expected": "/search?order=false&s=why&sort=1",
+		},
+		{
+			"test":     "http://lol.co/?s=why&sort=1&order=false",
+			"mode":     "1",
+			"expected": "/search?order=true&s=why&sort=1",
+		},
+		{
+			"test":     "http://lol.co/?s=why&sort=1&order=false",
+			"mode":     "2",
+			"expected": "/search?order=false&s=why&sort=2",
+		},
+		{
+			"test":     "http://lol.co/?s=why&sort=1&order=true",
+			"mode":     "2",
+			"expected": "/search?order=false&s=why&sort=2",
+		},
 	}
-	return template.HTML(ret)
-}
 
-func flagCode(languageCode string) string {
-	return publicSettings.Flag(languageCode, true)
-}
-
-func getAvatar(hash string, size int) string {
-	return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
-}
-
-func formatDateRFC(t time.Time) string {
-	// because time.* isn't available in templates...
-	return t.Format(time.RFC3339)
-}
-func getCategory(category string, keepParent bool) categories.Categories {
-	cats := categories.GetSelect(true, true)
-	found := false
-	categoryRet := categories.Categories{}
-	for _, v := range cats {
-		if v.ID == category+"_" {
-			found = true
-			if keepParent {
-				categoryRet = append(categoryRet, v)
-			}
-		} else if len(v.ID) <= 2 && len(categoryRet) > 0 {
-			break
-		} else if found {
-			categoryRet = append(categoryRet, v)
+	for _, test := range tests {
+		url, _ := url.Parse(test["test"])
+		value := genSearchWithOrdering(url, test["mode"], "/search")
+		if value != test["expected"] {
+			t.Errorf("Unexpected value from the function genSearchWithOrdering, got '%s', wanted '%s' for '%s' and '%s'", value, test["expected"], test["test"], test["mode"])
 		}
 	}
-	return categoryRet
-}
-func categoryName(category string, subCategory string) string {
-	s := category + "_" + subCategory
-
-	if category, ok := categories.GetByID(s); ok {
-		return category.Name
-	}
-	return ""
-}
-func languageName(lang publicSettings.Language, T publicSettings.TemplateTfunc) string {
-	if strings.Contains(lang.Name, ",") {
-		langs := strings.Split(lang.Name, ", ")
-		tags := strings.Split(lang.Tag, ", ")
-		for k := range langs {
-			langs[k] = strings.Title(publicSettings.Translate(tags[k], string(T("language_code"))))
-		}
-		return strings.Join(langs, ", ")
-	}
-	return strings.Title(lang.Translate(T("language_code")))
-}
-func languageNameFromCode(languageCode string, T publicSettings.TemplateTfunc) string {
-	if strings.Contains(languageCode, ",") {
-		tags := strings.Split(languageCode, ", ")
-		var langs []string
-		for k := range tags {
-			langs = append(langs, strings.Title(publicSettings.Translate(tags[k], string(T("language_code")))))
-		}
-		return strings.Join(langs, ", ")
-	}
-	return strings.Title(publicSettings.Translate(languageCode, string(T("language_code"))))
-}
-func fileSize(filesize int64, T publicSettings.TemplateTfunc) template.HTML {
-	if filesize == 0 {
-		return T("unknown")
-	}
-	return template.HTML(format.FileSize(filesize))
 }
 
-func defaultUserSettings(s string) bool {
-	return config.Get().Users.DefaultUserSettings[s]
-}
-
-func makeTreeViewData(f *filelist.FileListFolder, nestLevel int, identifierChain string) interface{} {
-	return struct {
-		Folder          *filelist.FileListFolder
-		NestLevel       int
-		IdentifierChain string
-	}{f, nestLevel, identifierChain}
-}
-func lastID(currentURL *url.URL, torrents []models.TorrentJSON) int {
-	if len(torrents) == 0 {
-		return 0
+func TestgenSearchWithCategory(t *testing.T) {
+	var tests = []map[string]string{
+		{
+			"test":     "",
+			"mode":     "1_",
+			"expected": "/search?c=1_",
+		},
 	}
-	values := currentURL.Query()
 
-	order := false
-	sort := "2"
-
-	if _, ok := values["order"]; ok {
-		order, _ = strconv.ParseBool(values["order"][0])
-	}
-	if _, ok := values["sort"]; ok {
-		sort = values["sort"][0]
-	}
-	lastID := 0
-	if sort == "2" || sort == "" {
-		if order {
-			lastID = int(torrents[len(torrents)-1].ID)
-		} else if len(torrents) > 0 {
-			lastID = int(torrents[0].ID)
+	for _, test := range tests {
+		url, _ := url.Parse(test["test"])
+		value := genSearchWithCategory(url, test["mode"], "/search")
+		if value != test["expected"] {
+			t.Errorf("Unexpected value from the function genSearchWithCategory, got '%s', wanted '%s' for '%s' and '%s'", value, test["expected"], test["test"], test["mode"])
 		}
 	}
-	return lastID
-}
-func getReportDescription(d string, T publicSettings.TemplateTfunc) string {
-	if d == "illegal" {
-		return "Illegal content"
-	} else if d == "spam" {
-		return "Spam / Garbage"
-	} else if d == "wrongcat" {
-		return "Wrong category"
-	} else if d == "dup" {
-		return "Duplicate / Deprecated"
-	}
-	return string(T(d))
-}
-func genUploaderLink(uploaderID uint, uploaderName template.HTML, torrentHidden bool) template.HTML {
-	uploaderID, username := torrents.HideUser(uploaderID, string(uploaderName), torrentHidden)
-	if uploaderID == 0 {
-		return template.HTML(username)
-	}
-	url := "/user/" + strconv.Itoa(int(uploaderID)) + "/" + username
-
-	return template.HTML("<a href=\"" + url + "\">" + username + "</a>")
-}
-func genActivityContent(a models.Activity, T publicSettings.TemplateTfunc) template.HTML {
-	return a.ToLocale(T)
-}
-func contains(arr interface{}, comp string) bool {
-	switch str := arr.(type) {
-	case string:
-		if str == comp {
-			return true
-		}
-	case publicSettings.Language:
-		if str.Code == comp {
-			return true
-		}
-	default:
-		return false
-	}
-	return false
 }
 
-func torrentFileExists(hash string, TorrentLink string) bool {
-	domain := getDomainName() 
-	if(TorrentLink!= "" && domain != "" && !kilo_strfind(TorrentLink, domain, len(domain))) {
-		return true
+func TestFlagCode(t *testing.T) {
+	var tests = []map[string]string{
+		{
+			"test":     "",
+			"expected": "und",
+		},
+		{
+			"test":     "es",
+			"expected": "es",
+		},
+		{
+			"test":     "lol",
+			"expected": "lol",
+		},
+		{
+			"test":     "fr-fr",
+			"expected": "fr",
+		},
+		{
+			"test":     "fr-lol",
+			"expected": "lol",
+		},
+		{
+			"test":     "ca-es",
+			"expected": "ca",
+		},
+		{
+			"test":     "es-mx",
+			"expected": "es",
+		},
 	}
-	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
+
+	for _, test := range tests {
+		value := flagCode(test["test"])
+		if value != test["expected"] {
+			t.Errorf("Unexpected value from the function flagCode, got '%s', wanted '%s' for '%s'", value, test["expected"], test["test"])
+		}
+	}
+}
+
+func TestGetAvatar(t *testing.T) {
+	var tests = []struct {
+		Test     string
+		Size     int
+		Expected string
+	}{
+		{
+			Test:     "",
+			Size:     0,
+			Expected: "https://www.gravatar.com/avatar/?s=0",
+		},
+		{
+			Test:     "",
+			Size:     100,
+			Expected: "https://www.gravatar.com/avatar/?s=100",
+		},
+		{
+			Test:     "test",
+			Size:     100,
+			Expected: "https://www.gravatar.com/avatar/test?s=100",
+		},
+		{
+			Test:     "test",
+			Size:     0,
+			Expected: "https://www.gravatar.com/avatar/test?s=0",
+		},
+	}
+
+	for _, test := range tests {
+		value := getAvatar(test.Test, test.Size)
+		if value != test.Expected {
+			t.Errorf("Unexpected value from the function getAvatar, got '%s', wanted '%s' for '%s' and '%d'", value, test.Expected, test.Test, test.Size)
+		}
+	}
+}
+
+func TestFormatDateRFC(t *testing.T) {
+	location, _ := time.LoadLocation("UTC")
+	var tests = []struct {
+		Test     time.Time
+		Expected string
+	}{
+		{
+			Test:     time.Date(2016, 5, 4, 3, 2, 1, 10, location),
+			Expected: "2016-05-04T03:02:01Z",
+		},
+		{
+			Test:     time.Now(),
+			Expected: time.Now().Format(time.RFC3339),
+		},
+	}
+
+	for _, test := range tests {
+		value := formatDateRFC(test.Test)
+		if value != test.Expected {
+			t.Errorf("Unexpected value from the function formatDateRFC, got '%s', wanted '%s' for '%s'", value, test.Expected, test.Test.String())
+		}
+	}
+}
+
+func TestGetCategory(t *testing.T) {
+	var tests = []struct {
+		TestCat    string
+		TestParent bool
+		Expected   categories.Categories
+	}{
+		{
+			TestCat:    "",
+			TestParent: false,
+			Expected:   categories.Categories{},
+		},
+		{
+			TestCat:    "",
+			TestParent: true,
+			Expected:   categories.Categories{},
+		},
+		{
+			TestCat:    "3_12",
+			TestParent: false,
+			Expected:   categories.Categories{},
+		},
+		{
+			TestCat:    "3",
+			TestParent: false,
+			Expected: categories.Categories{
+				{"3_12", "anime_amv"},
+				{"3_5", "anime_english_translated"},
+				{"3_13", "anime_non_english_translated"},
+				{"3_6", "anime_raw"},
+			},
+		},
+		{
+			TestCat:    "3",
+			TestParent: true,
+			Expected: categories.Categories{
+				{"3_", "anime"},
+				{"3_12", "anime_amv"},
+				{"3_5", "anime_english_translated"},
+				{"3_13", "anime_non_english_translated"},
+				{"3_6", "anime_raw"},
+			},
+		},
+	}
+	for _, test := range tests {
+		value := getCategory(test.TestCat, test.TestParent)
+		if !reflect.DeepEqual(value, test.Expected) {
+			t.Errorf("Unexpected value from the function getCategory, got '%v', wanted '%v' for '%s' and '%t'", value, test.Expected, test.TestCat, test.TestParent)
+		}
+	}
+}
+
+func TestCategoryName(t *testing.T) {
+	var tests = []struct {
+		TestCat    string
+		TestSubCat string
+		Expected   string
+	}{
+		{
+			TestCat:    "",
+			TestSubCat: "",
+			Expected:   "",
+		},
+		{
+			TestCat:    "d",
+			TestSubCat: "s",
+			Expected:   "",
+		},
+		{
+			TestCat:    "3",
+			TestSubCat: "",
+			Expected:   "anime",
+		},
+		{
+			TestCat:    "3",
+			TestSubCat: "6",
+			Expected:   "anime_raw",
+		},
+	}
+
+	for _, test := range tests {
+		value := categoryName(test.TestCat, test.TestSubCat)
+		if value != test.Expected {
+			t.Errorf("Unexpected value from the function categoryName, got '%s', wanted '%s' for '%s' and '%s'", value, test.Expected, test.TestCat, test.TestSubCat)
+		}
+	}
+}
+
+func TestLanguageName(t *testing.T) {
+	var tests = []struct {
+		TestLang publicSettings.Language
+		Expected string
+	}{
+		{
+			TestLang: publicSettings.Language{"", "", ""},
+			Expected: "",
+		},
+		{
+			TestLang: publicSettings.Language{"", "fr", "fr-fr"},
+			Expected: "French (France)",
+		},
+		{
+			TestLang: publicSettings.Language{"", "fr", "fr"},
+			Expected: "French",
+		},
+		{
+			TestLang: publicSettings.Language{"something, something", "es", "es, es-mx"},
+			Expected: "Spanish, Mexican Spanish",
+		},
+	}
+	T := mockupTemplateT(t)
+	for _, test := range tests {
+		value := languageName(test.TestLang, T)
+		if value != test.Expected {
+			t.Errorf("Unexpected value from the function languageName, got '%s', wanted '%s' for '%v'", value, test.Expected, test.TestLang)
+		}
+	}
+}
+
+func TestLanguageNameFromCode(t *testing.T) {
+	var tests = []struct {
+		TestLang string
+		Expected string
+	}{
+		{
+			TestLang: "",
+			Expected: "",
+		},
+		{
+			TestLang: "fr-fr",
+			Expected: "French (France)",
+		},
+		{
+			TestLang: "ofjd",
+			Expected: "",
+		},
+		{
+			TestLang: "fr",
+			Expected: "French",
+		},
+		{
+			TestLang: "es, es-mx",
+			Expected: "Spanish, Mexican Spanish",
+		},
+	}
+	T := mockupTemplateT(t)
+	for _, test := range tests {
+		value := languageNameFromCode(test.TestLang, T)
+		if value != test.Expected {
+			t.Errorf("Unexpected value from the function languageName, got '%s', wanted '%s' for '%s'", value, test.Expected, test.TestLang)
+		}
+	}
+}
+
+func TestFileSize(t *testing.T) {
+	var tests = []struct {
+		TestSize int64
+		Expected template.HTML
+	}{
+		{
+			TestSize: 0,
+			Expected: template.HTML("Unknown"),
+		},
+		{
+			TestSize: 10,
+			Expected: template.HTML("10.0 B"),
+		},
+	}
+	T := mockupTemplateT(t)
+	for _, test := range tests {
+		value := fileSize(test.TestSize, T)
+		if value != test.Expected {
+			t.Errorf("Unexpected value from the function languageName, got '%s', wanted '%s' for '%d'", value, test.Expected, test.TestSize)
+		}
+	}
+}
+
+func TestLastID(t *testing.T) {
+	var tests = []struct {
+		TestTorrents []models.TorrentJSON
+		TestURL      string
+		Expected     int
+	}{
+		{
+			TestTorrents: []models.TorrentJSON{{ID: 3}, {ID: 1}},
+			TestURL:      "?sort=&order=",
+			Expected:     3,
+		},
+		{
+			TestTorrents: []models.TorrentJSON{{ID: 3}, {ID: 1}},
+			TestURL:      "?sort=2&order=",
+			Expected:     3,
+		},
+		{
+			TestTorrents: []models.TorrentJSON{{ID: 1}, {ID: 3}},
+			TestURL:      "?sort=2&order=true",
+			Expected:     3,
+		},
+		{
+			TestTorrents: []models.TorrentJSON{{ID: 1}, {ID: 3}},
+			TestURL:      "?sort=3&order=true",
+			Expected:     0,
+		},
+		{
+			TestTorrents: []models.TorrentJSON{},
+			TestURL:      "?sort=2&order=true",
+			Expected:     0,
+		},
+		{
+			TestTorrents: []models.TorrentJSON{},
+			TestURL:      "?sort=2&order=false",
+			Expected:     0,
+		},
+	}
+	for _, test := range tests {
+		url, _ := url.Parse(test.TestURL)
+		value := lastID(url, test.TestTorrents)
+		if value != test.Expected {
+			t.Errorf("Unexpected value from the function languageName, got '%d', wanted '%d' for '%s' and '%v'", value, test.Expected, test.TestURL, test.TestTorrents)
+		}
+	}
+}
+
+func TestGetReportDescription(t *testing.T) {
+	var tests = []struct {
+		TestDesc string
+		Expected string
+	}{
+		{
+			TestDesc: "",
+			Expected: "",
+		},
+		{
+			TestDesc: "illegal",
+			Expected: "Illegal content",
+		},
+		{
+			TestDesc: "spam",
+			Expected: "Spam / Garbage",
+		},
+		{
+			TestDesc: "wrongcat",
+			Expected: "Wrong category",
+		},
+		{
+			TestDesc: "dup",
+			Expected: "Duplicate / Deprecated",
+		},
+		{
+			TestDesc: "illegal_content",
+			Expected: "Illegal content",
+		},
+		{
+			TestDesc: "spam_garbage",
+			Expected: "Spam / Garbage",
+		},
+		{
+			TestDesc: "wrong_category",
+			Expected: "Wrong category",
+		},
+		{
+			TestDesc: "duplicate_deprecated",
+			Expected: "Duplicate / Deprecated",
+		},
+	}
+	T := mockupTemplateT(t)
+	for _, test := range tests {
+		value := getReportDescription(test.TestDesc, T)
+		if value != test.Expected {
+			t.Errorf("Unexpected value from the function languageName, got '%s', wanted '%s' for '%s'", value, test.Expected, test.TestDesc)
+		}
+	}
+}
+
+func TestGenUploaderLink(t *testing.T) {
+	var tests = []struct {
+		TestID     uint
+		TestName   template.HTML
+		TestHidden bool
+		Expected   template.HTML
+	}{
+		{
+			TestID:     0,
+			TestName:   template.HTML(""),
+			TestHidden: false,
+			Expected:   template.HTML("れんちょん"),
+		},
+		{
+			TestID:     10,
+			TestName:   template.HTML("dd"),
+			TestHidden: true,
+			Expected:   template.HTML("れんちょん"),
+		},
+		{
+			TestID:     10,
+			TestName:   template.HTML("dd"),
+			TestHidden: false,
+			Expected:   template.HTML("<a href=\"/user/10/dd\">dd</a>"),
+		},
+		{
+			TestID:     0, // Old Uploader
+			TestName:   template.HTML("dd"),
+			TestHidden: false,
+			Expected:   template.HTML("dd"),
+		},
+		{
+			TestID:     10,
+			TestName:   template.HTML(""),
+			TestHidden: false,
+			Expected:   template.HTML("れんちょん"),
+		},
+		{
+			TestID:     10,
+			TestName:   template.HTML(""),
+			TestHidden: true,
+			Expected:   template.HTML("れんちょん"),
+		},
+	}
+	for _, test := range tests {
+		value := genUploaderLink(test.TestID, test.TestName, test.TestHidden)
+		if value != test.Expected {
+			t.Errorf("Unexpected value from the function languageName, got '%s', wanted '%s' for '%d' and '%s' and '%t'", string(value), string(test.Expected), test.TestID, string(test.TestName), test.TestHidden)
+		}
+	}
+}
+
+func TestContains(t *testing.T) {
+	var tests = []struct {
+		TestArr  interface{}
+		TestComp string
+		Expected bool
+	}{
+		{
+			TestArr:  "kilo",
+			TestComp: "kilo",
+			Expected: true,
+		},
+		{
+			TestArr:  "kilo",
+			TestComp: "loki", // Clearly not the same level
+			Expected: false,
+		},
+		{
+			TestArr:  "kilo",
+			TestComp: "kiloo",
+			Expected: false,
+		},
+		{
+			TestArr:  publicSettings.Language{Code: "kilo"},
+			TestComp: "kilo",
+			Expected: true,
+		},
+		{
+			TestArr:  publicSettings.Language{Code: "kilo"},
+			TestComp: "loki", // Clearly not the same level
+			Expected: false,
+		},
+		{
+			TestArr:  publicSettings.Language{Code: "kilo"},
+			TestComp: "kiloo",
+			Expected: false,
+		},
+		{
+			TestArr:  "kilo",
+			TestComp: "",
+			Expected: false,
+		},
+		{
+			TestArr:  publicSettings.Language{Code: "kilo"},
+			TestComp: "",
+			Expected: false,
+		},
+	}
+	for _, test := range tests {
+		value := contains(test.TestArr, test.TestComp)
+		if value != test.Expected {
+			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t' for '%v' and '%s'", value, test.Expected, test.TestArr, test.TestComp)
+		}
+	}
+}
+
+func testTorrentFileExists(t *testing.T) {
+	var tests = []struct {
+		hash 	     string
+		Expected     bool
+	}{
+		{
+			hash: "",
+			Expected: false,
+		},
+	}
+	for _, test := range tests {
+		value := torrentFileExists(test.hash, "")
+		if value != test.Expected {
+			t.Errorf("Unexpected value from the function TorrentFileExists, got  '%t', wanted '%t' for '%s'", value, test.Expected, test.hash)
+		}
+	}	
+}
+
+func Testkilo_strcmp(t *testing.T) {
+ 	var tests = []struct {
+ 		TestString  string
+ 		TestString2 string
+ 		Expected bool
+ 	}{
+ 		{
+ 			TestString:  "kilo",
+ 			TestString2: "kilo",
+			Expected: true,
+ 		},
+ 		{
+ 		TestString:  "kilo",
+ 			TestString2: "loki", // Clearly not the same level
+ 			Expected: false,
+ 		},
+ 	}
+ 	for _, test := range tests {
+ 		value := kilo_strcmp(test.TestString, test.TestString2, -1, 0)
+ 		if value != test.Expected {
+ 			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t'", value, test.Expected, test.TestString, test.TestString)
+ 		}
+	}
+ }
+
+ func TestToString(t *testing.T) {
+ 	var tests = []struct {
+ 		TestInt  int
+ 		Expected string
+ 	}{
+ 		{
+ 			TestInt:  0,
+			Expected: "0",
+ 		},
+ 	}
+ 	for _, test := range tests {
+		value := toString(test.TestInt)
+ 		if value != test.Expected {
+ 			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t'", value, test.Expected)
+ 		}
+	}
+ }
+ 
+ func Testkilo_strfind(t *testing.T) {
+ 	var tests = []struct {
+ 		TestString  string
+ 		TestString2 string
+ 		Expected bool
+ 	}{
+ 		{
+ 			TestString:  "kilo",
+ 			TestString2: "kilo",
+			Expected: true,
+ 		},
+ 		{
+ 			TestString:  "kilo",
+ 			TestString2: "loki", // Clearly not the same level
+ 			Expected: false,
+ 		},
+ 	}
+ 	for _, test := range tests {
+ 		value := kilo_strfind(test.TestString, test.TestString2, 0)
+ 		if value != test.Expected {
+ 			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t'", value, test.Expected, test.TestString, test.TestString)
+ 		}
+	}
+ }
+
+func TestRand(t *testing.T) {
+ 	var tests = []struct {
+ 		TestInt  int
+ 		TestInt2 int
+ 		Expected int
+ 	}{
+ 		{
+ 			TestInt:  0,
+ 			TestInt2:  1,
+			Expected: 1,
+ 		},
+ 	}
+ 	for _, test := range tests {
+		value := kilo_rand(1)
+ 		if value != test.Expected {
+ 			//t.Errorf("Unexpected value from the function rand, got '%t', wanted '%t'", value, test.Expected)
+ 		}
+	}
+ }
+ 
+ func TestGetDomain(t *testing.T) {
+ 	var tests = []struct {
+ 		domainName string
+ 	}{
+ 		{
+ 			domainName:  "wubwub",
+ 		},
+ 	}
+ 	for _, test := range tests {
+		value := getDomainName()
+ 		if value != test.domainName {
+ 			//t.Errorf("Unexpected value from the function rand, got '%t', wanted '%t'", value, test.domainName)
+ 		}
+	}
+ }
+ 
+ func TestGetTheme(t *testing.T) {
+ 	var tests = []struct {
+ 		domainName []string
+ 	}{
+ 		{
+ 			domainName:  []string{"test", "test", "test"},
+ 		},
+ 	}
+ 	for _, test := range tests {
+		test.domainName = getThemeList()
+	}
+ }
+ 
+  func testformatThemeName(t *testing.T) {
+ 	var tests = []struct {
+ 		domainName string
+ 	}{
+ 		{
+ 			domainName:  "test",
+ 		},
+ 	}
+ 	for _, test := range tests {
+		Ts, _, err := publicSettings.TfuncAndLanguageWithFallback("en-us")
+		if err != nil {
+			t.Error("Couldn't load language files!")
+		}
+		var T publicSettings.TemplateTfunc
+		T = func(id string, args ...interface{}) template.HTML {	
+			return template.HTML(fmt.Sprintf(Ts(id), args...))
+		}
+		value := formatThemeName("path", T)
+ 		if value != test.domainName {
+ 			
+ 		}
+	}
+ }
+
+func testFormatDate(t *testing.T) {
+ 	var tests = []struct {
+ 		domainName string
+ 	}{
+ 		{
+ 			domainName:  "test",
+ 		},
+ 	}
+ 	for _, test := range tests {
+		value := formatDate(time.Now(), false)
+ 		if value != test.domainName {
+ 			
+ 		}
+	}
+ }
+ 
+ func testUserStatus(t *testing.T) {
+ 	var tests = []struct {
+ 		domainName string
+ 	}{
+ 		{
+ 			domainName:  "test",
+ 		},
+ 	}
+ 	for _, test := range tests {
+		Ts, _, err := publicSettings.TfuncAndLanguageWithFallback("en-us")
+		if err != nil {
+			t.Error("Couldn't load language files!")
+		}
+		var T publicSettings.TemplateTfunc
+		T = func(id string, args ...interface{}) template.HTML {	
+			return template.HTML(fmt.Sprintf(Ts(id), args...))
+		}
+		value := getUserStatus(0, 0, false, T)
+ 		if value != test.domainName {
+ 			
+ 		}
+	}
+ }
+ 
+func mockupTemplateT(t *testing.T) publicSettings.TemplateTfunc {
+	conf := config.Get().I18n
+	conf.Directory = path.Join("..", conf.Directory)
+	var retriever publicSettings.UserRetriever // not required during initialization
+
+	err := publicSettings.InitI18n(conf, retriever)
 	if err != nil {
-		return false
+		t.Errorf("failed to initialize language translations: %v", err)
 	}
-	defer Openfile.Close()
-	return true
+
+	Ts, _, err := publicSettings.TfuncAndLanguageWithFallback("en-us")
+	if err != nil {
+		t.Error("Couldn't load language files!")
+	}
+	var T publicSettings.TemplateTfunc
+	T = func(id string, args ...interface{}) template.HTML {	
+		return template.HTML(fmt.Sprintf(Ts(id), args...))
+	}
+	return T
 }
-
-func toString(number int) string {
-	return strconv.Itoa(number)
-}
-
-func kilo_strcmp(str1 string, str2 string, end int, start int) bool {
-	//Compare two strings but has length arguments
 	
-	len1 := len(str1)
-	len2 := len(str2)
-	
-	if end == -1 && len1 != len2 {
-		return false
-	}
-	
-	if end == -1 || end > len1 {
-		end = len1
-	}
-	if end > len2 {
-		end = len2
-	}
-	
-	if start >= end {
-		return false
-	}
-	
-	return strings.Compare(str1[start:end], str2[start:end]) == 0
-}
-
-func kilo_strfind(str1 string, searchfor string, start int) bool {
-	//Search a string inside another with start parameter
-	//start parameter indicates where we start searching
-	
-	len1 := len(str1)
-	
-	if start >= len1 {
-		return false
-	}
-	
-	
-	return strings.Contains(str1[start:len1], searchfor)
-}
-
-func kilo_rand(max int) int {
-	return rand.Intn(max)
-}
-
-func getDomainName() string {
-	domain := config.Get().Cookies.DomainName
-	if config.Get().Environment == "DEVELOPMENT" {
-		domain = ""
-	}
-	return domain
-}
-
-func getThemeList() ([]string) {
-    searchDir := "public/css/themes/"
-
-    themeList := []string{}
-	
-    filepath.Walk(searchDir, func(path string, f os.FileInfo, err error) error {
-        if kilo_strfind(path, ".css", len(searchDir)) {
-			//we only want .css file
-			
-			fileName := path[len(searchDir):strings.Index(path, ".css")]
-			//Remove file extension and path, keep only file name
-			
-			themeList = append(themeList, fileName)
-		}
-		return nil
-    })
-
-    return themeList
-}
-
-func formatThemeName(name string, T publicSettings.TemplateTfunc) string {
-	translationString := fmt.Sprintf("themes_%s", name)
-	translatedName := string(T(translationString))
-	
-	if translatedName != translationString {
-		//Translation string exists
-		return translatedName
-	}
-			
-	if len(name) == 1 {
-		name = fmt.Sprintf("/%c/", name[0])
-	} else {
-		name = strings.Replace(name, "_", " ", -1)
-		name = strings.Title(name)
-		//Upper case at each start of word
-	}
-	return name
-}
-
-func formatDate(Date time.Time, short bool) string {
-	Date = Date.UTC()
-	if short {
-		return fmt.Sprintf("%.3s %d, %d", Date.Month(), Date.Day(), Date.Year())
-	}
-	
-	if Date.Hour() >= 12 {
-		return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d PM UTC+0", Date.Month(), Date.Day(), Date.Year(), Date.Hour() - 12, Date.Minute(), Date.Second())
-	} else {
-		return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d AM UTC+0", Date.Month(), Date.Day(), Date.Year(), Date.Hour(), Date.Minute(), Date.Second())
-	}
-}
-
-func getUserStatus(userid uint, uploaderID uint, commentList bool, T publicSettings.TemplateTfunc) template.HTML {
-	
-	user, _, errorUser := users.FindForAdmin(uint(userid)) 
-	if errorUser == nil {
-		if commentList {
-			role := ""
-			if user.IsBanned() {
-				role = string(T("userstatus_banned"))
-			}
-			if user.HasAdmin() {
-				role =  string(T("userstatus_moderator"))
-			}
-			if userid == uploaderID {
-				role = string(T("userstatus_uploader"))
-			}
-			if role != "" {
-				return template.HTML(fmt.Sprintf("<i>%s</i>", role))
-			}
-			return template.HTML("")
-		}
-		return T("userstatus_" + user.GetRole())
-	}
-	return template.HTML("")
-}
