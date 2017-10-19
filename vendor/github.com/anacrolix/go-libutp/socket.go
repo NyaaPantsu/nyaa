@@ -7,6 +7,7 @@ import "C"
 import (
 	"context"
 	"errors"
+	"log"
 	"net"
 	"sync/atomic"
 	"time"
@@ -102,7 +103,8 @@ func (s *Socket) packetReader() {
 			if closed {
 				return
 			}
-			panic(err)
+			log.Print(err)
+			continue
 		}
 		sa, sal := netAddrToLibSockaddr(addr)
 		atomic.AddInt64(&reads, 1)
