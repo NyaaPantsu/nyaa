@@ -22,6 +22,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/format"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 	"github.com/NyaaPantsu/nyaa/utils/torrentLanguages"
+	"github.com/NyaaPantsu/nyaa/models/users"
 )
 
 // FuncMap : Functions accessible in templates by {{ $.Function }}
@@ -60,6 +61,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("getThemeList", getThemeList)
 	vars.Set("formatThemeName", formatThemeName)
 	vars.Set("formatDate", formatDate)
+	vars.Set("getUserStatus", getUserStatus)
 	return vars
 }
 func getRawQuery(currentURL *url.URL) string {
@@ -451,4 +453,29 @@ func formatDate(Date time.Time, short bool) string {
 	} else {
 		return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d AM UTC+0", Date.Month(), Date.Day(), Date.Year(), Date.Hour(), Date.Minute(), Date.Second())
 	}
+}
+
+func getUserStatus(userid uint, uploaderID uint, commentList bool, T publicSettings.TemplateTfunc) template.HTML {
+	
+	user, _, errorUser := users.FindForAdmin(uint(userid)) 
+	if errorUser == nil {
+		if commentList {
+			role := ""
+			if user.IsBanned() {
+				role = string(T("userstatus_banned"))
+			}
+			if user.HasAdmin() {
+				role =  string(T("userstatus_moderator"))
+			}
+			if userid == uploaderID {
+				role = string(T("userstatus_uploader"))
+			}
+			if role != "" {
+				return template.HTML(fmt.Sprintf("<span>(%s)</span>", role))
+			}
+			return template.HTML("")
+		}
+		return T("userstatus_" + user.GetRole())
+	}
+	return template.HTML("")
 }
