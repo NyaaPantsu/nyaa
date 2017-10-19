@@ -68,10 +68,10 @@ function parseAllDates() {
     var dateDifference = dateDiff(new Date(e.innerText), new Date())
     
 
-    e.title = (dateDifference.d == 0 ? "" : dateDifference.d+" days")
-    e.title = e.title + (dateDifference.h == 0 ? "" : dateDifference.h+" hours")
-    e.title = e.title + (dateDifference.m == 0 ? "" : dateDifference.m+" minutes")
-    e.title = e.title + " ago"
+    e.title = (dateDifference.d == 0 ? "" : dateDifference.d+" days ")
+    e.title = e.title + (dateDifference.h == 0 ? "" : dateDifference.h+" hours ")
+    e.title = e.title + (dateDifference.m == 0 ? "" : dateDifference.m+" minutes ")
+    e.title = e.title + "ago"
 	  
     e.innerText = new Date(e.innerText).toLocaleString(lang)
   }
