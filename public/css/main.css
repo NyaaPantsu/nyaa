@@ -1171,6 +1171,12 @@ html, body {
     margin-bottom: 8px;
 }
 
+.comment-box span+p span {
+    font-size: 12px;
+    font-style: italic;
+    margin-left: 4px;
+}
+
 .comment-form {
     margin-left: 10px;
     margin-top: 10px;
