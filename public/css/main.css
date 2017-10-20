@@ -341,6 +341,17 @@ select.form-input {
     max-height: 100%;
 }
 
+.user-avatar span {
+    position: absolute;
+    color: #292929;
+    background: #fd6b6b;
+    padding: 1px 4px;
+    border-radius: 7px;
+    font-size: 10px;
+    top: 37px;
+    right: 19px;
+}
+
 #content {
     position: relative;
 }
@@ -1178,7 +1189,7 @@ html, body {
 }
 
 .comment-content :last-child {
-    margin-bottom: 0;
+    margin-bottom: 2px;
 }
 
 .comment-form {
@@ -2260,7 +2271,7 @@ form.delete-form button.form-input.btn-red {
 }
 
 .user-torrent-table {
-	margin-bottom: 80px
+    margin-bottom: 80px
 }
 
 .user-torrent-search {
