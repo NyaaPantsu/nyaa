@@ -2132,6 +2132,14 @@
     "translation": "この Web サイトを使用することにより、Cookie がコンテンツのカスタマイズなどの目的で使用されることに同意したものとみなします。<br/>このメッセージは、次回から表示されなくなります。"
   },
   {
+    "id": "pending_torrent",
+    "translation": "Torrent ファイルが生成されています。もう少しの辛抱を。数秒後にもう一度試してください。"
+  },
+  {
+    "id": "generating_torrent",
+    "translation": "Torrent ファイルを生成中..."
+  },
+  {
     "id": "enabled",
     "translation": "有効"
   },
