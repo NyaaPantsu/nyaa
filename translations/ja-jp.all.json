@@ -2133,7 +2133,7 @@
   },
   {
     "id": "pending_torrent",
-    "translation": "Torrent ファイルが生成されています。もう少しの辛抱を。数秒後にもう一度試してください。"
+    "translation": "Torrent ファイルが生成されていますので、もう少しの辛抱を。数秒後にもう一度試してください。"
   },
   {
     "id": "generating_torrent",
