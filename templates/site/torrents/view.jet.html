@@ -358,11 +358,13 @@
       downloads.innerHTML = "Loading..."
 
   Query.Get('/stats/{{Torrent.ID}}', function (data) {
+    if(typeof data.seeders != "undefined") 
+        scrapeDate.innerText = new Date().toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), "ymdOpt")
+    
     if(typeof data.seeders != "undefined" && data.seeders != -1) {
       seeders.innerHTML = "<span>" + data.seeders + "</span>"
-      leechers.innerHTML = "<span>" +data.leechers + "</span>"
-      downloads.innerHTML = "<span>" +data.downloads + "</span>"
-	  scrapeDate.innerText = new Date().toLocaleString(document.getElementsByTagName("html")[0].getAttribute("lang"), "ymdOpt")
+      leechers.innerHTML = "<span>" + data.leechers + "</span>"
+      downloads.innerHTML = "<span>" + data.downloads + "</span>"
     } else {
       seeders.innerHTML = oldStats[0]
       leechers.innerHTML = oldStats[1]

@@ -15,6 +15,9 @@ body, .header {
     body {
         margin-top: 0!important;
     }
+    .header-height-offset {
+        display: none;
+    }
 }
 .modtools {
     top: 43px;
