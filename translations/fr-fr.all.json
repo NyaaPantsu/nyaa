@@ -569,7 +569,7 @@
   },
   {
     "id": "comments",
-    "translation": "commentaires"
+    "translation": "Commentaires"
   },
   {
     "id": "submit_a_comment_as_username",
@@ -2132,6 +2132,14 @@
     "translation": "En utilisant ce site, vous acceptez l'usage des cookies à des fins telles que la personnalisation du contenu.<br/>Ce message sera masqué au prochain rechargement de la page."
   },
   {
+    "id": "pending_torrent",
+    "translation": "Soyez patient, le fichier torrent est en cours de génération. Essayez à nouveau dans quelques secondes."
+  },
+  {
+    "id": "generating_torrent",
+    "translation": "Génération du fichier torrent..."
+  },
+  {
     "id": "enabled",
     "translation": "Activé"
   },
@@ -2149,7 +2157,7 @@
   },
   {
     "id": "search_from_user",
-    "translation": "Rechercher de cet usager"
+    "translation": "Rechercher de l'usager"
   },
   {
     "id": "usersearch_user_not_found",
