@@ -51,31 +51,26 @@ func GenerateTorrent(magnet string) error {
 	}
 	go func() {
 		<-t.GotInfo()
-		fmt.Println("got info")
 		mi := t.Metainfo()
-		fmt.Println("meta info")
 		t.Drop()
-		fmt.Println("drop")
-		f, err := os.Create(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, t.InfoHash().String()))
-		fmt.Println("open file")
+		file := fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, t.InfoHash().String())
+		f, err := os.Create(file)
 		if err != nil {
 			log.Errorf("error creating torrent metainfo file: %s", err)
 			return
 		}
-		fmt.Println("defer")
 		defer f.Close()
-		fmt.Println("bencode")
 		err = bencode.NewEncoder(f).Encode(mi)
 		if err != nil {
 			log.Errorf("error writing torrent metainfo file: %s", err)
 			return
 		}
-		fmt.Println("for loop")
 		for k, m := range queue {
 			if m == magnet {
 				queue = append(queue[:k], queue[k+1:]...)
 			}
 		}
+		log.Infof("New torrent file generated in: %s", file)
 	}()
 	return nil
 }
