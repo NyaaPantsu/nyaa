@@ -335,12 +335,13 @@ func contains(arr interface{}, comp string) bool {
 }
 
 func torrentFileExists(hash string, TorrentLink string) bool {
-	domain := getDomainName() 
-	if(TorrentLink!= "" && domain != "" && !kilo_strfind(TorrentLink, domain, len(domain))) {
+	if(len(config.Get().Torrents.FileStorage) == 0) {
+		//File isn't stored on our servers
 		return true
 	}
 	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
 	if err != nil {
+		//File doesn't exist
 		return false
 	}
 	defer Openfile.Close()
@@ -381,7 +382,7 @@ func kilo_strfind(str1 string, searchfor string, start int) bool {
 	
 	len1 := len(str1)
 	
-	if start >= len1 {
+	if start >= len1 || searchfor == "" {
 		return false
 	}
 	

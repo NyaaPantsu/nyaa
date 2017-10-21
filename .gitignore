@@ -20,3 +20,5 @@ config/config.yml
 # emacs temp files
 *\#*
 *~
+.torrent.bolt.db.lock
+downloads/
