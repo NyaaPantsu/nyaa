@@ -2136,6 +2136,14 @@
     "translation": "By using this website, you agree to the usage of cookies for purposes such as customizing content.<br/>This message will be hidden at the next page load."
   },
   {
+    "id": "pending_torrent",
+    "translation": "Be patient, the torrent file is being generated. Try again in a few seconds."
+  },
+  {
+    "id": "generating_torrent",
+    "translation": "Generating torrent file..."
+  },
+  {
     "id": "enabled",
     "translation": "Enabled"
   },
