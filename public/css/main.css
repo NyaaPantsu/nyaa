@@ -836,7 +836,7 @@ html, body {
         width: 100px;
     }
     .refine-container-2 span.form-refine {
-        float: initial!important;
+        float: none!important;
         max-width: none;
     }
     .upload-form-table .table-checkboxes {
@@ -2296,7 +2296,6 @@ form.delete-form button.form-input.btn-red {
     left: 0;
     bottom: 9px;
 }
-
 
 /* Language specific CSS */
 

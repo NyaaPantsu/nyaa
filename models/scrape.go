@@ -39,7 +39,6 @@ func (s *Scrape) Update(unscope bool) (int, error) {
 
 	// We only flush cache after update
 	cache.C.Delete(s.Identifier())
-	cache.C.Flush()
 
 	return http.StatusOK, nil
 }

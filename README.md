@@ -23,7 +23,10 @@ All tested versions of Ubuntu fail to build, use a different OS or docker
 * Install [Golang](https://golang.org/doc/install) (version >=1.8)
 * `go get -u github.com/tools/godep`
 * `go get github.com/NyaaPantsu/nyaa`
+On Windows, a specific version of GCC is used to build a specific depedency we use
+The GCC version packaged with [msys2](https://github.com/orlp/dev-on-windows/wiki/Installing-GCC--&-MSYS2) should work
 
+Now proceed to build godep
 Either use:
 * `godep go build`
 Or use this to have the build version in index.html:
