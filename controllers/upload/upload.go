@@ -74,13 +74,13 @@ func UploadPostHandler(c *gin.Context) {
 	NyaaSiUpload := false
 	TokyoToshoUpload := false
 	
-	if c.PostForm("anidex_api") != "" || c.PostForm("anidex_upload") != "" {
+	if c.PostForm("anidex_api") != "" || c.PostForm("anidex_upload") == "true" {
 		AnidexUpload = true
 	}
-	if c.PostForm("nyaasi_api") != "" || c.PostForm("nyaasi_upload") != "" {
+	if c.PostForm("nyaasi_api") != "" || c.PostForm("nyaasi_upload") == "true"{
 		NyaaSiUpload = true
 	}
-	if c.PostForm("tokyot_api") != "" || c.PostForm("tokyot_upload") != "" {
+	if c.PostForm("tokyot_api") != "" || c.PostForm("tokyot_upload") == "true" {
 		TokyoToshoUpload = true
 	}
 
@@ -97,11 +97,10 @@ func UploadPostHandler(c *gin.Context) {
 			if AnidexUpload {
 				uploadMultiple.AnidexStatus = 1
 	
-				langId := "0"
 				anonymous := false
 				apiKey := c.PostForm("anidex_api")
 				
-				if c.PostForm("anidex_api") == "" {
+				if apiKey == "" {
 					anonymous = true
 					apiKey = config.Get().Upload.DefaultAnidexToken
 				}
@@ -113,7 +112,7 @@ func UploadPostHandler(c *gin.Context) {
 				postForm.Set("subcat_id", c.PostForm("anidex_form_category"))
 				postForm.Set("file", "")
 				postForm.Set("group_id", "0")
-				postForm.Set("lang_id", langId)
+				postForm.Set("lang_id", c.PostForm("anidex_form_lang"))
 				
 				//Optional
 				postForm.Set("description", "")
