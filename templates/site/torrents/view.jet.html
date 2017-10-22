@@ -231,6 +231,7 @@
           {{ yield captcha(captchaid=CaptchaID)}}
         </div>
         <button type="submit" class="form-input up-btn">{{ T("submit") }}</button>
+	{{if User.ID > 0}}<input type="checkbox" name="anonymous" value="true" id="anonymous"><label for="anonymous">{{ T("submit_a_comment_as_anonymous")}}</label>{{end}}
       </div>
     </form>
   </div>
