@@ -1199,6 +1199,10 @@ html, body {
     padding-bottom: 5px;
 }
 
+.comment-form h3 {
+	margin-bottom: 8px;
+}
+
 .comment-index {
     margin-right: 5px;
     margin-top: 5px;
