@@ -74,11 +74,11 @@
 				  <div class="form-input">
 					<p>Upload to <b>Anidex</b>:</p>
 					<div>
-						<div class="checkbox-container"><input type="checkbox" value="" name="anidex_upload" id="anidex_upload" {{if User.AnidexAPIToken != ""}}checked disabled{{end}} class="form-torrent"/></div>
+						<div class="checkbox-container"><input type="checkbox" value="true" name="anidex_upload" id="anidex_upload" {{if User.AnidexAPIToken != ""}}checked disabled{{end}} class="form-torrent"/></div>
 						<input name="anidex_api" id="anidex_api" placeholder="Anidex API token (Check the case if none)" class="form-input" type="text" value="{{User.AnidexAPIToken}}"/>
 						<br/>
 						<select class="form-input" name="anidex_form_category">
-							<option>Choose a category</option>
+							<option>Choose a category (required)</option>
 							<option value="1" style="background-color: #9f9;">Anime - Sub</option>
 							<option value="2" style="background-color: #9c9;">Anime - Raw</option>
 							<option value="3" style="background-color: #3f3;">Anime - Dub</option>
@@ -96,17 +96,51 @@
 							{{if Sukebei()}}<option value="15" style="background-color: #99f;">Adult Video</option>{{end}}
 							<option value="16" style="background-color: #999;">Other</option>
 						</select>
+						<select class="form-input" name="anidex_form_lang">
+							<option>Choose a language (required)</option>
+							<option value="0">English</option>
+							<option value="1">Japanese</option>
+							<option value="2">Polish</option>
+							<option value="3">Serbo-Croatian</option>
+							<option value="4">Dutch</option>
+							<option value="5">Italian</option>
+							<option value="6">Russian</option>
+							<option value="7">German</option>
+							<option value="8">Hungarian</option>
+							<option value="9">French</option>
+							<option value="10">Finnish</option>
+							<option value="11">Vietnamese</option>
+							<option value="12">Greek</option>
+							<option value="13">Bulgarian</option>
+							<option value="14">Spanish</option>
+							<option value="15">Portuguese (Brasil)</option>
+							<option value="16">Portuguese (Portugal)</option>
+							<option value="17">Swedish</option>
+							<option value="18">Arabic</option>
+							<option value="19">Danish</option>
+							<option value="20">Chinese (Simplified)</option>
+							<option value="21">Bengali</option>
+							<option value="22">Romanian</option>
+							<option value="23">Czech</option>
+							<option value="24">Mongolian</option>
+							<option value="25">Turkish</option>
+							<option value="26">Indonesian</option>
+							<option value="27">Korean</option>
+							<option value="28">Spanish (LATAM)</option>
+							<option value="29">Persian</option>
+							<option value="30">Malaysian</option>
+						</select>
 					</div>
 					
 					<p>Upload to <b>Nyaa.si</b>:</p>
 					<div>
-						<div class="checkbox-container"><input type="checkbox" value="" name="nyaasi_upload" id="nyaasi_upload" {{if User.NyaasiAPIToken != ""}}checked disabled{{end}} class="form-torrent"/></div>
+						<div class="checkbox-container"><input type="checkbox" value="true" name="nyaasi_upload" id="nyaasi_upload" {{if User.NyaasiAPIToken != ""}}checked disabled{{end}} class="form-torrent"/></div>
 					<input name="nyaasi_api" id="nyaasi_api" placeholder="Nyaa.si API token (Check the case if none)" class="form-input up-input" type="text" value="{{User.NyaasiAPIToken}}"/>
 					</div>
 					
 					<p>Upload to <b>TokyoTosho</b>:</p>
 					<div>
-						<div class="checkbox-container"><input type="checkbox" value="" name="tokyot_upload" id="tokyot_upload" {{if User.TokyoTAPIToken  != ""}}checked disabled{{end}} class="form-torrent"/></div>
+						<div class="checkbox-container"><input type="checkbox" value="true" name="tokyot_upload" id="tokyot_upload" {{if User.TokyoTAPIToken  != ""}}checked disabled{{end}} class="form-torrent"/></div>
 						<input name="tokyot_api" id="tokyot_api" placeholder="TokyoTosho API token (Check the case if none)" class="form-input up-input" type="text" value="{{User.TokyoTAPIToken }}"/>
 					</div>
 					
