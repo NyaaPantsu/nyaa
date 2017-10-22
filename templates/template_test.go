@@ -208,6 +208,10 @@ func walkDirTest(dir string, t *testing.T) {
 			variables.Set("Form", models.Tags{*fakeTag, *fakeTag, *fakeTag})
 			return variables
 		},
+		"upload_multiple.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("UploadMultiple", NewUploadMultipleForm())
+			return variables
+		},
 	}
 
 	fmt.Printf("\nTesting Folder: %s\n", dir)
@@ -253,7 +257,6 @@ func walkDirTest(dir string, t *testing.T) {
 func mockupCommonvariables(t *testing.T) jet.VarMap {
 	variables := jet.VarMap{}
 	variables.Set("Navigation", NewNavigation())
-	variables.Set("UploadMultiple", NewUploadMultipleForm())
 	variables.Set("Search", SearchForm{
 		Category:         "_",
 		ShowItemsPerPage: true,
