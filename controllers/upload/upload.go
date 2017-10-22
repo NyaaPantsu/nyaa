@@ -108,7 +108,6 @@ func UploadPostHandler(c *gin.Context) {
 				postForm := url.Values{}
 				//Required
 				postForm.Set("api_key", apiKey)
-				postForm.Set("torrent_name", c.PostForm("name"))
 				postForm.Set("subcat_id", c.PostForm("anidex_form_category"))
 				postForm.Set("file", "")
 				postForm.Set("group_id", "0")
@@ -125,6 +124,10 @@ func UploadPostHandler(c *gin.Context) {
 				if anonymous {
 					postForm.Set("private", "1")
 				}
+				if c.PostForm("name") != "" {
+					postForm.Set("torrent_name", c.PostForm("name"))
+				}
+					
 				
 				
 				postForm.Set("debug", "1")
