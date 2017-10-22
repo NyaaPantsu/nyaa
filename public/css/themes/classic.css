@@ -311,7 +311,7 @@ select.form-input {
     border-radius: 5px;
     margin: 0 0 4px 0;
     padding: 4px;
-    min-height: 70px;
+    min-height: 66px;
 }
 
 span.comment-index+p {
