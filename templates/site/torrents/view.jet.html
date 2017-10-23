@@ -154,14 +154,14 @@
     <form method="POST" action="/mod/torrent/delete" class="delete-form">
 		{{ yield csrf_field()}}
 		<input type="hidden" name="id" value="{{ Torrent.ID }}">
-		<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}{{  T("delete") }}')) return false;"><i class="icon-trash"></i>{{  T("delete") }}</button>
+		<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}{{  T("delete") }}')) return false;"><i class="icon-trash"></i>{{  T("delete") }}</button>
 	</form>
     <a href="/mod/torrent?id={{ Torrent.ID }}" class="form-input btn-orange">{{  T("edit") }}</a>
     {{ else if User.CurrentUserIdentical(Torrent.UploaderID) }}
     <form method="POST" action="/torrent/delete" class="delete-form">
 		{{ yield csrf_field()}}
 		<input type="hidden" name="id" value="{{ Torrent.ID }}">
-		<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}{{  T("delete") }}')) return false;"><i class="icon-trash"></i>{{  T("delete") }}</button>
+		<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}{{  T("delete") }}')) return false;"><i class="icon-trash"></i>{{  T("delete") }}</button>
 	</form>
     <a href="/torrent?id={{ Torrent.ID }}" class="form-input btn-orange">{{  T("edit") }}</a>
     {{end}}
