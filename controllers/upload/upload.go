@@ -85,7 +85,7 @@ func UploadPostHandler(c *gin.Context) {
 	}
 
 	if !messages.HasErrors() {
-		// add to db and redirect
+		// add to db
 		torrent, err := torrents.Create(user, &uploadForm)
 		log.CheckErrorWithMessage(err, "ERROR_TORRENT_CREATED: Error while creating entry in db")
 
@@ -97,57 +97,58 @@ func UploadPostHandler(c *gin.Context) {
 			if AnidexUpload {
 				uploadMultiple.AnidexStatus = 1
 
-				anonymous := false
 				apiKey := c.PostForm("anidex_api")
 
-				if apiKey == "" {
-					anonymous = true
+				// If the torrent is posted as anonymous or apikey is not set, we set it with default value
+				if apiKey == "" || torrent.IsAnon() {
 					apiKey = config.Get().Upload.DefaultAnidexToken
 				}
 
-				postForm := url.Values{}
-				//Required
-				postForm.Set("api_key", apiKey)
-				postForm.Set("subcat_id", c.PostForm("anidex_form_category"))
-				postForm.Set("file", "")
-				postForm.Set("group_id", "0")
-				postForm.Set("lang_id", c.PostForm("anidex_form_lang"))
+				if apiKey != "" { // You need to check that apikey is not empty even after config. Since it is left empty in config by default and is required
+					postForm := url.Values{}
+					//Required
+					postForm.Set("api_key", apiKey)
+					postForm.Set("subcat_id", c.PostForm("anidex_form_category"))
+					postForm.Set("file", "")
+					postForm.Set("group_id", "0")
+					postForm.Set("lang_id", c.PostForm("anidex_form_lang"))
 
-				//Optional
-				postForm.Set("description", "")
-				if config.IsSukebei() {
-					postForm.Set("hentai", "1")
-				}
-				if uploadForm.Remake {
-					postForm.Set("reencode", "1")
-				}
-				if anonymous {
-					postForm.Set("private", "1")
-				}
-				if c.PostForm("name") != "" {
-					postForm.Set("torrent_name", c.PostForm("name"))
-				}
+					//Optional
+					postForm.Set("description", "")
+					if config.IsSukebei() {
+						postForm.Set("hentai", "1")
+					}
+					if uploadForm.Remake {
+						postForm.Set("reencode", "1")
+					}
+					if torrent.IsAnon() {
+						postForm.Set("private", "1")
+					}
+					if c.PostForm("name") != "" {
+						postForm.Set("torrent_name", c.PostForm("name"))
+					}
 
-				postForm.Set("debug", "1")
+					postForm.Set("debug", "1")
 
-				rsp, err := http.Post("https://anidex.info/api/", "application/x-www-form-urlencoded", bytes.NewBufferString(postForm.Encode()))
+					rsp, err := http.Post("https://anidex.info/api/", "application/x-www-form-urlencoded", bytes.NewBufferString(postForm.Encode()))
 
-				if err != nil {
-					uploadMultiple.AnidexStatus = 2
-					uploadMultiple.AnidexMessage = "Error during the HTTP POST request"
-				}
-				defer rsp.Body.Close()
-				body_byte, err := ioutil.ReadAll(rsp.Body)
-				if err != nil {
-					uploadMultiple.AnidexStatus = 2
-					uploadMultiple.AnidexMessage = "Unknown error"
-				}
-				if uploadMultiple.AnidexStatus == 1 {
-					uploadMultiple.AnidexMessage = string(body_byte)
-					if strings.Contains(uploadMultiple.AnidexMessage, "http://") {
-						uploadMultiple.AnidexStatus = 3
-					} else if strings.Contains(uploadMultiple.AnidexMessage, "error") {
+					if err != nil {
 						uploadMultiple.AnidexStatus = 2
+						uploadMultiple.AnidexMessage = "Error during the HTTP POST request"
+					}
+					defer rsp.Body.Close()
+					bodyByte, err := ioutil.ReadAll(rsp.Body)
+					if err != nil {
+						uploadMultiple.AnidexStatus = 2
+						uploadMultiple.AnidexMessage = "Unknown error"
+					}
+					if uploadMultiple.AnidexStatus == 1 {
+						uploadMultiple.AnidexMessage = string(bodyByte)
+						if strings.Contains(uploadMultiple.AnidexMessage, "http://") {
+							uploadMultiple.AnidexStatus = 3
+						} else if strings.Contains(uploadMultiple.AnidexMessage, "error") {
+							uploadMultiple.AnidexStatus = 2
+						}
 					}
 				}
 			}

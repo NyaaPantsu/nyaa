@@ -165,6 +165,12 @@ func (t *Torrent) IsDeleted() bool {
 	return t.DeletedAt != nil
 }
 
+// IsAnon : Return if a torrent is displayed as anon
+// Be aware, it doesn't mean that the owner is anonymous!
+func (t *Torrent) IsAnon() bool {
+	return t.Hidden || t.UploaderID == 0
+}
+
 // GetDescriptiveTags : Return the descriptive tags
 func (t *Torrent) GetDescriptiveTags() string {
 	return t.AcceptedTags
@@ -350,9 +356,9 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	if t.Scrape != nil {
 		scrape = *t.Scrape
 	}
-	
+
 	statsObsolete := []bool{false, false}
-	
+
 	if scrape.LastScrape.IsZero() || (scrape.Seeders == 0 && scrape.Leechers == 0 && scrape.Completed == 0) {
 		statsObsolete[0] = true
 		//The displayed stats are obsolete, S/D/L will show "Unknown"
@@ -361,7 +367,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		statsObsolete[1] = true
 		//The stats need to be refreshed, either because they are valid and older than one month (not that reliable) OR if they are unknown but have been scraped 1h (or more) ago
 	}
-	
+
 	t.ParseLanguages()
 	res := TorrentJSON{
 		ID:            t.ID,

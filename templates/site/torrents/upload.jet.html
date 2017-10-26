@@ -74,7 +74,7 @@
 				  <div class="form-input">
 					<p>Upload to <b>Anidex</b>:</p>
 					<div>
-						{{if User.AnidexAPIToken != ""}}<div class="checkbox-container"><input type="checkbox" value="true" name="anidex_upload" id="anidex_upload" class="form-torrent" checked /></div>{{end}}
+						<div class="checkbox-container"><input type="checkbox" value="true" name="anidex_upload" id="anidex_upload" class="form-torrent" {{if User.AnidexAPIToken != ""}}checked{{end}} /></div>
 						<input name="anidex_api" id="anidex_api" placeholder="Anidex API token" class="form-input" type="{{if User.AnidexAPIToken != ""}}hidden{{else}}text{{end}}" value="{{User.AnidexAPIToken}}"/>
 						<br/>
 						<select class="form-input" name="anidex_form_category">
@@ -134,13 +134,13 @@
 					
 					<p>Upload to <b>Nyaa.si</b>:</p>
 					<div>
-						 {{if User.NyaasiAPIToken != ""}}<div class="checkbox-container"><input type="checkbox" value="true" name="nyaasi_upload" id="nyaasi_upload" checked class="form-torrent"/></div>{{end}}
+					<div class="checkbox-container"><input type="checkbox" value="true" name="nyaasi_upload" id="nyaasi_upload" {{if User.NyaasiAPIToken != ""}}checked{{end}} class="form-torrent"/></div>
 					<input name="nyaasi_api" id="nyaasi_api" placeholder="Nyaa.si API token" class="form-input up-input" type="{{if User.NyaasiAPIToken != ""}}hidden{{else}}text{{end}}" value="{{User.NyaasiAPIToken}}"/>
 					</div>
 					
 					<p>Upload to <b>TokyoTosho</b>:</p>
 					<div>
-						{{if User.TokyoTAPIToken  != ""}}<div class="checkbox-container"><input type="checkbox" value="true" name="tokyot_upload" id="tokyot_upload" checked class="form-torrent"/></div>{{end}}
+						<div class="checkbox-container"><input type="checkbox" value="true" name="tokyot_upload" id="tokyot_upload" {{if User.TokyoTAPIToken  != ""}}checked{{end}} class="form-torrent"/></div>
 						<input name="tokyot_api" id="tokyot_api" placeholder="TokyoTosho API token" class="form-input up-input" type="{{if User.TokyoTAPIToken != ""}}hidden{{else}}text{{end}}" value="{{User.TokyoTAPIToken }}"/>
 					</div>
 					
