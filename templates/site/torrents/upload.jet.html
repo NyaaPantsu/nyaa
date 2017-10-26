@@ -74,8 +74,8 @@
 				  <div class="form-input">
 					<p>Upload to <b>Anidex</b>:</p>
 					<div>
-						<div class="checkbox-container"><input type="checkbox" value="true" name="anidex_upload" id="anidex_upload" {{if User.AnidexAPIToken != ""}}checked disabled{{end}} class="form-torrent"/></div>
-						<input name="anidex_api" id="anidex_api" placeholder="Anidex API token (Check the case if none)" class="form-input" type="text" value="{{User.AnidexAPIToken}}"/>
+						{{if User.AnidexAPIToken != ""}}<div class="checkbox-container"><input type="checkbox" value="true" name="anidex_upload" id="anidex_upload" class="form-torrent" checked /></div>{{end}}
+						<input name="anidex_api" id="anidex_api" placeholder="Anidex API token" class="form-input" type="{{if User.AnidexAPIToken != ""}}hidden{{else}}text{{end}}" value="{{User.AnidexAPIToken}}"/>
 						<br/>
 						<select class="form-input" name="anidex_form_category">
 							<option>Choose a category (required)</option>
@@ -134,14 +134,14 @@
 					
 					<p>Upload to <b>Nyaa.si</b>:</p>
 					<div>
-						<div class="checkbox-container"><input type="checkbox" value="true" name="nyaasi_upload" id="nyaasi_upload" {{if User.NyaasiAPIToken != ""}}checked disabled{{end}} class="form-torrent"/></div>
-					<input name="nyaasi_api" id="nyaasi_api" placeholder="Nyaa.si API token (Check the case if none)" class="form-input up-input" type="text" value="{{User.NyaasiAPIToken}}"/>
+						 {{if User.NyaasiAPIToken != ""}}<div class="checkbox-container"><input type="checkbox" value="true" name="nyaasi_upload" id="nyaasi_upload" checked class="form-torrent"/></div>{{end}}
+					<input name="nyaasi_api" id="nyaasi_api" placeholder="Nyaa.si API token" class="form-input up-input" type="{{if User.NyaasiAPIToken != ""}}hidden{{else}}text{{end}}" value="{{User.NyaasiAPIToken}}"/>
 					</div>
 					
 					<p>Upload to <b>TokyoTosho</b>:</p>
 					<div>
-						<div class="checkbox-container"><input type="checkbox" value="true" name="tokyot_upload" id="tokyot_upload" {{if User.TokyoTAPIToken  != ""}}checked disabled{{end}} class="form-torrent"/></div>
-						<input name="tokyot_api" id="tokyot_api" placeholder="TokyoTosho API token (Check the case if none)" class="form-input up-input" type="text" value="{{User.TokyoTAPIToken }}"/>
+						{{if User.TokyoTAPIToken  != ""}}<div class="checkbox-container"><input type="checkbox" value="true" name="tokyot_upload" id="tokyot_upload" checked class="form-torrent"/></div>{{end}}
+						<input name="tokyot_api" id="tokyot_api" placeholder="TokyoTosho API token" class="form-input up-input" type="{{if User.TokyoTAPIToken != ""}}hidden{{else}}text{{end}}" value="{{User.TokyoTAPIToken }}"/>
 					</div>
 					
 				  </div>

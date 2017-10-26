@@ -1,26 +1,26 @@
 package uploadController
 
 import (
+	"bytes"
 	"errors"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
-	"io/ioutil"
-	"bytes"
 
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/captcha"
+	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 	"github.com/NyaaPantsu/nyaa/utils/upload"
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
-	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/gin-gonic/gin"
-	"github.com/NyaaPantsu/nyaa/utils/log"
 )
 
 // UploadHandler : Main Controller for uploading a torrent
@@ -69,18 +69,18 @@ func UploadPostHandler(c *gin.Context) {
 	if err != nil {
 		messages.AddError("errors", err.Error())
 	}
-	
+
 	AnidexUpload := false
 	NyaaSiUpload := false
 	TokyoToshoUpload := false
-	
-	if c.PostForm("anidex_api") != "" || c.PostForm("anidex_upload") == "true" {
+
+	if anidexUpload, ok := c.GetPostForm("anidex_upload"); c.PostForm("anidex_api") != "" && (!ok || anidexUpload == "true") {
 		AnidexUpload = true
 	}
-	if c.PostForm("nyaasi_api") != "" || c.PostForm("nyaasi_upload") == "true"{
+	if nyaasiUpload, ok := c.GetPostForm("nyaasi_upload"); c.PostForm("nyaasi_api") != "" && (!ok || nyaasiUpload == "true") {
 		NyaaSiUpload = true
 	}
-	if c.PostForm("tokyot_api") != "" || c.PostForm("tokyot_upload") == "true" {
+	if tokyotUpload, ok := c.GetPostForm("tokyot_upload"); c.PostForm("tokyot_api") != "" && (!ok || tokyotUpload == "true") {
 		TokyoToshoUpload = true
 	}
 
@@ -88,23 +88,23 @@ func UploadPostHandler(c *gin.Context) {
 		// add to db and redirect
 		torrent, err := torrents.Create(user, &uploadForm)
 		log.CheckErrorWithMessage(err, "ERROR_TORRENT_CREATED: Error while creating entry in db")
-		
+
 		if AnidexUpload || NyaaSiUpload || TokyoToshoUpload {
 			//User wants to upload to other websites too
 			uploadMultiple := templates.NewUploadMultipleForm()
 			uploadMultiple.PantsuID = torrent.ID
-			
+
 			if AnidexUpload {
 				uploadMultiple.AnidexStatus = 1
-	
+
 				anonymous := false
 				apiKey := c.PostForm("anidex_api")
-				
+
 				if apiKey == "" {
 					anonymous = true
 					apiKey = config.Get().Upload.DefaultAnidexToken
 				}
-				
+
 				postForm := url.Values{}
 				//Required
 				postForm.Set("api_key", apiKey)
@@ -112,7 +112,7 @@ func UploadPostHandler(c *gin.Context) {
 				postForm.Set("file", "")
 				postForm.Set("group_id", "0")
 				postForm.Set("lang_id", c.PostForm("anidex_form_lang"))
-				
+
 				//Optional
 				postForm.Set("description", "")
 				if config.IsSukebei() {
@@ -127,13 +127,11 @@ func UploadPostHandler(c *gin.Context) {
 				if c.PostForm("name") != "" {
 					postForm.Set("torrent_name", c.PostForm("name"))
 				}
-					
-				
-				
+
 				postForm.Set("debug", "1")
-				
+
 				rsp, err := http.Post("https://anidex.info/api/", "application/x-www-form-urlencoded", bytes.NewBufferString(postForm.Encode()))
-				
+
 				if err != nil {
 					uploadMultiple.AnidexStatus = 2
 					uploadMultiple.AnidexMessage = "Error during the HTTP POST request"
@@ -153,16 +151,16 @@ func UploadPostHandler(c *gin.Context) {
 					}
 				}
 			}
-			
+
 			if NyaaSiUpload {
 				uploadMultiple.NyaasiStatus = 1
 				uploadMultiple.NyaasiMessage = "Sorry u are not allowed"
 			}
-			
-			if TokyoToshoUpload  {
+
+			if TokyoToshoUpload {
 				uploadMultiple.TToshoStatus = 1
 			}
-			
+
 			variables := templates.Commonvariables(c)
 			variables.Set("UploadMultiple", uploadMultiple)
 			templates.Render(c, "site/torrents/upload_multiple.jet.html", variables)
