@@ -1,7 +1,7 @@
 <div class="box refine website-nav">
 <table id="nav-category-list">
 	<tbody>
-		<tr><td>{{if Search.Category == ""}}<b>{{ T("all_categories")}}</b>{{else}}<a href="{{genSearchWithCategory(URL, "_", Search.SearchURL)}}">{{ T("all_categories")}}</a>{{end}}</td></tr>
+		<tr><td colspan="3">{{if Search.Category == ""}}<b>{{ T("all_categories")}}</b>{{else}}<a href="{{genSearchWithCategory(URL, "_", Search.SearchURL)}}">{{ T("all_categories")}}</a>{{end}}</td></tr>
 		<tr>
 		{{ range _, cat := GetCategories(true, false) }}
 			<td>{{if Search.Category == cat.ID ||(len(Search.Category) > 2 && Search.Category[:2] == cat.ID)}}<b>{{ T(cat.Name) }}</b>{{else}}<a href="{{genSearchWithCategory(URL, cat.ID, Search.SearchURL)}}">{{ T(cat.Name) }}</a>{{end}}</td>
