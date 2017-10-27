@@ -19,11 +19,26 @@ func GetStatsHandler(c *gin.Context) {
 	if err != nil {
 		return
 	}
-
+	
 	torrent, err := torrents.FindRawByID(uint(id))
 
 	if err != nil {
 		return
+	}
+	
+	var CurrentData models.Scrape
+	statsExists := !models.ORM.Where("torrent_id = ?", id).Find(&CurrentData).RecordNotFound() 
+	
+	if statsExists {
+		//Stats already exist, we check if the torrent stats have been scraped already very recently and if so, we stop there to avoid abuse of the /stats/:id route
+		if (CurrentData.Seeders == 0 && CurrentData.Leechers == 0 && CurrentData.Completed == 0)  && time.Since(CurrentData.LastScrape).Minutes() <= config.Get().Scrape.MaxStatScrapingFrequencyUnknown {
+			//Unknown stats but has been scraped less than X minutes ago (X being the limit set in the config file)
+			return
+		}
+		if (CurrentData.Seeders != 0 || CurrentData.Leechers != 0 || CurrentData.Completed != 0) && time.Since(CurrentData.LastScrape).Minutes() <= config.Get().Scrape.MaxStatScrapingFrequency  {
+			//Known stats but has been scraped less than X minutes ago (X being the limit set in the config file)
+			return
+		}
 	}
 	
 	var Trackers []string
@@ -63,8 +78,7 @@ func GetStatsHandler(c *gin.Context) {
 		stats.Seeders = 0
 	}
 	
-	var CurrentData models.Scrape
-	if models.ORM.Where("torrent_id = ?", id).Find(&CurrentData).RecordNotFound() {
+	if statsExists {
 		torrent.Scrape = torrent.Scrape.Create(uint(id), uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now())
 		//Create entry in the DB because none exist
 	} else {
