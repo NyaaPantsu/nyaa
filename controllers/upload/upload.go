@@ -74,13 +74,13 @@ func UploadPostHandler(c *gin.Context) {
 	NyaaSiUpload := false
 	TokyoToshoUpload := false
 
-	if anidexUpload, ok := c.GetPostForm("anidex_upload"); c.PostForm("anidex_api") != "" && (!ok || anidexUpload == "true") {
+	if c.PostForm("anidex_api") != "" || c.PostForm("anidex_upload") == "true" {
 		AnidexUpload = true
 	}
-	if nyaasiUpload, ok := c.GetPostForm("nyaasi_upload"); c.PostForm("nyaasi_api") != "" && (!ok || nyaasiUpload == "true") {
+	if c.PostForm("nyaasi_api") != "" || c.PostForm("nyaasi_upload") == "true" {
 		NyaaSiUpload = true
 	}
-	if tokyotUpload, ok := c.GetPostForm("tokyot_upload"); c.PostForm("tokyot_api") != "" && (!ok || tokyotUpload == "true") {
+	if c.PostForm("tokyot_api") != "" || c.PostForm("tokyot_upload") == "true" {
 		TokyoToshoUpload = true
 	}
 
