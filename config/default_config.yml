@@ -46,6 +46,14 @@ scraper:
   interval: 3600
   trackers:
     - {url: "udp://tracker.coppersurfer.tk:6969/", name: coppersurfer.tk}
+# StatScrapingFrequency : On-demand stat scraping JS will only be loaded if the stats have been scraped X hours ago or higher
+  stat_scraping_frequency: 48
+# StatScrapingFrequencyUnknown : On-demand stat scraping for unknown torrents JS will only be loaded if the stats have been scraped X hours ago or higher
+  stat_scraping_frequency_unknown: 1
+# MaxStatScrapingFrequency : On-demand stat scraping can only be called every X minutes, to prevent abuse of the /stats/:id route
+  max_stat_scraping_frequency: 5
+# MaxStatScrapingFrequencyUnknown : On-demand stat scraping for unknown torrents can only be called every X minutes
+  max_stat_scraping_frequency_unknown: 2
 # Config by default for the cache
 cache:
   dialect: nop
