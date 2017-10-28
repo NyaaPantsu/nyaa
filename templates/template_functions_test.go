@@ -781,30 +781,6 @@ func testFormatDate(t *testing.T) {
 	}
  }
  
- func testUserStatus(t *testing.T) {
- 	var tests = []struct {
- 		domainName template.HTML
- 	}{
- 		{
-			domainName:  template.HTML("test"),
- 		},
- 	}
- 	for _, test := range tests {
-		Ts, _, err := publicSettings.TfuncAndLanguageWithFallback("en-us")
-		if err != nil {
-			t.Error("Couldn't load language files!")
-		}
-		var T publicSettings.TemplateTfunc
-		T = func(id string, args ...interface{}) template.HTML {	
-			return template.HTML(fmt.Sprintf(Ts(id), args...))
-		}
-		value := getUserStatus(0, 0, false, T)
- 		if value != test.domainName {
- 			
- 		}
-	}
- }
- 
 func mockupTemplateT(t *testing.T) publicSettings.TemplateTfunc {
 	conf := config.Get().I18n
 	conf.Directory = path.Join("..", conf.Directory)
