@@ -55,40 +55,35 @@ function parseAllDates() {
     month: "short",
     day: "numeric"
   }
-  var hmOpt = {
-    hour: "numeric",
-    minute: "numeric"
-  }
 
   var list = document.getElementsByClassName("date-short")
   for(var i = 0; i < list.length; i++) {
     var e = list[i]
     e.innerText = new Date(e.title).toLocaleString(lang, ymdOpt)
     e.title = new Date(e.title).toLocaleString(lang)
-    e.classList.remove("date-short")
   }
 
   var list = document.getElementsByClassName("date-full")
   for(var i = 0; i < list.length; i++) {
     var e = list[i]
     var dateDifference = dateDiff(new Date(e.innerText), new Date())
-    
+
     if(e.classList.contains("scrape-date"))
       e.title = hmFmt.format((dateDifference.d * 24) + dateDifference.h, dateDifference.m)
     else
       e.title = dhFmt.format(dateDifference.d, dateDifference.h)
 	  
     e.innerText = new Date(e.innerText).toLocaleString(lang)
-    e.classList.remove("date-full")
   }
 }
 function dateDiff( str1, str2 ) {
     var diff = Date.parse( str2 ) - Date.parse( str1 ); 
     return isNaN( diff ) ? NaN : {
         diff : diff,
-	m  : Math.floor( diff /     60000 %   60 ),
-        h  : Math.floor( diff /  3600000 %   24 ),
-        d  : Math.floor( diff / 86400000        )
+		s  : Math.floor( diff /     1000          ),
+		m  : Math.floor( diff /    60000 %     60 ),
+        h  : Math.floor( diff /  3600000 %     24 ),
+        d  : Math.floor( diff / 86400000          )
     };
 }
 parseAllDates()

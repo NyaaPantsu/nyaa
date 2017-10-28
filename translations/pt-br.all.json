@@ -244,7 +244,7 @@
     "translation": "Sair"
   },
   {
-    "id": "member",
+    "id": "userstatus_member",
     "translation": "Membro"
   },
   {
@@ -588,7 +588,7 @@
     "translation": "Cargo"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "Banido"
   },
   {
@@ -596,15 +596,15 @@
     "translation": "Padrão"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Membro confiável"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Usuário analisado"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "Moderador"
   },
   {

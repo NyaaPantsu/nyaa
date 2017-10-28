@@ -300,11 +300,21 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	magnet := format.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, trackers...)
 	commentsJSON := make([]CommentJSON, 0, len(t.OldComments)+len(t.Comments))
 	for _, c := range t.OldComments {
-		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, UserID: -1, Content: template.HTML(c.Content), Date: c.Date.UTC()})
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, UserID: -1, UserStatus: "", Content: template.HTML(c.Content), Date: c.Date.UTC()})
 	}
 	for _, c := range t.Comments {
 		if c.User != nil {
-			commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: sanitize.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC(), UserAvatar: c.User.MD5})
+			userStatus := ""
+			if c.User.IsBanned() {
+				userStatus = "userstatus_banned"
+			}
+			if c.User.HasAdmin() {
+				userStatus =  "userstatus_moderator"
+			}
+			if c.User.ID == t.ID {
+				userStatus = "userstatus_uploader"
+			}
+			commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), UserStatus: userStatus, Content: sanitize.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC(), UserAvatar: c.User.MD5})
 		} else {
 			commentsJSON = append(commentsJSON, CommentJSON{})
 		}
@@ -357,7 +367,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		statsObsolete[0] = true
 		//The displayed stats are obsolete, S/D/L will show "Unknown"
 	}
-	if time.Since(scrape.LastScrape).Hours() > 730 || (scrape.Seeders == 0 && scrape.Leechers == 0 && scrape.Completed == 0 && time.Since(scrape.LastScrape).Hours() >= 1) {
+	if time.Since(scrape.LastScrape).Hours() > config.Get().Scrape.StatScrapingFrequency || (scrape.Seeders == 0 && scrape.Leechers == 0 && scrape.Completed == 0 && time.Since(scrape.LastScrape).Hours() >= config.Get().Scrape.StatScrapingFrequencyUnknown) {
 		statsObsolete[1] = true
 		//The stats need to be refreshed, either because they are valid and older than one month (not that reliable) OR if they are unknown but have been scraped 1h (or more) ago
 	}
@@ -369,8 +379,8 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		Status:        t.Status,
 		Hidden:        t.Hidden,
 		Hash:          t.Hash,
-		Date:          t.Date.Format(time.RFC3339),
-		FullDate:      t.Date,
+		Date:          t.Date.UTC().Format(time.RFC3339),
+		FullDate:      t.Date.UTC(),
 		Filesize:      t.Filesize,
 		Description:   sanitize.MarkdownToHTML(t.Description),
 		Comments:      commentsJSON,

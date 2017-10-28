@@ -256,7 +256,7 @@
     "translation": "ログアウト"
   },
   {
-    "id": "member",
+    "id": "userstatus_member",
     "translation": "アカウント"
   },
   {
@@ -604,7 +604,7 @@
     "translation": "役割"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "BAN"
   },
   {
@@ -612,15 +612,15 @@
     "translation": "デフォルト"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "高信頼アカウント"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "保留ユーザー"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "モデレーター"
   },
   {
@@ -765,7 +765,7 @@
   },
   {
     "id": "report_torrent_number",
-    "translation": "Torrent #%s を通報"
+    "translation": "Torrent #%d を通報"
   },
   {
     "id": "report_type",
@@ -1913,7 +1913,7 @@
   },
   {
     "id": "faq_ads_explanation",
-    "translation": "これは決して軽率な判断ではなく、皆様から寄せられたご意見を徹底的に検討したものです。しかしながら、最終的にこれが pantsu に資金を供給し、継続的な活動を保証する唯一の持続可能な解決策であると感じています。<br/>私たちは資金の調達源について考えてきましたが、他に資金の調達に近づく選択肢はありません。<br>その後、A-ADS が提供する広告が私たちとユーザーにとって最良の選択であると判断しました。これらの広告は、シンプルで邪魔にならず、決してサイトのユーザーエクスペリエンスを阻害するものではなく、いかなる形態のトラッキングも含みません。"
+    "translation": "これは決して軽率な判断ではなく、皆様から寄せられたご意見を徹底的に検討したものです。しかしながら、最終的にこれが pantsu に資金を供給し、継続的な活動を保証する唯一の持続可能な解決策であると感じています。<br/>私たちは資金の調達源について考えてきましたが、他に資金の調達に近づく選択肢はありません。<br>その結果、A-ADS の広告が私たちとユーザーにとって最良の選択であると判断しました。これらの広告は、シンプルで邪魔にならず、決してサイトのユーザーエクスペリエンスを阻害するものではなく、いかなる形態のトラッキングも含まれません。"
   },
   {
     "id": "torrent_preview",

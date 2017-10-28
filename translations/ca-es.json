@@ -244,7 +244,7 @@
     "translation": "Tanca la sessió"
   },
   {
-    "id": "member",
+    "id": "userstatus_member",
     "translation": "Membres"
   },
   {
@@ -588,7 +588,7 @@
     "translation": "Rol"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "Bandejat"
   },
   {
@@ -596,15 +596,15 @@
     "translation": "Per defecte"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Membre de confiança"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Usuari raspat"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "Moderador"
   },
   {

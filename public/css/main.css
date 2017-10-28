@@ -341,6 +341,17 @@ select.form-input {
     max-height: 100%;
 }
 
+.user-avatar span {
+    position: absolute;
+    color: #292929;
+    background: #fd6b6b;
+    padding: 1px 4px;
+    border-radius: 7px;
+    font-size: 10px;
+    top: 37px;
+    right: 19px;
+}
+
 #content {
     position: relative;
 }
@@ -857,7 +868,7 @@ html, body {
 
 @media (max-width: 810px) {
     body {
-    margin: 8px 0;
+    margin: 0 0 8px;
     }
     .torrent-info-row>td {
         display: block;
@@ -932,10 +943,6 @@ html, body {
     }
     .header .h-user .nav-btn {
     height: 57px;
-    }
-
-    #content {
-    top: 58px;
     }
 
     h3 {
@@ -1175,11 +1182,31 @@ html, body {
     margin-bottom: 8px;
 }
 
+.comment-box span+p span::before {
+    content: '(';
+}
+.comment-box span+p span::after {
+    content: ')';
+}
+.comment-box span+p span {
+    font-size: 12px;
+    font-style: italic;
+    margin-left: 4px;
+}
+
+.comment-content :last-child {
+    margin-bottom: 2px;
+}
+
 .comment-form {
     margin-left: 10px;
     margin-top: 10px;
     margin-right: 10px;
     padding-bottom: 5px;
+}
+
+.comment-form h3 {
+	margin-bottom: 8px;
 }
 
 .comment-index {
@@ -1486,6 +1513,9 @@ input.filelist-checkbox:checked+table.table-filelist {
     max-height: 56vh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+}
+.modal-body :first-child {
+    margin-top: 0;
 }
 
 
@@ -2251,7 +2281,7 @@ form.delete-form button.form-input.btn-red {
 }
 
 .user-torrent-table {
-	margin-bottom: 80px
+    margin-bottom: 80px
 }
 
 .user-torrent-search {

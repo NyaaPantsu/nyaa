@@ -38,6 +38,8 @@ type Config struct {
 	I18n I18nConfig `json:"i18n" yaml:"i18n,flow,omitempty"`
 	// torrents config
 	Torrents TorrentsConfig `yaml:"torrents,flow,omitempty"`
+	// upload config
+	Upload UploadConfig `json:"upload" yaml:"upload,flow,omitempty"`
 	// user config
 	Users UsersConfig `yaml:"users,flow,omitempty"`
 	// navigation config
@@ -105,17 +107,21 @@ type I18nConfig struct {
 
 // ScrapeConfig : Config struct for Scraping
 type ScrapeConfig struct {
-	URL             string `json:"scrape_url" yaml:"url,omitempty"`
-	Name            string `json:"name"  yaml:"name,omitempty"`
-	IntervalSeconds int64  `json:"interval" yaml:"interval,omitempty"`
+	URL                              string           `json:"scrape_url" yaml:"url,omitempty"`
+	Name                             string           `json:"name"  yaml:"name,omitempty"`
+	IntervalSeconds                  int64            `json:"interval" yaml:"interval,omitempty"`
 }
 
 // ScraperConfig :  Config struct for Scraper
 type ScraperConfig struct {
-	Addr            string         `json:"bind" yaml:"addr,omitempty"`
-	NumWorkers      int            `json:"workers" yaml:"workers,omitempty"`
-	IntervalSeconds int64          `json:"default_interval" yaml:"default_interval,omitempty"`
-	Trackers        []ScrapeConfig `json:"trackers" yaml:"trackers,omitempty"`
+	Addr                             string           `json:"bind" yaml:"addr,omitempty"`
+	NumWorkers                       int              `json:"workers" yaml:"workers,omitempty"`
+	IntervalSeconds                  int64            `json:"default_interval" yaml:"default_interval,omitempty"`
+	Trackers                         []ScrapeConfig   `json:"trackers" yaml:"trackers,omitempty"`
+	StatScrapingFrequency            float64          `json:"stat_scraping_frequency" yaml:"stat_scraping_frequency,omitempty"`
+	StatScrapingFrequencyUnknown     float64          `json:"stat_scraping_frequency_unknown" yaml:"stat_scraping_frequency_unknown,omitempty"`
+	MaxStatScrapingFrequency         float64          `json:"max_stat_scraping_frequency" yaml:"max_stat_scraping_frequency,omitempty"`
+	MaxStatScrapingFrequencyUnknown  float64          `json:"max_stat_scraping_frequency_unknown" yaml:"max_stat_scraping_frequency_unknown,omitempty"`
 }
 
 // TrackersConfig ; Config struct for Trackers
@@ -135,13 +141,20 @@ type TorrentsConfig struct {
 	FileStorage                   string            `yaml:"filestorage,omitempty"`
 	StorageLink                   string            `yaml:"storage_link,omitempty"`
 	CacheLink                     string            `yaml:"cache_link,omitempty"`
-	UploadsDisabled               bool              `yaml:"uploads_disabled,omitempty"`
-	AdminsAreStillAllowedTo       bool              `yaml:"admins_are_still_allowed_to,omitempty"`
-	TrustedUsersAreStillAllowedTo bool              `yaml:"trusted_users_are_still_allowed_to,omitempty"`
 	Trackers                      TrackersConfig    `yaml:"trackers,flow,omitempty"`
 	Order                         string            `yaml:"order,omitempty"`
 	Sort                          string            `yaml:"sort,omitempty"`
 	Tags                          Tags              `yaml:"tags,flow,omitempty"`
+}
+
+// UploadConfig : Config struct for uploading torrents
+type UploadConfig struct {
+	DefaultAnidexToken            string            `yaml:"anidex_api_token,omitempty"`
+	DefaultNyaasiToken            string            `yaml:"nyaasi_api_token,omitempty"`
+	DefaultTokyoTToken            string            `yaml:"tokyot_api_token,omitempty"`
+	UploadsDisabled               bool              `yaml:"uploads_disabled,omitempty"`
+	AdminsAreStillAllowedTo       bool              `yaml:"admins_are_still_allowed_to,omitempty"`
+	TrustedUsersAreStillAllowedTo bool              `yaml:"trusted_users_are_still_allowed_to,omitempty"`
 }
 
 // UsersConfig : Config struct for Users
