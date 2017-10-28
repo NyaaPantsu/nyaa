@@ -60,3 +60,6 @@
 * + generating_torrent
 ## 2017/10/09
 * + no_api_token
+## 2017/10/28
+* + hours_minutes_ago
+* + days_hours_ago
