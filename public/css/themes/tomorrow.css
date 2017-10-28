@@ -347,6 +347,6 @@ span.tag {
     color: #ea8c8c;
 }
 
-.sukebei #subscribe-link::before, .sukebei #subscribe-link::after {
+#subscribe-link::before, #subscribe-link::after {
    color: #c5c8c6;
 }
