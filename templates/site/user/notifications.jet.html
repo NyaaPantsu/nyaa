@@ -22,9 +22,9 @@
 			<a href="{{ .URL }}?notif">>{{ .Content }}</a>
 		</td>
 		{{if !.Date.IsZero()}}
-		<td class="date-full" title="{{formatDate(.Date, false)}}">{{formatDate(.Date, true)}}</td>
+		<td class="notification-date date-full" title="{{formatDate(.Date, false)}}">{{formatDate(.Date, false)}}</td>
 		{{else}}
-		<td>{{T("unknown")}}</td>
+		<td class="notification-date">{{T("unknown")}}</td>
 		{{end}}
 	  </tr>
 	{{end}}	
