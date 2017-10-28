@@ -829,7 +829,7 @@
   },
   {
     "id": "clear_notifications",
-    "translation": "Clear unread notifications"
+    "translation": "Clear read notifications"
   },
   {
     "id": "clear_all_notifications",
