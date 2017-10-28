@@ -1129,20 +1129,24 @@ html, body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
+.torrent-info-data #subscribe-link::before, .torrent-info-data #subscribe-link::after {
+    font-weight: normal;
+    color: black;
+}
 .torrent-info-data #subscribe-link::before {
-	content: '[';
-	font-weight: normal;
+    content: '[';
 }
 .torrent-info-data #subscribe-link::after {
-	content: ']';
-	font-weight: normal;
+    content: ']';
 }
 .torrent-info-data #subscribe-link {
-	font-weight: bold;
-	font-size: 13px;
+    font-weight: bold;
+    font-size: 13px;
 }
-
+.torrent-info-data #subscribe-link:hover {
+    text-decoration: underline;
+}
+   
 .torrent-info-box {
     border: 1px solid #ccc;
     border-radius: 4px;
