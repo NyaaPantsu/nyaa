@@ -65,6 +65,14 @@ func ViewHandler(c *gin.Context) {
 	if user.NeedsCaptcha() {
 		captchaID = captcha.GetID()
 	}
+	
+	if c.Request.URL.Query()["followed"] != nil {
+		messages.AddInfoTf("infos", "user_followed_msg", b.UploaderName)
+	}
+	if c.Request.URL.Query()["unfollowed"] != nil {
+		messages.AddInfoTf("infos", "user_unfollowed_msg", b.UploaderName)
+	}
+	
 	// Display finally the view
 	templates.Torrent(c, b, folder, captchaID)
 }

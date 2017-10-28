@@ -60,6 +60,9 @@ body, .header {
 a {
     color: #106655;
 }
+.sukebei a {
+    color: #660000;
+}
 a:hover {
     text-decoration: underline;
 }
@@ -132,7 +135,10 @@ th.tr-name a {
     content: '';
 }
 .icon-floppy {
-    background: url("/img/dl-link.png") no-repeat center;
+    background: url("classic/dl-link.png") no-repeat center;
+}
+.sukebei .icon-floppy {
+    background: url("classic/sukebei-dl-link.png") no-repeat center;
 }
 .upload-tag-table .input-label {
     font-size: 12px;
@@ -141,7 +147,7 @@ th.tr-name a {
     height: 40px;
 }
 .header {
-    background: url("/img/topbar.png") repeat-x black;
+    background: url("classic/topbar.png") repeat-x black;
     background: linear-gradient(to bottom, #6d6d6d 0%, #000000 72%);
     border-color: black;
     height: 40px;
@@ -236,6 +242,9 @@ select.form-input {
     background-color: #339999;
     border: 1px solid #333333;
     color: #FBFBFB;
+}
+.sukebei .pagination span:hover {
+    background-color: #993333;
 }
 .website-nav .pagination p {
     display: none;
@@ -441,6 +450,9 @@ span.comment-index+p a:hover {
     margin-right: 6px;
     float: left;
 }
+.sukebei .torrent-buttons a, .sukebei .torrent-buttons button {
+	background: linear-gradient(to bottom, #CA3346 5%, #482120 80%);
+}
 .torrent-buttons a.hidden {
     opacity: 0.6!important;
     filter: grayscale(0.7);
@@ -485,6 +497,9 @@ td {
 }
 td a {
     color: #106655;
+}
+.sukebei td a {
+    color: #660000;
 }
 td.tr-se, .success-text {
     color: green;
@@ -691,4 +706,10 @@ span.tag {
 .upload-tag-table .form-group input, .upload-tag-table .form-group select {
     width: 128px!important;
     height: 20px;
+}
+.sukebei .torrent-info-data #subscribe-link {
+    color: #660000;
+}
+.torrent-info-data #subscribe-link::before, .torrent-info-data #subscribe-link:: after {
+    color: #111111;
 }

@@ -16,7 +16,7 @@ func UserFollowHandler(c *gin.Context) {
 	currentUser := router.GetUser(c)
 	user, _, errorUser := users.FindForAdmin(uint(id))
 	if errorUser == nil && user.ID > 0 {
-		if !currentUser.IsFollower(user) {
+		if !currentUser.IsFollower(uint(id)) {
 			followAction = "followed"
 			currentUser.SetFollow(user)
 		} else {
@@ -25,5 +25,8 @@ func UserFollowHandler(c *gin.Context) {
 		}
 	}
 	url := "/user/" + strconv.Itoa(int(user.ID)) + "/" + user.Username + "?" + followAction
+	if c.Query("id") != "" {
+		url = "/view/" + c.Query("id") + "?" + followAction
+	}
 	c.Redirect(http.StatusSeeOther, url)
 }

@@ -20,7 +20,7 @@
   <div class="profile-usermenu">
     {{if User.ID > 0 }}
     {{if !User.CurrentUserIdentical(UserProfile.ID) }}
-    {{if !User.IsFollower(UserProfile)}}
+    {{if !User.IsFollower(UserProfile.ID)}}
     <a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-green">{{ T("follow")}}</a>
     {{else}}
     <a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-orange">{{ T("unfollow")}}</a>
