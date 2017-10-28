@@ -65,3 +65,9 @@
 ## 2017/10/28
 * + hours_minutes_ago
 * + days_hours_ago
+* + status
+* + event
+* + read
+* + unread
+* + clear_all_notifications
+* ~ clear_notifications -> modified to "Clear **unread** notification"
