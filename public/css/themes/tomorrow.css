@@ -356,5 +356,5 @@ td.notification-status {
 }
 td.notification-status.notification-unread {
 	background-color: rgba(144, 103, 24, 0.4);
-	color: white;
+	color: #c5c8c6;
 }
