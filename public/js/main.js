@@ -42,7 +42,7 @@ function toggleLayer(elem) {
 
 // String formatter
 // "{0}{2}, {1}".format("foo", 123, "bar") == "foobar, 123"
-String.prototype.format = function(arg) {
+String.prototype.format = function() {
   var args = arguments
   return this.replace(/\{(\w+)\}/g, function(m, k) { return args[k] })
 }
