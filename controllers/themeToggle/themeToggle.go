@@ -42,7 +42,9 @@ func toggleThemeHandler(c *gin.Context) {
 	http.SetCookie(c.Writer, &http.Cookie{Name: "theme2", Value: theme, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})	
 	
 	//Redirect user to page he was in beforehand
-	c.Redirect(http.StatusSeeOther, c.Param("redirect") + "#footer")
+	if c.Query("no_redirect") == "" {
+		c.Redirect(http.StatusSeeOther, c.Param("redirect") + "#footer")
+	}
 	return
 }
 
