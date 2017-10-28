@@ -300,11 +300,21 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	magnet := format.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, trackers...)
 	commentsJSON := make([]CommentJSON, 0, len(t.OldComments)+len(t.Comments))
 	for _, c := range t.OldComments {
-		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, UserID: -1, Content: template.HTML(c.Content), Date: c.Date.UTC()})
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, UserID: -1, UserStatus: "", Content: template.HTML(c.Content), Date: c.Date.UTC()})
 	}
 	for _, c := range t.Comments {
 		if c.User != nil {
-			commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: sanitize.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC(), UserAvatar: c.User.MD5})
+			userStatus := ""
+			if c.User.IsBanned() {
+				userStatus = "userstatus_banned"
+			}
+			if c.User.HasAdmin() {
+				userStatus =  "userstatus_moderator"
+			}
+			if c.User.ID == t.ID {
+				userStatus = "userstatus_uploader"
+			}
+			commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), UserStatus: userStatus, Content: sanitize.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC(), UserAvatar: c.User.MD5})
 		} else {
 			commentsJSON = append(commentsJSON, CommentJSON{})
 		}
