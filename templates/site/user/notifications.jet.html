@@ -19,7 +19,7 @@
 	  <tr>
 		<td class="notification-status {{ if !.Read }}notification-unread{{end}}">{{if .Read}}{{T("read")}}{{else}}{{T("unread")}}{{end}}</td>
 		<td class="notification-event">
-			<a href="{{ .URL }}?notif">>{{ .Content }}</a>
+			<a href="{{ .URL }}?notif">{{ .Content }}</a>
 		</td>
 		{{if !.Date.IsZero()}}
 		<td class="notification-date date-full" title="{{formatDate(.Date, false)}}">{{formatDate(.Date, false)}}</td>
