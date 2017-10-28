@@ -132,7 +132,7 @@ th.tr-name a {
     content: '';
 }
 .icon-floppy {
-    background: url("/img/dl-link.png") no-repeat center;
+    background: url("classic/dl-link.png") no-repeat center;
 }
 .upload-tag-table .input-label {
     font-size: 12px;
@@ -141,7 +141,7 @@ th.tr-name a {
     height: 40px;
 }
 .header {
-    background: url("/img/topbar.png") repeat-x black;
+    background: url("classic/topbar.png") repeat-x black;
     background: linear-gradient(to bottom, #6d6d6d 0%, #000000 72%);
     border-color: black;
     height: 40px;
