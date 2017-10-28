@@ -1174,6 +1174,10 @@ html, body {
     margin-top: 9px;    
 }
 
+.comment-box .comment-user {
+	font-size: 12px;
+}
+
 .comment-box span+p img {
     width: 50px;
     height: 50px;
@@ -1182,13 +1186,13 @@ html, body {
     margin-bottom: 8px;
 }
 
-.comment-box span+p span::before {
+.comment-box .user-status::before {
     content: '(';
 }
-.comment-box span+p span::after {
+.comment-box .user-status::after {
     content: ')';
 }
-.comment-box span+p span {
+.comment-box .user-status {
     font-size: 12px;
     font-style: italic;
     margin-left: 4px;
