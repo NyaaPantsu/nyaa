@@ -2348,6 +2348,48 @@ form.delete-form button.form-input.btn-red {
     bottom: 9px;
 }
 
+#clear-notification {
+    bottom: 8px;
+    right: 8px;
+    position: absolute;
+	width: calc(100% - 16px);
+}
+#clear-notification a {
+	float: right;
+	margin-left: 3px;
+}
+.notification-table {
+    margin-bottom: 44px;
+}
+.notification-table td {
+	text-align: center;
+	padding: 6px 0;
+	border-bottom: 1px solid;
+}
+.notification-table tr:hover td {
+	filter: brightness(1.2);
+}
+.notification-status {
+	width: 140px;
+}
+.notification-event {
+	text-align: left!important;
+	padding: 6px 10px!important;
+}
+.notification-date {
+	width: 195px;
+}
+td.notification-status {
+	border: 1px solid black;
+}
+td.notification-status {
+	background-color: #e4e4e4;
+}
+td.notification-status.notification-unread {
+	background-color: rgb(161, 211, 253);
+	color: white;
+}
+
 /* Language specific CSS */
 
 html[lang="ja-jp"] .form-refine span.spacing {
