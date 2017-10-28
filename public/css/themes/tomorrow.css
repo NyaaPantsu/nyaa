@@ -346,3 +346,7 @@ span.tag {
 .sukebei .admin-content tr:hover a {
     color: #ea8c8c;
 }
+
+.sukebei #subscribe-link::before, .sukebei #subscribe-link::after {
+   color: #c5c8c6;
+}
