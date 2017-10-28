@@ -22,7 +22,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/format"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 	"github.com/NyaaPantsu/nyaa/utils/torrentLanguages"
-	"github.com/NyaaPantsu/nyaa/models/users"
 )
 
 // FuncMap : Functions accessible in templates by {{ $.Function }}
