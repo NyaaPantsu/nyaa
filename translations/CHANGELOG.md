@@ -70,4 +70,4 @@
 * + read
 * + unread
 * + clear_all_notifications
-* ~ clear_notifications -> modified to "Clear **unread** notification"
+* ~ clear_notifications -> modified to "Clear **read** notification"
