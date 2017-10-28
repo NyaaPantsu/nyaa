@@ -68,7 +68,7 @@ func walkDirTest(dir string, t *testing.T) {
 	fakeOauthModel := fakeOauthForm.Bind(&models.OauthClient{})
 	fakeClient := client.Client{"", "", "", []string{""}, []string{""}, []string{""}, "", "", "", "", "", "", []string{""}, false}
 	fakeAnnouncement := announcementValidator.CreateForm{1, "", 2}
-	fakeNotification := &models.Notification{1, "test", true, "test", "test", time.Now(), 1}
+	fakeNotification := &models.Notification{1, "test", true, "test", "test", time.Now(), time.Now(), 1}
 
 	contextvariables := ContextTest{
 		"dumps.jet.html": func(variables jet.VarMap) jet.VarMap {
