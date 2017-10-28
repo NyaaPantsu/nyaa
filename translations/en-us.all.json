@@ -829,7 +829,11 @@
   },
   {
     "id": "clear_notifications",
-    "translation": "Clear Notifications"
+    "translation": "Clear unread notifications"
+  },
+  {
+    "id": "clear_all_notifications",
+    "translation": "Clear all notifications"
   },
   {
     "id": "notifications_cleared",
@@ -2186,6 +2190,21 @@
   {
     "id": "days_hours_ago",
     "translation": "{0} days {1} hours ago"
+  },
+  {
+    "id": "status",
+    "translation": "Status"
+  },
+  {
+    "id": "event",
+    "translation": "Event"
+  },
+  {
+    "id": "read",
+    "translation": "Read"
+  },
+  {
+    "id": "unread",
+    "translation": "Unread"
   }
 ]
-
