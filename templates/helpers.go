@@ -37,16 +37,6 @@ type SearchForm struct {
 	SearchURL        string
 }
 
-type uploadMultipleForm struct {
-	PantsuID		 uint
-	AnidexStatus      int
-	AnidexMessage     string
-	NyaasiStatus     int
-	NyaasiMessage    string
-	TToshoStatus     int
-	TToshoMessage    string
-}
-
 // NewNavigation return a navigation struct with
 // Some Default Values to ease things out
 func NewNavigation() Navigation {
@@ -54,19 +44,6 @@ func NewNavigation() Navigation {
 		MaxItemPerPage: 50,
 	}
 }
-
-func NewUploadMultipleForm() uploadMultipleForm {
-	return uploadMultipleForm{
-		PantsuID:         0,
-		AnidexStatus:      0,
-		AnidexMessage:     "",
-		NyaasiStatus:     0,
-		NyaasiMessage:    "",
-		TToshoStatus:     0,
-		TToshoMessage:    "",
-	}
-}
-
 
 // NewSearchForm return a searchForm struct with
 // Some Default Values to ease things out
@@ -78,12 +55,12 @@ func NewSearchForm(c *gin.Context) SearchForm {
 		ShowRefine:       false,
 		SizeType:         sizeType,
 		User:             c.Query("user"),
-		UserName:		  "",
+		UserName:         "",
 		DateType:         c.Query("dateType"),
 		MinSize:          c.Query("minSize"),  // We need to overwrite the value here, since size are formatted
 		MaxSize:          c.Query("maxSize"),  // We need to overwrite the value here, since size are formatted
 		FromDate:         c.Query("fromDate"), // We need to overwrite the value here, since we can have toDate instead and date are formatted
 		ToDate:           c.Query("toDate"),   // We need to overwrite the value here, since date are formatted
-		SearchURL:		  "/search",
+		SearchURL:        "/search",
 	}
 }

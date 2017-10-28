@@ -1,19 +1,16 @@
 package uploadController
 
 import (
-	"bytes"
 	"errors"
-	"io/ioutil"
+	"fmt"
 	"net/http"
-	"net/url"
 	"strconv"
-	"strings"
 
-	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/templates"
+	"github.com/NyaaPantsu/nyaa/utils/cache"
 	"github.com/NyaaPantsu/nyaa/utils/captcha"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
@@ -90,81 +87,21 @@ func UploadPostHandler(c *gin.Context) {
 		log.CheckErrorWithMessage(err, "ERROR_TORRENT_CREATED: Error while creating entry in db")
 
 		if AnidexUpload || NyaaSiUpload || TokyoToshoUpload {
-			//User wants to upload to other websites too
-			uploadMultiple := templates.NewUploadMultipleForm()
-			uploadMultiple.PantsuID = torrent.ID
-
+			// User wants to upload to other websites too
 			if AnidexUpload {
-				uploadMultiple.AnidexStatus = 1
-
-				apiKey := c.PostForm("anidex_api")
-
-				// If the torrent is posted as anonymous or apikey is not set, we set it with default value
-				if apiKey == "" || torrent.IsAnon() {
-					apiKey = config.Get().Upload.DefaultAnidexToken
-				}
-
-				if apiKey != "" { // You need to check that apikey is not empty even after config. Since it is left empty in config by default and is required
-					postForm := url.Values{}
-					//Required
-					postForm.Set("api_key", apiKey)
-					postForm.Set("subcat_id", c.PostForm("anidex_form_category"))
-					postForm.Set("file", "")
-					postForm.Set("group_id", "0")
-					postForm.Set("lang_id", c.PostForm("anidex_form_lang"))
-
-					//Optional
-					postForm.Set("description", "")
-					if config.IsSukebei() {
-						postForm.Set("hentai", "1")
-					}
-					if uploadForm.Remake {
-						postForm.Set("reencode", "1")
-					}
-					if torrent.IsAnon() {
-						postForm.Set("private", "1")
-					}
-					if c.PostForm("name") != "" {
-						postForm.Set("torrent_name", c.PostForm("name"))
-					}
-
-					postForm.Set("debug", "1")
-
-					rsp, err := http.Post("https://anidex.info/api/", "application/x-www-form-urlencoded", bytes.NewBufferString(postForm.Encode()))
-
-					if err != nil {
-						uploadMultiple.AnidexStatus = 2
-						uploadMultiple.AnidexMessage = "Error during the HTTP POST request"
-					}
-					defer rsp.Body.Close()
-					bodyByte, err := ioutil.ReadAll(rsp.Body)
-					if err != nil {
-						uploadMultiple.AnidexStatus = 2
-						uploadMultiple.AnidexMessage = "Unknown error"
-					}
-					if uploadMultiple.AnidexStatus == 1 {
-						uploadMultiple.AnidexMessage = string(bodyByte)
-						if strings.Contains(uploadMultiple.AnidexMessage, "http://") {
-							uploadMultiple.AnidexStatus = 3
-						} else if strings.Contains(uploadMultiple.AnidexMessage, "error") {
-							uploadMultiple.AnidexStatus = 2
-						}
-					}
-				}
+				go upload.ToAnidex(c, torrent)
 			}
 
 			if NyaaSiUpload {
-				uploadMultiple.NyaasiStatus = 1
-				uploadMultiple.NyaasiMessage = "Sorry u are not allowed"
+				go upload.ToNyaasi(c, torrent)
 			}
 
 			if TokyoToshoUpload {
-				uploadMultiple.TToshoStatus = 1
+				go upload.ToTTosho(c, torrent)
 			}
-
-			variables := templates.Commonvariables(c)
-			variables.Set("UploadMultiple", uploadMultiple)
-			templates.Render(c, "site/torrents/upload_multiple.jet.html", variables)
+			// After that, we redirect to the page for upload status
+			url := fmt.Sprintf("/upload/status/%d", torrent.ID)
+			c.Redirect(302, url)
 		} else {
 			url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
 			c.Redirect(302, url+"?success")
@@ -183,4 +120,28 @@ func UploadGetHandler(c *gin.Context) {
 		uploadForm.CaptchaID = ""
 	}
 	templates.Form(c, "site/torrents/upload.jet.html", uploadForm)
+}
+
+// multiUploadStatus : controller to show the multi upload status
+func multiUploadStatus(c *gin.Context) {
+	id := c.Param("id")
+	if id == "" {
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
+	if found, ok := cache.C.Get("tstatus_" + id); ok {
+		uploadMultiple := found.(upload.MultipleForm)
+		// if ?json we print the json format
+		if _, ok = c.GetQuery("json"); ok {
+			c.JSON(http.StatusFound, uploadMultiple)
+			return
+		}
+		// else we send the upload multiple form (support of manual F5)
+		variables := templates.Commonvariables(c)
+		variables.Set("UploadMultiple", uploadMultiple)
+		templates.Render(c, "site/torrents/upload_multiple.jet.html", variables)
+	} else {
+		// here it means the upload status is already flushed from memory
+		c.AbortWithStatus(http.StatusNotFound)
+	}
 }

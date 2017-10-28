@@ -9,22 +9,22 @@
 			<tr class="upload-status"><td class="upload-site-name">Nyaa Pantsu</td><td>Status:</td><td class="icon-finished finished"></td><td class="upload-progress finished">Finished</td></tr>
 			<tr><td colspan="4" class="uploaded-url"><a href="/view/{{UploadMultiple.PantsuID}}" target="_blank"><input type="text" class="form-input" value="{{if Sukebei()}}{{Config.WebAddress.Sukebei}}{{else}}{{Config.WebAddress.Nyaa}}{{end}}/view/{{UploadMultiple.PantsuID}}" disabled></a></td></tr>
 			
-			{{ if UploadMultiple.NyaasiStatus != 0 }}
+			{{ if UploadMultiple.Nyaasi.Status != 0 }}
 			<tr><td colspan="4"><h3>Nyaa.si upload status</h3></td></tr>
-			<tr class="upload-status"><td class="upload-site-name">Nyaa.si</td><td>Status:</td><td class="icon-{{ if UploadMultiple.NyaasiStatus == 1}}pending pending{{else if UploadMultiple.NyaasiStatus == 2}}error error{{else}}finished finished{{end}}"></td><td class="upload-progress {{ if UploadMultiple.NyaasiStatus == 1}}pending{{else if UploadMultiple.NyaasiStatus == 2}}error{{else}}finished{{end}}">{{ if UploadMultiple.NyaasiStatus == 1}}Pending{{else if UploadMultiple.NyaasiStatus == 2}}Error{{else}}Finished{{end}}</td></tr>
-			<tr><td colspan="4" class="uploaded-url"><input type="text" class="form-input" value="{{UploadMultiple.NyaasiMessage}}" disabled></td></tr>
+			<tr class="upload-status"><td class="upload-site-name">Nyaa.si</td><td>Status:</td><td class="icon-{{ if UploadMultiple.Nyaasi.Status == 1}}pending pending{{else if UploadMultiple.Nyaasi.Status == 2}}error error{{else}}finished finished{{end}}"></td><td class="upload-progress {{ if UploadMultiple.Nyaasi.Status == 1}}pending{{else if UploadMultiple.Nyaasi.Status == 2}}error{{else}}finished{{end}}">{{ if UploadMultiple.Nyaasi.Status == 1}}Pending{{else if UploadMultiple.Nyaasi.Status == 2}}Error{{else}}Finished{{end}}</td></tr>
+			<tr><td colspan="4" class="uploaded-url"><input type="text" class="form-input" value="{{UploadMultiple.Nyaasi.Message}}" disabled></td></tr>
 			{{end}}
 			
-			{{ if UploadMultiple.AnidexStatus != 0 }}
+			{{ if UploadMultiple.Anidex.Status != 0 }}
 			<tr><td colspan="4"><h3>Anidex upload status</h3></td></tr>
-			<tr class="upload-status"><td class="upload-site-name">Anidex</td><td>Status:</td><td class="icon-{{ if UploadMultiple.AnidexStatus == 1}}pending pending{{else if UploadMultiple.AnidexStatus == 2}}error error{{else}}finished finished{{end}}"></td><td class="upload-progress {{ if UploadMultiple.AnidexStatus == 1}}pending{{else if UploadMultiple.AnidexStatus == 2}}error{{else}}finished{{end}}">{{ if UploadMultiple.AnidexStatus == 1}}Pending{{else if UploadMultiple.AnidexStatus == 2}}Error{{else}}Finished{{end}}</td></tr>
-			<tr><td colspan="4" class="uploaded-url"><input type="text" class="form-input" value="{{UploadMultiple.AnidexMessage}}" disabled></td></tr>
+			<tr class="upload-status"><td class="upload-site-name">Anidex</td><td>Status:</td><td class="icon-{{ if UploadMultiple.Anidex.Status == 1}}pending pending{{else if UploadMultiple.Anidex.Status == 2}}error error{{else}}finished finished{{end}}"></td><td class="upload-progress {{ if UploadMultiple.Anidex.Status == 1}}pending{{else if UploadMultiple.Anidex.Status == 2}}error{{else}}finished{{end}}">{{ if UploadMultiple.Anidex.Status == 1}}Pending{{else if UploadMultiple.Anidex.Status == 2}}Error{{else}}Finished{{end}}</td></tr>
+			<tr><td colspan="4" class="uploaded-url"><input type="text" class="form-input" value="{{UploadMultiple.Anidex.Message}}" disabled></td></tr>
 			{{end}}
 			
-			{{ if UploadMultiple.TToshoStatus != 0 }}
+			{{ if UploadMultiple.TTosho.Status != 0 }}
 			<tr><td colspan="4"><h3>Tokyo Tosho upload status</h3></td></tr>
-			<tr class="upload-status"><td class="upload-site-name">Anidex</td><td>Status:</td><td class="icon-{{ if UploadMultiple.TToshoStatus == 1}}pending pending{{else if UploadMultiple.TToshoStatus == 2}}error error{{else}}finished finished{{end}}"></td><td class="upload-progress {{ if UploadMultiple.TToshoStatus == 1}}pending{{else if UploadMultiple.TToshoStatus == 2}}error{{else}}finished{{end}}">{{ if UploadMultiple.TToshoStatus == 1}}Pending{{else if UploadMultiple.TToshoStatus == 2}}Error{{else}}Finished{{end}}</td></tr>
-			<tr><td colspan="4" class="uploaded-url"><input type="text" class="form-input" value="{{UploadMultiple.TToshoMessage}}" disabled></td></tr>
+			<tr class="upload-status"><td class="upload-site-name">Anidex</td><td>Status:</td><td class="icon-{{ if UploadMultiple.TTosho.Status == 1}}pending pending{{else if UploadMultiple.TTosho.Status == 2}}error error{{else}}finished finished{{end}}"></td><td class="upload-progress {{ if UploadMultiple.TTosho.Status == 1}}pending{{else if UploadMultiple.TTosho.Status == 2}}error{{else}}finished{{end}}">{{ if UploadMultiple.TTosho.Status == 1}}Pending{{else if UploadMultiple.TTosho.Status == 2}}Error{{else}}Finished{{end}}</td></tr>
+			<tr><td colspan="4" class="uploaded-url"><input type="text" class="form-input" value="{{UploadMultiple.TTosho.Message}}" disabled></td></tr>
 			{{end}}
 		</tbody>
 	</table>
