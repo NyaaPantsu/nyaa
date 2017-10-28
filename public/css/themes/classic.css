@@ -64,9 +64,6 @@ a:hover {
     text-decoration: underline;
 }
 
-.upload-form-table .checkbox-container+input {
-    width: 385px;
-}
 .upload-form-table .table-checkboxes {
     padding: 3px 0!important;
     width: 100%!important;
@@ -635,7 +632,7 @@ span.tag {
 }
 
 .upload-form-table {
-    width: auto;
+    width: 542px;
 }
 .upload-form-table .table-input-label label::after {
     content: ':';
