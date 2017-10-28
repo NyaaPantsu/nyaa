@@ -100,7 +100,9 @@
 	      websiteVersion = "{{ Config.Version }}",
 	      UserID = {{User.ID}},
 	      domain = "{{getDomainName()}}",
-	      darkTheme = "{{DarkTheme}}";
+	      darkTheme = "{{DarkTheme}}",
+	      hmFmt = "{{ T("hours_minutes_ago") }}",
+	      dhFmt = "{{ T("days_hours_ago") }}";
 	</script>
   <script type="text/javascript" src="/js/query.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   <script type="text/javascript" charset="utf-8" src="/js/main.js?v={{ Config.Version }}{{ Config.Build }}" async></script>

@@ -2178,5 +2178,14 @@
   {
     "id": "search_from_specific_user",
     "translation": "Search from %s"
+  },
+  {
+    "id": "hours_minutes_ago",
+    "translation": "{0} hours {1} minutes ago"
+  },
+  {
+    "id": "days_hours_ago",
+    "translation": "{0} days {1} hours ago"
   }
 ]
+
