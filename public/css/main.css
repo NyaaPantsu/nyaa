@@ -1182,6 +1182,12 @@ html, body {
     margin-bottom: 8px;
 }
 
+.comment-box span+p span::before {
+    content: '(';
+}
+.comment-box span+p span::after {
+    content: ')';
+}
 .comment-box span+p span {
     font-size: 12px;
     font-style: italic;
