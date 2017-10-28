@@ -22,7 +22,11 @@ func ToggleReadNotification(identifier string, id uint) { //
 	models.ORM.Model(&models.Notification{}).Where("identifier = ? AND user_id = ?", identifier, id).Updates(models.Notification{Read: true})
 }
 
-// DeleteAllNotifications : Erase notifications from a user
-func DeleteAllNotifications(id uint) { //
-	models.ORM.Where("user_id = ?", id).Delete(&models.Notification{})
+// DeleteNotifications : Erase notifications from a user
+func DeleteNotifications(id uint, all bool) { //
+	if all {
+		models.ORM.Where("user_id = ?", id).Delete(&models.Notification{})
+	} else {
+		models.ORM.Where("user_id = ? AND read = ?", id, true).Delete(&models.Notification{})
+	}
 }
