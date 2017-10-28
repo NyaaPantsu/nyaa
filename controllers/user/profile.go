@@ -217,7 +217,18 @@ func UserNotificationsHandler(c *gin.Context) {
 	if currentUser.ID > 0 {
 		messages := msg.GetMessages(c)
 		if c.Request.URL.Query()["clear"] != nil {
-			notifications.DeleteAllNotifications(currentUser.ID)
+			notifications.DeleteNotifications(currentUser.ID, false)
+			messages.AddInfoT("infos", "notifications_cleared")
+			NewNotifications := []models.Notification{}
+			for _, notif := range currentUser.Notifications {
+				if !notif.Read {
+					NewNotifications = append(NewNotifications, notif)
+				}
+			}
+			currentUser.Notifications = NewNotifications
+			
+		} else if c.Request.URL.Query()["clear_all"] != nil {
+			notifications.DeleteNotifications(currentUser.ID, true)
 			messages.AddInfoT("infos", "notifications_cleared")
 			currentUser.Notifications = []models.Notification{}
 		}
