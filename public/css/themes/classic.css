@@ -395,6 +395,11 @@ span.comment-index+p a:hover {
     width: 24px;
     margin-top: 8px;
 }
+.user-avatar span {
+	font-size: 8px;
+	top: 23px;
+	right: 7px;
+}
 
 .torrent-info-data.uploader-link {
     font-weight: bold;
