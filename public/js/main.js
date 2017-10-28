@@ -40,6 +40,13 @@ function toggleLayer(elem) {
   }
 }
 
+// String formatter
+// "{0}{2}, {1}".format("foo", 123, "bar") == "foobar, 123"
+String.prototype.format = function(arg) {
+  var args = arguments
+  return this.replace(/\{(\w+)\}/g, function(m, k) { return args[k] })
+}
+
 function parseAllDates() {
   // Date formatting
   var lang = document.getElementsByTagName("html")[0].getAttribute("lang")
@@ -58,6 +65,7 @@ function parseAllDates() {
     var e = list[i]
     e.innerText = new Date(e.title).toLocaleString(lang, ymdOpt)
     e.title = new Date(e.title).toLocaleString(lang)
+    e.classList.remove("date-short")
   }
 
   var list = document.getElementsByClassName("date-full")
@@ -65,12 +73,13 @@ function parseAllDates() {
     var e = list[i]
     var dateDifference = dateDiff(new Date(e.innerText), new Date())
     
-    if(e.className != undefined && e.className.includes("scrape-date"))
-      e.title = ((dateDifference.d * 24) + dateDifference.h) + " hours " + dateDifference.m + " minutes ago"
+    if(e.classList.contains("scrape-date"))
+      e.title = hmFmt.format((dateDifference.d * 24) + dateDifference.h, dateDifference.m)
     else
-      e.title = dateDifference.d + " days " + dateDifference.h + " hours ago"
+      e.title = dhFmt.format(dateDifference.d, dateDifference.h)
 	  
     e.innerText = new Date(e.innerText).toLocaleString(lang)
+    e.classList.remove("date-full")
   }
 }
 function dateDiff( str1, str2 ) {
