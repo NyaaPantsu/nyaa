@@ -2174,5 +2174,13 @@
   {
     "id": "search_from_specific_user",
     "translation": "%s のアップロードを検索"
+  },
+  {
+    "id": "hours_minutes_ago",
+    "translation": "{0} 時間 {1} 分前"
+  },
+  {
+    "id": "days_hours_ago",
+    "translation": "{0} 日 {1} 時間前"
   }
 ]
