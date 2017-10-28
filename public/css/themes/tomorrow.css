@@ -348,5 +348,13 @@ span.tag {
 }
 
 #subscribe-link::before, #subscribe-link::after {
-   color: #c5c8c6!important;
+   color: #c5c8c6;
+}
+
+td.notification-status {
+	background-color: #505255;
+}
+td.notification-status.notification-unread {
+	background-color: rgba(144, 103, 24, 0.4);
+	color: white;
 }
