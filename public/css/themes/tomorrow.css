@@ -348,5 +348,5 @@ span.tag {
 }
 
 #subscribe-link::before, #subscribe-link::after {
-   color: #c5c8c6;
+   color: #c5c8c6!important;
 }
