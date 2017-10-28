@@ -35,6 +35,11 @@ func PostCommentHandler(c *gin.Context) {
 		}
 	}
 	content := sanitize.Sanitize(c.PostForm("comment"), "comment")
+	
+	userID := currentUser.ID
+	if c.PostForm("anonymous") == "true" {
+		userID = 0
+	}
 
 	if strings.TrimSpace(content) == "" {
 		messages.AddErrorT("errors", "comment_empty")
@@ -44,7 +49,7 @@ func PostCommentHandler(c *gin.Context) {
 	}
 	if !messages.HasErrors() {
 
-		_, err := comments.Create(content, torrent, currentUser)
+		_, err := comments.Create(content, torrent, userID)
 		if err != nil {
 			messages.Error(err)
 		}

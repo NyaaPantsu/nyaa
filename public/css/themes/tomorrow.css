@@ -60,6 +60,9 @@ a:hover {
     background: #99BFD0;
     border-color: #282A2E;
 }
+.user-avatar span {
+    background-color: #d02727;
+}
 
 .header .h-user .user-menu {
     background: #282A2E;

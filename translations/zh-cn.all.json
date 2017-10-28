@@ -244,7 +244,7 @@
     "translation": "注销"
   },
   {
-    "id": "member",
+    "id": "userstatus_member",
     "translation": "会员"
   },
   {
@@ -588,7 +588,7 @@
     "translation": "角色"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "账号已被封禁"
   },
   {
@@ -596,15 +596,15 @@
     "translation": "默认值"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "受信任会员"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Scraped user"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "管理员"
   },
   {

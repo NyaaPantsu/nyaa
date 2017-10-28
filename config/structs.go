@@ -107,17 +107,21 @@ type I18nConfig struct {
 
 // ScrapeConfig : Config struct for Scraping
 type ScrapeConfig struct {
-	URL             string `json:"scrape_url" yaml:"url,omitempty"`
-	Name            string `json:"name"  yaml:"name,omitempty"`
-	IntervalSeconds int64  `json:"interval" yaml:"interval,omitempty"`
+	URL                              string           `json:"scrape_url" yaml:"url,omitempty"`
+	Name                             string           `json:"name"  yaml:"name,omitempty"`
+	IntervalSeconds                  int64            `json:"interval" yaml:"interval,omitempty"`
 }
 
 // ScraperConfig :  Config struct for Scraper
 type ScraperConfig struct {
-	Addr            string         `json:"bind" yaml:"addr,omitempty"`
-	NumWorkers      int            `json:"workers" yaml:"workers,omitempty"`
-	IntervalSeconds int64          `json:"default_interval" yaml:"default_interval,omitempty"`
-	Trackers        []ScrapeConfig `json:"trackers" yaml:"trackers,omitempty"`
+	Addr                             string           `json:"bind" yaml:"addr,omitempty"`
+	NumWorkers                       int              `json:"workers" yaml:"workers,omitempty"`
+	IntervalSeconds                  int64            `json:"default_interval" yaml:"default_interval,omitempty"`
+	Trackers                         []ScrapeConfig   `json:"trackers" yaml:"trackers,omitempty"`
+	StatScrapingFrequency            float64          `json:"stat_scraping_frequency" yaml:"stat_scraping_frequency,omitempty"`
+	StatScrapingFrequencyUnknown     float64          `json:"stat_scraping_frequency_unknown" yaml:"stat_scraping_frequency_unknown,omitempty"`
+	MaxStatScrapingFrequency         float64          `json:"max_stat_scraping_frequency" yaml:"max_stat_scraping_frequency,omitempty"`
+	MaxStatScrapingFrequencyUnknown  float64          `json:"max_stat_scraping_frequency_unknown" yaml:"max_stat_scraping_frequency_unknown,omitempty"`
 }
 
 // TrackersConfig ; Config struct for Trackers

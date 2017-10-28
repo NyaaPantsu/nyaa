@@ -40,6 +40,13 @@ function toggleLayer(elem) {
   }
 }
 
+// String formatter
+// "{0}{2}, {1}".format("foo", 123, "bar") == "foobar, 123"
+String.prototype.format = function() {
+  var args = arguments
+  return this.replace(/\{(\w+)\}/g, function(m, k) { return args[k] })
+}
+
 function parseAllDates() {
   // Date formatting
   var lang = document.getElementsByTagName("html")[0].getAttribute("lang")
@@ -47,10 +54,6 @@ function parseAllDates() {
     year: "numeric",
     month: "short",
     day: "numeric"
-  }
-  var hmOpt = {
-    hour: "numeric",
-    minute: "numeric"
   }
 
   var list = document.getElementsByClassName("date-short")
@@ -64,11 +67,11 @@ function parseAllDates() {
   for(var i = 0; i < list.length; i++) {
     var e = list[i]
     var dateDifference = dateDiff(new Date(e.innerText), new Date())
-    
-    if(e.className != undefined && e.className.includes("scrape-date"))
-      e.title = ((dateDifference.d * 24) + dateDifference.h) + " hours " + dateDifference.m + " minutes ago"
+
+    if(e.classList.contains("scrape-date"))
+      e.title = hmFmt.format((dateDifference.d * 24) + dateDifference.h, dateDifference.m)
     else
-      e.title = dateDifference.d + " days " + dateDifference.h + " hours ago"
+      e.title = dhFmt.format(dateDifference.d, dateDifference.h)
 	  
     e.innerText = new Date(e.innerText).toLocaleString(lang)
   }
@@ -77,9 +80,10 @@ function dateDiff( str1, str2 ) {
     var diff = Date.parse( str2 ) - Date.parse( str1 ); 
     return isNaN( diff ) ? NaN : {
         diff : diff,
-	m  : Math.floor( diff /     60000 %   60 ),
-        h  : Math.floor( diff /  3600000 %   24 ),
-        d  : Math.floor( diff / 86400000        )
+		s  : Math.floor( diff /     1000          ),
+		m  : Math.floor( diff /    60000 %     60 ),
+        h  : Math.floor( diff /  3600000 %     24 ),
+        d  : Math.floor( diff / 86400000          )
     };
 }
 parseAllDates()

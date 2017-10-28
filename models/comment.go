@@ -26,6 +26,7 @@ type CommentJSON struct {
 	Username   string        `json:"username"`
 	UserID     int           `json:"user_id"`
 	UserAvatar string        `json:"user_avatar"`
+	UserStatus string        `json:"user_status"`
 	Content    template.HTML `json:"content"`
 	Date       time.Time     `json:"date"`
 }

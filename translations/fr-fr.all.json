@@ -256,7 +256,7 @@
     "translation": "Se déconnecter"
   },
   {
-    "id": "member",
+    "id": "userstatus_member",
     "translation": "Membre"
   },
   {
@@ -604,7 +604,7 @@
     "translation": "Rôle"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "Banni"
   },
   {
@@ -612,15 +612,15 @@
     "translation": "Par défaut"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Membre de confiance"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Utilisateur scrapé"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "Modérateur"
   },
   {
@@ -2174,5 +2174,13 @@
   {
     "id": "search_from_specific_user",
     "translation": "Rechercher de %s"
+  },
+  {
+    "id": "hours_minutes_ago",
+    "translation": "Il y a {0} heure(s) et {1} minute(s)"
+  },
+  {
+    "id": "days_hours_ago",
+    "translation": "Il y a {0} jour(s) et {1} heure(s)"
   }
 ]

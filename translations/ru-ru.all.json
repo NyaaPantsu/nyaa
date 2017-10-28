@@ -248,7 +248,7 @@
     "translation": "Выход"
   },
   {
-    "id": "member",
+    "id": "userstatus_member",
     "translation": "Пользователь"
   },
   {
@@ -592,7 +592,7 @@
     "translation": "Роль"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "Забанен"
   },
   {
@@ -600,15 +600,15 @@
     "translation": "По умолчанию"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Надёжный пользователь"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Удалённый пользователь"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "Модератор"
   },
   {

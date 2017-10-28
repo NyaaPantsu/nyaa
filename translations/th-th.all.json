@@ -244,7 +244,7 @@
     "translation": "ออกจากระบบ"
   },
   {
-    "id": "member",
+    "id": "userstatus_member",
     "translation": "สมาชิก"
   },
   {
@@ -588,7 +588,7 @@
     "translation": "ยศ"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "ถูกแบน"
   },
   {
@@ -596,16 +596,16 @@
     "translation": "ค่าตั้งต้น"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Trusted member"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Scraped user"
   },
   {
-    "id": "moderator",
-    "translation": "Moderator"
+    "id": "userstatus_moderator",
+    "translation": "userstatus_moderator"
   },
   {
     "id": " api_token",

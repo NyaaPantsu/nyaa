@@ -256,7 +256,7 @@
     "translation": "Sign-out"
   },
   {
-    "id": "member",
+    "id": "userstatus_member",
     "translation": "Member"
   },
   {
@@ -604,7 +604,7 @@
     "translation": "Role"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "Banned"
   },
   {
@@ -612,16 +612,20 @@
     "translation": "Default"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Trusted member"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Scraped user"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "Moderator"
+  },
+  {
+    "id": "userstatus_uploader",
+    "translation": "Uploader"
   },
   {
     "id": "api_token",
@@ -2174,5 +2178,14 @@
   {
     "id": "search_from_specific_user",
     "translation": "Search from %s"
+  },
+  {
+    "id": "hours_minutes_ago",
+    "translation": "{0} hours {1} minutes ago"
+  },
+  {
+    "id": "days_hours_ago",
+    "translation": "{0} days {1} hours ago"
   }
 ]
+
