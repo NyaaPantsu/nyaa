@@ -204,11 +204,11 @@
   <div class="torrent-info-box comment-box">
     <span class="comment-index">
       <a href="#comment_{{idx}}">{{idx}}</a>
-      <small style="padding-left: 4px;" class="date-short" title="{{formatDateRFC(element.Date)}}">{{formatDate(element.Date, false)}}</small>
+      <small style="padding-left: 4px;" class="date-full" title="{{formatDateRFC(element.Date)}}">{{formatDate(element.Date, false)}}</small>
     </span>
     <p><img src="https://www.gravatar.com/avatar/{{ element.UserAvatar }}"/>
-	{{if element.UserID > 0}}<a href="/user/{{element.UserID}}/{{element.Username}}" class="comment-user">{{element.Username}}</a><span>{{if element.UserStatus != ""}}{{T(element.UserStatus)}}{{end}}</span>{{else}}
-	<span>れんちょん</span>{{end}}
+	{{if element.UserID > 0}}<a href="/user/{{element.UserID}}/{{element.Username}}" class="comment-user">{{element.Username}}</a>{{if element.UserStatus != ""}}<span class="user-status">{{T(element.UserStatus)}}</span>{{end}}{{else}}
+	<span class="comment-user">れんちょん</span>{{end}}
     <div class="comment-content">{{element.Content|raw}}</div>
   </div>
   {{idx = idx + 1}}
