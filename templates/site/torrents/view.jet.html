@@ -23,7 +23,14 @@
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{  T("uploaded_by") }}:</td>
-      <td class="torrent-view-td torrent-info-data {{if Torrent.UploaderID == 0}}uploader-anon{{else}}uploader-link{{end}}">{{ genUploaderLink(Torrent.UploaderID, Torrent.UploaderName, Torrent.Hidden)|raw }}</td>
+	  {{if Torrent.UploaderID == 0}}
+	   <td class="torrent-view-td torrent-info-data uploader-anon">{{ genUploaderLink(Torrent.UploaderID, Torrent.UploaderName, Torrent.Hidden)|raw }}
+	  {{else}}
+	   <td class="torrent-view-td torrent-info-data uploader-link">
+	    {{ genUploaderLink(Torrent.UploaderID, Torrent.UploaderName, Torrent.Hidden)|raw }}
+	    {{if !Torrent.Hidden}}<a href="/user/{{Torrent.UploaderID}}/{{Torrent.UploaderName}}/follow?id={{Torrent.ID}}" id="subscribe-link">{{if User.IsFollower(Torrent.UploaderID)}}{{T("unfollow")}}{{else}}{{T("follow")}}{{end}}</a>{{end}}
+	   </td>
+	  {{end}}
     </tr>
      
 	 <tr class="torrent-info-row">
