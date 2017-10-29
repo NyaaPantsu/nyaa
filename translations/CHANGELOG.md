@@ -74,3 +74,6 @@
 ## 2017/10/29
 * + report_message
 * + other
+* + read_notifications_cleared
+* + notifications_read
+* + mark_notifications_as_read
