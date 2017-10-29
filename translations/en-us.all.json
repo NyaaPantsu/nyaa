@@ -774,7 +774,7 @@
   {
     "id": "report_type",
     "translation": "Report type"
-  },,
+  },
   {
     "id": "report_message",
     "translation": "Report message"
@@ -794,7 +794,7 @@
   {
     "id": "duplicate_deprecated",
     "translation": "Duplicate / Deprecated"
-  },,
+  },
   {
     "id": "other",
     "translation": "Other"
