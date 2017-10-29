@@ -3,12 +3,13 @@
 {{ block content_body()}}
 <div class="results box">
   <h1>{{  T("reports_list") }}</h1>
-  <table class="table">
+  <table class="torrent-report-table">
     <thead class="torrent-info">
       <tr>
         <th class="tr-name">{{ T("name") }}</th>
         <th class="tr-actions">{{ T("username") }}</th>
         <th class="tr-actions">{{ T("reason") }}</th>
+        <th class="td-report-message">{{ T("message") }}</th>
         <th class="tr-actions">{{ T("actions") }}</th>
       </tr>
     </thead>
@@ -21,6 +22,7 @@
         </td>
         <td class="tr-size home-td">{{.User.Username}}</td>
         <td class="tr-actions home-td">{{ getReportDescription(.Description, T) }}</td>
+        <td class="td-report-message home-td">{{.Message}}</td>
         <td class="tr-actions home-td">
  	<form method="POST" action="/mod/torrent/delete">
 	  <input type="hidden" name="id" value="{{ .Torrent }}">
