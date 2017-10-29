@@ -20,26 +20,13 @@ type Query interface {
 	Prepend(string, ...interface{})
 }
 
-// Delete : Delete a torrent report by id
 func Delete(id uint) (*models.TorrentReport, int, error) {
-	return delete(id, false)
-}
-
-// DeleteDefinitely : Delete definitely a torrent report by id
-func DeleteDefinitely(id uint) (*models.TorrentReport, int, error) {
-	return delete(id, true)
-}
-
-func delete(id uint, definitely bool) (*models.TorrentReport, int, error) {
 	var torrentReport models.TorrentReport
-	db := models.ORM
-	if definitely {
-		db = models.ORM.Unscoped()
-	}
+	db := models.ORM.Unscoped()
 	if db.First(&torrentReport, id).RecordNotFound() {
 		return &torrentReport, http.StatusNotFound, errors.New("try_to_delete_report_inexistant")
 	}
-	if _, err := torrentReport.Delete(false); err != nil {
+	if _, err := torrentReport.Delete(); err != nil {
 		return &torrentReport, http.StatusInternalServerError, err
 	}
 	return &torrentReport, http.StatusOK, nil
