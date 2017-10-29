@@ -844,8 +844,20 @@
     "translation": "Clear all notifications"
   },
   {
+    "id": "mark_notifications_as_read",
+    "translation": "Mark notifications as read"
+  },
+  {
     "id": "notifications_cleared",
     "translation": "Notifications erased!"
+  },
+  {
+    "id": "read_notifications_cleared",
+    "translation": "Read notifications erased!"
+  },
+  {
+    "id": "notifications_read",
+    "translation": "All notifications marked as read!"
   },
   {
     "id": "my_notifications",
