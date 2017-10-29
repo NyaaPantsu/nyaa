@@ -204,6 +204,7 @@ func UserProfileFormHandler(c *gin.Context) {
 			}
 			if !messages.HasErrors() {
 				messages.AddInfoT("infos", "profile_updated")
+				userProfile = user
 			}
 		}
 	}
