@@ -28,7 +28,7 @@
 	  {{else}}
 	   <td class="torrent-view-td torrent-info-data uploader-link">
 	    {{ genUploaderLink(Torrent.UploaderID, Torrent.UploaderName, Torrent.Hidden)|raw }}
-	    {{if !Torrent.Hidden && Torrent.UploaderID != User.ID && Torrent.UploaderID > 0}}<a href="/user/{{Torrent.UploaderID}}/{{Torrent.UploaderName}}/follow?id={{Torrent.ID}}" id="subscribe-link">{{if User.IsFollower(Torrent.UploaderID)}}{{T("unfollow")}}{{else}}{{T("follow")}}{{end}}</a>{{end}}
+	    {{if !Torrent.Hidden && Torrent.UploaderID != User.ID && User.ID > 0}}<a href="/user/{{Torrent.UploaderID}}/{{Torrent.UploaderName}}/follow?id={{Torrent.ID}}" id="subscribe-link">{{if User.IsFollower(Torrent.UploaderID)}}{{T("unfollow")}}{{else}}{{T("follow")}}{{end}}</a>{{end}}
 	   </td>
 	  {{end}}
     </tr>
