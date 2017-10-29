@@ -774,6 +774,10 @@
   {
     "id": "report_type",
     "translation": "Report type"
+  },,
+  {
+    "id": "report_message",
+    "translation": "Report message"
   },
   {
     "id": "illegal_content",
