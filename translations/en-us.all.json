@@ -794,6 +794,10 @@
   {
     "id": "duplicate_deprecated",
     "translation": "Duplicate / Deprecated"
+  },,
+  {
+    "id": "other",
+    "translation": "Other"
   },
   {
     "id": "captcha",
