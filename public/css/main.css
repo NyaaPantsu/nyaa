@@ -346,10 +346,9 @@ select.form-input {
     color: #292929;
     background: #fd6b6b;
     padding: 1px 4px;
-    border-radius: 7px;
-    font-size: 10px;
+    font-size: 8px;
     top: 37px;
-    right: 19px;
+    right: 22px;
 }
 
 #content {
