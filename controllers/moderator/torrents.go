@@ -121,34 +121,21 @@ func TorrentPostEditModPanel(c *gin.Context) {
 // TorrentDeleteModPanel : Controller for deleting a torrent
 func TorrentDeleteModPanel(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.PostForm("id"), 10, 32)
-	definitely := c.Request.URL.Query()["definitely"]
 
 	var returnRoute = "/mod/torrents"
 	torrent, errFind := torrents.FindByID(uint(id))
 	if errFind == nil {
 		var err error
-		if definitely != nil {
-			_, _, err = torrent.DefinitelyDelete()
-
-			//delete reports of torrent
-			query := &search.Query{}
-			query.Append("torrent_id", id)
-			reports, _, _ := reports.FindOrderBy(query, "", 0, 0)
-			for _, report := range reports {
-				report.Delete(true)
-			}
-			returnRoute = "/mod/torrents/deleted"
-		} else {
 			_, _, err = torrent.Delete(false)
 
-			//delete reports of torrent
-			query := &search.Query{}
-			query.Append("torrent_id", id)
-			reports, _, _ := reports.FindOrderBy(query, "", 0, 0)
-			for _, report := range reports {
-				report.Delete(false)
-			}
+		//delete reports of torrent
+		query := &search.Query{}
+		query.Append("torrent_id", id)
+		reports, _, _ := reports.FindOrderBy(query, "", 0, 0)
+		for _, report := range reports {
+			report.Delete()
 		}
+		
 		if err == nil {
 			if torrent.Uploader == nil {
 				torrent.Uploader = &models.User{}
