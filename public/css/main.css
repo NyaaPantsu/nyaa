@@ -1764,11 +1764,11 @@ input.filelist-checkbox:checked+table.table-filelist {
     padding: 0 10px 10px;
 }
 
-.btn-blue:hover, .btn-red:hover, .btn-green:hover, .btn-orange:hover {
+[class^="btn-"]:hover {
     opacity: 0.7;
 }
 
-.btn-blue, .btn-red, .btn-green, .btn-orange {
+[class^="btn-"] {
     font-weight: bold;
     color: white;
 }
