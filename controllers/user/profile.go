@@ -8,7 +8,6 @@ import (
 	"net/http"
 
 	"github.com/NyaaPantsu/nyaa/controllers/router"
-	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/notifications"
 	"github.com/NyaaPantsu/nyaa/models/users"
 	"github.com/NyaaPantsu/nyaa/templates"
@@ -218,20 +217,15 @@ func UserNotificationsHandler(c *gin.Context) {
 	if currentUser.ID > 0 {
 		messages := msg.GetMessages(c)
 		if c.Request.URL.Query()["clear"] != nil {
-			notifications.DeleteNotifications(currentUser.ID, false)
-			messages.AddInfoT("infos", "notifications_cleared")
-			NewNotifications := []models.Notification{}
-			for _, notif := range currentUser.Notifications {
-				if !notif.Read {
-					NewNotifications = append(NewNotifications, notif)
-				}
-			}
-			currentUser.Notifications = NewNotifications
+			notifications.DeleteNotifications(currentUser, false)
+			messages.AddInfoT("infos", "read_notifications_cleared")
 			
 		} else if c.Request.URL.Query()["clear_all"] != nil {
-			notifications.DeleteNotifications(currentUser.ID, true)
+			notifications.DeleteNotifications(currentUser, true)
 			messages.AddInfoT("infos", "notifications_cleared")
-			currentUser.Notifications = []models.Notification{}
+		} else if c.Request.URL.Query()["read_all"] != nil {
+			notifications.MarkAllNotificationsAsRead(currentUser)
+			messages.AddInfoT("infos", "notifications_read")
 		}
 		templates.UserProfileNotifications(c, currentUser)
 	} else {
