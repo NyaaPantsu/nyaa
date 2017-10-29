@@ -61,9 +61,6 @@ func TorrentReportsToJSON(reports []TorrentReport) []TorrentReportJSON {
 }
 
 // Delete : Delete torrent report
-func (report *TorrentReport) Delete(definitely bool) (int, error) {
-	if definitely {
-		return 0, ORM.Unscoped().Delete(report).Error
-	}
-	return http.StatusOK, nil
+func (report *TorrentReport) Delete() (int, error) {
+	return http.StatusOK, ORM.Unscoped().Delete(report).Error
 }
