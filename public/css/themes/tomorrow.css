@@ -103,6 +103,9 @@ td.tr-le, .error-text {
 .sukebei .btn-red {
     color: #c5c8c6;
 }
+.btn-grey {
+    background-color: #777777;
+}
 
 .alt-colors tr:nth-child(even) {
     background: hsla(244, 11%, 21%, 0.2);
