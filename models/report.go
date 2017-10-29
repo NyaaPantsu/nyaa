@@ -11,8 +11,9 @@ import (
 // User can be null (anonymous reports)
 // FIXME  can't preload field Torrents for models.TorrentReport
 type TorrentReport struct {
-	ID          uint   `gorm:"column:torrent_report_id;primary_key"`
+	ID 	        uint   `gorm:"column:torrent_report_id;primary_key"`
 	Description string `gorm:"column:type"`
+	Message     string `gorm:"column:message"`
 	TorrentID   uint   `gorm:"column:torrent_id"`
 	UserID      uint   `gorm:"column:user_id"`
 
@@ -31,6 +32,7 @@ func (report TorrentReport) TableName() string {
 type TorrentReportJSON struct {
 	ID          uint        `json:"id"`
 	Description string      `json:"description"`
+	Message     string      `json:"message"`
 	Torrent     TorrentJSON `json:"torrent"`
 	User        UserJSON    `json:"user"`
 }
@@ -45,7 +47,7 @@ func (report *TorrentReport) ToJSON() TorrentReportJSON {
 	if report.User != nil {
 		u = report.User.ToJSON()
 	}
-	json := TorrentReportJSON{report.ID, report.Description, t, u}
+	json := TorrentReportJSON{report.ID, report.Description, report.Message, t, u}
 	return json
 }
 
