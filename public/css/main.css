@@ -757,6 +757,9 @@ html, body {
     .header .h-user>a.nav-btn {
     padding: 0!important;
     }
+    .user-avatar span  {
+        right: 25px;
+    }
     .nav-btn.log-in span {
     display: none;
     }
@@ -900,6 +903,9 @@ html, body {
     .header .h-user .user-avatar {
     margin: 0;
     }
+    .user-avatar span  {
+        right: 20px;
+    }
     .header .h-user {
     max-width: 46px;
     width: auto;
@@ -943,7 +949,9 @@ html, body {
     .header .h-user .nav-btn {
     height: 57px;
     }
-
+    .user-avatar span  {
+        right: 14px;
+    }
     h3 {
     margin-bottom: 5px;
     }
