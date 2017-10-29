@@ -264,6 +264,9 @@
         <label for="wrongcat">{{  T("wrong_category") }}</label><br />
         <input type="radio" name="report_type" value="duplicate_deprecated" id="dup" required/>
         <label for="dup">{{  T("duplicate_deprecated") }}</label><br />
+        <label for="other">{{  T("other") }}</label><br />
+	<h4>{{  T("report_message") }}</h4>
+	<input type="text" class="form-input" name="report_message" placeholder="(Optional, 60 characters max)" maxlength="60">
         <div class="comment-captcha">
           {{yield captcha(captchaid=CaptchaID)}}
         </div>
