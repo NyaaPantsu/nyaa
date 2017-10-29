@@ -28,5 +28,8 @@ func UserFollowHandler(c *gin.Context) {
 	if c.Query("id") != "" {
 		url = "/view/" + c.Query("id") + "?" + followAction
 	}
+	if currentUser.ID == 0 {
+		url = "/login"
+	}
 	c.Redirect(http.StatusSeeOther, url)
 }
