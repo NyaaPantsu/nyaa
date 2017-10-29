@@ -71,3 +71,5 @@
 * + unread
 * + clear_all_notifications
 * ~ clear_notifications -> modified to "Clear **read** notification"
+## 2017/10/29
+* + report_message
