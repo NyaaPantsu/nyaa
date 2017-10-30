@@ -25,7 +25,7 @@
         <td class="tr-size home-td">
 		  <form method="POST" action="/mod/torrent/delete">
 			<input type="hidden" name="id" value="{{ .ID }}">
-		    <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
+		    <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
 		  </form>
         </td>
       </tr>
@@ -33,8 +33,7 @@
     </tbody>
   </table>
   <nav class="adminNav" aria-label="Page navigation">
-    <ul class="pagination">
-      <li><a href="/mod/torrents">{{T("more")}}</a></li>
+    <a href="/mod/torrents">{{T("more")}}</a></li>
     </ul>
   </nav>
   <hr />
@@ -57,7 +56,7 @@
           <a href="/view/{{.Torrent.ID }}">{{ .Torrent.Name }}</a>
           <a href="/mod/torrent?id={{.Torrent.ID}}" class="form-input btn-blue float-right">{{  T("edit") }}</a>
         </td>
-        <td class="tr-size home-td">{{.User.Username}}</td>
+        <td class="tr-size home-td">{{.User.U}}</td>
         <td class="tr-actions home-td">{{ getReportDescription(.Description,T) }}</td>
         <td class="td-report-message home-td">{{.Message}}</td>
         <td class="tr-actions home-td">
@@ -71,9 +70,7 @@
     </tbody>
   </table>
   <nav class="adminNav" aria-label="Page navigation">
-    <ul class="pagination">
-      <li><a href="/mod/reports">{{ T("more") }}</a></li>
-    </ul>
+    <a href="/mod/reports">{{ T("more") }}</a>
   </nav>
   <hr />
   <h3 id="users">{{  T("last_users") }}</h3>
@@ -93,7 +90,7 @@
         <td class="tr-size home-td">{{if .ID > 0}}
 		  <form method="POST" action="/user/{{.ID}}/{{.Username }}/delete" >
 		    {{ yield csrf_field()}}
-		    <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{ T(" are_you_sure ") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
+		    <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{ T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
 		  </form>
           {{end}}
         </td>
@@ -102,8 +99,7 @@
     </tbody>
   </table>
   <nav class="adminNav" aria-label="Page navigation">
-    <ul class="pagination">
-      <li><a href="/mod/users">{{  T("more") }} </a></li>
+    <a href="/mod/users">{{  T("more") }} </a></li>
     </ul>
   </nav>
   <hr />
@@ -138,8 +134,7 @@
     </tbody>
   </table>
   <nav class="adminNav" aria-label="Page navigation">
-    <ul class="pagination">
-      <li><a href="/mod/comments">{{  T("more") }}</a></li>
+    <a href="/mod/comments">{{  T("more") }}</a></li>
     </ul>
   </nav>
 </div>
