@@ -661,6 +661,9 @@ th {
 .website-nav table {
     width: auto;
 }
+.website-nav table tr {
+    background: none!important;	
+}
 .website-nav #nav-category-list {
     width: 70%;
     margin-bottom: 7px;
