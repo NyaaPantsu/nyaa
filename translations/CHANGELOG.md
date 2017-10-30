@@ -65,3 +65,13 @@
 ## 2017/10/28
 * + hours_minutes_ago
 * + days_hours_ago
+## 2017/10/30
+* + status
+* + upload_status
+* + error
+* + pending
+* + finished
+* + upload_to
+* + upload_to_other
+* + choose_category
+* + choose_language

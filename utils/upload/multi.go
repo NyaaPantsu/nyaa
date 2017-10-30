@@ -12,13 +12,19 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/cache"
-	"github.com/gin-gonic/gin"
+	"github.com/NyaaPantsu/nyaa/utils/log"
 )
 
 const (
 	anidex = iota
 	nyaasi
 	ttosho
+)
+
+const (
+	pendingState = iota + 1
+	errorState
+	doneState
 )
 
 // Each service gives a status and a message when uploading to them
@@ -36,77 +42,85 @@ type MultipleForm struct {
 }
 
 // ToAnidex : function to upload a torrent to anidex
-func ToAnidex(c *gin.Context, torrent *models.Torrent) {
-	uploadMultiple := MultipleForm{PantsuID: torrent.ID, Anidex: service{Status: 1}}
+// TODO: subCat and lang should be taken from torrent model and not asked to be typed again
+// so making the conversion here would be better
+func ToAnidex(torrent *models.Torrent, apiKey string, subCat string, lang string) {
+	uploadMultiple := MultipleForm{PantsuID: torrent.ID, Anidex: service{Status: pendingState}}
 	uploadMultiple.save(anidex)
-
-	apiKey := c.PostForm("anidex_api")
+	log.Info("Create anidex instance")
 
 	// If the torrent is posted as anonymous or apikey is not set, we set it with default value
-	if apiKey == "" || torrent.IsAnon() {
+	if apiKey == "" || (torrent.Hidden && apiKey != "") {
 		apiKey = config.Get().Upload.DefaultAnidexToken
 	}
 
-	if apiKey != "" { // You need to check that apikey is not empty even after config. Since it is left empty in config by default and is required
-		postForm := url.Values{}
-		//Required
-		postForm.Set("api_key", apiKey)
-		postForm.Set("subcat_id", c.PostForm("anidex_form_category"))
-		postForm.Set("file", "")
-		postForm.Set("group_id", "0")
-		postForm.Set("lang_id", c.PostForm("anidex_form_lang"))
+	if apiKey == "" { // You need to check that apikey is not empty even after config. Since it is left empty in config by default and is required
+		log.Errorf("ApiKey is empty, we can't upload to anidex for torrent %d", torrent.ID)
+		uploadMultiple.updateAndSave(anidex, errorState, "No ApiKey providen (required)")
+		return
+	}
 
-		//Optional
-		postForm.Set("description", "")
-		if config.IsSukebei() {
-			postForm.Set("hentai", "1")
-		}
-		if torrent.IsRemake() {
-			postForm.Set("reencode", "1")
-		}
-		if torrent.IsAnon() {
-			postForm.Set("private", "1")
-		}
-		if c.PostForm("name") != "" {
-			postForm.Set("torrent_name", c.PostForm("name"))
-		}
+	postForm := url.Values{}
+	//Required
+	postForm.Set("api_key", apiKey)
+	postForm.Set("subcat_id", subCat)
+	postForm.Set("file", "")
+	postForm.Set("group_id", "0")
+	postForm.Set("lang_id", lang)
 
-		postForm.Set("debug", "1")
+	//Optional
+	postForm.Set("description", "")
+	if config.IsSukebei() {
+		postForm.Set("hentai", "1")
+	}
+	if torrent.IsRemake() {
+		postForm.Set("reencode", "1")
+	}
+	if torrent.IsAnon() {
+		postForm.Set("private", "1")
+	}
+	postForm.Set("torrent_name", torrent.Name)
 
-		rsp, err := http.Post("https://anidex.info/api/", "application/x-www-form-urlencoded", bytes.NewBufferString(postForm.Encode()))
+	postForm.Set("debug", "1")
 
-		if err != nil {
-			uploadMultiple.updateAndSave(anidex, 2, "Error during the HTTP POST request")
-			return
+	rsp, err := http.Post("https://anidex.info/api/", "application/x-www-form-urlencoded", bytes.NewBufferString(postForm.Encode()))
+	log.Info("Launch anidex http request")
+
+	if err != nil {
+		uploadMultiple.updateAndSave(anidex, errorState, "Error during the HTTP POST request")
+		log.CheckErrorWithMessage(err, "Error in request: %s")
+		return
+	}
+	defer rsp.Body.Close()
+	bodyByte, err := ioutil.ReadAll(rsp.Body)
+	if err != nil {
+		uploadMultiple.updateAndSave(anidex, errorState, "Unknown error")
+		log.CheckErrorWithMessage(err, "Error in parsing request: %s")
+		return
+	}
+	if uploadMultiple.Anidex.Status == pendingState {
+		uploadMultiple.Anidex.Message = string(bodyByte)
+		if strings.Contains(uploadMultiple.Anidex.Message, "http://") {
+			uploadMultiple.Anidex.Status = doneState
+		} else {
+			uploadMultiple.Anidex.Status = errorState
 		}
-		defer rsp.Body.Close()
-		bodyByte, err := ioutil.ReadAll(rsp.Body)
-		if err != nil {
-			uploadMultiple.updateAndSave(anidex, 2, "Unknown error")
-			return
-		}
-		if uploadMultiple.Anidex.Status == 1 {
-			uploadMultiple.Anidex.Message = string(bodyByte)
-			if strings.Contains(uploadMultiple.Anidex.Message, "http://") {
-				uploadMultiple.Anidex.Status = 3
-			} else if strings.Contains(uploadMultiple.Anidex.Message, "error") {
-				uploadMultiple.Anidex.Status = 2
-			}
-			uploadMultiple.save(anidex)
-		}
+		uploadMultiple.save(anidex)
+		log.Info("Anidex request done")
+		fmt.Println(uploadMultiple)
 	}
 }
 
 // ToNyaasi : function to upload a torrent to anidex
-func ToNyaasi(c *gin.Context, torrent *models.Torrent) {
-	uploadMultiple := MultipleForm{PantsuID: torrent.ID, Nyaasi: service{Status: 1}}
+func ToNyaasi(apiKey string, torrent *models.Torrent) {
+	uploadMultiple := MultipleForm{PantsuID: torrent.ID, Nyaasi: service{Status: pendingState}}
 	uploadMultiple.Nyaasi.Message = "Sorry u are not allowed"
 	uploadMultiple.save(nyaasi)
 }
 
 // ToTTosho : function to upload a torrent to anidex
-func ToTTosho(c *gin.Context, torrent *models.Torrent) {
-	uploadMultiple := MultipleForm{PantsuID: torrent.ID, TTosho: service{Status: 1}}
+func ToTTosho(apiKey string, torrent *models.Torrent) {
+	uploadMultiple := MultipleForm{PantsuID: torrent.ID, TTosho: service{Status: pendingState}}
 	uploadMultiple.save(ttosho)
 }
 

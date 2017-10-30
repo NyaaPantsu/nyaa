@@ -89,15 +89,15 @@ func UploadPostHandler(c *gin.Context) {
 		if AnidexUpload || NyaaSiUpload || TokyoToshoUpload {
 			// User wants to upload to other websites too
 			if AnidexUpload {
-				go upload.ToAnidex(c, torrent)
+				go upload.ToAnidex(torrent, c.PostForm("anidex_api"), c.PostForm("anidex_form_category"), c.PostForm("anidex_form_lang"))
 			}
 
 			if NyaaSiUpload {
-				go upload.ToNyaasi(c, torrent)
+				go upload.ToNyaasi(c.PostForm("nyaasi_api"), torrent)
 			}
 
 			if TokyoToshoUpload {
-				go upload.ToTTosho(c, torrent)
+				go upload.ToTTosho(c.PostForm("tokyot_api"), torrent)
 			}
 			// After that, we redirect to the page for upload status
 			url := fmt.Sprintf("/upload/status/%d", torrent.ID)
@@ -133,7 +133,7 @@ func multiUploadStatus(c *gin.Context) {
 		uploadMultiple := found.(upload.MultipleForm)
 		// if ?json we print the json format
 		if _, ok = c.GetQuery("json"); ok {
-			c.JSON(http.StatusFound, uploadMultiple)
+			c.JSON(http.StatusOK, uploadMultiple)
 			return
 		}
 		// else we send the upload multiple form (support of manual F5)
