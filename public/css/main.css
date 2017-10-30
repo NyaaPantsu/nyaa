@@ -1283,7 +1283,7 @@ div.profile-content.box>nav>ul>a>li {
     width: 100%;
 }
 
-div.profile-content.box>nav>ul>a>li, nav.adminNav>ul>li {
+div.profile-content.box>nav>ul>a>li {
     border-right-width: 1px;
 }
 
@@ -2202,6 +2202,9 @@ iframe {
     background: none;
     height: 36px;
     margin-bottom: 0;
+}
+.adminNav {
+    margin: 12px 0 5px 0px;
 }
 
 
