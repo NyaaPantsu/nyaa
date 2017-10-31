@@ -1200,11 +1200,15 @@ html, body {
     margin-top: 9px;    
 }
 
-.comment-box .comment-user {
-	font-size: 12px;
+.comment-box .comment-userinfo {
+    margin-top: 9px;    
 }
 
-.comment-box span+p img {
+.comment-box .comment-user {
+    font-size: 12px;
+}
+
+.comment-userinfo img {
     width: 50px;
     height: 50px;
     float: left;
