@@ -54,7 +54,7 @@ body, .header {
 
 #sort-list-order {
     width: auto;
-    margin-left: 4px;
+    margin-left: 3px;
 }
 
 a {
@@ -68,7 +68,7 @@ a:hover {
 }
 
 .upload-form-table .checkbox-container+input {
-    width: 385px;
+    width: 385px;1
 }
 .upload-form-table .table-checkboxes {
     padding: 3px 0!important;
@@ -770,9 +770,8 @@ span.tag {
     background: #332626;
 }
 .user-search-notice {
-	margin: 11px 0 0 4px;
+    margin: 9px 0 0 3px;
     font-size: 13px;
-	font-weight: bold;
-    margin-left: 4px;
+    font-weight: bold;
 	
 }
