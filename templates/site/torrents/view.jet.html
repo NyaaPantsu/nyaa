@@ -161,8 +161,8 @@
     <a id="torrent-download-link" href="{{if Torrent.TorrentLink == ""}}/download/{{Torrent.Hash}}{{else}}{{Torrent.TorrentLink}}{{end}}" class="form-input download{{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}} hidden{{end}}" style="float:left;height: auto;">
       <div class="icon-floppy"></div>{{ T("torrent_file")}}
     </a>
-    {{ if User.ID > 0}}
     <a id="reportPopup" href="#" class="form-input">{{  T("report_btn") }}</a>
+    {{ if User.ID > 0}}
     {{ if User.HasAdmin()}}
     <form method="POST" action="/mod/torrent/delete" class="delete-form">
 		{{ yield csrf_field()}}
@@ -251,7 +251,6 @@
     </form>
   </div>
 </div>
-{{ if User.ID > 0 }}
 <!-- Modal to report a torrent -->
 <div id="modal_mod_tools" class="modal">
   <!-- Modal content -->
@@ -272,12 +271,15 @@
         <label for="wrongcat">{{  T("wrong_category") }}</label><br />
         <input type="radio" name="report_type" value="duplicate_deprecated" id="dup" required/>
         <label for="dup">{{  T("duplicate_deprecated") }}</label><br />
+        <input type="radio" name="report_type" value="other" id="other"" required/>
         <label for="other">{{  T("other") }}</label><br />
 	<h4>{{  T("report_message") }}</h4>
 	<input type="text" class="form-input" name="report_message" placeholder="(Optional, 60 characters max)" maxlength="60">
-        <div class="comment-captcha">
-          {{yield captcha(captchaid=CaptchaID)}}
-        </div>
+        {{if User.ID == 0}}
+			<div class="comment-captcha" style="margin-top: 7px;">
+			  {{yield captcha(captchaid=CaptchaID)}}
+			</div>
+		{{end}}
       </div>
       <div class="modal-footer">
         <span>
@@ -289,6 +291,7 @@
     </form>
   </div>
 </div>
+{{ if User.ID > 0 }}
 <!-- Modal to add a tag -->
 <div id="modal_tag_form" class="modal">
   <!-- Modal content -->
@@ -322,6 +325,14 @@
 {{end}}
 {{ block footer_js()}}
 <script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>
+<script type="text/javascript">
+// Modal initialization
+Modal.Init({
+  elements: document.getElementsByClassName("modal"),
+  // order of apparition of the modals
+  button: ["#reportPopup", "#tagPopup"]
+});
+</script>
 {{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}}
 <script type="text/javascript">
 	var torrentLink = document.getElementById("torrent-download-link"),
@@ -392,6 +403,8 @@
       downloads.innerHTML = oldStats[2]
     }
   })
+  
+  
 </script>
 {{end}}
 {{ if User.ID > 0 }}
@@ -424,7 +437,7 @@ Templates.Add("tag", function(tag) {
 Modal.Init({
   elements: document.getElementsByClassName("modal"),
   // order of apparition of the modals
-  button: ["#reportPopup", "#tagPopup"]
+  button: ["#tagPopup"]
 });
 
 document.querySelector("#modal_tag_form form").addEventListener("submit", function(e) {
