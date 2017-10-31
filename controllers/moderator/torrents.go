@@ -121,13 +121,19 @@ func TorrentPostEditModPanel(c *gin.Context) {
 // TorrentDeleteModPanel : Controller for deleting a torrent
 func TorrentDeleteModPanel(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.PostForm("id"), 10, 32)
+	definitely := c.Request.URL.Query()["definitely"]
 
 	var returnRoute = "/mod/torrents"
 	torrent, errFind := torrents.FindByID(uint(id))
 	if errFind == nil {
 		var err error
+		if definitely != nil {
+			_, _, err = torrent.DefinitelyDelete()
+			returnRoute = "/mod/torrents/deleted"
+		} else {
 			_, _, err = torrent.Delete(false)
-
+		}
+		
 		//delete reports of torrent
 		query := &search.Query{}
 		query.Append("torrent_id", id)
