@@ -18,13 +18,13 @@
   <!-- END SIDEBAR USER TITLE -->
   <!-- SIDEBAR BUTTONS -->
   <div class="profile-usermenu">
-    {{if UserProfile.ID > 0 }}
-	    {{if User.ID > 0 && !User.CurrentUserIdentical(UserProfile.ID) }}
-		{{if !User.IsFollower(UserProfile.ID)}}
-		<a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-green">{{ T("follow")}}</a>
-		{{else}}
-		<a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-orange">{{ T("unfollow")}}</a>
-		{{end}}
+    {{if UserProfile.ID > 0 && !User.CurrentUserIdentical(UserProfile.ID) }}
+	    {{if User.ID > 0 }}
+			{{if !User.IsFollower(UserProfile.ID)}}
+			<a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-green">{{ T("follow")}}</a>
+			{{else}}
+			<a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-orange">{{ T("unfollow")}}</a>
+			{{end}}
 	    {{else}}
 	    	<a class="form-input" href="/login?redirectTo=/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow">{{T("follow")}}</a>
 	    {{end}}
