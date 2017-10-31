@@ -1582,7 +1582,7 @@ input.filelist-checkbox:checked+table.table-filelist {
     margin-top: 7px;
     padding: 0.7em 1.5em;
     background: none;
-    border: 1px solid white;
+    border: 1px solid black;
     border-radius: 3px;
     color: white;
     font-weight: bold;
