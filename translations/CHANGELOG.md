@@ -81,3 +81,4 @@
 * + followers
 * ~ description_markdown_notice -> comment_markdown_notice
 * + browsing_user_torrents
+* + delete_all_reports
