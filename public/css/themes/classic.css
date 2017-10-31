@@ -39,6 +39,7 @@ body, .header {
 
 .comment-box p:nth-child(2) {
     margin-top: auto;
+    margin-bottom: 5px;
 }
 
 .form-refine span.spacing {
