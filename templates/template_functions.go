@@ -196,7 +196,11 @@ func flagCode(languageCode string) string {
 }
 
 func getAvatar(hash string, size int) string {
-	return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
+	if hash != "" {
+		return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
+	} else {
+		return "/img/avatar_" + strconv.Itoa(size) + ".jpg"
+	}
 }
 
 func formatDateRFC(t time.Time) string {
