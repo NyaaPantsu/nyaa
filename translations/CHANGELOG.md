@@ -77,3 +77,5 @@
 * + read_notifications_cleared
 * + notifications_read
 * + mark_notifications_as_read
+## 2017/10/31
+* + followers
