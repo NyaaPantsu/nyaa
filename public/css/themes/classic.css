@@ -26,7 +26,7 @@ body, .header {
     font-family: Arial, sans-serif!important;
 }
 .torrent-info-data {
-    width: 59%;
+    width: 52%;
 }
 #torrent-view-data {
     margin-left: 10px;
@@ -381,6 +381,7 @@ span.comment-index+p {
 
 #description-box {
     font-size: 0.8em;
+    border-radius: 5px;
 }
 .form-input {
     border-color: #c4c4c4 !important;
@@ -412,6 +413,9 @@ span.comment-index+p {
 
 #torrent-description-hr {
     margin-top: 40px;
+}
+.torrent-hr {
+    font-size: 15px;
 }
 
 .comment-submit h3 {
@@ -493,11 +497,16 @@ th {
 td {
     font-size: 0.9em;
     padding: 2px 0!important;
-    
 }
 .results td {
     border-bottom: 1px solid #666666!important;
     border-top: 1px solid #666666!important;
+}
+.torrent-view-data {
+    margin-left: 10px;
+}
+.torrent-view-data td {
+    padding: 1px 0!important;
 }
 td a {
     color: #106655;
@@ -716,4 +725,21 @@ span.tag {
 }
 .torrent-info-data #subscribe-link::before, .torrent-info-data #subscribe-link:: after {
     color: #111111;
+}
+
+#reportPopup {
+    text-decoration: underline dotted;
+    height: auto!important;
+    font-size: 13px!important;
+    background: none;
+    color: #106655!important;
+    position: absolute;
+    top: 103px;
+    right: 11px;
+}
+#reportPopup:hover {
+    text-decoration: underline;
+}
+.modal-header {
+    background: linear-gradient(to bottom, #33ca98 0%, #337372 72%);
 }
