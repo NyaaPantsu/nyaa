@@ -56,7 +56,7 @@
           <a href="/view/{{.Torrent.ID }}">{{ .Torrent.Name }}</a>
           <a href="/mod/torrent?id={{.Torrent.ID}}" class="form-input btn-blue float-right">{{  T("edit") }}</a>
         </td>
-        <td class="tr-size home-td">{{.User.U}}</td>
+        <td class="tr-size home-td">{{.User.Username}}</td>
         <td class="tr-actions home-td">{{ getReportDescription(.Description,T) }}</td>
         <td class="td-report-message home-td">{{.Message}}</td>
         <td class="tr-actions home-td">
