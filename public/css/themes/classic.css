@@ -598,17 +598,14 @@ td.tr-size {
 }
 
 .pagination .active, .pagination .active:hover {
-    background: #fbfbfb;
-    font-weight: bold;
+    background: none!important;
+    font-weight: bold!important;
     border: none;
     color: #106655;
+    cursor: text;
 }
 .sukebei .pagination .active, .pagination .active:hover {
     color: #111111!important;
-    cursor: pointer;
-	background: none!important;
-	border: none;
-	font-weight: bold!important;
 }
 
 a.nav-btn.log-in {
@@ -746,7 +743,7 @@ span.tag {
 }
 #reportPopup {
     text-decoration: underline dotted;
-    height: auto!important;
+    height: 16px!important;
     font-size: 13px!important;
     background: none;
     color: #106655!important;
