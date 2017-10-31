@@ -498,7 +498,7 @@ td {
     font-size: 0.9em;
     padding: 2px 0!important;
 }
-.results td {
+.results td, .profile-content td  {
     border-bottom: 1px solid #666666!important;
     border-top: 1px solid #666666!important;
 }
