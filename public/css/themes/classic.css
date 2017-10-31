@@ -254,7 +254,7 @@ select.form-input {
     padding-top: 4px!important;
 }
 .website-nav .pagination {
-    padding: .5rem;
+    padding: .5rem 0 0rem 0;
     font-size: 1em;
 }
 .website-nav .pagination a {
