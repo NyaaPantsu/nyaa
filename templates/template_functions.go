@@ -199,6 +199,9 @@ func getAvatar(hash string, size int) string {
 	if hash != "" {
 		return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
 	} else {
+		if config.IsSukebei() {
+			return "/img/sukebei_avatar_" + strconv.Itoa(size) + ".jpg"
+		}
 		return "/img/avatar_" + strconv.Itoa(size) + ".jpg"
 	}
 }
