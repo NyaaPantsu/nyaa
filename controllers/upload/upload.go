@@ -85,9 +85,10 @@ func UploadPostHandler(c *gin.Context) {
 		// add to db
 		torrent, err := torrents.Create(user, &uploadForm)
 		log.CheckErrorWithMessage(err, "ERROR_TORRENT_CREATED: Error while creating entry in db")
+
 		if AnidexUpload || NyaaSiUpload || TokyoToshoUpload {
 			go func(anidexApiKey string, anidexFormCategory string, anidexFormLang string, nyaasiApiKey string, toshoApiKey string) {
-				err := upload.GotFile(torrent, uploadForm.Magnet)
+				err := upload.GotFile(torrent)
 				if err != nil {
 					log.CheckError(err)
 					return
@@ -108,10 +109,13 @@ func UploadPostHandler(c *gin.Context) {
 			// After that, we redirect to the page for upload status
 			url := fmt.Sprintf("/upload/status/%d", torrent.ID)
 			c.Redirect(302, url)
-		} else {
-			url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
-			c.Redirect(302, url+"?success")
+			return
 		}
+
+		// We don't need it to be synchronous since the generation can be left in a background process
+		go upload.GotFile(torrent)
+		url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
+		c.Redirect(302, url+"?success")
 	}
 }
 

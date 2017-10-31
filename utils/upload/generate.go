@@ -3,10 +3,12 @@ package upload
 import (
 	"fmt"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/utils/format"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/anacrolix/torrent"
 	"github.com/anacrolix/torrent/bencode"
@@ -76,7 +78,15 @@ func GenerateTorrent(magnet string) error {
 }
 
 // GotFile will check if a torrent file exists and if not, try to generate it
-func GotFile(torrent *models.Torrent, magnet string) error {
+func GotFile(torrent *models.Torrent) error {
+	var trackers []string
+	if torrent.Trackers == "" {
+		trackers = config.Get().Torrents.Trackers.Default
+	} else {
+		trackers = torrent.GetTrackersArray()
+	}
+	// We generate a new magnet link with all trackers (ours + ones from uploader)
+	magnet := format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, trackers...)
 	//Check if file exists and open
 	_, err := os.Open(torrent.GetPath())
 	if err != nil {

@@ -141,6 +141,7 @@ torrents:
 # NeededTrackers : Array indexes of Trackers for needed tracker in a torrent file
     needed:
       - 0
+      - 12
 # TorrentOrder : Default sorting field for torrents
   order: date
 # TorrentSort : Default sorting order for torrents

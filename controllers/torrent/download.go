@@ -52,10 +52,7 @@ func DownloadTorrent(c *gin.Context) {
 					trackers = torrent.GetTrackersArray()
 				}
 				magnet := format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, trackers...)
-				if upload.GenerateTorrent(magnet) != nil {
-					//Error during the generation
-					generating = false
-				}
+				go upload.GenerateTorrent(magnet)
 			}
 		}
 		c.JSON(200, gin.H{ // Better to use gin for that, less code
@@ -94,9 +91,7 @@ func DownloadTorrent(c *gin.Context) {
 		}
 		magnet := format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, trackers...)
 		variables.Set("magnet", magnet)
-		if upload.GenerateTorrent(magnet) != nil {
-			messages.AddError("errors", "Could not generate torrent file")
-		}
+		go upload.GenerateTorrent(magnet)
 		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
 	}

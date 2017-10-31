@@ -1,11 +1,6 @@
 package upload
 
 import (
-	"fmt"
-	"io"
-	"io/ioutil"
-	"mime/multipart"
-	"os"
 	"reflect"
 	"strings"
 
@@ -123,7 +118,7 @@ func ExtractInfo(c *gin.Context, r *torrentValidator.TorrentRequest) error {
 		return err
 	}
 
-	tfile, err := r.ValidateMultipartUpload(c, uploadFormTorrent)
+	_, err = r.ValidateMultipartUpload(c, uploadFormTorrent)
 	if err != nil {
 		return err
 	}
@@ -133,16 +128,8 @@ func ExtractInfo(c *gin.Context, r *torrentValidator.TorrentRequest) error {
 	if err != nil {
 		return err
 	}
-
-	// after data has been checked & extracted, write it to disk
-	if len(config.Get().Torrents.FileStorage) > 0 && r.Filesize > 0 {
-		err := writeTorrentToDisk(tfile, r.Infohash+".torrent", &r.Filepath)
-		if err != nil {
-			return err
-		}
-	} else {
-		r.Filepath = ""
-	}
+	// We are not saving the file here because we need to add our own tracker list to the torrent file, therefore, we generate the torrent file at upload time through GenerateTorrent()
+	// when it is magnet or torrent file upload
 
 	return nil
 }
@@ -208,19 +195,6 @@ func UpdateUnscopeTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, 
 	t = UpdateTorrent(r, t, currentUser)
 	t.Status = r.Update.Status
 	return t
-}
-
-func writeTorrentToDisk(file multipart.File, name string, fullpath *string) error {
-	_, seekErr := file.Seek(0, io.SeekStart)
-	if seekErr != nil {
-		return seekErr
-	}
-	b, err := ioutil.ReadAll(file)
-	if err != nil {
-		return err
-	}
-	*fullpath = fmt.Sprintf("%s%c%s", config.Get().Torrents.FileStorage, os.PathSeparator, name)
-	return ioutil.WriteFile(*fullpath, b, 0644)
 }
 
 // NewTorrentRequest : creates a new torrent request struc with some default value
