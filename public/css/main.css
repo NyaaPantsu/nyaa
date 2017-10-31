@@ -2324,6 +2324,11 @@ table.multiple-upload {
     right: 16px;
 }
 
+.user-search-notice {
+    margin: 10px 0 0;
+    font-weight: bold;
+}
+
 .torrent-info-row .tr-se span, .torrent-info-row .tr-le span, .torrent-info-row .tr-dl span {
     font-weight: bold;
     background-color: #ffe0bf;
