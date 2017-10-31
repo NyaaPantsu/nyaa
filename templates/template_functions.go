@@ -251,8 +251,8 @@ func languageNameFromCode(languageCode string, T publicSettings.TemplateTfunc) s
 	}
 	return strings.Title(publicSettings.Translate(languageCode, string(T("language_code"))))
 }
-func fileSize(filesize int64, T publicSettings.TemplateTfunc) template.HTML {
-	if filesize == 0 {
+func fileSize(filesize int64, T publicSettings.TemplateTfunc, showUnknown bool) template.HTML {
+	if showUnknown && filesize == 0 {
 		return T("unknown")
 	}
 	return template.HTML(format.FileSize(filesize))
