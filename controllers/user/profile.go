@@ -218,14 +218,11 @@ func UserNotificationsHandler(c *gin.Context) {
 		messages := msg.GetMessages(c)
 		if c.Request.URL.Query()["clear"] != nil {
 			notifications.DeleteNotifications(currentUser, false)
-			messages.AddInfoT("infos", "read_notifications_cleared")
 			
 		} else if c.Request.URL.Query()["clear_all"] != nil {
 			notifications.DeleteNotifications(currentUser, true)
-			messages.AddInfoT("infos", "notifications_cleared")
 		} else if c.Request.URL.Query()["read_all"] != nil {
 			notifications.MarkAllNotificationsAsRead(currentUser)
-			messages.AddInfoT("infos", "notifications_read")
 		}
 		templates.UserProfileNotifications(c, currentUser)
 	} else {
