@@ -2208,6 +2208,10 @@
     "translation": "Search from %s"
   },
   {
+    "id": "browsing_user_torrents",
+    "translation": "Browsing <a href=\"/user/%d/%s\">%s</a>'s torrents"
+  },
+  {
     "id": "hours_minutes_ago",
     "translation": "{0} hours {1} minutes ago"
   },
