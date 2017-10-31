@@ -219,7 +219,7 @@ function toggleTheme(e) {
   document.getElementById("theme").href = "/css/themes/" + CurrentTheme + ".css";
   
   if(UserID > 0 ){
-    Query.Get("/dark?no_redirect=true", function(data) {})
+    Query.Get("/dark?no_redirect", function(data) {})
     //If user logged in, we're forced to go through this page in order to save the new user theme
   }
   else {
