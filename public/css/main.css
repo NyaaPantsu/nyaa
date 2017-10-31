@@ -349,6 +349,8 @@ select.form-input {
     font-size: 8px;
     top: 37px;
     right: 22px;
+    max-height: 17px;
+    line-height: 10px;
 }
 
 #content {
