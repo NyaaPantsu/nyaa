@@ -1072,8 +1072,7 @@ html, body {
     margin-bottom: 2px;
 }
 
-.profile-usertitle-uploadcount span {
-    font-weight: bold;
+.profile-usertitle-uploadcount b {
     margin-left: 2px;
 }
 
