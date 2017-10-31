@@ -751,6 +751,9 @@ span.tag {
     top: 103px;
     right: 11px;
 }
+.comment-content :first-child {
+margin-top: 5px;	
+}
 .sukebei #reportPopup {
     color: #660000!important;
 }
