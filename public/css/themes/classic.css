@@ -573,14 +573,14 @@ td.tr-size {
 .container.bottom {
     padding: 5px 10px;
     padding-top: 0;
-    margin-top: -8px;
+    margin-top: -11px;
 }
 .container.bottom .pagination {
     border-top: none;
-    padding: 0;
+    padding: 0 14px;
 }
 .container.bottom .pagination p {
-    margin: 4px 0 6px 0px;
+    margin: 2px 0 4px 0px
 }
 .bottom.center {
     width: 87%;
