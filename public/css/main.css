@@ -2325,7 +2325,7 @@ table.multiple-upload {
 }
 
 .user-search-notice {
-    margin: 10px 0 0;
+    margin: 10px 0 0 1px;
     font-weight: bold;
 }
 
