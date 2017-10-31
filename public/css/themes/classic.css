@@ -746,7 +746,7 @@ span.tag {
     right: 11px;
 }
 .sukebei #reportPopup {
-    color: #660000;
+    color: #660000!important;
 }
 #reportPopup:hover {
     text-decoration: underline;
@@ -754,6 +754,12 @@ span.tag {
 .modal-header {
     background: linear-gradient(to bottom, #33ca98 0%, #337372 72%);
 }
+.sukebei .modal-header {
+	background: linear-gradient(to bottom, #c54f6a 5%, #482120 80%);
+}
 .modal-footer{
 	background: #26332e;
+}
+.sukebei .modal-footer {
+    background: #332626;
 }
