@@ -91,7 +91,7 @@
           </a>
         </td>
         <td class="tr-size home-td hide-xs">
-          {{ fileSize(.Filesize, T) }}
+          {{ fileSize(.Filesize, T, true) }}
         </td>
         {{if .StatsObsolete[0] }}
         <td class="tr-se home-td hide-smol">-</td>
