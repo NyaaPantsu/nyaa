@@ -3,9 +3,11 @@ package upload
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"io/ioutil"
+	"mime/multipart"
 	"net/http"
-	"net/url"
+	"os"
 	"strings"
 	"time"
 
@@ -59,31 +61,38 @@ func ToAnidex(torrent *models.Torrent, apiKey string, subCat string, lang string
 		uploadMultiple.updateAndSave(anidex, errorState, "No ApiKey providen (required)")
 		return
 	}
+	extraParams := map[string]string{
+		//Required
+		"api_key":   apiKey,
+		"subcat_id": subCat,
+		"group_id":  "0",
+		"lang_id":   lang,
 
-	postForm := url.Values{}
-	//Required
-	postForm.Set("api_key", apiKey)
-	postForm.Set("subcat_id", subCat)
-	postForm.Set("file", "")
-	postForm.Set("group_id", "0")
-	postForm.Set("lang_id", lang)
-
-	//Optional
-	postForm.Set("description", "")
+		//Optional
+		"description":  torrent.Description,
+		"torrent_name": torrent.Name,
+		"debug":        "1",
+	}
 	if config.IsSukebei() {
-		postForm.Set("hentai", "1")
+		extraParams["hentai"] = "1"
 	}
 	if torrent.IsRemake() {
-		postForm.Set("reencode", "1")
+		extraParams["reencode"] = "1"
 	}
 	if torrent.IsAnon() {
-		postForm.Set("private", "1")
+		extraParams["private"] = "1"
 	}
-	postForm.Set("torrent_name", torrent.Name)
-
-	postForm.Set("debug", "1")
-
-	rsp, err := http.Post("https://anidex.info/api/", "application/x-www-form-urlencoded", bytes.NewBufferString(postForm.Encode()))
+	request, err := newfileUploadRequest("https://anidex.info/api/", extraParams, "file", torrent.GetPath())
+	if err != nil {
+		log.CheckError(err)
+		return
+	}
+	client := &http.Client{}
+	rsp, err := client.Do(request)
+	if err != nil {
+		log.CheckError(err)
+		return
+	}
 	log.Info("Launch anidex http request")
 
 	if err != nil {
@@ -167,4 +176,41 @@ func (u *MultipleForm) updateAndSave(which int, code int, message string) {
 func (s *service) update(code int, message string) {
 	s.Status = code
 	s.Message = message
+}
+
+// Creates a new file upload http request with optional extra params
+func newfileUploadRequest(uri string, params map[string]string, paramName, path string) (*http.Request, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+	fi, err := file.Stat()
+	if err != nil {
+		return nil, err
+	}
+
+	body := new(bytes.Buffer)
+	writer := multipart.NewWriter(body)
+	part, err := writer.CreateFormFile(paramName, fi.Name())
+	if err != nil {
+		return nil, err
+	}
+	if _, err = io.Copy(part, file); err != nil {
+		return
+	}
+	for key, val := range params {
+		_ = writer.WriteField(key, val)
+	}
+	err = writer.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	request, err := http.NewRequest("POST", uri, body)
+	if err != nil {
+		return nil, err
+	}
+	request.Header.Add("Content-Type", writer.FormDataContentType())
+	return request, nil
 }
