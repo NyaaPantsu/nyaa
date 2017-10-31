@@ -21,7 +21,7 @@ func ReportTorrentHandler(c *gin.Context) {
 	messages := msg.GetMessages(c)
 	captchaError := "?reported"
 	currentUser := router.GetUser(c)
-	if currentUser.NeedsCaptcha() {
+	if currentUser.ID == 0 {
 		userCaptcha := captcha.Extract(c)
 		if !captcha.Authenticate(userCaptcha) {
 			captchaError = "?badcaptcha"
