@@ -32,7 +32,7 @@
 	      {{if User.ID > 0}}
 		   <a href="/user/{{Torrent.UploaderID}}/{{Torrent.UploaderName}}/follow?id={{Torrent.ID}}" id="subscribe-link">{{if User.IsFollower(Torrent.UploaderID)}}{{T("unfollow")}}{{else}}{{T("follow")}}{{end}}</a>
 	      {{else}}
-		   <a href="/login?redirectTo=/user/{{Torrent.UploaderID}}/{{Torrent.UploaderName}}/follow?id={{Torrent.ID}}">{{T("follow")}}</a>
+		   <a href="/login?redirectTo=/user/{{Torrent.UploaderID}}/{{Torrent.UploaderName}}/follow?id={{Torrent.ID}}" id="subscribe-link">{{T("follow")}}</a>
 	      {{end}}
             {{end}}
 	    </td>
