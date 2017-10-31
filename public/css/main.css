@@ -252,7 +252,7 @@ select.form-input {
 
 .not-important {
     font-size: 9pt;
-    margin: 2px 3px;
+    margin: 0 3px 2px 3px;
     color: #8a8a8a;
 }
 
@@ -1235,8 +1235,12 @@ html, body {
     padding-bottom: 5px;
 }
 
+.comment-form textarea {
+    margin-bottom: 0;	
+}
+
 .comment-form h3 {
-	margin-bottom: 8px;
+    margin-bottom: 8px;
 }
 
 .comment-index {
