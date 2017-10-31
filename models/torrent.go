@@ -179,7 +179,7 @@ func (t *Torrent) GetDescriptiveTags() string {
 
 // GetPath : Helpers to get the path to the torrent file
 func (t *Torrent) GetPath() string {
-	return fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, torrent.Hash)
+	return fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, t.Hash)
 }
 
 // AddToESIndex : Adds a torrent to Elastic Search
