@@ -2411,6 +2411,10 @@ td.notification-status.notification-unread {
     word-break: break-word;
 }
 
+.locked {
+    background: hsla(216, 10%, 73%, 0.2) !important;
+}
+
 /* Language specific CSS */
 
 html[lang="ja-jp"] .form-refine span.spacing {
