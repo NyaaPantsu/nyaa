@@ -1243,6 +1243,10 @@ html, body {
     margin-bottom: 8px;
 }
 
+.comment-text {
+    margin-bottom: 10px;
+}
+
 .comment-index {
     margin-right: 5px;
     margin-top: 5px;
