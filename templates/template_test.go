@@ -85,17 +85,17 @@ func walkDirTest(dir string, t *testing.T) {
 			return variables
 		},
 		"edit.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("NbTorrents", 0)
+			variables.Set("NbTorrents", []int64{0,0})
 			variables.Set("Form", fakeTorrentRequest)
 			variables.Set("Languages", publicSettings.Languages{*fakeLanguage, *fakeLanguage})
 			return variables
 		},
 		"torrents.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("NbTorrents", 0)
+			variables.Set("NbTorrents", []int64{0,0})
 			return variables
 		},
 		"profile.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("NbTorrents", 0)
+			variables.Set("NbTorrents", []int64{0,0})
 			return variables
 		},
 		"upload.jet.html": func(variables jet.VarMap) jet.VarMap {
@@ -103,7 +103,7 @@ func walkDirTest(dir string, t *testing.T) {
 			return variables
 		},
 		"view.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("NbTorrents", 0)
+			variables.Set("NbTorrents", []int64{0,0})
 			variables.Set("Torrent", fakeTorrent.ToJSON())
 			variables.Set("CaptchaID", "xxxxxx")
 			variables.Set("RootFolder", filelist.FileListToFolder(fakeTorrent.FileList, "root"))
