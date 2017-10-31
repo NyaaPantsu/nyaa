@@ -15,7 +15,7 @@ func UserFollowHandler(c *gin.Context) {
 	id, _ := strconv.ParseUint(c.Param("id"), 10, 32)
 	currentUser := router.GetUser(c)
 	user, _, errorUser := users.FindForAdmin(uint(id))
-	if errorUser == nil && user.ID > 0 {
+	if errorUser == nil && user.ID > 0 && currentUser.ID > 0 && user.ID != currentUser.ID  {
 		if !currentUser.IsFollower(uint(id)) {
 			followAction = "followed"
 			currentUser.SetFollow(user)
