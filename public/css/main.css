@@ -1228,6 +1228,11 @@ html, body {
     margin-left: 4px;
 }
 
+.comment-content {
+    max-width: 100%;
+    max-height: 500px;
+}
+
 .comment-content :last-child {
     margin-bottom: 2px;
 }
