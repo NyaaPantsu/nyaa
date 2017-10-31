@@ -63,7 +63,7 @@ a {
 .sukebei a {
     color: #660000;
 }
-a:hover {
+a:hover, .h-nav a:hover {
     text-decoration: underline;
 }
 
@@ -95,7 +95,7 @@ th.tr-name a {
     font-size: 0.9em;
 }
 .tr-links {
-    width: 29px;
+    width: 22px;
     text-align: right;
 }
 .tr-links .icon-magnet::before {
@@ -739,7 +739,7 @@ span.tag {
 	top: 110px;
 }
 .content > div#announce:first-child+div.refine+div #reportPopup {
-	top: 67px;
+	top: 65px;
 }
 #reportPopup {
     text-decoration: underline dotted;
