@@ -85,20 +85,26 @@ func UploadPostHandler(c *gin.Context) {
 		// add to db
 		torrent, err := torrents.Create(user, &uploadForm)
 		log.CheckErrorWithMessage(err, "ERROR_TORRENT_CREATED: Error while creating entry in db")
-
 		if AnidexUpload || NyaaSiUpload || TokyoToshoUpload {
-			// User wants to upload to other websites too
-			if AnidexUpload {
-				go upload.ToAnidex(torrent, c.PostForm("anidex_api"), c.PostForm("anidex_form_category"), c.PostForm("anidex_form_lang"))
-			}
+			go func(anidexApiKey string, anidexFormCategory string, anidexFormLang string, nyaasiApiKey string, toshoApiKey string) {
+				err := upload.GotFile(torrent, uploadForm.Magnet)
+				if err != nil {
+					log.CheckError(err)
+					return
+				}
+				// User wants to upload to other websites too
+				if AnidexUpload {
+					go upload.ToAnidex(torrent, anidexApiKey, anidexFormCategory, anidexFormLang)
+				}
 
-			if NyaaSiUpload {
-				go upload.ToNyaasi(c.PostForm("nyaasi_api"), torrent)
-			}
+				if NyaaSiUpload {
+					go upload.ToNyaasi(nyaasiApiKey, torrent)
+				}
 
-			if TokyoToshoUpload {
-				go upload.ToTTosho(c.PostForm("tokyot_api"), torrent)
-			}
+				if TokyoToshoUpload {
+					go upload.ToTTosho(toshoApiKey, torrent)
+				}
+			}(c.PostForm("anidex_api"), c.PostForm("anidex_form_category"), c.PostForm("anidex_form_lang"), c.PostForm("nyaasi_api"), c.PostForm("tokyot_api"))
 			// After that, we redirect to the page for upload status
 			url := fmt.Sprintf("/upload/status/%d", torrent.ID)
 			c.Redirect(302, url)
