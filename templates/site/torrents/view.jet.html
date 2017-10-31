@@ -8,7 +8,7 @@
 {{block title()}}{{Torrent.Name}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box {{if Torrent.Status == 2}}torrent-remake{{else if Torrent.Status == 3}}torrent-trusted{{else if Torrent.Status == 4}}torrent-aplus{{end}}">
-  <div id="torrent-name" class="{{if Torrent.Status == 2}}remake{{else if Torrent.Status == 3}}trusted{{else if Torrent.Status == 4}}aplus{{end}}">
+  <div id="torrent-name" class="{{if Torrent.Status == 2}}remake{{else if Torrent.Status == 3}}trusted{{else if Torrent.Status == 4}}aplus{{else if Torrent.Status == 5}}locked{{end}}">
     <h1 style="text-align: center;" class="torrent-hr">{{Torrent.Name}}</h1>
   </div>
   <br/>
