@@ -44,6 +44,9 @@
 		</tr>
 	</tbody>
 </table>
+    {{ if Search.UserName != ""}}
+         <div class="user-search-notice">{{T("browsing_user_torrents", Search.UserID, Search.UserName, Search.UserName)|raw}} ({{Navigation.TotalItem}})</div>
+    {{end}}
     <div class="pagination">
       {{ genNav(Navigation, URL, 33)|raw }}
     </div>
