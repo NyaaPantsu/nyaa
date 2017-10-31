@@ -173,9 +173,14 @@ func userProfileBase(c *gin.Context, templateName string, userProfile *models.Us
 	} else {
 		_, userProfile.Torrents, nbTorrents, _ = search.ByQuery(c, 1, true, false, true)
 	}
+	
+	var uploadedSize int64
+	for _, torrent := range userProfile.Torrents {
+		uploadedSize += 64
+	}
 
 	variables.Set("UserProfile", userProfile)
-	variables.Set("NbTorrents", nbTorrents)
+	variables.Set("NbTorrents", []int64{int64(nbTorrents),uploadedSize})
 	Render(c, path.Join(SiteDir, "user", templateName), variables)
 }
 
