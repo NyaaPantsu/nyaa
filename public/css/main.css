@@ -1563,7 +1563,9 @@ input.filelist-checkbox:checked+table.table-filelist {
 .modal-body :first-child {
     margin-top: 0;
 }
-
+.modal-body h4 {
+    margin-bottom: 6px;
+}
 
 /* Modal Footer */
 
