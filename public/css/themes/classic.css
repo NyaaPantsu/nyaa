@@ -37,9 +37,8 @@ body, .header {
     width: 87%;
 }
 
-.comment-box p:nth-child(2) {
+.comment-userinfo {
     margin-top: auto;
-    margin-bottom: 5px;
 }
 
 .form-refine span.spacing {
@@ -328,7 +327,7 @@ span.comment-index+p {
     margin-top: 0;
 }
 
-span.comment-index+p a {
+.comment-user {
     font-weight: bold;
     padding-top: 2px;
     font-size: .9em;
@@ -336,10 +335,9 @@ span.comment-index+p a {
     text-decoration: none;
     line-height: 22px;
 }
-span.comment-index+p a:hover {
+.comment-user:hover {
     text-decoration: underline;
 }
-
 .comment-index {
     margin: 3px 0 0 0;
 }
