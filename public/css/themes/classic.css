@@ -245,6 +245,8 @@ select.form-input {
 }
 .sukebei .pagination span:hover {
     background-color: #993333;
+    color: white;
+    font-weight: normal;
 }
 .website-nav .pagination p {
     display: none;
@@ -600,6 +602,13 @@ td.tr-size {
     font-weight: bold;
     border: none;
     color: #106655;
+}
+.sukebei .pagination .active, .pagination .active:hover {
+    color: #111111!important;
+    cursor: pointer;
+	background: none!important;
+	border: none;
+	font-weight: bold!important;
 }
 
 a.nav-btn.log-in {
