@@ -409,7 +409,7 @@ span.comment-index+p {
 .torrent-info-data.uploader-anon {
     font-style: italic;
 }
-.torrent-info-data.uploader-link a, .torrent-info-data.uploader-anon a{
+.torrent-info-data.uploader-link a, .torrent-info-data.uploader-anon a, .user-search-notice a{
     color: green;
 }
 
@@ -743,7 +743,7 @@ span.tag {
 }
 #reportPopup {
     text-decoration: underline dotted;
-    height: 16px!important;
+    height: auto!important;
     font-size: 13px!important;
     background: none;
     color: #106655!important;
@@ -768,4 +768,11 @@ span.tag {
 }
 .sukebei .modal-footer {
     background: #332626;
+}
+.user-search-notice {
+	margin: 11px 0 0 4px;
+    font-size: 13px;
+	font-weight: bold;
+    margin-left: 4px;
+	
 }
