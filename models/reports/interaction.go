@@ -32,6 +32,10 @@ func Delete(id uint) (*models.TorrentReport, int, error) {
 	return &torrentReport, http.StatusOK, nil
 }
 
+func DeleteAll() {
+	models.ORM.Delete(&models.TorrentReport{})
+}
+
 func findOrderBy(parameters Query, orderBy string, limit int, offset int, countAll bool) (
 	torrentReports []models.TorrentReport, count int, err error,
 ) {
