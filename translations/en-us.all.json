@@ -140,6 +140,10 @@
     "translation": "Torrents"
   },
   {
+    "id": "followers",
+    "translation": "Followers"
+  },
+  {
     "id": "follow",
     "translation": "Follow"
   },
