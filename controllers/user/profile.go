@@ -219,7 +219,6 @@ func UserProfileFormHandler(c *gin.Context) {
 func UserNotificationsHandler(c *gin.Context) {
 	currentUser := router.GetUser(c)
 	if currentUser.ID > 0 {
-		messages := msg.GetMessages(c)
 		if c.Request.URL.Query()["clear"] != nil {
 			notifications.DeleteNotifications(currentUser, false)
 			
