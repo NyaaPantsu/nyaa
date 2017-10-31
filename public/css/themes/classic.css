@@ -63,7 +63,7 @@ a {
 .sukebei a {
     color: #660000;
 }
-a:hover, .h-nav a:hover {
+a:hover, .h-nav a:hover, .h-nav:active a:hover  {
     text-decoration: underline;
 }
 
