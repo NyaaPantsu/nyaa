@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
+	"os"
 	"path/filepath"
 	"reflect"
 	"strconv"
@@ -176,6 +177,11 @@ func (t *Torrent) GetDescriptiveTags() string {
 	return t.AcceptedTags
 }
 
+// GetPath : Helpers to get the path to the torrent file
+func (t *Torrent) GetPath() string {
+	return fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, torrent.Hash)
+}
+
 // AddToESIndex : Adds a torrent to Elastic Search
 func (t Torrent) AddToESIndex(client *elastic.Client) error {
 	ctx := context.Background()
@@ -315,7 +321,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 				userStatus = "userstatus_banned"
 			}
 			if c.User.HasAdmin() {
-				userStatus =  "userstatus_moderator"
+				userStatus = "userstatus_moderator"
 			}
 			if c.User.ID == t.ID {
 				userStatus = "userstatus_uploader"
