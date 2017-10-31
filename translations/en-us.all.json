@@ -984,6 +984,10 @@
     "translation": "Delete Report"
   },
   {
+    "id": "delete_all_reports",
+    "translation": "Delete all reports"
+  },
+  {
     "id": "comment_deleted",
     "translation": "Comment has been deleted!"
   },
