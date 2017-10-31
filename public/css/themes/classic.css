@@ -38,7 +38,7 @@ body, .header {
 }
 
 .comment-userinfo {
-    margin-top: 0!important;
+    margin-top: -10!important;
 }
 
 .form-refine span.spacing {
