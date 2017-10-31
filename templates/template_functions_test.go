@@ -395,7 +395,7 @@ func TestFileSize(t *testing.T) {
 	}
 	T := mockupTemplateT(t)
 	for _, test := range tests {
-		value := fileSize(test.TestSize, T)
+		value := fileSize(test.TestSize, T, false)
 		if value != test.Expected {
 			t.Errorf("Unexpected value from the function languageName, got '%s', wanted '%s' for '%d'", value, test.Expected, test.TestSize)
 		}
