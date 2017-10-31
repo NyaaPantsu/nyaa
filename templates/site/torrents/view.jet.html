@@ -360,7 +360,7 @@ Modal.Init({
 		Query.Get('/download/{{Torrent.Hash}}?js_query=true', function (data) {
 			if(typeof data.exists != "undefined" && data.exists == true) {
 				torrentLink.innerHTML = oldDownloadHtml
-				torrentLink.style.opacity = 1
+				torrentLink.style = torrentLink.style + "opacity: 1!important;filter: grayscale(0);"
 				torrentLink.removeEventListener("click", function (e) {});
 				torrentLink.click();
 			} else {
