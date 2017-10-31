@@ -1191,7 +1191,7 @@ html, body {
 .comment-box {
     padding: 0 7px;
     margin: 10px 30px 0 30px;
-    min-height: 70px;
+    min-height: 67px;
     word-break: break-word;
     text-align: justify;
 }
@@ -1201,7 +1201,8 @@ html, body {
 }
 
 .comment-box .comment-userinfo {
-    margin-top: 9px;    
+    display: block;
+    margin-top: 6px;    
 }
 
 .comment-box .comment-user {
