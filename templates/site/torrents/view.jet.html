@@ -52,7 +52,7 @@
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("size")}}:</td>
-      <td class="torrent-view-td torrent-info-data">{{ fileSize(Torrent.Filesize, T) }}</td>
+      <td class="torrent-view-td torrent-info-data">{{ fileSize(Torrent.Filesize, T, true) }}</td>
     </tr>
     {{ if len(Torrent.Languages) > 0 && Torrent.Languages[0] != "" }}
     <tr class="torrent-info-row">
