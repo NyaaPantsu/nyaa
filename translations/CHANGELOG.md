@@ -79,3 +79,4 @@
 * + mark_notifications_as_read
 ## 2017/10/31
 * + followers
+* ~ description_markdown_notice -> comment_markdown_notice
