@@ -176,7 +176,7 @@ func userProfileBase(c *gin.Context, templateName string, userProfile *models.Us
 	
 	var uploadedSize int64
 	for _, torrent := range userProfile.Torrents {
-		uploadedSize += 64
+		uploadedSize += torrent.Filesize
 	}
 
 	variables.Set("UserProfile", userProfile)
