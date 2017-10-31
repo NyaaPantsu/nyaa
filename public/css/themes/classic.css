@@ -726,7 +726,15 @@ span.tag {
 .torrent-info-data #subscribe-link::before, .torrent-info-data #subscribe-link:: after {
     color: #111111;
 }
-
+.content > p:first-child+div.centered+div.refine+div #reportPopup {
+	top: 145px;
+}
+.content > p:first-child+div#announce+div.refine+div #reportPopup {
+	top: 110px;
+}
+.content > div#announce:first-child+div.refine+div #reportPopup {
+	top: 67px;
+}
 #reportPopup {
     text-decoration: underline dotted;
     height: auto!important;
@@ -737,9 +745,15 @@ span.tag {
     top: 103px;
     right: 11px;
 }
+.sukebei #reportPopup {
+    color: #660000;
+}
 #reportPopup:hover {
     text-decoration: underline;
 }
 .modal-header {
     background: linear-gradient(to bottom, #33ca98 0%, #337372 72%);
+}
+.modal-footer{
+	background: #26332e;
 }
