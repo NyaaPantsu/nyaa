@@ -169,7 +169,7 @@ func DeleteTagsModPanel(c *gin.Context) {
 
 // TorrentBlockModPanel : Controller to lock torrents, redirecting to previous page
 func TorrentBlockModPanel(c *gin.Context) {
-	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
+	id, _ := strconv.ParseInt(c.PostForm("id"), 10, 32)
 	torrent, _, err := torrents.ToggleBlock(uint(id))
 	var returnRoute, action string
 	if torrent.IsDeleted() {
