@@ -648,7 +648,7 @@ func Teststrcmp(t *testing.T) {
  			TestEnd: -1,
  			TestStart: 6,
  			Expected: true,
- 		},,
+ 		},
  		{
  		    TestString:  "superkill", //compare "kil" to "kil"
  			TestString2: "kilo",
