@@ -53,7 +53,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("contains", contains)
 	vars.Set("strcmp", strcmp)
 	vars.Set("strfind", strfind)
-	vars.Set("rand", rand)
+	vars.Set("rand", rand.Intn)
 	vars.Set("getDomainName", getDomainName)
 	vars.Set("getThemeList", getThemeList)
 	vars.Set("formatThemeName", formatThemeName)
@@ -385,10 +385,6 @@ func strfind(str1 string, searchfor string, start int) bool {
 	
 	
 	return strings.Contains(str1[start:len1], searchfor)
-}
-
-func rand(max int) int {
-	return rand.Intn(max)
 }
 
 func getDomainName() string {
