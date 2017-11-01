@@ -681,11 +681,6 @@ func Teststrcmp(t *testing.T) {
  			TestString2: "loki",
  			Match: false,
  		},
-		{
- 			TestString:  "superkilo",
- 			TestString2: "kilo",
-			Match: true,
- 		},
  	}
  	for _, test := range tests {
  		value := strfind(test.TestString, test.TestString2, 0)
