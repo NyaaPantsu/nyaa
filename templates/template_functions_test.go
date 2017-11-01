@@ -613,90 +613,99 @@ func testTorrentFileExists(t *testing.T) {
 	}	
 }
 
-func Testkilo_strcmp(t *testing.T) {
+func Teststrcmp(t *testing.T) {
  	var tests = []struct {
  		TestString  string
  		TestString2 string
+		TestEnd int
+		TestStart int
  		Expected bool
  	}{
  		{
  			TestString:  "kilo",
  			TestString2: "kilo",
+ 			TestEnd: -1,
+ 			TestStart: 0,
 			Expected: true,
  		},
  		{
- 		TestString:  "kilo",
- 			TestString2: "loki", // Clearly not the same level
+ 		    TestString:  "kilo",
+ 			TestString2: "loki",
+ 			TestEnd: -1,
+ 			TestStart: 0,
  			Expected: false,
  		},
- 	}
- 	for _, test := range tests {
- 		value := kilo_strcmp(test.TestString, test.TestString2, -1, 0)
- 		if value != test.Expected {
- 			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t'", value, test.Expected, test.TestString, test.TestString)
- 		}
-	}
- }
-
- func TestToString(t *testing.T) {
- 	var tests = []struct {
- 		TestInt  int
- 		Expected string
- 	}{
  		{
- 			TestInt:  0,
-			Expected: "0",
+ 		    TestString:  "superkilo", //compare "superkilo" to "kilo"
+ 			TestString2: "kilo",
+ 			TestEnd: -1,
+ 			TestStart: 0,
+ 			Expected: false,
+ 		},
+ 		{
+ 		    TestString:  "superkilo", //compare "kilo" to "kilo"
+ 			TestString2: "kilo",
+ 			TestEnd: -1,
+ 			TestStart: 6,
+ 			Expected: true,
+ 		},,
+ 		{
+ 		    TestString:  "superkill", //compare "kil" to "kil"
+ 			TestString2: "kilo",
+ 			TestEnd: 8,
+ 			TestStart: 6,
+ 			Expected: true,
  		},
  	}
  	for _, test := range tests {
-		value := toString(test.TestInt)
+ 		value := strcmp(test.TestString, test.TestString2, -1, 0)
  		if value != test.Expected {
- 			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t'", value, test.Expected)
+ 			t.Errorf("Unexpected value from the function strcmp, got '%t', wanted '%t'", value, test.Expected, test.TestString, test.TestString)
  		}
 	}
  }
  
- func Testkilo_strfind(t *testing.T) {
+ func Teststrfind(t *testing.T) {
  	var tests = []struct {
  		TestString  string
  		TestString2 string
- 		Expected bool
+ 		Match bool
  	}{
  		{
  			TestString:  "kilo",
  			TestString2: "kilo",
-			Expected: true,
+			Match: true,
  		},
  		{
  			TestString:  "kilo",
- 			TestString2: "loki", // Clearly not the same level
- 			Expected: false,
+ 			TestString2: "loki",
+ 			Match: false,
+ 		},
+ 			TestString:  "superkilo",
+ 			TestString2: "kilo",
+			Match: true,
  		},
  	}
  	for _, test := range tests {
- 		value := kilo_strfind(test.TestString, test.TestString2, 0)
- 		if value != test.Expected {
- 			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t'", value, test.Expected, test.TestString, test.TestString)
+ 		value := strfind(test.TestString, test.TestString2, 0)
+ 		if value != test.Match {
+ 			t.Errorf("Unexpected value from the function strfind, got '%t', wanted '%t'", value, test.Match, test.TestString, test.TestString)
  		}
 	}
  }
 
 func TestRand(t *testing.T) {
  	var tests = []struct {
- 		TestInt  int
- 		TestInt2 int
- 		Expected int
+ 		TestMax  int
  	}{
  		{
- 			TestInt:  0,
- 			TestInt2:  1,
-			Expected: 1,
+ 			TestMax:  0,
  		},
  	}
  	for _, test := range tests {
-		value := kilo_rand(1)
- 		if value != test.Expected {
- 			//t.Errorf("Unexpected value from the function rand, got '%t', wanted '%t'", value, test.Expected)
+		value := rand(test.TestMax)
+ 		if value > test.TestMax {
+ 			t.Errorf("Unexpected value from the function rand, got '%t', max of '%t'", value, test.TestMax)
  		}
 	}
  }
