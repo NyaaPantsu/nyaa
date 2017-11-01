@@ -720,32 +720,6 @@ func Teststrcmp(t *testing.T) {
  		}
 	}
  }
- 
- func TestToString(t *testing.T) {
- 	var tests = []struct {
- 		TestInt int
-		Expected string
- 	}{
- 		{
-			TestInt: 0,
-			Expected: "",
- 		},
-		{
-			TestInt: 1,
-			Expected: "1",
- 		},
-		{
-			TestInt: -1,
-			Expected: "-1",
- 		},
- 	}
- 	for _, test := range tests {
-		value := toString(test.TestInt)
-		if value != test.Expected {
-			t.Errorf("Unexpected value from the function toString, got '%t', wanted '%t'", value, test.string)
-		}
-	}
- }
 
  func TestGetTheme(t *testing.T) {
  	var tests = []struct {
