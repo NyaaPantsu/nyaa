@@ -722,18 +722,9 @@ func Teststrcmp(t *testing.T) {
  }
 
 func TestGetTheme(t *testing.T) {
- 	var tests = []struct {
- 		TestThemeCount int
- 	}{
- 		{
- 			TestThemeCount: 0,
- 		},
- 	}
- 	for _, test := range tests {
-		themeCount := len(getThemeList())
-		if TestThemeCount == themeCount {
-			t.Error("Unexpected value from the function getThemeList, returned no theme")
-		}
+	themeCount := len(getThemeList())
+	if themeCount == 0 {
+		t.Error("Unexpected value from the function getThemeList, returned no theme")
 	}
  }
  
