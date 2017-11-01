@@ -756,10 +756,24 @@ func TestRand(t *testing.T) {
  
   func testformatThemeName(t *testing.T) {
  	var tests = []struct {
- 		domainName string
+ 		TestPath string
+		Expected string
  	}{
  		{
- 			domainName:  "test",
+ 			TestPath:  "g",
+			Expected: "/g/"
+ 		},
+ 		{
+ 			TestPath:  "v",
+			Expected: "/v/"
+ 		},
+ 		{
+ 			TestPath:  "my_theme",
+			Expected: "My Theme"
+ 		},
+ 		{
+ 			TestPath:  "tomorrow",
+			Expected: "Tomorrow"
  		},
  	}
  	for _, test := range tests {
@@ -771,25 +785,35 @@ func TestRand(t *testing.T) {
 		T = func(id string, args ...interface{}) template.HTML {	
 			return template.HTML(fmt.Sprintf(Ts(id), args...))
 		}
-		value := formatThemeName("path", T)
- 		if value != test.domainName {
- 			
+		value := formatThemeName(test.TestPath, T)
+ 		if value != test.Expected {
+ 			t.Errorf("Unexpected value from the function formatThemeName, got '%t' from '%s', wanted '%t'", value, test.TestPath, test.Expected)
  		}
 	}
  }
 
 func testFormatDate(t *testing.T) {
+	UTC, _ := time.LoadLocation("")
  	var tests = []struct {
- 		domainName string
+ 		TestDate time.Time
+		TestFullDate bool
+		Expected string
  	}{
  		{
- 			domainName:  "test",
+ 			TestDate: time.Date(2017, 11, 1, 0, 0, 0, 0, UTC),
+			TestFullDate: false,
+			Expected: "Nov 1, 2017"
+ 		},
+		{
+ 			TestDate: time.Date(2017, 11, 1, 0, 0, 0, 0, UTC),
+			TestFullDate: true,
+			Expected: "11/1/2017, 0:00:00 AM UTC+0"
  		},
  	}
  	for _, test := range tests {
-		value := formatDate(time.Now(), false)
- 		if value != test.domainName {
- 			
+		value := formatDate(test.TestDate, test.Expected)
+ 		if value != test.Expected {
+ 			t.Errorf("Unexpected value from the function formatDate, got '%t' from '%s' and '%d', wanted '%t'", value, test.TestDate, test.TestFullDate, test.Expected)
  		}
 	}
  }
