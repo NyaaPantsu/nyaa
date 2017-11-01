@@ -726,7 +726,7 @@ func TestGetTheme(t *testing.T) {
  		TestThemeCount int
  	}{
  		{
- 			TestThemeCount: 0
+ 			TestThemeCount: 0,
  		},
  	}
  	for _, test := range tests {
