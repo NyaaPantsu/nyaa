@@ -811,7 +811,7 @@ func testFormatDate(t *testing.T) {
  		},
  	}
  	for _, test := range tests {
-		value := formatDate(test.TestDate, test.Expected)
+		value := formatDate(test.TestDate, test.TestFullDate)
  		if value != test.Expected {
  			t.Errorf("Unexpected value from the function formatDate, got '%t' from '%s' and '%d', wanted '%t'", value, test.TestDate, test.TestFullDate, test.Expected)
  		}
