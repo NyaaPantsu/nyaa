@@ -54,6 +54,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("strcmp", strcmp)
 	vars.Set("strfind", strfind)
 	vars.Set("rand", rand.Intn)
+	vars.Set("toString", strconv.Itoa)
 	vars.Set("getDomainName", getDomainName)
 	vars.Set("getThemeList", getThemeList)
 	vars.Set("formatThemeName", formatThemeName)
