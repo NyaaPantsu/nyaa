@@ -397,14 +397,20 @@ func TestFileSize(t *testing.T) {
 		},
 		{
 			TestSize: 10,
+			TestShowUnknown: false,
+			Expected: template.HTML("10.0 B"),
+		},
+		{
+			TestSize: 10,
+			TestShowUnknown: true,
 			Expected: template.HTML("10.0 B"),
 		},
 	}
 	T := mockupTemplateT(t)
 	for _, test := range tests {
-		value := fileSize(test.TestSize, T, false)
+		value := fileSize(test.TestSize, T, TestShowUnknown)
 		if value != test.Expected {
-			t.Errorf("Unexpected value from the function languageName, got '%s', wanted '%s' for '%d'", value, test.Expected, test.TestSize)
+			t.Errorf("Unexpected value from the function fileSize, got '%s', wanted '%s' for '%d' with '%d'", value, test.Expected, test.TestSize, test.TestShowUnknown)
 		}
 	}
 }
