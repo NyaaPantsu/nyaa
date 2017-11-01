@@ -669,39 +669,38 @@ func Teststrcmp(t *testing.T) {
  	var tests = []struct {
  		TestString  string
  		TestString2 string
+		TestStart int
  		Match bool
  	}{
  		{
  			TestString:  "kilo",
  			TestString2: "kilo",
+			TestStart: 0,
 			Match: true,
  		},
  		{
  			TestString:  "kilo",
  			TestString2: "loki",
+			TestStart: 0,
+ 			Match: false,
+ 		},
+ 		{
+ 			TestString:  "akumeme",
+ 			TestString2: "meme",
+			TestStart: 0,
+ 			Match: true,
+ 		},
+ 		{
+ 			TestString:  "memeaku",
+ 			TestString2: "meme",
+			TestStart: 4, //Search "meme" in "aku", obviously not there
  			Match: false,
  		},
  	}
  	for _, test := range tests {
- 		value := strfind(test.TestString, test.TestString2, 0)
+ 		value := strfind(test.TestString, test.TestString2, test.TestStart)
  		if value != test.Match {
  			t.Errorf("Unexpected value from the function strfind, got '%t', wanted '%t'", value, test.Match, test.TestString, test.TestString)
- 		}
-	}
- }
-
-func TestRand(t *testing.T) {
- 	var tests = []struct {
- 		TestMax  int
- 	}{
- 		{
- 			TestMax:  0,
- 		},
- 	}
- 	for _, test := range tests {
-		value := rand(test.TestMax)
- 		if value > test.TestMax {
- 			t.Errorf("Unexpected value from the function rand, got '%t', max of '%t'", value, test.TestMax)
  		}
 	}
  }
