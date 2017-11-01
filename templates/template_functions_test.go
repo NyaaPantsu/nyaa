@@ -761,19 +761,19 @@ func TestRand(t *testing.T) {
  	}{
  		{
  			TestPath:  "g",
-			Expected: "/g/"
+			Expected: "/g/",
  		},
  		{
  			TestPath:  "v",
-			Expected: "/v/"
+			Expected: "/v/",
  		},
  		{
  			TestPath:  "my_theme",
-			Expected: "My Theme"
+			Expected: "My Theme",
  		},
  		{
  			TestPath:  "tomorrow",
-			Expected: "Tomorrow"
+			Expected: "Tomorrow",
  		},
  	}
  	for _, test := range tests {
@@ -802,12 +802,12 @@ func testFormatDate(t *testing.T) {
  		{
  			TestDate: time.Date(2017, 11, 1, 0, 0, 0, 0, UTC),
 			TestFullDate: false,
-			Expected: "Nov 1, 2017"
+			Expected: "Nov 1, 2017",
  		},
 		{
  			TestDate: time.Date(2017, 11, 1, 0, 0, 0, 0, UTC),
 			TestFullDate: true,
-			Expected: "11/1/2017, 0:00:00 AM UTC+0"
+			Expected: "11/1/2017, 0:00:00 AM UTC+0",
  		},
  	}
  	for _, test := range tests {
