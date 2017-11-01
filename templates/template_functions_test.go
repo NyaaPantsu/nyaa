@@ -175,12 +175,12 @@ func TestGetAvatar(t *testing.T) {
 		{
 			Test:     "",
 			Size:     0,
-			Expected: "https://www.gravatar.com/avatar/?s=0",
+			Expected: "/img/avatar_0.jpg",
 		},
 		{
 			Test:     "",
 			Size:     100,
-			Expected: "https://www.gravatar.com/avatar/?s=100",
+			Expected: "/img/avatar_100.jpg",
 		},
 		{
 			Test:     "test",
@@ -382,11 +382,18 @@ func TestLanguageNameFromCode(t *testing.T) {
 func TestFileSize(t *testing.T) {
 	var tests = []struct {
 		TestSize int64
+		TestShowUnknown bool
 		Expected template.HTML
 	}{
 		{
 			TestSize: 0,
+			TestShowUnknown: true,
 			Expected: template.HTML("Unknown"),
+		},
+		{
+			TestSize: 0,
+			TestShowUnknown: false,
+			Expected: template.HTML("0.0 B"),
 		},
 		{
 			TestSize: 10,
