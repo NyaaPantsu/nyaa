@@ -36,7 +36,6 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("FlagCode", flagCode)
 	vars.Set("getAvatar", getAvatar)
 	vars.Set("torrentFileExists", torrentFileExists)
-	vars.Set("formatDateRFC", formatDateRFC)
 	vars.Set("GetHostname", format.GetHostname)
 	vars.Set("GetCategories", categories.GetSelect)
 	vars.Set("GetCategory", getCategory)
@@ -206,10 +205,6 @@ func getAvatar(hash string, size int) string {
 	}
 }
 
-func formatDateRFC(t time.Time) string {
-	// because time.* isn't available in templates...
-	return t.Format(time.RFC3339)
-}
 func getCategory(category string, keepParent bool) categories.Categories {
 	cats := categories.GetSelect(true, true)
 	found := false
