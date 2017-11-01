@@ -743,7 +743,7 @@ span.tag {
 }
 #reportPopup {
     text-decoration: underline dotted;
-    height: auto!important;
+    height: 16px!important;
     font-size: 13px!important;
     background: none;
     color: #106655!important;
