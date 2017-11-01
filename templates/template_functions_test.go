@@ -722,9 +722,18 @@ func Teststrcmp(t *testing.T) {
  }
 
 func TestGetTheme(t *testing.T) {
-	themeCount := len(getThemeList())
-	if themeCount == 0 {
-		t.Error("Unexpected value from the function getThemeList, returned no theme")
+ 	var tests = []struct {
+ 		domainName []string
+ 	}{
+ 		{
+			domainName:  []string{"wubwub"},
+ 		},
+ 	}
+ 	for _, test := range tests {
+		value := getThemeList()
+ 		if value != test.domainName {
+ 			//t.Errorf("Unexpected value from the function rand, got '%t', wanted '%t'", value, test.domainName)
+ 		}
 	}
  }
  
