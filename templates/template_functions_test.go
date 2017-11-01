@@ -200,31 +200,7 @@ func TestGetAvatar(t *testing.T) {
 			t.Errorf("Unexpected value from the function getAvatar, got '%s', wanted '%s' for '%s' and '%d'", value, test.Expected, test.Test, test.Size)
 		}
 	}
-}
-
-func TestFormatDateRFC(t *testing.T) {
-	location, _ := time.LoadLocation("UTC")
-	var tests = []struct {
-		Test     time.Time
-		Expected string
-	}{
-		{
-			Test:     time.Date(2016, 5, 4, 3, 2, 1, 10, location),
-			Expected: "2016-05-04T03:02:01Z",
-		},
-		{
-			Test:     time.Now(),
-			Expected: time.Now().Format(time.RFC3339),
-		},
-	}
-
-	for _, test := range tests {
-		value := formatDateRFC(test.Test)
-		if value != test.Expected {
-			t.Errorf("Unexpected value from the function formatDateRFC, got '%s', wanted '%s' for '%s'", value, test.Expected, test.Test.String())
-		}
-	}
-}
+}	
 
 func TestGetCategory(t *testing.T) {
 	var tests = []struct {
