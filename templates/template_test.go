@@ -153,7 +153,7 @@ func walkDirTest(dir string, t *testing.T) {
 			return variables
 		},
 		"notifications.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("NbTorrents", 0)
+			variables.Set("NbTorrents", []int64{0,0})
 			return variables
 		},
 		"report.jet.html": func(variables jet.VarMap) jet.VarMap {
