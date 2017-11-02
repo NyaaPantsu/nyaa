@@ -140,6 +140,10 @@
     "translation": "Torrents"
   },
   {
+    "id": "followers",
+    "translation": "Abonnés"
+  },
+  {
     "id": "follow",
     "translation": "S'abonner"
   },
@@ -536,6 +540,10 @@
     "translation": "Les descriptions peuvent faire l'usage de Markdown."
   },
   {
+    "id": "comment_markdown_notice",
+    "translation": "Les commentaires peuvent faire l'usage de Markdown."
+  },
+  {
     "id": "show_all",
     "translation": "Ts les torrents"
   },
@@ -622,6 +630,10 @@
   {
     "id": "userstatus_moderator",
     "translation": "Modérateur"
+  },
+  {
+    "id": "userstatus_uploader",
+    "translation": "Uploader"
   },
   {
     "id": "api_token",
@@ -772,6 +784,10 @@
     "translation": "Motif de signalement"
   },
   {
+    "id": "report_message",
+    "translation": "Signaler le message"
+  },
+  {
     "id": "illegal_content",
     "translation": "Contenu illégal"
   },
@@ -786,6 +802,10 @@
   {
     "id": "duplicate_deprecated",
     "translation": "Doublon / Obsolète"
+  },
+  {
+    "id": "other",
+    "translation": "Autre"
   },
   {
     "id": "captcha",
@@ -825,11 +845,27 @@
   },
   {
     "id": "clear_notifications",
-    "translation": "Effacer les notifications"
+    "translation": "Effacer les notifications lues"
+  },
+  {
+    "id": "clear_all_notifications",
+    "translation": "Effacer toutes les notifications"
+  },
+  {
+    "id": "mark_notifications_as_read",
+    "translation": "Marquer les notifications comme lues"
   },
   {
     "id": "notifications_cleared",
     "translation": "Notifications supprimées !"
+  },
+  {
+    "id": "read_notifications_cleared",
+    "translation": "Notifications lues supprimées !"
+  },
+  {
+    "id": "notifications_read",
+    "translation": "Toutes les notifications ont été marquées comme lues !"
   },
   {
     "id": "my_notifications",
@@ -950,6 +986,10 @@
   {
     "id": "delete_report",
     "translation": "Supprimer le signalement"
+  },
+  {
+    "id": "delete_all_reports",
+    "translation": "Supprimer tous les signalements"
   },
   {
     "id": "comment_deleted",
@@ -1924,6 +1964,10 @@
     "translation": "Annonce"
   },
   {
+    "id": "create_anouncement_success",
+    "translation": "Annonce créée avec succès"
+  },
+  {
     "id": "update_client_failed",
     "translation": "La mise à jour du client a échoué."
   },
@@ -2088,8 +2132,8 @@
     "translation": "Message"
   },
   {
-    "id": "delay",
-    "translation": "Délai"
+    "id": "duration",
+    "translation": "Durée (Heures)"
   },
   {
     "id": "update_annoucement_panel",
@@ -2176,11 +2220,31 @@
     "translation": "Rechercher de %s"
   },
   {
+    "id": "browsing_user_torrents",
+    "translation": "Navigation des torrents de <a href=\"/user/%d/%s\">%s</a>"
+  },
+  {
     "id": "hours_minutes_ago",
     "translation": "Il y a {0} heure(s) et {1} minute(s)"
   },
   {
     "id": "days_hours_ago",
     "translation": "Il y a {0} jour(s) et {1} heure(s)"
+  },
+  {
+    "id": "status",
+    "translation": "Statut"
+  },
+  {
+    "id": "event",
+    "translation": "Événement"
+  },
+  {
+    "id": "read",
+    "translation": "Lu"
+  },
+  {
+    "id": "unread",
+    "translation": "Non lu"
   }
 ]
