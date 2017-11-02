@@ -1960,6 +1960,10 @@
     "translation": "Announcement"
   },
   {
+    "id": "create_anouncement_success",
+    "translation": "Announcement successfully created"
+  },
+  {
     "id": "update_client_failed",
     "translation": "Update of the client has failed!"
   },
