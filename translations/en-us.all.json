@@ -536,6 +536,10 @@
     "translation": "Torrent Description"
   },
   {
+    "id": "description_markdown_notice",
+    "translation": "Markdown can be used in description."
+  },
+  {
     "id": "comment_markdown_notice",
     "translation": "Markdown can be used in comments."
   },
