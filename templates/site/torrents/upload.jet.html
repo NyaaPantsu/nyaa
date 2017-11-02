@@ -50,10 +50,10 @@
                </div>
 			   <div class="table-checkboxes">
 				 <div class="form-group">
-					<input type="checkbox" value="true" name="remake" id="remake" class="form-torrent-remake"/><label for="remake">{{ T("mark_as_remake")}}</label>
+					<input type="checkbox" value="true" name="remake" id="remake" class="form-torrent-remake"/ {{if Form.Remake}}checked{{end}}><label for="remake">{{ T("mark_as_remake")}}</label>
 				 </div>
 				 <div class="form-group">
-					<input type="checkbox" value="true" name="hidden" id="hidden" class="form-torrent-hidden {{ if User.ID == 0 }}hidden{{end}}" {{ if User.ID == 0 }}disabled checked{{end}}><label for="hidden" {{ if User.ID == 0 }}class="hidden"{{end}}>{{ T("upload_as_anon")}}</label>
+					<input type="checkbox" value="true" name="hidden" id="hidden" class="form-torrent-hidden {{ if User.ID == 0 }}hidden{{end}}" {{ if User.ID == 0}}disabled checked{{else if Form.Hidden }}checked{{end}}><label for="hidden" {{ if User.ID == 0 }}class="hidden"{{end}}>{{ T("upload_as_anon")}}</label>
 				 </div>
 			   </div>
 	         </td>

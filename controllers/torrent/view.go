@@ -40,9 +40,9 @@ func ViewHandler(c *gin.Context) {
 	// Retrieve the torrent
 	torrent, err := torrents.FindByID(uint(id))
 
-	// If come from notification, toggle the notification as read
-	if c.Request.URL.Query()["notif"] != nil && user.ID > 0 {
-		notifications.ToggleReadNotification(torrent.Identifier(), user.ID)
+	// Toggle the notifications related to this torrent as read
+	if user.ID > 0 {
+		notifications.ToggleReadNotification(torrent.Identifier(), user)
 	}
 
 	// If torrent not found, display 404
@@ -65,6 +65,14 @@ func ViewHandler(c *gin.Context) {
 	if user.NeedsCaptcha() {
 		captchaID = captcha.GetID()
 	}
+	
+	if c.Request.URL.Query()["followed"] != nil {
+		messages.AddInfoTf("infos", "user_followed_msg", b.UploaderName)
+	}
+	if c.Request.URL.Query()["unfollowed"] != nil {
+		messages.AddInfoTf("infos", "user_unfollowed_msg", b.UploaderName)
+	}
+	
 	// Display finally the view
 	templates.Torrent(c, b, folder, captchaID)
 }

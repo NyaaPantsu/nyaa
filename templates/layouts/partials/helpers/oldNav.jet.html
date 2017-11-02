@@ -10,6 +10,7 @@
 			<tr>
 			{{end}}
 			{{if _ + 1 == len(GetCategories(true, false)) }}
+			{{ if _% 3 != 2}}{{ if _% 3 == 0}}<td></td>{{end}}<td></td>{{end}}
 			</tr>{{end}}
 		{{ end }}
 		</tr>
@@ -44,6 +45,9 @@
 		</tr>
 	</tbody>
 </table>
+    {{ if Search.UserName != ""}}
+         <div class="user-search-notice">{{T("browsing_user_torrents", Search.UserID, Search.UserName, Search.UserName)|raw}} ({{Navigation.TotalItem}})</div>
+    {{end}}
     <div class="pagination">
       {{ genNav(Navigation, URL, 33)|raw }}
     </div>

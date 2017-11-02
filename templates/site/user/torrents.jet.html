@@ -41,7 +41,7 @@
       </a>
     </td>
     <td class="tr-size user-td hide-xs">
-      {{ fileSize(torrent.Filesize, T) }}
+      {{ fileSize(torrent.Filesize, T, true) }}
     </td>
     <td class="tr-date user-td date-short hide-smol" title="{{torrent.Date}}">{{formatDate(torrent.FullDate, true)}}</td>
   </tr>

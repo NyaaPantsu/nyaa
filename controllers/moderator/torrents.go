@@ -129,26 +129,19 @@ func TorrentDeleteModPanel(c *gin.Context) {
 		var err error
 		if definitely != nil {
 			_, _, err = torrent.DefinitelyDelete()
-
-			//delete reports of torrent
-			query := &search.Query{}
-			query.Append("torrent_id", id)
-			reports, _, _ := reports.FindOrderBy(query, "", 0, 0)
-			for _, report := range reports {
-				report.Delete(true)
-			}
 			returnRoute = "/mod/torrents/deleted"
 		} else {
 			_, _, err = torrent.Delete(false)
-
-			//delete reports of torrent
-			query := &search.Query{}
-			query.Append("torrent_id", id)
-			reports, _, _ := reports.FindOrderBy(query, "", 0, 0)
-			for _, report := range reports {
-				report.Delete(false)
-			}
 		}
+		
+		//delete reports of torrent
+		query := &search.Query{}
+		query.Append("torrent_id", id)
+		reports, _, _ := reports.FindOrderBy(query, "", 0, 0)
+		for _, report := range reports {
+			report.Delete()
+		}
+		
 		if err == nil {
 			if torrent.Uploader == nil {
 				torrent.Uploader = &models.User{}
@@ -176,7 +169,7 @@ func DeleteTagsModPanel(c *gin.Context) {
 
 // TorrentBlockModPanel : Controller to lock torrents, redirecting to previous page
 func TorrentBlockModPanel(c *gin.Context) {
-	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
+	id, _ := strconv.ParseInt(c.PostForm("id"), 10, 32)
 	torrent, _, err := torrents.ToggleBlock(uint(id))
 	var returnRoute, action string
 	if torrent.IsDeleted() {

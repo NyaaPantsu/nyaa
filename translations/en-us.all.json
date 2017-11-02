@@ -140,6 +140,10 @@
     "translation": "Torrents"
   },
   {
+    "id": "followers",
+    "translation": "Followers"
+  },
+  {
     "id": "follow",
     "translation": "Follow"
   },
@@ -532,8 +536,8 @@
     "translation": "Torrent Description"
   },
   {
-    "id": "description_markdown_notice",
-    "translation": "Markdown can be used in descriptions."
+    "id": "comment_markdown_notice",
+    "translation": "Markdown can be used in comments."
   },
   {
     "id": "show_all",
@@ -776,6 +780,10 @@
     "translation": "Report type"
   },
   {
+    "id": "report_message",
+    "translation": "Report message"
+  },
+  {
     "id": "illegal_content",
     "translation": "Illegal content"
   },
@@ -790,6 +798,10 @@
   {
     "id": "duplicate_deprecated",
     "translation": "Duplicate / Deprecated"
+  },
+  {
+    "id": "other",
+    "translation": "Other"
   },
   {
     "id": "captcha",
@@ -829,11 +841,27 @@
   },
   {
     "id": "clear_notifications",
-    "translation": "Clear Notifications"
+    "translation": "Clear read notifications"
+  },
+  {
+    "id": "clear_all_notifications",
+    "translation": "Clear all notifications"
+  },
+  {
+    "id": "mark_notifications_as_read",
+    "translation": "Mark notifications as read"
   },
   {
     "id": "notifications_cleared",
     "translation": "Notifications erased!"
+  },
+  {
+    "id": "read_notifications_cleared",
+    "translation": "Read notifications erased!"
+  },
+  {
+    "id": "notifications_read",
+    "translation": "All notifications marked as read!"
   },
   {
     "id": "my_notifications",
@@ -954,6 +982,10 @@
   {
     "id": "delete_report",
     "translation": "Delete Report"
+  },
+  {
+    "id": "delete_all_reports",
+    "translation": "Delete all reports"
   },
   {
     "id": "comment_deleted",
@@ -1928,6 +1960,10 @@
     "translation": "Announcement"
   },
   {
+    "id": "create_anouncement_success",
+    "translation": "Announcement successfully created"
+  },
+  {
     "id": "update_client_failed",
     "translation": "Update of the client has failed!"
   },
@@ -2092,8 +2128,8 @@
     "translation": "Message"
   },
   {
-    "id": "delay",
-    "translation": "Delay"
+    "id": "duration",
+    "translation": "Duration (Hours)"
   },
   {
     "id": "update_annoucement_panel",
@@ -2180,6 +2216,10 @@
     "translation": "Search from %s"
   },
   {
+    "id": "browsing_user_torrents",
+    "translation": "Browsing <a href=\"/user/%d/%s\">%s</a>'s torrents"
+  },
+  {
     "id": "hours_minutes_ago",
     "translation": "{0} hours {1} minutes ago"
   },
@@ -2226,6 +2266,17 @@
   {
     "id":"choose_language",
     "translation":"Choose a language (required)"
+  },
+  {
+    "id": "event",
+    "translation": "Event"
+  },
+  {
+    "id": "read",
+    "translation": "Read"
+  },
+  {
+    "id": "unread",
+    "translation": "Unread"
   }
 ]
-

@@ -64,12 +64,12 @@ func walkDirTest(dir string, t *testing.T) {
 	fakeTorrentRequest := &torrentValidator.TorrentRequest{Name: "test", Magnet: "", Category: "", Remake: false, Description: "", Status: 1, Hidden: false, CaptchaID: "", WebsiteLink: "", Languages: nil, Infohash: "", SubCategoryID: 0, CategoryID: 0, Filesize: 0, Filepath: "", FileList: nil, Trackers: nil, Tags: torrentValidator.TagsRequest{}}
 	fakeLogin := &userValidator.LoginForm{"test", "test", "/", "false"}
 	fakeRegistration := &userValidator.RegistrationForm{"test", "", "test", "test", "xxxx", "1"}
-	fakeReport := &models.TorrentReport{1, "test", 1, 1, time.Now(), fakeTorrent, fakeUser}
+	fakeReport := &models.TorrentReport{1, "test", "test", 1, 1, time.Now(), fakeTorrent, fakeUser}
 	fakeOauthForm := apiValidator.CreateForm{"", "f", []string{fu}, []string{}, []string{}, "", "fedr", fu, fu, fu, fu, []string{em}, ""}
 	fakeOauthModel := fakeOauthForm.Bind(&models.OauthClient{})
 	fakeClient := client.Client{"", "", "", []string{""}, []string{""}, []string{""}, "", "", "", "", "", "", []string{""}, false}
 	fakeAnnouncement := announcementValidator.CreateForm{1, "", 2}
-	fakeNotification := &models.Notification{1, "test", true, "test", "test", time.Now(), 1}
+	fakeNotification := &models.Notification{1, "test", true, "test", "test", time.Now(), time.Now(), 1}
 
 	contextvariables := ContextTest{
 		"dumps.jet.html": func(variables jet.VarMap) jet.VarMap {
@@ -86,17 +86,17 @@ func walkDirTest(dir string, t *testing.T) {
 			return variables
 		},
 		"edit.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("NbTorrents", 0)
+			variables.Set("NbTorrents", []int64{0,0})
 			variables.Set("Form", fakeTorrentRequest)
 			variables.Set("Languages", publicSettings.Languages{*fakeLanguage, *fakeLanguage})
 			return variables
 		},
 		"torrents.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("NbTorrents", 0)
+			variables.Set("NbTorrents", []int64{0,0})
 			return variables
 		},
 		"profile.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("NbTorrents", 0)
+			variables.Set("NbTorrents", []int64{0,0})
 			return variables
 		},
 		"upload.jet.html": func(variables jet.VarMap) jet.VarMap {
@@ -104,7 +104,7 @@ func walkDirTest(dir string, t *testing.T) {
 			return variables
 		},
 		"view.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("NbTorrents", 0)
+			variables.Set("NbTorrents", []int64{0,0})
 			variables.Set("Torrent", fakeTorrent.ToJSON())
 			variables.Set("CaptchaID", "xxxxxx")
 			variables.Set("RootFolder", filelist.FileListToFolder(fakeTorrent.FileList, "root"))
@@ -154,7 +154,7 @@ func walkDirTest(dir string, t *testing.T) {
 			return variables
 		},
 		"notifications.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("NbTorrents", 0)
+			variables.Set("NbTorrents", []int64{0,0})
 			return variables
 		},
 		"report.jet.html": func(variables jet.VarMap) jet.VarMap {

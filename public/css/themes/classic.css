@@ -26,7 +26,7 @@ body, .header {
     font-family: Arial, sans-serif!important;
 }
 .torrent-info-data {
-    width: 59%;
+    width: 52%;
 }
 #torrent-view-data {
     margin-left: 10px;
@@ -37,8 +37,8 @@ body, .header {
     width: 87%;
 }
 
-.comment-box p:nth-child(2) {
-    margin-top: auto;
+.comment-userinfo {
+    margin-top: 0!important;
 }
 
 .form-refine span.spacing {
@@ -54,14 +54,21 @@ body, .header {
 
 #sort-list-order {
     width: auto;
-    margin-left: 4px;
+    margin-left: 3px;
 }
 
 a {
     color: #106655;
 }
-a:hover {
+.sukebei a {
+    color: #660000;
+}
+a:hover, .h-nav a:hover, .h-nav:active a:hover  {
     text-decoration: underline;
+}
+
+.upload-form-table .checkbox-container+input {
+    width: 385px;1
 }
 
 .upload-form-table .table-checkboxes {
@@ -89,7 +96,7 @@ th.tr-name a {
     font-size: 0.9em;
 }
 .tr-links {
-    width: 29px;
+    width: 22px;
     text-align: right;
 }
 .tr-links .icon-magnet::before {
@@ -129,7 +136,10 @@ th.tr-name a {
     content: '';
 }
 .icon-floppy {
-    background: url("/img/dl-link.png") no-repeat center;
+    background: url("classic/dl-link.png") no-repeat center;
+}
+.sukebei .icon-floppy {
+    background: url("classic/sukebei-dl-link.png") no-repeat center;
 }
 .upload-tag-table .input-label {
     font-size: 12px;
@@ -138,7 +148,7 @@ th.tr-name a {
     height: 40px;
 }
 .header {
-    background: url("/img/topbar.png") repeat-x black;
+    background: url("classic/topbar.png") repeat-x black;
     background: linear-gradient(to bottom, #6d6d6d 0%, #000000 72%);
     border-color: black;
     height: 40px;
@@ -149,7 +159,7 @@ th.tr-name a {
 }
 .header .container>div {
     line-height: 40px;
-    padding: 0 0.2rem;
+    padding: 0 0.4rem;
 }
 
 .header .nav-btn {
@@ -234,6 +244,11 @@ select.form-input {
     border: 1px solid #333333;
     color: #FBFBFB;
 }
+.sukebei .pagination span:hover {
+    background-color: #993333;
+    color: white;
+    font-weight: normal;
+}
 .website-nav .pagination p {
     display: none;
 }
@@ -242,7 +257,7 @@ select.form-input {
     padding-top: 4px!important;
 }
 .website-nav .pagination {
-    padding: .5rem;
+    padding: .5rem 0 0rem 0;
     font-size: 1em;
 }
 .website-nav .pagination a {
@@ -315,7 +330,7 @@ span.comment-index+p {
     margin-top: 0;
 }
 
-span.comment-index+p a {
+.comment-user {
     font-weight: bold;
     padding-top: 2px;
     font-size: .9em;
@@ -323,12 +338,11 @@ span.comment-index+p a {
     text-decoration: none;
     line-height: 22px;
 }
-span.comment-index+p a:hover {
+.comment-user:hover {
     text-decoration: underline;
 }
-
 .comment-index {
-    margin: 3px 0 0 0;
+    margin: 1px 0;
 }
 
 #solution {
@@ -370,6 +384,7 @@ span.comment-index+p a:hover {
 
 #description-box {
     font-size: 0.8em;
+    border-radius: 5px;
 }
 .form-input {
     border-color: #c4c4c4 !important;
@@ -383,6 +398,11 @@ span.comment-index+p a:hover {
     width: 24px;
     margin-top: 8px;
 }
+.user-avatar span {
+    font-size: 8px;
+    top: 20px;
+    right: 9px;
+}
 
 .torrent-info-data.uploader-link {
     font-weight: bold;
@@ -390,12 +410,15 @@ span.comment-index+p a:hover {
 .torrent-info-data.uploader-anon {
     font-style: italic;
 }
-.torrent-info-data.uploader-link a, .torrent-info-data.uploader-anon a{
+.torrent-info-data.uploader-link a, .torrent-info-data.uploader-anon a, .user-search-notice a{
     color: green;
 }
 
 #torrent-description-hr {
     margin-top: 40px;
+}
+.torrent-hr {
+    font-size: 15px;
 }
 
 .comment-submit h3 {
@@ -438,6 +461,9 @@ span.comment-index+p a:hover {
     margin-right: 6px;
     float: left;
 }
+.sukebei .torrent-buttons a, .sukebei .torrent-buttons button {
+    background: linear-gradient(to bottom, #CA3346 5%, #482120 80%);
+}
 .torrent-buttons a.hidden {
     opacity: 0.6!important;
     filter: grayscale(0.7);
@@ -474,14 +500,22 @@ th {
 td {
     font-size: 0.9em;
     padding: 2px 0!important;
-    
 }
-.results td {
+.results td, .profile-content td  {
     border-bottom: 1px solid #666666!important;
     border-top: 1px solid #666666!important;
 }
+.torrent-view-data {
+    margin-left: 10px;
+}
+.torrent-view-data td {
+    padding: 1px 0!important;
+}
 td a {
     color: #106655;
+}
+.sukebei td a {
+    color: #660000;
 }
 td.tr-se, .success-text {
     color: green;
@@ -540,35 +574,39 @@ td.tr-size {
 .container.bottom {
     padding: 5px 10px;
     padding-top: 0;
-    margin-top: -8px;
+    margin-top: -11px;
 }
 .container.bottom .pagination {
     border-top: none;
-    padding: 0;
+    padding: 0 14px;
 }
 .container.bottom .pagination p {
-    margin: 4px 0 6px 0px;
+    margin: 2px 0 4px 0px
 }
 .bottom.center {
     width: 87%;
     max-width: 1328px;
     padding: 0 8px;
-}	
+}    
 .content > .centered {
-	padding: 0;
-	margin: 0;
+    padding: 0;
+    margin: 0;
 }
 #content > .centered {
-	width: 87%;
+    width: 87%;
     max-width: 1328px;
     padding: 0 8px;
 }
 
 .pagination .active, .pagination .active:hover {
-    background: #fbfbfb;
-    font-weight: bold;
+    background: none!important;
+    font-weight: bold!important;
     border: none;
     color: #106655;
+    cursor: text;
+}
+.sukebei .pagination .active, .pagination .active:hover {
+    color: #111111!important;
 }
 
 a.nav-btn.log-in {
@@ -688,4 +726,56 @@ span.tag {
 .upload-tag-table .form-group input, .upload-tag-table .form-group select {
     width: 128px!important;
     height: 20px;
+}
+.sukebei .torrent-info-data #subscribe-link {
+    color: #660000;
+}
+.torrent-info-data #subscribe-link::before, .torrent-info-data #subscribe-link:: after {
+    color: #111111;
+}
+.content > p:first-child+div.centered+div.refine+div #reportPopup {
+    top: 145px;
+}
+.content > p:first-child+div#announce+div.refine+div #reportPopup {
+    top: 110px;
+}
+.content > div#announce:first-child+div.refine+div #reportPopup {
+    top: 65px;
+}
+#reportPopup {
+    text-decoration: underline dotted;
+    height: 16px!important;
+    font-size: 13px!important;
+    background: none;
+    color: #106655!important;
+    position: absolute;
+    top: 103px;
+    right: 11px;
+}
+.comment-content :first-child {
+margin-top: 5px;    
+}
+.sukebei #reportPopup {
+    color: #660000!important;
+}
+#reportPopup:hover {
+    text-decoration: underline;
+}
+.modal-header {
+    background: linear-gradient(to bottom, #33ca98 0%, #337372 72%);
+}
+.sukebei .modal-header {
+    background: linear-gradient(to bottom, #c54f6a 5%, #482120 80%);
+}
+.modal-footer{
+    background: #26332e;
+}
+.sukebei .modal-footer {
+    background: #332626;
+}
+.user-search-notice {
+    margin: 9px 0 0 3px;
+    font-size: 13px;
+    font-weight: bold;
+    
 }

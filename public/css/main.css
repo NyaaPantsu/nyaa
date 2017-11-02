@@ -252,7 +252,7 @@ select.form-input {
 
 .not-important {
     font-size: 9pt;
-    margin: 2px 3px;
+    margin: 0 3px 2px 3px;
     color: #8a8a8a;
 }
 
@@ -346,10 +346,11 @@ select.form-input {
     color: #292929;
     background: #fd6b6b;
     padding: 1px 4px;
-    border-radius: 7px;
-    font-size: 10px;
+    font-size: 8px;
     top: 37px;
-    right: 19px;
+    right: 22px;
+    max-height: 17px;
+    line-height: 10px;
 }
 
 #content {
@@ -662,6 +663,9 @@ th {
 .website-nav table {
     width: auto;
 }
+.website-nav table tr {
+    background: none!important;	
+}
 .website-nav #nav-category-list {
     width: 70%;
     margin-bottom: 7px;
@@ -757,6 +761,9 @@ html, body {
     }
     .header .h-user>a.nav-btn {
     padding: 0!important;
+    }
+    .user-avatar span  {
+        right: 25px;
     }
     .nav-btn.log-in span {
     display: none;
@@ -901,6 +908,9 @@ html, body {
     .header .h-user .user-avatar {
     margin: 0;
     }
+    .user-avatar span  {
+        right: 20px;
+    }
     .header .h-user {
     max-width: 46px;
     width: auto;
@@ -944,7 +954,9 @@ html, body {
     .header .h-user .nav-btn {
     height: 57px;
     }
-
+    .user-avatar span  {
+        right: 14px;
+    }
     h3 {
     margin-bottom: 5px;
     }
@@ -1062,8 +1074,7 @@ html, body {
     margin-bottom: 2px;
 }
 
-.profile-usertitle-uploadcount span {
-    font-weight: bold;
+.profile-usertitle-uploadcount b {
     margin-left: 2px;
 }
 
@@ -1129,7 +1140,24 @@ html, body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
+.torrent-info-data #subscribe-link::before, .torrent-info-data #subscribe-link::after {
+    font-weight: normal;
+    color: black;
+}
+.torrent-info-data #subscribe-link::before {
+    content: '[';
+}
+.torrent-info-data #subscribe-link::after {
+    content: ']';
+}
+.torrent-info-data #subscribe-link {
+    font-weight: bold;
+    font-size: 13px;
+}
+.torrent-info-data #subscribe-link:hover {
+    text-decoration: underline;
+}
+   
 .torrent-info-box {
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -1165,7 +1193,7 @@ html, body {
 .comment-box {
     padding: 0 7px;
     margin: 10px 30px 0 30px;
-    min-height: 70px;
+    min-height: 67px;
     word-break: break-word;
     text-align: justify;
 }
@@ -1174,11 +1202,16 @@ html, body {
     margin-top: 9px;    
 }
 
-.comment-box .comment-user {
-	font-size: 12px;
+.comment-box .comment-userinfo {
+    display: block;
+    margin-top: 8px;    
 }
 
-.comment-box span+p img {
+.comment-box .comment-user {
+    font-size: 12px;
+}
+
+.comment-userinfo img {
     width: 50px;
     height: 50px;
     float: left;
@@ -1198,6 +1231,11 @@ html, body {
     margin-left: 4px;
 }
 
+.comment-content {
+    max-width: 100%;
+    max-height: 500px;
+}
+
 .comment-content :last-child {
     margin-bottom: 2px;
 }
@@ -1209,8 +1247,12 @@ html, body {
     padding-bottom: 5px;
 }
 
+.comment-form textarea {
+    margin-bottom: 0;	
+}
+
 .comment-form h3 {
-	margin-bottom: 8px;
+    margin-bottom: 8px;
 }
 
 .comment-index {
@@ -1259,7 +1301,7 @@ div.profile-content.box>nav>ul>a>li {
     width: 100%;
 }
 
-div.profile-content.box>nav>ul>a>li, nav.adminNav>ul>li {
+div.profile-content.box>nav>ul>a>li {
     border-right-width: 1px;
 }
 
@@ -1521,7 +1563,9 @@ input.filelist-checkbox:checked+table.table-filelist {
 .modal-body :first-child {
     margin-top: 0;
 }
-
+.modal-body h4 {
+    margin-bottom: 6px;
+}
 
 /* Modal Footer */
 
@@ -1543,7 +1587,7 @@ input.filelist-checkbox:checked+table.table-filelist {
     margin-top: 7px;
     padding: 0.7em 1.5em;
     background: none;
-    border: 1px solid white;
+    border: 1px solid black;
     border-radius: 3px;
     color: white;
     font-weight: bold;
@@ -1740,11 +1784,11 @@ input.filelist-checkbox:checked+table.table-filelist {
     padding: 0 10px 10px;
 }
 
-.btn-blue:hover, .btn-red:hover, .btn-green:hover, .btn-orange:hover {
+[class^="btn-"]:hover {
     opacity: 0.7;
 }
 
-.btn-blue, .btn-red, .btn-green, .btn-orange {
+[class^="btn-"] {
     font-weight: bold;
     color: white;
 }
@@ -2179,6 +2223,9 @@ iframe {
     height: 36px;
     margin-bottom: 0;
 }
+.adminNav {
+    margin: 12px 0 5px 0px;
+}
 
 
 table.multiple-upload {
@@ -2282,6 +2329,11 @@ table.multiple-upload {
     right: 16px;
 }
 
+.user-search-notice {
+    margin: 10px 0 0 1px;
+    font-weight: bold;
+}
+
 .torrent-info-row .tr-se span, .torrent-info-row .tr-le span, .torrent-info-row .tr-dl span {
     font-weight: bold;
     background-color: #ffe0bf;
@@ -2329,6 +2381,61 @@ form.delete-form button.form-input.btn-red {
     right: 0;
     left: 0;
     bottom: 9px;
+}
+
+#clear-notification {
+    bottom: 8px;
+    right: 8px;
+    position: absolute;
+	width: calc(100% - 16px);
+}
+#clear-notification a {
+	float: right;
+	margin-left: 3px;
+}
+.notification-table {
+    margin-bottom: 44px;
+}
+.notification-table td {
+	text-align: center;
+	padding: 6px 0;
+	border-bottom: 1px solid;
+}
+.notification-table tr:hover td {
+	filter: brightness(1.2);
+}
+.notification-status {
+	width: 140px;
+}
+.notification-event {
+	text-align: left!important;
+	padding: 6px 10px!important;
+}
+.notification-date {
+	width: 195px;
+}
+td.notification-status {
+	border: 1px solid black;
+}
+td.notification-status {
+	background-color: #e4e4e4;
+}
+td.notification-status.notification-unread {
+	background-color: rgb(161, 211, 253);
+	color: white;
+}
+
+.torrent-report-table td, .torrent-report-table th {
+	width: 165px;
+}
+.td-report-message  {
+	width: auto!important;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.locked {
+    background: hsla(216, 10%, 73%, 0.2) !important;
 }
 
 /* Language specific CSS */

@@ -146,7 +146,7 @@ func torrentManyAction(c *gin.Context) {
 					query.Append("torrent_id", torrentID)
 					reports, _, _ := reports.FindOrderBy(query, "", 0, 0)
 					for _, report := range reports {
-						report.Delete(false)
+						report.Delete()
 					}
 					messages.AddInfoTf("infos", "torrent_reports_deleted", torrent.Name)
 				}

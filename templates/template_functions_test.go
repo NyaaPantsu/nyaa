@@ -175,12 +175,12 @@ func TestGetAvatar(t *testing.T) {
 		{
 			Test:     "",
 			Size:     0,
-			Expected: "https://www.gravatar.com/avatar/?s=0",
+			Expected: "/img/avatar_0.jpg",
 		},
 		{
 			Test:     "",
 			Size:     100,
-			Expected: "https://www.gravatar.com/avatar/?s=100",
+			Expected: "/img/avatar_100.jpg",
 		},
 		{
 			Test:     "test",
@@ -200,31 +200,7 @@ func TestGetAvatar(t *testing.T) {
 			t.Errorf("Unexpected value from the function getAvatar, got '%s', wanted '%s' for '%s' and '%d'", value, test.Expected, test.Test, test.Size)
 		}
 	}
-}
-
-func TestFormatDateRFC(t *testing.T) {
-	location, _ := time.LoadLocation("UTC")
-	var tests = []struct {
-		Test     time.Time
-		Expected string
-	}{
-		{
-			Test:     time.Date(2016, 5, 4, 3, 2, 1, 10, location),
-			Expected: "2016-05-04T03:02:01Z",
-		},
-		{
-			Test:     time.Now(),
-			Expected: time.Now().Format(time.RFC3339),
-		},
-	}
-
-	for _, test := range tests {
-		value := formatDateRFC(test.Test)
-		if value != test.Expected {
-			t.Errorf("Unexpected value from the function formatDateRFC, got '%s', wanted '%s' for '%s'", value, test.Expected, test.Test.String())
-		}
-	}
-}
+}	
 
 func TestGetCategory(t *testing.T) {
 	var tests = []struct {
@@ -382,22 +358,35 @@ func TestLanguageNameFromCode(t *testing.T) {
 func TestFileSize(t *testing.T) {
 	var tests = []struct {
 		TestSize int64
+		TestShowUnknown bool
 		Expected template.HTML
 	}{
 		{
 			TestSize: 0,
+			TestShowUnknown: true,
 			Expected: template.HTML("Unknown"),
 		},
 		{
+			TestSize: 0,
+			TestShowUnknown: false,
+			Expected: template.HTML("0.0 B"),
+		},
+		{
 			TestSize: 10,
+			TestShowUnknown: false,
+			Expected: template.HTML("10.0 B"),
+		},
+		{
+			TestSize: 10,
+			TestShowUnknown: true,
 			Expected: template.HTML("10.0 B"),
 		},
 	}
 	T := mockupTemplateT(t)
 	for _, test := range tests {
-		value := fileSize(test.TestSize, T)
+		value := fileSize(test.TestSize, T, test.TestShowUnknown)
 		if value != test.Expected {
-			t.Errorf("Unexpected value from the function languageName, got '%s', wanted '%s' for '%d'", value, test.Expected, test.TestSize)
+			t.Errorf("Unexpected value from the function fileSize, got '%s', wanted '%s' for '%d' with '%d'", value, test.Expected, test.TestSize, test.TestShowUnknown)
 		}
 	}
 }
@@ -624,90 +613,94 @@ func testTorrentFileExists(t *testing.T) {
 	}	
 }
 
-func Testkilo_strcmp(t *testing.T) {
+func Teststrcmp(t *testing.T) {
  	var tests = []struct {
  		TestString  string
  		TestString2 string
+		TestEnd int
+		TestStart int
  		Expected bool
  	}{
  		{
  			TestString:  "kilo",
  			TestString2: "kilo",
+ 			TestEnd: -1,
+ 			TestStart: 0,
 			Expected: true,
  		},
  		{
- 		TestString:  "kilo",
- 			TestString2: "loki", // Clearly not the same level
+ 		    TestString:  "kilo",
+ 			TestString2: "loki",
+ 			TestEnd: -1,
+ 			TestStart: 0,
  			Expected: false,
  		},
- 	}
- 	for _, test := range tests {
- 		value := kilo_strcmp(test.TestString, test.TestString2, -1, 0)
- 		if value != test.Expected {
- 			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t'", value, test.Expected, test.TestString, test.TestString)
- 		}
-	}
- }
-
- func TestToString(t *testing.T) {
- 	var tests = []struct {
- 		TestInt  int
- 		Expected string
- 	}{
  		{
- 			TestInt:  0,
-			Expected: "0",
+ 		    TestString:  "superkilo", //compare "superkilo" to "kilo"
+ 			TestString2: "kilo",
+ 			TestEnd: -1,
+ 			TestStart: 0,
+ 			Expected: false,
+ 		},
+ 		{
+ 		    TestString:  "superkilo", //compare "kilo" to "kilo"
+ 			TestString2: "kilo",
+ 			TestEnd: -1,
+ 			TestStart: 6,
+ 			Expected: true,
+ 		},
+ 		{
+ 		    TestString:  "superkill", //compare "kil" to "kil"
+ 			TestString2: "kilo",
+ 			TestEnd: 8,
+ 			TestStart: 6,
+ 			Expected: true,
  		},
  	}
  	for _, test := range tests {
-		value := toString(test.TestInt)
+ 		value := strcmp(test.TestString, test.TestString2, -1, 0)
  		if value != test.Expected {
- 			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t'", value, test.Expected)
+ 			t.Errorf("Unexpected value from the function strcmp, got '%t', wanted '%t'", value, test.Expected, test.TestString, test.TestString)
  		}
 	}
  }
  
- func Testkilo_strfind(t *testing.T) {
+ func Teststrfind(t *testing.T) {
  	var tests = []struct {
  		TestString  string
  		TestString2 string
- 		Expected bool
+		TestStart int
+ 		Match bool
  	}{
  		{
  			TestString:  "kilo",
  			TestString2: "kilo",
-			Expected: true,
+			TestStart: 0,
+			Match: true,
  		},
  		{
  			TestString:  "kilo",
- 			TestString2: "loki", // Clearly not the same level
- 			Expected: false,
+ 			TestString2: "loki",
+			TestStart: 0,
+ 			Match: false,
  		},
- 	}
- 	for _, test := range tests {
- 		value := kilo_strfind(test.TestString, test.TestString2, 0)
- 		if value != test.Expected {
- 			t.Errorf("Unexpected value from the function languageName, got '%t', wanted '%t'", value, test.Expected, test.TestString, test.TestString)
- 		}
-	}
- }
-
-func TestRand(t *testing.T) {
- 	var tests = []struct {
- 		TestInt  int
- 		TestInt2 int
- 		Expected int
- 	}{
  		{
- 			TestInt:  0,
- 			TestInt2:  1,
-			Expected: 1,
+ 			TestString:  "akumeme",
+ 			TestString2: "meme",
+			TestStart: 0,
+ 			Match: true,
+ 		},
+ 		{
+ 			TestString:  "memeaku",
+ 			TestString2: "meme",
+			TestStart: 4, //Search "meme" in "aku", obviously not there
+ 			Match: false,
  		},
  	}
  	for _, test := range tests {
-		value := kilo_rand(1)
- 		if value != test.Expected {
- 			//t.Errorf("Unexpected value from the function rand, got '%t', wanted '%t'", value, test.Expected)
+ 		value := strfind(test.TestString, test.TestString2, test.TestStart)
+ 		if value != test.Match {
+ 			t.Errorf("Unexpected value from the function strfind, got '%t', wanted '%t'", value, test.Match, test.TestString, test.TestString)
  		}
 	}
  }
@@ -727,6 +720,7 @@ func TestRand(t *testing.T) {
  		}
 	}
  }
+
  
  func TestGetTheme(t *testing.T) {
  	var tests = []struct {
@@ -741,12 +735,27 @@ func TestRand(t *testing.T) {
 	}
  }
  
+ 
   func testformatThemeName(t *testing.T) {
  	var tests = []struct {
- 		domainName string
+ 		TestPath string
+		Expected string
  	}{
  		{
- 			domainName:  "test",
+ 			TestPath:  "g",
+			Expected: "/g/",
+ 		},
+ 		{
+ 			TestPath:  "v",
+			Expected: "/v/",
+ 		},
+ 		{
+ 			TestPath:  "my_theme",
+			Expected: "My Theme",
+ 		},
+ 		{
+ 			TestPath:  "tomorrow",
+			Expected: "Tomorrow",
  		},
  	}
  	for _, test := range tests {
@@ -758,25 +767,35 @@ func TestRand(t *testing.T) {
 		T = func(id string, args ...interface{}) template.HTML {	
 			return template.HTML(fmt.Sprintf(Ts(id), args...))
 		}
-		value := formatThemeName("path", T)
- 		if value != test.domainName {
- 			
+		value := formatThemeName(test.TestPath, T)
+ 		if value != test.Expected {
+ 			t.Errorf("Unexpected value from the function formatThemeName, got '%t' from '%s', wanted '%t'", value, test.TestPath, test.Expected)
  		}
 	}
  }
 
 func testFormatDate(t *testing.T) {
+	UTC, _ := time.LoadLocation("")
  	var tests = []struct {
- 		domainName string
+ 		TestDate time.Time
+		TestFullDate bool
+		Expected string
  	}{
  		{
- 			domainName:  "test",
+ 			TestDate: time.Date(2017, 11, 1, 0, 0, 0, 0, UTC),
+			TestFullDate: false,
+			Expected: "Nov 1, 2017",
+ 		},
+		{
+ 			TestDate: time.Date(2017, 11, 1, 0, 0, 0, 0, UTC),
+			TestFullDate: true,
+			Expected: "11/1/2017, 0:00:00 AM UTC+0",
  		},
  	}
  	for _, test := range tests {
-		value := formatDate(time.Now(), false)
- 		if value != test.domainName {
- 			
+		value := formatDate(test.TestDate, test.TestFullDate)
+ 		if value != test.Expected {
+ 			t.Errorf("Unexpected value from the function formatDate, got '%t' from '%s' and '%d', wanted '%t'", value, test.TestDate, test.TestFullDate, test.Expected)
  		}
 	}
  }

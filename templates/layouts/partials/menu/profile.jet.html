@@ -13,19 +13,21 @@
     <p class="profile-usertitle-job">
       {{T(UserProfile.GetRole())}}
     </p>
-    <p class="profile-usertitle-uploadcount">{{ T("torrents_uploaded") }}:<span>{{ NbTorrents }}</span></p>
+    <p class="profile-usertitle-uploadcount">{{T("followers")}}: <b>{{len(UserProfile.Followers)}}</b><br/>{{ T("torrents_uploaded") }}:<b>{{ NbTorrents[0] }}</b><br>{{T("size")}}: <b>{{fileSize(NbTorrents[1], T, false)}}</b></p>
   </div>
   <!-- END SIDEBAR USER TITLE -->
   <!-- SIDEBAR BUTTONS -->
   <div class="profile-usermenu">
-    {{if User.ID > 0 }}
-    {{if !User.CurrentUserIdentical(UserProfile.ID) }}
-    {{if !User.IsFollower(UserProfile)}}
-    <a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-green">{{ T("follow")}}</a>
-    {{else}}
-    <a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-orange">{{ T("unfollow")}}</a>
-    {{end}}
-    {{end}}
+    {{if UserProfile.ID > 0 && !User.CurrentUserIdentical(UserProfile.ID) }}
+	    {{if User.ID > 0 }}
+			{{if !User.IsFollower(UserProfile.ID)}}
+			<a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-green">{{ T("follow")}}</a>
+			{{else}}
+			<a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-orange">{{ T("unfollow")}}</a>
+			{{end}}
+	    {{else}}
+	    	<a class="form-input" href="/login?redirectTo=/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow">{{T("follow")}}</a>
+	    {{end}}
     {{end}}
     {{ if User.ID > 0 && (User.CurrentUserIdentical(UserProfile.ID) || User.CurrentOrAdmin(UserProfile.ID)) }}
     <a class="form-input btn-green" href="/user/{{ UserProfile.ID }}/{{ UserProfile.Username }}">

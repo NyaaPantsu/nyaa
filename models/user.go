@@ -210,11 +210,12 @@ func (u *User) GetRole() string {
 }
 
 // IsFollower : Check if a user is following another
-func (follower *User) IsFollower(u *User) bool {
+func (follower *User) IsFollower(userid uint) bool {
 	var likingUserCount int
-	ORM.Model(&UserFollows{}).Where("user_id = ? and following = ?", follower.ID, u.ID).Count(&likingUserCount)
+	ORM.Model(&UserFollows{}).Where("user_id = ? and following = ?", follower.ID, userid).Count(&likingUserCount)
 	return likingUserCount != 0
 }
+
 
 // ToJSON : Conversion of a user model to json
 func (u *User) ToJSON() UserJSON {

@@ -228,6 +228,14 @@ func (t *Torrent) ParseTrackers(trackers []string) {
 			}
 		}
 	}
+	tempTrackers := []string{}
+	for _, line := range trackers {
+		if !contains(tempTrackers, line) {
+			tempTrackers = append(tempTrackers, line)
+		}
+	}
+	trackers = tempTrackers
+		
 	v["tr"] = trackers
 	t.Trackers = v.Encode()
 }
@@ -528,4 +536,13 @@ func (t *Torrent) DeleteTags() {
 		err := ORM.Where("torrent_id = ?", t.ID).Delete(&t.Tags).Error
 		log.CheckErrorWithMessage(err, "LOAD_TAGS_ERROR: Couldn't delete tags!")
 	}
+}
+
+func contains(s []string, e string) bool {
+    for _, a := range s {
+        if a == e {
+            return true
+        }
+    }
+    return false
 }

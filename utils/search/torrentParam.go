@@ -48,6 +48,7 @@ type TorrentParam struct {
 	Dlsite       string
 	VideoQuality string
 	Tags         Tags
+	Abort        bool
 }
 
 // Identifier returns a unique identifier for the struct
@@ -136,6 +137,8 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 			user, _, _, err := users.FindByUsername(username)
 			if err == nil {
 				p.UserID = uint32(user.ID)
+			} else {
+				p.Abort = true
 			}
 		}
 		// For other functions, we need to set userID in the request query
