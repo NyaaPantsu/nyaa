@@ -160,11 +160,9 @@ func trimNonNumbers(source string) string {
 	output := ""
 	
 	for i := 0; i < len(source); i++ {
-		
 		if source[i] < 58 {
 			output += source[i:i+1]
 		}
 	}
-	log.Errorf("'%s'", output)
 	return output
 }
