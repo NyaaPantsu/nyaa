@@ -82,3 +82,6 @@
 * ~ description_markdown_notice -> comment_markdown_notice
 * + browsing_user_torrents
 * + delete_all_reports
+## 2017/11/02
+* + duration
+* - removed: delay
