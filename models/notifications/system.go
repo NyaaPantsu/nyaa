@@ -27,8 +27,8 @@ func NotifyAll(msg string, expire time.Time) (*models.Notification, error) {
 // UpdateAnnouncement updates an announcement
 func UpdateAnnouncement(announcement *models.Notification, form *announcementValidator.CreateForm) error {
 	announcement.Content = form.Message
-	if form.Delay > 0 {
-		announcement.Expire = time.Now().AddDate(0, 0, form.Delay)
+	if form.Duration > 0 {
+		announcement.Expire = time.Now().Add(time.Hour * time.Duration(form.Duration))
 	}
 	if models.ORM.Model(announcement).UpdateColumn(announcement).Error != nil {
 		return errors.New("Announcement was not updated")
