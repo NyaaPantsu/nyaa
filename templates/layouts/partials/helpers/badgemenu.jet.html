@@ -4,7 +4,7 @@
   {{if User.ID > 0 }}
   <button href="#" class="nav-btn">
     <div class="user-avatar small">
-      <img src="https://www.gravatar.com/avatar/{{ User.MD5 }}?s=50"/>
+      <img src="{{getAvatar(User.MD5, 50)}}"/>
       {{if User.GetUnreadNotifications() > 0}}<span>{{User.GetUnreadNotifications()}}</span>{{end}}
     </div>
     <span class="user-info" title="{{ User.Username}}">
