@@ -161,7 +161,7 @@ func trimNonNumbers(source string) string {
 	
 	for i := 0; i < len(source); i++ {
 		
-		if source[i] - 48 < 10 {
+		if source[i] >= 48 || source[i] <= 57 {
 			output += source[i:i+1]
 		}
 	}
