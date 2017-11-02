@@ -36,7 +36,6 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("FlagCode", flagCode)
 	vars.Set("getAvatar", getAvatar)
 	vars.Set("torrentFileExists", torrentFileExists)
-	vars.Set("formatDateRFC", formatDateRFC)
 	vars.Set("GetHostname", format.GetHostname)
 	vars.Set("GetCategories", categories.GetSelect)
 	vars.Set("GetCategory", getCategory)
@@ -52,10 +51,10 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("genUploaderLink", genUploaderLink)
 	vars.Set("genActivityContent", genActivityContent)
 	vars.Set("contains", contains)
-	vars.Set("toString", toString)
-	vars.Set("kilo_strcmp", kilo_strcmp)
-	vars.Set("kilo_strfind", kilo_strfind)
-	vars.Set("kilo_rand", kilo_rand)
+	vars.Set("strcmp", strcmp)
+	vars.Set("strfind", strfind)
+	vars.Set("rand", rand.Intn)
+	vars.Set("toString", strconv.Itoa)
 	vars.Set("getDomainName", getDomainName)
 	vars.Set("getThemeList", getThemeList)
 	vars.Set("formatThemeName", formatThemeName)
@@ -196,13 +195,16 @@ func flagCode(languageCode string) string {
 }
 
 func getAvatar(hash string, size int) string {
-	return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
+	if hash != "" {
+		return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
+	} else {
+		if config.IsSukebei() {
+			return "/img/sukebei_avatar_" + strconv.Itoa(size) + ".jpg"
+		}
+		return "/img/avatar_" + strconv.Itoa(size) + ".jpg"
+	}
 }
 
-func formatDateRFC(t time.Time) string {
-	// because time.* isn't available in templates...
-	return t.Format(time.RFC3339)
-}
 func getCategory(category string, keepParent bool) categories.Categories {
 	cats := categories.GetSelect(true, true)
 	found := false
@@ -251,8 +253,8 @@ func languageNameFromCode(languageCode string, T publicSettings.TemplateTfunc) s
 	}
 	return strings.Title(publicSettings.Translate(languageCode, string(T("language_code"))))
 }
-func fileSize(filesize int64, T publicSettings.TemplateTfunc) template.HTML {
-	if filesize == 0 {
+func fileSize(filesize int64, T publicSettings.TemplateTfunc, showUnknown bool) template.HTML {
+	if showUnknown && filesize == 0 {
 		return T("unknown")
 	}
 	return template.HTML(format.FileSize(filesize))
@@ -348,11 +350,7 @@ func torrentFileExists(hash string, TorrentLink string) bool {
 	return true
 }
 
-func toString(number int) string {
-	return strconv.Itoa(number)
-}
-
-func kilo_strcmp(str1 string, str2 string, end int, start int) bool {
+func strcmp(str1 string, str2 string, end int, start int) bool {
 	//Compare two strings but has length arguments
 	
 	len1 := len(str1)
@@ -376,7 +374,7 @@ func kilo_strcmp(str1 string, str2 string, end int, start int) bool {
 	return strings.Compare(str1[start:end], str2[start:end]) == 0
 }
 
-func kilo_strfind(str1 string, searchfor string, start int) bool {
+func strfind(str1 string, searchfor string, start int) bool {
 	//Search a string inside another with start parameter
 	//start parameter indicates where we start searching
 	
@@ -388,10 +386,6 @@ func kilo_strfind(str1 string, searchfor string, start int) bool {
 	
 	
 	return strings.Contains(str1[start:len1], searchfor)
-}
-
-func kilo_rand(max int) int {
-	return rand.Intn(max)
 }
 
 func getDomainName() string {
@@ -408,7 +402,7 @@ func getThemeList() ([]string) {
     themeList := []string{}
 	
     filepath.Walk(searchDir, func(path string, f os.FileInfo, err error) error {
-        if kilo_strfind(path, ".css", len(searchDir)) {
+        if strfind(path, ".css", len(searchDir)) {
 			//we only want .css file
 			
 			fileName := path[len(searchDir):strings.Index(path, ".css")]

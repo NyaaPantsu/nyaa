@@ -8,7 +8,7 @@
 {{block title()}}{{Torrent.Name}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box {{if Torrent.Status == 2}}torrent-remake{{else if Torrent.Status == 3}}torrent-trusted{{else if Torrent.Status == 4}}torrent-aplus{{end}}">
-  <div id="torrent-name" class="{{if Torrent.Status == 2}}remake{{else if Torrent.Status == 3}}trusted{{else if Torrent.Status == 4}}aplus{{end}}">
+  <div id="torrent-name" class="{{if Torrent.Status == 2}}remake{{else if Torrent.Status == 3}}trusted{{else if Torrent.Status == 4}}aplus{{else if Torrent.Status == 5}}locked{{end}}">
     <h1 style="text-align: center;" class="torrent-hr">{{Torrent.Name}}</h1>
   </div>
   <br/>
@@ -28,8 +28,14 @@
 	  {{else}}
 	   <td class="torrent-view-td torrent-info-data uploader-link">
 	    {{ genUploaderLink(Torrent.UploaderID, Torrent.UploaderName, Torrent.Hidden)|raw }}
-	    {{if !Torrent.Hidden && Torrent.UploaderID != User.ID && User.ID > 0}}<a href="/user/{{Torrent.UploaderID}}/{{Torrent.UploaderName}}/follow?id={{Torrent.ID}}" id="subscribe-link">{{if User.IsFollower(Torrent.UploaderID)}}{{T("unfollow")}}{{else}}{{T("follow")}}{{end}}</a>{{end}}
-	   </td>
+	    {{if !Torrent.Hidden && Torrent.UploaderID != User.ID && Torrent.UploaderID != 0}}
+	      {{if User.ID > 0}}
+		   <a href="/user/{{Torrent.UploaderID}}/{{Torrent.UploaderName}}/follow?id={{Torrent.ID}}" id="subscribe-link">{{if User.IsFollower(Torrent.UploaderID)}}{{T("unfollow")}}{{else}}{{T("follow")}}{{end}}</a>
+	      {{else}}
+		   <a href="/login?redirectTo=/user/{{Torrent.UploaderID}}/{{Torrent.UploaderName}}/follow?id={{Torrent.ID}}" id="subscribe-link">{{T("follow")}}</a>
+	      {{end}}
+            {{end}}
+	    </td>
 	  {{end}}
     </tr>
      
@@ -46,7 +52,7 @@
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("size")}}:</td>
-      <td class="torrent-view-td torrent-info-data">{{ fileSize(Torrent.Filesize, T) }}</td>
+      <td class="torrent-view-td torrent-info-data">{{ fileSize(Torrent.Filesize, T, true) }}</td>
     </tr>
     {{ if len(Torrent.Languages) > 0 && Torrent.Languages[0] != "" }}
     <tr class="torrent-info-row">
@@ -155,8 +161,8 @@
     <a id="torrent-download-link" href="{{if Torrent.TorrentLink == ""}}/download/{{Torrent.Hash}}{{else}}{{Torrent.TorrentLink}}{{end}}" class="form-input download{{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}} hidden{{end}}" style="float:left;height: auto;">
       <div class="icon-floppy"></div>{{ T("torrent_file")}}
     </a>
-    {{ if User.ID > 0}}
     <a id="reportPopup" href="#" class="form-input">{{  T("report_btn") }}</a>
+    {{ if User.ID > 0}}
     {{ if User.HasAdmin()}}
     <form method="POST" action="/mod/torrent/delete" class="delete-form">
 		{{ yield csrf_field()}}
@@ -211,11 +217,12 @@
   <div class="torrent-info-box comment-box">
     <span class="comment-index">
       <a href="#comment_{{idx}}">{{idx}}</a>
-      <small style="padding-left: 4px;" class="date-full" title="{{formatDateRFC(element.Date)}}">{{formatDate(element.Date, false)}}</small>
+      <small style="padding-left: 4px;" class="date-full">{{formatDate(element.Date, false)}}</small>
     </span>
-    <p><img src="https://www.gravatar.com/avatar/{{ element.UserAvatar }}"/>
+    <span class="comment-userinfo"><img src="{{ getAvatar(element.UserAvatar, 50) }}"/>
 	{{if element.UserID > 0}}<a href="/user/{{element.UserID}}/{{element.Username}}" class="comment-user">{{element.Username}}</a>{{if element.UserStatus != ""}}<span class="user-status">{{T(element.UserStatus)}}</span>{{end}}{{else}}
-	<span class="comment-user">れんちょん</span>{{end}}
+	<span class="comment-user">れんちょん</span>{{end}}  
+    </span>
     <div class="comment-content">{{element.Content|raw}}</div>
   </div>
   {{idx = idx + 1}}
@@ -233,6 +240,7 @@
         <div class="comment-text">
           <h3>{{ if User.ID > 0}} {{ T("submit_a_comment_as_username", User.Username) }} {{else}} {{ T("submit_a_comment_as_anonymous")|raw}} {{end}}</h3>
           <textarea style="height: 10rem;" placeholder="サンキュー" name="comment" class="form-input up-input"></textarea>
+          <p class="not-important">{{T("comment_markdown_notice")}}</p>
         </div>
         <div class="comment-captcha">
           {{ yield captcha(captchaid=CaptchaID)}}
@@ -243,7 +251,6 @@
     </form>
   </div>
 </div>
-{{ if User.ID > 0 }}
 <!-- Modal to report a torrent -->
 <div id="modal_mod_tools" class="modal">
   <!-- Modal content -->
@@ -264,9 +271,15 @@
         <label for="wrongcat">{{  T("wrong_category") }}</label><br />
         <input type="radio" name="report_type" value="duplicate_deprecated" id="dup" required/>
         <label for="dup">{{  T("duplicate_deprecated") }}</label><br />
-        <div class="comment-captcha">
-          {{yield captcha(captchaid=CaptchaID)}}
-        </div>
+        <input type="radio" name="report_type" value="other" id="other"" required/>
+        <label for="other">{{  T("other") }}</label><br />
+	<h4>{{  T("report_message") }}</h4>
+	<input type="text" class="form-input" name="report_message" placeholder="(Optional, 60 characters max)" maxlength="60">
+        {{if User.ID == 0}}
+			<div class="comment-captcha" style="margin-top: 7px;">
+			  {{yield captcha(captchaid=CaptchaID)}}
+			</div>
+		{{end}}
       </div>
       <div class="modal-footer">
         <span>
@@ -278,6 +291,7 @@
     </form>
   </div>
 </div>
+{{ if User.ID > 0 }}
 <!-- Modal to add a tag -->
 <div id="modal_tag_form" class="modal">
   <!-- Modal content -->
@@ -311,6 +325,14 @@
 {{end}}
 {{ block footer_js()}}
 <script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>
+<script type="text/javascript">
+// Modal initialization
+Modal.Init({
+  elements: document.getElementsByClassName("modal"),
+  // order of apparition of the modals
+  button: ["#reportPopup", "#tagPopup"]
+});
+</script>
 {{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}}
 <script type="text/javascript">
 	var torrentLink = document.getElementById("torrent-download-link"),
@@ -338,7 +360,7 @@
 		Query.Get('/download/{{Torrent.Hash}}?js_query=true', function (data) {
 			if(typeof data.exists != "undefined" && data.exists == true) {
 				torrentLink.innerHTML = oldDownloadHtml
-				torrentLink.style.opacity = 1
+				torrentLink.style = torrentLink.style + "opacity: 1!important;filter: grayscale(0);"
 				torrentLink.removeEventListener("click", function (e) {});
 				torrentLink.click();
 			} else {
@@ -381,6 +403,8 @@
       downloads.innerHTML = oldStats[2]
     }
   })
+  
+  
 </script>
 {{end}}
 {{ if User.ID > 0 }}
@@ -413,7 +437,7 @@ Templates.Add("tag", function(tag) {
 Modal.Init({
   elements: document.getElementsByClassName("modal"),
   // order of apparition of the modals
-  button: ["#reportPopup", "#tagPopup"]
+  button: ["#tagPopup"]
 });
 
 document.querySelector("#modal_tag_form form").addEventListener("submit", function(e) {

@@ -2,8 +2,8 @@
 {{ if isset(treeviewData)}}
 {{ range index, folder := treeviewData.Folder.Folders }}
 {{ folderId := treeviewData.IdentifierChain+"_"+index }}
-<tr class="tr-filelist tr-folder" style="padding-left: {{ treeviewData.NestLevel * 2.5 }}%;">
-  <td><label for="contents_{{folderId}}">{{folder.FolderName}}</label></td>
+<tr class="tr-filelist tr-folder>
+  <td style="padding-left: {{ treeviewData.NestLevel * 2.5 }}%;"><label for="contents_{{folderId}}">{{folder.FolderName}}</label></td>
   <td>{{ fileSize(folder.TotalSize(), T) }}</td>
 </tr>
 <tr>
@@ -19,7 +19,7 @@
 {{ range _, file := treeviewData.Folder.Files }}
 <tr class="tr-filelist tr-file">
   <td style="padding-left: {{ treeviewData.NestLevel * 2.5 }}%;">{{file.Filename()}}</td>
-  <td>{{fileSize(file.Filesize, T)}}</td>
+  <td>{{fileSize(file.Filesize, T, true)}}</td>
 </tr>
 {{ end }}
 {{ end }}

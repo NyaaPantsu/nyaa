@@ -21,7 +21,7 @@ func ReportTorrentHandler(c *gin.Context) {
 	messages := msg.GetMessages(c)
 	captchaError := "?reported"
 	currentUser := router.GetUser(c)
-	if currentUser.NeedsCaptcha() {
+	if currentUser.ID == 0 {
 		userCaptcha := captcha.Extract(c)
 		if !captcha.Authenticate(userCaptcha) {
 			captchaError = "?badcaptcha"
@@ -33,7 +33,11 @@ func ReportTorrentHandler(c *gin.Context) {
 		messages.Error(err)
 	}
 	if !messages.HasErrors() {
-		_, err := reports.Create(c.PostForm("report_type"), torrent, currentUser)
+		reportMessage :=  c.PostForm("report_message")
+		if len(reportMessage) > 60 {
+			reportMessage = reportMessage[0:60]
+		}
+		_, err := reports.Create(c.PostForm("report_type"), reportMessage, torrent, currentUser)
 		messages.AddInfoTf("infos", "report_msg", id)
 		if err != nil {
 			messages.ImportFromError("errors", err)

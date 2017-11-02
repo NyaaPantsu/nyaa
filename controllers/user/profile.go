@@ -8,7 +8,6 @@ import (
 	"net/http"
 
 	"github.com/NyaaPantsu/nyaa/controllers/router"
-	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/notifications"
 	"github.com/NyaaPantsu/nyaa/models/users"
 	"github.com/NyaaPantsu/nyaa/templates"
@@ -190,9 +189,13 @@ func UserProfileFormHandler(c *gin.Context) {
 		validator.ValidateForm(&userForm, messages)
 		if !messages.HasErrors() {
 			if userForm.Email != userProfile.Email {
-				email.SendVerificationToUser(currentUser, userForm.Email)
-				messages.AddInfoTf("infos", "email_changed", userForm.Email)
-				userForm.Email = userProfile.Email // reset, it will be set when user clicks verification
+				if currentUser.HasAdmin() {
+					userProfile.Email = userForm.Email
+				} else {
+					email.SendVerificationToUser(currentUser, userForm.Email)
+					messages.AddInfoTf("infos", "email_changed", userForm.Email)
+					userForm.Email = userProfile.Email // reset, it will be set when user clicks verification
+				}
 			}
 			user, _, err := users.UpdateFromRequest(c, &userForm, &userSettingsForm, currentUser, uint(id))
 			if err != nil {
@@ -204,6 +207,7 @@ func UserProfileFormHandler(c *gin.Context) {
 			}
 			if !messages.HasErrors() {
 				messages.AddInfoT("infos", "profile_updated")
+				userProfile = user
 			}
 		}
 	}
@@ -215,11 +219,13 @@ func UserProfileFormHandler(c *gin.Context) {
 func UserNotificationsHandler(c *gin.Context) {
 	currentUser := router.GetUser(c)
 	if currentUser.ID > 0 {
-		messages := msg.GetMessages(c)
 		if c.Request.URL.Query()["clear"] != nil {
-			notifications.DeleteAllNotifications(currentUser.ID)
-			messages.AddInfoT("infos", "notifications_cleared")
-			currentUser.Notifications = []models.Notification{}
+			notifications.DeleteNotifications(currentUser, false)
+			
+		} else if c.Request.URL.Query()["clear_all"] != nil {
+			notifications.DeleteNotifications(currentUser, true)
+		} else if c.Request.URL.Query()["read_all"] != nil {
+			notifications.MarkAllNotificationsAsRead(currentUser)
 		}
 		templates.UserProfileNotifications(c, currentUser)
 	} else {

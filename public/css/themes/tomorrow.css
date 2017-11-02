@@ -62,6 +62,7 @@ a:hover {
 }
 .user-avatar span {
     background-color: #d02727;
+    color: #272727;
 }
 
 .header .h-user .user-menu {
@@ -101,6 +102,9 @@ td.tr-le, .error-text {
 }
 .sukebei .btn-red {
     color: #c5c8c6;
+}
+.btn-grey {
+    background-color: #777777;
 }
 
 .alt-colors tr:nth-child(even) {
@@ -348,5 +352,13 @@ span.tag {
 }
 
 #subscribe-link::before, #subscribe-link::after {
-   color: #c5c8c6;
+   color: #c5c8c6!important;
+}
+
+td.notification-status {
+	background-color: #505255;
+}
+td.notification-status.notification-unread {
+	background-color: rgba(144, 103, 24, 0.4);
+	color: #c5c8c6;
 }

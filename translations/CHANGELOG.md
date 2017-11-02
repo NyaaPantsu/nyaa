@@ -65,3 +65,24 @@
 ## 2017/10/28
 * + hours_minutes_ago
 * + days_hours_ago
+* + status
+* + event
+* + read
+* + unread
+* + clear_all_notifications
+* ~ clear_notifications -> modified to "Clear **read** notification"
+## 2017/10/29
+* + report_message
+* + other
+* + read_notifications_cleared
+* + notifications_read
+* + mark_notifications_as_read
+## 2017/10/31
+* + followers
+* ~ description_markdown_notice -> comment_markdown_notice
+* + browsing_user_torrents
+* + delete_all_reports
+## 2017/11/02
+* + duration
+* - removed: delay
+* + create_anouncement_success

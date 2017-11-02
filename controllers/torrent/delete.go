@@ -35,7 +35,7 @@ func TorrentDeleteUserPanel(c *gin.Context) {
 			query.Append("torrent_id", id)
 			torrentReports, _, _ := reports.FindOrderBy(query, "", 0, 0)
 			for _, report := range torrentReports {
-				report.Delete(false)
+				report.Delete()
 			}
 		}
 		c.Redirect(http.StatusSeeOther, "/?deleted")
