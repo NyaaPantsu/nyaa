@@ -79,7 +79,7 @@
 * + mark_notifications_as_read
 ## 2017/10/31
 * + followers
-* ~ description_markdown_notice -> comment_markdown_notice
+* + comment_markdown_notice
 * + browsing_user_torrents
 * + delete_all_reports
 ## 2017/11/02
