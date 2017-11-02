@@ -141,6 +141,6 @@ func FindUsersForAdmin(limit int, offset int) ([]models.User, int) {
 	var users []models.User
 	var nbUsers int
 	models.ORM.Model(&users).Count(&nbUsers)
-	models.ORM.Preload("Torrents").Limit(limit).Offset(offset).Find(&users)
+	models.ORM.Preload("Torrents").Limit(limit).Offset(offset).Order("user_id DESC").Find(&users)
 	return users, nbUsers
 }
