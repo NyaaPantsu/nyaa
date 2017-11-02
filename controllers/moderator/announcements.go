@@ -120,7 +120,7 @@ func postAnnouncement(c *gin.Context) {
 
 // deleteAnnouncement : Controller for deleting an announcement
 func deleteAnnouncement(c *gin.Context) {
-	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
+	id, _ := strconv.ParseInt(c.PostForm("id"), 10, 32)
 	announcement, err := notifications.FindByID(uint(id))
 	if err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
