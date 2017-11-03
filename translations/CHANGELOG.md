@@ -86,3 +86,5 @@
 * + duration
 * - removed: delay
 * + create_anouncement_success
+## 2017/11/03
+* - removed: old
