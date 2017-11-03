@@ -1968,10 +1968,6 @@
     "translation": "Mensaje"
   },
   {
-    "id": "delay",
-    "translation": "Retrasar"
-  },
-  {
     "id": "update_annoucement_panel",
     "translation": "Actualizar anuncio"
   },
@@ -1981,6 +1977,6 @@
   },
   {
     "id": "expire",
-    "translation": "Expire"
+    "translation": "Caducidad"
   }
 ]
