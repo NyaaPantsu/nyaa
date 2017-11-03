@@ -25,7 +25,7 @@
         <td class="td-report-message home-td">{{.Message}}</td>
         <td class="tr-actions home-td">
  	<form method="POST" action="/mod/torrent/delete">
-	  <input type="hidden" name="id" value="{{ .Torrent }}">
+	  <input type="hidden" name="id" value="{{ .Torrent.ID }}">
 	  <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{  T("delete_torrent") }}</button>
 	</form>
  	<form method="POST" action="/mod/report/delete">
