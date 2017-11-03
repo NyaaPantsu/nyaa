@@ -1,15 +1,15 @@
 [
   {
     "id": "rules",
-    "translation": "Rules"
+    "translation": "Reglas"
   },
   {
     "id": "no_cp",
-    "translation": "No child pornography (lolicon doesn't count)"
+    "translation": "No pornografía infantil (el lolicon no cuenta)"
   },
   {
     "id": "asia",
-    "translation": "Asian related content only (no Western Movies, no Cartoon)"
+    "translation": "Solo contenido relacionado con Asia (no películas occidentales ni dibujos animados)"
   },
   {
     "id": "rules_spam",
@@ -17,7 +17,7 @@
   },
   {
     "id": "rules_sukebei",
-    "translation": "NSFW content belongs in sukebei.pantsu.cat"
+    "translation": "El contenido NSFW está en sukebei.pantsu.cat"
   },
   {
     "id": "verify_email_title",
@@ -25,15 +25,15 @@
   },
   {
     "id": "verify_email_content",
-    "translation": "Por favor, da click en el siguiente enlace para verificar tu correo electrónico."
+    "translation": "Por favor, haz click en el siguiente enlace para verificar tu correo electrónico."
   },
   {
     "id": "reset_password_title",
-    "translation": "Reestablece tu contraseña para Nyaapantsu."
+    "translation": "Reestablecer tu contraseña para Nyaapantsu."
   },
   {
     "id": "reset_password_content",
-    "translation": "Por favor, da click en el siguiente enlace para reestablecer tu contraseña."
+    "translation": "Por favor, haz click en el siguiente enlace para reestablecer tu contraseña."
   },
   {
     "id": "register_title",
@@ -49,11 +49,11 @@
   },
   {
     "id": "email_address_or_username",
-    "translation": "Correo Electrónico o Usuario"
+    "translation": "Correo electrónico o nombre de usuario"
   },
   {
     "id": "email_address",
-    "translation": "Correo Electrónico"
+    "translation": "Correo electrónico"
   },
   {
     "id": "password",
@@ -61,11 +61,11 @@
   },
   {
     "id": "confirm_password",
-    "translation": "Confirmar Contraseña"
+    "translation": "Confirmar contraseña"
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "Al dar click en <b>Registrarse</b>, aceptas los <a id=\"modal_active\" href=\"#\">Términos y Condiciones</a> del sitio, incluyendo nuestro Uso de Cookies."
+    "translation": "Al hacer click en <b>Registrarse</b>, aceptas los <a id=\"modal_active\" href=\"#\">Términos y Condiciones</a> del sitio, incluyendo nuestro Uso de Cookies."
   },
   {
     "id": "signin",
@@ -81,7 +81,7 @@
   },
   {
     "id": "terms_conditions_full",
-    "translation": "Por definir."
+    "translation": "<h2> Términos y condiciones de NyaaPantsu </h2> <h3> 1. Términos </h3> <p> Al acceder al sitio web en <a href='https://pantsu.cat'> https://pantsu.cat </a>, usted acepta estar sujeto a estos términos de servicio. , todas las leyes y regulaciones aplicables, y acepta que usted es responsable del cumplimiento de las leyes locales aplicables. Si no está de acuerdo con alguno de estos términos, tiene prohibido utilizar o acceder a este sitio. Los materiales contenidos en este sitio web están protegidos por las leyes de derecho de autor y marcas comerciales aplicables. </p> <h3> 2. Descargo de responsabilidad </h3> <ol type = 'a'> <li> Los materiales en el sitio web de NyaaPantsu Lda se proporcionan "tal cual". NyaaPantsu Lda no ofrece garantías, explícitas o implícitas, y por este medio renuncia y niega todas las demás garantías, incluidas, entre otras, garantías implícitas o condiciones de comerciabilidad, idoneidad para un propósito particular o no infracción de propiedad intelectual u otra violación de derechos. < / li> <li> Además, NyaaPantsu Lda no garantiza ni hace ninguna declaración con respecto a la exactitud, los resultados probables o la confiabilidad del uso de los materiales en su sitio web o relacionados con dichos materiales o en cualquier sitio vinculado a este sitio. </li> </ol> <h3> 3. Limitaciones </h3> <p> En ningún caso NyaaPantsu Lda o sus proveedores serán responsables de los daños (incluidos, entre otros, los daños por pérdida de datos o beneficios, o por interrupción del negocio) que surjan del uso o la incapacidad de utilice los materiales en el sitio web de NyaaPantsu Lda, incluso si NyaaPantsu Lda o un representante autorizado de NyaaPantsu Lda ha sido notificado oralmente o por escrito de la posibilidad de tal daño. Debido a que algunas jurisdicciones no permiten limitaciones sobre garantías implícitas, o limitaciones de responsabilidad por daños consecuentes o incidentales, estas limitaciones pueden no aplicarse a usted. </p> <h3> 4. Precisión de los materiales </h3> <p> Los materiales que aparecen en el sitio web de NyaaPantsu Lda podrían incluir errores técnicos, tipográficos o fotográficos. NyaaPantsu Lda no garantiza que ninguno de los materiales en su sitio web sea preciso, completo o actual. NyaaPantsu Lda puede hacer cambios a los materiales contenidos en su sitio web en cualquier momento sin previo aviso. Sin embargo, NyaaPantsu Lda no se compromete a actualizar los materiales. </p> <h3> 5. Enlaces </h3> <p> NyaaPantsu Lda no ha revisado todos los sitios vinculados a su sitio web y no es responsable de los contenidos de dichos sitios vinculados. La inclusión de cualquier enlace no implica el respaldo por parte de NyaaPantsu Lda del sitio. El uso de cualquier sitio web vinculado es bajo el propio riesgo del usuario. </p> <h3> 6. Modificaciones </h3> <p> NyaaPantsu Lda puede revisar estos términos de servicio para su sitio web en cualquier momento sin previo aviso. Al utilizar este sitio web, usted acepta estar sujeto a la actual versión de estos términos de servicio. </p> <h3> 7. Ley aplicable </h3> <p> Estos términos y condiciones se rigen y se interpretan de conformidad con las leyes de Portugal y usted se somete irrevocablemente a la jurisdicción exclusiva de los tribunales en ese Estado o ubicación. </p>"
   },
   {
     "id": "remember_me",
@@ -93,15 +93,15 @@
   },
   {
     "id": "sign_in_box_title",
-    "translation": "Por favor, Inicia Sesión"
+    "translation": "Por favor, inicia sesión"
   },
   {
     "id": "sign_in_title",
-    "translation": "Iniciar Sesión"
+    "translation": "Iniciar sesión"
   },
   {
     "id": "register_success_title",
-    "translation": "Registro Exitoso"
+    "translation": "Registrado con éxito"
   },
   {
     "id": "sign_up_success",
@@ -117,7 +117,7 @@
   },
   {
     "id": "signup_verification_noemail",
-    "translation": "Te has registrado exitosamente, ahora puedes usar tu cuenta."
+    "translation": "Te has registrado con éxito, ahora puedes usar tu cuenta."
   },
   {
     "id": "email_placeholder",
@@ -157,7 +157,7 @@
   },
   {
     "id": "torrents_uploaded",
-    "translation": "Torrents uploaded"
+    "translation": "Torrents subidos"
   },
   {
     "id": "category",
@@ -197,7 +197,7 @@
   },
   {
     "id": "err_no_results",
-    "translation": "No results found"
+    "translation": "No se han encontrado resultados"
   },
   {
     "id": "upload",
@@ -261,7 +261,7 @@
   },
   {
     "id": "links_replacement_mirror",
-    "translation": "Enlaces al reemplazo/espejo"
+    "translation": "Enlaces de reemplazo/espejo"
   },
   {
     "id": "what_happened",
@@ -314,10 +314,11 @@
   {
     "id": "how_do_i_link_my_old_account",
     "translation": "How do I link my old uploads back to my new account?"
+    "translation": "¿Cómo enlazo mis antiguas subidas de nuevo en mi nueva cuenta?"
   },
   {
     "id": "answer_how_do_i_link_my_old_account",
-    "translation": "Join <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> and ask a moderator to migrate your old torrents while mentioning your old and new usernames."
+    "translation": "Únete a <a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> y solicite a un moderador que migre sus antiguos torrents mientras menciona sus nombres de usuario antiguos y nuevos ".
   },
   {
     "id": "are_the_trackers_working",
@@ -369,7 +370,7 @@
   },
   {
     "id": "torrent_file",
-    "translation": "Archivo Torrent"
+    "translation": "Archivo torrent"
   },
   {
     "id": "uploading_file_prefills_fields",
@@ -377,7 +378,7 @@
   },
   {
     "id": "magnet_link",
-    "translation": "Enlace Magnet"
+    "translation": "Enlace magnet"
   },
   {
     "id": "all_categories",
@@ -385,7 +386,7 @@
   },
   {
     "id": "select_a_torrent_category",
-    "translation": "Selecciona una Categoría para el Torrent"
+    "translation": "Selecciona una categoría para el torrent"
   },
   {
     "id": "anime",
@@ -529,11 +530,11 @@
   },
   {
     "id": "delete_all",
-    "translation": "Delete all"
+    "translation": "Borrar todo"
   },
   {
     "id": "filter_remakes",
-    "translation": "Filtrar Remakes"
+    "translation": "Filtrar remakes"
   },
   {
     "id": "trusted",
@@ -553,7 +554,7 @@
   },
   {
     "id": "no_description",
-    "translation": "No description provided!"
+    "translation": "¡No se ha provisto una descripción!"
   },
   {
     "id": "comments",
@@ -637,27 +638,27 @@
   },
   {
     "id": "extensions_and_plugins",
-    "translation": "Extensions and Plugins (made by third-party developers)"
+    "translation": "Extensiones y plugins (hechos por desarrolladores de terceros)"
   },
   {
     "id": "qbittorrent_plugin",
-    "translation": "qBittorrent Plugin"
+    "translation": "Plugin qBittorrent"
   },
   {
     "id": "local_client",
-    "translation": "Local Client"
+    "translation": "Cliente local"
   },
   {
     "id": "chrome_extension",
-    "translation": "Chrome Extension"
+    "translation": "Extensión de Chrome"
   },
   {
     "id": "firefox_extension",
-    "translation": "Firefox Extension"
+    "translation": "Extensión de Firefox"
   },
   {
     "id": "android_app",
-    "translation": "Android App"
+    "translation": "Aplicación Android"
   },
   {
     "id": "who_is_renchon",
@@ -677,7 +678,7 @@
   },
   {
     "id": "torrent_status",
-    "translation": "Estado del Torrent"
+    "translation": "Estado del torrent"
   },
   {
     "id": "torrent_status_normal",
@@ -689,7 +690,7 @@
   },
   {
     "id": "torrent_status_blocked",
-    "translation": "Locked"
+    "translation": "Cerrado"
   },
   {
     "id": "profile_edit_page",
@@ -721,55 +722,55 @@
   },
   {
     "id": "delete",
-    "translation": "Delete"
+    "translation": "Borrar"
   },
   {
     "id": "website_link",
-    "translation": "Website Link"
+    "translation": "Sitio web"
   },
   {
     "id": "files",
-    "translation": "Files"
+    "translation": "Archivos"
   },
   {
     "id": "no_files",
-    "translation": "No files found? That doesn't even make sense!"
+    "translation": "¿No se encontraron archivos? ¡Eso ni siquiera tiene sentido!"
   },
   {
     "id": "uploaded_by",
-    "translation": "Uploaded by"
+    "translation": "Subido por"
   },
   {
     "id": "report_btn",
-    "translation": "Report"
+    "translation": "Reportar"
   },
   {
     "id": "are_you_sure",
-    "translation": "Are you sure?"
+    "translation": "¿Estás seguro?"
   },
   {
     "id": "report_torrent_number",
-    "translation": "Report Torrent #%d"
+    "translation": "Reportar torrent #%d"
   },
   {
     "id": "report_type",
-    "translation": "Report type"
+    "translation": "Tipo de reporte"
   },
   {
     "id": "illegal_content",
-    "translation": "Illegal content"
+    "translation": "Contenido ilegal"
   },
   {
     "id": "spam_garbage",
-    "translation": "Spam / Garbage"
+    "translation": "Spam / Basura"
   },
   {
     "id": "wrong_category",
-    "translation": "Wrong category"
+    "translation": "Categoria equivocada"
   },
   {
     "id": "duplicate_deprecated",
-    "translation": "Duplicate / Deprecated"
+    "translation": "Duplicado / Obsoleto"
   },
   {
     "id": "captcha",
@@ -781,19 +782,19 @@
   },
   {
     "id": "file_name",
-    "translation": "File Name"
+    "translation": "Nombre de archivo"
   },
   {
     "id": "cancel",
-    "translation": "Cancel"
+    "translation": "Cancelar"
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "Please include udp://tracker.uw0.xyz:6969 in your trackers."
+    "translation": "Por favor, incluye udp://tracker.uw0.xyz:6969 entre tus trackers."
   },
   {
     "id": "unknown",
-    "translation": "Unknown"
+    "translation": "Desconocido"
   },
   {
     "id": "last_scraped",
@@ -801,79 +802,80 @@
   },
   {
     "id": "server_status_link",
-    "translation": "Server status can be found here"
+    "translation": "El estado del servidor puede ser encontrado"
   },
   {
     "id": "no_database_dumps_available",
-    "translation": "No database dumps are available at this moment."
+    "translation": "No hay volcados de la base de datos disponibles en este momento."
   },
   {
     "id": "clear_notifications",
-    "translation": "Clear Notifications"
+    "translation": "Borrar notificaciones"
   },
   {
     "id": "notifications_cleared",
-    "translation": "Notifications erased!"
+    "translation": "¡Notificaciones borradas!"
   },
   {
     "id": "my_notifications",
-    "translation": "My Notifications"
+    "translation": "Mis notificaciones"
   },
   {
     "id": "new_torrent_uploaded",
-    "translation": "New torrent: \"%s\" from %s"
+    "translation": "Nuevo torrent: \"%s\" de %s"
   },
   {
     "id": "torrent_uploaded",
-    "translation": "torrent uploaded successfully!"
+    "translation": "¡torrent subido con éxito!"
   },
   {
     "id": "preferences",
-    "translation": "Preferences"
+    "translation": "Preferencias"
   },
   {
     "id": "new_torrent_settings",
     "translation": "Be notified when a new torrent is added from a user followed"
+    "translation": "Recibir notificaciones cuando un usuario que sigues suba un torrent"
   },
   {
     "id": "new_torrent_email_settings",
-    "translation": "Be notified by e-mail when a new torrent is added from a user followed"
+    "translation": "Recibir notificaciones por email cuando un usuario que sigues suba un torrent"
   },
   {
     "id": "new_comment_settings",
-    "translation": "Be notified when there is a new comment on your torrents"
+    "translation": "Recibir notificaciones cuando tus torrents tengan nuevos comentarios"
   },
   {
     "id": "new_comment_email_settings",
-    "translation": "Be notified by e-mail when there is a new comment on your torrents"
+    "translation": "Recibir notificaciones por email cuando tus torrents tengan nuevos comentarios"
   },
   {
     "id": "new_responses_settings",
-    "translation": "Be notified when there is a new response to your comment"
+    "translation": "Recibir notificaciones cuando alguien responda a tus comentarios"
   },
   {
     "id": "new_responses_email_settings",
-    "translation": "Be notified by e-mail when there is a new response to your comment"
+    "translation": "Recibir notificaciones por email cuando alguien responda a tus comentarios"
   },
   {
     "id": "new_follower_settings",
-    "translation": "Be notified when you have a new follower"
+    "translation": "Recibir notificaciones cuando alguien empiece a seguirte"
   },
   {
     "id": "new_follower_email_settings",
-    "translation": "Be notified by e-mail when you have a new follower"
+    "translation": "Recibir notificaciones por email cuando alguien empiece a seguirte"
   },
   {
     "id": "followed_settings",
-    "translation": "Be notified when you have followed someone"
+    "translation": "Recibir notificaciones cuando sigas a alguien"
   },
   {
     "id": "followed_email_settings",
-    "translation": "Be notified by e-mail when you have followed someone"
+    "translation": "Recibir notificaciones por email cuando sigas a alguien"
   },
   {
     "id": "yes",
-    "translation": "Yes"
+    "translation": "Si"
   },
   {
     "id": "no",
@@ -881,64 +883,65 @@
   },
   {
     "id": "new_comment_on_torrent",
-    "translation": "New comment on torrent: \"%s\""
+    "translation": "Nuevo comentario en el torrent: \"%s\""
   },
   {
     "id": "no_action_selected",
-    "translation": "You have to tell what you want to do with your selection!"
+    "translation": "¡Tienes que decir lo que quieres hacer con tu selección!"
   },
   {
     "id": "no_move_location_selected",
-    "translation": "Thou has't to telleth whither thee wanteth to moveth thy selection!"
+    "translation": "¡Tienes que elegir donde vas a mover la selección!"
   },
   {
     "id": "select_one_element",
-    "translation": "You need to select at least 1 element!"
+    "translation": "¡Tienes que elegir al menos 1 elemento!"
   },
   {
     "id": "torrent_moved",
-    "translation": "Torrent %s moved!"
+    "translation": "¡Torrent %s movido!"
   },
   {
     "id": "no_status_exist",
-    "translation": "No such status %d exist!"
+    "translation": "¡No existe el estado %d!"
   },
   {
     "id": "torrent_deleted",
-    "translation": "Torrent %s deleted!"
+    "translation": "¡Torrent %s eliminado!"
   },
   {
     "id": "torrent_deleted_by",
-    "translation": "Torrent #%d from %s has been deleted by %s."
+    "translation": "Torrent #%d de %s ha sido eliminado por %s."
   },
   {
     "id": "torrent_edited_by",
-    "translation": "Torrent #%d from %s has been edited by %s."
+    "translation": "Torrent #%d de %s ha sido editado por %s."
   },
   {
     "id": "torrent_blocked_by",
-    "translation": "Torrent #%d from %s has been locked by %s."
+    "translation": "Torrent #%d de %s ha sido bloqueado por %s."
   },
   {
     "id": "torrent_blocked_by",
-    "translation": "Torrent #%d from %s has been unlocked by %s."
+    "translation": "Torrent #%d de %s ha sido desbloqueado por %s."
   },
   {
     "id": "torrents_deleted",
-    "translation": "Torrents Deleted"
+    "translation": "Torrents eliminados"
   },
   {
     "id": "delete_torrent",
-    "translation": "Delete Torrent"
+    "translation": "Eliminar torrent"
   },
   {
     "id": "delete_report",
-    "translation": "Delete Report"
+    "translation": "Eliminar reporte"
   },
   {
     "id": "comment_deleted",
-    "translation": "Comment has been deleted!"
+    "translation": "¡El comentario ha sido eliminado!"
   },
+<<<
   {
     "id": "comment_deleted_by",
     "translation": "Comment #%d from %s has been deleted by %s."
