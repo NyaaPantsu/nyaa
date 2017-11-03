@@ -481,39 +481,39 @@
   },
   {
     "id": "art",
-    "translation": "Art"
+    "translation": "Arte"
   },
   {
     "id": "art_anime",
-    "translation": "Art - Anime"
+    "translation": "Arte - Anime"
   },
   {
     "id": "art_doujinshi",
-    "translation": "Art - Doujinshi"
+    "translation": "Arte - Doujinshi"
   },
   {
     "id": "art_games",
-    "translation": "Art - Games"
+    "translation": "Arte - Juegos"
   },
   {
     "id": "art_manga",
-    "translation": "Art - Manga"
+    "translation": "Arte - Manga"
   },
   {
     "id": "art_pictures",
-    "translation": "Art - Pictures"
+    "translation": "Arte - Imágenes"
   },
   {
     "id": "real_life",
-    "translation": "Real Life"
+    "translation": "Vida Real"
   },
   {
     "id": "real_life_photobooks_and_pictures",
-    "translation": "Real Life - Photobooks and Pictures"
+    "translation": "Vida Real - Álbumnes de fotos e imágenes"
   },
   {
     "id": "real_life_videos",
-    "translation": "Real Life - Videos"
+    "translation": "Vida Real - Videos"
   },
   {
     "id": "torrent_description",
@@ -1649,11 +1649,7 @@
   },
   {
     "id": "large",
-    "translation": "grande."
-  },
-  {
-    "id": "old",
-    "translation": "antiguo"
+    "translation": "de tamaño."
   },
   {
     "id": "optional",
