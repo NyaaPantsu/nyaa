@@ -4,6 +4,7 @@ import (
 	"html"
 	"net/http"
 	"strconv"
+	"strings"
 	"fmt"
 
 	"math"
@@ -60,13 +61,16 @@ func SearchHandler(c *gin.Context) {
 	}
 	
 	if c.Query("hash") != "" {
-		torrent, err := torrents.FindRawByHash(c.Query("hash"))
+		torrent, err := torrents.FindRawByHash(strings.TrimSpace(c.Query("hash")))
+		//Wanna make sure to remove spaces because user copy-pasting hashes might include spaces at time
 		if err == nil {
 			templates.ModelList(c, "site/torrents/listing.jet.html", models.TorrentsToJSON([]models.Torrent{torrent}), templates.Navigation{1, 1, 0, "/search"}, searchForm)
+			//We already fetched the torrent so we can directly show the template without needing to do a search.AuthorizedQuery
 		} else {
 			variables := templates.Commonvariables(c)
 			variables.Set("Search", searchForm)
 			templates.Render(c, "errors/no_results.jet.html", variables)
+			//The hash hasn't been found so no point in showing any result
 		}
 		return
 	}
