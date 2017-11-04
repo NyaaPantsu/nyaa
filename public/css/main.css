@@ -2424,11 +2424,7 @@ td.notification-status.notification-unread {
 	color: white;
 }
 
-.torrent-report-table td, .torrent-report-table th {
-	width: 165px;
-}
 .td-report-message  {
-	width: auto!important;
     white-space: normal;
     word-break: break-word;
 }
