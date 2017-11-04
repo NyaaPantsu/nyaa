@@ -337,6 +337,10 @@ span.comment-index+p {
     text-decoration: none;
     line-height: 22px;
 }
+span.comment-user:hover {
+    text-decoration: none;
+	
+}
 .comment-user:hover {
     text-decoration: underline;
 }
