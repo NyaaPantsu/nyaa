@@ -80,7 +80,7 @@ func CallbackHandler(conf gooauth.Config) func(c *gin.Context) {
 			return
 		}
 
-		messages.AddInfo("infos", fmt.Sprintf("%s", token))
+		messages.AddInfo("infos", fmt.Sprintf("%s", token.Raw))
 		templateVariables := templates.Commonvariables(c)
 		templateVariables.Set("Code", c.Request.URL.Query().Get("code"))
 		templateVariables.Set("AccessToken", token.AccessToken)
