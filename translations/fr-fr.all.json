@@ -804,6 +804,10 @@
     "translation": "Doublon / Obsolète"
   },
   {
+    "id": "nsfw_content",
+    "translation": "Contenu NSFW"
+  },
+  {
     "id": "other",
     "translation": "Autre"
   },
@@ -1718,10 +1722,6 @@
   {
     "id": "large",
     "translation": "de taille."
-  },
-  {
-    "id": "old",
-    "translation": "d'ancienneté"
   },
   {
     "id": "optional",
