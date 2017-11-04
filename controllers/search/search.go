@@ -68,9 +68,10 @@ func SearchHandler(c *gin.Context) {
 			//We already fetched the torrent so we can directly show the template without needing to do a search.AuthorizedQuery
 		} else {
 			variables := templates.Commonvariables(c)
+			searchForm.ShowRefine = true
 			variables.Set("Search", searchForm)
 			templates.Render(c, "errors/no_results.jet.html", variables)
-			//The hash hasn't been found so no point in showing any result
+			//The hash hasn't been found so no point in showing any result, but we do want to show the refine so that the user can search another hash or remove it from the search
 		}
 		return
 	}
