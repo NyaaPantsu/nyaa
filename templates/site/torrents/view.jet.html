@@ -271,8 +271,10 @@
         <label for="wrongcat">{{  T("wrong_category") }}</label><br />
         <input type="radio" name="report_type" value="duplicate_deprecated" id="dup" required/>
         <label for="dup">{{  T("duplicate_deprecated") }}</label><br />
+	{{ if !Sukebei()}}
         <input type="radio" name="report_type" value="nsfw_content" id="nsfw_content" required/>
-        <label for="other">{{  T("nsfw_content") }}</label>
+        <label for="other">{{  T("nsfw_content") }}</label><br/>
+	{{end}}
         <input type="radio" name="report_type" value="other" id="other" required/>
         <label for="other">{{  T("other") }}</label><br />
 	<h4>{{  T("report_message") }}</h4>
