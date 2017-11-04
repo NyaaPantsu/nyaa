@@ -443,12 +443,13 @@ select.form-input {
 .refine-container-2 span.form-refine {
     float: right;
     max-width: 426px;
+    margin-bottom: 5px;
 }
 .refine-container-2 span.spacing {
     width: 69px;
 }
 .refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
-    margin-bottom: 5px;
+    margin-bottom: 0;
     width: 85px!important;
 }
 .refine-date {

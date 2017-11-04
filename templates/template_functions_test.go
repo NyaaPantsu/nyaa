@@ -386,7 +386,7 @@ func TestFileSize(t *testing.T) {
 	for _, test := range tests {
 		value := fileSize(test.TestSize, T, test.TestShowUnknown)
 		if value != test.Expected {
-			t.Errorf("Unexpected value from the function fileSize, got '%s', wanted '%s' for '%d' with '%d'", value, test.Expected, test.TestSize, test.TestShowUnknown)
+			t.Errorf("Unexpected value from the function fileSize, got '%s', wanted '%s' for '%d' with '%t'", value, test.Expected, test.TestSize, test.TestShowUnknown)
 		}
 	}
 }
@@ -660,7 +660,7 @@ func Teststrcmp(t *testing.T) {
  	for _, test := range tests {
  		value := strcmp(test.TestString, test.TestString2, -1, 0)
  		if value != test.Expected {
- 			t.Errorf("Unexpected value from the function strcmp, got '%t', wanted '%t'", value, test.Expected, test.TestString, test.TestString)
+ 			t.Errorf("Unexpected value from the function strcmp, got '%t' by comparing '%s' to '%s' starting at '%d' and ending after '%d', wanted '%t'", value, test.TestString, test.TestString2, test.TestStart, test.TestEnd, test.Expected)
  		}
 	}
  }
@@ -700,7 +700,7 @@ func Teststrcmp(t *testing.T) {
  	for _, test := range tests {
  		value := strfind(test.TestString, test.TestString2, test.TestStart)
  		if value != test.Match {
- 			t.Errorf("Unexpected value from the function strfind, got '%t', wanted '%t'", value, test.Match, test.TestString, test.TestString)
+ 			t.Errorf("Unexpected value from the function strfind, got '%t' by comparing '%s' to '%s' starting from %d, wanted '%t'", value, test.TestString, test.TestString2, test.TestStart, test.Match)
  		}
 	}
  }
@@ -769,7 +769,7 @@ func Teststrcmp(t *testing.T) {
 		}
 		value := formatThemeName(test.TestPath, T)
  		if value != test.Expected {
- 			t.Errorf("Unexpected value from the function formatThemeName, got '%t' from '%s', wanted '%t'", value, test.TestPath, test.Expected)
+ 			t.Errorf("Unexpected value from the function formatThemeName, got '%s' from '%s', wanted '%s'", value, test.TestPath, test.Expected)
  		}
 	}
  }
@@ -795,7 +795,7 @@ func testFormatDate(t *testing.T) {
  	for _, test := range tests {
 		value := formatDate(test.TestDate, test.TestFullDate)
  		if value != test.Expected {
- 			t.Errorf("Unexpected value from the function formatDate, got '%t' from '%s' and '%d', wanted '%t'", value, test.TestDate, test.TestFullDate, test.Expected)
+ 			t.Errorf("Unexpected value from the function formatDate, got '%s' from '%s' and '%t', wanted '%s'", value, test.TestDate, test.TestFullDate, test.Expected)
  		}
 	}
  }

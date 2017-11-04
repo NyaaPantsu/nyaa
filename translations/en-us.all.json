@@ -804,6 +804,10 @@
     "translation": "Duplicate / Deprecated"
   },
   {
+    "id": "nsfw_content",
+    "translation": "NSFW content"
+  },
+  {
     "id": "other",
     "translation": "Other"
   },
