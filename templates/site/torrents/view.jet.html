@@ -161,7 +161,7 @@
     <a id="torrent-download-link" href="{{if Torrent.TorrentLink == ""}}/download/{{Torrent.Hash}}{{else}}{{Torrent.TorrentLink}}{{end}}" class="form-input download{{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}} hidden{{end}}" style="float:left;height: auto;">
       <div class="icon-floppy"></div>{{ T("torrent_file")}}
     </a>
-    <a id="reportPopup" href="#" class="form-input">{{  T("report_btn") }}</a>
+    <a id="reportPopup" href="/report/{{Torrent.ID}}" class="form-input">{{  T("report_btn") }}</a>
     {{ if User.ID > 0}}
     {{ if User.HasAdmin()}}
     <form method="POST" action="/mod/torrent/delete" class="delete-form">
