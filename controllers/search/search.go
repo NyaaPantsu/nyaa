@@ -11,6 +11,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/templates"
+	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/utils/search"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
@@ -58,6 +59,17 @@ func SearchHandler(c *gin.Context) {
 		//Must redirect him to user search instead of simply showing "no torrents found!"
 	}
 	
+	if c.Query("hash") != "" {
+		torrent, err := torrents.FindRawByHash(c.Query("hash"))
+		if err == nil {
+			templates.ModelList(c, "site/torrents/listing.jet.html", models.TorrentsToJSON([]models.Torrent{torrent}), templates.Navigation{1, 1, 0, "/search"}, searchForm)
+		} else {
+			variables := templates.Commonvariables(c)
+			variables.Set("Search", searchForm)
+			templates.Render(c, "errors/no_results.jet.html", variables)
+		}
+		return
+	}
 	
 	searchParam, torrents, nbTorrents, err := search.AuthorizedQuery(c, pagenum, currentUser.CurrentOrAdmin(uint(userID)))
 	if err != nil {
