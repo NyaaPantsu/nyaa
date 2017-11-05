@@ -20,7 +20,7 @@ func CommentsListPanel(c *gin.Context) {
 	page := c.Param("page")
 	pagenum := 1
 	offset := 100
-	userid, errr := strconv.Atoi(c.Query("userid"))
+	userid := c.Query("userid")
 	username := c.Query("user")
 	var err error
 	messages := msg.GetMessages(c)
@@ -38,16 +38,21 @@ func CommentsListPanel(c *gin.Context) {
 	var conditions string
 	var values []interface{}
 	searchForm := templates.NewSearchForm(c)
-	if errr == nil {
-		conditions = "user_id = ?"
-		values = append(values, userid)
-		searchForm.UserID = uint32(userid)
-	}
+	// if there is a username in url
 	if username != "" {
-		conditions += " user = ?"
+		conditions = "user = ?"
 		values = append(values, username)
 		searchForm.UserName = username
+	// else we look if there is a userid
+	} else if userid != "" {
+		id, err := strconv.Atoi(userid)
+		if err == nil {
+			conditions = "user_id = ?"
+			values = append(values, id)
+			searchForm.UserID = uint32(id)
+		}
 	}
+
 
 	comments, nbComments := comments.FindAll(offset, (pagenum-1)*offset, conditions, values...)
 	nav := templates.Navigation{nbComments, offset, pagenum, "mod/comments/p"}
