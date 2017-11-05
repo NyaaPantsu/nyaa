@@ -2184,6 +2184,10 @@
     "translation": "Génération du fichier torrent..."
   },
   {
+    "id": "generating_torrent_failed",
+    "translation": "La génération du fichier torrent a échoué."
+  },
+  {
     "id": "enabled",
     "translation": "Activé"
   },
