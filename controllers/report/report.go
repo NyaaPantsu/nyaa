@@ -59,17 +59,14 @@ func ReportViewTorrentHandler(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.Param("id"), 10, 32)
 	messages := msg.GetMessages(c)
 	currentUser := router.GetUser(c)
-	if currentUser.ID > 0 {
-		torrent, err := torrents.FindByID(uint(id))
-		if err != nil {
-			messages.Error(err)
-		}
-		captchaID := ""
-		if currentUser.NeedsCaptcha() {
-			captchaID = captcha.GetID()
-		}
-		templates.Form(c, "site/torrents/report.jet.html", Report{torrent.ID, captchaID})
-	} else {
-		c.Status(404)
+
+	torrent, err := torrents.FindByID(uint(id))
+	if err != nil {
+		messages.Error(err)
 	}
+	captchaID := ""
+	if currentUser.ID == 0 {
+		captchaID = captcha.GetID()
+	}
+	templates.Form(c, "site/torrents/report.jet.html", Report{torrent.ID, captchaID})
 }

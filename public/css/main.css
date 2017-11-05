@@ -1236,6 +1236,9 @@ html, body {
     max-height: 500px;
 }
 
+.comment-content :first-child {
+	margin-top: 8px;
+}
 .comment-content :last-child {
     margin-bottom: 2px;
 }

@@ -364,14 +364,14 @@ Modal.Init({
 		Query.Get('/download/{{Torrent.Hash}}?js_query=true', function (data) {
 			if(typeof data.exists != "undefined" && data.exists == true) {
 				torrentLink.innerHTML = oldDownloadHtml
-				torrentLink.style = torrentLink.style + "opacity: 1!important;filter: grayscale(0);"
+				torrentLink.style = torrentLink.style.cssText + "opacity: 1!important;filter: grayscale(0);"
 				torrentLink.removeEventListener("click", function (e) {});
 				torrentLink.click();
 			} else {
 				if(new Date() - firstQueryDate < 20000)
 					setTimeout(fileCreated, 3000)
 				else {
-					torrentLink.innerHTML = downloadIconHtml + "Could not generate torrent file"
+					torrentLink.innerHTML = downloadIconHtml + "{{T("generating_torrent_failed")}}"
 					torrentLink.removeEventListener("click", function (e) {});
 					disabledLink = true
 				}

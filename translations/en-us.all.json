@@ -2184,6 +2184,10 @@
     "translation": "Generating torrent file..."
   },
   {
+    "id": "generating_torrent_failed",
+    "translation": "Could not generate torrent file"
+  },
+  {
     "id": "enabled",
     "translation": "Enabled"
   },
