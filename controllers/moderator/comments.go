@@ -21,6 +21,7 @@ func CommentsListPanel(c *gin.Context) {
 	pagenum := 1
 	offset := 100
 	userid := c.Query("userid")
+	username := c.Query("user")
 	var err error
 	messages := msg.GetMessages(c)
 	deleted := c.Request.URL.Query()["deleted"]
@@ -36,14 +37,26 @@ func CommentsListPanel(c *gin.Context) {
 	}
 	var conditions string
 	var values []interface{}
-	if userid != "" {
-		conditions = "user_id = ?"
-		values = append(values, userid)
+	searchForm := templates.NewSearchForm(c)
+	// if there is a username in url
+	if username != "" {
+		conditions = "user = ?"
+		values = append(values, username)
+		searchForm.UserName = username
+	// else we look if there is a userid
+	} else if userid != "" {
+		id, err := strconv.Atoi(userid)
+		if err == nil {
+			conditions = "user_id = ?"
+			values = append(values, id)
+			searchForm.UserID = uint32(id)
+		}
 	}
+
 
 	comments, nbComments := comments.FindAll(offset, (pagenum-1)*offset, conditions, values...)
 	nav := templates.Navigation{nbComments, offset, pagenum, "mod/comments/p"}
-	templates.ModelList(c, "admin/commentlist.jet.html", comments, nav, templates.NewSearchForm(c))
+	templates.ModelList(c, "admin/commentlist.jet.html", comments, nav, searchForm)
 }
 
 // CommentDeleteModPanel : Controller for deleting a comment
