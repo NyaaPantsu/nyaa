@@ -3,6 +3,7 @@ package settingsController
 import (
 	"net/http"
 	"net/url"
+	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/controllers/router"
