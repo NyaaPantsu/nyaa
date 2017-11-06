@@ -1231,7 +1231,7 @@ html, body {
     margin-left: 4px;
 }
 
-.comment-content {
+.comment-content img {
     max-width: 100%;
     max-height: 500px;
 }
