@@ -730,6 +730,9 @@ span.tag {
     width: 128px!important;
     height: 20px;
 }
+#subscribe-link {	
+    text-transform: lowercase;
+}
 .sukebei .torrent-info-data #subscribe-link {
     color: #660000;
 }
