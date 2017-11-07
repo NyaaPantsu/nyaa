@@ -44,7 +44,7 @@ func GetStatsHandler(c *gin.Context) {
 		return
 	}
 	
-	torrent, err := torrents.FindRawByID(uint(id))
+	updateTorrent, err := torrents.FindRawByID(uint(id))
 
 	if err != nil {
 		return
@@ -55,19 +55,19 @@ func GetStatsHandler(c *gin.Context) {
 
 	if statsExists {
 		//Stats already exist, we check if the torrent stats have been scraped already very recently and if so, we stop there to avoid abuse of the /stats/:id route
-		if (CurrentData.Seeders == 0 && CurrentData.Leechers == 0 && CurrentData.Completed == 0)  && time.Since(CurrentData.LastScrape).Minutes() <= config.Get().Scrape.MaxStatScrapingFrequencyUnknown {
+		if isEmptyScrape(CurrentData)  && time.Since(CurrentData.LastScrape).Minutes() <= config.Get().Scrape.MaxStatScrapingFrequencyUnknown {
 			//Unknown stats but has been scraped less than X minutes ago (X being the limit set in the config file)
 			return
 		}
-		if (CurrentData.Seeders != 0 || CurrentData.Leechers != 0 || CurrentData.Completed != 0) && time.Since(CurrentData.LastScrape).Minutes() <= config.Get().Scrape.MaxStatScrapingFrequency  {
+		if !isEmptyScrape(CurrentData) && time.Since(CurrentData.LastScrape).Minutes() <= config.Get().Scrape.MaxStatScrapingFrequency  {
 			//Known stats but has been scraped less than X minutes ago (X being the limit set in the config file)
 			return
 		}
 	}
 	
 	var Trackers []string
-	if len(torrent.Trackers) > 3 {
-		for _, line := range strings.Split(torrent.Trackers[3:], "&tr=") {
+	if len(updateTorrent.Trackers) > 3 {
+		for _, line := range strings.Split(updateTorrent.Trackers[3:], "&tr=") {
 			tracker, error := url.QueryUnescape(line)
 			if error == nil && strings.HasPrefix(tracker, "udp") {
 				Trackers = append(Trackers, tracker)
@@ -82,21 +82,25 @@ func GetStatsHandler(c *gin.Context) {
 		}
 	}
 	
-	err = ScrapeFiles(format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, Trackers...), torrent)
+	var stats goscrape.Result
+	var torrentFiles []models.File
 	
-	if err != nil {
-		return
+	if c.Request.URL.Query()["files"] != nil {
+		err, torrentFiles = ScrapeFiles(format.InfoHashToMagnet(strings.TrimSpace(updateTorrent.Hash), updateTorrent.Name, Trackers...), updateTorrent, CurrentData, statsExists)
+		if err != nil {
+			return
+		}
+	} else {
+		//Single() returns an array which contain results for each torrent Hash it is fed, since we only feed him one we want to directly access the results
+		stats = goscrape.Single(Trackers, []string{
+		  updateTorrent.Hash,
+		})[0]
+		UpdateTorrentStats(updateTorrent, stats, CurrentData, []torrent.File{}, statsExists)
 	}
-
-	return
 	
-	stats := goscrape.Single(Trackers, []string{
-	  torrent.Hash,
-	})[0]
-	//Single() returns an array which contain results for each torrent Hash it is fed, since we only feed him one we want to directly access the results
 	
 	//If we put seeders on -1, the script instantly knows the fetching did not give any result, avoiding having to check all three stats below and in view.jet.html's javascript
-	if stats.Seeders == 0 && stats.Leechers == 0 && stats.Completed == 0  {
+	if isEmptyResult(stats) {
 		stats.Seeders = -1
 	}
 	
@@ -104,43 +108,17 @@ func GetStatsHandler(c *gin.Context) {
  		"seeders": stats.Seeders,
  		"leechers": stats.Leechers,
  		"downloads": stats.Completed,
+		"filelist": torrentFiles,
  	})
-	
-	if stats.Seeders == -1 {
-		stats.Seeders = 0
-	}
-	
-	if !statsExists {
-		torrent.Scrape = torrent.Scrape.Create(uint(id), uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now())
-		//Create entry in the DB because none exist
-	} else {
-		//Entry in the DB already exists, simply update it
-		if (CurrentData.Seeders == 0 && CurrentData.Leechers == 0 && CurrentData.Completed == 0) || (stats.Seeders != 0 && stats.Leechers != 0 && stats.Completed != 0 ) {
-			torrent.Scrape = &models.Scrape{uint(id), uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now()}
-		} else {
-			torrent.Scrape = &models.Scrape{uint(id), uint32(CurrentData.Seeders), uint32(CurrentData.Leechers), uint32(CurrentData.Completed), time.Now()}
-		}
-		//Only overwrite stats if the old one are Unknown OR if the current ones are not unknown, preventing good stats from being turned into unknown own but allowing good stats to be updated to more reliable ones
-		torrent.Scrape.Update(false)
-		
-	}
 	
 	return
 }
 
-type TStruct struct {
-	Peers    goscrape.Result
-	Trackers []string
-	//Files    []metainfo.FileInfo
-	Files  []torrent.File
-	Magnet string
-}
-
-func ScrapeFiles(magnet string, torrent models.Torrent) error {
+func ScrapeFiles(magnet string, torrent models.Torrent, currentStats models.Scrape, statsExists bool) (error, []models.File) {
 	if client == nil {
 		err := initClient()
 		if err != nil {
-			return err
+			return err, []models.File{}
 		}
 	}
 	
@@ -158,21 +136,53 @@ func ScrapeFiles(magnet string, torrent models.Torrent) error {
 			UDP = append(UDP, tracker)
 		}
 	}
+	var results goscrape.Result
 	if len(UDP) != 0 {
 		udpscrape := goscrape.NewBulk(UDP)
-		results := udpscrape.ScrapeBulk([]string{torrent.Hash})[0]
+		results = udpscrape.ScrapeBulk([]string{torrent.Hash})[0]
 		if results.Btih != "0" {
 			torrent.Scrape = &models.Scrape{torrent.ID, uint32(results.Seeders), uint32(results.Leechers),uint32(results.Completed), time.Now()}
 		}
 	}
-	torrent.FileList = []models.File{}
-	for i, file := range t.Files() {
-		log.Errorf("----- File %d / Path %s / Length %d", i, file.DisplayPath(), file.Length())
-		torrent.FileList = append(torrent.FileList, models.File{uint(i), torrent.ID, file.DisplayPath(), file.Length()})
-	}
-	torrent.Update(true)
 	t.Drop()
-	return nil
+	return nil, UpdateTorrentStats(torrent, results, currentStats, t.Files(), statsExists)
+}
+
+// UpdateTorrentStats : Update stats & filelist if files are specified, otherwise just stats
+func UpdateTorrentStats(torrent models.Torrent, stats goscrape.Result, currentStats models.Scrape, Files []torrent.File, statsExists bool) []models.File {
+	if stats.Seeders == -1 {
+		stats.Seeders = 0
+	}
+	if !statsExists {
+		torrent.Scrape = torrent.Scrape.Create(torrent.ID, uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now())
+		//Create a stat entry in the DB because none exist
+	} else {
+		//Entry in the DB already exists, simply update it
+		if isEmptyScrape(currentStats) || !isEmptyResult(stats) {
+			torrent.Scrape = &models.Scrape{torrent.ID, uint32(stats.Seeders), uint32(stats.Leechers), uint32(stats.Completed), time.Now()}
+		} else {
+			torrent.Scrape = &models.Scrape{torrent.ID, uint32(currentStats.Seeders), uint32(currentStats.Leechers), uint32(currentStats.Completed), time.Now()}
+		}
+		//Only overwrite stats if the old one are Unknown OR if the new ones are not unknown, preventing good stats from being turned into unknown but allowing good stats to be updated to more reliable ones
+		torrent.Scrape.Update(false)
+	}
+	if len(Files) > 0 {
+		torrent.FileList = []models.File{}
+		for i, file := range Files {
+			log.Errorf("----- File %d / Path %s / Length %d", i, file.DisplayPath(), file.Length())
+			torrent.FileList = append(torrent.FileList, models.File{uint(i), torrent.ID, file.DisplayPath(), file.Length()})
+		}
+		torrent.Update(true)
+	}
+	return []models.File{}
+}
+
+func isEmptyResult(stats goscrape.Result) bool {
+	return stats.Seeders == 0 && stats.Leechers == 0 && stats.Completed == 0 
+}
+
+func isEmptyScrape(stats models.Scrape) bool {
+	return stats.Seeders == 0 && stats.Leechers == 0 && stats.Completed == 0 
 }
 
 func contains(s []string, e string) bool {
