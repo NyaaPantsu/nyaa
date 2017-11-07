@@ -113,6 +113,7 @@ func GetStatsHandler(c *gin.Context) {
  		"leechers": stats.Leechers,
  		"downloads": stats.Completed,
 		"filelist": torrentFiles,
+		"totalsize": fileSize(updateTorrent.Filesize),
  	})
 	
 	return
@@ -171,11 +172,13 @@ func UpdateTorrentStats(torrent models.Torrent, stats goscrape.Result, currentSt
 	
 	if len(Files) > 0 {
 		torrent.FileList = []models.File{}
+		torrent.Filesize = 0
 		for i, file := range Files {
 			torrent.FileList = append(torrent.FileList, models.File{uint(i), torrent.ID, file.DisplayPath(), file.Length()})
 			JSONFilelist = append(JSONFilelist, FileJSON{file.DisplayPath(), fileSize(file.Length()), "tr-file"})
+			torrent.Filesize += file.Length()
 		}
-		torrent.Update(true)
+		torrent.Update(false)
 	}
 	
 	return
@@ -183,9 +186,9 @@ func UpdateTorrentStats(torrent models.Torrent, stats goscrape.Result, currentSt
 
 // FileJSON for file model in json, 
 type FileJSON struct {
-	Path     string         `json:"path"`
-	Filesize template.HTML  `json:"filesize"`
-	Class    string         `json:"class"`
+	Path       string         `json:"path"`
+	Filesize   template.HTML  `json:"filesize"`
+	Class      string         `json:"class"`
 }
 
 func isEmptyResult(stats goscrape.Result) bool {
