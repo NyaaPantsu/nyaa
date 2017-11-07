@@ -764,6 +764,10 @@
     "translation": "No files found? That doesn't even make sense!"
   },
   {
+    "id": "loading_file_list",
+    "translation": "Loading the file list..."
+  },
+  {
     "id": "uploaded_by",
     "translation": "Uploaded by"
   },
