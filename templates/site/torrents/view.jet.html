@@ -336,27 +336,27 @@ Modal.Init({
   button: ["#reportPopup", "#tagPopup"]
 });
 
+{{ if len(Torrent.FileList) == 0 }}
   var FileListContainer = document.querySelector("#filelist tbody"),
       FileListLabel = document.getElementsByClassName("filelist-control")[0]
 
-  if(FileListLabel.className.includes("hidden")) {
-	  FileListLabel.addEventListener("click", function (e) {
-		FileListContainer.innerHTML = "<tr class='tr-filelist'><td>{{T("loading_file_list")}}</td></tr>"
-		Query.Get('/stats/{{Torrent.ID}}?files', function (data) {
-			if(data.filelist != null) {
-				FileListContainer.innerHTML = ""
-				FileListLabel.style.opacity = 1
-				document.getElementById("filelist").style.opacity = 1
+  FileListLabel.addEventListener("click", function (e) {
+    FileListContainer.innerHTML = "<tr class='tr-filelist'><td>{{T("loading_file_list")}}</td></tr>"
+    Query.Get('/stats/{{Torrent.ID}}?files', function (data) {
+      if(data.filelist != null) {
+        FileListContainer.innerHTML = ""
+        FileListLabel.style.opacity = 1
+        document.getElementById("filelist").style.opacity = 1
 				
-				for(var i = 0; i < data.filelist.length; i++) {
-					var file = data.filelist[i]
-					if(file.filesize == "0.0 B") file.filesize = "{{T("unknown")}}"
-					FileListContainer.innerHTML = FileListContainer.innerHTML + '<tr class="tr-filelist '+ file.class +'"><td>'+ file.path +'</td><td>'+ file.filesize +'</td></tr>'
-				}
-			}
-		})
-	  })
-  }
+        for(var i = 0; i < data.filelist.length; i++) {
+          var file = data.filelist[i]
+          if(file.filesize == "0.0 B") file.filesize = "{{T("unknown")}}"
+            FileListContainer.innerHTML = FileListContainer.innerHTML + '<tr class="tr-filelist '+ file.class +'"><td>'+ file.path +'</td><td>'+ file.filesize +'</td></tr>'
+          }
+		}
+	})
+  })
+ {{end}}
 
 {{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}}
 	var torrentLink = document.getElementById("torrent-download-link"),
