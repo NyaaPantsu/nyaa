@@ -1,6 +1,7 @@
 package torrentController
 
 import (
+	"html/template"
 	"encoding/hex"
 	"strconv"
 	"strings"
@@ -53,7 +54,7 @@ func GetStatsHandler(c *gin.Context) {
 	var CurrentData models.Scrape
 	statsExists := !(models.ORM.Where("torrent_id = ?", id).Find(&CurrentData).RecordNotFound())
 
-	if statsExists {
+	if statsExists && c.Request.URL.Query()["files"] == nil {
 		//Stats already exist, we check if the torrent stats have been scraped already very recently and if so, we stop there to avoid abuse of the /stats/:id route
 		if isEmptyScrape(CurrentData)  && time.Since(CurrentData.LastScrape).Minutes() <= config.Get().Scrape.MaxStatScrapingFrequencyUnknown {
 			//Unknown stats but has been scraped less than X minutes ago (X being the limit set in the config file)
@@ -83,9 +84,12 @@ func GetStatsHandler(c *gin.Context) {
 	}
 	
 	var stats goscrape.Result
-	var torrentFiles []models.FileJSON
+	var torrentFiles []FileJSON
 	
 	if c.Request.URL.Query()["files"] != nil {
+		if len(updateTorrent.FileList) > 0 {
+			return
+		}
 		err, torrentFiles = ScrapeFiles(format.InfoHashToMagnet(strings.TrimSpace(updateTorrent.Hash), updateTorrent.Name, Trackers...), updateTorrent, CurrentData, statsExists)
 		if err != nil {
 			return
@@ -114,11 +118,11 @@ func GetStatsHandler(c *gin.Context) {
 	return
 }
 
-func ScrapeFiles(magnet string, torrent models.Torrent, currentStats models.Scrape, statsExists bool) (error, []models.FileJSON) {
+func ScrapeFiles(magnet string, torrent models.Torrent, currentStats models.Scrape, statsExists bool) (error, []FileJSON) {
 	if client == nil {
 		err := initClient()
 		if err != nil {
-			return err, []models.FileJSON{}
+			return err, []FileJSON{}
 		}
 	}
 	
@@ -146,7 +150,7 @@ func ScrapeFiles(magnet string, torrent models.Torrent, currentStats models.Scra
 }
 
 // UpdateTorrentStats : Update stats & filelist if files are specified, otherwise just stats
-func UpdateTorrentStats(torrent models.Torrent, stats goscrape.Result, currentStats models.Scrape, Files []torrent.File, statsExists bool) (JSONFilelist []models.FileJSON) {
+func UpdateTorrentStats(torrent models.Torrent, stats goscrape.Result, currentStats models.Scrape, Files []torrent.File, statsExists bool) (JSONFilelist []FileJSON) {
 	if stats.Seeders == -1 {
 		stats.Seeders = 0
 	}
@@ -169,12 +173,19 @@ func UpdateTorrentStats(torrent models.Torrent, stats goscrape.Result, currentSt
 		torrent.FileList = []models.File{}
 		for i, file := range Files {
 			torrent.FileList = append(torrent.FileList, models.File{uint(i), torrent.ID, file.DisplayPath(), file.Length()})
-			JSONFilelist = append(JSONFilelist, models.FileJSON{file.DisplayPath(), file.Length()})
+			JSONFilelist = append(JSONFilelist, FileJSON{file.DisplayPath(), fileSize(file.Length()), "tr-file"})
 		}
 		torrent.Update(true)
 	}
 	
 	return
+}
+
+// FileJSON for file model in json, 
+type FileJSON struct {
+	Path     string         `json:"path"`
+	Filesize template.HTML  `json:"filesize"`
+	Class    string         `json:"class"`
 }
 
 func isEmptyResult(stats goscrape.Result) bool {
@@ -183,6 +194,10 @@ func isEmptyResult(stats goscrape.Result) bool {
 
 func isEmptyScrape(stats models.Scrape) bool {
 	return stats.Seeders == 0 && stats.Leechers == 0 && stats.Completed == 0 
+}
+
+func fileSize(filesize int64) template.HTML {
+	return template.HTML(format.FileSize(filesize))
 }
 
 func contains(s []string, e string) bool {
