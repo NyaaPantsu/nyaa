@@ -1,6 +1,7 @@
 package torrentController
 
 import (
+	"encoding/hex"
 	"strconv"
 	"strings"
 	"net/url"
@@ -9,9 +10,32 @@ import (
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/utils/log"
+	"github.com/NyaaPantsu/nyaa/utils/format"
 	"github.com/Stephen304/goscrape"
 	"github.com/gin-gonic/gin"
+	
+	"github.com/anacrolix/dht"
+	"github.com/anacrolix/torrent"
 )
+
+var client *torrent.Client
+
+func initClient() error {
+	clientConfig := torrent.Config{
+		DHTConfig: dht.ServerConfig{
+			StartingNodes: dht.GlobalBootstrapAddrs,
+		},
+		ListenAddr: ":5977",
+	}
+	cl, err := torrent.NewClient(&clientConfig)
+	if err != nil {
+		log.Errorf("error creating client: %s", err)
+		return err
+	}
+	client = cl
+	return nil
+}
 
 // ViewHeadHandler : Controller for getting torrent stats
 func GetStatsHandler(c *gin.Context) {
@@ -42,13 +66,13 @@ func GetStatsHandler(c *gin.Context) {
 	}
 	
 	var Trackers []string
-	if len(Trackers) > 3 {
+	if len(torrent.Trackers) > 3 {
 		for _, line := range strings.Split(torrent.Trackers[3:], "&tr=") {
 			tracker, error := url.QueryUnescape(line)
-			if error == nil && strings.Contains(tracker, "udp://") {
+			if error == nil && strings.HasPrefix(tracker, "udp") {
 				Trackers = append(Trackers, tracker)
 			}
-			//Cannot scrape from http trackers so don't put them in the array
+			//Cannot scrape from http trackers only keep UDP ones
 		}
 	}
 	
@@ -57,7 +81,15 @@ func GetStatsHandler(c *gin.Context) {
 			Trackers = append(Trackers, line)
 		}
 	}
+	
+	err = ScrapeFiles(format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, Trackers...), torrent)
+	
+	if err != nil {
+		return
+	}
 
+	return
+	
 	stats := goscrape.Single(Trackers, []string{
 	  torrent.Hash,
 	})[0]
@@ -94,6 +126,53 @@ func GetStatsHandler(c *gin.Context) {
 	}
 	
 	return
+}
+
+type TStruct struct {
+	Peers    goscrape.Result
+	Trackers []string
+	//Files    []metainfo.FileInfo
+	Files  []torrent.File
+	Magnet string
+}
+
+func ScrapeFiles(magnet string, torrent models.Torrent) error {
+	if client == nil {
+		err := initClient()
+		if err != nil {
+			return err
+		}
+	}
+	
+	t, _ := client.AddMagnet(magnet)
+	<-t.GotInfo()
+	
+	infoHash := t.InfoHash()
+	dst := make([]byte, hex.EncodedLen(len(t.InfoHash())))
+	hex.Encode(dst, infoHash[:])
+	
+	var UDP []string
+	
+	for _, tracker := range t.Metainfo().AnnounceList[0] {
+		if strings.HasPrefix(tracker, "udp") {
+			UDP = append(UDP, tracker)
+		}
+	}
+	if len(UDP) != 0 {
+		udpscrape := goscrape.NewBulk(UDP)
+		results := udpscrape.ScrapeBulk([]string{torrent.Hash})[0]
+		if results.Btih != "0" {
+			torrent.Scrape = &models.Scrape{torrent.ID, uint32(results.Seeders), uint32(results.Leechers),uint32(results.Completed), time.Now()}
+		}
+	}
+	torrent.FileList = []models.File{}
+	for i, file := range t.Files() {
+		log.Errorf("----- File %d / Path %s / Length %d", i, file.DisplayPath(), file.Length())
+		torrent.FileList = append(torrent.FileList, models.File{uint(i), torrent.ID, file.DisplayPath(), file.Length()})
+	}
+	torrent.Update(true)
+	t.Drop()
+	return nil
 }
 
 func contains(s []string, e string) bool {
