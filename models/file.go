@@ -74,7 +74,7 @@ func (f *File) FilenameExtension() string {
 	fileName := path[len(path)-1]
 	index := strings.LastIndex(fileName, ".")
 	
-	if index == -1 {
+	if index == -1 || index+1 == len(fileName){
 		return ""
 	}
 	
