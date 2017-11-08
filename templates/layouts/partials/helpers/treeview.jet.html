@@ -2,7 +2,7 @@
 {{ if isset(treeviewData)}}
 {{ range index, folder := treeviewData.Folder.Folders }}
 {{ folderId := treeviewData.IdentifierChain+"_"+index }}
-<tr class="tr-filelist tr-folder>
+<tr class="tr-filelist tr-folder">
   <td style="padding-left: {{ treeviewData.NestLevel * 2.5 }}%;"><label for="contents_{{folderId}}">{{folder.FolderName}}</label></td>
   <td>{{ fileSize(folder.TotalSize(), T, false) }}</td>
 </tr>
