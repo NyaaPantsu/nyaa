@@ -471,6 +471,7 @@ func (t *Torrent) CreateFileList(Files []torrent.File) ([]File, error) {
 	for _, uploadedFile := range Files {
 		file := File{TorrentID: t.ID, Filesize: uploadedFile.Length()}
 		err := file.SetPath([]string{uploadedFile.DisplayPath(), ""})
+		// Need to figure out what SetPath() is supposed to be fed because this ain't working
 		if err != nil {
 			return []File{}, err
 		}
