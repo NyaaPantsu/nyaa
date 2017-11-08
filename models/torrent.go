@@ -470,8 +470,7 @@ func (t *Torrent) CreateFileList(Files []torrent.File) ([]File, error) {
 	
 	for _, uploadedFile := range Files {
 		file := File{TorrentID: t.ID, Filesize: uploadedFile.Length()}
-		err := file.SetPath([]string{uploadedFile.DisplayPath(), ""})
-		// Need to figure out what SetPath() is supposed to be fed because this ain't working
+		err := file.SetPath(uploadedFile.FileInfo().Path)
 		if err != nil {
 			return []File{}, err
 		}
@@ -479,7 +478,9 @@ func (t *Torrent) CreateFileList(Files []torrent.File) ([]File, error) {
 		t.Filesize  += uploadedFile.Length()
 		ORM.Create(&file)
 	}
-
+	
+	t.FileList = createdFilelist
+	t.Update(false)
 	return createdFilelist, nil
 }
 
