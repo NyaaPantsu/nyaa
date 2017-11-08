@@ -13,6 +13,7 @@ import (
 
 	elastic "gopkg.in/olivere/elastic.v5"
 
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/utils/log"
@@ -390,11 +391,11 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 	}
 
 	if p.FromID != 0 {
-		query.Append("torrents.torrent_id > ?", p.FromID)
+		query.Append(config.Get().Models.TorrentsTableName + ".torrent_id > ?", p.FromID)
 	}
 	if len(p.TorrentID) > 0 {
 		for _, id := range p.TorrentID {
-			query.Append("torrents.torrent_id = ?", id)
+			query.Append(config.Get().Models.TorrentsTableName + ".torrent_id = ?", id)
 		}
 	}
 	if p.FromDate != "" {
