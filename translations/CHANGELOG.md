@@ -94,3 +94,4 @@
 ## 2017/11/08
 * + loading_file_list
 * + torrent_filelist
+* + back_to_torrent
