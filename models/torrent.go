@@ -21,6 +21,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/utils/format"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/NyaaPantsu/nyaa/utils/sanitize"
+	"github.com/anacrolix/torrent"
 	"github.com/bradfitz/slice"
 	"github.com/fatih/structs"
 )
@@ -461,6 +462,24 @@ func (t *Torrent) Update(unscope bool) (int, error) {
 	cache.C.Delete(t.Identifier())
 
 	return http.StatusOK, nil
+}
+
+func (t *Torrent) CreateFileList(Files []torrent.File) ([]File, error) {
+	var createdFilelist []File
+	t.Filesize = 0
+	
+	for _, uploadedFile := range Files {
+		file := File{TorrentID: t.ID, Filesize: uploadedFile.Length()}
+		err := file.SetPath([]string{uploadedFile.DisplayPath(), ""})
+		if err != nil {
+			return []File{}, err
+		}
+		createdFilelist = append(createdFilelist, file)
+		t.Filesize  += uploadedFile.Length()
+		ORM.Create(&file)
+	}
+
+	return createdFilelist, nil
 }
 
 // UpdateUnscope : Update a torrent based on model
