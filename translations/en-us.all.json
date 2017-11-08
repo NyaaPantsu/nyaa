@@ -765,7 +765,7 @@
   },
   {
     "id": "loading_file_list",
-    "translation": "Loading the file list..."
+    "translation": "Loading the file list, long file lists can take time to fetch..."
   },
   {
     "id": "torrent_filelist",
