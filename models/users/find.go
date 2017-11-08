@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 
+	"github.com/jinzhu/gorm"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 )
@@ -94,7 +95,7 @@ func FindOldUploadsByUsername(username string) ([]uint, error) {
 // FindByID retrieves a user by ID.
 func FindByID(id uint) (*models.User, int, error) {
 	var user = &models.User{}
-	if models.ORM.Preload("Notifications").Last(user, id).RecordNotFound() {
+	if models.ORM.Preload("Notifications", func(db *gorm.DB) *gorm.DB { return db.Order("id DESC") }).Last(user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("user_not_found")
 	}
 	var liked, likings []models.User
@@ -116,7 +117,7 @@ func FindRawByID(id uint) (*models.User, int, error) {
 
 func SessionByID(id uint) (*models.User, int, error) {
 	var user = &models.User{}
-	if models.ORM.Preload("Notifications").Where("user_id = ?", id).First(user).RecordNotFound() { // We only load unread notifications
+	if models.ORM.Preload("Notifications", func(db *gorm.DB) *gorm.DB { return db.Order("id DESC") }).Where("user_id = ?", id).First(user).RecordNotFound() { // We only load unread notifications
 		return user, http.StatusBadRequest, errors.New("user_not_found")
 	}
 	return user, http.StatusOK, nil
@@ -125,7 +126,7 @@ func SessionByID(id uint) (*models.User, int, error) {
 // FindForAdmin retrieves a user for an administrator, preloads torrents.
 func FindForAdmin(id uint) (*models.User, int, error) {
 	var user = &models.User{}
-	if models.ORM.Preload("Notifications").Preload("Torrents").Last(user, id).RecordNotFound() {
+	if models.ORM.Preload("Notifications", func(db *gorm.DB) *gorm.DB { return db.Order("id DESC") }).Preload("Torrents").Last(user, id).RecordNotFound() {
 		return user, http.StatusNotFound, errors.New("user_not_found")
 	}
 	var liked, likings []models.User
