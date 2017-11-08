@@ -8,6 +8,7 @@ import (
 func init() {
 	router.Get().Any("/download/:hash", DownloadTorrent)
 	router.Get().Any("/stats/:id", GetStatsHandler)
+	router.Get().Any("/files/:id", GetFilesHandler)
 
 	torrentRoutes := router.Get().Group("/torrent", middlewares.LoggedInMiddleware())
 	{
