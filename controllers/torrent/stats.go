@@ -1,6 +1,7 @@
 package torrentController
 
 import (
+	"path/filepath"
 	"html/template"
 	"encoding/hex"
 	"strconv"
@@ -18,6 +19,7 @@ import (
 	
 	"github.com/anacrolix/dht"
 	"github.com/anacrolix/torrent"
+	"github.com/bradfitz/slice"
 )
 
 var client *torrent.Client
@@ -171,14 +173,24 @@ func UpdateTorrentStats(torrent models.Torrent, stats goscrape.Result, currentSt
 	}
 	
 	if len(Files) > 0 {
-		torrent.FileList = []models.File{}
-		torrent.Filesize = 0
-		for i, file := range Files {
-			torrent.FileList = append(torrent.FileList, models.File{uint(i), torrent.ID, file.DisplayPath(), file.Length()})
-			JSONFilelist = append(JSONFilelist, FileJSON{file.DisplayPath(), fileSize(file.Length()), "tr-file"})
-			torrent.Filesize += file.Length()
+		files, err := torrent.CreateFileList(Files)
+		
+		if err != nil {
+			return
 		}
-		torrent.Update(false)
+		
+		JSONFilelist = make([]FileJSON, 0, len(files))
+		for _, f := range files {
+			JSONFilelist = append(JSONFilelist, FileJSON{
+				Path:     filepath.Join(f.Path()...),
+				Filesize: fileSize(f.Filesize),
+			})
+		}
+
+		// Sort file list by lowercase filename
+		slice.Sort(JSONFilelist, func(i, j int) bool {
+			return strings.ToLower(JSONFilelist[i].Path) < strings.ToLower(JSONFilelist[j].Path)
+		})
 	}
 	
 	return
@@ -188,7 +200,6 @@ func UpdateTorrentStats(torrent models.Torrent, stats goscrape.Result, currentSt
 type FileJSON struct {
 	Path       string         `json:"path"`
 	Filesize   template.HTML  `json:"filesize"`
-	Class      string         `json:"class"`
 }
 
 func isEmptyResult(stats goscrape.Result) bool {
