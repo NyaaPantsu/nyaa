@@ -42,7 +42,7 @@ func GetStatsHandler(c *gin.Context) {
 	}
 	
 	var Trackers []string
-	if len(Trackers) > 3 {
+	if len(torrent.Trackers) > 3 {
 		for _, line := range strings.Split(torrent.Trackers[3:], "&tr=") {
 			tracker, error := url.QueryUnescape(line)
 			if error == nil && strings.Contains(tracker, "udp://") {

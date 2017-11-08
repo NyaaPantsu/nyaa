@@ -1,12 +1,14 @@
 package upload
 
 import (
+	"strconv"
 	"errors"
 	"fmt"
 	"os"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/log"
+	"github.com/anacrolix/dht"
 	"github.com/anacrolix/torrent"
 	"github.com/anacrolix/torrent/bencode"
 )
@@ -15,7 +17,13 @@ var queue []string
 var client *torrent.Client
 
 func initClient() error {
-	cl, err := torrent.NewClient(nil)
+	clientConfig := torrent.Config{
+		DHTConfig: dht.ServerConfig{
+			StartingNodes: dht.GlobalBootstrapAddrs,
+		},
+		ListenAddr: ":" + strconv.Itoa(config.Get().Torrents.GenerationClientPort),
+	}
+	cl, err := torrent.NewClient(&clientConfig)
 	if err != nil {
 		log.Errorf("error creating client: %s", err)
 		return err

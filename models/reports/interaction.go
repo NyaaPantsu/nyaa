@@ -55,9 +55,11 @@ func findOrderBy(parameters Query, orderBy string, limit int, offset int, countA
 			return
 		}
 	}
+	
+	var blankReport models.TorrentReport
 
 	// build custom db query for performance reasons
-	dbQuery := "SELECT * FROM torrent_reports"
+	dbQuery := "SELECT * FROM " + blankReport.TableName()
 	if conditions != "" {
 		dbQuery = dbQuery + " WHERE " + conditions
 	}

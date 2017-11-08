@@ -105,6 +105,9 @@ torrents:
   additional_languages: ["es-mx"]
 # TorrentFileStorage : Path to default torrent storage location (eg /var/www/wherever/you/want)
 torrents:
+# GenerationClientPort : Port used by the torrent client created during torrent generation
+  generation_client_port: 50006
+# FileStorage : Location of folder that will contain generated torrent files
   filestorage: ./downloads/
 # TorrentStorageLink : Url of torrent file download location (eg https://your.site/somewhere/%s)
   storage_link: /download/%s
