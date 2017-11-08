@@ -2,8 +2,6 @@ package torrentController
 
 import (
 	"path/filepath"
-	"html/template"
-	"encoding/hex"
 	"strconv"
 	"strings"
 	"net/url"
@@ -47,8 +45,8 @@ func GetStatsHandler(c *gin.Context) {
 		return
 	}
 	
-	updateTorrent, err := torrents.FindRawByID(uint(id))
-
+	updateTorrent, err := torrents.FindByID(uint(id))
+	
 	if err != nil {
 		return
 	}
@@ -68,22 +66,7 @@ func GetStatsHandler(c *gin.Context) {
 		}
 	}
 	
-	var Trackers []string
-	if len(updateTorrent.Trackers) > 3 {
-		for _, line := range strings.Split(updateTorrent.Trackers[3:], "&tr=") {
-			tracker, error := url.QueryUnescape(line)
-			if error == nil && strings.HasPrefix(tracker, "udp") {
-				Trackers = append(Trackers, tracker)
-			}
-			//Cannot scrape from http trackers only keep UDP ones
-		}
-	}
-	
-	for _, line := range config.Get().Torrents.Trackers.Default {
-		if !contains(Trackers, line) {
-			Trackers = append(Trackers, line)
-		}
-	}
+	Trackers := GetTorrentTrackers(updateTorrent)
 	
 	var stats goscrape.Result
 	var torrentFiles []FileJSON
@@ -121,39 +104,8 @@ func GetStatsHandler(c *gin.Context) {
 	return
 }
 
-func ScrapeFiles(magnet string, torrent models.Torrent, currentStats models.Scrape, statsExists bool) (error, []FileJSON) {
-	if client == nil {
-		err := initClient()
-		if err != nil {
-			return err, []FileJSON{}
-		}
-	}
-	
-	t, _ := client.AddMagnet(magnet)
-	<-t.GotInfo()
-	
-	infoHash := t.InfoHash()
-	dst := make([]byte, hex.EncodedLen(len(t.InfoHash())))
-	hex.Encode(dst, infoHash[:])
-	
-	var UDP []string
-	
-	for _, tracker := range t.Metainfo().AnnounceList[0] {
-		if strings.HasPrefix(tracker, "udp") {
-			UDP = append(UDP, tracker)
-		}
-	}
-	var results goscrape.Result
-	if len(UDP) != 0 {
-		udpscrape := goscrape.NewBulk(UDP)
-		results = udpscrape.ScrapeBulk([]string{torrent.Hash})[0]
-	}
-	t.Drop()
-	return nil, UpdateTorrentStats(torrent, results, currentStats, t.Files(), statsExists)
-}
-
 // UpdateTorrentStats : Update stats & filelist if files are specified, otherwise just stats
-func UpdateTorrentStats(torrent models.Torrent, stats goscrape.Result, currentStats models.Scrape, Files []torrent.File, statsExists bool) (JSONFilelist []FileJSON) {
+func UpdateTorrentStats(torrent *models.Torrent, stats goscrape.Result, currentStats models.Scrape, Files []torrent.File, statsExists bool) (JSONFilelist []FileJSON) {
 	if stats.Seeders == -1 {
 		stats.Seeders = 0
 	}
@@ -196,10 +148,25 @@ func UpdateTorrentStats(torrent models.Torrent, stats goscrape.Result, currentSt
 	return
 }
 
-// FileJSON for file model in json, 
-type FileJSON struct {
-	Path       string         `json:"path"`
-	Filesize   template.HTML  `json:"filesize"`
+// GetTorrentTrackers : Get the torrent trackers and add the default ones if they are missing
+func GetTorrentTrackers(torrent *models.Torrent) []string {
+	var Trackers []string
+	if len(torrent.Trackers) > 3 {
+		for _, line := range strings.Split(torrent.Trackers[3:], "&tr=") {
+			tracker, error := url.QueryUnescape(line)
+			if error == nil && strings.HasPrefix(tracker, "udp") {
+				Trackers = append(Trackers, tracker)
+			}
+			//Cannot scrape from http trackers only keep UDP ones
+		}
+	}
+	
+	for _, line := range config.Get().Torrents.Trackers.Default {
+		if !contains(Trackers, line) {
+			Trackers = append(Trackers, line)
+		}
+	}
+	return Trackers
 }
 
 func isEmptyResult(stats goscrape.Result) bool {
@@ -208,10 +175,6 @@ func isEmptyResult(stats goscrape.Result) bool {
 
 func isEmptyScrape(stats models.Scrape) bool {
 	return stats.Seeders == 0 && stats.Leechers == 0 && stats.Completed == 0 
-}
-
-func fileSize(filesize int64) template.HTML {
-	return template.HTML(format.FileSize(filesize))
 }
 
 func contains(s []string, e string) bool {
