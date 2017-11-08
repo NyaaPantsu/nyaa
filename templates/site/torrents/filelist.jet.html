@@ -9,7 +9,8 @@
 {{block content_body()}}
 <div style="text-align: left;" class="box">
   <div id="torrent-name"><h1 style="text-align: center;" class="torrent-hr">{{T("torrent_filelist")}}</h1></div>
-  <input type="checkbox" id="show-filelist" {{if len(Torrent.FileList) < 4 && len(Torrent.FileList) > 0}}checked{{end}}/>
+  <a href="/view/{{Torrent.ID}}">«- {{T("back_to_torrent", Torrent.Name)}}"</a><br/>
+  <input type="checkbox" id="show-filelist" checked/>
   <label class="torrent-hr filelist-control{{if len(Torrent.FileList) == 0}} hidden{{end}}" for="show-filelist">{{ T("files")}}</label>
   <div class="torrent-info-box{{if len(Torrent.FileList) == 0}} hidden{{end}}" id="filelist">
     <table class="table-filelist">
