@@ -91,5 +91,6 @@
 ## 2017/11/04
 * + nsfw_content
 * + generating_torrent_failed
-## 2017/11/04
+## 2017/11/08
 * + loading_file_list
+* + torrent_filelist
