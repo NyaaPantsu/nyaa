@@ -170,7 +170,7 @@ users:
   default_notifications_settings: {"new_torrent": true, "new_torrent_email": false, "new_comment": true, "new_comment_email": false, "new_responses": false, "new_responses_email": false, "new_follower": false, "new_follower_email": false, "followed": false, "followed_email": false}
 navigation:
   torrents_per_page: 50
-  max_torrents_per_page: 300
+  max_torrents_per_page: 500
 log:
 # AccessLogFilePath : Path to logs access
   access_log_filepath: log/access
