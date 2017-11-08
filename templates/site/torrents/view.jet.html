@@ -338,7 +338,8 @@ Modal.Init({
 
 {{ if len(Torrent.FileList) == 0 }}
   var FileListContainer = document.querySelector("#filelist tbody"),
-      FileListLabel = document.getElementsByClassName("filelist-control")[0]
+      FileListLabel = document.getElementsByClassName("filelist-control")[0],
+	  FileListOldHtml = FileListContainer.innerHTML
 
   FileListLabel.addEventListener("click", function (e) {
     FileListContainer.innerHTML = "<tr class='tr-filelist'><td>{{T("loading_file_list")}}</td></tr>"
@@ -354,7 +355,9 @@ Modal.Init({
           if(file.filesize == "0.0 B") file.filesize = "{{T("unknown")}}"
             FileListContainer.innerHTML = FileListContainer.innerHTML + '<tr class="tr-filelist '+ file.class +'"><td>'+ file.path +'</td><td>'+ file.filesize +'</td></tr>'
           }
-		}
+	   } else {
+		FileListContainer.innerHTML = FileListOldHtml
+	   }
 	})
   })
  {{end}}
