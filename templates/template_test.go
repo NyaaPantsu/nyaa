@@ -109,6 +109,11 @@ func walkDirTest(dir string, t *testing.T) {
 			variables.Set("RootFolder", filelist.FileListToFolder(fakeTorrent.FileList, "root"))
 			return variables
 		},
+		"filelist.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("Torrent", fakeTorrent.ToJSON())
+			variables.Set("RootFolder", filelist.FileListToFolder(fakeTorrent.FileList, "root"))
+			return variables
+		},
 		"settings.jet.html": func(variables jet.VarMap) jet.VarMap {
 			variables.Set("Form", &LanguagesJSONResponse{"test", publicSettings.Languages{*fakeLanguage, *fakeLanguage}})
 			return variables
