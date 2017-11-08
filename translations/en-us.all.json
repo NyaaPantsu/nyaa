@@ -768,6 +768,10 @@
     "translation": "Loading the file list..."
   },
   {
+    "id": "torrent_filelist",
+    "translation": "Torrent filelist"
+  },
+  {
     "id": "uploaded_by",
     "translation": "Uploaded by"
   },
