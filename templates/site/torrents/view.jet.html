@@ -188,7 +188,13 @@
   <p>{{  T("no_description") }}</p>
   {{end}}
   <input type="checkbox" id="show-filelist" {{if len(Torrent.FileList) < 4 && len(Torrent.FileList) > 0}}checked{{end}}/>
-  <label class="torrent-hr filelist-control{{if len(Torrent.FileList) == 0}} hidden{{end}}" for="show-filelist">{{ T("files")}}</label>
+  <label class="torrent-hr filelist-control{{if len(Torrent.FileList) == 0}} hidden{{end}}" for="show-filelist">
+  {{ if len(Torrent.FileList) == 0 }}
+	<a href="/files/{{Torrent.ID}}">{{ T("files")}}</a>
+  {{else}}
+	{{ T("files")}}
+  {{end}}
+  </label>
   <div class="torrent-info-box{{if len(Torrent.FileList) == 0}} hidden{{end}}" id="filelist">
     <table class="table-filelist">
       <thead>
@@ -340,6 +346,8 @@ Modal.Init({
   var FileListContainer = document.querySelector("#filelist tbody"),
       FileListLabel = document.getElementsByClassName("filelist-control")[0],
 	  FileListOldHtml = FileListContainer.innerHTML
+	  
+	  FileListLabel.innerHTML = FileListLabel.innerText
 
   FileListLabel.addEventListener("click", function (e) {
     FileListContainer.innerHTML = "<tr class='tr-filelist'><td>{{T("loading_file_list")}}</td></tr>"
