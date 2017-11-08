@@ -31,7 +31,7 @@ func SeePublicSettingsHandler(c *gin.Context) {
 // ChangePublicSettingsHandler : Controller for changing the current language and theme
 func ChangePublicSettingsHandler(c *gin.Context) {
 	theme := c.PostForm("theme")
-	lang := c.PostForm("language")
+	lang := c.PostForm("lang")
 	mascot := c.PostForm("mascot")
 	mascotURL := c.PostForm("mascot_url")
 	altColors := c.PostForm("altColors")
