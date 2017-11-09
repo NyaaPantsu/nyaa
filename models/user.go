@@ -196,6 +196,9 @@ func (u *User) CanUpload() bool {
 
 // GetRole : Get the status/role of a user
 func (u *User) GetRole() string {
+	if u.ID == 0 {
+		return ""	
+	}
 	switch u.Status {
 	case UserStatusBanned:
 		return "userstatus_banned"
