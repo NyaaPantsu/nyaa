@@ -33,7 +33,7 @@
 				</select>
 			</td>
 		</tr>
-		{{ if !User.HasAdmin()}}
+		{{ if !User.IsModerator()}}
 		<tr>
 			<td><label for="current_password">{{  T("current_password") }}</label></td>
 			<td><input class="form-input up-input up-input" name="current_password" id="current_password" type="password"/></td>
@@ -51,7 +51,7 @@
 </table>
     {{ yield errors(name="Email")}}
 	{{ yield errors(name="Language")}}
-    {{ if !User.HasAdmin()}}
+    {{ if !User.IsModerator()}}
         {{ yield errors(name="CurrentPassword")}}
     {{end}}
 	{{ yield errors(name="Password")}}
@@ -228,7 +228,7 @@
         {{ yield errors(name="FollowedEmail")}}
     {{end}}
 
-{{ if User.HasAdmin()}}
+{{ if User.IsModerator()}}
 <h2>{{  T("moderation")}}</h2>
 <table class="user-edit-table">
 	<tbody>
@@ -243,8 +243,9 @@
 				  <option value="-1" {{ if UserProfile.Status == -1 }}selected{{end}}>{{  T("userstatus_banned")}}</option>
 				  <option value="0" {{ if UserProfile.Status == 0 }}selected{{end}}>{{  T("userstatus_member")}} ({{  T("default") }})</option>
 				  <option value="1" {{ if UserProfile.Status == 1 }}selected{{end}}>{{  T("userstatus_trusted")}}</option>
-				  {{ if UserProfile.Status == 2}}
-				  <option value="2" selected>{{  T("userstatus_moderator")}}</option>
+				  {{ if User.Status == 2}}
+				  <option value="5" {{ if UserProfile.Status == 5 }}selected{{end}}>{{  T("userstatus_janitor")}}</option>
+				  <option value="2" {{ if UserProfile.Status == 2 }}selected{{end}}>{{  T("userstatus_moderator")}}</option>
 				  {{end}}
 				  <option value="3" {{ if UserProfile.Status == 3 }}selected{{end}}>{{  T("userstatus_scraped")}}</option>
 				</select>
