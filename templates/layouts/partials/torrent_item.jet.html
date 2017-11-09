@@ -43,7 +43,7 @@ Templates.Add("torrents.item", function(torrent) {
     }
 
     return `<tr id="torrent_` + torrent.id + `" class="` + tr_class + `">
-        {{ if User.HasAdmin() }}
+        {{ if User.IsModerator() }}
         <td class="tr-cb` + cb_hide + `"` + cb_show + `>
             <input data-name="` + Templates.EncodeEntities(torrent.name) + `" type="checkbox" id="torrent_cb_` + torrent.id + `" name="torrent_id" value="` + torrent.id + `">
         </td>
