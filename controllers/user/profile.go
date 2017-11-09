@@ -189,14 +189,10 @@ func UserProfileFormHandler(c *gin.Context) {
 		validator.ValidateForm(&userForm, messages)
 		if !messages.HasErrors() {
 			if userForm.Email != userProfile.Email {
-				if currentUser.IsModerator() {
-					userProfile.Email = userForm.Email
-				} else {
-					email.SendVerificationToUser(currentUser, userForm.Email)
-					messages.AddInfoTf("infos", "email_changed", userForm.Email)
-					userForm.Email = userProfile.Email // reset, it will be set when user clicks verification
-				}
-			}
+				email.SendVerificationToUser(currentUser, userForm.Email)
+ 				messages.AddInfoTf("infos", "email_changed", userForm.Email)
+ 				userForm.Email = userProfile.Email // reset, it will be set when user clicks verification
+            }
 			user, _, err := users.UpdateFromRequest(c, &userForm, &userSettingsForm, currentUser, uint(id))
 			if err != nil {
 				messages.Error(err)
