@@ -59,12 +59,13 @@
 		<input type="hidden" name="id" value="{{ .ID }}">
 		<button type="submit" class="form-input btn-orange" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i>{{ if .IsBlocked }}{{  T("torrent_unblock") }}{{else}}{{  T("torrent_block") }}{{end}}</button>
 	    </form>
+		{{ if User.IsModerator() }}
 	    <form method="POST" action="/mod/torrent/delete" class="delete-form">
 		<input type="hidden" name="id" value="{{ .ID }}">
 		 {{ if .IsDeleted }}<input type="hidden" name="definitely" value="true">{{ end }}
 		<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }} {{ if !.IsDeleted }}{{  T("delete") }}{{else}}{{  T("delete_definitely_torrent_warning ")}}{{end}}')) return false;"><i class="icon-trash"></i>{{ if .IsDeleted }}{{  T("delete_definitely") }}{{else}}{{  T("delete") }}{{end}}</button>
 	    </form>
-            
+            {{end}}
           </td>
         </tr>
         {{end}}
