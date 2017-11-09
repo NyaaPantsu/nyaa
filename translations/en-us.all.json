@@ -980,7 +980,7 @@
     "translation": "Torrent #%d from %s has been locked by %s."
   },
   {
-    "id": "torrent_blocked_by",
+    "id": "torrent_unblocked_by",
     "translation": "Torrent #%d from %s has been unlocked by %s."
   },
   {
