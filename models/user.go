@@ -137,7 +137,7 @@ func (u *User) IsModerator() bool {
 	return u.Status == UserStatusModerator
 }
 
-// IsModerator : Return true if user is janitor OR moderator
+// IsJanitor : Return true if user is janitor OR moderator
 func (u *User) IsJanitor() bool {
 	return u.Status == UserStatusJanitor || u.Status == UserStatusModerator
 }
@@ -159,6 +159,16 @@ func (u *User) GetUnreadNotifications() int {
 	return u.UnreadNotifications
 }
 
+// ToggleBan : Ban/Unban an user an user
+func (u *User) ToggleBan() {
+	if u.IsBanned() {
+		u.Status = UserStatusMember
+	} else {
+		u.Status = UserStatusBanned
+	}
+}
+
+
 // CurrentOrAdmin check that user has admin permission or user is the current user.
 func (u *User) CurrentOrAdmin(userID uint) bool {
 	if userID == 0 && !u.IsModerator() {
@@ -177,7 +187,7 @@ func (u *User) CurrentUserIdentical(userID uint) bool {
 // NeedsCaptcha : Check if a user needs captcha
 func (u *User) NeedsCaptcha() bool {
 	// Trusted members & Moderators don't
-	return !(u.IsTrusted() || u.IsModerator())
+	return !(u.IsTrusted() || u.IsJanitor())
 }
 
 // CanUpload :  Check if a user can upload  or if upload is enabled in config
