@@ -29,6 +29,8 @@ const (
 	UserStatusModerator = 2
 	// UserStatusScraped : Int for User status scrapped
 	UserStatusScraped = 3
+	// UserStatusModerator : Int for User status moderator
+	UserStatusJanitor = 4
 )
 
 // User model
@@ -135,6 +137,11 @@ func (u *User) IsModerator() bool {
 	return u.Status == UserStatusModerator
 }
 
+// IsModerator : Return true if user is janitor OR moderator
+func (u *User) IsJanitor() bool {
+	return u.Status == UserStatusJanitor || u.Status == UserStatusModerator
+}
+
 // IsScraped : Return true if user is a scrapped user
 func (u *User) IsScraped() bool {
 	return u.Status == UserStatusScraped
@@ -150,11 +157,6 @@ func (u *User) GetUnreadNotifications() int {
 		}
 	}
 	return u.UnreadNotifications
-}
-
-// HasAdmin checks that user has an admin permission. Deprecated
-func (u *User) HasAdmin() bool {
-	return u.IsModerator()
 }
 
 // CurrentOrAdmin check that user has admin permission or user is the current user.
@@ -203,6 +205,8 @@ func (u *User) GetRole() string {
 		return "userstatus_scraped"
 	case UserStatusTrusted:
 		return "userstatus_trusted"
+	case UserStatusJanitor:
+		return "userstatus_janitor"
 	case UserStatusModerator:
 		return "userstatus_moderator"
 	}
