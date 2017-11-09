@@ -608,16 +608,16 @@
     "translation": "Current password"
   },
   {
+    "id": "default",
+    "translation": "Default"
+  },
+  {
     "id": "role",
     "translation": "Role"
   },
   {
     "id": "userstatus_banned",
     "translation": "Banned"
-  },
-  {
-    "id": "default",
-    "translation": "Default"
   },
   {
     "id": "userstatus_trusted",
@@ -630,6 +630,10 @@
   {
     "id": "userstatus_moderator",
     "translation": "Moderator"
+  },
+  {
+    "id": "userstatus_janitor",
+    "translation": "Janitor"
   },
   {
     "id": "userstatus_uploader",
@@ -762,6 +766,18 @@
   {
     "id": "no_files",
     "translation": "No files found? That doesn't even make sense!"
+  },
+  {
+    "id": "loading_file_list",
+    "translation": "Loading the file list, long file lists can take time to fetch..."
+  },
+  {
+    "id": "torrent_filelist",
+    "translation": "Torrent filelist"
+  },
+  {
+    "id": "back_to_torrent",
+    "translation": "Back to \"%s\""
   },
   {
     "id": "uploaded_by",
