@@ -95,12 +95,16 @@
           <a href="/user/{{.ID}}/{{.Username }}">{{ .Username }}</a>
         </td>
         <td class="tr-size home-td">{{if .ID > 0}}
+			 {{ if User.IsModerator() }}
 			  <form method="POST" action="/user/{{.ID}}/{{.Username }}/ban">
 				   {{ yield csrf_field()}}
-				   {{ if User.IsModerator() }}
 				  <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
-				   {{end}}
+			  </form>
+			 {{end}}
+			  <form method="POST" action="/user/{{.ID}}/{{.Username }}/ban">
+				   {{ yield csrf_field()}}
 				  <button type="submit" class="form-input btn-orange" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{ if !.IsBanned() }}{{  T("ban") }}{{else}}{{  T("unban") }}{{end}}</button>
+			  </form>
           {{end}}
         </td>
       </tr>
