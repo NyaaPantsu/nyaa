@@ -57,7 +57,7 @@ func UserProfileBan(c *gin.Context) {
 					action = "user_banned_by"
 				}
 				
-				activities.Log(&models.User{}, fmt.Sprintf("user_%d", id), "delete", action, userProfile.Username, strconv.Itoa(int(id)), currentUser.Username)
+				activities.Log(&models.User{}, fmt.Sprintf("user_%d", id), "edit", action, userProfile.Username, strconv.Itoa(int(id)), currentUser.Username)
 				c.Redirect(http.StatusSeeOther, fmt.Sprintf("/user/%d/%s", id, c.Param("username")))
 		} else {
 			c.AbortWithStatus(http.StatusNotFound)
