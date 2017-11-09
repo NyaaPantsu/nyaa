@@ -265,10 +265,10 @@ select.form-input {
 .website-nav .pagination span {
     min-width: auto;
 }
-.website-nav #page-prev{
+.website-nav .page-prev{
     float: left;
 }
-.website-nav #page-next{
+.website-nav .page-next{
     float: right;
 }
 
@@ -348,7 +348,7 @@ span.comment-user:hover {
     margin: 1px 0;
 }
 
-#solution {
+.solution {
     margin-top: -3px;
 }
 
