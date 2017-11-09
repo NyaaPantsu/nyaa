@@ -69,8 +69,7 @@
 <script type="text/javascript">
   var SaveButton = document.querySelector('form[method="POST"] button[type="submit"]')
   
-  //Golang settings.go controller set cookies for the domain variable in config, if we are currently on a mirror this will mean that the cookie will not be set for the right website
-  
+  //Doing this, we avoid having to do a query (which is unneeded for logged-in users) and can make sure that the cookies are set for the right domain name
   if(UserID == 0)
 	SaveButton.addEventListener("click", function(e) {
 		var formInputs = document.querySelectorAll("form[method='POST'] input"),
@@ -80,13 +79,15 @@
 		for(var i = 0; i < formInputs.length; i++) {
 			var setting = formInputs[i]
 			if(setting.name == "csrf_token") continue
+			deleteCookie(setting.name)
 			document.cookie = setting.name + "=" + setting.value + ";path=/;expires=" + farFutureString + ";domain=" + domain
 		}
 		
 		for(var i = 0; i < formSelect.length; i++) {
 			var setting = formSelect[i],
-				selectValues = setting.querySelectorAll("option")
+			    selectValues = setting.querySelectorAll("option")
 			
+			deleteCookie(setting.name)
 			document.cookie = setting.name + "=" + selectValues[setting.selectedIndex].value + ";path=/;expires=" + farFutureString + ";domain=" + domain
 		}	
 	
