@@ -1104,6 +1104,14 @@
     "translation": "Lock"
   },
   {
+    "id": "unban",
+    "translation": "Unban"
+  },
+  {
+    "id": "ban",
+    "translation": "Ban"
+  },
+  {
     "id": "torrent_deleted_definitely",
     "translation": "Torrent has been erased from the database!"
   },
