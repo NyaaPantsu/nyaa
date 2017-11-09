@@ -25,7 +25,7 @@ func TorrentDeleteUserPanel(c *gin.Context) {
 				torrent.Uploader = &models.User{}
 			}
 			_, username := torrents.HideUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
-			if currentUser.HasAdmin() { // We hide username on log activity if user is not admin and torrent is hidden
+			if currentUser.IsModerator() { // We hide username on log activity if user is not admin and torrent is hidden
 				activities.Log(&models.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, currentUser.Username)
 			} else {
 				activities.Log(&models.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, username)
