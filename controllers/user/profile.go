@@ -33,8 +33,10 @@ func UserProfileDelete(c *gin.Context) {
 			if err == nil && currentUser.CurrentUserIdentical(userProfile.ID) {
 				cookies.Clear(c)
 			}
-		}
 		templates.Static(c, "site/static/delete_success.jet.html")
+		}
+	} else {
+		c.AbortWithStatus(http.StatusNotFound)
 	}
 }
 
