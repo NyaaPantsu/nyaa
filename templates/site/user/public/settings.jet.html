@@ -80,13 +80,15 @@
 		for(var i = 0; i < formInputs.length; i++) {
 			var setting = formInputs[i]
 			if(setting.name == "csrf_token") continue
+			deleteCookie(setting.name)
 			document.cookie = setting.name + "=" + setting.value + ";path=/;expires=" + farFutureString + ";domain=" + domain
 		}
 		
 		for(var i = 0; i < formSelect.length; i++) {
 			var setting = formSelect[i],
-				selectValues = setting.querySelectorAll("option")
+			    selectValues = setting.querySelectorAll("option")
 			
+			deleteCookie(setting.name)
 			document.cookie = setting.name + "=" + selectValues[setting.selectedIndex].value + ";path=/;expires=" + farFutureString + ";domain=" + domain
 		}	
 	
