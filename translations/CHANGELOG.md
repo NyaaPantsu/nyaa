@@ -91,3 +91,5 @@
 ## 2017/11/04
 * + nsfw_content
 * + generating_torrent_failed
+## 2017/11/09
+* + userstatus_janitor
