@@ -984,6 +984,14 @@
     "translation": "Torrent #%d from %s has been unlocked by %s."
   },
   {
+    "id": "user_banned_by",
+    "translation": "User %s(%d) #%d has been banned by %s"
+  },
+  {
+    "id": "user_unbanned_by",
+    "translation": "User %s(%d) #%d has been unbanned by %s"
+  },
+  {
     "id": "torrents_deleted",
     "translation": "Torrents Deleted"
   },
