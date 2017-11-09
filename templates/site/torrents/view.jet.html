@@ -218,7 +218,7 @@
   {{previousComment := ""}}
   {{previousUser := 0}}
   {{range index, element := Torrent.Comments}}
-  {{if previousComment != element.Content || previousUser != element.UserID}}
+  {{if previousComment != element.Content || previousUser != element.UserID || element.UserID == 0}}
   <div class="torrent-info-box comment-box">
     <span class="comment-index">
       <a href="#comment_{{idx}}">{{idx}}</a>

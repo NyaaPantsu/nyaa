@@ -116,9 +116,7 @@ function resetCookies() {
       if(domain == hostName) {
 	//only execute if cookie are supposed to be shared between nyaa & sukebei, aka on host name without subdomain
         var cookieValue = getCookieValue(cookieName)
-        document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
-        document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;domain=" + window.location.host
-        document.cookie = cookieName + "=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
+        deleteCookie(cookieName)
         if(cookieName != "session")
 	  document.cookie = cookieName + "=" + cookieValue + ";path=/;expires=" + farFutureString + ";domain=" + domain
 	else document.cookie = cookieName + "=" + cookieValue + ";path=/;expires=" + farFutureString
@@ -127,12 +125,12 @@ function resetCookies() {
         }
       continue
     }
-    document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
-    document.cookie = cookieName + "=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
-    document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;domain=" + window.location.host
+     deleteCookie(cookieName)
   }
 
   //Set new version in cookie
+  deleteCookie("commit")
+  deleteCookie("version")
   document.cookie = "commit=" + commitVersion + ";path=/;expires=" + farFutureString + ";domain=" + domain
   document.cookie = "version=" + websiteVersion + ";path=/;expires=" + farFutureString + ";domain=" + domain
 
@@ -304,6 +302,26 @@ function getCookieValue(cookieName) {
     startPos +=  cookieName.length + 1
     var endPos = document.cookie.substring(startPos).indexOf(";")
     return endPos == -1 ? document.cookie.substring(startPos) : document.cookie.substring(startPos, endPos + startPos)
+}
+
+function deleteCookie(cookieName) {
+  document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
+  document.cookie = cookieName + "=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
+  document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;domain=" + window.location.host
+  document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;domain=" + domain
+  
+  //Also need to delete from current hostname without subdomain, which is what this accomplish
+  var hostName = window.location.host
+  var lastDotIndex = hostName.lastIndexOf(".")
+  var secondLast = -1
+	  
+  for(var index = 0; index < lastDotIndex; index++) {
+    if(hostName[index] == '.')
+     secondLast = index
+  }
+   hostName = hostName.substr(secondLast == -1 ? 0 : secondLast)
+   
+  document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;domain=" + hostName
 }
 
 // @license-end

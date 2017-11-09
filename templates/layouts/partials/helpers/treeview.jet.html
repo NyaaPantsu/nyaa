@@ -4,7 +4,7 @@
 {{ folderId := treeviewData.IdentifierChain+"_"+index }}
 <tr class="tr-filelist tr-folder">
   <td style="padding-left: {{ treeviewData.NestLevel * 2.5 }}%;"><label for="contents_{{folderId}}">{{folder.FolderName}}</label></td>
-  <td>{{ fileSize(folder.TotalSize(), T, false) }}</td>
+  <td>{{ fileSize(folder.TotalSize(), T, true) }}</td>
 </tr>
 <tr>
   <td colspan="2">
