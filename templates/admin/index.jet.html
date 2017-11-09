@@ -14,7 +14,7 @@
     </thead>
     <tbody>
       {{range Torrents}}
-      <tr {{ if .Status == 5}}class="locked hidden"{{end}}>
+      <tr {{ if .IsBlocked() }}class="locked hidden"{{end}}>
         <td class="tr-name home-td">
           <a href="/view/{{.ID }}">{{ .Name }}</a>
           <a href="/mod/torrent?id={{.ID}}" class="form-input btn-blue float-right">{{  T("edit") }}</a>
@@ -23,10 +23,17 @@
           <a href="/mod/torrents?userID={{.UploaderID}}">{{ .UploaderID }}</a>
         </td>
         <td class="tr-size home-td">
+		{{ if User.IsModerator() }}
 		  <form method="POST" action="/mod/torrent/delete">
 			<input type="hidden" name="id" value="{{ .ID }}">
 		    <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
 		  </form>
+		{{else}}
+	    <form method="POST" action="/mod/torrent/block" class="delete-form">
+		<input type="hidden" name="id" value="{{ .ID }}">
+		<button type="submit" class="form-input btn-orange" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i>{{ if .IsBlocked() }}{{  T("torrent_unblock") }}{{else}}{{  T("torrent_block") }}{{end}}</button>
+	    </form>
+		{{end}}
         </td>
       </tr>
       {{end}}
