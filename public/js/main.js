@@ -309,6 +309,19 @@ function deleteCookie(cookieName) {
   document.cookie = cookieName + "=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC;"
   document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;domain=" + window.location.host
   document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;domain=" + domain
+  
+  //Also need to delete from current hostname without subdomain, which is what this accomplish
+  var hostName = window.location.host
+  var lastDotIndex = hostName.lastIndexOf(".")
+  var secondLast = -1
+	  
+  for(var index = 0; index < lastDotIndex; index++) {
+    if(hostName[index] == '.')
+     secondLast = index
+  }
+   hostName = hostName.substr(secondLast == -1 ? 0 : secondLast)
+   
+  document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;domain=" + hostName
 }
 
 // @license-end
