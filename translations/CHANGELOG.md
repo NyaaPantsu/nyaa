@@ -93,3 +93,5 @@
 * + generating_torrent_failed
 ## 2017/11/09
 * + userstatus_janitor
+* + ban
+* + unban
