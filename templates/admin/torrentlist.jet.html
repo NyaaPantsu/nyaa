@@ -38,7 +38,7 @@
       </thead>
       <tbody>
         {{ range Models}}
-        <tr>
+        <tr {{ if .Status == 5}}class="locked hidden"{{end}}>
           <td class="tr-cb">
             <input type="checkbox" class="selectable" name="torrent_id" value="{{.ID }}" />
           </td>
