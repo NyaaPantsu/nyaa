@@ -7,9 +7,12 @@ import (
 
 	"net/http"
 
+
 	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models/notifications"
+	"github.com/NyaaPantsu/nyaa/models/activities"
 	"github.com/NyaaPantsu/nyaa/models/users"
+	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/NyaaPantsu/nyaa/utils/crypto"
@@ -34,6 +37,30 @@ func UserProfileDelete(c *gin.Context) {
 				cookies.Clear(c)
 			}
 		templates.Static(c, "site/static/delete_success.jet.html")
+		}
+	} else {
+		c.AbortWithStatus(http.StatusNotFound)
+	}
+}
+
+// UserProfileBan :  Ban an User
+func UserProfileBan(c *gin.Context) {
+	currentUser := router.GetUser(c)
+	
+	if currentUser.IsJanitor() {
+		id, _ := strconv.ParseUint(c.Param("id"), 10, 32)
+		
+		userProfile, _, errorUser := users.FindForAdmin(uint(id))
+		if errorUser == nil && !userProfile.IsModerator() {
+				action := "user_unbanned_by"
+				if userProfile.ToggleBan() {
+					action = "user_banned_by"
+				}
+				
+				activities.Log(&models.User{}, fmt.Sprintf("user_%d", id), "delete", action, userProfile.Username, strconv.Itoa(int(id)), currentUser.Username)
+				c.Redirect(http.StatusSeeOther, fmt.Sprintf("/user/%d/%s", id, c.Param("username")))
+		} else {
+			c.AbortWithStatus(http.StatusNotFound)
 		}
 	} else {
 		c.AbortWithStatus(http.StatusNotFound)
