@@ -608,16 +608,16 @@
     "translation": "現在のパスワード"
   },
   {
+    "id": "default",
+    "translation": "デフォルト"
+  },
+  {
     "id": "role",
     "translation": "役割"
   },
   {
     "id": "userstatus_banned",
     "translation": "BAN"
-  },
-  {
-    "id": "default",
-    "translation": "デフォルト"
   },
   {
     "id": "userstatus_trusted",
@@ -630,6 +630,10 @@
   {
     "id": "userstatus_moderator",
     "translation": "モデレーター"
+  },
+  {
+    "id": "userstatus_janitor",
+    "translation": "管理人"
   },
   {
     "id": "userstatus_uploader",
@@ -976,7 +980,7 @@
     "translation": "Torrent #%s (%s アップロード) は %s によってロックされました。"
   },
   {
-    "id": "torrent_blocked_by",
+    "id": "torrent_unblocked_by",
     "translation": "Torrent #%s (%s アップロード) は %s によってロック解除されました。"
   },
   {
