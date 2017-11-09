@@ -95,3 +95,5 @@
 * + userstatus_janitor
 * + ban
 * + unban
+* + user_banned_by
+* + user_unbanned_by
