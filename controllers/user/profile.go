@@ -178,7 +178,7 @@ func UserProfileFormHandler(c *gin.Context) {
 	if !messages.HasErrors() {
 		c.Bind(&userForm)
 		c.Bind(&userSettingsForm)
-		if !currentUser.HasAdmin() {
+		if !currentUser.IsModerator() {
 			userForm.Username = userProfile.Username
 			userForm.Status = userProfile.Status
 		} else {
@@ -189,7 +189,7 @@ func UserProfileFormHandler(c *gin.Context) {
 		validator.ValidateForm(&userForm, messages)
 		if !messages.HasErrors() {
 			if userForm.Email != userProfile.Email {
-				if currentUser.HasAdmin() {
+				if currentUser.IsModerator() {
 					userProfile.Email = userForm.Email
 				} else {
 					email.SendVerificationToUser(currentUser, userForm.Email)
