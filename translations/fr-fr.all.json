@@ -606,6 +606,10 @@
   {
     "id": "current_password",
     "translation": "Mot de passe actuel"
+  },  
+  {
+    "id": "default",
+    "translation": "Par défaut"
   },
   {
     "id": "role",
@@ -614,10 +618,6 @@
   {
     "id": "userstatus_banned",
     "translation": "Banni"
-  },
-  {
-    "id": "default",
-    "translation": "Par défaut"
   },
   {
     "id": "userstatus_trusted",
@@ -630,6 +630,10 @@
   {
     "id": "userstatus_moderator",
     "translation": "Modérateur"
+  },
+  {
+    "id": "userstatus_janitor",
+    "translation": "Janiteur"
   },
   {
     "id": "userstatus_uploader",
@@ -762,6 +766,18 @@
   {
     "id": "no_files",
     "translation": "Aucun fichier trouvé."
+  },
+  {
+    "id": "loading_file_list",
+    "translation": "Chargement de la liste des fichiers, la récupération des longues listes peut prendre un certain temps..."
+  },
+  {
+    "id": "torrent_filelist",
+    "translation": "Liste des fichiers du torrent"
+  },
+  {
+    "id": "back_to_torrent",
+    "translation": "Revenir à \"%s\""
   },
   {
     "id": "uploaded_by",
@@ -976,7 +992,7 @@
     "translation": "Le torrent n° %s de %s a été bloqué par %s."
   },
   {
-    "id": "torrent_blocked_by",
+    "id": "torrent_unblocked_by",
     "translation": "Le torrent n° %s de %s a été débloqué par %s."
   },
   {
