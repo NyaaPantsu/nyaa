@@ -7,7 +7,7 @@
       <img src="{{getAvatar(User.MD5, 50)}}"/>
       {{if User.GetUnreadNotifications() > 0}}<span>{{User.GetUnreadNotifications()}}</span>{{end}}
     </div>
-    <span class="user-info" title="{{ User.Username}}">
+    <span class="user-info" title="{{ User.Username }}">
       <span class="hide-md">{{User.Username}}</span>
     </span>
   </button>
@@ -20,7 +20,7 @@
     <a class="nav-btn" href="/user/{{ User.ID }}/{{ User.Username }}/edit">
       {{ T("settings")}}
     </a>
-    {{if User.HasAdmin()}}
+    {{if User.IsJanitor()}}
     <a class="nav-btn" href="/mod">{{ T("moderation")}}</a>
     {{end}}
     <form action="/logout" method="POST">
