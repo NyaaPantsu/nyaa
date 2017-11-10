@@ -888,6 +888,10 @@
     "translation": "torrent uploaded successfully!"
   },
   {
+    "id": "torrent_uploaded_locked",
+    "translation": "Your torrent has been uploaded but is locked because you are banned."
+  },
+  {
     "id": "preferences",
     "translation": "Preferences"
   },
