@@ -226,14 +226,14 @@ func UserProfileFormHandler(c *gin.Context) {
 					userForm.Email = userProfile.Email // reset, it will be set when user clicks verification
 				}
 			}
-			var err error
-			userProfile, _, err = users.UpdateFromRequest(c, &userForm, &userSettingsForm, currentUser, uint(id))
+			user, _, err := users.UpdateFromRequest(c, &userForm, &userSettingsForm, currentUser, uint(id))
 			if err != nil {
 				messages.Error(err)
 			}
 
 			if !messages.HasErrors() {
 				messages.AddInfoT("infos", "profile_updated")
+				userProfile = user
 			}
 		}
 	}
