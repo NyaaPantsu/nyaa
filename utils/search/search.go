@@ -45,7 +45,7 @@ func ByQueryNoUser(c *gin.Context, pagenum int) (search TorrentParam, tor []mode
 
 // ByQueryWithUser : search torrents according to request with user
 func ByQueryWithUser(c *gin.Context, pagenum int) (search TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = ByQuery(c, pagenum, true, false, false, false)
+	search, tor, count, err = ByQuery(c, pagenum, true, false, false, true)
 	return
 }
 
