@@ -51,7 +51,7 @@
 		<a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/edit">
 		  {{ T("settings")}}
 		</a> 
-		{{else if User.IsJanitor() }}
+		{{else if User.IsJanitor() && !UserProfile.IsJanitor() }}
 		<form method="POST" action="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/ban">
 		    {{ yield csrf_field()}}
 		    <button type="submit" class="form-input btn-blue" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i>{{ if UserProfile.IsBanned() }}{{  T("unban") }}{{else}}{{  T("ban") }}{{end}}</button>
