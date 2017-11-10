@@ -984,8 +984,12 @@
     "translation": "Torrent #%d from %s has been unlocked by %s."
   },
   {
-    "id": "user_banned_by",
-    "translation": "User %s(%d) #%d has been banned by %s"
+    "id": "user_banned",
+    "translation": "User has been banned!"
+  },
+  {
+    "id": "user_banned",
+    "translation": "User has been unbanned!"
   },
   {
     "id": "user_unbanned_by",
