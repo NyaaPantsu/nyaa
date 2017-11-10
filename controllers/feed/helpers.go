@@ -86,7 +86,7 @@ func getTorrentList(c *gin.Context) (torrents []models.Torrent, createdAsTime ti
 		user = 0
 	}
 
-	_, torrents, _, err = search.AuthorizedQuery(c, pagenum, currentUser.IsJanitor())
+	_, torrents, _, err = search.AuthorizedQuery(c, pagenum, currentUser.CurrentOrJanitor(uint(user)))
 
 	return
 }
