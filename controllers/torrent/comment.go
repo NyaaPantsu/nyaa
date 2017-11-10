@@ -57,6 +57,5 @@ func PostCommentHandler(c *gin.Context) {
 			messages.Error(err)
 		}
 	}
-	url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
-	c.Redirect(302, url)
+	ViewHandler(c)
 }
