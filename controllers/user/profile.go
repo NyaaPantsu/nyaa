@@ -211,7 +211,7 @@ func UserProfileFormHandler(c *gin.Context) {
 			userForm.Username = userProfile.Username
 			userForm.Status = userProfile.Status
 		} else {
-			if userProfile.Status != userForm.Status && (userForm.Status == 2 || userForm.Status == 4){
+			if userProfile.Status != userForm.Status && (userForm.Status == 2){
 				messages.AddErrorT("errors", "elevating_user_error")
 			}
 		}
