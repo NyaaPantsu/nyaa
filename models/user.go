@@ -179,6 +179,14 @@ func (u *User) CurrentOrAdmin(userID uint) bool {
 	log.Debugf("user.ID == userID %d %d %s", u.ID, userID, u.ID == userID)
 	return (u.IsModerator() || u.ID == userID)
 }
+// CurrentOrJanitor check that user has janitor permission or user is the current user.
+func (u *User) CurrentOrJanitor(userID uint) bool {
+	if userID == 0 && !u.IsJanitor() {
+		return false
+	}
+	log.Debugf("user.ID == userID %d %d %s", u.ID, userID, u.ID == userID)
+	return (u.IsJanitor() || u.ID == userID)
+}
 
 // CurrentUserIdentical check that userID is same as current user's ID.
 // TODO: Inline this (won't go do this for us?)
