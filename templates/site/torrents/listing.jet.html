@@ -55,7 +55,7 @@
   </thead>
   <tbody id="torrentListResults" {{if AltColors}}class="alt-colors"{{end}}>
     {{ range Models}}
-    <tr id="torrent_{{ .ID }}" class="torrent-info {{if .Status == 2}}remake{{else if .Status == 3}}trusted{{else if .Status == 4}}aplus{{end}}" >
+    <tr id="torrent_{{ .ID }}" class="torrent-info {{if .Status == 2}}remake{{else if .Status == 3}}trusted{{else if .Status == 4}}aplus{{else if .Status == 5}}locked hidden{{end}}">
       {{ if User.IsModerator() }}
       <td class="tr-cb hide">
         <input data-name="{{ .Name }}" type="checkbox" id="torrent_cb_{{ .ID }}" name="torrent_id" value="{{ .ID }}"/>
