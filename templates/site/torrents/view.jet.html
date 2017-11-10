@@ -221,7 +221,7 @@
     </span>
     <span class="comment-userinfo"><img src="{{ getAvatar(comment.UserAvatar, 50) }}"/>
 	{{if comment.UserID > 0}}<a href="/user/{{comment.UserID}}/{{comment.Username}}" class="comment-user">{{comment.Username}}</a>{{if comment.UserStatus != ""}}<span class="user-status">{{T(comment.UserStatus)}}</span>{{end}}{{else}}
-	<span class="comment-user">れんちょん</span>{{end}}  
+	<span class="comment-user">{{ if comment.Username != ""}}{{comment.Username}}{{else}}れんちょん{{end}}</span>{{end}}  
     </span>
     <div class="comment-content">{{comment.Content|raw}}</div>
   </div>
