@@ -20,11 +20,11 @@
           <a href="/mod/torrent?id={{.ID}}" class="form-input btn-blue float-right">{{  T("edit") }}</a>
         </td>
         <td class="tr-size home-td">
-          <a href="/mod/torrents?userID={{.UploaderID}}">{{ .UploaderID }}</a>
+          <a href="/mod/torrents?userID={{.UploaderID}}">{{ .Uploader.Username }}</a>
         </td>
         <td class="tr-size home-td">
 		{{ if User.IsModerator() }}
-		  <form method="POST" action="/mod/torrent/delete">
+		  <form method="POST" action="/mod/torrent/delete" class="delete-form">
 			<input type="hidden" name="id" value="{{ .ID }}">
 		    <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
 		  </form>
