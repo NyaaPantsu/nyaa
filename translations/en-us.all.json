@@ -2279,4 +2279,12 @@
     "id": "unread",
     "translation": "Unread"
   }
+  {
+    "id": "moderation_guidelines",
+    "translation": "Moderation Guidelines"
+  }
+  {
+    "id": "guidelines",
+    "translation": "Guidelines"
+  }
 ]
