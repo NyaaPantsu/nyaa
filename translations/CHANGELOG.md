@@ -100,3 +100,4 @@
 ## 2017/11/10
 * + user_banned
 * + user_unbanned
+* + torrent_uploaded_locked
