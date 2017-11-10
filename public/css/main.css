@@ -1062,7 +1062,7 @@ html, body {
 }
 
 .profile-sidebar {
-    display: inline-block;
+    display: block;
 }
 
 .profile-usertitle {
@@ -1088,7 +1088,9 @@ html, body {
 }
 
 .profile-usermenu {
-    min-width: 170px;
+    width: 170px;
+    margin: 0 auto;
+    max-width: calc(100% - 16px);
 }
 .profile-usermenu a {
     display: block;
