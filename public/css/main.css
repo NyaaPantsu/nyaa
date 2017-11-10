@@ -1092,8 +1092,9 @@ html, body {
     margin: 0 auto;
     max-width: calc(100% - 16px);
 }
-.profile-usermenu a {
+.profile-usermenu a, .profile-usermenu button {
     display: block;
+    width: 100%;
     margin-bottom: 11px;
 }
 .profile-usermenu .icon-rss-squared {
