@@ -244,7 +244,7 @@
 				  <option value="0" {{ if UserProfile.Status == 0 }}selected{{end}}>{{  T("userstatus_member")}} ({{  T("default") }})</option>
 				  <option value="1" {{ if UserProfile.Status == 1 }}selected{{end}}>{{  T("userstatus_trusted")}}</option>
 				  {{ if User.Status == 2}}
-				  <option value="5" {{ if UserProfile.Status == 5 }}selected{{end}}>{{  T("userstatus_janitor")}}</option>
+				  <option value="4" {{ if UserProfile.Status == 4 }}selected{{end}}>{{  T("userstatus_janitor")}}</option>
 				  <option value="2" {{ if UserProfile.Status == 2 }}selected{{end}}>{{  T("userstatus_moderator")}}</option>
 				  {{end}}
 				  <option value="3" {{ if UserProfile.Status == 3 }}selected{{end}}>{{  T("userstatus_scraped")}}</option>
