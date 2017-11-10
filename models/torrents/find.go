@@ -156,7 +156,7 @@ func findOrderBy(parameters Query, orderBy string, limit int, offset int, countA
 		dbQuery = dbQuery.Preload("Uploader")
 	}
 	if countAll {
-		dbQuery = dbQuery.Preload("Comments")
+		dbQuery = dbQuery.Preload("Comments").Preload("OldComments")
 	}
 
 	if conditions != "" {
