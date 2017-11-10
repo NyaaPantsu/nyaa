@@ -101,3 +101,4 @@
 * + user_banned
 * + user_unbanned
 * + torrent_uploaded_locked
+* + moderation_guidelines
