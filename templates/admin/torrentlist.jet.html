@@ -43,7 +43,7 @@
             <input type="checkbox" class="selectable" name="torrent_id" value="{{.ID }}" />
           </td>
           <td class="tr-name home-td">
-            <a href="/view/{{ .ID }}">{{ .Name }}</a> {{ if !.IsDeleted }}
+            <a href="/view/{{ .ID }}">{{ .Name }}</a> {{ if User.IsModerator() }}
             <a href="/mod/torrent?id={{.ID}}" class="form-input btn-blue float-right">
               {{  T("edit")}}
             </a> {{end}}
@@ -62,8 +62,8 @@
 		{{ if User.IsModerator() }}
 	    <form method="POST" action="/mod/torrent/delete" class="delete-form">
 		<input type="hidden" name="id" value="{{ .ID }}">
-		 {{ if .IsDeleted }}<input type="hidden" name="definitely" value="true">{{ end }}
-		<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }} {{ if !.IsDeleted }}{{  T("delete") }}{{else}}{{  T("delete_definitely_torrent_warning ")}}{{end}}')) return false;"><i class="icon-trash"></i>{{ if .IsDeleted }}{{  T("delete_definitely") }}{{else}}{{  T("delete") }}{{end}}</button>
+		 {{ if .IsDeleted() }}<input type="hidden" name="definitely" value="true">{{ end }}
+		<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }} {{ if !.IsDeleted() }}{{  T("delete") }}{{else}}{{  T("delete_definitely_torrent_warning ")}}{{end}}')) return false;"><i class="icon-trash"></i>{{ if .IsDeleted() }}{{  T("delete_definitely") }}{{else}}{{  T("delete") }}{{end}}</button>
 	    </form>
             {{end}}
           </td>
