@@ -1,6 +1,6 @@
 {{ import "layouts/partials/helpers/csrf" }}
 {{ block profile_menu(route="profile") }}
-<div class="profile-sidebar">
+<div class="profile-sidebar {{ if UserProfile.IsBanned() }} hidden{{end}}">
   <!-- SIDEBAR USERPIC -->
   <div class="profile-userpic">
     <img src="{{ getAvatar(UserProfile.MD5, 130) }}" alt="{{ UserProfile.Username }}"/>
