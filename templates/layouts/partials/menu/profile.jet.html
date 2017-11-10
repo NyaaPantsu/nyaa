@@ -1,3 +1,4 @@
+{{ import "layouts/partials/helpers/csrf" }}
 {{ block profile_menu(route="profile") }}
 <div class="profile-sidebar">
   <!-- SIDEBAR USERPIC -->
@@ -45,12 +46,19 @@
     {{ if User.CurrentUserIdentical(UserProfile.ID) }}
     <a class="form-input" href="/notifications">{{  T("my_notifications")}}</a>
     {{end}}
-    {{if UserProfile.ID > 0 && User.CurrentOrAdmin(UserProfile.ID) }}
-    <a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/edit">
-      {{ T("settings")}}
-    </a> 
+    {{if UserProfile.ID > 0}}
+		{{ if User.CurrentOrAdmin(UserProfile.ID) }}
+		<a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/edit">
+		  {{ T("settings")}}
+		</a> 
+		{{else if User.IsJanitor() }}
+		<form method="POST" action="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/ban">
+		    {{ yield csrf_field()}}
+		    <button type="submit" class="form-input btn-blue" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i>{{ if UserProfile.IsBanned() }}{{  T("unban") }}{{else}}{{  T("ban") }}{{end}}</button>
+		</form>
+		{{end}}
     {{end}}
-    {{end}}
+	{{end}}
   </div>
   {{ if User.ID != UserProfile.ID }}
   <div class="user-search">
