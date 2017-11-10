@@ -179,7 +179,7 @@ func UserDetailsHandler(c *gin.Context) {
 	}
 }
 
-// UserProfileFormHandler : Getting View User Profile Update
+// UserProfileFormHandler :  Updating User Profile
 func UserProfileFormHandler(c *gin.Context) {
 	id, _ := strconv.ParseUint(c.Param("id"), 10, 32)
 	currentUser := router.GetUser(c)
@@ -211,28 +211,29 @@ func UserProfileFormHandler(c *gin.Context) {
 			userForm.Username = userProfile.Username
 			userForm.Status = userProfile.Status
 		} else {
-			if userProfile.Status != userForm.Status && userForm.Status == 2 {
+			if userProfile.Status != userForm.Status && (userForm.Status == 2 || userForm.Status == 4){
 				messages.AddErrorT("errors", "elevating_user_error")
 			}
 		}
 		validator.ValidateForm(&userForm, messages)
 		if !messages.HasErrors() {
 			if userForm.Email != userProfile.Email {
-				email.SendVerificationToUser(currentUser, userForm.Email)
- 				messages.AddInfoTf("infos", "email_changed", userForm.Email)
- 				userForm.Email = userProfile.Email // reset, it will be set when user clicks verification
-            }
-			user, _, err := users.UpdateFromRequest(c, &userForm, &userSettingsForm, currentUser, uint(id))
+				if currentUser.IsModerator() {
+					userProfile.Email = userForm.Email // reset, it will be set when user clicks verification
+				} else {
+					email.SendVerificationToUser(userProfile, userForm.Email)
+					messages.AddInfoTf("infos", "email_changed", userForm.Email)
+					userForm.Email = userProfile.Email // reset, it will be set when user clicks verification
+				}
+			}
+			var err error
+			userProfile, _, err = users.UpdateFromRequest(c, &userForm, &userSettingsForm, currentUser, uint(id))
 			if err != nil {
 				messages.Error(err)
 			}
-			if userForm.Email != user.Email {
-				// send verification to new email and keep old
-				email.SendVerificationToUser(user, userForm.Email)
-			}
+
 			if !messages.HasErrors() {
 				messages.AddInfoT("infos", "profile_updated")
-				userProfile = user
 			}
 		}
 	}
