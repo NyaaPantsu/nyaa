@@ -97,3 +97,6 @@
 * + unban
 * + user_banned_by
 * + user_unbanned_by
+## 2017/11/10
+* + user_banned
+* + user_unbanned
