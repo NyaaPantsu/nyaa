@@ -34,6 +34,9 @@ func PostCommentHandler(c *gin.Context) {
 			messages.AddErrorT("errors", "bad_captcha")
 		}
 	}
+	if currentUser.IsBanned() {
+	    messages.AddErrorT("errors", "account_banned")
+	}
 	content := sanitize.Sanitize(c.PostForm("comment"), "comment")
 	
 	userID := currentUser.ID
