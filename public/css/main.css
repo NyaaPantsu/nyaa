@@ -1795,7 +1795,6 @@ input.filelist-checkbox:checked+table.table-filelist {
 }
 
 [class^="btn-"] {
-    font-weight: bold;
     color: white;
 }
 
@@ -2392,11 +2391,11 @@ form.delete-form button.form-input.btn-red {
     bottom: 8px;
     right: 8px;
     position: absolute;
-	width: calc(100% - 16px);
+    width: calc(100% - 16px);
 }
 #clear-notification a {
-	float: right;
-	margin-left: 3px;
+    float: right;
+    margin-left: 3px;
 }
 .notification-table {
     margin-bottom: 44px;
