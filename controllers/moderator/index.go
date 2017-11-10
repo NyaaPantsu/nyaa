@@ -21,6 +21,6 @@ func IndexModPanel(c *gin.Context) {
 	templates.PanelAdmin(c, torrents, models.TorrentReportsToJSON(torrentReports), users, comments)
 }
 
-func GuideModPanel(c *gin.Context) {
+func GuidelinesModPanel(c *gin.Context) {
 	templates.Static(c, "admin/guidelines.jet.html")
 }
