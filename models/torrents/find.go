@@ -193,6 +193,11 @@ func FindAllOrderBy(orderBy string, limit int, offset int) ([]models.Torrent, in
 	return FindOrderBy(nil, orderBy, limit, offset)
 }
 
+// FindAllForAdminsOrderBy : Get all torrents ordered by parameters
+func FindAllForAdminsOrderBy(orderBy string, limit int, offset int) ([]models.Torrent, int, error) {
+    return findOrderBy(nil, orderBy, limit, offset, true, true, false)
+}
+
 // FindAll : Get all torrents without order
 func FindAll(limit int, offset int) ([]models.Torrent, int, error) {
 	return FindOrderBy(nil, "", limit, offset)
