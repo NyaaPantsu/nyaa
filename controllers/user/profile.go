@@ -53,12 +53,14 @@ func UserProfileBan(c *gin.Context) {
 		userProfile, _, errorUser := users.FindForAdmin(uint(id))
 		if errorUser == nil && !userProfile.IsModerator() {
 				action := "user_unbanned_by"
+				message := "?unbanned"
 				if userProfile.ToggleBan() {
 					action = "user_banned_by"
+					message = "?banned"
 				}
 				
 				activities.Log(&models.User{}, fmt.Sprintf("user_%d", id), "edit", action, userProfile.Username, strconv.Itoa(int(id)), currentUser.Username)
-				c.Redirect(http.StatusSeeOther, fmt.Sprintf("/user/%d/%s", id, c.Param("username")))
+				c.Redirect(http.StatusSeeOther, fmt.Sprintf("/user/%d/%s", id, c.Param("username") + message))
 		} else {
 			c.AbortWithStatus(http.StatusNotFound)
 		}
