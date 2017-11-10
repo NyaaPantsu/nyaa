@@ -76,7 +76,7 @@ func SearchHandler(c *gin.Context) {
 		return
 	}
 	
-	searchParam, torrents, nbTorrents, err := search.AuthorizedQuery(c, pagenum, currentUser.CurrentOrJanitor(uint(user))))
+	searchParam, torrents, nbTorrents, err := search.AuthorizedQuery(c, pagenum, currentUser.CurrentOrJanitor(uint(userID)))
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
