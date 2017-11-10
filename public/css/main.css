@@ -899,8 +899,8 @@ html, body {
         width: 100% !important;
         margin-bottom: 15px;
     }
-    .profile-panel .user-search {
-        max-width: none;
+    .profile-usermenu, .profile-panel .user-search {
+        width: 200px!important;
     }
     .header .h-user {
         width: 46px;
@@ -1087,7 +1087,7 @@ html, body {
     border-radius: 6px;
 }
 
-.profile-usermenu {
+.profile-usermenu, .profile-panel .user-search {
     width: 170px;
     margin: 0 auto;
     max-width: calc(100% - 16px);
@@ -2309,7 +2309,6 @@ table.multiple-upload {
 }
 .profile-panel .user-search {
     padding: 0;
-    max-width: 170px;
 }
 
 .user-search [type="text"] {
