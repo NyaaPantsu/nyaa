@@ -45,16 +45,16 @@ func GetStatsHandler(c *gin.Context) {
 	if len(torrent.Trackers) > 3 {
 		for _, line := range strings.Split(torrent.Trackers[3:], "&tr=") {
 			tracker, error := url.QueryUnescape(line)
-			if error == nil && strings.Contains(tracker, "udp://") {
+			if error == nil && strings.HasPrefix(tracker, "udp") {
 				Trackers = append(Trackers, tracker)
 			}
 			//Cannot scrape from http trackers so don't put them in the array
 		}
 	}
 	
-	for _, line := range config.Get().Torrents.Trackers.Default {
-		if !contains(Trackers, line) {
-			Trackers = append(Trackers, line)
+	for _, tracker := range config.Get().Torrents.Trackers.Default {
+		if !contains(Trackers, tracker) && strings.HasPrefix(tracker, "udp")  {
+			Trackers = append(Trackers, tracker)
 		}
 	}
 
