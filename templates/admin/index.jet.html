@@ -14,7 +14,7 @@
     </thead>
     <tbody>
       {{range Torrents}}
-      <tr {{ if .IsBlocked() }}class="locked hidden"{{end}}>
+      <tr {{ if .IsBlocked() }}class="locked"{{end}}>
         <td class="tr-name home-td">
           <a href="/view/{{.ID }}">{{ .Name }}</a>
           <a href="/mod/torrent?id={{.ID}}" class="form-input btn-blue float-right">{{  T("edit") }}</a>
