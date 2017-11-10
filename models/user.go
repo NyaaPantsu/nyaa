@@ -163,11 +163,11 @@ func (u *User) GetUnreadNotifications() int {
 func (u *User) ToggleBan() bool {
 	if u.IsBanned() {
 		u.Status = UserStatusMember
-		return false
 	} else {
 		u.Status = UserStatusBanned
-		return true
 	}
+	u.Update()
+	return u.IsBanned()
 }
 
 
