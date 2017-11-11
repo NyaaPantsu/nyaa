@@ -537,11 +537,11 @@
   },
   {
     "id": "description_markdown_notice",
-    "translation": "説明文には MarkDown 記法を使うことができます。"
+    "translation": "説明文には Markdown 記法を使うことができます。"
   },
   {
     "id": "comment_markdown_notice",
-    "translation": "コメントには MarkDown 記法を使うことができます。"
+    "translation": "コメントには Markdown 記法を使うことができます。"
   },
   {
     "id": "show_all",
@@ -888,6 +888,10 @@
     "translation": "Torrent は正常にアップロードされました。"
   },
   {
+    "id": "torrent_uploaded_locked",
+    "translation": "Torrent はアップロードされましたが、あなたが BAN されているためロック状態になっています。"
+  },
+  {
     "id": "preferences",
     "translation": "カスタム設定"
   },
@@ -982,6 +986,18 @@
   {
     "id": "torrent_unblocked_by",
     "translation": "Torrent #%s (%s アップロード) は %s によってロック解除されました。"
+  },
+  {
+    "id": "user_banned",
+    "translation": "ユーザーは BAN されました。"
+  },
+  {
+    "id": "user_banned",
+    "translation": "ユーザーは BAN 解除されました。"
+  },
+  {
+    "id": "user_unbanned_by",
+    "translation": "ユーザー %s (%d) #%d は %s によって BAN 解除されました。"
   },
   {
     "id": "torrents_deleted",
@@ -1102,6 +1118,14 @@
   {
     "id": "torrent_block",
     "translation": "ロック"
+  },
+  {
+    "id": "unban",
+    "translation": "BAN 解除"
+  },
+  {
+    "id": "ban",
+    "translation": "BAN"
   },
   {
     "id": "torrent_deleted_definitely",
@@ -1728,10 +1752,6 @@
     "translation": " "
   },
   {
-    "id": "old",
-    "translation": "前"
-  },
-  {
     "id": "optional",
     "translation": "任意"
   },
@@ -1817,7 +1837,7 @@
   },
   {
     "id": "elevating_user_error",
-    "translation": "モデレーターへのステータス降格は禁止されています"
+    "translation": "モデレーターへのステータス昇格は禁止されています"
   },
   {
     "id": "parse_error_line",
@@ -1970,6 +1990,10 @@
   {
     "id": "announcement",
     "translation": "お知らせ"
+  },
+  {
+    "id": "create_anouncement_success",
+    "translation": "正常にお知らせが作成されました。"
   },
   {
     "id": "update_client_failed",
@@ -2254,5 +2278,13 @@
   {
     "id": "unread",
     "translation": "未読"
+  },
+  {
+    "id": "moderation_guidelines",
+    "translation": "モデレーション ガイドライン"
+  },
+  {
+    "id": "guidelines",
+    "translation": "ガイドライン"
   }
 ]
