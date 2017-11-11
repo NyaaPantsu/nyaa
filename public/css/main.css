@@ -1254,6 +1254,19 @@ html, body {
     margin-bottom: 0;	
 }
 
+.comment-form .CodeMirror, .comment-form .CodeMirror-scroll {
+	min-height: 122px;
+}
+.comment-form .editor-toolbar {
+    padding: 0 6px;
+}
+.comment-form .editor-toolbar:before {
+    margin-bottom: 4px;
+}
+.comment-form .editor-toolbar:after {
+    margin-top: 4px;
+}
+
 .comment-form h3 {
     margin-bottom: 8px;
 }
@@ -2083,9 +2096,9 @@ p.upload-rules a {
 .upload-form-table .table-torrent-link input[type="text"] {
     width: 62%;
 }
-.upload-form-table .editor-statusbar {
+.editor-statusbar {
     position: relative;
-    margin-top: -27px;
+    margin-top: -28px;
     margin-bottom: 2px;
     z-index: 1;
 }
