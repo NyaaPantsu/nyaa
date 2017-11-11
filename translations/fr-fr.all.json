@@ -637,7 +637,7 @@
   },
   {
     "id": "userstatus_uploader",
-    "translation": "Uploader"
+    "translation": "Uploadeur"
   },
   {
     "id": "api_token",
@@ -900,6 +900,10 @@
     "translation": "Le torrent a été uploadé avec succès !"
   },
   {
+    "id": "torrent_uploaded_locked",
+    "translation": "Le torrent a été uploadé mais est actuellement bloqué en raison de votre bannissement."
+  },
+  {
     "id": "preferences",
     "translation": "Préférences"
   },
@@ -994,6 +998,22 @@
   {
     "id": "torrent_unblocked_by",
     "translation": "Le torrent n° %s de %s a été débloqué par %s."
+  },
+  {
+    "id": "user_banned",
+    "translation": "L'utilisateur a été banni !"
+  },  
+  {
+    "id": "user_banned_by",
+    "translation": "L'utilisateur %s(%d) #%d a été banni par %s."
+  },
+  {
+    "id": "user_unbanned",
+    "translation": "L'utilisateur a été débanni !"
+  },
+  {
+    "id": "user_unbanned_by",
+    "translation": "L'utilisateur %s(%d) #%d a été débanni par %s."
   },
   {
     "id": "torrents_deleted",
@@ -1114,6 +1134,14 @@
   {
     "id": "torrent_block",
     "translation": "Bloquer"
+  },
+  {
+    "id": "unban",
+    "translation": "Débannir"
+  },
+  {
+    "id": "ban",
+    "translation": "Bannir"
   },
   {
     "id": "torrent_deleted_definitely",
@@ -1945,7 +1973,7 @@
   },
   {
     "id": "remux",
-    "translation": "Remux de la version originale d'un autre uploader"
+    "translation": "Remux de la version originale d'un autre uploadeur"
   },
   {
     "id": "reupload",
@@ -2266,5 +2294,13 @@
   {
     "id": "unread",
     "translation": "Non lu"
+  },
+  {
+    "id": "moderation_guidelines",
+    "translation": "Directives de modération"
+  },
+  {
+    "id": "guidelines",
+    "translation": "Directives"
   }
 ]
