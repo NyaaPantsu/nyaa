@@ -20,7 +20,7 @@
           <a href="/mod/torrent?id={{.ID}}" class="form-input btn-blue float-right">{{  T("edit") }}</a>
         </td>
         <td class="tr-size home-td">
-          <a href="/mod/torrents?userID={{.UploaderID}}">{{ .Uploader.Username }}</a>
+          <a href="/mod/torrents?userID={{.UploaderID}}">{{ if .Uploader }}{{.Uploader.Username }}{{else}}れんちょん{{end}}</a>
         </td>
         <td class="tr-size home-td">
 		{{ if User.IsModerator() }}
