@@ -537,11 +537,11 @@
   },
   {
     "id": "description_markdown_notice",
-    "translation": "説明文には MarkDown 記法を使うことができます。"
+    "translation": "説明文には Markdown 記法を使うことができます。"
   },
   {
     "id": "comment_markdown_notice",
-    "translation": "コメントには MarkDown 記法を使うことができます。"
+    "translation": "コメントには Markdown 記法を使うことができます。"
   },
   {
     "id": "show_all",
