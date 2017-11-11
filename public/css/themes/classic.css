@@ -279,6 +279,9 @@ select.form-input {
 .CodeMirror {
     padding: 0;
 }
+.comment-form .CodeMirror, .comment-form .CodeMirror-scroll {
+	min-height: 70px;
+}
 
 .upload-form-table .checkbox-container {
     height: 22px;
@@ -689,33 +692,58 @@ span.tag {
 }
 .upload-form-table .table-torrent-link input {
     width: 100%!important;
-}    
-.upload-form-table .editor-toolbar {
+}
+.editor-toolbar, .CodeMirror {
+	max-width: 459px;
+}
+.editor-toolbar.fullscreen {
+	top: 40px;
+}
+.CodeMirror-fullscreen {
+	top: 90px;
+}
+.markdown-container .editor-statusbar {
+    bottom: 6px;
+    left: 141px;
+}
+.editor-statusbar {
+    bottom: 19px;
+    left: 209px;
+	right: unset!important;
+}
+.editor-toolbar {
     padding: 0 2px;
     font-size: 10px;
 }
-.upload-form-table .editor-toolbar, .upload-form-table .CodeMirror {
+.editor-toolbar, .CodeMirror {
     border-radius: 0;
     border-color: #c4c4c4;
     opacity: 1;
 }
-.upload-form-table .editor-toolbar::before {
+.editor-toolbar::before {
     margin-bottom: 2px;
 }
-.upload-form-table .editor-toolbar::after {
+.editor-toolbar::after {
     margin-top: 4px;
 }
-.upload-form-table .editor-toolbar a {
+.editor-toolbar a {
     width: 26px;
     height: 24px;
 }
-.upload-form-table .editor-toolbar a:before {
+.comment-form .editor-toolbar a {
+    width: 24px;
+    height: 20px;
+}
+.editor-toolbar a:before {
     line-height: 25px;
+}
+.comment-form .editor-toolbar a:before {
+    line-height: 18px;
 }
 .upload-form-table .CodeMirror-scroll, .upload-form-table .CodeMirror {
     min-height: 120px;
 }
-.upload-form-table .CodeMirror-scroll {
+.CodeMirror-scroll {
     max-width: unset!important;
 }
 
