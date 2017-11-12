@@ -1276,6 +1276,31 @@ html, body {
     margin-bottom: 0;    
 }
 
+.CodeMirror {
+	cursor: text;
+}
+.CodeMirror-fullscreen, .editor-toolbar.fullscreen {
+	max-width: none!important;
+}
+.editor-toolbar.fullscreen {
+	padding: 8px 6px!important;
+}
+.comment-form .CodeMirror, .comment-form .CodeMirror-scroll {
+	min-height: 122px;
+}
+.comment-text, .markdown-container {
+	position: relative;
+}
+.comment-form .editor-toolbar {
+    padding: 0 6px;
+}
+.comment-form .editor-toolbar:before {
+    margin-bottom: 4px;
+}
+.comment-form .editor-toolbar:after {
+    margin-top: 4px;
+}
+
 .comment-form h3 {
     margin-bottom: 8px;
 }
@@ -2104,11 +2129,19 @@ p.upload-rules a {
 .upload-form-table .table-torrent-link input[type="text"] {
     width: 62%;
 }
-.upload-form-table .editor-statusbar {
-    position: relative;
-    margin-top: -27px;
-    margin-bottom: 2px;
+.upload-form-table #desc {
+	margin-bottom: 20px;
+}
+.comment-text .editor-statusbar {
+    right: 9px;
+    bottom: 20px;
+}
+.editor-statusbar {
+    position: absolute;
+	padding: 0;
+    right: 8px;
     z-index: 1;
+    bottom: 6px;
 }
 
 .upload-form-table details {
