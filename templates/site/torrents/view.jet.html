@@ -338,6 +338,7 @@ Modal.Init({
 });
 </script>
 <script type="text/javascript" src="{{ URL.Parse("/js/simplemde.min.js") }}"></script>
+<script type="text/javascript">new SimpleMDE({ element: document.getElementsByName("comment")[0], spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
 {{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}}
 <script type="text/javascript">
 	var torrentLink = document.getElementById("torrent-download-link"),
@@ -380,7 +381,6 @@ Modal.Init({
 		});
 	}
 </script>
-<script type="text/javascript">new SimpleMDE({ element: document.getElementsByName("comment")[0], spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
 {{end}}
 {{if Torrent.StatsObsolete[1] }}
 <script type="text/javascript">
