@@ -664,7 +664,7 @@ th {
     width: auto;
 }
 .website-nav table tr {
-    background: none!important;	
+    background: none!important;    
 }
 .website-nav #nav-category-list {
     width: 70%;
@@ -675,17 +675,17 @@ th {
 }
 .sub-category-list {
     padding-left: 16px;
-	font-size: 12px;
-	margin-bottom: 9px;
+    font-size: 12px;
+    margin-bottom: 9px;
 }
 .sub-category-list span{
-	display: block;
+    display: block;
 }
 .sub-category-list span:before {
-	content: '-» ';
+    content: '-» ';
 }
 .sub-category-list span:first-child:before {
-	content: '';
+    content: '';
 }
 textarea {
     max-width: 100%;
@@ -899,8 +899,8 @@ html, body {
         width: 100% !important;
         margin-bottom: 15px;
     }
-    .profile-panel .user-search {
-        max-width: none;
+    .profile-usermenu, .profile-panel .user-search {
+        width: 200px!important;
     }
     .header .h-user {
         width: 46px;
@@ -938,6 +938,9 @@ html, body {
     }
     .upload-form-table .table-input-label {
         width: 25%!important;
+    }
+    .notification-status {
+        width: 100px;
     }
 }
 
@@ -1030,12 +1033,28 @@ html, body {
     .upload-form-table .table-input-label {
         display: none;
     }
-	.torrent-view-data {
- 		display: table!important;
- 	}
- 	.torrent-view-data td, .torrent-view-data table {
- 		width: 100%!important;
- 	}
+    .torrent-view-data {
+         display: table!important;
+     }
+     .torrent-view-data td, .torrent-view-data table {
+         width: 100%!important;
+     }
+    .notification-status {
+        width: 41px!important;
+        font-size: 0;
+    }
+    #clear-notification a {
+        display: block;
+        margin-left: 0px!important;
+        float: none!important;
+        margin-top: 2px;
+    }
+    .notification-table {
+        margin-bottom: 108px!important;
+    }
+    .notification-date {
+        width: 100px!important;
+    }
 }
 
 @media (max-width: 440px) {
@@ -1062,7 +1081,7 @@ html, body {
 }
 
 .profile-sidebar {
-    display: inline-block;
+    display: block;
 }
 
 .profile-usertitle {
@@ -1087,11 +1106,14 @@ html, body {
     border-radius: 6px;
 }
 
-.profile-usermenu {
-    min-width: 170px;
+.profile-usermenu, .profile-panel .user-search {
+    width: 170px;
+    margin: 0 auto;
+    max-width: calc(100% - 16px);
 }
-.profile-usermenu a {
+.profile-usermenu a, .profile-usermenu button {
     display: block;
+    width: 100%;
     margin-bottom: 11px;
 }
 .profile-usermenu .icon-rss-squared {
@@ -1237,7 +1259,7 @@ html, body {
 }
 
 .comment-content :first-child {
-	margin-top: 8px;
+    margin-top: 8px;
 }
 .comment-content :last-child {
     margin-bottom: 2px;
@@ -1251,7 +1273,7 @@ html, body {
 }
 
 .comment-form textarea {
-    margin-bottom: 0;	
+    margin-bottom: 0;    
 }
 
 .CodeMirror {
@@ -1817,7 +1839,6 @@ input.filelist-checkbox:checked+table.table-filelist {
 }
 
 [class^="btn-"] {
-    font-weight: bold;
     color: white;
 }
 
@@ -1876,7 +1897,7 @@ summary:after {
     width: 12px;
     font-size: 1.5em;
     font-weight: bold;
-	outline: none;
+    outline: none;
 }
 
 details[open] summary:after {
@@ -2124,32 +2145,32 @@ p.upload-rules a {
 }
 
 .upload-form-table details {
-	margin-bottom: 4px;
+    margin-bottom: 4px;
 }
 #anidex-upload-info > div {
-	height: auto;
-	padding: 10px 6px;
-	border-top: none;
+    height: auto;
+    padding: 10px 6px;
+    border-top: none;
 }
 #anidex-upload-info p {
-	margin-bottom: 4px;
+    margin-bottom: 4px;
 }
 #anidex-upload-info p:first-child {
-	margin-top: 0;
+    margin-top: 0;
 }
 #anidex-upload-info > div > div {
-	margin-left: 9px;
+    margin-left: 9px;
 }
 
 #anidex-upload-info > div input[type="text"], #anidex-upload-info > div select {
-	margin-bottom: 4px;
-	
+    margin-bottom: 4px;
+    
 }
 #anidex-upload-info > div select {
-	width: calc(100% - 8px);
+    width: calc(100% - 8px);
 }
 #anidex-upload-info > div select[name="anidex_form_category"] option{
-	color: #000;
+    color: #000;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     font-size: 14px;
     font-weight: bold;
@@ -2339,7 +2360,6 @@ table.multiple-upload {
 }
 .profile-panel .user-search {
     padding: 0;
-    max-width: 170px;
 }
 
 .user-search [type="text"] {
@@ -2423,49 +2443,49 @@ form.delete-form button.form-input.btn-red {
     bottom: 8px;
     right: 8px;
     position: absolute;
-	width: calc(100% - 16px);
+    width: calc(100% - 16px);
 }
 #clear-notification a {
-	float: right;
-	margin-left: 3px;
+    float: right;
+    margin-left: 3px;
 }
 .notification-table {
     margin-bottom: 44px;
 }
 .notification-table td {
-	text-align: center;
-	padding: 6px 0;
-	border-bottom: 1px solid;
+    text-align: center;
+    padding: 6px 0;
+    border-bottom: 1px solid;
 }
 .notification-table tr:hover td {
-	filter: brightness(1.2);
+    filter: brightness(1.2);
 }
 .notification-status {
-	width: 140px;
+    width: 140px;
 }
 .notification-event {
-	text-align: left!important;
-	padding: 6px 10px!important;
+    text-align: left!important;
+    padding: 6px 10px!important;
 }
 .notification-date {
-	width: 195px;
+    width: 195px;
 }
 td.notification-status {
-	border: 1px solid black;
+    border: 1px solid black;
 }
 td.notification-status {
-	background-color: #e4e4e4;
+    background-color: #e4e4e4;
 }
 td.notification-status.notification-unread {
-	background-color: rgb(161, 211, 253);
-	color: white;
+    background-color: rgb(161, 211, 253);
+    color: white;
 }
 
 .torrent-report-table td, .torrent-report-table th {
-	width: 195px;
+    width: 195px;
 }
 .td-report-message  {
-	width: auto!important;
+    width: auto!important;
     white-space: normal;
     word-break: break-word;
 }

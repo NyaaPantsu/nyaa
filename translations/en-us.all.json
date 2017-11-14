@@ -608,16 +608,16 @@
     "translation": "Current password"
   },
   {
+    "id": "default",
+    "translation": "Default"
+  },
+  {
     "id": "role",
     "translation": "Role"
   },
   {
     "id": "userstatus_banned",
     "translation": "Banned"
-  },
-  {
-    "id": "default",
-    "translation": "Default"
   },
   {
     "id": "userstatus_trusted",
@@ -630,6 +630,10 @@
   {
     "id": "userstatus_moderator",
     "translation": "Moderator"
+  },
+  {
+    "id": "userstatus_janitor",
+    "translation": "Janitor"
   },
   {
     "id": "userstatus_uploader",
@@ -884,6 +888,10 @@
     "translation": "torrent uploaded successfully!"
   },
   {
+    "id": "torrent_uploaded_locked",
+    "translation": "Your torrent has been uploaded but is locked because you are banned."
+  },
+  {
     "id": "preferences",
     "translation": "Preferences"
   },
@@ -976,8 +984,20 @@
     "translation": "Torrent #%d from %s has been locked by %s."
   },
   {
-    "id": "torrent_blocked_by",
+    "id": "torrent_unblocked_by",
     "translation": "Torrent #%d from %s has been unlocked by %s."
+  },
+  {
+    "id": "user_banned",
+    "translation": "User has been banned!"
+  },
+  {
+    "id": "user_banned",
+    "translation": "User has been unbanned!"
+  },
+  {
+    "id": "user_unbanned_by",
+    "translation": "User %s(%d) #%d has been unbanned by %s"
   },
   {
     "id": "torrents_deleted",
@@ -1098,6 +1118,14 @@
   {
     "id": "torrent_block",
     "translation": "Lock"
+  },
+  {
+    "id": "unban",
+    "translation": "Unban"
+  },
+  {
+    "id": "ban",
+    "translation": "Ban"
   },
   {
     "id": "torrent_deleted_definitely",
@@ -2250,5 +2278,13 @@
   {
     "id": "unread",
     "translation": "Unread"
+  },
+  {
+    "id": "moderation_guidelines",
+    "translation": "Moderation Guidelines"
+  },
+  {
+    "id": "guidelines",
+    "translation": "Guidelines"
   }
 ]

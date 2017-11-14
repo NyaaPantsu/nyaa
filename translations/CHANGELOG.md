@@ -91,3 +91,15 @@
 ## 2017/11/04
 * + nsfw_content
 * + generating_torrent_failed
+## 2017/11/09
+* + userstatus_janitor
+* + ban
+* + unban
+* + user_banned_by
+* + user_unbanned_by
+## 2017/11/10
+* + user_banned
+* + user_unbanned
+* + torrent_uploaded_locked
+* + moderation_guidelines
+* + guidelines

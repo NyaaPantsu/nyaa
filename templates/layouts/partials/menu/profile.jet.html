@@ -1,5 +1,6 @@
+{{ import "layouts/partials/helpers/csrf" }}
 {{ block profile_menu(route="profile") }}
-<div class="profile-sidebar">
+<div class="profile-sidebar {{ if UserProfile.IsBanned() }} hidden{{end}}">
   <!-- SIDEBAR USERPIC -->
   <div class="profile-userpic">
     <img src="{{ getAvatar(UserProfile.MD5, 130) }}" alt="{{ UserProfile.Username }}"/>
@@ -10,9 +11,11 @@
     <p class="profile-usertitle-name">
       {{ UserProfile.Username}}
     </p>
+    {{ if UserProfile.GetRole() != "" }}
     <p class="profile-usertitle-job">
       {{T(UserProfile.GetRole())}}
     </p>
+    {{end}}
     <p class="profile-usertitle-uploadcount">{{T("followers")}}: <b>{{len(UserProfile.Followers)}}</b><br/>{{ T("torrents_uploaded") }}:<b>{{ NbTorrents[0] }}</b><br>{{T("size")}}: <b>{{fileSize(NbTorrents[1], T, false)}}</b></p>
   </div>
   <!-- END SIDEBAR USER TITLE -->
@@ -43,12 +46,19 @@
     {{ if User.CurrentUserIdentical(UserProfile.ID) }}
     <a class="form-input" href="/notifications">{{  T("my_notifications")}}</a>
     {{end}}
-    {{if UserProfile.ID > 0 && User.CurrentOrAdmin(UserProfile.ID) }}
-    <a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/edit">
-      {{ T("settings")}}
-    </a> 
+    {{if UserProfile.ID > 0}}
+		{{ if User.CurrentOrAdmin(UserProfile.ID) }}
+		<a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/edit">
+		  {{ T("settings")}}
+		</a> 
+		{{else if User.IsJanitor() && !UserProfile.IsJanitor() }}
+		<form method="POST" action="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/ban">
+		    {{ yield csrf_field()}}
+		    <button type="submit" class="form-input btn-blue" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i>{{ if UserProfile.IsBanned() }}{{  T("unban") }}{{else}}{{  T("ban") }}{{end}}</button>
+		</form>
+		{{end}}
     {{end}}
-    {{end}}
+	{{end}}
   </div>
   {{ if User.ID != UserProfile.ID }}
   <div class="user-search">

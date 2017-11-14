@@ -433,7 +433,7 @@ func APISearchHandler(c *gin.Context) {
 		userID = 0
 	}
 
-	_, torrentSearch, nbTorrents, err := search.AuthorizedQuery(c, pagenum, currentUser.CurrentOrAdmin(uint(userID)))
+	_, torrentSearch, nbTorrents, err := search.AuthorizedQuery(c, pagenum, currentUser.CurrentOrJanitor(uint(userID)), currentUser.CurrentOrJanitor(uint(userID)))
 
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)

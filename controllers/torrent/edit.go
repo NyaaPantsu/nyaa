@@ -52,7 +52,7 @@ func TorrentPostEditUserPanel(c *gin.Context) {
 			messages.AddErrorT("errors", "fail_torrent_update")
 		}
 		if !messages.HasErrors() {
-			upload.UpdateTorrent(&uploadForm, torrent, currentUser).Update(currentUser.HasAdmin())
+			upload.UpdateTorrent(&uploadForm, torrent, currentUser).Update(currentUser.IsModerator())
 			c.Redirect(http.StatusSeeOther, fmt.Sprintf("/view/%d?success_edit", id))
 			return
 		}

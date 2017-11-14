@@ -40,6 +40,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("GetCategories", categories.GetSelect)
 	vars.Set("GetCategory", getCategory)
 	vars.Set("CategoryName", categoryName)
+	vars.Set("GetCategoryName", GetCategoryName)
 	vars.Set("GetTorrentLanguages", torrentLanguages.GetTorrentLanguages)
 	vars.Set("LanguageName", languageName)
 	vars.Set("LanguageNameFromCode", languageNameFromCode)
@@ -224,13 +225,16 @@ func getCategory(category string, keepParent bool) categories.Categories {
 	return categoryRet
 }
 func categoryName(category string, subCategory string) string {
-	s := category + "_" + subCategory
+	return GetCategoryName( category + "_" + subCategory)
+}
 
-	if category, ok := categories.GetByID(s); ok {
-		return category.Name
+func GetCategoryName(category string) string {
+	if cat, ok := categories.GetByID(category); ok {
+		return cat.Name
 	}
 	return ""
 }
+
 func languageName(lang publicSettings.Language, T publicSettings.TemplateTfunc) string {
 	if strings.Contains(lang.Name, ",") {
 		langs := strings.Split(lang.Name, ", ")

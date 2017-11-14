@@ -7,9 +7,12 @@ import (
 
 	"net/http"
 
+
 	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models/notifications"
+	"github.com/NyaaPantsu/nyaa/models/activities"
 	"github.com/NyaaPantsu/nyaa/models/users"
+	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/NyaaPantsu/nyaa/utils/cookies"
 	"github.com/NyaaPantsu/nyaa/utils/crypto"
@@ -33,8 +36,36 @@ func UserProfileDelete(c *gin.Context) {
 			if err == nil && currentUser.CurrentUserIdentical(userProfile.ID) {
 				cookies.Clear(c)
 			}
-		}
 		templates.Static(c, "site/static/delete_success.jet.html")
+		}
+	} else {
+		c.AbortWithStatus(http.StatusNotFound)
+	}
+}
+
+// UserProfileBan :  Ban an User
+func UserProfileBan(c *gin.Context) {
+	currentUser := router.GetUser(c)
+	
+	if currentUser.IsJanitor() {
+		id, _ := strconv.ParseUint(c.Param("id"), 10, 32)
+		
+		userProfile, _, errorUser := users.FindForAdmin(uint(id))
+		if errorUser == nil && !userProfile.IsModerator() {
+				action := "user_unbanned_by"
+				message := "?unbanned"
+				if userProfile.ToggleBan() {
+					action = "user_banned_by"
+					message = "?banned"
+				}
+				
+				activities.Log(&models.User{}, fmt.Sprintf("user_%d", id), "edit", action, userProfile.Username, strconv.Itoa(int(id)), currentUser.Username)
+				c.Redirect(http.StatusSeeOther, fmt.Sprintf("/user/%d/%s", id, c.Param("username") + message))
+		} else {
+			c.AbortWithStatus(http.StatusNotFound)
+		}
+	} else {
+		c.AbortWithStatus(http.StatusNotFound)
 	}
 }
 
@@ -150,7 +181,7 @@ func UserDetailsHandler(c *gin.Context) {
 	}
 }
 
-// UserProfileFormHandler : Getting View User Profile Update
+// UserProfileFormHandler :  Updating User Profile
 func UserProfileFormHandler(c *gin.Context) {
 	id, _ := strconv.ParseUint(c.Param("id"), 10, 32)
 	currentUser := router.GetUser(c)
@@ -178,21 +209,21 @@ func UserProfileFormHandler(c *gin.Context) {
 	if !messages.HasErrors() {
 		c.Bind(&userForm)
 		c.Bind(&userSettingsForm)
-		if !currentUser.HasAdmin() {
+		if !currentUser.IsModerator() {
 			userForm.Username = userProfile.Username
 			userForm.Status = userProfile.Status
 		} else {
-			if userProfile.Status != userForm.Status && userForm.Status == 2 {
+			if userProfile.Status != userForm.Status && (userForm.Status == 2){
 				messages.AddErrorT("errors", "elevating_user_error")
 			}
 		}
 		validator.ValidateForm(&userForm, messages)
 		if !messages.HasErrors() {
 			if userForm.Email != userProfile.Email {
-				if currentUser.HasAdmin() {
-					userProfile.Email = userForm.Email
+				if currentUser.IsModerator() {
+					userProfile.Email = userForm.Email // reset, it will be set when user clicks verification
 				} else {
-					email.SendVerificationToUser(currentUser, userForm.Email)
+					email.SendVerificationToUser(userProfile, userForm.Email)
 					messages.AddInfoTf("infos", "email_changed", userForm.Email)
 					userForm.Email = userProfile.Email // reset, it will be set when user clicks verification
 				}
@@ -201,10 +232,7 @@ func UserProfileFormHandler(c *gin.Context) {
 			if err != nil {
 				messages.Error(err)
 			}
-			if userForm.Email != user.Email {
-				// send verification to new email and keep old
-				email.SendVerificationToUser(user, userForm.Email)
-			}
+
 			if !messages.HasErrors() {
 				messages.AddInfoT("infos", "profile_updated")
 				userProfile = user
