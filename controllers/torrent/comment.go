@@ -54,9 +54,11 @@ func PostCommentHandler(c *gin.Context) {
 	}
 	if !messages.HasErrors() {
 
-		_, err := comments.Create(content, torrent, userID)
+		comment, err := comments.Create(content, torrent, userID)
 		if err != nil {
 			messages.Error(err)
+		} else {
+			torrent.Comments = append(torrent.Comments, *comment)
 		}
 	}
 	
