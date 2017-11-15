@@ -54,20 +54,11 @@ func PostCommentHandler(c *gin.Context) {
 	}
 	if !messages.HasErrors() {
 
-		comment, err := comments.Create(content, torrent, userID)
+		_, err := comments.Create(content, torrent, userID)
 		if err != nil {
 			messages.Error(err)
-		} else {
-			torrent.Comments = append(torrent.Comments, *comment)
 		}
 	}
 	
-	captchaID := ""
-	//Generate a captcha
-	if currentUser.NeedsCaptcha() {
-		captchaID = captcha.GetID()
-	}
-	
-	folder := filelist.FileListToFolder(torrent.FileList, "root")
-	templates.Torrent(c, torrent.ToJSON(), folder, captchaID)
+	ViewHandler(c)
 }
