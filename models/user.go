@@ -278,7 +278,7 @@ func (u *User) SetFollow(follower *User) {
 	if follower.ID > 0 && u.ID > 0 {
 		var userFollows = UserFollows{UserID: u.ID, FollowerID: follower.ID}
 		ORM.Create(&userFollows)
-		u.Followers = append(u.Followers, userFollows)
+		u.Followers = append(u.Followers, *follower)
 	}
 }
 
