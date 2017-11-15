@@ -278,6 +278,7 @@ func (u *User) SetFollow(follower *User) {
 	if follower.ID > 0 && u.ID > 0 {
 		var userFollows = UserFollows{UserID: u.ID, FollowerID: follower.ID}
 		ORM.Create(&userFollows)
+		u.Followers = append(u.Followers, userFollows)
 	}
 }
 
@@ -286,6 +287,15 @@ func (u *User) RemoveFollow(follower *User) {
 	if follower.ID > 0 && u.ID > 0 {
 		var userFollows = UserFollows{UserID: u.ID, FollowerID: follower.ID}
 		ORM.Delete(&userFollows)
+		for i, followr := range u.Followers {
+			if followr.ID == follower.ID {
+				u.Followers[i] = u.Followers[len(u.Followers)-1] 
+				// The very last follower will take the place of the one that is getting deleted in the array
+				u.Followers = u.Followers[:len(u.Followers)-1]
+				// We now proceed to delete the very last array element since it got copied to another position
+				return
+			}
+		}
 	}
 }
 
