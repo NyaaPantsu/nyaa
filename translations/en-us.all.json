@@ -1,4 +1,5 @@
-[{
+[
+  {
     "id": "read_rules",
     "translation": "Please read <a href=\"/faq#rules\">the rules</a> before uploading."
   },
@@ -139,6 +140,10 @@
     "translation": "Torrents"
   },
   {
+    "id": "followers",
+    "translation": "Followers"
+  },
+  {
     "id": "follow",
     "translation": "Follow"
   },
@@ -255,7 +260,7 @@
     "translation": "Sign-out"
   },
   {
-    "id": "member",
+    "id": "userstatus_member",
     "translation": "Member"
   },
   {
@@ -532,7 +537,11 @@
   },
   {
     "id": "description_markdown_notice",
-    "translation": "Markdown can be used in descriptions."
+    "translation": "Markdown can be used in description."
+  },
+  {
+    "id": "comment_markdown_notice",
+    "translation": "Markdown can be used in comments."
   },
   {
     "id": "show_all",
@@ -599,28 +608,36 @@
     "translation": "Current password"
   },
   {
-    "id": "role",
-    "translation": "Role"
-  },
-  {
-    "id": "banned",
-    "translation": "Banned"
-  },
-  {
     "id": "default",
     "translation": "Default"
   },
   {
-    "id": "trusted_member",
+    "id": "role",
+    "translation": "Role"
+  },
+  {
+    "id": "userstatus_banned",
+    "translation": "Banned"
+  },
+  {
+    "id": "userstatus_trusted",
     "translation": "Trusted member"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Scraped user"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "Moderator"
+  },
+  {
+    "id": "userstatus_janitor",
+    "translation": "Janitor"
+  },
+  {
+    "id": "userstatus_uploader",
+    "translation": "Uploader"
   },
   {
     "id": "api_token",
@@ -771,6 +788,10 @@
     "translation": "Report type"
   },
   {
+    "id": "report_message",
+    "translation": "Report message"
+  },
+  {
     "id": "illegal_content",
     "translation": "Illegal content"
   },
@@ -785,6 +806,14 @@
   {
     "id": "duplicate_deprecated",
     "translation": "Duplicate / Deprecated"
+  },
+  {
+    "id": "nsfw_content",
+    "translation": "NSFW content"
+  },
+  {
+    "id": "other",
+    "translation": "Other"
   },
   {
     "id": "captcha",
@@ -824,11 +853,27 @@
   },
   {
     "id": "clear_notifications",
-    "translation": "Clear Notifications"
+    "translation": "Clear read notifications"
+  },
+  {
+    "id": "clear_all_notifications",
+    "translation": "Clear all notifications"
+  },
+  {
+    "id": "mark_notifications_as_read",
+    "translation": "Mark notifications as read"
   },
   {
     "id": "notifications_cleared",
     "translation": "Notifications erased!"
+  },
+  {
+    "id": "read_notifications_cleared",
+    "translation": "Read notifications erased!"
+  },
+  {
+    "id": "notifications_read",
+    "translation": "All notifications marked as read!"
   },
   {
     "id": "my_notifications",
@@ -841,6 +886,10 @@
   {
     "id": "torrent_uploaded",
     "translation": "torrent uploaded successfully!"
+  },
+  {
+    "id": "torrent_uploaded_locked",
+    "translation": "Your torrent has been uploaded but is locked because you are banned."
   },
   {
     "id": "preferences",
@@ -935,8 +984,20 @@
     "translation": "Torrent #%d from %s has been locked by %s."
   },
   {
-    "id": "torrent_blocked_by",
+    "id": "torrent_unblocked_by",
     "translation": "Torrent #%d from %s has been unlocked by %s."
+  },
+  {
+    "id": "user_banned",
+    "translation": "User has been banned!"
+  },
+  {
+    "id": "user_banned",
+    "translation": "User has been unbanned!"
+  },
+  {
+    "id": "user_unbanned_by",
+    "translation": "User %s(%d) #%d has been unbanned by %s"
   },
   {
     "id": "torrents_deleted",
@@ -949,6 +1010,10 @@
   {
     "id": "delete_report",
     "translation": "Delete Report"
+  },
+  {
+    "id": "delete_all_reports",
+    "translation": "Delete all reports"
   },
   {
     "id": "comment_deleted",
@@ -1055,6 +1120,14 @@
     "translation": "Lock"
   },
   {
+    "id": "unban",
+    "translation": "Unban"
+  },
+  {
+    "id": "ban",
+    "translation": "Ban"
+  },
+  {
     "id": "torrent_deleted_definitely",
     "translation": "Torrent has been erased from the database!"
   },
@@ -1097,6 +1170,10 @@
   {
     "id": "theme_none",
     "translation": "None"
+  },
+  {
+    "id": "themes_classic",
+    "translation": "nyaa.se (Beta)"
   },
   {
     "id": "upload_as_anon",
@@ -1353,10 +1430,6 @@
   {
     "id": "torrent_language",
     "translation": "Torrent language"
-  },
-  {
-    "id": "language_not_mandatory",
-    "translation": "Language is not mandatory anymore"
   },
   {
     "id": "language_en-us_name",
@@ -1679,10 +1752,6 @@
     "translation": "large."
   },
   {
-    "id": "old",
-    "translation": "old"
-  },
-  {
     "id": "optional",
     "translation": "Optional"
   },
@@ -1816,7 +1885,7 @@
   },
   {
     "id": "torrent_name",
-    "translation": "Torrent name"
+    "translation": "Torrent Name"
   },
   {
     "id": "torrent_name_invalid",
@@ -1921,6 +1990,10 @@
   {
     "id": "announcement",
     "translation": "Announcement"
+  },
+  {
+    "id": "create_anouncement_success",
+    "translation": "Announcement successfully created"
   },
   {
     "id": "update_client_failed",
@@ -2087,8 +2160,8 @@
     "translation": "Message"
   },
   {
-    "id": "delay",
-    "translation": "Delay"
+    "id": "duration",
+    "translation": "Duration (Hours)"
   },
   {
     "id": "update_annoucement_panel",
@@ -2129,5 +2202,89 @@
   {
     "id": "cookie_warning",
     "translation": "By using this website, you agree to the usage of cookies for purposes such as customizing content.<br/>This message will be hidden at the next page load."
+  },
+  {
+    "id": "pending_torrent",
+    "translation": "Be patient, the torrent file is being generated. Try again in a few seconds."
+  },
+  {
+    "id": "generating_torrent",
+    "translation": "Generating torrent file..."
+  },
+  {
+    "id": "generating_torrent_failed",
+    "translation": "Could not generate torrent file"
+  },
+  {
+    "id": "enabled",
+    "translation": "Enabled"
+  },
+  {
+    "id": "disabled",
+    "translation": "Disabled"
+  },
+  {
+    "id": "reset_api_key",
+    "translation": "Reset API key"
+  },
+  {
+    "id": "tag_error",
+    "translation": "Couldn't add a tag, please check your internet connection and that all fields are filled."
+  },
+  {
+    "id": "search_from_user",
+    "translation": "Search from this user..."
+  },
+  {
+    "id": "usersearch_user_not_found",
+    "translation": "The user \"%s\" has not been found"
+  },
+  {
+    "id": "user_search_explanation",
+    "translation": "Search for an user by writing down his username in the below input"
+  },
+  {
+    "id": "no_api_token",
+    "translation": "No API token"
+  },
+  {
+    "id": "search_from_specific_user",
+    "translation": "Search from %s"
+  },
+  {
+    "id": "browsing_user_torrents",
+    "translation": "Browsing <a href=\"/user/%d/%s\">%s</a>'s torrents"
+  },
+  {
+    "id": "hours_minutes_ago",
+    "translation": "{0} hours {1} minutes ago"
+  },
+  {
+    "id": "days_hours_ago",
+    "translation": "{0} days {1} hours ago"
+  },
+  {
+    "id": "status",
+    "translation": "Status"
+  },
+  {
+    "id": "event",
+    "translation": "Event"
+  },
+  {
+    "id": "read",
+    "translation": "Read"
+  },
+  {
+    "id": "unread",
+    "translation": "Unread"
+  },
+  {
+    "id": "moderation_guidelines",
+    "translation": "Moderation Guidelines"
+  },
+  {
+    "id": "guidelines",
+    "translation": "Guidelines"
   }
 ]

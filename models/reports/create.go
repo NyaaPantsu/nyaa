@@ -7,9 +7,10 @@ import (
 	"errors"
 )
 
-func Create(desc string, torrent *models.Torrent, user *models.User) (*models.TorrentReport, error) {
+func Create(desc string, message string, torrent *models.Torrent, user *models.User) (*models.TorrentReport, error) {
 	report := &models.TorrentReport{
 		Description: desc,
+		Message:     message,
 		TorrentID:   torrent.ID,
 		UserID:      user.ID,
 		CreatedAt:   time.Now(),

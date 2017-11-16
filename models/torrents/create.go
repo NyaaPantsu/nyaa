@@ -26,7 +26,7 @@ func Create(user *models.User, uploadForm *torrentValidator.TorrentRequest) (*mo
 		Description: uploadForm.Description,
 		WebsiteLink: uploadForm.WebsiteLink,
 		UploaderID:  user.ID}
-	torrent.EncodeLanguages() // Convert languages array in language string
+
 	torrent.ParseTrackers(uploadForm.Trackers)
 	for _, tagForm := range uploadForm.Tags {
 		tag := &models.Tag{
@@ -41,7 +41,31 @@ func Create(user *models.User, uploadForm *torrentValidator.TorrentRequest) (*mo
 			torrent.Tags = append(torrent.Tags, *tag) // Finally we append it to the torrent
 		}
 	}
-
+	
+	if torrent.Category == 6 {
+		torrent.Languages = []string{}
+		//Pictures category, does not ever need a language
+	}
+	
+	if (torrent.Category == 3 && torrent.SubCategory == 5) || (torrent.Category == 4 && torrent.SubCategory == 7) || (torrent.Category == 5 && torrent.SubCategory == 9){
+		//English Translated Anime, Live Action and Litterature
+		//We only add english if there is another language already there
+		//We don't want to add the english flag on every single torrent of these sub categories, not without any changes to redundant languages
+		if len(torrent.Languages) != 0  {
+			containsEnglish := false
+			for _, lang := range torrent.Languages {
+				if lang == "en" {
+					containsEnglish = true
+					break
+				}
+			}
+			if !containsEnglish {
+				torrent.Languages = append(torrent.Languages, "en")
+			}
+		}
+	}
+	torrent.EncodeLanguages() // Convert languages array in language string
+	
 	err := models.ORM.Create(&torrent).Error
 	log.Infof("Torrent ID %d created!\n", torrent.ID)
 	if err != nil {

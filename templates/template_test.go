@@ -51,7 +51,7 @@ func walkDirTest(dir string, t *testing.T) {
 	em := "cop@cat.fe"
 
 	fakeTag := &models.Tag{1, 1, "12345", "anidbid", 1, 0, true}
-	fakeUser := &models.User{1, "test", "test", "test", 1, time.Now(), time.Now(), "test", time.Now(), "en", "test", "test", "test", "test", "test", "test", 0.0, []models.User{}, []models.User{}, "test", []models.Torrent{}, []models.Notification{}, 1, models.UserSettings{}, []models.Tag{*fakeTag}}
+	fakeUser := &models.User{1, "test", "test", "test", 1, time.Now(), time.Now(), "test", time.Now(), "en", "test", "test", "test", "test", "test", "test", "test", "test", "test", 0.0, []models.User{}, []models.User{}, "test", []models.Torrent{}, []models.Notification{}, 1, models.UserSettings{}, []models.Tag{*fakeTag}}
 	fakeComment := &models.Comment{1, 1, 1, "test", time.Now(), time.Now(), nil, &models.Torrent{}, fakeUser}
 	fakeScrapeData := &models.Scrape{1, 0, 0, 10, time.Now()}
 	fakeFile := &models.File{1, 1, "l12:somefile.mp4e", 3}
@@ -60,15 +60,15 @@ func walkDirTest(dir string, t *testing.T) {
 	fakeActivity := &models.Activity{1, "t", "e", "s", 1, fakeUser}
 	fakeDB := &models.DatabaseDump{time.Now(), 3, "test", "test"}
 	fakeLanguage := &publicSettings.Language{"English", "en", "en-us"}
-	fakeTorrentRequest := &torrentValidator.TorrentRequest{Name: "test", Magnet: "", Category: "", Remake: false, Description: "", Status: 1, Hidden: false, CaptchaID: "", WebsiteLink: "", SubCategory: 0, Languages: nil, Infohash: "", SubCategoryID: 0, CategoryID: 0, Filesize: 0, Filepath: "", FileList: nil, Trackers: nil, Tags: torrentValidator.TagsRequest{}}
+	fakeTorrentRequest := &torrentValidator.TorrentRequest{Name: "test", Magnet: "", Category: "", Remake: false, Description: "", Status: 1, Hidden: false, CaptchaID: "", WebsiteLink: "", Languages: nil, Infohash: "", SubCategoryID: 0, CategoryID: 0, Filesize: 0, Filepath: "", FileList: nil, Trackers: nil, Tags: torrentValidator.TagsRequest{}}
 	fakeLogin := &userValidator.LoginForm{"test", "test", "/", "false"}
 	fakeRegistration := &userValidator.RegistrationForm{"test", "", "test", "test", "xxxx", "1"}
-	fakeReport := &models.TorrentReport{1, "test", 1, 1, time.Now(), fakeTorrent, fakeUser}
+	fakeReport := &models.TorrentReport{1, "test", "test", 1, 1, time.Now(), fakeTorrent, fakeUser}
 	fakeOauthForm := apiValidator.CreateForm{"", "f", []string{fu}, []string{}, []string{}, "", "fedr", fu, fu, fu, fu, []string{em}, ""}
 	fakeOauthModel := fakeOauthForm.Bind(&models.OauthClient{})
 	fakeClient := client.Client{"", "", "", []string{""}, []string{""}, []string{""}, "", "", "", "", "", "", []string{""}, false}
 	fakeAnnouncement := announcementValidator.CreateForm{1, "", 2}
-	fakeNotification := &models.Notification{1, "test", true, "test", "test", time.Now(), 1}
+	fakeNotification := &models.Notification{1, "test", true, "test", "test", time.Now(), time.Now(), 1}
 
 	contextvariables := ContextTest{
 		"dumps.jet.html": func(variables jet.VarMap) jet.VarMap {
@@ -85,17 +85,17 @@ func walkDirTest(dir string, t *testing.T) {
 			return variables
 		},
 		"edit.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("NbTorrents", 0)
+			variables.Set("NbTorrents", []int64{0,0})
 			variables.Set("Form", fakeTorrentRequest)
 			variables.Set("Languages", publicSettings.Languages{*fakeLanguage, *fakeLanguage})
 			return variables
 		},
 		"torrents.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("NbTorrents", 0)
+			variables.Set("NbTorrents", []int64{0,0})
 			return variables
 		},
 		"profile.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("NbTorrents", 0)
+			variables.Set("NbTorrents", []int64{0,0})
 			return variables
 		},
 		"upload.jet.html": func(variables jet.VarMap) jet.VarMap {
@@ -103,7 +103,7 @@ func walkDirTest(dir string, t *testing.T) {
 			return variables
 		},
 		"view.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("NbTorrents", 0)
+			variables.Set("NbTorrents", []int64{0,0})
 			variables.Set("Torrent", fakeTorrent.ToJSON())
 			variables.Set("CaptchaID", "xxxxxx")
 			variables.Set("RootFolder", filelist.FileListToFolder(fakeTorrent.FileList, "root"))
@@ -153,7 +153,7 @@ func walkDirTest(dir string, t *testing.T) {
 			return variables
 		},
 		"notifications.jet.html": func(variables jet.VarMap) jet.VarMap {
-			variables.Set("NbTorrents", 0)
+			variables.Set("NbTorrents", []int64{0,0})
 			return variables
 		},
 		"report.jet.html": func(variables jet.VarMap) jet.VarMap {
@@ -281,6 +281,7 @@ func mockupCommonvariables(t *testing.T) jet.VarMap {
 	}
 	variables.Set("T", T)
 	variables.Set("Theme", "test")
+	variables.Set("DarkTheme", "test")
 	variables.Set("AltColors", "test")
 	variables.Set("OldNav", "test")
 	variables.Set("Mascot", "test")

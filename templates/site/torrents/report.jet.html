@@ -8,7 +8,7 @@
     <h1>{{  T("report_torrent_number", Form.ID) }}</h1>
     <form role="form" method="POST">
       {{ yield csrf_field() }}
-      <div style="text-align:left">
+      <div style="text-align:left;margin-bottom: 8px;">
         <h3>{{  T("report_type") }}</h3>
         <input type="radio" name="report_type" value="illegal_content" id="illegal" required/>
         <label for="illegal">{{  T("illegal_content") }}</label>
@@ -22,10 +22,22 @@
         <input type="radio" name="report_type" value="duplicate_deprecated" id="dup" required/>
         <label for="dup">{{  T("duplicate_deprecated") }}</label>
         <br />
+	{{ if !Sukebei()}}
+        <input type="radio" name="report_type" value="nsfw_content" id="nsfw_content" required/>
+        <label for="nsfw_content">{{  T("nsfw_content") }}</label>
+        <br />
+	{{end}}
+        <input type="radio" name="report_type" value="other" id="other" required/>
+        <label for="other">{{  T("other") }}</label>
+        <br />
+	      <h4>{{  T("report_message") }}</h4>
+	      <input type="text" class="form-input" name="report_message" placeholder="(Optional, 60 characters max)" maxlength="60">
       </div>
+      {{if User.ID == 0}}
       <div class="comment-captcha">
         {{yield captcha(captchaid=Form.CaptchaID)}}
       </div>
+      {{end}}
       <input id="confirm_changes"  class="form-input up-input btn-green" name="submit_report" type="submit" value="{{  T("yes")}}"/>
     </form>
   </div>

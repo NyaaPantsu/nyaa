@@ -15,22 +15,20 @@ func toggleThemeHandler(c *gin.Context) {
 
 	theme, err := c.Cookie("theme")
 	if err != nil {
-		theme = "g"
+		theme = config.DefaultTheme(false)
 	}
 	theme2, err := c.Cookie("theme2")
 	if err != nil {
-		theme2 = "tomorrow"
+		theme2 = config.DefaultTheme(true)
 	}
-	if theme == theme2 {
-		if theme == "tomorrow" {
-			theme2 = "g"
-		}
-		if theme != "tomorrow" {
-			theme2 = "tomorrow"
-		}
+	if theme != config.DefaultTheme(true) && theme2 != config.DefaultTheme(true) {
+		//None of the themes are dark ones, force the second one as the dark one
+		theme2 = config.DefaultTheme(true)
+	} else if  theme == theme2 {
+		//Both theme are dark ones, force the second one as the default (light) theme
+		theme2 = config.DefaultTheme(false)
 	}
-	//Get theme1 & theme2 value, set g.css & tomorrow.css by default
-	//Also check if both theme are identical which can happen at time
+	//Get theme1 & theme2 value
 	
 	// If logged in, update user theme (will not work otherwise)
 	user := router.GetUser(c)
@@ -44,7 +42,9 @@ func toggleThemeHandler(c *gin.Context) {
 	http.SetCookie(c.Writer, &http.Cookie{Name: "theme2", Value: theme, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})	
 	
 	//Redirect user to page he was in beforehand
-	c.Redirect(http.StatusSeeOther, c.Param("redirect") + "#footer")
+	if  c.Request.URL.Query()["no_redirect"] == nil {
+		c.Redirect(http.StatusSeeOther, c.Param("redirect") + "#footer")
+	}
 	return
 }
 

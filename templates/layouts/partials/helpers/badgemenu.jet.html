@@ -1,17 +1,18 @@
 {{ import "csrf" }}
 {{block badge_user()}}
-<div class="h-user">
+<div class="h-user {{ if User.IsBanned() }}hidden{{end}}">
   {{if User.ID > 0 }}
   <button href="#" class="nav-btn">
     <div class="user-avatar small">
-      <img src="https://www.gravatar.com/avatar/{{ User.MD5 }}?s=50"/>
+      <img src="{{getAvatar(User.MD5, 50)}}"/>
+      {{if User.GetUnreadNotifications() > 0}}<span>{{User.GetUnreadNotifications()}}</span>{{end}}
     </div>
-    <span class="user-info" title="{{ User.Username}}">
+    <span class="user-info" title="{{ User.Username }}">
       <span class="hide-md">{{User.Username}}</span>
     </span>
   </button>
   <div class="user-menu">
-    <a class="nav-btn" href="/user/{{ User.ID }}/{{ User.Username }}">{{ T("profile")}}</a>
+    <a class="nav-btn" href="/user/{{ User.ID }}/{{ User.Username }}">{{ T("profile")}}{{ if User.IsBanned() }} ({{T("banned")}}){{end}}</a>
     <a class="nav-btn notif" href="/notifications">
       {{  T("my_notifications")}}
       {{if User.GetUnreadNotifications() > 0}}<span class="badge">({{ User.GetUnreadNotifications() }})</span>{{end}}
@@ -19,7 +20,7 @@
     <a class="nav-btn" href="/user/{{ User.ID }}/{{ User.Username }}/edit">
       {{ T("settings")}}
     </a>
-    {{if User.HasAdmin()}}
+    {{if User.IsJanitor()}}
     <a class="nav-btn" href="/mod">{{ T("moderation")}}</a>
     {{end}}
     <form action="/logout" method="POST">

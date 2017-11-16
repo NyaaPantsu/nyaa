@@ -2,7 +2,6 @@
 {{ import "layouts/partials/helpers/csrf" }}
 {{ import "layouts/partials/helpers/captcha" }}
 {{ import "layouts/partials/helpers/flags" }}
-{{ import "layouts/partials/helpers/rules" }}
 {{ import "layouts/partials/helpers/tag_form" }}
 {{block title()}}{{ T("upload")}}{{end}}
 {{block content_body()}}
@@ -49,11 +48,15 @@
 			   <div class="form-input language">
                  {{ yield flagList(languages=GetTorrentLanguages(), selected=Form.Languages, inputname="languages", id="upload-lang")}}
                </div>
+			   <div class="table-checkboxes">
+				 <div class="form-group">
+					<input type="checkbox" value="true" name="remake" id="remake" class="form-torrent-remake"/ {{if Form.Remake}}checked{{end}}><label for="remake">{{ T("mark_as_remake")}}</label>
+				 </div>
+				 <div class="form-group">
+					<input type="checkbox" value="true" name="hidden" id="hidden" class="form-torrent-hidden {{ if User.ID == 0 }}hidden{{end}}" {{ if User.ID == 0}}disabled checked{{else if Form.Hidden }}checked{{end}}><label for="hidden" {{ if User.ID == 0 }}class="hidden"{{end}}>{{ T("upload_as_anon")}}</label>
+				 </div>
+			   </div>
 	         </td>
-		  </tr>
-		  <tr class="table-checkboxes">
-		     <td></td>
-		     <td class="table-input" style="font-weight: normal;"><input type="checkbox" value="true" name="remake" id="remake" class="form-torrent-remake"/><label for="remake">{{ T("mark_as_remake")}}</label> <input type="checkbox" value="true" name="hidden" id="hidden" class="form-torrent-hidden {{ if User.ID == 0 }}hidden{{end}}" {{ if User.ID == 0 }}disabled checked{{end}}><label for="hidden" {{ if User.ID == 0 }}class="hidden"{{end}}>{{ T("upload_as_anon")}}</label></td>
 		  </tr>
 		  <tr>
 		     <td class="table-input-label"><label for="website_link">{{ T("website_link")}}</label></td>
@@ -61,7 +64,28 @@
 		  </tr>
 		  <tr>
 		     <td class="table-input-label"><label for="desc">{{ T("torrent_description")}}</label></td>
-		     <td class="table-input"><textarea name="desc" id="desc" class="form-input up-input" style="height: 10rem;">{{Form.Description}}</textarea></td>
+		     <td class="table-input markdown-container"><textarea name="desc" id="desc" class="form-input up-input" style="height: 10rem;">{{Form.Description}}</textarea></td>
+		  </tr>
+		  <tr class="hidden">
+		     <td class="table-input-label"><label for="anidex_api">Upload to Anidex:</label></td>
+		     <td class="table-input">
+				<div class="checkbox-container"><input disabled type="checkbox" value="" name="anidex_upload" id="anidex_upload" {{if User.AnidexAPIToken != ""}}checked disabled{{end}} class="form-torrent"/></div>
+				<input disabled name="anidex_api" id="anidex_api" placeholder="Coming soon... (hopefully)" class="form-input up-input" type="text" value="{{User.AnidexAPIToken}}"/>
+			 </td>
+		  </tr>
+		  <tr class="hidden">
+		     <td class="table-input-label"><label for="nyaasi_api">Upload to Nyaa.si:</label></td>
+		     <td class="table-input">
+				<div class="checkbox-container"><input disabled type="checkbox" value="" name="nyaasi_upload" id="nyaasi_upload" {{if User.NyaasiAPIToken != ""}}checked disabled{{end}} class="form-torrent"/></div>
+				<input disabled name="nyaasi_api" id="nyaasi_api" placeholder="Coming soon... (hopefully)" class="form-input up-input" type="text" value="{{User.NyaasiAPIToken}}"/>
+			</td>
+		  </tr>
+		  <tr class="hidden">
+		     <td class="table-input-label"><label for="tokyot_api">Upload to TokyoTosho:</label></td>
+		     <td class="table-input">
+				<div class="checkbox-container"><input disabled type="checkbox" value="" name="tokyot_upload" id="tokyot_upload" {{if User.TokyoTAPIToken  != ""}}checked disabled{{end}} class="form-torrent"/></div>
+				<input disabled name="tokyot_api" id="tokyot_api" placeholder="Coming soon... (hopefully)" class="form-input up-input" type="text" value="{{User.TokyoTAPIToken }}"/>
+			</td>
 		  </tr>
 		  <tr>
 		     <td class="table-input-label">{{ T("torrent_tags")}}:</td>
@@ -119,13 +143,17 @@
   <script type="text/javascript" src="/js/translation.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   <script type="text/javascript" src="/js/template.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   <script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
-  {{ include "layouts/partials/torrent_item_upload" }}
   <script type="text/javascript">
+   document.querySelector('#upload-button').addEventListener("click", (e) => {
+	if(document.querySelector('.upload-form-table select[name="c"]').selectedIndex == 0)
+		setTimeout(function(){ window.scrollBy(0, -70) }, 1);
+   })
+	  
   document.querySelector("input[name='magnet']").addEventListener("keyup", (e) => {
     var torrentInput = document.querySelector("input[name='torrent']")
     torrentInput.disabled = e.target.value != ""
-    if (e.target.value == "") torrentInput.previousElementSibling.classList.remove("hidden")
-    else torrentInput.previousElementSibling.classList.add("hidden")
+    if (e.target.value == "") torrentInput.classList.remove("hidden")
+    else torrentInput.classList.add("hidden")
     try{
       torrentInput.value = '';
       if (torrentInput.value) {
@@ -134,6 +162,24 @@
       }
     }catch(e){}
   })
+  
+  document.querySelector("input[name='anidex_api']").addEventListener("keyup", (e) => {
+    var Checkbox = document.querySelector("input[name='anidex_upload']")
+    Checkbox.disabled = e.target.value != ""
+    Checkbox.checked = e.target.value != ""
+  }) 
+  
+  document.querySelector("input[name='nyaasi_api']").addEventListener("keyup", (e) => {
+    var Checkbox = document.querySelector("input[name='nyaasi_upload']")
+    Checkbox.disabled = e.target.value != ""
+    Checkbox.checked = e.target.value != ""
+  }) 
+	  
+  document.querySelector("input[name='tokyot_api']").addEventListener("keyup", (e) => {
+    var Checkbox = document.querySelector("input[name='tokyot_upload']")
+    Checkbox.disabled = e.target.value != ""
+    Checkbox.checked = e.target.value != ""
+  }) 
 </script>
   <script type="text/javascript">new SimpleMDE({ element: document.getElementById("desc"), spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
 {{end}}

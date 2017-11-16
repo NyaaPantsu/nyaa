@@ -1,5 +1,9 @@
 [
   {
+    "id": "read_rules",
+    "translation": "Llegiu les <a href=\"/faq#rules\">normes</a> abans de carregar res."
+  },
+  {
     "id": "rules",
     "translation": "Normes"
   },
@@ -18,6 +22,10 @@
   {
     "id": "rules_sukebei",
     "translation": "El contingut per a adults correspon a sukebei.pantsu.cat"
+  },
+  {
+    "id": "rule_tracker_url",
+    "translation": "<span style='font-weight: bold;'>https://uw0.xyz/</span> és la URL del rastrejador oficial"
   },
   {
     "id": "verify_email_title",
@@ -81,7 +89,7 @@
   },
   {
     "id": "terms_conditions_full",
-    "translation": "Una mica de merda."
+    "translation": "<h2>Termes i condicions de NyaaPantsu</h2><h3>1. Termes</h3><p>Si accediu al lloc web ubicat a <a href='https://pantsu.cat'>https://pantsu.cat</a>, accepteu aquests termes del servei, totes les lleis i regulacions aplicables, i accepteu que sou responsable del compliment de totes les lleis locals aplicables. Si no esteu d'acord amb algun d'aquests termes, us és prohibit d'utilitzar o d'accedir a aquest lloc web. El material contingut en aquest lloc web està protegit per les lleis de marques i copyright aplicables.</p><h3>2. Exempció de responsabilitat</h3><ol type='a'><li>El material del lloc web de NyaaPantsu Lda es proporciona 'tal com és'. NyaaPantsu Lda no proporciona cap garantia, explícita o implícita, i per tant nega i s'eximeix de totes les altres garanties, incloent-hi, però sense limitació, les garanties implícites o les condicions de mercantibilitat, adequació per a un fi particular, o el no infringiment de la propietat intel·lectual o la violació d'altres drets.</li><li>De manera addicional, NyaaPantsu Lda no garanteix ni efectua cap representació pel que fa a la precisió, similitud de resultats, o confiabilitat en l'ús del material del seu lloc web o cap altra relació amb aquest material o cap dels llocs enllaçats en aquest lloc.</li></ol><h3>3. Limitacions</h3><p>En cap cas NyaaPantsu Lda o els seus proveïdors seran responsables dels danys (incloent-hi, sense limitació, danys per la pèrdua de dades o de beneficis, o a causa de la interrupció del negoci) que sorgeixin de l'ús o incapacitat d'ús del material del lloc web de NyaaPantsu Lda, fins i tot quan NyaaPantsu Lda o un representant autoritzat de NyaaPantsu Lda hagi estat notificat oralment o per escrit de la possibilitat d'aquests danys. Com que algunes jurisdiccions no permeten limitacions a les garanties implícites, o limitacions en la responsabilitat en els danys incidentals o conseqüencials, és possible que aquestes limitacions no us siguin d'aplicació.</p><h3>4. Precisió del material</h3><p>El material que apareix al lloc web de NyaaPantsu Lda pot incloure errors tècnics, tipogràfics o fotogràfics. NyaaPantsu Lda no garanteix que cap dels materials del seu lloc web siguin precisos, complets o actuals. NyaaPantsu Lda pot fer canvis al material contingut al seu lloc web en qualsevol moment i sense avís. No obstant això, NyaaPantsu Lda no estableix cap compromís d'actualitzar el material.</p><h3>5. Enllaços</h3><p>NyaaPantsu Lda no ha revisat tots els llocs web que s'enllacen al seu lloc web i no és responsable del contingut de cap d'aquests llocs enllaçats. La inclusió d'un enllaç no implica suport del lloc per part de NyaaPantsu Lda. L'ús dels llocs web enllaçats resta sota el propi risc de l'usuari.</p><h3>6. Modificacions</h3><p>NyaaPantsu Lda pot revisar aquests termes del servei del seu lloc web en qualsevol moment sense avís. Si utilitzeu aquest lloc web, accepteu la versió llavors actual d'aquests termes del servei.</p><h3>7. Llei aplicable</h3><p>Aquests termes i condicions són governats i s'interpreten sota les lleis de Portugal i accepteu irrevocablement sotmetre-us a la jurisdicció exclusiva dels tribunals d'aquest estat o ubicació.</p>"
   },
   {
     "id": "remember_me",
@@ -130,6 +138,10 @@
   {
     "id": "torrents",
     "translation": "Torrents"
+  },
+  {
+    "id": "followers",
+    "translation": "Seguidors"
   },
   {
     "id": "follow",
@@ -200,6 +212,10 @@
     "translation": "No s'han trobat resultats"
   },
   {
+    "id": "err_no_torrent_file",
+    "translation": "No s'ha trobat el fitxer torrent"
+  },
+  {
     "id": "upload",
     "translation": "Carrega"
   },
@@ -244,8 +260,8 @@
     "translation": "Tanca la sessió"
   },
   {
-    "id": "member",
-    "translation": "Membres"
+    "id": "userstatus_member",
+    "translation": "Membre"
   },
   {
     "id": "no_results_found",
@@ -385,7 +401,7 @@
   },
   {
     "id": "select_a_torrent_category",
-    "translation": "Escolliu una categoria de torrents"
+    "translation": "Escolliu una categoria de torrent"
   },
   {
     "id": "anime",
@@ -524,6 +540,10 @@
     "translation": "Podeu utilitzar Markdown a les descripcions."
   },
   {
+    "id": "comment_markdown_notice",
+    "translation": "Podeu utilitzar Markdown als comentaris."
+  },
+  {
     "id": "show_all",
     "translation": "Mostra-ho tot"
   },
@@ -568,6 +588,10 @@
     "translation": "Envieu un comentari com a Anònim"
   },
   {
+    "id": "torrent_no_comments",
+    "translation": "No hi ha cap comentari dels usuaris."
+  },
+  {
     "id": "submit",
     "translation": "Envia"
   },
@@ -588,7 +612,7 @@
     "translation": "Rol"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "Bandejat"
   },
   {
@@ -596,16 +620,20 @@
     "translation": "Per defecte"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Membre de confiança"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Usuari raspat"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "Moderador"
+  },
+  {
+    "id": "userstatus_uploader",
+    "translation": "Publicador"
   },
   {
     "id": "api_token",
@@ -756,6 +784,10 @@
     "translation": "Tipus d'informe"
   },
   {
+    "id": "report_message",
+    "translation": "Missatge de l'informe"
+  },
+  {
     "id": "illegal_content",
     "translation": "Contingut il·legal"
   },
@@ -770,6 +802,14 @@
   {
     "id": "duplicate_deprecated",
     "translation": "Duplicat / Caducat"
+  },
+  {
+    "id": "nsfw_content",
+    "translation": "Contingut per a adults"
+  },
+  {
+    "id": "other",
+    "translation": "Altres"
   },
   {
     "id": "captcha",
@@ -809,11 +849,27 @@
   },
   {
     "id": "clear_notifications",
-    "translation": "Neteja les notificacions"
+    "translation": "Neteja les notificacions llegides"
+  },
+  {
+    "id": "clear_all_notifications",
+    "translation": "Neteja totes les notificacions"
+  },
+  {
+    "id": "mark_notifications_as_read",
+    "translation": "Marca les notificacions com a llegides"
   },
   {
     "id": "notifications_cleared",
     "translation": "S'han netejat les notificacions!"
+  },
+  {
+    "id": "read_notifications_cleared",
+    "translation": "S'han netejat les notificacions llegides!"
+  },
+  {
+    "id": "notifications_read",
+    "translation": "Totes les notificacions s'han marcat com a llegides!"
   },
   {
     "id": "my_notifications",
@@ -934,6 +990,10 @@
   {
     "id": "delete_report",
     "translation": "Suprimeix l'informe"
+  },
+  {
+    "id": "delete_all_reports",
+    "translation": "Suprimeix tots els informes"
   },
   {
     "id": "comment_deleted",
@@ -1065,7 +1125,7 @@
   },
   {
     "id": "change_settings",
-    "translation": "Canvia l'aparença o l'idioma"
+    "translation": "Canvia l'aparença / Configuració"
   },
   {
     "id": "mascot",
@@ -1082,6 +1142,10 @@
   {
     "id": "theme_none",
     "translation": "Cap"
+  },
+  {
+    "id": "themes_classic",
+    "translation": "nyaa.se (Beta)"
   },
   {
     "id": "upload_as_anon",
@@ -1308,6 +1372,18 @@
     "translation": "URL de la mascota"
   },
   {
+    "id": "alternating_color",
+    "translation": "Color alternat (i tipus de lletra sense negreta)"
+  },
+  {
+    "id": "old_nav",
+    "translation": "Navegació antiga"
+  },
+  {
+    "id": "old_nav_explanation",
+    "translation": "Mostra les categories principals i els números de pàgina a la part superior de la pàgina durant una cerca, com nyaa.se."
+  },
+  {
     "id": "no_notifications",
     "translation": "No hi ha notificacions"
   },
@@ -1326,10 +1402,6 @@
   {
     "id": "torrent_language",
     "translation": "Idioma del torrent"
-  },
-  {
-    "id": "language_not_mandatory",
-    "translation": "L'idioma ja no és obligatori"
   },
   {
     "id": "language_en-us_name",
@@ -1545,7 +1617,7 @@
   },
   {
     "id": "error_numeric_valid",
-    "translation": "%s ha se ser un valor numèric vàlid"
+    "translation": "%s ha de ser un valor numèric vàlid"
   },
   {
     "id": "error_number_valid",
@@ -1624,6 +1696,10 @@
     "translation": "Refina la cerca"
   },
   {
+    "id": "refine",
+    "translation": "Refina"
+  },
+  {
     "id": "between",
     "translation": "Entre"
   },
@@ -1644,16 +1720,8 @@
     "translation": "Anys"
   },
   {
-    "id": "refine",
-    "translation": "Refina"
-  },
-  {
     "id": "large",
     "translation": "gran."
-  },
-  {
-    "id": "old",
-    "translation": "antic"
   },
   {
     "id": "optional",
@@ -1666,6 +1734,34 @@
   {
     "id": "show",
     "translation": "Mostra"
+  },
+  {
+    "id": "sort_by",
+    "translation": "Ordena per"
+  },
+  {
+    "id": "ascending",
+    "translation": "Ascendent"
+  },
+  {
+    "id": "descending",
+    "translation": "Descendent"
+  },
+  {
+    "id": "quality",
+    "translation": "Qualitat"
+  },
+  {
+    "id": "exclude_user",
+    "translation": "Exclou"
+  },
+  {
+    "id": "from_user",
+    "translation": "De"
+  },
+  {
+    "id": "limit_torrent_count",
+    "translation": "Límit"
   },
   {
     "id": "username_taken",
@@ -1760,6 +1856,10 @@
     "translation": "Proporcioneu una capçalera Content-Type: application/json o multipart/form-data"
   },
   {
+    "id": "torrent_name",
+    "translation": "Nom del torrent"
+  },
+  {
     "id": "torrent_name_invalid",
     "translation": "El nom del torrent és invàlid"
   },
@@ -1848,8 +1948,24 @@
     "translation": "Colors dels torrents"
   },
   {
+    "id": "faq_ads",
+    "translation": "Per què Pantsu té anuncis?"
+  },
+  {
+    "id": "faq_ads_explanation",
+    "translation": "No és una decisió que hàgim pres a la lleugera, i hem considerat profundament les objeccions que hi heu posat tots, però pensem que és l'única solució sostenible per finançar Pantsu i assegurar el seu funcionament continuar.<br/>Hem pensat molt en les possibles fonts de finançament, i cap altra opció que hàgim considerat s'acostava a ser capaç de finançar Pantsu.<br>Després de pensar-hi molt, hem decidit que fer servir anuncis d'a-ads és la millor opció per a nosaltres i per als nostres usuaris. Aquests anuncis són simples i poc intrusius, no interfereixen de cap manera amb l'experiència del lloc, i no inclouen cap tipus de rastreig."
+  },
+  {
     "id": "torrent_preview",
     "translation": "Previsualitza el torrent"
+  },
+  {
+    "id": "announcement",
+    "translation": "Anunci"
+  },
+  {
+    "id": "create_anouncement_success",
+    "translation": "Anunci creat satisfactòriament"
   },
   {
     "id": "update_client_failed",
@@ -1861,7 +1977,7 @@
   },
   {
     "id": "update_client_panel",
-    "translation": "Actualitza el client"
+    "translation": "Actualitza un client"
   },
   {
     "id": "create_client_success",
@@ -1924,12 +2040,24 @@
     "translation": "Suprimeix"
   },
   {
+    "id": "close",
+    "translation": "Tanca"
+  },
+  {
     "id": "secret",
     "translation": "Secret del client"
   },
   {
     "id": "torrent_age",
     "translation": "fa {1} dies i {2} hores"
+  },
+  {
+    "id": "tag",
+    "translation": "Etiqueta"
+  },
+  {
+    "id": "torrent_tags",
+    "translation": "Etiquetes"
   },
   {
     "id": "wrong_tag_type",
@@ -1944,6 +2072,14 @@
     "translation": "Tipus d'etiqueta"
   },
   {
+    "id": "accepted_tags",
+    "translation": "Etiquetes acceptades"
+  },
+  {
+    "id": "recommended_tags",
+    "translation": "Etiquetes recomanades"
+  },
+  {
     "id": "tagtype_anidbid",
     "translation": "Identificador d'AniDB"
   },
@@ -1953,10 +2089,166 @@
   },
   {
     "id": "tagtype_videoquality",
-    "translation": "Etiqueta de qualitat"
+    "translation": "Qualitat del vídeo"
   },
   {
-    "id": "torrent_tags",
-    "translation": "Etiquetes del torrent"
+    "id": "tagtype_dlsite",
+    "translation": "Lloc de descàrrega"
+  },
+  {
+    "id": "tagtype_vgmdbid",
+    "translation": "Identificador de VGMDB"
+  },
+  {
+    "id": "tagtype_tags",
+    "translation": "Etiquetes descriptives"
+  },
+  {
+    "id": "tagvalue_select",
+    "translation": "Selecciona..."
+  },
+  {
+    "id": "tagvalue_full_hd",
+    "translation": "1080p"
+  },
+  {
+    "id": "tagvalue_hd",
+    "translation": "720p"
+  },
+  {
+    "id": "tagvalue_sd",
+    "translation": "480p"
+  },
+  {
+    "id": "tagvalue_bluray",
+    "translation": "Bluray"
+  },
+  {
+    "id": "announcements",
+    "translation": "Anuncis"
+  },
+  {
+    "id": "message",
+    "translation": "Missatge"
+  },
+  {
+    "id": "duration",
+    "translation": "Durada (hores)"
+  },
+  {
+    "id": "update_annoucement_panel",
+    "translation": "Actualitza l'anunci"
+  },
+  {
+    "id": "create_annoucement_panel",
+    "translation": "Crea un anunci"
+  },
+  {
+    "id": "related_to",
+    "translation": "Relacionat amb"
+  },
+  {
+    "id": "expire",
+    "translation": "Caduca"
+  },
+  {
+    "id": "complement",
+    "translation": "Complement"
+  },
+  {
+    "id": "from",
+    "translation": "Des de"
+  },
+  {
+    "id": "to",
+    "translation": "fins a"
+  },
+  {
+    "id": "feed_types",
+    "translation": "Tipus de fonts: RSS (feed), RSS amb enllaços magnètics (magnet), Especificació Torznab (torznab), Especificació EZTV (eztv)"
+  },
+  {
+    "id": "append_query",
+    "translation": "Podeu afegir la vostra cerca al final de la URL de la font."
+  },
+  {
+    "id": "cookie_warning",
+    "translation": "Si feu servir aquest lloc web, n'accepteu l'ús de les galetes per personalitzar-ne el contingut.<br/>Aquest missatge s'amagarà quan torneu a carregar la pàgina."
+  },
+  {
+    "id": "pending_torrent",
+    "translation": "Tingueu paciència, s'està generant el fitxer torrent. Torneu-ho a provar d'aquí uns segons."
+  },
+  {
+    "id": "generating_torrent",
+    "translation": "S'està generant el fitxer torrent..."
+  },
+  {
+    "id": "generating_torrent_failed",
+    "translation": "No s'ha pogut generar el fitxer torrent"
+  },
+  {
+    "id": "enabled",
+    "translation": "Activat"
+  },
+  {
+    "id": "disabled",
+    "translation": "Desactivat"
+  },
+  {
+    "id": "reset_api_key",
+    "translation": "Reinicialitza la clau de l'API"
+  },
+  {
+    "id": "tag_error",
+    "translation": "No s'ha pogut afegir l'etiqueta, comproveu la connexió a internet i que hàgiu omplert tots els camps."
+  },
+  {
+    "id": "search_from_user",
+    "translation": "Cerca d'aquest usuari..."
+  },
+  {
+    "id": "usersearch_user_not_found",
+    "translation": "No s'ha trobat l'usuari \"%s\""
+  },
+  {
+    "id": "user_search_explanation",
+    "translation": "Cerqueu un usuari escrivint-ne el nom d'usuari a la casella de sota"
+  },
+  {
+    "id": "no_api_token",
+    "translation": "No hi ha token de l'API"
+  },
+  {
+    "id": "search_from_specific_user",
+    "translation": "Cerca de %s"
+  },
+  {
+    "id": "browsing_user_torrents",
+    "translation": "Cerca dels torrents de <a href=\"/user/%d/%s\">%s</a>"
+  },
+  {
+    "id": "hours_minutes_ago",
+    "translation": "fa {0} hores i {1} minuts"
+  },
+  {
+    "id": "days_hours_ago",
+    "translation": "fa {0} dies i {1} hores"
+  },
+  {
+    "id": "status",
+    "translation": "Estat"
+  },
+  {
+    "id": "event",
+    "translation": "Esdeveniment"
+  },
+  {
+    "id": "read",
+    "translation": "Llegit"
+  },
+  {
+    "id": "unread",
+    "translation": "No llegit"
   }
 ]

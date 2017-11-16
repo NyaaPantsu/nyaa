@@ -17,7 +17,6 @@ type TorrentRequest struct {
 	Hidden      bool     `json:"hidden,omitempty" form:"hidden"`
 	CaptchaID   string   `json:"-" form:"captchaID"`
 	WebsiteLink string   `validate:"uri" json:"website_link,omitempty" form:"website_link"`
-	SubCategory int      `json:"sub_category,omitempty" form:"sub_category"`
 	Languages   []string `json:"languages,omitempty" form:"languages"`
 
 	Infohash      string         `json:"hash,omitempty" form:"hash"`

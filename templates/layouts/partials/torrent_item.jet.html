@@ -17,7 +17,7 @@ Templates.Add("torrents.item", function(torrent) {
     } else if (torrent.status == 4) {
             tr_class += " aplus"
     }
-    // {{ if User.HasAdmin() }}
+    // {{ if User.IsModerator() }}
     var cb_hide = (!TorrentsMod.enabled) ? " hide" : ""
     var cb_show = (TorrentsMod.enabled) ? ' style="display:table-cell;"' : ""
     // {{ end }}
@@ -29,9 +29,13 @@ Templates.Add("torrents.item", function(torrent) {
     // {{end}}
     var languages = ""
     var colspan = (torrent.comments.length  == 0 ? ` colspan="2"` : "" )
-    var commentTd = ((torrent.comments.length > 0) ? `<td class="tr-cs home-td" title="`+torrent.comments.length + ` {{T("comments")}}` +`"><span>` + torrent.comments.length + `</span></td>` : "")
-    var dlLink = (torrent.torrent != "" ? ` <a href="` + torrent.torrent + `" title="{{ T("torrent_file") }}"><div class="icon-floppy"></div></a>` : "")
-
+    var commentTd = ((torrent.comments.length > 0) ? `<td class="tr-cs home-td" title="`+torrent.comments.length + ` {{T("comments")}}` +`"><a href="/view/` + torrent.id + `#comments">` + torrent.comments.length + `</a></td>` : "")
+	
+	var stats = ["-", "-", "-"]
+	if(torrent.seeders != 0 || torrent.leechers != 0 || torrent.completed != 0)
+		stats = [torrent.seeders, torrent.leechers, torrent.completed]
+	
+    
     if (torrent.languages[0] != "") {
         var flagClass = (torrent.languages.length == 1) ? Templates.FlagCode(torrent.languages[0]) : "multiple"
         var langs = torrent.languages.map(function (el, i) { return T.r(el)}).join(",") 
@@ -39,7 +43,7 @@ Templates.Add("torrents.item", function(torrent) {
     }
 
     return `<tr id="torrent_` + torrent.id + `" class="` + tr_class + `">
-        {{ if User.HasAdmin() }}
+        {{ if User.IsModerator() }}
         <td class="tr-cb` + cb_hide + `"` + cb_show + `>
             <input data-name="` + Templates.EncodeEntities(torrent.name) + `" type="checkbox" id="torrent_cb_` + torrent.id + `" name="torrent_id" value="` + torrent.id + `">
         </td>
@@ -54,13 +58,13 @@ Templates.Add("torrents.item", function(torrent) {
         <td class="tr-links home-td">
             <a href="` + torrent.magnet + `" title="{{ T("magnet_link") }}">
                 <div class="icon-magnet"></div>
-            </a>`+ dlLink +`
+            </a>`+ ` <a href="` + torrent.torrent + `" title="{{ T("torrent_file") }}"><div class="icon-floppy"></div></a>` +`
         </td>
         <td class="tr-size home-td hide-xs">` + humanFileSize(torrent.filesize) + `</td>
-        <td class="tr-se home-td hide-smol">` + torrent.seeders + `</td>
-        <td class="tr-le home-td hide-smol">` + torrent.leechers + `</td>
-        <td class="tr-dl home-td hide-xs">` + torrent.completed + `</td>
-        <td class="tr-date home-td date-short hide-xs">` + torrent.date + `</td>
+        <td class="tr-se home-td hide-smol">` + stats[0] + `</td>
+        <td class="tr-le home-td hide-smol">` + stats[1] + `</td>
+        <td class="tr-dl home-td hide-xs">` + stats[2] + `</td>
+        <td class="tr-date home-td date-short hide-xs" title="` + torrent.date + `">` + torrent.date + `</td>
     </tr>`;
 });
 </script>

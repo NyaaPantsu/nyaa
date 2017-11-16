@@ -3,25 +3,37 @@
 {{block title()}}{{  T("profile_edit_page", User.Username) }}{{end}}
 {{ block profile_navigation()}}{{ yield profile_menu(route="profile") }}{{end}}
 {{block profile_content()}}
-{{ if len(User.Notifications) > 0}}
-<div>
-  <a href="/notifications?clear" class="btn btn-red pull-right"> {{  T("clear_notifications") }}</a>
-  <div style="clear: both;"></div>
-</div>
-<table>
+<table class="notification-table">
+  <thead>
+	<tr>
+	  <th class="notification-status">{{T("status")}}</th>
+	  <th class="notification-event">Event</th>
+	  <th class="notification-date">{{T("date")}}</th>
+	</tr>
+  </thead>
+  <tbody>
+  {{if len(User.Notifications) == 0}}
+  <tr><td colspan="3">{{T("no_notifications")}}</td></tr>
+  {{end}}
   {{ range User.Notifications }}
-  <tr>
-    <td{{ if !.Read }} class="btn-orange"{{end}}>
-    <div style="padding: 0 1rem 1rem;">
-      <a href="{{ .URL }}?notif">
-        <h3>{{ .Content }}</h3>
-      </a>
-    </div>
-  </td>
-</tr>
-{{end}}
+	  <tr>
+		<td class="notification-status {{ if !.Read }}notification-unread{{end}}">{{if .Read}}{{T("read")}}{{else}}{{T("unread")}}{{end}}</td>
+		<td class="notification-event">
+			<a href="{{ .URL }}?notif">{{ .Content }}</a>
+		</td>
+		{{if !.Date.IsZero()}}
+		<td class="notification-date date-full" title="{{formatDate(.Date, false)}}">{{formatDate(.Date, false)}}</td>
+		{{else}}
+		<td class="notification-date">{{T("unknown")}}</td>
+		{{end}}
+	  </tr>
+	{{end}}	
+	</tbody>
 </table>
-{{else}}
-<h2>{{  T("no_notifications") }}</h2>
-{{end}}
+<div id="clear-notification">
+  <hr/>
+<a href="/notifications?read_all" class="btn-grey form-input" style="float: left;"> {{  T("mark_notifications_as_read") }}</a>
+  <a href="/notifications?clear_all" class="btn-red form-input"> {{  T("clear_all_notifications") }}</a>
+  <a href="/notifications?clear" class="btn-green form-input"> {{  T("clear_notifications") }}</a>
+</div>
 {{end}}

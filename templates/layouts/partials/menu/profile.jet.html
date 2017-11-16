@@ -1,5 +1,6 @@
+{{ import "layouts/partials/helpers/csrf" }}
 {{ block profile_menu(route="profile") }}
-<div class="profile-sidebar">
+<div class="profile-sidebar {{ if UserProfile.IsBanned() }} hidden{{end}}">
   <!-- SIDEBAR USERPIC -->
   <div class="profile-userpic">
     <img src="{{ getAvatar(UserProfile.MD5, 130) }}" alt="{{ UserProfile.Username }}"/>
@@ -10,61 +11,62 @@
     <p class="profile-usertitle-name">
       {{ UserProfile.Username}}
     </p>
+    {{ if UserProfile.GetRole() != "" }}
     <p class="profile-usertitle-job">
-      {{UserProfile.GetRole()}}
+      {{T(UserProfile.GetRole())}}
     </p>
-    <p class="profile-usertitle-uploadcount">{{ T("torrents_uploaded") }}:<span>{{ NbTorrents }}</span></p>
-	{{ TorrentUploadedSize := 0}}
-	{{ range i, t := UserProfile.Torrents }}
-		{{ torrent := t.ToJSON() }}
-		{{ TorrentUploadedSize = TorrentUploadedSize + torrent.Filesize}}
-	{{ end }}
-	<p>{{ fileSize(TorrentUploadedSize, T)}} uploaded</p>
+    {{end}}
+    <p class="profile-usertitle-uploadcount">{{T("followers")}}: <b>{{len(UserProfile.Followers)}}</b><br/>{{ T("torrents_uploaded") }}:<b>{{ NbTorrents[0] }}</b><br>{{T("size")}}: <b>{{fileSize(NbTorrents[1], T, false)}}</b></p>
   </div>
   <!-- END SIDEBAR USER TITLE -->
   <!-- SIDEBAR BUTTONS -->
-  <div class="profile-userbuttons">
-    {{if User.ID > 0 }}
-    {{if !User.CurrentUserIdentical(UserProfile.ID) }}
-    {{if !User.IsFollower(UserProfile)}}
-    <a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-green">{{ T("follow")}}</a>
-    <br />
-    {{else}}
-    <a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-orange">{{ T("unfollow")}}</a>
-    <br/>
-    {{end}}
-    {{end}}
-    {{end}}
-    <!-- <button type="button" class="btn btn-danger btn-sm">Message</button> -->
-  </div>
-  <br/>
-  <!-- END SIDEBAR BUTTONS -->
-  <!-- SIDEBAR MENU -->
   <div class="profile-usermenu">
+    {{if UserProfile.ID > 0 && !User.CurrentUserIdentical(UserProfile.ID) }}
+	    {{if User.ID > 0 }}
+			{{if !User.IsFollower(UserProfile.ID)}}
+			<a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-green">{{ T("follow")}}</a>
+			{{else}}
+			<a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow" class="form-input btn-orange">{{ T("unfollow")}}</a>
+			{{end}}
+	    {{else}}
+	    	<a class="form-input" href="/login?redirectTo=/user/{{UserProfile.ID}}/{{UserProfile.Username}}/follow">{{T("follow")}}</a>
+	    {{end}}
+    {{end}}
     {{ if User.ID > 0 && (User.CurrentUserIdentical(UserProfile.ID) || User.CurrentOrAdmin(UserProfile.ID)) }}
     <a class="form-input btn-green" href="/user/{{ UserProfile.ID }}/{{ UserProfile.Username }}">
-      <div class="icon-floppy"></div>{{ T("torrents")}}
-    </a>
-    <br/>
     {{ else }}
     <a class="form-input btn-green" href="/search?userID={{ UserProfile.ID }}">
+	{{end}}
       <div class="icon-floppy"></div>{{ T("torrents")}}
     </a>
-    <br/>
-    {{ end }}
+    <a class="form-input btn-orange" href="/feed?userID={{ UserProfile.ID }}">
+      <div class="icon-rss-squared"></div>RSS
+    </a>
     {{if User.ID > 0 }}
     {{ if User.CurrentUserIdentical(UserProfile.ID) }}
     <a class="form-input" href="/notifications">{{  T("my_notifications")}}</a>
-    <br/>
     {{end}}
-    {{if UserProfile.ID > 0 && User.CurrentOrAdmin(UserProfile.ID) }}
-    <a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/edit">
-      {{ T("settings")}}
-    </a> 
-    <br/>
+    {{if UserProfile.ID > 0}}
+		{{ if User.CurrentOrAdmin(UserProfile.ID) }}
+		<a class="form-input" href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/edit">
+		  {{ T("settings")}}
+		</a> 
+		{{else if User.IsJanitor() && !UserProfile.IsJanitor() }}
+		<form method="POST" action="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/ban">
+		    {{ yield csrf_field()}}
+		    <button type="submit" class="form-input btn-blue" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i>{{ if UserProfile.IsBanned() }}{{  T("unban") }}{{else}}{{  T("ban") }}{{end}}</button>
+		</form>
+		{{end}}
     {{end}}
-    {{end}}
+	{{end}}
   </div>
-  <!-- END MENU -->
+  {{ if User.ID != UserProfile.ID }}
+  <div class="user-search">
+    <form role="search" action="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/search" id="header-form" method="get">
+      <input class="form-input" name="q" type="text" placeholder="{{T("search_from_user")}}">
+      <button type="submit" class="form-input icon-search"></button>
+    </form>
+  </div>
+  {{end}}
 </div>
 {{end}}

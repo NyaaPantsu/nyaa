@@ -87,6 +87,7 @@ type TorrentJSON struct {
 	Hidden      bool          `json:"-"`
 	Hash        string        `json:"hash"`
 	Date        string        `json:"date"`
+	FullDate    time.Time     `json:"-"` //Used to convert the date to full OR short format depending on the situation
 	Filesize    int64         `json:"filesize"`
 	Description template.HTML `json:"description"`
 	Comments    []CommentJSON `json:"comments"`
@@ -101,19 +102,20 @@ type TorrentJSON struct {
 	VideoQuality string `json:"videoquality"`
 	AcceptedTags Tags   `json:"tags"`
 
-	UploaderID   uint          `json:"uploader_id"`
-	UploaderName template.HTML `json:"uploader_name"`
-	OldUploader  template.HTML `json:"uploader_old"`
-	WebsiteLink  template.URL  `json:"website_link"`
-	Languages    []string      `json:"languages"`
-	Magnet       template.URL  `json:"magnet"`
-	TorrentLink  template.URL  `json:"torrent"`
-	Seeders      uint32        `json:"seeders"`
-	Leechers     uint32        `json:"leechers"`
-	Completed    uint32        `json:"completed"`
-	LastScrape   time.Time     `json:"last_scrape"`
-	FileList     []FileJSON    `json:"file_list"`
-	Tags         Tags          `json:"-"` // not needed in json to reduce db calls
+	UploaderID    uint          `json:"uploader_id"`
+	UploaderName  template.HTML `json:"uploader_name"`
+	OldUploader   template.HTML `json:"uploader_old"`
+	WebsiteLink   template.URL  `json:"website_link"`
+	Languages     []string      `json:"languages"`
+	Magnet        template.URL  `json:"magnet"`
+	TorrentLink   template.URL  `json:"torrent"`
+	Seeders       uint32        `json:"seeders"`
+	Leechers      uint32        `json:"leechers"`
+	Completed     uint32        `json:"completed"`
+	LastScrape    time.Time     `json:"last_scrape"`
+	StatsObsolete []bool        `json:"-"` //First cell determines whether the stats are valid, second determines whether the stats need a refresh regardless of first cell (too old stats?)
+	FileList      []FileJSON    `json:"file_list"`
+	Tags          Tags          `json:"-"` // not needed in json to reduce db calls
 }
 
 // Size : Returns the total size of memory recursively allocated for this struct
@@ -214,6 +216,14 @@ func (t *Torrent) ParseTrackers(trackers []string) {
 			}
 		}
 	}
+	tempTrackers := []string{}
+	for _, line := range trackers {
+		if !contains(tempTrackers, line) {
+			tempTrackers = append(tempTrackers, line)
+		}
+	}
+	trackers = tempTrackers
+		
 	v["tr"] = trackers
 	t.Trackers = v.Encode()
 }
@@ -298,11 +308,11 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	magnet := format.InfoHashToMagnet(strings.TrimSpace(t.Hash), t.Name, trackers...)
 	commentsJSON := make([]CommentJSON, 0, len(t.OldComments)+len(t.Comments))
 	for _, c := range t.OldComments {
-		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, UserID: -1, Content: template.HTML(c.Content), Date: c.Date.UTC()})
+		commentsJSON = append(commentsJSON, CommentJSON{Username: c.Username, UserID: -1, UserStatus: "", Content: template.HTML(c.Content), Date: c.Date.UTC()})
 	}
 	for _, c := range t.Comments {
 		if c.User != nil {
-			commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), Content: sanitize.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC(), UserAvatar: c.User.MD5})
+			commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), UserStatus: c.User.GetRole(), Content: sanitize.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC(), UserAvatar: c.User.MD5})
 		} else {
 			commentsJSON = append(commentsJSON, CommentJSON{})
 		}
@@ -335,49 +345,63 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		uploader = t.OldUploader
 	}
 	torrentlink := ""
-	if t.ID <= config.Get().Models.LastOldTorrentID && len(config.Get().Torrents.CacheLink) > 0 {
+	if len(config.Get().Torrents.CacheLink) > 0 { // Only use torrent cache if set, don't check id since better to have all .torrent
 		if config.IsSukebei() {
 			torrentlink = "" // torrent cache doesn't have sukebei torrents
 		} else {
 			torrentlink = fmt.Sprintf(config.Get().Torrents.CacheLink, t.Hash)
 		}
-	} else if t.ID > config.Get().Models.LastOldTorrentID && len(config.Get().Torrents.StorageLink) > 0 {
+	} else if len(config.Get().Torrents.StorageLink) > 0 { // Only use own .torrent if storage set
 		torrentlink = fmt.Sprintf(config.Get().Torrents.StorageLink, t.Hash)
 	}
 	scrape := Scrape{}
 	if t.Scrape != nil {
 		scrape = *t.Scrape
 	}
+	
+	statsObsolete := []bool{false, false}
+	
+	if scrape.LastScrape.IsZero() || (scrape.Seeders == 0 && scrape.Leechers == 0 && scrape.Completed == 0) {
+		statsObsolete[0] = true
+		//The displayed stats are obsolete, S/D/L will show "Unknown"
+	}
+	if time.Since(scrape.LastScrape).Hours() > config.Get().Scrape.StatScrapingFrequency || (scrape.Seeders == 0 && scrape.Leechers == 0 && scrape.Completed == 0 && time.Since(scrape.LastScrape).Hours() >= config.Get().Scrape.StatScrapingFrequencyUnknown) {
+		statsObsolete[1] = true
+		//The stats need to be refreshed, either because they are valid and older than one month (not that reliable) OR if they are unknown but have been scraped 1h (or more) ago
+	}
+	
 	t.ParseLanguages()
 	res := TorrentJSON{
-		ID:           t.ID,
-		Name:         t.Name,
-		Status:       t.Status,
-		Hidden:       t.Hidden,
-		Hash:         t.Hash,
-		Date:         t.Date.Format(time.RFC3339),
-		Filesize:     t.Filesize,
-		Description:  sanitize.MarkdownToHTML(t.Description),
-		Comments:     commentsJSON,
-		SubCategory:  strconv.Itoa(t.SubCategory),
-		Category:     strconv.Itoa(t.Category),
-		UploaderID:   uploaderID,
-		UploaderName: sanitize.SafeText(uploader),
-		WebsiteLink:  sanitize.Safe(t.WebsiteLink),
-		Languages:    t.Languages,
-		Magnet:       template.URL(magnet),
-		TorrentLink:  sanitize.Safe(torrentlink),
-		Leechers:     scrape.Leechers,
-		Seeders:      scrape.Seeders,
-		Completed:    scrape.Completed,
-		LastScrape:   scrape.LastScrape,
-		FileList:     fileListJSON,
-		Tags:         t.Tags,
-		AnidbID:      t.AnidbID,
-		VndbID:       t.VndbID,
-		VgmdbID:      t.VgmdbID,
-		Dlsite:       t.Dlsite,
-		VideoQuality: t.VideoQuality,
+		ID:            t.ID,
+		Name:          t.Name,
+		Status:        t.Status,
+		Hidden:        t.Hidden,
+		Hash:          t.Hash,
+		Date:          t.Date.UTC().Format(time.RFC3339),
+		FullDate:      t.Date.UTC(),
+		Filesize:      t.Filesize,
+		Description:   sanitize.MarkdownToHTML(t.Description),
+		Comments:      commentsJSON,
+		SubCategory:   strconv.Itoa(t.SubCategory),
+		Category:      strconv.Itoa(t.Category),
+		UploaderID:    uploaderID,
+		UploaderName:  sanitize.SafeText(uploader),
+		WebsiteLink:   sanitize.Safe(t.WebsiteLink),
+		Languages:     t.Languages,
+		Magnet:        template.URL(magnet),
+		TorrentLink:   sanitize.Safe(torrentlink),
+		Leechers:      scrape.Leechers,
+		Seeders:       scrape.Seeders,
+		Completed:     scrape.Completed,
+		LastScrape:    scrape.LastScrape,
+		StatsObsolete: statsObsolete,
+		FileList:      fileListJSON,
+		Tags:          t.Tags,
+		AnidbID:       t.AnidbID,
+		VndbID:        t.VndbID,
+		VgmdbID:       t.VgmdbID,
+		Dlsite:        t.Dlsite,
+		VideoQuality:  t.VideoQuality,
 	}
 
 	// Split accepted tags
@@ -490,4 +514,13 @@ func (t *Torrent) DeleteTags() {
 		err := ORM.Where("torrent_id = ?", t.ID).Delete(&t.Tags).Error
 		log.CheckErrorWithMessage(err, "LOAD_TAGS_ERROR: Couldn't delete tags!")
 	}
+}
+
+func contains(s []string, e string) bool {
+    for _, a := range s {
+        if a == e {
+            return true
+        }
+    }
+    return false
 }

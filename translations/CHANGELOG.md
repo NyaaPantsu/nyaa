@@ -43,3 +43,63 @@
 ## 2017/09/17
 * + torrent_name
 * + read_rules
+## 2017/09/18
+* - removed: language_not_mandatory
+## 2017/09/24
+* + enabled
+* + disabled
+* + reset_api_key
+* + tag_error
+## 2017/10/02
+* + search_from_user
+## 2017/10/04
+* + usersearch_user_not_found
+* + user_search_explanation
+## 2017/10/08
+* + pending_torrent
+* + generating_torrent
+## 2017/10/09
+* + no_api_token
+## 2017/10/19
+* + userstatus_uploader
+## 2017/10/28
+* + hours_minutes_ago
+* + days_hours_ago
+* + status
+* + event
+* + read
+* + unread
+* + clear_all_notifications
+* ~ clear_notifications -> modified to "Clear **read** notification"
+## 2017/10/29
+* + report_message
+* + other
+* + read_notifications_cleared
+* + notifications_read
+* + mark_notifications_as_read
+## 2017/10/31
+* + followers
+* + comment_markdown_notice
+* + browsing_user_torrents
+* + delete_all_reports
+## 2017/11/02
+* + duration
+* - removed: delay
+* + create_anouncement_success
+## 2017/11/03
+* - removed: old
+## 2017/11/04
+* + nsfw_content
+* + generating_torrent_failed
+## 2017/11/09
+* + userstatus_janitor
+* + ban
+* + unban
+* + user_banned_by
+* + user_unbanned_by
+## 2017/11/10
+* + user_banned
+* + user_unbanned
+* + torrent_uploaded_locked
+* + moderation_guidelines
+* + guidelines

@@ -120,45 +120,43 @@ func TorrentPostEditModPanel(c *gin.Context) {
 
 // TorrentDeleteModPanel : Controller for deleting a torrent
 func TorrentDeleteModPanel(c *gin.Context) {
-	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
-	definitely := c.Request.URL.Query()["definitely"]
-
 	var returnRoute = "/mod/torrents"
-	torrent, errFind := torrents.FindByID(uint(id))
-	if errFind == nil {
-		var err error
-		if definitely != nil {
-			_, _, err = torrent.DefinitelyDelete()
+	currentUser := router.GetUser(c)
+	
+	if currentUser.IsModerator() {
+		id, _ := strconv.ParseInt(c.PostForm("id"), 10, 32)
+		definitely := c.Request.URL.Query()["definitely"]
 
+		torrent, errFind := torrents.FindByID(uint(id))
+		if errFind == nil {
+			var err error
+			if definitely != nil {
+				_, _, err = torrent.DefinitelyDelete()
+				returnRoute = "/mod/torrents/deleted"
+			} else {
+				_, _, err = torrent.Delete(false)
+			}
+			
 			//delete reports of torrent
 			query := &search.Query{}
 			query.Append("torrent_id", id)
 			reports, _, _ := reports.FindOrderBy(query, "", 0, 0)
 			for _, report := range reports {
-				report.Delete(true)
+				report.Delete()
 			}
-			returnRoute = "/mod/torrents/deleted"
-		} else {
-			_, _, err = torrent.Delete(false)
-
-			//delete reports of torrent
-			query := &search.Query{}
-			query.Append("torrent_id", id)
-			reports, _, _ := reports.FindOrderBy(query, "", 0, 0)
-			for _, report := range reports {
-				report.Delete(false)
+			
+			if err == nil {
+				if torrent.Uploader == nil {
+					torrent.Uploader = &models.User{}
+				}
+				_, username := torrents.HideUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
+				activities.Log(&models.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, currentUser.Username)
 			}
 		}
-		if err == nil {
-			if torrent.Uploader == nil {
-				torrent.Uploader = &models.User{}
-			}
-			_, username := torrents.HideUser(torrent.UploaderID, torrent.Uploader.Username, torrent.Hidden)
-			activities.Log(&models.User{}, torrent.Identifier(), "delete", "torrent_deleted_by", strconv.Itoa(int(torrent.ID)), username, router.GetUser(c).Username)
-		}
+		c.Redirect(http.StatusSeeOther, returnRoute+"?deleted")
 	}
 
-	c.Redirect(http.StatusSeeOther, returnRoute+"?deleted")
+	c.Redirect(http.StatusSeeOther, returnRoute)
 }
 
 // DeleteTagsModPanel : Controller for deleting all torrent tags
@@ -176,7 +174,7 @@ func DeleteTagsModPanel(c *gin.Context) {
 
 // TorrentBlockModPanel : Controller to lock torrents, redirecting to previous page
 func TorrentBlockModPanel(c *gin.Context) {
-	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
+	id, _ := strconv.ParseInt(c.PostForm("id"), 10, 32)
 	torrent, _, err := torrents.ToggleBlock(uint(id))
 	var returnRoute, action string
 	if torrent.IsDeleted() {

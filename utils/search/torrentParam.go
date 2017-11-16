@@ -13,6 +13,7 @@ import (
 
 	elastic "gopkg.in/olivere/elastic.v5"
 
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/utils/log"
@@ -25,6 +26,7 @@ type TorrentParam struct {
 	Full      bool // True means load all members
 	Order     bool // True means ascending
 	Hidden    bool // True means filter hidden torrents
+	Locked    bool // False means filter locked torrents
 	Deleted   bool // False means filter deleted torrents
 	Status    Status
 	Sort      SortMode
@@ -48,6 +50,7 @@ type TorrentParam struct {
 	Dlsite       string
 	VideoQuality string
 	Tags         Tags
+	Abort        bool
 }
 
 // Identifier returns a unique identifier for the struct
@@ -69,7 +72,7 @@ func (p *TorrentParam) Identifier() string {
 	tags += p.VideoQuality
 	dbids := fmt.Sprintf("%d%d%d%s", p.AnidbID, p.VndbID, p.VgmdbID, p.Dlsite)
 
-	identifier := fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%s%d%s%s%s%t%t%t%t", p.NameLike, p.NotNull, languages, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, dbids, p.FromDate, p.ToDate, p.UserID, ids, cats, tags, p.Full, p.Order, p.Hidden, p.Deleted)
+	identifier := fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%s%d%s%s%s%t%t%t%t%t", p.NameLike, p.NotNull, languages, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, dbids, p.FromDate, p.ToDate, p.UserID, ids, cats, tags, p.Full, p.Order, p.Hidden, p.Locked, p.Deleted)
 	return base64.URLEncoding.EncodeToString([]byte(identifier))
 }
 
@@ -136,6 +139,8 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 			user, _, _, err := users.FindByUsername(username)
 			if err == nil {
 				p.UserID = uint32(user.ID)
+			} else {
+				p.Abort = true
 			}
 		}
 		// For other functions, we need to set userID in the request query
@@ -247,7 +252,10 @@ func (p *TorrentParam) toESQuery(c *gin.Context) *Query {
 
 	if p.Status != ShowAll {
 		query.Append(p.Status.ToESQuery())
+	} else if !p.Locked {
+		query.Append(fmt.Sprintf("!(status:%d)", 5))
 	}
+
 
 	if p.FromID != 0 {
 		query.Append("id:>" + strconv.FormatInt(int64(p.FromID), 10))
@@ -387,11 +395,11 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 	}
 
 	if p.FromID != 0 {
-		query.Append("torrents.torrent_id > ?", p.FromID)
+		query.Append(config.Get().Models.TorrentsTableName + ".torrent_id > ?", p.FromID)
 	}
 	if len(p.TorrentID) > 0 {
 		for _, id := range p.TorrentID {
-			query.Append("torrents.torrent_id = ?", id)
+			query.Append(config.Get().Models.TorrentsTableName + ".torrent_id = ?", id)
 		}
 	}
 	if p.FromDate != "" {
@@ -402,7 +410,10 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 	}
 	if p.Status != 0 {
 		query.Append(p.Status.ToDBQuery())
+	} else if !p.Locked {
+		query.Append("status IS NOT ?", 5)
 	}
+
 	if len(p.NotNull) > 0 {
 		query.Append(p.NotNull)
 	}

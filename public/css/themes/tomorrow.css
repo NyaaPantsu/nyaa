@@ -1,0 +1,364 @@
+body {
+    color: #c5c8c6;
+    background: #1d1f21;
+}
+
+.header, .box, .pagination span, .user-menu {
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.2)
+}
+
+#mascot {
+    background-image: url('/img/megumin.svg');
+}
+
+a {
+    color: #81a2be;
+}
+
+a:hover {
+    color: #5F89AC;
+}
+
+.header {
+    background: #282A2E;
+    border-color: #000;
+}
+
+.header .nav-btn {
+    color: #c5c8c6;
+}
+
+.header .nav-btn:hover {
+    color: #eee;
+}
+
+#cookie-warning {
+    background: hsla(0, 0%, 21%, 0.9);
+    border-top: 1px solid #4e4e4e;
+    color: #9a9a9a;
+}
+#cookie-warning .close {
+    color: #9a9a9a;
+}
+
+.box, .pagination span, .modtools {
+    background: hsla(222, 8%, 20%, 0.85);
+    border-color: #141517 !important;
+}
+
+.form-input {
+    border-color: #0C0D0E !important;
+    background: #141517;
+    color: #c5c8c6;
+}
+.form-input.refine {
+    border-color: #323232!important;
+    background: #424242;
+    color: #bbbbbb;
+}
+.header .h-user .user-avatar {
+    background: #99BFD0;
+    border-color: #282A2E;
+}
+.user-avatar span {
+    background-color: #d02727;
+    color: #272727;
+}
+
+.header .h-user .user-menu {
+    background: #282A2E;
+    background: -moz-linear-gradient(top, #282A2E 0%, #34373C 100%);
+    background: -webkit-linear-gradient(top, #282A2E 0%, #34373C 100%);
+    background: linear-gradient(to bottom, #282A2E 0%, #34373C 100%);
+    border-color: #282A2E;
+}
+
+table thead {
+    background: #141517 !important;
+}
+
+th {
+    color: #838B98;
+}
+
+th a {
+    color: #c5c8c6;
+}
+
+th, td {
+    border-color: #141517 !important;
+}
+
+td.tr-se, .success-text {
+    color: #b5bd68;
+}
+
+td.tr-le, .error-text {
+    color: #cc6666;
+}
+
+.btn-red {
+    background-color: #cc6666;
+}
+.sukebei .btn-red {
+    color: #c5c8c6;
+}
+.btn-grey {
+    background-color: #777777;
+}
+
+.alt-colors tr:nth-child(even) {
+    background: hsla(244, 11%, 21%, 0.2);
+} 
+.alt-colors tr:nth-child(odd) {
+    background: hsla(255, 31%, 6%, 0.2);
+} 
+.aplus, .btn-blue {
+    background: hsla(180, 50%, 50%, 0.2) !important;
+}
+
+.trusted, .btn-green {
+    background: hsla(90, 50%, 50%, 0.2) !important;
+}
+
+.remake, .btn-orange {
+    background: hsla(40, 50%, 50%, 0.2) !important;
+}
+
+a.form-input[class*="btn"]:hover {
+    color: #dedede;
+}
+
+.pagination .active {
+    background: #141517;
+    color: #c5c8c6;
+}
+.sukebei .pagination .active {
+    color: #ff5252;
+}
+
+.pagination .disabled {
+    color: #141517;
+    cursor: unset;
+}
+
+.sukebei {
+    color: #c5c8c6;
+}
+
+.sukebei a {
+    color: #cc6666;
+}
+
+.sukebei a:hover {
+    color: #c82829;
+}
+
+.sukebei th, .sukebei th a {
+    color: #c5c8c6;
+}
+
+.captcha-container img {
+    background: #fff;
+    border-radius: .4em .4em 0 0;
+    border-bottom: .5em solid #fff;
+    margin-bottom: -.5em;
+}
+
+
+/* Markdown editor */
+
+.editor-toolbar a {
+    color: #fff !important;
+}
+
+.editor-toolbar a.active, .editor-toolbar a:hover {
+    background: #666;
+    border-color: #828282;
+}
+
+.editor-toolbar {
+    background: #000 !important;
+}
+
+.editor-toolbar.fullscreen::before, .editor-toolbar.fullscreen::after {
+    display: none;
+}
+
+.editor-preview, .editor-preview-side, .editor-toolbar.disabled-for-preview a:not(.no-disable) {
+    background: #141517;
+}
+
+.CodeMirror {
+    color: #fff;
+    background: #141517;
+}
+
+.CodeMirror-cursor {
+    border-color: #fff;
+}
+
+.CodeMirror .CodeMirror-selected {
+    background: #585858;
+}
+
+.CodeMirror-focused .CodeMirror-selected, .CodeMirror-line::selection, .CodeMirror-line>span::selection, .CodeMirror-line>span>span::selection {
+    background: #454545;
+}
+
+.CodeMirror-line::-moz-selection, .CodeMirror-line>span::-moz-selection, .CodeMirror-line>span>span::-moz-selection {
+    background: #454545;
+}
+
+.form-input.language {
+    background-color: #35363c;
+}
+
+.torrent-info-box>p>a, .torrent-info-box>div>a, #description-box a {
+    text-decoration: none;
+}
+
+.modal-content {
+    background: hsla(222, 8%, 20%, 1);
+    border-color: #5a5a5a;
+}
+.modal-header {
+    background: #8149bf;
+}
+.modal-footer {
+    background: #1d1c1f;
+}
+.modal-footer span button {
+    border-color: black;
+}
+.modal-footer span #confirm_changes {
+    background: #5c966a;
+}
+.modal-footer span .close {
+    background: #cc4f4f;
+}
+
+#announce {
+    color: #3a4249;
+    background-color: #F4E0C9;
+    border-color: #ae875b;
+}
+
+#admin-header {
+    background: hsla(222, 5%, 16%, 0.85);
+    border-color: #141517;
+}
+#admin-header .nav-btn {
+    border-color: #141517;
+    color: #a2a7a4;
+}
+#admin-header .nav-btn.active, #admin-header .nav-btn:hover, #admin-header:hover .nav-btn.active:hover, #admin-header .nav-btn:focus {
+    background-color: #2c2f34;
+    color: #c5c8c6;
+}
+
+.torrent-preview-table>table {
+    border-color: #141115;    
+}
+
+.torrent-info-box {
+    border-color: #515456;
+}
+.tr-cat div.nyaa-cat { border-color: #232324!important; }
+.torrent-preview-table > table { border: 2px solid #1a1a1d; }
+ 
+.tag.pending {
+    background: #3c3c3c;
+    color: #c1c1c1;
+    border: 1px solid black;
+}
+.tag.pending a.tag-form {
+    color: white;
+    border-left: none;
+}
+.tag.pending a.tag-form.plus {
+    background-color: #3f7137;
+}
+.tag.pending a.tag-form.minus {
+    background-color: #9e3131;
+    font-weight: bold;
+}
+span.tag {
+    box-shadow: none;
+}
+.tag.accepted {
+    border: 1px solid #000000;
+    background: #272523;
+}
+.tag.accepted .tag-text a {
+    color: #7a8494;
+}
+
+.upload-status {
+    background-color: #1f2329;
+    border-color:#1f2329;
+    color: white;
+}
+.upload-status .upload-site-name  {
+    border-right-color: black!important;
+	background: none!important;	
+}
+.upload-status  .icon-finished {
+    border-right-color: #9ea749!important
+}
+.upload-status  .icon-pending {
+    border-right-color: #906718!important;
+}
+.upload-status  .icon-error {
+    border-right-color: #b34d4d!important;
+}
+
+.upload-status .upload-progress {
+    background-color: #717171;
+}
+.multiple-upload input {
+    border-color: #7c8084;
+    color: #b3b3b3;
+}
+
+.multiple-upload .finished {
+    background-color: #b5bd68;
+}
+.multiple-upload .pending {
+    background-color: #b1893b;
+
+}
+.multiple-upload .error {
+    background-color: #cc6666;
+}
+
+.upload-form-table .checkbox-container {
+    border-color: #0c0d0e;
+    background: #333438;
+}
+
+.torrent-info-row .tr-se span, .torrent-info-row .tr-le span, .torrent-info-row .tr-dl span {
+    background-color: #544433;
+}
+
+.admin-content tr:hover {
+    background: #201f23;
+}
+.admin-content tr:hover a {
+    color: #bbd2e6;
+}
+.sukebei .admin-content tr:hover a {
+    color: #ea8c8c;
+}
+
+#subscribe-link::before, #subscribe-link::after {
+   color: #c5c8c6!important;
+}
+
+td.notification-status {
+	background-color: #505255;
+}
+td.notification-status.notification-unread {
+	background-color: rgba(144, 103, 24, 0.4);
+	color: #c5c8c6;
+}

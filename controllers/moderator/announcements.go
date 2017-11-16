@@ -59,15 +59,15 @@ func addAnnouncement(c *gin.Context) {
 			c.AbortWithStatus(http.StatusNotFound)
 		}
 	}
-	delay := int(math.Ceil(math.Max(1, float64(announcement.Expire.Sub(time.Now())/(24*time.Hour)))))
+	duration := int(math.Ceil(math.Max(1, float64(announcement.Expire.Sub(time.Now())/(24*time.Hour)))))
 	form := &announcementValidator.CreateForm{
 		ID:      announcement.ID,
 		Message: announcement.Content,
-		Delay:   delay,
+		Duration:   duration,
 	}
 	c.Bind(form)
-	if form.Delay == 0 {
-		form.Delay = delay
+	if form.Duration == 0 {
+		form.Duration = duration
 	}
 	templates.Form(c, "admin/announcement_form.jet.html", form)
 }
@@ -75,7 +75,7 @@ func addAnnouncement(c *gin.Context) {
 func postAnnouncement(c *gin.Context) {
 	messages := msg.GetMessages(c)
 	announcement := &models.Notification{}
-	id, _ := strconv.Atoi(c.Query("id"))
+	id, _ := strconv.Atoi(c.PostForm("id"))
 	if id > 0 {
 		var err error
 		announcement, err = notifications.FindByID(uint(id))
@@ -102,7 +102,8 @@ func postAnnouncement(c *gin.Context) {
 			}
 		} else { // announcement doesn't exist, we create it
 			var err error
-			announcement, err := notifications.NotifyAll(form.Message, time.Now().AddDate(0, 0, form.Delay))
+			currentTime := time.Now()
+			announcement, err := notifications.NotifyAll(form.Message, currentTime.Add(time.Hour * time.Duration(form.Duration)))
 			if err != nil {
 				// Error, we add it as a message
 				messages.AddErrorT("errors", "create_failed")
@@ -120,7 +121,7 @@ func postAnnouncement(c *gin.Context) {
 
 // deleteAnnouncement : Controller for deleting an announcement
 func deleteAnnouncement(c *gin.Context) {
-	id, _ := strconv.ParseInt(c.Query("id"), 10, 32)
+	id, _ := strconv.ParseInt(c.PostForm("id"), 10, 32)
 	announcement, err := notifications.FindByID(uint(id))
 	if err != nil {
 		c.AbortWithStatus(http.StatusNotFound)

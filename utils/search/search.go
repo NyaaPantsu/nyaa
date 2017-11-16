@@ -39,25 +39,25 @@ func stringIsASCII(input string) bool {
 
 // ByQueryNoUser : search torrents according to request without user
 func ByQueryNoUser(c *gin.Context, pagenum int) (search TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = ByQuery(c, pagenum, false, false, false)
+	search, tor, count, err = ByQuery(c, pagenum, false, false, false, false)
 	return
 }
 
 // ByQueryWithUser : search torrents according to request with user
 func ByQueryWithUser(c *gin.Context, pagenum int) (search TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = ByQuery(c, pagenum, true, false, false)
+	search, tor, count, err = ByQuery(c, pagenum, true, false, false, true)
 	return
 }
 
 // ByQueryDeleted : search deleted torrents according to request with user and count
 func ByQueryDeleted(c *gin.Context, pagenum int) (search TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = ByQuery(c, pagenum, true, true, false)
+	search, tor, count, err = ByQuery(c, pagenum, true, true, false, true)
 	return
 }
 
 // ByQueryNoHidden : search torrents and filter those hidden
 func ByQueryNoHidden(c *gin.Context, pagenum int) (search TorrentParam, tor []models.Torrent, count int, err error) {
-	search, tor, count, err = ByQuery(c, pagenum, false, false, true)
+	search, tor, count, err = ByQuery(c, pagenum, false, false, true, false)
 	return
 }
 
@@ -66,13 +66,19 @@ func ByQueryNoHidden(c *gin.Context, pagenum int) (search TorrentParam, tor []mo
 // elasticsearch always provide a count to how many hits
 // ES doesn't store users
 // deleted is unused because es doesn't index deleted torrents
-func ByQuery(c *gin.Context, pagenum int, withUser bool, deleted bool, hidden bool) (TorrentParam, []models.Torrent, int, error) {
+func ByQuery(c *gin.Context, pagenum int, withUser bool, deleted bool, hidden bool, locked bool) (TorrentParam, []models.Torrent, int, error) {
 	var torrentParam TorrentParam
 	torrentParam.FromRequest(c)
 	torrentParam.Offset = uint32(pagenum)
 	torrentParam.Hidden = hidden
+	torrentParam.Locked = locked
 	torrentParam.Full = withUser
 	torrentParam.Deleted = deleted
+	
+	if torrentParam.Abort {
+		return torrentParam, []models.Torrent{}, 0, nil
+	}
+	
 	if found, ok := cache.C.Get(torrentParam.Identifier()); ok {
 		log.Infof("Retrieve results from Cache in %s", torrentParam.Identifier())
 		torrentCache := found.(*TorrentCache)
@@ -101,9 +107,6 @@ func ByQuery(c *gin.Context, pagenum int, withUser bool, deleted bool, hidden bo
 }
 
 // AuthorizedQuery return a seach byquery according to the bool. If false, it doesn't look for hidden torrents, else it looks for every torrents
-func AuthorizedQuery(c *gin.Context, pagenum int, authorized bool) (TorrentParam, []models.Torrent, int, error) {
-	if !authorized {
-		return ByQuery(c, pagenum, true, false, true)
-	}
-	return ByQuery(c, pagenum, true, false, false)
+func AuthorizedQuery(c *gin.Context, pagenum int, authorized bool, locked bool) (TorrentParam, []models.Torrent, int, error) {
+	return ByQuery(c, pagenum, true, false, !authorized, locked)
 }

@@ -2,6 +2,7 @@ package templates
 
 import (
 	"html/template"
+    "path/filepath"
 	"math"
 	"math/rand"
 	"net/url"
@@ -35,11 +36,11 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("FlagCode", flagCode)
 	vars.Set("getAvatar", getAvatar)
 	vars.Set("torrentFileExists", torrentFileExists)
-	vars.Set("formatDateRFC", formatDateRFC)
 	vars.Set("GetHostname", format.GetHostname)
 	vars.Set("GetCategories", categories.GetSelect)
 	vars.Set("GetCategory", getCategory)
 	vars.Set("CategoryName", categoryName)
+	vars.Set("GetCategoryName", GetCategoryName)
 	vars.Set("GetTorrentLanguages", torrentLanguages.GetTorrentLanguages)
 	vars.Set("LanguageName", languageName)
 	vars.Set("LanguageNameFromCode", languageNameFromCode)
@@ -51,17 +52,20 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("genUploaderLink", genUploaderLink)
 	vars.Set("genActivityContent", genActivityContent)
 	vars.Set("contains", contains)
-	vars.Set("toString", toString)
-	vars.Set("kilo_strcmp", kilo_strcmp)
-	vars.Set("kilo_strfind", kilo_strfind)
-	vars.Set("kilo_rand", kilo_rand)
+	vars.Set("strcmp", strcmp)
+	vars.Set("strfind", strfind)
+	vars.Set("rand", rand.Intn)
+	vars.Set("toString", strconv.Itoa)
 	vars.Set("getDomainName", getDomainName)
+	vars.Set("getThemeList", getThemeList)
+	vars.Set("formatThemeName", formatThemeName)
+	vars.Set("formatDate", formatDate)
 	return vars
 }
 func getRawQuery(currentURL *url.URL) string {
 	return currentURL.RawQuery
 }
-func genSearchWithOrdering(currentURL *url.URL, sortBy string) string {
+func genSearchWithOrdering(currentURL *url.URL, sortBy string, searchRoute string) string {
 	values := currentURL.Query()
 	order := false //Default is DESC
 	sort := "2"    //Default is Date (Actually ID, but Date is the same thing)
@@ -82,13 +86,13 @@ func genSearchWithOrdering(currentURL *url.URL, sortBy string) string {
 	values.Set("sort", sortBy)
 	values.Set("order", strconv.FormatBool(order))
 
-	u, _ := url.Parse("/search")
+	u, _ := url.Parse(searchRoute)
 	u.RawQuery = values.Encode()
 
 	return u.String()
 }
 
-func genSearchWithCategory(currentURL *url.URL, category string) string {
+func genSearchWithCategory(currentURL *url.URL, category string, searchRoute string) string {
 	values := currentURL.Query()
 	cat := "_" //Default
 
@@ -100,7 +104,7 @@ func genSearchWithCategory(currentURL *url.URL, category string) string {
 
 	values.Set("c", cat)
 
-	u, _ := url.Parse("/search")
+	u, _ := url.Parse(searchRoute)
 	u.RawQuery = values.Encode()
 
 	return u.String()
@@ -146,7 +150,7 @@ func genNav(nav Navigation, currentURL *url.URL, pagesSelectable int) template.H
 			display = ""
 			href = " href=\"" + "/" + nav.Route + "/1" + "?" + currentURL.RawQuery + "\""
 		}
-		ret = ret + "<a id=\"page-prev\"" + display + href + " aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a>"
+		ret = ret + "<a class=\"page-prev\"" + display + href + " aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a>"
 		
 		startValue := 1
 		if nav.CurrentPage > pagesSelectable/2 {
@@ -173,9 +177,9 @@ func genNav(nav Navigation, currentURL *url.URL, pagesSelectable int) template.H
 		display = " style=\"display:none;\""
 		if nav.CurrentPage < int(maxPages) {
 			display = ""
-			href = " href=\"" + "/" + nav.Route + "/" + strconv.Itoa(nav.CurrentPage+1) + "?" + currentURL.RawQuery + "\""
+			href = " href=\"" + "/" + nav.Route + "/" + strconv.Itoa(int(maxPages)) + "?" + currentURL.RawQuery + "\""
 		}
-		ret = ret + "<a id=\"page-next\"" + display + href +" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a>"
+		ret = ret + "<a class=\"page-next\"" + display + href +" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a>"
 			
 		itemsThisPageStart := nav.MaxItemPerPage*(nav.CurrentPage-1) + 1
 		itemsThisPageEnd := nav.MaxItemPerPage * nav.CurrentPage
@@ -192,13 +196,16 @@ func flagCode(languageCode string) string {
 }
 
 func getAvatar(hash string, size int) string {
-	return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
+	if hash != "" {
+		return "https://www.gravatar.com/avatar/" + hash + "?s=" + strconv.Itoa(size)
+	} else {
+		if config.IsSukebei() {
+			return "/img/sukebei_avatar_" + strconv.Itoa(size) + ".jpg"
+		}
+		return "/img/avatar_" + strconv.Itoa(size) + ".jpg"
+	}
 }
 
-func formatDateRFC(t time.Time) string {
-	// because time.* isn't available in templates...
-	return t.Format(time.RFC3339)
-}
 func getCategory(category string, keepParent bool) categories.Categories {
 	cats := categories.GetSelect(true, true)
 	found := false
@@ -218,13 +225,16 @@ func getCategory(category string, keepParent bool) categories.Categories {
 	return categoryRet
 }
 func categoryName(category string, subCategory string) string {
-	s := category + "_" + subCategory
+	return GetCategoryName( category + "_" + subCategory)
+}
 
-	if category, ok := categories.GetByID(s); ok {
-		return category.Name
+func GetCategoryName(category string) string {
+	if cat, ok := categories.GetByID(category); ok {
+		return cat.Name
 	}
 	return ""
 }
+
 func languageName(lang publicSettings.Language, T publicSettings.TemplateTfunc) string {
 	if strings.Contains(lang.Name, ",") {
 		langs := strings.Split(lang.Name, ", ")
@@ -247,8 +257,8 @@ func languageNameFromCode(languageCode string, T publicSettings.TemplateTfunc) s
 	}
 	return strings.Title(publicSettings.Translate(languageCode, string(T("language_code"))))
 }
-func fileSize(filesize int64, T publicSettings.TemplateTfunc) template.HTML {
-	if filesize == 0 {
+func fileSize(filesize int64, T publicSettings.TemplateTfunc, showUnknown bool) template.HTML {
+	if showUnknown && filesize == 0 {
 		return T("unknown")
 	}
 	return template.HTML(format.FileSize(filesize))
@@ -331,22 +341,20 @@ func contains(arr interface{}, comp string) bool {
 }
 
 func torrentFileExists(hash string, TorrentLink string) bool {
-	if(len(TorrentLink) > 30 && !kilo_strfind(TorrentLink, ".pantsu.cat", 8)) {
+	if(len(config.Get().Torrents.FileStorage) == 0) {
+		//File isn't stored on our servers
 		return true
 	}
 	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
 	if err != nil {
+		//File doesn't exist
 		return false
 	}
 	defer Openfile.Close()
 	return true
 }
 
-func toString(number int) string {
-	return strconv.Itoa(number)
-}
-
-func kilo_strcmp(str1 string, str2 string, end int, start int) bool {
+func strcmp(str1 string, str2 string, end int, start int) bool {
 	//Compare two strings but has length arguments
 	
 	len1 := len(str1)
@@ -370,22 +378,18 @@ func kilo_strcmp(str1 string, str2 string, end int, start int) bool {
 	return strings.Compare(str1[start:end], str2[start:end]) == 0
 }
 
-func kilo_strfind(str1 string, searchfor string, start int) bool {
+func strfind(str1 string, searchfor string, start int) bool {
 	//Search a string inside another with start parameter
 	//start parameter indicates where we start searching
 	
 	len1 := len(str1)
 	
-	if start >= len1 {
+	if start >= len1 || searchfor == "" {
 		return false
 	}
 	
 	
 	return strings.Contains(str1[start:len1], searchfor)
-}
-
-func kilo_rand(min int, max int) int {
-	return min + rand.Intn(max - min)
 }
 
 func getDomainName() string {
@@ -394,4 +398,56 @@ func getDomainName() string {
 		domain = ""
 	}
 	return domain
+}
+
+func getThemeList() ([]string) {
+    searchDir := "public/css/themes/"
+
+    themeList := []string{}
+	
+    filepath.Walk(searchDir, func(path string, f os.FileInfo, err error) error {
+        if strfind(path, ".css", len(searchDir)) {
+			//we only want .css file
+			
+			fileName := path[len(searchDir):strings.Index(path, ".css")]
+			//Remove file extension and path, keep only file name
+			
+			themeList = append(themeList, fileName)
+		}
+		return nil
+    })
+
+    return themeList
+}
+
+func formatThemeName(name string, T publicSettings.TemplateTfunc) string {
+	translationString := fmt.Sprintf("themes_%s", name)
+	translatedName := string(T(translationString))
+	
+	if translatedName != translationString {
+		//Translation string exists
+		return translatedName
+	}
+			
+	if len(name) == 1 {
+		name = fmt.Sprintf("/%c/", name[0])
+	} else {
+		name = strings.Replace(name, "_", " ", -1)
+		name = strings.Title(name)
+		//Upper case at each start of word
+	}
+	return name
+}
+
+func formatDate(Date time.Time, short bool) string {
+	Date = Date.UTC()
+	if short {
+		return fmt.Sprintf("%.3s %d, %d", Date.Month(), Date.Day(), Date.Year())
+	}
+	
+	if Date.Hour() >= 12 {
+		return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d PM UTC+0", Date.Month(), Date.Day(), Date.Year(), Date.Hour() - 12, Date.Minute(), Date.Second())
+	} else {
+		return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d AM UTC+0", Date.Month(), Date.Day(), Date.Year(), Date.Hour(), Date.Minute(), Date.Second())
+	}
 }

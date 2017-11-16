@@ -2,7 +2,22 @@
 {{block title()}}{{ T("comments_list") }}{{end}}
 {{block content_body()}}
 <div class="results box">
-  <h1>{{  T("comments_list") }}</h1>
+  <h1 style="margin-bottom: 0;">{{  T("comments_list") }}</h1>
+
+  <form action="/mod/comments">
+  <table style="margin-left: 5px; max-width: 30%; min-width: 100px;text-align:left;">
+	<tbody>
+		<tr>
+			<td>{{T("user_id")}}</td><td><input type="text" name="userid" class="form-input" placeholder="{{T("user_id")}}" value="{{if Search.UserID > 0}}{{Search.UserID}}{{end}}"><td/>
+		</tr>
+		<tr>
+			<td>{{T("username")}}</td><td><input type="text" name="user" class="form-input" placeholder="{{T("username")}}" value="{{Search.UserName}}"><td/>
+		</tr>
+	</tbody>
+  </table>
+  <button style="display: none;"></button>
+  </form>
+ 
   <table class="table">
     <thead class="torrent-info">
       <tr>
@@ -30,9 +45,10 @@
           {{end}}
         </td>
         <td class="tr-actions home-td">
-          <a href="/mod/comment/delete?id={{.ID}}" class="form-input btn-red" onclick="if (!confirm('{{  T(" are_you_sure ") }}')) return false;">
-            <i class="icon-trash"></i> {{  T("delete") }}
-          </a>
+ 			  <form method="POST" action="/mod/comment/delete">
+				  <input type="hidden" name="id" value="{{ .ID }}">
+				  <button type="submit" class="form-input btn-red"><i class="icon-trash"></i> {{  T("delete") }}</button>
+			  </form>
         </td>
       </tr>
       {{end}}

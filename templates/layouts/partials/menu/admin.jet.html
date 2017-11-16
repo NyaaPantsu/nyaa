@@ -1,10 +1,11 @@
     <div id="admin-header">
       <a href="{{URL.Parse("/mod/")}}" class="nav-btn{{if URL.String() == "/mod/"}} active{{end}}">{{ T("moderation")}}</a>
-      <a href="{{URL.Parse("/mod/torrents")}}" class="nav-btn{{if kilo_strcmp(URL.String(), "/mod/torrent", 12,5) }} active{{end}}">{{ T("torrents")}}</a>
+      <a href="{{URL.Parse("/mod/torrents")}}" class="nav-btn{{if strcmp(URL.String(), "/mod/torrent", 12,5) }} active{{end}}">{{ T("torrents")}}</a>
       <a href="{{URL.Parse("/mod/users")}}" class="nav-btn{{if URL.String() == "/mod/users"}} active{{end}}">{{ T("users")}}</a>
       <a href="{{URL.Parse("/mod/comments")}}" class="nav-btn{{if URL.String() == "/mod/comments"}} active{{end}}">{{ T("comments")}}</a>
-      <a href="{{URL.Parse("/mod/oauth_client")}}" class="nav-btn{{if kilo_strcmp(URL.String(), "/mod/oauth_client", 17, 5) }} active{{end}}">{{ T("oauth_clients_list")}}</a>
-      <a href="{{URL.Parse("/mod/announcement")}}" class="nav-btn{{if kilo_strcmp(URL.String(), "/mod/announcement", 17, 5) }} active{{end}}">{{ T("announcements")}}</a>
+      <a href="{{URL.Parse("/mod/oauth_client")}}" class="nav-btn{{if strcmp(URL.String(), "/mod/oauth_client", 17, 5) }} active{{end}}">{{ T("oauth_clients_list")}}</a>
+      <a href="{{URL.Parse("/mod/announcement")}}" class="nav-btn{{if strcmp(URL.String(), "/mod/announcement", 17, 5) }} active{{end}}">{{ T("announcements")}}</a>
       <a href="{{URL.Parse("/mod/reports")}}" class="nav-btn{{if URL.String() == "/mod/reports"}} active{{end}}">{{ T("torrent_reports")}}</a>
       <a href="{{URL.Parse("/mod/reassign")}}" class="nav-btn{{if URL.String() == "/mod/reassign"}} active{{end}}">{{ T("torrent_reassign")}}</a>
+      <a href="{{URL.Parse("/mod/guidelines")}}" class="nav-btn{{if URL.String() == "/mod/guidelines"}} active{{end}}">{{ T("guidelines")}}</a>
     </div>

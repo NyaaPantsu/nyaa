@@ -1,38 +1,52 @@
-<div class="box refine website-nav{{if URL.String() != "/" && !kilo_strcmp(URL.String(), "/search", 7, 1) }} refine-not-search{{end}}">
+<div class="box refine website-nav">
 <table id="nav-category-list">
 	<tbody>
-		<tr><td>{{if Search.Category == ""}}<b>{{ T("all_categories")}}</b>{{else}}<a href="{{genSearchWithCategory(URL, "_")}}">{{ T("all_categories")}}</a>{{end}}</td></tr>
+		<tr><td colspan="3">{{if Search.Category == ""}}<b>{{ T("all_categories")}}</b>{{else}}<a href="{{genSearchWithCategory(URL, "_", Search.SearchURL)}}">{{ T("all_categories")}}</a>{{end}}</td></tr>
 		<tr>
 		{{ range _, cat := GetCategories(true, false) }}
-			<td>{{if Search.Category == cat.ID }}<b>{{ T(cat.Name) }}</b>{{else}}<a href="{{genSearchWithCategory(URL, cat.ID)}}">{{ T(cat.Name) }}</a>{{end}}</td>
-			{{ if _ % 3 == 2}}
-			</tr><tr>
+			<td>{{if Search.Category == cat.ID ||(len(Search.Category) > 2 && Search.Category[:2] == cat.ID)}}<b>{{ T(cat.Name) }}</b>{{else}}<a href="{{genSearchWithCategory(URL, cat.ID, Search.SearchURL)}}">{{ T(cat.Name) }}</a>{{end}}</td>
+			{{ if _ % 3 == 2 && _ + 1 != len(GetCategories(true, false)) }}
+			</tr>
+			<tr>
 			{{end}}
 			{{if _ + 1 == len(GetCategories(true, false)) }}
+			{{ if _% 3 != 2}}{{ if _% 3 == 0}}<td></td>{{end}}<td></td>{{end}}
 			</tr>{{end}}
 		{{ end }}
-		</tr>
 	</tbody>
 </table>
+{{ if Search.Category != ""}}
+<div class="sub-category-list">
+	{{ range _, cat := GetCategory(Search.Category[:1], true)}}
+		<span>
+		{{if Search.Category == cat.ID}}<b>{{ T(cat.Name) }}</b>{{else}}
+		<a href="{{genSearchWithCategory(URL, cat.ID, Search.SearchURL)}}">{{ T(cat.Name)}}</a>{{end}}
+		</span>
+	{{end}}
+</div>
+{{end}}
 <table id="sort-list-order">
 	<tbody>
 		<tr>
 			<td>
-				{{ if Search.Sort != 2 && Search.Sort != 0}}<a href="{{ genSearchWithOrdering(URL, "2") }}">Date</a>{{else}}<b>Date</b>{{end}} / 
-				{{ if Search.Sort != 5}}<a href="{{ genSearchWithOrdering(URL, "5") }}">Seeders</a>{{else}}<b>Seeders</b>{{end}} / 
-				{{ if Search.Sort != 6}}<a href="{{ genSearchWithOrdering(URL, "6") }}">Leechers</a>{{else}}<b>Leechers</b>{{end}} / 
-				{{ if Search.Sort != 7}}<a href="{{ genSearchWithOrdering(URL, "7") }}">Downloads</a>{{else}}<b>Downloads</b>{{end}}  / 
-				{{ if Search.Sort != 4}}<a href="{{ genSearchWithOrdering(URL, "4") }}">Size</a>{{else}}<b>Size</b>{{end}}  / 
-				{{ if Search.Sort != 1}}<a href="{{ genSearchWithOrdering(URL, "1") }}">Name</a>{{else}}<b>Name</b>{{end}}  
+				{{ if Search.Sort != 2 && Search.Sort != 0}}<a href="{{ genSearchWithOrdering(URL, "2", Search.SearchURL) }}">{{ T("date") }}</a>{{else}}<b>{{ T("date") }}</b>{{end}} / 
+				{{ if Search.Sort != 5}}<a href="{{ genSearchWithOrdering(URL, "5", Search.SearchURL) }}">{{ T("seeders") }}</a>{{else}}<b>{{ T("seeders") }}</b>{{end}} / 
+				{{ if Search.Sort != 6}}<a href="{{ genSearchWithOrdering(URL, "6", Search.SearchURL) }}">{{ T("leechers") }}</a>{{else}}<b>{{ T("leechers") }}</b>{{end}} / 
+				{{ if Search.Sort != 7}}<a href="{{ genSearchWithOrdering(URL, "7", Search.SearchURL) }}">{{ T("completed") }}</a>{{else}}<b>{{ T("completed") }}</b>{{end}}  / 
+				{{ if Search.Sort != 4}}<a href="{{ genSearchWithOrdering(URL, "4", Search.SearchURL) }}">{{ T("size") }}</a>{{else}}<b>{{ T("size") }}</b>{{end}}  / 
+				{{ if Search.Sort != 1}}<a href="{{ genSearchWithOrdering(URL, "1", Search.SearchURL) }}">{{ T("name") }}</a>{{else}}<b>{{ T("name") }}</b>{{end}}  
 			</td>
 			<td style="padding: 0 0.35em!important;"> | </td>
 			<td>
-				{{ if Search.Order}}<a href="{{ genSearchWithOrdering(URL, toString(Search.Sort)) }}">Ascending</a>{{else}}<b>Ascending</b>{{end}} / 
-				{{ if !Search.Order}}<a href="{{ genSearchWithOrdering(URL, toString(Search.Sort)) }}">Descending</a>{{else}}<b>Descending</b>{{end}}
+				{{ if Search.Order}}<a href="{{ genSearchWithOrdering(URL, toString(Search.Sort), Search.SearchURL) }}">{{ T("ascending") }}</a>{{else}}<b>{{ T("ascending") }}</b>{{end}} / 
+				{{ if !Search.Order}}<a href="{{ genSearchWithOrdering(URL, toString(Search.Sort), Search.SearchURL) }}">{{ T("descending") }}</a>{{else}}<b>{{ T("descending") }}</b>{{end}}
 			</td>
 		</tr>
 	</tbody>
 </table>
+    {{ if Search.UserName != ""}}
+         <div class="user-search-notice">{{T("browsing_user_torrents", Search.UserID, Search.UserName, Search.UserName)|raw}} ({{Navigation.TotalItem}})</div>
+    {{end}}
     <div class="pagination">
       {{ genNav(Navigation, URL, 33)|raw }}
     </div>

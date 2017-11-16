@@ -39,7 +39,7 @@ func ErrorMiddleware() gin.HandlerFunc {
 func ModMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		currentUser := router.GetUser(c)
-		if !currentUser.HasAdmin() {
+		if !currentUser.IsJanitor() {
 			NotFoundHandler(c)
 		}
 		c.Next()

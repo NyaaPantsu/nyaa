@@ -53,7 +53,7 @@ func torrentManyAction(c *gin.Context) {
 		messages.AddErrorTf("errors", "no_status_exist", status)
 		status = -1
 	}
-	if !currentUser.HasAdmin() {
+	if !currentUser.IsModerator() {
 		if c.PostForm("status") != "" { // Condition to check if a user try to change torrent status without having the right permission
 			if (status == models.TorrentStatusTrusted && !currentUser.IsTrusted()) || status == models.TorrentStatusAPlus || status == 0 {
 				status = models.TorrentStatusNormal
@@ -64,7 +64,7 @@ func torrentManyAction(c *gin.Context) {
 		}
 		withReport = false // Users should not be able to remove reports
 	}
-	if c.PostForm("owner") != "" && currentUser.HasAdmin() { // We check that the user given exist and if not we return an error
+	if c.PostForm("owner") != "" && currentUser.IsModerator() { // We check that the user given exist and if not we return an error
 		_, _, errorUser := users.FindForAdmin(uint(owner))
 		if errorUser != nil {
 			messages.AddErrorTf("errors", "no_user_found_id", owner)
@@ -146,7 +146,7 @@ func torrentManyAction(c *gin.Context) {
 					query.Append("torrent_id", torrentID)
 					reports, _, _ := reports.FindOrderBy(query, "", 0, 0)
 					for _, report := range reports {
-						report.Delete(false)
+						report.Delete()
 					}
 					messages.AddInfoTf("infos", "torrent_reports_deleted", torrent.Name)
 				}

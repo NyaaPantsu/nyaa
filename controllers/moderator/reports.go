@@ -1,7 +1,6 @@
 package moderatorController
 
 import (
-	"fmt"
 	"html"
 	"net/http"
 	"strconv"
@@ -37,15 +36,18 @@ func TorrentReportListPanel(c *gin.Context) {
 
 // TorrentReportDeleteModPanel : Controller for deleting a torrent report
 func TorrentReportDeleteModPanel(c *gin.Context) {
-	id := c.Query("id")
+	id := c.PostForm("id")
 
-	fmt.Println(id)
-	idNum, _ := strconv.ParseUint(id, 10, 64)
-	_, _, _ = reports.Delete(uint(idNum))
-	/* If we need to log report delete activity
-	if err == nil {
-		activity.Log(&models.User{}, torrent.Identifier(), "delete", "torrent_report_deleted_by", strconv.Itoa(int(report.ID)), router.GetUser(c).Username)
+	if c.Request.URL.Query()["all"] != nil {
+		reports.DeleteAll()
+	} else {
+		idNum, _ := strconv.ParseUint(id, 10, 64)
+		_, _, _ = reports.Delete(uint(idNum))
+		/* If we need to log report delete activity
+		if err == nil {
+			activity.Log(&models.User{}, torrent.Identifier(), "delete", "torrent_report_deleted_by", strconv.Itoa(int(report.ID)), router.GetUser(c).Username)
+		}
+		*/
 	}
-	*/
 	c.Redirect(http.StatusSeeOther, "/mod/reports?deleted")
 }

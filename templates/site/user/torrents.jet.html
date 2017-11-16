@@ -3,7 +3,7 @@
 {{ block profile_navigation()}}{{ yield profile_menu(route="profile") }}{{end}}
 {{block profile_content()}}
 {{ if len(UserProfile.Torrents) > 0 }}
-<table {{if AltColors}}class="alt-colors"{{end}}>
+<table class="user-torrent-table{{if AltColors}} alt-colors{{end}}">
   <tr class="torrent-info">
     <th class="tr-cat user-td">{{ T("category")}}</th>
     <th class="tr-name user-td">{{ T("name")}}</th>
@@ -41,21 +41,27 @@
       </a>
     </td>
     <td class="tr-size user-td hide-xs">
-      {{ fileSize(torrent.Filesize, T) }}
+      {{ fileSize(torrent.Filesize, T, true) }}
     </td>
-    <td class="tr-date user-td date-short hide-smol">{{torrent.Date}}</td>
+    <td class="tr-date user-td date-short hide-smol" title="{{torrent.Date}}">{{formatDate(torrent.FullDate, true)}}</td>
   </tr>
   {{end}}
 </table>
-<nav class="torrentNav" aria-label="Page navigation">
+  <div class="user-torrent-search">
   <div class="pagination">
-    <a href="/search?userID={{ UserProfile.ID }}" aria-label="Next">
-      <span>
+    <a href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/search" aria-label="Next">
+      <span style="display:block;border-right:1px solid;">
         {{  T("see_more_torrents_from", UserProfile.Username) }}
       </span>
     </a>
   </div>
-</nav>
+  <div class="user-search">
+	  <form role="search" action="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/search" method="get">
+		<input class="form-input" name="q" type="text" placeholder="{{T("search_from_user")}}">
+		<button type="submit" class="form-input icon-search"></button>
+	  </form>
+  </div>
+  </div>
 {{else}}
 <h2 style="text-align: center;">{{  T("no_torrents_uploaded") }}</h2>
 {{end}}

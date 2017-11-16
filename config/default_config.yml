@@ -46,6 +46,14 @@ scraper:
   interval: 3600
   trackers:
     - {url: "udp://tracker.coppersurfer.tk:6969/", name: coppersurfer.tk}
+# StatScrapingFrequency : On-demand stat scraping JS will only be loaded if the stats have been scraped X hours ago or higher
+  stat_scraping_frequency: 48
+# StatScrapingFrequencyUnknown : On-demand stat scraping for unknown torrents JS will only be loaded if the stats have been scraped X hours ago or higher
+  stat_scraping_frequency_unknown: 1
+# MaxStatScrapingFrequency : On-demand stat scraping can only be called every X minutes, to prevent abuse of the /stats/:id route
+  max_stat_scraping_frequency: 5
+# MaxStatScrapingFrequencyUnknown : On-demand stat scraping for unknown torrents can only be called every X minutes
+  max_stat_scraping_frequency_unknown: 2
 # Config by default for the cache
 cache:
   dialect: nop
@@ -96,11 +104,15 @@ torrents:
 # the ones we have translations.
   additional_languages: ["es-mx"]
 # TorrentFileStorage : Path to default torrent storage location (eg /var/www/wherever/you/want)
-  filestorage:
-# TorrentStorageLink : Url of torrent file download location (eg https://your.site/somewhere/%s.torrent)
-  storage_link:
+torrents:
+# GenerationClientPort : Port used by the torrent client created during torrent generation
+  generation_client_port: 50006
+# FileStorage : Location of folder that will contain generated torrent files
+  filestorage: ./downloads/
+# TorrentStorageLink : Url of torrent file download location (eg https://your.site/somewhere/%s)
+  storage_link: /download/%s
 # TorrentCacheLink : Url of torrent site cache
-  cache_link: http://anicache.com/torrent/%s.torrent
+  cache_link: #http://anicache.com/torrent/%s.torrent
 # UploadsDisabled : Disable uploads for everyone except below
   uploads_disabled: false
 # AdminsAreStillAllowedTo : Enable admin torrent upload even if UploadsDisabled is true
@@ -158,7 +170,7 @@ users:
   default_notifications_settings: {"new_torrent": true, "new_torrent_email": false, "new_comment": true, "new_comment_email": false, "new_responses": false, "new_responses_email": false, "new_follower": false, "new_follower_email": false, "followed": false, "followed_email": false}
 navigation:
   torrents_per_page: 50
-  max_torrents_per_page: 300
+  max_torrents_per_page: 500
 log:
 # AccessLogFilePath : Path to logs access
   access_log_filepath: log/access
@@ -216,3 +228,9 @@ models:
   activities_table_name: activities
 # NotificationTableName : Name of scrape table in DB
   scrape_table_name: scrape
+#Default themes
+default_theme:
+  theme: g
+  dark: tomorrow
+  forced:
+  #Put a theme name in forced to force it for everyone
