@@ -154,7 +154,7 @@ func findOrderBy(parameters Query, orderBy string, limit int, offset int, countA
 		dbQuery = dbQuery.Preload("Uploader")
 	}
 	if countAll {
-		dbQuery = dbQuery.Preload("Comments")
+		dbQuery = dbQuery.Preload("Comments").Preload("OldComments")
 	}
 
 	if conditions != "" {
@@ -189,6 +189,11 @@ func FindDB(parameters Query) ([]models.Torrent, int, error) {
 // FindAllOrderBy : Get all torrents ordered by parameters
 func FindAllOrderBy(orderBy string, limit int, offset int) ([]models.Torrent, int, error) {
 	return FindOrderBy(nil, orderBy, limit, offset)
+}
+
+// FindAllForAdminsOrderBy : Get all torrents ordered by parameters
+func FindAllForAdminsOrderBy(orderBy string, limit int, offset int) ([]models.Torrent, int, error) {
+    return findOrderBy(nil, orderBy, limit, offset, true, true, false)
 }
 
 // FindAll : Get all torrents without order

@@ -289,6 +289,37 @@ func TestCategoryName(t *testing.T) {
 	}
 }
 
+func TestCategoryName2(t *testing.T) {
+	var tests = []struct {
+		TestCat    string
+		Expected   string
+	}{
+		{
+			TestCat:    "_",
+			Expected:   "",
+		},
+		{
+			TestCat:    "d",
+			Expected:   "",
+		},
+		{
+			TestCat:    "3_",
+			Expected:   "anime",
+		},
+		{
+			TestCat:    "3_6",
+			Expected:   "anime_raw",
+		},
+	}
+
+	for _, test := range tests {
+		value := GetCategoryName(test.TestCat)
+		if value != test.Expected {
+			t.Errorf("Unexpected value from the function categoryName, got '%s', wanted '%s' for '%s'", value, test.Expected, test.TestCat)
+		}
+	}
+}
+
 func TestLanguageName(t *testing.T) {
 	var tests = []struct {
 		TestLang publicSettings.Language

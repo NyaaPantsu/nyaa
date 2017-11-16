@@ -61,10 +61,19 @@ func CommentsListPanel(c *gin.Context) {
 
 // CommentDeleteModPanel : Controller for deleting a comment
 func CommentDeleteModPanel(c *gin.Context) {
-	id, _ := strconv.ParseInt(c.PostForm("id"), 10, 32)
+	id, err := strconv.ParseInt(c.PostForm("id"), 10, 32)
+	if err != nil {
+		c.Redirect(http.StatusSeeOther, "/mod/comments")
+		return
+	}
+	
 	comment, _, err := comments.Delete(uint(id))
 	if err == nil {
-		activities.Log(&models.User{}, comment.Identifier(), "delete", "comment_deleted_by", strconv.Itoa(int(comment.ID)), comment.User.Username, router.GetUser(c).Username)
+		username := "れんちょん"
+		if comment.UserID != 0 {
+			username = comment.User.Username
+		}
+		activities.Log(&models.User{}, comment.Identifier(), "delete", "comment_deleted_by", strconv.Itoa(int(comment.ID)), username, router.GetUser(c).Username)
 	}
 
 	c.Redirect(http.StatusSeeOther, "/mod/comments?deleted")

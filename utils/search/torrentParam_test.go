@@ -12,13 +12,13 @@ import (
 func TestTorrentParam_Identifier(t *testing.T) {
 	torrentParam := &TorrentParam{}
 	assert := assert.New(t)
-	assert.Equal("MDAwMDAwMDAwMDBmYWxzZWZhbHNlZmFsc2VmYWxzZQ==", torrentParam.Identifier(), "It should be empty")
+	assert.Equal("MDAwMDAwMDAwMDBmYWxzZWZhbHNlZmFsc2VmYWxzZWZhbHNl", torrentParam.Identifier(), "It should be empty")
 	torrentParam = &TorrentParam{
 		NameLike: "test",
 		NotNull:  "IS NULL",
 		Hidden:   false,
 	}
-	assert.Equal("dGVzdElTIE5VTEwwMDAwMDAwMDAwMGZhbHNlZmFsc2VmYWxzZWZhbHNl", torrentParam.Identifier(), "It should be empty")
+	assert.Equal("dGVzdElTIE5VTEwwMDAwMDAwMDAwMGZhbHNlZmFsc2VmYWxzZWZhbHNlZmFsc2U=", torrentParam.Identifier(), "It should be empty")
 }
 
 func TestTorrentParam_FromRequest(t *testing.T) {
@@ -57,14 +57,14 @@ func TestTorrentParam_ToESQuery(t *testing.T) {
 		Test     TorrentParam
 		Expected string
 	}{
-		{TorrentParam{}, ""},
-		{TorrentParam{NameLike: "lol"}, ""},
-		{TorrentParam{NameLike: "lol", FromID: 12}, "id:>12"},
-		{TorrentParam{NameLike: "lol", FromID: 12, FromDate: DateFilter("2017-08-01"), ToDate: DateFilter("2017-08-05")}, "id:>12 date: [2017-08-01 2017-08-05]"},
-		{TorrentParam{NameLike: "lol", FromID: 12, ToDate: DateFilter("2017-08-05")}, "id:>12 date: [* 2017-08-05]"},
-		{TorrentParam{NameLike: "lol", FromID: 12, FromDate: DateFilter("2017-08-01")}, "id:>12 date: [2017-08-01 *]"},
-		{TorrentParam{NameLike: "lol", FromID: 12, Category: Categories{&Category{3, 12}}}, "(category: 3 AND sub_category: 12) id:>12"},
-		{TorrentParam{NameLike: "lol", FromID: 12, Category: Categories{&Category{3, 12}, &Category{3, 12}}}, "((category: 3 AND sub_category: 12) OR (category: 3 AND sub_category: 12)) id:>12"},
+		{TorrentParam{}, "!(status:5)"},
+		{TorrentParam{NameLike: "lol"}, "!(status:5)"},
+		{TorrentParam{NameLike: "lol", FromID: 12}, "!(status:5) id:>12"},
+		{TorrentParam{NameLike: "lol", FromID: 12, FromDate: DateFilter("2017-08-01"), ToDate: DateFilter("2017-08-05")}, "!(status:5) id:>12 date: [2017-08-01 2017-08-05]"},
+		{TorrentParam{NameLike: "lol", FromID: 12, ToDate: DateFilter("2017-08-05")}, "!(status:5) id:>12 date: [* 2017-08-05]"},
+		{TorrentParam{NameLike: "lol", FromID: 12, FromDate: DateFilter("2017-08-01")}, "!(status:5) id:>12 date: [2017-08-01 *]"},
+		{TorrentParam{NameLike: "lol", FromID: 12, Category: Categories{&Category{3, 12}}}, "(category: 3 AND sub_category: 12) !(status:5) id:>12"},
+		{TorrentParam{NameLike: "lol", FromID: 12, Category: Categories{&Category{3, 12}, &Category{3, 12}}}, "((category: 3 AND sub_category: 12) OR (category: 3 AND sub_category: 12)) !(status:5) id:>12"},
 	}
 
 	for _, test := range tests {

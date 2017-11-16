@@ -13,7 +13,7 @@
     </thead>
     <tbody>
       {{ range Models}}
-      <tr>
+      <tr {{ if .IsBanned() }}class="locked hidden"{{end}}>
         <td class="tr-name home-td">
           <a href="/user/{{.ID}}/{{.Username }}">{{ .Username }}</a>
         </td>
@@ -21,7 +21,10 @@
           {{if .ID > 0}}
 			  <form method="POST" action="/user/{{.ID}}/{{.Username }}/delete">
 				   {{ yield csrf_field()}}
+				   {{ if User.IsModerator() }}
 				  <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
+				   {{end}}
+				  <button type="submit" class="form-input btn-orange" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{ if !.IsBanned() }}{{  T("ban") }}{{else}}{{  T("unban") }}{{end}}</button>
 			  </form>
           {{end}}
         </td>

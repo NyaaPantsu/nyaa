@@ -14,19 +14,26 @@
     </thead>
     <tbody>
       {{range Torrents}}
-      <tr>
+      <tr {{ if .IsBlocked() }}class="locked"{{end}}>
         <td class="tr-name home-td">
           <a href="/view/{{.ID }}">{{ .Name }}</a>
           <a href="/mod/torrent?id={{.ID}}" class="form-input btn-blue float-right">{{  T("edit") }}</a>
         </td>
         <td class="tr-size home-td">
-          <a href="/mod/torrents?userID={{.UploaderID}}">{{ .UploaderID }}</a>
+          <a href="/mod/torrents?userID={{.UploaderID}}">{{ if .Uploader }}{{.Uploader.Username }}{{else}}れんちょん{{end}}</a>
         </td>
         <td class="tr-size home-td">
-		  <form method="POST" action="/mod/torrent/delete">
-			<input type="hidden" name="id" value="{{ .ID }}">
-		    <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
-		  </form>
+		{{ if User.IsModerator() }}
+	    <form method="POST" action="/mod/torrent/delete" class="delete-form">
+		<input type="hidden" name="id" value="{{ .ID }}">
+		 {{ if .IsDeleted() }}<input type="hidden" name="definitely" value="true">{{ end }}
+		<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }} {{ if !.IsDeleted() }}{{  T("delete") }}{{else}}{{  T("delete_definitely_torrent_warning ")}}{{end}}')) return false;"><i class="icon-trash"></i>{{ if .IsDeleted() }}{{  T("delete_definitely") }}{{else}}{{  T("delete") }}{{end}}</button>
+	    </form>
+		{{end}}
+	    <form method="POST" action="/mod/torrent/block" class="delete-form">
+		<input type="hidden" name="id" value="{{ .ID }}">
+		<button type="submit" class="form-input btn-orange" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i>{{ if .IsBlocked() }}{{  T("torrent_unblock") }}{{else}}{{  T("torrent_block") }}{{end}}</button>
+	    </form>
         </td>
       </tr>
       {{end}}
@@ -88,10 +95,16 @@
           <a href="/user/{{.ID}}/{{.Username }}">{{ .Username }}</a>
         </td>
         <td class="tr-size home-td">{{if .ID > 0}}
-		  <form method="POST" action="/user/{{.ID}}/{{.Username }}/delete" >
-		    {{ yield csrf_field()}}
-		    <button type="submit" class="form-input btn-red" onclick="if (!confirm('{{ T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
-		  </form>
+			{{ if User.IsModerator() }}
+			  <form method="POST" action="/user/{{.ID}}/{{.Username }}/delete" class="delete-form">
+				   {{ yield csrf_field()}}
+				<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i> {{  T("delete") }}</button>
+			  </form>
+			{{end}}
+			<form method="POST" action="/user/{{.ID}}/{{.Username }}/ban" class="delete-form">
+				   {{ yield csrf_field()}}
+			<button type="submit" class="form-input btn-orange" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i>{{ if .IsBanned() }}{{  T("unban") }}{{else}}{{  T("ban") }}{{end}}</button>
+			</form>
           {{end}}
         </td>
       </tr>

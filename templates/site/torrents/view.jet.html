@@ -163,7 +163,7 @@
     </a>
     <a id="reportPopup" href="/report/{{Torrent.ID}}" class="form-input">{{  T("report_btn") }}</a>
     {{ if User.ID > 0}}
-    {{ if User.HasAdmin()}}
+    {{ if User.IsModerator()}}
     <form method="POST" action="/mod/torrent/delete" class="delete-form">
 		{{ yield csrf_field()}}
 		<input type="hidden" name="id" value="{{ Torrent.ID }}">
@@ -217,23 +217,23 @@
   {{idx := 1}}
   {{previousComment := ""}}
   {{previousUser := 0}}
-  {{range index, element := Torrent.Comments}}
-  {{if previousComment != element.Content || previousUser != element.UserID || element.UserID == 0}}
+  {{range _, comment := Torrent.Comments}}
+  {{if previousComment != comment.Content || previousUser != comment.UserID || comment.UserID == 0}}
   <div class="torrent-info-box comment-box">
     <span class="comment-index">
       <a href="#comment_{{idx}}">{{idx}}</a>
-      <small style="padding-left: 4px;" class="date-full">{{formatDate(element.Date, false)}}</small>
+      <small style="padding-left: 4px;" class="date-full">{{formatDate(comment.Date, false)}}</small>
     </span>
-    <span class="comment-userinfo"><img src="{{ getAvatar(element.UserAvatar, 50) }}"/>
-	{{if element.UserID > 0}}<a href="/user/{{element.UserID}}/{{element.Username}}" class="comment-user">{{element.Username}}</a>{{if element.UserStatus != ""}}<span class="user-status">{{T(element.UserStatus)}}</span>{{end}}{{else}}
-	<span class="comment-user">れんちょん</span>{{end}}  
+    <span class="comment-userinfo"><img src="{{ getAvatar(comment.UserAvatar, 50) }}"/>
+	{{if comment.UserID > 0}}<a href="/user/{{comment.UserID}}/{{comment.Username}}" class="comment-user">{{comment.Username}}</a>{{if comment.UserStatus != ""}}<span class="user-status">{{T(comment.UserStatus)}}</span>{{end}}{{else}}
+	<span class="comment-user">{{ if comment.Username != ""}}{{comment.Username}}{{else}}れんちょん{{end}}</span>{{end}}  
     </span>
-    <div class="comment-content">{{element.Content|raw}}</div>
+    <div class="comment-content">{{comment.Content|raw}}</div>
   </div>
   {{idx = idx + 1}}
   {{end}}
-  {{previousComment = element.Content}}
-  {{previousUser = element.UserID}}
+  {{previousComment = comment.Content}}
+  {{previousUser = comment.UserID}}
   {{end}}
   {{ if len(Torrent.Comments) == 0 }}
     <p id="no-comment-message">{{ T("torrent_no_comments") }}</p>
@@ -341,7 +341,6 @@ Modal.Init({
   // order of apparition of the modals
   button: ["#reportPopup", "#tagPopup"]
 });
-
 {{ if len(Torrent.FileList) == 0 }}
   var FileListContainer = document.querySelector("#filelist tbody"),
       FileListLabel = document.getElementsByClassName("filelist-control")[0],
@@ -370,6 +369,9 @@ Modal.Init({
   })
  {{end}}
 
+</script>
+<script type="text/javascript" src="{{ URL.Parse("/js/simplemde.min.js") }}"></script>
+<script type="text/javascript">new SimpleMDE({ element: document.getElementsByName("comment")[0], spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
 {{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}}
 	var torrentLink = document.getElementById("torrent-download-link"),
 	    oldDownloadHtml = torrentLink.innerHTML,

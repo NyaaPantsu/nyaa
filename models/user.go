@@ -29,6 +29,8 @@ const (
 	UserStatusModerator = 2
 	// UserStatusScraped : Int for User status scrapped
 	UserStatusScraped = 3
+	// UserStatusModerator : Int for User status moderator
+	UserStatusJanitor = 4
 )
 
 // User model
@@ -135,6 +137,11 @@ func (u *User) IsModerator() bool {
 	return u.Status == UserStatusModerator
 }
 
+// IsJanitor : Return true if user is janitor OR moderator
+func (u *User) IsJanitor() bool {
+	return u.Status == UserStatusJanitor || u.Status == UserStatusModerator
+}
+
 // IsScraped : Return true if user is a scrapped user
 func (u *User) IsScraped() bool {
 	return u.Status == UserStatusScraped
@@ -152,10 +159,17 @@ func (u *User) GetUnreadNotifications() int {
 	return u.UnreadNotifications
 }
 
-// HasAdmin checks that user has an admin permission. Deprecated
-func (u *User) HasAdmin() bool {
-	return u.IsModerator()
+// ToggleBan : Ban/Unban an user an user, return true if the user is now banned
+func (u *User) ToggleBan() bool {
+	if u.IsBanned() {
+		u.Status = UserStatusMember
+	} else {
+		u.Status = UserStatusBanned
+	}
+	u.Update()
+	return u.IsBanned()
 }
+
 
 // CurrentOrAdmin check that user has admin permission or user is the current user.
 func (u *User) CurrentOrAdmin(userID uint) bool {
@@ -164,6 +178,14 @@ func (u *User) CurrentOrAdmin(userID uint) bool {
 	}
 	log.Debugf("user.ID == userID %d %d %s", u.ID, userID, u.ID == userID)
 	return (u.IsModerator() || u.ID == userID)
+}
+// CurrentOrJanitor check that user has janitor permission or user is the current user.
+func (u *User) CurrentOrJanitor(userID uint) bool {
+	if userID == 0 && !u.IsJanitor() {
+		return false
+	}
+	log.Debugf("user.ID == userID %d %d %s", u.ID, userID, u.ID == userID)
+	return (u.IsJanitor() || u.ID == userID)
 }
 
 // CurrentUserIdentical check that userID is same as current user's ID.
@@ -175,7 +197,7 @@ func (u *User) CurrentUserIdentical(userID uint) bool {
 // NeedsCaptcha : Check if a user needs captcha
 func (u *User) NeedsCaptcha() bool {
 	// Trusted members & Moderators don't
-	return !(u.IsTrusted() || u.IsModerator())
+	return !(u.IsTrusted() || u.IsJanitor())
 }
 
 // CanUpload :  Check if a user can upload  or if upload is enabled in config
@@ -194,6 +216,9 @@ func (u *User) CanUpload() bool {
 
 // GetRole : Get the status/role of a user
 func (u *User) GetRole() string {
+	if u.ID == 0 {
+		return ""	
+	}
 	switch u.Status {
 	case UserStatusBanned:
 		return "userstatus_banned"
@@ -203,6 +228,8 @@ func (u *User) GetRole() string {
 		return "userstatus_scraped"
 	case UserStatusTrusted:
 		return "userstatus_trusted"
+	case UserStatusJanitor:
+		return "userstatus_janitor"
 	case UserStatusModerator:
 		return "userstatus_moderator"
 	}

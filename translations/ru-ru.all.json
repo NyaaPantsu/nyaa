@@ -281,15 +281,15 @@
   },
   {
     "id": "future_not_looking_good",
-    "translation": "Будущие перспективы для nyaa выглядят не очень хорошо. (Он мертв)"
+    "translation": "Будущие перспективы для nyaa выглядят не очень хорошо. (Он мёртв)"
   },
   {
     "id": "recovery_effort",
-    "translation": "Идет процесс восстановления."
+    "translation": "Идёт процесс восстановления."
   },
   {
     "id": "is_everything_lost",
-    "translation": "Все пропало?"
+    "translation": "Всё пропало?"
   },
   {
     "id": "in_short_no",
@@ -297,7 +297,7 @@
   },
   {
     "id": "are_some_things_lost",
-    "translation": "Что-нибудь все же потерялось?"
+    "translation": "Что-нибудь всё же потерялось?"
   },
   {
     "id": "answer_is_nyaa_db_lost",
@@ -309,7 +309,7 @@
   },
   {
     "id": "how_are_we_recovering",
-    "translation": "Как идет процесс восстановления?"
+    "translation": "Как идёт процесс восстановления?"
   },
   {
     "id": "answer_how_are_we_recovering",
@@ -329,7 +329,7 @@
   },
   {
     "id": "answer_are_the_trackers_working",
-    "translation": "Даже если трекеры не работают, сиды все еще подключены к децентрализованной сети DHT. Пока файл находится в сети DHT, все должено работать как обычно."
+    "translation": "Даже если трекеры не работают, сиды всё ещё подключены к децентрализованной сети DHT. Пока файл находится в сети DHT, всё должно работать как обычно."
   },
   {
     "id": "how_do_i_download_the_torrents",
@@ -337,11 +337,11 @@
   },
   {
     "id": "answer_how_do_i_download_the_torrents",
-    "translation": "Просто используйте <b>Magnet-ссылку</b>. Она будет использоваться вашим клиентом BitTorrent для поиска файла в сети DHT, и он должен загрузиться просто отлично."
+    "translation": "Просто используйте <b>Магнет-ссылку</b>. Она будет использоваться вашим клиентом BitTorrent для поиска файла в сети DHT, и он должен загрузиться просто отлично."
   },
   {
     "id": "magnet_link_should_look_like",
-    "translation": "Magnet-ссылка должна выглядеть так:"
+    "translation": "Магнет-ссылка должна выглядеть так:"
   },
   {
     "id": "which_trackers_do_you_recommend",
@@ -349,7 +349,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "У нас теперь есть собственный трекер uw0.xyz, добавьте его в начало списка перед загрузкой. Вам стоит еще добавить эти, просто на случай, если что-то пойдет не так."
+    "translation": "У нас теперь есть собственный трекер uw0.xyz, добавьте его в начало списка перед загрузкой. Вам стоит еще добавить эти, просто на случай, если что-то пойдёт не так."
   },
   {
     "id": "how_can_i_help",
@@ -381,7 +381,7 @@
   },
   {
     "id": "magnet_link",
-    "translation": "Magnet-ссылка"
+    "translation": "Магнет-ссылка"
   },
   {
     "id": "all_categories",
@@ -549,7 +549,7 @@
   },
   {
     "id": "hash",
-    "translation": "Хэш"
+    "translation": "Хеш"
   },
   {
     "id": "description",
@@ -621,7 +621,7 @@
   },
   {
     "id": "profile_updated",
-    "translation": "Ваш профиль был успешно обновлен!"
+    "translation": "Ваш профиль был успешно обновлён!"
   },
   {
     "id": "delete_account",
@@ -633,7 +633,7 @@
   },
   {
     "id": "delete_success",
-    "translation": "Аккаунт успешно удален!"
+    "translation": "Аккаунт успешно удалён!"
   },
   {
     "id": "moderation",
@@ -761,7 +761,7 @@
   },
   {
     "id": "illegal_content",
-    "translation": "Запрещенный контент"
+    "translation": "Запрещённый контент"
   },
   {
     "id": "spam_garbage",
@@ -893,7 +893,7 @@
   },
   {
     "id": "no_move_location_selected",
-    "translation": "Thou has't to telleth whither thee wanteth to moveth thy selection!"
+    "translation": "Вы должны указать, куда вы хотите переместить свой выбор!"
   },
   {
     "id": "select_one_element",
@@ -1173,7 +1173,7 @@
   },
   {
     "id": "delete_reports_with_torrents",
-    "translation": "Вы хотите удалить отчеты по выбранным торрентам?"
+    "translation": "Вы хотите удалить отчёты по выбранным торрентам?"
   },
   {
     "id": "with_st",
@@ -1181,27 +1181,27 @@
   },
   {
     "id": "and_reports",
-    "translation": " and reports"
+    "translation": " и отчёты"
   },
   {
     "id": "reports",
-    "translation": "reports"
+    "translation": "отчёты"
   },
   {
     "id": "lock",
-    "translation": "lock"
+    "translation": "блок"
   },
   {
     "id": "status_js",
-    "translation": "status: {0}"
+    "translation": "статус: {0}"
   },
   {
     "id": "owner_id_js",
-    "translation": "owner_id: {0}"
+    "translation": "id_владельца: {0}"
   },
   {
     "id": "category_js",
-    "translation": "category: {0}"
+    "translation": "категория: {0}"
   },
   {
     "id": "no_changes",
@@ -1321,7 +1321,7 @@
   },
   {
     "id": "alternating_color",
-    "translation": "Переменный цвет (и не-жирный шрифт)"
+    "translation": "Переменный цвет (и нежирный шрифт)"
   },
   {
     "id": "no_notifications",
@@ -1565,7 +1565,7 @@
   },
   {
     "id": "error_number_valid",
-    "translation": "%s должно быть дейстивительным числом"
+    "translation": "%s должно быть действительным числом"
   },
   {
     "id": "error_hexadecimal_valid",
@@ -1729,7 +1729,7 @@
   },
   {
     "id": "password_error_generating",
-    "translation": "Ошибка генерации хэша для вашего пароля"
+    "translation": "Ошибка генерации хеша для вашего пароля"
   },
   {
     "id": "permission_delete_error",
@@ -1781,7 +1781,7 @@
   },
   {
     "id": "error_api_token",
-    "translation": "Error API токен не существует"
+    "translation": "Ошибка API, токен не существует"
   },
   {
     "id": "uploads_disabled",
@@ -1837,11 +1837,11 @@
   },
   {
     "id": "torrent_magnet_invalid",
-    "translation": "Magnet-ссылка не может быть спарсена, пожалуйста, проверьте её"
+    "translation": "Магнет-ссылка не может быть спарсена, пожалуйста, проверьте её"
   },
   {
     "id": "torrent_hash_invalid",
-    "translation": "Неверный хэш торрента"
+    "translation": "Неверный хеш торрента"
   },
   {
     "id": "torrent_plus_magnet",
@@ -1849,7 +1849,7 @@
   },
   {
     "id": "torrent_file_invalid",
-    "translation": "Неверный torrent-файл"
+    "translation": "Неверный торрент-файл"
   },
   {
     "id": "torrent_uri_invalid",
@@ -1937,15 +1937,15 @@
   },
   {
     "id": "grant_types",
-    "translation": "Grant Types"
+    "translation": "Типы разрешений"
   },
   {
     "id": "response_types",
-    "translation": "Response Types"
+    "translation": "Типы ответов"
   },
   {
     "id": "scope",
-    "translation": "Scopes"
+    "translation": "Области"
   },
   {
     "id": "owner",
@@ -2105,7 +2105,7 @@
   },
   {
     "id": "feed_types",
-    "translation": "Типы фидов: RSS(feed), RSS с Magnet-ссылками(magnet), Torznab Spec(torznab), EZTV Spec(eztv)"
+    "translation": "Типы фидов: RSS(feed), RSS с магнет-ссылками(magnet), Torznab Spec(torznab), EZTV Spec(eztv)"
   },
   {
     "id": "append_query",

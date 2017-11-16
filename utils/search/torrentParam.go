@@ -26,6 +26,7 @@ type TorrentParam struct {
 	Full      bool // True means load all members
 	Order     bool // True means ascending
 	Hidden    bool // True means filter hidden torrents
+	Locked    bool // False means filter locked torrents
 	Deleted   bool // False means filter deleted torrents
 	Status    Status
 	Sort      SortMode
@@ -71,7 +72,7 @@ func (p *TorrentParam) Identifier() string {
 	tags += p.VideoQuality
 	dbids := fmt.Sprintf("%d%d%d%s", p.AnidbID, p.VndbID, p.VgmdbID, p.Dlsite)
 
-	identifier := fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%s%d%s%s%s%t%t%t%t", p.NameLike, p.NotNull, languages, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, dbids, p.FromDate, p.ToDate, p.UserID, ids, cats, tags, p.Full, p.Order, p.Hidden, p.Deleted)
+	identifier := fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%s%d%s%s%s%t%t%t%t%t", p.NameLike, p.NotNull, languages, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, dbids, p.FromDate, p.ToDate, p.UserID, ids, cats, tags, p.Full, p.Order, p.Hidden, p.Locked, p.Deleted)
 	return base64.URLEncoding.EncodeToString([]byte(identifier))
 }
 
@@ -251,7 +252,10 @@ func (p *TorrentParam) toESQuery(c *gin.Context) *Query {
 
 	if p.Status != ShowAll {
 		query.Append(p.Status.ToESQuery())
+	} else if !p.Locked {
+		query.Append(fmt.Sprintf("!(status:%d)", 5))
 	}
+
 
 	if p.FromID != 0 {
 		query.Append("id:>" + strconv.FormatInt(int64(p.FromID), 10))
@@ -406,7 +410,10 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 	}
 	if p.Status != 0 {
 		query.Append(p.Status.ToDBQuery())
+	} else if !p.Locked {
+		query.Append("status IS NOT ?", 5)
 	}
+
 	if len(p.NotNull) > 0 {
 		query.Append(p.NotNull)
 	}
