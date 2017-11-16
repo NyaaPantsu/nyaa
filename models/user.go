@@ -260,17 +260,19 @@ func (u *User) ToJSON() UserJSON {
 }
 
 // GetLikings : Gets who is followed by the user
-func (u *User) GetLikings() {
+func (u *User) GetLikings() int {
 	var liked []User
 	ORM.Joins("JOIN user_follows on user_follows.following=?", u.ID).Where("users.user_id = user_follows.user_id").Group("users.user_id").Find(&liked)
 	u.Likings = liked
+	return len(u.Likings)
 }
 
 // GetFollowers : Gets who is following the user
-func (u *User) GetFollowers() {
+func (u *User) GetFollowers() int {
 	var likings []User
 	ORM.Joins("JOIN user_follows on user_follows.user_id=?", u.ID).Where("users.user_id = user_follows.following").Group("users.user_id").Find(&likings)
 	u.Followers = likings
+	return len(u.Followers)
 }
 
 // SetFollow : Makes a user follow another
