@@ -16,7 +16,7 @@
       {{T(UserProfile.GetRole())}}
     </p>
     {{end}}
-    <p class="profile-usertitle-uploadcount">{{T("followers")}}: <b>{{len(UserProfile.Followers)}}</b><br/>{{ T("torrents_uploaded") }}:<b>{{ NbTorrents[0] }}</b><br>{{T("size")}}: <b>{{fileSize(NbTorrents[1], T, false)}}</b></p>
+    <p class="profile-usertitle-uploadcount">{{T("followers")}}: <b>{{UserProfile.GetLikings()}}</b><br/>{{ T("torrents_uploaded") }}:<b>{{ NbTorrents[0] }}</b><br>{{T("size")}}: <b>{{fileSize(NbTorrents[1], T, false)}}</b></p>
   </div>
   <!-- END SIDEBAR USER TITLE -->
   <!-- SIDEBAR BUTTONS -->
