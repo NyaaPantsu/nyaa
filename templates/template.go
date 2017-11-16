@@ -179,11 +179,8 @@ func userProfileBase(c *gin.Context, templateName string, userProfile *models.Us
 		uploadedSize += torrent.Filesize
 	}
 
-	if len(userProfile.Followers) == 0 {
-		userProfile.GetFollowers()
-	}
 	variables.Set("UserProfile", userProfile)
-	variables.Set("NbTorrents", []int64{int64(nbTorrents),uploadedSize})
+	variables.Set("NbTorrents", []int64{int64(nbTorrents), uploadedSize})
 	Render(c, path.Join(SiteDir, "user", templateName), variables)
 }
 
