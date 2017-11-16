@@ -27,4 +27,4 @@
        '`"""''     `'''         if we all decided to understand
 
 
-Sweet blessing be apon you but **ONLY** if comment `ebin` to this commit.
+Sweet blessing be upon you but **ONLY** if comment `ebin` to this commit.
