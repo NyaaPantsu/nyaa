@@ -163,7 +163,7 @@ func GetTorrentTrackers(torrent *models.Torrent) []string {
 	
 	for _, tracker := range config.Get().Torrents.Trackers.Default {
 		if !contains(Trackers, tracker) && strings.HasPrefix(tracker, "udp") {
-			Trackers = append(Trackers, line)
+			Trackers = append(Trackers, tracker)
 		}
 	}
 	return Trackers
