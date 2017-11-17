@@ -253,7 +253,7 @@ func (p *TorrentParam) toESQuery(c *gin.Context) *Query {
 	if p.Status != ShowAll {
 		query.Append(p.Status.ToESQuery())
 	} else if !p.Locked {
-		query.Append(fmt.Sprintf("!(status:%d)", 5))
+		query.Append(fmt.Sprintf("NOT(status:%d)", 5))
 	}
 
 
