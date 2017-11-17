@@ -252,8 +252,9 @@ func (p *TorrentParam) toESQuery(c *gin.Context) *Query {
 
 	if p.Status != ShowAll {
 		query.Append(p.Status.ToESQuery())
-	} else if !p.Locked {
-		query.Append(fmt.Sprintf("NOT(status:%d)", 5))
+	}
+	if !p.Locked {
+		query.Append("!status:5")
 	}
 
 
@@ -410,7 +411,8 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 	}
 	if p.Status != 0 {
 		query.Append(p.Status.ToDBQuery())
-	} else if !p.Locked {
+	}
+	if !p.Locked {
 		query.Append("status IS NOT ?", 5)
 	}
 
@@ -525,5 +527,6 @@ func (p *TorrentParam) Clone() TorrentParam {
 		Languages: p.Languages,
 		MinSize:   p.MinSize,
 		MaxSize:   p.MaxSize,
+		Locked:    p.Locked,
 	}
 }
