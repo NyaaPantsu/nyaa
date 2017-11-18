@@ -452,6 +452,10 @@ select.form-input {
     margin-bottom: 0;
     width: 85px!important;
 }
+.refine-container-2 [name="hash"] {
+    float: right;
+    width: 187px!important;
+}
 .refine-date {
     width: 98px!important;
 }
@@ -856,6 +860,9 @@ html, body {
     .refine-container-2 span.form-refine {
         float: none!important;
         max-width: none;
+    }
+    .refine-container-2 [name="hash"] {
+        float: none;
     }
     .upload-form-table .table-checkboxes {
         padding: 3px 0!important;
