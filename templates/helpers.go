@@ -23,6 +23,7 @@ type Navigation struct {
 // SearchForm struct used to display the search form
 type SearchForm struct {
 	search.TorrentParam
+	Search           string
 	Category         string
 	ShowItemsPerPage bool
 	ShowRefine       bool
@@ -50,17 +51,18 @@ func NewNavigation() Navigation {
 func NewSearchForm(c *gin.Context) SearchForm {
 	sizeType := c.DefaultQuery("sizeType", "m")
 	return SearchForm{
+		Search:           c.Query("q"),
 		Category:         "_",
 		ShowItemsPerPage: true,
 		ShowRefine:       false,
 		SizeType:         sizeType,
 		User:             c.Query("user"),
-		UserName:		  "",
+		UserName:         "",
 		DateType:         c.Query("dateType"),
 		MinSize:          c.Query("minSize"),  // We need to overwrite the value here, since size are formatted
 		MaxSize:          c.Query("maxSize"),  // We need to overwrite the value here, since size are formatted
 		FromDate:         c.Query("fromDate"), // We need to overwrite the value here, since we can have toDate instead and date are formatted
 		ToDate:           c.Query("toDate"),   // We need to overwrite the value here, since date are formatted
-		SearchURL:		  "/search",
+		SearchURL:        "/search",
 	}
 }
