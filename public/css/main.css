@@ -466,7 +466,7 @@ select.form-input {
     padding: 10px 5px;
 }
 
-#announce {
+.announce {
     margin-bottom: 4px;
     padding: 7px 10px;
     background-color: #D9EDF7;
@@ -474,13 +474,20 @@ select.form-input {
     border-radius: 7px;
 }
 
-#announce:before {
+.announce:before {
     content: "!";
     vertical-align: middle;
     float: left;
     margin: -2px 8px 0 0;
     font-size: 2.2em;
     font-weight: bold;
+}
+.announcement-content :first-child {
+    margin-top: 0;
+}
+
+.announcement-content :last-child {
+    margin-bottom: 0;
 }
 
 .results {
