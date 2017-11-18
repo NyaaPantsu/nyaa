@@ -90,7 +90,7 @@ func SearchHandler(c *gin.Context) {
 	}
 	nav := templates.Navigation{int(nbTorrents), int(searchParam.Max), int(searchParam.Offset), "search"}
 	
-	searchForm.TorrentParam, searchForm.Category, searchForm.NameLike = searchParam, category, c.Query("q")
+	searchForm.TorrentParam, searchForm.Category = searchParam, category
 
 	if c.Query("refine") == "1" || nbTorrents == 0 {
 		searchForm.ShowRefine = true
