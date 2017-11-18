@@ -9,7 +9,7 @@
   },
   {
     "id": "no_cp",
-    "translation": "児童ポルノ禁止 (ロリはこれに含まれません)"
+    "translation": "児童ポルノ禁止 (ロリは OK)"
   },
   {
     "id": "asia",
@@ -1525,7 +1525,7 @@
   },
   {
     "id": "activity_list",
-    "translation": "アクティビティー一覧"
+    "translation": "アクティビティー 一覧"
   },
   {
     "id": "activities",
@@ -1553,7 +1553,7 @@
   },
   {
     "id": "error_less_date",
-    "translation": "%s は現在の日付および時刻より小さくなければなりません"
+    "translation": "%s は現在の日時より小さくなければなりません"
   },
   {
     "id": "error_less_array",
@@ -1569,11 +1569,11 @@
   },
   {
     "id": "error_less_equal_date",
-    "translation": "%s は現在の日付および時刻以下でなければなりません"
+    "translation": "%s は現在の日時以下でなければなりません"
   },
   {
     "id": "error_greater_date",
-    "translation": "%s は現在の日付および時刻より大きくなければなりません"
+    "translation": "%s は現在の日時より大きくなければなりません"
   },
   {
     "id": "error_greater_length",
@@ -1585,7 +1585,7 @@
   },
   {
     "id": "error_greater_equal_date",
-    "translation": "%s は現在の日付および時刻以上でなければなりません"
+    "translation": "%s は現在の日時以上でなければなりません"
   },
   {
     "id": "error_max_field",
@@ -1689,7 +1689,7 @@
   },
   {
     "id": "error_contains",
-    "translation": "%s にはテキスト '%s' が含まれている必要があります"
+    "translation": "%s には文字列 '%s' が含まれている必要があります"
   },
   {
     "id": "error_contains_any",
@@ -1765,7 +1765,7 @@
   },
   {
     "id": "sort_by",
-    "translation": "ソート:"
+    "translation": "並べ替え:"
   },
   {
     "id": "ascending",
@@ -1913,7 +1913,7 @@
   },
   {
     "id": "torrent_cat_is_english",
-    "translation": "Torrent カテゴリーは英語への翻訳となっていますが、言語が英語になっていません。英語に変更しました"
+    "translation": "Torrent カテゴリーは英語翻訳となっていますが、言語が英語になっていません。英語に変更しました"
   },
   {
     "id": "torrent_cat_not_english",
@@ -1921,7 +1921,7 @@
   },
   {
     "id": "torrent_magnet_invalid",
-    "translation": "magnet リンクをパースできません。お確かめください"
+    "translation": "magnet リンクをパースできません。ご確認ください"
   },
   {
     "id": "torrent_hash_invalid",
@@ -1961,7 +1961,7 @@
   },
   {
     "id": "reupload",
-    "translation": "欠落した、もしくは関係のない追加ファイルを含む、他のユーザーの Torrent の再アップロード"
+    "translation": "欠落した、もしくは関連のない追加ファイルを含む、他のユーザーの Torrent の再アップロード"
   },
   {
     "id": "red",
@@ -1981,11 +1981,11 @@
   },
   {
     "id": "faq_ads_explanation",
-    "translation": "これは決して軽率な判断ではなく、皆様から寄せられたご意見を徹底的に検討したものです。しかしながら、最終的にこれが pantsu に資金を供給し、継続的な活動を保証する唯一の持続可能な解決策であると感じています。<br/>私たちは資金の調達源について考えてきましたが、他に資金の調達に近づく選択肢はありません。<br>その結果、A-ADS の広告が私たちとユーザーにとって最良の選択であると判断しました。これらの広告は、シンプルで邪魔にならず、決してサイトのユーザーエクスペリエンスを阻害するものではなく、いかなる形態のトラッキングも含まれません。"
+    "translation": "これは決して軽率な判断ではなく、皆様から寄せられたご意見を徹底的に検討したものです。しかしながら、最終的にこれが pantsu に資金を供給し、継続的な活動を保証する唯一の持続可能な解決策であると感じています。<br/>私たちは資金の調達源について考えてきましたが、他に資金の調達に近づく選択肢はありません。<br>そして、A-ADS の広告が私たちとユーザーにとって最良の選択であると判断しました。これらの広告は、シンプルで邪魔にならず、決してサイトのユーザーエクスペリエンスを阻害するものではなく、いかなる形態のトラッキングも含まれません。"
   },
   {
     "id": "torrent_preview",
-    "translation": "Torrent のプレビュー"
+    "translation": "Torrent プレビュー"
   },
   {
     "id": "announcement",
@@ -2173,7 +2173,7 @@
   },
   {
     "id": "related_to",
-    "translation": "以下に関連:"
+    "translation": "関連項目:"
   },
   {
     "id": "expire",
