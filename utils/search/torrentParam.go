@@ -123,6 +123,7 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 	// We take the search arguments from "q" in url
 	p.NameLike = strings.TrimSpace(c.Query("q"))
 	
+	p.Exclude = []string(nil)
 	excludedWords, exists := c.QueryArray("exclude")
 	if exists {
 		p.Exclude = excludedWords
