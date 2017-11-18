@@ -149,6 +149,9 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 		//Remove the excluded words from the NameLike query
 		p.NameLike = strings.Replace(p.NameLike, "-" + word, "", -1)
 	}
+	
+	//Remove redundant spaces
+	p.NameLike = strings.Join(strings.Fields(p.NameLike), " ")
 
 	// Maximum results returned
 	// We take the maxximum results to display from "limit" in url
