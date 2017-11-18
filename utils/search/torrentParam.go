@@ -70,7 +70,7 @@ func (p *TorrentParam) Identifier() string {
 	}
 	excluded := ""
 	for _, v := range p.Exclude {
-		ids += fmt.Sprintf("%s", v)
+		excluded += fmt.Sprintf("%s", v)
 	}
 	// Tags identifier
 	tags := strings.Join(p.Tags, ",")
