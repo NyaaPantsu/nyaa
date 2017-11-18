@@ -163,7 +163,7 @@ td.tr-le, .error-text {
     background-size: 100%;
 }
 
-#announce {
+.announce {
 	color: #3a4249;
 	background-color: #fff5e7;
 	border-color: #ecd2ae;
