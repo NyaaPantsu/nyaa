@@ -123,7 +123,10 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 	// We take the search arguments from "q" in url
 	p.NameLike = strings.TrimSpace(c.Query("q"))
 	
-	p.Exclude = c.QueryArray("exclude")
+	excludedWords, exists := c.QueryArray("exclude")
+	if exists {
+		p.Exclude = excludedWords
+	}
 	
 	nameLength := len(p.NameLike)
 	//Take the total length of NameLike because we might use it multiple times in the below loop
