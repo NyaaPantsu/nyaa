@@ -770,10 +770,10 @@ span.tag {
 .content > p:first-child+div.centered+div.refine+div #reportPopup {
     top: 145px;
 }
-.content > p:first-child+div#announce+div.refine+div #reportPopup {
+.content > p:first-child+div.announce+div.refine+div #reportPopup {
     top: 110px;
 }
-.content > div#announce:first-child+div.refine+div #reportPopup {
+.content > div.announce:first-child+div.refine+div #reportPopup {
     top: 65px;
 }
 #reportPopup {
