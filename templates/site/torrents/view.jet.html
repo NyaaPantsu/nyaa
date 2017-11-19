@@ -245,8 +245,6 @@
   {{previousComment = comment.Content}}
   {{previousUser = comment.UserID}}
   {{end}}
-  {{ if User.IsModerator() }}
-  {{end}}
   {{ if len(Torrent.Comments) == 0 }}
     <p id="no-comment-message">{{ T("torrent_no_comments") }}</p>
   {{ end }}
