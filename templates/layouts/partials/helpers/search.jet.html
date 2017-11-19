@@ -52,10 +52,9 @@
   </span>
   <span class="form-refine">
     <span class="spacing">{{ T("from")}}</span>
-    <input class="form-input refine-date" name="fromDate" type="text" value="{{Search.FromDate}}" placeholder="YYYY/MM/DD"/>
+    <input class="form-input refine-date" name="fromDate" type="date" value="{{Search.FromDate}}" placeholder="YYYY/MM/DD"/>
     {{ T("to")}}
-    <input class="form-input refine-date spacing" size="7" name="toDate" type="text" value="{{Search.ToDate}}" placeholder="YYYY/MM/DD"/>
-    {{ T("exclude_user") }}: <input type="text" name="nuserID" placeholder="UserID" value="" class="form-input refine-userid" style="width: 62px;">
+    <input class="form-input refine-date spacing" size="7" name="toDate" type="date" value="{{Search.ToDate}}" placeholder="YYYY/MM/DD"/>
     </span>
 	<span class="form-refine" style="margin-bottom: 2px;">
 		<span class="spacing">{{T("sort_by")}}</span>
@@ -71,6 +70,7 @@
 			<option value="true">{{T("ascending")}}</option>
 			<option value="false" {{if !Search.Order}}selected{{end}}>{{T("descending")}}</option>
 		</select>
+    {{ T("exclude_user") }}: <input type="text" name="nuserID" placeholder="UserID" value="" class="form-input refine-userid" style="width: 62px;">
 	</span>
     </div>
 	  <div class="refine-container-2">
