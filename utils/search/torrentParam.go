@@ -40,7 +40,6 @@ type TorrentParam struct {
 	ToDate    DateFilter
 	NotNull   string // csv
 	NameLike  string // csv
-	Exclude   []string
 	Languages publicSettings.Languages
 	MinSize   SizeBytes
 	MaxSize   SizeBytes
@@ -68,16 +67,12 @@ func (p *TorrentParam) Identifier() string {
 	for _, v := range p.TorrentID {
 		ids += fmt.Sprintf("%d", v)
 	}
-	excluded := ""
-	for _, v := range p.Exclude {
-		excluded += fmt.Sprintf("%s", v)
-	}
 	// Tags identifier
 	tags := strings.Join(p.Tags, ",")
 	tags += p.VideoQuality
 	dbids := fmt.Sprintf("%d%d%d%s", p.AnidbID, p.VndbID, p.VgmdbID, p.Dlsite)
 
-	identifier := fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%s%d%s%s%s%s%t%t%t%t%t", p.NameLike, p.NotNull, languages, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, dbids, p.FromDate, p.ToDate, p.UserID, ids, excluded, cats, tags, p.Full, p.Order, p.Hidden, p.Locked, p.Deleted)
+	identifier := fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%s%d%s%s%s%t%t%t%t%t", p.NameLike, p.NotNull, languages, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, dbids, p.FromDate, p.ToDate, p.UserID, ids, cats, tags, p.Full, p.Order, p.Hidden, p.Locked, p.Deleted)
 	return base64.URLEncoding.EncodeToString([]byte(identifier))
 }
 
@@ -122,36 +117,6 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 	// Search by name
 	// We take the search arguments from "q" in url
 	p.NameLike = strings.TrimSpace(c.Query("q"))
-	
-	excludedWords := c.QueryArray("exclude")
-	if len(excludedWords) > 0 {
-		p.Exclude = excludedWords
-	}
-	
-	nameLength := len(p.NameLike)
-	//Take the total length of NameLike because we might use it multiple times in the below loop
-	for i, c := range p.NameLike {
-		//Search if NameLike contains a '-' that isn't in a middle of a word
-		if c == '-' && (i == 0 || p.NameLike[i - 1] == ' ') && i + 1 < nameLength {
-			end := nameLength
-			for idx, character := range p.NameLike[i:] {
-			    //Search for the end of the word by looking for a space or the end of the string
-				if character == ' ' {
-					end = i + idx
-					break
-				}
-			}
-			p.Exclude = append(p.Exclude, p.NameLike[i+1:end])
-		}
-	}
-	
-	for _, word := range p.Exclude {
-		//Remove the excluded words from the NameLike query
-		p.NameLike = strings.Replace(p.NameLike, "-" + word, "", -1)
-	}
-	
-	//Remove redundant spaces
-	p.NameLike = strings.Join(strings.Fields(p.NameLike), " ")
 
 	// Maximum results returned
 	// We take the maxximum results to display from "limit" in url
@@ -340,10 +305,6 @@ func (p *TorrentParam) toESQuery(c *gin.Context) *Query {
 	if len(p.Tags) > 0 {
 		query.Append(p.Tags.ToESQuery())
 	}
-	
-	for _, word := range p.Exclude {
-		query.Append("NOT(torrent_name:"+ word + ")")
-	}
 
 	return query
 }
@@ -490,12 +451,6 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 	if len(p.Tags) > 0 {
 		query.Append(p.Tags.ToDBQuery())
 	}
-	
-	//
-	
-	for _, word := range p.Exclude {
-		query.Append("torrent_name NOT "+searchOperator, "%"+word+	"%")
-	}
 
 	querySplit := strings.Fields(p.NameLike)
 	for _, word := range querySplit {
@@ -569,7 +524,6 @@ func (p *TorrentParam) Clone() TorrentParam {
 		ToDate:    p.ToDate,
 		NotNull:   p.NotNull,
 		NameLike:  p.NameLike,
-		Exclude:   p.Exclude,
 		Languages: p.Languages,
 		MinSize:   p.MinSize,
 		MaxSize:   p.MaxSize,
