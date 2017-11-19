@@ -155,6 +155,7 @@
   </table>
   </div>
   <div class="torrent-buttons">
+  {{ if User.IsModerator() }}
   <form enctype="multipart/form-data" method="POST" action="{{ if !Sukebei()}}{{Config.WebAddress.Sukebei}}/upload{{else}}{{Config.WebAddress.Nyaa}}/upload{{end}}" id="copy-torrent">
     {{ yield csrf_field()}}
     <input type="hidden" name="name" value="{{Torrent.Name}}">
@@ -170,6 +171,7 @@
 	{{end}}
 	<input type="submit" class="form-input btn-blue" style="float: right;" value="Upload to {{if Sukebei()}}Nyaa{{else}}Sukebei{{end}}">
   </form>
+  {{end}}
     <a href="{{Torrent.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;margin-right: 0.5em;">
       <div class="icon-magnet"></div>{{ T("magnet_link")}}
     </a>
