@@ -8,7 +8,7 @@
 </select>
 {{end}}
 {{block search_button() }}
-<input class="form-input search-box" name="q" placeholder="{{ if Search.UserName == ""}}{{ T("search")}}{{else}}{{ T("search_from_specific_user", Search.UserName)}}{{end}}" type="text" value="{{Search.Search}}"/>
+<input class="form-input search-box" name="q" placeholder="{{ if Search.UserName == ""}}{{ T("search")}}{{else}}{{ T("search_from_specific_user", Search.UserName)}}{{end}}" type="text" value="{{Search.NameLike}}"/>
 <button type="submit" class="form-input icon-search"></button><button type="submit" class="form-input refine" name="refine" value="1">{{  T("refine")}}</button>
 {{end}}
 {{block search_refine(url="") }}
@@ -19,7 +19,7 @@
 	  <div class="refine-container-1">
     <span class="form-refine">
       <span class="spacing">{{ T("search_for") }}:</span>
-      <input type="text" class="form-input refine-searchbox" size="30" name="q" value="{{Search.Search}}" placeholder="{{ T("search_for") }}"/><select name="c" class="form-input refine-category">
+      <input type="text" class="form-input refine-searchbox" size="30" name="q" value="{{Search.NameLike}}" placeholder="{{ T("search_for") }}"/><select name="c" class="form-input refine-category">
       <option value="_">{{ T("all_categories")}}</option>
       {{ range _, cat := GetCategories(true, true) }}
       <option value="{{ cat.ID }}" {{if Search.Category == cat.ID }}selected{{end}}>{{ T(cat.Name) }}</option>
