@@ -9,6 +9,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models/comments"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
+	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/captcha"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/sanitize"
@@ -36,6 +37,9 @@ func PostCommentHandler(c *gin.Context) {
 	}
 	if currentUser.IsBanned() {
 	    messages.AddErrorT("errors", "account_banned")
+	}
+	if torrent.Status == models.TorrentStatusBlocked && !currentUser.CurrentOrJanitor(torrent.UploaderID) {
+	    messages.AddErrorT("errors", "torrent_locked")
 	}
 	content := sanitize.Sanitize(c.PostForm("comment"), "comment")
 	
