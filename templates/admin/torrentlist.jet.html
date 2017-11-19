@@ -99,7 +99,7 @@ var deleteButtons = document.querySelectorAll("button.form-input.btn-red")
      e.preventDefault()
 	 if(needConfirmation && !confirm("Are you sure?")) {
 		return
-	 } else if(!needConfirmation) {
+	 } else {
        var form = this.parentNode
        var formInputs = form.querySelectorAll('input')
        var query = ""
