@@ -454,6 +454,12 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 
 	querySplit := strings.Fields(p.NameLike)
 	for _, word := range querySplit {
+		if word[0] == '-' && len(word) > 1 {
+			//Exclude words starting with -
+			query.Append("torrent_name NOT "+searchOperator, "%"+word[1:]+"%")
+			continue
+		}
+		
 		firstRune, _ := utf8.DecodeRuneInString(word)
 		if len(word) == 1 && unicode.IsPunct(firstRune) {
 			// some queries have a single punctuation character
