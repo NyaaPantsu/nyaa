@@ -55,12 +55,12 @@ func NewSearchForm(c *gin.Context) SearchForm {
 		ShowRefine:       false,
 		SizeType:         sizeType,
 		User:             c.Query("user"),
-		UserName:		  "",
+		UserName:         "",
 		DateType:         c.Query("dateType"),
 		MinSize:          c.Query("minSize"),  // We need to overwrite the value here, since size are formatted
 		MaxSize:          c.Query("maxSize"),  // We need to overwrite the value here, since size are formatted
 		FromDate:         c.Query("fromDate"), // We need to overwrite the value here, since we can have toDate instead and date are formatted
 		ToDate:           c.Query("toDate"),   // We need to overwrite the value here, since date are formatted
-		SearchURL:		  "/search",
+		SearchURL:        "/search",
 	}
 }

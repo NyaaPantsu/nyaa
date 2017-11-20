@@ -252,8 +252,9 @@ func (p *TorrentParam) toESQuery(c *gin.Context) *Query {
 
 	if p.Status != ShowAll {
 		query.Append(p.Status.ToESQuery())
-	} else if !p.Locked {
-		query.Append(fmt.Sprintf("!(status:%d)", 5))
+	}
+	if !p.Locked {
+		query.Append("!status:5")
 	}
 
 
@@ -410,7 +411,8 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 	}
 	if p.Status != 0 {
 		query.Append(p.Status.ToDBQuery())
-	} else if !p.Locked {
+	}
+	if !p.Locked {
 		query.Append("status IS NOT ?", 5)
 	}
 
@@ -452,6 +454,12 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 
 	querySplit := strings.Fields(p.NameLike)
 	for _, word := range querySplit {
+		if word[0] == '-' && len(word) > 1 {
+			//Exclude words starting with -
+			query.Append("torrent_name NOT "+searchOperator, "%"+word[1:]+"%")
+			continue
+		}
+		
 		firstRune, _ := utf8.DecodeRuneInString(word)
 		if len(word) == 1 && unicode.IsPunct(firstRune) {
 			// some queries have a single punctuation character
@@ -525,5 +533,6 @@ func (p *TorrentParam) Clone() TorrentParam {
 		Languages: p.Languages,
 		MinSize:   p.MinSize,
 		MaxSize:   p.MaxSize,
+		Locked:    p.Locked,
 	}
 }

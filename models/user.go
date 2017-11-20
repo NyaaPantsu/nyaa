@@ -260,17 +260,19 @@ func (u *User) ToJSON() UserJSON {
 }
 
 // GetLikings : Gets who is followed by the user
-func (u *User) GetLikings() {
+func (u *User) GetLikings() int {
 	var liked []User
 	ORM.Joins("JOIN user_follows on user_follows.following=?", u.ID).Where("users.user_id = user_follows.user_id").Group("users.user_id").Find(&liked)
 	u.Likings = liked
+	return len(u.Likings)
 }
 
 // GetFollowers : Gets who is following the user
-func (u *User) GetFollowers() {
+func (u *User) GetFollowers() int {
 	var likings []User
 	ORM.Joins("JOIN user_follows on user_follows.user_id=?", u.ID).Where("users.user_id = user_follows.following").Group("users.user_id").Find(&likings)
 	u.Followers = likings
+	return len(u.Followers)
 }
 
 // SetFollow : Makes a user follow another
@@ -278,6 +280,7 @@ func (u *User) SetFollow(follower *User) {
 	if follower.ID > 0 && u.ID > 0 {
 		var userFollows = UserFollows{UserID: u.ID, FollowerID: follower.ID}
 		ORM.Create(&userFollows)
+		u.Likings = append(u.Likings, *follower)
 	}
 }
 
@@ -286,6 +289,15 @@ func (u *User) RemoveFollow(follower *User) {
 	if follower.ID > 0 && u.ID > 0 {
 		var userFollows = UserFollows{UserID: u.ID, FollowerID: follower.ID}
 		ORM.Delete(&userFollows)
+		for i, followr := range u.Likings {
+			if followr.ID == follower.ID {
+				u.Likings[i] = u.Likings[len(u.Likings)-1] 
+				// The very last follower will take the place of the one that is getting deleted in the array
+				u.Likings = u.Likings[:len(u.Likings)-1]
+				// We now proceed to delete the very last array element since it got copied to another position
+				return
+			}
+		}
 	}
 }
 

@@ -6,6 +6,7 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/models/notifications"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/sanitize"
 	"github.com/gin-gonic/gin"
 	"github.com/nicksnyder/go-i18n/i18n"
 )
@@ -34,7 +35,7 @@ func GetMessages(c *gin.Context) *Messages {
 	mes := &Messages{make(map[string][]string), make(map[string][]string), c, T}
 	announcements, _ := notifications.CheckAnnouncement()
 	for _, announcement := range announcements {
-		mes.AddInfo("system", announcement.Content)
+		mes.AddInfo("system", string(sanitize.MarkdownToHTML(announcement.Content)))
 	}
 	c.Set(MessagesKey, mes)
 	return mes

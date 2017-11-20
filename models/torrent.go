@@ -312,7 +312,11 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	}
 	for _, c := range t.Comments {
 		if c.User != nil {
-			commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), UserStatus: c.User.GetRole(), Content: sanitize.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC(), UserAvatar: c.User.MD5})
+			role := c.User.GetRole()
+			if t.UploaderID == c.User.ID && !c.User.IsBanned() {
+				role = "userstatus_uploader"
+			}
+			commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), UserStatus: role, Content: sanitize.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC(), UserAvatar: c.User.MD5})
 		} else {
 			commentsJSON = append(commentsJSON, CommentJSON{})
 		}

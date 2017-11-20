@@ -346,7 +346,7 @@ func torrentFileExists(hash string, TorrentLink string) bool {
 		return true
 	}
 	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
-	if err != nil {
+	if err != nil || len(TorrentLink) == 0 {
 		//File doesn't exist
 		return false
 	}
