@@ -59,6 +59,7 @@ func TestTorrentParam_ToESQuery(t *testing.T) {
 	}{
 		{TorrentParam{}, "!status:5"},
 		{TorrentParam{NameLike: "lol"}, "!status:5"},
+		{TorrentParam{NameLike: "lol -lol"}, "!status:5"},
 		{TorrentParam{NameLike: "lol", FromID: 12}, "!status:5 id:>12"},
 		{TorrentParam{NameLike: "lol", FromID: 12, FromDate: DateFilter("2017-08-01"), ToDate: DateFilter("2017-08-05")}, "!status:5 id:>12 date: [2017-08-01 2017-08-05]"},
 		{TorrentParam{NameLike: "lol", FromID: 12, ToDate: DateFilter("2017-08-05")}, "!status:5 id:>12 date: [* 2017-08-05]"},
