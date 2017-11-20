@@ -33,6 +33,7 @@ func TestTorrentParam_FromRequest(t *testing.T) {
 	c = mockRequest(t, "/?fromID=3&q=xx&c=_")
 	torrentParam.FromRequest(c)
 	defTorrent.FromID, defTorrent.NameLike = 3, "xx"
+	defTorrent.NameSearch = "xx "
 	assert.Equal(defTorrent, torrentParam)
 }
 
