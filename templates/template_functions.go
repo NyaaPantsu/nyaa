@@ -453,8 +453,8 @@ func formatDate(Date time.Time, short bool) string {
 	}
 }
 
-func GenSearchName(Search SearchForm, currentURL *url.URL, T publicSettings.TemplateTfunc) string {
-	if currentURL.String() == "/" {
+func GenSearchName(Search SearchForm, currentURL string, T publicSettings.TemplateTfunc) string {
+	if currentURL == "/" {
 		return string(T("home"))
 	}
 	if Search.UserName != "" {
