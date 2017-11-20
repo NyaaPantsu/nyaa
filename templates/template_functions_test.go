@@ -832,6 +832,10 @@ func testFormatDate(t *testing.T) {
  }
 
 func testGenSearchName(t *testing.T) {
+	type SearchForm struct {
+		Category         string
+		UserName         string
+	}
  	var tests = []struct {
  		Search SearchForm
 		currentURL string
