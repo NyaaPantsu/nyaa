@@ -1,6 +1,6 @@
 {{ extends "layouts/index_site" }}
 {{ import "layouts/partials/helpers/search" }}
-{{block title()}}{{GenSearchName(Search, URL, T)}}{{end}}
+{{block title()}}{{GenSearchName(Search, URL.String(), T)}}{{end}}
 {{block contclass()}}{{if User.IsModerator() }}content-admin{{end}}{{end}}
 {{block content_body()}}
 {{ if OldNav || Theme == "classic"}}
