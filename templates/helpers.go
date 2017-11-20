@@ -23,6 +23,7 @@ type Navigation struct {
 // SearchForm struct used to display the search form
 type SearchForm struct {
 	search.TorrentParam
+	Search           string
 	Category         string
 	ShowItemsPerPage bool
 	ShowRefine       bool
@@ -50,6 +51,7 @@ func NewNavigation() Navigation {
 func NewSearchForm(c *gin.Context) SearchForm {
 	sizeType := c.DefaultQuery("sizeType", "m")
 	return SearchForm{
+		Search:           c.Query("q"),
 		Category:         "_",
 		ShowItemsPerPage: true,
 		ShowRefine:       false,
