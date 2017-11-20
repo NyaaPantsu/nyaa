@@ -40,6 +40,7 @@ type TorrentParam struct {
 	ToDate    DateFilter
 	NotNull   string // csv
 	NameLike  string // csv
+	NameSearch string //Contains what NameLike contains but without the excluded keywords, not used for search, just for page title
 	Languages publicSettings.Languages
 	MinSize   SizeBytes
 	MaxSize   SizeBytes
@@ -117,6 +118,12 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 	// Search by name
 	// We take the search arguments from "q" in url
 	p.NameLike = strings.TrimSpace(c.Query("q"))
+	
+	for _, word := range strings.Fields(p.NameLike) {
+		if word[0] != '-' {
+			p.NameSearch += word + " "
+		}
+	}
 
 	// Maximum results returned
 	// We take the maxximum results to display from "limit" in url
