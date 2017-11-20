@@ -832,10 +832,6 @@ func testFormatDate(t *testing.T) {
  }
 
 func testGenSearchName(t *testing.T) {
-	type SearchForm struct {
-		Category         string
-		UserName         string
-	}
  	var tests = []struct {
  		Search SearchForm
 		currentURL string
@@ -868,6 +864,10 @@ func testGenSearchName(t *testing.T) {
  		},
  	}
  	for _, test := range tests {
+		Ts, _, err := publicSettings.TfuncAndLanguageWithFallback("en-us")
+		if err != nil {
+			t.Error("Couldn't load language files!")
+		}
 		var T publicSettings.TemplateTfunc
 		T = func(id string, args ...interface{}) template.HTML {	
 			return template.HTML(fmt.Sprintf(Ts(id), args...))
