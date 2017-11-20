@@ -877,7 +877,6 @@ func testGenSearchName(t *testing.T) {
  			t.Errorf("Unexpected value from the function GenSearchName, got '%s' wanted '%s'", value, test.Expected)
  		}
 	}
- }
 }
  
 func mockupTemplateT(t *testing.T) publicSettings.TemplateTfunc {
