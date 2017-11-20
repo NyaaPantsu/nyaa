@@ -838,27 +838,27 @@ func testGenSearchName(t *testing.T) {
 		Expected string
  	}{
  		{
-			Search: SearchForm{}
+			Search: SearchForm{},
 			currentURL: "/",
 			Expected: "home",
  		},
  		{
-			Search: SearchForm{}
+			Search: SearchForm{},
 			currentURL: "/search",
 			Expected: "search",
  		},
  		{
-			Search: SearchForm{UserName: "yiiT"}
+			Search: SearchForm{UserName: "yiiT"},
 			currentURL: "/username/yiiT/search",
 			Expected: "yiiT",
  		},
  		{
-			Search: SearchForm{Category: "3_"}
+			Search: SearchForm{Category: "3_"},
 			currentURL: "/search?c=3_",
 			Expected: "anime",
  		},
  		{
-			Search: SearchForm{Category: "3_12"}
+			Search: SearchForm{Category: "3_12"},
 			currentURL: "/search?c=3_12",
 			Expected: "anime_amv",
  		},
