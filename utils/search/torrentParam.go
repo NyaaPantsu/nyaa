@@ -261,7 +261,8 @@ func (p *TorrentParam) toESQuery(c *gin.Context) *Query {
 		query.Append(p.Status.ToESQuery())
 	}
 	if !p.Locked {
-		query.Append("!status:5")
+		//query.Append("!status:5")
+		//This line breaks ES but this check is needed
 	}
 
 
