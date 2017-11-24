@@ -40,6 +40,7 @@ type TorrentParam struct {
 	ToDate    DateFilter
 	NotNull   string // csv
 	NameLike  string // csv
+	NameSearch string //Contains what NameLike contains but without the excluded keywords, not used for search, just for page title
 	Languages publicSettings.Languages
 	MinSize   SizeBytes
 	MaxSize   SizeBytes
@@ -117,6 +118,12 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 	// Search by name
 	// We take the search arguments from "q" in url
 	p.NameLike = strings.TrimSpace(c.Query("q"))
+	
+	for _, word := range strings.Fields(p.NameLike) {
+		if word[0] != '-' {
+			p.NameSearch += word + " "
+		}
+	}
 
 	// Maximum results returned
 	// We take the maxximum results to display from "limit" in url
@@ -252,8 +259,10 @@ func (p *TorrentParam) toESQuery(c *gin.Context) *Query {
 
 	if p.Status != ShowAll {
 		query.Append(p.Status.ToESQuery())
-	} else if !p.Locked {
-		query.Append(fmt.Sprintf("!(status:%d)", 5))
+	}
+	if !p.Locked {
+		//query.Append("!status:5")
+		//This line breaks ES but this check is needed
 	}
 
 
@@ -410,7 +419,8 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 	}
 	if p.Status != 0 {
 		query.Append(p.Status.ToDBQuery())
-	} else if !p.Locked {
+	}
+	if !p.Locked {
 		query.Append("status IS NOT ?", 5)
 	}
 
@@ -452,6 +462,12 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 
 	querySplit := strings.Fields(p.NameLike)
 	for _, word := range querySplit {
+		if word[0] == '-' && len(word) > 1 {
+			//Exclude words starting with -
+			query.Append("torrent_name NOT "+searchOperator, "%"+word[1:]+"%")
+			continue
+		}
+		
 		firstRune, _ := utf8.DecodeRuneInString(word)
 		if len(word) == 1 && unicode.IsPunct(firstRune) {
 			// some queries have a single punctuation character
@@ -525,5 +541,6 @@ func (p *TorrentParam) Clone() TorrentParam {
 		Languages: p.Languages,
 		MinSize:   p.MinSize,
 		MaxSize:   p.MaxSize,
+		Locked:    p.Locked,
 	}
 }

@@ -830,6 +830,54 @@ func testFormatDate(t *testing.T) {
  		}
 	}
  }
+
+func testGenSearchName(t *testing.T) {
+ 	var tests = []struct {
+ 		Search SearchForm
+		currentURL string
+		Expected string
+ 	}{
+ 		{
+			Search: SearchForm{},
+			currentURL: "/",
+			Expected: "home",
+ 		},
+ 		{
+			Search: SearchForm{},
+			currentURL: "/search",
+			Expected: "search",
+ 		},
+ 		{
+			Search: SearchForm{UserName: "yiiT"},
+			currentURL: "/username/yiiT/search",
+			Expected: "yiiT",
+ 		},
+ 		{
+			Search: SearchForm{Category: "3_"},
+			currentURL: "/search?c=3_",
+			Expected: "anime",
+ 		},
+ 		{
+			Search: SearchForm{Category: "3_12"},
+			currentURL: "/search?c=3_12",
+			Expected: "anime_amv",
+ 		},
+ 	}
+ 	for _, test := range tests {
+		Ts, _, err := publicSettings.TfuncAndLanguageWithFallback("en-us")
+		if err != nil {
+			t.Error("Couldn't load language files!")
+		}
+		var T publicSettings.TemplateTfunc
+		T = func(id string, args ...interface{}) template.HTML {	
+			return template.HTML(fmt.Sprintf(Ts(id), args...))
+		}
+		value := GenSearchName(test.Search, test.currentURL, T)
+ 		if value != test.Expected {
+ 			t.Errorf("Unexpected value from the function GenSearchName, got '%s' wanted '%s'", value, test.Expected)
+ 		}
+	}
+}
  
 func mockupTemplateT(t *testing.T) publicSettings.TemplateTfunc {
 	conf := config.Get().I18n

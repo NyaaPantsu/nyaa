@@ -32,7 +32,7 @@ func (d *DateFilter) ParseOld(s string, dateType string) bool {
 }
 
 // Parse parses a date to a datefilter object and return true if it succeeded
-// This functions accept only date formatted in this way YYYY/MM/DD
+// This function accept dates formatted in these way YYYY/MM/DD AND YYYY-MM-DD
 func (d *DateFilter) Parse(s string) bool {
 	if s == "" {
 		*d = ""
@@ -40,8 +40,11 @@ func (d *DateFilter) Parse(s string) bool {
 	}
 	date, err := time.Parse("2006/01/02", s)
 	if err != nil {
-		*d = ""
-		return false
+		date, err = time.Parse("2006-01-02", s)
+		if err != nil {
+			*d = ""
+			return false
+		}
 	}
 	*d = DateFilter(date.Format("2006-01-02"))
 	return true

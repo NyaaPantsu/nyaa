@@ -33,6 +33,7 @@ func TestTorrentParam_FromRequest(t *testing.T) {
 	c = mockRequest(t, "/?fromID=3&q=xx&c=_")
 	torrentParam.FromRequest(c)
 	defTorrent.FromID, defTorrent.NameLike = 3, "xx"
+	defTorrent.NameSearch = "xx "
 	assert.Equal(defTorrent, torrentParam)
 }
 
@@ -57,14 +58,14 @@ func TestTorrentParam_ToESQuery(t *testing.T) {
 		Test     TorrentParam
 		Expected string
 	}{
-		{TorrentParam{}, "!(status:5)"},
-		{TorrentParam{NameLike: "lol"}, "!(status:5)"},
-		{TorrentParam{NameLike: "lol", FromID: 12}, "!(status:5) id:>12"},
-		{TorrentParam{NameLike: "lol", FromID: 12, FromDate: DateFilter("2017-08-01"), ToDate: DateFilter("2017-08-05")}, "!(status:5) id:>12 date: [2017-08-01 2017-08-05]"},
-		{TorrentParam{NameLike: "lol", FromID: 12, ToDate: DateFilter("2017-08-05")}, "!(status:5) id:>12 date: [* 2017-08-05]"},
-		{TorrentParam{NameLike: "lol", FromID: 12, FromDate: DateFilter("2017-08-01")}, "!(status:5) id:>12 date: [2017-08-01 *]"},
-		{TorrentParam{NameLike: "lol", FromID: 12, Category: Categories{&Category{3, 12}}}, "(category: 3 AND sub_category: 12) !(status:5) id:>12"},
-		{TorrentParam{NameLike: "lol", FromID: 12, Category: Categories{&Category{3, 12}, &Category{3, 12}}}, "((category: 3 AND sub_category: 12) OR (category: 3 AND sub_category: 12)) !(status:5) id:>12"},
+		{TorrentParam{}, ""},
+		{TorrentParam{NameLike: "lol"}, ""},
+		{TorrentParam{NameLike: "lol", FromID: 12}, "id:>12"},
+		{TorrentParam{NameLike: "lol", FromID: 12, FromDate: DateFilter("2017-08-01"), ToDate: DateFilter("2017-08-05")}, "id:>12 date: [2017-08-01 2017-08-05]"},
+		{TorrentParam{NameLike: "lol", FromID: 12, ToDate: DateFilter("2017-08-05")}, "id:>12 date: [* 2017-08-05]"},
+		{TorrentParam{NameLike: "lol", FromID: 12, FromDate: DateFilter("2017-08-01")}, "id:>12 date: [2017-08-01 *]"},
+		{TorrentParam{NameLike: "lol", FromID: 12, Category: Categories{&Category{3, 12}}}, "(category: 3 AND sub_category: 12) id:>12"},
+		{TorrentParam{NameLike: "lol", FromID: 12, Category: Categories{&Category{3, 12}, &Category{3, 12}}}, "((category: 3 AND sub_category: 12) OR (category: 3 AND sub_category: 12)) id:>12"},
 	}
 
 	for _, test := range tests {

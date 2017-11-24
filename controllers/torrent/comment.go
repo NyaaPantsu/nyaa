@@ -9,11 +9,10 @@ import (
 	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models/comments"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
+	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/captcha"
-	"github.com/NyaaPantsu/nyaa/utils/filelist"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/sanitize"
-	"github.com/NyaaPantsu/nyaa/templates"
 	"github.com/gin-gonic/gin"
 )
 
@@ -39,6 +38,9 @@ func PostCommentHandler(c *gin.Context) {
 	if currentUser.IsBanned() {
 	    messages.AddErrorT("errors", "account_banned")
 	}
+	if torrent.Status == models.TorrentStatusBlocked && !currentUser.CurrentOrJanitor(torrent.UploaderID) {
+	    messages.AddErrorT("errors", "torrent_locked")
+	}
 	content := sanitize.Sanitize(c.PostForm("comment"), "comment")
 	
 	userID := currentUser.ID
@@ -60,12 +62,5 @@ func PostCommentHandler(c *gin.Context) {
 		}
 	}
 	
-	captchaID := ""
-	//Generate a captcha
-	if currentUser.NeedsCaptcha() {
-		captchaID = captcha.GetID()
-	}
-	
-	folder := filelist.FileListToFolder(torrent.FileList, "root")
-	templates.Torrent(c, torrent.ToJSON(), folder, captchaID)
+	ViewHandler(c)
 }

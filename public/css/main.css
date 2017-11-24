@@ -452,8 +452,12 @@ select.form-input {
     margin-bottom: 0;
     width: 85px!important;
 }
+.refine-container-2 [name="hash"] {
+    float: right;
+    width: 187px!important;
+}
 .refine-date {
-    width: 98px!important;
+    width: 135px!important;
 }
 
 .categories a {
@@ -462,7 +466,7 @@ select.form-input {
     padding: 10px 5px;
 }
 
-#announce {
+.announce {
     margin-bottom: 4px;
     padding: 7px 10px;
     background-color: #D9EDF7;
@@ -470,13 +474,20 @@ select.form-input {
     border-radius: 7px;
 }
 
-#announce:before {
+.announce:before {
     content: "!";
     vertical-align: middle;
     float: left;
     margin: -2px 8px 0 0;
     font-size: 2.2em;
     font-weight: bold;
+}
+.announcement-content :first-child {
+    margin-top: 0;
+}
+
+.announcement-content :last-child {
+    margin-bottom: 0;
 }
 
 .results {
@@ -856,6 +867,9 @@ html, body {
     .refine-container-2 span.form-refine {
         float: none!important;
         max-width: none;
+    }
+    .refine-container-2 [name="hash"] {
+        float: none;
     }
     .upload-form-table .table-checkboxes {
         padding: 3px 0!important;

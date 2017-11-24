@@ -42,6 +42,7 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("CategoryName", categoryName)
 	vars.Set("GetCategoryName", GetCategoryName)
 	vars.Set("GetTorrentLanguages", torrentLanguages.GetTorrentLanguages)
+	vars.Set("GenSearchName", GenSearchName)
 	vars.Set("LanguageName", languageName)
 	vars.Set("LanguageNameFromCode", languageNameFromCode)
 	vars.Set("fileSize", fileSize)
@@ -346,7 +347,7 @@ func torrentFileExists(hash string, TorrentLink string) bool {
 		return true
 	}
 	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
-	if err != nil {
+	if err != nil || len(TorrentLink) == 0 {
 		//File doesn't exist
 		return false
 	}
@@ -450,4 +451,20 @@ func formatDate(Date time.Time, short bool) string {
 	} else {
 		return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d AM UTC+0", Date.Month(), Date.Day(), Date.Year(), Date.Hour(), Date.Minute(), Date.Second())
 	}
+}
+
+func GenSearchName(Search SearchForm, currentURL string, T publicSettings.TemplateTfunc) string {
+	if currentURL == "/" {
+		return string(T("home"))
+	}
+	if Search.UserName != "" {
+		return Search.UserName
+	}
+	if Search.NameSearch != "" {
+		return Search.NameSearch
+	}
+	if Search.Category != "" {
+		return string(T(GetCategoryName(Search.Category)))
+	}
+	return string(T("search"))
 }

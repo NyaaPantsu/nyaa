@@ -66,27 +66,6 @@
 		     <td class="table-input-label"><label for="desc">{{ T("torrent_description")}}</label></td>
 		     <td class="table-input markdown-container"><textarea name="desc" id="desc" class="form-input up-input" style="height: 10rem;">{{Form.Description}}</textarea></td>
 		  </tr>
-		  <tr class="hidden">
-		     <td class="table-input-label"><label for="anidex_api">Upload to Anidex:</label></td>
-		     <td class="table-input">
-				<div class="checkbox-container"><input disabled type="checkbox" value="" name="anidex_upload" id="anidex_upload" {{if User.AnidexAPIToken != ""}}checked disabled{{end}} class="form-torrent"/></div>
-				<input disabled name="anidex_api" id="anidex_api" placeholder="Coming soon... (hopefully)" class="form-input up-input" type="text" value="{{User.AnidexAPIToken}}"/>
-			 </td>
-		  </tr>
-		  <tr class="hidden">
-		     <td class="table-input-label"><label for="nyaasi_api">Upload to Nyaa.si:</label></td>
-		     <td class="table-input">
-				<div class="checkbox-container"><input disabled type="checkbox" value="" name="nyaasi_upload" id="nyaasi_upload" {{if User.NyaasiAPIToken != ""}}checked disabled{{end}} class="form-torrent"/></div>
-				<input disabled name="nyaasi_api" id="nyaasi_api" placeholder="Coming soon... (hopefully)" class="form-input up-input" type="text" value="{{User.NyaasiAPIToken}}"/>
-			</td>
-		  </tr>
-		  <tr class="hidden">
-		     <td class="table-input-label"><label for="tokyot_api">Upload to TokyoTosho:</label></td>
-		     <td class="table-input">
-				<div class="checkbox-container"><input disabled type="checkbox" value="" name="tokyot_upload" id="tokyot_upload" {{if User.TokyoTAPIToken  != ""}}checked disabled{{end}} class="form-torrent"/></div>
-				<input disabled name="tokyot_api" id="tokyot_api" placeholder="Coming soon... (hopefully)" class="form-input up-input" type="text" value="{{User.TokyoTAPIToken }}"/>
-			</td>
-		  </tr>
 		  <tr>
 		     <td class="table-input-label">{{ T("torrent_tags")}}:</td>
 		     <td class="table-input">
