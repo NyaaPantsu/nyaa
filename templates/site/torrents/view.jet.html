@@ -368,11 +368,12 @@ Modal.Init({
   FileListLabel.addEventListener("click", function (e) {
     FileListContainer.innerHTML = "<tr class='tr-filelist'><td>{{T("loading_file_list")}}</td></tr>"
     Query.Get('/stats/{{Torrent.ID}}?files', function (data) {
+		
+	 if(data.totalsize != null && data.totalsize != "0.0 B") document.getElementsByClassName("torrent-info-size")[0].innerHTML = data.totalsize
       if(data.filelist != null) {
         FileListContainer.innerHTML = ""
         FileListLabel.style.opacity = 1
         document.getElementById("filelist").style.opacity = 1
-		if(data.totalsize != "0.0 B") document.getElementsByClassName("torrent-info-size")[0].innerHTML = data.totalsize
 		
         for(var i = 0; i < data.filelist.length; i++) {
           var file = data.filelist[i]
