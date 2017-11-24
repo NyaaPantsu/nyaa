@@ -27,7 +27,7 @@ func initClient() error {
 		DHTConfig: dht.ServerConfig{
 			StartingNodes: dht.GlobalBootstrapAddrs,
 		},
-		ListenAddr: ":5977",
+		ListenAddr: ":" + strconv.Itoa(config.Get().Torrents.FilesFetchingClientPort),
 	}
 	cl, err := torrent.NewClient(&clientConfig)
 	if err != nil {
@@ -124,7 +124,7 @@ func UpdateTorrentStats(torrent *models.Torrent, stats goscrape.Result, currentS
 		torrent.Scrape.Update(false)
 	}
 	
-	if len(Files) > 0 {
+	if len(Files) > 1 {
 		files, err := torrent.CreateFileList(Files)
 		
 		if err != nil {
@@ -143,6 +143,9 @@ func UpdateTorrentStats(torrent *models.Torrent, stats goscrape.Result, currentS
 		slice.Sort(JSONFilelist, func(i, j int) bool {
 			return strings.ToLower(JSONFilelist[i].Path) < strings.ToLower(JSONFilelist[j].Path)
 		})
+	} else if len(Files) == 1 {
+		torrent.Filesize = Files[0].Length()
+		torrent.Update(false)
 	}
 	
 	return
