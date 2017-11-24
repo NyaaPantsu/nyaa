@@ -146,6 +146,7 @@ type TorrentsConfig struct {
 	Sort                          string            `yaml:"sort,omitempty"`
 	Tags                          Tags              `yaml:"tags,flow,omitempty"`
 	GenerationClientPort          int               `yaml:"generation_client_port,flow,omitempty"`
+	FilesFetchingClientPort       int               `yaml:"files_fetching_client_port,flow,omitempty"`
 }
 
 // UploadConfig : Config struct for uploading torrents
