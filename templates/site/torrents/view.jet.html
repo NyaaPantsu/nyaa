@@ -389,6 +389,7 @@ Modal.Init({
 </script>
 <script type="text/javascript" src="{{ URL.Parse("/js/simplemde.min.js") }}"></script>
 <script type="text/javascript">new SimpleMDE({ element: document.getElementsByName("comment")[0], spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
+<script type="text/javascript">
 {{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}}
 	var torrentLink = document.getElementById("torrent-download-link"),
 	    oldDownloadHtml = torrentLink.innerHTML,
