@@ -107,6 +107,8 @@ torrents:
 torrents:
 # GenerationClientPort : Port used by the torrent client created during torrent generation
   generation_client_port: 50006
+# FilesFetchingClientPort: Port used by the client created by file fetching
+  files_fetching_client_port: 50005
 # FileStorage : Location of folder that will contain generated torrent files
   filestorage: ./downloads/
 # TorrentStorageLink : Url of torrent file download location (eg https://your.site/somewhere/%s)
