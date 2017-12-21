@@ -71,7 +71,6 @@ func ToAnidex(torrent *models.Torrent, apiKey string, subCat string, lang string
 		//Optional
 		"description":  torrent.Description,
 		"torrent_name": torrent.Name,
-		"debug":        "1",
 	}
 	if config.IsSukebei() {
 		extraParams["hentai"] = "1"
