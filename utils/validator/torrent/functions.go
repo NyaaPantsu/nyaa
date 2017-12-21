@@ -203,7 +203,7 @@ func (r *TorrentRequest) ValidateMultipartUpload(c *gin.Context, uploadFormTorre
 		}
 
 		// check a few things
-		if *torrentInfos.Private {
+		if torrentInfos.Private != nil && *torrentInfos.Private {
 			return errTorrentPrivate
 		}
 		// We check that the trackers are valid,
