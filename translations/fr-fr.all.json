@@ -140,6 +140,10 @@
     "translation": "Torrents"
   },
   {
+    "id": "followers",
+    "translation": "Abonnés"
+  },
+  {
     "id": "follow",
     "translation": "S'abonner"
   },
@@ -536,6 +540,10 @@
     "translation": "Les descriptions peuvent faire l'usage de Markdown."
   },
   {
+    "id": "comment_markdown_notice",
+    "translation": "Les commentaires peuvent faire l'usage de Markdown."
+  },
+  {
     "id": "show_all",
     "translation": "Ts les torrents"
   },
@@ -598,6 +606,10 @@
   {
     "id": "current_password",
     "translation": "Mot de passe actuel"
+  },  
+  {
+    "id": "default",
+    "translation": "Par défaut"
   },
   {
     "id": "role",
@@ -606,10 +618,6 @@
   {
     "id": "userstatus_banned",
     "translation": "Banni"
-  },
-  {
-    "id": "default",
-    "translation": "Par défaut"
   },
   {
     "id": "userstatus_trusted",
@@ -622,6 +630,14 @@
   {
     "id": "userstatus_moderator",
     "translation": "Modérateur"
+  },
+  {
+    "id": "userstatus_janitor",
+    "translation": "Janiteur"
+  },
+  {
+    "id": "userstatus_uploader",
+    "translation": "Uploadeur"
   },
   {
     "id": "api_token",
@@ -752,6 +768,18 @@
     "translation": "Aucun fichier trouvé."
   },
   {
+    "id": "loading_file_list",
+    "translation": "Chargement de la liste des fichiers, la récupération des longues listes peut prendre un certain temps..."
+  },
+  {
+    "id": "torrent_filelist",
+    "translation": "Liste des fichiers du torrent"
+  },
+  {
+    "id": "back_to_torrent",
+    "translation": "Revenir à \"%s\""
+  },
+  {
     "id": "uploaded_by",
     "translation": "Uploadé par"
   },
@@ -772,6 +800,10 @@
     "translation": "Motif de signalement"
   },
   {
+    "id": "report_message",
+    "translation": "Signaler le message"
+  },
+  {
     "id": "illegal_content",
     "translation": "Contenu illégal"
   },
@@ -786,6 +818,14 @@
   {
     "id": "duplicate_deprecated",
     "translation": "Doublon / Obsolète"
+  },
+  {
+    "id": "nsfw_content",
+    "translation": "Contenu NSFW"
+  },
+  {
+    "id": "other",
+    "translation": "Autre"
   },
   {
     "id": "captcha",
@@ -825,11 +865,27 @@
   },
   {
     "id": "clear_notifications",
-    "translation": "Effacer les notifications"
+    "translation": "Effacer les notifications lues"
+  },
+  {
+    "id": "clear_all_notifications",
+    "translation": "Effacer toutes les notifications"
+  },
+  {
+    "id": "mark_notifications_as_read",
+    "translation": "Marquer les notifications comme lues"
   },
   {
     "id": "notifications_cleared",
     "translation": "Notifications supprimées !"
+  },
+  {
+    "id": "read_notifications_cleared",
+    "translation": "Notifications lues supprimées !"
+  },
+  {
+    "id": "notifications_read",
+    "translation": "Toutes les notifications ont été marquées comme lues !"
   },
   {
     "id": "my_notifications",
@@ -842,6 +898,10 @@
   {
     "id": "torrent_uploaded",
     "translation": "Le torrent a été uploadé avec succès !"
+  },
+  {
+    "id": "torrent_uploaded_locked",
+    "translation": "Le torrent a été uploadé mais est actuellement bloqué en raison de votre bannissement."
   },
   {
     "id": "preferences",
@@ -936,8 +996,24 @@
     "translation": "Le torrent n° %s de %s a été bloqué par %s."
   },
   {
-    "id": "torrent_blocked_by",
+    "id": "torrent_unblocked_by",
     "translation": "Le torrent n° %s de %s a été débloqué par %s."
+  },
+  {
+    "id": "user_banned",
+    "translation": "L'utilisateur a été banni !"
+  },  
+  {
+    "id": "user_banned_by",
+    "translation": "L'utilisateur %s(%d) #%d a été banni par %s."
+  },
+  {
+    "id": "user_unbanned",
+    "translation": "L'utilisateur a été débanni !"
+  },
+  {
+    "id": "user_unbanned_by",
+    "translation": "L'utilisateur %s(%d) #%d a été débanni par %s."
   },
   {
     "id": "torrents_deleted",
@@ -950,6 +1026,10 @@
   {
     "id": "delete_report",
     "translation": "Supprimer le signalement"
+  },
+  {
+    "id": "delete_all_reports",
+    "translation": "Supprimer tous les signalements"
   },
   {
     "id": "comment_deleted",
@@ -1054,6 +1134,14 @@
   {
     "id": "torrent_block",
     "translation": "Bloquer"
+  },
+  {
+    "id": "unban",
+    "translation": "Débannir"
+  },
+  {
+    "id": "ban",
+    "translation": "Bannir"
   },
   {
     "id": "torrent_deleted_definitely",
@@ -1680,10 +1768,6 @@
     "translation": "de taille."
   },
   {
-    "id": "old",
-    "translation": "d'ancienneté"
-  },
-  {
     "id": "optional",
     "translation": "facultatif"
   },
@@ -1889,7 +1973,7 @@
   },
   {
     "id": "remux",
-    "translation": "Remux de la version originale d'un autre uploader"
+    "translation": "Remux de la version originale d'un autre uploadeur"
   },
   {
     "id": "reupload",
@@ -1922,6 +2006,10 @@
   {
     "id": "announcement",
     "translation": "Annonce"
+  },
+  {
+    "id": "create_anouncement_success",
+    "translation": "Annonce créée avec succès"
   },
   {
     "id": "update_client_failed",
@@ -2088,8 +2176,8 @@
     "translation": "Message"
   },
   {
-    "id": "delay",
-    "translation": "Délai"
+    "id": "duration",
+    "translation": "Durée (Heures)"
   },
   {
     "id": "update_annoucement_panel",
@@ -2140,6 +2228,10 @@
     "translation": "Génération du fichier torrent..."
   },
   {
+    "id": "generating_torrent_failed",
+    "translation": "La génération du fichier torrent a échoué."
+  },
+  {
     "id": "enabled",
     "translation": "Activé"
   },
@@ -2176,11 +2268,39 @@
     "translation": "Rechercher de %s"
   },
   {
+    "id": "browsing_user_torrents",
+    "translation": "Navigation des torrents de <a href=\"/user/%d/%s\">%s</a>"
+  },
+  {
     "id": "hours_minutes_ago",
     "translation": "Il y a {0} heure(s) et {1} minute(s)"
   },
   {
     "id": "days_hours_ago",
     "translation": "Il y a {0} jour(s) et {1} heure(s)"
+  },
+  {
+    "id": "status",
+    "translation": "Statut"
+  },
+  {
+    "id": "event",
+    "translation": "Événement"
+  },
+  {
+    "id": "read",
+    "translation": "Lu"
+  },
+  {
+    "id": "unread",
+    "translation": "Non lu"
+  },
+  {
+    "id": "moderation_guidelines",
+    "translation": "Directives de modération"
+  },
+  {
+    "id": "guidelines",
+    "translation": "Directives"
   }
 ]

@@ -235,7 +235,7 @@ func (t *Torrent) ParseTrackers(trackers []string) {
 		}
 	}
 	trackers = tempTrackers
-		
+
 	v["tr"] = trackers
 	t.Trackers = v.Encode()
 }
@@ -324,17 +324,11 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	}
 	for _, c := range t.Comments {
 		if c.User != nil {
-			userStatus := ""
-			if c.User.IsBanned() {
-				userStatus = "userstatus_banned"
+			role := c.User.GetRole()
+			if t.UploaderID == c.User.ID && !c.User.IsBanned() {
+				role = "userstatus_uploader"
 			}
-			if c.User.HasAdmin() {
-				userStatus = "userstatus_moderator"
-			}
-			if c.User.ID == t.ID {
-				userStatus = "userstatus_uploader"
-			}
-			commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), UserStatus: userStatus, Content: sanitize.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC(), UserAvatar: c.User.MD5})
+			commentsJSON = append(commentsJSON, CommentJSON{Username: c.User.Username, UserID: int(c.User.ID), UserStatus: role, Content: sanitize.MarkdownToHTML(c.Content), Date: c.CreatedAt.UTC(), UserAvatar: c.User.MD5})
 		} else {
 			commentsJSON = append(commentsJSON, CommentJSON{})
 		}
@@ -539,10 +533,10 @@ func (t *Torrent) DeleteTags() {
 }
 
 func contains(s []string, e string) bool {
-    for _, a := range s {
-        if a == e {
-            return true
-        }
-    }
-    return false
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
 }

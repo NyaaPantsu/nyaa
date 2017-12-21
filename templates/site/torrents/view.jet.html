@@ -155,15 +155,32 @@
   </table>
   </div>
   <div class="torrent-buttons">
+  {{ if User.IsModerator() }}
+  <form enctype="multipart/form-data" method="POST" action="{{ if !Sukebei()}}{{Config.WebAddress.Sukebei}}/upload{{else}}{{Config.WebAddress.Nyaa}}/upload{{end}}" id="copy-torrent">
+    {{ yield csrf_field()}}
+    <input type="hidden" name="name" value="{{Torrent.Name}}">
+    <input type="hidden" name="magnet" value="{{Torrent.Magnet}}">
+    <input type="hidden" name="c" value="{{Torrent.Category}}_{{Torrent.SubCategory}}">
+    <input type="hidden" name="desc" value="{{Torrent.Description}}">
+    <input type="hidden" name="hidden" value="{{Torrent.Hidden}}">
+    <input type="hidden" name="remake" value="{{Torrent.Status == 2}}">
+    <input type="hidden" name="website_link" value="{{Torrent.WebsiteLink}}">
+    <input type="hidden" name="filesize" value="{{Torrent.Filesize}}">
+	{{ range _, lang := Torrent.Languages}}
+    <input type="hidden" name="languages" value="{{lang}}">
+	{{end}}
+	<input type="submit" class="form-input btn-blue" style="float: right;" value="Upload to {{if Sukebei()}}Nyaa{{else}}Sukebei{{end}}">
+  </form>
+  {{end}}
     <a href="{{Torrent.Magnet}}" class="form-input btn-green download" style="float:left;height: auto;margin-right: 0.5em;">
       <div class="icon-magnet"></div>{{ T("magnet_link")}}
     </a>
     <a id="torrent-download-link" href="{{if Torrent.TorrentLink == ""}}/download/{{Torrent.Hash}}{{else}}{{Torrent.TorrentLink}}{{end}}" class="form-input download{{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}} hidden{{end}}" style="float:left;height: auto;">
       <div class="icon-floppy"></div>{{ T("torrent_file")}}
     </a>
-    <a id="reportPopup" href="#" class="form-input">{{  T("report_btn") }}</a>
+    <a id="reportPopup" href="/report/{{Torrent.ID}}" class="form-input">{{  T("report_btn") }}</a>
     {{ if User.ID > 0}}
-    {{ if User.HasAdmin()}}
+    {{ if User.IsModerator()}}
     <form method="POST" action="/mod/torrent/delete" class="delete-form">
 		{{ yield csrf_field()}}
 		<input type="hidden" name="id" value="{{ Torrent.ID }}">
@@ -212,23 +229,23 @@
   {{idx := 1}}
   {{previousComment := ""}}
   {{previousUser := 0}}
-  {{range index, element := Torrent.Comments}}
-  {{if previousComment != element.Content || previousUser != element.UserID}}
+  {{range _, comment := Torrent.Comments}}
+  {{if previousComment != comment.Content || previousUser != comment.UserID || comment.UserID == 0}}
   <div class="torrent-info-box comment-box">
     <span class="comment-index">
       <a href="#comment_{{idx}}">{{idx}}</a>
-      <small style="padding-left: 4px;" class="date-full">{{formatDate(element.Date, false)}}</small>
+      <small style="padding-left: 4px;" class="date-full">{{formatDate(comment.Date, false)}}</small>
     </span>
-    <span class="comment-userinfo"><img src="{{ getAvatar(element.UserAvatar, 50) }}"/>
-	{{if element.UserID > 0}}<a href="/user/{{element.UserID}}/{{element.Username}}" class="comment-user">{{element.Username}}</a>{{if element.UserStatus != ""}}<span class="user-status">{{T(element.UserStatus)}}</span>{{end}}{{else}}
-	<span class="comment-user">れんちょん</span>{{end}}  
+    <span class="comment-userinfo"><img src="{{ getAvatar(comment.UserAvatar, 50) }}"/>
+	{{if comment.UserID > 0}}<a href="/user/{{comment.UserID}}/{{comment.Username}}" class="comment-user">{{comment.Username}}</a>{{if comment.UserStatus != ""}}<span class="user-status">{{T(comment.UserStatus)}}</span>{{end}}{{else}}
+	<span class="comment-user">{{ if comment.Username != ""}}{{comment.Username}}{{else}}れんちょん{{end}}</span>{{end}}  
     </span>
-    <div class="comment-content">{{element.Content|raw}}</div>
+    <div class="comment-content">{{comment.Content|raw}}</div>
   </div>
   {{idx = idx + 1}}
   {{end}}
-  {{previousComment = element.Content}}
-  {{previousUser = element.UserID}}
+  {{previousComment = comment.Content}}
+  {{previousUser = comment.UserID}}
   {{end}}
   {{ if len(Torrent.Comments) == 0 }}
     <p id="no-comment-message">{{ T("torrent_no_comments") }}</p>
@@ -271,7 +288,11 @@
         <label for="wrongcat">{{  T("wrong_category") }}</label><br />
         <input type="radio" name="report_type" value="duplicate_deprecated" id="dup" required/>
         <label for="dup">{{  T("duplicate_deprecated") }}</label><br />
-        <input type="radio" name="report_type" value="other" id="other"" required/>
+	{{ if !Sukebei()}}
+        <input type="radio" name="report_type" value="nsfw_content" id="nsfw_content" required/>
+        <label for="nsfw_content">{{  T("nsfw_content") }}</label><br/>
+	{{end}}
+        <input type="radio" name="report_type" value="other" id="other" required/>
         <label for="other">{{  T("other") }}</label><br />
 	<h4>{{  T("report_message") }}</h4>
 	<input type="text" class="form-input" name="report_message" placeholder="(Optional, 60 characters max)" maxlength="60">
@@ -333,6 +354,8 @@ Modal.Init({
   button: ["#reportPopup", "#tagPopup"]
 });
 </script>
+<script type="text/javascript" src="{{ URL.Parse("/js/simplemde.min.js") }}"></script>
+<script type="text/javascript">new SimpleMDE({ element: document.getElementsByName("comment")[0], spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
 {{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}}
 <script type="text/javascript">
 	var torrentLink = document.getElementById("torrent-download-link"),
@@ -360,14 +383,14 @@ Modal.Init({
 		Query.Get('/download/{{Torrent.Hash}}?js_query=true', function (data) {
 			if(typeof data.exists != "undefined" && data.exists == true) {
 				torrentLink.innerHTML = oldDownloadHtml
-				torrentLink.style = torrentLink.style + "opacity: 1!important;filter: grayscale(0);"
+				torrentLink.style = torrentLink.style.cssText + "opacity: 1!important;filter: grayscale(0);"
 				torrentLink.removeEventListener("click", function (e) {});
 				torrentLink.click();
 			} else {
 				if(new Date() - firstQueryDate < 20000)
 					setTimeout(fileCreated, 3000)
 				else {
-					torrentLink.innerHTML = downloadIconHtml + "Could not generate torrent file"
+					torrentLink.innerHTML = downloadIconHtml + "{{T("generating_torrent_failed")}}"
 					torrentLink.removeEventListener("click", function (e) {});
 					disabledLink = true
 				}

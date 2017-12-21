@@ -12,7 +12,7 @@ func FindAll(limit int, offset int, conditions string, values ...interface{}) ([
 	var comments []models.Comment
 	var nbComments int
 	models.ORM.Model(&comments).Where(conditions, values...).Count(&nbComments)
-	models.ORM.Limit(limit).Offset(offset).Where(conditions, values...).Preload("User").Find(&comments)
+	models.ORM.Limit(limit).Offset(offset).Order("comment_id DESC").Where(conditions, values...).Preload("User").Find(&comments)
 	return comments, nbComments
 }
 

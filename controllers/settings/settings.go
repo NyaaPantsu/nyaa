@@ -3,6 +3,7 @@ package settingsController
 import (
 	"net/http"
 	"net/url"
+	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/controllers/router"
@@ -30,7 +31,7 @@ func SeePublicSettingsHandler(c *gin.Context) {
 // ChangePublicSettingsHandler : Controller for changing the current language and theme
 func ChangePublicSettingsHandler(c *gin.Context) {
 	theme := c.PostForm("theme")
-	lang := c.PostForm("language")
+	lang := c.PostForm("lang")
 	mascot := c.PostForm("mascot")
 	mascotURL := c.PostForm("mascot_url")
 	altColors := c.PostForm("altColors")
@@ -65,6 +66,17 @@ func ChangePublicSettingsHandler(c *gin.Context) {
 		user.OldNav = oldNav
 		user.UpdateRaw()
 	}
+	
+	if getDomainName() != "" {
+		//Clear every cookie from current domain so that users that old cookies from current domain do not interfere with new ones, should new one be shared within multiple subdomains
+		http.SetCookie(c.Writer, &http.Cookie{Name: "lang", Value: "", Domain: "", Path: "/", Expires: time.Now().AddDate(-1, -1, -1)})
+		http.SetCookie(c.Writer, &http.Cookie{Name: "theme", Value: "", Domain: "", Path: "/", Expires: time.Now().AddDate(-1, -1, -1)})
+		http.SetCookie(c.Writer, &http.Cookie{Name: "mascot", Value: "", Domain: "", Path: "/", Expires: time.Now().AddDate(-1, -1, -1)})
+		http.SetCookie(c.Writer, &http.Cookie{Name: "mascot_url", Value: "", Domain: "", Path: "/", Expires: time.Now().AddDate(-1, -1, -1)})
+		http.SetCookie(c.Writer, &http.Cookie{Name: "oldNav", Value: "", Domain: "", Path: "/", Expires: time.Now().AddDate(-1, -1, -1)})
+	}
+	
+	
 	// Set cookie with http and not gin for expires (maxage not supported in <IE8)
 	http.SetCookie(c.Writer, &http.Cookie{Name: "lang", Value: lang, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})
 	http.SetCookie(c.Writer, &http.Cookie{Name: "theme", Value: theme, Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})

@@ -85,6 +85,7 @@
 	</div>
     </div>
     {{end}}
+    {{ if !EUCookieLaw }}<div id="cookie-warning"><span id="cookie-warning-close" class="close">×</span>{{ T("cookie_warning")|raw }}</div>{{ end }}
     <div class="centered">{{ yield ad_wide(Type=AdType) }}</div>
     <footer id="footer">
       <div class="container footer center">

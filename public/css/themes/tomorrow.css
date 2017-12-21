@@ -238,7 +238,7 @@ a.form-input[class*="btn"]:hover {
     background: #cc4f4f;
 }
 
-#announce {
+.announce {
     color: #3a4249;
     background-color: #F4E0C9;
     border-color: #ae875b;

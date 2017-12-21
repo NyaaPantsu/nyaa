@@ -32,7 +32,7 @@ func ActivityListHandler(c *gin.Context) {
 	}
 	var conditions []string
 	var values []interface{}
-	if userid != "" && currentUser.HasAdmin() {
+	if userid != "" && currentUser.IsModerator() {
 		conditions = append(conditions, "user_id = ?")
 		values = append(values, userid)
 	}

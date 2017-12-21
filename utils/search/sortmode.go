@@ -21,7 +21,7 @@ type SortField struct {
 }
 
 var sortFields = []SortField{
-	{"id", "torrents.torrent_id"},
+	{"id", config.Get().Models.TorrentsTableName + ".torrent_id"},
 	{"name.raw", "torrent_name"},
 	{"date", "date"},
 	{"downloads", "downloads"},

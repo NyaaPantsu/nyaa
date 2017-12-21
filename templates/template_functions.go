@@ -40,7 +40,9 @@ func templateFunctions(vars jet.VarMap) jet.VarMap {
 	vars.Set("GetCategories", categories.GetSelect)
 	vars.Set("GetCategory", getCategory)
 	vars.Set("CategoryName", categoryName)
+	vars.Set("GetCategoryName", GetCategoryName)
 	vars.Set("GetTorrentLanguages", torrentLanguages.GetTorrentLanguages)
+	vars.Set("GenSearchName", GenSearchName)
 	vars.Set("LanguageName", languageName)
 	vars.Set("LanguageNameFromCode", languageNameFromCode)
 	vars.Set("fileSize", fileSize)
@@ -149,7 +151,7 @@ func genNav(nav Navigation, currentURL *url.URL, pagesSelectable int) template.H
 			display = ""
 			href = " href=\"" + "/" + nav.Route + "/1" + "?" + currentURL.RawQuery + "\""
 		}
-		ret = ret + "<a id=\"page-prev\"" + display + href + " aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a>"
+		ret = ret + "<a class=\"page-prev\"" + display + href + " aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a>"
 		
 		startValue := 1
 		if nav.CurrentPage > pagesSelectable/2 {
@@ -178,7 +180,7 @@ func genNav(nav Navigation, currentURL *url.URL, pagesSelectable int) template.H
 			display = ""
 			href = " href=\"" + "/" + nav.Route + "/" + strconv.Itoa(int(maxPages)) + "?" + currentURL.RawQuery + "\""
 		}
-		ret = ret + "<a id=\"page-next\"" + display + href +" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a>"
+		ret = ret + "<a class=\"page-next\"" + display + href +" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a>"
 			
 		itemsThisPageStart := nav.MaxItemPerPage*(nav.CurrentPage-1) + 1
 		itemsThisPageEnd := nav.MaxItemPerPage * nav.CurrentPage
@@ -224,13 +226,16 @@ func getCategory(category string, keepParent bool) categories.Categories {
 	return categoryRet
 }
 func categoryName(category string, subCategory string) string {
-	s := category + "_" + subCategory
+	return GetCategoryName( category + "_" + subCategory)
+}
 
-	if category, ok := categories.GetByID(s); ok {
-		return category.Name
+func GetCategoryName(category string) string {
+	if cat, ok := categories.GetByID(category); ok {
+		return cat.Name
 	}
 	return ""
 }
+
 func languageName(lang publicSettings.Language, T publicSettings.TemplateTfunc) string {
 	if strings.Contains(lang.Name, ",") {
 		langs := strings.Split(lang.Name, ", ")
@@ -342,7 +347,7 @@ func torrentFileExists(hash string, TorrentLink string) bool {
 		return true
 	}
 	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
-	if err != nil {
+	if err != nil || len(TorrentLink) == 0 {
 		//File doesn't exist
 		return false
 	}
@@ -446,4 +451,20 @@ func formatDate(Date time.Time, short bool) string {
 	} else {
 		return fmt.Sprintf("%d/%d/%d, %d:%.2d:%.2d AM UTC+0", Date.Month(), Date.Day(), Date.Year(), Date.Hour(), Date.Minute(), Date.Second())
 	}
+}
+
+func GenSearchName(Search SearchForm, currentURL string, T publicSettings.TemplateTfunc) string {
+	if currentURL == "/" {
+		return string(T("home"))
+	}
+	if Search.UserName != "" {
+		return Search.UserName
+	}
+	if Search.NameSearch != "" {
+		return Search.NameSearch
+	}
+	if Search.Category != "" {
+		return string(T(GetCategoryName(Search.Category)))
+	}
+	return string(T("search"))
 }

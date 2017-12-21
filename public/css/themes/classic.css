@@ -266,10 +266,10 @@ select.form-input {
 .website-nav .pagination span {
     min-width: auto;
 }
-.website-nav #page-prev{
+.website-nav .page-prev{
     float: left;
 }
-.website-nav #page-next{
+.website-nav .page-next{
     float: right;
 }
 
@@ -279,6 +279,9 @@ select.form-input {
 
 .CodeMirror {
     padding: 0;
+}
+.comment-form .CodeMirror, .comment-form .CodeMirror-scroll {
+	min-height: 70px;
 }
 
 .upload-form-table .checkbox-container {
@@ -338,6 +341,10 @@ span.comment-index+p {
     text-decoration: none;
     line-height: 22px;
 }
+span.comment-user:hover {
+    text-decoration: none;
+	
+}
 .comment-user:hover {
     text-decoration: underline;
 }
@@ -345,7 +352,7 @@ span.comment-index+p {
     margin: 1px 0;
 }
 
-#solution {
+.solution {
     margin-top: -3px;
 }
 
@@ -448,7 +455,7 @@ span.comment-index+p {
     float: right;
     margin-top: 7px;
 }
-.torrent-buttons a, .torrent-buttons button {
+.torrent-buttons a, .torrent-buttons button, .torrent-buttons input[type="submit"] {
     height: 26px!important;
     background: linear-gradient(to bottom, #33ca98 0%, #336867 72%);
     color: white!important;
@@ -459,9 +466,9 @@ span.comment-index+p {
     border: none;
     padding: 2px 7px;
     margin-right: 6px;
-    float: left;
+    float: left!important;
 }
-.sukebei .torrent-buttons a, .sukebei .torrent-buttons button {
+.sukebei .torrent-buttons a, .sukebei .torrent-buttons button, .sukebei .torrent-buttons input[type="submit"] {
     background: linear-gradient(to bottom, #CA3346 5%, #482120 80%);
 }
 .torrent-buttons a.hidden {
@@ -470,6 +477,7 @@ span.comment-index+p {
 }
 .torrent-buttons a:hover {
     text-decoration: none;
+    cursor: pointer;
 }
 .torrent-buttons div {
     margin-right: 0!important;    
@@ -686,33 +694,59 @@ span.tag {
 }
 .upload-form-table .table-torrent-link input {
     width: 100%!important;
-}    
-.upload-form-table .editor-toolbar {
+}
+.editor-toolbar, .CodeMirror {
+	max-width: 459px;
+}
+.editor-toolbar.fullscreen {
+	top: 40px;
+}
+.CodeMirror-fullscreen {
+	top: 90px;
+}
+.markdown-container .editor-statusbar {
+    bottom: 6px;
+    left: 141px;
+}
+.editor-statusbar {
+    bottom: 19px;
+    left: 209px;
+	right: unset!important;
+}
+.editor-toolbar {
     padding: 0 2px;
     font-size: 10px;
 }
-.upload-form-table .editor-toolbar, .upload-form-table .CodeMirror {
+.editor-toolbar, .CodeMirror {
     border-radius: 0;
     border-color: #c4c4c4;
     opacity: 1;
 }
-.upload-form-table .editor-toolbar::before {
+.editor-toolbar::before {
     margin-bottom: 2px;
 }
-.upload-form-table .editor-toolbar::after {
+.editor-toolbar::after {
     margin-top: 4px;
 }
-.upload-form-table .editor-toolbar a {
+.editor-toolbar a {
     width: 26px;
     height: 24px;
 }
-.upload-form-table .editor-toolbar a:before {
+.comment-form .editor-toolbar a {
+    width: 24px;
+    height: 20px;
+    background: #fbfbfb;
+}
+.editor-toolbar a:before {
     line-height: 25px;
+}
+.comment-form .editor-toolbar a:before {
+    line-height: 18px;
 }
 .upload-form-table .CodeMirror-scroll, .upload-form-table .CodeMirror {
     min-height: 120px;
 }
-.upload-form-table .CodeMirror-scroll {
+.CodeMirror-scroll {
     max-width: unset!important;
 }
 
@@ -727,20 +761,18 @@ span.tag {
     width: 128px!important;
     height: 20px;
 }
+#subscribe-link {	
+    text-transform: lowercase;
+}
 .sukebei .torrent-info-data #subscribe-link {
     color: #660000;
 }
 .torrent-info-data #subscribe-link::before, .torrent-info-data #subscribe-link:: after {
     color: #111111;
 }
-.content > p:first-child+div.centered+div.refine+div #reportPopup {
-    top: 145px;
-}
-.content > p:first-child+div#announce+div.refine+div #reportPopup {
-    top: 110px;
-}
-.content > div#announce:first-child+div.refine+div #reportPopup {
-    top: 65px;
+
+.box {
+	position: relative;
 }
 #reportPopup {
     text-decoration: underline dotted;
@@ -749,8 +781,8 @@ span.tag {
     background: none;
     color: #106655!important;
     position: absolute;
-    top: 103px;
-    right: 11px;
+    top: 6px;
+    right: 0;
 }
 .comment-content :first-child {
 margin-top: 5px;    

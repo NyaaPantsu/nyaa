@@ -7,26 +7,29 @@ import (
 	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/utils/timeHelper"
 	"github.com/gin-gonic/gin"
+	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 	
 )
 
 // toggleThemeHandler : Controller to switch between theme1 & theme2
 func toggleThemeHandler(c *gin.Context) {
 
-	theme, err := c.Cookie("theme")
-	if err != nil {
-		theme = config.DefaultTheme(false)
-	}
+	DefaultTheme := config.DefaultTheme(false) 
+	DefaultDarkTheme := config.DefaultTheme(true)
+
+	theme := publicSettings.GetThemeFromRequest(c)
 	theme2, err := c.Cookie("theme2")
+	
 	if err != nil {
-		theme2 = config.DefaultTheme(true)
+		theme2 = publicSettings.GetDarkThemeFromRequest(c)
 	}
-	if theme != config.DefaultTheme(true) && theme2 != config.DefaultTheme(true) {
+	
+	if theme != DefaultDarkTheme && theme2 != DefaultDarkTheme {
 		//None of the themes are dark ones, force the second one as the dark one
-		theme2 = config.DefaultTheme(true)
+		theme2 = DefaultDarkTheme
 	} else if  theme == theme2 {
 		//Both theme are dark ones, force the second one as the default (light) theme
-		theme2 = config.DefaultTheme(false)
+		theme2 = DefaultTheme
 	}
 	//Get theme1 & theme2 value
 	

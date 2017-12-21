@@ -161,6 +161,9 @@ func UpdateTorrent(r *torrentValidator.UpdateRequest, t *models.Torrent, current
 	} else if currentUser.IsTrusted() {
 		status = models.TorrentStatusTrusted
 	}
+	if status != t.Status && status != models.TorrentStatusBlocked {
+		t.DeletedAt = nil
+	}
 	t.Status = status
 
 	t.Hidden = r.Update.Hidden

@@ -60,6 +60,8 @@ func UploadPostHandler(c *gin.Context) {
 		uploadForm.Status = models.TorrentStatusRemake
 	} else if user.IsTrusted() {
 		uploadForm.Status = models.TorrentStatusTrusted
+	} else if user.IsBanned() {
+		uploadForm.Status = models.TorrentStatusBlocked
 	}
 
 	err = torrents.ExistOrDelete(uploadForm.Infohash, user)

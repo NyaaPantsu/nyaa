@@ -23,24 +23,30 @@
 {{block footer_js()}}
 <script type="text/javascript">
 var deleteButtons = document.querySelectorAll("button.form-input.btn-red")
-
  for(var i = 0; i < deleteButtons.length; i++) {
+   var needConfirmation = (deleteButtons[i].onclick != null)
+   deleteButtons[i].onclick = null
+
    deleteButtons[i].addEventListener("click", function (e) {
      e.preventDefault()
-     var form = this.parentNode
-     var formInputs = form.querySelectorAll('input')
-     var query = ""
+	 if(needConfirmation && !confirm("Are you sure?")) {
+		return
+	 } else if(!needConfirmation) {
+       var form = this.parentNode
+       var formInputs = form.querySelectorAll('input')
+       var query = ""
      
-     for(var x = 0; x < formInputs.length; x ++) {
-         if(query != "") query = query + "&"
-         query = query + formInputs[x].name + "=" + formInputs[x].value
-     }
+       for(var x = 0; x < formInputs.length; x ++) {
+           if(query != "") query = query + "&"
+           query = query + formInputs[x].name + "=" + formInputs[x].value
+       }
 
-     Query.Post(form.action, query, function(data) {})
+       Query.Post(form.action, query, function(data) {})
 
-     this.parentNode.parentNode.parentNode.className = this.parentNode.parentNode.className + " hidden"
-     this.innerText = "Deleted"
-     this.disabled = true
+       this.parentNode.parentNode.parentNode.className = this.parentNode.parentNode.className + " hidden"
+       this.innerText = "Deleted"
+       this.disabled = true
+	 }
    })
  }
 </script>

@@ -39,6 +39,7 @@ func getTorrentList(c *gin.Context) (torrents []models.Torrent, createdAsTime ti
 		title = "Sukebei Pantsu"
 	}
 
+
 	pagenum := 1
 	if page == "" && offset > 0 { // first page for offset is 0
 		pagenum = offset + 1
@@ -86,7 +87,12 @@ func getTorrentList(c *gin.Context) (torrents []models.Torrent, createdAsTime ti
 		user = 0
 	}
 
-	_, torrents, _, err = search.AuthorizedQuery(c, pagenum, currentUser.CurrentOrAdmin(uint(user)))
+	var searchParam search.TorrentParam
+	searchParam, torrents, _, err = search.AuthorizedQuery(c, pagenum, currentUser.CurrentOrJanitor(uint(user)), currentUser.CurrentOrJanitor(uint(user)))
+	
+	if searchParam.NameLike != "" {
+		title += " - " + searchParam.NameLike
+	}
 
 	return
 }

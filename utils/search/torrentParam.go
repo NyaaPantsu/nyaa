@@ -13,6 +13,7 @@ import (
 
 	elastic "gopkg.in/olivere/elastic.v5"
 
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/utils/log"
@@ -25,6 +26,7 @@ type TorrentParam struct {
 	Full      bool // True means load all members
 	Order     bool // True means ascending
 	Hidden    bool // True means filter hidden torrents
+	Locked    bool // False means filter locked torrents
 	Deleted   bool // False means filter deleted torrents
 	Status    Status
 	Sort      SortMode
@@ -38,6 +40,7 @@ type TorrentParam struct {
 	ToDate    DateFilter
 	NotNull   string // csv
 	NameLike  string // csv
+	NameSearch string //Contains what NameLike contains but without the excluded keywords, not used for search, just for page title
 	Languages publicSettings.Languages
 	MinSize   SizeBytes
 	MaxSize   SizeBytes
@@ -70,7 +73,7 @@ func (p *TorrentParam) Identifier() string {
 	tags += p.VideoQuality
 	dbids := fmt.Sprintf("%d%d%d%s", p.AnidbID, p.VndbID, p.VgmdbID, p.Dlsite)
 
-	identifier := fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%s%d%s%s%s%t%t%t%t", p.NameLike, p.NotNull, languages, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, dbids, p.FromDate, p.ToDate, p.UserID, ids, cats, tags, p.Full, p.Order, p.Hidden, p.Deleted)
+	identifier := fmt.Sprintf("%s%s%s%d%d%d%d%d%d%d%s%s%s%d%s%s%s%t%t%t%t%t", p.NameLike, p.NotNull, languages, p.Max, p.Offset, p.FromID, p.MinSize, p.MaxSize, p.Status, p.Sort, dbids, p.FromDate, p.ToDate, p.UserID, ids, cats, tags, p.Full, p.Order, p.Hidden, p.Locked, p.Deleted)
 	return base64.URLEncoding.EncodeToString([]byte(identifier))
 }
 
@@ -115,6 +118,12 @@ func (p *TorrentParam) FromRequest(c *gin.Context) {
 	// Search by name
 	// We take the search arguments from "q" in url
 	p.NameLike = strings.TrimSpace(c.Query("q"))
+	
+	for _, word := range strings.Fields(p.NameLike) {
+		if word[0] != '-' {
+			p.NameSearch += word + " "
+		}
+	}
 
 	// Maximum results returned
 	// We take the maxximum results to display from "limit" in url
@@ -251,6 +260,11 @@ func (p *TorrentParam) toESQuery(c *gin.Context) *Query {
 	if p.Status != ShowAll {
 		query.Append(p.Status.ToESQuery())
 	}
+	if !p.Locked {
+		//query.Append("!status:5")
+		//This line breaks ES but this check is needed
+	}
+
 
 	if p.FromID != 0 {
 		query.Append("id:>" + strconv.FormatInt(int64(p.FromID), 10))
@@ -390,11 +404,11 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 	}
 
 	if p.FromID != 0 {
-		query.Append("torrents.torrent_id > ?", p.FromID)
+		query.Append(config.Get().Models.TorrentsTableName + ".torrent_id > ?", p.FromID)
 	}
 	if len(p.TorrentID) > 0 {
 		for _, id := range p.TorrentID {
-			query.Append("torrents.torrent_id = ?", id)
+			query.Append(config.Get().Models.TorrentsTableName + ".torrent_id = ?", id)
 		}
 	}
 	if p.FromDate != "" {
@@ -406,6 +420,10 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 	if p.Status != 0 {
 		query.Append(p.Status.ToDBQuery())
 	}
+	if !p.Locked {
+		query.Append("status IS NOT ?", 5)
+	}
+
 	if len(p.NotNull) > 0 {
 		query.Append(p.NotNull)
 	}
@@ -444,6 +462,12 @@ func (p *TorrentParam) toDBQuery(c *gin.Context) *Query {
 
 	querySplit := strings.Fields(p.NameLike)
 	for _, word := range querySplit {
+		if word[0] == '-' && len(word) > 1 {
+			//Exclude words starting with -
+			query.Append("torrent_name NOT "+searchOperator, "%"+word[1:]+"%")
+			continue
+		}
+		
 		firstRune, _ := utf8.DecodeRuneInString(word)
 		if len(word) == 1 && unicode.IsPunct(firstRune) {
 			// some queries have a single punctuation character
@@ -517,5 +541,6 @@ func (p *TorrentParam) Clone() TorrentParam {
 		Languages: p.Languages,
 		MinSize:   p.MinSize,
 		MaxSize:   p.MaxSize,
+		Locked:    p.Locked,
 	}
 }

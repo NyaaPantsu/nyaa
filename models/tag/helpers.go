@@ -125,7 +125,7 @@ func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 		// We finally add the tag to the column
 		torrent.AcceptedTags += tag.Tag
 	case "anidbid", "vndbid", "vgmdbid":
-		u64, _ := strconv.ParseUint(tag.Tag, 10, 32)
+		u64, _ := strconv.ParseUint(trimNonNumbers(tag.Tag), 10, 32)
 		// TODO: Perform a check that anidbid is in anidb database
 		tagConf := config.Get().Torrents.Tags.Types.Get(tag.Type)
 		reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).SetUint(u64)
@@ -154,4 +154,15 @@ func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 			reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field).SetString(tag.Tag)
 		}
 	}
+}
+
+func trimNonNumbers(source string) string {
+	output := ""
+	
+	for i := 0; i < len(source); i++ {
+		if source[i] < 58 {
+			output += source[i:i+1]
+		}
+	}
+	return output
 }

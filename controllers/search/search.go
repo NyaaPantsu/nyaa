@@ -4,6 +4,7 @@ import (
 	"html"
 	"net/http"
 	"strconv"
+	"strings"
 	"fmt"
 
 	"math"
@@ -11,6 +12,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/templates"
+	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/utils/search"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
@@ -58,8 +60,23 @@ func SearchHandler(c *gin.Context) {
 		//Must redirect him to user search instead of simply showing "no torrents found!"
 	}
 	
+	if c.Query("hash") != "" {
+		torrent, err := torrents.FindRawByHash(strings.TrimSpace(c.Query("hash")))
+		//Wanna make sure to remove spaces because user copy-pasting hashes might include spaces at time
+		if err == nil {
+			templates.ModelList(c, "site/torrents/listing.jet.html", models.TorrentsToJSON([]models.Torrent{torrent}), templates.Navigation{1, 1, 0, "/search"}, searchForm)
+			//We already fetched the torrent so we can directly show the template without needing to do a search.AuthorizedQuery
+		} else {
+			variables := templates.Commonvariables(c)
+			searchForm.ShowRefine = true
+			variables.Set("Search", searchForm)
+			templates.Render(c, "errors/no_results.jet.html", variables)
+			//The hash hasn't been found so no point in showing any result, but we do want to show the refine so that the user can search another hash or remove it from the search
+		}
+		return
+	}
 	
-	searchParam, torrents, nbTorrents, err := search.AuthorizedQuery(c, pagenum, currentUser.CurrentOrAdmin(uint(userID)))
+	searchParam, torrents, nbTorrents, err := search.AuthorizedQuery(c, pagenum, currentUser.CurrentOrJanitor(uint(userID)), currentUser.IsJanitor())
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return

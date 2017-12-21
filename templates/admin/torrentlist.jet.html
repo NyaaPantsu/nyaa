@@ -38,12 +38,12 @@
       </thead>
       <tbody>
         {{ range Models}}
-        <tr>
+        <tr {{ if .Status == 5}}class="locked hidden"{{end}}>
           <td class="tr-cb">
             <input type="checkbox" class="selectable" name="torrent_id" value="{{.ID }}" />
           </td>
           <td class="tr-name home-td">
-            <a href="/view/{{ .ID }}">{{ .Name }}</a> {{ if !.IsDeleted }}
+            <a href="/view/{{ .ID }}">{{ .Name }}</a> {{ if User.IsModerator() }}
             <a href="/mod/torrent?id={{.ID}}" class="form-input btn-blue float-right">
               {{  T("edit")}}
             </a> {{end}}
@@ -57,14 +57,15 @@
           <td class="tr-actions home-td"> <form></form>
 	    <form method="POST" action="/mod/torrent/block" class="delete-form">
 		<input type="hidden" name="id" value="{{ .ID }}">
-		<button type="submit" class="form-input btn-orange" onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"><i class="icon-trash"></i>{{ if .IsBlocked }}{{  T("torrent_unblock") }}{{else}}{{  T("torrent_block") }}{{end}}</button>
+		<button type="submit" class="form-input btn-orange" {{ if !User.IsModerator() }}onclick="if (!confirm('{{  T("are_you_sure") }}')) return false;"{{end}}><i class="icon-trash"></i>{{ if .IsBlocked() }}{{  T("torrent_unblock") }}{{else}}{{  T("torrent_block") }}{{end}}</button>
 	    </form>
+		{{ if User.IsModerator() }}
 	    <form method="POST" action="/mod/torrent/delete" class="delete-form">
 		<input type="hidden" name="id" value="{{ .ID }}">
-		 {{ if .IsDeleted }}<input type="hidden" name="definitely" value="true">{{ end }}
-		<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }} {{ if !.IsDeleted }}{{  T("delete") }}{{else}}{{  T("delete_definitely_torrent_warning ")}}{{end}}')) return false;"><i class="icon-trash"></i>{{ if .IsDeleted }}{{  T("delete_definitely") }}{{else}}{{  T("delete") }}{{end}}</button>
+		 {{ if .IsDeleted() }}<input type="hidden" name="definitely" value="true">{{ end }}
+		<button type="submit" class="form-input btn-red" onclick="if (!confirm('{{  T("are_you_sure") }} {{ if !.IsDeleted() }}{{  T("delete") }}{{else}}{{  T("delete_definitely_torrent_warning ")}}{{end}}')) return false;"><i class="icon-trash"></i>{{ if .IsDeleted() }}{{  T("delete_definitely") }}{{else}}{{  T("delete") }}{{end}}</button>
 	    </form>
-            
+            {{end}}
           </td>
         </tr>
         {{end}}
@@ -91,22 +92,29 @@
 var deleteButtons = document.querySelectorAll("button.form-input.btn-red")
 
  for(var i = 0; i < deleteButtons.length; i++) {
+   var needConfirmation = (deleteButtons[i].onclick != null)
+   deleteButtons[i].onclick = null
+
    deleteButtons[i].addEventListener("click", function (e) {
      e.preventDefault()
-     var form = this.parentNode
-     var formInputs = form.querySelectorAll('input')
-     var query = ""
+	 if(needConfirmation && !confirm("Are you sure?")) {
+		return
+	 } else {
+       var form = this.parentNode
+       var formInputs = form.querySelectorAll('input')
+       var query = ""
      
-     for(var x = 0; x < formInputs.length; x ++) {
-         if(query != "") query = query + "&"
-         query = query + formInputs[x].name + "=" + formInputs[x].value
-     }
+       for(var x = 0; x < formInputs.length; x ++) {
+           if(query != "") query = query + "&"
+           query = query + formInputs[x].name + "=" + formInputs[x].value
+       }
 
-     Query.Post(form.action, query, function(data) {})
+       Query.Post(form.action, query, function(data) {})
 
-     this.parentNode.parentNode.parentNode.className = this.parentNode.parentNode.className + " hidden"
-     this.innerText = "Deleted"
-     this.disabled = true
+       this.parentNode.parentNode.parentNode.className = this.parentNode.parentNode.className + " hidden"
+       this.innerText = "Deleted"
+       this.disabled = true
+	 }
    })
  }
  

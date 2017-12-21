@@ -1,7 +1,7 @@
 {{ extends "layouts/index_site" }}
 {{ import "layouts/partials/helpers/search" }}
-{{block title()}}{{if Search.UserName == ""}}{{ T("home")}}{{else}}{{Search.UserName}}{{end}}{{end}}
-{{block contclass()}}{{if User.HasAdmin() }}content-admin{{end}}{{end}}
+{{block title()}}{{GenSearchName(Search, URL.String(), T)}}{{end}}
+{{block contclass()}}{{if User.IsModerator() }}content-admin{{end}}{{end}}
 {{block content_body()}}
 {{ if OldNav || Theme == "classic"}}
   {{ include "layouts/partials/helpers/oldNav" }}
@@ -11,7 +11,7 @@
   <table>
     <thead class="torrent-info">
       <tr>
-        {{ if User.HasAdmin() }}
+        {{ if User.IsModerator() }}
         <th class="tr-cb hide">
           <input type="checkbox" name="select_all" onchange="TorrentsMod.selectAll(this.checked)"/>
         </th>
@@ -55,8 +55,8 @@
   </thead>
   <tbody id="torrentListResults" {{if AltColors}}class="alt-colors"{{end}}>
     {{ range Models}}
-    <tr id="torrent_{{ .ID }}" class="torrent-info {{if .Status == 2}}remake{{else if .Status == 3}}trusted{{else if .Status == 4}}aplus{{end}}" >
-      {{ if User.HasAdmin() }}
+    <tr id="torrent_{{ .ID }}" class="torrent-info {{if .Status == 2}}remake{{else if .Status == 3}}trusted{{else if .Status == 4}}aplus{{else if .Status == 5}}locked hidden{{end}}">
+      {{ if User.IsModerator() }}
       <td class="tr-cb hide">
         <input data-name="{{ .Name }}" type="checkbox" id="torrent_cb_{{ .ID }}" name="torrent_id" value="{{ .ID }}"/>
       </td>
@@ -108,8 +108,7 @@
     </tbody>
   </table>
 </div>
-{{ if !EUCookieLaw }}<div id="cookie-warning"><span id="cookie-warning-close" class="close">×</span>{{ T("cookie_warning")|raw }}</div>{{ end }}
-{{ if User.HasAdmin() }}
+{{ if User.IsModerator() }}
 <div class="modtools">
   <button id="show_actions" class="form-input" data-toggle-text="{{ T("hide_mod_tools")}}">{{ T("show_mod_tools")}}</button>
   <span class="actions">
@@ -176,7 +175,7 @@
 <script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>
 <script type="text/javascript" src="{{ URL.Parse("/js/torrents.js") }}"></script>
 <script type="text/javascript" src="{{ URL.Parse("/js/translation.js") }}"></script>
-{{ if User.HasAdmin() }}
+{{ if User.IsModerator() }}
 <script type="text/javascript" src="{{ URL.Parse("/js/torrentsMod.js") }}"></script>
 <script type="text/javascript">
 // We add translations string

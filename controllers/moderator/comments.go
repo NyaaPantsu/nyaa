@@ -21,6 +21,7 @@ func CommentsListPanel(c *gin.Context) {
 	pagenum := 1
 	offset := 100
 	userid := c.Query("userid")
+	username := c.Query("user")
 	var err error
 	messages := msg.GetMessages(c)
 	deleted := c.Request.URL.Query()["deleted"]
@@ -36,22 +37,43 @@ func CommentsListPanel(c *gin.Context) {
 	}
 	var conditions string
 	var values []interface{}
-	if userid != "" {
-		conditions = "user_id = ?"
-		values = append(values, userid)
+	searchForm := templates.NewSearchForm(c)
+	// if there is a username in url
+	if username != "" {
+		conditions = "user = ?"
+		values = append(values, username)
+		searchForm.UserName = username
+	// else we look if there is a userid
+	} else if userid != "" {
+		id, err := strconv.Atoi(userid)
+		if err == nil {
+			conditions = "user_id = ?"
+			values = append(values, id)
+			searchForm.UserID = uint32(id)
+		}
 	}
+
 
 	comments, nbComments := comments.FindAll(offset, (pagenum-1)*offset, conditions, values...)
 	nav := templates.Navigation{nbComments, offset, pagenum, "mod/comments/p"}
-	templates.ModelList(c, "admin/commentlist.jet.html", comments, nav, templates.NewSearchForm(c))
+	templates.ModelList(c, "admin/commentlist.jet.html", comments, nav, searchForm)
 }
 
 // CommentDeleteModPanel : Controller for deleting a comment
 func CommentDeleteModPanel(c *gin.Context) {
-	id, _ := strconv.ParseInt(c.PostForm("id"), 10, 32)
+	id, err := strconv.ParseInt(c.PostForm("id"), 10, 32)
+	if err != nil {
+		c.Redirect(http.StatusSeeOther, "/mod/comments")
+		return
+	}
+	
 	comment, _, err := comments.Delete(uint(id))
 	if err == nil {
-		activities.Log(&models.User{}, comment.Identifier(), "delete", "comment_deleted_by", strconv.Itoa(int(comment.ID)), comment.User.Username, router.GetUser(c).Username)
+		username := "れんちょん"
+		if comment.UserID != 0 {
+			username = comment.User.Username
+		}
+		activities.Log(&models.User{}, comment.Identifier(), "delete", "comment_deleted_by", strconv.Itoa(int(comment.ID)), username, router.GetUser(c).Username)
 	}
 
 	c.Redirect(http.StatusSeeOther, "/mod/comments?deleted")

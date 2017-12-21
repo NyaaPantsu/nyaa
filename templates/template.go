@@ -168,10 +168,10 @@ func userProfileBase(c *gin.Context, templateName string, userProfile *models.Us
 	query.Set("limit", "15")
 	c.Request.URL.RawQuery = query.Encode()
 	nbTorrents := 0
-	if userProfile.ID > 0 && currentUser.CurrentOrAdmin(userProfile.ID) {
-		_, userProfile.Torrents, nbTorrents, _ = search.ByQuery(c, 1, true, false, false)
+	if userProfile.ID > 0 && currentUser.CurrentOrJanitor(userProfile.ID) {
+		_, userProfile.Torrents, nbTorrents, _ = search.ByQuery(c, 1, true, false, false, true)
 	} else {
-		_, userProfile.Torrents, nbTorrents, _ = search.ByQuery(c, 1, true, false, true)
+		_, userProfile.Torrents, nbTorrents, _ = search.ByQuery(c, 1, true, false, true, false)
 	}
 	
 	var uploadedSize int64
@@ -180,7 +180,7 @@ func userProfileBase(c *gin.Context, templateName string, userProfile *models.Us
 	}
 
 	variables.Set("UserProfile", userProfile)
-	variables.Set("NbTorrents", []int64{int64(nbTorrents),uploadedSize})
+	variables.Set("NbTorrents", []int64{int64(nbTorrents), uploadedSize})
 	Render(c, path.Join(SiteDir, "user", templateName), variables)
 }
 

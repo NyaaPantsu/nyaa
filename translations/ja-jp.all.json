@@ -9,7 +9,7 @@
   },
   {
     "id": "no_cp",
-    "translation": "児童ポルノ禁止 (ロリはこれに含まれません)"
+    "translation": "児童ポルノ禁止 (ロリは OK)"
   },
   {
     "id": "asia",
@@ -21,7 +21,7 @@
   },
   {
     "id": "rules_sukebei",
-    "translation": "えっちいのは sukebei.pantsu.cat へ"
+    "translation": "えっちぃのは sukebei.pantsu.cat へ"
   },
   {
     "id": "rule_tracker_url",
@@ -138,6 +138,10 @@
   {
     "id": "torrents",
     "translation": "Torrent"
+  },
+  {
+    "id": "followers",
+    "translation": "フォロワー数"
   },
   {
     "id": "follow",
@@ -533,7 +537,11 @@
   },
   {
     "id": "description_markdown_notice",
-    "translation": "説明文には MarkDown 記法を使うことができます。"
+    "translation": "説明文には Markdown 記法を使うことができます。"
+  },
+  {
+    "id": "comment_markdown_notice",
+    "translation": "コメントには Markdown 記法を使うことができます。"
   },
   {
     "id": "show_all",
@@ -600,16 +608,16 @@
     "translation": "現在のパスワード"
   },
   {
+    "id": "default",
+    "translation": "デフォルト"
+  },
+  {
     "id": "role",
     "translation": "役割"
   },
   {
     "id": "userstatus_banned",
     "translation": "BAN"
-  },
-  {
-    "id": "default",
-    "translation": "デフォルト"
   },
   {
     "id": "userstatus_trusted",
@@ -622,6 +630,14 @@
   {
     "id": "userstatus_moderator",
     "translation": "モデレーター"
+  },
+  {
+    "id": "userstatus_janitor",
+    "translation": "管理人"
+  },
+  {
+    "id": "userstatus_uploader",
+    "translation": "アップロード者"
   },
   {
     "id": " api_token",
@@ -772,6 +788,10 @@
     "translation": "通報理由"
   },
   {
+    "id": "report_message",
+    "translation": "通報メッセージ"
+  },
+  {
     "id": "illegal_content",
     "translation": "違法なコンテンツ"
   },
@@ -786,6 +806,14 @@
   {
     "id": "duplicate_deprecated",
     "translation": "重複 / 非推奨"
+  },
+  {
+    "id": "nsfw_content",
+    "translation": "えっちぃコンテンツ"
+  },
+  {
+    "id": "other",
+    "translation": "その他"
   },
   {
     "id": "captcha",
@@ -825,11 +853,27 @@
   },
   {
     "id": "clear_notifications",
+    "translation": "既読の通知をクリア"
+  },
+  {
+    "id": "clear_all_notifications",
+    "translation": "すべての通知をクリア"
+  },
+  {
+    "id": "mark_notifications_as_read",
+    "translation": "既読の通知としてマークする"
+  },
+  {
+    "id": "clear_notifications",
     "translation": "通知をクリア"
   },
   {
     "id": "notifications_cleared",
     "translation": "通知がクリアされました。"
+  },
+  {
+    "id": "notifications_read",
+    "translation": "すべての通知が既読としてマークされました。"
   },
   {
     "id": "my_notifications",
@@ -842,6 +886,10 @@
   {
     "id": "torrent_uploaded",
     "translation": "Torrent は正常にアップロードされました。"
+  },
+  {
+    "id": "torrent_uploaded_locked",
+    "translation": "Torrent はアップロードされましたが、あなたが BAN されているためロック状態になっています。"
   },
   {
     "id": "preferences",
@@ -936,8 +984,20 @@
     "translation": "Torrent #%s (%s アップロード) は %s によってロックされました。"
   },
   {
-    "id": "torrent_blocked_by",
+    "id": "torrent_unblocked_by",
     "translation": "Torrent #%s (%s アップロード) は %s によってロック解除されました。"
+  },
+  {
+    "id": "user_banned",
+    "translation": "ユーザーは BAN されました。"
+  },
+  {
+    "id": "user_banned",
+    "translation": "ユーザーは BAN 解除されました。"
+  },
+  {
+    "id": "user_unbanned_by",
+    "translation": "ユーザー %s (%d) #%d は %s によって BAN 解除されました。"
   },
   {
     "id": "torrents_deleted",
@@ -950,6 +1010,10 @@
   {
     "id": "delete_report",
     "translation": "レポートを削除"
+  },
+  {
+    "id": "delete_all_reports",
+    "translation": "すべてのレポートを削除"
   },
   {
     "id": "comment_deleted",
@@ -981,7 +1045,7 @@
   },
   {
     "id": "something_went_wrong",
-    "translation": "不具合が発生しました。"
+    "translation": "問題が発生しました。"
   },
   {
     "id": "nb_torrents_updated",
@@ -1054,6 +1118,14 @@
   {
     "id": "torrent_block",
     "translation": "ロック"
+  },
+  {
+    "id": "unban",
+    "translation": "BAN 解除"
+  },
+  {
+    "id": "ban",
+    "translation": "BAN"
   },
   {
     "id": "torrent_deleted_definitely",
@@ -1453,7 +1525,7 @@
   },
   {
     "id": "activity_list",
-    "translation": "アクティビティー一覧"
+    "translation": "アクティビティー 一覧"
   },
   {
     "id": "activities",
@@ -1481,7 +1553,7 @@
   },
   {
     "id": "error_less_date",
-    "translation": "%s は現在の日付および時刻より小さくなければなりません"
+    "translation": "%s は現在の日時より小さくなければなりません"
   },
   {
     "id": "error_less_array",
@@ -1497,11 +1569,11 @@
   },
   {
     "id": "error_less_equal_date",
-    "translation": "%s は現在の日付および時刻以下でなければなりません"
+    "translation": "%s は現在の日時以下でなければなりません"
   },
   {
     "id": "error_greater_date",
-    "translation": "%s は現在の日付および時刻より大きくなければなりません"
+    "translation": "%s は現在の日時より大きくなければなりません"
   },
   {
     "id": "error_greater_length",
@@ -1513,7 +1585,7 @@
   },
   {
     "id": "error_greater_equal_date",
-    "translation": "%s は現在の日付および時刻以上でなければなりません"
+    "translation": "%s は現在の日時以上でなければなりません"
   },
   {
     "id": "error_max_field",
@@ -1617,7 +1689,7 @@
   },
   {
     "id": "error_contains",
-    "translation": "%s にはテキスト '%s' が含まれている必要があります"
+    "translation": "%s には文字列 '%s' が含まれている必要があります"
   },
   {
     "id": "error_contains_any",
@@ -1680,10 +1752,6 @@
     "translation": " "
   },
   {
-    "id": "old",
-    "translation": "前"
-  },
-  {
     "id": "optional",
     "translation": "任意"
   },
@@ -1697,7 +1765,7 @@
   },
   {
     "id": "sort_by",
-    "translation": "ソート:"
+    "translation": "並べ替え:"
   },
   {
     "id": "ascending",
@@ -1769,7 +1837,7 @@
   },
   {
     "id": "elevating_user_error",
-    "translation": "モデレーターへのステータス降格は禁止されています"
+    "translation": "モデレーターへのステータス昇格は禁止されています"
   },
   {
     "id": "parse_error_line",
@@ -1845,7 +1913,7 @@
   },
   {
     "id": "torrent_cat_is_english",
-    "translation": "Torrent カテゴリーは英語への翻訳となっていますが、言語が英語になっていません。英語に変更しました"
+    "translation": "Torrent カテゴリーは英語翻訳となっていますが、言語が英語になっていません。英語に変更しました"
   },
   {
     "id": "torrent_cat_not_english",
@@ -1853,7 +1921,7 @@
   },
   {
     "id": "torrent_magnet_invalid",
-    "translation": "magnet リンクをパースできません。お確かめください"
+    "translation": "magnet リンクをパースできません。ご確認ください"
   },
   {
     "id": "torrent_hash_invalid",
@@ -1893,7 +1961,7 @@
   },
   {
     "id": "reupload",
-    "translation": "欠落した、もしくは関係のない追加ファイルを含む、他のユーザーの Torrent の再アップロード"
+    "translation": "欠落した、もしくは関連のない追加ファイルを含む、他のユーザーの Torrent の再アップロード"
   },
   {
     "id": "red",
@@ -1913,15 +1981,19 @@
   },
   {
     "id": "faq_ads_explanation",
-    "translation": "これは決して軽率な判断ではなく、皆様から寄せられたご意見を徹底的に検討したものです。しかしながら、最終的にこれが pantsu に資金を供給し、継続的な活動を保証する唯一の持続可能な解決策であると感じています。<br/>私たちは資金の調達源について考えてきましたが、他に資金の調達に近づく選択肢はありません。<br>その結果、A-ADS の広告が私たちとユーザーにとって最良の選択であると判断しました。これらの広告は、シンプルで邪魔にならず、決してサイトのユーザーエクスペリエンスを阻害するものではなく、いかなる形態のトラッキングも含まれません。"
+    "translation": "これは決して軽率な判断ではなく、皆様から寄せられたご意見を徹底的に検討したものです。しかしながら、最終的にこれが pantsu に資金を供給し、継続的な活動を保証する唯一の持続可能な解決策であると感じています。<br/>私たちは資金の調達源について考えてきましたが、他に資金の調達に近づく選択肢はありません。<br>そして、A-ADS の広告が私たちとユーザーにとって最良の選択であると判断しました。これらの広告は、シンプルで邪魔にならず、決してサイトのユーザーエクスペリエンスを阻害するものではなく、いかなる形態のトラッキングも含まれません。"
   },
   {
     "id": "torrent_preview",
-    "translation": "Torrent のプレビュー"
+    "translation": "Torrent プレビュー"
   },
   {
     "id": "announcement",
     "translation": "お知らせ"
+  },
+  {
+    "id": "create_anouncement_success",
+    "translation": "正常にお知らせが作成されました。"
   },
   {
     "id": "update_client_failed",
@@ -2057,7 +2129,7 @@
   },
   {
     "id": "tagtype_tags",
-    "translation": "通常タグ"
+    "translation": "説明タグ"
   },
   {
     "id": "tagvalue_select",
@@ -2089,7 +2161,7 @@
   },
   {
     "id": "delay",
-    "translation": "遅延"
+    "translation": "遅延 (時間単位)"
   },
   {
     "id": "update_annoucement_panel",
@@ -2101,7 +2173,7 @@
   },
   {
     "id": "related_to",
-    "translation": "以下に関連:"
+    "translation": "関連項目:"
   },
   {
     "id": "expire",
@@ -2109,7 +2181,7 @@
   },
   {
     "id": "complement",
-    "translation": "補充"
+    "translation": "追加"
   },
   {
     "id": "from",
@@ -2140,6 +2212,10 @@
     "translation": "Torrent ファイルを生成中..."
   },
   {
+    "id": "generating_torrent_failed",
+    "translation": "Torrent ファイルを生成できませんでした"
+  },
+  {
     "id": "enabled",
     "translation": "有効"
   },
@@ -2157,7 +2233,7 @@
   },
   {
     "id": "search_from_user",
-    "translation": "このユーザーのアップロードを検索..."
+    "translation": "このユーザーから検索..."
   },
   {
     "id": "usersearch_user_not_found",
@@ -2173,7 +2249,11 @@
   },
   {
     "id": "search_from_specific_user",
-    "translation": "%s のアップロードを検索"
+    "translation": "%s さんから検索"
+  },
+  {
+    "id": "browsing_user_torrents",
+    "translation": "<a href=\"/user/%d/%s\">%s</a> さんの Torrent を参照中"
   },
   {
     "id": "hours_minutes_ago",
@@ -2182,5 +2262,29 @@
   {
     "id": "days_hours_ago",
     "translation": "{0} 日 {1} 時間前"
+  },
+  {
+    "id": "status",
+    "translation": "状態"
+  },
+  {
+    "id": "event",
+    "translation": "イベント"
+  },
+  {
+    "id": "read",
+    "translation": "既読"
+  },
+  {
+    "id": "unread",
+    "translation": "未読"
+  },
+  {
+    "id": "moderation_guidelines",
+    "translation": "モデレーション ガイドライン"
+  },
+  {
+    "id": "guidelines",
+    "translation": "ガイドライン"
   }
 ]

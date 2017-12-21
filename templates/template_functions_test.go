@@ -289,6 +289,37 @@ func TestCategoryName(t *testing.T) {
 	}
 }
 
+func TestCategoryName2(t *testing.T) {
+	var tests = []struct {
+		TestCat    string
+		Expected   string
+	}{
+		{
+			TestCat:    "_",
+			Expected:   "",
+		},
+		{
+			TestCat:    "d",
+			Expected:   "",
+		},
+		{
+			TestCat:    "3_",
+			Expected:   "anime",
+		},
+		{
+			TestCat:    "3_6",
+			Expected:   "anime_raw",
+		},
+	}
+
+	for _, test := range tests {
+		value := GetCategoryName(test.TestCat)
+		if value != test.Expected {
+			t.Errorf("Unexpected value from the function categoryName, got '%s', wanted '%s' for '%s'", value, test.Expected, test.TestCat)
+		}
+	}
+}
+
 func TestLanguageName(t *testing.T) {
 	var tests = []struct {
 		TestLang publicSettings.Language
@@ -386,7 +417,7 @@ func TestFileSize(t *testing.T) {
 	for _, test := range tests {
 		value := fileSize(test.TestSize, T, test.TestShowUnknown)
 		if value != test.Expected {
-			t.Errorf("Unexpected value from the function fileSize, got '%s', wanted '%s' for '%d' with '%d'", value, test.Expected, test.TestSize, test.TestShowUnknown)
+			t.Errorf("Unexpected value from the function fileSize, got '%s', wanted '%s' for '%d' with '%t'", value, test.Expected, test.TestSize, test.TestShowUnknown)
 		}
 	}
 }
@@ -660,7 +691,7 @@ func Teststrcmp(t *testing.T) {
  	for _, test := range tests {
  		value := strcmp(test.TestString, test.TestString2, -1, 0)
  		if value != test.Expected {
- 			t.Errorf("Unexpected value from the function strcmp, got '%t', wanted '%t'", value, test.Expected, test.TestString, test.TestString)
+ 			t.Errorf("Unexpected value from the function strcmp, got '%t' by comparing '%s' to '%s' starting at '%d' and ending after '%d', wanted '%t'", value, test.TestString, test.TestString2, test.TestStart, test.TestEnd, test.Expected)
  		}
 	}
  }
@@ -700,7 +731,7 @@ func Teststrcmp(t *testing.T) {
  	for _, test := range tests {
  		value := strfind(test.TestString, test.TestString2, test.TestStart)
  		if value != test.Match {
- 			t.Errorf("Unexpected value from the function strfind, got '%t', wanted '%t'", value, test.Match, test.TestString, test.TestString)
+ 			t.Errorf("Unexpected value from the function strfind, got '%t' by comparing '%s' to '%s' starting from %d, wanted '%t'", value, test.TestString, test.TestString2, test.TestStart, test.Match)
  		}
 	}
  }
@@ -769,7 +800,7 @@ func Teststrcmp(t *testing.T) {
 		}
 		value := formatThemeName(test.TestPath, T)
  		if value != test.Expected {
- 			t.Errorf("Unexpected value from the function formatThemeName, got '%t' from '%s', wanted '%t'", value, test.TestPath, test.Expected)
+ 			t.Errorf("Unexpected value from the function formatThemeName, got '%s' from '%s', wanted '%s'", value, test.TestPath, test.Expected)
  		}
 	}
  }
@@ -795,10 +826,58 @@ func testFormatDate(t *testing.T) {
  	for _, test := range tests {
 		value := formatDate(test.TestDate, test.TestFullDate)
  		if value != test.Expected {
- 			t.Errorf("Unexpected value from the function formatDate, got '%t' from '%s' and '%d', wanted '%t'", value, test.TestDate, test.TestFullDate, test.Expected)
+ 			t.Errorf("Unexpected value from the function formatDate, got '%s' from '%s' and '%t', wanted '%s'", value, test.TestDate, test.TestFullDate, test.Expected)
  		}
 	}
  }
+
+func testGenSearchName(t *testing.T) {
+ 	var tests = []struct {
+ 		Search SearchForm
+		currentURL string
+		Expected string
+ 	}{
+ 		{
+			Search: SearchForm{},
+			currentURL: "/",
+			Expected: "home",
+ 		},
+ 		{
+			Search: SearchForm{},
+			currentURL: "/search",
+			Expected: "search",
+ 		},
+ 		{
+			Search: SearchForm{UserName: "yiiT"},
+			currentURL: "/username/yiiT/search",
+			Expected: "yiiT",
+ 		},
+ 		{
+			Search: SearchForm{Category: "3_"},
+			currentURL: "/search?c=3_",
+			Expected: "anime",
+ 		},
+ 		{
+			Search: SearchForm{Category: "3_12"},
+			currentURL: "/search?c=3_12",
+			Expected: "anime_amv",
+ 		},
+ 	}
+ 	for _, test := range tests {
+		Ts, _, err := publicSettings.TfuncAndLanguageWithFallback("en-us")
+		if err != nil {
+			t.Error("Couldn't load language files!")
+		}
+		var T publicSettings.TemplateTfunc
+		T = func(id string, args ...interface{}) template.HTML {	
+			return template.HTML(fmt.Sprintf(Ts(id), args...))
+		}
+		value := GenSearchName(test.Search, test.currentURL, T)
+ 		if value != test.Expected {
+ 			t.Errorf("Unexpected value from the function GenSearchName, got '%s' wanted '%s'", value, test.Expected)
+ 		}
+	}
+}
  
 func mockupTemplateT(t *testing.T) publicSettings.TemplateTfunc {
 	conf := config.Get().I18n

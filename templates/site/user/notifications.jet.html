@@ -1,6 +1,6 @@
 {{ extends "layouts/profile" }}
 {{ import "layouts/partials/menu/profile" }}
-{{block title()}}{{  T("profile_edit_page", User.Username) }}{{end}}
+{{block title()}}{{  T("my_notifications") }}{{end}}
 {{ block profile_navigation()}}{{ yield profile_menu(route="profile") }}{{end}}
 {{block profile_content()}}
 <table class="notification-table">

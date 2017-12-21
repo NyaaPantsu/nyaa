@@ -89,10 +89,27 @@
 * + choose_language
 ## 2017/10/31
 * + followers
-* ~ description_markdown_notice -> comment_markdown_notice
+* + comment_markdown_notice
 * + browsing_user_torrents
 * + delete_all_reports
 ## 2017/11/02
 * + duration
 * - removed: delay
 * + create_anouncement_success
+## 2017/11/03
+* - removed: old
+## 2017/11/04
+* + nsfw_content
+* + generating_torrent_failed
+## 2017/11/09
+* + userstatus_janitor
+* + ban
+* + unban
+* + user_banned_by
+* + user_unbanned_by
+## 2017/11/10
+* + user_banned
+* + user_unbanned
+* + torrent_uploaded_locked
+* + moderation_guidelines
+* + guidelines

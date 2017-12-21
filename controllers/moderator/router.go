@@ -46,8 +46,11 @@ func init() {
 		modRoutes.GET("/torrent", TorrentEditModPanel)
 		modRoutes.POST("/torrent", TorrentPostEditModPanel)
 
-		/* Torrent delete routes */
+		/* Torrent delete routs */
 		modRoutes.POST("/torrent/delete", TorrentDeleteModPanel)
+		
+		/* Guidelines route */
+		modRoutes.Any("/guidelines", GuidelinesModPanel)
 
 		/* Announcement edit view */
 		modRoutes.GET("/announcement/form", addAnnouncement)
