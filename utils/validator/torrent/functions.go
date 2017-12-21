@@ -226,12 +226,12 @@ func (r *TorrentRequest) ValidateMultipartUpload(c *gin.Context, uploadFormTorre
 
 		// We are using here default functions from anacrolix
 		infohash := torrent.HashInfoBytes()
+
 		if infohash.String() == "" {
 			return errInvalidTorrentFile
 		}
 		r.Infohash = infohash.String()
 		r.Magnet = torrent.Magnet(r.Name, infohash).String()
-
 		// extract filesize
 		r.Filesize = torrentInfos.TotalLength()
 
