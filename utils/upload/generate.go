@@ -70,6 +70,10 @@ func GenerateTorrent(magnet string) error {
 		return err
 	}
 	defer f.Close()
+	defaultTracker := config.Get().Torrents.Trackers.GetDefault()
+	if defaultTracker != "" {
+		mi.Announce = defaultTracker
+	}
 	err = bencode.NewEncoder(f).Encode(mi)
 	if err != nil {
 		log.Errorf("error writing torrent metainfo file: %s", err)
