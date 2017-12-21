@@ -118,7 +118,7 @@ func ExtractInfo(c *gin.Context, r *torrentValidator.TorrentRequest) error {
 		return err
 	}
 
-	_, err = r.ValidateMultipartUpload(c, uploadFormTorrent)
+	err = r.ValidateMultipartUpload(c, uploadFormTorrent)
 	if err != nil {
 		return err
 	}
@@ -129,7 +129,7 @@ func ExtractInfo(c *gin.Context, r *torrentValidator.TorrentRequest) error {
 		return err
 	}
 	// We are not saving the file here because we need to add our own tracker list to the torrent file, therefore, we generate the torrent file at upload time through GenerateTorrent()
-	// when it is magnet or torrent file upload
+	// when it is magnet
 
 	return nil
 }

@@ -145,6 +145,21 @@ torrents:
     needed:
       - 0
       - 12
+    dead:
+      - ://open.nyaatorrents.info:6544
+      - ://tracker.openbittorrent.com:80
+      - ://tracker.publicbt.com:80
+      - ://stats.anisource.net:2710
+      - ://exodus.desync.com
+      - ://open.demonii.com:1337
+      - ://tracker.istole.it:80
+      - ://tracker.ccc.de:80
+      - ://bt2.careland.com.cn:6969
+      - ://announce.torrentsmd.com:8080
+      - ://open.demonii.com:1337
+      - ://tracker.btcake.com
+      - ://tracker.prq.to
+      - ://bt.rghost.net
 # TorrentOrder : Default sorting field for torrents
   order: date
 # TorrentSort : Default sorting order for torrents
