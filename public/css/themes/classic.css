@@ -454,7 +454,7 @@ span.comment-user:hover {
     float: right;
     margin-top: 7px;
 }
-.torrent-buttons a, .torrent-buttons button {
+.torrent-buttons a, .torrent-buttons button, .torrent-buttons input[type="submit"] {
     height: 26px!important;
     background: linear-gradient(to bottom, #33ca98 0%, #336867 72%);
     color: white!important;
@@ -465,9 +465,9 @@ span.comment-user:hover {
     border: none;
     padding: 2px 7px;
     margin-right: 6px;
-    float: left;
+    float: left!important;
 }
-.sukebei .torrent-buttons a, .sukebei .torrent-buttons button {
+.sukebei .torrent-buttons a, .sukebei .torrent-buttons button, .sukebei .torrent-buttons input[type="submit"] {
     background: linear-gradient(to bottom, #CA3346 5%, #482120 80%);
 }
 .torrent-buttons a.hidden {
@@ -476,6 +476,7 @@ span.comment-user:hover {
 }
 .torrent-buttons a:hover {
     text-decoration: none;
+    cursor: pointer;
 }
 .torrent-buttons div {
     margin-right: 0!important;    
@@ -733,6 +734,7 @@ span.tag {
 .comment-form .editor-toolbar a {
     width: 24px;
     height: 20px;
+    background: #fbfbfb;
 }
 .editor-toolbar a:before {
     line-height: 25px;
