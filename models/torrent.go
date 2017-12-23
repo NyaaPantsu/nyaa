@@ -360,16 +360,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	} else if t.OldUploader != "" {
 		uploader = t.OldUploader
 	}
-	torrentlink := ""
-	if len(config.Get().Torrents.CacheLink) > 0 { // Only use torrent cache if set, don't check id since better to have all .torrent
-		if config.IsSukebei() {
-			torrentlink = "" // torrent cache doesn't have sukebei torrents
-		} else {
-			torrentlink = fmt.Sprintf(config.Get().Torrents.CacheLink, t.Hash)
-		}
-	} else if len(config.Get().Torrents.StorageLink) > 0 { // Only use own .torrent if storage set
-		torrentlink = fmt.Sprintf(config.Get().Torrents.StorageLink, t.Hash)
-	}
+
 	scrape := Scrape{}
 	if t.Scrape != nil {
 		scrape = *t.Scrape
@@ -405,7 +396,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		WebsiteLink:   sanitize.Safe(t.WebsiteLink),
 		Languages:     t.Languages,
 		Magnet:        template.URL(magnet),
-		TorrentLink:   sanitize.Safe(torrentlink),
+		TorrentLink:   sanitize.Safe(t.Download()),
 		Leechers:      scrape.Leechers,
 		Seeders:       scrape.Seeders,
 		Completed:     scrape.Completed,
@@ -530,6 +521,20 @@ func (t *Torrent) DeleteTags() {
 		err := ORM.Where("torrent_id = ?", t.ID).Delete(&t.Tags).Error
 		log.CheckErrorWithMessage(err, "LOAD_TAGS_ERROR: Couldn't delete tags!")
 	}
+}
+
+// Download generate a download link for a torrent
+func (t *Torrent) Download() (torrentlink string) {
+	if len(config.Get().Torrents.CacheLink) > 0 { // Only use torrent cache if set, don't check id since better to have all .torrent
+		if !config.IsSukebei() { // torrent cache doesn't have sukebei torrents
+			torrentlink = fmt.Sprintf(config.Get().Torrents.CacheLink, t.Hash)
+		}
+		return
+	}
+	if len(config.Get().Torrents.StorageLink) > 0 { // Only use own .torrent if storage set
+		torrentlink = fmt.Sprintf(config.Get().Torrents.StorageLink, t.Hash)
+	}
+	return
 }
 
 func contains(s []string, e string) bool {

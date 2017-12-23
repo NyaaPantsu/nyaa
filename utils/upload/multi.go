@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"mime/multipart"
 	"net/http"
+	"net/url"
 	"os"
 	"strings"
 	"time"
@@ -15,6 +16,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/cache"
 	"github.com/NyaaPantsu/nyaa/utils/log"
+	"github.com/NyaaPantsu/nyaa/utils/upload/ttosho"
 )
 
 const (
@@ -124,12 +126,76 @@ func ToNyaasi(apiKey string, torrent *models.Torrent) {
 	uploadMultiple := MultipleForm{PantsuID: torrent.ID, Nyaasi: service{Status: pendingState}}
 	uploadMultiple.Nyaasi.Message = "Sorry u are not allowed"
 	uploadMultiple.save(nyaasi)
+	log.Info("Create NyaaSi instance")
+
 }
 
-// ToTTosho : function to upload a torrent to anidex
+// ToTTosho : function to upload a torrent to TokyoTosho
 func ToTTosho(apiKey string, torrent *models.Torrent) {
 	uploadMultiple := MultipleForm{PantsuID: torrent.ID, TTosho: service{Status: pendingState}}
 	uploadMultiple.save(ttosho)
+	log.Info("Create TokyoTosho instance")
+
+	// If the torrent is posted as anonymous or apikey is not set, we set it with default value
+	if apiKey == "" || (torrent.Hidden && apiKey != "") {
+		apiKey = config.Get().Upload.DefaultTokyoTToken
+	}
+
+	if apiKey == "" { // You need to check that apikey is not empty even after config. Since it is left empty in config by default and is required
+		log.Errorf("ApiKey is empty, we can't upload to TokyoTosho for torrent %d", torrent.ID)
+		uploadMultiple.updateAndSave(ttosho, errorState, "No ApiKey providen (required)")
+		return
+	}
+
+	extraParams := map[string]string{
+		//Required
+		"apikey": apiKey,
+		"url":    torrent.Download(),
+		"type":   ttoshoConfig.Category(torrent),
+		"send":   "true",
+
+		//Optional
+		"website": torrent.WebsiteLink,
+		"comment": torrent.Description,
+	}
+	request, err := newUploadRequest("https://www.tokyotosho.info/new.php", extraParams)
+	if err != nil {
+		log.CheckError(err)
+		return
+	}
+	client := &http.Client{}
+	rsp, err := client.Do(request)
+	if err != nil {
+		log.CheckError(err)
+		return
+	}
+	log.Info("Launch TokyoTosho http request")
+
+	if err != nil {
+		uploadMultiple.updateAndSave(ttosho, errorState, "Error during the HTTP POST request")
+		log.CheckErrorWithMessage(err, "Error in request: %s")
+		return
+	}
+	defer rsp.Body.Close()
+	bodyByte, err := ioutil.ReadAll(rsp.Body)
+	if err != nil {
+		uploadMultiple.updateAndSave(ttosho, errorState, "Unknown error")
+		log.CheckErrorWithMessage(err, "Error in parsing request: %s")
+		return
+	}
+	if uploadMultiple.TTosho.Status == pendingState {
+		if strings.Contains(string(bodyByte), "OK,") {
+			uploadMultiple.TTosho.Status = doneState
+			idnumber := strings.Split(string(bodyByte), ",")
+			uploadMultiple.TTosho.Message = fmt.Sprintf("Upload done! https://www.tokyotosho.info/details.php?id=%s", idnumber[1])
+		} else {
+			uploadMultiple.TTosho.Status = errorState
+			uploadMultiple.TTosho.Message = string(bodyByte)
+		}
+		uploadMultiple.save(ttosho)
+		log.Info("TokyoTosho request done")
+		fmt.Println(uploadMultiple)
+	}
 }
 
 // Saves the multipleform in each go routines and share the state of each upload for 5 minutes
@@ -211,5 +277,20 @@ func newfileUploadRequest(uri string, params map[string]string, paramName, path 
 		return nil, err
 	}
 	request.Header.Add("Content-Type", writer.FormDataContentType())
+	return request, nil
+}
+
+// Creates a new upload http request with optional extra params
+func newUploadRequest(uri string, params map[string]string) (*http.Request, error) {
+	var form url.Values
+	for key, val := range params {
+		form[key] = append(form[key], val)
+	}
+
+	body := bytes.NewBufferString(form.Encode())
+	request, err := http.NewRequest("POST", uri, body)
+	if err != nil {
+		return nil, err
+	}
 	return request, nil
 }
