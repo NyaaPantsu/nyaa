@@ -134,8 +134,10 @@
 					
 					<p>{{ T("upload_to") }} <b>Nyaa.si</b>:</p>
 					<div>
-					<div class="checkbox-container"><input type="checkbox" value="true" name="nyaasi_upload" id="nyaasi_upload" {{if User.NyaasiAPIToken != ""}}checked{{end}} class="form-torrent"/></div>
-					<input name="nyaasi_api" id="nyaasi_api" placeholder="Nyaa.si API token" class="form-input up-input" type="text" value="{{User.NyaasiAPIToken}}" {{if User.AnidexAPIToken != ""}}disabled{{end}}/>
+					<div class="checkbox-container"><input type="checkbox" value="true" name="nyaasi_upload" id="nyaasi_upload" class="form-torrent"/></div>
+					<input name="nyaasi_username" id="nyaasi_username" placeholder="Nyaa.si Username" class="form-input up-input" type="text" value="" />
+					<br/>
+					<input name="nyaasi_password" id="nyaasi_password" placeholder="Nyaa.si Password" class="form-input up-input" type="password" value="" />
 					</div>
 					
 					<p>{{ T("upload_to") }} <b>TokyoTosho</b>:</p>

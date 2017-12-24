@@ -2,6 +2,7 @@ package upload
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -121,12 +122,83 @@ func ToAnidex(torrent *models.Torrent, apiKey string, subCat string, lang string
 }
 
 // ToNyaasi : function to upload a torrent to anidex
-func ToNyaasi(apiKey string, torrent *models.Torrent) {
+func ToNyaasi(username string, password string, torrent *models.Torrent) {
 	uploadMultiple := MultipleForm{PantsuID: torrent.ID, Nyaasi: service{Status: pendingState}}
 	uploadMultiple.Nyaasi.Message = "Sorry u are not allowed"
 	uploadMultiple.save(nyaasi)
 	log.Info("Create NyaaSi instance")
 
+	// If the torrent is posted as anonymous or apikey is not set, we set it with default value
+	if username == "" || (torrent.Hidden && username != "") {
+		username = config.Get().Upload.DefaultNyaasiUsername
+		password = config.Get().Upload.DefaultNyaasiPassword
+	}
+
+	if username == "" || password == "" { // You need to check that username AND password are not empty even after config. Since they are left empty in config by default and are required
+		log.Errorf("Username or Password is empty, we can't upload to Nyaa.si for torrent %d", torrent.ID)
+		uploadMultiple.updateAndSave(nyaasi, errorState, "No valid account providen (required)")
+		return
+	}
+
+	params := map[string]interface{}{
+		"name":        torrent.Name,
+		"category":    Category(nyaasi, torrent),
+		"information": "",
+		"description": torrent.Description,
+		"anonymous":   torrent.IsAnon(),
+		"hidden":      false,
+		"remake":      torrent.IsRemake(),
+		"trusted":     torrent.IsTrusted(),
+	}
+	torrentData, _ := json.Marshal(params)
+	extraParams := map[string]string{
+		"torrent_data": string(torrentData),
+	}
+
+	request, err := newfileUploadRequest("https://nyaa.si/api/upload", extraParams, "torrent", torrent.GetPath())
+	if err != nil {
+		log.CheckError(err)
+		return
+	}
+	request.SetBasicAuth(username, password)
+	client := &http.Client{}
+	rsp, err := client.Do(request)
+	if err != nil {
+		log.CheckError(err)
+		return
+	}
+	log.Info("Launch Nyaa.Si http request")
+
+	if err != nil {
+		uploadMultiple.updateAndSave(nyaasi, errorState, "Error during the HTTP POST request")
+		log.CheckErrorWithMessage(err, "Error in request: %s")
+		return
+	}
+	defer rsp.Body.Close()
+	bodyByte, err := ioutil.ReadAll(rsp.Body)
+	if err != nil {
+		uploadMultiple.updateAndSave(nyaasi, errorState, "Unknown error")
+		log.CheckErrorWithMessage(err, "Error in parsing request: %s")
+		return
+	}
+	if uploadMultiple.Nyaasi.Status == pendingState {
+		var data map[string]interface{}
+		if err = json.Unmarshal(bodyByte, &data); err != nil {
+			log.CheckErrorWithMessage(err, "Cannot unmarshal json Response after upload request to Nyaa.Si")
+			uploadMultiple.Nyaasi.Status = errorState
+			uploadMultiple.Nyaasi.Message = err.Error()
+		}
+		if _, ok := data["errors"]; ok {
+			uploadMultiple.Nyaasi.Status = errorState
+			uploadMultiple.Nyaasi.Message = string(bodyByte)
+		} else {
+			uploadMultiple.Nyaasi.Status = doneState
+			uploadMultiple.Nyaasi.Message = fmt.Sprintf("%s", data["url"].(string))
+		}
+		uploadMultiple.save(nyaasi)
+		log.Info("Nyaa.Si request done")
+		fmt.Println(uploadMultiple)
+	}
 }
 
 // ToTTosho : function to upload a torrent to TokyoTosho

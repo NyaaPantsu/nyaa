@@ -152,7 +152,8 @@ type TorrentsConfig struct {
 // UploadConfig : Config struct for uploading torrents
 type UploadConfig struct {
 	DefaultAnidexToken            string `yaml:"anidex_api_token,omitempty"`
-	DefaultNyaasiToken            string `yaml:"nyaasi_api_token,omitempty"`
+	DefaultNyaasiUsername         string `yaml:"nyaasi_api_username,omitempty"`
+	DefaultNyaasiPassword         string `yaml:"nyaasi_api_password,omitempty"`
 	DefaultTokyoTToken            string `yaml:"tokyot_api_token,omitempty"`
 	UploadsDisabled               bool   `yaml:"uploads_disabled,omitempty"`
 	AdminsAreStillAllowedTo       bool   `yaml:"admins_are_still_allowed_to,omitempty"`

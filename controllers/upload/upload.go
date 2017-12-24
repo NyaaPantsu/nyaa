@@ -89,7 +89,7 @@ func UploadPostHandler(c *gin.Context) {
 		log.CheckErrorWithMessage(err, "ERROR_TORRENT_CREATED: Error while creating entry in db")
 
 		if AnidexUpload || NyaaSiUpload || TokyoToshoUpload {
-			go func(anidexApiKey string, anidexFormCategory string, anidexFormLang string, nyaasiApiKey string, toshoApiKey string) {
+			go func(anidexApiKey string, anidexFormCategory string, anidexFormLang string, nyaasiUsername string, nyaasiPassword string, toshoApiKey string) {
 				err := upload.GotFile(torrent)
 				if err != nil {
 					log.CheckError(err)
@@ -101,13 +101,13 @@ func UploadPostHandler(c *gin.Context) {
 				}
 
 				if NyaaSiUpload {
-					go upload.ToNyaasi(nyaasiApiKey, torrent)
+					go upload.ToNyaasi(nyaasiUsername, nyaasiPassword, torrent)
 				}
 
 				if TokyoToshoUpload {
 					go upload.ToTTosho(toshoApiKey, torrent)
 				}
-			}(c.PostForm("anidex_api"), c.PostForm("anidex_form_category"), c.PostForm("anidex_form_lang"), c.PostForm("nyaasi_api"), c.PostForm("tokyot_api"))
+			}(c.PostForm("anidex_api"), c.PostForm("anidex_form_category"), c.PostForm("anidex_form_lang"), c.PostForm("nyaasi_username"), c.PostForm("nyaasi_password"), c.PostForm("tokyot_api"))
 			// After that, we redirect to the page for upload status
 			url := fmt.Sprintf("/upload/status/%d", torrent.ID)
 			c.Redirect(302, url)
