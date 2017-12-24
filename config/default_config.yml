@@ -56,10 +56,15 @@ scraper:
   max_stat_scraping_frequency_unknown: 2
 #  Default config for upload
 upload:
-  # xxx_api_token : used when an user wants to upload to another website but doesn't have his own API token
+  # The following token/accounts are used when an user wants to upload to another website
+  # but doesn't have his own API token.
   anidex_api_token:
-  nyaasi_api_token:
+  # TokyoTosho : Be aware that file upload doesn't work with the host (only url upload)
+  # so you need to enable users to download without ddos protection
   tokyot_api_token:
+  # Nyaa.Si : we need a username and a password for the account upload, please use a difficult one! 
+  nyaasi_username:
+  nyaasi_password:
 # UploadsDisabled : Disable uploads for everyone except below
   uploads_disabled: false
 # AdminsAreStillAllowedTo : Enable admin torrent upload even if UploadsDisabled is true
