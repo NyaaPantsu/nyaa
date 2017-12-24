@@ -16,7 +16,6 @@ import (
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/cache"
 	"github.com/NyaaPantsu/nyaa/utils/log"
-	"github.com/NyaaPantsu/nyaa/utils/upload/ttosho"
 )
 
 const (
@@ -151,7 +150,7 @@ func ToTTosho(apiKey string, torrent *models.Torrent) {
 		//Required
 		"apikey": apiKey,
 		"url":    torrent.Download(),
-		"type":   ttoshoConfig.Category(torrent),
+		"type":   Category(ttosho, torrent),
 		"send":   "true",
 
 		//Optional
