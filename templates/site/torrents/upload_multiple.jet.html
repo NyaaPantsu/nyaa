@@ -2,7 +2,7 @@
 {{block title()}}{{ T("upload")}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
-	<h1 style="text-align:center;margin-top; 4px;">{{ T("upload_status") }}</h1>
+	<h1 style="text-align:center;margin-top: 4px;">{{ T("upload_status") }}</h1>
 	<table class="multiple-upload">
 		<tbody>
 			<tr><td colspan="4"><h3>Nyaa Pantsu {{ T("upload_status") }}</h3></td></tr>
@@ -66,5 +66,6 @@ function checkStatus() {
 		if (count > 0) setTimeout(checkStatus, 5000)
 	})
 }
+checkStatus()
 </script>
 {{end}}
