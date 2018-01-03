@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
+	"os"
 	"path/filepath"
 	"reflect"
 	"strconv"
@@ -165,9 +166,20 @@ func (t *Torrent) IsDeleted() bool {
 	return t.DeletedAt != nil
 }
 
+// IsAnon : Return if a torrent is displayed as anon
+// Be aware, it doesn't mean that the owner is anonymous!
+func (t *Torrent) IsAnon() bool {
+	return t.Hidden || t.UploaderID == 0
+}
+
 // GetDescriptiveTags : Return the descriptive tags
 func (t *Torrent) GetDescriptiveTags() string {
 	return t.AcceptedTags
+}
+
+// GetPath : Helpers to get the path to the torrent file
+func (t *Torrent) GetPath() string {
+	return fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, t.Hash)
 }
 
 // AddToESIndex : Adds a torrent to Elastic Search
@@ -223,7 +235,7 @@ func (t *Torrent) ParseTrackers(trackers []string) {
 		}
 	}
 	trackers = tempTrackers
-		
+
 	v["tr"] = trackers
 	t.Trackers = v.Encode()
 }
@@ -348,23 +360,14 @@ func (t *Torrent) ToJSON() TorrentJSON {
 	} else if t.OldUploader != "" {
 		uploader = t.OldUploader
 	}
-	torrentlink := ""
-	if len(config.Get().Torrents.CacheLink) > 0 { // Only use torrent cache if set, don't check id since better to have all .torrent
-		if config.IsSukebei() {
-			torrentlink = "" // torrent cache doesn't have sukebei torrents
-		} else {
-			torrentlink = fmt.Sprintf(config.Get().Torrents.CacheLink, t.Hash)
-		}
-	} else if len(config.Get().Torrents.StorageLink) > 0 { // Only use own .torrent if storage set
-		torrentlink = fmt.Sprintf(config.Get().Torrents.StorageLink, t.Hash)
-	}
+
 	scrape := Scrape{}
 	if t.Scrape != nil {
 		scrape = *t.Scrape
 	}
-	
+
 	statsObsolete := []bool{false, false}
-	
+
 	if scrape.LastScrape.IsZero() || (scrape.Seeders == 0 && scrape.Leechers == 0 && scrape.Completed == 0) {
 		statsObsolete[0] = true
 		//The displayed stats are obsolete, S/D/L will show "Unknown"
@@ -373,7 +376,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		statsObsolete[1] = true
 		//The stats need to be refreshed, either because they are valid and older than one month (not that reliable) OR if they are unknown but have been scraped 1h (or more) ago
 	}
-	
+
 	t.ParseLanguages()
 	res := TorrentJSON{
 		ID:            t.ID,
@@ -393,7 +396,7 @@ func (t *Torrent) ToJSON() TorrentJSON {
 		WebsiteLink:   sanitize.Safe(t.WebsiteLink),
 		Languages:     t.Languages,
 		Magnet:        template.URL(magnet),
-		TorrentLink:   sanitize.Safe(torrentlink),
+		TorrentLink:   sanitize.Safe(t.Download()),
 		Leechers:      scrape.Leechers,
 		Seeders:       scrape.Seeders,
 		Completed:     scrape.Completed,
@@ -520,11 +523,25 @@ func (t *Torrent) DeleteTags() {
 	}
 }
 
+// Download generate a download link for a torrent
+func (t *Torrent) Download() (torrentlink string) {
+	if len(config.Get().Torrents.CacheLink) > 0 { // Only use torrent cache if set, don't check id since better to have all .torrent
+		if !config.IsSukebei() { // torrent cache doesn't have sukebei torrents
+			torrentlink = fmt.Sprintf(config.Get().Torrents.CacheLink, t.Hash)
+		}
+		return
+	}
+	if len(config.Get().Torrents.StorageLink) > 0 { // Only use own .torrent if storage set
+		torrentlink = fmt.Sprintf(config.Get().Torrents.StorageLink, t.Hash)
+	}
+	return
+}
+
 func contains(s []string, e string) bool {
-    for _, a := range s {
-        if a == e {
-            return true
-        }
-    }
-    return false
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
 }

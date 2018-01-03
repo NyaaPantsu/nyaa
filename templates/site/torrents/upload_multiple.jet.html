@@ -2,20 +2,30 @@
 {{block title()}}{{ T("upload")}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
-	<h1 style="text-align:center;margin-top; 4px;">Upload status</h1>
+	<h1 style="text-align:center;margin-top: 4px;">{{ T("upload_status") }}</h1>
 	<table class="multiple-upload">
 		<tbody>
-			<tr><td colspan="4"><h3>Nyaa Pantsu upload status</h3></td></tr>
-			<tr class="upload-status"><td class="upload-site-name">Nyaa Pantsu</td><td>Status:</td><td class="icon-finished finished"></td><td class="upload-progress finished">Finished</td></tr>
-			<tr><td colspan="4" class="uploaded-url"><input type="text" class="form-input" placeholder="http://" value="http://nyaa.pantsu.cat/view/4556456" disabled></td></tr>
+			<tr><td colspan="4"><h3>Nyaa Pantsu {{ T("upload_status") }}</h3></td></tr>
+			<tr class="upload-status"><td class="upload-site-name">Nyaa Pantsu</td><td>{{ T("status") }}:</td><td class="icon-finished finished"></td><td class="upload-progress finished">{{ T("finished") }}</td></tr>
+			<tr><td colspan="4" class="uploaded-url"><a href="/view/{{UploadMultiple.PantsuID}}" target="_blank"><input type="text" class="form-input" value="{{if Sukebei()}}{{Config.WebAddress.Sukebei}}{{else}}{{Config.WebAddress.Nyaa}}{{end}}/view/{{UploadMultiple.PantsuID}}" disabled></a></td></tr>
 			
-			<tr><td colspan="4"><h3>Nyaa.si upload status</h3></td></tr>
-			<tr class="upload-status"><td class="upload-site-name">Nyaa.si</td><td>Status:</td><td class="icon-pending pending"></td><td class="upload-progress pending">Pending</td></tr>
-			<tr><td colspan="4" class="uploaded-url"><input type="text" class="form-input" placeholder="Uploading..." disabled></td></tr>
+			{{ if UploadMultiple.Nyaasi.Status != 0 }}
+			<tr><td colspan="4"><h3>Nyaa.si {{ T("upload_status") }}</h3></td></tr>
+			<tr class="upload-status nyaasi"><td class="upload-site-name">Nyaa.si</td><td>{{ T("status") }}:</td><td class="statusicon icon-{{ if UploadMultiple.Nyaasi.Status == 1}}pending pending{{else if UploadMultiple.Nyaasi.Status == 2}}error error{{else}}finished finished{{end}}"></td><td class="upload-progress {{ if UploadMultiple.Nyaasi.Status == 1}}pending{{else if UploadMultiple.Nyaasi.Status == 2}}error{{else}}finished{{end}}">{{ if UploadMultiple.Nyaasi.Status == 1}}{{ T("pending") }}{{else if UploadMultiple.Nyaasi.Status == 2}}{{ T("error") }}{{else}}{{ T("finished") }}{{end}}</td></tr>
+			<tr><td colspan="4" class="uploaded-url"><input type="text"id="nyaasiMess"  class="form-input" value="{{UploadMultiple.Nyaasi.Message}}" disabled></td></tr>
+			{{end}}
 			
-			<tr><td colspan="4"><h3>Anidex upload status</h3></td></tr>
-			<tr class="upload-status"><td class="upload-site-name">Anidex</td><td>Status:</td><td class="icon-error error"></td><td class="upload-progress error">Error</td></tr>
-			<tr><td colspan="4" class="uploaded-url"><input type="text" class="form-input" placeholder="http://" value="Error: XXXX" disabled></td></tr>
+			{{ if UploadMultiple.Anidex.Status != 0 }}
+			<tr><td colspan="4"><h3>Anidex {{ T("upload_status") }}</h3></td></tr>
+			<tr class="upload-status anidex"><td class="upload-site-name">Anidex</td><td>{{ T("status") }}:</td><td class="statusicon icon-{{ if UploadMultiple.Anidex.Status == 1}}pending pending{{else if UploadMultiple.Anidex.Status == 2}}error error{{else}}finished finished{{end}}"></td><td class="upload-progress {{ if UploadMultiple.Anidex.Status == 1}}pending{{else if UploadMultiple.Anidex.Status == 2}}error{{else}}finished{{end}}">{{ if UploadMultiple.Anidex.Status == 1}}{{ T("pending") }}{{else if UploadMultiple.Anidex.Status == 2}}{{ T("error") }}{{else}}{{ T("finished") }}{{end}}</td></tr>
+			<tr><td colspan="4" class="uploaded-url"><input type="text" id="anidexMess" class="form-input" value="{{UploadMultiple.Anidex.Message}}" disabled></td></tr>
+			{{end}}
+			
+			{{ if UploadMultiple.TTosho.Status != 0 }}
+			<tr><td colspan="4"><h3>Tokyo Tosho {{ T("upload_status") }}</h3></td></tr>
+			<tr class="upload-status ttosho"><td class="upload-site-name">Tokyo Tosho</td><td>{{ T("status") }}:</td><td class="statusicon icon-{{ if UploadMultiple.TTosho.Status == 1}}pending pending{{else if UploadMultiple.TTosho.Status == 2}}error error{{else}}finished finished{{end}}"></td><td class="upload-progress {{ if UploadMultiple.TTosho.Status == 1}}pending{{else if UploadMultiple.TTosho.Status == 2}}error{{else}}finished{{end}}">{{ if UploadMultiple.TTosho.Status == 1}}{{ T("pending") }}{{else if UploadMultiple.TTosho.Status == 2}}{{ T("error") }}{{else}}{{ T("finished") }}{{end}}</td></tr>
+			<tr><td colspan="4" class="uploaded-url"><input type="text" id="ttoshoMess" class="form-input" value="{{UploadMultiple.TTosho.Message}}" disabled></td></tr>
+			{{end}}
 		</tbody>
 	</table>
  
@@ -24,4 +34,38 @@
 {{ block footer_js()}}
 <script type="text/javascript" src="/js/translation.js?v={{ Config.Version}}{{ Config.Build }}"></script>
 <script type="text/javascript" src="/js/upload.js?v={{ Config.Version}}{{ Config.Build }}"></script>
+<script type="text/javascript">
+var multiUploadStatus = ["", "pending", "error", "finished"]
+T.Add("pending", "{{ T("pending") }}")
+T.Add("error", "{{ T("error") }}")
+T.Add("finished", "{{ T("finished") }}")
+function checkStatus() {
+	Query.Get(window.location.href+"?json", function(data) {
+		count = 3
+		if (data.anidex.status > 0) {
+			document.getElementById("anidexMess").value = data.anidex.message
+			document.querySelector("tr.upload-status.anidex .statusicon").className = "statusicon icon-"+multiUploadStatus[data.anidex.status]+" "+multiUploadStatus[data.anidex.status]
+			document.querySelector("tr.upload-status.anidex .upload-progress").className = "upload-progress "+multiUploadStatus[data.anidex.status]
+			document.querySelector("tr.upload-status.anidex .upload-progress").textContent = T.r(multiUploadStatus[data.anidex.status])
+		}
+		if (data.anidex.status != 1) count--
+		if (data.nyaasi.status > 0) {
+			document.getElementById("nyaasiMess").value = data.nyaasi.message
+			document.querySelector("tr.upload-status.nyaasi .statusicon").className = "statusicon icon-"+multiUploadStatus[data.nyaasi.status]+" "+multiUploadStatus[data.nyaasi.status]
+			document.querySelector("tr.upload-status.nyaasi .upload-progress").className = "upload-progress "+multiUploadStatus[data.nyaasi.status]
+			document.querySelector("tr.upload-status.nyaasi .upload-progress").textContent = T.r(multiUploadStatus[data.anidex.status])
+		}
+		if (data.anidex.status != 1) count--
+		if (data.ttosho.status > 0) {
+			document.getElementById("ttoshoMess").value = data.ttosho.message
+			document.querySelector("tr.upload-status.nyaasi .statusicon").className = "statusicon icon-"+multiUploadStatus[data.ttosho.status]+" "+multiUploadStatus[data.ttosho.status]
+			document.querySelector("tr.upload-status.nyaasi .upload-progress").className = "upload-progress "+multiUploadStatus[data.ttosho.status]
+			document.querySelector("tr.upload-status.nyaasi .upload-progress").textContent = T.r(multiUploadStatus[data.anidex.status])
+		}
+		if (data.anidex.status != 1) count--
+		if (count > 0) setTimeout(checkStatus, 5000)
+	})
+}
+checkStatus()
+</script>
 {{end}}

@@ -31,16 +31,16 @@ func DownloadTorrent(c *gin.Context) {
 		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
 	}
-	
+
 	if c.Query("js_query") != "" {
 		exists := true
 		generating := false
-		
+
 		if len(config.Get().Torrents.FileStorage) == 0 {
 			exists = false
 		} else {
 			Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
-			defer Openfile.Close() 
+			defer Openfile.Close()
 			if err != nil {
 				exists = false
 				generating = true
@@ -52,14 +52,11 @@ func DownloadTorrent(c *gin.Context) {
 					trackers = torrent.GetTrackersArray()
 				}
 				magnet := format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, trackers...)
-				if upload.GenerateTorrent(magnet) != nil {
-					//Error during the generation
-					generating = false
-				}
+				go upload.GenerateTorrent(magnet)
 			}
 		}
 		c.JSON(200, gin.H{ // Better to use gin for that, less code
-			"exists": exists,
+			"exists":     exists,
 			"generating": generating,
 		})
 		return
@@ -82,7 +79,7 @@ func DownloadTorrent(c *gin.Context) {
 	}
 
 	//Check if file exists and open
-	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
+	Openfile, err := os.Open(torrent.GetPath())
 	if err != nil {
 		//File not found, send 404
 		variables := templates.Commonvariables(c)
@@ -94,9 +91,7 @@ func DownloadTorrent(c *gin.Context) {
 		}
 		magnet := format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, trackers...)
 		variables.Set("magnet", magnet)
-		if upload.GenerateTorrent(magnet) != nil {
-			messages.AddError("errors", "Could not generate torrent file")	
-		}
+		go upload.GenerateTorrent(magnet)
 		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
 	}

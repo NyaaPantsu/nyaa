@@ -2,6 +2,7 @@ package uploadController
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -9,13 +10,14 @@ import (
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
 	"github.com/NyaaPantsu/nyaa/templates"
+	"github.com/NyaaPantsu/nyaa/utils/cache"
 	"github.com/NyaaPantsu/nyaa/utils/captcha"
+	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
 	"github.com/NyaaPantsu/nyaa/utils/upload"
 	"github.com/NyaaPantsu/nyaa/utils/validator/torrent"
 	"github.com/gin-gonic/gin"
-	"github.com/NyaaPantsu/nyaa/utils/log"
 )
 
 // UploadHandler : Main Controller for uploading a torrent
@@ -67,10 +69,53 @@ func UploadPostHandler(c *gin.Context) {
 		messages.AddError("errors", err.Error())
 	}
 
+	AnidexUpload := false
+	NyaaSiUpload := false
+	TokyoToshoUpload := false
+
+	if c.PostForm("anidex_api") != "" || c.PostForm("anidex_upload") == "true" {
+		AnidexUpload = true
+	}
+	if c.PostForm("nyaasi_api") != "" || c.PostForm("nyaasi_upload") == "true" {
+		NyaaSiUpload = true
+	}
+	if c.PostForm("tokyot_api") != "" || c.PostForm("tokyot_upload") == "true" {
+		TokyoToshoUpload = true
+	}
+
 	if !messages.HasErrors() {
-		// add to db and redirect
+		// add to db
 		torrent, err := torrents.Create(user, &uploadForm)
 		log.CheckErrorWithMessage(err, "ERROR_TORRENT_CREATED: Error while creating entry in db")
+
+		if AnidexUpload || NyaaSiUpload || TokyoToshoUpload {
+			go func(anidexApiKey string, anidexFormCategory string, anidexFormLang string, nyaasiUsername string, nyaasiPassword string, toshoApiKey string) {
+				err := upload.GotFile(torrent)
+				if err != nil {
+					log.CheckError(err)
+					return
+				}
+				// User wants to upload to other websites too
+				if AnidexUpload {
+					go upload.ToAnidex(torrent, anidexApiKey, anidexFormCategory, anidexFormLang)
+				}
+
+				if NyaaSiUpload {
+					go upload.ToNyaasi(nyaasiUsername, nyaasiPassword, torrent)
+				}
+
+				if TokyoToshoUpload {
+					go upload.ToTTosho(toshoApiKey, torrent)
+				}
+			}(c.PostForm("anidex_api"), c.PostForm("anidex_form_category"), c.PostForm("anidex_form_lang"), c.PostForm("nyaasi_username"), c.PostForm("nyaasi_password"), c.PostForm("tokyot_api"))
+			// After that, we redirect to the page for upload status
+			url := fmt.Sprintf("/upload/status/%d", torrent.ID)
+			c.Redirect(302, url)
+			return
+		}
+
+		// We don't need it to be synchronous since the generation can be left in a background process
+		go upload.GotFile(torrent)
 		url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
 		c.Redirect(302, url+"?success")
 	}
@@ -87,4 +132,28 @@ func UploadGetHandler(c *gin.Context) {
 		uploadForm.CaptchaID = ""
 	}
 	templates.Form(c, "site/torrents/upload.jet.html", uploadForm)
+}
+
+// multiUploadStatus : controller to show the multi upload status
+func multiUploadStatus(c *gin.Context) {
+	id := c.Param("id")
+	if id == "" {
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
+	if found, ok := cache.C.Get("tstatus_" + id); ok {
+		uploadMultiple := found.(upload.MultipleForm)
+		// if ?json we print the json format
+		if _, ok = c.GetQuery("json"); ok {
+			c.JSON(http.StatusOK, uploadMultiple)
+			return
+		}
+		// else we send the upload multiple form (support of manual F5)
+		variables := templates.Commonvariables(c)
+		variables.Set("UploadMultiple", uploadMultiple)
+		templates.Render(c, "site/torrents/upload_multiple.jet.html", variables)
+	} else {
+		// here it means the upload status is already flushed from memory
+		c.AbortWithStatus(http.StatusNotFound)
+	}
 }

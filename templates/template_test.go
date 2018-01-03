@@ -9,6 +9,7 @@ import (
 	"path"
 	"testing"
 
+	"github.com/NyaaPantsu/nyaa/utils/upload"
 	"github.com/NyaaPantsu/nyaa/utils/validator/announcement"
 
 	"strings"
@@ -206,6 +207,10 @@ func walkDirTest(dir string, t *testing.T) {
 		},
 		"tag.jet.html": func(variables jet.VarMap) jet.VarMap {
 			variables.Set("Form", models.Tags{*fakeTag, *fakeTag, *fakeTag})
+			return variables
+		},
+		"upload_multiple.jet.html": func(variables jet.VarMap) jet.VarMap {
+			variables.Set("UploadMultiple", upload.MultipleForm{})
 			return variables
 		},
 	}
