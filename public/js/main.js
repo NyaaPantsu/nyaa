@@ -195,6 +195,26 @@ function startupCode() {
    //If user has no default theme, set these by default
   
   
+  if(getCookieValue("theme") == "") {
+	  //User has no theme selected, we check if the domain name (without sub domain) includes the word "nyaa" and if it does, we set the theme as classic theme
+	  
+      var hostName = window.location.host
+
+	  var lastDotIndex = hostName.lastIndexOf(".")
+	  var secondLast = -1
+	  
+	  for(var index = 0; index < lastDotIndex; index++) {
+		if(hostName[index] == '.')
+		  secondLast = index
+	  }
+	  hostName = hostName.substr(secondLast == -1 ? 0 : secondLast)
+ 
+      if(hostName.includes("nyaa")) {
+		document.cookie = "theme=classic;path=/;expires=" + farFutureString + ";domain=" + domain
+		document.getElementById("theme").href = "/css/themes/classic.css";
+	  }
+  }
+  
   if(document.cookie.includes("theme2=")) {
     UserTheme[1] = getCookieValue("theme2")
     //If user already has ran the ToggleTheme() function in the past, we get the value of the second theme (the one the script switches to)
