@@ -2284,6 +2284,38 @@
     "translation": "Statut"
   },
   {
+    "id": "upload_status",
+    "translation": "Statut de l'upload"
+  },
+  {
+    "id": "pending",
+    "translation": "En attente"
+  },
+  {
+    "id": "error",
+    "translation": "Erreur"
+  },
+  {
+    "id": "finished",
+    "translation": "Terminé"
+  },
+  {
+    "id": "upload_to",
+    "translation": "Uploader vers"
+  },
+  {
+    "id": "upload_to_other",
+    "translation": "Uploader vers d'autres sites"
+  },
+  {
+    "id": "choose_category",
+    "translation": "Choisir une catégorie (requis)"
+  },
+  {
+    "id": "choose_language",
+    "translation": "Choisir une langue (requis)"
+  },
+  {
     "id": "event",
     "translation": "Événement"
   },
