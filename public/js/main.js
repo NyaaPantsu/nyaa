@@ -60,7 +60,7 @@ function parseAllDates() {
   for(var i = 0; i < list.length; i++) {
     var e = list[i]
     var newDate = new Date(e.title)
-    if(newDate == "Invalid Date") continue
+    if(isNaN(newDate.valueOf())) continue
     e.innerText = newDate.toLocaleString(lang, ymdOpt)
     e.title = newDate.toLocaleString(lang)
   }
