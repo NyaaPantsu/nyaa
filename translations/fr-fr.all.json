@@ -2301,7 +2301,7 @@
   },
   {
     "id": "upload_to",
-    "translation": "Uploader vers"
+    "translation": "Uploader vers %s"
   },
   {
     "id": "upload_to_other",
