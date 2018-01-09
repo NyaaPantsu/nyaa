@@ -726,12 +726,11 @@ textarea {
 .wew:after { 
     content: "wew";
 }
-#header .new:after, .header .wew:after
+#header .new:after, .header .wew:after {
     font-size: 7pt;
     vertical-align: middle;
     position: relative;
     top: -8px;
-}
 }
 
 html, body {
