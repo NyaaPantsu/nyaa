@@ -107,27 +107,28 @@ type I18nConfig struct {
 
 // ScrapeConfig : Config struct for Scraping
 type ScrapeConfig struct {
-	URL                              string           `json:"scrape_url" yaml:"url,omitempty"`
-	Name                             string           `json:"name"  yaml:"name,omitempty"`
-	IntervalSeconds                  int64            `json:"interval" yaml:"interval,omitempty"`
+	URL             string `json:"scrape_url" yaml:"url,omitempty"`
+	Name            string `json:"name"  yaml:"name,omitempty"`
+	IntervalSeconds int64  `json:"interval" yaml:"interval,omitempty"`
 }
 
 // ScraperConfig :  Config struct for Scraper
 type ScraperConfig struct {
-	Addr                             string           `json:"bind" yaml:"addr,omitempty"`
-	NumWorkers                       int              `json:"workers" yaml:"workers,omitempty"`
-	IntervalSeconds                  int64            `json:"default_interval" yaml:"default_interval,omitempty"`
-	Trackers                         []ScrapeConfig   `json:"trackers" yaml:"trackers,omitempty"`
-	StatScrapingFrequency            float64          `json:"stat_scraping_frequency" yaml:"stat_scraping_frequency,omitempty"`
-	StatScrapingFrequencyUnknown     float64          `json:"stat_scraping_frequency_unknown" yaml:"stat_scraping_frequency_unknown,omitempty"`
-	MaxStatScrapingFrequency         float64          `json:"max_stat_scraping_frequency" yaml:"max_stat_scraping_frequency,omitempty"`
-	MaxStatScrapingFrequencyUnknown  float64          `json:"max_stat_scraping_frequency_unknown" yaml:"max_stat_scraping_frequency_unknown,omitempty"`
+	Addr                            string         `json:"bind" yaml:"addr,omitempty"`
+	NumWorkers                      int            `json:"workers" yaml:"workers,omitempty"`
+	IntervalSeconds                 int64          `json:"default_interval" yaml:"default_interval,omitempty"`
+	Trackers                        []ScrapeConfig `json:"trackers" yaml:"trackers,omitempty"`
+	StatScrapingFrequency           float64        `json:"stat_scraping_frequency" yaml:"stat_scraping_frequency,omitempty"`
+	StatScrapingFrequencyUnknown    float64        `json:"stat_scraping_frequency_unknown" yaml:"stat_scraping_frequency_unknown,omitempty"`
+	MaxStatScrapingFrequency        float64        `json:"max_stat_scraping_frequency" yaml:"max_stat_scraping_frequency,omitempty"`
+	MaxStatScrapingFrequencyUnknown float64        `json:"max_stat_scraping_frequency_unknown" yaml:"max_stat_scraping_frequency_unknown,omitempty"`
 }
 
 // TrackersConfig ; Config struct for Trackers
 type TrackersConfig struct {
 	Default        ArrayString `yaml:"default,flow,omitempty"`
 	NeededTrackers []int       `yaml:"needed,flow,omitempty"`
+	DeadTrackers   ArrayString `yaml:"dead,flow,omitempty"`
 }
 
 // TorrentsConfig : Config struct for Torrents
@@ -151,12 +152,13 @@ type TorrentsConfig struct {
 
 // UploadConfig : Config struct for uploading torrents
 type UploadConfig struct {
-	DefaultAnidexToken            string            `yaml:"anidex_api_token,omitempty"`
-	DefaultNyaasiToken            string            `yaml:"nyaasi_api_token,omitempty"`
-	DefaultTokyoTToken            string            `yaml:"tokyot_api_token,omitempty"`
-	UploadsDisabled               bool              `yaml:"uploads_disabled,omitempty"`
-	AdminsAreStillAllowedTo       bool              `yaml:"admins_are_still_allowed_to,omitempty"`
-	TrustedUsersAreStillAllowedTo bool              `yaml:"trusted_users_are_still_allowed_to,omitempty"`
+	DefaultAnidexToken            string `yaml:"anidex_api_token,omitempty"`
+	DefaultNyaasiUsername         string `yaml:"nyaasi_api_username,omitempty"`
+	DefaultNyaasiPassword         string `yaml:"nyaasi_api_password,omitempty"`
+	DefaultTokyoTToken            string `yaml:"tokyot_api_token,omitempty"`
+	UploadsDisabled               bool   `yaml:"uploads_disabled,omitempty"`
+	AdminsAreStillAllowedTo       bool   `yaml:"admins_are_still_allowed_to,omitempty"`
+	TrustedUsersAreStillAllowedTo bool   `yaml:"trusted_users_are_still_allowed_to,omitempty"`
 }
 
 // UsersConfig : Config struct for Users
@@ -225,9 +227,9 @@ type ModelsConfig struct {
 }
 
 type DefaultThemeConfig struct {
-	Theme    string `yaml:"theme,omitempty"`
-	Dark     string `yaml:"dark,omitempty"`
-	Forced   string `yaml:"forced,omitempty"`
+	Theme  string `yaml:"theme,omitempty"`
+	Dark   string `yaml:"dark,omitempty"`
+	Forced string `yaml:"forced,omitempty"`
 }
 
 // SearchConfig : Config struct for search
@@ -274,4 +276,15 @@ func (ty TagTypes) Get(tagType string) TagType {
 		return ty[tagID]
 	}
 	return TagType{}
+}
+
+// GetDefault returns the first tracker from the needed ones
+func (tc TrackersConfig) GetDefault() string {
+	if len(tc.NeededTrackers) > 0 {
+		return tc.Default[tc.NeededTrackers[0]]
+	}
+	if len(tc.Default) > 0 {
+		return tc.Default[0]
+	}
+	return ""
 }

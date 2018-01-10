@@ -2280,6 +2280,42 @@
     "translation": "Status"
   },
   {
+    "id": "upload_status",
+    "translation": "Upload status"
+  },
+  {
+    "id": "pending",
+    "translation": "Pending"
+  },
+  {
+    "id": "error",
+    "translation": "Error"
+  },
+  {
+    "id": "finished",
+    "translation": "Finished"
+  },
+  {
+    "id": "upload_to",
+    "translation": "Upload to"
+  },
+  {
+    "id": "upload_to_other",
+    "translation": "Upload to other websites"
+  },
+  {
+    "id": "upload_to_other",
+    "translation": "Upload to other websites"
+  },
+  {
+    "id":"choose_category",
+    "translation": "Choose a category (required)"
+  },
+  {
+    "id":"choose_language",
+    "translation":"Choose a language (required)"
+  },
+  {
     "id": "event",
     "translation": "Event"
   },

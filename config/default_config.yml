@@ -54,6 +54,23 @@ scraper:
   max_stat_scraping_frequency: 5
 # MaxStatScrapingFrequencyUnknown : On-demand stat scraping for unknown torrents can only be called every X minutes
   max_stat_scraping_frequency_unknown: 2
+#  Default config for upload
+upload:
+  # The following token/accounts are used when an user wants to upload to another website
+  # but doesn't have his own API token.
+  anidex_api_token:
+  # TokyoTosho : Be aware that file upload doesn't work with the host (only url upload)
+  # so you need to enable users to download without ddos protection
+  tokyot_api_token:
+  # Nyaa.Si : we need a username and a password for the account upload, please use a difficult one! 
+  nyaasi_username:
+  nyaasi_password:
+# UploadsDisabled : Disable uploads for everyone except below
+  uploads_disabled: false
+# AdminsAreStillAllowedTo : Enable admin torrent upload even if UploadsDisabled is true
+  admins_are_still_allowed_to: true
+# TrustedUsersAreStillAllowedTo : Enable trusted users torrent upload even if UploadsDisabled is true
+  trusted_users_are_still_allowed_to: true
 # Config by default for the cache
 cache:
   dialect: nop
@@ -115,12 +132,6 @@ torrents:
   storage_link: /download/%s
 # TorrentCacheLink : Url of torrent site cache
   cache_link: #http://anicache.com/torrent/%s.torrent
-# UploadsDisabled : Disable uploads for everyone except below
-  uploads_disabled: false
-# AdminsAreStillAllowedTo : Enable admin torrent upload even if UploadsDisabled is true
-  admins_are_still_allowed_to: true
-# TrustedUsersAreStillAllowedTo : Enable trusted users torrent upload even if UploadsDisabled is true
-  trusted_users_are_still_allowed_to: true
   trackers:
 # Trackers : Default trackers supported
     default:
@@ -140,6 +151,22 @@ torrents:
 # NeededTrackers : Array indexes of Trackers for needed tracker in a torrent file
     needed:
       - 0
+      - 12
+    dead:
+      - ://open.nyaatorrents.info:6544
+      - ://tracker.openbittorrent.com:80
+      - ://tracker.publicbt.com:80
+      - ://stats.anisource.net:2710
+      - ://exodus.desync.com
+      - ://open.demonii.com:1337
+      - ://tracker.istole.it:80
+      - ://tracker.ccc.de:80
+      - ://bt2.careland.com.cn:6969
+      - ://announce.torrentsmd.com:8080
+      - ://open.demonii.com:1337
+      - ://tracker.btcake.com
+      - ://tracker.prq.to
+      - ://bt.rghost.net
 # TorrentOrder : Default sorting field for torrents
   order: date
 # TorrentSort : Default sorting order for torrents

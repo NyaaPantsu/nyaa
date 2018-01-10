@@ -77,6 +77,16 @@
 * + read_notifications_cleared
 * + notifications_read
 * + mark_notifications_as_read
+## 2017/10/30
+* + status
+* + upload_status
+* + error
+* + pending
+* + finished
+* + upload_to
+* + upload_to_other
+* + choose_category
+* + choose_language
 ## 2017/10/31
 * + followers
 * + comment_markdown_notice

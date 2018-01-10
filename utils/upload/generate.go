@@ -1,12 +1,15 @@
 package upload
 
 import (
-	"strconv"
-	"errors"
 	"fmt"
 	"os"
+	"strconv"
+	"strings"
+	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/utils/format"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/anacrolix/dht"
 	"github.com/anacrolix/torrent"
@@ -41,12 +44,12 @@ func GenerateTorrent(magnet string) error {
 		}
 	}
 	if magnet == "" || len(config.Get().Torrents.FileStorage) == 0 {
-		return errors.New("Magnet Empty or FileStorage not configured")
+		return errConfig
 	}
 	if len(queue) > 0 {
 		for _, m := range queue {
 			if m == magnet {
-				return errors.New("Magnet being generated already")
+				return errPending
 			}
 		}
 	}
@@ -57,28 +60,63 @@ func GenerateTorrent(magnet string) error {
 		log.Errorf("error adding magnet to client: %s", err)
 		return err
 	}
-	go func() {
-		<-t.GotInfo()
-		mi := t.Metainfo()
-		t.Drop()
-		file := fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, t.InfoHash().String())
-		f, err := os.Create(file)
-		if err != nil {
-			log.Errorf("error creating torrent metainfo file: %s", err)
-			return
+	<-t.GotInfo()
+	mi := t.Metainfo()
+	t.Drop()
+	file := fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, t.InfoHash().String())
+	f, err := os.Create(file)
+	if err != nil {
+		log.Errorf("error creating torrent metainfo file: %s", err)
+		return err
+	}
+	defer f.Close()
+	defaultTracker := config.Get().Torrents.Trackers.GetDefault()
+	if defaultTracker != "" {
+		mi.Announce = defaultTracker
+	}
+	err = bencode.NewEncoder(f).Encode(mi)
+	if err != nil {
+		log.Errorf("error writing torrent metainfo file: %s", err)
+		return err
+	}
+	for k, m := range queue {
+		if m == magnet {
+			queue = append(queue[:k], queue[k+1:]...)
 		}
-		defer f.Close()
-		err = bencode.NewEncoder(f).Encode(mi)
-		if err != nil {
-			log.Errorf("error writing torrent metainfo file: %s", err)
-			return
+	}
+	log.Infof("New torrent file generated in: %s", file)
+
+	return nil
+}
+
+// GotFile will check if a torrent file exists and if not, try to generate it
+func GotFile(torrent *models.Torrent) error {
+	var trackers []string
+	if torrent.Trackers == "" {
+		trackers = config.Get().Torrents.Trackers.Default
+	} else {
+		trackers = torrent.GetTrackersArray()
+	}
+	// We generate a new magnet link with all trackers (ours + ones from uploader)
+	magnet := format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, trackers...)
+	//Check if file exists and open
+	_, err := os.Open(torrent.GetPath())
+	if err != nil {
+		err := GenerateTorrent(magnet)
+		if err != errPending && err != nil {
+			return err
 		}
-		for k, m := range queue {
-			if m == magnet {
-				queue = append(queue[:k], queue[k+1:]...)
+		if err == errPending {
+			for {
+				//Check again if file exists and open
+				_, err := os.Open(torrent.GetPath())
+				if err == nil {
+					break
+				}
+				// We check every 10 seconds
+				time.Sleep(10000)
 			}
 		}
-		log.Infof("New torrent file generated in: %s", file)
-	}()
+	}
 	return nil
 }
