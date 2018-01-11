@@ -2285,7 +2285,7 @@
   },
   {
     "id": "upload_to",
-    "translation": "Upload to"
+    "translation": "Upload to %s"
   },
   {
     "id": "upload_to_other",
