@@ -67,12 +67,12 @@
 		     <td class="table-input markdown-container"><textarea name="desc" id="desc" class="form-input up-input" style="height: 10rem;">{{Form.Description}}</textarea></td>
 		  </tr>
 		  <tr>
-			<td class="table-input-label">{{ T("upload_to") }} Anidex, Nyaa.si, TokyoTosho:</td>
+			<td class="table-input-label">{{ T("upload_to", "Anidex, Nyaa.si, TokyoTosho") }}:</td>
 			<td class="table-input">
 				 <details id="anidex-upload-info">
 				  <summary class="form-input">{{ T("upload_to_other") }}</summary>
 				  <div class="form-input">
-					<p>{{ T("upload_to") }} <b>Anidex</b>:</p>
+					<p>{{ T("upload_to", "<b>Anidex</b>") }}:</p>
 					<div>
 						<div class="checkbox-container"><input type="checkbox" value="true" name="anidex_upload" id="anidex_upload" class="form-torrent" {{if User.AnidexAPIToken != ""}}checked{{end}} /></div>
 						<input name="anidex_api" id="anidex_api" placeholder="Anidex API token" class="form-input" type="text" value="{{User.AnidexAPIToken}}" {{if User.AnidexAPIToken != ""}}disabled{{end}}/>
@@ -132,7 +132,7 @@
 						</select>
 					</div>
 					
-					<p>{{ T("upload_to") }} <b>Nyaa.si</b>:</p>
+					<p>{{ T("upload_to", "<b>Nyaa.si</b>") }}:</p>
 					<div>
 					<div class="checkbox-container"><input type="checkbox" value="true" name="nyaasi_upload" id="nyaasi_upload" class="form-torrent"/></div>
 					<input name="nyaasi_username" id="nyaasi_username" placeholder="Nyaa.si Username" class="form-input up-input" type="text" value="" />
@@ -140,7 +140,7 @@
 					<input name="nyaasi_password" id="nyaasi_password" placeholder="Nyaa.si Password" class="form-input up-input" type="password" value="" />
 					</div>
 					
-					<p>{{ T("upload_to") }} <b>TokyoTosho</b>:</p>
+					<p>{{ T("upload_to", "<b>TokyoTosho</b>") }}:</p>
 					<div>
 						<div class="checkbox-container"><input type="checkbox" value="true" name="tokyot_upload" id="tokyot_upload" {{if User.TokyoTAPIToken  != ""}}checked{{end}} class="form-torrent"/></div>
 						<input name="tokyot_api" id="tokyot_api" placeholder="TokyoTosho API token" class="form-input up-input" type="text" value="{{User.TokyoTAPIToken }}" {{if User.AnidexAPIToken != ""}}disabled{{end}}/>

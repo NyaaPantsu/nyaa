@@ -2268,6 +2268,42 @@
     "translation": "状態"
   },
   {
+    "id": "upload_status",
+    "translation": "アップロードの状態"
+  },
+  {
+    "id": "pending",
+    "translation": "保留中"
+  },
+  {
+    "id": "error",
+    "translation": "エラー"
+  },
+  {
+    "id": "finished",
+    "translation": "完了"
+  },
+  {
+    "id": "upload_to",
+    "translation": "%s へのアップロード"
+  },
+  {
+    "id": "upload_to_other",
+    "translation": "他の Web サイトにアップロード"
+  },
+  {
+    "id": "upload_to_other",
+    "translation": "他の Web サイトにアップロード"
+  },
+  {
+    "id":"choose_category",
+    "translation": "カテゴリーの選択 (必須)"
+  },
+  {
+    "id":"choose_language",
+    "translation": "言語の選択 (必須)"
+  },
+  {
     "id": "event",
     "translation": "イベント"
   },
