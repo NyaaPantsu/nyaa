@@ -715,15 +715,23 @@ textarea {
     margin-bottom: 1.2rem;
 }
 
-#commit.new:after,#commit.wew:after {
+.new:after,.wew:after {
     content: "new";
     color: red;
-    font-size: 10pt;
+    font-size: 8pt;
     vertical-align: top;
     line-height: 5px;
     margin-left: 1px;
 }
-#commit.wew:after { content: "wew"; }
+.wew:after { 
+    content: "wew";
+}
+#header .new:after, .header .wew:after {
+    font-size: 7pt;
+    vertical-align: middle;
+    position: relative;
+    top: -8px;
+}
 
 html, body {
     height: 100%;
