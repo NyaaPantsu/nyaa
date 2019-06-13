@@ -1,23 +1,31 @@
 [
   {
+    "id": "read_rules",
+    "translation": "請在上傳前閱讀<a href=\"/faq#rules\">規章制度</a>"
+  },
+  {
     "id": "rules",
-      "translation": "Rules"
+      "translation": "規則"
   },
   {
     "id": "no_cp",
-      "translation": "No child pornography (lolicon doesn't count)"
+      "translation": "禁止兒童色情(蘿莉控不算在內)"
   },
   {
     "id": "asia",
-      "translation": "Asian related content only (no Western Movies, no Cartoon)"
+      "translation": "僅限亞洲相關內容（無外國電影，無卡通）"
   },
   {
     "id": "rules_spam",
-    "translation": "No spam"
+    "translation": "禁止發佈垃圾信息"
   },
   {
     "id": "rules_sukebei",
-    "translation": "NSFW content belongs in sukebei.pantsu.cat"
+    "translation": "不適合在工作場合出現的內容請發表在 sukebei.pantsu.cat"
+  },
+  {
+    "id": "rule_tracker_url",
+    "translation": "官方 announce URL <span style='font-weight: bold;'>https://uw0.xyz/</span>"
   },
   {
     "id": "verify_email_title",
@@ -81,7 +89,7 @@
   },
   {
     "id": "terms_conditions_full",
-    "translation": "一些扯淡"
+    "translation": "<h2> NyaaPantsu條款和條件</ h2> <h3> 1。條款</ h3> <p>訪問<a href='https://pantsu.cat'> https://pantsu.cat </a>網站，即表示您同意遵守這些服務條款、適用的法律和法規，以及任何適用的當地法律。如果您不同意這些條款，將禁止您使用和訪問本網站。本網站包含的內容受適用的版權和商標法保護。</ p> <h3> 2。免責聲明</ h3> <ol type ='a'> <li> NyaaPantsu Lda網站上的內容按“原樣”提供。 NyaaPantsu Lda不做任何明示或暗示的保證，特此聲明並否認所有其他保證，包括但不限於適銷性，適用於特定用途或不侵犯知識產權或其他侵權行為的暗示保證或條件。 / li> <li>此外，NyaaPantsu Lda不保證或就材料在其網站上使用的準確性，可能的結果或可靠性或與此類材料或與本網站鏈接的任何網站有關的任何陳述。 </ LI> </醇> <H3> 3。限制</ h3> <p>在任何情況下，NyaaPantsu Lda或其供應商均不對因使用或無法造成的任何損害（包括但不限於因數據或利潤損失或業務中斷而造成的損害）承擔責任。使用NyaaPantsu Lda網站上的資料，即使NyaaPantsu Lda或NyaaPantsu Lda授權代表已經口頭或書面通知可能存在此類損害。由於某些司法管轄區不允許對隱含擔保或對間接或附帶損害的責任限制進行限制，因此這些限制可能對您不適用。</ p> <h3> 4。材料的準確性</ h3> <p> NyaaPantsu Lda網站上出現的資料可能包括技術，印刷或照片錯誤。 NyaaPantsu Lda不保證其網站上的任何材料準確，完整或最新。 NyaaPantsu Lda可能隨時更改其網站上的資料，恕不另行通知。但是，NyaaPantsu Lda不承諾更新材料。</ p> <h3> 5。鏈接</ h3> <p> NyaaPantsu Lda沒有審查鏈接到其網站的所有網站，也不對任何此類鏈接網站的內容負責。包含任何鏈接並不意味著NyaaPantsu Lda對該網站的認可。使用任何此類鏈接網站的風險由用戶自行承擔。</ p> <h3> 6。修改</ h3> <p> NyaaPantsu Lda可隨時修改其網站的這些服務條款，恕不另行通知。使用本網站即表示您同意接受當時這些服務條款的約束。</ p> <h3> 7。適用法律</ h3> <p>這些條款和條件受葡萄牙法律管轄並依據葡萄牙法律解釋，並且您不可撤銷地服從該州或地區法院的專屬管轄權。</ p>"
   },
   {
     "id": "remember_me",
@@ -1986,5 +1994,29 @@
   {
     "id": "expire",
     "translation": "Expire"
+  },
+  {
+    "id":"choose_language",
+    "translation":"Choose a language (required)"
+  },
+  {
+    "id": "event",
+    "translation": "Event"
+  },
+  {
+    "id": "read",
+    "translation": "已读"
+  },
+  {
+    "id": "unread",
+    "translation": "未读"
+  },
+  {
+    "id": "moderation_guidelines",
+    "translation": "审核指南"
+  },
+  {
+    "id": "guidelines",
+    "translation": "政策"
   }
 ]
