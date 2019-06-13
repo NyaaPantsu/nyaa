@@ -1,23 +1,31 @@
 [
   {
+    "id": "read_rules",
+    "translation": "请在上传前阅读<a href=\"/faq#rules\">规章制度</a>"
+  },
+  {
     "id": "rules",
-    "translation": "Rules"
+    "translation": "规则"
   },
   {
     "id": "no_cp",
-    "translation": "No child pornography (lolicon doesn't count)"
+    "translation": "禁止儿童色情(萝莉控不算在内)"
   },
   {
     "id": "asia",
-    "translation": "Asian related content only (no Western Movies, no Cartoon)"
+    "translation": "仅限亚洲相关内容（无外国电影，无卡通）"
   },
   {
     "id": "rules_spam",
-    "translation": "No spam"
+    "translation": "禁止发布垃圾信息"
   },
   {
     "id": "rules_sukebei",
-    "translation": "NSFW content belongs in sukebei.pantsu.cat"
+    "translation": "不适合在工作场合出现的内容请发表在 sukebei.pantsu.cat"
+  },
+  {
+    "id": "rule_tracker_url",
+    "translation": "官方 announce URL <span style='font-weight: bold;'>https://uw0.xyz/</span>"
   },
   {
     "id": "verify_email_title",
@@ -81,7 +89,7 @@
   },
   {
     "id": "terms_conditions_full",
-    "translation": "一些扯淡"
+    "translation": "<h2> NyaaPantsu条款和条件</ h2> <h3> 1。条款</ h3> <p>访问<a href='https://pantsu.cat'> https://pantsu.cat </a>网站，即表示您同意遵守这些服务条款、适用的法律和法规，以及任何适用的当地法律。如果您不同意这些条款，将禁止您使用和访问本网站。本网站包含的内容受适用的版权和商标法保护。</ p> <h3> 2。免责声明</ h3> <ol type ='a'> <li> NyaaPantsu Lda网站上的内容按“原样”提供。 NyaaPantsu Lda不做任何明示或暗示的保证，特此声明并否认所有其他保证，包括但不限于适销性，适用于特定用途或不侵犯知识产权或其他侵权行为的暗示保证或条件。 / li> <li>此外，NyaaPantsu Lda不保证或就材料在其网站上使用的准确性，可能的结果或可靠性或与此类材料或与本网站链接的任何网站有关的任何陈述。 </ LI> </醇> <H3> 3。限制</ h3> <p>在任何情况下，NyaaPantsu Lda或其供应商均不对因使用或无法造成的任何损害（包括但不限于因数据或利润损失或业务中断而造成的损害）承担责任。使用NyaaPantsu Lda网站上的资料，即使NyaaPantsu Lda或NyaaPantsu Lda授权代表已经口头或书面通知可能存在此类损害。由于某些司法管辖区不允许对隐含担保或对间接或附带损害的责任限制进行限制，因此这些限制可能对您不适用。</ p> <h3> 4。材料的准确性</ h3> <p> NyaaPantsu Lda网站上出现的资料可能包括技术，印刷或照片错误。 NyaaPantsu Lda不保证其网站上的任何材料准确，完整或最新。 NyaaPantsu Lda可能随时更改其网站上的资料，恕不另行通知。但是，NyaaPantsu Lda不承诺更新材料。</ p> <h3> 5。链接</ h3> <p> NyaaPantsu Lda没有审查链接到其网站的所有网站，也不对任何此类链接网站的内容负责。包含任何链接并不意味着NyaaPantsu Lda对该网站的认可。使用任何此类链接网站的风险由用户自行承担。</ p> <h3> 6。修改</ h3> <p> NyaaPantsu Lda可随时修改其网站的这些服务条款，恕不另行通知。使用本网站即表示您同意接受当时这些服务条款的约束。</ p> <h3> 7。适用法律</ h3> <p>这些条款和条件受葡萄牙法律管辖并依据葡萄牙法律解释，并且您不可撤销地服从该州或地区法院的专属管辖权。</ p>"
   },
   {
     "id": "remember_me",
@@ -130,6 +138,10 @@
   {
     "id": "torrents",
     "translation": "种子列表"
+  },
+  {
+    "id": "followers",
+    "translation": "追随者"
   },
   {
     "id": "follow",
@@ -197,7 +209,11 @@
   },
   {
     "id": "err_no_results",
-    "translation": "No results found"
+    "translation": "没有查询到结果"
+  },
+  {
+    "id": "err_no_torrent_file",
+    "translation": "未找到种子文件"
   },
   {
     "id": "upload",
@@ -297,11 +313,11 @@
   },
   {
     "id": "answer_is_nyaa_db_lost",
-    "translation": "我们备份了 nyaa 直到 <s>4月5日</s> 5月1日 的种子库 ，几乎没有任何的损失"
+    "translation": "我们备份了 nyaa 直到 <s>4月5日</s> 5月1日 的种子库 ，几乎没有任何的丢失"
   },
   {
     "id": "answer_is_sukebei_db_lost",
-    "translation": "而 sukebei 也一样，几乎没有什么损失"
+    "translation": "而 sukebei 也一样，没有任何缺失"
   },
   {
     "id": "how_are_we_recovering",
@@ -389,23 +405,23 @@
   },
   {
     "id": "anime",
-    "translation": "动漫"
+    "translation": "动画"
   },
   {
     "id": "anime_amv",
-    "translation": "动漫 - 动画MV"
+    "translation": "动画 - 动画MV"
   },
   {
     "id": "anime_english_translated",
-    "translation": "动漫 - 已翻译为英文"
+    "translation": "动画 - 英文翻译"
   },
   {
     "id": "anime_non_english_translated",
-    "translation": "动漫 - 未翻译为英文"
+    "translation": "动画 - 非英文翻译"
   },
   {
     "id": "anime_raw",
-    "translation": "动漫 - 生肉"
+    "translation": "动画 - 生肉"
   },
   {
     "id": "audio",
@@ -417,43 +433,43 @@
   },
   {
     "id": "audio_lossy",
-    "translation": "音游 - 有损"
+    "translation": "音乐 - 有损"
   },
   {
     "id": "literature",
-    "translation": "文学"
+    "translation": "书籍"
   },
   {
     "id": "literature_english_translated",
-    "translation": "文学 - 已翻译为英文"
+    "translation": "书籍 - 英文翻译"
   },
   {
     "id": "literature_raw",
-    "translation": "文学 - 生肉"
+    "translation": "书籍 - 生肉"
   },
   {
     "id": "literature_non_english_translated",
-    "translation": "文学 - 未翻译为英文"
+    "translation": "书籍 - 非英文翻译"
   },
   {
     "id": "live_action",
-    "translation": "真人电影"
+    "translation": "真人版"
   },
   {
     "id": "live_action_english_translated",
-    "translation": "真人电影 - 已翻译为英文"
+    "translation": "真人版 - 英文翻译"
   },
   {
     "id": "live_action_idol_pv",
-    "translation": "真人电影 - 偶像/PV"
+    "translation": "真人版 - 偶像/PV"
   },
   {
     "id": "live_action_non_english_translated",
-    "translation": "真人电影 - 未翻译为英文"
+    "translation": "真人版 - 非英文翻译"
   },
   {
     "id": "live_action_raw",
-    "translation": "真人电影 - 生肉"
+    "translation": "真人版 - 生肉"
   },
   {
     "id": "pictures",
@@ -485,7 +501,7 @@
   },
   {
     "id": "art_anime",
-    "translation": "二次元 - 动漫"
+    "translation": "二次元 - 动画"
   },
   {
     "id": "art_doujinshi",
@@ -501,7 +517,7 @@
   },
   {
     "id": "art_pictures",
-    "translation": "Art - Pictures"
+    "translation": "二次元 - 图片"
   },
   {
     "id": "real_life",
@@ -521,7 +537,11 @@
   },
   {
     "id": "description_markdown_notice",
-    "translation": "描述中可以使用 Markdown 标记语言"
+    "translation": "描述中可以使用 Markdown"
+  },
+  {
+    "id": "comment_markdown_notice",
+    "translation": "评论中可以使用 Markdown"
   },
   {
     "id": "show_all",
@@ -529,7 +549,7 @@
   },
   {
     "id": "delete_all",
-    "translation": "Delete all"
+    "translation": "删除所有"
   },
   {
     "id": "filter_remakes",
@@ -545,7 +565,7 @@
   },
   {
     "id": "hash",
-    "translation": "文件Hash"
+    "translation": "Hash"
   },
   {
     "id": "description",
@@ -553,7 +573,7 @@
   },
   {
     "id": "no_description",
-    "translation": "No description provided!"
+    "translation": "未提供描述!"
   },
   {
     "id": "comments",
@@ -566,6 +586,10 @@
   {
     "id": "submit_a_comment_as_anonymous",
     "translation": "匿名评论"
+  },
+  {
+    "id": "torrent_no_comments",
+    "translation": "还没人进行评论"
   },
   {
     "id": "submit",
@@ -584,6 +608,10 @@
     "translation": "当前密码"
   },
   {
+    "id": "default",
+    "translation": "默认"
+  },
+  {
     "id": "role",
     "translation": "角色"
   },
@@ -592,20 +620,24 @@
     "translation": "账号已被封禁"
   },
   {
-    "id": "default",
-    "translation": "默认值"
-  },
-  {
     "id": "userstatus_trusted",
     "translation": "受信任会员"
   },
   {
     "id": "userstatus_scraped",
-    "translation": "Scraped user"
+    "translation": "被删除的用户"
   },
   {
     "id": "userstatus_moderator",
     "translation": "管理员"
+  },
+  {
+    "id": "userstatus_janitor",
+    "translation": "Janitor"
+  },
+  {
+    "id": "userstatus_uploader",
+    "translation": "Uploader"
   },
   {
     "id": "api_token",
@@ -637,7 +669,7 @@
   },
   {
     "id": "extensions_and_plugins",
-    "translation": "Extensions and Plugins (made by third-party developers)"
+    "translation": "扩展和插件(第三方开发者提供)"
   },
   {
     "id": "qbittorrent_plugin",
@@ -689,7 +721,7 @@
   },
   {
     "id": "torrent_status_blocked",
-    "translation": "Locked"
+    "translation": "锁定"
   },
   {
     "id": "profile_edit_page",
@@ -725,7 +757,7 @@
   },
   {
     "id": "website_link",
-    "translation": "Website Link"
+    "translation": "网址"
   },
   {
     "id": "files",
@@ -756,6 +788,10 @@
     "translation": "举报理由"
   },
   {
+    "id": "report_message",
+    "translation": "举报留言"
+  },
+  {
     "id": "illegal_content",
     "translation": "内容错误"
   },
@@ -770,6 +806,14 @@
   {
     "id": "duplicate_deprecated",
     "translation": "资源重复 / 低质量"
+  },
+  {
+    "id": "nsfw_content",
+    "translation": "不适合在工作场合出现的内容"
+  },
+  {
+    "id": "other",
+    "translation": "其它"
   },
   {
     "id": "captcha",
@@ -809,11 +853,27 @@
   },
   {
     "id": "clear_notifications",
+    "translation": "清除已读提醒"
+  },
+  {
+    "id": "clear_all_notifications",
     "translation": "清除所有提醒"
+  },
+  {
+    "id": "mark_notifications_as_read",
+    "translation": "标记所有提醒已读"
   },
   {
     "id": "notifications_cleared",
     "translation": "已清除提醒!"
+  },
+  {
+    "id": "read_notifications_cleared",
+    "translation": "已清除已读提醒"
+  },
+  {
+    "id": "notifications_read",
+    "translation": "所有提醒已标记为已读!"
   },
   {
     "id": "my_notifications",
@@ -826,6 +886,10 @@
   {
     "id": "torrent_uploaded",
     "translation": "torrent uploaded successfully!"
+  },
+  {
+    "id": "torrent_uploaded_locked",
+    "translation": "你的种子已上传，由于你被封禁，种子已锁定"
   },
   {
     "id": "preferences",
@@ -1986,5 +2050,149 @@
   {
     "id": "expire",
     "translation": "Expire"
+  },
+  {
+    "id": "complement",
+    "translation": "Complement"
+  },
+  {
+    "id": "from",
+    "translation": "From"
+  },
+  {
+    "id": "to",
+    "translation": "to"
+  },
+  {
+    "id": "feed_types",
+    "translation": "Feed Types: RSS(feed), RSS With Magnet Links(magnet), Torznab Spec(torznab), EZTV Spec(eztv)"
+  },
+  {
+    "id": "append_query",
+    "translation": "You can append your search query to the end of the feed URL."
+  },
+  {
+    "id": "cookie_warning",
+    "translation": "By using this website, you agree to the usage of cookies for purposes such as customizing content.<br/>This message will be hidden at the next page load."
+  },
+  {
+    "id": "pending_torrent",
+    "translation": "Be patient, the torrent file is being generated. Try again in a few seconds."
+  },
+  {
+    "id": "generating_torrent",
+    "translation": "Generating torrent file..."
+  },
+  {
+    "id": "generating_torrent_failed",
+    "translation": "Could not generate torrent file"
+  },
+  {
+    "id": "enabled",
+    "translation": "Enabled"
+  },
+  {
+    "id": "disabled",
+    "translation": "Disabled"
+  },
+  {
+    "id": "reset_api_key",
+    "translation": "Reset API key"
+  },
+  {
+    "id": "tag_error",
+    "translation": "Couldn't add a tag, please check your internet connection and that all fields are filled."
+  },
+  {
+    "id": "search_from_user",
+    "translation": "Search from this user..."
+  },
+  {
+    "id": "usersearch_user_not_found",
+    "translation": "The user \"%s\" has not been found"
+  },
+  {
+    "id": "user_search_explanation",
+    "translation": "Search for an user by writing down his username in the below input"
+  },
+  {
+    "id": "no_api_token",
+    "translation": "No API token"
+  },
+  {
+    "id": "search_from_specific_user",
+    "translation": "Search from %s"
+  },
+  {
+    "id": "browsing_user_torrents",
+    "translation": "Browsing <a href=\"/user/%d/%s\">%s</a>'s torrents"
+  },
+  {
+    "id": "hours_minutes_ago",
+    "translation": "{0} hours {1} minutes ago"
+  },
+  {
+    "id": "days_hours_ago",
+    "translation": "{0} days {1} hours ago"
+  },
+  {
+    "id": "status",
+    "translation": "Status"
+  },
+  {
+    "id": "upload_status",
+    "translation": "Upload status"
+  },
+  {
+    "id": "pending",
+    "translation": "Pending"
+  },
+  {
+    "id": "error",
+    "translation": "Error"
+  },
+  {
+    "id": "finished",
+    "translation": "Finished"
+  },
+  {
+    "id": "upload_to",
+    "translation": "Upload to %s"
+  },
+  {
+    "id": "upload_to_other",
+    "translation": "Upload to other websites"
+  },
+  {
+    "id": "upload_to_other",
+    "translation": "Upload to other websites"
+  },
+  {
+    "id":"choose_category",
+    "translation": "选择分类(必选)"
+  },
+  {
+    "id":"choose_language",
+    "translation":"选择语言(必选)"
+  },
+  {
+    "id": "event",
+    "translation": "Event"
+  },
+  {
+    "id": "read",
+    "translation": "已读"
+  },
+  {
+    "id": "unread",
+    "translation": "未读"
+  },
+  {
+    "id": "moderation_guidelines",
+    "translation": "审核指南"
+  },
+  {
+    "id": "guidelines",
+    "translation": "政策"
   }
 ]
