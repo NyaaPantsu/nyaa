@@ -1764,6 +1764,34 @@
     "translation": "Show"
   },
   {
+    "id": "sort_by",
+    "translation": "Sort by"
+  },
+  {
+    "id": "ascending",
+    "translation": "Ascending"
+  },
+  {
+    "id": "descending",
+    "translation": "Descending"
+  },
+  {
+    "id": "quality",
+    "translation": "Quality"
+  },
+  {
+    "id": "exclude_user",
+    "translation": "Exclude"
+  },
+  {
+    "id": "from_user",
+    "translation": "From"
+  },
+  {
+    "id": "limit_torrent_count",
+    "translation": "Limit"
+  },
+  {
     "id": "username_taken",
     "translation": "Username already taken, you can choose: %s"
   },
@@ -1856,6 +1884,10 @@
     "translation": "Please provide either of Content-Type: application/json header or multipart/form-data"
   },
   {
+    "id": "torrent_name",
+    "translation": "Torrent Name"
+  },
+  {
     "id": "torrent_name_invalid",
     "translation": "Torrent name is invalid"
   },
@@ -1944,12 +1976,24 @@
     "translation": "Torrent colors"
   },
   {
+    "id": "faq_ads",
+    "translation": "Why does pantsu has ads?"
+  },
+  {
+    "id": "faq_ads_explanation",
+    "translation": "This is not a decision we make lightly, and we have thoroughly considered the objections raised by all of you, but ultimately we feel this is the only sustainable solution to fund Pantsu and ensure its continued operation.<br/>We have given much thought to possible funding sources, and no other options we have considered come close to being able to fund Pantsu.<br>After much thought, we have decided ads from a-ads is the best option for us and our users. These ads are simple and unobtrusive, in no way interfering with the experience of using the site, and do not include any form of tracking."
+  },
+  {
     "id": "torrent_preview",
     "translation": "Preview your torrent"
   },
   {
     "id": "announcement",
     "translation": "Announcement"
+  },
+  {
+    "id": "create_anouncement_success",
+    "translation": "Announcement successfully created"
   },
   {
     "id": "update_client_failed",
@@ -2024,12 +2068,24 @@
     "translation": "Remove"
   },
   {
+    "id": "close",
+    "translation": "关闭"
+  },
+  {
     "id": "secret",
     "translation": "Client Secret"
   },
   {
     "id": "torrent_age",
     "translation": "{1} days {2} hours ago"
+  },
+  {
+    "id": "tag",
+    "translation": "Tag"
+  },
+  {
+    "id": "torrent_tags",
+    "translation": "Tags"
   },
   {
     "id": "wrong_tag_type",
@@ -2044,6 +2100,14 @@
     "translation": "Tag Type"
   },
   {
+    "id": "accepted_tags",
+    "translation": "Accepted Tags"
+  },
+  {
+    "id": "recommended_tags",
+    "translation": "Recommended Tags"
+  },
+  {
     "id": "tagtype_anidbid",
     "translation": "Anidb ID"
   },
@@ -2056,8 +2120,36 @@
     "translation": "Video Quality"
   },
   {
-    "id": "torrent_tags",
-    "translation": "Torrent tags"
+    "id": "tagtype_dlsite",
+    "translation": "DLsite"
+  },
+  {
+    "id": "tagtype_vgmdbid",
+    "translation": "VGMdb ID"
+  },
+  {
+    "id": "tagtype_tags",
+    "translation": "Descriptive Tags"
+  },
+  {
+    "id": "tagvalue_select",
+    "translation": "Select..."
+  },
+  {
+    "id": "tagvalue_full_hd",
+    "translation": "1080p"
+  },
+  {
+    "id": "tagvalue_hd",
+    "translation": "720p"
+  },
+  {
+    "id": "tagvalue_sd",
+    "translation": "480p"
+  },
+  {
+    "id": "tagvalue_bluray",
+    "translation": "Bluray"
   },
   {
     "id": "announcements",
@@ -2068,8 +2160,8 @@
     "translation": "Message"
   },
   {
-    "id": "delay",
-    "translation": "Delay"
+    "id": "duration",
+    "translation": "Duration (Hours)"
   },
   {
     "id": "update_annoucement_panel",
