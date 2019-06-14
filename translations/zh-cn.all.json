@@ -2237,11 +2237,11 @@
   },
   {
     "id": "usersearch_user_not_found",
-    "translation": "The user \"%s\" has not been found"
+    "translation": "用户 \"%s\" 没有找到"
   },
   {
     "id": "user_search_explanation",
-    "translation": "Search for an user by writing down his username in the below input"
+    "translation": "输入用户名来搜索用户"
   },
   {
     "id": "no_api_token",
@@ -2249,47 +2249,47 @@
   },
   {
     "id": "search_from_specific_user",
-    "translation": "Search from %s"
+    "translation": "搜索 %s"
   },
   {
     "id": "browsing_user_torrents",
-    "translation": "Browsing <a href=\"/user/%d/%s\">%s</a>'s torrents"
+    "translation": "浏览 <a href=\"/user/%d/%s\">%s</a>的种子"
   },
   {
     "id": "hours_minutes_ago",
-    "translation": "{0} hours {1} minutes ago"
+    "translation": "{0} 小时 {1} 分钟"
   },
   {
     "id": "days_hours_ago",
-    "translation": "{0} days {1} hours ago"
+    "translation": "{0} 天 {1} 小时"
   },
   {
     "id": "status",
-    "translation": "Status"
+    "translation": "状态"
   },
   {
     "id": "upload_status",
-    "translation": "Upload status"
+    "translation": "上传状态"
   },
   {
     "id": "pending",
-    "translation": "Pending"
+    "translation": "等待"
   },
   {
     "id": "error",
-    "translation": "Error"
+    "translation": "出错"
   },
   {
     "id": "finished",
-    "translation": "Finished"
+    "translation": "完成"
   },
   {
     "id": "upload_to",
-    "translation": "Upload to %s"
+    "translation": "上传到 %s"
   },
   {
     "id": "upload_to_other",
-    "translation": "Upload to other websites"
+    "translation": "上传到其它网站"
   },
   {
     "id":"choose_category",
