@@ -241,11 +241,11 @@
   },
   {
     "id": "500_internal_server_error",
-    "translation": "500 Internal Server Error"
+    "translation": "500 内部服务器错误"
   },
   {
     "id": "400_bad_request",
-    "translation": "400 Bad Request"
+    "translation": "400 错误的请求"
   },
   {
     "id": "no_torrents_uploaded",
@@ -345,7 +345,7 @@
   },
   {
     "id": "how_do_i_download_the_torrents",
-    "translation": "所以说要怎么抓种？"
+    "translation": "所以说要怎么获取种子？"
   },
   {
     "id": "answer_how_do_i_download_the_torrents",
@@ -629,15 +629,15 @@
   },
   {
     "id": "userstatus_moderator",
-    "translation": "管理员"
+    "translation": "超级管理员"
   },
   {
     "id": "userstatus_janitor",
-    "translation": "Janitor"
+    "translation": "管理人"
   },
   {
     "id": "userstatus_uploader",
-    "translation": "Uploader"
+    "translation": "上传者"
   },
   {
     "id": "api_token",
@@ -673,23 +673,23 @@
   },
   {
     "id": "qbittorrent_plugin",
-    "translation": "qBittorrent Plugin"
+    "translation": "qBittorrent插件"
   },
   {
     "id": "local_client",
-    "translation": "Local Client"
+    "translation": "本地客户端"
   },
   {
     "id": "chrome_extension",
-    "translation": "Chrome Extension"
+    "translation": "Chrome扩展"
   },
   {
     "id": "firefox_extension",
-    "translation": "Firefox Extension"
+    "translation": "Firefox扩展"
   },
   {
     "id": "android_app",
-    "translation": "Android App"
+    "translation": "安卓App"
   },
   {
     "id": "who_is_renchon",
@@ -765,7 +765,7 @@
   },
   {
     "id": "no_files",
-    "translation": "No files found? That doesn't even make sense!"
+    "translation": "找不到文件? 这没有意义!"
   },
   {
     "id": "uploaded_by",
@@ -781,7 +781,7 @@
   },
   {
     "id": "report_torrent_number",
-    "translation": "举报种子 #%s"
+    "translation": "举报种子 #%d"
   },
   {
     "id": "report_type",
@@ -821,7 +821,7 @@
   },
   {
     "id": "captcha_audio",
-    "translation": "Captcha Audio"
+    "translation": "播放验证码"
   },
   {
     "id": "file_name",
@@ -973,67 +973,67 @@
   },
   {
     "id": "torrent_deleted_by",
-    "translation": "Torrent #%d from %s has been deleted by %s."
+    "translation": "来自 %s 的种子 #%d 被 %s 删除"
   },
   {
     "id": "torrent_edited_by",
-    "translation": "Torrent #%d from %s has been edited by %s."
+    "translation": "来自 %s 的种子 #%d 被 %s 编辑"
   },
   {
     "id": "torrent_blocked_by",
-    "translation": "Torrent #%d from %s has been locked by %s."
+    "translation": "来自 %s 的种子 #%d 被 %s 锁定"
   },
   {
     "id": "torrent_unblocked_by",
-    "translation": "Torrent #%d from %s has been unlocked by %s."
+    "translation": "来自 %s 的种子 #%d 被 %s 解锁"
   },
   {
     "id": "user_banned",
-    "translation": "User has been banned!"
+    "translation": "用户被封禁!"
   },
   {
     "id": "user_unbanned",
-    "translation": "User has been unbanned!"
+    "translation": "用户被解封!"
   },
   {
     "id": "user_unbanned_by",
-    "translation": "User %s(%d) #%d has been unbanned by %s"
+    "translation": "用户 %s(%d) #%d 被 %s 解封"
   },
   {
     "id": "torrents_deleted",
-    "translation": "Torrents Deleted"
+    "translation": "种子已删除"
   },
   {
     "id": "delete_torrent",
-    "translation": "Delete Torrent"
+    "translation": "删除种子"
   },
   {
     "id": "delete_report",
-    "translation": "Delete Report"
+    "translation": "删除报告"
   },
   {
     "id": "delete_all_reports",
-    "translation": "Delete all reports"
+    "translation": "删除所有报告"
   },
   {
     "id": "comment_deleted",
-    "translation": "Comment has been deleted!"
+    "translation": "评论被删除!"
   },
   {
     "id": "comment_deleted_by",
-    "translation": "Comment #%d from %s has been deleted by %s."
+    "translation": "来自 %s 的评论 #%d 被 %s 删除"
   },
   {
     "id": "comment_edited_by",
-    "translation": "Comment #%d from %s has been edited by %s."
+    "translation": "来自 %s 的评论 #%d 被 %s 编辑"
   },
   {
     "id": "oauth_client_deleted",
-    "translation": "Oauth API Client has been deleted!"
+    "translation": "Oauth API Client 已经删除!"
   },
   {
     "id": "oauth_client_deleted_by",
-    "translation": "Oauth API Client #%s from %s has been deleted by %s."
+    "translation": "Oauth API Client #%s from %s 被 %s 删除"
   },
   {
     "id": "no_action_exist",
@@ -1101,11 +1101,11 @@
   },
   {
     "id": "lock_delete",
-    "translation": "Lock & Delete"
+    "translation": "锁定 & 删除"
   },
   {
     "id": "delete_definitely_torrent_warning",
-    "translation": "除非你阻止另外一个正在上传这些文件的人，否则你无法恢复她们!"
+    "translation": "你将无法恢复文件，并且也无法阻止有人重新上传!"
   },
   {
     "id": "delete_definitely",
@@ -1121,11 +1121,11 @@
   },
   {
     "id": "unban",
-    "translation": "Unban"
+    "translation": "解封"
   },
   {
     "id": "ban",
-    "translation": "Ban"
+    "translation": "封禁"
   },
   {
     "id": "torrent_deleted_definitely",
@@ -1133,7 +1133,7 @@
   },
   {
     "id": "torrent_not_deleted",
-    "translation": "Torrent was not deleted"
+    "translation": "种子没有被删除"
   },
   {
     "id": "torrent_unblocked",
@@ -1145,27 +1145,27 @@
   },
   {
     "id": "torrent_nav_notdeleted",
-    "translation": "种子没有被删除"
+    "translation": "这些种子没有被删除"
   },
   {
     "id": "torrent_nav_deleted",
-    "translation": "种子已被删除"
+    "translation": "这些种子已被删除"
   },
   {
     "id": "change_settings",
-    "translation": "Change Appearance/Language"
+    "translation": "更换 界面/语言"
   },
   {
     "id": "mascot",
-    "translation": "Mascot"
+    "translation": "吉祥物"
   },
   {
     "id": "theme",
-    "translation": "Theme"
+    "translation": "主题"
   },
   {
     "id": "theme_select",
-    "translation": "Select a Theme"
+    "translation": "选择一个主题"
   },
   {
     "id": "theme_none",
@@ -1177,19 +1177,19 @@
   },
   {
     "id": "upload_as_anon",
-    "translation": "Upload Anonymously"
+    "translation": "匿名上传"
   },
   {
     "id": "cookies",
-    "translation": "By clicking save, you consent to our use of cookies"
+    "translation": "点击“保存”，即表示您同意我们使用cookies"
   },
   {
     "id": "show",
-    "translation": "Show"
+    "translation": "显示"
   },
   {
     "id": "hide",
-    "translation": "Hide"
+    "translation": "隐藏"
   },
   {
     "id": "nyaa_pantsu",
@@ -1197,7 +1197,7 @@
   },
   {
     "id": "users",
-    "translation": "Users"
+    "translation": "用户"
   },
   {
     "id": "torrent_reports",
@@ -1213,27 +1213,27 @@
   },
   {
     "id": "following_changes_applied",
-    "translation": "Following changes will be applied"
+    "translation": "将应用以下更改"
   },
   {
     "id": "changes_in_following_order",
-    "translation": "Changes will be made in the following order:"
+    "translation": "将按以下顺序进行更改:"
   },
   {
     "id": "edit_changes",
-    "translation": "Edit Changes"
+    "translation": "编辑修改"
   },
   {
     "id": "delete_changes",
-    "translation": "Delete Changes"
+    "translation": "删除修改"
   },
   {
     "id": "owner_id_placeholder",
-    "translation": "New Owner"
+    "translation": "新所有者"
   },
   {
     "id": "try_new_attempt",
-    "translation": "Trying a new attempt..."
+    "translation": "进行新的尝试..."
   },
   {
     "id": "query_is_broken",
@@ -1241,19 +1241,19 @@
   },
   {
     "id": "query_executed_success",
-    "translation": "Query executed with success!"
+    "translation": "Query 执行成功!"
   },
   {
     "id": "all_operations_done",
-    "translation": "All operations are done!"
+    "translation": "所有操作完成!"
   },
   {
     "id": "refreshing_in",
-    "translation": "Refreshing the page in {0} seconds..."
+    "translation": "在 {0} 秒内刷新页面..."
   },
   {
     "id": "delete_reports_with_torrents",
-    "translation": "Do you want to delete the reports along the selected torrents?"
+    "translation": "是否要删除所选种子的举报?"
   },
   {
     "id": "with_st",
@@ -1269,7 +1269,7 @@
   },
   {
     "id": "lock",
-    "translation": "lock"
+    "translation": "锁定"
   },
   {
     "id": "status_js",
@@ -1277,15 +1277,15 @@
   },
   {
     "id": "owner_id_js",
-    "translation": "owner_id: {0}"
+    "translation": "所有者id: {0}"
   },
   {
     "id": "category_js",
-    "translation": "category: {0}"
+    "translation": "分类: {0}"
   },
   {
     "id": "no_changes",
-    "translation": "No changes"
+    "translation": "没有变更"
   },
   {
     "id": "query_nb",
@@ -1293,19 +1293,19 @@
   },
   {
     "id": "reason",
-    "translation": "Reason"
+    "translation": "原因"
   },
   {
     "id": "actions",
-    "translation": "Actions"
+    "translation": "动作"
   },
   {
     "id": "action_select",
-    "translation": "Action..."
+    "translation": "动作..."
   },
   {
     "id": "change_status",
-    "translation": "Change Status"
+    "translation": "改变状态"
   },
   {
     "id": "to_status",
@@ -1313,103 +1313,103 @@
   },
   {
     "id": "torrents_not_deleted",
-    "translation": "Torrents Not Deleted"
+    "translation": "这些种子没有删除"
   },
   {
     "id": "more",
-    "translation": "More"
+    "translation": "更多"
   },
   {
     "id": "last_comments",
-    "translation": "Last Comments"
+    "translation": "最后的评论"
   },
   {
     "id": "last_reports",
-    "translation": "Last Reports"
+    "translation": "最后的举报"
   },
   {
     "id": "last_torrents",
-    "translation": "Last Torrents"
+    "translation": "最后的种子"
   },
   {
     "id": "last_users",
-    "translation": "Last Users"
+    "translation": "最后的用户"
   },
   {
     "id": "moderation_overview",
-    "translation": "Moderation Overview"
+    "translation": "上帝视角"
   },
   {
     "id": "users_list",
-    "translation": "Users List"
+    "translation": "用户列表"
   },
   {
     "id": "comments_list",
-    "translation": "Comments List"
+    "translation": "评论列表"
   },
   {
     "id": "reports_list",
-    "translation": "Reports List"
+    "translation": "举报列表"
   },
   {
     "id": "torrents_list",
-    "translation": "Torrents List"
+    "translation": "种子列表"
   },
   {
     "id": "torrent_edit_panel",
-    "translation": "Torrent Edit Panel"
+    "translation": "种子编辑界面"
   },
   {
     "id": "torrent_reassign",
-    "translation": "Torrent Reassign"
+    "translation": "种子重新分配给"
   },
   {
     "id": "reassign_warning",
-    "translation": "Reassigning torrents to a new user is not easily reverted and should be done with care."
+    "translation": "将种子重新分配给新用户不容易还原，应小心谨慎。"
   },
   {
     "id": "previous_username",
-    "translation": "Previous Username"
+    "translation": "先前的用户名"
   },
   {
     "id": "torrent_id",
-    "translation": "Torrent ID"
+    "translation": "种子 ID"
   },
   {
     "id": "reassign_indication",
-    "translation": "One ID per line <b>or</b> a single username"
+    "translation": "每个ID一行 <b>或</b> 单个用户名"
   },
   {
     "id": "reassign_warning_2",
-    "translation": "Might take a long time, do <b>NOT</b> abort the request."
+    "translation": "将需要一段时间,  <b>不要</b>取消操作"
   },
   {
     "id": "reassign_to",
-    "translation": "Reassign to:"
+    "translation": "重分配给:"
   },
   {
     "id": "reassign_based_on",
-    "translation": "Reassign based on:"
+    "translation": "基于以下原因重分配:"
   },
   {
     "id": "user_id",
-    "translation": "User ID"
+    "translation": "用户ID"
   },
   {
     "id": "mascot_url",
-    "translation": "Mascot URL"
+    "translation": "吉祥物 URL"
   },
   {
     "id": "alternating_color",
-    "translation": "Alternating Color (and non-bold fonts)"
+    "translation": "交替的颜色 (并且不使用加粗字体)"
   },
   {
     "id": "old_nav",
-    "translation": "Old Navigation"
+    "translation": "旧导航"
   },
   {
     "id": "old_nav_explanation",
-    "translation": "Shows main categories and page numbers at the top of the page during a search, just like nyaa.se."
+    "translation": "在搜索过程中显示页面顶部的主要分类和页码，就像 nyaa.se."
   },
   {
     "id": "no_notifications",
@@ -1417,19 +1417,19 @@
   },
   {
     "id": "report_msg",
-    "translation": "The torrent #%d has been reported!"
+    "translation": "种子 #%d 已被举报!"
   },
   {
     "id": "email_not_valid",
-    "translation": "Email Address is not valid!"
+    "translation": "电子邮件地址无效!"
   },
   {
     "id": "username_illegal",
-    "translation": "Username contains illegal characters!"
+    "translation": "用户名包含非法字符!"
   },
   {
     "id": "torrent_language",
-    "translation": "Torrent language"
+    "translation": "种子语言"
   },
   {
     "id": "language_en-us_name",
@@ -1509,11 +1509,11 @@
   },
   {
     "id": "language_zh-cn_name",
-    "translation": "Simplified Chinese"
+    "translation": "简体中文"
   },
   {
     "id": "language_zh-tw_name",
-    "translation": "Traditional Chinese"
+    "translation": "繁体中文"
   },
   {
     "id": "language_other_name",
@@ -1521,83 +1521,83 @@
   },
   {
     "id": "language_multiple_name",
-    "translation": "Multiple Languages"
+    "translation": "多种语言"
   },
   {
     "id": "activity_list",
-    "translation": "Activity List"
+    "translation": "活动列表"
   },
   {
     "id": "activities",
-    "translation": "Activities"
+    "translation": "活动的"
   },
   {
     "id": "filter",
-    "translation": "Filter"
+    "translation": "过滤器"
   },
   {
     "id": "error_min_length",
-    "translation": "Minimal length of %s required for the input: %s"
+    "translation": "最小长度 %s ，后面输入所要求的: %s"
   },
   {
     "id": "error_min_number",
-    "translation": "%s must be %s or greater"
+    "translation": "%s 必须是 %s 或更高"
   },
   {
     "id": "error_min_field",
-    "translation": "%s must be equal or greater to %s"
+    "translation": "%s 必须大于等于 %s"
   },
   {
     "id": "error_min_array",
-    "translation": "%s must contain at least %s items"
+    "translation": "%s 必须包含至少 %s 的项目"
   },
   {
     "id": "error_less_date",
-    "translation": "%s must be less than the current Date & Time"
+    "translation": "%s 必须在当前日期时间以前"
   },
   {
     "id": "error_less_array",
-    "translation": "%s must contain less than %s items"
+    "translation": "%s 必须少于 %s 的项目"
   },
   {
     "id": "error_less_length",
-    "translation": "%s must be less than %s in length"
+    "translation": "%s 长度必须小于 %s "
   },
   {
     "id": "error_less_number",
-    "translation": "%s must be less than %s"
+    "translation": "%s 必须小于 %s"
   },
   {
     "id": "error_less_equal_date",
-    "translation": "%s must be less than or equal to the current Date & Time"
+    "translation": "%s 必须小于等于当前日期以及时间"
   },
   {
     "id": "error_greater_date",
-    "translation": "%s must be greater than the current Date & Time"
+    "translation": "%s 必须在当前日期以及时间之后"
   },
   {
     "id": "error_greater_length",
-    "translation": "%s must be greater than %s in length"
+    "translation": "%s 长度必须大于 %s "
   },
   {
     "id": "error_greater_number",
-    "translation": "%s must be greater than %s"
+    "translation": "%s 必须大于 %s"
   },
   {
     "id": "error_greater_equal_date",
-    "translation": "%s must be greater than or equal to the current Date & Time"
+    "translation": "%s 大于等于当前时间"
   },
   {
     "id": "error_max_field",
-    "translation": "%s must be equal or less to %s"
+    "translation": "%s 必须小于等于 %s"
   },
   {
     "id": "error_max_length",
-    "translation": "Maximal length of %s required for the input: %s"
+    "translation": "最大长度只有 %s ， 后面输入所要求的: %s"
   },
   {
     "id": "error_max_number",
-    "translation": "%s must be %s or less"
+    "translation": "%s 必须是 %s 或更少"
   },
   {
     "id": "error_max_array",
@@ -1605,31 +1605,31 @@
   },
   {
     "id": "error_length",
-    "translation": "Length of %s required for the input: %s"
+    "translation": "长度要求 %s ， 后面输入所要求的: %s"
   },
   {
     "id": "error_equal",
-    "translation": "%s is not equal to %s"
+    "translation": "%s 和 %s 不匹配"
   },
   {
     "id": "error_same_value",
-    "translation": "Field '%s' must have the same value as the field '%s'"
+    "translation": " '%s' 必须和 '%s' 相同"
   },
   {
     "id": "error_field",
-    "translation": "Unexpected error on field: %s"
+    "translation": "出现意外错误: %s"
   },
   {
     "id": "error_not_equal",
-    "translation": "%s should not be equal to %s"
+    "translation": "%s 必须和 %s 不同"
   },
   {
     "id": "error_wrong_value",
-    "translation": "Wrong value for the input: %s"
+    "translation": "错误的输入值: %s"
   },
   {
     "id": "error_field_needed",
-    "translation": "Field needed: %s"
+    "translation": "缺少: %s"
   },
   {
     "id": "error_len_array",
@@ -2172,6 +2172,10 @@
     "translation": "Create Announcement"
   },
   {
+    "id": "related_to",
+    "translation": "Related to"
+  },
+  {
     "id": "expire",
     "translation": "Expire"
   },
@@ -2282,10 +2286,6 @@
   {
     "id": "upload_to",
     "translation": "Upload to %s"
-  },
-  {
-    "id": "upload_to_other",
-    "translation": "Upload to other websites"
   },
   {
     "id": "upload_to_other",
