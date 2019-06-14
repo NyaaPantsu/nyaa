@@ -1721,7 +1721,11 @@
   },
   {
     "id": "refine_search",
-    "translation": "Refine your search"
+    "translation": "细分你的搜索"
+  },
+  {
+    "id": "refine",
+    "translation": "细分"
   },
   {
     "id": "between",
@@ -1744,16 +1748,8 @@
     "translation": "Years"
   },
   {
-    "id": "refine",
-    "translation": "Refine"
-  },
-  {
     "id": "large",
     "translation": "large."
-  },
-  {
-    "id": "old",
-    "translation": "old"
   },
   {
     "id": "optional",
