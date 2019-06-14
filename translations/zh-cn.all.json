@@ -1120,6 +1120,14 @@
     "translation": "锁定"
   },
   {
+    "id": "unban",
+    "translation": "Unban"
+  },
+  {
+    "id": "ban",
+    "translation": "Ban"
+  },
+  {
     "id": "torrent_deleted_definitely",
     "translation": "该种子已从数据库中清除!"
   },
@@ -1162,6 +1170,10 @@
   {
     "id": "theme_none",
     "translation": "None"
+  },
+  {
+    "id": "themes_classic",
+    "translation": "nyaa.se (Beta)"
   },
   {
     "id": "upload_as_anon",
@@ -1388,6 +1400,18 @@
     "translation": "Mascot URL"
   },
   {
+    "id": "alternating_color",
+    "translation": "Alternating Color (and non-bold fonts)"
+  },
+  {
+    "id": "old_nav",
+    "translation": "Old Navigation"
+  },
+  {
+    "id": "old_nav_explanation",
+    "translation": "Shows main categories and page numbers at the top of the page during a search, just like nyaa.se."
+  },
+  {
     "id": "no_notifications",
     "translation": "No Notifications"
   },
@@ -1406,10 +1430,6 @@
   {
     "id": "torrent_language",
     "translation": "Torrent language"
-  },
-  {
-    "id": "language_not_mandatory",
-    "translation": "Language is not mandatory anymore"
   },
   {
     "id": "language_en-us_name",

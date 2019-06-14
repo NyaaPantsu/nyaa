@@ -1344,10 +1344,6 @@
     "translation": "Язык торрента"
   },
   {
-    "id": "language_not_mandatory",
-    "translation": "Язык уже не обязательно указывать"
-  },
-  {
     "id": "language_en-us_name",
     "translation": "Английский"
   },
