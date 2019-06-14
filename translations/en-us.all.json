@@ -992,7 +992,7 @@
     "translation": "User has been banned!"
   },
   {
-    "id": "user_banned",
+    "id": "user_unbanned",
     "translation": "User has been unbanned!"
   },
   {

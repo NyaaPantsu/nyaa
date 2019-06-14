@@ -984,8 +984,20 @@
     "translation": "Torrent #%d from %s has been locked by %s."
   },
   {
-    "id": "torrent_blocked_by",
+    "id": "torrent_unblocked_by",
     "translation": "Torrent #%d from %s has been unlocked by %s."
+  },
+  {
+    "id": "user_banned",
+    "translation": "User has been banned!"
+  },
+  {
+    "id": "user_unbanned",
+    "translation": "User has been unbanned!"
+  },
+  {
+    "id": "user_unbanned_by",
+    "translation": "User %s(%d) #%d has been unbanned by %s"
   },
   {
     "id": "torrents_deleted",
@@ -998,6 +1010,10 @@
   {
     "id": "delete_report",
     "translation": "Delete Report"
+  },
+  {
+    "id": "delete_all_reports",
+    "translation": "Delete all reports"
   },
   {
     "id": "comment_deleted",

@@ -992,7 +992,7 @@
     "translation": "ユーザーは BAN されました。"
   },
   {
-    "id": "user_banned",
+    "id": "user_unbanned",
     "translation": "ユーザーは BAN 解除されました。"
   },
   {
