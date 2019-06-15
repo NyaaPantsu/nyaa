@@ -1901,123 +1901,123 @@
   },
   {
     "id": "torrent_desc_invalid",
-    "translation": "Torrent description is invalid"
+    "translation": "种子描述无效"
   },
   {
     "id": "torrent_cat_invalid",
-    "translation": "Torrent category is invalid"
+    "translation": "种子分类无效"
   },
   {
     "id": "torrent_lang_invalid",
-    "translation": "Language sent is not yet supported! You can help supporting it by contributing in our github page"
+    "translation": "发送的语言尚不支持！ 您可以通过我们的Github来帮助支持它"
   },
   {
     "id": "torrent_cat_is_english",
-    "translation": "Torrent's category is for English translations, but language wasn't English. We changed it to english"
+    "translation": "种子的类别是英语翻译，但你选的语言不是英语。 我们已将它它改成了英语"
   },
   {
     "id": "torrent_cat_not_english",
-    "translation": "Torrent's category is for non-English translations, but language selected is only English"
+    "translation": "种子的类别适用于非英语翻译，但所选语言仅为英语"
   },
   {
     "id": "torrent_magnet_invalid",
-    "translation": "Magnet couldn't be parsed, please check it"
+    "translation": "磁力链无法解析，请检查"
   },
   {
     "id": "torrent_hash_invalid",
-    "translation": "Torrent hash is incorrect"
+    "translation": "种子哈希值不正确"
   },
   {
     "id": "torrent_plus_magnet",
-    "translation": "Upload either a torrent file or magnet link, not both"
+    "translation": "请单独上传一个种子文件或提供一个磁力链"
   },
   {
     "id": "torrent_file_invalid",
-    "translation": "Torrent File is invalid"
+    "translation": "种子文件无效"
   },
   {
     "id": "torrent_uri_invalid",
-    "translation": "Website url or IRC link is invalid"
+    "translation": "网址 IRC 连接无效"
   },
   {
     "id": "api_documentation",
-    "translation": "API documentation"
+    "translation": "API 文档"
   },
   {
     "id": "api_help",
-    "translation": "Do you have an api?"
+    "translation": "你有 api 么?"
   },
   {
     "id": "trusted",
-    "translation": "Torrents uploaded by trusted users."
+    "translation": "受信任用户上传的种子文件"
   },
   {
     "id": "reencodes",
-    "translation": "Re-encodes"
+    "translation": "重新编码"
   },
   {
     "id": "remux",
-    "translation": "Remux of another uploader's original release"
+    "translation": "重新封装其他上传者发布的版本"
   },
   {
     "id": "reupload",
-    "translation": "Reupload of another users torrent with missing and/or unrelated additional files."
+    "translation": "重新上载其他用户的种子文件，其中包含丢失 和/或 无关的附加文件。"
   },
   {
     "id": "red",
-    "translation": "Red entries are: "
+    "translation": "红色条目是: "
   },
   {
     "id": "green",
-    "translation": "Green entries are:"
+    "translation": "绿色条目是:"
   },
   {
     "id": "torrent_colors",
-    "translation": "Torrent colors"
+    "translation": "种子颜色"
   },
   {
     "id": "faq_ads",
-    "translation": "Why does pantsu has ads?"
+    "translation": "为什么pantsu有广告?"
   },
   {
     "id": "faq_ads_explanation",
-    "translation": "This is not a decision we make lightly, and we have thoroughly considered the objections raised by all of you, but ultimately we feel this is the only sustainable solution to fund Pantsu and ensure its continued operation.<br/>We have given much thought to possible funding sources, and no other options we have considered come close to being able to fund Pantsu.<br>After much thought, we have decided ads from a-ads is the best option for us and our users. These ads are simple and unobtrusive, in no way interfering with the experience of using the site, and do not include any form of tracking."
+    "translation": "这不是我们轻易做出的决定，我们已经彻底考虑了各位提出的异议，但最终我们认为这是为Pantsu提供资金并确保其持续运营的唯一可持续解决方案。<br/>我们已经考虑了不少可能的资金来源，我们认为没有其他选择能够为Pantsu提供资金。<br>经过深思熟虑后，我们认为a-ads的广告是我们和我们用户的最佳选择。 这些广告简单且不引人注目，绝不会干扰使用网站的体验，也不包含任何形式的跟踪。"
   },
   {
     "id": "torrent_preview",
-    "translation": "Preview your torrent"
+    "translation": "预览你的种子"
   },
   {
     "id": "announcement",
-    "translation": "Announcement"
+    "translation": "公告"
   },
   {
     "id": "create_anouncement_success",
-    "translation": "Announcement successfully created"
+    "translation": "公告成功创建"
   },
   {
     "id": "update_client_failed",
-    "translation": "Update of the client has failed!"
+    "translation": "客户端更新失败!"
   },
   {
     "id": "update_client_success",
-    "translation": "You have successfully updated the client!"
+    "translation": "您已成功更新客户端!"
   },
   {
     "id": "update_client_panel",
-    "translation": "Update a Client"
+    "translation": "升级一个客户端"
   },
   {
     "id": "create_client_success",
-    "translation": "You have successfully created the client!"
+    "translation": "您已成功创建客户端!"
   },
   {
     "id": "create_client_failed",
-    "translation": "Client creation has failed!"
+    "translation": "客户端创建失败!"
   },
   {
     "id": "create_client_panel",
-    "translation": "Create a new Client"
+    "translation": "新建一个客户端"
   },
   {
     "id": "redirect_uri",
@@ -2025,19 +2025,19 @@
   },
   {
     "id": "grant_types",
-    "translation": "Grant Types"
+    "translation": "准许类型"
   },
   {
     "id": "response_types",
-    "translation": "Response Types"
+    "translation": "响应类型"
   },
   {
     "id": "scope",
-    "translation": "Scopes"
+    "translation": "范围"
   },
   {
     "id": "owner",
-    "translation": "Owner"
+    "translation": "所有者"
   },
   {
     "id": "policy_uri",
@@ -2053,7 +2053,7 @@
   },
   {
     "id": "contacts",
-    "translation": "Owner Emails"
+    "translation": "所有者电子邮箱"
   },
   {
     "id": "oauth_clients_list",
@@ -2061,11 +2061,11 @@
   },
   {
     "id": "add",
-    "translation": "Add"
+    "translation": "添加"
   },
   {
     "id": "remove",
-    "translation": "Remove"
+    "translation": "移除"
   },
   {
     "id": "close",
@@ -2073,39 +2073,39 @@
   },
   {
     "id": "secret",
-    "translation": "Client Secret"
+    "translation": "客户端密钥"
   },
   {
     "id": "torrent_age",
-    "translation": "{1} days {2} hours ago"
+    "translation": "{1} 天 {2} 小时"
   },
   {
     "id": "tag",
-    "translation": "Tag"
+    "translation": "标签"
   },
   {
     "id": "torrent_tags",
-    "translation": "Tags"
+    "translation": "标签"
   },
   {
     "id": "wrong_tag_type",
-    "translation": "The tag type selected doesn't exist"
+    "translation": "选择的标签种类不存在"
   },
   {
     "id": "add_tag",
-    "translation": "Add a Tag"
+    "translation": "增加一个标签"
   },
   {
     "id": "tagtype",
-    "translation": "Tag Type"
+    "translation": "标签种类"
   },
   {
     "id": "accepted_tags",
-    "translation": "Accepted Tags"
+    "translation": "接受的标签"
   },
   {
     "id": "recommended_tags",
-    "translation": "Recommended Tags"
+    "translation": "推荐标签"
   },
   {
     "id": "tagtype_anidbid",
@@ -2129,11 +2129,11 @@
   },
   {
     "id": "tagtype_tags",
-    "translation": "Descriptive Tags"
+    "translation": "描述性标签"
   },
   {
     "id": "tagvalue_select",
-    "translation": "Select..."
+    "translation": "选择..."
   },
   {
     "id": "tagvalue_full_hd",
@@ -2149,15 +2149,15 @@
   },
   {
     "id": "tagvalue_bluray",
-    "translation": "Bluray"
+    "translation": "蓝光"
   },
   {
     "id": "announcements",
-    "translation": "Announcements"
+    "translation": "公告"
   },
   {
     "id": "message",
-    "translation": "Message"
+    "translation": "消息"
   },
   {
     "id": "duration",
@@ -2165,35 +2165,35 @@
   },
   {
     "id": "update_annoucement_panel",
-    "translation": "Update Announcement"
+    "translation": "更新公告"
   },
   {
     "id": "create_annoucement_panel",
-    "translation": "Create Announcement"
+    "translation": "创建公告"
   },
   {
     "id": "related_to",
-    "translation": "Related to"
+    "translation": "关联到"
   },
   {
     "id": "expire",
-    "translation": "Expire"
+    "translation": "到期"
   },
   {
     "id": "complement",
-    "translation": "Complement"
+    "translation": "完成"
   },
   {
     "id": "from",
-    "translation": "From"
+    "translation": "来自"
   },
   {
     "id": "to",
-    "translation": "to"
+    "translation": "收件人"
   },
   {
     "id": "feed_types",
-    "translation": "Feed Types: RSS(feed), RSS With Magnet Links(magnet), Torznab Spec(torznab), EZTV Spec(eztv)"
+    "translation": "摘要种类: 订阅(摘要), 订阅磁力链接(magnet), Torznab Spec(torznab), EZTV Spec(eztv)"
   },
   {
     "id": "append_query",
@@ -2201,27 +2201,27 @@
   },
   {
     "id": "cookie_warning",
-    "translation": "By using this website, you agree to the usage of cookies for purposes such as customizing content.<br/>This message will be hidden at the next page load."
+    "translation": "你需要同意本网站使用Cookies用于可设置项等功能<br/>此消息将在下一页加载时隐藏"
   },
   {
     "id": "pending_torrent",
-    "translation": "Be patient, the torrent file is being generated. Try again in a few seconds."
+    "translation": "请耐心等待，正在生成种子文件。 几秒钟后再试一次。"
   },
   {
     "id": "generating_torrent",
-    "translation": "Generating torrent file..."
+    "translation": "正在生成种子文件..."
   },
   {
     "id": "generating_torrent_failed",
-    "translation": "Could not generate torrent file"
+    "translation": "无法生成种子文件"
   },
   {
     "id": "enabled",
-    "translation": "Enabled"
+    "translation": "启用"
   },
   {
     "id": "disabled",
-    "translation": "Disabled"
+    "translation": "禁用"
   },
   {
     "id": "reset_api_key",
@@ -2229,11 +2229,11 @@
   },
   {
     "id": "tag_error",
-    "translation": "Couldn't add a tag, please check your internet connection and that all fields are filled."
+    "translation": "无法添加标签，请检查您的互联网连接，并填写所有字段"
   },
   {
     "id": "search_from_user",
-    "translation": "Search from this user..."
+    "translation": "从此用户搜索..."
   },
   {
     "id": "usersearch_user_not_found",
