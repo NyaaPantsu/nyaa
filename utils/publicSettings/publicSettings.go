@@ -4,10 +4,10 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
+	"net/http"
 	"path"
 	"path/filepath"
 	"strings"
-	"net/http"
 
 	"sort"
 
@@ -257,7 +257,7 @@ func GetEUCookieFromRequest(c *gin.Context) bool {
 		//Cookie exists, everything good
 	}
 
-	http.SetCookie(c.Writer, &http.Cookie{Name: "EU_Cookie", Value: "true", Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})	
+	http.SetCookie(c.Writer, &http.Cookie{Name: "EU_Cookie", Value: "true", Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})
 	return false
 	//Cookie doesn't exist, we create it to prevent the message from popping up anymore after that and return false
 }
@@ -287,8 +287,16 @@ func (lang *Language) Translate(languageCode template.HTML) string {
 
 // Translate accepts a languageCode in string and translate the language to the language from the language code in to
 func Translate(languageCode string, to string) string {
+	_, err := glang.Parse(to)
+	if err != nil {
+		return ""
+	}
 	langTranslate := display.Tags(GetParentTag(to))
-	translated := langTranslate.Name(glang.Make(languageCode))
+	langFrom, err := glang.Parse(languageCode)
+	if err != nil {
+		return ""
+	}
+	translated := langTranslate.Name(langFrom)
 	if translated == "Root" {
 		return ""
 	}

@@ -1,11 +1,12 @@
 language: go
 go:
-- tip
+- 1.12.x
+env:
+  - GO111MODULE=on
 gobuild_args: -x -ldflags "-X main.buildversion=$(git rev-parse HEAD)"
 before_install:
 - sudo apt-get install gcc-mingw-w64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 binutils-mingw-w64-i686
   binutils-mingw-w64-x86-64 ansible
-- go get -u github.com/tools/godep
 - go get github.com/go-playground/overalls
 - go get golang.org/x/tools/cmd/cover
 - go get github.com/mattn/goveralls
@@ -13,13 +14,11 @@ before_install:
 - go get github.com/anacrolix/torrent
 before_script:
 - go vet
+script:
 - go test -v ./...
 after_success:
 - overalls -project=github.com/NyaaPantsu/nyaa -covermode=count -debug
 - goveralls -coverprofile="overalls.coverprofile" -service=travis-ci
-install:
-- export GOPATH="${TRAVIS_BUILD_DIR}/vendor:$GOPATH"
-- export PATH="${TRAVIS_BUILD_DIR}/Godeps/_workspace/bin:$PATH"
 before_deploy:
 - "./package.sh"
 deploy:

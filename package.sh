@@ -15,7 +15,7 @@ for i in "${OSes[@]}"; do
 	cc=${arr[1]}
 	rm -f nyaa nyaa.exe
 	echo -e "\nBuilding $os..."
-	echo GOOS=$os GOARCH=amd64 CC=$cc CGO_ENABLED=1 go build -v -ldflags="-X main.buildversion=`git rev-parse HEAD`"
-	GOOS=$os GOARCH=amd64 CC=$cc CGO_ENABLED=1 go build -v -ldflags="-X main.buildversion=$(git rev-parse HEAD)"
+	echo GOOS=$os GOARCH=amd64 CC=$cc CGO_ENABLED=1 GO111MODULE=on go build -v -ldflags="-X main.buildversion=`git rev-parse HEAD`"
+	GOOS=$os GOARCH=amd64 CC=$cc CGO_ENABLED=1 GO111MODULE=on go build -v -ldflags="-X main.buildversion=$(git rev-parse HEAD)"
 	zip -9 -r dist/nyaa-${version}_${os}_amd64.zip os public templates service/user/locale *.md nyaa nyaa.exe
 done

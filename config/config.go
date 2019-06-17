@@ -8,7 +8,7 @@ import (
 	"fmt"
 
 	"github.com/jinzhu/configor"
-	yaml "gopkg.in/yaml.v2"
+	yaml "github.com/go-yaml/yaml"
 )
 
 var config *Config

@@ -3,7 +3,6 @@ package upload
 import (
 	"fmt"
 	"os"
-	"strconv"
 	"strings"
 	"time"
 
@@ -20,11 +19,9 @@ var queue []string
 var client *torrent.Client
 
 func initClient() error {
-	clientConfig := torrent.Config{
-		DHTConfig: dht.ServerConfig{
-			StartingNodes: dht.GlobalBootstrapAddrs,
-		},
-		ListenAddr: ":" + strconv.Itoa(config.Get().Torrents.GenerationClientPort),
+	clientConfig := torrent.ClientConfig{
+		DhtStartingNodes: dht.GlobalBootstrapAddrs,
+		ListenPort: config.Get().Torrents.GenerationClientPort,
 	}
 	cl, err := torrent.NewClient(&clientConfig)
 	if err != nil {
