@@ -58,7 +58,7 @@ func FilterOrCreate(tag *models.Tag, torrent *models.Torrent, currentUser *model
 		// We only add the tag
 		_, err := New(tag, torrent)
 		if err != nil {
-			log.CheckErrorWithMessage(err, "TAG_NOT_CREATED: Couldn't create tag: %s")
+			log.CheckErrorWithMessage(err, "TAG_NOT_CREATED: Couldn't create tag")
 			return false
 		}
 		return true
@@ -158,10 +158,10 @@ func callbackOnType(tag *models.Tag, torrent *models.Torrent) {
 
 func trimNonNumbers(source string) string {
 	output := ""
-	
+
 	for i := 0; i < len(source); i++ {
 		if source[i] < 58 {
-			output += source[i:i+1]
+			output += source[i : i+1]
 		}
 	}
 	return output
