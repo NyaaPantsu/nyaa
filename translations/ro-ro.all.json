@@ -1328,10 +1328,6 @@
     "translation": "Torrent language"
   },
   {
-    "id": "language_not_mandatory",
-    "translation": "Language is not mandatory anymore"
-  },
-  {
     "id": "language_en-us_name",
     "translation": "English"
   },
@@ -1652,10 +1648,6 @@
     "translation": "large."
   },
   {
-    "id": "old",
-    "translation": "old"
-  },
-  {
     "id": "optional",
     "translation": "Optional"
   },
@@ -1972,8 +1964,8 @@
     "translation": "Message"
   },
   {
-    "id": "delay",
-    "translation": "Delay"
+    "id": "duration",
+    "translation": "Duration (Hours)"
   },
   {
     "id": "update_annoucement_panel",

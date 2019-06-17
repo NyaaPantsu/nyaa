@@ -992,7 +992,7 @@
     "translation": "User has been banned!"
   },
   {
-    "id": "user_banned",
+    "id": "user_unbanned",
     "translation": "User has been unbanned!"
   },
   {
@@ -2286,10 +2286,6 @@
   {
     "id": "upload_to",
     "translation": "Upload to %s"
-  },
-  {
-    "id": "upload_to_other",
-    "translation": "Upload to other websites"
   },
   {
     "id": "upload_to_other",

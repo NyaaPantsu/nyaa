@@ -1,23 +1,31 @@
 [
   {
+    "id": "read_rules",
+    "translation": "請在上傳前閱讀<a href=\"/faq#rules\">規章制度</a>"
+  },
+  {
     "id": "rules",
-      "translation": "Rules"
+      "translation": "規則"
   },
   {
     "id": "no_cp",
-      "translation": "No child pornography (lolicon doesn't count)"
+      "translation": "禁止兒童色情(蘿莉控不算在內)"
   },
   {
     "id": "asia",
-      "translation": "Asian related content only (no Western Movies, no Cartoon)"
+      "translation": "僅限亞洲相關內容（無外國電影，無卡通）"
   },
   {
     "id": "rules_spam",
-    "translation": "No spam"
+    "translation": "禁止發佈垃圾信息"
   },
   {
     "id": "rules_sukebei",
-    "translation": "NSFW content belongs in sukebei.pantsu.cat"
+    "translation": "不適合在工作場合出現的內容請發表在 sukebei.pantsu.cat"
+  },
+  {
+    "id": "rule_tracker_url",
+    "translation": "官方 announce URL <span style='font-weight: bold;'>https://uw0.xyz/</span>"
   },
   {
     "id": "verify_email_title",
@@ -81,7 +89,7 @@
   },
   {
     "id": "terms_conditions_full",
-    "translation": "一些扯淡"
+    "translation": "<h2> NyaaPantsu條款和條件</ h2> <h3> 1。條款</ h3> <p>訪問<a href='https://pantsu.cat'> https://pantsu.cat </a>網站，即表示您同意遵守這些服務條款、適用的法律和法規，以及任何適用的當地法律。如果您不同意這些條款，將禁止您使用和訪問本網站。本網站包含的內容受適用的版權和商標法保護。</ p> <h3> 2。免責聲明</ h3> <ol type ='a'> <li> NyaaPantsu Lda網站上的內容按“原樣”提供。 NyaaPantsu Lda不做任何明示或暗示的保證，特此聲明並否認所有其他保證，包括但不限於適銷性，適用於特定用途或不侵犯知識產權或其他侵權行為的暗示保證或條件。 / li> <li>此外，NyaaPantsu Lda不保證或就材料在其網站上使用的準確性，可能的結果或可靠性或與此類材料或與本網站鏈接的任何網站有關的任何陳述。 </ LI> </醇> <H3> 3。限制</ h3> <p>在任何情況下，NyaaPantsu Lda或其供應商均不對因使用或無法造成的任何損害（包括但不限於因數據或利潤損失或業務中斷而造成的損害）承擔責任。使用NyaaPantsu Lda網站上的資料，即使NyaaPantsu Lda或NyaaPantsu Lda授權代表已經口頭或書面通知可能存在此類損害。由於某些司法管轄區不允許對隱含擔保或對間接或附帶損害的責任限制進行限制，因此這些限制可能對您不適用。</ p> <h3> 4。材料的準確性</ h3> <p> NyaaPantsu Lda網站上出現的資料可能包括技術，印刷或照片錯誤。 NyaaPantsu Lda不保證其網站上的任何材料準確，完整或最新。 NyaaPantsu Lda可能隨時更改其網站上的資料，恕不另行通知。但是，NyaaPantsu Lda不承諾更新材料。</ p> <h3> 5。鏈接</ h3> <p> NyaaPantsu Lda沒有審查鏈接到其網站的所有網站，也不對任何此類鏈接網站的內容負責。包含任何鏈接並不意味著NyaaPantsu Lda對該網站的認可。使用任何此類鏈接網站的風險由用戶自行承擔。</ p> <h3> 6。修改</ h3> <p> NyaaPantsu Lda可隨時修改其網站的這些服務條款，恕不另行通知。使用本網站即表示您同意接受當時這些服務條款的約束。</ p> <h3> 7。適用法律</ h3> <p>這些條款和條件受葡萄牙法律管轄並依據葡萄牙法律解釋，並且您不可撤銷地服從該州或地區法院的專屬管轄權。</ p>"
   },
   {
     "id": "remember_me",
@@ -130,6 +138,10 @@
   {
     "id": "torrents",
     "translation": "種子種子"
+  },
+  {
+    "id": "followers",
+    "translation": "追隨者"
   },
   {
     "id": "follow",
@@ -197,7 +209,11 @@
   },
   {
     "id": "err_no_results",
-    "translation": "No results found"
+    "translation": "沒有查詢到結果"
+  },
+  {
+    "id": "err_no_torrent_file",
+    "translation": "未找到種子文件"
   },
   {
     "id": "upload",
@@ -225,11 +241,11 @@
   },
   {
     "id": "500_internal_server_error",
-    "translation": "500 Internal Server Error"
+    "translation": "500 內部服務器錯誤"
   },
   {
     "id": "400_bad_request",
-    "translation": "400 Bad Request"
+    "translation": "400 錯誤的請求"
   },
   {
     "id": "no_torrents_uploaded",
@@ -481,39 +497,39 @@
   },
   {
     "id": "art",
-    "translation": "Art"
+    "translation": "二次元"
   },
   {
     "id": "art_anime",
-    "translation": "Art - Anime"
+    "translation": "二次元 - 動畫"
   },
   {
     "id": "art_doujinshi",
-    "translation": "Art - Doujinshi"
+    "translation": "二次元 - 同人"
   },
   {
     "id": "art_games",
-    "translation": "Art - Games"
+    "translation": "二次元 - 遊戲"
   },
   {
     "id": "art_manga",
-    "translation": "Art - Manga"
+    "translation": "二次元 - 漫畫"
   },
   {
     "id": "art_pictures",
-    "translation": "Art - Pictures"
+    "translation": "二次元 - 圖片"
   },
   {
     "id": "real_life",
-    "translation": "Real Life"
+    "translation": "三次元"
   },
   {
     "id": "real_life_photobooks_and_pictures",
-    "translation": "Real Life - Photobooks and Pictures"
+    "translation": "三次元 - 寫真集/圖包"
   },
   {
     "id": "real_life_videos",
-    "translation": "Real Life - Videos"
+    "translation": "三次元 - 視訊"
   },
   {
     "id": "torrent_description",
@@ -524,12 +540,16 @@
     "translation": "描述可使用 Markdown 語法"
   },
   {
+    "id": "comment_markdown_notice",
+    "translation": "評論中可以使用 Markdown"
+  },
+  {
     "id": "show_all",
     "translation": "列出全部"
   },
   {
     "id": "delete_all",
-    "translation": "Delete all"
+    "translation": "刪除所有"
   },
   {
     "id": "filter_remakes",
@@ -568,6 +588,10 @@
     "translation": "以匿名留言"
   },
   {
+    "id": "torrent_no_comments",
+    "translation": "還沒人進行評論"
+  },
+  {
     "id": "submit",
     "translation": "送出"
   },
@@ -584,6 +608,10 @@
     "translation": "目前密碼"
   },
   {
+    "id": "default",
+    "translation": "預設值"
+  },
+  {
     "id": "role",
     "translation": "角色"
   },
@@ -592,20 +620,24 @@
     "translation": "帳號已被停用"
   },
   {
-    "id": "default",
-    "translation": "預設值"
-  },
-  {
     "id": "userstatus_trusted",
     "translation": "受信任會員"
   },
   {
     "id": "userstatus_scraped",
-    "translation": "Scraped user"
+    "translation": "被刪除的用戶"
   },
   {
     "id": "userstatus_moderator",
     "translation": "管理員"
+  },
+  {
+    "id": "userstatus_janitor",
+    "translation": "管理人"
+  },
+ {
+    "id": "userstatus_uploader",
+    "translation": "上傳者"
   },
   {
     "id": "api_token",
@@ -637,23 +669,23 @@
   },
   {
     "id": "extensions_and_plugins",
-    "translation": "Extensions and Plugins (made by third-party developers)"
+    "translation": "擴展和插件(第三方開發者提供)"
   },
   {
     "id": "qbittorrent_plugin",
-    "translation": "qBittorrent Plugin"
+    "translation": "qBittorrent插件"
   },
   {
     "id": "local_client",
-    "translation": "Local Client"
+    "translation": "本地客戶端"
   },
   {
     "id": "chrome_extension",
-    "translation": "Chrome Extension"
+    "translation": "Chrome擴展"
   },
   {
     "id": "firefox_extension",
-    "translation": "Firefox Extension"
+    "translation": "Firefox擴展"
   },
   {
     "id": "android_app",
@@ -725,379 +757,439 @@
   },
   {
     "id": "website_link",
-    "translation": "Website Link"
+    "translation": "網址"
   },
   {
     "id": "files",
-    "translation": "Files"
+    "translation": "文件"
   },
   {
     "id": "no_files",
-    "translation": "No files found? That doesn't even make sense!"
+    "translation": "找不到文件? 這沒有意義!"
   },
   {
     "id": "uploaded_by",
-    "translation": "Uploaded by"
+    "translation": "上傳者"
   },
   {
     "id": "report_btn",
-    "translation": "Report"
+    "translation": "舉報!"
   },
   {
     "id": "are_you_sure",
-    "translation": "Are you sure?"
+    "translation": "真的要刪除嗎?"
   },
   {
     "id": "report_torrent_number",
-    "translation": "Report Torrent #%d"
+    "translation": "舉報種子 #%d"
   },
   {
     "id": "report_type",
-    "translation": "Report type"
+    "translation": "舉報理由"
+  },
+  {
+    "id": "report_message",
+    "translation": "舉報留言"
   },
   {
     "id": "illegal_content",
-    "translation": "Illegal content"
+    "translation": "內容錯誤"
   },
   {
     "id": "spam_garbage",
-    "translation": "Spam / Garbage"
+    "translation": "病毒 / 垃圾數據"
   },
   {
     "id": "wrong_category",
-    "translation": "Wrong category"
+    "translation": "分類錯誤"
   },
   {
     "id": "duplicate_deprecated",
-    "translation": "Duplicate / Deprecated"
+    "translation": "資源重複 / 低質量"
+  },
+  {
+    "id": "nsfw_content",
+    "translation": "不適合在工作場合出現的內容"
+  },
+  {
+    "id": "other",
+    "translation": "其它"
   },
   {
     "id": "captcha",
-    "translation": "Captcha"
+    "translation": "驗證碼"
   },
   {
     "id": "captcha_audio",
-    "translation": "Captcha Audio"
+    "translation": "播放驗證碼"
   },
   {
     "id": "file_name",
-    "translation": "File Name"
+    "translation": "文件名"
   },
   {
     "id": "cancel",
-    "translation": "Cancel"
+    "translation": "取消"
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "Please include udp://tracker.uw0.xyz:6969 in your trackers."
+    "translation": "請把我們的tracker： udp://tracker.uw0.xyz:6969 添加到你的tracker列表裡."
   },
   {
     "id": "unknown",
-    "translation": "Unknown"
+    "translation": "未知"
   },
   {
     "id": "last_scraped",
-    "translation": "Last scraped: "
+    "translation": "最後完成時間: "
   },
   {
     "id": "server_status_link",
-    "translation": "Server status can be found here"
+    "translation": "服務器狀態可以在這裡查到"
   },
   {
     "id": "no_database_dumps_available",
-    "translation": "No database dumps are available at this moment."
+    "translation": "目前沒有任何的數據庫備份可用."
   },
   {
     "id": "clear_notifications",
-    "translation": "Clear Notifications"
+    "translation": "清除已讀提醒"
+  },
+  {
+    "id": "clear_all_notifications",
+    "translation": "清除所有提醒"
+  },
+  {
+    "id": "mark_notifications_as_read",
+    "translation": "標記所有提醒已讀"
   },
   {
     "id": "notifications_cleared",
-    "translation": "Notifications erased!"
+    "translation": "已清除提醒!"
+  },
+  {
+    "id": "read_notifications_cleared",
+    "translation": "已清除已讀提醒"
+  },
+  {
+    "id": "notifications_read",
+    "translation": "所有提醒已標記為已讀!"
   },
   {
     "id": "my_notifications",
-    "translation": "My Notifications"
+    "translation": "我的提醒"
   },
   {
     "id": "new_torrent_uploaded",
-    "translation": "New torrent: \"%s\" from %s"
+    "translation": "新的資源: \"%s\" 來自 %s"
   },
   {
     "id": "torrent_uploaded",
     "translation": "torrent uploaded successfully!"
   },
   {
+    "id": "torrent_uploaded_locked",
+    "translation": "你的種子已上傳，由於你被封禁，種子已鎖定"
+  },
+  {
     "id": "preferences",
-    "translation": "Preferences"
+    "translation": "偏好設置"
   },
   {
     "id": "new_torrent_settings",
-    "translation": "Be notified when a new torrent is added from a user followed"
+    "translation": "當我關注的人上傳了新的資源時，請提醒我"
   },
   {
     "id": "new_torrent_email_settings",
-    "translation": "Be notified by e-mail when a new torrent is added from a user followed"
+    "translation": "當我關注的人上傳了新的資源時，請通過郵件提醒我"
   },
   {
     "id": "new_comment_settings",
-    "translation": "Be notified when there is a new comment on your torrents"
+    "translation": "當有人評論了我的資源時，請提醒我"
   },
   {
     "id": "new_comment_email_settings",
-    "translation": "Be notified by e-mail when there is a new comment on your torrents"
+    "translation": "當有人評論了我的資源時，請通過郵件提醒我"
   },
   {
     "id": "new_responses_settings",
-    "translation": "Be notified when there is a new response to your comment"
+    "translation": "當有人回覆了我的評論時，請提醒我"
   },
   {
     "id": "new_responses_email_settings",
-    "translation": "Be notified by e-mail when there is a new response to your comment"
+    "translation": "當有人回覆了我的評論時，請通過郵件提醒我"
   },
   {
     "id": "new_follower_settings",
-    "translation": "Be notified when you have a new follower"
+    "translation": "當有人關注我時，請提醒我"
   },
   {
     "id": "new_follower_email_settings",
-    "translation": "Be notified by e-mail when you have a new follower"
+    "translation": "當有人關注我時，請通過郵件提醒我"
   },
   {
     "id": "followed_settings",
-    "translation": "Be notified when you have followed someone"
+    "translation": "當我關注了某人時，請提醒我"
   },
   {
     "id": "followed_email_settings",
-    "translation": "Be notified by e-mail when you have followed someone"
+    "translation": "當我關注了某人時，請通過郵件提醒我"
   },
   {
     "id": "yes",
-    "translation": "Yes"
+    "translation": "是"
   },
   {
     "id": "no",
-    "translation": "No"
+    "translation": "否"
   },
   {
     "id": "new_comment_on_torrent",
-    "translation": "New comment on torrent: \"%s\""
+    "translation": "有人評論了您的資源: \"%s\""
   },
   {
     "id": "no_action_selected",
-    "translation": "You have to tell what you want to do with your selection!"
+    "translation": "你不選點什麼，我怎麼知道你要幹什麼!"
   },
   {
     "id": "no_move_location_selected",
-    "translation": "Thou has't to telleth whither thee wanteth to moveth thy selection!"
+    "translation": "你不選點什麼，我怎麼知道你要移動什麼！"
   },
   {
     "id": "select_one_element",
-    "translation": "You need to select at least 1 element!"
+    "translation": "你至少應該選擇一個項目!"
   },
   {
     "id": "torrent_moved",
-    "translation": "Torrent %s moved!"
+    "translation": "種子 %s 已被移動!"
   },
   {
     "id": "no_status_exist",
-    "translation": "No such status %d exist!"
+    "translation": "狀態 %s 不存在!"
   },
   {
     "id": "torrent_deleted",
-    "translation": "Torrent %s deleted!"
+    "translation": "種子 %s 已被刪除!"
   },
   {
     "id": "torrent_deleted_by",
-    "translation": "Torrent #%d from %s has been deleted by %s."
+    "translation": "來自 %s 的種子 #%d 被 %s 刪除"
   },
   {
     "id": "torrent_edited_by",
-    "translation": "Torrent #%d from %s has been edited by %s."
+    "translation": "來自 %s 的種子 #%d 被 %s 編輯"
   },
   {
     "id": "torrent_blocked_by",
-    "translation": "Torrent #%d from %s has been locked by %s."
+    "translation": "來自 %s 的種子 #%d 被 %s 鎖定"
   },
   {
-    "id": "torrent_blocked_by",
-    "translation": "Torrent #%d from %s has been unlocked by %s."
+    "id": "torrent_unblocked_by",
+    "translation": "來自 %s 的種子 #%d 被 %s 解鎖"
+  },
+  {
+    "id": "user_banned",
+    "translation": "用戶被封禁!"
+  },
+  {
+    "id": "user_unbanned",
+    "translation": "用戶被解封!"
+  },
+  {
+    "id": "user_unbanned_by",
+    "translation": "用戶 %s(%d) #%d 被 %s 解封"
   },
   {
     "id": "torrents_deleted",
-    "translation": "Torrents Deleted"
+    "translation": "種子已刪除"
   },
   {
     "id": "delete_torrent",
-    "translation": "Delete Torrent"
+    "translation": "刪除種子"
   },
   {
     "id": "delete_report",
-    "translation": "Delete Report"
+    "translation": "刪除報告"
+  },
+  {
+    "id": "delete_all_reports",
+    "translation": "刪除所有報告"
   },
   {
     "id": "comment_deleted",
-    "translation": "Comment has been deleted!"
+    "translation": "評論被刪除!"
   },
   {
     "id": "comment_deleted_by",
-    "translation": "Comment #%d from %s has been deleted by %s."
+    "translation": "來自 %s 的評論 #%d 被 %s 刪除"
   },
   {
     "id": "comment_edited_by",
-    "translation": "Comment #%d from %s has been edited by %s."
+    "translation": "來自 %s 的評論 #%d 被 %s 編輯"
   },
   {
     "id": "oauth_client_deleted",
-    "translation": "Oauth API Client has been deleted!"
+    "translation": "Oauth API Client 已經刪除!"
   },
   {
     "id": "oauth_client_deleted_by",
-    "translation": "Oauth API Client #%s from %s has been deleted by %s."
+    "translation": "Oauth API Client #%s from %s 被 %s 刪除"
   },
   {
     "id": "no_action_exist",
-    "translation": "No such action %s exist!"
+    "translation": "操作 %s 不存在!"
   },
   {
     "id": "torrent_not_exist",
-    "translation": "Torrent with ID %d doesn't exist!"
+    "translation": "不存在ID為 %s 種子!"
   },
   {
     "id": "something_went_wrong",
-    "translation": "Something went wrong"
+    "translation": "不知道出了什麼鬼問題"
   },
   {
     "id": "nb_torrents_updated",
-    "translation": "%d torrents updated."
+    "translation": "種子 %d 已更新."
   },
   {
     "id": "torrent_updated",
-    "translation": "Torrent details updated."
+    "translation": "種子詳細信息已更新."
   },
   {
     "id": "fail_torrent_update",
-    "translation": "Failed to update torrent!"
+    "translation": "更新種子信息失敗!"
   },
   {
     "id": "bad_captcha",
-    "translation": "Bad captcha!"
+    "translation": "驗證碼輸入錯誤!"
   },
   {
     "id": "comment_empty",
-    "translation": "Comment empty!"
+    "translation": "空的評論!"
   },
   {
     "id": "no_owner_selected",
-    "translation": "New torrent owner is needed!"
+    "translation": "種子需要新的主人!"
   },
   {
     "id": "no_category_selected",
-    "translation": "No category selected!"
+    "translation": "未選擇任何分類!"
   },
   {
     "id": "no_user_found_id",
-    "translation": "User with id %d isn't in the database!"
+    "translation": "不存在ID為 %d 的用戶!"
   },
   {
     "id": "invalid_torrent_category",
-    "translation": "Torrent category doesn't exist!"
+    "translation": "不存在的資源分類!"
   },
   {
     "id": "torrent_owner_changed",
-    "translation": "Owner of torrent \"%s\" has been successfully changed!"
+    "translation": "種子 \"%s\" 的所有者已改變!"
   },
   {
     "id": "torrent_category_changed",
-    "translation": "Category of torrent \"%s\" has been changed!"
+    "translation": "種子 \"%s\" 的分類已改變!"
   },
   {
     "id": "torrent_reports_deleted",
-    "translation": "Reports of torrent \"%s\" were deleted!"
+    "translation": "種子 \"%s\" 的舉報信息已被刪除!"
   },
   {
     "id": "edit",
-    "translation": "Edit"
+    "translation": "編輯"
   },
   {
     "id": "lock_delete",
-    "translation": "Lock & Delete"
+    "translation": "鎖定 & 刪除"
   },
   {
     "id": "delete_definitely_torrent_warning",
-    "translation": "You will not be able to recover the file, neither stop someone to reupload it!"
+    "translation": "你將無法恢復文件，並且也無法阻止有人重新上傳!"
   },
   {
     "id": "delete_definitely",
-    "translation": "Delete definitely"
+    "translation": "確認刪除"
   },
   {
     "id": "torrent_unblock",
-    "translation": "Unlock"
+    "translation": "解鎖"
   },
   {
     "id": "torrent_block",
-    "translation": "Lock"
+    "translation": "鎖定"
+  },
+  {
+    "id": "unban",
+    "translation": "解封"
+  },
+  {
+    "id": "ban",
+    "translation": "封禁"
   },
   {
     "id": "torrent_deleted_definitely",
-    "translation": "Torrent has been erased from the database!"
+    "translation": "該種子已從數據庫中清除!"
   },
   {
     "id": "torrent_not_deleted",
-    "translation": "Torrent was not deleted"
+    "translation": "種子沒有被刪除"
   },
   {
     "id": "torrent_unblocked",
-    "translation": "Torrent has been unlocked!"
+    "translation": "種子已解鎖!"
   },
   {
     "id": "torrent_blocked",
-    "translation": "Torrent has been locked!"
+    "translation": "種子已鎖定!"
   },
   {
     "id": "torrent_nav_notdeleted",
-    "translation": "Torrents not deleted"
+    "translation": "這些種子沒有被刪除"
   },
   {
     "id": "torrent_nav_deleted",
-    "translation": "Torrents deleted"
+    "translation": "這些種子已被刪除"
   },
   {
     "id": "change_settings",
-    "translation": "Change Appearance/Language"
+    "translation": "更換 界面/語言"
   },
   {
     "id": "mascot",
-    "translation": "Mascot"
+    "translation": "吉祥物"
   },
   {
     "id": "theme",
-    "translation": "Theme"
+    "translation": "主題"
   },
   {
     "id": "theme_select",
-    "translation": "Select a Theme"
+    "translation": "選擇一個主題"
   },
   {
     "id": "theme_none",
     "translation": "None"
   },
   {
+    "id": "themes_classic",
+    "translation": "nyaa.se (Beta)"
+  },
+  {
     "id": "upload_as_anon",
-    "translation": "Upload Anonymously"
+    "translation": "匿名上傳"
   },
   {
     "id": "cookies",
-    "translation": "By clicking save, you consent to our use of cookies"
+    "translation": "點擊“保存”，即表示您同意我們使用cookies"
   },
   {
     "id": "show",
-    "translation": "Show"
+    "translation": "顯示"
   },
   {
     "id": "hide",
-    "translation": "Hide"
+    "translation": "隱藏"
   },
   {
     "id": "nyaa_pantsu",
@@ -1105,7 +1197,7 @@
   },
   {
     "id": "users",
-    "translation": "Users"
+    "translation": "用戶"
   },
   {
     "id": "torrent_reports",
@@ -1121,27 +1213,27 @@
   },
   {
     "id": "following_changes_applied",
-    "translation": "Following changes will be applied"
+    "translation": "將應用以下更改"
   },
   {
     "id": "changes_in_following_order",
-    "translation": "Changes will be made in the following order:"
+    "translation": "將按以下順序進行更改:"
   },
   {
     "id": "edit_changes",
-    "translation": "Edit Changes"
+    "translation": "編輯修改"
   },
   {
     "id": "delete_changes",
-    "translation": "Delete Changes"
+    "translation": "刪除修改"
   },
   {
     "id": "owner_id_placeholder",
-    "translation": "New Owner"
+    "translation": "新所有者"
   },
   {
     "id": "try_new_attempt",
-    "translation": "Trying a new attempt..."
+    "translation": "進行新的嘗試..."
   },
   {
     "id": "query_is_broken",
@@ -1149,19 +1241,19 @@
   },
   {
     "id": "query_executed_success",
-    "translation": "Query executed with success!"
+    "translation": "Query 執行成功!"
   },
   {
     "id": "all_operations_done",
-    "translation": "All operations are done!"
+    "translation": "所有操作完成!"
   },
   {
     "id": "refreshing_in",
-    "translation": "Refreshing the page in {0} seconds..."
+    "translation": "在 {0} 秒內刷新頁面..."
   },
   {
     "id": "delete_reports_with_torrents",
-    "translation": "Do you want to delete the reports along the selected torrents?"
+    "translation": "是否要刪除所選種子的舉報?"
   },
   {
     "id": "with_st",
@@ -1177,7 +1269,7 @@
   },
   {
     "id": "lock",
-    "translation": "lock"
+    "translation": "鎖定"
   },
   {
     "id": "status_js",
@@ -1185,15 +1277,15 @@
   },
   {
     "id": "owner_id_js",
-    "translation": "owner_id: {0}"
+    "translation": "所有者id: {0}"
   },
   {
     "id": "category_js",
-    "translation": "category: {0}"
+    "translation": "分類: {0}"
   },
   {
     "id": "no_changes",
-    "translation": "No changes"
+    "translation": "沒有變更"
   },
   {
     "id": "query_nb",
@@ -1201,19 +1293,19 @@
   },
   {
     "id": "reason",
-    "translation": "Reason"
+    "translation": "原因"
   },
   {
     "id": "actions",
-    "translation": "Actions"
+    "translation": "動作"
   },
   {
     "id": "action_select",
-    "translation": "Action..."
+    "translation": "動作..."
   },
   {
     "id": "change_status",
-    "translation": "Change Status"
+    "translation": "改變狀態"
   },
   {
     "id": "to_status",
@@ -1221,91 +1313,103 @@
   },
   {
     "id": "torrents_not_deleted",
-    "translation": "Torrents Not Deleted"
+    "translation": "這些種子沒有刪除"
   },
   {
     "id": "more",
-    "translation": "More"
+    "translation": "更多"
   },
   {
     "id": "last_comments",
-    "translation": "Last Comments"
+    "translation": "最後的評論"
   },
   {
     "id": "last_reports",
-    "translation": "Last Reports"
+    "translation": "最後的舉報"
   },
   {
     "id": "last_torrents",
-    "translation": "Last Torrents"
+    "translation": "最後的種子"
   },
   {
     "id": "last_users",
-    "translation": "Last Users"
+    "translation": "最後的用戶"
   },
   {
     "id": "moderation_overview",
-    "translation": "Moderation Overview"
+    "translation": "上帝視角"
   },
   {
     "id": "users_list",
-    "translation": "Users List"
+    "translation": "用戶列表"
   },
   {
     "id": "comments_list",
-    "translation": "Comments List"
+    "translation": "評論列表"
   },
   {
     "id": "reports_list",
-    "translation": "Reports List"
+    "translation": "舉報列表"
   },
   {
     "id": "torrents_list",
-    "translation": "Torrents List"
+    "translation": "種子列表"
   },
   {
     "id": "torrent_edit_panel",
-    "translation": "Torrent Edit Panel"
+    "translation": "種子編輯界面"
   },
   {
     "id": "torrent_reassign",
-    "translation": "Torrent Reassign"
+    "translation": "種子重新分配給"
   },
   {
     "id": "reassign_warning",
-    "translation": "Reassigning torrents to a new user is not easily reverted and should be done with care."
+    "translation": "將種子重新分配給新用戶不容易還原，應小心謹慎。"
   },
   {
     "id": "previous_username",
-    "translation": "Previous Username"
+    "translation": "先前的用戶名"
   },
   {
     "id": "torrent_id",
-    "translation": "Torrent ID"
+    "translation": "種子 ID"
   },
   {
     "id": "reassign_indication",
-    "translation": "One ID per line <b>or</b> a single username"
+    "translation": "每個ID一行 <b>或</b> 單個用戶名"
   },
   {
     "id": "reassign_warning_2",
-    "translation": "Might take a long time, do <b>NOT</b> abort the request."
+    "translation": "將需要一段時間,  <b>不要</b>取消操作"
   },
   {
     "id": "reassign_to",
-    "translation": "Reassign to:"
+    "translation": "重分配給:"
   },
   {
     "id": "reassign_based_on",
-    "translation": "Reassign based on:"
+    "translation": "基於以下原因重分配:"
   },
   {
     "id": "user_id",
-    "translation": "User ID"
+    "translation": "用戶ID"
   },
   {
     "id": "mascot_url",
-    "translation": "Mascot URL"
+    "translation": "吉祥物 URL"
+  },
+  {
+    "id": "alternating_color",
+    "translation": "交替的顏色 (並且不使用加粗字體)"
+  },
+  {
+    "id": "old_nav",
+    "translation": "舊導航"
+  },
+  {
+    "id": "old_nav_explanation",
+    "translation": "在搜索過程中顯示頁面頂部的主要分類和頁碼，就像 nyaa.se."
   },
   {
     "id": "no_notifications",
@@ -1313,23 +1417,19 @@
   },
   {
     "id": "report_msg",
-    "translation": "The torrent #%d has been reported!"
+    "translation": "種子 #%d 已被舉報!"
   },
   {
     "id": "email_not_valid",
-    "translation": "Email Address is not valid!"
+    "translation": "電子郵件地址無效!"
   },
   {
     "id": "username_illegal",
-    "translation": "Username contains illegal characters!"
+    "translation": "用戶名包含非法字符!"
   },
   {
     "id": "torrent_language",
-    "translation": "Torrent language"
-  },
-  {
-    "id": "language_not_mandatory",
-    "translation": "Language is not mandatory anymore"
+    "translation": "種子語言"
   },
   {
     "id": "language_en-us_name",
@@ -1409,11 +1509,11 @@
   },
   {
     "id": "language_zh-cn_name",
-    "translation": "Simplified Chinese"
+    "translation": "簡體中文"
   },
   {
     "id": "language_zh-tw_name",
-    "translation": "Traditional Chinese"
+    "translation": "繁體中文"
   },
   {
     "id": "language_other_name",
@@ -1421,83 +1521,83 @@
   },
   {
     "id": "language_multiple_name",
-    "translation": "Multiple Languages"
+    "translation": "多種語言"
   },
   {
     "id": "activity_list",
-    "translation": "Activity List"
+    "translation": "活動列表"
   },
   {
     "id": "activities",
-    "translation": "Activities"
+    "translation": "活動的"
   },
   {
     "id": "filter",
-    "translation": "Filter"
+    "translation": "過濾器"
   },
   {
     "id": "error_min_length",
-    "translation": "Minimal length of %s required for the input: %s"
+    "translation": "最小長度 %s ，後面輸入所要求的: %s"
   },
   {
     "id": "error_min_number",
-    "translation": "%s must be %s or greater"
+    "translation": "%s 必須是 %s 或更高"
   },
   {
     "id": "error_min_field",
-    "translation": "%s must be equal or greater to %s"
+    "translation": "%s 必須大於等於 %s"
   },
   {
     "id": "error_min_array",
-    "translation": "%s must contain at least %s items"
+    "translation": "%s 必須包含至少 %s 的項目"
   },
   {
     "id": "error_less_date",
-    "translation": "%s must be less than the current Date & Time"
+    "translation": "%s 必須在當前日期時間以前"
   },
   {
     "id": "error_less_array",
-    "translation": "%s must contain less than %s items"
+    "translation": "%s 必須少於 %s 的項目"
   },
   {
     "id": "error_less_length",
-    "translation": "%s must be less than %s in length"
+    "translation": "%s 長度必須小於 %s "
   },
   {
     "id": "error_less_number",
-    "translation": "%s must be less than %s"
+    "translation": "%s 必須小於 %s"
   },
   {
     "id": "error_less_equal_date",
-    "translation": "%s must be less than or equal to the current Date & Time"
+    "translation": "%s 必須小於等於當前日期以及時間"
   },
   {
     "id": "error_greater_date",
-    "translation": "%s must be greater than the current Date & Time"
+    "translation": "%s 必須在當前日期以及時間之後"
   },
   {
     "id": "error_greater_length",
-    "translation": "%s must be greater than %s in length"
+    "translation": "%s 長度必須大於 %s "
   },
   {
     "id": "error_greater_number",
-    "translation": "%s must be greater than %s"
+    "translation": "%s 必須大於 %s"
   },
   {
     "id": "error_greater_equal_date",
-    "translation": "%s must be greater than or equal to the current Date & Time"
+    "translation": "%s 大於等於當前時間"
   },
   {
     "id": "error_max_field",
-    "translation": "%s must be equal or less to %s"
+    "translation": "%s 必須小於等於 %s"
   },
   {
     "id": "error_max_length",
-    "translation": "Maximal length of %s required for the input: %s"
+    "translation": "最大長度只有 %s ， 後面輸入所要求的: %s"
   },
   {
     "id": "error_max_number",
-    "translation": "%s must be %s or less"
+    "translation": "%s 必須是 %s 或更少"
   },
   {
     "id": "error_max_array",
@@ -1505,111 +1605,111 @@
   },
   {
     "id": "error_length",
-    "translation": "Length of %s required for the input: %s"
+    "translation": "長度要求 %s ， 後面輸入所要求的: %s"
   },
   {
     "id": "error_equal",
-    "translation": "%s is not equal to %s"
+    "translation": "%s 和 %s 不匹配"
   },
   {
     "id": "error_same_value",
-    "translation": "Field '%s' must have the same value as the field '%s'"
+    "translation": " '%s' 必須和 '%s' 相同"
   },
   {
     "id": "error_field",
-    "translation": "Unexpected error on field: %s"
+    "translation": "出現意外錯誤: %s"
   },
   {
     "id": "error_not_equal",
-    "translation": "%s should not be equal to %s"
+    "translation": "%s 必須和 %s 不同"
   },
   {
     "id": "error_wrong_value",
-    "translation": "Wrong value for the input: %s"
+    "translation": "錯誤的輸入值: %s"
   },
   {
     "id": "error_field_needed",
-    "translation": "Field needed: %s"
+    "translation": "缺少: %s"
   },
   {
     "id": "error_len_array",
-    "translation": "%s must contain %s items"
+    "translation": "%s 必須包含 %s 項目"
   },
   {
     "id": "error_alpha",
-    "translation": "%s can only contain alphabetic characters"
+    "translation": "%s 只能包含字母字符"
   },
   {
     "id": "error_alphanum",
-    "translation": "%s can only contain alphanumeric characters"
+    "translation": "%s 只能包含字母數字字符"
   },
   {
     "id": "error_numeric_valid",
-    "translation": "%s must be a valid numeric value"
+    "translation": "%s 必須是有效的數值"
   },
   {
     "id": "error_number_valid",
-    "translation": "%s must be a valid number"
+    "translation": "%s 必須是有效的數字"
   },
   {
     "id": "error_hexadecimal_valid",
-    "translation": "%s must be a valid hexadecimal"
+    "translation": "%s 必須是有效的十六進制"
   },
   {
     "id": "error_hex_valid",
-    "translation": "%s must be a valid HEX color"
+    "translation": "%s 必須是有效的 HEX 顏色"
   },
   {
     "id": "error_rgb_valid",
-    "translation": "%s must be a valid RGB color"
+    "translation": "%s 必須是有效的 RGB 顏色"
   },
   {
     "id": "error_rgba_valid",
-    "translation": "%s must be a valid RGBA color"
+    "translation": "%s 必須是有效的 RGBA 顏色"
   },
   {
     "id": "error_hsl_valid",
-    "translation": "%s must be a valid HSL color"
+    "translation": "%s 必須是有效的 HSL 顏色"
   },
   {
     "id": "error_hsla_valid",
-    "translation": "%s must be a valid HSLA color"
+    "translation": "%s 必須是有效的 HSLA 顏色"
   },
   {
     "id": "error_url_valid",
-    "translation": "%s must be a valid URL"
+    "translation": "%s 必須是有效的 URL"
   },
   {
     "id": "error_uri_valid",
-    "translation": "%s must be a valid URI"
+    "translation": "%s 必須是有效的 URI"
   },
   {
     "id": "error_base64_valid",
-    "translation": "%s must be a valid Base64 string"
+    "translation": "%s 必須是有效的Base64字符串"
   },
   {
     "id": "error_contains",
-    "translation": "%s must contain the text '%s'"
+    "translation": "%s 必須包含文本 '%s'"
   },
   {
     "id": "error_contains_any",
-    "translation": "%s must contain at least one of the following characters '%s'"
+    "translation": "%s 必須至少包含以下字符之一 '%s'"
   },
   {
     "id": "error_excludes",
-    "translation": "%s cannot contain the text '%s'"
+    "translation": "%s 不能包含文本 '%s'"
   },
   {
     "id": "error_excludes_all",
-    "translation": "%s cannot contain any of the following characters '%s'"
+    "translation": "%s 不能包含以下任何字符 '%s'"
   },
   {
     "id": "error_excludes_rune",
-    "translation": "%s cannot contain the following '%s'"
+    "translation": "%s 不能包含以下內容 '%s'"
   },
   {
     "id": "error_color_valid",
-    "translation": "%s must be a valid color"
+    "translation": "%s 必須是有效的顏色"
   },
   {
     "id": "error_",
@@ -1617,111 +1717,135 @@
   },
   {
     "id": "error_len_array",
-    "translation": "%s must contain %s items"
+    "translation": "%s 必須包含 %s 項目"
   },
   {
     "id": "refine_search",
-    "translation": "Refine your search"
-  },
-  {
-    "id": "between",
-    "translation": "Between"
-  },
-  {
-    "id": "and",
-    "translation": "and"
-  },
-  {
-    "id": "days",
-    "translation": "Days"
-  },
-  {
-    "id": "months",
-    "translation": "Months"
-  },
-  {
-    "id": "years",
-    "translation": "Years"
+    "translation": "細分你的搜索"
   },
   {
     "id": "refine",
-    "translation": "Refine"
+    "translation": "細分"
+  },
+  {
+    "id": "between",
+    "translation": "區間"
+  },
+  {
+    "id": "and",
+    "translation": "和"
+  },
+  {
+    "id": "days",
+    "translation": "日"
+  },
+  {
+    "id": "months",
+    "translation": "月"
+  },
+  {
+    "id": "years",
+    "translation": "年"
   },
   {
     "id": "large",
-    "translation": "large."
-  },
-  {
-    "id": "old",
-    "translation": "old"
+    "translation": "(大)"
   },
   {
     "id": "optional",
-    "translation": "Optional"
+    "translation": "可選的"
   },
   {
     "id": "search_for",
-    "translation": "Search for"
+    "translation": "搜索"
   },
   {
     "id": "show",
-    "translation": "Show"
+    "translation": "顯示"
+  },
+  {
+    "id": "sort_by",
+    "translation": "排序方式"
+  },
+  {
+    "id": "ascending",
+    "translation": "升序"
+  },
+  {
+    "id": "descending",
+    "translation": "降序"
+  },
+  {
+    "id": "quality",
+    "translation": "品質"
+  },
+  {
+    "id": "exclude_user",
+    "translation": "排除"
+  },
+  {
+    "id": "from_user",
+    "translation": "來自"
+  },
+  {
+    "id": "limit_torrent_count",
+    "translation": "限制條目"
   },
   {
     "id": "username_taken",
-    "translation": "Username already taken, you can choose: %s"
+    "translation": "用戶名已被使用，您可以選擇: %s"
   },
   {
     "id": "email_in_db",
-    "translation": "Email address already in database"
+    "translation": "電子郵件已在數據庫中"
   },
   {
     "id": "user_not_found",
-    "translation": "User not found"
+    "translation": "沒找到用戶"
   },
   {
     "id": "incorrect_password",
-    "translation": "Password Incorrect"
+    "translation": "密碼錯誤"
   },
   {
     "id": "password_error_generating",
-    "translation": "Error when generating your password hash"
+    "translation": "生成密碼哈希時出錯"
   },
   {
     "id": "permission_delete_error",
-    "translation": "You don't have the right to delete this"
+    "translation": "您無權刪除此內容"
   },
   {
     "id": "no_username_password",
-    "translation": "No username/password entered"
+    "translation": "沒有輸入用戶名/密碼"
   },
   {
     "id": "account_banned",
-    "translation": "Account banned"
+    "translation": "用戶被封禁"
   },
   {
     "id": "account_need_activation",
-    "translation": "This account needs activation from Moderators, please contact us"
+    "translation": "此帳號需要超級管理員激活，請與我們聯繫"
   },
   {
     "id": "retrieve_torrent_error",
-    "translation": "Couldn't retrieve torrents"
+    "translation": "無法找到種子"
   },
   {
     "id": "multiple_username_error",
-    "translation": "More than one username given"
+    "translation": "給予了多於一個的用戶名"
   },
   {
     "id": "elevating_user_error",
-    "translation": "Elevating status to moderator is prohibited"
+    "translation": "禁止提升為超級管理員"
   },
   {
     "id": "parse_error_line",
-    "translation": "Couldn't parse on line %d"
+    "translation": "無法在線解析 %d"
   },
   {
     "id": "language_not_available",
-    "translation": "Language not available"
+    "translation": "語言不可用"
   },
   {
     "id": "mascot_url_too_long",
@@ -1729,11 +1853,11 @@
   },
   {
     "id": "mascor_url_parse_error",
-    "translation": "Error occurred when parsing mascot URL: %s"
+    "translation": "解析吉祥物URL時出錯: %s"
   },
   {
     "id": "no_id_given",
-    "translation": "No torrent ID given"
+    "translation": "沒給予種子 ID"
   },
   {
     "id": "error_api_token",
@@ -1741,143 +1865,159 @@
   },
   {
     "id": "uploads_disabled",
-    "translation": "Uploads are disabled"
+    "translation": "上傳被禁用"
   },
   {
     "id": "try_to_delete_report_inexistant",
-    "translation": "Trying to delete a torrent report that does not exists"
+    "translation": "嘗試刪除不存在的種子的舉報"
   },
   {
     "id": "torrent_report_not_created",
-    "translation": "TorrentReport was not created"
+    "translation": "種子的舉報沒有創建"
   },
   {
     "id": "user_not_deleted",
-    "translation": "User wasn't deleted"
+    "translation": "用戶沒有被刪除"
   },
   {
     "id": "error_content_type_post",
-    "translation": "Please provide either of Content-Type: application/json header or multipart/form-data"
+    "translation": "請提供Content-Type中的任何一種: application/json header or multipart/form-data"
+  },
+  {
+    "id": "torrent_name",
+    "translation": "種子名字"
   },
   {
     "id": "torrent_name_invalid",
-    "translation": "Torrent name is invalid"
+    "translation": "種子名字無效"
   },
   {
     "id": "torrent_private",
-    "translation": "Torrent is private"
+    "translation": "私有種子"
   },
   {
     "id": "torrent_no_working_trackers",
-    "translation": "Torrent does not have any (working) trackers: <a href=\"/faq#trackers\">Trackers List</a>"
+    "translation": "種子文件內沒有可工作的Tracker: <a href=\"/faq#trackers\">Trackers List</a>"
   },
   {
     "id": "torrent_desc_invalid",
-    "translation": "Torrent description is invalid"
+    "translation": "種子描述無效"
   },
   {
     "id": "torrent_cat_invalid",
-    "translation": "Torrent category is invalid"
+    "translation": "種子分類無效"
   },
   {
     "id": "torrent_lang_invalid",
-    "translation": "Language sent is not yet supported! You can help supporting it by contributing in our github page"
+    "translation": "發送的語言尚不支持！ 您可以通過我們的Github來幫助支持它"
   },
   {
     "id": "torrent_cat_is_english",
-    "translation": "Torrent's category is for English translations, but language wasn't English. We changed it to english"
+    "translation": "種子的類別是英語翻譯，但你選的語言不是英語。 我們已將它它改成了英語"
   },
   {
     "id": "torrent_cat_not_english",
-    "translation": "Torrent's category is for non-English translations, but language selected is only English"
+    "translation": "種子的類別適用於非英語翻譯，但所選語言僅為英語"
   },
   {
     "id": "torrent_magnet_invalid",
-    "translation": "Magnet couldn't be parsed, please check it"
+    "translation": "磁力鏈無法解析，請檢查"
   },
   {
     "id": "torrent_hash_invalid",
-    "translation": "Torrent hash is incorrect"
+    "translation": "種子哈希值不正確"
   },
   {
     "id": "torrent_plus_magnet",
-    "translation": "Upload either a torrent file or magnet link, not both"
+    "translation": "請單獨上傳一個種子文件或提供一個磁力鏈"
   },
   {
     "id": "torrent_file_invalid",
-    "translation": "Torrent File is invalid"
+    "translation": "種子文件無效"
   },
   {
     "id": "torrent_uri_invalid",
-    "translation": "Website url or IRC link is invalid"
+    "translation": "網址 IRC 連接無效"
   },
   {
     "id": "api_documentation",
-    "translation": "API documentation"
+    "translation": "API 文檔"
   },
   {
     "id": "api_help",
-    "translation": "Do you have an api?"
+    "translation": "你有 api 麼?"
   },
   {
     "id": "trusted",
-    "translation": "Torrents uploaded by trusted users."
+    "translation": "受信任用戶上傳的種子文件"
   },
   {
     "id": "reencodes",
-    "translation": "Re-encodes"
+    "translation": "重新編碼"
   },
   {
     "id": "remux",
-    "translation": "Remux of another uploader's original release"
+    "translation": "重新封裝其他上傳者發佈的版本"
   },
   {
     "id": "reupload",
-    "translation": "Reupload of another users torrent with missing and/or unrelated additional files."
+    "translation": "重新上載其他用戶的種子文件，其中包含丟失 和/或 無關的附加文件。"
   },
   {
     "id": "red",
-    "translation": "Red entries are: "
+    "translation": "紅色條目是: "
   },
   {
     "id": "green",
-    "translation": "Green entries are:"
+    "translation": "綠色條目是:"
   },
   {
     "id": "torrent_colors",
-    "translation": "Torrent colors"
+    "translation": "種子顏色"
+  },
+  {
+    "id": "faq_ads",
+    "translation": "為什麼pantsu有廣告?"
+  },
+  {
+    "id": "faq_ads_explanation",
+    "translation": "這不是我們輕易做出的決定，我們已經徹底考慮了各位提出的異議，但最終我們認為這是為Pantsu提供資金並確保其持續運營的唯一可持續解決方案。<br/>我們已經考慮了不少可能的資金來源，我們認為沒有其他選擇能夠為Pantsu提供資金。<br>經過深思熟慮後，我們認為a-ads的廣告是我們和我們用戶的最佳選擇。 這些廣告簡單且不引人注目，絕不會干擾使用網站的體驗，也不包含任何形式的跟蹤。"
   },
   {
     "id": "torrent_preview",
-    "translation": "Preview your torrent"
+    "translation": "預覽你的種子"
   },
   {
     "id": "announcement",
-    "translation": "Announcement"
+    "translation": "公告"
+  },
+  {
+    "id": "create_anouncement_success",
+    "translation": "公告成功創建"
   },
   {
     "id": "update_client_failed",
-    "translation": "Update of the client has failed!"
+    "translation": "客戶端更新失敗!"
   },
   {
     "id": "update_client_success",
-    "translation": "You have successfully updated the client!"
+    "translation": "您已成功更新客戶端!"
   },
   {
     "id": "update_client_panel",
-    "translation": "Update a Client"
+    "translation": "升級一個客戶端"
   },
   {
     "id": "create_client_success",
-    "translation": "You have successfully created the client!"
+    "translation": "您已成功創建客戶端!"
   },
   {
     "id": "create_client_failed",
-    "translation": "Client creation has failed!"
+    "translation": "客戶端創建失敗!"
   },
   {
     "id": "create_client_panel",
-    "translation": "Create a new Client"
+    "translation": "新建一個客戶端"
   },
   {
     "id": "redirect_uri",
@@ -1885,19 +2025,19 @@
   },
   {
     "id": "grant_types",
-    "translation": "Grant Types"
+    "translation": "准許類型"
   },
   {
     "id": "response_types",
-    "translation": "Response Types"
+    "translation": "響應類型"
   },
   {
     "id": "scope",
-    "translation": "Scopes"
+    "translation": "範圍"
   },
   {
     "id": "owner",
-    "translation": "Owner"
+    "translation": "所有者"
   },
   {
     "id": "policy_uri",
@@ -1913,7 +2053,7 @@
   },
   {
     "id": "contacts",
-    "translation": "Owner Emails"
+    "translation": "所有者電子郵箱"
   },
   {
     "id": "oauth_clients_list",
@@ -1921,31 +2061,51 @@
   },
   {
     "id": "add",
-    "translation": "Add"
+    "translation": "添加"
   },
   {
     "id": "remove",
-    "translation": "Remove"
+    "translation": "移除"
+  },
+  {
+    "id": "close",
+    "translation": "關閉"
   },
   {
     "id": "secret",
-    "translation": "Client Secret"
+    "translation": "客戶端密鑰"
   },
   {
     "id": "torrent_age",
-    "translation": "{1} days {2} hours ago"
+    "translation": "{1} 天 {2} 小時"
+  },
+  {
+    "id": "tag",
+    "translation": "標籤"
+  },
+  {
+    "id": "torrent_tags",
+    "translation": "標籤"
   },
   {
     "id": "wrong_tag_type",
-    "translation": "The tag type selected doesn't exist"
+    "translation": "選擇的標籤種類不存在"
   },
   {
     "id": "add_tag",
-    "translation": "Add a Tag"
+    "translation": "增加一個標籤"
   },
   {
     "id": "tagtype",
-    "translation": "Tag Type"
+    "translation": "標籤種類"
+  },
+  {
+    "id": "accepted_tags",
+    "translation": "接受的標籤"
+  },
+  {
+    "id": "recommended_tags",
+    "translation": "推薦標籤"
   },
   {
     "id": "tagtype_anidbid",
@@ -1960,31 +2120,203 @@
     "translation": "Video Quality"
   },
   {
-    "id": "torrent_tags",
-    "translation": "Torrent tags"
+    "id": "tagtype_dlsite",
+    "translation": "DLsite"
+  },
+  {
+    "id": "tagtype_vgmdbid",
+    "translation": "VGMdb ID"
+  },
+  {
+    "id": "tagtype_tags",
+    "translation": "描述性標籤"
+  },
+  {
+    "id": "tagvalue_select",
+    "translation": "選擇..."
+  },
+  {
+    "id": "tagvalue_full_hd",
+    "translation": "1080p"
+  },
+  {
+    "id": "tagvalue_hd",
+    "translation": "720p"
+  },
+  {
+    "id": "tagvalue_sd",
+    "translation": "480p"
+  },
+  {
+    "id": "tagvalue_bluray",
+    "translation": "藍光"
   },
   {
     "id": "announcements",
-    "translation": "Announcements"
+    "translation": "公告"
   },
   {
     "id": "message",
-    "translation": "Message"
+    "translation": "消息"
   },
   {
-    "id": "delay",
-    "translation": "Delay"
+    "id": "duration",
+    "translation": "Duration (Hours)"
   },
   {
     "id": "update_annoucement_panel",
-    "translation": "Update Announcement"
+    "translation": "更新公告"
   },
   {
     "id": "create_annoucement_panel",
-    "translation": "Create Announcement"
+    "translation": "創建公告"
+  },
+  {
+    "id": "related_to",
+    "translation": "關聯到"
   },
   {
     "id": "expire",
-    "translation": "Expire"
+    "translation": "到期"
+  },
+  {
+    "id": "complement",
+    "translation": "完成"
+  },
+  {
+    "id": "from",
+    "translation": "來自"
+  },
+  {
+    "id": "to",
+    "translation": "到"
+  },
+  {
+    "id": "feed_types",
+    "translation": "摘要種類: 訂閱(摘要), 訂閱磁力鏈接(magnet), Torznab Spec(torznab), EZTV Spec(eztv)"
+  },
+  {
+    "id": "append_query",
+    "translation": "You can append your search query to the end of the feed URL."
+  },
+  {
+    "id": "cookie_warning",
+    "translation": "你需要同意本網站使用Cookies用於可設置項等功能<br/>此消息將在下一頁加載時隱藏"
+  },
+  {
+    "id": "pending_torrent",
+    "translation": "請耐心等待，正在生成種子文件。 幾秒鐘後再試一次。"
+  },
+  {
+    "id": "generating_torrent",
+    "translation": "正在生成種子文件..."
+  },
+  {
+    "id": "generating_torrent_failed",
+    "translation": "無法生成種子文件"
+  },
+  {
+    "id": "enabled",
+    "translation": "啟用"
+  },
+  {
+    "id": "disabled",
+    "translation": "禁用"
+  },
+  {
+    "id": "reset_api_key",
+    "translation": "Reset API key"
+  },
+  {
+    "id": "tag_error",
+    "translation": "無法添加標籤，請檢查您的互聯網連接，並填寫所有字段"
+  },
+  {
+    "id": "search_from_user",
+    "translation": "從此用戶搜索..."
+  },
+  {
+    "id": "usersearch_user_not_found",
+    "translation": "用戶 \"%s\" 沒有找到"
+  },
+  {
+    "id": "user_search_explanation",
+    "translation": "輸入用戶名來搜索用戶"
+  },
+  {
+    "id": "no_api_token",
+    "translation": "No API token"
+  },
+  {
+    "id": "search_from_specific_user",
+    "translation": "搜索 %s"
+  },
+  {
+    "id": "browsing_user_torrents",
+    "translation": "瀏覽 <a href=\"/user/%d/%s\">%s</a>的種子"
+  },
+  {
+    "id": "hours_minutes_ago",
+    "translation": "{0} 小時 {1} 分鐘"
+  },
+  {
+    "id": "days_hours_ago",
+    "translation": "{0} 天 {1} 小時"
+  },
+  {
+    "id": "status",
+    "translation": "狀態"
+  },
+  {
+    "id": "upload_status",
+    "translation": "上傳狀態"
+  },
+  {
+    "id": "pending",
+    "translation": "等待"
+  },
+  {
+    "id": "error",
+    "translation": "出錯"
+  },
+  {
+    "id": "finished",
+    "translation": "完成"
+  },
+  {
+    "id": "upload_to",
+    "translation": "上傳到 %s"
+  },
+  {
+    "id": "upload_to_other",
+    "translation": "上傳到其它網站"
+  },
+  {
+    "id":"choose_category",
+    "translation": "選擇分類(必選)"
+  },
+  {
+    "id":"choose_language",
+    "translation":"選擇語言(必選)"
+  },
+  {
+    "id": "event",
+    "translation": "Event"
+  },
+  {
+    "id": "read",
+    "translation": "已讀"
+  },
+  {
+    "id": "unread",
+    "translation": "未讀"
+  },
+  {
+    "id": "moderation_guidelines",
+    "translation": "審核指南"
+  },
+  {
+    "id": "guidelines",
+    "translation": "政策"
   }
 ]

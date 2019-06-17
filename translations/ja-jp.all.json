@@ -992,7 +992,7 @@
     "translation": "ユーザーは BAN されました。"
   },
   {
-    "id": "user_banned",
+    "id": "user_unbanned",
     "translation": "ユーザーは BAN 解除されました。"
   },
   {
@@ -2160,7 +2160,7 @@
     "translation": "メッセージ"
   },
   {
-    "id": "delay",
+    "id": "duration",
     "translation": "遅延 (時間単位)"
   },
   {
@@ -2286,10 +2286,6 @@
   {
     "id": "upload_to",
     "translation": "%s へのアップロード"
-  },
-  {
-    "id": "upload_to_other",
-    "translation": "他の Web サイトにアップロード"
   },
   {
     "id": "upload_to_other",
