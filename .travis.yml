@@ -11,8 +11,8 @@ before_install:
 - go get github.com/Stephen304/goscrape
 - go get github.com/anacrolix/torrent
 before_script:
-- go vet
-- go test -v ./...
+- env GO111MODULE=on go vet
+- env GO111MODULE=on go test -v ./...
 after_success:
 - overalls -project=github.com/NyaaPantsu/nyaa -covermode=count -debug
 - goveralls -coverprofile="overalls.coverprofile" -service=travis-ci
