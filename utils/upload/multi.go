@@ -98,14 +98,14 @@ func ToAnidex(torrent *models.Torrent, apiKey string, subCat string, lang string
 
 	if err != nil {
 		uploadMultiple.updateAndSave(anidex, errorState, "Error during the HTTP POST request")
-		log.CheckErrorWithMessage(err, "Error in request: %s")
+		log.CheckErrorWithMessage(err, "Error in request")
 		return
 	}
 	defer rsp.Body.Close()
 	bodyByte, err := ioutil.ReadAll(rsp.Body)
 	if err != nil {
 		uploadMultiple.updateAndSave(anidex, errorState, "Unknown error")
-		log.CheckErrorWithMessage(err, "Error in parsing request: %s")
+		log.CheckErrorWithMessage(err, "Error in parsing request")
 		return
 	}
 	if uploadMultiple.Anidex.Status == pendingState {
@@ -171,14 +171,14 @@ func ToNyaasi(username string, password string, torrent *models.Torrent) {
 
 	if err != nil {
 		uploadMultiple.updateAndSave(nyaasi, errorState, "Error during the HTTP POST request")
-		log.CheckErrorWithMessage(err, "Error in request: %s")
+		log.CheckErrorWithMessage(err, "Error in request")
 		return
 	}
 	defer rsp.Body.Close()
 	bodyByte, err := ioutil.ReadAll(rsp.Body)
 	if err != nil {
 		uploadMultiple.updateAndSave(nyaasi, errorState, "Unknown error")
-		log.CheckErrorWithMessage(err, "Error in parsing request: %s")
+		log.CheckErrorWithMessage(err, "Error in parsing request")
 		return
 	}
 	if uploadMultiple.Nyaasi.Status == pendingState {
@@ -244,14 +244,14 @@ func ToTTosho(apiKey string, torrent *models.Torrent) {
 
 	if err != nil {
 		uploadMultiple.updateAndSave(ttosho, errorState, "Error during the HTTP POST request")
-		log.CheckErrorWithMessage(err, "Error in request: %s")
+		log.CheckErrorWithMessage(err, "Error in request")
 		return
 	}
 	defer rsp.Body.Close()
 	bodyByte, err := ioutil.ReadAll(rsp.Body)
 	if err != nil {
 		uploadMultiple.updateAndSave(ttosho, errorState, "Unknown error")
-		log.CheckErrorWithMessage(err, "Error in parsing request: %s")
+		log.CheckErrorWithMessage(err, "Error in parsing request")
 		return
 	}
 	if uploadMultiple.TTosho.Status == pendingState {

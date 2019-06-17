@@ -74,11 +74,11 @@ func ByQuery(c *gin.Context, pagenum int, withUser bool, deleted bool, hidden bo
 	torrentParam.Locked = locked
 	torrentParam.Full = withUser
 	torrentParam.Deleted = deleted
-	
+
 	if torrentParam.Abort {
 		return torrentParam, []models.Torrent{}, 0, nil
 	}
-	
+
 	if found, ok := cache.C.Get(torrentParam.Identifier()); ok {
 		log.Infof("Retrieve results from Cache in %s", torrentParam.Identifier())
 		torrentCache := found.(*TorrentCache)
@@ -95,7 +95,7 @@ func ByQuery(c *gin.Context, pagenum int, withUser bool, deleted bool, hidden bo
 			return torrentParam, tor, int(totalHits), nil
 		}
 		// Errors from ES should be managed in the if condition. Log is triggered only if err != nil (checkError behaviour)
-		log.CheckErrorWithMessage(err, "ES_ERROR_MSG: Seems like ES was not reachable whereas it was when starting the app. Error: '%s'")
+		log.CheckErrorWithMessage(err, "ES_ERROR_MSG: Seems like ES was not reachable whereas it was when starting the app.")
 	}
 	// We fallback to PG, if ES gives error or no results or if ES is disabled in config or if deleted search is enabled
 	log.Errorf("Falling back to postgresql query")

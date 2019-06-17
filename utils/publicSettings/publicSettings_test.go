@@ -91,7 +91,7 @@ func TestTranslate(t *testing.T) {
 	for _, langTest := range test {
 		result := Translate(langTest["test"], T("language_code"))
 		if result != langTest["result"] {
-			t.Errorf("Result from Translate function different from the expected: have '%s', wants '%s'", result, langTest["result"])
+			t.Errorf("Result from Translate function different from the expected: have '%s', wants '%s' for '%s'", result, langTest["result"], langTest["test"])
 		}
 	}
 }
