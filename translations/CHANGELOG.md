@@ -101,6 +101,10 @@
 ## 2017/11/04
 * + nsfw_content
 * + generating_torrent_failed
+## 2017/11/08
+* + loading_file_list
+* + torrent_filelist
+* + back_to_torrent
 ## 2017/11/09
 * + userstatus_janitor
 * + ban

@@ -52,7 +52,7 @@
     </tr>
     <tr class="torrent-info-row">
       <td class="torrent-info-td torrent-info-label">{{ T("size")}}:</td>
-      <td class="torrent-view-td torrent-info-data">{{ fileSize(Torrent.Filesize, T, true) }}</td>
+      <td class="torrent-view-td torrent-info-data torrent-info-size">{{ fileSize(Torrent.Filesize, T, true) }}</td>
     </tr>
     {{ if len(Torrent.Languages) > 0 && Torrent.Languages[0] != "" }}
     <tr class="torrent-info-row">
@@ -205,10 +205,14 @@
   <p>{{  T("no_description") }}</p>
   {{end}}
   <input type="checkbox" id="show-filelist" {{if len(Torrent.FileList) < 4 && len(Torrent.FileList) > 0}}checked{{end}}/>
-  <label class="torrent-hr filelist-control{{if len(Torrent.FileList) == 0}} hidden{{end}}" for="show-filelist">{{ T("files")}}</label>
+  <label class="torrent-hr filelist-control{{if len(Torrent.FileList) == 0}} hidden{{end}}" for="show-filelist">
+  {{ if len(Torrent.FileList) == 0 }}
+	<a href="/files/{{Torrent.ID}}">{{ T("files")}}</a>
+  {{else}}
+	{{ T("files")}}
+  {{end}}
+  </label>
   <div class="torrent-info-box{{if len(Torrent.FileList) == 0}} hidden{{end}}" id="filelist">
-    {{ if len(Torrent.FileList) > 0 }}
-    {* how do i concat lol *}
     <table class="table-filelist">
       <thead>
         <tr>
@@ -217,12 +221,13 @@
 	</tr>
       </thead>
       <tbody>
-        {{ yield make_treeview(treeviewData=makeTreeViewData(RootFolder, 0, "root")) }}
+	    {{ if len(Torrent.FileList) > 0 }}
+          {{ yield make_treeview(treeviewData=makeTreeViewData(RootFolder, 0, "root")) }}
+		{{else}}
+		<tr class="tr-filelist"><td colspan="2">{{  T("no_files") }}</td></tr>
+		{{end}}
       </tbody>
     </table>
-    {{ else }}
-    <p>{{  T("no_files") }}</p>
-    {{ end }}
   </div>
 
   <p class="torrent-hr" id="comments">{{ T("comments")}}</p>
@@ -353,11 +358,40 @@ Modal.Init({
   // order of apparition of the modals
   button: ["#reportPopup", "#tagPopup"]
 });
+{{ if len(Torrent.FileList) == 0 }}
+  var FileListContainer = document.querySelector("#filelist tbody"),
+      FileListLabel = document.getElementsByClassName("filelist-control")[0],
+	  FileListOldHtml = FileListContainer.innerHTML
+	  
+	  FileListLabel.innerHTML = FileListLabel.innerText
+
+  FileListLabel.addEventListener("click", function (e) {
+    FileListContainer.innerHTML = "<tr class='tr-filelist'><td>{{T("loading_file_list")}}</td></tr>"
+    Query.Get('/stats/{{Torrent.ID}}?files', function (data) {
+		
+	 if(data.totalsize != null && data.totalsize != "0.0 B") document.getElementsByClassName("torrent-info-size")[0].innerHTML = data.totalsize
+      if(data.filelist != null) {
+        FileListContainer.innerHTML = ""
+        FileListLabel.style.opacity = 1
+        document.getElementById("filelist").style.opacity = 1
+		
+        for(var i = 0; i < data.filelist.length; i++) {
+          var file = data.filelist[i]
+          if(file.filesize == "0.0 B") file.filesize = "{{T("unknown")}}"
+            FileListContainer.innerHTML = FileListContainer.innerHTML + '<tr class="tr-filelist '+ file.class +'"><td>'+ file.path +'</td><td>'+ file.filesize +'</td></tr>'
+          }
+	   } else {
+		FileListContainer.innerHTML = FileListOldHtml
+	   }
+	})
+  })
+ {{end}}
+
 </script>
 <script type="text/javascript" src="{{ URL.Parse("/js/simplemde.min.js") }}"></script>
 <script type="text/javascript">new SimpleMDE({ element: document.getElementsByName("comment")[0], spellChecker: false, showIcons: [ "strikethrough", "code", "table", "horizontal-rule" ] });</script>
-{{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}}
 <script type="text/javascript">
+{{ if !torrentFileExists(Torrent.Hash, Torrent.TorrentLink)}}
 	var torrentLink = document.getElementById("torrent-download-link"),
 	    oldDownloadHtml = torrentLink.innerHTML,
 	    downloadIconHtml = torrentLink.innerHTML.substring(0, torrentLink.innerHTML.indexOf("</div>") + 6),
@@ -397,10 +431,8 @@ Modal.Init({
 			}
 		});
 	}
-</script>
 {{end}}
 {{if Torrent.StatsObsolete[1] }}
-<script type="text/javascript">
   var seeders   = document.querySelector(".tr-se"),
       leechers  = document.querySelector(".tr-le"),
       downloads = document.querySelector(".tr-dl"),
@@ -427,9 +459,8 @@ Modal.Init({
     }
   })
   
-  
-</script>
 {{end}}
+</script>
 {{ if User.ID > 0 }}
 <script type="text/javascript" src="{{ URL.Parse("/js/template.js") }}"></script>
 <script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>

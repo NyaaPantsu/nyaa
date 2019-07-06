@@ -52,12 +52,18 @@ func (f *File) SetPath(path []string) error {
 // Filename : Returns the filename of the file
 func (f *File) Filename() string {
 	path := f.Path()
+	if len(path) == 0 {
+		return ""
+	}
 	return path[len(path)-1]
 }
 
 // FilenameWithoutExtension : Returns the filename of the file without the extension
 func (f *File) FilenameWithoutExtension() string {
 	path := f.Path()
+	if len(path) == 0 {
+		return ""
+	}
 	fileName := path[len(path)-1]
 	index := strings.LastIndex(fileName, ".")
 	
@@ -71,10 +77,13 @@ func (f *File) FilenameWithoutExtension() string {
 // FilenameExtension : Returns the extension of a filename, or an empty string
 func (f *File) FilenameExtension() string {
 	path := f.Path()
+	if len(path) == 0 {
+		return ""
+	}
 	fileName := path[len(path)-1]
 	index := strings.LastIndex(fileName, ".")
 	
-	if index == -1 {
+	if index == -1 || index+1 == len(fileName){
 		return ""
 	}
 	

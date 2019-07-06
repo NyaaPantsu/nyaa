@@ -39,10 +39,8 @@ func FindByID(id uint) (*models.Torrent, error) {
 
 	}
 
-	tmp := models.ORM.Where("torrent_id = ?", id).Preload("Scrape").Preload("Uploader").Preload("Comments")
-	if id > config.Get().Models.LastOldTorrentID {
-		tmp = tmp.Preload("FileList")
-	}
+	tmp := models.ORM.Where("torrent_id = ?", id).Preload("Scrape").Preload("Uploader").Preload("Comments").Preload("FileList")
+
 	if id <= config.Get().Models.LastOldTorrentID && !config.IsSukebei() {
 		// only preload old comments if they could actually exist
 		tmp = tmp.Preload("OldComments")

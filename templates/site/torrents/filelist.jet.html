@@ -1,0 +1,33 @@
+{{ extends "layouts/index_site" }}
+{{ import "layouts/partials/helpers/csrf" }}
+{{ import "layouts/partials/helpers/captcha" }}
+{{ import "layouts/partials/helpers/errors" }}
+{{ import "layouts/partials/helpers/tags" }}
+{{ import "layouts/partials/helpers/treeview" }}
+{{ import "layouts/partials/helpers/tag_form" }}
+{{block title()}}{{Torrent.Name}}{{end}}
+{{block content_body()}}
+<div style="text-align: left;" class="box">
+  <div id="torrent-name"><h1 style="text-align: center;" class="torrent-hr">{{T("torrent_filelist")}}</h1></div>
+  <a href="/view/{{Torrent.ID}}">«- {{T("back_to_torrent", Torrent.Name)}}</a><br/>
+  <input type="checkbox" id="show-filelist" checked/>
+  <label class="torrent-hr filelist-control{{if len(Torrent.FileList) == 0}} hidden{{end}}" for="show-filelist">{{ T("files")}}</label>
+  <div class="torrent-info-box{{if len(Torrent.FileList) == 0}} hidden{{end}}" id="filelist">
+    <table class="table-filelist">
+      <thead>
+        <tr>
+	  <th style="width: 80%">{{ T("file_name")}}</th>
+          <th>{{ T("size")}}</th>
+	</tr>
+      </thead>
+      <tbody>
+	    {{ if len(Torrent.FileList) > 0 }}
+          {{ yield make_treeview(treeviewData=makeTreeViewData(RootFolder, 0, "root")) }}
+		{{else}}
+		<tr class="tr-filelist"><td colspan="2">{{  T("no_files") }}</td></tr>
+		{{end}}
+      </tbody>
+    </table>
+  </div>
+</div>
+{{end}}

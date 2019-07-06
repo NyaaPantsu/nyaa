@@ -160,6 +160,14 @@ func Torrent(c *gin.Context, torrent models.TorrentJSON, rootFolder *filelist.Fi
 	Render(c, path.Join(SiteDir, "torrents", "view.jet.html"), variables)
 }
 
+// Torrent render a torrent view template
+func TorrentFileList(c *gin.Context, torrent models.TorrentJSON, rootFolder *filelist.FileListFolder) {
+	variables := Commonvariables(c)
+	variables.Set("Torrent", torrent)
+	variables.Set("RootFolder", rootFolder)
+	Render(c, path.Join(SiteDir, "torrents", "filelist.jet.html"), variables)
+}
+
 // userProfilBase render the base for user profile
 func userProfileBase(c *gin.Context, templateName string, userProfile *models.User, variables jet.VarMap) {
 	currentUser, _, _ := cookies.CurrentUser(c)

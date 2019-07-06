@@ -133,20 +133,21 @@ type TrackersConfig struct {
 
 // TorrentsConfig : Config struct for Torrents
 type TorrentsConfig struct {
-	Status                   []bool            `yaml:"status,omitempty,omitempty"`
-	SukebeiCategories        map[string]string `yaml:"sukebei_categories,omitempty"`
-	CleanCategories          map[string]string `yaml:"clean_categories,omitempty"`
-	EnglishOnlyCategories    ArrayString       `yaml:"english_only_categories,omitempty"`
-	NonEnglishOnlyCategories ArrayString       `yaml:"non_english_only_categories,omitempty"`
-	AdditionalLanguages      ArrayString       `yaml:"additional_languages,omitempty"`
-	FileStorage              string            `yaml:"filestorage,omitempty"`
-	StorageLink              string            `yaml:"storage_link,omitempty"`
-	CacheLink                string            `yaml:"cache_link,omitempty"`
-	Trackers                 TrackersConfig    `yaml:"trackers,flow,omitempty"`
-	Order                    string            `yaml:"order,omitempty"`
-	Sort                     string            `yaml:"sort,omitempty"`
-	Tags                     Tags              `yaml:"tags,flow,omitempty"`
-	GenerationClientPort     int               `yaml:"generation_client_port,flow,omitempty"`
+	Status                        []bool            `yaml:"status,omitempty,omitempty"`
+	SukebeiCategories             map[string]string `yaml:"sukebei_categories,omitempty"`
+	CleanCategories               map[string]string `yaml:"clean_categories,omitempty"`
+	EnglishOnlyCategories         ArrayString       `yaml:"english_only_categories,omitempty"`
+	NonEnglishOnlyCategories      ArrayString       `yaml:"non_english_only_categories,omitempty"`
+	AdditionalLanguages           ArrayString       `yaml:"additional_languages,omitempty"`
+	FileStorage                   string            `yaml:"filestorage,omitempty"`
+	StorageLink                   string            `yaml:"storage_link,omitempty"`
+	CacheLink                     string            `yaml:"cache_link,omitempty"`
+	Trackers                      TrackersConfig    `yaml:"trackers,flow,omitempty"`
+	Order                         string            `yaml:"order,omitempty"`
+	Sort                          string            `yaml:"sort,omitempty"`
+	Tags                          Tags              `yaml:"tags,flow,omitempty"`
+	GenerationClientPort          int               `yaml:"generation_client_port,flow,omitempty"`
+	FilesFetchingClientPort       int               `yaml:"files_fetching_client_port,flow,omitempty"`
 }
 
 // UploadConfig : Config struct for uploading torrents

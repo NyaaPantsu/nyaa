@@ -768,6 +768,18 @@
     "translation": "No files found? That doesn't even make sense!"
   },
   {
+    "id": "loading_file_list",
+    "translation": "Loading the file list, long file lists can take time to fetch..."
+  },
+  {
+    "id": "torrent_filelist",
+    "translation": "Torrent filelist"
+  },
+  {
+    "id": "back_to_torrent",
+    "translation": "Back to \"%s\""
+  },
+  {
     "id": "uploaded_by",
     "translation": "Uploaded by"
   },
