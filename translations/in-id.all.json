@@ -197,7 +197,7 @@
   },
   {
     "id": "err_no_results",
-    "translation": "No results foundTidak ada hasil yang ditemukan"
+    "translation": "Tidak ada hasil yang ditemukan"
   },
   {
     "id": "upload",
@@ -397,11 +397,11 @@
   },
   {
     "id": "anime_english_translated",
-    "translation": "Anime - Terjemahan bahasa inggris"
+    "translation": "Anime - Terjemahan bahasa Inggris"
   },
   {
     "id": "anime_non_english_translated",
-    "translation": "Anime - Terjemahan bukan bahasa inggris"
+    "translation": "Anime - Terjemahan bukan bahasa Inggris"
   },
   {
     "id": "anime_raw",
@@ -425,7 +425,7 @@
   },
   {
     "id": "literature_english_translated",
-    "translation": "Literatur - Terjemahan bahasa inggris"
+    "translation": "Literatur - Terjemahan bahasa Inggris"
   },
   {
     "id": "literature_raw",
@@ -433,7 +433,7 @@
   },
   {
     "id": "literature_non_english_translated",
-    "translation": "Literatur - Terjemahan bukan bahasa inggris"
+    "translation": "Literatur - Terjemahan selain Inggris"
   },
   {
     "id": "live_action",
@@ -441,7 +441,7 @@
   },
   {
     "id": "live_action_english_translated",
-    "translation": "Live Action - Terjemahan bahasa inggris"
+    "translation": "Live Action - Terjemahan bahasa Inggris"
   },
   {
     "id": "live_action_idol_pv",
@@ -449,7 +449,7 @@
   },
   {
     "id": "live_action_non_english_translated",
-    "translation": "Live Action - Terjemahan bukan bahasa inggris"
+    "translation": "Live Action - Terjemahan bukan bahasa Inggris"
   },
   {
     "id": "live_action_raw",
@@ -581,7 +581,7 @@
   },
   {
     "id": "current_password",
-    "translation": "Password yang sekarang"
+    "translation": "Password sekarang"
   },
   {
     "id": "role",
@@ -605,7 +605,7 @@
   },
   {
     "id": "userstatus_moderator",
-    "translation": "userstatus_moderator"
+    "translation": "Moderator"
   },
   {
     "id": "api_token",
@@ -621,7 +621,7 @@
   },
   {
     "id": "delete_account",
-    "translation": "Hapus account"
+    "translation": "Hapus akun"
   },
   {
     "id": "delete_account_confirm",
@@ -1317,7 +1317,7 @@
   },
   {
     "id": "email_not_valid",
-    "translation": "Alamat email tidak sah!"
+    "translation": "Alamat email tidak valid!"
   },
   {
     "id": "username_illegal",
@@ -1349,7 +1349,7 @@
   },
   {
     "id": "language_fr-fr_name",
-    "translation": "Perancis"
+    "translation": "Prancis"
   },
   {
     "id": "language_hu-hu_name",
@@ -1357,7 +1357,7 @@
   },
   {
     "id": "language_is-is_name",
-    "translation": "Icelandic"
+    "translation": "Islandia"
   },
   {
     "id": "language_it-it_name",
@@ -1401,7 +1401,7 @@
   },
   {
     "id": "language_th-th_name",
-    "translation": "Thaiand"
+    "translation": "Thailand"
   },
   {
     "id": "language_zh-cn_name",
@@ -1541,43 +1541,43 @@
   },
   {
     "id": "error_numeric_valid",
-    "translation": "%s harus berupa nilai numerik yang sah"
+    "translation": "%s harus berupa nilai numerik yang valid"
   },
   {
     "id": "error_number_valid",
-    "translation": "%s harus berupa angka yang sah"
+    "translation": "%s harus berupa angka yang valid"
   },
   {
     "id": "error_hexadecimal_valid",
-    "translation": "%s harus berupa heksadesimal yang sah"
+    "translation": "%s harus berupa heksadesimal yang valid"
   },
   {
     "id": "error_hex_valid",
-    "translation": "%s harus berupa warna HEX yang sah"
+    "translation": "%s harus berupa warna HEX yang valid"
   },
   {
     "id": "error_rgb_valid",
-    "translation": "%s harus berupa warna RGB yang sah"
+    "translation": "%s harus berupa warna RGB yang valid"
   },
   {
     "id": "error_rgba_valid",
-    "translation": "%s harus berupa warna RGBA yang sah"
+    "translation": "%s harus berupa warna RGBA yang valid"
   },
   {
     "id": "error_hsl_valid",
-    "translation": "%s harus berupa warna HSL yang sah"
+    "translation": "%s harus berupa warna HSL yang valid"
   },
   {
     "id": "error_hsla_valid",
-    "translation": "%s harus berupa warna HSLA yang sah"
+    "translation": "%s harus berupa warna HSLA yang valid"
   },
   {
     "id": "error_url_valid",
-    "translation": "%s harus berupa URL yang sah"
+    "translation": "%s harus berupa URL yang valid"
   },
   {
     "id": "error_uri_valid",
-    "translation": "%s harus berupa URI yang sah"
+    "translation": "%s harus berupa URI yang valid"
   },
   {
     "id": "error_base64_valid",
@@ -1605,7 +1605,7 @@
   },
   {
     "id": "error_color_valid",
-    "translation": "%s harus berupa warna yang sah"
+    "translation": "%s harus berupa warna yang valid"
   },
   {
     "id": "error_",
@@ -1753,7 +1753,7 @@
   },
   {
     "id": "torrent_name_invalid",
-    "translation": "Nama torrent tidak sah"
+    "translation": "Nama torrent tidak valid"
   },
   {
     "id": "torrent_private",
@@ -1765,19 +1765,19 @@
   },
   {
     "id": "torrent_desc_invalid",
-    "translation": "Deskripsi torrent tidak sah"
+    "translation": "Deskripsi torrent tidak valid"
   },
   {
     "id": "torrent_cat_invalid",
-    "translation": "Kategori torrent tidak sah"
+    "translation": "Kategori torrent tidak valid"
   },
   {
     "id": "torrent_lang_invalid",
-    "translation": "Bahasa yang dikirim belum didukung! Anda dapat membantu mendukungnya dengan berkontribusi di halaman github kami"
+    "translation": "Bahasa yang dikirim belum didukung! Anda dapat membantu dengan berkontribusi pada repository github kami"
   },
   {
     "id": "torrent_cat_is_english",
-    "translation": "Kategori torrent adalah untuk terjemahan bahasa Inggris, tapi bahasa bukan bahasa Inggris. Kami mengubahnya menjadi bahasa inggris"
+    "translation": "Kategori torrent adalah untuk terjemahan bahasa Inggris, tapi bahasa tersebut bukan bahasa Inggris. Kami mengubahnya menjadi bahasa Inggris"
   },
   {
     "id": "torrent_cat_not_english",
@@ -1797,11 +1797,11 @@
   },
   {
     "id": "torrent_file_invalid",
-    "translation": "File Torrent tidak sah"
+    "translation": "File Torrent tidak valid"
   },
   {
     "id": "torrent_uri_invalid",
-    "translation": "Alamat situs web atau link IRC tidak sah"
+    "translation": "Alamat situs web atau link IRC tidak valid"
   },
   {
     "id": "api_documentation",
@@ -1978,5 +1978,145 @@
   {
     "id": "expire",
     "translation": "Berakhir"
+  },
+  {
+    "id": "complement",
+    "translation": "Complement"
+  },
+  {
+    "id": "from",
+    "translation": "Dari"
+  },
+  {
+    "id": "to",
+    "translation": "Untuk"
+  },
+  {
+    "id": "feed_types",
+    "translation": "Tipe Feed: RSS(feed), RSS Dengan Magnet Link(magnet), Torznab Spec(torznab), EZTV Spec(eztv)"
+  },
+  {
+    "id": "append_query",
+    "translation": "Kamu dapat menggabungkan kueri pencarian pada bagian akhir URL."
+  },
+  {
+    "id": "cookie_warning",
+    "translation": "Dengan menggunakan website ini, kamu telah menyetujui atas penggunaan cookie sebagai kostumisasi konten.<br/> Pada halaman selanjutnya, pesan ini tidak akan tampil."
+  },
+  {
+    "id": "pending_torrent",
+    "translation": "Harap bersabar, file torrent sedang dibuat. Coba dalam beberapa detik lagi."
+  },
+  {
+    "id": "generating_torrent",
+    "translation": "Membuat file torrent..."
+  },
+  {
+    "id": "generating_torrent_failed",
+    "translation": "Torrent tidak dapat dibuat"
+  },
+  {
+    "id": "enabled",
+    "translation": "Aktifkan"
+  },
+  {
+    "id": "disabled",
+    "translation": "Matikan"
+  },
+  {
+    "id": "reset_api_key",
+    "translation": "Reset API key"
+  },
+  {
+    "id": "tag_error",
+    "translation": "Tidak dapat menambah tag. Cek koneksi internet kamu dan pastikan semua field dalam form terisi."
+  },
+  {
+    "id": "search_from_user",
+    "translation": "Cari berdasarkan pengguna..."
+  },
+  {
+    "id": "usersearch_user_not_found",
+    "translation": "Pengguna \"%s\" tidak ditemukan"
+  },
+  {
+    "id": "user_search_explanation",
+    "translation": "Cari pengguna berdasarkan username pada bawah ini"
+  },
+  {
+    "id": "no_api_token",
+    "translation": "No token API"
+  },
+  {
+    "id": "search_from_specific_user",
+    "translation": "Cari dari %s"
+  },
+  {
+    "id": "browsing_user_torrents",
+    "translation": "Mencari <a href=\"/user/%d/%s\">%s</a>'s torrent"
+  },
+  {
+    "id": "hours_minutes_ago",
+    "translation": "{0} jam {1} menit yang lalu"
+  },
+  {
+    "id": "days_hours_ago",
+    "translation": "{0} hari {1} jam yang  lalu"
+  },
+  {
+    "id": "status",
+    "translation": "Status"
+  },
+  {
+    "id": "upload_status",
+    "translation": "Status unggah"
+  },
+  {
+    "id": "pending",
+    "translation": "Tertunda"
+  },
+  {
+    "id": "error",
+    "translation": "Error"
+  },
+  {
+    "id": "finished",
+    "translation": "Selesai"
+  },
+  {
+    "id": "upload_to",
+    "translation": "Unggah ke %s"
+  },
+  {
+    "id": "upload_to_other",
+    "translation": "Unggah ke website lain"
+  },
+  {
+    "id":"choose_category",
+    "translation": "Pilih kategori (diperlukan)"
+  },
+  {
+    "id":"choose_language",
+    "translation":"Pilih bahasa (diperlukan)"
+  },
+  {
+    "id": "event",
+    "translation": "Event"
+  },
+  {
+    "id": "read",
+    "translation": "Terbaca"
+  },
+  {
+    "id": "unread",
+    "translation": "Belum Terbaca"
+  },
+  {
+    "id": "moderation_guidelines",
+    "translation": "Pedoman Moderasi"
+  },
+  {
+    "id": "guidelines",
+    "translation": "Pedoman"
   }
 ]
