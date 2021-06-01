@@ -1,0 +1,2326 @@
+[
+  {
+    "id": "read_rules",
+    "translation": "अपलोड करने से पहले कृपया <a href=\"/faq#rules\">नियम</a> पढ़ें।"
+  },
+  {
+    "id": "rules",
+    "translation": "नियम"
+  },
+  {
+    "id": "no_cp",
+    "translation": "बाल अश्लीलता नहीं (लोलिकॉन के आलावा)"
+  },
+  {
+    "id": "asia",
+    "translation": "सिर्फ एशियाई कंटेंट (पश्चिमी फ़िल्में नहीं, कार्टून नहीं)"
+  },
+  {
+    "id": "rules_spam",
+    "translation": "स्पैम नहीं"
+  },
+  {
+    "id": "rules_sukebei",
+    "translation": "NSFW कंटेंट sukebei.pantsu.cat के लिए है"
+  },
+  {
+    "id": "rule_tracker_url",
+    "translation": "<span style='font-weight: bold;'>https://uw0.xyz/</span> आधिकारिक अनाउंस URL है"
+  },
+  {
+    "id": "verify_email_title",
+    "translation": "Nyaapantsu के लिए अपना ईमेल पता वेरीफाई करें।"
+  },
+  {
+    "id": "verify_email_content",
+    "translation": "अपना ईमेल वेरीफाई करने के लिए कृपया नीचे के लिंक पर क्लिक करें।"
+  },
+  {
+    "id": "reset_password_title",
+    "translation": "Nyaapantsu के लिए पासवर्ड बदलें।"
+  },
+  {
+    "id": "reset_password_content",
+    "translation": "अपने पासवर्ड को बदलने के लिए कृपया नीचे के लिंक पर क्लिक करें।"
+  },
+  {
+    "id": "register_title",
+    "translation": "नया अकाउंट बनाना"
+  },
+  {
+    "id": "signup_box_title",
+    "translation": "कृपया साइन अप करें, यह मुफ्त है और हमेशा रहेगा।"
+  },
+  {
+    "id": "username",
+    "translation": "नाम"
+  },
+  {
+    "id": "email_address_or_username",
+    "translation": "ईमेल पता या नाम"
+  },
+  {
+    "id": "email_address",
+    "translation": "ईमेल पता"
+  },
+  {
+    "id": "password",
+    "translation": "पासवर्ड"
+  },
+  {
+    "id": "confirm_password",
+    "translation": "पासवर्ड सुनिश्चित करें"
+  },
+  {
+    "id": "terms_conditions_confirm",
+    "translation": "<b>अकाउंट बनाएँ</b> पर क्लिक करके आप इस साइट द्वारा बनाए गए कुकी-उपयोग सहित <a id=\"modal_active\" href=\"#\">नियम और शर्तों</a> को स्वीकार करेंगे।"
+  },
+  {
+    "id": "signin",
+    "translation": "प्रवेश करें"
+  },
+  {
+    "id": "register",
+    "translation": "अकाउंट बनाएँ"
+  },
+  {
+    "id": "terms_conditions",
+    "translation": "नियम और शर्तें"
+  },
+  {
+    "id": "terms_conditions_full",
+    "translation": "<h2>NyaaPantsu के नियम और शर्तें</h2><h3>१. नियम</h3><p><a href='https://pantsu.cat'>https://pantsu.cat</a> पर वेबसाइट का इस्तेमाल करके आप इन उपयोग की शर्तों, सभी लागू नियम और कानूनों को स्वीकार कर रहे हैं, और मान रहे हैं कि स्थानीय नियमों का पालन करने के लिए आप ज़िम्मेदार हैं। अगर आप इनमें से किसी भी नियम का पालन नहीं करते हैं, आपको इस साइट पर आने या इसका इस्तेमाल करने की अनुमति नहीं। इस वेबसाइट पर कंटेंट कॉपीराइट और ट्रेडमार्क नियमों के साथ हैं।</p><h3>२. अस्वीकरण</h3><ol type='a'><li>NyaaPantsu Lda के वेबसाइट पर कंटेंट 'जैसा है', उसी तरह से दिया जाता है। NyaaPantsu Lda कोई वारंटी नहीं देता, चाहे प्रकट करके हो या विरासत से, और सभी विरासत के वारंटी, व्यापारिकता, किसी विशिष्ट काम के लिए योग्यता, या अधिकारों के उल्लंघन को इंकार करता है।</li><li>NyaaPantsu Lda अपनी वेबसाइट पर या इस तरह की सामग्री या इस साइट से जुड़ी किसी भी साइट से संबंधित सामग्री के उपयोग की सटीकता, शायद परिणाम, या विश्वसनीयता पर वारंटी पर कोई प्रतिनिधित्व नहीं करता है।</li></ol><h3>३. सीमा</h3><p>NyaPantsu Lda या इसके आपूर्ति कर्ताएँ किसी भी नुकसान के लिए उत्तरदायी नहीं होंगे (जैसे डेटा या लाभ के नुकसान, या व्यावसायिक रुकावट) NyaaPantsu Lda की वेबसाइट पर सामग्री का उपयोग करने में असमर्थता से होता है, भले ही NyaaPantsu Lda या NyaaPantsu Lda अधिकृत प्रतिनिधि को मौखिक या लिखित रूप में इस तरह के नुकसान की संभावना के बारे में सूचित किया गया हो। क्योंकि कुछ क्षेत्राधिकार निहित वारंटी या परिणामी या आकस्मिक क्षति के लिए देयता की सीमाओं पर सीमाओं की अनुमति नहीं देते हैं, ये सीमाएँ आप पर लागू नहीं हो सकती हैं।</p><h3>कंटेंट की सटीकता</h3><p>NyaaPantsu Lda पर कंटेंट प्रौद्योगिकी, छापने से सम्बंधित, या चित्रों से सम्बंधित त्रुटियों में हो सकती है। NyaaPantsu Lda ऐसी कोई वारंट नहीं देती कि इसके वेबसाइट पर कोई भी कंटेंट सटीक, पूर्ण या सामयिक हैं। NyaaPantsu Lda किसी भी समय बिना सूचना के इसके वेबसाइट से कंटेंट पर बदलाव ला सकता है। लेकिन NyaaPantsu Lda कंटेंट को अपडेट करने के लिए कोई दायित्व नहीं लेता।</p><h3>५. कड़ियाँ</h3><p>NyaaPantsu Lda ने अपने वेबसाइट से जुड़ी सभी कड़ियों को रिव्यु नहीं किया है और ऐसे किसी साइट के कंटेंट के लिए यह ज़िम्मेदार नहीं है। किसी कड़ी के होने का यह मतलब नहीं कि यह NyaaPantsu Lda की चाहत है। ऐसे किसी भी वेबसाइट का इस्तेमाल करना उपयोगकर्ता का अपना फैसला है।</p><h3>६. अद्यतन</h3><p>NyaaPantsu Lda इन उपयोग की शर्तों को किसी भी समय बिना सूचना के बदल सकता है। इस वेबसाइट का इस्तेमाल करके आप इन उपयोग की शर्तों के वर्तमान संस्करण को स्वीकार कर रहे हैं।</p><h3>७. सरकारी क़ानून</h3><p>इन नियमों और शर्तों को पुर्तगाल के कानूनों के अधीन रचा गया है और आप उस राज्य या स्थान के नियमों को भी अपने आप स्वीकार कर रहे हैं।</p>"
+  },
+  {
+    "id": "remember_me",
+    "translation": "मुझे याद रखें"
+  },
+  {
+    "id": "forgot_password",
+    "translation": "पासवर्ड भूल गए?"
+  },
+  {
+    "id": "sign_in_box_title",
+    "translation": "कृपया प्रवेश करें"
+  },
+  {
+    "id": "sign_in_title",
+    "translation": "प्रवेश करें"
+  },
+  {
+    "id": "register_success_title",
+    "translation": "साइन अप सफल हुआ"
+  },
+  {
+    "id": "sign_up_success",
+    "translation": "अकाउंट बनाने के लिए धन्यवाद!"
+  },
+  {
+    "id": "verify_success",
+    "translation": "<i style=\"color:limegreen\" class=\"glyphicon glyphicon-ok-circle\"></i>आपके अकाउंट को अब सक्षम कर दिया गया है!"
+  },
+  {
+    "id": "signup_verification_email",
+    "translation": "ईमेल वेरिफिकेशन को इस समय अक्षम किया गया है, तो आप अपने अकाउंट का इस्तेमाल कर सकते हैं। भविष्य में वेरिफिकेशन ईमेल के लिए कृपया अपना मेल इनबॉक्स (और स्पैम फोल्डर!) देखें।"
+  },
+  {
+    "id": "signup_verification_noemail",
+    "translation": "पंजीकरण सफल हुआ, आप अपने अकाउंट का इस्तेमाल कर सकते हैं।"
+  },
+  {
+    "id": "email_placeholder",
+    "translation": "खाली छोड़ा जा सकता है।"
+  },
+  {
+    "id": "settings",
+    "translation": "अकाउंट के सेटिंग्स"
+  },
+  {
+    "id": "torrents",
+    "translation": "टोरेंट"
+  },
+  {
+    "id": "followers",
+    "translation": "फ़ॉलोवर "
+  },
+  {
+    "id": "follow",
+    "translation": "फ़ॉलो करें"
+  },
+  {
+    "id": "unfollow",
+    "translation": "अनफ़ॉलो करें"
+  },
+  {
+    "id": "user_followed_msg",
+    "translation": "आपने %s को फॉलो किया!"
+  },
+  {
+    "id": "user_unfollowed_msg",
+    "translation": "आपने %s को अनफॉलो किया!"
+  },
+  {
+    "id": "profile_page",
+    "translation": "%s प्रोफाइल पृष्ठ"
+  },
+  {
+    "id": "see_more_torrents_from",
+    "translation": "%s से और टोरेंट देखें"
+  },
+  {
+    "id": "torrents_uploaded",
+    "translation": "अपलोड किए गए टोरेंट"
+  },
+  {
+    "id": "category",
+    "translation": "श्रेणी"
+  },
+  {
+    "id": "name",
+    "translation": "नाम"
+  },
+  {
+    "id": "date",
+    "translation": "दिनांक"
+  },
+  {
+    "id": "size",
+    "translation": "आकार"
+  },
+  {
+    "id": "links",
+    "translation": "कड़ियाँ"
+  },
+  {
+    "id": "home",
+    "translation": "मुख्य पृष्ठ"
+  },
+  {
+    "id": "error_404",
+    "translation": "त्रुटि ४०४"
+  },
+  {
+    "id": "error_400",
+    "translation": "त्रुटि ४००"
+  },
+  {
+    "id": "error_500",
+    "translation": "त्रुटि ५००"
+  },
+  {
+    "id": "err_no_results",
+    "translation": "कोई अंजाम नहीं मिला"
+  },
+  {
+    "id": "err_no_torrent_file",
+    "translation": "टोरेंट फाइल नहीं मिला"
+  },
+  {
+    "id": "upload",
+    "translation": "अपलोड करें"
+  },
+  {
+    "id": "faq",
+    "translation": "FAQ"
+  },
+  {
+    "id": "fap",
+    "translation": "चोद"
+  },
+  {
+    "id": "fun",
+    "translation": "मस्ती"
+  },
+  {
+    "id": "nothing_here",
+    "translation": "यहाँ कुछ नहीं है।"
+  },
+  {
+    "id": "404_not_found",
+    "translation": "४०४ नहीं मिला"
+  },
+  {
+    "id": "500_internal_server_error",
+    "translation": "५०० आतंरिक सर्वर त्रुटि"
+  },
+  {
+    "id": "400_bad_request",
+    "translation": "४०० बुरा अनुरोध"
+  },
+  {
+    "id": "no_torrents_uploaded",
+    "translation": "अब तक कोई टोरेंट अपलोड नहीं किया गया है!"
+  },
+  {
+    "id": "profile",
+    "translation": "प्रोफाइल"
+  },
+  {
+    "id": "sign_out",
+    "translation": "प्रस्थान करें"
+  },
+  {
+    "id": "userstatus_member",
+    "translation": "सदस्य"
+  },
+  {
+    "id": "no_results_found",
+    "translation": "कोई अंजाम नहीं मिला"
+  },
+  {
+    "id": "notice_keep_seeding",
+    "translation": "सूचना: कृपया सीड करके DHT सक्षम रखें"
+  },
+  {
+    "id": "official_nyaapocalipse_faq",
+    "translation": "आधिकारिक Nyaapocalypse FAQ"
+  },
+  {
+    "id": "links_replacement_mirror",
+    "translation": "प्रतिस्थापन/मिरर के लिए कड़ियाँ"
+  },
+  {
+    "id": "what_happened",
+    "translation": "क्या हुआ?"
+  },
+  {
+    "id": "nyaa_se_went_offline",
+    "translation": "nyaa.se और सम्बन्धी डोमेन (जैसे nyaatorrents.info) १ मई, २०१७ को ऑफलाइन चले गए।"
+  },
+  {
+    "id": "its_not_a_ddos",
+    "translation": "उन्हें अक्षम किया गया, तह यह साधारण DDoS आक्रमण की तरह नहीं है।"
+  },
+  {
+    "id": "future_not_looking_good",
+    "translation": "Nyaa का भविष्य भी कुछ ठीक नहीं लग रहा। (सब ख़त्म हो चुका है, जिम।)"
+  },
+  {
+    "id": "recovery_effort",
+    "translation": "उन्हें रिकवर करने की कोशिशें जारी हैं।"
+  },
+  {
+    "id": "is_everything_lost",
+    "translation": "क्या सब कुछ मिट चुका है?"
+  },
+  {
+    "id": "in_short_no",
+    "translation": "आसान शब्दों में, नहीं।"
+  },
+  {
+    "id": "are_some_things_lost",
+    "translation": "क्या कुछ चीज़ें मिट चुकी हैं?"
+  },
+  {
+    "id": "answer_is_nyaa_db_lost",
+    "translation": "हमारे पास <s>५ अप्रैल</s> १ मई तक Nyaa पर टोरेंट का डेटाबेस है। यानि करीब कुछ भी नहीं खोया है।"
+  },
+  {
+    "id": "answer_is_sukebei_db_lost",
+    "translation": "Sukebei भी सुरक्षित है, वहाँ भी करीब कुछ भी नहीं खोया है।"
+  },
+  {
+    "id": "how_are_we_recovering",
+    "translation": "हम रिकवर कैसे कर रहे हैं?"
+  },
+  {
+    "id": "answer_how_are_we_recovering",
+    "translation": "इन डेटाबेसों को nyaa.pantsu.cat और sukebei.pantsu.cat पर होस्ट किया जा रहा है। एक खोज सुविधा है, और (करीब) पूरी Nyaa की सुविधाएँ जल्द आएँगी।"
+  },
+  {
+    "id": "how_do_i_link_my_old_account",
+    "translation": "मैंने अपने पुराने अपलोडों को अपने नए अकाउंट का कैसे जोड़ूँ?"
+  },
+  {
+    "id": "answer_how_do_i_link_my_old_account",
+    "translation": "<a href=\"ircs://irc.rizon.net/nyaapantsu-help\">#nyaapantsu-help@Rizon</a> पर शामिल हों और अपने पुराने और नए नामों का उल्लेख करते हुए किसी मॉडरेटर से अपने टोरेंटों को माइग्रेट करने को कहें।"
+  },
+  {
+    "id": "are_the_trackers_working",
+    "translation": "क्या सभी टोरेंट अब भी काम कर रहे हैं?"
+  },
+  {
+    "id": "answer_are_the_trackers_working",
+    "translation": "हालाँकि, ट्रैकर अक्षम हैं, सीडर अब भी DHT नेटवर्क से जुड़े हुए हैं। जब तक फाइल DHT नेटवर्क की सूची में है, सब कुछ ठीक से काम करेगा।"
+  },
+  {
+    "id": "how_do_i_download_the_torrents",
+    "translation": "मैं टोरेंट डाउनलोड कैसे करूँ?"
+  },
+  {
+    "id": "answer_how_do_i_download_the_torrents",
+    "translation": "बस <b>मैग्नेट लिंक</b> का इस्तेमाल करें। आपका BitTorrent क्लाइंट मैग्नेट लिंक की मदद से DHT नेटवर्क पर फाइल को ढूँढेगा और यह अपने आप डाउनलोड हो जाएगा।"
+  },
+  {
+    "id": "magnet_link_should_look_like",
+    "translation": "मैगनेट लिंक कुछ ऐसा दिखेगा:"
+  },
+  {
+    "id": "which_trackers_do_you_recommend",
+    "translation": "आपके अनुसार हमें किस ट्रैकर का इस्तेमाल करना चाहिए?"
+  },
+  {
+    "id": "answer_which_trackers_do_you_recommend",
+    "translation": "इस समय हमारे पास हमारा अपना तरकेट है जिसे uw0.xyz कहा जाता है, अपलोड करने से पहले इसे सूची के सामने जोड़ें। टोरेंट को बरक़रार रखने के लिए सभी ट्रैकरों को जोड़ना ज़रूरी है।"
+  },
+  {
+    "id": "how_can_i_help",
+    "translation": "मैं मदद कैसे कर सकता/सकती हूँ?"
+  },
+  {
+    "id": "answer_how_can_i_help",
+    "translation": "अगर आपको वेबसाइट विकास आती है, आप irc.rizon.net पर #nyaapantsu IRC चैनल में शामिल हो सकते हैं। अगर आपके पास वर्तमान डेटाबेस हैं, खासकर Sukebei के लिए, कृपया उन्हें अपलोड करें।"
+  },
+  {
+    "id": "your_design_sucks_found_a_bug",
+    "translation": "आपका डिज़ाइन टट्टी है/मुझे एक बग मिला"
+  },
+  {
+    "id": "why_written_in_go",
+    "translation": "सब कुछ Go में क्यों लिखा है?"
+  },
+  {
+    "id": "authors_favorite_language",
+    "translation": "यह लेखक की पसंदीदा प्रोग्रामिंग भाषा है।"
+  },
+  {
+    "id": "torrent_file",
+    "translation": "फाइल टोरेंट करें"
+  },
+  {
+    "id": "uploading_file_prefills_fields",
+    "translation": "टोरेंट फाइल अपलोड करने पर मैग्नेट फील्ड को अपने आप भी भरा जा सकता है। यह संस्तुत है।"
+  },
+  {
+    "id": "magnet_link",
+    "translation": "मैगनेट लिंक"
+  },
+  {
+    "id": "all_categories",
+    "translation": "सभी श्रेणियाँ"
+  },
+  {
+    "id": "select_a_torrent_category",
+    "translation": "टोरेंट की श्रेणी चुनें"
+  },
+  {
+    "id": "anime",
+    "translation": "ऐनिमे"
+  },
+  {
+    "id": "anime_amv",
+    "translation": "ऐनिमे - ऐनिमे संगीत"
+  },
+  {
+    "id": "anime_english_translated",
+    "translation": "ऐनिमे - अंग्रेजी-अनुवादित"
+  },
+  {
+    "id": "anime_non_english_translated",
+    "translation": "ऐनिमे - गैर-अंग्रेजी-अनुवादित"
+  },
+  {
+    "id": "anime_raw",
+    "translation": "ऐनिमे - रॉ"
+  },
+  {
+    "id": "audio",
+    "translation": "ऑडियो"
+  },
+  {
+    "id": "audio_lossless",
+    "translation": "ऑडियो - दोषरहित"
+  },
+  {
+    "id": "audio_lossy",
+    "translation": "ऑडियो - हानिपूर्ण"
+  },
+  {
+    "id": "literature",
+    "translation": "साहित्य"
+  },
+  {
+    "id": "literature_english_translated",
+    "translation": "साहित्य - अंग्रेजी-अनुवादित"
+  },
+  {
+    "id": "literature_raw",
+    "translation": "साहित्य - रॉ"
+  },
+  {
+    "id": "literature_non_english_translated",
+    "translation": "साहित्य - गैर-अंग्रेजी-अनुवादित"
+  },
+  {
+    "id": "live_action",
+    "translation": "लाइव  ऐक्शन"
+  },
+  {
+    "id": "live_action_english_translated",
+    "translation": "लाइव  ऐक्शन - अंग्रेजी-अनुवादित"
+  },
+  {
+    "id": "live_action_idol_pv",
+    "translation": "लाइव  ऐक्शन - आइडल-विज्ञापन वीडियो"
+  },
+  {
+    "id": "live_action_non_english_translated",
+    "translation": "लाइव  ऐक्शन - गैर-अंग्रेजी-अनुवादित"
+  },
+  {
+    "id": "live_action_raw",
+    "translation": "लाइव  ऐक्शन - रॉ"
+  },
+  {
+    "id": "pictures",
+    "translation": "चित्र"
+  },
+  {
+    "id": "pictures_graphics",
+    "translation": "चित्र - ग्राफ़िक्स"
+  },
+  {
+    "id": "pictures_photos",
+    "translation": "चित्र - तस्वीरें"
+  },
+  {
+    "id": "software",
+    "translation": "सॉफ्टवेयर"
+  },
+  {
+    "id": "software_applications",
+    "translation": "सॉफ्टवेयर - ऐप्लीकेशन"
+  },
+  {
+    "id": "software_games",
+    "translation": "सॉफ्टवेयर - खेल"
+  },
+  {
+    "id": "art",
+    "translation": "कला"
+  },
+  {
+    "id": "art_anime",
+    "translation": "कला - ऐनिमे"
+  },
+  {
+    "id": "art_doujinshi",
+    "translation": "कला - दोजींशी"
+  },
+  {
+    "id": "art_games",
+    "translation": "कला - खेल"
+  },
+  {
+    "id": "art_manga",
+    "translation": "कला - कॉमिक"
+  },
+  {
+    "id": "art_pictures",
+    "translation": "कला - तस्वीरें"
+  },
+  {
+    "id": "real_life",
+    "translation": "असल ज़िन्दगी"
+  },
+  {
+    "id": "real_life_photobooks_and_pictures",
+    "translation": "असल ज़िन्दगी - चित्र-पुस्तिकाएँ और तस्वीरें"
+  },
+  {
+    "id": "real_life_videos",
+    "translation": "असल ज़िन्दगी - वीडियो"
+  },
+  {
+    "id": "torrent_description",
+    "translation": "टोरेंट विवरण"
+  },
+  {
+    "id": "description_markdown_notice",
+    "translation": "विवरण में मार्कडाउन का इस्तेमाल किया जा सकता है।"
+  },
+  {
+    "id": "comment_markdown_notice",
+    "translation": "कमेंट में मार्कडाउन का इस्तेमाल किया जा सकता है।"
+  },
+  {
+    "id": "show_all",
+    "translation": "सभी दिखाएँ"
+  },
+  {
+    "id": "delete_all",
+    "translation": "सभी हटाएँ"
+  },
+  {
+    "id": "filter_remakes",
+    "translation": "रीमेक फ़िल्टर करें"
+  },
+  {
+    "id": "trusted",
+    "translation": "विश्वसनीय"
+  },
+  {
+    "id": "search",
+    "translation": "खोजें"
+  },
+  {
+    "id": "hash",
+    "translation": "हैश"
+  },
+  {
+    "id": "description",
+    "translation": "विवरण"
+  },
+  {
+    "id": "no_description",
+    "translation": "कोई विवरण नहीं दिया गया!"
+  },
+  {
+    "id": "comments",
+    "translation": "कमेंट"
+  },
+  {
+    "id": "submit_a_comment_as_username",
+    "translation": "%s के रूप में कमेंट जोड़ें।"
+  },
+  {
+    "id": "submit_a_comment_as_anonymous",
+    "translation": "गुमनाम होकर कमेंट जोड़ें।"
+  },
+  {
+    "id": "torrent_no_comments",
+    "translation": "कोई कमेंट नहीं दिया गया।"
+  },
+  {
+    "id": "submit",
+    "translation": "प्रस्तुत करें"
+  },
+  {
+    "id": "personal_info",
+    "translation": "व्यक्तिगत जानकारी"
+  },
+  {
+    "id": "language",
+    "translation": "भाषा"
+  },
+  {
+    "id": "current_password",
+    "translation": "वर्तमान पासवर्ड"
+  },
+  {
+    "id": "default",
+    "translation": "डिफ़ॉल्ट"
+  },
+  {
+    "id": "role",
+    "translation": "रोल"
+  },
+  {
+    "id": "userstatus_banned",
+    "translation": "अवरुद्ध"
+  },
+  {
+    "id": "userstatus_trusted",
+    "translation": "विश्वसनीय उपयोगकर्ता"
+  },
+  {
+    "id": "userstatus_scraped",
+    "translation": "स्क्रेप किए गए उपयोगकर्ता"
+  },
+  {
+    "id": "userstatus_moderator",
+    "translation": "मॉडरेटर"
+  },
+  {
+    "id": "userstatus_janitor",
+    "translation": "चौकीदार"
+  },
+  {
+    "id": "userstatus_uploader",
+    "translation": "अपलोड करनेवाले"
+  },
+  {
+    "id": "api_token",
+    "translation": "API टोकन"
+  },
+  {
+    "id": "save_changes",
+    "translation": "बदलाव सहेजें"
+  },
+  {
+    "id": "profile_updated",
+    "translation": "आपके प्रोफाइल को अपडेट कर दिया गया है!"
+  },
+  {
+    "id": "delete_account",
+    "translation": "अकाउंट हटाएँ"
+  },
+  {
+    "id": "delete_account_confirm",
+    "translation": "क्या आप सच में इस अकाउंट को हटाना चाहते हैं?"
+  },
+  {
+    "id": "delete_success",
+    "translation": "अकाउंट को सफलतापूर्वक हटा दिया गया है!"
+  },
+  {
+    "id": "moderation",
+    "translation": "मॉडरेशन"
+  },
+  {
+    "id": "extensions_and_plugins",
+    "translation": "एक्सटेंशन और प्लगिन (तृतीय-पक्ष डेवलपरों द्वारा बनाए गए)"
+  },
+  {
+    "id": "qbittorrent_plugin",
+    "translation": "qBittorrent प्लगिन"
+  },
+  {
+    "id": "local_client",
+    "translation": "लोकल क्लाइंट"
+  },
+  {
+    "id": "chrome_extension",
+    "translation": "क्रोम एक्सटेंशन"
+  },
+  {
+    "id": "firefox_extension",
+    "translation": "फ़ायरफ़ॉक्स एक्सटेंशन"
+  },
+  {
+    "id": "android_app",
+    "translation": "एंड्रॉइड ऐप"
+  },
+  {
+    "id": "who_is_renchon",
+    "translation": "ये <span lang=\"ja\">れんちょん</span> साला कौन है?"
+  },
+  {
+    "id": "renchon_anon_explanation",
+    "translation": "<span lang=\"ja\">れんちょん</span> (Ren-chon) गुमनाम अपलोड और कमेंटों को दिया जैन वाला नाम है। उसे असली Nyaa से आयात किए गए टोरेंटों को भी दिया जाता है, हालाँकि कभी-कभी इनके असली नाम भी साथ में आ जाते हैं।"
+  },
+  {
+    "id": "mark_as_remake",
+    "translation": "रीमेक के तौर पर मार्क करें"
+  },
+  {
+    "id": "email_changed",
+    "translation": "ईमेल को सफलतापूर्वक बदल दिया गया! आपको %s पर भेजे गए लिंक पर क्लिक करके इसे सुनिश्चित करना होगा।"
+  },
+  {
+    "id": "torrent_status",
+    "translation": "टोरेंट की स्थिति"
+  },
+  {
+    "id": "torrent_status_normal",
+    "translation": "साधारण"
+  },
+  {
+    "id": "torrent_status_remake",
+    "translation": "रीमेक"
+  },
+  {
+    "id": "torrent_status_blocked",
+    "translation": "लॉक किया गया"
+  },
+  {
+    "id": "profile_edit_page",
+    "translation": " %s की प्रोफाइल को सम्पादित करें"
+  },
+  {
+    "id": "seeders",
+    "translation": "सीड करनेवाले"
+  },
+  {
+    "id": "leechers",
+    "translation": "लीच  करनेवाले"
+  },
+  {
+    "id": "completed",
+    "translation": "पूरा हुआ"
+  },
+  {
+    "id": "change_language",
+    "translation": "भाषा बदलें"
+  },
+  {
+    "id": "language_name",
+    "translation": "हिन्दी"
+  },
+  {
+    "id": "language_code",
+    "translation": "hi-in"
+  },
+  {
+    "id": "delete",
+    "translation": "हटाएँ"
+  },
+  {
+    "id": "website_link",
+    "translation": "वेबसाइट की कड़ी"
+  },
+  {
+    "id": "files",
+    "translation": "फाइल"
+  },
+  {
+    "id": "no_files",
+    "translation": "कोई फाइल नहीं मिला? ऐसा तो हो ही नहीं सकता!"
+  },
+  {
+    "id": "uploaded_by",
+    "translation": "अपलोड करनेवाले:"
+  },
+  {
+    "id": "report_btn",
+    "translation": "रिपोर्ट करें"
+  },
+  {
+    "id": "are_you_sure",
+    "translation": "क्या सच में?"
+  },
+  {
+    "id": "report_torrent_number",
+    "translation": "रिपोर्ट का टोरेंट #%d"
+  },
+  {
+    "id": "report_type",
+    "translation": "रिपोर्ट का प्रकार"
+  },
+  {
+    "id": "report_message",
+    "translation": "रिपोर्ट का सन्देश"
+  },
+  {
+    "id": "illegal_content",
+    "translation": "अवैध कंटेंट"
+  },
+  {
+    "id": "spam_garbage",
+    "translation": "स्पैम/कचड़ा"
+  },
+  {
+    "id": "wrong_category",
+    "translation": "गलत श्रेणी"
+  },
+  {
+    "id": "duplicate_deprecated",
+    "translation": "नकली/पदावनत"
+  },
+  {
+    "id": "nsfw_content",
+    "translation": "NSFW कंटेंट"
+  },
+  {
+    "id": "other",
+    "translation": "अन्य"
+  },
+  {
+    "id": "captcha",
+    "translation": "Captcha"
+  },
+  {
+    "id": "captcha_audio",
+    "translation": "Captcha ऑडियो"
+  },
+  {
+    "id": "file_name",
+    "translation": "फाइल का नाम"
+  },
+  {
+    "id": "cancel",
+    "translation": "रद्द करें"
+  },
+  {
+    "id": "please_include_our_tracker",
+    "translation": "कृपया अपने ट्रैकर में udp://tracker.uw0.xyz:6969 जोड़ें।"
+  },
+  {
+    "id": "unknown",
+    "translation": "अनजान"
+  },
+  {
+    "id": "last_scraped",
+    "translation": "आखिरी स्क्रेप: "
+  },
+  {
+    "id": "server_status_link",
+    "translation": "सर्वर की स्थिति यहाँ पाई जा सकती है"
+  },
+  {
+    "id": "no_database_dumps_available",
+    "translation": "इस समय कोई डेटाबेस डंप उपलब्ध नहीं है।"
+  },
+  {
+    "id": "clear_notifications",
+    "translation": "पठित सूचनाएँ हटाएँ"
+  },
+  {
+    "id": "clear_all_notifications",
+    "translation": "सभी सूचनाएँ हटाएँ"
+  },
+  {
+    "id": "mark_notifications_as_read",
+    "translation": "सूचनाओं को पठित के तौर पर मार्क करें"
+  },
+  {
+    "id": "notifications_cleared",
+    "translation": "सूचनाएँ हटा दी गई हैं!"
+  },
+  {
+    "id": "read_notifications_cleared",
+    "translation": "पठित सूचनाएँ हटा दी गई हैं!"
+  },
+  {
+    "id": "notifications_read",
+    "translation": "सभी सूचनाओं को पठित के तौर पर मार्क कर दिया गया है!"
+  },
+  {
+    "id": "my_notifications",
+    "translation": "मेरे सूचनाएँ"
+  },
+  {
+    "id": "new_torrent_uploaded",
+    "translation": "%s की तरफ से नया टोरेंट: \"%s\""
+  },
+  {
+    "id": "torrent_uploaded",
+    "translation": "टोरेंट को सफलतापूर्वक अपलोड कर दिया गया है!"
+  },
+  {
+    "id": "torrent_uploaded_locked",
+    "translation": "आपके टोरेंट को अपलोड कर दिया गया है पर आपके अवरुद्ध होने के कारण इसे लॉक कर दिया गया है।"
+  },
+  {
+    "id": "preferences",
+    "translation": "वरीयताएँ"
+  },
+  {
+    "id": "new_torrent_settings",
+    "translation": "फॉलो किए गए सदस्य से नया टोरेंट आने पर सूचित हों"
+  },
+  {
+    "id": "new_torrent_email_settings",
+    "translation": "फॉलो किए गए सदस्य से नया टोरेंट आने पर ईमेल द्वारा सूचित हों"
+  },
+  {
+    "id": "new_comment_settings",
+    "translation": "आपके टोरेंट पर नया कमेंट आने पर सूचित हों"
+  },
+  {
+    "id": "new_comment_email_settings",
+    "translation": "आपके टोरेंट पर नया कमेंट आने पर ईमेल द्वारा सूचित हों"
+  },
+  {
+    "id": "new_responses_settings",
+    "translation": "आपके कमेंट पर नया जवाब आने पर सूचित हों"
+  },
+  {
+    "id": "new_responses_email_settings",
+    "translation": "आपके कमेंट पर नया जवाब आने पर ईमेल द्वारा सूचित हों"
+  },
+  {
+    "id": "new_follower_settings",
+    "translation": "नया फॉलोवर आने पर सूचित हों"
+  },
+  {
+    "id": "new_follower_email_settings",
+    "translation": "नया फॉलोवर आने पर ईमेल द्वारा सूचित हों"
+  },
+  {
+    "id": "followed_settings",
+    "translation": "आपके किसी को फॉलो करने पर सूचित हों"
+  },
+  {
+    "id": "followed_email_settings",
+    "translation": "आपके किसी को फॉलो करने पर ईमेल द्वारा सूचित हों"
+  },
+  {
+    "id": "yes",
+    "translation": "हाँ"
+  },
+  {
+    "id": "no",
+    "translation": "नहीं"
+  },
+  {
+    "id": "new_comment_on_torrent",
+    "translation": "टोरेंट: \"%s\" पर नया कमेंट!"
+  },
+  {
+    "id": "no_action_selected",
+    "translation": "आपकी चुनाव को आप ही बदल सकते हैं!"
+  },
+  {
+    "id": "no_move_location_selected",
+    "translation": "माननीय उपयोगकर्ता ने यह स्पष्ट नहीं किया है कि वे अपने चयन को परिवर्तित करने की इच्छा रखते हैं या नहीं!"
+  },
+  {
+    "id": "select_one_element",
+    "translation": "आपको कम से कम एक एलिमेंट चुनना होगा!"
+  },
+  {
+    "id": "torrent_moved",
+    "translation": "टोरेंट %s को बदल दिया गया है!"
+  },
+  {
+    "id": "no_status_exist",
+    "translation": "स्थिति %d मौजूद नहीं है!"
+  },
+  {
+    "id": "torrent_deleted",
+    "translation": "टोरेंट %s को हटा दिया गया है!"
+  },
+  {
+    "id": "torrent_deleted_by",
+    "translation": "%s के टोरेंट #%d को %s द्वारा हटा दिया गया है।"
+  },
+  {
+    "id": "torrent_edited_by",
+    "translation": "%s के टोरेंट #%d को %s द्वारा सम्पादित किया गया है।"
+  },
+  {
+    "id": "torrent_blocked_by",
+    "translation": "%s के टोरेंट #%d को %s द्वारा लॉक कर दिया गया है।"
+  },
+  {
+    "id": "torrent_unblocked_by",
+    "translation": "%s के टोरेंट #%d को %s द्वारा अनलॉक कर दिया गया है।"
+  },
+  {
+    "id": "user_banned",
+    "translation": "उपयोगकर्ता को अवरुद्ध कर दिया गया है!"
+  },
+  {
+    "id": "user_unbanned",
+    "translation": "उपयोगकर्ता को अनबैन कर दिया गया है!"
+  },
+  {
+    "id": "user_unbanned_by",
+    "translation": "उपयोगकर्ता %s(%d) #%d को %s द्वारा अनबैन किया गया।"
+  },
+  {
+    "id": "torrents_deleted",
+    "translation": "टोरेंट हटा दिए गए हैं"
+  },
+  {
+    "id": "delete_torrent",
+    "translation": "टोरेंट हटाएँ"
+  },
+  {
+    "id": "delete_report",
+    "translation": "रिपोर्ट हटाएँ"
+  },
+  {
+    "id": "delete_all_reports",
+    "translation": "सभी रिपोर्ट हटाएँ"
+  },
+  {
+    "id": "comment_deleted",
+    "translation": "कमेंट को हटा दिया गया है!"
+  },
+  {
+    "id": "comment_deleted_by",
+    "translation": "%s के कमेंट #%d को %s द्वारा हटा दिया गया है।"
+  },
+  {
+    "id": "comment_edited_by",
+    "translation": "%s के कमेंट #%d को %s द्वारा सम्पादित किया गया है।"
+  },
+  {
+    "id": "oauth_client_deleted",
+    "translation": "Oauth API क्लाइंट को हटा दिया गया है!"
+  },
+  {
+    "id": "oauth_client_deleted_by",
+    "translation": "%s के Oauth API क्लाइंट #%s को %s द्वारा हटा दिया गया है।"
+  },
+  {
+    "id": "no_action_exist",
+    "translation": "कार्य %s मौजूद नहीं है!"
+  },
+  {
+    "id": "torrent_not_exist",
+    "translation": "ID %d वाला टोरेंट मौजूद नहीं है!"
+  },
+  {
+    "id": "something_went_wrong",
+    "translation": "कुछ गलत हुआ"
+  },
+  {
+    "id": "nb_torrents_updated",
+    "translation": "%d टोरेंट अपलोड किए गए।"
+  },
+  {
+    "id": "torrent_updated",
+    "translation": "टोरेंट के विवरण को अपडेट किया गया।"
+  },
+  {
+    "id": "fail_torrent_update",
+    "translation": "टोरेंट को अपडेट न किया जा सका!"
+  },
+  {
+    "id": "bad_captcha",
+    "translation": "गलत Captcha!"
+  },
+  {
+    "id": "comment_empty",
+    "translation": "कमेंट खाली है!"
+  },
+  {
+    "id": "no_owner_selected",
+    "translation": "टोरेंट के लिए नया मालिक चाहिए!"
+  },
+  {
+    "id": "no_category_selected",
+    "translation": "कोई श्रेणी नहीं चुना गया है!"
+  },
+  {
+    "id": "no_user_found_id",
+    "translation": "ID %d वाले उपयोगकर्ता इस डेटाबेस पर मौजूद नहीं है!"
+  },
+  {
+    "id": "invalid_torrent_category",
+    "translation": "टोरेंट श्रेणी मौजूद नहीं है!"
+  },
+  {
+    "id": "torrent_owner_changed",
+    "translation": "टोरेंट \"%s\" के मालिक को सफलतापूर्वक बदल दिया गया है!"
+  },
+  {
+    "id": "torrent_category_changed",
+    "translation": "टोरेंट \"%s\" की श्रेणी को सफलतापूर्वक बदल दिया गया !"
+  },
+  {
+    "id": "torrent_reports_deleted",
+    "translation": "टोरेंट \"%s\" के रिपोर्टों को हटा दिया गया है!"
+  },
+  {
+    "id": "edit",
+    "translation": "सम्पादित करें"
+  },
+  {
+    "id": "lock_delete",
+    "translation": "लॉक करके हटाएँ"
+  },
+  {
+    "id": "delete_definitely_torrent_warning",
+    "translation": "आप इसे वापस नहीं पा सकते या किसी और को इसे अपलोड करने से रोक भी नहीं सकते!"
+  },
+  {
+    "id": "delete_definitely",
+    "translation": "हमेशा के लिए हटाएँ"
+  },
+  {
+    "id": "torrent_unblock",
+    "translation": "अनलॉक करें"
+  },
+  {
+    "id": "torrent_block",
+    "translation": "लॉक करें"
+  },
+  {
+    "id": "unban",
+    "translation": "अनबैन करें"
+  },
+  {
+    "id": "ban",
+    "translation": "बैन"
+  },
+  {
+    "id": "torrent_deleted_definitely",
+    "translation": "टोरेंट को डेटाबेस से हटा दिया गया है!"
+  },
+  {
+    "id": "torrent_not_deleted",
+    "translation": "टोरेंट को हटाया न जा सका"
+  },
+  {
+    "id": "torrent_unblocked",
+    "translation": "टोरेंट को अनब्लॉक कर दिया गया है!"
+  },
+  {
+    "id": "torrent_blocked",
+    "translation": "टोरेंट को लॉक कर दिया गया है!"
+  },
+  {
+    "id": "torrent_nav_notdeleted",
+    "translation": "टोरेंटों को हटाया न जा सका"
+  },
+  {
+    "id": "torrent_nav_deleted",
+    "translation": "टोरेंटों को हटा दिया गया है"
+  },
+  {
+    "id": "change_settings",
+    "translation": "दिखावट/सेटिंग्स बदलें"
+  },
+  {
+    "id": "mascot",
+    "translation": "शुभंकर"
+  },
+  {
+    "id": "theme",
+    "translation": "थीम"
+  },
+  {
+    "id": "theme_select",
+    "translation": "थीम चुनें"
+  },
+  {
+    "id": "theme_none",
+    "translation": "कुछ नहीं"
+  },
+  {
+    "id": "themes_classic",
+    "translation": "nyaa.se (बीटा)"
+  },
+  {
+    "id": "upload_as_anon",
+    "translation": "गुमनाम होकर अपलोड करें"
+  },
+  {
+    "id": "cookies",
+    "translation": "\"सहेजें\" पर दबाकर आप हमें कुकी का इस्तेमाल करने की अनुमति दे रहे हैं।"
+  },
+  {
+    "id": "show",
+    "translation": "दिखाएँ"
+  },
+  {
+    "id": "hide",
+    "translation": "छुपाएँ"
+  },
+  {
+    "id": "nyaa_pantsu",
+    "translation": "Nyaa Pantsu"
+  },
+  {
+    "id": "users",
+    "translation": "उपयोगकर्ताएँ"
+  },
+  {
+    "id": "torrent_reports",
+    "translation": "टोरेंट के रिपोर्ट"
+  },
+  {
+    "id": "show_mod_tools",
+    "translation": "मॉडरेशन उपकरण दिखाएँ"
+  },
+  {
+    "id": "hide_mod_tools",
+    "translation": "मॉडरेशन उपकरण छुपाएँ"
+  },
+  {
+    "id": "following_changes_applied",
+    "translation": "ये बदलाव सहेजे जाएँगे"
+  },
+  {
+    "id": "changes_in_following_order",
+    "translation": "बदलावों को इस क्रम में सहेजा जाएगा:"
+  },
+  {
+    "id": "edit_changes",
+    "translation": "बदलाव सम्पादित करें"
+  },
+  {
+    "id": "delete_changes",
+    "translation": "बदलाव हटाएँ"
+  },
+  {
+    "id": "owner_id_placeholder",
+    "translation": "नया मालिक"
+  },
+  {
+    "id": "try_new_attempt",
+    "translation": "एक और बार प्रयास किया जा रहा है..."
+  },
+  {
+    "id": "query_is_broken",
+    "translation": "क्वेरी ({0}?{1}) टूटा हुआ है!"
+  },
+  {
+    "id": "query_executed_success",
+    "translation": "Query को सफलतापूर्वक एक्सेक्यूट कर दिया गया है!"
+  },
+  {
+    "id": "all_operations_done",
+    "translation": "सभी काम पूरे हो चुके हैं!"
+  },
+  {
+    "id": "refreshing_in",
+    "translation": "पृष्ठ को {0} सेकंड में रिफ्रेश किया जा रहा है..."
+  },
+  {
+    "id": "delete_reports_with_torrents",
+    "translation": "क्या आप चुने गए टोरेंटों के साथ रिपोर्टों को भी हटाना चाहते हैं?"
+  },
+  {
+    "id": "with_st",
+    "translation": "{0} के साथ"
+  },
+  {
+    "id": "and_reports",
+    "translation": " और रिपोर्ट"
+  },
+  {
+    "id": "reports",
+    "translation": "रिपोर्ट"
+  },
+  {
+    "id": "lock",
+    "translation": "लॉक करें"
+  },
+  {
+    "id": "status_js",
+    "translation": "स्थिति: {0}"
+  },
+  {
+    "id": "owner_id_js",
+    "translation": "owner_id: {0}"
+  },
+  {
+    "id": "category_js",
+    "translation": "श्रेणी: {0}"
+  },
+  {
+    "id": "no_changes",
+    "translation": "कोई बदलाव नहीं आया"
+  },
+  {
+    "id": "query_nb",
+    "translation": "क्वेरी #{0}"
+  },
+  {
+    "id": "reason",
+    "translation": "कारण"
+  },
+  {
+    "id": "actions",
+    "translation": "कार्य"
+  },
+  {
+    "id": "action_select",
+    "translation": "कार्य..."
+  },
+  {
+    "id": "change_status",
+    "translation": "स्थिति बदलें"
+  },
+  {
+    "id": "to_status",
+    "translation": "से..."
+  },
+  {
+    "id": "torrents_not_deleted",
+    "translation": "टोरेंट हटाए न जा सके"
+  },
+  {
+    "id": "more",
+    "translation": "अधिक"
+  },
+  {
+    "id": "last_comments",
+    "translation": "आखिरी कमेंट"
+  },
+  {
+    "id": "last_reports",
+    "translation": "आखिरी रिपोर्ट"
+  },
+  {
+    "id": "last_torrents",
+    "translation": "आखिरी टोरेंट"
+  },
+  {
+    "id": "last_users",
+    "translation": "आखिरी "
+  },
+  {
+    "id": "moderation_overview",
+    "translation": "मॉडरेशन का अवलोकन"
+  },
+  {
+    "id": "users_list",
+    "translation": "उपयोगकर्ताओं की सूची"
+  },
+  {
+    "id": "comments_list",
+    "translation": "कमेंटों की सूची"
+  },
+  {
+    "id": "reports_list",
+    "translation": "रिपोर्टों की सूची"
+  },
+  {
+    "id": "torrents_list",
+    "translation": "टोरेंटों की सूची"
+  },
+  {
+    "id": "torrent_edit_panel",
+    "translation": "टोरेंट सम्पादन पैनल"
+  },
+  {
+    "id": "torrent_reassign",
+    "translation": "टोरेंट बदलें"
+  },
+  {
+    "id": "reassign_warning",
+    "translation": "टोरेंट को दूसरे सदस्य को सौंपना पूर्ववत नहीं किया जा सकता और इसका इस्तेमाल सोच-समझकर करना चाहिए।"
+  },
+  {
+    "id": "previous_username",
+    "translation": "पूर्व नाम"
+  },
+  {
+    "id": "torrent_id",
+    "translation": "टोरेंट ID"
+  },
+  {
+    "id": "reassign_indication",
+    "translation": "एक पंक्ति में एक ID <b>या</b> एक नाम"
+  },
+  {
+    "id": "reassign_warning_2",
+    "translation": "थोड़ा सा वक्त लग सकता है, अनुरोध को रद्द <b>न</b> करें।"
+  },
+  {
+    "id": "reassign_to",
+    "translation": "इन्हें सौंपें:"
+  },
+  {
+    "id": "reassign_based_on",
+    "translation": "आधार:"
+  },
+  {
+    "id": "user_id",
+    "translation": "उपयोगकर्ता ID"
+  },
+  {
+    "id": "mascot_url",
+    "translation": "शुभंकर URL"
+  },
+  {
+    "id": "alternating_color",
+    "translation": "रंग में बदलाव (और गैर-बोल्ड फॉण्ट)"
+  },
+  {
+    "id": "old_nav",
+    "translation": "पुराना नेविगेशन"
+  },
+  {
+    "id": "old_nav_explanation",
+    "translation": "nyaa.se की तरह खोज के समय ऊपर मुख्य श्रेणियाँ और पृष्ठों की संख्या दिखाता है।"
+  },
+  {
+    "id": "no_notifications",
+    "translation": "कोई सूचना नहीं है"
+  },
+  {
+    "id": "report_msg",
+    "translation": "टोरेंट #%d को रिपोर्ट किया गया है!"
+  },
+  {
+    "id": "email_not_valid",
+    "translation": "ईमेल पता अस्वीकृत है!"
+  },
+  {
+    "id": "username_illegal",
+    "translation": "नाम में अस्वीकृत अक्षर हैं!"
+  },
+  {
+    "id": "torrent_language",
+    "translation": "टोरेंट की भाषा"
+  },
+  {
+    "id": "language_en-us_name",
+    "translation": "अंग्रेजी"
+  },
+  {
+    "id": "language_ca-es_name",
+    "translation": "कातालान"
+  },
+  {
+    "id": "language_de-de_name",
+    "translation": "जर्मन"
+  },
+  {
+    "id": "language_es-es_name",
+    "translation": "स्पेनी"
+  },
+  {
+    "id": "language_es-mx_name",
+    "translation": "स्पानी (लैटिन अमेरिका)"
+  },
+  {
+    "id": "language_fr-fr_name",
+    "translation": "फ़्रांसिसी"
+  },
+  {
+    "id": "language_hi-in_name",
+    "translation": "हिन्दी"
+  },
+  {
+    "id": "language_hu-hu_name",
+    "translation": "हंगेरी"
+  },
+  {
+    "id": "language_is-is_name",
+    "translation": "आइसलैंडिक"
+  },
+  {
+    "id": "language_it-it_name",
+    "translation": "इतालवी"
+  },
+  {
+    "id": "language_ja-jp_name",
+    "translation": "जापानी"
+  },
+  {
+    "id": "language_ko-kr_name",
+    "translation": "कोरियाई"
+  },
+  {
+    "id": "language_nb-no_name",
+    "translation": "नॉर्वेजियन"
+  },
+  {
+    "id": "language_nl-nl_name",
+    "translation": "डच"
+  },
+  {
+    "id": "language_pt-br_name",
+    "translation": "पुर्तगाली (ब्राज़ील)"
+  },
+  {
+    "id": "language_pt-pt_name",
+    "translation": "पुर्तगाली (पुर्तगाल)"
+  },
+  {
+    "id": "language_ro-ro_name",
+    "translation": "रोमेनियई"
+  },
+  {
+    "id": "language_ru-ru_name",
+    "translation": "रूसी"
+  },
+  {
+    "id": "language_sv-se_name",
+    "translation": "स्वीडिश"
+  },
+  {
+    "id": "language_th-th_name",
+    "translation": "थाई"
+  },
+  {
+    "id": "language_zh-cn_name",
+    "translation": "सरलीकृत चीनी"
+  },
+  {
+    "id": "language_zh-tw_name",
+    "translation": "परंपरागत चीनी"
+  },
+  {
+    "id": "language_other_name",
+    "translation": "अन्य"
+  },
+  {
+    "id": "language_multiple_name",
+    "translation": "कई भाषाएँ"
+  },
+  {
+    "id": "activity_list",
+    "translation": "कार्यों की सूची"
+  },
+  {
+    "id": "activities",
+    "translation": "कार्य"
+  },
+  {
+    "id": "filter",
+    "translation": "फ़िल्टर"
+  },
+  {
+    "id": "error_min_length",
+    "translation": "इनपुट के लिए %s का न्यूनतम आकार: %s"
+  },
+  {
+    "id": "error_min_number",
+    "translation": "%s को %s या बड़ा होना होगा"
+  },
+  {
+    "id": "error_min_field",
+    "translation": "%s को %s के समान या उसे बड़ा होना होगा"
+  },
+  {
+    "id": "error_min_array",
+    "translation": "%s में कम से कम %s चीज़ें होनी चाहिए"
+  },
+  {
+    "id": "error_less_date",
+    "translation": "%s को वर्तमान दिनांक और समय से कम होना होगा"
+  },
+  {
+    "id": "error_less_array",
+    "translation": "%s में %s से कम चीज़ें होनी चाहिए"
+  },
+  {
+    "id": "error_less_length",
+    "translation": "%s का आकार %s से कम होना होगा"
+  },
+  {
+    "id": "error_less_number",
+    "translation": "%s को %s से कम होना होगा"
+  },
+  {
+    "id": "error_less_equal_date",
+    "translation": "%s को वर्तमान दिनांक और समय के समान या उससे कम होना होगा"
+  },
+  {
+    "id": "error_greater_date",
+    "translation": "%s को वर्तमान दिनांक और समय से ज़्यादा होना होगा"
+  },
+  {
+    "id": "error_greater_length",
+    "translation": "%s का आकार %s से लम्बा होना होगा"
+  },
+  {
+    "id": "error_greater_number",
+    "translation": "%s को %s से बड़ा होना होगा"
+  },
+  {
+    "id": "error_greater_equal_date",
+    "translation": "%s को वर्तमान दिनांक और समय के समान या उससे कम होना होगा"
+  },
+  {
+    "id": "error_max_field",
+    "translation": "%s को %s के समान या उससे कम होना होगा"
+  },
+  {
+    "id": "error_max_length",
+    "translation": "इनपुट के लिए %s का अधिकतम आकार: %s"
+  },
+  {
+    "id": "error_max_number",
+    "translation": "%s को %s या उससे कम होना होगा"
+  },
+  {
+    "id": "error_max_array",
+    "translation": "%s में अधिकतम %s चीज़ें हो सकती हैं"
+  },
+  {
+    "id": "error_length",
+    "translation": "इनपुट के लिए %s का आकार: %s"
+  },
+  {
+    "id": "error_equal",
+    "translation": "%s %s के सामान नहीं है"
+  },
+  {
+    "id": "error_same_value",
+    "translation": "फील्ड '%s' के वैल्यू को फील्ड '%s' के सामान होना होगा"
+  },
+  {
+    "id": "error_field",
+    "translation": "फील्ड %s पर अनपेक्षित त्रुटि"
+  },
+  {
+    "id": "error_not_equal",
+    "translation": "%s को %s के समान होना होगा"
+  },
+  {
+    "id": "error_wrong_value",
+    "translation": "इनपुट %s के लिए गलत वैल्यू"
+  },
+  {
+    "id": "error_field_needed",
+    "translation": "आवश्यक फील्ड: %s"
+  },
+  {
+    "id": "error_len_array",
+    "translation": "%s में %s चीज़ें होनी चाहिए"
+  },
+  {
+    "id": "error_alpha",
+    "translation": "%s में सिर्फ वर्णानुक्रमक अक्षर हो सकते हैं"
+  },
+  {
+    "id": "error_alphanum",
+    "translation": "%s में सिर्फ अक्षरांकीय अक्षर हो सकते हैं"
+  },
+  {
+    "id": "error_numeric_valid",
+    "translation": "%s को एक स्वीकृत आंकिय वैल्यू होना होगा"
+  },
+  {
+    "id": "error_number_valid",
+    "translation": "%s को एक स्वीकृत अंक होना होगा"
+  },
+  {
+    "id": "error_hexadecimal_valid",
+    "translation": "%s को एक स्वीकृत हेक्साडेसीमल होना होगा"
+  },
+  {
+    "id": "error_hex_valid",
+    "translation": "%s को एक स्वीकृत HEX रंग होना होगा"
+  },
+  {
+    "id": "error_rgb_valid",
+    "translation": "%s को एक स्वीकृत RGB रंग होना होगा"
+  },
+  {
+    "id": "error_rgba_valid",
+    "translation": "%s को एक स्वीकृत RGBA रंग होना होगा"
+  },
+  {
+    "id": "error_hsl_valid",
+    "translation": "%s को एक स्वीकृत HSL रंग होना होगा"
+  },
+  {
+    "id": "error_hsla_valid",
+    "translation": "%s को एक स्वीकृत HSLA रंग होना होगा"
+  },
+  {
+    "id": "error_url_valid",
+    "translation": "%s को एक स्वीकृत URL होना होगा"
+  },
+  {
+    "id": "error_uri_valid",
+    "translation": "%s को एक स्वीकृत URI होना होगा"
+  },
+  {
+    "id": "error_base64_valid",
+    "translation": "%s को एक स्वीकृत Base64 स्ट्रिंग होना होगा"
+  },
+  {
+    "id": "error_contains",
+    "translation": "%s में टेक्स्ट '%s' होना होगा"
+  },
+  {
+    "id": "error_contains_any",
+    "translation": "%s में इनमें से कम से कम एक अक्षर होना होगा '%s'"
+  },
+  {
+    "id": "error_excludes",
+    "translation": "%s में टेक्स्ट '%s' नहीं हो सकता"
+  },
+  {
+    "id": "error_excludes_all",
+    "translation": "%s में इनमें से कोई भी अक्षर नहीं हो सकता '%s'"
+  },
+  {
+    "id": "error_excludes_rune",
+    "translation": "%s में ये नहीं हो सकते '%s'"
+  },
+  {
+    "id": "error_color_valid",
+    "translation": "%s को एक स्वीकृत रंग होना होगा"
+  },
+  {
+    "id": "error_",
+    "translation": "%s में %s चीज़ें होनी चाहिए"
+  },
+  {
+    "id": "error_len_array",
+    "translation": "%s में %s चीज़ें होनी चाहिए"
+  },
+  {
+    "id": "refine_search",
+    "translation": "खोज को रिफाइन करें"
+  },
+  {
+    "id": "refine",
+    "translation": "रिफाइन करें"
+  },
+  {
+    "id": "between",
+    "translation": "इस बीच:"
+  },
+  {
+    "id": "and",
+    "translation": "और"
+  },
+  {
+    "id": "days",
+    "translation": "दिन"
+  },
+  {
+    "id": "months",
+    "translation": "महीने"
+  },
+  {
+    "id": "years",
+    "translation": "साल"
+  },
+  {
+    "id": "large",
+    "translation": "बड़ा।"
+  },
+  {
+    "id": "optional",
+    "translation": "वैकल्पिक"
+  },
+  {
+    "id": "search_for",
+    "translation": "इसके लिए खोजें"
+  },
+  {
+    "id": "show",
+    "translation": "दिखाएँ"
+  },
+  {
+    "id": "sort_by",
+    "translation": "छाँटें"
+  },
+  {
+    "id": "ascending",
+    "translation": "आरोही"
+  },
+  {
+    "id": "descending",
+    "translation": "अवरोही"
+  },
+  {
+    "id": "quality",
+    "translation": "गुणवत्ता"
+  },
+  {
+    "id": "exclude_user",
+    "translation": "अपवाद"
+  },
+  {
+    "id": "from_user",
+    "translation": "शुरुआत:"
+  },
+  {
+    "id": "limit_torrent_count",
+    "translation": "सीमा"
+  },
+  {
+    "id": "username_taken",
+    "translation": "नाम को पहले ही चुन लिया गया है आप यह चुन सकते हैं: %s"
+  },
+  {
+    "id": "email_in_db",
+    "translation": "ईमेल पता पहले से ही डेटाबेस में है"
+  },
+  {
+    "id": "user_not_found",
+    "translation": "उपयोगकर्ता नहीं मिला"
+  },
+  {
+    "id": "incorrect_password",
+    "translation": "गलत पासवर्ड"
+  },
+  {
+    "id": "password_error_generating",
+    "translation": "पासवर्ड हैश बनाते वक्त त्रुटि"
+  },
+  {
+    "id": "permission_delete_error",
+    "translation": "आपके पास इसे हटाने की अनुमति नहीं है"
+  },
+  {
+    "id": "no_username_password",
+    "translation": "कोई नाम/पासवर्ड नहीं दिया गया"
+  },
+  {
+    "id": "account_banned",
+    "translation": "अकाउंट को अवरुद्ध कर दिया गया है"
+  },
+  {
+    "id": "account_need_activation",
+    "translation": "इस अकाउंट को मॉडरेटरों को से सक्षम करवाने की ज़रूरत है, कृपया हमसे संपर्क करें"
+  },
+  {
+    "id": "retrieve_torrent_error",
+    "translation": "टोरेंट नहीं लाए जा सके"
+  },
+  {
+    "id": "multiple_username_error",
+    "translation": "एक से ज़्यादा नाम दिए गए"
+  },
+  {
+    "id": "elevating_user_error",
+    "translation": "मॉडरेटर तक स्थिति को उठाया नहीं जा सकता"
+  },
+  {
+    "id": "parse_error_line",
+    "translation": "पंक्ति %d पर पार्स न किया जा सका"
+  },
+  {
+    "id": "language_not_available",
+    "translation": "भाषा उपलब्ध नहीं है"
+  },
+  {
+    "id": "mascot_url_too_long",
+    "translation": "शुभंकर URL बहुत लम्बा है (अधिकतम मात्रा है २५५ अक्षर)"
+  },
+  {
+    "id": "mascor_url_parse_error",
+    "translation": "शुभंकर URL को पार्स करते वक्त त्रुटि: %s"
+  },
+  {
+    "id": "no_id_given",
+    "translation": "कोई टोरेंट ID नहीं दिया गया"
+  },
+  {
+    "id": "error_api_token",
+    "translation": "त्रुटि: API टोकन मौजूद नहीं है"
+  },
+  {
+    "id": "uploads_disabled",
+    "translation": "अपलोड अक्षम हैं"
+  },
+  {
+    "id": "try_to_delete_report_inexistant",
+    "translation": "अनुपलब्ध टोरेंट रिपोर्ट को हटाने की कोशिश"
+  },
+  {
+    "id": "torrent_report_not_created",
+    "translation": "TorrentReport को बनाया नहीं गया है"
+  },
+  {
+    "id": "user_not_deleted",
+    "translation": "उपयोगकर्ता को हटाया नहीं गया है"
+  },
+  {
+    "id": "error_content_type_post",
+    "translation": "कृपया कंटेंट का एक प्रकार दें: ऐप्लीकेशन/json हैडर या मल्टीपार्ट/फॉर्म-डेटा"
+  },
+  {
+    "id": "torrent_name",
+    "translation": "टोरेंट का नाम"
+  },
+  {
+    "id": "torrent_name_invalid",
+    "translation": "अस्वीकृत नाम"
+  },
+  {
+    "id": "torrent_private",
+    "translation": "टोरेंट व्यक्तिगत है"
+  },
+  {
+    "id": "torrent_no_working_trackers",
+    "translation": "टोरेंट में कोई (सक्षम) ट्रैकर नहीं है: <a href=\"/faq#trackers\">ट्रैकरों की सूची</a>"
+  },
+  {
+    "id": "torrent_desc_invalid",
+    "translation": "अस्वीकृत विवरण"
+  },
+  {
+    "id": "torrent_cat_invalid",
+    "translation": "अस्वीकृत श्रेणी"
+  },
+  {
+    "id": "torrent_lang_invalid",
+    "translation": "यह भाषा अब तक समर्थित नहीं है! आप हमारे गिट्हब पृष्ठ पर योगदान देकर इसे समर्थित बना सकते हैं"
+  },
+  {
+    "id": "torrent_cat_is_english",
+    "translation": "टोरेंट की श्रेणी अंग्रेजी अनुवादों की थी, पर भाषा अंग्रेजी नहीं थी। हम इसे अंग्रेजी में बदल दिया"
+  },
+  {
+    "id": "torrent_cat_not_english",
+    "translation": "टोरेंट की श्रेणी गैर-अंग्रेजी अनुवादों की है, लेकिन चुनी गई भाषा सिर्फअंग्रेजी है"
+  },
+  {
+    "id": "torrent_magnet_invalid",
+    "translation": "मैग्नेट को पार्स नहीं किया जा सका, कृपया इसे जाँचें"
+  },
+  {
+    "id": "torrent_hash_invalid",
+    "translation": "टोरेंट का हैश गलत है"
+  },
+  {
+    "id": "torrent_plus_magnet",
+    "translation": "या तो टोरेंट फाइल या फिर मैग्नेट लिंक अपलोड करें, दोनों नहीं"
+  },
+  {
+    "id": "torrent_file_invalid",
+    "translation": "टोरेंट फाइल अस्वीकृत है"
+  },
+  {
+    "id": "torrent_uri_invalid",
+    "translation": "वेबसाइट URL या IRC लिंक अस्विकृत है"
+  },
+  {
+    "id": "api_documentation",
+    "translation": "API प्रलेख"
+  },
+  {
+    "id": "api_help",
+    "translation": "क्या आपके पास एक API है?"
+  },
+  {
+    "id": "trusted",
+    "translation": "विश्वसनीय उपयोगकर्ताओं द्वारा अपलोड किए गए टोरेंट।"
+  },
+  {
+    "id": "reencodes",
+    "translation": "पुनःएनकोड"
+  },
+  {
+    "id": "remux",
+    "translation": "दूसरे अपलोडर की असली प्रसारण का रीमिक्स"
+  },
+  {
+    "id": "reupload",
+    "translation": "अनुपस्थित और/या असंबंधित अतिरिक्त फाइलों के साथ दूसरे उपयोगकर्ता का टोरेंट।"
+  },
+  {
+    "id": "red",
+    "translation": "लाल एंट्रियाँ हैं: "
+  },
+  {
+    "id": "green",
+    "translation": "हरी एंट्रियाँ हैं:"
+  },
+  {
+    "id": "torrent_colors",
+    "translation": "टोरेंट के रंग"
+  },
+  {
+    "id": "faq_ads",
+    "translation": "Pantsu में विज्ञापन क्यों हैं?"
+  },
+  {
+    "id": "faq_ads_explanation",
+    "translation": "यह कोई साधारण फैसला नहीं है, और हमने आप सभी की आपत्तियों का ख्याल रखा है, लेकिन आखिर में हमें लगता है कि यह Pantsu के लिए निधि इकठ्ठा करके इसे चलते रखने के लिए सबसे अच्छा तरीका है<br/>हमने कई और तरीके भी देखे, पर कोई ऐसा और तरीका नहीं है जिससे हम Pantsu के लिए पूरी तरह से निधि इकठ्ठा कर पाएँगे।<br>बहुत-सी सोच के बाद, हमने फैसला किया कि हमारे और हमारे उपयोगकर्ताओं के लिए A-ADS से विज्ञापन सबसे अच्छा विकल्प होगा। ये विज्ञापन साधारण हैं और दखलंदाज़ी नहीं करते, और किसी भी तरह से आपके अनुभव को नहीं बिगाड़ते, और ये आपको ट्रैक नहीं करते।"
+  },
+  {
+    "id": "torrent_preview",
+    "translation": "अपने टोरेंट का पूर्वावलोकन देखें"
+  },
+  {
+    "id": "announcement",
+    "translation": "घोषणा"
+  },
+  {
+    "id": "create_anouncement_success",
+    "translation": "घोषणा सफलतापूर्वक बनाया गया"
+  },
+  {
+    "id": "update_client_failed",
+    "translation": "क्लाइंट को अपडेट न किया जा सका!"
+  },
+  {
+    "id": "update_client_success",
+    "translation": "आपने सफलतापूर्वक क्लाइंट को अपडेट कर लिया है!"
+  },
+  {
+    "id": "update_client_panel",
+    "translation": "क्लाइंट को अपडेट करें"
+  },
+  {
+    "id": "create_client_success",
+    "translation": "आपने सफलतापूर्वक क्लाइंट को बना लिया है!"
+  },
+  {
+    "id": "create_client_failed",
+    "translation": "क्लाइंट को बनाया न जा सका!"
+  },
+  {
+    "id": "create_client_panel",
+    "translation": "नया क्लाइंट बनाएँ"
+  },
+  {
+    "id": "redirect_uri",
+    "translation": "अनुप्रेषण URI"
+  },
+  {
+    "id": "grant_types",
+    "translation": "ग्रांट के प्रकार"
+  },
+  {
+    "id": "response_types",
+    "translation": "जवाब के प्रकार"
+  },
+  {
+    "id": "scope",
+    "translation": "स्कोप"
+  },
+  {
+    "id": "owner",
+    "translation": "मालिक"
+  },
+  {
+    "id": "policy_uri",
+    "translation": "नियम URI"
+  },
+  {
+    "id": "tos_uri",
+    "translation": "उपयोग की शर्तों का URI"
+  },
+  {
+    "id": "logo_uri",
+    "translation": "लोगो URI"
+  },
+  {
+    "id": "contacts",
+    "translation": "मालिक के ईमेल"
+  },
+  {
+    "id": "oauth_clients_list",
+    "translation": "OAuth API क्लाइंट"
+  },
+  {
+    "id": "add",
+    "translation": "जोड़ें"
+  },
+  {
+    "id": "remove",
+    "translation": "हटाएँ"
+  },
+  {
+    "id": "close",
+    "translation": "बंद करें"
+  },
+  {
+    "id": "secret",
+    "translation": "क्लाइंट राज़"
+  },
+  {
+    "id": "torrent_age",
+    "translation": "{1} दिन {2} घंटे पहले"
+  },
+  {
+    "id": "tag",
+    "translation": "टैग"
+  },
+  {
+    "id": "torrent_tags",
+    "translation": "टैग"
+  },
+  {
+    "id": "wrong_tag_type",
+    "translation": "चुना गया टैग प्रकार मौजूद नहीं है"
+  },
+  {
+    "id": "add_tag",
+    "translation": "टैज जोड़ें"
+  },
+  {
+    "id": "tagtype",
+    "translation": "टैग प्रकार"
+  },
+  {
+    "id": "accepted_tags",
+    "translation": "स्वीकृत टैग"
+  },
+  {
+    "id": "recommended_tags",
+    "translation": "संस्तुत टैग"
+  },
+  {
+    "id": "tagtype_anidbid",
+    "translation": "Anidb ID"
+  },
+  {
+    "id": "tagtype_vndbid",
+    "translation": "VNdb ID"
+  },
+  {
+    "id": "tagtype_videoquality",
+    "translation": "वीडियो की क्वालिटी"
+  },
+  {
+    "id": "tagtype_dlsite",
+    "translation": "DLsite"
+  },
+  {
+    "id": "tagtype_vgmdbid",
+    "translation": "VGMdb ID"
+  },
+  {
+    "id": "tagtype_tags",
+    "translation": "विस्तृत टैग"
+  },
+  {
+    "id": "tagvalue_select",
+    "translation": "चुनें..."
+  },
+  {
+    "id": "tagvalue_full_hd",
+    "translation": "1080p"
+  },
+  {
+    "id": "tagvalue_hd",
+    "translation": "720p"
+  },
+  {
+    "id": "tagvalue_sd",
+    "translation": "480p"
+  },
+  {
+    "id": "tagvalue_bluray",
+    "translation": "Bluray"
+  },
+  {
+    "id": "announcements",
+    "translation": "घोषणाएँ"
+  },
+  {
+    "id": "message",
+    "translation": "संदेश"
+  },
+  {
+    "id": "duration",
+    "translation": "समयांतराल (घंटे)"
+  },
+  {
+    "id": "update_annoucement_panel",
+    "translation": "घोषणा बदलें"
+  },
+  {
+    "id": "create_annoucement_panel",
+    "translation": "घोषण बनाएँ"
+  },
+  {
+    "id": "related_to",
+    "translation": "इससे संबंधित"
+  },
+  {
+    "id": "expire",
+    "translation": "समाप्त"
+  },
+  {
+    "id": "complement",
+    "translation": "इज़ाफ़ा दें"
+  },
+  {
+    "id": "from",
+    "translation": "इससे"
+  },
+  {
+    "id": "to",
+    "translation": "इस तक"
+  },
+  {
+    "id": "feed_types",
+    "translation": "फीड प्रकार: RSS (feed), मैग्नेट लिंक के साथ RSS (मैग्नेट), Torznab Spec (torznab), EZTV Spec (eztv)"
+  },
+  {
+    "id": "append_query",
+    "translation": "आप फीड URL के आखिर में अपना खोज क्वेरी जोड़ सकते हैं।"
+  },
+  {
+    "id": "cookie_warning",
+    "translation": "इस वेबसाइट का इस्तेमाल करके आप कंटेंट को अनुकूलित करने के लिए कुकी के उपयोग से सहमत हो रहे हैं।<br/>यह अगले पृष्ठ लोड पर छिपा सन्देश होगा"
+  },
+  {
+    "id": "pending_torrent",
+    "translation": "अपेक्षा करें, टोरेंट फाइल बनाया जा रहा है। कुछ समय में फिर कोशिश करें।"
+  },
+  {
+    "id": "generating_torrent",
+    "translation": "टोरेंट फाइल बन रहा है..."
+  },
+  {
+    "id": "generating_torrent_failed",
+    "translation": "टोरेंट फाइल न बनाया जा सका"
+  },
+  {
+    "id": "enabled",
+    "translation": "सक्षम"
+  },
+  {
+    "id": "disabled",
+    "translation": "अक्षम"
+  },
+  {
+    "id": "reset_api_key",
+    "translation": "API की बदलें"
+  },
+  {
+    "id": "tag_error",
+    "translation": "टैग न जोड़ा जा सका, कृपया अपना इंटरनेट कनेक्शन जाँचें और सुनिश्चित करें कि सभी फील्ड भरे गए हैं या नहीं।"
+  },
+  {
+    "id": "search_from_user",
+    "translation": "इस उपयोगकर्ता से खोजें..."
+  },
+  {
+    "id": "usersearch_user_not_found",
+    "translation": "उपयोगकर्ता \"%s\" नहीं मिला"
+  },
+  {
+    "id": "user_search_explanation",
+    "translation": "नीचे के इनपुट में किसी उपयोगकर्ता का नाम लिखके उन्हें खोजें"
+  },
+  {
+    "id": "no_api_token",
+    "translation": "कोई API टोकन नहीं है"
+  },
+  {
+    "id": "search_from_specific_user",
+    "translation": "%s में से खोजें"
+  },
+  {
+    "id": "browsing_user_torrents",
+    "translation": "<a href=\"/user/%d/%s\">%s</a>' के टोरेंट देख रहे हैं"
+  },
+  {
+    "id": "hours_minutes_ago",
+    "translation": "{0} घंटे {1} मिनट पहले"
+  },
+  {
+    "id": "days_hours_ago",
+    "translation": "{0} दिन {1} घंटे पहले"
+  },
+  {
+    "id": "status",
+    "translation": "स्थिति"
+  },
+  {
+    "id": "upload_status",
+    "translation": "अपलोड की स्थिति"
+  },
+  {
+    "id": "pending",
+    "translation": "अपूर्ण"
+  },
+  {
+    "id": "error",
+    "translation": "त्रुटि"
+  },
+  {
+    "id": "finished",
+    "translation": "पूर्ण"
+  },
+  {
+    "id": "upload_to",
+    "translation": "%s पर अपलोड करें"
+  },
+  {
+    "id": "upload_to_other",
+    "translation": "दूसरे वेबसाइट पर अपलोड करें"
+  },
+  {
+    "id":"choose_category",
+    "translation": "एक श्रेणी चुनें (आवश्यक)"
+  },
+  {
+    "id":"choose_language",
+    "translation": "एक भाषा चुनें (आवश्यक)"
+  },
+  {
+    "id": "event",
+    "translation": "घटना"
+  },
+  {
+    "id": "read",
+    "translation": "पठित"
+  },
+  {
+    "id": "unread",
+    "translation": "अपठित"
+  },
+  {
+    "id": "moderation_guidelines",
+    "translation": "मॉडरेशन के नियम"
+  },
+  {
+    "id": "guidelines",
+    "translation": "नियम"
+  }
+]
