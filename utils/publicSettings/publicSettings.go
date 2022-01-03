@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
+	"net/http"
 	"path"
 	"path/filepath"
 	"strings"
@@ -12,6 +13,7 @@ import (
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
+	"github.com/NyaaPantsu/nyaa/utils/timeHelper"
 	"github.com/gin-gonic/gin"
 	"github.com/nicksnyder/go-i18n/i18n"
 	"github.com/nicksnyder/go-i18n/i18n/language"
@@ -170,18 +172,56 @@ func GetTfuncFromRequest(c *gin.Context) TemplateTfunc {
 
 // GetThemeFromRequest : Gets the user selected theme from the request
 func GetThemeFromRequest(c *gin.Context) string {
+	if config.Get().DefaultTheme.Forced != "" {
+		return config.Get().DefaultTheme.Forced
+	}
 	user, _ := getCurrentUser(c)
-	if user.ID > 0 {
+	if user.ID > 0 && user.Theme != "" {
 		return user.Theme
 	}
 	cookie, err := c.Cookie("theme")
 	if err == nil {
 		return cookie
 	}
-	return ""
+	return config.DefaultTheme(false)
 }
 
-// GetMascotFromRequest : Gets the user selected theme from the request
+// GetDarkThemeFromRequest : Gets the default dark theme
+func GetDarkThemeFromRequest(c *gin.Context) string {
+	if config.Get().DefaultTheme.Forced != "" {
+		return config.Get().DefaultTheme.Forced
+	}
+	return config.DefaultTheme(true)
+}
+
+// GetAltColorsFromRequest : Return whether user has enabled alt colors or not
+func GetAltColorsFromRequest(c *gin.Context) bool {
+	user, _ := getCurrentUser(c)
+	if user.ID > 0 {
+		return user.AltColors != "false"
+		//Doing this in order to make it return true should the field be empty
+	}
+	cookie, err := c.Cookie("altColors")
+	if err == nil {
+		return cookie == "true"
+	}
+	return true
+}
+
+// GetOldNavFromRequest : Return whether user has enabled old navigation or not
+func GetOldNavFromRequest(c *gin.Context) bool {
+	user, _ := getCurrentUser(c)
+	if user.ID > 0 {
+		return user.OldNav != "false"
+	}
+	cookie, err := c.Cookie("oldNav")
+	if err == nil {
+		return cookie != "false"
+	}
+	return true
+}
+
+// GetMascotFromRequest : Return whether user has enabled mascot or not
 func GetMascotFromRequest(c *gin.Context) string {
 	user, _ := getCurrentUser(c)
 	if user.ID > 0 {
@@ -210,6 +250,18 @@ func GetMascotURLFromRequest(c *gin.Context) string {
 	return ""
 }
 
+func GetEUCookieFromRequest(c *gin.Context) bool {
+	_, err := c.Cookie("EU_Cookie")
+	if err == nil {
+		return true
+		//Cookie exists, everything good
+	}
+
+	http.SetCookie(c.Writer, &http.Cookie{Name: "EU_Cookie", Value: "true", Domain: getDomainName(), Path: "/", Expires: timeHelper.FewDaysLater(365)})
+	return false
+	//Cookie doesn't exist, we create it to prevent the message from popping up anymore after that and return false
+}
+
 func getCurrentUser(c *gin.Context) (*models.User, error) {
 	if userRetriever == nil {
 		return &models.User{}, errors.New("failed to get current user: no user retriever set")
@@ -235,8 +287,16 @@ func (lang *Language) Translate(languageCode template.HTML) string {
 
 // Translate accepts a languageCode in string and translate the language to the language from the language code in to
 func Translate(languageCode string, to string) string {
+	_, err := glang.Parse(to)
+	if err != nil {
+		return ""
+	}
 	langTranslate := display.Tags(GetParentTag(to))
-	translated := langTranslate.Name(glang.Make(languageCode))
+	langFrom, err := glang.Parse(languageCode)
+	if err != nil {
+		return ""
+	}
+	translated := langTranslate.Name(langFrom)
 	if translated == "Root" {
 		return ""
 	}
@@ -266,4 +326,12 @@ func Flag(languageCode string, parent bool) string {
 		return languageSplit[1]
 	}
 	return lang.String()
+}
+
+func getDomainName() string {
+	domain := config.Get().Cookies.DomainName
+	if config.Get().Environment == "DEVELOPMENT" {
+		domain = ""
+	}
+	return domain
 }

@@ -244,7 +244,7 @@
     "translation": "Esci"
   },
   {
-    "id": "member",
+    "id": "userstatus_member",
     "translation": "Utente"
   },
   {
@@ -345,7 +345,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Adessso abbiamo il nostro Tracker doko.moe, aggiungilo in cima alla lista prima dell'upload. Dovresti aggiungere tutti questi Trackers per mantenere il torrent resiliente."
+    "translation": "Adessso abbiamo il nostro Tracker uw0.xyz, aggiungilo in cima alla lista prima dell'upload. Dovresti aggiungere tutti questi Trackers per mantenere il torrent resiliente."
   },
   {
     "id": "how_can_i_help",
@@ -588,7 +588,7 @@
     "translation": "Ruolo"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "Bannato"
   },
   {
@@ -596,15 +596,15 @@
     "translation": "Default"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Membro Fidato"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Utente soggetto a scraping"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "Moderatore"
   },
   {
@@ -789,7 +789,7 @@
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "Per favore, includi udp://tracker.doko.moe:6969 tra i tuoi trackers."
+    "translation": "Per favore, includi udp://tracker.uw0.xyz:6969 tra i tuoi trackers."
   },
   {
     "id": "unknown",
@@ -1652,10 +1652,6 @@
     "translation": "dimensione."
   },
   {
-    "id": "old",
-    "translation": "età"
-  },
-  {
     "id": "optional",
     "translation": "Opzionale"
   },
@@ -1956,7 +1952,7 @@
     "translation": "VNdb ID"
   },
   {
-    "id": "tagtype_quality",
+    "id": "tagtype_videoquality",
     "translation": "Video Quality"
   },
   {
@@ -1972,8 +1968,8 @@
     "translation": "Message"
   },
   {
-    "id": "delay",
-    "translation": "Delay"
+    "id": "duration",
+    "translation": "Duration (Hours)"
   },
   {
     "id": "update_annoucement_panel",

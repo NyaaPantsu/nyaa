@@ -5,6 +5,7 @@ import (
 	"errors"
 	"net/http"
 
+	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/log"
 	"github.com/fatih/structs"
 )
@@ -16,8 +17,8 @@ type Tag struct {
 	Tag       string  `gorm:"column:tag" json:"tag"`
 	Type      string  `gorm:"column:type" json:"type"`
 	Weight    float64 `gorm:"column:weight" json:"weight"`
-	Accepted  bool    `gorm:"column:accepted" json:"accepted"`
 	Total     float64 `gorm:"-" json:"total"`
+	Accepted  bool    `gorm:"-" json:"accepted"`
 }
 
 // Update a tag
@@ -42,6 +43,15 @@ func (ta *Tag) toMap() map[string]interface{} {
 	return structs.Map(ta)
 }
 
+// GetName : get the translated name
+func (ta *Tag) GetName() string {
+	tagtype := config.Get().Torrents.Tags.Types.Get(ta.Type)
+	if len(tagtype.Defaults) > 0 && tagtype.Defaults[0] != "db" {
+		return "tagvalue_" + ta.Tag
+	}
+	return ta.Tag
+}
+
 type Tags []Tag
 
 // Contains check if the tag map has the same tag in it (tag value + tag type)
@@ -62,6 +72,15 @@ func (ts Tags) HasType(tagtype string) int {
 		}
 	}
 	return -1
+}
+
+// Get in the tag map the same tag type
+func (ts Tags) Get(tagtype string) Tag {
+	i := ts.HasType(tagtype)
+	if i == -1 {
+		return Tag{}
+	}
+	return ts[i]
 }
 
 // DeleteType remove all tags from the map that have the same tag type in it
@@ -96,17 +115,9 @@ func (ts Tags) Replace(index int, tag *Tag) {
 }
 
 // ToJSON convert tags map to a json map and can exclud non accepted tags
-func (ts Tags) ToJSON(onlyAccepted bool) string {
-	var toParse Tags
-	if onlyAccepted {
-		for _, tag := range ts {
-			if tag.Accepted {
-				toParse = append(toParse, tag)
-			}
-		}
-	} else {
-		toParse = ts
-	}
+func (ts Tags) ToJSON() string {
+	toParse := ts
+
 	b, err := json.Marshal(toParse)
 	if err != nil {
 		log.Infof("Couldn't parse to json the tags %v", toParse)

@@ -1,5 +1,9 @@
 [
   {
+      "id": "read_rules",
+      "translation": "Bitte lies <a href=\"/faq#rules\">die Regeln</a> bevor du etwas hochladen möchtest."
+  },
+  {
     "id": "rules",
     "translation": "Regeln"
   },
@@ -9,7 +13,7 @@
   },
   {
     "id": "asia",
-    "translation": "Nur Asiatische Inhalte (keine westlichen Filme, keine Cartoons)"
+    "translation": "Nur asiatische Inhalte (keine westlichen Filme und keine Cartoons)"
   },
   {
     "id": "rules_spam",
@@ -22,6 +26,10 @@
   {
     "id": "verify_email_title",
     "translation": "Bestätigung der E-Mail-Adresse für NyaaPantsu."
+  },
+  {
+    "id": "rule_tracker_url",
+    "translation": "<span style='font-weight: bold;'>https://uw0.xyz/</span> ist die offizielle Announce URL"
   },
   {
     "id": "verify_email_content",
@@ -81,7 +89,7 @@
   },
   {
     "id": "terms_conditions_full",
-    "translation": "Coming sooner than you might expect..."
+    "translation": "<h2>NyaaPantsu Terms and Conditions</h2><h3>1. Terms</h3><p>By accessing the website at <a href='https://pantsu.cat'>https://pantsu.cat</a>, you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.</p><h3>2. Disclaimer</h3><ol type='a'><li>The materials on NyaaPantsu Lda's website are provided on an 'as is' basis. NyaaPantsu Lda makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</li><li>Further, NyaaPantsu Lda does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its website or otherwise relating to such materials or on any sites linked to this site.</li></ol><h3>3. Limitations</h3><p>In no event shall NyaaPantsu Lda or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on NyaaPantsu Lda's website, even if NyaaPantsu Lda or a NyaaPantsu Lda authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.</p><h3>4. Accuracy of materials</h3><p>The materials appearing on NyaaPantsu Lda website could include technical, typographical, or photographic errors. NyaaPantsu Lda does not warrant that any of the materials on its website are accurate, complete or current. NyaaPantsu Lda may make changes to the materials contained on its website at any time without notice. However NyaaPantsu Lda does not make any commitment to update the materials.</p><h3>5. Links</h3><p>NyaaPantsu Lda has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by NyaaPantsu Lda of the site. Use of any such linked website is at the user's own risk.</p><h3>6. Modifications</h3><p>NyaaPantsu Lda may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.</p><h3>7. Governing Law</h3><p>These terms and conditions are governed by and construed in accordance with the laws of Portugal and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.</p>"
   },
   {
     "id": "remember_me",
@@ -137,7 +145,7 @@
   },
   {
     "id": "unfollow",
-    "translation": "Nicht mehr Folgen"
+    "translation": "Nicht mehr folgen"
   },
   {
     "id": "user_followed_msg",
@@ -200,6 +208,10 @@
     "translation": "Kein Suchtreffer gefunden"
   },
   {
+    "id": "err_no_torrent_file",
+    "translation": "Torrentdatei konnte nicht gefunden werden."
+  },
+  {
     "id": "upload",
     "translation": "Hochladen"
   },
@@ -244,7 +256,7 @@
     "translation": "Logout"
   },
   {
-    "id": "member",
+    "id": "userstatus_member",
     "translation": "Mitglied"
   },
   {
@@ -345,7 +357,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Wir haben jetzt unseren eigenen Tracker!<small>(doko.moe)</small> Jedoch solltest du der Zuverlässigkeit wegen alle Tracker aus dieser Liste hinzufügen."
+    "translation": "Wir haben jetzt unseren eigenen Tracker!<small>(uw0.xyz)</small> Jedoch solltest du der Zuverlässigkeit wegen alle Tracker aus dieser Liste hinzufügen."
   },
   {
     "id": "how_can_i_help",
@@ -568,6 +580,10 @@
     "translation": "Anonymen Kommentar verfassen"
   },
   {
+    "id": "torrent_no_comments",
+    "translation": "Es hat noch kein Nutzer einen Kommentar hinterlassen."
+  },
+  {
     "id": "submit",
     "translation": "Absenden"
   },
@@ -588,7 +604,7 @@
     "translation": "Rolle"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "Gebannt"
   },
   {
@@ -596,16 +612,16 @@
     "translation": "Standard"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Trusted"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Scraped User"
   },
   {
-    "id": "moderator",
-    "translation": "Moderator"
+    "id": "userstatus_moderator",
+    "translation": "userstatus_moderator"
   },
   {
     "id": "api_token",
@@ -789,7 +805,7 @@
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "Bitte füge udp://tracker.doko.moe:6969 deinen Trackern hinzu."
+    "translation": "Bitte füge udp://tracker.uw0.xyz:6969 deinen Trackern hinzu."
   },
   {
     "id": "unknown",
@@ -833,43 +849,43 @@
   },
   {
     "id": "new_torrent_settings",
-    "translation": "Benachrichtigt werden wenn ein gefolgter Benutzer einen neuen Torrent hinzufügt"
+    "translation": "Benachrichtigt werden, wenn ein gefolgter Benutzer einen neuen Torrent hinzufügt"
   },
   {
     "id": "new_torrent_email_settings",
-    "translation": "Per E-Mail benachrichtigt werden wenn ein gefolgter Benutzer einen neuen Torrent hinzufügt"
+    "translation": "Per E-Mail benachrichtigt werden, wenn ein gefolgter Benutzer einen neuen Torrent hinzufügt"
   },
   {
     "id": "new_comment_settings",
-    "translation": "Benachrichtigt werden wenn deine Torrents kommentiert werden"
+    "translation": "Benachrichtigt werden, wenn deine Torrents kommentiert werden"
   },
   {
     "id": "new_comment_email_settings",
-    "translation": "Per E-Mail benachrichtigt werden wenn deine Torrents kommentiert werden"
+    "translation": "Per E-Mail benachrichtigt werden, wenn deine Torrents kommentiert werden"
   },
   {
     "id": "new_responses_settings",
-    "translation": "Benachrichtigt werden wenn auf deine Kommentare geantwortet wird"
+    "translation": "Benachrichtigt werden, wenn auf deine Kommentare geantwortet wird"
   },
   {
     "id": "new_responses_email_settings",
-    "translation": "Per E-Mail benachrichtigt werden wenn auf deine Kommentare geantwortet wird"
+    "translation": "Per E-Mail benachrichtigt werden, wenn auf deine Kommentare geantwortet wird"
   },
   {
     "id": "new_follower_settings",
-    "translation": "Benachrichtigt werden wenn du einen neuen Follower hast"
+    "translation": "Benachrichtigt werden, wenn du einen neuen Follower hast"
   },
   {
     "id": "new_follower_email_settings",
-    "translation": "Per E-Mail benachrichtigt werden wenn du einen neuen Follower hast"
+    "translation": "Per E-Mail benachrichtigt werden, wenn du einen neuen Follower hast"
   },
   {
     "id": "followed_settings",
-    "translation": "Benachrichtigt werden wenn du jemandem folgst"
+    "translation": "Benachrichtigt werden, wenn du jemandem folgst"
   },
   {
     "id": "followed_email_settings",
-    "translation": "Per E-Mail benachrichtigt werden wenn du jemandem folgst."
+    "translation": "Per E-Mail benachrichtigt werden, wenn du jemandem folgst."
   },
   {
     "id": "yes",
@@ -889,7 +905,7 @@
   },
   {
     "id": "no_move_location_selected",
-    "translation": "Du hast keine Angaben gemacht ob du die Auswahl bewegen möchtest!"
+    "translation": "Du hast keine Angaben gemacht, ob du die Auswahl bewegen möchtest!"
   },
   {
     "id": "select_one_element",
@@ -949,11 +965,11 @@
   },
   {
     "id": "oauth_client_deleted",
-    "translation": "Oauth API Client wurde gelöscht!"
+    "translation": "OAuth API Client wurde gelöscht!"
   },
   {
     "id": "oauth_client_deleted_by",
-    "translation": "Oauth API Client #%s von %s wurde von %s gelöscht."
+    "translation": "OAuth API Client #%s von %s wurde von %s gelöscht."
   },
   {
     "id": "no_action_exist",
@@ -1029,7 +1045,7 @@
   },
   {
     "id": "delete_definitely",
-    "translation": "Wirklich Löschen"
+    "translation": "Wirklich löschen"
   },
   {
     "id": "torrent_unblock",
@@ -1157,7 +1173,7 @@
     },
     {
       "id": "refreshing_in",
-      "translation": "Neuladen der Seite in {0} Sekunden..."
+      "translation": "Seite wird {0} Sekunden neu geladen..."
     },
     {
       "id": "delete_reports_with_torrents",
@@ -1273,7 +1289,7 @@
     },
     {
       "id": "reassign_warning",
-      "translation": "Die Funktion Torrents einem neuen Benutzer zuzuweisen ist nahezu unumkehrbar und sollte nur mit Besonderer Achtsamkeit benutzt werden."
+      "translation": "Die Funktion Torrents einem neuen Benutzer zuzuweisen ist nahezu unumkehrbar und sollte nur mit besonderer Achtsamkeit benutzt werden."
     },
     {
       "id": "previous_username",
@@ -1308,6 +1324,18 @@
       "translation": "Maskottchen URL"
     },
     {
+      "id": "alternating_color",
+      "translation": "Abwechselnde Farben (und keine fetten Schriften)"
+    },
+    {
+      "id": "old_nav",
+      "translation": "Alte Navigation"
+    },
+    {
+      "id": "old_nav_explanation",
+      "translation": "Bei einer Suche werden Kategorien und Seitenzahlen am Anfang der Seite angezeigt, wie in Nyaa.se"
+    },
+    {
       "id": "no_notifications",
       "translation": "Keine Benachrichtigungen"
     },
@@ -1326,10 +1354,6 @@
     {
       "id": "torrent_language",
       "translation": "Torrent Sprache"
-    },
-    {
-      "id": "language_not_mandatory",
-      "translation": "Sprachangabe ist nicht mehr verpflichtend"
     },
     {
       "id": "language_en-us_name",
@@ -1624,6 +1648,10 @@
       "translation": "Schränke deine Suche ein"
     },
     {
+      "id": "refine",
+      "translation": "Einschränken"
+    },
+    {
       "id": "between",
       "translation": "Zwischen"
     },
@@ -1644,16 +1672,8 @@
       "translation": "Jahren"
     },
     {
-      "id": "refine",
-      "translation": "Einschränken"
-    },
-    {
       "id": "large",
       "translation": "Groß."
-    },
-    {
-      "id": "old",
-      "translation": "Alt"
     },
     {
       "id": "optional",
@@ -1666,6 +1686,34 @@
     {
       "id": "show",
       "translation": "Show"
+    },
+    {
+      "id": "sort_by",
+      "translation": "Sortieren nach"
+    },
+    {
+      "id": "ascending",
+      "translation": "Aufsteigend"
+    },
+    {
+      "id": "descending",
+      "translation": "Absteigend"
+    },
+    {
+      "id": "quality",
+      "translation": "Qualität"
+    },
+    {
+      "id": "exclude_user",
+      "translation": "Ausschließen"
+    },
+    {
+      "id": "from_user",
+      "translation": "von"
+    },
+    {
+      "id": "limit_torrent_count",
+      "translation": "Limit"
     },
     {
       "id": "username_taken",
@@ -1760,6 +1808,10 @@
       "translation": "Please provide either of Content-Type: application/json header or multipart/form-data"
     },
     {
+      "id": "torrent_name",
+      "translation": "Torrentname"
+    },
+    {
       "id": "torrent_name_invalid",
       "translation": "Der Name des Torrents ist ungültig"
     },
@@ -1781,19 +1833,19 @@
     },
     {
       "id": "torrent_lang_invalid",
-      "translation": "Die abgesendete Sprache wird nicht unterstüzt! Du kannst helfen sie hinzuzufügen indem du dich per Github an der Übersetzung beteiligst"
+      "translation": "Die abgesendete Sprache wird nicht unterstüzt! Du kannst helfen sie hinzuzufügen, indem du dich per Github an der Übersetzung beteiligst"
     },
     {
       "id": "torrent_cat_is_english",
-      "translation": "Die Torrentkategorie ist auf 'Englisch-übersetzt' gestellt gewesen obwohl er nicht in Englisch war. Wir haben ihn auf Englisch geändert."
+      "translation": "Die Torrentkategorie ist auf 'Englisch-übersetzt' gestellt gewesen, obwohl der Torrent nicht in Englisch war. Wir haben ihn auf Englisch geändert."
     },
     {
       "id": "torrent_cat_not_english",
-      "translation": "Die Torrentkategorie ist auf 'andere-Übersetzungen' gestellt obwohl die Sprache Englisch ist."
+      "translation": "Die Torrentkategorie ist auf 'andere-Übersetzungen' gestellt, obwohl die Sprache Englisch ist."
     },
     {
       "id": "torrent_magnet_invalid",
-      "translation": "Der Magnet konnte nicht geparsed werden, bitte kontrolliere ihn auf Richtigkeit."
+      "translation": "Der Magnet konnte nicht geparsed werden. Bitte kontrolliere ihn auf Richtigkeit."
     },
     {
       "id": "torrent_hash_invalid",
@@ -1846,6 +1898,14 @@
     {
       "id": "torrent_colors",
       "translation": "Torrent-Farben"
+    },
+    {
+      "id": "faq_ads",
+      "translation": "Warum hat Pantsu jetzt Werbung?"
+    },
+    {
+      "id": "faq_ads_explanation",
+      "translation": "Die Entscheidung für Werbeanzeigen ist uns nicht leichtgefallen und wir haben uns viele Gedanken zu euren Bedenken gemacht. Schlussendlich aber glauben wir, dass es die einzige dauerhafte Lösung ist, um Pantsu zu finanzieren und die zukünfige Funktionalität zu gewährleisten.<br/>Wir haben uns viele Gedanken um alternative Finanzierungsmöglichkeiten gemacht, aber wir sahen keine andere Möglichkeit, um Pantsu in dem Maße zu finanzieren.<br/>Nach vielen Bedenken haben wir uns dann für Werbeanzeigen von a-ads entschieden. Das ist die beste Option für uns und unsere Nutzer. Diese Anzeigen sind einfach und unaufdränglich, stören das Nutzererlebnis unserer Seite nicht und verfolgen unsere Nutzer nicht."
     },
     {
       "id": "torrent_preview",
@@ -1928,6 +1988,10 @@
       "translation": "Entfernen"
     },
     {
+      "id": "close",
+      "translation": "Schließen"
+    },
+    {
       "id": "secret",
       "translation": "Client Geheimnis"
     },
@@ -1935,9 +1999,17 @@
       "id": "torrent_age",
       "translation": "{1} Tage {2} Stunden alt"
     },
+    {
+      "id": "tag",
+      "translation": "Schlagwort"
+    },
+    {
+      "id": "torrent_tags",
+      "translation": "Schlagwörter"
+    },
 	{
       "id": "wrong_tag_type",
-      "translation": "Das ausgewählt Schlagwort existiert nicht"
+      "translation": "Das ausgewählte Schlagwort existiert nicht"
 	},
   	{
       "id": "add_tag",
@@ -1947,6 +2019,14 @@
       "id": "tagtype",
       "translation": "Schlagwort-Typ"
   	},
+    {
+      "id": "accepted_tags",
+      "translation": "Akzeptierte Schlagwörter"
+    },
+    {
+      "id": "recommended_tags",
+      "translation": "Vorgeschlagene Schlagwörter"
+    },
   	{
       "id": "tagtype_anidbid",
       "translation": "Anidb ID"
@@ -1956,13 +2036,41 @@
       "translation": "VNdb ID"
   	},
   	{
-      "id": "tagtype_quality",
-      "translation": "Qualität"
+      "id": "tagtype_videoquality",
+      "translation": "Video-Qualität"
   	},
-  	{
-      "id": "torrent_tags",
-      "translation": "Torrent Schlagwort"
-  	},
+    {
+      "id": "tagtype_dlsite",
+      "translation": "DLsite"
+    },
+    {
+      "id": "tagtype_vgmdbid",
+      "translation": "VGMdb ID"
+    },
+    {
+      "id": "tagtype_tags",
+      "translation": "Beschreibende Schlagwörter"
+    },
+    {
+      "id": "tagvalue_select",
+      "translation": "Auswählen..."
+    },
+    {
+      "id": "tagvalue_full_hd",
+      "translation": "1080p"
+    },
+    {
+      "id": "tagvalue_hd",
+      "translation": "720p"
+    },
+    {
+      "id": "tagvalue_sd",
+      "translation": "480p"
+    },
+    {
+      "id": "tagvalue_bluray",
+      "translation": "Bluray"
+    },
     {
       "id": "announcements",
       "translation": "Ankündigungen"
@@ -1972,7 +2080,7 @@
       "translation": "Nachricht"
     },
     {
-      "id": "delay",
+      "id": "duration",
       "translation": "Verzögerung"
     },
     {
@@ -1984,7 +2092,63 @@
       "translation": "Neue Ankündigung erstellen"
     },
     {
+      "id": "related_to",
+      "translation": "Ähnlich wie"
+    },
+    {
       "id": "expire",
       "translation": "Auslaufzeit"
+    },
+    {
+      "id": "complement",
+      "translation": "Ergänzung"
+    },
+    {
+      "id": "from",
+      "translation": "Von"
+    },
+    {
+      "id": "to",
+      "translation": "zu"
+    },
+    {
+      "id": "feed_types",
+      "translation": "Feed Types: RSS(feed), RSS mit Magnet-Links(magnet), Torznab Spec(torznab), EZTV Spec(eztv)"
+    },
+    {
+      "id": "append_query",
+      "translation": "Du kannst deine Suchanfrage an das Ende der Feed-URL anhängen."
+    },
+    {
+      "id": "cookie_warning",
+      "translation": "Durch Nutzung unserer Webseite stimmst du unserer Nutzung von Cookies zu Zwecken der individuellen Anpassung der Webseite für unsere Nutzer zu.<br/>Diese Nachricht wird dir beim nächsten Mal nicht mehr angezeigt."
+    },
+    {
+      "id": "enabled",
+      "translation": "Aktiviert"
+    },
+    {
+      "id": "disabled",
+      "translation": "Deaktiviert"
+    },
+    {
+      "id": "reset_api_key",
+      "translation": "API-Schlüssel zurücksetzen"
+    },
+    {
+      "id": "tag_error",
+      "translation": "Schlagwort konnte nicht hinzugefügt werden, bitte überprüfe deine Internetverbindung und das alle Felder ausgefüllt sind."
+    },
+    {
+      "id": "search_from_user",
+      "translation": "Suche von diesem Benutzer..."
+    },
+    {
+      "id": "usersearch_user_not_found",
+      "translation": "Der Benutzer \"%s\" konnte nicht gefunden werden"
+    },
+    {
+      "id": "user_search_explanation",
+      "translation": "Suche nach einem Benutzer, indem du seinen Nutzernamen unten eingibst."
     }
 ]

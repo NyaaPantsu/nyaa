@@ -2,11 +2,15 @@ package sanitize
 
 import (
 	"bytes"
+	"encoding/xml"
 	"html/template"
-	"log"
+	"io"
 	"regexp"
 	"strings"
 
+	"github.com/NyaaPantsu/nyaa/utils/log"
+
+	"github.com/frustra/bbcode"
 	"github.com/microcosm-cc/bluemonday"
 	md "github.com/russross/blackfriday"
 	"golang.org/x/net/html"
@@ -28,12 +32,30 @@ var htmlFlags = 0 |
 	md.HTML_NOREFERRER_LINKS |
 	md.HTML_HREF_TARGET_BLANK
 
+type htmlTag struct {
+	XMLName xml.Name `xml:"html"`
+	Body    body     `xml:"body"`
+}
+
+type body struct {
+	Content string `xml:",innerxml"`
+}
+
 func init() {
 	HTMLMdRenderer = md.HtmlRenderer(htmlFlags, "", "")
+	BBCodesRenderer = bbcode.NewCompiler(true, true) // autoCloseTags, ignoreUnmatchedClosingTags
+	BBCodesRenderer.SetTag("url", func(node *bbcode.BBCodeNode) (*bbcode.HTMLTag, bool) {
+		out, appendExpr := bbcode.DefaultTagCompilers["url"](node)
+		out.Attrs["rel"] = "nofollow"
+		return out, appendExpr
+	})
 }
 
 // HTMLMdRenderer render for markdown to html
 var HTMLMdRenderer md.Renderer
+
+// BBCodesRenderer render bbcodes to html
+var BBCodesRenderer bbcode.Compiler
 
 // MarkdownToHTML : convert markdown to html
 // TODO: restrict certain types of markdown
@@ -51,7 +73,11 @@ func MarkdownToHTML(markdown string) template.HTML {
 /* Sanitize a message passed as a string according to a setted model or allowing a set of html tags and output a string
  */
 func Sanitize(msg string, elements ...string) string {
+	// Convert BBCodes to HTML
+	msg = ParseBBCodes(msg)
+	// Repair HTML
 	msg = repairHTMLTags(msg) // We repair possible broken html tags
+	// HTML Sanitize
 	p := bluemonday.NewPolicy()
 	if len(elements) > 0 {
 		if elements[0] == "default" { // default model same as UGC without div
@@ -262,17 +288,30 @@ func Sanitize(msg string, elements ...string) string {
 	return p.Sanitize(msg)
 }
 
-/*
- * Should close any opened tags and strip any empty end tags
- */
+// repairHTMLTags Should close any opened tags and strip any empty end tags
 func repairHTMLTags(brokenHTML string) string {
 	reader := strings.NewReader(brokenHTML)
 	root, err := html.Parse(reader)
-	if err != nil {
-		log.Fatal(err)
+	if !log.CheckError(err) {
+		return ""
 	}
-	var b bytes.Buffer
-	html.Render(&b, root)
-	fixedHTML := b.String()
-	return fixedHTML
+	var buf bytes.Buffer
+	w := io.Writer(&buf)
+	html.Render(w, root)
+
+	fixedHTML := htmlTag{}
+	err = xml.NewDecoder(bytes.NewBuffer(buf.Bytes())).Decode(&fixedHTML)
+	if !log.CheckError(err) {
+		return ""
+	}
+	return fixedHTML.Body.Content
+}
+
+// ParseBBCodes returns the bbcode compiler with the bbcode tags to parse
+func ParseBBCodes(msg string) string {
+	msg = BBCodesRenderer.Compile(msg)
+	msg = strings.Replace(msg, "<br>", "\n", -1)
+	// For some reason, BBCodes compiler return escaped html
+	// We need to unescape it
+	return html.UnescapeString(msg)
 }

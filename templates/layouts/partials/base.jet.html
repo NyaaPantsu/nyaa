@@ -1,12 +1,13 @@
 {{import "helpers/errors"}}
 {{import "helpers/infos"}}
+{{import "layouts/partials/helpers/ad"}}
 <!DOCTYPE html>
 <html lang="{{  T("language_code") }}">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="keywords" content="torrents, pantsu, anime, manga, sukebei, nyaapassu, horriblesubs, nyaa, hentai, dlsite"/>
+  <meta name="keywords" content="nyaa, torrents, pantsu, anime, manga, sukebei, nyaapassu, horriblesubs{{if Sukebei()}}, hentai{{end}}, dlsite"/>
   <meta name="description" content='The leading open-source community-based nyaa.se successor, suitable for all anime and manga needs. にゃんぱす~!'/>
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <title>{{if Sukebei()}}Sukebei{{else}}Nyaa{{end}} Pantsu{{block titleBase()}}{{end}}</title>
@@ -21,9 +22,9 @@
   <meta property="og:description" content="Nyaa Pantsu Homepage"/>
 
   <!-- RSS Feed with Context -->
-  <link rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block rsstitle()}}Latest torrents{{end}} RSS Feed" href="/feed/?{{ block rss_link() }}{{ getRawQuery(URL) }}{{end}}"  />
-  <link rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{ yield rsstitle()}} Torznab RSS Feed" href="/feed/torznab?{{ yield rss_link() }}&t=search"  />
-  <link rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{ yield rsstitle()}} EZTV RSS Feed" href="/feed/eztv??{{ yield rss_link() }}"  />
+  <link rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{block rsstitle()}}Latest torrents{{end}} RSS Feed" href="{{ block rss_link() }}/feed?{{ getRawQuery(URL)|raw }}{{end}}"  />
+  <link rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{ yield rsstitle()}} Torznab RSS Feed" href="/feed/torznab?{{ getRawQuery(URL)|raw }}&t=search"  />
+  <link rel="alternate" type="application/rss+xml" title="Nyaa Pantsu - {{ yield rsstitle()}} EZTV RSS Feed" href="/feed/eztv?{{ getRawQuery(URL)|raw }}"  />
 
   <!-- do NOT move -->
   <link rel="stylesheet" href="/css/simplemde.min.css?v={{ Config.Version }}{{ Config.Build }}"/>
@@ -31,26 +32,25 @@
   <link rel="stylesheet" id="style" href="/css/main.css?v={{ Config.Version }}{{ Config.Build }}"/>
   <!-- nyaacon, custom icon set -->
   <link rel="stylesheet" href="/css/nyacon.css?v={{ Config.Version}}{{ Config.Build }}"/>
-  <!-- User selected theme, if any, defaults to /g/ -->
-  {{if Theme == ""}}
-  <link rel="stylesheet" id="theme" href="/css/g.css?v={{ Config.Version }}{{ Config.Build }}"/>
-  {{else}}
-  <link rel="stylesheet" id="theme" href="/css/{{Theme}}.css?v={{ Config.Version }}{{ Config.Build }}"/>
-  {{end}}
+  <!-- User selected theme, if empty defaults to theme in nyaa.yml -->
+  <link rel="stylesheet" id="theme" href="/css/themes/{{Theme}}.css?v={{ Config.Version }}{{ Config.Build }}"/>
   <!-- Flags css -->
   <link rel="stylesheet" href="/css/flags/flags.min.css"/>
   <!-- Search Box for Google -->
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"{{Config.WebAddress.Nyaa}}/","potentialAction":{"@type":"SearchAction","target":"{{Config.WebAddress.Nyaa}}/search?q={search_term_string}","query-input":"required name=search_term_string"} }</script>
   {{block additional_header()}}{{end}}
-</head>
+  </head>
 <body {{if Sukebei()}}class="sukebei"{{end}}>
   <nav id="header" class="header">
     {{block menu()}}{{end}}
   </nav>
-  <div id="content" class="{{ block contclass() }}{{end}}{{if isset(Infos["system"])}} no-center{{end}}">
+  <div id="header-height-offset"></div>
+  {{ AdType := rand(2) }}
+  <div id="content" class="{{ block contclass()}}{{end}}">
     <div class="content container center">
       {{ yield infos()}}
       {{ yield errors()}}
+      {{ if !isset(Infos["system"])}}<div class="centered">{{ yield ad_wide(Type=AdType) }}</div>{{end}}
       {{ block content_body_base() }}{{end}}
     </div>
     {{ block mascot() }}
@@ -78,19 +78,34 @@
     {{end}}
     {{end}}
     {{end}}
-    <div class="pagination">
-      {{ genNav(Navigation, URL, 15)|raw }}
+    {{ if genNav(Navigation, URL, 15) != ""}}
+    <div class="container bottom">
+	<div class="pagination">
+	  {{ genNav(Navigation, URL, 15)|raw }}
+	</div>
     </div>
+    {{end}}
+    {{ if !EUCookieLaw }}<div id="cookie-warning"><span id="cookie-warning-close" class="close">×</span>{{ T("cookie_warning")|raw }}</div>{{ end }}
+    <div class="centered">{{ yield ad_wide(Type=AdType) }}</div>
     <footer id="footer">
       <div class="container footer center">
         <div class="footer-opt">
-          <p><a href="/settings">{{ T("change_settings") }}</a><a id="dark-toggle" style="display: none" href="#"> - Toggle Dark Mode</a></p>
+          <p><a href="/settings">{{ T("change_settings") }}</a><a id="dark-toggle" href="/dark{{ URL.String()}}"> - Toggle Dark Mode</a></p>
         </div>
         <span><i>Powered by <a href="#">Nyaa Pantsu</a> v{{ Config.Version }} - commit <a id="commit" href="https://github.com/NyaaPantsu/nyaa/commit/{{ Config.Build }}">{{ Config.Build }}</a></i></span>
       </div>
     </footer>
   </div>
-  <script type="text/javascript" charset="utf-8">var commitVersion = "{{ Config.Build }}";</script>
+  <script type="text/javascript">
+	  var commitVersion = "{{ Config.Build }}",
+	      websiteVersion = "{{ Config.Version }}",
+	      UserID = {{User.ID}},
+	      domain = "{{getDomainName()}}",
+	      darkTheme = "{{DarkTheme}}",
+	      hmFmt = "{{ T("hours_minutes_ago") }}",
+	      dhFmt = "{{ T("days_hours_ago") }}";
+	</script>
+  <script type="text/javascript" src="/js/query.js?v={{ Config.Version}}{{ Config.Build }}"></script>
   <script type="text/javascript" charset="utf-8" src="/js/main.js?v={{ Config.Version }}{{ Config.Build }}" async></script>
   {{block footer_js()}}{{end}}
 </body>

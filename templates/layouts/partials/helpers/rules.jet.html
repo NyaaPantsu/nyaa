@@ -1,5 +1,5 @@
 {{ block ruleList(open=false)}}
-<details class="rules-drop" {{if open}}open{{end}}>
+<details class="rules-drop" {{if open}}open{{end}} id="rules">
   <summary class="form-input">{{ T("rules")}}</summary>
   <div class="form-input">
     <ul>
@@ -7,6 +7,7 @@
       <li>{{ T("asia")}}</li>
       <li>{{ T("rules_spam")}}</li>
       <li>{{ T("rules_sukebei")}}</li>
+      <li>{{ T("rule_tracker_url")|raw }}</li>
     </ul>
   </div>
 </details>

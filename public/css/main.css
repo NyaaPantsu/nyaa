@@ -12,7 +12,9 @@ a {
     text-decoration: none;
 }
 
-body, .container { min-width: 400px;}
+body, .container, .modtools {
+    min-width: 400px;
+}
 
 .header, .pagination {
     -webkit-user-select: none;
@@ -24,6 +26,24 @@ body {
     font-size: 14px;
     font-family: 'Noto Sans', Arial, sans-serif;
     -webkit-text-size-adjust: 100%;
+    margin-top: 0;
+}
+
+img[class^="jl-"], img[class^="wb-"] {
+    max-width: 100%;
+}
+img[class$="-w"] {
+    max-height: 90px;
+    padding: 0 2px;
+    margin-bottom: 1px;
+}
+.centered {
+    margin: 0 auto;
+    display: block;
+    width: 728px;
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
 }
 
 #mascot {
@@ -58,12 +78,35 @@ body {
     width: 100%;
     top: 0;
     left: 0;
-    height: 60px;
     border-bottom: 1px solid;
 }
+.header, #header-height-offset {
+    height: 60px;
+}
 
-.container {
-    max-width: 1100px;
+#cookie-warning {
+    z-index: 4;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 7px 10px 9px;
+    text-align: center;
+    font-weight: bold;
+    background: hsla(200, 100%, 88%, 0.9);
+    border-top: 1px solid #9dcde4;
+}
+#cookie-warning .close {
+    float: right;
+    font-size: 2em;
+    cursor: pointer;
+    margin-top: -9px;
+    margin-right: -3px;
+    color: #585858;
+}
+
+.container, .modtools {
+    max-width: 1140px;
     margin: 0 auto;
 }
 
@@ -71,16 +114,13 @@ body {
     position: relative;
     z-index: 2;
 }
-.no-center > center { display: none; }
 
 .header .container {
     position: relative;
-    width: auto;
 }
 
 .header .container>div {
     line-height: 60px;
-    vertical-align: middle;
     padding: 0 1rem;
 }
 
@@ -88,16 +128,12 @@ body {
     float: right;
 }
 
-.h-left {
+.h-left, .h-right {
     position: absolute;
-    left: 0;
-    text-align: left;
 }
 
 .h-right {
-    position: absolute;
     right: 0;
-    text-align: right;
 }
 
 .h-logo {
@@ -105,9 +141,7 @@ body {
 }
 
 .h-logo, .h-nav {
-    display: inline-block;
     float: left;
-    /* Property is ignored due to the display. With 'display: inline-block', float properties have no effect. */
 }
 
 .header .h-logo img {
@@ -120,11 +154,12 @@ body {
     vertical-align: middle;
     padding: 0 10px;
     text-decoration: none;
-    background: none;
-    border: none;
-    max-width: 100%;
 }
-.nav-btn.log-in div { display: none; font-size: 16px; }
+.nav-btn.log-in div {
+    display: none;
+    font-size: 17px;
+    line-height: 65px;
+}
 .header .h-search {
     margin-right: 6px;
 }
@@ -144,11 +179,14 @@ body {
     height: 30px;
     border: 1px solid;
 }
+input::placeholder {
+    font-size: 12px;
+}
 
 select.form-input {
     -webkit-appearance: none;
     -moz-appearance: none;
-    padding-right: 1.5rem;
+    padding: 5px 1.5rem 5px 5px;
     background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48"><path fill="%23676767" d="M24 34l18-20H6"/></svg>');
     background-position: right center;
     background-repeat: no-repeat;
@@ -164,7 +202,7 @@ select.form-input {
 
 .form-input.search-box {
     margin-right: -26px;
-    padding-right: 20px;
+    padding-right: 23px;
 }
 
 .form-input.search-box+.icon-search {
@@ -174,37 +212,28 @@ select.form-input {
     padding: 0;
     width: 22px;
     height: 25px;
-    box-shadow: none;
     border: none;
-    vertical-align: middle;
+    outline: none;
+    cursor: pointer;
 }
 
 .form-input.refine {
     border-radius: 0 3px 3px 0;
     border-left: none;
-    margin-left: -4px;
-    margin-top: 1px;
     outline: none;
 }
 
 .form-input.language {
-    max-width: 426px;
+    max-width: 424px;
     height: auto;
     border-radius: 5px;
     background-color: #F7F8F9;
-    padding: 10px 4px 9px 7px;
+    padding: 9px 5px;
 }
 
 .language span.input-group {
     display: inline-block;
     padding-right: 4px;
-}
-
-.language span.input-group.highlighted {
-    border: 1px solid #c4c4c4;
-    background-color: hsla(30, 100%, 50%, 0.2) !important;
-    padding-right: 2px;
-    border-radius: 5px;
 }
 
 .language span.input-group span {
@@ -213,6 +242,7 @@ select.form-input {
 
 .language .input-group label {
     margin-bottom: 1px;
+    vertical-align: inherit;
 }
 
 .language .input-group input {
@@ -221,12 +251,11 @@ select.form-input {
 
 .not-important {
     font-size: 9pt;
-    margin: 2px 3px;
+    margin: 0 3px 2px 3px;
     color: #8a8a8a;
 }
 
 .header .h-user {
-    display: inline-block;
     width: 150px;
 }
 
@@ -234,10 +263,12 @@ select.form-input {
     float: right;
     padding: 0;
     height: 60px;
-    width: 150px;
+    width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    border: none;
+    background: none;
 }
 
 .header .h-user button:focus {
@@ -276,8 +307,6 @@ select.form-input {
 }
 
 .header .h-user .user-menu .nav-btn {
-    float: none;
-    display: block;
     padding: 0px 10px!important;
     height: 43px;
     line-height: 40px;
@@ -289,20 +318,12 @@ select.form-input {
 }
 
 .header .h-user .user-info {
-    font-size: 10pt;
     font-weight: bold;
-    display: block;
     float: right;
-    height: 60px;
     line-height: 60px;
-    /* Property is ignored due to the display. With 'display: block', vertical-align should not be used. */
-    vertical-align: middle;
-    /* Hardcoded so the div always fills up all available space while floating right */
     max-width: 91px;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding-right: 0;
 }
 
 .h-user .nav-btn.notif>.badge {
@@ -317,20 +338,28 @@ select.form-input {
 .user-avatar img {
     max-width: 100%;
     max-height: 100%;
-    width: auto;
-    height: auto;
+}
+
+.user-avatar span {
+    position: absolute;
+    color: #292929;
+    background: #fd6b6b;
+    padding: 1px 4px;
+    font-size: 8px;
+    top: 37px;
+    right: 22px;
+    max-height: 17px;
+    line-height: 10px;
 }
 
 #content {
     position: relative;
-    top: 70px;
+}
+#content.content-admin  {
+    top: 54px;
 }
 
-
-/* #content { padding-top: 70px;  } */
-
 .content {
-    border-radius: 3px;
     padding: 5px 10px;
     pointer-events: auto;
 }
@@ -347,8 +376,8 @@ select.form-input {
     text-align: left;
 }
 
-.box.refine>h3 {
-    margin-top: 5px;
+.box.refine h3 {
+    margin-top: 1px;
     margin-bottom: 11px;
 }
 
@@ -356,12 +385,13 @@ select.form-input {
     width: 49px;
 }
 
-.box.refine input[type="number"].refine-userid {
-    width: 65px;
+.refine-user {
+    width: 103px;
 }
 .box.refine .language {
-	position: absolute; 
-	right: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .form-refine {
@@ -375,11 +405,16 @@ select.form-input {
 }
 
 .form-refine span.spacing {
-    min-width: 100px;
     display: inline-block;
+    width: 100px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-.form-refine .refine-searchbox::placeholder { opacity: 0; }
+
+.form-refine .refine-searchbox::placeholder {
+    opacity: 0;
+}
 .form-refine .refine-searchbox {
     border-radius: 3px 0 0 3px;
     width: 21%;
@@ -389,14 +424,41 @@ select.form-input {
 .form-refine .refine-category {
     border-left: none;
     border-radius: 0 3px 3px 0;
-    max-width: 50%;
+    max-width: 40%;
+    min-width: 162px;
 }
 
 .box.refine > form > div {
-	display: flex;
+    display: flex;
 }
-.box.refine .refine-container-1 { width: 53%; }
-.box.refine .refine-container-2 { width: 47%; position: relative; }
+.box.refine .refine-container-1 {
+    width: 52%;
+}
+.box.refine .refine-container-2 {
+    width: 48%;
+    position: relative;
+    padding-top: 67px;
+}
+
+.refine-container-2 span.form-refine {
+    float: right;
+    max-width: 426px;
+    margin-bottom: 5px;
+}
+.refine-container-2 span.spacing {
+    width: 69px;
+}
+.refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
+    margin-bottom: 0;
+    width: 85px!important;
+}
+.refine-container-2 [name="hash"] {
+    float: right;
+    width: 187px!important;
+}
+.refine-date {
+    width: 135px!important;
+}
 
 .categories a {
     display: inline-block;
@@ -404,25 +466,35 @@ select.form-input {
     padding: 10px 5px;
 }
 
-#announce { 
-	margin-bottom: 15px;
-	padding: 7px 10px;
-	background-color: #D9EDF7;
-	border: 1px solid #c4e1e8;
-	border-radius: 7px;
+.announce {
+    margin-bottom: 4px;
+    padding: 7px 10px;
+    background-color: #D9EDF7;
+    border: 1px solid #c4e1e8;
+    border-radius: 7px;
 }
 
-#announce:before { 
-	content: "!";
-	vertical-align: middle;
+.announce:before {
+    content: "!";
+    vertical-align: middle;
     float: left;
     margin: -2px 8px 0 0;
     font-size: 2.2em;
     font-weight: bold;
 }
+.announcement-content :first-child {
+    margin-top: 0;
+}
+
+.announcement-content :last-child {
+    margin-bottom: 0;
+}
 
 .results {
     padding: 0!important;
+}
+.admin-content .results {
+    border-top: none;
 }
 
 table {
@@ -440,9 +512,11 @@ th, .home-td, .user-td {
     text-overflow: ellipsis;
 }
 
-.user-td { padding: 2px 0; }
+.user-td {
+    padding: 2px 0;
+}
 .user-td.tr-cat {
-    padding: 4px 5px 4px 1px;
+    padding: 4px 5px 4px 1px!important;
     min-width: 74px!important;
 }
 
@@ -489,7 +563,7 @@ th {
 }
 
 .tr-flag {
-    white-space: initial!important;
+    white-space: normal!important;
 }
 
 .tr-name {
@@ -499,43 +573,41 @@ th {
     word-break: break-word;
     font-weight: bold;
 }
+.alt-colors .tr-name {
+    font-weight: normal;
+}
 
 .tr-links {
-    width: 48px;
-    overflow: initial;
+    width: 43px;
+    overflow: visible;
     text-align: left;
     padding: 0 2px!important;
 }
 
 .tr-cs {
-    width: 15px;
-    overflow: initial;
-    text-overflow: initial;
+    width: 18px;
+    overflow: visible;
     padding: 0;
+    font-size: 0px;
 }
-
-.tr-cs .comment-icon {
-    margin-bottom: 4px;
+.tr-cs a::before {
+    font-size: 14px;    
 }
 
 .tr-size {
     width: 90px;
 }
 
-.tr-se, .tr-le {
+.tr-se, .tr-le, .tr-st, .torrent-view-data .tr-dl  {
     font-weight: bold;
 }
 
-.tr-se, .tr-le, .tr-dl {
+.tr-se, .tr-le, .tr-dl, .tr-st  {
     width: 50px;
 }
 
 .tr-date {
     width: 124px;
-}
-
-.tr-links>a>div {
-    width: 18px;
 }
 
 .tr-se>a>.sort-arrows, .tr-le>a>.sort-arrows, .tr-dl>a>.sort-arrows {
@@ -567,10 +639,10 @@ th {
     text-align: center;
     padding: 1rem 1rem 0 1rem;
     position: relative;
-    z-index: 2;
+    z-index: 1;
 }
 
-.pagination li {
+.pagination span {
     border: 1px solid;
     display: inline-block;
     padding: 0.4rem;
@@ -580,30 +652,61 @@ th {
     min-width: 35px;
 }
 
-.pagination a:first-child li {
+.pagination a:first-child span {
     border-radius: 3px 0 0 3px;
 }
 
-.pagination a:nth-last-child(2) li {
+.pagination a:nth-last-child(2) span {
     border-radius: 0 3px 3px 0;
     border-right-width: 1px !important
 }
-
+.website-nav .pagination {
+    font-size: .8em;
+    padding: .5rem 0;
+        
+}
+.website-nav .pagination span {
+    min-width: 31px;    
+}
+.website-nav .pagination p {
+    display: none;
+}
+.website-nav table {
+    width: auto;
+}
+.website-nav table tr {
+    background: none!important;    
+}
+.website-nav #nav-category-list {
+    width: 70%;
+    margin-bottom: 7px;
+}
+.website-nav .pagination a {
+    display: inline!important;
+}
+.sub-category-list {
+    padding-left: 16px;
+    font-size: 12px;
+    margin-bottom: 9px;
+}
+.sub-category-list span{
+    display: block;
+}
+.sub-category-list span:before {
+    content: '-» ';
+}
+.sub-category-list span:first-child:before {
+    content: '';
+}
 textarea {
     max-width: 100%;
-}
-
-#footer {
-    width: 100%;
-    bottom: 0;
-    left: 0;
 }
 
 .footer {
     text-align: center;
     padding: 1rem 0 1.2rem 0;
     position: relative;
-    z-index: 2;
+    z-index: 1;
 }
 
 .footer-opt {
@@ -612,15 +715,23 @@ textarea {
     margin-bottom: 1.2rem;
 }
 
-#commit.new:after,#commit.wew:after {
+.new:after,.wew:after {
     content: "new";
     color: red;
-    font-size: 10pt;
+    font-size: 8pt;
     vertical-align: top;
     line-height: 5px;
     margin-left: 1px;
 }
-#commit.wew:after { content: "wew"; }
+.wew:after { 
+    content: "wew";
+}
+#header .new:after, .header .wew:after {
+    font-size: 7pt;
+    vertical-align: middle;
+    position: relative;
+    top: -8px;
+}
 
 html, body {
     height: 100%;
@@ -635,7 +746,7 @@ html, body {
 }
 
 .torrent-buttons a [class^="icon-"], .torrent-buttons a [class*=" icon-"], a.form-input.btn-green>div[class^="icon-"], a.form-input.btn-green>div[class*="icon-"] {
-    vertical-align: initial;
+    vertical-align: top;
 }
 
 #mascotKeepHide {
@@ -649,8 +760,8 @@ html, body {
 /* responsive design */
 
 
-@media (min-width: 2560px) { 
-    .container { max-width: 60%!important; }
+@media (min-width: 2560px) {
+    .container, .modtools { max-width: 60%!important; }
 }
 
 /* hide the username */
@@ -666,24 +777,50 @@ html, body {
     }
     .header .h-user>.nav-btn {
         padding: 0 3px!important;
-		font-size: 85%;
-		width: 100%;
     }
-	.header .h-user>a.nav-btn { padding: 0!important; }
-	.nav-btn.log-in span { display: none; }
-	.nav-btn.log-in div { display: block; }
+    .header .h-user>a.nav-btn {
+    padding: 0!important;
+    }
+    .user-avatar span  {
+        right: 25px;
+    }
+    .nav-btn.log-in span {
+    display: none;
+    }
+    .nav-btn.log-in div {
+    display: block;
+    }
+    .tr-se, .tr-le, .tr-dl, .tr-st  {
+    width: 46px;
+    }
 }
 
 /* Image category shrinking & padding lowering between 1050 & 860px, do not modify any of these values */
-@media (max-width: 1050px) { 
-	.tr-cat { width: 8.7%; }
-	.torrent-preview-table .tr-cat { width: 9.1%; }
-	th, .home-td, .user-td { padding: 2px 0.25%; }
+@media (max-width: 1050px) {
+    .tr-cat {
+    width: 8.7%;
+    }
+    .user-td.tr-cat {
+    width: 11.7%;
+    }
+    .torrent-preview-table .tr-cat {
+    width: 9.7%;
+     }
+     th, .home-td, .user-td {
+     padding: 2px 0.3%!important;
+    }
 }
 
-@media (max-width: 860px) { 
-	.tr-cat { width: 71px; }
-	th, .home-td, .user-td { padding: 2px 2px; }
+@media (max-width: 860px) {
+    .tr-cat {
+    width: 71px;
+    }
+    th, .home-td, {
+    padding: 2px 2px!important;
+    }
+    .user-td {
+    padding: 2px 1px!important;
+    }
 }
 /* end of category shrinking */
 
@@ -700,22 +837,68 @@ html, body {
     .visible-md {
         display: block
     }
-	.user-td.tr-date { width: 100px; }
-	.user-td.tr-size { width: 77px; }
-	.box.refine > form > div { display: inline-grid !important; }
-	.box.refine > form > div > div { width: 100%!important; }
-	.refine-btn,.language { 
-		position: initial!important;
-		bottom: initial!important; 
-		width: 100%!important;
-	}
-	.language { width: initial!important; }
-	.refine-container-2 { margin-top: 5px; }
-	.hide-xs { display: none !important; }
+    .user-td.tr-cat {
+    width: 70px;   
+    }
+    .user-td.tr-date {
+    width: 100px;
+    }
+    .user-td.tr-size {
+    width: 77px;
+    }
+    .box.refine > form > div {
+    display: block;
+    }
+    .box.refine > form > div > div {
+    width: 100%!important;
+    }
+    .refine-btn,.language {
+    position: relative!important;
+    width: 100%!important;
+    }
+    .language {
+    width: auto!important;
+    }
+    .refine-container-2 {
+    margin-top: 5px;
+    padding-top: 0!important;
+    }
+    .form-refine .refine-category {
+    max-width: 30%;
+    }
+    .form-refine .refine-searchbox {
+    min-width: 190px;
+    }
+    .refine-container-2 span.spacing {
+        width: 100px;
+    }
+    .refine-container-2 span.form-refine {
+        float: none!important;
+        max-width: none;
+    }
+    .refine-container-2 [name="hash"] {
+        float: none;
+    }
+    .upload-form-table .table-checkboxes {
+        padding: 3px 0!important;
+        width: 100%;
+    }
+    .upload-form-table .table-checkboxes .form-group {
+        display: inline-block;
+        margin-right: 6px;
+    }
+    .hide-xs {
+    display: none !important;
+    }
+    .show-xs {
+    display: inline-block!important;
+    }
 }
 
 @media (max-width: 810px) {
-    body { margin: 8px 0; }
+    body {
+    margin: 0 0 8px;
+    }
     .torrent-info-row>td {
         display: block;
     }
@@ -724,81 +907,185 @@ html, body {
     }
     td.torrent-view-td.torrent-info-data {
         padding-left: 5px;
+        width: auto;
+    }
+    .torrent-info-data {
+        width: 100%;
     }
     .profile-main {
-        display: inline-grid !important;
+        display: block!important;
     }
     .profile-panel, .profile-content {
-        border-radius: 4px;
-        border-right: 1px solid;
+        border-radius: 4pximportant;
+        border-right: 1px solid!important;
         width: 100% !important;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
+    }
+    .profile-usermenu, .profile-panel .user-search {
+        width: 200px!important;
     }
     .header .h-user {
         width: 46px;
     }
-    .header .h-user .user-avatar { margin: 0;} 
-    .header .h-user { max-width: 46px; width: auto; }
-    .header .h-user .user-menu { right: 104px;}
-    .box {
-        padding: 7px;
+    .header .h-user .user-avatar {
+    margin: 0;
+    }
+    .user-avatar span  {
+        right: 20px;
+    }
+    .header .h-user {
+    max-width: 46px;
+    width: auto;
+    }
+    .header .h-user .user-menu {
+        right: 104px;
     }
     .torrent-preview-table .tr-cat {
         width: 74px;
     }
-    .tr-se, .tr-le {
+    .tr-se, .tr-le, .tr-st  {
         width: 36px;
     }
-    .tr-links {
-        width: 48px;
+    .header .h-search input {
+    width: 84px !important;
     }
-    .header .h-search input { width: 84px !important; }
     .box {
         padding: 8px;
     }
-    .torrent-hr { margin-bottom: 0; }
+    .torrent-hr {
+    margin-bottom: 0;
+    }
+    .upload-form-table .table-torrent-link input {
+        width: 100%!important;
+    }
+    .upload-form-table .table-input-label {
+        width: 25%!important;
+    }
+    .notification-status {
+        width: 100px;
+    }
 }
 
-@media (max-height: 750px) {
-	.header { height: 56px; }
-	.header .container>div { line-height: 58px; padding: 0 0.6rem; }
-	.header .h-logo img { height: 57px; padding: 5px 8px 5px 2px; }
-	.header .h-user .nav-btn { height: 57px; }
-	#content { top: 58px; }
-	#content.content-admin { top: 108px; }
-	
-	h3 { margin-bottom: 5px; }
-	.form-refine { margin-bottom: 8px; }
+@media (max-height: 750px),(max-width: 500px) {
+    .header {
+    height: 56px;
+    }
+    .header .container > div {
+    line-height: 58px; padding: 0 0.6rem;
+    }
+    .header .h-logo img {
+    height: 57px; padding: 5px 8px 5px 2px;
+    }
+    .header .h-user .nav-btn {
+    height: 57px;
+    }
+    .user-avatar span  {
+        right: 14px;
+    }
+    h3 {
+    margin-bottom: 5px;
+    }
+    .form-refine {
+    margin-bottom: 8px;
+    }
+    .upload-form-table .table-input-label {
+        width: 23%;
+    }
+    .editor-toolbar.fullscreen {
+        top: 57px;
+    }
+    .CodeMirror-fullscreen {
+        top: 107px;
+    }
+    .editor-preview-side {
+        top: 107px;
+    }
 }
 
 @media (max-width: 565px) {
-    .header .h-search { margin-right: 0; }
-    .header .h-search input { width: 90px !important; }
-    .form-input.refine {
-	position: fixed;
-	border: 1px solid black;
-	bottom: 0;
-	width: 50%;
-	left: 25%;
+    .header .h-search {
+    margin-right: 0;
     }
-    .tr-links {
-        width: 44px;
+    .header .h-search input {
+    width: 90px !important;
+   }
+    .form-input.refine {
+    position: fixed;
+    border: 1px solid black;
+    bottom: 0;
+    width: 50%;
+    left: 25%;
     }
     .hide-smol {
         display: none!important;
     }
-    .header .nav-btn { padding: 0px 6px!important;}
-    .form-input.form-category { width: 72px; margin-right: -5px; border-right: none; }
-    span.spacing { display: none!important; }
-    .form-refine .refine-category { width: 45%; }
-    .form-refine .refine-searchbox { width: 55%; }
-    .form-refine .refine-searchbox::placeholder { opacity: 1; }
-    .language { width: 350px; }
-    #footer { padding-bottom: 25px; }
+    .header .nav-btn {
+        padding: 0px 6px;
+    }
+    .form-input.form-category {
+    width: 72px;
+    margin-right: -5px;
+    border-right: none;
+    border-radius: 3px 0 0 3px;
+    }
+    span.spacing {
+    display: none!important;
+    }
+    .form-refine input.form-input {
+    width: 80px;
+    }
+    .form-refine .refine-category {
+    width: 45%;
+    }
+    .form-refine .refine-searchbox {
+    width: 55%!important;
+    }
+    .form-refine .refine-searchbox::placeholder {
+    opacity: 1;
+    }
+    .language {
+    width: 350px;
+    }
+    #footer {
+    padding-bottom: 25px;
+    }
+    .refine-container-2 input[type="number"],.refine-container-2 input[type="text"] {
+    width: 87px!important;
+    }
+    .upload-form-table .table-input-label {
+        display: none;
+    }
+    .torrent-view-data {
+         display: table!important;
+     }
+     .torrent-view-data td, .torrent-view-data table {
+         width: 100%!important;
+     }
+    .notification-status {
+        width: 41px!important;
+        font-size: 0;
+    }
+    #clear-notification a {
+        display: block;
+        margin-left: 0px!important;
+        float: none!important;
+        margin-top: 2px;
+    }
+    .notification-table {
+        margin-bottom: 108px!important;
+    }
+    .notification-date {
+        width: 100px!important;
+    }
 }
 
 @media (max-width: 440px) {
-    .header .nav-btn { padding: 0px 3px!important;}
+    .header .nav-btn {
+        padding: 0px 3px!important;
+    }
+    .form-input.form-category {
+          width: 55px;
+    }
 }
 
 .up-input {
@@ -816,8 +1103,7 @@ html, body {
 }
 
 .profile-sidebar {
-    display: inline-block;
-    text-align: center;
+    display: block;
 }
 
 .profile-usertitle {
@@ -829,8 +1115,7 @@ html, body {
     margin-bottom: 2px;
 }
 
-.profile-usertitle-uploadcount span {
-    font-weight: bold;
+.profile-usertitle-uploadcount b {
     margin-left: 2px;
 }
 
@@ -843,13 +1128,18 @@ html, body {
     border-radius: 6px;
 }
 
-.profile-usermenu {
-    display: inline-grid;
+.profile-usermenu, .profile-panel .user-search {
+    width: 170px;
+    margin: 0 auto;
+    max-width: calc(100% - 16px);
 }
-
-.profile-userbuttons {
-    display: inline-flex;
-    margin-bottom: 5px;
+.profile-usermenu a, .profile-usermenu button {
+    display: block;
+    width: 100%;
+    margin-bottom: 11px;
+}
+.profile-usermenu .icon-rss-squared {
+    vertical-align: top;
 }
 
 .torrent-hr {
@@ -894,7 +1184,24 @@ html, body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
+.torrent-info-data #subscribe-link::before, .torrent-info-data #subscribe-link::after {
+    font-weight: normal;
+    color: black;
+}
+.torrent-info-data #subscribe-link::before {
+    content: '[';
+}
+.torrent-info-data #subscribe-link::after {
+    content: ']';
+}
+.torrent-info-data #subscribe-link {
+    font-weight: bold;
+    font-size: 13px;
+}
+.torrent-info-data #subscribe-link:hover {
+    text-decoration: underline;
+}
+   
 .torrent-info-box {
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -903,12 +1210,22 @@ html, body {
 .torrent-info-box>p>a, .torrent-info-box>div>a, #description-box a {
     text-decoration: underline;
 }
-
-#filelist>p {
-    padding-right: 14px;
-    padding-left: 14px;
+#description-box table {
+    width: auto;
+    margin-top: 5px;
+}
+#description-box td, #description-box tr  {
+    padding: 5px 23px;
+    text-align: center;
 }
 
+#filelist>p {
+    padding: 0 14px;
+}
+
+.comment-box blockquote {
+    margin: 0;
+}
 .comment-box blockquote>p {
     opacity: 0.5;
 }
@@ -918,13 +1235,56 @@ html, body {
 }
 
 .comment-box {
-    margin-top: 10px;
-    padding-left: 7px;
-    padding-right: 7px;
-    margin-right: 30px;
-    margin-left: 30px;
+    padding: 0 7px;
+    margin: 10px 30px 0 30px;
+    min-height: 67px;
     word-break: break-word;
     text-align: justify;
+}
+
+.comment-box span+p {
+    margin-top: 9px;    
+}
+
+.comment-box .comment-userinfo {
+    display: block;
+    margin-top: 8px;    
+}
+
+.comment-box .comment-user {
+    font-size: 12px;
+}
+
+.comment-userinfo img {
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.comment-box .user-status::before {
+    content: '(';
+}
+.comment-box .user-status::after {
+    content: ')';
+}
+.comment-box .user-status {
+    font-size: 12px;
+    font-style: italic;
+    margin-left: 4px;
+}
+
+.comment-content img {
+    max-width: 100%;
+    max-height: 500px;
+}
+
+.comment-content :first-child {
+    margin-top: 8px;
+}
+.comment-content :last-child {
+    margin-bottom: 2px;
 }
 
 .comment-form {
@@ -934,10 +1294,46 @@ html, body {
     padding-bottom: 5px;
 }
 
+.comment-form textarea {
+    margin-bottom: 0;    
+}
+
+.CodeMirror {
+	cursor: text;
+}
+.CodeMirror-fullscreen, .editor-toolbar.fullscreen {
+	max-width: none!important;
+}
+.editor-toolbar.fullscreen {
+	padding: 8px 6px!important;
+}
+.comment-form .CodeMirror, .comment-form .CodeMirror-scroll {
+	min-height: 122px;
+}
+.comment-text, .markdown-container {
+	position: relative;
+}
+.comment-form .editor-toolbar {
+    padding: 0 6px;
+}
+.comment-form .editor-toolbar:before {
+    margin-bottom: 4px;
+}
+.comment-form .editor-toolbar:after {
+    margin-top: 4px;
+}
+
+.comment-form h3 {
+    margin-bottom: 8px;
+}
+
 .comment-index {
     margin-right: 5px;
     margin-top: 5px;
     float: right;
+}
+.comment-index a::before {
+    content: '#';
 }
 
 .torrent-buttons {
@@ -961,6 +1357,7 @@ html, body {
     border-radius: 0 4px 4px 0;
     text-align: left;
     padding: 10px 10px 15px 10px;
+    position: relative;
 }
 
 .profile-content h3 {
@@ -976,7 +1373,7 @@ div.profile-content.box>nav>ul>a>li {
     width: 100%;
 }
 
-div.profile-content.box>nav>ul>a>li, nav.adminNav>ul>li {
+div.profile-content.box>nav>ul>a>li {
     border-right-width: 1px;
 }
 
@@ -1020,10 +1417,6 @@ thead.torrentinfo tr {
     min-height: 40px;
 }
 
-.tr-filelist {
-    --nest-level: 0;
-}
-
 .caret-down-icon {
     background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%232196F3" d="M24 34l18-20H6"/></svg>') no-repeat center center;
     background-size: 24px;
@@ -1036,9 +1429,6 @@ thead.torrentinfo tr {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
-
-/* The margin that gives the tree-like effect, based on the nest-level */
 
 .tr-filelist td:first-child::before {
     margin-right: 0.4rem;
@@ -1104,14 +1494,12 @@ input.filelist-checkbox:checked+table.table-filelist {
 }
 
 #description-box {
-    padding-right: 14px;
-    padding-left: 14px;
+    padding: 0 14px;
     margin-bottom: 10px;
 }
 
 #description-box div, #description-box p {
-    margin-top: 14px;
-    margin-bottom: 14px;
+    margin: 14px 0;
 }
 
 #description-box img {
@@ -1119,6 +1507,9 @@ input.filelist-checkbox:checked+table.table-filelist {
     max-height: 100%;
 }
 
+#description-box code {
+    white-space: normal;
+}
 
 /* Markdown editor fixes */
 
@@ -1137,16 +1528,21 @@ input.filelist-checkbox:checked+table.table-filelist {
 
 /* Mod Tools */
 
+.content-admin .modtools {
+    display: block;
+}
+
 .modtools {
     position: fixed;
     top: 65px;
     padding: 5px 10px;
-    max-width: 1060px;
     width: 100%;
-    background-color: #F7F8F9;
-    border: 1px solid #cbbdd7;
+    border-width: 1px;
+    border-style: solid;
     height: 50px;
     border-radius: 5px;
+    z-index: 1;
+    display: none;
 }
 
 .tr-cb {
@@ -1193,7 +1589,7 @@ input.filelist-checkbox:checked+table.table-filelist {
     /* Hidden by default */
     position: fixed;
     /* Stay in place */
-    z-index: 4;
+    z-index: 6;
     /* Sit on top */
     left: 0;
     top: 0;
@@ -1219,19 +1615,29 @@ input.filelist-checkbox:checked+table.table-filelist {
     padding: 2px 16px;
     background: #111;
     /* Old browsers */
-    background: -moz-linear-gradient(bottom, #222 0%, #111 100%);
-    background: -webkit-linear-gradient(bottom, #222 0%, #111 100%);
-    background: linear-gradient(to top, #222 0%, #111 100%);
+    background: #497ebf;
     color: white;
+}
+.modal-header h2 {
+    margin: 9px 0;
+    font-size: 1.3em;
 }
 
 
 /* Modal Body */
 
 .modal-body {
-    padding: 2px 16px;
+    padding: 22px 16px;
+    max-height: 56vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
-
+.modal-body :first-child {
+    margin-top: 0;
+}
+.modal-body h4 {
+    margin-bottom: 6px;
+}
 
 /* Modal Footer */
 
@@ -1239,22 +1645,21 @@ input.filelist-checkbox:checked+table.table-filelist {
     padding: 2px 16px;
     background: #222;
     /* Old browsers */
-    background: -moz-linear-gradient(bottom, #111 0%, #222 100%);
-    background: -webkit-linear-gradient(bottom, #111 0%, #222 100%);
-    background: linear-gradient(to top, #111 0%, #222 100%);
+    background: #262c33;
     color: white;
 }
 
 .modal-footer span {
     float: right;
-    margin-right: 20px;
+    margin-right: 14px;
 }
 
 .modal-footer span button {
-    margin-right: 5px;
-    padding: 1em 2em;
+    margin-right: 2px;
+    margin-top: 7px;
+    padding: 0.7em 1.5em;
     background: none;
-    border: 1px solid white;
+    border: 1px solid black;
     border-radius: 3px;
     color: white;
     font-weight: bold;
@@ -1279,9 +1684,9 @@ input.filelist-checkbox:checked+table.table-filelist {
     background-color: #fefefe;
     margin: auto;
     padding: 0;
-    border: 1px solid #888;
+    border: 1px solid #7d7e82;
     width: 80%;
-    margin-top: 20%;
+    margin-top: 15vh;
     max-width: 1000px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -webkit-animation-name: animatetop;
@@ -1428,15 +1833,6 @@ input.filelist-checkbox:checked+table.table-filelist {
     float: right;
 }
 
-.header-admin .user-menu {
-    width: 155px!important;
-    z-index: 10;
-}
-
-#content.content-admin {
-    top: 110px;
-}
-
 .tr-actions .form-input {
     display: inline-block;
 }
@@ -1460,12 +1856,11 @@ input.filelist-checkbox:checked+table.table-filelist {
     padding: 0 10px 10px;
 }
 
-.btn-blue:hover, .btn-red:hover, .btn-green:hover, .btn-orange:hover {
+[class^="btn-"]:hover {
     opacity: 0.7;
 }
 
-.btn-blue, .btn-red, .btn-green, .btn-orange {
-    font-weight: bold;
+[class^="btn-"] {
     color: white;
 }
 
@@ -1488,14 +1883,14 @@ input.nav-btn {
 }
 
 .rules-drop {
-    display: flex;
+    display: inline-block;
     user-select: none;
     vertical-align: bottom;
     width: 435px;
     max-width: 100%;
 }
 
-.rules-drop>summary {
+details>summary {
     cursor: pointer;
 }
 
@@ -1519,11 +1914,12 @@ summary::-webkit-details-marker { display: none }
 summary:after {
     vertical-align: middle;
     float: left;
-    margin: -1px 5px 0 0;
+    margin: -3px 5px 0 0;
     content: "+";
     width: 12px;
     font-size: 1.5em;
     font-weight: bold;
+    outline: none;
 }
 
 details[open] summary:after {
@@ -1533,10 +1929,10 @@ details[open] summary:after {
 
 .refine-btn {
     width: 426px;
-	max-width: 100%;
-	position:absolute;
-	bottom: 2px;
-	right: 0;
+    max-width: 100%;
+    position:absolute;
+    right: 0;
+    bottom: 0;
 }
 
 .torrent-preview-table>table {
@@ -1668,9 +2064,26 @@ span.tag-text {
 span.tag {
     border-radius: 1rem;
     box-shadow: 0px 0px 1px 0px #636363;
+    margin-bottom: 1px;
+}
+.tag.accepted {
+    margin-right: 2px;
 }
 
-.tag.accepted {
+.tag.accepted a{
+    margin-right: 3px;
+}
+.tag.accepted .tag-text {
+    margin-right: 3px;
+}
+.tag.accepted .tag-text a {
+    margin-right: 0;
+}
+.tag.accepted i{
+    padding: 0px 0px 3px 0px;
+}
+.tag.accepted .icon-search:before {
+    margin-left: 0;
 }
 
 .tag.pending {
@@ -1694,16 +2107,430 @@ span.tag {
     border-bottom-right-radius: 1rem;
     padding: 2px 0.5rem 2px 0.4rem;
     display: inline-block;
-	color: black;
-	background: #e8f3f7;
+    color: black;
+    background: #e8f3f7;
 }
-.tag.pending a.tag-form { border-left: 1px solid #d8d8d8; }
+.tag.pending a.tag-form {
+    border-left: 1px solid #d8d8d8;
+}
+
+p.upload-rules {
+    margin-top: 0;
+}
+p.upload-rules a {
+    text-decoration: underline;
+}
+#upload-button {
+    width: 120px;
+}
+.upload-form-table {
+    max-width: 950px;
+    margin: 15px 0;
+    margin-bottom: 0;
+}
+.upload-form-table .table-input-label {
+    width: 185px;
+    font-weight: bold; 
+    padding-top: 3px!important;
+}
+.upload-form-table .table-input-label, .upload-form-table td label{
+    vertical-align: top;
+}
+.upload-form-table .form-input.language {
+    float: left;
+}
+.upload-form-table .table-checkboxes {
+    display: inline-block;
+    padding: 10px 4px;
+}
+.upload-form-table .table-torrent-link input[type="file"] {
+    width: 35%;
+    height: 25px;
+    margin-right: 3%;
+}
+.upload-form-table .table-torrent-link input[type="text"] {
+    width: 62%;
+}
+.upload-form-table #desc {
+	margin-bottom: 20px;
+}
+.comment-text .editor-statusbar {
+    right: 9px;
+    bottom: 20px;
+}
+.editor-statusbar {
+    position: absolute;
+	padding: 0;
+    right: 8px;
+    z-index: 1;
+    bottom: 6px;
+}
+
+.upload-form-table details {
+    margin-bottom: 4px;
+}
+#anidex-upload-info > div {
+    height: auto;
+    padding: 10px 6px;
+    border-top: none;
+}
+#anidex-upload-info p {
+    margin-bottom: 4px;
+}
+#anidex-upload-info p:first-child {
+    margin-top: 0;
+}
+#anidex-upload-info > div > div {
+    margin-left: 9px;
+}
+
+#anidex-upload-info > div input[type="text"], #anidex-upload-info > div select {
+    margin-bottom: 4px;
+    
+}
+#anidex-upload-info > div select {
+    width: calc(100% - 8px);
+}
+#anidex-upload-info > div select[name="anidex_form_category"] option{
+    color: #000;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.upload-form-table .checkbox-container+input {
+    width: 90%;
+    width: calc(100% - 29px);
+}
+.upload-form-table .checkbox-container {
+    display: inline-block;
+    border: 1px solid #c4c4c4;
+    background-color: #ececec;
+    border-radius: 4px 0 0 4px;
+    border-right: none;
+    height: 30px;
+    float: left;
+    padding: 5px 0;
+    border-color: #c4c4c4;
+    background: #dadada;
+}
+
+
+#tag-h3 {
+    margin: 0 0 7px;
+}
+.upload-tag-table {
+    width: auto;
+}
+.upload-tag-table .input-label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 1px;
+}
+.upload-tag-table input, .upload-tag-table select {
+    height: 25px;
+    padding: 3px 3px;
+    width: 100%;
+}
+.upload-tag-table td {
+    padding-right: 7px;
+}
+
+.upload-tag-form h3 {
+    margin: 10px 0;
+}
+
+.upload-tag-form .form-group {
+    width: 167px;
+    display:inline-block;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.upload-tag-form label {
+    display:inline-block;
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 1px;
+}
+
+.upload-tag-form input,.upload-tag-form select {
+    height: 25px;
+    padding: 3px 3px;
+    width: 100%;
+}
+
+
+.show-xs {
+    display: none;
+}
+
+iframe {
+    max-width: 100%;
+    width: 728px;
+    height: 90px;
+    border: none;
+    overflow: hidden;
+    outline: 1px solid #d2d2d2;
+}
+
+#admin-header {
+    width: 100%;
+    display: inline-block;
+    word-spacing: -0.265em;
+    margin-bottom: -2px;
+    border: 1px solid #b3b3b3;
+    border-radius: 3px 3px 0 0;
+    background: #e8e8e8;
+}
+#admin-header .nav-btn {
+    display: inline-block;
+    vertical-align: middle;
+    height: 36px;
+    padding: 10px 14px;
+    word-spacing: 0;
+    border-right: 1px solid #b3b3b3;
+}
+#admin-header .nav-btn.active, #admin-header .nav-btn:hover, #admin-header:hover .nav-btn.active:hover,  #admin-header .nav-btn:focus {
+    background: hsl(193, 60%, 97%);
+    height: 37px;
+    margin-bottom: -1px;
+}
+
+#admin-header:hover .nav-btn.active, #admin-header:active .nav-btn.active{
+    background: none;
+    height: 36px;
+    margin-bottom: 0;
+}
+.adminNav {
+    margin: 12px 0 5px 0px;
+}
+
+
+table.multiple-upload {
+    width: auto;
+    margin: 5px;
+}
+.upload-status {
+    border-radius: 4px;
+    border: 1px solid;
+    word-spacing: 0;
+}
+.upload-status td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 6px 12px;
+}
+.upload-status .upload-site-name {
+    min-width: 110px;
+    border: 1px solid #e4e4e4;
+    background-color: #eee;
+}
+
+.upload-status .upload-progress {
+    min-width: 95px;
+    font-weight: bold;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 1px;
+    padding: 6px;
+}
+.upload-status [class^="icon-"], .upload-status [class*=" icon-"] {
+    padding: 6px;
+    display: block;
+    border-right: 1px solid;
+}
+.multiple-upload td.uploaded-url {
+    padding: 0;
+}
+.multiple-upload input {
+    height: 100%;
+    width: 100%;
+    border: 1px solid;
+    margin-bottom: 2px;
+}
+.multiple-upload h3 {
+    margin-bottom: 3px;
+}
+.upload-status td:nth-child(3)::before {
+    margin-right: 3px;
+}
+.finished {
+    background-color: #4ae882;
+}
+.pending {
+    background-color: #ffbf7d;
+}
+.error {
+    background-color: #ff7a7a;
+}
+
+.user-edit-table td {
+    padding: 3px 0;
+    vertical-align: top;
+}
+.user-edit-table td:nth-child(1){
+    width: 150px;
+    font-weight: bold;
+    font-size: 14px!important;
+    padding: 5px 0;    
+}
+
+.user-search {
+    word-spacing: -7px;
+    padding: 0 1rem;
+    position: relative;
+}
+.profile-panel .user-search {
+    padding: 0;
+}
+
+.user-search [type="text"] {
+    vertical-align: top;
+    width: calc(100% - 30px);
+    border-radius: 3px 0 0 3px;
+}
+.profile-panel .user-search [type="text"] {
+    margin-right: 28px;
+}
+.user-search button {
+    border-left: none;
+    border-radius: 0 3px 3px 0;
+    float: right;
+    position: absolute;
+    right: 0;
+}
+.box > .user-search button {
+    float: none;
+    position: relative;
+}
+.profile-content .user-search button {
+    right: 16px;
+}
+
+.user-search-notice {
+    margin: 10px 0 0 1px;
+    font-weight: bold;
+}
+
+.torrent-info-row .tr-se span, .torrent-info-row .tr-le span, .torrent-info-row .tr-dl span {
+    font-weight: bold;
+    background-color: #ffe0bf;
+}
+
+.torrent-view-data {
+    display: flex;
+}
+ .torrent-view-data table:first-child {
+    width: 65%;
+}
+ .torrent-view-data table:last-child {
+    width: 35%;
+}
+ .torrent-view-data table:last-child .torrent-info-label {
+    width: 42%;
+}
+ 
+.admin-content tr:hover a {
+    color: #d45a5a;
+}
+.admin-content tr:hover {
+    background: #d0d0d0;
+}
+
+button [class^="icon-"], button [class*=" icon-"] {
+     vertical-align: top;
+}
+
+form.delete-form {
+    display: inline;
+}
+
+form.delete-form button.form-input.btn-red {
+    height: 28px;
+}
+
+.user-torrent-table {
+    margin-bottom: 80px
+}
+
+.user-torrent-search {
+    width: 100%;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 9px;
+}
+
+#clear-notification {
+    bottom: 8px;
+    right: 8px;
+    position: absolute;
+    width: calc(100% - 16px);
+}
+#clear-notification a {
+    float: right;
+    margin-left: 3px;
+}
+.notification-table {
+    margin-bottom: 44px;
+}
+.notification-table td {
+    text-align: center;
+    padding: 6px 0;
+    border-bottom: 1px solid;
+}
+.notification-table tr:hover td {
+    filter: brightness(1.2);
+}
+.notification-status {
+    width: 140px;
+}
+.notification-event {
+    text-align: left!important;
+    padding: 6px 10px!important;
+}
+.notification-date {
+    width: 195px;
+}
+td.notification-status {
+    border: 1px solid black;
+}
+td.notification-status {
+    background-color: #e4e4e4;
+}
+td.notification-status.notification-unread {
+    background-color: rgb(161, 211, 253);
+    color: white;
+}
+
+.torrent-report-table td, .torrent-report-table th {
+    width: 195px;
+}
+.td-report-message  {
+    width: auto!important;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.locked {
+    background: hsla(216, 10%, 73%, 0.2) !important;
+}
 
 /* Language specific CSS */
 
-html[lang="ja-jp"] .header .nav-btn { padding: 0 8px;}
+html[lang="ja-jp"] .form-refine span.spacing {
+    vertical-align: middle;
+}
+html[lang="ja-jp"] .form-input.refine-category {
+    vertical-align: top;    
+}
 @media (max-width: 1100px) {
     html[lang="ja-jp"] .header .h-user>.nav-btn {
-		font-size: 75%;
+        font-size: 75%;
+    }
+}
+@media (min-width: 961px) {
+    html[lang="ja-jp"] .header .nav-btn {
+    padding: 0 8px;
     }
 }

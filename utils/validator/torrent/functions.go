@@ -3,10 +3,10 @@ package torrentValidator
 import (
 	"encoding/base32"
 	"encoding/hex"
-	"encoding/json"
-	"io"
-	"mime/multipart"
+	"fmt"
 	"net/url"
+	"os"
+	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
@@ -14,16 +14,14 @@ import (
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/utils/categories"
 	"github.com/NyaaPantsu/nyaa/utils/cookies"
-	"github.com/NyaaPantsu/nyaa/utils/format"
-	"github.com/NyaaPantsu/nyaa/utils/log"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
-	"github.com/NyaaPantsu/nyaa/utils/metainfo"
 	"github.com/NyaaPantsu/nyaa/utils/torrentLanguages"
 	"github.com/NyaaPantsu/nyaa/utils/validator/tag"
+	"github.com/anacrolix/torrent/metainfo"
 	"github.com/gin-gonic/gin"
-	"github.com/zeebo/bencode"
 )
 
+// ValidateName is a function validating the torrent name
 func (r *TorrentRequest) ValidateName() error {
 	// then actually check that we have everything we need
 	if len(r.Name) == 0 {
@@ -32,34 +30,23 @@ func (r *TorrentRequest) ValidateName() error {
 	return nil
 }
 
-func (r *TorrentRequest) ValidateTags() error {
-	// We need to parse it to json
-	var tags []tagsValidator.CreateForm
-	err := json.Unmarshal([]byte(r.Tags), &tags)
-	if err != nil {
-		r.Tags = ""
-		return errTorrentTagsInvalid
-	}
+// ValidateTags is a function validating tags by removing duplicate entries
+func (r *TorrentRequest) ValidateTags() {
 	// and filter out multiple tags with the same type (only keep the first one)
 	var index config.ArrayString
-	var filteredTags []tagsValidator.CreateForm
-	for _, tag := range tags {
-		if index.Contains(tag.Type) {
+	filteredTags := []tagsValidator.CreateForm{}
+	for _, tag := range r.Tags {
+		if index.Contains(tag.Type) || tag.Type == "" {
 			continue
 		}
 		filteredTags = append(filteredTags, tag)
 		index = append(index, tag.Type)
 	}
-	b, err := json.Marshal(filteredTags)
-	if err != nil {
-		r.Tags = ""
-		log.Infof("Couldn't parse to json the tags %v", filteredTags)
-		return errTorrentTagsInvalid
-	}
-	r.Tags = string(b)
-	return nil
+
+	r.Tags = filteredTags
 }
 
+// ValidateDescription is a function validating description length
 func (r *TorrentRequest) ValidateDescription() error {
 	if len(r.Description) > config.Get().DescriptionLength {
 		return errTorrentDescInvalid
@@ -67,6 +54,7 @@ func (r *TorrentRequest) ValidateDescription() error {
 	return nil
 }
 
+// ValidateMagnet is a function validating a magnet uri format
 func (r *TorrentRequest) ValidateMagnet() error {
 	magnetURL, err := url.Parse(string(r.Magnet)) //?
 	if err != nil {
@@ -82,6 +70,7 @@ func (r *TorrentRequest) ValidateMagnet() error {
 	return nil
 }
 
+// ValidateWebsiteLink is a function validating a website link
 func (r *TorrentRequest) ValidateWebsiteLink() error {
 	if r.WebsiteLink != "" {
 		// WebsiteLink
@@ -93,6 +82,7 @@ func (r *TorrentRequest) ValidateWebsiteLink() error {
 	return nil
 }
 
+// ValidateHash is a function validating a torrent hash
 func (r *TorrentRequest) ValidateHash() error {
 	isBase32, err := regexp.MatchString("^[2-7A-Z]{32}$", r.Infohash)
 	if err != nil {
@@ -198,80 +188,90 @@ func (r *TorrentRequest) ExtractLanguage() error {
 }
 
 // ValidateMultipartUpload : Check if multipart upload is valid
-func (r *TorrentRequest) ValidateMultipartUpload(c *gin.Context, uploadFormTorrent string) (multipart.File, error) {
+func (r *TorrentRequest) ValidateMultipartUpload(c *gin.Context, uploadFormTorrent string) error {
 	// first: parse torrent file (if any) to fill missing information
 	tfile, _, err := c.Request.FormFile(uploadFormTorrent)
 	if err == nil {
-		var torrent metainfo.TorrentFile
-
-		// decode torrent
-		_, seekErr := tfile.Seek(0, io.SeekStart)
-		if seekErr != nil {
-			return tfile, seekErr
-		}
-		err = bencode.NewDecoder(tfile).Decode(&torrent)
+		torrent, err := metainfo.Load(tfile)
 		if err != nil {
-			return tfile, metainfo.ErrInvalidTorrentFile
+			return err
+		}
+
+		torrentInfos, err := torrent.UnmarshalInfo()
+		if err != nil {
+			return err
 		}
 
 		// check a few things
-		if torrent.IsPrivate() {
-			return tfile, errTorrentPrivate
+		if torrentInfos.Private != nil && *torrentInfos.Private {
+			return errTorrentPrivate
 		}
-		trackers := torrent.GetAllAnnounceURLS()
-		r.Trackers = CheckTrackers(trackers)
+		// We check that the trackers are valid,
+		// we filter the dead ones
+		// and we add the needed ones from our config in the request and the torrent file
+		r.Trackers = CheckTrackers(torrent)
 		if len(r.Trackers) == 0 {
-			return tfile, errTorrentNoTrackers
+			return errTorrentNoTrackers
 		}
 
-		// Name
+		// For the name, if none is provided in request, we set the name from the torrent file
 		if len(r.Name) == 0 {
-			r.Name = torrent.TorrentName()
+			r.Name = torrentInfos.Name
 		}
 
 		// Magnet link: if a file is provided it should be empty
 		if len(r.Magnet) != 0 {
-			return tfile, errTorrentAndMagnet
+			return errTorrentAndMagnet
 		}
 
-		_, seekErr = tfile.Seek(0, io.SeekStart)
-		if seekErr != nil {
-			return tfile, seekErr
-		}
-		infohash, err := metainfo.DecodeInfohash(tfile)
-		if err != nil {
-			return tfile, metainfo.ErrInvalidTorrentFile
-		}
-		r.Infohash = infohash
-		r.Magnet = format.InfoHashToMagnet(infohash, r.Name, trackers...)
+		// We are using here default functions from anacrolix
+		infohash := torrent.HashInfoBytes()
 
+		if infohash.String() == "" {
+			return errInvalidTorrentFile
+		}
+		r.Infohash = infohash.String()
+		r.Magnet = torrent.Magnet(r.Name, infohash).String()
 		// extract filesize
-		r.Filesize = int64(torrent.TotalSize())
+		r.Filesize = torrentInfos.TotalLength()
 
 		// extract filelist
-		fileInfos := torrent.Info.GetFiles()
+		fileInfos := torrentInfos.Files
 		for _, fileInfo := range fileInfos {
 			r.FileList = append(r.FileList, uploadedFile{
 				Path:     fileInfo.Path,
-				Filesize: int64(fileInfo.Length),
+				Filesize: fileInfo.Length,
 			})
 		}
+		// Since we can change with anacrolix the trackers of a torrent,
+		// We will use this to generate directly the torrent file here
+		file := fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, infohash.String())
+		f, err := os.Create(file)
+		if err != nil {
+			return err
+		}
+		defer f.Close()
+		err = torrent.Write(f)
+		if err != nil {
+			return err
+		}
+
 	} else {
 		err = r.ValidateMagnet()
 		if err != nil {
-			return tfile, err
+			return err
 		}
 		err = r.ValidateHash()
 		if err != nil {
-			return tfile, err
+			return err
 		}
 		// TODO: Get Trackers from magnet URL
 		r.Filesize = 0
 		r.Filepath = ""
 
-		return tfile, nil
+		return nil
 	}
-	return tfile, err
+	return err
 }
 
 // ExtractInfo : Function to assign values from request to ReassignForm
@@ -323,4 +323,39 @@ func (f *ReassignForm) ExtractInfo(c *gin.Context) bool {
 	}
 
 	return true
+}
+
+// Get check if the tag map has the same tag in it (tag value + tag type)
+func (ts TagsRequest) Get(tagType string) tagsValidator.CreateForm {
+	for _, ta := range ts {
+		if ta.Type == tagType {
+			return ta
+		}
+	}
+	return tagsValidator.CreateForm{}
+}
+
+type torrentInt interface {
+	GetDescriptiveTags() string
+}
+
+// Bind a torrent model with its tags to the tags request
+func (ts *TagsRequest) Bind(torrent torrentInt) error {
+	for _, tagConf := range config.Get().Torrents.Tags.Types {
+		if tagConf.Field == "" {
+			return errMissingFieldConfig
+		}
+		tagField := reflect.ValueOf(torrent).Elem().FieldByName(tagConf.Field)
+		if !tagField.IsValid() {
+			return errWrongFieldConfig
+		}
+
+		if fmt.Sprint(tagField.Interface()) != "" && fmt.Sprint(tagField.Interface()) != "0" {
+			*ts = append(*ts, tagsValidator.CreateForm{Type: tagConf.Name, Tag: fmt.Sprint(tagField.Interface())})
+		}
+	}
+	if torrent.GetDescriptiveTags() != "" {
+		*ts = append(*ts, tagsValidator.CreateForm{Type: config.Get().Torrents.Tags.Default, Tag: torrent.GetDescriptiveTags()})
+	}
+	return nil
 }

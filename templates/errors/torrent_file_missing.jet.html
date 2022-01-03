@@ -1,0 +1,14 @@
+{{ extends "layouts/index_site" }}
+{{block title()}}{{ T("err_no_torrent_file")}}{{end}}
+{{block content_body()}}
+<div style="text-align: center;">
+  <h1>{{ T("err_no_torrent_file")}}</h1>
+    {{ if isset(magnet) && magnet != "" }}
+    <a href="{{magnet}}" class="form-input btn-green download" style="height: auto;">
+      <div class="icon-magnet"></div>{{ T("magnet_link")}}
+    </a>
+    {{ if !isset(Errors["errors"])}}<br/><p>{{ T("pending_torrent") }}</p>{{end}}<br/><br/>
+    {{ end }}
+  <img src="/img/no_torrent_file.jpg" alt="No torrent file"/>
+</div>
+{{end}} {{block mascot()}}<br />{{end}}

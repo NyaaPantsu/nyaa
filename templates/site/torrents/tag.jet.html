@@ -1,25 +1,21 @@
 {{ extends "layouts/index_site" }}
 {{ import "layouts/partials/helpers/csrf" }}
 {{ import "layouts/partials/helpers/errors" }}
+{{ import "layouts/partials/helpers/tag_form" }}
 {{block title()}}{{T("add_tag")}}{{end}}
 {{block content_body()}}
 <div class="box results">
   <h3 id="torrents">{{  T("add_tag") }}</h3>
   <form style="text-align:left;padding-left:10px;padding-right:10px;" enctype="multipart/form-data" role="upload" method="POST">
-    {{ yield csrf_field() }}
-    <div class="form-group">
-      <label class="input-label" for="tag">{{ T("tag")}}</label>
-      <input type="text" id="tag" name="tag" class="form-input up-input" value="{{Form.Tag}}" required/>
-      {{ yield errors(name="Tag")}}
-    </div>
-    <div class="form-group">
-      <label class="input-label" for="type">{{ T("tagtype")}}</label>
-      <select name="type" id="type" class="form-input up-input">
-        {{ range _, type := Config.Torrents.Tags.Types }}
-        <option value="{{ type }}" {{if Form.Type == type }}selected{{end}}>{{T("tagtype_" + type) }}</option>
-        {{ end }}
-      </select>
-      {{ yield errors(name="Type")}}
+    <div class="upload-tag-form">
+      {{ yield csrf_field() }}
+      {{ range Config.Torrents.Tags.Types }}
+        {{ yield tagForm(tagType=., acceptedTag=Form.Get(.Name)) }}
+      {{ end }}
+      <div class="form-group">
+        <label class="input-label" for="tag_{{Config.Torrents.Tags.Default}}">{{ T("tagtype_tags") }}</label>
+        <input type="text" class="form-input" name="tag_{{Config.Torrents.Tags.Default}}" id="tag_{{Config.Torrents.Tags.Default}}" value="{{ Form.Get(Config.Torrents.Tags.Default).Tag}}" />
+      </div>
     </div>
     <button type="submit" class="form-input up-input btn-green">{{ T("add")}}</button>
     <br/>

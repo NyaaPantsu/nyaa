@@ -7,8 +7,11 @@ import (
 	"strings"
 
 	"github.com/NyaaPantsu/nyaa/config"
+	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/categories"
 	"github.com/NyaaPantsu/nyaa/utils/publicSettings"
+	"github.com/NyaaPantsu/nyaa/utils/validator/tag"
+	"github.com/stretchr/testify/assert"
 )
 
 // run before config/parse.go:init()
@@ -175,22 +178,40 @@ func TestExtractLanguage(t *testing.T) {
 
 func TestValidateTags(t *testing.T) {
 	r := TorrentRequest{}
+	assert := assert.New(t)
 	tests := []struct {
-		Test     string
-		Expected error
+		Test     TagsRequest
+		Expected TagsRequest
 	}{
-		{"", errTorrentTagsInvalid},
-		{`{"":"","":""}`, errTorrentTagsInvalid},
-		{`{"tag":"xD","type":"lol"}`, errTorrentTagsInvalid},
-		{`[{"tag":"xD","type":"lol"}]`, nil},
-		{`[{"tag":"xD","type":"lol"},{"tag":"xD","type":"lol"}]`, nil},
+		{TagsRequest{}, TagsRequest{}},
+		{TagsRequest{{Tag: "", Type: ""}}, TagsRequest{}},
+		{TagsRequest{{Tag: "xx", Type: "lol"}}, TagsRequest{{Tag: "xx", Type: "lol"}}},
+		{TagsRequest{{Tag: "xx", Type: "lol"}, {Tag: "xxs", Type: "lol"}}, TagsRequest{{Tag: "xx", Type: "lol"}}},
 	}
 	for _, test := range tests {
 		r.Tags = test.Test
-		err := r.ValidateTags()
-		if err != test.Expected {
-			t.Errorf("Validation of torrent hash for '%s' doesn't give the expected result, have '%v', wants '%v'", test.Test, err, test.Expected)
-		}
+		r.ValidateTags()
+		assert.Equal(test.Expected, r.Tags, "Validation of torrent tags for '%v' doesn't give the expected result, have '%v', wants '%v'", test.Test, r.Tags, test.Expected)
 	}
 
+}
+
+func TestTagsRequest_Bind(t *testing.T) {
+	r := TorrentRequest{}
+	assert := assert.New(t)
+	tests := []struct {
+		Test     *models.Torrent
+		Expected TagsRequest
+		Error    error
+	}{
+		{&models.Torrent{}, nil, nil},
+		{&models.Torrent{AnidbID: 1}, TagsRequest{tagsValidator.CreateForm{Tag: "1", Type: "anidbid"}}, nil},
+		{&models.Torrent{AnidbID: 1, VndbID: 2}, TagsRequest{tagsValidator.CreateForm{Tag: "1", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "1", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "2", Type: "vndbid"}}, nil},
+		{&models.Torrent{AnidbID: 1, VndbID: 2, VgmdbID: 3, Dlsite: "RJ001001", AcceptedTags: "ddd,ddd,ddd", VideoQuality: "full_hd"}, TagsRequest{tagsValidator.CreateForm{Tag: "1", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "1", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "2", Type: "vndbid"}, tagsValidator.CreateForm{Tag: "1", Type: "anidbid"}, tagsValidator.CreateForm{Tag: "2", Type: "vndbid"}, tagsValidator.CreateForm{Tag: "RJ001001", Type: "dlsite"}, tagsValidator.CreateForm{Tag: "3", Type: "vgmdbid"}, tagsValidator.CreateForm{Tag: "full_hd", Type: "videoquality"}, tagsValidator.CreateForm{Tag: "ddd,ddd,ddd", Type: "tags"}}, nil},
+	}
+	for _, test := range tests {
+		err := r.Tags.Bind(test.Test)
+		assert.Equal(test.Error, err, "Validation of torrent tags for '%v' doesn't give the expected error, have '%v', wants '%v'", test.Test, err, test.Error)
+		assert.Equal(test.Expected, r.Tags, "Validation of torrent tags for '%v' doesn't give the expected result, have '%v', wants '%v'", test.Test, r.Tags, test.Expected)
+	}
 }

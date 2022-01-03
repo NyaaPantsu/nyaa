@@ -4,18 +4,50 @@
 
 {* We apply the menu in the base template *}
 {{ block menu()}}
-{{include "partials/menu/admin"}}
+{{include "partials/menu/site"}}
 {{end}}
 
-{* We add the class content for admin *}
-{{ block contclass()}}content-admin{{end}}
+{* We used to add the class content for admin *}
+{{ block contclass()}}admin-content{{end}}
 
 {* We add the mod panel title and the title block *}
 {{block titleBase()}} Moderation Panel - {{block title()}}{{end}}
 {{end}}
 
-{* We add the mod panel search refine and the body block *}
+{* We add the mod nav and the body block *}
 {{ block content_body_base()}}
+{{include "partials/menu/admin"}}
 {{ block content_body()}}
 {{end}}
+{{end}}
+{{block footer_js()}}
+<script type="text/javascript">
+var deleteButtons = document.querySelectorAll("button.form-input.btn-red")
+ for(var i = 0; i < deleteButtons.length; i++) {
+   var needConfirmation = (deleteButtons[i].onclick != null)
+   deleteButtons[i].onclick = null
+
+   deleteButtons[i].addEventListener("click", function (e) {
+     e.preventDefault()
+	 if(needConfirmation && !confirm("Are you sure?")) {
+		return
+	 } else if(!needConfirmation) {
+       var form = this.parentNode
+       var formInputs = form.querySelectorAll('input')
+       var query = ""
+     
+       for(var x = 0; x < formInputs.length; x ++) {
+           if(query != "") query = query + "&"
+           query = query + formInputs[x].name + "=" + formInputs[x].value
+       }
+
+       Query.Post(form.action, query, function(data) {})
+
+       this.parentNode.parentNode.parentNode.className = this.parentNode.parentNode.className + " hidden"
+       this.innerText = "Deleted"
+       this.disabled = true
+	 }
+   })
+ }
+</script>
 {{end}}

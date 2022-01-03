@@ -1,117 +1,114 @@
 {{ extends "layouts/index_site" }}
 {{ import "layouts/partials/helpers/search" }}
-{{block title()}}{{ T("home")}}{{end}}
-{{block contclass()}}{{if User.HasAdmin() }}content-admin{{end}}{{end}}
+{{block title()}}{{GenSearchName(Search, URL.String(), T)}}{{end}}
+{{block contclass()}}{{if User.IsModerator() }}content-admin{{end}}{{end}}
 {{block content_body()}}
-<!-- Contain the table within a grid, as for better sizing -->
-<div class="results box">
+{{ if OldNav || Theme == "classic"}}
+  {{ include "layouts/partials/helpers/oldNav" }}
+{{ end }}
+<!-- Contain the table within a grid, as for better sizing  -->
+<div class="results box {{ if OldNav || Theme == "classic" }}old-nav{{end}}" >
   <table>
     <thead class="torrent-info">
       <tr>
-        {{ if User.HasAdmin() }}
+        {{ if User.IsModerator() }}
         <th class="tr-cb hide">
           <input type="checkbox" name="select_all" onchange="TorrentsMod.selectAll(this.checked)"/>
         </th>
         {{end}}
         <th class="tr-cat">{{ T("category")}}</th>
         <th class="tr-name">
-          <a href="{{ genSearchWithOrdering(URL, "1") }}">
+          <a href="{{ genSearchWithOrdering(URL, "1", Search.SearchURL) }}">
             {{ T("name")}}
             <span class="sort-arrows">{{ genSortArrows(URL, "1")|raw }}</span>
           </a>
         </th>
-        <th class="tr-cs"></th>
+        <th class="tr-cs" style="font-size: 0px;">Msg</th>
         <th class="tr-links"></th>
-        <th class="tr-size hide-xs"><a href="{{ genSearchWithOrdering(URL, "4") }}">{{ T("size")}}<span class="sort-arrows">{{ genSortArrows(URL, "4")|raw }}</span></a></th>
+        <th class="tr-size hide-xs"><a href="{{ genSearchWithOrdering(URL, "4", Search.SearchURL) }}">{{ T("size")}}<span class="sort-arrows">{{ genSortArrows(URL, "4")|raw }}</span></a></th>
 
         <th class="tr-se hide-smol">
-          <a href="{{ genSearchWithOrdering(URL, "5") }}">
+          <a href="{{ genSearchWithOrdering(URL, "5", Search.SearchURL) }}">
             {{ T("S")}}
             <span class="sort-arrows">{{ genSortArrows(URL, "5")|raw }}</span>
           </a>
         </th>
         <th class="tr-le hide-smol">
-          <a href="{{ genSearchWithOrdering(URL, "6") }}">
+          <a href="{{ genSearchWithOrdering(URL, "6", Search.SearchURL) }}">
             {{ T("L")}}
             <span class="sort-arrows">{{ genSortArrows(URL, "6")|raw }}</span>
           </a>
         </th>
         <th class="tr-dl hide-xs">
-          <a href="{{ genSearchWithOrdering(URL, "7") }}">
+          <a href="{{ genSearchWithOrdering(URL, "7", Search.SearchURL) }}">
             {{ T("D")}}
             <span class="sort-arrows">{{ genSortArrows(URL, "7")|raw }}</span>
           </a>
         </th>
         <!-- <th><span class="glyphicon glyphicon-comment"></span></th> -->
-        <th class="tr-date hide-xs"><a href="{{ genSearchWithOrdering(URL, "2") }}">
+        <th class="tr-date hide-xs"><a href="{{ genSearchWithOrdering(URL, "2", Search.SearchURL) }}">
           {{ T("date")}}
           <span class="sort-arrows">{{ genSortArrows(URL, "2")|raw }}</span>
         </a>
       </th>
     </tr>
   </thead>
-  <tbody id="torrentListResults">
+  <tbody id="torrentListResults" {{if AltColors}}class="alt-colors"{{end}}>
     {{ range Models}}
-	{{ if CategoryName(.Category, .SubCategory) != ""}}
-    <tr id="torrent_{{ .ID }}" class="torrent-info {{if .Status == 2}}remake{{else if .Status == 3}}trusted{{else if .Status == 4}}aplus{{end}}" >
-      {{ if User.HasAdmin() }}
+    <tr id="torrent_{{ .ID }}" class="torrent-info {{if .Status == 2}}remake{{else if .Status == 3}}trusted{{else if .Status == 4}}aplus{{else if .Status == 5}}locked hidden{{end}}">
+      {{ if User.IsModerator() }}
       <td class="tr-cb hide">
         <input data-name="{{ .Name }}" type="checkbox" id="torrent_cb_{{ .ID }}" name="torrent_id" value="{{ .ID }}"/>
       </td>
       {{ end }}
       <td class="tr-cat home-td">
-        {{ if Sukebei() }}
-        <div class="nyaa-cat sukebei-cat-{{ .Category }}{{ .SubCategory }}">
-          {{ else}}
-          <div class="nyaa-cat nyaa-cat-{{ .SubCategory}}">
-            {{end}}
-            <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}" class="category">
-              {{if .Languages[0] != "" }}
-              <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory +"&lang=") }}{{ range key, language := .Languages }}{{ language }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
-                <img src="/img/blank.gif" alt="{{ range key, language := .Languages }}{{ LanguageNameFromCode(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}" class="flag flag-{{ (len(.Languages) == 1) ?  FlagCode(.Languages[0]) : "multiple" }}" title="{{ range key, language := .Languages }}{{ LanguageNameFromCode(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}"/>
-              </a>
-              {{end}}
+        <div class="nyaa-cat {{ if Sukebei() }}sukebei-cat-{{ .Category }}{{else}}nyaa-cat-{{end}}{{ .SubCategory}}">
+          <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory) }}" title="{{ T(CategoryName(.Category, .SubCategory)) }}" class="category">
+          </a>
+          {{if .Languages[0] != "" }}
+            <a href="{{ URL.Parse("/search?c="+.Category+"_"+ .SubCategory +"&lang=") }}{{ range key, language := .Languages }}{{ language }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}">
+              <img src="/img/blank.gif" alt="{{ range key, language := .Languages }}{{ LanguageNameFromCode(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}" class="flag flag-{{ (len(.Languages) == 1) ?  FlagCode(.Languages[0]) : "multiple" }}" title="{{ range key, language := .Languages }}{{ LanguageNameFromCode(language, T) }}{{ if len(.Languages) > 1 && (key+1) < len(.Languages) }},{{ end }}{{ end }}"/>
             </a>
-          </div>
-        </td>
-        <td class="tr-name home-td"{{ if len(.Comments) == 0 }}colspan="2"{{ end }}>
+          {{end}}
+        </div>
+      </td>
+        <td class="tr-name home-td" {{ if len(.Comments) == 0 }}colspan="2"{{ end }}>
           <a href="/view/{{ .ID }}">
             {{.Name}}
           </a>
         </td>
         {{ if len(.Comments) > 0 }}
-        <td class="tr-cs home-td">
-          <span>{{len(.Comments)}}</span>
+        <td class="tr-cs home-td" title="{{len(.Comments)}} {{T("comments")}}">
+          <a href="/view/{{ .ID }}#comments" class="icon-chat">{{len(.Comments)}}</a>
         </td>
         {{ end }}
         <td class="tr-links home-td">
           <a href="{{.Magnet}}" title="{{  T("magnet_link") }}">
             <div class="icon-magnet"></div>
           </a>
-          {{if .TorrentLink != ""}}
-          <a href="{{.TorrentLink}}" title="{{  T("torrent_file") }}">
+          <a href="{{.TorrentLink}}" title="{{  T("torrent_file") }}" {{if !torrentFileExists(.Hash, .TorrentLink)}}class="hidden"{{end}}>
             <div class="icon-floppy"></div>
           </a>
-          {{end}}
         </td>
         <td class="tr-size home-td hide-xs">
-          {{ fileSize(.Filesize, T) }}
+          {{ fileSize(.Filesize, T, true) }}
         </td>
-        {{if .LastScrape.IsZero}}
-        <td class="home-td hide-xs" colspan="3">{{ T("unknown")}}</td>
+        {{if .StatsObsolete[0] }}
+        <td class="tr-se home-td hide-smol">-</td>
+        <td class="tr-le home-td hide-smol">-</td>
+        <td class="tr-dl home-td hide-xs">-</td>
         {{else}}
         <td class="tr-se home-td hide-smol">{{.Seeders}}</td>
         <td class="tr-le home-td hide-smol">{{.Leechers}}</td>
         <td class="tr-dl home-td hide-xs">{{.Completed}}</td>
         {{end}}
-        <td class="tr-date home-td date-short hide-xs">{{.Date}}</td>
+        <td class="tr-date home-td date-short hide-xs" title="{{formatDate(.FullDate, false)}}">{{formatDate(.FullDate, true)}}</td>
       </tr>
-	  {{end}}
       {{end}}
     </tbody>
   </table>
 </div>
-{{ if User.HasAdmin() }}
+{{ if User.IsModerator() }}
 <div class="modtools">
   <button id="show_actions" class="form-input" data-toggle-text="{{ T("hide_mod_tools")}}">{{ T("show_mod_tools")}}</button>
   <span class="actions">
@@ -175,11 +172,10 @@
 {{end}}
 {{ block footer_js()}}
 <script type="text/javascript" src="{{ URL.Parse("/js/template.js") }}"></script>
-<script type="text/javascript" src="{{ URL.Parse("/js/query.js") }}"></script>
 <script type="text/javascript" src="{{ URL.Parse("/js/modal.js") }}"></script>
 <script type="text/javascript" src="{{ URL.Parse("/js/torrents.js") }}"></script>
 <script type="text/javascript" src="{{ URL.Parse("/js/translation.js") }}"></script>
-{{ if User.HasAdmin() }}
+{{ if User.IsModerator() }}
 <script type="text/javascript" src="{{ URL.Parse("/js/torrentsMod.js") }}"></script>
 <script type="text/javascript">
 // We add translations string

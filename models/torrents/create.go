@@ -1,7 +1,6 @@
 package torrents
 
 import (
-	"encoding/json"
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/models/tag"
@@ -27,8 +26,46 @@ func Create(user *models.User, uploadForm *torrentValidator.TorrentRequest) (*mo
 		Description: uploadForm.Description,
 		WebsiteLink: uploadForm.WebsiteLink,
 		UploaderID:  user.ID}
-	torrent.EncodeLanguages() // Convert languages array in language string
+
 	torrent.ParseTrackers(uploadForm.Trackers)
+	for _, tagForm := range uploadForm.Tags {
+		tag := &models.Tag{
+			Tag:       tagForm.Tag,
+			Type:      tagForm.Type,
+			Accepted:  true,
+			TorrentID: torrent.ID,
+			UserID:    0, // 0 so we don't increase pantsu points for every tag for the actual user (would be too much increase)
+			Weight:    config.Get().Torrents.Tags.MaxWeight + 1,
+		}
+		if tags.FilterOrCreate(tag, &torrent, user) { // We create a tag (filter doesn't apply since new torrent), only callbackOnType is called
+			torrent.Tags = append(torrent.Tags, *tag) // Finally we append it to the torrent
+		}
+	}
+	
+	if torrent.Category == 6 {
+		torrent.Languages = []string{}
+		//Pictures category, does not ever need a language
+	}
+	
+	if (torrent.Category == 3 && torrent.SubCategory == 5) || (torrent.Category == 4 && torrent.SubCategory == 7) || (torrent.Category == 5 && torrent.SubCategory == 9){
+		//English Translated Anime, Live Action and Litterature
+		//We only add english if there is another language already there
+		//We don't want to add the english flag on every single torrent of these sub categories, not without any changes to redundant languages
+		if len(torrent.Languages) != 0  {
+			containsEnglish := false
+			for _, lang := range torrent.Languages {
+				if lang == "en" {
+					containsEnglish = true
+					break
+				}
+			}
+			if !containsEnglish {
+				torrent.Languages = append(torrent.Languages, "en")
+			}
+		}
+	}
+	torrent.EncodeLanguages() // Convert languages array in language string
+	
 	err := models.ORM.Create(&torrent).Error
 	log.Infof("Torrent ID %d created!\n", torrent.ID)
 	if err != nil {
@@ -56,15 +93,7 @@ func Create(user *models.User, uploadForm *torrentValidator.TorrentRequest) (*mo
 		}
 	}
 
-	var tagsReq models.Tags
-	json.Unmarshal([]byte(uploadForm.Tags), &tagsReq)
-	for _, tag := range tagsReq {
-		tag.Accepted = true
-		tag.TorrentID = torrent.ID
-		tag.Weight = config.Get().Torrents.Tags.MaxWeight
-		tags.New(&tag, &torrent)            // We create new tags
-		torrent.Tags = append(torrent.Tags) // Finally we append it to the torrent
-	}
+	torrent.Update(false)
 	user.IncreasePantsu()
 
 	return &torrent, nil

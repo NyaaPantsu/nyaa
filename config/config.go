@@ -8,7 +8,7 @@ import (
 	"fmt"
 
 	"github.com/jinzhu/configor"
-	yaml "gopkg.in/yaml.v2"
+	yaml "github.com/go-yaml/yaml"
 )
 
 var config *Config
@@ -36,6 +36,18 @@ func WebAddress() string {
 		return Get().WebAddress.Sukebei
 	} else {
 		return Get().WebAddress.Nyaa
+	}
+}
+
+// DefaultTheme : Return the default theme or default dark theme
+func DefaultTheme(dark bool) string {
+	if Get().DefaultTheme.Forced != "" {
+		return Get().DefaultTheme.Forced
+	}
+	if !dark {
+		return Get().DefaultTheme.Theme
+	} else {
+		return Get().DefaultTheme.Dark
 	}
 }
 

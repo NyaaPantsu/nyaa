@@ -244,7 +244,7 @@
     "translation": "Logga ut"
   },
   {
-    "id": "member",
+    "id": "userstatus_member",
     "translation": "Medlem"
   },
   {
@@ -588,7 +588,7 @@
     "translation": "Roll"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "Bannad"
   },
   {
@@ -596,16 +596,16 @@
     "translation": "Standard"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Pålitlig medlem"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Scraped user"
   },
   {
-    "id": "moderator",
-    "translation": "Moderator"
+    "id": "userstatus_moderator",
+    "translation": "userstatus_moderator"
   },
   {
     "id": "api_token",
@@ -789,7 +789,7 @@
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "Please include udp://tracker.doko.moe:6969 in your trackers."
+    "translation": "Please include udp://tracker.uw0.xyz:6969 in your trackers."
   },
   {
     "id": "unknown",
@@ -1328,10 +1328,6 @@
     "translation": "Torrent language"
   },
   {
-    "id": "language_not_mandatory",
-    "translation": "Language is not mandatory anymore"
-  },
-  {
     "id": "language_en-us_name",
     "translation": "English"
   },
@@ -1652,10 +1648,6 @@
     "translation": "large."
   },
   {
-    "id": "old",
-    "translation": "old"
-  },
-  {
     "id": "optional",
     "translation": "Optional"
   },
@@ -1956,7 +1948,7 @@
     "translation": "VNdb ID"
   },
   {
-    "id": "tagtype_quality",
+    "id": "tagtype_videoquality",
     "translation": "Video Quality"
   },
   {
@@ -1972,8 +1964,8 @@
     "translation": "Message"
   },
   {
-    "id": "delay",
-    "translation": "Delay"
+    "id": "duration",
+    "translation": "Duration (Hours)"
   },
   {
     "id": "update_annoucement_panel",

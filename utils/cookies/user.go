@@ -96,19 +96,24 @@ func Encode(userID uint, validUntil time.Time) (string, error) {
 
 // Clear : Erase cookie session
 func Clear(c *gin.Context) {
-	c.SetCookie(CookieName, "", -1, "/", getDomainName(), false, true)
+	c.SetCookie(CookieName, "", -1, "/", "", false, true)
 }
 
 // SetLogin sets the authentication cookie
 func SetLogin(c *gin.Context, user *models.User) (int, error) {
-	maxAge := getMaxAge()
+	maxAge := getMaxAge(false)
+	if c.PostForm("remember_me") == "remember" {
+		maxAge = getMaxAge(true)
+	}
 	validUntil := timeHelper.FewDurationLater(time.Duration(maxAge) * time.Second)
 	encoded, err := Encode(user.ID, validUntil)
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
 
-	c.SetCookie(CookieName, encoded, maxAge, "/", getDomainName(), false, true)
+	//Delete session cookie shared between nyaa & sukebei (or current session cookie if no domain name in config) because it should not exist and used to for some users
+	http.SetCookie(c.Writer, &http.Cookie{Name: "session", Value: "", Domain: getDomainName(), Path: "/", Expires: time.Now().AddDate(-1, -1, -1)})
+	c.SetCookie(CookieName, encoded, maxAge, "/", "", false, true)
 	// also set response header for convenience
 	c.Header("X-Auth-Token", encoded)
 	return http.StatusOK, nil

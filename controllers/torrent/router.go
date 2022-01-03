@@ -1,11 +1,15 @@
 package torrentController
 
-import "github.com/NyaaPantsu/nyaa/controllers/router"
+import (
+	"github.com/NyaaPantsu/nyaa/controllers/middlewares"
+	"github.com/NyaaPantsu/nyaa/controllers/router"
+)
 
 func init() {
 	router.Get().Any("/download/:hash", DownloadTorrent)
+	router.Get().Any("/stats/:id", GetStatsHandler)
 
-	torrentRoutes := router.Get().Group("/torrent")
+	torrentRoutes := router.Get().Group("/torrent", middlewares.LoggedInMiddleware())
 	{
 		torrentRoutes.GET("/", TorrentEditUserPanel)
 		torrentRoutes.POST("/", TorrentPostEditUserPanel)
@@ -13,7 +17,7 @@ func init() {
 		torrentRoutes.POST("/tag", ViewFormTag)
 		torrentRoutes.GET("/tag/add", AddTag)
 		torrentRoutes.GET("/tag/remove", DeleteTag)
-		torrentRoutes.GET("/delete", TorrentDeleteUserPanel)
+		torrentRoutes.POST("/delete", TorrentDeleteUserPanel)
 	}
 	torrentViewRoutes := router.Get().Group("/view")
 	{

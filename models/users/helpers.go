@@ -44,10 +44,7 @@ func Exists(email string, pass string) (user *models.User, status int, err error
 		status, err = http.StatusUnauthorized, errors.New("incorrect_password")
 		return
 	}
-	if userExist.IsBanned() {
-		status, err = http.StatusUnauthorized, errors.New("account_banned")
-		return
-	}
+
 	if userExist.IsScraped() {
 		status, err = http.StatusUnauthorized, errors.New("account_need_activation")
 		return

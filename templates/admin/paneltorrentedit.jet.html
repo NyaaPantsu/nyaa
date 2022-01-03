@@ -1,6 +1,7 @@
 {{ extends "layouts/index_admin" }}
 {{ import "layouts/partials/helpers/errors" }}
 {{ import "layouts/partials/helpers/flags" }}
+{{ import "layouts/partials/helpers/tag_form" }}
 {{block title()}}{{  T("torrent_edit_panel") }}{{end}}
 {{ block content_body()}}
 <div class="results box">
@@ -48,77 +49,23 @@
       <p class="help-block">{{ T("description_markdown_notice")}}</p>
       <textarea name="desc" id="desc" class="form-input up-input" rows="10">{{Form.Description}}</textarea>
     </div>
+    <div class="upload-tag-form" style="margin-bottom: 10px;">
       <h3>{{ T("torrent_tags")}}</h3>
-      <span id="tags_list"></span>
-      <a id="tagPopup" href="#" class="add-tag">{{ T("add") }}</a> <a id="tagPopup" href="/mod/tags/delete?id={{ Form.ID }}" class="form-input btn-red">{{ T("delete_all") }}</a>
-      <input type="hidden" name="tags" id="tags" value="{{ Form.Tags }}">
+      {{ range Config.Torrents.Tags.Types }}
+      {{ yield tagForm(tagType=., acceptedTag=Form.Tags.Get(.Name)) }}
+      {{ end }}
+      <div class="form-group">
+        <label class="input-label" for="tag_{{Config.Torrents.Tags.Default}}">{{ T("tagtype_tags") }}</label>
+        <input type="text" name="tag_{{Config.Torrents.Tags.Default}}" class="form-input" id="tag_{{Config.Torrents.Tags.Default}}" value="{{ Form.Tags.Get(Config.Torrents.Tags.Default).Tag }}" />
+      </div>
       {{ yield errors(name="tags")}}
+    </div>
     <button type="submit" class="form-input up-input btn-green">{{ T("save_changes")}}</button>
   </form>
 </div>
-{{ include "layouts/partials/modal_tags" }}
 {{end}}
 {{ block footer_js()}}
-<script type="text/javascript" src="/js/translation.js?v={{ Config.Version}}{{ Config.Build }}"></script>
-<script type="text/javascript" src="/js/template.js?v={{ Config.Version}}{{ Config.Build }}"></script>
-<script type="text/javascript" src="/js/modal.js?v={{ Config.Version}}{{ Config.Build }}"></script>
 <script type="text/javascript" src="/js/simplemde.min.js?v={{ Config.Version}}{{ Config.Build }}"></script>
-<script type="text/javascript">
-// {{ range _, type := Config.Torrents.Tags.Types }}
-  T.Add("tagtype_{{ type }}", '{{ T("tagtype_" + type) }}')
-// {{ end }}
-
-Templates.Add("tag", function(tag) {
-  return `<span data-name="` + tag.type + `_` + tag.tag + `" class="tag accepted" title="Tag: ` + tag.type  + `({{ T("accepted") }} )">
-          <span class="tag-text votable">
-          ` + T.r("tagtype_" + tag.type) + `: ` + tag.tag + `
-          </span>
-        </span>`
-})
-
-// Modal initialization
-Modal.Init({
-  elements: document.getElementsByClassName("modal"),
-  // order of apparition of the modals
-  button: "#tagPopup"
-});
-var tags = []
-document.querySelector("#modal_tag_form form").addEventListener("submit", function(e) {
-  var form = e.target
-  var newTag = {type: form.querySelector("select#type").value, tag: form.querySelector("input#tag").value}
-
-  var replaced = false
-  var len = tags.length
-  for(var i = 0; i < len; i++) {
-    if (tags[i].type == newTag.type) {
-      var oldTag = document.querySelector("span[data-name='"+ tags[i].type + "_" + tags[i].tag + "']")
-      oldTag.parentElement.removeChild(oldTag)
-      tags[i] = newTag
-      replaced = true
-      break
-    }
-  }
-  if (!replaced) tags.push(newTag)
-  var tagHTml = Templates.Render("tag", newTag)
-  document.getElementById("tags_list").innerHTML += tagHTml
-  document.getElementById("tags").value = JSON.stringify(tags)
-  Modal.CloseActive()
-  e.preventDefault()
-})
-function renderTagsJSON() {
-  tagsIn = document.getElementById("tags").value
-  if (tagsIn == "") return
-  var jsonFromTags = JSON.parse(tagsIn)
-  if (jsonFromTags instanceof Array) {
-    for (var i = 0; i < jsonFromTags.length; i++) {
-      tags.push(jsonFromTags[i])
-      var tagHTml = Templates.Render("tag", jsonFromTags[i])
-      document.getElementById("tags_list").innerHTML += tagHTml
-    }
-  }
-}
-renderTagsJSON()
-</script>
 <script type="text/javascript">
   new SimpleMDE({
     element: document.getElementById("desc"),

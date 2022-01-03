@@ -21,14 +21,140 @@
 			"Rev": "a1c4500d4bee4ecb9a38d6cded7c13e86f2b1e28"
 		},
 		{
+			"ImportPath": "github.com/RoaringBitmap/roaring",
+			"Comment": "v0.3.9",
+			"Rev": "4bbba8874933b985c9160558fddea525dde73e63"
+		},
+		{
 			"ImportPath": "github.com/Sirupsen/logrus",
 			"Comment": "v0.11.5-18-g5b60b3d",
 			"Rev": "5b60b3d3ee017ed00bcd0225fcca7acab767844b"
 		},
 		{
+			"ImportPath": "github.com/anacrolix/dht",
+			"Rev": "55080c51975fdff03dc82a2c3a76a0e2995a69d6"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/dht/krpc",
+			"Rev": "55080c51975fdff03dc82a2c3a76a0e2995a69d6"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/go-libutp",
+			"Rev": "98f848b9a2e9936b06895a72862369b2804919fd"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/missinggo",
+			"Rev": "b7a170825af6257e894d92cf99758f1343ee23ba"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/missinggo/bitmap",
+			"Rev": "b7a170825af6257e894d92cf99758f1343ee23ba"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/missinggo/httptoo",
+			"Rev": "b7a170825af6257e894d92cf99758f1343ee23ba"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/missinggo/inproc",
+			"Rev": "b7a170825af6257e894d92cf99758f1343ee23ba"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/missinggo/iter",
+			"Rev": "b7a170825af6257e894d92cf99758f1343ee23ba"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/missinggo/orderedmap",
+			"Rev": "b7a170825af6257e894d92cf99758f1343ee23ba"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/missinggo/perf",
+			"Rev": "b7a170825af6257e894d92cf99758f1343ee23ba"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/missinggo/pproffd",
+			"Rev": "b7a170825af6257e894d92cf99758f1343ee23ba"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/missinggo/prioritybitmap",
+			"Rev": "b7a170825af6257e894d92cf99758f1343ee23ba"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/missinggo/pubsub",
+			"Rev": "b7a170825af6257e894d92cf99758f1343ee23ba"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/missinggo/resource",
+			"Rev": "b7a170825af6257e894d92cf99758f1343ee23ba"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/missinggo/slices",
+			"Rev": "b7a170825af6257e894d92cf99758f1343ee23ba"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/sync",
+			"Rev": "d29d95568d362a0008c1ffbaea39a3449ea67509"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/torrent",
+			"Rev": "17ea4f7fdd2b73bc32e855d4670bbeacdda5c713"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/torrent/bencode",
+			"Rev": "17ea4f7fdd2b73bc32e855d4670bbeacdda5c713"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/torrent/iplist",
+			"Rev": "17ea4f7fdd2b73bc32e855d4670bbeacdda5c713"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/torrent/logonce",
+			"Rev": "17ea4f7fdd2b73bc32e855d4670bbeacdda5c713"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/torrent/metainfo",
+			"Rev": "17ea4f7fdd2b73bc32e855d4670bbeacdda5c713"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/torrent/mmap_span",
+			"Rev": "17ea4f7fdd2b73bc32e855d4670bbeacdda5c713"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/torrent/mse",
+			"Rev": "17ea4f7fdd2b73bc32e855d4670bbeacdda5c713"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/torrent/peer_protocol",
+			"Rev": "17ea4f7fdd2b73bc32e855d4670bbeacdda5c713"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/torrent/storage",
+			"Rev": "17ea4f7fdd2b73bc32e855d4670bbeacdda5c713"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/torrent/tracker",
+			"Rev": "17ea4f7fdd2b73bc32e855d4670bbeacdda5c713"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/torrent/util",
+			"Rev": "17ea4f7fdd2b73bc32e855d4670bbeacdda5c713"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/utp",
+			"Rev": "87ba7933b8d7520e5e6e27460e25e42c2fccab9f"
+		},
+		{
 			"ImportPath": "github.com/asaskevich/govalidator",
 			"Comment": "v6-20-gaa5cce4",
 			"Rev": "aa5cce4a76edb1a5acecab1870c17abbffb5419e"
+		},
+		{
+			"ImportPath": "github.com/boltdb/bolt",
+			"Comment": "v1.3.1",
+			"Rev": "2f1ce7a837dcb8da3ec595b1dac9d0632f0f99e8"
+		},
+		{
+			"ImportPath": "github.com/bradfitz/iter",
+			"Rev": "454541ec3da2a73fc34fd049b19ee5777bf19345"
 		},
 		{
 			"ImportPath": "github.com/bradfitz/slice",
@@ -54,9 +180,17 @@
 			"Rev": "259d2a102b871d17f30e3cd9881a642961a1e486"
 		},
 		{
+			"ImportPath": "github.com/edsrzf/mmap-go",
+			"Rev": "0bce6a6887123b67a60366d2c9fe2dfb74289d2e"
+		},
+		{
 			"ImportPath": "github.com/fatih/structs",
 			"Comment": "v1.0-4-g7e5a8ee",
 			"Rev": "7e5a8eef611ee84dd359503f3969f80df4c50723"
+		},
+		{
+			"ImportPath": "github.com/frustra/bbcode",
+			"Rev": "e3d2906cb2697dd3b846aa433cc6bb03df33b086"
 		},
 		{
 			"ImportPath": "github.com/gin-gonic/gin",
@@ -72,6 +206,10 @@
 			"ImportPath": "github.com/gin-gonic/gin/render",
 			"Comment": "v1.1.4-1-gd5b353c",
 			"Rev": "d5b353c5d5a560322e6d96121c814115562501f7"
+		},
+		{
+			"ImportPath": "github.com/glycerine/go-unsnap-stream",
+			"Rev": "87275cecd8e984c5875577d22da7ce8945df780e"
 		},
 		{
 			"ImportPath": "github.com/go-playground/locales",
@@ -98,9 +236,12 @@
 			"Rev": "6a1fa9404c0aebf36c879bc50152edcc953910d2"
 		},
 		{
-			"ImportPath": "github.com/gorilla/context",
-			"Comment": "v1.1-7-g08b5f42",
-			"Rev": "08b5f424b9271eedf6f9f0ce86cb9396ed337a42"
+			"ImportPath": "github.com/golang/snappy",
+			"Rev": "553a641470496b2327abcac10b36396bd98e45c9"
+		},
+		{
+			"ImportPath": "github.com/google/btree",
+			"Rev": "316fb6d3f031ae8f4d457c6c5186b9e3ded70435"
 		},
 		{
 			"ImportPath": "github.com/gorilla/feeds",
@@ -185,6 +326,10 @@
 			"Rev": "4e24498b31dba4683efb9d35c1c8a91e2eda28c8"
 		},
 		{
+			"ImportPath": "github.com/mschoch/smat",
+			"Rev": "90eadee771aeab36e8bf796039b8c261bebebe4f"
+		},
+		{
 			"ImportPath": "github.com/nicksnyder/go-i18n/i18n",
 			"Comment": "v1.8.0-3-gf373441",
 			"Rev": "f373441d6d54a32891b2d8b1dbf99bc518f3d60d"
@@ -260,6 +405,10 @@
 			"Rev": "97253b98df84f9eef872866d079e74b8265150f1"
 		},
 		{
+			"ImportPath": "github.com/philhofer/fwd",
+			"Rev": "1612a298117663d7bc9a760ae20d383413859798"
+		},
+		{
 			"ImportPath": "github.com/pkg/errors",
 			"Comment": "v0.8.0-5-gc605e28",
 			"Rev": "c605e284fe17294bda444b34710735b29d1a9d90"
@@ -278,6 +427,29 @@
 			"ImportPath": "github.com/stretchr/testify/assert",
 			"Comment": "v1.1.4-70-g05e8a0e",
 			"Rev": "05e8a0eda380579888eb53c394909df027f06991"
+		},
+		{
+			"ImportPath": "github.com/ryszard/goskiplist/skiplist",
+			"Rev": "2dfbae5fcf46374f166f8969cb07e167f1be6273"
+		},
+		{
+			"ImportPath": "github.com/spaolacci/murmur3",
+			"Rev": "0d12bf811670bf6a1a63828dfbd003eded177fce"
+		},
+		{
+			"ImportPath": "github.com/tinylib/msgp/msgp",
+			"Comment": "1.0.2",
+			"Rev": "b2b6a672cf1e5b90748f79b8b81fc8c5cf0571a1"
+		},
+		{
+			"ImportPath": "github.com/willf/bitset",
+			"Comment": "v1.1.2",
+			"Rev": "988f4f24992fc745de53c42df0da6581e42a6686"
+		},
+		{
+			"ImportPath": "github.com/willf/bloom",
+			"Comment": "v2.0.3",
+			"Rev": "54e3b963ee1652b06c4562cb9b6020ebc6e36e59"
 		},
 		{
 			"ImportPath": "github.com/zeebo/bencode",
@@ -338,6 +510,10 @@
 		{
 			"ImportPath": "golang.org/x/text/language/display",
 			"Rev": "cfdf022e86b4ecfb646e1efbd7db175dd623a8fa"
+		},
+		{
+			"ImportPath": "golang.org/x/time/rate",
+			"Rev": "8be79e1e0910c292df4e79c241bb7e8f7e725959"
 		},
 		{
 			"ImportPath": "gopkg.in/go-playground/validator.v8",

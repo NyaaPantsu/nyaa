@@ -25,7 +25,7 @@ func RSSMagnetHandler(c *gin.Context) {
 	feed := &nyaafeeds.RssFeed{
 		Title:   title,
 		Link:    config.WebAddress() + "/",
-		PubDate: createdAsTime.String(),
+		PubDate: formatRSSDate(createdAsTime),
 	}
 	feed.Items = make([]*nyaafeeds.RssItem, len(torrents))
 
@@ -35,7 +35,7 @@ func RSSMagnetHandler(c *gin.Context) {
 			Title:       torrentJSON.Name,
 			Link:        &nyaafeeds.RssMagnetLink{Text: string(torrentJSON.Magnet)},
 			Description: string(torrentJSON.Description),
-			PubDate:     torrent.Date.Format("Mon Jan 02 15:04:05 -0700 2006"),
+			PubDate:     formatRSSDate(torrent.Date),
 			GUID:        config.WebAddress() + "/view/" + strconv.FormatUint(uint64(torrentJSON.ID), 10),
 			Enclosure: &nyaafeeds.RssEnclosure{
 				URL:    config.WebAddress() + "/download/" + strings.TrimSpace(torrentJSON.Hash),

@@ -29,6 +29,8 @@ const (
 	UserStatusModerator = 2
 	// UserStatusScraped : Int for User status scrapped
 	UserStatusScraped = 3
+	// UserStatusModerator : Int for User status moderator
+	UserStatusJanitor = 4
 )
 
 // User model
@@ -44,8 +46,13 @@ type User struct {
 	APITokenExpiry time.Time `gorm:"column:api_token_expiry"`
 	Language       string    `gorm:"column:language"`
 	Theme          string    `gorm:"column:theme"`
+	AltColors      string    `gorm:"column:alt_colors"`
+	OldNav      string    `gorm:"column:old_nav"`
 	Mascot         string    `gorm:"column:mascot"`
 	MascotURL      string    `gorm:"column:mascot_url"`
+	AnidexAPIToken string    `gorm:"column:anidex_api_token"`
+	NyaasiAPIToken string    `gorm:"column:nyaasi_api_token"`
+	TokyoTAPIToken string    `gorm:"column:tokyotosho_api_token"`
 	UserSettings   string    `gorm:"column:settings"`
 	Pantsu         float64   `gorm:"column:pantsu"`
 
@@ -130,6 +137,11 @@ func (u *User) IsModerator() bool {
 	return u.Status == UserStatusModerator
 }
 
+// IsJanitor : Return true if user is janitor OR moderator
+func (u *User) IsJanitor() bool {
+	return u.Status == UserStatusJanitor || u.Status == UserStatusModerator
+}
+
 // IsScraped : Return true if user is a scrapped user
 func (u *User) IsScraped() bool {
 	return u.Status == UserStatusScraped
@@ -147,18 +159,33 @@ func (u *User) GetUnreadNotifications() int {
 	return u.UnreadNotifications
 }
 
-// HasAdmin checks that user has an admin permission. Deprecated
-func (u *User) HasAdmin() bool {
-	return u.IsModerator()
+// ToggleBan : Ban/Unban an user an user, return true if the user is now banned
+func (u *User) ToggleBan() bool {
+	if u.IsBanned() {
+		u.Status = UserStatusMember
+	} else {
+		u.Status = UserStatusBanned
+	}
+	u.Update()
+	return u.IsBanned()
 }
+
 
 // CurrentOrAdmin check that user has admin permission or user is the current user.
 func (u *User) CurrentOrAdmin(userID uint) bool {
-	if userID == 0 {
+	if userID == 0 && !u.IsModerator() {
 		return false
 	}
-	log.Debugf("user.ID == userID %d %d %s", u.ID, userID, u.ID == userID)
+	log.Debugf("user.ID == userID %d %d %t", u.ID, userID, u.ID == userID)
 	return (u.IsModerator() || u.ID == userID)
+}
+// CurrentOrJanitor check that user has janitor permission or user is the current user.
+func (u *User) CurrentOrJanitor(userID uint) bool {
+	if userID == 0 && !u.IsJanitor() {
+		return false
+	}
+	log.Debugf("user.ID == userID %d %d %t", u.ID, userID, u.ID == userID)
+	return (u.IsJanitor() || u.ID == userID)
 }
 
 // CurrentUserIdentical check that userID is same as current user's ID.
@@ -170,16 +197,16 @@ func (u *User) CurrentUserIdentical(userID uint) bool {
 // NeedsCaptcha : Check if a user needs captcha
 func (u *User) NeedsCaptcha() bool {
 	// Trusted members & Moderators don't
-	return !(u.IsTrusted() || u.IsModerator())
+	return !(u.IsTrusted() || u.IsJanitor())
 }
 
 // CanUpload :  Check if a user can upload  or if upload is enabled in config
 func (u *User) CanUpload() bool {
-	if config.Get().Torrents.UploadsDisabled {
-		if config.Get().Torrents.AdminsAreStillAllowedTo && u.IsModerator() {
+	if config.Get().Upload.UploadsDisabled {
+		if config.Get().Upload.AdminsAreStillAllowedTo && u.IsModerator() {
 			return true
 		}
-		if config.Get().Torrents.TrustedUsersAreStillAllowedTo && u.IsTrusted() {
+		if config.Get().Upload.TrustedUsersAreStillAllowedTo && u.IsTrusted() {
 			return true
 		}
 		return false
@@ -189,27 +216,33 @@ func (u *User) CanUpload() bool {
 
 // GetRole : Get the status/role of a user
 func (u *User) GetRole() string {
+	if u.ID == 0 {
+		return ""	
+	}
 	switch u.Status {
 	case UserStatusBanned:
-		return "Banned"
+		return "userstatus_banned"
 	case UserStatusMember:
-		return "Member"
+		return "userstatus_member"
 	case UserStatusScraped:
-		return "Member"
+		return "userstatus_scraped"
 	case UserStatusTrusted:
-		return "Trusted Member"
+		return "userstatus_trusted"
+	case UserStatusJanitor:
+		return "userstatus_janitor"
 	case UserStatusModerator:
-		return "Moderator"
+		return "userstatus_moderator"
 	}
-	return "Member"
+	return "userstatus_member"
 }
 
 // IsFollower : Check if a user is following another
-func (follower *User) IsFollower(u *User) bool {
+func (follower *User) IsFollower(userid uint) bool {
 	var likingUserCount int
-	ORM.Model(&UserFollows{}).Where("user_id = ? and following = ?", follower.ID, u.ID).Count(&likingUserCount)
+	ORM.Model(&UserFollows{}).Where("user_id = ? and following = ?", follower.ID, userid).Count(&likingUserCount)
 	return likingUserCount != 0
 }
+
 
 // ToJSON : Conversion of a user model to json
 func (u *User) ToJSON() UserJSON {
@@ -227,17 +260,19 @@ func (u *User) ToJSON() UserJSON {
 }
 
 // GetLikings : Gets who is followed by the user
-func (u *User) GetLikings() {
+func (u *User) GetLikings() int {
 	var liked []User
 	ORM.Joins("JOIN user_follows on user_follows.following=?", u.ID).Where("users.user_id = user_follows.user_id").Group("users.user_id").Find(&liked)
 	u.Likings = liked
+	return len(u.Likings)
 }
 
 // GetFollowers : Gets who is following the user
-func (u *User) GetFollowers() {
+func (u *User) GetFollowers() int {
 	var likings []User
 	ORM.Joins("JOIN user_follows on user_follows.user_id=?", u.ID).Where("users.user_id = user_follows.following").Group("users.user_id").Find(&likings)
 	u.Followers = likings
+	return len(u.Followers)
 }
 
 // SetFollow : Makes a user follow another
@@ -245,6 +280,7 @@ func (u *User) SetFollow(follower *User) {
 	if follower.ID > 0 && u.ID > 0 {
 		var userFollows = UserFollows{UserID: u.ID, FollowerID: follower.ID}
 		ORM.Create(&userFollows)
+		u.Likings = append(u.Likings, *follower)
 	}
 }
 
@@ -253,6 +289,15 @@ func (u *User) RemoveFollow(follower *User) {
 	if follower.ID > 0 && u.ID > 0 {
 		var userFollows = UserFollows{UserID: u.ID, FollowerID: follower.ID}
 		ORM.Delete(&userFollows)
+		for i, followr := range u.Likings {
+			if followr.ID == follower.ID {
+				u.Likings[i] = u.Likings[len(u.Likings)-1] 
+				// The very last follower will take the place of the one that is getting deleted in the array
+				u.Likings = u.Likings[:len(u.Likings)-1]
+				// We now proceed to delete the very last array element since it got copied to another position
+				return
+			}
+		}
 	}
 }
 

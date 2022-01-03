@@ -6,13 +6,23 @@ import (
 	"strconv"
 	"strings"
 
+	elastic "gopkg.in/olivere/elastic.v5"
+
 	"time"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/cache"
-	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 )
+
+// Query : Interface to pass for torrents query
+type Query interface {
+	String() string
+	ToDBQuery() (string, []interface{})
+	ToESQuery(client *elastic.Client) (*elastic.SearchService, error)
+	Append(string, ...interface{})
+	Prepend(string, ...interface{})
+}
 
 /* Function to interact with Models
  *
@@ -96,33 +106,34 @@ func FindRawByHash(hash string) (torrent models.Torrent, err error) {
 }
 
 // FindOrderByNoCount : Get torrents based on search without counting and user
-func FindOrderByNoCount(parameters *structs.WhereParams, orderBy string, limit int, offset int) (torrents []models.Torrent, err error) {
+func FindOrderByNoCount(parameters Query, orderBy string, limit int, offset int) (torrents []models.Torrent, err error) {
 	torrents, _, err = findOrderBy(parameters, orderBy, limit, offset, false, false, false)
 	return
 }
 
 // FindOrderBy : Get torrents based on search without user
-func FindOrderBy(parameters *structs.WhereParams, orderBy string, limit int, offset int) (torrents []models.Torrent, count int, err error) {
+func FindOrderBy(parameters Query, orderBy string, limit int, offset int) (torrents []models.Torrent, count int, err error) {
 	torrents, count, err = findOrderBy(parameters, orderBy, limit, offset, true, false, false)
 	return
 }
 
 // FindWithUserOrderBy : Get torrents based on search with user
-func FindWithUserOrderBy(parameters *structs.WhereParams, orderBy string, limit int, offset int) (torrents []models.Torrent, count int, err error) {
+func FindWithUserOrderBy(parameters Query, orderBy string, limit int, offset int) (torrents []models.Torrent, count int, err error) {
 	torrents, count, err = findOrderBy(parameters, orderBy, limit, offset, true, true, false)
 	return
 }
 
-func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, offset int, countAll bool, withUser bool, deleted bool) (
+func findOrderBy(parameters Query, orderBy string, limit int, offset int, countAll bool, withUser bool, deleted bool) (
 	torrents []models.Torrent, count int, err error,
 ) {
 	var conditionArray []string
 	var params []interface{}
 	if parameters != nil { // if there is where parameters
-		if len(parameters.Conditions) > 0 {
-			conditionArray = append(conditionArray, parameters.Conditions)
+		condition, wheres := parameters.ToDBQuery()
+		if len(condition) > 0 {
+			conditionArray = append(conditionArray, condition)
+			params = wheres
 		}
-		params = parameters.Params
 	}
 	if !deleted {
 		conditionArray = append(conditionArray, "deleted_at IS NULL")
@@ -131,12 +142,7 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 	}
 
 	conditions := strings.Join(conditionArray, " AND ")
-	/*if found, ok := cache.C.Get(fmt.Sprintf("%v", parameters)); ok {
-		torrentCache := found.(*structs.TorrentCache)
-		torrents = torrentCache.Torrents
-		count = torrentCache.Count
-		return
-	}*/
+
 	if countAll {
 		err = models.ORM.Unscoped().Model(&torrents).Where(conditions, params...).Count(&count).Error
 		if err != nil {
@@ -145,12 +151,12 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 	}
 
 	// build custom db query for performance reasons
-	dbQuery := models.ORM.Unscoped().Preload("Scrape").Preload("FileList")
+	dbQuery := models.ORM.Unscoped().Joins("LEFT JOIN " + config.Get().Models.ScrapeTableName + " ON " + config.Get().Models.TorrentsTableName + ".torrent_id = " + config.Get().Models.ScrapeTableName + ".torrent_id").Preload("Scrape").Preload("FileList")
 	if withUser {
 		dbQuery = dbQuery.Preload("Uploader")
 	}
 	if countAll {
-		dbQuery = dbQuery.Preload("Comments")
+		dbQuery = dbQuery.Preload("Comments").Preload("OldComments")
 	}
 
 	if conditions != "" {
@@ -158,7 +164,7 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 	}
 
 	if orderBy == "" { // default OrderBy
-		orderBy = "torrent_date DESC"
+		orderBy = "date DESC"
 	}
 	dbQuery = dbQuery.Order(orderBy)
 	if limit != 0 || offset != 0 { // if limits provided
@@ -166,7 +172,6 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 	}
 
 	err = dbQuery.Find(&torrents).Error
-	// cache.C.Set(fmt.Sprintf("%v", parameters), &structs.TorrentCache{torrents, count}, 5*time.Minute) // Cache shouldn't be done here but in search util
 	return
 }
 
@@ -174,18 +179,23 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 // database. The list will be of length 'limit' and in default order.
 // GetTorrents returns the first records found. Later records may be retrieved
 // by providing a positive 'offset'
-func Find(parameters structs.WhereParams, limit int, offset int) ([]models.Torrent, int, error) {
-	return FindOrderBy(&parameters, "", limit, offset)
+func Find(parameters Query, limit int, offset int) ([]models.Torrent, int, error) {
+	return FindOrderBy(parameters, "", limit, offset)
 }
 
 // FindDB : Get Torrents with where parameters but no limit and order by default (get all the torrents corresponding in the db)
-func FindDB(parameters structs.WhereParams) ([]models.Torrent, int, error) {
-	return FindOrderBy(&parameters, "", 0, 0)
+func FindDB(parameters Query) ([]models.Torrent, int, error) {
+	return FindOrderBy(parameters, "", 0, 0)
 }
 
 // FindAllOrderBy : Get all torrents ordered by parameters
 func FindAllOrderBy(orderBy string, limit int, offset int) ([]models.Torrent, int, error) {
 	return FindOrderBy(nil, orderBy, limit, offset)
+}
+
+// FindAllForAdminsOrderBy : Get all torrents ordered by parameters
+func FindAllForAdminsOrderBy(orderBy string, limit int, offset int) ([]models.Torrent, int, error) {
+    return findOrderBy(nil, orderBy, limit, offset, true, true, false)
 }
 
 // FindAll : Get all torrents without order
@@ -217,7 +227,14 @@ func ToggleBlock(id uint) (models.Torrent, int, error) {
 }
 
 // FindDeleted : Gets deleted torrents based on search params
-func FindDeleted(parameters *structs.WhereParams, orderBy string, limit int, offset int) (torrents []models.Torrent, count int, err error) {
+func FindDeleted(parameters Query, orderBy string, limit int, offset int) (torrents []models.Torrent, count int, err error) {
 	torrents, count, err = findOrderBy(parameters, orderBy, limit, offset, true, true, true)
 	return
+}
+
+// GetIDs : returns an array of id
+func GetIDs(parameters Query) ([]uint, error) {
+	var ids []uint
+	err := models.ORM.Select("torrent_id").Where(parameters.ToDBQuery()).Find(&ids).Error
+	return ids, err
 }

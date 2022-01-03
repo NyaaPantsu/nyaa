@@ -3,37 +3,96 @@
 {{block title()}}{{ T("change_settings")}}{{end}}
 {{block content_body()}}
 <div style="text-align: left;" class="box">
-  <form role="form" method="POST">
+  <form role="form" method="POST"> 
     {{ yield csrf_field() }}
-    <div class="form-group">
+    <div id="settings-container">
+      <span class="form-group">
       <h3>{{ T("language")}}</h3>
-      <select id="language" name="language" class="form-input">
+      <select id="language" name="lang" class="form-input">
         {{ range translatedName := Form.Languages }}
         <option value="{{ translatedName[2] }}" {{ if Form.Current == translatedName[2] }}selected{{end}}>{{ translatedName[0] }}</option>
         {{ end }}
       </select>
+      </span>
+      
+      <span class="form-group">
       <h3>{{ T("theme")}}</h3>
       <select id="theme-selector" name="theme" class="form-input" onchange="switchThemes()">
-        <option value="g"{{ if Theme == "g" || Theme == "" }} selected{{end}}>/g/</option>
-        <option value="tomorrow"{{ if Theme == "tomorrow" }} selected{{end}}>Tomorrow</option>
-        <option value="classic"{{ if Theme == "classic" }} selected{{end}}>Classic</option>
+		{{ range theme := getThemeList()}}
+			<option value="{{theme}}"{{ if Theme == theme}} selected{{end}}>{{formatThemeName(theme, T)}}</option>
+		{{end}}
       </select>
-    </br>
+      </span>
+      
+    <span class="form-group">
+    <h3>{{ T("old_nav") }}</h3>
+      <p>{{ T("old_nav_explanation") }}</p>
+    <select id="oldNav-selector" name="oldNav" class="form-input">
+      <option value="false">{{ T("disabled") }}</option>
+      <option value="true" {{if OldNav}}selected{{end}}>{{ T("enabled") }}</option>
+    </select>
+    <br/>
+    </span>
+
+    <span class="form-group">
     <h3>{{ T("mascot")}}</h3>
     <select id="mascot-selector" name="mascot" class="form-input">
       {{ T("mascot")}}
       <option value="show" {{ if Mascot == "show" }} selected{{end}}>{{ T("show")}}</option>
       <option value="hide" {{ if Mascot == "hide" }} selected{{end}}>{{ T("hide")}}</option>
     </select>
-    <br/>
+    </span>
 
+    <span class="form-group">
     <h3>{{ T("mascot_url")}}</h3>
     <input type="text" name="mascot_url" class="form-input" value="{{ MascotURL }}"/>
     <br/>
+    </span>
 
+    <span class="form-group">
+    <h3>{{ T("alternating_color") }}</h3>
+    <select id="altColors-selector" name="altColors" class="form-input">
+      <option value="false">{{ T("disabled") }}</option>
+      <option value="true" {{if AltColors}}selected{{end}}>{{ T("enabled") }}</option>
+    </select>
+    <br/>
+    </span>
+      
     <p>{{ T("cookies")}}</p>
     <button type="submit" class="form-input btn">{{ T("save_changes")}}</button>
   </div>
 </form>
 </div>
+{{end}}
+{{ block footer_js()}}
+<!-- JS Function for selecting multiple checkboxes -->
+<script type="text/javascript">
+  var SaveButton = document.querySelector('form[method="POST"] button[type="submit"]')
+  
+  //Doing this, we avoid having to do a query (which is unneeded for logged-in users) and can make sure that the cookies are set for the right domain name
+  if(UserID == 0)
+	SaveButton.addEventListener("click", function(e) {
+		var formInputs = document.querySelectorAll("form[method='POST'] input"),
+			formSelect = document.querySelectorAll("form[method='POST'] select")
+			
+			
+		for(var i = 0; i < formInputs.length; i++) {
+			var setting = formInputs[i]
+			if(setting.name == "csrf_token") continue
+			deleteCookie(setting.name)
+			document.cookie = setting.name + "=" + setting.value + ";path=/;expires=" + farFutureString + ";domain=" + domain
+		}
+		
+		for(var i = 0; i < formSelect.length; i++) {
+			var setting = formSelect[i],
+			    selectValues = setting.querySelectorAll("option")
+			
+			deleteCookie(setting.name)
+			document.cookie = setting.name + "=" + selectValues[setting.selectedIndex].value + ";path=/;expires=" + farFutureString + ";domain=" + domain
+		}	
+	
+		window.location.replace("/")
+		e.preventDefault()
+	})
+</script>
 {{end}}

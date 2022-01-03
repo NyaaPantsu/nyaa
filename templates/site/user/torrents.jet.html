@@ -3,32 +3,28 @@
 {{ block profile_navigation()}}{{ yield profile_menu(route="profile") }}{{end}}
 {{block profile_content()}}
 {{ if len(UserProfile.Torrents) > 0 }}
-<table>
+<table class="user-torrent-table{{if AltColors}} alt-colors{{end}}">
   <tr class="torrent-info">
     <th class="tr-cat user-td">{{ T("category")}}</th>
     <th class="tr-name user-td">{{ T("name")}}</th>
     <th class="tr-links user-td">{{ T("links")}}</th>
     <th class="tr-size user-td hide-xs">{{ T("size")}}</th>
     <th class="tr-date user-td hide-smol">{{ T("date")}}</th>
-  </tr>
+  </tr> 
   {{ range i, t := UserProfile.Torrents }}
   {{ torrent := t.ToJSON() }}
   <tr class="torrent-info
   {{if torrent.Status == 2}}remake{{else if torrent.Status == 3}}trusted{{else if torrent.Status == 4}}aplus{{end}}
   {{if t.Hidden && User.CurrentOrAdmin(t.Uploader.ID) }} hidden{{end}}">
   <td class="tr-cat user-td">
-    {{ if Sukebei() }}
-    <div class="nyaa-cat sukebei-cat-{{ torrent.Category }}{{ torrent.SubCategory}}">
-      {{ else }}
-      <div class="nyaa-cat nyaa-cat-{{ torrent.SubCategory }}">
-        {{ end }}
+    <div class="nyaa-cat {{ if Sukebei() }}sukebei-cat-{{ torrent.Category }}{{else}}nyaa-cat-{{end}}{{ torrent.SubCategory}}">
         <a href="{{URL.Parse ("/search?c="+ torrent.Category + "_" +torrent.SubCategory) }}" title="{{T(CategoryName(torrent.Category, torrent.SubCategory))}}" class="category">
+        </a>
           {{ if torrent.Languages[0] != "" }}
           <a href="{{ URL.Parse("/search?c="+torrent.Category+"_"+ torrent.SubCategory +"&lang=") }}{{ range key, language := torrent.Languages }}{{ language }}{{ if len(torrent.Languages) > 1 && (key+1) < len(torrent.Languages) }},{{ end }}{{ end }}">
             <img src="/img/blank.gif" alt="{{ LanguageNameFromCode(torrent.Languages[0], T) }}" class="flag flag-{{ (len(torrent.Languages) == 1) ?  FlagCode(torrent.Languages[0]) : "multiple" }}" title=" {{ range key, language := torrent.Languages }}{{ LanguageNameFromCode(language, T) }}{{ if len(torrent.Languages) > 1 && (key+1) < len(torrent.Languages) }},{{ end }}{{ end }}"/>
           </a>
           {{end}}
-        </a>
       </div>
     </td>
     <td class="tr-name user-td">
@@ -40,29 +36,32 @@
       <a href="{{torrent.Magnet}}" title="{{  T("magnet_link") }}">
         <div class="icon-magnet"></div>
       </a>
-      {{if torrent.TorrentLink != ""}}
-      <a href="{{torrent.TorrentLink}}" title="{{  T("torrent_file") }}">
+      <a href="{{torrent.TorrentLink}}" title="{{  T("torrent_file") }}" {{if !torrentFileExists(torrent.Hash, torrent.TorrentLink)}}class="hidden"{{end}}>
         <div class="icon-floppy"></div>
       </a>
-      {{end}}
     </td>
     <td class="tr-size user-td hide-xs">
-      {{ fileSize(torrent.Filesize, T) }}
+      {{ fileSize(torrent.Filesize, T, true) }}
     </td>
-    <td class="tr-date user-td date-short hide-smol">{{torrent.Date}}</td>
+    <td class="tr-date user-td date-short hide-smol" title="{{torrent.Date}}">{{formatDate(torrent.FullDate, true)}}</td>
   </tr>
   {{end}}
 </table>
-<nav class="torrentNav" aria-label="Page navigation">
-  <ul class="pagination">
-    <a href="/search?userID={{ UserProfile.ID }}" aria-label="Next">
-      <li>
-        <span class="glyphicon glyphicon-add"></span>
+  <div class="user-torrent-search">
+  <div class="pagination">
+    <a href="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/search" aria-label="Next">
+      <span style="display:block;border-right:1px solid;">
         {{  T("see_more_torrents_from", UserProfile.Username) }}
-      </li>
+      </span>
     </a>
-  </ul>
-</nav>
+  </div>
+  <div class="user-search">
+	  <form role="search" action="/user/{{UserProfile.ID}}/{{UserProfile.Username}}/search" method="get">
+		<input class="form-input" name="q" type="text" placeholder="{{T("search_from_user")}}">
+		<button type="submit" class="form-input icon-search"></button>
+	  </form>
+  </div>
+  </div>
 {{else}}
 <h2 style="text-align: center;">{{  T("no_torrents_uploaded") }}</h2>
 {{end}}

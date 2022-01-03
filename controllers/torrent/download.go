@@ -1,33 +1,98 @@
 package torrentController
 
 import (
-	"errors"
 	"fmt"
 	"io"
-	"net/http"
 	"os"
 	"strconv"
+	"strings"
+
+	msg "github.com/NyaaPantsu/nyaa/utils/messages"
+	"github.com/NyaaPantsu/nyaa/utils/upload"
 
 	"github.com/NyaaPantsu/nyaa/config"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
+	"github.com/NyaaPantsu/nyaa/templates"
+	"github.com/NyaaPantsu/nyaa/utils/format"
 	"github.com/gin-gonic/gin"
 )
 
 // DownloadTorrent : Controller for downloading a torrent
 func DownloadTorrent(c *gin.Context) {
 	hash := c.Param("hash")
+	messages := msg.GetMessages(c)
 
-	if hash == "" && len(config.Get().Torrents.FileStorage) == 0 {
+	torrent, err := torrents.FindRawByHash(hash)
+
+	if err != nil {
+		messages.AddError("errors", "No torrent with such hash")
 		//File not found, send 404
-		c.AbortWithError(http.StatusNotFound, errors.New("File not found"))
+		variables := templates.Commonvariables(c)
+		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
+		return
+	}
+
+	if c.Query("js_query") != "" {
+		exists := true
+		generating := false
+
+		if len(config.Get().Torrents.FileStorage) == 0 {
+			exists = false
+		} else {
+			Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
+			defer Openfile.Close()
+			if err != nil {
+				exists = false
+				generating = true
+
+				var trackers []string
+				if torrent.Trackers == "" {
+					trackers = config.Get().Torrents.Trackers.Default
+				} else {
+					trackers = torrent.GetTrackersArray()
+				}
+				magnet := format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, trackers...)
+				go upload.GenerateTorrent(magnet)
+			}
+		}
+		c.JSON(200, gin.H{ // Better to use gin for that, less code
+			"exists":     exists,
+			"generating": generating,
+		})
+		return
+	}
+
+	if len(config.Get().Torrents.FileStorage) == 0 { // if no FileStorage configured, you still can display the magnet link
+		messages.AddError("errors", "We do not store torrents file")
+		//File not found, send 404
+		variables := templates.Commonvariables(c)
+		var trackers []string
+		if torrent.Trackers == "" {
+			trackers = config.Get().Torrents.Trackers.Default
+		} else {
+			trackers = torrent.GetTrackersArray()
+		}
+		magnet := format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, trackers...)
+		variables.Set("magnet", magnet)
+		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
 	}
 
 	//Check if file exists and open
-	Openfile, err := os.Open(fmt.Sprintf("%s%c%s.torrent", config.Get().Torrents.FileStorage, os.PathSeparator, hash))
+	Openfile, err := os.Open(torrent.GetPath())
 	if err != nil {
 		//File not found, send 404
-		c.AbortWithError(http.StatusNotFound, errors.New("File not found"))
+		variables := templates.Commonvariables(c)
+		var trackers []string
+		if torrent.Trackers == "" {
+			trackers = config.Get().Torrents.Trackers.Default
+		} else {
+			trackers = torrent.GetTrackersArray()
+		}
+		magnet := format.InfoHashToMagnet(strings.TrimSpace(torrent.Hash), torrent.Name, trackers...)
+		variables.Set("magnet", magnet)
+		go upload.GenerateTorrent(magnet)
+		templates.Render(c, "errors/torrent_file_missing.jet.html", variables)
 		return
 	}
 	defer Openfile.Close() //Close after function return
@@ -35,14 +100,6 @@ func DownloadTorrent(c *gin.Context) {
 	//Get the file size
 	FileStat, _ := Openfile.Stat()                     //Get info from file
 	FileSize := strconv.FormatInt(FileStat.Size(), 10) //Get file size as a string
-
-	torrent, err := torrents.FindRawByHash(hash)
-
-	if err != nil {
-		//File not found, send 404
-		c.AbortWithError(http.StatusNotFound, errors.New("File not found"))
-		return
-	}
 
 	c.Header("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s.torrent\"", torrent.Name))
 	c.Header("Content-Type", "application/x-bittorrent")

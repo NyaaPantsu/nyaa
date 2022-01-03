@@ -15,13 +15,14 @@ type Notification struct {
 	Identifier string
 	URL        string
 	Expire     time.Time
+	Date       time.Time
 	UserID     uint
 	//	User *User `gorm:"AssociationForeignKey:UserID;ForeignKey:user_id"` // Don't think that we need it here
 }
 
 // NewNotification : Create a new notification
 func NewNotification(identifier string, c string, url string) Notification {
-	return Notification{Identifier: identifier, Content: c, URL: url}
+	return Notification{Identifier: identifier, Content: c, URL: url, Date: time.Now()}
 }
 
 // TableName : Return the name of notification table

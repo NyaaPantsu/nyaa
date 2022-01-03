@@ -1,23 +1,23 @@
 [
   {
     "id": "rules",
-    "translation": "Rules"
+    "translation": "Regels"
   },
   {
     "id": "no_cp",
-    "translation": "No child pornography (lolicon doesn't count)"
+    "translation": "Geen kinderporno (lolicon telt niet)"
   },
   {
     "id": "asia",
-    "translation": "Asian related content only (no Western Movies, no Cartoon)"
+    "translation": "Alleen content die met Azie te maken heeft (Geen westerse films, cartoons)"
   },
   {
     "id": "rules_spam",
-    "translation": "No spam"
+    "translation": "Geen spam"
   },
   {
     "id": "rules_sukebei",
-    "translation": "NSFW content belongs in sukebei.pantsu.cat"
+    "translation": "NSFW content behoort in sukebei.pantsu.cat"
   },
   {
     "id": "verify_email_title",
@@ -121,7 +121,7 @@
   },
   {
     "id": "email_placeholder",
-    "translation": "Can be left blank."
+    "translation": "Kan leeg gelaten worden."
   },
   {
     "id": "settings",
@@ -221,11 +221,11 @@
   },
   {
     "id": "404_not_found",
-    "translation": "404 Not Found"
+    "translation": "404 Niet Gevonden"
   },
   {
     "id": "500_internal_server_error",
-    "translation": "500 Internal Server Error"
+    "translation": "500 Interne Server Fout"
   },
   {
     "id": "400_bad_request",
@@ -244,7 +244,7 @@
     "translation": "Afmelden"
   },
   {
-    "id": "member",
+    "id": "userstatus_member",
     "translation": "Lid"
   },
   {
@@ -588,7 +588,7 @@
     "translation": "Rol"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "Verbannen"
   },
   {
@@ -596,16 +596,16 @@
     "translation": "Standaard"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Vertrouwd lid"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Gebruiker (scraped)"
   },
   {
-    "id": "moderator",
-    "translation": "Moderator"
+    "id": "userstatus_moderator",
+    "translation": "userstatus_moderator"
   },
   {
     "id": "api_token",
@@ -789,7 +789,7 @@
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "Gelieve udp://tracker.doko.moe:6969 toe te voegen bij de trackers."
+    "translation": "Gelieve udp://tracker.uw0.xyz:6969 toe te voegen bij de trackers."
   },
   {
     "id": "unknown",
@@ -1328,10 +1328,6 @@
     "translation": "Torrent-taal"
   },
   {
-    "id": "language_not_mandatory",
-    "translation": "Language is not mandatory anymore"
-  },
-  {
     "id": "language_en-us_name",
     "translation": "English"
   },
@@ -1652,10 +1648,6 @@
     "translation": "large."
   },
   {
-    "id": "old",
-    "translation": "old"
-  },
-  {
     "id": "optional",
     "translation": "Optional"
   },
@@ -1956,7 +1948,7 @@
     "translation": "VNdb ID"
   },
   {
-    "id": "tagtype_quality",
+    "id": "tagtype_videoquality",
     "translation": "Video Quality"
   },
   {
@@ -1972,8 +1964,8 @@
     "translation": "Message"
   },
   {
-    "id": "delay",
-    "translation": "Delay"
+    "id": "duration",
+    "translation": "Duration (Hours)"
   },
   {
     "id": "update_annoucement_panel",

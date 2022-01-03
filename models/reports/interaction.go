@@ -6,45 +6,47 @@ import (
 	"strconv"
 	"strings"
 
+	elastic "gopkg.in/olivere/elastic.v5"
+
 	"github.com/NyaaPantsu/nyaa/models"
-	"github.com/NyaaPantsu/nyaa/utils/search/structs"
 )
 
-// Delete : Delete a torrent report by id
+// Query : Interface to pass for torrents query
+type Query interface {
+	String() string
+	ToDBQuery() (string, []interface{})
+	ToESQuery(client *elastic.Client) (*elastic.SearchService, error)
+	Append(string, ...interface{})
+	Prepend(string, ...interface{})
+}
+
 func Delete(id uint) (*models.TorrentReport, int, error) {
-	return delete(id, false)
-}
-
-// DeleteDefinitely : Delete definitely a torrent report by id
-func DeleteDefinitely(id uint) (*models.TorrentReport, int, error) {
-	return delete(id, true)
-}
-
-func delete(id uint, definitely bool) (*models.TorrentReport, int, error) {
 	var torrentReport models.TorrentReport
-	db := models.ORM
-	if definitely {
-		db = models.ORM.Unscoped()
-	}
+	db := models.ORM.Unscoped()
 	if db.First(&torrentReport, id).RecordNotFound() {
 		return &torrentReport, http.StatusNotFound, errors.New("try_to_delete_report_inexistant")
 	}
-	if _, err := torrentReport.Delete(false); err != nil {
+	if _, err := torrentReport.Delete(); err != nil {
 		return &torrentReport, http.StatusInternalServerError, err
 	}
 	return &torrentReport, http.StatusOK, nil
 }
 
-func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, offset int, countAll bool) (
+func DeleteAll() {
+	models.ORM.Delete(&models.TorrentReport{})
+}
+
+func findOrderBy(parameters Query, orderBy string, limit int, offset int, countAll bool) (
 	torrentReports []models.TorrentReport, count int, err error,
 ) {
 	var conditionArray []string
 	var params []interface{}
 	if parameters != nil { // if there is where parameters
-		if len(parameters.Conditions) > 0 {
-			conditionArray = append(conditionArray, parameters.Conditions)
+		condition, wheres := parameters.ToDBQuery()
+		if len(condition) > 0 {
+			conditionArray = append(conditionArray, condition)
+			params = wheres
 		}
-		params = parameters.Params
 	}
 	conditions := strings.Join(conditionArray, " AND ")
 	if countAll {
@@ -53,9 +55,11 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 			return
 		}
 	}
+	
+	var blankReport models.TorrentReport
 
 	// build custom db query for performance reasons
-	dbQuery := "SELECT * FROM torrent_reports"
+	dbQuery := "SELECT * FROM " + blankReport.TableName()
 	if conditions != "" {
 		dbQuery = dbQuery + " WHERE " + conditions
 	}
@@ -72,7 +76,7 @@ func findOrderBy(parameters *structs.WhereParams, orderBy string, limit int, off
 }
 
 // GetOrderBy : Get torrents reports based on search parameters with order
-func FindOrderBy(parameters *structs.WhereParams, orderBy string, limit int, offset int) ([]models.TorrentReport, int, error) {
+func FindOrderBy(parameters Query, orderBy string, limit int, offset int) ([]models.TorrentReport, int, error) {
 	return findOrderBy(parameters, orderBy, limit, offset, true)
 }
 

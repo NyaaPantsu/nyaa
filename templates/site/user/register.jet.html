@@ -2,11 +2,12 @@
 {{ import "layouts/partials/helpers/csrf" }}
 {{ import "layouts/partials/helpers/captcha" }}
 {{ import "layouts/partials/helpers/errors" }}
+{{ import "layouts/partials/helpers/rules" }}
 {{block title()}}{{  T("register_title") }}{{end}}
 {{block content_body()}}
 <div class="box">
   <div class="user-form">
-    <form role="form" method="POST">
+    <form method="POST">
       {{ yield csrf_field() }}
       <h2>{{ T("signup_box_title") }}</h2>
       <input type="text" name="username" id="display_name" class="form-input up-input" placeholder="{{ T("username") }}" value="{{ Form.Username }}" autofocus/>
@@ -31,7 +32,7 @@
       <!--  -->
       {{ yield captcha(captchaid=Form.CaptchaID)}}
 
-      <input type="submit" value="{{ T("register") }}" class="form-input"></input>
+      <input type="submit" value="{{ T("register") }}" class="form-input">
     </form>
   </div>
 </div>
@@ -44,7 +45,8 @@
       <h2>{{  T("terms_conditions") }}</h2>
     </div>
     <div class="modal-body">
-      <p>{{  T("terms_conditions_full")|raw }}</p>
+      {{ yield ruleList() }}
+      {{  T("terms_conditions_full")|raw }}
     </div>
     <div class="modal-footer">
     </div>
@@ -53,7 +55,7 @@
 {{end}}
 {{ block footer_js() }}
 <script type="text/javascript" src="{{URL.Parse("/js/modal.js") }}"></script>
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   // Modal initialization
   Modal.Init({elements: document.getElementsByClassName("modal"),
     button: "#modal_active"

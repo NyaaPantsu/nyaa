@@ -9,6 +9,7 @@ import (
 	"github.com/NyaaPantsu/nyaa/controllers/router"
 	"github.com/NyaaPantsu/nyaa/models/comments"
 	"github.com/NyaaPantsu/nyaa/models/torrents"
+	"github.com/NyaaPantsu/nyaa/models"
 	"github.com/NyaaPantsu/nyaa/utils/captcha"
 	msg "github.com/NyaaPantsu/nyaa/utils/messages"
 	"github.com/NyaaPantsu/nyaa/utils/sanitize"
@@ -34,7 +35,18 @@ func PostCommentHandler(c *gin.Context) {
 			messages.AddErrorT("errors", "bad_captcha")
 		}
 	}
+	if currentUser.IsBanned() {
+	    messages.AddErrorT("errors", "account_banned")
+	}
+	if torrent.Status == models.TorrentStatusBlocked && !currentUser.CurrentOrJanitor(torrent.UploaderID) {
+	    messages.AddErrorT("errors", "torrent_locked")
+	}
 	content := sanitize.Sanitize(c.PostForm("comment"), "comment")
+	
+	userID := currentUser.ID
+	if c.PostForm("anonymous") == "true" {
+		userID = 0
+	}
 
 	if strings.TrimSpace(content) == "" {
 		messages.AddErrorT("errors", "comment_empty")
@@ -44,11 +56,11 @@ func PostCommentHandler(c *gin.Context) {
 	}
 	if !messages.HasErrors() {
 
-		_, err := comments.Create(content, torrent, currentUser)
+		_, err := comments.Create(content, torrent, userID)
 		if err != nil {
 			messages.Error(err)
 		}
 	}
-	url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
-	c.Redirect(302, url)
+	
+	ViewHandler(c)
 }

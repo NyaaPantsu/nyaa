@@ -37,13 +37,11 @@ func NewTorrentEvent(user *models.User, torrent *models.Torrent) error {
 	url := "/view/" + strconv.FormatUint(uint64(torrent.ID), 10)
 	if user.ID > 0 && config.Get().Users.DefaultUserSettings["new_torrent"] { // If we are a member and notifications for new torrents are enabled
 		user.GetFollowers()          // We populate the liked field for users
-		if len(user.Followers) > 0 { // If we are followed by at least someone
-			for _, follower := range user.Followers {
-				follower.ParseSettings() // We need to call it before checking settings
-				if follower.Settings.Get("new_torrent") {
-					T, _, _ := publicSettings.TfuncAndLanguageWithFallback(follower.Language, follower.Language) // We need to send the notification to every user in their language
-					notifications.NotifyUser(&follower, torrent.Identifier(), fmt.Sprintf(T("new_torrent_uploaded"), torrent.Name, user.Username), url, follower.Settings.Get("new_torrent_email"))
-				}
+		for _, follower := range user.Followers {
+			follower.ParseSettings() // We need to call it before checking settings
+			if follower.Settings.Get("new_torrent") {
+				T, _, _ := publicSettings.TfuncAndLanguageWithFallback(follower.Language, follower.Language) // We need to send the notification to every user in their language
+				notifications.NotifyUser(&follower, torrent.Identifier(), fmt.Sprintf(T("new_torrent_uploaded"), torrent.Name, user.Username), url, follower.Settings.Get("new_torrent_email"))
 			}
 		}
 	}

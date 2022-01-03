@@ -14,7 +14,8 @@ type RegistrationForm struct {
 type LoginForm struct {
 	Username   string `validate:"required" json:"username" form:"username"`
 	Password   string `validate:"required" json:"password" form:"password"`
-	RedirectTo string `validate:"-" form:"redirectTo" json:"omitempty"`
+	RedirectTo string `validate:"-" form:"redirectTo" json:"-"`
+	RememberMe string `validate:"-" form:"remember_me" json:"-"`
 }
 
 // UserForm is used when updating a user.
@@ -27,6 +28,9 @@ type UserForm struct {
 	ConfirmPassword string `validate:"omitempty" form:"password_confirmation" json:"password_confirmation" omit:"true"`
 	Status          int    `validate:"default=0" form:"status" json:"status"`
 	Theme           string `form:"theme" json:"theme"`
+	AnidexAPIToken  string `validate:"-" form:"anidex_api" json:"anidex_api"`
+	NyaasiAPIToken  string `validate:"-" form:"nyaasi_api" json:"nyaasi_api"`
+	TokyoTAPIToken  string `validate:"-" form:"tokyot_api" json:"tokyot_api"`
 }
 
 // UserSettingsForm is used when updating a user.

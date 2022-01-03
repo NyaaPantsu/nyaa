@@ -1,0 +1,231 @@
+body {
+    color: #373737;
+    background: url('g/bg-body.png');
+}
+
+.header, .user-menu {
+    box-shadow: 1px 3px 4px hsla(200, 20%, 20%, 0.15)
+}
+
+.box, .pagination span {
+    box-shadow: 1px 3px 4px hsla(270, 20%, 20%, 0.15)
+}
+
+#mascot {
+    background-image: url('/img/renchon.svg');
+}
+
+a {
+    color: #676767;
+}
+
+a:hover {
+    color: #444;
+}
+
+.header {
+    background: #bfe3f3 url('g/bg-header-tile.png') repeat-x;
+    border-color: #1d6d90;
+}
+
+.header .nav-btn {
+    color: #1d6d90;
+}
+
+.header .nav-btn:hover {
+    color: #2586B0;
+}
+
+.box, .pagination span {
+    background: hsla(198, 63%, 97%, 0.85);
+    border-color: #cbbdd7 !important;
+}
+
+.form-input {
+    border-color: #c4c4c4 !important;
+    background: #fff;
+    color: #676767;
+}
+.form-input.refine {
+    background: #73afe2;
+    border-color: #6eb9d6!important;
+    color: white;
+}
+.sukebei .form-input.refine {
+    background: #e2b2e2;
+    border-color: #f1bef1!important;
+}
+
+.header .h-user .user-avatar {
+    background: #99BFD0;
+    border-color: #a3c7d3;
+}
+
+.sukebei .header .h-user .user-avatar {
+    background: #bf99d0;
+    border-color: #d3a3d1;
+}
+
+.header .h-user .user-menu {
+    background: #BDE0EF;
+    background: -moz-linear-gradient(top, #BDE0EF 0%, #ABCFDF 100%);
+    background: -webkit-linear-gradient(top, #BDE0EF 0%, #ABCFDF 100%);
+    background: linear-gradient(to bottom, #BDE0EF 0%, #ABCFDF 100%);
+    border-color: #1d6d90;
+}
+
+.header .h-user button:focus {
+    background-color: rgba(0, 100, 200, 0.15);
+}
+
+table thead {
+    background: #dcccea !important;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #dcccea 0%, #d7c6e7 100%) !important;
+    background: -webkit-linear-gradient(top, #dcccea 0%, #d7c6e7 100%) !important;
+    background: linear-gradient(to bottom, #dcccea 0%, #d7c6e7 100%) !important;
+}
+
+th {
+    color: #9b85ae;
+}
+
+th a {
+    color: #7A5C94;
+}
+
+th {
+    border-color: #cbbdd7 !important;
+}
+
+td {
+    border-color: #e6eff4 !important;
+}
+
+td.tr-se, .success-text {
+    color: #22A243;
+}
+
+td.tr-le, .error-text {
+    color: #E84C4C;
+}
+
+.btn-red {
+    background-color: #E84C4C;
+    color: #E8E8E8!important;
+}
+
+.btn-red:hover {
+    color: #E8E8E8;
+}
+
+.alt-colors tr:nth-child(odd) {
+    background: hsla(288, 39%, 83%, 0.2);
+}
+.alt-colors tr:nth-child(even).aplus {
+    background: hsla(200, 90%, 56%, 0.2) !important;
+}
+.alt-colors tr:nth-child(even).trusted {
+    background: hsla(100,100%,63%,0.2)!important;
+}
+.alt-colors .trusted td {
+    border-color: #d1f3c8!important;
+}
+.alt-colors tr:nth-child(even).remake {
+    background: hsla(30, 100%, 62%, 0.2) !important;
+}
+.aplus, .btn-blue {
+    background: hsla(200, 100%, 50%, 0.2) !important;
+}
+
+.trusted, .btn-green {
+    background: hsla(100, 100%, 50%, 0.2) !important;
+}
+
+.remake, .btn-orange {
+    background: hsla(30, 100%, 50%, 0.2) !important;
+}
+
+.pagination .active {
+    background: #cbbdd7;
+    color: #444;
+}
+
+.pagination .disabled {
+    color: #cbbdd7;
+    cursor: unset;
+}
+
+.torrent-info-box>p>a, .torrent-info-box>div>a, #description-box a {
+    color: #1fa4d0;
+}
+
+.torrent-info-box>p>a:hover, .torrent-info-box>div>a:hover, #description-box a:hover {
+    color: #1fa4d0;
+}
+
+#description-box td {
+    border-color: #b9b9b9!important
+}
+
+.sukebei {
+    color: #373737;
+}
+
+.sukebei .header {
+    background-image: url('g/s_bg-header-tile.png');
+    border-color: #C48CBE;
+}
+
+.sukebei .header .nav-btn {
+    color: #C48CBE;
+}
+
+.sukebei .header .nav-btn:hover {
+    color: #AD6CA6;
+}
+
+.sukebei a {
+    color: #676767;
+}
+
+.sukebei a:hover {
+    color: #444;
+}
+
+.sukebei th {
+    color: #9b85ae;
+}
+
+.sukebei th a {
+    color: #7A5C94;
+}
+
+.sukebei tr:nth-child(odd) {
+    background: hsla(330, 100%, 91%, 0.2);
+}
+.sukebei .alt-colors tr:nth-child(odd) {
+    background: hsla(324, 60%, 85%, 0.2);
+}
+
+.sukebei .header .h-user button:focus {
+    background-color: rgba(223, 116, 230, 0.16);
+}
+
+.sukebei .header .h-user .user-menu {
+    background: #EFDCF0;
+    background: -moz-linear-gradient(top, #EFDCF0 0%, #EBCFEC 100%);
+    background: -webkit-linear-gradient(top, #EFDCF0 0%, #EBCFEC 100%);
+    background: linear-gradient(to bottom, #EFDCF0 0%, #EBCFEC 100%);
+    border-color: #C48CBE;
+}
+
+.modtools {
+    background-color: #F7F8F9;
+    border-color: #cbbdd7;
+}
+
+.sukebei #cookie-warning {
+    background: hsla(297, 40%, 90%, 0.89);
+    border-top: 1px solid #c48cbe;
+}

@@ -1,0 +1,10 @@
+{{block ad_wide(Type=0)}}
+{{ if !strcmp(URL.String(), "/mod", 4, 1)  }}
+    {{if Type == 0}}
+	{{ aAdsId := Sukebei() ? 634159 : 634157 }}
+	<iframe data-aa='{{aAdsId}}' src='//ad.a-ads.com/{{aAdsId}}?size=728x90' scrolling='no'></iframe>
+    {{else}}
+        <a href="https://weeb.shop/product/nyaa-pantsu-sticker"><img alt="WeebShop Stickers" class="wb-w" src="/img/WeebShop/Stickers.png"></a>
+    {{end}}
+{{end}}
+{{end}}

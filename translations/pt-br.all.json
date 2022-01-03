@@ -244,7 +244,7 @@
     "translation": "Sair"
   },
   {
-    "id": "member",
+    "id": "userstatus_member",
     "translation": "Membro"
   },
   {
@@ -345,7 +345,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Agora nós temos um tracker chamado doko.moe, adicione-o ao topo da lista antes de enviar um torrent. Você também deve adicionar todos estes outros trackers para garantir redundância."
+    "translation": "Agora nós temos um tracker chamado uw0.xyz, adicione-o ao topo da lista antes de enviar um torrent. Você também deve adicionar todos estes outros trackers para garantir redundância."
   },
   {
     "id": "how_can_i_help",
@@ -588,7 +588,7 @@
     "translation": "Cargo"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "Banido"
   },
   {
@@ -596,15 +596,15 @@
     "translation": "Padrão"
   },
   {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Membro confiável"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Usuário analisado"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "Moderador"
   },
   {
@@ -789,7 +789,7 @@
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "Por favor inclua udp://tracker.doko.moe:6969 em sua lista de trackers."
+    "translation": "Por favor inclua udp://tracker.uw0.xyz:6969 em sua lista de trackers."
   },
   {
     "id": "unknown",
@@ -1652,10 +1652,6 @@
     "translation": "large."
   },
   {
-    "id": "old",
-    "translation": "old"
-  },
-  {
     "id": "optional",
     "translation": "Optional"
   },
@@ -1956,7 +1952,7 @@
     "translation": "VNdb ID"
   },
   {
-    "id": "tagtype_quality",
+    "id": "tagtype_videoquality",
     "translation": "Video Quality"
   },
   {
@@ -1972,8 +1968,8 @@
     "translation": "Message"
   },
   {
-    "id": "delay",
-    "translation": "Delay"
+    "id": "duration",
+    "translation": "Duration (Hours)"
   },
   {
     "id": "update_annoucement_panel",

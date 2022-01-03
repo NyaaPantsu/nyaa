@@ -1,5 +1,9 @@
 [
   {
+    "id": "read_rules",
+    "translation": "Veuillez lire <a href=\"/faq#rules\">le règlement</a> avant d'uploader."
+  },
+  {
     "id": "rules",
     "translation": "Règlement"
   },
@@ -18,6 +22,10 @@
   {
     "id": "rules_sukebei",
     "translation": "Contenu NSFW strictement réservé à sukebei.pantsu.cat"
+  },
+  {
+    "id": "rule_tracker_url",
+    "translation": "<span style='font-weight: bold;'>https://uw0.xyz/</span> est l'URL d'annonce officielle"
   },
   {
     "id": "verify_email_title",
@@ -65,7 +73,7 @@
   },
   {
     "id": "terms_conditions_confirm",
-    "translation": "En cliquant sur <b>S'inscrire</b>, vous acceptez les <a id=\"modal_active\" href=\"#\">Termes et Conditions</a> et l'usage des cookies établis par le site."
+    "translation": "En cliquant sur <b>S'inscrire</b>, vous acceptez les <a id=\"modal_active\" href=\"#\">Termes et Conditions</a> et l'usage des cookies établis par ce site."
   },
   {
     "id": "signin",
@@ -81,7 +89,7 @@
   },
   {
     "id": "terms_conditions_full",
-    "translation": "À définir"
+    "translation": "<h2>Termes et Conditions de NyaaPantsu</h2><h3>1. Termes</h3><p>En accédant au site web à l'adresse <a href='https://pantsu.cat'>https://pantsu.cat</a>, vous vous engagez à respecter les conditions de service décrites ci-après, ainsi que toutes les lois et tous les règlements en vigueur, et vous acceptez votre responsabilité envers la conformité aux lois locales applicables. Si vous êtes en désaccord avec ces termes, vous êtes défendu d’accéder ou d’utiliser ce site. Le matériel contenu sur ce site est protégé par les droits d’auteur et des marques applicables.</p><h3>2. Avertissement</h3><ol type='a'><li>Le contenu du site web de NyaaPantsu Lda est fourni « en l’état ». NyaaPantsu Lda n’assume aucune garantie, explicite ou implicite, et par la présente récuse et dément toute autre garantie, y compris, sans aucune limite, les garanties implicites ou les conditions de qualité marchande, d’adéquation à un usage particulier, la non-contrefaçon de la propriété intellectuelle ou toute autre violation de droits.</li><li>En outre, NyaaPantsu Lda ne garantit pas et ne fait aucune déclaration concernant l’exactitude, les résultats probables, ou la fiabilité de l’utilisation du contenu sur son site web ou autrement relié à ce contenu ou encore sur tout autre site web lié à ce site.</li></ol><h3>3. Limitations</h3><p>NyaaPantsu Lda ou ses fournisseurs ne peuvent en aucun cas être tenus responsables pour quelque dommage que ce soit (y compris, sans aucune limite, les dommage pour perte de données ou de profit, ou en raison d’une interruption d’activité) résultant de l’utilisation ou de l’impossibilité d’utiliser le matériel contenu sur le site web de NyaaPantsu Lda, même si NyaaPantsu Lda ou un de ses représentants autorisés a été informé oralement ou à l’écrit de la possibilité d’un tel dommage. Certaines juridictions n’autorisant pas la limitation sur les garanties explicites, ou la limitation de responsabilité sur les dommages consécutifs ou fortuits, ces restrictions peuvent ne pas vous concerner.</p><h3>4. Exactitude du contenu</h3><p>Le contenu apparaissant sur le site web de NyaaPantsu Lda peut inclure des erreurs techniques, typographiques ou photographiques. NyaaPantsu Lda ne garantit pas que le contenu sur son site soit exact, complet ou actuel. NyaaPantsu Lda peut effectuer des modifications sur le matériel contenu sur son site à tout moment sans préavis. Toutefois, NyaaPantsu Lda ne s’engage pas à mettre à jour son contenu.</p><h3>5. Liens</h3><p>NyaaPantsu Lda n’a pas examiné tous les sites liés à son site web et ne peut être porté responsable du contenu d’aucun de ces sites liés. L’inclusion de tout lien n’implique en aucun cas l’approbation par NyaaPantsu Lda de ce site. L’utilisation de tout site web lié se fait aux seuls risques de l’usager.</p><h3>6. Modifications</h3><p>NyaaPantsu Lda peut réviser ces termes de service pour son site web à tout moment sans préavis. En utilisant ce site web vous vous engagez à respecter la version actuelle des conditions de service.</p><h3>7. Droit applicable</h3><p>Ces termes et conditions sont régis et interprétés en accord avec les lois du Portugal et vous reconnaissez irrévocablement la compétence exclusive des tribunaux de cet État ou territoire.</p>"
   },
   {
     "id": "remember_me",
@@ -132,6 +140,10 @@
     "translation": "Torrents"
   },
   {
+    "id": "followers",
+    "translation": "Abonnés"
+  },
+  {
     "id": "follow",
     "translation": "S'abonner"
   },
@@ -141,11 +153,11 @@
   },
   {
     "id": "user_followed_msg",
-    "translation": "Vous vous êtes abonné à %s!"
+    "translation": "Vous vous êtes abonné à %s !"
   },
   {
     "id": "user_unfollowed_msg",
-    "translation": "Vous vous êtes désabonné de %s!"
+    "translation": "Vous vous êtes désabonné de %s !"
   },
   {
     "id": "profile_page",
@@ -200,6 +212,10 @@
     "translation": "Aucun résultat trouvé"
   },
   {
+    "id": "err_no_torrent_file",
+    "translation": "Fichier torrent non trouvé"
+  },
+  {
     "id": "upload",
     "translation": "Uploader"
   },
@@ -244,7 +260,7 @@
     "translation": "Se déconnecter"
   },
   {
-    "id": "member",
+    "id": "userstatus_member",
     "translation": "Membre"
   },
   {
@@ -345,7 +361,7 @@
   },
   {
     "id": "answer_which_trackers_do_you_recommend",
-    "translation": "Nous avons maintenant notre propre tracker appelé doko.moe, placez-le en haut de la liste avant d'uploader. Vous devriez également ajouter plusieurs autres trackers pour assurer la pérennité du torrent :"
+    "translation": "Nous avons maintenant notre propre tracker appelé uw0.xyz, placez-le en haut de la liste avant d'uploader. Vous devriez également ajouter plusieurs autres trackers pour assurer la pérennité du torrent :"
   },
   {
     "id": "how_can_i_help",
@@ -365,7 +381,7 @@
   },
   {
     "id": "authors_favorite_language",
-    "translation": "C'est le langage de programmation favori du développeur."
+    "translation": "C'est le langage de programmation favori du chef de projet."
   },
   {
     "id": "torrent_file",
@@ -373,7 +389,7 @@
   },
   {
     "id": "uploading_file_prefills_fields",
-    "translation": "Il est recommandé d'uploader un fichier torrent afin de préremplir certains champs."
+    "translation": "Il est recommandé d'uploader un fichier torrent afin de préremplir le champ du lien magnet."
   },
   {
     "id": "magnet_link",
@@ -524,8 +540,12 @@
     "translation": "Les descriptions peuvent faire l'usage de Markdown."
   },
   {
+    "id": "comment_markdown_notice",
+    "translation": "Les commentaires peuvent faire l'usage de Markdown."
+  },
+  {
     "id": "show_all",
-    "translation": "Tous les torrents"
+    "translation": "Ts les torrents"
   },
   {
     "id": "delete_all",
@@ -541,7 +561,7 @@
   },
   {
     "id": "search",
-    "translation": "Recherche"
+    "translation": "Rechercher"
   },
   {
     "id": "hash",
@@ -568,6 +588,10 @@
     "translation": "Envoyer un commentaire sous <span lang=\"ja\">れんちょん</span>"
   },
   {
+    "id": "torrent_no_comments",
+    "translation": "Aucun commentaire d'utilisateur n'a été posté."
+  },
+  {
     "id": "submit",
     "translation": "Envoyer"
   },
@@ -582,30 +606,38 @@
   {
     "id": "current_password",
     "translation": "Mot de passe actuel"
+  },  
+  {
+    "id": "default",
+    "translation": "Par défaut"
   },
   {
     "id": "role",
     "translation": "Rôle"
   },
   {
-    "id": "banned",
+    "id": "userstatus_banned",
     "translation": "Banni"
   },
   {
-    "id": "default",
-    "translation": "Par défaut"
-  },
-  {
-    "id": "trusted_member",
+    "id": "userstatus_trusted",
     "translation": "Membre de confiance"
   },
   {
-    "id": "scraped_user",
+    "id": "userstatus_scraped",
     "translation": "Utilisateur scrapé"
   },
   {
-    "id": "moderator",
+    "id": "userstatus_moderator",
     "translation": "Modérateur"
+  },
+  {
+    "id": "userstatus_janitor",
+    "translation": "Janiteur"
+  },
+  {
+    "id": "userstatus_uploader",
+    "translation": "Uploadeur"
   },
   {
     "id": "api_token",
@@ -736,6 +768,18 @@
     "translation": "Aucun fichier trouvé."
   },
   {
+    "id": "loading_file_list",
+    "translation": "Chargement de la liste des fichiers, la récupération des longues listes peut prendre un certain temps..."
+  },
+  {
+    "id": "torrent_filelist",
+    "translation": "Liste des fichiers du torrent"
+  },
+  {
+    "id": "back_to_torrent",
+    "translation": "Revenir à \"%s\""
+  },
+  {
     "id": "uploaded_by",
     "translation": "Uploadé par"
   },
@@ -756,6 +800,10 @@
     "translation": "Motif de signalement"
   },
   {
+    "id": "report_message",
+    "translation": "Signaler le message"
+  },
+  {
     "id": "illegal_content",
     "translation": "Contenu illégal"
   },
@@ -770,6 +818,14 @@
   {
     "id": "duplicate_deprecated",
     "translation": "Doublon / Obsolète"
+  },
+  {
+    "id": "nsfw_content",
+    "translation": "Contenu NSFW"
+  },
+  {
+    "id": "other",
+    "translation": "Autre"
   },
   {
     "id": "captcha",
@@ -789,7 +845,7 @@
   },
   {
     "id": "please_include_our_tracker",
-    "translation": "Veuillez inclure udp://tracker.doko.moe:6969 parmi les trackers."
+    "translation": "Veuillez inclure udp://tracker.uw0.xyz:6969 parmi les trackers."
   },
   {
     "id": "unknown",
@@ -797,7 +853,7 @@
   },
   {
     "id": "last_scraped",
-    "translation": "Dernier scrape :"
+    "translation": "Dernier scrape:"
   },
   {
     "id": "server_status_link",
@@ -809,11 +865,27 @@
   },
   {
     "id": "clear_notifications",
-    "translation": "Effacer les notifications"
+    "translation": "Effacer les notifications lues"
+  },
+  {
+    "id": "clear_all_notifications",
+    "translation": "Effacer toutes les notifications"
+  },
+  {
+    "id": "mark_notifications_as_read",
+    "translation": "Marquer les notifications comme lues"
   },
   {
     "id": "notifications_cleared",
     "translation": "Notifications supprimées !"
+  },
+  {
+    "id": "read_notifications_cleared",
+    "translation": "Notifications lues supprimées !"
+  },
+  {
+    "id": "notifications_read",
+    "translation": "Toutes les notifications ont été marquées comme lues !"
   },
   {
     "id": "my_notifications",
@@ -826,6 +898,10 @@
   {
     "id": "torrent_uploaded",
     "translation": "Le torrent a été uploadé avec succès !"
+  },
+  {
+    "id": "torrent_uploaded_locked",
+    "translation": "Le torrent a été uploadé mais est actuellement bloqué en raison de votre bannissement."
   },
   {
     "id": "preferences",
@@ -920,8 +996,24 @@
     "translation": "Le torrent n° %s de %s a été bloqué par %s."
   },
   {
-    "id": "torrent_blocked_by",
+    "id": "torrent_unblocked_by",
     "translation": "Le torrent n° %s de %s a été débloqué par %s."
+  },
+  {
+    "id": "user_banned",
+    "translation": "L'utilisateur a été banni !"
+  },  
+  {
+    "id": "user_banned_by",
+    "translation": "L'utilisateur %s(%d) #%d a été banni par %s."
+  },
+  {
+    "id": "user_unbanned",
+    "translation": "L'utilisateur a été débanni !"
+  },
+  {
+    "id": "user_unbanned_by",
+    "translation": "L'utilisateur %s(%d) #%d a été débanni par %s."
   },
   {
     "id": "torrents_deleted",
@@ -934,6 +1026,10 @@
   {
     "id": "delete_report",
     "translation": "Supprimer le signalement"
+  },
+  {
+    "id": "delete_all_reports",
+    "translation": "Supprimer tous les signalements"
   },
   {
     "id": "comment_deleted",
@@ -1040,6 +1136,14 @@
     "translation": "Bloquer"
   },
   {
+    "id": "unban",
+    "translation": "Débannir"
+  },
+  {
+    "id": "ban",
+    "translation": "Bannir"
+  },
+  {
     "id": "torrent_deleted_definitely",
     "translation": "Le torrent a été effacé de la base de données."
   },
@@ -1081,7 +1185,11 @@
   },
   {
     "id": "theme_none",
-    "translation": "Classique"
+    "translation": "Aucun"
+  },
+  {
+    "id": "themes_classic",
+    "translation": "nyaa.se (Bêta)"
   },
   {
     "id": "upload_as_anon",
@@ -1308,6 +1416,18 @@
     "translation": "URL de la mascotte"
   },
   {
+    "id": "alternating_color",
+    "translation": "Couleur alternative (et polices non grasses)"
+  },
+  {
+    "id": "old_nav",
+    "translation": "Ancienne navigation"
+  },
+  {
+    "id": "old_nav_explanation",
+    "translation": "Afficher les catégories principales et les numéros de page au-dessus de la liste des torrents durant une recherche comme sur nyaa.se."
+  },
+  {
     "id": "no_notifications",
     "translation": "Aucune notification"
   },
@@ -1326,10 +1446,6 @@
   {
     "id": "torrent_language",
     "translation": "Langue du torrent"
-  },
-  {
-    "id": "language_not_mandatory",
-    "translation": "La langue du torrent n'est pas obligatoire."
   },
   {
     "id": "language_en-us_name",
@@ -1624,6 +1740,10 @@
     "translation": "Affiner votre recherche"
   },
   {
+    "id": "refine",
+    "translation": "Affiner"
+  },
+  {
     "id": "between",
     "translation": "Entre"
   },
@@ -1644,16 +1764,8 @@
     "translation": "années"
   },
   {
-    "id": "refine",
-    "translation": "Affiner"
-  },
-  {
     "id": "large",
     "translation": "de taille."
-  },
-  {
-    "id": "old",
-    "translation": "d'ancienneté"
   },
   {
     "id": "optional",
@@ -1666,6 +1778,34 @@
   {
     "id": "show",
     "translation": "Afficher"
+  },
+  {
+    "id": "sort_by",
+    "translation": "Trier par"
+  },
+  {
+    "id": "ascending",
+    "translation": "Ascendant"
+  },
+  {
+    "id": "descending",
+    "translation": "Descendant"
+  },
+  {
+    "id": "quality",
+    "translation": "Qualité"
+  },
+  {
+    "id": "exclude_user",
+    "translation": "Exclure"
+  },
+  {
+    "id": "from_user",
+    "translation": "De"
+  },
+  {
+    "id": "limit_torrent_count",
+    "translation": "Limite"
   },
   {
     "id": "username_taken",
@@ -1760,6 +1900,10 @@
     "translation": "Veuillez fournir l'un de ces Content-Type : application/json header ou multipart/form-data"
   },
   {
+    "id": "torrent_name",
+    "translation": "Nom du torrent"
+  },
+  {
     "id": "torrent_name_invalid",
     "translation": "Le nom du torrent est invalide"
   },
@@ -1829,11 +1973,11 @@
   },
   {
     "id": "remux",
-    "translation": "Remux de la version originale d'un autre uploader"
+    "translation": "Remux de la version originale d'un autre uploadeur"
   },
   {
     "id": "reupload",
-    "translation": "Réupload du torrent d'autres utilisateurs avec des fichiers manquanets et/ou supplémentaires sans rapport"
+    "translation": "Réupload du torrent d'autres utilisateurs avec des fichiers manquants et/ou supplémentaires sans rapport"
   },
   {
     "id": "red",
@@ -1848,12 +1992,24 @@
     "translation": "Code couleur des torrents"
   },
   {
+    "id": "faq_ads",
+    "translation": "Pourquoi y a-t-il des publicités sur Pantsu ?"
+  },
+  {
+    "id": "faq_ads_explanation",
+    "translation": "Ce n'est pas une décision à prendre à la légère, nous avons considéré toutes les objections soulevées par les utilisateurs, mais en fin de compte nous estimons qu'il s'agit de la seule solution durable pour financer Pantsu et assurer son fonctionnement continu.<br/>Nous avons longtemps réfléchi à d'autres sources de financement potentielles, mais aucune des options examinées n'étaient suffisantes.<br>Après délibération, nous avons opté pour les publicités de a-ads qui restent le meilleur choix pour nous et pour les utilisateurs. Elles sont simples et discrètes, ne gênent en aucun cas l'utilisation du site, et ne contiennent aucune forme de tracking."
+  },
+  {
     "id": "torrent_preview",
     "translation": "Prévisualisez votre torrent"
   },
   {
     "id": "announcement",
     "translation": "Annonce"
+  },
+  {
+    "id": "create_anouncement_success",
+    "translation": "Annonce créée avec succès"
   },
   {
     "id": "update_client_failed",
@@ -1944,6 +2100,10 @@
     "translation": "Tag"
   },
   {
+    "id": "torrent_tags",
+    "translation": "Tags"
+  },
+  {
     "id": "wrong_tag_type",
     "translation": "Le type de tag sélectionné n'existe pas."
   },
@@ -1956,6 +2116,14 @@
     "translation": "Type de tag"
   },
   {
+    "id": "accepted_tags",
+    "translation": "Tags acceptés"
+  },
+  {
+    "id": "recommended_tags",
+    "translation": "Tags recommandés"
+  },
+  {
     "id": "tagtype_anidbid",
     "translation": "ID AniDB"
   },
@@ -1964,7 +2132,7 @@
     "translation": "ID VNDB"
   },
   {
-    "id": "tagtype_quality",
+    "id": "tagtype_videoquality",
     "translation": "Tag de qualité"
   },
   {
@@ -1976,8 +2144,28 @@
     "translation": "ID VGMdb"
   },
   {
-    "id": "torrent_tags",
-    "translation": "Tags du torrent"
+    "id": "tagtype_tags",
+    "translation": "Tags descriptifs"
+  },
+  {
+    "id": "tagvalue_select",
+    "translation": "Choisir..."
+  },
+  {
+    "id": "tagvalue_full_hd",
+    "translation": "1080p"
+  },
+  {
+    "id": "tagvalue_hd",
+    "translation": "720p"
+  },
+  {
+    "id": "tagvalue_sd",
+    "translation": "480p"
+  },
+  {
+    "id": "tagvalue_bluray",
+    "translation": "Blu-ray"
   },
   {
     "id": "announcements",
@@ -1988,8 +2176,8 @@
     "translation": "Message"
   },
   {
-    "id": "delay",
-    "translation": "Délai"
+    "id": "duration",
+    "translation": "Durée (Heures)"
   },
   {
     "id": "update_annoucement_panel",
@@ -2000,7 +2188,151 @@
     "translation": "Créer une annonce"
   },
   {
+    "id": "related_to",
+    "translation": "Relatif à"
+  },
+  {
     "id": "expire",
     "translation": "Expiration"
+  },
+  {
+    "id": "complement",
+    "translation": "Compléter"
+  },
+  {
+    "id": "from",
+    "translation": "De"
+  },
+  {
+    "id": "to",
+    "translation": "à"
+  },
+  {
+    "id": "feed_types",
+    "translation": "Types de flux : RSS (flux), RSS avec lien magnet (magnet), Torznab Spec (torznab), EZTV Spec (eztv)"
+  },
+  {
+    "id": "append_query",
+    "translation": "Vous pouvez ajouter votre requête de recherche à la fin de l'URL du flux."
+  },
+  {
+    "id": "cookie_warning",
+    "translation": "En utilisant ce site, vous acceptez l'usage des cookies à des fins telles que la personnalisation du contenu.<br/>Ce message sera masqué au prochain rechargement de la page."
+  },
+  {
+    "id": "pending_torrent",
+    "translation": "Soyez patient, le fichier torrent est en cours de génération. Essayez à nouveau dans quelques secondes."
+  },
+  {
+    "id": "generating_torrent",
+    "translation": "Génération du fichier torrent..."
+  },
+  {
+    "id": "generating_torrent_failed",
+    "translation": "La génération du fichier torrent a échoué."
+  },
+  {
+    "id": "enabled",
+    "translation": "Activé"
+  },
+  {
+    "id": "disabled",
+    "translation": "Désactivé"
+  },
+  {
+    "id": "reset_api_key",
+    "translation": "Réinitialiser la clé API"
+  },
+  {
+    "id": "tag_error",
+    "translation": "Le tag n'a pas pu être ajouté, veuillez vérifier votre connexion internet et que tous les champs soient remplis."
+  },
+  {
+    "id": "search_from_user",
+    "translation": "Rechercher de l'usager"
+  },
+  {
+    "id": "usersearch_user_not_found",
+    "translation": "L'utilisateur \"%s\" n'a pas été trouvé."
+  },
+  {
+    "id": "user_search_explanation",
+    "translation": "Rechercher un utilisateur en inscrivant son nom dans l'entrée ci-dessous."
+  },
+  {
+    "id": "no_api_token",
+    "translation": "Aucun authentifieur d'API"
+  },
+  {
+    "id": "search_from_specific_user",
+    "translation": "Rechercher de %s"
+  },
+  {
+    "id": "browsing_user_torrents",
+    "translation": "Navigation des torrents de <a href=\"/user/%d/%s\">%s</a>"
+  },
+  {
+    "id": "hours_minutes_ago",
+    "translation": "Il y a {0} heure(s) et {1} minute(s)"
+  },
+  {
+    "id": "days_hours_ago",
+    "translation": "Il y a {0} jour(s) et {1} heure(s)"
+  },
+  {
+    "id": "status",
+    "translation": "Statut"
+  },
+  {
+    "id": "upload_status",
+    "translation": "Statut de l'upload"
+  },
+  {
+    "id": "pending",
+    "translation": "En attente"
+  },
+  {
+    "id": "error",
+    "translation": "Erreur"
+  },
+  {
+    "id": "finished",
+    "translation": "Terminé"
+  },
+  {
+    "id": "upload_to",
+    "translation": "Uploader vers %s"
+  },
+  {
+    "id": "upload_to_other",
+    "translation": "Uploader vers d'autres sites"
+  },
+  {
+    "id": "choose_category",
+    "translation": "Choisir une catégorie (requis)"
+  },
+  {
+    "id": "choose_language",
+    "translation": "Choisir une langue (requis)"
+  },
+  {
+    "id": "event",
+    "translation": "Événement"
+  },
+  {
+    "id": "read",
+    "translation": "Lu"
+  },
+  {
+    "id": "unread",
+    "translation": "Non lu"
+  },
+  {
+    "id": "moderation_guidelines",
+    "translation": "Directives de modération"
+  },
+  {
+    "id": "guidelines",
+    "translation": "Directives"
   }
 ]

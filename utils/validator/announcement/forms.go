@@ -4,5 +4,5 @@ package announcementValidator
 type CreateForm struct {
 	ID      uint   `validate:"-"`
 	Message string `validate:"required,min=5" form:"message"`
-	Delay   int    `validate:"omitempty,min=1" form:"delay"`
+	Duration   int    `validate:"omitempty,min=1" form:"duration"`
 }
