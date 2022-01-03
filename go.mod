@@ -8,7 +8,7 @@ require (
 	github.com/CloudyKit/fastprinter v0.0.0-20170127035650-74b38d55f37a
 	github.com/CloudyKit/jet v0.0.0-20170608194317-a1c4500d4bee
 	github.com/RoaringBitmap/roaring v0.4.17
-	github.com/Sirupsen/logrus v0.0.0-20170504071019-5b60b3d3ee01
+	github.com/sirupsen/logrus v0.0.0-20170504071019-5b60b3d3ee01
 	github.com/Stephen304/goscrape v0.0.0-20150207020750-2d9c5bd77935
 	github.com/anacrolix/dht v1.0.1
 	github.com/anacrolix/go-libutp v0.0.0-20180808010927-aebbeb60ea05
