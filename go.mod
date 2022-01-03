@@ -8,7 +8,6 @@ require (
 	github.com/CloudyKit/fastprinter v0.0.0-20170127035650-74b38d55f37a
 	github.com/CloudyKit/jet v0.0.0-20170608194317-a1c4500d4bee
 	github.com/RoaringBitmap/roaring v0.4.17
-	github.com/sirupsen/logrus v0.0.0-20170504071019-5b60b3d3ee01
 	github.com/Stephen304/goscrape v0.0.0-20150207020750-2d9c5bd77935
 	github.com/anacrolix/dht v1.0.1
 	github.com/anacrolix/go-libutp v0.0.0-20180808010927-aebbeb60ea05
@@ -70,6 +69,7 @@ require (
 	github.com/pmezard/go-difflib v1.0.0
 	github.com/russross/blackfriday v0.0.0-20170509060714-0ba0f2b6ed7c
 	github.com/ryszard/goskiplist v0.0.0-20150312221310-2dfbae5fcf46
+	github.com/sirupsen/logrus v1.2.0
 	github.com/spaolacci/murmur3 v1.1.0
 	github.com/stretchr/objx v0.2.0 // indirect
 	github.com/stretchr/testify v1.3.0
@@ -93,6 +93,7 @@ require (
 	google.golang.org/appengine v1.6.1 // indirect
 	google.golang.org/genproto v0.0.0-20190611190212-a7e196e89fd3 // indirect
 	google.golang.org/grpc v1.21.1 // indirect
+	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/go-playground/validator.v8 v8.18.1
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0-20161104145732-dd45e6a67c53
