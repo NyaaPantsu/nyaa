@@ -109,9 +109,7 @@ func GetAvailableLanguages() Languages {
 	}
 	// Need this to sort out languages alphabetically by language tag
 	var codes []string
-	for _, languageTag := range i18n.LanguageTags() {
-		codes = append(codes, languageTag)
-	}
+	codes = append(codes, i18n.LanguageTags()...)
 	languages = ParseLanguages(codes)
 	return languages
 }
